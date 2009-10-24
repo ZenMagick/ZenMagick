@@ -68,7 +68,7 @@ class ZMAffiliateSignupController extends ZMController {
                     WHERE referrer_customers_id = :referrer_customers_id";
             $result = ZMRuntime::getDatabase()->querySingle($sql, array('referrer_customers_id' => $account->getId()), TABLE_REFERRERS, 'ZMObject');
             if (null != $result) {
-                $this->exportGlobal('referrer', $result);
+                $request->setVar('referrer', $result);
             }
         }
     }
@@ -77,7 +77,7 @@ class ZMAffiliateSignupController extends ZMController {
      * {@inheritDoc}
      */
     public function processGet($request) {
-        if (null != $this->getGlobal('referrer')) {
+        if (null != $request->getParameter('referrer')) {
             // logged in *and* signed up
             return $this->findView('main');
         }

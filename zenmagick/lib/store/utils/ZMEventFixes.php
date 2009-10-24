@@ -94,9 +94,11 @@ class ZMEventFixes extends ZMObject {
     /**
      * Fake theme resolved event if using zen-cart templates and handle persisted messages.
      */
-    public function onZMInitDone() {
+    public function onZMInitDone($args) {
         if (!ZMsettings::get('isEnableZMThemes')) {
-            ZMEvents::instance()->fireEvent(null, Events::THEME_RESOLVED, array('themeId' => ZMThemes::instance()->getZCThemeId()));
+            // pass on already set args
+            $args = array_merge($args, array('themeId' => ZMThemes::instance()->getZCThemeId()));
+            ZMEvents::instance()->fireEvent(null, Events::THEME_RESOLVED, $args);
         }
 
         // pick up messages from zen-cart request handling

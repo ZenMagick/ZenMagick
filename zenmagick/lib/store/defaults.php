@@ -191,6 +191,7 @@
 
             // enable/disable transaction support in request processing
             'isEnableTransactions' => false,
+            'zenmagick.mvc.transactions.enabled' => false,
 
 
 
@@ -220,6 +221,7 @@
 
             // will be used if the original view is not valid/does not exist
             'missingPageId' => 'error',
+            'zenmagick.mvc.request.missingPage' => 'error',
 
             // redirect page for invalid sessions
             'invalidSessionPage' => FILENAME_COOKIE_USAGE,

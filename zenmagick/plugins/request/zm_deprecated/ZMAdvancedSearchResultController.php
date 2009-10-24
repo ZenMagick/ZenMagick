@@ -70,9 +70,8 @@ class ZMAdvancedSearchResultController extends ZMController {
         $sorter = ZMLoader::make("ProductSorter");
         $resultList->addSorter($sorter);
         $resultList->setPageNumber($request->getPageIndex());
-        $this->exportGlobal("zm_resultList", $resultList);
 
-        return $this->findView();
+        return $this->findView(null, array(('zm_resultList' => $resultList));
     }
 
 }

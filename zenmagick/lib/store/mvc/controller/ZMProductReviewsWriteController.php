@@ -32,12 +32,15 @@
  * @version $Id: ZMProductReviewsWriteController.php 2350 2009-06-29 04:22:59Z dermanomann $
  */
 class ZMProductReviewsWriteController extends ZMController {
+    private $viewData_;
+
 
     /**
      * Create new instance.
      */
     function __construct() {
         parent::__construct();
+        $this->viewData_ = array();
     }
 
     /**
@@ -53,8 +56,8 @@ class ZMProductReviewsWriteController extends ZMController {
      */
     public function handleRequest($request) {
         $product = $this->getProduct($request);
-        $this->exportGlobal("zm_product", $product);
-        $this->exportGlobal("zm_account", $request->getAccount());
+        $this->viewData_['zm_product'] = $product;
+        $this->viewData_['zm_account'] = $request->getAccount();
         $this->handleCrumbtrail($product, $request);
     }
 
@@ -63,9 +66,9 @@ class ZMProductReviewsWriteController extends ZMController {
      */
     public function processGet($request) {
         if (null == $this->getProduct($request)) {
-            return $this->findView('error');
+            return $this->findView('error', $this->viewData_);
         }
-        return $this->findView();
+        return $this->findView(null, $this->viewData_);
     }
 
     /**
@@ -73,7 +76,7 @@ class ZMProductReviewsWriteController extends ZMController {
      */
     public function processPost($request) {
         if (null == $this->getProduct($request)) {
-            return $this->findView('error');
+            return $this->findView('error', $this->viewData_);
         }
 
         $review = $this->getFormBean($request);
@@ -94,7 +97,7 @@ class ZMProductReviewsWriteController extends ZMController {
         }
 
         ZMMessages::instance()->success(zm_l10n_get("Thank you for your submission"));
-        return $this->findView('success', array(), array('parameter' => 'products_id='.$product->getId()));
+        return $this->findView('success', $this->viewData_, array('parameter' => 'products_id='.$product->getId()));
     }
 
     /**

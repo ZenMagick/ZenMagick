@@ -30,7 +30,6 @@
  */
 class ZMController extends ZMObject {
     private $id_;
-    private $globals_;
     private $view_;
     private $formBean_;
 
@@ -42,17 +41,9 @@ class ZMController extends ZMObject {
      */
     function __construct($id=null) {
         parent::__construct();
-
         $this->id_ = $id;
-        $this->globals_ = array();
         $this->view_ = null;
         $this->formBean_ = null;
-
-        // always add toolbox
-        $this->exportGlobal('toolbox', ZMToolbox::instance());
-        foreach (ZMToolbox::instance()->getTools() as $name => $tool) {
-            $this->exportGlobal($name, $tool);
-        }
     }
 
     /**
@@ -73,12 +64,10 @@ class ZMController extends ZMObject {
      */
     public function process($request) { 
         $this->id_ = null != $this->id_ ? $this->id_ : $request->getRequestId();
-        // some generic objects that should always be there
-        $this->exportGlobal('session', $request->getSession());
 
         ZMSacsManager::instance()->authorize($request, $request->getRequestId(), $request->getAccount());
 
-        $enableTransactions = ZMSettings::get('isEnableTransactions');
+        $enableTransactions = ZMSettings::get('zenmagick.mvc.transactions.enabled', false);
 
         if ($enableTransactions) {
             ZMRuntime::getDatabase()->beginTransaction();
@@ -86,19 +75,10 @@ class ZMController extends ZMObject {
 
         ZMEvents::instance()->fireEvent($this, Events::CONTROLLER_PROCESS_START, array('request' => $request, 'controller' => $this));
 
-        // XXX: add $request to globals
-        // move custom template objects into ZMEventFixes (also $session?)
-        $this->exportGlobal('request', $request);
-
-        // handle form bean
-        if (null !== ($formBean = $this->getFormBean($request))) {
-            // put form bean in context
-            $this->exportGlobal($formBean->getFormId(), $formBean);
-        }
-
         // method independant (pre-)processing
         $this->handleRequest($request);
 
+        // default is no view to allow the controller to generate content
         $view = null;
 
         // session validation
@@ -107,6 +87,7 @@ class ZMController extends ZMObject {
         }
 
         // form validation (only if not already error view from session validation...)
+        $formBean = $this->getFormBean($request);
         if (null == $view && null != $formBean && $this->isFormSubmit($request)) {
             // move to function
             if (null != ($view = $this->validateFormBean($request, $formBean))) {
@@ -136,9 +117,15 @@ class ZMController extends ZMObject {
         }
 
         if (null != $view) {
+            // set a few default things...
+            $view->setVar('request', $request);
+            $view->setVar('session', $request->getSession());
+            $view->setVar('toolbox', ZMToolbox::instance());
+            $view->setVars(ZMToolbox::instance()->getTools());
+
             if (!$view->isValid()) {
                 ZMLogging::instance()->log('invalid view: '.$view->getName().', expected: '.$view->getViewFilename(), ZMLogging::WARN);
-                $view = $this->findView(ZMSettings::get('missingPageId'));
+                $view = $this->findView(ZMSettings::get('zenmagick.mvc.request.missingPage'));
             }
             $this->view_ = $view;
         }
@@ -207,42 +194,6 @@ class ZMController extends ZMObject {
             $text .= "; charset=" . $charset;
         }
         header($text);
-    }
-
-
-    /**
-     * Returns a <code>name => object</code> hash of variables that need to be exported
-     * into the theme space.
-     *
-     * @return array An associative array of <code>name => object</code> for all variables
-     *  that need to be exported into the theme space.
-     */
-    public function getGlobals() {
-        return $this->globals_;
-    }
-
-
-    /**
-     * Export the given object under the given name.
-     * <p>Controller may use this method to make objects available to the response template/view.</p>
-     *
-     * @param string name The name under which the object should be visible.
-     * @param mixed instance An object.
-     */
-    public function exportGlobal($name, $instance) {
-        if (null === $instance)
-            return;
-        $this->globals_[$name] = $instance;
-    }
-
-    /**
-     * Returns the named global.
-     *
-     * @param string name The object name.
-     * @param mixed instance An object instance or <code>null</code>.
-     */
-    public function getGlobal($name) {
-        return array_key_exists($name, $this->globals_) ? $this->globals_[$name] : null;
     }
 
     /**
@@ -318,11 +269,13 @@ class ZMController extends ZMObject {
      */
     protected function validateFormBean($request, $formBean) {
         if (!$this->validate($request, $formBean->getFormId(), $formBean)) {
-            // put form bean in context
-            $this->exportGlobal($formBean->getFormId(), $formbean);
             // back to same form
-            return $this->findView();
+            $view = $this->findView();
+            // put form bean in context
+            $view->setVar($formBean->getFormId(), $formBean);
+            return $view;
         }
+
         // all good
         return null;
     }

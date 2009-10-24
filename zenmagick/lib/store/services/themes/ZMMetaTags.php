@@ -104,7 +104,8 @@ class ZMMetaTags extends ZMObject {
         } else if ('category' == $name || 'category_list' == $name || 'manufacturer' == $name) {
             $title = $this->category_;
         } else if ('page' == $name) {
-            $ezpage = $controller->getGlobal("zm_page");
+            $vars = $controller->getView()->getVars();
+            $ezpage = $vars['zm_page'];
             if (null != $ezpage) {
                 $title = $ezpage->getTitle();
             }

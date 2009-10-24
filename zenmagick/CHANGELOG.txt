@@ -20,6 +20,9 @@ Release 0.9.8
   changed for new plugins (except new groups)
 - change plugins build script to generate a zip of all released plugins (this
   only makes sense if all plugins are released all the time)
+- move template variable container from controller to view; drop
+  exportGlobal() and getGlobal()/getGlobals() from ZMController
+- adjust controller settings to follow core/mvc naming pattern
 
 Release 0.9.7
 - add ZMProductAssociation service and related code

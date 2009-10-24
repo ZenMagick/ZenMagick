@@ -191,6 +191,20 @@
                         'desc' => 'Template filename extension.'
                     )
                 ),
+                'request' => array(
+                    array(
+                        'key' => 'missingPage',
+                        'type' => 'string',
+                        'desc' => 'Request id to be used in case of invalid views.'
+                    )
+                ),
+                'transactions' => array(
+                    array(
+                        'key' => 'enabled',
+                        'type' => 'boolean',
+                        'desc' => 'Execute the controller in the context of a database transaction.'
+                    )
+                ),
                 'controller' => array(
                     array(
                         'key' => 'defaultClass',

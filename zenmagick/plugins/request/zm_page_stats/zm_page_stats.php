@@ -72,8 +72,10 @@ class zm_page_stats extends Plugin {
 
     /**
      * Generate hidden stats.
+     *
+     * @param ZMRequest request The current request.
      */
-    private function hiddenStats() {
+    private function hiddenStats($request) {
         ob_start();
         echo '<!--'."\n";
         echo '  Client IP: '.$_SERVER['REMOTE_ADDR']."\n";
@@ -83,7 +85,8 @@ class zm_page_stats extends Plugin {
         $stats = ZMRuntime::getDatabase()->getStats();
         echo '  database ('.ZMSettings::get('zenmagick.core.database.provider').'): SQL queries: '.$stats['queries'].', duration: '.round($stats['time'], 4).' seconds;'."\n";
 
-        if (null !== ($exception = ZMRequest::instance()->getController()->getGlobal('exception'))) {
+        $vars = $request->getController()->getView()->getVars();
+        if (null !== ($exception = $vars['exception'])) {
             echo "\n".$exception."\n\n";
         }
 
@@ -106,17 +109,18 @@ class zm_page_stats extends Plugin {
      * @param array args Optional parameter.
      */
     public function onZMPluginsPageCacheStats($args=array()) {
-        echo $this->hiddenStats();
+        echo $this->hiddenStats($args['request']);
     }
 
     /**
      * {@inheritDoc}
      */
     public function onZMFinaliseContents($args) {
+        $request = $args['request'];
         $contents = $args['contents'];
 
         if (ZMLangUtils::asBoolean($this->get('hideStats'))) {
-            $args['contents'] = $contents.$this->hiddenStats();
+            $args['contents'] = $contents.$this->hiddenStats($args['request']);
             return $args;
         }
 
@@ -164,7 +168,8 @@ class zm_page_stats extends Plugin {
             echo '</div>';
         }
 
-        if (null !== ($exception = ZMRequest::instance()->getController()->getGlobal('exception'))) {
+        $vars = $request->getController()->getView()->getVars();
+        if (null !== ($exception = $vars['exception'])) {
             echo '<pre>';
             echo $exception;
             echo '</pre>';

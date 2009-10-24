@@ -33,6 +33,7 @@
  */
 class ZMTellAFriendController extends ZMController {
     private $product_;
+    private $viewData_;
 
 
     /**
@@ -41,6 +42,7 @@ class ZMTellAFriendController extends ZMController {
     function __construct() {
         parent::__construct();
         $this->product_ = null;
+        $this->viewData_ = array();
     }
 
     /**
@@ -60,7 +62,7 @@ class ZMTellAFriendController extends ZMController {
         } else if ($request->getModel()) {
             $this->product_ = ZMProducts::instance()->getProductForModel($request->getModel());
         }
-        $this->exportGlobal("zm_product", $this->product_);
+      $this->viewData_['zm_product'] = $this->product_;
         $this->handleCrumbtrail($this->product_, $request);
     }
 
@@ -69,7 +71,7 @@ class ZMTellAFriendController extends ZMController {
      */
     public function processGet($request) {
         if (null == $this->product_) {
-            return $this->findView('error');
+            return $this->findView('error', $this->viewData_);
         }
 
         $account = $request->getAccount();
@@ -79,7 +81,7 @@ class ZMTellAFriendController extends ZMController {
             $emailMessage->setFromName($account->getFullName());
         }
 
-        return $this->findView();
+        return $this->findView(null, $this->viewData_);
     }
 
     /**
@@ -87,7 +89,7 @@ class ZMTellAFriendController extends ZMController {
      */
     public function processPost($request) {
         if (null == $this->product_) {
-            return $this->findView('error');
+            return $this->findView('error', $this->viewData_);
         }
 
         $emailMessage = $this->getFormBean($request);
@@ -106,9 +108,9 @@ class ZMTellAFriendController extends ZMController {
 
         ZMMessages::instance()->success(zm_l10n_get("Message send successfully"));
         $emailMessage = ZMLoader::make("EmailMessage");
-        $this->exportGlobal("zm_emailMessage", $emailMessage);
 
-        return $this->findView('success', array(), array('parameter' => 'products_id='.$this->product_->getId()));
+        $data = array_merge($this->viewData_, array('zm_emailMessage' => $emailMessage));
+        return $this->findView('success', $data, array('parameter' => 'products_id='.$this->product_->getId()));
     }
 
     /**

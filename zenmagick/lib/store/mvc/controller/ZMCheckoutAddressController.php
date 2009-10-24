@@ -33,12 +33,16 @@
  */
 class ZMCheckoutAddressController extends ZMController {
     private $settings_;
+    private $viewData_;
+
 
     /**
      * Create new instance.
      */
     function __construct() {
         parent::__construct();
+        $this->settings_ = array();
+        $this->viewData_ = array();
         $this->setMode('shipping');
     }
 
@@ -70,10 +74,10 @@ class ZMCheckoutAddressController extends ZMController {
         ZMCrumbtrail::instance()->addCrumb(ZMToolbox::instance()->utils->getTitle(null, false));
 
         $shoppingCart = $request->getShoppingCart();
-        $this->exportGlobal("zm_cart", $shoppingCart);
+        $this->viewData_['zm_cart'] = $shoppingCart;
 
         $addressList = ZMAddresses::instance()->getAddressesForAccountId($request->getAccountId());
-        $this->exportGlobal("zm_addressList", $addressList);
+        $this->viewData_['zm_addressList'] = $zm_addressList;
         $address = $this->getFormBean($request);
         $address->setPrimary(0 == count($addressList));
     }
@@ -96,7 +100,7 @@ class ZMCheckoutAddressController extends ZMController {
     public function process($request) {
         $checkoutHelper = ZMLoader::make('CheckoutHelper', $request->getShoppingCart());
         if (null !== ($viewId = $checkoutHelper->validateCheckout())) {
-            return $this->findView($viewId);
+            return $this->findView($viewId, $this->viewData_);
         }
 
         return parent::process($request);
@@ -133,7 +137,7 @@ class ZMCheckoutAddressController extends ZMController {
             $shoppingCart->$method($address->getId());
         }
 
-        return $this->findView('success');
+        return $this->findView('success', $this->viewData_);
     }
 
 }

@@ -119,7 +119,7 @@ class zm_page_cache extends Plugin {
             if (false !== ($contents = $this->pageCache_->lookup($this->getRequestKey())) && $this->isCacheable()) {
                 echo $contents;
                 if (ZMSettings::get('plugins.zm_page_cache.stats', true)) {
-                    ZMEvents::instance()->fireEvent($this, ZM_EVENT_PLUGINS_PAGE_CACHE_STATS);
+                    ZMEvents::instance()->fireEvent($this, ZM_EVENT_PLUGINS_PAGE_CACHE_STATS, $args);
                     echo '<!-- zm_page_cache stats: page: ' . Runtime::getExecutionTime() . ' sec.; ';
                     echo 'lastModified: ' . $this->pageCache_->lastModified() . ' -->';
                 }

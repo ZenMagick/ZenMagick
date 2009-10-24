@@ -79,11 +79,6 @@ class SavantView extends ZMSavantView {
     public function generate($request) {
         $savant = $this->getSavant();
 
-        //XXX: remove:
-        if (null != ($controller = $this->getController())) {
-            $savant->assign($controller->getGlobals());
-        }
-
         // put all vars into local scope
         $savant->assign($this->getVars());
 

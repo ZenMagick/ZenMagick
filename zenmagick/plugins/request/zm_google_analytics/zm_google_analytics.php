@@ -101,7 +101,8 @@ class zm_google_analytics extends Plugin {
     public function onZMControllerProcessEnd($args) {
         $controller = $args['controller'];
         if (null != $controller && 'checkout_success' == $controller->getId()) {
-            $this->order_ = $controller->getGlobal('zm_order');
+            $view = $args['view'];
+            $this->order_ = $view->getVar('zm_order');
         }
     }
 
