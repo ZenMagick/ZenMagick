@@ -191,6 +191,13 @@
                         'desc' => 'Template filename extension.'
                     )
                 ),
+                'toolbox' => array(
+                    array(
+                        'key' => 'tools',
+                        'type' => 'string',
+                        'desc' => 'Custom tools (example: name:class,name:class)'
+                    )
+                ),
                 'request' => array(
                     array(
                         'key' => 'missingPage',

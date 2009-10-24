@@ -23,6 +23,9 @@ Release 0.9.8
 - move template variable container from controller to view; drop
   exportGlobal() and getGlobal()/getGlobals() from ZMController
 - adjust controller settings to follow core/mvc naming pattern
+- refactor toolbox code; allow custom tools via setting; migrate code to
+  require $request as parameter for the instance() method (any other
+  suggestions?)
 
 Release 0.9.7
 - add ZMProductAssociation service and related code

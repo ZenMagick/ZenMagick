@@ -261,6 +261,7 @@
             // default format; this is taken as method suffix to resolve Ajax methods
             'ajaxFormat' => 'JSON',
 
+            //'zenmagick.mvc.toolbox.tools' => 'form:ToolboxForm,macro:ToolboxMacro,locale:ToolboxLocale,utils:ToolboxUtils,admin:ToolboxAdmin',
 
             /**************************************
              * formatting and other defaults

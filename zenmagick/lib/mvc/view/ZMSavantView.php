@@ -53,10 +53,12 @@ class ZMSavantView extends ZMView {
     /**
      * Get the template path array for <em>Savant</em>.
      *
+     * @param ZMRequest request The current request.
      * @return array List of folders to use for template lookups.
      */
-    protected function getTemplatePath() {
-        return $path;
+    protected function getTemplatePath($request) {
+        //XXX: return $request->getTemplatePath();
+        return array();
     }
 
     /**
@@ -71,15 +73,16 @@ class ZMSavantView extends ZMView {
     /**
      * Get a preconfigured Savant3 instance.
      *
+     * @param ZMRequest request The current request.
      * @return Savant3 A ready-to-use instance.
      */
-    protected function getSavant() {
+    protected function getSavant($request) {
         if (null === $this->savant_) {
             $config = array();
             $config['autoload'] = true;
             $config['exceptions'] = true;
             $config['extract'] = true;
-            $config['template_path'] = $this->getTemplatePath();
+            $config['template_path'] = $this->getTemplatePath($request);
             $config = array_merge($config, $this->config_);
             $this->savant_ = new Savant3($config);
         }
@@ -93,7 +96,7 @@ class ZMSavantView extends ZMView {
      * @param ZMRequest request The current request.
      */
     public function generate($request) {
-        $savant = $this->getSavant();
+        $savant = $this->getSavant($request);
 
         // put all vars into local scope
         $savant->assign($this->getVars());
