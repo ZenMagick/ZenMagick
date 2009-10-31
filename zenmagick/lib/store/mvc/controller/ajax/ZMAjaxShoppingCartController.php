@@ -78,7 +78,7 @@ class ZMAjaxShoppingCartController extends ZMAjaxController {
                         $ma = array();
                         $ma['id'] = $id;
                         $ma['name'] = $provider->getName() . " " . $method->getName();
-                        $ma['cost'] = ZMToolbox::instance()->utils->formatMoney($method->getCost(), true, false);
+                        $ma['cost'] = $request->getToolbox()->utils->formatMoney($method->getCost(), true, false);
                         array_push($methods, $ma);
                     }
                 }

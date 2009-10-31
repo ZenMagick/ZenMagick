@@ -284,6 +284,17 @@ class ZMRequest extends ZMObject {
         exit;
     }
 
+    /**
+     * Get the toolbox for this request.
+     *
+     * @return ZMToolbox A toolbox instance.
+     */
+    public function getToolbox() {
+        //XXX: fixme
+        $toolbox = ZMToolbox::instance($this);
+        return $toolbox;
+    }
+
 }
 
 ?>
