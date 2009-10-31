@@ -37,7 +37,7 @@ if (!function_exists('zen_href_link')) {
             // just in case...
             return zen_href_link_DISABLED($page, $params, $transport, $addSessionId, $seo, $isStatic, $useContext);
         } else {
-            throw ZMLoader::make('ZMException', "can't find zen_href_link implementation");
+            throw new ZMException("can't find zen_href_link implementation");
         }
     }
 
