@@ -77,7 +77,7 @@ class SavantView extends ZMSavantView {
      * @param ZMRequest request The current request.
      */
     public function generate($request) {
-        $savant = $this->getSavant();
+        $savant = $this->getSavant($request);
 
         // put all vars into local scope
         $savant->assign($this->getVars());

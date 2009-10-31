@@ -66,11 +66,12 @@ class ZMToolbox extends ZMObject {
      * @todo: <code>$request</code> default is <code>null</code> to allow a soft migration of existing code.
      */
     public static function instance($request=null) {
+        // XXX: fixme
+        $request = null == $request ? ZMRequest::instance() : $request;
         $toolbox = ZMObject::singleton('Toolbox');
         $toolbox->getTools($request);
         return $toolbox;
     }
-
 
     /**
      * Get a map of all tools.
@@ -84,7 +85,7 @@ class ZMToolbox extends ZMObject {
 
         // custom tools: name:class,name:class
         foreach (explode(',', ZMSettings::get('zenmagick.mvc.toolbox.tools')) as $toolInfo) {
-            $token = explode(':', $toolInfo) {
+                $token = explode(':', $toolInfo) {
                 $tools[$token[0]] = ZMLoader::make($token[1]);
             }
         }

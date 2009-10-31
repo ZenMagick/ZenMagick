@@ -80,7 +80,7 @@ class ZMAjaxController extends ZMController {
 
         // (re-)check on method level
         $page = $this->getId().'#'.$method;
-        ZMSacsManager::instance()->ensureAccessMethod($page);
+        ZMSacsManager::instance()->ensureAccessMethod($request);
         ZMSacsManager::instance()->authorize($request, $page, $request->getAccount());
 
         if (method_exists($this, $method) || in_array($method, $this->getAttachedMethods())) {

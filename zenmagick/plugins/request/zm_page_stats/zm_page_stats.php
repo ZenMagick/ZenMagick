@@ -168,11 +168,15 @@ class zm_page_stats extends Plugin {
             echo '</div>';
         }
 
-        $vars = $request->getController()->getView()->getVars();
-        if (null !== ($exception = $vars['exception'])) {
-            echo '<pre>';
-            echo $exception;
-            echo '</pre>';
+        $controller = $request->getController();
+        $view = $controller->getView();
+        if (null != $view) {
+            $vars = $view->getVars();
+            if (null !== ($exception = $vars['exception'])) {
+                echo '<pre>';
+                echo $exception;
+                echo '</pre>';
+            }
         }
 
         $info = ob_get_clean();
