@@ -1,6 +1,6 @@
 <?php
 /*
- * ZenMagick Core - Another PHP framework.
+ * ZenMagick - Another PHP framework.
  * Copyright (C) 2006,2009 ZenMagick
  *
  * This program is free software; you can redistribute it and/or modify

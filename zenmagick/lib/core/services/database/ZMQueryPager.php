@@ -1,6 +1,6 @@
 <?php
 /*
- * ZenMagick Core - Another PHP framework.
+ * ZenMagick - Another PHP framework.
  * Copyright (C) 2006,2009 ZenMagick
  *
  * Portions Copyright (c) 2003 The zen-cart developers
