@@ -208,7 +208,7 @@ class ZMEventFixes extends ZMObject {
                 $_SESSION['customer_default_address_id'] = $account->getDefaultAddressId();
             } else {
                 ZMMessages::instance()->error(zm_l10n_get('Please provide a shipping address'));
-                ZMRequest::instance()->redirect(ZMToolbox::instance()->net->url(FILENAME_CHECKOUT_SHIPPING_ADDRESS, '', true, false));
+                ZMRequest::instance()->redirect(ZMRequest::instance()->getToolbox()->net->url(FILENAME_CHECKOUT_SHIPPING_ADDRESS, '', true, false));
             }
         }
     }
@@ -221,7 +221,7 @@ class ZMEventFixes extends ZMObject {
         // check for address
         if (!$shoppingCart->hasBillingAddress() && (!isset($_SESSION['customer_default_address_id']) || 0 == $_SESSION['customer_default_address_id'])) {
             ZMMessages::instance()->error(zm_l10n_get('Please provide a billing address'));
-            ZMRequest::instance()->redirect(ZMToolbox::instance()->net->url(FILENAME_CHECKOUT_PAYMENT_ADDRESS, '', true, false));
+            ZMRequest::instance()->redirect(ZMRequest::instance()->getToolbox()->net->url(FILENAME_CHECKOUT_PAYMENT_ADDRESS, '', true, false));
         }
     }
 

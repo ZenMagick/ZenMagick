@@ -60,7 +60,7 @@ require_once 'includes/application_top.php';
               <p><span class="label">Author:</span> Martin Rademacher</p>
           </div>
           <div class="about">
-            <?php ZMToolbox::instance()->macro->phpinfo(1); ?>
+            <?php $request->getToolbox()->macro->phpinfo(1); ?>
             <p><?php zm_l10n('For the full PHP info see zen-cart\'s <a href="server_info.php">server info</a>.') ?></p>
           </div>
       </div>

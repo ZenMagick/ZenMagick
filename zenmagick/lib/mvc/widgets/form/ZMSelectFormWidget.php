@@ -109,12 +109,12 @@ class ZMSelectFormWidget extends ZMFormWidget {
     /**
      * {@inheritDoc}
      */
-    public function render() {
+    public function render($request) {
         $values = $this->getValue();
         if (!is_array($values)) {
             $values = array($values);
         }
-        $html = ZMToolbox::instance()->html;
+        $html = $request->getToolbox()->html;
         $output = '<select'.$this->getAttributeString(false).'>';
         foreach ($this->getOptions() as $oval => $name) {
             $selected = '';

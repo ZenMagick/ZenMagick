@@ -62,7 +62,7 @@ class ZMRssController extends ZMController {
      *
      * <p>Ideally, the only method that needs to be implemented (if not already there), is one that generates the
      * feed contents. The method name is generated as: <code>get[ucwords($channel)]Feed</code>. So, for example,
-     * if channel is <em>reviews</em>, the method to be expected would be <code>getReviewsFeed($key)</code>.</p>
+     * if channel is <em>reviews</em>, the method to be expected would be <code>getReviewsFeed($request, $key)</code>.</p>
      */
     public function processGet($request) {
         $channel = ucwords($request->getParameter('channel', null));
@@ -75,7 +75,7 @@ class ZMRssController extends ZMController {
         } 
 
         // get feed data
-        $feed = call_user_func(array($this, $method), $key);
+        $feed = call_user_func(array($this, $method), $request, $key);
         if (null == $feed) {
             return null;
         }
@@ -83,9 +83,9 @@ class ZMRssController extends ZMController {
         // create content
         ob_start();
         $this->setContentType('application/xhtml+xml');
-        $this->rssHeader($feed->getChannel());
+        $this->rssHeader($request, $feed->getChannel());
         foreach ($feed->getItems() as $item) {
-            $this->rssItem($item);
+            $this->rssItem($request, $item);
         }
         $this->rssFooter();
         echo ob_get_clean();
@@ -105,10 +105,11 @@ class ZMRssController extends ZMController {
      *  <li>lastBuildDate</li>
      * <ul>
      *
-     * @param ZMRssChannel The channel data.
+     * @param ZMRequest request The current request.
+     * @param ZMRssChannel channel The channel data.
      */
-    function rssHeader($channel) {
-        $toolbox = ZMToolbox::instance();
+    function rssHeader($request, $channel) {
+        $toolbox = $request->getToolbox();
         $lines = array(
           '<?xml version="1.0" encoding="UTF-8"?>',
           '<!-- generator="ZenMagick '.ZMSettings::get('zenmagick.version').'" -->',
@@ -149,10 +150,11 @@ class ZMRssController extends ZMController {
      *  <li>description</li>
      * <ul>
      *
+     * @param ZMRequest request The current request.
      * @param ZMRssItem item The item to render.
      */
-    function rssItem($item) {
-        $toolbox = ZMToolbox::instance();
+    function rssItem($request, $item) {
+        $toolbox = $request->getToolbox();
         echo "    <item>\n";
         echo "      <title>".$toolbox->utils->encodeXML($item->getTitle())."</title>\n";
         echo "      <link>".$item->getLink()."</link>\n";
@@ -168,10 +170,11 @@ class ZMRssController extends ZMController {
     /**
      * Generate RSS feed for reviews.
      *
+     * @param ZMRequest request The current request.
      * @param string key Optional product id.
      * @return ZMRssFeed The feed data.
      */
-    function getReviewsFeed($key=null) {
+    function getReviewsFeed($request, $key=null) {
         $product = null;
         if (null != $key)  {
             $reviews = array_reverse(ZMReviews::instance()->getReviewsForProductId($key));
@@ -183,7 +186,7 @@ class ZMRssController extends ZMController {
             return null;
         }
 
-        $toolbox = ZMToolbox::instance();
+        $toolbox = $request->getToolbox();
         $items = array();
         $lastPubDate = null;
         foreach ($reviews as $review) {
@@ -224,23 +227,24 @@ class ZMRssController extends ZMController {
     /**
      * Generate RSS feed for EZPages chapter.
      *
+     * @param ZMRequest request The current request.
      * @param string key EZPages chapter.
      * @return ZMRssFeed The feed data.
      */
-    function getChapterFeed($key=null) {
+    function getChapterFeed($request, $key=null) {
         $items = array();
         $toc = ZMEZPages::instance()->getPagesForChapterId($key);
         foreach ($toc as $page) {
             $item = ZMLoader::make("RssItem");
             $item->setTitle($page->getTitle());
-            $item->setLink(ZMToolbox::instance()->net->ezPage($page, false));
+            $item->setLink($request->getToolbox()->net->ezPage($page, false));
             $item->setDescription($page->getTitle());
             array_push($items, $item);
         }
 
         $channel = ZMLoader::make("RssChannel");
         $channel->setTitle(zm_l10n_get("Chapter %s", $key));
-        $channel->setLink(ZMToolbox::instance()->net->url(FILENAME_DEFAULT, '', false, false));
+        $channel->setLink($request->getToolbox()->net->url(FILENAME_DEFAULT, '', false, false));
         $channel->setDescription(zm_l10n_get("All pages of Chapter %s", $key));
         $channel->setLastBuildDate(zm_mk_rss_date());
 
@@ -254,15 +258,16 @@ class ZMRssController extends ZMController {
     /**
      * Generate RSS feed for products.
      *
+     * @param ZMRequest request The current request.
      * @param string key Optional key value for various product types; supported: 'new'
      * @return ZMRssFeed The feed data.
      */
-    function getProductsFeed($key=null) {
+    function getProductsFeed($request, $key=null) {
         if ('new' != $key) {
             return null;
         }
 
-        $toolbox = ZMToolbox::instance();
+        $toolbox = $request->getToolbox();
         $lastPubDate = null;
         $items = array();
         $products = array_slice(array_reverse(ZMProducts::instance()->getNewProducts()), 0, 20);

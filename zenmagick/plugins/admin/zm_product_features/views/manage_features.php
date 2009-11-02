@@ -27,7 +27,7 @@
 
     $zm_nav_params .= '&fkt=zm_product_features_admin';
 
-    $toolbox = ZMToolbox::instance();
+    $toolbox = ZMRequest::instance()->getToolbox();
 
     $productId = ZMRequest::instance()->getProductId();
 

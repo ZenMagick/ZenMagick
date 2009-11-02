@@ -30,6 +30,7 @@
  */
 class ZMToolboxTool extends ZMObject {
     protected $request_;
+    protected $toolbox_;
 
 
     /**
@@ -63,6 +64,24 @@ class ZMToolboxTool extends ZMObject {
      */
     public function getRequest() {
         return $this->request_;
+    }
+
+    /**
+     * Set the toolbox itself.
+     *
+     * @param ZMToolbox toolbox The toolbox.
+     */
+    public function setToolbox($toolbox) {
+        $this->toolbox_ = $toolbox;
+    }
+
+    /**
+     * Get the toolbox.
+     *
+     * @return ZMToolbox The toolbox.
+     */
+    public function getToolbox() {
+        return $this->toolbox_;
     }
 
 }

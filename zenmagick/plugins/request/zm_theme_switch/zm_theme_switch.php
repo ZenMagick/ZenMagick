@@ -70,6 +70,7 @@ class zm_theme_switch extends Plugin {
      * {@inheritDoc}
      */
     public function onZMFinaliseContents($args) {
+        $request = $args['request'];
         $contents = $args['contents'];
 
         if (false !== strpos($contents, zm_l10n_get('Switch theme: '))) {
@@ -98,7 +99,7 @@ class zm_theme_switch extends Plugin {
                 if (!empty($links)) {
                     $links .= '&nbsp;|&nbsp;';
                 }
-                $links .= '<a href="'.ZMToolbox::instance()->net->url(null, 'themeId='.$details[0], ZMRequest::instance()->isSecure(), false).'">'.$details[1].'</a>';
+                $links .= '<a href="'.$request->getToolbox()->net->url(null, 'themeId='.$details[0], ZMRequest::instance()->isSecure(), false).'">'.$details[1].'</a>';
             }
         }
         if (!ZMLangUtils::isEmpty($links)) {

@@ -37,7 +37,7 @@
      * @deprecated use the new toolbox instead!
      */
     function zm_display_banner($banner, $echo=ZM_ECHO_DEFAULT, $updateCount=true) {
-        return ZMToolbox::instance()->macro->showBanner($banner, $updateCount, $echo);
+        return ZMRequest::instance()->getToolbox()->macro->showBanner($banner, $updateCount, $echo);
     }
  
 

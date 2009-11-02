@@ -117,9 +117,10 @@ abstract class ZMWidget extends ZMObject {
     /**
      * Get the HTML to render this widget.
      *
+     * @param ZMRequest request The current request.
      * @return string The HTML.
      */
-    public abstract function render();
+    public abstract function render($request);
 
 }
 

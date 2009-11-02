@@ -13,7 +13,7 @@ if (!defined('IS_ADMIN_FLAG')) {
   die('Illegal Access');
 }
 
-    $toolbox = ZMToolbox::instance();
+    $toolbox = $request->getToolbox();
     $zm_heading = array();
     $zm_heading = array('text' => "ZenMagick", 'link' => zen_href_link(FILENAME_ALT_NAV, '', 'NONSSL'));
 

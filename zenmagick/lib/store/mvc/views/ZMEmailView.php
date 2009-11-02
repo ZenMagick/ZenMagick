@@ -80,10 +80,12 @@ class ZMEmailView extends SavantView {
             ZMLogging::instance()->trace('invalid email template', ZMLogging::ERROR);
             return "";
         }
+        $toolbox = $request->getToolbox();
         $this->setVar('request', $request);
         $this->setVar('session', $request->getSession());
-        $this->setVar('toolbox', ZMToolbox::instance());
-        $this->setVars(ZMToolbox::instance()->getTools($request));
+        $this->setVar('toolbox', $toolbox);
+        //XXX: fix ($request)
+        $this->setVars($toolbox->getTools($request));
 
         $content = parent::generate($request);
 

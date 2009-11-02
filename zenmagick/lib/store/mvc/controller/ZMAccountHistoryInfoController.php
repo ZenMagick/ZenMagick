@@ -55,8 +55,8 @@ class ZMAccountHistoryInfoController extends ZMController {
      * if the controller generates the contents itself.
      */
     function processGet($request) {
-        ZMCrumbtrail::instance()->addCrumb("Account", ZMToolbox::instance()->net->url(FILENAME_ACCOUNT, '', true, false));
-        ZMCrumbtrail::instance()->addCrumb(ZMToolbox::instance()->utils->getTitle(null, false), ZMToolbox::instance()->net->url(FILENAME_ACCOUNT_HISTORY, '', true, false));
+        ZMCrumbtrail::instance()->addCrumb("Account", $request->getToolbox()->net->url(FILENAME_ACCOUNT, '', true, false));
+        ZMCrumbtrail::instance()->addCrumb($request->getToolbox()->utils->getTitle(null, false), $request->getToolbox()->net->url(FILENAME_ACCOUNT_HISTORY, '', true, false));
         ZMCrumbtrail::instance()->addCrumb("Order # ".$request->getOrderId());
 
         $order = ZMOrders::instance()->getOrderForId($request->getOrderId());

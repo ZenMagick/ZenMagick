@@ -178,7 +178,7 @@ require_once 'includes/application_top.php';
                           <td><?php echo $value->getTitle() ?></td>
                           <td><?php echo $value->getDescription() ?></td>
                           <td>
-                            <?php echo $value->render() ?>
+                            <?php echo $value->render($request) ?>
                           </td>
                         <?php } else { ?>
                           <td><?php echo $value->getName() ?></td>

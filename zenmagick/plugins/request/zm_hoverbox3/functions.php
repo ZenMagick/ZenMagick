@@ -51,9 +51,9 @@ if ( (empty($src) || ($src == DIR_WS_IMAGES)) && (IMAGE_REQUIRED == 'false') ) {
         if(HOVERBOX_DISPLAY_PRICE == 'true'){
           $offers = $product->getOffers();
           if($offers->isSpecial()){
-            $price = ' - ' . (($offers->isAttributePrice() && 1 == $product->getTypeSetting('starting_at')) ? TEXT_BASE_PRICE : '') . ZMToolbox::instance()->utils->formatMoney($offers->getSpecialPrice(), false, false);
+            $price = ' - ' . (($offers->isAttributePrice() && 1 == $product->getTypeSetting('starting_at')) ? TEXT_BASE_PRICE : '') . ZMRequest::instance()->getToolbox()->utils->formatMoney($offers->getSpecialPrice(), false, false);
           }else{
-            $price = ' - ' . (($offers->isAttributePrice() && 1 == $product->getTypeSetting('starting_at')) ? TEXT_BASE_PRICE : '') . ZMToolbox::instance()->utils->formatMoney($offers->getCalculatedPrice(), false, false);
+            $price = ' - ' . (($offers->isAttributePrice() && 1 == $product->getTypeSetting('starting_at')) ? TEXT_BASE_PRICE : '') . ZMRequest::instance()->getToolbox()->utils->formatMoney($offers->getCalculatedPrice(), false, false);
           }
         }else{
           $price='';

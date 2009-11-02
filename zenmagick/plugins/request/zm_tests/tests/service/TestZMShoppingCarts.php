@@ -33,8 +33,8 @@ class TestZMShoppingCarts extends ZMTestCase {
      * @param ZMShoppingCart cart The cart to dump.
      */
     protected function dumpCart($cart) {
-        $html = ZMToolbox::instance()->html;
-        $utils = ZMToolbox::instance()->utils;
+        $html = ZMRequest::instance()->getToolbox()->html;
+        $utils = ZMRequest::instance()->getToolbox()->utils;
         foreach ($cart->getItems() as $item) {
             echo $item->getId().":".$html->encode($item->getName(), false)."; qty=".$item->getQuantity().'; '.$utils->formatMoney($item->getItemPrice(), true, false).'/'.$utils->formatMoney($item->getItemTotal(), true, false)."<BR>";
             if ($item->hasAttributes()) {

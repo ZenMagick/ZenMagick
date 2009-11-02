@@ -104,7 +104,7 @@ class TestZMOffers extends ZMTestCase {
 
         foreach ($tests as $productId => $expected) {
             $product = ZMProducts::instance()->getProductForId($productId);
-            $details = ZMToolbox::instance()->macro->buildQuantityDiscounts($product, false);
+            $details = ZMRequest::instance()->getToolbox()->macro->buildQuantityDiscounts($product, false);
             if (!$this->assertEqual($expected, $details, '%s: productId: '.$productId))
                 var_dump($details);
         }

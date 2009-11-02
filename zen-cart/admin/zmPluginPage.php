@@ -39,7 +39,7 @@ require_once 'includes/application_top.php';
       }
   }
   if (null != $page && $page->isRefresh()) {
-      ZMRequest::instance()->redirect(ZMToolbox::instance()->net->url('', 'fkt='.$fkt, ZMRequest::instance()->isSecure(), false));
+      ZMRequest::instance()->redirect($request->getToolbox()->net->url('', 'fkt='.$fkt, ZMRequest::instance()->isSecure(), false));
   }
 
 ?>

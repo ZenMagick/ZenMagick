@@ -52,8 +52,8 @@ class ZMGvSendConfirmController extends ZMController {
      * {@inheritDoc}
      */
     public function handleRequest($request) { 
-        ZMCrumbtrail::instance()->addCrumb("Account", ZMToolbox::instance()->net->url(FILENAME_ACCOUNT, '', true, false));
-        ZMCrumbtrail::instance()->addCrumb(ZMToolbox::instance()->utils->getTitle(null, false));
+        ZMCrumbtrail::instance()->addCrumb("Account", $request->getToolbox()->net->url(FILENAME_ACCOUNT, '', true, false));
+        ZMCrumbtrail::instance()->addCrumb($request->getToolbox()->utils->getTitle(null, false));
     }
 
     /**
@@ -123,7 +123,7 @@ class ZMGvSendConfirmController extends ZMController {
         if (ZMSettings::get('isEmailAdminGvSend')) {
             // store copy
             $session = $request->getSession();
-            $context = ZMToolbox::instance()->macro->officeOnlyEmailFooter($account->getFullName(), $account->getEmail(), $session);
+            $context = $request->getToolbox()->macro->officeOnlyEmailFooter($account->getFullName(), $account->getEmail(), $session);
             $context['zm_account'] = $account;
             $context['gvReceiver'] = $gvReceiver;
             $context['zm_coupon'] = $coupon;

@@ -134,7 +134,7 @@ class ZMPluginPageController extends ZMObject {
      */
     protected function getPageContents($context, $viewDir='views') {
         // make toolbox available too
-        $toolbox = ZMToolbox::instance();
+        $toolbox = ZMRequest::instance()->getToolbox();
         foreach ($toolbox->getTools() as $name => $tool) {
             $$name = $tool;
         }

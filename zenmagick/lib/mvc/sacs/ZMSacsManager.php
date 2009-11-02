@@ -123,11 +123,11 @@ class ZMSacsManager extends ZMObject {
                     if (!$session->isValid()) {
                         // no valid session
                     // XXX: add setting: mvc.session.invalid.requestId = 'cookies'
-                        $request->redirect(ZMToolbox::instance()->net->url(ZMSettings::get('invalidSessionPage'), '', false, false));
+                        $request->redirect($request->getToolbox()->net->url(ZMSettings::get('invalidSessionPage'), '', false, false));
                     }
                     $session->markRequestAsLoginFollowUp();
                     // XXX: add setting: mvc.login.requestId = 'login'
-                    $request->redirect(ZMToolbox::instance()->net->url('login', '', true, false));
+                    $request->redirect($request->getToolbox()->net->url('login', '', true, false));
                 }
                 break;
             }
@@ -147,7 +147,7 @@ class ZMSacsManager extends ZMObject {
     public function ensureAccessMethod($request) {
         $secure = $this->getMappingValue($request->getRequestId(), 'level', false);
         if ($secure && !$request->isSecure() && ZMSettings::get('isEnableSSL') && ZMSettings::get('isEnforceSSL')) {
-            $request->redirect(ZMToolbox::instance()->net->url(null, null, true, false));
+            $request->redirect($request->getToolbox()->net->url(null, null, true, false));
         }
     }
 

@@ -58,7 +58,7 @@
      * @deprecated use the new toolbox instead!
      */
     function zm_format_address($address, $html=true, $echo=ZM_ECHO_DEFAULT) {
-        return ZMToolbox::instance()->macro->formatAddress($address, $html, $echo);
+        return ZMRequest::instance()->getToolbox()->macro->formatAddress($address, $html, $echo);
     }
 
 ?>

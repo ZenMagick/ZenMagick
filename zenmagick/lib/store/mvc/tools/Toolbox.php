@@ -25,10 +25,10 @@
 
 
 /**
- * Container for template related utilities.
+ * Container for store template utilities.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.mvc.toolbox
+ * @package org.zenmagick.store.mvc.tools
  * @version $Id: ZMToolbox.php 2149 2009-04-13 22:59:14Z dermanomann $
  */
 class Toolbox extends ZMToolbox {
@@ -37,11 +37,6 @@ class Toolbox extends ZMToolbox {
      * @return ZMToolboxForm
      */
     public $form;
-    /** 
-     * @var ZMToolboxNet
-     * @return ZMToolboxNet
-     */
-    public $net;
     /** 
      * @var ZMToolboxMacro
      * @return ZMToolboxMacro
@@ -70,13 +65,17 @@ class Toolbox extends ZMToolbox {
     function __construct() {
         parent::__construct();
 
-        // setup build in tools
-        $this->form = ZMLoader::make('ToolboxForm');
-        $this->net = ZMLoader::make('ToolboxNet');
-        $this->macro = ZMLoader::make('ToolboxMacro');
-        $this->locale = ZMLoader::make('ToolboxLocale');
-        $this->utils = ZMLoader::make('ToolboxUtils');
-        $this->admin = ZMLoader::make('ToolboxAdmin');
+        // add store tools
+        $tools = array(
+            'form' => 'ToolboxForm', 
+            'macro' => 'ToolboxMacro', 
+            'locale' => 'ToolboxLocale', 
+            'utils' => 'ToolboxUtils', 
+            'admin' => 'ToolboxAdmin'
+        ); 
+        foreach ($tools as $name => $class) {
+            ZMSettings::append('zenmagick.mvc.toolbox.tools', $name.':'.$class, ',');
+        }
     }
 
     /**
@@ -84,23 +83,6 @@ class Toolbox extends ZMToolbox {
      */
     function __destruct() {
         parent::__destruct();
-    }
-
-
-    /**
-     * Get a map of all tools.
-     *
-     * @return array A map of all available tools.
-     */
-    public function getTools($request) {
-        return array_merge(array(
-            'form' => $this->form, 
-            'net' => $this->net, 
-            'macro' => $this->macro, 
-            'locale' => $this->locale, 
-            'utils' => $this->utils, 
-            'admin' => $this->admin), 
-          parent::getTools($request));
     }
 
 }

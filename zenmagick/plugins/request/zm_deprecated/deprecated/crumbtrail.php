@@ -35,7 +35,7 @@
      * @deprecated use the new toolbox instead!
      */
     function zm_build_crumbtrail($crumbtrail, $sep) {
-        return ZMToolbox::instance()->macro->buildCrumbtrail($crumbtrail, $sep);
+        return ZMRequest::instance()->getToolbox()->macro->buildCrumbtrail($crumbtrail, $sep);
     }
 
 ?>

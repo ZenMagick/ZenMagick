@@ -31,7 +31,7 @@
  * @package org.zenmagick.store.mvc.tools
  * @version $Id: ZMToolboxForm.php 2328 2009-06-26 02:18:36Z dermanomann $
  */
-class ZMToolboxForm extends ZMObject {
+class ZMToolboxForm extends ZMToolboxTool {
 
     /**
      * Convenience method that will generate the JavaScript validation rules and
@@ -95,7 +95,7 @@ class ZMToolboxForm extends ZMObject {
         if (null !== $page && false !== strpos($page, '://')) {
             $attr['action'] = $page;
         } else {
-            $attr['action'] = ZMToolbox::instance()->net->url($page, '', $secure, false);
+            $attr['action'] = $this->getToolbox()->net->url($page, '', $secure, false);
         }
 
         // parse params

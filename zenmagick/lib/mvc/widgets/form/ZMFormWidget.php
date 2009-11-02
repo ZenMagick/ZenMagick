@@ -142,7 +142,7 @@ abstract class ZMFormWidget extends ZMWidget {
             $attr = ' name="'.$this->getName().($this->isMultiValue() ? '[]' : '').'"';
         }
 
-        $html = ZMToolbox::instance()->html;
+        $html = ZMRequest::instance()->getToolbox()->html;
         foreach ($this->properties_ as $name => $value) {
             if (in_array($name, $this->attributeNames_)) {
                 if (in_array($name, self::$NO_VAL_ATTR)) {

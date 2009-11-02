@@ -25,7 +25,7 @@
 ?>
 <?php
 
-    $toolbox = ZMToolbox::instance();
+    $toolbox = ZMRequest::instance()->getToolbox();
     $currentLanguage = Runtime::getLanguage();
     $selectedLanguageId = ZMRequest::instance()->getParameter('languageId', $currentLanguage->getId());
 

@@ -45,7 +45,7 @@
      * @deprecated use the new toolbox instead!
      */
     function zm_build_attribute_elements($product) {
-        return ZMToolbox::instance()->macro->productAttributes($product);
+        return ZMRequest::instance()->getToolbox()->macro->productAttributes($product);
     }
 
     /**
@@ -54,7 +54,7 @@
      * @deprecated use the new toolbox instead!
      */
     function zm_fmt_price($product, $echo=ZM_ECHO_DEFAULT) {
-        return ZMToolbox::instance()->macro->productPrice($product, $echo);
+        return ZMRequest::instance()->getToolbox()->macro->productPrice($product, $echo);
     }
 
 ?>

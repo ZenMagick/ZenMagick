@@ -82,11 +82,11 @@ if ('' == $code) {
               <fieldset>
                   <legend><?php zm_l10n("<code>PHP</code> Console") ?></legend>
                   <label for="code"><?php zm_l10n("Code:") ?></label>
-                  <textarea id="name" name="code" rows="10" cols="80"><?php ZMToolbox::instance()->html->encode($code) ?></textarea><br>
+                  <textarea id="name" name="code" rows="10" cols="80"><?php $request->getToolbox()->html->encode($code) ?></textarea><br>
                   <input type="submit" value="<?php zm_l10n("Execute") ?>">
                   <?php if (null != $zm_result) { ?>
                       <div id="console">
-                          <?php echo str_replace("\n", "<br>", ZMToolbox::instance()->html->encode($zm_result, false)); ?>
+                          <?php echo str_replace("\n", "<br>", $request->getToolbox()->html->encode($zm_result, false)); ?>
                       </div>
                   <?php } ?>
               </fieldset>

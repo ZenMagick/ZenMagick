@@ -40,7 +40,7 @@
      * @return string The created HTML.
      */
     function zm_catalog_tree($categories=array(), $params=null, $showProducts=false, $catUrls=true, $id='cat-tree', $root=true, $path=null) {
-        $toolbox = ZMToolbox::instance();
+        $toolbox = ZMRequest::instance()->getToolbox();
         if ($root) { 
             ob_start(); 
             $path = ZMRequest::instance()->getCategoryPathArray();
@@ -66,7 +66,7 @@
             $hasProducts = 0 != $noProducts;
             $hasChildren = 0 != count($category->getChildren());
             echo '<li class="'.(($active||0==$category->getId()) ? 'open' : '').'">';
-            $url = $catUrls ? ZMToolbox::instance()->net->url('', $cparams, false, false) : '#';
+            $url = $catUrls ? ZMRequest::instance()->getToolbox()->net->url('', $cparams, false, false) : '#';
             echo '<a class="tree-cat-url c:'.$category->getId().'" href="'.$url.'"><span class="folder">'.$toolbox->html->encode($category->getName(), false).($hasProducts?'('.$noProducts.')':'').'</span></a>';
             if ($category->hasChildren()) {
                 zm_catalog_tree($category->getChildren(), $params, $showProducts, $catUrls, $id, false, $path);
@@ -98,7 +98,7 @@
      * @return string The HTML.
      */
     function zm_product_resultlist($params='') {
-        $toolbox = ZMToolbox::instance();
+        $toolbox = ZMRequest::instance()->getToolbox();
         $resultList = null;
         $products = null;
 

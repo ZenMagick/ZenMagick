@@ -24,7 +24,7 @@ class TestUIDateHandling extends ZMTestCase {
         $map = array_merge(array('dob' => '09/08/1966'), ZMRequest::instance()->getParameterMap());
         $account = ZMLoader::make('Account');
         $account = ZMBeanUtils::setAll($account, $map);
-        $this->assertEqual('09/08/1966', ZMToolbox::instance()->locale->shortDate($account->getDob(), false));
+        $this->assertEqual('09/08/1966', ZMRequest::instance()->getToolbox()->locale->shortDate($account->getDob(), false));
 
     }
 

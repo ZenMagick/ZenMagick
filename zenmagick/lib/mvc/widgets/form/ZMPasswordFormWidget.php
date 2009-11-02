@@ -49,7 +49,7 @@ class ZMPasswordFormWidget extends ZMTextFormWidget {
     /**
      * {@inheritDoc}
      */
-    public function render() {
+    public function render($request) {
         $slash = ZMSettings::get('zenmagick.mvc.html.xhtml') ? '/' : '';
         return '<input type="password"'.$this->getAttributeString(false).$slash.'>';
     }

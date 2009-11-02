@@ -44,7 +44,7 @@ class ZMOpenIDController extends ZMController {
     function __construct() {
         parent::__construct();
         $this->plugin = ZMPlugins::instance()->getPluginForId('zm_openid');
-        $this->returnTo = str_replace('&amp;', '&', ZMToolbox::instance()->net->url(FILENAME_OPEN_ID, 'action=finishAuth', true, false));
+        $this->returnTo = str_replace('&amp;', '&', ZMRequest::instance()->getToolbox()->net->url(FILENAME_OPEN_ID, 'action=finishAuth', true, false));
         $this->sRegRequired = array('email');
         $this->sRegOptional = array('fullname', 'nickname');
     }
@@ -139,7 +139,7 @@ class ZMOpenIDController extends ZMController {
         }
 
         //TODO: make configurable
-        //$pape_request->addPolicyURI(ZMToolbox::instance()->net->staticPage(FILENAME_PRIVACY));
+        //$pape_request->addPolicyURI(ZMRequest::instance()->getToolbox()->net->staticPage(FILENAME_PRIVACY));
 
         // For OpenID 1, send a redirect.  For OpenID 2, use a Javascript
         // form to send a POST request to the server.

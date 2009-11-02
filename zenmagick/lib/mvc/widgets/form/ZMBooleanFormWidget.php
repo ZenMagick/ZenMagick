@@ -84,10 +84,11 @@ class ZMBooleanFormWidget extends ZMFormWidget {
     /**
      * Render as checkbox.
      *
+     * @param ZMRequest request The current request.
      * @return The rendered HTML.
      */
-    protected function renderCheckbox() {
-        $html = ZMToolbox::instance()->html;
+    protected function renderCheckbox($request) {
+        $html = $request->getToolbox()->html;
         $slash = ZMSettings::get('zenmagick.mvc.html.xhtml') ? '/' : '';
         $checked = ZMSettings::get('zenmagick.mvc.html.xhtml') ? ' checked="checked"' : ' checked';
         $idBase = $html->encode($this->get('id'), false);
@@ -114,10 +115,11 @@ class ZMBooleanFormWidget extends ZMFormWidget {
     /**
      * Render as radiobox group.
      *
+     * @param ZMRequest request The current request.
      * @return The rendered HTML.
      */
-    protected function renderRadio() {
-        $html = ZMToolbox::instance()->html;
+    protected function renderRadio($request) {
+        $html = $request->getToolbox()->html;
         $slash = ZMSettings::get('zenmagick.mvc.html.xhtml') ? '/' : '';
         $checked = ZMSettings::get('zenmagick.mvc.html.xhtml') ? ' checked="checked"' : ' checked';
         $idBase = $html->encode($this->get('id'), false);
@@ -139,10 +141,11 @@ class ZMBooleanFormWidget extends ZMFormWidget {
     /**
      * Render as select box.
      *
+     * @param ZMRequest request The current request.
      * @return The rendered HTML.
      */
-    protected function renderSelect() {
-        $html = ZMToolbox::instance()->html;
+    protected function renderSelect($request) {
+        $html = $request->getToolbox()->html;
         $slash = ZMSettings::get('zenmagick.mvc.html.xhtml') ? '/' : '';
         $selected = ZMSettings::get('zenmagick.mvc.html.xhtml') ? ' selected="selected"' : ' selected';
         $id = $html->encode($this->get('id'), false);
@@ -160,18 +163,18 @@ class ZMBooleanFormWidget extends ZMFormWidget {
     /**
      * {@inheritDoc}
      */
-    public function render() {
+    public function render($request) {
         switch ($this->get('style')) {
             default:
                 ZMLogging::instance()->log('invalid style "'.$this->get('style').'" - using default', ZMLogging::DEBUG);
             case 'radio':
-                return $this->renderRadio();
+                return $this->renderRadio($request);
                 break;
             case 'select':
-                return $this->renderSelect();
+                return $this->renderSelect($request);
                 break;
             case 'checkbox':
-                return $this->renderCheckbox();
+                return $this->renderCheckbox($request);
                 break;
         }
     }

@@ -61,7 +61,7 @@ class ZMAdvancedSearchResultController extends ZMController {
         ZMLogging::instance()->log('search SQL: '.$listing_sql, ZMLogging::TRACE);
 
         // zc search sql
-        ZMCrumbtrail::instance()->addCrumb("Advanced Search", ZMToolbox::instance()->net->url(FILENAME_ADVANCED_SEARCH, null, false, false));
+        ZMCrumbtrail::instance()->addCrumb("Advanced Search", $request->getToolbox()->net->url(FILENAME_ADVANCED_SEARCH, null, false, false));
         ZMCrumbtrail::instance()->addCrumb("Results");
 
         $resultList = ZMLoader::make("ResultList");

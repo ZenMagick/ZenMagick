@@ -43,7 +43,7 @@
      * @return string Complete HTML <code>&lt;select&gt;</code> tag.
      */
     function zm_idp_select($name, $list, $size=1, $selectedId=null, $onchange=null, $echo=ZM_ECHO_DEFAULT) {
-        return ZMToolbox::instance()->form->idpSelect($name, $list, $selectedId, array('size' => $size, 'onchange' => $onchange), $echo);
+        return ZMRequest::instance()->getToolbox()->form->idpSelect($name, $list, $selectedId, array('size' => $size, 'onchange' => $onchange), $echo);
     }
 
     /**
@@ -55,7 +55,7 @@
      * @deprecated use toolbox instead
      */
     function zm_title($echo=ZM_ECHO_DEFAULT) {
-        return ZMToolbox::instance()->utils->getTitle(null, $echo);
+        return ZMRequest::instance()->getToolbox()->utils->getTitle(null, $echo);
     }
 
     /**
@@ -87,7 +87,7 @@
      * @deprecated use toolbox instead
      */
     function zm_onload($page=null, $echo=ZM_ECHO_DEFAULT) {
-        return ZMToolbox::instance()->html->onload($page, $echo);
+        return ZMRequest::instance()->getToolbox()->html->onload($page, $echo);
     }
 
     /**
@@ -101,7 +101,7 @@
      * @deprecated use toolbox instead
      */
     function zm_hidden_list($name, $values, $echo=ZM_ECHO_DEFAULT) {
-        return ZMToolbox::instance()->form->hiddenList($name, $values, $echo);
+        return ZMRequest::instance()->getToolbox()->form->hiddenList($name, $values, $echo);
     }
 
     /**
@@ -118,7 +118,7 @@
      * @deprecated use toolbox instead
      */
     function zm_field_messages($name, $echo=ZM_ECHO_DEFAULT) {
-        return ZMToolbox::instance()->html->fieldMessages($name, $echo);
+        return ZMRequest::instance()->getToolbox()->html->fieldMessages($name, $echo);
     }
 
     /**
@@ -126,7 +126,7 @@
      * @package org.zenmagick.deprecated
      * @deprecated use toolbox instead
      */
-    function zm_date_short($date, $echo=ZM_ECHO_DEFAULT) { return ZMToolbox::instance()->locale->shortDate($date, $echo); }
+    function zm_date_short($date, $echo=ZM_ECHO_DEFAULT) { return ZMRequest::instance()->getToolbox()->locale->shortDate($date, $echo); }
 
     /**
      * get online counter

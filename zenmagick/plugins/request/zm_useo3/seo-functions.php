@@ -33,7 +33,7 @@ function zm_build_seo_href($view=null, $params='', $isSecure=false, $addSessionI
         // no $seo parameter
         return $GLOBALS['SeoUrl']->buildHrefLink($view, $params, $isSecure ? 'SSL' : 'NONSSL', $addSessionId, $isStatic, $useContext);
     } else {
-        return ZMToolbox::instance()->net->furl($view, $params, $isSecure ? 'SSL' : 'NONSSL', $addSessionId, false, $isStatic, $useContext);
+        return ZMRequest::instance()->getToolbox()->net->furl($view, $params, $isSecure ? 'SSL' : 'NONSSL', $addSessionId, false, $isStatic, $useContext);
     }
 }
 
@@ -42,7 +42,7 @@ if (!function_exists(zen_href_link_stock)) {
      * This is the name of the renamed zen_href_link function in a vanilla USEO3 installation.
      */
     function zen_href_link_stock($page='', $params='', $connection='NONSSL', $add_session_id=true, $seo_safe=true, $static=false, $use_dir_ws_catalog=true) {
-        return ZMToolbox::instance()->net->furl($page, $params, $connection, $add_session_id, false, $static, $use_dir_ws_catalog);
+        return ZMRequest::instance()->getToolbox()->net->furl($page, $params, $connection, $add_session_id, false, $static, $use_dir_ws_catalog);
     }
 }
 

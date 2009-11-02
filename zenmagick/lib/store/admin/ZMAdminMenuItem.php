@@ -118,7 +118,7 @@ class ZMAdminMenuItem extends ZMObject {
             if (null !== $this->function_) {
                 $params = 'fkt='.$this->function_;
             }
-            return ZMToolbox::instance()->net->url($this->file_, $params, false, false);
+            return ZMRequest::instance()->getToolbox()->net->url($this->file_, $params, false, false);
         } else if (null !== $this->function_) {
             return 'fkt:'.$this->function_;
         }

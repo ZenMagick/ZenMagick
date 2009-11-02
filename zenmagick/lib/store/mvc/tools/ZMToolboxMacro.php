@@ -31,7 +31,7 @@
  * @package org.zenmagick.store.mvc.tools
  * @version $Id: ZMToolboxMacro.php 2308 2009-06-24 11:03:11Z dermanomann $
  */
-class ZMToolboxMacro extends ZMObject {
+class ZMToolboxMacro extends ZMToolboxTool {
 
     /**
      * <code>phpinfo</code> wrapper.
@@ -119,7 +119,7 @@ class ZMToolboxMacro extends ZMObject {
             }
 
             // encode
-            $toolbox = ZMToolbox::instance();
+            $toolbox = $this->getToolbox();
             $vars = array('firstname', 'lastname', 'company', 'street', 'suburb', 'city', 'state', 'country', 'postcode');
             foreach ($vars as $var) {
                 $$var = $toolbox->html->encode($$var, false);
@@ -158,7 +158,7 @@ class ZMToolboxMacro extends ZMObject {
         $html = '';
 
         if (null != $banner) {
-            $toolbox = ZMToolbox::instance();
+            $toolbox = $this->getToolbox();
             if (!ZMLangUtils::isEmpty($banner->getText())) {
                 // use text if not empty
                 $html = $banner->getText();
@@ -192,7 +192,7 @@ class ZMToolboxMacro extends ZMObject {
      * @return string A fully HTML formatted crumbtrail.
      */
     public function buildCrumbtrail($crumbtrail, $sep) {
-        $toolbox = ZMToolbox::instance();
+        $toolbox = $this->getToolbox();
         $html = '<div id="crumbtrail">';
         $first = true;
         foreach ($crumbtrail->getCrumbs() as $crumb) {
@@ -230,7 +230,7 @@ class ZMToolboxMacro extends ZMObject {
      * @return string The given categories as nested unordered list.
      */
     public function categoryTree($categories, $showProductCount=false, $useCategoryPage=false, $activeParent=false, $root=true, $path=null) {
-        $toolbox = ZMToolbox::instance();
+        $toolbox = $this->getToolbox();
         if ($root) { 
             ob_start();
             $path = ZMRequest::instance()->getCategoryPathArray();
@@ -515,7 +515,7 @@ class ZMToolboxMacro extends ZMObject {
      * @return string A fully HTML formatted attribute value label.
      */
     protected function buildAttributeValueLabel($product, $value, $enableImage=true) {
-        $toolbox = ZMToolbox::instance();
+        $toolbox = $this->getToolbox();
         $slash = ZMSettings::get('zenmagick.mvc.html.xhtml') ? '/' : '';
         $label = '';
         if ($value->hasImage() && $enableImage) {
@@ -542,7 +542,7 @@ class ZMToolboxMacro extends ZMObject {
      * @return string The fully HTML formatted price.
      */
     public function productPrice($product, $tax=true, $echo=ZM_ECHO_DEFAULT) {
-        $toolbox = ZMToolbox::instance();
+        $toolbox = $this->getToolbox();
         $offers = $product->getOffers();
 
         $html = '<span class="price">';

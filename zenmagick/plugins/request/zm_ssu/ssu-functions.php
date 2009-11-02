@@ -33,7 +33,7 @@ function zm_build_seo_href($view=null, $params='', $isSecure=false, $addSessionI
     if (isset($ssu) && ($link = $ssu->ssu_link($view, $params, $isSecure ? 'SSL' : 'NONSSL', $addSessionId, $seo, $isStatic, $useContext)) != false) {
         return $link;
     } else {
-        return ZMToolbox::instance()->net->furl($view, $params, $isSecure ? 'SSL' : 'NONSSL', $addSessionId, $seo, $isStatic, $useContext);
+        return ZMRequest::instance()->getToolbox()->net->furl($view, $params, $isSecure ? 'SSL' : 'NONSSL', $addSessionId, $seo, $isStatic, $useContext);
     }
 }
 

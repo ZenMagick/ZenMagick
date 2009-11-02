@@ -52,7 +52,7 @@ class ZMShoppingCartController extends ZMController {
      * {@inheritDoc}
      */
     public function processGet($request) {
-        ZMCrumbtrail::instance()->addCrumb(ZMToolbox::instance()->utils->getTitle(null, false));
+        ZMCrumbtrail::instance()->addCrumb($request->getToolbox()->utils->getTitle(null, false));
         
         $shoppingCart = $request->getShoppingCart();
 

@@ -132,7 +132,7 @@ class ZMWpRequestHandler extends ZMController {
                 //$_SERVER['REQUEST_URI'] = str_replace(Runtime::getContext().$this->plugin->get('permaPrefix').'/', '', $_SERVER['REQUEST_URI']);
             }
         } else {
-            return ZMToolbox::instance()->net->url(FILENAME_WP, $urlToken['query'], false, false);
+            return ZMRequest::instance()->getToolbox()->net->url(FILENAME_WP, $urlToken['query'], false, false);
         }
     }
 

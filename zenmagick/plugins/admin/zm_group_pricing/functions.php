@@ -35,7 +35,7 @@
     global $zm_nav_params;
 
         $zm_nav_params .= '&fkt=zm_group_pricing_admin';
-        $toolbox = ZMToolbox::instance();
+        $toolbox = ZMRequest::instance()->getToolbox();
 
         $priceGroups = ZMGroupPricing::instance()->getPriceGroups();
 

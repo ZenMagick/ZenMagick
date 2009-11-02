@@ -82,13 +82,14 @@ class zm_cron extends Plugin {
      * {@inheritDoc}
      */
     public function onZMFinaliseContents($args) {
+        $request = $args['request'];
         $contents = $args['contents'];
 
         if ($this->isEnabled() && ZMLangUtils::asBoolean($this->get('image'))) {
             $pages = $this->get('triggerPages');
             if (empty($pages) || ZMLangUtils::inArray(ZMRequest::instance()->getRequestId(), $pages)) {
                 $slash = ZMSettings::get('zenmagick.mvc.html.xhtml') ? '/' : '';
-                $img = '<div><img src="'.ZMToolbox::instance()->net->url('cron_image', '', false, false).'" alt=""'.$slash.'></div>';
+                $img = '<div><img src="'.$request->getToolbox()->net->url('cron_image', '', false, false).'" alt=""'.$slash.'></div>';
                 $contents = preg_replace('/<\/body>/', $img . '</body>', $contents, 1);
             }
         }

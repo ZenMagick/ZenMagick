@@ -24,7 +24,7 @@
  */
 ?>
 <?php
-    $toolbox = ZMToolbox::instance();
+    $toolbox = ZMRequest::instance()->getToolbox();
 ?>
   <?php $toolbox->form->open('', $zm_nav_params, false, array('method'=>'get')) ?>
     <h2>Group Pricing ( <?php $toolbox->form->idpSelect('groupId', $priceGroups, ZMRequest::instance()->getParameter('groupId'), array('size'=>1, 'onchange'=>'this.form.submit()')) ?> )</h2>

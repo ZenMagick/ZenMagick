@@ -73,8 +73,8 @@ class ZMCreateAccountController extends ZMController {
      * {@inheritDoc}
      */
     public function handleRequest($request) { 
-        ZMCrumbtrail::instance()->addCrumb("Account", ZMToolbox::instance()->net->url(FILENAME_ACCOUNT, '', true, false));
-        ZMCrumbtrail::instance()->addCrumb(ZMToolbox::instance()->utils->getTitle(null, false));
+        ZMCrumbtrail::instance()->addCrumb("Account", $request->getToolbox()->net->url(FILENAME_ACCOUNT, '', true, false));
+        ZMCrumbtrail::instance()->addCrumb($request->getToolbox()->utils->getTitle(null, false));
     }
 
     /**
@@ -124,7 +124,7 @@ class ZMCreateAccountController extends ZMController {
         zm_mail(zm_l10n_get("Welcome to %s", ZMSettings::get('storeName')), 'welcome', $context, $account->getEmail(), $account->getFullName());
         if (ZMSettings::get('isEmailAdminCreateAccount')) {
             // store copy
-            $context = ZMToolbox::instance()->macro->officeOnlyEmailFooter($account->getFullName(), $account->getEmail(), $session);
+            $context = $request->getToolbox()->macro->officeOnlyEmailFooter($account->getFullName(), $account->getEmail(), $session);
             $context['zm_account'] = $account;
             zm_mail(zm_l10n_get("[CREATE ACCOUNT] Welcome to %s", ZMSettings::get('storeName')), 'welcome', $context, ZMSettings::get('emailAdminCreateAccount'));
         }

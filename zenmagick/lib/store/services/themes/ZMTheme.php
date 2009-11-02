@@ -90,7 +90,7 @@ class ZMTheme extends ZMObject {
             }
         }
 
-        $url = ZMToolbox::instance()->html->encode($url, false);
+        $url = ZMRequest::instance()->getToolbox()->html->encode($url, false);
 
         if ($echo) echo $url;
         return $url;

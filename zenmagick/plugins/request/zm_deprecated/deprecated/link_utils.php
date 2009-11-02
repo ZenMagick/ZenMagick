@@ -40,7 +40,7 @@
      * @deprecated use the new toolbox instead!
      */
     function zm_href($view=null, $params='', $echo=ZM_ECHO_DEFAULT) { 
-        return ZMToolbox::instance()->net->url($view, $params, false, $echo);
+        return ZMRequest::instance()->getToolbox()->net->url($view, $params, false, $echo);
     }
 
 
@@ -55,7 +55,7 @@
      * @deprecated use the new toolbox instead!
      */
     function zm_secure_href($view=null, $params='', $echo=ZM_ECHO_DEFAULT) {
-        return ZMToolbox::instance()->net->url($view, $params, true, $echo);
+        return ZMRequest::instance()->getToolbox()->net->url($view, $params, true, $echo);
     }
 
     /**
@@ -73,7 +73,7 @@
      * @deprecated use the new toolbox instead!
      */
     function zm_product_href($productId, $categoryId=null, $echo=ZM_ECHO_DEFAULT) { 
-        return ZMToolbox::instance()->net->product($productId, $categoryId, $echo);
+        return ZMRequest::instance()->getToolbox()->net->product($productId, $categoryId, $echo);
     }
 
     /**
@@ -86,7 +86,7 @@
      * @deprecated use the new toolbox instead!
      */
     function zm_static_href($catName, $echo=ZM_ECHO_DEFAULT) { 
-        return ZMToolbox::instance()->net->staticPage($catName, $echo);
+        return ZMRequest::instance()->getToolbox()->net->staticPage($catName, $echo);
     }
 
     /**
@@ -102,7 +102,7 @@
      * @deprecated use the new toolbox instead!
      */
     function zm_back_link($text, $echo=ZM_ECHO_DEFAULT) {
-        return ZMToolbox::instance()->html->backLink($text, array(), $echo);
+        return ZMRequest::instance()->getToolbox()->html->backLink($text, array(), $echo);
     }
 
     /**
@@ -115,7 +115,7 @@
      * @deprecated use the new toolbox instead!
      */
     function zm_ezpage_href($page, $echo=ZM_ECHO_DEFAULT) {
-        return ZMToolbox::instance()->net->ezpage($page, $echo);
+        return ZMRequest::instance()->getToolbox()->net->ezpage($page, $echo);
     }
 
 
@@ -130,7 +130,7 @@
      * @deprecated use the new toolbox instead!
      */
     function zm_ezpage_link($id, $text=null, $echo=ZM_ECHO_DEFAULT) {
-        return ZMToolbox::instance()->html->ezpageLink($id, $text, array(), $echo);
+        return ZMRequest::instance()->getToolbox()->html->ezpageLink($id, $text, array(), $echo);
     }
 
 
@@ -144,7 +144,7 @@
      * @deprecated use the new toolbox instead!
      */
     function zm_image_uri($src, $echo=ZM_ECHO_DEFAULT) {
-        return ZMToolbox::instance()->net->image($src, $echo);
+        return ZMRequest::instance()->getToolbox()->net->image($src, $echo);
     }
 
 
@@ -162,7 +162,7 @@
      * @deprecated use the new toolbox instead!
      */
     function zm_redirect_href($action, $id, $echo=ZM_ECHO_DEFAULT) {
-        return ZMToolbox::instance()->net->url($action, $id, false, $echo);
+        return ZMRequest::instance()->getToolbox()->net->url($action, $id, false, $echo);
     }
 
 
@@ -176,7 +176,7 @@
      * @deprecated use the new toolbox instead!
      */
     function zm_absolute_href($href, $echo=ZM_ECHO_DEFAULT) {
-        return ZMToolbox::instance()->net->absolute($href, $echo);
+        return ZMRequest::instance()->getToolbox()->net->absolute($href, $echo);
     }
 
     /**
@@ -193,7 +193,7 @@
      * @deprecated use the new toolbox instead!
      */
     function zm_ajax_href($controller, $method, $params='', $echo=ZM_ECHO_DEFAULT) { 
-        return ZMToolbox::instance()->net->ajax($controller, $method, $params, $echo);
+        return ZMRequest::instance()->getToolbox()->net->ajax($controller, $method, $params, $echo);
     }
 
     /**
@@ -207,7 +207,7 @@
      * @deprecated use the new toolbox instead!
      */
     function zm_rss_feed_href($channel, $key=null, $echo=ZM_ECHO_DEFAULT) { 
-        return ZMToolbox::instance()->net->rssFeed($channel, $key, $echo);
+        return ZMRequest::instance()->getToolbox()->net->rssFeed($channel, $key, $echo);
     }
 
 ?>

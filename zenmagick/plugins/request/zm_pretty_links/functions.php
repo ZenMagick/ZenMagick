@@ -54,7 +54,7 @@
     function zm_build_seo_href($view=null, $params='', $isSecure=false, $addSessionId=true, $seo=true, $isStatic=false, $useContext=true) {
     global $_zm_pretty_link_map;
 
-        $toolbox = ZMToolbox::instance();
+        $toolbox = ZMRequest::instance()->getToolbox();
         $href = $toolbox->net->furl($view, $params, $secure ? 'SSL' : 'NONSSL', $addSessionId, false, $isStatic, $useContext);
 
         if (null != ZMSettings::get('seoEnabledPagesList') && !ZMLangUtils::inArray($view, ZMSettings::get('seoEnabledPagesList'))) {

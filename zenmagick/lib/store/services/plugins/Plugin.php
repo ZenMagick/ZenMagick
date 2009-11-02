@@ -388,7 +388,8 @@ class Plugin extends ZMPlugin {
         }
 
         $type = basename(dirname($this->getPluginDirectory()));
-        $url = ZMToolbox::instance()->html->encode(Runtime::getPluginPathPrefix() . $type . '/' . $this->getId() . '/' . $uri, false);
+        //XXX: fix
+        $url = ZMRequest::instance()->getToolbox()->html->encode(Runtime::getPluginPathPrefix() . $type . '/' . $this->getId() . '/' . $uri, false);
 
         if ($echo) echo $url;
         return $url;

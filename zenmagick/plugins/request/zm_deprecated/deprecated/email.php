@@ -37,7 +37,7 @@
      * @deprecated use the new toolbox instead!
      */
     function zm_email_copy_context($name, $email, $session) {
-        return ZMToolbox::instance()->macro->officeOnlyEmailFooter($name, $email, $session);
+        return ZMRequest::instance()->getToolbox()->macro->officeOnlyEmailFooter($name, $email, $session);
     }
 
 ?>

@@ -47,7 +47,7 @@
      * @deprecated use the new toolbox instead!
      */
     function zm_build_category_tree_list($categories, $showProductCount=false, $useCategoryPage=false, $activeParent=false, $root=true, $path=null) {
-        return ZMToolbox::instance()->macro->categoryTree($categories, $showProductCount, $useCategoryPage);
+        return ZMRequest::instance()->getToolbox()->macro->categoryTree($categories, $showProductCount, $useCategoryPage);
     }
 
 ?>

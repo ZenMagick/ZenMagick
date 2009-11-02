@@ -120,7 +120,7 @@
             $facet[$id]['id'] = $ii;
             if (0 == $ii) {
                 // first
-                $facet[$id]['name'] = zm_l10n_get("Less than %s", ZMToolbox::instance()->utils->formatMoney($bracket, true, false));
+                $facet[$id]['name'] = zm_l10n_get("Less than %s", ZMRequest::instance()->getToolbox()->utils->formatMoney($bracket, true, false));
                     foreach ($products as $product) {
                         if ($product->getProductPrice() < $bracket) {
                             $facet[$id]['entries'][$product->getId()] = $product->getName();
@@ -128,7 +128,7 @@
                     }
             } else if (($ii+1) == $bracketLength) {
                 $prevBracket = $brackets[$ii-1];
-                $facet[$id]['name'] = zm_l10n_get("More than %s", ZMToolbox::instance()->utils->formatMoney($prevBracket, true, false));
+                $facet[$id]['name'] = zm_l10n_get("More than %s", ZMRequest::instance()->getToolbox()->utils->formatMoney($prevBracket, true, false));
                 foreach ($products as $product) {
                     if ($product->getProductPrice() > $prevBracket) {
                         $facet[$id]['entries'][$product->getId()] = $product->getName();
@@ -137,7 +137,7 @@
             } else {
                 // all other
                 $prevBracket = $brackets[$ii-1];
-                $facet[$id]['name'] = zm_l10n_get("%s to %s", ZMToolbox::instance()->utils->formatMoney($prevBracket, true, false), ZMToolbox::instance()->utils->formatMoney($bracket, true, false));
+                $facet[$id]['name'] = zm_l10n_get("%s to %s", ZMRequest::instance()->getToolbox()->utils->formatMoney($prevBracket, true, false), ZMRequest::instance()->getToolbox()->utils->formatMoney($bracket, true, false));
                 foreach ($products as $product) {
                     if ($product->getProductPrice() >= $prevBracket && $product->getProductPrice() <= $bracket) {
                         $facet[$id]['entries'][$product->getId()] = $product->getName();

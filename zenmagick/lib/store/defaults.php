@@ -264,7 +264,7 @@
             'zenmagick.mvc.ajax.format' => 'JSON',
             'ajaxFormat' => 'JSON',
 
-            //'zenmagick.mvc.toolbox.tools' => 'form:ToolboxForm,macro:ToolboxMacro,locale:ToolboxLocale,utils:ToolboxUtils,admin:ToolboxAdmin',
+            'zenmagick.mvc.toolbox.tools' => 'form:ToolboxForm,macro:ToolboxMacro,locale:ToolboxLocale,utils:ToolboxUtils,admin:ToolboxAdmin',
 
             /**************************************
              * formatting and other defaults

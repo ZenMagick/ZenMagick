@@ -94,7 +94,7 @@
      * @deprecated use ZMToolbox instead
      */
     function zm_text2html($s) {
-        return ZMToolbox::instance()->html->text2html($s);
+        return ZMRequest::instance()->getToolbox()->html->text2html($s);
     }
     /**
      * Evaluate a string value as boolean.
@@ -116,7 +116,7 @@
      * @deprecated use ZMToolbox instead
      */
     function zm_xml_encode($s) {
-        return ZMToolbox::instance()->utils->encodeXML($s);
+        return ZMRequest::instance()->getToolbox()->utils->encodeXML($s);
     }
     /**
      * Format the given amount according to the current currency.
@@ -130,7 +130,7 @@
      * @deprecated use ZMToolbox instead
      */
     function zm_format_currency($amount, $convert=true, $echo=ZM_ECHO_DEFAULT) {
-        return ZMToolbox::instance()->utils->formatMoney($amount, $convert, $echo);
+        return ZMRequest::instance()->getToolbox()->utils->formatMoney($amount, $convert, $echo);
     }
     /**
      * Parse a money amount.

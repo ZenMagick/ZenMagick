@@ -45,7 +45,7 @@
      * @deprecated use the new toolbox instead!
      */
     function zm_form($page=null, $params='', $id=null, $method='post', $onsubmit=null, $echo=ZM_ECHO_DEFAULT) {
-        return ZMToolbox::instance()->form->open($page, $params, false, array('id'=>$id,'method'=>$method,'onsubmit'=>$onsubmit), $echo);
+        return ZMRequest::instance()->getToolbox()->form->open($page, $params, false, array('id'=>$id,'method'=>$method,'onsubmit'=>$onsubmit), $echo);
     }
 
     /**
@@ -70,7 +70,7 @@
      * @deprecated use the new toolbox instead!
      */
     function zm_secure_form($page=null, $params='', $id=null, $method='post', $onsubmit=null, $echo=ZM_ECHO_DEFAULT) {
-        return ZMToolbox::instance()->form->open($page, $params, true, array('id'=>$id,'method'=>$method,'onsubmit'=>$onsubmit), $echo);
+        return ZMRequest::instance()->getToolbox()->form->open($page, $params, true, array('id'=>$id,'method'=>$method,'onsubmit'=>$onsubmit), $echo);
     }
 
     /**
@@ -87,7 +87,7 @@
      * @deprecated use the new toolbox instead!
      */
     function zm_add_product_form($productId, $quantity=0, $echo=ZM_ECHO_DEFAULT) {
-        return ZMToolbox::instance()->form->addProduct($productId, $quantity, array(), $echo);
+        return ZMRequest::instance()->getToolbox()->form->addProduct($productId, $quantity, array(), $echo);
     }
 
 
@@ -103,7 +103,7 @@
      * @deprecated use the new toolbox instead!
      */
     function zm_result_list_form($echo=ZM_ECHO_DEFAULT) {
-        return ZMToolbox::instance()->form->open(null, null, $page, $params, false, array('method'=>'get','onsubmit'=>null), $echo);
+        return ZMRequest::instance()->getToolbox()->form->open(null, null, $page, $params, false, array('method'=>'get','onsubmit'=>null), $echo);
     }
 
 
@@ -113,7 +113,7 @@
      * @deprecated use the new toolbox instead!
      */
     function zm_radio_state($setting, $value=true, $default=false) {
-        ZMToolbox::instance()->form->checked($setting, $value, $default);
+        ZMRequest::instance()->getToolbox()->form->checked($setting, $value, $default);
     }
 
     /**
@@ -122,7 +122,7 @@
      * @deprecated use the new toolbox instead!
      */
     function zm_checkbox_state($setting, $value=true, $default=false) {
-        ZMToolbox::instance()->form->checked($setting, $value, $default);
+        ZMRequest::instance()->getToolbox()->form->checked($setting, $value, $default);
     }
 
 
@@ -131,7 +131,7 @@
      * @package org.zenmagick.deprecated
      */
     function zm_sc_product_hidden($scItem, $echo=ZM_ECHO_DEFAULT) {
-        return ZMToolbox::instance()->form->hiddenCartFields($scItem, $echo);
+        return ZMRequest::instance()->getToolbox()->form->hiddenCartFields($scItem, $echo);
     }
 
 
@@ -147,7 +147,7 @@
      * @deprecated use the new toolbox instead!
      */
     function zm_field_length($context, $field, $max=40, $echo=ZM_ECHO_DEFAULT) {
-        return ZMToolbox::instance()->form->fieldLength($context, $field, $max, $echo);
+        return ZMRequest::instance()->getToolbox()->form->fieldLength($context, $field, $max, $echo);
     }
 
 ?>

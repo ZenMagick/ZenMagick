@@ -25,7 +25,7 @@
 ?>
 
 <?php 
-    $toolbox = ZMToolbox::instance();
+    $toolbox = ZMRequest::instance()->getToolbox();
     // create list of features per product in same order
     $featureList = array();
     // get unique list of all feature names

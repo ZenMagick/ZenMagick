@@ -70,8 +70,8 @@ class ZMCheckoutAddressController extends ZMController {
      * {@inheritDoc}
      */
     public function handleRequest($request) {
-        ZMCrumbtrail::instance()->addCrumb("Checkout", ZMToolbox::instance()->net->url($this->settings_['url'], '', true, false));
-        ZMCrumbtrail::instance()->addCrumb(ZMToolbox::instance()->utils->getTitle(null, false));
+        ZMCrumbtrail::instance()->addCrumb("Checkout", $request->getToolbox()->net->url($this->settings_['url'], '', true, false));
+        ZMCrumbtrail::instance()->addCrumb($request->getToolbox()->utils->getTitle(null, false));
 
         $shoppingCart = $request->getShoppingCart();
         $this->viewData_['zm_cart'] = $shoppingCart;

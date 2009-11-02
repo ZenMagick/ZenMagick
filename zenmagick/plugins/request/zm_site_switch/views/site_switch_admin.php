@@ -24,7 +24,7 @@
  */
 ?><?php
 
-    $toolbox = ZMToolbox::instance();
+    $toolbox = ZMRequest::instance()->getToolbox();
     // default
     global $zm_server_names;
     $zm_server_names = array('' => '');

@@ -103,7 +103,8 @@ class ot_zenmagick {
     public function process() {
     global $order;
 
-        $cart = ZMRequest::instance()->getShoppingCart();
+        $request = ZMRequest::instance();
+        $cart = $request->getShoppingCart();
         $detailsList = array();
         foreach ($this->plugins_ as $plugin) {
             if (null != ($details = $plugin->calculate($cart))) {
@@ -118,7 +119,7 @@ class ot_zenmagick {
         }
 
         // now convert to $output style
-        $toolbox = ZMToolbox::instance();
+        $toolbox = $request->getToolbox();
         foreach ($detailsList as $detail) {
             $order->info['total'] += $detail->getAmount();
             $order->info['subtotal'] += $detail->getSubtotal();

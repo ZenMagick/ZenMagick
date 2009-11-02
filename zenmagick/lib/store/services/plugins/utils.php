@@ -38,7 +38,7 @@
         if (null == $function) {
             $function = ZMRequest::instance()->getParameter('fkt');
         }
-        $url = ZMToolbox::instance()->net->url('zmPluginPage.php', 'fkt='.$function.'&'.$params, true, false);
+        $url = ZMRequest::instance()->getToolbox()->net->url('zmPluginPage.php', 'fkt='.$function.'&'.$params, true, false);
 
         if ($echo) echo $url;
         return $url;
@@ -71,7 +71,7 @@
         if (ZMRequest::instance()->isAdmin()) {
             return zm_plugin_admin_url($target[1], $params, $echo);
         } else {
-            return ZMToolbox::instance()->net->url($target[0], $params, false, $echo);
+            return ZMRequest::instance()->getToolbox()->net->url($target[0], $params, false, $echo);
         }
     }
 
@@ -85,7 +85,7 @@
      */
     function zm_plugin_value_element($value, $echo=ZM_ECHO_DEFAULT) {
         if ($value instanceof ZMWidget) {
-            echo $value->render();
+            echo $value->render($request);
         } else if ($value->hasSetFunction()) {
             eval('$set = ' . $value->getSetFunction() . "'" . $value->getValue() . "', '" . $value->getKey() . "');");
             echo str_replace('<br>', '', $set);

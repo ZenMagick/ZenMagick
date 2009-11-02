@@ -100,12 +100,12 @@ class ZMAjaxShoppingCartController extends ZMAjaxController {
         $shoppingCart = $request->getShoppingCart();
         $cart = array();
         $items = array();
-        $formatter = create_function('$obj,$name,$value', 'return $name=="itemTotal" ? ZMToolbox::instance()->utils->formatMoney($value, true, false) : $value;');
+        $formatter = create_function('$obj,$name,$value', 'return $name=="itemTotal" ? ZMRequest::instance()->getToolbox()->utils->formatMoney($value, true, false) : $value;');
         foreach ($shoppingCart->getItems() as $item) {
             array_push($items, $this->flattenObject($item, $this->get('ajaxCartItemMap'), $formatter));
         }
         $cart['items'] = $items;
-        $cart['total'] = ZMToolbox::instance()->utils->formatMoney($shoppingCart->getTotal(), true, false);
+        $cart['total'] = $request->getToolbox()->utils->formatMoney($shoppingCart->getTotal(), true, false);
 
         $flatObj = $this->flattenObject($cart);
         $json = $this->toJSON($flatObj);

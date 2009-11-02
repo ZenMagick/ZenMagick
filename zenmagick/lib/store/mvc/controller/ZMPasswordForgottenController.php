@@ -52,7 +52,7 @@ class ZMPasswordForgottenController extends ZMController {
      * {@inheritDoc}
      */
     public function process($request) { 
-        ZMCrumbtrail::instance()->addCrumb(ZMToolbox::instance()->utils->getTitle(null, false));
+        ZMCrumbtrail::instance()->addCrumb($request->getToolbox()->utils->getTitle(null, false));
 
         return parent::process($request);
     }

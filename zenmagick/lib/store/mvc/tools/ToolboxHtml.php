@@ -162,7 +162,7 @@ class ToolboxHtml extends ZMToolboxHtml {
      * @return string A full HTML link.
      */
     public function ezpageLink($id, $text=null, $attr=array(), $echo=ZM_ECHO_DEFAULT) {
-        $toolbox = ZMToolbox::instance();
+        $toolbox = $this->getToolbox();
         $page = ZMEZPages::instance()->getPageForId($id);
         $link = '<a href="' . $toolbox->net->ezpage($page, false) . '"' . $this->hrefTarget($page->isNewWin(), false);
         foreach ($attr as $name => $value) {
@@ -198,7 +198,7 @@ class ToolboxHtml extends ZMToolboxHtml {
             $attr = array_merge($defaults, $attr);
         }
 
-        $toolbox = ZMToolbox::instance();
+        $toolbox = $this->getToolbox();
         $html = '<a href="'.$toolbox->net->product($product->getId(), $categoryId, false).'"';
         foreach ($attr as $name => $value) {
             if (null !== $value) {

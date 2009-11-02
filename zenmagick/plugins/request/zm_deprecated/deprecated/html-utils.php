@@ -40,7 +40,7 @@
      * @deprecated use the new toolbox instead!
      */
     function zm_image($imageInfo, $format=ZMProducts::IMAGE_SMALL, $parameter='', $echo=ZM_ECHO_DEFAULT) {
-        return ZMToolbox::instance()->html->image($imageInfo, $format, $parameter, $echo);
+        return ZMRequest::instance()->getToolbox()->html->image($imageInfo, $format, $parameter, $echo);
     }
 
 
@@ -54,7 +54,7 @@
      * @deprecated use the new toolbox instead!
      */
     function zm_htmlencode($s, $echo=ZM_ECHO_DEFAULT) {
-        return ZMToolbox::instance()->html->encode($s, $echo);
+        return ZMRequest::instance()->getToolbox()->html->encode($s, $echo);
     }
 
 
@@ -68,7 +68,7 @@
      * @deprecated use the new toolbox instead!
      */
     function zm_strip_html($text, $echo=ZM_ECHO_DEFAULT) {
-        return ZMToolbox::instance()->html->strip($text, $echo);
+        return ZMRequest::instance()->getToolbox()->html->strip($text, $echo);
     }
 
 
@@ -86,7 +86,7 @@
      * @deprecated use the new toolbox instead!
      */
     function zm_href_target($newWin=true, $echo=ZM_ECHO_DEFAULT) {
-        return ZMToolbox::instance()->html->hrefTarget($newWin, $echo);
+        return ZMRequest::instance()->getToolbox()->html->hrefTarget($newWin, $echo);
     }
 
 
@@ -99,7 +99,7 @@
      * @deprecated use the new toolbox instead!
      */
     function zm_htmlurlencode($url) {
-        return ZMToolbox::instance()->net->encode($url);
+        return ZMRequest::instance()->getToolbox()->net->encode($url);
     }
 
 
@@ -112,7 +112,7 @@
      * @deprecated use the new toolbox instead!
      */
     function zm_htmlurldecode($s) {
-        return ZMToolbox::instance()->net->decode($url);
+        return ZMRequest::instance()->getToolbox()->net->decode($url);
     }
 
 
@@ -129,7 +129,7 @@
      * @deprecated use the new toolbox instead!
      */
     function zm_more($s, $max=0, $echo=ZM_ECHO_DEFAULT) {
-        return ZMToolbox::instance()->html->more($s, $max, '...', $echo);
+        return ZMRequest::instance()->getToolbox()->html->more($s, $max, '...', $echo);
     }
 
     /**
@@ -144,7 +144,7 @@
      * @deprecated use the new toolbox instead!
      */
     function zm_build_more($s, $max=0, $more=" ...", $echo=ZM_ECHO_DEFAULT) {
-        return ZMToolbox::instance()->html->more($s, $max, $more, $echo);
+        return ZMRequest::instance()->getToolbox()->html->more($s, $max, $more, $echo);
     }
 
 
@@ -157,7 +157,7 @@
      * @deprecated use the new toolbox instead!
      */
     function zm_phpinfo($what, $echo=ZM_ECHO_DEFAULT) {
-        return ZMToolbox::instance()->macro->phpinfo($what, $echo);
+        return ZMRequest::instance()->getToolbox()->macro->phpinfo($what, $echo);
     }
 
 ?>

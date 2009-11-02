@@ -25,8 +25,8 @@
 ?>
 <?php
 
-    $toolbox = ZMToolbox::instance();
     $request = ZMRequest::instance();
+    $toolbox = $request->getToolbox();
     $categoryId = $request->getCategoryId();
 
     // allow to override with custom fields
@@ -126,7 +126,7 @@
               $widget->setValue($value);
               ?>
               <td<?php echo ($ii == $lastIndex ? ' class="last"' : '') ?> style="text-align:center;">
-                <?php echo $widget->render() ?>
+                <?php echo $widget->render($request) ?>
                 <input type="hidden" name="_<?php echo $fieldName ?>" value="<?php $toolbox->html->encode($value) ?>">
               </td>
             <?php } ?>

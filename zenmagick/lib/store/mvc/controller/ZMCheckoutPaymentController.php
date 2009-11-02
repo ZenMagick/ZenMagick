@@ -55,8 +55,8 @@ class ZMCheckoutPaymentController extends ZMController {
      * if the controller generates the contents itself.
      */
     function processGet($request) {
-        ZMCrumbtrail::instance()->addCrumb("Checkout", ZMToolbox::instance()->net->url(FILENAME_CHECKOUT_PAYMENT, '', true, false));
-        ZMCrumbtrail::instance()->addCrumb(ZMToolbox::instance()->utils->getTitle(null, false));
+        ZMCrumbtrail::instance()->addCrumb("Checkout", $request->getToolbox()->net->url(FILENAME_CHECKOUT_PAYMENT, '', true, false));
+        ZMCrumbtrail::instance()->addCrumb($request->getToolbox()->utils->getTitle(null, false));
 
         return $this->findView(null, array('zm_cart' => $request->getShoppingCart()));
     }
