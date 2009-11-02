@@ -1,6 +1,8 @@
 A plugin to allow users to login using OpenID.
 The plugin uses the excellent library openidenabled by JanRain (http://www.openidenabled.com/)
 (version 2.1.3, but without the various store implementations and server code)
+The current version is based on the code found at: http://sourcecookbook.com/en/recipes/60/janrain-s-php-openid-library-fixed-for-php-5-3-and-how-i-did-it
+The changes are required for PHP5.3 compatibility.
 
 
 Installation
