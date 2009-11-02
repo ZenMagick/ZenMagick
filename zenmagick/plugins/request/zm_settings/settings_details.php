@@ -212,6 +212,26 @@
                         'desc' => 'Execute the controller in the context of a database transaction.'
                     )
                 ),
+                'ajax' => array(
+                    array(
+                        'key' => 'format',
+                        'type' => 'string',
+                        'desc' => 'Format suffix for methods if no default is found.'
+                    ),
+                ),
+                'json' => array(
+                    array(
+                    array(
+                        'key' => 'header',
+                        'type' => 'boolean',
+                        'desc' => 'Enable/disable to return JSON as JSON header "X-JSON".'
+                    ),
+                    array(
+                        'key' => 'echo',
+                        'type' => 'boolean',
+                        'desc' => 'Enable/disable echoing a JSON respose.'
+                    )
+                ),
                 'controller' => array(
                     array(
                         'key' => 'defaultClass',

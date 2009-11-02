@@ -254,11 +254,14 @@
 
             // echo JSON response
             'isJSONEcho' => true,
+            'zenmagick.mvc.json.echo' => true,
 
-            // put JSON response in JSON header
+            // put JSON response in X-JSON header
             'isJSONHeader' => false,
+            'zenmagick.mvc.json.header' => false,
 
             // default format; this is taken as method suffix to resolve Ajax methods
+            'zenmagick.mvc.ajax.format' => 'JSON',
             'ajaxFormat' => 'JSON',
 
             //'zenmagick.mvc.toolbox.tools' => 'form:ToolboxForm,macro:ToolboxMacro,locale:ToolboxLocale,utils:ToolboxUtils,admin:ToolboxAdmin',
