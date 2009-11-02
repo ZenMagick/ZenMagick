@@ -133,6 +133,10 @@ class ZMPluginPageController extends ZMObject {
      * @return string The page contents.
      */
     protected function getPageContents($context, $viewDir='views') {
+        // some basics
+        $request = ZMRequest::instance();
+        $session = $request->getSession();
+
         // make toolbox available too
         $toolbox = ZMRequest::instance()->getToolbox();
         foreach ($toolbox->getTools() as $name => $tool) {

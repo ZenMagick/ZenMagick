@@ -30,7 +30,7 @@
  * <p>Depending on the nature of the widgets, subclasses might implement custom properties as
  * needed.</p>
  *
- * <p>Since widgets are typically used in the context of an HTML page, the <code>render()</code> method is expected
+ * <p>Since widgets are typically used in the context of an HTML page, the <code>render($request)</code> method is expected
  * to return valid HTML that will display the widget.</p>
  *
  * @author DerManoMann

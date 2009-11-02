@@ -85,7 +85,7 @@
      */
     function zm_plugin_value_element($value, $echo=ZM_ECHO_DEFAULT) {
         if ($value instanceof ZMWidget) {
-            echo $value->render($request);
+            echo $value->render(ZMRequest::instance());
         } else if ($value->hasSetFunction()) {
             eval('$set = ' . $value->getSetFunction() . "'" . $value->getValue() . "', '" . $value->getKey() . "');");
             echo str_replace('<br>', '', $set);
