@@ -42,12 +42,19 @@ class ZMToolbox extends ZMObject {
     public $net;
 
 
+    /** The tools. */
+    private $tools_;
+
+    
 
     /**
      * Create new instance.
+     *
+     * @param ZMRequest request The current request.
      */
-    function __construct() {
+    function __construct($request) {
         parent::__construct();
+        $this->tools_ = $this->initTools($request);
     }
 
     /**
@@ -57,27 +64,23 @@ class ZMToolbox extends ZMObject {
         parent::__destruct();
     }
 
-    /**
-     * Get instance.
-     *
-     * @param ZMRequest request The current request.
-     * @todo: <code>$request</code> default is <code>null</code> to allow a soft migration of existing code.
-     */
-    public static function instance($request=null) {
-        // XXX: fixme
-        $request = null == $request ? ZMRequest::instance() : $request;
-        $toolbox = ZMObject::singleton('Toolbox');
-        $toolbox->getTools($request);
-        return $toolbox;
-    }
 
     /**
      * Get a map of all tools.
      *
-     * @param ZMRequest request The current request.
      * @return array A map of all available tools.
      */
-    public function getTools($request) {
+    public function getTools() {
+        return $this->tools_;
+    }
+
+    /**
+     * Init all tools.
+     *
+     * @param ZMRequest request The current request.
+     * @return array Map of all tools.
+     */
+    protected function initTools($request) {
         // default tools
         $tools = array('html' => ZMLoader::make('ToolboxHtml'), 'net' => ZMLoader::make('ToolboxNet'));
 

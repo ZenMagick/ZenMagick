@@ -43,6 +43,7 @@ class ZMRequest extends ZMObject {
 
     private $controller_;
     private $session_;
+    private $toolbox_;
     private $parameter_;
 
 
@@ -63,6 +64,7 @@ class ZMRequest extends ZMObject {
 
         $this->controller_ = null;
         $this->session_ = null;
+        $this->toolbox_ = null;
     }
 
 
@@ -290,9 +292,11 @@ class ZMRequest extends ZMObject {
      * @return ZMToolbox A toolbox instance.
      */
     public function getToolbox() {
-        //XXX: fixme
-        $toolbox = ZMToolbox::instance($this);
-        return $toolbox;
+        if (null == $this->toolbox_) {
+            $this->toolbox_ = ZMLoader::make('Toolbox', $this);
+        }
+
+        return $this->toolbox_;
     }
 
 }

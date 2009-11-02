@@ -124,8 +124,8 @@ class ZMController extends ZMObject {
             $view->setVar('session', $request->getSession());
             $toolbox = $request->getToolbox();
             $view->setVar('toolbox', $toolbox);
-            //XXX:fix
-            $view->setVars($toolbox->getTools($request));
+            // also set individual tools
+            $view->setVars($toolbox->getTools());
 
             if (!$view->isValid()) {
                 ZMLogging::instance()->log('invalid view: '.$view->getName().', expected: '.$view->getViewFilename(), ZMLogging::WARN);

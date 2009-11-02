@@ -62,8 +62,8 @@ class Toolbox extends ZMToolbox {
     /**
      * Create new instance.
      */
-    function __construct() {
-        parent::__construct();
+    function __construct($request) {
+        parent::__construct($request);
 
         // add store tools
         $tools = array(

@@ -84,8 +84,7 @@ class ZMEmailView extends SavantView {
         $this->setVar('request', $request);
         $this->setVar('session', $request->getSession());
         $this->setVar('toolbox', $toolbox);
-        //XXX: fix ($request)
-        $this->setVars($toolbox->getTools($request));
+        $this->setVars($toolbox->getTools());
 
         $content = parent::generate($request);
 
