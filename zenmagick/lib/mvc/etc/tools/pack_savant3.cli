@@ -21,7 +21,7 @@
 <?php
 
     // load ZenMagick core
-    $coreDir = dirname(dirname(dirname(__FILE__))).DIRECTORY_SEPARATOR;
+    $coreDir = dirname(dirname(dirname(dirname(__FILE__)))).DIRECTORY_SEPARATOR;
     require $coreDir.'core/ZMLoader.php';
     ZMLoader::instance()->addPath($coreDir);
     ZMLoader::instance()->loadStatic();
@@ -46,8 +46,8 @@
         }
     }
 
-    $path = 'C:/Program Files/Apache Software Foundation/Apache2.2/htdocs/mods/savant/Savant3-3.0.0/';
-    $version = '3.0.0';
+    $path = 'C:/temp/Savant3-3.0.1/';
+    $version = '3.0.1';
 
     // pack; ideally path/version should be CLI args...
     $packer = new SavantPacker($path, $path.'savant-'.$version.'.packed.php');

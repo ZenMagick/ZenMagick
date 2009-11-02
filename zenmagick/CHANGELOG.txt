@@ -29,6 +29,7 @@ Release 0.9.8
 - make the toolbox a property of the request as a lot of tools depend on it
   anyway; this avoids having to reference both toolbox and request as
 	singleton
+- upgrade to Savant 3.0.1 (includes a bug fix for PHP5.3 compatibility)
 
 Release 0.9.7
 - add ZMProductAssociation service and related code
