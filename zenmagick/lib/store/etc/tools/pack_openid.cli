@@ -57,7 +57,7 @@
 
     $dir = 'C:/Program Files/Apache Software Foundation/Apache2.2/htdocs/mods/php-openid-2.1.3/Auth/';
     $packer = new OpenIDPacker($dir, dirname($dir).'/openid-2.1.3.packed.php');
-    $packer->setDebug(true);
+    $packer->setDebug(false);
     $packer->packFiles(true);
 
 ?>
