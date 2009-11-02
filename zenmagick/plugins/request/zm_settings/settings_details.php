@@ -217,10 +217,9 @@
                         'key' => 'format',
                         'type' => 'string',
                         'desc' => 'Format suffix for methods if no default is found.'
-                    ),
+                    )
                 ),
                 'json' => array(
-                    array(
                     array(
                         'key' => 'header',
                         'type' => 'boolean',
