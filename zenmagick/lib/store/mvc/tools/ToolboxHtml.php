@@ -280,7 +280,7 @@ class ToolboxHtml extends ZMToolboxHtml {
      * @deprecated
      */
     public function onload($page=null, $echo=ZM_ECHO_DEFAULT) {
-        $page = null == $page ? ZMRequest::instance()->getRequestId() : $page;
+        $page = null == $page ? $this->getRequest()->getRequestId() : $page;
 
         $onload = '';
         $themeInfo = Runtime::getTheme()->getThemeInfo();

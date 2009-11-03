@@ -118,9 +118,11 @@ class ZMEventFixes extends ZMObject {
 
     /**
      * Simple function to check if we need zen-cart...
+     *
+     * @Param ZMRequest request The current request.
      */
-    private function needsZC() {
-        $pageName = ZMRequest::instance()->getRequestId();
+    private function needsZC($request) {
+        $pageName = $request->getRequestId();
         return (false !== strpos($pageName, 'checkout_') && 'checkout_shipping_address' != $pageName && 'checkout_payment_address' != $pageName);
     }
 
@@ -138,7 +140,7 @@ class ZMEventFixes extends ZMObject {
         ZMLoader::instance()->registerClass('httpClient', DIR_FS_CATALOG . DIR_WS_CLASSES . 'http_client.php');
 
         // skip more zc request handling
-        if (!$this->needsZC() && ZMSettings::get('isEnableZMThemes')) {
+        if (!$this->needsZC($request) && ZMSettings::get('isEnableZMThemes')) {
         global $code_page_directory;
             $code_page_directory = 'zenmagick';
         }

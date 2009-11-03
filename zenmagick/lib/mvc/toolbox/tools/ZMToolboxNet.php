@@ -52,7 +52,7 @@ class ZMToolboxNet extends ZMToolboxTool {
 
         // custom view and params handling
         if (null === $requestId || null === $params) {
-            $query = ZMRequest::instance()->getParameterMap();
+            $query = $this->getRequest()->getParameterMap();
             unset($query[ZM_PAGE_KEY]);
             unset($query[zen_session_name()]);
             if (null != $params) {
@@ -72,7 +72,7 @@ class ZMToolboxNet extends ZMToolboxTool {
         }
 
         // default to current view
-        $requestId = $requestId === null ? ZMRequest::instance()->getRequestId() : $requestId;
+        $requestId = $requestId === null ? $this->getRequest()->getRequestId() : $requestId;
         $href = null;
         // no SEO in admin
         // XXX: have separate setting to disable rather than admin (might have to fake that to force regular URLS
@@ -97,8 +97,8 @@ class ZMToolboxNet extends ZMToolboxTool {
      */
     public function absolute($href, $echo=ZM_ECHO_DEFAULT) {
         //XXX: we need the request here!
-        $host = (ZMRequest::instance()->isSecure() ? HTTPS_SERVER : HTTP_SERVER);
-        $context = (ZMRequest::instance()->isSecure() ? DIR_WS_HTTPS_CATALOG : DIR_WS_CATALOG);
+        $host = ($this->getRequest()->isSecure() ? HTTPS_SERVER : HTTP_SERVER);
+        $context = ($this->getRequest()->isSecure() ? DIR_WS_HTTPS_CATALOG : DIR_WS_CATALOG);
 
         if (!ZMLangUtils::startsWith($href, '/')) {
             // make fully qualified
@@ -131,7 +131,7 @@ class ZMToolboxNet extends ZMToolboxTool {
             $controller = 'ajax_'.$controller;
         }
 
-        $url = str_replace('&amp;', '&', $this->url($controller, $params.'&method='.$method, ZMRequest::instance()->isSecure(), false));
+        $url = str_replace('&amp;', '&', $this->url($controller, $params.'&method='.$method, $this->getRequest()->isSecure(), false));
 
         if ($echo) echo $url;
         return $url;

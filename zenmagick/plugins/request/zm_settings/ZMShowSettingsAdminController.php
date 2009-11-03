@@ -170,7 +170,7 @@ class ZMShowSettingsAdminController extends ZMPluginPageController {
         }
 
         $context = array('settingDetails' => $settingDetails);
-        $page->setContents($this->getPageContents($context));
+        $page->setContents($this->getPageContents($request, $context));
         return $page;
     }
 

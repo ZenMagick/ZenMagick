@@ -31,7 +31,7 @@
  * @package org.zenmagick.store.mvc.tools
  * @version $Id: ZMToolboxUtils.php 2117 2009-03-29 23:34:14Z dermanomann $
  */
-class ZMToolboxUtils extends ZMObject {
+class ZMToolboxUtils extends ZMToolboxTool {
 
     /**
      * Simple title generator based on the page name.
@@ -41,9 +41,9 @@ class ZMToolboxUtils extends ZMObject {
      * @return string A reasonable page title.
      */
     public function getTitle($page=null, $echo=ZM_ECHO_DEFAULT) {
-        $title = null == $page ? ZMRequest::instance()->getRequestId() : $page;
+        $title = null == $page ? $this->getRequest()->getRequestId() : $page;
         // special case for static pages
-        $title = 'static' != $title ? $title : ZMRequest::instance()->getSubPageName();
+        $title = 'static' != $title ? $title : $this->getRequest()->getSubPageName();
 
         // format
         $title = str_replace('_', ' ', $title);
@@ -85,7 +85,7 @@ class ZMToolboxUtils extends ZMObject {
      * @return string The formatted amount.
      */
     public function formatMoney($amount, $convert=true, $echo=ZM_ECHO_DEFAULT) {
-        $currency = ZMCurrencies::instance()->getCurrencyForCode(ZMRequest::instance()->getCurrencyCode());
+        $currency = ZMCurrencies::instance()->getCurrencyForCode($this->getRequest()->getCurrencyCode());
         if (null == $currency) {
             ZMLogging::instance()->log('no currency found - using default currency', ZMLogging::WARN);
             $currency = ZMCurrencies::instance()->getCurrencyForCode(ZMSettings::get('defaultCurrency'));

@@ -30,7 +30,7 @@
  * @package org.zenmagick.store.mvc.tools
  * @version $Id: ZMToolboxLocale.php 1966 2009-02-14 10:52:50Z dermanomann $
  */
-class ZMToolboxLocale extends ZMObject {
+class ZMToolboxLocale extends ZMToolboxTool {
 
     /**
      * Format and display a date(time) using the configured ui date format (<em>UI_DATE_FORMAT</em>).

@@ -210,11 +210,12 @@ class ZMTools {
     /**
      * Parse a money amount.
      *
-     * @param string amount The amount probably formatted according to the sessions currency setting.
+     * @param string amount The amount.
+     * @param string currencyCode The currency.
      * @return float The amount.
      */
-    public static function parseMoney($money) {
-        $currency = ZMCurrencies::instance()->getCurrencyForCode(ZMRequest::instance()->getCurrencyCode());
+    public static function parseMoney($money, $currencyCode) {
+        $currency = ZMCurrencies::instance()->getCurrencyForCode($currencyCode);
         $amount = $currency->parse($money, false);
         return $amount;
     }

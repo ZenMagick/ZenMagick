@@ -70,11 +70,7 @@ class ZMPluginPageController extends ZMObject {
     public function getId() { return $this->id_; }
 
     /**
-     * Process a HTTP request.
-     *
-     * <p>Supported request methods are <code>GET</code> and <code>POST</code>.</p>
-     *
-     * @return ZMPluginPage A <code>ZMPluginPage</code> instance or <code>null</code>.
+     * {@inheritDoc}
      */
     public function process($request) { 
         if (!ZMSettings::get('isAdmin')) {
@@ -98,10 +94,7 @@ class ZMPluginPageController extends ZMObject {
 
 
     /**
-     * Process a HTTP GET request.
-     * 
-     * @return ZMPluginPage A <code>ZMPluginPage</code> that handles presentation or <code>null</code>
-     * if the controller generates the contents itself.
+     * {@inheritDoc}
      */
     public function processGet($request) {
         return ZMLoader::make('PluginPage', $this->id_, $this->title_);
@@ -109,10 +102,7 @@ class ZMPluginPageController extends ZMObject {
 
 
     /**
-     * Process a HTTP POST request.
-     * 
-     * @return ZMPluginPage A <code>ZMPluginPage</code> that handles presentation or <code>null</code>
-     * if the controller generates the contents itself.
+     * {@inheritDoc}
      */
     public function processPost($request) { return $this->processGet($request); }
 
@@ -128,17 +118,17 @@ class ZMPluginPageController extends ZMObject {
     /**
      * Evaluate template and return contents.
      *
+     * @param ZMRequest request The current request.
      * @param array context The page context.
      * @param string viewDir Optional view folder relative to the plugin dir; default is <em>views</em>.
      * @return string The page contents.
      */
-    protected function getPageContents($context, $viewDir='views') {
+    protected function getPageContents($request, $context, $viewDir='views') {
         // some basics
-        $request = ZMRequest::instance();
         $session = $request->getSession();
 
         // make toolbox available too
-        $toolbox = ZMRequest::instance()->getToolbox();
+        $toolbox = $request->getToolbox();
         foreach ($toolbox->getTools() as $name => $tool) {
             $$name = $tool;
         }

@@ -54,7 +54,7 @@ class ZMSettingsAdminController extends ZMPluginPageController {
     public function processGet($request) {
         $page = parent::processGet($request);
         $context = array();
-        $page->setContents($this->getPageContents($context));
+        $page->setContents($this->getPageContents($request, $context));
         return $page;
     }
 

@@ -233,7 +233,7 @@ class ZMToolboxMacro extends ZMToolboxTool {
         $toolbox = $this->getToolbox();
         if ($root) { 
             ob_start();
-            $path = ZMRequest::instance()->getCategoryPathArray();
+            $path = $this->getRequest()->getCategoryPathArray();
         }
         echo '<ul' . ($activeParent ? ' class="act"' : '') . '>';
         foreach ($categories as $category) {
