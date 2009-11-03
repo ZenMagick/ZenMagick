@@ -77,7 +77,7 @@ class ZMOrderItem extends ZMObject {
      *
      * @return ZMProduct The product.
      */
-    public public function getProduct() {
+    public function getProduct() {
         return ZMProducts::instance()->getProductForId($this->getProductId());
     }
 

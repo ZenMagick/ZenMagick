@@ -126,6 +126,9 @@ class ZMController extends ZMObject {
             $view->setVar('toolbox', $toolbox);
             // also set individual tools
             $view->setVars($toolbox->getTools());
+            if (null != $formBean) {
+                $view->setVar($formBean->getFormId(), $formBean);
+            }
 
             if (!$view->isValid()) {
                 ZMLogging::instance()->log('invalid view: '.$view->getName().', expected: '.$view->getViewFilename(), ZMLogging::WARN);
