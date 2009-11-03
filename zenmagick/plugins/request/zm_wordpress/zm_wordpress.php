@@ -266,11 +266,13 @@ class zm_wordpress extends Plugin {
      * @param array args Optional parameter.
      */
     public function onZMCreateAccount($args) {
-        $account = $args['account'];
-        if (!ZMLangUtils::isEmpty($account->getNickName())) {
-            $password = $args['clearPassword'];
-            if (!$this->getAdapter()->createAccount($account, $password)) {
-                ZMMessages::instance()->info(zm_l10n_get('Could not create wordpress account - please contact the store administrator.'));
+        if (ZMLangUtils::asBoolean($this->get('syncUser'))) {
+            $account = $args['account'];
+            if (!ZMLangUtils::isEmpty($account->getNickName())) {
+                $password = $args['clearPassword'];
+                if (!$this->getAdapter()->createAccount($account, $password)) {
+                    ZMMessages::instance()->info(zm_l10n_get('Could not create wordpress account - please contact the store administrator.'));
+                }
             }
         }
     }
@@ -284,10 +286,12 @@ class zm_wordpress extends Plugin {
      * @param array args Optional parameter.
      */
     public function onZMPasswordChanged($args) {
-        $account = $args['account'];
-        if (!ZMLangUtils::isEmpty($account->getNickName())) {
-            $password = $args['clearPassword'];
-            $this->getAdapter()->updateAccount($account->getNickName(), $password, $account->getEmail());
+        if (ZMLangUtils::asBoolean($this->get('syncUser'))) {
+            $account = $args['account'];
+            if (!ZMLangUtils::isEmpty($account->getNickName())) {
+                $password = $args['clearPassword'];
+                $this->getAdapter()->updateAccount($account->getNickName(), $password, $account->getEmail());
+            }
         }
     }
 
@@ -299,13 +303,15 @@ class zm_wordpress extends Plugin {
      *
      * @param array args Optional parameter ('view' => $view).
      */
-    function onZMControllerProcessEnd($args) {
-        if ('POST' == ZMRequest::instance()->getMethod()) {
-            $view = $args['view'];
-            if ('account_edit' == $this->page_ && 'success' == $view->getMappingId()) {
-                $account = ZMAccounts::instance()->getAccountForId(ZMRequest::instance()->getAccountId());
-                if (null != $account && !ZMLangUtils::isEmpty($account->getNickName())) {
-                    $this->getAdapter()->updateAccount($account->getNickName(), null, $account->getEmail());
+    public function onZMControllerProcessEnd($args) {
+        if (ZMLangUtils::asBoolean($this->get('syncUser'))) {
+            if ('POST' == ZMRequest::instance()->getMethod()) {
+                $view = $args['view'];
+                if ('account_edit' == $this->page_ && 'success' == $view->getMappingId()) {
+                    $account = ZMAccounts::instance()->getAccountForId(ZMRequest::instance()->getAccountId());
+                    if (null != $account && !ZMLangUtils::isEmpty($account->getNickName())) {
+                        $this->getAdapter()->updateAccount($account->getNickName(), null, $account->getEmail());
+                    }
                 }
             }
         }

@@ -26,6 +26,7 @@ Release 0.9.8
 - refactor toolbox code; allow custom tools via setting; migrate code to
   require $request as parameter for the instance() method (any other
   suggestions?)
+- zm_wordpress: do observe the syncUser flag
 - make the toolbox a property of the request as a lot of tools depend on it
   anyway; this avoids having to reference both toolbox and request as
 	singleton
