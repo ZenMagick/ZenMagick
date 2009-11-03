@@ -53,9 +53,9 @@ class ZMSpecialsController extends ZMController {
      */
     public function processGet($request) {
         // crumbtrail handling
-        ZMCrumbtrail::instance()->addCategoryPath($request->getCategoryPathArray());
-        ZMCrumbtrail::instance()->addManufacturer($request->getManufacturerId());
-        ZMCrumbtrail::instance()->addCrumb("Specials");
+        $request->getCrumbtrail()->addCategoryPath($request->getCategoryPathArray());
+        $request->getCrumbtrail()->addManufacturer($request->getManufacturerId());
+        $request->getCrumbtrail()->addCrumb("Specials");
 
         $resultList = ZMLoader::make("ResultList");
         $resultSource = ZMLoader::make("ObjectResultSource", 'Product', ZMProducts::instance(), "getSpecials", 0);

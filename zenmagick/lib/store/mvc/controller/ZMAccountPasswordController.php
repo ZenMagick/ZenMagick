@@ -56,8 +56,8 @@ class ZMAccountPasswordController extends ZMController {
      * @return ZMView A <code>ZMView</code> instance or <code>null</code>.
      */
     function process($request) { 
-        ZMCrumbtrail::instance()->addCrumb("Account", $request->getToolbox()->net->url(FILENAME_ACCOUNT, '', true, false));
-        ZMCrumbtrail::instance()->addCrumb($request->getToolbox()->utils->getTitle(null, false));
+        $request->getCrumbtrail()->addCrumb("Account", $request->getToolbox()->net->url(FILENAME_ACCOUNT, '', true, false));
+        $request->getCrumbtrail()->addCrumb($request->getToolbox()->utils->getTitle(null, false));
 
         return parent::process($request);
     }

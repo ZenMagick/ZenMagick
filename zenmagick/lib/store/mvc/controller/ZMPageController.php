@@ -58,7 +58,7 @@ class ZMPageController extends ZMController {
             return $this->findView('error'); 
         }
 
-        ZMCrumbtrail::instance()->addCrumb($page->getTitle());
+        $request->getCrumbtrail()->addCrumb($page->getTitle());
 
         return $this->findView(null, array('zm_page' => $page));
     }

@@ -48,7 +48,7 @@
 
         <div id="main">		
           <?php if (!ZMLangUtils::inArray($request->getRequestId(), 'index')) { /* this is the actual view, not neccessarily what is in the URL */ ?>
-              <?php echo $macro->buildCrumbtrail(ZMCrumbtrail::instance(), " &gt; "); ?>
+              <?php echo $macro->buildCrumbtrail($request->getCrumbtrail(), " &gt; "); ?>
           <?php } ?>
 
           <?php if (ZMMessages::instance()->hasMessages()) { ?>

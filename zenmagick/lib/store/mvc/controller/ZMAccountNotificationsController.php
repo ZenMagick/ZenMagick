@@ -52,8 +52,8 @@ class ZMAccountNotificationsController extends ZMController {
      * {@inheritDoc}
      */
     public function handleRequest($request) { 
-        ZMCrumbtrail::instance()->addCrumb("Account", $request->getToolbox()->net->url(FILENAME_ACCOUNT, '', true, false));
-        ZMCrumbtrail::instance()->addCrumb('Product Notifications');
+        $request->getCrumbtrail()->addCrumb("Account", $request->getToolbox()->net->url(FILENAME_ACCOUNT, '', true, false));
+        $request->getCrumbtrail()->addCrumb('Product Notifications');
     }
 
     /**

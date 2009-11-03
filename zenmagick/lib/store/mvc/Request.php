@@ -38,6 +38,8 @@ class Request extends ZMRequest {
     private $categoryPathArray_;
     private $shoppingCart_;
     private $cart_;
+    private $crumbtrail_;
+    private $metaTags_;
 
 
     /**
@@ -51,6 +53,8 @@ class Request extends ZMRequest {
         $this->categoryPathArray_ = null;
         $this->shoppingCart_ = null;
         $this->cart_ = null;
+        $this->crumbtrail_ = null;
+        $this->metaTags_ = null;
     }
 
 
@@ -315,6 +319,32 @@ class Request extends ZMRequest {
         $session = $this->getSession();
         $session->setMessages(ZMMessages::instance()->getMessages());
         parent::redirect($url, $status);
+    }
+
+    /**
+     * Get the crumbtrail for this request.
+     *
+     * @return ZMCrumbtrail The crumbtrail.
+     */
+    public function getCrumbtrail() {
+        if (null == $this->crumbtrail_) {
+            $this->crumbtrail_ = ZMLoader::make('Crumbtrail', $this);
+        }
+
+        return $this->crumbtrail_;
+    }
+
+    /**
+     * Get the meta tags for this request.
+     *
+     * @return ZMMetaTags The meta tags.
+     */
+    public function getMetaTags() {
+        if (null == $this->metaTags_) {
+            $this->metaTags_ = ZMLoader::make('MetaTags', $this);
+        }
+
+        return $this->metaTags_;
     }
 
 }

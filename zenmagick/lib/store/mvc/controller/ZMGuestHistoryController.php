@@ -52,7 +52,7 @@ class ZMGuestHistoryController extends ZMController {
      * {@inheritDoc}
      */
     public function handleRequest($request) { 
-        ZMCrumbtrail::instance()->addCrumb('Guest Order');
+        $request->getCrumbtrail()->addCrumb('Guest Order');
     }
 
     /**
@@ -79,7 +79,7 @@ class ZMGuestHistoryController extends ZMController {
         }
 
         if (null != $account && null != $order && ZMZenCartUserSacsHandler::GUEST == $account->getType() && $account->getEmail() == $email) {
-            ZMCrumbtrail::instance()->addCrumb("Order # ".$order->getId());
+            $request->getCrumbtrail()->addCrumb("Order # ".$order->getId());
             return $this->findView('success', array('zm_order' => $order));
         } else {
             ZMMessages::instance()->warn(zm_l10n_get('No order information found'));

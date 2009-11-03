@@ -120,10 +120,10 @@ class ZMTellAFriendController extends ZMController {
      * @param ZMRequest request The current request.
      */
     protected function handleCrumbtrail($product, $request) {
-        ZMCrumbtrail::instance()->addCategoryPath($request->getCategoryPathArray());
-        ZMCrumbtrail::instance()->addManufacturer($request->getManufacturerId());
-        ZMCrumbtrail::instance()->addProduct($product->getId());
-        ZMCrumbtrail::instance()->addCrumb("Tell A Friend");
+        $request->getCrumbtrail()->addCategoryPath($request->getCategoryPathArray());
+        $request->getCrumbtrail()->addManufacturer($request->getManufacturerId());
+        $request->getCrumbtrail()->addProduct($product->getId());
+        $request->getCrumbtrail()->addCrumb("Tell A Friend");
     }
 
 }

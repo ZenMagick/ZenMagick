@@ -52,8 +52,8 @@ class DefaultController extends ZMController {
         // normal processing
         $view = parent::processGet($request);
 
-        ZMCrumbtrail::instance()->addCrumb("Demo-Theme-Controller-Demo-Crumbtrail");
-        ZMCrumbtrail::instance()->addCrumb($request->getToolbox()->utils->getTitle(null, false));
+        $request->getCrumbtrail()->addCrumb("Demo-Theme-Controller-Demo-Crumbtrail");
+        $request->getCrumbtrail()->addCrumb($request->getToolbox()->utils->getTitle(null, false));
 
         return $view;
     }

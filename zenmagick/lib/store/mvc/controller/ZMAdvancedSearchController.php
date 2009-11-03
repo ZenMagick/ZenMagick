@@ -52,7 +52,7 @@ class ZMAdvancedSearchController extends ZMController {
      * {@inheritDoc}
      */
     public function processGet($request) {
-        ZMCrumbtrail::instance()->addCrumb($request->getToolbox()->utils->getTitle(null, false));
+        $request->getCrumbtrail()->addCrumb($request->getToolbox()->utils->getTitle(null, false));
         return $this->findView();
     }
 

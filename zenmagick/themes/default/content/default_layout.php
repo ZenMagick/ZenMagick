@@ -34,12 +34,12 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
   <head>
-    <title><?php ZMMetaTags::instance()->getTitle() ?></title>
+    <title><?php $request->getMetaTags()->getTitle() ?></title>
     <base href="<?php echo $request->getPageBase() ?>" />
     <meta http-equiv="content-type" content="text/html; charset=<?php echo zm_i18n('HTML_CHARSET') ?>" />
     <meta name="generator" content="ZenMagick <?php echo ZMSettings::get('zenmagick.version') ?>" />
-    <meta name="keywords" content="<?php ZMMetaTags::instance()->getKeywords()?>" />
-    <meta name="description" content="<?php ZMMetaTags::instance()->getDescription()?>" />
+    <meta name="keywords" content="<?php $request->getMetaTags()->getKeywords()?>" />
+    <meta name="description" content="<?php $request->getMetaTags()->getDescription()?>" />
     <link rel="stylesheet" type="text/css" media="screen,projection" href="<?php $zm_theme->themeURL("site.css") ?>" />
     <!--[if IE]><link rel="stylesheet" type="text/css" media="screen,projection" href="<?php $zm_theme->themeURL("ie.css") ?>"  /><![endif]-->
     <?php $utils->jsBottom('common.js') ?>
@@ -91,7 +91,7 @@
 
       <div id="content">
         <?php if ('index' != $request->getRequestId()) { /* this is the actual view, not neccessarily what is in the URL */ ?>
-            <?php echo $macro->buildCrumbtrail(ZMCrumbtrail::instance(), " &gt; "); ?>
+            <?php echo $macro->buildCrumbtrail($request->getCrumbtrail(), " &gt; "); ?>
         <?php } ?>
 
         <?php if (null != ($bannerBox = ZMBanners::instance()->getBannerForSet('header3'))) { ?>

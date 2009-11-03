@@ -57,14 +57,14 @@ class WikiController extends ZMController {
     function processGet($request) {
         $plugin = ZMPlugins::instance()->getPluginForId('zm_wiki');
 
-        ZMCrumbtrail::instance()->clear();
-        ZMCrumbtrail::instance()->addCrumb("Wiki", zm_href('wiki', '', false));
+        $request->getCrumbtrail()->clear();
+        $request->getCrumbtrail()->addCrumb("Wiki", zm_href('wiki', '', false));
         $page = $request->getParameter('page', 'WikiRoot');
         $page = str_replace('_', ' ', $page);
         // capitalise words
         $page = ucwords($page);
         $page = zm_l10n_get($page);
-        ZMCrumbtrail::instance()->addCrumb(zm_l10n_get($page));
+        $request->getCrumbtrail()->addCrumb(zm_l10n_get($page));
 
         $view = ZMLoader::make('FunctionView');
         $view->setFunction(zm_view_wiki);
@@ -80,10 +80,10 @@ class WikiController extends ZMController {
     function processPost($request) {
         $plugin = ZMPlugins::instance()->getPluginForId('zm_wiki');
 
-        ZMCrumbtrail::instance()->clear();
-        ZMCrumbtrail::instance()->addCrumb("Wiki", zm_href('wiki', '', false));
+        $request->getCrumbtrail()->clear();
+        $request->getCrumbtrail()->addCrumb("Wiki", zm_href('wiki', '', false));
         $page = $request->getParameter('page', 'WikiRoot');
-        ZMCrumbtrail::instance()->addCrumb(zm_format_title($page));
+        $request->getCrumbtrail()->addCrumb(zm_format_title($page));
 
         $view = ZMLoader::make('FunctionView');
         $view->setFunction(zm_view_wiki_edit);

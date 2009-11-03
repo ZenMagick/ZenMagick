@@ -51,7 +51,7 @@ class ForwardView extends ZMForwardView {
      * {@inheritDoc}
      */
     public function generate($request) { 
-        ZMCrumbtrail::instance()->reset();
+        $request->getCrumbtrail()->reset();
         return parent::generate($request);
     }
 

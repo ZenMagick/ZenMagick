@@ -52,7 +52,7 @@ class ZMContactUsController extends ZMController {
      * {@inheritDoc}
      */
     public function handleRequest($request) { 
-        ZMCrumbtrail::instance()->addCrumb($request->getToolbox()->utils->getTitle(null, false));
+        $request->getCrumbtrail()->addCrumb($request->getToolbox()->utils->getTitle(null, false));
     }
 
     /**

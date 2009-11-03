@@ -55,7 +55,7 @@ class StoreLocatorController extends ZMController {
      * if the controller generates the contents itself.
      */
     function processGet($request) {
-        ZMCrumbtrail::instance()->addCrumb("Store Locator");
+        $request->getCrumbtrail()->addCrumb("Store Locator");
         $view = ZMLoader::make('FunctionView');
         $view->setFunction(zm_view_store_locator);
         return $view;

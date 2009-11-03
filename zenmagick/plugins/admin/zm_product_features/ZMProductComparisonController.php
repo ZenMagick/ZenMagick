@@ -57,7 +57,7 @@ class ZMProductComparisonController extends ZMController {
      * if the controller generates the contents itself.
      */
     function processGet($request) {
-        ZMCrumbtrail::instance()->addCrumb("Compare Products");
+        $request->getCrumbtrail()->addCrumb("Compare Products");
 
         $product = null;
         $productIds = $request->getParameter("compareId");

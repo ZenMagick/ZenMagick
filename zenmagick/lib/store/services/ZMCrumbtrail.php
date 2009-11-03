@@ -32,14 +32,19 @@
  * @version $Id: ZMCrumbtrail.php 803 2008-03-02 09:13:21Z dermanomann $
  */
 class ZMCrumbtrail extends ZMObject {
-    var $crumbs_;
+    private $crumbs_;
+    protected $request_;
 
 
     /**
      * Create new instance.
+     *
+     * @param ZMRequest request The current request.
      */
-    function __construct() {
+    function __construct($request) {
         parent::__construct();
+        ZMLogging::instance()->trace();
+        $this->request_ = $request;
         $this->reset();
     }
 
@@ -50,27 +55,20 @@ class ZMCrumbtrail extends ZMObject {
         parent::__destruct();
     }
 
-    /**
-     * Get instance.
-     */
-    public static function instance() {
-        return ZMObject::singleton('Crumbtrail');
-    }
-
 
     /**
      * Reset.
      */
-    function reset() {
+    public function reset() {
         $this->crumbs_ = array();
         // always add home
-        $this->addCrumb("Home", ZMRequest::instance()->getToolbox()->net->url(FILENAME_DEFAULT, '', false, false));
+        $this->addCrumb("Home", $this->request_->getToolbox()->net->url(FILENAME_DEFAULT, '', false, false));
     }
 
     /**
      * Clear all crumbs.
      */
-    function clear() {
+    public function clear() {
         $this->crumbs_ = array();
     }
 
@@ -79,7 +77,7 @@ class ZMCrumbtrail extends ZMObject {
      *
      * @return string The name of the last crumbtrail element.
      */
-    function getLastCrumb() {
+    public function getLastCrumb() {
         return end($this->crumbs_);
     }
 
@@ -89,7 +87,7 @@ class ZMCrumbtrail extends ZMObject {
      * @param int index The index of the crumb to access.
      * @return ZMCrumb The corresponding crumbtrail element.
      */
-    function getCrumb($index) {
+    public function getCrumb($index) {
         return $this->crumbs_[$index];
     }
 
@@ -98,7 +96,7 @@ class ZMCrumbtrail extends ZMObject {
      *
      * @return array List of <code>ZMCrumb</code> instances.
      */
-    function getCrumbs() {
+    public function getCrumbs() {
         return $this->crumbs_;
     }
 
@@ -108,7 +106,7 @@ class ZMCrumbtrail extends ZMObject {
      * @param string name The crumbtrail element name.
      * @param string url Optional crumbtrail element URL.
      */
-    function addCrumb($name, $url = null) {
+    public function addCrumb($name, $url = null) {
         array_push($this->crumbs_, ZMLoader::make("Crumb", $name, $url));
     }
 
@@ -117,7 +115,7 @@ class ZMCrumbtrail extends ZMObject {
      *
      * @param array path The category path to add as a list of category ids.
      */
-    function addCategoryPath($path) {
+    public function addCategoryPath($path) {
         if (null == $path)
             return;
 
@@ -127,7 +125,7 @@ class ZMCrumbtrail extends ZMObject {
             if (null == $category) {
                 return;
             }
-            $this->addCrumb($category->getName(), ZMRequest::instance()->getToolbox()->net->url('category', $category->getPath(), false, false));
+            $this->addCrumb($category->getName(),$this->request_->getToolbox()->net->url('category', $category->getPath(), false, false));
         }
     }
 
@@ -136,13 +134,13 @@ class ZMCrumbtrail extends ZMObject {
      *
      * @param int manufacturerId The manufacturer's id.
      */
-    function addManufacturer($manufacturerId) {
+    public function addManufacturer($manufacturerId) {
         if (null == $manufacturerId)
             return;
 
         $manufacturer = ZMManufacturers::instance()->getManufacturerForId($manufacturerId);
         if (null != $manufacturer) {
-            $this->addCrumb($manufacturer->getName(), ZMRequest::instance()->getToolbox()->net->url('category', 'manufacturers_id=' . $manufacturerId, false, false));
+            $this->addCrumb($manufacturer->getName(), $this->request_->getToolbox()->net->url('category', 'manufacturers_id=' . $manufacturerId, false, false));
         }
     }
 
@@ -151,13 +149,13 @@ class ZMCrumbtrail extends ZMObject {
      *
      * @param int productId The product id of the product to add.
      */
-    function addProduct($productId) {
+    public function addProduct($productId) {
         if (null == $productId)
             return;
 
         $product = ZMProducts::instance()->getProductForId($productId);
         if (null != $product) {
-            $this->addCrumb($product->getName(), ZMRequest::instance()->getToolbox()->net->product($productId, null, false));
+            $this->addCrumb($product->getName(), $this->request_->getToolbox()->net->product($productId, null, false));
         }
     }
 

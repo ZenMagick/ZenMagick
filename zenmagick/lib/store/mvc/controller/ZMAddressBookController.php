@@ -52,8 +52,8 @@ class ZMAddressBookController extends ZMController {
      * {@inheritDoc}
      */
     public function processGet($request) {
-        ZMCrumbtrail::instance()->addCrumb("Account", $request->getToolbox()->net->url(FILENAME_ACCOUNT, '', true, false));
-        ZMCrumbtrail::instance()->addCrumb($request->getToolbox()->utils->getTitle(null, false));
+        $request->getCrumbtrail()->addCrumb("Account", $request->getToolbox()->net->url(FILENAME_ACCOUNT, '', true, false));
+        $request->getCrumbtrail()->addCrumb($request->getToolbox()->utils->getTitle(null, false));
 
         $addressList = ZMAddresses::instance()->getAddressesForAccountId($request->getAccountId());
 
