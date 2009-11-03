@@ -43,7 +43,6 @@ class ZMCrumbtrail extends ZMObject {
      */
     function __construct($request) {
         parent::__construct();
-        ZMLogging::instance()->trace();
         $this->request_ = $request;
         $this->reset();
     }

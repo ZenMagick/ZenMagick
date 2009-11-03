@@ -62,7 +62,7 @@ class ZMAccount extends ZMObject {
         $this->firstName_ = null;
         $this->lastName_ = null;
         $this->dob_ = null;
-        $this->nickName_ = null;
+        $this->nickName_ = '';
         $this->gender_ = null;
         $this->email_ = null;
         $this->phone_ = null;

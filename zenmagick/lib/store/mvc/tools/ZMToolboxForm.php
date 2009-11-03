@@ -228,7 +228,7 @@ class ZMToolboxForm extends ZMToolboxTool {
      * @param boolean default The default state; default is <code>false</code>.
      */
     public function checked($setting, $value=true, $default=false) {
-        if ($setting == $value || ($default && empty($value))) {
+        if ($setting === $value || ($default && empty($value))) {
             echo ZMSettings::get('zenmagick.mvc.html.xhtml') ? ' checked="checked"' : ' checked';
         }
     }
