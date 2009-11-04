@@ -259,6 +259,21 @@ class ZMCategories extends ZMObject {
         }
     }
 
+    /**
+     * Get meta tag details for the given id and language.
+     *
+     * @param int categoryId The category id.
+     * @param int languageId Language id.
+     * @return ZMMetaTagDetails The details or <code>null</code>.
+     */
+    public function getMetaTagDetailsForId($categoryId, $languageId) {
+        $sql = "SELECT * from " . TABLE_METATAGS_CATEGORIES_DESCRIPTION . "
+                WHERE categories_id = :categoryId
+                  AND language_id = :languageId";
+        $args = array('categoryId' => $categoryId, 'languageId' => $languageId);
+        return ZMRuntime::getDatabase()->querySingle($sql, $args, TABLE_METATAGS_CATEGORIES_DESCRIPTION, 'MetaTagDetails');
+    }
+
 }
 
 ?>

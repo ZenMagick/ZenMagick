@@ -47,6 +47,13 @@ array(
         'name' => 'column=categories_name;type=string',
         'description' => 'column=categories_description;type=string'
     ),
+    'meta_tags_categories_description' => array(
+        'categoryId' => 'column=categories_id;type=integer;key=true',
+        'languageId' => 'column=language_id;type=integer;key=true',
+        'title' => 'column=metatags_title;type=string',
+        'keywords' => 'column=metatags_keywords;type=string',
+        'description' => 'column=metatags_description;type=string'
+    ),
     'products_to_categories' => array(
         'productId' => 'column=products_id;type=integer;key=true',
         'categoryId' => 'column=categories_id;type=integer;key=true'
@@ -194,6 +201,13 @@ array(
         'metatagsModelStatus' => 'column=metatags_model_status;type=integer',
         'metatagsPriceStatus' => 'column=metatags_price_status;type=integer',
         'metatagsTitleTaglineStatus' => 'column=metatags_title_tagline_status;type=integer'
+    ),
+    'meta_tags_products_description' => array(
+        'productId' => 'column=products_id;type=integer;key=true',
+        'languageId' => 'column=language_id;type=integer;key=true',
+        'title' => 'column=metatags_title;type=string',
+        'keywords' => 'column=metatags_keywords;type=string',
+        'description' => 'column=metatags_description;type=string'
     ),
     'products_description' => array(
         'productId' => 'column=products_id;type=integer;key=true',

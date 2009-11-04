@@ -290,6 +290,16 @@ class ZMCategory extends ZMObject {
         return ZMCategories::instance()->getProductTypeIds($this->getId());
     }
 
+    /**
+     * Get meta tag details if available.
+     *
+     * @param int languageId The language id.
+     * @return ZMMetaTagDetails The details or <code>null</code>.
+     */
+    public function getMetaTagDetails($languageId) {
+        return ZMCategories::instance()->getMetaTagDetailsForId($this->getId(), $languageId);
+    }
+
 }
 
 ?>

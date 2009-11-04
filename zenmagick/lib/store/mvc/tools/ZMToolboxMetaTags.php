@@ -127,12 +127,18 @@ class ZMToolboxMetaTags extends ZMToolboxTool {
         if (null != $this->product_) {
             $value .= $this->product_;
             $value .= $this->keywordDelimiter_;
+        } else if (null != ($category = ZMCategories::instance()->getCategoryForId($this->getRequest()->getCategoryId()))) {
+            $languageId = $this->getRequest()->getSession()->getLanguageId();
+            if (null != ($details = $category->getMetaTagDetails($languageId))) {
+                $value = $this->getToolbox()->html->encode($details->getKeywords(), false);
+                if ($echo) echo $value;
+                return $value;
+            }
         }
 
         $value .= $this->topCategories_;
 
         $value = $this->getToolbox()->html->encode($value, false);
-
         if ($echo) echo $value;
         return $value;
     }
@@ -157,8 +163,14 @@ class ZMToolboxMetaTags extends ZMToolboxTool {
             $value .= $this->topCategories_;
         }
 
-        $value = $this->getToolbox()->html->encode($value, false);
+        if (null != ($category = ZMCategories::instance()->getCategoryForId($this->getRequest()->getCategoryId()))) {
+            $languageId = $this->getRequest()->getSession()->getLanguageId();
+            if (null != ($details = $category->getMetaTagDetails($languageId))) {
+                $value = $details->getDescription();
+            }
+        }
 
+        $value = $this->getToolbox()->html->encode($value, false);
         if ($echo) echo $value;
         return $value;
     }

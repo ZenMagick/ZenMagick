@@ -35,6 +35,7 @@ Release 0.9.8
 - make crumbtrail and meta tags properties of Request; requires minor template
   changes where ZMCrumbtrail::instance() and ZMMetaTags::instance() are used
 - change my mind and make crumbtrail and meta tags toolbox tools!
+- add meta tag support for categories
 
 Release 0.9.7
 - add ZMProductAssociation service and related code
