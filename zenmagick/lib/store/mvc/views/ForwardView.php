@@ -51,7 +51,7 @@ class ForwardView extends ZMForwardView {
      * {@inheritDoc}
      */
     public function generate($request) { 
-        $request->getCrumbtrail()->reset();
+        $request->getToolbox()->crumbtrail->reset();
         return parent::generate($request);
     }
 

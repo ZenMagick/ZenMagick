@@ -59,7 +59,7 @@ class ZMStaticController extends ZMController {
         $sub = $request->getSubPageName();
         $sub = str_replace('_', ' ', $sub);
         $sub = ucwords($sub);
-        $request->getCrumbtrail()->addCrumb($sub);
+        $request->getToolbox()->crumbtrail->addCrumb($sub);
 
         return $this->findView();
     }

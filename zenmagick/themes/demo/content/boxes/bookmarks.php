@@ -25,7 +25,7 @@
 ?>
 <?php
     $bmurl = urlencode($net->url(null, null, false, false));
-    $bmtitle = zm_l10n_get("%s at %s", $request->getMetaTags()->getTitle(false), ZMSettings::get('storeName'));
+    $bmtitle = zm_l10n_get("%s at %s", $metaTags->getTitle(false), ZMSettings::get('storeName'));
 ?>
 <h3><a href="http://ekstreme.com/socializer/?url=<?php echo $bmurl ?>&amp;title=<?php echo $bmtitle ?>"<?php $html->hrefTarget()?>><?php zm_l10n("[More]") ?></a><?php zm_l10n("Bookmark this") ?></h3>
 <div id="sb_bookmarks" class="box">

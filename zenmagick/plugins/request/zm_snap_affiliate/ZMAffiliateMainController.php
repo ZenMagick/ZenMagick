@@ -51,7 +51,7 @@ class ZMAffiliateMainController extends ZMController {
      * {@inheritDoc}
      */
     public function handleRequest($request) {
-        $request->getCrumbtrail()->addCrumb("Affilite Overview");
+        $request->getToolbox()->crumbtrail->addCrumb("Affilite Overview");
 
         $account = $request->getAccount();
 

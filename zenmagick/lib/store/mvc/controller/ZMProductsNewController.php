@@ -53,9 +53,9 @@ class ZMProductsNewController extends ZMController {
      */
     public function processGet($request) {
         // crumbtrail handling
-        $request->getCrumbtrail()->addCategoryPath($request->getCategoryPathArray());
-        $request->getCrumbtrail()->addManufacturer($request->getManufacturerId());
-        $request->getCrumbtrail()->addCrumb("New Products");
+        $request->getToolbox()->crumbtrail->addCategoryPath($request->getCategoryPathArray());
+        $request->getToolbox()->crumbtrail->addManufacturer($request->getManufacturerId());
+        $request->getToolbox()->crumbtrail->addCrumb("New Products");
 
         $resultList = ZMLoader::make("ResultList");
         $resultSource = ZMLoader::make("ObjectResultSource", 'Product', ZMProducts::instance(), "getNewProducts");

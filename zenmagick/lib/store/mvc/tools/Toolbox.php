@@ -57,25 +57,36 @@ class Toolbox extends ZMToolbox {
      * @return ZMToolboxAdmin
      */
     public $admin;
+    /** 
+     * @var ZMToolboxCrumbtrail
+     * @return ZMToolboxCrumbtrail
+     */
+    public $crumbtrail;
+    /** 
+     * @var ZMToolboxMetaTags
+     * @return ZMToolboxMetaTags
+     */
+    public $metaTags;
 
 
     /**
      * Create new instance.
      */
     function __construct($request) {
-        parent::__construct($request);
-
         // add store tools
         $tools = array(
             'form' => 'ToolboxForm', 
             'macro' => 'ToolboxMacro', 
             'locale' => 'ToolboxLocale', 
             'utils' => 'ToolboxUtils', 
-            'admin' => 'ToolboxAdmin'
+            'admin' => 'ToolboxAdmin',
+            'crumbtrail' => 'ToolboxCrumbtrail',
+            'metaTags' => 'ToolboxMetaTags'
         ); 
         foreach ($tools as $name => $class) {
             ZMSettings::append('zenmagick.mvc.toolbox.tools', $name.':'.$class, ',');
         }
+        parent::__construct($request);
     }
 
     /**

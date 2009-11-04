@@ -52,9 +52,9 @@ class ZMAddressBookAddController extends ZMController {
      * {@inheritDoc}
      */
     public function handleRequest($request) {
-        $request->getCrumbtrail()->addCrumb("Account", $request->getToolbox()->net->url(FILENAME_ACCOUNT, '', true, false));
-        $request->getCrumbtrail()->addCrumb("Address Book", $request->getToolbox()->net->url(FILENAME_ADDRESS_BOOK, '', true, false));
-        $request->getCrumbtrail()->addCrumb("New Entry");
+        $request->getToolbox()->crumbtrail->addCrumb("Account", $request->getToolbox()->net->url(FILENAME_ACCOUNT, '', true, false));
+        $request->getToolbox()->crumbtrail->addCrumb("Address Book", $request->getToolbox()->net->url(FILENAME_ADDRESS_BOOK, '', true, false));
+        $request->getToolbox()->crumbtrail->addCrumb("New Entry");
     }
 
     /**

@@ -56,9 +56,9 @@ class ZMCategoryController extends ZMController {
      * @return ZMView A <code>ZMView</code> instance or <code>null</code>.
      */
     function process($request) { 
-        $request->getCrumbtrail()->addCategoryPath($request->getCategoryPathArray());
-        $request->getCrumbtrail()->addManufacturer($request->getManufacturerId());
-        $request->getCrumbtrail()->addProduct($request->getProductId());
+        $request->getToolbox()->crumbtrail->addCategoryPath($request->getCategoryPathArray());
+        $request->getToolbox()->crumbtrail->addManufacturer($request->getManufacturerId());
+        $request->getToolbox()->crumbtrail->addProduct($request->getProductId());
 
         return parent::process($request);
     }

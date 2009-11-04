@@ -50,7 +50,7 @@ Released   : 20090515
 				<!-- start content center column  -->
       <div id="content">
           <?php if (!ZMTools::inArray($request->getRequestId(), 'index')) { /* this is the actual view, not neccessarily what is in the URL */ ?>
-              <?php echo $macro->buildCrumbtrail($request->getCrumbtrail(), " &gt; "); ?>
+              <?php echo $macro->buildCrumbtrail($crumbtrail, " &gt; "); ?>
           <?php } ?>
 
           <?php if (ZMMessages::instance()->hasMessages()) { ?>

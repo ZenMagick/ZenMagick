@@ -57,7 +57,7 @@ class ZMLoginController extends ZMController {
      * @return ZMView A <code>ZMView</code> instance or <code>null</code>.
      */
     public function process($request) { 
-        $request->getCrumbtrail()->addCrumb($request->getToolbox()->utils->getTitle(null, false));
+        $request->getToolbox()->crumbtrail->addCrumb($request->getToolbox()->utils->getTitle(null, false));
 
         return parent::process($request);
     }

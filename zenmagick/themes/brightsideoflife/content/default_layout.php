@@ -3,11 +3,11 @@
   <head>
     <meta http-equiv="content-type" content="text/html; charset=<?php echo zm_i18n('HTML_CHARSET') ?>" />
     <meta name="generator" content="ZenMagick <?php echo ZMSettings::get('zenmagick.version') ?>" />
-    <meta name="keywords" content="<?php $request->getMetaTags()->getKeywords()?>" />
-    <meta name="description" content="<?php $request->getMetaTags()->getDescription()?>" />
+    <meta name="keywords" content="<?php $metaTags->getKeywords()?>" />
+    <meta name="description" content="<?php $metaTags->getDescription()?>" />
     <link rel="stylesheet" type="text/css" media="screen,projection" href="<?php $zm_theme->themeURL("site.css") ?>" />
     <link rel="stylesheet" type="text/css" media="screen,projection" href="<?php $zm_theme->themeURL("theme.css") ?>" />
-    <title><?php $request->getMetaTags()->getTitle() ?></title>
+    <title><?php $metaTags->getTitle() ?></title>
   </head>
   <body>
   <!-- wrap starts here -->
@@ -76,7 +76,7 @@
         
       <div id="main">	
         <?php if (!ZMLangUtils::inArray($request->getRequestId(), 'index')) { /* this is the actual view, not neccessarily what is in the URL */ ?>
-            <?php echo $macro->buildCrumbtrail($request->getCrumbtrail(), " &gt; "); ?>
+            <?php echo $macro->buildCrumbtrail($crumbtrail, " &gt; "); ?>
         <?php } ?>
 
         <?php if (ZMMessages::instance()->hasMessages()) { ?>

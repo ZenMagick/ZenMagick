@@ -33,7 +33,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
   <head>
-    <title><?php $request->getMetaTags()->getTitle()?></title>
+    <title><?php $metaTags->getTitle()?></title>
     <base href="<?php echo $request->getPageBase() ?>" />
     <meta http-equiv="content-type" content="text/html; charset=<?php echo zm_i18n('HTML_CHARSET') ?>" />
     <link rel="stylesheet" href="<?php $zm_theme->themeURL("popup.css") ?>" type="text/css" media="screen,projection" />

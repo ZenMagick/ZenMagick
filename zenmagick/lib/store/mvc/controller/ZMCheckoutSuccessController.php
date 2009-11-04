@@ -52,8 +52,8 @@ class ZMCheckoutSuccessController extends ZMController {
      * {@inheritDoc}
      */
     public function processGet($request) {
-        $request->getCrumbtrail()->addCrumb("Checkout", $request->getToolbox()->net->url(FILENAME_CHECKOUT_SHIPPING, '', true, false));
-        $request->getCrumbtrail()->addCrumb($request->getToolbox()->utils->getTitle(null, false));
+        $request->getToolbox()->crumbtrail->addCrumb("Checkout", $request->getToolbox()->net->url(FILENAME_CHECKOUT_SHIPPING, '', true, false));
+        $request->getToolbox()->crumbtrail->addCrumb($request->getToolbox()->utils->getTitle(null, false));
 
         // see: onZMViewDone()
         ZMEvents::instance()->attach($this);

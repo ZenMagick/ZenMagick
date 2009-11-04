@@ -73,8 +73,8 @@ class ZMCreateAccountController extends ZMController {
      * {@inheritDoc}
      */
     public function handleRequest($request) { 
-        $request->getCrumbtrail()->addCrumb("Account", $request->getToolbox()->net->url(FILENAME_ACCOUNT, '', true, false));
-        $request->getCrumbtrail()->addCrumb($request->getToolbox()->utils->getTitle(null, false));
+        $request->getToolbox()->crumbtrail->addCrumb("Account", $request->getToolbox()->net->url(FILENAME_ACCOUNT, '', true, false));
+        $request->getToolbox()->crumbtrail->addCrumb($request->getToolbox()->utils->getTitle(null, false));
     }
 
     /**

@@ -58,7 +58,7 @@ class ZMProductReviewsWriteController extends ZMController {
         $product = $this->getProduct($request);
         $this->viewData_['zm_product'] = $product;
         $this->viewData_['zm_account'] = $request->getAccount();
-        $this->handleCrumbtrail($product, $request);
+        $this->handleCrumbtrail($this->product_, $request);
     }
 
     /**
@@ -123,10 +123,10 @@ class ZMProductReviewsWriteController extends ZMController {
      * @param ZMRequest request The current request.
      */
     protected function handleCrumbtrail($product, $request) {
-        $request->getCrumbtrail()->addCategoryPath($request->getCategoryPathArray());
-        $request->getCrumbtrail()->addManufacturer($request->getManufacturerId());
-        $request->getCrumbtrail()->addProduct($product->getId());
-        $request->getCrumbtrail()->addCrumb("Reviews");
+        $request->getToolbox()->crumbtrail->addCategoryPath($request->getCategoryPathArray());
+        $request->getToolbox()->crumbtrail->addManufacturer($request->getManufacturerId());
+        $request->getToolbox()->crumbtrail->addProduct($product->getId());
+        $request->getToolbox()->crumbtrail->addCrumb("Reviews");
     }
 
 }

@@ -69,9 +69,9 @@ class ZMProductInfoController extends ZMController {
         }
 
         // crumbtrail handling
-        $request->getCrumbtrail()->addCategoryPath($request->getCategoryPathArray());
-        $request->getCrumbtrail()->addManufacturer($request->getManufacturerId());
-        $request->getCrumbtrail()->addProduct($product->getId());
+        $request->getToolbox()->crumbtrail->addCategoryPath($request->getCategoryPathArray());
+        $request->getToolbox()->crumbtrail->addManufacturer($request->getManufacturerId());
+        $request->getToolbox()->crumbtrail->addProduct($product->getId());
 
         $viewName = ZMTemplateManager::instance()->getProductTemplate($product->getId());
         return $this->findView($viewName, $data);

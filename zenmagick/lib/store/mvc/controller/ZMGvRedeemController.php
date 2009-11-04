@@ -55,7 +55,7 @@ class ZMGvRedeemController extends ZMController {
      * if the controller generates the contents itself.
      */
     function processGet($request) {
-        $request->getCrumbtrail()->addCrumb($request->getToolbox()->utils->getTitle(null, false));
+        $request->getToolbox()->crumbtrail->addCrumb($request->getToolbox()->utils->getTitle(null, false));
 
         $gvRedeem = $this->getFormBean($request);
         if (!ZMLangUtils::isEmpty($gvRedeem->getCouponCode())) {

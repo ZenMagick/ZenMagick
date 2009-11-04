@@ -53,10 +53,10 @@ class ZMProductReviewsController extends ZMController {
      */
     public function processGet($request) {
         // crumbtrail handling
-        $request->getCrumbtrail()->addCategoryPath($request->getCategoryPathArray());
-        $request->getCrumbtrail()->addManufacturer($request->getManufacturerId());
-        $request->getCrumbtrail()->addProduct($request->getProductId());
-        $request->getCrumbtrail()->addCrumb("Reviews");
+        $request->getToolbox()->crumbtrail->addCategoryPath($request->getCategoryPathArray());
+        $request->getToolbox()->crumbtrail->addManufacturer($request->getManufacturerId());
+        $request->getToolbox()->crumbtrail->addProduct($request->getProductId());
+        $request->getToolbox()->crumbtrail->addCrumb("Reviews");
 
         $product = ZMProducts::instance()->getProductForId($request->getProductId());
         if (null == $product) {
