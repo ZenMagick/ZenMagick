@@ -94,8 +94,17 @@ class ZMToolboxMetaTags extends ZMToolboxTool {
             $title = ZMSettings::get('storeName');
         } else if (ZMLangUtils::startsWith($name, 'product_')) {
             $title = $this->product_;
-        } else if ('category' == $name || 'category_list' == $name || 'manufacturer' == $name) {
+        } else if ('manufacturer' == $name) {
             $title = $this->category_;
+        } else if ('category' == $name || 'category_list' == $name) {
+            if (null != ($category = ZMCategories::instance()->getCategoryForId($this->getRequest()->getCategoryId()))) {
+                $languageId = $this->getRequest()->getSession()->getLanguageId();
+                if (null != ($details = $category->getMetaTagDetails($languageId))) {
+                    $title = $this->getToolbox()->html->encode($details->getTitle(), false);
+                }
+            } else {
+                $title = $this->category_;
+            }
         } else if ('page' == $name) {
             $vars = $controller->getView()->getVars();
             $ezpage = $vars['zm_page'];
