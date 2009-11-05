@@ -1,5 +1,11 @@
 ## sample of custom local properties
 ## copy this file and rename to local.properties
 
+## skip incremental build
+#skip.incr = true
+
 ## change to the name of your admin folder, if different
 zencart.admin.dir = admin
+
+## location of zencart base for full release build
+zencart.base.dir = /tmp/zc-base

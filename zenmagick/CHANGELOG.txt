@@ -36,6 +36,8 @@ Release 0.9.8
   changes where ZMCrumbtrail::instance() and ZMMetaTags::instance() are used
 - change my mind and make crumbtrail and meta tags toolbox tools!
 - add meta tag support for categories
+- add inital work for building a full release that includes already patched 
+  zen cart sources
 
 Release 0.9.7
 - add ZMProductAssociation service and related code

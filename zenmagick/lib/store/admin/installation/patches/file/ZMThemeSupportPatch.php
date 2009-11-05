@@ -63,7 +63,7 @@ class ZMThemeSupportPatch extends ZMFilePatch {
         // look for ZenMagick code...
         $storeInclude = false;
         foreach ($lines as $line) {
-            if (false !== strpos($line, ZM_BASE_DIR."store.php")) {
+            if (false !== strpos($line, "store.php")) {
                 $storeInclude = true;
             }
         }
@@ -144,7 +144,7 @@ class ZMThemeSupportPatch extends ZMFilePatch {
         if (is_writeable(_ZM_ZEN_INDEX_PHP)) {
             $unpatchedLines = array();
             foreach ($lines as $line) {
-                if (false !== strpos($line, "include") && false !== strpos($line, ZM_BASE_DIR."store.php")) {
+                if (false !== strpos($line, "include") && false !== strpos($line, "store.php")) {
                     continue;
                 }
                 array_push($unpatchedLines, $line);

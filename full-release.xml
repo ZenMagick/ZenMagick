@@ -1,0 +1,77 @@
+<project name="full-release" default="" basedir=".">
+
+    <!-- The full release build dir -->
+    <property name="release.full.dir" value="${build.dir}/full" />
+    <!-- Line ending to be used for multi line substitutes -->
+    <property name="nl" value="&#13;&#10;" />
+
+
+    <!-- build full release -->
+    <target name="full-release" description="Build full release including zen cart.">
+        <mkdir dir="${release.full.dir}" />
+        <!-- overwrite to get a fresh copy -->
+        <copy todir="${release.full.dir}" overwrite="true">
+            <fileset dir="${zencart.base.dir}">
+            </fileset>
+        </copy>
+
+        <!-- add zenmagick admin -->
+        <replaceregexp flags="">
+            <fileset file="${release.full.dir}/admin/includes/boxes/extras_dhtml.php" />
+            <regexp pattern="(&lt;!-- extras_dhtml_eof //--&gt;)"/>
+            <substitution expression="\1${nl}&lt;?php require(DIR_WS_BOXES.'zenmagick_dhtml.php'); /* added by ZenMagick installation patcher */ ?&gt;" />
+        </replaceregexp>
+
+        <!-- add event proxy code -->
+        <replaceregexp flags="">
+            <fileset file="${release.full.dir}/includes/classes/class.base.php" />
+            <regexp pattern="(.*function notify\(.*\{)"/>
+            <substitution expression='\1${nl}    if(class_exists("ZMEvents")) { ZMEvents::instance()->update($$this, $$eventID, $$paramArray); } /* added by ZenMagick installation patcher */' />
+        </replaceregexp>
+
+        <!-- patch zen_href_linl -->
+        <antcall target="rename-function">
+            <param name="rename.file" value="${release.full.dir}/includes/functions/html_output.php" />
+            <param name="rename.function" value="zen_href_link" />
+            <param name="rename.suffix" value="_DISABLED" />
+        </antcall>
+
+        <!-- patch email funcs -->
+        <antcall target="rename-function">
+            <param name="rename.file" value="${release.full.dir}/includes/functions/functions_email.php" />
+            <param name="rename.function" value="zen_mail" />
+            <param name="rename.suffix" value="_org" />
+        </antcall>
+        <antcall target="rename-function">
+            <param name="rename.file" value="${release.full.dir}/includes/functions/functions_email.php" />
+            <param name="rename.function" value="zen_build_html_email_from_template" />
+            <param name="rename.suffix" value="_org" />
+        </antcall>
+
+        <!-- i18n patches -->
+        <!-- edit customer patch -->
+        <!-- no themes support patch -->
+        <!-- sidebox dummy patch -->
+        <!-- theme dummy patch -->
+        <!-- theme support patch -->
+        <replaceregexp flags="">
+            <fileset file="${release.full.dir}/index.php" />
+            <regexp pattern="(.*require.*html_header.php.*)"/>
+            <substitution expression="  include('zenmagick/store.php'); /* added by ZenMagick installation patcher */${nl}\1" />
+        </replaceregexp>
+
+        <!-- coupon admin patch -->
+    </target>
+
+
+    <!-- function rename -->
+    <target name="rename-function" description="Rename a function">
+        <!-- rename.file, rename.function, rename.suffix  -->
+        <replaceregexp flags="m">
+            <fileset file="${rename.file}" />
+            <regexp pattern="(.*function \s*)(${rename.function})(\s*\(.*\{)(\s*$)"/>
+            <substitution expression='\1\2${rename.suffix}\3 /* modified by ZenMagick installation patcher */\4' />
+        </replaceregexp>
+    </target>
+
+</project>
