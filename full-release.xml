@@ -16,20 +16,20 @@
         </copy>
 
         <!-- add zenmagick admin -->
-        <replaceregexp flags="">
-            <fileset file="${release.full.dir}/admin/includes/boxes/extras_dhtml.php" />
-            <regexp pattern="(&lt;!-- extras_dhtml_eof //--&gt;)"/>
-            <substitution expression="\1${nl}&lt;?php require(DIR_WS_BOXES.'zenmagick_dhtml.php'); /* added by ZenMagick installation patcher */ ?&gt;" />
-        </replaceregexp>
+        <antcall target="insert-after">
+            <param name="insert.file" value="${release.full.dir}/admin/includes/boxes/extras_dhtml.php" />
+            <param name="insert.regexp" value="extras_dhtml_eof" />
+            <param name="insert.substitution" value="&lt;?php require(DIR_WS_BOXES.'zenmagick_dhtml.php'); /* added by ZenMagick installation patcher */ ?&gt;" />
+        </antcall>
 
         <!-- add event proxy code -->
-        <replaceregexp flags="">
-            <fileset file="${release.full.dir}/includes/classes/class.base.php" />
-            <regexp pattern="(.*function notify\(.*\{)"/>
-            <substitution expression='\1${nl}    if(class_exists("ZMEvents")) { ZMEvents::instance()->update($$this, $$eventID, $$paramArray); } /* added by ZenMagick installation patcher */' />
-        </replaceregexp>
+        <antcall target="insert-after">
+            <param name="insert.file" value="${release.full.dir}/includes/classes/class.base.php" />
+            <param name="insert.regexp" value="function notify\(" />
+            <param name="insert.substitution" value='    if(class_exists("ZMEvents")) { ZMEvents::instance()->update($$this, $$eventID, $$paramArray); } /* added by ZenMagick installation patcher */' />
+        </antcall>
 
-        <!-- patch zen_href_linl -->
+        <!-- patch zen_href_link -->
         <antcall target="rename-function">
             <param name="rename.file" value="${release.full.dir}/includes/functions/html_output.php" />
             <param name="rename.function" value="zen_href_link" />
@@ -49,28 +49,76 @@
         </antcall>
 
         <!-- i18n patches -->
+        <antcall target="rename-function">
+            <param name="rename.file" value="${release.full.dir}/includes/languages/english.php" />
+            <param name="rename.function" value="zen_date_raw" />
+            <param name="rename.suffix" value="_DISABLED" />
+        </antcall>
+        <antcall target="rename-function">
+            <param name="rename.file" value="${release.full.dir}/admin/includes/languages/english.php" />
+            <param name="rename.function" value="zen_date_raw" />
+            <param name="rename.suffix" value="_DISABLED" />
+        </antcall>
+
         <!-- edit customer patch -->
         <!-- no themes support patch -->
+        <antcall target="insert-before">
+            <param name="insert.file" value="${release.full.dir}/includes/application_bottom.php" />
+            <param name="insert.regexp" value="session_write_close" />
+            <param name="insert.substitution" value="if (!ZMSettings::get('isEnableZMThemes')) { $$_zm_args = ZMEvents::instance()->fireEvent(null, Events::FINALISE_CONTENTS, array('contents' => ob_get_clean(), 'request' => ZMRequest::instance())); echo $$_zm_args['contents']; ZMRequest::instance()->getSession()->clearMessages(); ZMEvents::instance()->fireEvent(null, Events::ALL_DONE, array('request' => ZMRequest::instance())); } /* added by ZenMagick installation patcher */" />
+        </antcall>
+
         <!-- sidebox dummy patch -->
         <!-- theme dummy patch -->
         <!-- theme support patch -->
-        <replaceregexp flags="">
-            <fileset file="${release.full.dir}/index.php" />
-            <regexp pattern="(.*require.*html_header.php.*)"/>
-            <substitution expression="  include('zenmagick/store.php'); /* added by ZenMagick installation patcher */${nl}\1" />
-        </replaceregexp>
+        <antcall target="insert-before">
+            <param name="insert.file" value="${release.full.dir}/index.php" />
+            <param name="insert.regexp" value="require.*html_header.php" />
+            <param name="insert.substitution" value="  include('zenmagick/store.php'); /* added by ZenMagick installation patcher */" />
+        </antcall>
 
         <!-- coupon admin patch -->
+        <antcall target="insert-after">
+            <param name="insert.file" value="${release.full.dir}/admin/coupon_admin.php" />
+            <param name="insert.regexp" value="audience_select = get_audience_sql_query" />
+            <param name="insert.substitution" value='    $audience_select["query_string"] = $db->bindVars("select customers_id, customers_firstname, customers_lastname, customers_email_address from " . TABLE_CUSTOMERS . " where customers_email_address = :emailAddress", ":emailAddress", zen_db_prepare_input($_POST["customers_email_address"]), "string"); // added by ZenMagick' />
+        </antcall>
+        <antcall target="insert-after">
+            <param name="insert.file" value="${release.full.dir}/admin/coupon_admin.php" />
+            <param name="insert.regexp" value="html_msg\['EMAIL_FIRST_NAME'\] =" />
+            <param name="insert.substitution" value='\1${nl}      $html_msg["accountId"] = $mail->fields["customers_id"]; // added by ZenMagick' />
+        </antcall>
+
     </target>
 
 
     <!-- function rename -->
-    <target name="rename-function" description="Rename a function">
+    <target name="rename-function" description="Rename a function.">
         <!-- rename.file, rename.function, rename.suffix  -->
         <replaceregexp flags="m">
             <fileset file="${rename.file}" />
             <regexp pattern="(.*function \s*)(${rename.function})(\s*\(.*\{)(\s*$)"/>
             <substitution expression='\1\2${rename.suffix}\3 /* modified by ZenMagick installation patcher */\4' />
+        </replaceregexp>
+    </target>
+
+    <!-- insert after -->
+    <target name="insert-after" description="Insert code after the given pattern.">
+        <!-- insert.file, insert.regexp, insert.substitution  -->
+        <replaceregexp flags="m" byline="true">
+            <fileset file="${insert.file}" />
+            <regexp pattern="(.*${insert.regexp}.*)"/>
+            <substitution expression="\1${nl}${insert.substitution}" />
+        </replaceregexp>
+    </target>
+
+    <!-- insert before -->
+    <target name="insert-before" description="Insert code before the given pattern.">
+        <!-- insert.file, insert.regexp, insert.substitution  -->
+        <replaceregexp flags="m" byline="true">
+            <fileset file="${insert.file}" />
+            <regexp pattern="(.*${insert.regexp}.*)"/>
+            <substitution expression="${insert.substitution}${nl}\1" />
         </replaceregexp>
     </target>
 
