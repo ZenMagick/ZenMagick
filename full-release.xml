@@ -15,6 +15,17 @@
             </fileset>
         </copy>
 
+        <!-- apply-full-release-patches -->
+        <antcall target="apply-full-release-patches" />
+
+        <!-- create theme dummy files -->
+        <antcall target="create-theme-dummy"><param name="theme.id" value='default' /></antcall>
+        <antcall target="create-theme-dummy"><param name="theme.id" value='demo' /></antcall>
+
+    </target>
+
+    <!-- patch full release -->
+    <target name="apply-full-release-patches" description="Patch full release including zen cart.">
         <!-- add zenmagick admin -->
         <antcall target="insert-after">
             <param name="insert.file" value="${release.full.dir}/admin/includes/boxes/extras_dhtml.php" />
@@ -61,6 +72,12 @@
         </antcall>
 
         <!-- edit customer patch -->
+        <antcall target="insert-after">
+          <param name="insert.file" value="${release.full.dir}/admin/customers.php" />
+            <param name="insert.regexp" value="where customers_email_address = " />
+            <param name="insert.substitution" value="  and NOT customers_password = ''" />
+        </antcall>
+
         <!-- no themes support patch -->
         <antcall target="insert-before">
             <param name="insert.file" value="${release.full.dir}/includes/application_bottom.php" />
@@ -86,7 +103,7 @@
         <antcall target="insert-after">
             <param name="insert.file" value="${release.full.dir}/admin/coupon_admin.php" />
             <param name="insert.regexp" value="html_msg\['EMAIL_FIRST_NAME'\] =" />
-            <param name="insert.substitution" value='\1${nl}      $html_msg["accountId"] = $mail->fields["customers_id"]; // added by ZenMagick' />
+            <param name="insert.substitution" value='      $html_msg["accountId"] = $mail->fields["customers_id"]; // added by ZenMagick' />
         </antcall>
 
     </target>
@@ -121,5 +138,41 @@
             <substitution expression="${insert.substitution}${nl}\1" />
         </replaceregexp>
     </target>
+
+    <!-- build theme dummy -->
+    <target name="create-theme-dummy" description="Create theme dummy file for zen cart.">
+        <!-- theme.id  -->
+        <mkdir dir="${release.full.dir}/includes/templates/${theme.id}" />
+
+        <!-- get a defined filename -->
+        <concat destfile="${build.dir}/theme_info.php"><fileset dir="${zenmagick.src.dir}/themes/${theme.id}" includes="*.php"/></concat>
+        <!-- prepare info lines -->
+        <replaceregexp flags="" byline="true">
+            <fileset file="${build.dir}/theme_info.php" />
+            <regexp pattern=".*->set(Name|Version|Author|Description)\('(.*)'.*"/>
+            <substitution expression="  $template_\1 = '\2';" />
+        </replaceregexp>
+        <concat destfile="${build.dir}/template_info.php" eol="dos">
+            <header filtering="no" trimleading="yes">&lt;?php /** dummy file created by ZenMagick installation patcher **/
+            </header>
+            <path path="${build.dir}/theme_info.php"/>
+            <filterchain>
+                <linecontains>
+                    <contains value="template_"/>
+                </linecontains>
+            </filterchain>
+            <footer filtering="no" trimleading="no">  $template_screenshot = 'preview.jpg';
+?&gt;</footer>
+        </concat>
+
+        <!-- copy to zencart's template folder -->
+        <copy file="${build.dir}/template_info.php" todir="${release.full.dir}/includes/templates/${theme.id}" />
+
+        <!-- copy image as well... -->
+        <mkdir dir="${release.full.dir}/includes/templates/${theme.id}/images" />
+        <copy file="${zenmagick.src.dir}/themes/${theme.id}/preview.jpg" todir="${release.full.dir}/includes/templates/${theme.id}/images" />
+
+    </target>
+
 
 </project>
