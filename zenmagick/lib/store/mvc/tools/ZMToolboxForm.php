@@ -223,12 +223,13 @@ class ZMToolboxForm extends ZMToolboxTool {
     /**
      * Makes a checkbox or radio button checked.
      *
-     * @param mixed setting The actual value.
-     * @param mixed value The value for this radio button; default is <code>true</code>.
+     * @param boolean setting The actual value.
+     * @param boolean value The value for this radio button; default is <code>true</code>.
      * @param boolean default The default state; default is <code>false</code>.
      */
     public function checked($setting, $value=true, $default=false) {
-        if ($setting === $value || ($default && empty($value))) {
+        $bs = ZMLangUtils::asBoolean($setting);
+        if ($bs === $value || ($default && !isset($setting))) {
             echo ZMSettings::get('zenmagick.mvc.html.xhtml') ? ' checked="checked"' : ' checked';
         }
     }
