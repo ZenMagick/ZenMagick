@@ -12,6 +12,7 @@
         <!-- overwrite to get a fresh copy -->
         <copy todir="${release.full.dir}" overwrite="true">
             <fileset dir="${zencart.base.dir}">
+                <exclude name=".git/**" />
             </fileset>
         </copy>
 
