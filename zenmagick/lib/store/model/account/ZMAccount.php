@@ -59,13 +59,13 @@ class ZMAccount extends ZMObject {
         parent::__construct();
 
         $this->setId(0);
-        $this->firstName_ = null;
-        $this->lastName_ = null;
+        $this->firstName_ = '';
+        $this->lastName_ = '';
         $this->dob_ = null;
         $this->nickName_ = '';
-        $this->gender_ = null;
+        $this->gender_ = '';
         $this->email_ = null;
-        $this->phone_ = null;
+        $this->phone_ = '';
         $this->fax_ = null;
         $this->emailFormat_ = 'TEXT';
         $this->referral_ = '';
