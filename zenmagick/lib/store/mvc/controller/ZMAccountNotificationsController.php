@@ -66,7 +66,7 @@ class ZMAccountNotificationsController extends ZMController {
     /**
      * {@inheritDoc}
      */
-    public public function processPost($request) {
+    public function processPost($request) {
         $globalProductSubscriber = ZMLangUtils::asBoolean($request->getParameter('product_global', 0));
 
         $account = $request->getAccount();
