@@ -57,18 +57,12 @@ class ZMRedirectView extends ZMView {
     /**
      * {@inheritDoc}
      */
-    public function isValid() {
-        return !ZMlangUtils::isEmpty($this->getTemplate());
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public function generate($request) { 
         $url = null;
         if (null != $this->url_) {
             $url = $this->url_;
         } else {
+            //XXX: this should operate on requestIds not templates (see ZMUrlMapper) !
             $url = $request->getToolbox()->net->url($this->getTemplate(), $this->parameter_, $this->secure_, false);
         }
 
@@ -115,6 +109,7 @@ class ZMRedirectView extends ZMView {
     public function setStatus($status) {
         $this->status_ = (int)$status;
     }
+
 }
 
 ?>
