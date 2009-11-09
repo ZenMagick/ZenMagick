@@ -38,6 +38,9 @@ Release 0.9.8
 - add meta tag support for categories
 - add inital work for building a full release that includes already patched 
   zen cart sources
+- add build scripts (and other changes) to build a full ZenMagick release that
+  already contains all file and SQL patches; also, the sideboxes are defaulted
+	as for zencart's classic theme
 
 Release 0.9.7
 - add ZMProductAssociation service and related code

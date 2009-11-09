@@ -7,7 +7,7 @@
 
 
     <!-- build full release -->
-    <target name="full-release" description="Build full release including zen cart.">
+    <target name="full-release" depends="mod-release" description="Build full release including zen cart.">
         <mkdir dir="${release.full.dir}" />
         <!-- overwrite to get a fresh copy -->
         <copy todir="${release.full.dir}" overwrite="true">
@@ -25,6 +25,19 @@
 
         <!-- create sidebox dummy files -->
         <antcall target="create-sidebox-dummies"><param name="theme.id" value='default' /></antcall>
+
+        <!-- move ZenMagick SQL to the right place -->
+        <copy file="${zenmagick.src.dir}/lib/store/etc/sql/mysql/config.sql" tofile="${release.full.dir}/zc_install/sql/plugins/mysql_config.sql" />
+        <copy file="${zenmagick.src.dir}/lib/store/etc/sql/mysql/token_install.sql" tofile="${release.full.dir}/zc_install/sql/plugins/mysql_token_install.sql" />
+        <copy file="${basedir}/etc/build/mysql_default_sideboxes.sql" todir="${release.full.dir}/zc_install/sql/plugins/" />
+
+        <!-- wrap it all up -->
+        <unzip src="${dist.dir}/zenmagick-${zenmagick.version}.zip" dest="${release.full.dir}" />
+
+        <!-- and zip -->
+        <zip zipfile="${dist.dir}/${full.version.file}.zip" basedir="${release.full.dir}" />
+        <checksum file="${dist.dir}/${full.version.file}.zip" fileext=".md5" todir="${dist.dir}/md5" />
+
     </target>
 
     <!-- patch full release -->

@@ -1,4 +1,4 @@
-<project name="zenmagick" default="release" basedir=".">
+<project name="zenmagick" default="mod-release" basedir=".">
 
     <tstamp />
 
@@ -92,7 +92,7 @@
 
         <!-- incremental update -->
         <delete file="${diff.incr.filename}" />
-    	<xslt in="${diff.xml.filename}" out="${diff.incr.filename}" style="etc/build/zipdiff2list.xsl" />
+    	  <xslt in="${diff.xml.filename}" out="${diff.incr.filename}" style="etc/build/zipdiff2list.xsl" />
 
         <zip destfile="${version.incr.filename}">
             <zipfileset src="${version.dir}/${version.file}.zip" includesfile="${diff.incr.filename}" />
@@ -160,6 +160,7 @@
         <delete includeemptydirs="true">
             <!-- source control files -->
             <fileset dir="${build.dir}" includes="**/.svn*" />
+            <fileset dir="${build.dir}" includes="**/.git*" />
             <!-- generated files and phpdoc -->
             <fileset dir="${build.dir}" includes="zenmagick/core.php" />
             <fileset dir="${build.dir}" includes="zenmagick/local.php" />
@@ -210,7 +211,7 @@
 
 
     <!-- Do release build -->
-    <target name="release" depends="clean,prepare,patch-release,build-release,incr-release" description="Full release build.">
+    <target name="mod-release" depends="clean,prepare,patch-release,build-release,incr-release" description="Full release build.">
         <!-- add diff file -->
         <zip zipfile="${dist.dir}/zenmagick-${zenmagick.version}.zip" update="true">
             <fileset dir="${build.dir}">
@@ -226,6 +227,7 @@
       <copy todir="${basedir}">
           <fileset dir="${zencart.src.dir}">
                 <exclude name="**/.svn*" />
+                <exclude name="**/.git*" />
             </fileset>
         </copy>
 
@@ -245,7 +247,7 @@
 
 
     <!-- Do all -->
-    <target name="all" depends="release,plugin-releases,theme-releases,phpdoctor" description="Build all.">
+    <target name="all" depends="mod-release,plugin-releases,theme-releases,phpdoctor" description="Build all.">
     </target>
 
 </project>
