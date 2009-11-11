@@ -31,7 +31,7 @@
 class ZMController extends ZMObject {
     private $id_;
     private $view_;
-    private $formBean_;
+    private $formData_;
 
 
     /**
@@ -43,7 +43,7 @@ class ZMController extends ZMObject {
         parent::__construct();
         $this->id_ = $id;
         $this->view_ = null;
-        $this->formBean_ = null;
+        $this->formData_ = null;
     }
 
     /**
@@ -89,11 +89,11 @@ class ZMController extends ZMObject {
         }
 
         // form validation (only if not already error view from session validation...)
-        $formBean = $this->getFormBean($request);
-        if (null == $view && null != $formBean && $this->isFormSubmit($request)) {
+        $formData = $this->getFormBean($request);
+        if (null == $view && null != $formData && $this->isFormSubmit($request)) {
             // move to function
-            if (null != ($view = $this->validateFormBean($request, $formBean))) {
-                ZMLogging::instance()->log('validation failed for : '.$formBean. '; returning: '.$view, ZMLogging::TRACE);
+            if (null != ($view = $this->validateFormBean($request, $formData))) {
+                ZMLogging::instance()->log('validation failed for : '.$formData. '; returning: '.$view, ZMLogging::TRACE);
             }
         }
 
@@ -126,8 +126,8 @@ class ZMController extends ZMObject {
             $view->setVar('toolbox', $toolbox);
             // also set individual tools
             $view->setVars($toolbox->getTools());
-            if (null != $formBean) {
-                $view->setVar($formBean->getFormId(), $formBean);
+            if (null != $formData) {
+                $view->setVar($formData->getFormId(), $formData);
             }
 
             if (!$view->isValid()) {
@@ -153,6 +153,7 @@ class ZMController extends ZMObject {
      * @param ZMRequest request The request to process.
      */
     public function handleRequest($request) {
+        // nothing
     }
 
     /**
@@ -235,18 +236,18 @@ class ZMController extends ZMObject {
      * @return ZMView The actual view to be used to render the response.
      */
     public function getFormBean($request) {
-        if (null == $this->formBean_ && null !== ($mapping = ZMUrlMapper::instance()->findMapping($this->id_))) {
+        if (null == $this->formData_ && null !== ($mapping = ZMUrlMapper::instance()->findMapping($this->id_))) {
             if (null !== $mapping['formDefinition']) {
-                $this->formBean_ =  ZMBeanUtils::getBean($mapping['formDefinition'].(false === strpos($viewInfo['viewDefinition'], '#') ? '#' : '&').'formId='.$mapping['formId']);
-                if ($this->formBean_ instanceof ZMFormBean) {
-                    $this->formBean_->populate($request);
+                $this->formData_ =  ZMBeanUtils::getBean($mapping['formDefinition'].(false === strpos($viewInfo['viewDefinition'], '#') ? '#' : '&').'formId='.$mapping['formId']);
+                if ($this->formData_ instanceof ZMFormData) {
+                    $this->formData_->populate($request);
                 } else {
-                    $this->formBean_ = ZMBeanUtils::setAll($this->formBean_, $request->getParameterMap());
+                    $this->formData_ = ZMBeanUtils::setAll($this->formData_, $request->getParameterMap());
                 }
             }
         }
 
-        return $this->formBean_;
+        return $this->formData_;
     }
 
     /**
@@ -271,15 +272,15 @@ class ZMController extends ZMObject {
      * Validate the given form bean.
      *
      * @param ZMRequest request The request to process.
-     * @param mixed formBean An object.
+     * @param mixed formData An object.
      * @return ZMView Either the error view (in case of validation errors), or <code>null</code> for success.
      */
-    protected function validateFormBean($request, $formBean) {
-        if (!$this->validate($request, $formBean->getFormId(), $formBean)) {
+    protected function validateFormBean($request, $formData) {
+        if (!$this->validate($request, $formData->getFormId(), $formData)) {
             // back to same form
             $view = $this->findView();
             // put form bean in context
-            $view->setVar($formBean->getFormId(), $formBean);
+            $view->setVar($formData->getFormId(), $formData);
             return $view;
         }
 

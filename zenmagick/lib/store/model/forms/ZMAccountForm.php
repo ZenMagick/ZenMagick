@@ -31,7 +31,7 @@
  * @package org.zenmagick.store.model.forms
  * @version $Id: ZMAccountForm.php 2113 2009-03-27 02:48:42Z dermanomann $
  */
-class ZMAccountForm extends ZMFormBean {
+class ZMAccountForm extends FormData {
 
     /**
      * Create new instance.
@@ -59,7 +59,7 @@ class ZMAccountForm extends ZMFormBean {
         $account = ZMRequest::instance()->getAccount();
         // move into ZMBeanUtils to wrap unsets of propertynames, attachedM, etc.
         $map = ZMBeanUtils::obj2map($account);
-        // TODO: all this should be in a base class (but not ZMModel) - perhaps ZMFormBean in rp?
+        // TODO: all this should be in a base class (but not ZMModel) - perhaps FormData in rp?
         // also, it should be possible/required to specify the fields that should be merged, plus
         // table names for custom fields (how could we find that out automatically??)
         unset($map['propertyNames']);

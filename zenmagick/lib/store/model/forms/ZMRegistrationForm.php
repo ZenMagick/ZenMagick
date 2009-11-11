@@ -31,7 +31,7 @@
  * @package org.zenmagick.store.model.forms
  * @version $Id: ZMRegistrationForm.php 2113 2009-03-27 02:48:42Z dermanomann $
  */
-class ZMRegistrationForm extends ZMFormBean {
+class ZMRegistrationForm extends FormData {
 
     /**
      * Create new instance.
