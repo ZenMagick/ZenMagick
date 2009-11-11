@@ -92,9 +92,17 @@ class ZMBeanUtils {
      */
     public static function obj2map($obj, $properties=null, $addGeneric=true) {
         if (is_array($obj)) {
-            // XXX: support to filter via $properties
-            return $obj;
+            $map = array();
+            if (null !== $properties) {
+                foreach ($properties as $key) {
+                    if (array_key_exists($key, $obj)) {
+                        $map[$key] = $obj[$key];
+                    }
+                }
+            }
+            return $map;
         }
+
         $propertiesMap = self::getPropertyMap($obj, $properties);
 
         // now run all methods and build the map

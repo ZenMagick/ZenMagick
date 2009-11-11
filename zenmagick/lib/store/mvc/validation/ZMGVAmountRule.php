@@ -54,15 +54,16 @@ class ZMGVAmountRule extends ZMRule {
     /**
      * Validate the given request data.
      *
-     * @param array req The request data.
+     * @param ZMRequest request The current request.
+     * @param array data The data.
      * @return boolean <code>true</code> if the value for <code>$name</code> is valid, <code>false</code> if not.
      */
-    public function validate($req) {
-        if (empty($req[$this->getName()])) {
+    public function validate($request, $data) {
+        if (empty($data[$this->getName()])) {
             return true;
         }
 
-        $amount = $req[$this->getName()];
+        $amount = $data[$this->getName()];
 
         $account = ZMRequest::instance()->getAccount();
         $balance = $account->getVoucherBalance();

@@ -57,11 +57,12 @@ class ZMFieldMatchRule extends ZMRule {
     /**
      * Validate the given request data.
      *
-     * @param array req The request data.
+     * @param ZMRequest request The current request.
+     * @param array data The data.
      * @return boolean <code>true</code> if the value for <code>$name</code> is valid, <code>false</code> if not.
      */
-    public function validate($req) {
-        return empty($req[$this->getName()]) || empty($req[$this->other_]) || ($req[$this->getName()] == $req[$this->other_]);
+    public function validate($request, $data) {
+        return empty($data[$this->getName()]) || empty($data[$this->other_]) || ($data[$this->getName()] == $data[$this->other_]);
     }
 
 

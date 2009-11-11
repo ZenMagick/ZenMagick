@@ -203,6 +203,16 @@
                         'key' => 'missingPage',
                         'type' => 'string',
                         'desc' => 'Request id to be used in case of invalid views.'
+                    ),
+                    array(
+                        'key' => 'invalidSession',
+                        'type' => 'string',
+                        'desc' => 'Request id to be used in case of invalid session.'
+                    ),
+                    array(
+                        'key' => 'login',
+                        'type' => 'string',
+                        'desc' => 'Request id of login page.'
                     )
                 ),
                 'transactions' => array(

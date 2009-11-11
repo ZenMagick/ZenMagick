@@ -137,8 +137,7 @@ class ZMDbTableMapper extends ZMObject {
      */
     protected function loadMappingFile() {
         // load from file
-        //XXX: make nicer
-        eval('$mappings = '.file_get_contents(ZMRuntime::getInstallationPath().DIRECTORY_SEPARATOR.ZMSettings::get('zenmagick.core.database.mappings.file')));
+        eval('$mappings = '.file_get_contents(ZMRuntime::getInstallationPath().ZMSettings::get('zenmagick.core.database.mappings.file')));
         foreach ($mappings as $table => $mapping) {
             $this->tableMap_[$table] = $this->parseTable($mapping);
         }
@@ -219,7 +218,6 @@ class ZMDbTableMapper extends ZMObject {
                 continue;
             }
             if (!array_key_exists($table, $this->tableMap_) && ZMSettings::get('zenmagick.core.database.mappings.autoMap.enabled', true)) {
-                //XXX: refresh cache?
                 ZMLogging::instance()->log('creating dynamic mapping for table name: '.$table, ZMLogging::DEBUG);
                 $rawMapping = self::buildTableMapping($table, $database);
                 $this->setMappingForTable(str_replace($this->tablePrefix_, '', $table), $rawMapping);
@@ -308,7 +306,6 @@ class ZMDbTableMapper extends ZMObject {
             $table = $mapping;
             $mapping = $this->getMapping($table, $database);
             if (null === $mapping && ZMSettings::get('zenmagick.core.database.mappings.autoMap.enabled', true)) {
-                //XXX: refresh cache?
                 ZMLogging::instance()->log('creating dynamic mapping for table name: '.$table, ZMLogging::DEBUG);
                 $rawMapping = self::buildTableMapping($table, $database);
                 $this->setMappingForTable(str_replace($this->tablePrefix_, '', $table), $rawMapping);

@@ -170,12 +170,12 @@ class ZMValidator extends ZMObject {
      * <p>If the request parameter is an object, it will be added to the
      * internally used data map using the <em>magic key</em> <code>__obj</code>.</p>
      *
+     * @param ZMRequest request The current request.
      * @param mixed data The data (map or object) to validate.
      * @param string id The ruleset id.
      * @return boolean <code>true</code> if the validation was successful, <code>false</code> if not.
      */
-    public function validate($data, $id) {
-        //TODO: have a request instance PLUS a map/object to validate or move session validation somewhere else (ZMController if POST???)
+    public function validate($request, $data, $id) {
         $this->messages_ = array();
 
         $set = $this->getRuleSet($id, true);
@@ -195,7 +195,7 @@ class ZMValidator extends ZMObject {
 
         // iterate over rules
         foreach ($set->getRules() as $rule) {
-            if (!$rule->validate($map)) {
+            if (!$rule->validate($request, $map)) {
                 $status = false;
                 $msgList = array();
                 if (array_key_exists($rule->getName(), $this->messages_)) {

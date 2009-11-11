@@ -73,8 +73,7 @@ class ZMEvents extends ZMObject {
      * @param mixed subscriber Reference to the subscriber instance.
      */
     public function attach($subscriber) {
-        //XXX: this is not safe!
-        $nameHash = md5(get_class($subscriber));
+        $nameHash = spl_object_hash($subscriber);
         $this->subscribers_[$nameHash] = array('obj' => $subscriber, 'methods' => null);
     }
 
@@ -84,8 +83,7 @@ class ZMEvents extends ZMObject {
      * @param mixed subscriber Reference of the subscriber instance.
      */
     public function detach($subscriber) {
-        //XXX: this is not safe!
-        $nameHash = md5(get_class($subscriber));
+        $nameHash = spl_object_hash($subscriber);
         unset($this->subscribers_[$nameHash]);
     }
 

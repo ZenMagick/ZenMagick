@@ -82,7 +82,7 @@ class ZMFormHandlerController extends ZMController {
         // create model
         $data = array('formData' => $this->createModel());
 
-        if (!$this->validate($this->getId())) {
+        if (!$this->validate($request, $this->getId())) {
             return $this->findView(null, $data);
         }
 

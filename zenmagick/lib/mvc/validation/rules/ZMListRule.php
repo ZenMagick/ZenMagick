@@ -57,11 +57,12 @@ class ZMListRule extends ZMRule {
     /**
      * Validate the given request data.
      *
-     * @param array req The request data.
+     * @param ZMRequest request The current request.
+     * @param array data The data.
      * @return boolean <code>true</code> if the regular expression does match.
      */
-    public function validate($req) {
-        return empty($req[$this->getName()]) || ZMLangUtils::inArray($req[$this->getName()], $this->values_);
+    public function validate($request, $data) {
+        return empty($data[$this->getName()]) || ZMLangUtils::inArray($data[$this->getName()], $this->values_);
     }
 
 

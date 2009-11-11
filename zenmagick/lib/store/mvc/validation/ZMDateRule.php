@@ -66,11 +66,12 @@ class ZMDateRule extends ZMRule {
     /**
      * Validate the given request data.
      *
-     * @param array req The request data.
+     * @param ZMRequest request The current request.
+     * @param array data The data.
      * @return boolean <code>true</code> if the value for <code>$name</code> is valid, <code>false</code> if not.
      */
-    public function validate($req) {
-        $value = $req[$this->getName()];
+    public function validate($request, $data) {
+        $value = $data[$this->getName()];
         $format = $this->getFormat();
         $da = ZMTools::parseDateString($value, $format);
         return empty($value) || (@checkdate($da['mm'], $da['dd'], $da['cc'].$da['yy']) && strlen($format) == strlen($value));

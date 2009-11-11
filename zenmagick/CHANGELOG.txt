@@ -43,6 +43,8 @@ Release 0.9.8
 	as for zencart's classic theme
 - ZMFormBean renamed to ZMFormData and moved to mvc
 - renamed ZMController::handleRequest to preProcess
+- pass $request into validator and extend ZMRule's validate method with an
+  $request parameter
 
 Release 0.9.7
 - add ZMProductAssociation service and related code

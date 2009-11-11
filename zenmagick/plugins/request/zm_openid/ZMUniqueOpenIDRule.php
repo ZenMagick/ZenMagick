@@ -54,12 +54,13 @@ class ZMUniqueOpenIDRule extends ZMRule {
     /**
      * Validate the given request data.
      *
-     * @param array req The request data.
+     * @param ZMRequest request The current request.
+     * @param array data The data.
      * @return boolean <code>true</code> if the value for <code>$name</code> is valid, <code>false</code> if not.
      */
-    function validate($req) {
+    function validate($request, $data) {
         $plugin = ZMPlugins::instance()->getPluginForId('zm_openid');
-        $openid = $req[$this->getName()];
+        $openid = $data[$this->getName()];
         $idExists = null != $plugin->getAccountForOpenID($openid);
         // empty or doesn't exist or exists but same as current account (account update)
         return empty($openid) || !$idExists || $openid == ZMRequest::instance()->getAccount()->get('openid');

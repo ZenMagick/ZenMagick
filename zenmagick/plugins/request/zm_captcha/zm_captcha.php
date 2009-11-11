@@ -156,10 +156,11 @@ class zm_captcha extends Plugin {
  * Validate the captcha value.
  *
  * @package org.zenmagick.plugins.zm_captcha
- * @param array req The request data.
+ * @param ZMRequest request The current request.
+ * @param array data The data.
  * @return boolean <code>true</code> if the captcha is valid, <code>false</code> if not.
  */
-function zm_captcha_validate($req) {
+function zm_captcha_validate($request, $data) {
 
     if (ZMLangUtils::isEmpty(ZMRequest::instance()->getParameter(ZM_CAPTCHA_FIELD))) {
         // we have a required rule, so no need for additional checks

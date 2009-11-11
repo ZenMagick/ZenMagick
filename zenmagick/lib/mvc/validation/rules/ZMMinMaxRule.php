@@ -58,13 +58,14 @@ class ZMMinMaxRule extends ZMRule {
     /**
      * Validate the given request data.
      *
-     * @param array req The request data.
+     * @param ZMRequest request The current request.
+     * @param array data The data.
      * @return boolean <code>true</code> if the value for <code>$name</code> is valid, <code>false</code> if not.
      */
-    public function validate($req) {
-        return !array_key_exists($this->getName(), $req) || empty($req[$this->getName()])
-            || $this->min_ <= strlen(trim($req[$this->getName()]))
-            || (0 != $this->max_ && $this->max_ < strlen(trim($req[$this->getName()])));
+    public function validate($request, $data) {
+        return !array_key_exists($this->getName(), $data) || empty($data[$this->getName()])
+            || $this->min_ <= strlen(trim($data[$this->getName()]))
+            || (0 != $this->max_ && $this->max_ < strlen(trim($data[$this->getName()])));
     }
 
 

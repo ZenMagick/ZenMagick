@@ -71,17 +71,18 @@ class ZMEmailRule extends ZMRule {
     /**
      * Validate the given request data.
      *
-     * @param array req The request data.
+     * @param ZMRequest request The current request.
+     * @param array data The data.
      * @return boolean <code>true</code> if the value for <code>$name</code> is valid, <code>false</code> if not.
      */
-    public function validate($req) {
-        if (!array_key_exists($this->getName(), $req)) {
+    public function validate($request, $data) {
+        if (!array_key_exists($this->getName(), $data)) {
             return true;
         }
 
-        $email = $req[$this->getName()];
+        $email = $data[$this->getName()];
 
-        return empty($req[$this->getName()]) || 1 == preg_match('/'.$this->emailRegexp().'/i', $email);
+        return empty($data[$this->getName()]) || 1 == preg_match('/'.$this->emailRegexp().'/i', $email);
     }
 
 

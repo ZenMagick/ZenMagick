@@ -25,6 +25,11 @@ class TestZMBeanUtils extends ZMTestCase {
         $expectSpecific = array('foo' => 'bar', 'doh' => 'nut');
         $map = ZMBeanUtils::obj2map($obj, array_keys($expectSpecific));
         $this->assertEqual($expectSpecific, $map);
+
+        // get subset of array
+        $arr = array_merge($expectSpecific, array('some' => 'other'));
+        $map = ZMBeanUtils::obj2map($arr, array_keys($expectSpecific));
+        $this->assertEqual($expectSpecific, $map);
     }
 
     /**

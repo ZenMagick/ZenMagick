@@ -57,18 +57,19 @@ class ZMStateOrZoneIdRule extends ZMRule {
     /**
      * Validate the given request data.
      *
-     * @param array req The request data.
+     * @param ZMRequest request The current request.
+     * @param array data The data.
      * @return boolean <code>true</code> if the value for <code>$name</code> is valid, <code>false</code> if not.
      */
-    public function validate($req) {
+    public function validate($request, $data) {
         if (!ZMSettings::get('isAccountState')) {
             return true;
         }
 
         //todo: this should not be here, but in the corresponding controller classes - BEFORE the validation is done
-        $state = $req['state'];
-        $state = $req['zoneId'];
-        $zones = ZMCountries::instance()->getZonesForCountryId($req['countryId']);
+        $state = $data['state'];
+        $state = $data['zoneId'];
+        $zones = ZMCountries::instance()->getZonesForCountryId($data['countryId']);
         $valid = false;
         if (0 < count ($zones)) {
             // need $state to match either an id or name
@@ -88,8 +89,8 @@ class ZMStateOrZoneIdRule extends ZMRule {
         }
 
         // check for form bean
-        if (array_key_exists('__obj', $req)) {
-            $req['__obj'] = ZMBeanUtils::setAll($req['__obj'], array('state' => $state, 'zoneId' => $zoneId));
+        if (array_key_exists('__obj', $data)) {
+            $data['__obj'] = ZMBeanUtils::setAll($data['__obj'], array('state' => $state, 'zoneId' => $zoneId));
         }
 
         return $valid;

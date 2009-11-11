@@ -56,12 +56,13 @@ class ZMRequiredRule extends ZMRule {
     /**
      * Validate the given request data.
      *
-     * @param array req The request data.
+     * @param ZMRequest request The current request.
+     * @param array data The data.
      * @return boolean <code>true</code> if the value for <code>$name</code> is valid, <code>false</code> if not.
      */
-    public function validate($req) {
+    public function validate($request, $data) {
         foreach (explode(',', $this->getName()) as $name) {
-            if (array_key_exists($name, $req) && !empty($req[$name])) {
+            if (array_key_exists($name, $data) && !empty($data[$name])) {
                 return true;
             }
         }

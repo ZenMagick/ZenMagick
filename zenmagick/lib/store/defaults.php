@@ -225,6 +225,7 @@
 
             // redirect page for invalid sessions
             'invalidSessionPage' => FILENAME_COOKIE_USAGE,
+            'zenmagick.mvc.request.invalidSession' => FILENAME_COOKIE_USAGE,
 
             // static homepage
             'staticHome' => null,

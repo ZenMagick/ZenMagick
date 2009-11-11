@@ -48,8 +48,6 @@ class ZMToolboxNet extends ZMToolboxTool {
      * @return string A full URL.
      */
     public function url($requestId=null, $params='', $secure=false, $echo=ZM_ECHO_DEFAULT) {
-        //XXX: we need the request here!
-
         // custom view and params handling
         if (null === $requestId || null === $params) {
             $query = $this->getRequest()->getParameterMap();
@@ -96,7 +94,6 @@ class ZMToolboxNet extends ZMToolboxTool {
      * @return string The absolute href.
      */
     public function absolute($href, $echo=ZM_ECHO_DEFAULT) {
-        //XXX: we need the request here!
         $host = ($this->getRequest()->isSecure() ? HTTPS_SERVER : HTTP_SERVER);
         $context = ($this->getRequest()->isSecure() ? DIR_WS_HTTPS_CATALOG : DIR_WS_CATALOG);
 

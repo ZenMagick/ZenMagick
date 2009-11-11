@@ -295,21 +295,20 @@ class ZMController extends ZMObject {
      * Validate the current request using the given rule id.
      *
      * @param ZMRequest request The request to process.
-     * @param string id The <code>ZMRuleSet</code> id.
-     * @param mixed req A (request) map, an object or <code>null</code> to default to <code>$_POST</code>.
+     * @param string formId The <code>ZMRuleSet</code> id.
+     * @param mixed formData A map, (bean) object instance or <code>null</code> for all current request parameter.
      * @return boolean <code>true</code> if the validation was successful, <code>false</code> if not.
      */
-    public function validate($request, $id, $req=null) {
-        if (null === $req) {
-            $req = $request->getParameterMap();
+    public function validate($request, $formId, $formData=null) {
+        if (null === $formData) {
+            $rformData = $request->getParameterMap();
         }
 
-        // TODO: add token secured form test
-        if (!ZMValidator::instance()->hasRuleSet($id)) {
+        if (!ZMValidator::instance()->hasRuleSet($formId)) {
             return true;
         }
 
-        $valid = ZMValidator::instance()->validate($req, $id);
+        $valid = ZMValidator::instance()->validate($request, $formData, $formId);
         if (!$valid) {
             foreach (ZMValidator::instance()->getMessages() as $field => $fieldMessages) {
                 foreach ($fieldMessages as $msg) {

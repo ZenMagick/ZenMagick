@@ -59,7 +59,7 @@ class ZMWrapperRule extends ZMRule {
     /**
      * Set the validation function.
      *
-     * <p>The function must implement the same siganture as <code>validate($req)</code>.</p>
+     * <p>The function must implement the same siganture as <code>ZMRule::validate($request, $data)</code>.</p>
      *
      * @param string function The function name.
      */
@@ -79,17 +79,18 @@ class ZMWrapperRule extends ZMRule {
     /**
      * Validate the given request data.
      *
-     * @param array req The request data.
+     * @param ZMRequest request The current request.
+     * @param array data The data.
      * @return boolean <code>true</code> if the value for <code>$name</code> is valid, <code>false</code> if not.
      */
-    public function validate($req) {
+    public function validate($request, $data) {
         if (is_array($this->function_) && 2 == count($this->function_) && is_object($this->function_[0]) && is_string($this->function_[1])) {
             // expect object, method name
             $obj = $this->function_[0];
             $method = $this->function_[1];
-            return $obj->$method($req);
+            return $obj->$method($request, $data);
         } else if (function_exists($this->function_)) {
-            return call_user_func($this->function_, $req);
+            return call_user_func($this->function_, $request, $data);
         }
 
         return true;
