@@ -45,6 +45,8 @@ Release 0.9.8
 - renamed ZMController::handleRequest to preProcess
 - pass $request into validator and extend ZMRule's validate method with an
   $request parameter
+- zm_tests: patch simpletest to get rid of deprecated use of '&' to
+  dereference object instances
 
 Release 0.9.7
 - add ZMProductAssociation service and related code

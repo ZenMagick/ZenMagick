@@ -6,7 +6,9 @@ For details and licensing of SimpleTest please refer to the included .simpletest
 SimpleTest
 ==========
 The SimpleTest unit testing code is stripped and bundled in a single file included with this plugin.
-The code is based on version 1.0.1 with a single patch to pass $method into the skip() method of the SimpleTestCase class.
+The code is based on version 1.0.1 with two patches:
+* pass $method into the skip() method of the SimpleTestCase class.
+* remove deprecated use of '&' to dereference objects
 
 
 jquery treeview
