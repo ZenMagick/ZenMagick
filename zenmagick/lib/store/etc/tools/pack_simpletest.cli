@@ -21,10 +21,10 @@
 <?php
 
     // load ZenMagick core
-    $coreDir = dirname(dirname(dirname(__FILE__))).DIRECTORY_SEPARATOR;
-    require $coreDir.'lib/ZMLoader.php';
+    $coreDir = dirname(dirname(dirname(dirname(__FILE__)))).DIRECTORY_SEPARATOR;
+    require $coreDir.'core/ZMLoader.php';
     ZMLoader::instance()->addPath($coreDir);
-    ZMLoader->loadStatic();
+    ZMLoader::instance()->loadStatic();
 
 
     /**
@@ -35,11 +35,11 @@
          * {@inheritDoc}
          */
         public function ignoreFile($file) {
-            return 'simpletest' != basename(dirname($file)) || false !== strpos($file, 'php4') || false !== strpos($file, 'eclipse') || false !== strpos($file, 'autorun') || false !== strpos($file, 'packed.php');
+            return 'trunk' != basename(dirname($file)) || false !== strpos($file, 'php4') || false !== strpos($file, 'eclipse') || false !== strpos($file, 'autorun') || false !== strpos($file, 'packed.php');
         }
     }
 
-    $path = 'C:/Program Files/Apache Group/Apache2/htdocs/simpletest/';
+    $path = 'C:/Temp/simpletest/trunk/';
     $version = trim(file_get_contents($path.'VERSION'));
 
     // pack; ideally path/version should be CLI args...
