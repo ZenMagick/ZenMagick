@@ -42,6 +42,7 @@ Release 0.9.8
   already contains all file and SQL patches; also, the sideboxes are defaulted
 	as for zencart's classic theme
 - ZMFormBean renamed to ZMFormData and moved to mvc
+- renamed ZMController::handleRequest to preProcess
 
 Release 0.9.7
 - add ZMProductAssociation service and related code

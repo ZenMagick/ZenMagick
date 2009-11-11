@@ -78,7 +78,7 @@ class ZMController extends ZMObject {
         ZMEvents::instance()->fireEvent($this, Events::CONTROLLER_PROCESS_START, array('request' => $request, 'controller' => $this));
 
         // method independant (pre-)processing
-        $this->handleRequest($request);
+        $this->preProcess($request);
 
         // default is no view to allow the controller to generate content
         $view = null;
@@ -148,11 +148,14 @@ class ZMController extends ZMObject {
 
 
     /**
-     * Generic callback for request processing independant from the method.
+     * Convenience method for request processing shared by request methods.
+     *
+     * <p>Despite the name this is called as part of the controllers <code>process($request)</code> method.
+     * That ensures that all processing is within the boundaries of a single transaction (if enabled).</p>
      *
      * @param ZMRequest request The request to process.
      */
-    public function handleRequest($request) {
+    public function preProcess($request) {
         // nothing
     }
 

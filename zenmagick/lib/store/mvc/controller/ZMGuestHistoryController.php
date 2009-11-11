@@ -51,7 +51,7 @@ class ZMGuestHistoryController extends ZMController {
     /**
      * {@inheritDoc}
      */
-    public function handleRequest($request) { 
+    public function preProcess($request) { 
         $request->getToolbox()->crumbtrail->addCrumb('Guest Order');
     }
 

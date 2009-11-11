@@ -56,7 +56,7 @@ class ZMTellAFriendController extends ZMController {
     /**
      * {@inheritDoc}
      */
-    public function handleRequest($request) { 
+    public function preProcess($request) { 
         if ($request->getProductId()) {
             $this->product_ = ZMProducts::instance()->getProductForId($request->getProductId());
         } else if ($request->getModel()) {

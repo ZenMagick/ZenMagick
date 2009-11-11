@@ -53,7 +53,7 @@ class ZMCheckoutShippingController extends ZMController {
     /**
      * {@inheritDoc}
      */
-    public function handleRequest($request) {
+    public function preProcess($request) {
         $shoppingCart = $request->getShoppingCart();
         // set default address if required
         if (!$shoppingCart->hasShippingAddress()) {

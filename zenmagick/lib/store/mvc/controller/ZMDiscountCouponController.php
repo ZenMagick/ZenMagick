@@ -51,7 +51,7 @@ class ZMDiscountCouponController extends ZMController {
     /**
      * {@inheritDoc}
      */
-    public function handleRequest($request) { 
+    public function preProcess($request) { 
         $request->getToolbox()->crumbtrail->addCrumb($request->getToolbox()->utils->getTitle(null, false));
     }
 

@@ -69,7 +69,7 @@ class ZMCheckoutAddressController extends ZMController {
     /**
      * {@inheritDoc}
      */
-    public function handleRequest($request) {
+    public function preProcess($request) {
         $request->getToolbox()->crumbtrail->addCrumb("Checkout", $request->getToolbox()->net->url($this->settings_['url'], '', true, false));
         $request->getToolbox()->crumbtrail->addCrumb($request->getToolbox()->utils->getTitle(null, false));
 
@@ -100,8 +100,8 @@ class ZMCheckoutAddressController extends ZMController {
     public function process($request) {
         $checkoutHelper = ZMLoader::make('CheckoutHelper', $request->getShoppingCart());
         if (null !== ($viewId = $checkoutHelper->validateCheckout())) {
-            // this is before handleRequest, so let's call it!
-            $this->handleRequest($request);
+            // this is before preProcess, so let's call it!
+            $this->preProcess($request);
             return $this->findView(null, $this->viewData_);
         }
 

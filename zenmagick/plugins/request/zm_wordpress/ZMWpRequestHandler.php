@@ -61,7 +61,7 @@ class ZMWpRequestHandler extends ZMController {
      * 
      * @return string A view name.
      */
-    public function handleRequest($request) {
+    public function preProcess($request) {
         if (null !== $this->viewName) {
             return $this->viewName;
         }

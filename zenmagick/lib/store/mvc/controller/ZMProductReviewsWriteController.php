@@ -54,7 +54,7 @@ class ZMProductReviewsWriteController extends ZMController {
     /**
      * {@inheritDoc}
      */
-    public function handleRequest($request) {
+    public function preProcess($request) {
         $product = $this->getProduct($request);
         $this->viewData_['zm_product'] = $product;
         $this->viewData_['zm_account'] = $request->getAccount();
