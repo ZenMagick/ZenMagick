@@ -27,7 +27,8 @@
 
   // NOTE: CSS should be in the <head> element, this is not valid HTML
   // Load CSS file if this sidebox is enabled
-  $content .= '<link rel="stylesheet" type="text/css" href="' . $zm_theme->themeURL('categories_css.css', false) . '" />'."\n";
+  $utils->cssFile('categories_css.css');
+  //$content .= '<link rel="stylesheet" type="text/css" href="' . $zm_theme->themeURL('categories_css.css', false) . '" />'."\n";
 
   // Load containing UL and content
   $content .= '<ul class="bullet-menu" id="siteMenu">';

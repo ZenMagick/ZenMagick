@@ -5,8 +5,8 @@
     <meta name="generator" content="ZenMagick <?php echo ZMSettings::get('zenmagick.version') ?>" />
     <meta name="keywords" content="<?php $metaTags->getKeywords()?>" />
     <meta name="description" content="<?php $metaTags->getDescription()?>" />
-    <link rel="stylesheet" type="text/css" media="screen,projection" href="<?php $zm_theme->themeURL("site.css") ?>" />
-    <link rel="stylesheet" type="text/css" media="screen,projection" href="<?php $zm_theme->themeURL("theme.css") ?>" />
+    <?php $utils->cssFile('site.css') ?>
+    <?php $utils->cssFile('theme.css') ?>
     <title><?php $metaTags->getTitle() ?></title>
   </head>
   <body>

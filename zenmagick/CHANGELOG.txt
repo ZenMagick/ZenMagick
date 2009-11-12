@@ -48,6 +48,9 @@ Release 0.9.8
 - zm_tests: patch simpletest to get rid of deprecated use of '&' to
   dereference object instances
 - add new, Savant based, view helper methods to handle resources
+- convert themes to using ZMTemplateManager ($utils) for CSS
+- add custom attributes 'prefix'/'suffix' to allow to wrap CSS link elements
+  in conditional code (HTML comments)
 
 Release 0.9.7
 - add ZMProductAssociation service and related code

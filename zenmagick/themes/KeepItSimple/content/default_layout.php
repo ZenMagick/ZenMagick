@@ -8,12 +8,12 @@
     <meta name="keywords" content="keywords, here" />
     <meta name="robots" content="index, follow, noarchive" />
     <meta name="googlebot" content="noarchive" />
-    <link rel="stylesheet" type="text/css" media="screen" href="<?php $zm_theme->themeURL("css/screen.css") ?>" />
-    <link rel="stylesheet" type="text/css" media="screen" href="<?php $zm_theme->themeURL("theme.css") ?>" />
+    <?php $utils->cssFile('css/screen.css', array('media' => 'screen')) ?>
+    <?php $utils->cssFile('css/theme.css', array('media' => 'screen')) ?>
     <?php $pageCSS = "css/".$request->getRequestId().".css"; ?>
     <?php /* page specific CSS */ ?>
     <?php if ($zm_theme->themeFileExists($pageCSS)) { ?>
-      <link rel="stylesheet" type="text/css" media="screen" href="<?php $zm_theme->themeURL($pageCSS) ?>" />
+        <?php $utils->cssFile($pageCSS, array('media' => 'screen')) ?>
     <?php } ?>
   </head>
   <body>

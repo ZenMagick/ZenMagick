@@ -14,8 +14,8 @@ Released   : 20090515
     <title>Your Title Here </title>
     <meta name="keywords" content="" />  <!-- come back and fill in theses meta tags later  -->
     <meta name="description" content="" />
-    <link rel="stylesheet" type="text/css" media="screen" href="<?php $zm_theme->themeURL("style.css") ?>" />
-    <link rel="stylesheet" type="text/css" media="screen" href="<?php $zm_theme->themeURL("theme.css") ?>" />
+    <?php $utils->cssFile('style.css', array('media' => 'screen')) ?>
+    <?php $utils->cssFile('theme.css', array('media' => 'screen')) ?>
     <?php $utils->jsBottom('common.js') ?>
   </head>
   <body>

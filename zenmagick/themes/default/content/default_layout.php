@@ -40,17 +40,17 @@
     <meta name="generator" content="ZenMagick <?php echo ZMSettings::get('zenmagick.version') ?>" />
     <meta name="keywords" content="<?php $metaTags->getKeywords()?>" />
     <meta name="description" content="<?php $metaTags->getDescription()?>" />
-    <link rel="stylesheet" type="text/css" media="screen,projection" href="<?php $zm_theme->themeURL("site.css") ?>" />
-    <!--[if IE]><link rel="stylesheet" type="text/css" media="screen,projection" href="<?php $zm_theme->themeURL("ie.css") ?>"  /><![endif]-->
+    <?php $utils->cssFile('site.css') ?>
+    <?php $utils->cssFile('ie.css', array('prefix' => '<!--[if IE]>', 'suffix' => '<![endif]-->')) ?>
     <?php $utils->jsBottom('common.js') ?>
     <?php /* give other themes the chance to add to the default CSS without having to copy everything */ ?>
     <?php if ($zm_theme->themeFileExists("theme.css")) { ?>
-      <link rel="stylesheet" type="text/css" media="screen,projection" href="<?php $zm_theme->themeURL("theme.css") ?>" />
+        <?php $utils->cssFile('theme.css') ?>
     <?php } ?>
     <?php $pageCSS = "css/".$request->getRequestId().".css"; ?>
     <?php /* page specific CSS */ ?>
     <?php if ($zm_theme->themeFileExists($pageCSS)) { ?>
-      <link rel="stylesheet" type="text/css" media="screen,projection" href="<?php $zm_theme->themeURL($pageCSS) ?>" />
+        <?php $utils->cssFile($pageCSS) ?>
     <?php } ?>
     <?php if (!ZMTemplateManager::instance()->isLeftColEnabled() || !ZMTemplateManager::instance()->isRightColEnabled()) { ?>
       <style type="text/css" media="screen,projection">

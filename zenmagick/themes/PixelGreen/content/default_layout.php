@@ -8,12 +8,9 @@
     <meta name="Distribution" content="Global" />
     <meta name="Author" content="Erwin Aligam - ealigam@gmail.com" />
     <meta name="Robots" content="index,follow" />
-
-    <link rel="stylesheet" type="text/css" media="screen" href="<?php $zm_theme->themeURL("PixelGreen.css") ?>" />
-    <link rel="stylesheet" type="text/css" media="screen" href="<?php $zm_theme->themeURL("theme.css") ?>" />
-
+    <?php $utils->cssFile('PixelGreen.css', array('media' => 'screen')) ?>
+    <?php $utils->cssFile('theme.css', array('media' => 'screen')) ?>
     <?php $utils->jsBottom('common.js') ?>
-
     <title>Pixel Green</title>
   </head>
 

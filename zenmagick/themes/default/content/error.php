@@ -29,7 +29,7 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
     <title><?php $utils->getTitle() ?> :: ZenMagick</title>
-		<link rel="stylesheet" type="text/css" href="<?php $zm_theme->themeURL("site.css") ?>"/>
+    <?php $utils->cssFile('site.css') ?>
 	</head>
   <body>
     <h2><?php $utils->getTitle() ?></h2>

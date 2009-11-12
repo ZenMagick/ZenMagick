@@ -36,15 +36,15 @@
     <title><?php $metaTags->getTitle()?></title>
     <base href="<?php echo $request->getPageBase() ?>" />
     <meta http-equiv="content-type" content="text/html; charset=<?php echo zm_i18n('HTML_CHARSET') ?>" />
-    <link rel="stylesheet" href="<?php $zm_theme->themeURL("popup.css") ?>" type="text/css" media="screen,projection" />
+    <?php $utils->cssFile('popup.css') ?>
     <?php /* give other themes the chance to add to the default CSS without having to copy everything */ ?>
     <?php if ($zm_theme->themeFileExists("theme.css")) { ?>
-      <link rel="stylesheet" href="<?php $zm_theme->themeURL("theme.css") ?>" type="text/css" media="screen,projection" />
+        <?php $utils->cssFile('theme.css') ?>
     <?php } ?>
     <?php $pageCSS = "css/".$request->getRequestId().".css"; ?>
     <?php /* page specific CSS */ ?>
     <?php if ($zm_theme->themeFileExists($pageCSS)) { ?>
-      <link rel="stylesheet" href="<?php $zm_theme->themeURL($pageCSS) ?>" type="text/css" media="screen,projection" />
+        <?php $utils->cssFile($pageCSS) ?>
     <?php } ?>
   </head>
 

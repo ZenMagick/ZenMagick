@@ -236,13 +236,15 @@ class ZMTemplateManager extends ZMObject {
         foreach ($this->cssFiles_ as $info) {
             // merge in defaults
             $attr = '';
-            $info['attr'] = array_merge(array('rel' => 'stylesheet', 'type' => 'text/css'), $info['attr']);
+            $info['attr'] = array_merge(array('rel' => 'stylesheet', 'type' => 'text/css', 'prefix' => '', 'suffix' => ''), $info['attr']);
             foreach ($info['attr'] as $name => $value) {
-                if (null !== $value) {
+                if (null !== $value && !in_array($name, array('prefix', 'suffix'))) {
                     $attr .= ' '.$name.'="'.$value.'"';
                 }
             }
-            $css .= '<link '.$attr.' href="'.Runtime::getTheme()->themeURL($info['filename'], false).'"'.$slash.'>'."\n";
+            $css .= $info['attr']['prefix'];
+            $css .= '<link '.$attr.' href="'.Runtime::getTheme()->themeURL($info['filename'], false).'"'.$slash.'>';
+            $css .= $info['attr']['suffix']."\n";
         }
 
         $jsTop = '';
@@ -272,7 +274,7 @@ class ZMTemplateManager extends ZMObject {
      * Add the given CSS file to the final contents.
      *
      * @param string filename A relative CSS filename.
-     * @param array attr Optional attribute map.
+     * @param array attr Optional attribute map; special keys 'prefix' and 'suffix' may be used to wrap.
      */
     public function cssFile($filename, $attr=array()) {
         $this->cssFiles_[$filename] = array('filename' => $filename, 'attr' => $attr);
