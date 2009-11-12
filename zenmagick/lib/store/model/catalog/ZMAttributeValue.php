@@ -112,7 +112,7 @@ class ZMAttributeValue extends ZMObject {
      * @return float The one time charge.
      */
     protected function getQtyPrice($qtyPrices, $quantity) {
-        $qtyPriceMap = split("[:,]" , $qtyPrices);
+        $qtyPriceMap = preg_split("/[:,]/" , $qtyPrices);
         $price = 0;
         $size = count($qtyPriceMap);
         if (1 < $size) {
