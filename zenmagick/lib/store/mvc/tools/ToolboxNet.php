@@ -280,6 +280,7 @@ class ToolboxNet extends ZMToolboxNet {
      * @param string href The URL to convert.
      * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string The absolute href.
+     * @todo different signature than parent class!
      */
     public function absolute($href, $echo=ZM_ECHO_DEFAULT) {
         $host = ($this->getRequest()->isSecure() ? HTTPS_SERVER : HTTP_SERVER);
