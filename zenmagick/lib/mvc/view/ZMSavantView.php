@@ -82,9 +82,10 @@ class ZMSavantView extends ZMView {
             $config['autoload'] = true;
             $config['exceptions'] = true;
             $config['extract'] = true;
-            $config['template_path'] = $this->getTemplatePath($request);
+            // treat all equal
+            $config['template_path'] = $config['resource_path'] = $this->getTemplatePath($request);
             $config = array_merge($config, $this->config_);
-            $this->savant_ = new Savant3($config);
+            $this->savant_ = ZMLoader::make('Savant', $config);
         }
 
         return $this->savant_;

@@ -319,6 +319,13 @@ class Request extends ZMRequest {
         parent::redirect($url, $status);
     }
 
+    /**
+     * {@inheridDoc}
+     */
+    public function getContext() {
+        return ($this->isSecure() ? DIR_WS_HTTPS_CATALOG : DIR_WS_CATALOG);
+    }
+
 }
 
 ?>

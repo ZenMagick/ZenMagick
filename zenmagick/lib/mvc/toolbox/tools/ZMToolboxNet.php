@@ -27,6 +27,7 @@
  * @author DerManoMann
  * @package org.zenmagick.mvc.utils
  * @version $Id$
+ * @todo create store agnostic default implementations
  */
 class ZMToolboxNet extends ZMToolboxTool {
 
@@ -87,51 +88,13 @@ class ZMToolboxNet extends ZMToolboxTool {
     }
 
     /**
-     * Convert a given relative href/URL into an absolute one based on the current context.
+     * Convert a given relative url into an absolute one.
      *
-     * @param string href The URL to convert.
-     * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
-     * @return string The absolute href.
+     * @param string url The (relative) URL to convert.
+     * @return string The absolute url.
      */
-    public function absolute($href, $echo=ZM_ECHO_DEFAULT) {
-        $host = ($this->getRequest()->isSecure() ? HTTPS_SERVER : HTTP_SERVER);
-        $context = ($this->getRequest()->isSecure() ? DIR_WS_HTTPS_CATALOG : DIR_WS_CATALOG);
-
-        if (!ZMLangUtils::startsWith($href, '/')) {
-            // make fully qualified
-            $href = $context . $href;
-        }
-
-        // make full URL
-        $href = $host . $href;
-
-        if ($echo) echo $href;
-        return $href;
-    }
-
-    /**
-     * Create an Ajax URL for the given controller and method.
-     *
-     * <p><strong>NOTE:</strong> Ampersand are not encoded in this function.</p>
-     *
-     * @param string controller The controller name without the leading <em>ajax_</em>.
-     * @param string method The name of the method to call.
-     * @param string params Query string style parameter; if <code>null</code> add all current parameter
-     * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
-     * @return string A complete Ajax URL.
-     */
-    public function ajax($controller, $method, $params='', $echo=ZM_ECHO_DEFAULT) { 
-        if (ZMSettings::get('isAdmin')) {
-            $params .= '&controller=ajax_'.$controller;
-            $controller = 'zmAjaxHandler.php';
-        } else {
-            $controller = 'ajax_'.$controller;
-        }
-
-        $url = str_replace('&amp;', '&', $this->url($controller, $params.'&method='.$method, $this->getRequest()->isSecure(), false));
-
-        if ($echo) echo $url;
-        return $url;
+    public function absolute($url) {
+        return ('/' == $url[0] || false !== strpos($url, '://')) ? $url : $this->getRequest()->getContext().$url;
     }
 
     /**

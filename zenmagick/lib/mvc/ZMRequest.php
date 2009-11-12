@@ -299,6 +299,16 @@ class ZMRequest extends ZMObject {
         return $this->toolbox_;
     }
 
+    /**
+     * Get the URL context for this request.
+     *
+     * @return string The URL context.
+     */
+    public function getContext() {
+        //XXX: implemented
+        return '/';
+    }
+
 }
 
 ?>

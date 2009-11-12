@@ -65,7 +65,7 @@ class ToolboxHtml extends ZMToolboxHtml {
             throw new ZMException('invalid image format: '.$format);
         }
         if (!ZMLangUtils::startsWith($imgSrc, '/')) {
-            $imgSrc = Runtime::getContext() . $imgSrc;
+            $imgSrc = $this->getRequest()->getContext() . $imgSrc;
         }
         $slash = ZMSettings::get('zenmagick.mvc.html.xhtml') ? '/' : '';
         $html = '<img src="'.$imgSrc.'" alt="'.$this->encode($imageInfo->getAltText(), false).'" ';
