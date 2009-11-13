@@ -466,6 +466,8 @@ Release 0.9.4
 - add PDO ZMDatabase provider - ZMPdoDatabase (not complete)
 - add new setting 'isSetFilePerms' to allow to enable file permission fixing;
   disabled as per default
+- change ZMTemplateManager to allow to rewrite resource urls
+- add basic zm_minify plugin
 
 Release 0.9.3
 - prefix all variables used in init.php and store.php with _zm_, as some might

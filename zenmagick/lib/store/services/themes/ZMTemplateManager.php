@@ -230,6 +230,7 @@ class ZMTemplateManager extends ZMObject {
             return null;
         }
 
+        $request = $args['request']; 
         $slash = ZMSettings::get('zenmagick.mvc.html.xhtml') ? '/' : '';
 
         $css = '';
@@ -243,7 +244,7 @@ class ZMTemplateManager extends ZMObject {
                 }
             }
             $css .= $info['attr']['prefix'];
-            $css .= '<link '.$attr.' href="'.Runtime::getTheme()->themeURL($info['filename'], false).'"'.$slash.'>';
+            $css .= '<link '.$attr.' href="'.$this->resolveThemeResource($request, $info['filename']).'"'.$slash.'>';
             $css .= $info['attr']['suffix']."\n";
         }
 
@@ -252,9 +253,9 @@ class ZMTemplateManager extends ZMObject {
         foreach ($this->jsFiles_ as $filename => $info) {
             if (!$info['done']) {
                 if (ZMTemplateManager::PAGE_TOP == $info['position']) {
-                    $jsTop .= '<script type="text/javascript" src="'.Runtime::getTheme()->themeURL($info['filename'], false).'"></script>'."\n";
+                    $jsTop .= '<script type="text/javascript" src="'.$this->resolveThemeResource($request, $info['filename']).'"></script>'."\n";
                 } else if (ZMTemplateManager::PAGE_BOTTOM == $info['position']) {
-                    $jsBottom .= '<script type="text/javascript" src="'.Runtime::getTheme()->themeURL($info['filename'], false).'"></script>'."\n";
+                    $jsBottom .= '<script type="text/javascript" src="'.$this->resolveThemeResource($request, $info['filename']).'"></script>'."\n";
                 }
                 $this->jsFiles_[$filename]['done'] = true;
             }
@@ -268,6 +269,17 @@ class ZMTemplateManager extends ZMObject {
         $args['jsBottom'] = $jsBottom;
         $args['contents'] = $contents;
         return $args;
+    }
+
+    /**
+     * Resolve theme resource.
+     *
+     * @param request The current request.
+     * @param string resource The url.
+     * @return string The resolved final URL.
+     */
+    public function resolveThemeResource($request, $resource) {
+        return Runtime::getTheme()->themeURL($resource, false);
     }
 
     /**
@@ -304,7 +316,7 @@ class ZMTemplateManager extends ZMObject {
         $this->jsFiles_[$filename] = array('filename' => $filename, 'position' => $position, 'done' => false);
         if (ZMTemplateManager::PAGE_NOW == $position) {
             $this->jsFiles_[$filename]['done'] = true;
-            echo '<script type="text/javascript" src="',Runtime::getTheme()->themeURL($filename, false),'"></script>',"\n";
+            echo '<script type="text/javascript" src="',$this->resolveThemeResource($request, $filename),'"></script>',"\n";
         }
     }
 
