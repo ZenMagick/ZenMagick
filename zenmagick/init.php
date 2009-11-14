@@ -60,7 +60,7 @@
     ZMSettings::set('zenmagick.core.plugins.enabled', !ZM_CLI_CALL);
 
     // create the main request instance
-    $_zm_request = ZMRequest::instance();
+    $request = $_zm_request = ZMRequest::instance();
 
     // load global settings
     if (file_exists(ZM_BASE_DIR.'local.php')) {
