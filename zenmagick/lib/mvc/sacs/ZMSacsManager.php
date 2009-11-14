@@ -119,10 +119,11 @@ class ZMSacsManager extends ZMObject {
                     // not required level of authentication
                     $session = $request->getSession();
                     // secure flag: leave to net() to lookup via ZMSacsManager if configured, but leave as default parameter to allow override
-                    if (!$session->isValid()) {
+                    if (!$session->isStarted()) {
                         // no valid session
                         $request->redirect($request->getToolbox()->net->url(ZMSettings::get('zenmagick.mvc.request.invalidSession'), '', false, false));
                     }
+                    //XXX: add/rename in mvc/session
                     $session->markRequestAsLoginFollowUp();
                     $request->redirect($request->getToolbox()->net->url(ZMSettings::get('zenmagick.mvc.request.login', 'login'), '', true, false));
                 }

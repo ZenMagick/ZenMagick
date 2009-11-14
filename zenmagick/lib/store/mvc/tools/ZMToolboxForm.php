@@ -110,7 +110,7 @@ class ZMToolboxForm extends ZMToolboxTool {
 
         // add session token if configured
         if ($hasId && 'post' == strtolower($attr['method']) && ZMLangUtils::inArray($attr['id'], ZMSettings::get('zenmagick.mvc.html.tokenSecuredForms'))) {
-            $hidden[ZMSession::TOKEN_NAME] = $this->getRequest()->getSession()->getToken();
+            $hidden[Session::TOKEN_NAME] = $this->getRequest()->getSession()->getToken();
         }
 
         ob_start();

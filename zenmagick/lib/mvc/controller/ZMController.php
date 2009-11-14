@@ -84,6 +84,7 @@ class ZMController extends ZMObject {
         $view = null;
 
         // session validation
+        // XXX: move to mvc?
         if ($this->isFormSubmit($request) && null != ($view = $this->validateSession($request))) {
             ZMLogging::instance()->log('session validation failed returning: '.$view, ZMLogging::TRACE);
         }
@@ -263,7 +264,8 @@ class ZMController extends ZMObject {
         $valid = true;
         if (ZMLangUtils::inArray($this->getId(), ZMSettings::get('zenmagick.mvc.html.tokenSecuredForms'))) {
             $valid = false;
-            if (null != ($token = $request->getParameter(ZMSession::TOKEN_NAME))) {
+            //XXX: fix
+            if (null != ($token = $request->getParameter(Session::TOKEN_NAME))) {
                 $valid = $request->getSession()->getToken() == $token;
             }
         }
@@ -301,7 +303,7 @@ class ZMController extends ZMObject {
      */
     public function validate($request, $formId, $formData=null) {
         if (null === $formData) {
-            $rformData = $request->getParameterMap();
+            $formData = $request->getParameterMap();
         }
 
         if (!ZMValidator::instance()->hasRuleSet($formId)) {

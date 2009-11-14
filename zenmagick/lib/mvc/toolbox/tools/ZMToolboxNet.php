@@ -53,6 +53,7 @@ class ZMToolboxNet extends ZMToolboxTool {
         if (null === $requestId || null === $params) {
             $query = $this->getRequest()->getParameterMap();
             unset($query[ZM_PAGE_KEY]);
+            //XXX:??
             unset($query[zen_session_name()]);
             if (null != $params) {
                 parse_str($params, $arr);

@@ -468,6 +468,8 @@ Release 0.9.4
   disabled as per default
 - change ZMTemplateManager to allow to rewrite resource urls
 - add basic zm_minify plugin
+- introduce new mvc ZMSession class (not used as not compatible with zc
+  session handling)
 
 Release 0.9.3
 - prefix all variables used in init.php and store.php with _zm_, as some might
