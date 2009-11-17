@@ -102,8 +102,6 @@
             <param name="insert.substitution" value="if (!ZMSettings::get('isEnableZMThemes')) { $$_zm_args = ZMEvents::instance()->fireEvent(null, Events::FINALISE_CONTENTS, array('contents' => ob_get_clean(), 'request' => ZMRequest::instance())); echo $$_zm_args['contents']; ZMRequest::instance()->getSession()->clearMessages(); ZMEvents::instance()->fireEvent(null, Events::ALL_DONE, array('request' => ZMRequest::instance())); } /* added by ZenMagick installation patcher */" />
         </antcall>
 
-        <!-- sidebox dummy patch -->
-        <!-- theme dummy patch -->
         <!-- theme support patch -->
         <antcall target="insert-before">
             <param name="insert.file" value="${release.full.dir}/index.php" />
