@@ -49,6 +49,15 @@ class zm_minify extends Plugin {
     }
 
 
+    /**
+     * {@inheritDoc}
+     */
+    public function install() {
+        parent::install();
+        // create minify cache dir
+        ZMFileUtils::mkdir(dirname(ZMRuntime::getInstallationPath()).DIRECTORY_SEPARATOR.'cache'.DIRECTORY_SEPARATOR.'zenmagick'.DIRECTORY_SEPARATOR.'minify');
+    }
+
     //TODO: install options: =f only, create dynamica groups, enable js, enable/disable css, PHP support: off, simple, ZenMagick Context (controller)
     // minify logger
     // controller for ZM context?

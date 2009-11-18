@@ -25,7 +25,7 @@ $min_allowDebugFlag = false;
  *
  * @todo cache system does not have error logging yet.
  */
-$min_errorLogger = false;
+$min_errorLogger = true;
 
 
 /**
@@ -42,7 +42,7 @@ $min_enableBuilder = false;
 //$min_cachePath = 'c:\\WINDOWS\\Temp';
 //$min_cachePath = '/tmp';
 //$min_cachePath = preg_replace('/^\\d+;/', '', session_save_path());
-
+$min_cachePath = dirname(dirname(dirname(dirname(dirname(dirname(__FILE__)))))).DIRECTORY_SEPARATOR.'cache'.DIRECTORY_SEPARATOR.'zenmagick'.DIRECTORY_SEPARATOR.'minify';
 
 /**
  * Leave an empty string to use PHP's $_SERVER['DOCUMENT_ROOT'].
