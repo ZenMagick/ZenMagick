@@ -53,6 +53,7 @@ Release 0.9.8
   in conditional code (HTML comments)
 - zm_minify: remove builder code and leave just the runtime
 - zm_minify: pack minify as much as possible
+- add support for template caching to ZMSavant
 
 Release 0.9.7
 - add ZMProductAssociation service and related code

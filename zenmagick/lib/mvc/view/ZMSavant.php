@@ -67,6 +67,31 @@ class ZMSavant extends Savant3 {
         return $this->request->getToolbox()->net->absolute($filename);
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * Adds a hook for flexibe caching.
+     */
+    public function fetch($tpl = null) {
+        // check if caching enabled
+        if ($this->__config['cache']) {
+            // check for cache hit
+            if (null != ($result = call_user_func(array($this->__config['cache'], 'get'), $tpl))) {
+                return $result;
+            }
+        }
+
+        // generate content as usual
+        $result = parent::fetch($tpl);
+
+        if ($this->__config['cache']) {
+            // offer to cache the result
+            call_user_func(array($this->__config['cache'], 'save'), $tpl, $result);
+        }
+
+        return $result;
+    }
+
 }
 
 ?>
