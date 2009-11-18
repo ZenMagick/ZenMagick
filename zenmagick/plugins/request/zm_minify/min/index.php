@@ -9,13 +9,16 @@
 
 define('MINIFY_MIN_DIR', dirname(__FILE__));
 
+// load all
+require MINIFY_MIN_DIR . '/minify-2.1.3.packed.php';
+
 // load config
 require MINIFY_MIN_DIR . '/config.php';
 
 // setup include path
-set_include_path($min_libPath . PATH_SEPARATOR . get_include_path());
+//set_include_path($min_libPath . PATH_SEPARATOR . get_include_path());
 
-require 'Minify.php';
+//require 'Minify.php';
 
 Minify::$uploaderHoursBehind = $min_uploaderHoursBehind;
 Minify::setCache(
@@ -36,9 +39,9 @@ if ($min_allowDebugFlag && isset($_GET['debug'])) {
 }
 
 if ($min_errorLogger) {
-    require_once 'Minify/Logger.php';
+    //require_once 'Minify/Logger.php';
     if (true === $min_errorLogger) {
-        require_once 'FirePHP.php';
+        //require_once 'FirePHP.php';
         Minify_Logger::setLogger(FirePHP::getInstance(true));
     } else {
         Minify_Logger::setLogger($min_errorLogger);

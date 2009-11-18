@@ -51,6 +51,8 @@ Release 0.9.8
 - convert themes to using ZMTemplateManager ($utils) for CSS
 - add custom attributes 'prefix'/'suffix' to allow to wrap CSS link elements
   in conditional code (HTML comments)
+- zm_minify: remove builder code and leave just the runtime
+- zm_minify: pack minify as much as possible
 
 Release 0.9.7
 - add ZMProductAssociation service and related code
