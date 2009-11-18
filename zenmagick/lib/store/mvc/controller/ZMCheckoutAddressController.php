@@ -62,7 +62,7 @@ class ZMCheckoutAddressController extends ZMController {
         if ('shipping' == $mode) {
             $this->settings_ = array('url' => 'checkout_shipping', 'method' => 'setShippingAddressId');
         } else if ('billing' == $mode) {
-            $this->settings_ = array('url' => 'checkout_billing', 'method' => 'setBillingAddressId');
+            $this->settings_ = array('url' => 'checkout_payment', 'method' => 'setBillingAddressId');
         }
     }
 

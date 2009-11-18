@@ -72,7 +72,12 @@ class ZMAccounts extends ZMObject {
                   LEFT JOIN " . TABLE_CUSTOMERS_INFO . " ci ON (c.customers_id = ci.customers_info_id)
                 WHERE c.customers_id = :accountId";
         $args = array('accountId' => $accountId);
-        return ZMRuntime::getDatabase()->querySingle($sql, $args, array(TABLE_CUSTOMERS, TABLE_CUSTOMERS_INFO), 'Account');
+        if (null != ($account = ZMRuntime::getDatabase()->querySingle($sql, $args, array(TABLE_CUSTOMERS, TABLE_CUSTOMERS_INFO), 'Account'))) {
+            if (ZMLangUtils::isEmpty($account->getPassword())) {
+                $account->setType(ZMZenCartUserSacsHandler::GUEST);
+            }
+        }
+        return $account;
     }
 
     /**
@@ -88,11 +93,16 @@ class ZMAccounts extends ZMObject {
                 WHERE customers_email_address = :email
                 AND NOT (customers_password = '')";
         $args = array('email' => $emailAddress);
-        return ZMRuntime::getDatabase()->querySingle($sql, $args, array(TABLE_CUSTOMERS, TABLE_CUSTOMERS_INFO), 'Account');
+        if (null != ($account = ZMRuntime::getDatabase()->querySingle($sql, $args, array(TABLE_CUSTOMERS, TABLE_CUSTOMERS_INFO), 'Account'))) {
+            if (ZMLangUtils::isEmpty($account->getPassword())) {
+                $account->setType(ZMZenCartUserSacsHandler::GUEST);
+            }
+        }
+        return $account;
     }
 
     /**
-     * Get all accounts (guest and registered( for the given email address.
+     * Get all accounts (guest and registered) for the given email address.
      *
      * @param string emailAddress The email address.
      * @return array A <st of code>ZMAccount</code> instances.
@@ -103,7 +113,13 @@ class ZMAccounts extends ZMObject {
                   LEFT JOIN " . TABLE_CUSTOMERS_INFO . " ci ON (c.customers_id = ci.customers_info_id)
                 WHERE customers_email_address = :email";
         $args = array('email' => $emailAddress);
-        return ZMRuntime::getDatabase()->query($sql, $args, array(TABLE_CUSTOMERS, TABLE_CUSTOMERS_INFO), 'Account');
+        $accounts = array();
+        foreach (ZMRuntime::getDatabase()->query($sql, $args, array(TABLE_CUSTOMERS, TABLE_CUSTOMERS_INFO), 'Account') as $account) {
+            if (ZMLangUtils::isEmpty($account->getPassword())) {
+                $account->setType(ZMZenCartUserSacsHandler::GUEST);
+            }
+        }
+        return $accounts;
     }
 
     /**

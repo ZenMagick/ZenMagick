@@ -47,7 +47,7 @@
         // checkout states
         $urlMapper->setMappingInfo(null, array('viewId' => 'empty_cart', 'template' => 'shopping_cart', 'viewDefinition' => 'RedirectView'));
         $urlMapper->setMappingInfo(null, array('viewId' => 'cart_not_ready', 'template' => 'shopping_cart', 'viewDefinition' => 'RedirectView'));
-        $urlMapper->setMappingInfo(null, array('viewId' => 'cart_is_virtual', 'template' => 'checkout_billing', 'viewDefinition' => 'RedirectView'));
+        $urlMapper->setMappingInfo(null, array('viewId' => 'cart_is_virtual', 'template' => 'checkout_payment', 'viewDefinition' => 'RedirectView'));
         $urlMapper->setMappingInfo(null, array('viewId' => 'check_cart', 'template' => 'shopping_cart', 'viewDefinition' => 'RedirectView'));
         $urlMapper->setMappingInfo(null, array('viewId' => 'low_stock"', 'template' => 'shopping_cart', 'viewDefinition' => 'RedirectView'));
 
@@ -134,7 +134,7 @@
 
 
         // checkout shipping [form]
-        $urlMapper->setMappingInfo('checkout_shipping', array('viewId' => 'success', 'template' => 'checkout_billing', 'viewDefinition' => 'RedirectView'));
+        $urlMapper->setMappingInfo('checkout_shipping', array('viewId' => 'success', 'template' => 'checkout_payment', 'viewDefinition' => 'RedirectView'));
 
         // checkout shipping address [form]
         $urlMapper->setMappingInfo('checkout_shipping_address', array('template' => 'checkout_shipping_address', 'formDefinition' => 'Address', 'formId' => 'shippingAddress', 'controllerDefinition' => 'CheckoutAddressController#mode=shipping'));

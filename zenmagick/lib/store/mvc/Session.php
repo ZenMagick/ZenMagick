@@ -165,6 +165,7 @@ class Session extends ZMObject {
      * @param ZMAccount account The account.
      */
     public function setAccount($account) {
+ZMLogging::instance()->trace();
         $_SESSION['customer_id'] = $account->getId();
         $_SESSION['customer_default_address_id'] = $account->getDefaultAddressId();
         $_SESSION['customers_authorization'] = $account->getAuthorization();
