@@ -126,7 +126,11 @@ class ZMThemeDummyPatch extends ZMFilePatch {
                         $imageName = 'preview.jpg';
                     }
                     $theme = ZMThemes::instance()->getThemeForId($themeId);
-                    copy($theme->getRootDir().'preview.jpg', $templateDir.'images'.DIRECTORY_SEPARATOR.$imageName);
+                    if (file_exists($theme->getRootDir().'preview.jpg')) {
+                        copy($theme->getRootDir().'preview.jpg', $templateDir.'images'.DIRECTORY_SEPARATOR.$imageName);
+                    } else {
+                        copy(ZMRuntime::getInstallationPath().'lib/store/etc/images/preview_not_found.jpg', $templateDir.'images'.DIRECTORY_SEPARATOR.$imageName);
+                    }
                     $handle = fopen(DIR_FS_CATALOG_TEMPLATES.$themeId."/template_info.php", 'ab');
                     fwrite($handle, '<?php /** dummy file created by ZenMagick installation patcher **/'."\n");
                     fwrite($handle, '  $template_version = ' . "'" . addslashes($themeInfo->getVersion()) . "';\n");

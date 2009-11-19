@@ -54,6 +54,8 @@ Release 0.9.8
 - zm_minify: remove builder code and leave just the runtime
 - zm_minify: pack minify as much as possible
 - add support for template caching to ZMSavant
+- 'not available' image to be used for themes that do not include a preview
+  image when the dummy file is generated
 
 Release 0.9.7
 - add ZMProductAssociation service and related code
