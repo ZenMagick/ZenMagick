@@ -47,7 +47,6 @@ interface ZMSessionHandler {
      * @param string id The session id.
      * @param mixed data The session data.
      */
-     */
     public function write($id, $data);
 
     /**
