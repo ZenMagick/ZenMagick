@@ -50,7 +50,7 @@
                         <td>
                             <input type="radio" id="male" name="gender" value="m"<?php $form->checked('m', $registration->getGender()) ?> />
                             <label for="male"><?php zm_l10n("Mr.") ?></label>
-                            <input type="radio" id="female" name="gender" value="f"<?php $form->checked('f' == $registration->getGender()) ?> />
+                            <input type="radio" id="female" name="gender" value="f"<?php $form->checked('f', $registration->getGender()) ?> />
                             <label for="female"><?php zm_l10n("Ms.") ?></label>
                         </td>
                     </tr>

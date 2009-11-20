@@ -116,7 +116,6 @@ class ZMCreateAccountController extends ZMController {
 
         $session = $request->getSession();
         $session->recreate();
-        var_dump($account);
         $session->setAccount($account);
         $session->restoreCart();
 

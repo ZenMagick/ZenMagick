@@ -104,6 +104,7 @@ class Session extends ZMObject {
      */
     public function recreate($force=false) {
         if ($force || ZMSettings::get('isSessionRecreate')) {
+            // yay!
             include_once(DIR_WS_FUNCTIONS . 'whos_online.php');
             zen_session_recreate();
         }
@@ -165,7 +166,6 @@ class Session extends ZMObject {
      * @param ZMAccount account The account.
      */
     public function setAccount($account) {
-ZMLogging::instance()->trace();
         $_SESSION['customer_id'] = $account->getId();
         $_SESSION['customer_default_address_id'] = $account->getDefaultAddressId();
         $_SESSION['customers_authorization'] = $account->getAuthorization();
