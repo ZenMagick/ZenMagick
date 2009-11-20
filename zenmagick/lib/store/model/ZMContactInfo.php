@@ -29,7 +29,7 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.store.model
- * @version $Id: ZMContactInfo.php 2082 2009-03-18 09:12:19Z dermanomann $
+ * @version $Id$
  */
 class ZMContactInfo extends ZMObject {
     private $name_;

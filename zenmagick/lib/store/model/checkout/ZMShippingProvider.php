@@ -32,7 +32,7 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.store.model.checkout
- * @version $Id: ZMShippingProvider.php 2122 2009-03-31 03:08:30Z dermanomann $
+ * @version $Id$
  */
 class ZMShippingProvider extends ZMObject {
     private $zenQuote_;

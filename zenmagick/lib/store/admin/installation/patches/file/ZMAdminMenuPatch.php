@@ -31,7 +31,7 @@ define('_ZM_ZEN_ADMIN_FILE', DIR_FS_ADMIN . DIR_WS_BOXES . "extras_dhtml.php");
  *
  * @author DerManoMann
  * @package org.zenmagick.store.admin.installation.patches.file
- * @version $Id: ZMAdminMenuPatch.php 2308 2009-06-24 11:03:11Z dermanomann $
+ * @version $Id$
  */
 class ZMAdminMenuPatch extends ZMFilePatch {
 

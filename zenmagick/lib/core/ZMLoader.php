@@ -62,7 +62,7 @@ if (!function_exists('__autoload')) {
  *
  * @author DerManoMann
  * @package org.zenmagick.core
- * @version $Id: ZMLoader.php 2172 2009-04-22 00:19:36Z dermanomann $
+ * @version $Id$
  */
 class ZMLoader {
     private static $root_ = null;

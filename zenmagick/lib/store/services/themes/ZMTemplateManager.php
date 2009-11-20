@@ -31,7 +31,7 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.store.services.themes
- * @version $Id: ZMTemplateManager.php 2117 2009-03-29 23:34:14Z dermanomann $
+ * @version $Id$
  */
 class ZMTemplateManager extends ZMObject {
     const PAGE_TOP = 'top';

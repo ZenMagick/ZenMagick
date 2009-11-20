@@ -33,7 +33,7 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.store.services
- * @version $Id: ZMMessages.php 2240 2009-05-27 03:53:12Z DerManoMann $
+ * @version $Id$
  */
 class Messages extends ZMMessages {
 

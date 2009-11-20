@@ -29,7 +29,7 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.store.services
- * @version $Id: ZMCoupons.php 2149 2009-04-13 22:59:14Z dermanomann $
+ * @version $Id$
  */
 class ZMCoupons extends ZMObject {
     const BALANCE_SET = 'balance_set';

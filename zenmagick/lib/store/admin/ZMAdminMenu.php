@@ -31,7 +31,7 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.store.admin
- * @version $Id: ZMAdminMenu.php 2308 2009-06-24 11:03:11Z dermanomann $
+ * @version $Id$
  */
 class ZMAdminMenu extends ZMObject {
     /** Plugins menu id. */

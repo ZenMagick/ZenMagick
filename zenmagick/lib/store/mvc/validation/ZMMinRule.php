@@ -26,7 +26,7 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.store.mvc.validation
- * @version $Id: ZMMinRule.php 2269 2009-06-18 04:54:12Z DerManoMann $
+ * @version $Id$
  */
 class ZMMinRule extends ZMRule {
     private $min_;

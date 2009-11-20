@@ -29,7 +29,7 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.store.admin.installation.patches.file
- * @version $Id: ZMThemeDummyPatch.php 2308 2009-06-24 11:03:11Z dermanomann $
+ * @version $Id$
  */
 class ZMThemeDummyPatch extends ZMFilePatch {
     private $includeDefault_;

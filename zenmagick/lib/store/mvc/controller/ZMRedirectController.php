@@ -29,7 +29,7 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.store.mvc.controller
- * @version $Id: ZMRedirectController.php 2346 2009-06-29 02:39:42Z dermanomann $
+ * @version $Id$
  */
 class ZMRedirectController extends ZMController {
 

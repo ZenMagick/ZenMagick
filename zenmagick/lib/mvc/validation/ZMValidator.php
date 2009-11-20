@@ -26,7 +26,7 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.mvc.validation
- * @version $Id: ZMValidator.php 2147 2009-04-08 04:41:01Z dermanomann $
+ * @version $Id$
  */
 class ZMValidator extends ZMObject {
     private $sets_;

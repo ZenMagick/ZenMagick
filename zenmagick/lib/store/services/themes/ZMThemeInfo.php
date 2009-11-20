@@ -28,7 +28,7 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.store.services.themes
- * @version $Id: ZMThemeInfo.php 2373 2009-07-01 08:48:19Z dermanomann $
+ * @version $Id$
  */
 class ZMThemeInfo extends ZMObject {
     private $info_;

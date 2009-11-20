@@ -29,7 +29,7 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.store.model.catalog
- * @version $Id: ZMManufacturer.php 2054 2009-03-12 03:41:22Z dermanomann $
+ * @version $Id$
  */
 class ZMManufacturer extends ZMObject {
     private $name_;

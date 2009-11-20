@@ -29,7 +29,7 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.store.model
- * @version $Id: ZMToken.php 2054 2009-03-12 03:41:22Z dermanomann $
+ * @version $Id$
  */
 class ZMToken extends ZMObject {
 

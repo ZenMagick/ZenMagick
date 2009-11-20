@@ -29,7 +29,7 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.store.model
- * @version $Id: ZMConfigGroup.php 2054 2009-03-12 03:41:22Z dermanomann $
+ * @version $Id$
  */
 class ZMConfigGroup extends ZMObject {
     private $id_;

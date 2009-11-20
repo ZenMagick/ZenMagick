@@ -29,7 +29,7 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.store.admin.utils
- * @version $Id: ZMCoreCompressor.php 2317 2009-06-25 00:57:23Z dermanomann $
+ * @version $Id$
  */
 class ZMCoreCompressor extends ZMPhpCompressor {
     private $pluginsPreparedFolder_;

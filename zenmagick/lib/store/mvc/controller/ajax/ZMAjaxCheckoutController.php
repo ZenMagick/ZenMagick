@@ -29,7 +29,7 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.store.mvc.controller.ajax
- * @version $Id: ZMAjaxCheckoutController.php 2245 2009-05-27 04:21:13Z DerManoMann $
+ * @version $Id$
  * @todo implement!
  */
 class ZMAjaxCheckoutController extends ZMAjaxController {

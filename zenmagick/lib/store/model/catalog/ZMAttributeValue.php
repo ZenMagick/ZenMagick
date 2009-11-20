@@ -20,7 +20,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  *
- * $Id: ZMAttributeValue.php 2211 2009-05-07 05:13:40Z dermanomann $
+ * $Id$
  */
 ?>
 <?php
@@ -34,7 +34,7 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.store.model.catalog
- * @version $Id: ZMAttributeValue.php 2211 2009-05-07 05:13:40Z dermanomann $
+ * @version $Id$
  */
 class ZMAttributeValue extends ZMObject {
     private $attribute_;

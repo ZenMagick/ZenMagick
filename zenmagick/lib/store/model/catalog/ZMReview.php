@@ -29,7 +29,7 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.store.model.catalog
- * @version $Id: ZMReview.php 2066 2009-03-16 04:37:52Z dermanomann $
+ * @version $Id$
  */
 class ZMReview extends ZMObject {
     private $rating_;

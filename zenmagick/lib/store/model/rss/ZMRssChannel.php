@@ -32,7 +32,7 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.store.model.rss
- * @version $Id: ZMRssChannel.php 2121 2009-03-31 01:56:56Z dermanomann $
+ * @version $Id$
  */
 class ZMRssChannel extends ZMObject {
     private $rs_;

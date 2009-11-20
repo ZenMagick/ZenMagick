@@ -29,7 +29,7 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.store.model
- * @version $Id: ZMGVRedeem.php 2074 2009-03-17 04:05:29Z dermanomann $
+ * @version $Id$
  */
 class ZMGVRedeem extends ZMObject {
     private $couponCode_;

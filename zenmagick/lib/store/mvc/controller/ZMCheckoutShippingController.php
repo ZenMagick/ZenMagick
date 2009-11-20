@@ -29,7 +29,7 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.store.mvc.controller
- * @version $Id: ZMCheckoutShippingController.php 2225 2009-05-16 08:27:57Z dermanomann $
+ * @version $Id$
  */
 class ZMCheckoutShippingController extends ZMController {
     private $viewData_;

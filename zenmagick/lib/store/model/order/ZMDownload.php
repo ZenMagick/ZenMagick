@@ -29,7 +29,7 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.store.model.order
- * @version $Id: ZMDownload.php 2054 2009-03-12 03:41:22Z dermanomann $
+ * @version $Id$
  */
 class ZMDownload extends ZMObject {
     private $id;

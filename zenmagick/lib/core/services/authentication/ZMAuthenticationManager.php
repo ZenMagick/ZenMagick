@@ -31,7 +31,7 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.core.services.authentication
- * @version $Id: ZMAuthenticationManager.php 2202 2009-05-05 01:37:46Z dermanomann $
+ * @version $Id$
  */
 class ZMAuthenticationManager extends ZMObject {
     private $providers_;

@@ -29,7 +29,7 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.store.model
- * @version $Id: ZMCurrency.php 2200 2009-05-05 01:01:27Z dermanomann $
+ * @version $Id$
  */
 class ZMCurrency extends ZMObject {
     private $code_;

@@ -31,7 +31,7 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.store.services
- * @version $Id: ZMTaxRates.php 2100 2009-03-23 04:24:25Z dermanomann $
+ * @version $Id$
  */
 class ZMTaxRates extends ZMObject {
     const TAX_BASE_STORE = 'Store';

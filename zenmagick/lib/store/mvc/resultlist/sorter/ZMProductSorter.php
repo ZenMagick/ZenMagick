@@ -27,7 +27,7 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.store.mvc.resultlist.sorter
- * @version $Id: ZMProductSorter.php 2332 2009-06-26 04:05:17Z dermanomann $
+ * @version $Id$
  */
 class ZMProductSorter extends ZMResultListSorter implements ZMSQLAware {
     // supported sorts

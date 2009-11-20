@@ -31,7 +31,7 @@ define('_ZM_HTACCESS', DIR_FS_CATALOG.".htaccess");
  *
  * @author DerManoMann
  * @package org.zenmagick.store.admin.installation.patches.file
- * @version $Id: ZMRewriteBasePatch.php 1966 2009-02-14 10:52:50Z dermanomann $
+ * @version $Id$
  */
 class ZMRewriteBasePatch extends ZMFilePatch {
 

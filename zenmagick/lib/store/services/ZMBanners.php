@@ -29,7 +29,7 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.store.services
- * @version $Id: ZMBanners.php 2138 2009-04-07 00:46:12Z dermanomann $
+ * @version $Id$
  */
 class ZMBanners extends ZMObject {
 

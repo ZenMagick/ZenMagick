@@ -29,7 +29,7 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.store.mvc.views
- * @version $Id: ZMPluginView.php 2377 2009-07-01 11:09:13Z dermanomann $
+ * @version $Id$
  */
 class ZMPluginView extends SavantView {
     protected $plugin_;

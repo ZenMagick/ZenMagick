@@ -31,7 +31,7 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.core.services.misc
- * @version $Id: ZMLogging.php 2266 2009-06-16 08:57:02Z dermanomann $
+ * @version $Id$
  */
 class ZMLogging extends ZMObject {
     private static $LABEL = array('NONE', 'ERROR', 'WARN', 'INFO', 'DEBUG', 'TRACE');

@@ -20,7 +20,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  *
- * $Id: defaults.php 2284 2009-06-19 11:09:16Z dermanomann $
+ * $Id$
  */
 ?>
 <?php

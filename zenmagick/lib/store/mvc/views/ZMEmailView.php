@@ -29,7 +29,7 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.store.mvc.views
- * @version $Id: ZMEmailView.php 2347 2009-06-29 02:43:11Z dermanomann $
+ * @version $Id$
  */
 class ZMEmailView extends SavantView {
 

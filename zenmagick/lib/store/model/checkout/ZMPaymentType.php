@@ -29,7 +29,7 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.store.model.checkout
- * @version $Id: ZMPaymentType.php 954 2008-03-29 10:12:29Z DerManoMann $
+ * @version $Id$
  */
 class ZMPaymentType extends ZMObject {
     private $id_;

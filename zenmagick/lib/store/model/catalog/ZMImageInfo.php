@@ -29,7 +29,7 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.store.model.catalog
- * @version $Id: ZMImageInfo.php 2124 2009-03-31 09:23:51Z dermanomann $
+ * @version $Id$
  */
 class ZMImageInfo extends ZMObject {
     protected $imageDefault_;

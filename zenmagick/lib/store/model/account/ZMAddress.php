@@ -32,7 +32,7 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.store.model.account
- * @version $Id: ZMAddress.php 2089 2009-03-20 04:19:48Z dermanomann $
+ * @version $Id$
  */
 class ZMAddress extends ZMObject {
     private $addressId_;

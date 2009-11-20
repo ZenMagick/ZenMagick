@@ -19,7 +19,7 @@
 *
 * @package Cache_Lite
 * @category Caching
-* @version $Id: Cache_Lite.php 2149 2009-04-13 22:59:14Z dermanomann $
+* @version $Id$
 * @author Fabien MARTY <fab@php.net>
 */
 

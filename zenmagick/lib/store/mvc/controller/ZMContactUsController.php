@@ -29,7 +29,7 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.store.mvc.controller
- * @version $Id: ZMContactUsController.php 2069 2009-03-16 23:06:31Z dermanomann $
+ * @version $Id$
  */
 class ZMContactUsController extends ZMController {
 

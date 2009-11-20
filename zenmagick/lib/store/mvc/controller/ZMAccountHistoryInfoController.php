@@ -29,7 +29,7 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.store.mvc.controller
- * @version $Id: ZMAccountHistoryInfoController.php 2348 2009-06-29 03:04:18Z dermanomann $
+ * @version $Id$
  */
 class ZMAccountHistoryInfoController extends ZMController {
 

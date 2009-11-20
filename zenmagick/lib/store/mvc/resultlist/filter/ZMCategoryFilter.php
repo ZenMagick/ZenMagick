@@ -26,7 +26,7 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.store.mvc.resultlist.filter
- * @version $Id: ZMCategoryFilter.php 2121 2009-03-31 01:56:56Z dermanomann $
+ * @version $Id$
  */
 class ZMCategoryFilter extends ZMResultListFilter implements ZMSQLAware {
     private $productIds_;

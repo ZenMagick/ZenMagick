@@ -35,7 +35,7 @@
  * @todo Support for custom/additional channel/item properties.
  * @author DerManoMann
  * @package org.zenmagick.store.mvc.controller
- * @version $Id: ZMRssController.php 1966 2009-02-14 10:52:50Z dermanomann $
+ * @version $Id$
  */
 class ZMRssController extends ZMController {
 

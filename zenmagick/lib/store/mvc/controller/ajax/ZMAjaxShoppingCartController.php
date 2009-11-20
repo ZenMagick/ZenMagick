@@ -29,7 +29,7 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.store.mvc.controller.ajax
- * @version $Id: ZMAjaxShoppingCartController.php 2153 2009-04-14 03:28:18Z dermanomann $
+ * @version $Id$
  */
 class ZMAjaxShoppingCartController extends ZMAjaxController {
 

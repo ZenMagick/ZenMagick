@@ -29,7 +29,7 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.store.model.order
- * @version $Id: ZMOrderStatus.php 2054 2009-03-12 03:41:22Z dermanomann $
+ * @version $Id$
  */
 class ZMOrderStatus extends ZMObject {
     private $orderId_;

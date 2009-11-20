@@ -35,7 +35,7 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.store.model.checkout
- * @version $Id: ZMShippingProviderWrapper.php 2243 2009-05-27 04:19:40Z DerManoMann $
+ * @version $Id$
  */
 class ZMShippingProviderWrapper extends ZMObject {
     private $zenModule_;

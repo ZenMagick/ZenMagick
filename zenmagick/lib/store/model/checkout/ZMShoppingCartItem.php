@@ -32,7 +32,7 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.store.model.checkout
- * @version $Id: ZMShoppingCartItem.php 2224 2009-05-14 04:48:22Z dermanomann $
+ * @version $Id$
  * @todo remove deprecated code and zenItem references
  */
 class ZMShoppingCartItem extends ZMObject {

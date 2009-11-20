@@ -31,7 +31,7 @@ define('_ZM_ZEN_DIR_FS_BOXES', DIR_FS_CATALOG . DIR_WS_MODULES . "sideboxes/");
  *
  * @author DerManoMann
  * @package org.zenmagick.store.services.plugins.types
- * @version $Id: ZMBoxPlugin.php 2308 2009-06-24 11:03:11Z dermanomann $
+ * @version $Id$
  */
 class ZMBoxPlugin extends Plugin {
 

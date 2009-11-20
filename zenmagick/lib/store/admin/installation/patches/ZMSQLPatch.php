@@ -29,7 +29,7 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.store.admin.installation.patches
- * @version $Id: ZMSQLPatch.php 1966 2009-02-14 10:52:50Z dermanomann $
+ * @version $Id$
  */
 class ZMSQLPatch extends ZMInstallationPatch {
 

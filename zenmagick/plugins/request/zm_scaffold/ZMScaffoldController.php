@@ -28,7 +28,7 @@
  *
  * @package org.zenmagick.plugins.zm_scaffold
  * @author DerManoMann
- * @version $Id: ZMAjaxController.php 2173 2009-04-22 04:55:11Z dermanomann $
+ * @version $Id$
  */
 class ZMScaffoldController extends ZMController {
     private $method_;

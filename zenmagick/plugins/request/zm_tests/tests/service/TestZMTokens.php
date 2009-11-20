@@ -5,7 +5,7 @@
  *
  * @package org.zenmagick.plugins.zm_tests.tests
  * @author DerManoMann
- * @version $Id: TestZMTokens.php 1600 2008-10-03 01:02:19Z dermanomann $
+ * @version $Id$
  */
 class TestZMTokens extends ZMTestCase {
 

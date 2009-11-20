@@ -20,7 +20,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  *
- * $Id: l10n.php 2332 2009-06-26 04:05:17Z dermanomann $
+ * $Id$
  */
 ?>
 <?php

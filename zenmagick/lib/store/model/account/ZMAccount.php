@@ -29,7 +29,7 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.store.model.account
- * @version $Id: ZMAccount.php 2100 2009-03-23 04:24:25Z dermanomann $
+ * @version $Id$
  */
 class ZMAccount extends ZMObject {
     private $firstName_;

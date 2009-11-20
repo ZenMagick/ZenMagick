@@ -30,7 +30,7 @@ define('ZM_CACHE_BASE_DIR', DIR_FS_SQL_CACHE.'/zenmagick/');
  *
  * @author DerManoMann
  * @package org.zenmagick.core.services.cache.provider
- * @version $Id: ZMFileCache.php 2231 2009-05-21 04:57:23Z DerManoMann $
+ * @version $Id$
  */
 class ZMFileCache extends ZMObject implements ZMCache {
     private $group_;

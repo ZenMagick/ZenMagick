@@ -29,7 +29,7 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.store.utils
- * @version $Id: ZMCheckoutHelper.php 2197 2009-05-04 03:44:37Z dermanomann $
+ * @version $Id$
  */
 class ZMCheckoutHelper extends ZMObject {
     const CART_PRODUCT_STATUS = 'status';

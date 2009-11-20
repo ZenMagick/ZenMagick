@@ -29,7 +29,7 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.store.services.plugins
- * @version $Id: ZMPluginPage.php 1966 2009-02-14 10:52:50Z dermanomann $
+ * @version $Id$
  */
 class ZMPluginPage extends ZMObject {
     private $id_;

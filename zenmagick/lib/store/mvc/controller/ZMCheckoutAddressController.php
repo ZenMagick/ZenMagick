@@ -29,7 +29,7 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.store.mvc.controller
- * @version $Id: ZMCheckoutAddressController.php 2197 2009-05-04 03:44:37Z dermanomann $
+ * @version $Id$
  */
 class ZMCheckoutAddressController extends ZMController {
     private $settings_;

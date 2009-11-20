@@ -28,7 +28,7 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.mvc
- * @version $Id: ZMRequestHandler.php 2427 2009-07-14 10:24:33Z dermanomann $
+ * @version $Id$
  */
 interface ZMRequestHandler {
 

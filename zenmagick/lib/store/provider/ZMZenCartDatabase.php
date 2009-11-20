@@ -29,7 +29,7 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.store.provider
- * @version $Id: ZMZenCartDatabase.php 2265 2009-06-16 05:32:36Z DerManoMann $
+ * @version $Id$
  */
 class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
     private static $typeMap = array('boolean' => 'integer', 'blob' => 'date', 'datetime' => 'date');

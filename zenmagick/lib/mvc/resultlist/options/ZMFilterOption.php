@@ -26,7 +26,7 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.mvc.resultlist.options
- * @version $Id: ZMFilterOption.php 2121 2009-03-31 01:56:56Z dermanomann $
+ * @version $Id$
  */
 class ZMFilterOption extends ZMObject {
     private $name_;

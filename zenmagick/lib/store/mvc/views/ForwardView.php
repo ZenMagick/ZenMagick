@@ -28,7 +28,7 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.store.mvc.views
- * @version $Id: ZMForwardView.php 2139 2009-04-07 00:50:48Z dermanomann $
+ * @version $Id$
  */
 class ForwardView extends ZMForwardView {
 

@@ -29,7 +29,7 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.mvc.resultlist.options
- * @version $Id: ZMSortOption.php 2121 2009-03-31 01:56:56Z dermanomann $
+ * @version $Id$
  */
 class ZMSortOption extends ZMObject {
     private $name_;

@@ -26,7 +26,7 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.mvc.resultlist
- * @version $Id: ZMResultSource.php 2007 2009-03-02 08:42:58Z dermanomann $
+ * @version $Id$
  */
 interface ZMResultSource {
 

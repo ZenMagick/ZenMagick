@@ -29,7 +29,7 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.store.mvc.controller
- * @version $Id: ZMGvFaqController.php 2074 2009-03-17 04:05:29Z dermanomann $
+ * @version $Id$
  */
 class ZMGvFaqController extends ZMController {
 

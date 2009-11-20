@@ -20,7 +20,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  *
- * $Id: create_account.php 2093 2009-03-21 09:45:12Z dermanomann $
+ * $Id$
  */
 ?>
 <script type="text/javascript">

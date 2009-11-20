@@ -42,7 +42,7 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.core.services.plugins
- * @version $Id: ZMPlugins.php 2356 2009-06-29 09:52:41Z dermanomann $
+ * @version $Id$
  */
 class ZMPlugins extends ZMObject {
     // internal plugin cache with some details

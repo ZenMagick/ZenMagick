@@ -37,7 +37,7 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.store.mvc.controller
- * @version $Id: ZMCreateAccountController.php 2363 2009-06-30 04:59:25Z dermanomann $
+ * @version $Id$
  */
 class ZMCreateAccountController extends ZMController {
     private $createDefaultAddress_;
@@ -116,6 +116,7 @@ class ZMCreateAccountController extends ZMController {
 
         $session = $request->getSession();
         $session->recreate();
+        var_dump($account);
         $session->setAccount($account);
         $session->restoreCart();
 

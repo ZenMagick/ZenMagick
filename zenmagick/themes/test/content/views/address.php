@@ -20,7 +20,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  *
- * $Id: address.php 2194 2009-05-01 09:32:03Z dermanomann $
+ * $Id$
  */
 ?>
 x

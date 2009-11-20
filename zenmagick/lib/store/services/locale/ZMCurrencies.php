@@ -29,7 +29,7 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.store.services.locale
- * @version $Id: ZMCurrencies.php 1966 2009-02-14 10:52:50Z dermanomann $
+ * @version $Id$
  */
 class ZMCurrencies extends ZMObject {
     private $currencies;

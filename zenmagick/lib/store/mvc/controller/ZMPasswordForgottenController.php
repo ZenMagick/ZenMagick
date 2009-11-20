@@ -29,7 +29,7 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.store.mvc.controller
- * @version $Id: ZMPasswordForgottenController.php 2363 2009-06-30 04:59:25Z dermanomann $
+ * @version $Id$
  */
 class ZMPasswordForgottenController extends ZMController {
 

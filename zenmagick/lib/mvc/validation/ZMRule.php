@@ -26,7 +26,7 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.mvc.validation
- * @version $Id: ZMRule.php 2158 2009-04-16 01:34:04Z dermanomann $
+ * @version $Id$
  */
 abstract class ZMRule extends ZMObject {
     private $name_;

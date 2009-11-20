@@ -28,7 +28,7 @@
  *
  * @package org.zenmagick.plugins.zm_settings
  * @author DerManoMann
- * @version $Id: zm_settings.php 2027 2009-03-05 03:16:53Z dermanomann $
+ * @version $Id$
  */
 class zm_settings extends Plugin {
 

@@ -28,7 +28,7 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.core.services.cache.provider
- * @version $Id: ZMFileCache.php 1061 2008-04-21 23:31:35Z DerManoMann $
+ * @version $Id$
  */
 class ZMMemoryCache extends ZMObject implements ZMCache {
     private $group_;

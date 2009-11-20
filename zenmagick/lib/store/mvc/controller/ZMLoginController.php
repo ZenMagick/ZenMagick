@@ -29,7 +29,7 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.store.mvc.controller
- * @version $Id: ZMLoginController.php 2346 2009-06-29 02:39:42Z dermanomann $
+ * @version $Id$
  */
 class ZMLoginController extends ZMController {
     private static $KEY_REDIRECT = 'loginRedirect';

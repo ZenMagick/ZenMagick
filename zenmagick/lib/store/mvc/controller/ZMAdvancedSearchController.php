@@ -29,7 +29,7 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.store.mvc.controller
- * @version $Id: ZMAdvancedSearchController.php 2087 2009-03-19 04:06:40Z dermanomann $
+ * @version $Id$
  */
 class ZMAdvancedSearchController extends ZMController {
 

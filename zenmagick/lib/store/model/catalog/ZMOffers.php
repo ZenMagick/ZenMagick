@@ -29,7 +29,7 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.store.model.catalog
- * @version $Id: ZMOffers.php 2208 2009-05-06 05:29:40Z dermanomann $
+ * @version $Id$
  */
 class ZMOffers extends ZMObject {
     // sale type constants

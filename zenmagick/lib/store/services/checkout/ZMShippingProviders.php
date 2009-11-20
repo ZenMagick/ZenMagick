@@ -29,7 +29,7 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.store.services.checkout
- * @version $Id: ZMShippingProviders.php 2241 2009-05-27 03:53:42Z DerManoMann $
+ * @version $Id$
  */
 class ZMShippingProviders extends ZMObject {
     var $provider_;

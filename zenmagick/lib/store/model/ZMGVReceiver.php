@@ -31,7 +31,7 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.store.model
- * @version $Id: ZMGVReceiver.php 2075 2009-03-17 04:37:34Z dermanomann $
+ * @version $Id$
  */
 class ZMGVReceiver extends ZMObject {
     private $name_;

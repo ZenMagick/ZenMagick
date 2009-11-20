@@ -29,7 +29,7 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.store.services.account
- * @version $Id: ZMAddresses.php 2233 2009-05-21 10:26:30Z dermanomann $
+ * @version $Id$
  */
 class ZMAddresses extends ZMObject {
 

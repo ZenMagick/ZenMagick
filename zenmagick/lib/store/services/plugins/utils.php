@@ -20,7 +20,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  *
- * $Id: utils.php 2308 2009-06-24 11:03:11Z dermanomann $
+ * $Id$
  */
 ?>
 <?php  

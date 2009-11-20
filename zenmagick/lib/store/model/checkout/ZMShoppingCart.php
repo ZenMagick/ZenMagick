@@ -31,7 +31,7 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.store.model.checkout
- * @version $Id: ZMShoppingCart.php 2224 2009-05-14 04:48:22Z dermanomann $
+ * @version $Id$
  */
 class ZMShoppingCart extends ZMObject {
     private $cart_;

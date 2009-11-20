@@ -30,7 +30,7 @@ define('_ZM_ZEN_APP_BOTTOM_PHP', DIR_FS_CATALOG.DIR_WS_INCLUDES."application_bot
  *
  * @author DerManoMann
  * @package org.zenmagick.store.admin.installation.patches.file
- * @version $Id: ZMNoThemeSupportPatch.php 2016 2009-03-03 02:32:42Z dermanomann $
+ * @version $Id$
  */
 class ZMNoThemeSupportPatch extends ZMFilePatch {
 

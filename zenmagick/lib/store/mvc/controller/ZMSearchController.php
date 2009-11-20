@@ -31,7 +31,7 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.store.mvc.controller
- * @version $Id: ZMSearchController.php 2350 2009-06-29 04:22:59Z dermanomann $
+ * @version $Id$
  */
 class ZMSearchController extends ZMController {
     private $autoSearch_;

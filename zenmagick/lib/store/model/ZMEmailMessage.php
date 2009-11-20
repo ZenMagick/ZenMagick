@@ -29,7 +29,7 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.store.model
- * @version $Id: ZMEmailMessage.php 2069 2009-03-16 23:06:31Z dermanomann $
+ * @version $Id$
  */
 class ZMEmailMessage extends ZMObject {
     private $fromEmail_;

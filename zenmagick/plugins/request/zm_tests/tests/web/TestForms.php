@@ -5,7 +5,7 @@
  *
  * @package org.zenmagick.plugins.zm_tests.tests
  * @author DerManoMann
- * @version $Id: TestBrowsing.php 2081 2009-03-17 09:50:29Z dermanomann $
+ * @version $Id$
  */
 class TestForms extends ZMWebTestCase {
     

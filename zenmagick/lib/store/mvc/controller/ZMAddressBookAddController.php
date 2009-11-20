@@ -29,7 +29,7 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.store.mvc.controller
- * @version $Id: ZMAddressBookAddController.php 2090 2009-03-20 05:05:38Z dermanomann $
+ * @version $Id$
  */
 class ZMAddressBookAddController extends ZMController {
 

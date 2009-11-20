@@ -29,7 +29,7 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.store.model
- * @version $Id: ZMSearchCriteria.php 2072 2009-03-17 03:07:40Z dermanomann $
+ * @version $Id$
  */
 class ZMSearchCriteria extends ZMObject {
 

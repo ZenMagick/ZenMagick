@@ -29,7 +29,7 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.store.mvc.controller
- * @version $Id: ZMCheckoutPaymentController.php 2350 2009-06-29 04:22:59Z dermanomann $
+ * @version $Id$
  */
 class ZMCheckoutPaymentController extends ZMController {
 

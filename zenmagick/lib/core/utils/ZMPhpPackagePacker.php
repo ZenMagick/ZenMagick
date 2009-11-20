@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  *
- * $Id: ZMPhpPackagePacker.php 2142 2009-04-07 04:46:01Z dermanomann $
+ * $Id$
  */
 ?>
 <?php
@@ -30,7 +30,7 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.core.utils
- * @version $Id: ZMPhpPackagePacker.php 2142 2009-04-07 04:46:01Z dermanomann $
+ * @version $Id$
  */
 class ZMPhpPackagePacker {
     protected $rootFolder;

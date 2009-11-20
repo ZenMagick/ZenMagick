@@ -33,7 +33,7 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.store.service
- * @version $Id: ZMPlugins.php 2360 2009-06-30 03:31:15Z dermanomann $
+ * @version $Id$
  */
 class Plugins extends ZMPlugins {
 

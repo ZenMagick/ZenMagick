@@ -29,7 +29,7 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.store.mvc
- * @version $Id: ZMSession.php 2363 2009-06-30 04:59:25Z dermanomann $
+ * @version $Id$
  */
 class Session extends ZMObject {
     const TOKEN_NAME = 'stoken';

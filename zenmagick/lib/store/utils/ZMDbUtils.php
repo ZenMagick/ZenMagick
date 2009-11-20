@@ -29,7 +29,7 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.store.utils
- * @version $Id: ZMDbUtils.php 2165 2009-04-17 03:07:43Z dermanomann $
+ * @version $Id$
  */
 class ZMDbUtils {
 

@@ -29,7 +29,7 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.store.mvc.tools
- * @version $Id: ZMToolbox.php 2149 2009-04-13 22:59:14Z dermanomann $
+ * @version $Id$
  */
 class Toolbox extends ZMToolbox {
     /** 

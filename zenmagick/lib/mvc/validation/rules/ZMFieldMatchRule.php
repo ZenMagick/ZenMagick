@@ -28,7 +28,7 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.mvc.validation.rules
- * @version $Id: ZMFieldMatchRule.php 2158 2009-04-16 01:34:04Z dermanomann $
+ * @version $Id$
  */
 class ZMFieldMatchRule extends ZMRule {
     private $other_;

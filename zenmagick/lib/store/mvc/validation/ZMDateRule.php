@@ -26,7 +26,7 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.store.mvc.validation
- * @version $Id: ZMDateRule.php 2158 2009-04-16 01:34:04Z dermanomann $
+ * @version $Id$
  */
 class ZMDateRule extends ZMRule {
     private $format_;

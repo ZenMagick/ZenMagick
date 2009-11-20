@@ -33,7 +33,7 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.store.model
- * @version $Id: ZMCoupon.php 2166 2009-04-17 03:26:23Z dermanomann $
+ * @version $Id$
  */
 class ZMCoupon extends ZMObject {
     private $code_;

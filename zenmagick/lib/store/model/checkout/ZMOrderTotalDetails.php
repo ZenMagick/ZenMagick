@@ -32,7 +32,7 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.store.model.checkout
- * @version $Id: ZMOrderTotalDetails.php 2133 2009-04-02 22:36:08Z dermanomann $
+ * @version $Id$
  */
 class ZMOrderTotalDetails extends ZMObject {
     private $title_;

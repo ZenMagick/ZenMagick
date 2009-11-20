@@ -20,7 +20,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  *
- * $Id: product_info.php 215 2007-07-16 05:17:44Z DerManoMann $
+ * $Id$
  */
 ?>
 <?php $utils->jsBottom('lightbox/prototype.js') ?>

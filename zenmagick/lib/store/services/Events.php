@@ -33,7 +33,7 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.store.services
- * @version $Id: ZMEvents.php 2332 2009-06-26 04:05:17Z dermanomann $
+ * @version $Id$
  */
 class Events extends ZMEvents {
     const DISPATCH_START = 'dispatch_start';

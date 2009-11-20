@@ -28,7 +28,7 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.store.mvc.resultlist.sources
- * @version $Id: ZMSearchResultSource.php 2343 2009-06-28 07:28:27Z dermanomann $
+ * @version $Id$
  */
 class ZMSearchResultSource extends ZMObject implements ZMResultSource {
     private $criteria_;

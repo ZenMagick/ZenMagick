@@ -26,7 +26,7 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.mvc.resultlist.sources
- * @version $Id: ZMArrayResultSource.php 2007 2009-03-02 08:42:58Z dermanomann $
+ * @version $Id$
  */
 class ZMArrayResultSource extends ZMObject implements ZMResultSource {
     private $list_;

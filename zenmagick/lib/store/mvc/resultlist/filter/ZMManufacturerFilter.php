@@ -26,7 +26,7 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.store.mvc.resultlist.filter
- * @version $Id: ZMManufacturerFilter.php 1966 2009-02-14 10:52:50Z dermanomann $
+ * @version $Id$
  */
 class ZMManufacturerFilter extends ZMResultListFilter implements ZMSQLAware {
 

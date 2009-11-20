@@ -28,7 +28,7 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.store.services.themes
- * @version $Id: ZMThemes.php 2160 2009-04-16 01:57:40Z dermanomann $
+ * @version $Id$
  */
 class ZMThemes extends ZMObject {
 

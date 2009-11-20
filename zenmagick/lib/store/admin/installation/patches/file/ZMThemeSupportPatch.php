@@ -30,7 +30,7 @@ define('_ZM_ZEN_INDEX_PHP', DIR_FS_CATALOG."index.php");
  *
  * @author DerManoMann
  * @package org.zenmagick.store.admin.installation.patches.file
- * @version $Id: ZMThemeSupportPatch.php 2096 2009-03-23 01:49:18Z dermanomann $
+ * @version $Id$
  */
 class ZMThemeSupportPatch extends ZMFilePatch {
 

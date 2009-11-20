@@ -39,7 +39,7 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.store.mvc
- * @version $Id: ZMUrlMapper.php 2170 2009-04-21 04:56:09Z dermanomann $
+ * @version $Id$
  */
 class ZMUrlMapper extends ZMObject {
     // global views; key is viewId

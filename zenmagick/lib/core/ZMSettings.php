@@ -26,7 +26,7 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.core
- * @version $Id: ZMSettings.php 1966 2009-02-14 10:52:50Z dermanomann $
+ * @version $Id$
  */
 class ZMSettings {
     private static $settings_ = array();

@@ -26,7 +26,7 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.core.utils
- * @version $Id: ZMBeanUtils.php 2123 2009-03-31 09:22:29Z dermanomann $
+ * @version $Id$
  */
 class ZMBeanUtils {
     private static $GETTER_PREFIX_LIST = array('get', 'is', 'has');

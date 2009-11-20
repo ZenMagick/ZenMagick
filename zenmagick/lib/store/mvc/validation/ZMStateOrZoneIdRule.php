@@ -32,7 +32,7 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.store.mvc.validation
- * @version $Id: ZMStateOrZoneIdRule.php 2091 2009-03-21 09:35:49Z dermanomann $
+ * @version $Id$
  */
 class ZMStateOrZoneIdRule extends ZMRule {
 

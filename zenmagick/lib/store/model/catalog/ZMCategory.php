@@ -20,7 +20,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  *
- * $Id: ZMCategory.php 2054 2009-03-12 03:41:22Z dermanomann $
+ * $Id$
  */
 ?>
 <?php
@@ -31,7 +31,7 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.store.model.catalog
- * @version $Id: ZMCategory.php 2054 2009-03-12 03:41:22Z dermanomann $
+ * @version $Id$
  */
 class ZMCategory extends ZMObject {
     private $parentId_;

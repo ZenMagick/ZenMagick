@@ -29,7 +29,7 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.store.model.forms
- * @version $Id: ZMAccountForm.php 2113 2009-03-27 02:48:42Z dermanomann $
+ * @version $Id$
  */
 class ZMAccountForm extends FormData {
 

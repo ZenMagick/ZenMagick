@@ -26,7 +26,7 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.core.services.database
- * @version $Id: ZMDatabaseException.php 2149 2009-04-13 22:59:14Z dermanomann $
+ * @version $Id$
  */
 class ZMDatabaseException extends ZMException {
 

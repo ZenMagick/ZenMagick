@@ -29,7 +29,7 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.store.model.checkout
- * @version $Id: ZMPaymentField.php 954 2008-03-29 10:12:29Z DerManoMann $
+ * @version $Id$
  */
 class ZMPaymentField extends ZMObject {
     private $label_;

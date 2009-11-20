@@ -26,7 +26,7 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.core
- * @version $Id: ZMException.php 2212 2009-05-07 10:30:58Z dermanomann $
+ * @version $Id$
  */
 class ZMException extends Exception {
     protected $previous_;

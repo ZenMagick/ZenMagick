@@ -29,7 +29,7 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.store.mvc.tools
- * @version $Id: ZMToolboxAdmin.php 2154 2009-04-14 04:08:35Z dermanomann $
+ * @version $Id$
  */
 class ZMToolboxAdmin extends ZMObject {
 
