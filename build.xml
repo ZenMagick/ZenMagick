@@ -247,7 +247,7 @@
 
 
     <!-- Do all -->
-    <target name="all" depends="mod-release,plugin-releases,theme-releases,phpdoctor" description="Build all.">
+    <target name="all" depends="mod-release,ful-release,plugin-releases,theme-releases,phpdoctor" description="Build all.">
     </target>
 
 </project>
