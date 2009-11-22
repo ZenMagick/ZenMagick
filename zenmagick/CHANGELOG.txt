@@ -56,6 +56,9 @@ Release 0.9.8
 - add support for template caching to ZMSavant
 - 'not available' image to be used for themes that do not include a preview
   image when the dummy file is generated
+- simplify file error logging in ZMLogging
+- fix strict warnings
+- 
 
 Release 0.9.7
 - add ZMProductAssociation service and related code

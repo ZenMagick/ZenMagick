@@ -79,7 +79,7 @@
 
     // register custom error handler
     // XXX: done after plugins to allow plugins to provide alternative implementations, however it would be nice to have some logging before!
-    if (ZMSettings::get('zenmagick.core.logging.handleErrors') && null != ZMSettings::get('zenmagick.core.logging.filename')) {
+    if (ZMSettings::get('zenmagick.core.logging.handleErrors')) {
         set_error_handler(array(ZMLogging::instance(), 'errorHandler'));
         set_exception_handler(array(ZMLogging::instance(), 'exceptionHandler'));
     }

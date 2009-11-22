@@ -121,7 +121,7 @@ class ZMReviews extends ZMObject {
 
         shuffle($reviewIds);
 
-        if (0 < $max && count($productIds) > $max) {
+        if (0 < $max && count($reviewIds) > $max) {
             $reviewIds = array_slice($reviewIds, 0, $max);
         }
 

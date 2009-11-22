@@ -229,14 +229,6 @@ class ZMLogging extends ZMObject {
      * @param array errcontext All variables of scope when error triggered.
      */
     public function errorHandler($errno, $errstr, $errfile, $errline, $errcontext) {
-        // get current level
-        $level = error_reporting(E_ALL);
-        // set back
-        error_reporting($level);
-        // disabled or not configured?
-        if (0 == $level || $errno != ($errno & $level)) {
-            return;
-        }
         // convert all into an easy to handle array
         $info = array('errno' => $errno, 'msg' => $errstr, 'file' => $errfile, 'line' => $errline, 'context' => $errcontext);
 

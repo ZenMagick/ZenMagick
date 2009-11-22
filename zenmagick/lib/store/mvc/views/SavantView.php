@@ -57,11 +57,9 @@ class SavantView extends ZMSavantView {
     }
 
     /**
-     * Get the template path array for <em>Savant</em>.
-     *
-     * @return array List of folders to use for template lookups.
+     * {@inheritDoc}
      */
-    protected function getTemplatePath() {
+    protected function getTemplatePath($request) {
         $path = array();
         // XXX: what convention about views do we want here???
         if (ZMSettings::get('isEnableThemeDefaults')) {
@@ -72,9 +70,7 @@ class SavantView extends ZMSavantView {
     }
 
     /**
-     * Generate view response.
-     *
-     * @param ZMRequest request The current request.
+     * {@inheritDoc}
      */
     public function generate($request) {
         $savant = $this->getSavant($request);

@@ -165,7 +165,10 @@ class ZMCategories extends ZMObject {
             $this->buildTree($languageId);
         }
 
-        $category = $this->categories_[$languageId][$categoryId];
+        $category = null;
+        if (isset($this->categories_[$languageId]) && isset($this->categories_[$languageId][$categoryId])) {
+            $category = $this->categories_[$languageId][$categoryId];
+        }
         return $category;
     }
 

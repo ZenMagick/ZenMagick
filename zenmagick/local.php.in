@@ -47,7 +47,7 @@
     //ZMSettings::set('isLogoffGuestAfterOrder', false);
 
     // set error logfile for ZenMagick log entries; 
-    //ZMSettings::set('zenmagick.core.logging.filename', Runtime::getZMRootPath()."zenmagick.log");
+    //ZMSettings::set('zenmagick.core.logging.filename', ZMRuntime::getInstallationPath()."zenmagick.log");
     // set to true to log all PHP errors in custom file using the ZenMagick error/exception handler
     //ZMSettings::set('zenmagick.core.logging.handleErrors', true);
 

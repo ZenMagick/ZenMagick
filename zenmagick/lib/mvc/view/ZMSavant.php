@@ -54,7 +54,7 @@ class ZMSavant extends Savant3 {
      */
     function __construct($config=null) {
         parent::__construct($config);
-        if ($this->__config['cache'] && !is_object($this->__config['cache'])) {
+        if (isset($this->__config['cache']) && !is_object($this->__config['cache'])) {
             $this->__config['cache'] = ZMLoader::make($this->__config['cache']);
         }
     }
@@ -106,7 +106,7 @@ class ZMSavant extends Savant3 {
      */
     public function fetch($tpl = null) {
         // check if caching enabled
-        if ($this->__config['cache']) {
+        if (isset($this->__config['cache'])) {
             // check for cache hit
             if (null != ($result = call_user_func(array($this->__config['cache'], 'get'), $tpl))) {
                 return $result;
@@ -116,7 +116,7 @@ class ZMSavant extends Savant3 {
         // generate content as usual
         $result = parent::fetch($tpl);
 
-        if ($this->__config['cache']) {
+        if (isset($this->__config['cache'])) {
             // offer to cache the result
             call_user_func(array($this->__config['cache'], 'save'), $tpl, $result);
         }

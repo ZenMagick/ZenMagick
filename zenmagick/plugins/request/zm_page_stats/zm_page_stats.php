@@ -86,7 +86,7 @@ class zm_page_stats extends Plugin {
         echo '  database ('.ZMSettings::get('zenmagick.core.database.provider').'): SQL queries: '.$stats['queries'].', duration: '.round($stats['time'], 4).' seconds;'."\n";
 
         $vars = $request->getController()->getView()->getVars();
-        if (null !== ($exception = $vars['exception'])) {
+        if (isset($vars['exception']) && null !== ($exception = $vars['exception'])) {
             echo "\n".$exception."\n\n";
         }
 
@@ -172,7 +172,7 @@ class zm_page_stats extends Plugin {
         $view = $controller->getView();
         if (null != $view) {
             $vars = $view->getVars();
-            if (null !== ($exception = $vars['exception'])) {
+            if (isset($vars['exception']) && null !== ($exception = $vars['exception'])) {
                 echo '<pre>';
                 echo $exception;
                 echo '</pre>';

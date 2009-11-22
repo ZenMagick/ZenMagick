@@ -50,7 +50,7 @@ class ZMShoppingCart extends ZMObject {
         parent::__construct();
         $this->cart_ = $_SESSION['cart'];
         $this->setComment(isset($_SESSION['comments']) ?  $_SESSION['comments'] : '');
-        $this->setAccountId($_SESSION['customer_id']);
+        $this->setAccountId(isset($_SESSION['customer_id']) ? $_SESSION['customer_id'] : 0);
         $this->zenTotals_ = null;
         $this->payments_ = null;
         $this->items_ = null;

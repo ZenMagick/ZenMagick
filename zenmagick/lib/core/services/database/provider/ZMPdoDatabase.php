@@ -394,6 +394,7 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
         try {
             $stmt = $this->prepareStatement($sql, $data, $mapping);
             $stmt->execute();
+            $rows = $stmt->rowCount();
         } catch (PDOException $pdoe) {
             throw new ZMDatabaseException($pdoe->getMessage(), $pdoe->getCode(), $pdoe);
         }
