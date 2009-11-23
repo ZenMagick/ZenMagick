@@ -63,7 +63,6 @@ class ZMSavant extends Savant3 {
      * Destruct instance.
      */
     function __destruct() {
-        parent::__destruct();
     }
 
 

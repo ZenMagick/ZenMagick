@@ -101,7 +101,7 @@ class ZMRequest extends ZMObject {
      * @return boolean <code>true</code> if a valid session exists, <code>false</code> if not.
      */
     public function isValidSession() {
-        return $this->getSession()->isStarted();
+        return $this->getSession()->isValid();
     }
 
     /**
