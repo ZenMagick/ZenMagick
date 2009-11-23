@@ -35,7 +35,8 @@
     <!-- Create release for a single theme -->
     <target name="theme-release" description="Create release for a single theme.">
         <mkdir dir="${build.dir}/themes" />
-        <mkdir dir="${dist.dir}/themes/md5" />
+        <mkdir dir="${dist.dir}/themes/${zenmagick.version}" />
+        <mkdir dir="${dist.dir}/themes/${zenmagick.version}/checksum" />
 
         <copy todir="${build.dir}/themes">
           <fileset dir="${zenmagick.src.dir}/themes">
@@ -47,12 +48,12 @@
         <!-- '$$': escape Ant property expansion, '\': escape regexp '$' handling, '\}' required for JDK regexp implementation -->
         <replaceregexp match="\$$\{theme.version\}" replace="${theme.version}" flags="g"><fileset dir="${build.dir}/themes" /></replaceregexp>
 
-        <zip zipfile="${dist.dir}/themes/theme-${theme.name}-${theme.version}.zip">
+        <zip zipfile="${dist.dir}/themes/${zenmagick.version}/theme-${theme.name}-${theme.version}.zip">
             <fileset dir="${build.dir}/themes">
                 <include name="${theme.name}/**" />
             </fileset>
         </zip>
-        <checksum file="${dist.dir}/themes/theme-${theme.name}-${theme.version}.zip" fileext=".md5" todir="${dist.dir}/themes/md5" />
+        <checksum file="${dist.dir}/themes/${zenmagick.version}/theme-${theme.name}-${theme.version}.zip" fileext=".sha" algorithm="SHA" todir="${dist.dir}/themes/${zenmagick.version}/checksum" />
     </target>
 
 </project>

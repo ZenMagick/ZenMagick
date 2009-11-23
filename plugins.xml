@@ -19,7 +19,7 @@
         <!-- build zip of all plugins -->
         <echo message="Building ful plugins archive ..." />
         <zip zipfile="${dist.dir}/plugins/plugins-${zenmagick.version}.zip" basedir="${build.dir}/plugins" />
-        <checksum file="${dist.dir}/plugins/plugins-${zenmagick.version}.zip" fileext=".md5" todir="${dist.dir}/plugins/md5" />
+        <checksum file="${dist.dir}/plugins/plugins-${zenmagick.version}.zip" fileext=".sha" algorithm="SHA" todir="${dist.dir}/plugins/${zenmagick.version}/checksum" />
     </target>
 
     
@@ -30,10 +30,11 @@
         <propertycopy name="plugin.version" from="plugins.${plugin.name}.version" />
 
         <mkdir dir="${build.dir}/plugins" />
-        <mkdir dir="${dist.dir}/plugins/md5" />
+        <mkdir dir="${dist.dir}/plugins/${zenmagick.version}" />
+        <mkdir dir="${dist.dir}/plugins/${zenmagick.version}/checksum" />
 
         <copy todir="${build.dir}/plugins">
-          <fileset dir="${zenmagick.src.dir}/plugins">
+            <fileset dir="${zenmagick.src.dir}/plugins">
               <include name="${plugin.type}/${plugin.name}.php" />
               <include name="${plugin.type}/${plugin.name}/**" />
             </fileset>
@@ -43,13 +44,13 @@
         <!-- '$$': escape Ant property expansion, '\': escape regexp '$' handling, '\}' required for JDK regexp implementation -->
         <replaceregexp match="\$$\{plugin.version\}" replace="${plugin.version}" flags="g"><fileset dir="${build.dir}/plugins" /></replaceregexp>
 
-        <zip zipfile="${dist.dir}/plugins/plugin-${plugin.name}-${plugin.version}.zip">
+        <zip zipfile="${dist.dir}/plugins/${zenmagick.version}/plugin-${plugin.name}-${plugin.version}.zip">
             <fileset dir="${build.dir}/plugins">
                 <include name="${plugin.type}/${plugin.name}.php" />
                 <include name="${plugin.type}/${plugin.name}/**" />
             </fileset>
         </zip>
-        <checksum file="${dist.dir}/plugins/plugin-${plugin.name}-${plugin.version}.zip" fileext=".md5" todir="${dist.dir}/plugins/md5" />
+        <checksum file="${dist.dir}/plugins/${zenmagick.version}/plugin-${plugin.name}-${plugin.version}.zip" fileext=".sha" algorithm="SHA" todir="${dist.dir}/plugins/${zenmagick.version}/checksum" />
     </target>
 
 </project>

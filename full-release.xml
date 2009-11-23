@@ -37,7 +37,7 @@
 
         <!-- and zip -->
         <zip zipfile="${dist.dir}/${full.version.file}.zip" basedir="${release.full.dir}" />
-        <checksum file="${dist.dir}/${full.version.file}.zip" fileext=".md5" todir="${dist.dir}/md5" />
+        <checksum file="${dist.dir}/${full.version.file}.zip" fileext=".sha" algorithm="SHA" todir="${dist.dir}/checksum" />
 
     </target>
 
