@@ -186,9 +186,6 @@ class Runtime extends ZMRuntime {
      * <p>Calling this function will end all request handling in an ordered manner.</p>
      */
     public static function finish() {
-        if (function_exists('session_close')) {
-            session_close();
-        }
         session_write_close();
         exit;
     }
