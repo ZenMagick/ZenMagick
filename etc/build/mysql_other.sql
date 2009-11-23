@@ -5,3 +5,6 @@
 #
 
 UPDATE configuration set configuration_value = 'Off' WHERE configuration_key = 'MISSING_PAGE_CHECK';
+
+## remove zen cart banners
+DELETE FROM banners;
