@@ -27,6 +27,8 @@
 /**
  * Simple wrapper around <code>$_SESSION</code> to centralise access.
  *
+ * <p><strong>PLEASE NOTE THAT THIS CLASS CURRENTLY DOES **NOT** EXTEND FROM <code>ZMSession</code>.</strong></p>
+ *
  * @author DerManoMann
  * @package org.zenmagick.store.mvc
  * @version $Id$
