@@ -7,10 +7,10 @@ class PrecisionReloadedThemeInfo extends ZMThemeInfo {
     function __construct() {
         parent::__construct();
 
-        $this->setName("Precision Reloaded");
-        $this->setVersion("${theme.version}");
-        $this->setAuthor("David");
-        $this->setDescription("Precision Reloaded  - a liquid three column theme based on the ZenMagick Precision theme.");
+        $this->setName('Precision Reloaded');
+        $this->setVersion('${theme.version}');
+        $this->setAuthor('David');
+        $this->setDescription('Precision Reloaded  - a liquid three column theme based on the ZenMagick Precision theme.');
     }
     
 }

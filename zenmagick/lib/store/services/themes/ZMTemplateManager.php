@@ -141,7 +141,7 @@ class ZMTemplateManager extends ZMObject {
             // boxes use .php
             $box = str_replace('.php', ZMSettings::get('templateSuffix'), $boxInfo['name']);
             if (file_exists($theme->getBoxesDir() . $box) 
-              || (ZMSettings::get('isEnableThemeDefaults') && file_exists(Runtime::getThemesDir().ZM_DEFAULT_THEME.'/'.'content/boxes/'.$box))) {
+              || (ZMSettings::get('isEnableThemeDefaults') && file_exists(Runtime::getThemesDir().ZMSettings::get('defaultThemeId').'/'.'content/boxes/'.$box))) {
                 $boxes[] = $box;
             }
         }
@@ -171,7 +171,7 @@ class ZMTemplateManager extends ZMObject {
             // boxes use .php
             $box = str_replace('.php', ZMSettings::get('templateSuffix'), $boxInfo['name']);
             if (file_exists($theme->getBoxesDir() . $box) 
-              || (ZMSettings::get('isEnableThemeDefaults') && file_exists(Runtime::getThemesDir().ZM_DEFAULT_THEME.'/'.'content/boxes/'.$box))) {
+              || (ZMSettings::get('isEnableThemeDefaults') && file_exists(Runtime::getThemesDir().ZMSettings::get('defaultThemeId').'/'.'content/boxes/'.$box))) {
                 $boxes[] = $box;
             }
         }

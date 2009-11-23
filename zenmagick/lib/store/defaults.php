@@ -39,7 +39,6 @@
      * 5) Re-install plugins
      */
     define('ZM_ROOT', 'zenmagick/');
-    define('ZM_DEFAULT_THEME', 'default');
 
 
     //** url page name key **//
@@ -131,6 +130,9 @@
 
             // use ZenMagick themes
             'isEnableZMThemes' => true,
+
+            // default theme
+            'defaultThemeId' => 'default',
 
             // are we in admin or storefront?
             'isAdmin' => defined('IS_ADMIN_FLAG') && IS_ADMIN_FLAG,

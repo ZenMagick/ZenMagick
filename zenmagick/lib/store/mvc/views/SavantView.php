@@ -63,7 +63,7 @@ class SavantView extends ZMSavantView {
         $path = array();
         // XXX: what convention about views do we want here???
         if (ZMSettings::get('isEnableThemeDefaults')) {
-            $path[] = ZMThemes::instance()->getThemeForId(ZM_DEFAULT_THEME)->getContentDir();
+            $path[] = ZMThemes::instance()->getThemeForId(ZMSettings::get('defaultThemeId'))->getContentDir();
         }
         $path[] = Runtime::getTheme()->getContentDir();
         return $path;

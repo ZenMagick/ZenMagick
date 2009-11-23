@@ -7,10 +7,10 @@ class KeepItSimpleThemeInfo extends ZMThemeInfo {
     function __construct() {
         parent::__construct();
 
-        $this->setName("Keep It Simple");
-        $this->setVersion("${theme.version}");
-        $this->setAuthor("ZenMagick");
-        $this->setDescription("Keep It Simple; based on the KeepItSimple template at styleshout.com.");
+        $this->setName('Keep It Simple');
+        $this->setVersion('${theme.version}');
+        $this->setAuthor('ZenMagick');
+        $this->setDescription('Keep It Simple; based on the KeepItSimple template at styleshout.com.');
     }
     
 }

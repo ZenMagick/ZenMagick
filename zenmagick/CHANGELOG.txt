@@ -58,7 +58,7 @@ Release 0.9.8
   image when the dummy file is generated
 - simplify file error logging in ZMLogging
 - fix strict warnings
-- 
+- replace define ZM_DEFAULT_THEME with 'defaultThemeId' setting
 
 Release 0.9.7
 - add ZMProductAssociation service and related code

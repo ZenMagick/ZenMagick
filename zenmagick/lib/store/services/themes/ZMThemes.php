@@ -93,8 +93,8 @@ class ZMThemes extends ZMObject {
         // create instance
         $obj = new $infoClass();
         $obj->setThemeId($themeId);
-        if ($themeId != ZM_DEFAULT_THEME && ZMSettings::get('isEnableThemeDefaults')) {
-            $obj->setParent($this->getThemeInfoForId(ZM_DEFAULT_THEME));
+        if ($themeId != ZMSettings::get('defaultThemeId') && ZMSettings::get('isEnableThemeDefaults')) {
+            $obj->setParent($this->getThemeInfoForId(ZMSettings::get('defaultThemeId')));
         }
 
         return $obj;
@@ -164,7 +164,7 @@ class ZMThemes extends ZMObject {
             $themeId = $result['dir'];
         }
 
-        $themeId = empty($themeId) ? ZM_DEFAULT_THEME : $themeId;
+        $themeId = empty($themeId) ? ZMSettings::get('defaultThemeId') : $themeId;
         return $themeId;
     }
 
@@ -211,10 +211,13 @@ class ZMThemes extends ZMObject {
      * <p>Passing default theme id rather than the current theme id is equivalent to
      * enabling default theme fallback. Coincidentally, this is also the default behaviour.</p>
      *
-     * @param string themeId The themeId to start with; default is <code>ZM_DEFAULT_THEME</code>.
+     * @param string themeId The themeId to start with; default is <code>null</code> to use the default theme.
      * @return ZMTheme The final theme.
      */
-    public function resolveTheme($themeId=ZM_DEFAULT_THEME) {
+    public function resolveTheme($themeId=null) {
+        if (null == $themeId) {
+            $themeId = ZMSettings::get('defaultThemeId');
+        }
         // set up theme
         $theme = ZMThemes::instance()->getThemeForId($themeId);
         $themeInfo = $theme->getThemeInfo();

@@ -85,8 +85,8 @@ class ZMTheme extends ZMObject {
     public function themeURL($uri, $echo=ZM_ECHO_DEFAULT) {
         $url = Runtime::getThemesPathPrefix().$this->themeId_."/".'content/'.$uri;
         if (ZMSettings::get('isEnableThemeDefaults') && !file_exists($this->getContentDir().$uri)) {
-            if (file_exists(Runtime::getThemesDir().ZM_DEFAULT_THEME.DIRECTORY_SEPARATOR.'content'.DIRECTORY_SEPARATOR.$uri)) {
-                $url = Runtime::getThemesPathPrefix().ZM_DEFAULT_THEME."/".'content/'.$uri;
+            if (file_exists(Runtime::getThemesDir().ZMSettings::get('defaultThemeId').DIRECTORY_SEPARATOR.'content'.DIRECTORY_SEPARATOR.$uri)) {
+                $url = Runtime::getThemesPathPrefix().ZMSettings::get('defaultThemeId')."/".'content/'.$uri;
             }
         }
 
@@ -166,7 +166,7 @@ class ZMTheme extends ZMObject {
         $file = $this->getRootDir().$baseDir.$name;
         if (ZMSettings::get('isEnableThemeDefaults') && !file_exists($file)) {
             // check for default
-            $dfile = Runtime::getThemesDir().ZM_DEFAULT_THEME.DIRECTORY_SEPARATOR.$baseDir.$name;
+            $dfile = Runtime::getThemesDir().ZMSettings::get('defaultThemeId').DIRECTORY_SEPARATOR.$baseDir.$name;
             if (file_exists($dfile)) {
                 $file = $dfile;
             }
@@ -218,7 +218,7 @@ class ZMTheme extends ZMObject {
         }
 
         if ($includeDefaults) {
-            $path = Runtime::getThemesDir().ZM_DEFAULT_THEME.DIRECTORY_SEPARATOR.'lang'.DIRECTORY_SEPARATOR.$languageDir.DIRECTORY_SEPARATOR.'static'.DIRECTORY_SEPARATOR;
+            $path = Runtime::getThemesDir().ZMSettings::get('defaultThemeId').DIRECTORY_SEPARATOR.'lang'.DIRECTORY_SEPARATOR.$languageDir.DIRECTORY_SEPARATOR.'static'.DIRECTORY_SEPARATOR;
             if (is_dir($path)) {
                 $handle = @opendir($path);
                 while (false !== ($file = readdir($handle))) { 
@@ -297,7 +297,7 @@ class ZMTheme extends ZMObject {
 
         $filename = $path.$page.'.php';
         if (!file_exists($filename) && ZMSettings::get('isEnableThemeDefaults')) {
-            $filename = Runtime::getThemesDir().ZM_DEFAULT_THEME.DIRECTORY_SEPARATOR.'lang'.DIRECTORY_SEPARATOR.$languageDir.DIRECTORY_SEPARATOR.'static'.DIRECTORY_SEPARATOR.$page.'.php';
+            $filename = Runtime::getThemesDir().ZMSettings::get('defaultThemeId').DIRECTORY_SEPARATOR.'lang'.DIRECTORY_SEPARATOR.$languageDir.DIRECTORY_SEPARATOR.'static'.DIRECTORY_SEPARATOR.$page.'.php';
         }
 
         $contents = null;

@@ -7,10 +7,10 @@ class PixelGreenThemeInfo extends ZMThemeInfo {
     function __construct() {
         parent::__construct();
 
-        $this->setName("Pixel Green");
-        $this->setVersion("${theme.version}");
-        $this->setAuthor("ZenMagick");
-        $this->setDescription("Pixel Green; based on work by ealigam as found at styleshout.com.");
+        $this->setName('Pixel Green');
+        $this->setVersion('${theme.version}');
+        $this->setAuthor('ZenMagick');
+        $this->setDescription('Pixel Green; based on work by ealigam as found at styleshout.com.');
     }
     
 }

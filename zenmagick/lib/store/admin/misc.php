@@ -88,13 +88,13 @@
 
         if ($defaults) {
             // do default theme first
-            $l10nMap = zm_build_theme_l10n_map(dirname($root).'/'.ZM_DEFAULT_THEME, false, false);
+            $l10nMap = zm_build_theme_l10n_map(dirname($root).'/'.ZMSettings::get('defaultThemeId'), false, false);
         }
 
         if ($merge) {
             // load existing mappings
             Runtime::setThemeId($themeId);
-            ZMThemes::instance()->resolveTheme(ZMSettings::get('isEnableThemeDefaults') ? ZM_DEFAULT_THEME : $themeId);
+            ZMThemes::instance()->resolveTheme(ZMSettings::get('isEnableThemeDefaults') ? ZMSettings::get('defaultThemeId') : $themeId);
             if (0 < count($GLOBALS['_zm_i18n_text'])) {
                 $l10nMap['inherited_mappings'] = $GLOBALS['_zm_l10n_text'];
             }

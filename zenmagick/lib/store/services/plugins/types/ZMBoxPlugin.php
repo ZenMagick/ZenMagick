@@ -88,7 +88,7 @@ class ZMBoxPlugin extends Plugin {
         }
 
         // default theme
-        $theme = ZMLoader::make("Theme", ZM_DEFAULT_THEME);
+        $theme = ZMLoader::make("Theme", ZMSettings::get('defaultThemeId'));
         $themeBoxesDir = $theme->getBoxesDir();
         foreach ($this->getBoxNames() as $box) {
             $file = $themeBoxesDir.$box . '.php';
@@ -114,7 +114,7 @@ class ZMBoxPlugin extends Plugin {
         }
 
         // default theme
-        $theme = ZMLoader::make("Theme", ZM_DEFAULT_THEME);
+        $theme = ZMLoader::make("Theme", ZMSettings::get('defaultThemeId'));
         $themeBoxesDir = $theme->getBoxesDir();
         foreach ($this->getBoxNames() as $box) {
             $file = $themeBoxesDir.$box . '.php';

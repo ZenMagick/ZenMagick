@@ -7,10 +7,10 @@ class PrecisionThemeInfo extends ZMThemeInfo {
     function __construct() {
         parent::__construct();
 
-        $this->setName("Precision");
-        $this->setVersion("${theme.version}");
-        $this->setAuthor("ZenMagick");
-        $this->setDescription("Precision a theme based on the precision template found at freecsstemplates.org.");
+        $this->setName('Precision');
+        $this->setVersion('${theme.version}');
+        $this->setAuthor('ZenMagick');
+        $this->setDescription('Precision a theme based on the precision template found at freecsstemplates.org.');
     }
     
 }

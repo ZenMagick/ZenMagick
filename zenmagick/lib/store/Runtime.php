@@ -100,7 +100,7 @@ class Runtime extends ZMRuntime {
         if (!@file_exists($path) || !@is_dir($path)) {
             ZMLogging::instance()->log("invalid theme id: '".self::$themeId_.'"');
             self::$themeId_ = null;
-            return ZM_DEFAULT_THEME;
+            return ZMSettings::get('defaultThemeId');
         }
 
         return self::$themeId_;

@@ -10,7 +10,7 @@ class BrightsideoflifeThemeInfo extends ZMThemeInfo {
         parent::__construct();
 
         $this->setName("Bright Side of Life");
-        $this->setVersion("${theme.version}");
+        $this->setVersion('${theme.version}');
         $this->setAuthor("ZenMagick");
         $this->setDescription("Bright Side of Life; A ZenMagick theme based on work by ealigam (as found at opendesigns.org).");
     }
