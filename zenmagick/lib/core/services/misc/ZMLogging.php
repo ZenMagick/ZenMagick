@@ -205,7 +205,7 @@ class ZMLogging extends ZMObject {
      */
     public function logError($line, $info) {
         $logfile = ZMSettings::get('zenmagick.core.logging.filename');
-        if (null != ($handle = fopen($logfile, "a"))) {
+        if (!ZMLangUtils::isEmpty($logfile) && null != ($handle = fopen($logfile, "a"))) {
             fputs($handle, $line);
             fclose($handle);
             ZMFileUtils::setFilePerms($logfile);
