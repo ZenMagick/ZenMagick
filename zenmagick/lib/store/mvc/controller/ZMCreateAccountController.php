@@ -131,8 +131,8 @@ class ZMCreateAccountController extends ZMController {
 
         ZMMessages::instance()->success(zm_l10n_get("Thank you for signing up"));
 
-        $followUpUrl = $session->getLoginFollowUp();
-        return $this->findView('success', array('zm_account' => $account), array('url' => $followUpUrl));
+        $stickyUrl = $session->getSticky();
+        return $this->findView('success', array('zm_account' => $account), array('url' => $stickyUrl));
     }
 
 }

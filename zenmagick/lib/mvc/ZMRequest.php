@@ -331,6 +331,27 @@ class ZMRequest extends ZMObject {
         return $valid;
     }
 
+    /**
+     * Mark this request as the actually requested URL.
+     *
+     * <p>Typically this happends when a request is received without valid authority.
+     * The URL will be forwarded to, once permissions is gained (user logged in).</p>
+     */
+    public function markSticky() {
+        //todo: implement
+    }
+
+    /**
+     * Check if a sticky url exists that should be loaded (after a login).
+     *
+     * @param boolean clear Optional flag to keep or clear the sticky url; default is <code>true</code> to clear.
+     * @return string The url to go to or <code>null</code>.
+     */
+    public function getSticky($clear=true) {
+        //todo: implement
+        return null;
+    }
+
 }
 
 ?>

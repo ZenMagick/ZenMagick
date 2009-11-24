@@ -124,7 +124,7 @@ class ZMSacsManager extends ZMObject {
                         $request->redirect($request->getToolbox()->net->url(ZMSettings::get('zenmagick.mvc.request.invalidSession'), '', false, false));
                     }
                     //XXX: add/rename in mvc/session
-                    $session->markRequestAsLoginFollowUp();
+                    $request->markSticky();
                     $request->redirect($request->getToolbox()->net->url(ZMSettings::get('zenmagick.mvc.request.login', 'login'), '', true, false));
                 }
                 break;

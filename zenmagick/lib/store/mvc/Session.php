@@ -260,32 +260,6 @@ class Session extends ZMObject {
     }
 
     /**
-     * Mark current request for return after login.
-     */
-    public function markRequestAsLoginFollowUp() {
-        if (!isset($_SESSION['navigation'])) {
-            $_SESSION['navigation'] = new navigationHistory();
-        }
-        $_SESSION['navigation']->set_snapshot();
-    }
-
-    /**
-     * Check if a follow up url exists that should be loaded after a login.
-     *
-     * @return string The url to go to or <code>null</code>.
-     */
-    public function getLoginFollowUp() {
-        $url = null;
-        if (isset($_SESSION['navigation']) && sizeof($_SESSION['navigation']->snapshot) > 0) {
-            $url = zen_href_link($_SESSION['navigation']->snapshot['page'],
-                zen_array_to_string($_SESSION['navigation']->snapshot['get'],
-                array(zen_session_name())), $_SESSION['navigation']->snapshot['mode']);
-            $_SESSION['navigation']->clear_snapshot();
-        }
-        return str_replace('&amp;', '&', $url);
-    }
-
-    /**
      * Get the client ip address.
      *
      * @return string The client IP address or <code>null</code>.

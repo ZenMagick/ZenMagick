@@ -60,6 +60,8 @@ Release 0.9.8
 - fix strict warnings
 - replace define ZM_DEFAULT_THEME with 'defaultThemeId' setting
 - get ZMSession and Session a bit closer together
+- rename sessions getLoginFollowUp() and markRequestAsLoginFollowUp() and
+  move to ZMRequest as markSticky() and getSticky()
 
 Release 0.9.7
 - add ZMProductAssociation service and related code

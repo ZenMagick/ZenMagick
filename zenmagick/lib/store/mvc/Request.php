@@ -320,10 +320,36 @@ class Request extends ZMRequest {
     }
 
     /**
-     * {@inheridDoc}
+     * {@inheritDoc}
      */
     public function getContext() {
         return ($this->isSecure() ? DIR_WS_HTTPS_CATALOG : DIR_WS_CATALOG);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function markSticky() {
+        if (!isset($_SESSION['navigation'])) {
+            $_SESSION['navigation'] = new navigationHistory();
+        }
+        $_SESSION['navigation']->set_snapshot();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getSticky($clear=true) {
+        $url = null;
+        if (isset($_SESSION['navigation']) && sizeof($_SESSION['navigation']->snapshot) > 0) {
+            $url = zen_href_link($_SESSION['navigation']->snapshot['page'],
+                zen_array_to_string($_SESSION['navigation']->snapshot['get'],
+                array(zen_session_name())), $_SESSION['navigation']->snapshot['mode']);
+            if ($clear) {
+                $_SESSION['navigation']->clear_snapshot();
+            }
+        }
+        return str_replace('&amp;', '&', $url);
     }
 
 }

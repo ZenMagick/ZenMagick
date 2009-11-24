@@ -125,13 +125,13 @@ class ZMLoginController extends ZMController {
             return $this->findView();
         }
 
-        $followUpUrl = $session->getLoginFollowUp();
-        if (null == $followUpUrl) {
-            $followUpUrl = $session->getValue(self::$KEY_REDIRECT);
+        $stickyUrl = $request->getSticky();
+        if (null == $stickyUrl) {
+            $stickyUrl = $session->getValue(self::$KEY_REDIRECT);
             $session->removeValue(self::$KEY_REDIRECT);
         }
 
-        return $this->findView('success', array(), array('url' => $followUpUrl));
+        return $this->findView('success', array(), array('url' => $stickyUrl));
     }
 
 }
