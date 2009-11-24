@@ -26,6 +26,9 @@
         <!-- create sidebox dummy files -->
         <antcall target="create-sidebox-dummies"><param name="theme.id" value='default' /></antcall>
 
+        <!-- dump install phpBB stuff -->
+        <antcall target="dump-phpbb-install"></antcall>
+
         <!-- move ZenMagick SQL to the right place -->
         <copy file="${zenmagick.src.dir}/lib/store/etc/sql/mysql/config.sql" tofile="${release.full.dir}/zc_install/sql/plugins/mysql_config.sql" />
         <copy file="${zenmagick.src.dir}/lib/store/etc/sql/mysql/token_install.sql" tofile="${release.full.dir}/zc_install/sql/plugins/mysql_token_install.sql" />
@@ -213,6 +216,21 @@
         <!-- touch target to avoid overwriting existing files! -->
         <touch file="${release.full.dir}/includes/modules/sideboxes/${basename}" />
         <copy overwrite="false" tofile="${release.full.dir}/includes/modules/sideboxes/${basename}" file="${build.dir}/sidebox_dummy.php" />
+    </target>
+
+    <!-- remove phpBB from installation -->
+    <target name="dump-phpbb-install" description="Remove phpBB dialog from installation.">
+        <!-- fix redirect to skip phpBB -->
+        <replaceregexp>
+            <fileset file="${release.full.dir}/zc_install/includes/modules/pages/system_setup/header_php.php" />
+            <regexp pattern="main_page=phpbb_setup"/>
+            <substitution expression='main_page=store_setup' />
+        </replaceregexp>
+        <replaceregexp flags="m">
+            <fileset file="${release.full.dir}/zc_install/includes/templates/template_default/sideboxes/navigation.php" />
+            <regexp pattern="^.*phpbb.*$"/>
+            <substitution expression='' />
+        </replaceregexp>
     </target>
 
 </project>
