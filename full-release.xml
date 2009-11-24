@@ -27,7 +27,7 @@
         <antcall target="create-sidebox-dummies"><param name="theme.id" value='default' /></antcall>
 
         <!-- dump install phpBB stuff -->
-        <antcall target="dump-phpbb-install"></antcall>
+        <!-- NOT THAT SIMPLE! antcall target="dump-phpbb-install"></antcall-->
 
         <!-- move ZenMagick SQL to the right place -->
         <copy file="${zenmagick.src.dir}/lib/store/etc/sql/mysql/config.sql" tofile="${release.full.dir}/zc_install/sql/plugins/mysql_config.sql" />
