@@ -93,7 +93,7 @@ class ZMLoginController extends ZMController {
     public function processPost($request) {
         $session = $request->getSession();
 
-        if (!$session->isValid()) {
+        if (!$session->isStarted()) {
             $session->removeValue(self::$KEY_REDIRECT);
             return $this->findView('cookie_usage');
         }

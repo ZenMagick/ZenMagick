@@ -96,7 +96,7 @@ class ToolboxNet extends ZMToolboxNet {
         // Add the session ID when moving from different HTTP and HTTPS servers, or when SID is defined
         $sid = null;
         //TODO:$session = $this->getRequest()->getSession();
-        if ($addSessionId && ($session_started/* || $session->isValid()*/) && !ZMSettings::get('isForceCookieUse')) {
+        if ($addSessionId && ($session_started/* || $session->isStarted()*/) && !ZMSettings::get('isForceCookieUse')) {
             if (defined('SID') && !ZMLangUtils::isEmpty(SID)) {
                 // defined, so use it
                 $sid = SID;

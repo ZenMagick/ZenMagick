@@ -40,6 +40,10 @@ class ZMRequest extends ZMObject {
      * <p>The request/page id determines the page being displayed.</p>
      */
     const REQUEST_ID = 'zmreq';
+    /**
+     * Name of the session token form field and also the name in the session.
+     */
+    const SESSION_TOKEN_NAME = 'stoken';
 
     private $controller_;
     private $session_;
@@ -93,15 +97,6 @@ class ZMRequest extends ZMObject {
      */
     public function getMethod() {
         return strtoupper($_SERVER['REQUEST_METHOD']);
-    }
-
-    /**
-     * Check for a valid session.
-     *
-     * @return boolean <code>true</code> if a valid session exists, <code>false</code> if not.
-     */
-    public function isValidSession() {
-        return $this->getSession()->isValid();
     }
 
     /**
@@ -307,6 +302,23 @@ class ZMRequest extends ZMObject {
     public function getContext() {
         //XXX: implemented
         return '/';
+    }
+
+    /**
+     * Validate session token.
+     *
+     * @return boolean <code>true</code> in case the session token is valid.
+     */
+    public function validateSessionToken() {
+        $valid = true;
+        if (ZMLangUtils::inArray($this->getRequestId(), ZMSettings::get('zenmagick.mvc.html.tokenSecuredForms'))) {
+            $valid = false;
+            if (null != ($token = $this->getParameter(self::SESSION_TOKEN_NAME))) {
+                $valid = $this->getSession()->getToken() == $token;
+            }
+        }
+
+        return $valid;
     }
 
 }

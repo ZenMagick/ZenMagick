@@ -31,7 +31,9 @@ class ZMSession extends ZMObject {
     /** The default session name. */
     const DEFAULT_NAME = 'zmid';
     /** A magic session key used to identify new sessions. */
-    const SESSION_TAG_KEY = '__ZM__';
+    const SESSION_TAG_KEY = '__ZM_TAG__';
+    /** A magic session key used to validate forms. */
+    const SESSION_TOKEN_KEY = '__ZM_TOKEN__';
     /** The default namespace prefix for session keys. */
     const DEFAULT_NAMESPACE_PREFIX = '__ZM_NSP__';
 
@@ -216,6 +218,15 @@ class ZMSession extends ZMObject {
     }
 
     /**
+     * Get the session name.
+     *
+     * @return string The session name or <code>null</code>.
+     */
+    public function getName() {
+        return $this->isStarted() ? session_name() : null;
+    }
+
+    /**
      * Set a session value.
      *
      * @param string name The name; default is <code>null</code> to clear all data.
@@ -308,6 +319,23 @@ class ZMSession extends ZMObject {
 
         return true;
     }
+
+    /**
+     * Get the session token.
+     *
+     * <p>A new token will be created if none exists.</p>
+     *
+     * @param boolean renew If <code>true</code> a new token will be generated; default is <code>false</code>.
+     * @return string The token.
+     */
+    public function getToken($renew=false) { 
+        if ($renew || null == $this->get(self::SESSION_TOKEN_KEY)) {
+            $this->set(self::SESSION_TOKEN_KEY, md5(uniqid(rand(), true)));
+        }
+
+        return $this->get(self::SESSION_TOKEN_KEY);
+    }
+
 }
 
 ?>

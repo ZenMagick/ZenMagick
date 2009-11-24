@@ -34,8 +34,6 @@
  * @version $Id$
  */
 class Session extends ZMObject {
-    const TOKEN_NAME = 'stoken';
-
 
     /**
      * Create new instance.
@@ -64,6 +62,10 @@ class Session extends ZMObject {
         return $session_started || $_SERVER['session_started'];
     }
 
+    public function isStarted() {
+        return $this->isValid();
+    }
+
     /**
      * Create a session value.
      *
@@ -86,6 +88,20 @@ class Session extends ZMObject {
         }
 
         return null;
+    }
+
+    /**
+     * Temp. alias.
+     */
+    public function set($name, $value) {
+        $this->setValue($name, $value);
+    }
+
+    /**
+     * Temp. alias.
+     */
+    public function get($name) {
+        return $this->getValue($name);
     }
 
     /**
@@ -396,6 +412,15 @@ class Session extends ZMObject {
         $this->restoreCart();
 
         return true;
+    }
+
+    /**
+     * Get the session name.
+     *
+     * @return string The session name or <code>null</code>.
+     */
+    public function getName() {
+        return session_name();
     }
 
 }

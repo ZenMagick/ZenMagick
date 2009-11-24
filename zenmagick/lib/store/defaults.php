@@ -121,6 +121,7 @@
 
             /*** html ***/
             'zenmagick.mvc.html.xhtml' => true,
+            /*** session token secured forms ***/
             'zenmagick.mvc.html.tokenSecuredForms' => 'login',
 
             /*** resultlist ***/

@@ -59,6 +59,7 @@ Release 0.9.8
 - simplify file error logging in ZMLogging
 - fix strict warnings
 - replace define ZM_DEFAULT_THEME with 'defaultThemeId' setting
+- get ZMSession and Session a bit closer together
 
 Release 0.9.7
 - add ZMProductAssociation service and related code
