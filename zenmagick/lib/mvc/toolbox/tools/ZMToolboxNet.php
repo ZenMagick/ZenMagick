@@ -27,7 +27,6 @@
  * @author DerManoMann
  * @package org.zenmagick.mvc.utils
  * @version $Id$
- * @todo create store agnostic default implementations
  */
 class ZMToolboxNet extends ZMToolboxTool {
 
@@ -47,6 +46,7 @@ class ZMToolboxNet extends ZMToolboxTool {
      * @param boolean secure Flag indicating whether to create a secure or non secure URL; default is <code>false</code>.
      * @param boolean echo If <code>true</code>, the URL will be echo'ed as well as returned.
      * @return string A full URL.
+     * @todo create store agnostic default implementations
      */
     public function url($requestId=null, $params='', $secure=false, $echo=ZM_ECHO_DEFAULT) {
         // custom view and params handling

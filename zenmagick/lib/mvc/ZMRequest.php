@@ -300,8 +300,18 @@ class ZMRequest extends ZMObject {
      * @return string The URL context.
      */
     public function getContext() {
-        //XXX: implemented
+        //XXX: implement
         return '/';
+    }
+
+    /**
+     * Get the template path.
+     *
+     * @return string The path.
+     */
+    public function getTemplatePath() {
+        //XXX: implement
+        return null;
     }
 
     /**
