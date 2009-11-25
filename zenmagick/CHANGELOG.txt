@@ -63,6 +63,7 @@ Release 0.9.8
 - rename sessions getLoginFollowUp() and markRequestAsLoginFollowUp() and
   move to ZMRequest as markSticky() and getSticky()
 - add build patch to remove the phpBB options during install
+- add ZMOrders::restockFromOrder(..) method
 
 Release 0.9.7
 - add ZMProductAssociation service and related code

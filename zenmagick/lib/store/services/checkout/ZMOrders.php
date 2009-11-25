@@ -353,6 +353,20 @@ class ZMOrders extends ZMObject implements ZMSQLAware {
         return ZMRuntime::getDatabase()->query($sql, array('languageId' => $languageId), TABLE_ORDERS_STATUS, 'ZMObject');
     }
 
+    /**
+     * Re-stock products from a given order.
+     *
+     * @param int orderId The order to re-stock.
+     */
+    public function restockFromOrder($orderId) {
+        foreach ($this->getOrderItems($orderId) as $item) {
+            if (null != ($product = ZMProducts::instance()->getProductForId($item->getProductId()))) {
+                $product->setQuantity($product->getQuantity() + $item->getQty());
+                ZMProducts::instance()->updateProduct($product);
+            }
+        }
+    }
+
 }
 
 ?>
