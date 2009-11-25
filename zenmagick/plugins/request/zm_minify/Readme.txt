@@ -1,7 +1,7 @@
 This is a ZenMagick plugin to allow to use minify: http://code.google.com/p/minify/
 The included version is (a stripped down and patched) 2.1.3.
 To use a regular minify version just replace the min folder with an official unpacked version.
-(Don't for get to update the config files)
+(Don't forget to update the config files)
 
 
 Installation
