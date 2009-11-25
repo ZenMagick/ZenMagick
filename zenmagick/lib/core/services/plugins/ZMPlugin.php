@@ -78,6 +78,7 @@ abstract class ZMPlugin extends ZMObject {
      */
     function __construct() {
         parent::__construct();
+        // default
         $this->id_ = get_class($this);
         $this->group_ = null;
         $this->name_ = '';
