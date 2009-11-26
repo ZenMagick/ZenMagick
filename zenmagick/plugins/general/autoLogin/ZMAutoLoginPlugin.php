@@ -70,8 +70,6 @@ class ZMAutoLoginPlugin extends Plugin implements ZMRequestHandler {
      * {@inheritDoc}
      */
     public function initRequest($request) {
-        parent::init();
-
         ZMEvents::instance()->attach($this);
 
         $session = $request->getSession();

@@ -30,7 +30,7 @@
  * @author DerManoMann
  * @version $Id: zm_theme_switch.php 2610 2009-11-20 02:45:25Z dermanomann $
  */
-class ZMThemeSwitcherPlugin extends Plugin {
+class ZMThemeSwitcherPlugin extends Plugin implements ZMRequestHandler {
     const SESS_THEME_KEY = 'themeId';
 
 
@@ -49,15 +49,13 @@ class ZMThemeSwitcherPlugin extends Plugin {
     }
 
     /**
-     * Init this plugin.
+     * {@inheritDoc}
      */
-    public function init() {
-        parent::init();
-
+    public function initRequest($request) {
         ZMEvents::instance()->attach($this);
 
-        $session = ZMRequest::instance()->getSession();
-        if (null != ($themeId = ZMRequest::instance()->getParameter('themeId'))) {
+        $session = $request->getSession();
+        if (null != ($themeId = $request->getParameter('themeId'))) {
             $session->setValue(self::SESS_THEME_KEY, $themeId);
         }
 
@@ -99,7 +97,7 @@ class ZMThemeSwitcherPlugin extends Plugin {
                 if (!empty($links)) {
                     $links .= '&nbsp;|&nbsp;';
                 }
-                $links .= '<a href="'.$request->getToolbox()->net->url(null, 'themeId='.$details[0], ZMRequest::instance()->isSecure(), false).'">'.$details[1].'</a>';
+                $links .= '<a href="'.$request->getToolbox()->net->url(null, 'themeId='.$details[0], $request->isSecure(), false).'">'.$details[1].'</a>';
             }
         }
         if (!ZMLangUtils::isEmpty($links)) {
