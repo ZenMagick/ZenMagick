@@ -65,12 +65,12 @@ if (!function_exists('__autoload')) {
  * @version $Id$
  */
 class ZMLoader {
+    const CLASS_PREFIX = 'ZM';
     private static $root_ = null;
     private static $counter_ = 1;
     private $name_;
     private $parent_;
     private $path_;
-    private $classPrefix_ = 'ZM';
     private $global_;
     private $cache_;
     private $stats_;
@@ -79,14 +79,13 @@ class ZMLoader {
     /**
      * Create a new loader.
      *
-     * @param string prefix Optional prefix to be used for class resolving; default is <em>ZM</em>.
+     * @param string name Optional class loader name.
      */
-    public function __construct($name=null, $prefix='ZM') {
+    public function __construct($name=null) {
         $this->name_ = $name;
         if (null == $this->name_) {
             $this->name_ = 'loader@'.self::$counter_++;
         }
-        $this->classPrefix_ = $prefix;
         $this->parent_ = null;
         $this->path_ = array();
         $this->global_ = array();
@@ -282,7 +281,7 @@ class ZMLoader {
             return $this->cache_[$key];
         }
 
-        if (0 === strpos($name, $this->classPrefix_)) {
+        if (0 === strpos($name, self::CLASS_PREFIX)) {
             if (class_exists($name, false) || interface_exists($name, false)) {
                 $this->cache_[$key] = $name;
                 return $name;
@@ -295,7 +294,7 @@ class ZMLoader {
             // to avoid conflicts with external classes
             $parent = $name;
             while (false !== ($parent = get_parent_class($parent))) {
-                if (0 === strpos($parent, $this->classPrefix_)) {
+                if (0 === strpos($parent, self::CLASS_PREFIX)) {
                     $this->cache_[$key] = $name;
                     return $name;
                 }
@@ -303,7 +302,7 @@ class ZMLoader {
         }
 
         // default to prefixed name
-        return $this->resolveClass($this->classPrefix_.$name, $name);
+        return $this->resolveClass(self::CLASS_PREFIX.$name, $name);
     }
 
     /**

@@ -35,7 +35,7 @@ define('UNIT_TESTS_GROUP_OTHER', '@other');
  * @author DerManoMann
  * @version $Id: zm_tests.php 2534 2009-10-11 21:19:31Z dermanomann $
  */
-class ZMPluginUnitTests extends Plugin {
+class ZMUnitTestsPlugin extends Plugin {
     private $tests;
 
     /**

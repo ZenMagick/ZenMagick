@@ -31,7 +31,7 @@
  * @author DerManoMann
  * @version $Id: zm_firephp.php 2351 2009-06-29 05:05:02Z dermanomann $
  */
-class ZMPluginFirePHP extends Plugin {
+class ZMFirePHPPlugin extends Plugin {
 
     /**
      * Create new instance.

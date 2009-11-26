@@ -31,7 +31,7 @@
  * @package org.zenmagick.plugins.masterPassword
  * @version $Id: zm_master_password.php 2490 2009-07-27 10:50:36Z dermanomann $
  */
-class ZMPluginMasterPassword extends Plugin {
+class ZMMasterPasswordPlugin extends Plugin {
 
     /**
      * Create new instance.

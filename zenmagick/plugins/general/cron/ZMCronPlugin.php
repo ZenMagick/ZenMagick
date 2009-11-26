@@ -31,7 +31,7 @@
  * @author DerManoMann
  * @version $Id: zm_cron.php 2560 2009-11-02 20:08:36Z dermanomann $
  */
-class ZMPluginCron extends Plugin {
+class ZMCronPlugin extends Plugin {
 
     /**
      * Create new instance.

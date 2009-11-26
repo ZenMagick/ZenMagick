@@ -30,7 +30,7 @@
  * @author DerManoMann
  * @version $Id: sample_plugin.php 2488 2009-07-24 08:54:22Z dermanomann $
  */
-class ZMPluginExamplePlugin extends Plugin implements ZMRequestHandler {
+class ZMExamplePluginPlugin extends Plugin implements ZMRequestHandler {
 
     /**
      * Create new instance.

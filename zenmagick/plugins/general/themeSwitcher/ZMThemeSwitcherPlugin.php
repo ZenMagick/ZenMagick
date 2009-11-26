@@ -30,7 +30,7 @@
  * @author DerManoMann
  * @version $Id: zm_theme_switch.php 2610 2009-11-20 02:45:25Z dermanomann $
  */
-class ZMPluginThemeSwitcher extends Plugin {
+class ZMThemeSwitcherPlugin extends Plugin {
     const SESS_THEME_KEY = 'themeId';
 
 

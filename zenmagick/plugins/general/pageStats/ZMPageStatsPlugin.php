@@ -31,7 +31,7 @@
  * @author DerManoMann
  * @version $Id: zm_page_stats.php 2617 2009-11-22 22:32:11Z dermanomann $
  */
-class ZMPluginPageStats extends Plugin {
+class ZMPageStatsPlugin extends Plugin {
     private $pageCache_;
 
 
