@@ -70,6 +70,7 @@ Release 0.9.8
   support for new plugin naming/code conventions
 - start porting plugins for new naming/code convention in group 'general';
   eventually this should replace the current 'request' group
+- make the used view available to listeners of the finalize_contents event
 
 Release 0.9.7
 - add ZMProductAssociation service and related code

@@ -36,11 +36,11 @@ class ZMDispatcher {
      */
     public static function dispatch($request) {
         ZMEvents::instance()->fireEvent(null, ZMMVCConstants::DISPATCH_START, array('request' => $request));
-        self::handleRequest($request);
+        $view = self::handleRequest($request);
         ZMEvents::instance()->fireEvent(null, ZMMVCConstants::DISPATCH_DONE, array('request' => $request));
 
         // allow plugins and event subscribers to filter/modify the final contents
-        $args = ZMEvents::instance()->fireEvent(null, ZMMVCConstants::FINALISE_CONTENTS, array('request' => $request, 'contents' => ob_get_clean()));
+        $args = ZMEvents::instance()->fireEvent(null, ZMMVCConstants::FINALISE_CONTENTS, array('request' => $request, 'view' => $view, 'contents' => ob_get_clean()));
         echo $args['contents'];
 
         ZMEvents::instance()->fireEvent(null, ZMMVCConstants::ALL_DONE, array('request' => $request));
@@ -50,9 +50,11 @@ class ZMDispatcher {
      * Handle a request.
      *
      * @param ZMRequest request The request to dispatch.
+     * @return ZMView The view or <code>null</code>.
      */
     public static function handleRequest($request) {
         $controller = $request->getController();
+        $view = null;
 
         try {
             // execute controller
@@ -87,6 +89,8 @@ class ZMDispatcher {
         } else {
             ZMLogging::instance()->log('null view, skipping $view->generate()', ZMLogging::DEBUG);
         }
+
+        return $view;
     }
 
 }
