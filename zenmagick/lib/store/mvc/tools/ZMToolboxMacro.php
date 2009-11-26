@@ -241,20 +241,22 @@ class ZMToolboxMacro extends ZMToolboxTool {
                 continue;
             }
             $active = in_array($category->getId(), $path);
-            $noOfProducts = $showProductCount ? count(ZMProducts::instance()->getProductIdsForCategoryId($category->getId(), true, true)) : 0;
-            $empty = 0 == $noOfProducts;
+            $noOfProductsInCat = $showProductCount ? count(ZMProducts::instance()->getProductIdsForCategoryId($category->getId(), true, false)) : 0;
+            $isEmpty = 0 == $noOfProductsInCat;
             echo '<li>';
             $class = '';
             $class = $active ? 'act' : '';
-            $class .= $empty ? ' empty' : '';
+            $class .= $isEmpty ? ' empty' : '';
             $class .= ($active && !$category->hasChildren()) ? ' curr' : '';
             $class = trim($class);
-            $onclick = $empty ? ($useCategoryPage ? '' : ' onclick="return catclick(this);"') : '';
+            $onclick = $isEmpty ? ($useCategoryPage ? '' : ' onclick="return catclick(this);"') : '';
             echo '<a' . ('' != $class ? ' class="'.$class.'"' : '') . $onclick . ' href="' .
                         $toolbox->net->url('category', '&'.$category->getPath(), '', false, false) .
                         '">'.$toolbox->html->encode($category->getName(), false).'</a>';
-            if (0 < $noOfProducts) {
-                echo '('.$noOfProducts.')';
+            if ($showProductCount) {
+                if (0 < ($noOfProductsInTree = count(ZMProducts::instance()->getProductIdsForCategoryId($category->getId(), true, true)))) {
+                    echo '('.$noOfProductsInTree.')';
+                }
             }
             if ($category->hasChildren()) {
                 echo '&gt;';

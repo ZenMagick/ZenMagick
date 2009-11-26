@@ -40,8 +40,6 @@ class ZMToolboxCrumbtrail extends ZMToolboxTool {
      */
     function __construct() {
         parent::__construct();
-        // defer until toolbox is set
-        //$this->reset();
     }
 
     /**

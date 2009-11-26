@@ -222,6 +222,8 @@ class ZMToolboxMetaTags extends ZMToolboxTool {
             return;
 
         $this->crumbtrail_ = $this->getToolbox()->crumbtrail;
+        // it's the controllers responsibility to set up the crumbtrail..
+        return;
         $this->crumbtrail_->addCategoryPath($this->getRequest()->getCategoryPathArray());
         $this->crumbtrail_->addManufacturer($this->getRequest()->getManufacturerId());
         $this->crumbtrail_->addProduct($this->getRequest()->getProductId());
