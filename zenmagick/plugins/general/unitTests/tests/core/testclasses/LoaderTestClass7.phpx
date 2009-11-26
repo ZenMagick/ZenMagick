@@ -1,0 +1,14 @@
+<?php
+
+/**
+ * A dummy test class.
+ *
+ * @package org.zenmagick.plugins.zm_tests.tests
+ * @author DerManoMann
+ * @version $Id$
+ */
+class LoaderTestClass7 extends ZMObject {
+
+}
+
+?>
