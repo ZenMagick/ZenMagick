@@ -12,7 +12,7 @@ Installation
 Configuration
 =============
 Currently there is no UI to configure this pluing. All configuration is done via the
-setting 'plugins.zm_payment_surcharge.conditions'.
+setting 'plugins.paymentSurcharge.conditions'.
 The setting is expected to be a list of arrays with each array being a condition.
 
 Echo condition consists of the following key/value pairs:
@@ -40,10 +40,10 @@ Echo condition consists of the following key/value pairs:
   The order total title/name.
 
 
-Example
-=======
+Examples
+========
 
-Configure a 3% surcharge for AMEX cards:
+1) Configure a 3% surcharge for AMEX cards:
 
 /**
  * code: Either the code of a payment module or null
@@ -53,13 +53,24 @@ Configure a 3% surcharge for AMEX cards:
  * title: The display title
  */
 
-ZMSettings::set('plugins.zm_payment_surchage.conditions', array(
+ZMSettings::set('plugins.paymentSurchage.conditions', array(
     array(  
       'code' => 'cc', 
       'cvalue' => 'field:cc_card_number;cc_number', 
       'regexp' => '^3[47][0-9]{13}$',
       'value' => '%:3',
       'title' => 'AMEX Surcharge'
+    ),
+  )
+);
+
+2) A $3.00 surcharge for money orders:
+
+ZMSettings::set('plugins.paymentSurchage.conditions', array(
+    array(  
+      'code' => 'moneyorder', 
+      'value' => '3',
+      'title' => 'Money Order Surcharge'
     ),
   )
 );

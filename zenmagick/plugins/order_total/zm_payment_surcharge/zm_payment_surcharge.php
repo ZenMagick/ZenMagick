@@ -51,12 +51,12 @@ class zm_payment_surcharge extends ZMOrderTotalPlugin {
     /**
      * {@inheritDoc}
      */
-    public function calculate($cart) {
+    public function calculate($request, $cart) {
         $paymentType = $cart->getPaymentType();
 
         // iterate over all conditions
         $output = array();
-        foreach (ZMSettings::get('plugins.zm_pyament_surchage.conditions', array()) as $condition) {
+        foreach (ZMSettings::get('plugins.zm_payment_surchage.conditions', array()) as $condition) {
             if ($paymentType->getId() == $condition['code'] || null === $condition['code']) {
                 // payment module match
                 if (null != $condition['cvalue']) {

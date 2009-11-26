@@ -55,11 +55,12 @@ class ZMOrderTotalPlugin extends Plugin {
     /**
      * Evaluate the given cart and return resulting order totals.
      *
-     * @param ZMShoppingCart cart The current cart.
+     * @param ZMRequest request The current request.
+     * @param ZMShoppingCart shoppingCart The current shopping cart.
      * @return mixed Either a single <code>ZMOrderTotalDetails</code>, a list of order total details
      *  (<code>ZMOrderTotalDetails</code>) or <code>null</code>.
      */
-    public function calculate($cart) {
+    public function calculate($request, $shoppingCart) {
         return null;
     }
 

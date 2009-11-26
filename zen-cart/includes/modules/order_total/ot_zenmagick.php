@@ -104,10 +104,10 @@ class ot_zenmagick {
     global $order;
 
         $request = ZMRequest::instance();
-        $cart = $request->getShoppingCart();
+        $shoppingCart = $request->getShoppingCart();
         $detailsList = array();
         foreach ($this->plugins_ as $plugin) {
-            if (null != ($details = $plugin->calculate($cart))) {
+            if (null != ($details = $plugin->calculate($request, $shoppingCart))) {
                 if (!is_array($details)) {
                     $details = array($details);
                 }
