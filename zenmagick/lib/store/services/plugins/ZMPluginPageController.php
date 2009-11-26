@@ -36,6 +36,7 @@ class ZMPluginPageController extends ZMObject {
     private $title_;
     private $plugin_;
     private $ext_;
+    private $pluginPageClass_;
 
 
     /**
@@ -52,6 +53,7 @@ class ZMPluginPageController extends ZMObject {
         $this->title_ = null != $title ? $title : $id;
         $this->plugin_ = $plugin;
         $this->ext_ = $ext;
+        $this->pluginPageClass_ = 'PluginPage';
     }
 
     /**
@@ -68,6 +70,20 @@ class ZMPluginPageController extends ZMObject {
      * @return string The page id.
      */
     public function getId() { return $this->id_; }
+
+    /**
+     * Set the plugin page class.
+     *
+     * @param string pluginPageClass The class name.
+     */
+    public function setPluginPageClass($pluginPageClass) { $this->pluginPageClass_ = $pluginPageClass; }
+
+    /**
+     * Get the plugin page class.
+     *
+     * @return string The class name.
+     */
+    public function getPluginPageClass() { return $this->pluginPageClass_; }
 
     /**
      * {@inheritDoc}
@@ -97,7 +113,7 @@ class ZMPluginPageController extends ZMObject {
      * {@inheritDoc}
      */
     public function processGet($request) {
-        return ZMLoader::make('PluginPage', $this->id_, $this->title_);
+        return ZMLoader::make( $this->pluginPageClass_, $this->id_, $this->plugin_, $this->title_);
     }
 
 

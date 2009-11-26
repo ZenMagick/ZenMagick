@@ -26,9 +26,14 @@
 require_once 'includes/application_top.php';
 
   $fkt = ZMRequest::instance()->getParameter('fkt');
+  $controllerClass = ZMLoader::makeClassname($fkt);
+
   // try to resolve plugin page controller
-  if (class_exists($fkt)) {
-      $controller = ZMLoader::make($fkt);
+  if (ZMLoader::resolve($controllerClass)) {
+      $controller = ZMLoader::make($controllerClass);
+      $page = $controller->process(ZMRequest::instance());
+  } else if (ZMLoader::resolve($controllerClass.'Controller')) {
+      $controller = ZMLoader::make($controllerClass.'Controller');
       $page = $controller->process(ZMRequest::instance());
   } else if (function_exists($fkt)) {
       ob_start();
@@ -73,7 +78,7 @@ require_once 'includes/application_top.php';
     <div id="main">
       <div id="content">
         <?php if (null != $page) {
-            echo $page->getContents();
+            echo $page->getContents($request);
         } else { ?>
             <h2>Invalid Plugin Function: <?php echo $fkt ?></h2>
         <?php } ?>

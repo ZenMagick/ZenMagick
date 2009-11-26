@@ -31,7 +31,27 @@
  * @package org.zenmagick.store.mvc.tools
  * @version $Id$
  */
-class ZMToolboxAdmin extends ZMObject {
+class ZMToolboxAdmin extends ZMToolboxTool {
+
+    /**
+     * Create a plugin admin page URL.
+     *
+     * @param string function The view function name; default is <code>null</code> to use the current.
+     * @param string params Query string style parameter; if <code>''</code>.
+     * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
+     * @return string A full URL.
+     */
+    public function url($function=null, $params='', $echo=ZM_ECHO_DEFAULT) {
+        if (null == $function) {
+            $function = $this->getRequest()->getParameter('fkt');
+        }
+
+        // XXX: screwed logic
+        $url = $this->getToolbox()->net->url('zmPluginPage.php', 'fkt='.$function.'&'.$params, true, false);
+
+        if ($echo) echo $url;
+        return $url;
+    }
 
 }
 

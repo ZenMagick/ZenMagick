@@ -33,6 +33,7 @@
  */
 class ZMPluginPage extends ZMObject {
     private $id_;
+    private $plugin_;
     private $title_;
     private $contents_;
     private $header_;
@@ -43,14 +44,16 @@ class ZMPluginPage extends ZMObject {
      * Create a new plugin page.
      *
      * @param string id The id.
+     * @param mixed plugin A <code>ZMPlugin</code> instance or plugin id.
      * @param string title The title.
      * @param string contents The page contents.
      * @param string header Optional code to be injected into the header; default is <code>null</code>.
      * @param boolean refresh Optional flag to indicate that a page refresh is required; default is <code>false</code>.
      */
-    function __construct($id, $title, $contents=null, $header='', $resfresh=false) {
+    function __construct($id, $plugin, $title, $contents=null, $header='', $resfresh=false) {
         parent::__construct();
         $this->id_ = $id;
+        $this->setPlugin($plugin);
         $this->title_ = $title;
         $this->contents_ = $contents;
         $this->header_ = $header;
@@ -73,6 +76,19 @@ class ZMPluginPage extends ZMObject {
     public function getId() { return $this->id_; }
 
     /**
+     * Get the plugin.
+     *
+     * @return ZMPlugin The plugin.
+     */
+    public function getPlugin() {
+        if (!is_object($this->plugin_)) {
+            $this->plugin_ = ZMPlugins::instance()->getPluginForId($this->plugin_);
+        }
+
+        return $this->plugin_;
+    }
+
+    /**
      * Get the title.
      *
      * @return string The page title.
@@ -82,9 +98,10 @@ class ZMPluginPage extends ZMObject {
     /**
      * Get the contents.
      *
+     * @param ZMRequest request The current request.
      * @return string The page contents.
      */
-    public function getContents() { return $this->contents_; }
+    public function getContents($request) { return $this->contents_; }
 
     /**
      * Get the header code.
@@ -99,6 +116,15 @@ class ZMPluginPage extends ZMObject {
      * @param string id The page id.
      */
     public function setId($id) { $this->id_ = $id; }
+
+    /**
+     * Set the plugin.
+     *
+     * @param mixed plugin A <code>ZMPlugin</code> instance or plugin id.
+     */
+    public function setPlugin($plugin) { 
+        $this->plugin_ = $plugin;
+    }
 
     /**
      * Set the title.

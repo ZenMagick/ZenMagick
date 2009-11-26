@@ -64,6 +64,8 @@ Release 0.9.8
   move to ZMRequest as markSticky() and getSticky()
 - add build patch to remove the phpBB options during install
 - add ZMOrders::restockFromOrder(..) method
+- add ZMSimpleFormPluginPage class to make function based plugin admin pages
+  can be expired
 
 Release 0.9.7
 - add ZMProductAssociation service and related code

@@ -33,6 +33,7 @@
      * @param string params Query string style parameter; if <code>''</code>.
      * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string A full URL.
+     * @deprecated Use toolbox instead.
      */
     function zm_plugin_admin_url($function=null, $params='', $echo=ZM_ECHO_DEFAULT) {
         if (null == $function) {
@@ -65,6 +66,7 @@
      * @param string params Query string style parameter; if <code>null</code> add all current parameter.
      * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string A full URL.
+     * @deprecated No replacement as is obsolete.
      */
     function zm_plugin_url($target, $params='', $echo=ZM_ECHO_DEFAULT) {
         $target = explode(';', $target);
@@ -82,6 +84,7 @@
      * @param ZMConfigValue value The value.
      * @param boolean echo If <code>true</code>, the HTML will be echo'ed as well as returned.
      * @return string HTML code.
+     * @deprecated Use ZMSimpleFormPluginPage instead
      */
     function zm_plugin_value_element($value, $echo=ZM_ECHO_DEFAULT) {
         if ($value instanceof ZMWidget) {
@@ -104,6 +107,7 @@
      * @param string title Optional title; default is <code>null</code> to use the plugin name.
      * @param boolean all Allows to exclude the common values (status/sort order); default is <code>true</code> to show all.
      * @return ZMPluginPage The plugin page instance.
+     * @deprecated Use ZMSimpleFormPluginPage instead
      */
     function zm_simple_config_form($plugin, $fkt, $title=null, $all=true) {
         $title = null == $title ? $plugin->getName() : $title;
