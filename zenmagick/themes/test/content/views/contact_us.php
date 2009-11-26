@@ -46,6 +46,14 @@
         <?php if (is_object($zm_recaptcha)) { ?>
             <p><?php $zm_recaptcha->showCaptcha(); ?></p>
         <?php } ?>
+
+        <?php if (is_object($captcha)) { ?>
+            <?php $captcha->showImage(); ?>
+            <a href="<?php $net->url(null) ?>"><?php zm_l10n("Click to refresh page")?></a><br />
+            <label for="captcha"><?php zm_l10n("Captcha") ?><span>*</span></label>
+            <input type="text" id="captcha" name="captcha" value="" /><br />
+        <?php } ?>
+
     </fieldset>
     <div class="btn"><input type="submit" class="btn" value="<?php zm_l10n("Send") ?>" /></div>
 </form>
