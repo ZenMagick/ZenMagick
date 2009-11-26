@@ -226,6 +226,79 @@ class ZMPlugins extends ZMObject {
      * @return ZMPlugin A plugin instance or <code>null</code>.
      */
     public function getPluginForId($id, $group=null) {
+        if (ZMSettings::get('zenmagick.core.plugins.useNewConvention', false)) {
+            return $this->getPluginForId_new($id, $group);
+        }
+
+        return $this->getPluginForId_old($id, $group);
+    }
+
+    /**
+     * Get the plugin for the given id.
+     *
+     * @param string id The plugin id.
+     * @param string group Optional group; default is <code>null</code> to auto detect.
+     * @return ZMPlugin A plugin instance or <code>null</code>.
+     */
+    public function getPluginForId_new($id, $group=null) {
+        if (array_key_exists($id, $this->plugins_)) {
+            return $this->plugins_[$id]['plugin'];
+        }
+
+        $pluginClassSuffix = ZMLoader::makeClassname($id);
+        $status = $this->pluginStatus_[$id];
+        $group = null != $group ? $group : $status['group'];
+        $groupDir = $this->pluginBaseDir_;
+        if (!ZMLangUtils::isEmpty($group)) {
+            $groupDir .= $group . DIRECTORY_SEPARATOR;
+        }
+        $pluginDir = $groupDir.$id;
+        if (is_dir($pluginDir)) {
+            // expect plugin file in the directory as 'ZMPlugin[CamelCaseId].php.php' extension
+            $pluginClass = 'ZMPlugin' . $pluginClassSuffix;
+            $file = $pluginDir . DIRECTORY_SEPARATOR . $pluginClass . '.php';
+            if (!file_exists($file)) {
+                ZMLogging::instance()->log("can't find plugin file(dir) for '".$id."'", ZMLogging::DEBUG);
+                return null;
+            }
+        } else {
+            // single file, so either the id is just the id or the filename; let's try both...
+            $pluginClass = $pluginClassSuffix;
+            $file = $groupDir . $pluginClass . '.php';
+            if (!is_file($file)) {
+                $pluginClass = 'ZMPlugin' . $pluginClassSuffix;
+                $file = $groupDir . $pluginClass . '.php';
+                if (!is_file($file)) {
+                    ZMLogging::instance()->log("can't find plugin file for '".$id."'", ZMLogging::DEBUG);
+                    return null;
+                }
+            }
+        }
+
+        // load if required
+        if (!class_exists($pluginClass)) {
+            // load plugin class
+            require_once($file);
+        }
+
+        $plugin = new $pluginClass();
+        $plugin->setId(lcfirst(str_replace('ZMPlugin', '', $pluginClass)));
+        $plugin->setGroup($group);
+        $pluginDir = dirname($file) . DIRECTORY_SEPARATOR;
+        $plugin->setPluginDirectory($pluginDir == $groupDir ? $groupDir : $pluginDir);
+
+        $this->plugins_[$id] = array('plugin' => $plugin, 'init' => false);
+        return $plugin;
+    }
+
+    /**
+     * Get the plugin for the given id.
+     *
+     * @param string id The plugin id.
+     * @param string group Optional group; default is <code>null</code> to auto detect.
+     * @return ZMPlugin A plugin instance or <code>null</code>.
+     */
+    public function getPluginForId_old($id, $group=null) {
         if (array_key_exists($id, $this->plugins_)) {
             return $this->plugins_[$id]['plugin'];
         }

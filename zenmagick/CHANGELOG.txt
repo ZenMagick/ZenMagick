@@ -66,6 +66,10 @@ Release 0.9.8
 - add ZMOrders::restockFromOrder(..) method
 - add ZMSimpleFormPluginPage class to make function based plugin admin pages
   can be expired
+- add temp. setting 'zenmagick.core.plugins.useNewConvention' to enable
+  support for new plugin naming/code conventions
+- start porting plugins for new naming/code convention in group 'general';
+  eventually this should replace the current 'request' group
 
 Release 0.9.7
 - add ZMProductAssociation service and related code
