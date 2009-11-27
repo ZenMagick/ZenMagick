@@ -53,6 +53,35 @@ class ZMToolboxAdmin extends ZMToolboxTool {
         return $url;
     }
 
+    /**
+     * Get plugin page for the given <em>fkt</em> value.
+     *
+     * @param string fkt The funciton value.
+     * @return ZMPluginPage A ready-to-use page or <code>null</code>.
+     */
+    public function getPluginPageForFkt($fkt) {
+        $page = null;
+
+        // try to resolve plugin page controller
+        $controllerClass = ZMLoader::makeClassname($fkt);
+        if (ZMLoader::resolve($controllerClass)) {
+            $controller = ZMLoader::make($controllerClass);
+            $page = $controller->process($request);
+        } else if (ZMLoader::resolve($controllerClass.'Controller')) {
+            $controller = ZMLoader::make($controllerClass.'Controller');
+            $page = $controller->process($request);
+        } else if (function_exists($fkt)) {
+            ob_start();
+            $page = $fkt(); 
+            $contents = ob_get_clean();
+            if (!empty($contents)) {
+                $page->setContents($contents);
+            }
+        }
+
+        return $page;
+    }
+
 }
 
 ?>

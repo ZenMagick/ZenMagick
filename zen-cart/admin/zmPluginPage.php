@@ -25,24 +25,9 @@
 ?><?php
 require_once 'includes/application_top.php';
 
+  $toolbox = $request->getToolbox();
   $fkt = $request->getParameter('fkt');
-  $controllerClass = ZMLoader::makeClassname($fkt);
-
-  // try to resolve plugin page controller
-  if (ZMLoader::resolve($controllerClass)) {
-      $controller = ZMLoader::make($controllerClass);
-      $page = $controller->process($request);
-  } else if (ZMLoader::resolve($controllerClass.'Controller')) {
-      $controller = ZMLoader::make($controllerClass.'Controller');
-      $page = $controller->process($request);
-  } else if (function_exists($fkt)) {
-      ob_start();
-      $page = $fkt(); 
-      $contents = ob_get_clean();
-      if (!empty($contents)) {
-          $page->setContents($contents);
-      }
-  }
+  $page = $toolbox->admin->getPluginPageForFkt($fkt);
   if (null != $page && $page->isRefresh()) {
       $request->redirect($request->getToolbox()->net->url('', 'fkt='.$fkt, $request->isSecure(), false));
   }

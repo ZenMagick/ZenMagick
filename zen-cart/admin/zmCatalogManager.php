@@ -26,12 +26,14 @@
 <?php  
 require 'includes/application_top.php';
 
-  // helper
+  // peel fkt parameter from url string
   function get_fkt($url) {
       $urlToken = parse_url($url); 
       parse_str(str_replace('&amp;', '&', $urlToken['query']), $query); 
       return $query['fkt'];
   }
+
+  $toolbox = $request->getToolbox();
 
   // active fkt
   $selectedFkt = $request->getParameter('fkt', '');
@@ -57,11 +59,17 @@ require 'includes/application_top.php';
       $zm_nav_params .= '&cPath='.$request->getCategoryPath();
   }
 
-  // get available tabs...
-  $catalog_menu = ZMAdminMenu::getItemsForParentId(ZMAdminMenu::MENU_CATALOG_MANAGER_TAB);
-
-  // capture output as plugins redirect...
+  // capture output as plugins may redirect...
   ob_start();
+
+  // collect all info we need
+  $tabInfo = array();
+  foreach (ZMAdminMenu::getItemsForParentId(ZMAdminMenu::MENU_CATALOG_MANAGER_TAB) as $item) {
+      $fkt = get_fkt($item->getURL());
+      $page = $toolbox->admin->getPluginPageForFkt($fkt);
+      $tabInfo[] = array('item' => $item, 'page' => $page, 'fkt' => $fkt);
+  }
+
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html <?php echo HTML_PARAMS; ?>>
@@ -105,30 +113,18 @@ require 'includes/application_top.php';
     <div id="main">
       <?php echo zm_catalog_tree(ZMCategories::instance()->getCategoryTree(), '', ZMSettings::get('admin.isShowCatalogTreeProducts')); ?>
       <div id="content">
-        <?php if (0 < count($catalog_menu)) { ?>
+        <?php if (0 < count($tabInfo)) { ?>
             <div id="main-tab-container">
               <ul>
-                <?php $activeTab = 1; ?>
-                <?php foreach ($catalog_menu as $item) { $id = get_fkt($item->getURL()); ?>
-                  <li><a href="#<?php echo $id ?>"><span><?php echo $item->getTitle() ?></span></a></li>
+                <?php foreach ($tabInfo as $info) { ?>
+                  <li><a href="#<?php echo $info['fkt'] ?>"><span><?php echo $info['item']->getTitle() ?></span></a></li>
                 <?php } ?>
               </ul>
-              <?php foreach ($catalog_menu as $index => $item) { 
-                $fkt = get_fkt($item->getURL());
-                if ($fkt == $selectedFkt) { $activeTab = ($index+1); }
+              <?php $activeTab = 1; ?>
+              <?php foreach ($tabInfo as $index => $info) { 
+                if ($info['fkt'] == $selectedFkt) { $activeTab = ($index+1); }
                 ?>
-                <div id="<?php echo $fkt ?>" style="position:relative;">
-                  <?php 
-                    $page = null;
-                    $contents = null;
-                    if (function_exists($fkt)) {
-                        // fake fkt request param to make URLs open the corresponding tab
-                        $request->setParameter('fkt', $fkt);
-                        /* TODO: evaluate only when tab selected or already active: ajax? */
-                        ob_start();
-                        $page = $fkt(); 
-                        $contents = ob_get_clean();
-                    } ?>
+                <div id="<?php echo $info['fkt'] ?>" style="position:relative;">
                     <?php if (ZMMessages::instance()->hasMessages()) { ?>
                         <ul id="messages" style="margin-left:0">
                         <?php foreach (ZMMessages::instance()->getMessages() as $message) { ?>
@@ -136,11 +132,10 @@ require 'includes/application_top.php';
                         <?php } ?>
                         </ul>
                     <?php } ?>
-                    <?php if (!ZMLangUtils::isEmpty($contents)) {
-                        echo $contents;
-                    } else if (null != $page) {
-                        echo $page->getContents();
-                    } else { ?><h2>Invalid Contents Function: <?php echo $fkt ?></h2><?php } ?>
+                    <?php 
+                    if (null != $info['page']) {
+                        echo $info['page']->getContents();
+                    } else { ?><h2>Invalid Contents Function: <?php echo $info['fkt'] ?></h2><?php } ?>
                 </div>
               <?php } ?>
             </div>

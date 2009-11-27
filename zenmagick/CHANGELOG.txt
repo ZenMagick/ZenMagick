@@ -74,6 +74,8 @@ Release 0.9.8
 - fix broken logic for using/skiping empty category pages
 - merge remaining init plugins into EventFixes class; create new settings
   'verifyCategoryPath' and 'configureLocale' (both boolean)
+- make admin zmPluginPage.php and zmCatalogManager.php use the same code for
+  invoking plugins
 
 Release 0.9.7
 - add ZMProductAssociation service and related code
