@@ -29,11 +29,11 @@ define('GZIP_LEVEL', 0);
 ob_start(); require 'sqlpatch.php'; ob_end_clean();
 require_once 'includes/application_top.php';
 
-    $install = ZMRequest::instance()->getParameter('install');
-    $remove = ZMRequest::instance()->getParameter('remove');
-    $edit = ZMRequest::instance()->getParameter('edit');
-    $group = ZMRequest::instance()->getParameter('group');
-    $select = ZMRequest::instance()->getParameter('select');
+    $install = $request->getParameter('install');
+    $remove = $request->getParameter('remove');
+    $edit = $request->getParameter('edit');
+    $group = $request->getParameter('group');
+    $select = $request->getParameter('select');
     $refresh = '';
     $needRefresh = false;
     if (null != $install) {
@@ -59,7 +59,7 @@ require_once 'includes/application_top.php';
     }
 
     // update
-    if ('POST' == ZMRequest::instance()->getMethod() && null !== ($pluginId = ZMRequest::instance()->getParameter('pluginId'))) {
+    if ('POST' == $request->getMethod() && null !== ($pluginId = $request->getParameter('pluginId'))) {
         $plugin = ZMPlugins::instance()->initPluginForId($pluginId, false);
         foreach ($plugin->getConfigValues() as $widget) {
             if ($widget instanceof ZMFormWidget && null !== ($value = $request->getParameter($widget->getName()))) {
@@ -80,7 +80,7 @@ require_once 'includes/application_top.php';
         if ($editPlugin) {
             $fragment = '#' . $editPlugin->getId();
         }
-        ZMRequest::instance()->redirect('zmPlugins.php'.'?select='.$refresh.$fragment);
+        $request->redirect('zmPlugins.php'.'?select='.$refresh.$fragment);
     }
 
     // build/update plugin status for all plugins

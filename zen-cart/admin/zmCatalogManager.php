@@ -34,18 +34,18 @@ require 'includes/application_top.php';
   }
 
   // active fkt
-  $selectedFkt = ZMRequest::instance()->getParameter('fkt', '');
+  $selectedFkt = $request->getParameter('fkt', '');
   $zm_nav_params .= '&fkt='.$selectedFkt;
 
   $title = null;
-  if (0 < ZMRequest::instance()->getCategoryId()) {
-      $category = ZMCategories::instance()->getCategoryForId(ZMRequest::instance()->getCategoryId());
+  if (0 < $request->getCategoryId()) {
+      $category = ZMCategories::instance()->getCategoryForId($request->getCategoryId());
       $title = $category->getName();
   }
-  if (0 < ZMRequest::instance()->getProductId()) {
-      $product = ZMProducts::instance()->getProductForId(ZMRequest::instance()->getProductId());
+  if (0 < $request->getProductId()) {
+      $product = ZMProducts::instance()->getProductForId($request->getProductId());
       $title = $product->getName();
-      $zm_nav_params .= '&productId='.ZMRequest::instance()->getProductId();
+      $zm_nav_params .= '&productId='.$request->getProductId();
   } 
 
   // common nav params
@@ -54,7 +54,7 @@ require 'includes/application_top.php';
       $zm_nav_params .= '&productId='.$product->getId();
   }
   if (null != $category) {
-      $zm_nav_params .= '&cPath='.ZMRequest::instance()->getCategoryPath();
+      $zm_nav_params .= '&cPath='.$request->getCategoryPath();
   }
 
   // get available tabs...
@@ -123,15 +123,12 @@ require 'includes/application_top.php';
                     $contents = null;
                     if (function_exists($fkt)) {
                         // fake fkt request param to make URLs open the corresponding tab
-                        ZMRequest::instance()->setParameter('fkt', $fkt);
+                        $request->setParameter('fkt', $fkt);
+                        /* TODO: evaluate only when tab selected or already active: ajax? */
                         ob_start();
                         $page = $fkt(); 
                         $contents = ob_get_clean();
                     } ?>
-                    <?php 
-                        /* TODO: duplicate id! */
-                        /* XXX: evaluate only when tab selected or already active: ajax? */
-                    ?>
                     <?php if (ZMMessages::instance()->hasMessages()) { ?>
                         <ul id="messages" style="margin-left:0">
                         <?php foreach (ZMMessages::instance()->getMessages() as $message) { ?>

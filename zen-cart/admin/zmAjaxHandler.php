@@ -26,13 +26,13 @@
 
     require_once 'includes/application_top.php';
 
-    $controller = ZMLoader::make(ZMLoader::makeClassname(ZMRequest::instance()->getParameter('controller')).'Controller');
+    $controller = ZMLoader::make(ZMLoader::makeClassname($request->getParameter('controller')).'Controller');
     if (null === $controller) {
         // try with AjaxPrefix
-        $controller = ZMLoader::make(ZMLoader::makeClassname('ajax_'.ZMRequest::instance()->getParameter('controller')).'Controller');
+        $controller = ZMLoader::make(ZMLoader::makeClassname('ajax_'.$request->getParameter('controller')).'Controller');
     }
     if (null != $controller) {
-        $controller->process();
+        $controller->process($request);
     }
 
     require_once 'includes/application_bottom.php';

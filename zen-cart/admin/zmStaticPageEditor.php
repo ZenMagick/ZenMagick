@@ -27,18 +27,18 @@
 require_once 'includes/application_top.php';
 
   // get selections and defaults
-  $selectedThemeId = ZMRequest::instance()->getParameter('themeId', Runtime::getThemeId());
+  $selectedThemeId = $request->getParameter('themeId', Runtime::getThemeId());
   $selectedTheme = new ZMTheme($selectedThemeId);
-  if (null === ($file = ZMRequest::instance()->getParameter('file')) || empty($file)) {
-      $selectedFile = ZMRequest::instance()->getParameter('newfile');
+  if (null === ($file = $request->getParameter('file')) || empty($file)) {
+      $selectedFile = $request->getParameter('newfile');
   } else {
       $selectedFile = $file;
   }
   $currentLanguage = Runtime::getLanguage();
-  $selectedLanguageId = ZMRequest::instance()->getParameter('languageId', $currentLanguage->getId());
+  $selectedLanguageId = $request->getParameter('languageId', $currentLanguage->getId());
 
-  $editContents = ZMRequest::instance()->getParameter('editContents', null, false);
-  if (null != ZMRequest::instance()->getParameter('save') && null != $editContents) {
+  $editContents = $request->getParameter('editContents', null, false);
+  if (null != $request->getParameter('save') && null != $editContents) {
       // save 
       $editContents = stripslashes($editContents);
       $selectedTheme->saveStaticPageContent($selectedFile, $editContents, $selectedLanguageId);

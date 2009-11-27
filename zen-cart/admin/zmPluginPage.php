@@ -25,16 +25,16 @@
 ?><?php
 require_once 'includes/application_top.php';
 
-  $fkt = ZMRequest::instance()->getParameter('fkt');
+  $fkt = $request->getParameter('fkt');
   $controllerClass = ZMLoader::makeClassname($fkt);
 
   // try to resolve plugin page controller
   if (ZMLoader::resolve($controllerClass)) {
       $controller = ZMLoader::make($controllerClass);
-      $page = $controller->process(ZMRequest::instance());
+      $page = $controller->process($request);
   } else if (ZMLoader::resolve($controllerClass.'Controller')) {
       $controller = ZMLoader::make($controllerClass.'Controller');
-      $page = $controller->process(ZMRequest::instance());
+      $page = $controller->process($request);
   } else if (function_exists($fkt)) {
       ob_start();
       $page = $fkt(); 
@@ -44,7 +44,7 @@ require_once 'includes/application_top.php';
       }
   }
   if (null != $page && $page->isRefresh()) {
-      ZMRequest::instance()->redirect($request->getToolbox()->net->url('', 'fkt='.$fkt, ZMRequest::instance()->isSecure(), false));
+      $request->redirect($request->getToolbox()->net->url('', 'fkt='.$fkt, $request->isSecure(), false));
   }
 
 ?>

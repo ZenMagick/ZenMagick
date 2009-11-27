@@ -59,11 +59,11 @@
     $obsolete = zm_get_obsolete_files();
 
     // install
-    if (null != ZMRequest::instance()->getParameter('update')) {
-        $group = ZMRequest::instance()->getParameter('update');
+    if (null != $request->getParameter('update')) {
+        $group = $request->getParameter('update');
         foreach ($installer->getPatches($group) as $id => $patch) {
             $formId = 'patch_'.$group.'_'.$patch->getId();
-            if ($patch->isOpen() && $patch->getId() == ZMRequest::instance()->getParameter($formId)) {
+            if ($patch->isOpen() && $patch->getId() == $request->getParameter($formId)) {
                 // open and selected
                 $needRefresh = true;
                 $status = $patch->patch(true);
@@ -73,7 +73,7 @@
                 } else {
                     ZMMessages::instance()->error("Could not install '".$patchLabel[$patch->getId()]."'");
                 }
-            } else if (!$patch->isOpen() && null == ZMRequest::instance()->getParameter($formId)) {
+            } else if (!$patch->isOpen() && null == $request->getParameter($formId)) {
                 // installed and not selected
                 if ($patch->canUndo()) {
                     $needRefresh = true;
@@ -90,8 +90,8 @@
     }
 
     // delete
-    if (null != ZMRequest::instance()->getParameter('obsolete')) {
-        foreach (ZMRequest::instance()->getParameter('obsolete') as $file) {
+    if (null != $request->getParameter('obsolete')) {
+        foreach ($request->getParameter('obsolete') as $file) {
             if (is_file($file)) {
                 unlink($file);
             } else if (is_dir($file)) {
@@ -172,7 +172,7 @@
     <?php }
 
     if ($needRefresh) {
-        ZMRequest::instance()->redirect('zmInstallation.php');
+        $request->redirect('zmInstallation.php');
         Runtime::finish();
     }
 
