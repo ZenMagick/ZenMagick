@@ -131,6 +131,35 @@ class ZMPluginPageController extends ZMObject {
         return ZMPlugins::instance()->getPluginForId($this->plugin_, true);
     }
 
+    /**
+     * Evaluate template and return contents.
+     *
+     * @param array context The page context.
+     * @param string viewDir Optional view folder relative to the plugin dir; default is <em>views</em>.
+     * @return string The page contents.
+     * @todo: unify with similar method in ZMPluginPage
+     */
+    protected function getPageContents($context, $viewDir='views') {
+        // make toolbox available too
+        $toolbox = ZMToolbox::instance();
+        foreach ($toolbox->getTools() as $name => $tool) {
+            $$name = $tool;
+        }
+
+        // custom context variables
+        foreach ($context as $name => $value) {
+            $$name = $value;
+        }
+
+        // the plugin
+        $plugin = $this->getPlugin();
+
+        $template = file_get_contents($this->getPlugin()->getPluginDir().$viewDir.'/'.$this->getId().$this->ext_);
+        ob_start();
+        eval('?>'.$template);
+        return ob_get_clean();
+    }
+
 }
 
 ?>

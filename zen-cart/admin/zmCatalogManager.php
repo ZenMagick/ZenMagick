@@ -37,7 +37,6 @@ require 'includes/application_top.php';
 
   // active fkt
   $selectedFkt = $request->getParameter('fkt', '');
-  $zm_nav_params .= '&fkt='.$selectedFkt;
 
   $title = null;
   if (0 < $request->getCategoryId()) {
@@ -47,16 +46,15 @@ require 'includes/application_top.php';
   if (0 < $request->getProductId()) {
       $product = ZMProducts::instance()->getProductForId($request->getProductId());
       $title = $product->getName();
-      $zm_nav_params .= '&productId='.$request->getProductId();
   } 
 
-  // common nav params
-  $zm_nav_params = '';
+  // default params to be used in forms in admin view
+  $defaultUrlParams = '';
   if (null != $product) {
-      $zm_nav_params .= '&productId='.$product->getId();
+      $defaultUrlParams .= '&productId='.$product->getId();
   }
   if (null != $category) {
-      $zm_nav_params .= '&cPath='.$request->getCategoryPath();
+      $defaultUrlParams .= '&cPath='.$request->getCategoryPath();
   }
 
   // capture output as plugins may redirect...
@@ -134,7 +132,7 @@ require 'includes/application_top.php';
                     <?php } ?>
                     <?php 
                     if (null != $info['page']) {
-                        echo $info['page']->getContents($request);
+                        echo $info['page']->getContents($request, array('defaultUrlParams' => $defaultUrlParams));
                     } else { ?><h2>Invalid Contents Function: <?php echo $info['fkt'] ?></h2><?php } ?>
                 </div>
               <?php } ?>

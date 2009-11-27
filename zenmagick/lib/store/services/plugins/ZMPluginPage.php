@@ -106,9 +106,10 @@ class ZMPluginPage extends ZMObject {
      * Get the contents.
      *
      * @param ZMRequest request The current request.
+     * @param array context The page context; default is an empty array.
      * @return string The page contents.
      */
-    public function getContents($request) {
+    public function getContents($request, $context=array()) {
         if (null === $this->contents_) {
             // 2nd chance...
             $viewName = $this->viewName_;
@@ -116,7 +117,7 @@ class ZMPluginPage extends ZMObject {
                 // 3rd chance...
                 $viewName = $this->getPlugin()->getId();
             }
-            $this->contents_ = $this->getPageContents($request, $viewName);
+            $this->contents_ = $this->getPageContents($request, $viewName, $context);
         }
 
         return $this->contents_;
@@ -130,6 +131,7 @@ class ZMPluginPage extends ZMObject {
      * @param array context The page context; default is an empty array.
      * @param string viewDir Optional view folder relative to the plugin dir; default is <em>views</em>.
      * @return string The page contents.
+     * @todo: unify with similar method in ZMPluginPageController
      */
     protected function getPageContents($request, $viewName, $context=array(), $viewDir='views') {
         // some basics
