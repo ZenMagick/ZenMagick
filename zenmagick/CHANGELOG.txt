@@ -72,6 +72,8 @@ Release 0.9.8
   eventually this should replace the current 'request' group
 - make the used view available to listeners of the finalize_contents event
 - fix broken logic for using/skiping empty category pages
+- merge remaining init plugins into EventFixes class; create new settings
+  'verifyCategoryPath' and 'configureLocale' (both boolean)
 
 Release 0.9.7
 - add ZMProductAssociation service and related code

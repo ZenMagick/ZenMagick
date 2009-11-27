@@ -194,6 +194,12 @@ class ZMEventFixes extends ZMObject {
         if (ZMSettings::get('isAdmin')) { ZMSettings::get('isEchoHTML', true); }
         // this is used as default value for the $echo parameter for HTML functions
         define('ZM_ECHO_DEFAULT', ZMSettings::get('isEchoHTML'));
+
+        $this->fixCategoryPath($request);
+        $this->checkAuthorization($request);
+        if (ZMSettings::get('configureLocale')) {
+            $this->configureLocale($request);
+        }
     }
 
     /**
@@ -354,6 +360,160 @@ class ZMEventFixes extends ZMObject {
         }
 
         $request->setParameterMap($parameter);
+    }
+
+    /**
+     * Fix category path.
+     */
+    protected function fixCategoryPath($request) {
+        if (0 != ($productId = $request->getProductId())) {
+            if (null == $request->getCategoryPath()) {
+                // set default based on product default category
+                if (null != ($product = ZMProducts::instance()->getProductForId($productId))) {
+                    $defaultCategory = $product->getDefaultCategory();
+                    if (null != $defaultCategory) {
+                        $request->setCategoryPathArray($defaultCategory->getPathArray());
+                    }
+                }
+            }
+        }
+
+        if (ZMSettings::get('verifyCategoryPath')) {
+            if (null != $request->getCategoryPath()) {
+                $path = array_reverse($request->getCategoryPathArray());
+                $last = count($path) - 1;
+                $valid = true;
+                foreach ($path as $ii => $categoryId) {
+                    $category = ZMCategories::instance()->getCategoryForId($categoryId);
+                    if ($ii < $last) {
+                        if (null == ($parent = $category->getParent())) {
+                            // can't have top level category in the middle
+                            $valid = false;
+                            break;
+                        } else if ($parent->getId() != $path[$ii+1]) {
+                            // not my parent!
+                            $valid = false;
+                            break;
+                        }
+                    } else if (null != $category->getParent()) {
+                        // must start with a root category
+                        $valid = false;
+                        break;
+                    }
+                }
+                if (!$valid) {
+                    $category = ZMCategories::instance()->getCategoryForId(array_pop($request->getCategoryPathArray()));
+                    $request->setCategoryPathArray($category->getPathArray());
+                }
+            }
+        }
+    }
+
+    /**
+     * Check authorization for the current account.
+     */
+    protected function checkAuthorization($request) {
+        $account = $request->getAccount();
+        if (null != $account && !ZMSettings::get('isAdmin') && ZMAccounts::AUTHORIZATION_PENDING == $account->getAuthorization()) {
+            if (!in_array($request->getRequestId(), array(CUSTOMERS_AUTHORIZATION_FILENAME, FILENAME_LOGIN, FILENAME_LOGOFF, FILENAME_CONTACT_US, FILENAME_PRIVACY))) {
+                $request->redirect($request->getToolbox()->net->url(CUSTOMERS_AUTHORIZATION_FILENAME, '', false, false));
+            }
+        }
+    }
+
+    /**
+     * Set locale based on browser settings.
+     */
+    public function configureLocale($request) {
+        // ** currency **
+        $session = $request->getSession();
+        if (null == $session->getCurrencyCode() || null != ($currencyCode = $request->getCurrencyCode())) {
+            if (null != $currencyCode) {
+                if (null == ZMCurrencies::instance()->getCurrencyForCode($currencyCode)) {
+                    $currencyCode = ZMSettings::get('defaultCurrency');
+                }
+            } else {
+                $currencyCode = ZMSettings::get('defaultCurrency');
+            }
+            $session->setCurrencyCode($currencyCode);
+        }
+
+        // ** lanugage **
+        if (null == ($language = $session->getLanguage()) || 0 != ($languageCode = $request->getLanguageCode())) {
+            if (0 != $languageCode) {
+                // URL parameter takes precedence
+                $language = ZMLanguages::instance()->getLanguageForCode($languageCode);
+            } else {
+                if (ZMSettings::get('isUseBrowserLanguage')) {
+                    $language = $this->getClientLanguage();
+                } else {
+                    $language = ZMLanguages::instance()->getLanguageForCode(ZMSettings::get('defaultLanguageCode'));
+                }
+            }
+            if (null == $language) {
+                $language = Runtime::getDefaultLanguage();
+                ZMLogging::instance()->log('invalid or missing language - using default language', ZMLogging::WARN);
+            }
+
+            $session->setLanguage($language);
+        }
+    }
+
+    /**
+     * Determine the browser language.
+     *
+     * <p>As found at <a href="http://zencart-solutions.palek.cz/en/multilanguage-zencart/default-language-by-browser.html">http://zencart-solutions.palek.cz/en/multilanguage-zencart/default-language-by-browser.html</a>.</p>
+     *
+     * @return ZMLanguage The preferred language based on request headers or <code>null</code>.
+     */
+    private function getClientLanguage() {
+        if (isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
+            // build list of language identifiers
+            $browser_languages = explode(',', $_SERVER['HTTP_ACCEPT_LANGUAGE']);
+            
+            // build list of language substitutions
+            if (defined('BROWSER_LANGUAGE_SUBSTITUTIONS') && BROWSER_LANGUAGE_SUBSTITUTIONS != '') {
+                $substitutions = explode(',', BROWSER_LANGUAGE_SUBSTITUTIONS);
+                $language_substitutions = array();
+                for ($i = 0; $i < count($substitutions); $i++) {
+                    $subst = explode(':', $substitutions[$i]);
+                    $language_substitutions[trim($subst[0])] = trim($subst[1]);
+                }
+            }
+
+            for ($i=0, $n=sizeof($browser_languages); $i<$n; $i++) {
+                // separate the clear language identifier from possible language quality (q param)
+                $lang = explode(';', $browser_languages[$i]);
+                
+                if (strlen($lang[0]) == 2) {
+                    // 2 letter only language code (code without subtags)
+                    $code = $lang[0];
+                
+                } elseif (strpos($lang[0], '-') == 2 || strpos($lang[0], '_') == 2) {
+                    // 2 letter language code with subtags
+                    // use only language code and throw out all possible subtags
+                    // the underscore is not RFC3036 and RFC4646 valid, but sometimes used and acceptable in this case
+                    $code = substr($lang[0], 0, 2);
+                } else {
+                    // ignore all other language identifiers
+                    $code = '';
+                }
+
+                if (null != ($language = (ZMLanguages::instance()->getLanguageForCode($code)))) {
+                    // found!
+                    return $language;
+                } elseif (isset($language_substitutions[$code])) {
+                    // try fallback to substitue
+                    $code = $language_substitutions[$code];
+                    if (null != ($language = (ZMLanguages::instance()->getLanguageForCode($code)))) {
+                        // found!
+                        return $language;
+                    }
+                }
+            }
+        }
+
+        return null;
     }
 
 }

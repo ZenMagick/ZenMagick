@@ -108,7 +108,7 @@
             /*** plugins ***/
             'zenmagick.core.plugins.enabled' => true,
             'zenmagick.core.plugins.baseDir' => ZM_BASE_DIR.'plugins'.DIRECTORY_SEPARATOR,
-            'zenmagick.core.plugins.groups' => 'init,admin,request,order_total',
+            'zenmagick.core.plugins.groups' => 'admin,request,order_total',
         
             /*** fs ***/
             'zenmagick.core.fs.permissions.fix' => true,
@@ -155,6 +155,12 @@
 
             // sanitize attributes when handling product submissions (add to cart, etc)
             'isSanitizeAttributes' => true,
+
+            // verify category path
+            'verifyCategoryPath' => false,
+
+            // configure locale (used to be init plugin)
+            'configureLocale' => false,
 
             // look for define pages in theme folder
             'isZMDefinePages' => true,
