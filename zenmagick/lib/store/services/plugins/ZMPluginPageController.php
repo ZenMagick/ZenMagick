@@ -113,7 +113,7 @@ class ZMPluginPageController extends ZMObject {
      * {@inheritDoc}
      */
     public function processGet($request) {
-        return ZMLoader::make( $this->pluginPageClass_, $this->id_, $this->plugin_, $this->title_);
+        return ZMLoader::make($this->pluginPageClass_, $this->id_, $this->plugin_, $this->title_);
     }
 
 
@@ -129,38 +129,6 @@ class ZMPluginPageController extends ZMObject {
      */
     protected function getPlugin() {
         return ZMPlugins::instance()->getPluginForId($this->plugin_, true);
-    }
-
-    /**
-     * Evaluate template and return contents.
-     *
-     * @param ZMRequest request The current request.
-     * @param array context The page context.
-     * @param string viewDir Optional view folder relative to the plugin dir; default is <em>views</em>.
-     * @return string The page contents.
-     */
-    protected function getPageContents($request, $context, $viewDir='views') {
-        // some basics
-        $session = $request->getSession();
-
-        // make toolbox available too
-        $toolbox = $request->getToolbox();
-        foreach ($toolbox->getTools() as $name => $tool) {
-            $$name = $tool;
-        }
-
-        // custom context variables
-        foreach ($context as $name => $value) {
-            $$name = $value;
-        }
-
-        // the plugin
-        $plugin = $this->getPlugin();
-
-        $template = file_get_contents($this->getPlugin()->getPluginDirectory().$viewDir.'/'.$this->getId().$this->ext_);
-        ob_start();
-        eval('?>'.$template);
-        return ob_get_clean();
     }
 
 }

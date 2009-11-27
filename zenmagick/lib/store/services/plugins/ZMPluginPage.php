@@ -27,6 +27,11 @@
 /**
  * Container for all data/information related to a plugin admin page.
  *
+ * <p>Contents may either be set directly, or via setting a view (file)name. The name
+ * will then be resolved relative to the <em>views</em> folder in the plugin directory.</p>
+ *
+ * <p>If the view name is not set either, the plugin id will be used.</p>
+ *
  * @author DerManoMann
  * @package org.zenmagick.store.services.plugins
  * @version $Id$
@@ -38,6 +43,7 @@ class ZMPluginPage extends ZMObject {
     private $contents_;
     private $header_;
     private $refresh_;
+    private $viewName_;
 
 
     /**
@@ -58,6 +64,7 @@ class ZMPluginPage extends ZMObject {
         $this->contents_ = $contents;
         $this->header_ = $header;
         $this->refresh_ = $refresh;
+        $this->viewName_ = null;
     }
 
     /**
@@ -101,7 +108,52 @@ class ZMPluginPage extends ZMObject {
      * @param ZMRequest request The current request.
      * @return string The page contents.
      */
-    public function getContents($request) { return $this->contents_; }
+    public function getContents($request) {
+        if (null === $this->contents_) {
+            // 2nd chance...
+            $viewName = $this->viewName_;
+            if (null == $viewName) {
+                // 3rd chance...
+                $viewName = $this->getPlugin()->getId();
+            }
+            $this->contents_ = $this->getPageContents($request, $viewName);
+        }
+
+        return $this->contents_;
+    }
+
+    /**
+     * Evaluate template and return contents.
+     *
+     * @param ZMRequest request The current request.
+     * @param string viewName The view name.
+     * @param array context The page context; default is an empty array.
+     * @param string viewDir Optional view folder relative to the plugin dir; default is <em>views</em>.
+     * @return string The page contents.
+     */
+    protected function getPageContents($request, $viewName, $context=array(), $viewDir='views') {
+        // some basics
+        $session = $request->getSession();
+
+        // make toolbox available too
+        $toolbox = $request->getToolbox();
+        foreach ($toolbox->getTools() as $name => $tool) {
+            $$name = $tool;
+        }
+
+        // custom context variables
+        foreach ($context as $name => $value) {
+            $$name = $value;
+        }
+
+        // the plugin
+        $plugin = $this->getPlugin();
+
+        $template = file_get_contents($this->getPlugin()->getPluginDirectory().$viewDir.DIRECTORY_SEPARATOR.$viewName.'.php');
+        ob_start();
+        eval('?>'.$template);
+        return ob_get_clean();
+    }
 
     /**
      * Get the header code.
@@ -109,6 +161,13 @@ class ZMPluginPage extends ZMObject {
      * @return string The header code.
      */
     public function getHeader() { return $this->header_; }
+
+    /**
+     * Get the view name.
+     *
+     * @return string The view name or <code>null</code>.
+     */
+    public function getViewName() { return $this->viewName_; }
 
     /**
      * Set the id.
@@ -146,6 +205,13 @@ class ZMPluginPage extends ZMObject {
      * @param string header The header code.
      */
     public function setHeader($header) { $this->header_ = $header; }
+
+    /**
+     * Set the view name.
+     *
+     * @parma string viewnName The view name.
+     */
+    public function setViewName($viewName) { $this->viewName_ = $viewName; }
 
     /**
      * Set the refresh flag.

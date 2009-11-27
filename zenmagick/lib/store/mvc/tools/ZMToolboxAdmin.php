@@ -56,10 +56,11 @@ class ZMToolboxAdmin extends ZMToolboxTool {
     /**
      * Get plugin page for the given <em>fkt</em> value.
      *
+     * @param ZMRequest request The current request.
      * @param string fkt The funciton value.
      * @return ZMPluginPage A ready-to-use page or <code>null</code>.
      */
-    public function getPluginPageForFkt($fkt) {
+    public function getPluginPageForFkt($request, $fkt) {
         $page = null;
 
         // try to resolve plugin page controller

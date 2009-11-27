@@ -27,7 +27,7 @@ require_once 'includes/application_top.php';
 
   $toolbox = $request->getToolbox();
   $fkt = $request->getParameter('fkt');
-  $page = $toolbox->admin->getPluginPageForFkt($fkt);
+  $page = $toolbox->admin->getPluginPageForFkt($request, $fkt);
   if (null != $page && $page->isRefresh()) {
       $request->redirect($request->getToolbox()->net->url('', 'fkt='.$fkt, $request->isSecure(), false));
   }

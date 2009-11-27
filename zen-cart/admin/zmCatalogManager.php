@@ -66,7 +66,7 @@ require 'includes/application_top.php';
   $tabInfo = array();
   foreach (ZMAdminMenu::getItemsForParentId(ZMAdminMenu::MENU_CATALOG_MANAGER_TAB) as $item) {
       $fkt = get_fkt($item->getURL());
-      $page = $toolbox->admin->getPluginPageForFkt($fkt);
+      $page = $toolbox->admin->getPluginPageForFkt($request, $fkt);
       $tabInfo[] = array('item' => $item, 'page' => $page, 'fkt' => $fkt);
   }
 
@@ -134,7 +134,7 @@ require 'includes/application_top.php';
                     <?php } ?>
                     <?php 
                     if (null != $info['page']) {
-                        echo $info['page']->getContents();
+                        echo $info['page']->getContents($request);
                     } else { ?><h2>Invalid Contents Function: <?php echo $info['fkt'] ?></h2><?php } ?>
                 </div>
               <?php } ?>
