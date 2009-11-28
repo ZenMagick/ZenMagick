@@ -76,6 +76,7 @@ Release 0.9.8
   'verifyCategoryPath' and 'configureLocale' (both boolean)
 - make admin zmPluginPage.php and zmCatalogManager.php use the same code for
   invoking plugins
+- add ZMReservedQtyWidget
 
 Release 0.9.7
 - add ZMProductAssociation service and related code
