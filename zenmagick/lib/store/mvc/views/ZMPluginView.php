@@ -66,12 +66,11 @@ class ZMPluginView extends SavantView {
     }
 
     /**
-     * Get the template path array for <em>Savant</em>.
-     *
-     * @return array List of folders to use for template lookups.
+     * {@inheritDoc}
      */
     protected function getTemplatePath() {
-        return array($this->plugin_->getPluginDirectory());
+        // add plugin as (last) valid option
+        return array_merge(array($this->plugin_->getPluginDirectory(), parent::getTemplatePath());
     }
 
 }

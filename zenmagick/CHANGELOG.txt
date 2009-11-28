@@ -77,6 +77,8 @@ Release 0.9.8
 - make admin zmPluginPage.php and zmCatalogManager.php use the same code for
   invoking plugins
 - add ZMReservedQtyWidget
+- make ZMPluginView add the plugin folder as another fallback for templates
+  and resources
 
 Release 0.9.7
 - add ZMProductAssociation service and related code
