@@ -4,11 +4,11 @@ CAPTCHA
 
 Version Date
 ==============
-v 2.7a 23.06.2007 19:25
+v. 2.9 11.08.2008 15:01
 
 Author
 ======
-Andrew Berezin andrew@ecommerce-service.com http://ecommerce-service.com andrew@zen-cart.spb.ru http://zen-cart.spb.ru
+Andrew Berezin http://eCommerce-Service.com/
 
 Description
 ===========
@@ -18,12 +18,18 @@ Affected files
 ==============
 /includes/modules/pages/contact_us/header_php.php
 /includes/modules/pages/links_submit/header_php.php
+/includes/modules/pages/product_reviews_write/header_php.php
 /includes/modules/pages/tell_a_friend/header_php.php
 /includes/modules/YOUR_TEMPLATE/create_account.php
+/includes/templates/YOUR_TEMPLATE/templates/tpl_contact_us_default.php
 /includes/templates/YOUR_TEMPLATE/templates/tpl_links_submit_default.php
 /includes/templates/YOUR_TEMPLATE/templates/tpl_modules_create_account.php
-/includes/templates/YOUR_TEMPLATE/templates/tpl_contact_us_default.php
+/includes/templates/YOUR_TEMPLATE/templates/tbl_product_reviews_write_default.php
 /includes/templates/YOUR_TEMPLATE/templates/tpl_tell_a_friend_default.php
+
+Added files
+===========
+/fonts/verdana.ttf
 
 Affects DB
 ==========
@@ -109,3 +115,9 @@ header('Content-Transfer-Encoding: binary');
 header('Content-Disposition:attachment; filename=captcha_img.' . $this->img_type);
 v 2.7a 23.06.2007 19:25
 1. Add German language - Thanks to Nicolas Schudel.
+v 2.8 28.04.2007 6:12
+1. Bug fix - use zen_image_button;
+v 2.9 11.08.2008 15:01
+1. Bug fix - use zen_image_button with IMAGE_USE_CSS_BUTTONS == 'yes';
+2. Update to support ZC1.3.8a and Links Manager 3.3.1 - thanks to t. mike howeth
+3. corrected text in /includes/languages/english/extra_definitions/captcha.php - thanks to t. mike howeth

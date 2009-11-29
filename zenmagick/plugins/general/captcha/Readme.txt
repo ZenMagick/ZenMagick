@@ -1,5 +1,6 @@
 This is the ZenMagick plugin for CAPTCHA support,
 based on the CAPTCH zen-cart contribution by Andrew Berezin.
+(http://www.zen-cart.com/index.php?main_page=product_contrib_info&products_id=551)
 See the file readme.captcha.txt for more details about the included
 code.
 
@@ -34,6 +35,8 @@ class you'll need to reapply those changes.
    plugin.
 
 4) Changed a single ampersand '&' to the HTML entity &amp;.
+
+5) Renamed c'tor __construct()
 
 I also modified the install.sql script to make it work in batch mode. All required is
 to replace backslash-single quote:  \'  with two single quotes:  ''
