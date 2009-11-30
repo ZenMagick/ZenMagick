@@ -82,6 +82,8 @@ Release 0.9.8
 - add admin sql patch functions
 - refactor all admin pages in preparation for using regular controller for
   all admin pages including plugins
+- convert PluginPage classes and code to using regular controller + custom
+  admin plugin views
 
 Release 0.9.7
 - add ZMProductAssociation service and related code

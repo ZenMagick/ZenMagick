@@ -37,7 +37,7 @@ class ZMAdminMenuItem extends ZMObject {
     private $parent_;
     private $id_;
     private $title_;
-    private $file_;
+    private $function_;
 
 
     /**
@@ -46,15 +46,15 @@ class ZMAdminMenuItem extends ZMObject {
      * @param string parent The id of the parent.
      * @param string id The page id.
      * @param string title The page title.
-     * @param string file A filename implementing the page contents.
+     * @param string function The function to render the contents.
      */
-    function __construct($parent, $id, $title, $file=null) {
+    function __construct($parent, $id, $title, $function) {
         parent::__construct();
         $this->parent_ = $parent;
         // make it less likely to have name collisions...
         $this->id_ = (null != $parent ? $parent.'-' : '').$id;
         $this->title_ = $title;
-        $this->file_ = $file;
+        $this->function_ = $function;
     }
 
     /**
@@ -99,20 +99,11 @@ class ZMAdminMenuItem extends ZMObject {
      * @return string The URL.
      */
     public function getURL() {
-        if (null !== $this->file_) {
-            $params = '';
-            return ZMRequest::instance()->getToolbox()->admin->url($this->file_, $params, false, false);
+        if (null !== $this->function_) {
+            $params = 'fkt='.$this->function_;
+            return ZMRequest::instance()->getToolbox()->admin->url('plugin_page',$params, false, false);
         }
         return null;
-    }
-
-    /**
-     * Get the contents.
-     *
-     * @return string The page body.
-     */
-    public function getPage() {
-        return "";
     }
 
 }

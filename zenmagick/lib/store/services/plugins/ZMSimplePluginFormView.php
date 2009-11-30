@@ -25,19 +25,27 @@
 
 
 /**
- * Plugin page with support for a simple form based on all plugin settings.
+ * Plugin view that generates a (view-less) simple form based on all plugin settings.
  *
  * @author DerManoMann
  * @package org.zenmagick.store.services.plugins
  * @version $Id$
  */
-class ZMSimpleFormPluginPage extends ZMPluginPage {
+class ZMSimplePluginFormView extends ZMView {
+    private $plugin_;
+    private $function_;
+
 
     /**
-     * {@inheritDoc}
+     * Create instance.
+     *
+     * @param mixed plugin The parent plugin.
+     * @param string function The function/controller name.
      */
-    function __construct($id, $plugin, $title, $contents=null, $header='', $resfresh=false) {
-        parent::__construct($id, $plugin, $title, $contents=null, $header='', $resfresh=false);
+    function __construct($plugin, $function) {
+        parent::__construct();
+        $this->setPlugin($plugin);
+        $this->function_ = $function;
     }
 
     /**
@@ -45,6 +53,29 @@ class ZMSimpleFormPluginPage extends ZMPluginPage {
      */
     function __destruct() {
         parent::__destruct();
+    }
+
+
+    /**
+     * Set the plugin.
+     *
+     * @param mixed plugin A <code>ZMPlugin</code> instance or plugin id.
+     */
+    public function setPlugin($plugin) { 
+        $this->plugin_ = $plugin;
+    }
+
+    /**
+     * Get the plugin.
+     *
+     * @return ZMPlugin The plugin.
+     */
+    public function getPlugin() {
+        if (!is_object($this->plugin_)) {
+            $this->plugin_ = ZMPlugins::instance()->getPluginForId($this->plugin_);
+        }
+
+        return $this->plugin_;
     }
 
     /**
@@ -70,18 +101,18 @@ class ZMSimpleFormPluginPage extends ZMPluginPage {
      * Create a simple plugin config form.
      *
      * @param ZMRequest request The current request.
-     * @param string fkt The view function.
+     * @param string function The view function.
      * @param string title Optional title; default is <code>null</code> to use the plugin name.
      * @param boolean all Allows to exclude the common values (status/sort order); default is <code>true</code> to show all.
      * @return ZMPluginPage The plugin page instance.
      */
-    protected function generateSimpleConfigForm($request, $fkt, $title=null, $all=true) {
+    protected function generateSimpleConfigForm($request, $function, $title=null, $all=true) {
         $plugin = $this->getPlugin();
         $title = null == $title ? $this->getPlugin()->getName() : $title;
         $title = zm_l10n_get($title);
         $contents = <<<EOT
 <h2><?php echo \$title ?></h2>
-<form action="<?php \$request->getToolbox()->admin->url(\$fkt) ?>" method="POST">
+<form action="<?php \$request->getToolbox()->admin->url() ?>" method="POST">
     <table cellspacing="0" cellpadding="0" id="plugin-config">
         <?php foreach (\$plugin->getConfigValues() as \$value) { ?>
             <?php if (!\$all && (ZMLangUtils::endsWith(\$value->getKey(), Plugin::KEY_ENABLED) || ZMLangUtils::endsWith(\$value->getKey(), Plugin::KEY_SORT_ORDER))) { continue; } ?>
@@ -92,6 +123,7 @@ class ZMSimpleFormPluginPage extends ZMPluginPage {
             </tr>
         <?php } ?>
     </table>
+    <input type="hidden" name="fkt" value="<?php echo \$function ?>">
     <input type="submit" value="<?php zm_l10n("Update") ?>">
 </form>
 EOT;
@@ -106,8 +138,8 @@ EOT;
     /**
      * {@inheritDoc}
      */
-    public function getContents($request) {
-        return $this->generateSimpleConfigForm($request, null, $this->getTitle(), false);
+    public function generate($request) {
+        return $this->generateSimpleConfigForm($request, $this->function_, null, false);
     }
 
 }

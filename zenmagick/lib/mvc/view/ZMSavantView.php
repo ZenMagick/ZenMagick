@@ -56,7 +56,7 @@ class ZMSavantView extends ZMView {
      * @param ZMRequest request The current request.
      * @return array List of folders to use for template lookups.
      */
-    protected function getTemplatePath($request) {
+    public function getTemplatePath($request) {
         return array($request->getTemplatePath());
     }
 

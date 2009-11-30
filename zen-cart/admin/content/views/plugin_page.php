@@ -26,14 +26,12 @@
 
   $toolbox = $request->getToolbox();
   $fkt = $request->getParameter('fkt');
-  $page = $toolbox->admin->getPluginPageForFkt($request, $fkt);
-  if (null != $page && $page->isRefresh()) {
-      $request->redirect($request->getToolbox()->net->url('', 'fkt='.$fkt, $request->isSecure(), false));
-  }
+  $view = $toolbox->admin->getViewForFkt($request, $fkt);
+
 ?>
 
-<?php if (null != $page) {
-    echo $page->getContents($request);
+<?php if (null != $view) {
+    echo $view->generate($request);
 } else { ?>
     <h2>Invalid Plugin Function: <?php echo $fkt ?></h2>
 <?php } ?>

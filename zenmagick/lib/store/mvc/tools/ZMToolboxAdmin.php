@@ -49,38 +49,42 @@ class ZMToolboxAdmin extends ZMToolboxTool {
 
         $url = $this->getToolbox()->net->url('zmIndex.php', 'main_page='.$requestId.'&'.$params, $secure, false);
 
+        $url = str_replace('?&amp;', '?', $url);
+        $url = str_replace('?&', '?', $url);
+
         if ($echo) echo $url;
         return $url;
     }
 
     /**
-     * Get plugin page for the given <em>fkt</em> value.
+     * Get a view for the given <em>function</em> value.
      *
      * @param ZMRequest request The current request.
-     * @param string fkt The funciton value.
-     * @return ZMPluginPage A ready-to-use page or <code>null</code>.
+     * @param string function The function/controller name.
+     * @return ZMView A view or <code>null</code>.
      */
-    public function getPluginPageForFkt($request, $fkt) {
-        $page = null;
+    public function getViewForFkt($request, $function) {
+        $view = null;
+        $controller = null;
 
         // try to resolve plugin page controller
-        $controllerClass = ZMLoader::makeClassname($fkt);
+        $controllerClass = ZMLoader::makeClassname($function);
         if (ZMLoader::resolve($controllerClass)) {
             $controller = ZMLoader::make($controllerClass);
-            $page = $controller->process($request);
+            $view = $controller->process($request);
         } else if (ZMLoader::resolve($controllerClass.'Controller')) {
             $controller = ZMLoader::make($controllerClass.'Controller');
-            $page = $controller->process($request);
-        } else if (function_exists($fkt)) {
-            ob_start();
-            $page = $fkt(); 
-            $contents = ob_get_clean();
-            if (!empty($contents)) {
-                $page->setContents($contents);
-            }
+            $view = $controller->process($request);
+        } else if (function_exists($function)) {
+            $view = $function(); 
         }
 
-        return $page;
+        if (null != $view && null != $controller && $controller instanceof ZMPluginAdminController) {
+            // fix template path
+            $view->setTemplatePath(array($controller->getPlugin()->getPluginDirectory()));
+        }
+
+        return $view;
     }
 
 }

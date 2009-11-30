@@ -59,9 +59,8 @@ class SavantView extends ZMSavantView {
     /**
      * {@inheritDoc}
      */
-    protected function getTemplatePath($request) {
+    public function getTemplatePath($request) {
         $path = array();
-        // XXX: what convention about views do we want here???
         if (ZMSettings::get('isEnableThemeDefaults')) {
             $path[] = ZMThemes::instance()->getThemeForId(ZMSettings::get('defaultThemeId'))->getContentDir();
         }

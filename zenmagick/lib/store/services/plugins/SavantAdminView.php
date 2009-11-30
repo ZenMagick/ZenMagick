@@ -3,9 +3,6 @@
  * ZenMagick - Extensions for zen-cart
  * Copyright (C) 2006-2009 ZenMagick
  *
- * Portions Copyright (c) 2003 The zen-cart developers
- * Portions Copyright (c) 2003 osCommerce
- *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or (at
@@ -25,28 +22,22 @@
 
 
 /**
- * Plugin admin controller base class.
+ * A Savant(3) view for admin pages.
  *
  * @author DerManoMann
  * @package org.zenmagick.store.services.plugins
  * @version $Id$
  */
-class ZMPluginAdminController extends ZMController {
-    private $title_;
-    private $plugin_;
+class SavantAdminView extends SavantView {
+    private $templatePath_;
 
 
     /**
-     * Create a new instance.
-     *
-     * @param string id The id.
-     * @param string title The page title.
-     * @param mixed plugin The parent plugin.
+     * Create new instance.
      */
-    function __construct($id, $title=null, $plugin) {
-        parent::__construct($id);
-        $this->title_ = null != $title ? $title : $id;
-        $this->plugin_ = $plugin;
+    function __construct() {
+        parent::__construct();
+        $this->setTemplatePath(array(DIR_FS_ADMIN.'content'.DIRECTORY_SEPARATOR));
     }
 
     /**
@@ -58,25 +49,27 @@ class ZMPluginAdminController extends ZMController {
 
 
     /**
-     * Set the plugin.
-     *
-     * @param mixed plugin A <code>ZMPlugin</code> instance or plugin id.
+     * {@inheritDoc}
      */
-    public function setPlugin($plugin) { 
-        $this->plugin_ = $plugin;
+    protected function getLayout() {
+        //XXX: for now we are dealing with views only
+        return null;
     }
 
     /**
-     * Get the plugin.
-     *
-     * @return ZMPlugin The plugin.
+     * {@inheritDoc}
      */
-    public function getPlugin() {
-        if (!is_object($this->plugin_)) {
-            $this->plugin_ = ZMPlugins::instance()->getPluginForId($this->plugin_);
-        }
+    public function getTemplatePath($request) {
+        return $this->templatePath_;
+    }
 
-        return $this->plugin_;
+    /**
+     * Set the template path.
+     *
+     * @param array path The new template path.
+     */
+    public function setTemplatePath($path) {
+        $this->templatePath_ = $path;
     }
 
 }
