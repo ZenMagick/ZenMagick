@@ -229,6 +229,7 @@
           <fileset dir="${zencart.src.dir}">
                 <exclude name="**/.svn*" />
                 <exclude name="**/.git*" />
+                <exclude name="**/*.swp" />
             </fileset>
         </copy>
 
