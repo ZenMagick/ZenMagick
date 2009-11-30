@@ -82,7 +82,7 @@ class ZMAdminMenu extends ZMObject {
                 } else {
                     $url = $item->getURL();
                     if (ZMLangUtils::startsWith($url, 'fkt:')) {
-                        $url = ZMRequest::instance()->getToolbox()->net->url('zmPluginPage.php', 'fkt=' . substr($url, 4), false, false);
+                        $url = ZMRequest::instance()->getToolbox()->admin->url('plugin_page', 'fkt='.substr($url, 4), true, false);
                     }
                     echo '<a href="'.$url.'">'.$item->getTitle().'</a>';
                 }

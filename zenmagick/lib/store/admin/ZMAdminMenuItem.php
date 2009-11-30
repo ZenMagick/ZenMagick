@@ -38,7 +38,6 @@ class ZMAdminMenuItem extends ZMObject {
     private $id_;
     private $title_;
     private $file_;
-    private $function_;
 
 
     /**
@@ -48,16 +47,14 @@ class ZMAdminMenuItem extends ZMObject {
      * @param string id The page id.
      * @param string title The page title.
      * @param string file A filename implementing the page contents.
-     * @param string function A function implementing the page contents.
      */
-    function __construct($parent, $id, $title, $file=null, $function=null) {
+    function __construct($parent, $id, $title, $file=null) {
         parent::__construct();
         $this->parent_ = $parent;
         // make it less likely to have name collisions...
         $this->id_ = (null != $parent ? $parent.'-' : '').$id;
         $this->title_ = $title;
         $this->file_ = $file;
-        $this->function_ = $function;
     }
 
     /**
@@ -97,17 +94,6 @@ class ZMAdminMenuItem extends ZMObject {
     public function getTitle() { return $this->title_; }
 
     /**
-     * Check if this menu entry has contents.
-     *
-     * <p>Menu seperators would return <code>false</code> here.</p>
-     *
-     * @return boolean <code>true</code> if this entry points to actual contents.
-     */
-    public function hasPage() {
-        return null !== $this->file_ || null !== $this->function_;
-    }
-
-    /**
      * Get the url.
      *
      * @return string The URL.
@@ -115,12 +101,7 @@ class ZMAdminMenuItem extends ZMObject {
     public function getURL() {
         if (null !== $this->file_) {
             $params = '';
-            if (null !== $this->function_) {
-                $params = 'fkt='.$this->function_;
-            }
-            return ZMRequest::instance()->getToolbox()->net->url($this->file_, $params, false, false);
-        } else if (null !== $this->function_) {
-            return 'fkt:'.$this->function_;
+            return ZMRequest::instance()->getToolbox()->admin->url($this->file_, $params, false, false);
         }
         return null;
     }

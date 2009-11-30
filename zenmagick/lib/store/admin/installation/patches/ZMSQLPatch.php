@@ -78,7 +78,7 @@ class ZMSQLPatch extends ZMInstallationPatch {
     function _runSQL($sql) {
         $sql = ZMTools::sanitize($sql);
         if (!empty($sql)) {
-            $results = executeSql($sql, DB_DATABASE, DB_PREFIX);
+            $results = zm_zen_execute_sql($sql, DB_DATABASE, DB_PREFIX);
             $this->_processSQLMessages($results);
             return empty($results['error']);
         }

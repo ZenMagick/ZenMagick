@@ -39,8 +39,9 @@ class ZMDispatcher {
         $view = self::handleRequest($request);
         ZMEvents::instance()->fireEvent(null, ZMMVCConstants::DISPATCH_DONE, array('request' => $request));
 
-        // allow plugins and event subscribers to filter/modify the final contents
-        $args = ZMEvents::instance()->fireEvent(null, ZMMVCConstants::FINALISE_CONTENTS, array('request' => $request, 'view' => $view, 'contents' => ob_get_clean()));
+        // allow plugins and event subscribers to filter/modify the final contents; corresponds with ob_start() in init.php
+        $args = ZMEvents::instance()->fireEvent(null, ZMMVCConstants::FINALISE_CONTENTS, 
+                    array('request' => $request, 'view' => $view, 'contents' => ob_get_clean()));
         echo $args['contents'];
 
         ZMEvents::instance()->fireEvent(null, ZMMVCConstants::ALL_DONE, array('request' => $request));

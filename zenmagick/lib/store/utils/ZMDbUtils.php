@@ -36,26 +36,19 @@ class ZMDbUtils {
     /**
      * Execute a SQL patch.
      *
-     * <p><strong>NOTE:</strong> This functionallity is only available in the context
-     * of the ZenMagick installation or plugins page.</p>
-     *
      * @param string sql The sql.
      * @param array Result message list.
      * @param boolean Debug flag.
      * @return boolean <code>true</code> for success, <code>false</code> if the execution fails.
      */
     public static function executePatch($sql, $messages, $debug=false) {
-        if (!ZMSettings::get('isAdmin')) {
-            return false;
-        }
-
         if ($debug) {
             $_GET['debug'] = 'ON';
         }
         // disable to allow plugins to insert HTML into the database...
         //$sql = ZMTools::sanitize($sql);
         if (!empty($sql)) {
-            $results = executeSql($sql, DB_DATABASE, DB_PREFIX);
+            $results = zm_zen_execute_sql($sql, DB_DATABASE, DB_PREFIX);
             foreach (ZMDbUtils::processPatchResults($results) as $msg) {
                 $messages[] = $msg;
             }

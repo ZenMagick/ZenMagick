@@ -53,8 +53,7 @@ class ZMUrlMapper extends ZMObject {
      */
     function __construct() {
         parent::__construct();
-        $this->globalViews_ = array();
-        $this->pageViews_ = array();
+        $this->clear();
     }
 
     /**
@@ -214,6 +213,14 @@ class ZMUrlMapper extends ZMObject {
         $definition = $viewInfo['viewDefinition'] . (false === strpos($viewInfo['viewDefinition'], '#') ? '#' : '&') . $parameter . '&template=' . $viewInfo['template'] . '&viewId=' . $viewInfo['viewId'];
         ZMLogging::instance()->log('view definition: '.$definition, ZMLogging::TRACE);
         return $definition;
+    }
+
+    /**
+     * Clear all mappings.
+     */
+    public function clear() {
+        $this->globalViews_ = array();
+        $this->pageViews_ = array();
     }
 
 }

@@ -66,14 +66,14 @@
             $hasProducts = 0 != $noProducts;
             $hasChildren = 0 != count($category->getChildren());
             echo '<li class="'.(($active||0==$category->getId()) ? 'open' : '').'">';
-            $url = $catUrls ? ZMRequest::instance()->getToolbox()->net->url('', $cparams, false, false) : '#';
+            $url = $catUrls ? ZMRequest::instance()->getToolbox()->admin->url(null, $cparams, true, false) : '#';
             echo '<a class="tree-cat-url c:'.$category->getId().'" href="'.$url.'"><span class="folder">'.$toolbox->html->encode($category->getName(), false).($hasProducts?'('.$noProducts.')':'').'</span></a>';
             if ($category->hasChildren()) {
                 zm_catalog_tree($category->getChildren(), $params, $showProducts, $catUrls, $id, false, $path);
             } else if ($showProducts && $active) {
                 echo '<ul>';
                     foreach (ZMProducts::instance()->getProductsForCategoryId($category->getId(), false) as $product) {
-                        echo '<li><a class="tree-prod-url p:'.$product->getId().'" href="'.$toolbox->net->url('', $cparams.'&productId='.$product->getId(), false, false).'"><span class="file">'.$product->getName().'</span></a></li>';
+                        echo '<li><a class="tree-prod-url p:'.$product->getId().'" href="'.$toolbox->admin->url(null, $cparams.'&productId='.$product->getId(), false, false).'"><span class="file">'.$product->getName().'</span></a></li>';
                 }
                 echo '</ul>';
             }

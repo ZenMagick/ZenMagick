@@ -36,18 +36,18 @@ class ZMToolboxAdmin extends ZMToolboxTool {
     /**
      * Create a plugin admin page URL.
      *
-     * @param string function The view function name; default is <code>null</code> to use the current.
+     * @param string requestId The request id.
      * @param string params Query string style parameter; if <code>''</code>.
+     * @param boolean secure Flag to create a secure url; default is <code>true</code>.
      * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string A full URL.
      */
-    public function url($function=null, $params='', $echo=ZM_ECHO_DEFAULT) {
-        if (null == $function) {
-            $function = $this->getRequest()->getParameter('fkt');
+    public function url($requestId=null, $params='', $secure=true, $echo=ZM_ECHO_DEFAULT) {
+        if (null == $requestId) {
+            $requestId = $this->getRequest()->getRequestId();
         }
 
-        // XXX: screwed logic
-        $url = $this->getToolbox()->net->url('zmPluginPage.php', 'fkt='.$function.'&'.$params, true, false);
+        $url = $this->getToolbox()->net->url('zmIndex.php', 'main_page='.$requestId.'&'.$params, $secure, false);
 
         if ($echo) echo $url;
         return $url;

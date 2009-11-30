@@ -79,6 +79,9 @@ Release 0.9.8
 - add ZMReservedQtyWidget
 - make ZMPluginView add the plugin folder as another fallback for templates
   and resources
+- add admin sql patch functions
+- refactor all admin pages in preparation for using regular controller for
+  all admin pages including plugins
 
 Release 0.9.7
 - add ZMProductAssociation service and related code
