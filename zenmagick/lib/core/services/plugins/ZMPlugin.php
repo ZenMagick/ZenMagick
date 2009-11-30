@@ -45,6 +45,8 @@
  *  <dd>Location of the plugin class file.</dd>
  *  <dt>loaderPolicy</dt>
  *  <dd><code>ZMPlugin::LP_ALL</code>.</dd>
+ *  <dt>context</dt>
+ *  <dd>Generic code to allow to configure different context values where the plugin allowed; default is <em>0</em>.</dd>
  * </dl>
  *
  * <p>Files affected by the loader policy are all <em>.php</em> files, as documented for <code>ZMLoader</code>.</p>
@@ -71,6 +73,7 @@ abstract class ZMPlugin extends ZMObject {
     private $enabled_;
     private $pluginDirectory_;
     private $loaderPolicy_;
+    private $context_;
 
 
     /**
@@ -87,6 +90,7 @@ abstract class ZMPlugin extends ZMObject {
         $this->enabled_ = null;
         $this->pluginDirectory_ = dirname(__FILE__).DIRECTORY_SEPARATOR;
         $this->loaderPolicy_ = ZMPlugin::LP_ALL;
+        $this->loaderPolicy_ = 0;
     }
 
     /**
@@ -199,7 +203,7 @@ abstract class ZMPlugin extends ZMObject {
     /**
      * Set the plugin directory.
      *
-     * @param string The installation folder.
+     * @param string directory The installation folder.
      */
     public function setPluginDirectory($directory) {
         $this->pluginDirectory_ = $directory;
@@ -255,6 +259,24 @@ abstract class ZMPlugin extends ZMObject {
      */
     public function setLoaderPolicy($loaderPolicy) {
         $this->loaderPolicy_ = $loaderPolicy;
+    }
+
+    /**
+     * Get the context flags.
+     *
+     * @return int The context flags.
+     */
+    public function getContext() {
+        return $this->context_;
+    }
+
+    /**
+     * Set the context flags.
+     *
+     * @param int context The context flags.
+     */
+    public function setContext($context) {
+        $this->context_ = $context;
     }
 
 }

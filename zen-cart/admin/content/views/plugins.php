@@ -88,6 +88,7 @@
                 'scope' => $plugin->getScope(),
                 'installed' => $plugin->isInstalled(),
                 'enabled' => $plugin->isEnabled(),
+                'context' => $plugin->getContext(),
                 'order' => $plugin->getSortOrder()
             );
         }
