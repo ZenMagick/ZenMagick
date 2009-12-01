@@ -31,14 +31,13 @@
  * @package org.zenmagick.plugins.masterPassword
  * @version $Id$
  */
-class ZMMasterPasswordAdminController extends ZMPluginPageController {
+class ZMMasterPasswordAdminController extends ZMPluginAdminController {
 
     /**
      * Create new instance.
      */
     function __construct() {
-        parent::__construct('masterPasswordAdmin', zm_l10n_get('Set Master Password'), 'masterPassword');
-        $this->setPluginPageClass('SimpleFormPluginPage');
+        parent::__construct('master_password_admin', zm_l10n_get('Set Master Password'), 'masterPassword');
     }
 
     /**
@@ -53,18 +52,17 @@ class ZMMasterPasswordAdminController extends ZMPluginPageController {
      * {@inheritDoc}
      */
     public function processPost($request) {
-        $plugin = $this->getPlugin();
-
         $masterPassword = $request->getParameter('masterPassword', null);
-        // allow to reset to blank
+
+        // encrypt only if not empty to allow to reset to blank
         if (!empty($masterPassword)) {
             $masterPassword = ZMAuthenticationManager::instance()->getDefaultProvider()->encryptPassword($masterPassword);
         }
-        $plugin->set('masterPassword', $masterPassword);
+        // update
+        $this->getPlugin()->set('masterPassword', $masterPassword);
+        ZMMessages::instance()->success('Master password updated.');
 
-        $page = self::processGet($request);
-        $page->setRefresh(true);
-        return $page;
+        return $this->getRedirectView($request);
     }
 
 }

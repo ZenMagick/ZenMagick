@@ -22,13 +22,16 @@
 
 
 /**
- * A Savant(3) view for admin pages.
+ * A view for admin pages.
+ *
+ * <p>Since this implementation allows to modify the template path it is also
+ * used as view for plugin admin pages.</p>
  *
  * @author DerManoMann
- * @package org.zenmagick.store.services.plugins
+ * @package org.zenmagick.store.mvc.views
  * @version $Id$
  */
-class SavantAdminView extends SavantView {
+class ZMAdminView extends SavantView {
     private $templatePath_;
 
 

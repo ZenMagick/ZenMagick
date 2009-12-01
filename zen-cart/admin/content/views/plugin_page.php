@@ -28,6 +28,21 @@
   $fkt = $request->getParameter('fkt');
   $view = $toolbox->admin->getViewForFkt($request, $fkt);
 
+  // add event listener to update title...
+  class _PPEventListener {
+      private $title_ = '';
+      function __construct($title) { $this->title_ = $title; }
+      public function onZMFinaliseContents($args) {
+          if (!ZMLangUtils::isEmpty($this->title_)) {
+              $contents = $args['contents'];
+              $args['contents'] = preg_replace('/<\/title>/', ' :: ' . $this->title_ . '</title>', $contents, 1);
+              return $args;
+          }
+          return null;
+      }
+  }
+  ZMEvents::instance()->attach(new _PPEventListener($toolbox->utils->getTitle($fkt, false)));
+
 ?>
 
 <?php if (null != $view) {

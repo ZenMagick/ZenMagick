@@ -28,7 +28,7 @@
   // set some admin specific things...
   ZMUrlMapper::instance()->clear();
   ZMSettings::set('isStoreNameInTitle', false);
-  ZMSettings::set('defaultViewClass', 'SavantAdminView');
+  ZMSettings::set('defaultViewClass', 'AdminView');
   if (ZMLangUtils::isEmpty($request->getRequestId())) {
       $request->setParameter('main_page', 'index');
   }

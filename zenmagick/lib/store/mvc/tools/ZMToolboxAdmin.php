@@ -79,6 +79,7 @@ class ZMToolboxAdmin extends ZMToolboxTool {
             $view = $function(); 
         }
 
+        // abuse ZMAdminView as plugin admin view
         if (null != $view && null != $controller && $controller instanceof ZMPluginAdminController) {
             // fix template path
             $view->setTemplatePath(array($controller->getPlugin()->getPluginDirectory()));

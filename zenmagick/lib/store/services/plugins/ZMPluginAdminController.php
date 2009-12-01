@@ -27,6 +27,9 @@
 /**
  * Plugin admin controller base class.
  *
+ * <p>The default implementation will use the <code>SimplePluginFormView</code> view
+ * to generate a simple plugin config form.</p>
+ *
  * @author DerManoMann
  * @package org.zenmagick.store.services.plugins
  * @version $Id$
@@ -34,6 +37,7 @@
 class ZMPluginAdminController extends ZMController {
     private $title_;
     private $plugin_;
+    private $viewClass_;
 
 
     /**
@@ -47,6 +51,7 @@ class ZMPluginAdminController extends ZMController {
         parent::__construct($id);
         $this->title_ = null != $title ? $title : $id;
         $this->plugin_ = $plugin;
+        $this->setViewClass('AdminView');
     }
 
     /**
@@ -77,6 +82,43 @@ class ZMPluginAdminController extends ZMController {
         }
 
         return $this->plugin_;
+    }
+
+    /**
+     * Set the view class.
+     *
+     * @param string viewClass The view class.
+     */
+    public function setViewClass($viewClass) { 
+        $this->viewClass_ = $viewClass;
+    }
+
+    /**
+     * Get the view class.
+     *
+     * @return string The view class.
+     */
+    public function getViewClass() { 
+        return $this->viewClass_;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function processGet($request) {
+        return ZMLoader::make('SimplePluginFormView', $this->getPlugin(), $this->getId());
+    }
+
+    /**
+     * Create a configured redirect view.
+     *
+     * @param ZMRequest request The current request.
+     * @return ZMView A (redirect) view.
+     */
+    public function getRedirectView($request) {
+        $view = ZMLoader::make('RedirectView');
+        $view->setUrl($request->getToolbox()->admin->url('plugin_page', 'fkt='.$this->getId()));
+        return $view;
     }
 
 }
