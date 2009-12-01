@@ -31,15 +31,13 @@
  * @package org.zenmagick.plugins.examplePlugin
  * @version $Id$
  */
-class ZMExamplePluginAdminController extends ZMPluginPageController {
+class ZMExamplePluginAdminController extends ZMPluginAdminController {
 
     /**
      * Create new instance.
      */
     function __construct() {
-        parent::__construct('ExamplePluginAdmin', zm_l10n_get('Example Plugin Admin Page'), 'examplePlugin');
-        // automaticallt generate a simple config form
-        $this->setPluginPageClass('SimpleFormPluginPage');
+        parent::__construct('Example_plugin_admin', zm_l10n_get('Example Plugin Admin Page'), 'examplePlugin');
     }
 
     /**
@@ -64,9 +62,7 @@ class ZMExamplePluginAdminController extends ZMPluginPageController {
 
         ZMMessages::instance()->success('Plugin settings updated!');
 
-        $page = self::processGet($request);
-        $page->setRefresh(true);
-        return $page;
+        return $this->getRedirectView($request);
     }
 
 }
