@@ -246,8 +246,10 @@ class ZMPlugins extends ZMObject {
         }
 
         $pluginClassSuffix = ZMLoader::makeClassname($id);
-        $status = $this->pluginStatus_[$id];
-        $group = null != $group ? $group : $status['group'];
+        if (null == $group && array_key_exists($id, $this->pluginStatus_)) {
+            $status = $this->pluginStatus_[$id];
+            $group = null != $group ? $group : $status['group'];
+        }
         $groupDir = $this->pluginBaseDir_;
         if (!ZMLangUtils::isEmpty($group)) {
             $groupDir .= $group . DIRECTORY_SEPARATOR;
