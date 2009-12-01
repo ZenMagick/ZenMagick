@@ -126,10 +126,10 @@
                     <input type="hidden" name="group" value="<?php echo $plugin->getGroup() ?>">
                     <?php echo zen_image_submit('button_update.gif', IMAGE_UPDATE) ?>
                   <?php } else { ?>
-                      <a href="<?php echo $toolbox->admin->url(null, 'edit='.$plugin->getId().'&group='.$plugin->getGroup()) ?>#<?php echo $plugin->getId() ?>"><?php echo zen_image_button('button_edit.gif', zm_l10n_get("Edit")) ?></a>
+                      <a href="<?php $toolbox->admin->url(null, 'edit='.$plugin->getId().'&group='.$plugin->getGroup()) ?>#<?php echo $plugin->getId() ?>"><?php echo zen_image_button('button_edit.gif', zm_l10n_get("Edit")) ?></a>
                   <?php } ?>
               <?php } else { ?>
-                  <a href="<?php echo $toolbox->admin->url(null, 'install='.$plugin->getId().'&group='.$plugin->getGroup()) ?>#<?php echo $plugin->getId() ?>"><?php echo zen_image_button('button_module_install.gif', zm_l10n_get("Install")) ?></a>
+                  <a href="<?php $toolbox->admin->url(null, 'install='.$plugin->getId().'&group='.$plugin->getGroup()) ?>#<?php echo $plugin->getId() ?>"><?php echo zen_image_button('button_module_install.gif', zm_l10n_get("Install")) ?></a>
               <?php } ?>
             </td>
           </tr>

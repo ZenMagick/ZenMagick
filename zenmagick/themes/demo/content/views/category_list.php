@@ -77,7 +77,7 @@
     <?php $form->open('compare_products', '', false, array('method' => 'get')) ?>
         <div class="rlist">
             <table cellspacing="0" cellpadding="0"><tbody>
-                <?php $first = true; $odd = true; foreach ($zm_resultList->getResults() as $product) { ?>
+                <?php $first = true; $odd = true; foreach ($zm_resultList->getResults() as $product) { $this->assign(array('product' => $product)); ?>
                   <?php echo $this->fetch('views/resultlist/product.php') ?>
                 <?php $first = false; $odd = !$odd; } ?>
             </tbody></table>
