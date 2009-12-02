@@ -96,7 +96,7 @@ class ZMFilePatcher extends ZMObject {
             }
             fclose($handle);
             if (!$fileExists) {
-                ZMFileUtils::setFilePerms($file);
+                ZMFileUtils::setFilePerms($this->target);
             }
             return true;
         }
