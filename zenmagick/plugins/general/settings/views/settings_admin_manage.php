@@ -5,11 +5,11 @@
     // use jquery to toggle value element
 </script>
 
-<?php $toolbox->form->open('', 'fkt=settings_admin', false, array('id'=>'settings_form_create')) ?>
+<form action="<?php $toolbox->admin->url() ?>" method="post">
     <fieldset>
         <legend>Create New Setting</legend>
         <p>
-            <input type="hidden" name="fkt" value="ZMSettingsAdminController">
+            <input type="hidden" name="fkt" value="settings_admin_manage">
             <input type="hidden" name="action" value="create">
             Title: <input type="text" name="title">
             Key: <input type="text" name="key">
@@ -32,11 +32,13 @@
                 <option value="CountrySelectFormWidget#title=None&options=0= --- ">Country (dropdown, incl. empty default)</option>
             </select>
         </p>
-        <p><input type="submit" value="create"></p>
+        <p>
+          <input type="submit" value="create">
+        </p>
     </fieldset>
 </form>
 
-<?php $toolbox->form->open('', 'fkt=settings_admin', false, array('id'=>'settings_form_update')) ?>
+<form action="<?php $toolbox->admin->url() ?>" method="post">
     <fieldset>
         <legend>Current Settings</legend>
         <table>
@@ -49,7 +51,10 @@
             </thead>
             <tbody>
                 <?php foreach ($plugin->getConfigValues() as $value) { ?>
+                    <?php if (ZMLangUtils::endsWith($value->getKey(), Plugin::KEY_ENABLED) || ZMLangUtils::endsWith($value->getKey(), Plugin::KEY_SORT_ORDER)) { continue; } ?>
+
                     <?php if ($value instanceof ZMWidget) { ?>
+                        <?php if (ZMLangUtils::endsWith($value->getName(), Plugin::KEY_ENABLED) || ZMLangUtils::endsWith($value->getName(), Plugin::KEY_SORT_ORDER)) { continue; } ?>
                         <tr>
                             <td><?php echo $value->getTitle() ?></td>
                             <td><?php echo $value->getName() ?></td>
@@ -59,7 +64,7 @@
                 <?php } ?>
             </tbody>
         </table>
-        <input type="hidden" name="fkt" value="ZMSettingsAdminController">
+        <input type="hidden" name="fkt" value="settings_admin_manage">
         <input type="hidden" name="action" value="update">
         <p><input type="submit" value="update"></p>
     </fieldset>
