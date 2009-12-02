@@ -54,6 +54,9 @@
             <input type="text" id="captcha" name="captcha" value="" /><br />
         <?php } ?>
 
+        <?php if (is_object($recaptcha)) { ?>
+            <?php $recaptcha->showCaptcha(); ?>
+        <?php } ?>
     </fieldset>
     <div class="btn"><input type="submit" class="btn" value="<?php zm_l10n("Send") ?>" /></div>
 </form>
