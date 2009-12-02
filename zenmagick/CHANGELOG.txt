@@ -84,6 +84,8 @@ Release 0.9.8
   all admin pages including plugins
 - convert PluginPage classes and code to using regular controller + custom
   admin plugin views
+- remove setting 'zenmagick.core.plugins.useNewConvention'; will go live with
+  this
 
 Release 0.9.7
 - add ZMProductAssociation service and related code

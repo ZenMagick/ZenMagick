@@ -31,6 +31,7 @@
  * @version $Id: zm_theme_switch.php 2610 2009-11-20 02:45:25Z dermanomann $
  */
 class ZMThemeSwitcherPlugin extends Plugin implements ZMRequestHandler {
+    /** query param key for new theme id. */
     const SESS_THEME_KEY = 'themeId';
 
 
@@ -39,6 +40,7 @@ class ZMThemeSwitcherPlugin extends Plugin implements ZMRequestHandler {
      */
     function __construct() {
         parent::__construct('Theme Switcher', 'Allow users to select a theme');
+        $this->setContext(Plugin::CONTEXT_STOREFRONT);
     }
 
     /**

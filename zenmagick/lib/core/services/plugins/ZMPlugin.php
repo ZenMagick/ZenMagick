@@ -90,7 +90,7 @@ abstract class ZMPlugin extends ZMObject {
         $this->enabled_ = null;
         $this->pluginDirectory_ = dirname(__FILE__).DIRECTORY_SEPARATOR;
         $this->loaderPolicy_ = ZMPlugin::LP_ALL;
-        $this->loaderPolicy_ = 0;
+        $this->context_ = 0;
     }
 
     /**

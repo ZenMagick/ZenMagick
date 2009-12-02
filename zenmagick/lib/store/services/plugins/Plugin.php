@@ -43,19 +43,16 @@ class Plugin extends ZMPlugin {
     /** internal key constant */
     const KEY_SORT_ORDER = 'SORT_ORDER';
 
-    /** Load plugin files for storefront only. */
-    const SCOPE_STORE = 'store';
-    /** Load plugin files for admin only. */
-    const SCOPE_ADMIN = 'admin';
-    /** Load plugin files for both storefront and admin. */
-    const SCOPE_ALL =  'all';
+    /** Store context. */
+    const CONTEXT_STOREFRONT = 1;
+    /** Admin context. */
+    const CONTEXT_ADMIN = 2;
 
     private $configPrefix_;
     private $enabledKey_;
     private $orderKey_;
     private $preferredSortOrder_;
     private $messages_ = null;
-    private $scope_;
 
 
     /**
@@ -74,7 +71,8 @@ class Plugin extends ZMPlugin {
         $this->setLoaderPolicy(ZMPlugin::LP_PLUGIN);
         $this->messages_ = array();
         $this->preferredSortOrder_ = 0;
-        $this->scope_ = self::SCOPE_ALL;
+        // both
+        $this->setContext(self::CONTEXT_STOREFRONT|self::CONTEXT_ADMIN);
     }
 
     /**
@@ -338,38 +336,6 @@ class Plugin extends ZMPlugin {
     public function addMenuItem($id, $title, $function, $menuKey=ZMAdminMenu::MENU_PLUGINS) {
         ZMAdminMenu::addItem(ZMLoader::make("AdminMenuItem", $menuKey, $id, $title, $function));
     }
-
-    /**
-     * Set the scope.
-     *
-     * <p>This determines where a plugin is active. Allowed values are:</p>
-     * <ul>
-     *  <li><em>store</em>
-     *   <br>Plugin only active in storefront requests.</li>
-     *  <li><em>admin</em>
-     *   <br>Plugin only active in admin request.</li>
-     *  <li><em>all</em>
-     *   <br>Plugin active for all requests.</li>
-     * </ul>
-     *
-     * <p>Please note that there are constants that may be used intead of plain strings:</p>
-     * <ul>
-     *  <li><code>self::SCOPE_STORE</code></li>
-     *  <li><code>self::SCOPE_ADMIN</code></li>
-     *  <li><code>self::SCOPE_ALL</code></li>
-     * </ul>
-     *
-     * <p>The default scope is <li><code>self::SCOPE_ALL</code></li>.</p>
-     * @param string scope The scope.
-     */
-    public function setScope($scope) { $this->scope_ = $scope; }
-
-    /**
-     * Get this plugins scope.
-     *
-     * @return string The scope.
-     */
-    public function getScope() { return $this->scope_; }
 
     /**
      * Resolve a plugin relative URI.

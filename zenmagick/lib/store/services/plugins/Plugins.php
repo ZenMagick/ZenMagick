@@ -88,37 +88,6 @@ class Plugins extends ZMPlugins {
         return ($ao < $bo) ? -1 : 1;
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public function initPluginsForGroups($groups, $enabled=true) {
-        // we do groups and scope for the store
-        return $this->initPluginsForGroupsAndScope($groups, Runtime::getScope());
-    }
-
-    /**
-     * Init all plugins of the given groups and scope.
-     *
-     * @param mixed groups The group or list of groups.
-     * @param string scope The scope.
-     */
-    public function initPluginsForGroupsAndScope($groups, $scope) {
-        if (!is_array($groups)) {
-            $groups = array($groups);
-        }
-
-        $ids = array();
-        foreach ($groups as $group) {
-            foreach ($this->getPluginsForGroup($group, true) as $plugin) {
-                if (Plugin::SCOPE_ALL == $plugin->getScope() || $plugin->getScope() == $scope) {
-                    $ids[] = $plugin->getId();
-                }
-            }
-        }
-
-        return $this->initPluginsForId($ids, true);
-    }
-
 }
 
 ?>

@@ -108,7 +108,7 @@
             /*** plugins ***/
             'zenmagick.core.plugins.enabled' => true,
             'zenmagick.core.plugins.baseDir' => ZM_BASE_DIR.'plugins'.DIRECTORY_SEPARATOR,
-            'zenmagick.core.plugins.groups' => 'admin,request,order_total',
+            'zenmagick.core.plugins.groups' => 'general,order_total',
         
             /*** fs ***/
             'zenmagick.core.fs.permissions.fix' => true,
@@ -137,6 +137,8 @@
 
             // are we in admin or storefront?
             'isAdmin' => defined('IS_ADMIN_FLAG') && IS_ADMIN_FLAG,
+            // used in init.php
+            'zenmagick.core.plugins.context' => (defined('IS_ADMIN_FLAG') && IS_ADMIN_FLAG) ? 2 : 1,
 
             // whether to strip code in core.php
             'isStripCore' => true,

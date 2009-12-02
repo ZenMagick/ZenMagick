@@ -119,13 +119,14 @@ class ZMPlugins extends ZMObject {
     /**
      * Get all plugins.
      *
+     * @param int context Optional context flag; default is <em>0</em> for all.
      * @param boolean enabled If <code>true</code>, return only enabled plugins: default is <code>true</code>.
      * @return array A map containing separate lists of <code>ZMPlugin</code> instances for each group.
      */
-    public function getAllPlugins($enabled=true) {
+    public function getAllPlugins($context=0, $enabled=true) {
         $plugins = array();
         foreach ($this->getGroups() as $group => $dir) {
-            $plugins[$group] = $this->getPluginsForGroup($group, $enabled);
+            $plugins[$group] = $this->getPluginsForGroup($group, $context, $enabled);
         }
 
         return $plugins;
@@ -158,16 +159,17 @@ class ZMPlugins extends ZMObject {
      * Get all plugins for the given group.
      *
      * @param string group The plugin group.
+     * @param int context Optional context flag; default is <em>0</em> for all.
      * @param boolean enabled If <code>true</code>, return only enabled plugins: default is <code>true</code>.
      * @return array A list of <code>ZMPlugin</code> instances.
      */
-    public function getPluginsForGroup($group, $enabled=true) {
+    public function getPluginsForGroup($group, $context=0, $enabled=true) {
         $idList = array();
         // populate list of plugin ids to load
         if ($enabled) {
             // use plugin status to select plugins
             foreach ($this->pluginStatus_ as $id => $status) {
-                if ($status['group'] == $group && $status['enabled']) {
+                if ($status['group'] == $group && $status['enabled'] && (0 == $context || ($context&$status['context']))) {
                     $idList[] = $id;
                 }
             }
@@ -179,6 +181,7 @@ class ZMPlugins extends ZMObject {
                 if (!array_key_exists($id, $this->pluginStatus_)) {
                     $this->pluginStatus_[$id] = array(
                       'group' => $group,
+                      'context' => 0,
                       'enabled' => false
                     );
                 }
@@ -226,21 +229,6 @@ class ZMPlugins extends ZMObject {
      * @return ZMPlugin A plugin instance or <code>null</code>.
      */
     public function getPluginForId($id, $group=null) {
-        if (ZMSettings::get('zenmagick.core.plugins.useNewConvention', false)) {
-            return $this->getPluginForId_new($id, $group);
-        }
-
-        return $this->getPluginForId_old($id, $group);
-    }
-
-    /**
-     * Get the plugin for the given id.
-     *
-     * @param string id The plugin id.
-     * @param string group Optional group; default is <code>null</code> to auto detect.
-     * @return ZMPlugin A plugin instance or <code>null</code>.
-     */
-    public function getPluginForId_new($id, $group=null) {
         if (array_key_exists($id, $this->plugins_)) {
             return $this->plugins_[$id]['plugin'];
         }
@@ -294,70 +282,21 @@ class ZMPlugins extends ZMObject {
     }
 
     /**
-     * Get the plugin for the given id.
-     *
-     * @param string id The plugin id.
-     * @param string group Optional group; default is <code>null</code> to auto detect.
-     * @return ZMPlugin A plugin instance or <code>null</code>.
-     */
-    public function getPluginForId_old($id, $group=null) {
-        if (array_key_exists($id, $this->plugins_)) {
-            return $this->plugins_[$id]['plugin'];
-        }
-
-        $status = $this->pluginStatus_[$id];
-        $group = null != $group ? $group : $status['group'];
-        $groupDir = $this->pluginBaseDir_ . $group . DIRECTORY_SEPARATOR;
-        $file = $groupDir.$id;
-        if (is_dir($file)) {
-            // expect plugin file in the directory with the same name and '.php' extension
-            $file .= DIRECTORY_SEPARATOR . $id . '.php';
-            if (!file_exists($file)) {
-                ZMLogging::instance()->log("can't find plugin file for '".$id."'", ZMLogging::DEBUG);
-                return null;
-            }
-        } else if (is_file($file.'.php')) {
-            $file .= '.php';
-        } else {
-            ZMLogging::instance()->log("can't find plugin file for '".$id."'", ZMLogging::DEBUG);
-            return null;
-        }
-
-        // load
-        if (!file_exists($file)) {
-            ZMLogging::instance()->log("plugin file does not exist for '".$id."'", ZMLogging::DEBUG);
-            return null;
-        }
-
-        if (!class_exists($id)) {
-            // load plugin class
-            require_once($file);
-        }
-
-        $plugin = new $id();
-        $plugin->setGroup($group);
-        $pluginDir = dirname($file) . DIRECTORY_SEPARATOR;
-        $plugin->setPluginDirectory($pluginDir == $groupDir ? $groupDir : $pluginDir);
-
-        $this->plugins_[$id] = array('plugin' => $plugin, 'init' => false);
-        return $plugin;
-    }
-
-    /**
      * Init all plugins for the given group(s).
      *
      * @param mixed groups Either a single group or a group list.
+     * @param int context Optional context flag; default is <em>0</em> for all.
      * @param boolean enabled If <code>true</code>, return only enabled plugins: default is <code>true</code>.
      * @return array List of initialized plugins.
      */
-    public function initPluginsForGroups($groups, $enabled=true) {
+    public function initPluginsForGroups($groups, $context=0, $enabled=true) {
         if (!is_array($groups)) {
             $groups = array($groups);
         }
 
         $ids = array();
         foreach ($groups as $group) {
-            foreach ($this->getPluginsForGroup($group, $enabled) as $plugin) {
+            foreach ($this->getPluginsForGroup($group, $context, $enabled) as $plugin) {
                 $ids[] = $plugin->getId();
             }
         }

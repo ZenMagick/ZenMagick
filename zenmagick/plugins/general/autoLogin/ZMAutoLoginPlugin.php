@@ -44,7 +44,7 @@ class ZMAutoLoginPlugin extends Plugin implements ZMRequestHandler {
     function __construct() {
         parent::__construct('Auto Login', 'Automatically login returning customers.', '${plugin.version}');
         $this->setLoaderPolicy(ZMPlugin::LP_ALL);
-        $this->setScope(Plugin::SCOPE_STORE);
+        $this->setContext(Plugin::CONTEXT_STOREFRONT);
         $this->cookieUpdated = false;
     }
 

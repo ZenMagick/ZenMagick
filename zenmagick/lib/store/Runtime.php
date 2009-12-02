@@ -45,12 +45,12 @@ class Runtime extends ZMRuntime {
     public static function getDB() { if (null == self::$db_) { global $db; self::$db_ = $db; } return self::$db_; }
 
     /**
-     * Get the application scope.
+     * Get the context for plugins.
      *
-     * @return string Either <code>Plugin::SCOPE_STORE</code> or <code>Plugin::SCOPE_ADMIN</code>.
+     * @return string Either <code>Plugin::CONTEXT_STOREFRONT</code> or <code>Plugin::CONTEXT_ADMIN</code>.
      */
-    public static function getScope() {
-        return ZMSettings::get('isAdmin') ? Plugin::SCOPE_ADMIN : Plugin::SCOPE_STORE;
+    public static function getPluginContext() {
+        return ZMSettings::get('isAdmin') ? Plugin::CONTEXT_ADMIN : Plugin::CONTEXT_STOREFRONT;
     }
 
     /**
