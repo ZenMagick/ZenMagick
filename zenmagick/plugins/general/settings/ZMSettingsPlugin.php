@@ -23,21 +23,47 @@
 ?>
 <?php
 
-
 /**
- * Admin controller.
+ * A UI plugin to manage (custom) settings.
  *
+ * @package org.zenmagick.plugins.settings
  * @author DerManoMann
- * @package org.zenmagick.plugins.quickEdit
- * @version $Id$
+ * @version $Id: zm_settings.php 2610 2009-11-20 02:45:25Z dermanomann $
  */
-class ZMQuickEditTabController extends ZMPluginAdminController {
+class ZMSettingsPlugin extends Plugin {
 
     /**
      * Create new instance.
      */
     function __construct() {
-        parent::__construct('QuickEditTab', zm_l10n_get('Quick Edit'), 'quickEdit');
+        parent::__construct('Settings', 'Manage (custom) settings');
+        $this->setLoaderPolicy(ZMPlugin::LP_FOLDER);
+        $this->setContext(Plugin::CONTEXT_ADMIN);
+    }
+
+    /**
+     * Destruct instance.
+     */
+    function __destruct() {
+        parent::__destruct();
+    }
+
+
+    /**
+     * {@inheritDoc}
+     */
+    public function init() {
+        parent::init();
+
+        $this->addMenuItem('settings_manage', zm_l10n_get('Manage Settings'), 'settings_admin_manage');
+        $this->addMenuItem('settings_show', zm_l10n_get('Show Settings'), 'settings_admin_show');
+
+        // make all config values proper settings
+        foreach ($this->getConfigValues() as $value) {
+            if ($value instanceof ZMWidget) {
+                ZMSettings::set($value->getName(), $value->getStringValue());
+            }
+        }
     }
 
 }

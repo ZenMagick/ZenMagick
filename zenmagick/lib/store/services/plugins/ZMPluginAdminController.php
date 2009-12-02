@@ -37,7 +37,6 @@
 class ZMPluginAdminController extends ZMController {
     private $title_;
     private $plugin_;
-    private $viewClass_;
 
 
     /**
@@ -51,7 +50,6 @@ class ZMPluginAdminController extends ZMController {
         parent::__construct($id);
         $this->title_ = null != $title ? $title : $id;
         $this->plugin_ = $plugin;
-        $this->setViewClass('AdminView');
     }
 
     /**
@@ -85,28 +83,25 @@ class ZMPluginAdminController extends ZMController {
     }
 
     /**
-     * Set the view class.
-     *
-     * @param string viewClass The view class.
-     */
-    public function setViewClass($viewClass) { 
-        $this->viewClass_ = $viewClass;
-    }
-
-    /**
-     * Get the view class.
-     *
-     * @return string The view class.
-     */
-    public function getViewClass() { 
-        return $this->viewClass_;
-    }
-
-    /**
      * {@inheritDoc}
      */
     public function processGet($request) {
         return ZMLoader::make('SimplePluginFormView', $this->getPlugin(), $this->getId());
+    }
+
+    /**
+     * Create a configured admin view.
+     *
+     * @param ZMRequest request The current request.
+     * @param string template Optional template name; default is <code>null</code> to use the controller id.
+     * @return ZMView A (redirect) view.
+     */
+    public function getPluginAdminView($request, $template=null) {
+        $view = ZMLoader::make('AdminView');
+        $view->setTemplatePath(array($this->getPlugin()->getPluginDirectory()));
+        $view->setTemplate(null != $template ? $template : $this->getId());
+        $view->setVar('plugin', $this->getPlugin());
+        return $view;
     }
 
     /**

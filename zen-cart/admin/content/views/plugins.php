@@ -81,7 +81,7 @@
 
     // build/update plugin status for all plugins
     $pluginStatus = array();
-    foreach (ZMPlugins::instance()->getAllPlugins(false) as $group => $plugins) {
+    foreach (ZMPlugins::instance()->getAllPlugins(0, false) as $group => $plugins) {
         foreach ($plugins as $plugin) {
             $pluginStatus[$plugin->getId()] = array(
                 'group' => $plugin->getGroup(),
@@ -98,7 +98,7 @@
 
 ?>
 
-<?php foreach (ZMPlugins::instance()->getAllPlugins(false) as $group => $plugins) { ?>
+<?php foreach (ZMPlugins::instance()->getAllPlugins(0, false) as $group => $plugins) { ?>
   <h2><?php echo $group ?> plugins</h2>
   <form action="<?php $toolbox->admin->url() ?>" method="post" onsubmit="return zm_user_confirm('Save plugin changes ?');">
     <table cellpadding="5" cellspacing="0" style="width:90%;"> 

@@ -31,7 +31,7 @@
  * @package org.zenmagick.plugins.examplePlugin
  * @version $Id$
  */
-class ZMCatalogDefaultTabController extends ZMPluginPageController {
+class ZMCatalogDefaultTabController extends ZMPluginAdminController {
 
     /**
      * Create new instance.
