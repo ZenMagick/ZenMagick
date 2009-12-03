@@ -274,7 +274,6 @@ class ZMPlugins extends ZMObject {
         $plugin = new $pluginClass();
         $id = substr(preg_replace('/Plugin$/', '', $pluginClass), 2);
         $id[0] = strtolower($id[0]);
-        echo $id;
         $plugin->setId($id);
         //PHP5.3 only: $plugin->setId(lcfirst(substr(preg_replace('/Plugin$/', '', $pluginClass), 2)));
         $plugin->setGroup($group);
