@@ -90,13 +90,14 @@ class ZMPageCachePlugin extends Plugin {
      *
      * <p>Evaluation is delegated to the configured strategy function (<em>pageCacheStrategyCallback</em>).</p>
      *
+     * @param ZMRequest request The current request.
      * @return boolean <code>true</code> if the current request is cacheable, <code>false</code> if not.
      */
-    protected function isCacheable() {
+    protected function isCacheable($request) {
         $fkt = ZMSettings::get('plugins.pageCache.strategy.callback', 'zm_page_cache_default_strategy');
         $val = false;
         if (function_exists($fkt)) {
-            $val = $fkt();
+            $val = $fkt($request);
         }
 
         return $val;
@@ -116,7 +117,7 @@ class ZMPageCachePlugin extends Plugin {
 
         // handle page caching
         if ($this->isEnabled()) {
-            if (false !== ($contents = $this->cache_->lookup($this->getRequestKey($request))) && $this->isCacheable()) {
+            if (false !== ($contents = $this->cache_->lookup($this->getRequestKey($request))) && $this->isCacheable($request)) {
                 echo $contents;
                 if (ZMSettings::get('plugins.pageCache.stats', true)) {
                     ZMEvents::instance()->fireEvent($this, ZM_EVENT_PLUGINS_PAGE_CACHE_STATS, $args);
@@ -139,7 +140,7 @@ class ZMPageCachePlugin extends Plugin {
         $contents = $args['contents'];
         $request = $args['request'];
 
-        if ($this->isEnabled() && $this->isCacheable()) {
+        if ($this->isEnabled() && $this->isCacheable($request)) {
             $this->cache_->save($contents, $this->getRequestKey($request));
         }
 
