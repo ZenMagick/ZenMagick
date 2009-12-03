@@ -363,17 +363,18 @@ class Session extends ZMObject {
      * <p>This operation will fail, for example, if the account is blocked/disabled.</p>
      *
      * @param ZMAccount account The account.
+     * @param ZMRequest request The current request.
      * @param mixed source The event source; default is <code>null</code>.
      * @return boolean <code>true</code> if ok, <code>false</code> if not.
      */
-    public function registerAccount($account, $source=null) {
+    public function registerAccount($account, $request, $source=null) {
         if (ZMAccounts::AUTHORIZATION_BLOCKED == $account->getAuthorization()) {
             ZMMessages::instance()->error(zm_l10n_get('Access denied.'));
             return false;
         }
 
         // info only
-        ZMEvents::instance()->fireEvent($source, Events::LOGIN_SUCCESS, array('controller' => $source, 'account' => $account));
+        ZMEvents::instance()->fireEvent($source, Events::LOGIN_SUCCESS, array('controller' => $source, 'request' => $request, 'account' => $account));
 
         // update session with valid account
         $this->recreate();

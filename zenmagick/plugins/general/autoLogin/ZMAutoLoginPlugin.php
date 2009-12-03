@@ -93,7 +93,7 @@ class ZMAutoLoginPlugin extends Plugin implements ZMRequestHandler {
                 }
 
                 if (null != $account) {
-                    if ($session->registerAccount($account, $this)) {
+                    if ($session->registerAccount($account, $request, $this)) {
                         $request->redirect($request->getToolbox()->net->url(null, '', $request->isSecure()));
                     }
                 } else {

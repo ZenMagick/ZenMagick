@@ -90,7 +90,8 @@ class ZMPhpBB3Plugin extends Plugin implements ZMRequestHandler {
         // main define to get at things
         $phpBB3Dir = $this->get('phpBB3Dir');
         if (empty($phpBB3Dir)) {
-            $phpBB3Dir = ZMSettings::get('plugins.pbpBB3.root', DIR_WS_PHPBB);
+            $default = defined('DIR_WS_PHPBB') ? DIR_WS_PHPBB : null;
+            $phpBB3Dir = ZMSettings::get('plugins.pbpBB3.root', $default);
         }
         define('ZM_PHPBB3_ROOT', $phpBB3Dir);
 
@@ -101,7 +102,7 @@ class ZMPhpBB3Plugin extends Plugin implements ZMRequestHandler {
         ZMEvents::instance()->attach($this);
 
         // register tests
-        if (null != ($tests = ZMPlugins::instance()->getPluginForId('tests'))) {
+        if (null != ($tests = ZMPlugins::instance()->getPluginForId('unitTests'))) {
             // add class path only now to avoid errors due to missing ZMTestCase
             ZMLoader::instance()->addPath($this->getPluginDirectory().'tests/');
             $tests->addTest('TestZMPhpBB3Adapter');

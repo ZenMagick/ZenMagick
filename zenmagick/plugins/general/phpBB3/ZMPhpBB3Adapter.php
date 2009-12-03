@@ -85,37 +85,40 @@ class ZMPhpBB3Adapter extends ZMObject {
     /**
      * Check for duplicate nickname.
      *
-     * @param array req The request data.
+     * @param ZMRequest request The current request.
+     * @param array data The request data.
      * @return boolean <code>true</code> if the nickname is valid, <code>false</code> if not.
      */
-    public function vDuplicateNickname($req) {
+    public function vDuplicateNickname($request, $data) {
         $sql = "SELECT username FROM " . USERS_TABLE . "
                 WHERE username = :username";
-        return null == $this->getDatabase()->querySingle($sql, array('username' => $req['nickName']), USERS_TABLE);
+        return null == $this->getDatabase()->querySingle($sql, array('username' => $data['nickName']), USERS_TABLE);
     }
 
     /**
      * Check for duplicate email address.
      *
+     * @param ZMRequest request The current request.
      * @param array req The request data.
      * @return boolean <code>true</code> if the email is valid, <code>false</code> if not.
      */
-    public function vDuplicateEmail($req) {
-        return null == $this->getAccountForEmail($req['email']);
+    public function vDuplicateEmail($request, $data) {
+        return null == $this->getAccountForEmail($data['email']);
     }
 
     /**
      * Check for duplicate email address if different from current account email address.
      *
+     * @param ZMRequest request The current request.
      * @param array req The request data.
      * @return boolean <code>true</code> if the email is valid, <code>false</code> if not.
      */
-    public function vDuplicateChangedEmail($req) {
+    public function vDuplicateChangedEmail($request, $data) {
         // the current account
-        $account = ZMRequest::instance()->getAccount();
-        if ($account->getEmail() != $req['email']) {
+        $account = $request->getAccount();
+        if ($account->getEmail() != $data['email']) {
             // changed
-            return $this->vDuplicateEmail($req);
+            return $this->vDuplicateEmail($data);
         }
         return true;
     }

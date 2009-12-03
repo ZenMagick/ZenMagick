@@ -72,7 +72,7 @@ if (!function_exists('zm_build_seo_href')) {
             }
             return str_replace('.php', '', $url);
         } else {
-            return $this->getRequest()->getToolbox()->net->furl($page, $parameters, $isSecure ? 'SSL' : 'NONSSL', $addSessionId, false, $isStatic, $useContext);
+            return ZMRequest::instance()->getToolbox()->net->furl($page, $parameters, $isSecure ? 'SSL' : 'NONSSL', $addSessionId, false, $isStatic, $useContext);
         }
     }
 }

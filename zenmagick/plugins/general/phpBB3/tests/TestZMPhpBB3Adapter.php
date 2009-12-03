@@ -8,7 +8,7 @@
  * @version $Id: TestZMPhpBB3.php 2520 2009-09-29 18:54:37Z dermanomann $
  */
 class TestZMPhpBB3Adapter extends ZMTestCase {
-    private $phpBB3_ = null;
+    private $adapter_ = null;
 
 
     /**
@@ -42,11 +42,11 @@ class TestZMPhpBB3Adapter extends ZMTestCase {
      * Get the phpBB3 adapter.
      */
     protected function getAdapter() {
-        if (null == $this->phpBB3_) {
-            $this->phpBB3_ = new ZMPhpBB3();
+        if (null == $this->adapter_) {
+            $this->adapter_ = new ZMPhpBB3Adapter();
         }
 
-        return $this->phpBB3_;
+        return $this->adapter_;
     }
 
     /**

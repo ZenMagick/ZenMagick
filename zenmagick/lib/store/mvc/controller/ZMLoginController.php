@@ -121,7 +121,7 @@ class ZMLoginController extends ZMController {
             return $this->findView();
         }
 
-        if (!$session->registerAccount($account, $this)) {
+        if (!$session->registerAccount($account, $request, $this)) {
             return $this->findView();
         }
 

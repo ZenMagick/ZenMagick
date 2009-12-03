@@ -69,7 +69,7 @@ class ZMOpenIDController extends ZMController {
                 if ($session->getValue('openid') == $info['openid']) {
                     $account = $this->plugin->getAccountForOpenID($info['openid']);
 
-                    if (!$session->registerAccount($account, $this)) {
+                    if (!$session->registerAccount($account, $request, $this)) {
                         return $this->findView('login');
                     }
 
