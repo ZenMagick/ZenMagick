@@ -1,3 +1,4 @@
+<!-- $Id$ -->
 <project name="zenmagick-plugins" default="plugin-releases" basedir=".">
 
     <!-- Plugins properties -->

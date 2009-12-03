@@ -1,3 +1,4 @@
+<!-- $Id$ -->
 <project name="full-release" default="" basedir=".">
 
     <!-- The full release build dir -->

@@ -1,3 +1,4 @@
+<!-- $Id$ -->
 <project name="zenmagick-phpdoctor" default="phpdoctor" basedir=".">
 
     <!-- properties -->

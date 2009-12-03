@@ -1,8 +1,9 @@
+<!-- $Id$ -->
 <project name="zenmagick" default="mod-release" basedir=".">
 
     <tstamp />
 
-	<!-- Local properties 'win' over defaults... -->
+	  <!-- Local properties 'win' over defaults... -->
     <property file="local.properties" />
 
 

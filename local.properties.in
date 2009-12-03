@@ -1,5 +1,6 @@
 ## sample of custom local properties
 ## copy this file and rename to local.properties
+## $Id$
 
 ## skip incremental build
 #skip.incr = true
