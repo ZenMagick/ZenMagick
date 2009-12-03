@@ -112,8 +112,6 @@ class ZMEventFixes extends ZMObject {
         $request = $args['request'];
         // clear messages if not redirect...
         $request->getSession()->clearMessages();
-
-        Runtime::finish();
     }
 
     /**
@@ -177,6 +175,8 @@ class ZMEventFixes extends ZMObject {
             // resolve theme to be used 
             $theme = ZMThemes::instance()->resolveTheme(ZMSettings::get('isEnableThemeDefaults') ? ZMSettings::get('defaultThemeId') : Runtime::getThemeId());
             Runtime::setTheme($theme);
+            $args = array_merge($args, array('theme' => $theme, 'themeId' => $theme->getId()));
+            ZMEvents::instance()->fireEvent(null, Events::THEME_RESOLVED, $args);
 
             // now we can check for a static homepage
             if (!ZMLangUtils::isEmpty(ZMSettings::get('staticHome')) && 'index' == $request->getRequestId() 

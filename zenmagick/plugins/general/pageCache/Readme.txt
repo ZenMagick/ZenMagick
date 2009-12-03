@@ -11,19 +11,19 @@ Installation
 
 Supported settings
 ==================
-* plugins.zm_page_cache.stats [true|false]
+* plugins.pageCache.stats [true|false]
   Default: true
   Enables / disables appending hidden stats (as HTML comments) (request/cache) to the response.
 
-* plugins.zm_page_cache.ttl [in seconds]
+* plugins.pageCache.ttl [in seconds]
   Default: 300
   The time-to-live (in seconds) before a cache entry expires.
 
-* plugins.zm_page_cache.strategy.callback [function name]
+* plugins.pageCache.strategy.callback [function name]
   Default: zm_page_cache_default_strategy
   The value is taken as function name to determine whether the current request is cacheable or not.
 
-* plugins.zm_page_cache.strategy.allowed [array|comma separated string]
+* plugins.pageCache.strategy.allowed [array|comma separated string]
   Default: ZM_PLUGINS_PAGE_CACHE_ALLOWED_DEFAULT
   List of page names to be cached.
 
@@ -31,9 +31,9 @@ Supported settings
 Miscellaneous
 =============
 The appended page stats have been stripped down to the minimum. The plugin creates a new event that is 
-supported by the zm_page_stats plugin. If installed, hidden page stats information will be added.
+supported by the pageStats plugin. If installed, hidden page stats information will be added.
 
-NOTE1: If zm_page_stats is installed and configured to hide stats, two sets of stats will be in the returned
+NOTE1: If pageStats is installed and configured to hide stats, two sets of stats will be in the returned
        content for cache hits - the first one is the cached information, the second the stats for the actual request.
 
 NOTE2: As of 0.9.1 the behaviour of the caching strategy has changed from opt-out to opt-in.

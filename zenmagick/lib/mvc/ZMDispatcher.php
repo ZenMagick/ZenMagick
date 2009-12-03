@@ -44,7 +44,7 @@ class ZMDispatcher {
                     array('request' => $request, 'view' => $view, 'contents' => ob_get_clean()));
         echo $args['contents'];
 
-        ZMEvents::instance()->fireEvent(null, ZMMVCConstants::ALL_DONE, array('request' => $request));
+        ZMEvents::instance()->fireEvent(null, ZMMVCConstants::ALL_DONE, array('request' => $request, 'view' => $view, 'contents' => $args['contents']));
     }
 
     /**

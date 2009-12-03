@@ -82,14 +82,18 @@ class ZMPageStatsPlugin extends Plugin {
         echo '<!--'."\n";
         echo '  Client IP: '.$_SERVER['REMOTE_ADDR']."\n";
         echo '  total page execution: '.Runtime::getExecutionTime().' secconds;'."\n";
-        $db = ZMRuntime::getDB();
+        $db = Runtime::getDB();
         echo '  db: SQL queries: '.$db->queryCount().', duration: '.round($db->queryTime(), 4).' seconds;';
         $stats = ZMRuntime::getDatabase()->getStats();
         echo '  database ('.ZMSettings::get('zenmagick.core.database.provider').'): SQL queries: '.$stats['queries'].', duration: '.round($stats['time'], 4).' seconds;'."\n";
 
-        $vars = $request->getController()->getView()->getVars();
-        if (isset($vars['exception']) && null !== ($exception = $vars['exception'])) {
-            echo "\n".$exception."\n\n";
+        $controller = $request->getController();
+        $view = $controller->getView();
+        if (null != $view) {
+            $vars = $view->getVars();
+            if (isset($vars['exception']) && null !== ($exception = $vars['exception'])) {
+                echo "\n".$exception."\n\n";
+            }
         }
 
         echo '-->'."\n";

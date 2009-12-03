@@ -86,6 +86,10 @@ Release 0.9.8
   admin plugin views
 - remove setting 'zenmagick.core.plugins.useNewConvention'; will go live with
   this
+- ensure $request is always in the event args of the theme_resolved event
+- add contents to event args of all_done; this is read only, any changes will
+  be lost; the reason is that it allows caching code to ensure it captures the
+	final, final response
 
 Release 0.9.7
 - add ZMProductAssociation service and related code

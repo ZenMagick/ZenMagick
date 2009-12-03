@@ -28,6 +28,8 @@
     // main request processor
     if (ZMSettings::get('isEnableZMThemes')) {
         ZMDispatcher::dispatch($_zm_request);
+        //XXX how do we want to handle this?
+        Runtime::finish();
     }
 
 ?>
