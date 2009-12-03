@@ -4,7 +4,7 @@
  * @copyright Copyright 2003-2006 Zen Cart Development Team
  * @copyright Portions Copyright 2003 osCommerce
  * @license http://www.zen-cart.com/license/2_0.txt GNU Public License V2.0
- * @version $Id: sqlpatch.php 7166 2007-10-03 23:01:46Z drbyte $
+ * @version $Id$
  */
 
  function zm_zen_execute_sql($lines, $database, $table_prefix = '') {
