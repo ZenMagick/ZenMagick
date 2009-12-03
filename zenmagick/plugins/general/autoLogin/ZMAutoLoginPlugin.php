@@ -160,7 +160,7 @@ class ZMAutoLoginPlugin extends Plugin implements ZMRequestHandler {
      * @param array args Optional parameter.
      */
     public function onZMCreateAccount($args=array()) {
-        $this->onOptIn($args['account'], ZMRequest::instance()->getParameter(AUTO_LOGIN_OPT_IN));
+        $this->onOptIn($args['account'], $args['request']->getParameter(AUTO_LOGIN_OPT_IN));
     }
 
     /**
@@ -169,7 +169,7 @@ class ZMAutoLoginPlugin extends Plugin implements ZMRequestHandler {
      * @param array args Optional parameter.
      */
     public function onZMLoginSuccess($args=array()) {
-        $this->onOptIn($args['account'], ZMRequest::instance()->getParameter(AUTO_LOGIN_OPT_IN));
+        $this->onOptIn($args['account'], $args['request']->getParameter(AUTO_LOGIN_OPT_IN));
     }
 
     /**

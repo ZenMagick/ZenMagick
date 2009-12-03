@@ -107,10 +107,10 @@ class ZMCaptchaPlugin extends Plugin {
             return;
         }
 
-        $page = ZMRequest::instance()->getRequestId();
+        $page = $request->getRequestId();
         if (array_key_exists($page, $this->pageConfig_)) {
-            $this->captcha_ = new pcaptcha();
-            $session = ZMRequest::instance()->getSession();
+            $this->captcha_ = new pcaptcha($request);
+            $session = $request->getSession();
             $session->setValue('captcha_field', CAPTCHA_FIELD);
             $config = $this->pageConfig_[$page];
             if ('false' != $config[0]) {

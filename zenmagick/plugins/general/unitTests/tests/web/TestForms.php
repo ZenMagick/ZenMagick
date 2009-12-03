@@ -13,7 +13,7 @@ class TestForms extends ZMWebTestCase {
      * Test contact us page.
      */
     public function testContactUs() {
-        $this->get(ZMRequest::instance()->getToolbox()->net->url(FILENAME_CONTACT_US, '', false, false), array('themeId' => 'default'));
+        $this->get($this->getRequest()->getToolbox()->net->url(FILENAME_CONTACT_US, '', false, false), array('themeId' => 'default'));
         $this->assertResponse(200);
         $this->assertTitle('Contact Us :: ZenMagick');
         $this->assertText(' > Contact Us');

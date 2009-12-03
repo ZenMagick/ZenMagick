@@ -54,7 +54,7 @@ class ZMCaptchaImgController extends ZMController {
      * {@inheritDoc}
      */
     public function processGet($request) {
-        $captcha = new pcaptcha();
+        $captcha = new pcaptcha($request);
         $captcha->generateCaptcha();
         return null;
     }

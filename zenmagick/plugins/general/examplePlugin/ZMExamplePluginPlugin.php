@@ -95,8 +95,9 @@ class ZMExamplePluginPlugin extends Plugin implements ZMRequestHandler {
      */
     public function onZMFinaliseContents($args) {
         $contents = $args['contents'];
+        $request = $args['request'];
 
-        if ('login' == ZMRequest::instance()->getRequestId()) {
+        if ('login' == $request->getRequestId()) {
             $args['contents'] = preg_replace('/<\/h1>/', ' (modified by ' . $this->getName() . ')</h1>', $contents, 1);
         }
 

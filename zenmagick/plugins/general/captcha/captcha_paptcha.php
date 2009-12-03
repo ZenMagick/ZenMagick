@@ -42,7 +42,7 @@ class pcaptcha {
   var $_gd_version;
   var $debug = false;
 
-  function __construct() {
+  function __construct($request) {
     global $session_started;
 
     $plugin = ZMPlugins::instance()->getPluginForId('captcha');
@@ -68,7 +68,7 @@ class pcaptcha {
     if(!$session_started) die(ERROR_CAPTCHA_SESSION);
 
     $this->ttf_list = $this->_getFileList($this->dir_fs_fonts, 'ttf');
-		$this->img_href = ZMRequest::instance()->getToolbox()->net->url('captcha_img', zen_session_name() . '=' . zen_session_id(), true, false);
+		$this->img_href = $request->getToolbox()->net->url('captcha_img', zen_session_name() . '=' . zen_session_id(), true, false);
   }
 
 /**

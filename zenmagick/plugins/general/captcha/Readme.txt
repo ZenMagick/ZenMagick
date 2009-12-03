@@ -38,6 +38,9 @@ class you'll need to reapply those changes.
 
 5) Renamed c'tor __construct()
 
+6) Added $request parameter to __construct()
+
+
 I also modified the install.sql script to make it work in batch mode. All required is
 to replace backslash-single quote:  \'  with two single quotes:  ''
 

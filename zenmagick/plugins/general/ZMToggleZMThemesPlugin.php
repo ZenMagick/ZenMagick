@@ -30,7 +30,7 @@
  * @author DerManoMann
  * @version $Id: zm_toggle_zm_themes.php 2560 2009-11-02 20:08:36Z dermanomann $
  */
-class ZMToggleZMThemesPlugin extends Plugin {
+class ZMToggleZMThemesPlugin extends Plugin implements ZMRequestHandler {
     const SESS_THEME_TOGGLE_KEY = 'themeToggle';
 
 
@@ -50,15 +50,13 @@ class ZMToggleZMThemesPlugin extends Plugin {
     }
 
     /**
-     * Init this plugin.
+     * {@inheritDoc}
      */
-    public function init() {
-        parent::init();
-
+    public function initRequest($request) {
         ZMEvents::instance()->attach($this);
 
-        $session = ZMRequest::instance()->getSession();
-        if (null != ($themeToggle = ZMRequest::instance()->getParameter('themeToggle'))) {
+        $session = $request->getSession();
+        if (null != ($themeToggle = $request->getParameter('themeToggle'))) {
             $session->setValue(self::SESS_THEME_TOGGLE_KEY, $themeToggle);
         }
 
@@ -80,9 +78,9 @@ class ZMToggleZMThemesPlugin extends Plugin {
         }
 
         $toggleValue = ZMSettings::get('isEnableZMThemes') ? 'false' : 'true';
-        $url = $request->getToolbox()->net->url(null, 'themeToggle='.$toggleValue, ZMRequest::instance()->isSecure(), false);
+        $url = $request->getToolbox()->net->url(null, 'themeToggle='.$toggleValue, $request->isSecure(), false);
         // special case for ZM_PAGE_KEY=category
-        if ('category' == ZMRequest::instance()->getRequestId()) {
+        if ('category' == $request->getRequestId()) {
             $url = str_replace(ZM_PAGE_KEY.'=category', ZM_PAGE_KEY.'=index', $url);
         }      
         $link = '<a href="'.$url.'">'.zm_l10n_get('Toggle ZenMagick theme support').'</a>';

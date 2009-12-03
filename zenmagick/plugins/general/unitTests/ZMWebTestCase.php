@@ -33,10 +33,19 @@
 class ZMWebTestCase extends WebTestCase {
 
     /**
+     * Get the current request.
+     *
+     * @return ZMRequest The current request.
+     */
+    public function getRequest() {
+        return ZMRequest::instance();
+    }
+
+    /**
      * {@inheritDoc}
      */
     public function setUp() {
-        $session = ZMRequest::instance()->getSession();
+        $session = $this->getRequest()->getSession();
         if (!$session->isAnonymous()) {
             // logged in
             $session->clear();

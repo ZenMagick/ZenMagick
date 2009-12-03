@@ -13,7 +13,7 @@ class TestZMShoppingCarts extends ZMTestCase {
      * {@inheritDoc}
      */
     public function skip() {
-        $account = ZMRequest::instance()->getAccount();
+        $account = $this->getRequest()->getAccount();
         $this->skipIf(null == $account || ZMZenCartUserSacsHandler::REGISTERED != $account->getType(), 'Need to be logged in for this test');
     }
 
@@ -24,7 +24,7 @@ class TestZMShoppingCarts extends ZMTestCase {
      * @return int An account id.
      */
     protected function getAccountId() {
-        return ZMRequest::instance()->getAccountId();
+        return $this->getRequest()->getAccountId();
     }
 
     /**
@@ -33,8 +33,8 @@ class TestZMShoppingCarts extends ZMTestCase {
      * @param ZMShoppingCart cart The cart to dump.
      */
     protected function dumpCart($cart) {
-        $html = ZMRequest::instance()->getToolbox()->html;
-        $utils = ZMRequest::instance()->getToolbox()->utils;
+        $html = $this->getRequest()->getToolbox()->html;
+        $utils = $this->getRequest()->getToolbox()->utils;
         foreach ($cart->getItems() as $item) {
             echo $item->getId().":".$html->encode($item->getName(), false)."; qty=".$item->getQuantity().'; '.$utils->formatMoney($item->getItemPrice(), true, false).'/'.$utils->formatMoney($item->getItemTotal(), true, false)."<BR>";
             if ($item->hasAttributes()) {
