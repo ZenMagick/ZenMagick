@@ -6,9 +6,9 @@
 
     <!-- Build plugin releases -->
     <target name="plugin-releases" depends="clean,init" description="Build plugin releases.">
-        <!-- build request plugins -->
-        <foreach list="${plugins.type.request}" target="plugin-release" param="plugin.name">
-            <param name="plugin.type" value="request" />
+        <!-- build general plugins -->
+        <foreach list="${plugins.type.general}" target="plugin-release" param="plugin.name">
+            <param name="plugin.type" value="general" />
         </foreach>
 
         <!-- build order_total plugins -->

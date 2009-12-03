@@ -36,7 +36,7 @@ class ZMQuickEditPlugin extends Plugin implements ZMRequestHandler {
      * Create new instance.
      */
     function __construct() {
-        parent::__construct('Quick Edit', 'Quickly edit product properties');
+        parent::__construct('Quick Edit', 'Quickly edit product properties', '${plugin.version}');
         $this->setPreferredSortOrder(35);
         $this->setLoaderPolicy(ZMPlugin::LP_FOLDER);
         $this->setContext(Plugin::CONTEXT_ADMIN);

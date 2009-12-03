@@ -37,7 +37,7 @@ class ZMCatalogDefaultPlugin extends Plugin {
      * Create new instance.
      */
     function __construct() {
-        parent::__construct('Catalog Manager', 'Default Catalog Manager page', '${zenmagick.version}');
+        parent::__construct('Catalog Manager', 'Default Catalog Manager page', '${plugin.version}');
         $this->setLoaderPolicy(ZMPlugin::LP_FOLDER);
         $this->setPreferredSortOrder(0);
         $this->setContext(Plugin::CONTEXT_ADMIN);
