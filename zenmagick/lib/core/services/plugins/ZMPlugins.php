@@ -272,7 +272,11 @@ class ZMPlugins extends ZMObject {
         }
 
         $plugin = new $pluginClass();
-        $plugin->setId(lcfirst(substr(preg_replace('/Plugin$/', '', $pluginClass), 2)));
+        $id = substr(preg_replace('/Plugin$/', '', $pluginClass), 2);
+        $id[0] = strtolower($id[0]);
+        echo $id;
+        $plugin->setId($id);
+        //PHP5.3 only: $plugin->setId(lcfirst(substr(preg_replace('/Plugin$/', '', $pluginClass), 2)));
         $plugin->setGroup($group);
         $pluginDir = dirname($file) . DIRECTORY_SEPARATOR;
         $plugin->setPluginDirectory($pluginDir == $groupDir ? $groupDir : $pluginDir);
