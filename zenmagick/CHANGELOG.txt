@@ -90,6 +90,7 @@ Release 0.9.8
 - add contents to event args of all_done; this is read only, any changes will
   be lost; the reason is that it allows caching code to ensure it captures the
 	final, final response
+- update copyright: change ZenMagick to zenmagick.org
 
 Release 0.9.7
 - add ZMProductAssociation service and related code
