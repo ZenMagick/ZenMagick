@@ -97,6 +97,7 @@ p.opt label {margin-right:1.3em;}
 p.or {font-weight:bold;margin:3px 3em;}
 fieldset hr {margin:8px 0;}
 
+#main {position:relative;}
 #main fieldset.patches p.error {margin:15px 0 0 5px;padding:3px 18px;background:url(../images/icons/error.gif) no-repeat 3px 4px;background-color:#c00000;color:#fff;}
 input.all {margin-top:8px;}
 .submit {margin-top:12px;}
@@ -114,6 +115,7 @@ tr.edit td {background-color:#efefef;border-bottom:1px solid gray;}
 #b_console #console {color:white;background-color:black;width:80em;margin:20px 0;padding:4px;height:25em;overflow:scroll;border:4px solid gray;font-size:115%;font-family:monospace;}
 
 #main #cnav {width:21%;overflow:auto;}
+#main-tab-container {position:absolute;right:3%;top:10px;width:71%;}
 
 /* jquery filetree */
 #cat-tree {border:1px solid gray;padding:4px;margin:2px;width:24%;}
@@ -124,5 +126,3 @@ tr.edit td {background-color:#efefef;border-bottom:1px solid gray;}
 .presults .rnav td {padding-top:6px;text-align:right;}
 .presults .pno {padding-right:3px;}
 .presults .nin {padding:0 2px;}
-#b_catalog_manager #main {position:relative;}
-#b_catalog_manager #content {position:absolute;left:3%;top:0;width:71%;}

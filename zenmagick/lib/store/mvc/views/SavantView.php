@@ -78,12 +78,12 @@ class SavantView extends ZMSavantView {
         $savant->assign($this->getVars());
 
         // load template...
+        $template = null;
         try {
             // TODO: kill! common view variables
             $zm_theme = Runtime::getTheme();
             $savant->assign(array('zm_theme' => $zm_theme));
             $savant->assign(array('view' => $this));
-            $template = null;
             if (null != ($layout = $this->getLayout())) {
                 $template = $layout;
                 $view = 'views'.DIRECTORY_SEPARATOR.$this->getTemplate().ZMSettings::get('zenmagick.mvc.templates.ext', '.php');
@@ -93,8 +93,8 @@ class SavantView extends ZMSavantView {
             }
             return $savant->fetch($template.ZMSettings::get('zenmagick.mvc.templates.ext', '.php'));
         } catch (Exception $e) {
-            ZMLogging::instance()->dump($e, 'failed to fetch template: '.$tpl, ZMLogging::ERROR);
-            throw new ZMException('failed to fetch template: '.$tpl, 0, $e);
+            ZMLogging::instance()->dump($e, 'failed to fetch template: '.$template, ZMLogging::ERROR);
+            throw new ZMException('failed to fetch template: '.$template, 0, $e);
         }
     }
 

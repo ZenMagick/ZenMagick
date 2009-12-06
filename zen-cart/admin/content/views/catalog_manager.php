@@ -38,6 +38,8 @@
   $selectedFkt = $request->getParameter('fkt', '');
 
   $title = null;
+  $category = null;
+  $product = null;
   if (0 < $request->getCategoryId()) {
       $category = ZMCategories::instance()->getCategoryForId($request->getCategoryId());
       $title = $category->getName();
@@ -56,24 +58,21 @@
       $defaultUrlParams .= '&cPath='.$request->getCategoryPath();
   }
 
-  // capture output as plugins may redirect...
-  ob_start();
-
   // collect all info we need
   $tabInfo = array();
   foreach (ZMAdminMenu::getItemsForParentId(ZMAdminMenu::MENU_CATALOG_MANAGER_TAB) as $item) {
       $fkt = get_fkt($item->getURL());
-      $page = $toolbox->admin->getPluginPageForFkt($request, $fkt);
-      $tabInfo[] = array('item' => $item, 'page' => $page, 'fkt' => $fkt);
+      $view = $toolbox->admin->getViewForFkt($request, $fkt);
+      $tabInfo[] = array('item' => $item, 'view' => $view, 'fkt' => $fkt);
   }
 
 ?>
 
-<link rel="stylesheet" type="text/css" href="includes/jquery/ui.tabs.css">
-<link rel="stylesheet" type="text/css" href="includes/jquery/thickbox.css">
-<link rel="stylesheet" type="text/css" href="includes/jquery/productPicker.css">
-<script type="text/javascript" src="includes/jquery/ui.tabs.js"></script>
-<script type="text/javascript" src="includes/jquery/thickbox-3.1.pack.js"></script>
+<link rel="stylesheet" type="text/css" href="content/jquery/ui.tabs.css">
+<link rel="stylesheet" type="text/css" href="content/jquery/thickbox.css">
+<link rel="stylesheet" type="text/css" href="content/jquery/productPicker.css">
+<script type="text/javascript" src="content/jquery/ui.tabs.js"></script>
+<script type="text/javascript" src="content/jquery/thickbox-3.1.pack.js"></script>
 
 <?php echo zm_catalog_tree(ZMCategories::instance()->getCategoryTree(), '', ZMSettings::get('admin.isShowCatalogTreeProducts')); ?>
 <?php if (0 < count($tabInfo)) { ?>
@@ -96,8 +95,8 @@
                 </ul>
             <?php } ?>
             <?php 
-            if (null != $info['page']) {
-                echo $info['page']->getContents($request, array('defaultUrlParams' => $defaultUrlParams));
+            if (null != $info['view']) {
+                echo $info['view']->generate($request);
             } else { ?><h2>Invalid Contents Function: <?php echo $info['fkt'] ?></h2><?php } ?>
         </div>
       <?php } ?>
@@ -108,4 +107,3 @@
       $('#main-tab-container > ul').tabs(<?php echo $activeTab ?>, { fxSlide: true, fxFade: true, fxSpeed: 'fast' }); 
     });
 </script>
-<?php ob_end_flush(); ?>

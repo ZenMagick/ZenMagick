@@ -37,7 +37,16 @@ class ZMCatalogDefaultTabController extends ZMPluginAdminController {
      * Create new instance.
      */
     function __construct() {
-        parent::__construct('CatalogDefaultTab', zm_l10n_get('Catalog Manager'), 'catalogDefault');
+        parent::__construct('catalog_default_tab', zm_l10n_get('Catalog Manager'), 'catalogDefault');
+    }
+
+
+    /**
+     * {@inheritDoc}
+     */
+    public function processGet($request) {
+        // need to do this to for using PluginAdminView rather than SimplePluginFormView
+        return $this->findView(null);
     }
 
 }

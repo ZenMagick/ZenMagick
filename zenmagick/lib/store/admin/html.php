@@ -45,7 +45,7 @@
             ob_start(); 
             $path = ZMRequest::instance()->getCategoryPathArray();
             echo '
-<script type="text/javascript" src="includes/jquery/jquery.treeview.pack.js"></script>
+<script type="text/javascript" src="content/jquery/jquery.treeview.pack.js"></script>
 <script type="text/javascript"> $(document).ready(function() { 
   $("#'.$id.'").treeview({ collapsed: true, unique: true, prerendered: false, toggle: function() { $(".open"); } }); 
 });
