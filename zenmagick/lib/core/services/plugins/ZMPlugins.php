@@ -355,7 +355,7 @@ class ZMPlugins extends ZMObject {
         foreach ($ids as $id) {
             // get list
             $plugin = $this->getPluginForId($id);
-            if ($plugin->isEnabled() || !$enabled) {
+            if (null != $plugin && ($plugin && $plugin->isEnabled() || !$enabled)) {
                 if (ZMPlugin::LP_ALL == $plugin->getLoaderPolicy()) {
                     $pluginLoader->addPath($plugin->getPluginDirectory());
                 } else if (ZMPlugin::LP_FOLDER == $plugin->getLoaderPolicy()) {

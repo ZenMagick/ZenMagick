@@ -229,6 +229,15 @@ class Plugin extends ZMPlugin {
     }
 
     /**
+     * Set the status.
+     *
+     * @param boolean status The new status.
+     */
+    public function setEnabled($status) {
+        $this->set(self::KEY_ENABLED, $status);
+    }
+
+    /**
      * Get the sort order.
      *
      * @return int The sort order index.
