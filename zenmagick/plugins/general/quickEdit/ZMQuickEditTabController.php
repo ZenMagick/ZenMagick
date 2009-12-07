@@ -37,7 +37,109 @@ class ZMQuickEditTabController extends ZMPluginAdminController {
      * Create new instance.
      */
     function __construct() {
-        parent::__construct('QuickEditTab', zm_l10n_get('Quick Edit'), 'quickEdit');
+        parent::__construct('quick_edit_tab', zm_l10n_get('Quick Edit'), 'quickEdit');
+    }
+
+
+    /**
+     * Prepare common (GET/POST) view data.
+     *
+     * @param ZMRequest request The current request.
+     * @return array The view data map.
+     */
+    protected function getCommonViewData($request) {
+        $data = array();
+
+        if (null == ($fieldList = ZMSettings::get('plugins.quickEdit.fieldList', null))) {
+            // use defaults
+            $fieldList = array(
+                // name, widget, propert is optional in case the fieldname and product proerty name do not match
+                array('name' => 'name', 'widget' => 'TextFormWidget#title=Name&name=name&size=35'),
+                array('name' => 'model', 'widget' => 'TextFormWidget#title=Model&name=model&size=14'),
+                array('name' => 'image', 'widget' => 'TextFormWidget#title=Image&name=image&size=24', 'property' => 'defaultImage'),
+                array('name' => 'quantity', 'widget' => 'TextFormWidget#title=Quantity&name=quantity&size=4'),
+                array('name' => 'productPrice', 'widget' => 'TextFormWidget#title=Product Price&name=productPrice&size=7'),
+                array('name' => 'status', 'widget' => 'TextFormWidget#title=Status&name=status&size=2')
+            );
+        }
+
+        // build map of field name = property name;
+        // while doing that instantiate all widgets
+        $fieldMap = array();
+        foreach ($fieldList as $ii => $field) {
+            $widget = ZMBeanUtils::getBean($field['widget']);
+            $fieldList[$ii]['widget'] = $widget;
+            $fieldMap[$field['name']] = isset($field['property']) ? $field['property'] : $field['name'];
+        }
+
+        $data['fieldList'] = $fieldList;
+        $data['fieldMap'] = $fieldMap;
+
+        $categoryId = $request->getCategoryId();
+        $data['categoryId'] = $categoryId;
+
+        $productList = ZMProducts::instance()->getProductsForCategoryId($categoryId, false);
+        $data['productList'] = $productList;
+
+        return $data;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function processGet($request) {
+        // need to do this to for using PluginAdminView rather than SimplePluginFormView
+        return $this->findView(null, $this->getCommonViewData($request));
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function processPost($request) {
+        $data = $this->getCommonViewData($request);
+        $fieldList = $data['fieldList'];
+        $fieldMap = $data['fieldMap'];
+
+        $productIdList = ZMProducts::instance()->getProductIdsForCategoryId($request->getCategoryId(), false);
+        foreach ($productIdList as $productId) {
+            // build a data map for each submitted product
+            $formData = array();
+            // and one with the original value to compare and detect state data
+            $_formData = array();
+            foreach ($fieldList as $field) {
+                $widget = $field['widget'];
+                if ($widget instanceof ZMFormWidget) {
+                    $fieldName = $field['name'].'_'.$productId;
+                    // use widget to *read* the value to allow for optional conversions, etc
+                    $widget->setValue($request->getParameter($fieldName));
+                    $formData[$fieldMap[$field['name']]] = $widget->getStringValue();
+                    $widget->setValue($request->getParameter('_'.$fieldName));
+                    $_formData[$fieldMap[$field['name']]] = $widget->getStringValue();
+                }
+            }
+            // load product, convert to map and compare with the submitted form data
+            $product = ZMProducts::instance()->getProductForId($productId);
+            $productData = ZMBeanUtils::obj2map($product, $fieldMap);
+            $isUpdate = false;
+            foreach ($formData as $key => $value) {
+                if (array_key_exists($key, $productData) && $value != $productData[$key]) {
+                    if ($_formData[$key] == $productData[$key]) {
+                        $isUpdate = true;
+                    } else {
+                        $isUpdate = false;
+                        ZMMessages::instance()->warn('Found stale data ('.$key.') for productId '.$productId. ' - skipping update');
+                    }
+                    break;
+                }
+            }
+            if ($isUpdate) {
+                $product = ZMBeanUtils::setAll($product, $formData);
+                ZMProducts::instance()->updateProduct($product);
+            }
+        }    
+
+        // need to do this to for using PluginAdminView rather than SimplePluginFormView
+        return $this->findView(null, $data);
     }
 
 }

@@ -1,39 +1,24 @@
 This is a Catalog Manager plugin to quickly edit all products of a selected category.
 
-All fields are text based, so use this careful as there is no validation (yet).
-
-It is possible to configure your own set of fields by creating a function with
-name 'zm_quick_edit_field_list' that returns custom field settings.
-
-An example might be a file field_list.php in the plugin folder with the following content:
+It is possible to configure your own set of fields by creating a setting
+named 'plugins.quickEdit.fieldList' that contains a custom field mpa.
 
 <?php
 
   // custom fields
-  function zm_quick_edit_field_list() {
-      return array(
-          array('title' => 'Name', 'field' => 'name', 'property' => 'name', 'size' => 35),
-          array('title' => 'metatags_title_status', 'field' => 'metatags_title_status', 'property' => null, 'size' => 14),
-          // checkbox doesn't need size
-          array('title' => 'Status', 'field' => 'Status', 'property' => 'Status', 'method' => 'zm_quick_edit_checkbox_field'),
-          array('title' => 'Quantity', 'field' => 'quantity', 'property' => 'quantity', 'size' => 4)
-      );
-  }
+  ZMSettings::set('plugins.quickEdit.fieldList', array(
+      array('name' => 'name', 'widget' => 'TextFormWidget#title=Name&name=name&size=35'),
+      array('name' => 'status', 'widget' => 'BooleanFormWidget#style=checkbox&title=Enabled&name=status&size=35'),
+      array('name' => 'manufacturerId', 'widget' => 'ManufacturerSelectFormWidget#title=Manufacturer&options=0= --- '),
+  ));
 
 ?>
 
 Each field is configured separately, and requires the following information:
-- title: The field title (for the table header)
-- field: The field name; this has to be unique.
-- property: the common bit of the get/set method name (ie. the property name) in ZMProduct; for example 'model' is the common string
-            of the getModel() and setModel() methods.
-            For custom fields, set the method to null. Please note that in this case the field name (see above)
-            is assumed to be the database column name.
-- size: The field size
-- method: Optional method to render the form element (default is an input field).
-          The signature of the method is: function($field, $id, $value, $product)
+- name: The property name of ZMProduct
+- widget: The widget to handle the data
 
-NOTE: For custom fields you also have to configure ZMProducts in order to actually read/write those columns. This is done
+NOTE: For custom database fields you also have to configure ZMProducts in order to actually read/write those columns. This is done
 by setting 'zenmagick.core.database.sql.products.customFields'.
 
 Example:

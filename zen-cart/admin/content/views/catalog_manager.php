@@ -62,7 +62,9 @@
   $tabInfo = array();
   foreach (ZMAdminMenu::getItemsForParentId(ZMAdminMenu::MENU_CATALOG_MANAGER_TAB) as $item) {
       $fkt = get_fkt($item->getURL());
-      $view = $toolbox->admin->getViewForFkt($request, $fkt);
+      $view = $toolbox->admin->getViewForFkt($request, $fkt, $selectedFkt != $fkt);
+      // export default url params as determined here
+      $view->setVar('defaultUrlParams', $defaultUrlParams);
       $tabInfo[] = array('item' => $item, 'view' => $view, 'fkt' => $fkt);
   }
 

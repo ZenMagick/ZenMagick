@@ -49,6 +49,7 @@ class ZMRequest extends ZMObject {
     private $session_;
     private $toolbox_;
     private $parameter_;
+    private $method_;
 
 
     /**
@@ -66,6 +67,7 @@ class ZMRequest extends ZMObject {
             $this->parameter_ = array_merge($_POST, $_GET);
         }
 
+        $this->setMethod($_SERVER['REQUEST_METHOD']);
         $this->controller_ = null;
         $this->session_ = null;
         $this->toolbox_ = null;
@@ -93,10 +95,19 @@ class ZMRequest extends ZMObject {
     /**
      * Get the request method.
      *
-     * @return string The upper case request method.
+     * @return string The (upper case) request method.
      */
     public function getMethod() {
-        return strtoupper($_SERVER['REQUEST_METHOD']);
+        return $this->method_;
+    }
+
+    /**
+     * Set the request method.
+     *
+     * @param string method The request method.
+     */
+    public function setMethod($method) {
+        $this->method_ = strtoupper($method);
     }
 
     /**

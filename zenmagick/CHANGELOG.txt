@@ -91,6 +91,7 @@ Release 0.9.8
   be lost; the reason is that it allows caching code to ensure it captures the
 	final, final response
 - update copyright: change ZenMagick to zenmagick.org
+- quickEdit: change custom field settings from function to setting
 
 Release 0.9.7
 - add ZMProductAssociation service and related code

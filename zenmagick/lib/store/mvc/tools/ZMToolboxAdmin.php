@@ -61,11 +61,18 @@ class ZMToolboxAdmin extends ZMToolboxTool {
      *
      * @param ZMRequest request The current request.
      * @param string function The function/controller name.
+     * @param boolean forceGet Optional flag to force processing the request as GET
+     * rather than what it actually is; default is <code>false</code>.
      * @return ZMView A view or <code>null</code>.
      */
-    public function getViewForFkt($request, $function) {
+    public function getViewForFkt($request, $function, $forceGet=false) {
         $view = null;
         $controller = null;
+
+        $method = $request->getMethod();
+        if ($forceGet) {
+            $request->setMethod('GET');
+        }
 
         // try to resolve plugin page controller
         $controllerClass = ZMLoader::makeClassname($function);
@@ -78,6 +85,9 @@ class ZMToolboxAdmin extends ZMToolboxTool {
         } else if (function_exists($function)) {
             $view = $function(); 
         }
+
+        // revert in any case
+        $request->setMethod($method);
 
         // abuse ZMAdminView as plugin admin view
         if (null != $view && null != $controller && $controller instanceof ZMPluginAdminController) {
