@@ -93,6 +93,8 @@ Release 0.9.8
 - update copyright: change ZenMagick to zenmagick.org
 - quickEdit: change custom field settings from function to setting
 - add ZMAjaxPluginAdminController
+- add ajax support for plugin status; make status image clickable to toggle
+  status
 
 Release 0.9.7
 - add ZMProductAssociation service and related code

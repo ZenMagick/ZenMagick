@@ -98,6 +98,29 @@
 
 ?>
 
+<script type="text/javascript">
+    var statusImgOn = 'images/icons/tick.gif';
+    var statusImgOff = 'images/icons/cross.gif';
+
+    function toggle_status(link) {
+        var currentStatus = link.className.split('-')[2];
+        var pluginId = link.id.split('-')[1];
+        $.ajax({
+            type: "POST",
+            url: "<?php $net->ajax('plugin_admin', 'setPluginStatus') ?>",
+            data: 'pluginId='+pluginId+'&status='+('on' == currentStatus ? 'false' : 'true'),
+            success: function(msg) { 
+                var selector = '#'+link.id+' img';
+                $('#'+link.id+' img').attr('src', 'on' == currentStatus ? statusImgOff : statusImgOn);
+            },
+            error: function(msg) { 
+                alert(msg);
+            }
+        });
+    }
+
+</script>
+
 <?php foreach (ZMPlugins::instance()->getAllPlugins(0, false) as $group => $plugins) { ?>
   <h2><?php echo $group ?> plugins</h2>
   <form action="<?php $toolbox->admin->url() ?>" method="post" onsubmit="return zm_user_confirm('Save plugin changes ?');">
@@ -116,7 +139,13 @@
 <tr<?php echo ($isEdit ? ' class="edit"' : '') ?><?php if ($odd) { echo ' style="background-color:#ddd;"'; } ?>>
             <td><a name="<?php echo $plugin->getId() ?>"></a><?php echo $plugin->getName() ?></td>
             <td><?php echo $plugin->getDescription() ?></td>
-            <td style="text-align:center;"><img src="images/icons/<?php echo ($plugin->isEnabled() ? 'tick.gif' : 'cross.gif') ?>"></td>
+            <td style="text-align:center;">
+                <?php if ($plugin->isInstalled()) { ?>
+                  <a href="#<?php echo $plugin->getId() ?>" onclick="toggle_status(this); return false;" id="status-<?php echo $plugin->getId() ?>" class="plugin-status-<?php echo ($plugin->isEnabled() ? 'on' : 'off') ?>"><img border="0" src="images/icons/<?php echo ($plugin->isEnabled() ? 'tick.gif' : 'cross.gif') ?>"></a>
+                <?php } else { ?>
+                  N/A
+                <?php } ?>
+            </td>
             <td><?php echo $plugin->getSortOrder() ?></td>
             <td>
               <?php if ($plugin->isInstalled()) { ?>
