@@ -307,6 +307,27 @@ class ZMToolboxForm extends ZMToolboxTool {
         return $html;
     }
 
+    /**
+     * Create hidden elements from the given map or query args.
+     *
+     * @param mixed data Either a map or query arg style string.
+     */
+    public function hidden($data) {
+        if (!is_array($data)) {
+            parse_str($data, $tmp);
+            $data = $tmp;
+        }
+        // add hidden form fields if any params set
+        $slash = ZMSettings::get('zenmagick.mvc.html.xhtml') ? '/' : '';
+        if (0 < count($data)) {
+            echo '<div>';
+            foreach ($data as $name => $value) {
+                echo '<input type="hidden" name="'.$name.'" value="'.$value.'"'.$slash.'>';
+            }
+            echo '</div>';
+        }
+    }
+
 }
 
 ?>

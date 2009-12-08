@@ -112,6 +112,7 @@
             success: function(msg) { 
                 var selector = '#'+link.id+' img';
                 $('#'+link.id+' img').attr('src', 'on' == currentStatus ? statusImgOff : statusImgOn);
+                link.className = 'plugin-status-'+('on' == currentStatus ? 'off' : 'on');
             },
             error: function(msg) { 
                 alert(msg);

@@ -108,12 +108,35 @@ class ZMPluginAdminController extends ZMController {
      * Create a configured redirect view.
      *
      * @param ZMRequest request The current request.
+     * @param string requestId Redirect request id.
+     * @return ZMView A (redirect) view.
+     */
+    public function getRedirectViewForId($request, $requestId) {
+        $view = ZMLoader::make('RedirectView');
+        $view->setUrl($request->getToolbox()->admin->url($requestId, 'fkt='.$this->getId()));
+        return $view;
+    }
+
+    /**
+     * Create a plugin admin redirect view.
+     *
+     * @param ZMRequest request The current request.
+     * @param string requestId Optional redirect request id; default is <em>plugin_page</code>.
      * @return ZMView A (redirect) view.
      */
     public function getRedirectView($request) {
-        $view = ZMLoader::make('RedirectView');
-        $view->setUrl($request->getToolbox()->admin->url('plugin_page', 'fkt='.$this->getId()));
-        return $view;
+        return $this->getRedirectViewForId($request, 'plugin_page');
+    }
+
+    /**
+     * Create a catalog manager redirect view.
+     *
+     * @param ZMRequest request The current request.
+     * @param string requestId Optional redirect request id; default is <em>plugin_page</code>.
+     * @return ZMView A (redirect) view.
+     */
+    public function getCatalogManagerRedirectView($request) {
+        return $this->getRedirectViewForId($request, 'catalog_manager');
     }
 
 }
