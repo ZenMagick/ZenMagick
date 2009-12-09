@@ -8,10 +8,10 @@ The result will be emailed to a configurable email addres.
 INSTALLAION
 ===========
 1) Download (obvious ;)
-   Download the latest version from http://www.zenmagick.org
+   Download the latest version from http://www.zenmagick.org/
 
 2) Extract into the ZenMagick plugins directory
-   After that you should have a zm_form_handler sub-directory in the plugins/request folder.
+   After that you should have a formHandler sub-directory in the plugins/general folder.
 
 3) Install the plugin via the ZenMagick plugins admin page
     Pages:    Single name or comma separated list of page names.
