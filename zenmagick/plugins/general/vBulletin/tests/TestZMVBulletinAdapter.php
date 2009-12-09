@@ -3,12 +3,12 @@
 /**
  * ZMVBulletin adapter test class.
  *
- * @package org.zenmagick.plugins.zm_vbulletin
+ * @package org.zenmagick.plugins.vbulletin
  * @author DerManoMann
  * @version $Id$
  */
-class TestZMVBulletin extends ZMTestCase {
-    private $vBulletin_ = null;
+class TestZMVBulletinAdapter extends ZMTestCase {
+    private $adapter_ = null;
 
 
     /**
@@ -31,11 +31,11 @@ class TestZMVBulletin extends ZMTestCase {
      * Get the vBulletin adapter.
      */
     protected function getAdapter() {
-        if (null == $this->vBulletin_) {
-            $this->vBulletin_ = ZMLoader::make('VBulletinAdapter');
+        if (null == $this->adapter_) {
+            $this->adapter_ = ZMLoader::make('VBulletinAdapter');
         }
 
-        return $this->vBulletin_;
+        return $this->adapter_;
     }
 
     /**

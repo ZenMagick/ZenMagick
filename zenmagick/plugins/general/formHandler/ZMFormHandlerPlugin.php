@@ -29,7 +29,7 @@
  *
  * @package org.zenmagick.plugins.formHandler
  * @author DerManoMann
- * @version $Id: zm_form_handler.php 2696 2009-12-04 00:06:09Z dermanomann $
+ * @version $Id$
  */
 class ZMFormHandlerPlugin extends Plugin {
 

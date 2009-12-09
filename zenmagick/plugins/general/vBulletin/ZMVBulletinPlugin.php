@@ -27,14 +27,14 @@
 /**
  * Plugin to enable vBulletin support in ZenMagick.
  *
- * @package org.zenmagick.plugins.zm_vbulletin
+ * @package org.zenmagick.plugins.vbulletin
  * @author DerManoMann
  * @version $Id$
  */
-class zm_vbulletin extends Plugin {
+class ZMVBulletinPlugin extends Plugin implements ZMRequestHandler {
     private $page_;
     private $prePostAccount_;
-    private $vBulletin_;
+    private $adapter_;
 
 
     /**
@@ -45,7 +45,7 @@ class zm_vbulletin extends Plugin {
         $this->setLoaderPolicy(ZMPlugin::LP_FOLDER);
         $this->page_ = '';
         $this->prePostAccount_ = null;
-        $this->vBulletin_ = null;
+        $this->adapter_ = null;
     }
 
     /**
@@ -56,7 +56,7 @@ class zm_vbulletin extends Plugin {
     }
 
     /**
-     * Install this plugin.
+     * {@inheritDoc}
      */
     public function install() {
         parent::install();
@@ -72,20 +72,19 @@ class zm_vbulletin extends Plugin {
      * Get the vBulletin adapter.
      */
     protected function getAdapter() {
-        if (null == $this->vBulletin_) {
-            $this->vBulletin_ = ZMLoader::make('VBulletinAdapter');
+        if (null == $this->adapter_) {
+            $this->adapter_ = ZMLoader::make('VBulletinAdapter');
         }
 
-        return $this->vBulletin_;
+        return $this->adapter_;
     }
 
     /**
-     * Init this plugin.
+     * {@inheritDoc}
      */
-    public function init() {
-        parent::init();
-        $this->page_ = ZMRequest::instance()->getRequestId();
-        $this->prePostAccount_ = ZMRequest::instance()->getAccount();
+    public function initRequest($request) {
+        $this->page_ = $request->getRequestId();
+        $this->prePostAccount_ = $request->getAccount();
 
         // main define to get at things
         $vBulletinDir = $this->get('vBulletinDir');
@@ -184,12 +183,13 @@ class zm_vbulletin extends Plugin {
      * @param array args Optional parameter.
      */
     public function onZMLoginSuccess($args=array()) {
+        $request = $args['request'];
         $account = $args['account'];
         // check if nickname set and no matching forum user 
         if (!ZMLangUtils::isEmpty($account->getNickName())) {
             if (null == $this->getAdapter()->getAccountForNickName($account->getNickName())) {
                 // no vBulletin user found, so create one now!
-                $password = ZMRequest::instance()->getParameter('password');
+                $password = $request->getParameter('password');
                 $this->getAdapter()->createAccount($account, $password);
             }
         }
@@ -203,11 +203,12 @@ class zm_vbulletin extends Plugin {
      *
      * @param array args Optional parameter ('view' => $view).
      */
-    function onZMControllerProcessEnd($args) {
-        if ('POST' == ZMRequest::instance()->getMethod()) {
+    public function onZMControllerProcessEnd($args) {
+        $request = $args['request'];
+        if ('POST' == $request->getMethod()) {
             $view = $args['view'];
             if ('account_edit' == $this->page_ && 'success' == $view->getMappingId()) {
-                $account = ZMAccounts::instance()->getAccountForId(ZMRequest::instance()->getAccountId());
+                $account = ZMAccounts::instance()->getAccountForId($request->getAccountId());
                 $vbAccount = $this->getAdapter()->getAccountForNickName($account->getNickName());
                 if (null != $account && !ZMLangUtils::isEmpty($account->getNickName())) {
                     if (null != $vbAccount) {
@@ -221,6 +222,5 @@ class zm_vbulletin extends Plugin {
     }
 
 }
-
 
 ?>

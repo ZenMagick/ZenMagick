@@ -30,7 +30,7 @@
  * <p>Methods prefixed with <em>v</em> are validation rules that are wrapped in a 
  * <copde>ZMWrapperRule</code>.</p>
  *
- * @package org.zenmagick.plugins.zm_vbulletin
+ * @package org.zenmagick.plugins.vbulletin
  * @author DerManoMann
  * @version $Id$
  */
@@ -45,7 +45,7 @@ class ZMVBulletinAdapter extends ZMObject {
      */
     function __construct() {
         parent::__construct();
-        require ZM_VBULLETIN_ROOT . 'includes'.DIRECTORY_SEPARATOR.'config.php';
+        require ZM_VBULLETIN_ROOT.'includes'.DIRECTORY_SEPARATOR.'config.php';
 
         if (!isset($config)) {
             throw new ZMException('cannot find vBulletin config');
@@ -226,6 +226,5 @@ class ZMVBulletinAdapter extends ZMObject {
     }
 
 }
-
 
 ?>
