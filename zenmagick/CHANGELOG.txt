@@ -95,6 +95,7 @@ Release 0.9.8
 - add ZMAjaxPluginAdminController
 - add ajax support for plugin status; make status image clickable to toggle
   status
+- change full-release build to move the extras folder into install_zc
 
 Release 0.9.7
 - add ZMProductAssociation service and related code

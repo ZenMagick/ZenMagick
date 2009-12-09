@@ -14,6 +14,13 @@
         <copy todir="${release.full.dir}" overwrite="true">
             <fileset dir="${zencart.base.dir}">
                 <exclude name=".git/**" />
+                <exclude name="extras/**" />
+            </fileset>
+        </copy>
+        <!-- copy extras folder into install_zc to make it more likely it gets removed... -->
+        <mkdir dir="${release.full.dir}/extras" />
+        <copy todir="${release.full.dir}/zc_install/extras">
+          <fileset dir="${zencart.base.dir}/extras">
             </fileset>
         </copy>
 
