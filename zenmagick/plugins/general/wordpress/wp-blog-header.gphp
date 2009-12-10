@@ -1,0 +1,10 @@
+<?php 
+    
+  // use API
+  define('WP_USE_THEMES', false);
+
+  if (null != ($plugin = ZMPlugins::instance()->getPluginForId('wordpress'))) { 
+      @require_once $plugin->get('wordpressDir').'wp-blog-header.php';
+  }
+
+?>
