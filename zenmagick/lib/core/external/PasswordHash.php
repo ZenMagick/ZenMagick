@@ -51,7 +51,8 @@ class PasswordHash {
 	function get_random_bytes($count)
 	{
 		$output = '';
-		if (($fh = @fopen('/dev/urandom', 'rb'))) {
+		if (is_readable('/dev/urandom') &&
+		    ($fh = @fopen('/dev/urandom', 'rb'))) {
 			$output = fread($fh, $count);
 			fclose($fh);
 		}
@@ -109,7 +110,7 @@ class PasswordHash {
 		if (substr($setting, 0, 2) == $output)
 			$output = '*1';
 
-		if (substr($setting, 0, 3) != $this->hash_ident)
+		if (substr($setting, 0, strlen($this->hash_ident)) != $this->hash_ident)
 			return $output;
 
 		$count_log2 = strpos($this->itoa64, $setting[3]);

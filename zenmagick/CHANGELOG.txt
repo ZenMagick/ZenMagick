@@ -96,6 +96,8 @@ Release 0.9.8
 - add ajax support for plugin status; make status image clickable to toggle
   status
 - change full-release build to move the extras folder into install_zc
+- upgrade PasswordHash to version 0.2
+- add spyc: a simple YAML class.
 
 Release 0.9.7
 - add ZMProductAssociation service and related code
