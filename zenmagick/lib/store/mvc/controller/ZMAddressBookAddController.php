@@ -61,7 +61,7 @@ class ZMAddressBookAddController extends ZMController {
      *{@inheritDoc}
      */
     public function processPost($request) {
-        $address = $this->getFormBean($request);
+        $address = $this->getFormData($request);
         $address->setAccountId($request->getAccountId());
         $address = ZMAddresses::instance()->createAddress($address);
 

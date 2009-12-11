@@ -68,7 +68,7 @@ class ZMAccountEditController extends ZMController {
      */
     public function processPost($request) {
         $currentAccount = $request->getAccount();
-        $account = $this->getFormBean($request)->getAccount();
+        $account = $this->getFormData($request)->getAccount();
 
         if ($account->getEmail() != $currentAccount->getEmail()) {
             // XXX: move into validation rule email changed, so make sure it doesn't exist

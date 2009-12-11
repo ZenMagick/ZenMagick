@@ -89,7 +89,7 @@ class ZMController extends ZMObject {
         }
 
         // form validation (only if not already error view from session validation...)
-        $formData = $this->getFormBean($request);
+        $formData = $this->getModel($request);
         if (null == $view && null != $formData && $this->isFormSubmit($request)) {
             // move to function
             if (null != ($view = $this->validateFormBean($request, $formData))) {
@@ -230,15 +230,15 @@ class ZMController extends ZMObject {
     }
 
     /**
-     * Get the form bean (if any) for this request.
+     * Get the form data object (if any) for this request.
      *
      * @param ZMRequest request The request to process.
-     * @return ZMView The actual view to be used to render the response.
+     * @return ZMObject An object instance or <code>null</code>
      */
-    public function getFormBean($request) {
+    public function getModel($request) {
         if (null == $this->formData_ && null !== ($mapping = ZMUrlManager::instance()->findMapping($this->id_))) {
-            if (array_key_exists('form', $mapping)) {
-                $this->formData_ =  ZMBeanUtils::getBean($mapping['form'].(false === strpos($viewInfo['view'], '#') ? '#' : '&').'formId='.$mapping['formId']);
+            if (array_key_exists('model', $mapping)) {
+                $this->formData_ =  ZMBeanUtils::getBean($mapping['model'].(false === strpos($viewInfo['view'], '#') ? '#' : '&').'formId='.$mapping['formId']);
                 if ($this->formData_ instanceof ZMFormData) {
                     $this->formData_->populate($request);
                 } else {

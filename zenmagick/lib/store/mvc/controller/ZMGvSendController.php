@@ -67,7 +67,7 @@ class ZMGvSendController extends ZMController {
      * {@inheritDoc}
      */
     public function processPost($request) {
-        $gvReceiver = $this->getFormBean($request);
+        $gvReceiver = $this->getFormData($request);
 
         // back from confirmation to edit or not valid
         if (null != $request->getParameter('edit')) {

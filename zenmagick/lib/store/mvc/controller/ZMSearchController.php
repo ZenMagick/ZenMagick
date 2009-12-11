@@ -86,7 +86,7 @@ class ZMSearchController extends ZMController {
     public function processGet($request) {
         $request->getToolbox()->crumbtrail->addCrumb($request->getToolbox()->utils->getTitle(null, false));
 
-        $criteria = $this->getFormBean($request);
+        $criteria = $this->getFormData($request);
 
         if (!ZMLangUtils::isEmpty($criteria->getKeywords()) && $this->autoSearch_) {
             $resultList = ZMLoader::make('ResultList');

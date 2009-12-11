@@ -79,7 +79,7 @@ class ZMProductReviewsWriteController extends ZMController {
             return $this->findView('error', $this->viewData_);
         }
 
-        $review = $this->getFormBean($request);
+        $review = $this->getFormData($request);
         $account = $request->getAccount();
         $session = $request->getSession();
         ZMReviews::instance()->createReview($review, $account, $session->getLanguageId());

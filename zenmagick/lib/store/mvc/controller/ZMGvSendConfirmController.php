@@ -90,7 +90,7 @@ class ZMGvSendConfirmController extends ZMController {
         }
 
         // the form data
-        $gvReceiver = $this->getFormBean($request);
+        $gvReceiver = $this->getFormData($request);
         // the sender account
         $account = $request->getAccount();
         // current balance

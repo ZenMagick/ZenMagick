@@ -106,7 +106,7 @@ class ZMScaffoldController extends ZMController {
      * Create.
      */
     public function create() {
-        $formBean = $this->getFormBean();
+        $formBean = $this->getFormData();
         $model = ZMDatabase::instance()->createModel($this->table_, $formBean);
         $this->exportGlobal('data', $model);
         //todo: view
@@ -126,7 +126,7 @@ class ZMScaffoldController extends ZMController {
      * Update.
      */
     public function update() {
-        $formBean = $this->getFormBean();
+        $formBean = $this->getFormData();
         $model = ZMDatabase::instance()->updateModel($this->table_, $formBean);
         $this->exportGlobal('data', $model);
         //todo: view

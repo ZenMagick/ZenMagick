@@ -75,7 +75,7 @@ class ZMTellAFriendController extends ZMController {
         }
 
         $account = $request->getAccount();
-        $emailMessage = $this->getFormBean($request);
+        $emailMessage = $this->getModel($request);
         if (null != $account) {
             $emailMessage->setFromEmail($account->getEmail());
             $emailMessage->setFromName($account->getFullName());
@@ -92,7 +92,7 @@ class ZMTellAFriendController extends ZMController {
             return $this->findView('error', $this->viewData_);
         }
 
-        $emailMessage = $this->getFormBean($request);
+        $emailMessage = $this->getModel($request);
 
         $context = array('zm_emailMessage' => $emailMessage, 'zm_product' => $this->product_, 'office_only_html' => '', 'office_only_text' => '');
         $subject = zm_l10n_get("Your friend %s has recommended this great product from %s", $emailMessage->getFromName(), ZMSettings::get('storeName'));
