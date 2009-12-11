@@ -70,7 +70,7 @@ class ZMPluginView extends SavantView {
      */
     public function getTemplatePath($request) {
         // add plugin as (last) valid option
-        return array_merge(array($this->plugin_->getPluginDirectory(), parent::getTemplatePath($request)));
+        return array_merge(array($this->plugin_->getPluginDirectory()), parent::getTemplatePath($request));
     }
 
 }
