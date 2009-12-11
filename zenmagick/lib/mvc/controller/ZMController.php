@@ -238,7 +238,7 @@ class ZMController extends ZMObject {
     public function getFormData($request) {
         if (null == $this->formData_ && null !== ($mapping = ZMUrlManager::instance()->findMapping($this->id_))) {
             if (array_key_exists('model', $mapping)) {
-                $this->formData_ =  ZMBeanUtils::getBean($mapping['model'].(false === strpos($viewInfo['view'], '#') ? '#' : '&').'formId='.$mapping['formId']);
+                $this->formData_ =  ZMBeanUtils::getBean($mapping['model'].(false === strpos($mapping['view'], '#') ? '#' : '&').'formId='.$mapping['formId']);
                 if ($this->formData_ instanceof ZMFormData) {
                     $this->formData_->populate($request);
                 } else {
