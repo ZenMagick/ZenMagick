@@ -5,7 +5,7 @@
  *
  * @package org.zenmagick.plugins.zm_token.tests
  * @author DerManoMann
- * @version $Id: TestZMProductAssociations.php 2427 2009-07-14 10:24:33Z dermanomann $
+ * @version $Id$
  */
 class TestZMProductAssociations extends ZMTestCase {
 

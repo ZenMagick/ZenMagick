@@ -28,7 +28,7 @@
  *
  * @package org.zenmagick.plugins.unitTests
  * @author DerManoMann
- * @version $Id: ZMArrayEqualExpectation.php 2130 2009-04-01 23:02:16Z dermanomann $
+ * @version $Id$
  */
 class ZMArrayEqualExpectation extends EqualExpectation {
 

@@ -26,7 +26,7 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.plugins.cron
- * @version $Id: ZMCronJobs.php 2149 2009-04-13 22:59:14Z dermanomann $
+ * @version $Id$
  */
 class ZMCronJobs extends ZMObject {
     private $parser;

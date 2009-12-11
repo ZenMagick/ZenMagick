@@ -29,7 +29,7 @@
  *
  * @package org.zenmagick.plugins.catalogDefault
  * @author DerManoMann
- * @version $Id: zm_catalog_default.php 2419 2009-07-10 03:27:10Z dermanomann $
+ * @version $Id$
  */
 class ZMCatalogDefaultPlugin extends Plugin {
 

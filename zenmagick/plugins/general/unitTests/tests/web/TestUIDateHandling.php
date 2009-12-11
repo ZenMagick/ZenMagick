@@ -5,7 +5,7 @@
  *
  * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann
- * @version $Id: TestUIDateHandling.php 2560 2009-11-02 20:08:36Z dermanomann $
+ * @version $Id$
  */
 class TestUIDateHandling extends ZMTestCase {
 

@@ -26,9 +26,9 @@
   require_once 'includes/application_top.php';
 
   // set some admin specific things...
-  ZMUrlMapper::instance()->clear();
+  ZMUrlManager::instance()->clear();
   ZMSettings::set('isStoreNameInTitle', false);
-  ZMSettings::set('defaultViewClass', 'AdminView');
+  ZMSettings::set('zenmagick.mvc.view.default', 'AdminView');
   if (ZMLangUtils::isEmpty($request->getRequestId())) {
       $request->setParameter('main_page', 'index');
   }

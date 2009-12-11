@@ -31,7 +31,7 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.plugins.captcha
- * @version $Id: CaptchaImgController.php 2399 2009-07-06 03:49:35Z dermanomann $
+ * @version $Id$
  */
 class ZMCaptchaImgController extends ZMController {
 

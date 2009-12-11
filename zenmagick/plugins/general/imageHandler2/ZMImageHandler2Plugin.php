@@ -28,7 +28,7 @@
  *
  * @package org.zenmagick.plugins.imageHandler2
  * @author mano
- * @version $Id: zm_imagehandler2.php 2488 2009-07-24 08:54:22Z dermanomann $
+ * @version $Id$
  */
 class ZMImageHandler2Plugin extends Plugin {
 

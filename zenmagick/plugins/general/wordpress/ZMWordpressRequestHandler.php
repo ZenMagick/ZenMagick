@@ -29,7 +29,7 @@
  *
  * @author mano
  * @package org.zenmagick.plugins.wordpress
- * @version $Id: ZMWpRequestHandler.php 2696 2009-12-04 00:06:09Z dermanomann $
+ * @version $Id$
  */
 class ZMWordpressRequestHandler extends ZMController {
     private $plugin_;

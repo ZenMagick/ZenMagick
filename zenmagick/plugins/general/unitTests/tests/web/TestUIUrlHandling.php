@@ -5,7 +5,7 @@
  *
  * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann
- * @version $Id: TestUIUrlHandling.php 2560 2009-11-02 20:08:36Z dermanomann $
+ * @version $Id$
  */
 class TestUIUrlHandling extends ZMTestCase {
     public static $SIMULATE_SEO = false;

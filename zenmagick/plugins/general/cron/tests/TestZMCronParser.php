@@ -5,7 +5,7 @@
  *
  * @package org.zenmagick.plugins.cron.tests
  * @author DerManoMann
- * @version $Id: TestZMCronParser.php 1600 2008-10-03 01:02:19Z dermanomann $
+ * @version $Id$
  */
 class TestZMCronParser extends ZMTestCase {
     protected static $TEXT_CRONTAB = array(

@@ -31,7 +31,7 @@ define('CAPTCHA_FIELD', 'captcha');
  *
  * @package org.zenmagick.plugins.captcha
  * @author DerManoMann
- * @version $Id: zm_captcha.php 2591 2009-11-11 03:48:45Z dermanomann $
+ * @version $Id$
  */
 class ZMCaptchaPlugin extends Plugin {
     private $captcha_;

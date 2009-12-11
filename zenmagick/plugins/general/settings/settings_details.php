@@ -20,7 +20,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  *
- * @version $Id: settings_details.php 2610 2009-11-20 02:45:25Z dermanomann $
+ * @version $Id$
  */
 ?>
 <?php

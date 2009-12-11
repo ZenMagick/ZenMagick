@@ -29,7 +29,7 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.plugins.cron
- * @version $Id: ZMCronImageController.php 2401 2009-07-06 04:40:20Z dermanomann $
+ * @version $Id$
  */
 class ZMCronImageController extends ZMController {
 

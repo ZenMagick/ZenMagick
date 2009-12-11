@@ -29,7 +29,7 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.plugins.unitTests
- * @version $Id: TestsController.php 2458 2009-07-20 05:09:51Z dermanomann $
+ * @version $Id$
  */
 class ZMUnitTestsController extends ZMController {
     private $plugin;
@@ -39,8 +39,8 @@ class ZMUnitTestsController extends ZMController {
      * Create new instance.
      */
     function __construct() {
-        $this->plugin = ZMPlugins::instance()->getPluginForId('unitTests');
         parent::__construct();
+        $this->plugin = ZMPlugins::instance()->getPluginForId('unitTests');
     }
 
     /**
@@ -159,7 +159,7 @@ class ZMUnitTestsController extends ZMController {
 
         $context['html_report'] = $report;
 
-        return $this->findView('tests', $context);
+        return $this->findView(null, $context);
     }
 
 }

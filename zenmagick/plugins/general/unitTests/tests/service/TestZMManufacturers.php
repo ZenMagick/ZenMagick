@@ -5,7 +5,7 @@
  *
  * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann
- * @version $Id: TestZMManufacturers.php 2508 2009-09-12 15:00:51Z dermanomann $
+ * @version $Id$
  */
 class TestZMManufacturers extends ZMTestCase {
 

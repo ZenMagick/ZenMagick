@@ -7,7 +7,7 @@
  *
  * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann
- * @version $Id: TestAttributePricing.php 2061 2009-03-13 04:07:25Z dermanomann $
+ * @version $Id$
  */
 class TestAttributePricing extends ZMTestCase {
     protected $zen_cart_attribute_price_info;

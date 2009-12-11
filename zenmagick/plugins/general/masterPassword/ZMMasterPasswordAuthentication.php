@@ -29,7 +29,7 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.plugins.masterPassword
- * @version $Id: ZMMasterPasswordAuthentication.php 2610 2009-11-20 02:45:25Z dermanomann $
+ * @version $Id$
  */
 class ZMMasterPasswordAuthentication implements ZMAuthentication {
 

@@ -28,7 +28,7 @@
  *
  * @package org.zenmagick.plugins.unitTests
  * @author DerManoMann
- * @version $Id: ZMHtmlReporter.php 2521 2009-09-29 18:55:46Z dermanomann $
+ * @version $Id$
  */
 class ZMHtmlReporter extends HtmlReporter {
     private $currentCase_;

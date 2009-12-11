@@ -25,7 +25,7 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.plugins.cron
- * @version $Id: ZMCronJob.php 1966 2009-02-14 10:52:50Z dermanomann $
+ * @version $Id$
  */
 interface ZMCronJob {
     

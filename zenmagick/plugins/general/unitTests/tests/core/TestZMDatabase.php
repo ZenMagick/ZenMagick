@@ -5,7 +5,7 @@
  *
  * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann
- * @version $Id: TestZMDatabase.php 2516 2009-09-20 21:40:26Z dermanomann $
+ * @version $Id$
  */
 class TestZMDatabase extends ZMTestCase {
     static $PROVIDERS = array('ZMCreoleDatabase', 'ZMZenCartDatabase', 'ZMPdoDatabase');

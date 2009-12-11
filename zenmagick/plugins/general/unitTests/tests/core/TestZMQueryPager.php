@@ -5,7 +5,7 @@
  *
  * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann
- * @version $Id: TestZMQueryPager.php 2610 2009-11-20 02:45:25Z dermanomann $
+ * @version $Id$
  */
 class TestZMQueryPager extends ZMTestCase {
 

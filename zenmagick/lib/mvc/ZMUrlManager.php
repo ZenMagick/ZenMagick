@@ -143,7 +143,7 @@ class ZMUrlManager extends ZMObject {
                 $from = array_merge($this->mappings_[$requestId][$viewId], $this->mappings_[$requestId]);
             }
             $mapping = array();
-            foreach ($self::MAPPING_KEYS as $key) {
+            foreach (self::$MAPPING_KEYS as $key) {
                 if (array_key_exists($key, $from)) {
                     $mapping[$key] = $from[$key];
                 } else {
@@ -205,9 +205,12 @@ class ZMUrlManager extends ZMObject {
 
         if (null === $mapping) {
             ZMLogging::instance()->log('no view found for: requestId='.$requestId.', viewId='.$viewId.', parameter='.$parameter, ZMLogging::TRACE);
-            $mapping = array('template' => $requestId);
+            $mapping = array();
         }
-        if (!array_key_exists('view', $mapping)) {
+        if (!array_key_exists('template', $mapping) || null == $mapping['template']) {
+            $mapping['template'] = $requestId;
+        }
+        if (!array_key_exists('view', $mapping) || null == $mapping['view']) {
             $mapping['view'] = ZMSettings::get('zenmagick.mvc.view.default', 'SavantView');
         }
 

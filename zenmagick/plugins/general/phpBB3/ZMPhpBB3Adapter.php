@@ -32,7 +32,7 @@
  *
  * @package org.zenmagick.plugins.phpbb3
  * @author DerManoMann
- * @version $Id: ZMPhpBB3.php 2520 2009-09-29 18:54:37Z dermanomann $
+ * @version $Id$
  */
 class ZMPhpBB3Adapter extends ZMObject {
     private $database_;

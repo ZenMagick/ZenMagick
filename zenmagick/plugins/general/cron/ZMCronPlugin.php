@@ -29,7 +29,7 @@
  *
  * @package org.zenmagick.plugins.cron
  * @author DerManoMann
- * @version $Id: zm_cron.php 2560 2009-11-02 20:08:36Z dermanomann $
+ * @version $Id$
  */
 class ZMCronPlugin extends Plugin {
 
@@ -71,7 +71,7 @@ class ZMCronPlugin extends Plugin {
         ZMEvents::instance()->attach($this);
 
         // register tests
-        if (null != ($tests = ZMPlugins::instance()->getPluginForId('zm_tests'))) {
+        if (null != ($tests = ZMPlugins::instance()->getPluginForId('tests'))) {
             // add class path only now to avoid errors due to missing ZMTestCase
             ZMLoader::instance()->addPath($this->getPluginDirectory().'tests/');
             $tests->addTest('TestZMCronParser');

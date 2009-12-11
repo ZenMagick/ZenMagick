@@ -40,7 +40,7 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.plugins.cron
- * @version $Id: ZMBirthdayEmailCronJob.php 2610 2009-11-20 02:45:25Z dermanomann $
+ * @version $Id$
  */
 class ZMBirthdayEmailCronJob implements ZMCronJob {
     private $offset_;

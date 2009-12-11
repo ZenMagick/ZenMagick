@@ -5,7 +5,7 @@
  *
  * @package org.zenmagick.plugins.unitTests.tests.misc
  * @author DerManoMann
- * @version $Id: TestResultList.php 2352 2009-06-29 09:27:55Z dermanomann $
+ * @version $Id$
  */
 class TestResultList extends ZMTestCase {
 

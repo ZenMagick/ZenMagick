@@ -5,7 +5,7 @@
  *
  * @package org.zenmagick.plugins.zm_token.tests
  * @author DerManoMann
- * @version $Id: SimpleProductAssociationHandler.php 2427 2009-07-14 10:24:33Z dermanomann $
+ * @version $Id$
  */
 class SimpleProductAssociationHandler extends ZMTestCase implements ZMProductAssociationHandler {
 

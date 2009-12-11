@@ -33,7 +33,7 @@ define('UNIT_TESTS_GROUP_OTHER', '@other');
  *
  * @package org.zenmagick.plugins.unitTests
  * @author DerManoMann
- * @version $Id: zm_tests.php 2534 2009-10-11 21:19:31Z dermanomann $
+ * @version $Id$
  */
 class ZMUnitTestsPlugin extends Plugin {
     private $tests;
@@ -61,7 +61,6 @@ class ZMUnitTestsPlugin extends Plugin {
     public function init() {
         parent::init();
         ZMSettings::set('zenmagick.mvc.templates.ext', '.php');
-        // should be 'views/tests'
         ZMUrlManager::instance()->setMapping('tests', array('template' => 'tests', 'view' => 'PluginView#plugin=unitTests', 'controller' => 'UnitTestsController'));
     }
 

@@ -31,7 +31,7 @@ define('RECAPTCHA_FIELD', 'recaptcha_response_field');
  *
  * @package org.zenmagick.plugins.recaptcha
  * @author mano
- * @version $Id: zm_recaptcha.php 2591 2009-11-11 03:48:45Z dermanomann $
+ * @version $Id$
  */
 class ZMRecaptchaPlugin extends Plugin {
     private $captchaEnabled_;

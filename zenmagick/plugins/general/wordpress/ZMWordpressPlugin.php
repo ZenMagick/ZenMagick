@@ -30,7 +30,7 @@ define('FILENAME_WP', 'wp');
  *
  * @package org.zenmagick.plugins.wordpress
  * @author DerManoMann
- * @version $Id: zm_wordpress.php 2696 2009-12-04 00:06:09Z dermanomann $
+ * @version $Id$
  */
 class ZMWordpressPlugin extends Plugin implements ZMRequestHandler {
     private $requestId_;

@@ -33,7 +33,7 @@ define('AUTO_LOGIN_OPT_IN', 'autoLogin');
  *
  * @package org.zenmagick.plugins.autoLogin
  * @author DerManoMann
- * @version $Id: zm_auto_login.php 2560 2009-11-02 20:08:36Z dermanomann $
+ * @version $Id$
  */
 class ZMAutoLoginPlugin extends Plugin implements ZMRequestHandler {
     private $cookieUpdated;

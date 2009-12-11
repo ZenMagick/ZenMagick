@@ -29,7 +29,7 @@
  *
  * @author mano
  * @package org.zenmagick.plugins.masterPassword
- * @version $Id: zm_master_password.php 2490 2009-07-27 10:50:36Z dermanomann $
+ * @version $Id$
  */
 class ZMMasterPasswordPlugin extends Plugin {
 

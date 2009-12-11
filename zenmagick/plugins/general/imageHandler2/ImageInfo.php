@@ -29,7 +29,7 @@
  *
  * @author mano
  * @package org.zenmagick.plugins.imageHandler2
- * @version $Id: ImageInfo.php 1966 2009-02-14 10:52:50Z dermanomann $
+ * @version $Id$
  */
 class ImageInfo extends ZMImageInfo {
     private $image_;

@@ -5,7 +5,7 @@
  *
  * @package org.zenmagick.plugins.phpbb3
  * @author DerManoMann
- * @version $Id: TestZMPhpBB3.php 2520 2009-09-29 18:54:37Z dermanomann $
+ * @version $Id$
  */
 class TestZMPhpBB3Adapter extends ZMTestCase {
     private $adapter_ = null;

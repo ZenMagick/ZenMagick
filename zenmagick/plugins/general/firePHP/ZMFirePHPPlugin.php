@@ -29,7 +29,7 @@
  *
  * @package org.zenmagick.plugins.firePHP
  * @author DerManoMann
- * @version $Id: zm_firephp.php 2351 2009-06-29 05:05:02Z dermanomann $
+ * @version $Id$
  */
 class ZMFirePHPPlugin extends Plugin {
 

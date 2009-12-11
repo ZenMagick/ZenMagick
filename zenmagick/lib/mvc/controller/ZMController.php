@@ -37,7 +37,7 @@ class ZMController extends ZMObject {
     /**
      * Create new instance.
      *
-     * @param string id Optional id; default is <code>null</code> to use the request name.
+     * @param string id Optional id; default is <code>null</code> to use the request id.
      */
     function __construct($id=null) {
         parent::__construct();
@@ -237,7 +237,7 @@ class ZMController extends ZMObject {
      */
     public function getFormBean($request) {
         if (null == $this->formData_ && null !== ($mapping = ZMUrlManager::instance()->findMapping($this->id_))) {
-            if (null !== $mapping['form']) {
+            if (array_key_exists('form', $mapping)) {
                 $this->formData_ =  ZMBeanUtils::getBean($mapping['form'].(false === strpos($viewInfo['view'], '#') ? '#' : '&').'formId='.$mapping['formId']);
                 if ($this->formData_ instanceof ZMFormData) {
                     $this->formData_->populate($request);

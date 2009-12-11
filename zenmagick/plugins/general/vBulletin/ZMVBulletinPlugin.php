@@ -100,7 +100,7 @@ class ZMVBulletinPlugin extends Plugin implements ZMRequestHandler {
         ZMEvents::instance()->attach($this);
 
         // register tests
-        if (null != ($tests = ZMPlugins::instance()->getPluginForId('zm_tests'))) {
+        if (null != ($tests = ZMPlugins::instance()->getPluginForId('tests'))) {
             // add class path only now to avoid errors due to missing ZMTestCase
             ZMLoader::instance()->addPath($this->getPluginDirectory().'tests/');
             $tests->addTest('TestZMVBulletin');

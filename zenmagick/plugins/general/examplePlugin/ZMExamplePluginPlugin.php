@@ -28,7 +28,7 @@
  *
  * @package org.zenmagick.plugins.examplePlugin
  * @author DerManoMann
- * @version $Id: sample_plugin.php 2488 2009-07-24 08:54:22Z dermanomann $
+ * @version $Id$
  */
 class ZMExamplePluginPlugin extends Plugin implements ZMRequestHandler {
 

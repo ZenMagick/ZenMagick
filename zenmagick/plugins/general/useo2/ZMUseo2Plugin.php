@@ -28,7 +28,7 @@
  *
  * @package org.zenmagick.plugins.useo2
  * @author mano
- * @version $Id: zm_useo2.php 2351 2009-06-29 05:05:02Z dermanomann $
+ * @version $Id$
  */
 class ZMUseo2Plugin extends Plugin {
 

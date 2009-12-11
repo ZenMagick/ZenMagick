@@ -5,7 +5,7 @@
  *
  * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann
- * @version $Id: TestValidationRules.php 2591 2009-11-11 03:48:45Z dermanomann $
+ * @version $Id$
  */
 class TestValidationRules extends ZMTestCase {
 

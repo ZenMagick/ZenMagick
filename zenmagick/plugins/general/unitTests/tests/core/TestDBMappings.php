@@ -5,7 +5,7 @@
  *
  * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann
- * @version $Id: TestDBMappings.php 2308 2009-06-24 11:03:11Z dermanomann $
+ * @version $Id$
  */
 class TestDBMappings extends ZMTestCase {
 

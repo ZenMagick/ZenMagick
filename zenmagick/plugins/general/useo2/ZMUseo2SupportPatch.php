@@ -32,7 +32,7 @@
  *
  * @author mano
  * @package org.zenmagick.plugins.useo2
- * @version $Id: ZMUltimateSeoSupportPatch.php 2002 2009-02-28 09:40:07Z dermanomann $
+ * @version $Id$
  */
 class ZMUseo2SupportPatch extends ZMFilePatch {
     private $adminFiles_ = array(

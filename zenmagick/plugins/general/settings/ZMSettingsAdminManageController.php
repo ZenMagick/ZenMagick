@@ -29,7 +29,7 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.plugins.settings
- * @version $Id: ZMSettingsAdminController.php 2610 2009-11-20 02:45:25Z dermanomann $
+ * @version $Id$
  */
 class ZMSettingsAdminManageController extends ZMPluginAdminController {
 

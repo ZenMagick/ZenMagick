@@ -28,7 +28,7 @@
  *
  * @package org.zenmagick.plugins.unitTests
  * @author DerManoMann
- * @version $Id: ZMWebTestCase.php 2409 2009-07-08 02:23:35Z dermanomann $
+ * @version $Id$
  */
 class ZMWebTestCase extends WebTestCase {
 

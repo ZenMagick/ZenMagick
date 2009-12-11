@@ -7,7 +7,7 @@
  *
  * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann
- * @version $Id: TestProductPricing.php 2023 2009-03-05 02:22:59Z dermanomann $
+ * @version $Id$
  */
 class TestProductPricing extends ZMTestCase {
 
