@@ -97,13 +97,16 @@ class ZMWordpressPlugin extends Plugin implements ZMRequestHandler {
         // set up view mappings used by the wp controller
         $view = 'PluginView#plugin=wordpress';
 
-        $urlManager = ZMUrlManager::instance();
-        $urlManager->setMapping(null, array('viewId' => FILENAME_WP.'_index', 'template' => FILENAME_WP.'/index', 'viewDefinition' => $view, 'controllerDefinition' => 'WordpressController'));
-        $urlManager->setMapping(null, array('viewId' => FILENAME_WP.'_single', 'view' => FILENAME_WP.'/single', 'viewDefinition' => $view, 'controllerDefinition' => 'WordpressController'));
-        $urlManager->setMapping(null, array('viewId' => FILENAME_WP.'_page', 'view' => FILENAME_WP.'/page', 'viewDefinition' => $view, 'controllerDefinition' => 'WordpressController'));
-        $urlManager->setMapping(null, array('viewId' => FILENAME_WP.'_archive', 'view' => FILENAME_WP.'/archive', 'viewDefinition' => $view, 'controllerDefinition' => 'WordpressController'));
-        $urlManager->setMapping(null, array('viewId' => FILENAME_WP.'_archives', 'view' => FILENAME_WP.'/archives', 'viewDefinition' => $view, 'controllerDefinition' => 'WordpressController'));
-        $urlManager->setMapping(null, array('viewId' => FILENAME_WP.'_search', 'view' => FILENAME_WP.'/search', 'viewDefinition' => $view, 'controllerDefinition' => 'WordpressController'));
+        ZMUrlManager::instance()->setMapping(FILENAME_WP, array(
+            'view' => 'PluginView#plugin=wordpress',
+            'controller' => 'WordpressController',
+            FILENAME_WP.'_index' => array('template' => FILENAME_WP.'/index'),
+            FILENAME_WP.'_single' => array('template' => FILENAME_WP.'/single'),
+            FILENAME_WP.'_page' => array('template' => FILENAME_WP.'/page'),
+            FILENAME_WP.'_archive' => array('template' => FILENAME_WP.'/archive'),
+            FILENAME_WP.'_archives' => array('template' => FILENAME_WP.'/archives'),
+            FILENAME_WP.'_search' => array('template' => FILENAME_WP.'/search')
+        ));
     }
 
     /**

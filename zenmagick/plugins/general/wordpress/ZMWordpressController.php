@@ -55,7 +55,7 @@ class ZMWordpressController extends ZMController {
      * {@inheritDoc}
      */
     public function processGet($request) {
-        $viewName = $this->plugin_->getRequestHandler()->handleRequest($request);
+        $viewName = $this->plugin_->getRequestHandler()->preProcess($request);
         return $this->findView($viewName);
     }
 

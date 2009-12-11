@@ -29,9 +29,12 @@ Please note that the comments form needs a custom hidden form field 'redirect_to
 to the ZenMagick view. If removed, the regular blog page will be displayed.
 Also, the action of the search form is not Wordpress standard and a hidden field 'main_page' has been added.
 
-
 Depending on your needs you might want to remove all Wordpress theme files in order to disable direct access (perhaps
 with the exception of the 404.php).
+
+To customize views, just copy the views/wp folder into your theme's content folder. So, the location of the wp
+index.php file should be zenmagick/themes/[YOUR_THEME]/content/views/wp/index.php.
+Theme view files always take precedence over the plugin version.
 
 
 Sidebar
