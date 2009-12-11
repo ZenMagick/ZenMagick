@@ -1,0 +1,158 @@
+#
+# ZenMagick cart default URL mappings
+#
+# $Id$
+#
+#
+address_book_edit: 
+  formId: address
+  model: Address
+  success: 
+    template: account
+    view: RedirectView
+address_book_add: 
+  formId: address
+  model: Address
+  template: address_book_create
+  success: 
+    template: account
+    view: RedirectView
+address_book_delete: 
+  success: 
+    template: account
+    view: RedirectView
+index: 
+  category: 
+    template: category
+    view: ForwardView
+discount_coupon: 
+  info: 
+    template: discount_coupon_info
+category: 
+  category_list: 
+    template: category_list
+  manufacturer: 
+    template: manufacturer
+  product_info: 
+    template: product_info
+    view: ForwardView
+login: 
+  success: 
+    template: account
+    view: RedirectView
+  account: 
+    template: account
+    view: RedirectView
+logoff: 
+  success: 
+    template: logoff
+    view: RedirectView
+password_forgotten: 
+  success: 
+    template: login
+    view: RedirectView
+checkout_guest: 
+  template: login
+  guest_checkout_disabled: 
+    template: login
+  success: 
+    template: checkout_shipping
+    view: RedirectView
+guest_history: 
+  success: 
+    template: account_history_info
+gv_redeem: 
+  formId: gvRedeem
+  model: GVRedeem
+gv_faq: 
+  formId: gvRedeem
+  model: GVRedeem
+gv_send: 
+  formId: gvReceiver
+  model: GVReceiver
+  success: 
+    template: gv_send_confirm
+gv_send_confirm: 
+  formId: gvReceiver
+  model: GVReceiver
+  edit: 
+    template: gv_send
+    view: ForwardView
+  success: 
+    template: account
+    view: RedirectView
+create_account: 
+  formId: registration
+  model: RegistrationForm
+  success: 
+    template: create_account_success
+    view: RedirectView
+account_edit: 
+  formId: account
+  model: AccountForm
+  success: 
+    template: account
+    view: RedirectView
+account_password: 
+  success: 
+    template: account
+    view: RedirectView
+account_newsletters: 
+  success: 
+    template: account
+    view: RedirectView
+account_notifications: 
+  success: 
+    template: account
+    view: RedirectView
+checkout_shipping: 
+  success: 
+    template: checkout_payment
+    view: RedirectView
+checkout_shipping_address: 
+  controller: 'CheckoutAddressController#mode=shipping'
+  formId: shippingAddress
+  model: Address
+  success: 
+    template: checkout_shipping
+    view: RedirectView
+checkout_payment: 
+  success: 
+    template: checkout_confirmation
+    view: RedirectView
+checkout_payment_address: 
+  controller: 'CheckoutAddressController#mode=billing'
+  formId: billingAddress
+  model: Address
+  success: 
+    template: checkout_payment
+    view: RedirectView
+redirect: 
+  success: 
+    template: index
+    view: RedirectView
+  error: 
+    template: index
+    view: ForwardView
+product_reviews_write: 
+  formId: newReview
+  model: Review
+  success: 
+    template: product_reviews
+    view: RedirectView
+contact_us: 
+  formId: contactUs
+  model: ContactInfo
+tell_a_friend: 
+  formId: tellAFriend
+  model: EmailMessage
+  success: 
+    template: product_info
+    view: RedirectView
+search: 
+  formId: searchCriteria
+  model: SearchCriteria
+advanced_search: 
+  controller: 'SearchController#autoSearch=false'
+  formId: searchCriteria
+  model: SearchCriteria

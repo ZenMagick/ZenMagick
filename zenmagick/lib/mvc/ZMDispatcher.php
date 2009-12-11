@@ -62,7 +62,7 @@ class ZMDispatcher {
             $view = $controller->process($request);
         } catch (Exception $e) {
             ZMLogging::instance()->dump($e, null, ZMLogging::ERROR);
-            $controller = ZMLoader::make(ZMSettings::get('zenmagick.mvc.controller.defaultClass', 'DefaultController'));
+            $controller = ZMLoader::make(ZMSettings::get('zenmagick.mvc.controller.default', 'DefaultController'));
             $view = $controller->findView('error', array('exception' => $e));
             $request->setController($controller);
         }

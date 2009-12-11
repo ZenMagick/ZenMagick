@@ -75,8 +75,11 @@ class ZMFormHandlerPlugin extends Plugin {
             $pages = explode(',', $pages);
             $secure = ZMLangUtils::asBoolean($this->get('secure'));
             foreach ($pages as $page) {
-                ZMUrlMapper::instance()->setMappingInfo($page, array('viewId' => $page, 'view' => $page, 'controllerDefinition' => 'FormHandlerController'));
-                ZMUrlMapper::instance()->setMappingInfo($page, array('viewId' => 'success', 'view' => $page, 'viewDefinition' => 'RedirectView', 'controllerDefinition' => 'FormHandlerController'));
+                ZMUrlManager::instance()->setMapping($page, array(
+                  'template' => $page, 
+                  'controller' => 'FormHandlerController',
+                  'success' => array('view' => 'RedirectView')
+                ));
             }
 
             if ($secure) {

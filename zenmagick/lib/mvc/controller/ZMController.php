@@ -216,17 +216,14 @@ class ZMController extends ZMObject {
      * @return ZMView The actual view to be used to render the response.
      */
     public function findView($id=null, $data=array(), $parameter=null) {
-        $viewDefinition = ZMUrlMapper::instance()->getViewDefinition($this->id_, $id, $parameter);
+        $view = ZMUrlManager::instance()->findView($this->id_, $id, $parameter);
 
-        // ensure secure option is set
+        // ensure secure option is set if required
         if (ZMSacsManager::instance()->requiresSecurity($this->id_)) {
-            $viewDefinition .= '&secure=true';
+            $view->setSecure(true);
         }
 
-        $view = ZMBeanUtils::getBean($viewDefinition);
-        if (null != $view) {
-            $view->setVars($data);
-        }
+        $view->setVars($data);
         $view->setController($this);
         $this->view_ = $view;
         return $view;
@@ -239,9 +236,9 @@ class ZMController extends ZMObject {
      * @return ZMView The actual view to be used to render the response.
      */
     public function getFormBean($request) {
-        if (null == $this->formData_ && null !== ($mapping = ZMUrlMapper::instance()->findMapping($this->id_))) {
-            if (null !== $mapping['formDefinition']) {
-                $this->formData_ =  ZMBeanUtils::getBean($mapping['formDefinition'].(false === strpos($viewInfo['viewDefinition'], '#') ? '#' : '&').'formId='.$mapping['formId']);
+        if (null == $this->formData_ && null !== ($mapping = ZMUrlManager::instance()->findMapping($this->id_))) {
+            if (null !== $mapping['form']) {
+                $this->formData_ =  ZMBeanUtils::getBean($mapping['form'].(false === strpos($viewInfo['view'], '#') ? '#' : '&').'formId='.$mapping['formId']);
                 if ($this->formData_ instanceof ZMFormData) {
                     $this->formData_->populate($request);
                 } else {

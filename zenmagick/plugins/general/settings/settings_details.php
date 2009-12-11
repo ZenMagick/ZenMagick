@@ -248,9 +248,16 @@
                 ),
                 'controller' => array(
                     array(
-                        'key' => 'defaultClass',
+                        'key' => 'default',
                         'type' => 'string',
-                        'desc' => 'Default controller class.'
+                        'desc' => 'Default controller definition.'
+                    )
+                ),
+                'view' => array(
+                    array(
+                        'key' => 'default',
+                        'type' => 'string',
+                        'desc' => 'Default view definition.'
                     )
                 ),
                 'resultlist' => array(

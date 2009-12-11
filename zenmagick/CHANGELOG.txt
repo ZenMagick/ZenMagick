@@ -98,6 +98,8 @@ Release 0.9.8
 - change full-release build to move the extras folder into install_zc
 - upgrade PasswordHash to version 0.2
 - add spyc: a simple YAML class.
+- refactor ZMUrlMapper into ZMUrlManager, adding YAML support for loading
+  mappings
 
 Release 0.9.7
 - add ZMProductAssociation service and related code

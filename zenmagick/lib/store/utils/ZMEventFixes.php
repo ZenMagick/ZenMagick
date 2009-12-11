@@ -186,7 +186,7 @@ class ZMEventFixes extends ZMObject {
             }
 
             // load default mappings
-            zm_set_default_url_mappings();
+            ZMUrlManager::instance()->load(file_get_contents(dirname(dirname(__FILE__))).DIRECTORY_SEPARATOR.'url_mappings.yaml');
             zm_set_default_sacs_mappings();
         }
 

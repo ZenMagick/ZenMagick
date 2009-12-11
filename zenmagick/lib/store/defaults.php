@@ -207,8 +207,8 @@
 
 
             // default controller and view class
-            'zenmagick.mvc.controller.defaultClass' => 'DefaultController',
-            'defaultViewClass' => 'SavantView',
+            'zenmagick.mvc.controller.default' => 'DefaultController',
+            'zenmagick.mvc.view.default' => 'SavantView',
 
             // default product association handler
             'defaultProductAssociationHandler' => 'SimilarOrderProductAssociationHandler',

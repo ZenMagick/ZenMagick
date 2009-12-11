@@ -33,7 +33,7 @@
  *
  * <p>The property may be set by specifying a controllerDefinition value in the <em>URL mapping</em>
  * like this:</p>
- * <p><code>ZMUrlMapper::instance()->setMappingInfo('create_account', array('controllerDefinition' => 'CreateAccountController#createDefaultAddress=false'));</code></p>
+ * <p><code>ZMUrlManager::instance()->setMapping('create_account', array('controller' => 'CreateAccountController#createDefaultAddress=false'), false);</code></p>
  *
  * @author DerManoMann
  * @package org.zenmagick.store.mvc.controller

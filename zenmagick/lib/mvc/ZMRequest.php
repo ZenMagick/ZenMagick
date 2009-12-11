@@ -247,14 +247,14 @@ class ZMRequest extends ZMObject {
      * Get the controller for this request.
      *
      * <p>In case the controller is not explicitely set, the method will use the url mapper
-     * (<code>ZMUrlMapper::findController()</code>) to determine a controller. This will then
+     * (<code>ZMUrlManager::findController()</code>) to determine a controller. This will then
      * be either a configured controller or the default controller.</p>
      *
      * @return ZMController The current controller.
      */
     public function getController() { 
         if (null === $this->controller_) {
-            $this->controller_ = ZMUrlMapper::instance()->findController($this->getRequestId());
+            $this->controller_ = ZMUrlManager::instance()->findController($this->getRequestId());
         }
 
         return $this->controller_; 
