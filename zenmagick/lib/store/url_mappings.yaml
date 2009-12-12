@@ -4,6 +4,35 @@
 # $Id$
 #
 #
+null:
+  error:
+    template: error
+  missing_page:
+    template: error
+  category_not_found:
+    template: error
+  product_not_found:
+    template: product_not_found
+  index:
+    template: index
+  login:
+    view: RedirectView
+    template: login
+  empty_cart:
+    view: RedirectView
+    template: shopping_cart
+  cart_not_ready:
+    view: RedirectView
+    template: shopping_cart
+  cart_is_virtual:
+    view: RedirectView
+    template: checkout_billing
+  check_cart:
+    view: RedirectView
+    template: shopping_cart
+  low_stock:
+    view: RedirectView
+    template: shopping_cart
 address_book_edit: 
   formId: address
   form: Address
