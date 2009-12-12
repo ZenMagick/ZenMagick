@@ -37,7 +37,7 @@
  * @version $Id$
  */
 class ZMUrlManager extends ZMObject {
-    private static $MAPPING_KEYS = array('controller', 'formId' , 'model' , 'view', 'template');
+    private static $MAPPING_KEYS = array('controller', 'formId' , 'form' , 'view', 'template');
     private $mappings_;
 
 

@@ -247,7 +247,7 @@ class ZMRequest extends ZMObject {
      * Get the controller for this request.
      *
      * <p>In case the controller is not explicitely set, the method will use the url mapper
-     * (<code>ZMUrlManager::findController()</code>) to determine a controller. This will then
+     * (<code>ZMUrlManager::instance()->findController()</code>) to determine a controller. This will then
      * be either a configured controller or the default controller.</p>
      *
      * @return ZMController The current controller.
