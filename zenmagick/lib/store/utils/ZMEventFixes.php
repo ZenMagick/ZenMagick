@@ -187,7 +187,7 @@ class ZMEventFixes extends ZMObject {
 
             // load default mappings, do not override!
             ZMUrlManager::instance()->load(file_get_contents(dirname(dirname(__FILE__)).DIRECTORY_SEPARATOR.'url_mappings.yaml'), false);
-            zm_set_default_sacs_mappings();
+            ZMSacsManager::instance()->load(file_get_contents(dirname(dirname(__FILE__)).DIRECTORY_SEPARATOR.'sacs_mappings.yaml'), false);
         }
 
         // always echo in admin

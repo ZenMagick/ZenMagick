@@ -79,11 +79,7 @@ class ZMUrlManager extends ZMObject {
      *  default is <code>true</code> to override.
      */
     public function load($yaml, $override=true) {
-        if ($override) {
-            $this->mappings_ = Spyc::YAMLLoadString($yaml);
-        } else {
-            $this->mappings_ = array_merge_recursive($this->mappings_, Spyc::YAMLLoadString($yaml));
-        }
+        $this->mappings_ = ZMRuntime::yamlLoad($yaml, $this->mappings_, $override);
     }
 
     /**

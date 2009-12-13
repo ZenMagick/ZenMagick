@@ -77,6 +77,17 @@ class ZMSacsManager extends ZMObject {
 
 
     /**
+     * Load mappings from a YAML style string.
+     *
+     * @param string yaml The yaml style mappings.
+     * @param boolean override Optional flag to control whether to override existing mappings or to merge;
+     *  default is <code>true</code> to override.
+     */
+    public function load($yaml, $override=true) {
+        $this->mappings_ = ZMRuntime::yamlLoad($yaml, $this->mappings_, $override);
+    }
+
+    /**
      * Add a <code>ZMSacsHandler</code>.
      *
      * @param ZMSacsHandler handler The new handler.
@@ -165,6 +176,10 @@ class ZMSacsManager extends ZMObject {
 
         if (!array_key_exists($requestId, $this->mappings_) || !array_key_exists($key, $this->mappings_[$requestId])) {
             return $default;
+        }
+
+        if ('secure' == $key) {
+            $this->mappings_[$requestId][$key] = ZMLangUtils::asBoolean($this->mappings_[$requestId][$key]);
         }
 
         return $this->mappings_[$requestId][$key];

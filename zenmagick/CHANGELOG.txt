@@ -100,6 +100,7 @@ Release 0.9.8
 - add spyc: a simple YAML class.
 - refactor ZMUrlMapper into ZMUrlManager, adding YAML support for loading
   mappings
+- add ZMRuntime::yamlLoad() to wrapp spyc
 
 Release 0.9.7
 - add ZMProductAssociation service and related code
