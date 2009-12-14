@@ -23,4 +23,4 @@
  * $Id: catalog_default_tab.php 2710 2009-12-11 03:11:53Z dermanomann $
  */
 ?>
-<h2><?php zm_l10n("Welcome to the new ZenMagick Catalog Manager") ?></h2>
+<h2><?php zm_l10n("Welcome to the ZenMagick Catalog Manager") ?></h2>
