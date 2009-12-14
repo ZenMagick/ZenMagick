@@ -77,6 +77,7 @@
 <script type="text/javascript" src="content/jquery/thickbox-3.1.pack.js"></script>
 
 <?php echo zm_catalog_tree(ZMCategories::instance()->getCategoryTree(), '', ZMSettings::get('admin.isShowCatalogTreeProducts')); ?>
+<?php $activeTab = 1; ?>
 <?php if (0 < count($tabInfo)) { ?>
     <div id="main-tab-container">
       <ul>
@@ -84,7 +85,6 @@
           <li><a href="#<?php echo $info['fkt'] ?>"><span><?php echo $info['item']->getTitle() ?></span></a></li>
         <?php } ?>
       </ul>
-      <?php $activeTab = 1; ?>
       <?php foreach ($tabInfo as $index => $info) { 
         if ($info['fkt'] == $selectedFkt) { $activeTab = ($index+1); }
         ?>
