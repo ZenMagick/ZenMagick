@@ -51,10 +51,7 @@ class ZMSavantView extends ZMView {
 
 
     /**
-     * Get the template path array for <em>Savant</em>.
-     *
-     * @param ZMRequest request The current request.
-     * @return array List of folders to use for template lookups.
+     * {@inheritDoc}
      */
     public function getTemplatePath($request) {
         return array($request->getTemplatePath());
@@ -91,11 +88,9 @@ class ZMSavantView extends ZMView {
     }
 
     /**
-     * Generate view response.
-     *
-     * @param ZMRequest request The current request.
+     * {@inheritDoc}
      */
-    public function generate($request) {
+    public function fetch($request, $template) {
         $savant = $this->getSavant($request);
 
         // put all vars into local scope
@@ -103,11 +98,18 @@ class ZMSavantView extends ZMView {
 
         // load template...
         try {
-            return $savant->fetch($this->getTemplate().ZMSettings::get('zenmagick.mvc.templates.ext', '.tpl'));
+            return $savant->fetch($template);
         } catch (Exception $e) {
-            ZMLogging::instance()->dump($e, 'failed to fetch template: '.$tpl, ZMLogging::ERROR);
-            throw new ZMException('failed to fetch template: '.$tpl, 0, $e);
+            ZMLogging::instance()->dump($e, 'failed to fetch template: '.$template, ZMLogging::ERROR);
+            throw new ZMException('failed to fetch template: '.$template, 0, $e);
         }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function generate($request) {
+        return $this->fetch($request, $this->getTemplate().ZMSettings::get('zenmagick.mvc.templates.ext', '.tpl'));
     }
 
 }

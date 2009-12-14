@@ -28,7 +28,7 @@
  * @package org.zenmagick.mvc.view
  * @version $Id$
  */
-class ZMView extends ZMObject {
+abstract class ZMView extends ZMObject {
     private $vars_;
     private $viewId_;
     private $template_;
@@ -128,6 +128,15 @@ class ZMView extends ZMObject {
     public function getEncoding() {
         return zm_i18n('HTML_CHARSET');
     }
+
+    /**
+     * Fetch template contents.
+     *
+     * @param request The current request.
+     * @param string template The template name.
+     * @return string The contents.
+     */
+    public abstract function fetch($request, $template);
 
 }
 
