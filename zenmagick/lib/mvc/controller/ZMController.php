@@ -92,7 +92,7 @@ class ZMController extends ZMObject {
         $formData = $this->getFormData($request);
         if (null == $view && null != $formData && $this->isFormSubmit($request)) {
             // move to function
-            if (null != ($view = $this->validateFormBean($request, $formData))) {
+            if (null != ($view = $this->validateFormData($request, $formData))) {
                 ZMLogging::instance()->log('validation failed for : '.$formData. '; returning: '.$view, ZMLogging::TRACE);
             }
         }
@@ -267,7 +267,7 @@ class ZMController extends ZMObject {
      * @param mixed formData An object.
      * @return ZMView Either the error view (in case of validation errors), or <code>null</code> for success.
      */
-    protected function validateFormBean($request, $formData) {
+    protected function validateFormData($request, $formData) {
         if (!$this->validate($request, $formData->getFormId(), $formData)) {
             // back to same form
             $view = $this->findView();

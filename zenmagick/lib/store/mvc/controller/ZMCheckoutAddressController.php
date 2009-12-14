@@ -78,20 +78,22 @@ class ZMCheckoutAddressController extends ZMController {
 
         $addressList = ZMAddresses::instance()->getAddressesForAccountId($request->getAccountId());
         $this->viewData_['zm_addressList'] = $addressList;
-        $address = $this->getFormData($request);
-        $address->setPrimary(0 == count($addressList));
+        if (null != ($address = $this->getFormData($request))) {
+            $address->setPrimary(0 == count($addressList));
+        }
     }
 
     /**
      * {@inheritDoc}
      */
-    protected function validateFormBean($request, $formBean) {
+    protected function validateFormData($request, $formBean) {
         $addressId = $request->getParameter('addressId', null);
         if (null !== $addressId) {
             // selected existing address, so do not validate
             return null;
         }
-        return parent::validateFormBean($request, $formBean);
+
+        return parent::validateFormData($request, $formBean);
     }
 
     /**

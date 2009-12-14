@@ -124,6 +124,9 @@ class ZMUrlManager extends ZMObject {
      */
     public function findMapping($requestId, $viewId=null, $parameter=null) {
         ZMLogging::instance()->log('find mapping: requestId='.$requestId.', viewId='.$viewId.', parameter='.$parameter, ZMLogging::TRACE);
+        if (null == $requestId && null == $viewId) {
+            throw new ZMException('invalid arguments');
+        }
 
         $mapping = null;
         if (!array_key_exists($requestId, $this->mappings_)) {
