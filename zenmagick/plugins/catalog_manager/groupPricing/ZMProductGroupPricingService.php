@@ -32,7 +32,7 @@ define('ZM_TABLE_GROUP_PRICING', ZM_DB_PREFIX . 'zm_group_pricing');
  *
  * @author DerManoMann
  * @package org.zenmagick.plugins.groupPricing
- * @version $Id: ZMProductGroupPricingService.php 2703 2009-12-08 03:35:10Z dermanomann $
+ * @version $Id$
  */
 class ZMProductGroupPricingService extends ZMObject {
 

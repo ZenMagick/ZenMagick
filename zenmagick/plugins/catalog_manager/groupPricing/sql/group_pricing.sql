@@ -1,7 +1,7 @@
 #
 # ZenMagick group pricing plugin SQL
 #
-# $Id: group_pricing.sql 2703 2009-12-08 03:35:10Z dermanomann $
+# $Id$
 #
 
 #

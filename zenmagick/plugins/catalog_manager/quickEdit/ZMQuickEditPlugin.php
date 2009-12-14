@@ -28,7 +28,7 @@
  *
  * @package org.zenmagick.plugins.quickEdit
  * @author DerManoMann
- * @version $Id: ZMQuickEditPlugin.php 2710 2009-12-11 03:11:53Z dermanomann $
+ * @version $Id$
  */
 class ZMQuickEditPlugin extends Plugin implements ZMRequestHandler {
 

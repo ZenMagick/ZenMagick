@@ -29,7 +29,7 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.plugins.groupPricing
- * @version $Id: Offers.php 2703 2009-12-08 03:35:10Z dermanomann $
+ * @version $Id$
  */
 class Offers extends ZMOffers {
 

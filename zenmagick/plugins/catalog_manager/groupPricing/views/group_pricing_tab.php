@@ -20,7 +20,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  *
- * $Id: group_pricing_tab.php 2703 2009-12-08 03:35:10Z dermanomann $
+ * $Id$
  */
 ?>
   <form action="<?php $toolbox->admin->url() ?>" method="GET">

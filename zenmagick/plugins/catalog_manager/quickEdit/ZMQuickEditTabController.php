@@ -29,7 +29,7 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.plugins.quickEdit
- * @version $Id: ZMQuickEditTabController.php 2710 2009-12-11 03:11:53Z dermanomann $
+ * @version $Id$
  */
 class ZMQuickEditTabController extends ZMPluginAdminController {
 

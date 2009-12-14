@@ -20,7 +20,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  *
- * $Id: quick_edit_tab.php 2710 2009-12-11 03:11:53Z dermanomann $
+ * $Id$
  */
 ?>
 <?php

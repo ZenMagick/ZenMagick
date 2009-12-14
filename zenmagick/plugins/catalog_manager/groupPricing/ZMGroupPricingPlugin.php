@@ -29,7 +29,7 @@
  *
  * @package org.zenmagick.plugins.groupPricing
  * @author DerManoMann
- * @version $Id: ZMGroupPricingPlugin.php 2703 2009-12-08 03:35:10Z dermanomann $
+ * @version $Id$
  */
 class ZMGroupPricingPlugin extends Plugin implements ZMRequestHandler {
 

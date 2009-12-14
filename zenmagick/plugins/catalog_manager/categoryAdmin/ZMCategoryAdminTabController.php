@@ -28,16 +28,16 @@
  * Admin controller.
  *
  * @author DerManoMann
- * @package org.zenmagick.plugins.groupPricing
+ * @package org.zenmagick.plugins.quickEdit
  * @version $Id$
  */
-class ZMGroupPricingTabController extends ZMPluginAdminController {
+class ZMCategoryAdminTabController extends ZMPluginAdminController {
 
     /**
      * Create new instance.
      */
     function __construct() {
-        parent::__construct('group_pricing_tab', zm_l10n_get('Group Pricing'), 'groupPricing');
+        parent::__construct('category_admin_tab', zm_l10n_get('Category Admin'), 'categoryAdmin');
     }
 
 
@@ -45,29 +45,32 @@ class ZMGroupPricingTabController extends ZMPluginAdminController {
      * {@inheritDoc}
      */
     public function processGet($request) {
-        $priceGroups = ZMGroupPricing::instance()->getPriceGroups();
-        $groupId = $request->getParameter('groupId', $priceGroups[0]->getId());
-
         // need to do this to for using PluginAdminView rather than SimplePluginFormView
-        return $this->findView(null, array('groupId' => $groupId, 'priceGroups' => $priceGroups));
+        return $this->findView();
     }
 
     /**
      * {@inheritDoc}
      */
     public function processPost($request) {
-        $groupPricingService = ZMLoader::make("ProductGroupPricingService");
-
-        $productGroupPricing = ZMLoader::make("ProductGroupPricing");
-        $productGroupPricing->populate();
-        if (0 == $productGroupPricing->getId()) {
-            // create
-            $productGroupPricing = $groupPricingService->createProductGroupPricing($productGroupPricing);
-        } else {
-            // update
-            $productGroupPricing = $groupPricingService->updateProductGroupPricing($productGroupPricing);
+        $languageId = $request->getParameter('languageId', Runtime::getLanguage()->getId());
+        $category = ZMCategories::instance()->getCategoryForId($request->getCategoryId(), $languageId);
+        $category->setActive($request->getParameter('status'), false);
+        $category->setName($request->getParameter('categoryName'));
+        $category->setDescription($request->getParameter('categoryDescription', '', false));
+        $imageName = $request->getParameter('imageName');
+        if (!empty($imageName)) {
+            $category->setImage($imageName);
         }
-        return $this->getCatalogManagerRedirectView($request);
+        if ($request->getParameter('imageDelete')) {
+            $category->setImage('');
+        }
+        $category->setSortOrder($request->getParameter('sortOrder'));
+        ZMCategories::instance()->updateCategory($category);
+        ZMMessages::instance()->success(zm_l10n_get('Category updated'));
+
+        // need to do this to for using PluginAdminView rather than SimplePluginFormView
+        return $this->findView();
     }
 
 }

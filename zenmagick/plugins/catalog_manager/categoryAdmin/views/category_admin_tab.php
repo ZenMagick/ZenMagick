@@ -25,18 +25,17 @@
 ?>
 <?php
 
-    $toolbox = ZMRequest::instance()->getToolbox();
     $currentLanguage = Runtime::getLanguage();
-    $selectedLanguageId = ZMRequest::instance()->getParameter('languageId', $currentLanguage->getId());
+    $selectedLanguageId = $request->getParameter('languageId', $currentLanguage->getId());
 
-    $category = ZMCategories::instance()->getCategoryForId(ZMRequest::instance()->getCategoryId(), $selectedLanguageId);
+    $category = ZMCategories::instance()->getCategoryForId($request->getCategoryId(), $selectedLanguageId);
     if (null === $category) {
         $category = ZMLoader::make("Category");
         $category->setName('** new category **');
 
         // set a few defaults from the default language category
         $defaultLanguage = ZMLanguages::instance()->getLanguageForCode(ZMSettings::get('defaultLanguageCode'));
-        $defaultCategory = ZMCategories::instance()->getCategoryForId(ZMRequest::instance()->getCategoryId(), $defaultLanguage->getId());
+        $defaultCategory = ZMCategories::instance()->getCategoryForId($request->getCategoryId(), $defaultLanguage->getId());
         if (null != $defaultCategory) {
             // only if exist (might not be the case if category is all new)
             $category->setName($defaultCategory->getName());
@@ -47,17 +46,20 @@
 
 ?>
 
-  <?php $toolbox->form->open('', $zm_nav_params, false, array('method'=>'get')) ?>
-    <div><input type="hidden" name="fkt" value="zm_category_admin"></div>
+  <form action="<?php $toolbox->admin->url(null, $defaultUrlParams) ?>" method="GET">
+    <div>
+      <input type="hidden" name="main_page" value="catalog_manager">
+      <input type="hidden" name="fkt" value="CategoryAdminTab">
+    </div>
     <h2><?php echo $category->getName() ?> ( <select id="languageId" name="languageId" onChange="this.form.submit();">
-                <?php foreach (ZMLanguages::instance()->getLanguages() as $language) { ?>
-                  <?php $selected = $selectedLanguageId == $language->getId() ? ' selected="selected"' : ''; ?>
-                  <option value="<?php echo $language->getId() ?>"<?php echo $selected ?>><?php echo $language->getName() ?></option>
-                <?php } ?>
-              </select> )</h2>
+      <?php foreach (ZMLanguages::instance()->getLanguages() as $language) { ?>
+        <?php $selected = $selectedLanguageId == $language->getId() ? ' selected="selected"' : ''; ?>
+        <option value="<?php echo $language->getId() ?>"<?php echo $selected ?>><?php echo $language->getName() ?></option>
+      <?php } ?>
+    </select> )</h2>
   </form>
 
-  <?php $toolbox->form->open('', $zm_nav_params) ?>
+  <form action="<?php $toolbox->admin->url(null, $defaultUrlParams) ?>" method="POST">
     <fieldset>
         <legend>General</legend>
         <input type="checkbox" id="status" name="status" value="1" <?php $toolbox->form->checked($category->isActive()) ?>> <label for="status">Status</label>
@@ -111,7 +113,8 @@
 
     <h3>Full update, move, delete, create coming ...</h3>
     <div class="btn">
-        <input type="hidden" name="fkt" value="zm_category_admin">
+        <input type="hidden" name="main_page" value="catalog_manager">
+        <input type="hidden" name="fkt" value="CategoryAdminTab">
         <input type="hidden" name="languageId" value="<?php echo $selectedLanguageId ?>">
         <?php if (0 < $category->getId()) { ?>
             <input type="submit" class="btn" name="update" value="Update">

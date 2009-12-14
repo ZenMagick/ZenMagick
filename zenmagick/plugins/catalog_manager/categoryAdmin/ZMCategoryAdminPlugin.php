@@ -25,13 +25,13 @@
 
 
 /**
- * Plugin adding category maintenance.
+ * Plugin adding category maintenance to the catalog manager.
  *
- * @package org.zenmagick.plugins.zm_category_admin
+ * @package org.zenmagick.plugins.categoryAdmin
  * @author DerManoMann
  * @version $Id$
  */
-class zm_category_admin extends Plugin implements ZMRequestHandler {
+class ZMCategoryAdminPlugin extends Plugin implements ZMRequestHandler {
 
     /**
      * Create new instance.
@@ -40,7 +40,7 @@ class zm_category_admin extends Plugin implements ZMRequestHandler {
         parent::__construct('Category Maintenance', 'Category Management', '${zenmagick.version}');
         $this->setLoaderPolicy(ZMPlugin::LP_FOLDER);
         $this->setPreferredSortOrder(5);
-        $this->setScope(Plugin::SCOPE_ADMIN);
+        $this->setContext(Plugin::CONTEXT_ADMIN);
     }
 
     /**
@@ -58,8 +58,8 @@ class zm_category_admin extends Plugin implements ZMRequestHandler {
         $categoryId = $request->getCategoryId();
         if (0 < $categoryId) {
             // only available if category involved
-            $this->addMenuItem('zm_category_admin', zm_l10n_get('Category'), 'zm_category_admin', ZMAdminMenu::MENU_CATALOG_MANAGER_TAB);
-            if (!ZMSettings::get('admin.isShowCatalogTreeProducts')) {
+            $this->addMenuItem('categoryAdminTab', zm_l10n_get('Category'), 'CategoryAdminTab', ZMAdminMenu::MENU_CATALOG_MANAGER_TAB);
+            if (false && !ZMSettings::get('admin.isShowCatalogTreeProducts')) {
                 if (0 < count(ZMProducts::instance()->getProductIdsForCategoryId($categoryId, false))) {
                     $this->addMenuItem('zm_category_admin_list', zm_l10n_get('Products'), 'zm_category_admin_list', ZMAdminMenu::MENU_CATALOG_MANAGER_TAB);
                 }
