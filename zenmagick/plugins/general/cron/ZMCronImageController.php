@@ -36,7 +36,7 @@ class ZMCronImageController extends ZMController {
     /**
      * {@inheritDoc}
      */
-    public function process($request) { 
+    public function processGet($request) { 
         $plugin = ZMPlugins::instance()->getPluginForId('cron');
         header("Content-Type: image/gif");
 

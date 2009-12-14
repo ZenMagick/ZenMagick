@@ -58,6 +58,7 @@ class ZMController extends ZMObject {
      * Process a HTTP request.
      *
      * <p>Supported request methods are <code>GET</code> and <code>POST</code>.</p>
+     * <p><strong>This method should not be overridded!</strong>.</p>
      *
      * @param ZMRequest request The request to process.
      * @return ZMView A <code>ZMView</code> instance or <code>null</code>.

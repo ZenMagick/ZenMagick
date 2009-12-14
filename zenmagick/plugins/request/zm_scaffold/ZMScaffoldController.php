@@ -71,10 +71,8 @@ class ZMScaffoldController extends ZMController {
 
     /**
      * {@inhertDoc}
-     *
-     * <p>Supports CRUD style processing of a single database table.</p>
      */
-    public function process($request) {
+    public function preProcess($request) {
         // check access on controller level
         ZMSacsManager::instance()->authorize($request, $request->getRequestId(), $request->getAccount());
 
@@ -82,8 +80,6 @@ class ZMScaffoldController extends ZMController {
         $page = $this->getId().'#'.$this->method_;
         ZMSacsManager::instance()->ensureAccessMethod($page);
         ZMSacsManager::instance()->authorize($request, $page, $request->getAccount());
-
-        return parent::process($request);
     }
 
     /**

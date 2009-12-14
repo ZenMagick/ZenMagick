@@ -49,27 +49,18 @@ class ZMCategoryController extends ZMController {
 
 
     /**
-     * Process a HTTP request.
-     *
-     * <p>Supported request methods are <code>GET</code> and <code>POST</code>.</p>
-     *
-     * @return ZMView A <code>ZMView</code> instance or <code>null</code>.
+     * {@inheritDoc}
      */
-    function process($request) { 
+    public function preProcess($request) { 
         $request->getToolbox()->crumbtrail->addCategoryPath($request->getCategoryPathArray());
         $request->getToolbox()->crumbtrail->addManufacturer($request->getManufacturerId());
         $request->getToolbox()->crumbtrail->addProduct($request->getProductId());
-
-        return parent::process($request);
     }
 
     /**
-     * Process a HTTP GET request.
-     * 
-     * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
-     * if the controller generates the contents itself.
+     * {@inheritDoc}
      */
-    function processGet($request) {
+    public function processGet($request) {
         $viewName = 'error';
         $method = null;
         $args = null;

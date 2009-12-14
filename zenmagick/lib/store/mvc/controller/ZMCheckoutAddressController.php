@@ -97,23 +97,25 @@ class ZMCheckoutAddressController extends ZMController {
     }
 
     /**
-     * {@inheritDoc}
+     * Custom cart checker
      */
-    public function process($request) {
+    protected function checkCart($request) {
         $checkoutHelper = ZMLoader::make('CheckoutHelper', $request->getShoppingCart());
         if (null !== ($viewId = $checkoutHelper->validateCheckout())) {
-            // this is before preProcess, so let's call it!
-            $this->preProcess($request);
-            return $this->findView(null, $this->viewData_);
+            return $this->findView($viewId, $this->viewData_);
         }
 
-        return parent::process($request);
+        return null;
     }
 
     /**
      * {@inheritDoc}
      */
     public function processGet($request) {
+        if (null != ($result = $this->checkCart($request))) {
+            return $result;
+        }
+
         return $this->findView(null, $this->viewData_);
     }
 
@@ -121,6 +123,10 @@ class ZMCheckoutAddressController extends ZMController {
      * {@inheritDoc}
      */
     public function processPost($request) {
+        if (null != ($result = $this->checkCart($request))) {
+            return $result;
+        }
+
         $shoppingCart = $request->getShoppingCart();
         // which addres do we update?
         $method = $this->settings_['method'];

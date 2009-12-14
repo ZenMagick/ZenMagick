@@ -229,7 +229,7 @@ class ZMCheckoutHelper extends ZMObject {
                 if ($messages) {
                     ZMMessages::instance()->warn('Products marked as "Out Of Stock" will be placed on backorder.');
                 }
-                return false;
+                return true;
             } else {
                 if ($messages) {
                     ZMMessages::instance()->error('The shopping cart contains products currently out of stock. To checkout you may either lower the quantity or remove those products from the cart.');

@@ -129,7 +129,7 @@ class ZMUrlManager extends ZMObject {
         }
 
         $mapping = null;
-        if (!array_key_exists($requestId, $this->mappings_)) {
+        if (!array_key_exists($requestId, $this->mappings_) || (null != $viewId && array_key_exists($viewId, $this->mappings_['null']))) {
             // try global mappings
             $requestId = 'null';
         }
