@@ -21,6 +21,10 @@ class TestZMUrlManager extends ZMTestCase {
         // test store mapping
         $mapping = ZMUrlManager::instance()->findMapping('foo', 'empty_cart');
         $this->assertEqual(array('controller'=>null,'formId'=>null,'form'=>null,'view'=>'RedirectView','template'=>'shopping_cart'), $mapping);
+
+        // test store mapping
+        $mapping = ZMUrlManager::instance()->findMapping(null, 'low_stock');
+        $this->assertEqual(array('controller'=>null,'formId'=>null,'form'=>null,'view'=>'RedirectView','template'=>'shopping_cart'), $mapping);
     }
 
 }
