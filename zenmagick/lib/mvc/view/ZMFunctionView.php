@@ -44,10 +44,16 @@ class ZMFunctionView extends ZMView {
         parent::__destruct();
     }
 
+
     /**
-     * Generate view response.
-     *
-     * @param ZMRequest request The current request.
+     * {@inheritDoc}
+     */
+    public function fetch($request, $template) {
+        throw new ZMException('not supported');
+    }
+
+    /**
+     * {@inheritDoc}
      */
     public function generate($request) {
         ob_start();

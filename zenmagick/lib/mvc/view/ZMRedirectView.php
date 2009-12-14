@@ -62,6 +62,13 @@ class ZMRedirectView extends ZMView {
     /**
      * {@inheritDoc}
      */
+    public function fetch($request, $template) {
+        throw new ZMException('not supported');
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function generate($request) { 
         $url = null;
         if (null != $this->url_) {

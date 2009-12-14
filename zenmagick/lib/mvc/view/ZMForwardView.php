@@ -50,6 +50,13 @@ class ZMForwardView extends ZMView {
     /**
      * {@inheritDoc}
      */
+    public function fetch($request, $template) {
+        throw new ZMException('not supported');
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function isValid() {
         return !ZMlangUtils::isEmpty($this->getTemplate());
     }
