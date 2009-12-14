@@ -81,7 +81,7 @@
 
       <?php if (ZMTemplateManager::instance()->isRightColEnabled()) { ?>
         <div id="rightcol">
-          <!-- block::leftColumn -->
+          <!-- block::rightColumn -->
         </div>
       <?php } ?>
 
