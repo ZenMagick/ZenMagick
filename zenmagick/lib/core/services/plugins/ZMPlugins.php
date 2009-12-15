@@ -369,10 +369,11 @@ class ZMPlugins extends ZMObject {
             }
         }
 
-        $pluginLoader->loadStatic();
-
         // plugins prevail over defaults, *and* themes
         ZMLoader::instance()->setParent($pluginLoader);
+
+        // do *after* the loader is active to allow to use plugin classes in static contents!
+        $pluginLoader->loadStatic();
 
         // do the actual init only after all plugins have been loaded to allow
         // them to depend on each other
