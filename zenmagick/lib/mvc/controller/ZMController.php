@@ -127,7 +127,8 @@ class ZMController extends ZMObject {
             $view->setVar('toolbox', $toolbox);
             // also set individual tools
             $view->setVars($toolbox->getTools());
-            if (null != $formData) {
+            if (null != $formData && !array_key_exists($formData->getFormId(), $view->getVars())) {
+                // avoid overriding default data set by the controller
                 $view->setVar($formData->getFormId(), $formData);
             }
 

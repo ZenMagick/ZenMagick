@@ -68,7 +68,7 @@ class ZMStateOrZoneIdRule extends ZMRule {
 
         //todo: this should not be here, but in the corresponding controller classes - BEFORE the validation is done
         $state = $data['state'];
-        $state = $data['zoneId'];
+        $zoneId = $data['zoneId'];
         $zones = ZMCountries::instance()->getZonesForCountryId($data['countryId']);
         $valid = false;
         if (0 < count ($zones)) {
