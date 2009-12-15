@@ -101,6 +101,8 @@ Release 0.9.8
 - refactor ZMUrlMapper into ZMUrlManager, adding YAML support for loading
   mappings
 - add ZMRuntime::yamlLoad() to wrapp spyc
+- create individual versions of init_includes used; add code to admin to load
+  language defines for converted admin pages
 
 Release 0.9.7
 - add ZMProductAssociation service and related code
