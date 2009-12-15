@@ -39,7 +39,7 @@ interface ZMBlockContents {
      * @param array args Optional arguments; typically this will be arguments of the <code>finalise_contents</code> event.
      * @return string The content.
      */
-    public function getContents($args);
+    public function getBlockContents($args);
 
 }
 

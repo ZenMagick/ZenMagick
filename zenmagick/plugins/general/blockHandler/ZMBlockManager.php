@@ -104,7 +104,7 @@ class ZMBlockManager extends ZMObject {
             $blockContents = '';
             if (array_key_exists($blockId, $this->blocks_)) {
                 foreach ($this->blocks_[$blockId] as $block) {
-                    $blockContents .= $block->getContents($args);
+                    $blockContents .= $block->getBlockContents($args);
                 }
                 // custom pattern for each block
                 $pattern = str_replace('(\S*)', $blockId, self::BLOCK_PATTERN);

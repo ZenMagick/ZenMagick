@@ -55,7 +55,7 @@ class ZMSideboxBlockContents extends ZMObject implements ZMBlockContents {
     /**
      * {@inheritDoc}
      */
-    public function getContents($args) {
+    public function getBlockContents($args) {
         $request = $args['request'];
         $view = $args['view'];
         return $view->fetch($request, 'boxes/'.$this->box_);
