@@ -25,46 +25,22 @@
 
 
 /**
- * Allows to manage blocks of template space by adding formatted HTML comments.
+ * Interface for for block content provider.
  *
- * <p>Later, the content to be inserted at those comments can be assigned via UI.</p>
+ * <p>Classes that generate block contents can implement this interface and then
+ * register themselfs via the setting 'plugins.blockHandler.blockContentsProviders'.</p>
  *
  * @package org.zenmagick.plugins.blockHandler
  * @author DerManoMann
  * @version $Id$
  */
-class ZMBlockHandlerPlugin extends Plugin {
-
+interface ZMBlockContentsProvider {
     /**
-     * Create new instance.
+     * Return list of block contents availabe from this provider.
+     *
+     * @return array List of block contents objects or bean definitions.
      */
-    function __construct() {
-        parent::__construct('Block Handler', 'Generic content management via HTML comments', '${plugin.version}');
-        $this->setLoaderPolicy(ZMPlugin::LP_FOLDER);
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function init() {
-        parent::init();
-        // force creating service instance
-        ZMBlockManager::instance();
-        if (!ZMLangUtils::asBoolean(ZMSettings::get('isAdmin'))) {
-            // handle storefront
-            ZMEvents::instance()->attach(ZMBlockManager::instance());
-        }
-
-        $this->addMenuItem('BlockHandlerAdmin', zm_l10n_get('Block Handler Admin'), 'BlockHandlerAdmin');
-    }
-
+    public function getBlockContentsList();
 }
 
 ?>

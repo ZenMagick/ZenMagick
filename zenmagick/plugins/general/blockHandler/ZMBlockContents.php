@@ -34,6 +34,13 @@
 interface ZMBlockContents {
 
     /**
+     * Get the name (for UI).
+     *
+     * @return string The name.
+     */
+    public function getName();
+
+    /**
      * Get the contents for this block.
      *
      * @param array args Optional arguments; typically this will be arguments of the <code>finalise_contents</code> event.

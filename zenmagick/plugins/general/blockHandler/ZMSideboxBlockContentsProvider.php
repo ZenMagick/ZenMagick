@@ -23,58 +23,36 @@
 ?>
 <?php
 
+
 /**
- * Sidebox block contents implementation.
+ * Block contents provider for sideboxes.
  *
  * @author DerManoMann
  * @package org.zenmagick.plugins.blockHandler
  * @version $Id$
  */
-class ZMSideboxBlockContents extends ZMObject implements ZMBlockContents {
-    private $box_;
-
-
-    /**
-     * Create new instance.
-     *
-     * @param string box The box name/template; default is <code>null</code>.
-     */
-    function __construct($box=null) {
-        parent::__construct();
-        $this->setBox($box);
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
-
+class ZMSideboxBlockContentsProvider implements ZMBlockContentsProvider {
 
     /**
      * {@inheritDoc}
      */
-    public function getName() {
-        return "Sidebox: ".str_replace('.php', '', $this->box_);
-    }
+    public function getBlockContentsList() {
+        $mapping = array();
+        if (ZMTemplateManager::instance()->isLeftColEnabled()) {
+            foreach (ZMTemplateManager::instance()->getLeftColBoxNames() as $box) {
+                // avoid duplicates by using $box as key
+                $mapping[$box] = 'SideboxBlockContents#box='.$box;
+            }
+        }
 
-    /**
-     * {@inheritDoc}
-     */
-    public function getBlockContents($args) {
-        $request = $args['request'];
-        $view = $args['view'];
-        return $view->fetch($request, 'boxes/'.$this->box_);
-    }
+        if (ZMTemplateManager::instance()->isRightColEnabled()) {
+            foreach (ZMTemplateManager::instance()->getRightColBoxNames() as $box) {
+                // avoid duplicates by using $box as key
+                $mapping[$box] = 'SideboxBlockContents#box='.$box;
+            }
+        }
 
-    /**
-     * Set the box.
-     *
-     * @param string box The sidebox template name (incl. the <em>.php</em> suffix).
-     */
-    public function setBox($box) {
-        $this->box_ = $box;
+        return $mapping;
     }
 
 }

@@ -38,7 +38,7 @@
  */
 class ZMBlockManager extends ZMObject {
     const BLOCK_PATTERN = '/<!\-\-\s+block::(\S*)\s+\-\->/';
-    private $blocks_;
+    private $mappings_;
 
 
     /**
@@ -46,7 +46,7 @@ class ZMBlockManager extends ZMObject {
      */
     function __construct() {
         parent::__construct();
-        $this->blocks_ = array();
+        $this->mappings_ = array();
     }
 
     /**
@@ -68,13 +68,14 @@ class ZMBlockManager extends ZMObject {
      * Register a new block.
      *
      * @param string blockId The block id.
-     * @param ZMBlockContent block The new block.
+     * @param mixed block The new block as either an instance of <code>ZMBlockContent</code>
+     *  or a bean definition thereof.
      */
     public function registerBlock($blockId, $block) {
-        if (!array_key_exists($blockId, $this->blocks_)) {
-            $this->blocks_[$blockId] = array();
+        if (!array_key_exists($blockId, $this->mappings_)) {
+            $this->mappings_[$blockId] = array();
         }
-        $this->blocks_[$blockId][] = $block;
+        $this->mappings_[$blockId][] = $block;
     }
 
     /**
@@ -92,6 +93,39 @@ class ZMBlockManager extends ZMObject {
     }
 
     /**
+     * Set block mappings.
+     *
+     * <p>Replace existing mappings.</p>
+     *
+     * @param array mappings The new mappings.
+     */
+    public function setMappings($mappings) {
+        $this->mappings_ = $mappings;
+    }
+
+    /**
+     * Get the block mapppings.
+     *
+     * <p>This method will instantiate all blocks registered as bean definition, so use with care.</p>
+     *
+     * @return array Map of all registered blocks.
+     */
+    public function getMappings() {
+        $mappings = array();
+        foreach ($this->mappings_ as $blockId => $blockList) {
+            $mappings[$blockId] = array();
+            foreach ($blockList as $ii => $block) {
+                if (is_string($block)) {
+                    $this->mappings_[$blockId][$ii] = $block = ZMBeanUtils::getBean($block);
+                }
+                $mappings[$blockId][] = $block;
+            }
+        }
+
+        return $mappings;
+    }
+
+    /**
      * Handle callback to actualy manipulate the HTML response.
      */
     public function onZMFinaliseContents($args) {
@@ -102,8 +136,11 @@ class ZMBlockManager extends ZMObject {
         $blockIds = $this->parseBlocks($contents);
         foreach ($blockIds as $blockId) {
             $blockContents = '';
-            if (array_key_exists($blockId, $this->blocks_)) {
-                foreach ($this->blocks_[$blockId] as $block) {
+            if (array_key_exists($blockId, $this->mappings_)) {
+                foreach ($this->mappings_[$blockId] as $ii => $block) {
+                    if (is_string($block)) {
+                        $this->mappings_[$blockId][$ii] = $block = ZMBeanUtils::getBean($block);
+                    }
                     $blockContents .= $block->getBlockContents($args);
                 }
                 // custom pattern for each block
