@@ -69,12 +69,16 @@ class ZMBlockHandlerPlugin extends Plugin {
         // this should perhaps come from the database, whereever as there might be more contents, so
         // the sort order must be determined beforehand
 
-        foreach (ZMTemplateManager::instance()->getLeftColBoxNames() as $box) {
-            ZMBlockManager::instance()->registerBlock('leftColumn', new ZMSideboxBlockContents($box));
+        if (ZMTemplateManager::instance()->isLeftColEnabled()) {
+            foreach (ZMTemplateManager::instance()->getLeftColBoxNames() as $box) {
+                ZMBlockManager::instance()->registerBlock('leftColumn', new ZMSideboxBlockContents($box));
+            }
         }
 
-        foreach (ZMTemplateManager::instance()->getRightColBoxNames() as $box) {
-            ZMBlockManager::instance()->registerBlock('rightColumn', new ZMSideboxBlockContents($box));
+        if (ZMTemplateManager::instance()->isRightColEnabled()) {
+            foreach (ZMTemplateManager::instance()->getRightColBoxNames() as $box) {
+                ZMBlockManager::instance()->registerBlock('rightColumn', new ZMSideboxBlockContents($box));
+            }
         }
 
     }

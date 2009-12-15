@@ -73,17 +73,13 @@
       <?php echo $this->fetch('header.php') ?>
       <?php echo $this->fetch('menu.php') ?>
 
-      <?php if (ZMTemplateManager::instance()->isLeftColEnabled()) { ?>
-        <div id="leftcol">
-          <!-- block::leftColumn -->
-        </div>
-      <?php } ?>
+      <div id="leftcol">
+        <!-- block::leftColumn -->
+      </div>
 
-      <?php if (ZMTemplateManager::instance()->isRightColEnabled()) { ?>
-        <div id="rightcol">
-          <!-- block::rightColumn -->
-        </div>
-      <?php } ?>
+      <div id="rightcol">
+        <!-- block::rightColumn -->
+      </div>
 
       <div id="content">
         <?php if ('index' != $request->getRequestId()) { /* this is the actual view, not neccessarily what is in the URL */ ?>
