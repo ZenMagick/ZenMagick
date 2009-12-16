@@ -34,7 +34,7 @@
 
         // 1) build list of provider objects
         $providers = array();
-        foreach (explode(',', ZMSettings::append('plugins.blockHandler.blockContentsProviders')) as $providerId) {
+        foreach (explode(',', ZMSettings::get('plugins.blockHandler.blockContentsProviders')) as $providerId) {
             if (ZMLangUtils::startsWith('plugin:', $providerId)) {
                 $pluginId = str_replace('plugin:', '', $providerId);
                 $provider = ZMPlugins::instance()->getPluginForId($pluginId);
