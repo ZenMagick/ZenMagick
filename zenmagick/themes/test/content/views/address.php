@@ -23,7 +23,6 @@
  * $Id$
  */
 ?>
-x
 <?php $countryId = 0 != $address->getCountryId() ? $address->getCountryId() : ZMSettings::get('storeCountry'); ?>
 <fieldset>
     <legend><?php zm_l10n("Address") ?></legend>
