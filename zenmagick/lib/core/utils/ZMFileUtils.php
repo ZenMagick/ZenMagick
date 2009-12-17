@@ -333,6 +333,17 @@ class ZMFileUtils {
         return false;
     }
 
+    /**
+     * Create a file system path using the given bits.
+     *
+     * @param array List of path elements.
+     * @return string A valid filename.
+     */
+    public static function mkPath($bits) {
+        $path = implode(DIRECTORY_SEPARATOR, $bits);
+        return self::normalizeFilename($path);
+    }
+
 }
 
 ?>

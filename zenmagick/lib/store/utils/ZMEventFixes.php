@@ -188,8 +188,10 @@ class ZMEventFixes extends ZMObject {
             }
 
             // load default mappings, do not override!
-            ZMUrlManager::instance()->load(file_get_contents(dirname(dirname(__FILE__)).DIRECTORY_SEPARATOR.'url_mappings.yaml'), false);
-            ZMSacsManager::instance()->load(file_get_contents(dirname(dirname(__FILE__)).DIRECTORY_SEPARATOR.'sacs_mappings.yaml'), false);
+            $urlMappings = ZMFileUtils::mkPath(array(ZMRuntime::getInstallationPath(), 'lib', 'store', 'url_mappings.yaml'));
+            ZMUrlManager::instance()->load(file_get_contents($urlMappings), false);
+            $sacsMappings = ZMFileUtils::mkPath(array(ZMRuntime::getInstallationPath(), 'lib', 'store', 'sacs_mappings.yaml'));
+            ZMSacsManager::instance()->load(file_get_contents($sacsMappings), false);
         }
 
         // always echo in admin
