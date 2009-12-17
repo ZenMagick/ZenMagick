@@ -142,6 +142,13 @@ EOT;
         return $this->generateSimpleConfigForm($request, $this->function_, null, false);
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    public function fetch($request, $template) {
+        throw new ZMException('not supported');
+    }
+
 }
 
 ?>
