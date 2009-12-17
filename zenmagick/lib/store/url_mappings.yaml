@@ -172,6 +172,9 @@ product_reviews_write:
 contact_us: 
   formId: contactUs
   form: ContactInfo
+  success: 
+    template: contact_us
+    view: RedirectView
 tell_a_friend: 
   formId: tellAFriend
   form: EmailMessage
