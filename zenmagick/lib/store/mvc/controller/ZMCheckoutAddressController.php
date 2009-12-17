@@ -93,7 +93,12 @@ class ZMCheckoutAddressController extends ZMController {
             return null;
         }
 
-        return parent::validateFormData($request, $formBean);
+        if (null != ($view = parent::validateFormData($request, $formBean))) {
+            // validation failed, so let's add our required view data
+            $view->setVars($this->viewData_);
+        }
+
+        return $view;
     }
 
     /**
