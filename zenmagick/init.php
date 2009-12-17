@@ -1,10 +1,7 @@
 <?php
 /*
- * ZenMagick - Extensions for zen-cart
- * Copyright (C) 2006-2009 zenmagick.org
- *
- * Portions Copyright (c) 2003 The zen-cart developers
- * Portions Copyright (c) 2003 osCommerce
+ * ZenMagick - Another PHP framework.
+ * Copyright (C) 2006,2009 ZenMagick
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -50,7 +47,7 @@
         // configure loader
         ZMLoader::instance()->addPath(ZM_BASE_DIR.'lib'.DIRECTORY_SEPARATOR.'core'.DIRECTORY_SEPARATOR);
         ZMLoader::instance()->addPath(ZM_BASE_DIR.'lib'.DIRECTORY_SEPARATOR.'mvc'.DIRECTORY_SEPARATOR);
-        //XXX: where do we get this from?
+        //XXX: this MUST COME FROM THE CALLING index.php, whereever that is!
         ZMLoader::instance()->addPath(ZM_BASE_DIR.'lib'.DIRECTORY_SEPARATOR.'store'.DIRECTORY_SEPARATOR);
         // load static stuff and leave the rest to __autoload()
         ZMLoader::instance()->loadStatic();

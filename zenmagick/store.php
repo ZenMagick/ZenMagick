@@ -1,10 +1,7 @@
 <?php
 /*
- * ZenMagick - Extensions for zen-cart
- * Copyright (C) 2006-2009 zenmagick.org
- *
- * Portions Copyright (c) 2003 The zen-cart developers
- * Portions Copyright (c) 2003 osCommerce
+ * ZenMagick - Another PHP framework.
+ * Copyright (C) 2006,2009 ZenMagick
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

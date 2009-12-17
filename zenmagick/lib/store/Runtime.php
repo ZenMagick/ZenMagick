@@ -183,7 +183,7 @@ class Runtime extends ZMRuntime {
     /**
      * Finish execution.
      *
-     * <p>Calling this function will end all request handling in an ordered manner.</p>
+     * <p>Calling this function should be the last line in your script.</p>
      */
     public static function finish() {
         session_write_close();
