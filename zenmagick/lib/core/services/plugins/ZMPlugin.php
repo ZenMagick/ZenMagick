@@ -88,7 +88,7 @@ abstract class ZMPlugin extends ZMObject {
         $this->description_ = '';
         $this->version_ = '0.0';
         $this->enabled_ = null;
-        $this->pluginDirectory_ = dirname(__FILE__).DIRECTORY_SEPARATOR;
+        $this->pluginDirectory_ = null; // this might be plain wong using core.php! dirname(__FILE__).DIRECTORY_SEPARATOR;
         $this->loaderPolicy_ = ZMPlugin::LP_ALL;
         $this->context_ = 0;
     }
