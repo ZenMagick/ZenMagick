@@ -37,13 +37,13 @@ class ZMListRule extends ZMRule {
     /**
      * Create new list rule.
      *
-     * @param string name The field name.
-     * @param mixed values The list of valid values as either a comma separated string or array.
-     * @param string msg Optional message.
+     * @param string name The field name; default is <code>null</code>.
+     * @param mixed values The list of valid values as either a comma separated string or array; default is <code>null</code>.
+     * @param string msg Optional message; default is <code>null</code>.
      */
-    function __construct($name, $values, $msg=null) {
+    function __construct($name=null, $values=null, $msg=null) {
         parent::__construct($name, "%s is not valid.", $msg);
-        $this->values_ = $values;
+        $this->setValues($values);
     }
 
     /**
@@ -53,6 +53,24 @@ class ZMListRule extends ZMRule {
         parent::__destruct();
     }
 
+
+    /**
+     * Set values.
+     *
+     * @param mixed values The list of valid values as either a comma separated string or array.
+     */
+    public function setValues($values) {
+        $this->values_ = $values;
+    }
+
+    /**
+     * Get values.
+     *
+     * @return mixed The list of valid values as either a comma separated string or array.
+     */
+    public function getValues() {
+        return $this->values_;
+    }
 
     /**
      * Validate the given request data.

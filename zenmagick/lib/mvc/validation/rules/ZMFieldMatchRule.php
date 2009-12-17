@@ -37,13 +37,13 @@ class ZMFieldMatchRule extends ZMRule {
     /**
      * Create new field match rule.
      *
-     * @param string name The field name.
-     * @param string other The other fields name.
-     * @param string msg Optional message.
+     * @param string name The field name; default is <code>null</code>.
+     * @param string other The other fields name; default is <code>null</code>.
+     * @param string msg Optional message; default is <code>null</code>.
      */
-    function __construct($name, $other, $msg=null) {
+    function __construct($name=null, $other=null, $msg=null) {
         parent::__construct($name, "%s and %s must match.", $msg);
-        $this->other_ = $other;
+        $this->setOther($other);
     }
 
     /**
@@ -53,6 +53,24 @@ class ZMFieldMatchRule extends ZMRule {
         parent::__destruct();
     }
 
+
+    /**
+     * Set the other field name.
+     *
+     * @param string other The other fields name.
+     */
+    public function setOther($other) {
+        $this->other_ = $other;
+    }
+
+    /**
+     * Get the other field name.
+     *
+     * @return string The other fields name.
+     */
+    public function getOther() {
+        return $this->other_;
+    }
 
     /**
      * Validate the given request data.

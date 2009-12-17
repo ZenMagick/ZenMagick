@@ -37,15 +37,15 @@ abstract class ZMRule extends ZMObject {
     /**
      * Create new validation rule.
      *
-     * @param string name The field name.
-     * @param string defaultMsg The default error message.
-     * @param string msg Optional custom error message.
+     * @param string name The field name; default is <code>null</code>.
+     * @param string defaultMsg The default error message; default is <code>null</code>.
+     * @param string msg Optional custom error message; default is <code>null</code>.
      */
-    function __construct($name, $defaultMsg, $msg=null) {
+    function __construct($name=null, $defaultMsg=null, $msg=null) {
         parent::__construct();
-        $this->name_ = $name;
-        $this->defaultMsg_ = $defaultMsg;
-        $this->msg_ = $msg;
+        $this->setName($name);
+        $this->setDefaultMsg($defaultMsg);
+        $this->setMsg($msg);
     }
 
     /**
@@ -73,6 +73,15 @@ abstract class ZMRule extends ZMObject {
      */
     public function getName() {
         return str_replace(array('[', ']'), '', $this->name_);
+    }
+
+    /**
+     * Set the parameter name this rule is validating.
+     *
+     * @param string name The name of the request parameter (GET/POST) this rule is testing.
+     */
+    public function setName($name) {
+        $this->name_ = $name;
     }
 
     /**
@@ -104,6 +113,24 @@ abstract class ZMRule extends ZMObject {
      */
     public function getDefaultMsg() {
         return $this->defaultMsg_;
+    }
+
+    /**
+     * Set a custom error message.
+     *
+     * @param string msg The custom error message.
+     */
+    public function setMsg($msg) {
+        $this->msg_ = $msg;
+    }
+
+    /**
+     * Set the default error message.
+     *
+     * @param string msg The default error message.
+     */
+    public function setDefaultMsg($msg) {
+        $this->defaultMsg_ = $msg;
     }
 
     /**

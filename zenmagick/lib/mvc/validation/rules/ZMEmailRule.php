@@ -33,10 +33,10 @@ class ZMEmailRule extends ZMRule {
     /**
      * Create new email rule.
      *
-     * @param string name The field name.
-     * @param string msg Optional message.
+     * @param string name The field name; default is <code>null</code>.
+     * @param string msg Optional message; default is <code>null</code>.
      */
-    function __construct($name, $msg=null) {
+    function __construct($name=null, $msg=null) {
         parent::__construct($name, "%s is not a valid email.", $msg);
     }
 

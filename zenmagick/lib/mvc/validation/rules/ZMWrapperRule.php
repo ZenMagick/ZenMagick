@@ -36,16 +36,15 @@ class ZMWrapperRule extends ZMRule {
     /**
      * Create new rule.
      *
-     * @param string name The field name.
-     * @param string msg Optional message.
-     * @param mixed function The function name or array.
+     * @param string name The field name; default is <code>null</code>.
+     * @param string msg Optional message; default is <code>null</code>.
+     * @param mixed function The function name or array; default is <code>null</code>.
      */
-    function __construct($name, $msg=null, $function) {
+    function __construct($name=null, $msg=null, $function=null) {
         parent::__construct($name, "Please enter a value for %s.", $msg);
-
         $this->function_ = null;
-        $this->javascript_ = '';
-        $this->function_ = $function;
+        $this->setJavaScript('');
+        $this->setFunction($function);
     }
 
     /**

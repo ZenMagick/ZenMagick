@@ -35,13 +35,13 @@ class ZMRegexpRule extends ZMRule {
     /**
      * Create new regexp rule.
      *
-     * @param string name The field name.
-     * @param string regexp The regular expression.
-     * @param string msg Optional message.
+     * @param string name The field name; default is <code>null</code>.
+     * @param string regexp The regular expression; default is <code>null</code>.
+     * @param string msg Optional message; default is <code>null</code>.
      */
-    function __construct($name, $regexp, $msg=null) {
+    function __construct($name=null, $regexp=null, $msg=null) {
         parent::__construct($name, "%s is not valid.", $msg);
-        $this->regexp_ = $regexp;
+        $this->setRegexp($regexp);
     }
 
     /**
@@ -51,6 +51,24 @@ class ZMRegexpRule extends ZMRule {
         parent::__destruct();
     }
 
+
+    /**
+     * Set the regular expression.
+     *
+     * @param string regexp The regular expression.
+     */
+    public function setRegexp($regexp) {
+        $this->regexp_ = $regexp;
+    }
+
+    /**
+     * Get the regular expression.
+     *
+     * @ return string The regular expression.
+     */
+    public function getRegexp() {
+        return $this->regexp_;
+    }
 
     /**
      * Validate the given request data.

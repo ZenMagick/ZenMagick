@@ -35,13 +35,10 @@ class ZMRequiredRule extends ZMRule {
      *
      * <p>If a list of names is specified, validation is considered teh existence of at least one.
      *
-     * @param mixed name The field name or a list (either an array or comma separated string) of names.
+     * @param mixed name The field name or a list (either an array or comma separated string) of names; default is <code>null</code>.
      * @param string msg Optional message.
      */
-    function __construct($name, $msg=null) {
-        if (is_array($name)) {
-            $name = implode(',', $name);
-        }
+    function __construct($name=null, $msg=null) {
         parent::__construct($name, "Please enter a value for %s.", $msg);
     }
 
@@ -52,6 +49,16 @@ class ZMRequiredRule extends ZMRule {
         parent::__destruct();
     }
 
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setName($name) {
+        if (is_array($name)) {
+            $name = implode(',', $name);
+        }
+        parent::setName($name);
+    }
 
     /**
      * Validate the given request data.

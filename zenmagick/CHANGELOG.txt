@@ -103,6 +103,8 @@ Release 0.9.8
 - add ZMRuntime::yamlLoad() to wrapp spyc
 - create individual versions of init_includes used; add code to admin to load
   language defines for converted admin pages
+- make all ZMRule c'tor parameter optional and add getter/setter to allow
+  using rules via bean definition
 
 Release 0.9.7
 - add ZMProductAssociation service and related code

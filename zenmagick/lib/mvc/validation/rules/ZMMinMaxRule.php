@@ -36,15 +36,15 @@ class ZMMinMaxRule extends ZMRule {
     /**
      * Create new min/max length rule.
      *
-     * @param string name The field name.
+     * @param string name The field name; default is <code>null</code>.
      * @param int min The minimun length; default is <em>1</em>.
      * @param int max The maximum length; default is <em>0</em> for unlimited.
      * @param string msg Optional message.
      */
-    function __construct($name, $min=1, $max=0, $msg=null) {
+    function __construct($name=null, $min=1, $max=0, $msg=null) {
         parent::__construct($name, "%s must be between %s and %s characters long.", $msg);
-        $this->min_ = $min;
-        $this->max_ = $max;
+        $this->setMin($min);
+        $this->setMax($max);
     }
 
     /**
@@ -54,6 +54,42 @@ class ZMMinMaxRule extends ZMRule {
         parent::__destruct();
     }
 
+
+    /**
+     * Set the minimum length.
+     *
+     * @param int min The minimun length.
+     */
+    public function setMin($min) {
+        $this->min_ = $min;
+    }
+
+    /**
+     * Get the minimum length.
+     *
+     * @return int The minimun length.
+     */
+    public function getMin() {
+        return $this->min_;
+    }
+
+    /**
+     * Set the maximum length.
+     *
+     * @param int max The maximum length.
+     */
+    public function setMax($max) {
+        $this->max_ = $max;
+    }
+
+    /**
+     * Get the maximum length.
+     *
+     * @return int The maximum length.
+     */
+    public function getMax() {
+        return $this->max_;
+    }
 
     /**
      * Validate the given request data.
