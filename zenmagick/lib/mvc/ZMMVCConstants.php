@@ -29,6 +29,8 @@
  * @version $Id$
  */
 interface ZMMVCConstants {
+    /** Fired before a redirect. */
+    const EVENT_REDIRECT = 'redirect';
     const DISPATCH_START = 'dispatch_start';
     const DISPATCH_DONE = 'dispatch_done';
     const VIEW_START = 'view_start';

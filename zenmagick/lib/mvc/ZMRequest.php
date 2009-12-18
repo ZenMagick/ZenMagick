@@ -32,8 +32,6 @@
  * @version $Id$
  */
 class ZMRequest extends ZMObject {
-    /** Fired before a redirect. */
-    const EVENT_REDIRECT = 'redirect';
     /** 
      * Paramter name containing the request id. 
      *
@@ -286,7 +284,7 @@ class ZMRequest extends ZMObject {
      */
     public function redirect($url, $status=302) {
         $url = str_replace('&amp;', '&', $url);
-        ZMEvents::instance()->fireEvent($this, self::EVENT_REDIRECT, array('request' => $this, 'url' => $url));
+        ZMEvents::instance()->fireEvent($this, ZMMVCConstants::EVENT_REDIRECT, array('request' => $this, 'url' => $url));
         ZMLogging::instance()->trace('redirect url: ' . $url, ZMLogging::TRACE);
         header('Location: ' . $url, true, $status);
         exit;
