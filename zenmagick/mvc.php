@@ -35,4 +35,13 @@
 
     ZMDispatcher::dispatch($_zm_request);
 
+    // close session
+    $session = $_zm_request->getSession();
+    if ($session->getData()) {
+        if (!$session->isStarted()) {
+            $session->start();
+        }
+        $session->close();
+    }
+
 ?>

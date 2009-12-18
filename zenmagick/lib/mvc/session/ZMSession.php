@@ -279,6 +279,9 @@ class ZMSession extends ZMObject {
      * @return mixed The value or <code>null</code>.
      */
     public function getValue($name, $namespace=null) {
+        if (!$this->isStarted()) {
+            $this->start();
+        }
         if (null === $namespace) {
             return isset($this->data_[$name]) ? $this->data_[$name] : null;
         } else {

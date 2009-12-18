@@ -52,8 +52,12 @@ class ZMIndexController extends ZMController {
      * {@inheritDoc}
      */
     public function processGet($request) {
-        $request->getSession()->setValue('name', 'foobar');
-        return $this->findView();
+        $data = array();
+        $name = $request->getSession()->getValue('name');
+        if (!empty($name)) {
+            $data['name'] = $name;
+        }
+        return $this->findView(null, $data);
     }
 
     /**
