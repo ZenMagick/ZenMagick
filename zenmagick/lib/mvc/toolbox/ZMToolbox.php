@@ -87,13 +87,12 @@ class ZMToolbox extends ZMObject {
         // custom tools: name:class,name:class
         foreach (explode(',', ZMSettings::get('zenmagick.mvc.toolbox.tools')) as $toolInfo) {
             $token = explode(':', $toolInfo);
-            $tools[$token[0]] = ZMLoader::make($token[1]);
+            if (2 == count($token)) {
+                $tools[$token[0]] = ZMLoader::make($token[1]);
+            }
         }
 
         foreach ($tools as $name => $tool) {
-            if (empty($name) || empty($tool)) {
-                continue;
-            }
             // set request where required
             if ($tool instanceof ZMToolboxTool) {
                 $tool->setToolbox($this);

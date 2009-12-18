@@ -319,8 +319,7 @@ class ZMRequest extends ZMObject {
      * @return string The path.
      */
     public function getTemplatePath() {
-        //XXX: implement
-        return null;
+        return ZMRuntime::getApplicationPath().'templates'.DIRECTORY_SEPARATOR;
     }
 
     /**
