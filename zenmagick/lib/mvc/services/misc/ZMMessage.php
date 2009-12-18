@@ -1,10 +1,7 @@
 <?php
 /*
- * ZenMagick - Extensions for zen-cart
- * Copyright (C) 2006-2009 zenmagick.org
- *
- * Portions Copyright (c) 2003 The zen-cart developers
- * Portions Copyright (c) 2003 osCommerce
+ * ZenMagick - Another PHP framework.
+ * Copyright (C) 2006,2009 ZenMagick
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -33,7 +30,7 @@
  * <p><strong>Note:</strong> The message text needs ot be localised.</p>
  *
  * @author DerManoMann
- * @package org.zenmagick.store.model
+ * @package org.zenmagick.mvc.services.misc
  * @version $Id$
  */
 class ZMMessage extends ZMObject {
@@ -51,7 +48,6 @@ class ZMMessage extends ZMObject {
      */
     function __construct($text, $type='msg', $ref=ZMMessages::REF_GLOBAL) {
         parent::__construct();
-
         $this->text_ = $text;
         $this->type_ = $type;
         $this->ref_ = $ref;
@@ -85,6 +81,27 @@ class ZMMessage extends ZMObject {
      * @return string The message reference.
      */
     public function getRef() { return $this->ref_; }
+
+    /**
+     * Set the message text.
+     *
+     * @param string text The message text.
+     */
+    public function setText($text) { $this->text_ = $text; }
+
+    /**
+     * Set the message type.
+     *
+     * @param string type The message type.
+     */
+    public function setType($type) { $this->type_ = $type; }
+
+    /**
+     * Set the message reference.
+     *
+     * @param string ref The message reference.
+     */
+    public function setRef($ref) { $this->ref_ = $ref; }
 
 }
 

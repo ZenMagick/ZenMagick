@@ -59,8 +59,7 @@ class ZMMessages extends ZMObject {
      */
     function __construct() {
         parent::__construct();
-        $this->messages_ = array();
-        $this->uniqueMsgRef_ = array();
+        $this->clear();
     }
 
     /**
@@ -165,12 +164,21 @@ class ZMMessages extends ZMObject {
     }
 
     /**
+     * Clear all messages.
+     */
+    public function clear() {
+        $this->messages_ = array();
+        $this->uniqueMsgRef_ = array();
+    }
+
+    /**
      * Get all messages.
      *
      * @param string ref The referring resource; default is <code>null</code> for all.
+     * @Param boolean clear Optional flag to clear the internal buffer; default is <code>false</code>.
      * @return array List of <code>ZMMessage</code> instances.
      */
-    public function getMessages($ref=null) {
+    public function getMessages($ref=null, $clear=false) {
         if (null === $ref) {
             return $this->messages_;
         }
@@ -180,6 +188,10 @@ class ZMMessages extends ZMObject {
             if ($ref == $msg->ref_) {
                 array_push($messages, $msg);
             }
+        }
+
+        if ($clear) {
+            $this->clear();
         }
 
         return $messages;

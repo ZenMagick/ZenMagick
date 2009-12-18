@@ -234,7 +234,7 @@ class ZMSession extends ZMObject {
      * @param string namespace Optional namespace; default is <code>null</code> for none.
      * @return mixed The old value or <code>null</code>.
      */
-    public function set($name, $value=null, $namespace=null) {
+    public function setValue($name, $value=null, $namespace=null) {
         $old = null;
         if (null !== $name) {
             if (null === $namespace) {
@@ -278,7 +278,7 @@ class ZMSession extends ZMObject {
      * @param string namespace Optional namespace; default is <code>null</code> for none.
      * @return mixed The value or <code>null</code>.
      */
-    public function get($name, $namespace=null) {
+    public function getValue($name, $namespace=null) {
         if (null === $namespace) {
             return isset($this->data_[$name]) ? $this->data_[$name] : null;
         } else {
@@ -329,11 +329,11 @@ class ZMSession extends ZMObject {
      * @return string The token.
      */
     public function getToken($renew=false) { 
-        if ($renew || null == $this->get(self::SESSION_TOKEN_KEY)) {
-            $this->set(self::SESSION_TOKEN_KEY, md5(uniqid(rand(), true)));
+        if ($renew || null == $this->getValue(self::SESSION_TOKEN_KEY)) {
+            $this->setValue(self::SESSION_TOKEN_KEY, md5(uniqid(rand(), true)));
         }
 
-        return $this->get(self::SESSION_TOKEN_KEY);
+        return $this->getValue(self::SESSION_TOKEN_KEY);
     }
 
 }
