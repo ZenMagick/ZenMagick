@@ -22,6 +22,14 @@ Example configuration:
 0    5    *    *    *        ZMUpdateSubscriptionsCronJob         # every sunday at 5 am
 
 
+File Permissions
+================
+The plugin will attempt to create a file named cronhistory.txt in the folder zenmagick/config/zm_cron/etc.
+It is important to check that the file exists once the plugin has been run the first time. Also, file permissions
+on that file need to be set to allow the webserver to update this file (typically 666).
+
+The file is under zenmagick/config/zm_cron/etc and named cronhistory.txt. If it doesn't exist, chmod the etc folder to 777, wait until the file is there, change the folder back to 755 and then the file to 666.
+
 
 This plugin doesn't do anything itself, but provides a service for other plugins or core logic.
 If used, the code should be aware of the fact that the service might not be available (ie. not installed) and handle this gracefully.
@@ -102,3 +110,7 @@ Example:
 
 
 
+TODO
+====
+Rotate/truncate histoy  - there should be a maximum based on the configurable 
+values (12 month+1week+7days+24hrs perhaps?)

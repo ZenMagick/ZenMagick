@@ -182,6 +182,9 @@ class ZMOrder extends ZMObject {
      * Load address details.
      */
     private function loadAddress($address, $prefix) {
+        if (null == $address) {
+            return;
+        }
         // orders has only name, not first/last...
         $this->set($prefix.'_name', $address->getFullName());
         $this->set($prefix.'_company', $address->getCompanyName());

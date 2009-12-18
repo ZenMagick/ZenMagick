@@ -33,6 +33,9 @@ class ZMUpdateSubscriptionsCronJob implements ZMCronJob {
      * {@inheritDoc}
      */
     public function execute() {
+        if (!$plugin || !$plugin->isEnabled()) {
+            return true;
+        }
         $plugin = $this->getPlugin();
         $scheduledOrders = self::findScheduledOrders();
         $scheduleEmailTemplate = ZMSettings::get('plugins.zm_subscriptions.email.templates.schedule', 'checkout');
