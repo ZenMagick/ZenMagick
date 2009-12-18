@@ -108,7 +108,7 @@ class ZMCoreCompressor extends ZMPhpCompressor {
                     $pluginDir = $plugin->getPluginDirectory();
                     $noDir = false;
                     if (empty($pluginDir)) {
-                        $pluginDir = Runtime::getPluginsDirectory() . $type . DIRECTORY_SEPARATOR;
+                        $pluginDir = Runtime::getPluginBasePath() . $type . DIRECTORY_SEPARATOR;
                         $noDir = true;
                     }
                     if ($noDir || ZMPlugin::LP_PLUGIN == $flag) {

@@ -172,6 +172,11 @@
                         'desc' => 'Control generation of HTML/XHTML content.'
                     ),
                     array(
+                        'key' => 'contentType',
+                        'type' => 'string',
+                        'desc' => 'Content type.'
+                    ),
+                    array(
                         'key' => 'charset',
                         'type' => 'string',
                         'desc' => 'Page charset.'

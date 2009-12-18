@@ -90,18 +90,29 @@ class ZMRuntime extends ZMObject {
      * @return string The ZenMagick installation folder.
      */
     public static function getInstallationPath() { 
-        return defined('ZM_BASE_DIR') ? constant('ZM_BASE_DIR') : dirname(dirname(__FILE__)).DIRECTORY_SEPARATOR;
+        return defined('ZM_BASE_PATH') ? constant('ZM_BASE_PATH') : dirname(dirname(__FILE__)).DIRECTORY_SEPARATOR;
+    }
+
+    /**
+     * Get the full application path (if set).
+     *
+     * @return string The application base folder or <code>null</code>.
+     */
+    public static function getApplicationPath() { 
+        return defined('ZM_APP_PATH') ? ZM_BASE_PATH.ZM_APP_PATH : null;
     }
 
     /**
      * Return the plugin base directory.
      *
      * <p>May be configured via the setting <em></em>. Default is <em>../lib/plugins</em>.</p>
+     *
      * @return string The base directory for plugins.
+     * @todo make this a list to allow general and app plugins
      */
-    public static function getPluginsDirectory() { 
+    public static function getPluginBasePath() { 
         if (null === ZMSettings::get('zenmagick.core.plugins.baseDir')) {
-            ZMSettings::set('zenmagick.core.plugins.baseDir', dirname(dirname(__FILE__)).DIRECTORY_SEPARATOR.'plugins'.DIRECTORY_SEPARATOR);
+            ZMSettings::set('zenmagick.core.plugins.baseDir', self::getInstallationPath().'plugins'.DIRECTORY_SEPARATOR);
         }
         return ZMSettings::get('zenmagick.core.plugins.baseDir');
     }

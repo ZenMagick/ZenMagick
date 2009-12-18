@@ -105,6 +105,11 @@ Release 0.9.8
   language defines for converted admin pages
 - make all ZMRule c'tor parameter optional and add getter/setter to allow
   using rules via bean definition
+- refactor init.php and store.php into bootstrap.php and mvc.php; (so far
+  we'll be still using init.php and store.php, though)
+- move ob_start() from init.php to ZMDispatcher (that where the corresponding
+  ob_get_clean() is)
+- default the requestId to 'index' if not set at all
 
 Release 0.9.7
 - add ZMProductAssociation service and related code

@@ -58,7 +58,7 @@ class Runtime extends ZMRuntime {
      *
      * @return string The base directory for themes.
      */
-    public static function getThemesDir() { return ZM_BASE_DIR.'themes'.DIRECTORY_SEPARATOR; }
+    public static function getThemesDir() { return ZM_BASE_PATH.'themes'.DIRECTORY_SEPARATOR; }
 
     /**
      * Return the base path for theme URIs.

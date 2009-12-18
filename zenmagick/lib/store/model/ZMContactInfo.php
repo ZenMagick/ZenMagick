@@ -50,7 +50,7 @@ class ZMContactInfo extends ZMObject {
         $this->name_ = $name;
         $this->email_ = $email;
         $this->recipient_ = null;
-        $this->message_ = $msg;
+        $this->message_ = $message;
     }
 
     /**

@@ -63,7 +63,7 @@ class ZMPlugins extends ZMObject {
         if (!is_array($this->pluginStatus_)) {
             $this->pluginStatus_ = array();
         }
-        $this->pluginBaseDir_ = ZMRuntime::getPluginsDirectory();
+        $this->pluginBaseDir_ = ZMRuntime::getPluginBasePath();
     }
 
     /**

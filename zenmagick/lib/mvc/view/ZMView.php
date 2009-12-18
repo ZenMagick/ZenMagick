@@ -53,80 +53,110 @@ abstract class ZMView extends ZMObject {
 
 
     /**
-     * {@inheritDoc}
+     * Make a variable (value) available under the given name.
+     *
+     * @param string name The variable name.
+     * @param mixed value The value.
      */
     public function setVar($name, $value) {
         $this->vars_[$name] = $value;
     }
 
     /**
-     * {@inheritDoc}
+     * Set multiple variables.
+     *
+     * @param array vars A map of name/value pairs.
      */
     public function setVars($vars) {
         $this->vars_ = array_merge($this->vars_, $vars);
     }
 
     /**
-     * {@inheritDoc}
+     * Get all available variables in this view.
+     *
+     * @return array A name/value map.
      */
     public function getVars() {
         return $this->vars_;
     }
 
     /**
-     * {@inheritDoc}
+     * Check if this view is valid.
+     *
+     * <p>This is optional and it is up to the specific subclass to implement as appropriate.</p>
+     *
+     * @return boolean <code>true</code> if the view is valid.
      */
     public function isValid() {
         return true;
     }
 
     /**
-     * {@inheritDoc}
+     * Generate view contents.
+     *
+     * @param ZMRequest request The current request.
+     * @return string The contents.
      */
     public function generate($request) {
         throw new ZMException('not implemented');
     }
 
     /**
-     * {@inheritDoc}
+     * Get the view id.
+     *
+     * @return string The view id.
      */
     public function getViewId() {
         return $this->viewId_;
     }
 
     /**
-     * {@inheritDoc}
+     * Set the view id.
+     *
+     * @param string viewId The new view id.
      */
     public function setViewId($viewId) {
         $this->viewId_ = $viewId;
     }
 
     /**
-     * {@inheritDoc}
+     * Get the template name.
+     *
+     * @return string The template name.
      */
     public function getTemplate() {
         return $this->template_;
     }
 
     /**
-     * {@inheritDoc}
+     * Set the template name.
+     *
+     * @param string template The new template name.
      */
     public function setTemplate($template) {
         $this->template_ = $template;
     }
 
     /**
-     * {@inheritDoc}
+     * Get the content type for this view.
+     *
+     * <p>Return the value of the setting <em>zenmagick.mvc.html.contentType</em> or <em>text/html</em> as default.</p>
+     *
+     * @return string The content type or <code>null</code>.
      */
     public function getContentType() {
-        return 'text/html';
+        return ZMSettings::get('zenmagick.mvc.html.contentType', 'text/html');
     }
 
     /**
-     * {@inheritDoc}
+     * Get the content encoding.
+     *
+     * <p>Return the value of the setting <em>zenmagick.mvc.html.charset</em> or <em>UTF-8</em> as default.</p>
+     *
+     * @return string The content encoding.
      */
     public function getEncoding() {
-        return zm_i18n('HTML_CHARSET');
+        return ZMSettings::get('zenmagick.mvc.html.charset', 'UTF-8');
     }
 
     /**

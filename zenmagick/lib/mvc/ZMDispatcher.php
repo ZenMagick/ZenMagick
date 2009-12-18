@@ -35,6 +35,8 @@ class ZMDispatcher {
      * @param ZMRequest request The request to dispatch.
      */
     public static function dispatch($request) {
+        ob_start();
+
         ZMEvents::instance()->fireEvent(null, ZMMVCConstants::DISPATCH_START, array('request' => $request));
         $view = self::handleRequest($request);
         ZMEvents::instance()->fireEvent(null, ZMMVCConstants::DISPATCH_DONE, array('request' => $request));
@@ -62,7 +64,7 @@ class ZMDispatcher {
             $view = $controller->process($request);
         } catch (Exception $e) {
             ZMLogging::instance()->dump($e, null, ZMLogging::ERROR);
-            $controller = ZMLoader::make(ZMSettings::get('zenmagick.mvc.controller.default', 'DefaultController'));
+            $controller = ZMLoader::make(ZMSettings::get('zenmagick.mvc.controller.default', 'Controller'));
             $view = $controller->findView('error', array('exception' => $e));
             $request->setController($controller);
         }

@@ -27,6 +27,9 @@
         ZMDispatcher::dispatch($_zm_request);
         //XXX how do we want to handle this?
         Runtime::finish();
+    } else {
+        // do ob_start() to allow plugins to do their magic with zen cart templates too
+        ob_start();
     }
 
 ?>

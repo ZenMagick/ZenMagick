@@ -16,8 +16,8 @@ Options -Indexes
 #  deny from all
 #</LimitExcept>
 <Limit GET POST PUT DELETE>
-order deny,allow
-deny from all
+  order deny,allow
+  deny from all
 </Limit>
 
 

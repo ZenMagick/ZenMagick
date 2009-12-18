@@ -1,0 +1,11 @@
+#
+# URL mappings
+#
+# $Id$
+#
+#
+null:
+  error:
+    template: error
+  index:
+    template: index

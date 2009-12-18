@@ -22,11 +22,6 @@
 ?>
 <?php
 
-    // app location relative to zenmagick installation (ZM_BASE_PATH)
-    define('ZM_APP_PATH', 'lib'.DIRECTORY_SEPARATOR.'store'.DIRECTORY_SEPARATOR);
-
-    include 'bootstrap.php';
-
     // make sure we use the appropriate protocol (HTTPS, for example) if required
     ZMSacsManager::instance()->ensureAccessMethod($_zm_request);
 
@@ -37,5 +32,7 @@
 
     $request = $_zm_request;
     ZMEvents::instance()->fireEvent(null, ZMEvents::INIT_DONE, array('request' => $_zm_request));
+
+    ZMDispatcher::dispatch($_zm_request);
 
 ?>

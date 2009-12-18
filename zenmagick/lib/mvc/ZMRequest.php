@@ -39,7 +39,7 @@ class ZMRequest extends ZMObject {
      *
      * <p>The request/page id determines the page being displayed.</p>
      */
-    const REQUEST_ID = 'zmreq';
+    const REQUEST_ID = 'zmid';
     /**
      * Name of the session token form field and also the name in the session.
      */
@@ -187,7 +187,7 @@ class ZMRequest extends ZMObject {
      * @return string The value of the <code>self::REQUEST_ID</code> query parameter.
      */
     public function getRequestId() {
-        return $this->getParameter(self::REQUEST_ID);
+        return $this->getParameter(self::REQUEST_ID, 'index');
     }
 
     /**

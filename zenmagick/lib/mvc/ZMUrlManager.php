@@ -179,7 +179,7 @@ class ZMUrlManager extends ZMObject {
 
         ZMLogging::instance()->log('controller definition: '.$definition, ZMLogging::TRACE);
         if (null == ($controller = ZMBeanUtils::getBean($definition))) {
-            $controller = ZMBeanUtils::getBean(ZMSettings::get('zenmagick.mvc.controller.default', 'DefaultController'));
+            $controller = ZMBeanUtils::getBean(ZMSettings::get('zenmagick.mvc.controller.default', 'Controller'));
         }
 
         return $controller;
