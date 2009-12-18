@@ -91,12 +91,14 @@ class ZMToolbox extends ZMObject {
         }
 
         foreach ($tools as $name => $tool) {
+            if (empty($name) || empty($tool)) {
+                continue;
+            }
             // set request where required
             if ($tool instanceof ZMToolboxTool) {
                 $tool->setToolbox($this);
                 $tool->setRequest($request);
             }
-
             // set member
             $this->$name = $tool;
         }
