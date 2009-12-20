@@ -1,6 +1,5 @@
 <?php
 
-    //ZMEvents::instance()->attach(ZMLoader::make('BlockHandler'));
     ZMSettings::set('resultListProductFilter', null);
     //ZMSettings::set('resultListProductSorter', null);
 
