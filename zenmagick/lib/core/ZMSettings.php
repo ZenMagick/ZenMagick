@@ -130,6 +130,17 @@ class ZMSettings {
         return $oldValue;
     }
 
+    /**
+     * Load mappings from a YAML style string.
+     *
+     * @param string yaml The yaml style mappings.
+     * @param boolean override Optional flag to control whether to override existing mappings or to merge;
+     *  default is <code>true</code> to override.
+     */
+    public function load($yaml, $override=true) {
+        ZMSettings::$settings_ = ZMRuntime::yamlLoad($yaml, ZMSettings::$settings_, $override);
+    }
+
 }
 
 ?>
