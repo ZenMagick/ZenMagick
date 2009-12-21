@@ -80,7 +80,6 @@ class ZMDispatcher {
             }
 
             ZMEvents::instance()->fireEvent(null, ZMMVCConstants::VIEW_START, array('request' => $request, 'view' => $view));
-
             try {
                 // generate response
                 echo $view->generate($request);
