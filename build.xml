@@ -207,7 +207,7 @@
 
     <!-- Update zen-cart installation -->
     <target name="update-zencart" description="Update zen-cart installation.">
-      <copy todir="${basedir}">
+      <copy todir="${basedir}" overwrite="true">
           <fileset dir="${zencart.src.dir}">
                 <exclude name="**/.svn*" />
                 <exclude name="**/.git*" />
@@ -216,7 +216,7 @@
         </copy>
 
         <!-- files duplicated in admin area -->
-        <copy todir="admin">
+        <copy todir="admin" overwrite="true">
             <fileset dir="${zencart.src.dir}">
                 <include name="includes/functions/extra_functions/zenmagick_zencart_overrides.php" />
             </fileset>
