@@ -23,12 +23,11 @@
  * $Id$
  */
 ?>
- <?php $zm_theme->staticPageContent("mainpagedivstack") ?>
+<?php $zm_theme->staticPageContent("mainpagedivstack") ?>
 <?php $zm_theme->staticPageContent("main_page") ?>
 <?php $featured = ZMProducts::instance()->getFeaturedProducts(null, 4, false, $session->getLanguageId()); ?>
- <div id="featured">
-<h3>Featured Products</h3>
-
+<div id="featured">
+  <h3>Featured Products</h3>
   <?php foreach ($featured as $product) { ?>
     <div>
       <p><?php $html->productImageLink($product) ?></p>

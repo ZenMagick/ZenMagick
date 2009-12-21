@@ -51,7 +51,7 @@ class SavantView extends ZMSavantView {
      *
      * @return string The layout name or <code>null</code>.
      */
-    protected function getLayout() {
+    public function getLayout() {
         $themeInfo = Runtime::getTheme()->getThemeInfo();
         return $themeInfo->getLayoutFor($this->getTemplate());
     }

@@ -12,7 +12,7 @@
     <?php $utils->cssFile('css/theme.css', array('media' => 'screen')) ?>
     <?php $pageCSS = "css/".$request->getRequestId().".css"; ?>
     <?php /* page specific CSS */ ?>
-    <?php if ($zm_theme->themeFileExists($pageCSS)) { ?>
+    <?php if ($this->exists($pageCSS)) { ?>
         <?php $utils->cssFile($pageCSS, array('media' => 'screen')) ?>
     <?php } ?>
   </head>

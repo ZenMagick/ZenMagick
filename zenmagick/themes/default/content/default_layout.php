@@ -27,7 +27,7 @@
 
     // allow for custom layout settings without having to copy the whole file every time...
     $pageLayout = "layout/".$request->getRequestId().".php";
-    if ($zm_theme->themeFileExists($pageLayout)) {
+    if ($this->exists($pageLayout)) {
         echo $this->fetch($pageLayout);
     }
 ?>
@@ -44,12 +44,12 @@
     <?php $utils->cssFile('ie.css', array('prefix' => '<!--[if IE]>', 'suffix' => '<![endif]-->')) ?>
     <?php $utils->jsBottom('common.js') ?>
     <?php /* give other themes the chance to add to the default CSS without having to copy everything */ ?>
-    <?php if ($zm_theme->themeFileExists("theme.css")) { ?>
+    <?php if ($this->exists("theme.css")) { ?>
         <?php $utils->cssFile('theme.css') ?>
     <?php } ?>
     <?php $pageCSS = "css/".$request->getRequestId().".css"; ?>
     <?php /* page specific CSS */ ?>
-    <?php if ($zm_theme->themeFileExists($pageCSS)) { ?>
+    <?php if ($this->exists($pageCSS)) { ?>
         <?php $utils->cssFile($pageCSS) ?>
     <?php } ?>
     <?php if (!ZMTemplateManager::instance()->isLeftColEnabled() || !ZMTemplateManager::instance()->isRightColEnabled()) { ?>

@@ -110,6 +110,7 @@ Release 0.9.8
 - move ob_start() from init.php to ZMDispatcher (that where the corresponding
   ob_get_clean() is)
 - default the requestId to 'index' if not set at all
+- update themes to use more of ZMSavant methods rather than zm_theme
 
 Release 0.9.7
 - add ZMProductAssociation service and related code

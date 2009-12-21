@@ -102,7 +102,7 @@ class ZMSavant extends Savant3 {
     /**
      * {@inheritDoc}
      *
-     * Adds a hook for flexibe caching.
+     * Adds a hook for flexible caching.
      */
     public function fetch($tpl = null) {
         // check if caching enabled

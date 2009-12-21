@@ -54,7 +54,7 @@ class ZMAdminView extends SavantView {
     /**
      * {@inheritDoc}
      */
-    protected function getLayout() {
+    public function getLayout() {
         //XXX: for now we are dealing with views only
         return null;
     }

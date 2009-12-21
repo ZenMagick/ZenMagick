@@ -58,7 +58,7 @@ class ZMEmailView extends SavantView {
     /**
      * {@inheritDoc}
      */
-    protected function getLayout() {
+    public function getLayout() {
         return null;
     }
 

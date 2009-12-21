@@ -31,12 +31,12 @@
   if (null != $template_name) {
       $source = $template_name.'.php';
   } else if (null != $view_name) {
-      $source = Runtime::getTheme()->getViewsDir().$view_name.'.php';
+      $source = 'views/'.$view_name.'.php';
   }
 
   if (null != $source) {
       ?><h2>Source for <?php echo $source ?></h2><pre id="source"><?php 
-      $html->encode(file_get_contents($zm_theme->themeFile($source)));
+      $html->encode(file_get_contents($this->path($source)));
       ?></pre><?php 
       return;
   }
