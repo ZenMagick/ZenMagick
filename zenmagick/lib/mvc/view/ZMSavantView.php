@@ -51,10 +51,24 @@ class ZMSavantView extends ZMView {
 
 
     /**
-     * {@inheritDoc}
+     * Get the array of locations to search for templates.
+     *
+     * @param ZMRequest request The current request.
      */
     public function getTemplatePath($request) {
         return array($request->getTemplatePath());
+    }
+
+    /**
+     * Get the array of locations to search for resources.
+     *
+     * <p>This default implementation will just return <code>getTemplatePath($request)</code>.</p>
+     *
+     *
+     * @param ZMRequest request The current request.
+     */
+    public function getResourcePath($request) {
+        return $this->getTemplatePath();
     }
 
     /**
@@ -78,8 +92,8 @@ class ZMSavantView extends ZMView {
             $config['autoload'] = true;
             $config['exceptions'] = true;
             $config['extract'] = true;
-            // treat all equal
-            $config['template_path'] = $config['resource_path'] = $this->getTemplatePath($request);
+            $config['template_path'] = $this->getTemplatePath($request);
+            $config['resource_path'] = $this->getResourcePath($request);
             $config = array_merge($config, $this->config_);
             $this->savant_ = ZMLoader::make('Savant', $config);
         }

@@ -58,6 +58,8 @@ class SavantView extends ZMSavantView {
 
     /**
      * {@inheritDoc}
+     *
+     * <p>To allow theme inheritance, both the default and active theme's content folders are returned.</p>
      */
     public function getTemplatePath($request) {
         $path = array();
