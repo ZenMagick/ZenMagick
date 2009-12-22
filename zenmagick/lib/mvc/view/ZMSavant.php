@@ -95,8 +95,14 @@ class ZMSavant extends Savant3 {
      * @return string A url.
      */
     public function asUrl($filename) {
-        if (null != ($path = $this->findFile('template', $filename))) {
-            return $this->request->getToolbox()->net->absolute($filename, false);
+        if (null != ($path = $this->findFile('resource', $filename))) {
+            $relpath = str_replace(dirname(ZMRuntime::getInstallationPath()).DIRECTORY_SEPARATOR, '', $path);
+            if ($relpath != $path) {
+                // only if matched and replaced...
+                // now convert to URL...
+                $relpath = str_replace('\\', '/', $relpath);
+                return $this->request->getToolbox()->net->absolute($relpath, false);
+            }
         }
         return '';
     }

@@ -62,7 +62,7 @@
     <!-- content-wrap starts here -->
     <div id="content-wrap">		
                         
-    <img src="<?php $zm_theme->themeURL("images/headerphoto.jpg") ?>" width="820" height="120" alt="headerphoto" class="no-border" />
+    <img src="<?php echo $this->asUrl("images/headerphoto.jpg") ?>" width="820" height="120" alt="headerphoto" class="no-border" />
       
       <div id="sidebar" >							
         <?php if (ZMTemplateManager::instance()->isLeftColEnabled()) { ?>

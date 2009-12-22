@@ -44,7 +44,7 @@
         <div id="stars">
             <?php for ($ii=1; $ii<6; ++$ii) { $checked = ($newReview->getRating() == $ii ? ' checked="checked"' : ''); ?>
               <input type="radio" id="rating-<?php echo $ii ?>" name="rating" value="<?php echo $ii ?>"<?php echo $checked ?> />
-              <label for="rating-<?php echo $ii ?>"><img src="<?php $zm_theme->themeURL("images/stars_".$ii."_small.gif") ?>" alt="<?php zm_l10n("%s Star", $ii) ?>" title=" <?php zm_l10n("%s Star", $ii) ?> " /></label>
+              <label for="rating-<?php echo $ii ?>"><img src="<?php echo $this->asUrl("images/stars_".$ii."_small.gif") ?>" alt="<?php zm_l10n("%s Star", $ii) ?>" title=" <?php zm_l10n("%s Star", $ii) ?> " /></label>
             <?php } ?>
         </div>
 

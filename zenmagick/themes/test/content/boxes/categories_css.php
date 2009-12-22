@@ -28,7 +28,7 @@
   // NOTE: CSS should be in the <head> element, this is not valid HTML
   // Load CSS file if this sidebox is enabled
   $utils->cssFile('categories_css.css');
-  //$content .= '<link rel="stylesheet" type="text/css" href="' . $zm_theme->themeURL('categories_css.css', false) . '" />'."\n";
+  //$content .= '<link rel="stylesheet" type="text/css" href="' . $this->asUrl('categories_css.css', false) . '" />'."\n";
 
   // Load containing UL and content
   $content .= '<ul class="bullet-menu" id="siteMenu">';
@@ -55,9 +55,9 @@
   $content .= "</ul>\n";
 
   // Load JS file if this sidebox is enabled
-  $content .= '<script type="text/javascript" src="'. $zm_theme->themeURL("categories_css.js", false) .'"></script>';
+  $content .= '<script type="text/javascript" src="'. $this->asUrl("categories_css.js", false) .'"></script>';
   // Preload menu images when page loads (won't affect IE, which never caches CSS images)
-  $m = $zm_theme->themeURL("images/menu/", false);
+  $m = $this->asUrl("images/menu/", false);
   $content .= '<script type="text/javascript">addDOMEvent(window,"load",function() {preloadImages("'.$m.'branch.gif","'.$m.'leaf-end-on.gif","'.$m.'leaf-end.gif","'.$m.'leaf-on.gif","'.$m.'leaf.gif","'.$m.'node-end-on.gif","'.$m.'node-end.gif","'.$m.'node-on.gif","'.$m.'node-open-end-on.gif","'.$m.'node-open-end.gif","'.$m.'node-open-on.gif","'.$m.'node-open.gif","'.$m.'node.gif")}, false);</script>'."\n";
 
   echo $content;

@@ -30,7 +30,7 @@
         <?php $html->productImageLink($product) ?>
         <h3><?php $html->encode($product->getName()) ?></h3>
         <?php $rtext = zm_l10n_get("%s of 5 stars!", $review->getRating()); ?>
-        <p><img src="<?php $zm_theme->themeURL('images/stars_'.$review->getRating().'.gif') ?>" alt="<?php echo $rtext ?>" /></p>
+        <p><img src="<?php echo $this->asUrl('images/stars_'.$review->getRating().'.gif') ?>" alt="<?php echo $rtext ?>" /></p>
         <p class="rtext"><?php $html->more($html->strip($review->getText(), false), 120) ?></p>
         <p class="rinfo"><?php zm_l10n("Date added: %s by %s", $review->getDateAdded(), $review->getAuthor()) ?></p>
     </td>

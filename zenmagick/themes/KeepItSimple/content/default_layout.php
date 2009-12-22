@@ -36,7 +36,7 @@
         <?php define('KEYWORD_DEFAULT', zm_l10n_get("search ...")); ?>
         <?php $onfocus = "if(this.value=='" . KEYWORD_DEFAULT . "') this.value='';" ?>
         <input class="tbox" id="qsearch" type="text" name="keywords" value="<?php $html->encode($request->getParameter('keywords', KEYWORD_DEFAULT)) ?>" onfocus="<?php echo $onfocus ?>" title="Start typing and hit ENTER" />
-        <input class="btn" alt="Search" type="image" name="searchsubmit" title="Search" src="<?php $zm_theme->themeURL("images/search.gif") ?>" />
+        <input class="btn" alt="Search" type="image" name="searchsubmit" title="Search" src="<?php echo $this->asUrl("images/search.gif") ?>" />
         </p>
       </form>					
     

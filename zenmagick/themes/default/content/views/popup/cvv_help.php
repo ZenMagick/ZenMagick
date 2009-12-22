@@ -28,12 +28,12 @@
 
 <div>
   <?php echo zm_l10n_chunk_get('popup_cvv_visa_master') ?>
-  <img src="<?php $zm_theme->themeURL("images/icons/cvv2visa.gif") ?>" alt="<?php zm_l10n("cvv sample 1") ?>" />
+  <img src="<?php echo $this->asUrl("images/icons/cvv2visa.gif") ?>" alt="<?php zm_l10n("cvv sample 1") ?>" />
 </div>
 
 <div>
   <?php echo zm_l10n_chunk_get('popup_cvv_amex') ?>
-  <img src="<?php $zm_theme->themeURL("images/icons/cvv2amex.gif") ?>" alt="<?php zm_l10n("cvv sample 2") ?>" />
+  <img src="<?php echo $this->asUrl("images/icons/cvv2amex.gif") ?>" alt="<?php zm_l10n("cvv sample 2") ?>" />
 </div>
 
 <div id="close"><a href="#" onclick="javascript:window.close()"><?php zm_l10n("Close Window [x]") ?></a></div>
