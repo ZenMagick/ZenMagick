@@ -24,19 +24,21 @@
 /**
  * A Savant(3) view with theme support.
  *
- * <p>Also, this view allows to distinguish between layout and view</p>.
+ * <p>Also, this view allows to distinguish between layout and view.</p>
  *
  * @author DerManoMann
  * @package org.zenmagick.mvc.view
  * @version $Id$
  */
 class SavantView extends ZMSavantView {
+    private $viewDir_;
 
     /**
      * Create new instance.
      */
     function __construct() {
         parent::__construct();
+        $this->setViewDir('views');
     }
 
     /**
@@ -44,6 +46,25 @@ class SavantView extends ZMSavantView {
      */
     function __destruct() {
         parent::__destruct();
+    }
+
+
+    /**
+     * Get the views dir.
+     *
+     * @return string The views folder name, relative to the content folder.
+     */
+    public function getViewDir() {
+        return $this->viewDir_;
+    }
+
+    /**
+     * Set the views dir.
+     *
+     * @param string viewDir The views folder name, relative to the content folder.
+     */
+    public function setViewDir($viewDir) {
+        $this->viewDir_ = $viewDir;
     }
 
     /**
@@ -88,10 +109,10 @@ class SavantView extends ZMSavantView {
             $savant->assign(array('view' => $this));
             if (null != ($layout = $this->getLayout())) {
                 $template = $layout;
-                $view = 'views'.DIRECTORY_SEPARATOR.$this->getTemplate().ZMSettings::get('zenmagick.mvc.templates.ext', '.php');
+                $view = $this->getViewDir().DIRECTORY_SEPARATOR.$this->getTemplate().ZMSettings::get('zenmagick.mvc.templates.ext', '.php');
                 $savant->assign(array('viewTemplate' => $view));
             } else {
-                $template = 'views'.DIRECTORY_SEPARATOR.$this->getTemplate();
+                $template = $this->getViewDir().DIRECTORY_SEPARATOR.$this->getTemplate();
             }
             return $savant->fetch($template.ZMSettings::get('zenmagick.mvc.templates.ext', '.php'));
         } catch (Exception $e) {
