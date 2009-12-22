@@ -68,7 +68,7 @@ class ZMSavantView extends ZMView {
      * @param ZMRequest request The current request.
      */
     public function getResourcePath($request) {
-        return $this->getTemplatePath();
+        return $this->getTemplatePath($request);
     }
 
     /**

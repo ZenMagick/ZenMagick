@@ -74,7 +74,7 @@ class ZMSavant extends Savant3 {
      * @return boolean <code>true</code> if the file exists, <code>false</code> if not.
      */
     public function exists($filename) {
-        return !ZMLangUtils::isEmpty($this->findFile('resource', $filename));
+        return !ZMLangUtils::isEmpty($this->findFile('template', $filename));
     }
 
     /**
@@ -84,19 +84,21 @@ class ZMSavant extends Savant3 {
      * @return string A fully qualified filename or <code>null</code>.
      */
     public function path($filename) {
-        $path = $this->findFile('resource', $filename);
+        $path = $this->findFile('template', $filename);
         return ZMLangUtils::isEmpty($path) ? null : $path;
     }
 
     /**
-     * Convert the given (relative) resource filename into a url.
+     * Resolve the given (relative) resource filename into a url.
      *
      * @param string filename The filename, relative to the template path.
      * @return string A url.
      */
-    public function url($filename) {
-        $path = $this->findFile('resource', $filename);
-        return $this->request->getToolbox()->net->absolute($filename);
+    public function asUrl($filename) {
+        if (null != ($path = $this->findFile('template', $filename))) {
+            return $this->request->getToolbox()->net->absolute($filename, false);
+        }
+        return '';
     }
 
     /**
