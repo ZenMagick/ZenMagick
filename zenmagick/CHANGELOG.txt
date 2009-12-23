@@ -113,6 +113,7 @@ Release 0.9.8
 - update themes to use more of ZMSavant methods rather than zm_theme
 - themeSwitcher: underline the active theme
 - remove depreacted plugin utils
+- add code to load product meta tags (not used yet)
 
 Release 0.9.7
 - add ZMProductAssociation service and related code

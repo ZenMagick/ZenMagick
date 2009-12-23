@@ -655,6 +655,17 @@ class ZMProduct extends ZMObject {
         return ZMProductAssociations::instance()->getProductAssociationsForProductId($this->getId(), $type, $args, $all);
     }
 
+
+    /**
+     * Get meta tag details if available.
+     *
+     * @param int languageId The language id.
+     * @return ZMMetaTagDetails The details or <code>null</code>.
+     */
+    public function getMetaTagDetails($languageId) {
+        return ZMProducts::instance()->getMetaTagDetailsForId($this->getId(), $languageId);
+    }
+
 }
 
 ?>

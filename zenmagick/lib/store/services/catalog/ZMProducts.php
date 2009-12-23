@@ -704,6 +704,21 @@ class ZMProducts extends ZMObject implements ZMSQLAware {
         return $this->getProductsForIds($productIds, true, $languageId);
     }
 
+    /**
+     * Get meta tag details for the given id and language.
+     *
+     * @param int productId The product id.
+     * @param int languageId Language id.
+     * @return ZMMetaTagDetails The details or <code>null</code>.
+     */
+    public function getMetaTagDetailsForId($productId, $languageId) {
+        $sql = "SELECT * from " . TABLE_META_TAGS_PRODUCTS_DESCRIPTION . "
+                WHERE products_id = :productId
+                  AND language_id = :languageId";
+        $args = array('productId' => $productId, 'languageId' => $languageId);
+        return ZMRuntime::getDatabase()->querySingle($sql, $args, TABLE_META_TAGS_PRODUCTS_DESCRIPTION, 'MetaTagDetails');
+    }
+
 }
 
 ?>
