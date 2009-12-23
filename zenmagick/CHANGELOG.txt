@@ -112,6 +112,7 @@ Release 0.9.8
 - default the requestId to 'index' if not set at all
 - update themes to use more of ZMSavant methods rather than zm_theme
 - themeSwitcher: underline the active theme
+- remove depreacted plugin utils
 
 Release 0.9.7
 - add ZMProductAssociation service and related code

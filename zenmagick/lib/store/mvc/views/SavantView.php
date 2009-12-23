@@ -32,12 +32,15 @@
  */
 class SavantView extends ZMSavantView {
     private $viewDir_;
+    private $layout_;
+
 
     /**
      * Create new instance.
      */
     function __construct() {
         parent::__construct();
+        $this->setLayout(false);
         $this->setViewDir('views');
     }
 
@@ -68,11 +71,25 @@ class SavantView extends ZMSavantView {
     }
 
     /**
+     * Set the layout name.
+     *
+     * @param string layout The layout name.
+     */
+    public function setLayout($layout) {
+        $this->layout_ = $layout;
+    }
+
+    /**
      * Return the layout name.
      *
      * @return string The layout name or <code>null</code>.
      */
     public function getLayout() {
+        if (null === $this->layout_) {
+            return $this->layout_;
+        }
+
+        // default
         $themeInfo = Runtime::getTheme()->getThemeInfo();
         return $themeInfo->getLayoutFor($this->getTemplate());
     }

@@ -224,6 +224,10 @@ class ZMController extends ZMObject {
         if (ZMSacsManager::instance()->requiresSecurity($this->id_)) {
             $view->setSecure(true);
         }
+        /*
+        $view->setLayout(null);
+        $view->setViewDir('ajax');
+        */
 
         $view->setVars($data);
         $view->setController($this);
