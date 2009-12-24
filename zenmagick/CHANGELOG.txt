@@ -118,6 +118,7 @@ Release 0.9.8
   ref:: prefix be treated as bean definitions to actually set objects based on
   those definitions
 - make Savant compiler actually work
+- add experimental haml compiler
 
 Release 0.9.7
 - add ZMProductAssociation service and related code
