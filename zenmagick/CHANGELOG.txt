@@ -114,7 +114,10 @@ Release 0.9.8
 - themeSwitcher: underline the active theme
 - remove depreacted plugin utils
 - add code to load product meta tags (not used yet)
-- make ref::null resolve to null in bean definition
+- make ref::null resolve to null in bean definition and all other values with
+  ref:: prefix be treated as bean definitions to actually set objects based on
+  those definitions
+- make Savant compiler actually work
 
 Release 0.9.7
 - add ZMProductAssociation service and related code

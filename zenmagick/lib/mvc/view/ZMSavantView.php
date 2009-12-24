@@ -78,6 +78,12 @@ class ZMSavantView extends ZMView {
      */
     public function setConfig($config) {
         $this->config_ = ZMLangUtils::toArray($config);
+        // XXX: add generic code to ZMBeanUtils?? handle bean references...
+        foreach ($this->config_ as $key => $value) {
+            if ('compiler' == $key) {
+                $this->config_[$key] = ZMBeanUtils::getBean($value);
+            }
+        }
     }
 
     /**

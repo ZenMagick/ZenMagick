@@ -57,6 +57,10 @@ class ZMSavant extends Savant3 {
         if (isset($this->__config['cache']) && !is_object($this->__config['cache'])) {
             $this->__config['cache'] = ZMLoader::make($this->__config['cache']);
         }
+        // why isn't that set in Savant3???
+        if (isset($config['compiler'])) {
+            $this->__config['compiler'] = $config['compiler'];
+        }
     }
 
     /**

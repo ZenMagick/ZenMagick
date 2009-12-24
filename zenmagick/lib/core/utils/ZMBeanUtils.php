@@ -134,8 +134,13 @@ class ZMBeanUtils {
     public static function setAll($obj, $data, $keys=null, $setGeneric=true) {
         $isModel = ($obj instanceof ZMObject);
         foreach ($data as $property => $value) {
-            if ('ref::null' == $value) {
-                $value = null;
+            if (0 === strpos($value, 'ref::')) {
+                $ref = str_replace('ref::', '', $value);
+                if ('null' == $ref) {
+                    $value = null;
+                } else {
+                    $value = self::getBean($ref);
+                }
             }
             if (null === $keys || in_array($property, $keys)) {
                 $method = self::$SETTER_PREFIX.ucfirst($property);
@@ -177,6 +182,9 @@ class ZMBeanUtils {
      * @return mixed An object or <code>null</code>.
      */
     public static function getBean($definition) {
+        if (0 === strpos($definition, 'ref::')) {
+            $definition = substr($definition, 5);
+        }
         $tokens = explode('#', $definition, 2);
         if (1 < count($tokens)) {
             parse_str($tokens[1], $properties);
