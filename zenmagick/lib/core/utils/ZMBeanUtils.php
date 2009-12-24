@@ -134,6 +134,9 @@ class ZMBeanUtils {
     public static function setAll($obj, $data, $keys=null, $setGeneric=true) {
         $isModel = ($obj instanceof ZMObject);
         foreach ($data as $property => $value) {
+            if ('ref::null' == $value) {
+                $value = null;
+            }
             if (null === $keys || in_array($property, $keys)) {
                 $method = self::$SETTER_PREFIX.ucfirst($property);
                 if (method_exists($obj, $method)) {
