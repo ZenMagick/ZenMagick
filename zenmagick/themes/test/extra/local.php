@@ -52,20 +52,15 @@
     }
     ZMEvents::instance()->attach(new RestrictCategory());
 
-    if ('haml1' == ZMRequest::instance()->getRequestId()) {
-      ZMUrlManager::instance()->setMapping(null, array('template' => 'haml1', 'view' => 'SavantView#layout=bean::null&config='.urlencode('compiler=bean::SavantHamlCompiler')));
-      ZMSettings::set('zenmagick.mvc.templates.ext', '.haml');
-
-
-
-    class AddToView {
-        public function onZMViewStart($args=null) {
-            $view = $args['view'];
-            $view->setVar('hamlParser', new HamlParser());
-        }
-    }
-    //ZMEvents::instance()->attach(new AddToView());
-
+    if ('haml_product' == ZMRequest::instance()->getRequestId()) {
+        ZMUrlManager::instance()->setMapping('haml_product', array(
+          'controller' => 'ProductInfoController',
+          'product_info' => array(
+            'template' => 'haml_product', 
+            'view' => 'SavantView#layout=bean::null&config='.urlencode('compiler=bean::SavantHamlCompiler')
+          )
+        ));
+        ZMSettings::set('zenmagick.mvc.templates.ext', '.haml');
     }
 
 ?>

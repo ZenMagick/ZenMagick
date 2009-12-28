@@ -236,7 +236,7 @@ class HamlParser
 			}
 			ob_end_flush();
 			ob_start();
-      $hamlParser = $this;
+      $__oHamlParser = $this;
 			foreach (self::$aVariables as $__sName => $__mValue)
 				$$__sName = $__mValue;
 			require $__sCompiled;
@@ -245,6 +245,52 @@ class HamlParser
 				$c = call_user_func($mFilter, $c);
 			ob_clean();
 			return $c;
+		}
+		return $__sCompiled;
+	}
+	
+	/**
+	 * Generate the compiled file
+	 *
+	 */
+	public function generate()
+	{
+		$__aSource = explode(self::TOKEN_LINE, $this->sSource = $this->parseBreak($this->sSource));
+		$__sCompiled = '';
+		if (count($__aSource) == 1)
+			$__sCompiled = $this->parseLine($__aSource[0]);
+		else
+		{
+			if (($__sC = $this->compiled()) && $this->bCompile)
+				$__sCompiled = $__sC;
+			else
+			{
+				$__iIndent = 0;
+				$__iIndentLevel = 0;
+				foreach ($__aSource as $__iKey => $__sLine)
+				{
+					$__iLevel = $this->countLevel($__sLine);
+					if ($__iLevel <= $__iIndentLevel)
+						$__iIndent = $__iIndentLevel = 0;
+					if (preg_match('/\\'.self::TOKEN_LEVEL.'([0-9]+)$/', $__sLine, $__aMatches))
+					{
+						$__iIndent = (int)$__aMatches[1];
+						$__iIndentLevel = $__iLevel;
+						$__sLine = preg_replace('/\\'.self::TOKEN_LEVEL."$__iIndent$/", '', $__sLine);
+					}
+					$__sLine = str_repeat(self::TOKEN_INDENT, $__iIndent * self::INDENT) . $__sLine;
+					$__aSource[$__iKey] = $__sLine;
+					if (preg_match('/^(\s*)'.self::TOKEN_INCLUDE.' (.+)/', $__sLine, $aMatches))
+					{
+						$__sIncludeSource = $this->sourceIndent(file_get_contents($this->getFilename($aMatches[2])), $__iIndent ? $__iIndent : $__iLevel);
+						$__sLine = str_replace($aMatches[1] . self::TOKEN_INCLUDE . " {$aMatches[2]}", $__sIncludeSource, $__sLine);
+						$__aSource[$__iKey] = $__sLine;
+						$this->sSource = implode(self::TOKEN_LINE, $__aSource);
+					}
+				}
+				$__aSource = explode(self::TOKEN_LINE, $this->sSource = $this->parseBreak($this->sSource));
+				$__sCompiled = $this->compile($this->parseFile($__aSource));
+			}
 		}
 		return $__sCompiled;
 	}
@@ -540,7 +586,7 @@ class HamlParser
 					$sAutoVar = $aMatches[1];
 					
 				if (!empty($aAttributes) || !empty($sAutoVar))
-					$sAttributes = '<?php $hamlParser->writeAttributes('.$this->arrayExport($aAttributes).(!empty($sAutoVar) ? ", \$hamlParser->parseSquareBrackets($sAutoVar)" : '' ).'); ?>';
+					$sAttributes = '<?php $__oHamlParser->writeAttributes('.$this->arrayExport($aAttributes).(!empty($sAutoVar) ? ", \$__oHamlParser->parseSquareBrackets($sAutoVar)" : '' ).'); ?>';
 				$this->bBlock = $this->oParent->bBlock;
 				$iLevelM = $this->oParent->bBlock || $this->bBlock ? -1 : 0;
 				// Check for block tag

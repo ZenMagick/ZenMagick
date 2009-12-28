@@ -63,7 +63,7 @@ class ZMHamlPlugin extends Plugin {
 
     public function onZMViewStart($args=null) {
         $view = $args['view'];
-        $view->setVar('hamlParser', new HamlParser());
+        $view->setVar('__oHamlParser', new HamlParser());
     }
 
 }

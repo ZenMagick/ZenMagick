@@ -42,8 +42,7 @@ class ZMSavantHamlCompiler extends ZMObject {
     public function compile($file) {
         $parser = new HamlParser(dirname($file), ZMSettings::get('zenmagick.core.cache.provider.file.baseDir').'haml'.DIRECTORY_SEPARATOR);
         $parser->setFile(basename($file));
-        $parser->assign('hamlParser', $parser);
-        $parser->render();
+        $parser->generate();
         return $parser->compiled();
     }
 
