@@ -107,6 +107,36 @@ class TestZMBeanUtils extends ZMTestCase {
         $this->assertTrue($obj instanceof ZMObject);
     }
 
+    /**
+     * Test bean::
+     */
+    public function testMagicBean() {
+        // test null bean
+        $this->assertEqual(null, ZMBeanUtils::getBean('bean::null'));
+
+        // test property bean
+        $bean = ZMBeanUtils::getBean('ZMObject#someBean=bean::Address');
+        if ($this->assertNotNull($bean) && $this->assertTrue($bean instanceof ZMObject)) {
+            $someBean = $bean->getSomeBean();
+            if ($this->assertNotNull($someBean)) {
+                $this->assertTrue($someBean instanceof ZMAddress);
+            }
+        }
+    }
+
+    /**
+     * Test ref::
+     */
+    public function testMagicRef() {
+        $ref = ZMBeanUtils::getBean('ref::Products#foo=bar');
+        if ($this->assertNotNull($ref)) {
+            $this->assertTrue($ref instanceof ZMProducts);
+            // now test that we actually got the singleton
+            $foo = ZMProducts::instance()->getFoo();
+            $this->assertEqual('bar', $foo);
+        }
+    }
+
 }
 
 ?>

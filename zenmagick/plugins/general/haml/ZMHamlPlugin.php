@@ -54,7 +54,7 @@ class ZMHamlPlugin extends Plugin {
      */
     public function init() {
         // make more customizable
-        ZMSettings::set('zenmagick.mvc.view.default', 'SavantView#config='.urlencode('compiler=ref::SavantHamlCompiler'));
+        ZMSettings::set('zenmagick.mvc.view.default', 'SavantView#config='.urlencode('compiler=bean::SavantHamlCompiler'));
         ZMSettings::set('zenmagick.mvc.templates.ext', '.haml');
 
         ZMEvents::instance()->attach($this);

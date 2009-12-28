@@ -24,11 +24,23 @@
 /**
  * Bean utility.
  *
+ * <p>Bean definitions and properties handled by this class may use two special (magic) name prefixes
+ * to create/set objects rather than strings:</p>
+ * <dl>
+ *  <dt>bean::</dt>
+ *  <dd>The string (without the prefix) will be taken as bean definition; special case is a bean definition of <em>null</em> which
+ *   will be converted to a PHP <code>null</code>.</dd>
+ *  <dt>ref::</dt>
+ *  <dd>This prefix indicates that the following string is to be taken as bean definition. However, the instance created/obtained
+ *   will first be looked up as singleton instance. It is important to remember that by setting properties on references these settings
+ *   will be permanent for all subsequent code using that singleton.</dd>
+ * </dl>
+ *
  * @author DerManoMann
  * @package org.zenmagick.core.utils
  * @version $Id$
  */
-class ZMBeanUtils {
+class ZMBeanUtils extends ZMObject {
     private static $GETTER_PREFIX_LIST = array('get', 'is', 'has');
     private static $SETTER_PREFIX = 'set';
     private static $propertyMap_ = array();
@@ -134,13 +146,8 @@ class ZMBeanUtils {
     public static function setAll($obj, $data, $keys=null, $setGeneric=true) {
         $isModel = ($obj instanceof ZMObject);
         foreach ($data as $property => $value) {
-            if (0 === strpos($value, 'ref::')) {
-                $ref = str_replace('ref::', '', $value);
-                if ('null' == $ref) {
-                    $value = null;
-                } else {
-                    $value = self::getBean($ref);
-                }
+            if (0 === strpos($value, 'ref::') || 0 === strpos($value, 'bean::')) {
+                $value = self::getBean($value);
             }
             if (null === $keys || in_array($property, $keys)) {
                 $method = self::$SETTER_PREFIX.ucfirst($property);
@@ -182,15 +189,29 @@ class ZMBeanUtils {
      * @return mixed An object or <code>null</code>.
      */
     public static function getBean($definition) {
-        if (0 === strpos($definition, 'ref::')) {
+        $isRef = false;
+        if (0 === strpos($definition, 'bean::')) {
+            $definition = substr($definition, 6);
+            if ('null' == $definition) {
+                return null;
+            }
+        } else if (0 === strpos($definition, 'ref::')) {
             $definition = substr($definition, 5);
+            $isRef = true;
         }
+
         $tokens = explode('#', $definition, 2);
         if (1 < count($tokens)) {
             parse_str($tokens[1], $properties);
         } else {
             $properties = array();
         }
+
+        if ($isRef && null != ($ref = self::singleton($tokens[0]))) {
+            self::setAll($ref, $properties);
+            return $ref;
+        }
+
         return self::map2obj($tokens[0], $properties);
     }
 

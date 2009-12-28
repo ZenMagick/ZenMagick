@@ -53,7 +53,7 @@
     ZMEvents::instance()->attach(new RestrictCategory());
 
     if ('haml1' == ZMRequest::instance()->getRequestId()) {
-      ZMUrlManager::instance()->setMapping(null, array('template' => 'haml1', 'view' => 'SavantView#layout=ref::null&config='.urlencode('compiler=ref::SavantHamlCompiler')));
+      ZMUrlManager::instance()->setMapping(null, array('template' => 'haml1', 'view' => 'SavantView#layout=bean::null&config='.urlencode('compiler=bean::SavantHamlCompiler')));
       ZMSettings::set('zenmagick.mvc.templates.ext', '.haml');
 
 
