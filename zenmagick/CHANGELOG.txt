@@ -123,6 +123,9 @@ Release 0.9.8
 	new objects all the time
 - make Savant compiler actually work
 - add experimental haml compiler
+- use spl_autoload_register to register the loaders resolve method rather than
+  the magic __autoload function
+
 
 Release 0.9.7
 - add ZMProductAssociation service and related code
