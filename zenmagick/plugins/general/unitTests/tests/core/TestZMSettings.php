@@ -38,7 +38,8 @@ class TestZMSettings extends ZMTestCase {
         ZMSettings::set($key, $old);
         $oldValue = ZMSettings::append($key, $value);
         $this->assertEqual($old, $oldValue);
-        $this->assertEqual($old.$value, ZMSettings::get($key));
+        // ',' is the default delimiter
+        $this->assertEqual($old.','.$value, ZMSettings::get($key));
 
         // and with delim
         $key = 'o@@@';

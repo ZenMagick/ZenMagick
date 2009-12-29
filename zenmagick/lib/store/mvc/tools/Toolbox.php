@@ -84,7 +84,7 @@ class Toolbox extends ZMToolbox {
             'metaTags' => 'ToolboxMetaTags'
         ); 
         foreach ($tools as $name => $class) {
-            ZMSettings::append('zenmagick.mvc.toolbox.tools', $name.':'.$class, ',');
+            ZMSettings::append('zenmagick.mvc.toolbox.tools', $name.':'.$class);
         }
         parent::__construct($request);
     }

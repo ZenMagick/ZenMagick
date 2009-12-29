@@ -45,7 +45,7 @@ class zm_openid extends Plugin {
         $this->setLoaderPolicy(ZMPlugin::LP_ALL);
 
         // add OpenID field to accounts fields list
-        ZMSettings::append('zenmagick.core.database.sql.customers.customFields', 'openid;string', ',');
+        ZMSettings::append('zenmagick.core.database.sql.customers.customFields', 'openid;string');
     }
 
     /**
@@ -81,7 +81,7 @@ class zm_openid extends Plugin {
         parent::init();
 
         // make openid_login use session token
-        ZMSettings::append('zenmagick.mvc.html.tokenSecuredForms', 'openid_login', ',');
+        ZMSettings::append('zenmagick.mvc.html.tokenSecuredForms', 'openid_login');
 
         // add success URL mapping if none exists
         ZMUrlMapper::instance()->setMappingInfo('openID', array('viewId' => 'success', 'view' => 'account', 'viewDefinition' => 'RedirectView'));

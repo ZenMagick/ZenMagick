@@ -25,10 +25,10 @@
         // currently allows plugins and bean definitions
 
         // register the sidebox block contents provider as bean definition; this would be done in lib/store somewhere
-        ZMSettings::append('plugins.blockHandler.blockContentsProviders', 'SideboxBlockContentsProvider', ',');
+        ZMSettings::append('plugins.blockHandler.blockContentsProviders', 'SideboxBlockContentsProvider');
 
         // plugins implementing ZMBlockContentsProvider would do:
-        // ZMSettings::append('plugins.blockHandler.blockContentsProviders', 'plugin:PLUGIN_NAME', ',');
+        // ZMSettings::append('plugins.blockHandler.blockContentsProviders', 'plugin:PLUGIN_NAME');
 
         // now do something with it; this is where the UI would mix & map things and perhaps store in the db?
 

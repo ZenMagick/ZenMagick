@@ -129,6 +129,7 @@ Release 0.9.8
 - expose all used databases via ZMRuntime::getDatabases()
 - pageStats: display stats for each used database
 - unitTests: allow to configure alternative database connection for tests
+- make ',' the default delimiter for ZMSettings::append()
 
 Release 0.9.7
 - add ZMProductAssociation service and related code

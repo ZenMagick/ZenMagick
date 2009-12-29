@@ -30,6 +30,6 @@
     }
 
     // add custom filter
-    ZMSettings::append('resultListProductFilter', 'AlphaFilter,PriceRangeFilter', ',');
+    ZMSettings::append('resultListProductFilter', 'AlphaFilter,PriceRangeFilter');
 
 ?>

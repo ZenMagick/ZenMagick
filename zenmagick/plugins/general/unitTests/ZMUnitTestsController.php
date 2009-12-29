@@ -61,6 +61,7 @@ class ZMUnitTestsController extends ZMController {
         // show test view only
         Runtime::getTheme()->getThemeInfo()->setLayout('tests', null);
 
+        // add tests folder to class path
         $testsLoader = ZMLoader::make("Loader");
         $testBaseDir = $this->plugin->getPluginDirectory().'tests/';
         $testsLoader->addPath($testBaseDir);

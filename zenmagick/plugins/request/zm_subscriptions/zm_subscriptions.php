@@ -52,7 +52,7 @@ class zm_subscriptions extends Plugin {
         );
         foreach ($customFields as $table => $fields) {
             foreach ($fields as $field) {
-                ZMSettings::append('zenmagick.core.database.sql.'.$table.'.customFields', $field, ',');
+                ZMSettings::append('zenmagick.core.database.sql.'.$table.'.customFields', $field);
             }
         }
     }

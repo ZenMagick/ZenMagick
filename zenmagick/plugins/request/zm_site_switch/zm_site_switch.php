@@ -50,7 +50,7 @@ class zm_site_switch extends Plugin {
             'orders' => 'site_id;string;siteId'
         );
         foreach ($customFields as $table => $fields) {
-            ZMSettings::append('zenmagick.core.database.sql.'.$table.'.customFields', $fields, ',');
+            ZMSettings::append('zenmagick.core.database.sql.'.$table.'.customFields', $fields);
         }
     }
 

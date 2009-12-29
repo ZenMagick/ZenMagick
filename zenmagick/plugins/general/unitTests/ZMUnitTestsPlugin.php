@@ -36,7 +36,8 @@ define('UNIT_TESTS_GROUP_OTHER', '@other');
  * @version $Id$
  */
 class ZMUnitTestsPlugin extends Plugin {
-    private $tests;
+    private $tests_;
+
 
     /**
      * Create new instance.
@@ -44,7 +45,7 @@ class ZMUnitTestsPlugin extends Plugin {
     function __construct() {
         parent::__construct('Unit Testing', 'Run unit tests using SimpleTest.');
         $this->setLoaderPolicy(ZMPlugin::LP_FOLDER);
-        $this->tests = array();
+        $this->tests_ = array();
     }
 
     /**
@@ -71,10 +72,10 @@ class ZMUnitTestsPlugin extends Plugin {
      * @param string group Optional group name; default is <code>UNIT_TESTS_GROUP_OTHER</code>.
      */
     public function addTest($clazz, $group=UNIT_TESTS_GROUP_OTHER) {
-        if (!array_key_exists($group, $this->tests)) {
-            $this->tests[$group] = array();
+        if (!array_key_exists($group, $this->tests_)) {
+            $this->tests_[$group] = array();
         }
-        $this->tests[$group][] = $clazz;
+        $this->tests_[$group][] = $clazz;
     }
 
     /**
@@ -83,9 +84,8 @@ class ZMUnitTestsPlugin extends Plugin {
      * @return array List of other tests.
      */
     public function getTests() {
-        return $this->tests;
+        return $this->tests_;
     }
-
 
 }
 

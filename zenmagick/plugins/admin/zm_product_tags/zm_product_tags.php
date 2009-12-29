@@ -54,7 +54,7 @@ class zm_product_tags extends Plugin implements ZMRequestHandler {
      * {@inheritDoc}
      */
     public function initRequest($request) {
-        ZMSettings::append('defaultProductAssociationHandler', 'ZMProductTagsProductAssociationHandler', ',');
+        ZMSettings::append('defaultProductAssociationHandler', 'ZMProductTagsProductAssociationHandler');
         if (0 < $request->getProductId()) {
             // only available if product involved
             $this->addMenuItem('zm_product_tags', zm_l10n_get('Product Tags'), 'zm_product_tags_admin', ZMAdminMenu::MENU_CATALOG_MANAGER_TAB);
