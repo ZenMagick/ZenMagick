@@ -85,7 +85,7 @@ class ZMPhpCompressor {
      *
      * @return array List of text messages.
      */
-    function getErrors() {
+    public function getErrors() {
         return $this->errors_;
     }
 
@@ -94,7 +94,7 @@ class ZMPhpCompressor {
      *
      * @return boolean <code>true</code> if errors exist.
      */
-    function hasErrors() {
+    public function hasErrors() {
         return 0 != count($this->errors_);
     }
 
