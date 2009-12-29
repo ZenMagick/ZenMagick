@@ -125,7 +125,7 @@ Release 0.9.8
 - add experimental haml compiler
 - use spl_autoload_register to register the loaders resolve method rather than
   the magic __autoload function
-
+- added basic Twig plugin
 
 Release 0.9.7
 - add ZMProductAssociation service and related code
