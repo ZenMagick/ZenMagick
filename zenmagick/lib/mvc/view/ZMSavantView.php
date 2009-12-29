@@ -125,13 +125,6 @@ class ZMSavantView extends ZMView {
         }
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public function generate($request) {
-        return $this->fetch($request, $this->getTemplate().ZMSettings::get('zenmagick.mvc.templates.ext', '.tpl'));
-    }
-
 }
 
 ?>

@@ -56,11 +56,21 @@
         ZMUrlManager::instance()->setMapping('haml_product', array(
           'controller' => 'ProductInfoController',
           'product_info' => array(
-            'template' => 'haml_product', 
+            'template' => 'haml_product',
             'view' => 'SavantView#layout=bean::null&config='.urlencode('compiler=bean::SavantHamlCompiler')
           )
         ));
         ZMSettings::set('zenmagick.mvc.templates.ext', '.haml');
+    }
+
+    if ('twig_product' == ZMRequest::instance()->getRequestId()) {
+        ZMUrlManager::instance()->setMapping('twig_product', array(
+          'controller' => 'ProductInfoController',
+          'product_info' => array(
+            'template' => 'twig_product'
+          )
+        ));
+        ZMSettings::set('zenmagick.mvc.templates.ext', '.twig');
     }
 
 ?>

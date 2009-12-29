@@ -89,6 +89,8 @@ class ZMTwigView extends ZMView {
             $loader = new Twig_Loader_Filesystem($this->getTemplatePath($request));
             $twig = new Twig_Environment($loader, array(
               'cache' => ZMSettings::get('zenmagick.core.cache.provider.file.baseDir').'twig'.DIRECTORY_SEPARATOR,
+              'debug' => true,
+              'auto_reload' => true
             ));
 
             $twigTemplate = $twig->loadTemplate($this->getViewDir().DIRECTORY_SEPARATOR.$template);

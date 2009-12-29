@@ -92,13 +92,15 @@ abstract class ZMView extends ZMObject {
     }
 
     /**
-     * Generate view contents.
+     * Shortcut to generate the contents for the currenty set template.
+     *
+     * <p>The template extension is taken from the <em>'zenmagick.mvc.templates.ext'</em setting.</p>
      *
      * @param ZMRequest request The current request.
      * @return string The contents.
      */
     public function generate($request) {
-        throw new ZMException('not implemented');
+        return $this->fetch($request, $this->getTemplate().ZMSettings::get('zenmagick.mvc.templates.ext', '.tpl'));
     }
 
     /**
@@ -160,7 +162,7 @@ abstract class ZMView extends ZMObject {
     }
 
     /**
-     * Fetch template contents.
+     * Fetch/generate the contents of the given template.
      *
      * @param request The current request.
      * @param string template The template name.
