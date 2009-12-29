@@ -45,6 +45,8 @@
     } else {
         require_once ZM_BASE_PATH."lib/core/ZMLoader.php";
         spl_autoload_register('ZMLoader::resolve');
+        //ini_set('unserialize_callback_func', 'spl_autoload_call');
+
         // configure loader
         ZMLoader::instance()->addPath(ZM_BASE_PATH.'lib'.DIRECTORY_SEPARATOR.'core'.DIRECTORY_SEPARATOR);
         ZMLoader::instance()->addPath(ZM_BASE_PATH.'lib'.DIRECTORY_SEPARATOR.'mvc'.DIRECTORY_SEPARATOR);
