@@ -25,6 +25,19 @@ In addition to that, the following configuration changes need to be done:
 * In table reviews, change the customers_id of the single review from 0 to 1
 
 
+Alternative test database
+=========================
+It is possible to configure an alternative database using the setting: 'plugins.unitTests.database.test'.
+Syntax is the same as for each database. The configured values will be merged with the defaults, so usually
+something like the following should be sufficient:
+
+    ZMSettings::set('plugins.unitTests.database.test', 'database=mytestdatabase');
+
+However, it is possible to configure all aspects in this setting:
+
+    ZMSettings::set('plugins.unitTests.database.test', 'database=test&provider=ZMPdoDatabase&user=dbuser&password=dbpwd');
+
+
 Disclamer
 =========
 EVEN THOUGH IT IS THE INTENTION TO REMOVE ALL CREATED TEST DATA, THERE IS NO GUARANTEE THAT THIS PLUGIN

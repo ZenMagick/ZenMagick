@@ -126,6 +126,9 @@ Release 0.9.8
 - use spl_autoload_register to register the loaders resolve method rather than
   the magic __autoload function
 - added basic Twig plugin
+- expose all used databases via ZMRuntime::getDatabases()
+- pageStats: display stats for each used database
+- unitTests: allow to configure alternative database connection for tests
 
 Release 0.9.7
 - add ZMProductAssociation service and related code

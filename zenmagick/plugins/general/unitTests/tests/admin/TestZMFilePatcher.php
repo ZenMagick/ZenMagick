@@ -13,6 +13,7 @@ class TestZMFilePatcher extends ZMTestCase {
      * Clean up.
      */
     public function tearDown() {
+        parent::tearDown();
         @unlink(dirname(__FILE__).'/data/file-test-insert-before-out.txt');
         @unlink(dirname(__FILE__).'/data/file-test-insert-before-edge-out.txt');
         @unlink(dirname(__FILE__).'/data/file-test-insert-after-out.txt');

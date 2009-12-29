@@ -31,6 +31,8 @@
  * @version $Id$
  */
 class ZMTestCase extends UnitTestCase {
+    private $defaultDb_;
+
 
     /**
      * Get the current request.
@@ -45,11 +47,27 @@ class ZMTestCase extends UnitTestCase {
      * {@inheritDoc}
      */
     public function setUp() {
+        // use test connection by temp. re-configuring the default connection
+        $this->defaultDb_ = ZMSettings::get('zenmagick.core.database.connections.default');
+        if (ZMSettings::exists('plugins.unitTests.database.test')) {
+            $testConnection = ZMLangUtils::toArray(ZMSettings::get('plugins.unitTests.database.test'));
+            $merged = array_merge(ZMLangUtils::toArray($this->defaultDb_), $testConnection);
+            ZMSettings::set('zenmagick.core.database.connections.default', $merged);
+        }
+
         $session = $this->getRequest()->getSession();
         if (!$session->isAnonymous()) {
             // logged in
             $session->clear();
         }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function tearDown() {
+        // restore
+        ZMSettings::set('zenmagick.core.database.connections.default', $this->defaultDb_);
     }
 
     /**

@@ -66,6 +66,7 @@ class TestZMAccounts extends ZMTestCase {
 
         $sql = 'DELETE FROM '.TABLE_CUSTOMERS.' WHERE customers_id IN (:accountId)';
         $results = ZMRuntime::getDatabase()->update($sql, array('accountId' => $ids), TABLE_CUSTOMERS);
+        parent::tearDown();
     }
 
 

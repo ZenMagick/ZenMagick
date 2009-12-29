@@ -16,6 +16,7 @@ class TestAttributePricing extends ZMTestCase {
      * Load expected prices.
      */
     public function setUp() {
+        parent::setUp();
     global $attribute_prices;
         $this->zen_cart_attribute_price_info = $attribute_prices;
     }

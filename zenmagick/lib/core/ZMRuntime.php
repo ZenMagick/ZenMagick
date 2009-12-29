@@ -85,6 +85,15 @@ class ZMRuntime extends ZMObject {
     }
 
     /**
+     * Get a list of all used databases.
+     *
+     * @return array List of <code>ZMDatabase</code> instances.
+     */
+    public static function getDatabases() {
+        return self::$databaseMap_;
+    }
+
+    /**
      * Get the full ZenMagick installation path.
      *
      * @return string The ZenMagick installation folder.

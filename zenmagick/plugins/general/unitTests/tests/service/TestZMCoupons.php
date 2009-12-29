@@ -15,6 +15,7 @@ class TestZMCoupons extends ZMTestCase {
      * {@inheritDoc}
      */
     public function setUp() {
+        parent::setUp();
         $this->createdCouponIds_ = array();
         $this->accountIds_ = array($this->getAccountId());
     }
@@ -41,6 +42,7 @@ class TestZMCoupons extends ZMTestCase {
                 ZMRuntime::getDatabase()->update($sql, array('accountId' => $accountId), $table);
             }
         }
+        parent::tearDown();
     }
 
 
