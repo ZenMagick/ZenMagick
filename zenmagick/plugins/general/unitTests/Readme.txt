@@ -38,8 +38,23 @@ However, it is possible to configure all aspects in this setting:
     ZMSettings::set('plugins.unitTests.database.test', 'database=test&provider=ZMPdoDatabase&user=dbuser&password=dbpwd');
 
 
-Disclamer
-=========
+Custom tests
+============
+Custom test cases can be registered in two ways. For both, the test case class needs to be in the class path:
+
+1. Using the addTest method on the plugin:
+
+  if (null != ($unitTests = ZMPlugins::instance()->getPluginForId('unitTests'))) {
+      $unitTests->addTest('TestZMVBulletin');
+  }
+
+2. Adding the test case class name to the setting: 'plugins.unitTests.tests.custom':
+
+  ZMSettings::append('plugins.unitTests.tests.custom', 'TestZMCronParser');
+
+
+Disclaimer
+==========
 EVEN THOUGH IT IS THE INTENTION TO REMOVE ALL CREATED TEST DATA, THERE IS NO GUARANTEE THAT THIS PLUGIN
 WILL NOT CREATE DATA OR MODIFY EXISTING DATA. 
 THIS PLUGIN IS FOR TESTING AND DEVELOPMENT ONLY AND SHOULD NOT BE USED ON PRODUCTION SYSTEMS.

@@ -37,6 +37,7 @@ define('UNIT_TESTS_GROUP_OTHER', '@other');
  */
 class ZMUnitTestsPlugin extends Plugin {
     private $tests_;
+    private $customDone_;
 
 
     /**
@@ -46,6 +47,7 @@ class ZMUnitTestsPlugin extends Plugin {
         parent::__construct('Unit Testing', 'Run unit tests using SimpleTest.');
         $this->setLoaderPolicy(ZMPlugin::LP_FOLDER);
         $this->tests_ = array();
+        $this->customDone_ = false;
     }
 
     /**
@@ -84,6 +86,12 @@ class ZMUnitTestsPlugin extends Plugin {
      * @return array List of other tests.
      */
     public function getTests() {
+        if (!$this->customDome_) {
+            foreach (explode(',', ZMSettings::get('plugins.unitTests.tests.custom')) as $custom) {
+                $this->addTest($custom);
+            }
+            $this->customDome_ = true;
+        }
         return $this->tests_;
     }
 

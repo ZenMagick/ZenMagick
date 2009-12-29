@@ -130,6 +130,9 @@ Release 0.9.8
 - pageStats: display stats for each used database
 - unitTests: allow to configure alternative database connection for tests
 - make ',' the default delimiter for ZMSettings::append()
+- unitTests: allow to register test cases by appending the test case class to
+  the setting 'plugins.unitTests.tests.custom'; classes need to be in the
+	class path!
 
 Release 0.9.7
 - add ZMProductAssociation service and related code
