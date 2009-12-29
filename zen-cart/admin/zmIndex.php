@@ -47,7 +47,9 @@
       $request->setController($controller);
   }
 
-  // code is buffered, so redirects should still work...
+  //XXX: buffer code, so redirects should still work...
+  ob_start();
+
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html <?php echo HTML_PARAMS; ?>>
