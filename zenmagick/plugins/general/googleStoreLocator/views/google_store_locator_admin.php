@@ -20,7 +20,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  *
- * @version $Id: views.php 2696 2009-12-04 00:06:09Z dermanomann $
+ * @version $Id$
  */
 ?>
 <script type="text/javascript" src="http://www.google.com/jsapi?key=<?php echo $adminKey ?>"></script>
