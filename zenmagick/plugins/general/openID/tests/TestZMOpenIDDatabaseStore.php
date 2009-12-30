@@ -3,17 +3,17 @@
 /**
  * Test OpenID store implementation.
  *
- * @package org.zenmagick.plugins.zm_openid
+ * @package org.zenmagick.plugins.openID
  * @author DerManoMann
  * @version $Id$
  */
-class TestZMDatabaseOpenIDStore extends ZMTestCase {
+class TestZMOpenIDDatabaseStore extends ZMTestCase {
 
     /**
      * Test store.
      */
     public function testStore() {
-        $store = new ZMDatabaseOpenIDStore();
+        $store = new ZMOpenIDDatabaseStore();
         $this->assertNotNull($store);
         $ass = new Auth_OpenID_Association('foo', 'secret', 1, (time()+100000), 'HMAC-SHA1');
         $store->storeAssociation('bar', $ass);

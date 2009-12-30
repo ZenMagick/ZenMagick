@@ -31,11 +31,11 @@ define('Auth_OpenID_RAND_SOURCE', null);
 /**
  * Support for OpenID.
  *
- * @package org.zenmagick.plugins.zm_openid
+ * @package org.zenmagick.plugins.openID
  * @author DerManoMann
  * @version $Id$
  */
-class zm_openid extends Plugin {
+class ZMOpenIDPlugin extends Plugin {
 
     /**
      * Create new instance.
@@ -43,9 +43,6 @@ class zm_openid extends Plugin {
     function __construct() {
         parent::__construct('OpenID', 'Allows to login using OpenID', '${plugin.version}');
         $this->setLoaderPolicy(ZMPlugin::LP_ALL);
-
-        // add OpenID field to accounts fields list
-        ZMSettings::append('zenmagick.core.database.sql.customers.customFields', 'openid;string');
     }
 
     /**
@@ -62,7 +59,6 @@ class zm_openid extends Plugin {
     public function install() {
         parent::install();
         ZMDbUtils::executePatch(file(ZMDbUtils::resolveSQLFilename($this->getPluginDirectory()."sql/install-openid.sql")), $this->messages_);
-
         $this->addConfigValue('Allowed OpenID provider', 'openIDProvider', '', 'A list of allowed OpenID identity providers (separated by \'|\').');
     }
 
@@ -80,18 +76,19 @@ class zm_openid extends Plugin {
     public function init() {
         parent::init();
 
+        // add OpenID field to accounts fields list
+        ZMSettings::append('zenmagick.core.database.sql.customers.customFields', 'openid;string');
+
         // make openid_login use session token
         ZMSettings::append('zenmagick.mvc.html.tokenSecuredForms', 'openid_login');
 
         // add success URL mapping if none exists
-        ZMUrlMapper::instance()->setMappingInfo('openID', array('viewId' => 'success', 'view' => 'account', 'viewDefinition' => 'RedirectView'));
+        ZMUrlManager::instance()->setMapping('openID', array(
+            'success' => array('template' => 'account', 'view' => 'RedirectView')
+        ));
 
         // register tests
-        if (null != ($tests = ZMPlugins::instance()->getPluginForId('zm_tests'))) {
-            // add class path only now to avoid errors due to missing ZMTestCase
-            ZMLoader::instance()->addPath($this->getPluginDirectory().'tests/');
-            $tests->addTest('TestZMDatabaseOpenIDStore');
-        }
+        ZMSettings::append('plugins.unitTests.tests.custom', 'TestZMOpenIDDatabaseStore');
     }
 
     /**

@@ -28,7 +28,7 @@
  * Check for unique openID.
  *
  * @author mano
- * @package org.zenmagick.plugins.zm_openid
+ * @package org.zenmagick.plugins.openID
  * @version $Id$
  */
 class ZMUniqueOpenIDRule extends ZMRule {
@@ -52,13 +52,9 @@ class ZMUniqueOpenIDRule extends ZMRule {
 
 
     /**
-     * Validate the given request data.
-     *
-     * @param ZMRequest request The current request.
-     * @param array data The data.
-     * @return boolean <code>true</code> if the value for <code>$name</code> is valid, <code>false</code> if not.
+     * {@inheritDoc}
      */
-    function validate($request, $data) {
+    public function validate($request, $data) {
         $plugin = ZMPlugins::instance()->getPluginForId('zm_openid');
         $openid = $data[$this->getName()];
         $idExists = null != $plugin->getAccountForOpenID($openid);
@@ -68,11 +64,9 @@ class ZMUniqueOpenIDRule extends ZMRule {
 
 
     /**
-     * Create JS validation call.
-     *
-     * @return string Formatted JavaScript .
+     * {@inheritDoc}
      */
-    function toJSString() {
+    public function toJSString() {
         return '';
     }
 

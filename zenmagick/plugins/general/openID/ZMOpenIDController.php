@@ -28,14 +28,14 @@
  * OpenID authentication controller.
  *
  * @author DerManoMann
- * @package org.zenmagick.plugins.zm_openid
+ * @package org.zenmagick.plugins.openID
  * @version $Id$
  */
 class ZMOpenIDController extends ZMController {
-    private $plugin;
-    private $returnTo;
-    private $sRegRequired;
-    private $sRegOptional;
+    private $plugin_;
+    private $returnTo_;
+    private $sRegRequired_;
+    private $sRegOptional_;
 
 
     /**
@@ -43,10 +43,10 @@ class ZMOpenIDController extends ZMController {
      */
     function __construct() {
         parent::__construct();
-        $this->plugin = ZMPlugins::instance()->getPluginForId('zm_openid');
-        $this->returnTo = str_replace('&amp;', '&', ZMRequest::instance()->getToolbox()->net->url(FILENAME_OPEN_ID, 'action=finishAuth', true, false));
-        $this->sRegRequired = array('email');
-        $this->sRegOptional = array('fullname', 'nickname');
+        $this->plugin_ = ZMPlugins::instance()->getPluginForId('openID');
+        $this->returnTo_ = str_replace('&amp;', '&', ZMRequest::instance()->getToolbox()->net->url(FILENAME_OPEN_ID, 'action=finishAuth', true, false));
+        $this->sRegRequired_ = array('email');
+        $this->sRegOptional_ = array('fullname', 'nickname');
     }
 
     /**
@@ -67,7 +67,7 @@ class ZMOpenIDController extends ZMController {
             if (null !== $info) {
                 $session = $request->getSession();
                 if ($session->getValue('openid') == $info['openid']) {
-                    $account = $this->plugin->getAccountForOpenID($info['openid']);
+                    $account = $this->plugin_->getAccountForOpenID($info['openid']);
 
                     if (!$session->registerAccount($account, $request, $this)) {
                         return $this->findView('login');
@@ -93,7 +93,7 @@ class ZMOpenIDController extends ZMController {
         $action = $request->getParameter('action');
         $openid = $request->getParameter('openid');
 
-        $account = $this->plugin->getAccountForOpenID($openid);
+        $account = $this->plugin_->getAccountForOpenID($openid);
         if (null != $account) {
             $session = $request->getSession();
             if ('initAuth' == $action && null != $openid) {
@@ -117,7 +117,7 @@ class ZMOpenIDController extends ZMController {
      * @param string openid The OpenID to authenticate.
      */
     private function initAuthentication($openid) {
-        $store = new ZMDatabaseOpenIDStore();
+        $store = new ZMOpenIDDatabaseStore();
         $consumer = new Auth_OpenID_Consumer($store);
         $auth_request = $consumer->begin($openid);
 
@@ -127,7 +127,7 @@ class ZMOpenIDController extends ZMController {
         }
 
         // required, optional
-        $sreg_request = Auth_OpenID_SRegRequest::build($this->sRegRequired, $this->sRegOptional);
+        $sreg_request = Auth_OpenID_SRegRequest::build($this->sRegRequired_, $this->sRegOptional_);
         if ($sreg_request) {
             $auth_request->addExtension($sreg_request);
         }
@@ -145,7 +145,7 @@ class ZMOpenIDController extends ZMController {
         // form to send a POST request to the server.
         $realm = Runtime::getBaseURL(true);
         if ($auth_request->shouldSendRedirect()) {
-            $redirect_url = $auth_request->redirectURL($realm, $this->returnTo);
+            $redirect_url = $auth_request->redirectURL($realm, $this->returnTo_);
 
             // If the redirect URL can't be built, display an error message.
             if (Auth_OpenID::isFailure($redirect_url)) {
@@ -158,7 +158,7 @@ class ZMOpenIDController extends ZMController {
         } else {
             // generate form markup and render it
             $form_id = 'openid_message';
-            $form_html = $auth_request->htmlMarkup($realm, $this->returnTo, false, array('id' => $form_id));
+            $form_html = $auth_request->htmlMarkup($realm, $this->returnTo_, false, array('id' => $form_id));
 
             if (Auth_OpenID::isFailure($form_html)) {
                 ZMMessages::instance()->error(zm_l10n_get('Could not redirect to server: %s', $form_html->message));
@@ -178,11 +178,11 @@ class ZMOpenIDController extends ZMController {
      * @return array OpenID details map or <code>null</code>.
      */
     private function finishAuthentication() {
-        $store = new ZMDatabaseOpenIDStore();
+        $store = new ZMOpenIDDatabaseStore();
         $consumer = new Auth_OpenID_Consumer($store);
 
         // Complete the authentication process using the server's response.
-        $response = $consumer->complete($this->returnTo);
+        $response = $consumer->complete($this->returnTo_);
 
         if ($response->status == Auth_OpenID_SUCCESS) {
             $sreg_resp = Auth_OpenID_SRegResponse::fromSuccessResponse($response);
