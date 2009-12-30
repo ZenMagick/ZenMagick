@@ -59,7 +59,7 @@ class ZMPageStatsPlugin extends Plugin {
         parent::install();
 
         $this->addConfigValue('Hidden Stats', 'hideStats', 'false', 'If set to true, page stats will be hidden (as HTML comment).',
-            'widget@BooleanFormWidget#name=hideStatus&default=false&label=Hide status');
+            'widget@BooleanFormWidget#name=hideStats&default=false&label=Hide status');
         $this->addConfigValue('Events', 'showEvents', 'false', 'Enable to display all fired events.',
             'widget@BooleanFormWidget#name=showEvents&default=false&label=Show events');
     }
@@ -142,7 +142,7 @@ class ZMPageStatsPlugin extends Plugin {
         echo '&nbsp;&nbsp;&nbsp;total page execution: <strong>'.Runtime::getExecutionTime().'</strong> secconds;<br'.$slash.'>';
         $db = Runtime::getDB();
         echo '<strong>db</strong>: SQL queries: <strong>'.$db->queryCount().'</strong>, duration: <strong>'.round($db->queryTime(), 4).'</strong> seconds;';
-        echo '&nbsp;&nbsp;<strong>databases:</strong>: ';
+        echo '&nbsp;&nbsp;<strong>databases:</strong> ';
         foreach (ZMRuntime::getDatabases() as $database) {
             $config = $database->getConfig();
             $stats = $database->getStats();
