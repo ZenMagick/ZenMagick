@@ -32,7 +32,7 @@
  * @version $Id$
  */
 class ZMUnitTestsController extends ZMController {
-    private $plugin;
+    private $plugin_;
 
 
     /**
@@ -40,7 +40,7 @@ class ZMUnitTestsController extends ZMController {
      */
     function __construct() {
         parent::__construct();
-        $this->plugin = ZMPlugins::instance()->getPluginForId('unitTests');
+        $this->plugin_ = ZMPlugins::instance()->getPluginForId('unitTests');
     }
 
     /**
@@ -63,7 +63,7 @@ class ZMUnitTestsController extends ZMController {
 
         // add tests folder to class path
         $testsLoader = ZMLoader::make("Loader");
-        $testBaseDir = $this->plugin->getPluginDirectory().'tests/';
+        $testBaseDir = $this->plugin_->getPluginDirectory().'tests/';
         $testsLoader->addPath($testBaseDir);
         // test data  is lower case
         $testsLoader->loadStatic();
@@ -95,17 +95,18 @@ class ZMUnitTestsController extends ZMController {
         }
 
         // merge in all custom registered tests
-        $allTests = array_merge($allTests, $this->plugin->getTests());
+        $allTests = array_merge($allTests, $this->plugin_->getTests());
         ksort($allTests);
-
-        // make available
-        ZMLoader::resolve('ZMTestCase');
-        ZMLoader::resolve('ZMWebTestCase');
 
         // create instances rather than just class names
         foreach ($allTests as $group => $tests) {
             foreach ($tests as $key => $clazz) {
-                $allTests[$group][$key] = ZMLoader::make($clazz);
+                if (null != ($test = ZMLoader::make($clazz))) {
+                    $allTests[$group][$key] = $test;
+                } else {
+                    ZMMessages::instance()->warn('could not create instance of '.$clazz);
+                    unset($allTests[$group][$key]);
+                }
             }
         }
 

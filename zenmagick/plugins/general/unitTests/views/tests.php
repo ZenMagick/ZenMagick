@@ -35,14 +35,19 @@
         .pass {background-color:inherit;color:green;font-weight:bold;}
         .skip {background-color:inherit;color:gray;font-weight:bold;}
         .msg {margin-left:1em;}
-         pre {background-color:#eaeaea;color:inherit;}
-         label strong {color:black;font-weight:bold;}
-         fieldset {width:14em;min-height:8em;height:11.5em;float:left;margin-right:5px;padding:8px;}
-         form p {clear:left;padding:7px;}
-         #root {margin-left:3px;}
-         .filetree {width:17em;border:1px solid gray;min-height:670px;overflow:hidden;float:left;padding:3px;}
-         #report {margin-left:19em;}
-         #run {float:right;}
+        pre {background-color:#eaeaea;color:inherit;}
+        label strong {color:black;font-weight:bold;}
+        fieldset {width:14em;min-height:8em;height:11.5em;float:left;margin-right:5px;padding:8px;}
+        form p {clear:left;padding:7px;}
+        #root {margin-left:3px;}
+        .filetree {width:17em;border:1px solid gray;min-height:670px;overflow:hidden;float:left;padding:3px;}
+        #report {margin-left:19em;}
+        #run {float:right;}
+        ul#messages {margin-left:0;padding-left:0;}
+        ul#messages li {list-style:none;padding:4px 3px;margin-left:0;border:1px solid #9a9a9a;}
+        ul#messages .msg, #content ul#messages .success {background:#6f6;color:#000;}
+        ul#messages .warn {background:#ff0;color:#000;}
+        ul#messages .error {background:#e55;color:#fff;}
     </style>
     <script type="text/javascript" src="<?php $plugin->pluginURL('js/jquery-1.2.1.pack.js') ?>"></script>
     <script type="text/javascript" src="<?php $plugin->pluginURL('js/jquery.treeview.pack.js') ?>"></script>
@@ -63,6 +68,13 @@
   </head>
   <body>
     <h1>ZenMagick Unit Testing</h1>
+    <div>
+        <ul id="messages">
+        <?php foreach (ZMMessages::instance()->getMessages() as $message) { ?>
+            <li class="<?php echo $message->getType() ?>"><?php echo $message->getText() ?></li>
+        <?php } ?>
+        </ul>
+    </div>
 
     <div class="filetree">
       <?php $form->open('tests', '', false, array('method'=>'post')); ?>

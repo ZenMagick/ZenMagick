@@ -133,6 +133,7 @@ Release 0.9.8
 - unitTests: allow to register test cases by appending the test case class to
   the setting 'plugins.unitTests.tests.custom'; classes need to be in the
 	class path!
+- unitTests: handle missing tests, allow to display messages
 
 Release 0.9.7
 - add ZMProductAssociation service and related code
