@@ -94,9 +94,6 @@ class ZMWordpressPlugin extends Plugin implements ZMRequestHandler {
             ZMSettings::set('isAccountNickname', true);
         }
 
-        // set up view mappings used by the wp controller
-        $view = 'PluginView#plugin=wordpress';
-
         ZMUrlManager::instance()->setMapping(FILENAME_WP, array(
             'view' => 'PluginView#plugin=wordpress',
             'controller' => 'WordpressController',
