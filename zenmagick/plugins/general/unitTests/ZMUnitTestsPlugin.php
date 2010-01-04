@@ -86,11 +86,11 @@ class ZMUnitTestsPlugin extends Plugin {
      * @return array List of other tests.
      */
     public function getTests() {
-        if (!$this->customDome_) {
+        if (!$this->customDone_) {
             foreach (explode(',', ZMSettings::get('plugins.unitTests.tests.custom')) as $custom) {
                 $this->addTest($custom);
             }
-            $this->customDome_ = true;
+            $this->customDone_ = true;
         }
         return $this->tests_;
     }
