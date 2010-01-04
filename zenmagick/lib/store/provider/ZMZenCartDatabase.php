@@ -234,8 +234,9 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
     public function update($sql, $data=array(), $mapping=null) {
         $startTime = microtime();
 
+        $mapping = $this->mapper->ensureMapping($mapping, $this);
+
         if (is_array($data)) {
-            $mapping = $this->mapper->ensureMapping($mapping, $this);
             // find out the order of args
             // the sorting is done to avoid invalid matches in cases where one key is the prefix of another
             $argKeys = array_keys($data);
@@ -251,7 +252,7 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
                 }
             }
         } else if (is_object($data)) {
-            $sql = $this->bindObject($sql, $data);
+            $sql = $this->bindObject($sql, $data, $mapping);
         } else {
             throw new ZMDatabaseException('invalid data type');
         }
@@ -419,7 +420,7 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
             if (false === ($fieldCount = @mysql_num_fields($res))) {
                 return null;
             }
-            $meta = array();
+            $meta = null;
             for ($ii=0; $ii < $fieldCount; ++$ii) {
                 $field = @mysql_field_name($res, $ii);
                 $flags = mysql_field_flags($res, $ii);
@@ -498,15 +499,22 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
      *
      * @param string sql The sql to work on.
      * @param mixed obj The data object instance.
+     * @param array mapping Optional mapping; default is <code>null</code>.
      * @return string The updated SQL query.
      */
-    protected function bindObject($sql, $obj) {
+    protected function bindObject($sql, $obj, $mapping=null) {
         // prepare label
         preg_match_all('/:\w+;\w+/m', $sql, $matches);
         $labels = array();
         foreach ($matches[0] as $name) {
             $label = explode(';', $name);
             $labels[str_replace(':', '', $label[0])] = array($name, $label[1]);
+        }
+        // if no label found and mapping exists, use that as fallback
+        if (0 == count($labels) && null != $mapping) {
+            foreach ($mapping as $key => $info) {
+                $labels[$key] = array(':'.$key, $info['type']);
+            }
         }
 
         $data = ZMBeanUtils::obj2map($obj, array_keys($labels));

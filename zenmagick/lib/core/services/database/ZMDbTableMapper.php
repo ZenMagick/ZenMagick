@@ -247,12 +247,23 @@ class ZMDbTableMapper extends ZMObject {
      */
     public function buildTableMapping($table, $database, $print=false) {
         // check for prefix
-        if (null === ($tableMetaData = $database->getMetaData($table))) {
+        $tableMetaData = null;
+        try {
+            $tableMetaData = $database->getMetaData($table);
+        } catch (ZMDatabaseException $dbe) {
+            // non prefixed?
+        }
+        if (null === $tableMetaData) {
             // try adding the prefix
             $table = $this->tablePrefix_.$table;
-            if (null === ($tableMetaData = $database->getMetaData($table))) {
-                return null;
+            try {
+                $tableMetaData = $database->getMetaData($table);
+            } catch (ZMDatabaseException $dbe) {
+                // definitely not there!
             }
+        }
+        if (null === $tableMetaData) {
+            return null;
         }
 
         $mapping = array();

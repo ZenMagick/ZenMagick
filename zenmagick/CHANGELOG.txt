@@ -1,4 +1,6 @@
 Release 0.9.9
+- in ZMDbTableMapper handle database exception building auto mappings
+- fix SQL errors in ZMZenCartDatabase
 
 Release 0.9.8
 - add Savant3 and experimental views (not used yet)
