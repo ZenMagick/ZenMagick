@@ -29,6 +29,9 @@
         <!-- apply-full-release-patches -->
         <antcall target="apply-full-release-patches" />
 
+        <!-- fix $db -->
+        <antcall target="exceptions-for-db" />
+
         <!-- create theme dummy files -->
         <antcall target="create-theme-dummy"><param name="theme.id" value='default' /></antcall>
         <antcall target="create-theme-dummy"><param name="theme.id" value='demo' /></antcall>
@@ -226,6 +229,28 @@
         <!-- touch target to avoid overwriting existing files! -->
         <touch file="${release.full.dir}/includes/modules/sideboxes/${basename}" />
         <copy overwrite="false" tofile="${release.full.dir}/includes/modules/sideboxes/${basename}" file="${build.dir}/sidebox_dummy.php" />
+    </target>
+
+    <!-- convert database die() to throwing an exception -->
+    <target name="exceptions-for-db" description="Convert die() to throwing an exception.">
+        <!-- normal die(); -->
+        <replaceregexp flags="g">
+            <fileset file="${release.full.dir}/includes/classes/db/mysql/query_factory.php" />
+            <regexp pattern="die\(\);"/>
+            <substitution expression='throw new ZMDatabaseException();' />
+        </replaceregexp>
+        <!-- die('with text'); -->
+        <replaceregexp flags="g">
+            <fileset file="${release.full.dir}/includes/classes/db/mysql/query_factory.php" />
+            <regexp pattern="die\s*\(('[Cv].*)'\);"/>
+            <substitution expression="throw new ZMDatabaseException(\1');" />
+        </replaceregexp>
+        <!-- convert $this->show_error(); into exception -->
+        <replaceregexp flags="g">
+            <fileset file="${release.full.dir}/includes/classes/db/mysql/query_factory.php" />
+            <regexp pattern="\$this->show_error\(\);"/>
+            <substitution expression="throw new ZMDatabaseException($zp_err_text);" />
+        </replaceregexp>
     </target>
 
     <!-- remove phpBB from installation -->

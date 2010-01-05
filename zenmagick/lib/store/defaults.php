@@ -164,9 +164,6 @@
             // configure locale (used to be init plugin)
             'configureLocale' => false,
 
-            // look for define pages in theme folder
-            'isZMDefinePages' => true,
-
             // default to default in ZM themes
             'isEnableThemeDefaults' => true,
 

@@ -175,9 +175,6 @@ class TestZMDatabase extends ZMTestCase {
         static $insert = "INSERT INTO db_test name = :name;";
 
         foreach (self::getProviders() as $provider => $database) {
-            if ('ZMZenCartDatabase' == $provider) {
-                continue;
-            }
             // create test tabe
             $database->update($drop_table);
             $database->update($create_table);

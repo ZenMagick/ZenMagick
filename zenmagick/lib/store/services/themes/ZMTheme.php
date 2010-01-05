@@ -282,10 +282,6 @@ class ZMTheme extends ZMObject {
      * @return string The content or <code>null</code>.
      */
     public function staticPageContent($page, $languageId=null, $echo=ZM_ECHO_DEFAULT) {
-        if (!ZMSettings::get('isZMDefinePages')) {
-            return $this->zcStaticPageContent($page, $languageId, $echo);
-        }
-
         if (null === $languageId) {
             $session = ZMRequest::instance()->getSession();
             $language = $session->getLanguage();
@@ -307,54 +303,6 @@ class ZMTheme extends ZMObject {
 
         if ($echo && null !== $contents) echo $contents;
         return $contents;
-    }
-
-    /**
-     * Get the content of a static (define) page using the zen-cart location.
-     *
-     * <p>If the file is not found and <code>isEnableThemeDefaults</code> is set to <code>true</code>,
-     * the method will try to resolve the name in the default theme.</p>
-     *
-     * @param string page The page name.
-     * @param int languageId Optional language id; default is <code>null</code> for current language.
-     * @param boolean echo If <code>true</code>, the URL will be echo'ed as well as returned.
-     * @return string The content or <code>null</code>.
-     */
-    public function zcStaticPageContent($page, $languageId=null, $echo=ZM_ECHO_DEFAULT) {
-        if (null == $languageId) {
-            $session = ZMRequest::instance()->getSession();
-            $language = $session->getLanguage();
-        } else {
-            $language = ZMLanguages::instance()->getLanguageForId($languageId);
-        }
-        $languageDir = $language->getDirectory();
-        $filename = DIR_WS_LANGUAGES . $languageDir . '/html_includes/'.Runtime::getThemeId().'/define_' . $page . '.php';
-        if (!file_exists($filename) && ZMSettings::get('isEnableThemeDefaults')) {
-            $filename = DIR_WS_LANGUAGES . $languageDir . '/html_includes/define_' . $page . '.php';
-        }
-
-        $contents = null;
-        if (file_exists($filename)) {
-            $contents = file_get_contents($filename);
-        }
-
-        if ($echo && null !== $contents) echo $contents;
-        return $contents;
-    }
-
-    /**
-     * Load and <code>eval</code> a theme file.
-     *
-     * <p>This allows to use <em>PHP</em> code in, for example, JavaScript files. One side-effect is
-     * that the evaluated content is inline'ed rather than loaded from a separate file. That
-     * means it's more usefule for small snippets rather than large files</p>
-     *
-     * @param string file The filename.
-     * @return string The eval'ed content.
-     */
-    public function themeFileContents($file) {
-        //TODO: fix: this is returning the return code of eval!!!
-        return eval('?>'.file_get_contents($this->themeFile($file)));
     }
 
     /**
