@@ -5,6 +5,7 @@ Release 0.9.9
 - remove support for setting 'isZMDefinePages'
 - add full-release patch to make $db throw ZMDatabaseExceptions rather than
   die()
+- removed smarty
 
 Release 0.9.8
 - add Savant3 and experimental views (not used yet)
