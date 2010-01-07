@@ -123,7 +123,7 @@ class ZMTheme extends ZMObject {
         if (!array_key_exists('layout', $this->config_)) {
             $this->setConfig('layout', array());
         }
-        $this->config['layout'][$template] = $name;
+        $this->config_['layout'][$template] = $name;
     }
 
     /**
