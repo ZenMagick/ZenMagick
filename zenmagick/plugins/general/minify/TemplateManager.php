@@ -53,7 +53,7 @@ class TemplateManager extends ZMTemplateManager {
      */
     public function resolveThemeResource($request, $resource) {
         $plugin = $this->getPlugin();
-        return $plugin->pluginUrl('min/f='.parent::resolveThemeResource($request, $resource), false);
+        return $plugin->pluginUrl('min/f='.parent::resolveThemeResource($request, $resource));
     }
 
 }

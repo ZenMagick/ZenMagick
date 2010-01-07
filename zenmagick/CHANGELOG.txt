@@ -21,6 +21,9 @@ Release 0.9.9
 	# 24 = Configuration - Index Listing
 	# 25 = Configuration - Define Page Status
 	# 30 = Configuration - EZ-Pages Settings
+- tentatively remove $echo parameter from methods; temlate functions affected:
+  staticPageContent(), getPaymentsJavaScript(), getOrderFormContent(); this
+	leaves just toolbox tools using this...
 
 Release 0.9.8
 - add Savant3 and experimental views (not used yet)

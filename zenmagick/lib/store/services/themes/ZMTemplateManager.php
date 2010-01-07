@@ -279,7 +279,7 @@ class ZMTemplateManager extends ZMObject {
      * @return string The resolved final URL.
      */
     public function resolveThemeResource($request, $resource) {
-        return Runtime::getTheme()->themeURL($resource, false);
+        return Runtime::getTheme()->themeURL($resource);
     }
 
     /**

@@ -352,20 +352,16 @@ class Plugin extends ZMPlugin {
      * <p>The given <code>uri</code> is assumed to be relative to the plugin folder.</p>
      *
      * @param string uri The relative URI.
-     * @param boolean echo If <code>true</code>, the URL will be echo'ed as well as returned.
      * @return string An absolute URL or <code>null</code>.
      */
-    public function pluginURL($uri, $echo=ZM_ECHO_DEFAULT) {
+    public function pluginURL($uri) {
         if (null == $this->getPluginDirectory()) {
             throw new ZMException('pluginDirectory missing');
         }
 
         $type = basename(dirname($this->getPluginDirectory()));
         //XXX: fix
-        $url = ZMRequest::instance()->getToolbox()->html->encode(Runtime::getPluginPathPrefix() . $type . '/' . $this->getId() . '/' . $uri, false);
-
-        if ($echo) echo $url;
-        return $url;
+        return ZMRequest::instance()->getToolbox()->html->encode(Runtime::getPluginPathPrefix() . $type . '/' . $this->getId() . '/' . $uri, false);
     }
 
 }

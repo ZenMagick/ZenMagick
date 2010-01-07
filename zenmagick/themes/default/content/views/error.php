@@ -24,4 +24,4 @@
  */
 ?>
 <h3><?php zm_l10n("Oops - something went wrong!") ?></h3>
-<?php $zm_theme->staticPageContent('error') ?>
+<?php echo $zm_theme->staticPageContent('error') ?>

@@ -28,7 +28,7 @@
 <p><address><?php echo nl2br(ZMSettings::get('storeNameAddress')); ?></address></p>
 <br/>
 
-<?php $zm_theme->staticPageContent("contact_us") ?>
+<?php echo $zm_theme->staticPageContent("contact_us") ?>
 
 <?php $form->open(FILENAME_CONTACT_US, 'action=send', false, array('id' => 'contactUs')) ?>
     <fieldset>

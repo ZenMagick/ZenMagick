@@ -40,7 +40,7 @@ class ZMToolboxForm extends ZMToolboxTool {
      * @param string id The id of the form to validate (the <code>ZMRuleSet</code> name).
      */
     public function insertJSValidation($id) {
-        ZMValidator::instance()->toJSString($id);
+        echo ZMValidator::instance()->toJSString($id);
         // inline JS to allow PHP
         include_once Runtime::getTheme()->themeFile("validation.js");
     }

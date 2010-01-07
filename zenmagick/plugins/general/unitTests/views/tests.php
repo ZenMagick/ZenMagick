@@ -28,7 +28,7 @@
   <head>
     <title>ZenMagick Unit Testing</title>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-    <link rel="stylesheet" type="text/css" href="<?php $plugin->pluginURL('js/jquery.treeview.css') ?>">
+    <link rel="stylesheet" type="text/css" href="<?php echo $this->asUrl('js/jquery.treeview.css') ?>">
     <style type="text/css">
         h1 {width:100%;border-bottom:1px solid gray;}
         .fail {background-color:inherit;color:red;font-weight:bold;}
@@ -49,8 +49,8 @@
         ul#messages .warn {background:#ff0;color:#000;}
         ul#messages .error {background:#e55;color:#fff;}
     </style>
-    <script type="text/javascript" src="<?php $plugin->pluginURL('js/jquery-1.2.1.pack.js') ?>"></script>
-    <script type="text/javascript" src="<?php $plugin->pluginURL('js/jquery.treeview.pack.js') ?>"></script>
+    <script type="text/javascript" src="<?php echo $this->asUrl('js/jquery-1.2.1.pack.js') ?>"></script>
+    <script type="text/javascript" src="<?php echo $this->asUrl('js/jquery.treeview.pack.js') ?>"></script>
     <script type="text/javascript">
       // select/unselect all
       function sync_all(box) {

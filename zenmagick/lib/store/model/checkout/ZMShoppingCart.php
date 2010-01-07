@@ -318,15 +318,13 @@ class ZMShoppingCart extends ZMObject {
     /**
      * Returns the order form elements.
      *
-     * @param boolean echo If <code>true</code>, echo the code.
      * @return mixed The form content for the actual order process.
      */
-    function getOrderFormContent($echo=ZM_ECHO_DEFAULT) {
+    function getOrderFormContent() {
         $payments = $this->_getPayments();
         $zenModules = $payments->getZenModules();
         $content = $zenModules->process_button();
 
-        if ($echo) echo $content;
         return $content;
     }
     
@@ -386,12 +384,11 @@ class ZMShoppingCart extends ZMObject {
     /**
      * Generate the JavaScript for the payment form validation.
      *
-     * @param boolean echo If <code>true</code>, echo the code.
      * @return string Fully formatted JavaScript incl. of wrapping &lt;script&gt; tag.
      */
-    function getPaymentsJavaScript($echo=ZM_ECHO_DEFAULT) {
+    function getPaymentsJavaScript() {
         $payments = $this->_getPayments();
-        $js = $payments->getPaymentsJavaScript(false);
+        $js = $payments->getPaymentsJavaScript();
 
         //XXX strip invalid script attribute
         $js = str_replace(' language="javascript"', '', $js);
@@ -399,7 +396,6 @@ class ZMShoppingCart extends ZMObject {
         //XXX XHMTL does not know name attributes on form elements
         $js = str_replace('document.checkout_payment', 'document.forms.checkout_payment', $js);
 
-        if ($echo) echo $js;
         return $js;
     }
 

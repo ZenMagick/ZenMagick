@@ -33,7 +33,7 @@
 </fieldset>
 
 <script type="text/javascript">var submitter = 0;</script>
-<?php $zm_cart->getPaymentsJavaScript() ?>
+<?php echo $zm_cart->getPaymentsJavaScript() ?>
 
 <?php $form->open(FILENAME_CHECKOUT_CONFIRMATION, '', array('id'=>'checkout_payment')) ?>
   <fieldset>

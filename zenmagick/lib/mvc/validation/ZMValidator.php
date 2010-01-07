@@ -215,10 +215,9 @@ class ZMValidator extends ZMObject {
      * Create JS validation rules for the given rule set.
      *
      * @param string id The id of the form to validate (the <code>ZMRuleSet</code> name).
-     * @param boolean echo If <code>true</code>, the JavaScript will be echo'ed as well as returned.
      * @return string Formatted JavaScript .
      */
-    public function toJSString($id, $echo=ZM_ECHO_DEFAULT) {
+    public function toJSString($id) {
         $set = $this->getRuleSet($id, true);
 
         if (null == $set) {
@@ -245,7 +244,6 @@ class ZMValidator extends ZMObject {
         $js .= $n.'  );'.$n;
         $js .= '</script>'.$n;
 
-        if ($echo) echo $js;
         return $js;
     }
 

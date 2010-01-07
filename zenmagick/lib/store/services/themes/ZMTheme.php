@@ -166,10 +166,9 @@ class ZMTheme extends ZMObject {
      * the method will try to resolve the name in the default theme.</p>
      *
      * @param string uri The relative URI.
-     * @param boolean echo If <code>true</code>, the URL will be echo'ed as well as returned.
      * @return string An absolute URL.
      */
-    public function themeURL($uri, $echo=ZM_ECHO_DEFAULT) {
+    public function themeURL($uri) {
         $url = Runtime::getThemesPathPrefix().$this->themeId_."/".'content/'.$uri;
         if (ZMSettings::get('isEnableThemeDefaults') && !file_exists($this->getContentDir().$uri)) {
             if (file_exists(Runtime::getThemesDir().ZMSettings::get('defaultThemeId').DIRECTORY_SEPARATOR.'content'.DIRECTORY_SEPARATOR.$uri)) {
@@ -177,10 +176,7 @@ class ZMTheme extends ZMObject {
             }
         }
 
-        $url = ZMRequest::instance()->getToolbox()->html->encode($url, false);
-
-        if ($echo) echo $url;
-        return $url;
+        return ZMRequest::instance()->getToolbox()->html->encode($url, false);
     }
 
 
@@ -356,10 +352,9 @@ class ZMTheme extends ZMObject {
      *
      * @param string page The page name.
      * @param int languageId Optional language id; default is <code>null</code> for current language.
-     * @param boolean echo If <code>true</code>, the URL will be echo'ed as well as returned.
      * @return string The content or <code>null</code>.
      */
-    public function staticPageContent($page, $languageId=null, $echo=ZM_ECHO_DEFAULT) {
+    public function staticPageContent($page, $languageId=null) {
         if (null === $languageId) {
             $session = ZMRequest::instance()->getSession();
             $language = $session->getLanguage();
@@ -379,7 +374,6 @@ class ZMTheme extends ZMObject {
             $contents = file_get_contents($filename);
         }
 
-        if ($echo && null !== $contents) echo $contents;
         return $contents;
     }
 
