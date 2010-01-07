@@ -10,6 +10,17 @@ Release 0.9.9
 - remove ToolboxHtml::onload
 - remove ZMhemeInfo and use theme.yaml file instead
 - fix popups
+- added full release SQL to hide the following config options:
+	#  8 = Configuration - Product Listing
+	# 10 = Configuration - Logging
+	# 14 = Configuration - GZip Compression
+	# 18 = Configuration - Product Info
+	# 21 = Configuration - New Listing
+	# 22 = Configuration - Featured Listing
+	# 23 = Configuration - All Listing
+	# 24 = Configuration - Index Listing
+	# 25 = Configuration - Define Page Status
+	# 30 = Configuration - EZ-Pages Settings
 
 Release 0.9.8
 - add Savant3 and experimental views (not used yet)
