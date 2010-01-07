@@ -57,11 +57,11 @@ class ZMThemeDummyPatch extends ZMFilePatch {
      * @return boolean <code>true</code> if this patch can still be applied.
      */
     function isOpen() {
-        foreach (ZMThemes::instance()->getThemeInfoList() as $themeInfo) {
-            if (ZMSettings::get('defaultThemeId') == $themeInfo->getThemeId() && !$this->includeDefault_) {
+        foreach (ZMThemes::instance()->getThemes() as $theme) {
+            if (ZMSettings::get('defaultThemeId') == $theme->getThemeId() && !$this->includeDefault_) {
                 continue;
             }
-            if (!file_exists(DIR_FS_CATALOG_TEMPLATES.$themeInfo->getThemeId())) {
+            if (!file_exists(DIR_FS_CATALOG_TEMPLATES.$theme->getThemeId())) {
                 return true;
             }
         }
@@ -112,22 +112,23 @@ class ZMThemeDummyPatch extends ZMFilePatch {
             return false;
         }
 
-        foreach (ZMThemes::instance()->getThemeInfoList() as $themeInfo) {
-            if (ZMSettings::get('defaultThemeId') == $themeInfo->getThemeId() && !$this->includeDefault_) {
+        foreach (ZMThemes::instance()->getThemes() as $theme) {
+            if (ZMSettings::get('defaultThemeId') == $theme->getThemeId() && !$this->includeDefault_) {
                 continue;
             }
-            $themeId = $themeInfo->getThemeId();
+            $themeId = $theme->getThemeId();
             if (!file_exists(DIR_FS_CATALOG_TEMPLATES.$themeId)) {
                 if (is_writeable(DIR_FS_CATALOG_TEMPLATES)) {
                     $templateDir = DIR_FS_CATALOG_TEMPLATES.$themeId.DIRECTORY_SEPARATOR;
+                    $themeInfo = $theme->getThemeInfo();
                     ZMFileUtils::mkdir($templateDir);
                     ZMFileUtils::mkdir($templateDir.'images');
                     if (null == ($imageName = $themeInfo->getPreview())) {
                         $imageName = 'preview.jpg';
                     }
                     $theme = ZMThemes::instance()->getThemeForId($themeId);
-                    if (file_exists($theme->getRootDir().'preview.jpg')) {
-                        copy($theme->getRootDir().'preview.jpg', $templateDir.'images'.DIRECTORY_SEPARATOR.$imageName);
+                    if (file_exists($theme->getBaseDir().'preview.jpg')) {
+                        copy($theme->getBaseDir().'preview.jpg', $templateDir.'images'.DIRECTORY_SEPARATOR.$imageName);
                     } else {
                         copy(ZMRuntime::getInstallationPath().'lib/store/etc/images/preview_not_found.jpg', $templateDir.'images'.DIRECTORY_SEPARATOR.$imageName);
                     }

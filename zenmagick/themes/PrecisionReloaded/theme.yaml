@@ -1,0 +1,5 @@
+## $id$
+name: 'Precision Reloaded'
+version: '${theme.version}'
+author: 'David'
+description: 'Precision Reloaded  - a liquid three column theme based on the ZenMagick Precision theme'

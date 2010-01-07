@@ -48,7 +48,7 @@
     <?php } ?>
   </head>
 
-  <body id="pb_<?php echo $request->getRequestId() ?>"<?php $html->onload() ?>>
+  <body id="pb_<?php echo $request->getRequestId() ?>">
     <?php echo $this->fetch($viewTemplate); ?>
   </body>
 </html>

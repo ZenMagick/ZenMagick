@@ -6,6 +6,9 @@ Release 0.9.9
 - add full-release patch to make $db throw ZMDatabaseExceptions rather than
   die()
 - removed smarty
+- intorduce yaml based theme config
+- remove ToolboxHtml::onload
+- remove ZMhemeInfo and use theme.yaml file instead
 
 Release 0.9.8
 - add Savant3 and experimental views (not used yet)

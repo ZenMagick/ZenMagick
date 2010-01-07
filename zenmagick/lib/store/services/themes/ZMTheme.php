@@ -31,6 +31,7 @@
 class ZMTheme extends ZMObject {
     private $themeId_;
     private $themeInfo_;
+    private $config_;
 
 
     /**
@@ -42,6 +43,7 @@ class ZMTheme extends ZMObject {
         parent::__construct();
         $this->themeId_ = $themeId;
         $this->themeInfo_ = null;
+        $this->config_ = ZMRuntime::yamlLoad(file_get_contents($this->getBaseDir().'theme.yaml'));
     }
 
     /**
@@ -57,7 +59,92 @@ class ZMTheme extends ZMObject {
      *
      * @return string The theme id.
      */
-    public function getThemeId() { return $this->themeId_; }
+    public function getThemeId() { 
+        return $this->themeId_;
+    }
+
+    /**
+     * Return the full filename for the themes base directory.
+     *
+     * @return string The theme base directory.
+     */
+    public function getBaseDir() {
+        return Runtime::getThemesDir() . $this->themeId_ . DIRECTORY_SEPARATOR;
+    }
+
+    /**
+     * Get theme config.
+     *
+     * @param string key Optional config key; default is <code>null</code> to return the full map.
+     * @return mixed Theme config map, the value of a specific key or <code>null</code> for unknown keys.
+     */
+    public function getConfig($key=null) {
+        if (null == $key) {
+            return $this->config_;
+        }
+
+        if (array_key_exists($key, $this->config_)) {
+            return $this->config_[$key];
+        }
+
+        return null;
+    }
+
+    /**
+     * Set theme name.
+     *
+     * @return string The name.
+     */
+    public function getName() {
+        return $this->config_['name'];
+    }
+
+    /**
+     * Set theme config.
+     *
+     * @param mixed key The config key or an array to set all.
+     * @param mixed value The value.
+     */
+    public function setConfig($key, $value) {
+        if (is_array($key)) {
+            $this->config_ = $key;
+            return;
+        }
+        $this->config_[$key] = $value;
+    }
+
+    /**
+     * Set the layout for the given template.
+     *
+     * @param string template The template.
+     * @param string name The layout name.
+     */
+    public function setLayout($template, $name) { 
+        if (!array_key_exists('layout', $this->config_)) {
+            $this->setConfig('layout', array());
+        }
+        $this->config['layout'][$template] = $name;
+    }
+
+    /**
+     * Get the layout for the given template.
+     *
+     * @param string template The template.
+     * @return string The layout name or <code>null</code>.
+     */
+    public function getLayoutFor($template) {
+        if (array_key_exists($template, $this->config_['layout'])) {
+            return $this->config_['layout'][$template];
+        } else if (array_key_exists('defaultLayout', $this->config_)) {
+            return $this->config_['defaultLayout'];
+        }
+
+        // default to no layout
+        return null;
+    }
+
+
+
 
     /**
      * Check if a layout is configured for the given page.
@@ -98,21 +185,12 @@ class ZMTheme extends ZMObject {
 
 
     /**
-     * Return the full filename for the themes root directory.
-     *
-     * @return string The themes root directory.
-     */
-    public function getRootDir() {
-        return Runtime::getThemesDir() . $this->themeId_ . DIRECTORY_SEPARATOR;
-    }
-
-    /**
      * Return the path of the extra directory.
      *
      * @return string A full filename denoting the themes extra directory.
      */
     public function getExtraDir() {
-        return $this->getRootDir() . 'extra'.DIRECTORY_SEPARATOR;
+        return $this->getBaseDir() . 'extra'.DIRECTORY_SEPARATOR;
     }
 
     /**
@@ -121,7 +199,7 @@ class ZMTheme extends ZMObject {
      * @return string A full filename denoting the themes boxes directory.
      */
     public function getBoxesDir() {
-        return $this->getRootDir() . 'content'.DIRECTORY_SEPARATOR.'boxes'.DIRECTORY_SEPARATOR;
+        return $this->getBaseDir() . 'content'.DIRECTORY_SEPARATOR.'boxes'.DIRECTORY_SEPARATOR;
     }
 
     /**
@@ -130,7 +208,7 @@ class ZMTheme extends ZMObject {
      * @return string A full filename denoting the themes content directory.
      */
     public function getContentDir() {
-        return $this->getRootDir() . 'content'.DIRECTORY_SEPARATOR;
+        return $this->getBaseDir() . 'content'.DIRECTORY_SEPARATOR;
     }
 
     /**
@@ -139,7 +217,7 @@ class ZMTheme extends ZMObject {
      * @return string A full filename denoting the themes views directory.
      */
     public function getViewsDir() {
-        return $this->getRootDir() . 'content'.DIRECTORY_SEPARATOR.'views'.DIRECTORY_SEPARATOR;
+        return $this->getBaseDir() . 'content'.DIRECTORY_SEPARATOR.'views'.DIRECTORY_SEPARATOR;
     }
 
     /**
@@ -148,7 +226,7 @@ class ZMTheme extends ZMObject {
      * @return string A full filename denoting the themes lang directory.
      */
     public function getLangDir() {
-        return $this->getRootDir() . 'lang'.DIRECTORY_SEPARATOR;
+        return $this->getBaseDir() . 'lang'.DIRECTORY_SEPARATOR;
     }
 
     /**
@@ -163,7 +241,7 @@ class ZMTheme extends ZMObject {
      * @return string A fully qualified filename.
      */
     public function themeFile($name, $baseDir='content/', $echo=false) {
-        $file = $this->getRootDir().$baseDir.$name;
+        $file = $this->getBaseDir().$baseDir.$name;
         if (ZMSettings::get('isEnableThemeDefaults') && !file_exists($file)) {
             // check for default
             $dfile = Runtime::getThemesDir().ZMSettings::get('defaultThemeId').DIRECTORY_SEPARATOR.$baseDir.$name;
@@ -303,22 +381,6 @@ class ZMTheme extends ZMObject {
 
         if ($echo && null !== $contents) echo $contents;
         return $contents;
-    }
-
-    /**
-     * Get the <code>ZMThemeInfo</code> for this theme.
-     *
-     * @return ZMThemeInfo A <code>ZMThemeInfo</code> instance.
-     */
-    public function getThemeInfo() {
-        if (null == $this->themeInfo_) {
-            $this->themeInfo_ = ZMThemes::instance()->getThemeInfoForId($this->themeId_);
-        }
-        if (null == $this->themeInfo_) {
-            throw new ZMException('could not instantiate theme info class for theme: '.$this->themeId_);
-        }
-
-        return $this->themeInfo_;
     }
 
     /**

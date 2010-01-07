@@ -90,8 +90,7 @@ class SavantView extends ZMSavantView {
         }
 
         // default
-        $themeInfo = Runtime::getTheme()->getThemeInfo();
-        return $themeInfo->getLayoutFor($this->getTemplate());
+        return Runtime::getTheme()->getLayoutFor($this->getTemplate());
     }
 
     /**

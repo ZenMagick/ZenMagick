@@ -1,0 +1,14 @@
+## $id$
+name: 'ZenMagick Default'
+version: '${zenmagick.version}'
+author: 'zenmagick.org'
+description: 'ZenMagick default theme; based on andreas08 from http://andreasviklund.com/templates/'
+
+errorPage: 'error'
+defaultLayout: 'default_layout'
+
+layout:
+  'popup/cvv_help': 'popup_layout'
+  'popup/search_help': 'popup_layout'
+  'popup/shipping_estimator': 'popup_layout'
+  'popup/coupon_help': 'popup_layout'

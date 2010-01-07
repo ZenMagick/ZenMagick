@@ -64,7 +64,7 @@
     <?php } ?>
   </head>
 
-  <body id="b_<?php echo $request->getRequestId() ?>"<?php $html->onload() ?>>
+  <body id="b_<?php echo $request->getRequestId() ?>">
     <?php if (null != ($bannerBox = ZMBanners::instance()->getBannerForSet('header1'))) { ?>
         <div id="bannerOne"><?php $macro->showBanner($bannerBox); ?></div>
     <?php } ?>

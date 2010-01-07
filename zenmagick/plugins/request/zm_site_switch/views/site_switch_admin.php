@@ -79,8 +79,8 @@
             <legend>Site #<?php echo $ii ?></legend>
             <p><label for="hostname_<?php echo $ii ?>">Hostname:</label> <input type="text" name="hostname_<?php echo $ii ?>" value="<?php echo $hostname ?>"></p>
             <p><label for="themeId_<?php echo $ii ?>">Theme:</label> <select name="themeId_<?php echo $ii ?>">
-                <?php foreach (ZMThemes::instance()->getThemeInfoList() as $themeInfo) { $selected = $themeId == $themeInfo->getThemeId() ? ' selected' : ''; ?>
-                    <option value="<?php echo $themeInfo->getThemeId() ?>"<?php echo $selected ?>><?php echo $themeInfo->getName() ?></option>
+                <?php foreach (ZMThemes::instance()->getThemes() as $theme) { $selected = $themeId == $theme->getThemeId() ? ' selected' : ''; ?>
+                    <option value="<?php echo $theme->getThemeId() ?>"<?php echo $selected ?>><?php echo $theme->getName() ?></option>
                 <?php } ?>
             </select></p>
         </fieldset>

@@ -1,0 +1,5 @@
+## $id$
+name: 'ZenMagick Demo Theme'
+version: '${zenmagick.version}'
+author: 'zenmagick.org'
+description: 'ZenMagick demo theme including additional product pages and extra code'

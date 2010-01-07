@@ -59,7 +59,7 @@ class ZMUnitTestsController extends ZMController {
      */
     public function processGet($request) {
         // show test view only
-        Runtime::getTheme()->getThemeInfo()->setLayout('tests', null);
+        Runtime::getTheme()->setLayout('tests', null);
 
         // add tests folder to class path
         $testsLoader = ZMLoader::make("Loader");

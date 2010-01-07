@@ -55,6 +55,25 @@ class ZMThemes extends ZMObject {
 
 
     /**
+     * Get a list of all available themes.
+     *
+     * @return array A list of <code>ZMTheme</code> instances.
+     */ 
+    public function getThemes() {
+        $themes = array();
+        $basePath = Runtime::getThemesDir();
+        $dirs = $this->getThemeDirList();
+        // load info classes and get instance
+        foreach ($dirs as $dir) {
+            if (file_exists($basePath.$dir.DIRECTORY_SEPARATOR.'theme.yaml')) {
+                $themes[] =  ZMLoader::make("Theme", $dir);
+            }
+        }
+
+        return $themes;
+    }
+
+    /**
      * Get <code>ZMTheme</code> instance for the given theme Id.
      *
      * @param string themeId The theme id.
@@ -63,61 +82,6 @@ class ZMThemes extends ZMObject {
     public function getThemeForId($themeId=null) {
         $theme = ZMLoader::make("Theme", $themeId);
         return $theme;
-    }
-
-    /**
-     * Get <code>ZMThemeInfo</code> instance for the current (or given) theme Id.
-     *
-     * @param string themeId The theme id or <code>null</code> for the current theme id.
-     * @return ZMThemeInfo The themes <code>ZMThemeInfo</code> implementation or <code>null</code>.
-     */
-    public function getThemeInfoForId($themeId=null) {
-        // theme id
-        $themeId = null == $themeId ? Runtime::getThemeId() : $themeId;
-        // theme base path
-        $basePath = Runtime::getThemesDir();
-        $infoName = $themeId. ' ThemeInfo';
-        // theme info class name
-        $infoClass = ZMLoader::makeClassname($infoName);
-        // theme info file name
-        $infoFile = $basePath.$themeId."/".$infoClass.".php";
-
-        // load
-        if (!class_exists($infoClass)) {
-            if (!file_exists($infoFile)) {
-                ZMLogging::instance()->log('skipping "' . $themeId . '" - no theme info class found', ZMLogging::WARN);
-                return null;
-            }
-            require_once($infoFile);
-        }
-        // create instance
-        $obj = new $infoClass();
-        $obj->setThemeId($themeId);
-        if ($themeId != ZMSettings::get('defaultThemeId') && ZMSettings::get('isEnableThemeDefaults')) {
-            $obj->setParent($this->getThemeInfoForId(ZMSettings::get('defaultThemeId')));
-        }
-
-        return $obj;
-    }
-
-    /**
-     * Get a list of all available themes.
-     *
-     * @return array A list of <code>ZMThemeInfo</code> instances.
-     */ 
-    public function getThemeInfoList() {
-        $infoList = array();
-        $basePath = Runtime::getThemesDir();
-        $dirs = $this->getThemeDirList();
-        // load info classes and get instance
-        foreach ($dirs as $dir) {
-            $themeInfo = $this->getThemeInfoForId($dir);
-            if (null != $themeInfo) {
-                $infoList[] = $themeInfo;
-            }
-        }
-
-        return $infoList;
     }
 
     /**
@@ -220,7 +184,6 @@ class ZMThemes extends ZMObject {
         }
         // set up theme
         $theme = ZMThemes::instance()->getThemeForId($themeId);
-        $themeInfo = $theme->getThemeInfo();
 
         // configure theme loader
         $themeLoader = ZMLoader::make("Loader");
@@ -240,8 +203,11 @@ class ZMThemes extends ZMObject {
         }
 
         // check for theme switching
-        if (null != $themeInfo && Runtime::getThemeId() != $themeInfo->getThemeId()) {
-            return $this->resolveTheme(Runtime::getThemeId());
+        if (Runtime::getThemeId() != $theme->getThemeId()) {
+            $nextTheme = $this->resolveTheme(Runtime::getThemeId());
+            // merge with parent..
+            $nextTheme->setConfig(array_merge_recursive($theme->getConfig(), $nextTheme->getConfig()));
+            return $nextTheme;
         }
 
         // finalise i18n
