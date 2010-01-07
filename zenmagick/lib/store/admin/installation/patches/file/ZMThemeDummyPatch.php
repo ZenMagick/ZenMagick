@@ -120,10 +120,10 @@ class ZMThemeDummyPatch extends ZMFilePatch {
             if (!file_exists(DIR_FS_CATALOG_TEMPLATES.$themeId)) {
                 if (is_writeable(DIR_FS_CATALOG_TEMPLATES)) {
                     $templateDir = DIR_FS_CATALOG_TEMPLATES.$themeId.DIRECTORY_SEPARATOR;
-                    $themeInfo = $theme->getThemeInfo();
+                    $themeConfig = $theme->getConfig();
                     ZMFileUtils::mkdir($templateDir);
                     ZMFileUtils::mkdir($templateDir.'images');
-                    if (null == ($imageName = $themeInfo->getPreview())) {
+                    if (!array_key_exists('preview', $themeConfig)) {
                         $imageName = 'preview.jpg';
                     }
                     $theme = ZMThemes::instance()->getThemeForId($themeId);
@@ -134,10 +134,10 @@ class ZMThemeDummyPatch extends ZMFilePatch {
                     }
                     $handle = fopen(DIR_FS_CATALOG_TEMPLATES.$themeId."/template_info.php", 'ab');
                     fwrite($handle, '<?php /** dummy file created by ZenMagick installation patcher **/'."\n");
-                    fwrite($handle, '  $template_version = ' . "'" . addslashes($themeInfo->getVersion()) . "';\n");
-                    fwrite($handle, '  $template_name = ' . "'" . addslashes($themeInfo->getName()) . "';\n");
-                    fwrite($handle, '  $template_author = ' . "'" . addslashes($themeInfo->getAuthor()) . "';\n");
-                    fwrite($handle, '  $template_description = ' . "'" . addslashes($themeInfo->getDescription()) . "';\n");
+                    fwrite($handle, '  $template_version = ' . "'" . addslashes($themeConfig['version']) . "';\n");
+                    fwrite($handle, '  $template_name = ' . "'" . addslashes($themeConfig['name']) . "';\n");
+                    fwrite($handle, '  $template_author = ' . "'" . addslashes($themeConfig['author']) . "';\n");
+                    fwrite($handle, '  $template_description = ' . "'" . addslashes($themeConfig['description']) . "';\n");
                     fwrite($handle, '  $template_screenshot = ' . "'" . $imageName . "';\n");
                     fwrite($handle, '?>');
                     fclose($handle);

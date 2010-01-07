@@ -176,18 +176,13 @@
         <mkdir dir="${release.full.dir}/includes/templates/${theme.id}" />
 
         <!-- get a defined filename -->
-        <concat destfile="${build.dir}/theme_info.php"><fileset dir="${zenmagick.src.dir}/themes/${theme.id}" includes="*.php"/></concat>
+        <concat destfile="${build.dir}/theme_info.php"><fileset dir="${zenmagick.src.dir}/themes/${theme.id}" includes="*.yaml"/></concat>
         <!-- prepare info lines -->
         <replaceregexp flags="" byline="true">
             <fileset file="${build.dir}/theme_info.php" />
-            <regexp pattern=".*->set(Name|Version|Author|Description)\('(.*)'.*"/>
-            <substitution expression="  $template_\1 = '\2';" />
+            <regexp pattern="(name|version|author|description):\s(.*)"/>
+            <substitution expression="  $template_\1 = \2;" />
         </replaceregexp>
-        <!-- a bit brute force -->
-        <replaceregexp file="${build.dir}/theme_info.php" match="_Name" replace="_name" />
-        <replaceregexp file="${build.dir}/theme_info.php" match="_Version" replace="_version" />
-        <replaceregexp file="${build.dir}/theme_info.php" match="_Author" replace="_author" />
-        <replaceregexp file="${build.dir}/theme_info.php" match="_Description" replace="_description" />
 
         <concat destfile="${build.dir}/template_info.php" eol="dos">
             <header filtering="no" trimleading="yes">&lt;?php /** dummy file created by ZenMagick installation patcher **/
