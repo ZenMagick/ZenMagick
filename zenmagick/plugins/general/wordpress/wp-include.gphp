@@ -1,0 +1,20 @@
+<?php 
+    
+  /**
+   * Load WP API.
+   *
+   * @version $Id$
+   * @see http://www.ardamis.com/2006/07/10/wordpress-googlebot-404-error/
+   */
+  // use API
+  define('WP_USE_THEMES', false);
+
+  if (null != ($plugin = ZMPlugins::instance()->getPluginForId('wordpress'))) { 
+      @require_once $plugin->get('wordpressDir').'wp-config.php';
+      $wp->init();
+      $wp->parse_request();
+      $wp->query_posts();
+      $wp->register_globals();
+  }
+
+?>

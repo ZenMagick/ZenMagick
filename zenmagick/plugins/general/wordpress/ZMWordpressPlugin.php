@@ -212,7 +212,7 @@ class ZMWordpressPlugin extends Plugin implements ZMRequestHandler {
                 $_SERVER['REQUEST_URI'] = str_replace($path, '', $_SERVER['REQUEST_URI']);
             }
             // load as proper global to make WP work - @#!!$&^ globals
-            return array('wp-blog-header.gphp');
+            return array('wp-include.gphp');
         }
         return parent::getGlobal();
     }

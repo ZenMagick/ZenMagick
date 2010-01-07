@@ -24,6 +24,8 @@ Release 0.9.9
 - tentatively remove $echo parameter from methods; temlate functions affected:
   staticPageContent(), getPaymentsJavaScript(), getOrderFormContent(); this
 	leaves just toolbox tools using this...
+- wordpress: Change the way the WP API is loaded to avoid 404 header; see:
+  http://www.ardamis.com/2006/07/10/wordpress-googlebot-404-error/
 
 Release 0.9.8
 - add Savant3 and experimental views (not used yet)
