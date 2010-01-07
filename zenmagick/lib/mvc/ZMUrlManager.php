@@ -209,14 +209,20 @@ class ZMUrlManager extends ZMObject {
         if (!array_key_exists('template', $mapping) || null == $mapping['template']) {
             $mapping['template'] = $requestId;
         }
-        if (!array_key_exists('view', $mapping) || null == $mapping['view']) {
-            $mapping['view'] = ZMSettings::get('zenmagick.mvc.view.default', 'SavantView');
+        // default
+        $view = ZMSettings::get('zenmagick.mvc.view.default', 'SavantView');
+        if (array_key_exists('view', $mapping) && null != $mapping['view']) {
+            $view = $mapping['view'];
+        }
+        if (false === strpos($view, '#')) {
+            // prepend default view class
+            $view = ZMSettings::get('zenmagick.mvc.view.default', 'SavantView').'#'.$view;
         }
 
         if (is_array($parameter)) {
             $parameter = http_build_query($parameter);
         }
-        $definition = $mapping['view'].(false === strpos($mapping['view'], '#') ? '#' : '&').$parameter.'&template='.$mapping['template'];
+        $definition = $view.(false === strpos($view, '#') ? '#' : '&').$parameter.'&template='.$mapping['template'];
         ZMLogging::instance()->log('view definition: '.$definition, ZMLogging::TRACE);
         return ZMBeanUtils::getBean($definition);
     }

@@ -8,7 +8,7 @@ errorPage: 'error'
 defaultLayout: 'default_layout'
 
 layout:
-  'popup/cvv_help': 'popup_layout'
-  'popup/search_help': 'popup_layout'
-  'popup/shipping_estimator': 'popup_layout'
-  'popup/coupon_help': 'popup_layout'
+  'cvv_help': 'popup_layout'
+  'search_help': 'popup_layout'
+  'shipping_estimator': 'popup_layout'
+  'coupon_help': 'popup_layout'

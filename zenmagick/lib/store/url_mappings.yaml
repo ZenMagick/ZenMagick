@@ -33,6 +33,21 @@ null:
   low_stock:
     view: RedirectView
     template: shopping_cart
+
+# view without classname# prefix will be completed to: [default-view-classname]#[value]
+popup_cvv_help:
+  view: viewDir=views/popup
+  template: cvv_help
+popup_search_help:
+  view: viewDir=views/popup
+  template: search_help
+popup_shipping_estimator:
+  view: viewDir=views/popup
+  template: shipping_estimator
+popup_coupon_help:
+  view: viewDir=views/popup
+  template: coupon_help
+
 address_book_edit: 
   formId: address
   form: Address

@@ -9,6 +9,7 @@ Release 0.9.9
 - intorduce yaml based theme config
 - remove ToolboxHtml::onload
 - remove ZMhemeInfo and use theme.yaml file instead
+- fix popups
 
 Release 0.9.8
 - add Savant3 and experimental views (not used yet)
