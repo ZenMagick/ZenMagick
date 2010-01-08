@@ -84,7 +84,7 @@ class CategoryController extends ZMController {
             foreach (explode(',', ZMSettings::get('resultListProductSorter')) as $sorter) {
                 $resultList->addSorter(ZMLoader::make($sorter));
             }
-            $data['zm_resultList'] = $resultList;
+            $data['resultList'] = $resultList;
         }
 
         if ($viewName == "category_list" 

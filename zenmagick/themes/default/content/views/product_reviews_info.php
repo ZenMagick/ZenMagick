@@ -24,14 +24,14 @@
  */
 ?>
 
-<?php $form->addProduct($zm_product->getId(), 1) ?>
+<?php $form->addProduct($currentProduct->getId(), 1) ?>
   <div>  
     <div id="pinfo">
-      <?php $imageInfo = $zm_product->getImageInfo() ?>
-      <a href="<?php $net->product($zm_product->getId()) ?>"><?php $html->productImageLink($zm_product) ?></a>
-      <?php $html->encode($zm_product->getDescription()); ?>
+      <?php $imageInfo = $currentProduct->getImageInfo() ?>
+      <a href="<?php $net->product($currentProduct->getId()) ?>"><?php $html->productImageLink($currentProduct) ?></a>
+      <?php $html->encode($currentProduct->getDescription()); ?>
     </div>
-    <strong><?php $utils->formatMoney($zm_product->getPrice()); ?></strong>
+    <strong><?php $utils->formatMoney($currentProduct->getPrice()); ?></strong>
     <div class="btn"><input type="submit" class="btn" value="<?php zm_l10n("Add to cart") ?>" /></div>
 
     <p id="author">

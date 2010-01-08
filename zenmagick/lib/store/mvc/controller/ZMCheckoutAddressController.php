@@ -74,7 +74,7 @@ class ZMCheckoutAddressController extends ZMController {
         $request->getToolbox()->crumbtrail->addCrumb($request->getToolbox()->utils->getTitle(null, false));
 
         $shoppingCart = $request->getShoppingCart();
-        $this->viewData_['zm_cart'] = $shoppingCart;
+        $this->viewData_['shoppingCart'] = $shoppingCart;
 
         $addressList = ZMAddresses::instance()->getAddressesForAccountId($request->getAccountId());
         $this->viewData_['zm_addressList'] = $addressList;

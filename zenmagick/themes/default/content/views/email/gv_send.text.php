@@ -26,12 +26,12 @@
 <?php zm_l10n("Dear %s,", $gvReceiver->getName()) ?>
 
 
-<?php zm_l10n('You have been sent a Gift Certificate worth %s by %s.', $utils->formatMoney($gvReceiver->getAmount(), false, false), $zm_account->getFullName()) ?>
+<?php zm_l10n('You have been sent a Gift Certificate worth %s by %s.', $utils->formatMoney($gvReceiver->getAmount(), false, false), $currentAccount->getFullName()) ?>
 
 <?php zm_l10n("The code to redeem your Gift Certificate is: %s.", $zm_coupon->getCode()) ?>
 
 <?php if ($gvReceiver->hasMessage()) { ?>
-<?php zm_l10n("%s says:", $zm_account->getFirstName()); ?>
+<?php zm_l10n("%s says:", $currentAccount->getFirstName()); ?>
 
 <?php $gvReceiver->getMessage() ?>
 

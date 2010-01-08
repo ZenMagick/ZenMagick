@@ -30,10 +30,10 @@
 <body>
 <body>
 <div style="font-family:Verdana,Arial,Helvetica,sans-serif;font-size:10pt;">
-<p><?php zm_l10n("Dear %s %s,", $zm_account->getFirstName(), $zm_account->getLastName()) ?></p>
+<p><?php zm_l10n("Dear %s %s,", $currentAccount->getFirstName(), $currentAccount->getLastName()) ?></p>
 
 <p><?php zm_l10n("This is to inform you that your order #%s has been updated.", $zm_order->getId()) ?></p>
-<?php if (ZMZenCartUserSacsHandler::REGISTERED == $zm_account->getType()) {
+<?php if (ZMZenCartUserSacsHandler::REGISTERED == $currentAccount->getType()) {
     $href = '<a href="'.$net->url(FILENAME_ACCOUNT_HISTORY_INFO, 'order_id='.$zm_order->getId(), false, false).'">'.zm_l10n_get("order #%s", $zm_order->getId()).'</a>';
 } else {
     $href = '<a href="'.$net->url('guest_history', '', false, false).'">'.zm_l10n_get("order #%s", $zm_order->getId()).'</a>';

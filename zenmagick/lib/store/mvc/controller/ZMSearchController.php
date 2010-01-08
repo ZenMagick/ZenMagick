@@ -98,7 +98,7 @@ class ZMSearchController extends ZMController {
             $source = ZMLoader::make('SearchResultSource', $criteria);
             $resultList->setResultSource($source);
             $resultList->setPageNumber($request->getPageIndex());
-            return $this->findView('results', array('zm_resultList' => $resultList));
+            return $this->findView('results', array('resultList' => $resultList));
         }
 
         return $this->findView();

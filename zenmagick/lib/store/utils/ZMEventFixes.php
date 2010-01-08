@@ -306,7 +306,7 @@ class ZMEventFixes extends ZMObject {
                 $order = ZMOrders::instance()->getOrderForId($orderId);
                 $view->setVar('zm_order', $order);
                 $account = ZMAccounts::instance()->getAccountForId($order->getAccountId());
-                $view->setVar('zm_account', $account);
+                $view->setVar('currentAccount', $account);
             }
         }
 
@@ -315,7 +315,7 @@ class ZMEventFixes extends ZMObject {
             $couponQueue = ZMCoupons::instance()->getCouponQueueEntryForId($queueId);
             $view->setVar('zm_couponQueue', $couponQueue);
             $account = ZMAccounts::instance()->getAccountForId($couponQueue->getAccountId());
-            $view->setVar('zm_account', $account);
+            $view->setVar('currentAccount', $account);
             $order = ZMOrders::instance()->getOrderForId($couponQueue->getOrderId());
             $view->setVar('zm_order', $order);
         }
@@ -325,7 +325,7 @@ class ZMEventFixes extends ZMObject {
             $coupon = ZMCoupons::instance()->getCouponForId($couponId);
             $view->setVar('zm_coupon', $coupon);
             $account = ZMAccounts::instance()->getAccountForId($context['accountId']);
-            $view->setVar('zm_account', $account);
+            $view->setVar('currentAccount', $account);
         }
 
         if ('password_forgotten_admin' == $template) {

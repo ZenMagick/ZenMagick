@@ -28,6 +28,9 @@ Release 0.9.9
   http://www.ardamis.com/2006/07/10/wordpress-googlebot-404-error/
 - added ZMSeoRewriter interface to make SEO url rewriting a bit nicer
 - fix SEO plugins breaking the site; b:#2927984
+- start changing prepopulated template vars: zm_cart=shoppingCart,
+  zm_resultList=resultList, zm_account=currentAccount,
+	zm_product=currentProduct,
 
 Release 0.9.8
 - add Savant3 and experimental views (not used yet)

@@ -68,7 +68,7 @@
 </script>
 
 <h2>Drag products into your shopping cart</h2>
-<?php if ($zm_resultList->hasResults()) { ?>
+<?php if ($resultList->hasResults()) { ?>
     <div class="rnblk">
         <?php echo $this->fetch('views/resultlist/nav.php') ?>
         <?php echo $this->fetch('views/resultlist/options.php') ?>
@@ -77,7 +77,7 @@
     <?php $form->open('compare_products', '', false, array('method' => 'get')) ?>
         <div class="rlist">
             <table cellspacing="0" cellpadding="0"><tbody>
-                <?php $first = true; $odd = true; foreach ($zm_resultList->getResults() as $product) { $this->assign(array('product' => $product)); ?>
+                <?php $first = true; $odd = true; foreach ($resultList->getResults() as $product) { $this->assign(array('product' => $product)); ?>
                   <?php echo $this->fetch('views/resultlist/product.php') ?>
                 <?php $first = false; $odd = !$odd; } ?>
             </tbody></table>

@@ -24,13 +24,13 @@
  */
 ?>
 
-<?php $form->addProduct($zm_product->getId(), 1) ?>
+<?php $form->addProduct($currentProduct->getId(), 1) ?>
   <div>  
     <div id="pinfo">
-      <?php $html->productImageLink($zm_product) ?>
-      <?php $html->encode($zm_product->getDescription()); ?>
+      <?php $html->productImageLink($currentProduct) ?>
+      <?php $html->encode($currentProduct->getDescription()); ?>
     </div>
-    <strong><?php $utils->formatMoney($zm_product->getPrice()); ?></strong>
+    <strong><?php $utils->formatMoney($currentProduct->getPrice()); ?></strong>
     <div class="btn"><input type="submit" class="btn" value="<?php zm_l10n("Add to cart") ?>" /></div>
     <br /><br /><br /><br />
     <?php echo $this->fetch('views/reviews.php'); ?>

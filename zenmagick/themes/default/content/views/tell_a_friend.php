@@ -26,7 +26,7 @@
 
 <?php $form->open(FILENAME_TELL_A_FRIEND, 'action=process&products_id=' . $request->getProductId(), true, array('id'=>'tellAFriend')) ?>
    <fieldset>
-        <legend><?php zm_l10n("Tell a friend about '%s'", $zm_product->getName()); ?></legend>
+        <legend><?php zm_l10n("Tell a friend about '%s'", $currentProduct->getName()); ?></legend>
 
         <label for="fromName"><?php zm_l10n("Your Name") ?><span>*</span></label>
         <input type="text" id="fromName" name="fromName" size="40" value="<?php $html->encode($tellAFriend->getFromName()) ?>" /><br />

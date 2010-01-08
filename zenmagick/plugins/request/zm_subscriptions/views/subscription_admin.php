@@ -1,16 +1,16 @@
 <h1>All Subsctiptions</h1>
 
-<?php $zm_resultList->setpagination(10); ?>
-<?php if (1 < $zm_resultList->getNumberOfPages()) { ?>
+<?php $resultList->setPagination(10); ?>
+<?php if (1 < $resultList->getNumberOfPages()) { ?>
     <div class="rnav">
-        <span class="pno"><?php zm_l10n("Page %s/%s", $zm_resultList->getPageNumber(), $zm_resultList->getNumberOfPages()) ?></span>
-        <?php if ($zm_resultList->hasPreviousPage()) { ?>
-            <a href="<?php $net->resultListBack($zm_resultList) ?>"><?php zm_l10n("Previous") ?></a>&nbsp;
+        <span class="pno"><?php zm_l10n("Page %s/%s", $resultList->getPageNumber(), $resultList->getNumberOfPages()) ?></span>
+        <?php if ($resultList->hasPreviousPage()) { ?>
+            <a href="<?php $net->resultListBack($resultList) ?>"><?php zm_l10n("Previous") ?></a>&nbsp;
         <?php } else { ?>
             <span class="nin"><?php zm_l10n("Previous") ?></span>&nbsp;
         <?php } ?>
-        <?php if ($zm_resultList->hasNextPage()) { ?>
-            <a href="<?php $net->resultListNext($zm_resultList) ?>"><?php zm_l10n("Next") ?></a>
+        <?php if ($resultList->hasNextPage()) { ?>
+            <a href="<?php $net->resultListNext($resultList) ?>"><?php zm_l10n("Next") ?></a>
         <?php } else { ?>
             <span class="nin"><?php zm_l10n("Next") ?></span>
         <?php } ?>
@@ -30,7 +30,7 @@
             <th>Options</th>
         </tr>
     </thead><tbody>
-        <?php $first = true; $odd = true; foreach ($zm_resultList->getResults() as $order) { ?>
+        <?php $first = true; $odd = true; foreach ($resultList->getResults() as $order) { ?>
             <tr class="<?php echo ($odd?"odd":"even").($first?" first":" other") ?>">
                 <td>
                     <a href="<?php $net->url('orders.php', '&action=edit&oID='.$order->getId(), '', true) ?>"><?php zm_l10n("Order #%s", $order->getId()) ?></a>

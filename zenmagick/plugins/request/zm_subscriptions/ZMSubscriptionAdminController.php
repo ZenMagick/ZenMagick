@@ -75,7 +75,7 @@ class ZMSubscriptionAdminController extends ZMPluginPageController {
         $resultList->setResultSource($resultSource);
         $resultList->setPageNumber($request->getPageIndex());
 
-        $context['zm_resultList'] = $resultList;
+        $context['resultList'] = $resultList;
 
         $page->setContents($this->getPageContents($request, $context));
         return $page;

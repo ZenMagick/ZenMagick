@@ -121,19 +121,19 @@ class ZMCreateAccountController extends ZMController {
         $session->restoreCart();
 
         // account email
-        $context = array('zm_account' => $account, 'office_only_html' => '', 'office_only_text' => '');
+        $context = array('currentAccount' => $account, 'office_only_html' => '', 'office_only_text' => '');
         zm_mail(zm_l10n_get("Welcome to %s", ZMSettings::get('storeName')), 'welcome', $context, $account->getEmail(), $account->getFullName());
         if (ZMSettings::get('isEmailAdminCreateAccount')) {
             // store copy
             $context = $request->getToolbox()->macro->officeOnlyEmailFooter($account->getFullName(), $account->getEmail(), $session);
-            $context['zm_account'] = $account;
+            $context['currentAccount'] = $account;
             zm_mail(zm_l10n_get("[CREATE ACCOUNT] Welcome to %s", ZMSettings::get('storeName')), 'welcome', $context, ZMSettings::get('emailAdminCreateAccount'));
         }
 
         ZMMessages::instance()->success(zm_l10n_get("Thank you for signing up"));
 
         $stickyUrl = $session->getSticky();
-        return $this->findView('success', array('zm_account' => $account), array('url' => $stickyUrl));
+        return $this->findView('success', array('currentAccount' => $account), array('url' => $stickyUrl));
     }
 
 }

@@ -32,7 +32,7 @@
 <div style="font-family:Verdana,Arial,Helvetica,sans-serif;font-size:10pt;">
 <p><?php zm_l10n("Hi %s,", $zm_emailMessage->getToName()) ?></p>
 
-<p><?php zm_l10n("Your friend, %s, thought that you would be interested in %s from %s.", $zm_emailMessage->getFromName(), $zm_product->getName(), ZMSettings::get('storeName')) ?></p>
+<p><?php zm_l10n("Your friend, %s, thought that you would be interested in %s from %s.", $zm_emailMessage->getFromName(), $currentProduct->getName(), ZMSettings::get('storeName')) ?></p>
 
 <?php if ($zm_emailMessage->hasMessage()) { ?>
 <p>
@@ -41,7 +41,7 @@
 </p>
 <?php } ?>
 
-<?php $href = '<a href="'.$net->product($zm_product->getId(), null, false).'">'.$html->encode($zm_product->getName(), false).'</a>'; ?>
+<?php $href = '<a href="'.$net->product($currentProduct->getId(), null, false).'">'.$html->encode($currentProduct->getName(), false).'</a>'; ?>
 <p><?php zm_l10n("To view the product, click on the following link or copy and paste the link into your web browser: %s", $href) ?></p>
 
 <p><?php zm_l10n("Regards, %s", ZMSettings::get('storeOwner')) ?></p>

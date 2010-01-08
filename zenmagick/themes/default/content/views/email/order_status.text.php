@@ -22,12 +22,12 @@
  *
  * $Id$
  */
-?><?php zm_l10n("Dear %s %s,", $zm_account->getFirstName(), $zm_account->getLastName()) ?>
+?><?php zm_l10n("Dear %s %s,", $currentAccount->getFirstName(), $currentAccount->getLastName()) ?>
 
 
 <?php zm_l10n("This is to inform you that your order #%s has been updated.", $zm_order->getId()) ?>
 
-<?php if (ZMZenCartUserSacsHandler::REGISTERED == $zm_account->getType()) { ?>
+<?php if (ZMZenCartUserSacsHandler::REGISTERED == $currentAccount->getType()) { ?>
 <?php zm_l10n("More details can be found at the following URL: %s", $net->url(FILENAME_ACCOUNT_HISTORY_INFO, 'order_id='.$zm_order->getId(), false, false)) ?>
 <?php } else { ?>
 <?php zm_l10n("You can check the status of your order at: %s.", $net->url('guest_history', '', false, false)) ?>

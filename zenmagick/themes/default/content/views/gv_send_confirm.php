@@ -40,7 +40,7 @@
 
         <fieldset>
             <legend><?php zm_l10n("Your message") ?></legend>
-            <?php echo zm_get_email_contents('email/gv_send', true, compact('zm_account', 'gvReceiver', 'zm_coupon', array('isSupressDisclaimer' => false))) ?>
+            <?php echo zm_get_email_contents('email/gv_send', true, compact('currentAccount', 'gvReceiver', 'zm_coupon', array('isSupressDisclaimer' => false))) ?>
         </fieldset>
 
         <p class="note"><?php zm_l10n("If these details are not correct, you may edit your message by clicking the edit button.") ?></p>

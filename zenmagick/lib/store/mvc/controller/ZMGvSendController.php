@@ -60,7 +60,7 @@ class ZMGvSendController extends ZMController {
      * {@inheritDoc}
      */
     public function processGet($request) {
-        return $this->findView(null, array('zm_account' => $request->getAccount()));
+        return $this->findView(null, array('currentAccount' => $request->getAccount()));
     }
 
     /**
@@ -75,7 +75,7 @@ class ZMGvSendController extends ZMController {
         }
 
         $data = array();
-        $data['zm_account'] = $request->getAccount();
+        $data['currentAccount'] = $request->getAccount();
         // to fake the email content display
         $data['zm_coupon'] = ZMLoader::make("Coupon", 0, zm_l10n_get('THE_COUPON_CODE'));
 

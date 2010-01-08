@@ -24,14 +24,14 @@
  */
 ?>
 
-<?php if ($zm_resultList->hasResults()) { ?>
+<?php if ($resultList->hasResults()) { ?>
     <div class="rnblk">
         <?php echo $this->fetch('views/resultlist/nav.php') ?>
     </div>
 
     <div class="rlist">
         <table cellspacing="0" cellpadding="0"><tbody>
-            <?php $first = true; $odd = true; foreach ($zm_resultList->getResults() as $review) { $this->assign(array('review' => $review)); ?>
+            <?php $first = true; $odd = true; foreach ($resultList->getResults() as $review) { $this->assign(array('review' => $review)); ?>
               <?php echo $this->fetch('views/resultlist/review.php') ?>
             <?php $first = false; $odd = !$odd; } ?>
         </tbody></table>

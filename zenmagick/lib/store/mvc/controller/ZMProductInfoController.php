@@ -59,7 +59,7 @@ class ZMProductInfoController extends ZMController {
             $product = ZMProducts::instance()->getProductForModel($request->getModel());
         }
 
-        $data = array('zm_product' => $product);
+        $data = array('currentProduct' => $product);
         if (null == $product || !$product->getStatus()) {
             return $this->findView('product_not_found', $data);
         }

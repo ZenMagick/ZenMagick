@@ -30,7 +30,7 @@
 <body>
 <body>
 <div style="font-family:Verdana,Arial,Helvetica,sans-serif;font-size:10pt;">
-<p><?php zm_l10n("Dear %s %s,", $zm_account->getFirstName(), $zm_account->getLastName()) ?></p>
+<p><?php zm_l10n("Dear %s %s,", $currentAccount->getFirstName(), $currentAccount->getLastName()) ?></p>
 
 <p><?php zm_l10n('We\'re pleased to offer you a Store Coupon for our online store at %s', ZMSettings::get('storeName')) ?></p>
 <p><?php zm_l10n('You can redeem this coupon during checkout. Just enter the code provided, and click on the redeem button.') ?></p>

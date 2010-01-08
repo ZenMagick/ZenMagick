@@ -78,7 +78,7 @@ class ZMShoppingCartController extends ZMController {
             }
         }
 
-        return $this->findView($shoppingCart->isEmpty() ? 'empty_cart' : 'shopping_cart', array('zm_cart' => $shoppingCart));
+        return $this->findView($shoppingCart->isEmpty() ? 'empty_cart' : 'shopping_cart', array('shoppingCart' => $shoppingCart));
     }
 
 }

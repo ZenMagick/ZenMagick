@@ -89,7 +89,7 @@ class ZMCategoryController extends ZMController {
                 $resultList->addSorter(ZMLoader::make($sorter));
             }
             $resultList->setPageNumber($request->getPageIndex());
-            $data['zm_resultList'] = $resultList;
+            $data['resultList'] = $resultList;
         }
 
         $category = ZMCategories::instance()->getCategoryForId($request->getCategoryId());

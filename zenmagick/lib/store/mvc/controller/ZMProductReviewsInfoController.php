@@ -60,7 +60,7 @@ class ZMProductReviewsInfoController extends ZMController {
 
         $data = array();
         $product = ZMProducts::instance()->getProductForId($request->getProductId());
-        $data['zm_product'] = $product;
+        $data['currentProduct'] = $product;
 
         $review = ZMReviews::instance()->getReviewForId($request->getReviewId());
         $data['zm_review'] = $review;

@@ -50,17 +50,17 @@
     </fieldset>
 <?php } ?>
 
-<?php if ($zm_resultList->hasResults()) { ?>
-    <?php $zm_resultList->setPagination(3); ?>
+<?php if ($resultList->hasResults()) { ?>
+    <?php $resultList->setPagination(3); ?>
     <h3>
-        <?php if (3 < $zm_resultList->getNumberOfResults()) { ?>
+        <?php if (3 < $resultList->getNumberOfResults()) { ?>
             <a href="<?php $net->url(FILENAME_ACCOUNT_HISTORY, '', true) ?>"><?php zm_l10n("(Show All)") ?></a>
         <?php } ?>
         <?php zm_l10n("Previous Orders") ?>
     </h3>
     <div class="rlist">
         <table cellspacing="0" cellpadding="0"><tbody>
-            <?php $first = true; $odd = true; foreach ($zm_resultList->getResults() as $order) { $this->assign(array('order' => $order)); ?>
+            <?php $first = true; $odd = true; foreach ($resultList->getResults() as $order) { $this->assign(array('order' => $order)); ?>
               <?php echo $this->fetch('views/resultlist/order.php') ?>
             <?php $first = false; $odd = !$odd; } ?>
         </tbody></table>

@@ -23,7 +23,7 @@
  * $Id$
  */
 ?>
-<?php zm_l10n("Dear %s %s,", $zm_account->getFirstName(), $zm_account->getLastName()) ?>
+<?php zm_l10n("Dear %s %s,", $currentAccount->getFirstName(), $currentAccount->getLastName()) ?>
 
 
 <?php zm_l10n('You recently purchased a Gift Certificate from our online store at %s', ZMSettings::get('storeName')) ?>

@@ -62,7 +62,7 @@ class ZMTellAFriendController extends ZMController {
         } else if ($request->getModel()) {
             $this->product_ = ZMProducts::instance()->getProductForModel($request->getModel());
         }
-      $this->viewData_['zm_product'] = $this->product_;
+      $this->viewData_['currentProduct'] = $this->product_;
         $this->handleCrumbtrail($this->product_, $request);
     }
 
@@ -94,7 +94,7 @@ class ZMTellAFriendController extends ZMController {
 
         $emailMessage = $this->getFormData($request);
 
-        $context = array('zm_emailMessage' => $emailMessage, 'zm_product' => $this->product_, 'office_only_html' => '', 'office_only_text' => '');
+        $context = array('zm_emailMessage' => $emailMessage, 'currentProduct' => $this->product_, 'office_only_html' => '', 'office_only_text' => '');
         $subject = zm_l10n_get("Your friend %s has recommended this great product from %s", $emailMessage->getFromName(), ZMSettings::get('storeName'));
         zm_mail($subject, 'tell_a_friend', $context, $emailMessage->getToEmail(), $emailMessage->getToName());
         if (ZMSettings::get('isEmailAdminTellAFriend')) {
@@ -102,7 +102,7 @@ class ZMTellAFriendController extends ZMController {
             $session = $request->getSession();
             $context = $request->getToolbox()->macro->officeOnlyEmailFooter($emailMessage->getFromName(), $emailMessage->getFromEmail(), $session);
             $context['zm_emailMessage'] = $emailMessage;
-            $context['zm_product'] = $this->product_;
+            $context['currentProduct'] = $this->product_;
             zm_mail("[TELL A FRIEND] ".$subject, 'tell_a_friend', $context, ZMSettings::get('emailAdminTellAFriend'));
         }
 

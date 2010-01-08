@@ -63,7 +63,7 @@ class ZMReviewsController extends ZMController {
         $resultList->setResultSource($resultSource);
         $resultList->setPageNumber($request->getPageIndex());
 
-        return $this->findView(null, array('zm_resultList' => $resultList));
+        return $this->findView(null, array('resultList' => $resultList));
     }
 
 }

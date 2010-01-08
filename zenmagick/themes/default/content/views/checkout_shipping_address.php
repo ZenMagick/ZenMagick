@@ -24,7 +24,7 @@
  */
 ?>
 
-<?php $currentAddress = $zm_cart->getShippingAddress(); ?>
+<?php $currentAddress = $shoppingCart->getShippingAddress(); ?>
 <?php if (0 < count($zm_addressList)) { ?>
     <?php $form->open(FILENAME_CHECKOUT_SHIPPING_ADDRESS, 'action=select', true) ?>
         <h3><?php zm_l10n("Select an existing address") ?></h3>

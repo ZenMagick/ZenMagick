@@ -24,11 +24,11 @@
  */
 ?>
 
-<?php if ($zm_resultList->hasFilters() || $zm_resultList->hasSorters()) { ?>
+<?php if ($resultList->hasFilters() || $resultList->hasSorters()) { ?>
     <?php $form->open(null, null, false, array('method'=>'get','class'=>'ropt','onsubmit'=>null)) ?>
-        <?php if ($zm_resultList->hasFilters()) { ?>
+        <?php if ($resultList->hasFilters()) { ?>
             <div class="rlf">
-                <?php foreach($zm_resultList->getFilters() as $filter) { if (!$filter->isAvailable()) continue; ?>
+                <?php foreach($resultList->getFilters() as $filter) { if (!$filter->isAvailable()) continue; ?>
                     <?php /* if multi select do not auto submit */ ?>
                     <?php $opts = $filter->isMultiSelection() ? ' size="3" multiple="multiple"' : ' onchange="this.form.submit()"'; ?>
                     <select id="<?php echo str_replace('[]', '', $filter->getId()) ?>" name="<?php echo $filter->getId() ?>"<?php echo $opts ?>>
@@ -41,12 +41,12 @@
                 <?php } ?>
             </div>
         <?php } ?>
-        <?php if ($zm_resultList->hasSorters()) { ?>
+        <?php if ($resultList->hasSorters()) { ?>
             <div class="rls">
                 <?php if ($request->getParameter('keywords')) { ?>
                     <input type="hidden" name="keywords" value="<?php echo$request->getParameter('keywords') ?>" />
                 <?php } ?>
-                <input type="hidden" name="page" value="<?php echo $zm_resultList->getPageNumber() ?>" />
+                <input type="hidden" name="page" value="<?php echo $resultList->getPageNumber() ?>" />
                 <?php if ($request->getCategoryPath()) { ?>
                     <input type="hidden" name="cPath" value="<?php echo $request->getCategoryPath() ?>" />
                 <?php } else if ($request->getManufacturerId()) { ?>
@@ -57,7 +57,7 @@
 
                 <select id="sort" name="sort_id" onchange="this.form.submit()">
                     <option value=""><?php zm_l10n("Sort by ...") ?></option>
-                    <?php foreach($zm_resultList->getSorters() as $sorter) { ?>
+                    <?php foreach($resultList->getSorters() as $sorter) { ?>
                         <?php foreach($sorter->getOptions() as $option) { ?>
                             <?php $selected = $option->isActive() ? ' selected="selected"' : ''; ?>
                             <?php $indicator = $option->isActive() ? ($option->isDecending() ? ' (-)' : ' (+)') : ''; ?>

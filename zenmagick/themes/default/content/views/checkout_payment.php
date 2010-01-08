@@ -29,11 +29,11 @@
     <div class="btn">
         <a class="btn" href="<?php $net->url(FILENAME_CHECKOUT_PAYMENT_ADDRESS, '', true) ?>"><?php zm_l10n("Change Billing Address") ?></a>
     </div>
-    <?php $macro->formatAddress($zm_cart->getBillingAddress()) ?>
+    <?php $macro->formatAddress($shoppingCart->getBillingAddress()) ?>
 </fieldset>
 
 <script type="text/javascript">var submitter = 0;</script>
-<?php echo $zm_cart->getPaymentsJavaScript() ?>
+<?php echo $shoppingCart->getPaymentsJavaScript() ?>
 
 <?php $form->open(FILENAME_CHECKOUT_CONFIRMATION, '', array('id'=>'checkout_payment')) ?>
   <fieldset>
@@ -41,7 +41,7 @@
       <table id="ot" cellspacing="0" cellpadding="0">
           <tbody>
           <?php
-              $totals = $zm_cart->getTotals();
+              $totals = $shoppingCart->getTotals();
               foreach ($totals as $total) {
                   $tot = '';
                   if ('total' == $total->getType()) {
@@ -57,7 +57,7 @@
       </table>
   </fieldset>
 
-  <?php $creditTypes = $zm_cart->getCreditTypes(); ?>
+  <?php $creditTypes = $shoppingCart->getCreditTypes(); ?>
   <?php if (0 < count($creditTypes)) { ?>
       <fieldset>
           <legend><?php zm_l10n("Credit Options") ?></legend>
@@ -76,14 +76,14 @@
   <fieldset id="paytypes">
       <legend><?php zm_l10n("Payment Options") ?></legend>
   <?php
-      $paymentTypes = $zm_cart->getPaymentTypes();
+      $paymentTypes = $shoppingCart->getPaymentTypes();
       $single = 1 == count($paymentTypes);
       foreach ($paymentTypes as $type) {
         $sptid = 'pt_'.$type->getId();
         if ($single) {
           ?><p><input type="hidden" id="<?php echo $sptid ?>" name="payment" value="<?php echo $type->getId() ?>" /><?php
         } else {
-          ?><p class="paytype" onclick="document.getElementById('<?php echo $sptid ?>').checked = true;"><input type="radio" id="<?php echo $sptid ?>" name="payment" value="<?php echo $type->getId() ?>"<?php $form->checked($zm_cart->getPaymentMethodId(), $type->getId()) ?> /><?php
+          ?><p class="paytype" onclick="document.getElementById('<?php echo $sptid ?>').checked = true;"><input type="radio" id="<?php echo $sptid ?>" name="payment" value="<?php echo $type->getId() ?>"<?php $form->checked($shoppingCart->getPaymentMethodId(), $type->getId()) ?> /><?php
         }
         ?><label for="<?php echo $sptid ?>"><?php echo $type->getName() ?></label></p><?php
         $fields = $type->getFields();
@@ -102,7 +102,7 @@
       <legend><?php zm_l10n("Comments") ?></legend>
       <p class="inst"><?php zm_l10n("Special instructions or comments about your order.") ?></p>
       <?php /* Fix for IE bug regarding textarea... */ ?>
-      <table><tr><td><textarea name="comments" rows="3" cols="45"><?php $html->encode($zm_cart->getComment()) ?></textarea></td></tr></table>
+      <table><tr><td><textarea name="comments" rows="3" cols="45"><?php $html->encode($shoppingCart->getComment()) ?></textarea></td></tr></table>
   </fieldset>
 
   <div class="btn"><input type="submit" class="btn" value="<?php zm_l10n("Continue") ?>" /></div>

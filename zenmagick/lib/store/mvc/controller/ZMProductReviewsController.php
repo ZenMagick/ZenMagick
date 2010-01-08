@@ -63,13 +63,13 @@ class ZMProductReviewsController extends ZMController {
             return $this->findView('error');
         }
         $data = array();
-        $data['zm_product'] = $product;
+        $data['currentProduct'] = $product;
 
         $resultList = ZMLoader::make("ResultList");
         $resultSource = ZMLoader::make("ObjectResultSource", 'Review', ZMReviews::instance(), "getReviewsForProductId", array($product->getId()));
         $resultList->setResultSource($resultSource);
         $resultList->setPageNumber($request->getPageIndex());
-        $data['zm_resultList'] = $resultList;
+        $data['resultList'] = $resultList;
 
         return $this->findView(null, $data);
     }

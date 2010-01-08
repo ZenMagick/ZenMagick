@@ -24,19 +24,19 @@
  */
 ?>
 
-<?php $form->addProduct($zm_product->getId(), 1) ?>
+<?php $form->addProduct($currentProduct->getId(), 1) ?>
   <div>  
     <div id="pinfo">
-      <?php $html->productImageLink($zm_product) ?>
-      <?php $html->encode($zm_product->getDescription()) ?>
+      <?php $html->productImageLink($currentProduct) ?>
+      <?php $html->encode($currentProduct->getDescription()) ?>
     </div>
-    <strong><?php $utils->formatMoney($zm_product->getPrice()); ?></strong>
+    <strong><?php $utils->formatMoney($currentProduct->getPrice()); ?></strong>
     <div class="btn"><input type="submit" class="btn" value="<?php zm_l10n("Add to cart") ?>" /></div>
     <p id="author"><?php zm_l10n("Review by: %s", $request->getAccount()->getFullName()) ?></p>
   </div>
 </form>
 
-<?php $form->open(FILENAME_PRODUCT_REVIEWS_WRITE, 'action=process&productId=' . $zm_product->getId(), true, array('id'=>'newReview')) ?>
+<?php $form->open(FILENAME_PRODUCT_REVIEWS_WRITE, 'action=process&productId=' . $currentProduct->getId(), true, array('id'=>'newReview')) ?>
     <fieldset>
         <legend><?php zm_l10n("New Review") ?></legend>
         <p><?php zm_l10n("Choose a ranking for this item. 1 star is the worst and 5 stars is the best.") ?></p>

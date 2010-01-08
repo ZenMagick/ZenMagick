@@ -25,18 +25,18 @@
 ?><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html lang="<?php echo $language->getCode() ?>">
 <head>
-<title><?php zm_l10n("A gift from %s", $zm_account->getFullName()) ?></title>
+<title><?php zm_l10n("A gift from %s", $currentAccount->getFullName()) ?></title>
 </head>
 <body>
 <body>
 <div style="font-family:Verdana,Arial,Helvetica,sans-serif;font-size:10pt;">
 <p><?php zm_l10n("Dear %s,", $gvReceiver->getName()) ?></p>
 
-<p><?php zm_l10n('You have been sent a Gift Certificate worth %s by %s.', $utils->formatMoney($gvReceiver->getAmount(), false, false), $zm_account->getFullName()) ?></p>
+<p><?php zm_l10n('You have been sent a Gift Certificate worth %s by %s.', $utils->formatMoney($gvReceiver->getAmount(), false, false), $currentAccount->getFullName()) ?></p>
 <p><?php zm_l10n("The code to redeem your Gift Certificate is: %s.", $zm_coupon->getCode()) ?></p>
 <?php if ($gvReceiver->hasMessage()) { ?>
 <p>
-<?php zm_l10n("%s says:", $zm_account->getFirstName()); ?><br>
+<?php zm_l10n("%s says:", $currentAccount->getFirstName()); ?><br>
 <?php echo $html->text2html($gvReceiver->getMessage()) ?>
 </p>
 <?php } ?>

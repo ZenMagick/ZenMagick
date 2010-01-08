@@ -60,7 +60,7 @@ class ZMAccountNotificationsController extends ZMController {
      * {@inheritDoc}
      */
     public function processGet($request) {
-        return $this->findView(null, array('zm_account' => $request->getAccount()));
+        return $this->findView(null, array('currentAccount' => $request->getAccount()));
     }
 
     /**
@@ -85,7 +85,7 @@ class ZMAccountNotificationsController extends ZMController {
         }
 
         ZMMessages::instance()->success(zm_l10n_get('Your product subscriptions have been updated.'));
-        return $this->findView('success', array('zm_account' => $request->getAccount()));
+        return $this->findView('success', array('currentAccount' => $request->getAccount()));
     }
 
 }

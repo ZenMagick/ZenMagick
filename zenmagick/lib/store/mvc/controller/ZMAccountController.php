@@ -60,7 +60,7 @@ class ZMAccountController extends ZMController {
         $resultList->setResultSource($resultSource);
         $resultList->setPageNumber($request->getPageIndex());
 
-        $data = array('zm_resultList' => $resultList, 'zm_account' => $request->getAccount());
+        $data = array('resultList' => $resultList, 'currentAccount' => $request->getAccount());
 
         return $this->findView(null, $data);
     }

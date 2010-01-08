@@ -71,7 +71,7 @@ class ZMAdvancedSearchResultController extends ZMController {
         $resultList->addSorter($sorter);
         $resultList->setPageNumber($request->getPageIndex());
 
-        return $this->findView(null, array(('zm_resultList' => $resultList));
+        return $this->findView(null, array(('resultList' => $resultList));
     }
 
 }

@@ -29,7 +29,7 @@
     <div class="btn">
         <a class="btn" href="<?php $net->url(FILENAME_CHECKOUT_SHIPPING_ADDRESS, '', true) ?>"><?php zm_l10n("Change Shipping Address") ?></a>
     </div>
-    <?php $macro->formatAddress($zm_cart->getShippingAddress()) ?>
+    <?php $macro->formatAddress($shoppingCart->getShippingAddress()) ?>
 </fieldset>
 
 <?php $form->open(FILENAME_CHECKOUT_SHIPPING, "action=process", true) ?>
@@ -53,7 +53,7 @@
                     <?php foreach ($zm_shipping->getShippingProvider() as $provider) { ?>
                         <tr><td colspan="3"><strong><?php $html->encode($provider->getName()) ?></strong><?php if ($provider->hasError()) { zm_l10n("(%s)", $provider->getError()); } ?></td></tr>
                         <?php if ($provider->hasError()) { continue; } foreach ($provider->getShippingMethods() as $method) { $id = 'ship_'.$method->getId();?>
-                            <?php $selected = (1 == $zm_shipping->getShippingMethodCount()) || ($method->getShippingId() == $zm_cart->getShippingMethodId()); ?>
+                            <?php $selected = (1 == $zm_shipping->getShippingMethodCount()) || ($method->getShippingId() == $shoppingCart->getShippingMethodId()); ?>
                             <tr class="smethod" onclick="document.getElementById('<?php echo $id ?>').checked = true;">
                                 <td><?php $html->encode($method->getName()) ?></td>
                                 <td class="smcost"><?php $utils->formatMoney($method->getCost()) ?></td>
@@ -71,7 +71,7 @@
         <legend><?php zm_l10n("Comments") ?></legend>
         <p class="inst"><?php zm_l10n("Special instructions or comments about your order.") ?></p>
         <?php /* Fix for IE bug regarding textarea... */ ?>
-        <table><tr><td><textarea name="comments" rows="3" cols="45"><?php $html->encode($zm_cart->getComment()) ?></textarea></td></tr></table>
+        <table><tr><td><textarea name="comments" rows="3" cols="45"><?php $html->encode($shoppingCart->getComment()) ?></textarea></td></tr></table>
     </fieldset>
 
     <div class="btn"><input type="submit" class="btn" value="<?php zm_l10n("Continue") ?>" /></div>
