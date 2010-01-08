@@ -58,9 +58,23 @@ class ToolboxNet extends ZMToolboxNet {
             throw new ZMException('missing page parameter');
         }
 
-        if (!$isAdmin && $seo && function_exists('zm_build_seo_href')) {
-            // use custom SEO builder function - three args only
-            return zm_build_seo_href($page, $params, 'SSL'==$transport, $addSessionId, $seo, $isStatic, $useContext);
+        // handle SEO
+        $rewriters = $this->getSeoRewriter();
+        if (!$isAdmin && $seo && 0 < count($rewriters)) {
+            $rewrittenUrl = null;
+            $args = array(
+              'requestId' => $page, 
+              'params' => $params, 
+              'secure' => 'SSL'==$transport, 
+              'addSessionId' => $addSessionId, 
+              'isStatic' => $isStatic, 
+              'useContext' => $useContext
+            );
+            foreach ($rewriters as $rewriter) {
+                if (null != ($rewrittenUrl = $rewriter->rewrite($this->getRequest(), $args))) {
+                    return $rewrittenUrl;
+                 }
+            }
         }
 
         // default to non ssl
@@ -162,7 +176,7 @@ class ToolboxNet extends ZMToolboxNet {
         // XXX: have separate setting to disable rather than admin (might have to fake that to force regular URLS
         if (function_exists('zm_build_seo_href') && !ZMSettings::get('isAdmin')) {
             // use custom SEO builder function - three args only
-            $href = zm_build_seo_href($page, $params, $secure);
+            $href = zm_build_seo_href($this->getRequest(), $page, $params, $secure);
         } else {
             // use default implementation - three args only
             $href = $this->furl($page, $params, $secure ? 'SSL' : 'NONSSL');

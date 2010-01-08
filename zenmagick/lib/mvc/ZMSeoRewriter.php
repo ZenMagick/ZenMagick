@@ -1,10 +1,7 @@
 <?php
 /*
- * ZenMagick - Extensions for zen-cart
- * Copyright (C) 2006-2009 zenmagick.org
- *
- * Portions Copyright (c) 2003 The zen-cart developers
- * Portions Copyright (c) 2003 osCommerce
+ * ZenMagick - Another PHP framework.
+ * Copyright (C) 2006,2009 ZenMagick
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,13 +20,26 @@
 ?>
 <?php
 
-if (!function_exists('zen_href_link_stock')) {
+
+/**
+ * Interface for classes that want to rewrite urls.
+ *
+ * @author DerManoMann
+ * @package org.zenmagick.mvc
+ * @version $Id$
+ */
+interface ZMSeoRewriter {
+
     /**
-     * This is the name of the renamed zen_href_link function in a vanilla USEO3 installation.
+     * Generate a SEO url for the given parameter.
+     *
+     * @param ZMRequest request The current request.
+     * @param array args Optional parameter.
+     * @return Either a rewritten usable URL, or <code>null</code>.
+     * @todo document!
      */
-    function zen_href_link_stock($page='', $params='', $connection='NONSSL', $add_session_id=true, $seo_safe=true, $static=false, $use_dir_ws_catalog=true) {
-        return ZMRequest::instance()->getToolbox()->net->furl($page, $params, $connection, $add_session_id, false, $static, $use_dir_ws_catalog);
-    }
+    public function rewrite($request, $args);
+
 }
 
 ?>

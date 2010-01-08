@@ -48,6 +48,15 @@ class ZMSsuPlugin extends Plugin {
         parent::__destruct();
     }
 
+
+    /**
+     * {@inheritDoc}
+     */
+    public function init() {
+        parent::init();
+        ZMSettings::append('zenmagick.mvc.request.seoRewriter', 'SsuSeoRewriter');
+    }
+
 }
 
 ?>

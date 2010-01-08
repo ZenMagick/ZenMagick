@@ -27,13 +27,13 @@
 /**
  * ZenMagick SEO API function.
  */
-function zm_build_seo_href($view=null, $params='', $isSecure=false, $addSessionId=true, $seo=true, $isStatic=false, $useContext=true) {
+function zm_build_seo_href($request, $view=null, $params='', $isSecure=false, $addSessionId=true, $seo=true, $isStatic=false, $useContext=true) {
     if ($view == 'category') { $view = 'index'; }
     global $ssu;
     if (isset($ssu) && ($link = $ssu->ssu_link($view, $params, $isSecure ? 'SSL' : 'NONSSL', $addSessionId, $seo, $isStatic, $useContext)) != false) {
         return $link;
     } else {
-        return ZMRequest::instance()->getToolbox()->net->furl($view, $params, $isSecure ? 'SSL' : 'NONSSL', $addSessionId, $seo, $isStatic, $useContext);
+        return $request->getToolbox()->net->furl($view, $params, $isSecure ? 'SSL' : 'NONSSL', $addSessionId, $seo, $isStatic, $useContext);
     }
 }
 

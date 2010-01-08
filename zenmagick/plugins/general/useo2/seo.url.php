@@ -46,7 +46,7 @@
 		function SEO_URL($languages_id=''){
 			global $session_started;
 				
-			$this->installer = &new SEO_URL_INSTALLER();
+			$this->installer = new SEO_URL_INSTALLER();
 
 			$this->db = &$GLOBALS['db'];
 

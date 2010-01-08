@@ -63,7 +63,7 @@ if (!function_exists('zm_build_seo_href')) {
      * Simulate SEO skipping page.
      * @package org.zenmagick.plugins.unitTests.tests
      */
-    function zm_build_seo_href($page, $parameters, $isSecure, $addSessionId=true, $seo=true, $isStatic=false, $useContext=true) {
+    function zm_build_seo_href($request, $page, $parameters, $isSecure, $addSessionId=true, $seo=true, $isStatic=false, $useContext=true) {
         if (TestUIUrlHandling::$SIMULATE_SEO) {
             if ($isSecure) {
                 $url = HTTPS_SERVER . DIR_WS_HTTPS_CATALOG . $page;
@@ -72,7 +72,7 @@ if (!function_exists('zm_build_seo_href')) {
             }
             return str_replace('.php', '', $url);
         } else {
-            return ZMRequest::instance()->getToolbox()->net->furl($page, $parameters, $isSecure ? 'SSL' : 'NONSSL', $addSessionId, false, $isStatic, $useContext);
+            return $request->getToolbox()->net->furl($page, $parameters, $isSecure ? 'SSL' : 'NONSSL', $addSessionId, false, $isStatic, $useContext);
         }
     }
 }

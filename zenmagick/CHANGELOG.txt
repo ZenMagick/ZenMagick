@@ -9,7 +9,7 @@ Release 0.9.9
 - intorduce yaml based theme config
 - remove ToolboxHtml::onload
 - remove ZMhemeInfo and use theme.yaml file instead
-- fix popups
+- fix popups; b:#2927276
 - added full release SQL to hide the following config options:
 	#  8 = Configuration - Product Listing
 	# 10 = Configuration - Logging
@@ -26,6 +26,8 @@ Release 0.9.9
 	leaves just toolbox tools using this...
 - wordpress: Change the way the WP API is loaded to avoid 404 header; see:
   http://www.ardamis.com/2006/07/10/wordpress-googlebot-404-error/
+- added ZMSeoRewriter interface to make SEO url rewriting a bit nicer
+- fix SEO plugins breaking the site; b:#2927984
 
 Release 0.9.8
 - add Savant3 and experimental views (not used yet)

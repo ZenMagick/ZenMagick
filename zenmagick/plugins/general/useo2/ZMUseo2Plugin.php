@@ -79,6 +79,14 @@ class ZMUseo2Plugin extends Plugin {
     /**
      * {@inheritDoc}
      */
+    public function init() {
+        parent::init();
+        ZMSettings::append('zenmagick.mvc.request.seoRewriter', 'Useo2SeoRewriter');
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function getMessages() {
         $messages = parent::getMessages();
         $patch = new ZMUseo2SupportPatch();

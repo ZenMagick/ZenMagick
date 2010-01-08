@@ -51,10 +51,10 @@
      *
      * @package org.zenmagick.plugins.zm_pretty_links
      */
-    function zm_build_seo_href($view=null, $params='', $isSecure=false, $addSessionId=true, $seo=true, $isStatic=false, $useContext=true) {
+    function zm_build_seo_href($request, $view=null, $params='', $isSecure=false, $addSessionId=true, $seo=true, $isStatic=false, $useContext=true) {
     global $_zm_pretty_link_map;
 
-        $toolbox = ZMRequest::instance()->getToolbox();
+        $toolbox = $request->getToolbox();
         $href = $toolbox->net->furl($view, $params, $secure ? 'SSL' : 'NONSSL', $addSessionId, false, $isStatic, $useContext);
 
         if (null != ZMSettings::get('seoEnabledPagesList') && !ZMLangUtils::inArray($view, ZMSettings::get('seoEnabledPagesList'))) {

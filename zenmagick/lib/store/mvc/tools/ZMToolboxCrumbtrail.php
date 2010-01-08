@@ -40,6 +40,7 @@ class ZMToolboxCrumbtrail extends ZMToolboxTool {
      */
     function __construct() {
         parent::__construct();
+        ZMEvents::instance()->attach($this);
     }
 
     /**
@@ -53,8 +54,7 @@ class ZMToolboxCrumbtrail extends ZMToolboxTool {
     /**
      * {@inheritDoc}
      */
-    public function setToolbox($toolbox) {
-        parent::setToolbox($toolbox);
+    public function onZMInitDone($args) {
         $this->reset();
     }
 

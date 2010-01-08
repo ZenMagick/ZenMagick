@@ -29,6 +29,28 @@
  * @version $Id$
  */
 class ZMToolboxNet extends ZMToolboxTool {
+    private $seoRewriter_ = null;
+
+
+    /**
+     * Get a list of <code>ZMSeoRewriter</code> instances for SEO urls.
+     *
+     * <p>The list is build based on the classes registered via the setting
+     * 'zenmagick.mvc.request.seoRewriter'.</p>
+     *
+     * @return array List of <code>ZMSeoRewriter</code> instances.
+     */
+    public function getSeoRewriter() {
+        if (null === $this->seoRewriter_) {
+            foreach (explode(',', ZMSettings::get('zenmagick.mvc.request.seoRewriter')) as $rewriter) {
+                if (null != ($obj = ZMBeanUtils::getBean($rewriter))) {
+                    $this->seoRewriter_[] = $obj;
+                }
+            }
+        }
+
+        return $this->seoRewriter_;
+    }
 
     /**
      * Create a URL.
@@ -73,15 +95,6 @@ class ZMToolboxNet extends ZMToolboxTool {
         // default to current view
         $requestId = $requestId === null ? $this->getRequest()->getRequestId() : $requestId;
         $href = null;
-        // no SEO in admin
-        // XXX: have separate setting to disable rather than admin (might have to fake that to force regular URLS
-        if (function_exists('zm_build_seo_href') && !ZMSettings::get('isAdmin')) {
-            // use custom SEO builder function - three args only
-            $href = zm_build_seo_href($requestId, $params, $secure);
-        } else {
-            // use default implementation - three args only
-            $href = $this->furl($requestId, $params, $secure ? 'SSL' : 'NONSSL');
-        }
 
         if ($echo) echo $href;
         return $href;

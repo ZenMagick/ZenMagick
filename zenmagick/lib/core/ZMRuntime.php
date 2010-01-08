@@ -147,7 +147,7 @@ class ZMRuntime extends ZMObject {
      * @param boolean override Optional flag to control whether to override existing mappings or to merge;
      *  default is <code>true</code> to override.
      */
-    public function yamlLoad($yaml, $defaults=array(), $override=true) {
+    public static function yamlLoad($yaml, $defaults=array(), $override=true) {
         if ($override) {
             return Spyc::YAMLLoadString($yaml);
         } else {

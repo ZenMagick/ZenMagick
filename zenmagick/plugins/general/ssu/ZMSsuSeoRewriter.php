@@ -24,35 +24,32 @@
 <?php
 
 /**
- * Plugin for Ultimate SEO 3.x support.
+ * SSU rewriter.
  *
- * @package org.zenmagick.plugins.useo3
+ * @package org.zenmagick.plugins.ssu
  * @author mano
  * @version $Id$
  */
-class ZMUseo3Plugin extends Plugin {
-
-    /**
-     * Create new instance.
-     */
-    function __construct() {
-        parent::__construct('Ultimate SEO3', 'Ultimate SEO 3.x for ZenMagick', '${plugin.version}');
-        $this->setLoaderPolicy(ZMPlugin::LP_ALL);
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
+class ZMSsuSeoRewriter implements ZMSeoRewriter {
 
     /**
      * {@inheritDoc}
      */
-    public function init() {
-        parent::init();
-        ZMSettings::append('zenmagick.mvc.request.seoRewriter', 'Useo3SeoRewriter');
+    public function rewrite($request, $args) {
+        $requestId = $args['requestId'];
+        $params = $args['params'];
+        $secure = $args['secure'];
+        $addSessionId = $args['addSessionId'];
+        $isStatic = $args['isStatic'];
+        $useContext = $args['useContext'];
+
+        if ($requestId == 'category') { $requestId = 'index'; }
+        global $ssu;
+        if (isset($ssu) && ($link = $ssu->ssu_link($requestId, $params, $secure ? 'SSL' : 'NONSSL', $addSessionId, false, $isStatic, $useContext)) != false) {
+            return $link;
+        }
+
+        return null;
     }
 
 }

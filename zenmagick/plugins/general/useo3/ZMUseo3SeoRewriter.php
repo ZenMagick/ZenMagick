@@ -24,35 +24,32 @@
 <?php
 
 /**
- * Plugin for Ultimate SEO 3.x support.
+ * USEO3 rewriter.
  *
  * @package org.zenmagick.plugins.useo3
  * @author mano
  * @version $Id$
  */
-class ZMUseo3Plugin extends Plugin {
-
-    /**
-     * Create new instance.
-     */
-    function __construct() {
-        parent::__construct('Ultimate SEO3', 'Ultimate SEO 3.x for ZenMagick', '${plugin.version}');
-        $this->setLoaderPolicy(ZMPlugin::LP_ALL);
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
+class ZMUseo3SeoRewriter implements ZMSeoRewriter {
 
     /**
      * {@inheritDoc}
      */
-    public function init() {
-        parent::init();
-        ZMSettings::append('zenmagick.mvc.request.seoRewriter', 'Useo3SeoRewriter');
+    public function rewrite($request, $args) {
+        $requestId = $args['requestId'];
+        $params = $args['params'];
+        $secure = $args['secure'];
+        $addSessionId = $args['addSessionId'];
+        $isStatic = $args['isStatic'];
+        $useContext = $args['useContext'];
+
+        if ($requestId == 'category') { $requestId = 'index'; }
+        if (isset($GLOBALS['SeoUrl']) && (null == ZMSettings::get('plugins.useo3.seoEnabled') || ZMLangUtils::inArray($view, ZMSettings::get('plugins.useo3.seoEnabled')))) {
+            // no $seo parameter
+            return $GLOBALS['SeoUrl']->buildHrefLink($requestId, $params, $secure ? 'SSL' : 'NONSSL', $addSessionId, $isStatic, $useContext);
+        }
+
+        return null;
     }
 
 }

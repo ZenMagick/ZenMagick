@@ -223,6 +223,11 @@
                         'key' => 'login',
                         'type' => 'string',
                         'desc' => 'Request id of login page.'
+                    ),
+                    array(
+                        'key' => 'seoRewriter',
+                        'type' => 'string',
+                        'desc' => 'List of SEO rewriter classes to use for SEO url generation.'
                     )
                 ),
                 'transactions' => array(
