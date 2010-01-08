@@ -26,11 +26,11 @@
 /**
  * Plugin for pretty link (SEO) support.
  *
- * @package org.zenmagick.plugins.zm_pretty_links
+ * @package org.zenmagick.plugins.prettyLinks
  * @author mano
  * @version $Id$
  */
-class zm_pretty_links extends Plugin {
+class ZMPrettyLinksPlugin extends Plugin {
 
     /**
      * Create new instance.
@@ -45,6 +45,15 @@ class zm_pretty_links extends Plugin {
      */
     function __destruct() {
         parent::__destruct();
+    }
+
+
+    /**
+     * {@inheritDoc}
+     */
+    public function init() {
+        parent::init();
+        ZMSettings::append('zenmagick.mvc.request.seoRewriter', 'PrettyLinksSeoRewriter');
     }
 
 }

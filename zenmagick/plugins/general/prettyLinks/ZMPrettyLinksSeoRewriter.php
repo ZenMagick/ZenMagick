@@ -23,43 +23,34 @@
 ?>
 <?php
 
+/**
+ * SEO rewriter for pretty link (SEO) support.
+ *
+ * @package org.zenmagick.plugins.prettyLinks
+ * @author mano
+ * @version $Id$
+ */
+class ZMPrettyLinksSeoRewriter implements ZMSeoRewriter {
 
     /**
-     * Add a custom mapping for pretty link generation.
-     *
-     * <p>The converter function will be called with two parameters; the current page name
-     * and as second parameter a complete map of query parameters.</p>
-     *
-     * @package org.zenmagick.plugins.zm_pretty_links
-     * @param string view The view name (ie. the page name as referred to by the parameter <code>ZM_PAGE_KEY</code>)
-     * @param mixed convert Function converting the view name to a pretty link; default is <code>null</code>
-     *  which will be interpreted as using the view name.
-     * @param array params List of query parameters to append as part of the pretty link.
+     * {@inheritDoc}
      */
-    function zm_pretty_links_set_mapping($view, $convert=null, $params=array(), $exclude=array()) { 
-    global $_zm_pretty_link_map;
+    public function rewrite($request, $args) {
+        $requestId = $args['requestId'];
+        $params = $args['params'];
+        $secure = $args['secure'];
+        $addSessionId = $args['addSessionId'];
+        $isStatic = $args['isStatic'];
+        $useContext = $args['useContext'];
 
-        if (!isset($_zm_pretty_link_map)) {
-            $_zm_pretty_link_map = array();
+        if (null != ZMSettings::get('plugins.prettyLinks.seoEnabled') && !ZMLangUtils::inArray($requestId, ZMSettings::get('plugins.prettyLinks.seoEnabled'))) {
+            // not doing anything
+            return null;
         }
 
-        $_zm_pretty_link_map[$view] = array('convert' => $convert, 'params' => $params, 'exclude' => $exclude);
-    }
-    
-    /**
-     * ZenMagick SEO API function.
-     *
-     * @package org.zenmagick.plugins.zm_pretty_links
-     */
-    function zm_build_seo_href($request, $view=null, $params='', $isSecure=false, $addSessionId=true, $seo=true, $isStatic=false, $useContext=true) {
-    global $_zm_pretty_link_map;
-
+        // get default url
         $toolbox = $request->getToolbox();
-        $href = $toolbox->net->furl($view, $params, $secure ? 'SSL' : 'NONSSL', $addSessionId, false, $isStatic, $useContext);
-
-        if (null != ZMSettings::get('seoEnabledPagesList') && !ZMLangUtils::inArray($view, ZMSettings::get('seoEnabledPagesList'))) {
-            return $href;
-        }
+        $href = $toolbox->net->furl($requestId, $params, $secure ? 'SSL' : 'NONSSL', $addSessionId, false, $isStatic, $useContext);
 
         $url = parse_url($href);
         $queryString = $toolbox->net->decode($url['query']);
@@ -71,10 +62,10 @@
         if (ZMLangUtils::startsWith($path, '\\')) {
             $path = substr($path, 1);
         }
-        $page = $query[ZM_PAGE_KEY];
+        $requestId = $query[ZM_PAGE_KEY];
         $translate = true;
         $removeNames = array(ZM_PAGE_KEY, 'cPath', 'manufacturers_id', 'cat', 'products_id', 'order_id', 'reviews_id', 'id');
-        switch ($page) {
+        switch ($requestId) {
             case 'index':
             case 'category':
                 if (array_key_exists("cPath", $query)) {
@@ -107,8 +98,8 @@
             case 'account_newsletters':
             case 'account_notifications':
             case 'reviews':
-                $page = str_replace('_', '/', $page);
-                $path .= $page."/";
+                $requestId = str_replace('_', '/', $requestId);
+                $path .= $requestId."/";
                 break;
             case 'account_history':
                 $path .= "account/history/";
@@ -235,16 +226,16 @@
                 array_push($removeNames, 'action');
                 break;
             default:
-                if (ZMLangUtils::startsWith($page, 'popup_')) {
-                    $path .= "popup/".substr($page, 6);
+                if (ZMLangUtils::startsWith($requestId, 'popup_')) {
+                    $path .= "popup/".substr($requestId, 6);
                 } else {
-                    if (isset($_zm_pretty_link_map) && isset($_zm_pretty_link_map[$page])) {
-                        $mapping = $_zm_pretty_link_map[$page];
+                    if (isset($_zm_pretty_link_map) && isset($_zm_pretty_link_map[$requestId])) {
+                        $mapping = $_zm_pretty_link_map[$requestId];
                         if (null == $mapping['convert']) {
-                            $path .= $page;
+                            $path .= $requestId;
                         } else {
                             if (function_exists($mapping['convert'])) {
-                                $path .= call_user_func($mapping['convert'], $page, $query);
+                                $path .= call_user_func($mapping['convert'], $requestId, $query);
                             }
                         }
 
@@ -257,8 +248,8 @@
                         $removeNames = array_merge($removeNames, $mapping['exclude']);
                     } else {
                         $translate = false;
-                        if (!empty($page)) {
-                            ZMLogging::instance()->log("no pretty link mapping for: ".$page);
+                        if (!empty($requestId)) {
+                            ZMLogging::instance()->log("no pretty link mapping for: ".$requestId);
                         }
                     }
                 }
@@ -288,5 +279,7 @@
 
         return $href;
     }
+
+}
 
 ?>
