@@ -31,6 +31,12 @@ Release 0.9.9
 - start changing prepopulated template vars: zm_cart=shoppingCart,
   zm_resultList=resultList, zm_account=currentAccount,
 	zm_product=currentProduct,
+- zm_deprecated: dropped - it's just too hard to maintain and not enough gain
+- zm_geo_id: dropped - no use case so far and no interest, so why keep it?
+- zm_phpbb2: dropped - too old
+- zm_wiki: dropped - not good enoug and no interest
+- zm_scaffold: dropped - not complete and no motivation to do so (perhaps as
+  part of the MVC framework?)
 
 Release 0.9.8
 - add Savant3 and experimental views (not used yet)
