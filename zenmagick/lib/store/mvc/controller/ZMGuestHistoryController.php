@@ -80,7 +80,7 @@ class ZMGuestHistoryController extends ZMController {
 
         if (null != $account && null != $order && ZMZenCartUserSacsHandler::GUEST == $account->getType() && $account->getEmail() == $email) {
             $request->getToolbox()->crumbtrail->addCrumb("Order # ".$order->getId());
-            return $this->findView('success', array('zm_order' => $order));
+            return $this->findView('success', array('currentOrder' => $order));
         } else {
             ZMMessages::instance()->warn(zm_l10n_get('No order information found'));
             return $this->findView();

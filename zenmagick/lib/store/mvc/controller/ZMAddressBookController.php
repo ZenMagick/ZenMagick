@@ -57,7 +57,7 @@ class ZMAddressBookController extends ZMController {
 
         $addressList = ZMAddresses::instance()->getAddressesForAccountId($request->getAccountId());
 
-        return $this->findView(null, array('zm_addressList' => $addressList));
+        return $this->findView(null, array('addressList' => $addressList));
     }
 
 }

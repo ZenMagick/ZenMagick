@@ -61,7 +61,7 @@ class ZMAccountHistoryInfoController extends ZMController {
 
         $order = ZMOrders::instance()->getOrderForId($request->getOrderId());
 
-        return $this->findView(null, array('zm_order' => $order));
+        return $this->findView(null, array('currentOrder' => $order));
     }
 
 }

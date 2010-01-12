@@ -36,9 +36,9 @@
 <div><?php echo $message; ?></div>
 <?php } ?>
 
-<p><?php zm_l10n('You have been sent a Gift Certificate worth %s.', $utils->formatMoney($zm_coupon->getAmount(), false, false)) ?></p>
-<p><?php zm_l10n("The code to redeem your Gift Certificate is: %s.", $zm_coupon->getCode()) ?></p>
-<?php $href = '<a href="'.$net->url(FILENAME_GV_REDEEM, 'couponCode='.$zm_coupon->getCode(), true, false).'">'.ZMSettings::get('storeName').'</a>'; ?>
+<p><?php zm_l10n('You have been sent a Gift Certificate worth %s.', $utils->formatMoney($currentCoupon->getAmount(), false, false)) ?></p>
+<p><?php zm_l10n("The code to redeem your Gift Certificate is: %s.", $currentCoupon->getCode()) ?></p>
+<?php $href = '<a href="'.$net->url(FILENAME_GV_REDEEM, 'couponCode='.$currentCoupon->getCode(), true, false).'">'.ZMSettings::get('storeName').'</a>'; ?>
 <p><?php zm_l10n("To redeem your gift, visit %s.", $href) ?></p>
 
 <?php if (!isset($isSupressDisclaimer)) { echo zm_l10n_chunk_get('email_advisory', ZMSettings::get('storeEmail')); } ?>

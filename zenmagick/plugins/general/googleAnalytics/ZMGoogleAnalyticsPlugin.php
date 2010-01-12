@@ -104,7 +104,7 @@ class ZMGoogleAnalyticsPlugin extends Plugin {
         if (null != $controller && 'checkout_success' == $controller->getId()) {
             $view = $args['view'];
             $vars = $view->getVars();
-            $this->order_ = $vars['zm_order'];
+            $this->order_ = $vars['currentOrder'];
         }
     }
 

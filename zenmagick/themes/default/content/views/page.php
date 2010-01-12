@@ -29,7 +29,7 @@
     <div id="eztoc">
         <h4><?php zm_l10n("Table of Contents") ?></h4>
         <ul>
-        <?php foreach ($toc as $page) { $active = $page->getId() == $zm_page->getId() ? ' class="act"' : ''; ?>
+        <?php foreach ($toc as $page) { $active = $page->getId() == $ezPage->getId() ? ' class="act"' : ''; ?>
             <li<?php echo $active ?>><a href="<?php $net->ezPage($page) ?>"><?php $html->encode($page->getTitle()) ?></a></li>
         <?php } ?>
         </ul>
@@ -39,7 +39,7 @@
             $next = null;
             $size = count($toc);
             for ($ii=0; $ii < $size; $ii++) {
-                if ($toc[$ii]->getId() == $zm_page->getId()) {
+                if ($toc[$ii]->getId() == $ezPage->getId()) {
                     // got the current page
                     if (0 == $ii) {
                         // first
@@ -65,5 +65,5 @@
         <?php } ?>
     </div>
 <?php } ?>
-<h2><?php $html->encode($zm_page->getTitle()) ?></h2>
-<?php echo eval('?>'.$zm_page->getHTMLText()) ?>
+<h2><?php $html->encode($ezPage->getTitle()) ?></h2>
+<?php echo eval('?>'.$ezPage->getHTMLText()) ?>

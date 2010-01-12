@@ -26,7 +26,7 @@
 
 <?php $form->open(FILENAME_CHECKOUT_SUCCESS, 'action=update', true, array('onsubmit'=>null)) ?>
     <h2><?php zm_l10n("Thanks for shopping with us") ?></h2>
-    <p><?php zm_l10n("Your order number is: <strong>%s</strong>", $zm_order->getId()) ?></p>
+    <p><?php zm_l10n("Your order number is: <strong>%s</strong>", $currentOrder->getId()) ?></p>
     <?php if ($request->getAccount()->isRegistered()) { ?>
         <?php $account = '<a href="' . $net->url(FILENAME_ACCOUNT, '', false, false) . '">' . zm_l10n_get("My Account") . '</a>'; ?>
         <p><?php zm_l10n("You can view your full order history by going to the %s page and by clicking on view all orders.", $account) ?></p>
@@ -38,7 +38,7 @@
         <fieldset>
             <legend><?php zm_l10n("Product Notifications") ?></legend>
             <h4><?php zm_l10n("Please notify me of updates to the products I have selected below:") ?></h4>
-            <?php foreach ($zm_order->getOrderItems() as $orderItem) { $id = "not_" . $orderItem->getProductId(); ?>
+            <?php foreach ($currentOrder->getOrderItems() as $orderItem) { $id = "not_" . $orderItem->getProductId(); ?>
                 <p>
                     <input type="checkbox" id="<?php echo $id ?>" name="notify[]" value="<?php echo $orderItem->getProductId() ?>" />
                     <label for="<?php echo $id ?>"><?php $html->encode($orderItem->getName()) ?></label><br />
@@ -73,7 +73,7 @@
     <?php } ?>
 </form>
 
-<?php if (1 == count(ZMOrders::instance()->getOrdersForAccountId($zm_order->getAccountId(), 2)) && 'registered' == $request->getAccount()->getType()) { ?>
+<?php if (1 == count(ZMOrders::instance()->getOrdersForAccountId($currentOrder->getAccountId(), 2)) && 'registered' == $request->getAccount()->getType()) { ?>
     <?php $form->open('checkout_refer_a_friend', '', true, array('id'=>'checkout_refer_a_friend')) ?>
         Friend1: <input type="text" name="friend1" value=""><br>
         Friend2: <input type="text" name="friend2" value=""><br>

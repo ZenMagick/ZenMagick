@@ -35,15 +35,15 @@
     <div class="btn"><input type="submit" class="btn" value="<?php zm_l10n("Add to cart") ?>" /></div>
 
     <p id="author">
-      <?php zm_l10n("Review by: %s", $zm_review->getAuthor()) ?>
-      <?php $rtext = zm_l10n_get("%s of 5 stars!", $zm_review->getRating()) ?>
+      <?php zm_l10n("Review by: %s", $currentReview->getAuthor()) ?>
+      <?php $rtext = zm_l10n_get("%s of 5 stars!", $currentReview->getRating()) ?>
       <span id="stars">
-        <img src="<?php echo $this->asUrl('images/stars_'.$zm_review->getRating().'.gif') ?>" alt="<?php echo $rtext ?>" />
+        <img src="<?php echo $this->asUrl('images/stars_'.$currentReview->getRating().'.gif') ?>" alt="<?php echo $rtext ?>" />
         <?php $rtext ?>
       </span>
     </p>
     <div id="rlongtext">
-        <?php $html->encode($zm_review->getText()) ?>
+        <?php $html->encode($currentReview->getText()) ?>
     </div>
   </div>
 </form>

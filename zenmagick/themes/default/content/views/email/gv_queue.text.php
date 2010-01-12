@@ -32,7 +32,7 @@
 <?php zm_l10n('For security reasons this was not made immediately available to you. However, this amount has now been released. You may now visit our store and send the value of the Gift Certificate via email to someone else, or use it yourself.') ?>
 
 
-<?php zm_l10n('The Gift Certificate(s) you purchased are worth %s', $utils->formatMoney($zm_couponQueue->getAmount(), false, false)) ?>
+<?php zm_l10n('The Gift Certificate(s) you purchased are worth %s', $utils->formatMoney($currentCoupon->getAmount(), false, false)) ?>
 
 
 <?php zm_l10n('Thank you for shopping with us!') ?>

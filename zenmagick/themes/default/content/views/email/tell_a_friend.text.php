@@ -23,16 +23,16 @@
  * $Id$
  */
 ?>
-<?php zm_l10n("Hi %s,", $zm_emailMessage->getToName()) ?>
+<?php zm_l10n("Hi %s,", $emailMessage->getToName()) ?>
 
 
-<?php zm_l10n("Your friend, %s, thought that you would be interested in %s from %s.", $zm_emailMessage->getFromName(), $currentProduct->getName(), ZMSettings::get('storeName')) ?>
+<?php zm_l10n("Your friend, %s, thought that you would be interested in %s from %s.", $emailMessage->getFromName(), $currentProduct->getName(), ZMSettings::get('storeName')) ?>
 
-<?php if ($zm_emailMessage->hasMessage()) { ?>
+<?php if ($emailMessage->hasMessage()) { ?>
 
-<?php zm_l10n("%s also sent a note saying:", $zm_emailMessage->getFromName()) ?>
+<?php zm_l10n("%s also sent a note saying:", $emailMessage->getFromName()) ?>
 
-<?php echo $zm_emailMessage->getMessage() ?>
+<?php echo $emailMessage->getMessage() ?>
 
 <?php } ?>
 

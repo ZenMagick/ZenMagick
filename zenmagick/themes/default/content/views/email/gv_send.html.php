@@ -33,14 +33,14 @@
 <p><?php zm_l10n("Dear %s,", $gvReceiver->getName()) ?></p>
 
 <p><?php zm_l10n('You have been sent a Gift Certificate worth %s by %s.', $utils->formatMoney($gvReceiver->getAmount(), false, false), $currentAccount->getFullName()) ?></p>
-<p><?php zm_l10n("The code to redeem your Gift Certificate is: %s.", $zm_coupon->getCode()) ?></p>
+<p><?php zm_l10n("The code to redeem your Gift Certificate is: %s.", $currentCoupon->getCode()) ?></p>
 <?php if ($gvReceiver->hasMessage()) { ?>
 <p>
 <?php zm_l10n("%s says:", $currentAccount->getFirstName()); ?><br>
 <?php echo $html->text2html($gvReceiver->getMessage()) ?>
 </p>
 <?php } ?>
-<?php $href = '<a href="'.$net->url(FILENAME_GV_REDEEM, 'couponCode='.$zm_coupon->getCode(), true, false).'">'.ZMSettings::get('storeName').'</a>'; ?>
+<?php $href = '<a href="'.$net->url(FILENAME_GV_REDEEM, 'couponCode='.$currentCoupon->getCode(), true, false).'">'.ZMSettings::get('storeName').'</a>'; ?>
 <p><?php zm_l10n("To redeem your gift, visit %s.", $href) ?></p>
 
 <?php if (!isset($isSupressDisclaimer)) { echo zm_l10n_chunk_get('email_advisory', ZMSettings::get('storeEmail')); } ?>

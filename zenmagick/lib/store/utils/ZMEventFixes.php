@@ -272,7 +272,7 @@ class ZMEventFixes extends ZMObject {
                         $currency = ZMCurrencies::instance()->getCurrencyForCode(ZMSettings::get('defaultCurrency'));
                         $coupon->setAmount($currency->parse($context['GV_WORTH']));
                     }
-                    $view->setVar('zm_coupon', $coupon);
+                    $view->setVar('currentCoupon', $coupon);
                 }
 
                 $view->setVar('message', ZMRequest::instance()->getParameter('message', ''));
@@ -304,7 +304,7 @@ class ZMEventFixes extends ZMObject {
             if (null !== ZMRequest::instance()->getParameter("oID") && 'update_order' == ZMRequest::instance()->getParameter("action")) {
                 $orderId = ZMRequest::instance()->getParameter("oID");
                 $order = ZMOrders::instance()->getOrderForId($orderId);
-                $view->setVar('zm_order', $order);
+                $view->setVar('currentOrder', $order);
                 $account = ZMAccounts::instance()->getAccountForId($order->getAccountId());
                 $view->setVar('currentAccount', $account);
             }
@@ -317,13 +317,13 @@ class ZMEventFixes extends ZMObject {
             $account = ZMAccounts::instance()->getAccountForId($couponQueue->getAccountId());
             $view->setVar('currentAccount', $account);
             $order = ZMOrders::instance()->getOrderForId($couponQueue->getOrderId());
-            $view->setVar('zm_order', $order);
+            $view->setVar('currentOrder', $order);
         }
 
         if ('coupon' == $template) {
             $couponId = ZMRequest::instance()->getParameter('cid');
             $coupon = ZMCoupons::instance()->getCouponForId($couponId);
-            $view->setVar('zm_coupon', $coupon);
+            $view->setVar('currentCoupon', $coupon);
             $account = ZMAccounts::instance()->getAccountForId($context['accountId']);
             $view->setVar('currentAccount', $account);
         }

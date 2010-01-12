@@ -91,7 +91,7 @@ class ZMProductReviewsWriteController extends ZMController {
             $subject = zm_l10n_get("Product Review Pending Approval: %s", $product->getName());
             $context = $request->getToolbox()->macro->officeOnlyEmailFooter($account->getFullName(), $account->getEmail(), $session);
             $context['currentAccount'] = $account;
-            $context['zm_review'] = $review;
+            $context['currentReview'] = $review;
             $context['currentProduct'] = $product;
             zm_mail($subject, 'review', $context, ZMSettings::get('emailAdminReview'));
         }

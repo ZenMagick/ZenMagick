@@ -30,7 +30,10 @@ Release 0.9.9
 - fix SEO plugins breaking the site; b:#2927984
 - start changing prepopulated template vars: zm_cart=shoppingCart,
   zm_resultList=resultList, zm_account=currentAccount,
-	zm_product=currentProduct,
+	zm_product=currentProduct, zm_coupon=currentCoupon,
+	zm_coupon_code=currentCouponCode, zm_order=currentOrder, zm_page=ezPage,
+	zm_review=currentReview, zm_emailMessage=emailMessage,
+	zm_category=currentCategory, zm_addressList=addressList
 - zm_deprecated: dropped - it's just too hard to maintain and not enough gain
 - zm_geo_id: dropped - no use case so far and no interest, so why keep it?
 - zm_phpbb2: dropped - too old

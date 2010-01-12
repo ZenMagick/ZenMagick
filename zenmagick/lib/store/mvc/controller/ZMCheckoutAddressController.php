@@ -77,7 +77,7 @@ class ZMCheckoutAddressController extends ZMController {
         $this->viewData_['shoppingCart'] = $shoppingCart;
 
         $addressList = ZMAddresses::instance()->getAddressesForAccountId($request->getAccountId());
-        $this->viewData_['zm_addressList'] = $addressList;
+        $this->viewData_['addressList'] = $addressList;
         if (null != ($address = $this->getFormData($request))) {
             $address->setPrimary(0 == count($addressList));
         }

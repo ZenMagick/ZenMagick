@@ -95,7 +95,7 @@ class CategoryController extends ZMController {
 
         $category = ZMCategories::instance()->getCategoryForId($request->getCategoryId());
         if (null != $category) {
-            $data['zm_category'] = $category;
+            $data['currentCategory'] = $category;
         }
 
         if (null != $resultList && 1 == $resultList->getNumberOfResults() && ZMSettings::get('isSkipSingleProductCategory')) {

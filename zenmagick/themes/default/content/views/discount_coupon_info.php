@@ -24,12 +24,12 @@
  */
 ?>
 
-<?php $restrictions = $zm_coupon->getRestrictions(); ?>
-<p><?php zm_l10n("The Discount Coupon Redemption Code you have entered is for %s.", $zm_coupon->getName()) ?></p>
-<p><?php zm_l10n("Discount Offer:") ?><br /><?php $html->encode($zm_coupon->getDescription()) ?></p>
+<?php $restrictions = $currentCoupon->getRestrictions(); ?>
+<p><?php zm_l10n("The Discount Coupon Redemption Code you have entered is for %s.", $currentCoupon->getName()) ?></p>
+<p><?php zm_l10n("Discount Offer:") ?><br /><?php $html->encode($currentCoupon->getDescription()) ?></p>
 
 <h4><?php zm_l10n("Promotional Period") ?></h4>
-<p><?php zm_l10n("The coupon is valid between %s and %s.", $locale->shortDate($zm_coupon->getStartDate(), false), $locale->shortDate($zm_coupon->getExpiryDate(), false)) ?></p>
+<p><?php zm_l10n("The coupon is valid between %s and %s.", $locale->shortDate($currentCoupon->getStartDate(), false), $locale->shortDate($currentCoupon->getExpiryDate(), false)) ?></p>
 
 <?php if ($restrictions->hasCategories()) { ?>
     <h4><?php zm_l10n("Category Restrictions")?></h4>
@@ -57,7 +57,7 @@
   <fieldset>
     <legend><?php zm_l10n("Look-up another discount coupon ...") ?></legend>
     <label for="lookup_discount_coupon"><?php zm_l10n("Your Code") ?></label>
-    <input type="text" id="lookup_discount_coupon" name="lookup_discount_coupon" size="40" value="<?php $html->encode($zm_coupon_code) ?>" />
+    <input type="text" id="lookup_discount_coupon" name="lookup_discount_coupon" size="40" value="<?php $html->encode($currentCouponCode) ?>" />
   </fieldset>
   <div class="btn"><input type="submit" class="btn" value="<?php zm_l10n("Send") ?>" />
 </form>

@@ -60,7 +60,7 @@ class ZMPageController extends ZMController {
 
         $request->getToolbox()->crumbtrail->addCrumb($page->getTitle());
 
-        return $this->findView(null, array('zm_page' => $page));
+        return $this->findView(null, array('ezPage' => $page));
     }
 
 }

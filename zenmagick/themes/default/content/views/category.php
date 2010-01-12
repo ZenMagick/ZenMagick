@@ -23,18 +23,18 @@
  * $Id$
  */
 ?>
-<h2><?php $html->encode($zm_category->getName()) ?></h2>
+<h2><?php $html->encode($currentCategory->getName()) ?></h2>
 
-<?php if ($zm_category->hasChildren()) { ?>
+<?php if ($currentCategory->hasChildren()) { ?>
     <h3><?php zm_l10n("Available Sub-categories") ?></h3>
-    <?php foreach ($zm_category->getChildren() as $category) { ?>
+    <?php foreach ($currentCategory->getChildren() as $category) { ?>
         <?php if ($category->isActive()) { ?>
             <?php $html->encode($category->getName()) ?><br />
         <?php } ?>
     <?php } ?>
 <?php } ?>
 
-<?php $featured = ZMProducts::instance()->getFeaturedProducts($zm_category->getId(), 4, true, $session->getLanguageId()); ?>
+<?php $featured = ZMProducts::instance()->getFeaturedProducts($currentCategory->getId(), 4, true, $session->getLanguageId()); ?>
 
 <?php if (0 < count($featured)) { ?>
     <h3>Featured Products</h3>

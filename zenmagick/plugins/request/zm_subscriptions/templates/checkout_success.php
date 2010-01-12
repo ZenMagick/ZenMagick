@@ -1,4 +1,4 @@
-<?php $schedule = $zm_order->getSchedule(); ?>
+<?php $schedule = $currentOrder->getSchedule(); ?>
 <?php if (!ZMLangUtils::isEmpty($schedule)) { ?>
     <h3><?php zm_l10n("Subscription") ?></h3>
     <?php $schedules = $zm_subscriptions->getSchedules(); ?>

@@ -35,9 +35,9 @@
 <p><?php zm_l10n('We\'re pleased to offer you a Store Coupon for our online store at %s', ZMSettings::get('storeName')) ?></p>
 <p><?php zm_l10n('You can redeem this coupon during checkout. Just enter the code provided, and click on the redeem button.') ?></p>
 
-<p><?php zm_l10n('The coupon code is <strong>%s</strong>.', $zm_coupon->getCode()) ?></p>
+<p><?php zm_l10n('The coupon code is <strong>%s</strong>.', $currentCoupon->getCode()) ?></p>
 
-<p><?php zm_l10n('The coupon is valid between %s and %s', $locale->shortDate($zm_coupon->getStartDate(), false), $locale->shortDate($zm_coupon->getExpiryDate(), false)) ?></p>
+<p><?php zm_l10n('The coupon is valid between %s and %s', $locale->shortDate($currentCoupon->getStartDate(), false), $locale->shortDate($currentCoupon->getExpiryDate(), false)) ?></p>
 
 <p><?php zm_l10n('Don\'t lose the coupon code, make sure to keep the code safe so you can benefit from this special offer.') ?></p>
 

@@ -94,14 +94,14 @@ class ZMTellAFriendController extends ZMController {
 
         $emailMessage = $this->getFormData($request);
 
-        $context = array('zm_emailMessage' => $emailMessage, 'currentProduct' => $this->product_, 'office_only_html' => '', 'office_only_text' => '');
+        $context = array('emailMessage' => $emailMessage, 'currentProduct' => $this->product_, 'office_only_html' => '', 'office_only_text' => '');
         $subject = zm_l10n_get("Your friend %s has recommended this great product from %s", $emailMessage->getFromName(), ZMSettings::get('storeName'));
         zm_mail($subject, 'tell_a_friend', $context, $emailMessage->getToEmail(), $emailMessage->getToName());
         if (ZMSettings::get('isEmailAdminTellAFriend')) {
             // store copy
             $session = $request->getSession();
             $context = $request->getToolbox()->macro->officeOnlyEmailFooter($emailMessage->getFromName(), $emailMessage->getFromEmail(), $session);
-            $context['zm_emailMessage'] = $emailMessage;
+            $context['emailMessage'] = $emailMessage;
             $context['currentProduct'] = $this->product_;
             zm_mail("[TELL A FRIEND] ".$subject, 'tell_a_friend', $context, ZMSettings::get('emailAdminTellAFriend'));
         }
@@ -109,7 +109,7 @@ class ZMTellAFriendController extends ZMController {
         ZMMessages::instance()->success(zm_l10n_get("Message send successfully"));
         $emailMessage = ZMLoader::make("EmailMessage");
 
-        $data = array_merge($this->viewData_, array('zm_emailMessage' => $emailMessage));
+        $data = array_merge($this->viewData_, array('emailMessage' => $emailMessage));
         return $this->findView('success', $data, array('parameter' => 'products_id='.$this->product_->getId()));
     }
 

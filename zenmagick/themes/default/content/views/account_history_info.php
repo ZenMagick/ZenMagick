@@ -27,7 +27,7 @@
 <h3><?php zm_l10n("Item Details") ?></h3>
 <table cellpadding="0" cellspacing="0">
     <tbody>
-    <?php foreach ($zm_order->getOrderItems() as $orderItem) { ?>
+    <?php foreach ($currentOrder->getOrderItems() as $orderItem) { ?>
         <tr>
             <td class="qty"><?php echo $orderItem->getQty() ?> x </td>
             <td class="itm">
@@ -47,7 +47,7 @@
             <td class="price"><?php $utils->formatMoney($orderItem->getCalculatedPrice()) ?></td>
         </tr>
     <?php } ?>
-    <?php foreach ($zm_order->getOrderTotals() as $orderTotal) { ?>
+    <?php foreach ($currentOrder->getOrderTotals() as $orderTotal) { ?>
         <tr>
             <td colspan="2" class="total"><?php $html->encode($orderTotal->getName()) ?></td>
             <td class="price"><?php echo $orderTotal->getValue() ?></td>
@@ -59,7 +59,7 @@
 <h3><?php zm_l10n("Order History") ?></h3>
 <table cellpadding="0" cellspacing="0">
     <tbody>
-    <?php foreach ($zm_order->getOrderStatusHistory() as $orderStatus) { ?>
+    <?php foreach ($currentOrder->getOrderStatusHistory() as $orderStatus) { ?>
         <tr>
             <td><?php $locale->shortDate($orderStatus->getDateAdded()) ?></td>
             <td><?php $html->encode($orderStatus->getName()) ?></td>
@@ -73,14 +73,14 @@
 <div id="addr">
     <div id="daddr">
         <h4><?php zm_l10n("Shipping Address") ?></h4>
-        <?php if (!$zm_order->hasShippingAddress()) { ?>
+        <?php if (!$currentOrder->hasShippingAddress()) { ?>
             <?php zm_l10n("N/A") ?>
         <?php } else { ?>
-            <?php $macro->formatAddress($zm_order->getShippingaddress()) ?>
+            <?php $macro->formatAddress($currentOrder->getShippingaddress()) ?>
         <?php } ?>
     </div>
     <div id="baddr">
         <h4><?php zm_l10n("Billing Address") ?></h4>
-        <?php $macro->formatAddress($zm_order->getBillingAddress()) ?>
+        <?php $macro->formatAddress($currentOrder->getBillingAddress()) ?>
     </div>
 </div>

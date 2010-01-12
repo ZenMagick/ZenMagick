@@ -25,22 +25,22 @@
 ?><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html lang="<?php echo $language->getCode() ?>">
 <head>
-<title><?php zm_l10n("Order update #%s", $zm_order->getId()) ?></title>
+<title><?php zm_l10n("Order update #%s", $currentOrder->getId()) ?></title>
 </head>
 <body>
 <body>
 <div style="font-family:Verdana,Arial,Helvetica,sans-serif;font-size:10pt;">
 <p><?php zm_l10n("Dear %s %s,", $currentAccount->getFirstName(), $currentAccount->getLastName()) ?></p>
 
-<p><?php zm_l10n("This is to inform you that your order #%s has been updated.", $zm_order->getId()) ?></p>
+<p><?php zm_l10n("This is to inform you that your order #%s has been updated.", $currentOrder->getId()) ?></p>
 <?php if (ZMZenCartUserSacsHandler::REGISTERED == $currentAccount->getType()) {
-    $href = '<a href="'.$net->url(FILENAME_ACCOUNT_HISTORY_INFO, 'order_id='.$zm_order->getId(), false, false).'">'.zm_l10n_get("order #%s", $zm_order->getId()).'</a>';
+    $href = '<a href="'.$net->url(FILENAME_ACCOUNT_HISTORY_INFO, 'order_id='.$currentOrder->getId(), false, false).'">'.zm_l10n_get("order #%s", $currentOrder->getId()).'</a>';
 } else {
-    $href = '<a href="'.$net->url('guest_history', '', false, false).'">'.zm_l10n_get("order #%s", $zm_order->getId()).'</a>';
+    $href = '<a href="'.$net->url('guest_history', '', false, false).'">'.zm_l10n_get("order #%s", $currentOrder->getId()).'</a>';
 } ?>
 <p><?php zm_l10n("More details can be found at the following URL: %s", $href) ?></p>
 
-<?php if ($newOrderStatus != $zm_order->getStatusName()) { ?>
+<?php if ($newOrderStatus != $currentOrder->getStatusName()) { ?>
 <?php zm_l10n("The new order status is: %s.", $newOrderStatus) ?>
 <?php } ?>
 

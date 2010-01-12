@@ -63,7 +63,7 @@ class ZMProductReviewsInfoController extends ZMController {
         $data['currentProduct'] = $product;
 
         $review = ZMReviews::instance()->getReviewForId($request->getReviewId());
-        $data['zm_review'] = $review;
+        $data['currentReview'] = $review;
 
         if (ZMSettings::get('isLogPageStats')) {
             ZMReviews::instance()->updateViewCount($request->getReviewId());

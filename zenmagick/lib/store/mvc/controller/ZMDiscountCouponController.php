@@ -68,9 +68,9 @@ class ZMDiscountCouponController extends ZMController {
             $coupon = ZMCoupons::instance()->getCouponForCode($code);
             if (null == $coupon) {
                 ZMMessages::instance()->error(zm_l10n_get("'%s' does not appear to be a valid Coupon Redemption Code.", $code));
-                $data['zm_coupon_code'] = $code;
+                $data['currentCouponCode'] = $code;
             } else {
-                $data['zm_coupon'] = $coupon;
+                $data['currentCoupon'] = $coupon;
                 $viewName = 'info';
             }
         }

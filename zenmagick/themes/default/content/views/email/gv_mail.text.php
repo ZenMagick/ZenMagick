@@ -30,13 +30,13 @@
 <?php } ?>
 
 
-<?php zm_l10n('The Gift Certificate is worth %s', $utils->formatMoney($zm_coupon->getAmount(), false, false)) ?>
+<?php zm_l10n('The Gift Certificate is worth %s', $utils->formatMoney($currentCoupon->getAmount(), false, false)) ?>
 
 
-<?php zm_l10n("The code to redeem your Gift Certificate is: %s.", $zm_coupon->getCode()) ?>
+<?php zm_l10n("The code to redeem your Gift Certificate is: %s.", $currentCoupon->getCode()) ?>
 
 
-<?php zm_l10n("To redeem your gift, visit %s.", $net->url(FILENAME_GV_REDEEM, 'couponCode='.$zm_coupon->getCode(), true, false)) ?>
+<?php zm_l10n("To redeem your gift, visit %s.", $net->url(FILENAME_GV_REDEEM, 'couponCode='.$currentCoupon->getCode(), true, false)) ?>
 
 
 <?php echo strip_tags(zm_l10n_chunk_get('email_advisory', ZMSettings::get('storeEmail'))) ?>

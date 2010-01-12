@@ -25,7 +25,7 @@
 ?><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html lang="<?php echo $language->getCode() ?>">
 <head>
-<title><?php zm_l10n("Gift Certificate Order #%s", $zm_order->getId()) ?></title>
+<title><?php zm_l10n("Gift Certificate Order #%s", $currentOrder->getId()) ?></title>
 </head>
 <body>
 <body>
@@ -36,7 +36,7 @@
 
 <p><?php zm_l10n('For security reasons this was not made immediately available to you. However, this amount has now been released. You may now visit our store and send the value of the Gift Certificate via email to someone else, or use it yourself.') ?></p>
 
-<p><?php zm_l10n('The Gift Certificate(s) you purchased are worth %s', $utils->formatMoney($zm_couponQueue->getAmount(), false, false)) ?></p>
+<p><?php zm_l10n('The Gift Certificate(s) you purchased are worth %s', $utils->formatMoney($currentCoupon->getAmount(), false, false)) ?></p>
 
 <p><?php zm_l10n('Thank you for shopping with us!') ?></p>
 <p><?php zm_l10n("Sincerely, %s", ZMSettings::get('storeOwner')) ?></p>

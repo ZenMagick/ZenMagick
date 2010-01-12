@@ -26,6 +26,6 @@
 <?php zm_l10n("A Product Review for %s has been submitted and requires your approval.", $currentProduct->getName()) ?>
 
 
-<?php zm_l10n("Review Details: %s", $zm_review->getText()) ?>
+<?php zm_l10n("Review Details: %s", $currentReview->getText()) ?>
 
 <?php echo $office_only_text; ?>

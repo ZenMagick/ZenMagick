@@ -25,19 +25,19 @@
 ?><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html lang="<?php echo $language->getCode() ?>">
 <head>
-<title><?php zm_l10n("Product recommendation from %s at %s", $zm_emailMessage->getFromName(), ZMSettings::get('storeName')) ?></title>
+<title><?php zm_l10n("Product recommendation from %s at %s", $emailMessage->getFromName(), ZMSettings::get('storeName')) ?></title>
 </head>
 <body>
 <body>
 <div style="font-family:Verdana,Arial,Helvetica,sans-serif;font-size:10pt;">
-<p><?php zm_l10n("Hi %s,", $zm_emailMessage->getToName()) ?></p>
+<p><?php zm_l10n("Hi %s,", $emailMessage->getToName()) ?></p>
 
-<p><?php zm_l10n("Your friend, %s, thought that you would be interested in %s from %s.", $zm_emailMessage->getFromName(), $currentProduct->getName(), ZMSettings::get('storeName')) ?></p>
+<p><?php zm_l10n("Your friend, %s, thought that you would be interested in %s from %s.", $emailMessage->getFromName(), $currentProduct->getName(), ZMSettings::get('storeName')) ?></p>
 
-<?php if ($zm_emailMessage->hasMessage()) { ?>
+<?php if ($emailMessage->hasMessage()) { ?>
 <p>
-<?php zm_l10n("%s also sent a note saying:", $zm_emailMessage->getFromName()) ?><br>
-<?php echo $html->text2html($zm_emailMessage->getMessage()) ?>
+<?php zm_l10n("%s also sent a note saying:", $emailMessage->getFromName()) ?><br>
+<?php echo $html->text2html($emailMessage->getMessage()) ?>
 </p>
 <?php } ?>
 
