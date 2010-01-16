@@ -100,12 +100,21 @@ class ZMTheme extends ZMObject {
     }
 
     /**
-     * Set theme config.
+     * Set full theme config.
+     *
+     * @param array config The new config map.
+     */
+    public function setConfig($config) {
+        $this->config_ = $config;
+    }
+
+    /**
+     * Set theme config value.
      *
      * @param mixed key The config key or an array to set all.
      * @param mixed value The value.
      */
-    public function setConfig($key, $value) {
+    public function setConfigValue($key, $value) {
         if (is_array($key)) {
             $this->config_ = $key;
             return;
@@ -121,7 +130,7 @@ class ZMTheme extends ZMObject {
      */
     public function setLayout($template, $name) { 
         if (!array_key_exists('layout', $this->config_)) {
-            $this->setConfig('layout', array());
+            $this->setConfigValue('layout', array());
         }
         $this->config_['layout'][$template] = $name;
     }
