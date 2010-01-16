@@ -146,7 +146,7 @@ class ZMBeanUtils extends ZMObject {
     public static function setAll($obj, $data, $keys=null, $setGeneric=true) {
         $isModel = ($obj instanceof ZMObject);
         foreach ($data as $property => $value) {
-            if (0 === strpos($value, 'ref::') || 0 === strpos($value, 'bean::')) {
+            if (is_string($value) && (0 === strpos($value, 'ref::') || 0 === strpos($value, 'bean::'))) {
                 $value = self::getBean($value);
             }
             if (null === $keys || in_array($property, $keys)) {
