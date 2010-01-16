@@ -283,9 +283,9 @@ class ZMOrder extends ZMObject {
     public function setTotal($total) { $this->total_ = $total; }
 
     /**
-     * Get all order totals.
+     * Get all order total lines.
      *
-     * @return array A list of <code>ZMOrderTotal</code> instances.
+     * @return array A list of <code>ZMOrderTotalLine</code> instances.
      */
     public function getOrderTotals() { return ZMOrders::instance()->getOrderTotals($this->getId()); }
 
@@ -295,7 +295,7 @@ class ZMOrder extends ZMObject {
      * @param string name The total name (without the <em>ot_</em> prefix).
      * @param boolean force If set, a new order total will be created in case the order
      *  does not contain the one requested.
-     * @return ZMOrderTotal A <code>ZMOrderTotal</code> or <code>null</code>.
+     * @return ZMOrderTotalLine A <code>ZMOrderTotalLine</code> or <code>null</code>.
      */
     public function getOrderTotal($name, $force=false) { 
         $totals = $this->getOrderTotals();
@@ -306,7 +306,7 @@ class ZMOrder extends ZMObject {
             }
         }
 
-        return $force ? ZMLoader::make("OrderTotal", ucwords($name), 0, 0, $type) : null;
+        return $force ? ZMLoader::make("OrderTotalLine", ucwords($name), 0, 0, $type) : null;
     }
 
     /**

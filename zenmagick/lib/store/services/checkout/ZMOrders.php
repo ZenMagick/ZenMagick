@@ -278,7 +278,7 @@ class ZMOrders extends ZMObject implements ZMSQLAware {
     }
 
     /**
-     * Get order totals.
+     * Get order total lines.
      *
      * @param int orderId The order id.
      * @return array Map of <code>ZMOrderItem</code> instances with the type as key.
@@ -288,7 +288,7 @@ class ZMOrders extends ZMObject implements ZMSQLAware {
                 WHERE orders_id = :orderId
                 ORDER BY sort_order";
         $totals = array();
-        foreach (Runtime::getDatabase()->query($sql, array('orderId' => $orderId), TABLE_ORDERS_TOTAL, 'OrderTotal') as $total) {
+        foreach (Runtime::getDatabase()->query($sql, array('orderId' => $orderId), TABLE_ORDERS_TOTAL, 'OrderTotalLine') as $total) {
             $totals[$total->getType()] = $total;
         }
 

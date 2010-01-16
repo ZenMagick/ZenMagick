@@ -33,10 +33,10 @@
 </fieldset>
 
 <?php $form->open(FILENAME_CHECKOUT_SHIPPING, "action=process", true) ?>
-    <?php if ($zm_shipping->hasShippingProvider()) { ?>
+    <?php if ($shoppingCart->getShippingProviders()) { ?>
         <fieldset>
             <legend><?php zm_l10n("Shipping Methods") ?></legend>
-            <?php if ($zm_shipping->isFreeShipping()) { ?>
+            <?php if ($utils->isFreeShipping($shoppingCart)) { ?>
                 <p class="inst"><?php zm_l10n("Shipping is free!") ?></p>
                 <input type="hidden" name="shipping" value="free_free" />
             <?php } else { ?>
@@ -50,10 +50,10 @@
                         </tr>
                     </thead>
                     <tbody>
-                    <?php foreach ($zm_shipping->getShippingProvider() as $provider) { ?>
+                    <?php foreach ($shoppingCart->getShippingProviders() as $provider) { ?>
                         <tr><td colspan="3"><strong><?php $html->encode($provider->getName()) ?></strong><?php if ($provider->hasError()) { zm_l10n("(%s)", $provider->getError()); } ?></td></tr>
                         <?php if ($provider->hasError()) { continue; } foreach ($provider->getShippingMethods() as $method) { $id = 'ship_'.$method->getId();?>
-                            <?php $selected = (1 == $zm_shipping->getShippingMethodCount()) || ($method->getShippingId() == $shoppingCart->getShippingMethodId()); ?>
+                            <?php $selected = (1 == $utils->getShippingMethodCount($shoppingCart)) || ($method->getShippingId() == $shoppingCart->getShippingMethodId()); ?>
                             <tr class="smethod" onclick="document.getElementById('<?php echo $id ?>').checked = true;">
                                 <td><?php $html->encode($method->getName()) ?></td>
                                 <td class="smcost"><?php $utils->formatMoney($method->getCost()) ?></td>

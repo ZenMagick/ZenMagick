@@ -109,6 +109,9 @@ class ZMToolboxCrumbtrail extends ZMToolboxTool {
      * @param string url Optional crumbtrail element URL.
      */
     public function addCrumb($name, $url = null) {
+        if (!is_array($this->crumbs_)) {
+            $this->reset();
+        }
         array_push($this->crumbs_, ZMLoader::make("Crumb", $name, $url));
     }
 

@@ -41,6 +41,8 @@ Release 0.9.9
 - zm_scaffold: dropped - not complete and no motivation to do so (perhaps as
   part of the MVC framework?)
 - add ZMOrderTotal and ZMCreditClass interfaces (drafts!)
+- rename ZMOrderTotal to ZMOrderTotalLine
+- move methods from ZMShipping to ZMShoppingCart and ZMToolboxUtils
 
 Release 0.9.8
 - add Savant3 and experimental views (not used yet)

@@ -142,6 +142,57 @@ class ZMToolboxUtils extends ZMToolboxTool {
         ZMTemplateManager::instance()->jsFile($filename, ZMTemplateManager::PAGE_NOW);
     }
 
+    /**
+     * Count the number of available shipping methods.
+     *
+     * @param ZMShoppingCart shoppingCart The cart to examine.
+     * @return int The number of shipping methods.
+     */
+    public function getShippingMethodCount($shoppingCart) {
+        $count = 0;
+        // PHP4 hack - god know why!
+        foreach ($shoppingCart->getShippingProviders() as $provider) {
+            $count += count($provider->getShippingMethods());
+        }
+
+        return $count;
+    }
+
+    /**
+     * Check if the given shopping cart qualifies for free shipping (as per free shipping ot).
+     *
+     * @param ZMShoppingCart shoppingCart The cart to examine.
+     * @return boolean <code>true</code> if this cart qualifies for free shipping.
+     */
+    public function isFreeShipping($shoppingCart) {
+        if (ZMSettings::get('isOrderTotalFreeShipping')) {
+            $pass = false;
+            $shippingAddress = $shoppingCart->getShippingAddress();
+            switch (ZMSettings::get('freeShippingDestination')) {
+            case 'national':
+                if ($shippingAddress->getCountryId() == ZMSettings::get('storeCountry')) {
+                    $pass = true;
+                }
+                break;
+            case 'international':
+                if ($shippingAddress->getCountryId() != ZMSettings::get('storeCountry')) {
+                    $pass = true;
+                }
+                break;
+            case 'both':
+                $pass = true;
+                break;
+            }
+
+            if (($pass == true) && ($shoppingCart->getTotal() >= ZMSettings::get('freeShippingOrderThreshold'))) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+
 }
 
 ?>

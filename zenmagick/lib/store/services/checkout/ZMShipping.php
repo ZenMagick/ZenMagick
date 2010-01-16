@@ -72,50 +72,11 @@ class ZMShipping extends ZMObject {
     }
 
 
-    function isFreeShipping() {
-    global $order;
-        if (ZMSettings::get('isOrderTotalFreeShipping')) {
-            $pass = false;
-            switch (ZMSettings::get('freeShippingDestination')) {
-              case 'national':
-                  if ($order->delivery['country_id'] == ZMSettings::get('storeCountry')) {
-                      $pass = true;
-                  }
-                  break;
-              case 'international':
-                  if ($order->delivery['country_id'] != ZMSettings::get('storeCountry')) {
-                      $pass = true;
-                  }
-                  break;
-              case 'both':
-                  $pass = true;
-                  break;
-            }
-
-            if (($pass == true) && ($_SESSION['cart']->show_total() >= ZMSettings::get('freeShippingOrderThreshold'))) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-
     // shipping available
     function hasShippingProvider() { return 0 < count($this->provider_); }
 
     // number of shipping providers
     function getShippingProvider() { return $this->provider_; }
-
-    function getShippingMethodCount() {
-        $count = 0;
-        // PHP4 hack - god know why!
-        foreach (array_keys($this->provider_) as $key) {
-            $count += count($this->provider_[$key]->getShippingMethods());
-        }
-
-        return $count;
-    }
 
 
     // find a particular shipping method

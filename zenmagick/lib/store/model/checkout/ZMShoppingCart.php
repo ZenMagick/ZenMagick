@@ -41,6 +41,7 @@ class ZMShoppingCart extends ZMObject {
     private $helper_;
     private $comment_;
     private $accountId_;
+    private $shipping_;
 
 
     /**
@@ -55,6 +56,8 @@ class ZMShoppingCart extends ZMObject {
         $this->payments_ = null;
         $this->items_ = null;
         $this->helper_ = new ZMCheckoutHelper($this);
+        //XXX: fix and move to new class...
+        $this->shipping_ = null;
     }
 
     /**
@@ -195,6 +198,18 @@ class ZMShoppingCart extends ZMObject {
      */
     public function setComment($comment) { 
         $this->comment_ = $comment;
+    }
+
+    /**
+     * Get a list of all available shipping providers.
+     *
+     * @return array List of <code>ZMShippingProvider</code> instances.
+     */
+    public function getShippingProviders() {
+        if (null == $this->shipping_) {
+            $this->shipping_ = ZMLoader::make("Shipping");
+        }
+        return $this->shipping_->getShippingProvider();
     }
 
     /**
@@ -365,7 +380,7 @@ class ZMShoppingCart extends ZMObject {
             $output = $GLOBALS[$class]->output;
             $type = substr($class, 3);
             foreach ($output as $zenTotal) {
-                $totals[] = ZMLoader::make("OrderTotal", $zenTotal['title'], $zenTotal['text'], $zenTotal['value'], $type);
+                $totals[] = ZMLoader::make("OrderTotalLine", $zenTotal['title'], $zenTotal['text'], $zenTotal['value'], $type);
             }
         }
         return $totals;
