@@ -34,20 +34,26 @@
 class ZMEZPage extends ZMObject {
     private $id_;
     private $title_;
+
     private $altUrl_;
     private $altUrlExternal_;
+
     private $htmlText_;
+
     private $isHeader_;
-    private $isSidebox_;
-    private $isFooter_;
-    private $isToc_;
     private $headerSort_;
-    private $sidebarSort_;
+    private $isSidebox_;
+    private $sideboxSort_;
+    private $isFooter_;
     private $footerSort_;
-    private $tocSort_;
-    private $isNewWin_;
-    private $isSSL_;
+    private $isToc_;
+
     private $tocChapter_;
+    private $tocSort_;
+
+    private $isNewWin_;
+
+    private $isSSL_;
 
 
     /**
@@ -69,7 +75,7 @@ class ZMEZPage extends ZMObject {
         $this->isFooter_ = false;
         $this->isToc_ = false;
         $this->headerSort_ = 1;
-        $this->sidebarSort_ = 1;
+        $this->sideboxSort_ = 1;
         $this->footerSort_ = 1;
         $this->isNewWin_ = false;
         $this->isSSL_ = false;
@@ -94,7 +100,7 @@ class ZMEZPage extends ZMObject {
     public function isFooter() { return $this->isFooter_; }
     public function isToc() { return $this->isToc_; }
     public function getHeaderSort() { return $this->headerSort_; }
-    public function getSidebarSort() { return $this->sidebarSort_; }
+    public function getSideboxSort() { return $this->sideboxSort_; }
     public function getFooterSort() { return $this->footerSort_; }
     public function getTocSort() { return $this->tocSort_; }
     public function isNewWin() { return $this->isNewWin_; }
@@ -111,7 +117,7 @@ class ZMEZPage extends ZMObject {
     public function setFooter($value) { $this->isFooter_ = $value; }
     public function setToc($value) { $this->isToc_ = $value; }
     public function setHeaderSort($sortOrder) { $this->headerSort_ = $sortOrder; }
-    public function setSidebarSort($sortOrder) { $this->sidebarSort_ = $sortOrder; }
+    public function setSideboxSort($sortOrder) { $this->sideboxSort_ = $sortOrder; }
     public function setFooterSort($sortOrder) { $this->footerSort_ = $sortOrder; }
     public function setTocSort($value) { $this->tocSort_ = $value; }
     public function setNewWin($value) { $this->isNewWin_ = $value; }

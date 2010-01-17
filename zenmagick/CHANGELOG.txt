@@ -45,6 +45,8 @@ Release 0.9.9
 - move methods from ZMShipping to ZMShoppingCart and ZMToolboxUtils
 - rename ZMOrder::getOrderTotals() to getOrderTotalLines() to reflect the
   changed class name
+- fix wrong ZMEZPage variable spelling for sidebox sort order
+- extend EZPages service with create/update/remove methods
 
 Release 0.9.8
 - add Savant3 and experimental views (not used yet)

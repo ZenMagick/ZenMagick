@@ -170,6 +170,38 @@ class ZMEZPages extends ZMObject {
         return ZMRuntime::getDatabase()->query($sql, array('languageId' => $languageId), TABLE_EZPAGES, 'EZPage');
     }
 
+    /**
+     * Create a new page.
+     *
+     * @param ZMEZPage page The page to create.
+     * @return ZMEZPage The updated (keys, etc) instance.
+     */
+    public function createPage($page) {
+        return ZMRuntime::getDatabase()->createModel(TABLE_EZPAGES, $page);
+    }
+
+    /**
+     * Update an existing page.
+     *
+     * @param ZMEZPage page The page to update.
+     * @return boolean <code>true</code> for success.
+     */
+    public function updatePage($page) {
+        ZMRuntime::getDatabase()->updateModel(TABLE_EZPAGES, $page);
+        return true;
+    }
+
+    /**
+     * Delete an existing page.
+     *
+     * @param ZMEZPage page The page to delete.
+     * @return boolean <code>true</code> for success.
+     */
+    public function removePage($page) {
+        ZMRuntime::getDatabase()->removeModel(TABLE_EZPAGES, $page);
+        return true;
+    }
+
 }
 
 ?>
