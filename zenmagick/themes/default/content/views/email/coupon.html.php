@@ -44,7 +44,7 @@
 <p><?php zm_l10n('Thank you for shopping with us!') ?></p>
 <p><?php zm_l10n("Sincerely, %s", ZMSettings::get('storeOwner')) ?></p>
 
-<?php if (!isset($isSupressDisclaimer)) { echo zm_l10n_chunk_get('email_advisory', ZMSettings::get('storeEmail')); } ?>
+<?php if (!isset($isSupressDisclaimer)) { echo $zm_theme->staticPageContent('email_advisory'); } ?>
 <?php echo $office_only_html; ?>
 </div>
 </body>

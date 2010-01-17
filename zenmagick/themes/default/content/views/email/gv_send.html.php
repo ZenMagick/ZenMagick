@@ -43,7 +43,7 @@
 <?php $href = '<a href="'.$net->url(FILENAME_GV_REDEEM, 'couponCode='.$currentCoupon->getCode(), true, false).'">'.ZMSettings::get('storeName').'</a>'; ?>
 <p><?php zm_l10n("To redeem your gift, visit %s.", $href) ?></p>
 
-<?php if (!isset($isSupressDisclaimer)) { echo zm_l10n_chunk_get('email_advisory', ZMSettings::get('storeEmail')); } ?>
+<?php if (!isset($isSupressDisclaimer)) { echo $zm_theme->staticPageContent('email_advisory'); } ?>
 <?php echo $office_only_html; ?>
 </div>
 </body>

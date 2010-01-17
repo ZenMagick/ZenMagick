@@ -51,7 +51,7 @@
 
 <p><?php zm_l10n("Regards, %s", ZMSettings::get('storeName')) ?></p>
 
-<?php echo zm_l10n_chunk_get('email_advisory', ZMSettings::get('storeEmail')) ?>
+<?php echo $zm_theme->staticPageContent('email_advisory') ?>
 </div>
 </body>
 </html>

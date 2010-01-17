@@ -52,5 +52,5 @@
 
 <div class="advisory">
     <strong><?php zm_l10n("The following message is included with all emails sent from this site:") ?></strong><br />
-    <?php echo zm_l10n_chunk_get('email_advisory', ZMSettings::get('storeEmail')) ?>
+    <?php echo $zm_theme->staticPageContent('email_advisory') ?>
 </div>

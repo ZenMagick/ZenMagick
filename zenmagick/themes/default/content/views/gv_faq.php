@@ -43,7 +43,7 @@
 </ul>
 
 <?php if (null != ($topic = $request->getParameter('topic')) && array_key_exists($topic, $faq_topics)) { ?>
-    <?php echo zm_l10n_chunk_get($topic, ZMSettings::get('storeEmail')); ?>
+    <?php echo $zm_theme->staticPageContent($topic); ?>
 <?php } ?>
 
 <?php $form->open(FILENAME_GV_REDEEM, '', true, array('id'=>'gv_redeem')) ?>

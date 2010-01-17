@@ -27,12 +27,12 @@
 <h1><?php zm_l10n("What is CVV?") ?></h1>
 
 <div>
-  <?php echo zm_l10n_chunk_get('popup_cvv_visa_master') ?>
+  <?php echo $zm_theme->staticPageContent('popup_cvv_visa_master') ?>
   <img src="<?php echo $this->asUrl("images/icons/cvv2visa.gif") ?>" alt="<?php zm_l10n("cvv sample 1") ?>" />
 </div>
 
 <div>
-  <?php echo zm_l10n_chunk_get('popup_cvv_amex') ?>
+  <?php echo $zm_theme->staticPageContent('popup_cvv_amex') ?>
   <img src="<?php echo $this->asUrl("images/icons/cvv2amex.gif") ?>" alt="<?php zm_l10n("cvv sample 2") ?>" />
 </div>
 

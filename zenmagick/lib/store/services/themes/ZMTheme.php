@@ -383,6 +383,11 @@ class ZMTheme extends ZMObject {
             $contents = file_get_contents($filename);
         }
 
+        // allow PHP
+        ob_start();
+        eval('?>'.$contents);
+        $contents = ob_get_clean();
+
         return $contents;
     }
 

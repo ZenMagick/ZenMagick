@@ -68,6 +68,7 @@
      * @param var args A variable number of arguments that will be used as arguments for
      *  <code>vsprintf(..)</code> to insert variables into the localized text.
      * @return string A localized version based on the current language, or <code>null</code>.
+     * @deprecated use static page instead
      */
     function zm_l10n_chunk_get($name) {
         $session = ZMRequest::instance()->getSession();

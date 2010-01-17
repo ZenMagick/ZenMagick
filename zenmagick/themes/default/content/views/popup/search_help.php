@@ -26,6 +26,6 @@
 
 <h1><?php zm_l10n("Search Help") ?></h1>
 
-<?php echo zm_l10n_chunk_get('popup_search_help') ?>
+<?php echo $zm_theme->staticPageContent('popup_search_help') ?>
 
 <div id="close"><a href="#" onclick="javascript:window.close()"><?php zm_l10n("Close Window [x]") ?></a></div>
