@@ -38,8 +38,8 @@
 <?php printf("%3s x %26s  %7s\n", $orderItem->getQty(), $orderItem->getName(), $utils->formatMoney($orderItem->getCalculatedPrice(), true, false)) ?>
 <?php } ?>
 <?php printf("%30s  %s\n", "", "-----------") ?>
-<?php foreach ($order->getOrderTotals() as $orderTotal) { ?>
-<?php printf("%32s  %7s\n", $orderTotal->getName(), $orderTotal->getValue()) ?>
+<?php foreach ($order->getOrderTotalLines() as $orderTotalLine) { ?>
+<?php printf("%32s  %7s\n", $orderTotalLine->getName(), $orderTotalLine->getValue()) ?>
 <?php } ?>
 
 <?php zm_l10n("Address Details\n") ?>

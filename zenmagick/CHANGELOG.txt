@@ -3,10 +3,10 @@ Release 0.9.9
 - fix SQL errors in ZMZenCartDatabase
 - unitTests: add new create/update database test class
 - remove support for setting 'isZMDefinePages'
-- add full-release patch to make $db throw ZMDatabaseExceptions rather than
+- add full-release patch to make $db throw ZMDatabaseException rather than
   die()
 - removed smarty
-- intorduce yaml based theme config and remove ZMThemeInfo
+- introduce yaml based theme config and remove ZMThemeInfo
 - remove ToolboxHtml::onload
 - remove ZMhemeInfo and use theme.yaml file instead
 - fix popups; b:#2927276
@@ -43,6 +43,8 @@ Release 0.9.9
 - add ZMOrderTotal and ZMCreditClass interfaces (drafts!)
 - rename ZMOrderTotal to ZMOrderTotalLine
 - move methods from ZMShipping to ZMShoppingCart and ZMToolboxUtils
+- rename ZMOrder::getOrderTotals() to getOrderTotalLines() to reflect the
+  changed class name
 
 Release 0.9.8
 - add Savant3 and experimental views (not used yet)

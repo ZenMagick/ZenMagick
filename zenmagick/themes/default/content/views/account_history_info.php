@@ -47,10 +47,10 @@
             <td class="price"><?php $utils->formatMoney($orderItem->getCalculatedPrice()) ?></td>
         </tr>
     <?php } ?>
-    <?php foreach ($currentOrder->getOrderTotals() as $orderTotal) { ?>
+    <?php foreach ($currentOrder->getOrderTotalLines() as $orderTotalLine) { ?>
         <tr>
-            <td colspan="2" class="total"><?php $html->encode($orderTotal->getName()) ?></td>
-            <td class="price"><?php echo $orderTotal->getValue() ?></td>
+            <td colspan="2" class="total"><?php $html->encode($orderTotalLine->getName()) ?></td>
+            <td class="price"><?php echo $orderTotalLine->getValue() ?></td>
         </tr>
     <?php } ?>
     </tbody>

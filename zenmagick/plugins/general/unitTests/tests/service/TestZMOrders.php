@@ -145,18 +145,18 @@ class TestZMOrders extends ZMTestCase {
     }
 
     /**
-     * Test get order totals.
+     * Test get order total lines.
      */
-    public function testGetOrderTotals() {
+    public function testGetOrderTotalLines() {
         $order = ZMOrders::instance()->getOrderForId(1);
         if ($this->assertNotNull($order)) {
-            $totals = $order->getOrderTotals();
-            $this->assertNotNull($totals);
-            $this->assertTrue(is_array($totals));
-            $this->assertEqual(3, count($totals));
+            $orderTotalLines = $order->getOrderTotalLines();
+            $this->assertNotNull($orderTotalLines);
+            $this->assertTrue(is_array($orderTotalLines));
+            $this->assertEqual(3, count($orderTotalLines));
             
             // test total total
-            $total = $totals['ot_total'];
+            $total = $orderTotalLines['ot_total'];
             $this->assertEqual('Total:', $total->getName());
             //$this->assertEqual('$42.49', $total->getValue());
             //$this->assertEqual(42.49, $total->getAmount());

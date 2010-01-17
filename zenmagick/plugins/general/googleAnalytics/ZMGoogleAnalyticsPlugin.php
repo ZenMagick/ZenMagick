@@ -193,11 +193,11 @@ class ZMGoogleAnalyticsPlugin extends Plugin {
         $address = $this->getAddress($this->order_);
         $country = $address->getCountry();
         // totals
-        $total = $this->order_->getOrderTotal('total', true);
+        $total = $this->order_->getOrderTotalLine('total', true);
         $totalValue = number_format($total->getAmount(), 2, '.', '');
-        $tax = $this->order_->getOrderTotal('tax', true);
+        $tax = $this->order_->getOrderTotalLine('tax', true);
         $taxValue = number_format($tax->getAmount(), 2, '.', '');
-        $shipping = $this->order_->getOrderTotal('shipping', true);
+        $shipping = $this->order_->getOrderTotalLine('shipping', true);
         $shippingValue = number_format($shipping->getAmount(), 2, '.', '');
 
         $code = '<form style="display:none;" name="utmform"><textarea id="utmtrans">' . $this->eol_;
@@ -301,11 +301,11 @@ EOT;
 
         // totals
         $orderId = $this->order_->getId();
-        $total = $this->order_->getOrderTotal('total', true);
+        $total = $this->order_->getOrderTotalLine('total', true);
         $totalValue = number_format($total->getAmount(), 2, '.', '');
-        $tax = $this->order_->getOrderTotal('tax', true);
+        $tax = $this->order_->getOrderTotalLine('tax', true);
         $taxValue = number_format($tax->getAmount(), 2, '.', '');
-        $shipping = $this->order_->getOrderTotal('shipping', true);
+        $shipping = $this->order_->getOrderTotalLine('shipping', true);
         $shippingValue = number_format($shipping->getAmount(), 2, '.', '');
 
         // order code
@@ -379,7 +379,7 @@ EOT;
                 } else {
                     $baseUrl = "http://www.googleadservices.com/pagead";
                 }
-                $total = $this->order_->getOrderTotal('total', true);
+                $total = $this->order_->getOrderTotalLine('total', true);
                 if (0 >= $total) {
                     $total = 1;
                 }

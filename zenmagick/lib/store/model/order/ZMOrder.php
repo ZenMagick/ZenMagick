@@ -287,7 +287,7 @@ class ZMOrder extends ZMObject {
      *
      * @return array A list of <code>ZMOrderTotalLine</code> instances.
      */
-    public function getOrderTotals() { return ZMOrders::instance()->getOrderTotals($this->getId()); }
+    public function getOrderTotalLines() { return ZMOrders::instance()->getOrderTotalLines($this->getId()); }
 
     /**
      * Get order total for the given name.
@@ -297,8 +297,8 @@ class ZMOrder extends ZMObject {
      *  does not contain the one requested.
      * @return ZMOrderTotalLine A <code>ZMOrderTotalLine</code> or <code>null</code>.
      */
-    public function getOrderTotal($name, $force=false) { 
-        $totals = $this->getOrderTotals();
+    public function getOrderTotalLine($name, $force=false) { 
+        $totals = $this->getOrderTotalLines();
         $type = 'ot_'.$name;
         foreach ($totals as $total) {
             if ($type == $total->getType()) {
@@ -315,7 +315,7 @@ class ZMOrder extends ZMObject {
      * @return boolean <code>true</code> if the order is store pickup, <code>false</code> if not.
      */
     function isStorePickup() {
-        $totals = $this->getOrderTotals();
+        $totals = $this->getOrderTotalLines();
         foreach ($totals as $total) {
             // AAAAAAAAAAAAAAAAAAAAAAAAAAARRRRRRRRRRRRRRRRRHHHHHHHHHHH
             if ('Store Pickup (Walk In):' == $total->getName()) {

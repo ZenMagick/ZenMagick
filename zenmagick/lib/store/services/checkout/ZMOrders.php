@@ -281,9 +281,9 @@ class ZMOrders extends ZMObject implements ZMSQLAware {
      * Get order total lines.
      *
      * @param int orderId The order id.
-     * @return array Map of <code>ZMOrderItem</code> instances with the type as key.
+     * @return array Map of <code>ZMOrderTotalLine</code> instances with the type as key.
      */
-    public function getOrderTotals($orderId) {
+    public function getOrderTotalLines($orderId) {
         $sql = "SELECT * FROM " . TABLE_ORDERS_TOTAL . "
                 WHERE orders_id = :orderId
                 ORDER BY sort_order";
