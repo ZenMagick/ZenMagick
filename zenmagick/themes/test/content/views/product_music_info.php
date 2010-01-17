@@ -54,12 +54,12 @@
 
   <?php 
       // set up services
-      $zm_music = ZMLoader::make("Music");
-      $zm_mediaManager = ZMLoader::make("MediaManager");
+      $music = ZMLoader::make("Music");
+      $mediaManager = ZMLoader::make("MediaManager");
       // get artist information
-      $artist = $zm_music->getArtistForProductId($currentProduct->getId());
+      $artist = $music->getArtistForProductId($currentProduct->getId());
       // get musc collections for this product/artist
-      $collections = $zm_mediaManager->getMediaCollectionsForProductId($currentProduct->getId());
+      $collections = $mediaManager->getMediaCollectionsForProductId($currentProduct->getId());
   ?>
   <fieldset>
       <legend><?php zm_l10n("Additional Music Info") ?></legend>

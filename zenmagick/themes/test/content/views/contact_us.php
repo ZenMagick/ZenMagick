@@ -43,8 +43,8 @@
         <textarea id="message" name="message" cols="30" rows="7"><?php $html->encode($contactUs->getMessage()) ?></textarea>
         <p class="legend"><?php zm_l10n("<span>*</span> Mandatory fields") ?></p>
 
-        <?php if (is_object($zm_recaptcha)) { ?>
-            <p><?php $zm_recaptcha->showCaptcha(); ?></p>
+        <?php if (is_object($recaptcha)) { ?>
+            <p><?php $recaptcha->showCaptcha(); ?></p>
         <?php } ?>
 
         <?php if (is_object($captcha)) { ?>
