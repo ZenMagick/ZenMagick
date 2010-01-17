@@ -41,8 +41,6 @@ class Messages extends ZMMessages {
      * Create new instance.
      */
     function __construct() {
-    global $messageStack;
-
         parent::__construct();
         $this->_loadMessageStack();
     }

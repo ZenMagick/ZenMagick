@@ -38,13 +38,6 @@ class Runtime extends ZMRuntime {
 
 
     /**
-     * Get the database dao.
-     *
-     * @return queryFactory *The* zen-cart <code>queryFactory</code> instance.
-     */
-    public static function getDB() { if (null == self::$db_) { global $db; self::$db_ = $db; } return self::$db_; }
-
-    /**
      * Get the context for plugins.
      *
      * @return string Either <code>Plugin::CONTEXT_STOREFRONT</code> or <code>Plugin::CONTEXT_ADMIN</code>.

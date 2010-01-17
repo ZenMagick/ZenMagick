@@ -43,6 +43,7 @@ Release 0.9.9
 - add ZMOrderTotal and ZMCreditClass interfaces (drafts!)
 - rename ZMOrderTotal to ZMOrderTotalLine
 - move methods from ZMShipping to ZMShoppingCart and ZMToolboxUtils
+- remove obsolete Runtime::getDB()
 
 Release 0.9.8
 - add Savant3 and experimental views (not used yet)
