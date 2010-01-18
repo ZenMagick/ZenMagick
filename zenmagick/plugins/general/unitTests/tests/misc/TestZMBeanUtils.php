@@ -149,6 +149,21 @@ class TestZMBeanUtils extends ZMTestCase {
         }
     }
 
+    /**
+     * Test magic value
+     */
+    public function testMagicValue() {
+        $bean = ZMBeanUtils::getBean('ZMObject#handler='.urlencode('bean::Product#name=foo'));
+        if ($this->assertNotNull($bean)) {
+            $handler = $bean->getHandler();
+            if ($this->assertNotNull($handler)) {
+                if ($this->assertTrue($handler instanceof ZMProduct)) {
+                    $this->assertEqual('foo', $handler->getName());
+                }
+            }
+        }
+    }
+
 }
 
 ?>
