@@ -17,6 +17,16 @@
             <param name="plugin.type" value="order_total" />
         </foreach>
 
+        <!-- build catalog_manager plugins -->
+        <foreach list="${plugins.type.catalog_manager}" target="plugin-release" param="plugin.name">
+            <param name="plugin.type" value="order_total" />
+        </foreach>
+
+        <!-- build editors plugins -->
+        <foreach list="${plugins.type.editors}" target="plugin-release" param="plugin.name">
+            <param name="plugin.type" value="order_total" />
+        </foreach>
+
         <!-- build zip of all plugins -->
         <echo message="Building ful plugins archive ..." />
         <zip zipfile="${dist.dir}/plugins/plugins-${zenmagick.version}.zip" basedir="${build.dir}/plugins" />
