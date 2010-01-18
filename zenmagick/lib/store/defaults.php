@@ -108,7 +108,7 @@
             /*** plugins ***/
             'zenmagick.core.plugins.enabled' => true,
             'zenmagick.core.plugins.baseDir' => ZM_BASE_PATH.'plugins'.DIRECTORY_SEPARATOR,
-            'zenmagick.core.plugins.groups' => 'general,catalog_manager,order_total',
+            'zenmagick.core.plugins.groups' => 'general,catalog_manager,order_total,editors',
         
             /*** fs ***/
             'zenmagick.core.fs.permissions.fix' => true,

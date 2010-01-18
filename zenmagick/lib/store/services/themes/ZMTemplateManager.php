@@ -279,6 +279,10 @@ class ZMTemplateManager extends ZMObject {
      * @return string The resolved final URL.
      */
     public function resolveThemeResource($request, $resource) {
+        if ('/' == $resource[0]) {
+            // absolute; for example plugin URL
+            return $resource;
+        }
         return Runtime::getTheme()->themeURL($resource);
     }
 
