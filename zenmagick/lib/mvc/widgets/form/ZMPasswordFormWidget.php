@@ -22,7 +22,7 @@
 
 
 /**
- * <p>A password input form widget.</p>
+ * A password input form widget.
  *
  * @author DerManoMann
  * @package org.zenmagick.mvc.widgets.form

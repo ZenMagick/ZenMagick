@@ -22,7 +22,7 @@
 
 
 /**
- * <p>A text area form widget.</p>
+ * A text area form widget.
  *
  * @author DerManoMann
  * @package org.zenmagick.mvc.widgets.form

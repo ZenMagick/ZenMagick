@@ -54,7 +54,7 @@ class ZMTinyMCEPlugin extends Plugin {
      */
     public function init() {
         parent::init();
-        ZMSettings::append('zenmagick.mvc.widgets.editors', 'ZMTinyMCEFormWidget');
+        ZMSettings::append('zenmagick.mvc.widgets.editors', 'TinyMCE:ZMTinyMCEFormWidget');
     }
 
 }

@@ -22,7 +22,7 @@
 
 
 /**
- * <p>A single line text input form widget.</p>
+ * A single line text input form widget.
  *
  * @author DerManoMann
  * @package org.zenmagick.mvc.widgets.form

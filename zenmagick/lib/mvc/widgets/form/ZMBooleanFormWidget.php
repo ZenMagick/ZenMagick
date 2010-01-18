@@ -22,7 +22,7 @@
 
 
 /**
- * <p>A widget to make a boolean selection (true/false).</p>
+ * A widget to make a boolean selection (true/false).
  *
  * <p>Style can be: <em>radio</em>, <em>select</em> or <em>checkbox</em>. Default is <em>radio</em>.</p>
  *

@@ -22,7 +22,7 @@
 
 
 /**
- * <p>A select form widget.</p>
+ * A select form widget.
  *
  * @author DerManoMann
  * @package org.zenmagick.mvc.widgets.form
