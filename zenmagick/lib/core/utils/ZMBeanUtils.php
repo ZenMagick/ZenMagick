@@ -202,7 +202,15 @@ class ZMBeanUtils extends ZMObject {
             $definition = substr($definition, 5);
             $isRef = true;
         } else if (0 === strpos($definition, 'set::')) {
-            $definition = ZMSettings::get(substr($definition, 5));
+            $stoken = explode('#', substr($definition, 5), 2);
+            $definition = ZMSettings::get($stoken[0]);
+            if (2 == count($stoken)) {
+                // append
+                if (false === strpos($definition, '#')) {
+                    $definition .= '#';
+                }
+                $definition .= '&'.$stoken[1];
+            }
         }
 
         $tokens = explode('#', $definition, 2);
