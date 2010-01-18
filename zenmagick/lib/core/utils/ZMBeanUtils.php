@@ -24,7 +24,7 @@
 /**
  * Bean utility.
  *
- * <p>Bean definitions and properties handled by this class may use two special (magic) name prefixes
+ * <p>Bean definitions and properties handled by this class may one of the following special (magic) name prefixes
  * to create/set objects rather than strings:</p>
  * <dl>
  *  <dt>bean::</dt>
@@ -34,6 +34,9 @@
  *  <dd>This prefix indicates that the following string is to be taken as bean definition. However, the instance created/obtained
  *   will first be looked up as singleton instance. It is important to remember that by setting properties on references these settings
  *   will be permanent for all subsequent code using that singleton.</dd>
+ *  <dt>set::</dt>
+ *  <dd>The string following <em>set::</em> is used for a settings lookup (<code>ZMSettings::get()</code>). The configured value (string)
+ *   is then used to create the bean instance. This allows to use symbolic names and configure default implementations via settings.</dd>
  * </dl>
  *
  * @author DerManoMann
@@ -146,7 +149,7 @@ class ZMBeanUtils extends ZMObject {
     public static function setAll($obj, $data, $keys=null, $setGeneric=true) {
         $isModel = ($obj instanceof ZMObject);
         foreach ($data as $property => $value) {
-            if (is_string($value) && (0 === strpos($value, 'ref::') || 0 === strpos($value, 'bean::'))) {
+            if (is_string($value) && (0 === strpos($value, 'ref::') || 0 === strpos($value, 'bean::') || 0 === strpos($value, 'set::'))) {
                 $value = self::getBean($value);
             }
             if (null === $keys || in_array($property, $keys)) {
@@ -198,6 +201,8 @@ class ZMBeanUtils extends ZMObject {
         } else if (0 === strpos($definition, 'ref::')) {
             $definition = substr($definition, 5);
             $isRef = true;
+        } else if (0 === strpos($definition, 'set::')) {
+            $definition = ZMSettings::get(substr($definition, 5));
         }
 
         $tokens = explode('#', $definition, 2);

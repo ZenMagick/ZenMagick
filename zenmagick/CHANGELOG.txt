@@ -49,6 +49,7 @@ Release 0.9.9
 - extend EZPages service with create/update/remove methods
 - converted all use of zm_l10n_chunk_get() to using static pages
 - change static page code to allow PHP everywhere
+- allow to create beans via settings using set::[setting]
 
 Release 0.9.8
 - add Savant3 and experimental views (not used yet)

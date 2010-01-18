@@ -137,6 +137,18 @@ class TestZMBeanUtils extends ZMTestCase {
         }
     }
 
+    /**
+     * Test set::
+     */
+    public function testMagicSet() {
+        ZMSettings::set('setset', 'ZMObject#foo=bar');
+        $set = ZMBeanUtils::getBean('set::setset');
+        if ($this->assertNotNull($set)) {
+            $this->assertTrue($set instanceof ZMObject);
+            $this->assertEqual('bar', $set->getFoo());
+        }
+    }
+
 }
 
 ?>
