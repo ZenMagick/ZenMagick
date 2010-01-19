@@ -57,7 +57,7 @@
           'controller' => 'ProductInfoController',
           'product_info' => array(
             'template' => 'haml_product',
-            'view' => 'SavantView#layout=bean::null&config='.urlencode('compiler=bean::SavantHamlCompiler')
+            'view' => 'set::zenmagick.mvc.view.default#layout=bean::null&config='.urlencode('compiler=bean::SavantHamlCompiler')
           )
         ));
         ZMSettings::set('zenmagick.mvc.templates.ext', '.haml');

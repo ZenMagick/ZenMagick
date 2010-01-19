@@ -16,36 +16,36 @@ null:
   index:
     template: index
   login:
-    view: RedirectView#
+    view: RedirectView
     template: login
   empty_cart:
-    view: RedirectView#
+    view: RedirectView
     template: shopping_cart
   cart_not_ready:
-    view: RedirectView#
+    view: RedirectView
     template: shopping_cart
   cart_is_virtual:
-    view: RedirectView#
+    view: RedirectView
     template: checkout_billing
   check_cart:
-    view: RedirectView#
+    view: RedirectView
     template: shopping_cart
   low_stock:
-    view: RedirectView#
+    view: RedirectView
     template: shopping_cart
 
 # view without classname# prefix will be completed to: [default-view-classname]#[value]
 popup_cvv_help:
-  view: viewDir=views/popup
+  view: set::zenmagick.mvc.view.default#viewDir=views/popup
   template: cvv_help
 popup_search_help:
-  view: viewDir=views/popup
+  view: set::zenmagick.mvc.view.default#viewDir=views/popup
   template: search_help
 popup_shipping_estimator:
-  view: viewDir=views/popup
+  view: set::zenmagick.mvc.view.default#viewDir=views/popup
   template: shipping_estimator
 popup_coupon_help:
-  view: viewDir=views/popup
+  view: set::zenmagick.mvc.view.default#viewDir=views/popup
   template: coupon_help
 
 address_book_edit: 
@@ -53,22 +53,22 @@ address_book_edit:
   form: Address
   success: 
     template: account
-    view: RedirectView#
+    view: RedirectView
 address_book_add: 
   formId: address
   form: Address
   template: address_book_create
   success: 
     template: account
-    view: RedirectView#
+    view: RedirectView
 address_book_delete: 
   success: 
     template: account
-    view: RedirectView#
+    view: RedirectView
 index: 
   category: 
     template: category
-    view: ForwardView#
+    view: ForwardView
 discount_coupon: 
   info: 
     template: discount_coupon_info
@@ -79,29 +79,29 @@ category:
     template: manufacturer
   product_info: 
     template: product_info
-    view: ForwardView#
+    view: ForwardView
 login: 
   success: 
     template: account
-    view: RedirectView#
+    view: RedirectView
   account: 
     template: account
-    view: RedirectView#
+    view: RedirectView
 logoff: 
   success: 
     template: logoff
-    view: RedirectView#
+    view: RedirectView
 password_forgotten: 
   success: 
     template: login
-    view: RedirectView#
+    view: RedirectView
 checkout_guest: 
   template: login
   guest_checkout_disabled: 
     template: login
   success: 
     template: checkout_shipping
-    view: RedirectView#
+    view: RedirectView
 guest_history: 
   success: 
     template: account_history_info
@@ -121,81 +121,81 @@ gv_send_confirm:
   form: GVReceiver
   edit: 
     template: gv_send
-    view: ForwardView#
+    view: ForwardView
   success: 
     template: account
-    view: RedirectView#
+    view: RedirectView
 create_account: 
   formId: registration
   form: RegistrationForm
   success: 
     template: create_account_success
-    view: RedirectView#
+    view: RedirectView
 account_edit: 
   formId: account
   form: AccountForm
   success: 
     template: account
-    view: RedirectView#
+    view: RedirectView
 account_password: 
   success: 
     template: account
-    view: RedirectView#
+    view: RedirectView
 account_newsletters: 
   success: 
     template: account
-    view: RedirectView#
+    view: RedirectView
 account_notifications: 
   success: 
     template: account
-    view: RedirectView#
+    view: RedirectView
 checkout_shipping: 
   success: 
     template: checkout_payment
-    view: RedirectView#
+    view: RedirectView
 checkout_shipping_address: 
   controller: 'CheckoutAddressController#mode=shipping'
   formId: shippingAddress
   form: Address
   success: 
     template: checkout_shipping
-    view: RedirectView#
+    view: RedirectView
 checkout_payment: 
   success: 
     template: checkout_confirmation
-    view: RedirectView#
+    view: RedirectView
 checkout_payment_address: 
   controller: 'CheckoutAddressController#mode=billing'
   formId: billingAddress
   form: Address
   success: 
     template: checkout_payment
-    view: RedirectView#
+    view: RedirectView
 redirect: 
   success: 
     template: index
-    view: RedirectView#
+    view: RedirectView
   error: 
     template: index
-    view: ForwardView#
+    view: ForwardView
 product_reviews_write: 
   formId: newReview
   form: Review
   success: 
     template: product_reviews
-    view: RedirectView#
+    view: RedirectView
 contact_us: 
   formId: contactUs
   form: ContactInfo
   success: 
     template: contact_us
-    view: RedirectView#
+    view: RedirectView
 tell_a_friend: 
   formId: tellAFriend
   form: EmailMessage
   success: 
     template: product_info
-    view: RedirectView#
+    view: RedirectView
 search: 
   formId: searchCriteria
   form: SearchCriteria
