@@ -43,7 +43,12 @@ class ZMTheme extends ZMObject {
         parent::__construct();
         $this->themeId_ = $themeId;
         $this->themeInfo_ = null;
-        $this->config_ = ZMRuntime::yamlLoad(file_get_contents($this->getBaseDir().'theme.yaml'));
+        $configFile = $this->getBaseDir().'theme.yaml';
+        if (file_exists($configFile)) {
+            $this->config_ = ZMRuntime::yamlLoad(file_get_contents($configFile));
+        } else {
+            $this->config_ = array();
+        }
     }
 
     /**
