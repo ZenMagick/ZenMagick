@@ -61,6 +61,7 @@
 ?>
 
 <form action="<?php $toolbox->admin->url() ?>" method="get">
+  <input type="hidden" name="main_page" value="static_page_editor">
   <h2>ZenMagick Static Page Editor (
           <select id="languageId" name="languageId" onChange="this.form.submit();">
             <?php foreach (ZMLanguages::instance()->getLanguages() as $lang) { ?>
@@ -68,7 +69,8 @@
               <option value="<?php echo $lang->getId() ?>"<?php echo $selected ?>><?php echo $lang->getName() ?></option>
             <?php } ?>
           </select>
-        )<?php echo (null!==$editContents?': '.$selectedFile:'') ?></h2>
+        )<?php echo (null!==$editContents?': '.$selectedFile:'') ?>
+  </h2>
   <?php if (null == $editContents) { ?>
     <?php echo zen_hide_session_id() ?>
     <fieldset>

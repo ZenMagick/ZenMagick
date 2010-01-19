@@ -50,6 +50,7 @@ Release 0.9.9
 - converted all use of zm_l10n_chunk_get() to using static pages
 - change static page code to allow PHP everywhere
 - allow to create beans via settings using set::[setting]
+- fix static page editor; b:#2934676
 
 Release 0.9.8
 - add Savant3 and experimental views (not used yet)
