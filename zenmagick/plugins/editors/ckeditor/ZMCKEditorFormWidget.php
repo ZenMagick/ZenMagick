@@ -64,6 +64,7 @@ class ZMCKEditorFormWidget extends ZMTextAreaFormWidget {
         $CKEditor = new CKEditor();
         $CKEditor->returnOutput = true;
         $CKEditor->textareaAttributes = array(
+            'id' => $this->getId(),
             'rows' => $this->getRows(),
             'cols' => $this->getCols(),
             'class' => $this->getClass(),

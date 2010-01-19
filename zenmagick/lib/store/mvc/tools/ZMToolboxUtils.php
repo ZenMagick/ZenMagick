@@ -192,6 +192,56 @@ class ZMToolboxUtils extends ZMToolboxTool {
         return false;
     }
 
+    /**
+     * Get a list of all available editors.
+     *
+     * @return array A class/name map of editors.
+     */
+    public function getEditorMap() {
+        $map = array('plain' => 'Plain');
+        $tokens = explode(',', ZMSettings::get('editorList'));
+        foreach ($tokens as $token) {
+            $nc = explode(':', $token);
+            $map[$nc[1]] = $nc[0];
+        }
+
+        return $map;
+    }
+
+    /**
+     * Get the current editor class.
+     *
+     * @return ZMTextAreaFormWidget A text editor widget.
+     */
+    public function getCurrentEditor() {
+        if (null == ($editor = $this->getRequest()->getSession()->getValue('currentEditor'))) {
+            $editor = $this->getDefaultEditor();
+        }
+
+        if (null != ($obj = ZMBeanUtils::getBean($editor))) {
+            return $obj;
+        }
+
+        return ZMBeanUtils::getBean('TextAreaFormWidget');
+    }
+
+    /**
+     * Set the current editor class.
+     *
+     * @param string class The editor class name.
+     */
+    public function setCurrentEditor($class) {
+        $this->getRequest()->getSession()->setValue('currentEditor', $class);
+    }
+
+    /**
+     * Get the default editor class.
+     *
+     * @return string The default editor class name.
+     */
+    public function getDefaultEditor() {
+        return ZMSettings::get('defaultEditor', 'TextAreaFormWidget');
+    }
 
 }
 

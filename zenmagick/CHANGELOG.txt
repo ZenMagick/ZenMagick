@@ -51,6 +51,7 @@ Release 0.9.9
 - change static page code to allow PHP everywhere
 - allow to create beans via settings using set::[setting]
 - fix static page editor; b:#2934676
+- make static page editor work with the new editor code
 
 Release 0.9.8
 - add Savant3 and experimental views (not used yet)

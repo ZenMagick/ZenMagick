@@ -26,6 +26,11 @@
 <?php
 
   // get selections and defaults
+  $editor = $request->getParameter('editor');
+  if (null != $editor) {
+      $toolbox->utils->setCurrentEditor($editor);
+  }
+
   $selectedThemeId = $request->getParameter('themeId', Runtime::getThemeId());
   $selectedTheme = new ZMTheme($selectedThemeId);
   if (null === ($file = $request->getParameter('file')) || empty($file)) {
@@ -79,9 +84,9 @@
       <?php $themeInfoList = ZMThemes::instance()->getThemeInfoList(); ?>
       <select id="themeId" name="themeId" onChange="this.form.submit();">
         <option value="">Select Theme</option>
-        <?php foreach ($themeInfoList as $themeInfo) { ?>
-          <?php $selected = $selectedThemeId == $themeInfo->getThemeId() ? ' selected="selected"' : ''; ?>
-          <option value="<?php echo $themeInfo->getThemeId(); ?>"<?php echo $selected ?>><?php echo $themeInfo->getName(); ?></option>
+        <?php foreach (ZMThemes::instance()->getThemes() as $theme) { ?>
+          <?php $selected = $selectedThemeId == $theme->getThemeId() ? ' selected="selected"' : ''; ?>
+          <option value="<?php echo $theme->getThemeId(); ?>"<?php echo $selected ?>><?php echo $theme->getName(); ?></option>
         <?php } ?>
       </select>
 
@@ -98,16 +103,26 @@
       <label for="newfile">New File:</label>
       <input type="text" name="newfile" id="newfile">
 
-      <label for="reset_editor">Editor:</label>
-      <?php global $editors_pulldown, $current_editor_key; ?>
-      <?php echo zen_draw_pull_down_menu('reset_editor', $editors_pulldown, $current_editor_key, ' id="reset_editor"'). zen_draw_hidden_field('action', 'set_editor') ?>
-
+      <label for="editor">Editor:</label>
+      <select id="editor" name="editor">
+        <?php foreach ($toolbox->utils->getEditorMap() as $key => $name) { ?>
+          <?php $selected = $toolbox->utils->getCurrentEditor() instanceof $key ? ' selected="selected"' : ''; ?>
+          <option value="<?php echo $key ?>"<?php echo $selected ?>><?php echo $name ?></option>
+        <?php } ?>
+      </select>
       <br><br>
       <input type="submit" value="Edit">
     </fieldset>
   <?php } ?>
 </form>
 
+<script type="text/javascript">
+  function preview() {
+    var editContents = $('#editContents').attr('value').replace(/&lt;/g,"<").replace(/&gt;/g,">");
+    $('#previewContents').html(editContents);
+    $('#preview').css('display', 'block');
+  }
+</script>
 <?php if (null !== $editContents) { ?>
   <form action="<?php $toolbox->admin->url() ?>" method="post">
     <?php echo zen_hide_session_id() ?>
@@ -116,19 +131,18 @@
     <input type="hidden" name="languageId" value="<?php echo $selectedLanguageId ?>">
 
     <?php 
-      if ($_SESSION['html_editor_preference_status']=="FCKEDITOR") {
-        $oFCKeditor = new FCKeditor('editContents') ;
-        $oFCKeditor->Value = $editContents ;
-        $oFCKeditor->Width  = '700' ;
-        $oFCKeditor->Height = '450' ;
-        $output = $oFCKeditor->CreateHtml() ; echo $output;
-      } else { // using HTMLAREA or just raw "source" ?>
-        <textarea name="editContents" cols="100" rows="30"  id="editContents"><?php echo htmlentities($editContents) ?></textarea>
-      <?php } ?>
+      $editor = $toolbox->utils->getCurrentEditor();
+      $editor->setId('editContents');
+      $editor->setName('editContents');
+      $editor->setRows(30);
+      $editor->setCols(100);
+      $editor->setValue($editContents);
+      echo $editor->render($request);
+     ?>
 
     <br><br>
     <input type="submit" name="save" value="Save">
-    <a href="<?php $toolbox->admin->url(null, "themeId=".$selectedThemeId."&languageId=".$selectedLanguageId) ?>">Cancel</a>
+    <a href="<?php $toolbox->admin->url(null) ?>">Cancel</a>
     <a href="#" onclick="preview();return false;">Preview</a>
   </form>
 <?php } ?>

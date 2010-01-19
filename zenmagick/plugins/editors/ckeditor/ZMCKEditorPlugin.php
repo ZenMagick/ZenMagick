@@ -54,7 +54,7 @@ class ZMCKEditorPlugin extends Plugin {
      */
     public function init() {
         parent::init();
-        ZMSettings::append('zenmagick.mvc.widgets.editors', 'CKEditor:ZMCkeditorFormWidget');
+        ZMSettings::append('editorList', 'CKEditor:ZMCKEditorFormWidget');
     }
 
 }
