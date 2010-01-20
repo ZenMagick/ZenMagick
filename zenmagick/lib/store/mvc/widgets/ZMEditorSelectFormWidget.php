@@ -22,13 +22,17 @@
 
 
 /**
- * <p>A country select form widget.</p>
+ * <p>A editor select form widget.</p>
+ *
+ * <p>This widget will append a list of all available editors to the options list. That
+ * means the generic <em>options</em> propert may be used to set custom options that will show
+ * up at the top of the list.</p>
  *
  * @author DerManoMann
  * @package org.zenmagick.store.mvc.widgets
  * @version $Id$
  */
-class ZMCountrySelectFormWidget extends ZMSelectFormWidget {
+class ZMEditorSelectFormWidget extends ZMSelectFormWidget {
 
     /**
      * Create new instance.
@@ -48,11 +52,7 @@ class ZMCountrySelectFormWidget extends ZMSelectFormWidget {
      * {@inheritDoc}
      */
     public function getOptions($request) {
-        $options = parent::getOptions($request);
-        foreach (ZMCountries::instance()->getCountries() as $country) {
-            $options[$country->getId()] = $country->getName();
-        }
-        return $options;
+        return array_merge(parent::getOptions($request), $request->getToolbox()->utils->getEditorMap());
     }
 
 }

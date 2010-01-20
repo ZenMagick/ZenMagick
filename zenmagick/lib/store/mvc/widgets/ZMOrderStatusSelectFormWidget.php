@@ -72,12 +72,10 @@ class ZMorderStatusSelectFormWidget extends ZMSelectFormWidget {
     }
 
     /**
-     * Get the options map.
-     *
-     * @return array Map of value/name pairs.
+     * {@inheritDoc}
      */
-    public function getOptions() {
-        $options = parent::getOptions();
+    public function getOptions($request) {
+        $options = parent::getOptions($request);
         foreach (ZMOrders::instance()->getOrderStatusList() as $idp) {
             $options[$idp->getOrderStatusId()] = $idp->getStatusName() . ($this->showKey_ ? ' ('.$idp->getOrderStatusId().')': '');
         }

@@ -119,8 +119,9 @@ class ZMConfig extends ZMObject {
         $values = array();
         foreach (Runtime::getDatabase()->query($sql, array('key' => $pattern), TABLE_CONFIGURATION) as $value) {
             if (0 === strpos($value['setFunction'], 'widget@')) {
+                $widgetDefinition = $value['setFunction'].'&'.$value['useFunction'];
                 // build definition from both function values (just in case)
-                $definition = str_replace('widget@', '', $value['setFunction'].'&'.$value['useFunction']);
+                $definition = str_replace('widget@', '', $widgetDefinition);
                 $widget = ZMBeanUtils::getBean($definition);
                 if (null !== $widget) {
                     $widget->setTitle($value['name']);
@@ -130,7 +131,7 @@ class ZMConfig extends ZMObject {
                     $widget->set('configurationKey', $value['key']);
                     $values[] = $widget;
                 } else {
-                    ZMLogging::instance()->log('failed to create widget: '.$widgetClass, ZMLogging::WARN);
+                    ZMLogging::instance()->log('failed to create widget: '.$widgetDefinition, ZMLogging::WARN);
                 }
             } else {
                 $values[] = ZMBeanUtils::map2obj('ConfigValue', $value);

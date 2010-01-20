@@ -55,12 +55,10 @@ class ZMManufacturerSelectFormWidget extends ZMSelectFormWidget {
     }
 
     /**
-     * Get the options map.
-     *
-     * @return array Map of value/name pairs.
+     * {@inheritDoc}
      */
-    public function getOptions() {
-        $options = parent::getOptions();
+    public function getOptions($request) {
+        $options = parent::getOptions($request);
         foreach (ZMManufacturers::instance()->getManufacturers() as $manufacturer) {
             $options[$manufacturer->getId()] = $manufacturer->getName();
         }

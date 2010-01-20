@@ -55,6 +55,7 @@
                 <option value="OrderStatusSelectFormWidget#title=None&options=0= --- ">Order Status (dropdown, incl. empty default)</option>
                 <option value="CountrySelectFormWidget#">Country (dropdown)</option>
                 <option value="CountrySelectFormWidget#title=None&options=0= --- ">Country (dropdown, incl. empty default)</option>
+                <option value="EditorSelectFormWidget#">WYSIWYG Editor (dropdown)</option>
             </select>
         </p>
         <p>

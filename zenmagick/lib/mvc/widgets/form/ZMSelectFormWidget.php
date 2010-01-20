@@ -79,9 +79,10 @@ class ZMSelectFormWidget extends ZMFormWidget {
     /**
      * Get the options map.
      *
+     * @param ZMRequest request The current request.
      * @return array Map of value/name pairs.
      */
-    public function getOptions() {
+    public function getOptions($request) {
         return $this->options_;
     }
 
@@ -116,7 +117,7 @@ class ZMSelectFormWidget extends ZMFormWidget {
         }
         $html = $request->getToolbox()->html;
         $output = '<select'.$this->getAttributeString($request, false).'>';
-        foreach ($this->getOptions() as $oval => $name) {
+        foreach ($this->getOptions($request) as $oval => $name) {
             $selected = '';
             if (in_array($oval, $values)) {
                 if (ZMSettings::get('zenmagick.mvc.html.xhtml')) {
