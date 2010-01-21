@@ -54,7 +54,19 @@ class ZMXinhaPlugin extends Plugin {
      */
     public function init() {
         parent::init();
-        ZMSettings::append('editorList', 'Xinha:ZMXinhaFormWidget');
+        ZMSettings::append('editorList', 'Xinha:XinhaFormWidget');
+        if (ZMLangUtils::asBoolean($this->get('defaultEditor'))) {
+            ZMSettings::set('defaultEditor', 'XinhaFormWidget');
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function install() {
+        parent::install();
+        $this->addConfigValue('Default Editor', 'defaultEditor', false, 'Make Xinha the default editor',
+            'widget@BooleanFormWidget#name=defaultEditor&default=false&label=Default Editor&style=checkbox');
     }
 
 }

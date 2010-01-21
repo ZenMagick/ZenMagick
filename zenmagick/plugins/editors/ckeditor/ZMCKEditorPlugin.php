@@ -54,7 +54,19 @@ class ZMCKEditorPlugin extends Plugin {
      */
     public function init() {
         parent::init();
-        ZMSettings::append('editorList', 'CKEditor:ZMCKEditorFormWidget');
+        ZMSettings::append('editorList', 'CKEditor:CKEditorFormWidget');
+        if (ZMLangUtils::asBoolean($this->get('defaultEditor'))) {
+            ZMSettings::set('defaultEditor', 'CKEditorFormWidget');
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function install() {
+        parent::install();
+        $this->addConfigValue('Default Editor', 'defaultEditor', false, 'Make CKEditor the default editor',
+            'widget@BooleanFormWidget#name=defaultEditor&default=false&label=Default Editor&style=checkbox');
     }
 
 }

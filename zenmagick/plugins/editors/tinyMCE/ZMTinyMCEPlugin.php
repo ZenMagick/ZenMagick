@@ -54,7 +54,19 @@ class ZMTinyMCEPlugin extends Plugin {
      */
     public function init() {
         parent::init();
-        ZMSettings::append('editorList', 'TinyMCE:ZMTinyMCEFormWidget');
+        ZMSettings::append('editorList', 'TinyMCE:TinyMCEFormWidget');
+        if (ZMLangUtils::asBoolean($this->get('defaultEditor'))) {
+            ZMSettings::set('defaultEditor', 'TinyMCEFormWidget');
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function install() {
+        parent::install();
+        $this->addConfigValue('Default Editor', 'defaultEditor', false, 'Make TinyMCE the default editor',
+            'widget@BooleanFormWidget#name=defaultEditor&default=false&label=Default Editor&style=checkbox');
     }
 
 }
