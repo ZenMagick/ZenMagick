@@ -72,7 +72,6 @@ class ZMTinyMCEFormWidget extends ZMTextAreaFormWidget {
         $jsInit = <<<EOT
 <script type="text/javascript">
   tinyMCE.init({
-    //document_base_url : "$baseUrl",
     theme : "advanced",
     mode: "exact",
     elements : "$id",

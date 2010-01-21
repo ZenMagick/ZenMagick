@@ -38,7 +38,6 @@ class ZMMinifyPlugin extends Plugin {
     function __construct() {
         parent::__construct('Minify', 'Minify for ZenMagick', '${plugin.version}');
         $this->setLoaderPolicy(ZMPlugin::LP_FOLDER);
-        $this->setContext(Plugin::CONTEXT_STOREFRONT);
     }
 
     /**
