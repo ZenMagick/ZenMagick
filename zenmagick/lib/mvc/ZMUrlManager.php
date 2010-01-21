@@ -214,10 +214,6 @@ class ZMUrlManager extends ZMObject {
         if (array_key_exists('view', $mapping) && null != $mapping['view']) {
             $view = $mapping['view'];
         }
-        if (false === strpos($view, '#')) {
-            // prepend default view class
-            $view = ZMSettings::get('zenmagick.mvc.view.default', 'SavantView').'#'.$view;
-        }
 
         if (is_array($parameter)) {
             $parameter = http_build_query($parameter);
