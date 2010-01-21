@@ -56,6 +56,26 @@ class ZMEZPages extends ZMObject {
 
 
     /**
+     * Get all pages for the given language.
+     *
+     * @param int languageId The languageId; default is <code>null</code> for session language.
+     * @return array List of <code>ZMEZPage</code> instances.
+     */
+    public function getAllPages($languageId=null) {
+        if (null === $languageId) {
+            $session = ZMRequest::instance()->getSession();
+            $languageId = $session->getLanguageId();
+        }
+
+        $sql = "SELECT * 
+                FROM " . TABLE_EZPAGES;
+        if (ZMSettings::get('isEZPagesLangSupport')) {
+            $sql .= " WHERE languages_id = :languageId";
+        }
+        return ZMRuntime::getDatabase()->query($sql, array('languageId' => $languageId), TABLE_EZPAGES, 'EZPage');
+    }
+
+    /**
      * Get page for id.
      *
      * @param int pageId The page id.
