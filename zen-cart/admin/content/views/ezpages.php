@@ -29,6 +29,13 @@
     <tr>
       <th><?php zm_l10n("Id") ?></th>
       <th><?php zm_l10n("Title") ?></th>
+      <th><?php zm_l10n("New Window") ?></th>
+      <th><?php zm_l10n("Secure") ?></th>
+      <th><?php zm_l10n("Header") ?></th>
+      <th><?php zm_l10n("Sidebar") ?></th>
+      <th><?php zm_l10n("Footer") ?></th>
+      <th><?php zm_l10n("Chapter") ?></th>
+      <th><?php zm_l10n("TOC") ?></th>
     </tr>
   </thead>
   <tbody>
@@ -36,6 +43,25 @@
       <tr>
         <td><?php echo $ezpage->getId() ?></td>
         <td><?php $html->encode($ezpage->getTitle()) ?></td>
+        <td><?php echo ($ezpage->isNewWin() ? 'Y' : 'N') ?></td>
+        <td><?php echo ($ezpage->isSSL() ? 'Y' : 'N') ?></td>
+        <td>
+            <?php echo ($ezpage->isHeader() ? 'Y' : 'N') ?>
+            <?php echo $ezpage->getHeaderSort() ?>
+        </td>
+        <td>
+            <?php echo ($ezpage->isSidebox() ? 'Y' : 'N') ?>
+            <?php echo $ezpage->getSideboxSort() ?>
+        </td>
+        <td>
+            <?php echo ($ezpage->isFooter() ? 'Y' : 'N') ?>
+            <?php echo $ezpage->getFooterSort() ?>
+        </td>
+        <td><?php echo $ezpage->getTocChapter() ?></td>
+        <td>
+            <?php echo ($ezpage->isToc() ? 'Y' : 'N') ?>
+            <?php echo $ezpage->getTocSort() ?>
+        </td>
       </tr>
     <?php } ?>
   </tbody>

@@ -72,6 +72,7 @@ class ZMEZPages extends ZMObject {
         if (ZMSettings::get('isEZPagesLangSupport')) {
             $sql .= " WHERE languages_id = :languageId";
         }
+        $sql .= " ORDER BY toc_sort_order, pages_title";
         return ZMRuntime::getDatabase()->query($sql, array('languageId' => $languageId), TABLE_EZPAGES, 'EZPage');
     }
 
