@@ -31,8 +31,8 @@
   <?php $imageInfo = $currentProduct->getImageInfo() ?>
   <div>
       <?php if ($imageInfo->hasLargeImage()) { ?>
-          <a href="<?php $net->absolute($imageInfo->getLargeImage()) ?>" rel="lightbox[gallery]"><?php $html->image($imageInfo, ZMProducts::IMAGE_MEDIUM) ?></a>
-          <br><a href="<?php $net->absolute($imageInfo->getLargeImage()) ?>" rel="lightbox[gallery]">CLick to enlarge - FTW!</a>
+          <a href="<?php echo $net->absoluteURL($imageInfo->getLargeImage()) ?>" rel="lightbox[gallery]"><?php $html->image($imageInfo, ZMProducts::IMAGE_MEDIUM) ?></a>
+          <br><a href="<?php echo $net->absoluteURL($imageInfo->getLargeImage()) ?>" rel="lightbox[gallery]">CLick to enlarge - FTW!</a>
       <?php } else { ?>
           <?php $html->image($imageInfo, ZMProducts::IMAGE_MEDIUM) ?>
       <?php } ?>
@@ -67,9 +67,9 @@
           <legend><?php zm_l10n("Additional Images") ?></legend>
           <?php foreach ($addImgList as $addImg) { ?>
               <?php if ($addImg->hasLargeImage()) { ?>
-                  <a href="<?php $net->absolute($addImg->getLargeImage()) ?>" rel="lightbox[gallery]"><img src="<?php $net->absolute($addImg->getDefaultImage()) ?>" alt="" title="" /></a>
+                  <a href="<?php echo $net->absoluteURL($addImg->getLargeImage()) ?>" rel="lightbox[gallery]"><img src="<?php echo $net->absoluteURL($addImg->getDefaultImage()) ?>" alt="" title="" /></a>
               <?php } else { ?>
-                  <img src="<?php $net->absolute($addImg->getDefaultImage()) ?>" alt="" title="" />
+                  <img src="<?php echo $net->absoluteURL($addImg->getDefaultImage()) ?>" alt="" title="" />
               <?php } ?>
           <?php } ?>
       </fieldset>

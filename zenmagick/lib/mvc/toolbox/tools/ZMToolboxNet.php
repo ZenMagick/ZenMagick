@@ -66,11 +66,10 @@ class ZMToolboxNet extends ZMToolboxTool {
      * @param string requestId The request id.
      * @param string params Query string style parameter; if <code>null</code> add all current parameter
      * @param boolean secure Flag indicating whether to create a secure or non secure URL; default is <code>false</code>.
-     * @param boolean echo If <code>true</code>, the URL will be echo'ed as well as returned.
      * @return string A full URL.
      * @todo create store agnostic default implementations
      */
-    public function url($requestId=null, $params='', $secure=false, $echo=ZM_ECHO_DEFAULT) {
+    public function url($requestId=null, $params='', $secure=false) {
         // custom view and params handling
         if (null === $requestId || null === $params) {
             $query = $this->getRequest()->getParameterMap();
@@ -96,17 +95,17 @@ class ZMToolboxNet extends ZMToolboxTool {
         $requestId = $requestId === null ? $this->getRequest()->getRequestId() : $requestId;
         $href = null;
 
-        if ($echo) echo $href;
         return $href;
     }
 
     /**
-     * Convert a given relative url into an absolute one.
+     * Convert a given relative URL into an absolute one.
      *
      * @param string url The (relative) URL to convert.
-     * @return string The absolute url.
+     * @return string The absolute URL.
      */
-    public function absolute($url) {
+    public function absoluteURL($url) {
+        //XXX: todo: hostname
         return ('/' == $url[0] || false !== strpos($url, '://')) ? $url : $this->getRequest()->getContext().$url;
     }
 

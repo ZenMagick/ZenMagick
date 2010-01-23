@@ -105,7 +105,7 @@ class ZMSavant extends Savant3 {
                 // only if matched and replaced...
                 // now convert to URL...
                 $relpath = str_replace('\\', '/', $relpath);
-                return $this->request->getToolbox()->net->absolute($relpath, false);
+                return $this->request->getToolbox()->net->absoluteURL($relpath);
             }
         }
         return '';

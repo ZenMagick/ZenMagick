@@ -292,11 +292,9 @@ class ToolboxNet extends ZMToolboxNet {
      * Convert a given relative href/URL into an absolute one based on the current context.
      *
      * @param string href The URL to convert.
-     * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string The absolute href.
-     * @todo different signature than parent class!
      */
-    public function absolute($href, $echo=ZM_ECHO_DEFAULT) {
+    public function absoluteURL($href) {
         $host = ($this->getRequest()->isSecure() ? HTTPS_SERVER : HTTP_SERVER);
         $context = ($this->getRequest()->isSecure() ? DIR_WS_HTTPS_CATALOG : DIR_WS_CATALOG);
 
@@ -306,10 +304,7 @@ class ToolboxNet extends ZMToolboxNet {
         }
 
         // make full URL
-        $href = $host . $href;
-
-        if ($echo) echo $href;
-        return $href;
+        return $host . $href;
     }
 
     /**
