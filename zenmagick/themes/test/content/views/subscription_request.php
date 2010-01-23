@@ -33,15 +33,15 @@
         <select id="type" name="type">
             <?php foreach ($subscriptions->getRequestTypes() as $type => $name) { ?>
                 <?php $selected = $subscriptionRequest->getType() == $type ? ' selected' : ''; ?>
-                <option value="<?php echo $type ?>"<?php echo $selected ?>><?php $html->encode($name) ?>  </option>
+                <option value="<?php echo $type ?>"<?php echo $selected ?>><?php echo $html->encode($name) ?>  </option>
             <?php } ?>
         </select><br />
 
         <label for="orderId"><?php zm_l10n("Order Number (optional)") ?></label>
-        <input type="text" id="orderId" name="orderId" size="8" value="<?php $html->encode($subscriptionRequest->getOrderId()) ?>" /><br />
+        <input type="text" id="orderId" name="orderId" size="8" value="<?php echo $html->encode($subscriptionRequest->getOrderId()) ?>" /><br />
 
         <label for="message"><?php zm_l10n("Message") ?><span>*</span></label>
-        <textarea id="message" name="message" cols="30" rows="7"><?php $html->encode($subscriptionRequest->getMessage()) ?></textarea>
+        <textarea id="message" name="message" cols="30" rows="7"><?php echo $html->encode($subscriptionRequest->getMessage()) ?></textarea>
         <p class="legend"><?php zm_l10n("<span>*</span> Mandatory fields") ?></p>
     </fieldset>
     <div class="btn"><input type="submit" class="btn" value="<?php zm_l10n("Send") ?>" /></div>

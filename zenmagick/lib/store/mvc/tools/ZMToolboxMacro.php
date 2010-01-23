@@ -122,7 +122,7 @@ class ZMToolboxMacro extends ZMToolboxTool {
             $toolbox = $this->getToolbox();
             $vars = array('firstname', 'lastname', 'company', 'street', 'suburb', 'city', 'state', 'country', 'postcode');
             foreach ($vars as $var) {
-                $$var = $toolbox->html->encode($$var, false);
+                $$var = $toolbox->html->encode($$var);
             }
 
             // alias or derived
@@ -165,7 +165,7 @@ class ZMToolboxMacro extends ZMToolboxTool {
             } else {
                 $slash = ZMSettings::get('zenmagick.mvc.html.xhtml') ? '/' : '';
                 $img = '<img src="'.$toolbox->net->image($banner->getImage(), false).'" alt="'.
-                          $toolbox->html->encode($banner->getTitle(), false).'"'.$slash.'>';
+                          $toolbox->html->encode($banner->getTitle()).'"'.$slash.'>';
                 if (ZMLangUtils::isEmpty($banner->getUrl())) {
                     // if we do not have a url try our luck with the image...
                     $html = $img;
@@ -199,9 +199,9 @@ class ZMToolboxMacro extends ZMToolboxTool {
             if (!$first) $html .= $sep;
             $first = false;
             if (null != $crumb->getURL()) {
-                $html .= '<a href="'.$crumb->getURL().'">'.$toolbox->html->encode(zm_l10n_get($crumb->getName()), false).'</a>';
+                $html .= '<a href="'.$crumb->getURL().'">'.$toolbox->html->encode(zm_l10n_get($crumb->getName())).'</a>';
             } else {
-                $html .= $toolbox->html->encode(zm_l10n_get($crumb->getName()), false);
+                $html .= $toolbox->html->encode(zm_l10n_get($crumb->getName()));
             }
         }
 		    $html .= '</div>';
@@ -252,7 +252,7 @@ class ZMToolboxMacro extends ZMToolboxTool {
             $onclick = $isEmpty ? ($useCategoryPage ? '' : ' onclick="return catclick(this);"') : '';
             echo '<a' . ('' != $class ? ' class="'.$class.'"' : '') . $onclick . ' href="' .
                         $toolbox->net->url('category', '&'.$category->getPath(), '', false, false) .
-                        '">'.$toolbox->html->encode($category->getName(), false).'</a>';
+                        '">'.$toolbox->html->encode($category->getName()).'</a>';
             if ($showProductCount) {
                 if (0 < ($noOfProductsInTree = count(ZMProducts::instance()->getProductIdsForCategoryId($category->getId(), true, true)))) {
                     echo '('.$noOfProductsInTree.')';

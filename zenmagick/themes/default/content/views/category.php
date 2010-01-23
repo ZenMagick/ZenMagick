@@ -23,13 +23,13 @@
  * $Id$
  */
 ?>
-<h2><?php $html->encode($currentCategory->getName()) ?></h2>
+<h2><?php echo $html->encode($currentCategory->getName()) ?></h2>
 
 <?php if ($currentCategory->hasChildren()) { ?>
     <h3><?php zm_l10n("Available Sub-categories") ?></h3>
     <?php foreach ($currentCategory->getChildren() as $category) { ?>
         <?php if ($category->isActive()) { ?>
-            <?php $html->encode($category->getName()) ?><br />
+            <?php echo $html->encode($category->getName()) ?><br />
         <?php } ?>
     <?php } ?>
 <?php } ?>
@@ -42,7 +42,7 @@
       <?php foreach ($featured as $product) { ?>
         <div>
           <p><?php $html->productImageLink($product) ?></p>
-          <p><a href="<?php $net->product($product->getId()) ?>"><?php $html->encode($product->getName()) ?></a></p>
+          <p><a href="<?php $net->product($product->getId()) ?>"><?php echo $html->encode($product->getName()) ?></a></p>
           <?php $offers = $product->getOffers(); ?>
           <p><?php $utils->formatMoney($offers->getCalculatedPrice()) ?></p>
         </div>

@@ -31,14 +31,14 @@
         <tr>
             <td class="qty"><?php echo $orderItem->getQty() ?> x </td>
             <td class="itm">
-                <?php $html->encode($orderItem->getName()) ?>
+                <?php echo $html->encode($orderItem->getName()) ?>
                 <?php if ($orderItem->hasAttributes()) { ?>
                     <br/>
                     <?php foreach ($orderItem->getAttributes() as $attribute) { ?>
-                        <p><span class="attr"><?php $html->encode($attribute->getName()) ?>:</span>
+                        <p><span class="attr"><?php echo $html->encode($attribute->getName()) ?>:</span>
                         <?php $first = true; foreach ($attribute->getValues() as $attributeValue) { ?>
                             <?php if (!$first) { ?>, <?php } ?>
-                            <span class="atval"><?php $html->encode($attributeValue->getName()) ?></span>
+                            <span class="atval"><?php echo $html->encode($attributeValue->getName()) ?></span>
                         <?php $first = false; } ?>
                         </p>
                     <?php } ?>
@@ -49,7 +49,7 @@
     <?php } ?>
     <?php foreach ($currentOrder->getOrderTotalLines() as $orderTotalLine) { ?>
         <tr>
-            <td colspan="2" class="total"><?php $html->encode($orderTotalLine->getName()) ?></td>
+            <td colspan="2" class="total"><?php echo $html->encode($orderTotalLine->getName()) ?></td>
             <td class="price"><?php echo $orderTotalLine->getValue() ?></td>
         </tr>
     <?php } ?>
@@ -62,8 +62,8 @@
     <?php foreach ($currentOrder->getOrderStatusHistory() as $orderStatus) { ?>
         <tr>
             <td><?php $locale->shortDate($orderStatus->getDateAdded()) ?></td>
-            <td><?php $html->encode($orderStatus->getName()) ?></td>
-            <td class="cmt"><?php $html->encode($orderStatus->getComment()) ?></td>
+            <td><?php echo $html->encode($orderStatus->getName()) ?></td>
+            <td class="cmt"><?php echo $html->encode($orderStatus->getComment()) ?></td>
         </tr>
     <?php } ?>
     </tbody>

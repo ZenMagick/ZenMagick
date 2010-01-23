@@ -34,13 +34,13 @@
     <fieldset>
         <legend><?php zm_l10n("Contact us") ?></legend>
         <label for="name"><?php zm_l10n("Full Name") ?><span>*</span></label>
-        <input type="text" id="name" name="name" size="40" value="<?php $html->encode($contactUs->getName()) ?>" /><br />
+        <input type="text" id="name" name="name" size="40" value="<?php echo $html->encode($contactUs->getName()) ?>" /><br />
 
         <label for="email"><?php zm_l10n("Email Address") ?><span>*</span></label>
-        <input type="text" id="email" name="email" size="40" value="<?php $html->encode($contactUs->getEmail()) ?>" /><br />
+        <input type="text" id="email" name="email" size="40" value="<?php echo $html->encode($contactUs->getEmail()) ?>" /><br />
 
         <label for="message"><?php zm_l10n("Message") ?><span>*</span></label>
-        <textarea id="message" name="message" cols="30" rows="7"><?php $html->encode($contactUs->getMessage()) ?></textarea>
+        <textarea id="message" name="message" cols="30" rows="7"><?php echo $html->encode($contactUs->getMessage()) ?></textarea>
         <p class="legend"><?php zm_l10n("<span>*</span> Mandatory fields") ?></p>
 
         <?php if (is_object($recaptcha)) { ?>

@@ -28,27 +28,27 @@
 <?php $utils->jsBottom('lightbox/lightbox.js') ?>
 
 <?php $manufacturer = $currentProduct->getManufacturer() ?>
-<h2><?php $html->encode(null != $manufacturer ? $manufacturer->getName() : '') ?> <?php $html->encode($currentProduct->getName()) ?></h2>
+<h2><?php echo $html->encode(null != $manufacturer ? $manufacturer->getName() : '') ?> <?php echo $html->encode($currentProduct->getName()) ?></h2>
 
 <?php $form->addProduct($currentProduct->getId()) ?>
   <?php $imageInfo = $currentProduct->getImageInfo() ?>
   <div>
       <?php if ($imageInfo->hasLargeImage()) { ?>
-          <a href="<?php echo $net->absoluteURL($imageInfo->getLargeImage()) ?>" rel="lightbox" title="<?php $html->encode($currentProduct->getName()) ?>"><?php $html->image($imageInfo, ZMProducts::IMAGE_MEDIUM) ?></a>
+          <a href="<?php echo $net->absoluteURL($imageInfo->getLargeImage()) ?>" rel="lightbox" title="<?php echo $html->encode($currentProduct->getName()) ?>"><?php $html->image($imageInfo, ZMProducts::IMAGE_MEDIUM) ?></a>
       <?php } else { ?>
           <?php $html->image($imageInfo, ZMProducts::IMAGE_MEDIUM) ?>
       <?php } ?>
-      <div id="desc"><?php $html->encode($currentProduct->getDescription()) ?></div>
+      <div id="desc"><?php echo $html->encode($currentProduct->getDescription()) ?></div>
       <?php if (null != $manufacturer) { ?>
-        <?php zm_l10n("Producer") ?>: <?php $html->encode($manufacturer->getName()); ?><br />
+        <?php zm_l10n("Producer") ?>: <?php echo $html->encode($manufacturer->getName()); ?><br />
       <?php } ?>
-      <p id="price"><?php $html->encode($currentProduct->getModel()) ?>: <?php $macro->productPrice($currentProduct) ?></p>
+      <p id="price"><?php echo $html->encode($currentProduct->getModel()) ?>: <?php $macro->productPrice($currentProduct) ?></p>
   </div>
 
   <?php $attributes = $macro->productAttributes($currentProduct); ?>
   <?php foreach ($attributes as $attribute) { ?>
       <fieldset>
-          <legend><?php $html->encode($attribute['name']) ?></legend>
+          <legend><?php echo $html->encode($attribute['name']) ?></legend>
           <?php foreach ($attribute['html'] as $option) { ?>
             <p><?php echo $option ?></p>
           <?php } ?>

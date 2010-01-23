@@ -23,8 +23,8 @@
           // url, page, false
           $page = $item[1];
           $current = ZMTools::compareStoreUrl($item[0]) ? ' id="current"' : '';
-          ?><li<?php echo $current ?>><?php $html->ezpageLink($page->getId(), '<span>'.$html->encode($page->getTitle(), false).'</span>') ?></li><?php 
-        $menu[] = array($html->ezpageLink($page->getId(), '<span>'.$html->encode($page->getTitle(), false).'</span>', array(), false));
+          ?><li<?php echo $current ?>><?php $html->ezpageLink($page->getId(), '<span>'.$html->encode($page->getTitle()).'</span>') ?></li><?php 
+        $menu[] = array($html->ezpageLink($page->getId(), '<span>'.$html->encode($page->getTitle()).'</span>', array(), false));
         } else {
           // url, title
           $current = ZMTools::compareStoreUrl($item[0]) ? ' id="current"' : '';

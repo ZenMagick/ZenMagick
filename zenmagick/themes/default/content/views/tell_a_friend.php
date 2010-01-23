@@ -29,19 +29,19 @@
         <legend><?php zm_l10n("Tell a friend about '%s'", $currentProduct->getName()); ?></legend>
 
         <label for="fromName"><?php zm_l10n("Your Name") ?><span>*</span></label>
-        <input type="text" id="fromName" name="fromName" size="40" value="<?php $html->encode($tellAFriend->getFromName()) ?>" /><br />
+        <input type="text" id="fromName" name="fromName" size="40" value="<?php echo $html->encode($tellAFriend->getFromName()) ?>" /><br />
 
         <label for="fromEmail"><?php zm_l10n("Your Email") ?><span>*</span></label>
-        <input type="text" id="fromEmail" name="fromEmail" size="40" value="<?php $html->encode($tellAFriend->getFromEmail()) ?>" /><br />
+        <input type="text" id="fromEmail" name="fromEmail" size="40" value="<?php echo $html->encode($tellAFriend->getFromEmail()) ?>" /><br />
 
         <label for="toName"><?php zm_l10n("Friend's Name") ?><span>*</span></label>
-        <input type="text" id="toName" name="toName" size="40" value="<?php $html->encode($tellAFriend->getToName()) ?>" /><br />
+        <input type="text" id="toName" name="toName" size="40" value="<?php echo $html->encode($tellAFriend->getToName()) ?>" /><br />
 
         <label for="toEmail"><?php zm_l10n("Friend's Email") ?><span>*</span></label>
-        <input type="text" id="toEmail" name="toEmail" size="40" value="<?php $html->encode($tellAFriend->getToEmail()) ?>" /><br />
+        <input type="text" id="toEmail" name="toEmail" size="40" value="<?php echo $html->encode($tellAFriend->getToEmail()) ?>" /><br />
 
         <label for="message"><?php zm_l10n("Message") ?></label>
-        <textarea id="message" name="message" cols="30" rows="7"><?php $html->encode($tellAFriend->getMessage()) ?></textarea>
+        <textarea id="message" name="message" cols="30" rows="7"><?php echo $html->encode($tellAFriend->getMessage()) ?></textarea>
         <p class="legend"><?php zm_l10n("<span>*</span> Mandatory fields") ?></p>
     </fieldset>
     <div class="btn"><input type="submit" class="btn" value="<?php zm_l10n("Send") ?>" /></div>

@@ -51,7 +51,7 @@
     <legend><?php zm_l10n("Redemption code details") ?></legend>
     <div>
       <label for="gvCode"><?php zm_l10n("Redemption Code") ?></label>
-      <input type="text" id="gvCode" name="couponCode" value="<?php $html->encode($gvRedeem->getCouponCode()) ?>" /> 
+      <input type="text" id="gvCode" name="couponCode" value="<?php echo $html->encode($gvRedeem->getCouponCode()) ?>" /> 
     </div>
   </fieldset>
   <div class="btn"><input type="submit" class="btn" value="<?php zm_l10n("Redeem") ?>" /></div>

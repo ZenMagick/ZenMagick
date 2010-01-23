@@ -29,7 +29,7 @@
     <!-- need id on link to identify the product -->
     <td><a href="<?php $net->product($product->getId(), $request->getCategoryId()) ?>" id="product_<?php echo $product->getId() ?>" class="product"><?php $html->image($product->getImageInfo(), ZMProducts::IMAGE_SMALL) ?></a></td>
     <td class="pinfo">
-        <a href="<?php $net->product($product->getId()) ?>"><?php $html->encode($product->getName()) ?></a><br/>
+        <a href="<?php $net->product($product->getId()) ?>"><?php echo $html->encode($product->getName()) ?></a><br/>
         <?php echo $html->more($html->strip($product->getDescription(), false), 120) ?>
     </td>
     <td class="pprice"><?php $utils->formatMoney($product->getPrice()) ?></td>

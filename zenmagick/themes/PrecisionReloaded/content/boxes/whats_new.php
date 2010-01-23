@@ -31,7 +31,7 @@
     <h2><a href="<?php $net->url(FILENAME_PRODUCTS_NEW) ?>"><?php zm_l10n("[More]") ?></a><?php zm_l10n("New Products") ?></h2>
     <div id="sb_newproducts" class="box">
         <p><?php $html->productImageLink($product) ?></p>
-        <p><a href="<?php $net->product($product->getId()) ?>"><?php $html->encode($product->getName()) ?></a></p>
+        <p><a href="<?php $net->product($product->getId()) ?>"><?php echo $html->encode($product->getName()) ?></a></p>
         <?php $offers = $product->getOffers(); ?>
         <p><?php $utils->formatMoney($offers->getCalculatedPrice()) ?></p>
     </div>

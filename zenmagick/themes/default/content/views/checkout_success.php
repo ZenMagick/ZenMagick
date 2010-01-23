@@ -41,7 +41,7 @@
             <?php foreach ($currentOrder->getOrderItems() as $orderItem) { $id = "not_" . $orderItem->getProductId(); ?>
                 <p>
                     <input type="checkbox" id="<?php echo $id ?>" name="notify[]" value="<?php echo $orderItem->getProductId() ?>" />
-                    <label for="<?php echo $id ?>"><?php $html->encode($orderItem->getName()) ?></label><br />
+                    <label for="<?php echo $id ?>"><?php echo $html->encode($orderItem->getName()) ?></label><br />
                 </p>
             <?php } ?>
             <div class="btn"><input type="submit" class="btn" value="<?php zm_l10n("Update") ?>" /></div>

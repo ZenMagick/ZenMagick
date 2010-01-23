@@ -68,23 +68,12 @@ class ToolboxHtml extends ZMToolboxHtml {
             $imgSrc = $this->getRequest()->getContext() . $imgSrc;
         }
         $slash = ZMSettings::get('zenmagick.mvc.html.xhtml') ? '/' : '';
-        $html = '<img src="'.$imgSrc.'" alt="'.$this->encode($imageInfo->getAltText(), false).'" ';
+        $html = '<img src="'.$imgSrc.'" alt="'.$this->encode($imageInfo->getAltText()).'" ';
         $html .= $imageInfo->getFormattedParameter();
         $html .= $slash.'>';
 
         if ($echo) echo $html;
         return $html;
-    }
-
-    /**
-     * Encode a given string to valid HTML.
-     *
-     * @param string s The string to encode.
-     * @param boolean echo If <code>true</code>, the escaped string will be echo'ed as well as returned.
-     * @return string The encoded HTML.
-     */
-    public function encode($s, $echo=ZM_ECHO_DEFAULT) {
-        return parent::encode($s, $echo);
     }
 
     /**
@@ -170,7 +159,7 @@ class ToolboxHtml extends ZMToolboxHtml {
                 $link .= ' '.$name.'="'.$value.'"';
             }
         }
-        $link .=  '>' . (null == $text ? $this->encode($page->getTitle(), false) : $text) . '</a>';
+        $link .=  '>' . (null == $text ? $this->encode($page->getTitle()) : $text) . '</a>';
 
         if ($echo) echo $link;
         return $link;
@@ -248,7 +237,7 @@ class ToolboxHtml extends ZMToolboxHtml {
 
         $html = '<ul id="'.$name.'Info" class="fieldMsg">';
         foreach (ZMMessages::instance()->getMessages($name) as $msg) {
-            $html .= '<li class="'.$msg->getType().'">'.$this->encode($msg->getText(), false).'</li>';
+            $html .= '<li class="'.$msg->getType().'">'.$this->encode($msg->getText()).'</li>';
         }
         $html .= '</ul>';
 

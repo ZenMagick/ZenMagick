@@ -42,7 +42,7 @@
     <?php $odd = true; foreach (ZMEZPages::instance()->getAllPages() as $ezpage) { $odd = !$odd; ?>
       <tr>
         <td><?php echo $ezpage->getId() ?></td>
-        <td><?php $html->encode($ezpage->getTitle()) ?></td>
+        <td><?php echo $html->encode($ezpage->getTitle()) ?></td>
         <td><?php echo ($ezpage->isNewWin() ? 'Y' : 'N') ?></td>
         <td><?php echo ($ezpage->isSSL() ? 'Y' : 'N') ?></td>
         <td>

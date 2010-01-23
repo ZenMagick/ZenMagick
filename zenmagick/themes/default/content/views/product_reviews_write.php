@@ -28,7 +28,7 @@
   <div>  
     <div id="pinfo">
       <?php $html->productImageLink($currentProduct) ?>
-      <?php $html->encode($currentProduct->getDescription()) ?>
+      <?php echo $html->encode($currentProduct->getDescription()) ?>
     </div>
     <strong><?php $utils->formatMoney($currentProduct->getPrice()); ?></strong>
     <div class="btn"><input type="submit" class="btn" value="<?php zm_l10n("Add to cart") ?>" /></div>
@@ -49,7 +49,7 @@
         </div>
 
         <label for="text"><?php zm_l10n("Please tell us what you think and share your opinions with others. Be sure to focus your comments on the product.") ?></label>
-        <textarea id="text" name="text" cols="60" rows="5"><?php $html->encode($newReview->getText()) ?></textarea>
+        <textarea id="text" name="text" cols="60" rows="5"><?php echo $html->encode($newReview->getText()) ?></textarea>
         <div class="btn"><input type="submit" class="btn" value="<?php zm_l10n("Send") ?>" /></div>
         <div>
             <strong><?php zm_l10n("NOTE:") ?> </strong><?php zm_l10n("HTML tags are not allowed.") ?><br />

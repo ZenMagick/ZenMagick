@@ -43,13 +43,13 @@
 <?php foreach ($order->getOrderItems() as $orderItem) { ?>
 <tr>
 <td><?php echo $orderItem->getQty() ?> x </td>
-<td><?php $html->encode($orderItem->getName()) ?></td>
+<td><?php echo $html->encode($orderItem->getName()) ?></td>
 <td><?php $utils->formatMoney($orderItem->getCalculatedPrice()) ?></td>
 </tr>
 <?php } ?>
 <?php foreach ($order->getOrderTotalLines() as $orderTotalLine) { ?>
 <tr>
-<td colspan="2"><?php $html->encode($orderTotalLine->getName()) ?></td>
+<td colspan="2"><?php echo $html->encode($orderTotalLine->getName()) ?></td>
 <td><?php echo $orderTotalLine->getValue() ?></td>
 </tr>
 <?php } ?>
@@ -75,7 +75,7 @@
 
 <h3><?php zm_l10n("Payment Details") ?></h3>
 <?php $paymentType = $order->getPaymentType(); ?>
-<p><?php $html->encode($paymentType->getName()) ?></p>
+<p><?php echo $html->encode($paymentType->getName()) ?></p>
 <?php if (!empty($PAYMENT_METHOD_FOOTER)) { ?>
 <p><?php echo $PAYMENT_METHOD_FOOTER ?></p>
 <?php } ?>

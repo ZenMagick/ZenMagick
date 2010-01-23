@@ -40,7 +40,7 @@
 <h2><?php zm_l10n("Congratulations, you have redeemed a Discount Coupon.") ?></h2>
 <p>
   <?php zm_l10n("Coupon Name: %s", $coupon->getName()) ?><br/>
-  <?php zm_l10n("Coupon Description: %s", $html->encode($coupon->getDescription(), false)) ?><br/>
+  <?php zm_l10n("Coupon Description: %s", $html->encode($coupon->getDescription())) ?><br/>
   <?php echo $discount ?>
 </p>
 
@@ -50,7 +50,7 @@
     <h4><?php zm_l10n("Category Restrictions")?></h4>
     <ul>
     <?php foreach ($restrictions->getCategories() as $rest) { $category = $rest->getCategory(); ?>
-        <li><?php $html->encode($category->getName()) ?> - <?php echo ($rest->isAllowed() ? zm_l10n_get(" included") : zm_l10n_get(" excluded")) ?></li>
+        <li><?php echo $html->encode($category->getName()) ?> - <?php echo ($rest->isAllowed() ? zm_l10n_get(" included") : zm_l10n_get(" excluded")) ?></li>
     <?php } ?>
     </ul>
 <?php } ?>
@@ -59,7 +59,7 @@
     <h4><?php zm_l10n("Product Restrictions")?></h4>
     <ul>
     <?php foreach ($restrictions->getProducts() as $rest) { $product = $rest->getProduct(); ?>
-        <li><?php $html->encode($product->getName()) ?> - <?php echo ($rest->isAllowed() ? zm_l10n_get(" included") : zm_l10n_get(" excluded")) ?></li>
+        <li><?php echo $html->encode($product->getName()) ?> - <?php echo ($rest->isAllowed() ? zm_l10n_get(" included") : zm_l10n_get(" excluded")) ?></li>
     <?php } ?>
     </ul>
 <?php } ?>

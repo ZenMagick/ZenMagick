@@ -51,11 +51,11 @@
                     </thead>
                     <tbody>
                     <?php foreach ($shoppingCart->getShippingProviders() as $provider) { ?>
-                        <tr><td colspan="3"><strong><?php $html->encode($provider->getName()) ?></strong><?php if ($provider->hasError()) { zm_l10n("(%s)", $provider->getError()); } ?></td></tr>
+                        <tr><td colspan="3"><strong><?php echo $html->encode($provider->getName()) ?></strong><?php if ($provider->hasError()) { zm_l10n("(%s)", $provider->getError()); } ?></td></tr>
                         <?php if ($provider->hasError()) { continue; } foreach ($provider->getShippingMethods() as $method) { $id = 'ship_'.$method->getId();?>
                             <?php $selected = (1 == $utils->getShippingMethodCount($shoppingCart)) || ($method->getShippingId() == $shoppingCart->getShippingMethodId()); ?>
                             <tr class="smethod" onclick="document.getElementById('<?php echo $id ?>').checked = true;">
-                                <td><?php $html->encode($method->getName()) ?></td>
+                                <td><?php echo $html->encode($method->getName()) ?></td>
                                 <td class="smcost"><?php $utils->formatMoney($method->getCost()) ?></td>
                                 <td class="smbutt"><input type="radio" id="<?php echo $id ?>" name="shipping" value="<?php echo $method->getShippingId() ?>"<?php $form->checked(true, $selected) ?> /></td>
                             </tr>
@@ -71,7 +71,7 @@
         <legend><?php zm_l10n("Comments") ?></legend>
         <p class="inst"><?php zm_l10n("Special instructions or comments about your order.") ?></p>
         <?php /* Fix for IE bug regarding textarea... */ ?>
-        <table><tr><td><textarea name="comments" rows="3" cols="45"><?php $html->encode($shoppingCart->getComment()) ?></textarea></td></tr></table>
+        <table><tr><td><textarea name="comments" rows="3" cols="45"><?php echo $html->encode($shoppingCart->getComment()) ?></textarea></td></tr></table>
     </fieldset>
 
     <div class="btn"><input type="submit" class="btn" value="<?php zm_l10n("Continue") ?>" /></div>

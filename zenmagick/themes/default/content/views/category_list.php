@@ -44,7 +44,7 @@
     <?php if ($currentCategory->hasChildren()) { ?>
         <h3><?php zm_l10n("Available Sub-categories") ?></h3>
         <?php foreach ($currentCategory->getChildren() as $category) { ?>
-            <?php $html->encode($category->getName()) ?><br />
+            <?php echo $html->encode($category->getName()) ?><br />
         <?php } ?>
     <?php } ?>
 

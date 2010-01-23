@@ -100,7 +100,7 @@ class ZMToolboxMetaTags extends ZMToolboxTool {
             if (null != ($category = ZMCategories::instance()->getCategoryForId($this->getRequest()->getCategoryId()))) {
                 $languageId = $this->getRequest()->getSession()->getLanguageId();
                 if (null != ($details = $category->getMetaTagDetails($languageId))) {
-                    $title = $this->getToolbox()->html->encode($details->getTitle(), false);
+                    $title = $this->getToolbox()->html->encode($details->getTitle());
                 }
             } else {
                 $title = $this->category_;
@@ -118,7 +118,7 @@ class ZMToolboxMetaTags extends ZMToolboxTool {
             $title .= ZMSettings::get('storeName');
         }
 
-        $title = $this->getToolbox()->html->encode($title, false);
+        $title = $this->getToolbox()->html->encode($title);
 
         if ($echo) echo $title;
         return $title;
@@ -139,7 +139,7 @@ class ZMToolboxMetaTags extends ZMToolboxTool {
         } else if (null != ($category = ZMCategories::instance()->getCategoryForId($this->getRequest()->getCategoryId()))) {
             $languageId = $this->getRequest()->getSession()->getLanguageId();
             if (null != ($details = $category->getMetaTagDetails($languageId))) {
-                $value = $this->getToolbox()->html->encode($details->getKeywords(), false);
+                $value = $this->getToolbox()->html->encode($details->getKeywords());
                 if ($echo) echo $value;
                 return $value;
             }
@@ -147,7 +147,7 @@ class ZMToolboxMetaTags extends ZMToolboxTool {
 
         $value .= $this->topCategories_;
 
-        $value = $this->getToolbox()->html->encode($value, false);
+        $value = $this->getToolbox()->html->encode($value);
         if ($echo) echo $value;
         return $value;
     }
@@ -179,7 +179,7 @@ class ZMToolboxMetaTags extends ZMToolboxTool {
             }
         }
 
-        $value = $this->getToolbox()->html->encode($value, false);
+        $value = $this->getToolbox()->html->encode($value);
         if ($echo) echo $value;
         return $value;
     }

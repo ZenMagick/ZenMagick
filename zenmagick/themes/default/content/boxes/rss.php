@@ -25,12 +25,12 @@
 ?>
 
 <?php $rss = ZMLoader::make('Rss', 'http://localhost/rss.xml'); if ($rss->hasContents()) { $channel = $rss->getChannel(); ?>
-    <h3><a href="<?php echo $channel->getLink() ?>"<?php $html->hrefTarget() ?>><?php zm_l10n("[More]") ?></a><?php $html->encode($channel->getTitle()) ?></h3>
+    <h3><a href="<?php echo $channel->getLink() ?>"<?php $html->hrefTarget() ?>><?php zm_l10n("[More]") ?></a><?php echo $html->encode($channel->getTitle()) ?></h3>
     <div id="sb_rss" class="box">
         <dl>
             <?php foreach ($rss->getItems() as $item) { ?>
                 <dt><?php echo ZMTools::parseRssDate($item->getPubDate()) ?></dt>
-                <dd><a href="<?php echo $item->getLink() ?>"<?php $html->hrefTarget() ?>><?php $html->encode($item->getTitle()); ?></a></dd>
+                <dd><a href="<?php echo $item->getLink() ?>"<?php $html->hrefTarget() ?>><?php echo $html->encode($item->getTitle()); ?></a></dd>
             <?php } ?>
         </dl>
     </div>

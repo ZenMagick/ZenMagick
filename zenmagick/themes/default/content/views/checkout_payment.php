@@ -102,7 +102,7 @@
       <legend><?php zm_l10n("Comments") ?></legend>
       <p class="inst"><?php zm_l10n("Special instructions or comments about your order.") ?></p>
       <?php /* Fix for IE bug regarding textarea... */ ?>
-      <table><tr><td><textarea name="comments" rows="3" cols="45"><?php $html->encode($shoppingCart->getComment()) ?></textarea></td></tr></table>
+      <table><tr><td><textarea name="comments" rows="3" cols="45"><?php echo $html->encode($shoppingCart->getComment()) ?></textarea></td></tr></table>
   </fieldset>
 
   <div class="btn"><input type="submit" class="btn" value="<?php zm_l10n("Continue") ?>" /></div>

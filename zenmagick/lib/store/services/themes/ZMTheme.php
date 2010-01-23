@@ -190,7 +190,7 @@ class ZMTheme extends ZMObject {
             }
         }
 
-        return ZMRequest::instance()->getToolbox()->html->encode($url, false);
+        return ZMRequest::instance()->getToolbox()->html->encode($url);
     }
 
 

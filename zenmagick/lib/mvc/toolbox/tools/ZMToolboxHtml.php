@@ -34,14 +34,12 @@ class ZMToolboxHtml extends ZMToolboxTool {
      * Encode a given string to valid HTML.
      *
      * @param string s The string to encode.
-     * @param boolean echo If <code>true</code>, the escaped string will be echo'ed as well as returned; default is <code>true</code>.
      * @return string The encoded HTML.
      */
-    public function encode($s, $echo=true) {
+    public function encode($s) {
         $s = html_entity_decode($s, ENT_QUOTES, ZMSettings::get('zenmagick.mvc.html.charset')); 
         $s = htmlentities($s, ENT_QUOTES, ZMSettings::get('zenmagick.mvc.html.charset'));
 
-        if ($echo) echo $s;
         return $s;
     }
 

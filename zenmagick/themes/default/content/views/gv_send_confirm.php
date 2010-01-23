@@ -26,10 +26,10 @@
 
 <?php $form->open('gv_send_confirm', null, true, array('onsubmit'=>null)) ?>
     <div>
-        <input type="hidden" name="name" value="<?php $html->encode($gvReceiver->getName()) ?>" />
-        <input type="hidden" name="email" value="<?php $html->encode($gvReceiver->getEmail()) ?>" />
-        <input type="hidden" name="amount" value="<?php $html->encode($gvReceiver->getAmount()) ?>" />
-        <input type="hidden" name="message" value="<?php $html->encode($gvReceiver->getMessage()) ?>" />
+        <input type="hidden" name="name" value="<?php echo $html->encode($gvReceiver->getName()) ?>" />
+        <input type="hidden" name="email" value="<?php echo $html->encode($gvReceiver->getEmail()) ?>" />
+        <input type="hidden" name="amount" value="<?php echo $html->encode($gvReceiver->getAmount()) ?>" />
+        <input type="hidden" name="message" value="<?php echo $html->encode($gvReceiver->getMessage()) ?>" />
     </div>
     <fieldset>
         <legend><?php zm_l10n("Confirm Send Gift Certificate") ?></legend>

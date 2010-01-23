@@ -30,7 +30,7 @@
 
 ?>
 
-  <h2>Quick Edit: <em><?php $toolbox->html->encode(ZMCategories::instance()->getCategoryForId($categoryId)->getName()) ?></em></h2>
+  <h2>Quick Edit: <em><?php echo $toolbox->html->encode(ZMCategories::instance()->getCategoryForId($categoryId)->getName()) ?></em></h2>
 
   <form action="<?php $toolbox->admin->url(null, $defaultUrlParams) ?>" method="post">
     <table cellspacing="0" cellpadding="0" class="presults" style="position:relative;width:auto;">
@@ -55,7 +55,7 @@
               ?>
               <td<?php echo ($ii == $lastIndex ? ' class="last"' : '') ?> style="text-align:center;">
                 <?php echo $widget->render($request) ?>
-                <input type="hidden" name="_<?php echo $fieldName ?>" value="<?php $toolbox->html->encode($value) ?>">
+                <input type="hidden" name="_<?php echo $fieldName ?>" value="<?php echo $toolbox->html->encode($value) ?>">
               </td>
             <?php } ?>
           </tr>

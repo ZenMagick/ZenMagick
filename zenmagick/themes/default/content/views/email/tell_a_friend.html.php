@@ -41,7 +41,7 @@
 </p>
 <?php } ?>
 
-<?php $href = '<a href="'.$net->product($currentProduct->getId(), null, false).'">'.$html->encode($currentProduct->getName(), false).'</a>'; ?>
+<?php $href = '<a href="'.$net->product($currentProduct->getId(), null, false).'">'.$html->encode($currentProduct->getName()).'</a>'; ?>
 <p><?php zm_l10n("To view the product, click on the following link or copy and paste the link into your web browser: %s", $href) ?></p>
 
 <p><?php zm_l10n("Regards, %s", ZMSettings::get('storeOwner')) ?></p>

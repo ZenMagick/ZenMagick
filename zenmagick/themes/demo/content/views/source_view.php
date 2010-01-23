@@ -36,7 +36,7 @@
 
   if (null != $source) {
       ?><h2>Source for <?php echo $source ?></h2><pre id="source"><?php 
-      $html->encode(file_get_contents($this->path($source)));
+      echo $html->encode(file_get_contents($this->path($source)));
       ?></pre><?php 
       return;
   }
