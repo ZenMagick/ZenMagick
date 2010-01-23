@@ -28,7 +28,7 @@
     <td><?php $html->productImageLink($product, $request->getCategoryId()) ?></td>
     <td class="pinfo">
         <a href="<?php $net->product($product->getId(), $request->getCategoryId()) ?>"><?php $html->encode($product->getName()) ?></a><br/>
-        <?php $html->more($html->strip($product->getDescription(), false), 120) ?>
+        <?php echo $html->more($html->strip($product->getDescription(), false), 120) ?>
     </td>
     <td class="pprice"><?php $utils->formatMoney($product->getPrice()) ?></td>
 </tr>

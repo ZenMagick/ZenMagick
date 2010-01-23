@@ -64,10 +64,9 @@ class ZMToolboxHtml extends ZMToolboxTool {
      * @param string s The text.
      * @param int max The number of allowed characters; default is <em>0</em> for all.
      * @param string more Optional string that will be appended to indicate that the text was truncated; default is <em>...</em>.
-     * @param boolean echo If <code>true</code>, the escaped string will be echo'ed as well as returned; default is <code>true</code>.
      * @return string The (possibly) truncated text.
      */
-    public function more($s, $max=0, $more=" ...", $echo=true) {
+    public function more($s, $max=0, $more=" ...") {
         $text = $s;
         if (0 != $max && strlen($text) > $max) {
             $pos = strpos($text, ' ', $max-10);
@@ -77,7 +76,6 @@ class ZMToolboxHtml extends ZMToolboxTool {
             $text .= $more;
         }
 
-        if ($echo) echo $text;
         return $text;
     }
 

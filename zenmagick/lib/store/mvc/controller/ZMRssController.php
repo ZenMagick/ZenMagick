@@ -198,7 +198,7 @@ class ZMRssController extends ZMController {
 
             $params = 'products_id='.$review->getProductId().'&reviews_id='.$review->getId();
             $item->setLink($toolbox->net->url(FILENAME_PRODUCT_REVIEWS_INFO, $params, false, false));
-            $item->setDescription($toolbox->html->more($review->getText(), 60, '...', false));
+            $item->setDescription($toolbox->html->more($review->getText(), 60));
             $item->setPubDate(zm_mk_rss_date($review->getDateAdded()));
             array_push($items, $item);
 
@@ -275,7 +275,7 @@ class ZMRssController extends ZMController {
             $item = ZMLoader::make("RssItem");
             $item->setTitle($product->getName());
             $item->setLink(zm_product_href($product->getId(), null, false));
-            $item->setDescription($toolbox->html->more($toolbox->html->strip($product->getDescription(), false), 60, '...', false));
+            $item->setDescription($toolbox->html->more($toolbox->html->strip($product->getDescription(), false), 60));
             $item->setPubDate(zm_mk_rss_date($product->getDateAdded()));
             array_push($items, $item);
 

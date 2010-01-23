@@ -229,19 +229,6 @@ class ToolboxHtml extends ZMToolboxHtml {
     }
 
     /**
-     * Truncate text.
-     *
-     * @param string s The text.
-     * @param int max The number of allowed characters; default is <em>0</em> for all.
-     * @param string more Optional string that will be appended to indicate that the text was truncated; default is <em>...</em>.
-     * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
-     * @return string The (possibly) truncated text.
-     */
-    public function more($s, $max=0, $more=" ...", $echo=ZM_ECHO_DEFAULT) {
-        return parent::more($s, $max, $more, $echo);
-    }
-
-    /**
      * Show form field specific error messages.
      *
      * <p>The generated <code>ul</code> tag will have the value <em>[$name]Info</em> as id, and

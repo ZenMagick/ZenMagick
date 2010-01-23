@@ -33,7 +33,7 @@
   <?php foreach ($featured as $product) { ?> 
     <div><table class="tbl" width="100%" height="125"> 
       <tr><td><?php $html->productImageLink($product) ?></td></tr></table><table> 
-      <tr height="38" wid><td width="100%" valign="top"><font class="product"><a href="<?php $net->product($product->getId()) ?>"><?php $html->more($html->strip($product->getName(), false), 40) ?></a></font></td></tr> 
+      <tr height="38" wid><td width="100%" valign="top"><font class="product"><a href="<?php $net->product($product->getId()) ?>"><?php echo $html->more($html->strip($product->getName(), false), 40) ?></a></font></td></tr> 
       <?php $offers = $product->getOffers(); ?> 
       <tr> 
         <td width="50%"><font class="price"><?php $utils->formatMoney($offers->getCalculatedPrice()) ?></font></td> 
