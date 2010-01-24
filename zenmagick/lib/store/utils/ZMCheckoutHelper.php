@@ -35,17 +35,17 @@ class ZMCheckoutHelper extends ZMObject {
     const CART_PRODUCT_STATUS = 'status';
     const CART_PRODUCT_QUANTITY = 'quantity';
     const CART_PRODUCT_UNITS = 'units';
-    private $cart_;
+    private $shoppingCart_;
 
 
     /**
      * Create new instance.
      *
-     * @param ZMShoppingCart cart The cart.
+     * @param ZMShoppingCart shoppingCart The cart.
      */
-    function __construct($cart) {
+    function __construct($shoppingCart) {
         parent::__construct();
-        $this->cart_ = $cart;
+        $this->shoppingCart_ = $shoppingCart;
     }
 
     /**
@@ -62,7 +62,7 @@ class ZMCheckoutHelper extends ZMObject {
      * @return boolean <code>true</code> if only vouchers are in the cart.
      */
     public function isGVOnly() { 
-        foreach ($this->cart_->getItems() as $item) {
+        foreach ($this->shoppingCart_->getItems() as $item) {
             $product = $item->getProduct();
             if (!preg_match('/^GIFT/', $product->getModel())) {
                 return false;
@@ -79,7 +79,7 @@ class ZMCheckoutHelper extends ZMObject {
      */
     public function freeProductsCount() {
         $count = 0;
-        foreach ($this->cart_->getItems() as $item) {
+        foreach ($this->shoppingCart_->getItems() as $item) {
             $product = $item->getProduct();
             if ($product->isFree()) {
                 ++$count;
@@ -96,7 +96,7 @@ class ZMCheckoutHelper extends ZMObject {
      */
     public function virtualProductsCount() {
         $count = 0;
-        foreach ($this->cart_->getItems() as $item) {
+        foreach ($this->shoppingCart_->getItems() as $item) {
             $product = $item->getProduct();
             if ($product->isVirtual()) {
                 ++$count;
@@ -113,7 +113,7 @@ class ZMCheckoutHelper extends ZMObject {
      */
     public function freeShippingCount() {
         $count = 0;
-        foreach ($this->cart_->getItems() as $item) {
+        foreach ($this->shoppingCart_->getItems() as $item) {
             $product = $item->getProduct();
             if ($product->isAlwaysFreeShipping()) {
                 ++$count;
@@ -144,7 +144,7 @@ class ZMCheckoutHelper extends ZMObject {
             return $order->content_type == 'virtual';
         }
 
-        return $this->virtualProductsCount() == count($this->cart_->getItems());
+        return $this->virtualProductsCount() == count($this->shoppingCart_->getItems());
     }
 
     /**
@@ -161,7 +161,7 @@ class ZMCheckoutHelper extends ZMObject {
      */
     public function checkCartStatus() {
         $map = array();
-        foreach ($this->cart_->getItems() as $item) {
+        foreach ($this->shoppingCart_->getItems() as $item) {
             $product = $item->getProduct();
 
             // check product status
@@ -178,7 +178,7 @@ class ZMCheckoutHelper extends ZMObject {
             if ($product->isQtyMixed()) {
                 $tqty = 0;
                 // make $qty the total over all attribute combinations (SKUs) in the cart
-                foreach ($this->cart_->getItems() as $titem) {
+                foreach ($this->shoppingCart_->getItems() as $titem) {
                     if ($product->getId() == $titem->getProduct()->getId()) {
                         $tqty += $titem->getQuantity();
                     }
@@ -224,7 +224,7 @@ class ZMCheckoutHelper extends ZMObject {
      * @return boolean <code>true</code> if the stock check was sucessful (or disabled).
      */
     public function checkStock($messages=true) {
-        if (ZMSettings::get('isEnableStock') && $this->cart_->hasOutOfStockItems()) {
+        if (ZMSettings::get('isEnableStock') && $this->shoppingCart_->hasOutOfStockItems()) {
             if (ZMSettings::get('isAllowLowStockCheckout')) {
                 if ($messages) {
                     ZMMessages::instance()->warn('Products marked as "Out Of Stock" will be placed on backorder.');
@@ -248,7 +248,7 @@ class ZMCheckoutHelper extends ZMObject {
      *  if everything is ok.
      */
     public function validateCheckout($messages=true) {
-        if ($this->cart_->isEmpty()) {
+        if ($this->shoppingCart_->isEmpty()) {
             return "empty_cart";
         }
         $session = ZMRequest::instance()->getSession();

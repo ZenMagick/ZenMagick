@@ -65,30 +65,30 @@ class ZMShoppingCarts extends ZMObject {
     /**
      * Save the cart content.
      *
-     * @param ZMShoppingCart cart The cart to save.
+     * @param ZMShoppingCart shoppingCart The cart to save.
      */
-    public function saveCart($cart) {
+    public function saveCart($shoppingCart) {
         // get existing data to decide on whether to INSERT or UPDATE
         $sql = "SELECT products_id FROM " . TABLE_CUSTOMERS_BASKET . " WHERE customers_id = :accountId";
         $skuIds = array();
-        foreach (Runtime::getDatabase()->query($sql, array('accountId' => $cart->getAccountId()), TABLE_CUSTOMERS_BASKET) as $result) {
+        foreach (Runtime::getDatabase()->query($sql, array('accountId' => $shoppingCart->getAccountId()), TABLE_CUSTOMERS_BASKET) as $result) {
             $skuIds[] = $result['skuId'];
         }
 
-        foreach ($cart->getItems() as $item) {
+        foreach ($shoppingCart->getItems() as $item) {
             if (false && in_array($item->getId(), $skuIds)) {
                 // update
                 $sql = "UPDATE " . TABLE_CUSTOMERS_BASKET . "
                         SET customers_basket_quantity = :quantity
                         WHERE customers_id = :accountId and products_id = :skuId";
-                $args = array('accountId' => $cart->getAccountId(), 'skuId' => $item->getId(), 'quantity' => $item->getQuantity());
+                $args = array('accountId' => $shoppingCart->getAccountId(), 'skuId' => $item->getId(), 'quantity' => $item->getQuantity());
                 ZMRuntime::getDatabase()->update($sql, $args, TABLE_CUSTOMERS_BASKET);
             } else {
                 // insert
                 $sql = "INSERT INTO " . TABLE_CUSTOMERS_BASKET . "
                           (customers_id, products_id, customers_basket_quantity, customers_basket_date_added)
                         VALUES (:accountId, :skuId, :quantity, :dateAdded)";
-                $args = array('accountId' => $cart->getAccountId(), 'skuId' => $item->getId(), 'quantity' => $item->getQuantity(),
+                $args = array('accountId' => $shoppingCart->getAccountId(), 'skuId' => $item->getId(), 'quantity' => $item->getQuantity(),
                           'dateAdded' => date('Ymd'));
                           //column is 8 char, not date! 'dateAdded' => date(ZMDatabase::DATE_FORMAT));
                 ZMRuntime::getDatabase()->update($sql, $args, TABLE_CUSTOMERS_BASKET);
@@ -100,7 +100,7 @@ class ZMShoppingCarts extends ZMObject {
                                        products_options_value_id, products_options_value_text, products_options_sort_order)
                                     VALUES (:accountId, :skuId, :attributeId, :attributeValueId, :attributeValueText, :sortOrder)";
                             $sortOrder = $attribute->getSortOrder() . '.' . str_pad($value->getSortOrder(), 5, '0', STR_PAD_LEFT);
-                            $args = array('accountId' => $cart->getAccountId(), 'skuId' => $item->getId(), 'attributeId' => $attribute->getId(),
+                            $args = array('accountId' => $shoppingCart->getAccountId(), 'skuId' => $item->getId(), 'attributeId' => $attribute->getId(),
                                       'attributeValueId' => $value->getId(), 'attributeValueText' => $value->getName(), 'sortOrder' => $sortOrder);
                             ZMRuntime::getDatabase()->update($sql, $args, TABLE_CUSTOMERS_BASKET_ATTRIBUTES);
                         }
@@ -115,15 +115,15 @@ class ZMShoppingCarts extends ZMObject {
      *
      * <p>This will remove all database entries and session data.</p>
      *
-     * @param ZMShoppingCart cart The cart to save.
+     * @param ZMShoppingCart shoppingCart The cart to save.
      */
-    public function clearCart($cart) {
+    public function clearCart($shoppingCart) {
         $sql = "DELETE FROM " . TABLE_CUSTOMERS_BASKET . "
                 WHERE customers_id = :accountId";
-        ZMRuntime::getDatabase()->update($sql, array('accountId' => $cart->getAccountId()), TABLE_CUSTOMERS_BASKET);
+        ZMRuntime::getDatabase()->update($sql, array('accountId' => $shoppingCart->getAccountId()), TABLE_CUSTOMERS_BASKET);
         $sql = "DELETE FRMO " . TABLE_CUSTOMERS_BASKET_ATTRIBUTES . "
                 WHERE customers_id = :accountId";
-        ZMRuntime::getDatabase()->update($sql, array('accountId' => $cart->getAccountId()), TABLE_CUSTOMERS_BASKET_ATTRIBUTES);
+        ZMRuntime::getDatabase()->update($sql, array('accountId' => $shoppingCart->getAccountId()), TABLE_CUSTOMERS_BASKET_ATTRIBUTES);
     }
 
     /**
@@ -143,7 +143,7 @@ class ZMShoppingCarts extends ZMObject {
             $attributeResults[$ii]['attributeId'] = preg_replace('/([0-9]*).*/', '\1', $attributeResult['attributeId']);
         }
 
-        $cart = ZMLoader::make('ShoppingCart');
+        $shoppingCart = ZMLoader::make('ShoppingCart');
         $items = array();
 
         $sql = "SELECT * FROM " . TABLE_CUSTOMERS_BASKET . "
@@ -204,8 +204,8 @@ class ZMShoppingCarts extends ZMObject {
             $items[$item->getId()] = $item;
         }
 
-        $cart->setItems($items);
-        return $cart;
+        $shoppingCart->setItems($items);
+        return $shoppingCart;
     }
 
     /**

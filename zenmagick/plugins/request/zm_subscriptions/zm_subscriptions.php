@@ -155,11 +155,11 @@ class zm_subscriptions extends Plugin {
     /**
      * Check if the given cart can be used as subscription.
      *
-     * @param ZMShoppingCart cart The cart.
+     * @param ZMShoppingCart shoppingCart The cart.
      * @return boolean <code>true</code> if the cart qualifies for a subscription.
      */
-    public function qualifies($cart) {
-        return $this->get('minAmount') <= $cart->getTotal();
+    public function qualifies($shoppingCart) {
+        return $this->get('minAmount') <= $shoppingCart->getTotal();
     }
 
     /**

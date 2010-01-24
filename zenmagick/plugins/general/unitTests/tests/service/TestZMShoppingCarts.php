@@ -30,12 +30,12 @@ class TestZMShoppingCarts extends ZMTestCase {
     /**
      * Dump cart.
      *
-     * @param ZMShoppingCart cart The cart to dump.
+     * @param ZMShoppingCart shoppingCart The cart to dump.
      */
-    protected function dumpCart($cart) {
+    protected function dumpCart($shoppingCart) {
         $html = $this->getRequest()->getToolbox()->html;
         $utils = $this->getRequest()->getToolbox()->utils;
-        foreach ($cart->getItems() as $item) {
+        foreach ($shoppingCart->getItems() as $item) {
             echo $item->getId().":".$html->encode($item->getName())."; qty=".$item->getQuantity().'; '.$utils->formatMoney($item->getItemPrice(), true, false).'/'.$utils->formatMoney($item->getItemTotal(), true, false)."<BR>";
             if ($item->hasAttributes()) {
                 foreach ($item->getAttributes() as $attribute) {
@@ -52,8 +52,8 @@ class TestZMShoppingCarts extends ZMTestCase {
      * Test load cart.
      */
     public function testLoadCart() {
-        $cart = ZMShoppingCarts::instance()->loadCartForAccountId($this->getAccountId());
-        $this->dumpCart($cart);
+        $shoppingCart = ZMShoppingCarts::instance()->loadCartForAccountId($this->getAccountId());
+        $this->dumpCart($shoppingCart);
         echo '<hr>';
         $_SESSION['cart']->reset(false);
         $_SESSION['cart']->restore_contents();

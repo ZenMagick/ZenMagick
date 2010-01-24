@@ -37,7 +37,6 @@
 class Request extends ZMRequest {
     private $categoryPathArray_;
     private $shoppingCart_;
-    private $cart_;
     private $metaTags_;
 
 
@@ -51,7 +50,7 @@ class Request extends ZMRequest {
         parent::__construct($parameter);
         $this->categoryPathArray_ = null;
         $this->shoppingCart_ = null;
-        $this->cart_ = null;
+        $this->shoppingCart_ = null;
         $this->metaTags_ = null;
     }
 

@@ -134,9 +134,9 @@ class ZMShippingProviderWrapper extends ZMObject {
         if (!isset($_SESSION['cart'])) {
             $_SESSION['cart'] = new shoppingCart();
         }
-        $cart = ZMRequest::instance()->getShoppingCart();
-        $total_count = $cart->getSize();
-        $shipping_weight = $cart->getWeight();
+        $shoppingCart = ZMRequest::instance()->getShoppingCart();
+        $total_count = $shoppingCart->getSize();
+        $shipping_weight = $shoppingCart->getWeight();
 
         $shipping_num_boxes = 1;
         if ($shipping_weight > SHIPPING_MAX_WEIGHT) { // Split into many boxes
