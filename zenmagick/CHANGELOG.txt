@@ -62,6 +62,8 @@ Release 0.9.9
 - templates: drop $echo parameter in ZMToolboxMetaTags::getTitle(),
   getKeywords() and getDescription()
 - admin: drop $echo parameter in ZMToolboxAdmin::url()
+- templates: drop $echo parameter in ZMToolboxMacro::phpinfo(),
+  formatAddress(), showBanner(), productPrice()
 
 Release 0.9.8
 - add Savant3 and experimental views (not used yet)

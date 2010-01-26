@@ -40,7 +40,7 @@
       <?php if (null != $manufacturer) { ?>
         <?php zm_l10n("Producer") ?>: <?php echo $html->encode($manufacturer->getName()); ?><br />
       <?php } ?>
-      <p id="price"><?php echo $html->encode($currentProduct->getModel()) ?>: <?php $macro->productPrice($currentProduct) ?></p>
+      <p id="price"><?php echo $html->encode($currentProduct->getModel()) ?>: <?php echo $macro->productPrice($currentProduct) ?></p>
   </div>
 
   <?php $attributes = $macro->productAttributes($currentProduct); ?>

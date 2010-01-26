@@ -37,17 +37,15 @@ class ZMToolboxMacro extends ZMToolboxTool {
      * <code>phpinfo</code> wrapper.
      *
      * @param what What to display (see phpinfo manual for more); default is <code>1</code>.
-     * @param boolean echo If <code>true</code>, the info will be echo'ed as well as returned.
      * @return string The <code>phpinfo</code> output minus a few formatting things that break validation.
      */
-    public function phpinfo($what=1, $echo=ZM_ECHO_DEFAULT) {
+    public function phpinfo($what=1) {
         ob_start();                                                                                                       
         phpinfo($what);                                                                                                       
         $info = ob_get_clean();                                                                                       
         $info = preg_replace('%^.*<body>(.*)</body>.*$%ms', '$1', $info);
         $info = str_replace('width="600"', '', $info);
 
-        if ($echo) echo $info;
         return $info;
     }
 
@@ -77,10 +75,9 @@ class ZMToolboxMacro extends ZMToolboxTool {
      *
      * @param ZMAddress address The address to format.
      * @param boolean html If <code>true</code>, format as HTML, otherwise plain text.
-     * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string A fully formatted address that, depending on the <em>html</code> flag, is either HTML or ASCII formatted.
      */
-    public function formatAddress($address, $html=true, $echo=ZM_ECHO_DEFAULT) {
+    public function formatAddress($address, $html=true) {
         if (null == $address) {
             $out = zm_l10n_get("N/A");    
         } else {
@@ -142,7 +139,6 @@ class ZMToolboxMacro extends ZMToolboxTool {
             }
         }
 
-        if ($echo) echo $out;
         return $out;
     }
 
@@ -151,10 +147,9 @@ class ZMToolboxMacro extends ZMToolboxTool {
      *
      * @param ZMBanner banner A <code>ZMBanner</code> instance.
      * @param boolean updateStats If <code>true</code>, the banner stats will get updated (click count).
-     * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string The HTML formatted banner.
      */
-    public function showBanner($banner, $echo=ZM_ECHO_DEFAULT, $updateStats=true) {
+    public function showBanner($banner, $updateStats=true) {
         $html = '';
 
         if (null != $banner) {
@@ -180,7 +175,6 @@ class ZMToolboxMacro extends ZMToolboxTool {
             }
         }
 
-        if ($echo) echo $html;
         return $html;
     }
  
@@ -540,10 +534,9 @@ class ZMToolboxMacro extends ZMToolboxTool {
      *
      * @param ZMProduct product The product.
      * @param boolean tax Optional flag to display prices with/without tax (see <code>ZMOffers</code> for details; default is <code>true</code>.
-     * @param boolean echo If <code>true</code>, the formatted price HTML will be echo'ed as well as returned.
      * @return string The fully HTML formatted price.
      */
-    public function productPrice($product, $tax=true, $echo=ZM_ECHO_DEFAULT) {
+    public function productPrice($product, $tax=true) {
         $toolbox = $this->getToolbox();
         $offers = $product->getOffers();
 
@@ -568,7 +561,6 @@ class ZMToolboxMacro extends ZMToolboxTool {
         }
         $html .= '</span>';
 
-        if ($echo) echo $html;
         return $html;
     }
 

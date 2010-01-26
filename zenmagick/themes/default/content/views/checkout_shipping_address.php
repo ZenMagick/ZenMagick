@@ -37,7 +37,7 @@
                     <input type="radio" id="address_<?php echo $address->getId() ?>" name="addressId" value="<?php echo $address->getId() ?>" <?php echo $checked ?>/>
                     <label for="address_<?php echo $address->getId() ?>"><?php echo $html->encode($address->getFullName()) ?></label>
                     <br/>
-                    <?php $macro->formatAddress($address) ?>
+                    <?php echo $macro->formatAddress($address) ?>
                     <br/>
                 </p>
             <?php } ?>

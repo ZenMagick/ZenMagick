@@ -28,6 +28,6 @@
   <h1><a href="<?php $net->url(FILENAME_DEFAULT) ?>">ZenMagick</a></h1>
   <h2>As simple as that!</h2>
   <?php if (null != ($bannerBox = ZMBanners::instance()->getBannerForSet('header2'))) { ?>
-      <div id="bannerTwo"><?php $macro->showBanner($bannerBox); ?></div>
+      <div id="bannerTwo"><?php echo $macro->showBanner($bannerBox); ?></div>
   <?php } ?>
 </div>

@@ -32,7 +32,7 @@
     </p>
 
     <?php if (null != ($bannerBox = ZMBanners::instance()->getBannerForSet('footer2'))) { ?>
-        <div id="bannerFive"><?php $macro->showBanner($bannerBox); ?></div>
+        <div id="bannerFive"><?php echo $macro->showBanner($bannerBox); ?></div>
     <?php } ?>
 
     <p>Powered by <a href="http://www.zen-cart.com">zen-cart</a> and <a href="http://www.zenmagick.org">ZenMagick</a></p>

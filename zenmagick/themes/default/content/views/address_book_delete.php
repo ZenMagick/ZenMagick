@@ -32,6 +32,6 @@
             <input type="hidden" name="id" value="<?php echo $address->getId() ?>" />
             <input type="submit" class="btn" value="<?php zm_l10n("Delete") ?>" />
         </div>
-        <?php $macro->formatAddress($address) ?>
+        <?php echo $macro->formatAddress($address) ?>
     </fieldset>
 </form>

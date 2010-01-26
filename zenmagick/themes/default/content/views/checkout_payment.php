@@ -29,7 +29,7 @@
     <div class="btn">
         <a class="btn" href="<?php $net->url(FILENAME_CHECKOUT_PAYMENT_ADDRESS, '', true) ?>"><?php zm_l10n("Change Billing Address") ?></a>
     </div>
-    <?php $macro->formatAddress($shoppingCart->getBillingAddress()) ?>
+    <?php echo $macro->formatAddress($shoppingCart->getBillingAddress()) ?>
 </fieldset>
 
 <script type="text/javascript">var submitter = 0;</script>

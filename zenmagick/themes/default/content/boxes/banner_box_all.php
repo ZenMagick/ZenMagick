@@ -29,7 +29,7 @@
     <h3><?php zm_l10n("Sponsors") ?></h3>
     <div id="sb_banner_box_all" class="box">
         <?php foreach ($allBanners as $banner) { ?>
-            <?php $macro->showBanner($banner); ?>
+            <?php echo $macro->showBanner($banner); ?>
         <?php } ?>
     </div>
 <?php } ?>

@@ -32,7 +32,7 @@
     </p>
 
     <?php if (null != ($bannerBox = ZMBanners::instance()->getBannerForSet('footer2'))) { ?>
-        <div id="bannerFive"><?php $macro->showBanner($bannerBox); ?></div>
+        <div id="bannerFive"><?php echo $macro->showBanner($bannerBox); ?></div>
     <?php } ?>
 
     <p id="sview">

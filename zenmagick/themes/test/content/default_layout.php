@@ -66,7 +66,7 @@
 
   <body id="b_<?php echo $request->getRequestId() ?>">
     <?php if (null != ($bannerBox = ZMBanners::instance()->getBannerForSet('header1'))) { ?>
-        <div id="bannerOne"><?php $macro->showBanner($bannerBox); ?></div>
+        <div id="bannerOne"><?php echo $macro->showBanner($bannerBox); ?></div>
     <?php } ?>
 
     <div id="container">
@@ -87,7 +87,7 @@
         <?php } ?>
 
         <?php if (null != ($bannerBox = ZMBanners::instance()->getBannerForSet('header3'))) { ?>
-            <div id="bannerThree"><?php $macro->showBanner($bannerBox); ?></div>
+            <div id="bannerThree"><?php echo $macro->showBanner($bannerBox); ?></div>
         <?php } ?>
 
         <?php if (ZMMessages::instance()->hasMessages()) { ?>
@@ -101,7 +101,7 @@
         <?php echo $this->fetch($viewTemplate); ?>
 
         <?php if (null != ($bannerBox = ZMBanners::instance()->getBannerForSet('footer1'))) { ?>
-            <div id="bannerFour"><?php $macro->showBanner($bannerBox); ?></div>
+            <div id="bannerFour"><?php echo $macro->showBanner($bannerBox); ?></div>
         <?php } ?>
       </div>
 
@@ -109,7 +109,7 @@
     </div>
 
     <?php if (null != ($bannerBox = ZMBanners::instance()->getBannerForSet('footer3'))) { ?>
-        <div id="bannerSix"><?php $macro->showBanner($bannerBox); ?></div>
+        <div id="bannerSix"><?php echo $macro->showBanner($bannerBox); ?></div>
     <?php } ?>
 
   </body>

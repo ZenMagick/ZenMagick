@@ -48,12 +48,12 @@
 <?php if ($order->isStorePickup() || !$order->hasShippingAddress()) { ?>
 <?php zm_l10n("N/A") ?>
 <?php } else { ?>
-<?php $macro->formatAddress($shippingAddress, false) ?>
+<?php echo $macro->formatAddress($shippingAddress, false) ?>
 <?php } ?>
 
 
 <?php zm_l10n("Billing Address\n") ?>
-<?php $macro->formatAddress($billingAddress, false) ?>
+<?php echo $macro->formatAddress($billingAddress, false) ?>
 
 
 <?php zm_l10n("Payment Details\n") ?>

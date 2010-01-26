@@ -29,7 +29,7 @@
     <div class="btn">
         <a class="btn" href="<?php $net->url(FILENAME_CHECKOUT_SHIPPING_ADDRESS, '', true) ?>"><?php zm_l10n("Change Shipping Address") ?></a>
     </div>
-    <?php $macro->formatAddress($shoppingCart->getShippingAddress()) ?>
+    <?php echo $macro->formatAddress($shoppingCart->getShippingAddress()) ?>
 </fieldset>
 
 <?php $form->open(FILENAME_CHECKOUT_SHIPPING, "action=process", true) ?>

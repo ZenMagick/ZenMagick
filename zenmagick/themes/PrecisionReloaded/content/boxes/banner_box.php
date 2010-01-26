@@ -27,6 +27,6 @@
 <?php if (null != ($bannerBox = ZMBanners::instance()->getBannerForSet('box1'))) { ?>
     <h2><?php zm_l10n("Sponsors") ?></h2>
     <div id="sb_banner_box" class="box">
-        <?php $macro->showBanner($bannerBox); ?>
+        <?php echo $macro->showBanner($bannerBox); ?>
     </div>
 <?php } ?>

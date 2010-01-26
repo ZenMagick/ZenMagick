@@ -41,7 +41,7 @@
     <?php if (null != $address) { ?>
         <h4><?php zm_l10n("Ship To") ?></h4>
         <div id="cadr">
-            <?php $macro->formatAddress($address); ?>
+            <?php echo $macro->formatAddress($address); ?>
         </div>
     <?php } else { ?>
         <?php $form->open(FILENAME_POPUP_SHIPPING_ESTIMATOR, '', true) ?>
