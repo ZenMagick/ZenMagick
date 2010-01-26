@@ -35,7 +35,7 @@
 <h3><?php zm_l10n("Order Details") ?></h3>
 <p>
 <?php zm_l10n("Order Number: #%s", $order->getId()) ?><br>
-<?php zm_l10n("Order Date: %s", $locale->shortDate($order->getOrderDate(), false)) ?>
+<?php zm_l10n("Order Date: %s", $locale->shortDate($order->getOrderDate())) ?>
 </p>
 
 <h4><?php zm_l10n("Ordered Items") ?></h4>

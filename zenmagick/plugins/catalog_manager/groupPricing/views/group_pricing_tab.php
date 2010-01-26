@@ -54,9 +54,9 @@
       </p>
       <p>
         <label for="startDate">Start Date</label> 
-        <input type="text" id="startDate" name="startDate" value="<?php $toolbox->locale->shortDate($request->getParameter('startDate')) ?>">
+        <input type="text" id="startDate" name="startDate" value="<?php echo $toolbox->locale->shortDate($request->getParameter('startDate')) ?>">
         <label for="endDate">End Date</label> 
-        <input type="text" id="endDate" name="endDate" value="<?php $toolbox->locale->shortDate($request->getParameter('endDate')) ?>">
+        <input type="text" id="endDate" name="endDate" value="<?php echo $toolbox->locale->shortDate($request->getParameter('endDate')) ?>">
         <?php echo UI_DATE_FORMAT ?>, for example: <?php echo UI_DATE_FORMAT_SAMPLE ?>
       </p>
     </fieldset>

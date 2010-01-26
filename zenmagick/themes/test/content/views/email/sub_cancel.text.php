@@ -3,4 +3,4 @@
 <?php zm_l10n("Order Details\n") ?>
 -----------------------------------------------
 <?php zm_l10n("Order Number: #%s\n", $order->getId()) ?>
-<?php zm_l10n("Order Date: %s\n", $locale->shortDate($order->getOrderDate(), false)) ?>
+<?php zm_l10n("Order Date: %s\n", $locale->shortDate($order->getOrderDate())) ?>

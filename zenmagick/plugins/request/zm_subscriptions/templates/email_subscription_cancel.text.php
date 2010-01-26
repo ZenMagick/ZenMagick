@@ -28,7 +28,7 @@ orderId: <?php echo $order->getId(); ?>
 <?php $schedules = $plugin->getSchedules(); ?>
 Schedule: <?php echo $schedules[$order->getSchedule()]['name'] ?>
 
-Next order date: <?php $locale->shortDate($order->getNextOrder()) ?>
+Next order date: <?php echo $locale->shortDate($order->getNextOrder()) ?>
 
-Min last order date: <?php $locale->shortDate($plugin->getMinLastOrderDate($order->getId())) ?>
+Min last order date: <?php echo $locale->shortDate($plugin->getMinLastOrderDate($order->getId())) ?>
 

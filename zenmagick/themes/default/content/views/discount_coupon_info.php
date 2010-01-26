@@ -29,7 +29,7 @@
 <p><?php zm_l10n("Discount Offer:") ?><br /><?php echo $html->encode($currentCoupon->getDescription()) ?></p>
 
 <h4><?php zm_l10n("Promotional Period") ?></h4>
-<p><?php zm_l10n("The coupon is valid between %s and %s.", $locale->shortDate($currentCoupon->getStartDate(), false), $locale->shortDate($currentCoupon->getExpiryDate(), false)) ?></p>
+<p><?php zm_l10n("The coupon is valid between %s and %s.", $locale->shortDate($currentCoupon->getStartDate()), $locale->shortDate($currentCoupon->getExpiryDate())) ?></p>
 
 <?php if ($restrictions->hasCategories()) { ?>
     <h4><?php zm_l10n("Category Restrictions")?></h4>

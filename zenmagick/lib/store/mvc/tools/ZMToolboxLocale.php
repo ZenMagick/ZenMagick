@@ -36,12 +36,10 @@ class ZMToolboxLocale extends ZMToolboxTool {
      * Format and display a date(time) using the configured ui date format (<em>UI_DATE_FORMAT</em>).
      *
      * @param string date The date.
-     * @param boolean echo If <code>true</code>, the date will be echo'ed as well as returned.
      * @return string The formatted date.
      */
-    public function shortDate($date, $echo=ZM_ECHO_DEFAULT) { 
+    public function shortDate($date) { 
         $ds = ZMTools::translateDateString($date, ZM_DATETIME_FORMAT, UI_DATE_FORMAT); 
-        if($echo) echo $ds;
         return $ds;
     }
 

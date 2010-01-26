@@ -56,6 +56,7 @@ Release 0.9.9
 - settings: add support for ZMEditorSelectFormWidget
 - templates: rename ZMToolboxNet::absolute() to absoluteURL()
 - templates: drop $echo parameter of ZMToolboxHtml::more() and encode()
+- templates: drop $echo parameter of ZMToolboxLocale::shortDate()
 
 Release 0.9.8
 - add Savant3 and experimental views (not used yet)

@@ -61,7 +61,7 @@
                 <?php if (ZMSettings::get('isAccountDOB')) { ?>
                     <tr>
                         <td><?php zm_l10n("Date of Birth") ?><span>*</span></td>
-                        <td><input type="text" name="dob" value="<?php $locale->shortDate($account->getDob()) ?>" /> <?php zm_l10n("Format: %s;&nbsp;(e.g: %s)", UI_DATE_FORMAT, UI_DATE_FORMAT_SAMPLE) ?></td>
+                        <td><input type="text" name="dob" value="<?php echo $locale->shortDate($account->getDob()) ?>" /> <?php zm_l10n("Format: %s;&nbsp;(e.g: %s)", UI_DATE_FORMAT, UI_DATE_FORMAT_SAMPLE) ?></td>
                     </tr>
                 <?php } ?>
                 <tr>

@@ -61,7 +61,7 @@
     <tbody>
     <?php foreach ($currentOrder->getOrderStatusHistory() as $orderStatus) { ?>
         <tr>
-            <td><?php $locale->shortDate($orderStatus->getDateAdded()) ?></td>
+            <td><?php echo $locale->shortDate($orderStatus->getDateAdded()) ?></td>
             <td><?php echo $html->encode($orderStatus->getName()) ?></td>
             <td class="cmt"><?php echo $html->encode($orderStatus->getComment()) ?></td>
         </tr>
