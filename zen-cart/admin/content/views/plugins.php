@@ -76,7 +76,7 @@
         if ($editPlugin) {
             $fragment = '#' . $editPlugin->getId();
         }
-        $request->redirect($toolbox->admin->url(null, 'select='.$refresh.$fragment, true, false));
+        $request->redirect($toolbox->admin->url(null, 'select='.$refresh.$fragment, true));
     }
 
     // build/update plugin status for all plugins
@@ -124,7 +124,7 @@
 
 <?php foreach (ZMPlugins::instance()->getAllPlugins(0, false) as $group => $plugins) { ?>
   <h2><?php echo $group ?> plugins</h2>
-  <form action="<?php $toolbox->admin->url() ?>" method="post" onsubmit="return zm_user_confirm('Save plugin changes ?');">
+  <form action="<?php echo $toolbox->admin->url() ?>" method="post" onsubmit="return zm_user_confirm('Save plugin changes ?');">
     <table cellpadding="5" cellspacing="0" style="width:90%;"> 
       <thead>
         <tr>
@@ -150,16 +150,16 @@
             <td><?php echo $plugin->getSortOrder() ?></td>
             <td>
               <?php if ($plugin->isInstalled()) { ?>
-                  <a href="<?php $toolbox->admin->url(null, 'remove='.$plugin->getId().'&group='.$plugin->getGroup()) ?>" onclick="return zm_user_confirm('This will remove all stored settings.\nContinue?');"><?php echo zen_image_button('button_module_remove.gif', zm_l10n_get("Remove")) ?></a>
+                  <a href="<?php echo $toolbox->admin->url(null, 'remove='.$plugin->getId().'&group='.$plugin->getGroup()) ?>" onclick="return zm_user_confirm('This will remove all stored settings.\nContinue?');"><?php echo zen_image_button('button_module_remove.gif', zm_l10n_get("Remove")) ?></a>
                   <?php if ($isEdit) { ?>
                     <input type="hidden" name="pluginId" value="<?php echo $plugin->getId() ?>">
                     <input type="hidden" name="group" value="<?php echo $plugin->getGroup() ?>">
                     <?php echo zen_image_submit('button_update.gif', IMAGE_UPDATE) ?>
                   <?php } else { ?>
-                      <a href="<?php $toolbox->admin->url(null, 'edit='.$plugin->getId().'&group='.$plugin->getGroup()) ?>#<?php echo $plugin->getId() ?>"><?php echo zen_image_button('button_edit.gif', zm_l10n_get("Edit")) ?></a>
+                      <a href="<?php echo $toolbox->admin->url(null, 'edit='.$plugin->getId().'&group='.$plugin->getGroup()) ?>#<?php echo $plugin->getId() ?>"><?php echo zen_image_button('button_edit.gif', zm_l10n_get("Edit")) ?></a>
                   <?php } ?>
               <?php } else { ?>
-                  <a href="<?php $toolbox->admin->url(null, 'install='.$plugin->getId().'&group='.$plugin->getGroup()) ?>#<?php echo $plugin->getId() ?>"><?php echo zen_image_button('button_module_install.gif', zm_l10n_get("Install")) ?></a>
+                  <a href="<?php echo $toolbox->admin->url(null, 'install='.$plugin->getId().'&group='.$plugin->getGroup()) ?>#<?php echo $plugin->getId() ?>"><?php echo zen_image_button('button_module_install.gif', zm_l10n_get("Install")) ?></a>
               <?php } ?>
             </td>
           </tr>

@@ -61,6 +61,7 @@ Release 0.9.9
   formatMoney()
 - templates: drop $echo parameter in ZMToolboxMetaTags::getTitle(),
   getKeywords() and getDescription()
+- admin: drop $echo parameter in ZMToolboxAdmin::url()
 
 Release 0.9.8
 - add Savant3 and experimental views (not used yet)

@@ -65,7 +65,7 @@
 
 ?>
 
-<form action="<?php $toolbox->admin->url() ?>" method="get">
+<form action="<?php echo $toolbox->admin->url() ?>" method="get">
   <input type="hidden" name="main_page" value="static_page_editor">
   <h2>ZenMagick Static Page Editor (
           <select id="languageId" name="languageId" onChange="this.form.submit();">
@@ -124,7 +124,7 @@
   }
 </script>
 <?php if (null !== $editContents) { ?>
-  <form action="<?php $toolbox->admin->url() ?>" method="post">
+  <form action="<?php echo $toolbox->admin->url() ?>" method="post">
     <?php echo zen_hide_session_id() ?>
     <input type="hidden" name="themeId" value="<?php echo $selectedThemeId ?>">
     <input type="hidden" name="file" value="<?php echo $selectedFile ?>">
@@ -142,7 +142,7 @@
 
     <br><br>
     <input type="submit" name="save" value="Save">
-    <a href="<?php $toolbox->admin->url(null) ?>">Cancel</a>
+    <a href="<?php echo $toolbox->admin->url() ?>">Cancel</a>
     <a href="#" onclick="preview();return false;">Preview</a>
   </form>
 <?php } ?>

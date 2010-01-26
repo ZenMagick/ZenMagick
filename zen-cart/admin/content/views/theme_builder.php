@@ -55,7 +55,7 @@
 
 <h2><?php zm_l10n("ZenMagick Theme Builder") ?></h2>
 
-<form action="<?php $toolbox->admin->url() ?>" method="post" onsubmit="return zm_user_confirm('Create theme?');">
+<form action="<?php echo $toolbox->admin->url() ?>" method="post" onsubmit="return zm_user_confirm('Create theme?');">
   <fieldset>
   <legend><?php zm_l10n("Create new ZenMagick Theme") ?></legend>
 

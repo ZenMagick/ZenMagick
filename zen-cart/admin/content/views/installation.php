@@ -165,7 +165,7 @@
     <?php }
 
     if ($needRefresh) {
-        $request->redirect($toolbox->admin->url(null, '', true, false));
+        $request->redirect($toolbox->admin->url(null, '', true));
         Runtime::finish();
     }
 
@@ -185,7 +185,7 @@
 <div id="b_installation">
   <h2><?php zm_l10n("ZenMagick Installation") ?> <a class="btn" href=""><?php zm_l10n("Refresh Page") ?></a></h2>
 
-  <form action="<?php $toolbox->admin->url() ?>" method="post" onsubmit="return zm_user_confirm('Update File Patches?');">
+  <form action="<?php echo $toolbox->admin->url() ?>" method="post" onsubmit="return zm_user_confirm('Update File Patches?');">
     <fieldset class="patches">
       <legend><?php zm_l10n("ZenMagick File Patches") ?></legend>
       <input type="hidden" name="update" value="file">
@@ -193,7 +193,7 @@
     </fieldset>
   </form>
 
-  <form action="<?php $toolbox->admin->url() ?>" method="post" onsubmit="return zm_user_confirm('Update SQL Patches?');">
+  <form action="<?php echo $toolbox->admin->url() ?>" method="post" onsubmit="return zm_user_confirm('Update SQL Patches?');">
     <fieldset class="patches">
       <legend><?php zm_l10n("ZenMagick SQL Extensions") ?></legend>
       <input type="hidden" name="update" value="sql">
@@ -204,7 +204,7 @@
     </fieldset>
   </form>
 
-  <form action="<?php $toolbox->admin->url() ?>" method="post" onsubmit="return zm_user_confirm('Update selected optimisations?\n(This might take a while...)');">
+  <form action="<?php echo $toolbox->admin->url() ?>" method="post" onsubmit="return zm_user_confirm('Update selected optimisations?\n(This might take a while...)');">
     <fieldset id="optimisation">
     <legend><?php zm_l10n("Optimising ZenMagick") ?></legend>
         <input type="hidden" id="optimize" name="optimize" value="x">
@@ -224,7 +224,7 @@
     </fieldset>
   </form>
 
-  <form action="<?php $toolbox->admin->url() ?>" method="post" onsubmit="return zm_user_confirm('Delete selected files?');">
+  <form action="<?php echo $toolbox->admin->url() ?>" method="post" onsubmit="return zm_user_confirm('Delete selected files?');">
     <fieldset id="obsolete">
     <legend><?php zm_l10n("Remove obsolete ZenMagick files") ?></legend>
       <?php if (0 == count($obsolete)) { ?>

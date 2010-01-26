@@ -39,10 +39,9 @@ class ZMToolboxAdmin extends ZMToolboxTool {
      * @param string requestId The request id.
      * @param string params Query string style parameter; if <code>''</code>.
      * @param boolean secure Flag to create a secure url; default is <code>true</code>.
-     * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string A full URL.
      */
-    public function url($requestId=null, $params='', $secure=true, $echo=ZM_ECHO_DEFAULT) {
+    public function url($requestId=null, $params='', $secure=true) {
         if (null == $requestId) {
             $requestId = $this->getRequest()->getRequestId();
         }
@@ -52,7 +51,6 @@ class ZMToolboxAdmin extends ZMToolboxTool {
         $url = str_replace('?&amp;', '?', $url);
         $url = str_replace('?&', '?', $url);
 
-        if ($echo) echo $url;
         return $url;
     }
 
