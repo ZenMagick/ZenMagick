@@ -31,7 +31,7 @@
       <a href="<?php $net->product($currentProduct->getId()) ?>"><?php $html->productImageLink($currentProduct) ?></a>
       <?php echo $html->encode($currentProduct->getDescription()); ?>
     </div>
-    <strong><?php $utils->formatMoney($currentProduct->getPrice()); ?></strong>
+    <strong><?php echo $utils->formatMoney($currentProduct->getPrice()); ?></strong>
     <div class="btn"><input type="submit" class="btn" value="<?php zm_l10n("Add to cart") ?>" /></div>
 
     <p id="author">

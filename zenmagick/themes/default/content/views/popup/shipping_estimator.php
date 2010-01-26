@@ -85,7 +85,7 @@
                     <?php $selected = false; /* TODO */ ?>
                     <tr class="smethod<?php echo ($selected ? " sel" : "") ?>">
                         <td class="smname"><strong><?php echo $html->encode($provider->getName()) ?></strong> <?php echo $html->encode($method->getName()) ?></td>
-                        <td class="smcost"><?php $utils->formatMoney($method->getCost()) ?></td>
+                        <td class="smcost"><?php echo $utils->formatMoney($method->getCost()) ?></td>
                     </tr>
                 <?php } ?>
             <?php } ?>

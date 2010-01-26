@@ -56,7 +56,7 @@ class ZMCheckoutPaymentController extends ZMController {
      */
     function processGet($request) {
         $request->getToolbox()->crumbtrail->addCrumb("Checkout", $request->getToolbox()->net->url(FILENAME_CHECKOUT_PAYMENT, '', true, false));
-        $request->getToolbox()->crumbtrail->addCrumb($request->getToolbox()->utils->getTitle(null, false));
+        $request->getToolbox()->crumbtrail->addCrumb($request->getToolbox()->utils->getTitle());
 
         return $this->findView(null, array('shoppingCart' => $request->getShoppingCart()));
     }

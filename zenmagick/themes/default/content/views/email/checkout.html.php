@@ -44,7 +44,7 @@
 <tr>
 <td><?php echo $orderItem->getQty() ?> x </td>
 <td><?php echo $html->encode($orderItem->getName()) ?></td>
-<td><?php $utils->formatMoney($orderItem->getCalculatedPrice()) ?></td>
+<td><?php echo $utils->formatMoney($orderItem->getCalculatedPrice()) ?></td>
 </tr>
 <?php } ?>
 <?php foreach ($order->getOrderTotalLines() as $orderTotalLine) { ?>

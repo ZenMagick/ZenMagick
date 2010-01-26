@@ -53,7 +53,7 @@ class ZMAddressBookController extends ZMController {
      */
     public function processGet($request) {
         $request->getToolbox()->crumbtrail->addCrumb("Account", $request->getToolbox()->net->url(FILENAME_ACCOUNT, '', true, false));
-        $request->getToolbox()->crumbtrail->addCrumb($request->getToolbox()->utils->getTitle(null, false));
+        $request->getToolbox()->crumbtrail->addCrumb($request->getToolbox()->utils->getTitle());
 
         $addressList = ZMAddresses::instance()->getAddressesForAccountId($request->getAccountId());
 

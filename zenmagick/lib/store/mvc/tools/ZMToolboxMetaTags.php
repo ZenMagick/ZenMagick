@@ -75,7 +75,7 @@ class ZMToolboxMetaTags extends ZMToolboxTool {
         $this->initMetaTags();
 
         // default to page name
-        $title = $this->getToolbox()->utils->getTitle(null, false);
+        $title = $this->getToolbox()->utils->getTitle();
         // remove popup prefix
         $title = str_replace('Popup ', '', $title);
 

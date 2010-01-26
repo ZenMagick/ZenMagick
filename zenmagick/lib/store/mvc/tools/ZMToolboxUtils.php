@@ -37,10 +37,9 @@ class ZMToolboxUtils extends ZMToolboxTool {
      * Simple title generator based on the page name.
      *
      * @param string page The page name; default is <code>null</code> for the current page.
-     * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string A reasonable page title.
      */
-    public function getTitle($page=null, $echo=ZM_ECHO_DEFAULT) {
+    public function getTitle($page=null) {
         $title = null == $page ? $this->getRequest()->getRequestId() : $page;
         // special case for static pages
         $title = 'static' != $title ? $title : $this->getRequest()->getSubPageName();
@@ -51,7 +50,6 @@ class ZMToolboxUtils extends ZMToolboxTool {
         $title = ucwords($title);
         $title = zm_l10n_get($title);
 
-        if ($echo) echo $title;
         return $title;
     }
 
@@ -81,10 +79,9 @@ class ZMToolboxUtils extends ZMToolboxTool {
      * @param float amount The amount.
      * @param boolean convert If <code>true</code>, consider <code>$amount</code> to be in default currency and
      *  convert before formatting.
-     * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string The formatted amount.
      */
-    public function formatMoney($amount, $convert=true, $echo=ZM_ECHO_DEFAULT) {
+    public function formatMoney($amount, $convert=true) {
         $currency = ZMCurrencies::instance()->getCurrencyForCode($this->getRequest()->getCurrencyCode());
         if (null == $currency) {
             ZMLogging::instance()->log('no currency found - using default currency', ZMLogging::WARN);
@@ -92,7 +89,6 @@ class ZMToolboxUtils extends ZMToolboxTool {
         }
         $money = $currency->format($amount, $convert);
 
-        if ($echo) echo $money;
         return $money;
     }
 

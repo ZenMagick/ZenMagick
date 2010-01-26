@@ -32,5 +32,5 @@
         <a href="<?php $net->product($product->getId()) ?>"><?php echo $html->encode($product->getName()) ?></a><br/>
         <?php echo $html->more($html->strip($product->getDescription(), false), 120) ?>
     </td>
-    <td class="pprice"><?php $utils->formatMoney($product->getPrice()) ?></td>
+    <td class="pprice"><?php echo $utils->formatMoney($product->getPrice()) ?></td>
 </tr>

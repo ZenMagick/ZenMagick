@@ -35,7 +35,7 @@
         <legend><?php zm_l10n("Confirm Send Gift Certificate") ?></legend>
 
         <p class="note"><?php zm_l10n("You are about to post a Gift Certificate worth %s to %s whose email address is %s.",
-          $utils->formatMoney($gvReceiver->getAmount(), false, false), $gvReceiver->getName(), $gvReceiver->getEmail()) ?>
+          $utils->formatMoney($gvReceiver->getAmount(), false), $gvReceiver->getName(), $gvReceiver->getEmail()) ?>
         </p>
 
         <fieldset>

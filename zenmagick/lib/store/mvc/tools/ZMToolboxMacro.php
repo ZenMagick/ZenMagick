@@ -526,9 +526,9 @@ class ZMToolboxMacro extends ZMToolboxTool {
         $label .= zm_l10n_get($value->getName());
 
         if ($value->isFree() && $product->isFree()) {
-            $label .= zm_l10n_get(' [FREE! (was: %s%s)]', $value->getPricePrefix(), $toolbox->utils->formatMoney($value->getPrice(), true, false));
+            $label .= zm_l10n_get(' [FREE! (was: %s%s)]', $value->getPricePrefix(), $toolbox->utils->formatMoney($value->getPrice()));
         } else if (0 != $value->getPrice()) {
-            $label .= zm_l10n_get(' (%s%s)', $value->getPricePrefix(), $toolbox->utils->formatMoney(abs($value->getPrice()), true, false));
+            $label .= zm_l10n_get(' (%s%s)', $value->getPricePrefix(), $toolbox->utils->formatMoney(abs($value->getPrice())));
         }
         //TODO: onetime and weight
 
@@ -552,19 +552,19 @@ class ZMToolboxMacro extends ZMToolboxTool {
             $html .= zm_l10n_get("Starting at: ");
         }
         if (!$product->isFree() && ($offers->isSpecial() || $offers->isSale())) {
-            $html .= '<span class="strike base">' . $toolbox->utils->formatMoney($offers->getBasePrice($tax), true, false) . '</span> ';
+            $html .= '<span class="strike base">' . $toolbox->utils->formatMoney($offers->getBasePrice($tax)) . '</span> ';
             if ($offers->isSpecial())  {
                 if ($offers->isSale()) {
-                   $html .= '<span class="strike special">' . $toolbox->utils->formatMoney($offers->getSpecialPrice($tax), true, false) . '</span>';
+                   $html .= '<span class="strike special">' . $toolbox->utils->formatMoney($offers->getSpecialPrice($tax)) . '</span>';
                 } else {
-                   $html .= $toolbox->utils->formatMoney($offers->getSpecialPrice($tax), true, false);
+                   $html .= $toolbox->utils->formatMoney($offers->getSpecialPrice($tax));
                 }
             }
             if ($offers->isSale()) {
-               $html .= $toolbox->utils->formatMoney($offers->getSalePrice($tax), true, false);
+               $html .= $toolbox->utils->formatMoney($offers->getSalePrice($tax));
             }
         } else {
-            $html .= $toolbox->utils->formatMoney($offers->getCalculatedPrice($tax), true, false);
+            $html .= $toolbox->utils->formatMoney($offers->getCalculatedPrice($tax));
         }
         $html .= '</span>';
 

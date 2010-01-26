@@ -35,7 +35,7 @@
 <?php zm_l10n("Ordered Items\n") ?>
 -----------------------------------------------
 <?php foreach ($order->getOrderItems() as $orderItem) { ?>
-<?php printf("%3s x %26s  %7s\n", $orderItem->getQty(), $orderItem->getName(), $utils->formatMoney($orderItem->getCalculatedPrice(), true, false)) ?>
+<?php printf("%3s x %26s  %7s\n", $orderItem->getQty(), $orderItem->getName(), $utils->formatMoney($orderItem->getCalculatedPrice())) ?>
 <?php } ?>
 <?php printf("%30s  %s\n", "", "-----------") ?>
 <?php foreach ($order->getOrderTotalLines() as $orderTotalLine) { ?>

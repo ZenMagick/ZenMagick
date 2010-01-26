@@ -52,7 +52,7 @@ class ZMCheckoutGuestController extends ZMController {
      * {@inheritDoc}
      */
     public function preProcess($request) { 
-        $request->getToolbox()->crumbtrail->addCrumb($request->getToolbox()->utils->getTitle(null, false));
+        $request->getToolbox()->crumbtrail->addCrumb($request->getToolbox()->utils->getTitle());
     }
 
     /**

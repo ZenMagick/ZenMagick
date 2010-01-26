@@ -61,6 +61,6 @@
             <?php echo $item->getQty(); ?> x <a href="<?php $net->product($item->getId()) ?>"><?php echo $html->encode($item->getProduct()->getName()); ?></a><br />
         <?php } ?>
         <hr/>
-        <p><img id="cart_progress" src="<?php echo $this->asUrl('images/circle-ball-dark-antialiased.gif') ?>" style="display:none;float:left;" alt="progress" /><?php $utils->formatMoney($request->getShoppingCart()->getTotal()) ?></p>
+        <p><img id="cart_progress" src="<?php echo $this->asUrl('images/circle-ball-dark-antialiased.gif') ?>" style="display:none;float:left;" alt="progress" /><?php echo $utils->formatMoney($request->getShoppingCart()->getTotal()) ?></p>
     </div>
 <?php } ?>

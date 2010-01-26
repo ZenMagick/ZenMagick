@@ -71,7 +71,7 @@ class ZMCheckoutAddressController extends ZMController {
      */
     public function preProcess($request) {
         $request->getToolbox()->crumbtrail->addCrumb("Checkout", $request->getToolbox()->net->url($this->settings_['url'], '', true, false));
-        $request->getToolbox()->crumbtrail->addCrumb($request->getToolbox()->utils->getTitle(null, false));
+        $request->getToolbox()->crumbtrail->addCrumb($request->getToolbox()->utils->getTitle());
 
         $shoppingCart = $request->getShoppingCart();
         $this->viewData_['shoppingCart'] = $shoppingCart;

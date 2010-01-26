@@ -36,7 +36,7 @@ class TestZMShoppingCarts extends ZMTestCase {
         $html = $this->getRequest()->getToolbox()->html;
         $utils = $this->getRequest()->getToolbox()->utils;
         foreach ($shoppingCart->getItems() as $item) {
-            echo $item->getId().":".$html->encode($item->getName())."; qty=".$item->getQuantity().'; '.$utils->formatMoney($item->getItemPrice(), true, false).'/'.$utils->formatMoney($item->getItemTotal(), true, false)."<BR>";
+            echo $item->getId().":".$html->encode($item->getName())."; qty=".$item->getQuantity().'; '.$utils->formatMoney($item->getItemPrice()).'/'.$utils->formatMoney($item->getItemTotal())."<BR>";
             if ($item->hasAttributes()) {
                 foreach ($item->getAttributes() as $attribute) {
                     echo '&nbsp;&nbsp;'.$html->encode($attribute->getName()).":<BR>";

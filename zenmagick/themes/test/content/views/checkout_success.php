@@ -54,7 +54,7 @@
         <fieldset>
             <legend><?php zm_l10n("Gift Certificate Account") ?></legend>
             <p>
-                <?php zm_l10n("You have funds (%s) in your Gift Certificate Account.", $utils->formatMoney($voucherBalance, true, false)) ?><br />
+                <?php zm_l10n("You have funds (%s) in your Gift Certificate Account.", $utils->formatMoney($voucherBalance)) ?><br />
                 <?php $email = '<a href="' . $net->url(FILENAME_GV_SEND, '', false, false) . '">' . zm_l10n_get("email") . '</a>'; ?>
                 <?php zm_l10n("If you want to, you can send those funds by %s to someone.", $email) ?>
             </p>

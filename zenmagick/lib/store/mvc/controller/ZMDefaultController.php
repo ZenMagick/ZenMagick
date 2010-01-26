@@ -55,7 +55,7 @@ class ZMDefaultController extends ZMController {
      * if the controller generates the contents itself.
      */
     function processGet($request) {
-        $request->getToolbox()->crumbtrail->addCrumb($request->getToolbox()->utils->getTitle(null, false));
+        $request->getToolbox()->crumbtrail->addCrumb($request->getToolbox()->utils->getTitle());
 
         return parent::processGet($request);
     }

@@ -30,7 +30,7 @@
       <?php $html->productImageLink($currentProduct) ?>
       <?php echo $html->encode($currentProduct->getDescription()); ?>
     </div>
-    <strong><?php $utils->formatMoney($currentProduct->getPrice()); ?></strong>
+    <strong><?php echo $utils->formatMoney($currentProduct->getPrice()); ?></strong>
     <div class="btn"><input type="submit" class="btn" value="<?php zm_l10n("Add to cart") ?>" /></div>
     <br /><br /><br /><br />
     <?php echo $this->fetch('views/reviews.php'); ?>

@@ -56,7 +56,7 @@
                             <?php $selected = (1 == $utils->getShippingMethodCount($shoppingCart)) || ($method->getShippingId() == $shoppingCart->getShippingMethodId()); ?>
                             <tr class="smethod" onclick="document.getElementById('<?php echo $id ?>').checked = true;">
                                 <td><?php echo $html->encode($method->getName()) ?></td>
-                                <td class="smcost"><?php $utils->formatMoney($method->getCost()) ?></td>
+                                <td class="smcost"><?php echo $utils->formatMoney($method->getCost()) ?></td>
                                 <td class="smbutt"><input type="radio" id="<?php echo $id ?>" name="shipping" value="<?php echo $method->getShippingId() ?>"<?php $form->checked(true, $selected) ?> /></td>
                             </tr>
                         <?php } ?>

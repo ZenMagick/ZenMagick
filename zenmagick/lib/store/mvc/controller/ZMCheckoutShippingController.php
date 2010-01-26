@@ -63,7 +63,7 @@ class ZMCheckoutShippingController extends ZMController {
         }
 
         $request->getToolbox()->crumbtrail->addCrumb("Checkout", $request->getToolbox()->net->url(FILENAME_CHECKOUT_SHIPPING, '', true, false));
-        $request->getToolbox()->crumbtrail->addCrumb($request->getToolbox()->utils->getTitle(null, false));
+        $request->getToolbox()->crumbtrail->addCrumb($request->getToolbox()->utils->getTitle());
 
         $this->viewData_['shoppingCart'] = $shoppingCart;
         $this->viewData_['zm_shipping'] = ZMLoader::make("Shipping");

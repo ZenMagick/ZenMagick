@@ -30,7 +30,7 @@
 <?php } ?>
 
 
-<?php zm_l10n('The Gift Certificate is worth %s', $utils->formatMoney($currentCoupon->getAmount(), false, false)) ?>
+<?php zm_l10n('The Gift Certificate is worth %s', $utils->formatMoney($currentCoupon->getAmount(), false)) ?>
 
 
 <?php zm_l10n("The code to redeem your Gift Certificate is: %s.", $currentCoupon->getCode()) ?>

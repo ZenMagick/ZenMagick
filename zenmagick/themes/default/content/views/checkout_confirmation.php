@@ -45,7 +45,7 @@
                     <?php } ?>
                 </td>
                 <td class="price">
-                    <?php $utils->formatMoney($item->getItemTotal()) ?>
+                    <?php echo $utils->formatMoney($item->getItemTotal()) ?>
                 </td>
             </tr>
         <?php } ?>

@@ -126,7 +126,7 @@ class ot_zenmagick {
             $order->info['tax'] += $detail->getTax();
             $this->output[] = array(
                 'title' => $detail->getTitle(),
-                'text' => $toolbox->utils->formatMoney($detail->getAmount(), true, false),
+                'text' => $toolbox->utils->formatMoney($detail->getAmount()),
                 'value' => $detail->getAmount()
             );
         }

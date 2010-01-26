@@ -55,7 +55,7 @@ class ZMGvFaqController extends ZMController {
      * if the controller generates the contents itself.
      */
     public function processGet($request) {
-        $request->getToolbox()->crumbtrail->addCrumb($request->getToolbox()->utils->getTitle(null, false));
+        $request->getToolbox()->crumbtrail->addCrumb($request->getToolbox()->utils->getTitle());
         return $this->findView();
     }
 
