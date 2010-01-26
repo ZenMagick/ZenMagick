@@ -34,12 +34,12 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
   <head>
-    <title><?php $metaTags->getTitle() ?></title>
+    <title><?php echo $metaTags->getTitle() ?></title>
     <base href="<?php echo $request->getPageBase() ?>" />
     <meta http-equiv="content-type" content="text/html; charset=<?php echo zm_i18n('HTML_CHARSET') ?>" />
     <meta name="generator" content="ZenMagick <?php echo ZMSettings::get('zenmagick.version') ?>" />
-    <meta name="keywords" content="<?php $metaTags->getKeywords()?>" />
-    <meta name="description" content="<?php $metaTags->getDescription()?>" />
+    <meta name="keywords" content="<?php echo $metaTags->getKeywords()?>" />
+    <meta name="description" content="<?php echo $metaTags->getDescription()?>" />
     <?php $utils->cssFile('site.css') ?>
     <?php $utils->cssFile('ie.css', array('prefix' => '<!--[if IE]>', 'suffix' => '<![endif]-->')) ?>
     <?php $utils->jsBottom('common.js') ?>

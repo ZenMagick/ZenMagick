@@ -59,6 +59,8 @@ Release 0.9.9
 - templates: drop $echo parameter in ZMToolboxLocale::shortDate()
 - templates: drop $echo parameter in ZMToolboxUtils::getTitle() and
   formatMoney()
+- templates: drop $echo parameter in ZMToolboxMetaTags::getTitle(),
+  getKeywords() and getDescription()
 
 Release 0.9.8
 - add Savant3 and experimental views (not used yet)

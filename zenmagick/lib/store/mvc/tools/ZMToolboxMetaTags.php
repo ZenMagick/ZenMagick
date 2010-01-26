@@ -68,10 +68,9 @@ class ZMToolboxMetaTags extends ZMToolboxTool {
     /**
      * Returns/echo'es the page title.
      *
-     * @param boolean echo If <code>true</code>, the title will be echo'ed as well as returned.
      * @return string The page title.
      */
-    public function getTitle($echo=ZM_ECHO_DEFAULT) {
+    public function getTitle() {
         $this->initMetaTags();
 
         // default to page name
@@ -120,17 +119,15 @@ class ZMToolboxMetaTags extends ZMToolboxTool {
 
         $title = $this->getToolbox()->html->encode($title);
 
-        if ($echo) echo $title;
         return $title;
     }
 
     /**
      * Returns/echo'es the keywords meta tag value for the current request.
      *
-     * @param boolean echo If <code>true</code>, the meta tag value will be echo'ed as well as returned.
      * @return string The meta tag value.
      */
-    public function getKeywords($echo=ZM_ECHO_DEFAULT) {
+    public function getKeywords() {
         $this->initMetaTags();
         $value = '';
         if (null != $this->product_) {
@@ -148,17 +145,16 @@ class ZMToolboxMetaTags extends ZMToolboxTool {
         $value .= $this->topCategories_;
 
         $value = $this->getToolbox()->html->encode($value);
-        if ($echo) echo $value;
+
         return $value;
     }
 
     /**
      * Returns/echo'es the description meta tag value value for the current request.
      *
-     * @param boolean echo If <code>true</code>, the meta tag value will be echo'ed as well as returned.
      * @return string The meta tag value.
      */
-    public function getDescription($echo=ZM_ECHO_DEFAULT) {
+    public function getDescription() {
         $this->initMetaTags();
         $value = ZMSettings::get('storeName');
         if (0 < strlen($this->formatCrumbtrail())) {
@@ -180,7 +176,7 @@ class ZMToolboxMetaTags extends ZMToolboxTool {
         }
 
         $value = $this->getToolbox()->html->encode($value);
-        if ($echo) echo $value;
+
         return $value;
     }
 

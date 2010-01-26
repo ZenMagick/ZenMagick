@@ -3,11 +3,11 @@
   <head>
     <meta http-equiv="content-type" content="text/html; charset=<?php echo zm_i18n('HTML_CHARSET') ?>" />
     <meta name="generator" content="ZenMagick <?php echo ZMSettings::get('zenmagick.version') ?>" />
-    <meta name="keywords" content="<?php $metaTags->getKeywords()?>" />
-    <meta name="description" content="<?php $metaTags->getDescription()?>" />
+    <meta name="keywords" content="<?php echo $metaTags->getKeywords()?>" />
+    <meta name="description" content="<?php echo $metaTags->getDescription()?>" />
     <?php $utils->cssFile('site.css') ?>
     <?php $utils->cssFile('theme.css') ?>
-    <title><?php $metaTags->getTitle() ?></title>
+    <title><?php echo $metaTags->getTitle() ?></title>
   </head>
   <body>
   <!-- wrap starts here -->
