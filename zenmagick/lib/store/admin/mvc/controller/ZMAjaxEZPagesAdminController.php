@@ -31,7 +31,7 @@
  * @package org.zenmagick.store.admin.mvc.controller
  * @version $Id$
  */
-class ZMAjaxEZPagesAdminController.php extends ZMAjaxController {
+class ZMAjaxEZPagesAdminController extends ZMAjaxController {
     private $response_;
 
 
