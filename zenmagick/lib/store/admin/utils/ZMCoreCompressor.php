@@ -46,6 +46,7 @@ class ZMCoreCompressor extends ZMPhpCompressor {
         $this->setOut(Runtime::getInstallationPath().'core.php');
         $this->setTemp(Runtime::getInstallationPath());
         $this->setStripCode(ZMSettings::get('isStripCore'));
+        $this->setDebug(!ZMSettings::get('isStripCore'));
     }
 
 
@@ -80,7 +81,7 @@ class ZMCoreCompressor extends ZMPhpCompressor {
      */
     public function compress() {
         // add some levels to make plugins load last
-        $this->preparePlugins($this->pluginsPreparedFolder_.DIRECTORY_SEPARATOR.'1'.DIRECTORY_SEPARATOR.'2'.DIRECTORY_SEPARATOR.'3'.DIRECTORY_SEPARATOR.'4');
+        $this->preparePlugins(ZMFileutils::mkPath(array($this->pluginsPreparedFolder_, '1', '2', '3', '4', '5')));
         return parent::compress();
     }
 
