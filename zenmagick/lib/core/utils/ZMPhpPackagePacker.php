@@ -33,11 +33,12 @@
  * @version $Id$
  */
 class ZMPhpPackagePacker {
-    protected $rootFolder;
-    protected $outputFilename;
-    protected $tempFolder;
-    private $debug;
-    protected $treeMap;
+    protected $rootFolder_;
+    protected $outputFilename_;
+    protected $tempFolder_;
+    private $debug_;
+    protected $treeMap_;
+    private $resolveInheritance_;
 
 
     /**
@@ -48,10 +49,11 @@ class ZMPhpPackagePacker {
      * @param string temp A temp folder for transient files and folders; default is <code>null</code>.
      */
     function __construct($root, $out, $temp=null) {
-        $this->rootFolder = $root;
-        $this->outputFilename = $out;
+        $this->rootFolder_ = $root;
+        $this->outputFilename_ = $out;
         $this->setTemp($temp);
-        $this->debug = false;
+        $this->debug_ = false;
+        $this->resolveInheritance_ = false;
     }
 
 
@@ -61,10 +63,21 @@ class ZMPhpPackagePacker {
      * @param string temp A temp folder for transient files and folders; default is <code>null</code>.
      */
     public function setTemp($temp) {
-        $this->tempFolder = $temp;
-        if (null == $this->tempFolder) {
-            $this->tempFolder = $this->outputFilename.'.tmp';
+        $this->tempFolder_ = $temp;
+        if (null == $this->tempFolder_) {
+            $this->tempFolder_ = $this->outputFilename_.'.tmp';
         }
+    }
+
+    /**
+     * Set the resolveInheritance flag.
+     *
+     * <p>Default is false - that should be enough for PEAR compatible packages.</p>
+     *
+     * @param boolean resolveInheritance if <code>true</code> try to resolve inheritance as determined by analysing the PHP source.
+     */
+    public function setResolveInheritance($resolveInheritance) {
+        $this->resolveInheritance_ = $resolveInheritance;
     }
 
     /**
@@ -73,7 +86,7 @@ class ZMPhpPackagePacker {
      * @param boolean debug The new debug value.
      */
     public function setDebug($debug) {
-        $this->debug = $debug;
+        $this->debug_ = $debug;
     }
 
     /**
@@ -134,7 +147,7 @@ class ZMPhpPackagePacker {
         $this->clean();
         $this->prepareFiles();
         $this->compressFiles($strip);
-        if (!$this->debug) {
+        if (!$this->debug_) {
             $this->clean();
         }
     }
@@ -143,8 +156,8 @@ class ZMPhpPackagePacker {
      * Clean up temp stuff.
      */
     public function clean() {
-        ZMFileUtils::rmdir($this->tempFolder);
-        ZMFileUtils::rmdir($this->outputFilename.'.prep'.DIRECTORY_SEPARATOR);
+        ZMFileUtils::rmdir($this->tempFolder_);
+        ZMFileUtils::rmdir($this->outputFilename_.'.prep'.DIRECTORY_SEPARATOR);
     }
 
     /**
@@ -203,17 +216,26 @@ class ZMPhpPackagePacker {
     }
 
     /**
+     * Get a list of all files to process.
+     *
+     * @return array A list of file names.
+     */
+    protected function getFileList() {
+        return ZMLoader::findIncludes($this->rootFolder_, '.php', true);
+    }
+
+    /**
      * Prepare the original files to be processed by <code>ZMPhpCompressor</code>.
      */
     protected function prepareFiles() {
-        if ($this->debug) {
-            echo 'preparing '.$this->rootFolder."<br>\n";
+        if ($this->debug_) {
+            echo 'preparing files... '."<br>\n";
         }
 
         $fileMap = array();
         $dependsOn = array();
         $classInfo = array();
-        $files = ZMLoader::findIncludes($this->rootFolder, '.php', true);
+        $files = $this->getFileList();
         foreach ($files as $file) {
             if ($this->ignoreFile($file)) {
                 continue;
@@ -232,24 +254,32 @@ class ZMPhpPackagePacker {
                         $dependsOn[$class][] = str_replace('.php', '', basename($matches[2]));
                     }
                 }
+                // or requested
+                if ($this->resolveInheritance_) {
+                    $dependsOn[$class] = array_merge($dependsOn[$class],$classInfo[$class]['interfaces']);
+                    if (!empty($classInfo[$class]['parent'])) {
+                        $dependsOn[$class][] = $classInfo[$class]['parent'];
+                    }
+                }
             }
         }
 
         $dependsOn = $this->finalizeDependencies($dependsOn, $files);
 
-        if ($this->debug) {
-            var_dump($files);
+        if ($this->debug_) {
+            echo "* processing ".count($files)." files<BR>\n";
+            echo "* dependencies:<pre>";
             var_dump($dependsOn);
-            var_dump($classInfo);
+            echo "</pre>";
         }
 
         $resolved = array();
 
         $levelIndex = 0;
-        $this->treeMap = array();
+        $this->treeMap_ = array();
         // while not all resolved
         while (count($resolved) < count($dependsOn)) {
-            if ($this->debug && 5 < $levelIndex) {
+            if ($this->debug_) {
                 echo "<br>\n<br>\n=======".$levelIndex."============<BR>\n";
             }
             $level = array();
@@ -265,7 +295,7 @@ class ZMPhpPackagePacker {
                 foreach ($dependencies as $dclass) {
                     if (!isset($resolved[$dclass])) {
                         $clear = false;
-                        if ($this->debug) echo '['.$class."] missing dep: ".$dclass."<BR>\n";
+                        if ($this->debug_) echo '['.$class."] missing dep: ".$dclass."<BR>\n";
                     }
                 }
 
@@ -274,22 +304,23 @@ class ZMPhpPackagePacker {
                 }
             }
 
-            $this->treeMap[$levelIndex] = $level;
+            $this->treeMap_[$levelIndex] = $level;
             $resolved = array_merge($resolved, $level);
 
             $levelIndex++;
 
             if (10 == $levelIndex) {
+                ZMLogging::instance()->log('max nesting level - aborting');
                 break;
             }
         }
 
-        if ($this->debug) {
+        if ($this->debug_) {
             echo count($resolved) . ' of ' . count($dependsOn) . " classes resolved<br>\n";
         }
 
-        $currentDir = $this->outputFilename.'.prep'.DIRECTORY_SEPARATOR;
-        foreach ($this->treeMap as $level => $classes) {
+        $currentDir = $this->outputFilename_.'.prep'.DIRECTORY_SEPARATOR;
+        foreach ($this->treeMap_ as $level => $classes) {
             if (0 < $level) {
                 $currentDir .= $level.DIRECTORY_SEPARATOR;
             }
@@ -330,12 +361,12 @@ class ZMPhpPackagePacker {
      */
     protected function compressFiles($strip=true) {
         $compressor = ZMLoader::make('PhpCompressor');
-        $compressor->setRoot($this->outputFilename.'.prep'.DIRECTORY_SEPARATOR);
-        $compressor->setOut($this->outputFilename);
-        $compressor->setTemp($this->tempFolder);
+        $compressor->setRoot($this->outputFilename_.'.prep'.DIRECTORY_SEPARATOR);
+        $compressor->setOut($this->outputFilename_);
+        $compressor->setTemp($this->tempFolder_);
         $compressor->setStripCode($strip);
         $compressor->compress();
-        if ($this->debug) {
+        if ($this->debug_) {
             foreach ($compressor->getErrors() as $error) {
                 echo $error."<br>\n";
             }

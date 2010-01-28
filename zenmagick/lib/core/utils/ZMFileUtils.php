@@ -293,14 +293,11 @@ class ZMFileUtils {
      */
     public static function getFileLines($file) {
         $lines = array();
+
         if (file_exists($file)) {
-            $handle = @fopen($file, 'rb');
-            if ($handle) {
-                while (!feof($handle)) {
-                    $line = rtrim(fgets($handle, 4096));
-                    array_push($lines, $line);
-                }
-                fclose($handle);
+            $lines = file($file);
+            foreach ($lines as $ii => $line) {
+                $lines[$ii] = rtrim($line);
             }
         }
 

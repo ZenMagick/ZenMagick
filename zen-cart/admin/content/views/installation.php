@@ -98,16 +98,17 @@
     // update core.php
     if (isset($_POST)) {
         $didGenerate = false;
+        $coreCompressor->setDebug(!ZMSettings::get('isStripCore'));
         if (array_key_exists('singleCore', $_POST) && !$coreCompressor->isEnabled()) {
             // allow for more time to run tests
             set_time_limit(300);
-            $coreCompressor->compress();
+            $coreCompressor->packFiles(ZMSettings::get('isStripCore'));
             $didGenerate = true;
         }
         if (array_key_exists('singleCoreGenerate', $_POST)) {
             // allow for more time to run tests
             set_time_limit(300);
-            $coreCompressor->compress();
+            $coreCompressor->packFiles(ZMSettings::get('isStripCore'));
             $didGenerate = true;
         }
 

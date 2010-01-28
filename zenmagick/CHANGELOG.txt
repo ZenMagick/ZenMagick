@@ -64,6 +64,7 @@ Release 0.9.9
 - admin: drop $echo parameter in ZMToolboxAdmin::url()
 - templates: drop $echo parameter in ZMToolboxMacro::phpinfo(),
   formatAddress(), showBanner(), productPrice()
+- reimplement ZMCoreCompressor based on ZMPhpPackagePacker
 
 Release 0.9.8
 - add Savant3 and experimental views (not used yet)

@@ -31,22 +31,14 @@
  * @package org.zenmagick.store.admin.utils
  * @version $Id$
  */
-class ZMCoreCompressor extends ZMPhpCompressor {
-    private $pluginsPreparedFolder_;
-
+class ZMCoreCompressor extends ZMPhpPackagePacker {
 
     /**
      * Create new instance.
      */
     function __construct() {
-        parent::__construct();
-        $this->pluginsPreparedFolder_ = Runtime::getInstallationPath().'plugins.prepared';
-
-        $this->setRoot(array(Runtime::getInstallationPath().'lib', $this->pluginsPreparedFolder_));
-        $this->setOut(Runtime::getInstallationPath().'core.php');
-        $this->setTemp(Runtime::getInstallationPath());
-        $this->setStripCode(ZMSettings::get('isStripCore'));
-        $this->setDebug(!ZMSettings::get('isStripCore'));
+        parent::__construct(null, Runtime::getInstallationPath().'core.php', Runtime::getInstallationPath().'core.tmp');
+        $this->setResolveInheritance(true);
     }
 
 
@@ -54,7 +46,7 @@ class ZMCoreCompressor extends ZMPhpCompressor {
      * Disable / remove the core.php file, effectively disabling the use of it.
      */
     public function disable() {
-        @unlink($this->outputFilename_);
+        @unlink(Runtime::getInstallationPath().'core.php');
     }
 
     /**
@@ -63,40 +55,66 @@ class ZMCoreCompressor extends ZMPhpCompressor {
      * @return boolean <code>true</code> if core.php exists, <code>false</code> if not.
      */
     public function isEnabled() {
-        return file_exists($this->outputFilename_);
+        return file_exists(Runtime::getInstallationPath().'core.php');
+    }
+
+    /**
+     * Get errors.
+     *
+     * @return array List of text messages.
+     */
+    public function getErrors() {
+        return array();
+    }
+
+    /**
+     * Check for errors.
+     *
+     * @return boolean <code>true</code> if errors exist.
+     */
+    public function hasErrors() {
+        return 0 != count($this->getErrors);
     }
 
     /**
      * Clean up all temp. files.
      */
     public function clean() {
-        parent::clean();
-        ZMFileUtils::rmdir($this->pluginsPreparedFolder_);
+        //parent::clean();
     }
 
     /**
-     * Compress accoding to the current settings.
-     *
-     * @return boolean <code>true</code> if successful, <code>false</code> on failure.
+     * {@inheritDoc}
      */
-    public function compress() {
-        // add some levels to make plugins load last
-        $this->preparePlugins(ZMFileutils::mkPath(array($this->pluginsPreparedFolder_, '1', '2', '3', '4', '5')));
-        return parent::compress();
-    }
-
-    /**
-     * Prepare plugin files.
-     *
-     * <p>Prepare those plugin files that can be compressed.</p>
-     *
-     * @param string out The output directory.
-     */
-    private function preparePlugins($out) {
-        if (!ZMLangUtils::endsWith($out, DIRECTORY_SEPARATOR)) {
-            $out .= DIRECTORY_SEPARATOR;
+    public function finalizeDependencies($dependencies, $files) {
+        $markResolved = array('Cache_Lite', 'ZMException', 'ZMSavant', 'ZMTestCase', 'ZMWebTestCase', 'ZMHtmlReporter', 'ZMArrayEqualExpectation');
+        foreach ($markResolved as $class) {
+            $dependencies[$class] = array();
         }
+        foreach ($dependencies as $name => $list) {
+            if (false !== strpos($name, 'packed')) {
+                $dependencies[$name] = array();
+            }
+        }
+        return $dependencies;
+    }
 
+    /**
+     * {@inheritDoc}
+     */
+    protected function getFileList() {
+        $libFiles = ZMLoader::findIncludes(Runtime::getInstallationPath().'lib'.DIRECTORY_SEPARATOR, '.php', true);
+        $pluginFiles = $this->getPluginFiles();
+        return array_merge($libFiles, $pluginFiles);
+    }
+
+    /**
+     * Build list of all plugin files to be included.
+     *
+     * @param array File list.
+     */
+    private function getPluginFiles() {
+        $pluginFiles = array();
         foreach (ZMPlugins::instance()->getAllPlugins() as $type => $plugins) {
             foreach ($plugins as $plugin) {
                 if (!$plugin->isEnabled()) {
@@ -113,7 +131,7 @@ class ZMCoreCompressor extends ZMPhpCompressor {
                         $noDir = true;
                     }
                     if ($noDir || ZMPlugin::LP_PLUGIN == $flag) {
-                        $files = array($pluginDir.$plugin->getId().'.php');
+                        $files = array($pluginDir.get_class($plugin).'.php');
                     } else {
                         $files = ZMLoader::findIncludes($pluginDir, '.php', ZMPlugin::LP_FOLDER != $flag);
                     }
@@ -127,52 +145,13 @@ class ZMCoreCompressor extends ZMPhpCompressor {
                             ZMLogging::instance()->log('unable to read plugin source: '.$file, ZMLogging::WARN);
                             continue;
                         }
-                        if (!empty($relDir)) {
-                            ZMFileUtils::mkdir($pluginBase . $relDir);
-                        }
-                        $outfile = $pluginBase . $relDir . basename($file);
-
-                        if (!$handle = fopen($outfile, 'ab')) {
-                            array_push($this->errors_, 'could not open file for writing ' . $outfile);
-                            return;
-                        }
-
-                        if (false === fwrite($handle, $source)) {
-                            array_push($this->errors_, 'could not write to file ' . $outfile);
-                            return;
-                        }
-                  
-                        fclose($handle);
-                        ZMFileUtils::setFilePerms($outfile);
+                        $pluginFiles[] = $file;
                     }
                 }
             }
         }
-    }
 
-    /**
-     * {@inheritDoc}
-     */
-    protected function finaliseFiles($files) {
-        // some need to be in order :/
-        $loadFirst = array(
-            implode(DIRECTORY_SEPARATOR, array('1', 'ZMObject.php')),
-            implode(DIRECTORY_SEPARATOR, array('1', 'ZMSettings.php')),
-            implode(DIRECTORY_SEPARATOR, array('1', 'defaults.php')),
-            implode(DIRECTORY_SEPARATOR, array('1', '2', '3', 'ZMEvents.php')),
-            implode(DIRECTORY_SEPARATOR, array('1', '2', 'Events.php')),
-        );
-        $tmp2 = array();
-        foreach ($loadFirst as $first) {
-            $tmp2[] = $files[$first];
-        }
-        foreach ($files as $key => $file) {
-            if (!in_array($key, $loadFirst)) {
-                $tmp2[] = $file;
-            }
-        }
-
-        return $tmp2;
+        return $pluginFiles;
     }
 
 }
