@@ -80,7 +80,7 @@ class ZMCoreCompressor extends ZMPhpPackagePacker {
      * Clean up all temp. files.
      */
     public function clean() {
-        //parent::clean();
+        parent::clean();
     }
 
     /**
