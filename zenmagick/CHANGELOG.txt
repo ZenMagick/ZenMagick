@@ -76,6 +76,11 @@ Release 0.9.9
 	renamed to trackLink()], ajax(), rssFeed(), resultListBack(),
 	resultListNext() and url()
 - remove setting 'isEchoHTML' and define ZM_ECHO_HTML
+- full: drop docs, pub, download and media folder
+- full: remove classic and template_default template folder
+- full: SQL: disable downloads (attributes), set default template to 'default'
+  (the default ZenMagick theme id)
+- installer: drop welcome, change location of not-installed page
 
 Release 0.9.8
 - add Savant3 and experimental views (not used yet)

@@ -10,13 +10,19 @@
 
 
     <!-- build full release -->
-    <target name="full-release" depends="mod-release" description="Build full release including zen cart.">
+    <!--target name="full-release" depends="mod-release" description="Build full release including zen cart."-->
+    <target name="full-release" description="Build full release including zen cart.">
         <mkdir dir="${release.full.dir}" />
         <!-- overwrite to get a fresh copy -->
         <copy todir="${release.full.dir}" overwrite="true">
             <fileset dir="${zencart.base.dir}">
                 <exclude name=".git/**" />
                 <exclude name="extras/**" />
+                <exclude name="docs/**" />
+                <!-- downloads / music media -->
+                <exclude name="pub/**" />
+                <exclude name="media/**" />
+                <exclude name="download/**" />
             </fileset>
         </copy>
         <!-- copy extras folder into install_zc to make it more likely it gets removed... -->
@@ -47,6 +53,23 @@
         <copy file="${zenmagick.src.dir}/lib/store/etc/sql/mysql/token_install.sql" tofile="${release.full.dir}/zc_install/sql/plugins/mysql_token_install.sql" />
         <copy file="${basedir}/etc/build/full/sql/mysql_default_sideboxes.sql" todir="${release.full.dir}/zc_install/sql/plugins/" />
         <copy file="${basedir}/etc/build/full/sql/mysql_other.sql" todir="${release.full.dir}/zc_install/sql/plugins/" />
+
+        <!-- remove unused zencart code -->
+        <antcall target="drop-unused-zencart" />
+
+        <!-- update install needed url -->
+        <replaceregexp flags="m">
+            <fileset file="${release.full.dir}/includes/application_top.php" />
+            <regexp pattern="includes\/templates\/template_default\/templates\/tpl_zc_install_suggested_default.php"/>
+            <substitution expression='zc_install/not_installed.php' />
+        </replaceregexp>
+        <copy file="${basedir}/etc/build/full/files/not_installed.php" todir="${release.full.dir}/zc_install/" />
+
+        <!-- dump welcome page -->
+        <antcall target="dump-welcome-install"></antcall>
+
+        <!-- apply branding -->
+        <antcall target="apply-branding" />
 
         <!-- wrap it all up -->
         <unzip src="${dist.dir}/zenmagick-${zenmagick.version}.zip" dest="${release.full.dir}" />
@@ -261,6 +284,46 @@
             <regexp pattern="^.*phpbb.*$"/>
             <substitution expression='' />
         </replaceregexp>
+    </target>
+
+    <!-- remove welcome from installation -->
+    <target name="dump-welcome-install" description="Remove welcome dialog from installation.">
+        <!-- fix redirect to skip phpBB -->
+        <replaceregexp>
+            <fileset file="${release.full.dir}/zc_install/index.php" />
+            <regexp pattern="'index'"/>
+            <substitution expression="'license'" />
+        </replaceregexp>
+        <delete includeemptydirs="true">
+            <fileset dir="${release.full.dir}/zc_install/includes/modules/pages/index" />
+            <fileset file="${release.full.dir}/zc_install/includes/templates/template_default/templates/index_default.php" />
+        </delete>
+        <replaceregexp flags="m">
+            <fileset file="${release.full.dir}/zc_install/includes/templates/template_default/sideboxes/navigation.php" />
+            <regexp pattern="^.*welcome.*$"/>
+            <substitution expression='' />
+        </replaceregexp>
+    </target>
+
+    <!-- remove unused zencart code -->
+    <target name="drop-unused-zencart" description="Remove unused zencart code from installation.">
+        <delete includeemptydirs="true">
+            <fileset dir="${release.full.dir}/includes/templates/classic" />
+            <fileset dir="${release.full.dir}/includes/templates/template_default" />
+            <fileset dir="${release.full.dir}/includes/languages/classic" />
+            <fileset dir="${release.full.dir}/includes/languages/english/classic" />
+            <fileset dir="${release.full.dir}/includes/languages/english/extra_definitions/classic" />
+            <fileset dir="${release.full.dir}/includes/languages/english/html_includes/classic" />
+            <fileset dir="${release.full.dir}/includes/languages/english/modules/order_total/classic" />
+            <fileset dir="${release.full.dir}/includes/languages/english/modules/payment/classic" />
+            <fileset dir="${release.full.dir}/includes/languages/english/modules/shipping/classic" />
+            <fileset dir="${release.full.dir}/includes/modules/classic" />
+            <fileset dir="${release.full.dir}/includes/modules/sideboxes/classic" />
+        </delete>
+    </target>
+
+    <!-- remove unused zencart code -->
+    <target name="apply-branding" description="Apply ZenMagick branding.">
     </target>
 
 </project>
