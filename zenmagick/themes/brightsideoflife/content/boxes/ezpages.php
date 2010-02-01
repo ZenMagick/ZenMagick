@@ -31,7 +31,7 @@
     <div id="sb_ezpages" class="box">
       <ul class="sidemenu">
         <?php foreach ($pages as $page) { ?>
-            <li><?php $html->ezpageLink($page->getId())?></li>
+            <li><?php echo $html->ezpageLink($page->getId())?></li>
         <?php } ?>
       </ul>
     </div>

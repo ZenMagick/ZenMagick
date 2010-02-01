@@ -166,7 +166,7 @@ class ZMToolboxMacro extends ZMToolboxTool {
                     $html = $img;
                 } else {
                     $html = '<a href="'.$toolbox->net->redirect('banner', $banner->getId(), false).'"'.
-                                $toolbox->html->hrefTarget($banner->isNewWin(), false).'>'.$img.'</a>';
+                                $toolbox->html->hrefTarget($banner->isNewWin()).'>'.$img.'</a>';
                 }
             }
 

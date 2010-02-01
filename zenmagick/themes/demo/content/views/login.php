@@ -30,12 +30,12 @@
     <div>
       <label for="email_address"><?php zm_l10n("E-Mail Address") ?></label>
       <input type="text" id="email_address" name="email_address" <?php echo $form->fieldLength(TABLE_CUSTOMERS, 'customers_email_address') ?> /> 
-      <?php $html->fieldMessages('email_address') ?>
+      <?php echo $html->fieldMessages('email_address') ?>
     </div>
     <div>
       <label for="password"><?php zm_l10n("Password") ?></label>
       <input type="password" id="password" name="password" <?php echo $form->fieldLength(TABLE_CUSTOMERS, 'customers_password') ?> /> 
-      <?php $html->fieldMessages('password') ?>
+      <?php echo $html->fieldMessages('password') ?>
     </div>
   </fieldset>
   <div class="btn"><input type="submit" class="btn" value="<?php zm_l10n("Submit") ?>" /></div>
@@ -54,7 +54,7 @@
       <div>
         <label for="email_address_guest"><?php zm_l10n("E-Mail Address") ?></label>
         <input type="text" id="email_address_guest" name="email_address" <?php echo $form->fieldLength(TABLE_CUSTOMERS, 'customers_email_address') ?> /> 
-        <?php $html->fieldMessages('email_address') ?>
+        <?php echo $html->fieldMessages('email_address') ?>
         <input type="submit" class="btn" value="<?php zm_l10n("Checkout") ?>" />
       </div>
     </fieldset>

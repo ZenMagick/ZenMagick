@@ -74,7 +74,7 @@
     <fieldset style="position:relative;">
         <legend>Image Options</legend>
         <div><input type="hidden" name="currentImage" value="<?php echo $category->getImage() ?>"></div>
-        <?php $toolbox->html->image($category->getImageInfo(), ZMProducts::IMAGE_SMALL, 'style=position:absolute;top:6px;right:30px;') ?>
+        <?php echo $toolbox->html->image($category->getImageInfo(), ZMProducts::IMAGE_SMALL, 'style=position:absolute;top:6px;right:30px;') ?>
         <p class="opt"><label for="categoryImage">Upload Image</label><input type="file" id="categoryImage" name="categoryImage"></p>
         <p class="opt">
           <label for="imgDir">... to directory</label><select id="imgDir" name="imgDir">

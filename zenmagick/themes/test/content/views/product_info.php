@@ -31,10 +31,10 @@
   <?php $imageInfo = $currentProduct->getImageInfo() ?>
   <div>
       <?php if ($imageInfo->hasLargeImage()) { ?>
-          <a href="<?php echo $net->absoluteURL($imageInfo->getLargeImage()) ?>" rel="lightbox[gallery]"><?php $html->image($imageInfo, ZMProducts::IMAGE_MEDIUM) ?></a>
+          <a href="<?php echo $net->absoluteURL($imageInfo->getLargeImage()) ?>" rel="lightbox[gallery]"><?php echo $html->image($imageInfo, ZMProducts::IMAGE_MEDIUM) ?></a>
           <br><a href="<?php echo $net->absoluteURL($imageInfo->getLargeImage()) ?>" rel="lightbox[gallery]">CLick to enlarge - FTW!</a>
       <?php } else { ?>
-          <?php $html->image($imageInfo, ZMProducts::IMAGE_MEDIUM) ?>
+          <?php echo $html->image($imageInfo, ZMProducts::IMAGE_MEDIUM) ?>
       <?php } ?>
       <div id="desc"><?php echo $currentProduct->getDescription() ?></div>
       <?php if (null != $manufacturer) { ?>

@@ -41,10 +41,9 @@ class ToolboxHtml extends ZMToolboxHtml {
      *  or <code>ZMProducts::IMAGE_LARGE</code>; default is <code>>ZMProducts::IMAGE_SMALL</code>.
      * @param mixed parameter Additional parameter for the <code>&lt;mg&gt;</code> tag; can be either
      *  a query string style list of name/value pairs or a map.
-     * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string A fully formated HTML <code>&lt;img&gt;</code> tag.
      */
-    public function image($imageInfo, $format=ZMProducts::IMAGE_SMALL, $parameter='', $echo=ZM_ECHO_DEFAULT) {
+    public function image($imageInfo, $format=ZMProducts::IMAGE_SMALL, $parameter='') {
         if (null === $imageInfo) {
             return;
         }
@@ -72,7 +71,6 @@ class ToolboxHtml extends ZMToolboxHtml {
         $html .= $imageInfo->getFormattedParameter();
         $html .= $slash.'>';
 
-        if ($echo) echo $html;
         return $html;
     }
 
@@ -80,10 +78,9 @@ class ToolboxHtml extends ZMToolboxHtml {
      * Strip HTML tags from the given text.
      *
      * @param string text The text to clean up.
-     * @param boolean echo If <code>true</code>, the stripped text will be echo'ed as well as returned.
      * @return string The stripped text.
      */
-    public function strip($text, $echo=ZM_ECHO_DEFAULT) {
+    public function strip($text) {
         $clean = $text;
 
         $clean = preg_replace('/\r/', ' ', $clean);
@@ -110,7 +107,6 @@ class ToolboxHtml extends ZMToolboxHtml {
         // remove other html code to prevent problems on display of text
         $clean = strip_tags($clean);
 
-        if ($echo) echo $clean;
         return $clean;
     }
 
@@ -123,10 +119,9 @@ class ToolboxHtml extends ZMToolboxHtml {
      *
      * @param string text The link text (can be plain text or HTML).
      * @param array attr Optional HTML attribute map; default is an empty array().
-     * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string A fully formated HTML <code>&lt;a&gt;</code> tag.
      */
-    public function backLink($text, $attr=array(), $echo=ZM_ECHO_DEFAULT) {
+    public function backLink($text, $attr=array()) {
         $link = substr(zen_back_link(), 0, -1);
         foreach ($attr as $name => $value) {
             if (null !== $value) {
@@ -135,7 +130,6 @@ class ToolboxHtml extends ZMToolboxHtml {
         }
         $link .= '>' .  $text . '</a>';
 
-        if ($echo) echo $link;
         return $link;
     }
 
@@ -147,13 +141,12 @@ class ToolboxHtml extends ZMToolboxHtml {
      * @param integer id The EZ page id.
      * @param string text Optional link text; default is <code>null</code> to use the ezpage title as link text.
      * @param array attr Optional HTML attribute map; default is an empty array().
-     * @param boolean echo If <code>true</code>, the link will be echo'ed as well as returned.
      * @return string A full HTML link.
      */
-    public function ezpageLink($id, $text=null, $attr=array(), $echo=ZM_ECHO_DEFAULT) {
+    public function ezpageLink($id, $text=null, $attr=array()) {
         $toolbox = $this->getToolbox();
         $page = ZMEZPages::instance()->getPageForId($id);
-        $link = '<a href="' . $toolbox->net->ezpage($page, false) . '"' . $this->hrefTarget($page->isNewWin(), false);
+        $link = '<a href="' . $toolbox->net->ezpage($page, false) . '"' . $this->hrefTarget($page->isNewWin());
         foreach ($attr as $name => $value) {
             if (null !== $value) {
                 $link .= ' '.$name.'="'.$value.'"';
@@ -161,7 +154,6 @@ class ToolboxHtml extends ZMToolboxHtml {
         }
         $link .=  '>' . (null == $text ? $this->encode($page->getTitle()) : $text) . '</a>';
 
-        if ($echo) echo $link;
         return $link;
     }
 
@@ -176,10 +168,9 @@ class ToolboxHtml extends ZMToolboxHtml {
      * @param array attr Optional HTML attribute map; default is <code>null</code>.
      * @param string format Can be either of <code>ZMProducts::IMAGE_SMALL</code>, <code>ZMProducts::IMAGE_MEDIUM</code> 
      *  or <code>ZMProducts::IMAGE_LARGE</code>; default is <code>ZMProducts::IMAGE_SMALL</code>.
-     * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string A fully formated HTML <code>&lt;a&gt;</code> tag.
      */
-    public function productImageLink($product, $categoryId=null, $attr=null, $format=ZMProducts::IMAGE_SMALL, $echo=ZM_ECHO_DEFAULT) {
+    public function productImageLink($product, $categoryId=null, $attr=null, $format=ZMProducts::IMAGE_SMALL) {
         $defaults = array('class' => 'product');
         if (null === $attr) {
             $attr = $defaults;
@@ -197,7 +188,6 @@ class ToolboxHtml extends ZMToolboxHtml {
         $html .= '>'.$this->image($product->getImageInfo(), $format, '', false);
         $html .= '</a>';
 
-        if ($echo) echo $html;
         return $html;
     }
 
@@ -207,13 +197,11 @@ class ToolboxHtml extends ZMToolboxHtml {
      * <p>Behaviour is controlled with the <em>ZenMagick</em> setting <code>isJSTarget</code>.</p>
      *
      * @param boolean newWin If <code>true</code>, HTML for opening in a new window will be created.
-     * @param boolean echo If <code>true</code>, the formatted text will be echo'ed as well as returned.
      * @return string A preformatted attribute in the form ' name="value"'
      */
-    public function hrefTarget($newWin=true, $echo=ZM_ECHO_DEFAULT) {
+    public function hrefTarget($newWin=true) {
         $text = $newWin ? (ZMSettings::get('isJSTarget') ? ' onclick="newWin(this); return false;"' : ' target="_blank"') : '';
 
-        if ($echo) echo $text;
         return $text;
     }
 
@@ -230,7 +218,7 @@ class ToolboxHtml extends ZMToolboxHtml {
      * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string HTML unordered list of messages or <code>null</code>.
      */
-    public function fieldMessages($name, $echo=ZM_ECHO_DEFAULT) {
+    public function fieldMessages($name) {
         if (!ZMMessages::instance()->hasMessages($name)) {
             return null;
         }
@@ -241,7 +229,6 @@ class ToolboxHtml extends ZMToolboxHtml {
         }
         $html .= '</ul>';
 
-        if ($echo) echo $html;
         return $html;
     }
 

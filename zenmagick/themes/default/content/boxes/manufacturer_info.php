@@ -39,7 +39,7 @@
                         $url = $net->redirect('manufacturer', $manufacturer->getId(), false);
                         $target = ZMSettings::get('isJSTarget') ? ' onclick="newWin(this); return false;"' : ' target="_blank"';
                     }
-                    ?><a href="<?php echo $url ?>"<?php echo $target ?>><?php $html->image($manufacturer->getImageInfo()) ?></a><?php
+                    ?><a href="<?php echo $url ?>"<?php echo $target ?>><?php echo $html->image($manufacturer->getImageInfo()) ?></a><?php
                     if (!ZMLangUtils::isEmpty($manufacturer->getUrl())) {
                         $url = $net->url('category', 'manufacturers_id='.$manufacturer->getId(), false, false);
                         ?><a href="<?php echo $url ?>"<?php echo $target ?>><?php zm_l10n("Other Products") ?></a><?php

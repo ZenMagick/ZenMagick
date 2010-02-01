@@ -30,7 +30,7 @@
     ?>
     <h3><a href="<?php $net->url(FILENAME_FEATURED_PRODUCTS) ?>"><?php zm_l10n("[More]") ?></a><?php zm_l10n("Featured") ?></h3>
     <div id="sb_featured" class="box">
-        <p><?php $html->productImageLink($product) ?></p>
+        <p><?php echo $html->productImageLink($product) ?></p>
         <p><a href="<?php $net->product($product->getId()) ?>"><?php echo $html->encode($product->getName()) ?></a></p>
         <?php $offers = $product->getOffers(); ?>
         <p><?php echo $utils->formatMoney($offers->getCalculatedPrice()) ?></p>

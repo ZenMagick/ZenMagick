@@ -28,7 +28,7 @@
 <?php if (1 == count($products)) { $product = $products[0]; ?>
     <h2><?php zm_l10n("Featured") ?> <a href="<?php $net->url(FILENAME_FEATURED_PRODUCTS) ?>"><?php zm_l10n("[More]") ?></a></h2>
     <div id="sb_featured" class="box">
-        <p><?php $html->productImageLink($product) ?></p>
+        <p><?php echo $html->productImageLink($product) ?></p>
         <p><a href="<?php $net->product($product->getId()) ?>"><?php echo $html->encode($product->getName()) ?></a></p>
         <?php $offers = $product->getOffers(); ?>
         <p><?php echo $utils->formatMoney($offers->getCalculatedPrice()) ?></p>

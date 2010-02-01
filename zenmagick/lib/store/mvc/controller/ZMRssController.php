@@ -275,7 +275,7 @@ class ZMRssController extends ZMController {
             $item = ZMLoader::make("RssItem");
             $item->setTitle($product->getName());
             $item->setLink(zm_product_href($product->getId(), null, false));
-            $item->setDescription($toolbox->html->more($toolbox->html->strip($product->getDescription(), false), 60));
+            $item->setDescription($toolbox->html->more($toolbox->html->strip($product->getDescription()), 60));
             $item->setPubDate(zm_mk_rss_date($product->getDateAdded()));
             array_push($items, $item);
 

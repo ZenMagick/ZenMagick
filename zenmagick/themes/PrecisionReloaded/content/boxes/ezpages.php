@@ -30,7 +30,7 @@
   <h2><?php zm_l10n("Important Links") ?></h2>
   <ul>
     <?php foreach ($pages as $page) { ?>
-      <li><?php $html->ezpageLink($page->getId())?></li>
+      <li><?php echo $html->ezpageLink($page->getId())?></li>
     <?php } ?>
   </ul>
 <?php } ?>

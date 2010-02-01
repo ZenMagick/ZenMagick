@@ -30,7 +30,7 @@
     <h3><?php zm_l10n("Important Links") ?></h3>
     <div id="sb_ezpages" class="box">
         <?php foreach ($pages as $page) { ?>
-            <?php $html->ezpageLink($page->getId())?>
+            <?php echo $html->ezpageLink($page->getId())?>
         <?php } ?>
     </div>
 <?php } ?>

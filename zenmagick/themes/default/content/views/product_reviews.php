@@ -27,7 +27,7 @@
 <?php echo $form->addProduct($currentProduct->getId(), 1) ?>
   <div>  
     <div id="pinfo">
-      <?php $html->productImageLink($currentProduct) ?>
+      <?php echo $html->productImageLink($currentProduct) ?>
       <?php echo $html->encode($currentProduct->getDescription()); ?>
     </div>
     <strong><?php echo $utils->formatMoney($currentProduct->getPrice()); ?></strong>

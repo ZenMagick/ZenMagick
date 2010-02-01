@@ -31,7 +31,7 @@
             <tr class="<?php echo ($odd?"odd":"even").($first?" first":" other") ?>">
             <td class="remove"><a href="<?php $net->url(FILENAME_SHOPPING_CART, 'action=remove_product&product_id='.$item->getId()) ?>"><img src="<?php echo $this->asUrl("images/small_delete.gif") ?>" alt="remove" /></a></td>
                 <td class="img">
-                    <?php $html->productImageLink($item->getProduct()) ?>
+                    <?php echo $html->productImageLink($item->getProduct()) ?>
                     <?php echo $form->hiddenCartFields($item) ?>
                 </td>
                 <td class="itm">
@@ -80,4 +80,4 @@
 
 </form>
 
-<?php $html->backLink('Continue Shopping') ?>
+<?php echo $html->backLink('Continue Shopping') ?>

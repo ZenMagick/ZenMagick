@@ -30,7 +30,7 @@
 <div id="featured">
   <?php foreach ($featured as $product) { ?>
     <div>
-      <p><?php $html->productImageLink($product) ?></p>
+      <p><?php echo $html->productImageLink($product) ?></p>
       <p><a href="<?php $net->product($product->getId()) ?>"><?php echo $html->encode($product->getName()) ?></a></p>
       <?php $offers = $product->getOffers(); ?>
       <p><?php echo $utils->formatMoney($offers->getCalculatedPrice()) ?></p>
