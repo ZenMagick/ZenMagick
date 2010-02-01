@@ -324,6 +324,7 @@
 
     <!-- remove unused zencart code -->
     <target name="apply-branding" description="Apply ZenMagick branding.">
+      <!-- installer -->
       <copy file="${basedir}/etc/build/full/branding/logo-235x64.png" tofile="${release.full.dir}/zc_install/includes/templates/template_default/images/logo.png" />
       <copy file="${basedir}/etc/build/full/branding/logo-760-110.png" tofile="${release.full.dir}/zc_install/includes/templates/template_default/images/logo-bg.png" />
       <replaceregexp match="Zen Cart&amp;trade;" replace="ZenMagick" flags="g"><fileset dir="${release.full.dir}/zc_install/includes/" /></replaceregexp>
@@ -332,6 +333,24 @@
       <replaceregexp match='The Art of eCommerce' replace='eCommerce made easy' flags="g"><fileset dir="${release.full.dir}/zc_install/includes/templates" /></replaceregexp>
       <replaceregexp match='zen_header_bg.jpg' replace='logo-bg.png' flags="g"><fileset dir="${release.full.dir}/zc_install/includes/templates" /></replaceregexp>
       <replaceregexp match='#ceddf0;' replace='#5494F2;color:#fff;' flags="g"><fileset dir="${release.full.dir}/zc_install/includes/templates" /></replaceregexp>
+      <replaceregexp match='http://tutorials.zen-cart.com/index.php?article=107' replace='http://wiki.zenmagick.org/index.php/Installation' flags="g"><fileset dir="${release.full.dir}/zc_install/includes/templates" /></replaceregexp>
+      <replaceregexp match='&lt;a href="http://www.zen-cart.com" target="_blank"&gt;Zen Cart&lt;/a&gt;' replace='&lt;a href="http://www.zenmagick.org/" target="_blank"&gt;ZenMagick&lt;a&gt;' flags="g"><fileset dir="${release.full.dir}/zc_install/includes/templates" /></replaceregexp>
+      <replaceregexp match='http://tutorials.zen-cart.com' replace='http://wiki.zenmagick.org/' flags="g"><fileset dir="${release.full.dir}/zc_install/includes/" /></replaceregexp>
+      <replaceregexp match='http://www.zen-cart.com/wiki' replace='http://wiki.zenmagick.org/' flags="g"><fileset dir="${release.full.dir}/zc_install/includes/" /></replaceregexp>
+      <replaceregexp match='"http://www.zen-cart.com"' replace='"http://www.zenmagick.org/"' flags="g"><fileset dir="${release.full.dir}/zc_install/includes/" /></replaceregexp>
+      <replaceregexp match='www.zen-cart.com&lt;/a&gt;' replace='www.zenmagick.org&lt;/a&gt;"' flags="g"><fileset dir="${release.full.dir}/zc_install/includes/" /></replaceregexp>
+
+      <!-- admin -->
+      <copy file="${basedir}/etc/build/full/branding/logo-235x64.png" tofile="${release.full.dir}/admin/images/logo.png" />
+      <replaceregexp match="'logo.gif'" replace="'logo.png'" flags="g"><fileset dir="${release.full.dir}/admin/" /></replaceregexp>
+      <replaceregexp match="/logo.gif" replace="/logo.png" flags="g"><fileset dir="${release.full.dir}/admin/" /></replaceregexp>
+      <copy file="${release.full.dir}/admin/images/pixel_trans.gif" tofile="${release.full.dir}/admin/images/small_zen_logo.gif" overwrite="true" />
+      <replaceregexp match="Zen Cart&amp;trade;" replace="ZenMagick" flags="g"><fileset dir="${release.full.dir}/admin/" /></replaceregexp>
+      <replaceregexp match="2003-" replace="2006-" flags="g"><fileset dir="${release.full.dir}/admin/" /></replaceregexp>
+      <replaceregexp match='http://www.zen-cart.com"' replace='http://www.zenmagick.org/"' flags="g"><fileset dir="${release.full.dir}/admin/" /></replaceregexp>
+      <replaceregexp match='E-Commerce Engine' replace='' flags="g"><fileset dir="${release.full.dir}/admin/" /></replaceregexp>
+      <replaceregexp match='Zen Cart is derived from: Copyright' replace='ZenMagick is derived from: &amp;copy; ZenCart, ' flags="g"><fileset dir="${release.full.dir}/admin/" /></replaceregexp>
+      <replaceregexp match='href="http://www.zen-cart.com/"' replace='href="http://www.zenmagick.org/"' flags="g"><fileset dir="${release.full.dir}/admin/" /></replaceregexp>
 
     </target>
 
