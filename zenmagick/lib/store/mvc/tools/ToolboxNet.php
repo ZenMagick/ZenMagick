@@ -195,11 +195,9 @@ class ToolboxNet extends ZMToolboxNet {
      *
      * @param int productId The product id.
      * @param int categoryId Optional category id.
-     * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
-     * @return string A full URL.
      * @return string A complete product URL.
      */
-    public function product($productId, $categoryId=null, $echo=ZM_ECHO_DEFAULT) { 
+    public function product($productId, $categoryId=null) { 
         $cPath = '';
         if (null != $categoryId) {
             $category = ZMCategories::instance()->getCategoryForId($categoryId);
@@ -207,28 +205,26 @@ class ToolboxNet extends ZMToolboxNet {
                 $cPath = '&'.$category->getPath();
             }
         }
-        return $this->url(FILENAME_PRODUCT_INFO, '&products_id='.$productId.$cPath, false, $echo);
+        return $this->url(FILENAME_PRODUCT_INFO, '&products_id='.$productId.$cPath, false, false);
     }
 
     /**
      * Create a static page URL for the given static page name.
      *
      * @param string name The static page name.
-     * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string A complete URL for the given static page.
      */
-    public function staticPage($name, $echo=ZM_ECHO_DEFAULT) { 
-        return $this->url('static', '&cat='.$name, false, $echo);
+    public function staticPage($name) { 
+        return $this->url('static', '&cat='.$name, false, false);
     }
 
     /**
      * Build an ez-page URL.
      *
      * @param ZMEZPage page A <code>ZMEZPage</code> instance.
-     * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string A complete URL for the given ez-page.
      */
-    public function ezpage($page, $echo=ZM_ECHO_DEFAULT) {
+    public function ezPage($page) {
         if (null === $page) {
             $href = zm_l10n_get('ezpage not found');
             if ($echo) echo $href;
@@ -255,7 +251,6 @@ class ToolboxNet extends ZMToolboxNet {
             $href = $page->getAltUrlExternal();
         }
 
-        if ($echo) echo $href;
         return $href;
     }
 
@@ -263,29 +258,26 @@ class ToolboxNet extends ZMToolboxNet {
      * Create an absolute image path/URL for the given image.
      *
      * @param string src The relative image name (relative to zen-cart's image folder).
-     * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string The image URI.
      */
-    public function image($src, $echo=ZM_ECHO_DEFAULT) {
+    public function image($src) {
         $href = DIR_WS_CATALOG.DIR_WS_IMAGES . $src;
 
-        if ($echo) echo $href;
         return $href;
     }
 
     /**
-     * Create an redirect URL for the given action and id.
+     * Create an redirecting URL for the given action and id that is trackable.
      *
      * <p>All messages created up to this point during request handling will be saved and
      * restored with the next request handling cycle.</p>
      *
      * @param string action The redirect action.
      * @param string id The redirect id.
-     * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string A full URL.
      */
-    public function redirect($action, $id, $echo=ZM_ECHO_DEFAULT) {
-        return $this->url(FILENAME_REDIRECT, "action=".$action."&goto=".$id, false, false, $echo);
+    public function trackLink($action, $id) {
+        return $this->url(FILENAME_REDIRECT, "action=".$action."&goto=".$id, false, false, false);
     }
 
     /**
@@ -315,10 +307,9 @@ class ToolboxNet extends ZMToolboxNet {
      * @param string controller The controller name without the leading <em>ajax_</em>.
      * @param string method The name of the method to call.
      * @param string params Query string style parameter; if <code>null</code> add all current parameter
-     * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string A complete Ajax URL.
      */
-    public function ajax($controller, $method, $params='', $echo=ZM_ECHO_DEFAULT) { 
+    public function ajax($controller, $method, $params='') { 
         if (ZMSettings::get('isAdmin')) {
             $params .= '&controller=ajax_'.$controller;
             $controller = 'zmAjaxHandler.php';
@@ -328,7 +319,6 @@ class ToolboxNet extends ZMToolboxNet {
 
         $url = str_replace('&amp;', '&', $this->url($controller, $params.'&method='.$method, $this->getRequest()->isSecure(), false));
 
-        if ($echo) echo $url;
         return $url;
     }
 
@@ -337,17 +327,15 @@ class ToolboxNet extends ZMToolboxNet {
      *
      * @param string channel The channel.
      * @param string key Optional key; for example, 'new' for the product channel.
-     * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string A complete URL.
      */
-    public function rssFeed($channel, $key=null, $echo=ZM_ECHO_DEFAULT) { 
+    public function rssFeed($channel, $key=null) { 
         $params = 'channel='.$channel;
         if (null !== $key) {
             $params .= "&key=".$key;
         }
         $url = $this->url('rss', $params, false, false);
 
-        if ($echo) echo $url;
         return $url;
     }
 
@@ -357,10 +345,9 @@ class ToolboxNet extends ZMToolboxNet {
      * @param ZMResultList resultList The current result list.
      * @param boolean secure If <code>true</code>, the URI will be secure; default is <code>null</code> to use the current
      *  request state.
-     * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string A URL pointing to the previous page or <code>null</code>.
      */
-    public function resultListBack($resultList, $secure=null, $echo=ZM_ECHO_DEFAULT) {
+    public function resultListBack($resultList, $secure=null) {
         if (!$resultList->hasPreviousPage()) {
             return null;
         }
@@ -368,7 +355,6 @@ class ToolboxNet extends ZMToolboxNet {
         $secure = null !== $secure ? $secure : $this->getRequest()->isSecure();
         $url = $this->url(null, "&page=".$resultList->getPreviousPageNumber(), $secure, false);
 
-        if ($echo) echo $url;
         return $url;
     }
 
@@ -378,10 +364,9 @@ class ToolboxNet extends ZMToolboxNet {
      * @param ZMResultList resultList The current result list.
      * @param boolean secure If <code>true</code>, the URI will be secure; default is <code>null</code> to use the current
      *  request state.
-     * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string A URL pointing to the next page or <code>null</code>.
      */
-    public function resultListNext($resultList, $secure=null, $echo=ZM_ECHO_DEFAULT) {
+    public function resultListNext($resultList, $secure=null) {
         if (!$resultList->hasNextPage()) {
             return null;
         }
@@ -389,7 +374,6 @@ class ToolboxNet extends ZMToolboxNet {
         $secure = null !== $secure ? $secure : $this->getRequest()->isSecure();
         $url = $this->url(null, "&page=".$resultList->getNextPageNumber(), $secure, false);
 
-        if ($echo) echo $url;
         return $url;
     }
 

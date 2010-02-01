@@ -5,12 +5,12 @@
     <div class="rnav">
         <span class="pno"><?php zm_l10n("Page %s/%s", $resultList->getPageNumber(), $resultList->getNumberOfPages()) ?></span>
         <?php if ($resultList->hasPreviousPage()) { ?>
-            <a href="<?php $net->resultListBack($resultList) ?>"><?php zm_l10n("Previous") ?></a>&nbsp;
+            <a href="<?php echo $net->resultListBack($resultList) ?>"><?php zm_l10n("Previous") ?></a>&nbsp;
         <?php } else { ?>
             <span class="nin"><?php zm_l10n("Previous") ?></span>&nbsp;
         <?php } ?>
         <?php if ($resultList->hasNextPage()) { ?>
-            <a href="<?php $net->resultListNext($resultList) ?>"><?php zm_l10n("Next") ?></a>
+            <a href="<?php echo $net->resultListNext($resultList) ?>"><?php zm_l10n("Next") ?></a>
         <?php } else { ?>
             <span class="nin"><?php zm_l10n("Next") ?></span>
         <?php } ?>

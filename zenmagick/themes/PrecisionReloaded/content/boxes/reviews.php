@@ -43,7 +43,7 @@
     ?>
     <h2><a href="<?php $net->url(FILENAME_REVIEWS) ?>"><?php zm_l10n("[More]") ?></a><?php zm_l10n("Reviews") ?></h2>
     <div id="sb_reviews" class="box">
-        <p><a href="<?php $net->product($review->getProductId()) ?>"><?php echo $html->image($review->getProductImageInfo()) ?></a></p>
+        <p><a href="<?php echo $net->product($review->getProductId()) ?>"><?php echo $html->image($review->getProductImageInfo()) ?></a></p>
         <p id="rtext"><a href="<?php echo $href ?>"><?php echo $html->more($review->getText(), 60) ?></a></p>
         <p><a href="<?php echo $href ?>"><?php echo $rimg ?></a></p>
     </div>

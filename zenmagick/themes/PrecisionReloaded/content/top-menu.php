@@ -25,7 +25,7 @@
 
      layout does not degrade well if too many items
     foreach (ZMEZPages::instance()->getPagesForHeader($session->getLanguageId()) as $page) {
-        $menu[] = array($net->ezpage($page, false), $page, false);
+        $menu[] = array($net->ezPage($page), $page, false);
     }
         */
          foreach ($menu as $ii => $item) {

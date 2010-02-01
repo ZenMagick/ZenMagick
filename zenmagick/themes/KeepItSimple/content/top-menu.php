@@ -16,7 +16,7 @@
         $menu[] = array($net->url(FILENAME_CHECKOUT_SHIPPING, '', true, false), zm_l10n_get("Checkout"));
     }
     foreach (ZMEZPages::instance()->getPagesForHeader($session->getLanguageId()) as $page) {
-        $menu[] = array($net->ezpage($page, false), $page, false);
+        $menu[] = array($net->ezPage($page), $page, false);
     }
     foreach ($menu as $item) {
         if (3 == count($item)) {

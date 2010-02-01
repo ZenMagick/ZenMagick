@@ -133,12 +133,12 @@
                 echo '<tr class="rnav"><td colspan="2">';
                 echo '<span class="pno">'.zm_l10n_get("Page %s/%s", $resultList->getPageNumber(), $resultList->getNumberOfPages()).'</span>';
                 if ($resultList->hasPreviousPage()) {
-                    echo '<a href="'.$toolbox->net->resultListBack($resultList, null, false).'">'.zm_l10n_get("Previous").'</a>&nbsp;';
+                    echo '<a href="'.$toolbox->net->resultListBack($resultList).'">'.zm_l10n_get("Previous").'</a>&nbsp;';
                 } else {
                     echo '<span class="nin">'.zm_l10n_get("Previous").'</span>&nbsp;';
                 }
                 if ($resultList->hasNextPage()) {
-                    echo '<a href="'.$toolbox->net->resultListNext($resultList, null, false).'">'.zm_l10n_get("Next").'</a>';
+                    echo '<a href="'.$toolbox->net->resultListNext($resultList, null).'">'.zm_l10n_get("Next").'</a>';
                 } else {
                     echo '<span class="nin">'.zm_l10n_get("Next").'</span>';
                 }

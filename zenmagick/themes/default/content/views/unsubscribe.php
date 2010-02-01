@@ -25,7 +25,7 @@
 ?>
 
 <p><?php zm_l10n('We are sorry to hear that you wish to unsubscribe from our newsletter. If you have concerns about your privacy, 
-please see our <a href="%s">privacy policy</a>.', $net->staticPage(FILENAME_PRIVACY, '', false, false)) ?></p>
+please see our <a href="%s">privacy policy</a>.', $net->staticPage(FILENAME_PRIVACY)) ?></p>
 
 <p><?php zm_l10n('Subscribers to our newsletter are kept notified of new products, price reductions, and site news.') ?></p>
 

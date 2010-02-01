@@ -36,7 +36,7 @@
                     $url = $net->url('category', 'manufacturers_id='.$manufacturer->getId(), false, false);
                     $target = '';
                     if (!ZMLangUtils::isEmpty($manufacturer->getUrl())) {
-                        $url = $net->redirect('manufacturer', $manufacturer->getId(), false);
+                        $url = $net->trackLink('manufacturer', $manufacturer->getId());
                         $target = ZMSettings::get('isJSTarget') ? ' onclick="newWin(this); return false;"' : ' target="_blank"';
                     }
                     ?><a href="<?php echo $url ?>"<?php echo $target ?>><?php echo $html->image($manufacturer->getImageInfo()) ?></a><?php
@@ -49,7 +49,7 @@
                     $target = '';
                     $text = zm_l10n_get("Other Products");
                     if (!ZMLangUtils::isEmpty($manufacturer->getUrl())) {
-                        $url = $net->redirect('manufacturer', $manufacturer->getId(), false);
+                        $url = $net->trackLink('manufacturer', $manufacturer->getId());
                         $target = ZMSettings::get('isJSTarget') ? ' onclick="newWin(this); return false;"' : ' target="_blank"';
                         $text = zm_l10n_get("Manufacturer Homepage");
                     }

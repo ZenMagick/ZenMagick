@@ -84,7 +84,7 @@ Depending on your server configuration you might be better of using something di
 
         $.ajax({
             type: "GET",
-            url: "<?php $net->ajax('shopping_cart', 'getContents') ?>",
+            url: "<?php echo $net->ajax('shopping_cart', 'getContents') ?>",
             success: function(msg) {
                 msgboxElem.innerHTML += "got response ... ";
                 updateCartContent(msg);
@@ -219,7 +219,7 @@ Depending on your server configuration you might be better of using something di
 
         $.ajax({
             type: "GET",
-            url: "<?php $net->ajax('catalog', 'getProductForId') ?>",
+            url: "<?php echo $net->ajax('catalog', 'getProductForId') ?>",
             data: "productId="+productId,
             success: function(msg) {
                 msgboxElem.innerHTML += "got response ... ";
@@ -248,7 +248,7 @@ Depending on your server configuration you might be better of using something di
 
         $.ajax({
             type: "POST",
-            url: "<?php $net->ajax('shopping_cart', 'addProduct') ?>",
+            url: "<?php echo $net->ajax('shopping_cart', 'addProduct') ?>",
             data: queryString,
             success: function(msg) {
                 msgboxElem.innerHTML += "got response ... ";
@@ -266,7 +266,7 @@ Depending on your server configuration you might be better of using something di
 
         $.ajax({
             type: "POST",
-            url: "<?php $net->ajax('shopping_cart', 'removeProduct') ?>",
+            url: "<?php echo $net->ajax('shopping_cart', 'removeProduct') ?>",
             data: "productId="+productId,
             success: function(msg) {
                 msgboxElem.innerHTML += "got response ... ";
@@ -285,7 +285,7 @@ Depending on your server configuration you might be better of using something di
 
         $.ajax({
             type: "POST",
-            url: "<?php $net->ajax('shopping_cart', 'updateProduct') ?>",
+            url: "<?php echo $net->ajax('shopping_cart', 'updateProduct') ?>",
             data: "productId="+productId+"&quantity="+quantity,
             success: function(msg) {
                 msgboxElem.innerHTML += "got response ... ";
@@ -350,7 +350,7 @@ Depending on your server configuration you might be better of using something di
         addressElem.innerHTML = '';
         $.ajax({
             type: "GET",
-            url: "<?php $net->ajax('shopping_cart', 'estimateShipping') ?>",
+            url: "<?php echo $net->ajax('shopping_cart', 'estimateShipping') ?>",
             success: function(msg) { updateShippingInfoSuccess(msg); },
             error: function(msg) { updateShippingInfoFailure(msg); }
         });
@@ -387,7 +387,7 @@ Depending on your server configuration you might be better of using something di
 
         $.ajax({
             type: "GET",
-            url: "<?php $net->ajax('country', 'getCountryList') ?>",
+            url: "<?php echo $net->ajax('country', 'getCountryList') ?>",
             success: function(msg) {
                 msgboxElem.innerHTML += "got response ...";
 
@@ -416,7 +416,7 @@ Depending on your server configuration you might be better of using something di
 
         $.ajax({
             type: "GET",
-            url: "<?php $net->ajax('country', 'getZonesForCountryId') ?>",
+            url: "<?php echo $net->ajax('country', 'getZonesForCountryId') ?>",
             data: "countryId="+countryId,
             success: function(msg) {
                 msgboxElem.innerHTML += "got response ...";

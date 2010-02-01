@@ -160,7 +160,7 @@ class ZMToolboxCrumbtrail extends ZMToolboxTool {
 
         $product = ZMProducts::instance()->getProductForId($productId);
         if (null != $product) {
-            $this->addCrumb($product->getName(), $this->getToolbox()->net->product($productId, null, false));
+            $this->addCrumb($product->getName(), $this->getToolbox()->net->product($productId, null));
         }
     }
 

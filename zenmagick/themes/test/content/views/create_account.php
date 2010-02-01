@@ -46,7 +46,7 @@
             <legend><?php zm_l10n("About Privacy") ?></legend>
             <p>
                 <?php zm_l10n("Please acknowledge you agree with our privacy statement by ticking the following box.") ?></br>
-                <?php $href = '<a href="' . $net->staticPage('privacy', false) . '">' . zm_l10n_get("here") . '</a>'; ?>
+                <?php $href = '<a href="' . $net->staticPage('privacy') . '">' . zm_l10n_get("here") . '</a>'; ?>
                 <?php zm_l10n("The privacy statement can be read %s.", $href) ?><p>
             <p><input type="checkbox" id="privacy" name="privacy" value="1" /><label for="privacy"><?php zm_l10n("I have read and agreed to your privacy statement.") ?></label></p>
         </fieldset>

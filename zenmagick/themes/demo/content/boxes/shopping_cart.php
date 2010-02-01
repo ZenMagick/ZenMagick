@@ -30,7 +30,7 @@
 <script type="text/javascript">
     // callback used by drop handler to update cart contents
     var updateSBCartContent = function(msg) {
-        var href_template = '<?php $net->product('{productId}') ?>';
+        var href_template = '<?php echo $net->product('{productId}') ?>';
         // NOTE: using json.js here will break IE and create ugly JS erros in FF
         var cart = eval('(' + msg + ')');
         // clear
@@ -58,7 +58,7 @@
             <?php zm_l10n("Cart is Empty") ?>
         <?php } ?>
         <?php foreach ($request->getShoppingCart()->getItems() as $item) { ?>
-            <?php echo $item->getQty(); ?> x <a href="<?php $net->product($item->getId()) ?>"><?php echo $html->encode($item->getProduct()->getName()); ?></a><br />
+            <?php echo $item->getQty(); ?> x <a href="<?php echo $net->product($item->getId()) ?>"><?php echo $html->encode($item->getProduct()->getName()); ?></a><br />
         <?php } ?>
         <hr/>
         <p><img id="cart_progress" src="<?php echo $this->asUrl('images/circle-ball-dark-antialiased.gif') ?>" style="display:none;float:left;" alt="progress" /><?php echo $utils->formatMoney($request->getShoppingCart()->getTotal()) ?></p>

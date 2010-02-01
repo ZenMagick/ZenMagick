@@ -28,7 +28,7 @@
   <div>  
     <div id="pinfo">
       <?php $imageInfo = $currentProduct->getImageInfo() ?>
-      <a href="<?php $net->product($currentProduct->getId()) ?>"><?php echo $html->productImageLink($currentProduct) ?></a>
+      <a href="<?php echo $net->product($currentProduct->getId()) ?>"><?php echo $html->productImageLink($currentProduct) ?></a>
       <?php echo $html->encode($currentProduct->getDescription()); ?>
     </div>
     <strong><?php echo $utils->formatMoney($currentProduct->getPrice()); ?></strong>

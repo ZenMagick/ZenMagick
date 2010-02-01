@@ -56,7 +56,7 @@
         $('#cart_progress').show();
         $.ajax({
             type: "POST",
-            url: "<?php $net->ajax('shopping_cart', 'addProduct') ?>",
+            url: "<?php echo $net->ajax('shopping_cart', 'addProduct') ?>",
             data: "productId="+productId+"&quantity=1",
             success: function(msg) {
                 // declared in sidebox, so easier to change layout...

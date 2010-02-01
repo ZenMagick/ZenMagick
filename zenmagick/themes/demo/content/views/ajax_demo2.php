@@ -91,7 +91,7 @@ check out the <a href="<?php $net->url('ajax_demo') ?>">main Ajax demo</a>.</p>
         addressElem.innerHTML = '';
         $.ajax({
             type: "GET",
-            url: "<?php $net->ajax('checkout', 'getShippingMethods') ?>",
+            url: "<?php echo $net->ajax('checkout', 'getShippingMethods') ?>",
             data: "countryId="+document.getElementById("countryId").value,
             success: function(msg) { updateShippingInfoSuccess(msg); },
             error: function(msg) { updateShippingInfoFailure(msg); }

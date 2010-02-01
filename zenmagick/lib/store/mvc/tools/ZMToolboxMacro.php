@@ -159,13 +159,13 @@ class ZMToolboxMacro extends ZMToolboxTool {
                 $html = $banner->getText();
             } else {
                 $slash = ZMSettings::get('zenmagick.mvc.html.xhtml') ? '/' : '';
-                $img = '<img src="'.$toolbox->net->image($banner->getImage(), false).'" alt="'.
+                $img = '<img src="'.$toolbox->net->image($banner->getImage()).'" alt="'.
                           $toolbox->html->encode($banner->getTitle()).'"'.$slash.'>';
                 if (ZMLangUtils::isEmpty($banner->getUrl())) {
                     // if we do not have a url try our luck with the image...
                     $html = $img;
                 } else {
-                    $html = '<a href="'.$toolbox->net->redirect('banner', $banner->getId(), false).'"'.
+                    $html = '<a href="'.$toolbox->net->trackLink('banner', $banner->getId()).'"'.
                                 $toolbox->html->hrefTarget($banner->isNewWin()).'>'.$img.'</a>';
                 }
             }
@@ -515,7 +515,7 @@ class ZMToolboxMacro extends ZMToolboxTool {
         $slash = ZMSettings::get('zenmagick.mvc.html.xhtml') ? '/' : '';
         $label = '';
         if ($value->hasImage() && $enableImage) {
-            $label = '<img src="' . $toolbox->net->image($value->getImage(), false) . '" alt="'.$value->getName().'" title="'.$value->getName().'"'.$slash.'>';
+            $label = '<img src="' . $toolbox->net->image($value->getImage()) . '" alt="'.$value->getName().'" title="'.$value->getName().'"'.$slash.'>';
         }
         $label .= zm_l10n_get($value->getName());
 

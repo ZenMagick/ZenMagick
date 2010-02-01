@@ -36,7 +36,7 @@
 
 <?php } ?>
 
-<?php zm_l10n("To view the product, click on the following link or copy and paste the link into your web browser: %s", $net->product($currentProduct->getId(), null, false)) ?>
+<?php zm_l10n("To view the product, click on the following link or copy and paste the link into your web browser: %s", $net->product($currentProduct->getId(), null)) ?>
 
 
 <?php zm_l10n("Regards, %s", ZMSettings::get('storeOwner')) ?>

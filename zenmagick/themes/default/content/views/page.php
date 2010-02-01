@@ -30,7 +30,7 @@
         <h4><?php zm_l10n("Table of Contents") ?></h4>
         <ul>
         <?php foreach ($toc as $page) { $active = $page->getId() == $ezPage->getId() ? ' class="act"' : ''; ?>
-            <li<?php echo $active ?>><a href="<?php $net->ezPage($page) ?>"><?php echo $html->encode($page->getTitle()) ?></a></li>
+            <li<?php echo $active ?>><a href="<?php echo $net->ezPage($page) ?>"><?php echo $html->encode($page->getTitle()) ?></a></li>
         <?php } ?>
         </ul>
         <?php
@@ -59,8 +59,8 @@
         ?>
         <?php if (null != $prev && null != $next) { ?>
         <p>
-            <a href="<?php $net->ezPage($prev) ?>"><?php zm_l10n("&lt; Prev") ?></a>
-            <a href="<?php $net->ezPage($next) ?>"><?php zm_l10n("Next &gt;") ?></a>
+            <a href="<?php echo $net->ezPage($prev) ?>"><?php zm_l10n("&lt; Prev") ?></a>
+            <a href="<?php echo $net->ezPage($next) ?>"><?php zm_l10n("Next &gt;") ?></a>
         </p>
         <?php } ?>
     </div>
