@@ -87,12 +87,11 @@
 <form action="<?php echo $toolbox->admin->url() ?>" method="post">
   <fieldset>
     <legend>Select Theme to display the language mappings</legend>
-    <?php $themeInfoList = ZMThemes::instance()->getThemeInfoList(); ?>
     <select id="theme" name="theme" onchange="this.form.submit()">
       <option value="">Select Theme</option>
-      <?php foreach ($themeInfoList as $themeInfo) { ?>
-        <?php $selected = $themePath == $themeInfo->getThemeId() ? ' selected="selected"' : ''; ?>
-        <option value="<?php echo $themeInfo->getThemeId(); ?>"<?php echo $selected ?>><?php echo $themeInfo->getName(); ?></option>
+        <?php foreach (ZMThemes::instance()->getThemes() as $theme) { ?>
+        <?php $selected = $themePath == $theme->getThemeId() ? ' selected="selected"' : ''; ?>
+        <option value="<?php echo $theme->getThemeId(); ?>"<?php echo $selected ?>><?php echo $theme->getName(); ?></option>
       <?php } ?>
     </select>
     <br>

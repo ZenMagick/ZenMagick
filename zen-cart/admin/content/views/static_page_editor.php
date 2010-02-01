@@ -81,7 +81,6 @@
     <fieldset>
       <legend>Edit Static Page</legend>
       <label for="themeId">Theme:</label>
-      <?php $themeInfoList = ZMThemes::instance()->getThemeInfoList(); ?>
       <select id="themeId" name="themeId" onChange="this.form.submit();">
         <option value="">Select Theme</option>
         <?php foreach (ZMThemes::instance()->getThemes() as $theme) { ?>
