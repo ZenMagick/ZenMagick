@@ -1,6 +1,5 @@
 <?php
 $relPath = (file_exists('zenmagick/init.php')) ? '' : '../';
-$relPath = (file_exists('zc_install/images/logo.gif')) ? '' : '../';
 $instPath = (file_exists('zc_install/index.php')) ? 'zc_install/index.php' : (file_exists('../zc_install/index.php') ? '../zc_install/index.php' : '');
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -24,11 +23,12 @@ $instPath = (file_exists('zc_install/index.php')) ? 'zc_install/index.php' : (fi
 </head>
 
 <body style="margin: 20px">
+<?php echo $relPath ?>
 <div style="width: 730px; background-color: #ffffff; margin: auto; padding: 10px; border: 1px solid #cacaca;">
-<div>
-<img src="<?php echo $relPath; ?>zc_install/includes/templates/template_default/images/logo.gif" alt="ZenMagick" title=" ZenMagick " border="0" />
+<div style="border-bottom:1px solid black;">
+<img src="<?php echo $relPath; ?>zc_install/includes/templates/template_default/images/logo.png" alt="ZenMagick" title=" ZenMagick " border="0" />
 </div>
-<h1>Hello. Thank you for loading ZenMagick.</h1>
+<h1>Hello. Thank you for using ZenMagick.</h1>
 <h2>You are seeing this page for one or more reasons:</h2>
 <ol>
 <li>This is your <strong>first time using ZenMagick</strong> and you haven't yet completed the normal Installation procedure.<br />
@@ -42,7 +42,7 @@ you will need to upload the "zc_install" folder using your FTP program, and then
 </li>
 <li>Your <tt><strong>/includes/configure.php</strong></tt> and/or <tt><strong>/admin/includes/configure.php</strong></tt> file contains invalid <em>path information</em> and/or invalid <em>database-connection information</em>.<br />
 If you recently edited your configure.php files for any reason, or maybe moved your site to a different folder or different server, then you'll need to review and update all your settings to the correct values for your server.<br />
-See the <a href="http://forum.zenmagick.org/" target="_blank">Forum</a> on the ZenMagick website for assistance.</li>
+See the <a href="http://forum.zenmagick.org/" target="_blank">forum</a> and/or <a href="http://wiki.zenmagick.org/" target="_blank">documentation</a> on the ZenMagick website for assistance.</li>
 </ol>
 <br />
 <h2>To begin installation ...</h2> 
@@ -52,7 +52,7 @@ See the <a href="http://forum.zenmagick.org/" target="_blank">Forum</a> on the Z
 <?php } else { ?>
 <li>You will need to upload the "zc_install" folder using your FTP program, and then run <a href="<?php echo $instPath; ?>">zc_install/index.php</a> via your browser (or reload this page to see a link to it).</li>
 <?php } ?>
-<li>The <a href="http://wiki.zenmagick.org/" target="_blank">FAQs and Tutorials</a> area on the ZenMagick website will also be of value if you run into difficulties.</li>
+<li>The <a href="http://forum.zenmagick.org/" target="_blank">forum</a> and<a href="http://wiki.zenmagick.org/" target="_blank">documentation</a>  area on the ZenMagick website will also be of value if you run into difficulties.</li>
 </ol>
 
 </div>

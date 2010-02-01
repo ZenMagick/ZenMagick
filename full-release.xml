@@ -46,7 +46,7 @@
         <antcall target="create-sidebox-dummies"><param name="theme.id" value='default' /></antcall>
 
         <!-- dump install phpBB stuff -->
-        <!-- NOT THAT SIMPLE! antcall target="dump-phpbb-install"></antcall-->
+        <antcall target="dump-phpbb-install"></antcall>
 
         <!-- move ZenMagick SQL to the right place -->
         <copy file="${zenmagick.src.dir}/lib/store/etc/sql/mysql/config.sql" tofile="${release.full.dir}/zc_install/sql/plugins/mysql_config.sql" />
@@ -273,22 +273,22 @@
 
     <!-- remove phpBB from installation -->
     <target name="dump-phpbb-install" description="Remove phpBB dialog from installation.">
-        <!-- fix redirect to skip phpBB -->
-        <replaceregexp>
-            <fileset file="${release.full.dir}/zc_install/includes/modules/pages/system_setup/header_php.php" />
-            <regexp pattern="main_page=phpbb_setup"/>
-            <substitution expression='main_page=store_setup' />
-        </replaceregexp>
         <replaceregexp flags="m">
             <fileset file="${release.full.dir}/zc_install/includes/templates/template_default/sideboxes/navigation.php" />
             <regexp pattern="^.*phpbb.*$"/>
             <substitution expression='' />
         </replaceregexp>
+        
+        <!-- require phpbb_setup POST handler code... -->
+        <antcall target="insert-before">
+            <param name="insert.file" value="${release.full.dir}/zc_install/includes/modules/pages/system_setup/header_php.php" />
+            <param name="insert.regexp" value="main_page=phpbb_setup" />
+            <param name="insert.substitution" value="      require dirname(dirname(__FILE__)).'/phpbb_setup/header_php.php';exit;" />
+        </antcall>
     </target>
 
     <!-- remove welcome from installation -->
     <target name="dump-welcome-install" description="Remove welcome dialog from installation.">
-        <!-- fix redirect to skip phpBB -->
         <replaceregexp>
             <fileset file="${release.full.dir}/zc_install/index.php" />
             <regexp pattern="'index'"/>
@@ -324,6 +324,15 @@
 
     <!-- remove unused zencart code -->
     <target name="apply-branding" description="Apply ZenMagick branding.">
+      <copy file="${basedir}/etc/build/full/branding/logo-235x64.png" tofile="${release.full.dir}/zc_install/includes/templates/template_default/images/logo.png" />
+      <copy file="${basedir}/etc/build/full/branding/logo-760-110.png" tofile="${release.full.dir}/zc_install/includes/templates/template_default/images/logo-bg.png" />
+      <replaceregexp match="Zen Cart&amp;trade;" replace="ZenMagick" flags="g"><fileset dir="${release.full.dir}/zc_install/includes/" /></replaceregexp>
+      <replaceregexp match="2003-" replace="2006-" flags="g"><fileset dir="${release.full.dir}/zc_install/includes/templates" /></replaceregexp>
+      <replaceregexp match='http://www.zen-cart.com"' replace='http://www.zenmagick.org/"' flags="g"><fileset dir="${release.full.dir}/zc_install/includes/templates" /></replaceregexp>
+      <replaceregexp match='The Art of eCommerce' replace='eCommerce made easy' flags="g"><fileset dir="${release.full.dir}/zc_install/includes/templates" /></replaceregexp>
+      <replaceregexp match='zen_header_bg.jpg' replace='logo-bg.png' flags="g"><fileset dir="${release.full.dir}/zc_install/includes/templates" /></replaceregexp>
+      <replaceregexp match='#ceddf0;' replace='#5494F2;color:#fff;' flags="g"><fileset dir="${release.full.dir}/zc_install/includes/templates" /></replaceregexp>
+
     </target>
 
 </project>

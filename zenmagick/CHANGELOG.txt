@@ -81,6 +81,7 @@ Release 0.9.9
 - full: SQL: disable downloads (attributes), set default template to 'default'
   (the default ZenMagick theme id)
 - installer: drop welcome, change location of not-installed page
+- add basic branding to full install build script
 
 Release 0.9.8
 - add Savant3 and experimental views (not used yet)
