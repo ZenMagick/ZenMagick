@@ -27,7 +27,7 @@
 <?php if (false === strpos($request->getRequestId(), 'search')) { ?>
     <h3><?php zm_l10n("Quick Search") ?></h3>
     <div id="sb_search" class="box">
-        <?php $form->open('search', '', false, array('method' => 'get')) ?>
+        <?php echo $form->open('search', '', false, array('method' => 'get')) ?>
             <div>
                 <input type="submit" class="btn" value="<?php zm_l10n("Go") ?>" />
                 <?php define('KEYWORD_DEFAULT', zm_l10n_get("enter search")); ?>

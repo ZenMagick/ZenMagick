@@ -27,15 +27,15 @@
 <?php if ($request->isAnonymous() && 'login' != $request->getRequestId() && 'time_out' != $request->getRequestId()) { ?>
     <h3><?php zm_l10n("Login") ?></h3>
     <div id="sb_login" class="box">
-        <?php $form->open(FILENAME_LOGIN, "action=process", true, array('id'=>'login')) ?>
+        <?php echo $form->open(FILENAME_LOGIN, "action=process", true, array('id'=>'login')) ?>
             <div>
                 <label for="email_address"><?php zm_l10n("E-Mail Address") ?></label>
-                <input type="text" id="email_address" name="email_address" <?php $form->fieldLength(TABLE_CUSTOMERS, 'customers_email_address', 20) ?> /> 
+                <input type="text" id="email_address" name="email_address" <?php echo $form->fieldLength(TABLE_CUSTOMERS, 'customers_email_address', 20) ?> /> 
             </div>
             <div>
                 <label for="password"><?php zm_l10n("Password") ?></label>
                 <input type="submit" class="btn" value="<?php zm_l10n("Login") ?>" />
-                <input type="password" id="password" name="password" <?php $form->fieldLength(TABLE_CUSTOMERS, 'customers_password', 9) ?> /> 
+                <input type="password" id="password" name="password" <?php echo $form->fieldLength(TABLE_CUSTOMERS, 'customers_password', 9) ?> /> 
             </div>
         </form>
         <div>

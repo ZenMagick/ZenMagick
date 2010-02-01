@@ -44,18 +44,18 @@
             <?php echo $macro->formatAddress($address); ?>
         </div>
     <?php } else { ?>
-        <?php $form->open(FILENAME_POPUP_SHIPPING_ESTIMATOR, '', true) ?>
+        <?php echo $form->open(FILENAME_POPUP_SHIPPING_ESTIMATOR, '', true) ?>
           <table cellspacing="0" cellpadding="0"><tbody>
              <tr>
                 <td><?php zm_l10n("Country") ?></td>
-                <td><?php $form->idpSelect('country_id', array_merge(array(ZMLoader::make("IdNamePair", "", zm_l10n_get("Select Country"))), ZMCountries::instance()->getCountries()), $shippingEstimator->getCountryId()) ?></td>
+                <td><?php echo $form->idpSelect('country_id', array_merge(array(ZMLoader::make("IdNamePair", "", zm_l10n_get("Select Country"))), ZMCountries::instance()->getCountries()), $shippingEstimator->getCountryId()) ?></td>
             </tr>
             <tr>
                 <td><?php zm_l10n("State/Province") ?></td>
                 <td>
                     <?php $zones = ZMCountries::instance()->getZonesForCountryId($shippingEstimator->getCountryId()); ?>
                     <?php if (0 < count($zones)) { ?>
-                        <?php $form->idpSelect('state', array_merge(array(ZMLoader::make("IdNamePair", "", zm_l10n_get("Select State"))), $zones), $shippingEstimator->getStateId()) ?>
+                        <?php echo $form->idpSelect('state', array_merge(array(ZMLoader::make("IdNamePair", "", zm_l10n_get("Select State"))), $zones), $shippingEstimator->getStateId()) ?>
                     <?php } else { ?>
                         <input type="text" name="state" value="" />
                     <?php } ?>

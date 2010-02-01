@@ -23,7 +23,7 @@
  * $Id$
  */
 ?>
-<?php $form->open(FILENAME_CREATE_ACCOUNT, "action=process", true, array('id'=>'registration')) ?>
+<?php echo $form->open(FILENAME_CREATE_ACCOUNT, "action=process", true, array('id'=>'registration')) ?>
     <?php if (ZMSettings::get('isPrivacyMessage')) { ?>
         <fieldset>
             <legend><?php zm_l10n("About Privacy") ?></legend>
@@ -96,15 +96,15 @@
 
                 <tr>
                     <td><?php zm_l10n("Street Address") ?><span>*</span></td>
-                    <td><input type="text" name="addressLine1" value="<?php echo $html->encode($registration->getAddressLine1()) ?>" <?php $form->fieldLength(TABLE_ADDRESS_BOOK, 'entry_street_address') ?> /></td>
+                    <td><input type="text" name="addressLine1" value="<?php echo $html->encode($registration->getAddressLine1()) ?>" <?php echo $form->fieldLength(TABLE_ADDRESS_BOOK, 'entry_street_address') ?> /></td>
                 </tr>
                 <tr>
                     <td><?php zm_l10n("Suburb") ?></td>
-                    <td><input type="text" name="suburb" value="<?php echo $html->encode($registration->getSuburb()) ?>" <?php $form->fieldLength(TABLE_ADDRESS_BOOK, 'entry_suburb') ?> /></td>
+                    <td><input type="text" name="suburb" value="<?php echo $html->encode($registration->getSuburb()) ?>" <?php echo $form->fieldLength(TABLE_ADDRESS_BOOK, 'entry_suburb') ?> /></td>
                 </tr>
                 <tr>
                     <td><?php zm_l10n("City") ?><span>*</span></td>
-                    <td><input type="text" name="city" value="<?php echo $html->encode($registration->getCity()) ?>" <?php $form->fieldLength(TABLE_ADDRESS_BOOK, 'entry_city') ?> /></td>
+                    <td><input type="text" name="city" value="<?php echo $html->encode($registration->getCity()) ?>" <?php echo $form->fieldLength(TABLE_ADDRESS_BOOK, 'entry_city') ?> /></td>
                 </tr>
                 <?php 
                     $countryId = $registration->getCountryId(); 
@@ -112,11 +112,11 @@
                 ?>
                 <tr>
                     <td><?php zm_l10n("Post Code") ?><span>*</span></td>
-                    <td><input type="text" name="postcode" value="<?php echo $html->encode($registration->getPostcode()) ?>" <?php $form->fieldLength(TABLE_ADDRESS_BOOK, 'entry_postcode') ?> /></td>
+                    <td><input type="text" name="postcode" value="<?php echo $html->encode($registration->getPostcode()) ?>" <?php echo $form->fieldLength(TABLE_ADDRESS_BOOK, 'entry_postcode') ?> /></td>
                 </tr>
                  <tr>
                     <td><?php zm_l10n("Country") ?><span>*</span></td>
-                    <td><?php $form->idpSelect('countryId', ZMCountries::instance()->getCountries(), $countryId) ?></td>
+                    <td><?php echo $form->idpSelect('countryId', ZMCountries::instance()->getCountries(), $countryId) ?></td>
                 </tr>
                 <?php if (ZMSettings::get('isAccountState')) { ?>
                     <?php $zones = ZMCountries::instance()->getZonesForCountryId($countryId); ?>
@@ -124,7 +124,7 @@
                         <td><?php zm_l10n("State/Province") ?><span>*</span></td>
                         <td>
                             <?php if (0 < count($zones)) { ?>
-                                <?php $form->idpSelect('zoneId', $zones, $registration->getZoneId()) ?>
+                                <?php echo $form->idpSelect('zoneId', $zones, $registration->getZoneId()) ?>
                             <?php } else { ?>
                                 <input type="text" name="state" value="<?php echo $html->encode($registration->getState()) ?>" />
                             <?php } ?>

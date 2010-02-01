@@ -30,7 +30,7 @@
       
       <div id="header-image"></div> 		
       
-      <?php $form->open('search', '', false, array('method' => 'get', 'id' => 'quick-search')) ?>
+      <?php echo $form->open('search', '', false, array('method' => 'get', 'id' => 'quick-search')) ?>
         <p>
         <label for="qsearch">Search:</label>
         <?php define('KEYWORD_DEFAULT', zm_l10n_get("search ...")); ?>

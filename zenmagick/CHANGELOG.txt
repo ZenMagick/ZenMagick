@@ -66,6 +66,8 @@ Release 0.9.9
   formatAddress(), showBanner(), productPrice()
 - reimplement ZMCoreCompressor based on ZMPhpPackagePacker
 - full: update session setting to force cookies
+- templates: drop $echo parameter in ZMToolboxForm::open(), addProduct(),
+  hiddenCartFields(), fieldLength(), idpSelect() and hiddenList()
 
 Release 0.9.8
 - add Savant3 and experimental views (not used yet)

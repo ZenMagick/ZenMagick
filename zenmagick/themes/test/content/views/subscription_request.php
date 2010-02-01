@@ -26,7 +26,7 @@
 
 <h3><?php zm_l10n("Subscription Enqiries") ?></h3>
 
-<?php $form->open(ZM_FILENAME_SUBSCRIPTION_REQUEST, null, true, array('method' => 'post', 'id' => 'subscription_request')) ?>
+<?php echo $form->open(ZM_FILENAME_SUBSCRIPTION_REQUEST, null, true, array('method' => 'post', 'id' => 'subscription_request')) ?>
     <fieldset>
         <legend><?php zm_l10n("Subscription Enquiries") ?></legend>
         <label for="type"><?php zm_l10n("Request Type") ?><span>*</span></label>

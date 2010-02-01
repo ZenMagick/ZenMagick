@@ -1,6 +1,6 @@
 <div id="search">
   <h2>Search</h2>
-  <?php $form->open('search', '', false, array('method' => 'get', 'id' => 'searchform')) ?>
+  <?php echo $form->open('search', '', false, array('method' => 'get', 'id' => 'searchform')) ?>
     <div>
       <?php define('KEYWORD_DEFAULT', zm_l10n_get("enter search")); ?>
       <?php $onfocus = "if(this.value=='" . KEYWORD_DEFAULT . "') this.value='';" ?>

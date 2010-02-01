@@ -24,7 +24,7 @@
  */
 ?>
 
-<?php $form->open(FILENAME_ACCOUNT_EDIT, '', true, array('id'=>'account')) ?>
+<?php echo $form->open(FILENAME_ACCOUNT_EDIT, '', true, array('id'=>'account')) ?>
     <fieldset>
         <legend><?php zm_l10n("My Account") ?></legend>
         <table cellspacing="0" cellpadding="0">

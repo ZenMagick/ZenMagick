@@ -74,10 +74,9 @@ class ZMToolboxForm extends ZMToolboxTool {
      * @param string params Query string style parameter.
      * @param boolean secure Flag indicating whether to create a secure or non secure action URL; default is <code>true</code>.
      * @param array attr Optional HTML attribute map; default is <code>null</code>.
-     * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string A HTML form tag plus optional hidden form fields.
      */
-    public function open($page=null, $params='', $secure=true, $attr=null, $echo=ZM_ECHO_DEFAULT) {
+    public function open($page=null, $params='', $secure=true, $attr=null) {
         $defaults = array('method' => 'post', 'onsubmit' => 'return validate(this);');
         $hasId = isset($attr['id']);
         $hasOnsubmit = isset($attr['onsubmit']);
@@ -139,8 +138,6 @@ class ZMToolboxForm extends ZMToolboxTool {
         }
 
         $html = ob_get_clean();
-
-        if ($echo) echo $html;
         return $html;
     }
 
@@ -153,10 +150,9 @@ class ZMToolboxForm extends ZMToolboxTool {
      * @param int productId The product (id) to add.
      * @param int quantity Optional quantity; default to 0 which means that the card_quantity field will <strong>not</strong> be added
      * @param array attr Optional HTML attribute map; default is an empty array.
-     * @param boolean echo If <code>true</code>, the URI will be echo'ed as well as returned.
      * @return string A HTML form to add the given productId to the shopping cart.
      */
-    public function addProduct($productId, $quantity=0, $attr=array(), $echo=ZM_ECHO_DEFAULT) {
+    public function addProduct($productId, $quantity=0, $attr=array()) {
         $params = 'action=add_product&products_id='.$productId;
         if (0 < $quantity) {
             $params .= '&cart_quantity='.$quantity;
@@ -165,17 +161,16 @@ class ZMToolboxForm extends ZMToolboxTool {
         $attr = array_merge(array('enctype' => 'multipart/form-data', 'onsubmit' => null), $attr);
 
         // make multipart in case there are uploads
-        return $this->open(null, $params, true, $attr, $echo);
+        return $this->open(null, $params, true, $attr);
     }
 
     /**
      * Create all required hidden form fields for a given shoppin cart item.
      *
      * @param ZMShoppingCartItem item The shopping cart item.
-     * @param boolean echo If <code>true</code>, the HTML will be echo'ed as well as returned.
      * @return string HTML form to add a given productId to the shopping cart.
      */
-    public function hiddenCartFields($item, $echo=ZM_ECHO_DEFAULT) {
+    public function hiddenCartFields($item) {
         $slash = ZMSettings::get('zenmagick.mvc.html.xhtml') ? '/' : '';
         $html = '<input type="hidden" name="products_id[]" value="' . $item->getId() . '"'.$slash.'>';
         if ($item->hasAttributes()) {
@@ -187,7 +182,6 @@ class ZMToolboxForm extends ZMToolboxTool {
             }
         }
 
-        if ($echo) echo $html;
         return $html;
     }
 
@@ -197,10 +191,9 @@ class ZMToolboxForm extends ZMToolboxTool {
      * @param string table The table name.
      * @param string col The column name.
      * @param int max The size attribute; default is <em>40</em>; use <code>0</code> to prevent a <em>size</em> attribute.
-     * @param boolean echo If <code>true</code>, the attributes will be echo'ed as well as returned.
      * @return string The attributes.
      */
-    public function fieldLength($table, $col, $max=40, $echo=ZM_ECHO_DEFAULT) {
+    public function fieldLength($table, $col, $max=40) {
         //TODO: convert from col to form field/model property
         $length = ZMTemplateManager::instance()->getFieldLength($table, $col);
         $html = '';
@@ -216,7 +209,6 @@ class ZMToolboxForm extends ZMToolboxTool {
                 break;
         }
 
-        if ($echo) echo $html;
         return $html;
     }
 
@@ -256,10 +248,9 @@ class ZMToolboxForm extends ZMToolboxTool {
      * @param array list A list of options.
      * @param array attr Optional HTML attribute map; default is <code>null</code>.
      * @param string selectedId Value of option to select; default is <code>null</code>.
-     * @param boolean echo If <code>true</code>, the HTML will be echo'ed as well as returned.
      * @return string Complete HTML <code>&lt;select&gt;</code> tag.
      */
-    public function idpSelect($name, $list, $selectedId=null, $attr=array(), $echo=ZM_ECHO_DEFAULT) {
+    public function idpSelect($name, $list, $selectedId=null, $attr=array()) {
         $defaults = array('id' => $name, 'name' => $name, 'size' => 1, 'oValue' => 'getId', 'oText' => 'getName');
         if (null === $attr) {
             $attr = $defaults;
@@ -284,7 +275,6 @@ class ZMToolboxForm extends ZMToolboxTool {
         }
         $html .= '</select>';
 
-        if ($echo) echo $html;
         return $html;
     }
 
@@ -293,17 +283,15 @@ class ZMToolboxForm extends ZMToolboxTool {
      *
      * @param string name The common name.
      * @param array values List of values.
-     * @param boolean echo If <code>true</code>, the HTML will be echo'ed as well as returned.
      * @return string HTML formatted input fields of type <em>hidden</em>.
      */
-    public function hiddenList($name, $values, $echo=ZM_ECHO_DEFAULT) {
+    public function hiddenList($name, $values) {
         $slash = ZMSettings::get('zenmagick.mvc.html.xhtml') ? '/' : '';
         $html = '';
         foreach ($values as $value) {
             $html .= '<input type="hidden" name="' . $name . '" value="' . $value . '"'.$slash.'>';
         }
 
-        if ($echo) echo $html;
         return $html;
     }
 

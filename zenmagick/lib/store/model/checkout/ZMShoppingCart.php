@@ -313,7 +313,7 @@ class ZMShoppingCart extends ZMObject {
      *
      * <p>An example for the actual order form might look similar to this:</p>
      * <pre>
-     *   &lt;?php $form->open($zm_cart-&gt;getOrderFormURL(), '', true) ?&gt;
+     *   &lt;?php echo $form->open($zm_cart-&gt;getOrderFormURL(), '', true) ?&gt;
      *     &lt;?php $shoppingCart-&gt;getOrderFormContent() ?&gt;
      *     &lt;div class="btn"&gt;&lt;input type="submit" class="btn" value="&lt;?php zm_l10n("Confirm to order") ?&gt;" /&gt;&lt;/div&gt;
      *   &lt;/form&gt;

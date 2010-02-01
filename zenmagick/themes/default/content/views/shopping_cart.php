@@ -24,7 +24,7 @@
  */
 ?>
 
-<?php $form->open(FILENAME_SHOPPING_CART, "action=update_product", true) ?>
+<?php echo $form->open(FILENAME_SHOPPING_CART, "action=update_product", true) ?>
     <table cellpadding="0" cellspacing="0">
         <tbody>
         <?php $odd = true; $first = true; foreach ($shoppingCart->getItems() as $item) { ?>
@@ -32,7 +32,7 @@
             <td class="remove"><a href="<?php $net->url(FILENAME_SHOPPING_CART, 'action=remove_product&product_id='.$item->getId()) ?>"><img src="<?php echo $this->asUrl("images/small_delete.gif") ?>" alt="remove" /></a></td>
                 <td class="img">
                     <?php $html->productImageLink($item->getProduct()) ?>
-                    <?php $form->hiddenCartFields($item) ?>
+                    <?php echo $form->hiddenCartFields($item) ?>
                 </td>
                 <td class="itm">
                     <?php if (!$item->isStockAvailable() && ZMSettings::get('isEnableStock')) { ?>

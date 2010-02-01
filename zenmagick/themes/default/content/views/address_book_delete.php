@@ -25,7 +25,7 @@
 ?>
 
 <p><?php zm_l10n("Are you sure you would like to delete the selected address from your address book?") ?></p>
-<?php $form->open('address_book_delete', '', true, array('onsubmit'=>null)) ?>
+<?php echo $form->open('address_book_delete', '', true, array('onsubmit'=>null)) ?>
     <fieldset>
         <legend><?php zm_l10n("Selected Address") ?></legend>
         <div class="btn">

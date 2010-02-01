@@ -26,7 +26,7 @@
 
 <?php $currentAddress = $shoppingCart->getBillingAddress(); ?>
 <?php if (0 < count($addressList)) { ?>
-    <?php $form->open(FILENAME_CHECKOUT_PAYMENT_ADDRESS, 'action=select', true) ?>
+    <?php echo $form->open(FILENAME_CHECKOUT_PAYMENT_ADDRESS, 'action=select', true) ?>
         <h3><?php zm_l10n("Select an existing address") ?></h3>
         <fieldset>
             <legend><?php zm_l10n("Address Book") ?></legend>
@@ -46,7 +46,7 @@
     </form>
     <h3><?php zm_l10n("... or create a new one") ?></h3>
 <?php } ?>
-<?php $form->open(FILENAME_CHECKOUT_PAYMENT_ADDRESS, 'action=create', true, array('id'=>'paymentAddress')) ?>
+<?php echo $form->open(FILENAME_CHECKOUT_PAYMENT_ADDRESS, 'action=create', true, array('id'=>'paymentAddress')) ?>
     <?php $this->assign(array('address' => $billingAddress)); echo $this->fetch('views/address.php') ?>
     <div class="btn"><input type="submit" class="btn" value="<?php zm_l10n("Continue") ?>" /></div>
 </form>

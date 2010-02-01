@@ -24,7 +24,7 @@
  */
 ?>
 
-<?php $form->open('guest_history', '', true, array('id'=>'guest_history')) ?>
+<?php echo $form->open('guest_history', '', true, array('id'=>'guest_history')) ?>
   <fieldset>
     <legend><?php zm_l10n("Find Guest Order") ?></legend>
     <div>

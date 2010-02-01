@@ -25,7 +25,7 @@
 ?>
 
 <p><?php zm_l10n("Current available balance: <strong>%s</strong>", $utils->formatMoney($request->getAccount()->getVoucherBalance())) ?></p>
-<?php $form->open(FILENAME_GV_SEND, '', true, array('id'=>'gvreceiverObject')) ?>
+<?php echo $form->open(FILENAME_GV_SEND, '', true, array('id'=>'gvreceiverObject')) ?>
     <fieldset>
         <legend><?php zm_l10n("EMail Gift Certificate") ?></legend>
         <label for="name"><?php zm_l10n("Receiver Name") ?></label><br />

@@ -41,7 +41,7 @@
                 <td style="text-align:center;"><img src="images/icons/<?php echo ($order->isSubscriptionCanceled() ? 'cross.gif' : 'tick.gif') ?>" alt="tick"></td>
                 <td>
                     <?php if (!$order->isSubscriptionCanceled()) { ?>
-                        <?php $form->open(null, null) ?>
+                        <?php echo $form->open(null, null) ?>
                             <input type="hidden" name="orderId" value="<?php echo $order->getId() ?>">
                             <input type="submit" name="cancel" value="cancel">
                             <input type="checkbox" id="hard_<?php echo $order->getId() ?>" name="hard" value="1"><label for="hard_<?php echo $order->getId() ?>">Hard cancel</label>

@@ -77,7 +77,7 @@
     </div>
 
     <div class="filetree">
-      <?php $form->open('tests', '', false, array('method'=>'post')); ?>
+      <?php echo $form->open('tests', '', false, array('method'=>'post')); ?>
         <div id="root">
           <input type="submit" id="run" value="Run Selected">
           <input type="checkbox" id="all__all" onclick="sync_all(this)"> <label for="all__all"><strong>Select All</strong></label>

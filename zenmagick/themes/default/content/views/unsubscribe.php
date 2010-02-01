@@ -33,12 +33,12 @@ please see our <a href="%s">privacy policy</a>.', $net->staticPage(FILENAME_PRIV
     <p><?php zm_l10n('If you still do not wish to receive your newsletter, please click the button below. 
           You will be taken to your account-preferences page, where you may edit your subscriptions. You may be prompted to log in first.') ?></p>
 
-    <?php $form->open(FILENAME_UNSUBSCRIBE, "", true, array('id'=>'unsubscribe')) ?>
+    <?php echo $form->open(FILENAME_UNSUBSCRIBE, "", true, array('id'=>'unsubscribe')) ?>
       <fieldset>
         <legend><?php zm_l10n("Newsletter Unsubscribe") ?></legend>
         <div>
           <label for="email_address"><?php zm_l10n("E-Mail Address") ?></label>
-          <input type="text" id="email_address" name="email_address" <?php $form->fieldLength(TABLE_CUSTOMERS, 'customers_email_address') ?> /> 
+          <input type="text" id="email_address" name="email_address" <?php echo $form->fieldLength(TABLE_CUSTOMERS, 'customers_email_address') ?> /> 
         </div>
       </fieldset>
       <div class="btn"><input type="submit" class="btn" value="<?php zm_l10n("Unsubscribe") ?>" /></div>

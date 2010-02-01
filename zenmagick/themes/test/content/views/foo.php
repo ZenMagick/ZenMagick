@@ -24,7 +24,7 @@
  */
 ?>
 
-<?php $form->open('foo', '', true, array('id'=>'foo')) ?>
+<?php echo $form->open('foo', '', true, array('id'=>'foo')) ?>
   <fieldset>
     <legend><?php zm_l10n("Foo") ?></legend>
     <div>

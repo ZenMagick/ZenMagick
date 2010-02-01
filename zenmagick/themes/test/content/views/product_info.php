@@ -27,7 +27,7 @@
 <?php $manufacturer = $currentProduct->getManufacturer() ?>
 <h2><?php echo $html->encode(null != $manufacturer ? $manufacturer->getName() : '') ?> <?php echo $html->encode($currentProduct->getName()) ?></h2>
 
-<?php $form->addProduct($currentProduct->getId()) ?>
+<?php echo $form->addProduct($currentProduct->getId()) ?>
   <?php $imageInfo = $currentProduct->getImageInfo() ?>
   <div>
       <?php if ($imageInfo->hasLargeImage()) { ?>

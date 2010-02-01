@@ -25,7 +25,7 @@
 ?>
 
 <?php define('KEYWORD_DEFAULT', zm_l10n_get("enter search")); ?>
-<?php $form->open('search', '', false, array('method' => 'get')) ?>
+<?php echo $form->open('search', '', false, array('method' => 'get')) ?>
     <fieldset>
     <legend><?php zm_l10n("Search again") ?></legend>
         <div>
@@ -45,7 +45,7 @@
             <?php echo $this->fetch('views/resultlist/options.php') ?>
         </div>
 
-        <?php $form->open('compare_products', '', false, array('method' => 'get')) ?>
+        <?php echo $form->open('compare_products', '', false, array('method' => 'get')) ?>
             <div class="rlist">
                 <table cellspacing="0" cellpadding="0"><tbody>
                     <?php $first = true; $odd = true; foreach ($resultList->getResults() as $product) { $this->assign(array('product' => $product)); ?>

@@ -24,7 +24,7 @@
  */
 ?>
 
-<?php $form->open(FILENAME_CHECKOUT_SUCCESS, 'action=update', true, array('onsubmit'=>null)) ?>
+<?php echo $form->open(FILENAME_CHECKOUT_SUCCESS, 'action=update', true, array('onsubmit'=>null)) ?>
     <h2><?php zm_l10n("Thanks for shopping with us") ?></h2>
     <p><?php zm_l10n("Your order number is: <strong>%s</strong>", $currentOrder->getId()) ?></p>
     <?php if ($request->getAccount()->isRegistered()) { ?>

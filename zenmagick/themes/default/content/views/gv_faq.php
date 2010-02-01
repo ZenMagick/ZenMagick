@@ -46,7 +46,7 @@
     <?php echo $zm_theme->staticPageContent($topic); ?>
 <?php } ?>
 
-<?php $form->open(FILENAME_GV_REDEEM, '', true, array('id'=>'gv_redeem')) ?>
+<?php echo $form->open(FILENAME_GV_REDEEM, '', true, array('id'=>'gv_redeem')) ?>
   <fieldset>
     <legend><?php zm_l10n("Redemption code details") ?></legend>
     <div>

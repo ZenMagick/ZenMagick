@@ -24,7 +24,7 @@
  */
 ?>
 
-<?php $form->open(FILENAME_CHECKOUT_SUCCESS, 'action=update', true, array('onsubmit'=>null)) ?>
+<?php echo $form->open(FILENAME_CHECKOUT_SUCCESS, 'action=update', true, array('onsubmit'=>null)) ?>
     <h2><?php zm_l10n("Thanks for shopping with us") ?></h2>
     <p><?php zm_l10n("Your order number is: <strong>%s</strong>", $currentOrder->getId()) ?></p>
     <?php if ($request->getAccount()->isRegistered()) { ?>
@@ -74,7 +74,7 @@
 </form>
 
 <?php if (1 == count(ZMOrders::instance()->getOrdersForAccountId($currentOrder->getAccountId(), 2)) && 'registered' == $request->getAccount()->getType()) { ?>
-    <?php $form->open('checkout_refer_a_friend', '', true, array('id'=>'checkout_refer_a_friend')) ?>
+    <?php echo $form->open('checkout_refer_a_friend', '', true, array('id'=>'checkout_refer_a_friend')) ?>
         Friend1: <input type="text" name="friend1" value=""><br>
         Friend2: <input type="text" name="friend2" value=""><br>
         Friend3: <input type="text" name="friend3" value=""><br>

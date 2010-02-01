@@ -28,9 +28,9 @@
 <?php if (0 < count($currencyList) && !ZMLangUtils::startsWith($request->getRequestId(), 'checkout')) { ?>
     <h3><?php zm_l10n("Currencies") ?></h3>
     <div id="sb_currencies" class="box">
-        <?php $form->open(null, '', false, null, array('method'=>'get')) ?>
+        <?php echo $form->open(null, '', false, null, array('method'=>'get')) ?>
             <div>
-                <?php $form->idpSelect('currency', $currencyList, $request->getCurrencyCode(), array('onchange'=>'this.form.submit()', 'oValue'=>'getCode')) ?>
+                <?php echo $form->idpSelect('currency', $currencyList, $request->getCurrencyCode(), array('onchange'=>'this.form.submit()', 'oValue'=>'getCode')) ?>
                 <noscript>
                     <div><input type="submit" class="btn" value="<?php zm_l10n('Go') ?>" /></div>
                 </noscript>

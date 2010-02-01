@@ -24,7 +24,7 @@
  */
 ?>
 
-<?php $form->addProduct($currentProduct->getId(), 1) ?>
+<?php echo $form->addProduct($currentProduct->getId(), 1) ?>
   <div>  
     <div id="pinfo">
       <?php $imageInfo = $currentProduct->getImageInfo() ?>

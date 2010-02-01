@@ -53,7 +53,7 @@
     <h4><?php zm_l10n("The coupon is valid for all categories and products.") ?></h4>
 <?php } ?>
 
-<?php $form->open(FILENAME_DISCOUNT_COUPON, 'action=lookup', false, array('method' => 'get')) ?>
+<?php echo $form->open(FILENAME_DISCOUNT_COUPON, 'action=lookup', false, array('method' => 'get')) ?>
   <fieldset>
     <legend><?php zm_l10n("Look-up another discount coupon ...") ?></legend>
     <label for="lookup_discount_coupon"><?php zm_l10n("Your Code") ?></label>

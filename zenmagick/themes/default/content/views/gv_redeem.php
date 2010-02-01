@@ -28,7 +28,7 @@
 <?php if ($gvRedeem->isRedeemed()) { ?>
   <p><?php zm_l10n("Congratulations, you have redeemed a Gift Certificate worth %s.", $utils->formatMoney($gvRedeem->getAmount())) ?></p>
 <?php } else { ?>
-  <?php $form->open(FILENAME_GV_REDEEM, '', true, array('id'=>'gv_redeem')) ?>
+  <?php echo $form->open(FILENAME_GV_REDEEM, '', true, array('id'=>'gv_redeem')) ?>
     <fieldset>
       <legend><?php zm_l10n("Redemption code details") ?></legend>
       <div>

@@ -25,7 +25,7 @@
 ?>
 
 <?php if ($resultList->hasFilters() || $resultList->hasSorters()) { ?>
-    <?php $form->open(null, null, false, array('method'=>'get','class'=>'ropt','onsubmit'=>null)) ?>
+    <?php echo $form->open(null, null, false, array('method'=>'get','class'=>'ropt','onsubmit'=>null)) ?>
         <?php if ($resultList->hasFilters()) { ?>
             <div class="rlf">
                 <?php foreach($resultList->getFilters() as $filter) { if (!$filter->isAvailable()) continue; ?>
@@ -52,7 +52,7 @@
                 <?php } else if ($request->getManufacturerId()) { ?>
                     <input type="hidden" name="manufacturers_id" value="<?php echo $request->getManufacturerId() ?>" />
                 <?php } else if (null != $request->getParameter("compareId")) { ?>
-                    <?php $form->hiddenList('compareId[]',$request->getParameter("compareId")) ?>
+                    <?php echo $form->hiddenList('compareId[]',$request->getParameter("compareId")) ?>
                 <?php } ?>
 
                 <select id="sort" name="sort_id" onchange="this.form.submit()">

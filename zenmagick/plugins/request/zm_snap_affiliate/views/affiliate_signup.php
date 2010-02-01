@@ -19,7 +19,7 @@
     <p>Interested in signing up for our referral program? 
     Enter the URL you'd like to promote us from.  We'll take a look and let you know what we think.</p>
 
-    <?php $form->open('affiliate_signup', '', true, array('id'=>'affiliateSignup')) ?>
+    <?php echo $form->open('affiliate_signup', '', true, array('id'=>'affiliateSignup')) ?>
       <fieldset>
         <legend><?php zm_l10n("Signup URL") ?></legend>
         <div>

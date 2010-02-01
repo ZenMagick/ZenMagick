@@ -25,7 +25,7 @@
 ?>
 
 <?php define('KEYWORD_DEFAULT', zm_l10n_get("enter search")); ?>
-<?php $form->open('search', '', false, array('method' => 'get', 'id' => 'searchCriteria')) ?>
+<?php echo $form->open('search', '', false, array('method' => 'get', 'id' => 'searchCriteria')) ?>
     <fieldset id="term">
         <legend><?php zm_l10n("Search For..."); ?></legend>
         <div id="help">
@@ -44,7 +44,7 @@
         <fieldset>
             <legend><?php zm_l10n("Category")?></legend>
             <?php $categories = ZMCategories::instance()->getCategories(null, $session->getLanguageId()); ?>
-            <?php $form->idpSelect('categoryId', array_merge(array(ZMLoader::make("IdNamePair", "", zm_l10n_get("All Categories"))), $categories), $searchCriteria->getCategoryId()) ?>
+            <?php echo $form->idpSelect('categoryId', array_merge(array(ZMLoader::make("IdNamePair", "", zm_l10n_get("All Categories"))), $categories), $searchCriteria->getCategoryId()) ?>
             <?php $checked = $searchCriteria->isIncludeSubcategories() ? 'checked="checked" ' : ''; ?>
             <input type="checkbox" id="includeSubcategories" name="includeSubcategories" value="1" <?php echo $checked?>/>
             <label for="includeSubcategories"><?php zm_l10n("Include subcategories"); ?></label>
@@ -53,7 +53,7 @@
         <fieldset>
             <legend><?php zm_l10n("Manufacturer"); ?></legend>
             <?php $manufacturers = ZMManufacturers::instance()->getManufacturers($session->getLanguageId()); ?>
-            <?php $form->idpSelect('manufacturerId', array_merge(array(ZMLoader::make("IdNamePair", "", zm_l10n_get("All Manufacturers"))), $manufacturers), $searchCriteria->getManufacturerId()) ?>
+            <?php echo $form->idpSelect('manufacturerId', array_merge(array(ZMLoader::make("IdNamePair", "", zm_l10n_get("All Manufacturers"))), $manufacturers), $searchCriteria->getManufacturerId()) ?>
         </fieldset>
 
         <fieldset>

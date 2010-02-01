@@ -183,7 +183,7 @@
     </tbody>
   </table>
   <h3><?php echo ($edit_feature ? "Edit" : "Add") ?> feature</h3>
-  <?php $toolbox->form->open('', $zm_nav_params) ?>
+  <?php echo $toolbox->form->open('', $zm_nav_params) ?>
     <div>
         <input type="hidden" name="action" value="<?php echo ($edit_feature ? "update_feature" : "add_feature") ?>">
     </div>
@@ -262,7 +262,7 @@
         </table>
       <?php } ?>
         <h3><?php zm_l10n($edit_product_feature ? "Update Product Feature" : "Add Product Feature") ?></h3>
-        <?php $toolbox->form->open('', $zm_nav_params) ?>
+        <?php echo $toolbox->form->open('', $zm_nav_params) ?>
           <div>
             <input type="hidden" name="action" value="<?php echo ($edit_product_feature ? "update_feature_value" : "add_feature_value") ?>">
           </div>
