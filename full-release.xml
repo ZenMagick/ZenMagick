@@ -45,8 +45,8 @@
         <!-- move ZenMagick SQL to the right place -->
         <copy file="${zenmagick.src.dir}/lib/store/etc/sql/mysql/config.sql" tofile="${release.full.dir}/zc_install/sql/plugins/mysql_config.sql" />
         <copy file="${zenmagick.src.dir}/lib/store/etc/sql/mysql/token_install.sql" tofile="${release.full.dir}/zc_install/sql/plugins/mysql_token_install.sql" />
-        <copy file="${basedir}/etc/build/mysql_default_sideboxes.sql" todir="${release.full.dir}/zc_install/sql/plugins/" />
-        <copy file="${basedir}/etc/build/mysql_other.sql" todir="${release.full.dir}/zc_install/sql/plugins/" />
+        <copy file="${basedir}/etc/build/full/sql/mysql_default_sideboxes.sql" todir="${release.full.dir}/zc_install/sql/plugins/" />
+        <copy file="${basedir}/etc/build/full/sql/mysql_other.sql" todir="${release.full.dir}/zc_install/sql/plugins/" />
 
         <!-- wrap it all up -->
         <unzip src="${dist.dir}/zenmagick-${zenmagick.version}.zip" dest="${release.full.dir}" />
