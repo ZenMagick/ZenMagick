@@ -185,7 +185,7 @@ class ToolboxHtml extends ZMToolboxHtml {
                 $html .= ' '.$name.'="'.$value.'"';
             }
         }
-        $html .= '>'.$this->image($product->getImageInfo(), $format, '', false);
+        $html .= '>'.$this->image($product->getImageInfo(), $format, '');
         $html .= '</a>';
 
         return $html;

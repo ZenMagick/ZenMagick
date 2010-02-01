@@ -75,6 +75,7 @@ Release 0.9.9
   ezpage() [note that the name is now ezPage], image(), redirect() [also
 	renamed to trackLink()], ajax(), rssFeed(), resultListBack(),
 	resultListNext() and url()
+- remove setting 'isEchoHTML' and define ZM_ECHO_HTML
 
 Release 0.9.8
 - add Savant3 and experimental views (not used yet)

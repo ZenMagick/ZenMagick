@@ -194,11 +194,6 @@ class ZMEventFixes extends ZMObject {
             ZMSacsManager::instance()->load(file_get_contents($sacsMappings), false);
         }
 
-        // always echo in admin
-        if (ZMSettings::get('isAdmin')) { ZMSettings::get('isEchoHTML', true); }
-        // this is used as default value for the $echo parameter for HTML functions
-        define('ZM_ECHO_DEFAULT', ZMSettings::get('isEchoHTML'));
-
         $this->fixCategoryPath($request);
         $this->checkAuthorization($request);
         if (ZMSettings::get('configureLocale')) {

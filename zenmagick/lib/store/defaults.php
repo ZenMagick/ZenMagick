@@ -315,7 +315,6 @@
             // HTML generation / validation
             'isJSTarget' => true,
             'isAutoJSValidation' => true,
-            'isEchoHTML' => true,
 
 
             /**************************************

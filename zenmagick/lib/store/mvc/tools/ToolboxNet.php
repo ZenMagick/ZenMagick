@@ -144,10 +144,9 @@ class ToolboxNet extends ZMToolboxNet {
      * @param string page The page name (ie. the page name as referred to by the parameter <code>ZM_PAGE_KEY</code>)
      * @param string params Query string style parameter; if <code>null</code> add all current parameter
      * @param boolean secure Flag indicating whether to create a secure or non secure URL; default is <code>false</code>.
-     * @param boolean echo If <code>true</code>, the URL will be echo'ed as well as returned.
      * @return string A full URL.
      */
-    public function url($page=null, $params='', $secure=false, $echo=ZM_ECHO_DEFAULT) {
+    public function url($page=null, $params='', $secure=false) {
         // custom view and params handling
         if (null === $page || null === $params) {
             $query = $this->getRequest()->getParameterMap();
@@ -205,7 +204,7 @@ class ToolboxNet extends ZMToolboxNet {
                 $cPath = '&'.$category->getPath();
             }
         }
-        return $this->url(FILENAME_PRODUCT_INFO, '&products_id='.$productId.$cPath, false, false);
+        return $this->url(FILENAME_PRODUCT_INFO, '&products_id='.$productId.$cPath);
     }
 
     /**
@@ -215,7 +214,7 @@ class ToolboxNet extends ZMToolboxNet {
      * @return string A complete URL for the given static page.
      */
     public function staticPage($name) { 
-        return $this->url('static', '&cat='.$name, false, false);
+        return $this->url('static', '&cat='.$name);
     }
 
     /**
@@ -236,7 +235,7 @@ class ToolboxNet extends ZMToolboxNet {
             $params .= '&chapter='.$page->getTocChapter();
         }
 
-        $href = $this->url(FILENAME_EZPAGES, $params, $page->isSSL(), false);
+        $href = $this->url(FILENAME_EZPAGES, $params, $page->isSSL());
         if (!ZMLangUtils::isEmpty($page->getAltUrl())) {
             $url = parse_url($page->getAltUrl());
             parse_str($url['query'], $query);
@@ -246,7 +245,7 @@ class ToolboxNet extends ZMToolboxNet {
             foreach ($query as $name => $value) {
                 $params .= "&".$name."=".$value;
             }
-            $href = $this->url($view, $params, $page->isSSL(), false);
+            $href = $this->url($view, $params, $page->isSSL());
         } else if (!ZMLangUtils::isEmpty($page->getAltUrlExternal())) {
             $href = $page->getAltUrlExternal();
         }
@@ -277,7 +276,7 @@ class ToolboxNet extends ZMToolboxNet {
      * @return string A full URL.
      */
     public function trackLink($action, $id) {
-        return $this->url(FILENAME_REDIRECT, "action=".$action."&goto=".$id, false, false, false);
+        return $this->url(FILENAME_REDIRECT, "action=".$action."&goto=".$id);
     }
 
     /**
@@ -317,7 +316,7 @@ class ToolboxNet extends ZMToolboxNet {
             $controller = 'ajax_'.$controller;
         }
 
-        $url = str_replace('&amp;', '&', $this->url($controller, $params.'&method='.$method, $this->getRequest()->isSecure(), false));
+        $url = str_replace('&amp;', '&', $this->url($controller, $params.'&method='.$method, $this->getRequest()->isSecure()));
 
         return $url;
     }
@@ -334,7 +333,7 @@ class ToolboxNet extends ZMToolboxNet {
         if (null !== $key) {
             $params .= "&key=".$key;
         }
-        $url = $this->url('rss', $params, false, false);
+        $url = $this->url('rss', $params);
 
         return $url;
     }
@@ -353,7 +352,7 @@ class ToolboxNet extends ZMToolboxNet {
         }
 
         $secure = null !== $secure ? $secure : $this->getRequest()->isSecure();
-        $url = $this->url(null, "&page=".$resultList->getPreviousPageNumber(), $secure, false);
+        $url = $this->url(null, "&page=".$resultList->getPreviousPageNumber(), $secure);
 
         return $url;
     }
@@ -372,7 +371,7 @@ class ToolboxNet extends ZMToolboxNet {
         }
 
         $secure = null !== $secure ? $secure : $this->getRequest()->isSecure();
-        $url = $this->url(null, "&page=".$resultList->getNextPageNumber(), $secure, false);
+        $url = $this->url(null, "&page=".$resultList->getNextPageNumber(), $secure);
 
         return $url;
     }
