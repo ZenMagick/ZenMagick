@@ -28,10 +28,10 @@
     <h2><?php zm_l10n("Thanks for shopping with us") ?></h2>
     <p><?php zm_l10n("Your order number is: <strong>%s</strong>", $currentOrder->getId()) ?></p>
     <?php if ($request->getAccount()->isRegistered()) { ?>
-        <?php $account = '<a href="' . $net->url(FILENAME_ACCOUNT, '', false, false) . '">' . zm_l10n_get("My Account") . '</a>'; ?>
+        <?php $account = '<a href="' . $net->url(FILENAME_ACCOUNT) . '">' . zm_l10n_get("My Account") . '</a>'; ?>
         <p><?php zm_l10n("You can view your full order history by going to the %s page and by clicking on view all orders.", $account) ?></p>
     <?php } ?>
-    <?php $customercare = '<a href="' . $net->url(FILENAME_CONTACT_US, '', false, false) . '">' . zm_l10n_get("Customer Service") . '</a>'; ?>
+    <?php $customercare = '<a href="' . $net->url(FILENAME_CONTACT_US) . '">' . zm_l10n_get("Customer Service") . '</a>'; ?>
     <p><?php zm_l10n("Please direct any questions you have to %s.", $customercare) ?></p>
 
     <?php if (!$request->getAccount()->isGlobalProductSubscriber()) { ?>
@@ -55,10 +55,10 @@
             <legend><?php zm_l10n("Gift Certificate Account") ?></legend>
             <p>
                 <?php zm_l10n("You have funds (%s) in your Gift Certificate Account.", $utils->formatMoney($voucherBalance)) ?><br />
-                <?php $email = '<a href="' . $net->url(FILENAME_GV_SEND, '', false, false) . '">' . zm_l10n_get("email") . '</a>'; ?>
+                <?php $email = '<a href="' . $net->url(FILENAME_GV_SEND) . '">' . zm_l10n_get("email") . '</a>'; ?>
                 <?php zm_l10n("If you want to, you can send those funds by %s to someone.", $email) ?>
             </p>
-            <div class="btn"><a href="<?php $net->url(FILENAME_GV_SEND) ?>" class="btn"><?php zm_l10n("Send Gift Certificate") ?></a></div>
+            <div class="btn"><a href="<?php echo $net->url(FILENAME_GV_SEND) ?>" class="btn"><?php zm_l10n("Send Gift Certificate") ?></a></div>
         </fieldset>
     <?php } ?>
 
@@ -66,7 +66,7 @@
         <fieldset>
             <legend><?php zm_l10n("Order Status Check") ?></legend>
             <p>
-                <?php $lookupLink = '<a href="' . $net->url('guest_history', '', false, false) . '">' . zm_l10n_get("order status check") . '</a>'; ?>
+                <?php $lookupLink = '<a href="' . $net->url('guest_history') . '">' . zm_l10n_get("order status check") . '</a>'; ?>
                 <?php zm_l10n("You can check the status of your order using the %s.", $lookupLink) ?>
             </p>
         </fieldset>

@@ -25,7 +25,7 @@
 ?>
 
 <p>This is the second demo page illustrating checkout Ajax options in <em>ZenMagick</em>. For more details about Ajax in ZenMagick 
-check out the <a href="<?php $net->url('ajax_demo') ?>">main Ajax demo</a>.</p>
+check out the <a href="<?php echo $net->url('ajax_demo') ?>">main Ajax demo</a>.</p>
 
 <?php $utils->jsNow('jquery.js') ?>
 <?php $utils->jsNow('jquery.form.js') ?>

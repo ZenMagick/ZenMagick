@@ -46,7 +46,7 @@ class ZMToolboxAdmin extends ZMToolboxTool {
             $requestId = $this->getRequest()->getRequestId();
         }
 
-        $url = $this->getToolbox()->net->url('zmIndex.php', 'main_page='.$requestId.'&'.$params, $secure, false);
+        $url = $this->getToolbox()->net->url('zmIndex.php', 'main_page='.$requestId.'&'.$params, $secure);
 
         $url = str_replace('?&amp;', '?', $url);
         $url = str_replace('?&', '?', $url);

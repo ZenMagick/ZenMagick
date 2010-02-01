@@ -44,7 +44,7 @@ class ZMOpenIDController extends ZMController {
     function __construct() {
         parent::__construct();
         $this->plugin_ = ZMPlugins::instance()->getPluginForId('openID');
-        $this->returnTo_ = str_replace('&amp;', '&', ZMRequest::instance()->getToolbox()->net->url(FILENAME_OPEN_ID, 'action=finishAuth', true, false));
+        $this->returnTo_ = str_replace('&amp;', '&', ZMRequest::instance()->getToolbox()->net->url(FILENAME_OPEN_ID, 'action=finishAuth', true));
         $this->sRegRequired_ = array('email');
         $this->sRegOptional_ = array('fullname', 'nickname');
     }

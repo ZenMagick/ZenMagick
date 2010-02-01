@@ -50,7 +50,7 @@
 
 <form action="<?php echo get_option('siteurl'); ?>/wp-comments-post.php" method="post" id="commentform">
 <?php /* we are in a function here (get_comments()), so ZenMagick template vars are not visible */ ?>
-<input type="hidden" name="redirect_to" value="<?php ZMRequest::instance()->getToolbox()->net->url('wp', 'p='.ZMRequest::instance()->getParameter('p'), false) ?>">
+<input type="hidden" name="redirect_to" value="<?php echo ZMRequest::instance()->getToolbox()->net->url('wp', 'p='.ZMRequest::instance()->getParameter('p'), false) ?>">
 
 <?php if ( $user_ID ) : ?>
 

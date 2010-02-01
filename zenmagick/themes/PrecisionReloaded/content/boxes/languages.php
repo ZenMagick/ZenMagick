@@ -27,7 +27,7 @@
 <h2><?php zm_l10n("Languages") ?></h2>
 <div id="sb_languages" class="box">
     <?php $ii = 0; foreach (ZMLanguages::instance()->getLanguages() as $language) { ?>
-        <a href="<?php $net->url(null, "language=".$language->getCode()) ?>"><img src="<?php echo $this->asUrl("images/lang/" . $language->getDirectory() . "/" . $language->getImage()) ?>" alt="<?php echo $html->encode($language->getName()) ?>" title="<?php echo $html->encode($language->getName()) ?>" /></a>
+        <a href="<?php echo $net->url(null, "language=".$language->getCode()) ?>"><img src="<?php echo $this->asUrl("images/lang/" . $language->getDirectory() . "/" . $language->getImage()) ?>" alt="<?php echo $html->encode($language->getName()) ?>" title="<?php echo $html->encode($language->getName()) ?>" /></a>
         <?php if (0 == $ii%5 && 0 < $ii) { ?><br /><?php } ?>
     <?php ++$ii; } ?>
 </div>

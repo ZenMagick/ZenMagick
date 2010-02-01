@@ -123,7 +123,7 @@
             $odd = true; 
             foreach ($resultList->getResults() as $product) {
                 echo '<tr class="'.($odd?"odd":"even").($first?" first":" other").'">';
-                echo '<td class="first"><a href="'.$toolbox->net->url(null, 'productId='.$product->getId().'&'.$params, false, false).'">'.$product->getName().'</a></td>';
+                echo '<td class="first"><a href="'.$toolbox->net->url(null, 'productId='.$product->getId().'&'.$params).'">'.$product->getName().'</a></td>';
                 echo '<td class="last status">'.($product->getStatus()?zm_l10n_get('yes'):zm_l10n_get('no')).'</td>';
                 echo '</tr>';
                 $first = false; 

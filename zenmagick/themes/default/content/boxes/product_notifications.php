@@ -38,12 +38,12 @@
     <?php if ($request->isAnonymous() || !$isSubscribed) { ?>
         <h3><?php zm_l10n("Notifications") ?></h3>
         <div id="sb_product_notifications" class="box">
-            <a href="<?php $net->url(null, 'action=notify') ?>"><img src="<?php echo $this->asUrl("images/big_tick.gif") ?>" alt="<?php zm_l10n("Notify me of updates to this product") ?>" title="<?php zm_l10n("Notify me of updates to this product") ?>" /><br /><?php zm_l10n("Notify me of updates to <strong>%s</strong>", $currentProduct->getName())?></a>
+            <a href="<?php echo $net->url(null, 'action=notify') ?>"><img src="<?php echo $this->asUrl("images/big_tick.gif") ?>" alt="<?php zm_l10n("Notify me of updates to this product") ?>" title="<?php zm_l10n("Notify me of updates to this product") ?>" /><br /><?php zm_l10n("Notify me of updates to <strong>%s</strong>", $currentProduct->getName())?></a>
         </div>
     <?php } else if ($isSubscribed) { ?>
         <h3><?php zm_l10n("Notifications") ?></h3>
         <div id="sb_product_notifications" class="box">
-            <a href="<?php $net->url(null, 'action=notify_remove') ?>"><img src="<?php echo $this->asUrl("images/big_remove.gif") ?>" alt="<?php zm_l10n("Remove product notification") ?>" title="<?php zm_l10n("Remove product notification") ?>" /><br /><?php zm_l10n("Do not notify me of updates to <strong>%s</strong>", $currentProduct->getName())?></a>
+            <a href="<?php echo $net->url(null, 'action=notify_remove') ?>"><img src="<?php echo $this->asUrl("images/big_remove.gif") ?>" alt="<?php zm_l10n("Remove product notification") ?>" title="<?php zm_l10n("Remove product notification") ?>" /><br /><?php zm_l10n("Do not notify me of updates to <strong>%s</strong>", $currentProduct->getName())?></a>
         </div>
     <?php } else if ($isSubscribed) { ?>
     <?php } ?>

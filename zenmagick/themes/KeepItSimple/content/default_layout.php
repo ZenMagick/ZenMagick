@@ -20,7 +20,7 @@
     <!-- header starts-->
     <div id="header-wrap"><div id="header" class="container_16">						
       
-      <h1 id="logo-text"><a href="<?php $net->url(FILENAME_DEFAULT) ?>" title="">ZenMagick</a></h1>		
+      <h1 id="logo-text"><a href="<?php echo $net->url(FILENAME_DEFAULT) ?>" title="">ZenMagick</a></h1>		
       <p id="intro">As simple as that!</p>				
       
       <!-- navigation -->

@@ -40,8 +40,8 @@
 </form>
 
 <p>
-  <a href="<?php $net->url(FILENAME_PASSWORD_FORGOTTEN, '', true) ?>"><?php zm_l10n("Lost your password?") ?></a><br />
-  <a href="<?php $net->url(FILENAME_CREATE_ACCOUNT, '', true); ?>"><?php zm_l10n("Not registered yet?") ?></a>
+  <a href="<?php echo $net->url(FILENAME_PASSWORD_FORGOTTEN, '', true) ?>"><?php zm_l10n("Lost your password?") ?></a><br />
+  <a href="<?php echo $net->url(FILENAME_CREATE_ACCOUNT, '', true); ?>"><?php zm_l10n("Not registered yet?") ?></a>
 </p>
 
 <?php if (ZMSettings::get('isGuestCheckout') && !$request->getShoppingCart()->isEmpty() && $request->isAnonymous()) { ?>

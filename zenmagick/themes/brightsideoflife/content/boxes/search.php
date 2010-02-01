@@ -34,7 +34,7 @@
                 <?php $onfocus = "if(this.value=='" . KEYWORD_DEFAULT . "') this.value='';" ?>
                 <input type="text" id="keyword" name="keyword" value="<?php echo $html->encode($request->getParameter('keyword', KEYWORD_DEFAULT)) ?>" onfocus="<?php echo $onfocus ?>" />
                 <input type="submit" class="btn" value="<?php zm_l10n("Go") ?>" /><br />
-                <a class="clear" href="<?php $net->url(FILENAME_ADVANCED_SEARCH) ?>"><?php zm_l10n("Advanced Search") ?></a>
+                <a class="clear" href="<?php echo $net->url(FILENAME_ADVANCED_SEARCH) ?>"><?php zm_l10n("Advanced Search") ?></a>
             </div>
         </form>
     </div>

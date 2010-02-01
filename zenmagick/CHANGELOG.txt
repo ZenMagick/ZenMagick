@@ -74,7 +74,7 @@ Release 0.9.9
 - templates: drop $echo parameter in ToolboxNet::product(), staticPage(),
   ezpage() [note that the name is now ezPage], image(), redirect() [also
 	renamed to trackLink()], ajax(), rssFeed(), resultListBack(),
-	resultListNext(), 
+	resultListNext() and url()
 
 Release 0.9.8
 - add Savant3 and experimental views (not used yet)

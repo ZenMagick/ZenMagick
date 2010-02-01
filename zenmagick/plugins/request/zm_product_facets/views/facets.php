@@ -81,7 +81,7 @@
       <?php $noOfEntries = count($info['entries']); ?>
       <?php $ids = array($info['id']); ?>
       <?php if ('categories' == $type || 0 < $noOfEntries) { ?>
-        <a href="<?php $net->url(null, _req_parms($type, $ids, $FACET_TYPES), false) ?>"><?php echo $info['name'] ?> (<?php echo $noOfEntries ?>)</a><br>
+        <a href="<?php echo $net->url(null, _req_parms($type, $ids, $FACET_TYPES), false) ?>"><?php echo $info['name'] ?> (<?php echo $noOfEntries ?>)</a><br>
       <?php } ?>
     <?php } ?>
   </div>

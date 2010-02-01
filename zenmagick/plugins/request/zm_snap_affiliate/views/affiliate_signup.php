@@ -11,10 +11,10 @@
 ?>
 
 <?php if (!$session->isRegistered()) { ?>
-    <?php $redirectUrl = $net->url('affiliate_signup', '', true, false); ?>
+    <?php $redirectUrl = $net->url('affiliate_signup', '', true); ?>
     <p>Interested in signing up for our referral program? Please begin by 
-      <a href="<?php $net->url('login', 'redirect='.$redirectUrl, true)?>">logging in to your account</a>.
-      If you don't already have one, you can <a href="<?php $net->url('create_account', 'redirect='.$redirectUrl, true) ?>">create it here</a>.</p>
+      <a href="<?php echo $net->url('login', 'redirect='.$redirectUrl, true)?>">logging in to your account</a>.
+      If you don't already have one, you can <a href="<?php echo $net->url('create_account', 'redirect='.$redirectUrl, true) ?>">create it here</a>.</p>
 <?php } else { ?>
     <p>Interested in signing up for our referral program? 
     Enter the URL you'd like to promote us from.  We'll take a look and let you know what we think.</p>

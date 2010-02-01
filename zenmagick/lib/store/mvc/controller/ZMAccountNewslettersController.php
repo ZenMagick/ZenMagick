@@ -52,7 +52,7 @@ class ZMAccountNewslettersController extends ZMController {
      * {@inheritDoc}
      */
     public function preProcess($request) { 
-        $request->getToolbox()->crumbtrail->addCrumb("Account", $request->getToolbox()->net->url(FILENAME_ACCOUNT, '', true, false));
+        $request->getToolbox()->crumbtrail->addCrumb("Account", $request->getToolbox()->net->url(FILENAME_ACCOUNT, '', true));
         $request->getToolbox()->crumbtrail->addCrumb("Newsletter");
     }
 

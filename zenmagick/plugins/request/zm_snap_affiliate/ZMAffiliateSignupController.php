@@ -53,7 +53,7 @@ class ZMAffiliateSignupController extends ZMController {
     public function preProcess($request) {
         $session = $request->getSession();
         if ($session->isRegistered()) {
-            $request->getToolbox()->crumbtrail->addCrumb("Affiliates", $request->getToolbox()->net->url('affiliate', '', true, false));
+            $request->getToolbox()->crumbtrail->addCrumb("Affiliates", $request->getToolbox()->net->url('affiliate', '', true));
         } else {
             $request->getToolbox()->crumbtrail->addCrumb("Affilites");
         }

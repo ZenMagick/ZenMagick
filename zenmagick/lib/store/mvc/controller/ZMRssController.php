@@ -197,7 +197,7 @@ class ZMRssController extends ZMController {
             $item->setTitle(zm_l10n_get("Review: %s", $product->getName()));
 
             $params = 'products_id='.$review->getProductId().'&reviews_id='.$review->getId();
-            $item->setLink($toolbox->net->url(FILENAME_PRODUCT_REVIEWS_INFO, $params, false, false));
+            $item->setLink($toolbox->net->url(FILENAME_PRODUCT_REVIEWS_INFO, $params));
             $item->setDescription($toolbox->html->more($review->getText(), 60));
             $item->setPubDate(zm_mk_rss_date($review->getDateAdded()));
             array_push($items, $item);
@@ -209,7 +209,7 @@ class ZMRssController extends ZMController {
 
         $channel = ZMLoader::make("RssChannel");
         $channel->setTitle(zm_l10n_get("Product Reviews"));
-        $channel->setLink($toolbox->net->url(FILENAME_DEFAULT, '', false, false));
+        $channel->setLink($toolbox->net->url(FILENAME_DEFAULT));
         if (null != $key)  {
             $channel->setDescription(zm_l10n_get("Product Reviews for %s at %s", $product->getName(), ZMSettings::get('storeName')));
         } else {
@@ -244,7 +244,7 @@ class ZMRssController extends ZMController {
 
         $channel = ZMLoader::make("RssChannel");
         $channel->setTitle(zm_l10n_get("Chapter %s", $key));
-        $channel->setLink($request->getToolbox()->net->url(FILENAME_DEFAULT, '', false, false));
+        $channel->setLink($request->getToolbox()->net->url(FILENAME_DEFAULT));
         $channel->setDescription(zm_l10n_get("All pages of Chapter %s", $key));
         $channel->setLastBuildDate(zm_mk_rss_date());
 
@@ -286,7 +286,7 @@ class ZMRssController extends ZMController {
 
         $channel = ZMLoader::make("RssChannel");
         $channel->setTitle(zm_l10n_get("New Products at %s", ZMSettings::get('storeName')));
-        $channel->setLink($toolbox->net->url(FILENAME_DEFAULT, '', false, false));
+        $channel->setLink($toolbox->net->url(FILENAME_DEFAULT));
         $channel->setDescription(zm_l10n_get("The latest updates to %s's product list", ZMSettings::get('storeName')));
         $channel->setLastBuildDate($lastPubDate);
 

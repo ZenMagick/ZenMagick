@@ -39,8 +39,8 @@
             </div>
         </form>
         <div>
-            <a href="<?php $net->url(FILENAME_PASSWORD_FORGOTTEN, '', true) ?>"><?php zm_l10n("Lost your password?") ?></a>
-            <a href="<?php $net->url(FILENAME_CREATE_ACCOUNT, '', true); ?>"><?php zm_l10n("Not registered yet?") ?></a>
+            <a href="<?php echo $net->url(FILENAME_PASSWORD_FORGOTTEN, '', true) ?>"><?php zm_l10n("Lost your password?") ?></a>
+            <a href="<?php echo $net->url(FILENAME_CREATE_ACCOUNT, '', true); ?>"><?php zm_l10n("Not registered yet?") ?></a>
         </div>
     </div>
 <?php } ?>

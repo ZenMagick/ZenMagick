@@ -39,5 +39,5 @@
     <div class="btn"><input type="submit" class="btn" value="<?php zm_l10n("Redeem") ?>" /></div>
   </form>
 <?php } ?>
-<?php $faqLink = '<a href="'.$net->url(FILENAME_GV_FAQ, '', false, false).'">'.zm_l10n_get("Gift Certificate FAQ").'</a>'; ?>
+<?php $faqLink = '<a href="'.$net->url(FILENAME_GV_FAQ).'">'.zm_l10n_get("Gift Certificate FAQ").'</a>'; ?>
 <p><?php zm_l10n("For more information regarding Gift Certificate, please see the %s.", $faqLink) ?></p>

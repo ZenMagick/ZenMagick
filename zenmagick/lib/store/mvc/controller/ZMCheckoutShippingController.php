@@ -62,7 +62,7 @@ class ZMCheckoutShippingController extends ZMController {
             // TODO: reset selected shipping method as address changed (if addressId set in session is invalid)
         }
 
-        $request->getToolbox()->crumbtrail->addCrumb("Checkout", $request->getToolbox()->net->url(FILENAME_CHECKOUT_SHIPPING, '', true, false));
+        $request->getToolbox()->crumbtrail->addCrumb("Checkout", $request->getToolbox()->net->url(FILENAME_CHECKOUT_SHIPPING, '', true));
         $request->getToolbox()->crumbtrail->addCrumb($request->getToolbox()->utils->getTitle());
 
         $this->viewData_['shoppingCart'] = $shoppingCart;

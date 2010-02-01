@@ -245,7 +245,7 @@ class ZMToolboxMacro extends ZMToolboxTool {
             $class = trim($class);
             $onclick = $isEmpty ? ($useCategoryPage ? '' : ' onclick="return catclick(this);"') : '';
             echo '<a' . ('' != $class ? ' class="'.$class.'"' : '') . $onclick . ' href="' .
-                        $toolbox->net->url('category', '&'.$category->getPath(), '', false, false) .
+                        $toolbox->net->url('category', '&'.$category->getPath()) .
                         '">'.$toolbox->html->encode($category->getName()).'</a>';
             if ($showProductCount) {
                 if (0 < ($noOfProductsInTree = count(ZMProducts::instance()->getProductIdsForCategoryId($category->getId(), true, true)))) {

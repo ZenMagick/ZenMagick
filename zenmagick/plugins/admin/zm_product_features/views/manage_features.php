@@ -51,7 +51,7 @@
           $id = (int)ZMRequest::instance()->getParameter('featureId');
           $zm_features->removeFeatureForId($id);
           // reload
-          ZMRequest::instance()->redirect($toolbox->net->url('', $zm_nav_params, true, false));
+          ZMRequest::instance()->redirect($toolbox->net->url('', $zm_nav_params, true));
           break;
 
         case 'update_feature':
@@ -62,7 +62,7 @@
           $session = ZMRequest::instance()->getSession();
           $zm_features->updateFeature($id, $session->getLanguageId(), $name, $description, $hidden);
           // reload
-          ZMRequest::instance()->redirect($toolbox->net->url('', $zm_nav_params, true, false));
+          ZMRequest::instance()->redirect($toolbox->net->url('', $zm_nav_params, true));
           break;
 
         case 'edit_feature':
@@ -84,7 +84,7 @@
           $session = ZMRequest::instance()->getSession();
           $zm_features->addFeature($type, $session->getLanguageId(), $name, $description, $hidden);
           // reload
-          ZMRequest::instance()->redirect($toolbox->net->url('', $zm_nav_params, true, false));
+          ZMRequest::instance()->redirect($toolbox->net->url('', $zm_nav_params, true));
           break;
 
         case 'update_feature_value':
@@ -94,7 +94,7 @@
           $index = ZMRequest::instance()->getParameter('index');
           $zm_features->updateFeatureForProduct($productId, $featureId, $oldIndex, $value, $index);
           // reload
-          ZMRequest::instance()->redirect($toolbox->net->url('', $zm_nav_params, true, false));
+          ZMRequest::instance()->redirect($toolbox->net->url('', $zm_nav_params, true));
           break;
 
         case 'edit_feature_value':
@@ -134,7 +134,7 @@
           if (!$invalid) {
             $zm_features->addFeatureForProduct($productId, $featureId, $value, $index);
             // reload
-            ZMRequest::instance()->redirect($toolbox->net->url('', $zm_nav_params, true, false));
+            ZMRequest::instance()->redirect($toolbox->net->url('', $zm_nav_params, true));
           }
           break;
 
@@ -143,7 +143,7 @@
           $index = ZMRequest::instance()->getParameter('index');
           $zm_features->removeFeatureForProduct($productId, $featureId, $index);
           // reload
-         ZMRequest::instance()->redirect($toolbox->net->url('', $zm_nav_params, true, false));
+         ZMRequest::instance()->redirect($toolbox->net->url('', $zm_nav_params, true));
          break;
       }
     }
@@ -175,8 +175,8 @@
           <td><?php echo $feature->getDescription() ?></td>
           <td><?php echo ($feature->isHidden()?'x':'') ?></td>
           <td>
-            <a class="btn" href="<?php $toolbox->net->url(null, 'action=edit_feature&featureId='.$feature->getId()) ?>">Edit</a>
-            <a class="btn del" href="<?php $toolbox->net->url(null, 'action=remove_feature&featureId='.$feature->getId()) ?>" onclick="return zm_user_confirm('Delete feature \'<?php echo addslashes($feature->getName())?>\' ?');">Delete</a>
+            <a class="btn" href="<?php echo $toolbox->net->url(null, 'action=edit_feature&featureId='.$feature->getId()) ?>">Edit</a>
+            <a class="btn del" href="<?php echo $toolbox->net->url(null, 'action=remove_feature&featureId='.$feature->getId()) ?>" onclick="return zm_user_confirm('Delete feature \'<?php echo addslashes($feature->getName())?>\' ?');">Delete</a>
           </td>
         </tr>
       <?php } ?>
@@ -252,8 +252,8 @@
                 <td><?php echo $value ?></td>
                 <td><?php echo $index ?></td>
                 <td>
-                  <a class="btn" href="<?php $toolbox->net->url(null, 'action=edit_feature_value&featureId='.$feature->getId().'&index='.$index) ?>">Edit</a>
-                  <a class="btn del" href="<?php $toolbox->net->url(null, 'action=remove_feature_value&featureId='.$feature->getId().'&index='.$index) ?>" onclick="return zm_user_confirm('Delete feature value \'<?php echo addslashes($value) ?>\' ?');">Delete</a>
+                  <a class="btn" href="<?php echo $toolbox->net->url(null, 'action=edit_feature_value&featureId='.$feature->getId().'&index='.$index) ?>">Edit</a>
+                  <a class="btn del" href="<?php echo $toolbox->net->url(null, 'action=remove_feature_value&featureId='.$feature->getId().'&index='.$index) ?>" onclick="return zm_user_confirm('Delete feature value \'<?php echo addslashes($value) ?>\' ?');">Delete</a>
                 </td>
               </tr>
             <?php } ?>
