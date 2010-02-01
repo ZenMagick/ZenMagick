@@ -65,6 +65,7 @@ Release 0.9.9
 - templates: drop $echo parameter in ZMToolboxMacro::phpinfo(),
   formatAddress(), showBanner(), productPrice()
 - reimplement ZMCoreCompressor based on ZMPhpPackagePacker
+- full: update session setting to force cookies
 
 Release 0.9.8
 - add Savant3 and experimental views (not used yet)
