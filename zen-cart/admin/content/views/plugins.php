@@ -107,7 +107,7 @@
         var pluginId = link.id.split('-')[1];
         $.ajax({
             type: "POST",
-            url: "<?php $net->ajax('plugin_admin', 'setPluginStatus') ?>",
+            url: "<?php echo $net->ajax('plugin_admin', 'setPluginStatus') ?>",
             data: 'pluginId='+pluginId+'&status='+('on' == currentStatus ? 'false' : 'true'),
             success: function(msg) { 
                 var selector = '#'+link.id+' img';
