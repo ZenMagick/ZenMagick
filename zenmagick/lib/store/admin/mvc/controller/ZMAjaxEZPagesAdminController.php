@@ -51,6 +51,68 @@ class ZMAjaxEZPagesAdminController extends ZMAjaxController {
     }
 
 
+    /**
+     * Report.
+     *
+     * @param string msg The message.
+     * @param string type The message type.
+     */
+    protected function report($msg, $type) {
+        if (!array_key_exists($type, $this->response_)) {
+            $response_[$type] = array();
+        }
+        $this->response_[$type][] = $msg;
+    }
+
+    /**
+     * Update boolean page flag.
+     *
+     * <p>Request parameter:</p>
+     * <ul>
+     *  <li>pageId - The id of the ezPage to update.</li>
+     *  <li>languageId - The language id.</li>
+     *  <li>property - The property to set.</li>
+     *  <li>status - The new status (true/false).</li>
+     * </ul>
+     */
+    public function setEZPageFlag($request) {
+        $pageId = $request->getParameter('pageId');
+        $languageId = $request->getParameter('languageId');
+        $property = $request->getParameter('property');
+        $status = ZMLangUtils::asBoolean($request->getParameter('status'));
+
+        if ($this->updateEZPageProperty($pageId, $languageId, $property, $status)) {
+            $this->report('Page updated', 'success');
+            $this->response_['pageId'] = $pageId;
+        }
+
+        $flatObj = $this->flattenObject($this->response_);
+        $json = $this->toJSON($flatObj);
+        $this->setJSONHeader($json);
+    }
+
+    /**
+     * Enable/disable the given ezpage property.
+     *
+     * @param string pageId The ezPage id.
+     * @param int languageId The language id.
+     * @param string property The property name.
+     * @param boolean status The new status.
+     * @return boolean <code>true</code> if the status was set, <code>false</code> for any error.
+     */
+    protected function updateEZPageProperty($pageId, $languageId, $property, $status) {
+        $ezPage = ZMEZPages::instance()->getPageForId($pageId, $languageId);
+        if (null == $ezPage) {
+            $this->report('Invalid ezPage id', 'error');
+            $this->response_['ezPageId'] = $pageId;
+            return false;
+        }
+        ZMBeanUtils::setAll($ezPage, array($property => $status));
+        ZMEZPages::instance()->updatePage($ezPage);
+        return true;
+    }
+
+
 }
 
 ?>

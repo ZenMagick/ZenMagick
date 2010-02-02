@@ -24,6 +24,32 @@
  */
 ?>
 
+<script type="text/javascript">
+    var statusImgOn = 'images/icon_green_on.gif';
+    var statusImgOff = 'images/icon_red_on.gif';
+
+    function toggle_status(link) {
+        var currentStatus = link.className.split('-')[2];
+        var pageId = link.id.split('-')[0];
+        var property = link.id.split('-')[1];
+        var languageId = 1;
+        $.ajax({
+            type: "POST",
+            url: "<?php echo $net->ajax('EZPages_admin', 'setEZPageFlag') ?>",
+            data: 'pageId='+pageId+'&languageId='+languageId+'&property='+property+'&status='+('on' == currentStatus ? 'false' : 'true'),
+            success: function(msg) { 
+                var selector = '#'+link.id+' img';
+                $('#'+link.id+' img').attr('src', 'on' == currentStatus ? statusImgOff : statusImgOn);
+                link.className = 'ezpage-status-'+('on' == currentStatus ? 'off' : 'on');
+            },
+            error: function(msg) { 
+                alert(msg);
+            }
+        });
+    }
+
+</script>
+
 <table cellpadding="5" cellspacing="0"> 
   <thead>
     <tr>
@@ -43,23 +69,28 @@
       <tr>
         <td><?php echo $ezpage->getId() ?></td>
         <td><?php echo $html->encode($ezpage->getTitle()) ?></td>
-        <td><?php echo ($ezpage->isNewWin() ? 'Y' : 'N') ?></td>
-        <td><?php echo ($ezpage->isSSL() ? 'Y' : 'N') ?></td>
         <td>
-            <?php echo ($ezpage->isHeader() ? 'Y' : 'N') ?>
+            <a href="#<?php echo $ezpage->getId().'-NewWin' ?>" onclick="toggle_status(this); return false;" id="<?php echo $ezpage->getId() ?>-NewWin" class="ezpage-status-<?php echo ($ezpage->isNewWin() ? 'on' : 'off') ?>"><img border="0" src="images/<?php echo ($ezpage->isNewWin() ? 'icon_green_on.gif' : 'icon_red_on.gif') ?>"></a>
+        </td>
+        <td>
+            <a href="#<?php echo $ezpage->getId().'-SSL' ?>" onclick="toggle_status(this); return false;" id="<?php echo $ezpage->getId() ?>-SSL" class="ezpage-status-<?php echo ($ezpage->isSSL() ? 'on' : 'off') ?>"><img border="0" src="images/<?php echo ($ezpage->isSSL() ? 'icon_green_on.gif' : 'icon_red_on.gif') ?>"></a>
+        </td>
+        <td>
+            <a href="#<?php echo $ezpage->getId().'-header' ?>" onclick="toggle_status(this); return false;" id="<?php echo $ezpage->getId() ?>-header" class="ezpage-status-<?php echo ($ezpage->isHeader() ? 'on' : 'off') ?>"><img border="0" src="images/<?php echo ($ezpage->isHeader() ? 'icon_green_on.gif' : 'icon_red_on.gif') ?>"></a>
+
             <?php echo $ezpage->getHeaderSort() ?>
         </td>
         <td>
-            <?php echo ($ezpage->isSidebox() ? 'Y' : 'N') ?>
+            <a href="#<?php echo $ezpage->getId().'-sidebox' ?>" onclick="toggle_status(this); return false;" id="<?php echo $ezpage->getId() ?>-sidebox" class="ezpage-status-<?php echo ($ezpage->isSidebox() ? 'on' : 'off') ?>"><img border="0" src="images/<?php echo ($ezpage->isSidebox() ? 'icon_green_on.gif' : 'icon_red_on.gif') ?>"></a>
             <?php echo $ezpage->getSideboxSort() ?>
         </td>
         <td>
-            <?php echo ($ezpage->isFooter() ? 'Y' : 'N') ?>
+            <a href="#<?php echo $ezpage->getId().'-footer' ?>" onclick="toggle_status(this); return false;" id="<?php echo $ezpage->getId() ?>-footer" class="ezpage-status-<?php echo ($ezpage->isFooter() ? 'on' : 'off') ?>"><img border="0" src="images/<?php echo ($ezpage->isFooter() ? 'icon_green_on.gif' : 'icon_red_on.gif') ?>"></a>
             <?php echo $ezpage->getFooterSort() ?>
         </td>
         <td><?php echo $ezpage->getTocChapter() ?></td>
         <td>
-            <?php echo ($ezpage->isToc() ? 'Y' : 'N') ?>
+            <a href="#<?php echo $ezpage->getId().'-toc' ?>" onclick="toggle_status(this); return false;" id="<?php echo $ezpage->getId() ?>-toc" class="ezpage-status-<?php echo ($ezpage->isToc() ? 'on' : 'off') ?>"><img border="0" src="images/<?php echo ($ezpage->isToc() ? 'icon_green_on.gif' : 'icon_red_on.gif') ?>"></a>
             <?php echo $ezpage->getTocSort() ?>
         </td>
       </tr>

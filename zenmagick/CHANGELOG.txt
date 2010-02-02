@@ -82,6 +82,7 @@ Release 0.9.9
   (the default ZenMagick theme id)
 - installer: drop welcome, change location of not-installed page
 - add basic branding to full install build script
+- implement ajax to toggle boolean ezpage properties
 
 Release 0.9.8
 - add Savant3 and experimental views (not used yet)
