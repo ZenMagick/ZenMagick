@@ -35,8 +35,8 @@
         var languageId = 1;
         $.ajax({
             type: "POST",
-            url: "<?php echo $net->ajax('EZPages_admin', 'setEZPageFlag') ?>",
-            data: 'pageId='+pageId+'&languageId='+languageId+'&property='+property+'&status='+('on' == currentStatus ? 'false' : 'true'),
+            url: "<?php echo $net->ajax('EZPages_admin', 'setEZPageProperty') ?>",
+            data: 'pageId='+pageId+'&languageId='+languageId+'&property='+property+'&value='+('on' == currentStatus ? 'false' : 'true'),
             success: function(msg) { 
                 var selector = '#'+link.id+' img';
                 $('#'+link.id+' img').attr('src', 'on' == currentStatus ? statusImgOff : statusImgOn);
