@@ -90,6 +90,10 @@ class ZMToolboxCrumbtrail extends ZMToolboxTool {
      * @return ZMCrumb The corresponding crumbtrail element.
      */
     public function getCrumb($index) {
+        if (!is_array($this->crumbs_)) {
+            $this->reset();
+        }
+
         return $this->crumbs_[$index];
     }
 
