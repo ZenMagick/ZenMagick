@@ -137,6 +137,11 @@ class ZMWordpressPlugin extends Plugin implements ZMRequestHandler {
             if (ZMLangUtils::asBoolean($this->get('urlRewrite'))) {
                 $requestHandler->register();
             }
+
+            // TODO: make optional
+            if (false) {
+                header($request->getProtocol().' 200 OK');
+            }
         }
 
         if (ZMLangUtils::asBoolean($this->get('syncUser'))) {
