@@ -58,7 +58,7 @@ class ZMReservedQtyWidget extends ZMWidget {
      */
     protected function getStats() {
         if (null === self::$qtyMap_) {
-          $sql = "SELECT op.products_id, count(op.products_quantity) AS products_quantity
+          $sql = "SELECT op.products_id, SUM(op.products_quantity) AS products_quantity
                   FROM " . TABLE_ORDERS . " o, " . TABLE_ORDERS_PRODUCTS . " op
                   WHERE o.orders_id = op.orders_id
                     AND o.orders_status NOT IN (:orderStatusId)
