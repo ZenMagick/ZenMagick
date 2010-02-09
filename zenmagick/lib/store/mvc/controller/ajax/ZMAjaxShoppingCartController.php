@@ -98,16 +98,16 @@ class ZMAjaxShoppingCartController extends ZMAjaxController {
      */
     public function getContentsJSON($request) {
         $shoppingCart = $request->getShoppingCart();
-        $shoppingCart = array();
+        $cartDetails  = array();
         $items = array();
         $formatter = create_function('$obj,$name,$value', 'return $name=="itemTotal" ? ZMRequest::instance()->getToolbox()->utils->formatMoney($value) : $value;');
         foreach ($shoppingCart->getItems() as $item) {
             array_push($items, $this->flattenObject($item, $this->get('ajaxCartItemMap'), $formatter));
         }
-        $shoppingCart['items'] = $items;
-        $shoppingCart['total'] = $request->getToolbox()->utils->formatMoney($shoppingCart->getTotal());
+        $cartDetails ['items'] = $items;
+        $cartDetails ['total'] = $request->getToolbox()->utils->formatMoney($shoppingCart->getTotal());
 
-        $flatObj = $this->flattenObject($shoppingCart);
+        $flatObj = $this->flattenObject($cartDetails );
         $json = $this->toJSON($flatObj);
         $this->setJSONHeader($json);
     }
