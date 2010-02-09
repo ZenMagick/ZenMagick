@@ -49,12 +49,9 @@ class ZMIndexController extends ZMController {
 
 
     /**
-     * Process a HTTP GET request.
-     * 
-     * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
-     * if the controller generates the contents itself.
+     * {@inheritDoc}
      */
-    function processGet($request) {
+    public function processGet($request) {
         $viewName = null;
 
         // be nice to seo URL's that we do not control and also bookmarked pages
