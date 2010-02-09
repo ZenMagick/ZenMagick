@@ -119,37 +119,10 @@ class ZMAjaxController extends ZMController {
      * @param array methods Optional list of methods to include as properties.
      * @param function formatter Optional formatting method for all values; signature is <code>formatter($obj, $name, $value)</code>.
      * @return array Associative array of methods values.
+     * @deprecated Use ZMAjaxUtils::flattenObject instead.
      */
     public function flattenObject($obj, $properties=null, $formatter=null) {
-        $props = null;
-
-        if (is_array($obj)) {
-            $props = array();
-            foreach ($obj as $k => $o) {
-                $props[$k] = $this->flattenObject($o, $properties, $formatter);
-            }
-            return $props;
-        }
-
-        if (!is_object($obj)) {
-            // as is
-            return $obj;
-        }
-
-        // properties may be a mix of numeric and string key - ugh!
-        $beanProperties = array();
-        foreach ($properties as $key => $value) {
-            $beanProperties[] = is_array($value) ? $key : $value;
-        }
-        $props = ZMBeanUtils::obj2map($obj, $beanProperties, false);
-        foreach ($props as $key => $value) {
-            if (is_object($value) || is_array($value)) {
-                $sub = is_array($properties[$key]) ? $properties[$key] : null;
-                $value = $this->flattenObject($value, $sub, $formatter);
-            }
-            $props[$key] = null != $formatter ? $formatter($obj, $key, $value) : $value;
-        }
-        return $props;
+        return ZMAjaxUtils::flattenObject($obj, $properties, $formatter);
     }
 
     /**

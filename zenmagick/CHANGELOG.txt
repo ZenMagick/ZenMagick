@@ -83,6 +83,10 @@ Release 0.9.9
 - installer: drop welcome, change location of not-installed page
 - add basic branding to full install build script
 - implement ajax to toggle boolean ezpage properties
+- add ZMController::isAjax(), add code to set content type to 'text/plan' if
+  ajax request detecetd and also set view layout to null (in anticipation of
+  layout support moving into mvc)
+- add ZMAjaxUtils and move ZMAjaxController::flattenObject there
 
 Release 0.9.8
 - add Savant3 and experimental views (not used yet)

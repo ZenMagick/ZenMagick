@@ -145,6 +145,11 @@ class ZMController extends ZMObject {
             ZMRuntime::getDatabase()->commit();
         }
 
+        if ($this->isAjax($request)) {
+            $view->setLayout(null);
+            $view->setContentType('text/plain');
+        }
+
         return $view;
     }
 
@@ -159,6 +164,20 @@ class ZMController extends ZMObject {
      */
     public function preProcess($request) {
         // nothing
+    }
+
+    /**
+     * Check if the current request is an Ajax request.
+     *
+     * <p>This default implementation will check for a 'X-Requested-With' header. Subclasses are free to
+     * extend and override this method for custom Ajax detecting.</p>
+     *
+     * @param ZMRequest request The request to process.
+     * @return boolean <code>true</code> if this request is considered an Ajax request.
+     */
+    public function isAjax($request) {
+        $headers = getallheaders();
+        return array_key_exists('X-Requested-With', $headers) && 'XMLHttpRequest' == $headers['X-Requested-With'];
     }
 
     /**
