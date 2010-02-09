@@ -268,6 +268,11 @@
                         'key' => 'default',
                         'type' => 'string',
                         'desc' => 'Default view definition.'
+                    ),
+                    array(
+                        'key' => 'defaultLayout',
+                        'type' => 'string',
+                        'desc' => 'Default layout name.'
                     )
                 ),
                 'resultlist' => array(

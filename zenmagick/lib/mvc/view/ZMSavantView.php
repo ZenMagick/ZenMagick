@@ -24,6 +24,8 @@
 /**
  * A Savant(3) view.
  *
+ * <p>This class also introduced support for layouts.</p>
+ *
  * @author DerManoMann
  * @package org.zenmagick.mvc.view
  * @version $Id$
@@ -31,6 +33,7 @@
 class ZMSavantView extends ZMView {
     private $savant_;
     private $config_;
+    private $layout_;
 
 
     /**
@@ -40,6 +43,7 @@ class ZMSavantView extends ZMView {
         parent::__construct();
         $this->savant_ = null;
         $this->config_ = array();
+        $this->layout_ = array();
     }
 
     /**
@@ -105,6 +109,51 @@ class ZMSavantView extends ZMView {
         }
 
         return $this->savant_;
+    }
+
+    /**
+     * Set the layout name.
+     *
+     * @param string layout The layout name.
+     */
+    public function setLayout($layout) {
+        $this->layout_ = $layout;
+    }
+
+    /**
+     * Get the layout name.
+     *
+     * @return string The layout name.
+     */
+    public function getLayout() {
+        return $this->layout_;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function generate($request) {
+        $savant = $this->getSavant($request);
+
+        // put all vars into local scope
+        $savant->assign($this->getVars());
+
+        // load template...
+        $template = null;
+        try {
+            $savant->assign(array('view' => $this));
+            if (!ZMLangUtils::isEmpty($this->getLayout())) {
+                $template = $this->getLayout();
+                $view = $this->getTemplate().ZMSettings::get('zenmagick.mvc.templates.ext', '.php');
+                $savant->assign(array('viewTemplate' => $view));
+            } else {
+                $template = $this->getTemplate();
+            }
+            return $savant->fetch($template.ZMSettings::get('zenmagick.mvc.templates.ext', '.php'));
+        } catch (Exception $e) {
+            ZMLogging::instance()->dump($e, 'failed to fetch template: '.$template, ZMLogging::ERROR);
+            throw new ZMException('failed to fetch template: '.$template, 0, $e);
+        }
     }
 
     /**

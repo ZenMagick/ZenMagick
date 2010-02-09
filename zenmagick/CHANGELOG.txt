@@ -87,6 +87,9 @@ Release 0.9.9
   ajax request detecetd and also set view layout to null (in anticipation of
   layout support moving into mvc)
 - add ZMAjaxUtils and move ZMAjaxController::flattenObject there
+- move layout config into url mappings, remove layout related code in ZMTheme
+- drop layout settings in all heme.yaml (default)
+- move default layout into setting 'zenmagick.mvc.view.defaultLayout'
 
 Release 0.9.8
 - add Savant3 and experimental views (not used yet)

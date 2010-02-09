@@ -146,7 +146,7 @@ class ZMController extends ZMObject {
         }
 
         if ($this->isAjax($request)) {
-            $view->setLayout(null);
+            $view->setLayout('');
             $view->setContentType('text/plain');
         }
 

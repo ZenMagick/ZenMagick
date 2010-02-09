@@ -22,9 +22,7 @@
 
 
 /**
- * A Savant(3) view with theme support.
- *
- * <p>Also, this view allows to distinguish between layout and view.</p>
+ * A Savant(3) view with theme support and adjustment for theme folder structures (viewDir).
  *
  * @author DerManoMann
  * @package org.zenmagick.mvc.view
@@ -32,7 +30,6 @@
  */
 class SavantView extends ZMSavantView {
     private $viewDir_;
-    private $layout_;
 
 
     /**
@@ -40,7 +37,6 @@ class SavantView extends ZMSavantView {
      */
     function __construct() {
         parent::__construct();
-        $this->setLayout(false);
         $this->setViewDir('views');
     }
 
@@ -71,29 +67,6 @@ class SavantView extends ZMSavantView {
     }
 
     /**
-     * Set the layout name.
-     *
-     * @param string layout The layout name.
-     */
-    public function setLayout($layout) {
-        $this->layout_ = $layout;
-    }
-
-    /**
-     * Return the layout name.
-     *
-     * @return string The layout name or <code>null</code>.
-     */
-    public function getLayout() {
-        if (null === $this->layout_) {
-            return $this->layout_;
-        }
-
-        // default
-        return Runtime::getTheme()->getLayoutFor($this->getTemplate());
-    }
-
-    /**
      * {@inheritDoc}
      *
      * <p>To allow theme inheritance, both the default and active theme's content folders are returned.</p>
@@ -110,31 +83,17 @@ class SavantView extends ZMSavantView {
     /**
      * {@inheritDoc}
      */
-    public function generate($request) {
-        $savant = $this->getSavant($request);
+    public function getTemplate() {
+        return $this->getViewDir().DIRECTORY_SEPARATOR.parent::getTemplate();
+    }
 
-        // put all vars into local scope
-        $savant->assign($this->getVars());
-
-        // load template...
-        $template = null;
-        try {
-            // TODO: kill! common view variables
-            $zm_theme = Runtime::getTheme();
-            $savant->assign(array('zm_theme' => $zm_theme));
-            $savant->assign(array('view' => $this));
-            if (null != ($layout = $this->getLayout())) {
-                $template = $layout;
-                $view = $this->getViewDir().DIRECTORY_SEPARATOR.$this->getTemplate().ZMSettings::get('zenmagick.mvc.templates.ext', '.php');
-                $savant->assign(array('viewTemplate' => $view));
-            } else {
-                $template = $this->getViewDir().DIRECTORY_SEPARATOR.$this->getTemplate();
-            }
-            return $savant->fetch($template.ZMSettings::get('zenmagick.mvc.templates.ext', '.php'));
-        } catch (Exception $e) {
-            ZMLogging::instance()->dump($e, 'failed to fetch template: '.$template, ZMLogging::ERROR);
-            throw new ZMException('failed to fetch template: '.$template, 0, $e);
-        }
+    /**
+     * {@inheritDoc}
+     */
+    public function getVars() {
+        $vars = parent::getVars();
+        $vars['zm_theme'] = Runtime::getTheme();
+        return $vars;
     }
 
 }

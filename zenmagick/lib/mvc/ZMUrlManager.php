@@ -37,7 +37,7 @@
  * @version $Id$
  */
 class ZMUrlManager extends ZMObject {
-    private static $MAPPING_KEYS = array('controller', 'formId' , 'form' , 'view', 'template');
+    private static $MAPPING_KEYS = array('controller', 'formId' , 'form' , 'view', 'template', 'layout');
     private $mappings_;
 
 
@@ -96,8 +96,9 @@ class ZMUrlManager extends ZMObject {
             $requestId = 'null';
         }
         if (!is_array($mapping)) {
-            $mapping = Spyc::YAMLLoadString($mapping);
+            $mapping = ZMRuntime::yamlLoad($mapping);
         }
+
         if ($override || !array_key_exists($requestId, $this->mappings_)) {
             $this->mappings_[$requestId] = $mapping;
         } else {
@@ -218,7 +219,8 @@ class ZMUrlManager extends ZMObject {
         if (is_array($parameter)) {
             $parameter = http_build_query($parameter);
         }
-        $definition = $view.(false === strpos($view, '#') ? '#' : '&').$parameter.'&template='.$mapping['template'];
+        $layout = ((null !== $mapping['layout']) ? $mapping['layout'] : ZMSettings::get('zenmagick.mvc.view.defaultLayout', 'default_layout'));
+        $definition = $view.(false === strpos($view, '#') ? '#' : '&').$parameter.'&template='.$mapping['template'].'&layout='.$layout;
         ZMLogging::instance()->log('view definition: '.$definition, ZMLogging::TRACE);
         return ZMBeanUtils::getBean($definition);
     }

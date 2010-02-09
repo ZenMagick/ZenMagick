@@ -65,6 +65,7 @@ class ZMUnitTestsPlugin extends Plugin {
         parent::init();
         ZMSettings::set('zenmagick.mvc.templates.ext', '.php');
         ZMUrlManager::instance()->setMapping('tests', array(
+            'layout' => '', 
             'template' => 'tests', 
             'view' => 'PluginView#plugin=unitTests', 
             'controller' => 'UnitTestsController'

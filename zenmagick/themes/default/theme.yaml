@@ -5,10 +5,3 @@ author: 'zenmagick.org'
 description: 'ZenMagick default theme; based on andreas08 from http://andreasviklund.com/templates/'
 
 errorPage: 'error'
-defaultLayout: 'default_layout'
-
-layout:
-  'cvv_help': 'popup_layout'
-  'search_help': 'popup_layout'
-  'shipping_estimator': 'popup_layout'
-  'coupon_help': 'popup_layout'

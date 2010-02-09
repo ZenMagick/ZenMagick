@@ -128,50 +128,6 @@ class ZMTheme extends ZMObject {
     }
 
     /**
-     * Set the layout for the given template.
-     *
-     * @param string template The template.
-     * @param string name The layout name.
-     */
-    public function setLayout($template, $name) { 
-        if (!array_key_exists('layout', $this->config_)) {
-            $this->setConfigValue('layout', array());
-        }
-        $this->config_['layout'][$template] = $name;
-    }
-
-    /**
-     * Get the layout for the given template.
-     *
-     * @param string template The template.
-     * @return string The layout name or <code>null</code>.
-     */
-    public function getLayoutFor($template) {
-        if (array_key_exists($template, $this->config_['layout'])) {
-            return $this->config_['layout'][$template];
-        } else if (array_key_exists('defaultLayout', $this->config_)) {
-            return $this->config_['defaultLayout'];
-        }
-
-        // default to no layout
-        return null;
-    }
-
-
-
-
-    /**
-     * Check if a layout is configured for the given page.
-     *
-     * @param string page The page name.
-     * @return boolean <code>true</code> if a layout file is configured for the given page.
-     */
-    public function hasLayout($page) {
-        // layouts reside in the content directory
-        return file_exists($this->getContentDir().$page.ZMSettings::get('templateSuffix'));
-    }
-
-    /**
      * Resolve a theme relative URI.
      *
      * <p>The given <code>uri</code> is assumed to be relative to the themes <em>content</em> folder.</p>
