@@ -16,7 +16,7 @@ Installation
 ============
 1) Unzip the plugin package into the zenmagick/plugins directory.
 2) Install plugin using the ZenMagick Plugin Manager.
-3) Configure the zm_cron plugin to execute the cron job ZMUpdateSubscriptionsCronJob once a day
+3) Configure the cron plugin to execute the cron job ZMUpdateSubscriptionsCronJob once a day
 Example configuration:
 #mi  h    d    m    dow      job                                  comment
 0    5    *    *    *        ZMUpdateSubscriptionsCronJob         # every sunday at 5 am
@@ -24,11 +24,11 @@ Example configuration:
 
 File Permissions
 ================
-The plugin will attempt to create a file named cronhistory.txt in the folder zenmagick/config/zm_cron/etc.
+The plugin will attempt to create a file named cronhistory.txt in the folder zenmagick/config/cron/etc.
 It is important to check that the file exists once the plugin has been run the first time. Also, file permissions
 on that file need to be set to allow the webserver to update this file (typically 666).
 
-The file is under zenmagick/config/zm_cron/etc and named cronhistory.txt. If it doesn't exist, chmod the etc folder to 777, wait until the file is there, change the folder back to 755 and then the file to 666.
+The file is under zenmagick/config/cron/etc and named cronhistory.txt. If it doesn't exist, chmod the etc folder to 777, wait until the file is there, change the folder back to 755 and then the file to 666.
 
 
 This plugin doesn't do anything itself, but provides a service for other plugins or core logic.
@@ -42,19 +42,19 @@ Email templates
 The plugin will try to use three different email templates, depending on the configuration:
 a) subscription_request.[text|html].php
 A notification email to the store owner (or other configured email address) about a subscription form request.
-The name may be overridden with the setting 'plugins.zm_subscriptions.email.templates.request'.
+The name may be overridden with the setting 'plugins.subscriptions.email.templates.request'.
 
 b) subscription_cancel.[text|html].php
 Confirmation email for customer (and admin) about a canceled order
-The name may be overridden with the setting 'plugins.zm_subscriptions.email.templates.cancel'.
+The name may be overridden with the setting 'plugins.subscriptions.email.templates.cancel'.
 
 3) checkout.[text|html].php
 Customer notification email about a scheduled order. The default is to use the regular 'checkout' email template.
 
 All email templates may be changed by configuring the following settings:
-- plugins.zm_subscriptions.email.templates.request
-- plugins.zm_subscriptions.email.templates.cancel
-- plugins.zm_subscriptions.email.templates.schedule
+- plugins.subscriptions.email.templates.request
+- plugins.subscriptions.email.templates.cancel
+- plugins.subscriptions.email.templates.schedule
 
 
 store templates
@@ -71,8 +71,8 @@ A simple way of doing this would be to modify the checkout_payments.php template
 
 
       ....
-      $schedule = $zm_subscriptions->getSelectedSchedule();
-      $paymentTypes = $zm_cart->getPaymentTypes();
+      $schedule = $subscriptions->getSelectedSchedule();
+      $paymentTypes = $shoppingCart->getPaymentTypes();
       $single = 1 == count($paymentTypes);
       foreach ($paymentTypes as $type) {
         // check against list of allowed subscription payment types
@@ -86,10 +86,10 @@ A simple way of doing this would be to modify the checkout_payments.php template
 
 Schedule options
 ================
-The defauls may be changed by configuring a plugin setting 'plugins.zm_subscriptions.schedules':
+The defauls may be changed by configuring a plugin setting 'plugins.subscriptions.schedules':
 Example:
 
-    ZMSettings::set('plugins.zm_subscriptions.schedules', array(
+    ZMSettings::set('plugins.subscriptions.schedules', array(
         '1w' => array('name' => 'Weekly', 'active' => true),
         '10d' => array('name' => 'Every 10 days', 'active' => true),
         '4w' => array('name' => 'Every four weeks', 'active' => true),
@@ -99,10 +99,10 @@ Example:
 
 Subscription request types
 ==========================
-Similar to the schedule options, the enquiry types can be configured via a setting, namely 'plugins.zm_subscriptions.request.types':
+Similar to the schedule options, the enquiry types can be configured via a setting, namely 'plugins.subscriptions.request.types':
 Example:
 
-    ZMSettings::set('plugins.zm_subscriptions.request.types', array(
+    ZMSettings::set('plugins.subscriptions.request.types', array(
         'cancel' => "Cancel Subscription",
         'enquire' => "Enquire order status",
         'other' => "Other",

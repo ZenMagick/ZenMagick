@@ -20,7 +20,7 @@ null:
     template: login
   empty_cart:
     view: RedirectView
-    template: shopping_cart
+    template: empty_cart
   cart_not_ready:
     view: RedirectView
     template: shopping_cart

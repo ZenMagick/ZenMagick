@@ -168,8 +168,7 @@ class ZMSettingsAdminShowController extends ZMPluginAdminController {
             }
         }
 
-        $context = array('settingDetails' => $settingDetails);
-        return $this->findView(null, $context);
+        return $this->getPluginAdminView($request, array('settingDetails' => $settingDetails)); 
     }
 
 }

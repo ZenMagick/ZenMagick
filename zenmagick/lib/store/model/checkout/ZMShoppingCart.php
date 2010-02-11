@@ -151,6 +151,7 @@ class ZMShoppingCart extends ZMObject {
      * @return float The cart subtotal.
      */
     public function getSubTotal() { 
+        ZMTools::resolveZCClass('order');
         $order = new order();
         return $order->info['subtotal'];
     }
@@ -517,11 +518,11 @@ class ZMShoppingCart extends ZMObject {
             return $this->cart_->get_quantity($itemId);
         }
 
-        $baseProductId = ZMShoppingCart::extractBaseProductId($itemId);
+        $baseProductId = self::extractBaseProductId($itemId);
 
         $qty = 0;
         foreach ($contents as $pid) {
-            $bpid = ZMShoppingCart::extractBaseProductId($pid);
+            $bpid = self::extractBaseProductId($pid);
             if ($bpid == $baseProductId) {
                 $qty += $contents[$pid]['qty'];
             }
@@ -556,7 +557,7 @@ class ZMShoppingCart extends ZMObject {
 
         //TODO: zc: comp
         $attributes = (0 < count($attributes) ? $attributes : '');
-        $sku = ZMShoppingCart::mkItemId($productId, $attributes);
+        $sku = self::mkItemId($productId, $attributes);
 
         $maxOrderQty = $product->getMaxOrderQty();
         $cartQty = $this->getQty($sku, $product->isQtyMixed());
@@ -608,7 +609,7 @@ class ZMShoppingCart extends ZMObject {
             }
 
 
-            $productId = ZMShoppingCart::extractBaseProductId($sku);
+            $productId = self::extractBaseProductId($sku);
             $product = ZMProducts::instance()->getProductForId($productId);
 
             $maxOrderQty = $product->getMaxOrderQty();

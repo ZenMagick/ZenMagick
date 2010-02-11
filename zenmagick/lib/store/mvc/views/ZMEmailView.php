@@ -78,6 +78,7 @@ class ZMEmailView extends SavantView {
         ZMSettings::set('isAdmin', false);
         if (!$this->isValid()) {
             ZMLogging::instance()->trace('invalid email template', ZMLogging::ERROR);
+            ZMSettings::set('isAdmin', $isAdmin);
             return "";
         }
         $toolbox = $request->getToolbox();

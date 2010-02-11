@@ -90,6 +90,7 @@ Release 0.9.9
 - move layout config into url mappings, remove layout related code in ZMTheme
 - drop layout settings in all heme.yaml (default)
 - move default layout into setting 'zenmagick.mvc.view.defaultLayout'
+- converted subscriptions plugin
 
 Release 0.9.8
 - add Savant3 and experimental views (not used yet)
