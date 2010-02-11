@@ -46,7 +46,7 @@
 
 ?>
 
-  <form action="<?php $toolbox->admin->url(null, $defaultUrlParams) ?>" method="GET">
+  <form action="<?php echo $toolbox->admin->url(null, $defaultUrlParams) ?>" method="GET">
     <div>
       <input type="hidden" name="main_page" value="catalog_manager">
       <input type="hidden" name="fkt" value="CategoryAdminTab">
@@ -59,7 +59,7 @@
     </select> )</h2>
   </form>
 
-  <form action="<?php $toolbox->admin->url(null, $defaultUrlParams) ?>" method="POST">
+  <form action="<?php echo $toolbox->admin->url(null, $defaultUrlParams) ?>" method="POST">
     <fieldset>
         <legend>General</legend>
         <input type="checkbox" id="status" name="status" value="1" <?php $toolbox->form->checked($category->isActive()) ?>> <label for="status">Status</label>

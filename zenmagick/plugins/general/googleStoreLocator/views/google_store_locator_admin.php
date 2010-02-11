@@ -57,7 +57,7 @@
 </script>
 <div id="locator_map" style="width:400px;height:400px;border:1px solid #ccc;margin:10px;float:left;"><?php zm_l10n("Loading map...") ?></div>
 <div style="margin:10px;">
-  <form action="<?php $toolbox->admin->url() ?>" method="POST">
+  <form action="<?php echo $toolbox->admin->url() ?>" method="POST">
     <div>
       <input type="hidden" name="fkt" value="google_store_locator_admin">
       <p><label for="zoom">Zoom</label> <input type="text" name="zoom" value="<?php echo $zoom ?>"></p>

@@ -23,14 +23,14 @@
  * $Id$
  */
 ?>
-  <form action="<?php $toolbox->admin->url() ?>" method="GET">
+  <form action="<?php echo $toolbox->admin->url() ?>" method="GET">
     <?php $toolbox->form->hidden($defaultUrlParams) ?>
     <input type="hidden" name="main_page" value="catalog_manager">
     <input type="hidden" name="fkt" value="GroupPricingTab">
     <h2>Group Pricing ( <?php echo $toolbox->form->idpSelect('groupId', $priceGroups, $groupId, array('size'=>1, 'onchange'=>'this.form.submit()')) ?> )</h2>
   </form>
 
-  <form action="<?php $toolbox->admin->url(null, $defaultUrlParams) ?>" method="POST">
+  <form action="<?php echo $toolbox->admin->url(null, $defaultUrlParams) ?>" method="POST">
     <fieldset>
       <legend>Discount</legend>
       <div>

@@ -32,7 +32,7 @@
 
   <h2>Quick Edit: <em><?php echo $toolbox->html->encode(ZMCategories::instance()->getCategoryForId($categoryId)->getName()) ?></em></h2>
 
-  <form action="<?php $toolbox->admin->url(null, $defaultUrlParams) ?>" method="post">
+  <form action="<?php echo $toolbox->admin->url(null, $defaultUrlParams) ?>" method="post">
     <table cellspacing="0" cellpadding="0" class="presults" style="position:relative;width:auto;">
       <thead><tr>
         <th class="first">Id</th>
@@ -43,7 +43,7 @@
       <tbody>
         <?php $first = true; $odd = true; foreach ($productList as $product) { ?>
           <tr class="<?php echo ($odd?"odd":"even").($first?" first":" other") ?>">
-            <td class="first" style="text-align:right;"><a href="<?php $toolbox->admin->url(null, $defaultUrlParams.'&productId='.$product->getId()) ?>"><?php echo $product->getId() ?></a></td>
+            <td class="first" style="text-align:right;"><a href="<?php echo $toolbox->admin->url(null, $defaultUrlParams.'&productId='.$product->getId()) ?>"><?php echo $product->getId() ?></a></td>
             <?php foreach ($fieldList as $ii => $field) { $widget = $field['widget'];
               // allow widgets to do custom calculations, etc
               $widget->setProduct($product);
