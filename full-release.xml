@@ -10,8 +10,7 @@
 
 
     <!-- build full release -->
-    <!--target name="full-release" depends="mod-release" description="Build full release including zen cart."-->
-    <target name="full-release" description="Build full release including zen cart.">
+    <target name="full-release" depends="mod-release" description="Build full release including zen cart.">
         <mkdir dir="${release.full.dir}" />
         <!-- overwrite to get a fresh copy -->
         <copy todir="${release.full.dir}" overwrite="true">
@@ -28,7 +27,7 @@
         <!-- copy extras folder into install_zc to make it more likely it gets removed... -->
         <mkdir dir="${release.full.dir}/extras" />
         <copy todir="${release.full.dir}/zc_install/extras">
-          <fileset dir="${zencart.base.dir}/extras">
+            <fileset dir="${zencart.base.dir}/extras">
             </fileset>
         </copy>
 
@@ -64,6 +63,13 @@
             <substitution expression='zc_install/not_installed.php' />
         </replaceregexp>
         <copy file="${basedir}/etc/build/full/files/not_installed.php" todir="${release.full.dir}/zc_install/" />
+
+        <!-- disable update check -->
+        <antcall target="insert-before">
+            <param name="insert.file" value="${release.full.dir}/admin/includes/header.php" />
+            <param name="insert.regexp" value="ignore version check if not enabled or if not on main page or sysinfo page" />
+            <param name="insert.substitution" value="  $zv_db_patch_ok=$version_check_sysinfo=false;" />
+        </antcall>
 
         <!-- dump welcome page -->
         <antcall target="dump-welcome-install"></antcall>
@@ -331,7 +337,7 @@
       <replaceregexp match="2003-" replace="2006-" flags="g"><fileset dir="${release.full.dir}/zc_install/includes/templates" /></replaceregexp>
       <replaceregexp match='http://www.zen-cart.com"' replace='http://www.zenmagick.org/"' flags="g"><fileset dir="${release.full.dir}/zc_install/includes/templates" /></replaceregexp>
       <replaceregexp match='The Art of eCommerce' replace='eCommerce made easy' flags="g"><fileset dir="${release.full.dir}/zc_install/includes/templates" /></replaceregexp>
-      <replaceregexp match='zen_header_bg.jpg' replace='logo-bg.png' flags="g"><fileset dir="${release.full.dir}/zc_install/includes/templates" /></replaceregexp>
+      <replaceregexp match='zen_header_bg.jpg' replace='logo-bg.png' flags="g"><fileset dir="${release.full.dir}/zc_install/includes" /></replaceregexp>
       <replaceregexp match='#ceddf0;' replace='#5494F2;color:#fff;' flags="g"><fileset dir="${release.full.dir}/zc_install/includes/templates" /></replaceregexp>
       <replaceregexp match='http://tutorials.zen-cart.com/index.php?article=107' replace='http://wiki.zenmagick.org/index.php/Installation' flags="g"><fileset dir="${release.full.dir}/zc_install/includes/templates" /></replaceregexp>
       <replaceregexp match='&lt;a href="http://www.zen-cart.com" target="_blank"&gt;Zen Cart&lt;/a&gt;' replace='&lt;a href="http://www.zenmagick.org/" target="_blank"&gt;ZenMagick&lt;a&gt;' flags="g"><fileset dir="${release.full.dir}/zc_install/includes/templates" /></replaceregexp>
@@ -351,6 +357,11 @@
       <replaceregexp match='E-Commerce Engine' replace='' flags="g"><fileset dir="${release.full.dir}/admin/" /></replaceregexp>
       <replaceregexp match='Zen Cart is derived from: Copyright' replace='ZenMagick is derived from: &amp;copy; ZenCart, ' flags="g"><fileset dir="${release.full.dir}/admin/" /></replaceregexp>
       <replaceregexp match='href="http://www.zen-cart.com/"' replace='href="http://www.zenmagick.org/"' flags="g"><fileset dir="${release.full.dir}/admin/" /></replaceregexp>
+
+      <replaceregexp match='003D00' replace='224580' flags="g"><fileset dir="${release.full.dir}/admin/"><include name="**/*.css" /></fileset></replaceregexp>
+      <replaceregexp match='599659' replace='666' flags="g"><fileset dir="${release.full.dir}/admin/"><include name="**/*.css" /></fileset></replaceregexp>
+      <replaceregexp match='85C285' replace='eee' flags="g"><fileset dir="${release.full.dir}/admin/"><include name="**/*.css" /></fileset></replaceregexp>
+      <replaceregexp match='EFF4EA' replace='F6F4FF' flags="g"><fileset dir="${release.full.dir}/admin/"><include name="**/*.css" /></fileset></replaceregexp>
 
     </target>
 
