@@ -97,7 +97,7 @@ class ZMPluginAdminController extends ZMController {
      * @param string template Optional template name; default is <code>null</code> to use the controller id.
      * @return ZMView A (redirect) view.
      */
-    public function getPluginAdminView($request, $context, $template=null) {
+    public function getPluginAdminView($request, $context=array(), $template=null) {
         $view = ZMLoader::make('AdminView');
         $view->setTemplatePath(array($this->getPlugin()->getPluginDirectory()));
         $view->setTemplate(null != $template ? $template : $this->getId());
