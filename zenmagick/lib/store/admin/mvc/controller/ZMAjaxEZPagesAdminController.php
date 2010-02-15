@@ -87,6 +87,7 @@ class ZMAjaxEZPagesAdminController extends ZMAjaxController {
         if ($this->updateEZPageProperty($pageId, $languageId, $property, $value)) {
             $this->report('Page updated', 'success');
             $this->response_['pageId'] = $pageId;
+            $this->response_['languageId'] = $languageId;
         }
 
         $flatObj = $this->flattenObject($this->response_);
@@ -108,6 +109,7 @@ class ZMAjaxEZPagesAdminController extends ZMAjaxController {
         if (null == $ezPage) {
             $this->report('Invalid ezPage id', 'error');
             $this->response_['ezPageId'] = $pageId;
+            $this->response_['languageId'] = $languageId;
             return false;
         }
         ZMBeanUtils::setAll($ezPage, array($property => $value));

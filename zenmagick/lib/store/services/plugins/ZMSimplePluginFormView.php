@@ -112,7 +112,7 @@ class ZMSimplePluginFormView extends ZMView {
         $title = zm_l10n_get($title);
         $contents = <<<EOT
 <h2><?php echo \$title ?></h2>
-<form action="<?php \$request->getToolbox()->admin->url() ?>" method="post">
+<form action="<?php \$request->getToolbox()->admin->url() ?>" method="POST">
     <table cellspacing="0" cellpadding="0" id="plugin-config">
         <?php foreach (\$plugin->getConfigValues() as \$value) { ?>
             <?php if (!\$all && (ZMLangUtils::endsWith(\$value->getKey(), Plugin::KEY_ENABLED) || ZMLangUtils::endsWith(\$value->getKey(), Plugin::KEY_SORT_ORDER))) { continue; } ?>

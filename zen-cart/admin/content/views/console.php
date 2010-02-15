@@ -52,7 +52,7 @@
 ?>
 
 <div id="b_console">
-  <form action="<?php echo $toolbox->admin->url() ?>" method="post">
+  <form action="<?php echo $toolbox->admin->url() ?>" method="POST">
       <fieldset>
           <legend><?php zm_l10n("<code>PHP</code> Console") ?></legend>
           <label for="code"><?php zm_l10n("Code:") ?></label>

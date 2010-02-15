@@ -124,7 +124,7 @@
 
 <?php foreach (ZMPlugins::instance()->getAllPlugins(0, false) as $group => $plugins) { ?>
   <h2><?php echo $group ?> plugins</h2>
-  <form action="<?php echo $toolbox->admin->url() ?>" method="post" onsubmit="return zm_user_confirm('Save plugin changes ?');">
+  <form action="<?php echo $toolbox->admin->url() ?>" method="POST" onsubmit="return zm_user_confirm('Save plugin changes ?');">
     <table cellpadding="5" cellspacing="0" style="width:90%;"> 
       <thead>
         <tr>

@@ -84,7 +84,7 @@
 <p>Inherited mappings are mappings defined in <code>l10n.php</code> files in themes further up the theme chain.</p>
 <p><strong>NOTE:</strong> '%s' and other strings starting with '%' are used as placeholders for things like order numbers, etc.</p>
 
-<form action="<?php echo $toolbox->admin->url() ?>" method="post">
+<form action="<?php echo $toolbox->admin->url() ?>" method="POST">
   <fieldset>
     <legend>Select Theme to display the language mappings</legend>
     <select id="theme" name="theme" onchange="this.form.submit()">

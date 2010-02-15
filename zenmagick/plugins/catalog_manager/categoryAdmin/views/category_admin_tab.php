@@ -51,7 +51,7 @@
       <input type="hidden" name="main_page" value="catalog_manager">
       <input type="hidden" name="fkt" value="CategoryAdminTab">
     </div>
-    <h2><?php echo $category->getName() ?> ( <select id="languageId" name="languageId" onChange="this.form.submit();">
+    <h2><?php echo $category->getName() ?> ( <select id="languageId" name="languageId" onchange="this.form.submit();">
       <?php foreach (ZMLanguages::instance()->getLanguages() as $language) { ?>
         <?php $selected = $selectedLanguageId == $language->getId() ? ' selected="selected"' : ''; ?>
         <option value="<?php echo $language->getId() ?>"<?php echo $selected ?>><?php echo $language->getName() ?></option>

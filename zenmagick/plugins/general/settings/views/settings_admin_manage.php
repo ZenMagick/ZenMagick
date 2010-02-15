@@ -30,7 +30,7 @@
     // use jquery to toggle value element
 </script>
 
-<form action="<?php echo $toolbox->admin->url() ?>" method="post">
+<form action="<?php echo $toolbox->admin->url() ?>" method="POST">
     <fieldset>
         <legend>Create New Setting</legend>
         <p>
@@ -64,7 +64,7 @@
     </fieldset>
 </form>
 
-<form action="<?php echo $toolbox->admin->url() ?>" method="post">
+<form action="<?php echo $toolbox->admin->url() ?>" method="POST">
     <fieldset>
         <legend>Current Settings</legend>
         <table>

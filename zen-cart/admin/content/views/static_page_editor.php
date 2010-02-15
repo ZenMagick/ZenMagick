@@ -68,7 +68,7 @@
 <form action="<?php echo $toolbox->admin->url() ?>" method="get">
   <input type="hidden" name="main_page" value="static_page_editor">
   <h2>ZenMagick Static Page Editor (
-          <select id="languageId" name="languageId" onChange="this.form.submit();">
+          <select id="languageId" name="languageId" onchange="this.form.submit();">
             <?php foreach (ZMLanguages::instance()->getLanguages() as $lang) { ?>
               <?php $selected = $selectedLanguageId == $lang->getId() ? ' selected="selected"' : ''; ?>
               <option value="<?php echo $lang->getId() ?>"<?php echo $selected ?>><?php echo $lang->getName() ?></option>
@@ -81,7 +81,7 @@
     <fieldset>
       <legend>Edit Static Page</legend>
       <label for="themeId">Theme:</label>
-      <select id="themeId" name="themeId" onChange="this.form.submit();">
+      <select id="themeId" name="themeId" onchange="this.form.submit();">
         <option value="">Select Theme</option>
         <?php foreach (ZMThemes::instance()->getThemes() as $theme) { ?>
           <?php $selected = $selectedThemeId == $theme->getThemeId() ? ' selected="selected"' : ''; ?>
@@ -123,7 +123,7 @@
   }
 </script>
 <?php if (null !== $editContents) { ?>
-  <form action="<?php echo $toolbox->admin->url() ?>" method="post">
+  <form action="<?php echo $toolbox->admin->url() ?>" method="POST">
     <?php echo zen_hide_session_id() ?>
     <input type="hidden" name="themeId" value="<?php echo $selectedThemeId ?>">
     <input type="hidden" name="file" value="<?php echo $selectedFile ?>">
