@@ -31,6 +31,7 @@ if (!defined('IS_ADMIN_FLAG')) {
     }
     $zm_contents[] = array('text' => zm_l10n_get("Theme Builder"), 'link' => $toolbox->admin->url('theme_builder', '', true));
     $zm_contents[] = array('text' => zm_l10n_get("Static Page Editor"), 'link' => $toolbox->admin->url('static_page_editor', '', true));
+    $zm_contents[] = array('text' => zm_l10n_get("EZPage Manager"), 'link' => $toolbox->admin->url('ezpages', '', true));
     $zm_contents[] = array('text' => zm_l10n_get("About"), 'link' => $toolbox->admin->url('about', '', true));
     echo zen_draw_admin_box($zm_heading, $zm_contents);
 

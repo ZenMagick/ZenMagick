@@ -97,7 +97,8 @@ Release 0.9.9
   subtotals by tax class id
 - update subtotal and total plugin, although those might get dropped in favour
   of getSubtotal() and getTotal methods on ZMShoppingCart
-
+- add ezpage manager link to ZenMagick admin menu; todos: redirect after
+  update, sorting, multi page list
 
 Release 0.9.8
 - add Savant3 and experimental views (not used yet)
