@@ -91,6 +91,7 @@ Release 0.9.9
 - drop layout settings in all heme.yaml (default)
 - move default layout into setting 'zenmagick.mvc.view.defaultLayout'
 - converted subscriptions plugin
+- add similar orders example to the demo store's product_info.php template
 
 Release 0.9.8
 - add Savant3 and experimental views (not used yet)
