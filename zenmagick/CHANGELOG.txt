@@ -92,6 +92,12 @@ Release 0.9.9
 - move default layout into setting 'zenmagick.mvc.view.defaultLayout'
 - converted subscriptions plugin
 - add similar orders example to the demo store's product_info.php template
+- migrate from ZMOrderTotalPlugin base class to ZMOrderTotal interface
+- change data structure in ZMOrderTotalLineDetails to allow to create
+  subtotals by tax class id
+- update subtotal and total plugin, although those might get dropped in favour
+  of getSubtotal() and getTotal methods on ZMShoppingCart
+
 
 Release 0.9.8
 - add Savant3 and experimental views (not used yet)

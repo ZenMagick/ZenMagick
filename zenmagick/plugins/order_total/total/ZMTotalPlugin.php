@@ -30,7 +30,7 @@
  * @author DerManoMann
  * @version $Id$
  */
-class ZMTotalPlugin extends ZMOrderTotalPlugin {
+class ZMTotalPlugin extends Plugin implements ZMOrderTotal {
 
     /**
      * Create new instance.
@@ -53,8 +53,11 @@ class ZMTotalPlugin extends ZMOrderTotalPlugin {
      * {@inheritDoc}
      */
     public function calculate($request, $shoppingCart) {
-        $output = array($output[] = ZMLoader::make('OrderTotalDetails', 'Total', $shoppingCart->getTotal()));
-        return $output;
+        $details = ZMLoader::make('OrderTotalLineDetails');
+        $details->setTitle('Total');
+        $details->setAmount(0);
+        $details->setDisplayValue($shoppingCart->getTotal());
+        return $details;
     }
 
 }

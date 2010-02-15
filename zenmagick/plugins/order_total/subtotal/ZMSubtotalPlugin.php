@@ -30,7 +30,7 @@
  * @author DerManoMann
  * @version $Id$
  */
-class ZMSubtotalPlugin extends ZMOrderTotalPlugin {
+class ZMSubtotalPlugin extends Plugin implements ZMOrderTotal {
 
     /**
      * Create new instance.
@@ -53,8 +53,11 @@ class ZMSubtotalPlugin extends ZMOrderTotalPlugin {
      * {@inheritDoc}
      */
     public function calculate($request, $shoppingCart) {
-        $output = array($output[] = ZMLoader::make('OrderTotalDetails', 'Sub-Total', $shoppingCart->getSubtotal()));
-        return $output;
+        $details = ZMLoader::make('OrderTotalLineDetails');
+        $details->setTitle('Sub-Total');
+        $details->setAmount(0);
+        $details->setDisplayValue($shoppingCart->getSubtotal());
+        return $details;
     }
 
 }

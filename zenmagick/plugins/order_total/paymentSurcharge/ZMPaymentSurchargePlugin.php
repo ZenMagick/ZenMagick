@@ -30,7 +30,7 @@
  * @author DerManoMann
  * @version $Id: zm_payment_surcharge.php 2610 2009-11-20 02:45:25Z dermanomann $
  */
-class ZMPaymentSurchargePlugin extends ZMOrderTotalPlugin {
+class ZMPaymentSurchargePlugin extends Plugin implements ZMOrderTotal {
 
     /**
      * Create new instance.
@@ -56,7 +56,7 @@ class ZMPaymentSurchargePlugin extends ZMOrderTotalPlugin {
 
         // iterate over all conditions
         $output = array();
-        foreach (ZMSettings::get('plugins.pyamentSurchage.conditions', array()) as $condition) {
+        foreach (ZMSettings::get('plugins.paymentSurchage.conditions', array()) as $condition) {
             if ($paymentType->getId() == $condition['code'] || null === $condition['code']) {
                 // payment module match
                 if (null != $condition['cvalue']) {
@@ -96,16 +96,20 @@ class ZMPaymentSurchargePlugin extends ZMOrderTotalPlugin {
                     // match, so apply condition
 
                     // evaluate the condition's value
-                    $value = 0;
+                    $amount = 0;
                     if (is_numeric($condition['value'])) {
-                        $value = (float)$condition['value'];
+                        $amount = (float)$condition['value'];
                     }
                     if (0 === strpos($condition['value'], '%:')) {
-                        $value = trim(str_replace('%:', '', $condition['value']));
-                        $value =  $shoppingCart->getSubtotal() * ($value/100);
+                        $amount = trim(str_replace('%:', '', $condition['value']));
+                        $amount =  $shoppingCart->getSubtotal() * ($amount/100);
                     }
 
-                    $output[] = ZMLoader::make('OrderTotalDetails', $condition['title'], $value);
+                    $details = ZMLoader::make('OrderTotalLineDetails');
+                    $details->setTitle($condition['title']);
+                    $details->setAmount($amount);
+                    $details->setDisplayValue($amount);
+                    $output[] = $details;
                 }
             }
         }

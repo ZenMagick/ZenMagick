@@ -74,12 +74,13 @@ class ZMEZPage extends ZMObject {
         $this->isSidebox_ = false;
         $this->isFooter_ = false;
         $this->isToc_ = false;
-        $this->headerSort_ = 1;
-        $this->sideboxSort_ = 1;
-        $this->footerSort_ = 1;
+        $this->headerSort_ = 0;
+        $this->sideboxSort_ = 0;
+        $this->footerSort_ = 0;
         $this->isNewWin_ = false;
         $this->isSSL_ = false;
         $this->tocChapter_ = 0;
+        $this->tocSort_ = 0;
     }
 
     /**
@@ -112,16 +113,16 @@ class ZMEZPage extends ZMObject {
     public function setAltUrl($url) { $this->altUrl_ = $url; }
     public function setAltUrlExternal($url) { $this->altUrlExternal_ = $url; }
     public function setHtmlText($text) { $this->htmlText_ = $text; }
-    public function setHeader($value) { $this->isHeader_ = $value; }
-    public function setSidebox($value) { $this->isSidebox_ = $value; }
-    public function setFooter($value) { $this->isFooter_ = $value; }
-    public function setToc($value) { $this->isToc_ = $value; }
+    public function setHeader($value) { $this->isHeader_ = ZMLangUtils::asBoolean($value); }
+    public function setSidebox($value) { $this->isSidebox_ = ZMLangUtils::asBoolean($value); }
+    public function setFooter($value) { $this->isFooter_ = ZMLangUtils::asBoolean($value); }
+    public function setToc($value) { $this->isToc_ = ZMLangUtils::asBoolean($value); }
     public function setHeaderSort($sortOrder) { $this->headerSort_ = $sortOrder; }
     public function setSideboxSort($sortOrder) { $this->sideboxSort_ = $sortOrder; }
     public function setFooterSort($sortOrder) { $this->footerSort_ = $sortOrder; }
     public function setTocSort($value) { $this->tocSort_ = $value; }
-    public function setNewWin($value) { $this->isNewWin_ = $value; }
-    public function setSSL($value) { $this->isSSL_ = $value; }
+    public function setNewWin($value) { $this->isNewWin_ = ZMLangUtils::asBoolean($value); }
+    public function setSSL($value) { $this->isSSL_ = ZMLangUtils::asBoolean($value); }
     public function setTocChapter($chapter) { $this->tocChapter_ = $chapter; }
 
 }

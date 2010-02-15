@@ -66,7 +66,7 @@ class ot_zenmagick {
         $this->plugins_ = array();
         foreach (ZMPlugins::instance()->getAllPlugins() as $type => $plugins) {
             foreach ($plugins as $plugin) {
-                if ($plugin instanceof ZMOrderTotalPlugin) {
+                if ($plugin instanceof ZMOrderTotal) {
                     $this->plugins_[$plugin->getId()] = $plugin;
                 }
             }
@@ -126,7 +126,7 @@ class ot_zenmagick {
             $order->info['tax'] += $detail->getTax();
             $this->output[] = array(
                 'title' => $detail->getTitle(),
-                'text' => $toolbox->utils->formatMoney($detail->getAmount()),
+                'text' => $toolbox->utils->formatMoney($detail->getDisplayValue()),
                 'value' => $detail->getAmount()
             );
         }
