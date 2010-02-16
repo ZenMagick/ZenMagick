@@ -78,7 +78,7 @@
 </form>
 
 <p>Once you have created the new theme, make sure to (re-)generate the required dummy theme files for zen-cart
-using the <a href="<?php echo 'zmInstallation.php' ?>">installation</a> screen.</p>
+using the <a href="<?php echo $admin->url('installation') ?>">installation</a> screen.</p>
 
 <p>Unused directories can safely be deleted</p>
 
