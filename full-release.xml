@@ -74,11 +74,17 @@
         <!-- dump welcome page -->
         <antcall target="dump-welcome-install"></antcall>
 
+        <!-- add zenmagick/themes to the list of folders to check for permission -->
+        <antcall target="insert-after">
+          <param name="insert.file" value="${release.full.dir}/zc_install/includes/modules/pages/inspect/header_php.php" />
+            <param name="insert.regexp" value="'admin/images/graphs'=>'777 read/write/execute'" />
+            <param name="insert.substitution" value="                 ,'zenmagick/themes'=>'777 read/write/execute'" />
+        </antcall>
+
+
         <!-- apply branding -->
         <antcall target="apply-branding" />
 
-        <!-- wrap it all up -->
-        <unzip src="${dist.dir}/zenmagick-${zenmagick.version}.zip" dest="${release.full.dir}" />
 
         <!-- and zip -->
         <zip zipfile="${dist.dir}/${full.version.file}.zip" basedir="${release.full.dir}" />
