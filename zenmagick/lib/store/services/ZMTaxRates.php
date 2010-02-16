@@ -31,7 +31,7 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.store.services
- * @version $Id$
+ * @version $Id: ZMTaxRates.php 2902 2010-02-16 07:51:36Z dermanomann $
  */
 class ZMTaxRates extends ZMObject {
     const TAX_BASE_STORE = 'Store';
@@ -99,7 +99,7 @@ class ZMTaxRates extends ZMObject {
             return $this->taxRates_[$taxRateId];
         }
 
-        if (ZMTaxRates::TAX_BASE_STORE == ZMSettings::get('productTaxBase')) {
+        if (self::TAX_BASE_STORE == ZMSettings::get('productTaxBase')) {
             if (ZMSettings::get('storeZone') != $zoneId) {
                 $taxRate = ZMLoader::make("TaxRate");
                 $taxRate->setId($taxRateId);

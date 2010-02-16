@@ -99,6 +99,7 @@ Release 0.9.9
   of getSubtotal() and getTotal methods on ZMShoppingCart
 - add ezpage manager link to ZenMagick admin menu; todos: redirect after
   update, sorting, multi page list
+- extend ZMTemplateManager to allow group proccessing of (for now) js files
 
 Release 0.9.8
 - add Savant3 and experimental views (not used yet)

@@ -29,7 +29,7 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.store.services
- * @version $Id$
+ * @version $Id: ZMCoupons.php 2902 2010-02-16 07:51:36Z dermanomann $
  */
 class ZMCoupons extends ZMObject {
     const BALANCE_SET = 'balance_set';
@@ -128,7 +128,7 @@ class ZMCoupons extends ZMObject {
      * @param float amount The new amount.
      */
     public function setVoucherBalanceForAccountId($accountId, $amount) {
-        $this->updateVoucherBalanceForAccountId($accountId, $amount, ZMCoupons::BALANCE_SET);
+        $this->updateVoucherBalanceForAccountId($accountId, $amount, self::BALANCE_SET);
     }
 
     /**
@@ -138,14 +138,14 @@ class ZMCoupons extends ZMObject {
      * @param float amount The new amount.
      * @param string mode Optional update mode; either <code>BALANCE_SET</code> or <code>BALANCE_ADD</code>.
      */
-    protected function updateVoucherBalanceForAccountId($accountId, $amount, $mode=ZMCoupons::BALANCE_SET) {
+    protected function updateVoucherBalanceForAccountId($accountId, $amount, $mode=self::BALANCE_SET) {
         // check if customer has already a balance
         $sql = "SELECT amount
                 FROM " . TABLE_COUPON_GV_CUSTOMER . "
                 WHERE customer_id = :accountId";
         $result = ZMRuntime::getDatabase()->querySingle($sql, array('accountId' => $accountId), TABLE_COUPON_GV_CUSTOMER);
         if (null != $result) {
-            if (ZMCoupons::BALANCE_ADD == $mode) {
+            if (self::BALANCE_ADD == $mode) {
                 $amount = $result['amount'] + $amount;
             }
             $sql = "UPDATE " . TABLE_COUPON_GV_CUSTOMER . "
@@ -265,7 +265,7 @@ class ZMCoupons extends ZMObject {
                 FROM " . TABLE_COUPONS . "
                 WHERE coupon_id = :couponId";
         $result = ZMRuntime::getDatabase()->querySingle($sql, array('couponId' => $couponId), TABLE_COUPONS);
-        $this->updateVoucherBalanceForAccountId($accountId, $result['amount'], ZMCoupons::BALANCE_ADD);
+        $this->updateVoucherBalanceForAccountId($accountId, $result['amount'], self::BALANCE_ADD);
     }
 
     /**

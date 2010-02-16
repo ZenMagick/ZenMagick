@@ -36,7 +36,7 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.mvc.services.misc
- * @version $Id$
+ * @version $Id: ZMMessages.php 2902 2010-02-16 07:51:36Z dermanomann $
  */
 class ZMMessages extends ZMObject {
     /** Catch all (global) message reference type. */
@@ -84,7 +84,7 @@ class ZMMessages extends ZMObject {
      * @param string type The message type; default is <code>ZMMessages::T_MESSAGE</code>.
      * @param string ref The referencing resource; default is <code>ZMMessages::REF_GLOBAL</code>.
      */
-    public function add($text, $type=ZMMessages::T_MESSAGE, $ref=ZMMessages::REF_GLOBAL) {
+    public function add($text, $type=self::T_MESSAGE, $ref=self::REF_GLOBAL) {
         if (array_key_exists($text, $this->uniqueMsgRef_))
             return;
 
@@ -98,8 +98,8 @@ class ZMMessages extends ZMObject {
      * @param string text The message text.
      * @param string ref The referencing resource; default is <code>ZMMessages::REF_GLOBAL</code>.
      */
-    public function error($text, $ref=ZMMessages::REF_GLOBAL) {
-        $this->add($text, ZMMessages::T_ERROR, $ref);
+    public function error($text, $ref=self::REF_GLOBAL) {
+        $this->add($text, self::T_ERROR, $ref);
     }
 
     /**
@@ -108,8 +108,8 @@ class ZMMessages extends ZMObject {
      * @param string text The message text.
      * @param string ref The referencing resource; default is <code>ZMMessages::REF_GLOBAL</code>.
      */
-    public function warn($text, $ref=ZMMessages::REF_GLOBAL) {
-        $this->add($text, ZMMessages::T_WARN, $ref);
+    public function warn($text, $ref=self::REF_GLOBAL) {
+        $this->add($text, self::T_WARN, $ref);
     }
 
     /**
@@ -118,8 +118,8 @@ class ZMMessages extends ZMObject {
      * @param string text The message text.
      * @param string ref The referencing resource; default is <code>ZMMessages::REF_GLOBAL</code>.
      */
-    public function msg($text, $ref=ZMMessages::REF_GLOBAL) {
-        $this->add($text, ZMMessages::T_MESSAGE, $ref);
+    public function msg($text, $ref=self::REF_GLOBAL) {
+        $this->add($text, self::T_MESSAGE, $ref);
     }
 
     /**
@@ -128,8 +128,8 @@ class ZMMessages extends ZMObject {
      * @param string text The message text.
      * @param string ref The referencing resource; default is <code>ZMMessages::REF_GLOBAL</code>.
      */
-    public function success($text, $ref=ZMMessages::REF_GLOBAL) {
-        $this->add($text, ZMMessages::T_SUCCESS, $ref);
+    public function success($text, $ref=self::REF_GLOBAL) {
+        $this->add($text, self::T_SUCCESS, $ref);
     }
 
     /**

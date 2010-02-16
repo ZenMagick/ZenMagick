@@ -29,7 +29,7 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.plugins.minify
- * @version $Id$
+ * @version $Id: TemplateManager.php 2902 2010-02-16 07:51:36Z dermanomann $
  */
 class TemplateManager extends ZMTemplateManager {
     private $plugin_;
@@ -49,11 +49,28 @@ class TemplateManager extends ZMTemplateManager {
     }
 
     /**
-     * {@inheridDoc}
+     * {@inheritDoc}
      */
     public function resolveThemeResource($request, $resource) {
         $plugin = $this->getPlugin();
         return $plugin->pluginUrl('min/f='.parent::resolveThemeResource($request, $resource));
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function handleResources($files, $type, $location) {
+        if (1 < count($files)) {
+            $srcList = array();
+            foreach ($files as $info) {
+                // use parent method to do proper resolve and not minify twice!
+                $srcList[] = parent::resolveThemeResource($request, $info['filename']);
+            }
+            $plugin = $this->getPlugin();
+            return '<script type="text/javascript" src="'.$plugin->pluginUrl('min/f='.implode(',', $srcList)).'"></script>'."\n";
+        }
+
+        return null;
     }
 
 }

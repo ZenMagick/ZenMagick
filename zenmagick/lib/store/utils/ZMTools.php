@@ -30,7 +30,7 @@ if (!defined('DATE_RSS')) { define('DATE_RSS', "D, d M Y H:i:s T"); }
  *
  * @author DerManoMann
  * @package org.zenmagick.store.utils
- * @version $Id$
+ * @version $Id: ZMTools.php 2902 2010-02-16 07:51:36Z dermanomann $
  */
 class ZMTools {
     const RANDOM_DIGITS = 'digits';
@@ -643,7 +643,7 @@ class ZMTools {
                 $target .= '/';
             }
 
-            ZMTools::mkdir($target);
+            self::mkdir($target);
             $handle = opendir($src);
             if ($handle = opendir($src)) {
                 while (false !== ($file = readdir($handle))) {
@@ -652,7 +652,7 @@ class ZMTools {
                     }
                     $fullfile = $src.$file;
                     if (is_dir($fullfile)) {
-                        if (!ZMTools::move($fullfile.'/', $target.$file.'/')) {
+                        if (!self::move($fullfile.'/', $target.$file.'/')) {
                             return false;
                         }
                     } else {
@@ -662,7 +662,7 @@ class ZMTools {
                     }
                 }
                 closedir($handle);
-                return ZMTools::rmdir($src, true);
+                return self::rmdir($src, true);
             } else {
                 return false;
             }
@@ -671,12 +671,12 @@ class ZMTools {
                 if ('/' != substr($target, -1)) {
                     $target .= '/';
                 }
-                ZMTools::mkdir($target);
+                self::mkdir($target);
                 if (!copy($src, $target.basename($src))) {
                     return false;
                 }
             } else {
-                ZMTools::mkdir(dirname($target));
+                self::mkdir(dirname($target));
                 if (!copy($src, $target)) {
                     return false;
                 }
@@ -705,7 +705,7 @@ class ZMTools {
                 if (zip_entry_open($zhandle, $zentry, 'r')) {
                     $entryFilename = $target.zip_entry_name($zentry);
                     // ensure folder exists, otherwise things get dropped silently
-                    ZMTools::mkDir(dirname($entryFilename));
+                    self::mkDir(dirname($entryFilename));
                     $buffer = zip_entry_read($zentry, zip_entry_filesize($zentry));
                     zip_entry_close($zentry);
                     $fp = fopen($entryFilename, 'wb');

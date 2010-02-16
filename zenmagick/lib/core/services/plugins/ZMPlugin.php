@@ -53,7 +53,7 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.core.services.plugins
- * @version $Id$
+ * @version $Id: ZMPlugin.php 2902 2010-02-16 07:51:36Z dermanomann $
  */
 abstract class ZMPlugin extends ZMObject {
     /** Do not load any plugin files (except, of course, the plugin itself). */
@@ -89,7 +89,7 @@ abstract class ZMPlugin extends ZMObject {
         $this->version_ = '0.0';
         $this->enabled_ = null;
         $this->pluginDirectory_ = null; // this might be plain wong using core.php! dirname(__FILE__).DIRECTORY_SEPARATOR;
-        $this->loaderPolicy_ = ZMPlugin::LP_ALL;
+        $this->loaderPolicy_ = self::LP_ALL;
         $this->context_ = 0;
     }
 

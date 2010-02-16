@@ -24,7 +24,7 @@
 /**
  * Custom Savant(3).
  *
- * <p>Adds some convenience methods to access resources.</p>
+ * <p>Adds some convenience methods to access templates.</p>
  *
  * <p><strong>ATTENTION:</strong> These methods only make sense if called from
  * within a template.</p>
@@ -45,7 +45,7 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.mvc.view
- * @version $Id$
+ * @version $Id: ZMSavant.php 2902 2010-02-16 07:51:36Z dermanomann $
  */
 class ZMSavant extends Savant3 {
 
@@ -72,7 +72,7 @@ class ZMSavant extends Savant3 {
 
 
     /**
-     * Check if the given resource file exists.
+     * Check if the given templates file exists.
      *
      * @param string filename The filename, relative to the template path.
      * @return boolean <code>true</code> if the file exists, <code>false</code> if not.
@@ -82,7 +82,7 @@ class ZMSavant extends Savant3 {
     }
 
     /**
-     * Resolve the given resource filename to a fully qualified filename.
+     * Resolve the given templates filename to a fully qualified filename.
      *
      * @param string filename The filename, relative to the template path.
      * @return string A fully qualified filename or <code>null</code>.
@@ -93,13 +93,13 @@ class ZMSavant extends Savant3 {
     }
 
     /**
-     * Resolve the given (relative) resource filename into a url.
+     * Resolve the given (relative) templates filename into a url.
      *
      * @param string filename The filename, relative to the template path.
      * @return string A url.
      */
     public function asUrl($filename) {
-        if (null != ($path = $this->findFile('resource', $filename))) {
+        if (null != ($path = $this->findFile('templates', $filename))) {
             $relpath = str_replace(dirname(ZMRuntime::getInstallationPath()).DIRECTORY_SEPARATOR, '', $path);
             if ($relpath != $path) {
                 // only if matched and replaced...

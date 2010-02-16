@@ -31,7 +31,7 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.core.services.misc
- * @version $Id$
+ * @version $Id: ZMLogging.php 2902 2010-02-16 07:51:36Z dermanomann $
  */
 class ZMLogging extends ZMObject {
     private static $LABEL = array('NONE', 'ERROR', 'WARN', 'INFO', 'DEBUG', 'TRACE');
@@ -82,7 +82,7 @@ class ZMLogging extends ZMObject {
      * @param string msg The message to log.
      * @param int level Optional level; default: <code>ZMLogging::INFO</code>.
      */
-    public function log($msg, $level=ZMLogging::INFO) {
+    public function log($msg, $level=self::INFO) {
         if (ZMSettings::get('zenmagick.core.logging.enabled') && $level <= ZMSettings::get('zenmagick.core.logging.level')) {
             if (array_key_exists($level, self::$LABEL)) {
                 $msg = self::$LABEL[$level] . ': ' . $msg;
@@ -102,7 +102,7 @@ class ZMLogging extends ZMObject {
      * @param string msg An optional message.
      * @param int level Optional level; default: <code>ZMLogging::DEBUG</code>.
      */
-    public function dump($obj, $msg=null, $level=ZMLogging::DEBUG) {
+    public function dump($obj, $msg=null, $level=self::DEBUG) {
         if (ZMSettings::get('zenmagick.core.logging.enabled') && $level <= ZMSettings::get('zenmagick.core.logging.level')) {
             ob_start();
             if (null !== $msg) {
@@ -123,7 +123,7 @@ class ZMLogging extends ZMObject {
      * @param mixed msg An optional string or array.
      * @param int level Optional level; default: <code>ZMLogging::DEBUG</code>.
      */
-    public function trace($msg=null, $level=ZMLogging::DEBUG) {
+    public function trace($msg=null, $level=self::DEBUG) {
         if (ZMSettings::get('zenmagick.core.logging.enabled') && $level <= ZMSettings::get('zenmagick.core.logging.level')) {
             ob_start();
             if (null !== $msg) {

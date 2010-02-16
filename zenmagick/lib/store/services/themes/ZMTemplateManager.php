@@ -31,7 +31,7 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.store.services.themes
- * @version $Id$
+ * @version $Id: ZMTemplateManager.php 2902 2010-02-16 07:51:36Z dermanomann $
  */
 class ZMTemplateManager extends ZMObject {
     const PAGE_TOP = 'top';
@@ -248,16 +248,32 @@ class ZMTemplateManager extends ZMObject {
             $css .= $info['attr']['suffix']."\n";
         }
 
-        $jsTop = '';
-        $jsBottom = '';
+        // first build separate lists to allow group processing
+        $jsTopList = array();
+        $jsBottomList = array();
         foreach ($this->jsFiles_ as $filename => $info) {
             if (!$info['done']) {
-                if (ZMTemplateManager::PAGE_TOP == $info['position']) {
-                    $jsTop .= '<script type="text/javascript" src="'.$this->resolveThemeResource($request, $info['filename']).'"></script>'."\n";
-                } else if (ZMTemplateManager::PAGE_BOTTOM == $info['position']) {
-                    $jsBottom .= '<script type="text/javascript" src="'.$this->resolveThemeResource($request, $info['filename']).'"></script>'."\n";
+                if (self::PAGE_TOP == $info['position']) {
+                    $jsTopList[] = $info;
+                } else if (self::PAGE_BOTTOM == $info['position']) {
+                    $jsBottomList[] = $info;
                 }
                 $this->jsFiles_[$filename]['done'] = true;
+            }
+        }
+
+        $jsTop = '';
+        $jsBottom = '';
+        if (null == ($jsTop = $this->handleResources($jsTopList, 'js', self::PAGE_TOP))) {
+            $jsTop = '';
+            foreach ($jsTopList as $info) {
+                $jsTop .= '<script type="text/javascript" src="'.$this->resolveThemeResource($request, $info['filename']).'"></script>'."\n";
+            }
+        }
+        if (null == ($jsBottom = $this->handleResources($jsBottomList, 'js', self::PAGE_BOTTOM))) {
+            $jsBottom = '';
+            foreach ($jsBottomList as $info) {
+                $jsBottom .= '<script type="text/javascript" src="'.$this->resolveThemeResource($request, $info['filename']).'"></script>'."\n";
             }
         }
 
@@ -287,6 +303,18 @@ class ZMTemplateManager extends ZMObject {
     }
 
     /**
+     * Empty callback method for group processing.
+     *
+     * @param array List of file infos.
+     * @param string type The type; either <code>css</code> or <code>js</code>.
+     * @param string location The location; either <code>ZMTemplateManager::PAGE_TOP</code> or <code>ZMTemplateManager::PAGE_BOTTOM</code>.
+     * @return string Fully processed script code or null.
+     */
+    public function handleResources($files, $type, $location) {
+        return null;
+    }
+
+    /**
      * Add the given CSS file to the final contents.
      *
      * @param string filename A relative CSS filename.
@@ -302,15 +330,15 @@ class ZMTemplateManager extends ZMObject {
      * @param string filename A relative JavaScript filename.
      * @param string position Optional position; either <code>PAGE_TOP</code> (default), or <code>PAGE_BOTTOM</code>.
      */
-    public function jsFile($filename, $position=ZMTemplateManager::PAGE_TOP) {
+    public function jsFile($filename, $position=self::PAGE_TOP) {
         if (array_key_exists($filename, $this->jsFiles_)) {
             // check if we need to do anything else or update the position
             if ($this->jsFiles_[$filename]['done']) {
                 ZMLogging::instance()->log('skipping '.$filename.' as already done', ZMLogging::TRACE);
                 return;
             }
-            if (ZMTemplateManager::PAGE_BOTTOM == $this->jsFiles_[$filename]['position']) {
-                if (ZMTemplateManager::PAGE_TOP == $position) {
+            if (self::PAGE_BOTTOM == $this->jsFiles_[$filename]['position']) {
+                if (self::PAGE_TOP == $position) {
                     ZMLogging::instance()->log('upgrading '.$filename.' to PAGE_TOP', ZMLogging::TRACE);
                     return;
                 }
@@ -318,7 +346,7 @@ class ZMTemplateManager extends ZMObject {
             // either it's now or same as already registered
         }
         $this->jsFiles_[$filename] = array('filename' => $filename, 'position' => $position, 'done' => false);
-        if (ZMTemplateManager::PAGE_NOW == $position) {
+        if (self::PAGE_NOW == $position) {
             $this->jsFiles_[$filename]['done'] = true;
             echo '<script type="text/javascript" src="',$this->resolveThemeResource($request, $filename),'"></script>',"\n";
         }

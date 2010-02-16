@@ -26,7 +26,7 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.mvc.view
- * @version $Id$
+ * @version $Id: SavantView.php 2902 2010-02-16 07:51:36Z dermanomann $
  */
 class SavantView extends ZMSavantView {
     private $viewDir_;
@@ -64,6 +64,18 @@ class SavantView extends ZMSavantView {
      */
     public function setViewDir($viewDir) {
         $this->viewDir_ = $viewDir;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getResourcePath($request) {
+        $path = array();
+        if (ZMSettings::get('isEnableThemeDefaults')) {
+            $path[] = ZMThemes::instance()->getThemeForId(ZMSettings::get('defaultThemeId'))->getBaseDir();
+        }
+        $path[] = Runtime::getTheme()->getBaseDir();
+        return $path;
     }
 
     /**
