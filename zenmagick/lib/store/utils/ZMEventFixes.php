@@ -102,9 +102,6 @@ class ZMEventFixes extends ZMObject {
             $args = array_merge($args, array('themeId' => ZMThemes::instance()->getZCThemeId()));
             ZMEvents::instance()->fireEvent(null, Events::THEME_RESOLVED, $args);
         }
-
-        // pick up messages from zen-cart request handling
-        ZMMessages::instance()->_loadMessageStack();
     }
 
     /**
@@ -233,13 +230,16 @@ class ZMEventFixes extends ZMObject {
     }
 
     /**
-     * Remove ajax requests from navigation history.
+     * Remove ajax requests from navigation history and grab zencart messages.
      */
     public function onZMDispatchStart($args) {
         $request = $args['request'];
         if (false !== strpos($request->getRequestId(), 'ajax')) {
             $_SESSION['navigation']->remove_current_page();
         }
+
+        // pick up messages from zen-cart request handling
+        ZMMessages::instance()->_loadMessageStack();
     }
 
 
