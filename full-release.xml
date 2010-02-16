@@ -85,6 +85,8 @@
         <!-- apply branding -->
         <antcall target="apply-branding" />
 
+        <!-- wrap it all up -->
+        <unzip src="${dist.dir}/zenmagick-${zenmagick.version}.zip" dest="${release.full.dir}" />
 
         <!-- and zip -->
         <zip zipfile="${dist.dir}/${full.version.file}.zip" basedir="${release.full.dir}" />

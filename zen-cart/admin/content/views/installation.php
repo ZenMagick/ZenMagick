@@ -132,31 +132,29 @@
     function _zm_patch_group($groupId, $patchLabel, $checkall=true) {
         $installer = new ZMInstallationPatcher();
         foreach ($installer->getPatches($groupId) as $id => $patch) {
-            if ($patch->isOpen() || true) {
-                // check dependencies
-                $unfulfilled = array();
-                foreach ($patch->dependsOn() as $dId) {
-                    $dPatch = $installer->getPatchForId($dId);
-                    if ($dPatch->isOpen()) {
-                        array_push($unfulfilled, $dPatch->getId());
-                    }
+            // check dependencies
+            $unfulfilled = array();
+            foreach ($patch->dependsOn() as $dId) {
+                $dPatch = $installer->getPatchForId($dId);
+                if ($dPatch->isOpen()) {
+                    array_push($unfulfilled, $dPatch->getId());
                 }
-                foreach ($unfulfilled as $dId) {
-                    ?><p class="error"><?php zm_l10n("Depends on: '%s'", $patchLabel[$dId]) ?></p><?php
-                }
-                if (!$patch->isReady()) {
-                  ?><p class="error"><?php echo $patch->getPreconditionsMessage() ?></p><?php
-                }
-                ?><input type="checkbox"
-                    id="<?php echo $patch->getId() ?>" name="patch_<?php echo $groupId ?>_<?php echo $patch->getId() ?>"
-                    value="<?php echo $patch->getId() ?>"
-                    <?php if (!$patch->isOpen()) { ?>checked="checked" <?php } ?>
-                    <?php if (!$patch->canUndo() && !$patch->isOpen()) { ?>disabled="disabled" <?php } ?>>
-                  <label for="<?php echo $patch->getId() ?>">
-                      <?php echo $patchLabel[$patch->getId()] ?>
-                  </label>
-                  <br><?php
             }
+            foreach ($unfulfilled as $dId) {
+                ?><p class="error"><?php zm_l10n("Depends on: '%s'", $patchLabel[$dId]) ?></p><?php
+            }
+            if (!$patch->isReady() && $patch->isOpen()) {
+              ?><p class="error"><?php echo $patch->getPreconditionsMessage() ?></p><?php
+            }
+            ?><input type="checkbox"
+                id="<?php echo $patch->getId() ?>" name="patch_<?php echo $groupId ?>_<?php echo $patch->getId() ?>"
+                value="<?php echo $patch->getId() ?>"
+                <?php if (!$patch->isOpen()) { ?>checked="checked" <?php } ?>
+                <?php if (!$patch->canUndo() && !$patch->isOpen()) { ?>disabled="disabled" <?php } ?>>
+              <label for="<?php echo $patch->getId() ?>">
+                  <?php echo $patchLabel[$patch->getId()] ?>
+              </label>
+              <br><?php
         } ?>
         <input type="checkbox" class="all" id="<?php echo $groupId ?>_all" name="<?php echo $groupId ?>_all" value="" onclick="sync_all(this, 'patch_<?php echo $groupId ?>_')">
         <label for="<?php echo $groupId ?>_all"><?php zm_l10n("Select/Unselect All") ?></label><br>
