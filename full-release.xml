@@ -82,11 +82,11 @@
         </antcall>
 
 
-        <!-- apply branding -->
-        <antcall target="apply-branding" />
-
-        <!-- wrap it all up -->
+        <!-- add ZenMagick -->
         <unzip src="${dist.dir}/zenmagick-${zenmagick.version}.zip" dest="${release.full.dir}" />
+
+        <!-- apply branding to the lot -->
+        <antcall target="apply-branding" />
 
         <!-- and zip -->
         <zip zipfile="${dist.dir}/${full.version.file}.zip" basedir="${release.full.dir}" />
@@ -366,10 +366,10 @@
       <replaceregexp match='Zen Cart is derived from: Copyright' replace='ZenMagick is derived from: &amp;copy; ZenCart, ' flags="g"><fileset dir="${release.full.dir}/admin/" /></replaceregexp>
       <replaceregexp match='href="http://www.zen-cart.com/"' replace='href="http://www.zenmagick.org/"' flags="g"><fileset dir="${release.full.dir}/admin/" /></replaceregexp>
 
-      <replaceregexp match='003D00' replace='224580' flags="g"><fileset dir="${release.full.dir}/admin/"><include name="**/*.css" /></fileset></replaceregexp>
-      <replaceregexp match='599659' replace='666' flags="g"><fileset dir="${release.full.dir}/admin/"><include name="**/*.css" /></fileset></replaceregexp>
-      <replaceregexp match='85C285' replace='eee' flags="g"><fileset dir="${release.full.dir}/admin/"><include name="**/*.css" /></fileset></replaceregexp>
-      <replaceregexp match='EFF4EA' replace='F6F4FF' flags="g"><fileset dir="${release.full.dir}/admin/"><include name="**/*.css" /></fileset></replaceregexp>
+      <replaceregexp match='003D00' replace='224580' flags="gi"><fileset dir="${release.full.dir}/admin/"><include name="**/*.css" /></fileset></replaceregexp>
+      <replaceregexp match='599659' replace='777' flags="gi"><fileset dir="${release.full.dir}/admin/"><include name="**/*.css" /></fileset></replaceregexp>
+      <replaceregexp match='85C285' replace='eee' flags="gi"><fileset dir="${release.full.dir}/admin/"><include name="**/*.css" /></fileset></replaceregexp>
+      <replaceregexp match='EFF4EA' replace='F6F4FF' flags="gi"><fileset dir="${release.full.dir}/admin/"><include name="**/*.css" /></fileset></replaceregexp>
 
     </target>
 
