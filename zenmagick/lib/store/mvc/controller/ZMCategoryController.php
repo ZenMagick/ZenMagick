@@ -92,7 +92,10 @@ class ZMCategoryController extends ZMController {
             $data['resultList'] = $resultList;
         }
 
-        $category = ZMCategories::instance()->getCategoryForId($request->getCategoryId());
+        // get category
+        if (null == ($category = ZMCategories::instance()->getCategoryForId($request->getCategoryId()))) {
+            return $this->findView('error');
+        }
 
         if ($viewName == "category_list" 
             && ((null == $resultList || !$resultList->hasResults() || (null != $category && $category->hasChildren())) 
