@@ -43,7 +43,7 @@
 </ul>
 
 <?php if (null != ($topic = $request->getParameter('topic')) && array_key_exists($topic, $faq_topics)) { ?>
-    <?php echo $zm_theme->staticPageContent($topic); ?>
+    <?php echo $utils->staticPageContent($topic); ?>
 <?php } ?>
 
 <?php echo $form->open(FILENAME_GV_REDEEM, '', true, array('id'=>'gv_redeem')) ?>

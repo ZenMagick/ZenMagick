@@ -99,15 +99,6 @@ class SavantView extends ZMSavantView {
         return $this->getViewDir().DIRECTORY_SEPARATOR.parent::getTemplate();
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public function getVars() {
-        $vars = parent::getVars();
-        $vars['zm_theme'] = Runtime::getTheme();
-        return $vars;
-    }
-
 }
 
 ?>

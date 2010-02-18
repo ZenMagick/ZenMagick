@@ -24,4 +24,4 @@
  */
 ?>
 
-<?php echo $zm_theme->staticPageContent("shippinginfo") ?>
+<?php echo $utils->staticPageContent("shippinginfo") ?>

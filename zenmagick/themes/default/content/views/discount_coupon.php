@@ -24,7 +24,7 @@
  */
 ?>
 
-<?php echo $zm_theme->staticPageContent("discount_coupon") ?>
+<?php echo $utils->staticPageContent("discount_coupon") ?>
 
 <?php echo $form->open(FILENAME_DISCOUNT_COUPON, 'action=lookup', false, array('method' => 'get')) ?>
   <fieldset>

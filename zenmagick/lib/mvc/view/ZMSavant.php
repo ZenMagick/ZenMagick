@@ -100,7 +100,6 @@ class ZMSavant extends Savant3 {
      */
     public function asUrl($filename) {
         if (null != ($path = $this->findFile('template', $filename))) {
-          var_dump( $path);
             $relpath = str_replace(dirname(ZMRuntime::getInstallationPath()).DIRECTORY_SEPARATOR, '', $path);
             if ($relpath != $path) {
                 // only if matched and replaced...

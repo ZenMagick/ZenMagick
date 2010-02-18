@@ -34,7 +34,7 @@
 
 <div><?php echo $EMAIL_MESSAGE_HTML; ?></div>
 
-<?php echo $zm_theme->staticPageContent('email_advisory') ?>
+<?php echo $utils->staticPageContent('email_advisory') ?>
 </div>
 </body>
 </html>

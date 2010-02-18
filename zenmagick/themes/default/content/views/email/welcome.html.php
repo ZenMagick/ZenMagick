@@ -33,10 +33,10 @@
 <p><?php zm_l10n("Dear %s %s,", $currentAccount->getFirstName(), $currentAccount->getLastName()) ?></p>
 
 <p><?php zm_l10n("We wish to welcome you to %s.", ZMSettings::get('storeName')) ?></p>
-<div><?php echo $zm_theme->staticPageContent('email_welcome') ?></div>
+<div><?php echo $utils->staticPageContent('email_welcome') ?></div>
 <p><?php zm_l10n("Sincerely, %s", ZMSettings::get('storeOwner')) ?></p>
 
-<?php echo $zm_theme->staticPageContent('email_advisory') ?>
+<?php echo $utils->staticPageContent('email_advisory') ?>
 <?php echo $office_only_html; ?>
 </div>
 </body>

@@ -108,6 +108,7 @@ Release 0.9.9
   'zenmagick.mvc.request.idName'
 - refactor the 'zencart style' url creation into a (default) SEORewriter plus
   some cleanup (more to come)
+- drop $zm_theme from the view (finally!) and replace with utils method
 
 Release 0.9.8
 - add Savant3 and experimental views (not used yet)
