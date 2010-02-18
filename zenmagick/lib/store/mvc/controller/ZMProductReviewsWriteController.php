@@ -66,7 +66,7 @@ class ZMProductReviewsWriteController extends ZMController {
      */
     public function processGet($request) {
         if (null == $this->getProduct($request)) {
-            return $this->findView('error', $this->viewData_);
+            return $this->findView('product_not_found', $this->viewData_);
         }
         return $this->findView(null, $this->viewData_);
     }
@@ -76,7 +76,7 @@ class ZMProductReviewsWriteController extends ZMController {
      */
     public function processPost($request) {
         if (null == $this->getProduct($request)) {
-            return $this->findView('error', $this->viewData_);
+            return $this->findView('product_not_found', $this->viewData_);
         }
 
         $review = $this->getFormData($request);

@@ -55,7 +55,7 @@ class ZMPageController extends ZMController {
         // prepare page name for crumbtrail
         $page = ZMEZPages::instance()->getPageForId($request->getParameter("id"));
         if (null == $page) {
-            return $this->findView('error'); 
+            return $this->findView('page_not_found'); 
         }
 
         $request->getToolbox()->crumbtrail->addCrumb($page->getTitle());

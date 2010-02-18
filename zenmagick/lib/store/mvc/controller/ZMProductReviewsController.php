@@ -60,7 +60,7 @@ class ZMProductReviewsController extends ZMController {
 
         $product = ZMProducts::instance()->getProductForId($request->getProductId());
         if (null == $product) {
-            return $this->findView('error');
+            return $this->findView('product_not_found');
         }
         $data = array();
         $data['currentProduct'] = $product;

@@ -71,7 +71,7 @@ class ZMTellAFriendController extends ZMController {
      */
     public function processGet($request) {
         if (null == $this->product_) {
-            return $this->findView('error', $this->viewData_);
+            return $this->findView('product_not_found', $this->viewData_);
         }
 
         $account = $request->getAccount();
@@ -89,7 +89,7 @@ class ZMTellAFriendController extends ZMController {
      */
     public function processPost($request) {
         if (null == $this->product_) {
-            return $this->findView('error', $this->viewData_);
+            return $this->findView('product_not_found', $this->viewData_);
         }
 
         $emailMessage = $this->getFormData($request);
