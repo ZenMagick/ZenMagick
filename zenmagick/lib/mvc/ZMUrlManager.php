@@ -219,7 +219,7 @@ class ZMUrlManager extends ZMObject {
         if (is_array($parameter)) {
             $parameter = http_build_query($parameter);
         }
-        $layout = ((null !== $mapping['layout']) ? $mapping['layout'] : ZMSettings::get('zenmagick.mvc.view.defaultLayout', 'default_layout'));
+        $layout = ((null !== $mapping['layout']) ? $mapping['layout'] : ZMSettings::get('zenmagick.mvc.view.defaultLayout', null));
         $definition = $view.(false === strpos($view, '#') ? '#' : '&').$parameter.'&template='.$mapping['template'].'&layout='.$layout;
         ZMLogging::instance()->log('view definition: '.$definition, ZMLogging::TRACE);
         return ZMBeanUtils::getBean($definition);
