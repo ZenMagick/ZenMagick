@@ -40,7 +40,7 @@ class ZMToolboxNet extends ZMToolboxTool {
      *
      * @return array List of <code>ZMSeoRewriter</code> instances.
      */
-    public function getSeoRewriter() {
+    protected function getSeoRewriter() {
         if (null === $this->seoRewriter_) {
             foreach (explode(',', ZMSettings::get('zenmagick.mvc.request.seoRewriter')) as $rewriter) {
                 if (null != ($obj = ZMBeanUtils::getBean($rewriter))) {
@@ -63,50 +63,87 @@ class ZMToolboxNet extends ZMToolboxTool {
      * <p>If the <code>params</code> parameter is <code>null</code>, all parameters of the
      * current request will be added.</p>
      *
+     * <p>This default implementation relies on at least a single (default) SEO rewriter being configured.</p>
+     *
      * @param string requestId The request id.
      * @param string params Query string style parameter; if <code>null</code> add all current parameter
      * @param boolean secure Flag indicating whether to create a secure or non secure URL; default is <code>false</code>.
      * @return string A full URL.
-     * @todo create store agnostic default implementations
      */
     public function url($requestId=null, $params='', $secure=false) {
-        // custom view and params handling
+        // custom requestId and params handling
         if (null === $requestId || null === $params) {
             $query = $this->getRequest()->getParameterMap();
-            unset($query[ZM_PAGE_KEY]);
+            unset($query[ZMRequest::REQUEST_ID]);
             unset($query[$request->getSession()->getName()]);
             if (null != $params) {
                 parse_str($params, $arr);
                 $query = array_merge($query, $arr);
             }
-            $params = '';
+            $params = array();
             foreach ($query as $name => $value) {
                 if (is_array($value)) {
                     foreach ($value as $subValue) {
-                        $params .= $name.'[]='.$subValue.'&';
+                        $params[] = $name.'[]='.$subValue;
                     }
                 } else {
-                    $params .= $name.'='.$value.'&';
+                    $params[] = $name.'='.$value;
                 }
             }
         }
 
-        // default to current view
+        // default to current requestId
         $requestId = $requestId === null ? $this->getRequest()->getRequestId() : $requestId;
-        $href = null;
 
-        return $href;
+        // handle SEO
+        $rewriters = $this->getSeoRewriter();
+        if (!$isAdmin && $seo && 0 < count($rewriters)) {
+            $rewrittenUrl = null;
+            $args = array(
+              'requestId' => $page,
+              'params' => implode('&', $params),
+              'secure' => 'SSL'==$transport,
+              'addSessionId' => $addSessionId,
+              'isStatic' => $isStatic,
+              'useContext' => $useContext
+            );
+            foreach ($rewriters as $rewriter) {
+                if (null != ($rewrittenUrl = $rewriter->rewrite($this->getRequest(), $args))) {
+                    return $rewrittenUrl;
+                 }
+            }
+        }
+
+        ZMLogging::instance()->trace('unresolved URL: '.$requestId);
+        return null;
     }
 
     /**
      * Convert a given relative URL into an absolute one.
      *
      * @param string url The (relative) URL to convert.
+     * @param boolean full Set to true to create a full URL incl. the protocol, hostname, port, etc.; default is <code>false</code>.
      * @return string The absolute URL.
      */
-    public function absoluteURL($url) {
-        //XXX: todo: hostname
-        return ('/' == $url[0] || false !== strpos($url, '://')) ? $url : $this->getRequest()->getContext().$url;
+    public function absoluteURL($url, $full=false) {
+        $request = $this->getRequest();
+        $url = ('/' == $url[0] || false !== strpos($url, '://')) ? $url : $request->getContext().$url;
+
+        if ($full) {
+            // todo: move somewhere reusable
+            $scheme = $request->isSecure() ? 'https://' : 'http://';
+            $host = $request->getHostname();
+            $port = $request->getPort();
+            if ('80' == $port && !$request->isSecure() || '443' == $port && $request->isSecure()) {
+                $port = '';
+            } else {
+                $port = ':'.$port;
+            }
+
+            $url = $scheme.$host.$port.$url;
+        }
+
+        return $url;
     }
 
     /**
@@ -116,6 +153,7 @@ class ZMToolboxNet extends ZMToolboxTool {
      * @return string The URL encoded in valid HTM.
      */
     public function encode($url) {
+      //todo: zm_i18n...
         $url = htmlentities($url, ENT_QUOTES, zm_i18n('HTML_CHARSET'));
         $url = str_replace(' ', '%20', $url);
         return $url;
@@ -128,6 +166,7 @@ class ZMToolboxNet extends ZMToolboxTool {
      * @return string The decoded URL.
      */
     public function decode($url) {
+      //todo: zm_i18n...
         $s = html_entity_decode($url, ENT_QUOTES, zm_i18n('HTML_CHARSET'));
         $s = str_replace('%20', ' ', $s);
         return $s;

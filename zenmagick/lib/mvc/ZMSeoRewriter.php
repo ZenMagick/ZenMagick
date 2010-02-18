@@ -27,6 +27,7 @@
  * @author DerManoMann
  * @package org.zenmagick.mvc
  * @version $Id$
+ * @todo: add method to decode as part of request processing...
  */
 interface ZMSeoRewriter {
 

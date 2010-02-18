@@ -100,6 +100,10 @@ Release 0.9.9
 - add ezpage manager link to ZenMagick admin menu; todos: redirect after
   update, sorting, multi page list
 - extend ZMTemplateManager to allow group proccessing of (for now) js files
+- optionally allow to prepend scheme,hostname,[port] calling
+  ZMToolboxNet::absoluteUrl
+- make ZMToolboxNet::url depend entirely on SEO rewriter - still need to add a
+  default one...
 
 Release 0.9.8
 - add Savant3 and experimental views (not used yet)

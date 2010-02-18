@@ -133,10 +133,19 @@ class ZMRequest extends ZMObject {
     /**
      * Get the hostname for this request.
      *
-     * @return strng The hostname.
+     * @return string The hostname.
      */
     public function getHostname() {
         return $_SERVER['HTTP_HOST'];
+    }
+
+    /**
+     * Get the port for this request.
+     *
+     * @return string The port.
+     */
+    public function getPort() {
+        return $_SERVER['SERVER_PORT'];
     }
 
     /**
@@ -273,7 +282,8 @@ class ZMRequest extends ZMObject {
      * @return boolean <code>true</code> if the current request is secure; eg. SSL, <code>false</code> if not.
      */
     public function isSecure() {
-        return 443 == $_SERVER['SERVER_PORT'] || (isset($_SERVER['HTTPS']) && ZMLangTools::asBoolean($_SERVER['HTTPS']));
+        return (isset($_SERVER['SERVER_PORT']) && 443 == $_SERVER['SERVER_PORT']) 
+            || (isset($_SERVER['HTTPS']) && ZMLangTools::asBoolean($_SERVER['HTTPS']));
     }
 
     /**
