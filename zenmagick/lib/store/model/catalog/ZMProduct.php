@@ -646,7 +646,7 @@ class ZMProduct extends ZMObject {
     /**
      * Get product associations for the given type and parameter.
      *
-     * @param int type The association type.
+     * @param string type The association type.
      * @param array args Optional parameter that might be required by the used type; default is <code>null</code> for none.
      * @param boolean all Optional flag to load all configured products, regardless of start/end date, etc; default is <code>false</code>.
      * @return array A list of <code>ZMProductAssociation</code> instances.
