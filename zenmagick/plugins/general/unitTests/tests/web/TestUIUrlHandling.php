@@ -72,7 +72,7 @@ if (!function_exists('zm_build_seo_href')) {
             }
             return str_replace('.php', '', $url);
         } else {
-            return $request->getToolbox()->net->furl($page, $parameters, $isSecure ? 'SSL' : 'NONSSL', $addSessionId, false, $isStatic, $useContext);
+            return ZMStoreDefaultSeoRewriter::furl($page, $parameters, $isSecure ? 'SSL' : 'NONSSL', $addSessionId, false, $isStatic, $useContext);
         }
     }
 }

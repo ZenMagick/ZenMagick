@@ -181,7 +181,6 @@ class ToolboxNet extends ZMToolboxNet {
             $href = $this->furl($page, $params, $secure ? 'SSL' : 'NONSSL');
         }
 
-        if ($echo) echo $href;
         return $href;
     }
 
@@ -226,7 +225,6 @@ class ToolboxNet extends ZMToolboxNet {
     public function ezPage($page) {
         if (null === $page) {
             $href = zm_l10n_get('ezpage not found');
-            if ($echo) echo $href;
             return $href;
         }
 

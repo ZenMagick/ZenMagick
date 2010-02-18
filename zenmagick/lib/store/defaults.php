@@ -127,6 +127,8 @@
             /*** resultlist ***/
             'zenmagick.mvc.resultlist.defaultPagination' => 10,
 
+            /*** request ***/
+            'zenmagick.mvc.request.seoRewriter' => 'StoreDefaultSeoRewriter',
 
 
             // use ZenMagick themes

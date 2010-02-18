@@ -50,7 +50,7 @@ class ZMPrettyLinksSeoRewriter implements ZMSeoRewriter {
 
         // get default url
         $toolbox = $request->getToolbox();
-        $href = $toolbox->net->furl($requestId, $params, $secure ? 'SSL' : 'NONSSL', $addSessionId, false, $isStatic, $useContext);
+        $href = ZMStoreDefaultSeoRewriter::furl($requestId, $params, $secure ? 'SSL' : 'NONSSL', $addSessionId, false, $isStatic, $useContext, $request);
 
         $url = parse_url($href);
         $queryString = $toolbox->net->decode($url['query']);

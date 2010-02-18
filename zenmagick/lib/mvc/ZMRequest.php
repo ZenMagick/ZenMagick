@@ -33,11 +33,11 @@
  */
 class ZMRequest extends ZMObject {
     /** 
-     * Paramter name containing the request id. 
+     * Default paramter name containing the request id. 
      *
-     * <p>The request/page id determines the page being displayed.</p>
+     * <p>Will be used if the 'zenmagick.mvc.request.idName' is not set.</p>
      */
-    const REQUEST_ID = 'zmid';
+    const DEFAULT_REQUEST_ID = 'zmid';
     /**
      * Name of the session token form field and also the name in the session.
      */
@@ -191,10 +191,10 @@ class ZMRequest extends ZMObject {
      * <p>The request id is the main criteria for selecting the controller and view to process this
      * request.</p>
      *
-     * @return string The value of the <code>self::REQUEST_ID</code> query parameter.
+     * @return string The request id of this request.
      */
     public function getRequestId() {
-        return $this->getParameter(self::REQUEST_ID, 'index');
+        return $this->getParameter(ZMSettings::get('zenmagick.mvc.request.idName', self::DEFAULT_REQUEST_ID), 'index');
     }
 
     /**
@@ -203,7 +203,7 @@ class ZMRequest extends ZMObject {
      * @param string requestId The new request id.
      */
     public function setRequestId($requestId) {
-        $this->setParameter(self::REQUEST_ID, $requestId);
+        $this->setParameter(ZMSettings::get('zenmagick.mvc.request.idName', self::DEFAULT_REQUEST_ID), $requestId);
     }
 
     /**

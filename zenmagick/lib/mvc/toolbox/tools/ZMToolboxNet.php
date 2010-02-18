@@ -40,9 +40,10 @@ class ZMToolboxNet extends ZMToolboxTool {
      *
      * @return array List of <code>ZMSeoRewriter</code> instances.
      */
-    protected function getSeoRewriter() {
+    public function getSeoRewriter() {
         if (null === $this->seoRewriter_) {
-            foreach (explode(',', ZMSettings::get('zenmagick.mvc.request.seoRewriter')) as $rewriter) {
+            $rewriters = array_reverse(explode(',', ZMSettings::get('zenmagick.mvc.request.seoRewriter')));
+            foreach ($rewriters as $rewriter) {
                 if (null != ($obj = ZMBeanUtils::getBean($rewriter))) {
                     $this->seoRewriter_[] = $obj;
                 }
@@ -74,7 +75,7 @@ class ZMToolboxNet extends ZMToolboxTool {
         // custom requestId and params handling
         if (null === $requestId || null === $params) {
             $query = $this->getRequest()->getParameterMap();
-            unset($query[ZMRequest::REQUEST_ID]);
+            unset($query[ZMSettings::get('zenmagick.mvc.request.idName', ZMRequest::DEFAULT_REQUEST_ID)]);
             unset($query[$request->getSession()->getName()]);
             if (null != $params) {
                 parse_str($params, $arr);
@@ -102,10 +103,7 @@ class ZMToolboxNet extends ZMToolboxTool {
             $args = array(
               'requestId' => $page,
               'params' => implode('&', $params),
-              'secure' => 'SSL'==$transport,
-              'addSessionId' => $addSessionId,
-              'isStatic' => $isStatic,
-              'useContext' => $useContext
+              'secure' => $secure,
             );
             foreach ($rewriters as $rewriter) {
                 if (null != ($rewrittenUrl = $rewriter->rewrite($this->getRequest(), $args))) {

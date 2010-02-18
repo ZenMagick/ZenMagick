@@ -210,6 +210,11 @@
                 ),
                 'request' => array(
                     array(
+                        'key' => 'idName',
+                        'type' => 'string',
+                        'desc' => 'Name of the query arg controlling the request id.'
+                    ),
+                    array(
                         'key' => 'missingPage',
                         'type' => 'string',
                         'desc' => 'Request id to be used in case of invalid views.'
