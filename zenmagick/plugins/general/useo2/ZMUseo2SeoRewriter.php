@@ -44,7 +44,7 @@ class ZMUseo2SeoRewriter implements ZMSeoRewriter {
         $useContext = $args['useContext'];
 
         /* QUICK AND DIRTY WAY TO DISABLE REDIRECTS ON PAGES WHEN SEO_URLS_ONLY_IN is enabled IMAGINADW.COM */
-        $sefu = explode(",", ereg_replace(' +', '', SEO_URLS_ONLY_IN));
+        $sefu = explode(",", preg_replace('/ +/', '', SEO_URLS_ONLY_IN));
         if ((SEO_URLS_ONLY_IN != "" && !in_array($requestId, $sefu)) || (null != ZMSettings::get('plugins.useo2.seoEnabled') && !ZMLangUtils::inArray($requestId, ZMSettings::get('plugins.useo2.seoEnabled')))) {
             return null;
         }
