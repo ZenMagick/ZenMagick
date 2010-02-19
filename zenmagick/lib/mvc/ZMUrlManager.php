@@ -129,8 +129,9 @@ class ZMUrlManager extends ZMObject {
             throw new ZMException('invalid arguments');
         }
 
-        $mapping = null;
-        if (!array_key_exists($requestId, $this->mappings_) || (null != $viewId && array_key_exists('null', $this->mappings_) && array_key_exists($viewId, $this->mappings_['null']))) {
+        if (!array_key_exists($requestId, $this->mappings_) 
+            || (null != $viewId && !array_key_exists($viewId, $this->mappings_[$requestId]) 
+                && array_key_exists('null', $this->mappings_) && array_key_exists($viewId, $this->mappings_['null']))) {
             // try global mappings
             $requestId = 'null';
         }
