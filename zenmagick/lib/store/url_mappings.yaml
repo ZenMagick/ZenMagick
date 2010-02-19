@@ -71,8 +71,7 @@ address_book_delete:
     view: RedirectView
 index: 
   category: 
-    template: category
-    view: ForwardView
+    view: ForwardView#requestId=category
 discount_coupon: 
   info: 
     template: discount_coupon_info
@@ -82,8 +81,7 @@ category:
   manufacturer: 
     template: manufacturer
   product_info: 
-    template: product_info
-    view: ForwardView
+    view: ForwardView#requestId=product_info
 login: 
   success: 
     template: account
@@ -124,8 +122,7 @@ gv_send_confirm:
   formId: gvReceiver
   form: GVReceiver
   edit: 
-    template: gv_send
-    view: ForwardView
+    view: ForwardView#requestId=gv_send
   success: 
     template: account
     view: RedirectView
@@ -180,8 +177,7 @@ redirect:
     template: index
     view: RedirectView
   error: 
-    template: index
-    view: ForwardView
+    view: ForwardView#requestId=index
 product_reviews_write: 
   formId: newReview
   form: Review
