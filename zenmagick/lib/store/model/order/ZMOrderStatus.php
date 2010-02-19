@@ -170,5 +170,3 @@ class ZMOrderStatus extends ZMObject {
     public function setComment($comment) { $this->comment_ = $comment; }
 
 }
-
-?>

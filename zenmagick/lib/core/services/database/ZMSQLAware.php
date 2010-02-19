@@ -44,5 +44,3 @@ interface ZMSQLAware {
     public function getQueryDetails($method=null, $args=array());
 
 }
-
-?>

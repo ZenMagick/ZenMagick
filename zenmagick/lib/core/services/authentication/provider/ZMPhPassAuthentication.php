@@ -57,5 +57,3 @@ class ZMPhPassAuthentication implements ZMAuthentication {
     }
 
 }
-
-?>

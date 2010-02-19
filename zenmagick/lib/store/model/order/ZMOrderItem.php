@@ -201,5 +201,3 @@ class ZMOrderItem extends ZMObject {
     public function setAttributes($attributes) { $this->attributes_ = $attributes; }
 
 }
-
-?>

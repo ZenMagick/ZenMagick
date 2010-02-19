@@ -137,5 +137,3 @@ class ZMCreateAccountController extends ZMController {
     }
 
 }
-
-?>

@@ -303,5 +303,3 @@ class ZMAccounts extends ZMObject {
     }
 
 }
-
-?>

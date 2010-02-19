@@ -166,5 +166,3 @@ class ZMTokens extends ZMObject {
     }
 
 }
-
-?>

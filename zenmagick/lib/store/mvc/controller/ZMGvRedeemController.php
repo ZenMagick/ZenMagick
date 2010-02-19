@@ -77,5 +77,3 @@ class ZMGvRedeemController extends ZMController {
     }
 
 }
-
-?>

@@ -85,5 +85,3 @@ class ZMCrumb extends ZMObject {
     public function setURL($url) { $this->url_ = $url; }
 
 }
-
-?>

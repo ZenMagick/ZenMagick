@@ -63,5 +63,3 @@ class ZMToken extends ZMObject {
     public function setId($id) { $this->set('id', $id); }
 
 }
-
-?>

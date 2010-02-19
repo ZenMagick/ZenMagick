@@ -79,5 +79,3 @@ class ZMDiscountCouponController extends ZMController {
     }
 
 }
-
-?>

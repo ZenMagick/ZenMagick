@@ -735,5 +735,3 @@ class ZMTools {
     }
 
 }
-
-?>

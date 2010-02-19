@@ -198,5 +198,3 @@ class ZMMessages extends ZMObject {
     }
 
 }
-
-?>

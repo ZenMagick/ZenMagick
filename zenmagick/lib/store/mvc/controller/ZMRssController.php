@@ -298,5 +298,3 @@ class ZMRssController extends ZMController {
     }
 
 }
-
-?>

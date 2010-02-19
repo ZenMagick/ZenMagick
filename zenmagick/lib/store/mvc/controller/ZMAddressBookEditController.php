@@ -96,5 +96,3 @@ class ZMAddressBookEditController extends ZMController {
     }
 
 }
-
-?>

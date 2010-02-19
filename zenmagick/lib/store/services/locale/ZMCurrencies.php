@@ -95,5 +95,3 @@ class ZMCurrencies extends ZMObject {
     }
 
 }
-
-?>

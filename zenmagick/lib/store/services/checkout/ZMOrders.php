@@ -368,5 +368,3 @@ class ZMOrders extends ZMObject implements ZMSQLAware {
     }
 
 }
-
-?>

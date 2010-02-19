@@ -280,5 +280,3 @@ abstract class ZMPlugin extends ZMObject {
     }
 
 }
-
-?>

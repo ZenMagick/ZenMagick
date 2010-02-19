@@ -390,5 +390,3 @@ class ZMPlugins extends ZMObject {
     }
 
 }
-
-?>

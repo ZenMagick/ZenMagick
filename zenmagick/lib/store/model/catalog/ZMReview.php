@@ -226,5 +226,3 @@ class ZMReview extends ZMObject {
     public function setLanguageId($languageId) { $this->languageId_ = $languageId; }
 
 }
-
-?>

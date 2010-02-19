@@ -171,5 +171,3 @@
     function zm_mk_relative($file) {
       return ZMLangUtils::startsWith($file, DIR_FS_CATALOG) ? substr($file, strlen(DIR_FS_CATALOG)) : file;
     }
-
-?>

@@ -152,5 +152,3 @@ class ZMRssItem extends ZMObject {
     public function getProperties() { return $this->item_; }
 
 }
-
-?>

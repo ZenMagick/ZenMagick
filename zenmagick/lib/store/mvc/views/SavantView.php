@@ -100,5 +100,3 @@ class SavantView extends ZMSavantView {
     }
 
 }
-
-?>

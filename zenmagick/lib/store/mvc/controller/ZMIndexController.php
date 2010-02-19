@@ -67,5 +67,3 @@ class ZMIndexController extends ZMController {
     }
 
 }
-
-?>

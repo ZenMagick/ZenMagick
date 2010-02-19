@@ -41,5 +41,3 @@ interface ZMMVCConstants {
     const FINALISE_CONTENTS = 'finalise_contents';
 
 }
-
-?>

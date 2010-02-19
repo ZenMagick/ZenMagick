@@ -165,5 +165,3 @@ class ZMAuthenticationManager extends ZMObject {
     }
 
 }
-
-?>

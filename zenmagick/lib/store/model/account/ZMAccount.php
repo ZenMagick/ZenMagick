@@ -419,5 +419,3 @@ class ZMAccount extends ZMObject {
     }
 
 }
-
-?>

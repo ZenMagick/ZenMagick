@@ -160,5 +160,3 @@ class ZMThemeSupportPatch extends ZMFilePatch {
     }
     
 }
-
-?>

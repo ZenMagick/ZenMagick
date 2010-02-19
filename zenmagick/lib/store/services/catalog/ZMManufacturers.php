@@ -154,5 +154,3 @@ class ZMManufacturers extends ZMObject {
     }
 
 }
-
-?>

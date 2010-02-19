@@ -194,5 +194,3 @@ class ZMTaxRate extends ZMObject {
     }
 
 }
-
-?>

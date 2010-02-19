@@ -111,6 +111,7 @@ Release 0.9.9
 - drop $zm_theme from the view (finally!) and replace with utils method
 - default 'zenmagick.mvc.view.defaultLayout' to null if not set
 - save original requestId in rootRequestId when forwarding
+- remove trailing ?> from all .php files in lib
 
 Release 0.9.8
 - add Savant3 and experimental views (not used yet)

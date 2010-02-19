@@ -205,5 +205,3 @@ class Runtime extends ZMRuntime {
     }
 
 }
-
-?>

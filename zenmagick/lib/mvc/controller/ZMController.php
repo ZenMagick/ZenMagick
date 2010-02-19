@@ -363,5 +363,3 @@ class ZMController extends ZMObject {
     public function getId() { return $this->id_; }
 
 }
-
-?>

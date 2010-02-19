@@ -80,5 +80,3 @@ class ZMMetaTagDetails extends ZMObject {
     public function setDescription($description) { $this->description_ = $description; }
 
 }
-
-?>

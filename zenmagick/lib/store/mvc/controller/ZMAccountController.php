@@ -66,5 +66,3 @@ class ZMAccountController extends ZMController {
     }
 
 }
-
-?>

@@ -180,5 +180,3 @@ class ZMQueryPager extends ZMObject {
     }
 
 }
-
-?>

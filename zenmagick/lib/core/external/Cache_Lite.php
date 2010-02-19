@@ -819,6 +819,4 @@ class Cache_Lite
         }
     }
     
-} 
-
-?>
+}

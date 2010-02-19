@@ -278,5 +278,3 @@ class ZMToolboxMetaTags extends ZMToolboxTool {
     }
 
 }
-
-?>

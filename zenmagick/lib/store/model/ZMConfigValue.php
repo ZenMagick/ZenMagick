@@ -173,5 +173,3 @@ class ZMConfigValue extends ZMObject {
     public function setSetFunction($function) { $this->setFunction_ = $function; }
 
 }
-
-?>

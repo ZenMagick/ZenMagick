@@ -164,5 +164,3 @@ class ZMObjectResultSource extends ZMObject implements ZMResultSource {
     }
 
 }
-
-?>

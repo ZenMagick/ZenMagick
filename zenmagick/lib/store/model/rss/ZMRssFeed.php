@@ -83,5 +83,3 @@ class ZMRssFeed extends ZMObject {
     public function setItems($items) { $this->items_ = $items; }
 
 }
-
-?>

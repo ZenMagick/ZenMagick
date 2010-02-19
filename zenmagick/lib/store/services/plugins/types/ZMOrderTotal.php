@@ -44,5 +44,3 @@ interface ZMOrderTotal {
     public function calculate($request, $shoppingCart);
 
 }
-
-?>

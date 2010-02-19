@@ -340,5 +340,3 @@ class ZMSession extends ZMObject {
     }
 
 }
-
-?>

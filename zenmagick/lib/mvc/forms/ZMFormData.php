@@ -77,5 +77,3 @@ class ZMFormData extends ZMObject {
     }
 
 }
-
-?>

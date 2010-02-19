@@ -95,5 +95,3 @@ class ZMContactUsController extends ZMController {
     }
 
 }
-
-?>

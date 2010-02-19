@@ -98,5 +98,3 @@ class ZMGVRedeem extends ZMObject {
     public function setRedeemed($redeemed) { $this->redeemed_ = $redeemed; }
 
 }
-
-?>

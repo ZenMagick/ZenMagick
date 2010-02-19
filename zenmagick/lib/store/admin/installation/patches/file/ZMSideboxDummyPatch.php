@@ -201,5 +201,3 @@ class ZMSideboxDummyPatch extends ZMFilePatch {
     }
 
 }
-
-?>

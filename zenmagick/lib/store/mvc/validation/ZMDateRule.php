@@ -103,5 +103,3 @@ class ZMDateRule extends ZMRule {
     }
 
 }
-
-?>

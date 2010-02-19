@@ -288,5 +288,3 @@ class ZMReviews extends ZMObject {
     }
 
 }
-
-?>

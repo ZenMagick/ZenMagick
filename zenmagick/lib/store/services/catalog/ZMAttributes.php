@@ -123,5 +123,3 @@ class ZMAttributes extends ZMObject {
     }
 
 }
-
-?>

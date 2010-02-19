@@ -123,5 +123,3 @@ abstract class ZMWidget extends ZMObject {
     public abstract function render($request);
 
 }
-
-?>

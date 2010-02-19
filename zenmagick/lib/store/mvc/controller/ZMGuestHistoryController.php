@@ -88,5 +88,3 @@ class ZMGuestHistoryController extends ZMController {
     }
 
 }
-
-?>

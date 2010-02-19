@@ -85,5 +85,3 @@ class ZMToolboxTool extends ZMObject {
     }
 
 }
-
-?>

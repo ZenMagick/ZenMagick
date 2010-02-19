@@ -155,5 +155,3 @@ class ZMCoreCompressor extends ZMPhpPackagePacker {
     }
 
 }
-
-?>

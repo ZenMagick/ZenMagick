@@ -178,5 +178,3 @@ class ZMSearchCriteria extends ZMObject {
     public function getLanguageId() { return $this->get('languageId'); }
 
 }
-
-?>

@@ -74,5 +74,3 @@ class ZMPluginView extends SavantView {
     }
 
 }
-
-?>

@@ -85,5 +85,3 @@ class ZMAccountEditController extends ZMController {
     }
 
 }
-
-?>

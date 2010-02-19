@@ -245,5 +245,3 @@ class ZMImageInfo extends ZMObject {
     }
 
 }
-
-?>

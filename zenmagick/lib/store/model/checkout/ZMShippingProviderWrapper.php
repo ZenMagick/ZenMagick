@@ -187,5 +187,3 @@ class ZMShippingProviderWrapper extends ZMObject {
             $this->delivery['country'] = array();
         }
     }
-
-?>

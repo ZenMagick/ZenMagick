@@ -130,5 +130,3 @@ class ZMMinMaxRule extends ZMRule {
     }
 
 }
-
-?>

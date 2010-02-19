@@ -88,5 +88,3 @@ class ZMArrayResultSource extends ZMObject implements ZMResultSource {
     }
 
 }
-
-?>

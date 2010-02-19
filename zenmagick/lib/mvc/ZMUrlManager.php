@@ -226,5 +226,3 @@ class ZMUrlManager extends ZMObject {
     }
 
 }
-
-?>

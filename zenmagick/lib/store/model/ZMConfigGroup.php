@@ -82,5 +82,3 @@ class ZMConfigGroup extends ZMObject {
     public function setName($name) {return $this->name_ = $name; }
 
 }
-
-?>

@@ -78,5 +78,3 @@ class ZMFilterOption extends ZMObject {
     public function isActive() { return $this->active_; }
 
 }
-
-?>

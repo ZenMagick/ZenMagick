@@ -71,5 +71,3 @@ class ZMProductCouponRestriction extends ZMObject {
     public function getProduct() { return ZMProducts::instance()->getProductForId($this->productId_); }
 
 }
-
-?>

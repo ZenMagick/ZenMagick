@@ -79,5 +79,3 @@ class ZMAddressBookDeleteController extends ZMController {
     }
 
 }
-
-?>

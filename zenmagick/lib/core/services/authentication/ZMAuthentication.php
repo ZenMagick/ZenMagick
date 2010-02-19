@@ -49,5 +49,3 @@ interface ZMAuthentication {
     public function validatePassword($plaintext, $encrypted);
 
 }
-
-?>

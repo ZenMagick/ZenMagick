@@ -248,5 +248,3 @@ class ZMValidator extends ZMObject {
     }
 
 }
-
-?>

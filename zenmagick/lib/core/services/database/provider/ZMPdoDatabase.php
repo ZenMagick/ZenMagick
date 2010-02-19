@@ -597,5 +597,3 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
     }
 
 }
-
-?>

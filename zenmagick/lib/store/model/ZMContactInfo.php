@@ -118,5 +118,3 @@ class ZMContactInfo extends ZMObject {
     public function setMessage($message) { $this->message_ = $message; }
 
 }
-
-?>

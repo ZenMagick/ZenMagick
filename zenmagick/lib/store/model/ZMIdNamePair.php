@@ -71,5 +71,3 @@ class ZMIdNamePair extends ZMObject {
     function getName() { return $this->name_; }
 
 }
-
-?>

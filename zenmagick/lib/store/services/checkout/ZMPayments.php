@@ -132,5 +132,3 @@ class ZMPayments extends ZMObject {
     }
 
 }
-
-?>

@@ -63,5 +63,3 @@ class ZMOrderStatusIdFilter extends ZMResultListFilter implements ZMSQLAware {
     }
 
 }
-
-?>

@@ -110,5 +110,3 @@ class ZMPaymentType extends ZMObject {
     public function addField($field) { array_push($this->fields_, $field); }
 
 }
-
-?>

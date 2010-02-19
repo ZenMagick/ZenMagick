@@ -111,5 +111,3 @@ class ZMRss extends ZMObject {
     }
 
 }
-
-?>

@@ -66,5 +66,3 @@ class ZMManufacturerSelectFormWidget extends ZMSelectFormWidget {
     }
 
 }
-
-?>

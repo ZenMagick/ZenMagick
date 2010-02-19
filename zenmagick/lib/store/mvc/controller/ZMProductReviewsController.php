@@ -75,5 +75,3 @@ class ZMProductReviewsController extends ZMController {
     }
 
 }
-
-?>

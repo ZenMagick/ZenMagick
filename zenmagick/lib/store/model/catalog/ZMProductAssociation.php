@@ -74,5 +74,3 @@ class ZMProductAssociation extends ZMObject {
     }
 
 }
-
-?>

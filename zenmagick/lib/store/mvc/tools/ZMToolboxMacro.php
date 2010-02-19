@@ -611,5 +611,3 @@ class ZMToolboxMacro extends ZMToolboxTool {
     }
 
 }
-
-?>

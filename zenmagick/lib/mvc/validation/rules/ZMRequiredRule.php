@@ -91,5 +91,3 @@ class ZMRequiredRule extends ZMRule {
     }
 
 }
-
-?>

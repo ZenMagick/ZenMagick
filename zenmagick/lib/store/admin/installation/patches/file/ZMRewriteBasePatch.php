@@ -149,5 +149,3 @@ class ZMRewriteBasePatch extends ZMFilePatch {
     }
 
 }
-
-?>

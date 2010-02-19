@@ -176,5 +176,3 @@ class ZMConfig extends ZMObject {
     }
 
 }
-
-?>

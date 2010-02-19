@@ -551,5 +551,3 @@ class ZMOffers extends ZMObject {
     }
 
 }
-
-?>

@@ -129,5 +129,3 @@ class ZMQuantityDiscount extends ZMObject {
     public function setPrice($price) { $this->price_ = $price; }
 
 }
-
-?>

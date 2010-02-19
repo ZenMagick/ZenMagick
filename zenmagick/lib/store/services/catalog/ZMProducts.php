@@ -720,5 +720,3 @@ class ZMProducts extends ZMObject implements ZMSQLAware {
     }
 
 }
-
-?>

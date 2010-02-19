@@ -73,5 +73,3 @@ class ZMPaymentField extends ZMObject {
     public function getHTML() { return $this->html_; }
 
 }
-
-?>

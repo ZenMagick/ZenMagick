@@ -326,5 +326,3 @@ class ZMCoupons extends ZMObject {
     }
 
 }
-
-?>

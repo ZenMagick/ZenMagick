@@ -108,5 +108,3 @@ class ZMSaleMaker extends ZMObject {
     }
 
 }
-
-?>

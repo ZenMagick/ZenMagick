@@ -118,5 +118,3 @@ class ZMCategoryController extends ZMController {
     }
 
 }
-
-?>

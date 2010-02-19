@@ -88,5 +88,3 @@ class ZMRegistrationForm extends FormData {
     }
 
 }
-
-?>

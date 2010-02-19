@@ -99,5 +99,3 @@ class ZMForwardView extends ZMView {
     }
 
 }
-
-?>

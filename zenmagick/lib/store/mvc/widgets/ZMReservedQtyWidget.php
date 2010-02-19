@@ -86,5 +86,3 @@ class ZMReservedQtyWidget extends ZMWidget {
     }
 
 }
-
-?>

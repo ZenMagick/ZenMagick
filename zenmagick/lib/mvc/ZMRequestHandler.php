@@ -40,5 +40,3 @@ interface ZMRequestHandler {
     public function initRequest($request);
 
 }
-
-?>

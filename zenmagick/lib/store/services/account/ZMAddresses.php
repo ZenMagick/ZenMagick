@@ -164,5 +164,3 @@ class ZMAddresses extends ZMObject {
     }
 
 }
-
-?>

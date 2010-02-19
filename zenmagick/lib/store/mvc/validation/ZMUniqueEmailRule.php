@@ -70,5 +70,3 @@ class ZMUniqueEmailRule extends ZMRule {
     }
 
 }
-
-?>

@@ -111,5 +111,3 @@ if (!function_exists('zen_date_raw')) {
             ZMSettings::set('zenmagick.mvc.html.charset', HTML_CHARSET); 
         }
     }
-
-?>

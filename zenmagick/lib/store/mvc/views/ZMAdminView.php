@@ -76,5 +76,3 @@ class ZMAdminView extends SavantView {
     }
 
 }
-
-?>

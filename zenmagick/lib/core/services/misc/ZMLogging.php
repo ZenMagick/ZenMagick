@@ -246,5 +246,3 @@ class ZMLogging extends ZMObject {
     }
 
 }
-
-?>

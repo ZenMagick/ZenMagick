@@ -96,5 +96,3 @@ class ZMAccountPasswordController extends ZMController {
     }
 
 }
-
-?>

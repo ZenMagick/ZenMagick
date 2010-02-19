@@ -274,5 +274,3 @@ class ZMCoupon extends ZMObject {
     public function setActive($active) { $this->active_ = $active; }
 
 }
-
-?>

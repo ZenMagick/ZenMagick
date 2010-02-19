@@ -317,5 +317,3 @@ class ZMToolboxForm extends ZMToolboxTool {
     }
 
 }
-
-?>

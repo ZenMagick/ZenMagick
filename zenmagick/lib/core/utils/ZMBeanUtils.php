@@ -229,5 +229,3 @@ class ZMBeanUtils extends ZMObject {
     }
 
 }
-
-?>

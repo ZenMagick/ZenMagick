@@ -89,5 +89,3 @@ interface ZMCreditClass {
     public function cleanup();
 
 }
-
-?>

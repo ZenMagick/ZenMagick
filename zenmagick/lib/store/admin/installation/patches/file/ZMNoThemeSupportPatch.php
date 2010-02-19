@@ -159,5 +159,3 @@ class ZMNoThemeSupportPatch extends ZMFilePatch {
     }
     
 }
-
-?>

@@ -78,5 +78,3 @@ class ZMProductInfoController extends ZMController {
     }
 
 }
-
-?>

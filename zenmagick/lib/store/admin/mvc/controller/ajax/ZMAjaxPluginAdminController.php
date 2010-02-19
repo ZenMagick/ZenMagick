@@ -176,5 +176,3 @@ class ZMAjaxPluginAdminController extends ZMAjaxController {
     }
 
 }
-
-?>

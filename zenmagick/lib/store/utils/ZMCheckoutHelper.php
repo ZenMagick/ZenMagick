@@ -272,5 +272,3 @@ class ZMCheckoutHelper extends ZMObject {
     }
 
 }
-
-?>

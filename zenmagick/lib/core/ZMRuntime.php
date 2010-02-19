@@ -156,5 +156,3 @@ class ZMRuntime extends ZMObject {
     }
 
 }
-
-?>

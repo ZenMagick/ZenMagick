@@ -504,5 +504,3 @@
     }
 
     ZMSettings::setAll(zm_get_default_settings());
-
-?>

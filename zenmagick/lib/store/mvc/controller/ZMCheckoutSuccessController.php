@@ -76,5 +76,3 @@ class ZMCheckoutSuccessController extends ZMController {
     }
 
 }
-
-?>

@@ -83,5 +83,3 @@ class ZMGvSendController extends ZMController {
     }
 
 }
-
-?>

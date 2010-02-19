@@ -162,5 +162,3 @@ class ZMBanner extends ZMObject {
     public function setActive($status) { $this->active_ = $status; }
 
 }
-
-?>

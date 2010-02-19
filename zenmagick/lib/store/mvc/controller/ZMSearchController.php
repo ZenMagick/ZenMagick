@@ -105,5 +105,3 @@ class ZMSearchController extends ZMController {
     }
 
 }
-
-?>

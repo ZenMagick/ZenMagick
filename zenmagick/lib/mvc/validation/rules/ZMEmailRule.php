@@ -101,5 +101,3 @@ class ZMEmailRule extends ZMRule {
     }
 
 }
-
-?>

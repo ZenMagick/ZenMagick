@@ -127,5 +127,3 @@ class ZMTellAFriendController extends ZMController {
     }
 
 }
-
-?>

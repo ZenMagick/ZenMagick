@@ -196,5 +196,3 @@ class ZMSacsManager extends ZMObject {
     }
 
 }
-
-?>

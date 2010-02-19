@@ -138,5 +138,3 @@
 
         return vsprintf($format, $args);
     }
-
-?>

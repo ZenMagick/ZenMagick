@@ -574,5 +574,3 @@ if ($_GET['debug']=='ON') echo $line . '<br />';
     return $result;
     }
   }
-
-?>

@@ -48,5 +48,3 @@ class ZMZenCartAuthentication implements ZMAuthentication {
     }
 
 }
-
-?>

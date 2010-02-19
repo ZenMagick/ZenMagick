@@ -340,5 +340,3 @@ class ZMAddress extends ZMObject {
     public function setCompanyName($name) { $this->companyName_ = $name; }
 
 }
-
-?>

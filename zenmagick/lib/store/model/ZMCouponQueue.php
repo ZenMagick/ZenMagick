@@ -138,5 +138,3 @@ class ZMCouponQueue extends ZMObject {
     public function setReleased($value) { $this->released = $value; }
 
 }
-
-?>

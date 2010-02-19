@@ -255,5 +255,3 @@ class ZMFilePatch extends ZMInstallationPatch {
         return $undoOk;
     }
 }
-
-?>

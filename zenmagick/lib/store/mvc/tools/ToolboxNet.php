@@ -375,5 +375,3 @@ class ToolboxNet extends ZMToolboxNet {
     }
 
 }
-
-?>
