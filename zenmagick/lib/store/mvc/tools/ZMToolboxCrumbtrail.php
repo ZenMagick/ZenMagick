@@ -103,6 +103,9 @@ class ZMToolboxCrumbtrail extends ZMToolboxTool {
      * @return array List of <code>ZMCrumb</code> instances.
      */
     public function getCrumbs() {
+        if (!is_array($this->crumbs_)) {
+            $this->reset();
+        }
         return $this->crumbs_;
     }
 
