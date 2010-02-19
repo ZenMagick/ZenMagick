@@ -67,5 +67,3 @@ class ZMReviewsController extends ZMController {
     }
 
 }
-
-?>

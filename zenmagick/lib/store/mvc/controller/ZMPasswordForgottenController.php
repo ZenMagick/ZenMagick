@@ -90,5 +90,3 @@ class ZMPasswordForgottenController extends ZMController {
     }
 
 }
-
-?>

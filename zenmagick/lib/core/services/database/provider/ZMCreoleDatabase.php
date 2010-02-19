@@ -592,5 +592,3 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
     }
 
 }
-
-?>

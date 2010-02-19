@@ -180,5 +180,3 @@ class ZMResultListFilter extends ZMObject {
     public function setValue($value) { $this->value_ = $value; }
 
 }
-
-?>

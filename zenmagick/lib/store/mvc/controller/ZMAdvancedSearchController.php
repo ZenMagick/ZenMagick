@@ -57,5 +57,3 @@ class ZMAdvancedSearchController extends ZMController {
     }
 
 }
-
-?>

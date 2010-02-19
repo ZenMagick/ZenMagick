@@ -130,5 +130,3 @@ class ZMAdminMenuPatch extends ZMFilePatch {
     }
     
 }
-
-?>

@@ -48,5 +48,5 @@
 </form>
 <div class="advisory">
     <strong><?php zm_l10n("The following message is included with all emails sent from this site:") ?></strong><br />
-    <?php echo $zm_theme->staticPageContent('email_advisory') ?>
+    <?php echo $utils->staticPageContent('email_advisory') ?>
 </div>

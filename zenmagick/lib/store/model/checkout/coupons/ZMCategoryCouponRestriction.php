@@ -70,5 +70,3 @@ class ZMCategoryCouponRestriction extends ZMObject {
     }
 
 }
-
-?>

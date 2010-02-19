@@ -106,5 +106,3 @@ class ZMMaxFieldLengthRule extends ZMRule {
     }
 
 }
-
-?>

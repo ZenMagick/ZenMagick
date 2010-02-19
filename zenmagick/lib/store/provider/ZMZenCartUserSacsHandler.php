@@ -98,5 +98,3 @@ class ZMZenCartUserSacsHandler extends ZMObject implements ZMSacsHandler {
     }
 
 }
-
-?>

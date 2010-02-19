@@ -74,7 +74,7 @@ class ZMRedirectView extends ZMView {
         if (null != $this->url_) {
             $url = $this->url_;
         } else {
-            $url = $request->getToolbox()->net->url($this->requestId_, $this->parameter_, $this->secure_);
+            $url = $request->getToolbox()->net->url($this->getRequestId(), $this->parameter_, $this->secure_);
         }
 
         $request->redirect($url, $this->status_);
@@ -130,6 +130,16 @@ class ZMRedirectView extends ZMView {
         $this->requestId_ = $requestId;
     }
 
-}
+    /**
+     * Get the request id of the redirect.
+     *
+     * <p>If not set, this will default to the template name (compatibility mode).</p>
+     *
+     * @return string The request id.
+     */
+    public function getRequestId() {
+        //TODO: remove getTemplate()
+        return null != $this->requestId_ ? $this->requestId_ : $this->getTemplate();
+    }
 
-?>
+}

@@ -27,5 +27,3 @@
 
     // event fixes and other stuff
     ZMEvents::instance()->attach(ZMLoader::make("EventFixes"));
-
-?>

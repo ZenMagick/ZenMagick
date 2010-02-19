@@ -97,5 +97,3 @@ class ZMRegexpRule extends ZMRule {
     }
 
 }
-
-?>

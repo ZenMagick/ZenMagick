@@ -136,5 +136,3 @@ class ZMAjaxController extends ZMController {
     }
 
 }
-
-?>

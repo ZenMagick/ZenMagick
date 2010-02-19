@@ -42,5 +42,3 @@ interface ZMSeoRewriter {
     public function rewrite($request, $args);
 
 }
-
-?>

@@ -56,5 +56,3 @@ class ZMCountrySelectFormWidget extends ZMSelectFormWidget {
     }
 
 }
-
-?>

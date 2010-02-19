@@ -23,8 +23,8 @@
  * $Id$
  */
 ?>
-<?php echo $zm_theme->staticPageContent("mainpagedivstack") ?>
-<?php echo $zm_theme->staticPageContent("main_page") ?>
+<?php echo $utils->staticPageContent("mainpagedivstack") ?>
+<?php echo $utils->staticPageContent("main_page") ?>
 <?php $featured = ZMProducts::instance()->getFeaturedProducts(null, 4, false, $session->getLanguageId()); ?>
 <div id="featured">
   <h3>Featured Products</h3>

@@ -667,5 +667,3 @@ class ZMProduct extends ZMObject {
     }
 
 }
-
-?>

@@ -72,5 +72,3 @@ class ZMProductsNewController extends ZMController {
     }
 
 }
-
-?>

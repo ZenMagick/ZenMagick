@@ -184,5 +184,3 @@ class ZMBanners extends ZMObject {
     }
 
 }
-
-?>

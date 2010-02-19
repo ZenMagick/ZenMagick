@@ -160,5 +160,3 @@ class ZMCustomerEditPatch extends ZMFilePatch {
     }
     
 }
-
-?>

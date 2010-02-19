@@ -31,12 +31,15 @@
  * @version $Id$
  */
 class ZMForwardView extends ZMView {
+    private $requestId_;
+
 
     /**
      * Create a new forward view.
      */
     function __construct() {
         parent::__construct();
+        $this->requestId_ = null;
     }
 
     /**
@@ -46,6 +49,26 @@ class ZMForwardView extends ZMView {
         parent::__destruct();
     }
 
+    /**
+     * Get the request id of the redirect.
+     *
+     * <p>If not set, this will default to the template name (compatibility mode).</p>
+     *
+     * @return string The request id.
+     */
+    public function getRequestId() {
+        //TODO: remove getTemplate()
+        return null != $this->requestId_ ? $this->requestId_ : $this->getTemplate();
+    }
+
+    /**
+     * Set the request id of the redirect.
+     *
+     * @param string requestId The request id.
+     */
+    public function setRequestId($requestId) {
+        $this->requestId_ = $requestId;
+    }
 
     /**
      * {@inheritDoc}
@@ -67,13 +90,12 @@ class ZMForwardView extends ZMView {
     public function generate($request) { 
         $req = ZMLoader::make('Request');
         $req->setParameterMap($request->getParameterMap());
-        //XXX: uh uh, bad naming...
-        $req->setRequestId($this->getTemplate());
+        $req->setRequestId($this->getRequestId());
+        // keep reference to original request
+        $req->setParameter('rootRequestId', $request->getRequestId());
 
         ZMDispatcher::dispatch($req);
         return null;
     }
 
 }
-
-?>

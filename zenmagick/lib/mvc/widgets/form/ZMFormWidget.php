@@ -179,5 +179,3 @@ abstract class ZMFormWidget extends ZMWidget {
     }
 
 }
-
-?>

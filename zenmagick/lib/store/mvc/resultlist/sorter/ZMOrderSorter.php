@@ -124,5 +124,3 @@ class ZMOrderSorter extends ZMResultListSorter implements ZMSQLAware {
     }
 
 }
-
-?>

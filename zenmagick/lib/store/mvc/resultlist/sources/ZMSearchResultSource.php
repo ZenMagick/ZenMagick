@@ -116,5 +116,3 @@ class ZMSearchResultSource extends ZMObject implements ZMResultSource {
     }
 
 }
-
-?>

@@ -133,5 +133,3 @@ class ZMOrderTotalLineDetails extends ZMObject {
     public function setTaxClassId($taxClassId) { $this->taxClassId_ = $taxClassId; }
 
 }
-
-?>

@@ -189,7 +189,8 @@ class ZMToolboxMacro extends ZMToolboxTool {
         $toolbox = $this->getToolbox();
         $html = '<div id="crumbtrail">';
         $first = true;
-        foreach ($toolbox->crumbtrail->getCrumbs() as $crumb) {
+        $crumbs = $toolbox->crumbtrail->getCrumbs();
+        foreach ($crumbs as $crumb) {
             if (!$first) $html .= $sep;
             $first = false;
             if (null != $crumb->getURL()) {
@@ -611,5 +612,3 @@ class ZMToolboxMacro extends ZMToolboxTool {
     }
 
 }
-
-?>

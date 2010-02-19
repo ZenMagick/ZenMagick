@@ -106,5 +106,3 @@ class ZMConfigPatch extends ZMSQLPatch {
     }
     
 }
-
-?>

@@ -131,5 +131,3 @@ class ZMPriceGroup extends ZMObject {
     public function setLastModified($lastModified) { $this->lastModified_ = $lastModified; }
 
 }
-
-?>

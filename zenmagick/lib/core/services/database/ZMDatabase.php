@@ -231,5 +231,3 @@ interface ZMDatabase {
     public function getResource();
 
 }
-
-?>

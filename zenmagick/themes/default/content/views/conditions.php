@@ -24,4 +24,4 @@
  */
 ?>
 
-<?php echo $zm_theme->staticPageContent("conditions") ?>
+<?php echo $utils->staticPageContent("conditions") ?>

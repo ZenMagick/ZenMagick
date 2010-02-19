@@ -91,5 +91,3 @@ interface ZMCache {
     public function lastModified();
 
 }
-
-?>

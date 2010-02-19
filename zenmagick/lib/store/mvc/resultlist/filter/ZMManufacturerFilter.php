@@ -79,5 +79,3 @@ class ZMManufacturerFilter extends ZMResultListFilter implements ZMSQLAware {
     }
 
 }
-
-?>

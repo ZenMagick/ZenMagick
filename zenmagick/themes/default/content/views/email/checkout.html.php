@@ -80,7 +80,7 @@
 <p><?php echo $PAYMENT_METHOD_FOOTER ?></p>
 <?php } ?>
 
-<?php echo $zm_theme->staticPageContent('email_advisory') ?>
+<?php echo $utils->staticPageContent('email_advisory') ?>
 </div>
 </body>
 </html>

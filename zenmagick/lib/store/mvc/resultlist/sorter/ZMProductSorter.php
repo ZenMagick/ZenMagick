@@ -141,5 +141,3 @@ class ZMProductSorter extends ZMResultListSorter implements ZMSQLAware {
     }
 
 }
-
-?>

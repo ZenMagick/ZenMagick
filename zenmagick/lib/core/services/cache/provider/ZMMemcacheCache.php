@@ -126,5 +126,3 @@ class ZMMemcacheCache extends ZMObject implements ZMCache {
     }
 
 }
-
-?>

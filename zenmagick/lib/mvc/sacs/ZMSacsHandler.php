@@ -55,5 +55,3 @@ interface ZMSacsHandler {
     public function evaluate($request, $credentials, $manager);
 
 }
-
-?>

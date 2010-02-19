@@ -447,5 +447,3 @@ class ZMAttributeValue extends ZMObject {
     public function setSortOrder($sortOrder) { $this->sortOrder_ = $sortOrder; }
 
 }
-
-?>

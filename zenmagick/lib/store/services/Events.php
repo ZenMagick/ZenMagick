@@ -100,5 +100,3 @@ class Events extends ZMEvents {
     }
 
 }
-
-?>

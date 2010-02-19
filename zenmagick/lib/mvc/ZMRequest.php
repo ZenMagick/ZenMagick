@@ -385,5 +385,3 @@ class ZMRequest extends ZMObject {
     }
 
 }
-
-?>

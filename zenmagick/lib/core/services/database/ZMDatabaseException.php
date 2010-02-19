@@ -42,5 +42,3 @@ class ZMDatabaseException extends ZMException {
     }
 
 }
-
-?>

@@ -107,5 +107,3 @@ class ZMSQLPatch extends ZMInstallationPatch {
     }
 
 }
-
-?>

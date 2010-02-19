@@ -90,5 +90,3 @@ class Messages extends ZMMessages {
     }
 
 }
-
-?>

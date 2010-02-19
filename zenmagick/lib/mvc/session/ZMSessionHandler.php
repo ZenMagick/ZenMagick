@@ -67,5 +67,3 @@ interface ZMSessionHandler {
     public function close();
 
 }
-
-?>

@@ -116,5 +116,3 @@
         $mailFunc = function_exists('zen_mail_org') ? 'zen_mail_org' : 'zen_mail';
         $mailFunc($toName, $toEmail, $subject, $text, $fromName, $fromEmail, $context, $template, $attparam);
     }
-
-?>

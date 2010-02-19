@@ -104,5 +104,3 @@ class ZMMessage extends ZMObject {
     public function setRef($ref) { $this->ref_ = $ref; }
 
 }
-
-?>

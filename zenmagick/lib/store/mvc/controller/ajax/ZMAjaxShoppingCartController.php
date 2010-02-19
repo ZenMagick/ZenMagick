@@ -192,5 +192,3 @@ class ZMAjaxShoppingCartController extends ZMAjaxController {
     }
 
 }
-
-?>

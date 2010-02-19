@@ -233,5 +233,3 @@ class ToolboxHtml extends ZMToolboxHtml {
     }
 
 }
-
-?>

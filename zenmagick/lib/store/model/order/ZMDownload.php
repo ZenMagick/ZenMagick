@@ -215,5 +215,3 @@ class ZMDownload extends ZMObject {
     }
 
 }
-
-?>

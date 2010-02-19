@@ -43,4 +43,4 @@
 
 
 
-<?php echo strip_tags($zm_theme->staticPageContent('email_advisory')) ?>
+<?php echo strip_tags($utils->staticPageContent('email_advisory')) ?>

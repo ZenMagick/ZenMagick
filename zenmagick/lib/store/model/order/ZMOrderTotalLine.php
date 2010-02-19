@@ -134,5 +134,3 @@ class ZMOrderTotalLine extends ZMObject {
     public function setType($type) { $this->type_ = $type; }
 
 }
-
-?>

@@ -55,5 +55,3 @@ class ZMSha1Authentication implements ZMAuthentication {
     }
 
 }
-
-?>

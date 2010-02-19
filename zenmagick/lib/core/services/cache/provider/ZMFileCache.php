@@ -120,5 +120,3 @@ class ZMFileCache extends ZMObject implements ZMCache {
     }
 
 }
-
-?>

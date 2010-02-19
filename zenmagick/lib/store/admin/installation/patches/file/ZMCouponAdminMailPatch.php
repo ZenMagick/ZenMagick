@@ -163,5 +163,3 @@ class ZMCouponAdminMailPatch extends ZMFilePatch {
     }
     
 }
-
-?>

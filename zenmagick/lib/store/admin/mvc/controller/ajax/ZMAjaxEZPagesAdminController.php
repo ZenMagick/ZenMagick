@@ -119,5 +119,3 @@ class ZMAjaxEZPagesAdminController extends ZMAjaxController {
 
 
 }
-
-?>

@@ -208,6 +208,8 @@
             // default controller and view class
             'zenmagick.mvc.controller.default' => 'DefaultController',
             'zenmagick.mvc.view.default' => 'SavantView',
+            'zenmagick.mvc.view.defaultLayout' => 'default_layout',
+
 
             // default product association handler
             'defaultProductAssociationHandler' => 'SimilarOrderProductAssociationHandler',
@@ -502,5 +504,3 @@
     }
 
     ZMSettings::setAll(zm_get_default_settings());
-
-?>

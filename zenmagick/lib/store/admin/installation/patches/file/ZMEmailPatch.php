@@ -118,5 +118,3 @@ class ZMEmailPatch extends ZMFilePatch {
     }
     
 }
-
-?>

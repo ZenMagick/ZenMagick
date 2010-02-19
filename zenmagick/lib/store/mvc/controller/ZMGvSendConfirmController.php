@@ -136,5 +136,3 @@ class ZMGvSendConfirmController extends ZMController {
     }
 
 }
-
-?>

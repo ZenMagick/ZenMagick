@@ -46,4 +46,4 @@
 
 <?php zm_l10n("Regards, %s", ZMSettings::get('storeName')) ?>
 
-<?php echo strip_tags($zm_theme->staticPageContent('email_advisory')) ?>
+<?php echo strip_tags($utils->staticPageContent('email_advisory')) ?>

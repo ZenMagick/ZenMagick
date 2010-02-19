@@ -171,5 +171,3 @@ abstract class ZMView extends ZMObject {
     public abstract function fetch($request, $template);
 
 }
-
-?>

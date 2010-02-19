@@ -101,5 +101,3 @@ class ZMAjaxCheckoutController extends ZMAjaxController {
     }
 
 }
-
-?>

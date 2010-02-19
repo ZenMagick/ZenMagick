@@ -58,5 +58,3 @@ class ZMException extends Exception {
     }
 
 }
-
-?>

@@ -352,5 +352,3 @@ class Request extends ZMRequest {
     }
 
 }
-
-?>

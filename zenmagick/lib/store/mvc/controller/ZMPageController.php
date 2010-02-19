@@ -64,5 +64,3 @@ class ZMPageController extends ZMController {
     }
 
 }
-
-?>

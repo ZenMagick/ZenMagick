@@ -65,5 +65,3 @@ class ZMStaticController extends ZMController {
     }
 
 }
-
-?>

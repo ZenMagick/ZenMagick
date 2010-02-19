@@ -119,5 +119,3 @@ class ZMLanguages extends ZMObject {
     }
 
 }
-
-?>

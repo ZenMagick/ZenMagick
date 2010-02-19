@@ -175,5 +175,3 @@ class ZMManufacturer extends ZMObject {
     public function setLastClick($lastClick) { $this->lastClick_ = $lastClick; }
 
 }
-
-?>

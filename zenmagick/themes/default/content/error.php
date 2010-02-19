@@ -33,6 +33,6 @@
 	</head>
   <body>
     <h2><?php echo $utils->getTitle() ?></h2>
-		<?php echo $zm_theme->staticPageContent('error') ?>
+		<?php echo $utils->staticPageContent('error') ?>
   </body>
 </html>

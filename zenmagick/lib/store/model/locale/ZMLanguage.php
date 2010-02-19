@@ -124,5 +124,3 @@ class ZMLanguage extends ZMObject {
     public function setDirectory($directory) { $this->directory_ = $directory; }
 
 }
-
-?>

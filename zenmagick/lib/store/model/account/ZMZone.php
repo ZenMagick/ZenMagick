@@ -97,5 +97,3 @@ class ZMZone extends ZMObject {
     public function setName($name) { $this->name_ = $name; }
 
 }
-
-?>

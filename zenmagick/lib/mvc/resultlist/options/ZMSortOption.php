@@ -100,5 +100,3 @@ class ZMSortOption extends ZMObject {
     public function isDecending() { return $this->decending_; }
 
 }
-
-?>

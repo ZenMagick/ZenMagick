@@ -89,5 +89,3 @@ class ZMCouponRestrictions extends ZMObject {
     public function getProducts() { return $this->products_; }
 
 }
-
-?>

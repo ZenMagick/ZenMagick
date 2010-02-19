@@ -730,11 +730,11 @@
 	function strip($string){
 		if ( is_array($this->attributes['SEO_CHAR_CONVERT_SET']) ) $string = strtr($string, $this->attributes['SEO_CHAR_CONVERT_SET']);
 		$pattern = $this->attributes['SEO_REMOVE_ALL_SPEC_CHARS'] == 'true'
-						?	"([^[:alnum:]])+"
-						:	"([[:punct:]])+";
-		$anchor = ereg_replace($pattern, '', strtolower($string));
+						?	"/([^[:alnum:]])+/"
+						:	"/([[:punct:]])+/";
+		$anchor = preg_replace($pattern, '', strtolower($string));
 		$pattern = "([[:space:]]|[[:blank:]])+"; 
-		$anchor = ereg_replace($pattern, '-', $anchor);
+		$anchor = preg_replace($pattern, '-', $anchor);
 		return $this->short_name($anchor); // return the short filtered name 
 	} # end function
 
@@ -1188,7 +1188,7 @@
 	function need_redirect() {
 		$this->need_redirect = ((preg_match('/'.ZM_PAGE_KEY.'=/i', $this->uri)) ? true : false);
 		// QUICK AND DIRTY WAY TO DISABLE REDIRECTS ON PAGES WHEN SEO_URLS_ONLY_IN is enabled IMAGINADW.COM 
-		$sefu = explode(",", ereg_replace( ' +', '', SEO_URLS_ONLY_IN ));
+		$sefu = explode(",", preg_replace('/ +/', '', SEO_URLS_ONLY_IN ));
 		if ((SEO_URLS_ONLY_IN!="") && !in_array($_GET[ZM_PAGE_KEY],$sefu) ) $this->need_redirect = false;
 		// IMAGINADW.COM
 

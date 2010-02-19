@@ -72,5 +72,3 @@ class ZMFeaturedProductsController extends ZMController {
     }
 
 }
-
-?>

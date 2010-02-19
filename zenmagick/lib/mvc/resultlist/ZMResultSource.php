@@ -73,5 +73,3 @@ interface ZMResultSource {
     public function isFinal();
 
 }
-
-?>

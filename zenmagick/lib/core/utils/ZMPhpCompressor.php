@@ -508,5 +508,3 @@ class ZMPhpCompressor {
     }
 
 }
-
-?>

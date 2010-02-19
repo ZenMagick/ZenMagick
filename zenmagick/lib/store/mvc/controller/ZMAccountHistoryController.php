@@ -67,5 +67,3 @@ class ZMAccountHistoryController extends ZMController {
     }
 
 }
-
-?>

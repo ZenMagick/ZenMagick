@@ -84,5 +84,3 @@ class ZMShipping extends ZMObject {
     }
 
 }
-
-?>

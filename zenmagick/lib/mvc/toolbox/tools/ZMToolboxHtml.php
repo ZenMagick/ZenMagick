@@ -78,5 +78,3 @@ class ZMToolboxHtml extends ZMToolboxTool {
     }
 
 }
-
-?>

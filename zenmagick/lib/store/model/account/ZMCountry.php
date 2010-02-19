@@ -130,5 +130,3 @@ class ZMCountry extends ZMObject {
     public function setAddressFormatId($addressFormatId) { $this->addressFormatId_ = $addressFormatId; }
 
 }
-
-?>

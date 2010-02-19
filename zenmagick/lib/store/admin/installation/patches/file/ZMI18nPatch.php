@@ -247,5 +247,3 @@ class ZMI18nPatch extends ZMFilePatch {
     }
     
 }
-
-?>

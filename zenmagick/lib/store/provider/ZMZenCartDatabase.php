@@ -561,5 +561,3 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
     }
 
 }
-
-?>

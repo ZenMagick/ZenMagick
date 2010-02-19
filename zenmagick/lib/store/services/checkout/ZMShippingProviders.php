@@ -154,5 +154,3 @@ class ZMShippingProviders extends ZMObject {
     }
 
 }
-
-?>

@@ -58,5 +58,3 @@ class ZMTextAreaFormWidget extends ZMFormWidget {
     }
 
 }
-
-?>

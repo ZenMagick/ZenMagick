@@ -146,5 +146,3 @@ class ZMResultListSorter extends ZMObject {
     }
 
 }
-
-?>

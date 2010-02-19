@@ -378,5 +378,3 @@ class ZMTheme extends ZMObject {
     }
 
 }
-
-?>

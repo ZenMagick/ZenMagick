@@ -60,5 +60,3 @@ class ZMGvFaqController extends ZMController {
     }
 
 }
-
-?>

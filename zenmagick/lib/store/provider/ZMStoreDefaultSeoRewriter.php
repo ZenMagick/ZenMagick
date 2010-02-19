@@ -142,5 +142,3 @@ class ZMStoreDefaultSeoRewriter implements ZMSeoRewriter {
     }
 
 }
-
-?>

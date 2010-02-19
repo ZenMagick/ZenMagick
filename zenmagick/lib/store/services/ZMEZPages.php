@@ -224,5 +224,3 @@ class ZMEZPages extends ZMObject {
     }
 
 }
-
-?>

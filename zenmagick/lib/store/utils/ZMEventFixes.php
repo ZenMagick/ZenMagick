@@ -517,5 +517,3 @@ class ZMEventFixes extends ZMObject {
     }
 
 }
-
-?>

@@ -278,5 +278,3 @@ class ZMCategories extends ZMObject {
     }
 
 }
-
-?>

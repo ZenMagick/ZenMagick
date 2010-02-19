@@ -51,5 +51,3 @@ interface ZMProductAssociationHandler {
     public function getProductAssociationsForProductId($productId, $args=null, $all=false);
 
 }
-
-?>

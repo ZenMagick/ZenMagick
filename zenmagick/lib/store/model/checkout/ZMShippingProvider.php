@@ -134,5 +134,3 @@ class ZMShippingProvider extends ZMObject {
     public function getShippingMethods() { return $this->methods_; }
 
 }
-
-?>

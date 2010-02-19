@@ -29,10 +29,10 @@
 <?php zm_l10n("We wish to welcome you to %s.", ZMSettings::get('storeName')) ?>
 
 
-<?php echo strip_tags($zm_theme->staticPageContent('email_welcome')) ?>
+<?php echo strip_tags($utils->staticPageContent('email_welcome')) ?>
 
 <?php zm_l10n("Sincerely, %s", ZMSettings::get('storeOwner')) ?>
 
 
-<?php echo strip_tags($zm_theme->staticPageContent('email_advisory')) ?>
+<?php echo strip_tags($utils->staticPageContent('email_advisory')) ?>
 <?php echo $office_only_text; ?>

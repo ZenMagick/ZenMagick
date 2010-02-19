@@ -129,5 +129,3 @@ class ZMLoginController extends ZMController {
     }
 
 }
-
-?>

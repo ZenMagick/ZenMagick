@@ -93,5 +93,3 @@ class ZMGVAmountRule extends ZMRule {
     }
 
 }
-
-?>

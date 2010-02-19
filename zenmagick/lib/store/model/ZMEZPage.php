@@ -126,5 +126,3 @@ class ZMEZPage extends ZMObject {
     public function setTocChapter($chapter) { $this->tocChapter_ = $chapter; }
 
 }
-
-?>

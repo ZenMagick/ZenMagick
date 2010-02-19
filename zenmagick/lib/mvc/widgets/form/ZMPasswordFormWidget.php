@@ -55,5 +55,3 @@ class ZMPasswordFormWidget extends ZMTextFormWidget {
     }
 
 }
-
-?>

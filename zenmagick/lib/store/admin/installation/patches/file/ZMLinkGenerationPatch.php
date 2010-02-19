@@ -117,5 +117,3 @@ class ZMLinkGenerationPatch extends ZMFilePatch {
     }
     
 }
-
-?>

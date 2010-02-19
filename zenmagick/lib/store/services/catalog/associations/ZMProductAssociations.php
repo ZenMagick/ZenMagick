@@ -212,5 +212,3 @@ class ZMProductAssociations extends ZMObject {
     }
 
 }
-
-?>

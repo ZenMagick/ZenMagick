@@ -365,5 +365,3 @@ class Plugin extends ZMPlugin {
     }
 
 }
-
-?>

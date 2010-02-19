@@ -148,5 +148,3 @@ class ZMInstallationPatch extends ZMObject {
     }
     
 }
-
-?>

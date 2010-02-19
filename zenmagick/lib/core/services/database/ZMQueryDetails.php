@@ -125,5 +125,3 @@ class ZMQueryDetails extends ZMObject {
     }
 
 }
-
-?>

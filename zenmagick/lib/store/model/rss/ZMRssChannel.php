@@ -215,5 +215,3 @@ class ZMRssChannel extends ZMObject {
     public function getProperties() { return $this->rs_; }
 
 }
-
-?>

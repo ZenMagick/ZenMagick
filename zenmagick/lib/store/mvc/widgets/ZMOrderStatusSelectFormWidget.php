@@ -83,5 +83,3 @@ class ZMorderStatusSelectFormWidget extends ZMSelectFormWidget {
     }
 
 }
-
-?>

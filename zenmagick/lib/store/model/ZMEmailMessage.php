@@ -137,5 +137,3 @@ class ZMEmailMessage extends ZMObject {
     public function hasMessage() { return !empty($this->message_); }
 
 }
-
-?>

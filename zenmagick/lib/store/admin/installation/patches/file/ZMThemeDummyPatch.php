@@ -198,5 +198,3 @@ class ZMThemeDummyPatch extends ZMFilePatch {
     }
 
 }
-
-?>

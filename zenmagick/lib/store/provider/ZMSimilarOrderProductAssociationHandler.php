@@ -69,5 +69,3 @@ class ZMSimilarOrderProductAssociationHandler implements ZMProductAssociationHan
     }
 
 }
-
-?>

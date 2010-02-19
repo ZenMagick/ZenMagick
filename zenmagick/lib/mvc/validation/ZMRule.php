@@ -155,5 +155,3 @@ abstract class ZMRule extends ZMObject {
     }
 
 }
-
-?>

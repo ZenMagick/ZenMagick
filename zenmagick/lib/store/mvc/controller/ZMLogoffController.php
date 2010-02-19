@@ -75,5 +75,3 @@ class ZMLogoffController extends ZMController {
     }
 
 }
-
-?>

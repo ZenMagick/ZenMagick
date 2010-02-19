@@ -226,5 +226,3 @@ class ZMCheckoutShippingController extends ZMController {
   $zco_notifier->notify('NOTIFY_HEADER_END_CHECKOUT_SHIPPING');
 
 *************/
-
-?>
