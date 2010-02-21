@@ -113,6 +113,8 @@ Release 0.9.9
 - default 'zenmagick.mvc.view.defaultLayout' to null if not set
 - save original requestId in rootRequestId when forwarding
 - remove trailing ?> from all .php files in lib
+- remove 'errorPage' key (error page view) from theme.yaml as it is not used
+  any more
 
 Release 0.9.8
 - add Savant3 and experimental views (not used yet)

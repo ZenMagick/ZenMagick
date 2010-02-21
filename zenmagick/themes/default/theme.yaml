@@ -3,5 +3,3 @@ name: 'ZenMagick Default'
 version: '${zenmagick.version}'
 author: 'zenmagick.org'
 description: 'ZenMagick default theme; based on andreas08 from http://andreasviklund.com/templates/'
-
-errorPage: 'error'
