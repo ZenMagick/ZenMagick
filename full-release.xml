@@ -81,7 +81,6 @@
             <param name="insert.substitution" value="                 ,'zenmagick/themes'=>'777 read/write/execute'" />
         </antcall>
 
-
         <!-- add ZenMagick -->
         <unzip src="${dist.dir}/zenmagick-${zenmagick.version}.zip" dest="${release.full.dir}" />
 
@@ -336,7 +335,7 @@
         </delete>
     </target>
 
-    <!-- remove unused zencart code -->
+    <!-- apply ZenMagick branding to zencart code -->
     <target name="apply-branding" description="Apply ZenMagick branding.">
       <!-- installer -->
       <copy file="${basedir}/etc/build/full/branding/logo-235x64.png" tofile="${release.full.dir}/zc_install/includes/templates/template_default/images/logo.png" />
@@ -370,6 +369,9 @@
       <replaceregexp match='599659' replace='777' flags="gi"><fileset dir="${release.full.dir}/admin/"><include name="**/*.css" /></fileset></replaceregexp>
       <replaceregexp match='85C285' replace='eee' flags="gi"><fileset dir="${release.full.dir}/admin/"><include name="**/*.css" /></fileset></replaceregexp>
       <replaceregexp match='EFF4EA' replace='F6F4FF' flags="gi"><fileset dir="${release.full.dir}/admin/"><include name="**/*.css" /></fileset></replaceregexp>
+
+      <!-- change ezpage -->
+      <replaceregexp match="'Zen Cart', '', 'http:\/\/www.zen-cart.com'" replace="'ZenMagick', '', 'http://www.zenmagick.org/'" flags="g"><fileset file="${release.full.dir}/zc_install/demo/mysql_demo.sql"></fileset></replaceregexp>
 
     </target>
 
