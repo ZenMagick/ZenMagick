@@ -81,6 +81,13 @@
             <param name="insert.substitution" value="                 ,'zenmagick/themes'=>'777 read/write/execute'" />
         </antcall>
 
+        <!-- fix -->
+        <replaceregexp match="'admin/backups'=>'777 read\/write'" replace="'admin/backups'=>'777 read/write/execute'" flags="g"><fileset file="${release.full.dir}/zc_install/includes/modules/pages/inspect/header_php.php"></fileset></replaceregexp>
+        <!-- drop since not included -->
+        <replaceregexp match="'media'=>'777 read\/write\/execute'," replace="" flags="g"><fileset file="${release.full.dir}/zc_install/includes/modules/pages/inspect/header_php.php"></fileset></replaceregexp>
+        <replaceregexp match="'pub'=>'777 read\/write\/execute'," replace="" flags="g"><fileset file="${release.full.dir}/zc_install/includes/modules/pages/inspect/header_php.php"></fileset></replaceregexp>
+
+
         <!-- add ZenMagick -->
         <unzip src="${dist.dir}/zenmagick-${zenmagick.version}.zip" dest="${release.full.dir}" />
 
