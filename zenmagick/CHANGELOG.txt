@@ -115,6 +115,7 @@ Release 0.9.9
 - remove trailing ?> from all .php files in lib
 - remove 'errorPage' key (error page view) from theme.yaml as it is not used
   any more
+- fix invalid l18n key 'LC_TIME_LOCALE' to 'LC_TIME'
 
 Release 0.9.8
 - add Savant3 and experimental views (not used yet)

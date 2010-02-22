@@ -27,7 +27,7 @@
 
     zm_i18n_add(array(
         // system locale
-        'LC_TIME_LOCALE' => 'en_US.ISO_8859-1',
+        'LC_TIME' => 'en_US.ISO_8859-1',
 
         // to format dates
         'DATE_FORMAT' => 'd/m/Y',
