@@ -6,25 +6,15 @@ Installation
 ============
 1) Download, unpack and install the zen-cart ImageHandler2 mod.
 2) Unzip this plugin package into the zenmagick/plugins directory.
-3) Install plugin using the ZenMagick Plugin Manager.
-4) Configure ImageHandler2 options
+3) Create a new folder 'ih2' in your theme's content folder. If more than one theme is used, you may want to create this in the
+   default theme's content folder instead.
+3) Copy style_imagehover.css and jscript_imagehover.js into the newly created ih2 folder.
+4) Install plugin using the ZenMagick Plugin Manager.
+5) Configure ImageHandler2 options
 
 
-Template changes
-================
-In order to use the image hover feature of ImageHandler2, the following
-manual steps are required:
-
-a) Copy style_imagehover.css and jscript_imagehover.js into the default theme's content folder (zenmagick/themes/default/content)
-These files are part of the ImageHandler2 distribution.
-
-b) Add the following two lines to the <head> element of the used layout file(s):
-
-    <link rel="stylesheet" type="text/css" media="screen,projection" href="<?php Runtime::getTheme()->themeURL("style_imagehover.css") ?>" />
-    <script type="text/javascript" src="<?php Runtime::getTheme()->themeURL("jscript_imagehover.js") ?>"></script>
-
-Ideally, they would be the last two lines before the closing head tag (</head>)
-
-NOTE: The mouseover can be disabled using the plugin settings. This allows to use your own JS or JS libary and avoid JS errors.
-
-c) You also might want to adjust the width/height for the image popup in common.js.
+Notes
+=====
+* Depending on the image dimensions used, you might want to change the width/height for the image popup window in common.js.
+* It is possible to disable the hover effect via a plugin option in the Plugin Manager. This will remove all attributes from
+  the generated <img> elements. This will also supress inclusion of the the IH2 specific .css and .js files.

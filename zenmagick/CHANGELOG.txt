@@ -122,6 +122,8 @@ Release 0.9.9
 - add ZMLangUtisl::arrayMergeRecursive()
 - refactor i18n init code
 - drop lib/store/i18n.php
+- ih2: Simplify installation by automatically injecting the .js and .css
+  files, unless hover is disabled (changed the expected path to content/ih2)
 
 Release 0.9.8
 - add Savant3 and experimental views (not used yet)

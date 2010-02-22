@@ -57,6 +57,17 @@ class ZMImageHandler2Plugin extends Plugin {
             'widget@BooleanFormWidget#name=disableIH2Attributes&default=false&label=Disable&style=checkbox');
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    public function init() {
+        parent::init();
+        if (!ZMLangUtils::asBoolean($this->get('disableIH2Attributes'))) {
+            ZMTemplateManager::instance()->cssFile('ih2/style_imagehover.css');
+            ZMTemplateManager::instance()->jsFile('ih2/jscript_imagehover.js', ZMTemplateManager::PAGE_TOP);
+        }
+    }
+
 }
 
 ?>
