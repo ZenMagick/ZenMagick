@@ -174,7 +174,12 @@ class ZMEventFixes extends ZMObject {
             // resolve theme to be used 
             $theme = ZMThemes::instance()->resolveTheme(ZMSettings::get('isEnableThemeDefaults') ? ZMSettings::get('defaultThemeId') : Runtime::getThemeId());
             // finalise i18n
-            $lang = ZMRequest::instance()->getSession()->getLanguage()->getDirectory(); //!!TODO
+            $language = ZMRequest::instance()->getSession()->getLanguage(); //!!TODO
+            if (null === $language) {
+                // this may happen if the i18n patch hasn't been updated
+                $language = Runtime::getDefaultLanguage();
+            }
+            $lang = $language->getDirectory();
             $i18n = $theme->getConfig('locale');
             if (array_key_exists($lang, $i18n)) {
                 foreach ($i18n[$lang] as $name => $value) {

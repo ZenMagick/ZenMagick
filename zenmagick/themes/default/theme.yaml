@@ -8,6 +8,8 @@ locale:
   english:
     ## system locale
     LC_TIME: 'en_US.ISO_8859-1'
+    ## charset
+    HTML_CHARSET: 'iso-8859-1'
     ## to format dates
     DATE_FORMAT: 'd/m/Y'
     ## to parse user input 
@@ -16,6 +18,5 @@ locale:
     ## various date/time formats used
     DATE_FORMAT_LONG: '%A %d %B, %Y'
     DATE_TIME_FORMAT: '%d/%m/%Y %H:%M:%S'
-    HTML_CHARSET: 'iso-8859-1'
     ## NOTE: This is *NOT* used in ZenMagick, however zen-cart uses it in some places...
     HTML_PARAMS: 'dir="ltr" lang="en"'
