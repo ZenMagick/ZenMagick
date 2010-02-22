@@ -116,6 +116,12 @@ Release 0.9.9
 - remove 'errorPage' key (error page view) from theme.yaml as it is not used
   any more
 - fix invalid l18n key 'LC_TIME_LOCALE' to 'LC_TIME'
+- themes: change zm_i18n_get to using ZMSettings to pull the charset;  (all
+  default_layout.php)
+- move i18n settings from language/english/i18n.php to theme.yaml
+- add ZMLangUtisl::arrayMergeRecursive()
+- refactor i18n init code
+- drop lib/store/i18n.php
 
 Release 0.9.8
 - add Savant3 and experimental views (not used yet)

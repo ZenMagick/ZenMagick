@@ -151,7 +151,7 @@ class ZMRuntime extends ZMObject {
         if ($override) {
             return Spyc::YAMLLoadString($yaml);
         } else {
-            return array_merge_recursive($defaults, Spyc::YAMLLoadString($yaml));
+            return ZMLangUtils::arrayMergeRecursive($defaults, Spyc::YAMLLoadString($yaml));
         }
     }
 

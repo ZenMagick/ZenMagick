@@ -102,7 +102,7 @@ class ZMUrlManager extends ZMObject {
         if ($override || !array_key_exists($requestId, $this->mappings_)) {
             $this->mappings_[$requestId] = $mapping;
         } else {
-            $this->mappings_[$requestId] = array_merge_recursive($this->mappings_[$requestId], $mapping);
+            $this->mappings_[$requestId] = ZMLangUtils::arrayMergeRecursive($this->mappings_[$requestId], $mapping);
         }
     }
 

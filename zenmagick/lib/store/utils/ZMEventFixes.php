@@ -173,6 +173,23 @@ class ZMEventFixes extends ZMObject {
         if (ZMSettings::get('isEnableZMThemes') && !ZM_CLI_CALL) {
             // resolve theme to be used 
             $theme = ZMThemes::instance()->resolveTheme(ZMSettings::get('isEnableThemeDefaults') ? ZMSettings::get('defaultThemeId') : Runtime::getThemeId());
+            // finalise i18n
+            $lang = ZMRequest::instance()->getSession()->getLanguage()->getDirectory(); //!!TODO
+            $i18n = $theme->getConfig('locale');
+            if (array_key_exists($lang, $i18n)) {
+                foreach ($i18n[$lang] as $name => $value) {
+                    //echo $name.' '.$value.'<BR>';
+                    if (!defined($name)) {
+                        define($name, $value);
+                    }
+                    if ('LC_TIME' == $name) {
+                        @setlocale(LC_TIME, $value);
+                    } else if ('HTML_CHARSET' == $name) {
+                        ZMSettings::set('zenmagick.mvc.html.charset', $value); 
+                    }
+                }
+            }
+
             Runtime::setTheme($theme);
             $args = array_merge($args, array('theme' => $theme, 'themeId' => $theme->getId()));
             ZMEvents::instance()->fireEvent(null, Events::THEME_RESOLVED, $args);

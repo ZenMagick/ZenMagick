@@ -151,8 +151,7 @@ class ZMToolboxNet extends ZMToolboxTool {
      * @return string The URL encoded in valid HTM.
      */
     public function encode($url) {
-      //todo: zm_i18n...
-        $url = htmlentities($url, ENT_QUOTES, zm_i18n('HTML_CHARSET'));
+        $url = htmlentities($url, ENT_QUOTES,ZMSettings::get('zenmagick.mvc.html.charset'));
         $url = str_replace(' ', '%20', $url);
         return $url;
     }
@@ -164,8 +163,7 @@ class ZMToolboxNet extends ZMToolboxTool {
      * @return string The decoded URL.
      */
     public function decode($url) {
-      //todo: zm_i18n...
-        $s = html_entity_decode($url, ENT_QUOTES, zm_i18n('HTML_CHARSET'));
+        $s = html_entity_decode($url, ENT_QUOTES,ZMSettings::get('zenmagick.mvc.html.charset'));
         $s = str_replace('%20', ' ', $s);
         return $s;
     }

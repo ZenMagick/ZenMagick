@@ -3,3 +3,13 @@ name: 'ZenMagick Demo Theme'
 version: '${zenmagick.version}'
 author: 'zenmagick.org'
 description: 'ZenMagick demo theme including additional product pages and extra code'
+
+locale:
+  english:
+    HTML_CHARSET: 'utf-8'
+    ## to format dates
+    DATE_FORMAT: 'm/d/Y'
+    ## to parse user input 
+    UI_DATE_FORMAT: 'mm/dd/yyyy'
+    UI_DATE_FORMAT_SAMPLE: '11/16/1967'
+

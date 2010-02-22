@@ -206,12 +206,9 @@ class ZMThemes extends ZMObject {
         if (Runtime::getThemeId() != $theme->getThemeId()) {
             $nextTheme = $this->resolveTheme(Runtime::getThemeId());
             // merge with parent..
-            $nextTheme->setConfig(array_merge_recursive($theme->getConfig(), $nextTheme->getConfig()));
+            $nextTheme->setConfig(ZMLangUtils::arrayMergeRecursive($theme->getConfig(), $nextTheme->getConfig()));
             return $nextTheme;
         }
-
-        // finalise i18n
-        zm_i18n_finalise();
 
         return $theme;
     }

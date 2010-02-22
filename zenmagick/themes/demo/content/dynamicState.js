@@ -30,25 +30,24 @@ function updateState() {
     // show timer
     var zoneId = $('#zoneId');
     var state = $('#state');
-    var sz = 0 < zoneId.size() ? zoneId : state;
-    sz.after('<span id="state_timer"><img src="<?php $zm_theme->themeUrl('images/circle-ball-dark-antialiased.gif') ?>"> <?php zm_l10n("Loading...") ?></span>');
+    var sz = ((0 < zoneId.size()) ? zoneId : state);
+    sz.after('<span id="state_timer"><img src="<?php echo $this->asUrl('images/circle-ball-dark-antialiased.gif') ?>"> <?php zm_l10n("Loading...") ?></span>');
 
     var countryId = $('#countryId').val();
     $.ajax({
         type: "GET",
-        url: "<?php $net->ajax('country', 'getZonesForCountryId') ?>",
+        url: "<?php echo $net->ajax('country', 'getZonesForCountryId') ?>",
         data: "countryId="+countryId,
         success: function(msg) {
             // remove timer
             $('#state_timer').remove();
-
-            var json = eval('(' + msg + ')');
-            if (0 < json.length) {
+            var zoneList = JSON.parse(msg);
+            if (0 < zoneList.length) {
                 var state_value = $('#state').val();
                 var state_select = '<select id="zoneId" name="zoneId">';
                 state_select += '<option value=""><?php zm_l10n("-- Please select a state --") ?></option>';
-                for (var ii=0; ii < json.length; ++ii) {
-                    var option = json[ii];
+                for (var ii=0; ii < zoneList.length; ++ii) {
+                    var option = zoneList[ii];
                     var selected = state_value == option ? ' selected="selected"' : '';
                     state_select += '<option value="'+option.id+'"'+selected+'>'+option.name+'</option>';
                 }

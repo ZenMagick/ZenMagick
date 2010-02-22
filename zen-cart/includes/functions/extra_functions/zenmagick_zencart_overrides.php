@@ -25,6 +25,32 @@
 ?>
 <?php
 
+if (!function_exists('zen_date_raw')) {
+
+    /**
+     * Convert UI date into a <em>raw date format</em> that zen-cart
+     * understands.
+     *
+     * <p>This generic implementation will work as long as <code>UI_DATE_FORMAT</code>
+     * is defined.<br>
+     * The function will honour <code>DD</code>, <code>MM</code>, <code>CC</code>, <code>YY</code>
+     * and <code>YYYY</code> in the format.</p>
+     *
+     * <p><strong>NOTE:</strong> The format is *not* case sensitive.</p>
+     *
+     * @package org.zenmagick.store.locale
+     * @param string date A date (usually part of a form submit by the user).
+     * @param boolean reverse If <code>true</code>, the returned data will be reversed.
+     * @return string The provided date converted into the format <code>YYYYDDMM</code> or <code>MMDDYYYY</code>, respectivley.
+     */
+    function zen_date_raw($date, $reverse=false) {
+        $da = ZMTools::parseDateString($date, UI_DATE_FORMAT);
+        $raw = $reverse ? $da['mm'].$da['dd'].$da['cc'].$da['yy'] : $da['cc'].$da['yy'].$da['mm'].$da['dd'];
+        return $raw;
+    }
+
+}
+
 if (!function_exists('zen_href_link')) {
 
     /**

@@ -95,9 +95,6 @@
             // load existing mappings
             Runtime::setThemeId($themeId);
             ZMThemes::instance()->resolveTheme(ZMSettings::get('isEnableThemeDefaults') ? ZMSettings::get('defaultThemeId') : $themeId);
-            if (0 < count($GLOBALS['_zm_i18n_text'])) {
-                $l10nMap['inherited_mappings'] = $GLOBALS['_zm_l10n_text'];
-            }
         }
 
         $includes = ZMLoader::findIncludes($root.'/', '.php', true);

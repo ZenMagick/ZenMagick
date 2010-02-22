@@ -24,6 +24,7 @@
  */
 ?>
 <?php $utils->jsNow('jquery.js') ?>
+<?php $utils->jsNow('json2.js') ?>
 <?php /*=== include to allow PHP execution in ZM context ==*/ ?>
 <script type="text/javascript"><?php echo $this->fetch("dynamicState.js") ?></script>
 <?php echo $form->open(FILENAME_CREATE_ACCOUNT, "action=process", true, array('id'=>'registration')) ?>
