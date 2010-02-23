@@ -1,0 +1,205 @@
+#
+# ZenMagick cart default URL mappings
+#
+# $Id$
+#
+#
+null:
+  error:
+    template: error
+  missing_page:
+    template: error
+  category_not_found:
+    template: error
+  product_not_found:
+    template: product_not_found
+  index:
+    template: index
+  login:
+    view: RedirectView
+    template: login
+  empty_cart:
+    view: RedirectView
+    template: empty_cart
+  cart_not_ready:
+    view: RedirectView
+    template: shopping_cart
+  cart_is_virtual:
+    view: RedirectView
+    template: checkout_billing
+  check_cart:
+    view: RedirectView
+    template: shopping_cart
+  low_stock:
+    view: RedirectView
+    template: shopping_cart
+
+# view without classname# prefix will be completed to: [default-view-classname]#[value]
+popup_cvv_help:
+  view: set::zenmagick.mvc.view.default#viewDir=views/popup
+  layout: popup_layout
+  template: cvv_help
+popup_search_help:
+  view: set::zenmagick.mvc.view.default#viewDir=views/popup
+  layout: popup_layout
+  template: search_help
+popup_shipping_estimator:
+  view: set::zenmagick.mvc.view.default#viewDir=views/popup
+  layout: popup_layout
+  template: shipping_estimator
+popup_coupon_help:
+  view: set::zenmagick.mvc.view.default#viewDir=views/popup
+  layout: popup_layout
+  template: coupon_help
+
+address_book_edit: 
+  formId: address
+  form: Address
+  success: 
+    template: account
+    view: RedirectView
+address_book_add: 
+  formId: address
+  form: Address
+  template: address_book_create
+  success: 
+    template: account
+    view: RedirectView
+address_book_delete: 
+  success: 
+    template: account
+    view: RedirectView
+index: 
+  category: 
+    view: ForwardView#requestId=category
+discount_coupon: 
+  info: 
+    template: discount_coupon_info
+category: 
+  category_list: 
+    template: category_list
+  manufacturer: 
+    template: manufacturer
+  product_info: 
+    view: ForwardView#requestId=product_info
+login: 
+  success: 
+    template: account
+    view: RedirectView
+  account: 
+    template: account
+    view: RedirectView
+logoff: 
+  success: 
+    template: logoff
+    view: RedirectView
+password_forgotten: 
+  success: 
+    template: login
+    view: RedirectView
+checkout_guest: 
+  template: login
+  guest_checkout_disabled: 
+    template: login
+  success: 
+    template: checkout_shipping
+    view: RedirectView
+guest_history: 
+  success: 
+    template: account_history_info
+gv_redeem: 
+  formId: gvRedeem
+  form: GVRedeem
+gv_faq: 
+  formId: gvRedeem
+  form: GVRedeem
+gv_send: 
+  formId: gvReceiver
+  form: GVReceiver
+  success: 
+    template: gv_send_confirm
+gv_send_confirm: 
+  formId: gvReceiver
+  form: GVReceiver
+  edit: 
+    view: ForwardView#requestId=gv_send
+  success: 
+    template: account
+    view: RedirectView
+create_account: 
+  formId: registration
+  form: RegistrationForm
+  success: 
+    template: create_account_success
+    view: RedirectView
+account_edit: 
+  formId: account
+  form: AccountForm
+  success: 
+    template: account
+    view: RedirectView
+account_password: 
+  success: 
+    template: account
+    view: RedirectView
+account_newsletters: 
+  success: 
+    template: account
+    view: RedirectView
+account_notifications: 
+  success: 
+    template: account
+    view: RedirectView
+checkout_shipping: 
+  success: 
+    template: checkout_payment
+    view: RedirectView
+checkout_shipping_address: 
+  controller: 'CheckoutAddressController#mode=shipping'
+  formId: shippingAddress
+  form: Address
+  success: 
+    template: checkout_shipping
+    view: RedirectView
+checkout_payment: 
+  success: 
+    template: checkout_confirmation
+    view: RedirectView
+checkout_payment_address: 
+  controller: 'CheckoutAddressController#mode=billing'
+  formId: billingAddress
+  form: Address
+  success: 
+    template: checkout_payment
+    view: RedirectView
+redirect: 
+  success: 
+    template: index
+    view: RedirectView
+  error: 
+    view: ForwardView#requestId=index
+product_reviews_write: 
+  formId: newReview
+  form: Review
+  success: 
+    template: product_reviews
+    view: RedirectView
+contact_us: 
+  formId: contactUs
+  form: ContactInfo
+  success: 
+    template: contact_us
+    view: RedirectView
+tell_a_friend: 
+  formId: tellAFriend
+  form: EmailMessage
+  success: 
+    template: product_info
+    view: RedirectView
+search: 
+  formId: searchCriteria
+  form: SearchCriteria
+advanced_search: 
+  controller: 'SearchController#autoSearch=false'
+  formId: searchCriteria
+  form: SearchCriteria

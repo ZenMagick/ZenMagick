@@ -42,26 +42,24 @@
 
 
     //** url page name key **//
-
     define('ZM_PAGE_KEY', 'main_page');
 
 
     //** db **//
-
     define('ZM_DB_PREFIX', DB_PREFIX);
     define('ZM_TABLE_TOKEN', ZM_DB_PREFIX . 'token');
     
 
     //** date/time formats used internally by all models **//
-
     define('ZM_DATE_FORMAT', 'yyyy-mm-dd');
     define('ZM_DATETIME_FORMAT', 'yyyy-mm-dd hh:ii:ss');
 
 
     //** others **//
-
     define('PRODUCTS_OPTIONS_TYPE_SELECT', 0);
 
+    //** hook up the main store event handler **/
+    ZMEvents::instance()->attach(ZMLoader::make("EventFixes"));
 
 
     /**
@@ -90,7 +88,7 @@
                 'initQuery' => null
             ),
             'zenmagick.core.database.provider' => 'ZMZenCartDatabase',
-            'zenmagick.core.database.mappings.file' => 'lib/store/db_mappings.txt',
+            'zenmagick.core.database.mappings.file' => 'lib/store/config/db_mappings.txt',
             'zenmagick.core.database.tablePrefix' => ZM_DB_PREFIX,
             'zenmagick.core.database.mappings.cache.enabled' => false,
             'zenmagick.core.database.mappings.autoMap.enabled' => true,
