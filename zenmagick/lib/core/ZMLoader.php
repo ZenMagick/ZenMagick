@@ -377,13 +377,13 @@ class ZMLoader {
         $includes = array();
 
         // sanity check
-        if (!is_dir($dir) || false !== strpos($dir, '.svn')) {
+        if (!is_dir($dir)) {
             return $includes;
         }
 
         $handle = @opendir($dir);
         while (false !== ($name = readdir($handle))) {
-            if ("." == $name || ".." == $name || ".svn" == $name) {
+            if ("." == $name || ".." == $name) {
                 continue;
             }
             $file = $dir.$name;
