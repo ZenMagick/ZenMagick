@@ -89,7 +89,7 @@ class ZMLoader {
      * @param string prefix Optional prefix to be used for class resolving; default is <em>ZM</em>.
      * @return ZMLoader The root loader.
      */
-    public static function instance($prefix='ZM') {
+    public static function instance($prefix=self::CLASS_PREFIX) {
         if (null == ZMLoader::$root_) {
             ZMLoader::$root_ = new ZMLoader('rootLoader', $prefix);
         }
