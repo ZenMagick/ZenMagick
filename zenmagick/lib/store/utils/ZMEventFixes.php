@@ -205,12 +205,6 @@ class ZMEventFixes extends ZMObject {
                 require ZMSettings::get('staticHome');
                 exit;
             }
-
-            // load default mappings, do not override!
-            $urlMappings = ZMFileUtils::mkPath(array(ZMRuntime::getInstallationPath(), 'lib', 'store', 'url_mappings.yaml'));
-            ZMUrlManager::instance()->load(file_get_contents($urlMappings), false);
-            $sacsMappings = ZMFileUtils::mkPath(array(ZMRuntime::getInstallationPath(), 'lib', 'store', 'sacs_mappings.yaml'));
-            ZMSacsManager::instance()->load(file_get_contents($sacsMappings), false);
         }
 
         $this->fixCategoryPath($request);
