@@ -90,10 +90,10 @@ class ZMLoader {
      * @return ZMLoader The root loader.
      */
     public static function instance($prefix=self::CLASS_PREFIX) {
-        if (null == ZMLoader::$root_) {
-            ZMLoader::$root_ = new ZMLoader('rootLoader', $prefix);
+        if (null == self::$root_) {
+            self::$root_ = new ZMLoader('rootLoader', $prefix);
         }
-        return ZMLoader::$root_;
+        return self::$root_;
     }
 
 
@@ -232,7 +232,7 @@ class ZMLoader {
      *  implementation or <code>null</code>.
      */
     public static function resolve($name) {
-        return ZMLoader::instance()->resolveClass($name);
+        return self::instance()->resolveClass($name);
     }
 
     /**
@@ -308,7 +308,7 @@ class ZMLoader {
         if (!is_array($args)) {
             $args = func_get_args();
         }
-        return ZMLoader::instance()->makeClass($args);
+        return self::instance()->makeClass($args);
     }
 
     /**
@@ -407,7 +407,7 @@ class ZMLoader {
      * @return array A file map for the given path.
      */
     protected function scan($path, $recursive=true) {
-        $files = ZMLoader::findIncludes($path, '.php', $recursive);
+        $files = self::findIncludes($path, '.php', $recursive);
         $map = array();
         foreach ($files as $file) {
             $name = str_replace('.php', '', basename($file));

@@ -260,6 +260,8 @@ class ZMFileUtils {
      *
      * <p>Fix OS specific directory separator characters.</p>
      *
+     * <p>Filenames denoting a directory will always be returned with a trailing <code>DIRECTORY_SEPARATOR</code>.</p>
+     *
      * @param string filename The filename.
      * @return string The normalized filename.
      */
@@ -269,7 +271,12 @@ class ZMFileUtils {
             $filename = str_replace('\\', DIRECTORY_SEPARATOR, $filename);
         }
 
-        return realpath($filename);
+        $filename = realpath($filename);
+        if (is_dir($filename)) {
+            $filename .= DIRECTORY_SEPARATOR;
+        }
+
+        return $filename;
     }
 
     /**
