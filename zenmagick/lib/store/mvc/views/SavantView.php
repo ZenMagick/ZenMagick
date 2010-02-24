@@ -71,10 +71,21 @@ class SavantView extends ZMSavantView {
      */
     public function getResourcePath($request) {
         $path = array();
+
+        // add plugins as fallback fallback
+        foreach (explode(',', ZMSettings::get('zenmagick.core.plugins.groups')) as $group) {
+            foreach (ZMPlugins::instance()->getPluginsForGroup($group, Plugin::CONTEXT_STOREFRONT) as $plugin) {
+                $path[] = $plugin->getPluginDirectory();
+            }
+        }
+
         if (ZMSettings::get('isEnableThemeDefaults')) {
+            // add default theme as fallback
             $path[] = ZMThemes::instance()->getThemeForId(ZMSettings::get('defaultThemeId'))->getBaseDir();
         }
+        // add current theme
         $path[] = Runtime::getTheme()->getBaseDir();
+
         return $path;
     }
 
