@@ -92,7 +92,6 @@ class ZMWordpressPlugin extends Plugin implements ZMRequestHandler {
         }
 
         ZMUrlManager::instance()->setMapping(FILENAME_WP, array(
-            'view' => 'PluginView#plugin=wordpress',
             'controller' => 'WordpressController',
             FILENAME_WP.'_index' => array('template' => FILENAME_WP.'/index'),
             FILENAME_WP.'_single' => array('template' => FILENAME_WP.'/single'),

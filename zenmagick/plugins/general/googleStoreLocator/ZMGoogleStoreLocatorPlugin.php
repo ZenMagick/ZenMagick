@@ -79,7 +79,6 @@ class ZMGoogleStoreLocatorPlugin extends Plugin {
 
         // set up store locator view mapping
         ZMUrlManager::instance()->setMapping('store_locator', array(
-            'view' => 'PluginView#plugin=googleStoreLocator',
             'template' => 'store_locator'
         ));
     }

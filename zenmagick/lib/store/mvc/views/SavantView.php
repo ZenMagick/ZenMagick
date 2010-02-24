@@ -68,8 +68,11 @@ class SavantView extends ZMSavantView {
 
     /**
      * {@inheritDoc}
+     *
+     * <p>The template path will contain each active plugin's base directory, the default theme's content
+     * directory and the active theme's content directory.</p>
      */
-    public function getResourcePath($request) {
+    public function getTemplatePath($request) {
         $path = array();
 
         // add plugins as fallback fallback
@@ -81,10 +84,10 @@ class SavantView extends ZMSavantView {
 
         if (ZMSettings::get('isEnableThemeDefaults')) {
             // add default theme as fallback
-            $path[] = ZMThemes::instance()->getThemeForId(ZMSettings::get('defaultThemeId'))->getBaseDir();
+            $path[] = ZMThemes::instance()->getThemeForId(ZMSettings::get('defaultThemeId'))->getContentDir();
         }
         // add current theme
-        $path[] = Runtime::getTheme()->getBaseDir();
+        $path[] = Runtime::getTheme()->getContentDir();
 
         return $path;
     }
@@ -92,14 +95,14 @@ class SavantView extends ZMSavantView {
     /**
      * {@inheritDoc}
      *
-     * <p>To allow theme inheritance, both the default and active theme's content folders are returned.</p>
+     * <p>In contrast to templates, resources are relative to the theme's base directory.</p>
      */
-    public function getTemplatePath($request) {
+    public function getResourcePath($request) {
         $path = array();
         if (ZMSettings::get('isEnableThemeDefaults')) {
-            $path[] = ZMThemes::instance()->getThemeForId(ZMSettings::get('defaultThemeId'))->getContentDir();
+            $path[] = ZMThemes::instance()->getThemeForId(ZMSettings::get('defaultThemeId'))->getBaseDir();
         }
-        $path[] = Runtime::getTheme()->getContentDir();
+        $path[] = Runtime::getTheme()->getBaseDir();
         return $path;
     }
 

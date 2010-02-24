@@ -64,7 +64,6 @@ class ZMUnitTestsPlugin extends Plugin {
         ZMUrlManager::instance()->setMapping('tests', array(
             'layout' => '', 
             'template' => 'tests', 
-            'view' => 'PluginView#plugin=unitTests', 
             'controller' => 'UnitTestsController'
        ));
     }
