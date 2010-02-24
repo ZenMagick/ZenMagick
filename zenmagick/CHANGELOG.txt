@@ -125,6 +125,7 @@ Release 0.9.9
 - ih2: Simplify installation by automatically injecting the .js and .css
   files, unless hover is disabled (changed the expected path to content/ih2)
 - move store yaml files into config folder
+- add initial redirector plugin code
 
 Release 0.9.8
 - add Savant3 and experimental views (not used yet)
