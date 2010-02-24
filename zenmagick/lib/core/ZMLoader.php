@@ -19,7 +19,7 @@
  */
 ?>
 <?php
-
+//namespace org\zenmagick\core;
 
 /**
  * ZenMagick code/class loader.
@@ -131,10 +131,11 @@ class ZMLoader {
      * Add a given path to the loaders path.
      *
      * @param string path The path to add.
+     * @param string baseNamespace Optional base namespace; default is an empty string for none.
      * @param boolean recursive Flag to indicate if the path should be scanned recursively.
      */
-    public function addPath($path, $recursive=true) {
-        $this->path_ = array_merge($this->path_, $this->scan($path, $recursive));
+    public function addPath($path, $baseNamespace='', $recursive=true) {
+        $this->path_ = array_merge($this->path_, $this->scan($path, $baseNamespace, $recursive));
     }
 
     /**
@@ -270,7 +271,10 @@ class ZMLoader {
             return $this->cache_[$key];
         }
 
-        if (0 === strpos($name, self::CLASS_PREFIX)) {
+        // prefix operations are on the basename
+        $baseName = basename($name);
+
+        if (0 === strpos($baseName, self::CLASS_PREFIX)) {
             if (class_exists($name, false) || interface_exists($name, false)) {
                 $this->cache_[$key] = $name;
                 return $name;
@@ -283,7 +287,8 @@ class ZMLoader {
             // to avoid conflicts with external classes
             $parent = $name;
             while (false !== ($parent = get_parent_class($parent))) {
-                if (0 === strpos($parent, self::CLASS_PREFIX)) {
+                $baseName = basename($parent);
+                if (0 === strpos($baseName, self::CLASS_PREFIX)) {
                     $this->cache_[$key] = $name;
                     return $name;
                 }
@@ -291,7 +296,10 @@ class ZMLoader {
         }
 
         // default to prefixed name
-        return $this->resolveClass(self::CLASS_PREFIX.$name, $name);
+        $elems = explode('\\', $name);
+        $num = count($elems);
+        $elems[$num-1] = self::CLASS_PREFIX.$elems[$num-1];
+        return $this->resolveClass(implode('\\', $elems), $name);
     }
 
     /**
@@ -403,10 +411,12 @@ class ZMLoader {
      * Scan the given path for PHP files.
      *
      * @param string path The path to scan.
+     * @param string baseNamespace Optional base namespace; default is an empty string for none.
      * @param boolean recursive Flag to indicate if the path should be scanned recursively.
      * @return array A file map for the given path.
      */
-    protected function scan($path, $recursive=true) {
+    protected function scan($path, $baseNamespace='', $recursive=true) {
+        $path = realpath($path).DIRECTORY_SEPARATOR;
         $files = self::findIncludes($path, '.php', $recursive);
         $map = array();
         foreach ($files as $file) {
@@ -417,6 +427,11 @@ class ZMLoader {
                 // static, so make it unique
                 $name = $file;
             }
+            $namespace = dirname(str_replace($path, '', $file));
+            $namespace = $baseNamespace.'\\'.str_replace('.', '', $namespace);
+            // store with namespace
+            $map[$namespace.$name] = $file;
+            // and without
             $map[$name] = $file;
         }
 
