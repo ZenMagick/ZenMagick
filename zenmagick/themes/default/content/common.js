@@ -1,6 +1,6 @@
 /*
  * ZenMagick - Extensions for zen-cart
- * Copyright (C) 2006-2009 zenmagick.org
+ * Copyright (C) 2006-2010 zenmagick.org
  *
  * Portions Copyright (c) 2003 The zen-cart developers
  * Portions Copyright (c) 2003 osCommerce

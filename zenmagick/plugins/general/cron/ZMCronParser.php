@@ -1,7 +1,7 @@
 <?php
 /*
  * ZenMagick - Extensions for zen-cart
- * Copyright (C) 2006-2009 zenmagick.org
+ * Copyright (C) 2006-2010 zenmagick.org
  *
  * Portions (c) 2003,2004 Kai Blankenhorn
  *
