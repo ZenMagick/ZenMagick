@@ -38,7 +38,7 @@
       <?php } else { ?>
           <?php echo $html->image($imageInfo, ZMProducts::IMAGE_MEDIUM) ?>
       <?php } ?>
-      <div id="desc"><?php echo $html->encode($currentProduct->getDescription()) ?></div>
+      <div id="desc"><?php echo $currentProduct->getDescription() ?></div>
       <?php if (null != $manufacturer) { ?>
         <?php zm_l10n("Producer") ?>: <?php echo $html->encode($manufacturer->getName()); ?><br />
       <?php } ?>
