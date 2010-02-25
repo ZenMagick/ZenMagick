@@ -129,6 +129,7 @@ Release 0.9.9
 - add basic namespace support to the loader
 - always add plugins directories to the template path; this obsoletes
   ZMPluginView
+- add basic support for product meta tags
 
 Release 0.9.8
 - add Savant3 and experimental views (not used yet)
