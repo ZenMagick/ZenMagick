@@ -96,7 +96,7 @@ class ZMSavantView extends ZMView {
      * @param ZMRequest request The current request.
      * @return Savant3 A ready-to-use instance.
      */
-    protected function getSavant($request) {
+    public function getSavant($request) {
         if (null === $this->savant_) {
             $config = array();
             $config['autoload'] = true;
