@@ -203,10 +203,9 @@ class ZMTheme extends ZMObject {
      *
      * @param string name A theme relative filename.
      * @param string baseDir An optional base directory; default is <code>content/</code>
-     * @param boolean echo If <code>true</code>, the URL will be echo'ed as well as returned.
      * @return string A fully qualified filename.
      */
-    public function themeFile($name, $baseDir='content/', $echo=false) {
+    public function themeFile($name, $baseDir='content/') {
         $file = $this->getBaseDir().$baseDir.$name;
         if (ZMSettings::get('isEnableThemeDefaults') && !file_exists($file)) {
             // check for default
@@ -216,7 +215,6 @@ class ZMTheme extends ZMObject {
             }
         }
 
-	    if ($echo) echo $file;
         return $file;
     }
 

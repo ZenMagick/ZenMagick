@@ -29,7 +29,7 @@
 <?php echo $macro->categoryTree(ZMCategories::instance()->getCategoryTree($session->getLanguageId()), "catalog"); ?>
 <ul>
     <?php if ($request->isRegistered()) { ?>
-      <li><a href="<?php $echo net->url(FILENAME_ACCOUNT, '', true) ?>"><?php zm_l10n("My Account") ?></a>
+      <li><a href="<?php echo $net->url(FILENAME_ACCOUNT, '', true) ?>"><?php zm_l10n("My Account") ?></a>
       <ul>
         <li><a href="<?php echo $net->url(FILENAME_ACCOUNT_EDIT, '', true); ?>"><?php zm_l10n("Change Account") ?></a></li>
         <li><a href="<?php echo $net->url(FILENAME_ADDRESS_BOOK, '', true); ?>"><?php zm_l10n("My Address Book") ?></a></li>
