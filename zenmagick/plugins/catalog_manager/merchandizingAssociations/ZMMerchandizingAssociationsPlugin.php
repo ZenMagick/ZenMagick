@@ -27,7 +27,7 @@
  * @author DerManoMann
  * @version $Id$
  */
-class ZMMerchandizingAssociationsPlugin extends ZMPlugin implements ZMRequestHandler {
+class ZMMerchandizingAssociationsPlugin extends Plugin implements ZMRequestHandler {
 
     /**
      * Create new instance.
