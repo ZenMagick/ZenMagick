@@ -17,6 +17,7 @@ UPDATE template_select set template_dir = 'default' WHERE template_dir = 'classi
 ## remove zen cart banners - these should be demo only
 DELETE FROM banners;
 
+
 ## hide some unused options
 #  8 = Configuration - Product Listing
 # 10 = Configuration - Logging
