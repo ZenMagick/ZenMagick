@@ -1,6 +1,6 @@
 This is a ZenMagick plugin to manage redirects for missing categories and products.
 
-Right now this is work in progress, and it is not expected to have a proper UI for some time.
+NOTE: This plugin is functional, but lacks a nice UI.
 
 
 Installation
@@ -12,4 +12,26 @@ Installation
 
 Configure
 =========
-TODO:
+Products
+For products add something like the following to you global or theme local.php:
+
+    ZMSettings::set('plugins.redirector.productMappings', array(
+      1 => 19,
+      2 => 3
+    ));
+
+This example will result in requests to the product with id 1 forwarded to product #19 and requests to
+product #id 2 to product #3.
+
+
+Categories:
+For categories add something like the following to you global or theme local.php:
+
+    ZMSettings::set('plugins.redirector.categoryMappings', array(
+      1 => 19,
+      2 => 3
+    ));
+
+This example will result in requests to category with id 1 forwarded to category #19 and requests to
+category #id 2 to category #3.
+

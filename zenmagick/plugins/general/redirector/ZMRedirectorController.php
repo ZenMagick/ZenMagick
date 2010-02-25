@@ -49,17 +49,75 @@ class ZMRedirectorController extends ZMController {
      * {@inheritDoc}
      */
     public function processGet($request) {
-        if (1933 == $request->getProductId()) {
-            ZMMessages::instance()->msg("Product expired - here's an exciting alternative!");
-            $view =  new ZMRedirectView();
-            $view->setRequestId('product_info');
-            $view->setParameter('products_id=1');
-            return $view;
+        if (0 < $request->getProductId()) {
+            if (null != ($view = $this->processMissingProduct($request))) {
+                return $view;
+            }
+            return $this->findView('product_not_found');
+        } else if (0 < $request->getCategoryId()) {
+            if (null != ($view = $this->processMissingCategory($request))) {
+                return $view;
+            }
+            return $this->findView('category_not_found');
         }
-        echo $this->findView('product_not_found');
-        //var_dump(ZMUrlManager::instance());
-        die();
-        return $this->findView('product_not_found');
+
+        return $this->findView('error');
+    }
+
+    /**
+     * Handle product not found.
+     *
+     * @param ZMRequest request The current request.
+     * @return ZMView A response view or <code>null</code> if no useful response possible.
+     */
+    protected function processMissingProduct($request) {
+        $product = null;
+        // try to find product based on the current request
+        if ($request->getProductId()) {
+            $product = ZMProducts::instance()->getProductForId($request->getProductId());
+        } else if ($request->getModel()) {
+            $product = ZMProducts::instance()->getProductForModel($request->getModel());
+        }
+
+        if (null != $product) {
+            // check for redirect mappings
+            $productMappings = ZMSettings::get('plugins.redirector.productMappings', array());
+            if (array_key_exists($product->getId(), $productMappings)) {
+                $view =  new ZMRedirectView();
+                $view->setRequestId('product_info');
+                $view->setParameter('productId='.$productMappings[$product->getId()]);
+                return $view;
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Handle category not found.
+     *
+     * @param ZMRequest request The current request.
+     * @return ZMView A response view or <code>null</code> if no useful response possible.
+     */
+    protected function processMissingCategory($request) {
+        if (null == ($category = ZMCategories::instance()->getCategoryForId($request->getCategoryId()))) {
+            return null;
+        }
+
+        // check for redirect mappings
+        $categoryMappings = ZMSettings::get('plugins.redirector.categoryMappings', array());
+        if (array_key_exists($category->getId(), $categoryMappings)) {
+            // find new category
+            $newCategoryId = $categoryMappings[$category->getId()];
+            if (null != ($newCategory = ZMCategories::instance()->getCategoryForId($newCategoryId))) {
+                $view =  new ZMRedirectView();
+                $view->setRequestId('category');
+                $view->setParameter($newCategory->getPath());
+                return $view;
+            }
+        }
+
+        return null;
     }
 
 }

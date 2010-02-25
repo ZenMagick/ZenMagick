@@ -52,9 +52,19 @@ class ZMRedirectorPlugin extends Plugin {
     public function init() {
         parent::init();
         // merge
-        ZMUrlManager::instance()->setMapping(null, array('product_not_found' => array('view' => 'ForwardView#requestId=redirector')), false);
+        ZMUrlManager::instance()->setMapping(null, array(
+            'product_not_found' => array('view' => 'ForwardView#requestId=redirector'),
+            'category_not_found' => array('view' => 'ForwardView#requestId=redirector')
+          ), false);
         ZMUrlManager::instance()->setMapping('redirector', array(
-          'product_not_found' => array('template' => 'product_not_found')
+          'category_not_found' => array(
+              'view' => 'RedirectView',
+              'template' => 'category_not_found'
+          ),
+          'product_not_found' => array(
+              'view' => 'RedirectView',
+              'template' => 'product_not_found'
+          )
         ), false);
     }
 
