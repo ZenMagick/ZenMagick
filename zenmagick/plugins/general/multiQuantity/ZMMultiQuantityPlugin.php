@@ -3,9 +3,6 @@
  * ZenMagick - Extensions for zen-cart
  * Copyright (C) 2006-2010 zenmagick.org
  *
- * Portions Copyright (c) 2003 The zen-cart developers
- * Portions Copyright (c) 2003 osCommerce
- *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or (at
@@ -28,13 +25,13 @@ define('MULTI_QUANTITY_ID', 'multi_qty_id');
 
 
 /**
- * Plugin implementing multi qty product add for attributed products.
+ * Plugin implementing multi quantity product add for attributed products.
  *
- * @package org.zenmagick.plugins.zm_multi_qty
+ * @package org.zenmagick.plugins.multiQuantity
  * @author DerManoMann
  * @version $Id$
  */
-class zm_multi_qty extends Plugin {
+class ZMMultiQuantityPlugin extends Plugin {
 
     /**
      * Create new instance.
@@ -53,43 +50,40 @@ class zm_multi_qty extends Plugin {
 
 
     /**
-     * Init this plugin.
+     * {@inheritDoc}
      */
-    function init() {
+    public function init() {
         parent::init();
 
         // register as event listener
         ZMEvents::instance()->attach($this);
-
-        // make sure this exists...
-        if (null === ZMSettings::get('isShowCartAfterAddProduct')) {
-            ZMSettings::set('isShowCartAfterAddProduct', true);
-        }
     }
 
     /**
-     * Stop zen-cart processing multi qty requests.
+     * Stop zen-cart processing multi quantity requests.
      */
-    function onZMInitDone($args) {
-        if (null != ZMRequest::instance()->getParameter(MULTI_QUANTITY_ID)) {
-            // this is a multi qty add, so leave it to the custom controller to do so
+    public function onZMInitDone($args) {
+        $request = $args['request'];
+        if (null != $request->getParameter(MULTI_QUANTITY_ID)) {
+            // this is a multi quantity request, so leave it to the custom controller to handle
             unset($_GET['action']);
 
-            // TODO: make nicer
             // create mapping for lookup
-            ZMUrlMapper::instance()->setMappingInfo('product_info', array('controllerDefinition' => 'MultiQtyProductInfoController'));
-            // tweak the main_page parameter as controller id is private!
-            ZMRequest::instance()->setParameter('main_page', 'multi_qty_product_info');
+            ZMUrlManager::instance()->setMapping('product_info', array('controller' => 'MultiQuantityProductInfoController'));
 
-            // add url mappings
-            if (ZMSettings::get('isShowCartAfterAddProduct')) {
-                ZMUrlMapper::instance()->setMappingInfo('multi_qty_product_info', array('viewId' => 'success', 'view' => 'shopping_cart', 'viewDefinition' => 'RedirectView'));
+            // add own mapping
+            if (ZMSettings::get('isShowCartAfterAddProduct', true)) {
+                $mapping = array('success' => array(
+                    'view' => 'RedirectView#requestId=shopping_cart'
+                ));
             } else {
-                ZMUrlMapper::instance()->setMappingInfo('multi_qty_product_info', array('viewId' => 'success', 'view' => 'product_info', 'viewDefinition' => 'RedirectView', 'parameter=products_id='.ZMRequest::instance()->getProductId()));
+                $mapping = array('success' => array(
+                    'view' => 'RedirectView#requestId=product_info&parameter='.urlencode('products_id='.$request->getProductId())
+                ));
             }
+
+            ZMUrlManager::instance()->setMapping('multi_quantity_product_info', $mapping);
         }
     }
 
 }
-
-?>

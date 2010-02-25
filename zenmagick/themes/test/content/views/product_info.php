@@ -44,8 +44,30 @@
       <p id="price"><?php echo $html->encode($currentProduct->getModel()) ?>: <?php echo $macro->productPrice($currentProduct) ?></p>
   </div>
 
+  <?php
+      // Name of the attribute to allow multi qty on the product page
+      define('MULTI_QUANTITY_NAME', 'Memory');
+
+      $isMultiQty = false;
+      $attributes = $currentProduct->getAttributes();
+      foreach ($attributes as $attribute) {
+          if (MULTI_QUANTITY_NAME == $attribute->getName()) {
+              $isMultiQty = true;
+              // this is required for the server code to know which attribute to use
+              echo '<input type="hidden" name="'.MULTI_QUANTITY_ID.'" value="'.$attribute->getId().'">';
+
+              // qty input fields for each attribute value
+              foreach ($attribute->getValues() as $value) {
+                  echo $value->getName() . ': ';
+                  echo '<input type="text" name="id['.$attribute->getId().']['.$value->getId().']">';
+              }
+          }
+      }
+
+  ?>
+
   <?php $attributes = $macro->productAttributes($currentProduct); ?>
-  <?php foreach ($attributes as $attribute) { ?>
+  <?php foreach ($attributes as $attribute) { /* ADDED: */ if (MULTI_QUANTITY_NAME == $attribute['name']) { continue; } ?>
       <fieldset>
           <legend><?php echo $html->encode($attribute['name']) ?></legend>
           <?php foreach ($attribute['html'] as $option) { ?>
@@ -57,8 +79,10 @@
   <fieldset>
       <legend><?php zm_l10n("Shopping Options") ?></legend>
       <?php $minMsg = ""; if (1 < $currentProduct->getMinOrderQty()) { $minMsg = zm_l10n_get(" (Order minimum: %s)", $currentProduct->getMinOrderQty()); } ?>
-      <label for="cart_quantity"><?php zm_l10n("Quantity") ?><?php echo $minMsg; ?></label>
-      <input type="text" id="cart_quantity" name="cart_quantity" value="1" maxlength="6" size="4" />
+      <?php if (!$isMultiQty) { ?>
+          <label for="cart_quantity"><?php zm_l10n("Quantity") ?><?php echo $minMsg; ?></label>
+          <input type="text" id="cart_quantity" name="cart_quantity" value="1" maxlength="6" size="4" />
+      <?php } ?>
       <input type="submit" class="btn" value="<?php zm_l10n("Add to cart") ?>" />
   </fieldset>
 

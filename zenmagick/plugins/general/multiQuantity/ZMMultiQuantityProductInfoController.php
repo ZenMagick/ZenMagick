@@ -3,9 +3,6 @@
  * ZenMagick - Extensions for zen-cart
  * Copyright (C) 2006-2010 zenmagick.org
  *
- * Portions Copyright (c) 2003 The zen-cart developers
- * Portions Copyright (c) 2003 osCommerce
- *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or (at
@@ -25,19 +22,19 @@
 
 
 /**
- * Custom controller to handle multi qty posts.
+ * Custom controller to handle multi quantity requests.
  *
  * @author mano
- * @package org.zenmagick.plugins.zm_multi_qty
+ * @package org.zenmagick.plugins.multiQuantity
  * @version $Id$
  */
-class MultiQtyProductInfoController extends ZMController {
+class ZMMultiQuantityProductInfoController extends ZMController {
 
     /**
      * Create new instance.
      */
     function __construct() {
-        parent::__construct();
+        parent::__construct('multi_quantity_product_info');
     }
 
     /**
@@ -54,18 +51,18 @@ class MultiQtyProductInfoController extends ZMController {
     public function processPost($request) {
         $productId = $request->getProductId();
         // prepare attributes
-        $multiQtyId = $request->getParameter(MULTI_QUANTITY_ID);
+        $multiQuantityId = $request->getParameter(MULTI_QUANTITY_ID);
         // id is the shared form field for all attributes
         $attributes = $request->getParameter('id');
-        $multiQty = $attributes[$multiQtyId];
-        unset($attributes[$multiQtyId]);
+        $multiQty = $attributes[$multiQuantityId];
+        unset($attributes[$multiQuantityId]);
 
         // add each qty
         $addedSome = false;
         foreach ($multiQty as $id => $qty) {
             if (!empty($qty) && 0 < $qty) {
                 $addedSome = true;
-                $attributes[$multiQtyId] = $id;
+                $attributes[$multiQuantityId] = $id;
                 $request->getShoppingCart()->addProduct($productId, $qty, $attributes);
             }
         }
@@ -78,5 +75,3 @@ class MultiQtyProductInfoController extends ZMController {
     }
 
 }
-
-?>

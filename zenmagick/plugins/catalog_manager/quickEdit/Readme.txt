@@ -1,7 +1,7 @@
 This is a Catalog Manager plugin to quickly edit all products of a selected category.
 
 It is possible to configure your own set of fields by creating a setting
-named 'plugins.quickEdit.fieldList' that contains a custom field mpa.
+named 'plugins.quickEdit.fieldList' that contains a custom field map.
 
 <?php
 
