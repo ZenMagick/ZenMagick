@@ -78,16 +78,22 @@ class ZMProductAssociations extends ZMObject {
      *
      * @param mixed handler This can be either a <code>ZMProductAssociationHandler</code> instance, or a class definition compatible with
      *  <code>ZMBeanUtils::getBean(..)</code>.
-     * @param string type Optional association type/name; default is <code>null</code>.
+     * @param mixed type Optional association type or list thereof; default is <code>null</code>.
      */
     public function registerHandler($handler, $type=null) {
-    	if (null == $type) {
+    	  if (null === $type) {
             if (!is_object($handler)) {
                 $handler = ZMBeanUtils::getBean($handler);
             } 
             $type = $handler->getType();
-    	}
-        $this->handler_[$type] = $handler;
+    	  }
+
+        if (!is_array($type)) {
+            $type = array($type);
+        }
+        foreach ($type as $t) {
+            $this->handler_[$t] = $handler;
+        }
     }
 
     /**
