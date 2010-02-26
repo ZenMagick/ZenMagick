@@ -2,21 +2,21 @@
 
     /** Two different ways of using the various interfaces... **/
   
-    $useStatic = false;
+    $useStatic = true;
   
     if ($useStatic) {
         // register straight with the manager
         if (ZMTemplateManager::instance()->isLeftColEnabled()) {
-            foreach (ZMTemplateManager::instance()->getLeftColBoxNames() as $box) {
+            foreach (ZMTemplateManager::instance()->getLeftColBoxNames() as $boxName) {
                 // register as bean definition
-                ZMBlockManager::instance()->registerBlock('leftColumn', 'SideboxBlockContents#box='.$box);
+                ZMBlockManager::instance()->registerBlock('leftColumn', 'SideboxBlockContents#boxName='.$boxName);
             }
         }
 
         if (ZMTemplateManager::instance()->isRightColEnabled()) {
-            foreach (ZMTemplateManager::instance()->getRightColBoxNames() as $box) {
+            foreach (ZMTemplateManager::instance()->getRightColBoxNames() as $boxName) {
                 // register as instance
-                ZMBlockManager::instance()->registerBlock('rightColumn', new ZMSideboxBlockContents($box));
+                ZMBlockManager::instance()->registerBlock('rightColumn', new ZMSideboxBlockContents($boxName));
             }
         }
     } else {
@@ -67,6 +67,8 @@
         // 4) now that we have mapped the available block contents onto block identifiers, tell the
         // manager about it
         ZMBlockManager::instance()->setMappings($mappings);
+
+        ZMEvents::instance()->attach(ZMBlockManager::instance());
     }
 
 ?>

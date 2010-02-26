@@ -61,5 +61,3 @@ class ZMBlockHandlerAdminController extends ZMPluginAdminController {
     }
 
 }
-
-?>

@@ -63,5 +63,3 @@ class ZMBlockHandlerPlugin extends Plugin {
     }
 
 }
-
-?>

@@ -36,16 +36,16 @@ class ZMSideboxBlockContentsProvider implements ZMBlockContentsProvider {
     public function getBlockContentsList() {
         $mapping = array();
         if (ZMTemplateManager::instance()->isLeftColEnabled()) {
-            foreach (ZMTemplateManager::instance()->getLeftColBoxNames() as $box) {
+            foreach (ZMTemplateManager::instance()->getLeftColBoxNames() as $boxName) {
                 // avoid duplicates by using $box as key
-                $mapping[$box] = 'SideboxBlockContents#box='.$box;
+                $mapping[$boxName] = 'SideboxBlockContents#boxName='.$boxName;
             }
         }
 
         if (ZMTemplateManager::instance()->isRightColEnabled()) {
-            foreach (ZMTemplateManager::instance()->getRightColBoxNames() as $box) {
+            foreach (ZMTemplateManager::instance()->getRightColBoxNames() as $boxName) {
                 // avoid duplicates by using $box as key
-                $mapping[$box] = 'SideboxBlockContents#box='.$box;
+                $mapping[$boxName] = 'SideboxBlockContents#boxName='.$boxName;
             }
         }
 
@@ -53,5 +53,3 @@ class ZMSideboxBlockContentsProvider implements ZMBlockContentsProvider {
     }
 
 }
-
-?>

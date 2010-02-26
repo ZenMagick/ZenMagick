@@ -128,7 +128,6 @@ class ZMBlockManager extends ZMObject {
     public function onZMFinaliseContents($args) {
         $request = $args['request'];
         $contents = $args['contents'];
-        $view = $args['view'];
 
         $blockIds = $this->parseBlocks($contents);
         foreach ($blockIds as $blockId) {
@@ -152,5 +151,3 @@ class ZMBlockManager extends ZMObject {
     }
 
 }
-
-?>

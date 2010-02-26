@@ -39,5 +39,3 @@ interface ZMBlockContentsProvider {
      */
     public function getBlockContentsList();
 }
-
-?>

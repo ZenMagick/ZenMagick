@@ -28,17 +28,17 @@
  * @version $Id$
  */
 class ZMSideboxBlockContents extends ZMObject implements ZMBlockContents {
-    private $box_;
+    private $boxName_;
 
 
     /**
      * Create new instance.
      *
-     * @param string box The box name/template; default is <code>null</code>.
+     * @param string boxName The box name/template; default is <code>null</code>.
      */
-    function __construct($box=null) {
+    function __construct($boxName=null) {
         parent::__construct();
-        $this->setBox($box);
+        $this->setBoxName($boxName);
     }
 
     /**
@@ -53,7 +53,7 @@ class ZMSideboxBlockContents extends ZMObject implements ZMBlockContents {
      * {@inheritDoc}
      */
     public function getName() {
-        return "Sidebox: ".str_replace('.php', '', $this->box_);
+        return "Sidebox: ".str_replace('.php', '', $this->boxName_);
     }
 
     /**
@@ -62,18 +62,16 @@ class ZMSideboxBlockContents extends ZMObject implements ZMBlockContents {
     public function getBlockContents($args) {
         $request = $args['request'];
         $view = $args['view'];
-        return $view->fetch($request, 'boxes/'.$this->box_);
+        return $view->fetch($request, 'boxes/'.$this->boxName_);
     }
 
     /**
-     * Set the box.
+     * Set the box name.
      *
-     * @param string box The sidebox template name (incl. the <em>.php</em> suffix).
+     * @param string boxName The sidebox template name (incl. the <em>.php</em> suffix).
      */
-    public function setBox($box) {
-        $this->box_ = $box;
+    public function setBoxName($boxName) {
+        $this->boxName_ = $boxName;
     }
 
 }
-
-?>

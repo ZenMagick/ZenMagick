@@ -46,5 +46,3 @@ interface ZMBlockContents {
     public function getBlockContents($args);
 
 }
-
-?>
