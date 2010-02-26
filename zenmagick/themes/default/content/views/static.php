@@ -24,4 +24,4 @@
  */
 ?>
 
-<?php $utils->staticPageContent($request->getSubPageName()) ?>
+<?php echo $utils->staticPageContent($request->getSubPageName()) ?>
