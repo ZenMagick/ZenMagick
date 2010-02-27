@@ -25,7 +25,6 @@
             </fileset>
         </copy>
         <!-- copy extras folder into install_zc to make it more likely it gets removed... -->
-        <mkdir dir="${release.full.dir}/extras" />
         <copy todir="${release.full.dir}/zc_install/extras">
             <fileset dir="${zencart.base.dir}/extras">
             </fileset>
@@ -83,6 +82,7 @@
 
         <!-- fix -->
         <replaceregexp match="'admin/backups'=>'777 read\/write'" replace="'admin/backups'=>'777 read/write/execute'" flags="g"><fileset file="${release.full.dir}/zc_install/includes/modules/pages/inspect/header_php.php"></fileset></replaceregexp>
+        <!-- TODO: make permission check check for existence?? -->
         <!-- drop since not included -->
         <replaceregexp match="'media'=>'777 read\/write\/execute'," replace="" flags="g"><fileset file="${release.full.dir}/zc_install/includes/modules/pages/inspect/header_php.php"></fileset></replaceregexp>
         <replaceregexp match="'pub'=>'777 read\/write\/execute'," replace="" flags="g"><fileset file="${release.full.dir}/zc_install/includes/modules/pages/inspect/header_php.php"></fileset></replaceregexp>
@@ -379,6 +379,10 @@
 
       <!-- change ezpage -->
       <replaceregexp match="'Zen Cart', '', 'http:\/\/www.zen-cart.com'" replace="'ZenMagick', '', 'http://www.zenmagick.org/'" flags="g"><fileset file="${release.full.dir}/zc_install/demo/mysql_demo.sql"></fileset></replaceregexp>
+
+      <!-- main title and tagline -->
+      <replaceregexp match="'TITLE', 'Zen Cart!'" replace="'TITLE', 'ZenMagick'" flags="g"><fileset file="${release.full.dir}/includes/languages/english/meta_tags.php"></fileset></replaceregexp>
+      <replaceregexp match="'SITE_TAGLINE', 'The Art of E-commerce'" replace="'TITLE', 'As simple as'" flags="g"><fileset file="${release.full.dir}/includes/languages/english/meta_tags.php"></fileset></replaceregexp>
 
     </target>
 
