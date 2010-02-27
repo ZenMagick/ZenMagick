@@ -131,6 +131,8 @@ Release 0.9.9
   ZMPluginView
 - add basic support for product meta tags
 - fix: do not display inactive categories
+- hoverbox3: converted
+- fualSlimbox: converted
 
 Release 0.9.8
 - add Savant3 and experimental views (not used yet)
