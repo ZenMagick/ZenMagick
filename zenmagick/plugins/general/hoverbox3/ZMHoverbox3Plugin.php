@@ -84,7 +84,6 @@ class ZMHoverbox3Plugin extends Plugin {
 
         $request = $args['request'];
         $savant = $args['view']->getSavant($request);
-        $theme = Runtime::getTheme();
         // hover3 used in this page
         $h3head = '';
         $h3head .= '<link rel="stylesheet" type="text/css" href="' . $savant->asUrl('hover3/stylesheet_hoverbox3.css', false) . '" />';
