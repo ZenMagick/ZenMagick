@@ -21,11 +21,21 @@
 <?php
 
     // load ZenMagick core
-    include dirname(dirname(dirname(__FILE__))) . '/external.php';
-
-    $tables = array_slice($argv, 1, 1);
+    $zcDir = dirname(dirname(dirname(dirname(dirname(dirname(__FILE__)))))).DIRECTORY_SEPARATOR;
+    require $zcDir.'includes/configure.php';
+    $installDir = $zcDir.'zenmagick'.DIRECTORY_SEPARATOR;
+    define('ZM_BASE_PATH', $installDir);
+    require $installDir.'lib/core/ZMLoader.php';
+    spl_autoload_register('ZMLoader::resolve');
+    ZMLoader::instance()->addPath($installDir.'lib/core/');
+    ZMLoader::instance()->addPath($installDir.'lib/mvc/');
+    ZMLoader::instance()->addPath($installDir.'lib/store/');
+    ZMLoader::instance()->loadStatic();
+    ZMSettings::set('zenmagick.core.database.provider', 'ZMPdoDatabase');
+    
+    $tables = array_slice($argv, 1);
     foreach ($tables as $table) {
-        ZMDbTableMapper::instance()->buildTableMapping($table, Runtime::getDatabase(), true);
+        ZMDbTableMapper::instance()->buildTableMapping($table, ZMRuntime::getDatabase(), true);
     }
 
 ?>
