@@ -252,6 +252,7 @@ class ZMDbTableMapper extends ZMObject {
             $tableMetaData = $database->getMetaData($table);
         } catch (ZMDatabaseException $dbe) {
             // non prefixed?
+            ZMLogging::instance()->dump($dbe);
         }
         if (null === $tableMetaData) {
             // try adding the prefix
@@ -262,6 +263,7 @@ class ZMDbTableMapper extends ZMObject {
                 // definitely not there!
             }
         }
+
         if (null === $tableMetaData) {
             return null;
         }
