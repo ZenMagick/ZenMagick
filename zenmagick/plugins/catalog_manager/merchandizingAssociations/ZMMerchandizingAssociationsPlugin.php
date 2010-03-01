@@ -69,7 +69,6 @@ class ZMMerchandizingAssociationsPlugin extends Plugin implements ZMRequestHandl
     public function initRequest($request) {
         if (0 < $request->getProductId()) {
             // only available if product involved
-            $this->addMenuItem('zmpa', zm_l10n_get('Product Associations'), 'zm_pa_admin', ZMAdminMenu::MENU_CATALOG_MANAGER_TAB);
             $this->addMenuItem('merchandizingAssociationsAdminTab', zm_l10n_get('Merchandizing Associations'), 'MerchandizingAssociationsAdminTab', ZMAdminMenu::MENU_CATALOG_MANAGER_TAB);
         }
 
