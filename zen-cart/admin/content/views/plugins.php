@@ -42,7 +42,7 @@
         $needRefresh = true;
         $refresh = $edit;
     } else if (null != $remove) {
-        if (null != ($plugin = ZMPlugins::instance()->initPluginForId($remove, true)) && $plugin->isInstalled()) {
+        if (null != ($plugin = ZMPlugins::instance()->initPluginForId($remove, false)) && $plugin->isInstalled()) {
             $plugin->remove();
             ZMMessages::instance()->addAll($plugin->getMessages());
         }
