@@ -82,9 +82,10 @@ class ZMHoverbox3Plugin extends Plugin {
             return null;
         }
 
-        try {
+        $view = $args['view'];
+        if ($view instanceof ZMSavantView) {
             $request = $args['request'];
-            $savant = $args['view']->getSavant($request);
+            $savant = $view->getSavant($request);
             $theme = Runtime::getTheme();
             // hover3 used in this page
             $h3head = '';
@@ -101,7 +102,7 @@ class ZMHoverbox3Plugin extends Plugin {
 
             $args['contents'] = $contents;
             return $args;
-        } catch (Exception $e) {
+        } else {
             return null;
         }
     }
