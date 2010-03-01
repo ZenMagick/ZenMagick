@@ -82,24 +82,28 @@ class ZMHoverbox3Plugin extends Plugin {
             return null;
         }
 
-        $request = $args['request'];
-        $savant = $args['view']->getSavant($request);
-        $theme = Runtime::getTheme();
-        // hover3 used in this page
-        $h3head = '';
-        $h3head .= '<link rel="stylesheet" type="text/css" href="' . $savant->asUrl('hover3/stylesheet_hoverbox3.css', false) . '" />';
-        $h3head .= '<script type="text/javascript" src="' . $savant->asUrl('hover3/ic_effects.js', false) . '"></script>';
-        // eval js config
-        $h3config_tpl = file_get_contents($this->getPluginDirectory().'/ic_hoverbox_config.tpl');
-        ob_start();
-        eval('?>'.$h3config_tpl);
-        $h3config = ob_get_clean();
-        $h3head .= $h3config;
-        $h3head .= '<script type="text/javascript" src="' . $savant->asUrl('hover3/ic_hoverbox3.js', false) . '"></script>';
-        $contents = preg_replace('/<\/head>/', $h3head.'</head>', $contents, 1);
+        try {
+            $request = $args['request'];
+            $savant = $args['view']->getSavant($request);
+            $theme = Runtime::getTheme();
+            // hover3 used in this page
+            $h3head = '';
+            $h3head .= '<link rel="stylesheet" type="text/css" href="' . $savant->asUrl('hover3/stylesheet_hoverbox3.css', false) . '" />';
+            $h3head .= '<script type="text/javascript" src="' . $savant->asUrl('hover3/ic_effects.js', false) . '"></script>';
+            // eval js config
+            $h3config_tpl = file_get_contents($this->getPluginDirectory().'/ic_hoverbox_config.tpl');
+            ob_start();
+            eval('?>'.$h3config_tpl);
+            $h3config = ob_get_clean();
+            $h3head .= $h3config;
+            $h3head .= '<script type="text/javascript" src="' . $savant->asUrl('hover3/ic_hoverbox3.js', false) . '"></script>';
+            $contents = preg_replace('/<\/head>/', $h3head.'</head>', $contents, 1);
 
-        $args['contents'] = $contents;
-        return $args;
+            $args['contents'] = $contents;
+            return $args;
+        } catch (Exception $e) {
+            return null;
+        }
     }
 
 }
