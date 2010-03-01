@@ -71,6 +71,11 @@ class CategoryController extends ZMController {
             $viewName = 'category_list';
         }
 
+        // get category
+        if (null == ($category = ZMCategories::instance()->getCategoryForId($request->getCategoryId())) || !$category->isActive()) {
+            return $this->findView('category_not_found');
+        }
+
         $resultList = null;
         $data = array();
         if (null !== $method) {
