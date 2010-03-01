@@ -222,7 +222,7 @@ class ZMUrlManager extends ZMObject {
         }
         $layout = ((array_key_exists('layout', $mapping) && null !== $mapping['layout']) 
               ? $mapping['layout'] : ZMSettings::get('zenmagick.mvc.view.defaultLayout', null));
-        $definition = $view.(false === strpos($view, '#') ? '#' : '&').$parameter.'&template='.$mapping['template'].'&layout='.$layout;
+        $definition = $view.(false === strpos($view, '#') ? '#' : '&').$parameter.'&template='.$mapping['template'].'&layout='.$layout.'&viewId='.$viewId;
         ZMLogging::instance()->log('view definition: '.$definition, ZMLogging::TRACE);
         return ZMBeanUtils::getBean($definition);
     }
