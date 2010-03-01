@@ -45,7 +45,7 @@ class ZMOffers extends ZMObject {
     const DISCOUNT_FROM_BASE_PRICE = 0;
     const DISCOUNT_FROM_SPECIAL_PRICE = 1;
 
-    private $product_;
+    protected $product_;
     private $basePrice_;
     private $specialPrice_;
     private $salePrice_;
@@ -156,7 +156,7 @@ class ZMOffers extends ZMObject {
         }
 
         // this is for price factor based attributes (the lower limit is the set price [even though priced by attr])
-        $basePrice += $this->product_->getProductPrice();
+        $basePrice += $this->getProductPrice(false);
 
         return $basePrice;
     }
