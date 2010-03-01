@@ -28,23 +28,23 @@
  * An artist.
  *
  * @author mano
- * @package org.zenmagick.plugins.zm_product_music_info.model
+ * @package org.zenmagick.plugins.musicProductInfo.model
  * @version $Id$
  */
 class ZMArtist extends ZMObject {
-    var $id_;
-    var $name_;
-    var $genre_;
-    var $image_;
-    var $url_;
-    var $recordCompany_;
+    private $artistId_;
+    private $name_;
+    private $genre_;
+    private $image_;
+    private $url_;
+    private $recordCompany_;
 
 
     /**
      * Create new instance.
      */
     function ZMArtist() {
-        $this->id_ = 0;
+        $this->artistId_ = 0;
         $this->name_ = '';
         $this->genre_ = '';
         $this->image_ = null;
@@ -71,63 +71,105 @@ class ZMArtist extends ZMObject {
      *
      * @return int The artist id.
      */
-    function getId() { return $this->id_; }
+    public function getArtistId() { return $this->artistId_; }
 
     /**
      * Get the artist name.
      *
      * @return string The artist name.
      */
-    function getName() { return $this->name_; }
+    public function getName() { return $this->name_; }
 
     /**
-     * Get the name.
+     * Get the genre.
      *
      * @return string The genre.
      */
-    function getGenre() { return $this->genre_; }
+    public function getGenre() { return $this->genre_; }
 
     /**
      * Check if an image is available.
      *
      * @return boolean <code>true</code> if an image is available, <code>false</code> if not.
      */
-    function hasImage() { return !empty($this->image_); }
+    public function hasImage() { return !empty($this->image_); }
 
     /**
      * Get the artist image.
      *
      * @return string The artist image.
      */
-    function getImage() { return $this->image_; }
+    public function getImage() { return $this->image_; }
 
     /**
      * Get the image info.
      *
      * @return ZMImageInfo The image info.
      */
-    function getImageInfo() { return ZMLoader::make("ImageInfo", $this->image_, $this->name_); }
+    public function getImageInfo() { return ZMLoader::make("ImageInfo", $this->image_, $this->name_); }
 
     /**
      * Check if a URL is available.
      *
      * @return boolean <code>true</code> if a URL is available, <code>false</code> if not.
      */
-    function hasUrl() { return !empty($this->url_); }
+    public function hasUrl() { return !empty($this->url_); }
 
     /**
      * Get the artist URL.
      *
      * @return string The artist URL.
      */
-    function getUrl() { return $this->url_; }
+    public function getUrl() { return $this->url_; }
 
     /**
      * Get the record company.
      *
      * @return ZMRecordCompany The record company.
      */
-    function getRecordCompany() { return $this->recordCompany_; }
+    public function getRecordCompany() { return $this->recordCompany_; }
+
+    /**
+     * Set the artist id.
+     *
+     * @param int id The artist id.
+     */
+    public function setArtistId($id) { $this->artistId_ = $id; }
+
+    /**
+     * Set the artist name.
+     *
+     * @param string name The artist name.
+     */
+    public function setName($name) { $this->name_ = $name; }
+
+    /**
+     * Set the genre.
+     *
+     * @param string genre The genre.
+     */
+    public function setGenre($genre) { $this->genre_ = $genre; }
+
+    /**
+     * Set the artist image.
+     *
+     * @param string image The artist image.
+     */
+    public function setImage($image) { $this->image_ = $image; }
+
+    /**
+     * Set the artist URL.
+     *
+     * @param string url The artist URL.
+     */
+    public function setUrl($url) { $this->url_ = $url; }
+
+    /**
+     * Set the record company.
+     *
+     * @param ZMRecordCompany recordCompany The record company.
+     */
+    public function setRecordCompany($recordCompany) { $this->recordCompany_ = $recordCompany; }
 
 }
 

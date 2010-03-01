@@ -34,6 +34,8 @@
  * @version $Id$
  */
 class ZMAdminMenu extends ZMObject {
+    /** Extras menu id. */
+    const MENU_EXTRAS = 'menu_extras';
     /** Plugins menu id. */
     const MENU_PLUGINS = 'menu_plugins';
     /** Tools menu id. */

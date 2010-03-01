@@ -52,25 +52,18 @@
       </fieldset>
   <?php } ?>
 
-  <?php 
-      // set up services
-      $music = ZMLoader::make("Music");
-      $mediaManager = ZMLoader::make("MediaManager");
-      // get artist information
-      $artist = $music->getArtistForProductId($currentProduct->getId());
-      // get musc collections for this product/artist
-      $collections = $mediaManager->getMediaCollectionsForProductId($currentProduct->getId());
-  ?>
-  <fieldset>
-      <legend><?php zm_l10n("Additional Music Info") ?></legend>
-      <p><?php zm_l10n("Genre:") ?> <?php echo $artist->getGenre() ?></p>
-      <?php if ($artist->hasUrl()) { ?>
-          <p>
-              <?php zm_l10n("Homepage:") ?>
-              <a href="<?php zm_redirect_href('url', $artist->getUrl()) ?>"<?php zm_href_target() ?>><?php echo $artist->getName() ?></a>
-          </p>
-      <?php } ?>
-  </fieldset>
+  <?php if ($artist) { ?>
+    <fieldset>
+        <legend><?php zm_l10n("Additional Music Info") ?></legend>
+        <p><?php zm_l10n("Genre:") ?> <?php echo $artist->getGenre() ?></p>
+        <?php if ($artist->hasUrl()) { ?>
+            <p>
+                <?php zm_l10n("Homepage:") ?>
+                <a href="<?php echo $net->trackLink('url', $artist->getUrl()) ?>"<?php $html->hrefTarget() ?>><?php echo $artist->getName() ?></a>
+            </p>
+        <?php } ?>
+    </fieldset>
+  <?php } ?>
 
   <?php if (0 < count($collections)) { ?>
       <fieldset>
@@ -79,8 +72,9 @@
               <div class="mcol">
                   <h4><?php echo $collection->getName() ?></h4>
                   <ul>
-                      <?php foreach($collection->getItems() as $media) { $type = $media->getType(); ?>
-                          <li><a href="<?php zm_media_href($media->getFilename()) ?>"><?php echo $media->getFilename() ?></a> (<?php echo $type->getName() ?>)</li>
+                      <?php foreach($collection->getItems() as $mediaItem) { ?>
+                      <li><a href="<?php echo $net->mediaUrl($mediaItem->getFilename()) ?>"><?php echo $mediaItem->getFilename() ?></a> 
+                          (<?php echo $mediaItem->getType()->getName() ?>)</li>
                       <?php } ?>
                   </ul>
               </div>

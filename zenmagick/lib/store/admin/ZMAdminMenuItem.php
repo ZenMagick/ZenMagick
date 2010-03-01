@@ -100,8 +100,13 @@ class ZMAdminMenuItem extends ZMObject {
      */
     public function getURL() {
         if (null !== $this->function_) {
-            $params = 'fkt='.$this->function_;
-            return ZMRequest::instance()->getToolbox()->admin->url('plugin_page',$params, false, false);
+            //TODO: remove again...
+            if (ZMLangUtils::endsWith($this->function_, '.php')) {
+                return $this->function_;
+            } else {
+                $params = 'fkt='.$this->function_;
+                return ZMRequest::instance()->getToolbox()->admin->url('plugin_page',$params, false, false);
+            }
         }
         return null;
     }

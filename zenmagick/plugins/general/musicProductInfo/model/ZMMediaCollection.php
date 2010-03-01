@@ -28,12 +28,13 @@
  * A collection of media items.
  *
  * @author mano
- * @package org.zenmagick.plugins.zm_product_music_info.model
+ * @package org.zenmagick.plugins.musicProductInfo.model
  * @version $Id$
  */
 class ZMMediaCollection extends ZMObject {
-    var $name_;
-    var $items_;
+    private $collectionId_;
+    private $name_;
+    private $items_;
 
 
     /**
@@ -41,6 +42,7 @@ class ZMMediaCollection extends ZMObject {
      */
     function __construct() {
         parent::__construct();
+        $this->collectionId_ = 0;
         $this->name_ = '';
         $this->items_ = array();
     }
@@ -54,19 +56,52 @@ class ZMMediaCollection extends ZMObject {
 
 
     /**
-     * Get the media collection name.
+     * Get the collection id.
      *
-     * @return string The media collection name.
+     * @return int The collection id.
      */
-    function getName() { return $this->name_; }
+    public function getCollectionId() { return $this->collectionId_; }
+
+    /**
+     * Get the collection name.
+     *
+     * @return string The collection name.
+     */
+    public function getName() { return $this->name_; }
 
     /**
      * Get the media items.
      *
      * @return array A list of <code>ZMMedia</code> objects.
      */
-    function getItems() { return $this->items_; }
+    public function getItems() { return $this->items_; }
+
+    /**
+     * Set the collection id.
+     *
+     * @param int collectionId The collection id.
+     */
+    public function setCollectionId($collectionId) { $this->collectionId_ = $collectionId; }
+
+    /**
+     * Set the collection name.
+     *
+     * @param string name The collection name.
+     */
+    public function setName($name) { $this->name_ = $name; }
+
+    /**
+     * Set the media items.
+     *
+     * @param array items A list of <code>ZMMedia</code> objects.
+     */
+    public function setItems($items) { $this->items_ = $items; }
+
+    /**
+     * Add a single media items.
+     *
+     * @param ZMMedia item A single <code>ZMMedia</code> object.
+     */
+    public function addItem($item) { $this->items_[] = $item; }
 
 }
-
-?>
