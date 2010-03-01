@@ -28,13 +28,14 @@
  * A record company.
  *
  * @author mano
- * @package org.zenmagick.plugins.zm_product_music_info.model
+ * @package org.zenmagick.plugins.musicProductInfo.model
  * @version $Id$
  */
 class ZMRecordCompany extends ZMObject {
-    var $id_;
-    var $name_;
-    var $url_;
+    private $recordCompanyId_;
+    private $name_;
+    private $image_;
+    private $url_;
 
 
     /**
@@ -42,8 +43,9 @@ class ZMRecordCompany extends ZMObject {
      */
     function __construct() {
         parent::__construct();
-        $this->id_ = 0;
+        $this->recordCompanyId_ = 0;
         $this->name_ = '';
+        $this->image_ = null;
         $this->url_ = null;
     }
 
@@ -60,29 +62,69 @@ class ZMRecordCompany extends ZMObject {
      *
      * @return int The record company id.
      */
-    function getId() { return $this->id_; }
+    public function getRecordCompanyId() { return $this->recordCompanyId_; }
 
     /**
      * Get the record company name.
      *
      * @return string The name.
      */
-    function getName() { return $this->name_; }
+    public function getName() { return $this->name_; }
+
+    /**
+     * Check if an image is available.
+     *
+     * @return boolean <code>true</code> if an image is available, <code>false</code> if not.
+     */
+    public function hasImage() { return !empty($this->image_); }
+
+    /**
+     * Get the record company image.
+     *
+     * @return string The record company image.
+     */
+    public function getImage() { return $this->image_; }
 
     /**
      * Checks if a URL exists for this company.
      *
      * @return boolean <code>true</code> if a URL exists, <code>false</code> if not.
      */
-    function hasUrl() { return !empty($this->url_); }
+    public function hasUrl() { return !empty($this->url_); }
 
     /**
      * Get the record company ULR.
      *
      * @return string The URL.
      */
-    function getUrl() { return $this->url_; }
+    public function getUrl() { return $this->url_; }
+
+    /**
+     * Set the record company id.
+     *
+     * @param int id The record company id.
+     */
+    public function setRecordCompanyId($id) { $this->recordCompanyId_ = $id; }
+
+    /**
+     * Set the record company name.
+     *
+     * @param string name The name.
+     */
+    public function setName($name) { $this->name_ = $name; }
+
+    /**
+     * Set the record company image.
+     *
+     * @param string image The record company image.
+     */
+    public function setImage($image) { $this->image_ = $image; }
+
+    /**
+     * Set the record company ULR.
+     *
+     * @param string url The URL.
+     */
+    public function setUrl($url) { $this->url_ = $url; }
 
 }
-
-?>

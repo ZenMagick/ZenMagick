@@ -91,6 +91,11 @@ class ZMMusicProductInfoPlugin extends Plugin {
         // attach mediaUrl method to the $net toolbox tool
         ZMObject::attachMethod('mediaUrl', 'ZMToolboxNet', 
             array($this, 'mediaUrl'));
+
+        // add mapping for this product type
+        ZMUrlManager::instance()->setMapping('product_info', array(
+            'product_music_info' => array('template' => 'product_music_info')
+          ), false);
     }
 
     /**
@@ -98,7 +103,8 @@ class ZMMusicProductInfoPlugin extends Plugin {
      */
     public function onZMViewStart($args) {
         $view = $args['view'];
-        if ('music_product_info' == $view->getViewId()) {
+        if ('product_music_info' == $view->getViewId()) {
+            $request = $args['request'];
             $musicManager = ZMMusicManager::instance();
             // artist information
             $artist = $musicManager->getArtistForProductId($request->getProductId());

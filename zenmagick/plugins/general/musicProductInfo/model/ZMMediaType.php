@@ -28,13 +28,13 @@
  * A single media type.
  *
  * @author mano
- * @package org.zenmagick.plugins.zm_product_music_info.model
+ * @package org.zenmagick.plugins.musicProductInfo.model
  * @version $Id$
  */
 class ZMMediaType extends ZMObject {
-    var $id_;
-    var $name_;
-    var $extension_;
+    private $id_;
+    private $name_;
+    private $extension_;
 
 
     /**
@@ -60,22 +60,41 @@ class ZMMediaType extends ZMObject {
      *
      * @return int The media type id.
      */
-    function getId() { return $this->id_; }
+    public function getId() { return $this->id_; }
 
     /**
      * Get the media type name.
      *
      * @return string The media type name.
      */
-    function getName() { return $this->name_; }
+    public function getName() { return $this->name_; }
 
     /**
      * Get the media type file extension.
      *
      * @return string The media type file extension.
      */
-    function getExtension() { return $this->extension_; }
+    public function getExtension() { return $this->extension_; }
+
+    /**
+     * Set the media type id.
+     *
+     * @param int id The media type id.
+     */
+    public function setId($id) { $this->id_ = $id; }
+
+    /**
+     * Set the media type name.
+     *
+     * @param string name The media type name.
+     */
+    public function setName($name) { $this->name_ = $name; }
+
+    /**
+     * Set the media type file extension.
+     *
+     * @param string extension The media type file extension.
+     */
+    public function setExtension($extension) { $this->extension_ = $extension; }
 
 }
-
-?>

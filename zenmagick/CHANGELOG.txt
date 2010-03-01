@@ -132,6 +132,9 @@ Release 0.9.9
 - add basic support for product meta tags
 - fix: do not display inactive categories
 - allow plugins to add to the extras menu
+- resurrect and improve music product info plugin; remove extras in full
+  release and allow plugin to populate this on demand
+- add music related SQL to musicProductInfo plugin
 
 Release 0.9.8
 - add Savant3 and experimental views (not used yet)
