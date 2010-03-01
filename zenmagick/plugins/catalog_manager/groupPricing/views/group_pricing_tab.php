@@ -23,51 +23,71 @@
  * $Id$
  */
 ?>
-  <form action="<?php echo $toolbox->admin->url() ?>" method="GET">
-    <?php echo $form->hidden($defaultUrlParams) ?>
-    <input type="hidden" name="main_page" value="catalog_manager">
-    <input type="hidden" name="fkt" value="GroupPricingTab">
-    <h2>Group Pricing ( <?php echo $toolbox->form->idpSelect('groupId', $priceGroups, $groupId, array('size'=>1, 'onchange'=>'this.form.submit()')) ?> )</h2>
-  </form>
+<?php
+  $typeMap = array('#' => 'Fixed Price', '$' => 'Amount', '%' => 'Percent');
+?>
+<form action="<?php echo $toolbox->admin->url() ?>" method="GET">
+  <?php echo $form->hidden($defaultUrlParams) ?>
+  <input type="hidden" name="main_page" value="catalog_manager">
+  <input type="hidden" name="fkt" value="GroupPricingTab">
+  <h2>Group Pricing ( <?php echo $toolbox->form->idpSelect('groupId', $priceGroups, $groupId, array('size'=>1, 'onchange'=>'this.form.submit()')) ?> )</h2>
+</form>
 
-  <form action="<?php echo $toolbox->admin->url(null, $defaultUrlParams) ?>" method="POST">
-    <fieldset>
-      <legend>Price/Discount</legend>
-      <div>
-        <input type="hidden" name="groupId" value="<?php echo $groupId ?>">
-        <input type="hidden" name="groupPricingId" value="<?php echo $request->getParameter('groupPricingId') ?>">
-      </div>
-      <p>
-        <label for="discount">Discount</label> 
-        <input type="text" id="discount" name="discount" value="<?php echo $request->getParameter('discount') ?>">
-
-        <?php $type = $request->getParameter('type'); ?>
-        <label for="type">Type</label> 
-        <select id="type" name="type">
-          <option value="#"<?php if ('#' == $type) { echo ' selected'; } ?>>Fixed Price</option>
-          <option value="%"<?php if ('%' == $type) { echo ' selected'; } ?>>Percent</option>
-          <option value="$"<?php if ('$' == $type) { echo ' selected'; } ?>>Amount</option>
-        </select>
-      </p>
-      <p>
-        <input type="checkbox" id="regularPriceOnly" name="regularPriceOnly" value="1"<?php $toolbox->form->checked($request->getParameter('regularPriceOnly')) ?>>
-        <label for="regularPriceOnly">Do not allow discount on sale/special</label>
-      </p>
-      <p>
-        <label for="startDate">Start Date</label> 
-        <input type="text" id="startDate" name="startDate" value="<?php echo $toolbox->locale->shortDate($request->getParameter('startDate')) ?>">
-        <label for="endDate">End Date</label> 
-        <input type="text" id="endDate" name="endDate" value="<?php echo $toolbox->locale->shortDate($request->getParameter('endDate')) ?>">
-        <?php echo UI_DATE_FORMAT ?>, for example: <?php echo UI_DATE_FORMAT_SAMPLE ?>
-      </p>
-    </fieldset>
+<form action="<?php echo $toolbox->admin->url(null, $defaultUrlParams) ?>" method="POST">
+  <fieldset>
+    <legend>Price/Discount</legend>
+    <div>
+      <input type="hidden" name="groupId" value="<?php echo $groupId ?>">
+      <input type="hidden" name="groupPricingId" value="<?php echo $request->getParameter('groupPricingId') ?>">
+    </div>
     <p>
-      <input type="hidden" name="fkt" value="GroupPricingTab">
-      <?php if (0 < $request->getParameter('groupPricingId')) { ?>
-          <input type="submit" name="update" value="Update">
-          <a href="<?php echo $toolbox->net->url('', $zm_nav_params.'&groupPricingId='.$request->getParameter('groupPricingId').'&delete=true') ?>">Delete</a>
-      <?php } else { ?>
-          <input type="submit" name="create" value="Create">
-      <?php } ?>
+      <label for="discount">Discount</label> 
+      <input type="text" id="discount" name="discount" value="<?php echo $request->getParameter('discount') ?>">
+
+      <?php $type = $request->getParameter('type'); ?>
+      <label for="type">Type</label> 
+      <select id="type" name="type">
+        <option value="#"<?php if ('#' == $type) { echo ' selected'; } ?>>Fixed Price</option>
+        <option value="%"<?php if ('%' == $type) { echo ' selected'; } ?>>Percent</option>
+        <option value="$"<?php if ('$' == $type) { echo ' selected'; } ?>>Amount</option>
+      </select>
     </p>
-  </form>
+    <p>
+      <input type="checkbox" id="allowSaleSpecial" name="allowSaleSpecial" value="1"<?php $toolbox->form->checked($request->getParameter('allowSaleSpecial')) ?>>
+      <label for="allowSaleSpecial">Allow discount on sale/special</label>
+    </p>
+    <p>
+      <label for="startDate">Start Date</label> 
+      <input type="text" id="startDate" name="startDate" value="<?php echo $toolbox->locale->shortDate($request->getParameter('startDate')) ?>">
+      <label for="endDate">End Date</label> 
+      <input type="text" id="endDate" name="endDate" value="<?php echo $toolbox->locale->shortDate($request->getParameter('endDate')) ?>">
+      <?php echo UI_DATE_FORMAT ?>, for example: <?php echo UI_DATE_FORMAT_SAMPLE ?>
+    </p>
+  </fieldset>
+  <p>
+    <input type="hidden" name="fkt" value="GroupPricingTab">
+    <?php if (0 < $request->getParameter('groupPricingId')) { ?>
+        <input type="submit" name="update" value="Update">
+        <a href="<?php echo $toolbox->net->url('', $zm_nav_params.'&groupPricingId='.$request->getParameter('groupPricingId').'&delete=true') ?>">Delete</a>
+    <?php } else { ?>
+        <input type="submit" name="create" value="Create">
+    <?php } ?>
+  </p>
+</form>
+
+<?php if (0 < count($productGroupPricings)) { ?>
+  <fieldset>
+    <legend>Current Discounts/Prices</legend>
+    <table>
+      <?php foreach ($productGroupPricings as $productGroupPricing) { ?>
+        <tr>
+          <td><?php echo $typeMap[$productGroupPricing->getType()] ?></td>
+          <td><?php echo $productGroupPricing->getDiscount() ?></td>
+          <td><?php echo ($productGroupPricing->isAllowSaleSpecial() ? 'Y' : 'N') ?></td>
+          <td><?php echo $productGroupPricing->getStartDate() ?></td>
+          <td><?php echo $productGroupPricing->getEndDate() ?></td>
+        </tr>
+      <?php } ?>
+    </table>
+  </fieldset>
+<?php } ?>

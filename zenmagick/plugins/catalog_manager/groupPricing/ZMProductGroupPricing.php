@@ -37,7 +37,7 @@ class ZMProductGroupPricing extends ZMObject {
     private $groupId_;
     private $discount_;
     private $type_;
-    private $regularPriceOnly_;
+    private $allowSaleSpecial_;
     private $startDate_;
     private $endDate_;
     private $beforeTax_;
@@ -54,7 +54,7 @@ class ZMProductGroupPricing extends ZMObject {
         $this->groupId_ = 0;
         $this->discount_ = 0;
         $this->type_ = '%';
-        $this->regularPriceOnly_ = true;
+        $this->allowSaleSpecial_ = false;
         $this->startDate_ = null;
         $this->endDate_ = null;
         $this->beforeTax_ = true;
@@ -79,7 +79,7 @@ class ZMProductGroupPricing extends ZMObject {
         $this->groupId_ = ZMRequest::instance()->getParameter('groupId', '0');
         $this->discount_ = ZMRequest::instance()->getParameter('discount', '0');
         $this->type_ = ZMRequest::instance()->getParameter('type', '%');
-        $this->regularPriceOnly_ = ZMRequest::instance()->getParameter('regularPriceOnly', 0);
+        $this->allowSaleSpecial_ = ZMRequest::instance()->getParameter('allowSaleSpecial', false);
         $startDate = ZMRequest::instance()->getParameter('startDate');
         if (empty($startDate)) {
             // default to current date
@@ -175,18 +175,18 @@ class ZMProductGroupPricing extends ZMObject {
     public function setType($type) { $this->type_ = $type; }
 
     /**
-     * Check if discount applies to regular prices only.
+     * Check if discount also applies to sale/special prices.
      *
-     * @return boolean <code>true<code> if this discount is valid for regular prices only, <code>false</code> if not.
+     * @return boolean <code>true<code> if this discount is valid for sale/special prices too, <code>false</code> if not.
      */
-    public function isRegularPriceOnly() { return $this->regularPriceOnly_; }
+    public function isAllowSaleSpecial() { return $this->allowSaleSpecial_; }
 
     /**
-     * Configure whether the discount applies to regular prices only or not.
+     * Configure whether the discount also applies to sale/special prices or not.
      *
-     * @param boolean regularPriceOnly <code>true<code> if this discount is valid for regular prices only, <code>false</code> if not.
+     * @param boolean allowSaleSpecial <code>true<code> if this discount is also valid for sale/special prices, <code>false</code> if not.
      */
-    public function setRegularPriceOnly($regularPriceOnly) { $this->regularPriceOnly_ = $regularPriceOnly; }
+    public function setAllowSaleSpecial($allowSaleSpecial) { $this->allowSaleSpecial_ = $allowSaleSpecial; }
 
     /**
      * Get the start date.

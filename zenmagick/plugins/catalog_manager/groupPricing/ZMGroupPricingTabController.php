@@ -50,7 +50,8 @@ class ZMGroupPricingTabController extends ZMPluginAdminController {
     protected function getCommonViewData($request) {
         $priceGroups = ZMGroupPricing::instance()->getPriceGroups();
         $groupId = $request->getParameter('groupId', $priceGroups[0]->getId());
-        return array('groupId' => $groupId, 'priceGroups' => $priceGroups);
+        $productGroupPricings = ZMProductGroupPricings::instance()->getProductGroupPricing($request->getProductId(), $groupId, false);
+        return array('groupId' => $groupId, 'priceGroups' => $priceGroups, 'productGroupPricings' => $productGroupPricings);
     }
 
     /**

@@ -95,7 +95,7 @@ class Offers extends ZMOffers {
 
             $productGroupPricings = ZMProductGroupPricings::instance()->getProductGroupPricing($this->product_->getId(), $priceGroup->getId(), true);
             if (0 < count($productGroupPricings)) {
-                $this->productGroupPricing_ = $productGroupPricings[0];
+                $this->productGroupPricing_ = array_pop($productGroupPricings);
             }
         }
 
@@ -141,7 +141,7 @@ class Offers extends ZMOffers {
     public function getSalePrice($tax=true) {
         $productGroupPricing = $this->getProductGroupPricing();
 
-        if (null != $productGroupPricing && !$productGroupPricing->isRegularPriceOnly()) {
+        if (null != $productGroupPricing && $productGroupPricing->isAllowSaleSpecial()) {
             return $this->adjustPrice('getSalePrice', $tax, $productGroupPricing);
         }
 
@@ -154,7 +154,7 @@ class Offers extends ZMOffers {
     public function getSpecialPrice($tax=true) {
         $productGroupPricing = $this->getProductGroupPricing();
 
-        if (null != $productGroupPricing && !$productGroupPricing->isRegularPriceOnly()) {
+        if (null != $productGroupPricing && $productGroupPricing->isAllowSaleSpecial()) {
             return $this->adjustPrice('getSpecialPrice', $tax, $productGroupPricing);
         }
 

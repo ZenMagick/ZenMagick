@@ -14,7 +14,7 @@ CREATE TABLE zm_group_pricing (
   group_id int(11) NOT NULL,
   discount decimal(15,4) NOT NULL default '0.0000',
   type varchar(2) NOT NULL default '%',
-  regular_price_only tinyint(1) NOT NULL default 1,
+  allow_sale_special tinyint(1) NOT NULL default 1,
   start_date datetime NOT NULL,
   end_date datetime,
   PRIMARY KEY (group_pricing_id),
