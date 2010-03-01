@@ -32,6 +32,9 @@
  * @version $Id$
  */
 class Offers extends ZMOffers {
+    private $productGroupPricing_;
+    private $lookupDone_;
+
 
     /**
      * Create new offers instance for the given product.
@@ -40,6 +43,8 @@ class Offers extends ZMOffers {
      */
     function __construct($product) {
         parent::__construct($product);
+        $this->productGroupPricing_ = null;
+        $this->lookupDone_ = false;
     }
 
     /**
@@ -51,24 +56,47 @@ class Offers extends ZMOffers {
 
 
     /**
+     * {@inheritDoc}
+     */
+    public function getProductPrice($tax=true) {
+        $price = $this->product_->getProductPrice();
+
+        // check for fixed price
+        if (null != ($productGroupPricing = $this->getProductGroupPricing())) {
+            if ('#' == $productGroupPricing->getType()) {
+                $price = $productGroupPricing->getDiscount();
+            }
+        }
+
+        return $tax ? $this->getTaxRate()->addTax($price) : $price;
+    }
+
+    /**
      * Get the group pricing.
      *
-     * @return ProductGroupPricing A <code>ProductGroupPricing</code> instance or <code>null</code>.
+     * @return ZMProductGroupPricing A <code>ProductGroupPricing</code> instance or <code>null</code>.
      */
     private function getProductGroupPricing() {
-        $account = ZMRequest::instance()->getAccount();
-        if (null == $account) {
-            // no account, no price group
-            return null;
+        if (!$this->lookupDone_) {
+            $this->lookupDone_ = true;
+            $account = ZMRequest::instance()->getAccount();
+            if (null == $account) {
+                // no account, no price group
+                $this->productGroupPricing_ = null;
+                return null;
+            }
+
+            $priceGroup = $account->getPriceGroup();
+            if (null == $priceGroup) {
+                // no price group
+                $this->productGroupPricing_ = null;
+                return null;
+            }
+
+            $this->productGroupPricing_ = ZMProductGroupPricingService::instance()->getProductGroupPricing($this->product_->getId(), $priceGroup->getId(), true);
         }
 
-        $priceGroup = $account->getPriceGroup();
-        if (null == $priceGroup) {
-            // no price group
-            return null;
-        }
-
-        return ProductGroupPricingService::instance()->getProductGroupPricing($this->product_->getId(), $priceGroup->getId(), true);
+        return $this->productGroupPricing_;
     }
 
     /**
@@ -144,5 +172,3 @@ class Offers extends ZMOffers {
     }
 
 }
-
-?>

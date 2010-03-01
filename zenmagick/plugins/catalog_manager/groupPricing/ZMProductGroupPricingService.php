@@ -78,12 +78,12 @@ class ZMProductGroupPricingService extends ZMObject {
      */
     public function getProductGroupPricing($productId, $groupId, $active=true) {
         if ($active) {
-            $dateLimit = ' AND start_date <= now() AND (end_date > now() or end_date is NULL) ';
+            $dateLimit = ' AND start_date <= now() AND (end_date > now() OR end_date is NULL OR end_date = :endDate) ';
         }
         $sql = "SELECT * FROM " . ZM_TABLE_GROUP_PRICING . "
                 WHERE products_id = :productId
                 AND group_id = :groupId".$dateLimit;
-        $args = array('productId' => $productId, 'groupId' => $groupId);
+        $args = array('productId' => $productId, 'groupId' => $groupId, 'endDate' => ZMDatabase::NULL_DATETIME);
         return ZMRuntime::getDatabase()->querySingle($sql, $args, ZM_TABLE_GROUP_PRICING, 'ProductGroupPricing');
     }
 
@@ -110,5 +110,3 @@ class ZMProductGroupPricingService extends ZMObject {
     }
 
 }
-
-?>

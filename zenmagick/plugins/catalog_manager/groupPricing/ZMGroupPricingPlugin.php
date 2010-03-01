@@ -77,5 +77,3 @@ class ZMGroupPricingPlugin extends Plugin implements ZMRequestHandler {
     }
 
 }
-
-?>

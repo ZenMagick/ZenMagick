@@ -217,5 +217,3 @@ class ZMProductGroupPricing extends ZMObject {
     public function setEndDate($date) { $this->endDate_ = $date; }
 
 }
-
-?>

@@ -32,7 +32,7 @@
 
   <form action="<?php echo $toolbox->admin->url(null, $defaultUrlParams) ?>" method="POST">
     <fieldset>
-      <legend>Discount</legend>
+      <legend>Price/Discount</legend>
       <div>
         <input type="hidden" name="groupId" value="<?php echo $groupId ?>">
         <input type="hidden" name="groupPricingId" value="<?php echo $request->getParameter('groupPricingId') ?>">
@@ -44,6 +44,7 @@
         <?php $type = $request->getParameter('type'); ?>
         <label for="type">Type</label> 
         <select id="type" name="type">
+          <option value="#"<?php if ('#' == $type) { echo ' selected'; } ?>>Fixed Price</option>
           <option value="%"<?php if ('%' == $type) { echo ' selected'; } ?>>Percent</option>
           <option value="$"<?php if ('$' == $type) { echo ' selected'; } ?>>Amount</option>
         </select>
