@@ -107,7 +107,7 @@ class ZMMusicProductInfoPlugin extends Plugin {
             $request = $args['request'];
             $musicManager = ZMMusicManager::instance();
             // artist information
-            $artist = $musicManager->getArtistForProductId($request->getProductId());
+            $artist = $musicManager->getArtistForProductId($request->getProductId(), $request->getSession()->getLanguageId());
             // musc collections for this product/artist
             $collections = $musicManager->getMediaCollectionsForProductId($request->getProductId());
             $view->setVar('musicManager', $musicManager);
