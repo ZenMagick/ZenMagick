@@ -165,7 +165,7 @@ class ZMMusicManager extends ZMObject {
      *
      * @param int productId The product id.
      * @param int languageId The language id.
-     * @return ZMArtist Artist information.
+     * @return ZMArtist Artist information or <code>null</code>.
      */
     public function getArtistForProductId($productId, $languageId) {
         $sql = "SELECT * FROM " . TABLE_PRODUCT_MUSIC_EXTRA . " WHERE products_id = :productId";
@@ -173,6 +173,10 @@ class ZMMusicManager extends ZMObject {
 
         $sql = "SELECT * FROM " . TABLE_RECORD_ARTISTS . " WHERE artists_id = :artistId";
         $artist = ZMRuntime::getDatabase()->querySingle($sql, array('artistId' => $extraInfo['artistId']), TABLE_RECORD_ARTISTS, 'Artist');
+
+        if (null == $artist) {
+            return null;
+        }
 
         $sql = "SELECT * FROM " . TABLE_RECORD_ARTISTS_INFO . " WHERE artists_id = :artistId AND languages_id = :languageId";
         $args = array('artistId' => $artist->getArtistId(), 'languageId' => $languageId);
