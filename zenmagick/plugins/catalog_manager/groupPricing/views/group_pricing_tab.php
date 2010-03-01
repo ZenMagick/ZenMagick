@@ -24,7 +24,7 @@
  */
 ?>
   <form action="<?php echo $toolbox->admin->url() ?>" method="GET">
-    <?php $toolbox->form->hidden($defaultUrlParams) ?>
+    <?php echo $form->hidden($defaultUrlParams) ?>
     <input type="hidden" name="main_page" value="catalog_manager">
     <input type="hidden" name="fkt" value="GroupPricingTab">
     <h2>Group Pricing ( <?php echo $toolbox->form->idpSelect('groupId', $priceGroups, $groupId, array('size'=>1, 'onchange'=>'this.form.submit()')) ?> )</h2>

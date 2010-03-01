@@ -93,7 +93,10 @@ class Offers extends ZMOffers {
                 return null;
             }
 
-            $this->productGroupPricing_ = ZMProductGroupPricings::instance()->getProductGroupPricing($this->product_->getId(), $priceGroup->getId(), true);
+            $productGroupPricings = ZMProductGroupPricings::instance()->getProductGroupPricing($this->product_->getId(), $priceGroup->getId(), true);
+            if (0 < count($productGroupPricings)) {
+                $this->productGroupPricing_ = $productGroupPricings[0];
+            }
         }
 
         return $this->productGroupPricing_;

@@ -42,32 +42,41 @@ class ZMGroupPricingTabController extends ZMPluginAdminController {
 
 
     /**
+     * Get shared page data.
+     *
+     * @param ZMRequest request The current request.
+     * @return array Some data map.
+     */
+    protected function getCommonViewData($request) {
+        $priceGroups = ZMGroupPricing::instance()->getPriceGroups();
+        $groupId = $request->getParameter('groupId', $priceGroups[0]->getId());
+        return array('groupId' => $groupId, 'priceGroups' => $priceGroups);
+    }
+
+    /**
      * {@inheritDoc}
      */
     public function processGet($request) {
-        $priceGroups = ZMGroupPricing::instance()->getPriceGroups();
-        $groupId = $request->getParameter('groupId', $priceGroups[0]->getId());
-
         // need to do this to for using PluginAdminView rather than SimplePluginFormView
-        return $this->findView(null, array('groupId' => $groupId, 'priceGroups' => $priceGroups));
+        return $this->findView(null, $this->getCommonViewData($request));
     }
 
     /**
      * {@inheritDoc}
      */
     public function processPost($request) {
-        $groupPricingService = ZMLoader::make("ProductGroupPricingService");
-
         $productGroupPricing = ZMLoader::make("ProductGroupPricing");
         $productGroupPricing->populate();
         if (0 == $productGroupPricing->getId()) {
             // create
-            $productGroupPricing = $groupPricingService->createProductGroupPricing($productGroupPricing);
+            $productGroupPricing = ZMProductGroupPricings::instance()->createProductGroupPricing($productGroupPricing);
         } else {
             // update
-            $productGroupPricing = $groupPricingService->updateProductGroupPricing($productGroupPricing);
+            $productGroupPricing = ZMProductGroupPricings::instance()->updateProductGroupPricing($productGroupPricing);
         }
-        return $this->getCatalogManagerRedirectView($request);
+
+        // need to do this to for using PluginAdminView rather than SimplePluginFormView
+        return $this->findView(null, $this->getCommonViewData($request));
     }
 
 }
