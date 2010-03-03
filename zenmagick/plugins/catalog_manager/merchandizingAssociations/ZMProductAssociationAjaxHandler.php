@@ -36,12 +36,12 @@ class ZMProductAssociationAjaxHandler {
      *
      * @param mixed target The target Ajax controller (here <code>ZMAjaxCatalogController</code>).
      */
-    public function getProductAssociationsForProductIdJSON($target) {
-        $productId = ZMRequest::getParameter('productId', 0);
-        $type = ZMRequest::getParameter('type', 0);
+    public function getProductAssociationsForProductIdJSON($target, $request) {
+        $productId = $request->getProductId();
+        $type = $request->getParameter('type', 0);
         $activeOnly = true;
         if (ZMSettings::get('isAdmin')) {
-            $activeOnly = ZMRequest::getParameter('active', true);
+            $activeOnly = $request->getParameter('active', true);
         }
 
         $flatObj = $target->flattenObject(ZMProductAssociations::instance()->getProductAssociationsForProductId($productId, $type, $activeOnly), 
