@@ -33,6 +33,12 @@
       $request->setParameter('main_page', 'index');
   }
 
+  /* TODO: use once a new admin UI is done
+  ZMDispatcher::dispatch($request);
+  Runtime::finish();
+  exit;
+  */
+
   // use default mappings only, taken from ZMDispatcher...
   $controller = $request->getController();
   $view = null;
