@@ -100,7 +100,7 @@ class zm_snap_affiliate extends Plugin {
         ZMUrlMapper::instance()->setMappingInfo('affiliate_main', array('viewId' => 'signup', 'view' => 'affiliate_signup', 'viewDefinition' => 'RedirectView'));
 
         // sacs mappings
-        ZMZenCartUserSacsHandler::instance()->setMapping('affiliate_main');
+        ZMZenCartAccountSacsHandler::instance()->setMapping('affiliate_main');
     }
 
     /**

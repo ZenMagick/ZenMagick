@@ -56,6 +56,21 @@ class ZMAdminUsers extends ZMObject {
 
 
     /**
+     * Add a few things.
+     *
+     * @param ZMAdminUser user The user to finalize.
+     * @return ZMAdminUser Finalized user.
+     */
+    protected function finalizeUser($user) {
+        // database 1 == NOT demo...
+        $user->setDemo(!$user->isDemo());
+
+        //TODO: populate roles
+
+        return $user;
+    }
+
+    /**
      * Get user for the given id.
      *
      * @param int id The user id.
@@ -66,7 +81,7 @@ class ZMAdminUsers extends ZMObject {
                 FROM " . TABLE_ADMIN . "
                 WHERE admin_id = :id";
         $args = array('id' => $id);
-        return ZMRuntime::getDatabase()->querySingle($sql, $args, TABLE_ADMIN, 'AdminUser');
+        return $this->finalizeUser(ZMRuntime::getDatabase()->querySingle($sql, $args, TABLE_ADMIN, 'AdminUser'));
     }
 
     /**
@@ -80,7 +95,7 @@ class ZMAdminUsers extends ZMObject {
                 FROM " . TABLE_ADMIN . "
                 WHERE admin_name = :name";
         $args = array('name' => $name);
-        return ZMRuntime::getDatabase()->querySingle($sql, $args, TABLE_ADMIN, 'AdminUser');
+        return $this->finalizeUser(ZMRuntime::getDatabase()->querySingle($sql, $args, TABLE_ADMIN, 'AdminUser'));
     }
 
 }

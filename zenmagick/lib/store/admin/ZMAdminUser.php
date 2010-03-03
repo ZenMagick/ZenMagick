@@ -35,6 +35,7 @@ class ZMAdminUser extends ZMObject {
     private $name_;
     private $email_;
     private $password_;
+    private $demo_;
     private $roles_;
 
 
@@ -47,6 +48,7 @@ class ZMAdminUser extends ZMObject {
         $this->name_ = '';
         $this->email_ = null;
         $this->password_ = null;
+        $this->demo_ = true;
         $this->roles_ = array();
     }
 
@@ -99,6 +101,20 @@ class ZMAdminUser extends ZMObject {
      * @parm string password The password.
      */
     public function setPassword($password) { $this->password_ = $password; }
+
+    /**
+     * Check if the user is a demo user.
+     *
+     * @return boolean <code>true</code> if the user is a demo admin user.
+     */
+    public function isDemo() { return $this->demo_; }
+
+    /**
+     * Set the demo flag.
+     *
+     * @parm boolean demo The new value.
+     */
+    public function setDemo($demo) { $this->demo_ = $demo; }
 
     /**
      * Get the roles for this user.

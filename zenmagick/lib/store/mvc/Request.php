@@ -238,6 +238,19 @@ class Request extends ZMRequest {
     }
 
     /**
+     * Get the current admin user (if available).
+     *
+     * @return ZMAdminUser The user or <code>null</code>.
+     */
+    public function getAdminUser() {
+        if (isset($_SESSION['admin_id'])) {
+            return ZMAdminUsers::instance()->getUserForId($_SESSION['admin_id']);
+        }
+
+        return null;
+    }
+
+    /**
      * Get the current review id.
      *
      * @return int The current review id or <code>0</code>.

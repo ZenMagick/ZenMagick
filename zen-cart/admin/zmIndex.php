@@ -27,6 +27,7 @@
 
   // set some admin specific things...
   ZMUrlManager::instance()->clear();
+  ZMSacsManager::instance()->clear();
   ZMSettings::set('isStoreNameInTitle', false);
   ZMSettings::set('zenmagick.mvc.view.default', 'AdminView');
   if (ZMLangUtils::isEmpty($request->getRequestId())) {

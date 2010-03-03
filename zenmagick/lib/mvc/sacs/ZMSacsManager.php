@@ -52,7 +52,7 @@ class ZMSacsManager extends ZMObject {
      */
     function __construct() {
         parent::__construct();
-        $this->mappings_ = array();
+        $this->clear();
         $this->handler_ = array();
         foreach (explode(',', ZMSettings::get('zenmagick.mvc.sacs.handler')) as $class) {
             if (null != ($handler = ZMBeanUtils::getBean($class))) {
@@ -75,6 +75,13 @@ class ZMSacsManager extends ZMObject {
         return ZMObject::singleton('SacsManager');
     }
 
+
+    /**
+     * Clear all mappings.
+     */
+    public function clear() {
+        $this->mappings_ = array();
+    }
 
     /**
      * Load mappings from a YAML style string.
