@@ -679,6 +679,13 @@ array(
         'attributeValueText' => 'column=products_options_value_text;type=blob',
         'sortOrder' => 'column=products_options_sort_order;type=string'
     ),
+    'admin' => array(
+        'id' => 'column=admin_id;type=integer;key=true;auto=true',
+        'name' => 'column=admin_name;type=string',
+        'email' => 'column=admin_email;type=string',
+        'password' => 'column=admin_pass;type=string',
+        'demo' => 'column=admin_level;type=boolean'
+    ),
     'token' => array(
         'hashId' => 'column=hash_id;type=integer;key=true;auto=true',
         'hash' => 'column=hash;type=blob',

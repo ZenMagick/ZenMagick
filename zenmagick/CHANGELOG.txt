@@ -137,6 +137,7 @@ Release 0.9.9
 - add music related SQL to musicProductInfo plugin
 - hoverbox3: converted
 - fualSlimbox: converted
+- add initial admin user service and associated class
 
 Release 0.9.8
 - add Savant3 and experimental views (not used yet)
