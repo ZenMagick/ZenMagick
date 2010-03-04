@@ -61,6 +61,7 @@
   //XXX: buffer code, so redirects should still work...
   ob_start();
 
+  if (!in_array($request->getRequestId(), array('login', 'logoff', 'password_forgotten'))) {
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html <?php echo HTML_PARAMS; ?>>
@@ -101,6 +102,14 @@
   </body>
 </html>
 <?php
+  } else {
+    if (null != $view) {
+        echo $view->generate($request);
+    } else {
+        echo '<h2>Invalid request</h2>';
+    }
+  }
+
   // allow plugins and event subscribers to filter/modify the final contents; corresponds with ob_start() in init.php
   $args = ZMEvents::instance()->fireEvent(null, ZMMVCConstants::FINALISE_CONTENTS, 
           array('request' => $request, 'view' => $view, 'contents' => ob_get_clean()));

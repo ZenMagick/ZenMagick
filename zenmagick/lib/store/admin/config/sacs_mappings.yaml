@@ -4,6 +4,8 @@
 # $Id$
 #
 #
+login: 
+  secure: true
 installation: 
   roles: 
     - admin
