@@ -38,6 +38,9 @@
  * <p>To add handler dynamically the preferred way is to use <code>addHandler()</code> as the default handler list is only evaluated when
  * the manager instance is created.</p>
  *
+ * <p><strong>NOTE: The only required element for each mapping (if done via YAML) is <em>'level'</em>. It is expected to be boolean and
+ * indicates whether the configured resource requires secvu
+ *
  * @author DerManoMann
  * @package org.zenmagick.mvc
  * @version $Id$
@@ -161,8 +164,8 @@ class ZMSacsManager extends ZMObject {
      * @param string requestId The request id.
      */
     public function ensureAccessMethod($request) {
-        $secure = $this->getMappingValue($request->getRequestId(), 'level', false);
-        if ($secure && !$request->isSecure() && ZMSettings::get('isEnableSSL') && ZMSettings::get('isEnforceSSL')) {
+        $secure = ZMLangUtils::asBoolean($this->getMappingValue($request->getRequestId(), 'secure', false));
+        if ($secure && !$request->isSecure() && ZMSettings::get('zenmagick.mvc.request.secure') && ZMSettings::get('zenmagick.mvc.request.enforceSecure')) {
             $request->redirect($request->getToolbox()->net->url(null, null, true));
         }
     }

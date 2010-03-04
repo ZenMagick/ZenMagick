@@ -140,6 +140,7 @@ Release 0.9.9
 - add initial admin user service and associated class
 - renamed ZMZenCartUserSacsHandler to ZMZenCartAccountSacsHandler; this
   affects the order_status email
+- rename SSL related settings
 
 Release 0.9.8
 - add Savant3 and experimental views (not used yet)

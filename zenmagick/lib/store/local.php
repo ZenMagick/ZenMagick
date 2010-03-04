@@ -354,9 +354,11 @@
              **************************************/
 
             // use SSL
+            'zenmagick.mvc.request.secure' => ENABLE_SSL == 'true',
             'isEnableSSL' => ENABLE_SSL == 'true',
 
             // force use of SSL
+            'zenmagick.mvc.request.enforceSecure' => 'true',
             'isEnforceSSL' => true,
 
             // cookies only?

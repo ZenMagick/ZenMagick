@@ -230,6 +230,16 @@
                         'key' => 'seoRewriter',
                         'type' => 'string',
                         'desc' => 'List of SEO rewriter classes to use for SEO url generation.'
+                    ),
+                    array(
+                        'key' => 'secure',
+                        'type' => 'boolean',
+                        'desc' => 'Are secure requests enabled.'
+                    ),
+                    array(
+                        'key' => 'enforceSecure',
+                        'type' => 'boolean',
+                        'desc' => 'Are secure requests to be enforced.'
                     )
                 ),
                 'transactions' => array(
