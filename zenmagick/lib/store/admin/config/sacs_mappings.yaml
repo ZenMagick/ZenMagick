@@ -1,0 +1,41 @@
+#
+# ZenMagick admin default SACS mappings
+#
+# $Id$
+#
+#
+installation: 
+  roles: 
+    - admin
+  secure: true
+plugins: 
+  roles: 
+    - admin
+  secure: true
+catalog_manager: 
+  roles: 
+    - service
+    - admin
+  secure: true
+cache_admin: 
+  roles: 
+    - admin
+  secure: true
+l110n: 
+  roles: 
+    - admin
+  secure: true
+theme_builder: 
+  roles: 
+    - admin
+  secure: true
+static_page_editor: 
+  roles: 
+    - service
+    - admin
+  secure: true
+ezpages: 
+  roles: 
+    - service
+    - admin
+  secure: true

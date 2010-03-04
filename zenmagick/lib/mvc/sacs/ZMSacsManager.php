@@ -52,13 +52,7 @@ class ZMSacsManager extends ZMObject {
      */
     function __construct() {
         parent::__construct();
-        $this->clear();
-        $this->handler_ = array();
-        foreach (explode(',', ZMSettings::get('zenmagick.mvc.sacs.handler')) as $class) {
-            if (null != ($handler = ZMBeanUtils::getBean($class))) {
-                $this->handler_[$handler->getName()] = $handler;
-            }
-        }
+        $this->reset();
     }
 
     /**
@@ -77,10 +71,16 @@ class ZMSacsManager extends ZMObject {
 
 
     /**
-     * Clear all mappings.
+     * Reset all internal data structures.
      */
-    public function clear() {
+    public function reset() {
         $this->mappings_ = array();
+        $this->handler_ = array();
+        foreach (explode(',', ZMSettings::get('zenmagick.mvc.sacs.handler')) as $class) {
+            if (null != ($handler = ZMBeanUtils::getBean($class))) {
+                $this->handler_[$handler->getName()] = $handler;
+            }
+        }
     }
 
     /**
