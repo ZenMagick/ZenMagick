@@ -134,8 +134,10 @@ class ZMSacsManager extends ZMObject {
      * @return boolean <code>true</code> if authorization was sucessful.
      */
     public function authorize($request, $requestId, $credentials) {
+        ZMLogging::instance()->log('authorizing requestId: '.$requestId, ZMLogging::TRACE);
         foreach ($this->handler_ as $handler) {
             if (null !== ($result = $handler->evaluate($requestId, $credentials, $this))) {
+                ZMLogging::instance()->log('evaluated by: '.get_class($handler).', result: '.($result ? 'true' : 'false'), ZMLogging::TRACE);
                 if (false === $result) {
                     // not required level of authentication
                     $session = $request->getSession();
@@ -166,6 +168,7 @@ class ZMSacsManager extends ZMObject {
     public function ensureAccessMethod($request) {
         $secure = ZMLangUtils::asBoolean($this->getMappingValue($request->getRequestId(), 'secure', false));
         if ($secure && !$request->isSecure() && ZMSettings::get('zenmagick.mvc.request.secure') && ZMSettings::get('zenmagick.mvc.request.enforceSecure')) {
+            ZMLogging::instance()->log('redirecting to enforce secure access: '.$request->getRequestId(), ZMLogging::TRACE);
             $request->redirect($request->getToolbox()->net->url(null, null, true));
         }
     }
