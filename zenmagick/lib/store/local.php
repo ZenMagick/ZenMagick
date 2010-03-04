@@ -354,7 +354,7 @@
              **************************************/
 
             // use SSL
-            'zenmagick.mvc.request.secure' => ENABLE_SSL == 'true',
+            'zenmagick.mvc.request.secure' => ENABLE_SSL == 'true' || (defined('ENABLE_SSL_ADMIN') && ENABLE_SSL_ADMIN == 'true'),
             'isEnableSSL' => ENABLE_SSL == 'true',
 
             // force use of SSL

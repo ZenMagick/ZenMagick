@@ -28,6 +28,10 @@
   // set some admin specific things...
   ZMUrlManager::instance()->clear();
   ZMSacsManager::instance()->reset();
+  ZMSacsManager::instance()->load(file_get_contents(ZMFileUtils::mkPath(array(ZMRuntime::getApplicationPath(), 'admin/config', 'sacs_mappings.yaml'))), false);
+  // make sure we use the appropriate protocol (HTTPS, for example) if required
+  //TODO: redirect uses net, not admin... ZMSacsManager::instance()->ensureAccessMethod($request);
+
   ZMSettings::set('isStoreNameInTitle', false);
   ZMSettings::set('zenmagick.mvc.view.default', 'AdminView');
   if (ZMLangUtils::isEmpty($request->getRequestId())) {
