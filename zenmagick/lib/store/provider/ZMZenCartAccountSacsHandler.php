@@ -79,7 +79,7 @@ class ZMZenCartAccountSacsHandler extends ZMObject implements ZMSacsHandler {
      * {@inheritDoc}
      */
     public function evaluate($requestId, $credentials, $manager) {
-        if (!($credentials instanceof ZMAccount)) {
+        if (null != $credentials && !($credentials instanceof ZMAccount)) {
             return null;
         }
 

@@ -91,6 +91,15 @@ class ZMRequest extends ZMObject {
     }
 
     /**
+     * Get the user (if any) for authentication.
+     *
+     * @return mixed A user/credentials object. Default is <code>null</code>.
+     */
+    public function getUser() {
+        return null;
+    }
+
+    /**
      * Get the request method.
      *
      * @return string The (upper case) request method.

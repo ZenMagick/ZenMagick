@@ -68,7 +68,7 @@ class ZMController extends ZMObject {
         $this->id_ = null != $this->id_ ? $this->id_ : $request->getRequestId();
 
         // check authorization
-        ZMSacsManager::instance()->authorize($request, $request->getRequestId(), $request->getAccount());
+        ZMSacsManager::instance()->authorize($request, $request->getRequestId(), $request->getUser());
 
         $enableTransactions = ZMSettings::get('zenmagick.mvc.transactions.enabled', false);
 
