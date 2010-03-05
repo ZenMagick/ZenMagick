@@ -161,7 +161,6 @@ class ZMObject {
         $methods = array();
         foreach (ZMObject::$methods_ as $method => $classInfo) {
             foreach (array_keys($classInfo) as $className) {
-                //XXX: use the best match
                 if ($this instanceof $className) {
                     $methods[] = $method;
                     break;
@@ -184,12 +183,9 @@ class ZMObject {
         if (isset(ZMObject::$methods_[$method])) {
             // method found, so check if there is a class match
             foreach (array_keys(ZMObject::$methods_[$method]) as $className) {
-                //XXX: use the best match
                 if ($this instanceof $className) {
                     $margs = array_merge(array($this), $args);
                     $target = ZMObject::$methods_[$method][$className];
-                    //XXX: consider adding explicit support for calls up to 3 parameters to avoid
-                    // usin call_user_func_array()
                     return call_user_func_array($target, $margs);
                 }
             }
