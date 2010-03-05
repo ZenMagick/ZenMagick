@@ -4,4 +4,4 @@
 # $Id$
 #
 
-DROP TABLE IF EXISTS zm_group_pricing;
+DROP TABLE IF EXISTS product_group_pricing;

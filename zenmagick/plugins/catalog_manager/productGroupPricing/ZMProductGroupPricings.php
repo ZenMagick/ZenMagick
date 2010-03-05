@@ -24,14 +24,14 @@
 <?php
 
 
-define('ZM_TABLE_GROUP_PRICING', ZM_DB_PREFIX . 'zm_group_pricing');
+define('ZM_TABLE_PRODUCT_GROUP_PRICING', ZM_DB_PREFIX . 'product_group_pricing');
 
 
 /**
  * Service class for product based group pricing
  *
  * @author DerManoMann
- * @package org.zenmagick.plugins.groupPricing
+ * @package org.zenmagick.plugins.productGroupPricing
  * @version $Id$
  */
 class ZMProductGroupPricings extends ZMObject {
@@ -41,7 +41,7 @@ class ZMProductGroupPricings extends ZMObject {
      */
     function __construct() {
         parent::__construct();
-        ZMDbTableMapper::instance()->setMappingForTable('zm_group_pricing', array(
+        ZMDbTableMapper::instance()->setMappingForTable('product_group_pricing', array(
             'id' => 'column=group_pricing_id;type=integer;key=true;auto=true',
             'productId' => 'column=products_id;type=integer',
             'groupId' => 'column=group_id;type=integer',
@@ -80,12 +80,12 @@ class ZMProductGroupPricings extends ZMObject {
         if ($active) {
             $dateLimit = ' AND start_date <= now() AND (end_date > now() OR end_date is NULL OR end_date = :endDate) ';
         }
-        $sql = "SELECT * FROM " . ZM_TABLE_GROUP_PRICING . "
+        $sql = "SELECT * FROM " . ZM_TABLE_PRODUCT_GROUP_PRICING . "
                 WHERE products_id = :productId
                 AND group_id = :groupId".$dateLimit;
         $sql .= " ORDER BY start_date ASC";
         $args = array('productId' => $productId, 'groupId' => $groupId, 'endDate' => ZMDatabase::NULL_DATETIME);
-        return ZMRuntime::getDatabase()->query($sql, $args, ZM_TABLE_GROUP_PRICING, 'ProductGroupPricing');
+        return ZMRuntime::getDatabase()->query($sql, $args, ZM_TABLE_PRODUCT_GROUP_PRICING, 'ProductGroupPricing');
     }
 
     /**
@@ -95,7 +95,7 @@ class ZMProductGroupPricings extends ZMObject {
      * @return ProductGroupPricing The created product group pricing incl. the id.
      */
     public function createProductGroupPricing($groupPricing) {
-        return ZMRuntime::getDatabase()->createModel(ZM_TABLE_GROUP_PRICING, $groupPricing);
+        return ZMRuntime::getDatabase()->createModel(ZM_TABLE_PRODUCT_GROUP_PRICING, $groupPricing);
     }
 
     /**
@@ -105,7 +105,7 @@ class ZMProductGroupPricings extends ZMObject {
      * @return ProductGroupPricing The updated product group pricing.
      */
     public function updateProductGroupPricing($groupPricing) {
-        ZMRuntime::getDatabase()->updateModel(ZM_TABLE_GROUP_PRICING, $groupPricing);
+        ZMRuntime::getDatabase()->updateModel(ZM_TABLE_PRODUCT_GROUP_PRICING, $groupPricing);
         return $groupPricing;
     }
 

@@ -27,17 +27,17 @@
 /**
  * Plugin adding group based pricing.
  *
- * @package org.zenmagick.plugins.groupPricing
+ * @package org.zenmagick.plugins.productGroupPricing
  * @author DerManoMann
  * @version $Id$
  */
-class ZMGroupPricingPlugin extends Plugin implements ZMRequestHandler {
+class ZMProductGroupPricingPlugin extends Plugin implements ZMRequestHandler {
 
     /**
      * Create new instance.
      */
     function __construct() {
-        parent::__construct('Group Pricing', 'Group Pricing', '${zenmagick.version}');
+        parent::__construct('Product Group Pricing', 'Product Group Pricing', '${zenmagick.version}');
         $this->setLoaderPolicy(ZMPlugin::LP_FOLDER);
         $this->setPreferredSortOrder(15);
     }
@@ -56,7 +56,7 @@ class ZMGroupPricingPlugin extends Plugin implements ZMRequestHandler {
     public function initRequest($request) {
         if (0 < $request->getProductId()) {
             // only available if product involved
-            $this->addMenuItem('groupPricingTab', zm_l10n_get('Group Pricing'), 'GroupPricingTab', ZMAdminMenu::MENU_CATALOG_MANAGER_TAB);
+            $this->addMenuItem('productGroupPricingTab', zm_l10n_get('Group Pricing'), 'ProductGroupPricingTab', ZMAdminMenu::MENU_CATALOG_MANAGER_TAB);
         }
     }
 

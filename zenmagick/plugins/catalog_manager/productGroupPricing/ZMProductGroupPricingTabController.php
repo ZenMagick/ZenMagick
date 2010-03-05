@@ -28,16 +28,16 @@
  * Admin controller.
  *
  * @author DerManoMann
- * @package org.zenmagick.plugins.groupPricing
+ * @package org.zenmagick.plugins.productGroupPricing
  * @version $Id$
  */
-class ZMGroupPricingTabController extends ZMPluginAdminController {
+class ZMProductGroupPricingTabController extends ZMPluginAdminController {
 
     /**
      * Create new instance.
      */
     function __construct() {
-        parent::__construct('group_pricing_tab', zm_l10n_get('Group Pricing'), 'groupPricing');
+        parent::__construct('product_group_pricing_tab', zm_l10n_get('Group Pricing'), 'productGroupPricing');
     }
 
 

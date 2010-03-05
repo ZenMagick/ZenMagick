@@ -29,7 +29,7 @@
 <form action="<?php echo $toolbox->admin->url() ?>" method="GET">
   <?php echo $form->hidden($defaultUrlParams) ?>
   <input type="hidden" name="main_page" value="catalog_manager">
-  <input type="hidden" name="fkt" value="GroupPricingTab">
+  <input type="hidden" name="fkt" value="ProductGroupPricingTab">
   <h2>Group Pricing ( <?php echo $toolbox->form->idpSelect('groupId', $priceGroups, $groupId, array('size'=>1, 'onchange'=>'this.form.submit()')) ?> )</h2>
 </form>
 
@@ -65,7 +65,7 @@
     </p>
   </fieldset>
   <p>
-    <input type="hidden" name="fkt" value="GroupPricingTab">
+    <input type="hidden" name="fkt" value="ProductGroupPricingTab">
     <?php if (0 < $request->getParameter('groupPricingId')) { ?>
         <input type="submit" name="update" value="Update">
         <a href="<?php echo $toolbox->net->url('', $zm_nav_params.'&groupPricingId='.$request->getParameter('groupPricingId').'&delete=true') ?>">Delete</a>

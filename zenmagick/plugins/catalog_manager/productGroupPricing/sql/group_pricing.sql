@@ -1,14 +1,14 @@
 #
-# ZenMagick group pricing plugin SQL
+# ZenMagick product group pricing plugin SQL
 #
 # $Id$
 #
 
 #
-# Table structure for table zm_group_pricing
+# Table structure for table product_group_pricing
 #
-DROP TABLE IF EXISTS zm_group_pricing;
-CREATE TABLE zm_group_pricing (
+DROP TABLE IF EXISTS product_group_pricing;
+CREATE TABLE product_group_pricing (
   group_pricing_id int(11) NOT NULL auto_increment,
   products_id int(11) NOT NULL,
   group_id int(11) NOT NULL,
