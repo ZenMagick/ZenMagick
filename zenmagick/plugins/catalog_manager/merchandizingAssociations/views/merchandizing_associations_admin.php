@@ -24,18 +24,15 @@
  */
 ?>
 <?php
-    $toolbox = ZMToolbox::instance();
-    $zm_product = ZMProducts::instance()->getProductForId(ZMRequest::getProductId());
+    $currentProduct = ZMProducts::instance()->getProductForId($request->getProductId());
 ?>
 
-  <h2>Product Associations for &lsquo;<?php echo $zm_product->getName() ?>&rsquo;</h2>
+  <h2>Product Associations for &lsquo;<?php echo $currentProduct->getName() ?>&rsquo;</h2>
 
-  <?php $toolbox->form->open('', $zm_nav_params) ?>
-    <?php $types = ZMProductAssociations::instance()->getAssociationTypes(); ?>
+  <form action="<?php echo $toolbox->admin->url(null, $defaultUrlParams) ?>" method="POST">
+    <input type="hidden" name="fkt" value="MerchandizingAssociationsAdminTab">
     <select name="type">
-      <?php foreach ($types as $type => $name) { ?>
-        <option value="<?php echo $type ?>"><?php echo $name ?></option>
-      <?php } ?>
+        <option value="xsell">Cross-Sell</option>
     </select>
 
   </form>
@@ -45,7 +42,7 @@
   <div id="product-picker" style="display:none;">
     <div id="picker-catalog-tree"><?php echo zm_catalog_tree(ZMCategories::instance()->getCategoryTree(), '', false, false, 'picker-tree'); ?></div>
     <div id="picker-data">
-       <div id="picker-prod-loading" style="display:none;"><img src="includes/jquery/images/loadingAnimation.gif" title="loading..." alt="loading..."></div>
+       <div id="picker-prod-loading" style="display:none;"><img src="content/jquery/images/loadingAnimation.gif" title="loading..." alt="loading..."></div>
       <div id="picker-prod-list">
       </div>
       <div id="picker-pages"></div>
@@ -56,9 +53,9 @@
       </div>
     </div>
   </div>
-  <script type="text/javascript" src="includes/jquery/productPicker.js"></script>
+  <script type="text/javascript" src="content/jquery/productPicker.js"></script>
   <script type="text/javascript">
-      var ajaxCatalogBaseUrl = '<?php $toolbox->net->ajax('catalog', 'getProductsForCategoryId') ?>';
+      var ajaxCatalogBaseUrl = '<?php echo $net->ajax('catalog', 'getProductsForCategoryId') ?>';
       var productPicker = new ProductPicker('picker-tree', false, ajaxCatalogBaseUrl, function(productIds) {
           alert('selected: ' + productIds);
       });
