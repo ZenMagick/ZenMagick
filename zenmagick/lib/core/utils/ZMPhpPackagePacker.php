@@ -357,14 +357,16 @@ class ZMPhpPackagePacker {
     /**
      * Compress all prepared files.
      *
-     * @param boolean strip If <code>true</code>, stript the files while compressing; default is <code>true</code>.
+     * @param boolean stripCode If <code>true</code>, strip the files while compressing; default is <code>true</code>.
+     * @param boolean stripRef If <code>true</code>, strip code that uses references; default is <code>true</code>.
      */
-    protected function compressFiles($strip=true) {
+    protected function compressFiles($stripCode=true, $stripRef=true) {
         $compressor = ZMLoader::make('PhpCompressor');
         $compressor->setRoot($this->outputFilename_.'.prep'.DIRECTORY_SEPARATOR);
         $compressor->setOut($this->outputFilename_);
         $compressor->setTemp($this->tempFolder_);
-        $compressor->setStripCode($strip);
+        $compressor->setStripCode($stripCode);
+        $compressor->setStripRef($stripRef);
         $compressor->compress();
         if ($this->debug_) {
             foreach ($compressor->getErrors() as $error) {

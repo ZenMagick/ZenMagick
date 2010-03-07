@@ -64,6 +64,7 @@ class ZMPhpCompressor {
 
     // options
     protected $stripCode_;
+    protected $stripRef_;
 
 
     /**
@@ -79,6 +80,7 @@ class ZMPhpCompressor {
         $this->setTemp($temp);
 
         $this->stripCode_ = true;
+        $this->stripRef_ = true;
 
         $this->errors_ = array();
     }
@@ -152,6 +154,15 @@ class ZMPhpCompressor {
      */
     public function setStripCode($strip) {
         $this->stripCode_ = $strip;
+    }
+
+    /**
+     * Configure whether or not to strip the use of references; eg. <code>&$</code> or <code>= &</code>.
+     *
+     * @param boolean strip The new value.
+     */
+    public function setStripRef($strip) {
+        $this->stripRef_ = $strip;
     }
 
     /**
@@ -245,7 +256,11 @@ class ZMPhpCompressor {
                 }
             }
         }
-        return ob_get_clean();
+        $src = ob_get_clean();
+        if ($this->stripRef_) {
+            $src = str_replace(array('&$', '=&', '&new', '& new'), array('$', '=', 'new', 'new'), $src);
+        }
+        return $src;
     }
 
     /**

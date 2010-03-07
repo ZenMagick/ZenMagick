@@ -141,6 +141,8 @@ Release 0.9.9
 - renamed ZMZenCartUserSacsHandler to ZMZenCartAccountSacsHandler; this
   affects the order_status email
 - rename SSL related settings
+- add option to ZMPhpCompressor to strip old PHP reference style code; ie: &$,
+  = & new
 
 Release 0.9.8
 - add Savant3 and experimental views (not used yet)
