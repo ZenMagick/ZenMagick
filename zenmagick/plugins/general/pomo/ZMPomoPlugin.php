@@ -22,7 +22,7 @@
 
 
 /**
- * Unit testing.
+ * POMO testing.
  *
  * @package org.zenmagick.plugins.pomo
  * @author DerManoMann
@@ -34,7 +34,7 @@ class ZMPomoPlugin extends Plugin {
      * Create new instance.
      */
     function __construct() {
-        parent::__construct('pomo', 'Locale handling using pomo.');
+        parent::__construct('Pomo', 'Locale handling using pomo.');
         $this->setLoaderPolicy(ZMPlugin::LP_FOLDER);
     }
 
