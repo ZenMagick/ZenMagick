@@ -258,7 +258,7 @@ class ZMPhpCompressor {
         }
         $src = ob_get_clean();
         if ($this->stripRef_) {
-            $src = str_replace(array('&$', '=&', '&new', '& new'), array('$', '=', 'new', 'new'), $src);
+            $src = str_replace(array('&$', '=&', '&new', '& new', 'function &'), array('$', '=', 'new', 'new', 'function '), $src);
         }
         return $src;
     }
