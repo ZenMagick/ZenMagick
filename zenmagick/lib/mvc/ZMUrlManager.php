@@ -107,6 +107,25 @@ class ZMUrlManager extends ZMObject {
     }
 
     /**
+     * Set multiple mappings.
+     *
+     * @param mixed mappings The mappings, either as YAML string fragment or nested array.
+     * @param boolean override Optional flag to control whether to override existing mappings or to merge;
+     *  default is <code>true</code> to override.
+     */
+    public function setMappings($mappings, $override=true) {
+        if (is_array($mappings)) {
+            if ($override) {
+                $this->mappings_ = $mappings;
+            } else {
+                $this->mappings_ = ZMLangUtils::arrayMergeRecursive($this->mappings_, $mappings);
+            }
+        } else {
+            $this->load($mappings, $override);
+        }
+    }
+
+    /**
      * Find a mapping for the given requestId (and viewId).
      *
      * <p>This method will use a number of fallback/default conventions for missing mappings:</p>

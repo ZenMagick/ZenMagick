@@ -143,6 +143,7 @@ Release 0.9.9
 - rename SSL related settings
 - add option to ZMPhpCompressor to strip old PHP reference style code; ie: &$,
   = & new
+- allow to set url mappings in theme.yaml!
 
 Release 0.9.8
 - add Savant3 and experimental views (not used yet)

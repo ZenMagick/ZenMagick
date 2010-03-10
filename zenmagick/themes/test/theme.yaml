@@ -3,3 +3,10 @@ name: 'test'
 version: '${zenmagick.version}'
 author: 'zenmagick.org'
 description: 'test theme for development use only'
+
+## optional url mappings
+urls:
+  ## show conditions as homepage!
+  index:
+    template: conditions
+      

@@ -195,6 +195,13 @@ class ZMEventFixes extends ZMObject {
                 }
             }
 
+            // add optional url mappings
+            $urls = $theme->getConfig('urls');
+            if ($urls && is_array($urls)) {
+                // merge
+                ZMUrlManager::instance()->setMappings($urls, false);
+            }
+
             Runtime::setTheme($theme);
             $args = array_merge($args, array('theme' => $theme, 'themeId' => $theme->getId()));
             ZMEvents::instance()->fireEvent(null, Events::THEME_RESOLVED, $args);
