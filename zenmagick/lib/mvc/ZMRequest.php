@@ -328,8 +328,7 @@ class ZMRequest extends ZMObject {
      * @return string The URL context.
      */
     public function getContext() {
-        //XXX: implement
-        return '/';
+        return dirname($_SERVER['SCRIPT_NAME']);
     }
 
     /**

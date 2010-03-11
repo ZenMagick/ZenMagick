@@ -18,3 +18,4 @@
 <?php if (isset($name)) { ?>
   <p>Your name is: <?php echo $name ?>.</p>
 <?php } ?>
+<p>Context is: <?php echo $request->getContext() ?></p>
