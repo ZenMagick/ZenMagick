@@ -125,6 +125,10 @@ class ZMController extends ZMObject {
             $view->setVar('session', $request->getSession());
             $toolbox = $request->getToolbox();
             $view->setVar('toolbox', $toolbox);
+
+            // empty callback
+            $view->setVars($this->getViewData($request));
+
             // also set individual tools
             $view->setVars($toolbox->getTools());
             if (null != $formData && !array_key_exists($formData->getFormId(), $view->getVars())) {
@@ -153,6 +157,19 @@ class ZMController extends ZMObject {
         return $view;
     }
 
+
+    /**
+     * Get general page data.
+     *
+     * <p>Good to override if a custom controller needs to provide some data for both <em>GET</em> and <em>POST</em>
+     * requests.</p>
+     *
+     * @param ZMRequest request The current request.
+     * @return array Some data map.
+     */
+    public function getViewData($request) {
+        return array();
+    }
 
     /**
      * Convenience method for request processing shared by request methods.

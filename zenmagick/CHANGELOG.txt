@@ -144,6 +144,8 @@ Release 0.9.9
 - add option to ZMPhpCompressor to strip old PHP reference style code; ie: &$,
   = & new
 - allow to set url mappings in theme.yaml!
+- add ZMController::getViewData($request) as convenience method for controller
+  to provide custom data to views
 
 Release 0.9.8
 - add Savant3 and experimental views (not used yet)
