@@ -3,9 +3,6 @@
  * ZenMagick - Extensions for zen-cart
  * Copyright (C) 2006-2010 zenmagick.org
  *
- * Portions Copyright (c) 2003 The zen-cart developers
- * Portions Copyright (c) 2003 osCommerce
- *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or (at
@@ -31,7 +28,7 @@ define('TABLE_PRODUCT_TAGS', ZM_DB_PREFIX . 'product_tags');
  * Product association handler for <em>product tags</em>.
  *
  * @author DerManoMann
- * @package org.zenmagick.plugins.zm_product_tags
+ * @package org.zenmagick.plugins.productTags
  * @version $Id$
  */
 class ZMProductTagsProductAssociationHandler implements ZMProductAssociationHandler {
@@ -69,5 +66,3 @@ class ZMProductTagsProductAssociationHandler implements ZMProductAssociationHand
     }
 
 }
-
-?>
