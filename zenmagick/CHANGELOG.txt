@@ -150,6 +150,7 @@ Release 0.9.9
   file patches; this required to manually delete
 	- includes/functions/extra_functions/zenmagick_zencart_overrides.php
 	- admin/includes/functions/extra_functions/zenmagick_zencart_overrides.php
+- make ZMShippingProviders and ZMShippingProviderWrapper work!
 
 Release 0.9.8
 - add Savant3 and experimental views (not used yet)

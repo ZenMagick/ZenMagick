@@ -103,7 +103,7 @@ class ZMShippingProviders extends ZMObject {
         $PHP_SELF = FILENAME_MODULES;
 
         // TODO: create fake environment
-        global $template;
+        global $template, $shipping_weight;
         if (!isset($template)) {
             ZMTools::resolveZCClass('template_func');
             $template = new template_func();
@@ -134,17 +134,15 @@ class ZMShippingProviders extends ZMObject {
     /**
      * Get a list of all shipping providers for the given address.
      *
-     * <p><strong>NOTE:</strong> There is currently no way to specify individual items. Basis for calculations
-     * is the current shopping cart.</p>
-     *
+     * @param ZMShoppingCart shoppingCart The shopping cart.
      * @param ZMAddress address The address.
      * @return array List of <code>ZMShippingProvider</code> instances.
      */
-    public function getShippingProvidersForAddress($address) {
+    public function getShippingProvidersForAddress($shoppingCart, $address) {
         $available = array();
         foreach ($this->getShippingProviders() as $provider) {
             // check address
-            $methods = $provider->getShippingMethods($address);
+            $methods = $provider->getShippingMethods($shoppingCart, $address);
             if (0 < count($methods)) {
                 $available[] = $provider;
             }
