@@ -151,6 +151,8 @@ Release 0.9.9
 	- includes/functions/extra_functions/zenmagick_zencart_overrides.php
 	- admin/includes/functions/extra_functions/zenmagick_zencart_overrides.php
 - make ZMShippingProviders and ZMShippingProviderWrapper work!
+- make the new shipping code available for testing via ajax_demo2 in the demo
+  theme
 
 Release 0.9.8
 - add Savant3 and experimental views (not used yet)
