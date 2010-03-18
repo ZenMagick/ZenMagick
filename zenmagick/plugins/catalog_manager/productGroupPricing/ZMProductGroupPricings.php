@@ -77,6 +77,7 @@ class ZMProductGroupPricings extends ZMObject {
      * @return array A list of <code>ProductGroupPricing</code> instances.
      */
     public function getProductGroupPricing($productId, $groupId, $active=true) {
+        $dateLimit = '';
         if ($active) {
             $dateLimit = ' AND start_date <= now() AND (end_date > now() OR end_date is NULL OR end_date = :endDate) ';
         }

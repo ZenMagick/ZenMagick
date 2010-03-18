@@ -117,32 +117,59 @@ class ZMShippingProviderWrapper extends ZMObject {
      * <p><strong>NOTE:</strong> There is currently no way to specify individual items. Basis for calculations
      * is the current shopping cart.</p>
      *
+     * @param ZMShoppingCart shoppingCart The shopping cart.
      * @param ZMAddress address The shipping address.
      * @return array A list of <code>ZMShippingMethod</code> instances.
      */
-    public function getShippingMethods($address) { 
+    public function getShippingMethods($shoppingCart, $address) { 
         $this->errors_ = array();
 
         // TODO: setup globals, etc with address information, similar to shipping estimator...
-        global $order, $shipping_weight, $shipping_num_boxes, $total_count;
+        global $order, $shipping_weight, $shipping_quoted, $shipping_num_boxes, $total_count;
 
-        $order = new _zm_order();
+        $order = new stdClass();
+        $order->delivery = array();
+        $order->delivery['country'] = array();
 
         $order->delivery['country']['id'] = $address->getCountryId();
         $order->delivery['country']['iso_code_2'] = $address->getCountry()->getIsoCode2();
         $order->delivery['zone_id'] = $address->getZoneId();
+
         if (!isset($_SESSION['cart'])) {
             $_SESSION['cart'] = new shoppingCart();
         }
-        $shoppingCart = ZMRequest::instance()->getShoppingCart();
+
         $total_count = $shoppingCart->getSize();
+
+        // START: adjust boxes, weight and tare
+        $shipping_quoted = '';
+        $shipping_num_boxes = 1;
         $shipping_weight = $shoppingCart->getWeight();
 
-        $shipping_num_boxes = 1;
-        if ($shipping_weight > SHIPPING_MAX_WEIGHT) { // Split into many boxes
-            $shipping_num_boxes = ceil($shipping_weight/SHIPPING_MAX_WEIGHT);
-            $shipping_weight = $shipping_weight/$shipping_num_boxes;
+        $za_tare_array = preg_split("/[:,]/" , SHIPPING_BOX_WEIGHT);
+        $zc_tare_percent= $za_tare_array[0];
+        $zc_tare_weight= $za_tare_array[1];
+
+        $za_large_array = preg_split("/[:,]/" , SHIPPING_BOX_PADDING);
+        $zc_large_percent= $za_large_array[0];
+        $zc_large_weight= $za_large_array[1];
+
+        switch (true) {
+          // large box add padding
+          case(SHIPPING_MAX_WEIGHT <= $shipping_weight):
+            $shipping_weight = $shipping_weight + ($shipping_weight*($zc_large_percent/100)) + $zc_large_weight;
+            break;
+          default:
+          // add tare weight < large
+            $shipping_weight = $shipping_weight + ($shipping_weight*($zc_tare_percent/100)) + $zc_tare_weight;
+            break;
         }
+
+        if ($shipping_weight > SHIPPING_MAX_WEIGHT) { // Split into many boxes
+          $shipping_num_boxes = ceil($shipping_weight/SHIPPING_MAX_WEIGHT);
+          $shipping_weight = $shipping_weight/$shipping_num_boxes;
+        }
+        // END: adjust boxes, weight and tare
 
 
         // create new instance for each quote!
@@ -156,8 +183,11 @@ class ZMShippingProviderWrapper extends ZMObject {
 
         $quotes = $module->quote();
 
-        // capture errors
-        $this->errors_ = isset($quotes['errors']) ? $quotes['errors'] : array();
+        // capture error(s)
+        if (array_key_exists('error', $quotes)) {
+            $this->errors_ = array($quotes['error']);
+            return array();
+        }
 
         // capture tax
         $taxRate = ZMLoader::make("TaxRate"); 
@@ -176,14 +206,3 @@ class ZMShippingProviderWrapper extends ZMObject {
     }
 
 }
-
-    /**
-     * Dummie classes used for faking a zen-cart environment where required.
-     */
-
-    class _zm_order {
-        function __construct() {
-            $this->delivery = array();
-            $this->delivery['country'] = array();
-        }
-    }

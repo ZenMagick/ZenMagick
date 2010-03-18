@@ -82,14 +82,15 @@ class ZMAjaxCheckoutController extends ZMAjaxController {
             }
         }
 
+        $shoppingCart = $request->getShoppingCart();
         if (null == $address) {
-        	$address = $request->getShoppingCart()->getShippingAddress();
+        	  $address = $shoppingCart->getShippingAddress();
         }
 
         $shippingMethods = array();
         if (null != $address) {
             foreach (ZMShippingProviders::instance()->getShippingProviders(true) as $provider) {
-                foreach ($provider->getShippingMethods($address) as $shippingMethod) {
+                foreach ($provider->getShippingMethods($shoppingCart, $address) as $shippingMethod) {
                     $shippingMethods[] = $shippingMethod;
                 }
             }

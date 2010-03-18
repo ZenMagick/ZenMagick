@@ -39,7 +39,13 @@ check out the <a href="<?php echo $net->url('ajax_demo') ?>">main Ajax demo</a>.
         <legend>Shipping Estimator</legend>
         <p>Calculates and displays available shipping options based on the current cart contents and the provided address details.
         (will default to cart address details if none given)</p>
-        <p><label for="countryId">CountryId </label> <input type="text" name="countryId" id="countryId" value="153"></p>
+        <p>
+            <label for="countryId">Countries</label>
+            <select id="countryId" name="countryId">
+                <option value=""> --- </option>
+            </select>
+            <input type="button" value="Load Countries" onclick="loadCountries();" />
+        </p>
         
         <div id="methodList" style="margin:6px 2px;border-top:1px solid gray;border-bottom:1px solid gray;padding:2px;">
         </div>
@@ -57,7 +63,7 @@ check out the <a href="<?php echo $net->url('ajax_demo') ?>">main Ajax demo</a>.
     function updateShippingInfoSuccess(msg) {
         msgboxElem.innerHTML += "got response ...";
 
-        var info = msg.parseJSON();
+        var info =JSON.parse(msg);
 
         if (0 == info.length) {
             msgboxElem.innerHTML += "no shipping available ... ";
@@ -95,6 +101,36 @@ check out the <a href="<?php echo $net->url('ajax_demo') ?>">main Ajax demo</a>.
             data: "countryId="+document.getElementById("countryId").value,
             success: function(msg) { updateShippingInfoSuccess(msg); },
             error: function(msg) { updateShippingInfoFailure(msg); }
+        });
+    }
+
+    var countriesElem = document.getElementById('countryId');
+
+    // Load countries
+    function loadCountries() {
+        msgboxElem.innerHTML = "Loading countries ... ";
+
+        $.ajax({
+            type: "GET",
+            url: "<?php echo $net->ajax('country', 'getCountryList') ?>",
+            success: function(msg) {
+                msgboxElem.innerHTML += "got response ...";
+
+                var countryList = JSON.parse(msg);
+
+                msgboxElem.innerHTML += "updating ... ";
+
+                countriesElem.length = 0;
+                var country = new Option('-- Select Country --', '', false, false);
+                countriesElem.options[countriesElem.length] = country;
+
+                for (var ii=0; ii < countryList.length; ++ii) {
+                    var country = new Option(countryList[ii].name+' ('+countryList[ii].id+')', countryList[ii].id, false, false);
+                    countriesElem.options[countriesElem.length] = country;
+                }
+
+                msgboxElem.innerHTML += "done!";
+            }
         });
     }
 </script>

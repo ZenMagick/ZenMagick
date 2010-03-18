@@ -3,9 +3,6 @@
  * ZenMagick - Extensions for zen-cart
  * Copyright (C) 2006-2010 zenmagick.org
  *
- * Portions Copyright (c) 2003 The zen-cart developers
- * Portions Copyright (c) 2003 osCommerce
- *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or (at
@@ -27,11 +24,11 @@
 /**
  * Allow to add tags to products.
  *
- * @package org.zenmagick.plugins.zm_product_tags
+ * @package org.zenmagick.plugins.productTags
  * @author DerManoMann
  * @version $Id$
  */
-class zm_product_tags extends Plugin implements ZMRequestHandler {
+class ZMProductTagsPlugin extends Plugin implements ZMRequestHandler {
 
     /**
      * Create new instance.
@@ -54,10 +51,10 @@ class zm_product_tags extends Plugin implements ZMRequestHandler {
      * {@inheritDoc}
      */
     public function initRequest($request) {
-        ZMSettings::append('defaultProductAssociationHandler', 'ZMProductTagsProductAssociationHandler');
+        ZMSettings::append('defaultProductAssociationHandler', 'ProductTagsProductAssociationHandler');
         if (0 < $request->getProductId()) {
             // only available if product involved
-            $this->addMenuItem('zm_product_tags', zm_l10n_get('Product Tags'), 'zm_product_tags_admin', ZMAdminMenu::MENU_CATALOG_MANAGER_TAB);
+            $this->addMenuItem('productTagsTab', zm_l10n_get('Product Tags'), 'ProductTagsTab', ZMAdminMenu::MENU_CATALOG_MANAGER_TAB);
         }
     }
 
@@ -78,5 +75,3 @@ class zm_product_tags extends Plugin implements ZMRequestHandler {
     }
 
 }
-
-?>

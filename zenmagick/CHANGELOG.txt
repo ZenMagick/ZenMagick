@@ -144,6 +144,15 @@ Release 0.9.9
 - add option to ZMPhpCompressor to strip old PHP reference style code; ie: &$,
   = & new
 - allow to set url mappings in theme.yaml!
+- add ZMController::getViewData($request) as convenience method for controller
+  to provide custom data to views
+- move function overrides to avoid collisions in admin when uninstalling all
+  file patches; this required to manually delete
+	- includes/functions/extra_functions/zenmagick_zencart_overrides.php
+	- admin/includes/functions/extra_functions/zenmagick_zencart_overrides.php
+- make ZMShippingProviders and ZMShippingProviderWrapper work!
+- make the new shipping code available for testing via ajax_demo2 in the demo
+  theme
 
 Release 0.9.8
 - add Savant3 and experimental views (not used yet)
