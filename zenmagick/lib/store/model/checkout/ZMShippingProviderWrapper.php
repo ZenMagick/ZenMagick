@@ -183,8 +183,11 @@ class ZMShippingProviderWrapper extends ZMObject {
 
         $quotes = $module->quote();
 
-        // capture errors
-        $this->errors_ = isset($quotes['errors']) ? $quotes['errors'] : array();
+        // capture error(s)
+        if (array_key_exists('error', $quotes)) {
+            $this->errors_ = array($quotes['error']);
+            return array();
+        }
 
         // capture tax
         $taxRate = ZMLoader::make("TaxRate"); 
