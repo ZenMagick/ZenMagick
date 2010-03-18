@@ -153,6 +153,7 @@ Release 0.9.9
 - make ZMShippingProviders and ZMShippingProviderWrapper work!
 - make the new shipping code available for testing via ajax_demo2 in the demo
   theme
+- added a new event fired on each search
 
 Release 0.9.8
 - add Savant3 and experimental views (not used yet)

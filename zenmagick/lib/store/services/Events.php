@@ -52,6 +52,7 @@ class Events extends ZMEvents {
     const GENERATE_EMAIL = 'generate_email';
     const CREATE_ORDER = 'create_order';
     const PASSWORD_CHANGED = 'password_changed';
+    const SEARCH = 'search';
 
 
     /**
