@@ -87,6 +87,7 @@ class ZMCheckoutShippingController extends ZMController {
     public function processPost($request) {
         $shoppingCart = $request->getShoppingCart();
         $checkoutHelper = ZMLoader::make('CheckoutHelper', $shoppingCart);
+
         if (null !== ($viewId = $checkoutHelper->validateCheckout(false))) {
             return $this->findView($viewId, $this->viewData_);
         }

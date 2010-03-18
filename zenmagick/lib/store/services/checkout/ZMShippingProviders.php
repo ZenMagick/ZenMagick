@@ -32,7 +32,7 @@
  * @version $Id$
  */
 class ZMShippingProviders extends ZMObject {
-    var $provider_;
+    private $providers_;
 
 
     /**
@@ -40,7 +40,7 @@ class ZMShippingProviders extends ZMObject {
      */
     function __construct() {
         parent::__construct();
-        $this->provider_ = array();
+        $this->providers_ = array();
     }
 
     /**
@@ -59,20 +59,43 @@ class ZMShippingProviders extends ZMObject {
 
 
     /**
+     * Get a shipping provider for the given id.
+     *
+     * @param string shippingProviderId The shipping provider id.
+     * @return ZMShippingProvider A shipping provider or <code>null</code>
+     */
+    public function getShippingProviderForId($shippingProviderId) {
+        $configured = false;
+        if (!isset($this->providers_[$configured])) {
+            // load
+            $providers = $this->getShippingProviders($configured);
+        } else {
+            $providers = $this->providers_[$configured];
+        }
+        foreach ($providers as $provider) {
+            if ($provider->getId() == $shippingProviderId) {
+                return $provider;
+            }
+        }
+
+        return null;
+    }
+
+    /**
      * Get a list of shipping providers.
      *
-     * @param boolean configured If <code>true</code>, return only configured provider: default is <code>true</code>.
+     * @param boolean configured If <code>true</code>, return only configured provider; default is <code>true</code>.
      * @return array List of <code>ZMShippingProvider</code> instances.
      */
     public function getShippingProviders($configured=true) {
-        if (isset($this->provider_[$configured])) {
-            return $this->provider_[$configured];
+        if (isset($this->providers_[$configured])) {
+            return $this->providers_[$configured];
         }
 
         // required by some
         ZMTools::resolveZCClass('http_client');
 
-        $this->provider_[$configured] = array();
+        $this->providers_[$configured] = array();
 
         $moduleInfos = array();
         if ($configured) {
@@ -120,7 +143,7 @@ class ZMShippingProviders extends ZMObject {
                 $module = new $moduleInfo['class']();
                 // either all or enabled (installed+enabled as per config option) - (is this different from $module->enabled?)
                 if (!$configured || (0 < $module->check() && $module->enabled)) {
-                    $this->provider_[$configured][] = ZMLoader::make("ShippingProviderWrapper", $module);
+                    $this->providers_[$configured][] = ZMLoader::make("ShippingProviderWrapper", $module);
                 }
             }
         }
@@ -128,7 +151,7 @@ class ZMShippingProviders extends ZMObject {
         //TODO:(2): revert
         $PHP_SELF = $phpSelf;
 
-        return $this->provider_[$configured];
+        return $this->providers_[$configured];
     }
 
     /**

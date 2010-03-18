@@ -114,7 +114,7 @@ class ZMEventFixes extends ZMObject {
     }
 
     /**
-     * Simple function to check if we need zen-cart...
+     * Simple function to check if we need zen-cart request processing.
      *
      * @Param ZMRequest request The current request.
      */

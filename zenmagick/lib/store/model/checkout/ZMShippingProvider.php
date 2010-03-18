@@ -25,112 +25,73 @@
 
 
 /**
- * Shipping provider.
+ * A shipping provider.
  *
  * <p>A shipping provider may offer 1-n shipping methods, depending on the
- * address, etc.</p>
+ * address, or other shipping conditions.</p>
  *
  * @author DerManoMann
  * @package org.zenmagick.store.model.checkout
  * @version $Id$
  */
-class ZMShippingProvider extends ZMObject {
-    private $zenQuote_;
-    private $methods_;
-
-
-    /**
-     * Create a new shipping provider.
-     *
-     * @param array zenQuote The zen-cart shipping quote infos for this provider.
-     */
-    function __construct($zenQuote) {
-        parent::__construct();
-        $this->zenQuote_ = $zenQuote;
-        $this->methods_ = array();
-        $taxRate = $this->getTaxRate();
-        if (isset($this->zenQuote_['methods']) && is_array($this->zenQuote_['methods'])) {
-            foreach ($this->zenQuote_['methods'] as $method) {
-                $method = ZMLoader::make("ShippingMethod", $this, $method);
-                $method->setTaxRate($taxRate);
-                $this->methods_[$method->getId()] = $method;
-            }
-        }
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
-
+interface ZMShippingProvider {
 
     /**
      * Get the shipping provider id.
      *
      * @return int The shipping provider id.
      */
-    public function getId() { return $this->zenQuote_['id']; }
+    public function getId();
 
     /**
      * Get the shipping provider name.
      *
      * @return string The shipping provider name.
      */
-    public function getName() { return $this->zenQuote_['module']; }
-
-    /**
-     * Get the shipping tax rate.
-     *
-     * @return float The shipping tax rate.
-     */
-    public function getTaxRate() {
-        $taxRate = ZMLoader::make("TaxRate");
-        $taxRate->setRate(isset($this->zenQuote_['tax']) ? $this->zenQuote_['tax'] : 0);
-        return $taxRate;
-    }
+    public function getName();
 
     /**
      * Checks if an icon exists for this provider.
      *
      * @return boolean <code>true</code> if an icon, <code>false</code> if not.
      */
-    public function hasIcon() { return isset($this->zenQuote_['icon']); }
+    public function hasIcon();
 
     /**
      * Get the icon.
      *
      * @return string The icon.
      */
-    public function getIcon() { return $this->hasIcon() ? $this->zenQuote_['icon'] : null; }
+    public function getIcon();
+
+    /**
+     * Flags whether this shipping provider is installed or not.
+     *
+     * @return boolean <code>true</code> if installed, <code>false</code> if not.
+     */
+    public function isInstalled();
 
     /**
      * Checks if errors are logged for this provider.
      *
      * @return boolean <code>true</code> if errors exist, <code>false</code> if not.
      */
-    public function hasError() { return isset($this->zenQuote_['error']); }
+    public function hasErrors();
 
     /**
      * Get the errors.
      *
      * @return array List of error messages.
      */
-    public function getError() { return $this->hasError() ?  $this->zenQuote_['error'] : null; }
+    public function getErrors();
 
     /**
-     * Checks if shipping methods are available from this provider.
+     * Get available shipping methods for the given address.
      *
-     * @return boolean <code>true</code> if shipping methods exist, <code>false</code> if not.
-     */
-    public function hasShippingMethods() { return 0 < count ($this->methods_); }
-
-    /**
-     * Get the available shipping methods.
-     *
+     * @param ZMShoppingCart shoppingCart The shopping cart.
+     * @param ZMAddress address The shipping address.
      * @return array A list of <code>ZMShippingMethod</code> instances.
      */
-    public function getShippingMethods() { return $this->methods_; }
+    public function getShippingMethods($shoppingCart, $address);
 
 }

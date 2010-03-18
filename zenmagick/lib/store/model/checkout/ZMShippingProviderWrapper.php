@@ -25,19 +25,13 @@
 
 
 /**
- * Shipping provider.
- *
- * <p>A shipping provider may offer 1-n shipping methods, depending on the
- * address, etc.</p>
- *
- * <p>This is eventually going to be a replacement for the current <code>ZMShippingProvider</code> class,
- * in combination with the new <code>ZMShippingProviders</code> service.</p>
+ * Shipping provider wrapper for zen cart shipping modules.
  *
  * @author DerManoMann
  * @package org.zenmagick.store.model.checkout
  * @version $Id$
  */
-class ZMShippingProviderWrapper extends ZMObject {
+class ZMShippingProviderWrapper extends ZMObject implements ZMShippingProvider {
     private $zenModule_;
     private $errors_;
 
@@ -63,65 +57,48 @@ class ZMShippingProviderWrapper extends ZMObject {
 
 
     /**
-     * Get the shipping provider id.
-     *
-     * @return int The shipping provider id.
+     * {@inheritDoc}
      */
     public function getId() { return $this->zenModule_->code; }
 
     /**
-     * Get the shipping provider name.
-     *
-     * @return string The shipping provider name.
+     * {@inheritDoc}
      */
     public function getName() { return $this->zenModule_->title; }
 
     /**
-     * Checks if an icon exists for this provider.
-     *
-     * @return boolean <code>true</code> if an icon, <code>false</code> if not.
+     * {@inheritDoc}
      */
     public function hasIcon() { return !ZMTools::isEmpty($this->zenModule_->icon); }
 
     /**
-     * Get the icon.
-     *
-     * @return string The icon.
+     * {@inheritDoc}
      */
     public function getIcon() { return $this->hasIcon() ? $this->zenModule_->icon : null; }
 
     /**
-     * Flags whether this shipping provider is installed or not.
-     *
-     * @return boolean <code>true</code> if installed, <code>false</code> if not.
+     * {@inheritDoc}
      */
     public function isInstalled() { return $this->zenModule_->check(); }
 
     /**
-     * Checks if errors are logged for this provider.
-     *
-     * @return boolean <code>true</code> if errors exist, <code>false</code> if not.
+     * {@inheritDoc}
      */
     public function hasErrors() { return 0 < count($this->errors_); }
 
     /**
-     * Get the errors.
-     *
-     * @return array List of error messages.
+     * {@inheritDoc}
      */
     public function getErrors() { return $this->errors_; }
 
     /**
-     * Get available shipping methods for the given address.
-     *
-     * <p><strong>NOTE:</strong> There is currently no way to specify individual items. Basis for calculations
-     * is the current shopping cart.</p>
-     *
-     * @param ZMShoppingCart shoppingCart The shopping cart.
-     * @param ZMAddress address The shipping address.
-     * @return array A list of <code>ZMShippingMethod</code> instances.
+     * {@inheritDoc}
      */
     public function getShippingMethods($shoppingCart, $address) { 
+        if (null == $address) {
+            return null;
+        }
+
         $this->errors_ = array();
 
         // TODO: setup globals, etc with address information, similar to shipping estimator...

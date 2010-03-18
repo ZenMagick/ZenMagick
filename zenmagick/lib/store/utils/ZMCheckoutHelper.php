@@ -157,7 +157,7 @@ class ZMCheckoutHelper extends ZMObject {
      *  <li>units - one or more products have unsatisfied unit restrictions</li>
      * </ul>
      *
-     * @return array A map of errorCode -&gt; item pairs.
+     * @return array A map of errorCode =&gt; item pairs.
      */
     public function checkCartStatus() {
         $map = array();
