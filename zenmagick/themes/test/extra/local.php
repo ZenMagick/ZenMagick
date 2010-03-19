@@ -73,4 +73,20 @@
         ZMSettings::set('zenmagick.mvc.templates.ext', '.twig');
     }
 
+    class SearchLogger {
+        public function onZMSearch($args) {
+            $criteria = $args['criteria'];
+				    if (!isset($_SESSION['search_log_term']) || ($_SESSION['search_log_term'] != $criteria->getKeywords())) {
+					      $_SESSION['search_log_term'] = $criteria->getKeywords();
+                $tableName = ZM_DB_PREFIX.'search_log';
+                $resultList = $args['resultList'];
+                $sql = "insert into " . $tableName . " (search_term, search_time, search_results) values (:search_term,now(),:search_results)";
+                $args = array('search_term' => $criteria->getKeywords(), 'search_results' => $resultList->getNumberOfResults());
+                ZMRuntime::getDatabase()->update($sql, $args, $tableName);
+            }
+        }
+    }
+
+    ZMEvents::instance()->attach(new SearchLogger());
+
 ?>
