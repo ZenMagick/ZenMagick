@@ -271,4 +271,23 @@ class ZMCheckoutHelper extends ZMObject {
         return null;
     }
 
+    /**
+     * Save the cart hash as reference against tampering.
+     *
+     * @param ZMRequest request The current request.
+     */
+    public function saveHash($request) {
+        $request->getSession()->setValue('shoppingCartHash', $this->shoppingCart_->getHash());
+    }
+
+    /**
+     * Validate the cart hash.
+     *
+     * @param ZMRequest request The current request.
+     * @return boolean <code>true</code> if, and only if, the session cart hash and the current hash are the same.
+     */
+    public function verifyHash($request) {
+        return $request->getSession()->getValue('shoppingCartHash') == $this->shoppingCart_->getHash();
+    }
+
 }

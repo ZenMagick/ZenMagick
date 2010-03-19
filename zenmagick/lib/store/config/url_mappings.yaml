@@ -151,6 +151,9 @@ account_notifications:
     template: account
     view: RedirectView
 checkout_shipping: 
+  skip_shipping: 
+    template: checkout_payment
+    view: RedirectView
   success: 
     template: checkout_payment
     view: RedirectView

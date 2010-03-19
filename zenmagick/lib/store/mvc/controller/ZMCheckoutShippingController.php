@@ -74,8 +74,18 @@ class ZMCheckoutShippingController extends ZMController {
     public function processGet($request) {
         $shoppingCart = $request->getShoppingCart();
         $checkoutHelper = ZMLoader::make('CheckoutHelper', $shoppingCart);
+
         if (null !== ($viewId = $checkoutHelper->validateCheckout(false))) {
             return $this->findView($viewId, $this->viewData_);
+        }
+
+        if (!$checkoutHelper->verifyHash($request)) {
+            return $this->findView('check_cart');
+        }
+
+        if ($checkoutHelper->isVirtual()) {
+            // TODO: set free shipping
+            //return $this->findView('skip_shipping');
         }
 
         return $this->findView(null, $this->viewData_);
@@ -92,6 +102,15 @@ class ZMCheckoutShippingController extends ZMController {
             return $this->findView($viewId, $this->viewData_);
         }
 
+        if (!$checkoutHelper->verifyHash($request)) {
+            return $this->findView('check_cart');
+        }
+
+        if ($checkoutHelper->isVirtual()) {
+            // TODO: set free shipping
+            //return $this->findView('skip_shipping');
+        }
+
         return parent::processPost($request);
     }
 
@@ -100,22 +119,6 @@ class ZMCheckoutShippingController extends ZMController {
 /********************
 
 
-
-// register a random ID in the session to check throughout the checkout procedure
-// against alterations in the shopping cart contents
-  $_SESSION['cartID'] = $_SESSION['cart']->cartID;
-
-// if the order contains only virtual products, forward the customer to the billing page as
-// a shipping address is not needed
-  if ($order->content_type == 'virtual') {
-    $_SESSION['shipping'] = 'free_free';
-    $_SESSION['shipping']['title'] = 'free_free';
-    $_SESSION['sendto'] = false;
-    zen_redirect(zen_href_link(FILENAME_CHECKOUT_PAYMENT, '', 'SSL'));
-  }
-
-  $total_weight = $_SESSION['cart']->show_weight();
-  $total_count = $_SESSION['cart']->count_contents();
 
 // load all enabled shipping modules
   require(DIR_WS_CLASSES . 'shipping.php');
@@ -196,33 +199,5 @@ class ZMCheckoutShippingController extends ZMController {
     }
   }
 
-// get all available shipping quotes
-  $quotes = $shipping_modules->quote();
-
-// if no shipping method has been selected, automatically select the cheapest method.
-// if the modules status was changed when none were available, to save on implementing
-// a javascript force-selection method, also automatically select the cheapest shipping
-// method if more than one module is now enabled
-  if ( !$_SESSION['shipping'] || ( $_SESSION['shipping'] && ($_SESSION['shipping'] == false) && (zen_count_shipping_modules() > 1) ) ) $_SESSION['shipping'] = $shipping_modules->cheapest();
-
-
-  // Should address-edit button be offered?
-  $displayAddressEdit = (MAX_ADDRESS_BOOK_ENTRIES >= 2);
-
-  // if shipping-edit button should be overridden, do so
-  $editShippingButtonLink = zen_href_link(FILENAME_CHECKOUT_SHIPPING_ADDRESS, '', 'SSL');	
-  if (isset($_SESSION['payment']) && method_exists($$_SESSION['payment'], 'alterShippingEditButton')) {
-    $theLink = $$_SESSION['payment']->alterShippingEditButton();
-    if ($theLink) {
-      $editShippingButtonLink = $theLink;
-      $displayAddressEdit = true;
-    }
-  }
-
-  $breadcrumb->add(NAVBAR_TITLE_1, zen_href_link(FILENAME_CHECKOUT_SHIPPING, '', 'SSL'));
-  $breadcrumb->add(NAVBAR_TITLE_2);
-
-// This should be last line of the script:
-  $zco_notifier->notify('NOTIFY_HEADER_END_CHECKOUT_SHIPPING');
 
 *************/

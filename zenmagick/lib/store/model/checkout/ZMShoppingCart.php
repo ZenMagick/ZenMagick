@@ -85,6 +85,22 @@ class ZMShoppingCart extends ZMObject {
     public function getSize() { return count($this->getItems()); }
 
     /**
+     * Calculate cart hash.
+     *
+     * <p>This hash can be used to validate that the cart didn't change during checkout.
+     *
+     * @return string A hash.
+     */
+    public function getHash() {
+        $s = '';
+        foreach ($this->getItems() as $item) {
+            $s .= ';'.$item->getQuantity().":".$item->getId();
+        }
+
+        return md5($s);
+    }
+
+    /**
      * Get the carts weight.
      *
      * @return float The weight if the shopping cart.
