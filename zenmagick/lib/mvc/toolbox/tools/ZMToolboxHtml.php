@@ -36,7 +36,7 @@ class ZMToolboxHtml extends ZMToolboxTool {
      * @param string s The string to encode.
      * @return string The encoded HTML.
      */
-    public function encode($s) {
+    public static function encode($s) {
         $s = html_entity_decode($s, ENT_QUOTES, ZMSettings::get('zenmagick.mvc.html.charset')); 
         $s = htmlentities($s, ENT_QUOTES, ZMSettings::get('zenmagick.mvc.html.charset'));
 
@@ -49,7 +49,7 @@ class ZMToolboxHtml extends ZMToolboxTool {
      * @param string s The input string.
      * @return string HTML formatted text.
      */
-    public function text2html($s) {
+    public static function text2html($s) {
         $html = str_replace("\r\n", '<br>', $html);
         $html = str_replace("\n", '<br>', $s);
         $html = str_replace("\r", '', $html);
@@ -64,7 +64,7 @@ class ZMToolboxHtml extends ZMToolboxTool {
      * @param string more Optional string that will be appended to indicate that the text was truncated; default is <em>...</em>.
      * @return string The (possibly) truncated text.
      */
-    public function more($s, $max=0, $more=" ...") {
+    public static function more($s, $max=0, $more=" ...") {
         $text = $s;
         if (0 != $max && strlen($text) > $max) {
             $pos = strpos($text, ' ', $max-10);

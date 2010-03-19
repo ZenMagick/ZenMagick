@@ -150,7 +150,7 @@ class ZMToolboxNet extends ZMToolboxTool {
      * @param string url The url to encode.
      * @return string The URL encoded in valid HTM.
      */
-    public function encode($url) {
+    public static function encode($url) {
         $url = htmlentities($url, ENT_QUOTES,ZMSettings::get('zenmagick.mvc.html.charset'));
         $url = str_replace(' ', '%20', $url);
         return $url;
@@ -162,7 +162,7 @@ class ZMToolboxNet extends ZMToolboxTool {
      * @param string url The url to decode.
      * @return string The decoded URL.
      */
-    public function decode($url) {
+    public static function decode($url) {
         $s = html_entity_decode($url, ENT_QUOTES,ZMSettings::get('zenmagick.mvc.html.charset'));
         $s = str_replace('%20', ' ', $s);
         return $s;
