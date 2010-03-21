@@ -385,7 +385,7 @@ class ZMLoader {
         $includes = array();
 
         // sanity check
-        if (!is_dir($dir)) {
+        if (!file_exists($dir) || !is_dir($dir)) {
             return $includes;
         }
 
@@ -416,7 +416,14 @@ class ZMLoader {
      * @return array A file map for the given path.
      */
     protected function scan($path, $baseNamespace='', $recursive=true) {
-        $path = realpath($path).DIRECTORY_SEPARATOR;
+        $path = realpath($path);
+        // first check
+        if (empty($path) || !file_exists($path) || !is_dir($path)) {
+            return array();
+        }
+        // then add trailing ds
+        $path = $path.DIRECTORY_SEPARATOR;
+
         $files = self::findIncludes($path, '.php', $recursive);
         $map = array();
         foreach ($files as $file) {
