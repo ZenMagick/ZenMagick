@@ -155,6 +155,13 @@ Release 0.9.9
   theme
 - added a new event fired on each search
 - added a new event when insufficient credentials
+- change checkout_shipping and ZMShoppingCart to using the new shipping
+  service class
+- make ZMCheckoutShippingController actually work; right now this is disabled
+  as there is still functionallity missing
+- changed ZMShoppingCart methods getShippingMethod and getShippingMethodId to
+  getSelectedShippingMethod and getSelectedShippingMethodId, respectively;
+	affects checkout_confirmation
 
 Release 0.9.8
 - add Savant3 and experimental views (not used yet)

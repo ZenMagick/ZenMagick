@@ -94,6 +94,14 @@ class ZMShippingProviderWrapper extends ZMObject implements ZMShippingProvider {
     /**
      * {@inheritDoc}
      */
+    public function getShippingMethodForId($id, $shoppingCart, $address) { 
+        $methods = $this->getShippingMethods($shoppingCart, $address);
+        return (array_key_exists($id, $methods) ? $methods[$id] : null);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function getShippingMethods($shoppingCart, $address) { 
         if (null == $address) {
             return null;
@@ -174,6 +182,7 @@ class ZMShippingProviderWrapper extends ZMObject implements ZMShippingProvider {
         if (array_key_exists('methods', $quotes)) {
             foreach ($quotes['methods'] as $method) {
                 $shippingMethod = ZMLoader::make("ShippingMethod", $this, $method);
+                $shippingMethod->setProvider($this);
                 $shippingMethod->setTaxRate($taxRate);
                 $methods[$shippingMethod->getId()] = $shippingMethod;
             }

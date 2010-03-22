@@ -32,15 +32,12 @@
  * @version $Id$
  */
 class ZMCheckoutShippingController extends ZMController {
-    private $viewData_;
-
 
     /**
      * Create new instance.
      */
     function __construct() {
         parent::__construct();
-        $this->viewData_ = array();
     }
 
     /**
@@ -64,8 +61,16 @@ class ZMCheckoutShippingController extends ZMController {
 
         $request->getToolbox()->crumbtrail->addCrumb("Checkout", $request->getToolbox()->net->url(FILENAME_CHECKOUT_SHIPPING, '', true));
         $request->getToolbox()->crumbtrail->addCrumb($request->getToolbox()->utils->getTitle());
+    }
 
-        $this->viewData_['shoppingCart'] = $shoppingCart;
+    /**
+     * {@inheritDoc}
+     */
+    public function getViewData($request) {
+        return array(
+          'shoppingCart' => $request->getShoppingCart(),
+          'comments' => $request->getParameter('comments', $request->getSession()->getValue('comments'))
+        );
     }
 
     /**
@@ -76,7 +81,7 @@ class ZMCheckoutShippingController extends ZMController {
         $checkoutHelper = ZMLoader::make('CheckoutHelper', $shoppingCart);
 
         if (null !== ($viewId = $checkoutHelper->validateCheckout(false))) {
-            return $this->findView($viewId, $this->viewData_);
+            return $this->findView($viewId);
         }
 
         if (!$checkoutHelper->verifyHash($request)) {
@@ -88,7 +93,12 @@ class ZMCheckoutShippingController extends ZMController {
             //return $this->findView('skip_shipping');
         }
 
-        return $this->findView(null, $this->viewData_);
+        // already checked that cart is not virtual
+        if (null == $shoppingCart->getShippingAddress()) {
+            $shoppingCart->setShippingAddressId($request->getAccount()->getDefaultAddressId());
+        }
+
+        return $this->findView();
     }
 
     /**
@@ -99,7 +109,7 @@ class ZMCheckoutShippingController extends ZMController {
         $checkoutHelper = ZMLoader::make('CheckoutHelper', $shoppingCart);
 
         if (null !== ($viewId = $checkoutHelper->validateCheckout(false))) {
-            return $this->findView($viewId, $this->viewData_);
+            return $this->findView($viewId);
         }
 
         if (!$checkoutHelper->verifyHash($request)) {
@@ -111,7 +121,24 @@ class ZMCheckoutShippingController extends ZMController {
             //return $this->findView('skip_shipping');
         }
 
-        return parent::processPost($request);
+        $comments = $request->getSession()->getValue('comments');
+        if (null != ($comments = $request->getParameter('comments'))) {
+            $request->getSession()->setValue('comments', $comments);
+        }
+
+        // process selected shipping method
+        $shipping = $request->getParameter('shipping');
+        list($provider, $method) = explode('_', $request->getParameter('shipping'));
+        $shippingProvider = ZMShippingProviders::instance()->getShippingProviderForId($method);
+        $shippingMethod = $shippingProvider->getShippingMethodForId($method, $shoppingCart, $shoppingCart->getShippingAddress());
+
+        if (empty($provider) || empty($method) || null == $shippingMethod) {
+            ZMMessages::instance()->error(zm_l10n_get('Please select a shipping method.'));
+        }
+
+        $shoppingCart->setShippingMethod($shippingMethod);
+
+        return $this->findView('success');
     }
 
 }

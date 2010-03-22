@@ -139,22 +139,6 @@ class ZMToolboxUtils extends ZMToolboxTool {
     }
 
     /**
-     * Count the number of available shipping methods.
-     *
-     * @param ZMShoppingCart shoppingCart The cart to examine.
-     * @return int The number of shipping methods.
-     */
-    public function getShippingMethodCount($shoppingCart) {
-        $count = 0;
-        // PHP4 hack - god know why!
-        foreach ($shoppingCart->getShippingProviders() as $provider) {
-            $count += count($provider->getShippingMethods());
-        }
-
-        return $count;
-    }
-
-    /**
      * Check if the given shopping cart qualifies for free shipping (as per free shipping ot).
      *
      * @param ZMShoppingCart shoppingCart The cart to examine.

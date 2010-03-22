@@ -86,7 +86,7 @@
     <fieldset>
         <legend><?php zm_l10n("Shipping") ?></legend>
         <div class="btn"><a class="btn" href="<?php echo $net->url(FILENAME_CHECKOUT_SHIPPING, '', true) ?>"><?php zm_l10n("Change") ?></a></div>
-        <?php echo $html->encode($shoppingCart->getShippingMethod()) ?><br/>
+        <?php echo $html->encode($shoppingCart->getSelectedShippingMethod()) ?><br/>
     </fieldset>
 <?php } ?>
 

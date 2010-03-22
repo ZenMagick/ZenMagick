@@ -66,6 +66,13 @@ class ZMShippingMethod extends ZMObject {
     public function getId() { return $this->zenMethod_['id']; }
 
     /**
+     * Set the shipping method id.
+     *
+     * @param int id The shipping method id.
+     */
+    public function setId($id) {  }
+
+    /**
      * Get the shipping method name.
      *
      * @return string The shipping method name.
@@ -85,6 +92,13 @@ class ZMShippingMethod extends ZMObject {
      * @return ZMShippingProvider The shipping provider.
      */
     public function getProvider() { return $this->provider_; }
+
+    /**
+     * Set the shipping provider.
+     *
+     * @param ZMShippingProvider provider The shipping provider.
+     */
+    public function setProvider($provider) { $this->provider_ = $provider; }
 
     /**
      * Set the tax rate.

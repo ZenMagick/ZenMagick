@@ -126,7 +126,7 @@ class ZMController extends ZMObject {
             $toolbox = $request->getToolbox();
             $view->setVar('toolbox', $toolbox);
 
-            // empty callback
+            // custom view data
             $view->setVars($this->getViewData($request));
 
             // also set individual tools

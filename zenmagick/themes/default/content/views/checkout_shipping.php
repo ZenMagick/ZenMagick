@@ -50,16 +50,20 @@
                         </tr>
                     </thead>
                     <tbody>
-                    <?php foreach ($shoppingCart->getShippingProviders() as $provider) { ?>
-                        <tr><td colspan="3"><strong><?php echo $html->encode($provider->getName()) ?></strong><?php if ($provider->hasError()) { zm_l10n("(%s)", $provider->getError()); } ?></td></tr>
-                        <?php if ($provider->hasError()) { continue; } foreach ($provider->getShippingMethods() as $method) { $id = 'ship_'.$method->getId();?>
-                            <?php $selected = (1 == $utils->getShippingMethodCount($shoppingCart)) || ($method->getShippingId() == $shoppingCart->getShippingMethodId()); ?>
-                            <tr class="smethod" onclick="document.getElementById('<?php echo $id ?>').checked = true;">
-                                <td><?php echo $html->encode($method->getName()) ?></td>
-                                <td class="smcost"><?php echo $utils->formatMoney($method->getCost()) ?></td>
-                                <td class="smbutt"><input type="radio" id="<?php echo $id ?>" name="shipping" value="<?php echo $method->getShippingId() ?>"<?php $form->checked(true, $selected) ?> /></td>
-                            </tr>
+                    <?php $provider = null; $methods = $shoppingCart->getMethodsForProvider(); foreach ($methods as $method) { ?>
+                        <?php if (null == $provider || $provider->getId() != $method->getProvider()->getId()) { 
+                            $provider = $method->getProvider(); 
+                            $errors = $provider->getErrors();
+                            ?>
+                            <tr><td colspan="3"><strong><?php echo $html->encode($provider->getName()) ?></strong><?php if ($provider->hasErrors()) { zm_l10n("(%s)", $errors[0]); } ?></td></tr>
                         <?php } ?>
+                        <?php $id = 'ship_'.$method->getId();?>
+                        <?php $selected = (1 == count($methods)) || ($method->getShippingId() == $shoppingCart->getSelectedShippingMethodId()); ?>
+                        <tr class="smethod" onclick="document.getElementById('<?php echo $id ?>').checked = true;">
+                            <td><?php echo $html->encode($method->getName()) ?></td>
+                            <td class="smcost"><?php echo $utils->formatMoney($method->getCost()) ?></td>
+                            <td class="smbutt"><input type="radio" id="<?php echo $id ?>" name="shipping" value="<?php echo $method->getShippingId() ?>"<?php $form->checked(true, $selected) ?> /></td>
+                        </tr>
                     <?php } ?>
                     </tbody>
                 </table>

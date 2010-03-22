@@ -223,10 +223,26 @@ class ZMShoppingCart extends ZMObject {
      * @return array List of <code>ZMShippingProvider</code> instances.
      */
     public function getShippingProviders() {
-        if (null == $this->shipping_) {
-            $this->shipping_ = ZMLoader::make("Shipping");
+        return ZMShippingProviders::instance()->getShippingProviders();
+    }
+
+    /**
+     * Get all available methods of the given provider for this cart.
+     *
+     * @param ZMShippingProvider provider The provider; default is <code>null</code> for all.
+     * @return array List of <code>ZMShippingmethod</code> instances.
+     */
+    public function getMethodsForProvider($provider=null) {
+        if (null != $provider) {
+            return $provider->getShippingMethods($this, $this->getShippingAddress());
+        } else {
+            $methods = array();
+            foreach ($this->getShippingProviders() as $provider) {
+                $methods = array_merge($methods, $provider->getShippingMethods($this, $this->getShippingAddress()));
+            }
+
+            return $methods;
         }
-        return $this->shipping_->getShippingProvider();
     }
 
     /**
@@ -234,7 +250,7 @@ class ZMShoppingCart extends ZMObject {
      *
      * @return int The shipping method id.
      */
-    public function getShippingMethodId() { 
+    public function getSelectedShippingMethodId() { 
         return (isset($_SESSION['shipping']) && isset($_SESSION['shipping']['id'])) ? $_SESSION['shipping']['id'] : null;
     }
 
@@ -252,13 +268,26 @@ class ZMShoppingCart extends ZMObject {
      *
      * @return mixed The zen-cart shipping method.
      */
-    public function getShippingMethod() {
+    public function getSelectedShippingMethod() {
     global $order;
 
         if (!isset($order)) {
             $order = new order();
         }
         return array_key_exists('shipping_method', $order->info) ? $order->info['shipping_method'] : null;
+    }
+
+    /**
+     * Set the selected shipping method.
+     *
+     * @param ZMShippingMethod method The shipping method to use.
+     */
+    public function setShippingMethod($method) {
+        $_SESSION['shipping'] = array(
+            'id' => $method->getShippingId(),
+            'title' => $method->getName(),
+            'cost' => $method->getCost()
+        );
     }
 
     /**
