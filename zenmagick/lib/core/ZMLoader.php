@@ -79,7 +79,7 @@ class ZMLoader {
         $this->path_ = array();
         $this->global_ = array();
         $this->cache_ = array();
-        $this->stats_ = array('static' => 0, 'class' => 0);
+        $this->stats_ = array('static' => 0, 'class' => 0, 'instances' => 0);
     }
 
 
@@ -363,6 +363,7 @@ class ZMLoader {
                 default:
                     throw new ZMException('unsupported number of constructor arguments ' . $clazz);
             }
+            ++$this->stats_['instances'];
             return $obj;
 
         }
@@ -471,11 +472,12 @@ class ZMLoader {
      * @param all Optional parameter to indicate that stats of all loaders should be returned.
      */
     public function getStats($all=true) {
-        $list = array('static' => $this->stats_['static'], 'class' => $this->stats_['class']);
+        $list = array('static' => $this->stats_['static'], 'class' => $this->stats_['class'], 'instances' => $this->stats_['instances']);
         if ($all && null != $this->parent_) {
             $plist = $this->parent_->getStats(true);
             $list['static'] += $plist['static'];
             $list['class'] += $plist['class'];
+            $list['instances'] += $plist['instances'];
         }
         return $list;
     }

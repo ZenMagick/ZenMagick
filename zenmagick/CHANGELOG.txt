@@ -162,6 +162,7 @@ Release 0.9.9
 - changed ZMShoppingCart methods getShippingMethod and getShippingMethodId to
   getSelectedShippingMethod and getSelectedShippingMethodId, respectively;
 	affects checkout_confirmation
+- pageStats: add loader object instatiation to stats
 
 Release 0.9.8
 - add Savant3 and experimental views (not used yet)

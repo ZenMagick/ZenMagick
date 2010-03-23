@@ -147,7 +147,7 @@ class ZMPageStatsPlugin extends Plugin {
         }
         echo '<br'.$slash.'>';
         $lstats = ZMLoader::instance()->getStats(true);
-        echo 'ZMLoader: '.$lstats['static'].' static and '.$lstats['class'].' class files loaded.<br'.$slash.'>';
+        echo 'ZMLoader: '.$lstats['static'].' static and '.$lstats['class'].' class files loaded, '.$lstats['instances'].' objects instantiated.<br'.$slash.'>';
         echo '</div>';
         if (ZMSettings::get('plugins.pageStats.showEvents', ZMLangUtils::asBoolean($this->get('showEvents')))) {
             echo '<div id="event-log">';
