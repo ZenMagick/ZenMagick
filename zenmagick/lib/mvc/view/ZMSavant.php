@@ -136,4 +136,17 @@ class ZMSavant extends Savant3 {
         return $result;
     }
 
+    /**
+     * Call the block handler for the given block id.
+     *
+     * <p>All registered block contents that is found at this time will be returned as ready-to-use HTML.</p>
+     *
+     * @param string blockId The block id.
+     * @param array args Optional parameter; default is an empty array.
+     * @return string The HTML content for this block.
+     */
+    public function block($blockId, $args=array()) {
+        return '';
+    }
+
 }

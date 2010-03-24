@@ -29,16 +29,19 @@
  */
 class ZMSideboxBlockContents extends ZMObject implements ZMBlockContents {
     private $boxName_;
+    private $sortOrder_;
 
 
     /**
      * Create new instance.
      *
      * @param string boxName The box name/template; default is <code>null</code>.
+     * @param int sortOrder The sort order; default is 0.
      */
-    function __construct($boxName=null) {
+    function __construct($boxName=null, $sortOrder=0) {
         parent::__construct();
         $this->setBoxName($boxName);
+        $this->sortOrder_ = $sortOrder;
     }
 
     /**
@@ -48,6 +51,22 @@ class ZMSideboxBlockContents extends ZMObject implements ZMBlockContents {
         parent::__destruct();
     }
 
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getSortOrder() {
+        return $this->sortOrder_;
+    }
+
+    /**
+     * Set the sort order.
+     *
+     * @param int sortOrder The sort order.
+     */
+    public function setSortOrder($sortOrder) {
+        $this->sortOrder_ = $sortOrder;
+    }
 
     /**
      * {@inheritDoc}

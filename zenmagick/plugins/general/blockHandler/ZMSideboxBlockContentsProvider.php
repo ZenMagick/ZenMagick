@@ -33,19 +33,20 @@ class ZMSideboxBlockContentsProvider implements ZMBlockContentsProvider {
     /**
      * {@inheritDoc}
      */
-    public function getBlockContentsList() {
+    public function getBlockContentsList($blockId=null, $args=array()) {
         $mapping = array();
-        if (ZMTemplateManager::instance()->isLeftColEnabled()) {
+        if (ZMTemplateManager::instance()->isLeftColEnabled() && (null == $blockId || 'leftColumn' == $blockId)) {
+            $index = 0;
             foreach (ZMTemplateManager::instance()->getLeftColBoxNames() as $boxName) {
                 // avoid duplicates by using $box as key
-                $mapping[$boxName] = 'SideboxBlockContents#boxName='.$boxName;
+                $mapping[$boxName] = 'SideboxBlockContents#boxName='.$boxName.'&sortOrder='.$index++;
             }
         }
 
-        if (ZMTemplateManager::instance()->isRightColEnabled()) {
+        if (ZMTemplateManager::instance()->isRightColEnabled() && (null == $blockId || 'rightColumn' == $blockId)) {
             foreach (ZMTemplateManager::instance()->getRightColBoxNames() as $boxName) {
                 // avoid duplicates by using $box as key
-                $mapping[$boxName] = 'SideboxBlockContents#boxName='.$boxName;
+                $mapping[$boxName] = 'SideboxBlockContents#boxName='.$boxName.'&sortOrder='.$index++;
             }
         }
 

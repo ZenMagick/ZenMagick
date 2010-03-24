@@ -31,6 +31,14 @@
 interface ZMBlockContents {
 
     /**
+     * Get the sort order for this block.
+     *
+     * @return int The sort order relative to the other blocks.
+     */
+    public function getSortOrder();
+      
+
+    /**
      * Get the name (for UI).
      *
      * @return string The name.

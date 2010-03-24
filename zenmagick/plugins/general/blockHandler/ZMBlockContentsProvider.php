@@ -33,9 +33,15 @@
  */
 interface ZMBlockContentsProvider {
     /**
-     * Return list of block contents availabe from this provider.
+     * Return list of block contents availabe from this provider for the given block id.
      *
+     * <p>If <code>null</code> is specified as blockId, all available blocks must be returned as map with the block id
+     * as key and a list of the corresponding blocks as value.</p>
+     *
+     * @param string blockId The block id or <code>null</code> for all; default is <code>null</code>.
+     * @param array args Optional parameter; default is an empty array.
      * @return array List of block contents objects or bean definitions.
      */
-    public function getBlockContentsList();
+    public function getBlockContentsList($blockId=null, $args=array());
+
 }

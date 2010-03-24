@@ -2,21 +2,23 @@
 
     /** Two different ways of using the various interfaces... **/
   
-    $useStatic = true;
+    $useStatic = false;
   
     if ($useStatic) {
         // register straight with the manager
         if (ZMTemplateManager::instance()->isLeftColEnabled()) {
+            $index = 0;
             foreach (ZMTemplateManager::instance()->getLeftColBoxNames() as $boxName) {
                 // register as bean definition
-                ZMBlockManager::instance()->registerBlock('leftColumn', 'SideboxBlockContents#boxName='.$boxName);
+                ZMBlockManager::instance()->registerBlock('leftColumn', 'SideboxBlockContents#boxName='.$boxName.'&sortOrder='.$index++);
             }
         }
 
         if (ZMTemplateManager::instance()->isRightColEnabled()) {
+            $index = 0;
             foreach (ZMTemplateManager::instance()->getRightColBoxNames() as $boxName) {
                 // register as instance
-                ZMBlockManager::instance()->registerBlock('rightColumn', new ZMSideboxBlockContents($boxName));
+                ZMBlockManager::instance()->registerBlock('rightColumn', new ZMSideboxBlockContents($boxName, $index++));
             }
         }
     } else {
@@ -32,41 +34,18 @@
 
         // now do something with it; this is where the UI would mix & map things and perhaps store in the db?
 
-        // 1) build list of provider objects
-        $providers = array();
-        foreach (explode(',', ZMSettings::get('plugins.blockHandler.blockContentsProviders')) as $providerId) {
-            if (ZMLangUtils::startsWith('plugin:', $providerId)) {
-                $pluginId = str_replace('plugin:', '', $providerId);
-                $provider = ZMPlugins::instance()->getPluginForId($pluginId);
-            } else {
-                // bean definition
-                $provider = ZMBeanUtils::getBean($providerId);
-            }
-            if ($provider instanceof ZMBlockContentsProvider) {
-                $providers[] = $provider;
-            } else {
-                ZMLogging::instance()->log('invalid block contents provider: '.$providerId, ZMLogging::WARN);
+
+        // 1) build custom mappings (this could be done via UI and be only a subset of the available blocks/ids)
+        foreach (ZMBlockManager::instance()->getProviders() as $provider) {
+            $mappings = array('leftColumn' => array(), 'rightColumn' => array());
+            foreach ($mappings as $blockId => $blocks) {
+                $mappings[$blockId] = array_merge($mappings[$blockId], $provider->getBlockContentsList($blockId));
             }
         }
 
-        // 2) build list of all available block contents
-        $blockList = array();
-        foreach ($providers as $provider) {
-            $blockList = array_merge($blockList, $provider->getBlockContentsList());
-        }
-
-        // 3) TODO: map to block ids where the user wants them to be 
-        // let's simulate this by dividing all blocks into both sideboxes..
-        $index = 1;
-        $mappings = array('leftColumn' => array(), 'rightColumn' => array());
-        foreach ($blockList as $block) {
-            $key = 0 == (++$index%2) ? 'leftColumn' : 'rightColumn';
-            $mappings[$key][] = $block;
-        }
-
-        // 4) now that we have mapped the available block contents onto block identifiers, tell the
-        // manager about it
-        ZMBlockManager::instance()->setMappings($mappings);
+        // 2) now that we have mapped the available block contents onto block identifiers, tell the
+        // manager about it and force sorting (as we do not have a UI)
+        ZMBlockManager::instance()->setMappings($mappings, true);
 
         ZMEvents::instance()->attach(ZMBlockManager::instance());
     }

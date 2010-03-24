@@ -35,6 +35,7 @@
  */
 class ZMBlockManager extends ZMObject {
     const BLOCK_PATTERN = '/<!\-\-\s+block::(\S*)\s+\-\->/';
+    private $providers_;
     private $mappings_;
 
 
@@ -43,6 +44,7 @@ class ZMBlockManager extends ZMObject {
      */
     function __construct() {
         parent::__construct();
+        $this->providers_ = null;
         $this->mappings_ = array();
     }
 
@@ -59,6 +61,36 @@ class ZMBlockManager extends ZMObject {
      */
     public static function instance() {
         return ZMObject::singleton('BlockManager');
+    }
+
+    /**
+     * Get a list of all registered providers.
+     *
+     * <p>To allow to efficiently reuse existing plugin objects, it is possible to register plugins as provider
+     * using the following syntax: <code>plugin:[pluginId]</code> instead of a bean definition or class name.</p>
+     *
+     * @return array A list of <code>ZMBlockContentsProvider</code> instances.
+     */
+    public function getProviders() {
+        if (null == $this->providers_) {
+            $this->providers_ = array();
+            foreach (explode(',', ZMSettings::get('plugins.blockHandler.blockContentsProviders')) as $providerId) {
+                if (ZMLangUtils::startsWith('plugin:', $providerId)) {
+                    $pluginId = str_replace('plugin:', '', $providerId);
+                    $provider = ZMPlugins::instance()->getPluginForId($pluginId);
+                } else {
+                    // bean definition
+                    $provider = ZMBeanUtils::getBean($providerId);
+                }
+                if (null != $provider && $provider instanceof ZMBlockContentsProvider) {
+                    $this->providers_[] = $provider;
+                } else {
+                    ZMLogging::instance()->log('invalid block contents provider: '.$providerId, ZMLogging::WARN);
+                }
+            }
+        }
+
+        return $this->providers_;
     }
 
     /**
@@ -89,14 +121,40 @@ class ZMBlockManager extends ZMObject {
         return array();
     }
 
+   /**
+     * Compare blocks.
+     *
+     * @param ZMBlockContent a First block.
+     * @param ZMBlockContent b Second block.
+     * @return integer Value less than, equal to, or greater than zero if the first argument is
+     *  considered to be respectively less than, equal to, or greater than the second.
+     */
+    protected function compareBlocks($a, $b) { 
+        if ($a->getSortOrder() == $b->getSortOrder()) {
+            return 0;
+        }
+        return ($a->getSortOrder() < $b->getSortOrder()) ? -1 : 1;
+    }
+
     /**
      * Set block mappings.
      *
      * <p>Replace existing mappings.</p>
      *
      * @param array mappings The new mappings.
+     * @param boolean sort Optional flag to indicate that the mappings still need sorting; default is <code>false</code>.
      */
-    public function setMappings($mappings) {
+    public function setMappings($mappings, $sort=false) {
+        if ($sort) {
+            foreach ($mappings as $blockId => $blocks) {
+                foreach ($blocks as $ii => $block) {
+                    if (is_string($block)) {
+                        $mappings[$blockId][$ii] = ZMBeanUtils::getBean($block);
+                    }
+                }
+                usort($mappings[$blockId], array($this, 'compareBlocks'));
+            }
+        }
         $this->mappings_ = $mappings;
     }
 
