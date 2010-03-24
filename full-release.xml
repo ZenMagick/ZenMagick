@@ -16,17 +16,6 @@
         <copy todir="${release.full.dir}" overwrite="true">
             <fileset dir="${zencart.base.dir}">
                 <exclude name=".git/**" />
-                <exclude name="extras/**" />
-                <exclude name="docs/**" />
-                <!-- downloads / music media -->
-                <exclude name="pub/**" />
-                <exclude name="media/**" />
-                <exclude name="download/**" />
-            </fileset>
-        </copy>
-        <!-- copy extras folder into install_zc to make it more likely it gets removed... -->
-        <copy todir="${release.full.dir}/zc_install/extras">
-            <fileset dir="${zencart.base.dir}/extras">
             </fileset>
         </copy>
 
@@ -51,6 +40,9 @@
         <copy file="${zenmagick.src.dir}/lib/store/etc/sql/mysql/token_install.sql" tofile="${release.full.dir}/zc_install/sql/plugins/mysql_token_install.sql" />
         <copy file="${basedir}/etc/build/full/sql/mysql_default_sideboxes.sql" todir="${release.full.dir}/zc_install/sql/plugins/" />
         <copy file="${basedir}/etc/build/full/sql/mysql_other.sql" todir="${release.full.dir}/zc_install/sql/plugins/" />
+
+        <!-- add ZenMagick readme -->
+        <copy file="${basedir}/etc/build/full/files/Readme.ZenMagick.txt" todir="${release.full.dir}/" />
 
         <!-- remove unused zencart code -->
         <antcall target="drop-unused-zencart" />
@@ -96,10 +88,14 @@
         <!-- apply branding to the lot -->
         <antcall target="apply-branding" />
 
+        <!-- just in case (and the ZenMagick readme -->
+        <antcall target="patch">
+            <param name="patch.dir" value="${release.full.dir}" />
+        </antcall>
+
         <!-- and zip -->
         <zip zipfile="${dist.dir}/${full.version.file}.zip" basedir="${release.full.dir}" />
         <checksum file="${dist.dir}/${full.version.file}.zip" fileext=".sha" algorithm="SHA" todir="${dist.dir}/checksum" />
-
     </target>
 
     <!-- patch full release -->
@@ -327,20 +323,61 @@
         </replaceregexp>
     </target>
 
-    <!-- remove unused zencart code -->
-    <target name="drop-unused-zencart" description="Remove unused zencart code from installation.">
+    <!-- remove unused zencart code and add as zc_install zips -->
+    <target name="drop-unused-zencart" description="Remove unused zencart code from main install, but leave as zc_install zips.">
+        <!-- create install optional folder -->
+        <mkdir dir="${release.full.dir}/zc_install/optional" />
+
+        <!-- general stuff -->
+        <zip zipfile="${release.full.dir}/zc_install/optional/extras.zip">
+            <fileset dir="${release.full.dir}" includes="extras/" />
+            <fileset dir="${release.full.dir}" includes="docs/" />
+        </zip>
+
+        <!-- templates -->
+        <zip zipfile="${release.full.dir}/zc_install/optional/templates.zip">
+            <fileset dir="${release.full.dir}" includes="includes/templates/classic/" />
+            <fileset dir="${release.full.dir}" includes="includes/templates/template_default/" />
+            <fileset dir="${release.full.dir}" includes="/includes/languages/classic/" />
+            <fileset dir="${release.full.dir}" includes="includes/languages/english/classic/" />
+            <fileset dir="${release.full.dir}" includes="includes/languages/english/extra_definitions/classic/" />
+            <fileset dir="${release.full.dir}" includes="includes/languages/english/html_includes/classic/" />
+            <fileset dir="${release.full.dir}" includes="includes/languages/english/modules/order_total/classic/" />
+            <fileset dir="${release.full.dir}" includes="includes/languages/english/modules/payment/classic/" />
+            <fileset dir="${release.full.dir}" includes="includes/languages/english/modules/shipping/classic/" />
+            <fileset dir="${release.full.dir}" includes="includes/modules/classic/" />
+            <fileset dir="${release.full.dir}" includes="includes/modules/sideboxes/classic/" />
+        </zip>
+
+        <!-- music product info -->
+        <zip zipfile="${release.full.dir}/zc_install/optional/music_product_info.zip">
+            <fileset dir="${release.full.dir}" includes="pub/" />
+            <fileset dir="${release.full.dir}" includes="media/" />
+            <fileset dir="${release.full.dir}" includes="download/" />
+        </zip>
+
         <delete includeemptydirs="true">
-            <fileset dir="${release.full.dir}/includes/templates/classic" />
-            <fileset dir="${release.full.dir}/includes/templates/template_default" />
-            <fileset dir="${release.full.dir}/includes/languages/classic" />
-            <fileset dir="${release.full.dir}/includes/languages/english/classic" />
-            <fileset dir="${release.full.dir}/includes/languages/english/extra_definitions/classic" />
-            <fileset dir="${release.full.dir}/includes/languages/english/html_includes/classic" />
-            <fileset dir="${release.full.dir}/includes/languages/english/modules/order_total/classic" />
-            <fileset dir="${release.full.dir}/includes/languages/english/modules/payment/classic" />
-            <fileset dir="${release.full.dir}/includes/languages/english/modules/shipping/classic" />
-            <fileset dir="${release.full.dir}/includes/modules/classic" />
-            <fileset dir="${release.full.dir}/includes/modules/sideboxes/classic" />
+            <!-- general folders -->
+            <fileset dir="${release.full.dir}" includes="extras/" />
+            <fileset dir="${release.full.dir}" includes="docs/" />
+
+            <!-- unused template code -->
+            <fileset dir="${release.full.dir}" includes="includes/templates/classic/" />
+            <fileset dir="${release.full.dir}" includes="includes/templates/template_default/" />
+            <fileset dir="${release.full.dir}" includes="/includes/languages/classic/" />
+            <fileset dir="${release.full.dir}" includes="includes/languages/english/classic/" />
+            <fileset dir="${release.full.dir}" includes="includes/languages/english/extra_definitions/classic/" />
+            <fileset dir="${release.full.dir}" includes="includes/languages/english/html_includes/classic/" />
+            <fileset dir="${release.full.dir}" includes="includes/languages/english/modules/order_total/classic/" />
+            <fileset dir="${release.full.dir}" includes="includes/languages/english/modules/payment/classic/" />
+            <fileset dir="${release.full.dir}" includes="includes/languages/english/modules/shipping/classic/" />
+            <fileset dir="${release.full.dir}" includes="includes/modules/classic/" />
+            <fileset dir="${release.full.dir}" includes="includes/modules/sideboxes/classic/" />
+
+            <!-- downloads / music media -->
+            <fileset dir="${release.full.dir}" includes="pub/" />
+            <fileset dir="${release.full.dir}" includes="media/" />
+            <fileset dir="${release.full.dir}" includes="download/" />
         </delete>
     </target>
 

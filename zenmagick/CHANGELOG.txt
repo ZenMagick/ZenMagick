@@ -163,6 +163,8 @@ Release 0.9.9
   getSelectedShippingMethod and getSelectedShippingMethodId, respectively;
 	affects checkout_confirmation
 - pageStats: add loader object instatiation to stats
+- full-release: add all stuff that gets removed from zc-base as zip to
+  zc_install/optional
 
 Release 0.9.8
 - add Savant3 and experimental views (not used yet)
