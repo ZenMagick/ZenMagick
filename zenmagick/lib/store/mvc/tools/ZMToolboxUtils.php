@@ -145,31 +145,8 @@ class ZMToolboxUtils extends ZMToolboxTool {
      * @return boolean <code>true</code> if this cart qualifies for free shipping.
      */
     public function isFreeShipping($shoppingCart) {
-        if (ZMSettings::get('isOrderTotalFreeShipping')) {
-            $pass = false;
-            $shippingAddress = $shoppingCart->getShippingAddress();
-            switch (ZMSettings::get('freeShippingDestination')) {
-            case 'national':
-                if ($shippingAddress->getCountryId() == ZMSettings::get('storeCountry')) {
-                    $pass = true;
-                }
-                break;
-            case 'international':
-                if ($shippingAddress->getCountryId() != ZMSettings::get('storeCountry')) {
-                    $pass = true;
-                }
-                break;
-            case 'both':
-                $pass = true;
-                break;
-            }
-
-            if (($pass == true) && ($shoppingCart->getTotal() >= ZMSettings::get('freeShippingOrderThreshold'))) {
-                return true;
-            }
-        }
-
-        return false;
+        $checkouthelper = ZMLoader::make('CheckoutHelper', $shoppingCart);
+        return $checkouthelper->isFreeShipping();
     }
 
     /**

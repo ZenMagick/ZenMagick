@@ -57,6 +57,39 @@ class ZMCheckoutHelper extends ZMObject {
 
 
     /**
+     * Check if the given shopping cart qualifies for free shipping (as per free shipping ot).
+     *
+     * @return boolean <code>true</code> if the cart qualifies for free shipping.
+     */
+    public function isFreeShipping() {
+        if (ZMSettings::get('isOrderTotalFreeShipping')) {
+            $pass = false;
+            $shippingAddress = $this->shoppingCart_->getShippingAddress();
+            switch (ZMSettings::get('freeShippingDestination')) {
+            case 'national':
+                if ($shippingAddress->getCountryId() == ZMSettings::get('storeCountry')) {
+                    $pass = true;
+                }
+                break;
+            case 'international':
+                if ($shippingAddress->getCountryId() != ZMSettings::get('storeCountry')) {
+                    $pass = true;
+                }
+                break;
+            case 'both':
+                $pass = true;
+                break;
+            }
+
+            if (($pass == true) && ($this->shoppingCart_->getTotal() >= ZMSettings::get('freeShippingOrderThreshold'))) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
      * Checks if there are only gift vouchers in the cart.
      *
      * @return boolean <code>true</code> if only vouchers are in the cart.

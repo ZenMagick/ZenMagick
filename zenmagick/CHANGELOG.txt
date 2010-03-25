@@ -168,6 +168,11 @@ Release 0.9.9
 - move ZMToolboxNet::url() to ZMRequest
 - actually use ZMStoreDefaultSeoRewriter
 - reduce toolbox dependencies
+- move isFreeShipping method to ZMCheckoutHelper
+- change checkout_shipping to allow to display other shipping options together
+  with free shipping (this is of limited use as zencart disables other modules
+	when free shipping is detected. it also means that there might be more
+	than one free shipping option during checkout)
 
 Release 0.9.8
 - add Savant3 and experimental views (not used yet)
