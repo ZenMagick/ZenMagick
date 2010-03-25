@@ -143,7 +143,6 @@ abstract class ZMFormWidget extends ZMWidget {
             $attr = ' name="'.$this->getName().($this->isMultiValue() ? '[]' : '').'"';
         }
 
-        $html = $request->getToolbox()->html;
         foreach ($this->properties_ as $name => $value) {
             if (in_array($name, $this->attributeNames_)) {
                 if (in_array($name, self::$NO_VAL_ATTR)) {
@@ -154,13 +153,13 @@ abstract class ZMFormWidget extends ZMWidget {
                         $attr .= ' '.$name;
                     }
                 } else {
-                    $attr .= ' '.$name.'="'.$html->encode($value).'"';
+                    $attr .= ' '.$name.'="'.ZMToolboxHtml::encode($value).'"';
                 }
             }
         }
 
         if ($addValue) {
-            $attr .= ' value="'.$html->encode($this->getValue()).'"';
+            $attr .= ' value="'.ZMToolboxHtml::encode($this->getValue()).'"';
         }
 
         return $attr;

@@ -82,7 +82,7 @@ class ZMCronPlugin extends Plugin {
             $pages = $this->get('triggerPages');
             if (empty($pages) || ZMLangUtils::inArray($request->getRequestId(), $pages)) {
                 $slash = ZMSettings::get('zenmagick.mvc.html.xhtml') ? '/' : '';
-                $img = '<div><img src="'.$request->getToolbox()->net->url('cron_image').'" alt=""'.$slash.'></div>';
+                $img = '<div><img src="'.$request->url('cron_image').'" alt=""'.$slash.'></div>';
                 $contents = preg_replace('/<\/body>/', $img . '</body>', $contents, 1);
             }
         }

@@ -171,6 +171,33 @@ class ZMRequest extends ZMObject {
     }
 
     /**
+     * Convert a given relative URL into an absolute one.
+     *
+     * @param string url The (relative) URL to convert.
+     * @param boolean full Set to true to create a full URL incl. the protocol, hostname, port, etc.; default is <code>false</code>.
+     * @return string The absolute URL.
+     */
+    public function absoluteURL($url, $full=false) {
+        $url = ('/' == $url[0] || false !== strpos($url, '://')) ? $url : $this->getContext().$url;
+
+        if ($full) {
+            // todo: move somewhere reusable??
+            $scheme = $this->isSecure() ? 'https://' : 'http://';
+            $host = $this->getHostname();
+            $port = $this->getPort();
+            if ('80' == $port && !$this->isSecure() || '443' == $port && $this->isSecure()) {
+                $port = '';
+            } else {
+                $port = ':'.$port;
+            }
+
+            $url = $scheme.$host.$port.$url;
+        }
+
+        return $url;
+    }
+
+    /**
      * Get the user (if any) for authentication.
      *
      * @return mixed A user/credentials object. Default is <code>null</code>.

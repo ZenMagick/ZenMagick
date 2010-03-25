@@ -129,7 +129,7 @@ class ZMWordpressRequestHandler extends ZMController {
                 //$_SERVER['REQUEST_URI'] = str_replace(Runtime::getContext().$this->plugin_->get('permaPrefix').'/', '', $_SERVER['REQUEST_URI']);
             }
         } else {
-            return ZMRequest::instance()->getToolbox()->net->url(FILENAME_WP, $urlToken['query']);
+            return ZMRequest::instance()->url(FILENAME_WP, $urlToken['query']);
         }
     }
 

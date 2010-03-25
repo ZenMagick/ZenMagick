@@ -53,8 +53,7 @@ class ZMTextAreaFormWidget extends ZMFormWidget {
      * {@inheritDoc}
      */
     public function render($request) {
-        $html = $request->getToolbox()->html;
-        return '<textarea'.$this->getAttributeString($request, false).'>'.$html->encode($this->getValue()).'</textarea>';
+        return '<textarea'.$this->getAttributeString($request, false).'>'.ZMToolboxHtml::encode($this->getValue()).'</textarea>';
     }
 
 }

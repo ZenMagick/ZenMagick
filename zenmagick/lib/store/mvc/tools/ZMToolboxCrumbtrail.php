@@ -64,7 +64,7 @@ class ZMToolboxCrumbtrail extends ZMToolboxTool {
     public function reset() {
         $this->crumbs_ = array();
         // always add home
-        $this->addCrumb("Home", $this->getToolbox()->net->url(FILENAME_DEFAULT));
+        $this->addCrumb("Home", $this->getRequest()->url(FILENAME_DEFAULT));
     }
 
     /**
@@ -137,7 +137,7 @@ class ZMToolboxCrumbtrail extends ZMToolboxTool {
             if (null == $category) {
                 return;
             }
-            $this->addCrumb($category->getName(),$this->getToolbox()->net->url('category', $category->getPath()));
+            $this->addCrumb($category->getName(),$this->getRequest()->url('category', $category->getPath()));
         }
     }
 
@@ -152,7 +152,7 @@ class ZMToolboxCrumbtrail extends ZMToolboxTool {
 
         $manufacturer = ZMManufacturers::instance()->getManufacturerForId($manufacturerId);
         if (null != $manufacturer) {
-            $this->addCrumb($manufacturer->getName(), $this->getToolbox()->net->url('category', 'manufacturers_id=' . $manufacturerId));
+            $this->addCrumb($manufacturer->getName(), $this->getRequest()->url('category', 'manufacturers_id=' . $manufacturerId));
         }
     }
 

@@ -146,11 +146,11 @@ class ZMSacsManager extends ZMObject {
                     // secure flag: leave to net() to lookup via ZMSacsManager if configured, but leave as default parameter to allow override
                     if (!$session->isStarted()) {
                         // no valid session
-                        $request->redirect($request->getToolbox()->net->url(ZMSettings::get('zenmagick.mvc.request.invalidSession')));
+                        $request->redirect($request->url(ZMSettings::get('zenmagick.mvc.request.invalidSession')));
                     }
                     //XXX: add/rename in mvc/session
                     $request->markSticky();
-                    $request->redirect($request->getToolbox()->net->url(ZMSettings::get('zenmagick.mvc.request.login', 'login'), '', true));
+                    $request->redirect($request->url(ZMSettings::get('zenmagick.mvc.request.login', 'login'), '', true));
                 }
                 break;
             }
@@ -171,7 +171,7 @@ class ZMSacsManager extends ZMObject {
         $secure = ZMLangUtils::asBoolean($this->getMappingValue($request->getRequestId(), 'secure', false));
         if ($secure && !$request->isSecure() && ZMSettings::get('zenmagick.mvc.request.secure') && ZMSettings::get('zenmagick.mvc.request.enforceSecure')) {
             ZMLogging::instance()->log('redirecting to enforce secure access: '.$request->getRequestId(), ZMLogging::TRACE);
-            $request->redirect($request->getToolbox()->net->url(null, null, true));
+            $request->redirect($request->url(null, null, true));
         }
     }
 

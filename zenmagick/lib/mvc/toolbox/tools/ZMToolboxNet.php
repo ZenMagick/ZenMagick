@@ -52,24 +52,7 @@ class ZMToolboxNet extends ZMToolboxTool {
      * @return string The absolute URL.
      */
     public function absoluteURL($url, $full=false) {
-        $request = $this->getRequest();
-        $url = ('/' == $url[0] || false !== strpos($url, '://')) ? $url : $request->getContext().$url;
-
-        if ($full) {
-            // todo: move somewhere reusable
-            $scheme = $request->isSecure() ? 'https://' : 'http://';
-            $host = $request->getHostname();
-            $port = $request->getPort();
-            if ('80' == $port && !$request->isSecure() || '443' == $port && $request->isSecure()) {
-                $port = '';
-            } else {
-                $port = ':'.$port;
-            }
-
-            $url = $scheme.$host.$port.$url;
-        }
-
-        return $url;
+        return $this->getRequest()->absoluteURL($url, $full);
     }
 
     /**

@@ -167,6 +167,7 @@ Release 0.9.9
   zc_install/optional
 - move ZMToolboxNet::url() to ZMRequest
 - actually use ZMStoreDefaultSeoRewriter
+- reduce toolbox dependencies
 
 Release 0.9.8
 - add Savant3 and experimental views (not used yet)

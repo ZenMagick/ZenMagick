@@ -78,7 +78,7 @@ class ZMToggleZMThemesPlugin extends Plugin implements ZMRequestHandler {
         }
 
         $toggleValue = ZMSettings::get('isEnableZMThemes') ? 'false' : 'true';
-        $url = $request->getToolbox()->net->url(null, 'themeToggle='.$toggleValue, $request->isSecure());
+        $url = $request->url(null, 'themeToggle='.$toggleValue, $request->isSecure());
         // special case for ZM_PAGE_KEY=category
         if ('category' == $request->getRequestId()) {
             $url = str_replace(ZM_PAGE_KEY.'=category', ZM_PAGE_KEY.'=index', $url);

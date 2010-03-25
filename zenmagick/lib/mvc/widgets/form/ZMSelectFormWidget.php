@@ -115,7 +115,6 @@ class ZMSelectFormWidget extends ZMFormWidget {
         if (!is_array($values)) {
             $values = array($values);
         }
-        $html = $request->getToolbox()->html;
         $output = '<select'.$this->getAttributeString($request, false).'>';
         foreach ($this->getOptions($request) as $oval => $name) {
             $selected = '';
@@ -126,7 +125,7 @@ class ZMSelectFormWidget extends ZMFormWidget {
                     $selected = ' selected';
                 }
             }
-            $output .= '<option'.$selected.' value="'.$html->encode($oval).'">'.$html->encode($name).'</option>';
+            $output .= '<option'.$selected.' value="'.ZMToolboxHtml::encode($oval).'">'.ZMToolboxHtml::encode($name).'</option>';
         }
         $output .= '</select>';
         return $output;

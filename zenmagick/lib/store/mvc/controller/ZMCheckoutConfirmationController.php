@@ -52,7 +52,7 @@ class ZMCheckoutConfirmationController extends ZMController {
      * {@inheritDoc}
      */
     public function processGet($request) {
-        $request->getToolbox()->crumbtrail->addCrumb("Checkout", $request->getToolbox()->net->url(FILENAME_CHECKOUT_SHIPPING, '', true));
+        $request->getToolbox()->crumbtrail->addCrumb("Checkout", $request->url(FILENAME_CHECKOUT_SHIPPING, '', true));
         $request->getToolbox()->crumbtrail->addCrumb($request->getToolbox()->utils->getTitle());
 
         return $this->findView(null, array('shoppingCart' => $request->getShoppingCart()));
