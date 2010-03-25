@@ -25,7 +25,7 @@
  * Redirect view.
  *
  * <p>The redirect URL may be set by explicitely setting a url or a request Id.
- * If a request Id is set, the toolbox will be used to generate a full URL.</p>
+ * If a request Id is set, a full URL will be created.</p>
  *
  * @author DerManoMann
  * @package org.zenmagick.store.view
