@@ -37,7 +37,9 @@ class ZMStoreDefaultSeoRewriter implements ZMSeoRewriter {
      * {@inheritDoc}
      */
     public function rewrite($request, $args) {
-        return self::furl($args['requestId'], $args['params'], $args['secure'] ? 'SSL' : 'NONSSL', true, false, false, true, $request);
+        // allow seo here to be able to provide the full set of parameters to SEO plugins
+        // this means that in practice this will be the only rewriter called...
+        return self::furl($args['requestId'], $args['params'], $args['secure'] ? 'SSL' : 'NONSSL', true, true, false, true, $request);
     }
 
     /**
@@ -65,6 +67,30 @@ class ZMStoreDefaultSeoRewriter implements ZMSeoRewriter {
             $isStatic = true;
         } else if (empty($page)) {
             throw new ZMException('missing page parameter');
+        }
+
+        // also do process all rewriters as here we have the full context incl. add. zencart parameters
+        // if called directly (as done from the override zen_href_link function...)
+        $rewriters = $request->getSeoRewriter();
+        if (!$isAdmin && $seo && 0 < count($rewriters)) {
+            $rewrittenUrl = null;
+            $args = array(
+              'requestId' => $page, 
+              'params' => $params, 
+              'secure' => 'SSL'==$transport, 
+              'addSessionId' => $addSessionId, 
+              'isStatic' => $isStatic, 
+              'useContext' => $useContext
+            );
+            foreach ($rewriters as $rewriter) {
+                if ($rewriter instanceof ZMStoreDefaultSeoRewriter) {
+                    // ignore self
+                    continue;
+                }
+                if (null != ($rewrittenUrl = $rewriter->rewrite($request, $args))) {
+                    return $rewrittenUrl;
+                }
+            }
         }
 
         // default to non ssl

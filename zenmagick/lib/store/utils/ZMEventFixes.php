@@ -102,6 +102,9 @@ class ZMEventFixes extends ZMObject {
             $args = array_merge($args, array('themeId' => ZMThemes::instance()->getZCThemeId()));
             ZMEvents::instance()->fireEvent(null, Events::THEME_RESOLVED, $args);
         }
+
+        // append again to make this the first one called to provide some useful default for zencart args
+        ZMSettings::append('zenmagick.mvc.request.seoRewriter', 'StoreDefaultSeoRewriter');
     }
 
     /**
