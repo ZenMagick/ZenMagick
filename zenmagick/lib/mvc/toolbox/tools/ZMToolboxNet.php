@@ -29,42 +29,11 @@
  * @version $Id$
  */
 class ZMToolboxNet extends ZMToolboxTool {
-    private $seoRewriter_ = null;
-
-
-    /**
-     * Get a list of <code>ZMSeoRewriter</code> instances for SEO urls.
-     *
-     * <p>The list is build based on the classes registered via the setting
-     * 'zenmagick.mvc.request.seoRewriter'.</p>
-     *
-     * @return array List of <code>ZMSeoRewriter</code> instances.
-     */
-    public function getSeoRewriter() {
-        if (null === $this->seoRewriter_) {
-            $rewriters = array_reverse(explode(',', ZMSettings::get('zenmagick.mvc.request.seoRewriter')));
-            foreach ($rewriters as $rewriter) {
-                if (null != ($obj = ZMBeanUtils::getBean($rewriter))) {
-                    $this->seoRewriter_[] = $obj;
-                }
-            }
-        }
-
-        return $this->seoRewriter_;
-    }
 
     /**
      * Create a URL.
      *
-     * <p>Mother of all URL related methods.</p>
-     *
-     * <p>If the <code>requestId</code> parameter is <code>null</code>, the current requestId will be
-     * used. The provided parameter will be merged into the current query string.</p>
-     *
-     * <p>If the <code>params</code> parameter is <code>null</code>, all parameters of the
-     * current request will be added.</p>
-     *
-     * <p>This default implementation relies on at least a single (default) SEO rewriter being configured.</p>
+     * <p>Convenience/compatibility method calling <code>url()</code> on ZMRequest.</p>
      *
      * @param string requestId The request id.
      * @param string params Query string style parameter; if <code>null</code> add all current parameter
@@ -72,48 +41,7 @@ class ZMToolboxNet extends ZMToolboxTool {
      * @return string A full URL.
      */
     public function url($requestId=null, $params='', $secure=false) {
-        // custom requestId and params handling
-        if (null === $requestId || null === $params) {
-            $query = $this->getRequest()->getParameterMap();
-            unset($query[ZMSettings::get('zenmagick.mvc.request.idName', ZMRequest::DEFAULT_REQUEST_ID)]);
-            unset($query[$request->getSession()->getName()]);
-            if (null != $params) {
-                parse_str($params, $arr);
-                $query = array_merge($query, $arr);
-            }
-            $params = array();
-            foreach ($query as $name => $value) {
-                if (is_array($value)) {
-                    foreach ($value as $subValue) {
-                        $params[] = $name.'[]='.$subValue;
-                    }
-                } else {
-                    $params[] = $name.'='.$value;
-                }
-            }
-        }
-
-        // default to current requestId
-        $requestId = $requestId === null ? $this->getRequest()->getRequestId() : $requestId;
-
-        // handle SEO
-        $rewriters = $this->getSeoRewriter();
-        if (!$isAdmin && $seo && 0 < count($rewriters)) {
-            $rewrittenUrl = null;
-            $args = array(
-              'requestId' => $page,
-              'params' => implode('&', $params),
-              'secure' => $secure,
-            );
-            foreach ($rewriters as $rewriter) {
-                if (null != ($rewrittenUrl = $rewriter->rewrite($this->getRequest(), $args))) {
-                    return $rewrittenUrl;
-                 }
-            }
-        }
-
-        ZMLogging::instance()->trace('unresolved URL: '.$requestId);
-        return null;
+        return $this->getRequest()->url($requestId, $params, $secure);
     }
 
     /**

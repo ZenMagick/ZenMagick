@@ -43,6 +43,7 @@ class ZMRequest extends ZMObject {
      */
     const SESSION_TOKEN_NAME = 'stoken';
 
+    private $seoRewriter_;
     private $controller_;
     private $session_;
     private $toolbox_;
@@ -69,6 +70,7 @@ class ZMRequest extends ZMObject {
         $this->controller_ = null;
         $this->session_ = null;
         $this->toolbox_ = null;
+        $this->seoRewriter_ = null;
     }
 
 
@@ -88,6 +90,84 @@ class ZMRequest extends ZMObject {
      */
     public static function instance() {
         return ZMObject::singleton('Request');
+    }
+
+    /**
+     * Get a list of <code>ZMSeoRewriter</code> instances for SEO urls.
+     *
+     * <p>The list is build based on the classes registered via the setting
+     * 'zenmagick.mvc.request.seoRewriter'.</p>
+     *
+     * @return array List of <code>ZMSeoRewriter</code> instances.
+     */
+    public function getSeoRewriter() {
+        if (null === $this->seoRewriter_) {
+            $rewriters = array_reverse(explode(',', ZMSettings::get('zenmagick.mvc.request.seoRewriter')));
+            foreach ($rewriters as $rewriter) {
+                if (null != ($obj = ZMBeanUtils::getBean($rewriter))) {
+                    $this->seoRewriter_[] = $obj;
+                }
+            }
+        }
+
+        return $this->seoRewriter_;
+    }
+
+    /**
+     * Create a URL.
+     *
+     * <p>Mother of all URL related methods.</p>
+     *
+     * <p>If the <code>requestId</code> parameter is <code>null</code>, the current requestId will be
+     * used. The provided parameter will be merged into the current query string.</p>
+     *
+     * <p>If the <code>params</code> parameter is <code>null</code>, all parameters of the
+     * current request will be added.</p>
+     *
+     * <p>This default implementation relies on at least a single (default) SEO rewriter being configured.</p>
+     *
+     * @param string requestId The request id; default is <code>null</code>.
+     * @param string params Query string style parameter; if <code>null</code> add all current parameters; default is an empty string.
+     * @param boolean secure Flag indicating whether to create a secure or non secure URL; default is <code>false</code>.
+     * @return string A full URL.
+     */
+    public function url($requestId=null, $params='', $secure=false) {
+        // custom params handling
+        if (null === $params) {
+            $query = $this->getParameterMap();
+            unset($query[ZMSettings::get('zenmagick.mvc.request.idName', ZMRequest::DEFAULT_REQUEST_ID)]);
+            unset($query[$this->getSession()->getName()]);
+            if (null != $params) {
+                parse_str($params, $arr);
+                $query = array_merge($query, $arr);
+            }
+            // rebuild
+            $params = array();
+            foreach ($query as $name => $value) {
+                if (is_array($value)) {
+                    foreach ($value as $subValue) {
+                        $params[] = $name.'[]='.$subValue;
+                    }
+                } else {
+                    $params[] = $name.'='.$value;
+                }
+            }
+            $params = implode('&', $params);
+        }
+
+        // default to current requestId
+        $requestId = $requestId === null ? $this->getRequestId() : $requestId;
+
+        // delegate generation to SEO rewriters
+        $args = array('requestId' => $requestId, 'params' => $params, 'secure' => $secure);
+        foreach ($this->getSeoRewriter() as $rewriter) {
+            if (null != ($rewrittenUrl = $rewriter->rewrite($this, $args))) {
+                return $rewrittenUrl;
+             }
+        }
+
+        ZMLogging::instance()->trace('unresolved URL: '.$requestId);
+        return null;
     }
 
     /**
@@ -328,7 +408,7 @@ class ZMRequest extends ZMObject {
      * @return string The URL context.
      */
     public function getContext() {
-        return dirname($_SERVER['SCRIPT_NAME']);
+        return dirname($_SERVER['SCRIPT_NAME']) . '/';
     }
 
     /**

@@ -67,25 +67,6 @@ class ZMStoreDefaultSeoRewriter implements ZMSeoRewriter {
             throw new ZMException('missing page parameter');
         }
 
-        // handle SEO
-        $rewriters = $request->getToolbox()->net->getSeoRewriter();
-        if (!$isAdmin && $seo && 0 < count($rewriters)) {
-            $rewrittenUrl = null;
-            $args = array(
-              'requestId' => $page, 
-              'params' => $params, 
-              'secure' => 'SSL'==$transport, 
-              'addSessionId' => $addSessionId, 
-              'isStatic' => $isStatic, 
-              'useContext' => $useContext
-            );
-            foreach ($rewriters as $rewriter) {
-                if (null != ($rewrittenUrl = $rewriter->rewrite($request, $args))) {
-                    return $rewrittenUrl;
-                 }
-            }
-        }
-
         // default to non ssl
         $server = HTTP_SERVER;
         if ($transport == 'SSL' && ZMSettings::get('isEnableSSL')) {
