@@ -34,7 +34,7 @@
  * @version $Id$
  */
 class ZMShoppingCart extends ZMObject {
-    private $cart_;
+    public $cart_;
     private $zenTotals_;
     private $payments_;
     private $items_;

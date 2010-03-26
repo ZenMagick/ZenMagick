@@ -166,18 +166,7 @@ class ZMCheckoutHelper extends ZMObject {
      * @return boolean <code>true</code> if the cart is purely virtual.
      */
     public function isVirtual() {
-        if (!ZMSettings::get('isUseCheckoutHelper', true)) {
-        global $order;
-
-            if (!isset($order)) {
-                ZMTools::resolveZCClass('order');
-                $order = new order();
-            }
-
-            return $order->content_type == 'virtual';
-        }
-
-        return $this->virtualProductsCount() == count($this->shoppingCart_->getItems());
+        return 'virtual' == $this->shoppingCart_->cart_->get_content_type();
     }
 
     /**
