@@ -161,7 +161,7 @@ class ZMUrlManager extends ZMObject {
             if (null == $viewId) {
                 $from = $this->mappings_[$requestId];
             } else {
-                $from = array_merge($this->mappings_[$requestId][$viewId], $this->mappings_[$requestId]);
+                $from = array_merge($this->mappings_[$requestId], $this->mappings_[$requestId][$viewId]);
             }
             foreach (self::$MAPPING_KEYS as $key) {
                 if (array_key_exists($key, $from)) {

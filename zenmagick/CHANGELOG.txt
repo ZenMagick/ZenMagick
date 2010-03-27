@@ -168,6 +168,7 @@ Release 0.9.9
 - move ZMToolboxNet::url() to ZMRequest
 - actually use ZMStoreDefaultSeoRewriter
 - reduce toolbox dependencies
+- ZMUrlManager: fix merging of viewId specific mappings and controller defaults
 
 Release 0.9.8
 - add Savant3 and experimental views (not used yet)
