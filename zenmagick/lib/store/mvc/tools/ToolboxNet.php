@@ -51,7 +51,7 @@ class ToolboxNet extends ZMToolboxNet {
                 $cPath = '&'.$category->getPath();
             }
         }
-        return $this->url(FILENAME_PRODUCT_INFO, '&products_id='.$productId.$cPath);
+        return $this->getRequest()->url(FILENAME_PRODUCT_INFO, '&products_id='.$productId.$cPath);
     }
 
     /**
@@ -61,7 +61,7 @@ class ToolboxNet extends ZMToolboxNet {
      * @return string A complete URL for the given static page.
      */
     public function staticPage($name) { 
-        return $this->url('static', '&cat='.$name);
+        return $this->getRequest()->url('static', '&cat='.$name);
     }
 
     /**
@@ -81,7 +81,7 @@ class ToolboxNet extends ZMToolboxNet {
             $params .= '&chapter='.$page->getTocChapter();
         }
 
-        $href = $this->url(FILENAME_EZPAGES, $params, $page->isSSL());
+        $href = $this->getRequest()->url(FILENAME_EZPAGES, $params, $page->isSSL());
         if (!ZMLangUtils::isEmpty($page->getAltUrl())) {
             $url = parse_url($page->getAltUrl());
             parse_str($url['query'], $query);
@@ -91,7 +91,7 @@ class ToolboxNet extends ZMToolboxNet {
             foreach ($query as $name => $value) {
                 $params .= "&".$name."=".$value;
             }
-            $href = $this->url($view, $params, $page->isSSL());
+            $href = $this->getRequest()->url($view, $params, $page->isSSL());
         } else if (!ZMLangUtils::isEmpty($page->getAltUrlExternal())) {
             $href = $page->getAltUrlExternal();
         }
@@ -122,7 +122,7 @@ class ToolboxNet extends ZMToolboxNet {
      * @return string A full URL.
      */
     public function trackLink($action, $id) {
-        return $this->url(FILENAME_REDIRECT, "action=".$action."&goto=".$id);
+        return $this->getRequest()->url(FILENAME_REDIRECT, "action=".$action."&goto=".$id);
     }
 
     /**
@@ -143,7 +143,7 @@ class ToolboxNet extends ZMToolboxNet {
             $controller = 'ajax_'.$controller;
         }
 
-        $url = str_replace('&amp;', '&', $this->url($controller, $params.'&method='.$method, $this->getRequest()->isSecure()));
+        $url = str_replace('&amp;', '&', $this->getRequest()->url($controller, $params.'&method='.$method, $this->getRequest()->isSecure()));
 
         return $url;
     }
@@ -160,7 +160,7 @@ class ToolboxNet extends ZMToolboxNet {
         if (null !== $key) {
             $params .= "&key=".$key;
         }
-        $url = $this->url('rss', $params);
+        $url = $this->getRequest()->url('rss', $params);
 
         return $url;
     }
@@ -179,7 +179,7 @@ class ToolboxNet extends ZMToolboxNet {
         }
 
         $secure = null !== $secure ? $secure : $this->getRequest()->isSecure();
-        $url = $this->url(null, "&page=".$resultList->getPreviousPageNumber(), $secure);
+        $url = $this->getRequest()->url(null, "&page=".$resultList->getPreviousPageNumber(), $secure);
 
         return $url;
     }
@@ -198,7 +198,7 @@ class ToolboxNet extends ZMToolboxNet {
         }
 
         $secure = null !== $secure ? $secure : $this->getRequest()->isSecure();
-        $url = $this->url(null, "&page=".$resultList->getNextPageNumber(), $secure);
+        $url = $this->getRequest()->url(null, "&page=".$resultList->getNextPageNumber(), $secure);
 
         return $url;
     }
