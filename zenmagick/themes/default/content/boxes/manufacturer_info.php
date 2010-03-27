@@ -33,7 +33,7 @@
             <div id="sb_manufacturer_info" class="box">
                 <?php 
                 if ($manufacturer->hasImage()) {
-                    $url = $net->url('category', 'manufacturers_id='.$manufacturer->getId());
+                    $url = $request->url('category', 'manufacturers_id='.$manufacturer->getId());
                     $target = '';
                     if (!ZMLangUtils::isEmpty($manufacturer->getUrl())) {
                         $url = $net->trackLink('manufacturer', $manufacturer->getId());
@@ -41,11 +41,11 @@
                     }
                     ?><a href="<?php echo $url ?>"<?php echo $target ?>><?php echo $html->image($manufacturer->getImageInfo()) ?></a><?php
                     if (!ZMLangUtils::isEmpty($manufacturer->getUrl())) {
-                        $url = $net->url('category', 'manufacturers_id='.$manufacturer->getId());
+                        $url = $request->url('category', 'manufacturers_id='.$manufacturer->getId());
                         ?><a href="<?php echo $url ?>"<?php echo $target ?>><?php zm_l10n("Other Products") ?></a><?php
                     }
                 } else {
-                    $url = $net->url('category', 'manufacturers_id='.$manufacturer->getId());
+                    $url = $request->url('category', 'manufacturers_id='.$manufacturer->getId());
                     $target = '';
                     $text = zm_l10n_get("Other Products");
                     if (!ZMLangUtils::isEmpty($manufacturer->getUrl())) {
@@ -55,7 +55,7 @@
                     }
                     ?><a href="<?php echo $url ?>"<?php echo $target ?>><?php echo $text ?></a><?php
                     if (!ZMLangUtils::isEmpty($manufacturer->getUrl())) {
-                        $url = $net->url('category', 'manufacturers_id='.$manufacturer->getId());
+                        $url = $request->url('category', 'manufacturers_id='.$manufacturer->getId());
                         ?><a href="<?php echo $url ?>"<?php echo $target ?>><?php zm_l10n("Other Products") ?></a><?php
                     }
                 } ?>

@@ -29,5 +29,5 @@
     <a href="<?php echo $net->staticPage(FILENAME_SHIPPING) ?>"><?php zm_l10n("Shipping &amp; Returns") ?></a>
     <a href="<?php echo $net->staticPage(FILENAME_PRIVACY) ?>"><?php zm_l10n("Our Privacy Policy") ?></a>
     <a href="<?php echo $net->staticPage(FILENAME_CONDITIONS) ?>"><?php zm_l10n("Conditions") ?></a>
-    <a href="<?php echo $net->url(FILENAME_CONTACT_US) ?>"><?php zm_l10n("Contact Us") ?></a>
+    <a href="<?php echo $request->url(FILENAME_CONTACT_US) ?>"><?php zm_l10n("Contact Us") ?></a>
 </div>

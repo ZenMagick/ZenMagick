@@ -29,7 +29,7 @@
         <tbody>
         <?php $odd = true; $first = true; foreach ($shoppingCart->getItems() as $item) { ?>
             <tr class="<?php echo ($odd?"odd":"even").($first?" first":" other") ?>">
-            <td class="remove"><a href="<?php echo $net->url(FILENAME_SHOPPING_CART, 'action=remove_product&product_id='.$item->getId()) ?>"><img src="<?php echo $this->asUrl("images/small_delete.gif") ?>" alt="remove" /></a></td>
+            <td class="remove"><a href="<?php echo $request->url(FILENAME_SHOPPING_CART, 'action=remove_product&product_id='.$item->getId()) ?>"><img src="<?php echo $this->asUrl("images/small_delete.gif") ?>" alt="remove" /></a></td>
                 <td class="img">
                     <?php echo $html->productImageLink($item->getProduct()) ?>
                     <?php echo $form->hiddenCartFields($item) ?>
@@ -67,10 +67,10 @@
     </table>
     <div class="btn">
         <input type="submit" class="btn" value="<?php zm_l10n("Update Cart") ?>" />
-        <a class="btn" href="<?php echo $net->url(FILENAME_CHECKOUT_SHIPPING, '', true) ?>"><?php zm_l10n("Checkout") ?></a>
+        <a class="btn" href="<?php echo $request->url(FILENAME_CHECKOUT_SHIPPING, '', true) ?>"><?php zm_l10n("Checkout") ?></a>
     </div>
     <div>
-        <a class="btn" href="<?php echo $net->url(FILENAME_POPUP_SHIPPING_ESTIMATOR, '', true) ?>" onclick="popupWindow(this.href); return false;"><?php zm_l10n("Shipping Estimator") ?></a>
+        <a class="btn" href="<?php echo $request->url(FILENAME_POPUP_SHIPPING_ESTIMATOR, '', true) ?>" onclick="popupWindow(this.href); return false;"><?php zm_l10n("Shipping Estimator") ?></a>
     </div>
 
     <?php if (defined('MODULE_PAYMENT_PAYPALWPP_STATUS') && MODULE_PAYMENT_PAYPALWPP_STATUS == 'True') {

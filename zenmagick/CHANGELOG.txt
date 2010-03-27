@@ -171,6 +171,7 @@ Release 0.9.9
 - ZMUrlManager: fix merging of viewId specific mappings and controller defaults
 - moved absoluteURL from ZMToolboxNet to ZMRequest; affects product_info pages
   (any type)
+- change calls from net->url to request->url
 
 Release 0.9.8
 - add Savant3 and experimental views (not used yet)

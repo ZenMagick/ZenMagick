@@ -37,11 +37,11 @@
 <?php if (1 == count($reviews)) {
     $review = $reviews[0];
     $params = 'products_id='.$review->getProductId().'&reviews_id='.$review->getId();
-    $href = $net->url(FILENAME_PRODUCT_REVIEWS_INFO, $params);
+    $href = $request->url(FILENAME_PRODUCT_REVIEWS_INFO, $params);
     $rtext = zm_l10n_get("%s of 5 stars!", $review->getRating());
     $rimg = '<img src="'.$this->asUrl('images/stars_'.$review->getRating().'.gif', false).'" alt="'.$rtext.'" title="'.$rtext.'"/>';
     ?>
-    <h3><a href="<?php echo $net->url(FILENAME_REVIEWS) ?>"><?php zm_l10n("[More]") ?></a><?php zm_l10n("Reviews") ?></h3>
+    <h3><a href="<?php echo $request->url(FILENAME_REVIEWS) ?>"><?php zm_l10n("[More]") ?></a><?php zm_l10n("Reviews") ?></h3>
     <div id="sb_reviews" class="box">
         <p><a href="<?php echo $net->product($review->getProductId()) ?>"><?php echo $html->image($review->getProductImageInfo()) ?></a></p>
         <p id="rtext"><a href="<?php echo $href ?>"><?php echo $html->more($review->getText(), 60) ?></a></p>

@@ -49,7 +49,7 @@
 
         <?php if (is_object($captcha)) { ?>
             <?php $captcha->showImage(); ?>
-            <a href="<?php echo $net->url(null) ?>"><?php zm_l10n("Click to refresh page")?></a><br />
+            <a href="<?php echo $request->url(null) ?>"><?php zm_l10n("Click to refresh page")?></a><br />
             <label for="captcha"><?php zm_l10n("Captcha") ?><span>*</span></label>
             <input type="text" id="captcha" name="captcha" value="" /><br />
         <?php } ?>

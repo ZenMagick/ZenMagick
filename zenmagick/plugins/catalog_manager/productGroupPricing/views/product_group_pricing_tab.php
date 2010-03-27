@@ -68,7 +68,7 @@
     <input type="hidden" name="fkt" value="ProductGroupPricingTab">
     <?php if (0 < $request->getParameter('groupPricingId')) { ?>
         <input type="submit" name="update" value="Update">
-        <a href="<?php echo $toolbox->net->url('', $zm_nav_params.'&groupPricingId='.$request->getParameter('groupPricingId').'&delete=true') ?>">Delete</a>
+        <a href="<?php echo $toolbox->admin->url('', $defaultUrlParams.'&groupPricingId='.$request->getParameter('groupPricingId').'&delete=true') ?>">Delete</a>
     <?php } else { ?>
         <input type="submit" name="create" value="Create">
     <?php } ?>

@@ -29,7 +29,7 @@
     <fieldset id="term">
         <legend><?php zm_l10n("Search For..."); ?></legend>
         <div id="help">
-            <a href="javascript:popupWindow('<?php echo $net->url(FILENAME_POPUP_SEARCH_HELP) ?>')"><?php zm_l10n("Search Help [?]")?></a></div>
+            <a href="javascript:popupWindow('<?php echo $request->url(FILENAME_POPUP_SEARCH_HELP) ?>')"><?php zm_l10n("Search Help [?]")?></a></div>
         <div>
             <?php $onfocus = "if(this.value=='" . KEYWORD_DEFAULT . "') this.value='';" ?>
             <input type="text" id="askeyword" name="keywords" value="<?php echo $html->encode($searchCriteria->getKeywords(KEYWORD_DEFAULT)) ?>" onfocus="<?php echo $onfocus ?>" />

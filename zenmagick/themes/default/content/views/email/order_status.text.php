@@ -28,9 +28,9 @@
 <?php zm_l10n("This is to inform you that your order #%s has been updated.", $currentOrder->getId()) ?>
 
 <?php if (ZMZenCartAccountSacsHandler::REGISTERED == $currentAccount->getType()) { ?>
-<?php zm_l10n("More details can be found at the following URL: %s", $net->url(FILENAME_ACCOUNT_HISTORY_INFO, 'order_id='.$currentOrder->getId())) ?>
+<?php zm_l10n("More details can be found at the following URL: %s", $request->url(FILENAME_ACCOUNT_HISTORY_INFO, 'order_id='.$currentOrder->getId())) ?>
 <?php } else { ?>
-<?php zm_l10n("You can check the status of your order at: %s.", $net->url('guest_history')) ?>
+<?php zm_l10n("You can check the status of your order at: %s.", $request->url('guest_history')) ?>
 <?php } ?>
 
 <?php if ($newOrderStatus != $currentOrder->getStatusName()) { ?>

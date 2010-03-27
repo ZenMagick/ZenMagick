@@ -55,7 +55,7 @@
         <?php $first = true; $odd = true; foreach ($resultList->getResults() as $order) { ?>
             <tr class="<?php echo ($odd?"odd":"even").($first?" first":" other") ?>">
                 <td>
-                    <a href="<?php echo $net->url('orders.php', '&action=edit&oID='.$order->getId(), '', true) ?>"><?php zm_l10n("Order #%s", $order->getId()) ?></a>
+                    <a href="<?php echo $request->url('orders.php', '&action=edit&oID='.$order->getId(), '', true) ?>"><?php zm_l10n("Order #%s", $order->getId()) ?></a>
                 </td>
                 <td><?php echo $schedules[$order->getSchedule()]['name'] ?></td>
                 <td><?php echo $locale->shortDate($order->getNextOrder()) ?></td>
