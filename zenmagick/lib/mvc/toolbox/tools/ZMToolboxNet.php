@@ -45,17 +45,6 @@ class ZMToolboxNet extends ZMToolboxTool {
     }
 
     /**
-     * Convert a given relative URL into an absolute one.
-     *
-     * @param string url The (relative) URL to convert.
-     * @param boolean full Set to true to create a full URL incl. the protocol, hostname, port, etc.; default is <code>false</code>.
-     * @return string The absolute URL.
-     */
-    public function absoluteURL($url, $full=false) {
-        return $this->getRequest()->absoluteURL($url, $full);
-    }
-
-    /**
      * Encode a given URL to valid HTML.
      *
      * @param string url The url to encode.

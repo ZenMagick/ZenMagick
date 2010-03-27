@@ -39,7 +39,7 @@ Template code examples
 
 Replace the line (around line #34):
 
-      <a href="<?php echo $net->absoluteURL($imageInfo->getLargeImage()) ?>" onclick="productPopup(event, this); return false;"><?php echo $html->image($imageInfo, PRODUCT_IMAGE_MEDIUM) ?></a>
+      <a href="<?php echo $request->absoluteURL($imageInfo->getLargeImage()) ?>" onclick="productPopup(event, this); return false;"><?php echo $html->image($imageInfo, PRODUCT_IMAGE_MEDIUM) ?></a>
 
 with this call to hover3_product_image_link():
 
@@ -48,7 +48,7 @@ with this call to hover3_product_image_link():
 
 For additional images, change the line (around line #71):
 
-      <a href="<?php echo $net->absoluteURL($addImg->getLargeImage()) ?>" onclick="productPopup(event, this); return false;"><img src="<?php $net->absoluteURL($addImg->getDefaultImage()) ?>" alt="" title="" /></a>
+      <a href="<?php echo $request->absoluteURL($addImg->getLargeImage()) ?>" onclick="productPopup(event, this); return false;"><img src="<?php $request->absoluteURL($addImg->getDefaultImage()) ?>" alt="" title="" /></a>
 
 with this call:
 

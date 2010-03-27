@@ -33,17 +33,17 @@ Template code examples
 ======================
 1) Product info view:
 
-          <a href="<?php $net->absoluteUrl($imageInfo->getLargeImage()) ?>" onclick="productPopup(event, this); return false;"><?php $html->image($imageInfo, ZMProducts::IMAGE_SMALL) ?></a>
+          <a href="<?php $request->absoluteUrl($imageInfo->getLargeImage()) ?>" onclick="productPopup(event, this); return false;"><?php $html->image($imageInfo, ZMProducts::IMAGE_SMALL) ?></a>
 
 2) For additional images (around line #71):
 
-      <a href="<?php $net->absoluteUrl($addImg->getLargeImage()) ?>" rel="lightbox[gallery]"><img src="<?php $net->absoluteUrl($addImg->getDefaultImage()) ?>" alt="" title="" /></a>
+      <a href="<?php $request->absoluteUrl($addImg->getLargeImage()) ?>" rel="lightbox[gallery]"><img src="<?php $request->absoluteUrl($addImg->getDefaultImage()) ?>" alt="" title="" /></a>
 
 3) To create additional links to open the lightbox do something like this:
 
-      <a href="<?php $net->absoluteUrl($imageInfo->getLargeImage()) ?>" rel="lightbox[gallery]">Click to enlarge</a>
+      <a href="<?php $request->absoluteUrl($imageInfo->getLargeImage()) ?>" rel="lightbox[gallery]">Click to enlarge</a>
 
 4) Image with funky display wrapper div:
 
-      <div id="slimboxWrapper"><a href="<?php $net->absoluteUrl($imageInfo->getLargeImage()) ?>" rel="lightbox[gallery]"><?php $html->image($imageInfo, ZMProducts::IMAGE_MEDIUM) ?></a></div>
+      <div id="slimboxWrapper"><a href="<?php $request->absoluteUrl($imageInfo->getLargeImage()) ?>" rel="lightbox[gallery]"><?php $html->image($imageInfo, ZMProducts::IMAGE_MEDIUM) ?></a></div>
 

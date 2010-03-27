@@ -126,25 +126,6 @@ class ToolboxNet extends ZMToolboxNet {
     }
 
     /**
-     * Convert a given relative href/URL into an absolute one based on the current context.
-     *
-     * @param string href The URL to convert.
-     * @return string The absolute href.
-     */
-    public function absoluteURL($href) {
-        $host = ($this->getRequest()->isSecure() ? HTTPS_SERVER : HTTP_SERVER);
-        $context = ($this->getRequest()->isSecure() ? DIR_WS_HTTPS_CATALOG : DIR_WS_CATALOG);
-
-        if (!ZMLangUtils::startsWith($href, '/')) {
-            // make fully qualified
-            $href = $context . $href;
-        }
-
-        // make full URL
-        return $host . $href;
-    }
-
-    /**
      * Create an Ajax URL for the given controller and method.
      *
      * <p><strong>NOTE:</strong> Ampersand are not encoded in this function.</p>
