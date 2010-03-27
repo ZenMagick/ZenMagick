@@ -44,7 +44,7 @@
   <a href="<?php echo $net->url(FILENAME_CREATE_ACCOUNT, '', true); ?>"><?php zm_l10n("Not registered yet?") ?></a>
 </p>
 
-<?php if (ZMSettings::get('isGuestCheckout') && !$request->getShoppingCart()->isEmpty() && $request->isAnonymous()) { ?>
+<?php if (ZMSettings::get('isGuestCheckout') && $request->isAnonymous()) { ?>
   <h3><?php zm_l10n("Don't need an account?") ?></h3>
   <?php echo $form->open('checkout_guest', "action=process", true, array('id'=>'checkout_guest')) ?>
     <fieldset>
