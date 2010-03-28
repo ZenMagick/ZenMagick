@@ -46,9 +46,21 @@ interface ZMBlockContents {
     public function getName();
 
     /**
+     * Get options map.
+     *
+     * <p>Query supported options.</p>
+     *
+     * <p>Values for custom options (or arguments) may be passed into the <code>getBlockContents()</code> method. Optionally, a UI
+     * may exist to manage those and store them somewhere.</p>
+     *
+     * @return array A map of optionKey =&gt; Description of all supported options.
+     */
+    public function getOptionsMap();
+
+    /**
      * Get the contents for this block.
      *
-     * @param array args Optional arguments; typically this will be arguments of the <code>finalise_contents</code> event.
+     * @param array args Optional arguments.
      * @return string The content.
      */
     public function getBlockContents($args);

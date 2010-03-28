@@ -38,10 +38,21 @@
         // 1) build custom mappings (this could be done via UI and be only a subset of the available blocks/ids)
         foreach (ZMBlockManager::instance()->getProviders() as $provider) {
             $mappings = array('leftColumn' => array(), 'rightColumn' => array());
-            foreach ($mappings as $blockId => $blocks) {
-                $mappings[$blockId] = array_merge($mappings[$blockId], $provider->getBlockContentsList($blockId));
+            foreach ($mappings as $blockId => $blockInfoList) {
+                $tmp = array();
+                foreach ($provider->getBlockContentsList($blockId) as $block) {
+                    // 'args' would be populated by UI
+                    $tmp[] = array('block' => $block, 'args' => null);
+                }
+                $mappings[$blockId] = array_merge($mappings[$blockId], $tmp);
             }
         }
+        //NOTE: it is easier to register a single block rather than replicate the mapping data logic here...
+        // if so, it is important to call ZMBlockManager::instance()->getMappings(true); to force sorting at the end
+        // obviously, then step 2 is not required any more
+        // ZMBlockManager::instance()->getMappings(true);
+
+        // TODO: store mappings somewhere until 
 
         // 2) now that we have mapped the available block contents onto block identifiers, tell the
         // manager about it and force sorting (as we do not have a UI)

@@ -99,12 +99,13 @@ class ZMBlockManager extends ZMObject {
      * @param string blockId The block id.
      * @param mixed block The new block as either an instance of <code>ZMBlockContent</code>
      *  or a bean definition thereof.
+     * @param array args Optional map of parameters to be passed into the block for contents generation; default is <code>null</code> for none.
      */
-    public function registerBlock($blockId, $block) {
+    public function registerBlock($blockId, $block, $args=null) {
         if (!array_key_exists($blockId, $this->mappings_)) {
             $this->mappings_[$blockId] = array();
         }
-        $this->mappings_[$blockId][] = $block;
+        $this->mappings_[$blockId][] = array('block' => $block, 'args' => $args);
     }
 
     /**
@@ -130,10 +131,12 @@ class ZMBlockManager extends ZMObject {
      *  considered to be respectively less than, equal to, or greater than the second.
      */
     protected function compareBlocks($a, $b) { 
-        if ($a->getSortOrder() == $b->getSortOrder()) {
+        $sa = $a['block']->getSortOrder();
+        $sb = $b['block']->getSortOrder();
+        if ($sa == $sb) {
             return 0;
         }
-        return ($a->getSortOrder() < $b->getSortOrder()) ? -1 : 1;
+        return ($sa < $sb) ? -1 : 1;
     }
 
     /**
@@ -145,35 +148,35 @@ class ZMBlockManager extends ZMObject {
      * @param boolean sort Optional flag to indicate that the mappings still need sorting; default is <code>false</code>.
      */
     public function setMappings($mappings, $sort=false) {
-        if ($sort) {
-            foreach ($mappings as $blockId => $blocks) {
-                foreach ($blocks as $ii => $block) {
-                    if (is_string($block)) {
-                        $mappings[$blockId][$ii] = ZMBeanUtils::getBean($block);
-                    }
-                }
-                usort($mappings[$blockId], array($this, 'compareBlocks'));
-            }
-        }
         $this->mappings_ = $mappings;
+        if ($sort) {
+            $this->mappings_ = $this->getMappings(true);
+        }
     }
 
     /**
-     * Get the block mapppings.
+     * Get the final block mapppings.
      *
      * <p>This method will instantiate all blocks registered as bean definition, so use with care.</p>
      *
+     * @param boolean sort Optional flag to indicate that the mappings still need sorting; default is <code>false</code>.
      * @return array Map of all registered blocks.
      */
-    public function getMappings() {
+    public function getMappings($sort=false) {
         $mappings = array();
-        foreach ($this->mappings_ as $blockId => $blockList) {
+        foreach ($this->mappings_ as $blockId => $blockInfoList) {
             $mappings[$blockId] = array();
-            foreach ($blockList as $ii => $block) {
-                if (is_string($block)) {
-                    $this->mappings_[$blockId][$ii] = $block = ZMBeanUtils::getBean($block);
+            foreach ($blockInfoList as $ii => $blockInfo) {
+                if (is_string($blockInfo['block'])) {
+                    $this->mappings_[$blockId][$ii]['block'] = $block = ZMBeanUtils::getBean($blockInfo['block']);
                 }
-                $mappings[$blockId][] = $block;
+                $mappings[$blockId][] = $this->mappings_[$blockId][$ii];
+            }
+        }
+
+        if ($sort) {
+            foreach ($mappings as $blockId => $blockInfoList) {
+                usort($mappings[$blockId], array($this, 'compareBlocks'));
             }
         }
 
@@ -187,15 +190,14 @@ class ZMBlockManager extends ZMObject {
         $request = $args['request'];
         $contents = $args['contents'];
 
+        $mappings = $this->getMappings();
+
         $blockIds = $this->parseBlocks($contents);
         foreach ($blockIds as $blockId) {
             $blockContents = '';
-            if (array_key_exists($blockId, $this->mappings_)) {
-                foreach ($this->mappings_[$blockId] as $ii => $block) {
-                    if (is_string($block)) {
-                        $this->mappings_[$blockId][$ii] = $block = ZMBeanUtils::getBean($block);
-                    }
-                    $blockContents .= $block->getBlockContents($args);
+            if (array_key_exists($blockId, $mappings)) {
+                foreach ($mappings[$blockId] as $ii => $blockInfo) {
+                    $blockContents .= $blockInfo['block']->getBlockContents(array_merge($args, ($blockInfo['args'] === null ? array() : $blockInfo['args'])));
                 }
                 // custom pattern for each block
                 $pattern = str_replace('(\S*)', $blockId, self::BLOCK_PATTERN);
