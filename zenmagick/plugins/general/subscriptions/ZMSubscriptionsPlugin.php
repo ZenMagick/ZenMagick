@@ -106,11 +106,6 @@ class ZMSubscriptionsPlugin extends Plugin {
 
         // register tests
         ZMSettings::append('plugins.unitTests.tests.custom', 'TestSubscriptions');
-        // add tests to class path
-        ZMLoader::instance()->addPath($this->getPluginDirectory().'tests/');
-
-        // add cron jobs to class path
-        ZMLoader::instance()->addPath($this->getPluginDirectory().'cron/');
 
         // set mappings and permissions of custom pages
         ZMSacsManager::instance()->setMapping('cancel_subscription', ZMZenCartAccountSacsHandler::REGISTERED);

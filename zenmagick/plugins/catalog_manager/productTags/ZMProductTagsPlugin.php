@@ -82,8 +82,6 @@ class ZMProductTagsPlugin extends Plugin implements ZMRequestHandler {
 
         // register tests
         ZMSettings::append('plugins.unitTests.tests.custom', 'TestZMTags');
-        // add tests to class path
-        ZMLoader::instance()->addPath($this->getPluginDirectory().'tests/');
     }
 
 }

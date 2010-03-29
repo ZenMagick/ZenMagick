@@ -88,6 +88,19 @@ class ZMUnitTestsController extends ZMController {
             $allTests[$group][] = $class;
         }
 
+        // add plugins/tests folder of all available plugins to loader
+        foreach (ZMPlugins::instance()->getAllPlugins() as $group => $plugins) {
+            foreach ($plugins as $plugin) {
+                if ($plugin instanceof ZMUnitTestsPlugin) {
+                    continue;
+                }
+                $ptests = $plugin->getPluginDirectory().'tests' . DIRECTORY_SEPARATOR;
+                if (is_dir($ptests)) {
+                    ZMLoader::instance()->addPath($ptests);
+                }
+            }
+        }
+
         // merge in all custom registered tests
         $allTests = array_merge($allTests, $this->plugin_->getTests());
         ksort($allTests);

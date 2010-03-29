@@ -99,7 +99,6 @@ class ZMPhpBB3Plugin extends Plugin implements ZMRequestHandler {
         ZMEvents::instance()->attach($this);
 
         // register tests
-        ZMLoader::instance()->addPath($this->getPluginDirectory().'tests/');
         ZMSettings::append('plugins.unitTests.tests.custom', 'TestZMPhpBB3Adapter');
     }
 

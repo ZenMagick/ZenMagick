@@ -179,6 +179,10 @@ Release 0.9.9
 - change calls from net->url to request->url
 - make sure the PDO database provider returns booleans as boolean!
 - groupPricing: allow to edit/delete group pricings
+- unitTests: add all available plugin 'tests' subfolder to class path; this
+  means all plugins have to do is stick to the convention of having a 'tests'
+  subfolder for tests and add tests to the custom setting 
+	'plugins.unitTests.tests.custom'
 
 Release 0.9.8
 - add Savant3 and experimental views (not used yet)
