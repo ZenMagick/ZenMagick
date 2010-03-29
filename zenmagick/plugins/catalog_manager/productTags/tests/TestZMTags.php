@@ -34,7 +34,8 @@ class TestZMTags extends ZMTestCase {
      */
     public function testGetTagsForProductId() {
         $tags = ZMTags::instance()->getTagsForProductId(12, 1);
-        $this->assertEqual(array('foo', 'bar'), $tags);
+        // test values only
+        $this->assertEqual(array('bar', 'foo'), array_values($tags));
     }
 
     /**
@@ -42,9 +43,30 @@ class TestZMTags extends ZMTestCase {
      */
     public function testGetProductIdsForTags() {
         $ids = ZMTags::instance()->getProductIdsForTags(array('foo', 'bar'), 1);
+        sort($ids);
         $this->assertEqual(array(11, 12, 13), $ids);
     }
 
-}
+    /**
+     * Test getAllTags.
+     */
+    public function testGetAllTags() {
+        $tags = ZMTags::instance()->getAllTags(1);
+        // test values only
+        $this->assertEqual(array('bar', 'doh', 'foo'), array_values($tags));
+    }
 
-?>
+    /**
+     * Test setTagsForProductId.
+     */
+    public function testSetTagsForProductId() {
+        $tags = ZMTags::instance()->setTagsForProductId(12, 1, array('a', 'bar', 'c'));
+        $tags = ZMTags::instance()->getTagsForProductId(12, 1);
+        // test values only
+        $this->assertEqual(array('a', 'bar', 'c'), array_values($tags));
+        // revert
+        $tags = ZMTags::instance()->setTagsForProductId(12, 1, array('foo', 'bar'));
+        ZMTags::instance()->cleanupTags();
+    }
+
+}

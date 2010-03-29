@@ -41,6 +41,17 @@ class ZMProductTagsTabController extends ZMPluginAdminController {
     /**
      * {@inheritDoc}
      */
+    public function getViewData($request) {
+        $languageId = $request->getSession()->getLanguageId();
+        return array(
+            'productTags' => ZMTags::instance()->getTagsForProductId($request->getProductId(), $languageId),
+            'allTags' => ZMTags::instance()->getAllTags($languageId)
+        );
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function processGet($request) {
         // need to do this to for using PluginAdminView rather than SimplePluginFormView
         return $this->findView();

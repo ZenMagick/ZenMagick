@@ -21,4 +21,31 @@
  */
 ?>
 
-tags...
+<script>
+function addTag(tag) {
+  var tags = document.getElementById('productTags');
+  if ('' != tags.value) {
+      tags.value += ', ';
+  }
+  tags.value += tag;
+}
+</script>
+
+<form action="<?php echo $toolbox->admin->url(null, $defaultUrlParams) ?>" method="POST">
+    <fieldset>
+        <legend>Manage Product Tags</legend>
+        <p>
+            <label for="productTags">Current Tags</label>
+            <textarea id="productTags" name="productTags"><?php echo $html->encode(implode(', ', $productTags)) ?></textarea>
+        </p>
+        <p>
+            <h3>All Tags</h3>
+            <div>
+                <?php foreach ($allTags as $tag) { ?>
+                    <a href="#" onclick="addTag('<?php echo $tag ?>'); return false;"><?php echo $html->encode($tag) ?></a>
+                <?php } ?>
+            </div>
+        </p>
+    </fieldset>
+    <p><input type="submit" value="Update"></p>
+</form>
