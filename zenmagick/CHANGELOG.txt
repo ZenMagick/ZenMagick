@@ -177,6 +177,7 @@ Release 0.9.9
 - moved absoluteURL from ZMToolboxNet to ZMRequest; affects product_info pages
   (any type)
 - change calls from net->url to request->url
+- make sure the PDO database provider returns booleans as boolean!
 
 Release 0.9.8
 - add Savant3 and experimental views (not used yet)

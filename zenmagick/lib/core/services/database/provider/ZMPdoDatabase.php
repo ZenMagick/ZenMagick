@@ -541,6 +541,8 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
                     if (ZMDatabase::NULL_DATE == $mappedRow[$field['property']]) {
                         $mappedRow[$field['property']] = null;
                     }
+                } else if ('boolean' == $field['type']) {
+                    $mappedRow[$field['property']] = ZMLangUtils::asBoolean($row[$field['column']]);
                 }
             }
         }
