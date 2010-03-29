@@ -95,5 +95,3 @@ class TestZMVBulletinAdapter extends ZMTestCase {
     }
 
 }
-
-?>

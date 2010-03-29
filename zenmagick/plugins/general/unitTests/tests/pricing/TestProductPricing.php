@@ -65,5 +65,3 @@ class TestProductPricing extends ZMTestCase {
     }
 
 }
-
-?>

@@ -52,5 +52,3 @@ class TestZMProductAssociations extends ZMTestCase {
     }
 
 }
-
-?>

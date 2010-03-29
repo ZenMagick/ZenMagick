@@ -145,5 +145,3 @@ class TestZMTools extends ZMTestCase {
     }
 
 }
-
-?>

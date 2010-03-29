@@ -67,5 +67,3 @@ class TestZMProductFinder extends ZMTestCase {
     }
 
 }
-
-?>

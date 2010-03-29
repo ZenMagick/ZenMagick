@@ -45,5 +45,3 @@ class TestZMImageInfo extends ZMTestCase {
     }
 
 }
-
-?>

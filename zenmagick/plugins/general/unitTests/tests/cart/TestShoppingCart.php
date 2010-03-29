@@ -136,5 +136,3 @@ class TestShoppingCart extends ZMTestCase {
     }
 
 }
-
-?>

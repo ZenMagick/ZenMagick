@@ -212,5 +212,3 @@ class TestZMDatabase extends ZMTestCase {
     }
 
 }
-
-?>

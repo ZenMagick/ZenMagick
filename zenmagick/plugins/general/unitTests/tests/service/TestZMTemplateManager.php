@@ -45,5 +45,3 @@ class TestZMTemplateManager extends ZMTestCase {
     }
 
 }
-
-?>

@@ -85,5 +85,3 @@ class TestZMManufacturers extends ZMTestCase {
     }
 
 }
-
-?>

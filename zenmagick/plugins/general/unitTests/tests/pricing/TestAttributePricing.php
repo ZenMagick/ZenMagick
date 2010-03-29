@@ -71,5 +71,3 @@ class TestAttributePricing extends ZMTestCase {
     }
 
 }
-
-?>

@@ -235,5 +235,3 @@ class TestZMCoupons extends ZMTestCase {
         $this->assertEqual(5, ZMCoupons::instance()->getVoucherBalanceForAccountId($this->getAccountId()));
     }
 }
-
-?>

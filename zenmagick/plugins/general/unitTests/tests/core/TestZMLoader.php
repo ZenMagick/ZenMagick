@@ -79,5 +79,3 @@ class TestZMLoader extends ZMTestCase {
     }
 
 }
-
-?>

@@ -96,5 +96,3 @@ if (!function_exists('zm_build_seo_href')) {
         }
     }
 }
-
-?>

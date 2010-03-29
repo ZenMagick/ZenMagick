@@ -49,5 +49,3 @@ class TestUIDateHandling extends ZMTestCase {
     }
 
 }
-
-?>

@@ -56,5 +56,3 @@ class TestDBMappings extends ZMTestCase {
     }
 
 }
-
-?>

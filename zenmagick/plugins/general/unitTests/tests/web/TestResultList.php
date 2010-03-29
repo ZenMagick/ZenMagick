@@ -144,5 +144,3 @@ class TestResultList extends ZMTestCase {
     }
 
 }
-
-?>

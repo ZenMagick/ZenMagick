@@ -107,5 +107,3 @@ class TestZMPhpBB3Adapter extends ZMTestCase {
     }
 
 }
-
-?>

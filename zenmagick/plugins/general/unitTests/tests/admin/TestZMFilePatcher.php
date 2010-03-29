@@ -149,5 +149,3 @@ class TestZMFilePatcher extends ZMTestCase {
     }
 
 }
-
-?>

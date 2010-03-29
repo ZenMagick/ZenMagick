@@ -59,5 +59,3 @@ class TestZMOpenIDDatabaseStore extends ZMTestCase {
     }
 
 }
-
-?>

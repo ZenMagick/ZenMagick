@@ -77,5 +77,3 @@ class TestZMTaxRates extends ZMTestCase {
     }
 
 }
-
-?>

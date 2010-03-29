@@ -159,5 +159,3 @@ class TestZMDatabaseCreateUpdate extends ZMTestCase {
     }
 
 }
-
-?>

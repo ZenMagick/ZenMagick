@@ -65,5 +65,3 @@ class TestZMProduct extends ZMTestCase {
     }
 
 }
-
-?>

@@ -247,5 +247,3 @@ class TestZMOrders extends ZMTestCase {
     }
 
 }
-
-?>

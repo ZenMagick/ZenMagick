@@ -50,5 +50,3 @@ class TestZMCurrency extends ZMTestCase {
     }
 
 }
-
-?>

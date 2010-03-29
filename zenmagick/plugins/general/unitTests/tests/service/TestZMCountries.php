@@ -56,5 +56,3 @@ class TestZMCountries extends ZMTestCase {
     }
 
 }
-
-?>

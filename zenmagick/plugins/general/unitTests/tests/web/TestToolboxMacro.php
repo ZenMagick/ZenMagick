@@ -36,5 +36,3 @@ class TestToolboxMacro extends ZMTestCase {
     }
 
 }
-
-?>

@@ -146,5 +146,3 @@ class TestZMTokens extends ZMTestCase {
     }
 
 }
-
-?>

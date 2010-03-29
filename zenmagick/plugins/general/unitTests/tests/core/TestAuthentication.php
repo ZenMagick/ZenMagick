@@ -97,5 +97,3 @@ class TestAuthentication extends ZMTestCase {
     }
 
 }
-
-?>

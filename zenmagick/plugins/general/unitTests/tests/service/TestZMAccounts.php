@@ -176,5 +176,3 @@ class TestZMAccounts extends ZMTestCase {
     }
 
 }
-
-?>

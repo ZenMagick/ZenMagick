@@ -57,5 +57,3 @@ class TestZMUrlManager extends ZMTestCase {
     }
 
 }
-
-?>
