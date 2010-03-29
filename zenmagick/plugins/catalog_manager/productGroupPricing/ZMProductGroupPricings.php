@@ -123,4 +123,14 @@ class ZMProductGroupPricings extends ZMObject {
         return $groupPricing;
     }
 
+    /**
+     * Remove a group pricing.
+     *
+     * @param ProductGroupPricing groupPricing The new product group pricing.
+     * @return ProductGroupPricing The created product group pricing incl. the id.
+     */
+    public function removeProductGroupPricing($groupPricing) {
+        return ZMRuntime::getDatabase()->removeModel(ZM_TABLE_PRODUCT_GROUP_PRICING, $groupPricing);
+    }
+
 }

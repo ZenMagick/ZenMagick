@@ -49,7 +49,8 @@ class ZMProductGroupPricingTabController extends ZMPluginAdminController {
         $groupId = $request->getParameter('groupId', $priceGroups[0]->getId());
         $productGroupPricings = ZMProductGroupPricings::instance()->getProductGroupPricings($request->getProductId(), $groupId, false);
         $productGroupPricing = ZMLoader::make("ProductGroupPricing");
-        if (null != ($groupPricingId = $request->getParameter('groupPricingId')) && 0 < $groupPricingId) {
+        // TODO: should not need to check for delete - viewData should not override findView(.., data) data
+        if (null != ($groupPricingId = $request->getParameter('groupPricingId')) && 0 < $groupPricingId && null == $request->getParameter('delete')) {
             $productGroupPricing = ZMProductGroupPricings::instance()->getProductGroupPricingForId($groupPricingId);
         }
         return array(
@@ -64,8 +65,14 @@ class ZMProductGroupPricingTabController extends ZMPluginAdminController {
      * {@inheritDoc}
      */
     public function processGet($request) {
-        // need to do this to for using PluginAdminView rather than SimplePluginFormView
-        return $this->findView();
+        //TODO: this should be POST!!
+        if (ZMLangUtils::asBoolean($request->getParameter('delete'))) {
+            $productGroupPricing = ZMLoader::make("ProductGroupPricing");
+            $productGroupPricing->populate($request);
+            // delete
+            ZMProductGroupPricings::instance()->updateProductGroupPricing($productGroupPricing);
+        }
+        return $this->findView(null, array('productGroupPricing' => ZMLoader::make("ProductGroupPricing")));
     }
 
     /**
@@ -82,8 +89,8 @@ class ZMProductGroupPricingTabController extends ZMPluginAdminController {
             $productGroupPricing = ZMProductGroupPricings::instance()->updateProductGroupPricing($productGroupPricing);
         }
 
-        // need to do this to for using PluginAdminView rather than SimplePluginFormView
         return $this->findView();
+        //return $this->getCatalogManagerRedirectView($request);
     }
 
 }
