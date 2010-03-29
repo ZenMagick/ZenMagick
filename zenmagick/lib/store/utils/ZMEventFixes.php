@@ -123,7 +123,7 @@ class ZMEventFixes extends ZMObject {
      */
     private function needsZC($request) {
         $pageName = $request->getRequestId();
-        return (false !== strpos($pageName, 'checkout_') && 'checkout_shipping' != $pageName && 'checkout_shipping_address' != $pageName && 'checkout_payment_address' != $pageName);
+        return (false !== strpos($pageName, 'checkout_') && 'XXcheckout_shipping' != $pageName && 'checkout_shipping_address' != $pageName && 'checkout_payment_address' != $pageName);
     }
 
     /**
