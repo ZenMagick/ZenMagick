@@ -178,6 +178,7 @@ Release 0.9.9
   (any type)
 - change calls from net->url to request->url
 - make sure the PDO database provider returns booleans as boolean!
+- groupPricing: allow to edit/delete group pricings
 
 Release 0.9.8
 - add Savant3 and experimental views (not used yet)

@@ -76,7 +76,7 @@ class ZMProductGroupPricings extends ZMObject {
      * @param boolean active If set to <code>true</code> consider active (date) pricings only; default is <code>true</code>.
      * @return array A list of <code>ProductGroupPricing</code> instances.
      */
-    public function getProductGroupPricing($productId, $groupId, $active=true) {
+    public function getProductGroupPricings($productId, $groupId, $active=true) {
         $dateLimit = '';
         if ($active) {
             $dateLimit = ' AND start_date <= now() AND (end_date > now() OR end_date is NULL OR end_date = :endDate) ';
@@ -87,6 +87,19 @@ class ZMProductGroupPricings extends ZMObject {
         $sql .= " ORDER BY start_date ASC";
         $args = array('productId' => $productId, 'groupId' => $groupId, 'endDate' => ZMDatabase::NULL_DATETIME);
         return ZMRuntime::getDatabase()->query($sql, $args, ZM_TABLE_PRODUCT_GROUP_PRICING, 'ProductGroupPricing');
+    }
+
+    /**
+     * Get product group pricings for the given id.
+     *
+     * @param int groupPricingId The group pricing id.
+     * @return ProductGroupPricing A <code>ProductGroupPricing</code> or <code>null</code>.
+     */
+    public function getProductGroupPricingForId($groupPricingId) {
+        $sql = "SELECT * FROM " . ZM_TABLE_PRODUCT_GROUP_PRICING . "
+                WHERE group_pricing_id = :id";
+        $args = array('id' => $groupPricingId);
+        return ZMRuntime::getDatabase()->querySingle($sql, $args, ZM_TABLE_PRODUCT_GROUP_PRICING, 'ProductGroupPricing');
     }
 
     /**

@@ -38,13 +38,13 @@
     <legend>Price/Discount</legend>
     <div>
       <input type="hidden" name="groupId" value="<?php echo $groupId ?>">
-      <input type="hidden" name="groupPricingId" value="<?php echo $request->getParameter('groupPricingId') ?>">
+      <input type="hidden" name="groupPricingId" value="<?php echo $productGroupPricing->getId() ?>">
     </div>
     <p>
       <label for="discount">Discount</label> 
-      <input type="text" id="discount" name="discount" value="<?php echo $request->getParameter('discount') ?>">
+      <input type="text" id="discount" name="discount" value="<?php echo $productGroupPricing->getDiscount() ?>">
 
-      <?php $type = $request->getParameter('type'); ?>
+      <?php $type = $productGroupPricing->getType(); ?>
       <label for="type">Type</label> 
       <select id="type" name="type">
         <option value="#"<?php if ('#' == $type) { echo ' selected'; } ?>>Fixed Price</option>
@@ -53,14 +53,14 @@
       </select>
     </p>
     <p>
-      <input type="checkbox" id="allowSaleSpecial" name="allowSaleSpecial" value="1"<?php $toolbox->form->checked($request->getParameter('allowSaleSpecial')) ?>>
+      <input type="checkbox" id="allowSaleSpecial" name="allowSaleSpecial" value="true" <?php $toolbox->form->checked($productGroupPricing->isAllowSaleSpecial()) ?>>
       <label for="allowSaleSpecial">Allow discount on sale/special</label>
     </p>
     <p>
       <label for="startDate">Start Date</label> 
-      <input type="text" id="startDate" name="startDate" value="<?php echo $toolbox->locale->shortDate($request->getParameter('startDate')) ?>">
+      <input type="text" id="startDate" name="startDate" value="<?php echo $toolbox->locale->shortDate($productGroupPricing->getStartDate()) ?>">
       <label for="endDate">End Date</label> 
-      <input type="text" id="endDate" name="endDate" value="<?php echo $toolbox->locale->shortDate($request->getParameter('endDate')) ?>">
+      <input type="text" id="endDate" name="endDate" value="<?php echo $toolbox->locale->shortDate($productGroupPricing->getEndDate()) ?>">
       <?php echo UI_DATE_FORMAT ?>, for example: <?php echo UI_DATE_FORMAT_SAMPLE ?>
     </p>
   </fieldset>
@@ -68,7 +68,7 @@
     <input type="hidden" name="fkt" value="ProductGroupPricingTab">
     <?php if (0 < $request->getParameter('groupPricingId')) { ?>
         <input type="submit" name="update" value="Update">
-        <a href="<?php echo $toolbox->admin->url('', $defaultUrlParams.'&groupPricingId='.$request->getParameter('groupPricingId').'&delete=true') ?>">Delete</a>
+        <a href="<?php echo $toolbox->admin->url('', $defaultUrlParams.'&fkt=ProductGroupPricingTab&groupPricingId='.$request->getParameter('groupPricingId').'&delete=true') ?>">Delete</a>
     <?php } else { ?>
         <input type="submit" name="create" value="Create">
     <?php } ?>
@@ -86,6 +86,7 @@
           <td><?php echo ($productGroupPricing->isAllowSaleSpecial() ? 'Y' : 'N') ?></td>
           <td><?php echo $productGroupPricing->getStartDate() ?></td>
           <td><?php echo $productGroupPricing->getEndDate() ?></td>
+          <td><a href="<?php echo $toolbox->admin->url('', $defaultUrlParams.'&fkt=ProductGroupPricingTab&groupPricingId='.$productGroupPricing->getId()) ?>">Change</a></td>
         </tr>
       <?php } ?>
     </table>

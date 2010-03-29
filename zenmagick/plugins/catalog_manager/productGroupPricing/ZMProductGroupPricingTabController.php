@@ -42,16 +42,22 @@ class ZMProductGroupPricingTabController extends ZMPluginAdminController {
 
 
     /**
-     * Get shared page data.
-     *
-     * @param ZMRequest request The current request.
-     * @return array Some data map.
+     * {@inheritDoc}
      */
-    protected function getCommonViewData($request) {
+    public function getViewData($request) {
         $priceGroups = ZMGroupPricing::instance()->getPriceGroups();
         $groupId = $request->getParameter('groupId', $priceGroups[0]->getId());
-        $productGroupPricings = ZMProductGroupPricings::instance()->getProductGroupPricing($request->getProductId(), $groupId, false);
-        return array('groupId' => $groupId, 'priceGroups' => $priceGroups, 'productGroupPricings' => $productGroupPricings);
+        $productGroupPricings = ZMProductGroupPricings::instance()->getProductGroupPricings($request->getProductId(), $groupId, false);
+        $productGroupPricing = ZMLoader::make("ProductGroupPricing");
+        if (null != ($groupPricingId = $request->getParameter('groupPricingId')) && 0 < $groupPricingId) {
+            $productGroupPricing = ZMProductGroupPricings::instance()->getProductGroupPricingForId($groupPricingId);
+        }
+        return array(
+            'groupId' => $groupId,
+            'priceGroups' => $priceGroups,
+            'productGroupPricing' => $productGroupPricing,
+            'productGroupPricings' => $productGroupPricings
+        );
     }
 
     /**
@@ -59,7 +65,7 @@ class ZMProductGroupPricingTabController extends ZMPluginAdminController {
      */
     public function processGet($request) {
         // need to do this to for using PluginAdminView rather than SimplePluginFormView
-        return $this->findView(null, $this->getCommonViewData($request));
+        return $this->findView();
     }
 
     /**
@@ -67,7 +73,7 @@ class ZMProductGroupPricingTabController extends ZMPluginAdminController {
      */
     public function processPost($request) {
         $productGroupPricing = ZMLoader::make("ProductGroupPricing");
-        $productGroupPricing->populate();
+        $productGroupPricing->populate($request);
         if (0 == $productGroupPricing->getId()) {
             // create
             $productGroupPricing = ZMProductGroupPricings::instance()->createProductGroupPricing($productGroupPricing);
@@ -77,7 +83,7 @@ class ZMProductGroupPricingTabController extends ZMPluginAdminController {
         }
 
         // need to do this to for using PluginAdminView rather than SimplePluginFormView
-        return $this->findView(null, $this->getCommonViewData($request));
+        return $this->findView();
     }
 
 }

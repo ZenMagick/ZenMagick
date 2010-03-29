@@ -71,22 +71,22 @@ class ZMProductGroupPricing extends ZMObject {
     /**
      * Populate all available fields from the given request.
      *
-     * @param array req A request; if <code>null</code>, use the current <code>ZMRequest</code> instead.
+     * @param ZMRequest request The current request.
      */
-    function populate($req=null) {
-        $this->id_ = ZMRequest::instance()->getParameter('groupPricingId', '0');
-        $this->productId_ = ZMRequest::instance()->getProductId();
-        $this->groupId_ = ZMRequest::instance()->getParameter('groupId', '0');
-        $this->discount_ = ZMRequest::instance()->getParameter('discount', '0');
-        $this->type_ = ZMRequest::instance()->getParameter('type', '%');
-        $this->allowSaleSpecial_ = ZMRequest::instance()->getParameter('allowSaleSpecial', false);
-        $startDate = ZMRequest::instance()->getParameter('startDate');
+    function populate($request) {
+        $this->id_ = $request->getParameter('groupPricingId', '0');
+        $this->productId_ = $request->getProductId();
+        $this->groupId_ = $request->getParameter('groupId', '0');
+        $this->discount_ = $request->getParameter('discount', '0');
+        $this->type_ = $request->getParameter('type', '%');
+        $this->allowSaleSpecial_ = ZMLangUtils::asBoolean($request->getParameter('allowSaleSpecial', false));
+        $startDate = $request->getParameter('startDate');
         if (empty($startDate)) {
             // default to current date
             $startDate = ZMTools::translateDateString(date('Y-m-d'), 'yyyy-mm-dd', UI_DATE_FORMAT);
         }
         $this->startDate_ = ZMTools::translateDateString($startDate, UI_DATE_FORMAT, ZM_DATE_FORMAT);
-        $this->endDate_ = ZMTools::translateDateString(ZMRequest::instance()->getParameter('endDate'), UI_DATE_FORMAT, ZM_DATE_FORMAT);
+        $this->endDate_ = ZMTools::translateDateString($request->getParameter('endDate'), UI_DATE_FORMAT, ZM_DATE_FORMAT);
     }
 
 
