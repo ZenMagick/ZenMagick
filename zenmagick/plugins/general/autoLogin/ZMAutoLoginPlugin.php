@@ -182,5 +182,3 @@ class ZMAutoLoginPlugin extends Plugin implements ZMRequestHandler {
     }
 
 }
-
-?>

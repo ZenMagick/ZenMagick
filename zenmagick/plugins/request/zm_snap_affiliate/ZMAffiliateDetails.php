@@ -48,5 +48,3 @@ class ZMAffiliateDetails extends ZMObject {
     }
 
 }
-
-?>

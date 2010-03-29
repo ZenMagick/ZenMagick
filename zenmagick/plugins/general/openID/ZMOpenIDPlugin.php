@@ -131,5 +131,3 @@ class ZMOpenIDPlugin extends Plugin {
     }
 
 }
-
-?>

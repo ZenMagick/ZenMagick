@@ -109,5 +109,3 @@ class ZMSubscriptionRequestController extends ZMController {
     }
 
 }
-
-?>

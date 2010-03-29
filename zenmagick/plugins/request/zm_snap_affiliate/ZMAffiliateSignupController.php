@@ -131,5 +131,3 @@ class ZMAffiliateSignupController extends ZMController {
     }
 
 }
-
-?>

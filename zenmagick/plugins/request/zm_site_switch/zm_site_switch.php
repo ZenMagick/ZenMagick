@@ -284,5 +284,3 @@ if (!defined("HTTP_SERVER")) {
     }
 
 }
-
-?>

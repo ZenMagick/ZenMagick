@@ -91,5 +91,3 @@ class ZMToggleZMThemesPlugin extends Plugin implements ZMRequestHandler {
     }
 
 }
-
-?>

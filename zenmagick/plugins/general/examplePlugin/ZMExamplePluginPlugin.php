@@ -102,5 +102,3 @@ class ZMExamplePluginPlugin extends Plugin implements ZMRequestHandler {
     }
 
 }
-
-?>

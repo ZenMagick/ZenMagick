@@ -274,6 +274,3 @@ class ZMPhpBB3Adapter extends ZMObject {
     }
 
 }
-
-
-?>

@@ -61,5 +61,3 @@ class ZMTotalPlugin extends Plugin implements ZMOrderTotal {
     }
 
 }
-
-?>

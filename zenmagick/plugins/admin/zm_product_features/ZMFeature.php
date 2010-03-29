@@ -100,5 +100,3 @@ class ZMFeature extends ZMObject {
     function getType() { return ZMFeatures::instance()->getFeatureTypeForId($this->type_); }
 
 }
-
-?>

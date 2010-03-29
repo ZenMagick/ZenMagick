@@ -73,5 +73,3 @@ class ZMBirthdayEmailCronJob implements ZMCronJob {
     }
 
 }
-
-?>

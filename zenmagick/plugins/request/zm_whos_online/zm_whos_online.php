@@ -108,5 +108,3 @@ class zm_whos_online extends Plugin {
     }
 
 }
-
-?>

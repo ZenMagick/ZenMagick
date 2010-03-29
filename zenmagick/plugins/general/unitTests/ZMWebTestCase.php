@@ -87,5 +87,3 @@ class ZMWebTestCase extends WebTestCase {
     }
 
 }
-
-?>

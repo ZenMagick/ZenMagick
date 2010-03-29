@@ -57,5 +57,3 @@ class ZMCaptchaImgController extends ZMController {
     }
 
 }
-
-?>

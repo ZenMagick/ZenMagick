@@ -105,5 +105,3 @@ class ZMTestCase extends UnitTestCase {
     }
 
 }
-
-?>

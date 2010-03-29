@@ -112,5 +112,3 @@ class ZMCronPlugin extends Plugin {
     }
 
 }
-
-?>

@@ -73,5 +73,3 @@ class zm_product_facets extends Plugin {
     }
 
 }
-
-?>

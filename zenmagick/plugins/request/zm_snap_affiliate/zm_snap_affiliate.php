@@ -121,5 +121,3 @@ class zm_snap_affiliate extends Plugin {
     }
 
 }
-
-?>

@@ -172,5 +172,3 @@ class ZMArtist extends ZMObject {
     public function setRecordCompany($recordCompany) { $this->recordCompany_ = $recordCompany; }
 
 }
-
-?>

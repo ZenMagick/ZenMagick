@@ -128,5 +128,3 @@ class zm_google_adsense extends ZMBoxPlugin {
         return $js;
     }
 
-
-?>

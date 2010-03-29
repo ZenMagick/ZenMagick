@@ -50,5 +50,3 @@ class ZMCronImageController extends ZMController {
     }
 
 }
-
-?>

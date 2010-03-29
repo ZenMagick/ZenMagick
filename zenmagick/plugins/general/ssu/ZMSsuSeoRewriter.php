@@ -50,5 +50,3 @@ class ZMSsuSeoRewriter implements ZMSeoRewriter {
     }
 
 }
-
-?>

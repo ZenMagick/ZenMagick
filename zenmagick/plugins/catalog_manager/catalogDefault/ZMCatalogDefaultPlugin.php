@@ -60,5 +60,3 @@ class ZMCatalogDefaultPlugin extends Plugin {
     }
 
 }
-
-?>

@@ -195,6 +195,3 @@ class ZMPhpBB3Plugin extends Plugin implements ZMRequestHandler {
     }
 
 }
-
-
-?>

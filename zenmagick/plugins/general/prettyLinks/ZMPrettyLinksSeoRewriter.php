@@ -278,5 +278,3 @@ class ZMPrettyLinksSeoRewriter implements ZMSeoRewriter {
     }
 
 }
-
-?>

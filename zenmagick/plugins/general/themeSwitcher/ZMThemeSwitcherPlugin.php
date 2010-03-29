@@ -113,5 +113,3 @@ class ZMThemeSwitcherPlugin extends Plugin implements ZMRequestHandler {
     }
 
 }
-
-?>

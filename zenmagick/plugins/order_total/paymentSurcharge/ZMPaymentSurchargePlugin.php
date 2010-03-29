@@ -118,5 +118,3 @@ class ZMPaymentSurchargePlugin extends Plugin implements ZMOrderTotal {
     }
 
 }
-
-?>

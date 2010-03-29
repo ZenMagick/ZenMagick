@@ -234,5 +234,3 @@ class ZMUseo2SupportPatch extends ZMFilePatch {
     }
 
 }
-
-?>

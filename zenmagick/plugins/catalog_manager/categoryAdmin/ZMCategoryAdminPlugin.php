@@ -68,5 +68,3 @@ class ZMCategoryAdminPlugin extends Plugin implements ZMRequestHandler {
     }
 
 }
-
-?>

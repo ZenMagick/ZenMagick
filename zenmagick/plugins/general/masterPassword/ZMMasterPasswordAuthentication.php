@@ -46,5 +46,3 @@ class ZMMasterPasswordAuthentication implements ZMAuthentication {
     }
 
 }
-
-?>

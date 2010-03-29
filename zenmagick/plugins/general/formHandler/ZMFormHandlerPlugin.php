@@ -91,5 +91,3 @@ class ZMFormHandlerPlugin extends Plugin {
     }
 
 }
-
-?>

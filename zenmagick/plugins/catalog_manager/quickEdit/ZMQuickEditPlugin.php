@@ -64,5 +64,3 @@ class ZMQuickEditPlugin extends Plugin implements ZMRequestHandler {
     }
 
 }
-
-?>

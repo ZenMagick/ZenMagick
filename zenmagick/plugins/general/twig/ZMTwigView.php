@@ -102,5 +102,3 @@ class ZMTwigView extends ZMView {
     }
 
 }
-
-?>

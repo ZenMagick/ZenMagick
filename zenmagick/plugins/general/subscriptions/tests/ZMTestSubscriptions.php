@@ -136,5 +136,3 @@ class ZMTestSubscriptions extends ZMTestCase {
     }
 
 }
-
-?>

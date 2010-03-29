@@ -63,5 +63,3 @@ class ZMMasterPasswordAdminController extends ZMPluginAdminController {
     }
 
 }
-
-?>

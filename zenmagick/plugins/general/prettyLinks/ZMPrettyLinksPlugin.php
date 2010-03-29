@@ -54,5 +54,3 @@ class ZMPrettyLinksPlugin extends Plugin {
     }
 
 }
-
-?>

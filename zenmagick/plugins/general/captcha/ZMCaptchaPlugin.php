@@ -178,5 +178,3 @@ class ZMCaptchaPlugin extends Plugin {
     }
 
 }
-
-?>

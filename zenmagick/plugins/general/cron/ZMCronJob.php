@@ -37,5 +37,3 @@ interface ZMCronJob {
     public function execute();
 
 }
-
-?>

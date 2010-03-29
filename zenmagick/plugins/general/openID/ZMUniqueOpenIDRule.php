@@ -68,5 +68,3 @@ class ZMUniqueOpenIDRule extends ZMRule {
     }
 
 }
-
-?>

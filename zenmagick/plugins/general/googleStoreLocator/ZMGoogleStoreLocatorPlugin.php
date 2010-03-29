@@ -118,5 +118,3 @@ class ZMGoogleStoreLocatorPlugin extends Plugin {
     }
 
 }
-
-?>

@@ -76,5 +76,3 @@ class ZMProductComparisonController extends ZMController {
     }
 
 }
-
-?>

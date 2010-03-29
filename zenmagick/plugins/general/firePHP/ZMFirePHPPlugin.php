@@ -46,5 +46,3 @@ class ZMFirePHPPlugin extends Plugin {
     }
 
 }
-
-?>

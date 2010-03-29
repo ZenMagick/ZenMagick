@@ -215,5 +215,3 @@ class ZMOpenIDController extends ZMController {
     }
 
 }
-
-?>

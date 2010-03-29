@@ -61,5 +61,3 @@ class ZMHamlPlugin extends Plugin {
     }
 
 }
-
-?>

@@ -83,5 +83,3 @@ class ZMGoogleStoreLocatorAdminController extends ZMPluginAdminController {
     }
 
 }
-
-?>

@@ -44,5 +44,3 @@ class ZMSavantHamlCompiler extends ZMObject {
     }
 
 }
-
-?>

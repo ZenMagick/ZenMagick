@@ -58,5 +58,3 @@ class ZMArrayEqualExpectation extends EqualExpectation {
     }
 
 }
-
-?>

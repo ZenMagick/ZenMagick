@@ -93,5 +93,3 @@ class ZMUseo2Plugin extends Plugin {
     }
 
 }
-
-?>

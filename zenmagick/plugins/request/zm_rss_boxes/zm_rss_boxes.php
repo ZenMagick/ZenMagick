@@ -127,5 +127,3 @@ class zm_rss_boxes extends ZMBoxPlugin {
         return $js;
     }
 
-
-?>

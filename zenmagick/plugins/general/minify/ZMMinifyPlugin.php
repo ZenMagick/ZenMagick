@@ -60,5 +60,3 @@ class ZMMinifyPlugin extends Plugin {
     // how to allow simple PHP?
     // delegate minify config to plugin? generate static config via plugin admin page?
 }
-
-?>

@@ -112,5 +112,3 @@ class ZMSubscriptionAdminController extends ZMPluginAdminController {
     }
 
 }
-
-?>

@@ -63,5 +63,3 @@ class ZMExamplePluginAdminController extends ZMPluginAdminController {
     }
 
 }
-
-?>

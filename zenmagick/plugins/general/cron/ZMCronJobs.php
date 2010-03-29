@@ -204,5 +204,3 @@ class ZMCronJobs extends ZMObject {
     }
 
 }
-
-?>

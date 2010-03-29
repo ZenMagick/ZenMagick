@@ -223,5 +223,3 @@ class ZMVBulletinAdapter extends ZMObject {
     }
 
 }
-
-?>

@@ -58,5 +58,3 @@ class zm_dual_pricing extends Plugin {
     }
 
 }
-
-?>

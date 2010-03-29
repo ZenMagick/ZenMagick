@@ -215,5 +215,3 @@ class ZMVBulletinPlugin extends Plugin implements ZMRequestHandler {
     }
 
 }
-
-?>

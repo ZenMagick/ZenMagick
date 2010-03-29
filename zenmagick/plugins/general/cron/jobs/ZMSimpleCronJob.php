@@ -38,5 +38,3 @@ class ZMSimpleCronJob implements ZMCronJob {
     }
 
 }
-
-?>

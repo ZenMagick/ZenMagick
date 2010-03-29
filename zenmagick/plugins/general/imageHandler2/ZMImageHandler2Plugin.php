@@ -69,5 +69,3 @@ class ZMImageHandler2Plugin extends Plugin {
     }
 
 }
-
-?>

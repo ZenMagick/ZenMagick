@@ -84,5 +84,3 @@ class zm_product_features extends Plugin implements ZMRequestHandler {
     }
 
 }
-
-?>

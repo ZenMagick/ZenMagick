@@ -98,5 +98,3 @@ class ZMSettingsAdminManageController extends ZMPluginAdminController {
     }
 
 }
-
-?>

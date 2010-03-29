@@ -198,5 +198,3 @@ class ZMOpenIDDatabaseStore extends Auth_OpenID_OpenIDStore {
     }
 
 }
-
-?>

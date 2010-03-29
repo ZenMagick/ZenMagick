@@ -54,5 +54,3 @@ class ZMPhpBB3Authentication implements ZMAuthentication {
     }
 
 }
-
-?>

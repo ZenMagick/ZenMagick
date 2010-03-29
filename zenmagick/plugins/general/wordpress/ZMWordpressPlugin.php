@@ -319,5 +319,3 @@ class ZMWordpressPlugin extends Plugin implements ZMRequestHandler {
     }
 
 }
-
-?>

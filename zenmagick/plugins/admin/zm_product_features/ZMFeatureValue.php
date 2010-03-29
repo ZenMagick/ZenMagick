@@ -81,5 +81,3 @@ class ZMFeatureValue extends ZMObject {
     function getValue() { return $this->value_; }
 
 }
-
-?>

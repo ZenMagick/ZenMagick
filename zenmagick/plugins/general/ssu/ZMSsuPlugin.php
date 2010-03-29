@@ -55,5 +55,3 @@ class ZMSsuPlugin extends Plugin {
     }
 
 }
-
-?>

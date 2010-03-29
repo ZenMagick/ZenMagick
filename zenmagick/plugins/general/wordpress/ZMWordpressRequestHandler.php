@@ -145,5 +145,3 @@ class ZMWordpressRequestHandler extends ZMController {
     }
 
 }
-
-?>

@@ -143,6 +143,3 @@ class ZMWordpressAdapter extends ZMObject {
     }
 
 }
-
-
-?>

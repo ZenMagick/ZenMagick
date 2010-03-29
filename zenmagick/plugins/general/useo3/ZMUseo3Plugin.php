@@ -53,5 +53,3 @@ class ZMUseo3Plugin extends Plugin {
     }
 
 }
-
-?>

@@ -222,5 +222,3 @@ class ZMUpdateSubscriptionsCronJob implements ZMCronJob {
     }
 
 }
-
-?>

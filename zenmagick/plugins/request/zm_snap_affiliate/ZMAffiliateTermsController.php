@@ -68,5 +68,3 @@ class ZMAffiliateTermsController extends ZMController {
     }
 
 }
-
-?>

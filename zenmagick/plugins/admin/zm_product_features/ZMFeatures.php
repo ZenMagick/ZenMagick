@@ -374,5 +374,3 @@ class ZMFeatures extends ZMObject {
     }
 
 }
-
-?>

@@ -126,5 +126,3 @@ class ZMFualSlimboxPlugin extends Plugin {
     }
 
 }
-
-?>

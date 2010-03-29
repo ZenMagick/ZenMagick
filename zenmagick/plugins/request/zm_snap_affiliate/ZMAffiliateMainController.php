@@ -151,5 +151,3 @@ class ZMAffiliateMainController extends ZMController {
     }
 
 }
-
-?>

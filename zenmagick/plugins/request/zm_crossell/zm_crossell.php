@@ -106,5 +106,3 @@ class zm_crossell extends Plugin {
     }
 
 }
-
-?>

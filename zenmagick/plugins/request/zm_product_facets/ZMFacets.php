@@ -208,5 +208,3 @@ class ZMFacets extends ZMObject {
     }
 
 }
-
-?>

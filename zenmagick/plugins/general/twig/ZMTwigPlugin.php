@@ -66,5 +66,3 @@ class ZMTwigPlugin extends Plugin {
     }
 
 }
-
-?>

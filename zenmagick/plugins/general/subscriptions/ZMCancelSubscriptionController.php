@@ -135,5 +135,3 @@ class ZMCancelSubscriptionController extends ZMController {
     }
 
 }
-
-?>

@@ -67,5 +67,3 @@ class ZMCKEditorPlugin extends Plugin {
     }
 
 }
-
-?>

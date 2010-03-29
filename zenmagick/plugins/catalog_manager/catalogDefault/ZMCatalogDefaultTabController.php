@@ -50,5 +50,3 @@ class ZMCatalogDefaultTabController extends ZMPluginAdminController {
     }
 
 }
-
-?>

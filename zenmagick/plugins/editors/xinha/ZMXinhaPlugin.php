@@ -67,5 +67,3 @@ class ZMXinhaPlugin extends Plugin {
     }
 
 }
-
-?>

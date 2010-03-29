@@ -145,5 +145,3 @@ class ZMPageCachePlugin extends Plugin {
     }
 
 }
-
-?>

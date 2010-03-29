@@ -114,5 +114,3 @@ class ZMFacet extends ZMObject {
     }
 
 }
-
-?>
