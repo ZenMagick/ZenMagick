@@ -32,6 +32,7 @@ function addTag(tag) {
 </script>
 
 <form action="<?php echo $toolbox->admin->url(null, $defaultUrlParams) ?>" method="POST">
+    <input type="hidden" name="fkt" value="ProductTagsTab">
     <fieldset>
         <legend>Manage Product Tags</legend>
         <p>

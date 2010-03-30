@@ -61,6 +61,19 @@ class ZMProductTagsTabController extends ZMPluginAdminController {
      * {@inheritDoc}
      */
     public function processPost($request) {
+        $productId = $request->getProductId();
+        if (0 < $productId && null != ($productTags = $request->getParameter('productTags'))) {
+            $tags = array();
+            foreach (explode(',', $productTags) as $tag) {
+                $tag = trim($tag);
+                if (!empty($tag)) {
+                    // avoid duplicates...
+                    $tags[$tag] = $tag;
+                }
+            }
+            ZMTags::instance()->setTagsForProductId($productId, $request->getSession()->getLanguageId(), $tags);
+            ZMMessages::instance()->success(zm_l10n_get('Tags updated'));
+        }
 
         // need to do this to for using PluginAdminView rather than SimplePluginFormView
         return $this->findView();
