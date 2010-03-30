@@ -11,7 +11,7 @@ Tag groups
 It is possible to find related products by doing the following:
 
     $product = ZMProducts::instance()->getProductForId(3);
-    $similarTaggedProducts = $product->getProductAssociationsForType('tags', array('session' => $session));
+    $similarTaggedProducts = $product->getProductAssociationsForType('tags');
 
 
 Tag Cloud

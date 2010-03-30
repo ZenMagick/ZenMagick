@@ -59,6 +59,7 @@ class ZMProduct extends ZMObject {
     var $pricedByAttributes_;
     var $masterCategoryId_;
     var $sortOrder_;
+    private $languageId_;
 
     // raw price
     var $productPrice_;
@@ -89,6 +90,7 @@ class ZMProduct extends ZMObject {
         $this->isQtyMixed_ = false;
         $this->qtyBoxStatus_ = 1;
         $this->priceSorter_ = 0;
+        $this->languageId_ = 0;
     }
 
     /**
@@ -104,7 +106,7 @@ class ZMProduct extends ZMObject {
      *
      * @return int The product id.
      */
-    function getId() { return $this->get('productId'); }
+    public function getId() { return $this->get('productId'); }
 
     /**
      * Set the product id.
@@ -644,14 +646,32 @@ class ZMProduct extends ZMObject {
     public function setDiscountTypeFrom($typeFrom) { $this->discountTypeFrom_ = $typeFrom; }
 
     /**
+     * Get the language id.
+     *
+     * @return int The language id.
+     */
+    public function getLanguageId() { return $this->languageId_; }
+
+    /**
+     * Set the language id.
+     *
+     * @param int id The language id.
+     */
+    public function setLanguageId($id) { $this->languageId_ = $id; }
+
+    /**
      * Get product associations for the given type and parameter.
      *
      * @param string type The association type.
-     * @param array args Optional parameter that might be required by the used type; default is <code>null</code> for none.
+     * @param array args Optional parameter that might be required by the used type; default is an empty array.
      * @param boolean all Optional flag to load all configured products, regardless of start/end date, etc; default is <code>false</code>.
      * @return array A list of <code>ZMProductAssociation</code> instances.
      */
-    public function getProductAssociationsForType($type, $args=null, $all=false) {
+    public function getProductAssociationsForType($type, $args=array(), $all=false) {
+        // some defaults
+        if (!array_key_exists('languageId', $args)) {
+            $args['languageId'] = $this->getLanguageId();
+        }
         return ZMProductAssociations::instance()->getProductAssociationsForProductId($this->getId(), $type, $args, $all);
     }
 

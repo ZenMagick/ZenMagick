@@ -129,11 +129,11 @@ class ZMProductAssociations extends ZMObject {
      *
      * @param int productId The source product id.
      * @param int type The association type.
-     * @param array args Optional parameter that might be required by the used type; default is <code>null</code> for none.
+     * @param array args Optional parameter that might be required by the used type; default is an empty array.
      * @param boolean all Optional flag to load all configured products, regardless of start/end date, etc; default is <code>false</code>.
      * @return array A list of <code>ZMProductAssociation</code> instances.
      */
-    public function getProductAssociationsForProductId($productId, $type, $args=null, $all=false) {
+    public function getProductAssociationsForProductId($productId, $type, $args=array(), $all=false) {
         if (null != ($handler = $this->getHandlerForType($type))) {
             return $handler->getProductAssociationsForProductId($productId, $args, $all);
         }

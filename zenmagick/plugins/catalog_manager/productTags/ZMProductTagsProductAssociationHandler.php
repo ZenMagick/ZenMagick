@@ -22,9 +22,9 @@
 
 
 /**
- * Product association handler for <em>product tags</em>.
+ * Product association handler for <em>tags</em>.
  *
- * <p>Supports <em>languageId</em> or <em>session</em> parameter in the <code>$args</code> map.</p>
+ * <p>Supports <em>languageId</em> parameter in the <code>$args</code> map.</p>
  *
  * @author DerManoMann
  * @package org.zenmagick.plugins.productTags
@@ -45,8 +45,6 @@ class ZMProductTagsProductAssociationHandler implements ZMProductAssociationHand
     public function getProductAssociationsForProductId($productId, $args=array(), $all=false) {
         if (array_key_exists('languageId', $args)) {
             $languageId = $args['languageId'];
-        } else if (array_key_exists('session', $args)) {
-            $languageId = $args['session']->getLanguageId();
         } else {
             throw new ZMException('missing languageId');
         }
