@@ -33,7 +33,7 @@
 <?php if ($gvReceiver->hasMessage()) { ?>
 <?php zm_l10n("%s says:", $currentAccount->getFirstName()); ?>
 
-<?php $gvReceiver->getMessage() ?>
+<?php echo $gvReceiver->getMessage() ?>
 
 <?php } ?>
 

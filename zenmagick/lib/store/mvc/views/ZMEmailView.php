@@ -66,7 +66,7 @@ class ZMEmailView extends SavantView {
      * {@inheritDoc}
      */
     public function isValid() {
-        return Runtime::getTheme()->themeFileExists('views/'.$this->getTemplate().ZMSettings::get('zenmagick.mvc.templates.ext', '.php'));
+        return $this->getSavant()->exists('views/'.$this->getTemplate().ZMSettings::get('zenmagick.mvc.templates.ext', '.php'));
     }
 
     /**
@@ -77,7 +77,7 @@ class ZMEmailView extends SavantView {
         //XXX: ugh!
         ZMSettings::set('isAdmin', false);
         if (!$this->isValid()) {
-            ZMLogging::instance()->trace('invalid email template', ZMLogging::ERROR);
+            ZMLogging::instance()->trace('invalid email template: '.$this->getTemplate(), ZMLogging::ERROR);
             ZMSettings::set('isAdmin', $isAdmin);
             return "";
         }

@@ -183,6 +183,11 @@ Release 0.9.9
   means all plugins have to do is stick to the convention of having a 'tests'
   subfolder for tests and add tests to the custom setting 
 	'plugins.unitTests.tests.custom'
+- add fix to make free_free shipping work as expected
+- improve ZMEmailView isValid() method
+- fix ZMOrder::hasShippingAddress()
+- add missing echo for gv related data to views; gv_send.php,
+  email/gv_send.text.php
 
 Release 0.9.8
 - add Savant3 and experimental views (not used yet)

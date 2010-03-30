@@ -369,7 +369,7 @@ class ZMShoppingCart extends ZMObject {
      */
     function getOrderFormURL() {
     global $$_SESSION['payment'];
-        $url = ZMRequest::instance()->url(FILENAME_CHECKOUT_PROCESS, null, true);
+        $url = ZMRequest::instance()->url(FILENAME_CHECKOUT_PROCESS, '', true);
         if (isset($$_SESSION['payment']->form_action_url)) {
             $url = $$_SESSION['payment']->form_action_url;
         }

@@ -256,16 +256,22 @@ class ZMEventFixes extends ZMObject {
     }
 
     /**
-     * Remove ajax requests from navigation history and grab zencart messages.
+     * Remove ajax requests from navigation history, grab zencart messages and fix free shipping.
      */
     public function onZMDispatchStart($args) {
         $request = $args['request'];
+        // remove ajax calls from call history
         if (false !== strpos($request->getRequestId(), 'ajax')) {
             $_SESSION['navigation']->remove_current_page();
         }
 
         // pick up messages from zen-cart request handling
         ZMMessages::instance()->_loadMessageStack();
+
+        if ('checkout_confirmation' == $request->getRequestId() && 'free_free' == $_SESSION['shipping']) {
+            ZMLogging::instance()->log('fixing free_free shipping method info', ZMLogging::WARN);
+            $_SESSION['shipping'] = array('title' => zm_l10n_get('Free Shipping'), 'cost' => 0, 'id' => 'free_free');
+        }
     }
 
 
@@ -274,7 +280,7 @@ class ZMEventFixes extends ZMObject {
      */
     public function onZMGenerateEmail($args=array()) {
         $context = $args['context'];
-        $template = $args['template'];
+        $template = basename($args['template']);
         $view = $args['view'];
 
         // XXX: improve!
