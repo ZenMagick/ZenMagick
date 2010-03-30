@@ -69,4 +69,12 @@ class TestZMTags extends ZMTestCase {
         ZMTags::instance()->cleanupTags();
     }
 
+    /**
+     * Test getStats.
+     */
+    public function testGetStats() {
+        $stats = ZMTags::instance()->getStats(1);
+        var_dump($stats);
+    }
+
 }

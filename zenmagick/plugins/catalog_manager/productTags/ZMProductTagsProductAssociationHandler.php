@@ -21,11 +21,10 @@
 <?php
 
 
-define('TABLE_TAGS', ZM_DB_PREFIX . 'tags');
-define('TABLE_PRODUCT_TAGS', ZM_DB_PREFIX . 'product_tags');
-
 /**
  * Product association handler for <em>product tags</em>.
+ *
+ * <p>Supports <em>languageId</em> or <em>session</em> parameter in the <code>$args</code> map.</p>
  *
  * @author DerManoMann
  * @package org.zenmagick.plugins.productTags
@@ -37,29 +36,27 @@ class ZMProductTagsProductAssociationHandler implements ZMProductAssociationHand
      * {@inheritDoc}
      */
     public function getType() {
-       return "productTags";
+       return "tags";
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getProductAssociationsForProductId($productId, $args=null, $all=false) {
-        $sql = "SELECT distinct t.name
-                FROM " . TABLE_PRODUCT_TAGS . " pt, " . TABLE_TAGS . " t
-                WHERE pt.product_id = :product_id AND t.tag_id = pt.tag_id";
-        $args = array('product_id' => $productId);
-        $tags = ZMRuntime::getDatabase()->query($sql, $args, array(TABLE_PROUCT_TAGS, TABLE_TAGS), ZMDatabase::MODEL_RAW);
+    public function getProductAssociationsForProductId($productId, $args=array(), $all=false) {
+        if (array_key_exists('languageId', $args)) {
+            $languageId = $args['languageId'];
+        } else if (array_key_exists('session', $args)) {
+            $languageId = $args['session']->getLanguageId();
+        } else {
+            throw new ZMException('missing languageId');
+        }
+
+        echo $productId, ' ',$languageId;
+        $tags = ZMTags::instance()->getTagsForProductId($productId, $languageId);
 
         $assoc = array();
-
-        if (0 < count($tags)) {
-            $sql = "SELECT distinct pt.product_id
-                    FROM " . TABLE_PRODUCT_TAGS . " pt, " . TABLE_TAGS . " t
-                    WHERE t.name in (:name) AND t.tag_id = pt.tag_id";
-            $args = array('name' => $tags);
-            foreach (ZMRuntime::getDatabase()->query($sql, $args, array(TABLE_PRODUCT_TAGS, TABLE_TAGS)) as $result) {
-                $assoc[] = new ZMProductAssociation($result['productId']);
-            }
+        foreach (ZMTags::instance()->getProductIdsForTags($tags, $languageId) as $pid) {
+            $assoc[] = new ZMProductAssociation($pid);
         }
         
         return $assoc;

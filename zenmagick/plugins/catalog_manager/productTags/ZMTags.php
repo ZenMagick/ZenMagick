@@ -164,4 +164,24 @@ class ZMTags extends ZMObject {
         ZMRuntime::getDatabase()->update($sql, array('product_tag_id' => $tagIds));
     }
 
+    /**
+     * Get tag stats.
+     *
+     * @param int languageId The language id.
+     * @return array A map of tag =&gt; number-ofproducts.
+     */
+    public function getStats($languageId) {
+        $sql = "SELECT COUNT(*) as tag_id, t.name 
+                FROM " . TABLE_PRODUCT_TAGS . " pt, " . TABLE_TAGS . " t
+                WHERE t.tag_id = pt.tag_id AND t.language_id = :language_id
+                GROUP BY name";
+        $stats = array();
+        foreach (ZMRuntime::getDatabase()->query($sql, array('language_id' => $languageId), array(TABLE_PRODUCT_TAGS, TABLE_TAGS)) as $result) {
+            //XXX: doh!
+            $stats[$result['name']] = $result['tag_id'];
+        }
+
+        return $stats;
+    }
+
 }

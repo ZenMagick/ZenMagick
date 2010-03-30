@@ -11,7 +11,7 @@ Tag groups
 It is possible to find related products by doing the following:
 
     $product = ZMProducts::instance()->getProductForId(3);
-    $similarTaggedProducts = $product->getProductAssociationsForType('tags');
+    $similarTaggedProducts = $product->getProductAssociationsForType('tags', array('session' => $session));
 
 
 Tag Cloud
@@ -19,5 +19,5 @@ Tag Cloud
 To implement a tag cloud, the following code may be used to get details about how often
 a each available tag is used:
 
-  $tagStats = ZMTags::instance()->getStats();
+  $tagStats = ZMTags::instance()->getStats($languageId);
 

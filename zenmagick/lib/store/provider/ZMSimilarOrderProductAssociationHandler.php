@@ -45,7 +45,7 @@ class ZMSimilarOrderProductAssociationHandler implements ZMProductAssociationHan
     /**
      * {@inheritDoc}
      */
-    public function getProductAssociationsForProductId($productId, $args=null, $all=false) {
+    public function getProductAssociationsForProductId($productId, $args=array(), $all=false) {
         $limit = 6;
         if (is_array($args) && array_key_exists('limit', $args)) {
             $limit = (int)$args['limit'];
