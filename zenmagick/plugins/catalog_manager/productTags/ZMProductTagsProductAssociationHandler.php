@@ -36,7 +36,7 @@ class ZMProductTagsProductAssociationHandler implements ZMProductAssociationHand
      * {@inheritDoc}
      */
     public function getType() {
-       return "tags";
+       return "productTags";
     }
 
     /**
@@ -49,7 +49,6 @@ class ZMProductTagsProductAssociationHandler implements ZMProductAssociationHand
             throw new ZMException('missing languageId');
         }
 
-        echo $productId, ' ',$languageId;
         $tags = ZMTags::instance()->getTagsForProductId($productId, $languageId);
 
         $assoc = array();
