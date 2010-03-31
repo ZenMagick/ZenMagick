@@ -100,7 +100,7 @@ abstract class ZMView extends ZMObject {
      * @return string The contents.
      */
     public function generate($request) {
-        return $this->fetch($request, $this->getTemplate().ZMSettings::get('zenmagick.mvc.templates.ext', '.tpl'));
+        return $this->fetch($request, $this->getTemplate().ZMSettings::get('zenmagick.mvc.templates.ext', '.php'));
     }
 
     /**
