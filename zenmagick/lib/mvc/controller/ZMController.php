@@ -193,7 +193,8 @@ class ZMController extends ZMObject {
      * @return boolean <code>true</code> if this request is considered an Ajax request.
      */
     public function isAjax($request) {
-        $headers = getallheaders();
+        $headers = ZMNetUtils::getAllHeaders();
+        // TODO: keys are case insensitive in HTTP/1.1
         return array_key_exists('X-Requested-With', $headers) && 'XMLHttpRequest' == $headers['X-Requested-With'];
     }
 
