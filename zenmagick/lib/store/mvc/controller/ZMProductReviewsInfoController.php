@@ -62,7 +62,10 @@ class ZMProductReviewsInfoController extends ZMController {
         $product = ZMProducts::instance()->getProductForId($request->getProductId());
         $data['currentProduct'] = $product;
 
-        $review = ZMReviews::instance()->getReviewForId($request->getReviewId());
+        if (null == ($review = ZMReviews::instance()->getReviewForId($request->getReviewId()))) {
+            return $this->findView('error');
+        }
+
         $data['currentReview'] = $review;
 
         if (ZMSettings::get('isLogPageStats')) {

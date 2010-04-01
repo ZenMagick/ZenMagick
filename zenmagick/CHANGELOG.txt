@@ -188,6 +188,7 @@ Release 0.9.9
 - fix ZMOrder::hasShippingAddress()
 - add missing echo for gv related data to views; gv_send.php,
   email/gv_send.text.php
+- add more error checking for missing products/categories/reviews
 
 Release 0.9.8
 - add Savant3 and experimental views (not used yet)

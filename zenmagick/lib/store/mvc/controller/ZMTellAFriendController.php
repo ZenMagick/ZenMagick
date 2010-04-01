@@ -62,8 +62,10 @@ class ZMTellAFriendController extends ZMController {
         } else if ($request->getModel()) {
             $this->product_ = ZMProducts::instance()->getProductForModel($request->getModel());
         }
-        $this->viewData_['currentProduct'] = $this->product_;
-        $this->handleCrumbtrail($this->product_, $request);
+        if (null != $this->product_) {
+            $this->viewData_['currentProduct'] = $this->product_;
+            $this->handleCrumbtrail($this->product_, $request);
+        }
     }
 
     /**
