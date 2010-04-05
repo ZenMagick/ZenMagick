@@ -8,7 +8,7 @@
     </ul>
 <?php } ?>
 
-<form action="#" method="POST">
+<form action="<?php echo $request->url() ?>" method="POST">
   <p>Tell me your name?</p>
   <p>
     <input type="text" name="myname" value="">

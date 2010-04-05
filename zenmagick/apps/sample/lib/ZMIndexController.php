@@ -66,14 +66,16 @@ class ZMIndexController extends ZMController {
     public function processPost($request) {
         $name = $request->getParameter('myname');
         $data = array();
+        $viewId = null;
         if (empty($name)) {
             ZMMessages::instance()->error('Don\'t be shy!');
         } else {
             $request->getSession()->setValue('name', $name);
             $data['name'] = $name;
+            $viewId = 'success';
         }
 
-        return $this->findView(null, $data);
+        return $this->findView($viewId, $data);
     }
 
 }

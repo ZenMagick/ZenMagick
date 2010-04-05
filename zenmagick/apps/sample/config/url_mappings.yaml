@@ -9,3 +9,7 @@ null:
     template: error
   index:
     template: index
+index:
+  success:
+    view: RedirectView
+    template: index
