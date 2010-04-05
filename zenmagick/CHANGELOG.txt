@@ -193,6 +193,8 @@ Release 0.9.9
   FastCGI or non apache httpd
 - move all store code into store/lib to follow MVC folder layout
 - add ZMDefaultSeoRewriter class as default default
+- resolve database mapping filename relative to the configured application
+  path rather than installation path
 
 Release 0.9.8
 - add Savant3 and experimental views (not used yet)

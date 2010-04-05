@@ -88,7 +88,7 @@
                 'initQuery' => null
             ),
             'zenmagick.core.database.provider' => 'ZMZenCartDatabase',
-            'zenmagick.core.database.mappings.file' => 'lib/store/config/db_mappings.txt',
+            'zenmagick.core.database.mappings.file' => 'config/db_mappings.txt',
             'zenmagick.core.database.tablePrefix' => ZM_DB_PREFIX,
             'zenmagick.core.database.mappings.cache.enabled' => false,
             'zenmagick.core.database.mappings.autoMap.enabled' => true,
