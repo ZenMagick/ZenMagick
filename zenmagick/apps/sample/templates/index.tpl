@@ -19,3 +19,6 @@
   <p>Your name is: <?php echo $name ?>.</p>
 <?php } ?>
 <p>Context is: <?php echo $request->getContext() ?></p>
+
+
+<p><a href="<?php echo $request->url(null, 'clear=true') ?>">Clear session</a></p>

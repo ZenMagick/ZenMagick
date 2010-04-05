@@ -1,7 +1,7 @@
 <?php
 /*
  * ZenMagick - Another PHP framework.
- * Copyright (C) 2006,2009 ZenMagick
+ * Copyright (C) 2006-2010 zenmagick.org
  *
  * Portions Copyright (c) 2003 The zen-cart developers
  * Portions Copyright (c) 2003 osCommerce
