@@ -102,7 +102,8 @@ class ZMRequest extends ZMObject {
      */
     public function getSeoRewriter() {
         if (null === $this->seoRewriter_) {
-            $rewriters = array_reverse(explode(',', ZMSettings::get('zenmagick.mvc.request.seoRewriter')));
+            $this->seoRewriter_ = array();
+            $rewriters = array_reverse(explode(',', ZMSettings::get('zenmagick.mvc.request.seoRewriter', 'DefaultSeoRewriter')));
             foreach ($rewriters as $rewriter) {
                 if (null != ($obj = ZMBeanUtils::getBean($rewriter))) {
                     $this->seoRewriter_[] = $obj;

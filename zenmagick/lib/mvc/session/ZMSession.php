@@ -30,15 +30,12 @@
 class ZMSession extends ZMObject {
     /** The default session name. */
     const DEFAULT_NAME = 'zmid';
-    /** A magic session key used to identify new sessions. */
-    const SESSION_TAG_KEY = '__ZM_TAG__';
     /** A magic session key used to validate forms. */
     const SESSION_TOKEN_KEY = '__ZM_TOKEN__';
     /** The default namespace prefix for session keys. */
     const DEFAULT_NAMESPACE_PREFIX = '__ZM_NSP__';
 
     private $data_;
-    private $new_;
     private $cookiePath_;
     private $secureCookie_;
     private $sessionHandler_;
@@ -50,13 +47,12 @@ class ZMSession extends ZMObject {
      * @param string name Optional session name; default is <code>ZMSession::DEFAULT_NAME</code>.
      * @param boolean secure Indicate whether the session cookie should be secure or not; default is <code>true</code>.
      */
-    function __construct($name=self::DEFAULT_NAME, $secure=true) {
+    function __construct($name=self::DEFAULT_NAME, $secure=false) {
         parent::__construct();
         $name = null !== $name ? $name : self::DEFAULT_NAME;
         session_name($name);
 
         $this->data_ = array();
-        $this->new_ = true;
         $this->cookiePath_ = '/';
         $this->secureCookie_ = $secure;
         $this->sessionHandler_ = null;
@@ -108,19 +104,14 @@ class ZMSession extends ZMObject {
     }
 
     /**
-     * Check if this is a new session or resumed.
+     * Check if starting this session would create a new session or if a session exists.
      *
-     * <p>This will return <code>true</code> in the following cases:</p>
-     * <ul>
-     *  <li>There hasn't been a session started for the current request</li>
-     *  <li>A session has been started but the session really is new</li>
-     * </ul>
+     * <p>This will just check for a cookie with the configured session name.</p>
      *
-     * @return boolean <code>true</code> if this is a new session.
+     * @return boolean <code>true</code> if starting this session would result in a new session.
      */
     public function isNew() {
-        return $this->new_;
-
+        return !isset($_COOKIE[session_name()]);
     }
 
     /**
@@ -139,9 +130,8 @@ class ZMSession extends ZMObject {
         session_cache_limiter('must-revalidate');
         $id = session_id();
         if (empty($id)) {
+          ZMLogging::instance()->trace();
             session_start();
-            $this->new_ = !isset($_SESSION[self::SESSION_TAG_KEY]);
-            $_SESSION[self::SESSION_TAG_KEY] = time();
             // allow setting / getting data before/without starting session
             $this->data_ = array_merge($_SESSION, $this->data_);
             return true;
@@ -220,10 +210,10 @@ class ZMSession extends ZMObject {
     /**
      * Get the session name.
      *
-     * @return string The session name or <code>null</code>.
+     * @return string The session name.
      */
     public function getName() {
-        return $this->isStarted() ? session_name() : null;
+        return session_name();
     }
 
     /**
@@ -261,11 +251,7 @@ class ZMSession extends ZMObject {
             }
         } else {
             // clear all
-            if (isset($this->data_[self::SESSION_TAG_KEY])) {
-                $this->data_ = array(self::SESSION_TAG_KEY => $this->data_[self::SESSION_TAG_KEY]);
-            } else {
-                $this->data_ = array();
-            }
+            $this->data_ = array();
         }
 
         return $old;
@@ -279,7 +265,8 @@ class ZMSession extends ZMObject {
      * @return mixed The value or <code>null</code>.
      */
     public function getValue($name, $namespace=null) {
-        if (!$this->isStarted()) {
+        if (!$this->isStarted() && !$this->isNew()) {
+            // start only if not a new session
             $this->start();
         }
         if (null === $namespace) {
@@ -306,21 +293,6 @@ class ZMSession extends ZMObject {
                 array($handler, 'write'), array($handler, 'destroy'), array($handler, 'gc'));
             $this->sessionHandler_ = $handler;
         }
-    }
-
-    /**
-     * Check if the given sid is valid.
-     *
-     * @param string sid The sid.
-     * @return boolean <code>true</code> if the sid is valid.
-     */
-    public static function isValidSID($sid) {
-        $sid = trim($sid);
-        if (empty($sid) || !ereg("^[0-9]{1,11}$", $sid)) {
-            return false;
-        }
-
-        return true;
     }
 
     /**

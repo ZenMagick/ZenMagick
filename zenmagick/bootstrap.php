@@ -22,6 +22,13 @@
 ?>
 <?php
 
+    /*
+     * To use this, 'ZM_APP_PATH' needs to be defined first. 
+     * Expected value is the (full) path to an app directory following the
+     * ZenMagick MVC layout conventions.
+     */
+
+
     // start time for stats
     define('ZM_START_TIME', microtime());
 
@@ -45,14 +52,12 @@
     } else {
         require_once ZM_BASE_PATH."lib/core/ZMLoader.php";
         spl_autoload_register('ZMLoader::resolve');
-        //ini_set('unserialize_callback_func', 'spl_autoload_call');
 
         // configure loader
         ZMLoader::instance()->addPath(ZM_BASE_PATH.'lib'.DIRECTORY_SEPARATOR.'core'.DIRECTORY_SEPARATOR);
         ZMLoader::instance()->addPath(ZM_BASE_PATH.'lib'.DIRECTORY_SEPARATOR.'mvc'.DIRECTORY_SEPARATOR);
         if (null != ZMRuntime::getApplicationPath()) {
-            // XXX: code should be in lib, relative to application path
-            ZMLoader::instance()->addPath(ZMRuntime::getApplicationPath()); // .'lib'.DIRECTORY_SEPARATOR);
+            ZMLoader::instance()->addPath(ZMFileUtils::mkPath(array(ZMRuntime::getApplicationPath(), 'lib')));
         }
         // load static stuff and leave the rest to __autoload()
         ZMLoader::instance()->loadStatic();

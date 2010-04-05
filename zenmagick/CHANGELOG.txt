@@ -191,6 +191,8 @@ Release 0.9.9
 - add more error checking for missing products/categories/reviews
 - add custom getAllHeaders method as getallheaders is not available for
   FastCGI or non apache httpd
+- move all store code into store/lib to follow MVC folder layout
+- add ZMDefaultSeoRewriter class as default default
 
 Release 0.9.8
 - add Savant3 and experimental views (not used yet)

@@ -34,6 +34,7 @@
         include_once $_zm_global;
     }
 
+    // reset as other global code migth fiddle with it...
     $request = $_zm_request;
     ZMEvents::instance()->fireEvent(null, ZMEvents::INIT_DONE, array('request' => $_zm_request));
 
