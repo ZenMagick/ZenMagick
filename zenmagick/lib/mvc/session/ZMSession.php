@@ -44,6 +44,8 @@ class ZMSession extends ZMObject {
     /**
      * Create new instance.
      *
+     * <p>If an existing session is detected (via <code>isNew()</code>), the session is automatically started.</p>
+     *
      * @param string name Optional session name; default is <code>ZMSession::DEFAULT_NAME</code>.
      * @param boolean secure Indicate whether the session cookie should be secure or not; default is <code>true</code>.
      */
@@ -82,6 +84,10 @@ class ZMSession extends ZMObject {
         // general protection
         ini_set("session.cookie_secure", $this->secureCookie_);
         ini_set("session.use_only_cookies", true);
+
+        if (!$this->isNew()) {
+            $this->start();
+        }
     }
 
     /**

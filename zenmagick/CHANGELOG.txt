@@ -195,6 +195,7 @@ Release 0.9.9
 - add ZMDefaultSeoRewriter class as default default
 - resolve database mapping filename relative to the configured application
   path rather than installation path
+- autostart session if not new (ZMSession)
 
 Release 0.9.8
 - add Savant3 and experimental views (not used yet)
