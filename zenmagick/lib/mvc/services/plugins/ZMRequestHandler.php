@@ -27,7 +27,7 @@
  * <p>A simple interface that may be implemented by plugins to do request level processing.</p>
  *
  * @author DerManoMann
- * @package org.zenmagick.mvc
+ * @package org.zenmagick.mvc.services.plugins
  * @version $Id$
  */
 interface ZMRequestHandler {
