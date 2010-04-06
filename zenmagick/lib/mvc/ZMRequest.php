@@ -413,6 +413,7 @@ class ZMRequest extends ZMObject {
         $url = str_replace('&amp;', '&', $url);
         ZMEvents::instance()->fireEvent($this, ZMMVCConstants::EVENT_REDIRECT, array('request' => $this, 'url' => $url));
         ZMLogging::instance()->trace('redirect url: ' . $url, ZMLogging::TRACE);
+        $this->closeSession();
         header('Location: ' . $url, true, $status);
         exit;
     }
@@ -498,6 +499,19 @@ class ZMRequest extends ZMObject {
         }
 
         return $protocol;
+    }
+
+    /**
+     * Close session if required.
+     */
+    public function closeSession() {
+        $session = $this->getSession();
+        if ($session->getData()) {
+            if (!$session->isStarted()) {
+                $session->start();
+            }
+            $session->close();
+        }
     }
 
 }

@@ -77,6 +77,10 @@ class ZMRedirectView extends ZMView {
             $url = $request->url($this->getRequestId(), $this->parameter_, $this->secure_);
         }
 
+        // close session first
+        $request->closeSession();
+
+        // redirect
         $request->redirect($url, $this->status_);
         return null;
     }

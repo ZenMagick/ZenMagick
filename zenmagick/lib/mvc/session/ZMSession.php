@@ -136,7 +136,6 @@ class ZMSession extends ZMObject {
         session_cache_limiter('must-revalidate');
         $id = session_id();
         if (empty($id)) {
-          ZMLogging::instance()->trace();
             session_start();
             // allow setting / getting data before/without starting session
             $this->data_ = array_merge($_SESSION, $this->data_);

@@ -181,16 +181,6 @@ class Runtime extends ZMRuntime {
     }
 
     /**
-     * Finish execution.
-     *
-     * <p>Calling this function should be the last line in your script.</p>
-     */
-    public static function finish() {
-        session_write_close();
-        exit;
-    }
-
-    /**
      * Get the store base URL.
      *
      * @param boolean secure If set, return a secure URL (if configured); default is <code>false</code>.

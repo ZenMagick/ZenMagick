@@ -40,7 +40,6 @@
 
   /* TODO: use once a new admin UI is done
   ZMDispatcher::dispatch($request);
-  Runtime::finish();
   exit;
   */
 

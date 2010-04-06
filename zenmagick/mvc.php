@@ -39,14 +39,7 @@
     ZMEvents::instance()->fireEvent(null, ZMEvents::INIT_DONE, array('request' => $_zm_request));
 
     ZMDispatcher::dispatch($_zm_request);
-
-    // close session
-    $session = $_zm_request->getSession();
-    if ($session->getData()) {
-        if (!$session->isStarted()) {
-            $session->start();
-        }
-        $session->close();
-    }
+    $_zm_request->closeSession();
+    exit;
 
 ?>

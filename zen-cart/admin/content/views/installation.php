@@ -165,7 +165,6 @@
 
     if ($needRefresh) {
         $request->redirect($toolbox->admin->url(null, '', true));
-        Runtime::finish();
     }
 
 ?>

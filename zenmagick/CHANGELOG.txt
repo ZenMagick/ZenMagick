@@ -196,6 +196,8 @@ Release 0.9.9
 - resolve database mapping filename relative to the configured application
   path rather than installation path
 - autostart session if not new (ZMSession)
+- drop Runtime::finish and replace with $request->closeSession(); exit; for
+  now
 
 Release 0.9.8
 - add Savant3 and experimental views (not used yet)
