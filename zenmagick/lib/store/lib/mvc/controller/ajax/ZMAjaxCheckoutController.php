@@ -96,7 +96,7 @@ class ZMAjaxCheckoutController extends ZMAjaxController {
             }
         }
 
-        $flatObj = $this->flattenObject($shippingMethods, $this->get('ajaxShippingMethodMap'));
+        $flatObj = ZMAjaxUtils::flattenObject($shippingMethods, $this->get('ajaxShippingMethodMap'));
         $json = $this->toJSON($flatObj);
         $this->setJSONHeader($json);
     }

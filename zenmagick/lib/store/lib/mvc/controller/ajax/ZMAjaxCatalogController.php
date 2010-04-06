@@ -69,7 +69,7 @@ class ZMAjaxCatalogController extends ZMAjaxController {
     public function getProductForIdJSON($request) {
         $productId = $request->getProductId();
 
-        $flatObj = $this->flattenObject(ZMProducts::instance()->getProductForId($productId), $this->get('ajaxProductMap'));
+        $flatObj = ZMAjaxUtils::flattenObject(ZMProducts::instance()->getProductForId($productId), $this->get('ajaxProductMap'));
         $json = $this->toJSON($flatObj);
         $this->setJSONHeader($json);
     }
@@ -95,7 +95,7 @@ class ZMAjaxCatalogController extends ZMAjaxController {
 
         if (null === ($page = $request->getParameter('page'))) {
             // return all
-            $flatObj = $this->flattenObject(ZMProducts::instance()->getProductsForCategoryId($categoryId, $activeOnly), $this->get('ajaxProductMap'));
+            $flatObj = ZMAjaxUtils::flattenObject(ZMProducts::instance()->getProductsForCategoryId($categoryId, $activeOnly), $this->get('ajaxProductMap'));
         } else {
             // use result list to paginate
             $args = array($categoryId, $activeOnly);
@@ -106,7 +106,7 @@ class ZMAjaxCatalogController extends ZMAjaxController {
             if (null !== ($pagination = $request->getParameter('pagination'))) {
                 $resultList->setPagination($pagination);
             }
-            $flatObj = $this->flattenObject($resultList, $this->get('ajaxResultListMap'));
+            $flatObj = ZMAjaxUtils::flattenObject($resultList, $this->get('ajaxResultListMap'));
         }
 
         $json = $this->toJSON($flatObj);

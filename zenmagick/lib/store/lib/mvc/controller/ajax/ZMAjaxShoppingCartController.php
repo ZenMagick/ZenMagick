@@ -62,7 +62,7 @@ class ZMAjaxShoppingCartController extends ZMAjaxController {
 
         $address = $shippingEstimator->getAddress();
         if (null != $address) {
-            $response['address'] = $this->flattenObject($address, $this->get('ajaxAddressMap'));
+            $response['address'] = ZMAjaxUtils::flattenObject($address, $this->get('ajaxAddressMap'));
         }
 
         $methods = array();
@@ -86,7 +86,7 @@ class ZMAjaxShoppingCartController extends ZMAjaxController {
         }
         $response['methods'] = $methods;
 
-        $flatObj = $this->flattenObject($response);
+        $flatObj = ZMAjaxUtils::flattenObject($response);
         $json = $this->toJSON($flatObj);
         $this->setJSONHeader($json);
     }
@@ -102,12 +102,12 @@ class ZMAjaxShoppingCartController extends ZMAjaxController {
         $items = array();
         $formatter = create_function('$obj,$name,$value', 'return $name=="itemTotal" ? ZMRequest::instance()->getToolbox()->utils->formatMoney($value) : $value;');
         foreach ($shoppingCart->getItems() as $item) {
-            array_push($items, $this->flattenObject($item, $this->get('ajaxCartItemMap'), $formatter));
+            array_push($items, ZMAjaxUtils::flattenObject($item, $this->get('ajaxCartItemMap'), $formatter));
         }
         $cartDetails ['items'] = $items;
         $cartDetails ['total'] = $request->getToolbox()->utils->formatMoney($shoppingCart->getTotal());
 
-        $flatObj = $this->flattenObject($cartDetails );
+        $flatObj = ZMAjaxUtils::flattenObject($cartDetails );
         $json = $this->toJSON($flatObj);
         $this->setJSONHeader($json);
     }

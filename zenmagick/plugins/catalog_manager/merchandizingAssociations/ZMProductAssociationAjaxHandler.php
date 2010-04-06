@@ -44,7 +44,7 @@ class ZMProductAssociationAjaxHandler {
             $activeOnly = $request->getParameter('active', true);
         }
 
-        $flatObj = $target->flattenObject(ZMProductAssociations::instance()->getProductAssociationsForProductId($productId, $type, $activeOnly), 
+        $flatObj = ZMAjaxUtils::flattenObject(ZMProductAssociations::instance()->getProductAssociationsForProductId($productId, $type, $activeOnly), 
                 array('sourceId', 'targetId', 'targetProduct' => $target->get('ajaxProductMap')));
 
         $json = $target->toJSON($flatObj);
