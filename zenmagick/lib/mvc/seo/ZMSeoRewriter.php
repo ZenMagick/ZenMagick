@@ -25,7 +25,7 @@
  * Interface for classes that want to rewrite urls.
  *
  * @author DerManoMann
- * @package org.zenmagick.mvc
+ * @package org.zenmagick.mvc.seo
  * @version $Id$
  */
 interface ZMSeoRewriter {

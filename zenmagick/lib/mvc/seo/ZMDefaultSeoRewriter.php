@@ -25,7 +25,7 @@
  * Default SEO rewriter.
  *
  * @author DerManoMann
- * @package org.zenmagick.mvc
+ * @package org.zenmagick.mvc.seo
  * @version $Id$
  */
 class ZMDefaultSeoRewriter implements ZMSeoRewriter {
