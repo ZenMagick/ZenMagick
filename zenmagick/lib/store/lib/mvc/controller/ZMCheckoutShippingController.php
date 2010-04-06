@@ -91,6 +91,7 @@ class ZMCheckoutShippingController extends ZMController {
         if ($checkoutHelper->isVirtual()) {
             // TODO: set free shipping
             $_SESSION['shipping'] = 'free_free';
+            $_SESSION['sendto'] = false;
             return $this->findView('skip_shipping');
         }
 
@@ -120,6 +121,7 @@ class ZMCheckoutShippingController extends ZMController {
         if ($checkoutHelper->isVirtual()) {
             // TODO: set free shipping
             $_SESSION['shipping'] = 'free_free';
+            $_SESSION['sendto'] = false;
             return $this->findView('skip_shipping');
         }
 

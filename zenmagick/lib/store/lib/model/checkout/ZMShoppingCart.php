@@ -41,7 +41,6 @@ class ZMShoppingCart extends ZMObject {
     private $helper_;
     private $comment_;
     private $accountId_;
-    private $shipping_;
 
 
     /**
@@ -56,8 +55,6 @@ class ZMShoppingCart extends ZMObject {
         $this->payments_ = null;
         $this->items_ = null;
         $this->helper_ = new ZMCheckoutHelper($this);
-        //XXX: fix and move to new class...
-        $this->shipping_ = null;
     }
 
     /**

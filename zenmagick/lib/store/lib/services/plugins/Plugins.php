@@ -67,12 +67,7 @@ class Plugins extends ZMPlugins {
         if (!is_array($status)) {
             $status = array();
         }
-        foreach ($status as $id => $details) {
-            // XXX: comp. hack, remove
-            if (!isset($status[$id]['group'])) {
-                $status[$id]['group'] = $details['type'];
-            }
-        }
+
         return $status;
     }
 

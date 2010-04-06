@@ -132,8 +132,7 @@ class ZMEventFixes extends ZMObject {
     public function onZMBootstrapDone($args) {
         $request = $args['request'];
 
-        // XXX: zen cart does this for us
-        //$this->sanitizeRequest($request);
+        $this->sanitizeRequest($request);
 
         // START: zc_fixes
         // custom class mappings
@@ -378,14 +377,16 @@ class ZMEventFixes extends ZMObject {
     protected function sanitizeRequest($request) {
         $parameter = $request->getParameterMap();
 
-        /** sanitize common parameter **/
+        /*
+        // sanitize common parameter
         if (isset($parameter['products_id'])) $parameter['products_id'] = preg_replace('/[^0-9a-f:]/', '', $parameter['products_id']);
         if (isset($parameter['manufacturers_id'])) $parameter['manufacturers_id'] = preg_replace('/[^0-9]/', '', $parameter['manufacturers_id']);
         if (isset($parameter['cPath'])) $parameter['cPath'] = preg_replace('/[^0-9_]/', '', $parameter['cPath']);
         if (isset($parameter[ZM_PAGE_KEY])) $parameter[ZM_PAGE_KEY] = preg_replace('/[^0-9a-zA-Z_]/', '', $parameter[ZM_PAGE_KEY]);
 
-        /** sanitize other stuff **/
+        // sanitize other stuff
         $_SERVER['REMOTE_ADDR'] = preg_replace('/[^0-9.%]/', '', $_SERVER['REMOTE_ADDR']);
+        */
 
         if (!isset($parameter[ZM_PAGE_KEY]) || empty($parameter[ZM_PAGE_KEY])) {
             $parameter[ZM_PAGE_KEY] = 'index';

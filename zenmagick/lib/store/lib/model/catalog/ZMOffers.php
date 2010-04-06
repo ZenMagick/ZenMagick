@@ -543,7 +543,7 @@ class ZMOffers extends ZMObject {
                 break;
             default:
                 // XXX
-                throw new ZMException('wtf!');
+                throw new ZMException('FTW!');
             }
         }
 
