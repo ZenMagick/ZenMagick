@@ -103,7 +103,7 @@ class ZMOpenIDController extends ZMController {
             if ('initAuth' == $action && null != $openid) {
                 // save to compare with response
                 $session->setValue('openid', $openid);
-                return $this->initAuthentication($openid);
+                return $this->initAuthentication($request, $openid);
             } else {
                 ZMMessages::instance()->error(zm_l10n_get('The provided OpenID does not seem to be valid'));
             }
@@ -118,9 +118,10 @@ class ZMOpenIDController extends ZMController {
     /**
      * Initiate OpenID authentication.
      *
+     * @param ZMRequest request The current request.
      * @param string openid The OpenID to authenticate.
      */
-    private function initAuthentication($openid) {
+    private function initAuthentication($request, $openid) {
         $store = new ZMOpenIDDatabaseStore();
         $consumer = new Auth_OpenID_Consumer($store);
         $auth_request = $consumer->begin($openid);

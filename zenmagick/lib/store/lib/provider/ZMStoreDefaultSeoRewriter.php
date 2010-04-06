@@ -101,7 +101,7 @@ class ZMStoreDefaultSeoRewriter implements ZMSeoRewriter {
 
         $path = '';
         if ($useContext) {
-            $path = HTTPS_SERVER == $server ? DIR_WS_HTTPS_CATALOG : DIR_WS_CATALOG;
+            $path = HTTPS_SERVER == $server ? DIR_WS_HTTPS_CATALOG : $request->getContext();
         }
 
         // trim '?' and '&' from params

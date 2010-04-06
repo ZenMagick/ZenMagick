@@ -182,7 +182,6 @@ class ZMRequest extends ZMObject {
         $url = ('/' == $url[0] || false !== strpos($url, '://')) ? $url : $this->getContext().$url;
 
         if ($full) {
-            // todo: move somewhere reusable??
             $scheme = $this->isSecure() ? 'https://' : 'http://';
             $host = $this->getHostname();
             $port = $this->getPort();

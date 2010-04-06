@@ -106,7 +106,7 @@ class ToolboxNet extends ZMToolboxNet {
      * @return string The image URI.
      */
     public function image($src) {
-        $href = DIR_WS_CATALOG.DIR_WS_IMAGES . $src;
+        $href = $this->getRequest()->getContext().DIR_WS_IMAGES . $src;
 
         return $href;
     }
