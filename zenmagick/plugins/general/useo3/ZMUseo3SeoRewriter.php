@@ -32,6 +32,13 @@ class ZMUseo3SeoRewriter implements ZMSeoRewriter {
     /**
      * {@inheritDoc}
      */
+    public function decode($request) {
+        return false;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function rewrite($request, $args) {
         $requestId = $args['requestId'];
         $params = $args['params'];

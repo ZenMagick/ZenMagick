@@ -33,6 +33,13 @@ class ZMDefaultSeoRewriter implements ZMSeoRewriter {
     /**
      * {@inheritDoc}
      */
+    public function decode($request) {
+        return false;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function rewrite($request, $args) {
         return '#';
     }

@@ -198,6 +198,8 @@ Release 0.9.9
 - autostart session if not new (ZMSession)
 - drop Runtime::finish and replace with $request->closeSession(); exit; for
   now
+- add decode method to ZMSeoRewriter interface and empty (return false;)
+  implementation to all classes implementing the interface
 
 Release 0.9.8
 - add Savant3 and experimental views (not used yet)

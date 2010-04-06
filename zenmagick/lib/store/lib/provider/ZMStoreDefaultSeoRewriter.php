@@ -36,6 +36,13 @@ class ZMStoreDefaultSeoRewriter implements ZMSeoRewriter {
     /**
      * {@inheritDoc}
      */
+    public function decode($request) {
+        return false;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function rewrite($request, $args) {
         // allow seo here to be able to provide the full set of parameters to SEO plugins
         // this means that in practice this will be the only rewriter called...
