@@ -216,7 +216,7 @@
         <br>
         <p><?php zm_l10n("This option will compress all files under lib and all <strong>installed</strong> plugins into a single 
         file <code>core.php</code>.
-        If you install/uninstall plugins or make any other changes to the core directory you'll need to regenerate <code>core.php</code> in
+        If you install/uninstall plugins or make any other changes to the lib directory you'll need to regenerate <code>core.php</code> in
         order to make these changes become active.") ?></p>
         <div class="submit"><input type="submit" value="<?php zm_l10n("Update") ?>"></div>
     </fieldset>
