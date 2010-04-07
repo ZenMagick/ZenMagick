@@ -1,3 +1,5 @@
 !admin/
+!cache/
+!editors/
 local.php
 ri0007/
