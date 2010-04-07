@@ -41,6 +41,13 @@ interface ZMSeoRewriter {
     /**
      * Generate a SEO url for the given parameter.
      *
+     * <p>The default implementation of <code>ZMRequest::url()</code> will set the following args:</p>
+     * <ul>
+     *  <li><strong>requestId</strong>: The request id.</li>
+     *  <li><strong>params</strong>: Query string type URL parameter(s).</li>
+     *  <li><strong>secure</strong>: Boolean flag as to whether the URL needs to be secure or not.</li>
+     * </ul>
+     *
      * @param ZMRequest request The current request.
      * @param array args Optional parameter.
      * @return string Either a rewritten usable URL, or <code>null</code>.

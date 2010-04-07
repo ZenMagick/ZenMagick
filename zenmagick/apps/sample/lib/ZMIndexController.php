@@ -57,6 +57,12 @@ class ZMIndexController extends ZMController {
         if (!empty($name)) {
             $data['name'] = $name;
         }
+
+        if (ZMLangUtils::asBoolean($request->getParameter('clear'))) {
+            $data = array();
+            $request->getSession()->destroy();
+        }
+
         return $this->findView(null, $data);
     }
 

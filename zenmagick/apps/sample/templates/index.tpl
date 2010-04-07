@@ -21,4 +21,4 @@
 <p>Context is: <?php echo $request->getContext() ?></p>
 
 
-<p><a href="<?php echo $request->url(null, 'clear=true') ?>">Clear session</a></p>
+<p><a href="<?php echo $request->url(null, 'clear=true', true) ?>">Clear session</a></p>
