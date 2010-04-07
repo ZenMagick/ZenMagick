@@ -1,5 +1,7 @@
+!.htaccess
 !admin/
 !cache/
 !editors/
+notes/
 local.php
 ri0007/
