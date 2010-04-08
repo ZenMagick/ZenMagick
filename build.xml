@@ -113,6 +113,7 @@
         <!-- copy all files that go into zen-cart directories -->
         <copy todir="${build.dir}">
             <fileset dir="${zencart.src.dir}">
+                <exclude name="admin/zm.php" />
             </fileset>
         </copy>
 

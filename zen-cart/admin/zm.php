@@ -24,15 +24,15 @@
  */
 ?><?php
 
-  /*=========================================*
-   * Experimental 'ZenMagick Only' admin     *
-   *=========================================*/
+  define('IS_ADMIN_FLAG', true);
 
   require_once 'includes/configure.php';
   require(DIR_FS_CATALOG . DIR_WS_INCLUDES . 'filenames.php');
   require(DIR_FS_CATALOG . DIR_WS_INCLUDES . 'database_tables.php');
 
   require_once '../zenmagick/init.php';
+
+  $request->getSession()->start();
 
   // set some admin specific things...
   ZMUrlManager::instance()->clear();
