@@ -150,16 +150,16 @@
             <td><?php echo $plugin->getSortOrder() ?></td>
             <td>
               <?php if ($plugin->isInstalled()) { ?>
-                  <a href="<?php echo $toolbox->admin->url(null, 'remove='.$plugin->getId().'&group='.$plugin->getGroup()) ?>" onclick="return zm_user_confirm('This will remove all stored settings.\nContinue?');"><?php echo zen_image_button('button_module_remove.gif', zm_l10n_get("Remove")) ?></a>
+                  <a href="<?php echo $toolbox->admin->url(null, 'remove='.$plugin->getId().'&group='.$plugin->getGroup()) ?>" onclick="return zm_user_confirm('This will remove all stored settings.\nContinue?');"><img src="includes/languages/english/images/buttons/button_module_remove.gif" alt="Remove"></a>
                   <?php if ($isEdit) { ?>
                     <input type="hidden" name="pluginId" value="<?php echo $plugin->getId() ?>">
                     <input type="hidden" name="group" value="<?php echo $plugin->getGroup() ?>">
                     <?php echo zen_image_submit('button_update.gif', IMAGE_UPDATE) ?>
                   <?php } else { ?>
-                      <a href="<?php echo $toolbox->admin->url(null, 'edit='.$plugin->getId().'&group='.$plugin->getGroup()) ?>#<?php echo $plugin->getId() ?>"><?php echo zen_image_button('button_edit.gif', zm_l10n_get("Edit")) ?></a>
+                      <a href="<?php echo $toolbox->admin->url(null, 'edit='.$plugin->getId().'&group='.$plugin->getGroup()) ?>#<?php echo $plugin->getId() ?>"><img src="includes/languages/english/images/buttons/button_edit.gif" alt="Edit"></a>
                   <?php } ?>
               <?php } else { ?>
-                  <a href="<?php echo $toolbox->admin->url(null, 'install='.$plugin->getId().'&group='.$plugin->getGroup()) ?>#<?php echo $plugin->getId() ?>"><?php echo zen_image_button('button_module_install.gif', zm_l10n_get("Install")) ?></a>
+                  <a href="<?php echo $toolbox->admin->url(null, 'install='.$plugin->getId().'&group='.$plugin->getGroup()) ?>#<?php echo $plugin->getId() ?>"><img src="includes/languages/english/images/buttons/button_module_install.gif" alt="Install"></a>
               <?php } ?>
             </td>
           </tr>
