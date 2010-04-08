@@ -42,7 +42,7 @@ class Runtime extends ZMRuntime {
      *
      * @return queryFactory *The* zen-cart <code>queryFactory</code> instance.
      */
-    public static function getDB() { if (null == self::$db_) { global $db; self::$db_ = $db; } return self::$db_; }
+    public static function getDB() { if (null == self::$db_) { global $db; if (isset($db)) { self::$db_ = $db; } } return self::$db_; }
 
     /**
      * Get the context for plugins.

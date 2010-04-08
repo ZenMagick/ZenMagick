@@ -332,6 +332,10 @@ class Session extends ZMObject {
      * @return ZMLanguage The language or <code>null</code>.
      */
     public function getLanguage() {
+        if (!array_key_exists('languages_code', $_SESSION)) {
+            return null;
+        }
+
         return ZMLanguages::instance()->getLanguageForCode($_SESSION['languages_code']);
     }
 

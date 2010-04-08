@@ -79,8 +79,9 @@ class ZMPageStatsPlugin extends Plugin {
         echo '<!--'."\n";
         echo '  Client IP: '.$_SERVER['REMOTE_ADDR']."\n";
         echo '  total page execution: '.Runtime::getExecutionTime().' secconds;'."\n";
-        $db = Runtime::getDB();
-        echo '  db: SQL queries: '.$db->queryCount().', duration: '.round($db->queryTime(), 4).' seconds;';
+        if (null != ($db = Runtime::getDB())) {
+            echo '  db: SQL queries: '.$db->queryCount().', duration: '.round($db->queryTime(), 4).' seconds;';
+        }
         echo '  databases: ';
         foreach (ZMRuntime::getDatabases() as $database) {
             $config = $database->getConfig();
@@ -137,8 +138,9 @@ class ZMPageStatsPlugin extends Plugin {
         echo '<div id="page-stats">';
         echo 'Client IP: <strong>'.$_SERVER['REMOTE_ADDR'].'</strong>;';
         echo '&nbsp;&nbsp;&nbsp;total page execution: <strong>'.Runtime::getExecutionTime().'</strong> secconds;<br'.$slash.'>';
-        $db = Runtime::getDB();
-        echo '<strong>db</strong>: SQL queries: <strong>'.$db->queryCount().'</strong>, duration: <strong>'.round($db->queryTime(), 4).'</strong> seconds;';
+        if (null != ($db = Runtime::getDB())) {
+            echo '<strong>db</strong>: SQL queries: <strong>'.$db->queryCount().'</strong>, duration: <strong>'.round($db->queryTime(), 4).'</strong> seconds;';
+        }
         echo '&nbsp;&nbsp;<strong>databases:</strong> ';
         foreach (ZMRuntime::getDatabases() as $database) {
             $config = $database->getConfig();
