@@ -58,7 +58,7 @@
     //** others **//
     define('PRODUCTS_OPTIONS_TYPE_SELECT', 0);
 
-    //** hook up the main store event handler **/
+    //** hook up the main store event handler **//
     ZMEvents::instance()->attach(ZMLoader::make("EventFixes"));
 
 
@@ -506,3 +506,15 @@
     }
 
     ZMSettings::setAll(zm_get_default_settings());
+
+    //** load all config values if not set **//
+    if (!defined('STORE_NAME')) {
+        // $db might not be set up yet
+        ZMSettings::set('zenmagick.core.database.provider', 'ZMPdoDatabase');
+        foreach (ZMConfig::instance()->loadAll() as $key => $value) {
+            define($key, $value);
+        }
+        // set again as some settings depend on zencart settings...
+        ZMSettings::setAll(zm_get_default_settings());
+    }
+
