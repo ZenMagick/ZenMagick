@@ -175,4 +175,19 @@ class ZMConfig extends ZMObject {
         return ZMRuntime::getDatabase()->query($sql, array(), TABLE_CONFIGURATION_GROUP, 'ConfigGroup');
     }
 
+    /**
+     * Load all configuration values.
+     *
+     * @return array Map of all configuration values.
+     */
+    public function loadAll() {
+        $map = array();
+        $sql = "SELECT configuration_key, configuration_value FROM " . TABLE_CONFIGURATION;
+        foreach(ZMRuntime::getDatabase()->query($sql) as $result) {
+            $map[$result['configuration_key']] = $result['configuration_value'];
+        }
+
+        return $map;
+    }
+
 }

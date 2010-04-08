@@ -203,6 +203,7 @@ Release 0.9.9
 - add new setting 'apps.store.request.enableZMCheckoutShipping' to make ZenMagick
   handle the checkout shipping page; this is enabled by default, so if there
 	are problems try disabling this first
+- add ZMConfig::loadAll()
 
 Release 0.9.8
 - add Savant3 and experimental views (not used yet)
