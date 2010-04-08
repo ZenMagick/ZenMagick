@@ -58,7 +58,7 @@ class ZMBanners extends ZMObject {
     /**
      * Get a <strong>random, single</strong> banner for the given symbolic banner group set (yes!) name.
      *
-     * <p>A banner set is a either a single banner group or a list of banner groups.</p>
+     * <p>A banner set is either a single banner group or a list of banner groups.</p>
      *
      * <p>Banner sets can be configured by creating a setting with the format: <em>banners.[NAME]</em>,
      * with <em>banners.</em> being a fixed prefix and <em>[NAME]</em> the name of the set.</p>
