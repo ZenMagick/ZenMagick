@@ -27,6 +27,8 @@ a:visited {color:#790;}
 a:active {color:red;}
 a:hover {text-decoration:underline;}
 
+img {border:none;}
+
 div#main, div#content {padding:8px;position:relative;}
 fieldset {padding:12px;margin:12px 0;}
 legend {font-weight:bold;color:#fff;background-color:#777;padding:2px 9px;}
