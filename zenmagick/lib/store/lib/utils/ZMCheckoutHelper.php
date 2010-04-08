@@ -312,4 +312,16 @@ class ZMCheckoutHelper extends ZMObject {
         return $request->getSession()->getValue('shoppingCartHash') == $this->shoppingCart_->getHash();
     }
 
+    /**
+     * Mark cart as free shipping.
+     */
+    public function markCartFreeShipping() {
+        // TODO: 
+        $_SESSION['shipping'] = 'free_free';
+        // not sure there are other cases where we want to mark the cart, but just in case...
+        if ($this->isVirtual()) {
+            $_SESSION['sendto'] = false;
+        }
+    }
+
 }

@@ -200,6 +200,9 @@ Release 0.9.9
   now
 - add decode method to ZMSeoRewriter interface and empty (return false;)
   implementation to all classes implementing the interface
+- add new setting 'apps.store.request.enableZMCheckoutShipping' to make ZenMagick
+  handle the checkout shipping page; this is enabled by default, so if there
+	are problems try disabling this first
 
 Release 0.9.8
 - add Savant3 and experimental views (not used yet)

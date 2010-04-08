@@ -128,6 +128,8 @@
             /*** request ***/
             'zenmagick.mvc.request.seoRewriter' => 'StoreDefaultSeoRewriter',
 
+            /*** use ZM checkout shipping code ***/
+            'apps.store.request.enableZMCheckoutShipping' => true,
 
             // use ZenMagick themes
             'isEnableZMThemes' => true,

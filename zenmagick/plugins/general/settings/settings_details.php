@@ -294,6 +294,15 @@
                         'desc' => 'Default results per page.'
                     )
                 )
+            ),
+            'apps.store' => array(
+                'request' => array(
+                    array(
+                        'key' => 'enableZMCheckoutShipping',
+                        'type' => 'boolean',
+                        'desc' => 'Enable using ZenMagick checkout shipping code.'
+                    ),
+                )
             )
         );
     }

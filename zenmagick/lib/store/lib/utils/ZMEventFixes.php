@@ -119,11 +119,23 @@ class ZMEventFixes extends ZMObject {
     /**
      * Simple function to check if we need zen-cart request processing.
      *
-     * @Param ZMRequest request The current request.
+     * @param ZMRequest request The current request.
+     * @return boolean <code>true</code> if zen-cart should handle the request.
      */
     private function needsZC($request) {
-        $pageName = $request->getRequestId();
-        return (false !== strpos($pageName, 'checkout_') && 'XXcheckout_shipping' != $pageName && 'checkout_shipping_address' != $pageName && 'checkout_payment_address' != $pageName);
+        $requestId = $request->getRequestId();
+        if (false === strpos($requestId, 'checkout_')) {
+            // not checkout
+            return false;
+        }
+
+        // supported by ZenMagick
+        $supportedCheckoutPages = array('checkout_shipping_address', 'checkout_payment_address');
+        if (ZMLangUtils::asBoolean(ZMSettings::get('apps.store.request.enableZMCheckoutShipping'))) {
+            $supportedCheckoutPages[] = 'checkout_shipping';
+        }
+
+        return !in_array($requestId, $supportedCheckoutPages);
     }
 
     /**
