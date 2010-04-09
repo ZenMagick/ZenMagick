@@ -60,7 +60,6 @@ class ZMLoader {
     private $name_;
     private $parent_;
     private $path_;
-    private $global_;
     private $cache_;
     private $stats_;
 
@@ -77,7 +76,6 @@ class ZMLoader {
         }
         $this->parent_ = null;
         $this->path_ = array();
-        $this->global_ = array();
         $this->cache_ = array();
         $this->stats_ = array('static' => 0, 'class' => 0, 'instances' => 0);
     }
@@ -157,28 +155,6 @@ class ZMLoader {
             $last = $last->parent_;
         }
         $last->parent_ = $parent;
-    }
-
-    /**
-     * Add a file to be loaded in global context.
-     *
-     * @param string filename The file to load.
-     */
-    public function addGlobal($filename) {
-        $this->global_[] = $filename;
-    }
-
-    /**
-     * Get files to be loaded in global context.
-     *
-     * @param array List of filenames.
-     */
-    public function getGlobal() {
-        $list = $this->global_;
-        if (null != $this->parent_) {
-            $list = array_merge($list, $this->parent_->getGlobal());
-        }
-        return $list;
     }
 
     /**
