@@ -13,3 +13,10 @@ locale:
     UI_DATE_FORMAT: 'mm/dd/yyyy'
     UI_DATE_FORMAT_SAMPLE: '11/16/1967'
 
+## optional url mappings
+urls:
+  ## no layout for shopping cart
+  shopping_cart:
+    shopping_cart:
+#      layout: bean::null
+
