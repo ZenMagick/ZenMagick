@@ -200,9 +200,9 @@ class ZMWordpressPlugin extends Plugin implements ZMRequestHandler {
     /**
      * {@inheritDoc}
      */
-    public function getGlobal() {
+    public function getGlobal($request) {
         $wordpressEnabledPages = $this->get('wordpressEnabledPages');
-        if (empty($wordpressEnabledPages) || ZMLangUtils::inArray($this->requestId_, $wordpressEnabledPages)) {
+        if (empty($wordpressEnabledPages) || ZMLangUtils::inArray($request->getRequestId(), $wordpressEnabledPages)) {
             if ($this->isPermalinksEnabled()) {
                 $path = Runtime::getContext().$this->get('permaPrefix');
                 if (false === strpos($_SERVER['REQUEST_URI'], '?')) {
@@ -213,7 +213,7 @@ class ZMWordpressPlugin extends Plugin implements ZMRequestHandler {
                 $_SERVER['REQUEST_URI'] = str_replace($path, '', $_SERVER['REQUEST_URI']);
             }
             // load as proper global to make WP work - @#!!$&^ globals
-            return array('wp-include.gphp');
+            return array($this->getPluginDirectory().'wp-include.gphp');
         }
         return parent::getGlobal();
     }

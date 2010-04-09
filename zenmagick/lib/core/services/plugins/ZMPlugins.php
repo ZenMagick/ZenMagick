@@ -361,10 +361,6 @@ class ZMPlugins extends ZMObject {
                 } else if (ZMPlugin::LP_FOLDER == $plugin->getLoaderPolicy()) {
                     $pluginLoader->addPath($plugin->getPluginDirectory(), '', false);
                 }
-                foreach ($plugin->getGlobal() as $file) {
-                    $pluginLoader->addGlobal($plugin->getPluginDirectory().$file);
-                }
-
                 $plugins[$id] = $plugin;
             }
         }

@@ -35,11 +35,13 @@
     ZMSacsManager::instance()->ensureAccessMethod($_zm_request);
 
     // load stuff that really needs to be global!
-    foreach (ZMLoader::instance()->getGlobal() as $_zm_global) {
-        include_once $_zm_global;
+    foreach (ZMPlugins::instance()->getAllPlugins() as $group => $plugins) {
+        foreach ($plugins as $plugin) {
+            foreach ($plugin->getGlobal($_zm_request) as $_zm_file) {
+                include_once $_zm_file;
+            }
+        }
     }
 
     $request = $_zm_request;
     ZMEvents::instance()->fireEvent(null, ZMEvents::INIT_DONE, array('request' => $_zm_request));
-
-?>
