@@ -99,7 +99,7 @@ class ZMPluginAdminController extends ZMController {
      */
     public function getPluginAdminView($request, $context=array(), $template=null) {
         $view = ZMLoader::make('AdminView');
-        $view->setTemplatePath(array($this->getPlugin()->getPluginDirectory()));
+        $view->setTemplatePath(array($this->getPlugin()->getPluginDirectory().DIRECTORY_SEPARATOR.'content'));
         $view->setTemplate(null != $template ? $template : $this->getId());
         $view->setVars($context);
         $view->setVar('plugin', $this->getPlugin());

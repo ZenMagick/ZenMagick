@@ -78,7 +78,7 @@ class SavantView extends ZMSavantView {
         // add plugins as fallback fallback
         foreach (explode(',', ZMSettings::get('zenmagick.core.plugins.groups')) as $group) {
             foreach (ZMPlugins::instance()->getPluginsForGroup($group, Plugin::CONTEXT_STOREFRONT) as $plugin) {
-                $path[] = $plugin->getPluginDirectory();
+                $path[] = $plugin->getPluginDirectory().DIRECTORY_SEPARATOR.'content';
             }
         }
 

@@ -138,7 +138,7 @@ class ZMWordpressRequestHandler extends ZMController {
      */
     public function comments_template_filter($arg) {
         if (ZMSettings::get('plugins.wordpress.isUseOwnViews', false)) {
-            return $this->plugin_->getPluginDirectory().'wp/comments.php';
+            return $this->plugin_->getPluginDirectory().'content/wp/comments.php';
           } else {
             return Runtime::getTheme()->themeFile('views/wp/comments.php');
           }

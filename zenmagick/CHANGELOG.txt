@@ -204,6 +204,8 @@ Release 0.9.9
   handle the checkout shipping page; this is enabled by default, so if there
 	are problems try disabling this first
 - add ZMConfig::loadAll()
+- change location of templating content in plugins to [plugin-dir]/content and
+  move current [plugin-dir]/views folder to [plugin-dir]/content/views
 
 Release 0.9.8
 - add Savant3 and experimental views (not used yet)
