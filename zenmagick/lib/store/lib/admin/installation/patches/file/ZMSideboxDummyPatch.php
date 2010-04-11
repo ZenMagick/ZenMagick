@@ -55,8 +55,8 @@ class ZMSideboxDummyPatch extends ZMFilePatch {
      *
      * @return boolean <code>true</code> if this patch can still be applied.
      */
-    function isOpen() {
-        return 0 != count($this->_getMissingZCSideboxes());
+    public function isOpen() {
+        return 0 != count($this->getMissingZCSideboxes());
     }
 
     /**
@@ -64,7 +64,7 @@ class ZMSideboxDummyPatch extends ZMFilePatch {
      *
      * @return boolean <code>true</code> if this patch is ready and all preconditions are met.
      */
-    function isReady() {
+    public function isReady() {
         return is_writeable(_ZM_ZEN_DIR_FS_BOXES);
     }
 
@@ -73,7 +73,7 @@ class ZMSideboxDummyPatch extends ZMFilePatch {
      *
      * @return string The patch group id.
      */
-    function getGroupId() {
+    public function getGroupId() {
         return 'file';
     }
 
@@ -84,7 +84,7 @@ class ZMSideboxDummyPatch extends ZMFilePatch {
      *
      * @return string The preconditions message or an empty string.
      */
-    function getPreconditionsMessage() {
+    public function getPreconditionsMessage() {
         return $this->isReady() ? "" : "Need permission to write " . _ZM_ZEN_DIR_FS_BOXES;
     }
 
@@ -95,8 +95,8 @@ class ZMSideboxDummyPatch extends ZMFilePatch {
      *  disabled as per settings.
      * @return boolean <code>true</code> if patching was successful, <code>false</code> if not.
      */
-    function patch($force=false) {
-        $missingBoxes = $this->_getMissingZCSideboxes();
+    public function patch($force=false) {
+        $missingBoxes = $this->getMissingZCSideboxes();
 
         if (0 < count($missingBoxes)) {
             if ((ZMSettings::get('isEnablePatching')) || $force) {
@@ -128,7 +128,7 @@ class ZMSideboxDummyPatch extends ZMFilePatch {
      *
      * @return boolean <code>true</code> if patching was successful, <code>false</code> if not.
      */
-    function undo() {
+    public function undo() {
         $dummies = $this->_getDummies();
         foreach ($dummies as $file) {
             @unlink($file);
@@ -142,7 +142,7 @@ class ZMSideboxDummyPatch extends ZMFilePatch {
      *
      * @return array A list of dummy sidebox files.
      */
-    function _getDummies() {
+    protected function _getDummies() {
         $dummies = array();
         if (file_exists(_ZM_ZEN_DIR_FS_BOXES)) {
             $handle = opendir(_ZM_ZEN_DIR_FS_BOXES);
@@ -165,12 +165,25 @@ class ZMSideboxDummyPatch extends ZMFilePatch {
      *
      * return array List of sideboxes that need zen-cart dummies.
      */
-    function _getMissingZCSideboxes() {
+    protected function getMissingZCSideboxes() {
+        // list of boxes dirs to process
+        $boxPathList = array();
+
+        // 1) themes
+        foreach (ZMThemes::instance()->getThemes() as $theme) {
+            $boxPathList[] = $theme->getBoxesDir();
+        }
+
+        // 2) plugins
+        foreach (explode(',', ZMSettings::get('zenmagick.core.plugins.groups')) as $group) {
+            foreach (ZMPlugins::instance()->getPluginsForGroup($group) as $plugin) {
+                $dir = ZMFileUtils::mkPath(array($plugin->getPluginDirectory(), 'content', 'boxes'));
+                $boxPathList[] = $dir;
+            }
+        }
+
         $missingBoxes = array();
-        $theme = Runtime::getTheme();
-        $zcTheme = ZMThemes::instance()->getThemeForId(ZMThemes::instance()->getZCThemeId());
-        $pathList = array($theme->getBoxesDir(), $zcTheme->getBoxesDir());
-        foreach ($pathList as $boxPath) {
+        foreach ($boxPathList as $boxPath) {
             if (file_exists($boxPath) && is_readable($boxPath)) {
                 // make list of all theme boxes
                 $handle = opendir($boxPath);
