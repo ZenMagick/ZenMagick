@@ -215,7 +215,8 @@ class ZMWordpressPlugin extends Plugin implements ZMRequestHandler {
             // load as proper global to make WP work - @#!!$&^ globals
             return array($this->getPluginDirectory().'wp-include.gphp');
         }
-        return parent::getGlobal();
+
+        return parent::getGlobal($request);
     }
 
     /**
