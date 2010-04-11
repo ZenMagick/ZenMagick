@@ -251,20 +251,29 @@
     <!-- build sidebox dummy files -->
     <target name="create-sidebox-dummies" description="Create sidebox dummy files for zen cart.">
         <concat destfile="${build.dir}/sidebox_dummy.php" eol="dos">&lt;?php /** dummy file created by ZenMagick installation patcher **/ ?&gt;</concat>
-        <foreach target="update-sidebox-dummy" param="filename">
+        <!-- create **all** files -->
+        <mkdir dir="${build.dir}/dummies"/>
+        <foreach target="create-sidebox-dummy" param="filename">
             <path>
               <fileset dir="${zenmagick.src.dir}/themes/default/content/boxes" includes="*.php" />
               <fileset dir="${zenmagick.src.dir}/themes/demo/content/boxes" includes="*.php" />
             </path>
         </foreach>
+
+        <!-- touch existing to only update missing files -->
+        <touch>
+            <fileset dir="${release.full.dir}/includes/modules/sideboxes/"/>
+        </touch>
+
+        <copy overwrite="false" todir="${release.full.dir}/includes/modules/sideboxes/">
+            <fileset dir="${build.dir}/dummies" includes="*.php" />
+        </copy>
     </target>
 
-    <!-- update sidebox dummy -->
-    <target name="update-sidebox-dummy" description="Create sidebox dummy if necessary.">
+    <!-- create single sidebox dummy -->
+    <target name="create-sidebox-dummy" description="Create single sidebox dummy.">
         <basename property="basename" file="${filename}"/>
-        <!-- touch target to avoid overwriting existing files! -->
-        <touch file="${release.full.dir}/includes/modules/sideboxes/${basename}" />
-        <copy overwrite="false" tofile="${release.full.dir}/includes/modules/sideboxes/${basename}" file="${build.dir}/sidebox_dummy.php" />
+        <copy overwrite="true" tofile="${build.dir}/dummies/${basename}" file="${build.dir}/sidebox_dummy.php" />
     </target>
 
     <!-- convert database die() to throwing an exception -->
