@@ -29,11 +29,6 @@
     // make sure we use the appropriate protocol (HTTPS, for example) if required
     ZMSacsManager::instance()->ensureAccessMethod($_zm_request);
 
-    // load stuff that really needs to be global!
-    foreach (ZMLoader::instance()->getGlobal() as $_zm_global) {
-        include_once $_zm_global;
-    }
-
     // reset as other global code migth fiddle with it...
     $request = $_zm_request;
     ZMEvents::instance()->fireEvent(null, ZMEvents::INIT_DONE, array('request' => $_zm_request));
