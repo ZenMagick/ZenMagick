@@ -213,6 +213,7 @@ Release 0.9.9
   to non core code
 - remove validation check from ZMTemplateManager's sidebox code; this means
   templates need to validate configured boxes
+- delete obsolete ZMBoxPlugin class
 
 Release 0.9.8
 - add Savant3 and experimental views (not used yet)
