@@ -31,7 +31,41 @@
  * @package org.zenmagick.store.mvc.tools
  * @version $Id$
  */
-class ToolboxNet extends ZMToolboxNet {
+class ZMToolboxNet extends ZMToolboxTool {
+
+    /**
+     * Create a URL.
+     *
+     * <p>Convenience/compatibility method calling <code>url()</code> on ZMRequest.</p>
+     *
+     * @param string requestId The request id.
+     * @param string params Query string style parameter; if <code>null</code> add all current parameter
+     * @param boolean secure Flag indicating whether to create a secure or non secure URL; default is <code>false</code>.
+     * @return string A full URL.
+     */
+    public function url($requestId=null, $params='', $secure=false) {
+        return $this->getRequest()->url($requestId, $params, $secure);
+    }
+
+    /**
+     * Encode a given URL to valid HTML.
+     *
+     * @param string url The url to encode.
+     * @return string The URL encoded in valid HTM.
+     */
+    public static function encode($url) {
+        return ZMNetUtils::encode($url);
+    }
+
+    /**
+     * Decode a HTML encoded URL.
+     *
+     * @param string url The url to decode.
+     * @return string The decoded URL.
+     */
+    public static function decode($url) {
+        return ZMNetUtils::decode($url);
+    }
 
     /**
      * Convenience function to build a product URL.

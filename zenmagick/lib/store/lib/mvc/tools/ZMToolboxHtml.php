@@ -31,7 +31,39 @@
  * @package org.zenmagick.store.mvc.toolbox.defaults
  * @version $Id$
  */
-class ToolboxHtml extends ZMToolboxHtml {
+class ZMToolboxHtml extends ZMToolboxTool {
+
+    /**
+     * Encode a given string to valid HTML.
+     *
+     * @param string s The string to encode.
+     * @return string The encoded HTML.
+     */
+    public static function encode($s) {
+        return ZMHtmlUtils::encode($s);
+    }
+
+    /**
+     * Convert text based user input into HTML.
+     *
+     * @param string s The input string.
+     * @return string HTML formatted text.
+     */
+    public static function text2html($s) {
+        return ZMHtmlUtils::text2html($s);
+    }
+
+    /**
+     * Truncate text.
+     *
+     * @param string s The text.
+     * @param int max The number of allowed characters; default is <em>0</em> for all.
+     * @param string more Optional string that will be appended to indicate that the text was truncated; default is <em>...</em>.
+     * @return string The (possibly) truncated text.
+     */
+    public static function more($s, $max=0, $more=" ...") {
+        return ZMHtmlUtils::more($s, $max, $more);
+    }
 
     /**
      * Creates a HTML <code>&lt;img&gt;</code> tag for the given <code>ZMImageInfo</code>.

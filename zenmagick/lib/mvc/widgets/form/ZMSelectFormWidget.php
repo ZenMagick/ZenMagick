@@ -125,7 +125,7 @@ class ZMSelectFormWidget extends ZMFormWidget {
                     $selected = ' selected';
                 }
             }
-            $output .= '<option'.$selected.' value="'.ZMToolboxHtml::encode($oval).'">'.ZMToolboxHtml::encode($name).'</option>';
+            $output .= '<option'.$selected.' value="'.ZMHtmlUtils::encode($oval).'">'.ZMHtmlUtils::encode($name).'</option>';
         }
         $output .= '</select>';
         return $output;

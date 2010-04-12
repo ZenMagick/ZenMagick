@@ -29,23 +29,9 @@
  * @version $Id$
  */
 class ZMToolbox extends ZMObject {
-    /** 
-     * @var ZMToolboxHtml
-     * @return ZMToolboxHtml
-     */
-    public $html;
-
-    /** 
-     * @var ZMToolboxNet
-     * @return ZMToolboxNet
-     */
-    public $net;
-
-
     /** The tools. */
     private $tools_;
 
-    
 
     /**
      * Create new instance.
@@ -82,7 +68,7 @@ class ZMToolbox extends ZMObject {
      */
     protected function initTools($request) {
         // default tools
-        $tools = array('html' => ZMLoader::make('ToolboxHtml'), 'net' => ZMLoader::make('ToolboxNet'));
+        $tools = array();
 
         // custom tools: name:class,name:class
         foreach (explode(',', ZMSettings::get('zenmagick.mvc.toolbox.tools')) as $toolInfo) {

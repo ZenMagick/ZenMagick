@@ -33,6 +33,16 @@
  */
 class Toolbox extends ZMToolbox {
     /** 
+     * @var ZMToolboxNet
+     * @return ZMToolboxNet
+     */
+    public $net;
+    /** 
+     * @var ZMToolboxHtml
+     * @return ZMToolboxHtml
+     */
+    public $html;
+    /** 
      * @var ZMToolboxForm
      * @return ZMToolboxForm
      */
@@ -75,6 +85,8 @@ class Toolbox extends ZMToolbox {
     function __construct($request) {
         // add store tools
         $tools = array(
+            'net' => 'ToolboxNet', 
+            'html' => 'ToolboxHtml', 
             'form' => 'ToolboxForm', 
             'macro' => 'ToolboxMacro', 
             'locale' => 'ToolboxLocale', 

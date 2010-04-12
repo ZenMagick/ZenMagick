@@ -214,6 +214,8 @@ Release 0.9.9
 - remove validation check from ZMTemplateManager's sidebox code; this means
   templates need to validate configured boxes
 - delete obsolete ZMBoxPlugin class
+- merge ZMToolboxNet and ToolboxNet thus making mvc's ZMToolboxNet obsolete
+- merge ZMToolboxHtml and ToolboxHtml thus making mvc's ZMToolboxHtml obsolete
 
 Release 0.9.8
 - add Savant3 and experimental views (not used yet)

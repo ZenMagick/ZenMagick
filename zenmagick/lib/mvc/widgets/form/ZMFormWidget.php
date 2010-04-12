@@ -153,13 +153,13 @@ abstract class ZMFormWidget extends ZMWidget {
                         $attr .= ' '.$name;
                     }
                 } else {
-                    $attr .= ' '.$name.'="'.ZMToolboxHtml::encode($value).'"';
+                    $attr .= ' '.$name.'="'.ZMHtmlUtils::encode($value).'"';
                 }
             }
         }
 
         if ($addValue) {
-            $attr .= ' value="'.ZMToolboxHtml::encode($this->getValue()).'"';
+            $attr .= ' value="'.ZMHtmlUtils::encode($this->getValue()).'"';
         }
 
         return $attr;

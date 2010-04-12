@@ -28,7 +28,7 @@
  * @package org.zenmagick.mvc.utils
  * @version $Id$
  */
-class ZMToolboxHtml extends ZMToolboxTool {
+class ZMHtmlUtils {
 
     /**
      * Encode a given string to valid HTML.

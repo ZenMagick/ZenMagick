@@ -32,7 +32,7 @@
  * @package org.zenmagick.plugins.googleAdSense
  * @version $Id$
  */
-class ZMGoogleAdSensePlugin extends ZMBoxPlugin {
+class ZMGoogleAdSensePlugin extends Plugin {
     const ADSENSE_PREFIX = 'adsense-';
     private $totalAds_;
 
