@@ -170,13 +170,13 @@
                   <?php if ($value instanceof ZMWidget) { if ($value->isHidden()) { continue; } ?>
                     <td><?php echo $value->getTitle() ?></td>
                     <td><?php echo $value->getDescription() ?></td>
-                    <td>
+                    <td colspan="3">
                       <?php echo $value->render($request) ?>
                     </td>
                   <?php } else { ?>
                     <td><?php echo $value->getName() ?></td>
                     <td><?php echo $value->getDescription() ?></td>
-                    <td>
+                    <td colspan="3">
                       <?php if ($value->hasSetFunction()) { ?>
                         <?php eval('$set = ' . $value->getSetFunction() . "'" . $value->getValue() . "', '" . $value->getKey() . "');"); ?>
                         <?php echo str_replace('<br>', '', $set) ?>
@@ -185,8 +185,6 @@
                       <?php } ?>
                     </td>
                   <?php } ?>
-                  <td>&nbsp;</td>
-                  <td>&nbsp;</td>
               </tr>
             <?php } ?>
           <?php } ?>
