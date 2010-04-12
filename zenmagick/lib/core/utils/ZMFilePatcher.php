@@ -283,7 +283,8 @@ class ZMFilePatcher extends ZMObject {
             return true;
         }
 
-        if (is_writeable($this->filename)) {
+        echo $this->target;
+        if (is_writeable($this->target)) {
             // result of file change
             return $this->putLines($patched);
         }
@@ -304,7 +305,7 @@ class ZMFilePatcher extends ZMObject {
             return true;
         }
 
-        if (is_writeable($this->filename)) {
+        if (is_writeable($this->target)) {
             // result of file change
             return $this->putLines($patched);
         }
