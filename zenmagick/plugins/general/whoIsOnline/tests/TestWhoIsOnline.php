@@ -3,11 +3,11 @@
 /**
  * Test who's online.
  *
- * @package org.zenmagick.plugins.zm_whos_online
+ * @package org.zenmagick.plugins.whoIsOnline
  * @author DerManoMann
  * @version $Id$
  */
-class TestWhosOnline extends ZMTestCase {
+class TestWhoIsOnline extends ZMTestCase {
 
     /**
      * Get the plugin.
@@ -15,7 +15,7 @@ class TestWhosOnline extends ZMTestCase {
      * @return ZMPlugin The plugin.
      */
     protected function getPlugin() {
-        return ZMPlugins::instance()->getPluginForId('zm_whos_online');
+        return ZMPlugins::instance()->getPluginForId('whoIsOnline');
     }
 
     /**
@@ -35,9 +35,9 @@ class TestWhosOnline extends ZMTestCase {
     }
 
     /**
-     * Test sidebox sample1.
+     * Test sidebox full.
      */
-    public function testSample1() {
+    public function testFull() {
         /**
          * anonymous  registered   text
          *     0           0       There is currently no one online :).
@@ -68,8 +68,9 @@ class TestWhosOnline extends ZMTestCase {
             array('anonymous' => 1, 'registered' => 3, 'total' => 4, 'expected' => 'There are currently one guest and 3 registered users online.')
         ); 
 
-        $sample1 = file_get_contents($this->getPlugin()->getPluginDirectory().'sidebox.php.sample1');
-        $sample1 = str_replace('$stats = $zm_whos_online', '//$stats = $zm_whos_online', $sample1);
+        $sample1 = file_get_contents($this->getPlugin()->getPluginDirectory().'content/boxes/who_is_online_full.php');
+        $sample1 = str_replace('$stats = $whoIsOnline->getStats();', '//$stats = $whoIsOnline->getStats();', $sample1);
+        $whoIsOnline = $this->getPlugin();
 
         foreach ($statsVariations as $stats) {
             ob_start();
@@ -80,9 +81,9 @@ class TestWhosOnline extends ZMTestCase {
     }
 
     /**
-     * Test sidebox sample2.
+     * Test sidebox simple.
      */
-    public function testSample2() {
+    public function testSimple() {
         $statsVariations = array(
             array('anonymous' => 1, 'registered' => 0, 'total' => 1, 'expected' => 'There are currently 1 guests and 0 registered users online.'),
             array('anonymous' => 0, 'registered' => 1, 'total' => 1, 'expected' => 'There are currently 0 guests and 1 registered users online.'),
@@ -94,8 +95,9 @@ class TestWhosOnline extends ZMTestCase {
             array('anonymous' => 1, 'registered' => 3, 'total' => 4, 'expected' => 'There are currently 1 guests and 3 registered users online.')
         ); 
 
-        $sample2 = file_get_contents($this->getPlugin()->getPluginDirectory().'sidebox.php.sample2');
-        $sample2 = str_replace('$stats = $zm_whos_online', '//$stats = $zm_whos_online', $sample2);
+        $sample2 = file_get_contents($this->getPlugin()->getPluginDirectory().'content/boxes/who_is_online_simple.php');
+        $sample2 = str_replace('$stats = $whoIsOnline->getStats();', '//$stats = $whoIsOnline->getStats();', $sample2);
+        $whoIsOnline = $this->getPlugin();
 
         foreach ($statsVariations as $stats) {
             ob_start();

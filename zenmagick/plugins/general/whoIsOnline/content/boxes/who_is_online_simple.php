@@ -20,14 +20,16 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  *
- * $Id: whos_online.php 1298 2008-07-15 00:29:21Z DerManoMann $
+ * $Id$
  */
 ?>
 
-<?php $stats = $zm_whos_online->getStats(); ?>
-<?php if (0 < $stats['total']) { ?>
-    <h3><?php zm_l10n("Who's Online") ?></h3>
-    <div id="sb_whos_online" class="box">
-        <?php zm_l10n("There are currently %s guests and %s registered users online.", $stats['anonymous'], $stats['registered']); ?>
-    </div>
+<?php if (isset($whoIsOnline)) { ?>
+    <?php $stats = $whoIsOnline->getStats(); ?>
+    <?php if (0 < $stats['total']) { ?>
+        <h3><?php zm_l10n("Who's Online") ?></h3>
+        <div id="sb_whos_online" class="box">
+            <?php zm_l10n("There are currently %s guests and %s registered users online.", $stats['anonymous'], $stats['registered']); ?>
+        </div>
+    <?php } ?>
 <?php } ?>

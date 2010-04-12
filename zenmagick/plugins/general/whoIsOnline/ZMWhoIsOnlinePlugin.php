@@ -27,18 +27,18 @@
 /**
  * Provide information about current site users.
  *
- * @package org.zenmagick.plugins.zm_whos_online
+ * @package org.zenmagick.plugins.whoIsOnline
  * @author DerManoMann
  * @version $Id$
  */
-class zm_whos_online extends Plugin {
+class ZMWhoIsOnlinePlugin extends Plugin {
 
     /**
      * Create new instance.
      */
     function __construct() {
         parent::__construct('Who\'s online', 'Provide inormation about current site users', '${plugin.version}');
-        $this->setLoaderPolicy(ZMPlugin::LP_ALL);
+        $this->setLoaderPolicy(ZMPlugin::LP_FOLDER);
     }
 
     /**
@@ -67,11 +67,7 @@ class zm_whos_online extends Plugin {
         ));
 
         // register tests
-        if (null != ($tests = ZMPlugins::instance()->getPluginForId('zm_tests'))) {
-            // add class path only now to avoid errors due to missing ZMTestCase
-            ZMLoader::instance()->addPath($this->getPluginDirectory().'tests/');
-            $tests->addTest('TestWhosOnline');
-        }
+        ZMSettings::append('plugins.unitTests.tests.custom', 'TestWhoIsOnline');
     }
 
     /**
