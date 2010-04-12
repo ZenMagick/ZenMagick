@@ -59,31 +59,33 @@ class ZMSession extends ZMObject {
         $this->secureCookie_ = $secure;
         $this->sessionHandler_ = null;
 
-        // disable transparent sid support
-        ini_set('session.use_trans_sid', false);
+        if (!$this->isStarted()) {
+            // disable transparent sid support
+            ini_set('session.use_trans_sid', false);
 
-        // no rewrite
-        ini_set('url_rewriter.tags', '');
+            // no rewrite
+            ini_set('url_rewriter.tags', '');
 
-        // do not automatically start a session (just in case)
-        ini_set('session.auto_start', 0);
+            // do not automatically start a session (just in case)
+            ini_set('session.auto_start', 0);
 
-        // set up gc
-        ini_set('session.gc_probability', 1);
-        ini_set('session.gc_divisor', 2);
+            // set up gc
+            ini_set('session.gc_probability', 1);
+            ini_set('session.gc_divisor', 2);
 
-        // just in case
-        ini_set('session.cookie_path', $this->cookiePath_);
+            // just in case
+            ini_set('session.cookie_path', $this->cookiePath_);
 
-        // session cookie
-        ini_set('session.cookie_lifetime', 0);
+            // session cookie
+            ini_set('session.cookie_lifetime', 0);
 
-        // XSS protection
-        ini_set("session.cookie_httponly", true);
+            // XSS protection
+            ini_set("session.cookie_httponly", true);
 
-        // general protection
-        ini_set("session.cookie_secure", $this->secureCookie_);
-        ini_set("session.use_only_cookies", true);
+            // general protection
+            ini_set("session.cookie_secure", $this->secureCookie_);
+            ini_set("session.use_only_cookies", true);
+        }
 
         if (!$this->isNew()) {
             $this->start();

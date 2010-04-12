@@ -44,6 +44,7 @@ class ZMSideboxBlockContentsProvider implements ZMBlockContentsProvider {
         }
 
         if (ZMTemplateManager::instance()->isRightColEnabled() && (null == $blockId || 'rightColumn' == $blockId)) {
+            $index = 0;
             foreach (ZMTemplateManager::instance()->getRightColBoxNames() as $boxName) {
                 // avoid duplicates by using $box as key
                 $mapping[$boxName] = 'SideboxBlockContents#boxName='.$boxName.'&sortOrder='.$index++;

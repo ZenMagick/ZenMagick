@@ -33,7 +33,7 @@
  * @package org.zenmagick.store.mvc
  * @version $Id$
  */
-class Session extends ZMObject {
+class Session extends ZMObject { //ZMSession {
 
     /**
      * Create new instance.
@@ -62,27 +62,30 @@ class Session extends ZMObject {
         return $session_started || $_SERVER['session_started'];
     }
 
+    /**
+     * Check if this session is started.
+     *
+     * @return boolean <code>true</code> if the session is started, <code>false</code> if not.
+     */
     public function isStarted() {
         return $this->isValid();
     }
 
     /**
-     * Create a session value.
-     *
-     * @param string name The field name.
-     * @param mixed value The value.
+     * {@inheritDoc}
      */
-    public function setValue($name, $value) {
-        $_SESSION[$name] = $value;
+    public function setValue($name, $value=null, $namespace=null) {
+        if (null === $value) {
+            unset($_SESSION[$name]);
+        } else {
+            $_SESSION[$name] = $value;
+        }
     }
 
     /**
-     * Get a session value.
-     *
-     * @param string name The field name.
-     * @return mixed The value or <code>null</code>.
+     * {@inheritDoc}
      */
-    public function getValue($name) {
+    public function getValue($name, $namespace=null) {
         if (isset($_SESSION[$name])) {
             return $_SESSION[$name];
         }
@@ -91,16 +94,20 @@ class Session extends ZMObject {
     }
 
     /**
-     * Temp. alias.
+     * {@inheritDoc}
+     *
+     * <p>Alias for <code>setValue()</code>.</p>
      */
     public function set($name, $value) {
         $this->setValue($name, $value);
     }
 
     /**
-     * Temp. alias.
+     * {@inheritDoc}
+     *
+     * <p>Alias for <code>getValue()</code>.</p>
      */
-    public function get($name) {
+    public function get($name, $default=null) {
         return $this->getValue($name);
     }
 
