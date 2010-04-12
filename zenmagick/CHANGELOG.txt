@@ -220,6 +220,7 @@ Release 0.9.9
 - removed: zm_dual_pricing; this is replaced by the productGroupPricing plugin
 - remove rss.in.php and rss.php from default boxes
 - add rss.php to demo boxes
+- pageStats: display total number of included/required files
 
 Release 0.9.8
 - add Savant3 and experimental views (not used yet)
