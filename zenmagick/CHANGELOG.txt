@@ -216,6 +216,8 @@ Release 0.9.9
 - delete obsolete ZMBoxPlugin class
 - merge ZMToolboxNet and ToolboxNet thus making mvc's ZMToolboxNet obsolete
 - merge ZMToolboxHtml and ToolboxHtml thus making mvc's ZMToolboxHtml obsolete
+- converted: googleAdSense, whoIsOnline
+- removed: zm_dual_pricing; this is replaced by the productGroupPricing plugin
 
 Release 0.9.8
 - add Savant3 and experimental views (not used yet)
