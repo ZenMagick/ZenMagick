@@ -2,6 +2,7 @@
 !admin/
 !cache/
 !editors/
+core.php
 notes/
 local.php
 ri0007/
