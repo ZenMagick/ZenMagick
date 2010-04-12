@@ -1,5 +1,0 @@
-- Add config page
-- Re-add config options for 
-  * _ZM_GOOGLE_ADSENSE_COUNT,
-  * _ZM_GOOGLE_ADSENSE_BOX_PREFIX and
-  * _ZM_GOOGLE_ADSENSE_BOX_TEMPLATE

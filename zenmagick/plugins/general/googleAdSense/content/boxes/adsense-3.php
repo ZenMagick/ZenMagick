@@ -23,19 +23,8 @@
  * $Id$
  */
 ?>
-<?php
-
-    /**
-     * Box contents for Google AdSense.
-     *
-     * The box id is replaced with a *real* one during code generation.
-     */
-
-    $gjs = zm_google_adsense('adsense_box_3', false);
-
-?>
-<?php if (!empty($gjs) && !$request->isSecure()) { ?>
-    <div class="box google">
-        <?php echo $gjs ?>
-    </div>
+<?php if (isset($googleAdSense) && null != ($ad = $googleAdSense->getAd(3)) && !empty($ad)) { ?>
+  <div class="box google">
+    <?php echo $ad ?>
+  </div>
 <?php } ?>
