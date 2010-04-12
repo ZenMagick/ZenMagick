@@ -56,6 +56,7 @@
 
 <h2>Other</h2>
 <ul>
+  <li>RSS sidebox</li>
   <li>[Experimental] product filter (alpha and price range)</li>
   <li>A customized default controller to illustrate extending controller code; in this example, the crubtrail is modified. This affects
     all pages handled by the default controller, for example the <a href="<?php echo $request->url(FILENAME_SITE_MAP) ?>">sitemap</a>)</li>
