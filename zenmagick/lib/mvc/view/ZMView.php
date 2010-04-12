@@ -170,4 +170,22 @@ abstract class ZMView extends ZMObject {
      */
     public abstract function fetch($request, $template);
 
+    /**
+     * Check if the given templates file exists.
+     *
+     * @param request The current request.
+     * @param string filename The filename, relative to the template path.
+     * @return boolean <code>true</code> if the file exists, <code>false</code> if not.
+     */
+    public abstract function exists($request, $filename);
+
+    /**
+     * Resolve the given (relative) templates filename into a url.
+     *
+     * @param request The current request.
+     * @param string filename The filename, relative to the template path.
+     * @return string A url.
+     */
+    public abstract function asUrl($request, $filename);
+
 }

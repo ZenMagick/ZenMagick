@@ -67,7 +67,9 @@
             <?php /** prepares and displays left column sideboxes */ ?>
             <div id="navColumnOneWrapper" style="width: <?php echo BOX_WIDTH_LEFT; ?>">
               <?php foreach (ZMTemplateManager::instance()->getLeftColBoxNames() as $box) { ?>
-                <?php echo $this->fetch('boxes/'.$box) ?>
+                <?php if ($this->exists('boxes/'.$box)) { ?>
+                  <?php echo $this->fetch('boxes/'.$box) ?>
+                <?php } ?>
               <?php } ?>
             </div>
            </div>
@@ -102,7 +104,9 @@
         <div id="navColumnTwo" class="columnRight back" style="width: <?php echo COLUMN_WIDTH_RIGHT; ?>">
           <div id="navColumnTwoWrapper" style="width: <?php echo BOX_WIDTH_RIGHT; ?>">
             <?php foreach (ZMTemplateManager::instance()->getRightColBoxNames() as $box) { ?>
-              <?php echo $this->fetch('boxes/'.$box) ?>
+              <?php if ($this->exists('boxes/'.$box)) { ?>
+                <?php echo $this->fetch('boxes/'.$box) ?>
+              <?php } ?>
             <?php } ?>
           </div>
         </div>

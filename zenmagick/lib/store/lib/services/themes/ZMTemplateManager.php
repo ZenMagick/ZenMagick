@@ -140,10 +140,7 @@ class ZMTemplateManager extends ZMObject {
         foreach (Runtime::getDatabase()->query($sql, array('themeId' => Runtime::getThemeId()), TABLE_LAYOUT_BOXES) as $boxInfo) {
             // boxes use .php
             $box = str_replace('.php', ZMSettings::get('templateSuffix'), $boxInfo['name']);
-            if (file_exists($theme->getBoxesDir() . $box) 
-              || (ZMSettings::get('isEnableThemeDefaults') && file_exists(Runtime::getThemesDir().ZMSettings::get('defaultThemeId').'/'.'content/boxes/'.$box))) {
-                $boxes[] = $box;
-            }
+            $boxes[] = $box;
         }
 
         return $boxes;
@@ -170,10 +167,7 @@ class ZMTemplateManager extends ZMObject {
         foreach (Runtime::getDatabase()->query($sql, array('themeId' => Runtime::getThemeId()), TABLE_LAYOUT_BOXES) as $boxInfo) {
             // boxes use .php
             $box = str_replace('.php', ZMSettings::get('templateSuffix'), $boxInfo['name']);
-            if (file_exists($theme->getBoxesDir() . $box) 
-              || (ZMSettings::get('isEnableThemeDefaults') && file_exists(Runtime::getThemesDir().ZMSettings::get('defaultThemeId').'/'.'content/boxes/'.$box))) {
-                $boxes[] = $box;
-            }
+            $boxes[] = $box;
         }
 
         return $boxes;

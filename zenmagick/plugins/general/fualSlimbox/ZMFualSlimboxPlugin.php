@@ -85,12 +85,11 @@ class ZMFualSlimboxPlugin extends Plugin {
         $view = $args['view'];
         if ($view instanceof ZMSavantView) {
             $request = $args['request'];
-            $savant = $view->getSavant($request);
             $fualSO = new FualSlimboxOptions();
             ob_start();
             // create manually as different folder structure
-        echo '<link rel="stylesheet" type="text/css" media="screen,projection" href="'.$savant->asUrl('slimbox/stylesheet_slimbox_ex.css', false).'" />' . "\n";
-        echo '<script type="text/javascript" src="'.$savant->asUrl('slimbox/javascript/mootools-release-1.11.slim.js', false).'"></script>' . "\n";
+        echo '<link rel="stylesheet" type="text/css" media="screen,projection" href="'.$view->asUrl('slimbox/stylesheet_slimbox_ex.css', false).'" />' . "\n";
+        echo '<script type="text/javascript" src="'.$view->asUrl('slimbox/javascript/mootools-release-1.11.slim.js', false).'"></script>' . "\n";
             ?>
         <script type="text/javascript">
           var FualSlimboxOptions = new Class({
@@ -111,10 +110,10 @@ class ZMFualSlimboxPlugin extends Plugin {
           });
         </script>
             <?php
-        echo '<script type="text/javascript" src="'.$savant->asUrl('slimbox/javascript/slimbox_ex.compressed.js', false).'"></script>' . "\n";
+        echo '<script type="text/javascript" src="'.$view->asUrl('slimbox/javascript/slimbox_ex.compressed.js', false).'"></script>' . "\n";
         if (FUAL_SLIMBOX_NERVOUS != 0) {
                 echo '<script type="text/javascript">var fualNervous = '.FUAL_SLIMBOX_NERVOUS.';</script>';
-            echo '<script type="text/javascript" src="'.$savant->asUrl('slimbox/javascript/fual_slimbox.compressed.js', false).'"></script>' . "\n";
+            echo '<script type="text/javascript" src="'.$view->asUrl('slimbox/javascript/fual_slimbox.compressed.js', false).'"></script>' . "\n";
         }
 
             $contents = preg_replace('/<\/head>/', ob_get_clean().'</head>', $contents, 1);

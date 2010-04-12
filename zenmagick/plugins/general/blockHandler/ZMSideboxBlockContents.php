@@ -88,6 +88,11 @@ class ZMSideboxBlockContents extends ZMObject implements ZMBlockContents {
     public function getBlockContents($args) {
         $request = $args['request'];
         $view = $args['view'];
+
+        if (!$view->exists($request, 'boxes/'.$this->boxName_)) {
+            return '';
+        }
+
         return $view->fetch($request, 'boxes/'.$this->boxName_);
     }
 

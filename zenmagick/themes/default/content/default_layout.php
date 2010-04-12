@@ -76,7 +76,9 @@
       <?php if (ZMTemplateManager::instance()->isLeftColEnabled()) { ?>
         <div id="leftcol">
           <?php foreach (ZMTemplateManager::instance()->getLeftColBoxNames() as $box) { ?>
+            <?php if ($this->exists('boxes/'.$box)) { ?>
               <?php echo $this->fetch('boxes/'.$box) ?>
+            <?php } ?>
           <?php } ?>
         </div>
       <?php } ?>
@@ -84,7 +86,9 @@
       <?php if (ZMTemplateManager::instance()->isRightColEnabled()) { ?>
         <div id="rightcol">
           <?php foreach (ZMTemplateManager::instance()->getRightColBoxNames() as $box) { ?>
+            <?php if ($this->exists('boxes/'.$box)) { ?>
               <?php echo $this->fetch('boxes/'.$box) ?>
+            <?php } ?>
           <?php } ?>
         </div>
       <?php } ?>

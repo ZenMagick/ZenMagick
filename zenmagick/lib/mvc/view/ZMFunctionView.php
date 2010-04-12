@@ -55,6 +55,20 @@ class ZMFunctionView extends ZMView {
     /**
      * {@inheritDoc}
      */
+    public function exists($request, $template) {
+        throw new ZMException('not supported');
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function asUrl($request, $template) {
+        throw new ZMException('not supported');
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function generate($request) {
         ob_start();
         if ($this->getFunction()) {

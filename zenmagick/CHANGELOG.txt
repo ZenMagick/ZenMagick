@@ -209,6 +209,8 @@ Release 0.9.9
 - change Plugin::getGlobal() signature and remove references from generic code
 - change installation sidebox dummy patch to create dummies for **all** themes
   and also **installed** plugins
+- add exists() and asUrl() wrapper to ZMView to avoid having to expose savant
+  to non core code
 
 Release 0.9.8
 - add Savant3 and experimental views (not used yet)
