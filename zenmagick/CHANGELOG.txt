@@ -218,6 +218,8 @@ Release 0.9.9
 - merge ZMToolboxHtml and ToolboxHtml thus making mvc's ZMToolboxHtml obsolete
 - converted: googleAdSense, whoIsOnline
 - removed: zm_dual_pricing; this is replaced by the productGroupPricing plugin
+- remove rss.in.php and rss.php from default boxes
+- add rss.php to demo boxes
 
 Release 0.9.8
 - add Savant3 and experimental views (not used yet)
