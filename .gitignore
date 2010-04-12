@@ -1,4 +1,5 @@
 *~
+*.swp
 .htaccess
 admin/
 bmz_cache/
