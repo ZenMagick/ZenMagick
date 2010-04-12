@@ -211,6 +211,8 @@ Release 0.9.9
   and also **installed** plugins
 - add exists() and asUrl() wrapper to ZMView to avoid having to expose savant
   to non core code
+- remove validation check from ZMTemplateManager's sidebox code; this means
+  templates need to validate configured boxes
 
 Release 0.9.8
 - add Savant3 and experimental views (not used yet)
