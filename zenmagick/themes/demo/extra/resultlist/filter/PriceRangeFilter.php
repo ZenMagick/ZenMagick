@@ -33,13 +33,13 @@
  * @version $Id$
  */
 class PriceRangeFilter extends ZMResultListFilter {
-    var $ranges_;
+    private $ranges_;
 
 
     /**
      * Create new instance.
      */
-    function PriceRangeFilter() {
+    function __construct() {
         parent::__construct('prfilter', zm_l10n_get('Price Range'));
 
         $this->ranges_ = array();
@@ -52,13 +52,6 @@ class PriceRangeFilter extends ZMResultListFilter {
                 }
             }
         }
-    }
-
-    /**
-     * Create new instance.
-     */
-    function __construct() {
-        $this->PriceRangeFilter();
     }
 
     /**
