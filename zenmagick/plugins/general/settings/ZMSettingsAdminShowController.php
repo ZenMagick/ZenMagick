@@ -110,7 +110,8 @@ class ZMSettingsAdminShowController extends ZMPluginAdminController {
             foreach ($groupDetails as $sub => $subDetails) {
                 foreach ($subDetails as $subKey => $details) {
                     $key = $group.'.'.$sub.'.'.$details['key'];
-                    $type = array_pop(explode(':', $details['type']));
+                    $typeList = explode(':', $details['type']);
+                    $type = array_pop($typeList);
                     if (false === strpos($details['type'], 'dynamic:')) {
                         $settingDetails[$group][$sub][$subKey]['fullkey'] = $key;
                         $settingDetails[$group][$sub][$subKey]['key'] = $details['key'];
