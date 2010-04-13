@@ -94,7 +94,9 @@ class ZMToolboxForm extends ZMToolboxTool {
         if (null !== $page && false !== strpos($page, '://')) {
             $attr['action'] = $page;
         } else {
-            $attr['action'] = $this->getRequest()->url($page, '', $secure);
+            //TODO: remove; keep params to make useo2 happy!!
+            $attr['action'] = $this->getRequest()->url($page, $params, $secure);
+            //$attr['action'] = $this->getRequest()->url($page, '', $secure);
         }
 
         // parse params

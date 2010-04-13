@@ -11,6 +11,8 @@ null:
     template: error
   category_not_found:
     template: error
+  manufacturer_not_found:
+    template: error
   product_not_found:
     template: product_not_found
   index:
