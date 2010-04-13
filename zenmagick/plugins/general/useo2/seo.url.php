@@ -48,7 +48,7 @@
 				
 			$this->installer = new SEO_URL_INSTALLER();
 
-			$this->db = &$GLOBALS['db'];
+			$this->db = $GLOBALS['db'];
 
 			if ($languages_id == '') $languages_id = $_SESSION['languages_id'];
 			
@@ -192,6 +192,9 @@
 						break;
 					case FILENAME_NEWS_INDEX:
 						$link .= $this->make_url($page, FILENAME_NEWS_INDEX, 'news_dates', '', '', $separator);
+						break;
+					case 'category':
+						$link .= 'index.php?main_page=category';
 						break;
 
 					default:
@@ -339,7 +342,7 @@
  * @param string $separator NOTE: passed by reference
  * @return string 
  */	
-	function parse_parameters($page, $params, &$separator) {
+	function parse_parameters($page, $params, $separator) {
 		$p = @explode('&', $params);
 		krsort($p);
 		$container = array();
@@ -467,7 +470,7 @@
  * @param string $separator NOTE: passed by reference
  * @return string
  */	
-	function make_url($page, $string, $anchor_type, $id, $extension = '.html', &$separator){
+	function make_url($page, $string, $anchor_type, $id, $extension = '.html', $separator){
 		// Right now there is but one rewrite method since cName was dropped
 		// In the future there will be additional methods here in the switch
 		switch ( $this->attributes['SEO_REWRITE_TYPE'] ){
@@ -570,8 +573,8 @@
  * @param integer $cID NOTE: passed by reference
  * @return string Stripped anchor text
  */	
-	function get_category_name(&$cID){
-		$full_cPath = $this->get_full_cPath($cID, $single_cID); // full cPath needed for uniformity
+	function get_category_name($cID){
+		list($full_cPath, $single_cID) = $this->get_full_cPath($cID); // full cPath needed for uniformity
 		switch(true){
 			case ($this->attributes['USE_SEO_CACHE_GLOBAL'] == 'true' && defined('CATEGORY_NAME_' . $full_cPath)):
 				$return = constant('CATEGORY_NAME_' . $full_cPath);
@@ -648,22 +651,21 @@
  * @author Bobby Easland 
  * @version 1.1
  * @param mixed $cID Could contain cPath or single category_id
- * @param integer $original Single category_id passed back by reference
- * @return string Full cPath string
+ * @return array Full cPath string, original
  */	
-	function get_full_cPath($cID, &$original){
+	function get_full_cPath($cID){
 		if ( is_numeric(strpos($cID, '_')) ){
 			$temp = @explode('_', $cID);
 			$original = $temp[sizeof($temp)-1];
-			return $cID;
+			return array($cID, $original);
 		} else {
 			$c = array();
-			$this->GetParentCategories($c, $cID);
+			$c = $this->GetParentCategories($c, $cID);
 			$c = array_reverse($c);
 			$c[] = $cID;
 			$original = $cID;
 			$cID = sizeof($c) > 1 ? implode('_', $c) : $cID;
-			return $cID;
+			return array($cID, $original);
 		}
 	} # end function
 
@@ -673,23 +675,25 @@
  * @version 1.0
  * @param mixed $categories Passed by reference
  * @param integer $categories_id
+ * @return mixed updated categories param.
  */	
-	function GetParentCategories(&$categories, $categories_id) {
+	function GetParentCategories($categories, $categories_id) {
 		$sql = "SELECT parent_id FROM " . TABLE_CATEGORIES . " WHERE categories_id = " . (int)$categories_id;
 
 		$parent_categories = $this->db->Execute($sql);
 
 		while (!$parent_categories->EOF) {
-			if ($parent_categories->fields['parent_id'] == 0) return true;
+			if ($parent_categories->fields['parent_id'] == 0) return $categories;
 
 			$categories[sizeof($categories)] = $parent_categories->fields['parent_id'];
 
 			if ($parent_categories->fields['parent_id'] != $categories_id) {
-				$this->GetParentCategories($categories, $parent_categories->fields['parent_id']);
+				$categories = $this->GetParentCategories($categories, $parent_categories->fields['parent_id']);
 			}
 
 			$parent_categories->MoveNext();
 		}
+    return $categories;
 	}
 
 	function not_null($value) {
@@ -842,7 +846,7 @@
  * @version 1.0
  */	
 	function generate_products_cache(){
-		$this->is_cached($this->cache_file . 'products', $is_cached, $is_expired);  	
+		list($is_cached, $is_expired) = $this->is_cached($this->cache_file . 'products', $is_cached, $is_expired);  	
 		if ( !$is_cached || $is_expired ) {
 		$sql = "SELECT p.products_id as id, pd.products_name as name 
 		        FROM ".TABLE_PRODUCTS." p 
@@ -871,7 +875,7 @@
  * @version 1.0
  */	
 	function generate_manufacturers_cache(){
-		$this->is_cached($this->cache_file . 'manufacturers', $is_cached, $is_expired);  	
+		list($is_cached, $is_expired) = $this->is_cached($this->cache_file . 'manufacturers', $is_cached, $is_expired);  	
 		if ( !$is_cached || $is_expired ) { // it's not cached so create it
 		$sql = "SELECT m.manufacturers_id as id, m.manufacturers_name as name 
 		        FROM ".TABLE_MANUFACTURERS." m 
@@ -899,7 +903,7 @@
  * @version 1.1
  */	
 	function generate_categories_cache(){
-		$this->is_cached($this->cache_file . 'categories', $is_cached, $is_expired);  	
+		list($is_cached, $is_expired) = $this->is_cached($this->cache_file . 'categories', $is_cached, $is_expired);  	
 		if ( !$is_cached || $is_expired ) { // it's not cached so create it
 			switch(true){
 				case ($this->attributes['SEO_ADD_CAT_PARENT'] == 'true'):
@@ -921,7 +925,7 @@
 		$category = $this->db->Execute($sql);
 		$cat_cache = '';
 		while (!$category->EOF) {	
-			$id = $this->get_full_cPath($category->fields['id'], $single_cID);
+			list($id, $single_cID) = $this->get_full_cPath($category->fields['id']);
 			$name = $this->not_null($category->fields['pName']) ? $category->fields['pName'] . ' ' . $category->fields['cName'] : $category->fields['cName']; 
 			$define = 'define(\'CATEGORY_NAME_' . $id . '\', \'' . $this->strip($name) . '\');';
 			$cat_cache .= $define . "\n";
@@ -941,7 +945,7 @@
  * @version 1.0
  */	
 	function generate_news_articles_cache(){
-		$this->is_cached($this->cache_file . 'news_articles', $is_cached, $is_expired);  	
+		list($is_cached, $is_expired) = $this->is_cached($this->cache_file . 'news_articles', $is_cached, $is_expired);  	
 		if ( !$is_cached || $is_expired ) { // it's not cached so create it
 			$sql = "SELECT article_id as id, news_article_name as name 
 					FROM ".TABLE_NEWS_ARTICLES_TEXT." 
@@ -967,7 +971,7 @@
  * @version 1.0
  */	
 	function generate_info_manager_cache(){
-		$this->is_cached($this->cache_file . 'info_manager', $is_cached, $is_expired);  	
+		list($is_cached, $is_expired) = $this->is_cached($this->cache_file . 'info_manager', $is_cached, $is_expired);  	
 		if ( !$is_cached || $is_expired ) { // it's not cached so create it
 			$sql = "SELECT pages_id as id, pages_title as name 
 					FROM ".TABLE_INFO_MANAGER;
@@ -1013,7 +1017,7 @@
 			'cache_date' => date("Y-m-d H:i:s"),
 			'cache_expires' => $expires
 		);				
-		$this->is_cached($name, $is_cached, $is_expired);
+		list($is_cached, $is_expired) = $this->is_cached($name, $is_cached, $is_expired);
 		$cache_check = ( $is_cached ? 'true' : 'false' );
 		switch ( $cache_check ) {
 			case 'true': 
@@ -1138,16 +1142,18 @@
  * @author Bobby Easland 
  * @version 1.0
  * @param string $name
- * @param boolean $is_cached NOTE: passed by reference
- * @param boolean $is_expired NOTE: passed by reference
+ * @param boolean $is_cached 
+ * @param boolean $is_expired 
+ * return array (is_cached, is_expired)
  */	
-	function is_cached($name, &$is_cached, &$is_expired){ // NOTE: $is_cached and $is_expired is passed by reference !!
+	function is_cached($name, $is_cached, $is_expired){
 		$this->cache_query = $this->db->Execute("SELECT cache_expires FROM " . TABLE_SEO_CACHE . " WHERE cache_id='".md5($name)."' AND cache_language_id='".(int)$this->languages_id."' LIMIT 1");
 		$is_cached = ( $this->cache_query->RecordCount() > 0 ? true : false );
 		if ($is_cached){ 
 			$is_expired = ( $this->cache_query->fields['cache_expires'] <= date("Y-m-d H:i:s") ? true : false );
 			unset($check);
 		}
+    return array($is_cached, $is_expired);
 	}# end function is_cached()
 
 /**
