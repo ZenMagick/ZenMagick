@@ -733,7 +733,7 @@
 						?	"/([^[:alnum:]])+/"
 						:	"/([[:punct:]])+/";
 		$anchor = preg_replace($pattern, '', strtolower($string));
-		$pattern = "([[:space:]]|[[:blank:]])+"; 
+		$pattern = "/([[:space:]]|[[:blank:]])+/"; 
 		$anchor = preg_replace($pattern, '-', $anchor);
 		return $this->short_name($anchor); // return the short filtered name 
 	} # end function
