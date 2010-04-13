@@ -58,7 +58,7 @@ class ZMProductReviewsWriteController extends ZMController {
         $product = $this->getProduct($request);
         $this->viewData_['currentProduct'] = $product;
         $this->viewData_['currentAccount'] = $request->getAccount();
-        $this->handleCrumbtrail($this->product_, $request);
+        $this->handleCrumbtrail($product, $request);
     }
 
     /**
