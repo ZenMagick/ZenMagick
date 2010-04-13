@@ -30,7 +30,7 @@
     <td><a href="<?php echo $net->product($product->getId(), $request->getCategoryId()) ?>" id="product_<?php echo $product->getId() ?>" class="product"><?php echo $html->image($product->getImageInfo(), ZMProducts::IMAGE_SMALL) ?></a></td>
     <td class="pinfo">
         <a href="<?php echo $net->product($product->getId()) ?>"><?php echo $html->encode($product->getName()) ?></a><br/>
-        <?php echo $html->more($html->strip($product->getDescription()), 120) ?>
+        <?php echo $html->more($product->getDescription(), 120) ?>
     </td>
     <td class="pprice"><?php echo $utils->formatMoney($product->getPrice()) ?></td>
 </tr>

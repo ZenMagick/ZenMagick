@@ -28,7 +28,7 @@
   <div>  
     <div id="pinfo">
       <?php echo $html->productImageLink($currentProduct) ?>
-      <?php echo $html->encode($currentProduct->getDescription()); ?>
+      <?php echo $currentProduct->getDescription(); ?>
     </div>
     <strong><?php echo $utils->formatMoney($currentProduct->getPrice()); ?></strong>
     <div class="btn"><input type="submit" class="btn" value="<?php zm_l10n("Add to cart") ?>" /></div>
