@@ -60,7 +60,7 @@ class TestUIUrlHandling extends ZMTestCase {
         ZMSettings::set('isAdmin', true);
         $href = zen_href_link('orders.php', '', 'SSL', false, true, false, true);
         // DIR_WS_ADMIN is not defined here
-        $expected = HTTPS_SERVER . 'DIR_WS_ADMINorders.php';
+        $expected = HTTPS_SERVER . DIR_WS_ADMIN . 'orders.php';
         $this->assertEqual($expected, $href);
         ZMSettings::set('isAdmin', false);
     }
@@ -71,7 +71,7 @@ class TestUIUrlHandling extends ZMTestCase {
     public function testZenCartSEOHref() {
         TestUIUrlHandling::$SIMULATE_SEO = true;
         $href = zen_href_link(FILENAME_PRODUCT_INFO, '&products_id=1', 'SSL', false, true, false, true);
-        $expected = HTTPS_SERVER . DIR_WS_HTTPS_CATALOG . 'product_info';
+        $expected = HTTPS_SERVER . DIR_WS_HTTPS_CATALOG . 'index.php?main_page=product_info&amp;products_id=1';
         $this->assertEqual($expected, $href);
         TestUIUrlHandling::$SIMULATE_SEO = false;
     }
