@@ -96,7 +96,14 @@ class ZMCheckoutShippingController extends ZMController {
         // already checked that cart is not virtual
         if (null == $shoppingCart->getShippingAddress()) {
             $shoppingCart->setShippingAddressId($request->getAccount()->getDefaultAddressId());
+        } else {
+            //TODO: check selected address is valid
         }
+
+        //TODO: preselect shipping
+        // a) something to preselect free shipping as per ot_freeshipper 
+        // b) is a preferred option configured via setting??
+        // c) cheapest except storepickup
 
         return $this->findView();
     }
