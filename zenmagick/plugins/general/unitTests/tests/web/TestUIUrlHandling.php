@@ -28,21 +28,11 @@
  * @version $Id$
  */
 class TestUIUrlHandling extends ZMTestCase {
-    public static $SIMULATE_SEO = false;
-
 
     /**
-     * {@inheritDoc}
+     * Test zen_href_link #1.
      */
-    public function setUp() {
-        parent::setUp();
-        TestUIUrlHandling::$SIMULATE_SEO = false;
-    }
-
-    /**
-     * Test zen_href_link.
-     */
-    public function testZenCartHref() {
+    public function testZenCartHref1() {
         // no context
         $href = zen_href_link('zpn_main_handler.php', '', 'SSL', false, false, true, true);
         $expected = HTTPS_SERVER . DIR_WS_HTTPS_CATALOG . 'zpn_main_handler.php';
@@ -69,30 +59,20 @@ class TestUIUrlHandling extends ZMTestCase {
      * Test SEO zen_href_link.
      */
     public function testZenCartSEOHref() {
-        TestUIUrlHandling::$SIMULATE_SEO = true;
+        if (null != ($plugin = ZMPlugins::instance()->getPluginForId('useo2'))) {
+            $href = zen_href_link(FILENAME_PRODUCT_INFO, '&products_id=1', 'SSL', false, true, false, true);
+            $expected = HTTPS_SERVER . DIR_WS_HTTPS_CATALOG . 'matrox-g200-mms-p-1.html';
+            $this->assertEqual($expected, $href);
+        }
+    }
+
+    /**
+     * Test zen_href_link #2.
+     */
+    public function testZenCartHref2() {
         $href = zen_href_link(FILENAME_PRODUCT_INFO, '&products_id=1', 'SSL', false, true, false, true);
         $expected = HTTPS_SERVER . DIR_WS_HTTPS_CATALOG . 'index.php?main_page=product_info&amp;products_id=1';
         $this->assertEqual($expected, $href);
-        TestUIUrlHandling::$SIMULATE_SEO = false;
     }
 
-}
-
-if (!function_exists('zm_build_seo_href')) {
-    /**
-     * Simulate SEO skipping page.
-     * @package org.zenmagick.plugins.unitTests.tests
-     */
-    function zm_build_seo_href($request, $page, $parameters, $isSecure, $addSessionId=true, $seo=true, $isStatic=false, $useContext=true) {
-        if (TestUIUrlHandling::$SIMULATE_SEO) {
-            if ($isSecure) {
-                $url = HTTPS_SERVER . DIR_WS_HTTPS_CATALOG . $page;
-            } else {
-                $url = HTTP_SERVER . DIR_WS_CATALOG . $page;
-            }
-            return str_replace('.php', '', $url);
-        } else {
-            return ZMStoreDefaultSeoRewriter::furl($page, $parameters, $isSecure ? 'SSL' : 'NONSSL', $addSessionId, false, $isStatic, $useContext);
-        }
-    }
 }
