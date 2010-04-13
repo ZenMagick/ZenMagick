@@ -1,5 +1,6 @@
 *~
 *.swp
+Thumbs.db
 .htaccess
 admin/
 bmz_cache/
