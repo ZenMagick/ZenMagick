@@ -223,6 +223,7 @@ Release 0.9.9
 - pageStats: display total number of included/required files
 - cleanup init_override scripts; requires to delete
   includes/init_includes/overrides/init_languages.php
+- useo2: fix code that uses references to not doing that!
 
 Release 0.9.8
 - add Savant3 and experimental views (not used yet)
