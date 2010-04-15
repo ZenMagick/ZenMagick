@@ -108,8 +108,8 @@
     </target>
 
 
-    <!-- Prepare build -->
-    <target name="prepare" depends="init,ask-versions" description="Prepare files.">
+    <!-- Prepare build files -->
+    <target name="prepare" depends="clean,init,ask-versions" description="Prepare build files.">
         <!-- copy all files that go into zen-cart directories -->
         <copy todir="${build.dir}">
             <fileset dir="${zencart.src.dir}">
@@ -120,21 +120,13 @@
         <!-- copy all ZenMagick files -->
         <copy todir="${build.dir}/zenmagick">
             <fileset dir="${zenmagick.src.dir}">
-                <!-- plugins are build separately -->
                 <exclude name="plugins/**" />
                 <exclude name="themes/**" />
                 <exclude name="notes/**" />
                 <exclude name="apps/**" />
-           </fileset>
-        </copy>
+            </fileset>
 
-        <!-- copy example plugin -->
-        <copy todir="${build.dir}/zenmagick/plugins/general/">
-          <fileset dir="${zenmagick.src.dir}/plugins/general/" includes="examplePlugin/**" />
-        </copy>
-
-        <!-- copy default and demo theme -->
-        <copy todir="${build.dir}/zenmagick/">
+            <!-- copy default and demo theme -->
             <fileset dir="${zenmagick.src.dir}">
                 <include name="themes/.htaccess" />
                 <include name="themes/default/**" />
@@ -142,10 +134,10 @@
             </fileset>
         </copy>
 
-        <!-- zen-cart overrides are used in both admin and storefront -->
-        <copy todir="${build.dir}/admin">
-            <fileset dir="${zencart.src.dir}">
-                <include name="includes/functions/extra_functions/zenmagick_zencart_overrides.php" />
+        <!-- copy example plugin -->
+        <copy todir="${build.dir}/zenmagick/plugins/general">
+            <fileset dir="${zenmagick.src.dir}/plugins/general/">
+                <include name="examplePlugin/**" />
             </fileset>
         </copy>
 
