@@ -129,7 +129,7 @@
             'zenmagick.mvc.request.seoRewriter' => 'StoreDefaultSeoRewriter',
 
             /*** use ZM checkout shipping code ***/
-            'apps.store.request.enableZMCheckoutShipping' => true,
+            'apps.store.request.enableZMCheckoutShipping' => false,
 
             // use ZenMagick themes
             'isEnableZMThemes' => true,
