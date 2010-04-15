@@ -36,6 +36,7 @@
     
     <!-- Create release for a single plugin -->
     <target name="plugin-release" description="Create release for a single plugin.">
+        <echo message="Packing ${plugin.name} ..." />
         <!-- set dynamically based on plugin name -->
         <var name="plugin.version" unset="true"/>
         <propertycopy name="plugin.version" from="plugins.${plugin.name}.version" />

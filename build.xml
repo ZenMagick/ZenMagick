@@ -119,20 +119,16 @@
 
         <!-- copy all ZenMagick files -->
         <copy todir="${build.dir}/zenmagick">
-            <!-- plugins are build separately; however, include the sample plugin -->
             <fileset dir="${zenmagick.src.dir}">
-                <exclude name="plugins/admin/" />
-                <exclude name="plugins/request/" />
-                <exclude name="plugins/general/*/**" />
+                <!-- plugins are build separately -->
+                <exclude name="plugins/**" />
                 <exclude name="themes/**" />
                 <exclude name="notes/**" />
-                <exclude name="bin/**" />
                 <exclude name="apps/**" />
-                <exclude name="lib/experimental/**" />
            </fileset>
         </copy>
 
-        <!-- copy sample plugin -->
+        <!-- copy example plugin -->
         <copy todir="${build.dir}/zenmagick/plugins/general/">
           <fileset dir="${zenmagick.src.dir}/plugins/general/" includes="examplePlugin/**" />
         </copy>
