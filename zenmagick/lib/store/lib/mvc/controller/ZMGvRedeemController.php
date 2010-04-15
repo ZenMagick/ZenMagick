@@ -49,15 +49,20 @@ class ZMGvRedeemController extends ZMController {
 
 
     /**
-     * Process a HTTP GET request.
-     * 
-     * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
-     * if the controller generates the contents itself.
+     * {@inheritDoc}
      */
-    function processGet($request) {
+    public function processGet($request) {
         $request->getToolbox()->crumbtrail->addCrumb($request->getToolbox()->utils->getTitle());
 
         $gvRedeem = $this->getFormData($request);
+
+        //XXX: fix for gv_mail generated URLs
+        if (ZMLangUtils::isEmpty($gvRedeem->getCouponCode())) {
+          if (null != ($gvNo = $request->getParameter('gv_no'))) {
+              $gvRedeem->setCouponCode($gvNo);
+          }
+        }
+
         if (!ZMLangUtils::isEmpty($gvRedeem->getCouponCode())) {
             // only try to redeem if code given - people might browse the page without code parameter...
             $coupon = ZMCoupons::instance()->getCouponForCode($gvRedeem->getCouponCode());
