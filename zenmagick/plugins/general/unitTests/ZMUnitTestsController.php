@@ -96,7 +96,15 @@ class ZMUnitTestsController extends ZMController {
                 }
                 $ptests = $plugin->getPluginDirectory().'tests' . DIRECTORY_SEPARATOR;
                 if (is_dir($ptests)) {
-                    ZMLoader::instance()->addPath($ptests);
+                    $testsLoader->addPath($ptests);
+                    // scan for tests
+                    foreach (ZMLoader::findIncludes($ptests) as $file) {
+                        $name = basename($file);
+                        if (ZMLangUtils::startsWith($name, 'Test')) {
+                            $name = str_replace('.php', '', $name);
+                            $this->plugin_->addTest($name);
+                        }
+                    }
                 }
             }
         }

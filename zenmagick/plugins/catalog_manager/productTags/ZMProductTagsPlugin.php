@@ -74,14 +74,4 @@ class ZMProductTagsPlugin extends Plugin implements ZMRequestHandler {
         ZMDbUtils::executePatch(file(ZMDbUtils::resolveSQLFilename($this->getPluginDirectory()."sql/uninstall.sql")), $this->messages_);
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public function init() {
-        parent::init();
-
-        // register tests
-        ZMSettings::append('plugins.unitTests.tests.custom', 'TestZMTags');
-    }
-
 }

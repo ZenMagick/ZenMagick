@@ -40,6 +40,12 @@ However, it is possible to configure all aspects in this setting:
 
 Custom tests
 ============
+
+Plugins:
+Plugins are expected to have their test cases in a subfolder named 'tests'. Following that convention and
+the prefix 'Test' for actual test classes is all that plugins need to do to register their custom tests.
+
+Other:
 Custom test cases can be registered in two ways. For both, the test case class needs to be in the class path:
 
 1. Using the addTest method on the plugin:

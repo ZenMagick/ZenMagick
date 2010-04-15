@@ -83,9 +83,6 @@ class ZMOpenIDPlugin extends Plugin {
         ZMUrlManager::instance()->setMapping('openID', array(
             'success' => array('template' => 'account', 'view' => 'RedirectView')
         ));
-
-        // register tests
-        ZMSettings::append('plugins.unitTests.tests.custom', 'TestZMOpenIDDatabaseStore');
     }
 
     /**

@@ -66,9 +66,6 @@ class ZMCronPlugin extends Plugin {
         parent::init();
 
         ZMEvents::instance()->attach($this);
-
-        // register tests
-        ZMSettings::append('plugins.unitTests.tests.custom', 'TestZMCronParser');
     }
 
     /**

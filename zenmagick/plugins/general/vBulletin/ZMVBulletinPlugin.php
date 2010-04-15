@@ -95,9 +95,6 @@ class ZMVBulletinPlugin extends Plugin implements ZMRequestHandler {
 
         // using events
         ZMEvents::instance()->attach($this);
-
-        // register tests
-        ZMSettings::append('plugins.unitTests.tests.custom', 'TestZMVBulletin');
     }
 
     /**

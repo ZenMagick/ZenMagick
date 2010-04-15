@@ -65,9 +65,6 @@ class ZMWhoIsOnlinePlugin extends Plugin {
             'hostAddress' => 'column=host_address;type=string',
             'userAgent' => 'column=user_agent;type=string',
         ));
-
-        // register tests
-        ZMSettings::append('plugins.unitTests.tests.custom', 'TestWhoIsOnline');
     }
 
     /**

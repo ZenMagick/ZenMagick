@@ -104,9 +104,6 @@ class ZMSubscriptionsPlugin extends Plugin {
 
         ZMEvents::instance()->attach($this);
 
-        // register tests
-        ZMSettings::append('plugins.unitTests.tests.custom', 'TestSubscriptions');
-
         // set mappings and permissions of custom pages
         ZMSacsManager::instance()->setMapping('cancel_subscription', ZMZenCartAccountSacsHandler::REGISTERED);
         ZMUrlManager::instance()->setMapping('cancel_subscription', array('template' => 'account', 'view' => 'RedirectView'));
