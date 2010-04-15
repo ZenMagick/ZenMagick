@@ -24,23 +24,12 @@
  */
 ?>
 <?php
-    // short and sweet
-    $zm_is_init = true;
-    $zmLanguagesBefore = true;
 
-    if ($zmLanguagesBefore) {
-        // initial setup loading languages first
-        require dirname(__FILE__) . "/init_languages.php"; //initial
-    }
+    // load languages before ZenMagick init
+    require_once dirname(dirname(__FILE__)) . "/init_languages.php";
 
     // init ZenMagick
     include DIR_FS_CATALOG."zenmagick/init.php";
 
-    if (!$zmLanguagesBefore) {
-        // once all i18n is patched, this line will be used
-        require dirname(__FILE__) . "/init_languages.php"; //i18n-patched
-    }
-
     // load original init script
     require dirname(dirname(__FILE__)) . "/init_templates.php";
-?>

@@ -25,11 +25,9 @@
 ?>
 <?php
   
-    // custom code may go either before or after the require
-
-    if (isset($zm_is_init)) {
-        // called by ZenMagick
-        require dirname(dirname(__FILE__)) . "/init_languages.php";
+    if (defined('ZM_APP_PATH')) {
+        // called by ZenMagick's init_templates override
+        require_once dirname(dirname(__FILE__)) . "/init_languages.php";
 
         // load language defines for converted admin pages
         if ('zmIndex.php' == basename($PHP_SELF)) {
@@ -39,5 +37,3 @@
             }
         }
     }
-
-?>

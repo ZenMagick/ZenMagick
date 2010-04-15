@@ -221,6 +221,8 @@ Release 0.9.9
 - remove rss.in.php and rss.php from default boxes
 - add rss.php to demo boxes
 - pageStats: display total number of included/required files
+- cleanup init_override scripts; requires to delete
+  includes/init_includes/overrides/init_languages.php
 
 Release 0.9.8
 - add Savant3 and experimental views (not used yet)
