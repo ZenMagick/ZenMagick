@@ -24,7 +24,7 @@
  */
 ?>
 
-<?php echo $form->open('gv_send_confirm', null, true, array('onsubmit'=>null)) ?>
+<?php echo $form->open('gv_send_confirm', '', true, array('onsubmit'=>null)) ?>
     <div>
         <input type="hidden" name="name" value="<?php echo $html->encode($gvReceiver->getName()) ?>" />
         <input type="hidden" name="email" value="<?php echo $html->encode($gvReceiver->getEmail()) ?>" />

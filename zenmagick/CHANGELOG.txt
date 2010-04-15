@@ -201,8 +201,8 @@ Release 0.9.9
 - add decode method to ZMSeoRewriter interface and empty (return false;)
   implementation to all classes implementing the interface
 - add new setting 'apps.store.request.enableZMCheckoutShipping' to make ZenMagick
-  handle the checkout shipping page; this is enabled by default, so if there
-	are problems try disabling this first
+  handle the checkout shipping page; this is disabled by default, so if you
+	want to try it you'll have to enable (set to true) this first
 - add ZMConfig::loadAll()
 - change location of templating content in plugins to [plugin-dir]/content and
   move current [plugin-dir]/views folder to [plugin-dir]/content/views
@@ -224,6 +224,10 @@ Release 0.9.9
 - cleanup init_override scripts; requires to delete
   includes/init_includes/overrides/init_languages.php
 - useo2: fix code that uses references to not doing that!
+- templates: gv_send_confirm.php: change open form code from:
+  $form->open('gv_send_confirm', null, true, array('onsubmit'=>null))
+	to:
+  $form->open('gv_send_confirm', '', true, array('onsubmit'=>null))
 
 Release 0.9.8
 - add Savant3 and experimental views (not used yet)
