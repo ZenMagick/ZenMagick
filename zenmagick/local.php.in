@@ -56,5 +56,3 @@
 
     // enable database mapping caching
     //ZMSettings::set('zenmagick.core.database.mappings.cache.enabled', true);
-
-?>

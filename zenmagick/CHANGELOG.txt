@@ -230,6 +230,8 @@ Release 0.9.9
   $form->open('gv_send_confirm', '', true, array('onsubmit'=>null))
 - gv redemption: Handle gv_mail generated redemption URL (gv_no instead of
   couponCode)
+- add ZMRequest::seoDecode() [and call] to allow registered seo rewriters to
+  decode the request
 
 Release 0.9.8
 - add Savant3 and experimental views (not used yet)

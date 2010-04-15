@@ -164,11 +164,22 @@ class ZMRequest extends ZMObject {
         foreach ($this->getSeoRewriter() as $rewriter) {
             if (null != ($rewrittenUrl = $rewriter->rewrite($this, $args))) {
                 return $rewrittenUrl;
-             }
+            }
         }
 
         ZMLogging::instance()->trace('unresolved URL: '.$requestId);
         return null;
+    }
+
+    /**
+     * Decode a (potentially) rewritten request.
+     */
+    public function seoDecode() {
+        foreach ($this->getSeoRewriter() as $rewriter) {
+            if ($rewriter->decode($this)) {
+                break;
+            }
+        }
     }
 
     /**

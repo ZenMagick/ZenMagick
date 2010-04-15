@@ -31,5 +31,3 @@
         // do ob_start() to allow plugins to do their magic with zen cart templates too
         ob_start();
     }
-
-?>
