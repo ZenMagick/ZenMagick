@@ -454,6 +454,15 @@ class ZMRequest extends ZMObject {
     }
 
     /**
+     * Get the uri for this request.
+     *
+     * @return string The URI.
+     */
+    public function getUri() {
+        return $_SERVER['REQUEST_URI'];
+    }
+
+    /**
      * Get the template path.
      *
      * @return string The path.

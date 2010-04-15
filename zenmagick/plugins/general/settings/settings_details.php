@@ -242,6 +242,13 @@
                         'desc' => 'Are secure requests to be enforced.'
                     )
                 ),
+                'seo' => array(
+                    array(
+                        'key' => 'type',
+                        'type' => 'string',
+                        'desc' => 'Type of (seo) url format; either "default" or "path".'
+                    )
+                ),
                 'transactions' => array(
                     array(
                         'key' => 'enabled',

@@ -232,6 +232,9 @@ Release 0.9.9
   couponCode)
 - add ZMRequest::seoDecode() [and call] to allow registered seo rewriters to
   decode the request
+- add path style seo rewriting in the mvc default seo rewriter; the setting
+  'zenmagick.mvc.seo.type' needs to be set to 'path' for this [this is part of
+	the generic MVC code and not available as option for the store ATM]
 
 Release 0.9.8
 - add Savant3 and experimental views (not used yet)
