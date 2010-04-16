@@ -87,9 +87,12 @@ class ZMLangUtils {
      */
     public static function asBoolean($value) {
         if (is_integer($value)) {
-            return $value;
+            return (bool)$value;
         }
-        return in_array(strtolower($value), array('on', 'true', 'yes', '1'));
+
+        $value = strtolower($value);
+        return $value == 'true' || $value == '1' || $value == 'on' || $value == 'yes';
+        //return in_array(strtolower($value), array('on', 'true', 'yes', '1'));
     }
 
     /**
