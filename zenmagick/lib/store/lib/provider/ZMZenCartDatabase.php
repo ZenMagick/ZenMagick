@@ -416,21 +416,24 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
      */
     public function getMetaData($table=null) {
         if (null !== $table) {
-            $res = @mysql_query("SELECT * FROM " . $table . " LIMIT 1", $this->db_->link);
-            if (false === ($fieldCount = @mysql_num_fields($res))) {
-                return null;
-            }
-            $meta = null;
-            for ($ii=0; $ii < $fieldCount; ++$ii) {
-                $field = @mysql_field_name($res, $ii);
-                $flags = mysql_field_flags($res, $ii);
+            $results = $this->db_->Execute("SHOW COLUMNS FROM " . $table);
+            $meta = array();
+            while (!$results->EOF) {
+                $col = $results->fields;
+                $field = $col['Field'];
+                preg_match('/([^(]*)(\([0-9]+\))?/', $col['Type'], $matches);
+                $type = $matches[1];
+                if (array_key_exists($type, ZMDbTableMapper::$NATIVE_TO_API_TYPEMAP)) {
+                    $type = ZMDbTableMapper::$NATIVE_TO_API_TYPEMAP[$type];
+                }
                 $meta[$field] = array(
-                    'type' => @mysql_field_type($res, $ii),
+                    'type' => $type,
                     'name' => $field,
-                    'key' => false !== strpos($flags, 'primary_key'),
-                    'autoIncrement' => false !== strpos($flags, 'auto_increment'),
-                    'maxLen' => @mysql_field_len($res, $ii)
+                    'key' => $col['Key'] == "PRI",
+                    'autoIncrement' => false !== strpos($col['Extra'], 'auto_increment'),
+                    'maxLen' => (3 == count($matches) ? (int)str_replace(array('(', ')'), '', $matches[2]) : null)
                 );
+                $results->MoveNext();
             }
             return $meta;
         } else {

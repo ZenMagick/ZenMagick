@@ -53,7 +53,7 @@ class TestZMDatabase extends ZMTestCase {
             $this->assertTrue(array_key_exists('products_name', $tableMeta), '%s: '.$provider);
             $this->assertTrue(is_array($tableMeta['products_name']), '%s: '.$provider);
             $this->assertEqual('string', $tableMeta['products_name']['type'], '%s: '.$provider);
-            $this->assertEqual(128, $tableMeta['products_name']['maxLen'], '%s: '.$provider);
+            $this->assertEqual(64, $tableMeta['products_name']['maxLen'], '%s: '.$provider);
         }
     }
 
