@@ -45,7 +45,7 @@ class ZMUseo2SeoRewriter implements ZMSeoRewriter {
         $secure = $args['secure'];
         $addSessionId = $args['addSessionId'];
         $isStatic = $args['isStatic'];
-        $useContext = $args['useContext'];
+        $useContext = array_key_exists('useContext', $args) ? $args['useContext'] : true;
 
         /* QUICK AND DIRTY WAY TO DISABLE REDIRECTS ON PAGES WHEN SEO_URLS_ONLY_IN is enabled IMAGINADW.COM */
         $sefu = explode(",", preg_replace('/ +/', '', SEO_URLS_ONLY_IN));
