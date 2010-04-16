@@ -59,7 +59,7 @@ class TestUIUrlHandling extends ZMTestCase {
      * Test SEO zen_href_link.
      */
     public function testZenCartSEOHref() {
-        if (null != ($plugin = ZMPlugins::instance()->getPluginForId('useo2'))) {
+        if (null != ($plugin = ZMPlugins::instance()->getPluginForId('useo2')) && $plugin->isEnabled()) {
             $href = zen_href_link(FILENAME_PRODUCT_INFO, '&products_id=1', 'SSL', false, true, false, true);
             $expected = HTTPS_SERVER . DIR_WS_HTTPS_CATALOG . 'matrox-g200-mms-p-1.html';
             $this->assertEqual($expected, $href);

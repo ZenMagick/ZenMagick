@@ -148,7 +148,7 @@ class TestZMAccounts extends ZMTestCase {
         $account2 = ZMAccounts::instance()->createAccount($account2);
 
         $accounts = ZMAccounts::instance()->getAccountsForEmailAddress($account2->getEmail());
-        $this->assertTrue(2 == count($accounts));
+        $this->assertEqual(2, count($accounts));
     }
 
     /**

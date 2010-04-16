@@ -118,6 +118,7 @@ class ZMAccounts extends ZMObject {
             if (ZMLangUtils::isEmpty($account->getPassword())) {
                 $account->setType(ZMZenCartAccountSacsHandler::GUEST);
             }
+            $accounts[] = $account;
         }
         return $accounts;
     }
