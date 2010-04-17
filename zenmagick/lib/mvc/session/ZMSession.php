@@ -156,7 +156,11 @@ class ZMSession extends ZMObject {
         }
 
         session_unset();
-        session_destroy();
+        if ($this->isStarted()) {
+            session_destroy();
+        }
+
+        $this->data_ = array();
     }
 
     /**
