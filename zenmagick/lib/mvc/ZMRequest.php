@@ -37,7 +37,7 @@ class ZMRequest extends ZMObject {
      *
      * <p>Will be used if the 'zenmagick.mvc.request.idName' is not set.</p>
      */
-    const DEFAULT_REQUEST_ID = 'zmid';
+    const DEFAULT_REQUEST_ID = 'rid';
     /**
      * Name of the session token form field and also the name in the session.
      */
