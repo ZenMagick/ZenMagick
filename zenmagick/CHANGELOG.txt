@@ -237,6 +237,9 @@ Release 0.9.9
 	the generic MVC code and not available as option for the store ATM]
 - further improve unitTests code to scan all plugins 'tests' folder for tests
   (files starting with 'Test')
+- add 'redirpath' default seo rewrite type that is the same as path, except
+  that 'index.php/' is also dropped from the url; this requires a single
+	rewrite rule (.htaccess, etc.) same as, for example, Wordpress uses
 
 Release 0.9.8
 - add Savant3 and experimental views (not used yet)

@@ -32,9 +32,11 @@ class ZMDefaultSeoRewriter implements ZMSeoRewriter {
     private $requestIdKey_;
     private static $methodList_ = array(
         'default' => array('decode' => null, 'rewrite' => 'rewriteDefault'),
-        'path' => array('decode' => 'decodePath', 'rewrite' => 'rewritePath')
+        'path' => array('decode' => 'decodePath', 'rewrite' => 'rewritePath'),
+        'redirpath' => array('decode' => 'decodeRedirPath', 'rewrite' => 'rewriteRedirPath')
     );
     private $methods_;
+    private $pathBase_;
 
 
     /**
@@ -47,8 +49,12 @@ class ZMDefaultSeoRewriter implements ZMSeoRewriter {
         if (!array_key_exists($type, self::$methodList_)) {
             $type = 'default';
         }
-
         $this->methods_ = self::$methodList_[$type];
+        if ('path' == $type) {
+            $this->pathBase_ = 'index.php/';
+        } else if ('redirpath' == $type) {
+            $this->pathBase_ = '';
+        }
     }
 
     /**
@@ -112,8 +118,8 @@ class ZMDefaultSeoRewriter implements ZMSeoRewriter {
     protected function decodePath($request) {
         $uri = $request->getUri();
         $context = $request->getContext();
-        if (0 === strpos($uri, $context.'index.php/') && false === strpos($uri, '?')) {
-            $path = substr($uri, strlen($context.'index.php/'));
+        if (0 === strpos($uri, $context.$this->pathBase_) && false === strpos($uri, '?')) {
+            $path = substr($uri, strlen($context.$this->pathBase_));
             $token = explode('/', $path);
             $tokenCount = count($token);
             if (1 == $tokenCount%2) {
@@ -129,7 +135,7 @@ class ZMDefaultSeoRewriter implements ZMSeoRewriter {
     }
 
     /**
-     * Rewrite path implementation using something like 'index.php/foo/value-of-foo/bar/value-of-bar'.
+     * Rewrite path implementation using something like '[index.php/]foo/value-of-foo/bar/value-of-bar'.
      *
      * @param ZMRequest request The current request.
      * @param string requestId The request id.
@@ -138,7 +144,7 @@ class ZMDefaultSeoRewriter implements ZMSeoRewriter {
      * @return string The URL.
      */
     protected function rewritePath($request, $requestId, $params, $secure) {
-        $url = 'index.php/' . $requestId;
+        $url = $this->pathBase_.$requestId;
         parse_str($params, $parr);
         
         foreach ($parr as $key => $value) {

@@ -16,3 +16,14 @@
   order allow,deny
   allow from all
 </Files>
+
+
+# BEGIN real-path seo rewrite
+<IfModule mod_rewrite.c>
+RewriteEngine on
+RewriteBase /zenmagick/zenmagick/apps/sample/web/
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . index.php [L]
+</IfModule>
+# END real-path seo rewrite
