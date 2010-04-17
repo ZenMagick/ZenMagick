@@ -241,6 +241,8 @@ Release 0.9.9
   that 'index.php/' is also dropped from the url; this requires a single
 	rewrite rule (.htaccess, etc.) same as, for example, Wordpress uses
 - prefix set_magic_quotes_runtime in Cache_Lite.php with '@'
+- pageCache: avoid using $request->getQueryString() as that might not be what
+  you expect if SEO plugins/rewriter are active
 
 Release 0.9.8
 - add Savant3 and experimental views (not used yet)

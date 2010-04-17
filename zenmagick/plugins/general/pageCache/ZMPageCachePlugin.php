@@ -78,7 +78,9 @@ class ZMPageCachePlugin extends Plugin {
      */
     protected function getRequestKey($request) {
         $session = $request->getSession();
-        return $request->getRequestId() . '-' . $request->getQueryString() . '-' . $request->getAccountId() . '-' . 
+        $parameters = $request->getParameterMap();
+        ksort($parameters);
+        return $request->getRequestId() . '-' . http_build_query($parameters) . '-' . $request->getAccountId() . '-' . 
                   $session->getLanguageId() . '-' . Runtime::getThemeId();
     }
 
