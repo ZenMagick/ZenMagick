@@ -126,6 +126,8 @@
             'zenmagick.mvc.resultlist.defaultPagination' => 10,
 
             /*** request ***/
+            'zenmagick.mvc.request.idName' => ZM_PAGE_KEY,
+            'zenmagick.mvc.seo.type' => 'path',
             'zenmagick.mvc.request.seoRewriter' => 'StoreDefaultSeoRewriter',
 
             /*** use ZM checkout shipping code ***/

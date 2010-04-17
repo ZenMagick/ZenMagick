@@ -67,7 +67,7 @@ class Request extends ZMRequest {
      * {@inheritDoc}
      */
     public function getRequestId() {
-        return $this->getParameter('main_page');
+        return $this->getParameter(ZM_PAGE_KEY);
     }
 
     /**

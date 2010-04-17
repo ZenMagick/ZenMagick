@@ -48,7 +48,6 @@
 
   <form action="<?php echo $toolbox->admin->url(null, $defaultUrlParams) ?>" method="GET">
     <div>
-      <input type="hidden" name="main_page" value="catalog_manager">
       <input type="hidden" name="fkt" value="CategoryAdminTab">
     </div>
     <h2><?php echo $category->getName() ?> ( <select id="languageId" name="languageId" onchange="this.form.submit();">
@@ -113,7 +112,6 @@
 
     <h3>Full update, move, delete, create coming ...</h3>
     <div class="btn">
-        <input type="hidden" name="main_page" value="catalog_manager">
         <input type="hidden" name="fkt" value="CategoryAdminTab">
         <input type="hidden" name="languageId" value="<?php echo $selectedLanguageId ?>">
         <?php if (0 < $category->getId()) { ?>

@@ -71,7 +71,7 @@ class TestUIUrlHandling extends ZMTestCase {
      */
     public function testZenCartHref2() {
         $href = zen_href_link(FILENAME_PRODUCT_INFO, '&products_id=1', 'SSL', false, true, false, true);
-        $expected = HTTPS_SERVER . DIR_WS_HTTPS_CATALOG . 'index.php?main_page=product_info&amp;products_id=1';
+        $expected = HTTPS_SERVER . DIR_WS_HTTPS_CATALOG . 'index.php?'.ZM_PAGE_KEY.'=product_info&amp;products_id=1';
         $this->assertEqual($expected, $href);
     }
 
