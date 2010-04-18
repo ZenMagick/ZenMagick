@@ -33,7 +33,7 @@ class ZMDefaultSeoRewriter implements ZMSeoRewriter {
     private static $methodList_ = array(
         'default' => array('decode' => null, 'rewrite' => 'rewriteDefault'),
         'path' => array('decode' => 'decodePath', 'rewrite' => 'rewritePath'),
-        'redirpath' => array('decode' => 'decodeRedirPath', 'rewrite' => 'rewriteRedirPath')
+        'realpath' => array('decode' => 'decodePath', 'rewrite' => 'rewritePath')
     );
     private $methods_;
     private $pathBase_;
@@ -52,7 +52,7 @@ class ZMDefaultSeoRewriter implements ZMSeoRewriter {
         $this->methods_ = self::$methodList_[$type];
         if ('path' == $type) {
             $this->pathBase_ = 'index.php/';
-        } else if ('redirpath' == $type) {
+        } else if ('realpath' == $type) {
             $this->pathBase_ = '';
         }
     }
@@ -123,6 +123,9 @@ class ZMDefaultSeoRewriter implements ZMSeoRewriter {
             $token = explode('/', $path);
             $tokenCount = count($token);
             if (1 == $tokenCount%2) {
+                if (empty($token[0])) {
+                    $token[0] = 'index';
+                }
                 $request->setRequestId($token[0]);
                 for ($ii=1; $ii<$tokenCount; $ii+=2) {
                     $request->setParameter($token[$ii], $token[$ii+1]);

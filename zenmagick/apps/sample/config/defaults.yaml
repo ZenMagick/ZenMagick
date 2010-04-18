@@ -5,4 +5,4 @@
 #
 #
 zenmagick.mvc.templates.ext: .tpl
-zenmagick.mvc.seo.type: path
+zenmagick.mvc.seo.type: realpath
