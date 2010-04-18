@@ -44,4 +44,5 @@ class Proposition extends RuleElement {
 		$resultValue = ( $this->value xor $proposition->value );
 		return new Proposition( $resultName, $resultValue );
 	}
+
 }

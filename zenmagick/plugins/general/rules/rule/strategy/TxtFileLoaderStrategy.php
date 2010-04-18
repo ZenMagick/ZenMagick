@@ -34,5 +34,5 @@ class TxtFileLoaderStrategy extends RuleContextLoaderStrategy {
 			$this->ruleContext->addProposition( $tokens[ 0 ], $tokens[ 2 ] );
 		}
 	}
+
 }
-?>

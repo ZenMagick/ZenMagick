@@ -59,5 +59,5 @@ abstract class RuleContextLoaderStrategy {
 		$text = trim( $text );
 		return ( strstr( $text, '#' ) == $text );
 	}	
+
 }
-?>

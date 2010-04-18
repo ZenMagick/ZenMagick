@@ -43,5 +43,5 @@ class SqlFileLoaderStrategy extends RuleContextLoaderStrategy {
 		$ruleElementValue = $this->getRuleElementValue( $tokens, $args );
 		$this->ruleContext->addVariable( $ruleElementName, $ruleElementValue );
 	}
+
 }
-?>

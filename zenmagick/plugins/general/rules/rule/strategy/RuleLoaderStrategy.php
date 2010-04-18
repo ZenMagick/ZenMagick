@@ -64,5 +64,5 @@ abstract class RuleLoaderStrategy {
 		$text = trim( $text );
 		return ( strstr( $text, '#' ) == $text );
 	}	
+
 }
-?>
