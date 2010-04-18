@@ -1,6 +1,0 @@
-- Add config page
-- Re-add config options for 
-  * _ZM_RSS_BOXES_COUNT,
-  * _ZM_RSS_BOXES_PREFIX and
-  * _ZM_RSS_BOXES_TEMPLATE
-- Add support for configuring RSS the category per box
