@@ -75,6 +75,7 @@ class TestZMTags extends ZMTestCase {
     public function testGetStats() {
         $stats = ZMTags::instance()->getStats(1);
         var_dump($stats);
+        echo "<BR>";
     }
 
 }
