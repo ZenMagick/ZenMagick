@@ -244,6 +244,7 @@ Release 0.9.9
 - pageCache: avoid using $request->getQueryString() as that might not be what
   you expect if SEO plugins/rewriter are active
 - zm_rss_boxes: removed
+- add zenmagick/shared to the root loader class path
 
 Release 0.9.8
 - add Savant3 and experimental views (not used yet)
