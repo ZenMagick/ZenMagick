@@ -21,7 +21,7 @@
 # BEGIN real-path seo rewrite
 <IfModule mod_rewrite.c>
 RewriteEngine on
-RewriteBase /zenmagick/zenmagick/apps/sample/web/
+RewriteBase /
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule . index.php [L]
