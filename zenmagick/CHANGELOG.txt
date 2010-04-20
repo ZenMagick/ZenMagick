@@ -245,6 +245,8 @@ Release 0.9.9
   you expect if SEO plugins/rewriter are active
 - zm_rss_boxes: removed
 - add zenmagick/shared to the root loader class path
+- fix ZMRequest::getContext() for empty context; change returned value to omit
+  the trailing '/' to conform to what the context should be
 
 Release 0.9.8
 - add Savant3 and experimental views (not used yet)

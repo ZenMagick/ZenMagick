@@ -342,7 +342,7 @@ class Request extends ZMRequest {
      * {@inheritDoc}
      */
     public function getContext() {
-        return ($this->isSecure() ? DIR_WS_HTTPS_CATALOG : DIR_WS_CATALOG);
+        return substr($this->isSecure() ? DIR_WS_HTTPS_CATALOG : DIR_WS_CATALOG, 0, -1);
     }
 
     /**

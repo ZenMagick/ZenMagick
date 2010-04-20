@@ -117,7 +117,7 @@ class ZMDefaultSeoRewriter implements ZMSeoRewriter {
      */
     protected function decodePath($request) {
         $uri = $request->getUri();
-        $context = $request->getContext();
+        $context = $request->getContext().'/';
         if (0 === strpos($uri, $context.$this->pathBase_) && false === strpos($uri, '?')) {
             $path = substr($uri, strlen($context.$this->pathBase_));
             $token = explode('/', $path);

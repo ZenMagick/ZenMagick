@@ -191,7 +191,7 @@ class ZMRequest extends ZMObject {
      * @return string The absolute URL.
      */
     public function absoluteURL($url, $full=false, $secure=false) {
-        $url = ('/' == $url[0] || false !== strpos($url, '://')) ? $url : $this->getContext().$url;
+        $url = ('/' == $url[0] || false !== strpos($url, '://')) ? $url : $this->getContext().'/'.$url;
 
         if ($full || ($secure && !$this->isSecure())) {
             // full requested or we need a full URL to ensure it will be secure
@@ -451,7 +451,7 @@ class ZMRequest extends ZMObject {
      */
     public function getContext() {
         $context = str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME']));
-        return '/' == $context ? $context : $context.'/';
+        return '/' == $context ? '' : $context;
     }
 
     /**
