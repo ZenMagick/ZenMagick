@@ -413,7 +413,7 @@ class ZMRequest extends ZMObject {
      */
     public function isSecure() {
         return (isset($_SERVER['SERVER_PORT']) && 443 == $_SERVER['SERVER_PORT']) 
-            || (isset($_SERVER['HTTPS']) && ZMLangTools::asBoolean($_SERVER['HTTPS']));
+            || (isset($_SERVER['HTTPS']) && ZMLangUtils::asBoolean($_SERVER['HTTPS']));
     }
 
     /**
@@ -460,7 +460,12 @@ class ZMRequest extends ZMObject {
      * @return string The URI.
      */
     public function getUri() {
-        return $_SERVER['REQUEST_URI'];
+        $uri = $_SERVER['REQUEST_URI'];
+        // In IIS REQUEST_URI includes the trailing 'index.ph' instead of just being the path
+        if (false !== strpos($uri, '.php') || $_SERVER['REQUEST_URI'] == $_SERVER['SCRIPT_NAME']) {
+            $uri = dirname($uri).'/';
+        }
+        return $uri;
     }
 
     /**
