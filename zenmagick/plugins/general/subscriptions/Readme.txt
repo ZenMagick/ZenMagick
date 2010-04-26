@@ -1,15 +1,7 @@
-Secure token service plugin
-===========================
+Subscription plugin
+===================
+This plugin allows users to flag orders as subscriptions, selecting from a configurable range of schedules.
 
-This plugin adds a new service to ZenMagick that allows to manage secure token.
-Possible use cases might be:
-* auto login
-  Store a managed hash in the auto login cookie rather than the encoded password
-* newsletter
-  - Make unsubscribe subject to a valid hash being passed back in the URL. That way 
-    it would no not be possible to unsubscribe random email addresses.
-  - Implement a proper opt-in with an email containing a confirmation URL that will
-    perform the actual subscribe (for anonymous subscriptions)
 
 
 Installation
