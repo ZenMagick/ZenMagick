@@ -80,13 +80,13 @@
       <fieldset>
           <legend><?php zm_l10n("Other Options") ?></legend>
           <?php if ($currentProduct->hasReviews()) { ?>
-              <a class="btn" href="<?php echo $request->url(FILENAME_PRODUCT_REVIEWS, '') ?>"><?php zm_l10n("Read Reviews") ?></a>
+              <a class="btn" href="<?php echo $net->url(FILENAME_PRODUCT_REVIEWS, '') ?>"><?php zm_l10n("Read Reviews") ?></a>
           <?php } ?>
           <?php if ($currentProduct->getTypeSetting('reviews')) { ?>
-              <a class="btn" href="<?php echo $request->url(FILENAME_PRODUCT_REVIEWS_WRITE, '') ?>"><?php zm_l10n("Write a Review") ?></a>
+              <a class="btn" href="<?php echo $net->url(FILENAME_PRODUCT_REVIEWS_WRITE, '') ?>"><?php zm_l10n("Write a Review") ?></a>
           <?php } ?>
           <?php if ($currentProduct->getTypeSetting('tell_a_friend')) { ?>
-              <a class="btn" href="<?php echo $request->url(FILENAME_TELL_A_FRIEND, "products_id=".$currentProduct->getId()) ?>"><?php zm_l10n("Tell a friend about this product") ?></a>
+              <a class="btn" href="<?php echo $net->url(FILENAME_TELL_A_FRIEND, "products_id=".$currentProduct->getId()) ?>"><?php zm_l10n("Tell a friend about this product") ?></a>
           <?php } ?>
       </fieldset>
   <?php } ?>

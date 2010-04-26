@@ -20,7 +20,7 @@
 
       <div id="header"><div id="header-content">	
         
-        <h1 id="logo"><a href="<?php echo $request->url(FILENAME_DEFAULT) ?>" title="">Zen<span class="gray">Magick</span></a></h1>	
+        <h1 id="logo"><a href="<?php echo $net->url(FILENAME_DEFAULT) ?>" title="">Zen<span class="gray">Magick</span></a></h1>	
         <h2 id="slogan">As simple as that!</h2>		
         
         <!-- Menu Tabs -->
@@ -92,7 +92,7 @@
         </p>
         
         <ul>						
-          <li><a href="<?php echo $request->url(FILENAME_DEFAULT) ?>"><strong>Home</strong></a></li>
+          <li><a href="<?php echo $net->url(FILENAME_DEFAULT) ?>"><strong>Home</strong></a></li>
         </ul>	
         </div>
       

@@ -1,26 +1,26 @@
 <ul>
   <?php
     $menu = array();
-    $menu[] = array($request->url(FILENAME_DEFAULT), zm_l10n_get("Home"));
-    $menu[] = array($request->url(FILENAME_LOGIN, '', true), zm_l10n_get("Login"));
-    $menu[] = array($request->url(FILENAME_SHOPPING_CART, '', true), zm_l10n_get("Cart"));
+    $menu[] = array($net->url(FILENAME_DEFAULT), zm_l10n_get("Home"));
+    $menu[] = array($net->url(FILENAME_LOGIN, '', true), zm_l10n_get("Login"));
+    $menu[] = array($net->url(FILENAME_SHOPPING_CART, '', true), zm_l10n_get("Cart"));
      if ($request->isRegistered()) {
-    $menu[] = array($request->url(FILENAME_ACCOUNT, '', true), zm_l10n_get("Account")); }
-    $menu[] = array($request->url(FILENAME_CHECKOUT_SHIPPING, '', true), zm_l10n_get("Checkout"));
-   $menu[] = array($request->url(FILENAME_LOGOFF, '', true), zm_l10n_get("Logoff"));
+    $menu[] = array($net->url(FILENAME_ACCOUNT, '', true), zm_l10n_get("Account")); }
+    $menu[] = array($net->url(FILENAME_CHECKOUT_SHIPPING, '', true), zm_l10n_get("Checkout"));
+   $menu[] = array($net->url(FILENAME_LOGOFF, '', true), zm_l10n_get("Logoff"));
    
    
    
 
     /*if ($request->isAnonymous()) {
-        $menu[] = array($request->url(FILENAME_LOGIN, '', true), zm_l10n_get("Login"));
+        $menu[] = array($net->url(FILENAME_LOGIN, '', true), zm_l10n_get("Login"));
     }
   /*  if (!$request->isAnonymous()) {
-        $menu[] = array($request->url(FILENAME_LOGOFF, '', true), zm_l10n_get("Logoff"));
+        $menu[] = array($net->url(FILENAME_LOGOFF, '', true), zm_l10n_get("Logoff"));
     }
    /* if (!$request->getShoppingCart()->isEmpty() && !$request->isCheckout()) {
-        $menu[] = array($request->url(FILENAME_SHOPPING_CART, '', true), zm_l10n_get("Cart"));
-        $menu[] = array($request->url(FILENAME_CHECKOUT_SHIPPING, '', true), zm_l10n_get("Checkout"));
+        $menu[] = array($net->url(FILENAME_SHOPPING_CART, '', true), zm_l10n_get("Cart"));
+        $menu[] = array($net->url(FILENAME_CHECKOUT_SHIPPING, '', true), zm_l10n_get("Checkout"));
     }
 
      layout does not degrade well if too many items

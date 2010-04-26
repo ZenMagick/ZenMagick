@@ -38,7 +38,7 @@
 
 <ul>
 <?php foreach ($faq_topics as $key => $title) { ?>
-    <li><a href="<?php echo $request->url(FILENAME_GV_FAQ,'topic='.$key) ?>"><?php zm_l10n($title) ?></a></li>
+    <li><a href="<?php echo $net->url(FILENAME_GV_FAQ,'topic='.$key) ?>"><?php zm_l10n($title) ?></a></li>
 <?php } ?>
 </ul>
 

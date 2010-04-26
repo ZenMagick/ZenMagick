@@ -27,7 +27,7 @@
 <fieldset>
     <legend><?php zm_l10n("Billing Address") ?></legend>
     <div class="btn">
-        <a class="btn" href="<?php $request->url(FILENAME_CHECKOUT_PAYMENT_ADDRESS, '', true) ?>"><?php zm_l10n("Change Billing Address") ?></a>
+        <a class="btn" href="<?php $net->url(FILENAME_CHECKOUT_PAYMENT_ADDRESS, '', true) ?>"><?php zm_l10n("Change Billing Address") ?></a>
     </div>
     <?php echo $macro->formatAddress($shoppingCart->getBillingAddress()) ?>
 </fieldset>

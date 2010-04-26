@@ -32,6 +32,6 @@
 
 <p><?php zm_l10n("If you were placing an order, please login and your shopping cart will be restored. You may then go back to the checkout and complete your final purchases.") ?></p>
 
-<p><?php zm_l10n('If you had completed an order and wish to review it, or had a download and wish to retrieve it, please go to your <a href="%s">My Account</a> page to view your order.', $request->url(FILENAME_ACCOUNT, '', true)) ?></p>
+<p><?php zm_l10n('If you had completed an order and wish to review it, or had a download and wish to retrieve it, please go to your <a href="%s">My Account</a> page to view your order.', $net->url(FILENAME_ACCOUNT, '', true)) ?></p>
 
 <?php require("login.php"); ?>

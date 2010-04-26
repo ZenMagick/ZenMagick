@@ -37,7 +37,7 @@
 
 <?php } ?>
 
-<?php zm_l10n("To redeem your gift, visit %s.", $request->url(FILENAME_GV_REDEEM, 'couponCode='.$currentCoupon->getCode(), true)) ?>
+<?php zm_l10n("To redeem your gift, visit %s.", $net->url(FILENAME_GV_REDEEM, 'couponCode='.$currentCoupon->getCode(), true)) ?>
 
 
 <?php echo strip_tags($utils->staticPageContent('email_advisory')) ?>

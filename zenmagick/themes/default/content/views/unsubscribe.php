@@ -44,5 +44,5 @@ please see our <a href="%s">privacy policy</a>.', $net->staticPage(FILENAME_PRIV
       <div class="btn"><input type="submit" class="btn" value="<?php zm_l10n("Unsubscribe") ?>" /></div>
     </form>
 <?php } else { ?>
-      <div class="btn"><a href="<?php echo $request->url(FILENAME_ACCOUNT_NEWSLETTERS, '', true) ?>" class="btn"><?php zm_l10n("Unsubscribe") ?></a></div>
+      <div class="btn"><a href="<?php echo $net->url(FILENAME_ACCOUNT_NEWSLETTERS, '', true) ?>" class="btn"><?php zm_l10n("Unsubscribe") ?></a></div>
 <?php } ?>

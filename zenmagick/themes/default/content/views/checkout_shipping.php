@@ -27,7 +27,7 @@
 <fieldset>
     <legend><?php zm_l10n("Shipping Address") ?></legend>
     <div class="btn">
-        <a class="btn" href="<?php echo $request->url(FILENAME_CHECKOUT_SHIPPING_ADDRESS, '', true) ?>"><?php zm_l10n("Change Shipping Address") ?></a>
+        <a class="btn" href="<?php echo $net->url(FILENAME_CHECKOUT_SHIPPING_ADDRESS, '', true) ?>"><?php zm_l10n("Change Shipping Address") ?></a>
     </div>
     <?php echo $macro->formatAddress($shoppingCart->getShippingAddress()) ?>
 </fieldset>
