@@ -331,7 +331,7 @@
             'taxDecimalPlaces' => TAX_DECIMAL_PLACES,
 
             // tax inclusive/exclusive
-            'isTaxInclusive' => DISPLAY_PRICE_WITH_TAX == 'true',
+            'showPricesTaxIncluded' => DISPLAY_PRICE_WITH_TAX == 'true',
 
             // product tax base
             'productTaxBase' => STORE_PRODUCT_TAX_BASIS, //shipping,billing,store

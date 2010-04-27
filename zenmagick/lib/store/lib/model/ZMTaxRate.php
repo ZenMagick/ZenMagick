@@ -160,8 +160,8 @@ class ZMTaxRate extends ZMObject {
      */
     public function addTax($amount) {
         $currency = $this->getCurrency();
-        if (ZMSettings::get('isTaxInclusive') && 0 < $this->rate_) {
-            return round($amount, $currency->getDecimalPlaces()) + $this->calculateTax($amount);
+        if (ZMSettings::get('showPricesTaxIncluded') && 0 < $this->rate_) {
+            return round($amount + $this->getTaxAmount($amount), $currency->getDecimalPlaces());
         }
 
         return round($amount, $currency->getDecimalPlaces());
@@ -171,11 +171,11 @@ class ZMTaxRate extends ZMObject {
      * Caclulate tax for the given amount.
      *
      * @param double amount The amount.
-     * @return double The tax value.
+     * @return double The (non rounded) tax value.
      */
-    public function calculateTax($amount) {
+    public function getTaxAmount($amount) {
         $currency = $this->getCurrency();
-        return round($amount * $this->rate_ / 100, $currency->getDecimalPlaces());
+        return $amount * $this->rate_ / 100;
     }
 
     /**

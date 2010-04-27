@@ -39,7 +39,7 @@ class ZMSearchCriteria extends ZMObject {
     function __construct() {
         parent::__construct();
 
-        $this->set('includeTax', ZMSettings::get('isTaxInclusive'));
+        $this->set('includeTax', ZMSettings::get('showPricesTaxIncluded'));
         $this->set('countryId', ZMSettings::get('storeCountry'));
         $this->set('zoneId', ZMSettings::get('storeCountry'));
         $this->set('languageId', ZMSettings::get('storeDefaultLanguageId'));

@@ -246,6 +246,8 @@ Release 0.9.9
 - add zenmagick/shared to the root loader class path
 - fix ZMRequest::getContext() for empty context; change returned value to omit
   the trailing '/' to conform to what the context should be
+- improve rounding in ZMTaxRate
+- rename setting 'isTaxInclusive' to 'showPricesTaxIncluded'
 
 Release 0.9.8
 - add Savant3 and experimental views (not used yet)
