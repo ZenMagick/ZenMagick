@@ -96,7 +96,13 @@ class ZMThemeSwitcherPlugin extends Plugin implements ZMRequestHandler {
                 if (!empty($links)) {
                     $links .= '&nbsp;|&nbsp;';
                 }
-                $link = '<a href="'.$request->url(null, 'themeId='.$details[0], $request->isSecure()).'">'.$details[1].'</a>';
+
+                // create url
+                $url = $request->url(null, null, $request->isSecure());
+                $hasParams = false !== strpos($url, '?');
+                $url .= ($hasParams ? '&' : '?') . 'themeId='.$details[0];
+
+                $link = '<a href="'.$url.'">'.$details[1].'</a>';
                 if ($details[0] == Runtime::getThemeId()) {
                     $link = '<strong style="text-decoration:underline">'.$link.'</strong>';
                 }
