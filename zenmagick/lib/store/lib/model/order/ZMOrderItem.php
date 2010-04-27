@@ -119,9 +119,12 @@ class ZMOrderItem extends ZMObject {
     /**
      * Get the calculated price.
      *
+     * @param boolean tax Set to <code>true</code> to include tax (if applicable); default is <code>true</code>.
      * @return float The calculated price.
      */
-    public function getCalculatedPrice() { return $this->calculatedPrice_; }
+    public function getCalculatedPrice($tax=true) { 
+        return $tax ? $this->getTaxRate()->addTax($this->calculatedPrice_) : $this->calculatedPrice_;
+    }
 
     /**
      * Checks if the item has associated attributes.
