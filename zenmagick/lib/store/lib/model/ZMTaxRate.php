@@ -68,21 +68,21 @@ class ZMTaxRate extends ZMObject {
      *
      * @return string The tax rate idendtifier.
      */
-    function getId() { return $this->id_; }
+    public function getId() { return $this->id_; }
 
     /**
      * Set the tax rate idendtifier
      *
      * @param string id The tax rate idendtifier.
      */
-    function setId($id) { $this->id_ = $id; }
+    public function setId($id) { $this->id_ = $id; }
 
     /**
      * Get the tax descrption.
      *
      * @return string The tax description.
      */
-    function getDescription() { 
+    public function getDescription() { 
         if (null == $this->description_) {
             $this->description_ = ZMTaxRates::instance()->getTaxDescription($this->classId_, $this->countryId_, $this->zoneId_);
         }
@@ -94,63 +94,63 @@ class ZMTaxRate extends ZMObject {
      *
      * @return float The tax rate.
      */
-    function getRate() { return $this->rate_; }
+    public function getRate() { return $this->rate_; }
 
     /**
      * Set the tax description.
      *
      * @param string description The tax description.
      */
-    function setDescription($description) { $this->description_ = $description; }
+    public function setDescription($description) { $this->description_ = $description; }
 
     /**
      * Set the tax rate.
      *
      * @param float rate The tax rate.
      */
-    function setRate($rate) { $this->rate_ = round($rate, ZMSettings::get('calculationDecimals') + 2); }
+    public function setRate($rate) { $this->rate_ = round($rate, ZMSettings::get('calculationDecimals') + 2); }
 
     /**
      * Get the tax class id.
      *
      * @return int The tax class id or <em>0</em>.
      */
-    function getClassId() { return $this->classId_; }
+    public function getClassId() { return $this->classId_; }
 
     /**
      * Set the tax class id.
      *
      * @param int classId The tax class id.
      */
-    function setClassId($classId) { $this->classId_ = $classId; }
+    public function setClassId($classId) { $this->classId_ = $classId; }
 
     /**
      * Get the country id.
      *
      * @return int The country id or <em>0</em>.
      */
-    function getCountryId() { return $this->countryId_; }
+    public function getCountryId() { return $this->countryId_; }
 
     /**
      * Set the country id.
      *
      * @param int countryId The country id.
      */
-    function setCountryId($countryId) { $this->countryId_ = $countryId; }
+    public function setCountryId($countryId) { $this->countryId_ = $countryId; }
 
     /**
      * Get the zone id.
      *
      * @return int The zone id or <em>0</em>.
      */
-    function getZoneId() { return $this->zoneId_; }
+    public function getZoneId() { return $this->zoneId_; }
 
     /**
      * Set the zone id.
      *
      * @param int zoneId The zone id.
      */
-    function setZoneId($zoneId) { $this->zoneId_ = $zoneId; }
+    public function setZoneId($zoneId) { $this->zoneId_ = $zoneId; }
 
     /**
      * Add tax to the given amount.
@@ -158,8 +158,8 @@ class ZMTaxRate extends ZMObject {
      * @param double amount The amount.
      * @return double The amount incl. tax.
      */
-    function addTax($amount) {
-        $currency = $this->_getCurrency();
+    public function addTax($amount) {
+        $currency = $this->getCurrency();
         if (ZMSettings::get('isTaxInclusive') && 0 < $this->rate_) {
             return round($amount, $currency->getDecimalPlaces()) + $this->calculateTax($amount);
         }
@@ -173,8 +173,8 @@ class ZMTaxRate extends ZMObject {
      * @param double amount The amount.
      * @return double The tax value.
      */
-    function calculateTax($amount) {
-        $currency = $this->_getCurrency();
+    public function calculateTax($amount) {
+        $currency = $this->getCurrency();
         return round($amount * $this->rate_ / 100, $currency->getDecimalPlaces());
     }
 
@@ -183,7 +183,7 @@ class ZMTaxRate extends ZMObject {
      *
      * @return ZMCurrency A currency.
      */
-    function _getCurrency() {
+    protected function getCurrency() {
         $currency = Runtime::getCurrency();
         if (null == $currency) {
             ZMLogging::instance()->log('no currency found - using default currency', ZMLogging::WARN);
