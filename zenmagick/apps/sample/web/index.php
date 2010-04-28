@@ -5,5 +5,3 @@
 
   require '../../../bootstrap.php';
   require '../../../mvc.php';
-
-?>

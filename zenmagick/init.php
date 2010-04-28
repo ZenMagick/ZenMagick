@@ -23,9 +23,13 @@
 <?php
 
     // app location relative to zenmagick installation (ZM_BASE_PATH)
-    define('ZM_APP_PATH', 'lib'.DIRECTORY_SEPARATOR.'store'.DIRECTORY_SEPARATOR);
+    define('ZM_APP_PATH', 'apps'.DIRECTORY_SEPARATOR.'store'.DIRECTORY_SEPARATOR);
 
     include 'bootstrap.php';
+
+//TODO: remove again
+ZMLoader::instance()->addPath(ZMFileUtils::mkPath(array(ZMRuntime::getInstallationPath(), 'apps', 'admin', 'lib')));
+ZMLoader::instance()->loadStatic();
 
     // allow seo rewriters to fiddle with the request
     $_zm_request->seoDecode();

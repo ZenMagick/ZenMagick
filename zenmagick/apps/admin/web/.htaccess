@@ -1,0 +1,29 @@
+##
+## Apache httpd access control
+##
+## TODO: this is obviously not correct as it is now, however it allows testing while using a url like: http://localhost/zenmagick/apps/sample/web/
+## $Id$
+##
+
+<Limit GET POST PUT DELETE>
+  order allow,deny
+  allow from all
+</Limit>
+
+
+# generally deny access to PHP files
+<Files *.php>
+  order allow,deny
+  allow from all
+</Files>
+
+
+# BEGIN real-path seo rewrite
+<IfModule mod_rewrite.c>
+RewriteEngine on
+RewriteBase /
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . index.php [L]
+</IfModule>
+# END real-path seo rewrite

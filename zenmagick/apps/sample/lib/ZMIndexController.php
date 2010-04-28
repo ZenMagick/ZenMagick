@@ -1,6 +1,6 @@
 <?php
 /*
- * ZenMagick - Extensions for zen-cart
+ * ZenMagick - Another PHP framework.
  * Copyright (C) 2006-2010 zenmagick.org
  *
  * Portions Copyright (c) 2003 The zen-cart developers
@@ -28,7 +28,7 @@
  * Empty default controller.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.mvc.controller
+ * @package org.zenmagick.mvc.sample
  * @version $Id$
  */
 class ZMIndexController extends ZMController {
@@ -85,5 +85,3 @@ class ZMIndexController extends ZMController {
     }
 
 }
-
-?>

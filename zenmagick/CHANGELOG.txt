@@ -1,3 +1,7 @@
+Release 0.9.10
+- restructure store and admin code into separate apps with most of the store
+  code shared
+
 Release 0.9.9
 - in ZMDbTableMapper handle database exception building auto mappings
 - fix SQL errors in ZMZenCartDatabase

@@ -1,0 +1,10 @@
+#
+# default settings
+#
+# $Id$
+#
+#
+zenmagick.mvc.templates.ext: .tpl
+zenmagick.mvc.seo.type: realpath
+
+zenmagick.core.database.mappings.file: config/db_mappings.txt
