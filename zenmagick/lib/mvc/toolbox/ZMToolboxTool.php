@@ -25,7 +25,7 @@
  * Toolbx tool base class.
  *
  * @author DerManoMann
- * @package org.zenmagick.toolbox
+ * @package org.zenmagick.mvc.toolbox
  * @version $Id$
  */
 class ZMToolboxTool extends ZMObject {

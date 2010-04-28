@@ -55,6 +55,8 @@ if (!function_exists('zen_href_link')) {
 
     /**
      * zen_href_link wrapper that delegates to the Zenmagick implementation.
+     *
+     * @package org.zenmagick.store.override
      */
     function zen_href_link($page='', $params='', $transport='NONSSL', $addSessionId=true, $seo=true, $isStatic=false, $useContext=true) {
         if (class_exists('ZMStoreDefaultSeoRewriter')) {
@@ -74,6 +76,8 @@ if (!function_exists('zen_mail')) {
     /**
      * zen_mail wrapper that delegates to either the Zenmagick implementation or the renamed original
      * version of it.
+     *
+     * @package org.zenmagick.store.override
      */
     function zen_mail($toName, $toAddress, $subject, $text, $fromName, $fromAddress, $block=array(), $module='default', $attachments_list='') {
         // uncomment to trace mail calls and figure out module names (ie template names)
@@ -100,6 +104,8 @@ if (!function_exists('zen_build_html_email_from_template')) {
     /**
      * zen_build_html_email_from_template wrapper that delegates to either the Zenmagick implementation or the renamed original
      * version of it.
+     *
+     * @package org.zenmagick.store.override
      */
     function zen_build_html_email_from_template($template, $args=array()) {
         if (!class_exists('ZMEmailView')) { return zen_build_html_email_from_template_org($template, $args); }
@@ -114,5 +120,3 @@ if (!function_exists('zen_build_html_email_from_template')) {
     }
 
 }
-
-?>
