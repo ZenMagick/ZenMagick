@@ -6,6 +6,8 @@ Release 0.9.10
 	no longer visible via phpdoc)
 - move viewDir support from SavantView to ZMSavantView and make 'views/' the
   default
+- make default db provider more resiliant against loss of native resource (may
+  happen if used in session handler)
 
 Release 0.9.9
 - in ZMDbTableMapper handle database exception building auto mappings

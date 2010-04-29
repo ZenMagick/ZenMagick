@@ -80,7 +80,7 @@ class ZMDbTableMapper extends ZMObject {
         'text' => 'string',
         'tinytext' => 'string',
         'mediumtext' => 'string',
-        'mediumblob', 'blob'
+        'mediumblob' => 'blob'
     );
 
     /** Key used to cache table mappings. */

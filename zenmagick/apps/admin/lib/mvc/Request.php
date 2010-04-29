@@ -42,6 +42,8 @@ class Request extends ZMRequest {
     function __construct($parameter=null) {
         parent::__construct($parameter);
         $this->setSession(ZMLoader::make('Session', 'zenAdminID'));
+        $this->getSession()->registerSessionHandler(ZMLoader::make('ZenCartSessionHandler'));
+        $this->getSession()->start();
     }
 
 

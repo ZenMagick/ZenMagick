@@ -49,8 +49,9 @@ class ZMSession extends ZMObject {
      *
      * @param string name Optional session name; default is <code>ZMSession::DEFAULT_NAME</code>.
      * @param boolean secure Indicate whether the session cookie should be secure or not; default is <code>true</code>.
+     * @param boolean autostart Indicate whether the session should be started immediately or on demand.
      */
-    function __construct($name=self::DEFAULT_NAME, $secure=false) {
+    function __construct($name=self::DEFAULT_NAME, $secure=false, $autostart=false) {
         parent::__construct();
         $name = null !== $name ? $name : self::DEFAULT_NAME;
         session_name($name);
@@ -88,7 +89,7 @@ class ZMSession extends ZMObject {
             ini_set("session.use_only_cookies", true);
         }
 
-        if (!$this->isNew()) {
+        if ($autostart && !$this->isNew()) {
             $this->start();
         }
     }
@@ -301,6 +302,7 @@ class ZMSession extends ZMObject {
     public function registerSessionHandler($handler) {
         if (null !== $handler && is_object($handler) && $handler instanceof ZMSessionHandler) {
             ini_set('session.save_handler', 'user');
+            $handler->setExpiryTime((int)ini_get('session.gc_maxlifetime'));
             session_set_save_handler(array($handler, 'open'), array($handler, 'close'), array($handler, 'read'),
                 array($handler, 'write'), array($handler, 'destroy'), array($handler, 'gc'));
             $this->sessionHandler_ = $handler;

@@ -43,34 +43,10 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
      */
     function __construct($conf) {
         parent::__construct();
-        $drivers = array(
-            'mysql' => 'MySQLConnection',
-            'mysqli' => 'MySQLiConnection',
-            'pgsql' => 'PgSQLConnection',
-            'sqlite' => 'SQLiteConnection',
-            'oracle' => 'OCI8Connection',
-            'mssql' => 'MSSQLConnection',
-            'odbc' => 'ODBCConnection'
-            );
-            if (!array_key_exists($conf['driver'], $drivers)) {
-                throw ZMLoader::make('DatabaseException', 'invalid driver: ' . $conf['driver']);
-            }
-            // avoid creole dot notation as that does not work with the compressed version
-            Creole::registerDriver($conf['driver'], $drivers[$conf['driver']]);
-            // map some things that are named differently
-            $conf['phptype'] = $conf['driver'];
-            $conf['hostspec'] = $conf['host'];
-            $this->config_ = $conf;
-            $this->queriesMap_ = array();
-            $this->conn_ = Creole::getConnection($conf);
-            $this->mapper_ = ZMDbTableMapper::instance();
-            if (null != $conf['initQuery']) {
-                try {
-                    $this->conn_->executeQuery($conf['initQuery']);
-                } catch (SQLException $e) {
-                    throw new ZMDatabaseException($e->getMessage(), $e->getCode(), $e);
-                }
-            }
+        $this->config_ = $conf;
+        $this->mapper_ = ZMDbTableMapper::instance();
+        $this->queriesMap_ = array();
+        $this->ensureResource($conf);
     }
 
     /**
@@ -83,6 +59,44 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
 
 
     /**
+     * Create native resource.
+     *
+     * @param array conf Optional config; if <code>null</code> the global config will be used; default is <code>null</code>.
+     */
+    private function ensureResource($conf=null) {
+        if (null == $this->conn_) {
+            $conf = null !== $conf ? $conf : $this->config_;
+            $drivers = array(
+                'mysql' => 'MySQLConnection',
+                'mysqli' => 'MySQLiConnection',
+                'pgsql' => 'PgSQLConnection',
+                'sqlite' => 'SQLiteConnection',
+                'oracle' => 'OCI8Connection',
+                'mssql' => 'MSSQLConnection',
+                'odbc' => 'ODBCConnection'
+            );
+            if (!array_key_exists($conf['driver'], $drivers)) {
+                throw ZMLoader::make('DatabaseException', 'invalid driver: ' . $conf['driver']);
+            }
+            // avoid creole dot notation as that does not work with the compressed version
+            Creole::registerDriver($conf['driver'], $drivers[$conf['driver']]);
+            // map some things that are named differently
+            $conf['phptype'] = $conf['driver'];
+            $conf['hostspec'] = $conf['host'];
+            $conn = Creole::getConnection($conf);
+            if (null != $conf['initQuery']) {
+                try {
+                    $conn->executeQuery($conf['initQuery']);
+                } catch (SQLException $e) {
+                    throw new ZMDatabaseException($e->getMessage(), $e->getCode(), $e);
+                }
+            }
+            $this->conn_ = $conn;
+            $this->config_ = $conf;
+        }
+    }
+
+    /**
      * {@inheritDoc}
      */
     public function getConfig() {
@@ -93,6 +107,7 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
      * {@inheritDoc}
      */
     public function beginTransaction() {
+        $this->ensureResource();
         $this->conn_->setAutoCommit(true);
     }
 
@@ -100,6 +115,7 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
      * {@inheritDoc}
      */
     public function commit() {
+        $this->ensureResource();
         $this->conn_->commit();
     }
 
@@ -107,6 +123,7 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
      * {@inheritDoc}
      */
     public function rollback() {
+        $this->ensureResource();
         $this->conn_->rollback();
     }
 
@@ -418,6 +435,7 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
         }
 
         // create statement
+        $this->ensureResource();
         $stmt = $this->conn_->prepareStatement($sql);
         $index = 1;
         // set values by index
@@ -425,6 +443,9 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
             $name = substr($name, 1);
             $typeName = preg_replace('/[0-9]+#/', '', $name);
             $type = $mapping[$typeName]['type'];
+            if (array_key_exists($type, ZMDbTableMapper::$NATIVE_TO_API_TYPEMAP)) {
+                $type = ZMDbTableMapper::$NATIVE_TO_API_TYPEMAP[$type];
+            }
             $values = $args[$name];
             if (!is_array($values)) {
                 // treat all values as value arrays
@@ -494,7 +515,11 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
                 continue;
             }
 
-            switch ($info['type']) {
+            $type = $info['type'];
+            if (array_key_exists($type, ZMDbTableMapper::$NATIVE_TO_API_TYPEMAP)) {
+                $type = ZMDbTableMapper::$NATIVE_TO_API_TYPEMAP[$type];
+            }
+            switch ($type) {
                 case 'integer':
                     $value = $rs->getInt($info['column']);
                     break;
@@ -548,6 +573,7 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
      * {@inheritDoc}
      */
     public function getMetaData($table=null) {
+        $this->ensureResource();
         if (null !== $table) {
             $info = $this->conn_->getDatabaseInfo();
             $meta = null;
@@ -588,6 +614,7 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
      * {@inheritDoc}
      */
     public function getResource() {
+        $this->ensureResource();
         return $this->conn_;
     }
 

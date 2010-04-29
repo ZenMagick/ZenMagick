@@ -31,8 +31,11 @@
 interface ZMSessionHandler {
     /**
      * Open session handling.
+     *
+     * @param string path The save path.
+     * @param string name The session name.
      */
-    public function open();
+    public function open($path, $name);
 
     /**
      * Read session.
@@ -58,12 +61,21 @@ interface ZMSessionHandler {
 
     /**
      * Garbage collection callback.
+     *
+     * @param int lifetime The lifetime.
      */
-    public function gc();
+    public function gc($lifetime);
 
     /**
      * Close session handling.
      */
     public function close();
+
+    /**
+     * Set the expiry time.
+     *
+     * @param int expiry The expiry time for sessions.
+     */
+    public function setExpiryTime($expiryTime);
 
 }

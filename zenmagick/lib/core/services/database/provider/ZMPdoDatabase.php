@@ -50,40 +50,10 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
      */
     function __construct($conf) {
         parent::__construct();
-        if (false !== ($colon = strpos($conf['host'], ':'))) {
-            $conf['port'] = substr($conf['host'], $colon+1);
-            $conf['host'] = substr($conf['host'], 0, $colon);
-        }
-        if (isset($conf['port']) && 'localhost' == $conf['host']) {
-            // can't do port on localhost!
-            $conf['host'] = '127.0.0.1';
-        }
-
-        // mysql and mysqli are the same for PDO
-        $conf['driver'] = str_replace('mysqli', 'mysql', $conf['driver']);
-
-        $url = $conf['driver'].':'.'host='.$conf['host'];
-        if (isset($conf['port'])) {
-            $url .= ';port='.$conf['port'];
-        }
-        $url .= ';dbname='.$conf['database'];
-        $params = array();
-        if (isset($conf['persistent']) && $conf['persistent']) {
-            $params[PDO::ATTR_PERSISTENT] = true;
-        }
         $this->config_ = $conf;
-        $this->pdo_ = new PDO($url, $conf['username'], $conf['password'], $params);
-        $this->pdo_->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $this->mapper_ = ZMDbTableMapper::instance();
         $this->queriesMap_ = array();
-        $this->savepointLevel_ = 0;
-        if (null !== $conf['initQuery']) {
-            try {
-                $this->pdo_->query($conf['initQuery']);
-            } catch (PDOException $pdoe) {
-                throw new ZMDatabaseException($pdoe->getMessage(), $pdoe->getCode(), $pdoe);
-            }
-        }
+        $this->ensureResource($conf);
     }
 
     /**
@@ -94,6 +64,49 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
         $this->pdo_ = null;
     }
 
+
+    /**
+     * Create native resource.
+     *
+     * @param array conf Optional config; if <code>null</code> the global config will be used; default is <code>null</code>.
+     */
+    private function ensureResource($conf=null) {
+        if (null == $this->pdo_){
+            $conf = null !== $conf ? $conf : $this->config_;
+            if (false !== ($colon = strpos($conf['host'], ':'))) {
+                $conf['port'] = substr($conf['host'], $colon+1);
+                $conf['host'] = substr($conf['host'], 0, $colon);
+            }
+            if (isset($conf['port']) && 'localhost' == $conf['host']) {
+                // can't do port on localhost!
+                $conf['host'] = '127.0.0.1';
+            }
+
+            // mysql and mysqli are the same for PDO
+            $conf['driver'] = str_replace('mysqli', 'mysql', $conf['driver']);
+
+            $url = $conf['driver'].':'.'host='.$conf['host'];
+            if (isset($conf['port'])) {
+                $url .= ';port='.$conf['port'];
+            }
+            $url .= ';dbname='.$conf['database'];
+            $params = array();
+            if (isset($conf['persistent']) && $conf['persistent']) {
+                $params[PDO::ATTR_PERSISTENT] = true;
+            }
+            $pdo = new PDO($url, $conf['username'], $conf['password'], $params);
+            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            if (null !== $conf['initQuery']) {
+                try {
+                    $pdo->query($conf['initQuery']);
+                } catch (PDOException $pdoe) {
+                    throw new ZMDatabaseException($pdoe->getMessage(), $pdoe->getCode(), $pdoe);
+                }
+            }
+            $this->pdo_ = $pdo;
+            $this->config_ = $conf;
+        }
+    }
 
     /**
      * Does this instance allow nested transactions?
@@ -116,6 +129,7 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
      */
     public function beginTransaction() {
         try {
+            $this->ensureResource();
             if (0 == $this->savepointLevel_ || !$this->isNestedTransactions()) {
                 $this->pdo_->beginTransaction();
             } else {
@@ -132,6 +146,7 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
      */
     public function commit() {
         try {
+            $this->ensureResource();
             --$this->savepointLevel_;
             if (0 == $this->savepointLevel_ || !$this->isNestedTransactions()) {
                 $this->pdo_->commit();
@@ -148,6 +163,7 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
      */
     public function rollback() {
         try {
+            $this->ensureResource();
             --$this->savepointLevel_;
             if (0 == $this->savepointLevel_ || !$this->isNestedTransactions()) {
                 $this->pdo_->rollBack();
@@ -495,6 +511,7 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
         }
 
         // create statement
+        $this->ensureResource();
         $stmt = $this->pdo_->prepare($sql);
         $stmt->setFetchMode(PDO::FETCH_ASSOC);
         foreach ($args as $name => $value) {
@@ -502,6 +519,9 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
             if (false !== strpos($sql, ':'.$name) && array_key_exists($typeName, $mapping)) {
                 // only bind if actually used
                 $type = $mapping[$typeName]['type'];
+                if (array_key_exists($type, ZMDbTableMapper::$NATIVE_TO_API_TYPEMAP)) {
+                    $type = ZMDbTableMapper::$NATIVE_TO_API_TYPEMAP[$type];
+                }
                 if (!array_key_exists($type, $typeMap)) {
                     throw new ZMDatabaseException('unsupported data(prepare) type='.$type.' for name='.$name);
                 }
@@ -554,6 +574,7 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
      * {@inheritDoc}
      */
     public function getMetaData($table=null) {
+        $this->ensureResource(); 
         if (null !== $table) {
             $meta = array();
             try {
@@ -595,6 +616,7 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
      * {@inheritDoc}
      */
     public function getResource() {
+        $this->ensureResource(); 
         return $this->pdo_;
     }
 
