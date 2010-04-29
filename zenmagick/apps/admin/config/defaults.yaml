@@ -16,4 +16,4 @@ zenmagick.mvc.view.defaultLayout: default_layout
 zenmagick.mvc.html.xhtml: false
 zenmagick.mvc.html.charset: utf8
 
-zenmagick.mvc.toolbox.tools: net:ToolboxNet,html:ToolboxHtml,form:ToolboxForm,macro:ToolboxMacro,locale:ToolboxLocale,utils:ToolboxUtils,admin:ToolboxAdmin
+zenmagick.mvc.toolbox.tools: net:ToolboxNet,html:ToolboxHtml,form:ToolboxForm,macro:ToolboxMacro,locale:ToolboxLocale,utils:ToolboxUtils,admin:ToolboxAdmin,admin2:ToolboxAdmin2

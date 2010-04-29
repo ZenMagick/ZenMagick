@@ -6,12 +6,26 @@
  * @license http://www.zen-cart.com/license/2_0.txt GNU Public License V2.0
  * @version $Id$
  */
+ function get_db() {
+ global $db;
+
+   if (!isset($db)) {
+      include_once DIR_FS_ADMIN.DIR_WS_FUNCTIONS.'general.php';
+      include_once DIR_FS_CATALOG.DIR_WS_CLASSES.'class.base.php';
+      include_once DIR_FS_CATALOG.DIR_WS_CLASSES.'db/mysql/query_factory.php';
+      $db = new queryFactory();
+      $db->connect(DB_SERVER, DB_SERVER_USERNAME, DB_SERVER_PASSWORD, DB_DATABASE);
+   }
+
+   return $db;
+ }
 
  function zm_zen_execute_sql($lines, $database, $table_prefix = '') {
    if (!get_cfg_var('safe_mode')) {
      @set_time_limit(1200);
    }
-   global $db, $debug;
+   $db = get_db();
+   global $debug;
    $sql_file='SQLPATCH';
    $newline = '';
    $saveline = '';
@@ -258,7 +272,7 @@ if ($_GET['debug']=='ON') echo $line . '<br />';
   } //end function
 
   function zm_zen_table_exists($tablename, $pre_install=false) {
-    global $db;
+    $db = get_db();
     $tables = $db->Execute("SHOW TABLES like '" . DB_PREFIX . $tablename . "'");
     if (ZC_UPG_DEBUG3==true) echo 'Table check ('.$tablename.') = '. $tables->RecordCount() .'<br>';
     if ($tables->RecordCount() > 0) {
@@ -281,7 +295,7 @@ if ($_GET['debug']=='ON') echo $line . '<br />';
       //GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, FILE, INDEX, ALTER ON *.* TO 'xyz'@'localhost' IDENTIFIED BY PASSWORD '2344'	
       //GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, INDEX, ALTER ON `db1`.* TO 'xyz'@'localhost'
       //GRANT SELECT (id) ON db1.tablename TO 'xyz'@'localhost
-    global $db;
+    $db = get_db();
     global $db_test;
     $granted_privs_list='';
     if (ZC_UPG_DEBUG3==true) echo '<br />Checking for priv: ['.(zen_not_null($priv) ? $priv : 'none specified').']<br />';
@@ -331,7 +345,7 @@ if ($_GET['debug']=='ON') echo $line . '<br />';
   function zm_zen_drop_index_command($param) {
     if (!$checkprivs = zm_zen_check_database_privs('INDEX')) return sprintf(REASON_NO_PRIVILEGES,'INDEX');
     //this is only slightly different from the ALTER TABLE DROP INDEX command
-    global $db;
+    $db = get_db();
     if (!zen_not_null($param)) return "Empty SQL Statement";
     $index = $param[2];
     $sql = "show index from " . DB_PREFIX . $param[4];
@@ -351,7 +365,7 @@ if ($_GET['debug']=='ON') echo $line . '<br />';
   function zm_zen_create_index_command($param) {
     //this is only slightly different from the ALTER TABLE CREATE INDEX command
     if (!$checkprivs = zm_zen_check_database_privs('INDEX')) return sprintf(REASON_NO_PRIVILEGES,'INDEX');
-    global $db;
+    $db = get_db();
     if (!zen_not_null($param)) return "Empty SQL Statement";
     $index = (strtoupper($param[1])=='INDEX') ? $param[2] : $param[3];
     if (in_array('USING',$param)) return 'USING parameter found. Cannot validate syntax. Please run manually in phpMyAdmin.';
@@ -373,7 +387,7 @@ if ($_GET['debug']=='ON') echo $line . '<br />';
   }
 
   function zm_zen_check_alter_command($param) {
-    global $db;
+    $db = get_db();
     if (!zen_not_null($param)) return "Empty SQL Statement";
     if (!$checkprivs = zm_zen_check_database_privs('ALTER')) return sprintf(REASON_NO_PRIVILEGES,'ALTER');
     switch (strtoupper($param[3])) {
@@ -518,7 +532,7 @@ if ($_GET['debug']=='ON') echo $line . '<br />';
   }
 
   function zm_zen_check_config_key($line) {
-    global $db;
+    $db = get_db();
     $values=array();
     $values=explode("'",$line);
      //INSERT INTO configuration blah blah blah VALUES ('title','key', blah blah blah);
@@ -535,7 +549,7 @@ if ($_GET['debug']=='ON') echo $line . '<br />';
   }
 
   function zm_zen_check_product_type_layout_key($line) {
-    global $db;
+    $db = get_db();
     $values=array();
     $values=explode("'",$line);
     $title = $values[1];
@@ -546,7 +560,7 @@ if ($_GET['debug']=='ON') echo $line . '<br />';
   }
 
   function zm_zen_write_to_upgrade_exceptions_table($line, $reason, $sql_file) {
-    global $db;
+    $db = get_db();
     zm_zen_create_exceptions_table();
     $sql="INSERT INTO " . DB_PREFIX . TABLE_UPGRADE_EXCEPTIONS . " VALUES (0,'". $sql_file."','".$reason."', now(), '".addslashes($line)."')";
      if (ZC_UPG_DEBUG3==true) echo '<br />sql='.$sql.'<br />';
@@ -555,14 +569,14 @@ if ($_GET['debug']=='ON') echo $line . '<br />';
   }
 
   function zm_zen_purge_exceptions_table() {
-    global $db;
+    $db = get_db();
     zm_zen_create_exceptions_table();
     $result = $db->Execute("TRUNCATE TABLE " . DB_PREFIX . TABLE_UPGRADE_EXCEPTIONS );
     return $result;
   }
 
   function zm_zen_create_exceptions_table() {
-    global $db;
+    $db = get_db();
     if (!zm_zen_table_exists(TABLE_UPGRADE_EXCEPTIONS)) {  
       $result = $db->Execute("CREATE TABLE " . DB_PREFIX . TABLE_UPGRADE_EXCEPTIONS ." (
             upgrade_exception_id smallint(5) NOT NULL auto_increment,
