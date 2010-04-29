@@ -35,16 +35,6 @@
  * @version $Id$
  */
 class ZMAdminUserSacsHandler extends ZMObject implements ZMSacsHandler {
-    /** Access level registered. */
-    const REGISTERED = 'registered';
-    /** Access level guest. */
-    const GUEST = 'guest';
-    /** Access level anonymous. */
-    const ANONYMOUS = 'anonymous';
-    /** Access level by group. */
-    const GROUP = 'group';
-
-    private $levelMap_;
 
 
     /**
@@ -52,12 +42,6 @@ class ZMAdminUserSacsHandler extends ZMObject implements ZMSacsHandler {
      */
     function __construct() {
         parent::__construct();
-        // which level allows what
-        $this->levelMap_ = array(
-            self::ANONYMOUS => array(self::ANONYMOUS, self::GUEST, self::REGISTERED),
-            self::GUEST => array(self::GUEST, self::REGISTERED),
-            self::REGISTERED => array(self::REGISTERED)
-        );
     }
 
     /**
@@ -79,25 +63,11 @@ class ZMAdminUserSacsHandler extends ZMObject implements ZMSacsHandler {
      * {@inheritDoc}
      */
     public function evaluate($requestId, $credentials, $manager) {
-        if (null != $credentials && !($credentials instanceof ZMAccount)) {
+        if (null != $credentials && !($credentials instanceof ZMAdminUser)) {
             return null;
         }
 
-        $requiredLevel = $manager->getMappingValue($requestId, 'level', ZMSettings::get('defaultAccessLevel'));
-        if (null == $requiredLevel) {
-            return null;
-        }
-
-        $level = self::ANONYMOUS;
-        if (null != $credentials && $credentials instanceof ZMAccount) {
-            $level = $credentials->getType();
-        }
-
-        if (!in_array($level, $this->levelMap_[$requiredLevel])) {
-            ZMLogging::instance()->log('missing authorization for '.$requestId.'; current='.$level.', required='.$requiredLevel, ZMLogging::DEBUG);
-            return false;
-        }
-
+        //TODO: implement!
         return true;
     }
 
