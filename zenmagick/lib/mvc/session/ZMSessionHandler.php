@@ -25,7 +25,7 @@
  * Simple session handler interface.
  *
  * @author DerManoMann
- * @package org.zenmagick.mvc
+ * @package org.zenmagick.mvc.session
  * @version $Id$
  */
 interface ZMSessionHandler {

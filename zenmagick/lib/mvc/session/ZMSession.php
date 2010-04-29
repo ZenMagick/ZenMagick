@@ -25,7 +25,8 @@
  * A basic, cookies only, session class.
  *
  * @author DerManoMann
- * @package org.zenmagick.mvc
+ * @package org.zenmagick.mvc.session
+ * @todo allow to expire session after a given time (will need cookie update for each request)
  */
 class ZMSession extends ZMObject {
     /** The default session name. */
