@@ -19,23 +19,40 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
- *
- * $Id$
  */
-?><?php
+?>
+<?php
 
-  // make zc happy
-  define('IS_ADMIN_FLAG', true);
 
-  // app location relative to zenmagick installation (ZM_BASE_PATH)
-  define('ZM_APP_PATH', 'apps'.DIRECTORY_SEPARATOR.'admin'.DIRECTORY_SEPARATOR);
+/**
+ * Empty default controller.
+ *
+ * @author DerManoMann
+ * @package org.zenmagick.store.mvc.controller
+ * @version $Id$
+ */
+class ZMDefaultController extends ZMController {
 
-  // preload a few zc files needed
-  require_once 'includes/configure.php';
-  require(DIR_FS_CATALOG.DIR_WS_INCLUDES.'filenames.php');
-  require(DIR_FS_CATALOG.DIR_WS_INCLUDES.'database_tables.php');
+    /**
+     * Create new instance.
+     */
+    function __construct() {
+        parent::__construct();
+    }
 
-  require_once '../zenmagick/bootstrap.php';
+    /**
+     * Destruct instance.
+     */
+    function __destruct() {
+        parent::__destruct();
+    }
 
-  // process request
-  require_once '../zenmagick/mvc.php';
+
+    /**
+     * {@inheritDoc}
+     */
+    public function processGet($request) {
+        return parent::processGet($request);
+    }
+
+}

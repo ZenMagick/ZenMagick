@@ -8,3 +8,8 @@ zenmagick.mvc.templates.ext: .tpl
 zenmagick.mvc.seo.type: realpath
 
 zenmagick.core.database.mappings.file: config/db_mappings.txt
+
+zenmagick.mvc.view.default: ZMSavantView
+zenmagick.mvc.request.seoRewriter: null
+zenmagick.mvc.view.defaultLayout: null
+

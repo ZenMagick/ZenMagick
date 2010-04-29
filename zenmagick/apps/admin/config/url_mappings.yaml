@@ -1,0 +1,4 @@
+index:
+  template: views/index
+installation:
+  template: views/installation

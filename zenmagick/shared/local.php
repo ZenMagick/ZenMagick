@@ -58,9 +58,6 @@
     //** others **//
     define('PRODUCTS_OPTIONS_TYPE_SELECT', 0);
 
-    //** hook up the main store event handler **//
-    ZMEvents::instance()->attach(ZMLoader::make("EventFixes"));
-
 
     /**
      * Set up default setting.
@@ -126,9 +123,9 @@
             'zenmagick.mvc.resultlist.defaultPagination' => 10,
 
             /*** request ***/
-            'zenmagick.mvc.request.idName' => ZM_PAGE_KEY,
+            //'zenmagick.mvc.request.idName' => ZM_PAGE_KEY,
             'zenmagick.mvc.seo.type' => 'path',
-            'zenmagick.mvc.request.seoRewriter' => 'StoreDefaultSeoRewriter',
+            //'zenmagick.mvc.request.seoRewriter' => 'StoreDefaultSeoRewriter',
 
             /*** use ZM checkout shipping code ***/
             'apps.store.request.enableZMCheckoutShipping' => false,
@@ -209,7 +206,7 @@
 
             // default controller and view class
             'zenmagick.mvc.controller.default' => 'DefaultController',
-            'zenmagick.mvc.view.default' => 'SavantView',
+            //'zenmagick.mvc.view.default' => 'SavantView',
             'zenmagick.mvc.view.defaultLayout' => 'default_layout',
 
 
