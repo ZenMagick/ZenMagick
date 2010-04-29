@@ -73,7 +73,7 @@ class ZMCoreCompressor extends ZMPhpPackagePacker {
      * @return boolean <code>true</code> if errors exist.
      */
     public function hasErrors() {
-        return 0 != count($this->getErrors);
+        return 0 != count($this->getErrors());
     }
 
     /**
