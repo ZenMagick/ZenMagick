@@ -4,6 +4,8 @@ Release 0.9.10
 - remove custom Toolbox class and just use the setting to configure tools;
   this simplifies code at the cost of a little less documentation (tools are
 	no longer visible via phpdoc)
+- move viewDir support from SavantView to ZMSavantView and make 'views/' the
+  default
 
 Release 0.9.9
 - in ZMDbTableMapper handle database exception building auto mappings

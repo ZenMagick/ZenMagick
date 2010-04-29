@@ -26,6 +26,8 @@
  *
  * <p>This class also introduced support for layouts.</p>
  *
+ * <p>The default <code>viewDir</code> value is <em>views/</em>.</p>
+ *
  * @author DerManoMann
  * @package org.zenmagick.mvc.view
  * @version $Id$
@@ -34,6 +36,7 @@ class ZMSavantView extends ZMView {
     private $savant_;
     private $config_;
     private $layout_;
+    private $viewDir_;
 
 
     /**
@@ -44,6 +47,7 @@ class ZMSavantView extends ZMView {
         $this->savant_ = null;
         $this->config_ = array();
         $this->layout_ = array();
+        $this->setViewDir('views/');
     }
 
     /**
@@ -53,6 +57,31 @@ class ZMSavantView extends ZMView {
         parent::__destruct();
     }
 
+
+    /**
+     * Get the views dir.
+     *
+     * @return string The views folder name, relative to the content folder.
+     */
+    public function getViewDir() {
+        return $this->viewDir_;
+    }
+
+    /**
+     * Set the views dir.
+     *
+     * @param string viewDir The views folder name, relative to the content folder.
+     */
+    public function setViewDir($viewDir) {
+        $this->viewDir_ = $viewDir;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getTemplate() {
+        return $this->getViewDir().parent::getTemplate();
+    }
 
     /**
      * Get the array of locations to search for templates.

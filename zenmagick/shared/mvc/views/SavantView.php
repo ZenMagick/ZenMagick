@@ -29,15 +29,12 @@
  * @version $Id: SavantView.php 2902 2010-02-16 07:51:36Z dermanomann $
  */
 class SavantView extends ZMSavantView {
-    private $viewDir_;
-
 
     /**
      * Create new instance.
      */
     function __construct() {
         parent::__construct();
-        $this->setViewDir('views');
     }
 
     /**
@@ -47,24 +44,6 @@ class SavantView extends ZMSavantView {
         parent::__destruct();
     }
 
-
-    /**
-     * Get the views dir.
-     *
-     * @return string The views folder name, relative to the content folder.
-     */
-    public function getViewDir() {
-        return $this->viewDir_;
-    }
-
-    /**
-     * Set the views dir.
-     *
-     * @param string viewDir The views folder name, relative to the content folder.
-     */
-    public function setViewDir($viewDir) {
-        $this->viewDir_ = $viewDir;
-    }
 
     /**
      * {@inheritDoc}
@@ -104,13 +83,6 @@ class SavantView extends ZMSavantView {
         }
         $path[] = Runtime::getTheme()->getBaseDir();
         return $path;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getTemplate() {
-        return $this->getViewDir().DIRECTORY_SEPARATOR.parent::getTemplate();
     }
 
 }
