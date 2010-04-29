@@ -28,8 +28,8 @@
   <head>
     <meta http-equiv="content-type" content="text/html; charset=<?php echo ZMSettings::get('zenmagick.mvc.html.charset') ?>">
     <title>ZenMagick Admin</title>
-    <base href="<?php echo $request->getPageBase() ?>">
-    <?php $utils->cssFile('style/zenmagick.css') ?>
+    <base href="http://lasse.net<?php echo dirname($request->getContext()).'/zenmagick/apps/admin/web/' ?>">
+    <link  rel="stylesheet" type="text/css" href="style/zenmagick.css">
     <?php $utils->cssFile('js/jquery/jquery.treeview.css') ?>
     <?php $utils->jsNow('js/zenmagick.js') ?>
     <?php $utils->jsNow('js/jquery/jquery-1.3.2.min.js') ?>

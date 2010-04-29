@@ -1,19 +1,23 @@
 ##
 ## Apache httpd access control
 ##
-## TODO: this is obviously not correct as it is now, however it allows testing while using a url like: http://localhost/zenmagick/apps/sample/web/
 ## $Id$
 ##
 
-<Limit GET POST PUT DELETE>
-  order allow,deny
+## Allow GET for all
+#<LimitExcept GET>
+#  order allow,deny
+#  allow from all
+#</LimitExcept>
+<Limit GET>
+  order deny,allow
   allow from all
 </Limit>
 
 
-# generally deny access to PHP files
-<Files *.php>
-  order allow,deny
+# allow all files
+<Files *>
+  order deny,allow
   allow from all
 </Files>
 
