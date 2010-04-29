@@ -24,11 +24,13 @@
 /**
  * Container for template related utilities.
  *
+ * <p>Note that this class doesn't extend from ZMObject as it depends on dynamically created class properties.</p>
+ *
  * @author DerManoMann
  * @package org.zenmagick.mvc.utils
  * @version $Id$
  */
-class ZMToolbox extends ZMObject {
+class ZMToolbox {
     /** The tools. */
     private $tools_;
 
@@ -39,7 +41,6 @@ class ZMToolbox extends ZMObject {
      * @param ZMRequest request The current request.
      */
     function __construct($request) {
-        parent::__construct();
         $this->tools_ = $this->initTools($request);
     }
 
@@ -47,7 +48,6 @@ class ZMToolbox extends ZMObject {
      * Destruct instance.
      */
     function __destruct() {
-        parent::__destruct();
     }
 
 

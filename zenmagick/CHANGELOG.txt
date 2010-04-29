@@ -1,6 +1,9 @@
 Release 0.9.10
 - restructure store and admin code into separate apps with most of the store
   code shared
+- remove custom Toolbox class and just use the setting to configure tools;
+  this simplifies code at the cost of a little less documentation (tools are
+	no longer visible via phpdoc)
 
 Release 0.9.9
 - in ZMDbTableMapper handle database exception building auto mappings

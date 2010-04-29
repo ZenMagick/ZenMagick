@@ -32,7 +32,7 @@
       <p><span class="label">Author:</span> Martin Rademacher</p>
   </div>
   <div class="about">
-    <?php echo $toolbox->macro->phpinfo(1); ?>
+    <?php echo $macro->phpinfo(1); ?>
     <p><?php zm_l10n('For the full PHP info see zen-cart\'s <a href="server_info.php">server info</a>.') ?></p>
   </div>
 </div>
