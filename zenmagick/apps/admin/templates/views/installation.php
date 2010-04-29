@@ -181,7 +181,7 @@
     </script>
 
 <div id="b_installation">
-  <h2><?php zm_l10n("ZenMagick Installation") ?> <a class="btn" href=""><?php zm_l10n("Refresh Page") ?></a></h2>
+  <h2><?php zm_l10n("ZenMagick Installation") ?> <a class="btn" href="<?php echo $admin2->url() ?>"><?php zm_l10n("Refresh Page") ?></a></h2>
 
   <form action="<?php echo $admin2->url() ?>" method="POST" onsubmit="return zm_user_confirm('Update File Patches?');">
     <fieldset class="patches">

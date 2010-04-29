@@ -1,6 +1,6 @@
-index:
-  template: views/index
-installation:
-  template: views/installation
-about:
-  template: views/about
+#index:
+#  template: views/index
+#installation:
+#  template: views/installation
+#about:
+#  template: views/about
