@@ -50,4 +50,4 @@ about:
   roles: 
     - service
     - admin
-  secure: true
+  secure: false

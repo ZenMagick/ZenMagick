@@ -3,6 +3,9 @@
  * ZenMagick - Extensions for zen-cart
  * Copyright (C) 2006-2010 zenmagick.org
  *
+ * Portions Copyright (c) 2003 The zen-cart developers
+ * Portions Copyright (c) 2003 osCommerce
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or (at
@@ -22,27 +25,25 @@
 
 
 /**
- * Handle access control and security mappings.
- *
- * <p>Access control mappings define the level of authentication required for resources.
- * Resources in this context are controller or page requests.</p>
- *
- * <p>Controller/resources marked as secure will be enforcer by redirects using SSL (if configured), if
- * non secure HTTP is used to access them.</p>
+ * Admin request wrapper.
  *
  * @author DerManoMann
- * @package org.zenmagick.admin.mvc
+ * @package org.zenmagick.store.admin.mvc
  * @version $Id$
  */
-class ZMAdminUserSacsHandler extends ZMObject implements ZMSacsHandler {
-
+class Request extends ZMRequest {
 
     /**
      * Create new instance.
+     *
+     * @param array parameter Optional request parameter; if <code>null</code>,
+     *  <code>$_GET</code> and <code>$_POST</code> will be used.
      */
-    function __construct() {
-        parent::__construct();
+    function __construct($parameter=null) {
+        parent::__construct($parameter);
+        $this->setSession(ZMLoader::make('Session', 'zenAdminID'));
     }
+
 
     /**
      * Destruct instance.
@@ -51,26 +52,17 @@ class ZMAdminUserSacsHandler extends ZMObject implements ZMSacsHandler {
         parent::__destruct();
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public function getName() {
-        return get_class();
-    }
-
 
     /**
      * {@inheritDoc}
      */
-    public function evaluate($requestId, $credentials, $manager) {
-        if (null != $credentials && !($credentials instanceof ZMAdminUser)) {
-            return null;
+    public function getUser() {
+        $session = $this->getSession();
+        if (null != ($adminId = $session->getValue('admin_id'))) {
+            return ZMAdminUsers::instance()->getUserForId($adminId);
         }
 
-        var_dump($credentials);
-
-        //TODO: implement!
-        return true;
+        return null;
     }
 
 }
