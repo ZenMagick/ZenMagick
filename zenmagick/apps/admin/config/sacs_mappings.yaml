@@ -6,6 +6,11 @@
 #
 login: 
   secure: true
+index: 
+  roles: 
+    - service
+    - admin
+  secure: true
 installation: 
   roles: 
     - admin
@@ -37,6 +42,11 @@ static_page_editor:
     - admin
   secure: true
 ezpages: 
+  roles: 
+    - service
+    - admin
+  secure: true
+about: 
   roles: 
     - service
     - admin
