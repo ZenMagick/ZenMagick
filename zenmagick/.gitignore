@@ -3,6 +3,7 @@
 !cache/
 !editors/
 !images/
+!index.php
 core.php
 notes/
 local.php
