@@ -76,7 +76,7 @@ class ZMSearchController extends ZMController {
     /**
      * {@inheritDoc}
      */
-    public function isFormSubmit() {
+    public function isFormSubmit($request) {
         return $this->isAutoSearch();
     }
 

@@ -15,7 +15,7 @@ zenmagick.mvc.view.default: ZMSavantView
 zenmagick.mvc.request.seoRewriter: DefaultSeoRewriter
 zenmagick.mvc.view.defaultLayout: default_layout
 zenmagick.mvc.html.xhtml: false
-zenmagick.mvc.html.charset: utf8
+zenmagick.mvc.html.charset: utf-8
 
 zenmagick.mvc.sacs.handler: AdminUserSacsHandler
 
