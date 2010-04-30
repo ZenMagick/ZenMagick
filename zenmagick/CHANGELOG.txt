@@ -10,6 +10,8 @@ Release 0.9.10
   happen if used in session handler)
 - add zen cart compatible session handler for db storage
 - add sacs handler for admin that supports roles
+- make view data set via the controllers findView() method take precendence
+  over data from getViewData()
 
 Release 0.9.9
 - in ZMDbTableMapper handle database exception building auto mappings

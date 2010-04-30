@@ -120,6 +120,9 @@ class ZMController extends ZMObject {
         }
 
         if (null != $view) {
+            // safe data set via findView() in the controller to avoid losing that to getViewData()
+            $initialVars = $view->getVars();
+
             // set a few default things...
             $view->setVar('request', $request);
             $view->setVar('session', $request->getSession());
@@ -128,6 +131,8 @@ class ZMController extends ZMObject {
 
             // custom view data
             $view->setVars($this->getViewData($request));
+            // make sure these prevail
+            $view->setVars($initialVars);
 
             // also set individual tools
             $view->setVars($toolbox->getTools());
