@@ -496,22 +496,22 @@ class ZMRequest extends ZMObject {
     }
 
     /**
-     * Mark this request as the actually requested URL.
+     * Save this request as follow up URL.
      *
      * <p>Typically this happends when a request is received without valid authority.
-     * The URL will be forwarded to, once permissions is gained (user logged in).</p>
+     * The saved URL will be forwarded to, once permissions is gained (user logged in).</p>
      */
-    public function markSticky() {
+    public function saveFollowUpUrl() {
         //todo: implement
     }
 
     /**
-     * Check if a sticky url exists that should be loaded (after a login).
+     * Check if a follow up url exists that should be loaded (after a login).
      *
-     * @param boolean clear Optional flag to keep or clear the sticky url; default is <code>true</code> to clear.
+     * @param boolean clear Optional flag to keep or clear the follow up url; default is <code>true</code> to clear.
      * @return string The url to go to or <code>null</code>.
      */
-    public function getSticky($clear=true) {
+    public function getFollowUpUrl($clear=true) {
         //todo: implement
         return null;
     }

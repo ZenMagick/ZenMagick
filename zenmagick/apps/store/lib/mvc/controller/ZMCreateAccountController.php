@@ -132,7 +132,7 @@ class ZMCreateAccountController extends ZMController {
 
         ZMMessages::instance()->success(zm_l10n_get("Thank you for signing up"));
 
-        $stickyUrl = $session->getSticky();
+        $stickyUrl = $request->getFollowUpUrl();
         return $this->findView('success', array('currentAccount' => $account), array('url' => $stickyUrl));
     }
 

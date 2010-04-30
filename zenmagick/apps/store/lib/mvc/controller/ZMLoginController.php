@@ -119,7 +119,7 @@ class ZMLoginController extends ZMController {
             return $this->findView();
         }
 
-        $stickyUrl = $request->getSticky();
+        $stickyUrl = $request->getFollowUpUrl();
         if (null == $stickyUrl) {
             $stickyUrl = $session->getValue(self::$KEY_REDIRECT);
             $session->removeValue(self::$KEY_REDIRECT);

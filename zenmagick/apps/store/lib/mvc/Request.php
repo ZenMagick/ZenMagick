@@ -348,7 +348,7 @@ class Request extends ZMRequest {
     /**
      * {@inheritDoc}
      */
-    public function markSticky() {
+    public function saveFollowUpUrl() {
         if (!isset($_SESSION['navigation'])) {
             $_SESSION['navigation'] = new navigationHistory();
         }
@@ -358,7 +358,7 @@ class Request extends ZMRequest {
     /**
      * {@inheritDoc}
      */
-    public function getSticky($clear=true) {
+    public function getFollowUpUrl($clear=true) {
         $url = null;
         if (isset($_SESSION['navigation']) && sizeof($_SESSION['navigation']->snapshot) > 0) {
             $url = zen_href_link($_SESSION['navigation']->snapshot['page'],

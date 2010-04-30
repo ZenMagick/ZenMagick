@@ -140,7 +140,8 @@ class ZMSacsManager extends ZMObject {
                 ZMLogging::instance()->log('evaluated by: '.get_class($handler).', result: '.($result ? 'true' : 'false'), ZMLogging::TRACE);
                 if (false === $result) {
                     // fire event
-                    ZMEvents::instance()->fireEvent($this, ZMMVCConstants::INSUFFICIENT_CREDENTIALS, array('request' => $request, 'credentials' => $credentials));
+                    ZMEvents::instance()->fireEvent($this, ZMMVCConstants::INSUFFICIENT_CREDENTIALS, 
+                          array('request' => $request, 'credentials' => $credentials));
                     // not required level of authentication
                     $session = $request->getSession();
                     // secure flag: leave to net() to lookup via ZMSacsManager if configured, but leave as default parameter to allow override
@@ -149,7 +150,7 @@ class ZMSacsManager extends ZMObject {
                         $request->redirect($request->url(ZMSettings::get('zenmagick.mvc.request.invalidSession')));
                     }
                     //XXX: add/rename in mvc/session
-                    $request->markSticky();
+                    $request->saveFollowUpUrl();
                     $request->redirect($request->url(ZMSettings::get('zenmagick.mvc.request.login', 'login'), '', true));
                 }
                 break;
