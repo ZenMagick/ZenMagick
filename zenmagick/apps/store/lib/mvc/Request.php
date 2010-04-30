@@ -227,7 +227,7 @@ class Request extends ZMRequest {
      * {@inheritDoc}
      */
     public function getUser() {
-        return $this->isAdmin() ? $this->getAdminUser() : $this->getAccount();
+        return $this->getAccount();
     }
 
     /**
@@ -242,19 +242,6 @@ class Request extends ZMRequest {
         }
 
         return ZMAccounts::instance()->getAccountForId($accountId);
-    }
-
-    /**
-     * Get the current admin user (if available).
-     *
-     * @return ZMAdminUser The user or <code>null</code>.
-     */
-    public function getAdminUser() {
-        if (isset($_SESSION['admin_id'])) {
-            return ZMAdminUsers::instance()->getUserForId($_SESSION['admin_id']);
-        }
-
-        return null;
     }
 
     /**
