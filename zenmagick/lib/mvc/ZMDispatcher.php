@@ -37,6 +37,9 @@ class ZMDispatcher {
     public static function dispatch($request) {
         ob_start();
 
+        // load saved messages
+        ZMMessages::instance()->loadMessages($request->getSession());
+
         ZMEvents::instance()->fireEvent(null, ZMMVCConstants::DISPATCH_START, array('request' => $request));
         $view = self::handleRequest($request);
         ZMEvents::instance()->fireEvent(null, ZMMVCConstants::DISPATCH_DONE, array('request' => $request));

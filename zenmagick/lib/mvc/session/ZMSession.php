@@ -285,7 +285,7 @@ class ZMSession extends ZMObject {
         if (null === $namespace) {
             return isset($this->data_[$name]) ? $this->data_[$name] : null;
         } else {
-            //$namespace = '__'.$namespace;
+            $namespace = self::DEFAULT_NAMESPACE_PREFIX.$namespace;
             if (isset($this->data_[$namespace])) {
                 return isset($this->data_[$namespace][$name]) ? $this->data_[$namespace][$name] : null;
             } else {

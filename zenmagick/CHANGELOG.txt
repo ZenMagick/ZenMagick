@@ -12,6 +12,7 @@ Release 0.9.10
 - add sacs handler for admin that supports roles
 - make view data set via the controllers findView() method take precendence
   over data from getViewData()
+- streamline saving/loading messages to/from the session
 
 Release 0.9.9
 - in ZMDbTableMapper handle database exception building auto mappings

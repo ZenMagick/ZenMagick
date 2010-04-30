@@ -276,9 +276,6 @@ class ZMEventFixes extends ZMObject {
             $_SESSION['navigation']->remove_current_page();
         }
 
-        // pick up messages from zen-cart request handling
-        ZMMessages::instance()->_loadMessageStack();
-
         if ('checkout_confirmation' == $request->getRequestId() && 'free_free' == $_SESSION['shipping']) {
             ZMLogging::instance()->log('fixing free_free shipping method info', ZMLogging::WARN);
             $_SESSION['shipping'] = array('title' => zm_l10n_get('Free Shipping'), 'cost' => 0, 'id' => 'free_free');

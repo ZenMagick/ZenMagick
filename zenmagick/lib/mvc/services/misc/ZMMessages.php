@@ -197,4 +197,33 @@ class ZMMessages extends ZMObject {
         return $messages;
     }
 
+    /**
+     * Save messages in session.
+     *
+     * @param ZMSession session The current session.
+     */
+    public function saveMessages($session) {
+        $data = array();
+        foreach ($this->getMessages() as $msg) {
+            array_push($data, array('text' => $msg->getText(), 'type' => $msg->getType(), 'ref' => $msg->getRef()));
+        }
+        if (0 < count($data)) {
+            $session->setValue('messages', $data, 'zenmagick.mvc');
+        }
+    }
+
+    /**
+     * Load messages from session.
+     *
+     * @param ZMSession session The current session.
+     */
+    public function loadMessages($session) {
+        if (null !== ($data = $session->getValue('messages', 'zenmagick.mvc'))) {
+            foreach ($data as $msg) {
+                $this->add($msg['text'], $msg['type'], $msg['ref']);
+            }
+            $session->setValue('messages', null, 'zenmagick.mvc');
+        }
+    }
+
 }
