@@ -13,6 +13,8 @@ Release 0.9.10
 - make view data set via the controllers findView() method take precendence
   over data from getViewData()
 - streamline saving/loading messages to/from the session
+- implement ZMRequest::setFollowUpUrl() and getFollowUpUrl(), deprecate
+  overriden versions in Request
 
 Release 0.9.9
 - in ZMDbTableMapper handle database exception building auto mappings

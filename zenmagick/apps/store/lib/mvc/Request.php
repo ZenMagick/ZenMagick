@@ -345,30 +345,4 @@ class Request extends ZMRequest {
         return substr($this->isSecure() ? DIR_WS_HTTPS_CATALOG : DIR_WS_CATALOG, 0, -1);
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public function saveFollowUpUrl() {
-        if (!isset($_SESSION['navigation'])) {
-            $_SESSION['navigation'] = new navigationHistory();
-        }
-        $_SESSION['navigation']->set_snapshot();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getFollowUpUrl($clear=true) {
-        $url = null;
-        if (isset($_SESSION['navigation']) && sizeof($_SESSION['navigation']->snapshot) > 0) {
-            $url = zen_href_link($_SESSION['navigation']->snapshot['page'],
-                zen_array_to_string($_SESSION['navigation']->snapshot['get'],
-                array(zen_session_name())), $_SESSION['navigation']->snapshot['mode']);
-            if ($clear) {
-                $_SESSION['navigation']->clear_snapshot();
-            }
-        }
-        return str_replace('&amp;', '&', $url);
-    }
-
 }

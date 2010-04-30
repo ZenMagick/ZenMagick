@@ -502,7 +502,14 @@ class ZMRequest extends ZMObject {
      * The saved URL will be forwarded to, once permissions is gained (user logged in).</p>
      */
     public function saveFollowUpUrl() {
-        //todo: implement
+        $params = $this->getParameterMap();
+        $ridKey = ZMSettings::get('zenmagick.mvc.request.idName', self::DEFAULT_REQUEST_ID);
+        if (array_key_exists($ridKey, $params)) {
+            unset($params[$ridKey]);
+        }
+
+        $data = array('requestId' => $this->getRequestId(), 'params' => $param, 'secure' => $this->isSecure());
+        $this->getSession()->setValue('followUpUrl', $data, 'zenmagick.mvc');
     }
 
     /**
@@ -512,7 +519,17 @@ class ZMRequest extends ZMObject {
      * @return string The url to go to or <code>null</code>.
      */
     public function getFollowUpUrl($clear=true) {
-        //todo: implement
+        if (null != ($data = $this->getSession()->getValue('followUpUrl', 'zenmagick.mvc'))) {
+            $params = array();
+            foreach ($data['params'] as $key => $value) {
+                $params[] = $key.'='.$value;
+            }
+            if ($clear) {
+                $this->getSession()->setValue('followUpUrl', null, 'zenmagick.mvc');
+            }
+            return $this->url($data['requestId'], implode('&', $params), $data['secure']);
+        }
+
         return null;
     }
 
