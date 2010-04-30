@@ -7,6 +7,9 @@
 zenmagick.mvc.templates.ext: .tpl
 zenmagick.mvc.seo.type: realpath
 
+zenmagick.core.logging.enabled: true
+zenmagick.core.logging.level: ALL
+
 zenmagick.core.database.provider: ZMCreoleDatabase
 zenmagick.core.database.mappings.file: config/db_mappings.txt
 
