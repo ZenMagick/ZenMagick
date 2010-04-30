@@ -368,6 +368,8 @@
             // recreate sessions?
             'isSessionRecreate' => SESSION_RECREATE == 'True',
 
+            'sessionPersistence' => STORE_SESSIONS,
+
 
             'isResolveClientIP' => SESSION_IP_TO_HOST_ADDRESS == 'true',
 

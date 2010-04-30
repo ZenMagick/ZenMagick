@@ -49,7 +49,8 @@ class ZMAdminUser extends ZMObject {
         $this->email_ = null;
         $this->password_ = null;
         $this->demo_ = true;
-        $this->roles_ = array();
+        //TODO: remove and populate from somewhere!!
+        $this->roles_ = array('admin');
     }
 
     /**

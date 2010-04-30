@@ -63,14 +63,30 @@ class ZMAdminUserSacsHandler extends ZMObject implements ZMSacsHandler {
      * {@inheritDoc}
      */
     public function evaluate($requestId, $credentials, $manager) {
+var_dump($credentials);
         if (null != $credentials && !($credentials instanceof ZMAdminUser)) {
             return null;
         }
 
-        var_dump($credentials);
+        $qualifiedRoles = $manager->getMappingValue($requestId, 'roles');
+        if (null === $qualifiedRoles) {
+            // we handle all requests!
+            return false;
+        }
 
-        //TODO: implement!
-        return true;
+        if (0 == count($qualifiedRoles)) {
+            // valid user is enough
+            return true;
+        }
+
+        // check for role match
+        foreach ($qualifiedRoles as $role) {
+            if ($credentials->hasRole($role)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
 }
