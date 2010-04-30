@@ -37,12 +37,14 @@ class ZMDefaultSeoRewriter implements ZMSeoRewriter {
     );
     private $methods_;
     private $pathBase_;
+    private $index_;
 
 
     /**
      * Create new instance.
      */
     public function __construct() {
+        $this->index_ = ZMSettings::get('zenmagick.mvc.request.index', 'index.php');
         // resolve once only
         $this->requestIdKey_ = ZMSettings::get('zenmagick.mvc.request.idName', ZMRequest::DEFAULT_REQUEST_ID);
         $type = ZMSettings::get('zenmagick.mvc.seo.type', 'default');
@@ -51,7 +53,7 @@ class ZMDefaultSeoRewriter implements ZMSeoRewriter {
         }
         $this->methods_ = self::$methodList_[$type];
         if ('path' == $type) {
-            $this->pathBase_ = 'index.php/';
+            $this->pathBase_ = $this->index_.'/';
         } else if ('realpath' == $type) {
             $this->pathBase_ = '';
         }
@@ -101,7 +103,7 @@ class ZMDefaultSeoRewriter implements ZMSeoRewriter {
      * @return string The URL.
      */
     protected function rewriteDefault($request, $requestId, $params, $secure) {
-        $url = 'index.php?' . $this->requestIdKey_ . '=' . $requestId;
+        $url = $this->index_ . '?' . $this->requestIdKey_ . '=' . $requestId;
         if (!empty($params)) {
             $url .= '&'.$params;
         }

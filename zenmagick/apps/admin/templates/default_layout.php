@@ -45,9 +45,10 @@
 
     <div id="main">
       <p>
-        <a href="/zenmagick/admin/template_select.php">ZCAdmin</a> |
+        <a href="/zenmagick/admin/index.php">ZCAdmin</a> |
         <a href="<?php echo $admin2->url('installation') ?>">Installation</a> |
-        <a href="<?php echo $admin2->url('plugins') ?>">Plugins</a> |
+        <a href="<?php echo $admin2->url('plugins') ?>">Pugins</a> |
+        <a href="<?php echo $admin2->url('about') ?>">About</a> |
         <a href="<?php echo $admin2->url('logoff') ?>">Logoff</a>
       </p>
       <div id="content">

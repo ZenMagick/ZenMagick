@@ -16,6 +16,8 @@ Release 0.9.10
 - implement ZMRequest::setFollowUpUrl() and getFollowUpUrl(), deprecate
   overriden versions in Request
 - port zen_ functions into ZMZenCartAuthentication
+- allow to set the single entry point filename (default is index.php) via
+  setting: 'zenmagick.mvc.request.index'
 
 Release 0.9.9
 - in ZMDbTableMapper handle database exception building auto mappings
