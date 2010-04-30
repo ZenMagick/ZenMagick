@@ -8,6 +8,8 @@ Release 0.9.10
   default
 - make default db provider more resiliant against loss of native resource (may
   happen if used in session handler)
+- add zen cart compatible session handler for db storage
+- add sacs handler for admin that supports roles
 
 Release 0.9.9
 - in ZMDbTableMapper handle database exception building auto mappings
