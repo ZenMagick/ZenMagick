@@ -219,8 +219,8 @@ class ZMDbTableMapper extends ZMObject {
             }
             if (!array_key_exists($table, $this->tableMap_) && ZMSettings::get('zenmagick.core.database.mappings.autoMap.enabled', true)) {
                 ZMLogging::instance()->log('creating dynamic mapping for table name: '.$table, ZMLogging::DEBUG);
-                $rawMapping = self::buildTableMapping($table, $database);
-                $this->setMappingForTable(str_replace($this->tablePrefix_, '', $table), $rawMapping);
+                $rawMapping = self::buildTableMapping($this->tablePrefix_.$table, $database);
+                $this->setMappingForTable($table, $rawMapping);
             }
 
             if ($this->isCached_) {
