@@ -5,3 +5,7 @@ login:
   logged-in:
     view: RedirectView
     template: index
+logoff:
+  success:
+    view: RedirectView
+    template: login

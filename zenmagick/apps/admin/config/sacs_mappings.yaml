@@ -7,6 +7,9 @@
 login: 
   secure: true
   roles:
+logoff: 
+  secure: true
+  roles:
 index: 
   roles: 
     - service
