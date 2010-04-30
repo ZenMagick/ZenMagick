@@ -199,7 +199,6 @@ class ZMController extends ZMObject {
      */
     public function isAjax($request) {
         $headers = ZMNetUtils::getAllHeaders();
-        // TODO: keys are case insensitive in HTTP/1.1
         return array_key_exists('X-Requested-With', $headers) && 'XMLHttpRequest' == $headers['X-Requested-With'];
     }
 
