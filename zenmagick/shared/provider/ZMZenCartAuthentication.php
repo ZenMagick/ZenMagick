@@ -37,14 +37,30 @@ class ZMZenCartAuthentication implements ZMAuthentication {
      * {@inheritDoc}
      */
     public function encryptPassword($plaintext, $salt=null) { 
-        return zen_encrypt_password($plaintext);
+        $password = '';
+        for ($i=0; $i<10; $i++) {
+            $password .= ZMSecurityUtils::random();
+        }
+
+        $salt = substr(md5($password), 0, 2);
+        $password = md5($salt . $plaintext) . ':' . $salt;
+
+        return $password;
     }
 
     /**
      * {@inheritDoc}
      */
     public function validatePassword($plaintext, $encrypted) { 
-        return zen_validate_password($plaintext, $encrypted);
+        if (!empty($plaintext) && !empty($encrypted)) {
+            $stack = explode(':', $encrypted);
+            if (sizeof($stack) != 2) return false;
+            if (md5($stack[1] . $plaintext) == $stack[0]) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
 }

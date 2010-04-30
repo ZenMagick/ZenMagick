@@ -32,6 +32,7 @@
  * @version $Id$
  */
 class ZMAdminUser extends ZMObject {
+    private $id_;
     private $name_;
     private $email_;
     private $password_;
@@ -45,6 +46,7 @@ class ZMAdminUser extends ZMObject {
      */
     function __construct() {
         parent::__construct();
+        $this->id_ = 0;
         $this->name_ = '';
         $this->email_ = null;
         $this->password_ = null;
@@ -60,6 +62,20 @@ class ZMAdminUser extends ZMObject {
         parent::__destruct();
     }
 
+
+    /**
+     * Get the id.
+     *
+     * @return int The id.
+     */
+    public function getId() { return $this->id_; }
+
+    /**
+     * Set the id.
+     *
+     * @param int id The id.
+     */
+    public function setId($id) { $this->id_ = $id; }
 
     /**
      * Get the name.

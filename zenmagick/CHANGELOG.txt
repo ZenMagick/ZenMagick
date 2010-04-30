@@ -15,6 +15,7 @@ Release 0.9.10
 - streamline saving/loading messages to/from the session
 - implement ZMRequest::setFollowUpUrl() and getFollowUpUrl(), deprecate
   overriden versions in Request
+- port zen_ functions into ZMZenCartAuthentication
 
 Release 0.9.9
 - in ZMDbTableMapper handle database exception building auto mappings
