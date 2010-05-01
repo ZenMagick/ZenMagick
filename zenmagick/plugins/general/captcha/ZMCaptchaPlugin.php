@@ -33,12 +33,7 @@ define('CAPTCHA_FIELD', 'captcha');
 class ZMCaptchaPlugin extends Plugin {
     private $captcha_;
     // page => (status, form_name)
-    private $pageConfig_ = array(
-        'create_account' => array(CAPTCHA_CREATE_ACCOUNT, 'registration'),
-        'contact_us' => array(CAPTCHA_CONTACT_US, 'contactUs'),
-        'tell_a_friend' => array(CAPTCHA_TELL_A_FRIEND, 'tellAFriend'),
-        'product_reviews_write' => array(CAPTCHA_REVIEWS_WRITE, 'newReview')
-    );
+    private $pageConfig_;
     private $captchaEnabled_;
 
 
@@ -76,6 +71,13 @@ class ZMCaptchaPlugin extends Plugin {
     public function init() {
         parent::init();
         ZMEvents::instance()->attach($this);
+        // page => (status, form_name)
+        $this->pageConfig_ = array(
+            'create_account' => array(CAPTCHA_CREATE_ACCOUNT, 'registration'),
+            'contact_us' => array(CAPTCHA_CONTACT_US, 'contactUs'),
+            'tell_a_friend' => array(CAPTCHA_TELL_A_FRIEND, 'tellAFriend'),
+            'product_reviews_write' => array(CAPTCHA_REVIEWS_WRITE, 'newReview')
+        );
     }
 
     /**
