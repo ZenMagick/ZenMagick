@@ -187,7 +187,7 @@ class TestZMDatabase extends ZMTestCase {
     }
 
     /**
-     * Test exceptions.
+     * Test exceptions (and dynamic table mapping without prefix).
      */
     public function testExceptions() {
         static $create_table = "CREATE TABLE db_test (id int(11) NOT NULL auto_increment, name varchar(32) NOT NULL, other varchar(32), PRIMARY KEY (id)) TYPE=MyISAM;";
@@ -195,12 +195,38 @@ class TestZMDatabase extends ZMTestCase {
         static $insert = "INSERT INTO db_test name = :name;";
 
         foreach (self::getProviders() as $provider => $database) {
-            // create test tabe
+            // create test table
             $database->update($drop_table);
             $database->update($create_table);
 
             try {
                 $database->update($insert, array('name' => 'foo'), 'db_test');
+            } catch (ZMDatabaseException $e) {
+            } catch (Exception $e) {
+                $this->fail('unexpected exception: '.$e);
+            }
+
+            // drop again
+            $database->update($drop_table);
+        }
+    }
+
+    /**
+     * Test exceptions (and dynamic table mapping with prefix).
+     */
+    public function testExceptionsPrefix() {
+        $tname = ZM_DB_PREFIX."db_test";
+        $create_table = "CREATE TABLE ".$tname." (id int(11) NOT NULL auto_increment, name varchar(32) NOT NULL, other varchar(32), PRIMARY KEY (id)) TYPE=MyISAM;";
+        $drop_table = "DROP TABLE IF EXISTS ".$tname.";";
+        $insert = "INSERT INTO ".$tname." name = :name;";
+
+        foreach (self::getProviders() as $provider => $database) {
+            // create test table
+            $database->update($drop_table);
+            $database->update($create_table);
+
+            try {
+                $database->update($insert, array('name' => 'foo'), $tname);
             } catch (ZMDatabaseException $e) {
             } catch (Exception $e) {
                 $this->fail('unexpected exception: '.$e);

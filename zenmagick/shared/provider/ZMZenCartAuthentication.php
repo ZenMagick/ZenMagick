@@ -39,7 +39,7 @@ class ZMZenCartAuthentication implements ZMAuthentication {
     public function encryptPassword($plaintext, $salt=null) { 
         $password = '';
         for ($i=0; $i<10; $i++) {
-            $password .= ZMSecurityUtils::random();
+            $password .= ZMSecurityUtils::random(2);
         }
 
         $salt = substr(md5($password), 0, 2);
