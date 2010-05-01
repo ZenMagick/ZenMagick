@@ -48,6 +48,9 @@
         <a href="/zenmagick/admin/index.php">ZCAdmin</a> |
         <a href="<?php echo $admin2->url('installation') ?>">Installation</a> |
         <a href="<?php echo $admin2->url('plugins') ?>">Pugins</a> |
+        <a href="<?php echo $admin2->url('catalog_manager') ?>">Catalog Manager</a> |
+        <a href="<?php echo $admin2->url('cache_admin') ?>">Cache Admin</a> |
+        <a href="<?php echo $admin2->url('static_page_editor') ?>">Static Page Editor</a> |
         <a href="<?php echo $admin2->url('about') ?>">About</a> |
         <a href="<?php echo $admin2->url('logoff') ?>">Logoff</a>
       </p>

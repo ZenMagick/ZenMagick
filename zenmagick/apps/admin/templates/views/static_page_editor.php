@@ -38,7 +38,7 @@
   } else {
       $selectedFile = $file;
   }
-  $currentLanguage = Runtime::getLanguage();
+  $currentLanguage = ZMLanguages::instance()->getLanguageForId($session->getValue('languages_id'));
   $selectedLanguageId = $request->getParameter('languageId', $currentLanguage->getId());
 
   $editContents = $request->getParameter('editContents', null, false);
@@ -65,8 +65,8 @@
 
 ?>
 
-<form action="<?php echo $toolbox->admin->url() ?>" method="get">
-  <input type="hidden" name="main_page" value="static_page_editor">
+<form action="<?php echo $admin2->url() ?>" method="get">
+  <input type="hidden" name="rid" value="static_page_editor">
   <h2>ZenMagick Static Page Editor (
           <select id="languageId" name="languageId" onchange="this.form.submit();">
             <?php foreach (ZMLanguages::instance()->getLanguages() as $lang) { ?>
@@ -77,7 +77,6 @@
         )<?php echo (null!==$editContents?': '.$selectedFile:'') ?>
   </h2>
   <?php if (null == $editContents) { ?>
-    <?php echo zen_hide_session_id() ?>
     <fieldset>
       <legend>Edit Static Page</legend>
       <label for="themeId">Theme:</label>
@@ -90,7 +89,7 @@
       </select>
 
       <label for="file">File:</label>
-      <?php $pageList = $selectedTheme->getStaticPageList(); ?>
+      <?php $pageList = $selectedTheme->getStaticPageList(false, $selectedLanguageId); ?>
       <select id="file" name="file">
         <option value="">Select File</option>
         <?php foreach ($pageList as $page) { ?>
@@ -123,8 +122,7 @@
   }
 </script>
 <?php if (null !== $editContents) { ?>
-  <form action="<?php echo $toolbox->admin->url() ?>" method="POST">
-    <?php echo zen_hide_session_id() ?>
+  <form action="<?php echo $admin2->url() ?>" method="POST">
     <input type="hidden" name="themeId" value="<?php echo $selectedThemeId ?>">
     <input type="hidden" name="file" value="<?php echo $selectedFile ?>">
     <input type="hidden" name="languageId" value="<?php echo $selectedLanguageId ?>">
@@ -141,7 +139,7 @@
 
     <br><br>
     <input type="submit" name="save" value="Save">
-    <a href="<?php echo $toolbox->admin->url() ?>">Cancel</a>
+    <a href="<?php echo $admin2->url() ?>">Cancel</a>
     <a href="#" onclick="preview();return false;">Preview</a>
   </form>
 <?php } ?>
