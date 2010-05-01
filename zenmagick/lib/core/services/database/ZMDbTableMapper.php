@@ -219,7 +219,7 @@ class ZMDbTableMapper extends ZMObject {
             }
             if (!array_key_exists($table, $this->tableMap_) && ZMSettings::get('zenmagick.core.database.mappings.autoMap.enabled', true)) {
                 ZMLogging::instance()->log('creating dynamic mapping for table name: '.$table, ZMLogging::DEBUG);
-                $rawMapping = self::buildTableMapping($this->tablePrefix_.$table, $database);
+                $rawMapping = self::buildTableMapping($table, $database);
                 $this->setMappingForTable($table, $rawMapping);
             }
 
@@ -252,7 +252,7 @@ class ZMDbTableMapper extends ZMObject {
             $tableMetaData = $database->getMetaData($table);
         } catch (ZMDatabaseException $dbe) {
             // non prefixed?
-            ZMLogging::instance()->dump($dbe);
+            ZMLogging::instance()->dump($dbe, ZMLogging::TRACE);
         }
         if (null === $tableMetaData) {
             // try adding the prefix
