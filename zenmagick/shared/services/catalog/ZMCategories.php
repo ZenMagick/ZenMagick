@@ -225,18 +225,12 @@ class ZMCategories extends ZMObject {
     protected function load($languageId=null) {
         $languageId = null !== $languageId ? $languageId : ZMRequest::instance()->getSession()->getLanguageId();
 
-    //$check_categories = $db->Execute("select categories_id from " . TABLE_CATEGORIES . " c, " . TABLE_PRODUCT_TYPES . " pt, " . TABLE_PRODUCT_TYPES_TO_CATEGORY . " ptc where pt.type_master_type = 3 and ptc.product_type_id = pt.type_id and c.categories_id = ptc.category_id and c.categories_status=1 limit 1");
-        //    $sql = "select product_type_id from " . TABLE_PRODUCT_TYPES_TO_CATEGORY . " where category_id='" . (int)$lookup . "'";
-
-//      $categories_query = "select ptc.category_id as categories_id, cd.categories_name, c.parent_id, c.categories_image from " . TABLE_CATEGORIES . " c, " . TABLE_CATEGORIES_DESCRIPTION . " cd, " . :e  . " ptc
-
-
         // load all straight away - should be faster to sort them later on
         $sql = "SELECT c.*, cd.*
                 FROM " . TABLE_CATEGORIES . " c
                   LEFT JOIN " . TABLE_CATEGORIES_DESCRIPTION . " cd ON c.categories_id = cd.categories_id
                 WHERE cd.language_id = :languageId
-                ORDER BY sort_order, cd.categories_name";
+                ORDER BY c.parent_id, sort_order, cd.categories_name";
         $args = array('languageId' => $languageId);
         foreach (Runtime::getDatabase()->query($sql, $args, array(TABLE_CATEGORIES, TABLE_CATEGORIES_DESCRIPTION), 'Category') as $category) {
             $this->categories_[$languageId][$category->getId()] = $category;

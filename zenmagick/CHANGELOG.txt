@@ -20,6 +20,8 @@ Release 0.9.10
   setting: 'zenmagick.mvc.request.index'
 - adjust exception logging log level a bit
 - captcha: avoid using undefined define
+- ZMCategories: add parent_id to SQL sort order
+- flyoutCategories: initial version
 
 Release 0.9.9
 - in ZMDbTableMapper handle database exception building auto mappings
