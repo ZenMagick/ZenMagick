@@ -36,7 +36,7 @@ class ZMProductTagsPlugin extends Plugin implements ZMRequestHandler {
     function __construct() {
         parent::__construct('Product Tags', 'Tag all your products', '${zenmagick.version}');
         $this->setLoaderPolicy(ZMPlugin::LP_FOLDER);
-        $this->setPreferredSortOrder(35);
+        $this->setPreferredSortOrder(22);
     }
 
     /**
