@@ -76,25 +76,8 @@
         if ($editPlugin) {
             $fragment = '#' . $editPlugin->getId();
         }
-        $request->redirect($toolbox->admin->url(null, 'select='.$refresh.$fragment, true));
+        $request->redirect($admin2->url(null, 'select='.$refresh.$fragment, true));
     }
-
-    // build/update plugin status for all plugins
-    $pluginStatus = array();
-    foreach (ZMPlugins::instance()->getAllPlugins(0, false) as $group => $plugins) {
-        foreach ($plugins as $plugin) {
-            $pluginStatus[$plugin->getId()] = array(
-                'group' => $plugin->getGroup(),
-                'scope' => $plugin->getScope(),
-                'installed' => $plugin->isInstalled(),
-                'enabled' => $plugin->isEnabled(),
-                'context' => $plugin->getContext(),
-                'order' => $plugin->getSortOrder()
-            );
-        }
-    }
-    // update in db
-    ZMConfig::instance()->updateConfigValue('ZENMAGICK_PLUGIN_STATUS', serialize($pluginStatus));
 
 ?>
 
@@ -122,74 +105,49 @@
 
 </script>
 
-<?php foreach (ZMPlugins::instance()->getAllPlugins(0, false) as $group => $plugins) { ?>
-  <h2><?php echo $group ?> plugins</h2>
-  <form action="<?php echo $toolbox->admin->url() ?>" method="POST" onsubmit="return zm_user_confirm('Save plugin changes ?');">
-    <table cellpadding="5" cellspacing="0" style="width:90%;"> 
-      <thead>
-        <tr>
-          <th><?php zm_l10n("Name") ?></th>
-          <th style="width:45%;"><?php zm_l10n("Description") ?></th>
-          <th style="width:13em;"><?php zm_l10n("Status") ?></th>
-          <th style="width:3em;"><?php zm_l10n("Order") ?></th>
-          <th style="width:160px;"><?php zm_l10n("Options") ?></th>
-        </tr>
-      </thead>
-      <tbody>
-        <?php $odd = true; foreach ($plugins as $plugin) { $isEdit = (null != $edit && null != $editPlugin && $plugin->getId() == $editPlugin->getId()); $odd = !$odd; ?>
-<tr<?php echo ($isEdit ? ' class="edit"' : '') ?><?php if ($odd) { echo ' style="background-color:#ddd;"'; } ?>>
-            <td><a name="<?php echo $plugin->getId() ?>"></a><?php echo $plugin->getName() ?></td>
-            <td><?php echo $plugin->getDescription() ?></td>
-            <td style="text-align:center;">
-                <?php if ($plugin->isInstalled()) { ?>
-                  <a href="#<?php echo $plugin->getId() ?>" onclick="toggle_status(this); return false;" id="status-<?php echo $plugin->getId() ?>" class="plugin-status-<?php echo ($plugin->isEnabled() ? 'on' : 'off') ?>"><img border="0" src="images/icons/<?php echo ($plugin->isEnabled() ? 'tick.gif' : 'cross.gif') ?>"></a>
-                <?php } else { ?>
-                  N/A
-                <?php } ?>
-            </td>
-            <td><?php echo $plugin->getSortOrder() ?></td>
-            <td>
-              <?php if ($plugin->isInstalled()) { ?>
-                  <a href="<?php echo $toolbox->admin->url(null, 'remove='.$plugin->getId().'&group='.$plugin->getGroup()) ?>" onclick="return zm_user_confirm('This will remove all stored settings.\nContinue?');"><img src="includes/languages/english/images/buttons/button_module_remove.gif" alt="Remove"></a>
-                  <?php if ($isEdit) { ?>
-                    <input type="hidden" name="pluginId" value="<?php echo $plugin->getId() ?>">
-                    <input type="hidden" name="group" value="<?php echo $plugin->getGroup() ?>">
-                    <?php echo zen_image_submit('button_update.gif', IMAGE_UPDATE) ?>
-                  <?php } else { ?>
-                      <a href="<?php echo $toolbox->admin->url(null, 'edit='.$plugin->getId().'&group='.$plugin->getGroup()) ?>#<?php echo $plugin->getId() ?>"><img src="includes/languages/english/images/buttons/button_edit.gif" alt="Edit"></a>
-                  <?php } ?>
-              <?php } else { ?>
-                  <a href="<?php echo $toolbox->admin->url(null, 'install='.$plugin->getId().'&group='.$plugin->getGroup()) ?>#<?php echo $plugin->getId() ?>"><img src="includes/languages/english/images/buttons/button_module_install.gif" alt="Install"></a>
-              <?php } ?>
-            </td>
-          </tr>
-          <?php if ($isEdit) { ?>
-            <?php foreach ($plugin->getConfigValues(false) as $value) { ?>
-              <tr<?php echo ($isEdit ? ' class="edit"' : '') ?>>
-                  <?php /* TODO: remove to allow only widget! */ ?>
-                  <?php if ($value instanceof ZMWidget) { if ($value->isHidden()) { continue; } ?>
-                    <td><?php echo $value->getTitle() ?></td>
-                    <td><?php echo $value->getDescription() ?></td>
-                    <td colspan="3">
-                      <?php echo $value->render($request) ?>
-                    </td>
-                  <?php } else { ?>
-                    <td><?php echo $value->getName() ?></td>
-                    <td><?php echo $value->getDescription() ?></td>
-                    <td colspan="3">
-                      <?php if ($value->hasSetFunction()) { ?>
-                        <?php eval('$set = ' . $value->getSetFunction() . "'" . $value->getValue() . "', '" . $value->getKey() . "');"); ?>
-                        <?php echo str_replace('<br>', '', $set) ?>
-                      <?php } else { ?>
-                        <?php echo zen_draw_input_field($value->getKey(), $value->getValue()); ?>
-                      <?php } ?>
-                    </td>
-                  <?php } ?>
-              </tr>
-            <?php } ?>
+<table>
+  <?php foreach ($pluginList as $group => $plugins) { ?>
+    <tr class="head">
+      <th colspan="5"><?php zm_l10n("%s Plugins", ucwords(str_replace('_', ' ', $group))) ?></th>
+    </tr>
+    <tr>
+      <th><?php zm_l10n("Name") ?></th>
+      <th><?php zm_l10n("Description") ?></th>
+      <th><?php zm_l10n("Status") ?></th>
+      <th><?php zm_l10n("Order") ?></th>
+      <th><?php zm_l10n("Options") ?></th>
+    </tr>
+    <?php $odd = true; foreach ($plugins as $plugin) { $odd = !$odd; ?>
+      <tr<?php if ($odd) { echo ' class="odd"'; } ?>
+        <td><a name="<?php echo $plugin->getId() ?>"></a><?php echo $plugin->getName() ?></td>
+        <td><?php echo $html->encode($plugin->getDescription()) ?></td>
+        <td>
+          <?php if ($plugin->isInstalled()) { ?>
+            <a href="#<?php echo $plugin->getId() ?>" onclick="toggle_status(this); return false;" id="status-<?php echo $plugin->getId() ?>" class="plugin-status-<?php echo ($plugin->isEnabled() ? 'on' : 'off') ?>"><?php echo ($plugin->isEnabled() ? 'Enabled' : 'Disabled') ?></a>
+          <?php } else { ?>
+            N/A
           <?php } ?>
-        <?php } ?>
-      </tbody>
-    </table>
-  </form>
-<?php } ?>
+        </td>
+        <td><?php echo $plugin->getSortOrder() ?></td>
+        <td>
+          <?php $msg = ($plugin->isInstalled() ? 'Remove ' : 'Install ').'plugin '.$plugin->getName(); ?>
+          <form action="<?php echo $admin2->url() ?>" method="POST" xonsubmit="return user_confirm('<?php echo $msg ?>');">
+          <input type="hidden" name="pluginId" value="<?php echo $plugin->getId() ?>">
+          <input type="hidden" name="group" value="<?php echo $plugin->getGroup() ?>">
+          <?php if (!$plugin->isInstalled()) { ?>
+            <input type="hidden" name="action" value="install">
+            <button type="submit">Install</button>
+          <?php } else { ?>
+            <input type="hidden" name="action" value="remove">
+            <?php $cid = 'keepSettings-'.$plugin->getId(); ?>
+            <input type="checkbox" id="<?php echo $cid ?>" name="keepSettings" value="true" checked> <label for="<?php echo $cid ?>"><?php zm_l10n('Keep Settings') ?></label>
+            <button type="submit">Remove</button>
+            <!-- TODO: edit!! -->
+            <a href="<?php echo $admin2->url(null, 'edit='.$plugin->getId().'&group='.$plugin->getGroup()) ?>#<?php echo $plugin->getId() ?>">Edit</a>
+          <?php } ?>
+          </form>
+        </td>
+      </tr>
+    <?php } ?>
+  <?php } ?>
+</table>

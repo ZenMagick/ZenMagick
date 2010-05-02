@@ -28,7 +28,8 @@
   <head>
     <meta http-equiv="content-type" content="text/html; charset=<?php echo ZMSettings::get('zenmagick.mvc.html.charset') ?>">
     <title>ZenMagick Admin</title>
-    <base href="http://lasse.net<?php echo dirname($request->getContext()).'/zenmagick/apps/admin/web/' ?>">
+    <!--TODO:::-->
+    <base href="<?php echo ($request->isSecure() ?'https':'http') ?>://lasse.net<?php echo dirname($request->getContext()).'/zenmagick/apps/admin/web/' ?>">
     <link  rel="stylesheet" type="text/css" href="style/zenmagick.css">
     <?php $utils->cssFile('js/jquery/jquery.treeview.css') ?>
     <?php $utils->jsNow('js/zenmagick.js') ?>
@@ -46,6 +47,7 @@
     <div id="main">
       <p>
         <a href="/zenmagick/admin/index.php">ZCAdmin</a> |
+        <a href="<?php echo $admin2->url('index') ?>">Home</a> |
         <a href="<?php echo $admin2->url('installation') ?>">Installation</a> |
         <a href="<?php echo $admin2->url('plugins') ?>">Pugins</a> |
         <a href="<?php echo $admin2->url('catalog_manager') ?>">Catalog Manager</a> |

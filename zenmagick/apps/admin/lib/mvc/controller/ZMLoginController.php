@@ -49,25 +49,18 @@ class ZMLoginController extends ZMController {
 
 
     /**
-     * Process a HTTP GET request.
-     * 
-     * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
-     * if the controller generates the contents itself.
+     * {@inheritDoc}
      */
     public function processGet($request) {
         if (null != $request->getUser()) {
             return $this->findView('logged-in');
         }
 
-        return parent::processGet($request);
-
+        return $this->findView();
     }
 
     /**
-     * Process a HTTP POST request.
-     * 
-     * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
-     * if the controller generates the contents itself.
+     * {@inheritDoc}
      */
     public function processPost($request) {
         $name = $request->getParameter('name');
