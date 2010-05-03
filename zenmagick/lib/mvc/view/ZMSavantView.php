@@ -216,4 +216,11 @@ class ZMSavantView extends ZMView {
         return $this->getSavant($request)->asUrl($filename);
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    public function path($filename) {
+        return $this->getSavant($request)->path($filename);
+    }
+
 }

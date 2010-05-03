@@ -63,6 +63,20 @@ abstract class ZMView extends ZMObject {
     }
 
     /**
+     * Get a variable.
+     *
+     * @param string name The variable name.
+     * @return mixed The value or <code>null</code>
+     */
+    public function getVar($name) {
+        if (array_key_exists($name, $this->vars_)) {
+            return $this->vars_[$name];
+        }
+
+        return null;
+    }
+
+    /**
      * Set multiple variables.
      *
      * @param array vars A map of name/value pairs.
@@ -187,5 +201,13 @@ abstract class ZMView extends ZMObject {
      * @return string A url.
      */
     public abstract function asUrl($request, $filename);
+
+    /**
+     * Resolve the given templates filename to a fully qualified filename.
+     *
+     * @param string filename The filename, relative to the template path.
+     * @return string A fully qualified filename or <code>null</code>.
+     */
+    public abstract function path($filename);
 
 }
