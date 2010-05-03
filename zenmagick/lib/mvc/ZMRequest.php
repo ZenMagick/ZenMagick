@@ -204,7 +204,6 @@ class ZMRequest extends ZMObject {
             } else {
                 $port = ':'.$port;
             }
-            echo 'full';
 
             $url = $scheme.$host.$port.$url;
         }

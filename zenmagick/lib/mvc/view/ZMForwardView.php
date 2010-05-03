@@ -73,21 +73,28 @@ class ZMForwardView extends ZMView {
     /**
      * {@inheritDoc}
      */
-    public function fetch($request, $template) {
+    public function fetch($request, $template, $type=ZMView::TEMPLATE) {
         throw new ZMException('not supported');
     }
 
     /**
      * {@inheritDoc}
      */
-    public function exists($request, $template) {
+    public function exists($request, $template, $type=ZMView::TEMPLATE) {
         throw new ZMException('not supported');
     }
 
     /**
      * {@inheritDoc}
      */
-    public function asUrl($request, $template) {
+    public function asUrl($request, $template, $type=ZMView::TEMPLATE) {
+        throw new ZMException('not supported');
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function path($template, $type=ZMView::TEMPLATE) {
         throw new ZMException('not supported');
     }
 
