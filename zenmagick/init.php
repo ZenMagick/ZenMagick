@@ -32,10 +32,10 @@
 
     include 'bootstrap.php';
 
-//TODO: remove again
-//ZMLoader::instance()->addPath(ZMFileUtils::mkPath(array(ZMRuntime::getInstallationPath(), 'apps', 'admin', 'lib')));
-//ZMLoader::instance()->loadStatic();
-//ZMSettings::append('zenmagick.mvc.toolbox.tools', 'admin:ToolboxAdmin');
+//TODO: used for zmIndex.php admin pages; remove once apps/admin is stable enough
+ZMLoader::instance()->addPath(ZMFileUtils::mkPath(array(ZMRuntime::getInstallationPath(), 'apps', 'admin', 'lib')));
+ZMLoader::instance()->loadStatic();
+ZMSettings::append('zenmagick.mvc.toolbox.tools', 'admin:ToolboxAdmin');
 
     // allow seo rewriters to fiddle with the request
     $_zm_request->seoDecode();
