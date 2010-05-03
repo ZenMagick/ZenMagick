@@ -41,18 +41,18 @@
           if (SHOW_CATEGORIES_BOX_PRODUCTS_NEW == 'true') {
             $content .= '<ul class="level1"><li><a href="' . $net->url(FILENAME_PRODUCTS_NEW) . '">' . zm_l10n_get('New Products...') . '</a></li></ul>';
           }
-          /*
           if (SHOW_CATEGORIES_BOX_FEATURED_PRODUCTS == 'true') {
-            $show_this = $db->Execute("select products_id from " . TABLE_FEATURED . " where status= 1 limit 1");
-            if ($show_this->RecordCount() > 0) {
+              $products = ZMProducts::instance()->getFeaturedProducts(0, 1, false, $session->getLanguageId());
+            if (0 < count($products)) {
               $content .= '<ul class="level1"><li><a href="' . $net->url(FILENAME_FEATURED_PRODUCTS) . '">' . zm_l10n_get('Featured...') . '</a></li></ul>';
             }
           }
-          */
           if (SHOW_CATEGORIES_BOX_PRODUCTS_ALL == 'true') {
             $content .= '<ul class="level1"><li><a href="' . $net->url(FILENAME_PRODUCTS_ALL) . '">' . zm_l10n_get('All Products...') . '</a></li></ul>';
           }
         }
+
+        echo $content;
         // May want to add ............onfocus="this.blur()"...... to each A HREF to get rid of the dotted-box around links when they're clicked.
         // just parse the $content string and insert it into each A HREF tag
     ?>
