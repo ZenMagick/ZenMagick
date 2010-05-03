@@ -22,6 +22,9 @@ Release 0.9.10
 - captcha: avoid using undefined define
 - ZMCategories: add parent_id to SQL sort order
 - flyoutCategories: initial version
+- jscrollerSideboxes: initial version
+- integrate ZMViewUtils into ZMSavantView; provide new $resources view var
+  replacing the $utils method wrapper around ZMTemplateManager
 
 Release 0.9.9
 - in ZMDbTableMapper handle database exception building auto mappings

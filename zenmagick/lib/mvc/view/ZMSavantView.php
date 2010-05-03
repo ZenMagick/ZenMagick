@@ -163,6 +163,10 @@ class ZMSavantView extends ZMView {
     public function generate($request) {
         $savant = $this->getSavant($request);
 
+        // special view bits
+        $viewUtils = ZMLoader::make('ViewUtils', $this);
+        $savant->assign('resources', $viewUtils);
+
         // put all vars into local scope
         $savant->assign($this->getVars());
 
@@ -177,7 +181,13 @@ class ZMSavantView extends ZMView {
             } else {
                 $template = $this->getTemplate();
             }
-            return $savant->fetch($template.ZMSettings::get('zenmagick.mvc.templates.ext', '.php'));
+            $contents = $savant->fetch($template.ZMSettings::get('zenmagick.mvc.templates.ext', '.php'));
+            if (null !== ($resources = $viewUtils->getResourceContents())) {
+                // apply resources...
+                $contents = preg_replace('/<\/head>/', $resources['header'] . '</head>', $contents, 1);
+                $contents = preg_replace('/<\/body>/', $resources['footer'] . '</body>', $contents, 1);
+            }
+            return $contents;
         } catch (Exception $e) {
             ZMLogging::instance()->dump($e, 'failed to fetch template: '.$template, ZMLogging::ERROR);
             throw new ZMException('failed to fetch template: '.$template, 0, $e);

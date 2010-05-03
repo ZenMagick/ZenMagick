@@ -23,8 +23,7 @@
  * $Id$
  */
 ?>
-<link rel="stylesheet" type="text/css" href="<?php echo $this->asUrl('stylesheet_categories_menu.css') ?>">
-<?php /* TODO: $utils->cssFile('stylesheet_categories_menu.css'); */ ?>
+<?php $resources->cssFile('stylesheet_categories_menu.css'); ?>
 <div class="box flyoutCategories" style="overflow:visible;"> <!-- re-enable overflow as disabled in default theme on .box -->
     <div id="nav-cat">
     <?php
