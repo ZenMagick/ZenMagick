@@ -13,3 +13,6 @@ plugins:
   success-install:
     view: RedirectView
     template: plugins
+  success-uninstall:
+    view: RedirectView
+    template: plugins

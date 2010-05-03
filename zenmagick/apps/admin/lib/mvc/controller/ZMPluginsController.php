@@ -102,6 +102,7 @@ class ZMPluginsController extends ZMController {
         $group = $request->getParameter('group');
         if ('install' == $action) {
             if (null != ($plugin = ZMPlugins::instance()->initPluginForId($pluginId, false)) && !$plugin->isInstalled()) {
+                ZMLogging::instance()->log('Install plugin: '.$plugin->getId(), ZMLogging::TRACE);
                 $plugin->install();
                 ZMMessages::instance()->success(zm_l10n_get('Plugin %s installed successfully', $plugin->getName()));
                 ZMMessages::instance()->addAll($plugin->getMessages());
@@ -109,8 +110,10 @@ class ZMPluginsController extends ZMController {
             } else {
             }
         } else if ('uninstall' == $action) {
+            $keepSettings = ZMLangUtils::asBoolean($request->getParameter('keepSettings', false));
             if (null != ($plugin = ZMPlugins::instance()->initPluginForId($pluginId, false)) && $plugin->isInstalled()) {
-                $plugin->remove();
+                ZMLogging::instance()->log('Un-install plugin: '.$plugin->getId() . '; keepSettings: '.($keepSettings?'true':'false'), ZMLogging::TRACE);
+                $plugin->remove($keepSettings);
                 ZMMessages::instance()->success(zm_l10n_get('Plugin %s un-installed successfully', $plugin->getName()));
                 ZMMessages::instance()->addAll($plugin->getMessages());
                 return $this->findView('success-uninstall');
