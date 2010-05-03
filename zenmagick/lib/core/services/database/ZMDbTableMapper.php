@@ -80,6 +80,7 @@ class ZMDbTableMapper extends ZMObject {
         'text' => 'string',
         'tinytext' => 'string',
         'mediumtext' => 'string',
+        'longtext' => 'string',
         'mediumblob' => 'blob'
     );
 
