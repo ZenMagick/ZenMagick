@@ -106,7 +106,8 @@ class ZMSavant extends Savant3 {
      */
     public function asUrl($filename, $type=ZMView::TEMPLATE) {
         if (null != ($path = $this->findFile($type, $filename))) {
-            $relpath = str_replace(dirname(ZMRuntime::getInstallationPath()).DIRECTORY_SEPARATOR, '', $path);
+            $basePath = ZMVIEW::TEMPLATE == $type ? $this->request->getTemplatePath() : $this->request->getWebPath();
+            $relpath = str_replace($basePath, '', $path);
             if ($relpath != $path) {
                 // only if matched and replaced...
                 // now convert to URL...
