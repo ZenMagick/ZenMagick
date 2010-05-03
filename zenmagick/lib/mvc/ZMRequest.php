@@ -480,6 +480,15 @@ class ZMRequest extends ZMObject {
     }
 
     /**
+     * Get the web path.
+     *
+     * @return string The path.
+     */
+    public function getWebPath() {
+        return ZMRuntime::getApplicationPath().'web'.DIRECTORY_SEPARATOR;
+    }
+
+    /**
      * Validate session token.
      *
      * @return boolean <code>true</code> in case the session token is valid.

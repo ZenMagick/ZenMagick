@@ -63,18 +63,6 @@ class ZMViewUtils extends ZMObject {
         return $this->view_;
     }
 
-    /*
-     * - include .js, inline: top, now, bottom
-     * - include .css, incline .css: top only
-     *
-     * - inline: text or file
-     *
-     * <link rel="stylesheet" type="text/css" href="<?php echo $this->asUrl('style_jscroller.css') ?>">
-     * <script src="<?php echo $this->asUrl('jscroller2-1.5.js') ?>"></script>
-     *
-     */
-
-
     /**
      * Add link to the given CSS file or create inline CSS in the head element of the response.
      *
@@ -140,7 +128,7 @@ class ZMViewUtils extends ZMObject {
      */
     public function resolveResource($filename) {
         $request = $this->view_->getVar('request');
-        return $this->view_->asUrl($request, $filename);
+        return $this->view_->asUrl($request, $filename, ZMView::RESOURCE);
     }
 
     /**
@@ -219,6 +207,5 @@ class ZMViewUtils extends ZMObject {
 
         return $contents;
     }
-
 
 }

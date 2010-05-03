@@ -72,23 +72,27 @@ class ZMSavant extends Savant3 {
 
 
     /**
-     * Check if the given templates file exists.
+     * Check if the given template/resource file exists.
      *
      * @param string filename The filename, relative to the template path.
+     * @param string type The lookup type; valid values are <code>ZMView::TEMPLATE</code> and <code>ZMView::RESOURCE</code>;
+     *  default is <code>ZMVIew::TEMPLATE</code>.
      * @return boolean <code>true</code> if the file exists, <code>false</code> if not.
      */
-    public function exists($filename) {
-        return !ZMLangUtils::isEmpty($this->findFile('template', $filename));
+    public function exists($filename, $type=ZMView::TEMPLATE) {
+        return !ZMLangUtils::isEmpty($this->findFile($type, $filename));
     }
 
     /**
      * Resolve the given templates filename to a fully qualified filename.
      *
      * @param string filename The filename, relative to the template path.
+     * @param string type The lookup type; valid values are <code>ZMView::TEMPLATE</code> and <code>ZMView::RESOURCE</code>;
+     *  default is <code>ZMVIew::TEMPLATE</code>.
      * @return string A fully qualified filename or <code>null</code>.
      */
-    public function path($filename) {
-        $path = $this->findFile('template', $filename);
+    public function path($filename, $type=ZMView::TEMPLATE) {
+        $path = $this->findFile($type, $filename);
         return ZMLangUtils::isEmpty($path) ? null : $path;
     }
 
@@ -96,15 +100,18 @@ class ZMSavant extends Savant3 {
      * Resolve the given (relative) templates filename into a url.
      *
      * @param string filename The filename, relative to the template path.
+     * @param string type The lookup type; valid values are <code>ZMView::TEMPLATE</code> and <code>ZMView::RESOURCE</code>;
+     *  default is <code>ZMVIew::TEMPLATE</code>.
      * @return string A url.
      */
-    public function asUrl($filename) {
-        if (null != ($path = $this->findFile('template', $filename))) {
+    public function asUrl($filename, $type=ZMView::TEMPLATE) {
+        if (null != ($path = $this->findFile($type, $filename))) {
             $relpath = str_replace(dirname(ZMRuntime::getInstallationPath()).DIRECTORY_SEPARATOR, '', $path);
             if ($relpath != $path) {
                 // only if matched and replaced...
                 // now convert to URL...
                 $relpath = str_replace('\\', '/', $relpath);
+                $url = $this->request->absoluteURL($relpath);
                 return $this->request->absoluteURL($relpath);
             }
         }

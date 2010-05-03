@@ -29,6 +29,8 @@
  * @version $Id$
  */
 abstract class ZMView extends ZMObject {
+    const TEMPLATE = 'template';
+    const RESOURCE = 'resource';
     private $vars_;
     private $viewId_;
     private $template_;
@@ -189,25 +191,31 @@ abstract class ZMView extends ZMObject {
      *
      * @param request The current request.
      * @param string filename The filename, relative to the template path.
+     * @param string type The lookup type; valid values are <code>ZMView::TEMPLATE</code> and <code>ZMView::RESOURCE</code>;
+     *  default is <code>ZMVIew::TEMPLATE</code>.
      * @return boolean <code>true</code> if the file exists, <code>false</code> if not.
      */
-    public abstract function exists($request, $filename);
+    public abstract function exists($request, $filename, $type=ZMView::TEMPLATE);
 
     /**
      * Resolve the given (relative) templates filename into a url.
      *
      * @param request The current request.
      * @param string filename The filename, relative to the template path.
+     * @param string type The lookup type; valid values are <code>ZMView::TEMPLATE</code> and <code>ZMView::RESOURCE</code>;
+     *  default is <code>ZMVIew::TEMPLATE</code>.
      * @return string A url.
      */
-    public abstract function asUrl($request, $filename);
+    public abstract function asUrl($request, $filename, $type=ZMView::TEMPLATE);
 
     /**
      * Resolve the given templates filename to a fully qualified filename.
      *
      * @param string filename The filename, relative to the template path.
+     * @param string type The lookup type; valid values are <code>ZMView::TEMPLATE</code> and <code>ZMView::RESOURCE</code>;
+     *  default is <code>ZMVIew::TEMPLATE</code>.
      * @return string A fully qualified filename or <code>null</code>.
      */
-    public abstract function path($filename);
+    public abstract function path($filename, $type=ZMView::TEMPLATE);
 
 }

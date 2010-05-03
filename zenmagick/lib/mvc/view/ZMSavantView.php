@@ -101,7 +101,7 @@ class ZMSavantView extends ZMView {
      * @param ZMRequest request The current request.
      */
     public function getResourcePath($request) {
-        return $this->getTemplatePath($request);
+        return $request->getWebPath();
     }
 
     /**
@@ -215,22 +215,22 @@ class ZMSavantView extends ZMView {
     /**
      * {@inheritDoc}
      */
-    public function exists($request, $filename) {
-        return $this->getSavant($request)->exists($filename);
+    public function exists($request, $filename, $type=ZMView::TEMPLATE) {
+        return $this->getSavant($request)->exists($filename, $type);
     }
 
     /**
      * {@inheritDoc}
      */
-    public function asUrl($request, $filename) {
-        return $this->getSavant($request)->asUrl($filename);
+    public function asUrl($request, $filename, $type=ZMView::TEMPLATE) {
+        return $this->getSavant($request)->asUrl($filename, $type);
     }
 
     /**
      * {@inheritDoc}
      */
-    public function path($filename) {
-        return $this->getSavant($request)->path($filename);
+    public function path($filename, $type=ZMView::TEMPLATE) {
+        return $this->getSavant($request)->path($filename, $type);
     }
 
 }
