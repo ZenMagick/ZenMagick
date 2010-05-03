@@ -23,63 +23,6 @@
  * $Id: zmPlugins.php 2647 2009-11-27 00:30:20Z dermanomann $
  */
 ?>
-<?php
-
-    $install = $request->getParameter('install');
-    $remove = $request->getParameter('remove');
-    $edit = $request->getParameter('edit');
-    $group = $request->getParameter('group');
-    $select = $request->getParameter('select');
-    $refresh = '';
-    $needRefresh = false;
-    if (null != $install) {
-        if (null != ($plugin = ZMPlugins::instance()->initPluginForId($install, false)) && !$plugin->isInstalled()) {
-            $plugin->install();
-            ZMMessages::instance()->addAll($plugin->getMessages());
-        }
-        $edit = $install;
-        $editPlugin = $plugin;
-        $needRefresh = true;
-        $refresh = $edit;
-    } else if (null != $remove) {
-        if (null != ($plugin = ZMPlugins::instance()->initPluginForId($remove, false)) && $plugin->isInstalled()) {
-            $plugin->remove();
-            ZMMessages::instance()->addAll($plugin->getMessages());
-        }
-        $needRefresh = true;
-    } else if (null != $edit) {
-        $editPlugin = ZMPlugins::instance()->initPluginForId($edit, false);
-    } else if (null != $select) {
-        $edit = $select;
-        $editPlugin = ZMPlugins::instance()->initPluginForId($select, false);
-    }
-
-    // update
-    if ('POST' == $request->getMethod() && null !== ($pluginId = $request->getParameter('pluginId'))) {
-        $plugin = ZMPlugins::instance()->initPluginForId($pluginId, false);
-        foreach ($plugin->getConfigValues() as $widget) {
-            if ($widget instanceof ZMFormWidget && null !== ($value = $request->getParameter($widget->getName()))) {
-                if (!$widget->compare($value)) {
-                    // value changed, use widget to (optionally) format value
-                    $widget->setValue($value);
-                    $plugin->set($widget->getName(), $widget->getStringValue());
-                }
-            }
-        }
-        $refresh = $pluginId;
-        $needRefresh = true;
-        $editPlugin = $plugin;
-    }
-
-    if ($needRefresh) {
-        $fragment = '';
-        if ($editPlugin) {
-            $fragment = '#' . $editPlugin->getId();
-        }
-        $request->redirect($admin2->url(null, 'select='.$refresh.$fragment, true));
-    }
-
-?>
 
 <script type="text/javascript">
     var statusImgOn = 'images/icons/tick.gif';
@@ -90,7 +33,7 @@
         var pluginId = link.id.split('-')[1];
         $.ajax({
             type: "POST",
-            url: "<?php echo $net->ajax('plugin_admin', 'setPluginStatus') ?>",
+            url: "<?php echo $admin2->ajax('plugin_admin', 'setPluginStatus') ?>",
             data: 'pluginId='+pluginId+'&status='+('on' == currentStatus ? 'false' : 'true'),
             success: function(msg) { 
                 var selector = '#'+link.id+' img';
@@ -123,15 +66,15 @@
         <td><?php echo $html->encode($plugin->getDescription()) ?></td>
         <td>
           <?php if ($plugin->isInstalled()) { ?>
-            <a href="#<?php echo $plugin->getId() ?>" onclick="toggle_status(this); return false;" id="status-<?php echo $plugin->getId() ?>" class="plugin-status-<?php echo ($plugin->isEnabled() ? 'on' : 'off') ?>"><?php echo ($plugin->isEnabled() ? 'Enabled' : 'Disabled') ?></a>
+            <a href="<?php echo $admin2->url() ?>#<?php echo $plugin->getId() ?>" onclick="toggle_status(this); return false;" id="status-<?php echo $plugin->getId() ?>" class="plugin-status-<?php echo ($plugin->isEnabled() ? 'on' : 'off') ?>"><?php echo ($plugin->isEnabled() ? 'Enabled' : 'Disabled') ?></a>
           <?php } else { ?>
             N/A
           <?php } ?>
         </td>
         <td><?php echo $plugin->getSortOrder() ?></td>
         <td>
-          <?php $msg = ($plugin->isInstalled() ? 'Remove ' : 'Install ').'plugin '.$plugin->getName(); ?>
-          <form action="<?php echo $admin2->url() ?>" method="POST" xonsubmit="return user_confirm('<?php echo $msg ?>');">
+          <?php $msg = ($plugin->isInstalled() ? 'Remove ' : 'Install ').'plugin: '.$plugin->getName(); ?>
+          <form action="<?php echo $admin2->url() ?>" method="POST" onsubmit="return zm_user_confirm('<?php echo $msg ?>');">
           <input type="hidden" name="pluginId" value="<?php echo $plugin->getId() ?>">
           <input type="hidden" name="group" value="<?php echo $plugin->getGroup() ?>">
           <?php if (!$plugin->isInstalled()) { ?>

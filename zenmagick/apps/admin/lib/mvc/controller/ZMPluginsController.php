@@ -100,13 +100,16 @@ class ZMPluginsController extends ZMController {
         $action = $request->getParameter('action');
         $pluginId = $request->getParameter('pluginId');
         $group = $request->getParameter('group');
+
+        $viewName = null;
+
         if ('install' == $action) {
             if (null != ($plugin = ZMPlugins::instance()->initPluginForId($pluginId, false)) && !$plugin->isInstalled()) {
                 ZMLogging::instance()->log('Install plugin: '.$plugin->getId(), ZMLogging::TRACE);
                 $plugin->install();
                 ZMMessages::instance()->success(zm_l10n_get('Plugin %s installed successfully', $plugin->getName()));
                 ZMMessages::instance()->addAll($plugin->getMessages());
-                return $this->findView('success-install');
+                $viewName = 'success-install';
             } else {
             }
         } else if ('uninstall' == $action) {
@@ -116,47 +119,15 @@ class ZMPluginsController extends ZMController {
                 $plugin->remove($keepSettings);
                 ZMMessages::instance()->success(zm_l10n_get('Plugin %s un-installed successfully', $plugin->getName()));
                 ZMMessages::instance()->addAll($plugin->getMessages());
-                return $this->findView('success-uninstall');
+                $viewName = 'success-uninstall';
             }
         }
-        return $this->findView('success-install');
+
+        // do this last once all changes are made
+        $this->refreshPluginStatus();
+        return $this->findView($viewName);
         // TODO: process...
 
-
-
-
-
-
-
-    $install = $request->getParameter('install');
-    $remove = $request->getParameter('remove');
-    $edit = $request->getParameter('edit');
-    $group = $request->getParameter('group');
-    $select = $request->getParameter('select');
-    $refresh = '';
-    $needRefresh = false;
-    $editPlugin = null;
-    if (null != ($request->getParameter('install'))) {
-        if (null != ($plugin = ZMPlugins::instance()->initPluginForId($install, false)) && !$plugin->isInstalled()) {
-            $plugin->install();
-            ZMMessages::instance()->addAll($plugin->getMessages());
-        }
-        $edit = $install;
-        $editPlugin = $plugin;
-        $needRefresh = true;
-        $refresh = $edit;
-    } else if (null != $remove) {
-        if (null != ($plugin = ZMPlugins::instance()->initPluginForId($remove, false)) && $plugin->isInstalled()) {
-            $plugin->remove();
-            ZMMessages::instance()->addAll($plugin->getMessages());
-        }
-        $needRefresh = true;
-    } else if (null != $edit) {
-        $editPlugin = ZMPlugins::instance()->initPluginForId($edit, false);
-    } else if (null != $select) {
-        $edit = $select;
-        $editPlugin = ZMPlugins::instance()->initPluginForId($select, false);
-    }
 
     // update
     if ('POST' == $request->getMethod() && null !== ($pluginId = $request->getParameter('pluginId'))) {
@@ -174,28 +145,6 @@ class ZMPluginsController extends ZMController {
         $needRefresh = true;
         $editPlugin = $plugin;
     }
-
-    if ($needRefresh) {
-        $fragment = '';
-        if ($editPlugin) {
-            $fragment = '#' . $editPlugin->getId();
-        }
-        $request->redirect($admin2->url(null, 'select='.$refresh.$fragment, true));
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

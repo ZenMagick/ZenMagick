@@ -31,6 +31,9 @@
     <!--TODO:::-->
     <base href="<?php echo ($request->isSecure() ?'https':'http') ?>://lasse.net<?php echo dirname($request->getContext()).'/zenmagick/apps/admin/web/' ?>">
     <link  rel="stylesheet" type="text/css" href="style/zenmagick.css">
+    <link  rel="stylesheet" type="text/css" href="js/jquery/jquery.treeview.css">
+    <script src="js/zenmagick.js"></script>
+    <script src="js/jquery/jquery-1.3.2.min.js"></script>
     <?php $utils->cssFile('js/jquery/jquery.treeview.css') ?>
     <?php $utils->jsNow('js/zenmagick.js') ?>
     <?php $utils->jsNow('js/jquery/jquery-1.3.2.min.js') ?>

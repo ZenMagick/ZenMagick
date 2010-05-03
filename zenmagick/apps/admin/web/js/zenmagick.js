@@ -26,37 +26,3 @@
 function zm_user_confirm(msg) {
     return confirm(msg);
 }
-
-// ZenMagick menu
-var zm_admin_init = function() {
-  if (document.all && document.getElementById) {
-    navRoot = document.getElementById("secnav");
-    for (ii=0; ii<navRoot.childNodes.length; ++ii) {
-      node = navRoot.childNodes[ii];
-      if (node.nodeName=="LI") {
-        node.onmouseover=function() {
-          this.className+=" over";
-        }
-        node.onmouseout=function() {
-          this.className=this.className.replace(" over", "");
-        }
-      }
-    }
-  }
-}
-
-// zen-cart menu
-function zen_admin_init() {
-  cssjsmenu('navbar');
-  if (document.getElementById) {
-    var kill = document.getElementById('hoverJS');
-    kill.disabled = true;
-  }
-}
-
-function init_page() {
-    zm_admin_init();
-    zen_admin_init();
-}
-
-window.onload = init_page;
