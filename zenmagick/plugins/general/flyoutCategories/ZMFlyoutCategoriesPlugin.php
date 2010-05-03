@@ -22,7 +22,7 @@
 
 
 /**
- *Flyout categories sidebox.
+ * Flyout categories sidebox.
  *
  * @package org.zenmagick.plugins.flyoutCategories
  * @author DerManoMann
