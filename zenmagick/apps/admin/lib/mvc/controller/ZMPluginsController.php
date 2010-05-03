@@ -98,11 +98,9 @@ class ZMPluginsController extends ZMController {
      */
     public function processPost($request) {
         $action = $request->getParameter('action');
-        $pluginId = $request->getParamter('pluginId');
-        $group = $request->getParamter('group');
+        $pluginId = $request->getParameter('pluginId');
+        $group = $request->getParameter('group');
         if ('install' == $action) {
-          echo 'install';
-          die();
             if (null != ($plugin = ZMPlugins::instance()->initPluginForId($pluginId, false)) && !$plugin->isInstalled()) {
                 $plugin->install();
                 ZMMessages::instance()->success(zm_l10n_get('Plugin %s installed successfully', $plugin->getName()));
@@ -110,8 +108,15 @@ class ZMPluginsController extends ZMController {
                 return $this->findView('success-install');
             } else {
             }
+        } else if ('uninstall' == $action) {
+            if (null != ($plugin = ZMPlugins::instance()->initPluginForId($pluginId, false)) && $plugin->isInstalled()) {
+                $plugin->remove();
+                ZMMessages::instance()->success(zm_l10n_get('Plugin %s un-installed successfully', $plugin->getName()));
+                ZMMessages::instance()->addAll($plugin->getMessages());
+                return $this->findView('success-uninstall');
+            }
         }
-        return $this->findView();
+        return $this->findView('success-install');
         // TODO: process...
 
 
