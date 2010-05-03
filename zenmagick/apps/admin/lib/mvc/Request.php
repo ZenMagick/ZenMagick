@@ -68,4 +68,12 @@ class Request extends ZMRequest {
         return null;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    public function getWebPath() {
+        // TODO: adjust to make $resources->cssFile(), etc work with zm.php in the admin folder...
+        return parent::getWebPath();
+    }
+
 }
