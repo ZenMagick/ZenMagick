@@ -10,6 +10,11 @@ null:
   index:
     template: index
 index:
+  layout: default_layout
   success:
     view: RedirectView
     template: index
+# explicit mapping - not required as all defaults
+# NOTE: there is no default layout configured, so about is a full page, not just a view
+#about:
+#  template: about
