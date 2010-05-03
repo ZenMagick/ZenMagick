@@ -27,12 +27,15 @@
         define('ZM_APP_PATH', 'apps'.DIRECTORY_SEPARATOR.'store'.DIRECTORY_SEPARATOR);
     }
 
+    // want to share code from here
+    define('ZM_SHARED', 'shared');
+
     include 'bootstrap.php';
 
 //TODO: remove again
-ZMLoader::instance()->addPath(ZMFileUtils::mkPath(array(ZMRuntime::getInstallationPath(), 'apps', 'admin', 'lib')));
-ZMLoader::instance()->loadStatic();
-ZMSettings::append('zenmagick.mvc.toolbox.tools', 'admin:ToolboxAdmin');
+//ZMLoader::instance()->addPath(ZMFileUtils::mkPath(array(ZMRuntime::getInstallationPath(), 'apps', 'admin', 'lib')));
+//ZMLoader::instance()->loadStatic();
+//ZMSettings::append('zenmagick.mvc.toolbox.tools', 'admin:ToolboxAdmin');
 
     // allow seo rewriters to fiddle with the request
     $_zm_request->seoDecode();

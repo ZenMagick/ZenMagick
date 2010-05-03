@@ -30,6 +30,9 @@
   // app location relative to zenmagick installation (ZM_BASE_PATH)
   define('ZM_APP_PATH', 'apps'.DIRECTORY_SEPARATOR.'admin'.DIRECTORY_SEPARATOR);
 
+  // share code
+  define('ZM_SHARED', 'shared');
+
   // preload a couple zc files needed
   require_once 'includes/configure.php';
   require_once DIR_FS_CATALOG.DIR_WS_INCLUDES.'filenames.php';
