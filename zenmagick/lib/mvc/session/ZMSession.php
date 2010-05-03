@@ -176,17 +176,11 @@ class ZMSession extends ZMObject {
             if (isset($_COOKIE[session_name()])) {
                 setcookie(session_name(), '', time()-42000, $this->cookiePath_);
             }
-            session_regenerate_id();
+            session_regenerate_id(false);
             $newId = session_id();
 
             // persist new session
             session_write_close();
-
-            // make sure the old session is gone
-            session_id($oldId);
-            $this->registerSessionHandler($this->sessionHandler_);
-            session_start();
-            session_destroy();
 
             // switch back to new session id
             session_id($newId);
