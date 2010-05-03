@@ -332,4 +332,18 @@ class Request extends ZMRequest {
         return substr($this->isSecure() ? DIR_WS_HTTPS_CATALOG : DIR_WS_CATALOG, 0, -1);
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    public function getTemplatePath() {
+        return dirname(ZMRuntime::getInstallationPath()).DIRECTORY_SEPARATOR;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getWebPath() {
+        return dirname(ZMRuntime::getInstallationPath()).DIRECTORY_SEPARATOR;
+    }
+
 }
