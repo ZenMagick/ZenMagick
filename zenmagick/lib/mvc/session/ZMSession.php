@@ -253,6 +253,9 @@ class ZMSession extends ZMObject {
                     $old = isset($this->data_[$namespace][$name]) ? $this->data_[$namespace][$name] : null;
                     if (null === $value) {
                         unset($this->data_[$namespace][$name]);
+                        if (0 == count($this->data_[$namespace])) {
+                            unset($this->data_[$namespace]);
+                        }
                     } else {
                         $this->data_[$namespace][$name] = $value;
                     }
