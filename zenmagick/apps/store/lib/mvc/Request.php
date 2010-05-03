@@ -336,6 +336,7 @@ class Request extends ZMRequest {
      * {@inheritDoc}
      */
     public function getTemplatePath() {
+        // for storefront both templates and resources are relative to the installation folder
         return dirname(ZMRuntime::getInstallationPath()).DIRECTORY_SEPARATOR;
     }
 
@@ -343,6 +344,7 @@ class Request extends ZMRequest {
      * {@inheritDoc}
      */
     public function getWebPath() {
+        // for storefront both templates and resources are relative to the installation folder
         return dirname(ZMRuntime::getInstallationPath()).DIRECTORY_SEPARATOR;
     }
 
