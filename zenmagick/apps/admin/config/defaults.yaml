@@ -26,4 +26,7 @@ zenmagick.mvc.sacs.handler: AdminUserSacsHandler
 #zenmagick.mvc.request.index: zm.php
 zenmagick.mvc.request.index: index.php
 
+# show login again if no session possible
+zenmagick.mvc.request.invalidSession: login
+
 zenmagick.mvc.toolbox.tools: net:ToolboxNet,html:ToolboxHtml,form:ToolboxForm,macro:ToolboxMacro,locale:ToolboxLocale,utils:ToolboxUtils,admin:ToolboxAdmin,admin2:ToolboxAdmin2

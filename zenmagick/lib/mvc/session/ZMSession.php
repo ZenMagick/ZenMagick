@@ -38,6 +38,7 @@ class ZMSession extends ZMObject {
 
     private $data_;
     private $cookiePath_;
+    private $cookieDomain_;
     private $secureCookie_;
     private $sessionHandler_;
 
@@ -51,7 +52,7 @@ class ZMSession extends ZMObject {
      * @param boolean secure Indicate whether the session cookie should be secure or not; default is <code>true</code>.
      * @param boolean autostart Indicate whether the session should be started immediately or on demand.
      */
-    function __construct($name=self::DEFAULT_NAME, $secure=false, $autostart=false) {
+    function __construct($domain=null, $name=self::DEFAULT_NAME, $secure=false, $autostart=false) {
         parent::__construct();
         $name = null !== $name ? $name : self::DEFAULT_NAME;
         session_name($name);
@@ -59,6 +60,7 @@ class ZMSession extends ZMObject {
         $this->data_ = array();
         $this->cookiePath_ = '/';
         $this->secureCookie_ = $secure;
+        $this->cookieDomain_ = $domain;
         $this->sessionHandler_ = null;
 
         if (!$this->isStarted()) {
@@ -87,6 +89,8 @@ class ZMSession extends ZMObject {
             // general protection
             ini_set("session.cookie_secure", $this->secureCookie_);
             ini_set("session.use_only_cookies", true);
+
+            session_set_cookie_params(0, $this->cookiePath_, $this->cookieDomain_);
         }
 
         if ($autostart && !$this->isNew()) {
@@ -154,7 +158,8 @@ class ZMSession extends ZMObject {
      */
     public function destroy() {
         if (isset($_COOKIE[session_name()])) {
-            setcookie(session_name(), '', time()-42000, $this->cookiePath_);
+            setcookie(session_name(), '', 0, $this->cookiePath_);
+            unset($_COOKIE[session_name()]);
         }
 
         session_unset();
@@ -174,7 +179,8 @@ class ZMSession extends ZMObject {
         $oldId = session_id();
         if (!empty($oldId)) {
             if (isset($_COOKIE[session_name()])) {
-                setcookie(session_name(), '', time()-42000, $this->cookiePath_);
+                setcookie(session_name(), '', 0, $this->cookiePath_);
+                unset($_COOKIE[session_name()]);
             }
 
             session_regenerate_id(false);
