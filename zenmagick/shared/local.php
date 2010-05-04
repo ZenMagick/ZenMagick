@@ -511,10 +511,12 @@
     //** load all config values if not set **//
     if (!defined('STORE_NAME')) {
         // $db might not be set up yet
-        ZMSettings::set('zenmagick.core.database.provider', 'ZMPdoDatabase');
+        $currentProvider = ZMSettings::set('zenmagick.core.database.provider', 'ZMPdoDatabase');
         foreach (ZMConfig::instance()->loadAll() as $key => $value) {
             define($key, $value);
         }
+        // restore
+        ZMSettings::set('zenmagick.core.database.provider', $currentProvider);
         // set again as some settings depend on zencart settings...
         ZMSettings::setAll(zm_get_default_settings());
     }
