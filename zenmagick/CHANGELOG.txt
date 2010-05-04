@@ -29,6 +29,7 @@ Release 0.9.10
 - fix b:#2996120 - missing parameter in pagination links
 - add link to new admin UI to ZenMagick admin menu (marked experimental)
 - add ZMNetUtils::getDomain()
+- ZMDatabase providers: allow to return all unmapped values as string
 
 Release 0.9.9
 - in ZMDbTableMapper handle database exception building auto mappings

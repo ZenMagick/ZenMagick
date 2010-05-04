@@ -508,6 +508,7 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
 
         // build typed data map
         $data = array();
+        $mappedFields = array();
 
         foreach ($mapping as $field => $info) {
             if (!array_key_exists($info['column'], $row)) {
@@ -563,6 +564,13 @@ class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
             }
 
             $data[$field] = $value;
+            $mappedFields[$info['column']] = $info['column'];
+        }
+
+        foreach($row as $key => $value) {
+            if (!array_key_exists($key, $mappedFields) && !array_key_exists($key, $data)) {
+                $data[$key] = $value;
+            }
         }
 
         // either data map or model instance

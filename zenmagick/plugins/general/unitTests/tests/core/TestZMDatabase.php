@@ -237,4 +237,21 @@ class TestZMDatabase extends ZMTestCase {
         }
     }
 
+    /**
+     * Test unmapped columns.
+     */
+    public function testUnmapped() {
+        // count orders
+        $sql = "SELECT count(*) AS count FROM " . TABLE_ORDERS . " where orders_status = :orderStatusId";
+
+        foreach (self::getProviders() as $provider => $database) {
+            try {
+                $result = $database->querySingle($sql, array('orderStatusId' => 1), TABLE_ORDERS);
+                $this->assertTrue(array_key_exists('count', $result), '%s: '.$provider);
+            } catch (Exception $e) {
+                $this->fail('unexpected exception: '.$e);
+            }
+        }
+    }
+
 }

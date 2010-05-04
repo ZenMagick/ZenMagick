@@ -550,9 +550,11 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
         }
 
         $mappedRow = array();
+        $mappedFields = array();
         foreach ($mapping as $field) {
             if (array_key_exists($field['column'], $row)) {
                 $mappedRow[$field['property']] = $row[$field['column']];
+                $mappedFields[$field['column']] = $field['column'];
                 if ('datetime' == $field['type']) {
                     if (ZMDatabase::NULL_DATETIME == $mappedRow[$field['property']]) {
                         $mappedRow[$field['property']] = null;
@@ -564,6 +566,13 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
                 } else if ('boolean' == $field['type']) {
                     $mappedRow[$field['property']] = ZMLangUtils::asBoolean($row[$field['column']]);
                 }
+            }
+        }
+
+        // handle unmapped fields as string...
+        foreach ($row as $key => $value) {
+            if (!array_key_exists($key, $mappedFields) && !array_key_exists($key, $mappedRow)) {
+                $mappedRow[$key] = $value;
             }
         }
 

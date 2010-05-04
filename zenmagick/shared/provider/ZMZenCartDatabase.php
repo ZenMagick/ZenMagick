@@ -467,14 +467,23 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
         }
 
         $mappedRow = array();
+        $mappedFields = array();
         foreach ($mapping as $field) {
             if (array_key_exists($field['column'], $row)) {
                 $mappedRow[$field['property']] = $row[$field['column']];
+                $mappedFields[$field['column']] = $field['column'];
                 if ('date' == $this->getMappedType($field['type'])) {
                     if (ZMDatabase::NULL_DATETIME == $mappedRow[$field['property']]) {
                         $mappedRow[$field['property']] = null;
                     }
                 }
+            }
+        }
+
+        // handle unmapped fields as string...
+        foreach ($row as $key => $value) {
+            if (!array_key_exists($key, $mappedFields) && !array_key_exists($key, $mappedRow)) {
+                $mappedRow[$key] = $value;
             }
         }
 
