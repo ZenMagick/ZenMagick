@@ -79,9 +79,7 @@ class ZMLoginController extends ZMController {
         $request->getSession()->setValue('admin_id', $user->getId());
         $request->getSession()->regenerate();
 
-        $followUpUrl = $request->getFollowUpUrl();
-
-        return $this->findView('success', array(), array('url' => $followUpUrl));
+        return $this->findView('success', array(), array('url' => $request->getFollowUpUrl()));
     }
 
 }
