@@ -40,4 +40,4 @@
   </form>
 <?php } ?>
 <?php $faqLink = '<a href="'.$net->url(FILENAME_GV_FAQ).'">'.zm_l10n_get("Gift Certificate FAQ").'</a>'; ?>
-<p><?php zm_l10n("For more information regarding Gift Certificate, please see the %s.", $faqLink) ?></p>
+<p><?php zm_l10n("For more information regarding Gift Certificates, please see the %s.", $faqLink) ?></p>
