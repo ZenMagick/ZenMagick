@@ -39,4 +39,5 @@
   require_once DIR_FS_CATALOG.DIR_WS_INCLUDES.'database_tables.php';
 
   require_once '../zenmagick/bootstrap.php';
+  ZMSettings::set('zenmagick.mvc.request.index', 'zm.php');
   require_once '../zenmagick/mvc.php';

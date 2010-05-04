@@ -28,16 +28,10 @@
   <head>
     <meta http-equiv="content-type" content="text/html; charset=<?php echo ZMSettings::get('zenmagick.mvc.html.charset') ?>">
     <title>ZenMagick Admin</title>
-    <!--TODO:::-->
-    <base href="<?php echo ($request->isSecure() ?'https':'http') ?>://lasse.net<?php echo dirname($request->getContext()).'/zenmagick/apps/admin/web/' ?>">
-
     <?php $resources->cssFile('style/zenmagick.css') ?>
-    <link  rel="stylesheet" type="text/css" href="js/jquery/jquery.treeview.css">
-    <script src="js/zenmagick.js"></script>
-    <script src="js/jquery/jquery-1.3.2.min.js"></script>
-    <?php $utils->cssFile('js/jquery/jquery.treeview.css') ?>
-    <?php $utils->jsNow('js/zenmagick.js') ?>
-    <?php $utils->jsNow('js/jquery/jquery-1.3.2.min.js') ?>
+    <?php $resources->cssFile('js/jquery/jquery.treeview.css') ?>
+    <?php $resources->jsFile('js/zenmagick.js') ?>
+    <?php $resources->jsFile('js/jquery/jquery-1.3.2.min.js') ?>
   </head>
   <body>
     <?php if (ZMMessages::instance()->hasMessages()) { ?>

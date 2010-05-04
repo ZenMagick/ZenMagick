@@ -27,6 +27,7 @@ Release 0.9.10
   replacing the $utils method wrapper around ZMTemplateManager
 - properly split template and resource path for view related methods
 - fix b:#2996120 - missing parameter in pagination links
+- add link to new admin UI to ZenMagick admin menu (marked experimental)
 
 Release 0.9.9
 - in ZMDbTableMapper handle database exception building auto mappings
