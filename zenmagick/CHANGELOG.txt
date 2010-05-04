@@ -26,6 +26,7 @@ Release 0.9.10
 - integrate ZMViewUtils into ZMSavantView; provide new $resources view var
   replacing the $utils method wrapper around ZMTemplateManager
 - properly split template and resource path for view related methods
+- fix b:#2996120 - missing parameter in pagination links
 
 Release 0.9.9
 - in ZMDbTableMapper handle database exception building auto mappings

@@ -134,7 +134,8 @@ class ZMRequest extends ZMObject {
      */
     public function url($requestId=null, $params='', $secure=false) {
         // custom params handling
-        if (null === $params) {
+        if (null == $requestId || null === $params) {
+            // if requestId null, keep current and also current params
             $query = $this->getParameterMap();
             unset($query[ZMSettings::get('zenmagick.mvc.request.idName', ZMRequest::DEFAULT_REQUEST_ID)]);
             unset($query[$this->getSession()->getName()]);
