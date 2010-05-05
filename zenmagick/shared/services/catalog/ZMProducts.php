@@ -364,39 +364,43 @@ class ZMProducts extends ZMObject implements ZMSQLAware {
         $timeLimit = null === $timeLimit ? ZMSettings::get('maxNewProducts') : $timeLimit;
 
         $queryLimit = '';
+        $orderBy = ' ORDER BY products_date_added DESC';
         switch ($timeLimit) {
             case '0':
-                // no global limit
+                // no global limit, so use some same limits just in case...
                 $queryLimit = '';
                 $date = '';
                 break;
             case '1':
                 // this month
                 $date = date('Ym', time()) . '01';
-                $queryLimit = ' and p.products_date_added >= :dateAdded';
+                $queryLimit = ' AND p.products_date_added >= :dateAdded';
                 break;
             default:
                 // X days; 24 hours; 60 mins; 60secs
                 $dateRange = time() - ($timeLimit * 24 * 60 * 60);
                 $date = date('Ymd', $dateRange);
-                $queryLimit = ' and p.products_date_added >= :dateAdded';
+                $queryLimit = ' AND p.products_date_added >= :dateAdded';
                 break;
         }
 
+        $totalLimit = 0 != $max ? ($max * 3) : 50;
+        $orderBy .= ' LIMIT 0, '.$totalLimit;
+
         $sql = null;
         if (null == $categoryId) {
-            $sql = "select p.products_id
-                      from " . TABLE_PRODUCTS . " p
-                      where p.products_status = 1" . $queryLimit;
+            $sql = "SELECT p.products_id
+                      FROM " . TABLE_PRODUCTS . " p
+                      WHERE p.products_status = 1" . $queryLimit;
         } else {
-            $sql = "select distinct p.products_id
-                    from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c, " .  TABLE_CATEGORIES . " c
-                    where p.products_id = p2c.products_id
-                    and p2c.categories_id = c.categories_id
-                    and c.categories_id = :categoryId
-                    and p.products_status = 1" . $queryLimit;
+            $sql = "SELECT DISTINCT p.products_id
+                    FROM " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c, " .  TABLE_CATEGORIES . " c
+                    WHERE p.products_id = p2c.products_id
+                      AND p2c.categories_id = c.categories_id
+                      AND c.categories_id = :categoryId
+                      AND p.products_status = 1" . $queryLimit;
         }
-        $sql .= " order by products_date_added";
+        $sql .= $orderBy;
 
         $args =  array('categoryId' => $categoryId, 'dateAdded' => $date);
         $tables = array(TABLE_PRODUCTS, TABLE_PRODUCTS_TO_CATEGORIES);
