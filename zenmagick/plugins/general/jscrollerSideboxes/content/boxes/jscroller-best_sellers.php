@@ -23,30 +23,31 @@
  * $Id$
  */
 ?>
-
-<?php $products = ZMProducts::instance()->getBestSellers($request->getCategoryId(), null, $session->getLanguageId()); ?>
-<?php if (0 < count($products)) { ?>
-    <h3><?php zm_l10n("Best Sellers") ?></h3>
-    <div id="sb_bestsellers" class="box">
-        <?php if (1 == count($products)) { $product = $products[0]; ?>
-            <p><?php echo $html->productImageLink($product) ?></p>
-            <p><a href="<?php echo $net->product($product->getId()) ?>"><?php echo $html->encode($product->getName()) ?></a></p>
-            <?php $offers = $product->getOffers(); ?>
-            <p><?php echo $utils->formatMoney($offers->getCalculatedPrice()) ?></p>
-        <?php } else { ?>
-            <?php $resources->jsFile('jscroller2-1.5.js'); ?>
-            <?php $resources->cssFile('style_jscroller.css'); ?>
-            <?php ob_start(); foreach ($products as $product) { ?>
-                <p>
-                <?php echo $html->productImageLink($product, $request->getCategoryId()) ?><br>
-                <a href="<?php echo $net->product($product->getId(), $request->getCategoryId()) ?>"><?php echo $html->encode($product->getName()) ?></a><br>
-                <?php echo $macro->productPrice($product) ?>
-                </p>
-            <?php } $featured = ob_get_clean(); ?>
-            <div class="scroller_container">
-                <div class="jscroller2_up jscroller2_speed-20 jscroller2_mousemove"><?php echo $featured ?></div>
-                <div class="jscroller2_up_endless"><?php echo $featured ?></div>
-            </div>
-        <?php } ?>
-    </div>
+<?php if (isset($jscrollerSideboxes)) { ?>
+    <?php $products = ZMProducts::instance()->getBestSellers($request->getCategoryId(), null, $session->getLanguageId()); ?>
+    <?php if (0 < count($products)) { ?>
+        <h3><?php zm_l10n("Best Sellers") ?></h3>
+        <div id="sb_bestsellers" class="box">
+            <?php if (1 == count($products)) { $product = $products[0]; ?>
+                <p><?php echo $html->productImageLink($product) ?></p>
+                <p><a href="<?php echo $net->product($product->getId()) ?>"><?php echo $html->encode($product->getName()) ?></a></p>
+                <?php $offers = $product->getOffers(); ?>
+                <p><?php echo $utils->formatMoney($offers->getCalculatedPrice()) ?></p>
+            <?php } else { ?>
+                <?php $resources->jsFile('jscroller2-1.5.js'); ?>
+                <?php $resources->cssFile('style_jscroller.css'); ?>
+                <?php ob_start(); foreach ($products as $product) { ?>
+                    <p>
+                    <?php echo $html->productImageLink($product, $request->getCategoryId()) ?><br>
+                    <a href="<?php echo $net->product($product->getId(), $request->getCategoryId()) ?>"><?php echo $html->encode($product->getName()) ?></a><br>
+                    <?php echo $macro->productPrice($product) ?>
+                    </p>
+                <?php } $featured = ob_get_clean(); ?>
+                <div class="scroller_container">
+                    <div class="jscroller2_up jscroller2_speed-20 jscroller2_mousemove"><?php echo $featured ?></div>
+                    <div class="jscroller2_up_endless"><?php echo $featured ?></div>
+                </div>
+            <?php } ?>
+        </div>
+    <?php } ?>
 <?php } ?>

@@ -20,6 +20,7 @@
 // $Id$
 //
 
+if (isset($cssCategories)) {
   $zen_CategoriesUL = new zen_categories_ul_generator;
   $menulist = $zen_CategoriesUL->buildTree(true);
 
@@ -55,11 +56,12 @@
   $content .= "</ul>\n";
 
   // Load JS file if this sidebox is enabled
-  $resources->jsFile('categories_css.js');
+  $resources->jsFile('categories_css.js', ZMViewUtils::FOOTER);
   //$content .= '<script type="text/javascript" src="'. $this->asUrl("categories_css.js", false) .'"></script>';
   // Preload menu images when page loads (won't affect IE, which never caches CSS images)
-  $m = $this->asUrl("images/menu/", false);
+  $m = $this->asUrl('images/menu/').'/';
   $content .= '<script type="text/javascript">addDOMEvent(window,"load",function() {preloadImages("'.$m.'branch.gif","'.$m.'leaf-end-on.gif","'.$m.'leaf-end.gif","'.$m.'leaf-on.gif","'.$m.'leaf.gif","'.$m.'node-end-on.gif","'.$m.'node-end.gif","'.$m.'node-on.gif","'.$m.'node-open-end-on.gif","'.$m.'node-open-end.gif","'.$m.'node-open-on.gif","'.$m.'node-open.gif","'.$m.'node.gif")}, false);</script>'."\n";
 
   echo $content;
+}
 ?>

@@ -23,6 +23,7 @@
  * $Id$
  */
 ?>
+<?php if (isset($flyoutCategories)) { ?>
 <?php $resources->cssFile('stylesheet_categories_menu.css'); ?>
 <div class="box flyoutCategories" style="overflow:visible;"> <!-- re-enable overflow as disabled in default theme on .box -->
     <div id="nav-cat">
@@ -58,3 +59,4 @@
     ?>
     </div>
 </div>
+<?php } ?>

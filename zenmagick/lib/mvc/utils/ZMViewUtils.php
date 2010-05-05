@@ -86,7 +86,7 @@ class ZMViewUtils extends ZMObject {
      *  or insert JavaScript inline; default is <code>false</code> to link.
      * @param string position Optional position; either <code>HEADER</code> (default), <code>FOOTER</code> or <code>NOW</code>.
      */
-    public function jsFile($filename, $inline=false, $position=self::HEADER) {
+    public function jsFile($filename, $position=self::HEADER, $inline=false) {
         if (array_key_exists($filename, $this->resources_['js'])) {
             // check if we need to do anything else or update the position
             if ($this->resources_['js'][$filename]['done']) {
