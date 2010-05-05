@@ -181,7 +181,8 @@ class ZMSavantView extends ZMView {
             } else {
                 $template = $this->getTemplate();
             }
-            $contents = $savant->fetch($template.ZMSettings::get('zenmagick.mvc.templates.ext', '.php'));
+            $template .= ZMSettings::get('zenmagick.mvc.templates.ext', '.php');
+            $contents = $savant->fetch($template);
             if (null !== ($resources = $viewUtils->getResourceContents())) {
                 // apply resources...
                 $contents = preg_replace('/<\/head>/', $resources['header'] . '</head>', $contents, 1);
