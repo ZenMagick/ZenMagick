@@ -27,7 +27,6 @@
 
   // NOTE: CSS should be in the <head> element, this is not valid HTML
   // Load CSS file if this sidebox is enabled
-  var_dump($resources);
   $resources->cssFile('categories_css.css');
   //$content .= '<link rel="stylesheet" type="text/css" href="' . $this->asUrl('categories_css.css', false) . '" />'."\n";
 
