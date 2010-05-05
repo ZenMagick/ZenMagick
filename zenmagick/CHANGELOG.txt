@@ -30,6 +30,7 @@ Release 0.9.10
 - add link to new admin UI to ZenMagick admin menu (marked experimental)
 - add ZMNetUtils::getDomain()
 - ZMDatabase providers: allow to return all unmapped values as string
+- pageStats: add option to display SQL queries and time used
 
 Release 0.9.9
 - in ZMDbTableMapper handle database exception building auto mappings

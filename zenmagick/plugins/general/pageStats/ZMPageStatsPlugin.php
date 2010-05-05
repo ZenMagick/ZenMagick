@@ -59,6 +59,8 @@ class ZMPageStatsPlugin extends Plugin {
             'widget@BooleanFormWidget#name=hideStats&default=false&label=Hide stats');
         $this->addConfigValue('Events', 'showEvents', 'false', 'Enable to display all fired events.',
             'widget@BooleanFormWidget#name=showEvents&default=false&label=Show events');
+        $this->addConfigValue('SQL', 'showSQLtiming', 'false', 'Enable to display all executed SQL and related timings.',
+            'widget@BooleanFormWidget#name=showSQLtiming&default=false&label=Show SQL');
     }
 
     /**
@@ -105,6 +107,20 @@ class ZMPageStatsPlugin extends Plugin {
             echo '  '.Runtime::getExecutionTime(ZM_START_TIME).' ZM_START_TIME '."\n";
             foreach (ZMEvents::instance()->getEventLog() as $event) {
                 echo '  '.$event['time'].' '.$event['method'].' / '.$event['id'].' args: '.implode(',', array_keys($event['args']))."\n";
+            }
+            echo '-->'."\n";
+        }
+
+        if (ZMLangUtils::asBoolean($this->get('showSQLtiming'))) {
+            echo '<!--'."\n";
+            echo '  SQL timings: ';
+            foreach (ZMRuntime::getDatabases() as $database) {
+                $config = $database->getConfig();
+                $stats = $database->getStats();
+                echo $config['database'].'('.get_class($database).'):'."\n";
+                foreach ($stats['details'] as $query) {
+                    echo $query['time'].': '.$query['sql']."\n";
+                }
             }
             echo '-->'."\n";
         }
@@ -181,6 +197,20 @@ class ZMPageStatsPlugin extends Plugin {
             }
             echo '</table>';
             echo '</div>';
+        }
+
+        if (ZMLangUtils::asBoolean($this->get('showSQLtiming'))) {
+            echo '<div id="sql-timings">';
+            echo '<table border="1">';
+            echo '<tr><th>Time (sec)</th><th>SQL</td></tr>';
+            foreach (ZMRuntime::getDatabases() as $database) {
+                $stats = $database->getStats();
+                echo '<tr><th colspan="2">'.$config['database'].'('.get_class($database).')</th></tr>'."\n";
+                foreach ($stats['details'] as $query) {
+                    echo '<tr><td>'.$query['time'].'</td><td>'.$query['sql']."</td></tr>";
+                }
+            }
+            echo '</table>';
         }
 
         $controller = $request->getController();
