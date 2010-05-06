@@ -34,6 +34,7 @@ class ZMQueryPager extends ZMObject {
     private $queryDetails_;
     private $orderBy_;
     private $filters_;
+    private $totalResultsCount_;
 
 
     /**
@@ -44,6 +45,7 @@ class ZMQueryPager extends ZMObject {
     public function __construct($queryDetails) {
         $this->queryDetails_ = $queryDetails;
         $this->orderBy_ = '';
+        $this->totalResultsCount_ = -1;
         $this->filters_ = array();
     }
 
@@ -87,49 +89,53 @@ class ZMQueryPager extends ZMObject {
      * @return int The total number of results available.
      */
     public function getTotalNumberOfResults() {
-        $queryDetails = $this->queryDetails_;
-        $sql = $queryDetails->getSql();
+        if (0 > $this->totalResultsCount_) {
+            $queryDetails = $this->queryDetails_;
+            $sql = $queryDetails->getSql();
 
-        $pos_to = strlen($sql);
-        $query_lower = strtolower($sql);
+            $pos_to = strlen($sql);
+            $query_lower = strtolower($sql);
 
-        $pos_select = strpos($query_lower, 'select ', 0);
+            $pos_select = strpos($query_lower, 'select ', 0);
 
-        $pos_from = strpos($query_lower, ' from', $pos_select);
+            $pos_from = strpos($query_lower, ' from', $pos_select);
 
-        $pos_where = strpos($query_lower, ' where', $pos_from);
+            $pos_where = strpos($query_lower, ' where', $pos_from);
 
-        $pos_group_by = strpos($query_lower, ' group by', $pos_from);
-        if (($pos_group_by < $pos_to) && ($pos_group_by != false)) { $pos_to = $pos_group_by; }
+            $pos_group_by = strpos($query_lower, ' group by', $pos_from);
+            if (($pos_group_by < $pos_to) && ($pos_group_by != false)) { $pos_to = $pos_group_by; }
 
-        $pos_having = strpos($query_lower, ' having', $pos_from);
-        if (($pos_having < $pos_to) && ($pos_having != false)) { $pos_to = $pos_having; }
+            $pos_having = strpos($query_lower, ' having', $pos_from);
+            if (($pos_having < $pos_to) && ($pos_having != false)) { $pos_to = $pos_having; }
 
-        $pos_order_by = strpos($query_lower, ' order by', $pos_from);
-        if (($pos_order_by < $pos_to) && ($pos_order_by != false)) { $pos_to = $pos_order_by; }
+            $pos_order_by = strpos($query_lower, ' order by', $pos_from);
+            if (($pos_order_by < $pos_to) && ($pos_order_by != false)) { $pos_to = $pos_order_by; }
 
-        if (null == ($count_string = $queryDetails->getCountCol())) {
-            $count_string = trim(preg_replace('/distinct/i', '', substr($sql, $pos_select+7, $pos_from-6)));
-        }
-        if (strpos($query_lower, 'distinct') || strpos($query_lower, 'group by')) {
-            $count_string = 'distinct '.$count_string;
-        }
-
-        // count total results
-        $count_query = "select count(" . $count_string . ") as total " . substr($sql, $pos_from, ($pos_to - $pos_from));
-
-        // apply filters (if any)
-        $filter = $this->getFilterSQL();
-        if (!empty($filter)) {
-            if (false === $pos_where) {
-                  $count_query .= ' where '.$filter;
-            } else {
-                  $count_query .= ' and '.$filter;
+            if (null == ($count_string = $queryDetails->getCountCol())) {
+                $count_string = trim(preg_replace('/distinct/i', '', substr($sql, $pos_select+7, $pos_from-6)));
             }
+            if (strpos($query_lower, 'distinct') || strpos($query_lower, 'group by')) {
+                $count_string = 'distinct '.$count_string;
+            }
+
+            // count total results
+            $count_query = "select count(" . $count_string . ") as total " . substr($sql, $pos_from, ($pos_to - $pos_from));
+
+            // apply filters (if any)
+            $filter = $this->getFilterSQL();
+            if (!empty($filter)) {
+                if (false === $pos_where) {
+                      $count_query .= ' where '.$filter;
+                } else {
+                      $count_query .= ' and '.$filter;
+                }
+            }
+
+            $result = $queryDetails->getDatabase()->querySingle($count_query, $queryDetails->getArgs(), $queryDetails->getMapping(), ZMDatabase::MODEL_RAW);
+            $this->totalResultsCount_ = (int)$result['total'];
         }
 
-        $result = $queryDetails->getDatabase()->querySingle($count_query, $queryDetails->getArgs(), $queryDetails->getMapping(), ZMDatabase::MODEL_RAW);
-        return (int)$result['total'];
+        return $this->totalResultsCount_;
     }
 
     /**
