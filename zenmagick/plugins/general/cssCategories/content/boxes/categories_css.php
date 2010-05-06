@@ -21,11 +21,11 @@
 //
 ?>
 <?php if (isset($cssCategories)) {
-    $zen_CategoriesUL = new zen_categories_ul_generator;
+    $categoriesULGenerator = new CategoriesUlGenerator();
     $resources->cssFile('categories_css.css');
     ?>
     <ul class="bullet-menu" id="siteMenu">
-        <?php echo preg_replace('%^\s*<ul>(.+)</ul>\s*$%sim', '\1', $zen_CategoriesUL->buildTree(true)); ?>
+        <?php echo preg_replace('%^\s*<ul>(.+)</ul>\s*$%sim', '\1', $categoriesULGenerator->buildTree(true)); ?>
         <?php if (SHOW_CATEGORIES_BOX_SPECIALS == 'true') { ?>
            <li><a href="<?php echo $net->url(FILENAME_SPECIALS) ?>"><?php zm_l10n('Specials') ?></a></li>
         <?php } ?>

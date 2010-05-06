@@ -69,7 +69,7 @@
          if ($level == 0) {
            $result .= $this->root_start_string;
          }
-         $result .= str_repeat($this->spacer_string, $this->spacer_multiplier * 1) . '<a href="' . zen_href_link(FILENAME_DEFAULT, 'cPath=' . $category_link) . '">';
+         $result .= str_repeat($this->spacer_string, $this->spacer_multiplier * 1) . '<a href="' . zen_href_link('category', 'cPath=' . $category_link) . '">';
          $result .= $category['name'];
          $result .= '</a>';
 

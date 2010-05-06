@@ -42,6 +42,7 @@ class ZMDispatcher {
 
         ZMEvents::instance()->fireEvent(null, ZMMVCConstants::DISPATCH_START, array('request' => $request));
         $view = self::handleRequest($request);
+        ZMLogging::instance()->trace('dispatcher...');
         ZMEvents::instance()->fireEvent(null, ZMMVCConstants::DISPATCH_DONE, array('request' => $request));
 
         // allow plugins and event subscribers to filter/modify the final contents; corresponds with ob_start() in init.php

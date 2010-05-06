@@ -26,7 +26,7 @@
 // recusive database queries. Could be improved by instead retrieving in a single
 // query all products to categories and then using recursive PHP to fetch counts.
 
-class zen_categories_ul_generator {
+class CategoriesUlGenerator {
   var $root_category_id = 0,
       $max_level = 6,
       $data = array(),
@@ -42,7 +42,7 @@ class zen_categories_ul_generator {
       $spacer_multiplier = 1;
   var $document_types_list = ' (3) ';  // acceptable format example: ' (3, 4, 9, 22, 18) '
 
-  function zen_categories_ul_generator() {
+  function __construct() {
     global $languages_id, $db, $request_type;
     $this->server    = ((ENABLE_SSL == true && $request_type == 'SSL') ? HTTPS_SERVER : HTTP_SERVER);
     $this->base_href = ((ENABLE_SSL == true && $request_type == 'SSL') ? DIR_WS_HTTPS_CATALOG : DIR_WS_CATALOG);
@@ -59,7 +59,7 @@ class zen_categories_ul_generator {
                         "order by c.parent_id, c.sort_order, cd.categories_name";
     $categories = $db->Execute($categories_query);
     while (!$categories->EOF) {
-      $products_in_category = (SHOW_COUNTS == 'true' ? zen_count_products_in_category($categories->fields['categories_id']) : 0);
+      $products_in_category = (SHOW_COUNTS == 'true' ? count(ZMProducts::instance()->getProductIdsForCategoryId($categories->fields['categories_id'], true, false)) : 0);
       $this->data[$categories->fields['parent_id']][$categories->fields['categories_id']] = array('name' => $categories->fields['categories_name'], 'count' => $products_in_category);
       $categories->MoveNext();
     }
@@ -87,7 +87,7 @@ class zen_categories_ul_generator {
         if ($cPath == $new_cpath) {
           $result .= '<a href="javascript:void(0)" class="on">'; // highlight current category & disable link
         } else {
-          $result .= '<a href="' . zen_href_link(FILENAME_DEFAULT, 'cPath=' . $new_cpath) . '">';
+          $result .= '<a href="' . zen_href_link('category', 'cPath=' . $new_cpath) . '">';
         }
         $result .= $category['name'];
         if (SHOW_COUNTS == 'true' && ((CATEGORIES_COUNT_ZERO == '1' && $category['count'] == 0) || $category['count'] >= 1)) {
