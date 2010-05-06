@@ -130,7 +130,7 @@ class ZMCategories extends ZMObject {
         $languageId = null !== $languageId ? $languageId : ZMRequest::instance()->getSession()->getLanguageId();
 
         if (!isset($this->categories_[$languageId])) {
-            $this->load($languageId, $ids);
+            $this->load($languageId);
             $this->buildTree($languageId);
         }
 
@@ -156,7 +156,7 @@ class ZMCategories extends ZMObject {
         $languageId = null !== $languageId ? $languageId : ZMRequest::instance()->getSession()->getLanguageId();
 
         if (!isset($this->categories_[$languageId])) {
-            $this->load($languageId, null);
+            $this->load($languageId);
             $this->buildTree($languageId);
         }
 
@@ -183,7 +183,7 @@ class ZMCategories extends ZMObject {
         $languageId = null !== $languageId ? $languageId : ZMRequest::instance()->getSession()->getLanguageId();
 
         if (!isset($this->categories_[$languageId])) {
-            $this->load($languageId, array($categoryId));
+            $this->load($languageId);
             $this->buildTree($languageId);
         }
 
@@ -242,9 +242,8 @@ class ZMCategories extends ZMObject {
      * Load all categories.
      *
      * @param int languageId Language id; default is <code>null</code>.
-     * @param mixed includes Optional parameter with explicit category ids to load; default is <code>null</code>.
      */
-    protected function load($languageId, $includes=null) {
+    protected function load($languageId) {
         if (!isset($this->categories_[$languageId])) {
             $this->categories_[$languageId] = array();
         }
