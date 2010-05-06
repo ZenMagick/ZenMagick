@@ -19,49 +19,37 @@
 // +----------------------------------------------------------------------+
 // $Id$
 //
-
-if (isset($cssCategories)) {
-  $zen_CategoriesUL = new zen_categories_ul_generator;
-  $menulist = $zen_CategoriesUL->buildTree(true);
-
-  $content = '';
-
-  // NOTE: CSS should be in the <head> element, this is not valid HTML
-  // Load CSS file if this sidebox is enabled
-  $resources->cssFile('categories_css.css');
-  //$content .= '<link rel="stylesheet" type="text/css" href="' . $this->asUrl('categories_css.css', false) . '" />'."\n";
-
-  // Load containing UL and content
-  $content .= '<ul class="bullet-menu" id="siteMenu">';
-  // get the menu tree (see the modules/sideboxes/YOURTEMPLATE/categories_css.php), strip off containing UL
-  $content .= preg_replace('%^\s*<ul>(.+)</ul>\s*$%sim', '\1', $menulist);
-  if (SHOW_CATEGORIES_BOX_SPECIALS == 'true' or SHOW_CATEGORIES_BOX_PRODUCTS_NEW == 'true') {
-    //$content .= '<hr />';  // insert a blank line/box in the menu
-    if (SHOW_CATEGORIES_BOX_SPECIALS == 'true') {
-      $content .= '  <li><a href="' . zen_href_link(FILENAME_SPECIALS) . '">' . CATEGORIES_BOX_HEADING_SPECIALS . '</a></li>'."\n";
-    }
-    if (SHOW_CATEGORIES_BOX_PRODUCTS_NEW == 'true') {
-      $content .= '  <li><a href="' . zen_href_link(FILENAME_PRODUCTS_NEW) . '">' . CATEGORIES_BOX_HEADING_WHATS_NEW . '</a></li>'."\n";
-    }
-    if (SHOW_CATEGORIES_BOX_FEATURED_PRODUCTS == 'true') {
-      $featured = ZMProducts::instance()->getFeaturedProducts(null, 1);
-      if (0 < count($featured)) {
-        $content .= '  <li><a href="' . zen_href_link(FILENAME_FEATURED_PRODUCTS) . '">' . CATEGORIES_BOX_HEADING_FEATURED_PRODUCTS . '</a></li>'."\n";
-      }
-    }
-    if (SHOW_CATEGORIES_BOX_PRODUCTS_ALL == 'true') {
-      $content .= '  <li><a href="' . zen_href_link(FILENAME_PRODUCTS_ALL) . '">' . CATEGORIES_BOX_HEADING_PRODUCTS_ALL . '</a></li>'."\n";
-    }
-  }
-  $content .= "</ul>\n";
-
-  // Load JS file if this sidebox is enabled
-  $resources->jsFile('categories_css.js', ZMViewUtils::FOOTER);
-  //$content .= '<script type="text/javascript" src="'. $this->asUrl("categories_css.js", false) .'"></script>';
-  // Preload menu images when page loads (won't affect IE, which never caches CSS images)
-  $m = $this->asUrl('images/menu/').'/';
-  $content .= '<script type="text/javascript">addDOMEvent(window,"load",function() {preloadImages("'.$m.'branch.gif","'.$m.'leaf-end-on.gif","'.$m.'leaf-end.gif","'.$m.'leaf-on.gif","'.$m.'leaf.gif","'.$m.'node-end-on.gif","'.$m.'node-end.gif","'.$m.'node-on.gif","'.$m.'node-open-end-on.gif","'.$m.'node-open-end.gif","'.$m.'node-open-on.gif","'.$m.'node-open.gif","'.$m.'node.gif")}, false);</script>'."\n";
-
-  echo $content;
-}
 ?>
+<?php if (isset($cssCategories)) {
+    $zen_CategoriesUL = new zen_categories_ul_generator;
+    $resources->cssFile('categories_css.css');
+    ?>
+    <ul class="bullet-menu" id="siteMenu">
+        <?php echo preg_replace('%^\s*<ul>(.+)</ul>\s*$%sim', '\1', $zen_CategoriesUL->buildTree(true)); ?>
+        <?php if (SHOW_CATEGORIES_BOX_SPECIALS == 'true') { ?>
+           <li><a href="<?php echo $net->url(FILENAME_SPECIALS) ?>"><?php zm_l10n('Specials') ?></a></li>
+        <?php } ?>
+        <?php if (SHOW_CATEGORIES_BOX_PRODUCTS_NEW == 'true') { ?>
+            <li><a href="<?php echo $net->url(FILENAME_PRODUCTS_NEW) ?>"><?php zm_l10n('New Products') ?></a></li>
+        <?php } ?>
+        <?php if (SHOW_CATEGORIES_BOX_FEATURED_PRODUCTS == 'true') { $featured = ZMProducts::instance()->getFeaturedProducts(null, 1); ?>
+            <?php if (0 < count($featured)) { ?>
+              <li><a href="<?php echo $net->url(FILENAME_FEATURED_PRODUCTS) ?>"><?php zm_l10n('Featured Products') ?></a></li>
+            <?php } ?>
+        <?php } ?>
+        <?php if (SHOW_CATEGORIES_BOX_PRODUCTS_ALL == 'true') { ?>
+            <li><a href="<?php echo $net->url(FILENAME_PRODUCTS_ALL) ?>"><?zm_l10n('All Products') ?></a></li>
+        <?php } ?>
+    </ul>
+
+    <?php $resources->jsFile('categories_css.js', ZMViewUtils::NOW); ?>
+    <script type="text/javascript">
+      // Preload menu images when page loads (won't affect IE, which never caches CSS images)
+      var mp = '<?php echo $this->asUrl('images/menu/').'/' ?>';
+      addDOMEvent(window, "load", function() {
+          preloadImages(mp+"branch.gif", mp+"leaf-end-on.gif", mp+"leaf-end.gif", mp+"leaf-on.gif", mp+"leaf.gif",
+            mp+"node-end-on.gif", mp+"node-end.gif", mp+"node-on.gif", mp+"node-open-end-on.gif",
+            mp+"node-open-end.gif", mp+"node-open-on.gif", mp+"node-open.gif", mp+"node.gif")},
+          false);
+    </script>
+<?php } ?>
