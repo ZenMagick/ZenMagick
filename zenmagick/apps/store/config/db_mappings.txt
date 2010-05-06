@@ -240,19 +240,6 @@ array(
         'useFunction' => 'column=use_function;type=string',
         'setFunction' => 'column=set_function;type=string'
     ),
-    'configuration' => array(
-        'id' => 'column=configuration_id;type=integer;key=true;auto=true',
-        'name' => 'column=configuration_title;type=string',
-        'key' => 'column=configuration_key;type=string',
-        'value' => 'column=configuration_value;type=string',
-        'description' => 'column=configuration_description;type=string',
-        'groupId' => 'column=configuration_group_id;type=integer',
-        'sortOrder' => 'column=sort_order;type=integer',
-        'lastModified' => 'column=last_modified;type=datetime',
-        'dateAdded' => 'column=date_added;type=datetime',
-        'useFunction' => 'column=use_function;type=string',
-        'setFunction' => 'column=set_function;type=string'
-    ),
     'featured' => array(
         'id' => 'column=featured_id;type=integer;key=true;auto=true',
         'productId' => 'column=products_id;type=integer',
@@ -373,9 +360,9 @@ array(
     'configuration_group' => array(
         'id' => 'column=configuration_group_id;type=integer;key=true;auto=true',
         'name' => 'column=configuration_group_title;type=string',
-        //'description' => 'column=configuration_group_description;type=string',
-        //'sortOrder' => 'column=sort_order;type=integer',
-        //'visible' => 'column=visible;type=integer'
+        'description' => 'column=configuration_group_description;type=string',
+        'sortOrder' => 'column=sort_order;type=integer',
+        'visible' => 'column=visible;type=boolean'
     ),
     'banners' => array(
         'id' => 'column=banners_id;type=integer;key=true;auto=true',

@@ -86,6 +86,7 @@
             <input type="checkbox" id="<?php echo $cid ?>" name="keepSettings" value="true" checked> <label for="<?php echo $cid ?>"><?php zm_l10n('Keep Settings') ?></label>
             <button type="submit">Uninstall</button>
             <!-- TODO: edit!! -->
+            <a href="<?php echo $admin2->url(null, 'action=refresh&pluginId='.$plugin->getId().'&group='.$plugin->getGroup()) ?>#<?php echo $plugin->getId() ?>">Refresh</a>
             <a href="<?php echo $admin2->url(null, 'edit='.$plugin->getId().'&group='.$plugin->getGroup()) ?>#<?php echo $plugin->getId() ?>">Edit</a>
           <?php } ?>
           </form>

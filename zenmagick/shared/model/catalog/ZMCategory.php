@@ -140,7 +140,7 @@ class ZMCategory extends ZMObject {
      */
     public function addChild($child) { 
         $id = ($child instanceof ZMCategory)  ? $child->getId() : $child;
-        if (!in_array($this->childrenIds_, $id)) {
+        if (!in_array($id, $this->childrenIds_)) {
             $this->childrenIds_[] = $id;
         }
     }

@@ -34,6 +34,7 @@
 class ZMConfigGroup extends ZMObject {
     private $id_;
     private $name_;
+    private $visible_;
 
 
     /**
@@ -43,6 +44,7 @@ class ZMConfigGroup extends ZMObject {
         parent::__construct();
 		    $this->id_ = 0;
 		    $this->name_ = null;
+		    $this->visible_ = false;
     }
 
     /**
@@ -68,6 +70,13 @@ class ZMConfigGroup extends ZMObject {
     public function getName() { return $this->name_; }
 
     /**
+     * Get the visible flag.
+     *
+     * @return boolean The flag.
+     */
+    public function isVisible() { return $this->visible_; }
+
+    /**
      * Set the id.
      *
      * @param string id The id.
@@ -80,5 +89,12 @@ class ZMConfigGroup extends ZMObject {
      * @param string name The name.
      */
     public function setName($name) {return $this->name_ = $name; }
+
+    /**
+     * Set the visible flag.
+     *
+     * @param boolean visible The new value.
+     */
+    public function setVisible($visble) {return $this->visible_ = $visble; }
 
 }

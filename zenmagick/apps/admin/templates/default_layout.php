@@ -43,6 +43,7 @@
     <?php } ?>
 
     <div id="main">
+      <?php echo $this->fetch('menu.php'); ?>
       <p>
         <a href="/zenmagick/admin/index.php">ZCAdmin</a> |
         <a href="<?php echo $admin2->url('index') ?>">Home</a> |

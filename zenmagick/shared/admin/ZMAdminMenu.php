@@ -62,7 +62,7 @@ class ZMAdminMenu extends ZMObject {
     public static function buildMenu($parent=null) {
         ob_start();
         $first = true;
-        $size = count (self::$items_);
+        $size = count(self::$items_);
         for ($ii=0; $ii < $size; ++$ii) { 
             $item = self::$items_[$ii];
             if (null == $item) {

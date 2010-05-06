@@ -66,6 +66,49 @@ class Request extends ZMRequest {
     /**
      * {@inheritDoc}
      */
+    public function url($requestId=null, $params='', $secure=false) {
+        // custom params handling
+        if (null == $requestId || null === $params) {
+            // if requestId null, keep current and also current params
+            $query = $this->getParameterMap();
+            unset($query[ZMSettings::get('zenmagick.mvc.request.idName', ZMRequest::DEFAULT_REQUEST_ID)]);
+            unset($query[$this->getSession()->getName()]);
+            if (null != $params) {
+                parse_str($params, $arr);
+                $query = array_merge($query, $arr);
+            }
+            // rebuild
+            $params = array();
+            foreach ($query as $name => $value) {
+                if (is_array($value)) {
+                    foreach ($value as $subValue) {
+                        $params[] = $name.'[]='.$subValue;
+                    }
+                } else {
+                    $params[] = $name.'='.$value;
+                }
+            }
+            $params = implode('&', $params);
+        }
+
+        // default to current requestId
+        $requestId = $requestId === null ? $this->getRequestId() : $requestId;
+
+        // delegate generation to SEO rewriters
+        $args = array('requestId' => $requestId, 'params' => $params, 'secure' => $secure);
+        foreach ($this->getSeoRewriter() as $rewriter) {
+            if (null != ($rewrittenUrl = $rewriter->rewrite($this, $args))) {
+                return $rewrittenUrl;
+            }
+        }
+
+        ZMLogging::instance()->trace('unresolved URL: '.$requestId);
+        return null;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function getRequestId() {
         return $this->getParameter(ZM_PAGE_KEY);
     }

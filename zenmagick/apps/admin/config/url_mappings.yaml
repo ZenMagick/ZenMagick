@@ -16,3 +16,6 @@ plugins:
   success-uninstall:
     view: RedirectView
     template: plugins
+  success-refresh:
+    view: RedirectView
+    template: plugins
