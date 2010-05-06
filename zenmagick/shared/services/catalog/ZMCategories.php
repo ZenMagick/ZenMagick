@@ -182,7 +182,7 @@ class ZMCategories extends ZMObject {
     public function getCategoryForId($categoryId, $languageId=null) {
         $languageId = null !== $languageId ? $languageId : ZMRequest::instance()->getSession()->getLanguageId();
 
-        if (!isset($this->categories_[$languageId]) || !isset($this->categories_[$languageId][$categoryId])) {
+        if (!isset($this->categories_[$languageId])) {
             $this->load($languageId, array($categoryId));
             $this->buildTree($languageId);
         }

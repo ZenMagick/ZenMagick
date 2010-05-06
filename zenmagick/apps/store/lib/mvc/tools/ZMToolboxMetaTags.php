@@ -151,11 +151,13 @@ class ZMToolboxMetaTags extends ZMToolboxTool {
                 $addTopCats = false;
             }
             $value .= $this->productName_;
-        } else if (null != ($category = ZMCategories::instance()->getCategoryForId($this->getRequest()->getCategoryId()))) {
-            $languageId = $this->getRequest()->getSession()->getLanguageId();
-            if (null != ($details = $category->getMetaTagDetails($languageId))) {
-                $value = $details->getKeywords();
-                $addTopCats = false;
+        } else if (0 != $this->getRequest()->getCategoryId()) {
+            if (null != ($category = ZMCategories::instance()->getCategoryForId($this->getRequest()->getCategoryId()))) {
+                $languageId = $this->getRequest()->getSession()->getLanguageId();
+                if (null != ($details = $category->getMetaTagDetails($languageId))) {
+                    $value = $details->getKeywords();
+                    $addTopCats = false;
+                }
             }
         }
 
@@ -194,10 +196,12 @@ class ZMToolboxMetaTags extends ZMToolboxTool {
                 $value .= ZMSettings::get('metaTagCrumbtrailDelimiter');
                 $value .= $this->topCategories_;
             }
-        } else if (null != ($category = ZMCategories::instance()->getCategoryForId($this->getRequest()->getCategoryId()))) {
-            $languageId = $this->getRequest()->getSession()->getLanguageId();
-            if (null != ($details = $category->getMetaTagDetails($languageId))) {
-                $value = $details->getDescription();
+        } else if (0 != $this->getRequest()->getCategoryId()) {
+            if (null != ($category = ZMCategories::instance()->getCategoryForId($this->getRequest()->getCategoryId()))) {
+                $languageId = $this->getRequest()->getSession()->getLanguageId();
+                if (null != ($details = $category->getMetaTagDetails($languageId))) {
+                    $value = $details->getDescription();
+                }
             }
         }
 
