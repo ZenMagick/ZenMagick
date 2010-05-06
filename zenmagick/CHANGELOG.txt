@@ -34,6 +34,7 @@ Release 0.9.10
 - create setting 'isShowCategoryCount' that defaults to false...
 - limit ZMProducts::getNewProducts() to (3 * $max) or 50 (if $max == 0)
 - simplify generated search SQL if no categories are involved
+- add ZMCategories::getRootCategories() and use in meta data tool
 
 Release 0.9.9
 - in ZMDbTableMapper handle database exception building auto mappings

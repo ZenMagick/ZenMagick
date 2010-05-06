@@ -225,7 +225,7 @@ class ZMToolboxMetaTags extends ZMToolboxTool {
         if (null != $this->topCategories_)
             return;
 
-        $topCategories = ZMCategories::instance()->getCategoryTree();
+        $topCategories = ZMCategories::instance()->getRootCategories();
 
         $first = true;
         foreach ($topCategories as $category) {

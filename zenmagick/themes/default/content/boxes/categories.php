@@ -27,5 +27,5 @@
 <?php $tree = ZMCategories::instance()->getCategoryTree($session->getLanguageId()); ?>
 <h3><?php zm_l10n("Categories") ?></h3>
 <div id="sb_categories" class="box">
-    <?php echo $macro->categoryTree($tree, ZMSettings::get('isShowCategoryCount', false), ZMSettings::get('isUseCategoryPage')) ?>
+    <?php echo $macro->categoryTree($tree, ZMSettings::get('isShowCategoryCount', false), ZMSettings::get('isUseCategoryPage', false)) ?>
 </div>

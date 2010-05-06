@@ -139,10 +139,9 @@ class ZMCategory extends ZMObject {
      * @param mixed child Either a category or category id.
      */
     public function addChild($child) { 
-        if ($child instanceof ZMCategory) {
-            $this->childrenIds_[] = $child->getId();
-        } else {
-            $this->childrenIds_[] = $child;
+        $id = ($child instanceof ZMCategory)  ? $child->getId() : $child;
+        if (!in_array($this->childrenIds_, $id)) {
+            $this->childrenIds_[] = $id;
         }
     }
 
