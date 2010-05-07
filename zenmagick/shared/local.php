@@ -98,7 +98,7 @@
 
             /*** cache ***/
             'zenmagick.core.cache.mapping.defaults' => array(),
-            'zenmagick.core.cache.provider.file.baseDir' => DIR_FS_SQL_CACHE.'/zenmagick/',
+            'zenmagick.core.cache.provider.file.baseDir' => dirname(ZMRuntime::getInstallationPath()).'/cache/zenmagick/',
 
             /*** plugins ***/
             'zenmagick.core.plugins.enabled' => true,
@@ -342,7 +342,7 @@
              **************************************/
 
             // cache folder
-            'rssCacheDir' => DIR_FS_SQL_CACHE."/zenmagick/rss/",
+            'rssCacheDir' => dirname(ZMRuntime::getInstallationPath())."/cache/zenmagick/rss/",
 
 
 

@@ -20,8 +20,6 @@
 ?>
 <?php
 
-define('ZM_CACHE_BASE_DIR', DIR_FS_SQL_CACHE.'/zenmagick/');
-
 
 /**
  * File caching.

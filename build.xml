@@ -32,8 +32,8 @@
     <!-- This is used to compare zip files; see http://zipdiff.sourceforge.net/ for details -->
     <taskdef name="zipdiff" classname="zipdiff.ant.ZipDiffTask"/>
 
-	<!-- Flow control -->
-	<typedef resource="net/sf/antcontrib/antcontrib.properties"/>
+    <!-- Flow control -->
+    <typedef resource="net/sf/antcontrib/antcontrib.properties"/>
 
 
     <!-- Init -->
@@ -123,7 +123,7 @@
                 <exclude name="plugins/**" />
                 <exclude name="themes/**" />
                 <exclude name="notes/**" />
-                <exclude name="apps/**" />
+                <exclude name="apps/sample/**" />
             </fileset>
 
             <!-- copy default and demo theme -->
