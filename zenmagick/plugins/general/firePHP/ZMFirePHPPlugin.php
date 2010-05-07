@@ -55,15 +55,41 @@ class ZMFirePHPPlugin extends Plugin implements ZMRequestHandler {
         $this->addConfigValue('Enable on demand only', 'isOnDemand', 'false', 'If set, the plugin will be inactive unless the configured query parameter is set', 
             'widget@BooleanFormWidget#name=isOnDemand&default=false&label=Enable on demand only&style=radio');
         $this->addConfigValue('On demand query parameter name', 'onDemandName', 'firephp', 'The name of the query parameter to enable FirePHP.');
-        //TODO: make drop down
-        //$this->addConfigValue('On demand log level', 'onDemandLogLevel', ZMLogging::TRACE, 'The log level to be used for on deman logging.');
+        $this->addConfigValue('On demand log level', 'onDemandLogLevel', ZMLogging::TRACE, 'The log level to be used for on deman logging.',
+            'widget@SelectFormWidget#name=onDemandLogLevel&default='.ZMLogging::TRACE.'false&options='.urlencode(
+                ZMLOGGING::ERROR.'=Error&'.
+                ZMLOGGING::WARN.'=Warn&'.
+                ZMLOGGING::INFO.'=Info&'.
+                ZMLOGGING::DEBUG.'=Debug&'.
+                ZMLOGGING::TRACE.'=Trace'
+            ));
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function init() {
+        if (ZMLangUtils::asBoolean($this->get('isOnDemand'))) {
+            // use regular looging until decided whether there is demand...
+            self::singleton('Logging', new ZMLogging(), true);
+        }
     }
 
     /**
      * {@inheritDoc}
      */
     public function initRequest($request) {
-        // TODO:
+        if (ZMLangUtils::asBoolean($this->get('isOnDemand'))) {
+            if (null != $request->getParameter($this->get('onDemandName'))) {
+                // enable logging
+                ZMSettings::set('zenmagick.core.logging.enabled', true);
+                ZMSettings::set('zenmagick.core.logging.level', (int)$this->get('onDemandLogLevel'));
+                self::singleton('Logging', new Logging(), true);
+            } else {
+                // avoid being used!
+                self::singleton('Logging', new ZMLogging(), true);
+            }
+        }
     }
 
 }
