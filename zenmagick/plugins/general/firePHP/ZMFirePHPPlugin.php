@@ -28,7 +28,7 @@
  * @author DerManoMann
  * @version $Id$
  */
-class ZMFirePHPPlugin extends Plugin {
+class ZMFirePHPPlugin extends Plugin implements ZMRequestHandler {
 
     /**
      * Create new instance.
@@ -43,6 +43,27 @@ class ZMFirePHPPlugin extends Plugin {
      */
     function __destruct() {
         parent::__destruct();
+    }
+
+
+    /**
+     * {@inheritDoc}
+     */
+    public function install() {
+        parent::install();
+
+        $this->addConfigValue('Enable on demand only', 'isOnDemand', 'false', 'If set, the plugin will be inactive unless the configured query parameter is set', 
+            'widget@BooleanFormWidget#name=isOnDemand&default=false&label=Enable on demand only&style=radio');
+        $this->addConfigValue('On demand query parameter name', 'onDemandName', 'firephp', 'The name of the query parameter to enable FirePHP.');
+        //TODO: make drop down
+        //$this->addConfigValue('On demand log level', 'onDemandLogLevel', ZMLogging::TRACE, 'The log level to be used for on deman logging.');
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function initRequest($request) {
+        // TODO:
     }
 
 }
