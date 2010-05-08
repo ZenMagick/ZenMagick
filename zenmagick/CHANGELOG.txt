@@ -44,6 +44,8 @@ Release 0.9.10
 - make languageId mandatory in ZMReviews; templates affected: reviews.php
   [getRandomReviews: signature changes],
 - drop languageId in ZMAttributes [languageId is a property on ZMProduct]
+- make languageId mandatory in ZMManufacturers
+  [getRandomReviews: signature changes],
 
 Release 0.9.9
 - in ZMDbTableMapper handle database exception building auto mappings

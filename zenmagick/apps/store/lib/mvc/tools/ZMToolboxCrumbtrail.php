@@ -150,7 +150,7 @@ class ZMToolboxCrumbtrail extends ZMToolboxTool {
         if (null == $manufacturerId)
             return;
 
-        $manufacturer = ZMManufacturers::instance()->getManufacturerForId($manufacturerId);
+        $manufacturer = ZMManufacturers::instance()->getManufacturerForId($manufacturerId, $this->getRequest()->getSession()->getLanguageId());
         if (null != $manufacturer) {
             $this->addCrumb($manufacturer->getName(), $this->getRequest()->url('category', 'manufacturers_id=' . $manufacturerId));
         }

@@ -301,7 +301,7 @@ class ZMToolboxMetaTags extends ZMToolboxTool {
                 $this->category_ = $category->getName();
             }
         } else if (null != $this->getRequest()->getManufacturerId()) {
-            if (null != ($manufacturer = ZMManufacturers::instance()->getManufacturerForId($this->getRequest()->getManufacturerId()))) {
+            if (null != ($manufacturer = ZMManufacturers::instance()->getManufacturerForId($this->getRequest()->getManufacturerId(), $this->getRequest()->getSession()->getLanguageId()))) {
                 $this->category_ = $manufacturer->getName();
             }
         }

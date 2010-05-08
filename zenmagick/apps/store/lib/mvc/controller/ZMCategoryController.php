@@ -80,7 +80,7 @@ class ZMCategoryController extends ZMController {
             $method = "getProductsForManufacturerId";
             $args = array($request->getManufacturerId());
             $viewName = 'manufacturer';
-            if (null == ($manufacturer = ZMManufacturers::instance()->getManufacturerForId($request->getManufacturerId()))) {
+            if (null == ($manufacturer = ZMManufacturers::instance()->getManufacturerForId($request->getManufacturerId(), $request->getSession()->getLanguageId()))) {
                 return $this->findView('manufacturer_not_found');
             }
         }

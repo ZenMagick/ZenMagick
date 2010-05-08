@@ -33,7 +33,8 @@
      */
     function zm_build_manufacturer_facet($type=null) {
         $facet = array();
-        $manufacturers = ZMManufacturers::instance()->getManufacturers();
+        //XXX: TODO: fix languageId
+        $manufacturers = ZMManufacturers::instance()->getManufacturers(1);
         foreach ($manufacturers as $manufacturer) {
             $id = $manufacturer->getId();
             $products = ZMProducts::instance()->getProductsForManufacturerId($id);

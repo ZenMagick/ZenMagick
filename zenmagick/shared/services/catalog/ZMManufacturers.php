@@ -55,15 +55,10 @@ class ZMManufacturers extends ZMObject {
      * Get manufacturer for id.
      *
      * @param int id The manufacturer id.
-     * @param int languageId Optional language id; default is <code>null</code> for session language.
+     * @param int languageId Language id.
      * @return ZMManufacturer The manufacturer or <code>null</code>.
      */
-    public function getManufacturerForId($id, $languageId=null) {
-        if (null === $languageId) {
-            $session = ZMRequest::instance()->getSession();
-            $languageId = $session->getLanguageId();
-        }
-
+    public function getManufacturerForId($id, $languageId) {
         $sql = "SELECT mi.*, m.*
                 FROM " . TABLE_MANUFACTURERS . " m
                   LEFT JOIN " . TABLE_MANUFACTURERS_INFO . " mi ON (m.manufacturers_id = mi.manufacturers_id AND mi.languages_id = :languageId)
@@ -103,15 +98,10 @@ class ZMManufacturers extends ZMObject {
     /**
      * Get all manufacturers.
      *
-     * @param int languageId Optional language id; default is <code>null</code> for session language.
+     * @param int languageId Language id.
      * @return array List of <code>ZMManufacturer</code> instances.
      */
-    public function getManufacturers($languageId=null) {
-        if (null === $languageId) {
-            $session = ZMRequest::instance()->getSession();
-            $languageId = $session->getLanguageId();
-        }
-
+    public function getManufacturers($languageId) {
         $sql = "SELECT mi.*, m.* 
                 FROM " . TABLE_MANUFACTURERS . " m
                   LEFT JOIN " . TABLE_MANUFACTURERS_INFO . " mi ON (m.manufacturers_id = mi.manufacturers_id AND mi.languages_id = :languageId)";
@@ -130,14 +120,9 @@ class ZMManufacturers extends ZMObject {
      * Update manufacturers click stats.
      *
      * @param int id The manufacturer id.
-     * @param int languageId Optional language id; default is <code>null</code> for session language.
+     * @param int languageId Language id.
      */
-    public function updateManufacturerClickCount($id, $languageId=null) {
-        if (null === $languageId) {
-            $session = ZMRequest::instance()->getSession();
-            $languageId = $session->getLanguageId();
-        }
-
+    public function updateManufacturerClickCount($id, $languageId) {
         // clear global cache
         $cacheKey = ZMLangUtils::mkUnique('manufacturer', $languageId);
         $this->cache->remove($cacheKey);
