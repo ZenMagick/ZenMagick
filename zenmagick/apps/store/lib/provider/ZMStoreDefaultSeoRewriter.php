@@ -124,7 +124,10 @@ class ZMStoreDefaultSeoRewriter implements ZMSeoRewriter {
         }
 
         if (!empty($params)) {
-            $query .= '&'.strtr(trim($params), array('"' => '&quot;'));
+            if ( $query !== '?' ) {
+                $query .= '&';
+            }
+            $query .= strtr(trim($params), array('"' => '&quot;'));
         }
 
         // trim trailing '?' and '&' from path

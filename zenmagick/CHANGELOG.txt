@@ -36,6 +36,7 @@ Release 0.9.10
 - simplify generated search SQL if no categories are involved
 - add ZMCategories::getRootCategories() and use in meta data tool
 - FirePHP: allow to enable on demand via request parameter
+- fix b:#2998413 corrupt ipn_main_handler url
 
 Release 0.9.9
 - in ZMDbTableMapper handle database exception building auto mappings
