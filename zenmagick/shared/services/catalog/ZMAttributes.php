@@ -56,18 +56,12 @@ class ZMAttributes extends ZMObject {
 
 
     /**
-     * Load attributes for the given product and language.
+     * Load attributes for the given product.
      *
      * @param ZMProduct product The product.
-     * @param int languageId The languageId; default is <code>null</code> for session language.
      * @return boolean <code>true</code> if attributes eixst, <code>false</code> if not.
      */ 
-    public function getAttributesForProduct($product, $languageId=null) {
-        if (null === $languageId) {
-            $session = ZMRequest::instance()->getSession();
-            $languageId = $session->getLanguageId();
-        }
-
+    public function getAttributesForProduct($product) {
         // set up sort order SQL
         $attributesOrderBy = '';
         if (ZMSettings::get('isSortAttributesByName')) {
@@ -84,7 +78,7 @@ class ZMAttributes extends ZMObject {
                   AND pa.options_id = po.products_options_id
                   AND po.language_id = :languageId" .
                 $attributesOrderBy;
-        $args = array('productId' => $product->getId(), 'languageId' => $languageId);
+        $args = array('productId' => $product->getId(), 'languageId' => $product->getLanguageId());
         $attributes = ZMRuntime::getDatabase()->query($sql, $args, array(TABLE_PRODUCTS_OPTIONS, TABLE_PRODUCTS_ATTRIBUTES), 'Attribute');
         if (0 == count($attributes)) {
             return $attributes;
@@ -110,7 +104,7 @@ class ZMAttributes extends ZMObject {
         }
 
         // read all in one go
-        $args = array('attributeId' => array_keys($attributeMap), 'productId' => $product->getId(), 'languageId' => $languageId);
+        $args = array('attributeId' => array_keys($attributeMap), 'productId' => $product->getId(), 'languageId' => $product->getLanguageId());
         $mapping = array(TABLE_PRODUCTS_OPTIONS_VALUES, TABLE_PRODUCTS_ATTRIBUTES);
         foreach (Runtime::getDatabase()->query($sql, $args, $mapping, 'AttributeValue') as $value) {
             $attribute = $attributeMap[$value->getAttributeId()];

@@ -358,7 +358,7 @@ class ZMEventFixes extends ZMObject {
 
         if ('coupon' == $template) {
             $couponId = $request->getParameter('cid');
-            $coupon = ZMCoupons::instance()->getCouponForId($couponId $request->getSession()->getLanguageId());
+            $coupon = ZMCoupons::instance()->getCouponForId($couponId, $request->getSession()->getLanguageId());
             $view->setVar('currentCoupon', $coupon);
             $account = ZMAccounts::instance()->getAccountForId($context['accountId']);
             $view->setVar('currentAccount', $account);

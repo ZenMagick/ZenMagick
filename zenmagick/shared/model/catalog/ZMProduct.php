@@ -500,12 +500,11 @@ class ZMProduct extends ZMObject {
     /**
      * Get the product attributes.
      *
-     * @param int languageId The languageId; default is <code>null</code> for session language.
      * @return array A list of {@link org.zenmagick.model.catalog.ZMAttribute ZMAttribute} instances.
      */
-    public function getAttributes($languageId=null) { 
+    public function getAttributes() { 
         if (null === $this->attributes_) {
-            $this->attributes_ = ZMAttributes::instance()->getAttributesForProduct($this, $languageId);
+            $this->attributes_ = ZMAttributes::instance()->getAttributesForProduct($this);
         }
 
         return $this->attributes_;
