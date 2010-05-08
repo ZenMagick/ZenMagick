@@ -41,6 +41,8 @@ Release 0.9.10
   [getCouponForId()]
 - make languageId mandatory in ZMEZPages; templates affected: ezpages.php
   [getPagesForChapterId],
+- make languageId mandatory in ZMReviews; templates affected: reviews.php
+  [getRandomReviews: signature changes],
 
 Release 0.9.9
 - in ZMDbTableMapper handle database exception building auto mappings

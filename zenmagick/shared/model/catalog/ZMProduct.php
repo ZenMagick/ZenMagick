@@ -555,7 +555,7 @@ class ZMProduct extends ZMObject {
      * @return boolean <code>true</code> if reviews exist, <code>false</code> if not.
      */
     public function hasReviews() { 
-        return 0 < ZMReviews::instance()->getReviewCount($this->getId());
+        return 0 < $this->getReviewCount();
     }
 
     /**
@@ -564,7 +564,7 @@ class ZMProduct extends ZMObject {
      * @return int The number of reviews.
      */
     public function getReviewCount() { 
-        return ZMReviews::instance()->getReviewCount($this);
+        return ZMReviews::instance()->getReviewCount($this->getId(), $this->languageId_);
     }
 
     /**
@@ -595,12 +595,12 @@ class ZMProduct extends ZMObject {
     /**
      * Get the average rating.
      *
-     * <p>Convenience method for <code>ZMReviews::instance()->getAverageRatingForProductId($product->getId())</code>.</p>
+     * <p>Convenience method for <code>ZMReviews::instance()->getAverageRatingForProductId($product->getId(), $product->getLanguageId())</code>.</p>
      *
      * @return float The average rating.
      */
     public function getAverageRating() {
-        return ZMReviews::instance()->getAverageRatingForProductId($this->getId());
+        return ZMReviews::instance()->getAverageRatingForProductId($this->getId(), $this->languageId_);
     }
 
     /**

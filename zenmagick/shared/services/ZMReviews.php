@@ -59,15 +59,10 @@ class ZMReviews extends ZMObject {
      * Get the number of reviews for the given product (id).
      *
      * @param int productId The product id.
-     * @param int languageId Optional language id; default is <code>null</code>
+     * @param int languageId Language id.
      * @return int The number of published reviews for the product.
      */
-    public function getReviewCount($productId, $languageId=null) {
-        if (null === $languageId) {
-            $session = ZMRequest::instance()->getSession();
-            $languageId = $session->getLanguageId();
-        }
-
+    public function getReviewCount($productId, $languageId) {
         $sql = "SELECT COUNT(*) AS count
                 FROM " . TABLE_REVIEWS . " r, " . TABLE_REVIEWS_DESCRIPTION . " rd
                 WHERE r.products_id = :productId
@@ -82,19 +77,14 @@ class ZMReviews extends ZMObject {
     /**
      * Get a random review.
      *
+     * @param int languageId Language id.
      * @param int productId Optional productId to limit reviews to one product; default is <code>null</code>.
      * @param int max Optional result limit; default is <code>null</code> to use the setting <em></em>.
-     * @param int languageId Optional language id; default is <code>null</code>
      * @return array List of <code>ZMReview</code> instances.
      */
-    public function getRandomReviews($productId=null, $max=null, $languageId=null) {
+    public function getRandomReviews($languageId, $productId=null, $max=null) {
         $max = null === $max ? ZMSettings::get('maxRandomReviews') : $max;
         
-        if (null === $languageId) {
-            $session = ZMRequest::instance()->getSession();
-            $languageId = $session->getLanguageId();
-        }
-
         $sql = "SELECT r.reviews_id
                 FROM " . TABLE_REVIEWS . " r, " . TABLE_REVIEWS_DESCRIPTION . " rd, "
                        . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd
@@ -145,15 +135,10 @@ class ZMReviews extends ZMObject {
      * Get the average rating for the given product id.
      *
      * @param int productId The product id.
-     * @param int languageId Optional language id; default is <code>null</code>
+     * @param int languageId Language id.
      * @return float The average rating or <code>null</code> if no ratnig exists.
      */
-    public function getAverageRatingForProductId($productId, $languageId=null) {
-        if (null === $languageId) {
-            $session = ZMRequest::instance()->getSession();
-            $languageId = $session->getLanguageId();
-        }
-
+    public function getAverageRatingForProductId($productId, $languageId) {
         // SQL based on Dedek's average rating mod: http://www.zen-cart.com/index.php?main_page=product_contrib_info&cPath=40_47&products_id=595
         $sql = "SELECT AVG(reviews_rating) AS average_rating from " . TABLE_REVIEWS . " r, " . TABLE_REVIEWS_DESCRIPTION . " rd
                 WHERE r.products_id = :productId
@@ -169,15 +154,10 @@ class ZMReviews extends ZMObject {
      * Get all reviews for the given product id.
      *
      * @param int productId The product id.
-     * @param int languageId Optional language id; default is <code>null</code>
+     * @param int languageId Language id.
      * @return array List of <code>ZMReview</code> instances.
      */
-    public function getReviewsForProductId($productId, $languageId=null) {
-        if (null === $languageId) {
-            $session = ZMRequest::instance()->getSession();
-            $languageId = $session->getLanguageId();
-        }
-
+    public function getReviewsForProductId($productId, $languageId) {
         $sql = "SELECT r.*, rd.*, p.products_image, pd.products_name
                 FROM " . TABLE_REVIEWS . " r, " . TABLE_REVIEWS_DESCRIPTION . " rd, "
                        . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd
@@ -197,10 +177,10 @@ class ZMReviews extends ZMObject {
     /**
      * Get all published reviews.
      *
-     * @param int languageId Optional language id; default is <code>null</code>
+     * @param int languageId Language id.
      * @return array List of <code>ZMReview</code> instances.
      */
-    public function getAllReviews($languageId=null) {
+    public function getAllReviews($languageId) {
         if (null === $languageId) {
             $session = ZMRequest::instance()->getSession();
             $languageId = $session->getLanguageId();
@@ -225,10 +205,10 @@ class ZMReviews extends ZMObject {
      * Get the review for the given review id.
      *
      * @param int reviewId The id of the review to load.
-     * @param int languageId Optional language id; default is <code>null</code>
+     * @param int languageId Language id.
      * @return ZMReview A <code>ZMReview</code> instance or <code>null</code>.
      */
-    public function getReviewForId($reviewId, $languageId=null) {
+    public function getReviewForId($reviewId, $languageId) {
         if (null === $languageId) {
             $session = ZMRequest::instance()->getSession();
             $languageId = $session->getLanguageId();
@@ -266,15 +246,10 @@ class ZMReviews extends ZMObject {
      *
      * @param ZMReview review The new review.
      * @param ZMAccount author The review author.
-     * @param int languageId The language for this review; default is <code>null</code>.
+     * @param int languageId The language for this review.
      * @return ZMReview The inserted review (incl. the new id).
      */
-    public function createReview($review, $account, $languageId=null) {
-        if (null === $languageId) {
-            $session = ZMRequest::instance()->getSession();
-            $languageId = $session->getLanguageId();
-        }
-
+    public function createReview($review, $account, $languageId) {
         $review->setAuthor($account->getFullName());
         $review->setAccountId($account->getId());
         $review->setLastModified(date(ZMDatabase::DATETIME_FORMAT));

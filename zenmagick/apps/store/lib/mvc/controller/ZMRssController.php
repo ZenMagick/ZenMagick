@@ -177,10 +177,10 @@ class ZMRssController extends ZMController {
     function getReviewsFeed($request, $key=null) {
         $product = null;
         if (null != $key)  {
-            $reviews = array_reverse(ZMReviews::instance()->getReviewsForProductId($key));
+            $reviews = array_reverse(ZMReviews::instance()->getReviewsForProductId($key, $request->getSession()->getLanguageId()));
             $product = ZMProducts::instance()->getProductForId($key);
         } else {
-            $reviews = array_reverse(ZMReviews::instance()->getAllReviews());
+            $reviews = array_reverse(ZMReviews::instance()->getAllReviews($request->getSession()->getLanguageId()));
         }
         if (null != $key && null == $product) {
             return null;

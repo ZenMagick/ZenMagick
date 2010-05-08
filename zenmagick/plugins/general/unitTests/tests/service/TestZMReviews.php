@@ -50,15 +50,15 @@ class TestZMReviews extends ZMTestCase {
      * Test load single review.
      */
     public function testReviewCount() {
-        $this->assertEqual(1, ZMReviews::instance()->getReviewCount(19));
-        $this->assertEqual(0, ZMReviews::instance()->getReviewCount(2));
+        $this->assertEqual(1, ZMReviews::instance()->getReviewCount(19, 1));
+        $this->assertEqual(0, ZMReviews::instance()->getReviewCount(2, 1));
     }
 
     /**
      * Test get random reviews.
      */
     public function testRandom() {
-        $reviews = ZMReviews::instance()->getRandomReviews();
+        $reviews = ZMReviews::instance()->getRandomReviews(1);
         $this->assertTrue(is_array($reviews));
         if ($this->assertEqual(1, count($reviews))) {
             $this->assertReview($reviews[0]);
@@ -69,7 +69,7 @@ class TestZMReviews extends ZMTestCase {
      * Test get average rating.
      */
     public function testAverageRating() {
-        $rating = ZMReviews::instance()->getAverageRatingForProductId(19);
+        $rating = ZMReviews::instance()->getAverageRatingForProductId(19, 1);
         $this->assertEqual(5.0, $rating);
     }
 
@@ -77,7 +77,7 @@ class TestZMReviews extends ZMTestCase {
      * Test get reviews for product.
      */
     public function testReviewsForProduct() {
-        $reviews = ZMReviews::instance()->getReviewsForProductId(19);
+        $reviews = ZMReviews::instance()->getReviewsForProductId(19, 1);
         $this->assertTrue(is_array($reviews));
         if ($this->assertEqual(1, count($reviews))) {
             $this->assertReview($reviews[0]);
@@ -88,7 +88,7 @@ class TestZMReviews extends ZMTestCase {
      * Test get all reviews.
      */
     public function testGetAll() {
-        $reviews = ZMReviews::instance()->getAllReviews();
+        $reviews = ZMReviews::instance()->getAllReviews(1);
         $this->assertTrue(is_array($reviews));
         if ($this->assertEqual(1, count($reviews))) {
             $this->assertReview($reviews[0]);
@@ -99,7 +99,7 @@ class TestZMReviews extends ZMTestCase {
      * Test get review for id.
      */
     public function testGetReview() {
-        $review = ZMReviews::instance()->getReviewForId(1);
+        $review = ZMReviews::instance()->getReviewForId(1, 1);
         if ($this->assertNotNull($review)) {
             $this->assertReview($review);
         }
@@ -109,10 +109,10 @@ class TestZMReviews extends ZMTestCase {
      * Test update view count.
      */
     public function testUpdateViewCount() {
-        $review = ZMReviews::instance()->getReviewForId(1);
+        $review = ZMReviews::instance()->getReviewForId(1, 1);
         if ($this->assertNotNull($review)) {
             ZMReviews::instance()->updateViewCount(1);
-            $updated = ZMReviews::instance()->getReviewForId(1);
+            $updated = ZMReviews::instance()->getReviewForId(1, 1);
             if ($this->assertNotNull($updated)) {
                 $this->assertEqual(($review->getViewCount() + 1), $updated->getViewCount());
             }
@@ -131,12 +131,12 @@ class TestZMReviews extends ZMTestCase {
             $review->setRating(4);
             $review->setLanguageId(1);
             $review->setText('some foo');
-            $newReview = ZMReviews::instance()->createReview($review, $account);
+            $newReview = ZMReviews::instance()->createReview($review, $account, 1);
             $this->assertTrue(0 != $newReview->getId());
 
             // make sure it is available via the service
             $found = false;
-            foreach (ZMReviews::instance()->getReviewsForProductId(3) as $review) {
+            foreach (ZMReviews::instance()->getReviewsForProductId(3, 1) as $review) {
                 if ($review->getId() == $newReview->getId()) {
                     $found = true;
                     break;
@@ -164,12 +164,12 @@ class TestZMReviews extends ZMTestCase {
             $review->setLanguageId(1);
             $review->setText('some foo');
             ZMSettings::set('isApproveReviews', true);
-            $newReview = ZMReviews::instance()->createReview($review, $account);
+            $newReview = ZMReviews::instance()->createReview($review, $account, 1);
             $this->assertTrue(0 != $newReview->getId());
 
             // make sure it is *not* available via the service
             $found = false;
-            foreach (ZMReviews::instance()->getReviewsForProductId(3) as $review) {
+            foreach (ZMReviews::instance()->getReviewsForProductId(3, 1) as $review) {
                 if ($review->getId() == $newReview->getId()) {
                     $found = true;
                     break;
