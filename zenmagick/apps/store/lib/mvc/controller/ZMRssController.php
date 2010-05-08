@@ -233,7 +233,7 @@ class ZMRssController extends ZMController {
      */
     function getChapterFeed($request, $key=null) {
         $items = array();
-        $toc = ZMEZPages::instance()->getPagesForChapterId($key);
+        $toc = ZMEZPages::instance()->getPagesForChapterId($key, $request->getSession()->getLanguageId());
         foreach ($toc as $page) {
             $item = ZMLoader::make("RssItem");
             $item->setTitle($page->getTitle());

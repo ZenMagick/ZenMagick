@@ -39,6 +39,8 @@ Release 0.9.10
 - fix b:#2998413 corrupt ipn_main_handler url
 - make languageId mandatory in ZMCoupons; templates affected: coupon_help.php
   [getCouponForId()]
+- make languageId mandatory in ZMEZPages; templates affected: ezpages.php
+  [getPagesForChapterId],
 
 Release 0.9.9
 - in ZMDbTableMapper handle database exception building auto mappings

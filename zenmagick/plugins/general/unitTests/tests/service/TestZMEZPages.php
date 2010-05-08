@@ -33,7 +33,7 @@ class TestZMEZPages extends ZMTestCase {
      * Test load.
      */
     public function testLoad() {
-        $page = ZMEZPages::instance()->getPageForId(8);
+        $page = ZMEZPages::instance()->getPageForId(8, 1);
         if ($this->assertNotNull($page)) {
             $this->assertEqual(8, $page->getId());
             $this->assertTrue($page->isSidebox());
@@ -45,7 +45,7 @@ class TestZMEZPages extends ZMTestCase {
      * Test update.
      */
     public function testUpdate() {
-        $page = ZMEZPages::instance()->getPageForId(8);
+        $page = ZMEZPages::instance()->getPageForId(8, 1);
         if ($this->assertNotNull($page)) {
             $page->setHeaderSort(33);
             $status = ZMEZPages::instance()->updatePage($page);
@@ -53,7 +53,7 @@ class TestZMEZPages extends ZMTestCase {
             $this->assertEqual(33, $page->getHeaderSort());
 
             // load from scratch
-            $page = ZMEZPages::instance()->getPageForId(8);
+            $page = ZMEZPages::instance()->getPageForId(8, 1);
             if ($this->assertNotNull($page)) {
                 $this->assertEqual(33, $page->getHeaderSort());
             }
@@ -69,7 +69,7 @@ class TestZMEZPages extends ZMTestCase {
      */
     public function testCreate() {
         // make copy
-        $page = ZMEZPages::instance()->getPageForId(8);
+        $page = ZMEZPages::instance()->getPageForId(8, 1);
         $newPage = ZMEZPages::instance()->createPage($page);
         if ($this->assertNotNull($newPage)) {
             $this->assertNotEqual(8, $newPage->getId());
