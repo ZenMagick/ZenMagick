@@ -233,16 +233,11 @@ class ZMTheme extends ZMObject {
      * Get a list of available static pages.
      *
      * @param boolean includeDefaults If set to <code>true</code>, default pages will be included; default is <code>false</code>.
-     * @param int languageId Optional language id; default is <code>null</code> for current language.
+     * @param int languageId Language id.
      * @return array List of available static page names.
      */
-    public function getStaticPageList($includeDefaults=false, $languageId=null) {
-        if (null == $languageId) {
-            $session = ZMRequest::instance()->getSession();
-            $language = $session->getLanguage();
-        } else {
-            $language = ZMLanguages::instance()->getLanguageForId($languageId);
-        }
+    public function getStaticPageList($includeDefaults=false, $languageId) {
+        $language = ZMLanguages::instance()->getLanguageForId($languageId);
         $languageDir = $language->getDirectory();
         $path = $this->getLangDir().$languageDir."/".'static/';
 
@@ -281,16 +276,11 @@ class ZMTheme extends ZMObject {
      *
      * @param string page The page name.
      * @param string contents The contents.
-     * @param int languageId Optional language id; default is <code>null</code> for current language.
+     * @param int languageId Language id.
      * @return boolean The status.
      */
-    public function saveStaticPageContent($page, $contents, $languageId=null) {
-        if (null == $languageId) {
-            $session = ZMRequest::instance()->getSession();
-            $language = $session->getLanguage();
-        } else {
-            $language = ZMLanguages::instance()->getLanguageForId($languageId);
-        }
+    public function saveStaticPageContent($page, $contents, $languageId) {
+        $language = ZMLanguages::instance()->getLanguageForId($languageId);
         $languageDir = $language->getDirectory();
         $path = $this->getLangDir().$languageDir."/".'static/';
         if (!file_exists($path)) {
@@ -319,16 +309,11 @@ class ZMTheme extends ZMObject {
      * the method will try to resolve the name in the default theme.</p>
      *
      * @param string page The page name.
-     * @param int languageId Optional language id; default is <code>null</code> for current language.
+     * @param int languageId Language id.
      * @return string The content or <code>null</code>.
      */
-    public function staticPageContent($page, $languageId=null) {
-        if (null === $languageId) {
-            $session = ZMRequest::instance()->getSession();
-            $language = $session->getLanguage();
-        } else {
-            $language = ZMLanguages::instance()->getLanguageForId($languageId);
-        }
+    public function staticPageContent($page, $languageId) {
+        $language = ZMLanguages::instance()->getLanguageForId($languageId);
         $languageDir = $language->getDirectory();
         $path = $this->getLangDir().$languageDir.DIRECTORY_SEPARATOR.'static'.DIRECTORY_SEPARATOR;
 

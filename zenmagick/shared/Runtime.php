@@ -95,7 +95,8 @@ class Runtime extends ZMRuntime {
             return self::$theme_->getThemeId();
         }
 
-        self::$themeId_ = ZMThemes::instance()->getZCThemeId();
+        $session = ZMRequest::instance()->getSession();
+        self::$themeId_ = ZMThemes::instance()->getZCThemeId($session->getLanguageId());
         $path = self::getThemesDir().self::$themeId_;
         if (!@file_exists($path) || !@is_dir($path)) {
             ZMLogging::instance()->log("invalid theme id: '".self::$themeId_.'"');

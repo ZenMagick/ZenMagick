@@ -105,10 +105,10 @@ class ZMThemes extends ZMObject {
     /**
      * Get the configured zen-cart theme id (aka the template directory name).
      *
-     * @param int languageId Optional language id.
+     * @param int languageId Language id.
      * @return string The configured zen-cart theme id.
      */
-    public function getZCThemeId($languageId=null) {
+    public function getZCThemeId($languageId) {
         if (null === $languageId) {
             $session = ZMRequest::instance()->getSession();
             $languageId = $session->getLanguageId();

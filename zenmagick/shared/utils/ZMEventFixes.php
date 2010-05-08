@@ -98,8 +98,9 @@ class ZMEventFixes extends ZMObject {
      */
     public function onZMInitDone($args) {
         if (!ZMsettings::get('isEnableZMThemes')) {
+            $request = $args['request'];
             // pass on already set args
-            $args = array_merge($args, array('themeId' => ZMThemes::instance()->getZCThemeId()));
+            $args = array_merge($args, array('themeId' => ZMThemes::instance()->getZCThemeId($request->getSession()->getLanguageId())));
             ZMEvents::instance()->fireEvent(null, Events::THEME_RESOLVED, $args);
         }
 

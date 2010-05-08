@@ -54,7 +54,7 @@
               $editContents = '';
               $selectedFile = $newFile;
           } else {
-              $editContents = $selectedTheme->staticPageContent($selectedFile, $selectedLanguageId, false);
+              $editContents = $selectedTheme->staticPageContent($selectedFile, $selectedLanguageId);
               if (null == $editContents) {
                   // file does not exist, so create (new language?)
                   $editContents = '';
