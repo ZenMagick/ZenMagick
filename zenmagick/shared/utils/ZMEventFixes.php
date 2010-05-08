@@ -290,17 +290,18 @@ class ZMEventFixes extends ZMObject {
         $context = $args['context'];
         $template = basename($args['template']);
         $view = $args['view'];
+        $request =  ZMRequest::instance();
 
         // XXX: improve!
         // simulate onZMViewStart ...
         $this->onZMViewStart($args);
 
-        if (ZMSettings::get('isAdmin') && 'send_email_to_user' == ZMRequest::instance()->getParameter('action')) {
+        if (ZMSettings::get('isAdmin') && 'send_email_to_user' == $request->getParameter('action')) {
             // gv mail
             if ($context['GV_REDEEM']) {
                 if (1 == preg_match('/.*strong>(.*)<\/strong.*/', $context['GV_REDEEM'], $matches)) {
                     $couponCode = trim($matches[1]);
-                    $coupon = ZMCoupons::instance()->getCouponForCode($couponCode);
+                    $coupon = ZMCoupons::instance()->getCouponForCode($couponCode, $request->getSession()->getLanguageId());
                     if (null == $coupon) {
                         // coupon gets created only *after* the email is sent!
                         $coupon = ZMLoader::make('Coupon', 0, $couponCode, ZMCoupons::TYPPE_GV);
@@ -310,8 +311,8 @@ class ZMEventFixes extends ZMObject {
                     $view->setVar('currentCoupon', $coupon);
                 }
 
-                $view->setVar('message', ZMRequest::instance()->getParameter('message', ''));
-                $view->setVar('htmlMessage', ZMRequest::instance()->getParameter('message_html', '', false));
+                $view->setVar('message', $request->getParameter('message', ''));
+                $view->setVar('htmlMessage', $request->getParameter('message_html', '', false));
             }
         }
 
@@ -336,8 +337,8 @@ class ZMEventFixes extends ZMObject {
             $view->setVar('comment', $comment);
 
             // from zc_fixes
-            if (null !== ZMRequest::instance()->getParameter("oID") && 'update_order' == ZMRequest::instance()->getParameter("action")) {
-                $orderId = ZMRequest::instance()->getParameter("oID");
+            if (null !== $request->getParameter("oID") && 'update_order' == $request->getParameter("action")) {
+                $orderId = $request->getParameter("oID");
                 $order = ZMOrders::instance()->getOrderForId($orderId);
                 $view->setVar('currentOrder', $order);
                 $account = ZMAccounts::instance()->getAccountForId($order->getAccountId());
@@ -346,7 +347,7 @@ class ZMEventFixes extends ZMObject {
         }
 
         if ('gv_queue' == $template) {
-            $queueId = ZMRequest::instance()->getParameter('gid');
+            $queueId = $request->getParameter('gid');
             $couponQueue = ZMCoupons::instance()->getCouponQueueEntryForId($queueId);
             $view->setVar('zm_couponQueue', $couponQueue);
             $account = ZMAccounts::instance()->getAccountForId($couponQueue->getAccountId());
@@ -356,8 +357,8 @@ class ZMEventFixes extends ZMObject {
         }
 
         if ('coupon' == $template) {
-            $couponId = ZMRequest::instance()->getParameter('cid');
-            $coupon = ZMCoupons::instance()->getCouponForId($couponId);
+            $couponId = $request->getParameter('cid');
+            $coupon = ZMCoupons::instance()->getCouponForId($couponId $request->getSession()->getLanguageId());
             $view->setVar('currentCoupon', $coupon);
             $account = ZMAccounts::instance()->getAccountForId($context['accountId']);
             $view->setVar('currentAccount', $account);

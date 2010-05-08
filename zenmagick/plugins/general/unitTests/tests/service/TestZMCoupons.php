@@ -105,7 +105,7 @@ class TestZMCoupons extends ZMTestCase {
         $this->assertNotNull($couponCode);
         $coupon = ZMCoupons::instance()->createCoupon($couponCode, 5, ZMCoupons::TYPPE_GV);
         $this->createdCouponIds_[] = $coupon->getId();
-        $loaded = ZMCoupons::instance()->getCouponForCode($couponCode);
+        $loaded = ZMCoupons::instance()->getCouponForCode($couponCode, 1);
         $this->assertEqual($coupon->getId(), $loaded->getId());
         $this->assertEqual($coupon->getCode(), $loaded->getCode());
         $this->assertEqual($coupon->getAmount(), $loaded->getAmount());
@@ -119,7 +119,7 @@ class TestZMCoupons extends ZMTestCase {
         $this->assertNotNull($couponCode);
         $coupon = ZMCoupons::instance()->createCoupon($couponCode, 5, ZMCoupons::TYPPE_GV);
         $this->createdCouponIds_[] = $coupon->getId();
-        $loaded = ZMCoupons::instance()->getCouponForId($coupon->getId());
+        $loaded = ZMCoupons::instance()->getCouponForId($coupon->getId(), 1);
         $this->assertEqual($coupon->getId(), $loaded->getId());
         $this->assertEqual($coupon->getCode(), $loaded->getCode());
         $this->assertEqual($coupon->getAmount(), $loaded->getAmount());
@@ -147,7 +147,7 @@ class TestZMCoupons extends ZMTestCase {
      * Test restrictions.
      */
     public function testRestrictions() {
-        $coupon = ZMCoupons::instance()->getCouponForId(9);
+        $coupon = ZMCoupons::instance()->getCouponForId(9, 1);
         if (null != $coupon) {
             $restrictions = $coupon->getRestrictions();
             $this->assertNotNull($restrictions);
@@ -204,7 +204,7 @@ class TestZMCoupons extends ZMTestCase {
         $this->assertEqual('127.0.0.1', $result->getRedeemIp());
 
         // check active flag
-        $coupon = ZMCoupons::instance()->getCouponForCode($couponCode);
+        $coupon = ZMCoupons::instance()->getCouponForCode($couponCode, 1);
         $this->assertNotNull($coupon);
         $this->assertFalse($coupon->isActive());
     }

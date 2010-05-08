@@ -65,7 +65,7 @@ class ZMGvRedeemController extends ZMController {
 
         if (!ZMLangUtils::isEmpty($gvRedeem->getCouponCode())) {
             // only try to redeem if code given - people might browse the page without code parameter...
-            $coupon = ZMCoupons::instance()->getCouponForCode($gvRedeem->getCouponCode());
+            $coupon = ZMCoupons::instance()->getCouponForCode($gvRedeem->getCouponCode(), $request->getSession()->getLanguageId());
             if (null != $coupon && ZMCoupons::TYPPE_GV == $coupon->getType() && ZMCoupons::instance()->isCouponRedeemable($coupon->getId())) {
                 // all good, set amount
                 $gvRedeem->setAmount($coupon->getAmount());

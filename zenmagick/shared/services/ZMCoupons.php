@@ -68,15 +68,10 @@ class ZMCoupons extends ZMObject {
      * Coupon lookup for the given code.
      *
      * @param string code The coupons code.
-     * @param int languageId The languageId; default is <code>null</code> for session language.
+     * @param int languageId The languageId.
      * @return ZMCoupon A <code>ZMCoupon</code> instance or <code>null</code>.
      */
-    public function getCouponForCode($code, $languageId=null) {
-        if (null === $languageId) {
-            $session = ZMRequest::instance()->getSession();
-            $languageId = $session->getLanguageId();
-        }
-
+    public function getCouponForCode($code, $languageId) {
         // XXX: relies on order of selected columns; (coupon_id returned twice and cd might be NULL if no description!)
         $sql = "SELECT cd.*, c.*
                 FROM " . TABLE_COUPONS . " c
@@ -90,10 +85,10 @@ class ZMCoupons extends ZMObject {
      * Coupon lookup for the given id.
      *
      * @param int id The coupon id.
-     * @param int languageId The languageId; default is <code>null</code> for session language.
+     * @param int languageId The languageId.
      * @return ZMCoupon A <code>ZMCoupon</code> instance or <code>null</code>.
      */
-    public function getCouponForId($id, $languageId=null) {
+    public function getCouponForId($id, $languageId) {
         if (null === $languageId) {
             $session = ZMRequest::instance()->getSession();
             $languageId = $session->getLanguageId();

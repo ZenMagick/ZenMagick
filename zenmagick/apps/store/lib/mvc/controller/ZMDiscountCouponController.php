@@ -65,7 +65,7 @@ class ZMDiscountCouponController extends ZMController {
         if (null == $code) {
             ZMMessages::instance()->warn(zm_l10n_get(zm_l10n_get("Please enter a coupon code.")));
         } else {
-            $coupon = ZMCoupons::instance()->getCouponForCode($code);
+            $coupon = ZMCoupons::instance()->getCouponForCode($code, $request->getSession()->getLanguageId());
             if (null == $coupon) {
                 ZMMessages::instance()->error(zm_l10n_get("'%s' does not appear to be a valid Coupon Redemption Code.", $code));
                 $data['currentCouponCode'] = $code;

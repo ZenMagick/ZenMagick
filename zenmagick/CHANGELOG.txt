@@ -37,6 +37,8 @@ Release 0.9.10
 - add ZMCategories::getRootCategories() and use in meta data tool
 - FirePHP: allow to enable on demand via request parameter
 - fix b:#2998413 corrupt ipn_main_handler url
+- make languageId mandatory in ZMCoupons; templates affected: coupon_help.php
+  [getCouponForId()]
 
 Release 0.9.9
 - in ZMDbTableMapper handle database exception building auto mappings
