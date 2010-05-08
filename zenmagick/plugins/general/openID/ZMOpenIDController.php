@@ -144,7 +144,7 @@ class ZMOpenIDController extends ZMController {
         }
 
         //TODO: make configurable
-        //$pape_request->addPolicyURI(ZMRequest::instance()->getToolbox()->net->staticPage(FILENAME_PRIVACY));
+        //$pape_request->addPolicyURI($request->getToolbox()->net->staticPage(FILENAME_PRIVACY));
 
         // For OpenID 1, send a redirect.  For OpenID 2, use a Javascript
         // form to send a POST request to the server.
