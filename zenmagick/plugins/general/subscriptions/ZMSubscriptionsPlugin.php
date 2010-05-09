@@ -208,6 +208,7 @@ class ZMSubscriptionsPlugin extends Plugin {
             return;
         }
 
+        $request = $args['request'];
         $orderId = $args['orderId'];
         if (null != ($schedule = $this->getSelectedSchedule())) {
             $sql = "UPDATE " . TABLE_ORDERS . "
@@ -218,7 +219,7 @@ class ZMSubscriptionsPlugin extends Plugin {
             Runtime::getDatabase()->update($sql, $args, TABLE_ORDERS);
 
             if (ZMLangUtils::asBoolean($this->get('subscriptionComment'))) {
-                if (null != ($order = ZMOrders::instance()->getOrderForId($orderId))) {
+                if (null != ($order = ZMOrders::instance()->getOrderForId($orderId, $request->getSession()->getLanguageId()))) {
                     $status = ZMLoader::make('OrderStatus');
                     $status->setOrderStatusId($order->getOrderStatusId());
                     $status->setOrderId($order->getId());
@@ -275,7 +276,7 @@ class ZMSubscriptionsPlugin extends Plugin {
      * @return string The date or <code>null</code> (if not canceled).
      */
     public function getMinLastOrderDate($orderId) {
-        $order = ZMOrders::instance()->getOrderForId($orderId);
+        $order = ZMOrders::instance()->getOrderForId($orderId, ZMRequest::instance()->getSession()->getLanguageId());
 
         // let's find out how many more orders need to be shipped to pass the minOrders restriction
         $scheduledOrderIds = $this->getScheduledOrderIdsForSubscriptionOrderId($orderId);

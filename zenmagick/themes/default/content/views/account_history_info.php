@@ -59,7 +59,7 @@
 <h3><?php zm_l10n("Order History") ?></h3>
 <table cellpadding="0" cellspacing="0">
     <tbody>
-    <?php foreach ($currentOrder->getOrderStatusHistory() as $orderStatus) { ?>
+    <?php foreach ($currentOrder->getOrderStatusHistory($session->getLanguageId()) as $orderStatus) { ?>
         <tr>
             <td><?php echo $locale->shortDate($orderStatus->getDateAdded()) ?></td>
             <td><?php echo $html->encode($orderStatus->getName()) ?></td>

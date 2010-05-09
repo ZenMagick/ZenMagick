@@ -56,7 +56,7 @@ class ZMCancelSubscriptionController extends ZMController {
             return $this->findView();
         }
         $orderId = $request->getOrderId();
-        $order = ZMOrders::instance()->getOrderForId($orderId);
+        $order = ZMOrders::instance()->getOrderForId($orderId, $request->getSession()->getLanguageId());
         $account = $order->getAccount();
 
         // make sure this is an allowed order

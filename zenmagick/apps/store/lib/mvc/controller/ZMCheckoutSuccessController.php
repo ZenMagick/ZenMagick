@@ -58,7 +58,7 @@ class ZMCheckoutSuccessController extends ZMController {
         // see: onZMViewDone()
         ZMEvents::instance()->attach($this);
 
-        $orders = ZMOrders::instance()->getOrdersForAccountId($request->getAccountId(), 1);
+        $orders = ZMOrders::instance()->getOrdersForAccountId($request->getAccountId(), $request->getSession(->getLanguageId(), 1);
         $data = array('currentOrder' => $orders[0], 'currentAccount' => $request->getAccount());
 
         return $this->findView(null, $data);

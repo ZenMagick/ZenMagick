@@ -318,7 +318,7 @@ class ZMEventFixes extends ZMObject {
         }
 
         if ('checkout' == $template) {
-            $order = ZMOrders::instance()->getOrderForId($context['INTRO_ORDER_NUMBER']);
+            $order = ZMOrders::instance()->getOrderForId($context['INTRO_ORDER_NUMBER'], $request->getSession()->getLanguageId());
             $shippingAddress = $order->getShippingAddress();
             $billingAddress = $order->getBillingAddress();
             $paymentType = $order->getPaymentType();
@@ -340,7 +340,7 @@ class ZMEventFixes extends ZMObject {
             // from zc_fixes
             if (null !== $request->getParameter("oID") && 'update_order' == $request->getParameter("action")) {
                 $orderId = $request->getParameter("oID");
-                $order = ZMOrders::instance()->getOrderForId($orderId);
+                $order = ZMOrders::instance()->getOrderForId($orderId, $request->getSession()->getLanguageId());
                 $view->setVar('currentOrder', $order);
                 $account = ZMAccounts::instance()->getAccountForId($order->getAccountId());
                 $view->setVar('currentAccount', $account);
@@ -353,7 +353,7 @@ class ZMEventFixes extends ZMObject {
             $view->setVar('zm_couponQueue', $couponQueue);
             $account = ZMAccounts::instance()->getAccountForId($couponQueue->getAccountId());
             $view->setVar('currentAccount', $account);
-            $order = ZMOrders::instance()->getOrderForId($couponQueue->getOrderId());
+            $order = ZMOrders::instance()->getOrderForId($couponQueue->getOrderId(), $request->getSession()->getLanguageId());
             $view->setVar('currentOrder', $order);
         }
 

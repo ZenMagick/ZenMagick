@@ -264,9 +264,10 @@ class ZMOrder extends ZMObject {
     /**
      * Get the order status history.
      *
+     * @param int languageId The language id.
      * @return array A list of previous order stati.
      */
-    public function getOrderStatusHistory() { return ZMOrders::instance()->getOrderStatusHistoryForId($this->getId()); }
+    public function getOrderStatusHistory($languageId) { return ZMOrders::instance()->getOrderStatusHistoryForId($this->getId(), $languageId); }
 
     /**
      * Get the order total.

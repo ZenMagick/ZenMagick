@@ -43,7 +43,7 @@ class ZMUpdateSubscriptionsCronJob implements ZMCronJob {
             // 1) copy
             $newOrder = self::copyOrder($scheduledOrderId);
             // load the new order as proper ZMOrder instance for further use
-            $order = ZMOrders::instance()->getOrderForId($newOrder->getOrderId());
+            $order = ZMOrders::instance()->getOrderForId($newOrder->getOrderId(), ZMRequest::instance(->getSession()->getLanguageId());
             if (null === $order) {
                 ZMLogging::instance()->log('copy order failed for scheduled order: '.$scheduledOrderId, ZMLogging::ERROR);
                 continue;

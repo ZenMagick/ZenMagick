@@ -56,7 +56,7 @@ class ZMSubscriptionAdminController extends ZMPluginAdminController {
         $results = Runtime::getDatabase()->query($sql, array('subscription' => true), TABLE_ORDERS);
         $orderIds = array();
         foreach ($results as $result) {
-            if (null != ($order = ZMOrders::instance()->getOrderForId($result['orderId']))) {
+            if (null != ($order = ZMOrders::instance()->getOrderForId($result['orderId'], $request->getSession()->getLanguageId()))) {
                 $orderIds[] = $order;
             }
         }
@@ -85,7 +85,7 @@ class ZMSubscriptionAdminController extends ZMPluginAdminController {
             ZMMessages::instance()->success(zm_l10n_get("Subscription canceled!"));
         }
 
-        $order = ZMOrders::instance()->getOrderForId($orderId);
+        $order = ZMOrders::instance()->getOrderForId($orderId, $request->getSession()->getLanguageId());
         $emailTemplate = ZMSettings::get('plugins.subscriptions.email.templates.cancel', 'subscription_cancel');
         $email = $order->getAccount()->getEmail();
         if (!ZMLangUtils::isEmpty($email)) {

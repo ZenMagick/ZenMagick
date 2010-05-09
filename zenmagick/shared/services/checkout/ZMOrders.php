@@ -69,15 +69,10 @@ class ZMOrders extends ZMObject implements ZMSQLAware {
     /**
      * Get all orders.
      *
-     * @param int languageId Optional language id; default is <code>null</code> for session language.
+     * @param int languageId Language id.
      * @return ZMQueryDetails Query details.
      */
-    protected function getAllOrdersQueryDetails($languageId=null) {
-        if (null === $languageId) {
-            $session = ZMRequest::instance()->getSession();
-            $languageId = $session->getLanguageId();
-        }
-        
+    protected function getAllOrdersQueryDetails($languageId) {
         $sql = "SELECT o.*, s.orders_status_name
                 FROM " . TABLE_ORDERS . " o, " . TABLE_ORDERS_TOTAL . "  ot, " . TABLE_ORDERS_STATUS . " s
                 WHERE o.orders_id = ot.orders_id
@@ -91,10 +86,10 @@ class ZMOrders extends ZMObject implements ZMSQLAware {
     /**
      * Get all orders.
      *
-     * @param int languageId Optional language id; default is <code>null</code> for session language.
+     * @param int languageId Language id.
      * @return array List of <code>ZMOrder</code> instances.
      */
-    public function getAllOrders($languageId=null) {
+    public function getAllOrders($languageId) {
         $details = $this->getAllOrdersQueryDetails($languageId);
         return $details->query();
     }
@@ -103,15 +98,10 @@ class ZMOrders extends ZMObject implements ZMSQLAware {
      * Get order for the given id.
      *
      * @param int id The order id.
-     * @param int languageId Optional language id; default is <code>null</code> for session language.
+     * @param int languageId Language id.
      * @return ZMOrder A order or <code>null</code>.
      */
-    public function getOrderForId($orderId, $languageId=null) {
-        if (null === $languageId) {
-            $session = ZMRequest::instance()->getSession();
-            $languageId = $session->getLanguageId();
-        }
-        
+    public function getOrderForId($orderId, $languageId) {
         $sql = "SELECT o.*, s.orders_status_name
                 FROM " . TABLE_ORDERS . " o, " . TABLE_ORDERS_TOTAL . "  ot, " . TABLE_ORDERS_STATUS . " s
                 WHERE o.orders_id = :orderId
@@ -129,16 +119,11 @@ class ZMOrders extends ZMObject implements ZMSQLAware {
      * Get all orders for the given account id.
      *
      * @param int accountId The account id.
+     * @param int languageId Language id.
      * @param int limit Optional result limit.
-     * @param int languageId Optional language id; default is <code>null</code> for session language.
      * @return ZMQueryDetails Query details.
      */
-    protected function getOrdersForAccountIdQueryDetails($accountId, $limit=0, $languageId=null) {
-        if (null === $languageId) {
-            $session = ZMRequest::instance()->getSession();
-            $languageId = $session->getLanguageId();
-        }
-        
+    protected function getOrdersForAccountIdQueryDetails($accountId, $languageId, $limit=0) {
         // order only
         $sqlLimit = 0 != $limit ? " LIMIT ".$limit : "";
         $sql = "SELECT o.*, s.orders_status_name
@@ -156,13 +141,13 @@ class ZMOrders extends ZMObject implements ZMSQLAware {
     /**
      * Get all orders for the given account id.
      *
-     * @param int accountId The account id.
+     getOrdersForAccountId* @param int accountId The account id.
+     * @param int languageId Language id.
      * @param int limit Optional result limit.
-     * @param int languageId Optional language id; default is <code>null</code> for session language.
      * @return array List of <code>ZMOrder</code> instances.
      */
-    public function getOrdersForAccountId($accountId, $limit=0, $languageId=null) {
-        $details = $this->getOrdersForAccountIdQueryDetails($accountId, $limit, $languageId);
+    public function getOrdersForAccountId($accountId, $languageId, $limit=0) {
+        $details = $this->getOrdersForAccountIdQueryDetails($accountId, $languageId, $limit);
         return $details->query();
     }
 
@@ -170,15 +155,10 @@ class ZMOrders extends ZMObject implements ZMSQLAware {
      * Get all orders for a given order status.
      *
      * @param int statusId The order status.
-     * @param int languageId Optional language id; default is <code>null</code> for session language.
+     * @param int languageId Language id.
      * @return ZMQueryDetails Query details.
      */
-    protected function getOrdersForStatusIdQueryDetails($statusId, $languageId=null) {
-        if (null === $languageId) {
-            $session = ZMRequest::instance()->getSession();
-            $languageId = $session->getLanguageId();
-        }
-        
+    protected function getOrdersForStatusIdQueryDetails($statusId, $languageId) {
         // order only
         $sql = "SELECT o.*, s.orders_status_name
                 FROM " . TABLE_ORDERS . " o, " . TABLE_ORDERS_TOTAL . "  ot, " . TABLE_ORDERS_STATUS . " s
@@ -196,10 +176,10 @@ class ZMOrders extends ZMObject implements ZMSQLAware {
      * Get all orders for a given order status.
      *
      * @param int statusId The order status.
-     * @param int languageId Optional language id; default is <code>null</code> for session language.
+     * @param int languageId Language id.
      * @return array List of <code>ZMOrder</code> instances.
      */
-    public function getOrdersForStatusId($statusId, $languageId=null) {
+    public function getOrdersForStatusId($statusId, $languageId) {
         $details = $this->getOrdersForStatusIdQueryDetails($statusId, $languageId);
         return $details->query();
     }
@@ -208,15 +188,10 @@ class ZMOrders extends ZMObject implements ZMSQLAware {
      * Get order status history for order id.
      *
      * @param int orderId The order id.
-     * @param int languageId Optional language id; default is <code>null</code> for session language.
+     * @param int languageId Language id.
      * @return array List of <code>ZMOrderStatus</code> instances.
      */
-    public function getOrderStatusHistoryForId($orderId, $languageId=null) {
-        if (null === $languageId) {
-            $session = ZMRequest::instance()->getSession();
-            $languageId = $session->getLanguageId();
-        }
-
+    public function getOrderStatusHistoryForId($orderId, $languageId) {
         $sql = "SELECT os.orders_status_name, osh.*
                 FROM " . TABLE_ORDERS_STATUS . " os, " . TABLE_ORDERS_STATUS_HISTORY . " osh
                 WHERE osh.orders_id = :orderId
@@ -336,15 +311,10 @@ class ZMOrders extends ZMObject implements ZMSQLAware {
     /**
      * Get a list of all order stati.
      *
-     * @param int languageId Optional language id; default is <code>null</code> for session language.
+     * @param int languageId Language id.
      * @return array List of <code>ZMObject</code> instances.
      */
-    public function getOrderStatusList($languageId=null) {
-        if (null === $languageId) {
-            $session = ZMRequest::instance()->getSession();
-            $languageId = $session->getLanguageId();
-        }
-
+    public function getOrderStatusList($languageId) {
         $sql = "SELECT orders_status_id, orders_status_name
                 FROM " . TABLE_ORDERS_STATUS . "
                 WHERE language_id = :languageId

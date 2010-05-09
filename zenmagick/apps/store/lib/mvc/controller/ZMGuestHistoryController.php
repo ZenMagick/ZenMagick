@@ -69,7 +69,7 @@ class ZMGuestHistoryController extends ZMController {
         // default
         $account = null;
         // find order first 
-        $order = ZMOrders::instance()->getOrderForId($orderId);
+        $order = ZMOrders::instance()->getOrderForId($orderId, $request->getSession()->getLanguageId());
 
         if (null != $order) {
             $accountId = $order->getAccountId();

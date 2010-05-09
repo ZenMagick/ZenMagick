@@ -47,6 +47,10 @@ Release 0.9.10
 - make languageId mandatory in ZMManufacturers
 - make languageId mandatory in ZMTheme, ZMThemes
 - add Plugin::upgrade()
+- make languageId mandatory in ZMOrders; templates affected:
+  checkout_success.php, order_history.php [getOrdersForAccountId: signature
+	changes], account_history_info.php: [ZMOrder::getOrderStatusHistory():
+	signature changes]
 
 Release 0.9.9
 - in ZMDbTableMapper handle database exception building auto mappings
