@@ -46,6 +46,7 @@ Release 0.9.10
 - drop languageId in ZMAttributes [languageId is a property on ZMProduct]
 - make languageId mandatory in ZMManufacturers
 - make languageId mandatory in ZMTheme, ZMThemes
+- add Plugin::upgrade()
 
 Release 0.9.9
 - in ZMDbTableMapper handle database exception building auto mappings

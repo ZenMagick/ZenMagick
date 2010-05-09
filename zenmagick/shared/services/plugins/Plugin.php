@@ -200,6 +200,15 @@ class Plugin extends ZMPlugin {
     }
 
     /**
+     * Upgrade this plugin.
+     *
+     * @return boolean <code>true</code> on success.
+     */
+    public function upgrade() {
+        return true;
+    }
+
+    /**
      * Init this plugin.
      *
      * <p>This method is part of the lifecylce of a plugin during storefront request handling.</p>
