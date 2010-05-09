@@ -116,7 +116,6 @@ class ZMToolboxMacro extends ZMToolboxTool {
             }
 
             // encode
-            $toolbox = $this->getToolbox();
             $vars = array('firstname', 'lastname', 'company', 'street', 'suburb', 'city', 'state', 'country', 'postcode');
             foreach ($vars as $var) {
                 $$var = ZMHtmlUtils::encode($$var);
@@ -225,7 +224,6 @@ class ZMToolboxMacro extends ZMToolboxTool {
      * @return string The given categories as nested unordered list.
      */
     public function categoryTree($categories, $showProductCount=false, $useCategoryPage=false, $activeParent=false, $root=true, $path=null) {
-        $toolbox = $this->getToolbox();
         if ($root) { 
             ob_start();
             $path = $this->getRequest()->getCategoryPathArray();
