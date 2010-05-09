@@ -163,4 +163,11 @@ EOT;
         throw new ZMException('not supported');
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    public function path($filename, $type=ZMView::TEMPLATE) {
+        throw new ZMException('not supported');
+    }
+
 }
