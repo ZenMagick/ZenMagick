@@ -38,19 +38,19 @@ null:
 
 # view without classname# prefix will be completed to: [default-view-classname]#[value]
 popup_cvv_help:
-  view: set::zenmagick.mvc.view.default#viewDir=views/popup
+  view: set::zenmagick.mvc.view.default#viewDir=views/popup/
   layout: popup_layout
   template: cvv_help
 popup_search_help:
-  view: set::zenmagick.mvc.view.default#viewDir=views/popup
+  view: set::zenmagick.mvc.view.default#viewDir=views/popup/
   layout: popup_layout
   template: search_help
 popup_shipping_estimator:
-  view: set::zenmagick.mvc.view.default#viewDir=views/popup
+  view: set::zenmagick.mvc.view.default#viewDir=views/popup/
   layout: popup_layout
   template: shipping_estimator
 popup_coupon_help:
-  view: set::zenmagick.mvc.view.default#viewDir=views/popup
+  view: set::zenmagick.mvc.view.default#viewDir=views/popup/
   layout: popup_layout
   template: coupon_help
 
