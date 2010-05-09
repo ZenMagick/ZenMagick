@@ -81,7 +81,7 @@ class ZMManufacturers extends ZMObject {
      * @return ZMManufacturer The manufacturer or </code>null</code>.
      */
     public function getManufacturerForProduct($product) {
-		    return $this->getManufacturerForId($product->manufacturerId_);
+		    return $this->getManufacturerForId($product->manufacturerId_, $product->getLanguageId());
     }
 
     /**
