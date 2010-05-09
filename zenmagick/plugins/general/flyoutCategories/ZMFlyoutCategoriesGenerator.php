@@ -41,9 +41,9 @@
 
    var $document_types_list = ' (3) ';  // acceptable format example: ' (3, 4, 9, 22, 18) '
 
-   function __construct($load_from_database = true) {
+   function __construct($request) {
      $this->data = array();
-     foreach (ZMCategories::instance()->getCategories(null, (int)$_SESSION['languages_id']) as $category) {
+     foreach (ZMCategories::instance()->getCategories(null, $request->getSession()->getLanguageId()) as $category) {
         $this->data[$category->getParentId()][$category->getId()] = array('name' => $category->getName(), 'count' => 0);
      }
    }

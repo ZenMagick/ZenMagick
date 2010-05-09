@@ -28,7 +28,7 @@
 <div class="box flyoutCategories" style="overflow:visible;"> <!-- re-enable overflow as disabled in default theme on .box -->
     <div id="nav-cat">
     <?php
-        $generator = ZMLoader::make('FlyoutCategoriesGenerator');
+        $generator = new ZMFlyoutCategoriesGenerator($request);
         echo $generator->buildTree(true);
     ?>
     <?php
