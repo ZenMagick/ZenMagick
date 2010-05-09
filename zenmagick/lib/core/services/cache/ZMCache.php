@@ -32,9 +32,9 @@
  */
 interface ZMCache {
     /** Cache type <em>persistent</em>. */
-    const PERSISTENT = 'persistent';
+    const PERSISTENT = 'org.zenmagick.core.services.cache.type.persistent';
     /** Cache type <em>transient</em>. */
-    const TRANSIENT = 'transient';
+    const TRANSIENT = 'org.zenmagick.core.services.cache.type.transient';
 
 
     /**

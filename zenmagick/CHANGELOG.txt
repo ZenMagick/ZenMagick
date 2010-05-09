@@ -53,6 +53,8 @@ Release 0.9.10
 	signature changes]
 - make languageId mandatory in ZMCategories
 - make the actual view instance the source of view_start/view_end events
+- change ZMCaches::getCache() to allow specifying specific cache
+  implementations as well as the predefined TRANSIENT and PERSISTENT
 
 Release 0.9.9
 - in ZMDbTableMapper handle database exception building auto mappings

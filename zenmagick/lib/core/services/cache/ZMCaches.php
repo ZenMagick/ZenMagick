@@ -68,6 +68,13 @@ class ZMCaches extends ZMObject {
     /**
      * Get a cache instance for the given group and configuration.
      *
+     * <p>If the type is specified and it is <strong>neither</strong> <code>ZMCache::PERSISTENT</code> nor
+     * <code>ZMCache::TRANSIENT</code> it will be taken as actual implementation name.</p>
+     *
+     *
+     * <p>The rule for generating the class name of the implementation class is * <code>ucwords[$type]Cache</code>.
+     * So, for example a type value of <em>memcache</em> would result in <em>MemcacheCache</em>.</p>
+     *
      * @param string group The cache group.
      * @param array config Configuration; default is an empty array.
      * @param string type Optional cache type; default is <code>ZMCache::PERSISTENT</code>.
@@ -77,7 +84,10 @@ class ZMCaches extends ZMObject {
      */
     public function getCache($group, $config=array(), $type=ZMCache::PERSISTENT) {
         ksort($config);
-        $class = ucwords($this->types_[$type]).'Cache';
+        if (array_key_exists($type, $this->types_)) {
+            $type = $this->types_[$type];
+        }
+        $class = ucwords($type).'Cache';
         $key = $group.':'.$class.':'.serialize($config);
 
         $instance = null;
