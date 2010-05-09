@@ -38,7 +38,8 @@
     // ***
     function zm_category_tree_ids($categoryId) {
         $ids = array($categoryId);
-        foreach (ZMCategories::instance()->getCategoryForId($categoryId)->getChildren() as $child) {
+        // XXX: fix languageId
+        foreach (ZMCategories::instance()->getCategoryForId($categoryId, 1)->getChildren() as $child) {
             $childIds = zm_category_tree_ids($child->getId());
             $ids = array_merge($ids, $childIds);
         }
@@ -67,7 +68,8 @@
     $categories = ZMRequest::instance()->getParameter('categories');
     if (null === $categories) {
         $categories = array();
-        foreach (ZMCategories::instance()->getCategoryTree() as $cat) {
+        // XXX: fix languageId
+        foreach (ZMCategories::instance()->getCategoryTree(1) as $cat) {
             $categories[] = $cat->getId();
         }
     }

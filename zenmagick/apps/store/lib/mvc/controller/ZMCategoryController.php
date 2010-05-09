@@ -73,7 +73,7 @@ class ZMCategoryController extends ZMController {
             $method = "getProductsForCategoryId";
             $args = array($request->getCategoryId());
             $viewName = 'category_list';
-            if (null == ($category = ZMCategories::instance()->getCategoryForId($request->getCategoryId())) || !$category->isActive()) {
+            if (null == ($category = ZMCategories::instance()->getCategoryForId($request->getCategoryId(), $request->getSession()->getLanguageId())) || !$category->isActive()) {
                 return $this->findView('category_not_found');
             }
         } else if (null != $request->getManufacturerId()) {

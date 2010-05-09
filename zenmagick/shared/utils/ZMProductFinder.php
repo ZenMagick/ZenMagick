@@ -132,7 +132,7 @@ class ZMProductFinder {
                 $where .= " AND p2c.products_id = p.products_id
                             AND p2c.products_id = pd.products_id
                             AND p2c.categories_id in (:categoryId)";
-                $category = ZMCategories::instance()->getCategoryForId($criteria->getCategoryId());
+                $category = ZMCategories::instance()->getCategoryForId($criteria->getCategoryId(), ZMRequest::instance()->getSession()->getLanguageId());
                 $args['categoryId'] = $category->getChildIds();
             } else {
                 $where .= " AND p2c.products_id = p.products_id

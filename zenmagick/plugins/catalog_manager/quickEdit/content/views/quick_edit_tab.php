@@ -30,7 +30,7 @@
 
 ?>
 
-  <h2>Quick Edit: <em><?php echo $toolbox->html->encode(ZMCategories::instance()->getCategoryForId($categoryId)->getName()) ?></em></h2>
+  <h2>Quick Edit: <em><?php echo $toolbox->html->encode(ZMCategories::instance()->getCategoryForId($categoryId, $session->getLanguageId())->getName()) ?></em></h2>
 
   <form action="<?php echo $toolbox->admin->url(null, $defaultUrlParams) ?>" method="POST">
     <table cellspacing="0" cellpadding="0" class="presults" style="position:relative;width:auto;">

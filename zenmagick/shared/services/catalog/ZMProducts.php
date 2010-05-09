@@ -185,7 +185,7 @@ class ZMProducts extends ZMObject implements ZMSQLAware {
 
         $ids = isset($this->categoryProductMap_[$mainKey][$categoryId]) ? $this->categoryProductMap_[$mainKey][$categoryId] : array();
         if ($includeChildren) {
-            $category = ZMCategories::instance()->getCategoryForId($categoryId);
+            $category = ZMCategories::instance()->getCategoryForId($categoryId, $languageId);
             foreach ($category->getChildren() as $child) {
                 $ids = array_merge($ids, $this->getProductIdsForCategoryId($child->getId(), $active, true, $languageId));
             }

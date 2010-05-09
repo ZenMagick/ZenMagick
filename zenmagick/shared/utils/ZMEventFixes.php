@@ -414,7 +414,7 @@ class ZMEventFixes extends ZMObject {
             if (null == $request->getCategoryPath()) {
                 // set default based on product default category
                 if (null != ($product = ZMProducts::instance()->getProductForId($productId))) {
-                    $defaultCategory = $product->getDefaultCategory();
+                    $defaultCategory = $product->getDefaultCategory($request->getSession()->getLanguageId());
                     if (null != $defaultCategory) {
                         $request->setCategoryPathArray($defaultCategory->getPathArray());
                     }
@@ -428,7 +428,7 @@ class ZMEventFixes extends ZMObject {
                 $last = count($path) - 1;
                 $valid = true;
                 foreach ($path as $ii => $categoryId) {
-                    $category = ZMCategories::instance()->getCategoryForId($categoryId);
+                    $category = ZMCategories::instance()->getCategoryForId($categoryId, $request->getSession()->getLanguageId());
                     if ($ii < $last) {
                         if (null == ($parent = $category->getParent())) {
                             // can't have top level category in the middle
@@ -446,7 +446,7 @@ class ZMEventFixes extends ZMObject {
                     }
                 }
                 if (!$valid) {
-                    $category = ZMCategories::instance()->getCategoryForId(array_pop($request->getCategoryPathArray()));
+                    $category = ZMCategories::instance()->getCategoryForId(array_pop($request->getCategoryPathArray(), $request->getSession()->getLanguageId()));
                     $request->setCategoryPathArray($category->getPathArray());
                 }
             }

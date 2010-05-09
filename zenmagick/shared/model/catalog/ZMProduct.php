@@ -584,11 +584,14 @@ class ZMProduct extends ZMObject {
      * <p>This will return either the master category or the first mapped category for this
      * product.</p>
      *
+     * @param int languageId The languageId; default is <code>null</code> for session setting.
      * @return ZMCategory The default category.
      */
-    public function getDefaultCategory() {
-        return null != $this->masterCategoryId_ ? ZMCategories::instance()->getCategoryForId($this->masterCategoryId_) :
-            ZMCategories::instance()->getDefaultCategoryForProductId($this->getId());
+    public function getDefaultCategory($languageId=null) {
+        $languageId = null !== $languageId ? $languageId : ZMRequest::instance()->getSession()->getLanguageId();
+
+        return null != $this->masterCategoryId_ ? ZMCategories::instance()->getCategoryForId($this->masterCategoryId_, $languageId) :
+            ZMCategories::instance()->getDefaultCategoryForProductId($this->getId(), $languageId);
     }
 
     /**

@@ -21,7 +21,7 @@
 //
 ?>
 <?php if (isset($cssCategories)) {
-    $categoriesULGenerator = new CategoriesUlGenerator();
+    $categoriesULGenerator = new CategoriesUlGenerator($request);
     $resources->cssFile('categories_css.css');
     ?>
     <ul class="bullet-menu" id="siteMenu">

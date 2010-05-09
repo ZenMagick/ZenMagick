@@ -50,7 +50,8 @@
   $("#'.$id.'").treeview({ collapsed: true, unique: true, prerendered: false, toggle: function() { $(".open"); } }); 
 });
 </script>';
-            $rootCategories = ZMCategories::instance()->getCategoryTree();
+            // XXX: fix languageId
+            $rootCategories = ZMCategories::instance()->getCategoryTree(1);
             $root = ZMLoader::make("Category", 0, 0, zm_l10n_get('Catalog'), false);
             foreach ($rootCategories as $rc) {
                 $root->addChild($rc);

@@ -51,6 +51,7 @@ Release 0.9.10
   checkout_success.php, order_history.php [getOrdersForAccountId: signature
 	changes], account_history_info.php: [ZMOrder::getOrderStatusHistory():
 	signature changes]
+- make languageId mandatory in ZMCategories
 
 Release 0.9.9
 - in ZMDbTableMapper handle database exception building auto mappings

@@ -80,7 +80,7 @@ class ZMToolboxNet extends ZMToolboxTool {
     public function product($productId, $categoryId=null) { 
         $cPath = '';
         if (null != $categoryId) {
-            $category = ZMCategories::instance()->getCategoryForId($categoryId);
+            $category = ZMCategories::instance()->getCategoryForId($categoryId, $this->getRequest()->getSession()->getLanguageId());
             if (null != $category) {
                 $cPath = '&'.$category->getPath();
             }

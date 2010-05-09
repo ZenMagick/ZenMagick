@@ -133,7 +133,7 @@ class ZMToolboxCrumbtrail extends ZMToolboxTool {
 
         // categories
         foreach ($path as $catId) {
-            $category = ZMCategories::instance()->getCategoryForId($catId);
+            $category = ZMCategories::instance()->getCategoryForId($catId, $this->getRequest()->getSession()->getLanguageId());
             if (null == $category) {
                 return;
             }

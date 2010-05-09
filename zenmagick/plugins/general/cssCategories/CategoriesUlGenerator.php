@@ -42,31 +42,12 @@ class CategoriesUlGenerator {
       $spacer_multiplier = 1;
   var $document_types_list = ' (3) ';  // acceptable format example: ' (3, 4, 9, 22, 18) '
 
-  function __construct() {
-    global $languages_id, $db, $request_type;
-    $this->server    = ((ENABLE_SSL == true && $request_type == 'SSL') ? HTTPS_SERVER : HTTP_SERVER);
-    $this->base_href = ((ENABLE_SSL == true && $request_type == 'SSL') ? DIR_WS_HTTPS_CATALOG : DIR_WS_CATALOG);
+  function __construct($request) {
     $this->data = array();
-    /*XXX:recursive
-    foreach (ZMCategories::instance()->getCategories() as $category) {
+    foreach (ZMCategories::instance()->getCategories(null, $request->getSession()->getLanguageId()) as $category) {
       $products_in_category = SHOW_COUNTS == 'true' ? count(ZMProducts::instance()->getProductIdsForCategoryId($category->getId())) : 0;
       $this->data[$category->getParentId()][$category->getId()] = array('name' => $category->getName(), 'count' => $products_in_category);
     }
-     */
-    //XXX: this takes about 220 db queries using the demo store!
-    $categories_query = "select c.categories_id, cd.categories_name, c.parent_id from " . TABLE_CATEGORIES . " c, " . TABLE_CATEGORIES_DESCRIPTION . " cd " .
-                        "where c.categories_id = cd.categories_id and c.categories_status=1  and cd.language_id = '" . (int)$_SESSION['languages_id']  . "'" .
-                        "order by c.parent_id, c.sort_order, cd.categories_name";
-    $categories = $db->Execute($categories_query);
-    while (!$categories->EOF) {
-      $products_in_category = (SHOW_COUNTS == 'true' ? count(ZMProducts::instance()->getProductIdsForCategoryId($categories->fields['categories_id'], true, false)) : 0);
-      $this->data[$categories->fields['parent_id']][$categories->fields['categories_id']] = array('name' => $categories->fields['categories_name'], 'count' => $products_in_category);
-      $categories->MoveNext();
-    }
-// DEBUG: These lines will dump out the array for display and troubleshooting:
-// foreach ($this->data as $pkey=>$pvalue) { 
-//   foreach ($this->data[$pkey] as $key=>$value) { echo '['.$pkey.']'.$key . '=>' . $value['name'] . '<br>'; }
-// }
   }
 
   function buildBranch($parent_id, $level = 0, $cpath = '') {

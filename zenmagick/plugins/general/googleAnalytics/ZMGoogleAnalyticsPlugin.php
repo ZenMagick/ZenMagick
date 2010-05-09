@@ -205,7 +205,7 @@ class ZMGoogleAnalyticsPlugin extends Plugin {
         //UTM:I|[order-id]|[sku/code]|[productname]|[category]|[price]|[quantity]
         foreach ($this->order_->getOrderItems() as $orderItem) {
             $identifier = 'model' == $this->get('identifier') ? $orderItem->getModel() : $orderItem->getProductId();
-            $category = ZMCategories::instance()->getDefaultCategoryForProductId($orderItem->getProductId());
+            $category = ZMCategories::instance()->getDefaultCategoryForProductId($orderItem->getProductId(), $request->getSession()->getLanguageId());
             $price = number_format($orderItem->getCalculatedPrice(), 2, '.', '');
             $code .= 'UTM:I|'.$this->order_->getId().'|'.$identifier.'|'.$orderItem->getName().'|'.$category->getName().'|'.$price.'|'.$orderItem->getQty() .$this->eol_;
         }
@@ -332,7 +332,7 @@ EOT;
         foreach ($this->order_->getOrderItems() as $orderItem) {
             $identifier = 'model' == $this->get('identifier') ? $orderItem->getModel() : $orderItem->getProductId();
             $name = $orderItem->getName();
-            $categoryName = ZMCategories::instance()->getDefaultCategoryForProductId($orderItem->getProductId())->getName();
+            $categoryName = ZMCategories::instance()->getDefaultCategoryForProductId($orderItem->getProductId(), $request->getSession()->getLanguageId())->getName();
             $price = number_format($orderItem->getCalculatedPrice(), 2, '.', '');
             $qty = $orderItem->getQty();
             $code .= <<<EOT

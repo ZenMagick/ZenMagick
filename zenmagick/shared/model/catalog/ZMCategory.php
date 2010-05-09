@@ -79,7 +79,7 @@ class ZMCategory extends ZMObject {
      * @return ZMCategory The parent category or <code>null</code>.
      */
     public function getParent() { 
-        return 0 != $this->parentId_ ? ZMCategories::instance()->getCategoryForId($this->parentId_) : null;
+        return 0 != $this->parentId_ ? ZMCategories::instance()->getCategoryForId($this->parentId_, $this->languageId_) : null;
     }
 
     /**
@@ -130,7 +130,7 @@ class ZMCategory extends ZMObject {
      * @return array A list of <code>ZMcategory</code> instances.
      */
     public function getChildren() { 
-        return ZMCategories::instance()->getCategories($this->childrenIds_);
+        return ZMCategories::instance()->getCategories($this->childrenIds_, $this->languageId_);
     }
 
     /**

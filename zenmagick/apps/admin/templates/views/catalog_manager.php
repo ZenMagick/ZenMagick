@@ -41,7 +41,7 @@
   $category = null;
   $product = null;
   if (0 < $request->getCategoryId()) {
-      $category = ZMCategories::instance()->getCategoryForId($request->getCategoryId());
+      $category = ZMCategories::instance()->getCategoryForId($request->getCategoryId(), $request->getLanguageId());
       $title = $category->getName();
   }
   if (0 < $request->getProductId()) {
@@ -76,7 +76,8 @@
 <script type="text/javascript" src="content/jquery/ui.tabs.js"></script>
 <script type="text/javascript" src="content/jquery/thickbox-3.1.pack.js"></script>
 
-<?php echo zm_catalog_tree(ZMCategories::instance()->getCategoryTree(), '', ZMSettings::get('admin.isShowCatalogTreeProducts')); ?>
+<?php /* XXX: fix languageId */ ?>
+<?php echo zm_catalog_tree(ZMCategories::instance()->getCategoryTree(1), '', ZMSettings::get('admin.isShowCatalogTreeProducts')); ?>
 <?php $activeTab = 1; ?>
 <?php if (0 < count($tabInfo)) { ?>
     <div id="main-tab-container">

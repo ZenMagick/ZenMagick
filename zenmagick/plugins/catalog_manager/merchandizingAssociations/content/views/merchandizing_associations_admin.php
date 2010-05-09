@@ -40,7 +40,7 @@
   <a href="#TB_inline?height=455&amp;width=660&amp;inlineId=product-picker&amp;modal=true" class="thickbox">Show hidden modal content.</a>
 
   <div id="product-picker" style="display:none;">
-    <div id="picker-catalog-tree"><?php echo zm_catalog_tree(ZMCategories::instance()->getCategoryTree(), '', false, false, 'picker-tree'); ?></div>
+    <div id="picker-catalog-tree"><?php echo zm_catalog_tree(ZMCategories::instance()->getCategoryTree($session->getLanguageId()), '', false, false, 'picker-tree'); ?></div>
     <div id="picker-data">
        <div id="picker-prod-loading" style="display:none;"><img src="content/jquery/images/loadingAnimation.gif" title="loading..." alt="loading..."></div>
       <div id="picker-prod-list">

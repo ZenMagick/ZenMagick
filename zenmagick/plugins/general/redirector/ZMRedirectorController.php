@@ -100,7 +100,7 @@ class ZMRedirectorController extends ZMController {
      * @return ZMView A response view or <code>null</code> if no useful response possible.
      */
     protected function processMissingCategory($request) {
-        if (null == ($category = ZMCategories::instance()->getCategoryForId($request->getCategoryId()))) {
+        if (null == ($category = ZMCategories::instance()->getCategoryForId($request->getCategoryId(), $request->getSession()->getLanguageId()))) {
             return null;
         }
 
@@ -109,7 +109,7 @@ class ZMRedirectorController extends ZMController {
         if (array_key_exists($category->getId(), $categoryMappings)) {
             // find new category
             $newCategoryId = $categoryMappings[$category->getId()];
-            if (null != ($newCategory = ZMCategories::instance()->getCategoryForId($newCategoryId))) {
+            if (null != ($newCategory = ZMCategories::instance()->getCategoryForId($newCategoryId, $request->getSession()->getLanguageId()))) {
                 $view =  new ZMRedirectView();
                 $view->setRequestId('category');
                 $view->setParameter($newCategory->getPath());

@@ -66,7 +66,7 @@ class ZMCategoryCouponRestriction extends ZMObject {
      * @return A <code>ZMCategory</code> instance.
      */
     public function getCategory() { 
-        return ZMCategories::instance()->getCategoryForId($this->categoryId_);
+        return ZMCategories::instance()->getCategoryForId($this->categoryId_, ZMRequest::instance()->getSession()->getLanguageId());
     }
 
 }

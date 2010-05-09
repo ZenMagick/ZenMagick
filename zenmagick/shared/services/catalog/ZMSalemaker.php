@@ -69,7 +69,7 @@ class ZMSaleMaker extends ZMObject {
         $product = ZMProducts::instance()->getProductForId($productId);
 
         if (null === $categoryId) {
-            $categoryId = $product->getDefaultCategory()->getId();
+            $categoryId = $product->getDefaultCategory(null)->getId();
         }
 
         if (null === $this->sales_) {

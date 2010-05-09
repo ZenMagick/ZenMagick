@@ -34,7 +34,7 @@ class TestZMCategory extends ZMTestCase {
      */
     public function testChildIds() {
         $expect = array(3, 10, 13, 12, 15, 11, 14);
-        $category = ZMCategories::instance()->getCategoryForId(3);
+        $category = ZMCategories::instance()->getCategoryForId(3, 1);
         $ids = $category->getChildIds();
         $this->assertEqual(count($expect), count($ids));
         foreach ($expect as $id) {
@@ -47,7 +47,7 @@ class TestZMCategory extends ZMTestCase {
      */
     public function testChildIdsExclude() {
         $expect = array(10, 13, 12, 15, 11, 14);
-        $category = ZMCategories::instance()->getCategoryForId(3);
+        $category = ZMCategories::instance()->getCategoryForId(3, 1);
         $ids = $category->getChildIds(false);
         $this->assertEqual(count($expect), count($ids));
         foreach ($expect as $id) {
@@ -66,7 +66,7 @@ class TestZMCategory extends ZMTestCase {
         );
 
         foreach ($tests as $test) {
-            $category = ZMCategories::instance()->getCategoryForId($test['categoryId']);
+            $category = ZMCategories::instance()->getCategoryForId($test['categoryId'], 1);
             if ($this->assertNotNull($category, '%s; categoryId '.$test['categoryId'])) {
                 $this->assertEqual($test['expected'], $category->getProductTypeIds());
             }

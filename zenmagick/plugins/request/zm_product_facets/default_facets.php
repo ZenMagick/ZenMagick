@@ -58,7 +58,8 @@
      */
     function zm_build_category_facet($type=null) {
         $facet = array();
-        $categories = ZMCategories::instance()->getCategories();
+        //XXX: fix languageId
+        $categories = ZMCategories::instance()->getCategories(1);
         foreach ($categories as $category) {
             $id = $category->getId();
             $products = ZMProducts::instance()->getProductsForCategoryId($id);
