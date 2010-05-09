@@ -52,6 +52,7 @@ Release 0.9.10
 	changes], account_history_info.php: [ZMOrder::getOrderStatusHistory():
 	signature changes]
 - make languageId mandatory in ZMCategories
+- make the actual view instance the source of view_start/view_end events
 
 Release 0.9.9
 - in ZMDbTableMapper handle database exception building auto mappings

@@ -82,7 +82,7 @@ class ZMDispatcher {
                 header($s);
             }
 
-            ZMEvents::instance()->fireEvent(null, ZMMVCConstants::VIEW_START, array('request' => $request, 'view' => $view));
+            ZMEvents::instance()->fireEvent($view, ZMMVCConstants::VIEW_START, array('request' => $request, 'view' => $view));
             try {
                 // generate response
                 echo $view->generate($request);
@@ -90,7 +90,7 @@ class ZMDispatcher {
                 ZMLogging::instance()->dump($e, null, ZMLogging::ERROR);
                 //TODO: what to do?
             } 
-            ZMEvents::instance()->fireEvent(null, ZMMVCConstants::VIEW_DONE, array('request' => $request, 'view' => $view));
+            ZMEvents::instance()->fireEvent($view, ZMMVCConstants::VIEW_DONE, array('request' => $request, 'view' => $view));
         } else {
             ZMLogging::instance()->log('null view, skipping $view->generate()', ZMLogging::DEBUG);
         }
