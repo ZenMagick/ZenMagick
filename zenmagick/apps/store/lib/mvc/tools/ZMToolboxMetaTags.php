@@ -110,7 +110,7 @@ class ZMToolboxMetaTags extends ZMToolboxTool {
             if (null != ($category = ZMCategories::instance()->getCategoryForId($this->getRequest()->getCategoryId()))) {
                 $languageId = $this->getRequest()->getSession()->getLanguageId();
                 if (null != ($details = $category->getMetaTagDetails($languageId))) {
-                    $title = $this->getToolbox()->html->encode($details->getTitle());
+                    $title = ZMHtmlUtils::encode($details->getTitle());
                 }
             } else {
                 $title = $this->category_;
@@ -128,7 +128,7 @@ class ZMToolboxMetaTags extends ZMToolboxTool {
             $title .= ZMSettings::get('storeName');
         }
 
-        $title = $this->getToolbox()->html->encode($title);
+        $title = ZMHtmlUtils::encode($title);
 
         return $title;
     }
@@ -168,7 +168,7 @@ class ZMToolboxMetaTags extends ZMToolboxTool {
             $value .= $this->topCategories_;
         }
 
-        $value = $this->getToolbox()->html->encode(trim($value));
+        $value = ZMHtmlUtils::encode(trim($value));
 
         return $value;
     }
@@ -205,7 +205,7 @@ class ZMToolboxMetaTags extends ZMToolboxTool {
             }
         }
 
-        $value = $this->getToolbox()->html->encode(trim($value));
+        $value = ZMHtmlUtils::encode(trim($value));
 
         return $value;
     }

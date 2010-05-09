@@ -146,7 +146,7 @@ class ZMTheme extends ZMObject {
             }
         }
 
-        return ZMRequest::instance()->getToolbox()->html->encode($url);
+        return ZMHtmlUtils::encode($url);
     }
 
 

@@ -155,7 +155,7 @@ class ZMStoreDefaultSeoRewriter implements ZMSeoRewriter {
         while (false !== strpos($path, '//')) $path = str_replace('//', '/', $path);
         $query = (1 < strlen($query)) ? $query : '';
 
-        return $request->getToolbox()->net->encode($server.$path.$query);
+        return ZMNetUtils::encode($server.$path.$query);
     }
 
 }
