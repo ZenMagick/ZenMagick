@@ -105,9 +105,12 @@ class ZMProductFinder {
         $needsP2c =  0 != $criteria->getCategoryId();
 
         $from = " FROM (" . TABLE_PRODUCTS . " p 
-                 LEFT JOIN " . TABLE_MANUFACTURERS . " m USING(manufacturers_id), " . 
-                 TABLE_PRODUCTS_DESCRIPTION . " pd, " . TABLE_CATEGORIES . " c " . ($needsP2c ? (', '.TABLE_PRODUCTS_TO_CATEGORIES." p2c") : '') . ")
-                 LEFT JOIN " . TABLE_META_TAGS_PRODUCTS_DESCRIPTION . " mtpd ON mtpd.products_id= p.products_id AND mtpd.language_id = :languageId";
+                 LEFT JOIN " . TABLE_MANUFACTURERS . " m USING(manufacturers_id), " .
+                 TABLE_PRODUCTS_DESCRIPTION . " pd " .  
+                 ($needsP2c ? (', '
+                    . TABLE_CATEGORIES . ' c, ' 
+                    . TABLE_PRODUCTS_TO_CATEGORIES . ' p2c') : '') . 
+                 ") LEFT JOIN " . TABLE_META_TAGS_PRODUCTS_DESCRIPTION . " mtpd ON mtpd.products_id= p.products_id AND mtpd.language_id = :languageId";
 
         $args['languageId'] = $criteria->getLanguageId();
 
@@ -123,11 +126,7 @@ class ZMProductFinder {
         $where = " WHERE (p.products_status = 1 AND p.products_id = pd.products_id AND pd.language_id = :languageId";
         if ($needsP2c) {
             $where .= " AND p.products_id = p2c.products_id AND p2c.categories_id = c.categories_id";
-        }
 
-        $args['languageId'] = $criteria->getLanguageId();
-
-        if (0 != $criteria->getCategoryId()) {
             if ($criteria->isIncludeSubcategories()) {
                 $where .= " AND p2c.products_id = p.products_id
                             AND p2c.products_id = pd.products_id
@@ -140,7 +139,6 @@ class ZMProductFinder {
                             AND pd.language_id = :languageId
                             AND p2c.categories_id = :categoryId";
                 $args['categoryId'] = $criteria->getCategoryId();
-                $args['languageId'] = $criteria->getLanguageId();
             }
         }
 
