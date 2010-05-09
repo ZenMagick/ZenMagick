@@ -152,14 +152,14 @@ EOT;
     /**
      * {@inheritDoc}
      */
-    public function exists($request, $template) {
+    public function exists($request, $template, $type=ZMView::TEMPLATE) {
         throw new ZMException('not supported');
     }
 
     /**
      * {@inheritDoc}
      */
-    public function asUrl($request, $template) {
+    public function asUrl($request, $template, $type=ZMView::TEMPLATE) {
         throw new ZMException('not supported');
     }
 
