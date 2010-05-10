@@ -57,6 +57,10 @@ Release 0.9.10
   implementations as well as the predefined TRANSIENT and PERSISTENT
 - pageCache: change to load in both storefront and admin to allow the cache to
   be visible in cache admin
+- change ZMCategories to using a regular cache via ZMCaches::getCache(); the
+  cache type may be set via 'apps.store.categories.cache' (for example:
+	'file', 'memcache')
+- ZMMemcacheCache: add support for 'compress' config option (true/false)
 
 Release 0.9.9
 - in ZMDbTableMapper handle database exception building auto mappings

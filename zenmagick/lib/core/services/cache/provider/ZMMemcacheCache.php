@@ -35,6 +35,7 @@ class ZMMemcacheCache extends ZMObject implements ZMCache {
     private $memcache_;
     private $lifetime_;
     private $lastModified_;
+    private $compress_;
 
 
     /**
@@ -44,6 +45,7 @@ class ZMMemcacheCache extends ZMObject implements ZMCache {
         parent::__construct();
         $this->lifetime_ = 0;
         $this->lastModified_ = time();
+        $this->compress_ = 0;
     }
 
     /**
@@ -60,8 +62,9 @@ class ZMMemcacheCache extends ZMObject implements ZMCache {
     public function init($group, $config) {
         $this->group_ = $group;
         $this->memcache_ = new Memcache();
-        $config = array_merge(array('host' => 'localhost', 'port' => 11211, 'cacheTTL' => 0), $config);
+        $config = array_merge(array('host' => 'localhost', 'port' => 11211, 'cacheTTL' => 0, 'compress' => false), $config);
         $this->lifetime_ = $config['cacheTTL'];
+        $this->compress_ = $config['compress'] ? MEMCACHE_COMPRESSED : 0;
         $this->memcache_->connect($config['host'], $config['port']);
     }
 
@@ -115,7 +118,7 @@ class ZMMemcacheCache extends ZMObject implements ZMCache {
      */
     public function save($data, $id) {
         $this->lastModified_ = time();
-        return $this->memcache_->set($this->group_.'/'.$id, $data, 0, $this->lifetime_);
+        return $this->memcache_->set($this->group_.'/'.$id, $data, $this->compress_, $this->lifetime_);
     }
 
     /**
