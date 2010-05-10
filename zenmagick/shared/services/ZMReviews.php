@@ -181,11 +181,6 @@ class ZMReviews extends ZMObject {
      * @return array List of <code>ZMReview</code> instances.
      */
     public function getAllReviews($languageId) {
-        if (null === $languageId) {
-            $session = ZMRequest::instance()->getSession();
-            $languageId = $session->getLanguageId();
-        }
-
         $sql = "SELECT r.*, rd.*, p.products_image, pd.products_name
                 FROM " . TABLE_REVIEWS . " r, " . TABLE_REVIEWS_DESCRIPTION . " rd, "
                        . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd
@@ -209,11 +204,6 @@ class ZMReviews extends ZMObject {
      * @return ZMReview A <code>ZMReview</code> instance or <code>null</code>.
      */
     public function getReviewForId($reviewId, $languageId) {
-        if (null === $languageId) {
-            $session = ZMRequest::instance()->getSession();
-            $languageId = $session->getLanguageId();
-        }
-
         $sql = "SELECT r.*, rd.*, p.products_image, pd.products_name
                 FROM " . TABLE_REVIEWS . " r, " . TABLE_REVIEWS_DESCRIPTION . " rd, "
                        . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd

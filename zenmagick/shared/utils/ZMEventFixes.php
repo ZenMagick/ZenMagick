@@ -186,10 +186,12 @@ class ZMEventFixes extends ZMObject {
         ZMAuthenticationManager::instance()->addProvider(ZMSettings::get('defaultAuthenticationProvider'), true);
 
         if (ZMSettings::get('isEnableZMThemes') && !ZM_CLI_CALL) {
+            $language = $request->getSession()->getLanguage();
+
             // resolve theme to be used 
-            $theme = ZMThemes::instance()->resolveTheme(ZMSettings::get('isEnableThemeDefaults') ? ZMSettings::get('defaultThemeId') : Runtime::getThemeId());
+            $themeId = (ZMSettings::get('isEnableThemeDefaults') ? ZMSettings::get('defaultThemeId') : Runtime::getThemeId());
+            $theme = ZMThemes::instance()->resolveTheme($themeId, $language);
             // finalise i18n
-            $language = ZMRequest::instance()->getSession()->getLanguage(); //!!TODO
             if (null === $language) {
                 // this may happen if the i18n patch hasn't been updated
                 $language = Runtime::getDefaultLanguage();

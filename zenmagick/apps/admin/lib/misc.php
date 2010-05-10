@@ -94,7 +94,8 @@
         if ($merge) {
             // load existing mappings
             Runtime::setThemeId($themeId);
-            ZMThemes::instance()->resolveTheme(ZMSettings::get('isEnableThemeDefaults') ? ZMSettings::get('defaultThemeId') : $themeId);
+            $defaultThemeId = (ZMSettings::get('isEnableThemeDefaults') ? ZMSettings::get('defaultThemeId') : $themeId);
+            ZMThemes::instance()->resolveTheme($defaultThemeId, ZMRequest::instance()->getSession()->getLanguage());
         }
 
         $includes = ZMLoader::findIncludes($root.'/', '.php', true);

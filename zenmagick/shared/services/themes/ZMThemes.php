@@ -109,11 +109,6 @@ class ZMThemes extends ZMObject {
      * @return string The configured zen-cart theme id.
      */
     public function getZCThemeId($languageId) {
-        if (null === $languageId) {
-            $session = ZMRequest::instance()->getSession();
-            $languageId = $session->getLanguageId();
-        }
-
         $sql = "SELECT template_dir
                 FROM " . TABLE_TEMPLATE_SELECT . "
                 WHERE template_language = :languageId";
@@ -175,10 +170,11 @@ class ZMThemes extends ZMObject {
      * <p>Passing default theme id rather than the current theme id is equivalent to
      * enabling default theme fallback. Coincidentally, this is also the default behaviour.</p>
      *
-     * @param string themeId The themeId to start with; default is <code>null</code> to use the default theme.
+     * @param string themeId The themeId to start with.
+     * @param ZMLanguage language The language.
      * @return ZMTheme The final theme.
      */
-    public function resolveTheme($themeId=null) {
+    public function resolveTheme($themeId, $language) {
         if (null == $themeId) {
             $themeId = ZMSettings::get('defaultThemeId');
         }
@@ -193,8 +189,6 @@ class ZMThemes extends ZMObject {
         ZMLoader::instance()->setParent($themeLoader);
 
         // init l10n/i18n
-        $session = ZMRequest::instance()->getSession();
-        $language = $session->getLanguage();
         $theme->loadLocale($language);
 
         // use theme loader to load static stuff
@@ -204,7 +198,7 @@ class ZMThemes extends ZMObject {
 
         // check for theme switching
         if (Runtime::getThemeId() != $theme->getThemeId()) {
-            $nextTheme = $this->resolveTheme(Runtime::getThemeId());
+            $nextTheme = $this->resolveTheme(Runtime::getThemeId(), $language);
             // merge with parent..
             $nextTheme->setConfig(ZMLangUtils::arrayMergeRecursive($theme->getConfig(), $nextTheme->getConfig()));
             return $nextTheme;

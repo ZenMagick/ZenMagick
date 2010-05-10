@@ -79,11 +79,6 @@ class ZMEZPages extends ZMObject {
      * @return ZMEZPage A new instance or <code>null</code>.
      */
     public function getPageForId($pageId, $languageId) {
-        if (null === $languageId) {
-            $session = ZMRequest::instance()->getSession();
-            $languageId = $session->getLanguageId();
-        }
-
         $sql = "SELECT * 
                 FROM " . TABLE_EZPAGES . "
                 WHERE pages_id = :id";
@@ -101,11 +96,6 @@ class ZMEZPages extends ZMObject {
      * @return array List of <code>ZMEZPage</code> instances.
      */
     public function getPagesForChapterId($chapterId, $languageId) {
-        if (null === $languageId) {
-            $session = ZMRequest::instance()->getSession();
-            $languageId = $session->getLanguageId();
-        }
-
         $sql = "SELECT *
                 FROM " . TABLE_EZPAGES . " 
                 WHERE ((status_toc = 1 AND toc_sort_order <> 0) AND toc_chapter= :tocChapter)
@@ -124,11 +114,6 @@ class ZMEZPages extends ZMObject {
      * @return array List of <code>ZMEZPage</code> instances.
      */
     public function getPagesForHeader($languageId) {
-        if (null === $languageId) {
-            $session = ZMRequest::instance()->getSession();
-            $languageId = $session->getLanguageId();
-        }
-
         $sql = "SELECT * 
                 FROM " . TABLE_EZPAGES . "
                 WHERE status_header = 1
@@ -147,11 +132,6 @@ class ZMEZPages extends ZMObject {
      * @return array List of <code>ZMEZPage</code> instances.
      */
     public function getPagesForSidebar($languageId) {
-        if (null === $languageId) {
-            $session = ZMRequest::instance()->getSession();
-            $languageId = $session->getLanguageId();
-        }
-
         $sql = "SELECT * 
                 FROM " . TABLE_EZPAGES . "
                 WHERE status_sidebox = 1
@@ -170,11 +150,6 @@ class ZMEZPages extends ZMObject {
      * @return array List of <code>ZMEZPage</code> instances.
      */
     public function getPagesForFooter($languageId) {
-        if (null === $languageId) {
-            $session = ZMRequest::instance()->getSession();
-            $languageId = $session->getLanguageId();
-        }
-
         $sql = "SELECT * 
                 FROM " . TABLE_EZPAGES . "
                 WHERE status_footer = 1

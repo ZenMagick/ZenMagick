@@ -89,11 +89,6 @@ class ZMCoupons extends ZMObject {
      * @return ZMCoupon A <code>ZMCoupon</code> instance or <code>null</code>.
      */
     public function getCouponForId($id, $languageId) {
-        if (null === $languageId) {
-            $session = ZMRequest::instance()->getSession();
-            $languageId = $session->getLanguageId();
-        }
-
         // XXX: relies on order of selected columns; (coupon_id returned twice and cd might be NULL if no description!)
         $sql = "SELECT cd.*, c.*
                 FROM " . TABLE_COUPONS . " c
