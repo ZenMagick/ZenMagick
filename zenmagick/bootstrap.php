@@ -49,6 +49,7 @@
     // load initial code
     if (!IS_ADMIN_FLAG && file_exists(ZM_BASE_PATH.'core.php')) {
         require ZM_BASE_PATH.'core.php';
+        spl_autoload_register('ZMLoader::resolve');
     } else {
         require_once ZM_BASE_PATH."lib/core/ZMLoader.php";
         spl_autoload_register('ZMLoader::resolve');
