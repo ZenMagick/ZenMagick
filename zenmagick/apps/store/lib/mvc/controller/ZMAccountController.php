@@ -55,7 +55,7 @@ class ZMAccountController extends ZMController {
         $request->getToolbox()->crumbtrail->addCrumb($request->getToolbox()->utils->getTitle());
 
         // orders are sorted desc...
-        $resultSource = ZMLoader::make("ObjectResultSource", 'Order', ZMOrders::instance(), "getOrdersForAccountId", array($request->getAccountId(), $request->getSession(->getLanguageId()));
+        $resultSource = ZMLoader::make("ObjectResultSource", 'Order', ZMOrders::instance(), "getOrdersForAccountId", array($request->getAccountId(), $request->getSession()->getLanguageId()));
         $resultList = ZMLoader::make("ResultList");
         $resultList->setResultSource($resultSource);
         $resultList->setPageNumber($request->getPageIndex());
