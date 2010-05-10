@@ -55,6 +55,8 @@ Release 0.9.10
 - make the actual view instance the source of view_start/view_end events
 - change ZMCaches::getCache() to allow specifying specific cache
   implementations as well as the predefined TRANSIENT and PERSISTENT
+- pageCache: change to load in both storefront and admin to allow the cache to
+  be visible in cache admin
 
 Release 0.9.9
 - in ZMDbTableMapper handle database exception building auto mappings

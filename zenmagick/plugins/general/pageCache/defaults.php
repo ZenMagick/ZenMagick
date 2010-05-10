@@ -40,7 +40,7 @@ define('ZM_PLUGINS_PAGE_CACHE_ALLOWED_DEFAULT', 'index,category,product_info,pag
      */
     function zm_page_cache_default_strategy($request) {
         return 'POST' != $request->getMethod()
-          && $request->getShoppingCart()->isEmpty() 
+          && (null == $request->getShoppingCart() || $request->getShoppingCart()->isEmpty())
           && !ZMMessages::instance()->hasMessages()
           && ZMLangUtils::inArray($request->getRequestId(), ZMSettings::get('plugins.pageCache.strategy.allowed', ZM_PLUGINS_PAGE_CACHE_ALLOWED_DEFAULT));
     }
