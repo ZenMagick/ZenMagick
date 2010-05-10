@@ -80,9 +80,8 @@ class ZMPhpBB3Plugin extends Plugin implements ZMRequestHandler {
      * {@inheritDoc}
      */
     public function initRequest($request) {
-        parent::init();
-        $this->page_ = ZMRequest::instance()->getRequestId();
-        $this->prePostAccount_ = ZMRequest::instance()->getAccount();
+        $this->page_ = $request->getRequestId();
+        $this->prePostAccount_ = $request->getAccount();
 
         // main define to get at things
         $phpBB3Dir = $this->get('phpBB3Dir');
