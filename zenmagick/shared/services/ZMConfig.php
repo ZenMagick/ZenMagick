@@ -115,7 +115,7 @@ class ZMConfig extends ZMObject {
         $sql = "SELECT *
                 FROM " . TABLE_CONFIGURATION . "
                 WHERE configuration_key like :key
-                ORDER BY configuration_id";
+                ORDER BY sort_order, configuration_id";
         $values = array();
         foreach (Runtime::getDatabase()->query($sql, array('key' => $pattern), TABLE_CONFIGURATION) as $value) {
             if (0 === strpos($value['setFunction'], 'widget@')) {
