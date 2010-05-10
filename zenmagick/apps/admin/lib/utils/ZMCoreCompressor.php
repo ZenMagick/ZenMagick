@@ -39,6 +39,7 @@ class ZMCoreCompressor extends ZMPhpPackagePacker {
     function __construct() {
         parent::__construct(null, Runtime::getInstallationPath().'core.php', Runtime::getInstallationPath().'core.tmp');
         $this->setResolveInheritance(true);
+        $this->setDebug(false);
     }
 
 
@@ -103,9 +104,21 @@ class ZMCoreCompressor extends ZMPhpPackagePacker {
      * {@inheritDoc}
      */
     protected function getFileList() {
-        $libFiles = ZMLoader::findIncludes(Runtime::getInstallationPath().'lib'.DIRECTORY_SEPARATOR, '.php', true);
+        $pathList = array(
+            ZMFileUtils::mkPath(array(Runtime::getInstallationPath(), 'lib', 'core')),
+            ZMFileUtils::mkPath(array(Runtime::getInstallationPath(), 'lib', 'mvc')),
+            ZMFileUtils::mkPath(array(Runtime::getInstallationPath(), ZM_SHARED)),
+            ZMFileUtils::mkPath(array(Runtime::getInstallationPath(), 'apps', 'store', 'lib'))
+        );
+
+        $files = array();
+        foreach ($pathList as $path) {
+            $pathFiles = ZMLoader::findIncludes($path, '.php', true);
+            $files = array_merge($files, $pathFiles);
+        }
+
         $pluginFiles = $this->getPluginFiles();
-        return array_merge($libFiles, $pluginFiles);
+        return array_merge($files, $pluginFiles);
     }
 
     /**
