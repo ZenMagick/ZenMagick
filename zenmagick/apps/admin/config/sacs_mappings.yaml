@@ -10,6 +10,9 @@ login:
 logoff: 
   secure: true
   roles:
+reset_password: 
+  secure: true
+  roles:
 index: 
   roles: 
     - service

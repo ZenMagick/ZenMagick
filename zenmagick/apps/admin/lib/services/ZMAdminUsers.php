@@ -98,4 +98,18 @@ class ZMAdminUsers extends ZMObject {
         return $this->finalizeUser(ZMRuntime::getDatabase()->querySingle($sql, $args, TABLE_ADMIN, 'AdminUser'));
     }
 
+    /**
+     * Get user for the given email.
+     *
+     * @param string email The user email.
+     * @return ZMAdminUser A <code>ZMAdminUser</code> instance or <code>null</code>.
+     */
+    public function getUserForEmail($email) {
+        $sql = "SELECT *
+                FROM " . TABLE_ADMIN . "
+                WHERE admin_email = :email";
+        $args = array('email' => $email);
+        return $this->finalizeUser(ZMRuntime::getDatabase()->querySingle($sql, $args, TABLE_ADMIN, 'AdminUser'));
+    }
+
 }
