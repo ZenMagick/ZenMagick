@@ -190,9 +190,9 @@ class Plugin extends ZMPlugin {
     public function remove($keepSettings=false) {
         $config = ZMConfig::instance();
 
-        // always remove enable/disable key
+        // always remove these keys
         $config->removeConfigValue($this->enabledKey_);
-        $config->removeConfigValue($this->orderKey_);
+        //$config->removeConfigValue($this->orderKey_);
 
         if (!$keepSettings) {
             $config->removeConfigValues($this->configPrefix_.'%');
@@ -205,6 +205,8 @@ class Plugin extends ZMPlugin {
      * @return boolean <code>true</code> on success.
      */
     public function upgrade() {
+        $this->remove(true);
+        $this->install();
         return true;
     }
 
@@ -315,8 +317,9 @@ class Plugin extends ZMPlugin {
         // keys are always upper case
         $key = strtoupper($key);
 
-        // XXX: not a great test but will work while being based on zen-cart configuration
-        if (!defined($key)) {
+        $tmp = ZMConfig::instance()->getConfigValues($key);
+        // check if value exists
+        if (0 == count($tmp)) {
             // ZENMAGICK_PLUGIN_GROUP_ID is created via config.sql SQL
             ZMConfig::instance()->createConfigValue($title, $key, $value, ZENMAGICK_PLUGIN_GROUP_ID, $description, $sortOrder, $widget);
         }

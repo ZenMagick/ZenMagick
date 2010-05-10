@@ -95,14 +95,13 @@ class ZMPluginsController extends ZMController {
 
         $viewId = null;
 
-        if ('refresh' == $action) {
+        if ('upgrade' == $action) {
             if (null != ($plugin = ZMPlugins::instance()->initPluginForId($pluginId, false)) && $plugin->isInstalled()) {
-                ZMLogging::instance()->log('refresh plugin: '.$plugin->getId() . '; keepSettings: '.($keepSettings?'true':'false'), ZMLogging::TRACE);
-                $plugin->remove(true);
-                $plugin->install();
-                ZMMessages::instance()->success(zm_l10n_get('Plugin %s refreshed successfully', $plugin->getName()));
+                ZMLogging::instance()->log('upgrade plugin: '.$plugin->getId(), ZMLogging::TRACE);
+                $plugin->upgrade();
+                ZMMessages::instance()->success(zm_l10n_get('Plugin %s upgraded successfully', $plugin->getName()));
                 ZMMessages::instance()->addAll($plugin->getMessages());
-                $viewId = 'success-refresh';
+                $viewId = 'success-upgrade';
             }
         }
 
