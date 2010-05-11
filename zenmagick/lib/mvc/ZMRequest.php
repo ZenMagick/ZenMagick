@@ -133,6 +133,8 @@ class ZMRequest extends ZMObject {
      * @return string A full URL.
      */
     public function url($requestId=null, $params='', $secure=false) {
+        // drop secure if disabled
+        $secure = $secure & ZMSettings::get('zenmagick.mvc.request.secure');
         // custom params handling
         if (null === $params) {
             // if requestId null, keep current and also current params
