@@ -16,4 +16,6 @@
   require_once DIR_FS_CATALOG.DIR_WS_INCLUDES.'database_tables.php';
 
   require '../../../bootstrap.php';
+  // more zen-cart config stuff we need
+  ZMSettings::set('zenmagick.mvc.request.secure', 'true'==ENABLE_SSL_ADMIN);
   require '../../../mvc.php';
