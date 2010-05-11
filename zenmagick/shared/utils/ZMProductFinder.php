@@ -96,6 +96,7 @@ class ZMProductFinder {
      */
     protected function buildQuery($criteria) {
         $args = array();
+		    $useFulltext = ZMSettings::get('apps.store.search.fulltext', false);
 
         $select = "SELECT DISTINCT p.products_id";
         if ($criteria->isIncludeTax() && (!ZMLangUtils::isEmpty($criteria->getPriceFrom()) || !ZMLangUtils::isEmpty($criteria->getPriceTo()))) {
@@ -164,12 +165,27 @@ class ZMProductFinder {
                         $name = ++$index.'#name';
                         $args[$name] = '%'.$token.'%';
 
-                        $where .= "(pd.products_name LIKE :".$name." OR p.products_model LIKE :".$name." OR m.manufacturers_name LIKE :".$name."";
+                        if ($useFulltext) {
+                            $where .= "(match(pd.products_name) against (:" .$name.") 
+                                OR match(p.products_model) against (:".$name.") 
+                                OR m.manufacturers_name LIKE :".$name."";
+                        } else {
+                            $where .= "(pd.products_name LIKE :".$name." 
+                                OR p.products_model LIKE :".$name." 
+                                OR m.manufacturers_name LIKE :".$name."";
+                        }
+
                         // search meta tags
-                        $where .= " OR (mtpd.metatags_keywords LIKE :".$name." AND mtpd.metatags_keywords !='')";
-                        $where .= " OR (mtpd.metatags_description LIKE :".$name." AND mtpd.metatags_description !='')";
+                        $where .= " OR (mtpd.metatags_keywords LIKE :".$name." 
+									          AND mtpd.metatags_keywords !='')";
+                        $where .= " OR (mtpd.metatags_description LIKE :".$name." 
+									          AND mtpd.metatags_description !='')";
                         if ($criteria->isIncludeDescription()) {
-                            $where .= " OR pd.products_description LIKE :".$name."";
+                            if ($useFulltext) {
+                                $where .= " OR match(pd.products_description) against (:".$name.")";
+                            } else {
+                                $where .= " OR pd.products_description LIKE :".$name."";
+                            }
                         }
                         $where .= ')';
                         break;

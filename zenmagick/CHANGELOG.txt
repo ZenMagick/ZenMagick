@@ -63,6 +63,8 @@ Release 0.9.10
 - ZMMemcacheCache: add support for 'compress' config option (true/false)
 - pageStats: allow to limit SQL timings displayed to the top X queries in
   descending time order
+- add initial(partial) support using MySQL fulltext to ZMProductFinder; enable
+	via ZMSettings::set('apps.store.search.fulltext', true);
 
 Release 0.9.9
 - in ZMDbTableMapper handle database exception building auto mappings
