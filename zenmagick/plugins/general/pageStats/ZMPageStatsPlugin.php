@@ -120,8 +120,8 @@ class ZMPageStatsPlugin extends Plugin {
                 $config = $database->getConfig();
                 $stats = $database->getStats();
                 $details = $stats['details'];
-                if (0 != $limit) {
-                    usort($details, array($this, "compareStats"));
+                usort($details, array($this, "compareStats"));
+                if (0 != $limit && count($details) > $limit) {
                     $details = array_slice($details, 0, $limit);
                 }
                 echo $config['database'].'('.get_class($database).'):'."\n";
@@ -214,8 +214,8 @@ class ZMPageStatsPlugin extends Plugin {
             foreach (ZMRuntime::getDatabases() as $database) {
                 $stats = $database->getStats();
                 $details = $stats['details'];
-                if (0 != $limit) {
-                    usort($details, array($this, "compareStats"));
+                usort($details, array($this, "compareStats"));
+                if (0 != $limit && count($details) > $limit) {
                     $details = array_slice($details, 0, $limit);
                 }
                 echo '<tr><th colspan="2">'.$config['database'].'('.get_class($database).')</th></tr>'."\n";
