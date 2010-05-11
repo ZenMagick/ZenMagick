@@ -61,6 +61,8 @@ Release 0.9.10
   cache type may be set via 'apps.store.categories.cache' (for example:
 	'file', 'memcache')
 - ZMMemcacheCache: add support for 'compress' config option (true/false)
+- pageStats: allow to limit SQL timings displayed to the top X queries in
+  descending time order
 
 Release 0.9.9
 - in ZMDbTableMapper handle database exception building auto mappings

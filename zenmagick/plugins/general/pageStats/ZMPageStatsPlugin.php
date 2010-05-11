@@ -61,6 +61,7 @@ class ZMPageStatsPlugin extends Plugin {
             'widget@BooleanFormWidget#name=showEvents&default=false&label=Show events');
         $this->addConfigValue('SQL', 'showSQLtiming', 'false', 'Enable to display all executed SQL and related timings.',
             'widget@BooleanFormWidget#name=showSQLtiming&default=false&label=Show SQL');
+        $this->addConfigValue('Limit displayed SQL', 'sqlTimingLimit', '0', 'Limit displayed SQL to the top X queries (0 for all).');
     }
 
     /**
@@ -112,13 +113,19 @@ class ZMPageStatsPlugin extends Plugin {
         }
 
         if (ZMLangUtils::asBoolean($this->get('showSQLtiming'))) {
+            $limit = $this->get('sqlTimingLimit');
             echo '<!--'."\n";
             echo '  SQL timings: ';
             foreach (ZMRuntime::getDatabases() as $database) {
                 $config = $database->getConfig();
                 $stats = $database->getStats();
+                $details = $stats['details'];
+                if (0 != $limit) {
+                    usort($details, array($this, "compareStats"));
+                    $details = array_slice($details, 0, $limit);
+                }
                 echo $config['database'].'('.get_class($database).'):'."\n";
-                foreach ($stats['details'] as $query) {
+                foreach ($details as $query) {
                     echo $query['time'].': '.$query['sql']."\n";
                 }
             }
@@ -200,13 +207,19 @@ class ZMPageStatsPlugin extends Plugin {
         }
 
         if (ZMLangUtils::asBoolean($this->get('showSQLtiming'))) {
+            $limit = $this->get('sqlTimingLimit');
             echo '<div id="sql-timings">';
             echo '<table border="1">';
             echo '<tr><th>Time (sec)</th><th>SQL</td></tr>';
             foreach (ZMRuntime::getDatabases() as $database) {
                 $stats = $database->getStats();
+                $details = $stats['details'];
+                if (0 != $limit) {
+                    usort($details, array($this, "compareStats"));
+                    $details = array_slice($details, 0, $limit);
+                }
                 echo '<tr><th colspan="2">'.$config['database'].'('.get_class($database).')</th></tr>'."\n";
-                foreach ($stats['details'] as $query) {
+                foreach ($details as $query) {
                     echo '<tr><td>'.$query['time'].'</td><td>'.$query['sql']."</td></tr>";
                 }
             }
@@ -228,6 +241,18 @@ class ZMPageStatsPlugin extends Plugin {
 
         $args['contents'] = preg_replace('/<\/body>/', $info . '</body>', $contents, 1);
         return $args;
+    }
+
+    /**
+     * Compare sql stats.
+     */
+    protected function compareStats($a, $b) {
+        $an = $a['time'];
+        $bn = $b['time'];
+        if ($an == $bn) {
+            return 0;
+        }
+        return ($an < $bn) ? 1 : -1;
     }
 
 }
