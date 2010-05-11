@@ -74,7 +74,7 @@
         <td><?php echo $plugin->getSortOrder() ?></td>
         <td>
           <?php $msg = ($plugin->isInstalled() ? 'Remove ' : 'Install ').'plugin: '.$plugin->getName(); ?>
-          <form action="<?php echo $admin2->url() ?>" method="POST" onsubmit="return zm_user_confirm('<?php echo $msg ?>');">
+          <form action="<?php echo $admin2->url() ?>" method="POST" onsubmit="return zenmagick.confirm('<?php echo $msg ?>', this);">
           <input type="hidden" name="pluginId" value="<?php echo $plugin->getId() ?>">
           <input type="hidden" name="group" value="<?php echo $plugin->getGroup() ?>">
           <?php if (!$plugin->isInstalled()) { ?>

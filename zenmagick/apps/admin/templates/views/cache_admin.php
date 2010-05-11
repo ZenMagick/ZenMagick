@@ -36,7 +36,7 @@
 
 <h2><?php zm_l10n("ZenMagick Cache Admin") ?></h2>
 
-<form action="<?php echo $admin2->url() ?>" method="POST" onsubmit="return zm_user_confirm('Clear selected?');">
+<form action="<?php echo $admin2->url() ?>" method="POST" onsubmit="return zenmagick.confirm('Clear selected?', this);">
   <fieldset>
     <legend><?php zm_l10n("Existing Caches") ?></legend>
       <table cellspacing="0" cellpadding="0">

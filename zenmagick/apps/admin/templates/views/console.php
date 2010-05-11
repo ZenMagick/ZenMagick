@@ -65,5 +65,5 @@
           <?php } ?>
       </fieldset>
   </form>
-  <a href="<?php echo $toolbox->admin->url(null, 'remove=true') ?>" onclick="return zm_user_confirm('Remove console ?');"><?php zm_l10n("Remove Console from admin menu") ?></a>
+  <a href="<?php echo $toolbox->admin->url(null, 'remove=true') ?>" onclick="return zenmagick.confirm('Remove console ?', this);"><?php zm_l10n("Remove Console from admin menu") ?></a>
 </div>

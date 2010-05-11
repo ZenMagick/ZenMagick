@@ -29,9 +29,10 @@
     <meta http-equiv="content-type" content="text/html; charset=<?php echo ZMSettings::get('zenmagick.mvc.html.charset') ?>">
     <title>ZenMagick Admin</title>
     <?php $resources->cssFile('style/zenmagick.css') ?>
-    <?php $resources->cssFile('js/jquery/jquery.treeview.css') ?>
-    <?php $resources->jsFile('js/zenmagick.js') ?>
-    <?php $resources->jsFile('js/jquery/jquery-1.3.2.min.js') ?>
+    <?php $resources->cssFile('style/jquery-ui-lightness/jquery-ui-1.8.1.custom.css') ?>
+    <?php $resources->jsFile('js/jquery-1.4.2.min.js') ?>
+    <?php $resources->jsFile('js/jquery-ui-1.8.1.custom.min.js') ?>
+    <?php $resources->jsFile('js/zenmagick.js', ZMViewUtils::FOOTER) ?>
   </head>
   <body>
     <?php if (ZMMessages::instance()->hasMessages()) { ?>

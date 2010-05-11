@@ -22,7 +22,36 @@
  * $Id: zenmagick.js 1966 2009-02-14 10:52:50Z dermanomann $
  */
 
-// confirm user input
-function zm_user_confirm(msg) {
-    return confirm(msg);
-}
+var zenmagick = {
+    /**
+     * Confirmation dialog.
+     *
+     * @param string msg The message.
+     * @param object src The source element.
+     * @param array args Optional arguments.
+     */
+    confirm: function(msg, src, args) {
+        $('<div id="user-confirm"></div>')
+            .html('<p>'+msg+'</p>')
+            .dialog({
+                modal: true,
+                title: 'Please confirm:',
+                buttons: {
+                    "Cancel": function() {
+                        $(this).dialog("destroy");
+                        $('#user-confirm').remove();
+                    },
+                    "Ok": function() {
+                        $(this).dialog("destroy");
+                        $('#user-confirm').remove();
+                        switch (src.nodeName.toLowerCase()) {
+                            case 'a': { window.document.location = $(src).attr('href'); break; }
+                            case 'form': { src.submit(); break; }
+                            default: { alert("Oops, don't know how to handle a "+src.nodeName); break; }
+                        }
+                    }
+                }
+            });
+        return false;
+    }
+};
