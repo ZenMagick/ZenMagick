@@ -308,7 +308,14 @@
                         'key' => 'enableZMCheckoutShipping',
                         'type' => 'boolean',
                         'desc' => 'Enable using ZenMagick checkout shipping code.'
-                    ),
+                    )
+                ),
+                'search' => array(
+                    array(
+                        'key' => 'fulltext',
+                        'type' => 'boolean',
+                        'desc' => 'Enable MySQL fulltext search in product search.'
+                    )
                 )
             )
         );
