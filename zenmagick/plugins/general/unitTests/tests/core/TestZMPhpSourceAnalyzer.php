@@ -148,4 +148,27 @@ class TestZMPhpSourceAnalyzer extends ZMTestCase {
         $this->assertEqual($expected, $deps);
     }
 
+    /**
+     * Test tree builder.
+     */
+    public function testTreeBuilder() {
+        $expected = array(
+            array('ClassA.phpx', 'foo.phpx', 'InterfaceC.phpx'),
+            array('ClassB.phpx', 'ClassF.phpx', 'InterfaceD.phpx', 'InterfaceE.phpx'),
+            array('ClassG.phpx')
+        );
+
+        $path = ZMFileUtils::mkPath(array($this->getTestPlugin()->getPluginDirectory(), 'tests', 'core', 'testclasses', 'deps'));
+        $tree = ZMPhpSourceAnalyzer::buildDepdencyTree(ZMLoader::findIncludes($path, '.phpx', true));
+        // strip path to make comparable
+        foreach ($tree as $ii => $files) {
+            $tmp = array();
+            foreach ($files as $file) {
+                $tmp[] = basename($file);
+            }
+            $tree[$ii] = $tmp;
+        }
+        $this->assertEqual($expected, $tree);
+    }
+
 }

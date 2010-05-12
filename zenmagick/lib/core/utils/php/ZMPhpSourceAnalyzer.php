@@ -164,4 +164,89 @@ class ZMPhpSourceAnalyzer {
         return $deps;
     }
 
+    /**
+     * Build a dependency tree for a list of PHP sources.
+     *
+     * <p>In fact, this isn't really a tree, but a simple array with files in the next value
+     * depending on files in the previous ones.</p>
+     *
+     * @param array files List of files.
+     * @return array A dependency tree.
+     */
+    public static function buildDepdencyTree($files) {
+        // start by collecting lines and class/interface for each file
+        $fileDetails = array();
+        foreach ($files as $filename) {
+            $lines = ZMFileUtils::getFileLines($filename);
+            $fileDetails[$filename] = array('lines' => $lines);
+            $fileDetails[$filename]['deps'] = ZMPhpSourceAnalyzer::getDependencies(implode("\n", $lines));
+        }
+
+        // now create some lookup tables to make life easier
+        $fileForClass = array();
+        $fileForInterface = array();
+        foreach ($fileDetails as $filename => $details) {
+            foreach ($details['deps']['contains']['classes'] as $class) {
+                $fileForClass[$class] = $filename;
+            }
+            foreach ($details['deps']['contains']['interfaces'] as $interface) {
+                $fileForInterface[$interface] = $filename;
+            }
+        }
+
+        // finally figure out the order of files respecting all dependencies
+
+        // the final level list
+        $tree = array();
+        // lookup for already resolved files 
+        $resolvedFiles = array();
+        // current level
+        $level = 0;
+        while (0 == count($resolvedFiles) || count($resolvedFiles) < count($fileDetails)) {
+            $tree[$level] = array();
+            // go through list and check for files resolved
+            foreach ($fileDetails as $filename => $details) {
+                if (in_array($filename, $resolvedFiles)) {
+                    continue;
+                }
+                $isResolved = true;
+
+                // check for class dependencies
+                foreach ($details['deps']['depends']['classes'] as $class) {
+                    if (!in_array($fileForClass[$class], $resolvedFiles)) {
+                        // unresolved class
+                        $isResolved = false;
+                        break;
+                    }
+                }
+                
+                // check for interface dependencies
+                foreach ($details['deps']['depends']['interfaces'] as $interface) {
+                    if (!in_array($fileForInterface[$interface], $resolvedFiles)) {
+                        // unresolved interface
+                        $isResolved = false;
+                        break;
+                    }
+                }
+
+                if ($isResolved) {
+                    // add to level
+                    $tree[$level][] = $filename;
+                }
+            }
+
+            // sanity check
+            if (0 == count($tree[$level])) {
+                // nothing else to do
+                break;
+            }
+
+            // add level to resolved
+            $resolvedFiles = array_merge($resolvedFiles, $tree[$level]);
+            ++$level;
+        }
+
+        return $tree;
+    }
+
 }

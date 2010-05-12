@@ -1,0 +1,4 @@
+<?php
+
+class ClassG extends ClassA implements InterfaceD {
+}
