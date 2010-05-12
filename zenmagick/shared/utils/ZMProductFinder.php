@@ -148,6 +148,7 @@ class ZMProductFinder {
             $args['manufacturerId'] = $criteria->getManufacturerId();
         }
 
+		    $fulltext_match_order = array();
         if (!ZMLangUtils::isEmpty($criteria->getKeywords())) {
             if (zen_parse_search_string(stripslashes($criteria->getKeywords()), $tokens)) {
                 $index = 0;
@@ -169,6 +170,9 @@ class ZMProductFinder {
                             $where .= "(match(pd.products_name) against (:" .$name.") 
                                 OR match(p.products_model) against (:".$name.") 
                                 OR m.manufacturers_name LIKE :".$name."";
+
+                            $fulltext_match_order[] = "match(pd.products_name) against (:" .$name.")+1";
+                            $fulltext_match_order[] = "match(p.products_model) against (:" .$name.")+1";
                         } else {
                             $where .= "(pd.products_name LIKE :".$name." 
                                 OR p.products_model LIKE :".$name." 
@@ -230,7 +234,7 @@ class ZMProductFinder {
             $where .= " GROUP BY p.products_id, tr.tax_priority";
         }
 
-        $sort = ' ORDER BY';
+        $sort = " ORDER BY\n";
         if (null !== $this->sortId_) {
             switch ($this->sortId_) {
             case 'model':
@@ -254,6 +258,9 @@ class ZMProductFinder {
                break;
             }
         } else {
+            if ($useFulltext) {
+                $sort .= join('*', $fulltext_match_order) . ' DESC, ';
+            }
             $sort .= " p.products_sort_order,  pd.products_name";
         }
 
