@@ -242,10 +242,11 @@ class ZMPhpPackagePacker {
             }
             $lines = ZMFileUtils::getFileLines($file);
             $patched = false;
+            // NOTE: This might not necessarily be the exact class name
             $class = str_replace('.php', '', basename($file));
             $fileMap[$class] = $file;
             $dependsOn[$class] = array();
-            $classInfo[$class] = $this->getClassInfo(implode(' ', $lines));
+            $classInfo[$class] = $this->getClassInfo(implode("\n", $lines));
             if ($classInfo[$class]['class']) {
                 // only if class in file
                 foreach ($lines as $ii => $line) {
@@ -267,6 +268,7 @@ class ZMPhpPackagePacker {
         $dependsOn = $this->finalizeDependencies($dependsOn, $files);
 
         if ($this->debug_) {
+            echo "<pre>";
             echo "* processing ".count($files)." files<BR>\n";
             echo "* dependencies:<pre>";
             var_dump($dependsOn);

@@ -302,10 +302,7 @@ class ZMFileUtils {
         $lines = array();
 
         if (file_exists($file)) {
-            $lines = file($file);
-            foreach ($lines as $ii => $line) {
-                $lines[$ii] = rtrim($line);
-            }
+            $lines = file($file, FILE_IGNORE_NEW_LINES);
         }
 
         return $lines;
