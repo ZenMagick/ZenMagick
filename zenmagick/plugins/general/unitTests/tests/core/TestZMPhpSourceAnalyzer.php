@@ -134,4 +134,18 @@ class TestZMPhpSourceAnalyzer extends ZMTestCase {
         $this->assertEqual($expected, $deps);
     }
 
+    /**
+     * Test multi multi whitespace.
+     */
+    public function testMultiMultiWS() {
+        $expected = $this->getDepsMap();
+        $expected['contains']['classes'] = array('ZMBasicClass', 'ZMOtherClass');
+        $expected['contains']['interfaces'] = array('Foo');
+        $expected['depends']['classes'] = array('ZMParentClass');
+        $expected['depends']['interfaces'] = array('ZMSomeInterface', 'ZMSomeOtherInterface', 'Feng', 'Shui', 'Bar', 'Doh');
+        $source = $this->getSourceFor('ZMPhpSourceAnalyzerTestClassMultiMultiWS.phpx'); 
+        $deps = ZMPhpSourceAnalyzer::getDependencies($source);
+        $this->assertEqual($expected, $deps);
+    }
+
 }
