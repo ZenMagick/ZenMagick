@@ -65,6 +65,7 @@ Release 0.9.10
   descending time order
 - add initial(partial) support using MySQL fulltext to ZMProductFinder; enable
 	via ZMSettings::set('apps.store.search.fulltext', true);
+- add ZMPhpSourceAnalyzer plus tests
 
 Release 0.9.9
 - in ZMDbTableMapper handle database exception building auto mappings

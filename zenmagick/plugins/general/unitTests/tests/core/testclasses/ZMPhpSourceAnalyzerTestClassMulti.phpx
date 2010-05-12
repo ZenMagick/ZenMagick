@@ -1,0 +1,18 @@
+<?php
+
+/**
+ * A test class.
+ *
+ * @package org.zenmagick.plugins.zm_tests.tests
+ * @author DerManoMann
+ * @version $Id$
+ */
+class ZMBasicClass extends ZMParentClass implements ZMSomeInterface {
+
+}
+
+class ZMOtherClass {
+}
+
+interface Foo extends Bar {
+}
