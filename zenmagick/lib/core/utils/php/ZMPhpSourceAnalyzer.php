@@ -53,6 +53,25 @@ class ZMPhpSourceAnalyzer {
     }
 
     /**
+     * Get next non empty char.
+     *
+     * @param array tokens List of all token.
+     * @param int key Key to start searching from.
+     * @return string A char or <code>null</code>.
+     */
+    private static function getNextNonWSChar($tokens, $key) {
+        ++$key;
+        while (is_array($tokens[$key]) || empty($tokens[$key])) {
+            ++$key;
+            if (!isset($tokens[$key])) {
+                return null;
+            }
+        }
+
+        return $tokens[$key];
+    }
+
+    /**
      * Get source info.
      *
      * <p>Analyzes the given PHP source and extracts the following information:</p>
@@ -103,7 +122,7 @@ class ZMPhpSourceAnalyzer {
                             $deps['depends']['interfaces'][$ts[1][1]] = $ts[1][1];
 
                             // check for multiple interfaces
-                            $next = $tokens[$ts[0]+1];
+                            $next = self::getNextNonWSChar($tokens, $ts[0]);
                             if (!is_array($next) && ',' === $next) {
                                 if (null != ($ns = self::getToken($tokens, $ts[0], T_STRING))) {
                                     $deps['depends']['interfaces'][$ns[1][1]] = $ns[1][1];
@@ -117,7 +136,7 @@ class ZMPhpSourceAnalyzer {
                             $deps['depends'][$lastContains][$ts[1][1]] = $ts[1][1];
 
                             // check for multiple interfaces
-                            $next = $tokens[$ts[0]+1];
+                            $next = self::getNextNonWSChar($tokens, $ts[0]);
                             if (!is_array($next) && ',' === $next) {
                                 if (null != ($ns = self::getToken($tokens, $ts[0], T_STRING))) {
                                     // must be interfaces!
