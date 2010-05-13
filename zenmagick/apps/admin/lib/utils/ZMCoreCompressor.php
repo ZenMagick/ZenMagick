@@ -105,19 +105,17 @@ class ZMCoreCompressor extends ZMPhpPackagePacker {
      */
     private function getPluginFiles() {
         $pluginFiles = array();
-        foreach (ZMPlugins::instance()->getAllPlugins() as $type => $plugins) {
+        foreach (ZMPlugins::instance()->getAllPlugins() as $group => $plugins) {
             foreach ($plugins as $plugin) {
                 if (!$plugin->isEnabled()) {
                     continue;
                 }
                 $flag = $plugin->getLoaderPolicy();
-                $pluginBase = $out.$type.DIRECTORY_SEPARATOR.$plugin->getId().DIRECTORY_SEPARATOR;
-                ZMFileUtils::mkdir($pluginBase);
                 if (ZMPlugin::LP_NONE != $flag) {
                     $pluginDir = $plugin->getPluginDirectory();
                     $noDir = false;
                     if (empty($pluginDir)) {
-                        $pluginDir = Runtime::getPluginBasePath() . $type . DIRECTORY_SEPARATOR;
+                        $pluginDir = Runtime::getPluginBasePath() . $group . DIRECTORY_SEPARATOR;
                         $noDir = true;
                     }
                     if ($noDir || ZMPlugin::LP_PLUGIN == $flag) {
