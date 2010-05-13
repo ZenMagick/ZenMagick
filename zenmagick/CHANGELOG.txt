@@ -68,6 +68,7 @@ Release 0.9.10
 - add ZMPhpSourceAnalyzer plus tests
 - add default order by relevance when using fulltext search
 - make ZMPhpPackagePacker use ZMPhpSourceAnalyzer and core.php work
+- add Swift Mailer to core
 
 Release 0.9.9
 - in ZMDbTableMapper handle database exception building auto mappings

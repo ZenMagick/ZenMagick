@@ -215,7 +215,7 @@ class ZMPhpSourceAnalyzer {
 
                 // check for class dependencies against other files
                 foreach ($details['deps']['depends']['classes'] as $class) {
-                    if (!in_array($fileForClass[$class], $resolvedFiles) && !in_array($class, $resolvedDeps)) {
+                    if (!in_array($class, $resolvedDeps) && !in_array($fileForClass[$class], $resolvedFiles)) {
                         // last ressort: is it in me?
                         if (!in_array($class, $details['deps']['contains']['classes'])) {
                             // unresolved class
@@ -227,7 +227,7 @@ class ZMPhpSourceAnalyzer {
                 
                 // check for interface dependencies against other files
                 foreach ($details['deps']['depends']['interfaces'] as $interface) {
-                    if (!in_array($fileForInterface[$interface], $resolvedFiles) && !in_array($class, $resolvedDeps)) {
+                    if (!in_array($class, $resolvedDeps) && !in_array($fileForInterface[$interface], $resolvedFiles)) {
                         // last ressort: is it in me?
                         if (!in_array($interface, $details['deps']['contains']['interfaces'])) {
                             // unresolved class
