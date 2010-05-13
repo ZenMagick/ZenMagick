@@ -27,11 +27,20 @@
     ZMLoader::instance()->loadStatic();
     spl_autoload_register('ZMLoader::resolve');
 
+    class ZMSwiftMailerPackagePacker extends ZMPhpPackagePacker {
+        /**
+         * {@inheritDoc}
+         */
+        protected function compressFiles($stripCode=true, $stripRef=true) {
+            parent::compressFiles($stripCode, false);
+        }
+    }
+
     // pack; ideally path/version should be CLI args...
     $version = 'swift-4.0.6';
     $installDir = 'C:/Program Files/Apache Software Foundation/Apache2.2/htdocs/mods/Swift-4.0.6/lib/';
     $outDir = 'c:/Temp/';
-    $packer = new ZMPhpPackagePacker($installDir.'classes/', $outDir.$version.'.packed.php');
+    $packer = new ZMSwiftMailerPackagePacker($installDir.'classes/', $outDir.$version.'.packed.php');
     $packer->setDebug(true);
     $packer->packFiles();
 
