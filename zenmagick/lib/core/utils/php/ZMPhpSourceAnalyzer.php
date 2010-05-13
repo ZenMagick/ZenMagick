@@ -171,18 +171,19 @@ class ZMPhpSourceAnalyzer {
      * depending on files in the previous ones.</p>
      *
      * @param array files List of files.
+     * @param array resolvedDeps Optional list of class/interface names to be treated as resolved.
      * @return array A dependency tree.
      */
-    public static function buildDepdencyTree($files) {
-        // start by collecting lines and class/interface for each file
+    public static function buildDepdencyTree($files, $resolvedDeps=array()) {
+        // 1) start by collecting lines and class/interface for each file
         $fileDetails = array();
         foreach ($files as $filename) {
             $lines = ZMFileUtils::getFileLines($filename);
-            $fileDetails[$filename] = array('lines' => $lines);
+            //$fileDetails[$filename] = array('lines' => $lines);
             $fileDetails[$filename]['deps'] = ZMPhpSourceAnalyzer::getDependencies(implode("\n", $lines));
         }
 
-        // now create some lookup tables to make life easier
+        // 2) now create some lookup tables to make life easier;
         $fileForClass = array();
         $fileForInterface = array();
         foreach ($fileDetails as $filename => $details) {
@@ -194,7 +195,7 @@ class ZMPhpSourceAnalyzer {
             }
         }
 
-        // finally figure out the order of files respecting all dependencies
+        // 3) finally figure out the order of files, respecting all dependencies
 
         // the final level list
         $tree = array();
@@ -209,41 +210,82 @@ class ZMPhpSourceAnalyzer {
                 if (in_array($filename, $resolvedFiles)) {
                     continue;
                 }
+
                 $isResolved = true;
 
-                // check for class dependencies
+                // check for class dependencies against other files
                 foreach ($details['deps']['depends']['classes'] as $class) {
-                    if (!in_array($fileForClass[$class], $resolvedFiles)) {
-                        // unresolved class
-                        $isResolved = false;
-                        break;
+                    if (!in_array($fileForClass[$class], $resolvedFiles) && !in_array($class, $resolvedDeps)) {
+                        // last ressort: is it in me?
+                        if (!in_array($class, $details['deps']['contains']['classes'])) {
+                            // unresolved class
+                            $isResolved = false;
+                            break;
+                        }
                     }
                 }
                 
-                // check for interface dependencies
+                // check for interface dependencies against other files
                 foreach ($details['deps']['depends']['interfaces'] as $interface) {
-                    if (!in_array($fileForInterface[$interface], $resolvedFiles)) {
-                        // unresolved interface
-                        $isResolved = false;
+                    if (!in_array($fileForInterface[$interface], $resolvedFiles) && !in_array($class, $resolvedDeps)) {
+                        // last ressort: is it in me?
+                        if (!in_array($interface, $details['deps']['contains']['interfaces'])) {
+                            // unresolved class
+                            $isResolved = false;
+                            break;
+                        }
                         break;
                     }
                 }
 
                 if ($isResolved) {
                     // add to level
-                    $tree[$level][] = $filename;
+                    $tree[$level][$filename] = $fileDetails[$filename];
                 }
             }
 
             // sanity check
             if (0 == count($tree[$level])) {
                 // nothing else to do
+                ZMLogging::instance()->log('empty level: '.$level.' ending...', ZMLogging::DEBUG);
                 break;
             }
 
             // add level to resolved
-            $resolvedFiles = array_merge($resolvedFiles, $tree[$level]);
+            $resolvedFiles = array_merge($resolvedFiles, array_keys($tree[$level]));
             ++$level;
+        }
+
+        // check for completeness
+        foreach ($files as $filename) {
+            $found = false;
+            foreach ($tree as $level => $lfiles) {
+                if (array_key_exists($filename, $lfiles)) {
+                    $found = true;
+                    break;
+                }
+            }
+            if (!$found) {
+                ZMLogging::instance()->log('unresolved: '.$filename, ZMLogging::WARN);
+
+                $tmp = array();
+                $deps = $fileDetails[$filename]['deps'];
+                foreach ($deps['depends']['classes'] as $class) {
+                    if (!in_array($class, $deps['contains']['classes'])) {
+                        $tmp[] = $class;
+                    }
+                }
+                ZMLogging::instance()->log('referenced classes: '.implode(',', $tmp), ZMLogging::DEBUG);
+
+                $tmp = array();
+                $deps = $fileDetails[$filename]['deps'];
+                foreach ($deps['depends']['interfaces'] as $interface) {
+                    if (!in_array($interface, $deps['contains']['interfaces'])) {
+                        $tmp[] = $interface;
+                    }
+                }
+                ZMLogging::instance()->log('referenced interfaces: '.implode(',', $tmp), ZMLogging::DEBUG);
+            }
         }
 
         return $tree;

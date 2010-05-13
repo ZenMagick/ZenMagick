@@ -67,6 +67,7 @@ Release 0.9.10
 	via ZMSettings::set('apps.store.search.fulltext', true);
 - add ZMPhpSourceAnalyzer plus tests
 - add default order by relevance when using fulltext search
+- make ZMPhpPackagePacker use ZMPhpSourceAnalyzer and core.php work
 
 Release 0.9.9
 - in ZMDbTableMapper handle database exception building auto mappings

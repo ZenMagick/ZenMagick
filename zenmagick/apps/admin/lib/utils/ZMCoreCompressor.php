@@ -78,29 +78,6 @@ class ZMCoreCompressor extends ZMPhpPackagePacker {
     }
 
     /**
-     * Clean up all temp. files.
-     */
-    public function clean() {
-        parent::clean();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function finalizeDependencies($dependencies, $files) {
-        $markResolved = array('Cache_Lite', 'ZMException', 'ZMSavant', 'ZMTestCase', 'ZMWebTestCase', 'ZMHtmlReporter', 'ZMArrayEqualExpectation');
-        foreach ($markResolved as $class) {
-            $dependencies[$class] = array();
-        }
-        foreach ($dependencies as $name => $list) {
-            if (false !== strpos($name, 'packed')) {
-                $dependencies[$name] = array();
-            }
-        }
-        return $dependencies;
-    }
-
-    /**
      * {@inheritDoc}
      */
     protected function getFileList() {

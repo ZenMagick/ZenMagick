@@ -90,33 +90,6 @@ class ZMPhpPackagePacker {
     }
 
     /**
-     * Finalise dependencies.
-     *
-     * <p>Callback to manipulate the computed dependencies.</p>
-     *
-     * @param array dependencies The computed dependencies.
-     * @param array files List of all files as returned by <code>ZMLoader::findIncludes()</code>.
-     * @return array The final dependencies.
-     */
-    public function finalizeDependencies($dependencies, $files) {
-        return $dependencies;
-    }
-
-    /**
-     * Decide whether a class dependencies are resolved or not.
-     *
-     * <p>Callback to allow custom handling, for example in case of circular references.</p>
-     *
-     * @param string class The class name.
-     * @param int level The current inheritence level (nested folder depth).
-     * @param array files List of all files as returned by <code>ZMLoader::findIncludes()</code>.
-     * @return boolean <code>true</code>, if the class should be considered cleared of all dependencies.
-     */
-    public function isResolved($class, $level, $files) {
-        return false;
-    }
-
-    /**
      * Decide whether a ignore a file completely or not.
      *
      * <p>Callback to allow custom handling, for example exclusion of files or folders.</p>
@@ -161,61 +134,6 @@ class ZMPhpPackagePacker {
     }
 
     /**
-     * Get next token of a certain type.
-     *
-     * @param array tokens List of all token.
-     * @param int key Key to start searching from.
-     * @param int type Type of token to look for.
-     * @return string Found token or <code>null</code>.
-     */
-    private function getToken($tokens, $key, $type) {
-        ++$key;
-        if (!is_array($type)) $type = array($type);
-        while (!is_array($tokens[$key]) || !in_array($tokens[$key][0], $type)) {
-            ++$key;
-            if (!isset($tokens[$key])) {
-                return null;
-            }
-        }
-        return $tokens[$key];
-    }
-
-    /**
-     * Get class info.
-     *
-     * @param string source The file source.
-     * @return array Two element array containing the list of implemented interfaces and parent class.
-     */
-    protected function getClassInfo($source) {
-        $info = array();
-        $info['interfaces'] = array();
-        $info['parent'] = null;
-        $info['class'] = false;
-        $tokens = token_get_all($source);
-        foreach ($tokens as $key => $token) {
-            if (!is_string($token)) {
-                // token array
-                list($id, $text) = $token;
-                switch ($id) {
-                    case T_INTERFACE:
-                        $name = $this->getToken($tokens, $key, T_STRING);
-                        $info['interfaces'][] = $name[1];
-                        break;
-                    case T_EXTENDS:
-                        $name = $this->getToken($tokens, $key, T_STRING);
-                        $info['parent'] = $name[1];
-                        break;
-                    case T_CLASS:
-                        $name = $this->getToken($tokens, $key, T_STRING);
-                        $info['class'] = $name[1];
-                        break;
-                }
-            }
-        }
-        return $info;
-    }
-
-    /**
      * Get a list of all files to process.
      *
      * @return array A list of file names.
@@ -225,113 +143,46 @@ class ZMPhpPackagePacker {
     }
 
     /**
+     * Get a list of class/interface names to be assumed resolved.
+     *
+     * <p>The default implementation will return a list of predefined PHP standard and SPL exceptions and interfaces.</p>
+     * @return array A list of class/interface names.
+     */
+    public function getPreResolved() {
+        return array(
+            // interfaces
+            'Traversable', 'Iterator', 'IteratorAggregate', 'ArrayAccess', 'Serializable',
+            // SPL interfaces
+            'Countable', 'OuterIterator', 'RecursiveIterator', 'SeekableIterator', 'SplObserver', 'SplSubject', 
+            // exceptions
+            'Exception', 'ErrorException', 
+            // SPL exceptions
+            'BadFunctionCallException', 'BadMethodCallException', 'DomainException', 'InvalidArgumentException', 'LengthException', 
+            'LogicException', 'OutOfBoundsException', 'OutOfRangeException', 'OverflowException', 'RangeException', 'RuntimeException', 
+            'UnderflowException', 'UnexpectedValueException'
+        );
+    }
+
+    /**
      * Prepare the original files to be processed by <code>ZMPhpCompressor</code>.
      */
     protected function prepareFiles() {
-        if ($this->debug_) {
-            echo 'preparing files... '."<br>\n";
-        }
-
-        $fileMap = array();
-        $dependsOn = array();
-        $classInfo = array();
         $files = $this->getFileList();
-        foreach ($files as $file) {
-            if ($this->ignoreFile($file)) {
-                continue;
-            }
-            $lines = ZMFileUtils::getFileLines($file);
-            $patched = false;
-            // NOTE: This might not necessarily be the exact class name
-            $class = str_replace('.php', '', basename($file));
-            $fileMap[$class] = $file;
-            $dependsOn[$class] = array();
-            $classInfo[$class] = $this->getClassInfo(implode("\n", $lines));
-            if ($classInfo[$class]['class']) {
-                // only if class in file
-                foreach ($lines as $ii => $line) {
-                    // this will only match if the filename is a simple string - that's the way PEAR files should be done...
-                    if (preg_match('/^\s*\/?\/?\s*(require_once|require|include_once|include){1}\s*\(?\s*[\'"](.*)[\'"]\s*\)?\s*;.*$/', $line, $matches)) {
-                        $dependsOn[$class][] = str_replace('.php', '', basename($matches[2]));
-                    }
-                }
-                // or requested
-                if ($this->resolveInheritance_) {
-                    $dependsOn[$class] = array_merge($dependsOn[$class],$classInfo[$class]['interfaces']);
-                    if (!empty($classInfo[$class]['parent'])) {
-                        $dependsOn[$class][] = $classInfo[$class]['parent'];
-                    }
-                }
-            }
-        }
-
-        $dependsOn = $this->finalizeDependencies($dependsOn, $files);
-
-        if ($this->debug_) {
-            echo "<pre>";
-            echo "* processing ".count($files)." files<BR>\n";
-            echo "* dependencies:<pre>";
-            var_dump($dependsOn);
-            echo "</pre>";
-        }
-
-        $resolved = array();
-
-        $levelIndex = 0;
-        $this->treeMap_ = array();
-        // while not all resolved
-        while (count($resolved) < count($dependsOn)) {
-            if ($this->debug_) {
-                echo "<br>\n<br>\n=======".$levelIndex."============<BR>\n";
-            }
-            $level = array();
-            // iterate through all classes
-            foreach ($dependsOn as $class => $dependencies) {
-                if (isset($resolved[$class])) {
-                    // already good
-                    continue;
-                }
-
-                $clear = true;
-                // check if all dependencies are resolved
-                foreach ($dependencies as $dclass) {
-                    if (!isset($resolved[$dclass])) {
-                        $clear = false;
-                        if ($this->debug_) echo '['.$class."] missing dep: ".$dclass."<BR>\n";
-                    }
-                }
-
-                if ($clear || $this->isResolved($class, $levelIndex, $files)) {
-                    $level[$class] = $class;
-                }
-            }
-
-            $this->treeMap_[$levelIndex] = $level;
-            $resolved = array_merge($resolved, $level);
-
-            $levelIndex++;
-
-            if (10 == $levelIndex) {
-                ZMLogging::instance()->log('max nesting level - aborting');
-                break;
-            }
-        }
-
-        if ($this->debug_) {
-            echo count($resolved) . ' of ' . count($dependsOn) . " classes resolved<br>\n";
-        }
+        $tree = ZMPhpSourceAnalyzer::buildDepdencyTree($files, $this->getPreResolved());
 
         $currentDir = $this->outputFilename_.'.prep'.DIRECTORY_SEPARATOR;
-        foreach ($this->treeMap_ as $level => $classes) {
+        foreach ($tree as $level => $files) {
             if (0 < $level) {
                 $currentDir .= $level.DIRECTORY_SEPARATOR;
             }
 
             ZMFileUtils::mkdir($currentDir);
 
-            foreach ($classes as $class) {
-                $inFile = $fileMap[$class];
-                $lines = ZMFileUtils::getFileLines($inFile);
+            foreach ($files as $filename => $details) {
+                if ($this->ignoreFile($filename)) {
+                    continue;
+                }
+                $lines = ZMFileUtils::getFileLines($filename);
                 foreach ($lines as $ii => $line) {
                     // match all statements, regardless whether they match the PEAR style expected above or not
                     if (preg_match('/^\s*\s*(require_once|require|include_once|include).*$/', $line, $matches)) {
@@ -350,7 +201,7 @@ class ZMPhpPackagePacker {
                         break;
                     }
                 }
-                $extFile = $currentDir.basename($inFile);
+                $extFile = $currentDir.basename($filename);
                 ZMFileUtils::putFileLines($extFile, $lines);
             }
         }
@@ -370,12 +221,11 @@ class ZMPhpPackagePacker {
         $compressor->setStripCode($stripCode);
         $compressor->setStripRef($stripRef);
         $compressor->compress();
-        if ($this->debug_) {
-            foreach ($compressor->getErrors() as $error) {
-                echo $error."<br>\n";
-            }
-        } else {
+        if (!$this->debug_) {
             $compressor->clean();
+        }
+        foreach ($compressor->getErrors() as $error) {
+            ZMLogging::instance()->log($error, ZMLogging::DEBUG);
         }
     }
 
