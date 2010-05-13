@@ -29,8 +29,47 @@
 
     // pack; ideally path/version should be CLI args...
     $version = 'swift-4.0.6';
-    $packer = new ZMPhpPackagePacker('C:/Program Files/Apache Software Foundation/Apache2.2/htdocs/mods/Swift-4.0.6/lib/classes/', 'c:/Temp/'.$version.'.packed.php');
+    $installDir = 'C:/Program Files/Apache Software Foundation/Apache2.2/htdocs/mods/Swift-4.0.6/lib/';
+    $outDir = 'c:/Temp/';
+    $packer = new ZMPhpPackagePacker($installDir.'classes/', $outDir.$version.'.packed.php');
     $packer->setDebug(true);
     $packer->packFiles();
 
-?>
+    // create single init
+    $staticInit = array(
+        "<?php",
+        "/* GENERATED CODE - DO NOT EDIT! */",
+        "class ZMSwiftInit {\n",
+        "public static function init() {"
+    );
+    $init = file($installDir.'swift_init.php', FILE_IGNORE_NEW_LINES);
+    foreach ($init as $line) {
+        // extract dependency_map filename
+        if (false !== ($pos = strpos($line, 'dependency_maps/'))) {
+            $file = substr($line, $pos+16, -2);
+            $staticInit[] = '// '.$file."\n";
+            foreach (file($installDir.'dependency_maps/'.$file, FILE_IGNORE_NEW_LINES) as $l) {
+                if (false !== strpos($l, '<?') || false !== strpos($l, 'unset')) {
+                    continue;
+                }
+                if (false !== strpos($l, 'require')) {
+                    $l = '$swift_mime_types = ZMRuntime::yamlLoad(file_get_contents(ZMFileUtils::mkPath(array(ZMRuntime::getInstallationPath(), "lib", "core", "external", "mime_types.yaml"))));';
+                }
+                
+                $staticInit[] = $l;
+            }
+        }
+    }
+    $staticInit[] = "}}";
+    ZMFileUtils::putFileLines($outDir.'ZMSwiftInit.php', $staticInit);
+
+    // create mime time yaml
+    $mtlines = array();
+    $mimetypes = file($installDir.'mime_types.php', FILE_IGNORE_NEW_LINES);
+    foreach ($mimetypes as $line) {
+        if (false !== strpos($line, '=>')) {
+            $mtlines[] = trim(str_replace(array("'", ',', '=>'), array('', '', ':'), $line));
+        }
+    }
+    ZMFileUtils::putFileLines($outDir.'mime_types.yaml', $mtlines);
+

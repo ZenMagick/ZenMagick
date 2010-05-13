@@ -1,0 +1,24 @@
+
+Strict standards: Declaration of ODBCPreparedStatement::executeQuery() should be compatible with that of PreparedStatementCommon::executeQuery() in C:\Program Files\Apache Software Foundation\Apache2.2\htdocs\zenmagick\zenmagick\lib\core\external\creole-1.2.packed.php on line 1
+
+Call Stack:
+    0.0020     344408   1. {main}() C:\Program Files\Apache Software Foundation\Apache2.2\htdocs\zenmagick\zenmagick\lib\core\etc\tools\pack_swift.cli:0
+    0.2989     481208   2. ZMLoader->loadStatic() C:\Program Files\Apache Software Foundation\Apache2.2\htdocs\zenmagick\zenmagick\lib\core\etc\tools\pack_swift.cli:27
+    0.3408    4144584   3. require_once('C:\Program Files\Apache Software Foundation\Apache2.2\htdocs\zenmagick\zenmagick\lib\core\external\creole-1.2.packed.php') C:\Program Files\Apache Software Foundation\Apache2.2\htdocs\zenmagick\zenmagick\lib\core\ZMLoader.php:169
+
+
+Strict standards: Declaration of PdoSQLiteConnection::connect() should be compatible with that of PdoConnectionCommon::connect() in C:\Program Files\Apache Software Foundation\Apache2.2\htdocs\zenmagick\zenmagick\lib\core\external\creole-1.2.packed.php on line 158
+
+Call Stack:
+    0.0020     344408   1. {main}() C:\Program Files\Apache Software Foundation\Apache2.2\htdocs\zenmagick\zenmagick\lib\core\etc\tools\pack_swift.cli:0
+    0.2989     481208   2. ZMLoader->loadStatic() C:\Program Files\Apache Software Foundation\Apache2.2\htdocs\zenmagick\zenmagick\lib\core\etc\tools\pack_swift.cli:27
+    0.3408    4144584   3. require_once('C:\Program Files\Apache Software Foundation\Apache2.2\htdocs\zenmagick\zenmagick\lib\core\external\creole-1.2.packed.php') C:\Program Files\Apache Software Foundation\Apache2.2\htdocs\zenmagick\zenmagick\lib\core\ZMLoader.php:169
+
+
+Strict standards: Declaration of PdoSQLiteConnection::executeQuery() should be compatible with that of PdoConnectionCommon::executeQuery() in C:\Program Files\Apache Software Foundation\Apache2.2\htdocs\zenmagick\zenmagick\lib\core\external\creole-1.2.packed.php on line 158
+
+Call Stack:
+    0.0020     344408   1. {main}() C:\Program Files\Apache Software Foundation\Apache2.2\htdocs\zenmagick\zenmagick\lib\core\etc\tools\pack_swift.cli:0
+    0.2989     481208   2. ZMLoader->loadStatic() C:\Program Files\Apache Software Foundation\Apache2.2\htdocs\zenmagick\zenmagick\lib\core\etc\tools\pack_swift.cli:27
+    0.3408    4144584   3. require_once('C:\Program Files\Apache Software Foundation\Apache2.2\htdocs\zenmagick\zenmagick\lib\core\external\creole-1.2.packed.php') C:\Program Files\Apache Software Foundation\Apache2.2\htdocs\zenmagick\zenmagick\lib\core\ZMLoader.php:169
+
