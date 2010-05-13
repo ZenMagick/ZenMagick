@@ -23,3 +23,6 @@ plugins:
   success-upgrade:
     view: RedirectView
     template: plugins
+  plugin-conf:
+    layout: 
+    template: plugin_conf

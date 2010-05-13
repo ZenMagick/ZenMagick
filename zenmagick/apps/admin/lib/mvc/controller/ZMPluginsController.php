@@ -103,6 +103,10 @@ class ZMPluginsController extends ZMController {
                 ZMMessages::instance()->addAll($plugin->getMessages());
                 $viewId = 'success-upgrade';
             }
+        } else if ('edit' == $action) {
+            if (null != ($plugin = ZMPlugins::instance()->initPluginForId($pluginId, false)) && $plugin->isInstalled()) {
+                return $this->findView('plugin-conf', array('plugin' => $plugin));
+            }
         }
 
         $this->refreshPluginStatus();

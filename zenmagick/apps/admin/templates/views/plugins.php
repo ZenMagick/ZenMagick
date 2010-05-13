@@ -85,9 +85,9 @@
             <?php $cid = 'keepSettings-'.$plugin->getId(); ?>
             <input type="checkbox" id="<?php echo $cid ?>" name="keepSettings" value="true" checked> <label for="<?php echo $cid ?>"><?php zm_l10n('Keep Settings') ?></label>
             <button type="submit">Uninstall</button>
-            <!-- TODO: edit!! -->
             <a href="<?php echo $admin2->url(null, 'action=upgrade&pluginId='.$plugin->getId().'&group='.$plugin->getGroup()) ?>#<?php echo $plugin->getId() ?>">Upgrade</a>
-            <a href="<?php echo $admin2->url(null, 'edit='.$plugin->getId().'&group='.$plugin->getGroup()) ?>#<?php echo $plugin->getId() ?>">Edit</a>
+            <!-- TODO: determine if/how we need this -->
+            <a href="<?php echo $admin2->url(null, 'action=edit&pluginId='.$plugin->getId().'&group='.$plugin->getGroup()) ?>#<?php echo $plugin->getId() ?>">Edit</a>
           <?php } ?>
           </form>
         </td>
