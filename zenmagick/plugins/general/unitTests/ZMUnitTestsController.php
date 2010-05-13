@@ -89,6 +89,7 @@ class ZMUnitTestsController extends ZMController {
         }
 
         // add plugins/tests folder of all available plugins to loader
+        $pluginLoader = ZMLoader::make("Loader");
         foreach (ZMPlugins::instance()->getAllPlugins() as $group => $plugins) {
             foreach ($plugins as $plugin) {
                 if ($plugin instanceof ZMUnitTestsPlugin) {
@@ -96,7 +97,7 @@ class ZMUnitTestsController extends ZMController {
                 }
                 $ptests = $plugin->getPluginDirectory().'tests' . DIRECTORY_SEPARATOR;
                 if (is_dir($ptests)) {
-                    $testsLoader->addPath($ptests);
+                    $pluginLoader->addPath($ptests);
                     // scan for tests
                     foreach (ZMLoader::findIncludes($ptests) as $file) {
                         $name = basename($file);
@@ -108,6 +109,7 @@ class ZMUnitTestsController extends ZMController {
                 }
             }
         }
+        ZMLoader::instance()->setParent($pluginLoader);
 
         // merge in all custom registered tests
         $allTests = array_merge($allTests, $this->plugin_->getTests());
