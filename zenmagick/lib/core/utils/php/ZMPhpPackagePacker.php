@@ -44,11 +44,11 @@ class ZMPhpPackagePacker {
     /**
      * Create new instance.
      *
-     * @param string root The root directory to pack.
-     * @param string out The [full] output filename.
+     * @param string root The root directory to pack; default is <code>null</code>.
+     * @param string out The [full] output filename; default is <code>null</code>.
      * @param string temp A temp folder for transient files and folders; default is <code>null</code>.
      */
-    function __construct($root, $out, $temp=null) {
+    function __construct($root=null, $out=null, $temp=null) {
         $this->rootFolder_ = $root;
         $this->outputFilename_ = $out;
         $this->setTemp($temp);
@@ -114,12 +114,13 @@ class ZMPhpPackagePacker {
     /**
      * Pack all.
      *
-     * @param boolean strip If <code>true</code>, stript the files while compressing; default is <code>true</code>.
+     * @param boolean strip If <code>true</code>, stript the files while compressing.
+     * @param boolean stripRef If <code>true</code>, strip code that uses references.
      */
-    public function packFiles($strip=true) {
+    public function packFiles($strip, $stripRef) {
         $this->clean();
         $this->prepareFiles();
-        $this->compressFiles($strip);
+        $this->compressFiles($strip, $stripRef);
         if (!$this->debug_) {
             $this->clean();
         }
@@ -210,10 +211,10 @@ class ZMPhpPackagePacker {
     /**
      * Compress all prepared files.
      *
-     * @param boolean stripCode If <code>true</code>, strip the files while compressing; default is <code>true</code>.
-     * @param boolean stripRef If <code>true</code>, strip code that uses references; default is <code>true</code>.
+     * @param boolean stripCode If <code>true</code>, strip the files while compressing.
+     * @param boolean stripRef If <code>true</code>, strip code that uses references.
      */
-    protected function compressFiles($stripCode=true, $stripRef=true) {
+    protected function compressFiles($stripCode, $stripRef) {
         $compressor = ZMLoader::make('PhpCompressor');
         $compressor->setRoot($this->outputFilename_.'.prep'.DIRECTORY_SEPARATOR);
         $compressor->setOut($this->outputFilename_);

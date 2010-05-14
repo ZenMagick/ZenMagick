@@ -30,7 +30,7 @@
     ZMLoader::instance()->loadStatic();
     spl_autoload_register('ZMLoader::resolve');
 
-    if (4 != $argc) {
+    if (5 != $argc) {
         echo PHP_EOL."  usage: php packer.php [cli packer class] [source dir] [target dir] [version]".PHP_EOL;
         exit;
     }

@@ -103,13 +103,13 @@
         if (array_key_exists('singleCore', $_POST) && !$coreCompressor->isEnabled()) {
             // allow for more time to run tests
             set_time_limit(300);
-            $coreCompressor->packFiles(ZMSettings::get('isStripCore'));
+            $coreCompressor->packFiles(ZMSettings::get('isStripCore'), false);
             $didGenerate = true;
         }
         if (array_key_exists('singleCoreGenerate', $_POST)) {
             // allow for more time to run tests
             set_time_limit(300);
-            $coreCompressor->packFiles(ZMSettings::get('isStripCore'));
+            $coreCompressor->packFiles(ZMSettings::get('isStripCore'), false);
             $didGenerate = true;
         }
 
