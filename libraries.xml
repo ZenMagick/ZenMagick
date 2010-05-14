@@ -1,5 +1,5 @@
 <!-- $Id$ -->
-<project name="zenmagick" default="pack-libraries" basedir=".">
+<project name="zenmagick-libraries" default="pack-libraries" basedir=".">
 
     <!-- Plugins properties -->
     <property file="libraries.properties" />
@@ -24,6 +24,7 @@
             <arg value="${packer.sourceDir}"/>
             <arg value="${packer.targetDir}"/>
             <arg value="${packer.version}"/>
+            <arg value="${libraries.strip}"/>
         </exec>
     </target>
 

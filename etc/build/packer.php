@@ -27,11 +27,12 @@
     $coreDir = dirname(dirname(dirname(__FILE__))).DIRECTORY_SEPARATOR.'zenmagick'.DIRECTORY_SEPARATOR.'lib'.DIRECTORY_SEPARATOR.'core'.DIRECTORY_SEPARATOR;
     include $coreDir.'ZMLoader.php';
     ZMLoader::instance()->addPath($coreDir);
+    ZMLoader::instance()->addPath(dirname($coreDir).DIRECTORY_SEPARATOR.'mvc'.DIRECTORY_SEPARATOR);
     ZMLoader::instance()->loadStatic();
     spl_autoload_register('ZMLoader::resolve');
 
-    if (5 != $argc) {
-        echo PHP_EOL."  usage: php packer.php [ZMLibraryPacker implementation] [source dir] [target dir] [version]".PHP_EOL;
+    if (6 != $argc) {
+        echo PHP_EOL."  usage: php packer.php [ZMLibraryPacker implementation] [source dir] [target dir] [version] [true|false]".PHP_EOL;
         exit;
     }
 
@@ -39,8 +40,9 @@
     $source = $argv[2];
     $target = $argv[3];
     $version = $argv[4];
+    $strip = ZMLangUtils::asBoolean($argv[5]);
 
     $packer = new $class();
-    $packer->process($source, $target, $version);
+    $packer->process($source, $target, $version, $strip);
 
     exit;

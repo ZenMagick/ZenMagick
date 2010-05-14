@@ -25,6 +25,9 @@
  *
  * <p>This packer will:</p>
  * <ul>
+ *  <li>Create the actual packaged library file</li>
+ *  <li>Create a small class ZMSwiftInit that contains all the required init code in a single static method <code>init()</code>.</li>
+ *  <li>Create mime_types.yaml. This file is loaded by the init code.</li>
  * </ul>
  *
  * @author DerManoMann
@@ -36,12 +39,12 @@ class ZMSwiftMailerPacker extends ZMPhpPackagePacker implements ZMLibraryPacker 
     /**
      * {@inheritDoc}
      */
-    public function process($sourceDir, $targetDir, $version) {
+    public function process($sourceDir, $targetDir, $version, $strip) {
         $this->rootFolder_ = $sourceDir.'classes'.DIRECTORY_SEPARATOR;
         $this->outputFilename_ = $targetDir.'swift-'.$version.'.packed.php';
 
         // run the parent package packer; strip/leave references
-        $this->packFiles(ZMSettings::get('isStripCore'), false);
+        $this->packFiles($strip, false);
 
         $this->createInitContainer($sourceDir, $targetDir);
         $this->createMimeTypes($sourceDir, $targetDir);

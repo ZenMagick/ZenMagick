@@ -39,7 +39,8 @@ interface ZMLibraryPacker {
      * @param string sourceDir The source dir of the package to pack.
      * @param string targetDir The target/output directory.
      * @param string version The version we are processing.
+     * @param boolean strip Indicate whether to strip the generated PHP code or not.
      */
-    public function process($sourceDir, $targetDir, $version);
+    public function process($sourceDir, $targetDir, $version, $strip);
 
 }
