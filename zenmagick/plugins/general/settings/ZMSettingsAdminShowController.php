@@ -58,6 +58,8 @@ class ZMSettingsAdminShowController extends ZMPluginAdminController {
         }
 
         switch ($type) {
+        case 'password':
+            return '********';
         case 'int':
         case 'string':
             break;

@@ -159,6 +159,33 @@
                         'type' => 'int',
                         'desc' => 'Minimum password length.'
                     )
+                ),
+                'email' => array(
+                    array(
+                        'key' => 'transport',
+                        'type' => 'string',
+                        'desc' => 'The configured email transport.'
+                    ),
+                    array(
+                        'key' => 'smtp.host',
+                        'type' => 'string',
+                        'desc' => 'Hostname for the SMTP transport.'
+                    ),
+                    array(
+                        'key' => 'smtp.port',
+                        'type' => 'string',
+                        'desc' => 'Port number for the SMTP transport.'
+                    ),
+                    array(
+                        'key' => 'smtp.user',
+                        'type' => 'string',
+                        'desc' => 'Optional SMTP user.'
+                    ),
+                    array(
+                        'key' => 'smtp.password',
+                        'type' => 'password',
+                        'desc' => 'Optional SMTP password.'
+                    )
                 )
             ),
             'zenmagick.mvc' => array(
