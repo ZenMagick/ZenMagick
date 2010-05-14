@@ -379,6 +379,13 @@
              * EMAIL
              **************************************/
 
+            // transport
+            'zenmagick.core.email.transport' => EMAIL_TRANSPORT,
+            'zenmagick.core.email.smtp.host' => EMAIL_SMTPAUTH_MAIL_SERVER,
+            'zenmagick.core.email.smtp.port' => EMAIL_SMTPAUTH_MAIL_SERVER_PORT,
+            'zenmagick.core.email.smtp.user' => EMAIL_SMTPAUTH_MAILBOX,
+            'zenmagick.core.email.smtp.password' => EMAIL_SMTPAUTH_PASSWORD,
+
             // email
             'isEmailEnabled' => SEND_EMAILS == 'true',
             'emailSkipList' => defined('EMAIL_MODULES_TO_SKIP') ? explode(",", constant('EMAIL_MODULES_TO_SKIP')) : array(),

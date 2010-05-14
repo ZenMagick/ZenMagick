@@ -72,6 +72,7 @@ Release 0.9.10
 - added custom zipdiff.jar
 - start converting cli scripts to pack libaries into something that can be run
   by ant
+- add ZMMailer as convenience wrapper around SwiftMailer
 
 Release 0.9.9
 - in ZMDbTableMapper handle database exception building auto mappings
