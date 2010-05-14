@@ -1,8 +1,8 @@
 <!-- $Id$ -->
-<project name="zenmagick-libraries" default="pack-libraries" basedir=".">
+<project name="zenmagick-libraries" default="pack-libraries">
 
     <!-- Plugins properties -->
-    <property file="libraries.properties" />
+    <property file="etc/build/ant/libraries.properties" />
 
 
     <!-- Pack a PHP library -->

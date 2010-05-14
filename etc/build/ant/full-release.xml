@@ -1,5 +1,5 @@
 <!-- $Id$ -->
-<project name="full-release" default="" basedir=".">
+<project name="full-release">
 
     <!-- The full release build dir -->
     <property name="release.full.dir" value="${build.dir}/full" />

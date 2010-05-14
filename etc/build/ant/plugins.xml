@@ -1,8 +1,8 @@
 <!-- $Id$ -->
-<project name="zenmagick-plugins" default="plugin-releases" basedir=".">
+<project name="zenmagick-plugins">
 
     <!-- Plugins properties -->
-    <property file="plugins.properties" />
+    <property file="etc/build/ant/plugins.properties" />
 
 
     <!-- Build plugin releases -->

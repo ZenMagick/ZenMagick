@@ -1,5 +1,5 @@
 <!-- $Id$ -->
-<project name="zenmagick-phpdoctor" default="phpdoctor" basedir=".">
+<project name="zenmagick-phpdoctor" default="phpdoctor">
 
     <!-- properties -->
     <property name="phpdoctor.ini.dir" location="etc/phpdoctor" />

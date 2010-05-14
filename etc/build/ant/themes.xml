@@ -1,8 +1,8 @@
 <!-- $Id$ -->
-<project name="zenmagick-themes" default="theme-releases" basedir=".">
+<project name="zenmagick-themes">
 
     <!-- Plugins properties -->
-    <property file="themes.properties" />
+    <property file="etc/build/ant/themes.properties" />
 
     <!-- Build theme releases -->
     <target name="theme-releases" depends="clean,init" description="Build theme releases.">
