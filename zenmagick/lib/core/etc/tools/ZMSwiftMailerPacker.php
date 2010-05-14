@@ -31,14 +31,10 @@
  * @package org.zenmagick.core
  * @version $Id$
  */
-class ZMSwiftMailerPacker extends ZMPhpPackagePacker {
+class ZMSwiftMailerPacker extends ZMPhpPackagePacker implements ZMLibraryPacker {
 
     /**
-     * Process.
-     *
-     * @param string sourceDir The source dir of the package to pack.
-     * @param string targetDir The target/output directory.
-     * @param string version The version we are processing.
+     * {@inheritDoc}
      */
     public function process($sourceDir, $targetDir, $version) {
         $this->rootFolder_ = $sourceDir.'classes'.DIRECTORY_SEPARATOR;

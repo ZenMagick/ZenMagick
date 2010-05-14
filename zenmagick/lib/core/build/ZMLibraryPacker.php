@@ -19,28 +19,27 @@
  */
 ?>
 <?php
-    
+
+
+/**
+ * Library packer.
+ *
+ * <p>Simple interface to be implemented for all library packer that want to be
+ * available via the build script.</p>
+ *
+ * @author DerManoMann
+ * @package org.zenmagick.core
+ * @version $Id$
+ */
+interface ZMLibraryPacker {
+
     /**
-     * Simple command line packer script.
+     * Process.
+     *
+     * @param string sourceDir The source dir of the package to pack.
+     * @param string targetDir The target/output directory.
+     * @param string version The version we are processing.
      */
+    public function process($sourceDir, $targetDir, $version);
 
-    $coreDir = dirname(dirname(dirname(__FILE__))).DIRECTORY_SEPARATOR.'zenmagick'.DIRECTORY_SEPARATOR.'lib'.DIRECTORY_SEPARATOR.'core'.DIRECTORY_SEPARATOR;
-    include $coreDir.'ZMLoader.php';
-    ZMLoader::instance()->addPath($coreDir);
-    ZMLoader::instance()->loadStatic();
-    spl_autoload_register('ZMLoader::resolve');
-
-    if (5 != $argc) {
-        echo PHP_EOL."  usage: php packer.php [ZMLibraryPacker implementation] [source dir] [target dir] [version]".PHP_EOL;
-        exit;
-    }
-
-    $class = $argv[1];
-    $source = $argv[2];
-    $target = $argv[3];
-    $version = $argv[4];
-
-    $packer = new $class();
-    $packer->process($source, $target, $version);
-
-    exit;
+}
