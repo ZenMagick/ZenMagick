@@ -210,4 +210,14 @@ class ZMSacsManager extends ZMObject {
         return $this->getMappingValue($requestId, 'level', false);
     }
 
+    /**
+     * Check if a mapping for the given requestId exists.
+     *
+     * @param string requestId The request id.
+     * @return boolean <code>true</code> if a mapping exists, <code>false</code> if not.
+     */
+    public function hasMappingForRequestId($requestId) {
+        return array_key_exists($requestId, $this->mappings_);
+    }
+
 }

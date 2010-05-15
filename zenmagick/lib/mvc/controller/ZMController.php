@@ -29,7 +29,7 @@
  * @version $Id$
  */
 class ZMController extends ZMObject {
-    private $id_;
+    private $requestId_;
     private $view_;
     private $formData_;
 
@@ -37,11 +37,11 @@ class ZMController extends ZMObject {
     /**
      * Create new instance.
      *
-     * @param string id Optional id; default is <code>null</code> to use the request id.
+     * @param string requestId Optional requestId; default is <code>null</code> to use the request id.
      */
-    function __construct($id=null) {
+    function __construct($requestId=null) {
         parent::__construct();
-        $this->id_ = $id;
+        $this->requestId_ = $requestId;
         $this->view_ = null;
         $this->formData_ = null;
     }
@@ -65,7 +65,7 @@ class ZMController extends ZMObject {
      */
     public function process($request) { 
         // ensure a usable id is set
-        $this->id_ = null != $this->id_ ? $this->id_ : $request->getRequestId();
+        $this->requestId_ = null != $this->requestId_ ? $this->requestId_ : $request->getRequestId();
 
         // check authorization
         ZMSacsManager::instance()->authorize($request, $request->getRequestId(), $request->getUser());
@@ -259,10 +259,10 @@ class ZMController extends ZMObject {
      * @return ZMView The actual view to be used to render the response.
      */
     public function findView($id=null, $data=array(), $parameter=null) {
-        $view = ZMUrlManager::instance()->findView($this->id_, $id, $parameter);
+        $view = ZMUrlManager::instance()->findView($this->requestId_, $id, $parameter);
 
         // ensure secure option is set if required
-        if (ZMSacsManager::instance()->requiresSecurity($this->id_)) {
+        if (ZMSacsManager::instance()->requiresSecurity($this->requestId_)) {
             $view->setSecure(true);
         }
 
@@ -279,7 +279,7 @@ class ZMController extends ZMObject {
      * @return ZMObject An object instance or <code>null</code>
      */
     public function getFormData($request) {
-        if (null == $this->formData_ && null !== ($mapping = ZMUrlManager::instance()->findMapping($this->id_))) {
+        if (null == $this->formData_ && null !== ($mapping = ZMUrlManager::instance()->findMapping($this->requestId_))) {
             if (array_key_exists('form', $mapping)) {
                 $this->formData_ =  ZMBeanUtils::getBean($mapping['form'].(false === strpos($mapping['view'], '#') ? '#' : '&').'formId='.$mapping['formId']);
                 if ($this->formData_ instanceof ZMFormData) {

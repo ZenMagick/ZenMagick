@@ -73,6 +73,9 @@ Release 0.9.10
 - start converting cli scripts to pack libaries into something that can be run
   by ant
 - add ZMMailer as convenience wrapper around SwiftMailer
+- perform SACS authorization on method level for ajax calls only if a method
+  level mapping exists; this means the controller mapping applies to all
+	methods unless a more specific rule is configured
 
 Release 0.9.9
 - in ZMDbTableMapper handle database exception building auto mappings

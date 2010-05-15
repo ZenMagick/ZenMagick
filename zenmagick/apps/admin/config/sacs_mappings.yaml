@@ -4,6 +4,9 @@
 # $Id$
 #
 #
+ajax_plugin_admin: 
+  secure: true
+  roles:
 login: 
   secure: true
   roles:
