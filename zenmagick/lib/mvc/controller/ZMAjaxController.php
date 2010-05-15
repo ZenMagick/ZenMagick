@@ -70,7 +70,7 @@ class ZMAjaxController extends ZMController {
      * @return ZMView A <code>ZMView</code> instance or <code>null</code>.
      */
     public function process($request) {
-        $method = $request->getParameter('method');
+        $method = $sacsMethod = $request->getParameter('method');
         if (!method_exists($this, $method)) {
             $method = $method.ZMSettings::get('zenmagick.mvc.ajax.format');
         }
@@ -79,7 +79,7 @@ class ZMAjaxController extends ZMController {
         ZMSacsManager::instance()->authorize($request, $request->getRequestId(), $request->getUser());
 
         // (re-)check on method level
-        $page = $this->getId().'#'.$method;
+        $page = $request->getRequestId().'#'.$sacsMethod;
         ZMSacsManager::instance()->ensureAccessMethod($request);
         ZMSacsManager::instance()->authorize($request, $page, $request->getUser());
 

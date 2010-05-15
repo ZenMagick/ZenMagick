@@ -375,13 +375,13 @@ class ZMController extends ZMObject {
      *
      * @param string id The id (page name).
      */
-    public function setId($id) { $this->id_ = $id; }
+    public function setId($id) { throw new ZMException('deprecated'); }
 
     /**
      * Get the controller id.
      *
      * @return string The id (page name).
      */
-    public function getId() { return $this->id_; }
+    public function getId() {throw new ZMException('deprecated'); }
 
 }
