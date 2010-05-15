@@ -25,9 +25,11 @@
 ?>
 
 <form>
-  <?php foreach ($plugin->getConfigValues(false) as $value) { if ($value->isHidden()) { continue; } ?>
-    <?php echo $value->getTitle() ?><br>
-    <?php echo $value->getDescription() ?><br>
-    <?php echo $value->render($request) ?>
+  <?php foreach ($plugin->getConfigValues(false) as $value) { if ($value->isHidden() || in_array($value->getName(), array('ENABLED', 'SORT_ORDER'))) { continue; } ?>
+    <fieldset style="width:94%;">
+      <legend><?php echo $value->getTitle() ?></legend>
+      <p><?php echo $value->getDescription() ?></p>
+      <p><?php echo $value->render($request) ?></p>
+    </fieldset>
   <?php } ?>
 </form>

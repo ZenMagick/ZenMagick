@@ -36,6 +36,10 @@ var zenmagick = {
             .dialog({
                 modal: true,
                 title: 'Please confirm:',
+                close: function() {
+                    $(this).dialog("destroy");
+                    $('#user-confirm').remove();
+                },
                 buttons: {
                     "Cancel": function() {
                         $(this).dialog("destroy");
