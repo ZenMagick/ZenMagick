@@ -115,8 +115,9 @@ class ZMPageCachePlugin extends Plugin {
         $request = $args['request'];
 
         // handle page caching
-        if ($this->isEnabled()) {
+        if ($this->isEnabled() && !ZMSettings::get('isAdmin')) {
             if (false !== ($contents = $this->cache_->lookup($this->getRequestKey($request))) && $this->isCacheable($request)) {
+                ZMLogging::instance()->log('cache hit for requestId: '.$request->getRequestId(), ZMLogging::DEBUG);
                 echo $contents;
                 if (ZMSettings::get('plugins.pageCache.stats', true)) {
                     ZMEvents::instance()->fireEvent($this, ZM_EVENT_PLUGINS_PAGE_CACHE_STATS, $args);
