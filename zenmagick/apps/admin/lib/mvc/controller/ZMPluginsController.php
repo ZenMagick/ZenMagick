@@ -141,6 +141,18 @@ class ZMPluginsController extends ZMController {
                 ZMMessages::instance()->addAll($plugin->getMessages());
                 $viewId = 'success-uninstall';
             }
+        } else if ('update' == $action) {
+            if (null != ($plugin = ZMPlugins::instance()->initPluginForId($pluginId, false)) && $plugin->isInstalled()) {
+                foreach ($plugin->getConfigValues() as $widget) {
+                    if ($widget instanceof ZMFormWidget && null !== ($value = $request->getParameter($widget->getName()))) {
+                        if (!$widget->compare($value)) {
+                            // value changed, use widget to (optionally) format value
+                            $widget->setValue($value);
+                            $plugin->set($widget->getName(), $widget->getStringValue());
+                        }
+                    }
+                }
+            }
         }
 
         // do this last once all changes are made

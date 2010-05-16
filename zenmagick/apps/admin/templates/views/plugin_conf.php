@@ -24,7 +24,10 @@
  */
 ?>
 
-<form>
+<form id="ajax-form" action="<?php echo $admin2->url() ?>" method="POST">
+  <input type="hidden" name="pluginId" value="<?php echo $plugin->getId() ?>">
+  <input type="hidden" name="group" value="<?php echo $plugin->getGroup() ?>">
+  <input type="hidden" name="action" value="update">
   <?php foreach ($plugin->getConfigValues(false) as $value) { if ($value->isHidden() || in_array($value->getName(), array('ENABLED', 'SORT_ORDER'))) { continue; } ?>
     <fieldset style="width:94%;">
       <legend><?php echo $value->getTitle() ?></legend>
@@ -32,4 +35,5 @@
       <p><?php echo $value->render($request) ?></p>
     </fieldset>
   <?php } ?>
+  <input type="submit" value="<?php zm_l10n("Update Settings") ?>">
 </form>

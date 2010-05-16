@@ -24,6 +24,7 @@
  */
 ?>
 
+<?php $resources->jsFile('js/jquery.form.js') ?>
 <script type="text/javascript">
     var statusImgOn = 'images/icons/tick.gif';
     var statusImgOff = 'images/icons/cross.gif';
@@ -48,15 +49,28 @@
 
     function edit_plugin(elem, name) {
 			  var url = elem.href;
-        $('<div id="ajax-dialog">Loading...</div>').dialog({
+        $('<div id="ajax-form-dialog">Loading...</div>').dialog({
             modal: true,
             title: 'Edit Plugin Options: '+name,
             width: 560,
             close: function() {
                 $(this).dialog("destroy");
-                $('#ajax-dialog').remove();
+                $('#ajax-form-dialog').remove();
             }
-        }).load(url);
+        }).load(url, function() {
+            var div = this;
+            // attach ajax form handler
+            $('#ajax-form').submit(function() {
+                $(this).ajaxSubmit({ 
+                    success: function() {
+                        $(div).dialog("destroy");
+                        $('#ajax-form-dialog').remove();
+                    }
+                });
+                // return false to prevent normal browser submit and page navigation
+                return false;
+            });
+        });
 		}
 
 </script>
