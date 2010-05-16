@@ -211,6 +211,10 @@ class ZMSession extends ZMObject {
             foreach ($this->data_ as $name => $value) {
                 $_SESSION[$name] = $value;
             }
+            if (0 == count($_SESSION)) {
+                // get a new token
+                $this->getToken(true);
+            }
             session_write_close();
         }
     }
