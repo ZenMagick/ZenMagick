@@ -29,12 +29,16 @@ a:hover {text-decoration:underline;}
 
 img {border:none;}
 
+body  {font-family:"Arial","Helvetica","Verdana","sans-serif";font-size:12px; }
+table, div.ui-dialog {font-size:12px;}
+
 div#main, div#content {padding:8px;position:relative;}
 fieldset {padding:12px;margin:12px 0;}
 legend {font-weight:bold;color:#fff;background-color:#777;padding:2px 9px;}
 legend span {font-size:114%;background:#eee;padding:3px;color:#000;}
-th {color:#000;background:#eee;border-right:1px solid #fff;padding:3px;}
-td {padding:2px 8px;}
+th {color:#000;background:#ddd;border-right:1px solid #fff;padding:3px;}
+td {padding:2px 8px;vertical-align:middle;}
+td form {display:inline;}
 fieldset table {border:1px solid #c0c0c0;}
 fieldset p {margin:7px 0;}
 select option {padding:0 4px;}
@@ -124,7 +128,7 @@ tr.edit td {background-color:#efefef;border-bottom:1px solid gray;}
 .presults {position:absolute;left:0;top:6px;width:100%;border-bottom:1px solid gray;margin:4px 6px;}
 .presults th, .presults td {border:1px solid gray;border-bottom:none;border-right:none;}
 .presults th.last, .presults td.last {border-right:1px solid gray;}
-.presults tr.odd td, tr.odd td input {background:#eee;}
+tr.odd td, tr.odd td input {background:#eee;}
 .presults .rnav td {padding-top:6px;text-align:right;}
 .presults .pno {padding-right:3px;}
 .presults .nin {padding:0 2px;}

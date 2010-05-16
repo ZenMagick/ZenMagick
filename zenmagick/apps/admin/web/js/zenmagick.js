@@ -57,5 +57,38 @@ var zenmagick = {
                 }
             });
         return false;
-    }
+    },
+
+    /**
+     * Form dialog with ajax form loading and submit.
+     *
+     * @param string url The ajax url to load the form.
+     * @param string title The title.
+     */
+    ajaxFormDialog: function(url, title) {
+        $('<div id="ajax-form-dialog">Loading...</div>').dialog({
+            modal: true,
+            position: ['center', 20],
+            title: title,
+            width: 660,
+            close: function() {
+                $(this).dialog("destroy");
+                $('#ajax-form-dialog').remove();
+            }
+        }).load(url, function() {
+            var div = this;
+            // attach ajax form handler
+            $('#ajax-form').submit(function() {
+                $(this).ajaxSubmit({ 
+                    success: function() {
+                        $(div).dialog("destroy");
+                        $('#ajax-form-dialog').remove();
+                    }
+                });
+                // return false to prevent normal browser submit and page navigation
+                return false;
+            });
+        });
+		}
+
 };

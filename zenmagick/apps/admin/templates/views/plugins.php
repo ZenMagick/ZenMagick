@@ -47,32 +47,6 @@
         });
     }
 
-    function edit_plugin(elem, name) {
-			  var url = elem.href;
-        $('<div id="ajax-form-dialog">Loading...</div>').dialog({
-            modal: true,
-            title: 'Edit Plugin Options: '+name,
-            width: 560,
-            close: function() {
-                $(this).dialog("destroy");
-                $('#ajax-form-dialog').remove();
-            }
-        }).load(url, function() {
-            var div = this;
-            // attach ajax form handler
-            $('#ajax-form').submit(function() {
-                $(this).ajaxSubmit({ 
-                    success: function() {
-                        $(div).dialog("destroy");
-                        $('#ajax-form-dialog').remove();
-                    }
-                });
-                // return false to prevent normal browser submit and page navigation
-                return false;
-            });
-        });
-		}
-
 </script>
 
 <table>
@@ -114,7 +88,7 @@
             <button type="submit">Uninstall</button>
             <a href="<?php echo $admin2->url(null, 'action=upgrade&pluginId='.$plugin->getId().'&group='.$plugin->getGroup()) ?>#<?php echo $plugin->getId() ?>">Upgrade</a>
             <?php if (2 < count($plugin->getConfigValues())) { /* enabled/disabled and sort order are handled by this page */ ?>
-            <a href="<?php echo $admin2->url(null, 'action=edit&pluginId='.$plugin->getId().'&group='.$plugin->getGroup()) ?>#<?php echo $plugin->getId() ?>" onclick="edit_plugin(this, '<?php echo $plugin->getName() ?>'); return false;">Edit</a>
+            <a href="<?php echo $admin2->url(null, 'action=edit&pluginId='.$plugin->getId().'&group='.$plugin->getGroup()) ?>#<?php echo $plugin->getId() ?>" onclick="zenmagick.ajaxFormDialog(this.href, '<?php zm_l10n('Edit Plugin Options: %s', $plugin->getName()) ?>'); return false;">Edit</a>
           <?php } ?>
           <?php } ?>
           </form>
