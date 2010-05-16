@@ -97,8 +97,8 @@ class ZMGoogleAnalyticsPlugin extends Plugin {
      * {@inheritDoc}
      */
     public function onZMControllerProcessEnd($args) {
-        $controller = $args['controller'];
-        if (null != $controller && 'checkout_success' == $controller->getId()) {
+        $request = $args['request'];
+        if ('checkout_success' == $request->getRequestId()) {
             $view = $args['view'];
             $vars = $view->getVars();
             $this->order_ = $vars['currentOrder'];
