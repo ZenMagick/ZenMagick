@@ -40,8 +40,10 @@
   $title = null;
   $category = null;
   $product = null;
+  // todo: fix languageId
+  $languageId = 1;
   if (0 < $request->getCategoryId()) {
-      $category = ZMCategories::instance()->getCategoryForId($request->getCategoryId());
+      $category = ZMCategories::instance()->getCategoryForId($request->getCategoryId(), $languageId);
       $title = $category->getName();
   }
   if (0 < $request->getProductId()) {

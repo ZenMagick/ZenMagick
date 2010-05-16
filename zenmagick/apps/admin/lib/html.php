@@ -51,8 +51,10 @@
 });
 </script>';
             // XXX: fix languageId
-            $rootCategories = ZMCategories::instance()->getCategoryTree(1);
+            $languageId = 1;
+            $rootCategories = ZMCategories::instance()->getCategoryTree($languageId);
             $root = ZMLoader::make("Category", 0, 0, zm_l10n_get('Catalog'), false);
+            $root->setLanguageId($languageId);
             foreach ($rootCategories as $rc) {
                 $root->addChild($rc);
             }
