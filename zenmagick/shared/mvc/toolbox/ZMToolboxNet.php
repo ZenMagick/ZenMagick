@@ -205,15 +205,21 @@ class ZMToolboxNet extends ZMToolboxTool {
      * @param ZMResultList resultList The current result list.
      * @param boolean secure If <code>true</code>, the URI will be secure; default is <code>null</code> to use the current
      *  request state.
+     * @param array keep Optional list of parameters to keep.
      * @return string A URL pointing to the previous page or <code>null</code>.
      */
-    public function resultListBack($resultList, $secure=null) {
+    public function resultListBack($resultList, $secure=null, $keep=array()) {
         if (!$resultList->hasPreviousPage()) {
             return null;
         }
 
+        $params = 'page='.$resultList->getPreviousPageNumber();
+        foreach ($keep as $name) {
+            $params .= '&'.$name.'='.$this->getRequest()->getParameter($name);
+        }
+
         $secure = null !== $secure ? $secure : $this->getRequest()->isSecure();
-        $url = $this->getRequest()->url(null, "&page=".$resultList->getPreviousPageNumber(), $secure);
+        $url = $this->getRequest()->url(null, $params, $secure);
 
         return $url;
     }
@@ -224,15 +230,21 @@ class ZMToolboxNet extends ZMToolboxTool {
      * @param ZMResultList resultList The current result list.
      * @param boolean secure If <code>true</code>, the URI will be secure; default is <code>null</code> to use the current
      *  request state.
+     * @param array keep Optional list of parameters to keep.
      * @return string A URL pointing to the next page or <code>null</code>.
      */
-    public function resultListNext($resultList, $secure=null) {
+    public function resultListNext($resultList, $secure=null, $keep=array()) {
         if (!$resultList->hasNextPage()) {
             return null;
         }
 
+        $params = 'page='.$resultList->getNextPageNumber();
+        foreach ($keep as $name) {
+            $params .= '&'.$name.'='.$this->getRequest()->getParameter($name);
+        }
+
         $secure = null !== $secure ? $secure : $this->getRequest()->isSecure();
-        $url = $this->getRequest()->url(null, "&page=".$resultList->getNextPageNumber(), $secure);
+        $url = $this->getRequest()->url(null, $params, $secure);
 
         return $url;
     }

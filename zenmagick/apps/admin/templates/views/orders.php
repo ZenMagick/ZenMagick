@@ -23,8 +23,7 @@
  * $Id: zmCacheAdmin.php 2647 2009-11-27 00:30:20Z dermanomann $
  */
 ?>
-<h1>Orders</h1>
-<h2><?php if (null != $orderStatus) { echo $orderStatus->getName(); } ?></h2>
+<h1><?php zm_l10n("%s Orders", (null != $orderStatus ? $orderStatus->getName() : '')) ?></h1>
 
 <table>
   <tr>
@@ -33,6 +32,7 @@
     <th><?php zm_l10n('Order Date') ?></th>
     <th><?php zm_l10n('Payment') ?></th>
     <th><?php zm_l10n('Shipping') ?></th>
+    <th><?php zm_l10n('Status') ?></th>
     <th><?php zm_l10n('Total') ?></th>
   </tr>
   <?php foreach ($resultList->getResults() as $order) { ?>
@@ -44,7 +44,23 @@
       <td><?php echo $order->getOrderDate() ?></td>
       <td><?php echo $order->get('payment_method') ?></td>
       <td><?php echo $order->get('shipping_method') ?></td>
-      <td><?php echo $order->getTotal() ?></td>
+      <td><?php echo $order->getStatusName() ?></td>
+      <td><?php echo $utils->formatMoney($order->getTotal()) ?></td>
     </tr>
   <?php } ?>
 </table>
+<?php if (1 < $resultList->getNumberOfPages()) { ?>
+    <div class="rnav">
+        <span class="pno"><?php zm_l10n("Page %s/%s", $resultList->getPageNumber(), $resultList->getNumberOfPages()) ?></span>
+        <?php if ($resultList->hasPreviousPage()) { ?>
+            <a href="<?php echo $net->resultListBack($resultList, null, array('orderStatusId')) ?>"><?php zm_l10n("Previous") ?></a>&nbsp;
+        <?php } else { ?>
+            <span class="nin"><?php zm_l10n("Previous") ?></span>&nbsp;
+        <?php } ?>
+        <?php if ($resultList->hasNextPage()) { ?>
+            <a href="<?php echo $net->resultListNext($resultList, null, array('orderStatusId')) ?>"><?php zm_l10n("Next") ?></a>
+        <?php } else { ?>
+            <span class="nin"><?php zm_l10n("Next") ?></span>
+        <?php } ?>
+    </div>
+<?php } ?>

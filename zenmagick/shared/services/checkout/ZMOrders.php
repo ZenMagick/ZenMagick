@@ -78,7 +78,8 @@ class ZMOrders extends ZMObject implements ZMSQLAware {
                 WHERE o.orders_id = ot.orders_id
                   AND ot.class = 'ot_total'
                   AND o.orders_status = s.orders_status_id
-                  AND s.language_id = :languageId";
+                  AND s.language_id = :languageId
+                ORDER BY orders_id DESC";
         $args = array('languageId' => $languageId);
         return new ZMQueryDetails(Runtime::getDatabase(), $sql, $args, array(TABLE_ORDERS, TABLE_ORDERS_TOTAL, TABLE_ORDERS_STATUS), 'Order', 'o.orders_id');
     }
@@ -133,7 +134,7 @@ class ZMOrders extends ZMObject implements ZMSQLAware {
                   AND ot.class = 'ot_total'
                   AND o.orders_status = s.orders_status_id
                   AND s.language_id = :languageId
-                  ORDER BY orders_id desc".$sqlLimit;
+                ORDER BY orders_id DESC".$sqlLimit;
         $args = array('accountId' => $accountId, 'languageId' => $languageId);
         return new ZMQueryDetails(Runtime::getDatabase(), $sql, $args, array(TABLE_ORDERS, TABLE_ORDERS_TOTAL, TABLE_ORDERS_STATUS), 'Order', 'o.orders_id');
     }
@@ -167,7 +168,7 @@ class ZMOrders extends ZMObject implements ZMSQLAware {
                   AND ot.class = 'ot_total'
                   AND o.orders_status = s.orders_status_id
                   AND s.language_id = :languageId
-                  ORDER BY orders_id desc";
+                ORDER BY orders_id DESC";
         $args = array('orderStatusId' => $statusId, 'languageId' => $languageId);
         return new ZMQueryDetails(Runtime::getDatabase(), $sql, $args, array(TABLE_ORDERS, TABLE_ORDERS_TOTAL, TABLE_ORDERS_STATUS), 'Order', 'o.orders_id');
     }
@@ -197,7 +198,7 @@ class ZMOrders extends ZMObject implements ZMSQLAware {
                 WHERE osh.orders_id = :orderId
                   AND osh.orders_status_id = os.orders_status_id
                   AND os.language_id = :languageId
-                  ORDER BY osh.date_added";
+                ORDER BY osh.date_added";
         $args = array('orderId' => $orderId, 'languageId' => $languageId);
         return ZMRuntime::getDatabase()->query($sql, $args, array(TABLE_ORDERS_STATUS_HISTORY, TABLE_ORDERS_STATUS), 'OrderStatus');
     }

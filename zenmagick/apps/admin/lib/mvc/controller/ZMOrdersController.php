@@ -56,11 +56,6 @@ class ZMOrdersController extends ZMController {
         //TODO: languageId
         $languageId = 1;
 
-        $resultSource = ZMLoader::make("ObjectResultSource", 'Order', ZMOrders::instance(), "getOrdersForStatusId", array($orderStatusId, $languageId));
-        $resultList = ZMLoader::make("ResultList");
-        $resultList->setResultSource($resultSource);
-        $resultList->setPageNumber($request->getParameter('page', 1));
-
         // get the corresponding orderStatus
         $orderStatusList = ZMOrders::instance()->getOrderStatusList($languageId);
         $orderStatus = null;
@@ -70,6 +65,15 @@ class ZMOrdersController extends ZMController {
                 break;
             }
         }
+
+        if (null != $orderStatus) {
+            $resultSource = ZMLoader::make("ObjectResultSource", 'Order', ZMOrders::instance(), "getOrdersForStatusId", array($orderStatusId, $languageId));
+        } else {
+            $resultSource = ZMLoader::make("ObjectResultSource", 'Order', ZMOrders::instance(), "getAllOrders", array($languageId));
+        }
+        $resultList = ZMLoader::make("ResultList");
+        $resultList->setResultSource($resultSource);
+        $resultList->setPageNumber($request->getParameter('page', 1));
 
         $data = array('resultList' => $resultList, 'orderStatus' => $orderStatus);
         return $this->findView(null, $data);
