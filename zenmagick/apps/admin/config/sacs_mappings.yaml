@@ -21,6 +21,11 @@ index:
     - service
     - admin
   secure: true
+orders: 
+  roles: 
+    - service
+    - admin
+  secure: true
 installation: 
   roles: 
     - admin
