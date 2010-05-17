@@ -41,7 +41,7 @@
         var languageId = $('#languageId option:selected')[0].value;
         $.ajax({
             type: "POST",
-            url: "<?php echo $net->ajax('EZPages_admin', 'setEZPageProperty') ?>",
+            url: "<?php echo $admin2->ajax('EZPages_admin', 'setEZPageProperty') ?>",
             data: 'pageId='+pageId+'&languageId='+languageId+'&property='+property+'&value='+('on' == currentStatus ? 'false' : 'true'),
             success: function(msg) { 
                 var selector = '#'+link.id+' img';
