@@ -40,7 +40,6 @@
 <div class="dbox" style="float:left;border:2px solid #aaa;padding:2px 6px;">
   <h3>Order Stats</h3>
   <p>
-  <a href="<?php echo $admin2->url('orders') ?>"><?php zm_l10n('All Orders') ?></a><br>
   <?php foreach (ZMOrders::instance()->getOrderStatusList($selectedLanguageId) as $status) { ?>
     <?php $result = ZMRuntime::getDatabase()->querySingle("SELECT count(*) AS count FROM " . TABLE_ORDERS . " where orders_status = :orderStatusId", array('orderStatusId' => $status->getOrderStatusId()), TABLE_ORDERS); ?>
     <a href="<?php echo $admin2->url('orders', 'orderStatusId='.$status->getOrderStatusId()) ?>"><?php echo $status->getName() ?>: <?php echo $result['count'] ?></a><br>
@@ -49,12 +48,13 @@
 </div>
 
 <div class="dbox" style="float:left;border:2px solid #aaa;padding:2px 6px;">
-  <h3>Latest Orders</h3>
+  <h3>Latest <a href="<?php echo $admin2->url('orders') ?>"><?php zm_l10n('Orders') ?></a></h3>
   <table>
   <?php foreach (ZMOrders::instance()->getAllOrders($selectedLanguageId, 5) as $order) { ?>
     <tr>
       <?php $actualAccount = ZMAccounts::instance()->getAccountForId($order->getAccountId()); ?>
       <?php $name = $actualAccount->getType() == ZMAccount::REGISTERED ? $order->getAccount()->getFullName() : zm_l10n_get('** Guest **'); ?>
+      <td><a href="<?php echo $admin2->url('order', 'orderId='.$order->getId()) ?>"><?php echo $order->getId() ?></a></td>
       <td><a href="<?php echo $admin2->url('account', 'accountId='.$order->getAccountId()) ?>"><?php echo $name ?></a></td>
       <td><?php echo $order->getOrderDate() ?></td>
       <td><?php echo $order->getStatusName() ?></td>
@@ -65,7 +65,7 @@
 </div>
 
 <div class="dbox" style="float:left;border:2px solid #aaa;padding:2px 6px;">
-  <h3>Latest Accounts</h3>
+  <h3>Latest <a href="<?php echo $admin2->url('accounts') ?>"><?php zm_l10n('Accounts') ?></a></h3>
   <table>
   <?php foreach (ZMAccounts::instance()->getAllAccounts(null, 5) as $account) { ?>
     <tr>

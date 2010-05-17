@@ -35,6 +35,21 @@ mappings:
       - service
       - admin
     secure: true
+  order: 
+    roles: 
+      - service
+      - admin
+    secure: true
+  accounts: 
+    roles: 
+      - service
+      - admin
+    secure: true
+  account: 
+    roles: 
+      - service
+      - admin
+    secure: true
   installation: 
     roles: 
       - admin
