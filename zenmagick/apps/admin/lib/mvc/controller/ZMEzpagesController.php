@@ -51,7 +51,7 @@ class ZMEzpagesController extends ZMController {
     public function processGet($request) {
         if (null !== ($ezPageId = $request->getParameter('editId'))) {
             $ezPageId = (int)$ezPageId;
-            $languageId = $request->getLanguageId();
+            $languageId = $request->getParameter('languageId');
             if (0 == $ezPageId) {
                 $ezPage = ZMLoader::make('EZPage');
             } else {
@@ -69,7 +69,7 @@ class ZMEzpagesController extends ZMController {
     public function processPost($request) {
         if (null !== ($ezPageId = $request->getParameter('updateId'))) {
             $ezPageId = (int)$ezPageId;
-            $languageId = $request->getLanguageId();
+            $languageId = $request->getParameter('languageId');
             if (0 == $ezPageId) {
                 // create
                 $ezPage = ZMLoader::make('EZPage');

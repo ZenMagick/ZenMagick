@@ -25,7 +25,7 @@
 ?>
 <?php
 
-  $currentLanguage = Runtime::getLanguage();
+  $currentLanguage = ZMLanguages::instance()->getLanguageForId($session->getValue('languages_id'));
   $selectedLanguageId = $request->getParameter('languageId', $currentLanguage->getId());
 
 ?>
@@ -56,7 +56,7 @@
 
 </script>
 
-<form action="<?php echo $toolbox->admin->url() ?>" method="GET">
+<form action="<?php echo $admin2->url() ?>" method="GET">
   <input type="hidden" name="main_page" value="ezpages">
   <h2>EZPage Manager (
           <select id="languageId" name="languageId" onchange="this.form.submit();">
@@ -66,7 +66,7 @@
             <?php } ?>
           </select>
         )
-      <a href="<?php echo $admin->url(null, 'editId=0&languageId='.$selectedLanguageId) ?>">Create new</a>
+      <a href="<?php echo $admin2->url(null, 'editId=0&languageId='.$selectedLanguageId) ?>">Create new</a>
   </h2>
 </form>
 
@@ -115,8 +115,8 @@
             <?php echo $ezPage->getTocSort() ?>
         </td>
         <td>
-          <a href="<?php echo $admin->url(null, 'editId='.$ezPage->getId().'&languageId='.$selectedLanguageId) ?>">Edit</a>
-          <form action="<?php echo $toolbox->admin->url() ?>" method="POST">
+          <a href="<?php echo $admin2->url(null, 'editId='.$ezPage->getId().'&languageId='.$selectedLanguageId) ?>">Edit</a>
+          <form action="<?php echo $admin2->url() ?>" method="POST">
             <input type="hidden" name="main_page" value="ezpages">
             <input type="hidden" name="languageId" value="<?php echo $selectedLanguageId ?>">
             <input type="hidden" name="deleteId" value="<?php echo $ezPage->getId() ?>">

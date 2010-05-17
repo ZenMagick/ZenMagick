@@ -15,3 +15,22 @@
     //ZMAdminMenu::buildMenu();
 
 ?>
+
+<div style="float:left;padding:3px 12px;">
+  <img src="<?php echo $this->asUrl('images/logo-235x64.png', ZMView::RESOURCE) ?>" alt="logo">
+</div>
+<div style="float:left;">
+  <p><a href="<?php echo DIR_WS_CATALOG ?>" target="_blank">Storefront</a> | <a href="<?php echo DIR_WS_ADMIN ?>index.php">OLD Admin</a></p>
+  <p>
+    <a href="<?php echo $admin2->url('index') ?>">Home</a> |
+    <a href="<?php echo $admin2->url('installation') ?>">Installation</a> |
+    <a href="<?php echo $admin2->url('plugins') ?>">Pugins</a> |
+    <a href="<?php echo $admin2->url('catalog_manager') ?>">Catalog Manager</a> |
+    <a href="<?php echo $admin2->url('cache_admin') ?>">Cache Admin</a> |
+    <a href="<?php echo $admin2->url('ezpages') ?>">EZPages Editor</a> |
+    <a href="<?php echo $admin2->url('static_page_editor') ?>">Static Page Editor</a> |
+    <a href="<?php echo $admin2->url('about') ?>">About</a> |
+    <a href="<?php echo $admin2->url('logoff') ?>">Logoff</a>
+  </p>
+</div>
+<hr style="clear:left;">

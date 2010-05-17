@@ -90,7 +90,7 @@
       </select>
 
       <label for="file">File:</label>
-      <?php $pageList = $selectedTheme->getStaticPageList(); ?>
+      <?php $pageList = $selectedTheme->getStaticPageList(false, $selectedLanguageId); ?>
       <select id="file" name="file">
         <option value="">Select File</option>
         <?php foreach ($pageList as $page) { ?>

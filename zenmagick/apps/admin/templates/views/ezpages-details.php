@@ -25,12 +25,12 @@
 ?>
 <?php
 
-  $currentLanguage = Runtime::getLanguage();
+  $currentLanguage = ZMLanguages::instance()->getLanguageForId($session->getValue('languages_id'));
   $selectedLanguageId = $request->getParameter('languageId', $currentLanguage->getId());
 
 ?>
 
-<form action="<?php echo $toolbox->admin->url() ?>" method="POST">
+<form action="<?php echo $admin2->url() ?>" method="POST">
   <input type="hidden" name="main_page" value="ezpages">
   <input type="hidden" name="languageId" value="<?php echo $selectedLanguageId ?>">
   <input type="hidden" name="updateId" value="<?php echo $ezPage->getId() ?>">
@@ -111,6 +111,6 @@
   
   <div>
     <input type="submit" value="Save">
-    <a href="<?php echo $admin->url(null, 'languageId='.$selectedLanguageId) ?>">Cancel</a>
+    <a href="<?php echo $admin2->url(null, 'languageId='.$selectedLanguageId) ?>">Cancel</a>
   </div>
 </form>
