@@ -17,7 +17,7 @@
   <p>
   <?php foreach (ZMOrders::instance()->getOrderStatusList($selectedLanguageId) as $status) { ?>
     <?php $result = ZMRuntime::getDatabase()->querySingle("SELECT count(*) AS count FROM " . TABLE_ORDERS . " where orders_status = :orderStatusId", array('orderStatusId' => $status->getOrderStatusId()), TABLE_ORDERS); ?>
-    <a href="<?php echo $admin2->url('orders', 'orderStatusId='.$status->getOrderStatusId()) ?>"><?php echo $status->getStatusName() ?>: <?php echo $result['count'] ?></a><br>
+    <a href="<?php echo $admin2->url('orders', 'orderStatusId='.$status->getOrderStatusId()) ?>"><?php echo $status->getName() ?>: <?php echo $result['count'] ?></a><br>
   <?php } ?>
   </p>
 </div>

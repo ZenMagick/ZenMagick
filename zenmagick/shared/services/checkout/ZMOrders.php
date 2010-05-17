@@ -320,7 +320,7 @@ class ZMOrders extends ZMObject implements ZMSQLAware {
                 WHERE language_id = :languageId
                 ORDER BY orders_status_id";
 
-        return ZMRuntime::getDatabase()->query($sql, array('languageId' => $languageId), TABLE_ORDERS_STATUS, 'ZMObject');
+        return ZMRuntime::getDatabase()->query($sql, array('languageId' => $languageId), TABLE_ORDERS_STATUS, 'ZMOrderStatus');
     }
 
     /**

@@ -78,6 +78,8 @@ Release 0.9.10
 	methods unless a more specific rule is configured
 - sacs: change mapping format; split into default: and mappings: with default:
   being a default mapping and mappings: being explicit mappings
+- change returned data type of ZMOrders::getOrderStatusList from ZMObject to
+  ZMOrderStatus
 
 Release 0.9.9
 - in ZMDbTableMapper handle database exception building auto mappings
