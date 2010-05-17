@@ -70,9 +70,10 @@ class ZMOrders extends ZMObject implements ZMSQLAware {
      * Get all orders.
      *
      * @param int languageId Language id.
+     * @param int limit Optional limit; default is <code>0</code> for all.
      * @return ZMQueryDetails Query details.
      */
-    protected function getAllOrdersQueryDetails($languageId) {
+    protected function getAllOrdersQueryDetails($languageId, $limit=0) {
         $sql = "SELECT o.*, s.orders_status_name
                 FROM " . TABLE_ORDERS . " o, " . TABLE_ORDERS_TOTAL . "  ot, " . TABLE_ORDERS_STATUS . " s
                 WHERE o.orders_id = ot.orders_id
@@ -80,6 +81,9 @@ class ZMOrders extends ZMObject implements ZMSQLAware {
                   AND o.orders_status = s.orders_status_id
                   AND s.language_id = :languageId
                 ORDER BY orders_id DESC";
+        if (0 < $limit) {
+            $sql .= " LIMIT ".$limit;
+        }
         $args = array('languageId' => $languageId);
         return new ZMQueryDetails(Runtime::getDatabase(), $sql, $args, array(TABLE_ORDERS, TABLE_ORDERS_TOTAL, TABLE_ORDERS_STATUS), 'Order', 'o.orders_id');
     }
@@ -88,10 +92,11 @@ class ZMOrders extends ZMObject implements ZMSQLAware {
      * Get all orders.
      *
      * @param int languageId Language id.
+     * @param int limit Optional limit; default is <code>0</code> for all.
      * @return array List of <code>ZMOrder</code> instances.
      */
-    public function getAllOrders($languageId) {
-        $details = $this->getAllOrdersQueryDetails($languageId);
+    public function getAllOrders($languageId, $limit=0) {
+        $details = $this->getAllOrdersQueryDetails($languageId, $limit);
         return $details->query();
     }
 

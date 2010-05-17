@@ -124,6 +124,38 @@ class ZMAccounts extends ZMObject {
     }
 
     /**
+     * Get all accounts.
+     *
+     * @param string type Optional type (<code>ZMAccount::REGISTERED<code>, <code>ZMAccount::GUEST<code>); default is <code>null</code> for all.
+     * @param int limit Optional limit; default is <em>0</em> for all.
+     * @return array A <st of code>ZMAccount</code> instances.
+     */
+    public function getAllAccounts($type=null, $limit=0) {
+        $sql = "SELECT c.*, ci.*
+                FROM " . TABLE_CUSTOMERS . " c
+                  LEFT JOIN " . TABLE_CUSTOMERS_INFO . " ci ON (c.customers_id = ci.customers_info_id)";
+        if (ZMAccount::REGISTERED == $type) {
+            $sql .= " WHERE NOT (customers_password = '')";
+        } else if (ZMAccount::GUEST == $type) {
+            $sql .= " WHERE (customers_password = '')";
+        }
+        $sql .= " ORDER BY c.customers_id DESC";
+        if (0 < $limit) {
+            $sql .= " LIMIT ".$limit;
+        }
+        
+        $accounts = array();
+        foreach (ZMRuntime::getDatabase()->query($sql, array(), array(TABLE_CUSTOMERS, TABLE_CUSTOMERS_INFO), 'Account') as $account) {
+            if (ZMLangUtils::isEmpty($account->getPassword())) {
+                $account->setType(ZMAccount::GUEST);
+            }
+            $accounts[] = $account;
+        }
+
+        return $accounts;
+    }
+
+    /**
      * Update account login stats.
      *
      * @param int accountId The account id.
