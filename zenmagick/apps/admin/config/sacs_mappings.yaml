@@ -4,65 +4,74 @@
 # $Id$
 #
 #
-ajax_plugin_admin: 
+
+## default for not explicitely mapped requests
+default:
   secure: true
-  roles:
-login: 
-  secure: true
-  roles:
-logoff: 
-  secure: true
-  roles:
-reset_password: 
-  secure: true
-  roles:
-index: 
-  roles: 
-    - service
-    - admin
-  secure: true
-orders: 
-  roles: 
-    - service
-    - admin
-  secure: true
-installation: 
   roles: 
     - admin
-  secure: true
-plugins: 
-  roles: 
-    - admin
-  secure: true
-catalog_manager: 
-  roles: 
-    - service
-    - admin
-  secure: true
-cache_admin: 
-  roles: 
-    - admin
-  secure: true
-l110n: 
-  roles: 
-    - admin
-  secure: true
-theme_builder: 
-  roles: 
-    - admin
-  secure: true
-static_page_editor: 
-  roles: 
-    - service
-    - admin
-  secure: true
-ezpages: 
-  roles: 
-    - service
-    - admin
-  secure: true
-about: 
-  roles: 
-    - service
-    - admin
-  secure: false
+
+## explicit mappings
+mappings:
+  ajax_plugin_admin: 
+    secure: true
+    roles:
+  login: 
+    secure: true
+    roles:
+  logoff: 
+    secure: true
+    roles:
+  reset_password: 
+    secure: true
+    roles:
+  index: 
+    roles: 
+      - service
+      - admin
+    secure: true
+  orders: 
+    roles: 
+      - service
+      - admin
+    secure: true
+  installation: 
+    roles: 
+      - admin
+    secure: true
+  plugins: 
+    roles: 
+      - admin
+    secure: true
+  catalog_manager: 
+    roles: 
+      - service
+      - admin
+    secure: true
+  cache_admin: 
+    roles: 
+      - admin
+    secure: true
+  l110n: 
+    roles: 
+      - admin
+    secure: true
+  theme_builder: 
+    roles: 
+      - admin
+    secure: true
+  static_page_editor: 
+    roles: 
+      - service
+      - admin
+    secure: true
+  ezpages: 
+    roles: 
+      - service
+      - admin
+    secure: true
+  about: 
+    roles: 
+      - service
+      - admin
+    secure: false

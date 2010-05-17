@@ -77,7 +77,7 @@ class ZMSacsManager extends ZMObject {
      * Reset all internal data structures.
      */
     public function reset() {
-        $this->mappings_ = array();
+        $this->mappings_ = array('default' => array(), 'mappings' => array());
         $this->handler_ = array();
         foreach (explode(',', ZMSettings::get('zenmagick.mvc.sacs.handler')) as $class) {
             if (null != ($handler = ZMBeanUtils::getBean($class))) {
@@ -120,7 +120,7 @@ class ZMSacsManager extends ZMObject {
         if (null == $requestId) {
             throw new ZMException("invalid sacs mapping (requestId missing)");
         }
-        $this->mappings_[$requestId] = array_merge($args, array('level' => $authentication, 'secure' => $secure));
+        $this->mappings_['mappings'][$requestId] = array_merge($args, array('level' => $authentication, 'secure' => $secure));
     }
 
     /**
@@ -189,15 +189,34 @@ class ZMSacsManager extends ZMObject {
             return null;
         }
 
-        if (!array_key_exists($requestId, $this->mappings_) || !array_key_exists($key, $this->mappings_[$requestId])) {
-            return $default;
+        /* evaluate in the following order:
+         * a) do we have an explicit mapping,
+         * b) do we have a mapping default value
+         * c) use provided default
+         */
+        $value = $default;
+        if (array_key_exists($requestId, $this->mappings_['mappings'])) {
+            // have explicit mapping for this requestId
+            if (array_key_exists($key, $this->mappings_['mappings'][$requestId])) {
+                $value = $this->mappings_['mappings'][$requestId][$key];
+            } else {
+                // use provided default
+            }
+        } else {
+            // do we have a default mapping?
+            if (array_key_exists($key, $this->mappings_['default'])) {
+                $value = $this->mappings_['default'][$key];
+            } else {
+                // use provided default
+            }
         }
-
+       
+       
         if ('secure' == $key) {
-            $this->mappings_[$requestId][$key] = ZMLangUtils::asBoolean($this->mappings_[$requestId][$key]);
+            $value = ZMLangUtils::asBoolean($value);
         }
 
-        return $this->mappings_[$requestId][$key];
+        return $value;
     }
 
     /**
@@ -217,7 +236,7 @@ class ZMSacsManager extends ZMObject {
      * @return boolean <code>true</code> if a mapping exists, <code>false</code> if not.
      */
     public function hasMappingForRequestId($requestId) {
-        return array_key_exists($requestId, $this->mappings_);
+        return array_key_exists($requestId, $this->mappings_['mappings']);
     }
 
 }

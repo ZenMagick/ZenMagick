@@ -76,6 +76,8 @@ Release 0.9.10
 - perform SACS authorization on method level for ajax calls only if a method
   level mapping exists; this means the controller mapping applies to all
 	methods unless a more specific rule is configured
+- sacs: change mapping format; split into default: and mappings: with default:
+  being a default mapping and mappings: being explicit mappings
 
 Release 0.9.9
 - in ZMDbTableMapper handle database exception building auto mappings
