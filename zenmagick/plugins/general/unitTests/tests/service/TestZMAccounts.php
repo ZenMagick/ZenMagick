@@ -45,7 +45,7 @@ class TestZMAccounts extends ZMTestCase {
             'NewsletterSubscriber' => false,
             'GlobalProductSubscriber' => true,
             'SubscribedProducts' => null,
-            'Type' => ZMZenCartAccountSacsHandler::REGISTERED,
+            'Type' => ZMAccount::REGISTERED,
             'PriceGroupId' => 0,
     );
 
@@ -141,10 +141,10 @@ class TestZMAccounts extends ZMTestCase {
     public function testGetAccountsForEmail() {
         // gets us at least two guest accounts
         $account1 = $this->createAccount($this->accountData1);
-        $account1->setType(ZMZenCartAccountSacsHandler::GUEST);
+        $account1->setType(ZMAccount::GUEST);
         $account1 = ZMAccounts::instance()->createAccount($account1);
         $account2 = $this->createAccount($this->accountData1);
-        $account2->setType(ZMZenCartAccountSacsHandler::GUEST);
+        $account2->setType(ZMAccount::GUEST);
         $account2 = ZMAccounts::instance()->createAccount($account2);
 
         $accounts = ZMAccounts::instance()->getAccountsForEmailAddress($account2->getEmail());

@@ -32,6 +32,13 @@
  * @version $Id$
  */
 class ZMAccount extends ZMObject {
+    /** Access level registered. */
+    const REGISTERED = 'registered';
+    /** Access level guest. */
+    const GUEST = 'guest';
+    /** Access level anonymous. */
+    const ANONYMOUS = 'anonymous';
+
     private $firstName_;
     private $lastName_;
     private $dob_;
@@ -75,7 +82,7 @@ class ZMAccount extends ZMObject {
         $this->newsletter_ = false;
         $this->globalSubscriber_ = false;
         $this->subscribedProducts_ = null;
-        $this->type_ = ZMZenCartAccountSacsHandler::REGISTERED;
+        $this->type_ = self::REGISTERED;
         $this->priceGroupId_ = 0;
         $this->authorization_ = ZMAccounts::AUTHORIZATION_ENABLED;
     }

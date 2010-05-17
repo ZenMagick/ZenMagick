@@ -105,10 +105,10 @@ class ZMSubscriptionsPlugin extends Plugin {
         ZMEvents::instance()->attach($this);
 
         // set mappings and permissions of custom pages
-        ZMSacsManager::instance()->setMapping('cancel_subscription', ZMZenCartAccountSacsHandler::REGISTERED);
+        ZMSacsManager::instance()->setMapping('cancel_subscription', ZMAccount::REGISTERED);
         ZMUrlManager::instance()->setMapping('cancel_subscription', array('template' => 'account', 'view' => 'RedirectView'));
 
-        ZMSacsManager::instance()->setMapping('subscription_request', ZMZenCartAccountSacsHandler::REGISTERED);
+        ZMSacsManager::instance()->setMapping('subscription_request', ZMAccount::REGISTERED);
         ZMUrlManager::instance()->setMapping('subscription_request', array('success' => array('template' => 'subscription_request', 'view' => 'RedirectView')));
 
         // set up request form validation

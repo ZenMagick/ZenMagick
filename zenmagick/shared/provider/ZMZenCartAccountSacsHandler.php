@@ -35,14 +35,18 @@
  * @version $Id$
  */
 class ZMZenCartAccountSacsHandler extends ZMObject implements ZMSacsHandler {
-    /** Access level registered. */
+    /** Access level registered. 
+     * @deprecated
+     */
     const REGISTERED = 'registered';
-    /** Access level guest. */
+    /** Access level guest. 
+     * @deprecated
+     */
     const GUEST = 'guest';
-    /** Access level anonymous. */
+    /** Access level anonymous.
+     * @deprecated
+     */
     const ANONYMOUS = 'anonymous';
-    /** Access level by group. */
-    const GROUP = 'group';
 
     private $levelMap_;
 
@@ -54,9 +58,9 @@ class ZMZenCartAccountSacsHandler extends ZMObject implements ZMSacsHandler {
         parent::__construct();
         // which level allows what
         $this->levelMap_ = array(
-            self::ANONYMOUS => array(self::ANONYMOUS, self::GUEST, self::REGISTERED),
-            self::GUEST => array(self::GUEST, self::REGISTERED),
-            self::REGISTERED => array(self::REGISTERED)
+            ZMAccount::ANONYMOUS => array(ZMAccount::ANONYMOUS, ZMAccount::GUEST, ZMAccount::REGISTERED),
+            ZMAccount::GUEST => array(ZMAccount::GUEST, ZMAccount::REGISTERED),
+            ZMAccount::REGISTERED => array(ZMAccount::REGISTERED)
         );
     }
 
@@ -88,7 +92,7 @@ class ZMZenCartAccountSacsHandler extends ZMObject implements ZMSacsHandler {
             return null;
         }
 
-        $level = self::ANONYMOUS;
+        $level = ZMAccount::ANONYMOUS;
         if (null != $credentials && $credentials instanceof ZMAccount) {
             $level = $credentials->getType();
         }

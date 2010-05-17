@@ -74,7 +74,7 @@ class ZMAccounts extends ZMObject {
         $args = array('accountId' => $accountId);
         if (null != ($account = ZMRuntime::getDatabase()->querySingle($sql, $args, array(TABLE_CUSTOMERS, TABLE_CUSTOMERS_INFO), 'Account'))) {
             if (ZMLangUtils::isEmpty($account->getPassword())) {
-                $account->setType(ZMZenCartAccountSacsHandler::GUEST);
+                $account->setType(ZMAccount::GUEST);
             }
         }
         return $account;
@@ -95,7 +95,7 @@ class ZMAccounts extends ZMObject {
         $args = array('email' => $emailAddress);
         if (null != ($account = ZMRuntime::getDatabase()->querySingle($sql, $args, array(TABLE_CUSTOMERS, TABLE_CUSTOMERS_INFO), 'Account'))) {
             if (ZMLangUtils::isEmpty($account->getPassword())) {
-                $account->setType(ZMZenCartAccountSacsHandler::GUEST);
+                $account->setType(ZMAccount::GUEST);
             }
         }
         return $account;
@@ -116,7 +116,7 @@ class ZMAccounts extends ZMObject {
         $accounts = array();
         foreach (ZMRuntime::getDatabase()->query($sql, $args, array(TABLE_CUSTOMERS, TABLE_CUSTOMERS_INFO), 'Account') as $account) {
             if (ZMLangUtils::isEmpty($account->getPassword())) {
-                $account->setType(ZMZenCartAccountSacsHandler::GUEST);
+                $account->setType(ZMAccount::GUEST);
             }
             $accounts[] = $account;
         }
