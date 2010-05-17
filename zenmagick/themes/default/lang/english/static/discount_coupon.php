@@ -1,5 +1,5 @@
 <p>
-	<strong>DDDDiscount Coupon&nbsp;Sample Text&nbsp;...</strong></p>
+	<strong>Discount Coupon Sample Text ...</strong></p>
 <p>
 	This section of text is from the <code>Static Page Editor</code> located under ZenMagick in the Admin.</p>
 <p>
