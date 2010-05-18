@@ -38,7 +38,7 @@ class ZMHtmlReporter extends HtmlReporter {
      * Create new instance.
      */
     function __construct() {
-        $this->HtmlReporter('ISO-8859-1');
+        parent::__construct('ISO-8859-1');
         $this->currentCase_ = null;
         $this->currentTest_ = null;
         $this->results_ = array();

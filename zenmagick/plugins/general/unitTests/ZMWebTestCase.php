@@ -72,7 +72,7 @@ class ZMWebTestCase extends WebTestCase {
                 'expectation' => $expectation,
                 'compare' => $compare
             );
-            $this->_reporter->zmPaintFail($details);
+            $this->reporter->zmPaintFail($details);
         }
         return $result;
     }

@@ -83,6 +83,7 @@ Release 0.9.10
 - move REGISTERED, GUEST and ANONYMOUS consts to ZMAccount, mark deprecated in
   ZMZenCartSacsHandler
 - upgrade Cache_Lite to 1.7.8
+- add simpltest packer; upgrade simpletest to 1.1b (18/05/2010) tarball
 
 Release 0.9.9
 - in ZMDbTableMapper handle database exception building auto mappings

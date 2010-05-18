@@ -40,7 +40,7 @@ class ZMArrayEqualExpectation extends EqualExpectation {
      * {@inheritDoc}
      */
     function test($compare) {
-        $value = $this->_getValue();
+        $value = $this->getValue();
         if (!is_array($compare) || !is_array($value)) {
             return false;
         }

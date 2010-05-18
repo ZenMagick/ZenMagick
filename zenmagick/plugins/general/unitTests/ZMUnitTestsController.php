@@ -153,7 +153,7 @@ class ZMUnitTestsController extends ZMController {
             foreach ($testCases as $name) {
                 $testCase = ZMLoader::make($name);
                 if ($testCase instanceof SimpleTestCase) {
-                    $suite->addTestClass($name);
+                    $suite->add($name);
                 }
             }
 

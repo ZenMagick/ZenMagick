@@ -90,7 +90,7 @@ class ZMTestCase extends UnitTestCase {
                 'expectation' => $expectation,
                 'compare' => $compare
             );
-            $this->_reporter->zmPaintFail($details);
+            $this->reporter->zmPaintFail($details);
         }
         return $result;
     }
