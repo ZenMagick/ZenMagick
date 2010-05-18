@@ -17,6 +17,8 @@
         <propertycopy name="packer.targetDir" from="library.${library.name}.targetDir" />
         <var name="packer.version" unset="true"/>
         <propertycopy name="packer.version" from="library.${library.name}.version" />
+        <var name="packer.classpath" unset="true"/>
+        <propertycopy name="packer.classpath" from="library.${library.name}.classpath" />
 
         <exec executable="php">
             <arg value="etc/build/packer.php"/>
@@ -25,6 +27,7 @@
             <arg value="${packer.targetDir}"/>
             <arg value="${packer.version}"/>
             <arg value="${libraries.strip}"/>
+            <arg value="${packer.classpath}"/>
         </exec>
     </target>
 
