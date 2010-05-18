@@ -1,3 +1,7 @@
+null:
+  error:
+    template: error
+    
 login:
   success:
     view: RedirectView
