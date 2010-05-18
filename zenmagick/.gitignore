@@ -2,6 +2,7 @@
 !admin/
 !cache/
 !editors/
+!email/
 !images/
 !index.php
 core.php
