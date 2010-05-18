@@ -29,7 +29,7 @@
  * @version $Id$
  */
 class ZMZenCartSessionHandler implements ZMSessionHandler {
-    private $expiryTime_ = 1440;
+    private $expiryTime_ = 10;
 
 
     /**
@@ -47,9 +47,10 @@ class ZMZenCartSessionHandler implements ZMSessionHandler {
                 FROM " . TABLE_SESSIONS . "
                 WHERE sesskey = :sesskey
                 AND expiry > :expiry";
-        if (null != ($result = ZMRuntime::getDatabase()->querySingle($sql, array('sesskey' => $id, 'expiry' => time()), TABLE_SESSIONS))) {
+        if (null !== ($result = ZMRuntime::getDatabase()->querySingle($sql, array('sesskey' => $id, 'expiry' => time()), TABLE_SESSIONS))) {
             return $result['value'];
         }
+        var_dump($result);
 
         return false;
     }
@@ -58,7 +59,7 @@ class ZMZenCartSessionHandler implements ZMSessionHandler {
      * {@inheritDoc}
      */
     public function write($id, $data) {
-        if (false !== $this->read($id)) {
+        if (false !== ($current = $this->read($id))) {
             // update
             $sql = "UPDATE " . TABLE_SESSIONS . "
                     SET expiry = :expiry, value = :value

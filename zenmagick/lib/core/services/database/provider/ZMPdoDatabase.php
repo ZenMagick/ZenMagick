@@ -424,6 +424,7 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
      */
     public function querySingle($sql, $args=array(), $mapping=null, $modelClass=null) {
         $results = $this->query($sql, $args, $mapping, $modelClass);
+        ZMLogging::instance()->log($sql." results: ".count($results), ZMLogging::DEBUG);
         return 0 < count($results) ? $results[0] : null;
     }
 
