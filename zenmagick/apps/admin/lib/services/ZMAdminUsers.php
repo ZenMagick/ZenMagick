@@ -112,4 +112,14 @@ class ZMAdminUsers extends ZMObject {
         return $this->finalizeUser(ZMRuntime::getDatabase()->querySingle($sql, $args, TABLE_ADMIN, 'AdminUser'));
     }
 
+    /**
+     * Update user.
+     *
+     * @param ZMUser user The user.
+     * @return ZMAdminUser The updated <code>ZMAdminUser</code> instance.
+     */
+    public function updateUser($user) {
+        return ZMRuntime::getDatabase()->updateModel(TABLE_ADMIN, $user);
+    }
+
 }

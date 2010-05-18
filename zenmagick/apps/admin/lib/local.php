@@ -25,4 +25,5 @@
 ?>
 <?php  
 
-    ZMAuthenticationManager::instance()->addProvider('ZenCartAuthentication');
+    //TODO: this is default as the password column is restricted to 40 chars
+    ZMAuthenticationManager::instance()->addProvider('ZenCartAuthentication', true);

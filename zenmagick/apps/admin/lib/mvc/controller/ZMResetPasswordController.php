@@ -61,59 +61,14 @@ class ZMResetPasswordController extends ZMController {
 
         $newPassword = ZMAuthenticationManager::instance()->mkPassword();
         $newEncrpytedPassword = ZMAuthenticationManager::instance()->encryptPassword($newPassword);
+        $user->setPassword($newEncrpytedPassword);
+        ZMAdminUsers::instance()->updateUser($user);
 
-        //TODO: implement...
-        ZMSwiftInit::init();
-echo 'xx';
-echo 'exists: '.class_exists('Swift_Message');
-        $message = Swift_Message::newInstance()
-
-            //Give the message a subject
-            ->setSubject('Your subject')
-
-            //Set the From address with an associative array
-            ->setFrom(array('john@doe.com' => 'John Doe'))
-
-            //Set the To addresses with an associative array
-            ->setTo(array('receiver@domain.org', 'other@domain.org' => 'A name'))
-
-            //Give it a body
-            ->setBody('Here is the message itself')
-
-            //And optionally an alternative body
-            ->addPart('<q>Here is the message itself</q>', 'text/html')
-            ;
-echo 'yy';
-//Create the Transport
-$transport = Swift_SmtpTransport::newInstance('localhost', 26)
-  ->setUsername('your username')
-  ->setPassword('your password')
-  ;
-
-/*
-You could alternatively use a different transport such as Sendmail or Mail:
-
-//Sendmail
-$transport = Swift_SendmailTransport::newInstance('/usr/sbin/sendmail -bs');
-
-//Mail
-$transport = Swift_MailTransport::newInstance();
-*/
-
-//Create the Mailer using your created Transport
-$mailer = Swift_Mailer::newInstance($transport);
-
-//Send the message
-$result = $mailer->send($message);
-
-/*
-You can alternatively use batchSend() to send the message
-
-$result = $mailer->batchSend($message);
-*/
-
-
-
+        $mailer = ZMMailer::instance()->getMailer();
+        $message = ZMMailer::instance()->getMessage('New password...', $newPassword);
+        $message->setTo($email);
+        $message->setFrom(ZMSettings::get('storeEmail'));
+        $result = $mailer->send($message);
 
         // report success
         ZMMessages::instance()->success(zm_l10n_get('A new password has been sent to your email address.'));
