@@ -520,7 +520,7 @@ class ZMRequest extends ZMObject {
             unset($params[$ridKey]);
         }
 
-        $data = array('requestId' => $this->getRequestId(), 'params' => $param, 'secure' => $this->isSecure());
+        $data = array('requestId' => $this->getRequestId(), 'params' => $params, 'secure' => $this->isSecure());
         $this->getSession()->setValue('followUpUrl', $data, 'zenmagick.mvc');
     }
 
