@@ -36,7 +36,6 @@ class ZMZenCartSessionHandler implements ZMSessionHandler {
      * {@inheritDoc}
      */
     public function open($path, $name) {
-        ZMLogging::instance()->log('session: open', ZMLogging::TRACE);
         return true;
     }
 
@@ -44,16 +43,13 @@ class ZMZenCartSessionHandler implements ZMSessionHandler {
      * {@inheritDoc}
      */
     public function read($id) {
-        ZMLogging::instance()->log('session: read: '.$id, ZMLogging::TRACE);
         $sql = "SELECT value
                 FROM " . TABLE_SESSIONS . "
                 WHERE sesskey = :sesskey
                 AND expiry > :expiry";
         if (null !== ($result = ZMRuntime::getDatabase()->querySingle($sql, array('sesskey' => $id, 'expiry' => time()), TABLE_SESSIONS))) {
-            ZMLogging::instance()->log('session: read: '.$id.'; data: '.$result['value'], ZMLogging::TRACE);
             return $result['value'];
         }
-        ZMLogging::instance()->log('session: read: '.$id.'; data(false): '.$result['value'], ZMLogging::TRACE);
 
         return false;
     }
@@ -62,8 +58,11 @@ class ZMZenCartSessionHandler implements ZMSessionHandler {
      * {@inheritDoc}
      */
     public function write($id, $data) {
-        ZMLogging::instance()->log('session: write: '.$id.'; data: '.$data, ZMLogging::TRACE);
-        if (false !== $this->read($id)) {
+        // check for existing row
+        $sql = "SELECT value
+                FROM " . TABLE_SESSIONS . "
+                WHERE sesskey = :sesskey";
+        if (null !== ($result = ZMRuntime::getDatabase()->querySingle($sql, array('sesskey' => $id), TABLE_SESSIONS))) {
             // update
             $sql = "UPDATE " . TABLE_SESSIONS . "
                     SET expiry = :expiry, value = :value
@@ -82,7 +81,6 @@ class ZMZenCartSessionHandler implements ZMSessionHandler {
      * {@inheritDoc}
      */
     public function destroy($id) {
-        ZMLogging::instance()->log('session: destroy: '.$id, ZMLogging::TRACE);
         $sql = "DELETE FROM " . TABLE_SESSIONS . " WHERE sesskey = :sesskey";
         return ZMRuntime::getDatabase()->update($sql, array('sesskey' => $id), TABLE_SESSIONS);
     }
@@ -91,7 +89,6 @@ class ZMZenCartSessionHandler implements ZMSessionHandler {
      * {@inheritDoc}
      */
     public function gc($lifetime) {
-        ZMLogging::instance()->log('session: gc: '.$lifetime, ZMLogging::TRACE);
         $sql = "DELETE FROM " . TABLE_SESSIONS . " where expiry < :expiry";
         return ZMRuntime::getDatabase()->update($sql, array('expiry' => time()), TABLE_SESSIONS);
     }
@@ -100,7 +97,6 @@ class ZMZenCartSessionHandler implements ZMSessionHandler {
      * {@inheritDoc}
      */
     public function close() {
-        ZMLogging::instance()->log('session: close', ZMLogging::TRACE);
         return true;
     }
 
@@ -108,7 +104,6 @@ class ZMZenCartSessionHandler implements ZMSessionHandler {
      * {@inheritDoc}
      */
     public function setExpiryTime($expiryTime) {
-        ZMLogging::instance()->log('session: set expiry time: '.$expiryTime, ZMLogging::TRACE);
         $this->expiryTime_ = $expiryTime;
     }
 
