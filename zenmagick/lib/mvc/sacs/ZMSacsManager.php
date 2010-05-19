@@ -148,9 +148,11 @@ class ZMSacsManager extends ZMObject {
                     if (!$session->isStarted()) {
                         // no valid session
                         $request->redirect($request->url(ZMSettings::get('zenmagick.mvc.request.invalidSession')));
+                        exit;
                     }
                     $request->saveFollowUpUrl();
                     $request->redirect($request->url(ZMSettings::get('zenmagick.mvc.request.login', 'login'), '', true));
+                    exit;
                 }
                 break;
             }

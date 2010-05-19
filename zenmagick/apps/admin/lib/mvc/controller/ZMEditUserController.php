@@ -52,7 +52,7 @@ class ZMEditUserController extends ZMController {
      * {@inheritDoc}
      */
     public function processGet($request) {
-        return $this->findView(null, array('user' => $request->getUser());
+        return $this->findView(null, array('user' => $request->getUser()));
     }
 
     /**

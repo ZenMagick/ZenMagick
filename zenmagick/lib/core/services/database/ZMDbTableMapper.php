@@ -253,7 +253,7 @@ class ZMDbTableMapper extends ZMObject {
             $tableMetaData = $database->getMetaData($table);
         } catch (ZMDatabaseException $dbe) {
             // non prefixed?
-            ZMLogging::instance()->dump($dbe, ZMLogging::TRACE);
+            ZMLogging::instance()->dump($dbe, 'missing table (non prefixed)', ZMLogging::TRACE);
         }
         if (null === $tableMetaData) {
             // try adding the prefix
