@@ -56,25 +56,4 @@ class Request extends ZMRequest {
         parent::__destruct();
     }
 
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getUser() {
-        $session = $this->getSession();
-        if (null != ($adminId = $session->getValue('admin_id'))) {
-            return ZMAdminUsers::instance()->getUserForId($adminId);
-        }
-
-        return null;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getWebPath() {
-        // TODO: adjust to make $resources->cssFile(), etc work with zm.php in the admin folder...
-        return parent::getWebPath();
-    }
-
 }

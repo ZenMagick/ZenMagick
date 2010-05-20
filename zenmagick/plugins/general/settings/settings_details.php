@@ -269,6 +269,13 @@
                         'desc' => 'Are secure requests to be enforced.'
                     )
                 ),
+                'session' => array(
+                    array(
+                        'key' => 'userFactory',
+                        'type' => 'string',
+                        'desc' => 'Bean definition of a class that can create a session user object.'
+                    )
+                ),
                 'seo' => array(
                     array(
                         'key' => 'type',

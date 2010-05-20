@@ -25,6 +25,7 @@ zenmagick.mvc.sacs.handler: AdminUserSacsHandler
 
 #zenmagick.mvc.request.index: zm.php
 zenmagick.mvc.request.index: index.php
+zenmagick.mvc.session.userFactory: AdminUserFactory
 
 # show login again if no session possible
 zenmagick.mvc.request.invalidSession: login
