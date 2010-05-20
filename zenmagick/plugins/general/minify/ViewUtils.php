@@ -25,13 +25,13 @@
 
 
 /**
- * Template stuff.
+ * Minify view utils implementation.
  *
  * @author DerManoMann
  * @package org.zenmagick.plugins.minify
- * @version $Id: TemplateManager.php 2902 2010-02-16 07:51:36Z dermanomann $
+ * @version $Id$
  */
-class TemplateManager extends ZMTemplateManager {
+class ViewUtils extends ZMViewUtils {
     private $plugin_;
 
 
@@ -51,23 +51,25 @@ class TemplateManager extends ZMTemplateManager {
     /**
      * {@inheritDoc}
      */
-    public function resolveThemeResource($request, $resource) {
+    public function resolveResource($filename) {
         $plugin = $this->getPlugin();
-        return $plugin->pluginUrl('min/f='.parent::resolveThemeResource($request, $resource));
+        return $plugin->pluginUrl('min/f='.parent::resolveResource($filename));
     }
 
     /**
      * {@inheritDoc}
      */
-    public function handleResources($files, $type, $location) {
-        if (1 < count($files)) {
+    public function handleResourceGroup($files, $group, $location) {
+        if ('js' == $group) {
             $srcList = array();
             foreach ($files as $info) {
                 // use parent method to do proper resolve and not minify twice!
-                $srcList[] = parent::resolveThemeResource($request, $info['filename']);
+                $srcList[] = parent::resolveResource($info['filename']);
             }
             $plugin = $this->getPlugin();
             return '<script type="text/javascript" src="'.$plugin->pluginUrl('min/f='.implode(',', $srcList)).'"></script>'."\n";
+        } else if ('css' == $group) {
+            return parent::handleResourceGroup($files, $group, $location);
         }
 
         return null;

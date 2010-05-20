@@ -147,8 +147,6 @@ class ZMViewUtils extends ZMObject {
                 $contents .= '<script type="text/javascript" src="'.$this->resolveResource($details['filename']).'"></script>'."\n";
             }
         } else if ('css' == $group) {
-            //todo: implement
-
             $slash = ZMSettings::get('zenmagick.mvc.html.xhtml') ? '/' : '';
             $css = '';
             foreach ($files as $details) {
