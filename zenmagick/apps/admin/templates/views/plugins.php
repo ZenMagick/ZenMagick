@@ -20,7 +20,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  *
- * $Id: zmPlugins.php 2647 2009-11-27 00:30:20Z dermanomann $
+ * $Id$
  */
 ?>
 

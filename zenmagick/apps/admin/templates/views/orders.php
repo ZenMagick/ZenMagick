@@ -20,7 +20,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  *
- * $Id: zmCacheAdmin.php 2647 2009-11-27 00:30:20Z dermanomann $
+ * $Id$
  */
 ?>
 <h1><?php zm_l10n("%s Orders", (null != $orderStatus ? $orderStatus->getName() : '')) ?></h1>
@@ -49,18 +49,4 @@
     </tr>
   <?php } ?>
 </table>
-<?php if (1 < $resultList->getNumberOfPages()) { ?>
-    <div class="rnav">
-        <span class="pno"><?php zm_l10n("Page %s/%s", $resultList->getPageNumber(), $resultList->getNumberOfPages()) ?></span>
-        <?php if ($resultList->hasPreviousPage()) { ?>
-            <a href="<?php echo $net->resultListBack($resultList, null, array('orderStatusId')) ?>"><?php zm_l10n("Previous") ?></a>&nbsp;
-        <?php } else { ?>
-            <span class="nin"><?php zm_l10n("Previous") ?></span>&nbsp;
-        <?php } ?>
-        <?php if ($resultList->hasNextPage()) { ?>
-            <a href="<?php echo $net->resultListNext($resultList, null, array('orderStatusId')) ?>"><?php zm_l10n("Next") ?></a>
-        <?php } else { ?>
-            <span class="nin"><?php zm_l10n("Next") ?></span>
-        <?php } ?>
-    </div>
-<?php } ?>
+<?php echo $this->fetch('pagination.php'); ?>
