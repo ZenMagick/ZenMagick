@@ -69,6 +69,7 @@ class ViewUtils extends ZMViewUtils {
             $plugin = $this->getPlugin();
             return '<script type="text/javascript" src="'.$plugin->pluginUrl('min/f='.implode(',', $srcList)).'"></script>'."\n";
         } else if ('css' == $group) {
+            //TODO: sort css files by attributes and create group lists for each attribute group
             return parent::handleResourceGroup($files, $group, $location);
         }
 
