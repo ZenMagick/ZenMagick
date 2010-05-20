@@ -26,7 +26,7 @@
  * Analyze dependencies of a given (PHP) source.
  *
  * @author DerManoMann
- * @package org.zenmagick.core.utils
+ * @package org.zenmagick.core.utils.packer
  * @version $Id$
  */
 class ZMPhpSourceAnalyzer {

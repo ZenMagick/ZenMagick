@@ -49,7 +49,7 @@ if (!defined('T_ML_COMMENT')) {
  * reflect the hierachy (any more).</p>
  *
  * @author DerManoMann
- * @package org.zenmagick.core.utils
+ * @package org.zenmagick.core.utils.packer
  * @version $Id$
  */
 class ZMPhpCompressor {

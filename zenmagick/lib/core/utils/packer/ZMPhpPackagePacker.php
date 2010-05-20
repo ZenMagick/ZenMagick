@@ -29,7 +29,7 @@
  * <em>include</em> and <em>require</em> directives. It also takes care of missing PHP close tags <em>?&gt;</em>.</p>
  *
  * @author DerManoMann
- * @package org.zenmagick.core.utils
+ * @package org.zenmagick.core.utils.packer
  * @version $Id$
  */
 class ZMPhpPackagePacker {
