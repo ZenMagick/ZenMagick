@@ -19,18 +19,17 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
- *
- * $Id: zmCacheAdmin.php 2647 2009-11-27 00:30:20Z dermanomann $
  */
 ?>
-<h1>Edit User</h1>
-<form action="<?php echo $admin2->url() ?>" method="POST">
-  <fieldset>
-  <p><label for="name">Name</label> <input type="text" id="name" name="name" value="<?php echo $html->encode($editUser->getName()) ?>"></p>
-    <p><label for="email">Email</label> <input type="text" id="email" name="email" value="<?php echo $html->encode($editUser->getEmail()) ?>"></p>
-    <p><label for="currentPassword">Current password</label> <input type="password" id="currentPassword" name="currentPassword"></p>
-    <p><label for="newPassword">New password</label> <input type="password" id="newPassword" name="newPassword"></p>
-    <p><label for="confirmPassword">Confirm password</label> <input type="password" id="confirmPassword" name="confirmPassword"></p>
-  </fieldset>
-  <p><input type="submit" value="<?php zm_l10n("Update") ?>">
-</form>
+<?php
+
+
+/**
+ * Edit (admin) user form data.
+ *
+ * @author DerManoMann
+ * @package org.zenmagick.store.admin
+ * @version $Id$
+ */
+class ZMEditUserForm extends ZMObject {
+}

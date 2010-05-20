@@ -30,6 +30,7 @@
       <a href="<?php echo $admin2->url('cache_admin') ?>">Cache Admin</a> |
       <a href="<?php echo $admin2->url('ezpages') ?>">EZPages Editor</a> |
       <a href="<?php echo $admin2->url('static_page_editor') ?>">Static Page Editor</a> |
+      <a href="<?php echo $admin2->url('edit_user') ?>">Change User Details</a> |
       <a href="<?php echo $admin2->url('about') ?>">About</a> |
       <a href="<?php echo $admin2->url('logoff') ?>">Logoff</a>
     </p>

@@ -18,7 +18,11 @@ reset_password:
     view: RedirectView
     template: login
 edit_user:
-  form: AdminUser
+  formId: editUser
+  form: EditUserForm
+  success:
+    view: RedirectView
+    template: index
 plugins:
   success-install:
     view: RedirectView

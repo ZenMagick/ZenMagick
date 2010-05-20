@@ -51,17 +51,37 @@ class ZMEditUserController extends ZMController {
     /**
      * {@inheritDoc}
      */
-    public function processGet($request) {
-        return $this->findView(null, array('user' => $request->getUser()));
+    public function getFormData($request) {
+        $editUser = parent::getFormData($request);
+        if (!$this->isFormSubmit($request)) {
+            // prepopulate with current data
+            $user = $request->getUser();
+            $editUser->setEmail($user->getEmail());
+            $editUser->setName($user->getName());
+        }
+        return $editUser;
     }
 
     /**
      * {@inheritDoc}
      */
     public function processPost($request) {
-        // TODO: form validation, etc...
-        // use ZMAdminUser as form data container - that will be a separate instance and contain all passwords
-        // in cleartext (coming from the HTML form)
+        $user = $request->getUser();
+        $editUser = $this->getFormData($request);
+        // assume validation is already done...
+
+        // validate password
+        if (!ZMAuthenticationManager::instance()->validatePassword($editUser->getCurrentPassword(), $user->getPassword())) {
+            ZMMessages::instance()->error(zm_l10n_get('Sorry, the entered password is not valid.'));
+            return $this->findView();
+        }
+        $user->setName($editUser->getName());
+        $user->setEmail($editUser->getEmail());
+        $newPassword = $editUser->getNewPassword();
+        if (!empty($newPassword)) {
+            $user->setPassword(ZMAuthenticationManager::instance()->encryptPassword($newPassword));
+        }
+        ZMAdminUsers::instance()->updateUser($user);
 
         // report success
         ZMMessages::instance()->success(zm_l10n_get('Details updated.'));

@@ -35,16 +35,15 @@
     <?php $resources->jsFile('js/zenmagick.js', ZMViewUtils::FOOTER) ?>
   </head>
   <body>
-    <?php if (ZMMessages::instance()->hasMessages()) { ?>
-        <ul id="messages">
-        <?php foreach (ZMMessages::instance()->getMessages() as $message) { ?>
-            <li class="<?php echo $message->getType() ?>"><?php echo $message->getText() ?></li>
-        <?php } ?>
-        </ul>
-    <?php } ?>
-
     <div id="main">
       <?php echo $this->fetch('menu.php'); ?>
+      <?php if (ZMMessages::instance()->hasMessages()) { ?>
+          <ul id="messages">
+          <?php foreach (ZMMessages::instance()->getMessages() as $message) { ?>
+              <li class="<?php echo $message->getType() ?>"><?php echo $message->getText() ?></li>
+          <?php } ?>
+          </ul>
+      <?php } ?>
       <div id="content">
         <?php echo $this->fetch($viewTemplate); ?>
       </div>
