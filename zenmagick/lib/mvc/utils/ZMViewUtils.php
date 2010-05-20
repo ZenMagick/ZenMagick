@@ -197,7 +197,7 @@ class ZMViewUtils extends ZMObject {
 
         // process
         $contents = array('header' => '', 'footer' => '');
-        // TODO: group CSS before calling this, so CSS can be group minified too
+
         $contents['header'] .= $this->handleResourceGroup($this->resources_['css'], 'css', self::HEADER);
 
         $contents['header'] .= $this->handleResourceGroup($header, 'js', self::HEADER);

@@ -74,15 +74,18 @@ class SavantView extends ZMSavantView {
     /**
      * {@inheritDoc}
      *
-     * <p>In contrast to templates, resources are relative to the theme's base directory.</p>
+     * <p>Same as template path.</p>
      */
     public function getResourcePath($request) {
+        return $this->getTemplatePath($request);
+        /*
         $path = array();
         if (ZMSettings::get('isEnableThemeDefaults')) {
             $path[] = ZMThemes::instance()->getThemeForId(ZMSettings::get('defaultThemeId'))->getBaseDir();
         }
         $path[] = Runtime::getTheme()->getBaseDir();
         return $path;
+        */
     }
 
 }

@@ -87,6 +87,10 @@ Release 0.9.10
 - allow to delegate session user creation to ZMUserFactory implementations
 - minify: add support for new ZMViewUtils methods; this does work in the new
   admin UI too!
+- minify: add code to group css files with matching attributes (and
+  prefix/suffix)
+- revert change in SavantView and make template and resource path the same for
+  storefront
 
 Release 0.9.9
 - in ZMDbTableMapper handle database exception building auto mappings

@@ -66,11 +66,51 @@ class ViewUtils extends ZMViewUtils {
                 // use parent method to do proper resolve and not minify twice!
                 $srcList[] = parent::resolveResource($info['filename']);
             }
-            $plugin = $this->getPlugin();
-            return '<script type="text/javascript" src="'.$plugin->pluginUrl('min/f='.implode(',', $srcList)).'"></script>'."\n";
+            return '<script type="text/javascript" src="'.$this->getPlugin()->pluginUrl('min/f='.implode(',', $srcList)).'"></script>'."\n";
         } else if ('css' == $group) {
-            //TODO: sort css files by attributes and create group lists for each attribute group
-            return parent::handleResourceGroup($files, $group, $location);
+            // group by same attributes/prefix/suffix
+            $attrGroups = array();
+            foreach ($files as $details) {
+                $attr = '';
+                // merge in defaults
+                $details['attr'] = array_merge(array('rel' => 'stylesheet', 'type' => 'text/css', 'prefix' => '', 'suffix' => ''), $details['attr']);
+                foreach ($details['attr'] as $name => $value) {
+                    // sort to make comparable
+                    ksort($details['attr']);
+                    if (null !== $value && !in_array($name, array('prefix', 'suffix'))) {
+                        $attr .= ' '.$name.'="'.$value.'"';
+                    }
+                }
+                // keep already computed attr string
+                $details['attrstr'] = $attr;
+                $attrGroupKey = $attr.$details['attr']['prefix'].$details['attr']['suffix'];
+                if (!array_key_exists($attrGroupKey, $attrGroups)) {
+                    // keep details of first file
+                    $attrGroups[$attrGroupKey] = array('details' => $details, 'files' => array($details['filename']));
+                } else {
+                    // details are the same, so just add filename
+                    $attrGroups[$attrGroupKey]['files'][] = $details['filename'];
+                }
+            }
+            $css = ''; 
+            foreach ($attrGroups as $attrGroup) {
+                $details = $attrGroup['details'];
+                $files = $attrGroup['files'];
+                $srcList = array();
+                foreach ($files as $filename) {
+                    // use parent method to do proper resolve and not minify twice!
+                    if (null != ($resolved = parent::resolveResource($filename)) && !empty($resolved)) {
+                        $srcList[] = $resolved;
+                    }
+                }
+                if (0 < count($srcList)) {
+                    $slash = ZMSettings::get('zenmagick.mvc.html.xhtml') ? '/' : '';
+                    $css .= $details['attr']['prefix'];
+                    $css .= '<link'.$details['attrstr'].' href="'.$this->getPlugin()->pluginUrl('min/f='.implode(',', $srcList)).'"'.$slash.'>';
+                    $css .= $details['attr']['suffix']."\n";
+                }
+            }
+            return $css;
         }
 
         return null;
