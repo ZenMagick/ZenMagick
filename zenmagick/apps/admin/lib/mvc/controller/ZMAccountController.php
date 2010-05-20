@@ -19,10 +19,46 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
- *
- * $Id: zmCacheAdmin.php 2647 2009-11-27 00:30:20Z dermanomann $
  */
 ?>
-<h1>Account</h1>
+<?php
 
-<?php var_dump($account) ?>
+
+/**
+ * Admin controller for account page.
+ *
+ * @author DerManoMann
+ * @package org.zenmagick.store.mvc.controller
+ * @version $Id$
+ */
+class ZMAccountController extends ZMController {
+
+    /**
+     * Create new instance.
+     */
+    function __construct() {
+        parent::__construct();
+    }
+
+    /**
+     * Destruct instance.
+     */
+    function __destruct() {
+        parent::__destruct();
+    }
+
+
+    /**
+     * {@inheritDoc}
+     */
+    public function processGet($request) {
+        $accountId = $request->getParameter('accountId');
+        if (null == ($account = ZMAccounts::instance()->getAccountForId($accountId))) {
+            ZMMessages::instance()->error(zm_l10n_get('Account for account id %s not found', $accountId));
+            return $this->findView(null, array('accountId' => $accountId));
+        }
+
+        return $this->findView(null, array('account' => $account));
+    }
+
+}

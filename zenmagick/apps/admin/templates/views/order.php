@@ -23,6 +23,6 @@
  * $Id: zmCacheAdmin.php 2647 2009-11-27 00:30:20Z dermanomann $
  */
 ?>
-<h1>Account</h1>
+<h1>Order</h1>
 
-<?php var_dump($account) ?>
+<?php var_dump($order) ?>

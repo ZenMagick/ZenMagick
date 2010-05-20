@@ -19,10 +19,47 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
- *
- * $Id: zmCacheAdmin.php 2647 2009-11-27 00:30:20Z dermanomann $
  */
 ?>
-<h1>Account</h1>
+<?php
 
-<?php var_dump($account) ?>
+
+/**
+ * Admin controller for order page.
+ *
+ * @author DerManoMann
+ * @package org.zenmagick.store.mvc.controller
+ * @version $Id$
+ */
+class ZMOrderController extends ZMController {
+
+    /**
+     * Create new instance.
+     */
+    function __construct() {
+        parent::__construct();
+    }
+
+    /**
+     * Destruct instance.
+     */
+    function __destruct() {
+        parent::__destruct();
+    }
+
+
+    /**
+     * {@inheritDoc}
+     */
+    public function processGet($request) {
+        $orderId = $request->getParameter('orderId');
+        // TODO: language
+        if (null == ($order = ZMOrders::instance()->getOrderForId($orderId, 1))) {
+            ZMMessages::instance()->error(zm_l10n_get('Order for orderId id %s not found', $orderId));
+            return $this->findView(null, array('orderId' => $orderId));
+        }
+
+        return $this->findView(null, array('order' => $order));
+    }
+
+}

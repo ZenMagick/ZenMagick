@@ -32,17 +32,14 @@
  * @version $Id$
  */
 class ZMOrder extends ZMObject {
-    var $accountId_;
+    private $accountId_;
     private $orderStatusId_;
-    var $orderDate_;
-    var $totalValue_;
+    private $orderDate_;
+    private $totalValue_;
     private $account_;
     private $shippingAddress_;
     private $billingAddress_;
-    var $total_;
-
-    // ref to zen order
-    var $zenOrder_;
+    private $total_;
 
 
     /**
@@ -54,7 +51,6 @@ class ZMOrder extends ZMObject {
         $this->account_ = null;
         $this->shippingAddress_ = null;
         $this->billingAddress_ = null;
-        $this->zenOrder_ = null;
     }
 
     /**

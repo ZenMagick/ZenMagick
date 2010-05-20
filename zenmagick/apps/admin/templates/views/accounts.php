@@ -20,7 +20,40 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  *
- * $Id: zmCacheAdmin.php 2647 2009-11-27 00:30:20Z dermanomann $
+ * $Id$
  */
 ?>
-<h1>Accounts</h1>
+<h1><?php zm_l10n("Accounts") ?></h1>
+
+<table>
+  <tr>
+    <th><?php zm_l10n('ID') ?></th>
+    <th><?php zm_l10n('Name') ?></th>
+    <th><?php zm_l10n('Created') ?></th>
+    <th><?php zm_l10n('Authorization') ?></th>
+  </tr>
+  <?php foreach ($resultList->getResults() as $account) { ?>
+    <tr>
+      <td><?php echo $account->getId() ?></td>
+      <?php $name = $account->getType() == ZMAccount::REGISTERED ? $account->getFullName() : zm_l10n_get('** Guest **'); ?>
+      <td><a href="<?php echo $admin2->url('account', 'accountId='.$account->getId()) ?>"><?php echo $name ?></a></td>
+      <td><?php echo $account->getAccountCreateDate() ?></td>
+      <td><?php echo ($account->getAuthorization() ? zm_l10n_get('Pending') : zm_l10n_get('Approved')) ?></td>
+    </tr>
+  <?php } ?>
+</table>
+<?php if (1 < $resultList->getNumberOfPages()) { ?>
+    <div class="rnav">
+        <span class="pno"><?php zm_l10n("Page %s/%s", $resultList->getPageNumber(), $resultList->getNumberOfPages()) ?></span>
+        <?php if ($resultList->hasPreviousPage()) { ?>
+            <a href="<?php echo $net->resultListBack($resultList, null, array('orderStatusId')) ?>"><?php zm_l10n("Previous") ?></a>&nbsp;
+        <?php } else { ?>
+            <span class="nin"><?php zm_l10n("Previous") ?></span>&nbsp;
+        <?php } ?>
+        <?php if ($resultList->hasNextPage()) { ?>
+            <a href="<?php echo $net->resultListNext($resultList, null, array('orderStatusId')) ?>"><?php zm_l10n("Next") ?></a>
+        <?php } else { ?>
+            <span class="nin"><?php zm_l10n("Next") ?></span>
+        <?php } ?>
+    </div>
+<?php } ?>
