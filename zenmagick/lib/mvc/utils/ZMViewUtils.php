@@ -120,7 +120,7 @@ class ZMViewUtils extends ZMObject {
     /**
      * Resolve resource path.
      *
-     * <p>This default implementation does nothing but return the result of: <code>$view->asUrl($request, $filename);</code>.</p>
+     * <p>This default implementation does nothing but return the result of: <code>$view->asUrl($request, $filename, ZMView::RESOURCE);</code>.</p>
      *
      * @param string filename The (relative) path to the resource.
      * @param ZMView view The current view.
