@@ -96,6 +96,7 @@ Release 0.9.10
 - add ZMScaffoldController base class that can be used as base class for new
   ajax controller (and eventually for proper scaffolding)
 - change javascript var name for validation rules; changes validation.js
+- add initial locale service
 
 Release 0.9.9
 - in ZMDbTableMapper handle database exception building auto mappings
