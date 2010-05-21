@@ -78,4 +78,15 @@ class ZMAjaxUtils {
         return $props;
     }
 
+    /**
+     * Get an Ajax response object for the configured Ajax format (unless overwritten).
+     *
+     * @param string format Optional format; default is <code>null</code> to use the configured ajax format.
+     * @return ZMAjaxResponse A <code>ZMAjaxResponse</code> instance.
+     */
+    public static function getAjaxResponse($format=null) {
+        $format = null != $format ? $format : ZMSettings::get('zenmagick.mvc.ajax.format');
+        return ZMLoader::make('AjaxResponse'.$format);
+    }
+
 }

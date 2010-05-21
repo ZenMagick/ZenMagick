@@ -91,6 +91,8 @@ Release 0.9.10
   prefix/suffix)
 - revert change in SavantView and make template and resource path the same for
   storefront
+- add ZMAjaxResponse interface and JSON implementation
+- start using new ZMAjaxResponse code
 
 Release 0.9.9
 - in ZMDbTableMapper handle database exception building auto mappings

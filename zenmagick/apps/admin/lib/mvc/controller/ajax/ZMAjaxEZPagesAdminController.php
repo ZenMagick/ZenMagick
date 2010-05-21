@@ -39,7 +39,7 @@ class ZMAjaxEZPagesAdminController extends ZMAjaxController {
      * Create new instance.
      */
     function __construct() {
-        parent::__construct('ajaxEZPages');
+        parent::__construct();
         $this->response_ = array();
     }
 
@@ -116,6 +116,5 @@ class ZMAjaxEZPagesAdminController extends ZMAjaxController {
         ZMEZPages::instance()->updatePage($ezPage);
         return true;
     }
-
 
 }

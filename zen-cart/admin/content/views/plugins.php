@@ -110,6 +110,7 @@
             url: "<?php echo $net->ajax('plugin_admin', 'setPluginStatus') ?>",
             data: 'pluginId='+pluginId+'&status='+('on' == currentStatus ? 'false' : 'true'),
             success: function(msg) { 
+                // this just means the call was sucessful, not that the update worked!
                 var selector = '#'+link.id+' img';
                 $('#'+link.id+' img').attr('src', 'on' == currentStatus ? statusImgOff : statusImgOn);
                 link.className = 'plugin-status-'+('on' == currentStatus ? 'off' : 'on');

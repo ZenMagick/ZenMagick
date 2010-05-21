@@ -75,7 +75,6 @@ class ZMRequest extends ZMObject {
         $this->userFactory_ = null;
     }
 
-
     /**
      * Destruct instance.
      */

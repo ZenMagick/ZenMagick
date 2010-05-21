@@ -32,55 +32,6 @@
  * @version $Id$
  */
 class ZMAjaxPluginAdminController extends ZMAjaxController {
-    private $response_;
-
-
-    /**
-     * Create new instance.
-     */
-    function __construct() {
-        parent::__construct('ajaxAdmin');
-        $this->response_ = array();
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
-
-
-    /**
-     * Report.
-     *
-     * @param string msg The message.
-     * @param string type The message type.
-     */
-    protected function report($msg, $type) {
-        if (!array_key_exists($type, $this->response_)) {
-            $response_[$type] = array();
-        }
-        $this->response_[$type][] = $msg;
-    }
-
-    /**
-     * Enable/disable the given plugin.
-     *
-     * @param string pluginId The plugin id.
-     * @param boolean status The new status.
-     * @return boolean <code>true</code> if the status was set, <code>false</code> for any error.
-     */
-    protected function updatePluginStatus($pluginId, $status) {
-        $plugin = ZMPlugins::instance()->initPluginForId($pluginId, false);
-        if (null == $plugin) {
-            $this->report('Invalid plugin id', 'error');
-            $this->response_['pluginId'] = $pluginId;
-            return false;
-        }
-        $plugin->setEnabled($status);
-        return true;
-    }
 
     /**
      * Install plugin.
@@ -90,29 +41,31 @@ class ZMAjaxPluginAdminController extends ZMAjaxController {
      *  <li>pluginId - The id of the plugin to enable.</li>
      * </ul>
      */
-    public function installPluginJSON($request) {
+    public function installPlugin($request) {
         $pluginId = $request->getParameter('pluginId');
+
+        $response = ZMAjaxUtils::getAjaxResponse();
+        $response->set('pluginId', $pluginId);
 
         if (null != ($plugin = ZMPlugins::instance()->initPluginForId($pluginId, false))) {
             if (!$plugin->isInstalled()) {
                 $plugin->install();
                 foreach ($plugin->getMessages() as $msg) {
-                    $this->report($msg, 'info');
+                    $response->addMessage($msg, 'info');
                 }
-                $this->report('Plugin installed', 'success');
-                $this->response_['pluginId'] = $pluginId;
+                $response->setStatus(true);
+                $response->addMessage('Plugin installed', 'success');
             } else {
-                $this->report('Plugin already installed', 'error');
-                $this->response_['pluginId'] = $pluginId;
+                $response->setStatus(false);
+                $response->addMessage('Plugin already installed', 'error');
             }
         } else {
-            $this->report('Invalid plugin id: '.$pluginId, 'error');
-            $this->response_['pluginId'] = $pluginId;
+            $response->setStatus(false);
+            $response->addMessage('Invalid plugin id', 'error');
         }
 
-        $flatObj = ZMAjaxUtils::flattenObject($this->response_);
-        $json = $this->toJSON($flatObj);
-        $this->setJSONHeader($json);
+        $response->createResponse($this);
+        return $response->getStatus();
     }
 
     /**
@@ -123,33 +76,37 @@ class ZMAjaxPluginAdminController extends ZMAjaxController {
      *  <li>pluginId - The id of the plugin to enable.</li>
      * </ul>
      */
-    public function removePluginJSON($request) {
+    public function removePlugin($request) {
         $pluginId = $request->getParameter('pluginId');
+
+        $response = ZMAjaxUtils::getAjaxResponse();
+        $response->set('pluginId', $pluginId);
 
         if (null != ($plugin = ZMPlugins::instance()->initPluginForId($remove, true)) && $plugin->isInstalled()) {
             $plugin->remove();
-            ZMMessages::instance()->addAll($plugin->getMessages());
+            foreach ($plugin->getMessages() as $msg) {
+                $response->addMessage($msg, 'info');
+            }
         }
         if (null != ($plugin = ZMPlugins::instance()->initPluginForId($pluginId, false))) {
             if ($plugin->isInstalled()) {
                 $plugin->remove();
+                $response->setStatus(true);
                 foreach ($plugin->getMessages() as $msg) {
-                    $this->report($msg, 'info');
+                    $response->addMessage($msg, 'info');
                 }
-                $this->report('Plugin removed', 'success');
-                $this->response_['pluginId'] = $pluginId;
+                $response->addMessage('Plugin removed', 'success');
             } else {
-                $this->report('Plugin not installed', 'error');
-                $this->response_['pluginId'] = $pluginId;
+                $response->setStatus(false);
+                $response->addMessage('Plugin not installed', 'error');
             }
         } else {
-            $this->report('Invalid plugin id: '.$pluginId, 'error');
-            $this->response_['pluginId'] = $pluginId;
+            $response->setStatus(false);
+            $response->addMessage('Invalid plugin id: '.$pluginId, 'error');
         }
 
-        $flatObj = ZMAjaxUtils::flattenObject($this->response_);
-        $json = $this->toJSON($flatObj);
-        $this->setJSONHeader($json);
+        $response->createResponse($this);
+        return $response->getStatus();
     }
 
     /**
@@ -161,18 +118,24 @@ class ZMAjaxPluginAdminController extends ZMAjaxController {
      *  <li>status - The new status as boolean.</li>
      * </ul>
      */
-    public function setPluginStatusJSON($request) {
+    public function setPluginStatus($request) {
         $pluginId = $request->getParameter('pluginId');
         $status = ZMLangUtils::asBoolean($request->getParameter('status'));
 
-        if ($this->updatePluginStatus($pluginId, $status)) {
-            $this->report('Status updated', 'success');
-            $this->response_['pluginId'] = $pluginId;
+        $response = ZMAjaxUtils::getAjaxResponse();
+        $response->set('pluginId', $pluginId);
+
+        if (null == ($plugin = ZMPlugins::instance()->initPluginForId($pluginId, false))) {
+            $response->setStatus(false);
+            $response->addMessage('Invalid plugin id', 'error');
+        } else {
+            $response->setStatus(true);
+            $plugin->setEnabled($status);
+            $response->addMessage('Status updated', 'success');
         }
 
-        $flatObj = ZMAjaxUtils::flattenObject($this->response_);
-        $json = $this->toJSON($flatObj);
-        $this->setJSONHeader($json);
+        $response->createResponse($this);
+        return $response->getStatus();
     }
 
 }
