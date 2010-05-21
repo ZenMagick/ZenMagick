@@ -3,7 +3,7 @@
 #
 # $Id$
 #
-#
+
 null:
   error:
     template: error

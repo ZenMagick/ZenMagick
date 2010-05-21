@@ -20,6 +20,10 @@
   };
 </script>
 
+<pre>
+<?php print_r(ZMRuntime::yamlLoad(file_get_contents(ZMFileUtils::mkPath(array(ZMRuntime::getApplicationPath(), 'config', 'validation.yaml'))))) ?>
+</pre>
+
 <form action="<?php echo $request->url() ?>" id="mynameForm" onsubmit="return validation.validate(this);" method="POST">
   <p>Tell me your name?</p>
   <p>

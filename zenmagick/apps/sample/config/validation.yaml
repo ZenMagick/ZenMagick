@@ -1,0 +1,13 @@
+#
+# Form validation rules
+#
+# $Id$
+#
+
+mynameForm:
+  myname:
+    RequiredRule:
+      - Please enter your name.
+    MinRule:
+      - 5
+      - Your name contain a minimum of %2$s characters.
