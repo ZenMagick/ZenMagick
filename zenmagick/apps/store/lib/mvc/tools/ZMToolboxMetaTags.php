@@ -80,8 +80,8 @@ class ZMToolboxMetaTags extends ZMToolboxTool {
         $title = str_replace('Popup ', '', $title);
 
         // lookup localized page title
-        $page = $this->getRequest()->getRequestId();
-        $pageTitleKey = ZMSettings::get('metaTitlePrefix').$page;
+        $requestId = $this->getRequest()->getRequestId();
+        $pageTitleKey = ZMSettings::get('metaTitlePrefix').$requestId;
         if (null != _zm_l10n_lookup($pageTitleKey, null)) {
             $title = zm_l10n_get($pageTitleKey);
         }
@@ -89,10 +89,9 @@ class ZMToolboxMetaTags extends ZMToolboxTool {
         // special handling for categories, manufacturers
         $controller = $this->getRequest()->getController();
         $view = $controller->getView();
-        $name = $this->getRequest()->getRequestId();
-        if ('index' == $name) {
+        if ('index' == $requestId) {
             $title = ZMSettings::get('storeName');
-        } else if (ZMLangUtils::startsWith($name, 'product_')) {
+        } else if (ZMLangUtils::startsWith($requestId, 'product_')) {
             if (null != $this->product_) {
                 $languageId = $this->getRequest()->getSession()->getLanguageId();
                 if (null != ($details =  $this->product_->getMetaTagDetails($languageId)) && !ZMLangUtils::isEmpty($details->getTitle())) {
@@ -104,18 +103,20 @@ class ZMToolboxMetaTags extends ZMToolboxTool {
             } else {
                 $title = $this->productName_;
             }
-        } else if ('manufacturer' == $name) {
+        } else if ('manufacturer' == $requestId) {
             $title = $this->category_;
-        } else if ('category' == $name || 'category_list' == $name) {
+        } else if ('category' == $requestId || 'category_list' == $requestId) {
             if (null != ($category = ZMCategories::instance()->getCategoryForId($this->getRequest()->getCategoryId(), $this->getRequest()->getSession()->getLanguageId()))) {
                 $languageId = $this->getRequest()->getSession()->getLanguageId();
                 if (null != ($details = $category->getMetaTagDetails($languageId))) {
                     $title = ZMHtmlUtils::encode($details->getTitle());
+                } else {
+                    $title = $this->category_;
                 }
             } else {
                 $title = $this->category_;
             }
-        } else if ('page' == $name) {
+        } else if ('page' == $requestId) {
             $vars = $controller->getView()->getVars();
             $ezpage = $vars['ezPage'];
             if (null != $ezpage) {
@@ -123,7 +124,7 @@ class ZMToolboxMetaTags extends ZMToolboxTool {
             }
         }
 
-        if (ZMSettings::get('isStoreNameInTitle') && 'index' != $page) {
+        if (ZMSettings::get('isStoreNameInTitle') && 'index' != $requestId) {
             if (0 < strlen($title)) $title .= ZMSettings::get('metaTitleDelimiter');
             $title .= ZMSettings::get('storeName');
         }
