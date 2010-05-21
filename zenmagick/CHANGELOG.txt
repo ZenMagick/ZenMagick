@@ -93,6 +93,8 @@ Release 0.9.10
   storefront
 - add ZMAjaxResponse interface and JSON implementation
 - start using new ZMAjaxResponse code
+- add ZMScaffoldController base class that can be used as base class for new
+  ajax controller (and eventually for proper scaffolding)
 
 Release 0.9.9
 - in ZMDbTableMapper handle database exception building auto mappings
