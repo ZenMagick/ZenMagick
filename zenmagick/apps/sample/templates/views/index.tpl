@@ -10,7 +10,7 @@
 
 <!-- manually set up form validation -->
 <script type="text/javascript">
-  var mynameForm_validation_rules = new Array(
+  var zm_mynameForm_validation_rules = new Array(
     new Array('required','myname','Please enter a name.')
   );
   // change messages
