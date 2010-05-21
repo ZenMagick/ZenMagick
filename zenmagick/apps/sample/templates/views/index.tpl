@@ -7,7 +7,13 @@
     <?php } ?>
     </ul>
 <?php } ?>
+<?php
 
+function zm_l10n_get($msg) {
+return $msg;
+}
+
+?>
 <!-- manually set up form validation -->
 <script type="text/javascript">
   var zm_mynameForm_validation_rules = new Array(
@@ -20,6 +26,9 @@
   };
 </script>
 
+<?php ZMValidator::instance()->load(file_get_contents(ZMFileUtils::mkPath(array(ZMRuntime::getApplicationPath(), 'config', 'validation.yaml')))); ?>
+<!-- semi automatic -->
+<?php echo ZMValidator::instance()->toJSString('mynameForm'); ?>
 <pre>
 <?php print_r(ZMRuntime::yamlLoad(file_get_contents(ZMFileUtils::mkPath(array(ZMRuntime::getApplicationPath(), 'config', 'validation.yaml'))))) ?>
 </pre>

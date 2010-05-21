@@ -8,6 +8,7 @@ mynameForm:
   myname:
     RequiredRule:
       - Please enter your name.
-    MinRule:
+    MinMaxRule:
       - 5
+      - 0
       - Your name contain a minimum of %2$s characters.
