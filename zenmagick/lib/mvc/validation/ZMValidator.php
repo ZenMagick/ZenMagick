@@ -226,8 +226,8 @@ class ZMValidator extends ZMObject {
 
         $n = "\n";
         $js = '';
-        $js .= '<script type="text/javascript">'.$n;
-        $js .= '  var ' . $id . '_rules = new Array('.$n;
+        $js .= '<script>'.$n;
+        $js .= '  var zm_' . $id . '_validation_rules = new Array('.$n;
         $first = true;
         foreach ($set->getRules() as $rule) {
             if (null == $rule) {

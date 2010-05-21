@@ -199,7 +199,7 @@ var validation = {
 
         var msg = this.messages['errors'];
         var isValid = true;
-        var rules = eval(form.getAttribute('id')+"_validation_rules");
+        var rules = eval("zm_"+form.getAttribute('id')+"_validation_rules");
         for (var ii=0; ii<rules.length; ++ii) {
             var rule = rules[ii];
             switch (rule[0]) {

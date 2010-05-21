@@ -73,7 +73,7 @@ function validate(form) {
 if (_zm_submitted) { alert('<?php zm_l10n("This form has already been submitted. Please press Ok and wait for this process to complete.") ?>'); return false; }
 var msg = '<?php zm_l10n("Errors have occurred during the processing of your form.\\n\\nPlease make the following corrections:\\n\\n") ?>';
 var isValid = true;
-var rules = eval(form.getAttribute('id')+"_rules");
+var rules = eval("zm_"+form.getAttribute('id')+"_validation_rules");
 for (var ii=0; ii<rules.length; ++ii) { var rule = rules[ii];
 switch (rule[0]) {
 case 'required': var relems = rule[1].split(','); var isEmpty = true;
