@@ -22,7 +22,16 @@ var validation = {
     // l10n strings
     messages: {
         'alreadySubmitted': 'This form has already been submitted. Please press Ok and wait for this process to complete.',
-        'errors': "Errors have occurred during the processing of your form.\\n\\nPlease make the following corrections:\\n\\n"
+        'errors': "Errors have occurred during the processing of your form.\n\nPlease make the following corrections:\n\n"
+    },
+
+    /**
+     * Confirmation dialog.
+     *
+     * @param string msg The message.
+     */
+    confirm: function(msg) {
+        alert(msg);
     },
 
     /**
@@ -33,7 +42,7 @@ var validation = {
      * @param int year The year.
      * @return boolean <code>true</code> if the date appears valid.
      */
-    isValidDate: function (day, month, year) {
+    isValidDate: function(day, month, year) {
         if (month < 1 || month > 12) { return false; }
         if (day < 1 || day > 31) { return false; }
         if ((month == 4 || month == 6 || month == 9 || month == 11) && (day == 31)) { return false; }
@@ -51,7 +60,7 @@ var validation = {
      * @param string format The expected date format.
      * @return array An array containing day, month and year.
      */
-    parseDate: function (s, format) {
+    parseDate: function(s, format) {
         var dd = '??'; var mm = '??'; var cc = '??'; var yy = '??';
         format = format.toUpperCase();
         var dpos = format.indexOf('DD');
@@ -184,13 +193,13 @@ var validation = {
      */
     validate: function(form) {
         if (this.submitted) {
-            alert(this.messages['alreadySubmitted']);
+            this.confirm(this.messages['alreadySubmitted']);
             return false;
         }
 
         var msg = this.messages['errors'];
         var isValid = true;
-        var rules = eval(form.getAttribute('id')+"_rules");
+        var rules = eval(form.getAttribute('id')+"_validation_rules");
         for (var ii=0; ii<rules.length; ++ii) {
             var rule = rules[ii];
             switch (rule[0]) {
@@ -198,7 +207,7 @@ var validation = {
                     var relems = rule[1].split(',');
                     var isEmpty = true;
                     for (var jj=0; jj<relems.length; ++jj) {
-                        if (isNotEmpty(form.elements[relems[jj]])) {
+                        if (this.isNotEmpty(form.elements[relems[jj]])) {
                             isEmpty = false;
                             break;
                         }
@@ -209,43 +218,43 @@ var validation = {
                     }
                     break;
                 case 'min':
-                    if (!isMinLength(form.elements[rule[1]], rule[3])) {
+                    if (!this.isMinLength(form.elements[rule[1]], rule[3])) {
                         isValid = false;
                         msg += '* ' + rule[2] + '\n';
                     }
                     break;
                 case 'max':
-                    if (!isMaxLength(form.elements[rule[1]], rule[3])) {
+                    if (!this.isMaxLength(form.elements[rule[1]], rule[3])) {
                         isValid = false;
                         msg += '* ' + rule[2] + '\n';
                     }
                     break;
                 case 'regexp':
-                    if (!isRegexp(form.elements[rule[1]], rule[3])) {
+                    if (!this.isRegexp(form.elements[rule[1]], rule[3])) {
                         isValid = false;
                         msg += '* ' + rule[2] + '\n';
                     }
                     break;
                 case 'fieldMatch':
-                    if (!isFieldMatch(form.elements[rule[1]], form.elements[rule[3]])) {
+                    if (!this.isFieldMatch(form.elements[rule[1]], form.elements[rule[3]])) {
                         isValid = false;
                         msg += '* ' + rule[2] + '\n';
                     }
                     break;
                 case 'list':
-                    if (!inArray(form.elements[rule[1]], rule[3])) {
+                    if (!this.inArray(form.elements[rule[1]], rule[3])) {
                         isValid = false;
                         msg += '* ' + rule[2] + '\n';
                     }
                     break;
                 case 'date':
-                    if (!isDate(form.elements[rule[1]], rule[3])) {
+                    if (!this.isDate(form.elements[rule[1]], rule[3])) {
                         isValid = false;
                         msg += '* ' + rule[2] + '\n';
                     }
                     break;
                 default:
-                    alert('unknown validation rule: ' + rule[0]);
+                    //alert('unknown validation rule: ' + rule[0]);
                     break;
             }
         }
@@ -253,7 +262,7 @@ var validation = {
         if (isValid) {
             this.submitted = true;
         } else {
-            alert(msg);
+            this.confirm(msg);
         }
 
         return isValid;

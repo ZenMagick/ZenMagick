@@ -8,7 +8,19 @@
     </ul>
 <?php } ?>
 
-<form action="<?php echo $request->url() ?>" method="POST">
+<!-- manually set up form validation -->
+<script type="text/javascript">
+  var mynameForm_validation_rules = new Array(
+    new Array('required','myname','Please enter a name.')
+  );
+  // change messages
+  validation.messages = {
+    'alreadySubmitted': 'Please be patient!',
+    'errors': "Oops, why such a hurry?\n\n"
+  };
+</script>
+
+<form action="<?php echo $request->url() ?>" id="mynameForm" onsubmit="return validation.validate(this);" method="POST">
   <p>Tell me your name?</p>
   <p>
     <input type="text" name="myname" value="">
