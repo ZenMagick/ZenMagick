@@ -54,6 +54,7 @@ class ZMAjaxPluginAdminController extends ZMScaffoldController {
                     $response->addMessage($msg, 'info');
                 }
                 $response->setStatus(true);
+                $response->set('hasOptions', $plugin->hasOptions());
                 $response->addMessage('Plugin installed', 'success');
             } else {
                 $response->setStatus(false);

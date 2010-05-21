@@ -376,4 +376,13 @@ class Plugin extends ZMPlugin {
         return ZMHtmlUtils::encode(Runtime::getPluginPathPrefix() . $type . '/' . $this->getId() . '/' . $uri);
     }
 
+    /**
+     * Check if this plugin has options configurable via the default plugin options dialog.
+     *
+     * @return boolean <code>true</code> if options are available.
+     */
+    public function hasOptions() {
+        return 2 < count($this->getConfigValues());
+    }
+
 }

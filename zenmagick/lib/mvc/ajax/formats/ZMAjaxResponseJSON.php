@@ -49,7 +49,7 @@ class ZMAjaxResponseJSON extends ZMAbstractAjaxResponse {
      *
      * <p>Create <code>JSON</code> response.</p>
      */
-    public function createResponse($controller) {
+    public function createResponse() {
         $resp = array(
             'status' => $this->status_,
             'messages' => $this->messages_,
@@ -58,7 +58,7 @@ class ZMAjaxResponseJSON extends ZMAbstractAjaxResponse {
         );
 
         $json = json_encode($resp);
-        $controller->setContentType('text/plain');
+        ZMNetUtils::setContentType('text/plain');
         if (ZMSettings::get('zenmagick.mvc.json.header')) { header("X-JSON: ".$json); }
         if (ZMSettings::get('zenmagick.mvc.json.echo')) { echo $json; }
         return $json;

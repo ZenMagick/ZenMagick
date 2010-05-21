@@ -76,9 +76,8 @@ interface ZMAjaxResponse {
     /**
      * Create the response.
      *
-     * @param ZMController controller The controller.
      * @return string The response.
      */
-    public functiong createResponse($controller);
+    public functiong createResponse();
 
 }

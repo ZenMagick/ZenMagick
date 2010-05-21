@@ -74,6 +74,7 @@
         </td>
         <td><?php echo $plugin->getSortOrder() ?></td>
         <td>
+          <?php /** TODO: install/remove via ajax */ ?>
           <?php $msg = ($plugin->isInstalled() ? 'Remove ' : 'Install ').'plugin: '.$plugin->getName(); ?>
           <form action="<?php echo $admin2->url() ?>" method="POST" onsubmit="return zenmagick.confirm('<?php echo $msg ?>', this);">
           <input type="hidden" name="pluginId" value="<?php echo $plugin->getId() ?>">
@@ -87,8 +88,7 @@
             <input type="checkbox" id="<?php echo $cid ?>" name="keepSettings" value="true" checked> <label for="<?php echo $cid ?>"><?php zm_l10n('Keep Settings') ?></label>
             <button type="submit">Uninstall</button>
             <a href="<?php echo $admin2->url(null, 'action=upgrade&pluginId='.$plugin->getId().'&group='.$plugin->getGroup()) ?>#<?php echo $plugin->getId() ?>">Upgrade</a>
-            <?php /** XXX: TODO: allow plugins to override this logic! ->hasOptions() */ ?>
-            <?php if (2 < count($plugin->getConfigValues())) { /* enabled/disabled and sort order are handled by this page */ ?>
+            <?php if ($plugin->hasOptions()) { /* enabled/disabled and sort order are handled by this page */ ?>
             <a href="<?php echo $admin2->url(null, 'action=edit&pluginId='.$plugin->getId().'&group='.$plugin->getGroup()) ?>#<?php echo $plugin->getId() ?>" onclick="zenmagick.ajaxFormDialog(this.href, '<?php zm_l10n('Edit Plugin Options: %s', $plugin->getName()) ?>'); return false;">Edit</a>
           <?php } ?>
           <?php } ?>

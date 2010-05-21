@@ -243,11 +243,7 @@ class ZMController extends ZMObject {
      * @param string charset Optional charset; default is utf-8; <code>null</code> will omit the charset part.
      */
     public function setContentType($type, $charset="utf-8") {
-        $text = "Content-Type: " . $type;
-        if (null != $charset) {
-            $text .= "; charset=" . $charset;
-        }
-        header($text);
+        ZMNetUtils::setContentType($type, $charset);
     }
 
     /**
