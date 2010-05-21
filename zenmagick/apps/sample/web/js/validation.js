@@ -19,6 +19,11 @@
 var validation = {
     // stop duplicate form submits
     submitted: false,
+    // l10n strings
+    messages: {
+        'alreadySubmitted': 'This form has already been submitted. Please press Ok and wait for this process to complete.',
+        'errors': "Errors have occurred during the processing of your form.\\n\\nPlease make the following corrections:\\n\\n"
+    },
 
     /**
      * Check for valid date.
@@ -179,11 +184,11 @@ var validation = {
      */
     validate: function(form) {
         if (this.submitted) {
-            alert('<?php zm_l10n("This form has already been submitted. Please press Ok and wait for this process to complete.") ?>');
+            alert(this.messages['alreadySubmitted']);
             return false;
         }
 
-        var msg = '<?php zm_l10n("Errors have occurred during the processing of your form.\\n\\nPlease make the following corrections:\\n\\n") ?>';
+        var msg = this.messages['errors'];
         var isValid = true;
         var rules = eval(form.getAttribute('id')+"_rules");
         for (var ii=0; ii<rules.length; ++ii) {
