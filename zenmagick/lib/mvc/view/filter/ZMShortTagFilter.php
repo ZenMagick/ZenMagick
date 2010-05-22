@@ -36,7 +36,7 @@ class ZMShortTagFilter {
      * {@inheritDoc}
      */
     public function filter($text) {
-        return str_replace('<%=', '<?php echo ', $text);
+      return str_replace(array('<%=', '<?='), '<?php echo ', $text);
     }
 
 }
