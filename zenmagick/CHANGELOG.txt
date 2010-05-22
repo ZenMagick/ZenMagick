@@ -97,6 +97,9 @@ Release 0.9.10
   ajax controller (and eventually for proper scaffolding)
 - change javascript var name for validation rules; changes validation.js
 - add initial locale service
+- add support for (multiple) filter in ZMSavantView
+- add support for PHP short tags '<%=' with '<?php echo '; disabled per
+  default view definition setting
 
 Release 0.9.9
 - in ZMDbTableMapper handle database exception building auto mappings

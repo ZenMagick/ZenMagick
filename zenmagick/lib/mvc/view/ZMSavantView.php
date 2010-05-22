@@ -37,6 +37,7 @@ class ZMSavantView extends ZMView {
     private $config_;
     private $layout_;
     private $viewDir_;
+    private $filters_;
 
 
     /**
@@ -47,6 +48,7 @@ class ZMSavantView extends ZMView {
         $this->savant_ = null;
         $this->config_ = array();
         $this->layout_ = array();
+        $this->filters_ = null;
         $this->setViewDir('views/');
     }
 
@@ -74,6 +76,43 @@ class ZMSavantView extends ZMView {
      */
     public function setViewDir($viewDir) {
         $this->viewDir_ = $viewDir;
+    }
+
+    /**
+     * Get the configured filters.
+     *
+     * @return string A list of filter classes or <code>null</code>.
+     */
+    public function getFilters() {
+        return $this->filters_;
+    }
+
+    /**
+     * Set the filters.
+     *
+     * @param string filters Comma separated list of filter classes/bean definitions.
+     */
+    public function setFilters($filters) {
+        $this->filters_ = $filters;
+    }
+
+    /**
+     * Get a list of filter instances.
+     *
+     * @return array List of filter objects.
+     */
+    protected function getFilterList() {
+        if (null == $this->filters_) {
+            return array();
+        }
+        $list = array();
+        foreach (explode(',', $this->filters_) as $class) {
+            if (null != ($filter = ZMBeanUtils::getBean(trim($class)))) {
+                $list[] = array($filter, 'filter');
+            }
+        }
+
+        return $list;
     }
 
     /**
@@ -134,6 +173,10 @@ class ZMSavantView extends ZMView {
             $config['resource_path'] = $this->getResourcePath($request);
             $config = array_merge($config, $this->config_);
             $this->savant_ = ZMLoader::make('Savant', $config);
+            // config doesn't support multiple filter
+            foreach ($this->getFilterList() as $filter) {
+                $this->savant_->addFilters($filter);
+            }
         }
 
         return $this->savant_;

@@ -1,5 +1,6 @@
 zenmagick.mvc.request.seoRewriter: StoreDefaultSeoRewriter
 zenmagick.mvc.request.idName: main_page
 zenmagick.mvc.view.default: SavantView
+#zenmagick.mvc.view.default: SavantView#filters=ShortTagFilter
 
 zenmagick.mvc.toolbox.tools: net:ToolboxNet,html:ToolboxHtml,form:ToolboxForm,macro:ToolboxMacro,locale:ToolboxLocale,utils:ToolboxUtils,crumbtrail:ToolboxCrumbtrail,metaTags:ToolboxMetaTags
