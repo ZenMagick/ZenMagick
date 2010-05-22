@@ -32,7 +32,8 @@
 
     <div class="rlist">
         <table cellspacing="0" cellpadding="0"><tbody>
-            <?php $first = true; $odd = true; foreach ($resultList->getResults() as $product) { $this->assign(array('product' => $product)); ?>
+            <?php $first = true; $odd = true; foreach ($resultList->getResults() as $product) {
+                $this->assign(array('product' => $product, 'first' => $first, 'odd' => $odd)); ?>
               <?php echo $this->fetch('views/resultlist/product.php') ?>
             <?php $first = false; $odd = !$odd; } ?>
         </tbody></table>
