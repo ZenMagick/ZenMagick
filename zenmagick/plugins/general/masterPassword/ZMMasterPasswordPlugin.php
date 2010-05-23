@@ -64,4 +64,11 @@ class ZMMasterPasswordPlugin extends Plugin {
         ZMAuthenticationManager::instance()->addProvider('ZMMasterPasswordAuthentication');
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    public function hasOptions() {
+        // only do separate dialog
+        return false;
+    }
 }
