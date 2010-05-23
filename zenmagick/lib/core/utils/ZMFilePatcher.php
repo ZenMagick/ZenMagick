@@ -26,7 +26,6 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.core.utils
- * @version $Id$
  */
 class ZMFilePatcher extends ZMObject {
     private $filename;

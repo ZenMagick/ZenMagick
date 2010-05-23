@@ -31,7 +31,6 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.mvc.services.misc
- * @version $Id$
  */
 class ZMMessage extends ZMObject {
     private $text_;

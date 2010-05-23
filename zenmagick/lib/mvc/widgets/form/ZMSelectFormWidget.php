@@ -26,7 +26,6 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.mvc.widgets.form
- * @version $Id$
  */
 class ZMSelectFormWidget extends ZMFormWidget {
     private $options_;

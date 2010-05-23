@@ -29,7 +29,6 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.core.services.database
- * @version $Id$
  */
 interface ZMSQLAware {
 

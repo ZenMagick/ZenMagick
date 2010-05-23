@@ -26,7 +26,6 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.core.services.authentication
- * @version $Id$
  */
 interface ZMAuthentication {
 

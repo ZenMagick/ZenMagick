@@ -28,7 +28,6 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.mvc.widgets.form
- * @version $Id$
  */
 abstract class ZMFormWidget extends ZMWidget {
     private static $NO_VAL_ATTR = array('multiple');

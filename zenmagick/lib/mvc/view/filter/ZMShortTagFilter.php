@@ -28,7 +28,6 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.mvc.view.filter
- * @version $Id$
  */
 class ZMShortTagFilter {
 

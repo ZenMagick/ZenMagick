@@ -29,7 +29,6 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.core
- * @version $Id$
  */
 interface ZMLibraryPacker {
 

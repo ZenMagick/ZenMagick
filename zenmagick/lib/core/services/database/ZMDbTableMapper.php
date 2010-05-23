@@ -62,7 +62,6 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.core.services.database
- * @version $Id$
  */
 class ZMDbTableMapper extends ZMObject {
     /** Mapping of native data types to API types. */

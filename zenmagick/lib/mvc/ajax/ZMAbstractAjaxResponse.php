@@ -25,7 +25,6 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.mvc.ajax
- * @version $Id$
  */
 abstract class ZMAbstractAjaxResponse extends ZMObject {
     protected $messages_;

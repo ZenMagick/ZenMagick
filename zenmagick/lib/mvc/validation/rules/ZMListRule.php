@@ -28,7 +28,6 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.mvc.validation.rules
- * @version $Id$
  */
 class ZMListRule extends ZMRule {
     private $values_;

@@ -34,7 +34,6 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.mvc
- * @version $Id$
  */
 class ZMUrlManager extends ZMObject {
     private static $MAPPING_KEYS = array('controller', 'formId' , 'form' , 'view', 'template', 'layout');

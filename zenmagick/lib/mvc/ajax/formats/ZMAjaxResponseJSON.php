@@ -25,7 +25,6 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.mvc.ajax.formats
- * @version $Id$
  */
 class ZMAjaxResponseJSON extends ZMAbstractAjaxResponse {
 

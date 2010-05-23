@@ -28,7 +28,6 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.core.services.cache
- * @version $Id$
  */
 interface ZMCache {
     /** Cache type <em>persistent</em>. */

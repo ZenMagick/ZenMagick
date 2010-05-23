@@ -45,7 +45,6 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.mvc.view
- * @version $Id: ZMSavant.php 2902 2010-02-16 07:51:36Z dermanomann $
  */
 class ZMSavant extends Savant3 {
 

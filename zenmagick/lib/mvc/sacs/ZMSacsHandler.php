@@ -32,7 +32,6 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.mvc
- * @version $Id$
  */
 interface ZMSacsHandler {
 

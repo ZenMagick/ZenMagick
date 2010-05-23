@@ -51,7 +51,6 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.core
- * @version $Id$
  */
 class ZMLoader {
     const CLASS_PREFIX = 'ZM';

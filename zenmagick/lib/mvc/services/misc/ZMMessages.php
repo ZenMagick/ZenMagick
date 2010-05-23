@@ -36,7 +36,6 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.mvc.services.misc
- * @version $Id: ZMMessages.php 2902 2010-02-16 07:51:36Z dermanomann $
  */
 class ZMMessages extends ZMObject {
     /** Catch all (global) message reference type. */

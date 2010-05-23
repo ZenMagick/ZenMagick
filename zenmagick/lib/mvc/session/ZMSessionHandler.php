@@ -26,7 +26,6 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.mvc.session
- * @version $Id$
  */
 interface ZMSessionHandler {
     /**

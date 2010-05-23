@@ -26,7 +26,6 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.core
- * @version $Id$
  */
 class ZMSettings {
     private static $settings_ = array();

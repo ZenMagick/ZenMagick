@@ -30,7 +30,6 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.mvc.view
- * @version $Id$
  */
 class ZMSavantView extends ZMView {
     private $savant_;

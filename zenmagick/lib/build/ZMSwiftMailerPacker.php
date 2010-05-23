@@ -32,7 +32,6 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.core
- * @version $Id$
  */
 class ZMSwiftMailerPacker extends ZMPhpPackagePacker implements ZMLibraryPacker {
 

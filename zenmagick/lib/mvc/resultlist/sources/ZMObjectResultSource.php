@@ -26,7 +26,6 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.mvc.resultlist.sources
- * @version $Id$
  */
 class ZMObjectResultSource extends ZMObject implements ZMResultSource {
     private $resultList_;

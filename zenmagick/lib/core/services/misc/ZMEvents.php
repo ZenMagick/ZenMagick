@@ -29,7 +29,6 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.core.services.misc
- * @version $Id$
  */
 class ZMEvents extends ZMObject {
     /** Fired after the inital code load is done. */

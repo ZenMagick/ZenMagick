@@ -29,7 +29,6 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.store.view
- * @version $Id$
  */
 class ZMRedirectView extends ZMView {
     protected $secure_;

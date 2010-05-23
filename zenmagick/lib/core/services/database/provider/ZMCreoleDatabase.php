@@ -27,7 +27,6 @@
  * @see http://creole.phpdb.org/trac/
  * @author DerManoMann
  * @package org.zenmagick.core.services.database.provider
- * @version $Id$
  */
 class ZMCreoleDatabase extends ZMObject implements ZMDatabase {
     private $conn_;

@@ -26,7 +26,6 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.mvc.view
- * @version $Id$
  */
 class ZMFunctionView extends ZMView {
 

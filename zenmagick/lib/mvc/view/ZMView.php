@@ -26,7 +26,6 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.mvc.view
- * @version $Id$
  */
 abstract class ZMView extends ZMObject {
     const TEMPLATE = 'template';
@@ -101,10 +100,12 @@ abstract class ZMView extends ZMObject {
      *
      * <p>This is optional and it is up to the specific subclass to implement as appropriate.</p>
      *
+     * @param ZMRequest request The current request.
      * @return boolean <code>true</code> if the view is valid.
      */
-    public function isValid() {
-        return true;
+    public function isValid($request) {
+        $filename = $this->getTemplate().ZMSettings::get('zenmagick.mvc.templates.ext', '.php');
+        return $this->exists($request, $filename);
     }
 
     /**

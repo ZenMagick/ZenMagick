@@ -40,7 +40,6 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.mvc.ajax
- * @version $Id$
  */
 interface ZMAjaxResponse {
 

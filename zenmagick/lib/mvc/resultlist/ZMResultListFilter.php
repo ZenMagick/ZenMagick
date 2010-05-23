@@ -26,7 +26,6 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.mvc.resultlist
- * @version $Id$
  */
 class ZMResultListFilter extends ZMObject {
     protected $list_;

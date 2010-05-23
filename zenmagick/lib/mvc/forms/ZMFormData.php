@@ -32,7 +32,6 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.mvc.forms
- * @version $Id$
  */
 class ZMFormData extends ZMObject {
     protected $fields_;

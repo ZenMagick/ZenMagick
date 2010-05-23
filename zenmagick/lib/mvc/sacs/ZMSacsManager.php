@@ -43,7 +43,6 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.mvc
- * @version $Id$
  */
 class ZMSacsManager extends ZMObject {
     private $mappings_;

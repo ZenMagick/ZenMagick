@@ -26,7 +26,6 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.core.services.locale
- * @version $Id$
  */
 class ZMEchoLocale implements ZMLocale {
 

@@ -28,7 +28,6 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.mvc.resultlist
- * @version $Id$
  */
 class ZMResultListSorter extends ZMObject {
     protected $id_;

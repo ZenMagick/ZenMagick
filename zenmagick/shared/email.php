@@ -54,11 +54,12 @@
         $textView = ZMLoader::make("EmailView", $template, false);
 
         $formats = 'none';
-        if ($htmlView->isValid() && $textView->isValid()) {
+        $request = ZMRequest::instance();
+        if ($htmlView->isValid($request) && $textView->isValid($request)) {
             $formats = 'both';
-        } else if ($htmlView->isValid()) {
+        } else if ($htmlView->isValid($request)) {
             $formats = 'html';
-        } else if ($textView->isValid()) {
+        } else if ($textView->isValid($request)) {
             $formats = 'text';
         }
 

@@ -28,7 +28,6 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.core
- * @version $Id$
  */
 class ZMRuntime extends ZMObject {
     private static $databaseMap_ = array();

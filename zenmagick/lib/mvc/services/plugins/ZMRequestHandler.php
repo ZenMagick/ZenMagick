@@ -28,7 +28,6 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.mvc.services.plugins
- * @version $Id$
  */
 interface ZMRequestHandler {
 

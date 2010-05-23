@@ -26,7 +26,6 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.mvc.validation.rules
- * @version $Id$
  */
 class ZMEmailRule extends ZMRule {
 

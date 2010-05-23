@@ -26,7 +26,6 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.mvc.toolbox
- * @version $Id$
  */
 class ZMToolboxTool extends ZMObject {
     protected $request_;

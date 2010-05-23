@@ -28,7 +28,6 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.mvc.controller
- * @version $Id$
  */
 class ZMScaffoldController extends ZMController {
 

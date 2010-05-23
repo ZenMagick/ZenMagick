@@ -26,7 +26,6 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.mvc.validation
- * @version $Id$
  */
 class ZMRuleSet extends ZMObject {
     private $id_;

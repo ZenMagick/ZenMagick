@@ -25,7 +25,6 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.core.utils
- * @version $Id$
  */
 class ZMFileUtils {
     private static $fileOwner_ = null;

@@ -26,7 +26,6 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.mvc.seo
- * @version $Id$
  */
 interface ZMSeoRewriter {
 

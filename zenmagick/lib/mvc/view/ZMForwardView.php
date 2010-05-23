@@ -28,7 +28,6 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.mvc.view
- * @version $Id$
  */
 class ZMForwardView extends ZMView {
     private $requestId_;
@@ -101,7 +100,7 @@ class ZMForwardView extends ZMView {
     /**
      * {@inheritDoc}
      */
-    public function isValid() {
+    public function isValid($request) {
         return !ZMlangUtils::isEmpty($this->getTemplate());
     }
 

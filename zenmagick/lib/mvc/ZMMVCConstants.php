@@ -26,7 +26,6 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.mvc
- * @version $Id$
  */
 interface ZMMVCConstants {
     /** Fired before a redirect. */

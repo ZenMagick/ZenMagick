@@ -54,7 +54,6 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.core.services.misc
- * @version $Id$
  */
 class ZMMailer extends ZMObject {
 

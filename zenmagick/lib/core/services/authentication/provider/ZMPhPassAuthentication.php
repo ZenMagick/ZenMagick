@@ -28,7 +28,6 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.core.services.authentication.provider
- * @version $Id$
  */
 class ZMPhPassAuthentication implements ZMAuthentication {
     private $passwordHash_;

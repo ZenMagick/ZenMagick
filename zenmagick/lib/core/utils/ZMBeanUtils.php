@@ -41,7 +41,6 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.core.utils
- * @version $Id$
  */
 class ZMBeanUtils extends ZMObject {
     private static $GETTER_PREFIX_LIST = array('get', 'is', 'has');

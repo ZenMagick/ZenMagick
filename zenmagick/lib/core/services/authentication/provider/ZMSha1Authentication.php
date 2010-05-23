@@ -26,7 +26,6 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.core.services.authentication.provider
- * @version $Id$
  */
 class ZMSha1Authentication implements ZMAuthentication {
     /** Number of characters taken from the given salt to encrypt the password. */

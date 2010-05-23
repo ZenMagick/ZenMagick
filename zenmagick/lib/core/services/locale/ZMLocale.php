@@ -26,7 +26,6 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.core.services.locale
- * @version $Id$
  */
 interface ZMLocale {
     const DEFAULT_DOMAIN = 'defaults';

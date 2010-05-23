@@ -35,7 +35,6 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.mvc.widgets
- * @version $Id$
  */
 abstract class ZMWidget extends ZMObject {
     private $title_;

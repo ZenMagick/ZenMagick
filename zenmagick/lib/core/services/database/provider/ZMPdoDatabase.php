@@ -29,7 +29,6 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.core.services.database.provider
- * @version $Id$
  */
 class ZMPdoDatabase extends ZMObject implements ZMDatabase {
     private $pdo_;

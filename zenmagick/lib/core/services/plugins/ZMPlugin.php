@@ -53,7 +53,6 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.core.services.plugins
- * @version $Id: ZMPlugin.php 2902 2010-02-16 07:51:36Z dermanomann $
  */
 abstract class ZMPlugin extends ZMObject {
     /** Do not load any plugin files (except, of course, the plugin itself). */

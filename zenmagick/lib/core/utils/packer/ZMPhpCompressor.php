@@ -50,7 +50,6 @@ if (!defined('T_ML_COMMENT')) {
  *
  * @author DerManoMann
  * @package org.zenmagick.core.utils.packer
- * @version $Id$
  */
 class ZMPhpCompressor {
     protected $rootFolders_;

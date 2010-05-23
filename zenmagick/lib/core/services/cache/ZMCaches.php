@@ -33,7 +33,6 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.core.services.cache
- * @version $Id$
  */
 class ZMCaches extends ZMObject {
     private static $DEFAULT_TYPES = array(ZMCache::PERSISTENT => 'file', ZMCache::TRANSIENT => 'memory');

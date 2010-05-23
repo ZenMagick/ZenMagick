@@ -28,7 +28,6 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.core.services.database
- * @version $Id$
  */
 class ZMQueryPager extends ZMObject {
     private $queryDetails_;

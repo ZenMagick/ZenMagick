@@ -32,7 +32,6 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.core
- * @version $Id$
  */
 class ZMObject {
     private static $singletons_ = array();

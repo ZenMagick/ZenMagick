@@ -25,7 +25,6 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.mvc
- * @version $Id$
  */
 class ZMSavant3Packer extends ZMPhpPackagePacker implements ZMLibraryPacker {
 

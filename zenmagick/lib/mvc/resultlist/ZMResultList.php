@@ -33,7 +33,6 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.mvc.resultlist
- * @version $Id$
  */
 class ZMResultList extends ZMObject {
     protected $resultSource_;

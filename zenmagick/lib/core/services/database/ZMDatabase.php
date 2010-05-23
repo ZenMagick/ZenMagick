@@ -54,7 +54,6 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.core.services.database
- * @version $Id$
  */
 interface ZMDatabase {
     /** If used as modelClass parameter, the raw SQL data will be returned (no mapping, etc). */

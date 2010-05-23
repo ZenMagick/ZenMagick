@@ -29,7 +29,6 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.mvc.resultlist.options
- * @version $Id$
  */
 class ZMSortOption extends ZMObject {
     private $name_;

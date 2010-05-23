@@ -31,7 +31,6 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.core.services.locale
- * @version $Id$
  */
 class ZMLocales extends ZMObject implements ZMLocale {
     private $locale_;
