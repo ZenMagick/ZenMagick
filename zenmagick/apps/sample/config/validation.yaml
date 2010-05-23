@@ -11,4 +11,4 @@ mynameForm:
     MinMaxRule:
       - 5
       - 0
-      - Your name contain a minimum of %2$s characters.
+      - Your name must contain a minimum of %2$s characters.
