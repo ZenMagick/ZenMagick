@@ -7,31 +7,18 @@
     <?php } ?>
     </ul>
 <?php } ?>
-<?php
 
-function zm_l10n_get($msg) {
-return $msg;
-}
-
-?>
 <!-- manually set up form validation -->
 <script type="text/javascript">
-  var zm_mynameForm_validation_rules = new Array(
-    new Array('required','myname','Please enter a name.')
-  );
   // change messages
   validation.messages = {
     'alreadySubmitted': 'Please be patient!',
-    'errors': "Oops, why such a hurry?\n\n"
+    'errors': "Oopsey, why such a hurry?\n\n"
   };
 </script>
 
-<?php ZMValidator::instance()->load(file_get_contents(ZMFileUtils::mkPath(array(ZMRuntime::getApplicationPath(), 'config', 'validation.yaml')))); ?>
 <!-- semi automatic -->
 <?php echo ZMValidator::instance()->toJSString('mynameForm'); ?>
-<pre>
-<?php print_r(ZMRuntime::yamlLoad(file_get_contents(ZMFileUtils::mkPath(array(ZMRuntime::getApplicationPath(), 'config', 'validation.yaml'))))) ?>
-</pre>
 
 <form action="<?php echo $request->url() ?>" id="mynameForm" onsubmit="return validation.validate(this);" method="POST">
   <p>Tell me your name?</p>
@@ -43,8 +30,7 @@ return $msg;
 <?php if (isset($name)) { ?>
   <p>Your name is: <?php echo $name ?>.</p>
 <?php } ?>
-<p>Context is: <?php echo $request->getContext() ?></p>
-
+<p>Context is: '<?php echo $request->getContext() ?>'</p>
 
 <p><a href="<?php echo $request->url(null, 'clear=true', true) ?>">Clear session</a></p>
 <p><a href="<?php echo $request->url('about') ?>">About</a></p>

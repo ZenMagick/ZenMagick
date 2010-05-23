@@ -103,6 +103,7 @@ Release 0.9.10
 - add ZMFileLocale - a locale provider using the ZenMagick zm_l10n_get
   function
 - update core/mvc to using _zm
+- introduce and load config/validation.yaml
 
 Release 0.9.9
 - in ZMDbTableMapper handle database exception building auto mappings

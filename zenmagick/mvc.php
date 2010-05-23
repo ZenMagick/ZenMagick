@@ -27,10 +27,14 @@
 
     // mvc mappings
     ZMUrlManager::instance()->load(file_get_contents(ZMFileUtils::mkPath(array(ZMRuntime::getApplicationPath(), 'config', 'url_mappings.yaml'))), false);
+    // sacs mappings
     ZMSacsManager::instance()->load(file_get_contents(ZMFileUtils::mkPath(array(ZMRuntime::getApplicationPath(), 'config', 'sacs_mappings.yaml'))), false);
 
     // make sure we use the appropriate protocol (HTTPS, for example) if required
     ZMSacsManager::instance()->ensureAccessMethod($_zm_request);
+
+    // form validation
+    ZMValidator::instance()->load(file_get_contents(ZMFileUtils::mkPath(array(ZMRuntime::getApplicationPath(), 'config', 'validation.yaml'))));
 
     // reset as other global code migth fiddle with it...
     $request = $_zm_request;
