@@ -37,9 +37,18 @@
  *   <ul>
  *    <li>zenmagick.core.email.smtp.host</li>
  *    <li>zenmagick.core.email.smtp.port</li>
- *    <li>zenmagick.core.email.smtp.user</li>
- *    <li>zenmagick.core.email.smtp.password</li>
+ *    <li>zenmagick.core.email.smtp.user (optional)</li>
+ *    <li>zenmagick.core.email.smtp.password (optional)</li>
  *   </ul>
+ *  </dd>
+ *  <dt>PHP</dt>
+ *  <dd>
+ *   <p>Use PHP's mail interface.</p>
+ *  </dd>
+ *  <dt>sendmail</dt>
+ *  <dd>
+ *   <p>Use sendmail. The default sendmail path (and parameters) is <code>/usr/sbin/sendmail -bs</code>. If this needs to be changed you may set
+ *    <em>'zenmagick.core.email.sendmail'</em> to whatever the path is.</p>
  *  </dd>
  * </dl>
  *
@@ -86,16 +95,14 @@ class ZMMailer extends ZMObject {
               ->setUsername(ZMSettings::get('zenmagick.core.email.smtp.user', ''))
               ->setPassword(ZMSettings::get('zenmagick.core.email.smtp.password', ''))
               ;
+        } else if ('PHP' == $transport) {
+            $transport = Swift_MailTransport::newInstance();
+        } else if ('sendmail' == $transport) {
+            $transport = Swift_SendmailTransport::newInstance(ZMSettings::get('zenmagick.core.email.sendmail', '/usr/sbin/sendmail -bs'));
         } else {
             ZMLogging::instance()->log('invalid transport: '.$transport, ZMLogging::ERROR);
             throw new ZMException('invalid transport: '.$transport);
         }
-        /* TODO:
-        //Sendmail
-        $transport = Swift_SendmailTransport::newInstance('/usr/sbin/sendmail -bs');
-        //Mail
-        $transport = Swift_MailTransport::newInstance();
-        */
 
         return $transport;
     }
