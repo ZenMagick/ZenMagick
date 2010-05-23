@@ -46,6 +46,14 @@ class ZMAdminMenu extends ZMObject {
 
 
     /**
+     * Get instance.
+     */
+    public static function instance() {
+        return ZMObject::singleton('AdminMenu');
+    }
+
+
+    /**
      * Add a admin menu item.
      *
      * @param ZMAdminMenuItem item The new item.

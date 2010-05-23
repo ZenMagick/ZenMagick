@@ -385,4 +385,17 @@ class Plugin extends ZMPlugin {
         return 2 < count($this->getConfigValues());
     }
 
+    /**
+     * Get admin menu.
+     *
+     * @return ZMAdminMenu An admin menu instance or <code>null</code> if not available.
+     */
+    public function getAdminMenu() {
+        if (ZMSettings::get('isAdmin')) {
+            return ZMAdminMenu::instance();
+        }
+
+        return null;
+    }
+
 }

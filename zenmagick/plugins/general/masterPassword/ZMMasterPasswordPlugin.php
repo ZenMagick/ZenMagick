@@ -71,4 +71,5 @@ class ZMMasterPasswordPlugin extends Plugin {
         // only do separate dialog
         return false;
     }
+
 }
