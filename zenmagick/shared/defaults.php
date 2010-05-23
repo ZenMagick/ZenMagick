@@ -165,6 +165,9 @@
             // configure locale (used to be init plugin)
             'configureLocale' => false,
 
+            // use zm_10n and zm_l10n_get
+            'zenmagick.core.locale.provider' => 'FileLocale',
+
             // default to default in ZM themes
             'isEnableThemeDefaults' => true,
 

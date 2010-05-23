@@ -106,7 +106,7 @@ class ZMBooleanFormWidget extends ZMFormWidget {
         echo '<input type="hidden" name="'.$this->getCheckboxHiddenValueName($name).'" value="'.($value ? 'true' : 'false').'"'.$slash.'>';
         echo '<input type="checkbox" id="'.$idBase.'" name="'.$name.'" value="true"'.($value ? $checked : '').$slash.'>';
         if (!ZMLangUtils::isEmpty($label)) {
-            echo ' <label for="'.$idBase.'">'.ZMHtmlUtils::encode(zm_l10n_get($label)).'</label>';
+            echo ' <label for="'.$idBase.'">'.ZMHtmlUtils::encode(_zm($label)).'</label>';
         }
         return ob_get_clean();
     }
@@ -130,9 +130,9 @@ class ZMBooleanFormWidget extends ZMFormWidget {
 
         ob_start();
         echo '<input type="radio" id="'.$idBase.'_true" name="'.$name.'" value="true"'.($value ? $checked : '').$slash.'>';
-        echo ' <label for="'.$idBase.'_true">'.ZMHtmlUtils::encode(zm_l10n_get($this->get('label_true'))).'</label>';
+        echo ' <label for="'.$idBase.'_true">'.ZMHtmlUtils::encode(_zm($this->get('label_true'))).'</label>';
         echo '<input type="radio" id="'.$idBase.'_false" name="'.$name.'" value="false"'.(!$value ? $checked : '').$slash.'>';
-        echo ' <label for="'.$idBase.'_false">'.ZMHtmlUtils::encode(zm_l10n_get($this->get('label_false'))).'</label>';
+        echo ' <label for="'.$idBase.'_false">'.ZMHtmlUtils::encode(_zm($this->get('label_false'))).'</label>';
         return ob_get_clean();
     }
 
@@ -151,8 +151,8 @@ class ZMBooleanFormWidget extends ZMFormWidget {
 
         ob_start();
         echo '<select '.(!empty($id) ? ' id="'.$id.'"' : '').' name="'.$name.'">';
-        echo '  <option value="true"'.(!$value ? $selected : '').'>'.ZMHtmlUtils::encode(zm_l10n_get($this->get('label_true'))).'</option>';
-        echo '  <option value="false"'.(!$value ? $selected : '').'>'.ZMHtmlUtils::encode(zm_l10n_get($this->get('label_false'))).'</option>';
+        echo '  <option value="true"'.(!$value ? $selected : '').'>'.ZMHtmlUtils::encode(_zm($this->get('label_true'))).'</option>';
+        echo '  <option value="false"'.(!$value ? $selected : '').'>'.ZMHtmlUtils::encode(_zm($this->get('label_false'))).'</option>';
         echo '</select>';
         return ob_get_clean();
     }

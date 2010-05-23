@@ -151,7 +151,7 @@ abstract class ZMRule extends ZMObject {
      * @return string Localized error message.
      */
     public function getErrorMsg() {
-        return null != $this->msg_ ? $this->msg_ : zm_l10n_get($this->defaultMsg_, ucwords(str_replace('_', ' ', $this->name_)));
+        return null != $this->msg_ ? _zm($this->msg_) : sprintf(_zm($this->defaultMsg_), ucwords(str_replace('_', ' ', $this->name_)));
     }
 
 }

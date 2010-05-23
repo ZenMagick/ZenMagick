@@ -111,7 +111,7 @@ class ZMMinMaxRule extends ZMRule {
      * @return string Localized error message.
      */
     public function getErrorMsg() {
-        return zm_l10n_get((null != $this->getMsg() ? $this->getMsg() : $this->getDefaultMsg()), $this->getName(), $this->min_, $this->max_);
+        return sprintf(_zm((null != $this->getMsg() ? $this->getMsg() : $this->getDefaultMsg())), $this->getName(), $this->min_, $this->max_);
     }
 
 
