@@ -105,6 +105,9 @@ Release 0.9.10
 - update core/mvc to using _zm
 - introduce and load config/validation.yaml
 - add sendmail/PHP options to ZMMailer
+- add generic ZMEmails service that wraps some things around creating email
+  content via a view
+- changed the theme folder containing email templates from email to emails
 
 Release 0.9.9
 - in ZMDbTableMapper handle database exception building auto mappings
