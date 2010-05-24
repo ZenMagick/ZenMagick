@@ -136,6 +136,15 @@ class ZMObject {
     }
 
     /**
+     * Get all custom properties.
+     *
+     * @return array Map of properties.
+     */
+    public function getProperties() {
+        return $this->properties_;
+    }
+
+    /**
      * Attach a dynamic method to objects.
      *
      * <p>Target functions/methods have the following signature: <code>($ref, ...)</code>. <code>$ref</code> is

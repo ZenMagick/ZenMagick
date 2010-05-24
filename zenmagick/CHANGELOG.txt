@@ -108,6 +108,7 @@ Release 0.9.10
 - add generic ZMEmails service that wraps some things around creating email
   content via a view
 - changed the theme folder containing email templates from email to emails
+- add ZMObject::getProperties() method
 
 Release 0.9.9
 - in ZMDbTableMapper handle database exception building auto mappings
