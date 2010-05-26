@@ -6,11 +6,14 @@ admin/
 bmz_cache/
 cache/
 docs/
+download/
 editors/
 email/
 extras/
 images/
 includes/
+media/
+pub/
 releases/
 tmp/
 zc_install/
@@ -21,7 +24,10 @@ ipn_main_handler.php
 license.txt
 local.properties
 local.xml
+mcs_learn_more.html
 nddbc.html
 nochex_apc_handler.php
 page_not_found.php
 readme.txt
+robots_example.txt
+vbv_learn_more.html
