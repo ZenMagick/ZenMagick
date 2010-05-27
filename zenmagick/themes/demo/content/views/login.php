@@ -24,6 +24,37 @@
  */
 ?>
 
+<?php $utils->jsNow('jquery.js') ?>
+<?php $utils->jsNow('jquery.form.js') ?>
+<?php $utils->jsNow('json2.js') ?>
+
+<div id="msgbox" style="height:1.8em;border:1px solid gray;margin:5px 0 12px;padding:3px;color:red"></div>
+
+<script>
+    var msgboxElem = document.getElementById('msgbox');
+
+    function ajax_login(id) {
+        var queryString = $('#'+id).formSerialize(); 
+
+        msgboxElem.innerHTML = "Logging in... ";
+
+        $.ajax({
+            type: "POST",
+            url: "<?php echo $net->url('login', '', true) ?>",
+            data: queryString,
+            success: function(msg) {
+                var info =JSON.parse(msg);
+                msgboxElem.innerHTML += "got response ... ";
+                msgboxElem.innerHTML += ('success' == info) ? 'success' : 'failed';
+                msgboxElem.innerHTML += " - done!";
+            },
+            error: function(msg) { 
+                msgboxElem.innerHTML += "failed!";
+            }
+        });
+    }
+</script>
+
 <?php echo $form->open(FILENAME_LOGIN, "action=process", true, array('id' => 'login', 'method' => 'post', 'onsubmit' => 'return validate(this);')) ?>
   <fieldset>
     <legend><?php zm_l10n("Login") ?></legend>
@@ -39,6 +70,7 @@
     </div>
   </fieldset>
   <div class="btn"><input type="submit" class="btn" value="<?php zm_l10n("Submit") ?>" /></div>
+  <div class="btn"><a href="#" onclick="ajax_login('login'); return false;"><?php echo _zm("Login via Ajax") ?></a></div>
 </form>
 
 <p>

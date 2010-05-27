@@ -29,6 +29,7 @@
  */
 class ZMController extends ZMObject {
     private $requestId_;
+    private $isAjax_;
     private $view_;
     private $formData_;
 
@@ -65,6 +66,7 @@ class ZMController extends ZMObject {
     public function process($request) { 
         // ensure a usable id is set
         $this->requestId_ = null != $this->requestId_ ? $this->requestId_ : $request->getRequestId();
+        $this->isAjax_ = $this->isAjax($request);
 
         // check authorization
         ZMSacsManager::instance()->authorize($request, $request->getRequestId(), $request->getUser());
@@ -153,7 +155,7 @@ class ZMController extends ZMObject {
             ZMRuntime::getDatabase()->commit();
         }
 
-        if ($this->isAjax($request)) {
+        if ($this->isAjax_) {
             $view->setLayout('');
             $view->setContentType('text/plain');
         }
@@ -254,6 +256,9 @@ class ZMController extends ZMObject {
      * @return ZMView The actual view to be used to render the response.
      */
     public function findView($id=null, $data=array(), $parameter=null) {
+        if ($this->isAjax_) {
+            $id = 'ajax_'.$id;
+        }
         $view = ZMUrlManager::instance()->findView($this->requestId_, $id, $parameter);
 
         // ensure secure option is set if required

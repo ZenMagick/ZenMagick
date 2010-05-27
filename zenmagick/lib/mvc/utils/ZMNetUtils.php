@@ -36,12 +36,12 @@ class ZMNetUtils {
      */
     public static function getAllHeaders() {
         $retarr = array();
-        $headers = array();
+        $raw = array();
 
         if (function_exists('getallheaders')) {
-            $headers = getallheaders();
+            $raw = getallheaders();
         } else {
-            $headers = array();
+            $raw = array();
             foreach (array_merge($_ENV, $_SERVER) as $key => $value) {
                 //we need this header
                 if (false !== strpos(strtolower($key), 'content-type')) {
@@ -49,10 +49,17 @@ class ZMNetUtils {
                 }
                 if ('HTTP_' == strtoupper(substr($key, 0, 5)) || false !== strpos(strtolower($key), 'content-type')) {
                     $key = preg_replace('/^HTTP_/i', '', $key);
-                    $key = str_replace(' ', '-', ucwords(strtolower(str_replace(array('-', '_'), ' ', $key))));
-                    $headers[$key] = $value;
+                    $key = str_replace(' ', '-', strtolower(str_replace(array('-', '_'), ' ', $key)));
+                    $raw[$key] = $value;
                 }
             }
+        }
+
+        $headers = array();
+        foreach ($raw as $key => $value) {
+            // normalize keys
+            $key = str_replace(' ', '-', ucwords(strtolower(str_replace('-', ' ', $key))));
+            $headers[$key] = $value;
         }
 
         ksort($headers);

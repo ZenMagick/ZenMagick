@@ -109,6 +109,10 @@ Release 0.9.10
   content via a view
 - changed the theme folder containing email templates from email to emails
 - add ZMObject::getProperties() method
+- add additional logic that prepends viewIds with 'ajax_' if the request is
+  assumed to be initiated by ajax (by looking at the X-Requested-With'
+	header')
+- add demo code to demo theme to show how to use Ajax to login
 
 Release 0.9.9
 - in ZMDbTableMapper handle database exception building auto mappings

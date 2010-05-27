@@ -86,7 +86,7 @@ class ZMPluginAdminController extends ZMController {
      * {@inheritDoc}
      */
     public function processGet($request) {
-        return ZMLoader::make('SimplePluginFormView', $this->getPlugin(), $this->getId());
+        return ZMLoader::make('SimplePluginFormView', $this->getPlugin(), $request->getParameter('fkt'));
     }
 
     /**

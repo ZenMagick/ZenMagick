@@ -18,5 +18,9 @@ urls:
   ## no layout for shopping cart
   shopping_cart:
     shopping_cart:
-#      layout: bean::null
+      layout:
+  ## for ajax login success
+  login:
+    ajax_success: 
+      template: ajax/login_success
 

@@ -153,7 +153,8 @@ EOT;
      * {@inheritDoc}
      */
     public function exists($request, $template, $type=ZMView::TEMPLATE) {
-        throw new ZMException('not supported');
+        // always exists
+        return true;
     }
 
     /**
