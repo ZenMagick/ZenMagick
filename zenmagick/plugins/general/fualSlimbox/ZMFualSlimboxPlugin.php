@@ -78,7 +78,7 @@ class ZMFualSlimboxPlugin extends Plugin {
      */
     public function onZMFinaliseContents($args) {
         $contents = $args['contents'];
-        if (false === strpos($contents, 'lightbox')) {
+        if (false !== strpos($contents, 'lightbox')) {
             return null;
         }
 
@@ -88,33 +88,33 @@ class ZMFualSlimboxPlugin extends Plugin {
             $fualSO = new FualSlimboxOptions();
             ob_start();
             // create manually as different folder structure
-        echo '<link rel="stylesheet" type="text/css" media="screen,projection" href="'.$view->asUrl('slimbox/stylesheet_slimbox_ex.css', false).'" />' . "\n";
-        echo '<script type="text/javascript" src="'.$view->asUrl('slimbox/javascript/mootools-release-1.11.slim.js', false).'"></script>' . "\n";
-            ?>
-        <script type="text/javascript">
-          var FualSlimboxOptions = new Class({
-            initialize: function() {
-              this.transitionType = new Fx.Transition(<?php $fualSO->fual_get_transition() ?>, <?php $fualSO->fual_get_amplitude(); ?>);
-              this.resizeFps = <?php $fualSO->fual_get_fps(); ?>;
-              this.resizeDuration = <?php $fualSO->fual_get_duration(); ?>;
-              this.resizeTransition = this.transitionType.<?php $fualSO->fual_get_ease(); ?>;
-              this.initialWidth = <?php $fualSO->fual_get_width(); ?>;
-              this.initialHeight = <?php $fualSO->fual_get_height(); ?>;
-              this.animateCaption = <?php $fualSO->fual_get_caption(); ?>;
-              this.defaultIframeWidth = <?php $fualSO->fual_get_iwidth(); ?>;
-              this.defaultIframeHeight = <?php $fualSO->fual_get_iheight(); ?>;
-              this.elHide = <?php $fualSO->fual_get_elhide(); ?>;
-              this.displayVar = <?php $fualSO->fual_get_displayvar(); ?>;
-              this.pageOf = <?php $fualSO->fual_get_pageof(); ?>;
+            echo '<link rel="stylesheet" type="text/css" media="screen,projection" href="'.$view->asUrl($request, 'slimbox/stylesheet_slimbox_ex.css').'" />' . "\n";
+            echo '<script type="text/javascript" src="'.$view->asUrl($request, 'slimbox/javascript/mootools-release-1.11.slim.js').'"></script>' . "\n";
+?>
+            <script type="text/javascript">
+              var FualSlimboxOptions = new Class({
+                initialize: function() {
+                  this.transitionType = new Fx.Transition(<?php $fualSO->fual_get_transition() ?>, <?php $fualSO->fual_get_amplitude(); ?>);
+                  this.resizeFps = <?php $fualSO->fual_get_fps(); ?>;
+                  this.resizeDuration = <?php $fualSO->fual_get_duration(); ?>;
+                  this.resizeTransition = this.transitionType.<?php $fualSO->fual_get_ease(); ?>;
+                  this.initialWidth = <?php $fualSO->fual_get_width(); ?>;
+                  this.initialHeight = <?php $fualSO->fual_get_height(); ?>;
+                  this.animateCaption = <?php $fualSO->fual_get_caption(); ?>;
+                  this.defaultIframeWidth = <?php $fualSO->fual_get_iwidth(); ?>;
+                  this.defaultIframeHeight = <?php $fualSO->fual_get_iheight(); ?>;
+                  this.elHide = <?php $fualSO->fual_get_elhide(); ?>;
+                  this.displayVar = <?php $fualSO->fual_get_displayvar(); ?>;
+                  this.pageOf = <?php $fualSO->fual_get_pageof(); ?>;
+                }
+              });
+            </script>
+<?php
+            echo '<script type="text/javascript" src="'.$view->asUrl($request, 'slimbox/javascript/slimbox_ex.compressed.js').'"></script>' . "\n";
+            if (FUAL_SLIMBOX_NERVOUS != 0) {
+                    echo '<script type="text/javascript">var fualNervous = '.FUAL_SLIMBOX_NERVOUS.';</script>';
+                echo '<script type="text/javascript" src="'.$view->asUrl($request, 'slimbox/javascript/fual_slimbox.compressed.js').'"></script>' . "\n";
             }
-          });
-        </script>
-            <?php
-        echo '<script type="text/javascript" src="'.$view->asUrl('slimbox/javascript/slimbox_ex.compressed.js', false).'"></script>' . "\n";
-        if (FUAL_SLIMBOX_NERVOUS != 0) {
-                echo '<script type="text/javascript">var fualNervous = '.FUAL_SLIMBOX_NERVOUS.';</script>';
-            echo '<script type="text/javascript" src="'.$view->asUrl('slimbox/javascript/fual_slimbox.compressed.js', false).'"></script>' . "\n";
-        }
 
             $contents = preg_replace('/<\/head>/', ob_get_clean().'</head>', $contents, 1);
             $args['contents'] = $contents;

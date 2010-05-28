@@ -112,9 +112,12 @@ class ZMSavant extends Savant3 {
                 // now convert to URL...
                 $relpath = str_replace('\\', '/', $relpath);
                 $url = $this->request->absoluteURL($relpath);
-                return $this->request->absoluteURL($relpath);
+                ZMLogging::instance()->log('resolve filename '.$filename.' (type='.$type.') as url: '.$url.'; relpath='.$relpath, ZMLogging::TRACE);
+                return $url;
             }
         }
+
+        ZMLogging::instance()->log('can\'t resolve filename '.$filename.' (type='.$type.') '.$filename.' to url', ZMLogging::WARN);
         return '';
     }
 
