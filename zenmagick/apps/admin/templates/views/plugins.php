@@ -35,7 +35,7 @@
         $.ajax({
             type: "POST",
             url: "<?php echo $admin2->ajax('plugin_admin', 'setPluginStatus') ?>",
-            data: 'pluginId='+pluginId+'&status='+('on' == currentStatus ? 'false' : 'true'),
+            data: 'ajax=false&pluginId='+pluginId+'&status='+('on' == currentStatus ? 'false' : 'true'),
             success: function(msg) { 
                 var selector = '#'+link.id+' img';
                 $('#'+link.id+' img').attr('src', 'on' == currentStatus ? statusImgOff : statusImgOn);
@@ -89,7 +89,7 @@
             <button type="submit">Uninstall</button>
             <a href="<?php echo $admin2->url(null, 'action=upgrade&pluginId='.$plugin->getId().'&group='.$plugin->getGroup()) ?>#<?php echo $plugin->getId() ?>">Upgrade</a>
             <?php if ($plugin->hasOptions()) { /* enabled/disabled and sort order are handled by this page */ ?>
-            <a href="<?php echo $admin2->url(null, 'action=edit&pluginId='.$plugin->getId().'&group='.$plugin->getGroup()) ?>#<?php echo $plugin->getId() ?>" onclick="zenmagick.ajaxFormDialog(this.href, '<?php zm_l10n('Edit Plugin Options: %s', $plugin->getName()) ?>'); return false;">Edit</a>
+            <a href="<?php echo $admin2->url(null, 'ajax=false&action=edit&pluginId='.$plugin->getId().'&group='.$plugin->getGroup()) ?>#<?php echo $plugin->getId() ?>" onclick="zenmagick.ajaxFormDialog(this.href, '<?php zm_l10n('Edit Plugin Options: %s', $plugin->getName()) ?>'); return false;">Edit</a>
           <?php } ?>
           <?php } ?>
           </form>

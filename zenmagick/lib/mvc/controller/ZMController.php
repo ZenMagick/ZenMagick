@@ -200,7 +200,8 @@ class ZMController extends ZMObject {
      */
     public function isAjax($request) {
         $headers = ZMNetUtils::getAllHeaders();
-        return array_key_exists('X-Requested-With', $headers) && 'XMLHttpRequest' == $headers['X-Requested-With'];
+        $ajax = ZMLangUtils::asBoolean($request->getParameter('ajax', true));
+        return $ajax && (array_key_exists('X-Requested-With', $headers) && 'XMLHttpRequest' == $headers['X-Requested-With']);
     }
 
     /**
