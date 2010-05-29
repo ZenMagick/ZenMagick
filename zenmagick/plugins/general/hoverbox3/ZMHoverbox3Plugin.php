@@ -78,7 +78,8 @@ class ZMHoverbox3Plugin extends Plugin {
      */
     public function onZMFinaliseContents($args) {
         $contents = $args['contents'];
-        if (false !== strpos($contents, 'hoverbox')) {
+        if (false === strpos($contents, 'hoverbox')) {
+            // no tagged images
             return null;
         }
 

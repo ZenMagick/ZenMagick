@@ -78,7 +78,8 @@ class ZMFualSlimboxPlugin extends Plugin {
      */
     public function onZMFinaliseContents($args) {
         $contents = $args['contents'];
-        if (false !== strpos($contents, 'lightbox')) {
+        if (false === strpos($contents, 'lightbox')) {
+            // no tagged images
             return null;
         }
 
