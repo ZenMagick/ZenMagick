@@ -130,7 +130,7 @@ class ZMProducts extends ZMObject implements ZMSQLAware {
         foreach ($results as $result) {
             $productIds[] = $result['productId'];
         }
-        return $this->getProductsForIds($productIds, false, $languageId);
+        return $this->getProductsForIds($productIds, true, $languageId);
     }
 
     /**
@@ -233,7 +233,7 @@ class ZMProducts extends ZMObject implements ZMSQLAware {
      * @return array A list of <code>ZMProduct</code> instances.
      */
     public function getProductsForCategoryId($categoryId, $active=true, $languageId=null) {
-        return $this->getProductsForIds($this->getProductIdsForCategoryId($categoryId, $active, false, $languageId));
+        return $this->getProductsForIds($this->getProductIdsForCategoryId($categoryId, $active, false, $languageId), true);
     }
 
     /*
@@ -266,7 +266,7 @@ class ZMProducts extends ZMObject implements ZMSQLAware {
         foreach ($results as $result) {
             $productIds[] = $result['productId'];
         }
-        return $this->getProductsForIds($productIds, false, $languageId);
+        return $this->getProductsForIds($productIds, true, $languageId);
     }
 
 
@@ -421,21 +421,21 @@ class ZMProducts extends ZMObject implements ZMSQLAware {
 
         $sql = null;
         if (null !== $categoryId) {
-            $sql = "select distinct p.products_id
-                    from " . TABLE_PRODUCTS . " p, "
+            $sql = "SELECT DISTINCT p.products_id
+                    FROM " . TABLE_PRODUCTS . " p, "
                     . TABLE_PRODUCTS_TO_CATEGORIES . " p2c, " . TABLE_CATEGORIES . " c 
-                    where p.products_status = '1'
-                    and p.products_ordered > 0
-                    and p.products_id = p2c.products_id
-                    and p2c.categories_id = c.categories_id
-                    and :categoryId in (c.categories_id, c.parent_id)
-                    order by p.products_ordered desc";
+                    WHERE p.products_status = '1'
+                      AND p.products_ordered > 0
+                      AND p.products_id = p2c.products_id
+                      AND p2c.categories_id = c.categories_id
+                      AND :categoryId IN (c.categories_id, c.parent_id)
+                    ORDER BY p.products_ordered desc";
         } else {
-            $sql = "select distinct p.products_id, p.products_ordered
-                    from " . TABLE_PRODUCTS . " p
-                    where p.products_status = '1'
-                    and p.products_ordered > 0
-                    order by p.products_ordered desc";
+            $sql = "SELECT DISTINCT p.products_id, p.products_ordered
+                    FROM " . TABLE_PRODUCTS . " p
+                    WHERE p.products_status = '1'
+                      AND p.products_ordered > 0
+                    ORDER BY p.products_ordered desc";
         }
 
         $args =  array('categoryId' => $categoryId);
@@ -444,7 +444,7 @@ class ZMProducts extends ZMObject implements ZMSQLAware {
         if (count($productIds) > $max) {
             $productIds = array_splice($productIds, 0, $max);
         }
-        return $this->getProductsForIds($productIds, false, $languageId);
+        return $this->getProductsForIds($productIds, true, $languageId);
     }
 
     /**
