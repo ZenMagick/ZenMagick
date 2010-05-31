@@ -328,13 +328,7 @@ class Request extends ZMRequest {
      * @return string A base URL for the current request.
      */
     public function getPageBase() {
-        $base = null;
-        if (!$this->isSecure()) { 
-            $base = HTTP_SERVER . DIR_WS_CATALOG;
-        } else {
-            $base = HTTPS_SERVER . DIR_WS_HTTPS_CATALOG;
-        }
-        return $base;
+        return $this->absoluteUrl('', true);
     }
 
     /**
@@ -357,22 +351,6 @@ class Request extends ZMRequest {
      */
     public function isAdmin() {
         return defined('IS_ADMIN_FLAG') && constant('IS_ADMIN_FLAG');
-    }
-
-    /**
-     * Save messages in session before redirect.
-     */
-    public function redirect($url, $status=302) {
-        $session = $this->getSession();
-        $session->setMessages(ZMMessages::instance()->getMessages());
-        parent::redirect($url, $status);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getContext() {
-        return substr($this->isSecure() ? DIR_WS_HTTPS_CATALOG : DIR_WS_CATALOG, 0, -1);
     }
 
     /**
