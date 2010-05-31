@@ -116,20 +116,20 @@ class ZMWordpressRequestHandler extends ZMController {
         $urlToken = parse_url($arg);
         if ($this->plugin_->isPermalinksEnabled()) {
             // make sure we stay on the same server
-            $selfUrlToken = parse_url($request->getPageBase());
+            $selfUrlToken = parse_url($this->request_->getPageBase());
             if ($urlToken['host'] != $selfUrlToken['host']) {
                 $arg =  str_replace($urlToken['host'], $selfUrlToken['host'], $arg);
             }
 
             // fix path
-            $path = Runtime::getContext().$this->plugin_->get('permaPrefix').'/';
+            $path = $this->request_->getContext().$this->plugin_->get('permaPrefix').'/';
             // does url path start with WP installation folder?
             $wpDir = basename($this->plugin_->get('wordpressDir'));
             if (!ZMLangUtils::isEmpty($wpDir) && 0 === strpos($urlToken['path'], '/'.$wpDir.'/')) {
                 return str_replace('/'.$wpDir.'/', $path, $arg);
             } else {
                 //TODO:
-                //$_SERVER['REQUEST_URI'] = str_replace(Runtime::getContext().$this->plugin_->get('permaPrefix').'/', '', $_SERVER['REQUEST_URI']);
+                //$_SERVER['REQUEST_URI'] = str_replace($this->request_->getContext().$this->plugin_->get('permaPrefix').'/', '', $_SERVER['REQUEST_URI']);
             }
         } else {
             return ZMRequest::instance()->url(FILENAME_WP, $urlToken['query']);

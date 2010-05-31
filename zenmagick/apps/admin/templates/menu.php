@@ -46,7 +46,7 @@
 </div>
 <?php if ($request->getUser()) { ?>
   <div style="float:left;">
-    <p><a href="<?php echo DIR_WS_CATALOG ?>" target="_blank">Storefront</a> | <a href="<?php echo DIR_WS_ADMIN ?>index.php">OLD Admin</a></p>
+    <p><a href="<?php echo ZMSettings::get('apps.store.baseUrl') ?>" target="_blank">Storefront</a> | <a href="<?php echo  ZMSettings::get('apps.store.oldAdminUrl') ?>">OLD Admin</a></p>
     <p>
       <a href="<?php echo $admin2->url('index') ?>">Home</a> |
       <a href="<?php echo $admin2->url('installation') ?>">Installation</a> |

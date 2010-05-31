@@ -14,7 +14,7 @@ if (!isset($flag_disable_header) || !$flag_disable_header) {
 <div id="headerWrapper">
 
 <div id="logoWrapper" class="back">
-    <div id="logo"><div id="logoContent" class="unitPng"><?php echo '<a href="' . HTTP_SERVER . DIR_WS_CATALOG . '" title="'.HEADER_ALT_TEXT.'"><span>&nbsp;</span></a>'; ?></div></div>
+    <div id="logo"><div id="logoContent" class="unitPng"><?php echo '<a href="' . $request->getPageBase() . '" title="'.HEADER_ALT_TEXT.'"><span>&nbsp;</span></a>'; ?></div></div>
 </div>
 
 <!--bof header_content_wrapper-->

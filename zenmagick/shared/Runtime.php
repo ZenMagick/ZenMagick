@@ -75,13 +75,6 @@ class Runtime extends ZMRuntime {
     public static function getPluginPathPrefix() { return self::getContext().ZM_ROOT.'plugins/'; }
 
     /**
-     * The application context.
-     *
-     * @return string The application context.
-     */
-    public static function getContext() { return DIR_WS_CATALOG; }
-
-    /**
      * Get the effective theme id.
      *
      * @return string The currently effective theme id.

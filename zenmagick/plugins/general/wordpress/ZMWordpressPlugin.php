@@ -204,7 +204,7 @@ class ZMWordpressPlugin extends Plugin implements ZMRequestHandler {
         $wordpressEnabledPages = $this->get('wordpressEnabledPages');
         if (empty($wordpressEnabledPages) || ZMLangUtils::inArray($request->getRequestId(), $wordpressEnabledPages)) {
             if ($this->isPermalinksEnabled()) {
-                $path = Runtime::getContext().$this->get('permaPrefix');
+                $path = $request->getContext().$this->get('permaPrefix');
                 if (false === strpos($_SERVER['REQUEST_URI'], '?')) {
                     // simulate empty query arg to make WP homepage work
                     $_SERVER['REQUEST_URI'] .= '?';

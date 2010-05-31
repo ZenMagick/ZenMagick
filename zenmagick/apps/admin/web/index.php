@@ -41,4 +41,6 @@
   require '../../../bootstrap.php';
   // more zen-cart config stuff we need
   ZMSettings::set('zenmagick.mvc.request.secure', 'true'==ENABLE_SSL_ADMIN);
+  ZMSettings::set('apps.store.baseUrl', HTTP_CATALOG_SERVER . DIR_WS_CATALOG);
+  ZMSettings::set('apps.store.oldAdminUrl', HTTP_SERVER . DIR_WS_ADMIN.'index.php');
   require '../../../mvc.php';

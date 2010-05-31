@@ -116,6 +116,7 @@ Release 0.9.10
 - allow to override ZMController::isAjax($request) with ajax=false in the
   request
 - remove Runtime::getBaseURL() in favour of ZMRequest::getBaseURL()
+- remove Runtime::getContext() in favour of ZMRequest::getContext()
 
 Release 0.9.9
 - in ZMDbTableMapper handle database exception building auto mappings
