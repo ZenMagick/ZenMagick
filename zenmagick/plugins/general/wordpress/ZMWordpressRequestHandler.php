@@ -30,6 +30,7 @@
  */
 class ZMWordpressRequestHandler extends ZMController {
     private $plugin_;
+    private $request_;
     private $viewName_;
 
 
@@ -37,10 +38,12 @@ class ZMWordpressRequestHandler extends ZMController {
      * Create new instance.
      *
      * @param ZMPlugin plugin The parent plugin reference.
+     * @param ZMRequest request The current request.
      */
-    function __construct($plugin) {
+    function __construct($plugin, $request) {
         parent::__construct();
         $this->plugin_ = $plugin;
+        $this->request_ = $request;
         $this->viewName_ = null;
     }
 
@@ -113,7 +116,7 @@ class ZMWordpressRequestHandler extends ZMController {
         $urlToken = parse_url($arg);
         if ($this->plugin_->isPermalinksEnabled()) {
             // make sure we stay on the same server
-            $selfUrlToken = parse_url(Runtime::getBaseURL());
+            $selfUrlToken = parse_url($request->getPageBase());
             if ($urlToken['host'] != $selfUrlToken['host']) {
                 $arg =  str_replace($urlToken['host'], $selfUrlToken['host'], $arg);
             }

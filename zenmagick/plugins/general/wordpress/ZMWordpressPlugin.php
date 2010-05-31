@@ -128,7 +128,7 @@ class ZMWordpressPlugin extends Plugin implements ZMRequestHandler {
         $wordpressEnabledPages = $this->get('wordpressEnabledPages');
         if ($this->initWP() && (empty($wordpressEnabledPages) || ZMLangUtils::inArray($request->getRequestId(), $wordpressEnabledPages))) {
             // need to do this on all enabled pages, not just wp
-            $requestHandler = $this->getRequestHandler();
+            $requestHandler = $this->getRequestHandler($request);
             $requestHandler->preProcess($request);
             if (ZMLangUtils::asBoolean($this->get('urlRewrite'))) {
                 $requestHandler->register();
@@ -247,11 +247,12 @@ class ZMWordpressPlugin extends Plugin implements ZMRequestHandler {
     /**
      * Get the request handler.
      *
+     * @param ZMRequest request The current request.
      * @return ZMWpRequestHandler The single request handler for this request.
      */
-    public function getRequestHandler() {
+    public function getRequestHandler($request) {
         if (null == $this->requestHandler_) {
-            $this->requestHandler_ = ZMLoader::make('WordpressRequestHandler', $this);
+            $this->requestHandler_ = ZMLoader::make('WordpressRequestHandler', $this, $request);
         }
 
         return $this->requestHandler_;
