@@ -71,7 +71,6 @@
     function zm_get_default_settings() {
         $map = array(
             /*** version ***/
-            'ZenMagickVersion' => '${zenmagick.version}',
             'zenmagick.version' => '${zenmagick.version}',
 
             /*** database ***/
@@ -173,7 +172,6 @@
 
 
             // template suffix/extension
-            'templateSuffix' => '.php',
             'zenmagick.mvc.templates.ext' => '.php',
 
             // enable gift vouchers 
@@ -202,9 +200,7 @@
             'defaultAuthenticationProvider' => 'ZMZenCartAuthentication',
 
             // enable/disable transaction support in request processing
-            'isEnableTransactions' => false,
             'zenmagick.mvc.transactions.enabled' => false,
-
 
 
             // default controller and view class
@@ -234,11 +230,9 @@
              **************************************/
 
             // will be used if the original view is not valid/does not exist
-            'missingPageId' => 'error',
             'zenmagick.mvc.request.missingPage' => 'error',
 
             // redirect page for invalid sessions
-            'invalidSessionPage' => FILENAME_COOKIE_USAGE,
             'zenmagick.mvc.request.invalidSession' => FILENAME_COOKIE_USAGE,
 
             // static homepage
@@ -268,16 +262,13 @@
              **************************************/
 
             // echo JSON response
-            'isJSONEcho' => true,
             'zenmagick.mvc.json.echo' => true,
 
             // put JSON response in X-JSON header
-            'isJSONHeader' => false,
             'zenmagick.mvc.json.header' => false,
 
             // default format; this is taken as method suffix to resolve Ajax methods
             'zenmagick.mvc.ajax.format' => 'JSON',
-            'ajaxFormat' => 'JSON',
 
             'zenmagick.mvc.toolbox.tools' => 'form:ToolboxForm,macro:ToolboxMacro,locale:ToolboxLocale,utils:ToolboxUtils,admin:ToolboxAdmin,crumbtrail:ToolboxCrumbtrail,metaTags:ToolboxMetaTags',
 
@@ -347,8 +338,6 @@
             // cache folder
             'rssCacheDir' => dirname(ZMRuntime::getInstallationPath())."/cache/zenmagick/rss/",
 
-
-
             // cache TTL
             'rssCacheTimeout' => 1200,
 
@@ -359,11 +348,9 @@
 
             // use SSL
             'zenmagick.mvc.request.secure' => ENABLE_SSL == 'true' || (defined('ENABLE_SSL_ADMIN') && ENABLE_SSL_ADMIN == 'true'),
-            'isEnableSSL' => ENABLE_SSL == 'true',
 
             // force use of SSL
             'zenmagick.mvc.request.enforceSecure' => 'true',
-            'isEnforceSSL' => true,
 
             // cookies only?
             'isForceCookieUse' => SESSION_FORCE_COOKIE_USE == 'True',

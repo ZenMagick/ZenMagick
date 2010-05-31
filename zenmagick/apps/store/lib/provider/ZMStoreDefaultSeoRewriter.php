@@ -102,7 +102,7 @@ class ZMStoreDefaultSeoRewriter implements ZMSeoRewriter {
 
         // default to non ssl
         $server = HTTP_SERVER;
-        if ($transport == 'SSL' && ZMSettings::get('isEnableSSL')) {
+        if ($transport == 'SSL' && ZMSettings::get('zenmagick.mvc.request.secure')) {
             $server = HTTPS_SERVER;
         }
 
