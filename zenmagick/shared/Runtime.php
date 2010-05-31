@@ -65,14 +65,14 @@ class Runtime extends ZMRuntime {
      *
      * @return string The URL path prefix for all themes.
      */
-    public static function getThemesPathPrefix() { return self::getContext().ZM_ROOT.'themes/'; }
+    public static function getThemesPathPrefix() { return DIR_WS_CATALOG.ZM_ROOT.'themes/'; }
 
     /**
      * Return the base path for plugin URIs.
      *
      * @return string The URL path prefix for all plugins.
      */
-    public static function getPluginPathPrefix() { return self::getContext().ZM_ROOT.'plugins/'; }
+    public static function getPluginPathPrefix() { return DIR_WS_CATALOG.ZM_ROOT.'plugins/'; }
 
     /**
      * Get the effective theme id.
