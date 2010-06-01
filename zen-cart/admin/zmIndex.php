@@ -50,6 +50,15 @@
   try {
       // execute controller
       $view = $controller->process($request);
+
+      // taken from ZMController
+      // set a few default things...
+      $view->setVar('request', $request);
+      $view->setVar('session', $request->getSession());
+      $toolbox = $request->getToolbox();
+      $view->setVar('toolbox', $toolbox);
+      // also set individual tools
+      $view->setVars($toolbox->getTools());
   } catch (Exception $e) {
       ZMLogging::instance()->dump($e, null, ZMLogging::ERROR);
       $controller = ZMLoader::make(ZMSettings::get('zenmagick.mvc.controller.defaultClass', 'DefaultController'));

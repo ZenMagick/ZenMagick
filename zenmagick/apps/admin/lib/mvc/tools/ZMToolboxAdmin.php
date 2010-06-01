@@ -94,6 +94,21 @@ class ZMToolboxAdmin extends ZMToolboxTool {
             $view->setTemplatePath(array($controller->getPlugin()->getPluginDirectory().DIRECTORY_SEPARATOR.'content'));
         }
 
+        if (null != $view && $view instanceof ZMView) {
+            // taken from ZMController
+            // set a few default things...
+            $view->setVar('request', $request);
+            $view->setVar('session', $request->getSession());
+            $toolbox = $request->getToolbox();
+            $view->setVar('toolbox', $toolbox);
+            // also set individual tools
+            $view->setVars($toolbox->getTools());
+        }
+
+        if (null != $view && null != $controller) {
+            $view->setVars($controller->getViewData($request));
+        }
+
         return $view;
     }
 

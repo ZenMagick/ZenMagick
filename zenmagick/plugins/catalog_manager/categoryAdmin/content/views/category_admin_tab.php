@@ -46,7 +46,7 @@
 
 ?>
 
-  <form action="<?php echo $toolbox->admin->url(null, $defaultUrlParams) ?>" method="GET">
+  <form action="<?php echo $admin->url(null, $defaultUrlParams) ?>" method="GET">
     <div>
       <input type="hidden" name="fkt" value="CategoryAdminTab">
     </div>
@@ -58,22 +58,22 @@
     </select> )</h2>
   </form>
 
-  <form action="<?php echo $toolbox->admin->url(null, $defaultUrlParams) ?>" method="POST">
+  <form action="<?php echo $admin->url(null, $defaultUrlParams) ?>" method="POST">
     <fieldset>
         <legend>General</legend>
-        <input type="checkbox" id="status" name="status" value="1" <?php $toolbox->form->checked($category->isActive()) ?>> <label for="status">Status</label>
+        <input type="checkbox" id="status" name="status" value="1" <?php $form->checked($category->isActive()) ?>> <label for="status">Status</label>
         <br><br>
         <label for="categoryName">Name</label>
-        <input type="text" id="categoryName" name="categoryName" value="<?php echo $toolbox->html->encode($category->getName()) ?>" size="30">
+        <input type="text" id="categoryName" name="categoryName" value="<?php echo $html->encode($category->getName()) ?>" size="30">
         <br>
         <label for="categoryDescription" style="display:block;">Description</label>
-        <textarea id="categoryDescription" name="categoryDescription" rows="5" cols="80"><?php echo $toolbox->html->encode($category->getDescription()) ?></textarea>
+        <textarea id="categoryDescription" name="categoryDescription" rows="5" cols="80"><?php echo $html->encode($category->getDescription()) ?></textarea>
     </fieldset>
 
     <fieldset style="position:relative;">
         <legend>Image Options</legend>
         <div><input type="hidden" name="currentImage" value="<?php echo $category->getImage() ?>"></div>
-        <?php echo $toolbox->html->image($category->getImageInfo(), ZMProducts::IMAGE_SMALL, 'style=position:absolute;top:6px;right:30px;') ?>
+        <?php echo $html->image($category->getImageInfo(), ZMProducts::IMAGE_SMALL, 'style=position:absolute;top:6px;right:30px;') ?>
         <p class="opt"><label for="categoryImage">Upload Image</label><input type="file" id="categoryImage" name="categoryImage"></p>
         <p class="opt">
           <label for="imgDir">... to directory</label><select id="imgDir" name="imgDir">

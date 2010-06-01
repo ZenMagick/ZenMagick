@@ -42,12 +42,9 @@ class ZMQuickEditTabController extends ZMPluginAdminController {
 
 
     /**
-     * Prepare common (GET/POST) view data.
-     *
-     * @param ZMRequest request The current request.
-     * @return array The view data map.
+     * {@inheritDoc}
      */
-    protected function getCommonViewData($request) {
+    public function getViewData($request) {
         $data = array();
 
         if (null == ($fieldList = ZMSettings::get('plugins.quickEdit.fieldList', null))) {
@@ -89,14 +86,14 @@ class ZMQuickEditTabController extends ZMPluginAdminController {
      */
     public function processGet($request) {
         // need to do this to for using PluginAdminView rather than SimplePluginFormView
-        return $this->findView(null, $this->getCommonViewData($request));
+        return $this->findView();
     }
 
     /**
      * {@inheritDoc}
      */
     public function processPost($request) {
-        $data = $this->getCommonViewData($request);
+        $data = $this->getViewData($request);
         $fieldList = $data['fieldList'];
         $fieldMap = $data['fieldMap'];
 
