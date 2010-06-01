@@ -117,6 +117,8 @@ Release 0.9.10
   request
 - remove Runtime::getBaseURL() in favour of ZMRequest::getBaseURL()
 - remove Runtime::getContext() in favour of ZMRequest::getContext()
+- add sql patch to set up admin roles
+- add code to load roles from database
 
 Release 0.9.9
 - in ZMDbTableMapper handle database exception building auto mappings

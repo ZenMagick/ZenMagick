@@ -65,7 +65,10 @@ class ZMAdminUsers extends ZMObject {
         // database 1 == NOT demo...
         $user->setDemo(!$user->isDemo());
 
-        //TODO: populate roles
+        // set roles
+        foreach ($this->getRolesForId($user->getId()) as $role) {
+            $user->addRole($role);
+        }
 
         return $user;
     }
@@ -120,6 +123,25 @@ class ZMAdminUsers extends ZMObject {
      */
     public function updateUser($user) {
         return ZMRuntime::getDatabase()->updateModel(TABLE_ADMIN, $user);
+    }
+
+    /**
+     * Get roles for a given user id.
+     *
+     * @param int id The user id.
+     * @return array List of roles.
+     */
+    public function getRolesForId($id) {
+        $sql = "SELECT DISTINCT ar.name from " . ZM_TABLE_ADMIN_ROLES . " AS ar, " . ZM_TABLE_ADMINS_TO_ROLES . " AS atr
+                WHERE atr.admin_role_id = ar.admin_role_id
+                  AND atr.admin_id = :admin_id";
+        $roles = array();
+        $args = array('admin_id' => $id);
+        foreach (ZMRuntime::getDatabase()->query($sql, $args, array(ZM_TABLE_ADMIN_ROLES, ZM_TABLE_ADMINS_TO_ROLES)) as $result) {
+            $roles[] = $result['name'];
+        }
+
+        return $roles;
     }
 
 }

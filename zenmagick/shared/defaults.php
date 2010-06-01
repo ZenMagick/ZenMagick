@@ -48,6 +48,8 @@
     //** db **//
     define('ZM_DB_PREFIX', DB_PREFIX);
     define('ZM_TABLE_TOKEN', ZM_DB_PREFIX . 'token');
+    define('ZM_TABLE_ADMIN_ROLES', ZM_DB_PREFIX . 'admin_roles');
+    define('ZM_TABLE_ADMINS_TO_ROLES', ZM_DB_PREFIX . 'admins_to_roles');
     
 
     //** date/time formats used internally by all models **//

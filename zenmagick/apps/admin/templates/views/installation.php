@@ -45,7 +45,8 @@
 
         "sqlConfig" => "Setup ZenMagick config groups and initial values",
         "sqlToken" => "Create the database table used by the token service",
-        "sqlFulltext" => "Create indices for fulltext product search"
+        "sqlFulltext" => "Create indices for fulltext product search",
+        "sqlAdminRoles" => "Create tables for new role based admin access control",
     );
 
     $coreCompressor = new ZMCoreCompressor();
