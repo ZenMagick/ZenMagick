@@ -226,6 +226,7 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
         try {
             $stmt->execute();
             $rows = $stmt->fetchAll();
+            $stmt->closeCursor();
         } catch (PDOException $pdoe) {
             throw new ZMDatabaseException($pdoe->getMessage(), $pdoe->getCode(), $pdoe);
         }
@@ -282,6 +283,7 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
             $stmt = $this->prepareStatement($sql, $modelData, $mapping);
             $stmt->execute();
             $newId = $this->pdo_->lastInsertId();
+            $stmt->closeCursor();
         } catch (PDOException $pdoe) {
             throw new ZMDatabaseException($pdoe->getMessage(), $pdoe->getCode(), $pdoe);
         }
@@ -337,6 +339,7 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
         try {
             $stmt = $this->prepareStatement($sql, $modelData, $mapping);
             $stmt->execute();
+            $stmt->closeCursor();
         } catch (PDOException $pdoe) {
             throw new ZMDatabaseException($pdoe->getMessage(), $pdoe->getCode(), $pdoe);
         }
@@ -392,6 +395,7 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
         try {
             $stmt = $this->prepareStatement($sql, $model, $mapping);
             $stmt->execute();
+            $stmt->closeCursor();
         } catch (PDOException $pdoe) {
             throw new ZMDatabaseException($pdoe->getMessage(), $pdoe->getCode(), $pdoe);
         }
@@ -410,6 +414,7 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
             $stmt = $this->prepareStatement($sql, $data, $mapping);
             $stmt->execute();
             $rows = $stmt->rowCount();
+            $stmt->closeCursor();
         } catch (PDOException $pdoe) {
             throw new ZMDatabaseException($pdoe->getMessage(), $pdoe->getCode(), $pdoe);
         }
@@ -437,6 +442,7 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
             $stmt = $this->prepareStatement($sql, $args, $mapping);
             $stmt->execute();
             $rows = $stmt->fetchAll();
+            $stmt->closeCursor();
         } catch (PDOException $pdoe) {
             throw new ZMDatabaseException($pdoe->getMessage(), $pdoe->getCode(), $pdoe);
         }
@@ -493,6 +499,7 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
         }
         $args = $nargs;
 
+        // handle array args
         foreach ($args as $name => $value) {
             if (is_array($value)) {
                 $aargs = array();
@@ -530,7 +537,7 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
                 } else if ($type == 'date' && null === $value) {
                     $value = ZMDatabase::NULL_DATE;
                 }
-                $stmt->bindValue(':'.$name, $value, $typeMap[$type]);
+                $x = $stmt->bindValue(':'.$name, $value, $typeMap[$type]);
             }
         }
         return $stmt;
