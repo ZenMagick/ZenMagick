@@ -25,11 +25,20 @@
 
 
 /**
- * Update (admin) user form data.
+ * Admin user form data.
  *
  * @author DerManoMann
  * @package org.zenmagick.store.admin
  * @version $Id$
  */
-class ZMUpdateUserForm extends ZMObject {
+class ZMAdminUserForm extends ZMObject {
+
+    /**
+     * Create new instance.
+     */
+    function __construct() {
+        parent::__construct();
+        $this->set('adminUserId', 0);
+    }
+
 }

@@ -115,7 +115,7 @@ class ZMAdminUsers extends ZMObject {
                 FROM " . TABLE_ADMIN;
         $users = array();
         foreach (ZMRuntime::getDatabase()->query($sql, array(), TABLE_ADMIN, 'AdminUser') as $adminUser) {
-            $users[] = $this->finalizeUser(ZMRuntime::getDatabase()->querySingle($sql, $args, TABLE_ADMIN, 'AdminUser'));
+            $users[] = $this->finalizeUser($adminUser);
         }
 
         return $users;
@@ -133,6 +133,18 @@ class ZMAdminUsers extends ZMObject {
                 WHERE admin_email = :email";
         $args = array('email' => $email);
         return $this->finalizeUser(ZMRuntime::getDatabase()->querySingle($sql, $args, TABLE_ADMIN, 'AdminUser'));
+    }
+
+    /**
+     * Create user.
+     *
+     * @param ZMUser user The user.
+     * @return ZMAdminUser The updated <code>ZMAdminUser</code> instance.
+     */
+    public function createUser($user) {
+        $user = ZMRuntime::getDatabase()->createModel(TABLE_ADMIN, $user);
+        ZMAdminUserRoles::instance()->setRolesForId($user->getId(), $user->getRoles());
+        return true;
     }
 
     /**

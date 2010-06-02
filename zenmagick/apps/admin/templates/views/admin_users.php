@@ -39,7 +39,15 @@
       <td><a href="<?php echo $admin2->url('edit_admin_user', 'adminUserId='.$adminUser->getId()) ?>"><?php echo $adminUser->getName() ?></a></td>
       <td><?php echo $adminUser->getEmail() ?></td>
       <td><?php echo ($adminUser->isDemo() ? zm_l10n_get('Demo') : zm_l10n_get('Live')) ?></td>
+      <td>
+        <form action="<?php echo $admin2->url('edit_admin_user') ?>" method="post">
+          <input type="hidden" name="action" value="delete">
+          <input type="hidden" name="adminUserId" value="<?php echo $adminUser->getId() ?>">
+          <input type="submit" value="<?php zm_l10n("Delete") ?>">
+        </form>
+      </td>
     </tr>
   <?php } ?>
 </table>
+<p><a href="<?php echo $admin2->url('edit_admin_user') ?>">Add User</a></p>
 <?php echo $this->fetch('pagination.php'); ?>
