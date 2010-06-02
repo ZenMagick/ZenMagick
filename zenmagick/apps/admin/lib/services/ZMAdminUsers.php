@@ -62,6 +62,10 @@ class ZMAdminUsers extends ZMObject {
      * @return ZMAdminUser Finalized user.
      */
     protected function finalizeUser($user) {
+        if (null == $user) {
+            return null;
+        }
+
         // database 1 == NOT demo...
         $user->setDemo(!$user->isDemo());
 
@@ -122,7 +126,9 @@ class ZMAdminUsers extends ZMObject {
      * @return ZMAdminUser The updated <code>ZMAdminUser</code> instance.
      */
     public function updateUser($user) {
-        return ZMRuntime::getDatabase()->updateModel(TABLE_ADMIN, $user);
+        ZMRuntime::getDatabase()->updateModel(TABLE_ADMIN, $user);
+        ZMAdminUserRoles::instance()->setRolesForId($user->getId(), $user->getRoles());
+        return true;
     }
 
 }

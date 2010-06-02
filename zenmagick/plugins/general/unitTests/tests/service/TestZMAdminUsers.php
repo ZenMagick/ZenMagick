@@ -29,4 +29,23 @@
  */
 class TestZMAdminUsers extends ZMTestCase {
 
+    /**
+     * Test change roles.
+     */
+    public function testChangeRoles() {
+        ZMAdminUserRoles::instance()->addRole('helpdesk');
+        $user = ZMAdminUsers::instance()->getUserForId(1);
+        if ($this->assertNotNull($user)) {
+            $user->addRole('helpdesk');
+            ZMAdminUsers::instance()->updateUser($user);
+            $user = ZMAdminUsers::instance()->getUserForId(1);
+            $this->assertEqual(array('admin', 'helpdesk'), $user->getRoles());
+            $user->setRoles(array('admin'));
+            ZMAdminUsers::instance()->updateUser($user);
+            $user = ZMAdminUsers::instance()->getUserForId(1);
+            $this->assertEqual(array('admin'), $user->getRoles());
+        }
+        ZMAdminUserRoles::instance()->deleteRole('helpdesk');
+    }
+
 }

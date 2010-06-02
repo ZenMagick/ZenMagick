@@ -140,6 +140,13 @@ class ZMAdminUser extends ZMObject {
     public function getRoles() { return $this->roles_; }
 
     /**
+     * Set the roles for this user.
+     *
+     * @param array roles A list of (string) role names.
+     */
+    public function setRoles($roles) { $this->roles_ = $roles; }
+
+    /**
      * Add a role.
      *
      * @param string role The role to add.

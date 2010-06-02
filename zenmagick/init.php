@@ -40,6 +40,7 @@ if (defined('IS_ADMIN_FLAG') && IS_ADMIN_FLAG) {
 } else {
     // for adminusers testcase...
     ZMLoader::instance()->addPath(ZMFileUtils::mkPath(array(ZMRuntime::getInstallationPath(), 'apps', 'admin', 'lib', 'services')));
+    ZMLoader::instance()->addPath(ZMFileUtils::mkPath(array(ZMRuntime::getInstallationPath(), 'apps', 'admin', 'lib', 'model')));
 }
 
     // allow seo rewriters to fiddle with the request
