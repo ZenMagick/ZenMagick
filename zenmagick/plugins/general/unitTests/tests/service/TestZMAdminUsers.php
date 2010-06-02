@@ -29,13 +29,4 @@
  */
 class TestZMAdminUsers extends ZMTestCase {
 
-    /**
-     * Test get roles for id.
-     */
-    public function testGetRolesForId() {
-        $expected = array('admin', 'helpdesk');
-        $roles = ZMAdminUsers::instance()->getRolesForId(1);
-        $this->assertEqual($expected, $roles);
-    }
-
 }

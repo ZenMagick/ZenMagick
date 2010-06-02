@@ -2,7 +2,8 @@ DROP TABLE IF EXISTS admin_roles;
 CREATE TABLE admin_roles (
   admin_role_id int(11) NOT NULL auto_increment,
   name varchar(32) NOT NULL,
-  PRIMARY KEY (admin_role_id)
+  PRIMARY KEY (admin_role_id),
+  UNIQUE (name)
 ) TYPE=MyISAM;
 
 DROP TABLE IF EXISTS admins_to_roles;
