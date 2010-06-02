@@ -23,15 +23,23 @@
  * $Id$
  */
 ?>
-<h1>Edit User Details</h1>
-<p>Groups: <?php echo implode(', ', $request->getUser()->getRoles()) ?></p>
-<form action="<?php echo $admin2->url() ?>" method="POST">
-  <fieldset>
-  <p><label for="name">Name</label> <input type="text" id="name" name="name" value="<?php echo $html->encode($editUser->getName()) ?>"></p>
-    <p><label for="email">Email</label> <input type="text" id="email" name="email" value="<?php echo $html->encode($editUser->getEmail()) ?>"></p>
-    <p><label for="currentPassword">Current password</label> <input type="password" id="currentPassword" name="currentPassword"></p>
-    <p><label for="newPassword">New password</label> <input type="password" id="newPassword" name="newPassword"></p>
-    <p><label for="confirmPassword">Confirm password</label> <input type="password" id="confirmPassword" name="confirmPassword"></p>
-  </fieldset>
-  <p><input type="submit" value="<?php zm_l10n("Update") ?>">
-</form>
+<h1><?php zm_l10n("Admin Users") ?></h1>
+
+<table>
+  <tr>
+    <th><?php zm_l10n('ID') ?></th>
+    <th><?php zm_l10n('Name') ?></th>
+    <th><?php zm_l10n('Email') ?></th>
+    <th><?php zm_l10n('Demo') ?></th>
+    <th><?php zm_l10n('Options') ?></th>
+  </tr>
+  <?php foreach ($resultList->getResults() as $adminUser) { ?>
+    <tr>
+      <td><?php echo $adminUser->getId() ?></td>
+      <td><a href="<?php echo $admin2->url('edit_admin_user', 'adminUserId='.$adminUser->getId()) ?>"><?php echo $adminUser->getName() ?></a></td>
+      <td><?php echo $adminUser->getEmail() ?></td>
+      <td><?php echo ($adminUser->isDemo() ? zm_l10n_get('Demo') : zm_l10n_get('Live')) ?></td>
+    </tr>
+  <?php } ?>
+</table>
+<?php echo $this->fetch('pagination.php'); ?>

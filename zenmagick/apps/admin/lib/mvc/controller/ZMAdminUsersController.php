@@ -25,11 +25,40 @@
 
 
 /**
- * Edit (admin) user form data.
+ * Admin controller for admin user management.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.admin
+ * @package org.zenmagick.store.mvc.controller
  * @version $Id$
  */
-class ZMEditUserForm extends ZMObject {
+class ZMAdminUsersController extends ZMController {
+
+    /**
+     * Create new instance.
+     */
+    function __construct() {
+        parent::__construct();
+    }
+
+    /**
+     * Destruct instance.
+     */
+    function __destruct() {
+        parent::__destruct();
+    }
+
+
+    /**
+     * {@inheritDoc}
+     */
+    public function processGet($request) {
+        $resultSource = ZMLoader::make("ObjectResultSource", 'AdminUser', ZMAdminUsers::instance(), "getAllUsers");
+        $resultList = ZMLoader::make("ResultList");
+        $resultList->setResultSource($resultSource);
+        $resultList->setPageNumber($request->getParameter('page', 1));
+
+        $data = array('resultList' => $resultList);
+        return $this->findView(null, $data);
+    }
+
 }

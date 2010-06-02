@@ -17,9 +17,9 @@ reset_password:
   success:
     view: RedirectView
     template: login
-edit_user:
-  formId: editUser
-  form: EditUserForm
+update_user:
+  formId: updateUser
+  form: UpdateUserForm
   success:
     view: RedirectView
     template: index

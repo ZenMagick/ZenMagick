@@ -25,13 +25,13 @@
 
 
 /**
- * Request controller for editing user details.
+ * Request controller for updating own admin user details.
  *
  * @author DerManoMann
  * @package org.zenmagick.store.mvc.controller
  * @version $Id$
  */
-class ZMEditUserController extends ZMController {
+class ZMUpdateUserController extends ZMController {
 
     /**
      * Create new instance.
@@ -52,14 +52,14 @@ class ZMEditUserController extends ZMController {
      * {@inheritDoc}
      */
     public function getFormData($request) {
-        $editUser = parent::getFormData($request);
+        $updateUser = parent::getFormData($request);
         if (!$this->isFormSubmit($request)) {
             // prepopulate with current data
             $user = $request->getUser();
-            $editUser->setEmail($user->getEmail());
-            $editUser->setName($user->getName());
+            $updateUser->setEmail($user->getEmail());
+            $updateUser->setName($user->getName());
         }
-        return $editUser;
+        return $updateUser;
     }
 
     /**
@@ -67,17 +67,17 @@ class ZMEditUserController extends ZMController {
      */
     public function processPost($request) {
         $user = $request->getUser();
-        $editUser = $this->getFormData($request);
+        $updateUser = $this->getFormData($request);
         // assume validation is already done...
 
         // validate password
-        if (!ZMAuthenticationManager::instance()->validatePassword($editUser->getCurrentPassword(), $user->getPassword())) {
+        if (!ZMAuthenticationManager::instance()->validatePassword($updateUser->getCurrentPassword(), $user->getPassword())) {
             ZMMessages::instance()->error(zm_l10n_get('Sorry, the entered password is not valid.'));
             return $this->findView();
         }
-        $user->setName($editUser->getName());
-        $user->setEmail($editUser->getEmail());
-        $newPassword = $editUser->getNewPassword();
+        $user->setName($updateUser->getName());
+        $user->setEmail($updateUser->getEmail());
+        $newPassword = $updateUser->getNewPassword();
         if (!empty($newPassword)) {
             $user->setPassword(ZMAuthenticationManager::instance()->encryptPassword($newPassword));
         }

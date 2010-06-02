@@ -106,6 +106,22 @@ class ZMAdminUsers extends ZMObject {
     }
 
     /**
+     * Get all users.
+     *
+     * @return array List of <code>ZMAdminUser</code> instances.
+     */
+    public function getAllUsers() {
+        $sql = "SELECT *
+                FROM " . TABLE_ADMIN;
+        $users = array();
+        foreach (ZMRuntime::getDatabase()->query($sql, array(), TABLE_ADMIN, 'AdminUser') as $adminUser) {
+            $users[] = $this->finalizeUser(ZMRuntime::getDatabase()->querySingle($sql, $args, TABLE_ADMIN, 'AdminUser'));
+        }
+
+        return $users;
+    }
+
+    /**
      * Get user for the given email.
      *
      * @param string email The user email.
