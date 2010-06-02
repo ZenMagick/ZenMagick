@@ -27,27 +27,22 @@ mappings:
     roles:
   index: 
     roles: 
-      - service
       - admin
     secure: true
   orders: 
     roles: 
-      - service
       - admin
     secure: true
   order: 
     roles: 
-      - service
       - admin
     secure: true
   accounts: 
     roles: 
-      - service
       - admin
     secure: true
   account: 
     roles: 
-      - service
       - admin
     secure: true
   installation: 
@@ -60,7 +55,6 @@ mappings:
     secure: true
   catalog_manager: 
     roles: 
-      - service
       - admin
     secure: true
   cache_admin: 
@@ -77,16 +71,13 @@ mappings:
     secure: true
   static_page_editor: 
     roles: 
-      - service
       - admin
     secure: true
   ezpages: 
     roles: 
-      - service
       - admin
     secure: true
   about: 
     roles: 
-      - service
       - admin
     secure: false
