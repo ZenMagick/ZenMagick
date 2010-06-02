@@ -141,14 +141,14 @@ class ZMAdminUserRoles extends ZMObject {
             $sql = "DELETE FROM " . ZM_TABLE_ADMINS_TO_ROLES . "
                     WHERE  admin_id = :admin_id
                       AND admin_role_id in (:admin_role_id)";
-            ZMRuntime::getDatabase()->query($sql, array('admin_id' => $id, 'admin_role_id' => $remove), ZM_TABLE_ADMINS_TO_ROLES);
+            ZMRuntime::getDatabase()->update($sql, array('admin_id' => $id, 'admin_role_id' => $remove), ZM_TABLE_ADMINS_TO_ROLES);
         }
 
         if (0 < count($add)) {
             $sql = "INSERT INTO " . ZM_TABLE_ADMINS_TO_ROLES . "
                     (admin_id, admin_role_id) VALUES (:admin_id, :admin_role_id)";
             foreach ($add as $addId) {
-                ZMRuntime::getDatabase()->query($sql, array('admin_id' => $id, 'admin_role_id' => $addId), ZM_TABLE_ADMINS_TO_ROLES);
+                ZMRuntime::getDatabase()->update($sql, array('admin_id' => $id, 'admin_role_id' => $addId), ZM_TABLE_ADMINS_TO_ROLES);
             }
         }
 
