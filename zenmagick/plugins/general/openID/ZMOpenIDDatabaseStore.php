@@ -154,7 +154,7 @@ class ZMOpenIDDatabaseStore extends Auth_OpenID_OpenIDStore {
      * Use nonce.
      */
     public function useNonce($server_url, $issued, $salt) {
-        if (abs($issued - mktime()) > $this->nonceLifetime) {
+        if (abs($issued - time()) > $this->nonceLifetime) {
             return false;
         }
 
