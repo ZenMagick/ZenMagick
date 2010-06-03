@@ -95,8 +95,18 @@ class ZMPhpPackagePacker {
      * @param string file The file name.
      * @return boolean <code>true</code>, if the file should be ignored.
      */
-    public function ignoreFile($file) {
+    public function ignoreFile($filename) {
         return false;
+    }
+
+    /**
+     * Allow custom file patching.
+     *
+     * @param string filename The file name.
+     * @return array The (patched) lines or <code>null</code>.
+     */
+    public function patchFile($filename, $lines) {
+        return null;
     }
 
     /**
@@ -201,6 +211,9 @@ class ZMPhpPackagePacker {
                     }
                 }
                 $extFile = $currentDir.basename($filename);
+                if (null != ($patchedLines = $this->patchFile($filename, $lines))) {
+                    $lines = $patchedLines;
+                }
                 ZMFileUtils::putFileLines($extFile, $lines);
             }
         }
