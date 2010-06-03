@@ -119,6 +119,9 @@ Release 0.9.10
 - remove Runtime::getContext() in favour of ZMRequest::getContext()
 - add sql patch to set up admin roles
 - add code to load roles from database
+- add minify packer
+- add ZMPhpPacker::patchFile() to allow custom file patching
+- add openID packer
 
 Release 0.9.9
 - in ZMDbTableMapper handle database exception building auto mappings
