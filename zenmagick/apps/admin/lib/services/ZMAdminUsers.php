@@ -159,4 +159,20 @@ class ZMAdminUsers extends ZMObject {
         return true;
     }
 
+    /**
+     * Delete user.
+     *
+     * @param int id The user id.
+     */
+    public function deleteUserForId($id) {
+        // remove roles
+        $roles = ZMAdminUserRoles::instance()->getRolesForId($id);
+        ZMAdminUserRoles::instance()->setRolesForId($id, $roles);
+        $sql = "DELETE FROM " . TABLE_ADMIN . "
+                WHERE admin_id = :id";
+        // delete user
+        ZMRuntime::getDatabase()->update($sql, array('id' => $id), TABLE_ADMIN);
+        return true;
+    }
+
 }

@@ -80,30 +80,35 @@ class ZMEditAdminUserController extends ZMController {
      * {@inheritDoc}
      */
     public function processPost($request) {
-        $adminUserForm = $this->getFormData($request);
+        if (null != ($editUserId = $request->getParameter('adminUserId'))) {
+            $adminUserForm = $this->getFormData($request);
 
-        $user = ZMLoader::make('AdminUser');
-        $user->setId($adminUserForm->getAdminUserId());
-        $user->setName($adminUserForm->getName());
-        $user->setEmail($adminUserForm->getEmail());
-        $user->setRoles($adminUserForm->getRoles());
-        // sigh - bad logic
-        $user->setDemo(!ZMLangUtils::asBoolean($adminUserForm->getDemo()));
-        $clearPassword = $adminUserForm->getPassword();
-        $current = ZMAdminUsers::instance()->getUserForId($user->getId());
-        if (empty($clearPassword) && null != $current) {
-            // keep
-            $encrypedPassword = $current->getPassword();
-        } else {
-            $encrypedPassword = ZMAuthenticationManager::instance()->encryptPassword($clearPassword);
-        }
-        $user->setPassword($encrypedPassword);
-        if (0 < $user->getId()) {
-            ZMAdminUsers::instance()->updateUser($user);
-            ZMMessages::instance()->success(zm_l10n_get('Details updated.'));
-        } else {
-            ZMAdminUsers::instance()->createUser($user);
-            ZMMessages::instance()->success(zm_l10n_get('User created.'));
+            $user = ZMLoader::make('AdminUser');
+            $user->setId($adminUserForm->getAdminUserId());
+            $user->setName($adminUserForm->getName());
+            $user->setEmail($adminUserForm->getEmail());
+            $user->setRoles($adminUserForm->getRoles());
+            // sigh - bad logic
+            $user->setDemo(!ZMLangUtils::asBoolean($adminUserForm->getDemo()));
+            $clearPassword = $adminUserForm->getPassword();
+            $current = ZMAdminUsers::instance()->getUserForId($user->getId());
+            if (empty($clearPassword) && null != $current) {
+                // keep
+                $encrypedPassword = $current->getPassword();
+            } else {
+                $encrypedPassword = ZMAuthenticationManager::instance()->encryptPassword($clearPassword);
+            }
+            $user->setPassword($encrypedPassword);
+            if (0 < $user->getId()) {
+                ZMAdminUsers::instance()->updateUser($user);
+                ZMMessages::instance()->success(zm_l10n_get('Details updated.'));
+            } else {
+                ZMAdminUsers::instance()->createUser($user);
+                ZMMessages::instance()->success(zm_l10n_get('User created.'));
+            }
+        } else if (null != ($deleteUserId = $request->getParameter('deleteUserId'))) {
+            ZMAdminUsers::instance()->deleteUserForId($deleteUserId);
+            ZMMessages::instance()->success(zm_l10n_get('User deleted.'));
         }
 
         return $this->findView('success');
