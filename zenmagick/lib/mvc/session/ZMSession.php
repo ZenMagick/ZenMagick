@@ -330,6 +330,10 @@ class ZMSession extends ZMObject {
      */
     public function getToken($renew=false) { 
         if ($renew || null == $this->getValue(self::SESSION_TOKEN_KEY)) {
+            // in this case we really want a session!
+            if (!$this->isStarted()) {
+                $this->start();
+            }
             $this->setValue(self::SESSION_TOKEN_KEY, md5(uniqid(rand(), true)));
         }
 
