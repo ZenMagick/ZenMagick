@@ -41,9 +41,7 @@ class Request extends ZMRequest {
      */
     function __construct($parameter=null) {
         parent::__construct($parameter);
-        // '.' prefix top level domain
-        //$this->setSession(ZMLoader::make('Session', ''.ZMNetUtils::getDomain('http://'.$this->getHostname()), 'zenAdminID'));
-        $this->setSession(ZMLoader::make('Session', null, 'zenAdminID'));
+        $this->setSession(ZMLoader::make('Session', null, 'zmAdmin'));
         if ('db' == ZMSettings::get('sessionPersistence')) {
             $this->getSession()->registerSessionHandler(ZMLoader::make('ZenCartSessionHandler'));
         }

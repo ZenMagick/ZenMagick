@@ -122,6 +122,10 @@ Release 0.9.10
 - add minify packer
 - add ZMPhpPacker::patchFile() to allow custom file patching
 - add openID packer
+- allow to override the default name of a singleton via the setting
+ schema: 'zenmagick.core.singleton.NAME' with NAME being the default name of
+ the singleton class (typically the name without 'ZM' prefix)
+- allow singletons to be bean definitions
 
 Release 0.9.9
 - in ZMDbTableMapper handle database exception building auto mappings

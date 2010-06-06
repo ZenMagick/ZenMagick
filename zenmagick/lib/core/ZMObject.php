@@ -62,10 +62,12 @@ class ZMObject {
      * @return mixed A singleton object.
      */
     protected static function singleton($name, $instance=null, $force=false) {
+        // allow to override names
+        $name = ZMSettings::get('zenmagick.core.singleton.'.$name, $name);
         if (null != $instance && ($force || !isset(ZMObject::$singletons_[$name]))) {
             ZMObject::$singletons_[$name] = $instance;
         } else if (!array_key_exists($name, ZMObject::$singletons_)) {
-            ZMObject::$singletons_[$name] = ZMLoader::make($name);
+            ZMObject::$singletons_[$name] = ZMBeanUtils::getBean($name);
         }
 
         return ZMObject::$singletons_[$name];
