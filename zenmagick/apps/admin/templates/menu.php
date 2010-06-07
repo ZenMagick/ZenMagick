@@ -49,7 +49,7 @@
     <p>
       <a href="<?php echo ZMSettings::get('apps.store.baseUrl') ?>" target="_blank">Storefront</a>
       | <a href="<?php echo  ZMSettings::get('apps.store.oldAdminUrl') ?>">OLD Admin</a>
-      | <a href="<?php echo $admin2->url('logoff') ?>">Logoff</a>
+      | <a href="<?php echo $admin2->url('logoff') ?>">Logoff <?php echo $request->getUser()->getName() ?></a>
     </p>
     <p>
       <a href="<?php echo $admin2->url('index') ?>">Home</a>
@@ -59,7 +59,7 @@
       | <a href="<?php echo $admin2->url('cache_admin') ?>">Cache Admin</a>
       | <a href="<?php echo $admin2->url('ezpages') ?>">EZPages Editor</a>
       | <a href="<?php echo $admin2->url('static_page_editor') ?>">Static Page Editor</a>
-      | <a href="<?php echo $admin2->url('update_user') ?>">Change Your Details</a>
+      | <a href="<?php echo $admin2->url('update_user') ?>">Change <strong>Your</strong> Details</a>
       | <a href="<?php echo $admin2->url('admin_users') ?>">Manage Admin Users</a>
       | <a href="<?php echo $admin2->url('about') ?>">About</a>
     </p>
