@@ -1,6 +1,7 @@
 null:
   error:
     template: error
+    layout: 
     
 login:
   success:
