@@ -28,22 +28,27 @@ mappings:
   index: 
     roles: 
       - admin
+      - demo
     secure: true
   orders: 
     roles: 
       - admin
+      - demo
     secure: true
   order: 
     roles: 
       - admin
+      - demo
     secure: true
   accounts: 
     roles: 
       - admin
+      - demo
     secure: true
   account: 
     roles: 
       - admin
+      - demo
     secure: true
   installation: 
     roles: 
@@ -56,6 +61,7 @@ mappings:
   catalog_manager: 
     roles: 
       - admin
+      - demo
     secure: true
   cache_admin: 
     roles: 
@@ -76,8 +82,15 @@ mappings:
   ezpages: 
     roles: 
       - admin
+      - demo
+    secure: true
+  admin_users: 
+    roles: 
+      - admin
+      - demo
     secure: true
   about: 
     roles: 
       - admin
+      - demo
     secure: false

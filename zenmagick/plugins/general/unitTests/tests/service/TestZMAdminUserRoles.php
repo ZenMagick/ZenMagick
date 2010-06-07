@@ -50,6 +50,7 @@ class TestZMAdminUserRoles extends ZMTestCase {
         ZMRuntime::getDatabase()->update('TRUNCATE TABLE ' . ZM_TABLE_ADMIN_ROLES);
         ZMRuntime::getDatabase()->update('TRUNCATE TABLE ' . ZM_TABLE_ADMINS_TO_ROLES);
         ZMAdminUserRoles::instance()->addRole('admin');
+        ZMAdminUserRoles::instance()->addRole('demo');
         ZMRuntime::getDatabase()->update('INSERT INTO ' . ZM_TABLE_ADMINS_TO_ROLES . ' VALUES(1, 1)');
     }
 

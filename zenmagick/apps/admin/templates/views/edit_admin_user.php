@@ -36,6 +36,7 @@
         <option value="<?php echo $role ?>"<?php if (in_array($role, $adminUser->getRoles())) { echo 'selected'; } ?>><?php echo ucwords($role) ?></option>
       <?php } ?>
       </select>
+      <a href="<?php echo $admin2->url('manage_roles') ?>">Manage Roles</a>
     </p>
     <p><input type="checkbox" name="demo" id="demo" value="true"<?php if ($adminUser->isDemo()) { echo 'checked'; } ?>> <label for="demo">Demo User</label></p>
 
