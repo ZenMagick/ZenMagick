@@ -52,11 +52,15 @@ class ZMPluginsController extends ZMController {
      * {@inheritDoc}
      */
     public function getViewData($request) {
-        $pluginList = ZMPlugins::instance()->getAllPlugins(0, false);
-        foreach ($pluginList as $group => $plugins) {
-            // remove empty groups
-            if (0 == count($plugins)) {
-                unset($pluginList[$group]);
+        if (null != ($group = $request->getParameter('group'))) {
+            $pluginList = array($group => ZMPlugins::instance()->getPluginsForGroup($group, 0, false));
+        } else {
+            $pluginList = ZMPlugins::instance()->getAllPlugins(0, false);
+            foreach ($pluginList as $group => $plugins) {
+                // remove empty groups
+                if (0 == count($plugins)) {
+                    unset($pluginList[$group]);
+                }
             }
         }
 

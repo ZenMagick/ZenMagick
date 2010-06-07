@@ -52,7 +52,7 @@
 <table>
   <?php foreach ($pluginList as $group => $plugins) { ?>
     <tr class="head">
-      <th colspan="5"><?php zm_l10n("%s Plugins", ucwords(str_replace('_', ' ', $group))) ?></th>
+      <th colspan="5"><a href="<?php echo $admin2->url(null, 'group='.$group) ?>"><?php zm_l10n("%s Plugins", ucwords(str_replace('_', ' ', $group))) ?></a></th>
     </tr>
     <tr>
       <th><?php zm_l10n("Name") ?></th>
