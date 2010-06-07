@@ -43,3 +43,5 @@ plugins:
   plugin-conf:
     layout: 
     template: plugin_conf
+manage_roles:
+  layout:
