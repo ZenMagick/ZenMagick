@@ -25,4 +25,18 @@
 ?>
 <h1>Manage Roles</h1>
 
-<?php var_dump($roles) ?>
+<form action="<?php echo $admin2->url() ?>" method="POST">
+  <fieldset>
+    <p>
+      <strong>SELECT ALL TO UPDATE</strong>
+      <label for="roles">Roles</label>
+      <select name="roles[]" id="roles" multiple>
+      <?php foreach ($roles as $role) { ?>
+        <option value="<?php echo $role ?>"><?php echo ucwords($role) ?></option>
+      <?php } ?>
+      </select>
+      <input type="submit" value="<?php zm_l10n("Update Roles (select roles to keep)") ?>">
+    </p>
+    <p><label for="newRole">Add Role</label> <input type="text" id="newRole" name="newRole" value=""> <input type="submit" value="<?php zm_l10n("Add Role") ?>"></p>
+  </fieldset>
+</form>

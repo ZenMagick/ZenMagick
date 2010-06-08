@@ -58,15 +58,32 @@ class ZMManageRolesController extends ZMController {
     /**
      * {@inheritDoc}
      */
-    public function processGet($request) {
-        return parent::processGet($request);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public function processPost($request) {
-        return parent::processPost($request);
+        if (null == ($newRole = $request->getParameter('newRole'))) {
+            // check for changes
+            $updatedRoles = $request->getParameter('roles');
+            $currentRoles = ZMAdminUserRoles::instance()->getAllRoles();
+            foreach ($updatedRoles as $role) {
+                if (!in_array($role, $currentRoles)) {
+                    if (null == ($newId = ZMAdminUserRoles::instance()->addRole($role))) {
+                        ZMMessages::instance()->error('Adding role failed');
+                    }
+                }
+            }
+            foreach ($currentRoles as $role) {
+                if (!in_array($role, $updatedRoles)) {
+                    if (null == ($newId = ZMAdminUserRoles::instance()->deleteRole($role))) {
+                        ZMMessages::instance()->error('Deleting role failed');
+                    }
+                }
+            }
+        } else {
+            if (null == ($newId = ZMAdminUserRoles::instance()->addRole($newRole))) {
+                ZMMessages::instance()->error('Adding role failed');
+            }
+        }
+        
+        return $this->findView();
     }
 
 }
