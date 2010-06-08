@@ -32,6 +32,7 @@
     <?php $resources->cssFile('style/jquery-ui-lightness/jquery-ui-1.8.1.custom.css') ?>
     <?php $resources->jsFile('js/jquery-1.4.2.min.js') ?>
     <?php $resources->jsFile('js/jquery-ui-1.8.1.custom.min.js') ?>
+    <?php $resources->jsFile('js/jquery.form.js') ?>
     <?php $resources->jsFile('js/zenmagick.js', ZMViewUtils::FOOTER) ?>
   </head>
   <body>

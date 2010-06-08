@@ -24,6 +24,18 @@
 
 var zenmagick = {
     /**
+     * ucwords.
+     *
+     * @param string s The string.
+     * @return string The new string.
+     */
+    ucwords: function(s) {
+        return s.replace(/\w+/g, function(a) {
+            return a.charAt(0).toUpperCase() + a.substr(1);
+        });
+    },
+
+    /**
      * Confirmation dialog.
      *
      * @param string msg The message.
@@ -65,7 +77,7 @@ var zenmagick = {
      * @param string url The ajax url to load the form.
      * @param string title The title.
      */
-    ajaxFormDialog: function(url, title) {
+    ajaxFormDialog: function(url, title, formId, callback) {
         $('<div id="ajax-form-dialog">Loading...</div>').dialog({
             modal: true,
             position: ['center', 20],
@@ -78,7 +90,10 @@ var zenmagick = {
         }).load(url, function() {
             var div = this;
             // attach ajax form handler
-            $('#ajax-form').submit(function() {
+            $('#'+formId).submit(function() {
+                if (callback) {
+                  eval(callback+'(this);');
+                }
                 $(this).ajaxSubmit({ 
                     success: function() {
                         $(div).dialog("destroy");

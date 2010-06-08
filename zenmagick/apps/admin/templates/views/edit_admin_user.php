@@ -23,6 +23,7 @@
  * $Id$
  */
 ?>
+
 <h1>Edit User Details</h1>
 <form action="<?php echo $admin2->url() ?>" method="POST">
   <input type="hidden" name="adminUserId" value="<?php echo $adminUser->getAdminUserId() ?>">
@@ -36,7 +37,7 @@
         <option value="<?php echo $role ?>"<?php if (in_array($role, $adminUser->getRoles())) { echo 'selected'; } ?>><?php echo ucwords($role) ?></option>
       <?php } ?>
       </select>
-      <a href="<?php echo $admin2->url('manage_roles') ?>">Manage Roles</a>
+      <a href="<?php echo $admin2->url('manage_roles') ?>" onclick="zenmagick.ajaxFormDialog(this.href, '<?php zm_l10n('Admin Roles') ?>', 'manage_roles', 'fixSelect'); return false;">Manage Roles</a>
     </p>
     <p><input type="checkbox" name="demo" id="demo" value="true"<?php if ($adminUser->isDemo()) { echo 'checked'; } ?>> <label for="demo">Demo User</label></p>
 

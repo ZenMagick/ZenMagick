@@ -72,6 +72,9 @@ class ZMManageRolesController extends ZMController {
             }
             foreach ($currentRoles as $role) {
                 if (!in_array($role, $updatedRoles)) {
+                    if ('admin' == $role) {
+                        continue;
+                    }
                     if (null == ($newId = ZMAdminUserRoles::instance()->deleteRole($role))) {
                         ZMMessages::instance()->error('Deleting role failed');
                     }

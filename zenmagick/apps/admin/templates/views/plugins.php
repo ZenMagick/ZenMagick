@@ -24,7 +24,6 @@
  */
 ?>
 
-<?php $resources->jsFile('js/jquery.form.js') ?>
 <script type="text/javascript">
     var statusImgOn = 'images/icons/tick.gif';
     var statusImgOff = 'images/icons/cross.gif';
@@ -89,7 +88,7 @@
             <button type="submit">Uninstall</button>
             <a href="<?php echo $admin2->url(null, 'action=upgrade&pluginId='.$plugin->getId().'&group='.$plugin->getGroup()) ?>#<?php echo $plugin->getId() ?>">Upgrade</a>
             <?php if ($plugin->hasOptions()) { /* enabled/disabled and sort order are handled by this page */ ?>
-            <a href="<?php echo $admin2->url(null, 'ajax=false&action=edit&pluginId='.$plugin->getId().'&group='.$plugin->getGroup()) ?>#<?php echo $plugin->getId() ?>" onclick="zenmagick.ajaxFormDialog(this.href, '<?php zm_l10n('Edit Plugin Options: %s', $plugin->getName()) ?>'); return false;">Edit</a>
+            <a href="<?php echo $admin2->url(null, 'ajax=false&action=edit&pluginId='.$plugin->getId().'&group='.$plugin->getGroup()) ?>#<?php echo $plugin->getId() ?>" onclick="zenmagick.ajaxFormDialog(this.href, '<?php zm_l10n('Edit Plugin Options: %s', $plugin->getName()) ?>', 'ajax-form'); return false;">Edit</a>
           <?php } ?>
           <?php } ?>
           </form>

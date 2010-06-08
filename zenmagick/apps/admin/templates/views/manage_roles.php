@@ -23,20 +23,41 @@
  * $Id$
  */
 ?>
-<h1>Manage Roles</h1>
 
-<form action="<?php echo $admin2->url() ?>" method="POST">
+<script>
+  // add to roles list
+  function addRoleToList() {
+      var role = $('#newRole').val();
+      $('#manage_roles #mr_roles').append($("<option></option>").attr("value", role).text(zenmagick.ucwords(role))); 
+  }
+
+  // select all roles!!
+  function fixSelect(form) {
+      $('#mr_roles option').attr('selected', 'selected');
+  }
+
+  // remove selected
+  function removeSelected() {
+    $('#mr_roles option:selected').each(function() {
+        $(this).remove();
+    });
+  }
+</script>
+
+<h1>Manage Roles</h1>
+<form action="<?php echo $admin2->url() ?>" method="POST" id="manage_roles">
   <fieldset>
     <p>
       <strong>SELECT ALL TO UPDATE</strong>
-      <label for="roles">Roles</label>
-      <select name="roles[]" id="roles" multiple>
+      <label for="mr_roles">Roles</label>
+      <select name="roles[]" id="mr_roles" multiple>
       <?php foreach ($roles as $role) { ?>
         <option value="<?php echo $role ?>"><?php echo ucwords($role) ?></option>
       <?php } ?>
       </select>
       <input type="submit" value="<?php zm_l10n("Update Roles (select roles to keep)") ?>">
+      <a href="#" onclick="removeSelected(); return false"><?php zm_l10n('Remove selected') ?></a>
     </p>
-    <p><label for="newRole">Add Role</label> <input type="text" id="newRole" name="newRole" value=""> <input type="submit" value="<?php zm_l10n("Add Role") ?>"></p>
+    <p><label for="newRole">Add Role</label> <input type="text" id="newRole" name="newRole" value=""> <input type="submit" value="<?php zm_l10n("Add Role") ?>" onclick="addRoleToList(); return false;"></p>
   </fieldset>
 </form>
