@@ -25,7 +25,7 @@
 ?>
 <?php if (1 < $resultList->getNumberOfPages()) { ?>
     <div class="rnav">
-        <span class="pno"><?php zm_l10n("Page %s/%s", $resultList->getPageNumber(), $resultList->getNumberOfPages()) ?></span>
+        <span class="pno"><?php _vzm("Page %s/%s", $resultList->getPageNumber(), $resultList->getNumberOfPages()) ?></span>
         <?php if ($resultList->hasPreviousPage()) { ?>
             <a href="<?php echo $net->resultListBack($resultList, null, array('orderStatusId')) ?>"><?php zm_l10n("Previous") ?></a>&nbsp;
         <?php } else { ?>

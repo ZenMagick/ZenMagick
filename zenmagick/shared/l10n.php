@@ -28,11 +28,11 @@
     /**
      * Lookup and echo a language specific text.
      *
-     * @package org.zenmagick.store.locale
      * @param string text The text.
      * @param var args A variable number of arguments that will be used as arguments for
      *  <code>vsprintf(..)</code> to insert variables into the localized text.
      * @return string A localized version based on the current language, or the original text.
+     * @package zenmagick.store.shared.locale
      */
     function zm_l10n($text) {
         // get the remaining args
@@ -44,11 +44,11 @@
     /**
      * Lookup a language specific text.
      *
-     * @package org.zenmagick.store.locale
      * @param string text The text.
      * @param var args A variable number of arguments that will be used as arguments for
      *  <code>vsprintf(..)</code> to insert variables into the localized text.
      * @return string A localized version based on the current language, or the original text.
+     * @package zenmagick.store.shared.locale
      */
     function zm_l10n_get($text) {
         // get the remaining args
@@ -63,11 +63,11 @@
      * <p>Similar to <code>zm_l10n_get(..)</code>, except that the first argument is a chunk (file-)name, rather
      * than a real localizable string.</p>
      *
-     * @package org.zenmagick.store.locale
      * @param string name The chunk name.
      * @param var args A variable number of arguments that will be used as arguments for
      *  <code>vsprintf(..)</code> to insert variables into the localized text.
      * @return string A localized version based on the current language, or <code>null</code>.
+     * @package zenmagick.store.shared.locale
      * @deprecated use static page instead
      */
     function zm_l10n_chunk_get($name) {
@@ -92,8 +92,8 @@
     /**
      * Add language mappings.
      *
-     * @package org.zenmagick.store.locale
      * @param array map The new/additional mappings.
+     * @package zenmagick.store.shared.locale
      */
     function zm_l10n_add($map) {
         // sanitiy check
@@ -112,12 +112,12 @@
     /**
      * The actual <code>l10n</code> workhorse.
      *
-     * @package org.zenmagick.store.locale
      * @param string text The text.
      * @param string default A default text in case there is no localized version of the given text.
      * @param var args A variable number of arguments that will be used as arguments for
      *  <code>vsprintf(..)</code> to insert variables into the localized text.
      * @return string A localized version based on the current language, or the original text.
+     * @package zenmagick.store.shared.locale
      */
     function _zm_l10n_lookup($text, $default, $args=null) {
         $l10n = array();

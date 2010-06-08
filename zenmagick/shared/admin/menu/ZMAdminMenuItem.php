@@ -30,8 +30,7 @@
  * <p>This may be either a ZenMagick system page or a plugin options page or other.</p>
  *
  * @author DerManoMann
- * @package org.zenmagick.store.admin
- * @version $Id$
+ * @package zenmagick.store.shared.admin.menu
  */
 class ZMAdminMenuItem extends ZMObject {
     private $parent_;

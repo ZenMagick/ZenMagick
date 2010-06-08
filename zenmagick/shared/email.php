@@ -19,8 +19,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
- *
- * $Id$
  */
 ?>
 <?php
@@ -29,11 +27,11 @@
     /**
      * Create email contents based on the given parameter.
      *
-     * @package org.zenmagick.store.email
      * @param string template The template.
      * @param boolean asHTML Flag whether HTML or text version should be generated.
      * @param array context The context data to be made available for the email template.
      * @return string The email contents.
+     * @package zenmagick.store.shared.email
      */
     function zm_get_email_contents($template, $asHTML=true, $context=array()) {
         $view = ZMLoader::make("EmailView", $template, $asHTML, $context);
@@ -45,9 +43,9 @@
     /**
      * Check in which format a given email template exists.
      *
-     * @package org.zenmagick.store.email
      * @param string template The email template name.
      * @return string Valid return strings are: <code>html</code>, <code>text</code>, <code>both</code> or <code>none</code>.
+     * @package zenmagick.store.shared.email
      */
     function zm_email_formats($template) {
         $htmlView = ZMLoader::make("EmailView", $template, true);
@@ -75,7 +73,6 @@
      * <p>The environment will be se same as for the actual HTML response view. This is done
      * by attaching the current controller to the view.</p>
      *
-     * @package org.zenmagick.store.email
      * @param string subject The subject.
      * @param string template The email template name.
      * @param array context Additional stuff to be made available to the template.
@@ -84,6 +81,7 @@
      * @param string fromEmail Optional sender email address; default is <code>storeEmailFrom</code>.
      * @param string fromName Optional sender name; default is <code>$fromEmail</code>.
      * @param string attachment Optional <strong>single</strong> file attachment.
+     * @package zenmagick.store.shared.email
      */
     function zm_mail($subject, $template, $context, $toEmail, $toName=null, $fromEmail=null, $fromName=null, $attachment=null) {
         // some argument cleanup

@@ -49,3 +49,22 @@ function _zm($text, $context=null, $domain=ZMLocale::DEFAULT_DOMAIN) {
 function _zmn($single, $number, $plural=null, $context=null, $domain=ZMLocale::DEFAULT_DOMAIN) {
     return ZMLocales::instance()->translatePlural($single, $number, $plural, $context, $domain);
 }
+
+/**
+ * Convenience version of <code>_zm</code> using a <code>null</code> context and the default domain.
+ *
+ * <p><strong>This method will <code>echo</code> the localized text rather than return it.</strong></p>
+ *
+ * @param string text The text.
+ * @param mixed ... Variable number of arguments to be used as arguments for
+ *  <code>vsprintf(..)</code> to insert variables into the localized text.
+ * @package org.zenmagick.core.services.locale
+ */
+function _vzm($text) {
+    // get the remaining args
+    $args = func_get_args();
+    array_shift($args);
+    // get translation using default context/domain
+    $translated = _zm($text);
+    echo null != $args ? vsprintf($translated, $args) : $translated;
+}

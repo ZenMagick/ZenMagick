@@ -30,8 +30,7 @@
  * <p>This is a singleton with all methods being static.</p>
  *
  * @author DerManoMann
- * @package org.zenmagick.store.admin
- * @version $Id$
+ * @package zenmagick.store.shared.admin.menu
  */
 class ZMAdminMenu extends ZMObject {
     /** Extras menu id. */
