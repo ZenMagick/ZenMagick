@@ -36,7 +36,7 @@ if (!function_exists('zen_date_raw')) {
      *
      * <p><strong>NOTE:</strong> The format is *not* case sensitive.</p>
      *
-     * @package org.zenmagick.store.locale
+     * @package zenmagick.store.sf.override
      * @param string date A date (usually part of a form submit by the user).
      * @param boolean reverse If <code>true</code>, the returned data will be reversed.
      * @return string The provided date converted into the format <code>YYYYDDMM</code> or <code>MMDDYYYY</code>, respectivley.
@@ -54,7 +54,7 @@ if (!function_exists('zen_href_link')) {
     /**
      * zen_href_link wrapper that delegates to the Zenmagick implementation.
      *
-     * @package org.zenmagick.store.override
+     * @package zenmagick.store.sf.override
      */
     function zen_href_link($page='', $params='', $transport='NONSSL', $addSessionId=true, $seo=true, $isStatic=false, $useContext=true) {
         if (class_exists('ZMStoreDefaultSeoRewriter')) {
@@ -75,7 +75,7 @@ if (!function_exists('zen_mail')) {
      * zen_mail wrapper that delegates to either the Zenmagick implementation or the renamed original
      * version of it.
      *
-     * @package org.zenmagick.store.override
+     * @package zenmagick.store.sf.override
      */
     function zen_mail($toName, $toAddress, $subject, $text, $fromName, $fromAddress, $block=array(), $module='default', $attachments_list='') {
         // uncomment to trace mail calls and figure out module names (ie template names)

@@ -178,7 +178,6 @@ class ZMImageInfo extends ZMObject {
     /**
      * Split image name into components that we need to process it.
      *
-     * @package org.zenmagick
      * @param string image The image.
      * @return array An array consisting of [optional subdirectory], [file extension], [basename]
      */
@@ -202,7 +201,6 @@ class ZMImageInfo extends ZMObject {
     /**
      * Look up additional product images.
      *
-     * @package org.zenmagick
      * @param string image The image to look up.
      * @return array An array of <code>ZMImageInfo</code> instances.
      */
