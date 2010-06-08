@@ -25,8 +25,7 @@
  * Max field length validation rule based on the database column length.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.mvc.validation
- * @version $Id$
+ * @package zenmagick.store.shared.mvc.validation
  */
 class ZMMaxFieldLengthRule extends ZMRule {
     private $table;

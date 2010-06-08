@@ -28,8 +28,7 @@
  * A single language.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.model
- * @version $Id$
+ * @package zenmagick.store.shared.model
  */
 class ZMLanguage extends ZMObject {
     private $name_;

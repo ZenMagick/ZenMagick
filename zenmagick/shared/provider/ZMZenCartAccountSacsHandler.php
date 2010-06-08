@@ -31,8 +31,7 @@
  * non secure HTTP is used to access them.</p>
  *
  * @author DerManoMann
- * @package org.zenmagick.store.mvc
- * @version $Id$
+ * @package zenmagick.store.shared.provider
  */
 class ZMZenCartAccountSacsHandler extends ZMObject implements ZMSacsHandler {
     /** Access level registered. 

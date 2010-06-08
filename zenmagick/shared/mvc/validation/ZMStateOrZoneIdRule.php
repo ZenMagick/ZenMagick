@@ -31,8 +31,7 @@
  * if required.</p>
  *
  * @author DerManoMann
- * @package org.zenmagick.store.mvc.validation
- * @version $Id$
+ * @package zenmagick.store.shared.mvc.validation
  */
 class ZMStateOrZoneIdRule extends ZMRule {
 

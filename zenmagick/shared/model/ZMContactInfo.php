@@ -28,8 +28,7 @@
  * Contact info.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.model
- * @version $Id$
+ * @package zenmagick.store.shared.model
  */
 class ZMContactInfo extends ZMObject {
     private $name_;

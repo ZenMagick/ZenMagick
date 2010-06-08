@@ -30,8 +30,7 @@
  * <p>This class is assuming a properly configured zen cart.</p>
  *
  * @author DerManoMann
- * @package org.zenmagick.store.model.checkout
- * @version $Id$
+ * @package zenmagick.store.shared.model.checkout
  */
 class ZMShoppingCart extends ZMObject {
     public $cart_;

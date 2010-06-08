@@ -31,8 +31,7 @@
  * address, etc.</p>
  *
  * @author DerManoMann
- * @package org.zenmagick.store.model.checkout
- * @version $Id$
+ * @package zenmagick.store.shared.model.checkout
  */
 class ZMShippingProviderOld extends ZMObject {
     private $zenQuote_;

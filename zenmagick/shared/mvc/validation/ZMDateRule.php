@@ -25,8 +25,7 @@
  * Date validation rule.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.mvc.validation
- * @version $Id$
+ * @package zenmagick.store.shared.mvc.validation
  */
 class ZMDateRule extends ZMRule {
     private $format_;

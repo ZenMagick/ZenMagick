@@ -28,8 +28,7 @@
  * Order total interface.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.services.plugins.types
- * @version $Id$
+ * @package zenmagick.store.shared.services.plugins.types
  */
 interface ZMOrderTotal {
 

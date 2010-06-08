@@ -25,8 +25,7 @@
  * Filter orders by status id.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.mvc.resultlist.filter
- * @version $Id$
+ * @package zenmagick.store.shared.mvc.resultlist.filter
  */
 class ZMOrderStatusIdFilter extends ZMResultListFilter implements ZMSQLAware {
 

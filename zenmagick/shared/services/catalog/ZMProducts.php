@@ -28,8 +28,7 @@
  * Product access.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.services.catalog
- * @version $Id$
+ * @package zenmagick.store.shared.services.catalog
  */
 class ZMProducts extends ZMObject implements ZMSQLAware {
     // image size constants

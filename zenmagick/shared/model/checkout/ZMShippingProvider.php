@@ -31,8 +31,7 @@
  * address, or other shipping conditions.</p>
  *
  * @author DerManoMann
- * @package org.zenmagick.store.model.checkout
- * @version $Id$
+ * @package zenmagick.store.shared.model.checkout
  */
 interface ZMShippingProvider {
 

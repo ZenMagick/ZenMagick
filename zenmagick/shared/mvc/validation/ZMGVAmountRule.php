@@ -28,8 +28,7 @@
  * contains any currency formatting.</p>
  *
  * @author DerManoMann
- * @package org.zenmagick.store.mvc.validation
- * @version $Id$
+ * @package zenmagick.store.shared.mvc.validation
  */
 class ZMGVAmountRule extends ZMRule {
 

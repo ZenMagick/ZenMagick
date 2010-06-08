@@ -25,8 +25,7 @@
  * <p>A country select form widget.</p>
  *
  * @author DerManoMann
- * @package org.zenmagick.store.mvc.widgets
- * @version $Id$
+ * @package zenmagick.store.shared.mvc.widgets
  */
 class ZMCountrySelectFormWidget extends ZMSelectFormWidget {
 

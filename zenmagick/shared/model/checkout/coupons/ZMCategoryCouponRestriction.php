@@ -28,8 +28,7 @@
  * Single coupon restriction.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.model.checkout.coupons
- * @version $Id$
+ * @package zenmagick.store.shared.model.checkout.coupons
  */
 class ZMCategoryCouponRestriction extends ZMObject {
     private $allowed_;

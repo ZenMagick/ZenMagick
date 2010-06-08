@@ -28,8 +28,7 @@
  * used as view for plugin admin pages.</p>
  *
  * @author DerManoMann
- * @package org.zenmagick.store.mvc.views
- * @version $Id$
+ * @package zenmagick.store.shared.mvc.views
  */
 class ZMAdminView extends SavantView {
     private $templatePath_;

@@ -28,8 +28,7 @@
  * All stuff related to product prices and offers.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.model.catalog
- * @version $Id: ZMOffers.php 2902 2010-02-16 07:51:36Z dermanomann $
+ * @package zenmagick.store.shared.model.catalog
  */
 class ZMOffers extends ZMObject {
     // sale type constants

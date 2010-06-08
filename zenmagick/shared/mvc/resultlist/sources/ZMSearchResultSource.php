@@ -27,8 +27,7 @@
  * <p>This is a wrapper around the <code>ZMProductFinder</code>.</p>
  *
  * @author DerManoMann
- * @package org.zenmagick.store.mvc.resultlist.sources
- * @version $Id$
+ * @package zenmagick.store.shared.mvc.resultlist.sources
  */
 class ZMSearchResultSource extends ZMObject implements ZMResultSource {
     private $criteria_;

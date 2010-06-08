@@ -28,8 +28,7 @@
  * Simple id/name container.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.model
- * @version $Id$
+ * @package zenmagick.store.shared.model
  */
 class ZMIdNamePair extends ZMObject {
     var $id_;

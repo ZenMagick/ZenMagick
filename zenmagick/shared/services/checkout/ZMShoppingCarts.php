@@ -35,8 +35,7 @@
  * code do currently not seem worth the effort.</strong></p>
  *
  * @author DerManoMann
- * @package org.zenmagick.store.services.checkout
- * @version $Id$
+ * @package zenmagick.store.shared.services.checkout
  */
 class ZMShoppingCarts extends ZMObject {
 

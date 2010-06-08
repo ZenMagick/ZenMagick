@@ -32,8 +32,7 @@
  * directly.</p>
  *
  * @author DerManoMann
- * @package org.zenmagick.store.services
- * @version $Id$
+ * @package zenmagick.store.shared.services
  */
 class Events extends ZMEvents {
     const DISPATCH_START = 'dispatch_start';

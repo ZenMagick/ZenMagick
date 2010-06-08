@@ -28,8 +28,7 @@
  * Implementation of the ZenMagick database layer using zen-cart's <code>$db</code>.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.provider
- * @version $Id$
+ * @package zenmagick.store.shared.provider
  */
 class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
     private static $typeMap = array('boolean' => 'integer', 'blob' => 'date', 'datetime' => 'date');

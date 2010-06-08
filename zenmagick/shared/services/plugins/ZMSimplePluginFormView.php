@@ -28,8 +28,7 @@
  * Plugin view that generates a (view-less) simple form based on all plugin settings.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.services.plugins
- * @version $Id$
+ * @package zenmagick.store.shared.services.plugins
  */
 class ZMSimplePluginFormView extends ZMView {
     private $plugin_;

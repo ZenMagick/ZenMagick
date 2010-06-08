@@ -28,8 +28,7 @@
  * A single banner.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.model.layout
- * @version $Id$
+ * @package zenmagick.store.shared.model.layout
  */
 class ZMBanner extends ZMObject {
     private $id_;

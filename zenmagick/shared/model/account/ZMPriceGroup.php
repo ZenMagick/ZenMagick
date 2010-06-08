@@ -28,8 +28,7 @@
  * A price group.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.model.account
- * @version $Id$
+ * @package zenmagick.store.shared.model.account
  */
 class ZMPriceGroup extends ZMObject {
     private $id_;

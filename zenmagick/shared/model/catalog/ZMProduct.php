@@ -28,8 +28,7 @@
  * A product.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.model.catalog
- * @version $Id$
+ * @package zenmagick.store.shared.model.catalog
  */
 class ZMProduct extends ZMObject {
     var $name_;

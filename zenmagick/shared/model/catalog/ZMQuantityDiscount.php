@@ -28,8 +28,7 @@
  * A quantity discount.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.model.catalog
- * @version $Id$
+ * @package zenmagick.store.shared.model.catalog
  */
 class ZMQuantityDiscount extends ZMObject {
     private $productId_;

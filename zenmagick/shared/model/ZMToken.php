@@ -28,8 +28,7 @@
  * Token model class.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.model
- * @version $Id$
+ * @package zenmagick.store.shared.model
  */
 class ZMToken extends ZMObject {
 

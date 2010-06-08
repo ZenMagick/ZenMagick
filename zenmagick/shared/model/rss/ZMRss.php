@@ -31,8 +31,7 @@
  * <p>ZenMagick wrapper around <code>lastRSS</code>.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.model.rss
- * @version $Id$
+ * @package zenmagick.store.shared.model.rss
  */
 class ZMRss extends ZMObject {
     private $url_;

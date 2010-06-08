@@ -29,8 +29,7 @@
  * form.</p> 
  *
  * @author DerManoMann
- * @package org.zenmagick.store.mvc
- * @version $Id$
+ * @package zenmagick.store.shared.mvc
  */
 class FormData extends ZMFormData {
     protected $tables_;

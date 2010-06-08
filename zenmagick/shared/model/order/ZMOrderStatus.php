@@ -28,8 +28,7 @@
  * Order status.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.model.order
- * @version $Id$
+ * @package zenmagick.store.shared.model.order
  */
 class ZMOrderStatus extends ZMObject {
     private $orderId_;

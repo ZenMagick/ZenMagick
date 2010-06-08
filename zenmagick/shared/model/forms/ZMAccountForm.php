@@ -28,8 +28,7 @@
  * An account form (bean).
  *
  * @author DerManoMann
- * @package org.zenmagick.store.model.forms
- * @version $Id$
+ * @package zenmagick.store.shared.model.forms
  */
 class ZMAccountForm extends FormData {
 

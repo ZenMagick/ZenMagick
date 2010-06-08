@@ -30,8 +30,7 @@
  * <p>Rate values will have a precision that is 2 digits more than <em>ZMSettings::get('calculationDecimals')</em>.</p>
  *
  * @author DerManoMann
- * @package org.zenmagick.store.services
- * @version $Id: ZMTaxRates.php 2902 2010-02-16 07:51:36Z dermanomann $
+ * @package zenmagick.store.shared.services
  */
 class ZMTaxRates extends ZMObject {
     const TAX_BASE_STORE = 'Store';

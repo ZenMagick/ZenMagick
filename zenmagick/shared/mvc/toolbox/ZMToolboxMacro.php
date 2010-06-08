@@ -28,8 +28,7 @@
  * Macro utilities.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.mvc.tools
- * @version $Id$
+ * @package zenmagick.store.shared.mvc.tools
  */
 class ZMToolboxMacro extends ZMToolboxTool {
 

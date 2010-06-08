@@ -25,8 +25,7 @@
  * Check for unique email address.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.mvc.validation
- * @version $Id$
+ * @package zenmagick.store.shared.mvc.validation
  */
 class ZMUniqueEmailRule extends ZMRule {
 

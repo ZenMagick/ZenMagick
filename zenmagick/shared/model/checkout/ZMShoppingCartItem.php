@@ -31,8 +31,7 @@
  * implicit as done by the shopping cart service (<code>ZMShoppingCart</code>)</p>
  *
  * @author DerManoMann
- * @package org.zenmagick.store.model.checkout
- * @version $Id$
+ * @package zenmagick.store.shared.model.checkout
  * @todo remove deprecated code and zenItem references
  */
 class ZMShoppingCartItem extends ZMObject {

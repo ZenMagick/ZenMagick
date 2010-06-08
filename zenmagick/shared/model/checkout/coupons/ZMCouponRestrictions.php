@@ -28,8 +28,7 @@
  * Collection of coupon restrictions.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.model.checkout.coupons
- * @version $Id$
+ * @package zenmagick.store.shared.model.checkout.coupons
  */
 class ZMCouponRestrictions extends ZMObject {
     private $categories_;

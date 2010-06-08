@@ -28,8 +28,7 @@
  * Banner.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.services
- * @version $Id$
+ * @package zenmagick.store.shared.services
  */
 class ZMBanners extends ZMObject {
 

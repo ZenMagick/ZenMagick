@@ -28,8 +28,7 @@
  * A registration form (bean).
  *
  * @author DerManoMann
- * @package org.zenmagick.store.model.forms
- * @version $Id$
+ * @package zenmagick.store.shared.model.forms
  */
 class ZMRegistrationForm extends FormData {
 

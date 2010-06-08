@@ -126,6 +126,8 @@ Release 0.9.10
  schema: 'zenmagick.core.singleton.NAME' with NAME being the default name of
  the singleton class (typically the name without 'ZM' prefix)
 - allow singletons to be bean definitions
+- useo2: remove dependency on admin patch class
+- move more stuff into admin app
 
 Release 0.9.9
 - in ZMDbTableMapper handle database exception building auto mappings

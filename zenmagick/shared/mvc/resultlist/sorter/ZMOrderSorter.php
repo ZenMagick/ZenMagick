@@ -26,8 +26,7 @@
  * Order sorter.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.mvc.resultlist.sorter
- * @version $Id$
+ * @package zenmagick.store.shared.mvc.resultlist.sorter
  */
 class ZMOrderSorter extends ZMResultListSorter implements ZMSQLAware {
     // supported sorts

@@ -28,8 +28,7 @@
  * A single review.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.model.catalog
- * @version $Id$
+ * @package zenmagick.store.shared.model.catalog
  */
 class ZMReview extends ZMObject {
     private $rating_;

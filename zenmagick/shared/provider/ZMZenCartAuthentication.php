@@ -28,8 +28,7 @@
  * zen-cart authentication provider.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.provider
- * @version $Id$
+ * @package zenmagick.store.shared.provider
  */
 class ZMZenCartAuthentication implements ZMAuthentication {
 

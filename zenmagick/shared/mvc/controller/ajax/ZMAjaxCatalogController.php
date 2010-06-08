@@ -25,8 +25,7 @@
  * Ajax controller for JSON catalog data.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.mvc.controller.ajax
- * @version $Id$
+ * @package zenmagick.store.shared.mvc.controller.ajax
  */
 class ZMAjaxCatalogController extends ZMAjaxController {
 

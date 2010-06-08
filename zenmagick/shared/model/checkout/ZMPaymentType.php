@@ -28,8 +28,7 @@
  * A single payment type including all required information and settings.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.model.checkout
- * @version $Id$
+ * @package zenmagick.store.shared.model.checkout
  */
 class ZMPaymentType extends ZMObject {
     private $id_;

@@ -39,8 +39,7 @@
  * <p>The default value for the tax class id is <em>0</em> for no tax.</p>
  *
  * @author DerManoMann
- * @package org.zenmagick.store.model.checkout
- * @version $Id$
+ * @package zenmagick.store.shared.model.checkout
  */
 class ZMOrderTotalLineDetails extends ZMObject {
     private $title_;

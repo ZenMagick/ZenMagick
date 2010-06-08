@@ -28,8 +28,7 @@
  * Configuration group.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.model
- * @version $Id$
+ * @package zenmagick.store.shared.model
  */
 class ZMConfigGroup extends ZMObject {
     private $id_;

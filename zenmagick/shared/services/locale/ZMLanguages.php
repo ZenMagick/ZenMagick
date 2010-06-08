@@ -28,8 +28,7 @@
  * Languages service.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.services.locale
- * @version $Id$
+ * @package zenmagick.store.shared.services.locale
  */
 class ZMLanguages extends ZMObject {
     private $languages;

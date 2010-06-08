@@ -28,8 +28,7 @@
  * A single currency.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.model
- * @version $Id$
+ * @package zenmagick.store.shared.model
  */
 class ZMCurrency extends ZMObject {
     private $code_;

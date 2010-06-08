@@ -30,8 +30,7 @@
  * <p>Supports <em>limit</em> parameter in the <code>$args</code> map.</p>
  *
  * @author DerManoMann
- * @package org.zenmagick.store.provider
- * @version $Id$
+ * @package zenmagick.store.shared.provider
  */
 class ZMSimilarOrderProductAssociationHandler implements ZMProductAssociationHandler {
 

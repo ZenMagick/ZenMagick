@@ -28,8 +28,7 @@
  * Configuration value.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.model
- * @version $Id$
+ * @package zenmagick.store.shared.model
  */
 class ZMConfigValue extends ZMObject {
     private $id_;

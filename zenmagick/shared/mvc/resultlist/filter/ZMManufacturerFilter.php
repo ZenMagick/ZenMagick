@@ -25,8 +25,7 @@
  * Filter products by manufacturer.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.mvc.resultlist.filter
- * @version $Id$
+ * @package zenmagick.store.shared.mvc.resultlist.filter
  */
 class ZMManufacturerFilter extends ZMResultListFilter implements ZMSQLAware {
 

@@ -28,8 +28,7 @@
  * Accounts.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.services.account
- * @version $Id$
+ * @package zenmagick.store.shared.services.account
  */
 class ZMAccounts extends ZMObject {
     // authorization status constants

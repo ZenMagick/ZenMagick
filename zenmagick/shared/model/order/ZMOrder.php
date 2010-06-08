@@ -28,8 +28,7 @@
  * A single order.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.model.order
- * @version $Id$
+ * @package zenmagick.store.shared.model.order
  */
 class ZMOrder extends ZMObject {
     private $accountId_;

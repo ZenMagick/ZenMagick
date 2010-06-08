@@ -28,8 +28,7 @@
  * A single order item
  *
  * @author DerManoMann
- * @package org.zenmagick.store.model.order
- * @version $Id$
+ * @package zenmagick.store.shared.model.order
  */
 class ZMOrderItem extends ZMObject {
     private $productId_;

@@ -28,8 +28,7 @@
  * Currencies.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.services.locale
- * @version $Id$
+ * @package zenmagick.store.shared.services.locale
  */
 class ZMCurrencies extends ZMObject {
     private $currencies;

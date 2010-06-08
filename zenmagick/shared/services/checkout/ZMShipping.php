@@ -28,8 +28,7 @@
  * Access class for shipping options.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.services.checkout
- * @version $Id$
+ * @package zenmagick.store.shared.services.checkout
  */
 class ZMShipping extends ZMObject {
     var $provider_;

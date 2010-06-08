@@ -28,8 +28,7 @@
  * Orders.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.services.checkout
- * @version $Id$
+ * @package zenmagick.store.shared.services.checkout
  */
 class ZMOrders extends ZMObject implements ZMSQLAware {
 

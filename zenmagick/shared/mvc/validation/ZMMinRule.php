@@ -25,8 +25,7 @@
  * Min max length validation rules.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.mvc.validation
- * @version $Id$
+ * @package zenmagick.store.shared.mvc.validation
  */
 class ZMMinRule extends ZMRule {
     private $min_;

@@ -25,8 +25,7 @@
  * A theme.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.services.themes
- * @version $Id$
+ * @package zenmagick.store.shared.services.themes
  */
 class ZMTheme extends ZMObject {
     private $themeId_;

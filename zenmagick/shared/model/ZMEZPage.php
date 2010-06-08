@@ -28,8 +28,7 @@
  * EZ-page.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.model
- * @version $Id$
+ * @package zenmagick.store.shared.model
  */
 class ZMEZPage extends ZMObject {
     private $id_;

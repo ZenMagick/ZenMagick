@@ -28,8 +28,7 @@
  * Filenames follow the pattern <code>[$template].[html|text].php</code>.<p>
  *
  * @author DerManoMann
- * @package org.zenmagick.store.mvc.views
- * @version $Id$
+ * @package zenmagick.store.shared.mvc.views
  */
 class ZMEmailView extends SavantView {
 

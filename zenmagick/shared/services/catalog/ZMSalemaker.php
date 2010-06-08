@@ -28,8 +28,7 @@
  * Sale maker.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.services.catalog
- * @version $Id$
+ * @package zenmagick.store.shared.services.catalog
  */
 class ZMSaleMaker extends ZMObject {
     private $sales_;

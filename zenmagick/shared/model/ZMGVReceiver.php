@@ -30,8 +30,7 @@
  * <p><strong>NOTE:</strong> The amount is always in the sessions current currency.</p>
  *
  * @author DerManoMann
- * @package org.zenmagick.store.model
- * @version $Id$
+ * @package zenmagick.store.shared.model
  */
 class ZMGVReceiver extends ZMObject {
     private $name_;

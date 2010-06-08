@@ -30,8 +30,7 @@
  * <p>The tax rate id is build from the tax classId, countryId and zoneId to make it unique.</p>
  *
  * @author DerManoMann
- * @package org.zenmagick.store.model
- * @version $Id$
+ * @package zenmagick.store.shared.model
  */
 class ZMTaxRate extends ZMObject {
     var $id_;

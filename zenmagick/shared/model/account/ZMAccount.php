@@ -28,8 +28,7 @@
  * A single user account.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.model.account
- * @version $Id$
+ * @package zenmagick.store.shared.model.account
  */
 class ZMAccount extends ZMObject {
     /** Access level registered. */

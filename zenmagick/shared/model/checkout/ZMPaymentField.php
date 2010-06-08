@@ -28,8 +28,7 @@
  * A form field for a payment type.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.model.checkout
- * @version $Id$
+ * @package zenmagick.store.shared.model.checkout
  */
 class ZMPaymentField extends ZMObject {
     private $label_;

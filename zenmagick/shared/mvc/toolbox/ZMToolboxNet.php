@@ -28,8 +28,7 @@
  * Networking/URL related functions.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.mvc.tools
- * @version $Id$
+ * @package zenmagick.store.shared.mvc.tools
  */
 class ZMToolboxNet extends ZMToolboxTool {
 

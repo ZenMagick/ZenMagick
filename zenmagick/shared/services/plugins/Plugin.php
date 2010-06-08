@@ -32,8 +32,7 @@
  * <p>The plugin code (id) is based on the plugin class/file name.</p>
  *
  * @author DerManoMann
- * @package org.zenmagick.store.services.plugins
- * @version $Id$
+ * @package zenmagick.store.shared.services.plugins
  */
 class Plugin extends ZMPlugin {
     /** internal key constant */

@@ -28,8 +28,7 @@
  * Shipping provider wrapper for zen cart shipping modules.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.model.checkout
- * @version $Id$
+ * @package zenmagick.store.shared.model.checkout
  */
 class ZMShippingProviderWrapper extends ZMObject implements ZMShippingProvider {
     private $zenModule_;

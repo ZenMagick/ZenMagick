@@ -31,7 +31,7 @@
  * @package org.zenmagick.plugins.useo2
  * @version $Id$
  */
-class ZMUseo2SupportPatch extends ZMFilePatch {
+class ZMUseo2SupportPatch extends ZMObject {
     private $adminFiles_ = array(
         "categories.php",
         "product.php",
@@ -82,6 +82,8 @@ class ZMUseo2SupportPatch extends ZMFilePatch {
         return 0 < count($files);
     }
 
+    function canUndo() { return true;}
+
     /**
      * Checks if this patch is ready to be applied.
      *
@@ -130,7 +132,7 @@ class ZMUseo2SupportPatch extends ZMFilePatch {
             $files = $this->_getUnpatchedAdminFiles();
             foreach ($files as $file => $lines) {
                 if (is_writeable($file)) {
-                    $this->putFileLines($file, $lines);
+                    ZMFileUtils::putFileLines($file, $lines);
                 } else {
                     ZMLogging::instance()->log("** ZenMagick: no permission to patch Ultimate SEO support into ".$file, ZMLogging::ERROR);
                     return false;
@@ -170,7 +172,7 @@ class ZMUseo2SupportPatch extends ZMFilePatch {
     function _getUnpatchedAdminFiles() {
         $files = array();
         foreach ($this->adminFiles_ as $file) {
-            $lines = $this->getFileLines(DIR_FS_ADMIN.$file);
+            $lines = ZMFileUtils::getFileLines(DIR_FS_ADMIN.$file);
             $isPatched = false;
             foreach ($lines as $ii => $line) {
                 if (false !== strpos($line, "insert|update|setflag") && false !== strpos($lines[$ii+1], "reset_seo_cache")) {
@@ -204,7 +206,7 @@ class ZMUseo2SupportPatch extends ZMFilePatch {
      */
     function undo() {
         foreach ($this->adminFiles_ as $file) {
-            $lines = $this->getFileLines(DIR_FS_ADMIN.$file);
+            $lines = ZMFileUtils::getFileLines(DIR_FS_ADMIN.$file);
             $unpatchedLines = array();
             $inPatch = false;
             foreach ($lines as $ii => $line) {
@@ -221,7 +223,7 @@ class ZMUseo2SupportPatch extends ZMFilePatch {
                 }
             }
             if (count($lines) != count($unpatchedLines)) {
-                $this->putFileLines(DIR_FS_ADMIN.$file, $unpatchedLines);
+                ZMFileUtils::putFileLines(DIR_FS_ADMIN.$file, $unpatchedLines);
             }
         }
 

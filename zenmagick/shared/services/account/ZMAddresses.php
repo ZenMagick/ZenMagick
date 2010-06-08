@@ -28,8 +28,7 @@
  * Addresses.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.services.account
- * @version $Id$
+ * @package zenmagick.store.shared.services.account
  */
 class ZMAddresses extends ZMObject {
 

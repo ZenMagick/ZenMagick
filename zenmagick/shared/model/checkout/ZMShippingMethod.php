@@ -28,8 +28,7 @@
  * Shipping method.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.model.checkout
- * @version $Id$
+ * @package zenmagick.store.shared.model.checkout
  */
 class ZMShippingMethod extends ZMObject {
     private $provider_;

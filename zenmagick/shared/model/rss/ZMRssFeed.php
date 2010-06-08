@@ -29,8 +29,7 @@
  * A RSS feed.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.model.rss
- * @version $Id$
+ * @package zenmagick.store.shared.model.rss
  */
 class ZMRssFeed extends ZMObject {
     private $channel_;

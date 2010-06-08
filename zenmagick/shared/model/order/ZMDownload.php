@@ -28,8 +28,7 @@
  * A single download.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.model.order
- * @version $Id$
+ * @package zenmagick.store.shared.model.order
  */
 class ZMDownload extends ZMObject {
     private $id;

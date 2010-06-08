@@ -28,8 +28,7 @@
  * Store runtime.
  *
  * @author DerManoMann
- * @package org.zenmagick.store
- * @version $Id$
+ * @package zenmagick.store.shared
  */
 class Runtime extends ZMRuntime {
     private static $themeId_ = null;

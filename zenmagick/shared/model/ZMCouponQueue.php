@@ -28,8 +28,7 @@
  * A single coupon queue entry.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.model
- * @version $Id$
+ * @package zenmagick.store.shared.model
  */
 class ZMCouponQueue extends ZMObject {
     private $id;

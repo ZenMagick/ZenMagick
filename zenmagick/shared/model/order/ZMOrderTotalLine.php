@@ -28,8 +28,7 @@
  * A order total line.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.model.order
- * @version $Id$
+ * @package zenmagick.store.shared.model.order
  */
 class ZMOrderTotalLine extends ZMObject {
     private $name_;

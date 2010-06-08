@@ -28,8 +28,7 @@
  * Group pricing.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.services.catalog
- * @version $Id$
+ * @package zenmagick.store.shared.services.catalog
  */
 class ZMGroupPricing extends ZMObject {
 

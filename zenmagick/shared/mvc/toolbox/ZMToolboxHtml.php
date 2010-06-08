@@ -28,8 +28,7 @@
  * HTML utilities.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.mvc.toolbox.defaults
- * @version $Id$
+ * @package zenmagick.store.shared.mvc.toolbox.defaults
  */
 class ZMToolboxHtml extends ZMToolboxTool {
 

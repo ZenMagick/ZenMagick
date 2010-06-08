@@ -31,8 +31,7 @@
  * to generate a simple plugin config form.</p>
  *
  * @author DerManoMann
- * @package org.zenmagick.store.services.plugins
- * @version $Id$
+ * @package zenmagick.store.shared.services.plugins
  */
 class ZMPluginAdminController extends ZMController {
     private $title_;

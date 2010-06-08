@@ -30,8 +30,7 @@
  * <p>This is a collection of things to make templating easier.</p>
  *
  * @author DerManoMann
- * @package org.zenmagick.store.services.themes
- * @version $Id: ZMTemplateManager.php 2902 2010-02-16 07:51:36Z dermanomann $
+ * @package zenmagick.store.shared.services.themes
  */
 class ZMTemplateManager extends ZMObject {
     const PAGE_TOP = 'top';

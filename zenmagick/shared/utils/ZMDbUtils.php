@@ -28,8 +28,7 @@
  * SQL/database utils.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.utils
- * @version $Id$
+ * @package zenmagick.store.shared.utils
  */
 class ZMDbUtils {
 

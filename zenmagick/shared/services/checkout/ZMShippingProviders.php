@@ -28,8 +28,7 @@
  * General access class for shipping provider.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.services.checkout
- * @version $Id$
+ * @package zenmagick.store.shared.services.checkout
  */
 class ZMShippingProviders extends ZMObject {
     private $providers_;

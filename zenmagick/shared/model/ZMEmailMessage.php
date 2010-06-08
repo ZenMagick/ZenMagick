@@ -28,8 +28,7 @@
  * A generic email message container.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.model
- * @version $Id$
+ * @package zenmagick.store.shared.model
  */
 class ZMEmailMessage extends ZMObject {
     private $fromEmail_;

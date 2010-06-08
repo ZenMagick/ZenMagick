@@ -28,8 +28,7 @@
  * Search criteria.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.model
- * @version $Id$
+ * @package zenmagick.store.shared.model
  */
 class ZMSearchCriteria extends ZMObject {
 

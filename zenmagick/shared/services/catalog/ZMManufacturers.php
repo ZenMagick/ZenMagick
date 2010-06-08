@@ -28,8 +28,7 @@
  * Manufacturers.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.services.catalog
- * @version $Id$
+ * @package zenmagick.store.shared.services.catalog
  */
 class ZMManufacturers extends ZMObject {
     private $cache;

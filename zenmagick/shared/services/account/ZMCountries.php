@@ -28,8 +28,7 @@
  * Countries.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.services.account
- * @version $Id$
+ * @package zenmagick.store.shared.services.account
  */
 class ZMCountries extends ZMObject {
     private $countries_;

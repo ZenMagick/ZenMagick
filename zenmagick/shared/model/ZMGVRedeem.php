@@ -28,8 +28,7 @@
  * Gift voucher redeem info.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.model
- * @version $Id$
+ * @package zenmagick.store.shared.model
  */
 class ZMGVRedeem extends ZMObject {
     private $couponCode_;

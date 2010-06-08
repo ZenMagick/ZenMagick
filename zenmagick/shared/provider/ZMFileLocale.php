@@ -25,8 +25,7 @@
  * File based locale.
  *
  * @author DerManoMann
- * @package org.zenmagick.core.services.locale
- * @version $Id$
+ * @package zenmagick.store.shared.provider
  */
 class ZMFileLocale implements ZMLocale {
 

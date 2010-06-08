@@ -28,8 +28,7 @@
  * EZ-pages.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.services
- * @version $Id$
+ * @package zenmagick.store.shared.services
  */
 class ZMEZPages extends ZMObject {
 

@@ -32,8 +32,7 @@
  * <p>For example, gift vouchers do only have a <em>code</em> and <em>amount</em>.</p>
  *
  * @author DerManoMann
- * @package org.zenmagick.store.model
- * @version $Id$
+ * @package zenmagick.store.shared.model
  */
 class ZMCoupon extends ZMObject {
     private $code_;

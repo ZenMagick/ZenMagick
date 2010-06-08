@@ -30,8 +30,7 @@
  * <p>Sorting and filtering is based on the corresponding result list support classes.</p>
  *
  * @author DerManoMann
- * @package org.zenmagick.store.utils
- * @version $Id$
+ * @package zenmagick.store.shared.utils
  */
 class ZMProductFinder {
     protected $criteria_;

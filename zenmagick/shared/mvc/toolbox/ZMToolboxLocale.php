@@ -27,8 +27,7 @@
  * Locale methods.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.mvc.tools
- * @version $Id$
+ * @package zenmagick.store.shared.mvc.tools
  */
 class ZMToolboxLocale extends ZMToolboxTool {
 
