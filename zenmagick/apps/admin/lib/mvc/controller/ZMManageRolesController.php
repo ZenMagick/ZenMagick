@@ -52,7 +52,10 @@ class ZMManageRolesController extends ZMController {
      * {@inheritDoc}
      */
     public function getViewData($request) {
-        return array('roles' => ZMAdminUserRoles::instance()->getAllRoles());
+        $roles = ZMAdminUserRoles::instance()->getAllRoles();
+        $mappings = ZMSacsManager::instance()->getMappings();
+        $defaultMapping = ZMSacsManager::instance()->getDefaultMapping();
+        return array('roles' => $roles, 'mappings' => $mappings, 'defaultMapping' => $defaultMapping);
     }
 
     /**

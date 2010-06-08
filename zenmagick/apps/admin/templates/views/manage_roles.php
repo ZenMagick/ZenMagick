@@ -61,3 +61,20 @@
     <p><label for="newRole">Add Role</label> <input type="text" id="newRole" name="newRole" value=""> <input type="submit" value="<?php zm_l10n("Add Role") ?>" onclick="addRoleToList(); return false;"></p>
   </fieldset>
 </form>
+
+<table>
+  <tr>
+    <th>Request Id</th>
+    <?php foreach ($roles as $role) { ?>
+    <th><?php echo ucwords($role) ?></th>
+    <?php } ?>
+  </tr>
+  <?php foreach ($mappings as $requestId => $mapping) { if (!is_array($mapping['roles'])) { $mapping = $defaultMapping; } ?>
+    <tr>
+      <td><?php echo $requestId ?></td>
+      <?php foreach ($roles as $role) { ?>
+        <td><?php echo (in_array($role, $mapping['roles']) ? 'Yup' : 'Nope') ?></td>
+      <?php } ?>
+    </tr>
+  <?php } ?>
+</table>

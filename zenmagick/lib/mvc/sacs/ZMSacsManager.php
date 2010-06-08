@@ -240,4 +240,22 @@ class ZMSacsManager extends ZMObject {
         return array_key_exists($requestId, $this->mappings_['mappings']);
     }
 
+    /**
+     * Get all mapped requests.
+     *
+     * @return array Map with requestId as key and <em>sacs</em> data as value.
+     */
+    public function getMappings() {
+        return $this->mappings_['mappings'];
+    }
+
+    /**
+     * Get the default mapping.
+     *
+     * @return array Default mapping data.
+     */
+    public function getDefaultMapping() {
+        return $this->mappings_['default'];
+    }
+
 }
