@@ -130,6 +130,7 @@ Release 0.9.10
 - move more stuff into admin app
 - add _vzm() function as convenience wrapper arount _zm() acting the same as
   zm_l10n()
+- cleanup ZMTools
 
 Release 0.9.9
 - in ZMDbTableMapper handle database exception building auto mappings

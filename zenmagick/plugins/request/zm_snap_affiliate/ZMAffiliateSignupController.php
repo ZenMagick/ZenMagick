@@ -91,7 +91,7 @@ class ZMAffiliateSignupController extends ZMController {
         $plugin = $this->getPlugin();
         $url = $request->getParameter('url');
         $key = $plugin->get('affiliatePrefix');
-        $key .= ZMTools::random(32-strlen($key));
+        $key .= ZMSecurityUtils::random(32-strlen($key));
 	      $commission = $plugin->get('defaultCommission');
         $account = $request->getAccount();
 

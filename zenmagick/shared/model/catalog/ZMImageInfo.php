@@ -217,7 +217,7 @@ class ZMImageInfo extends ZMObject {
         if ($dir = @dir($dirname)) {
             while ($file = $dir->read()) {
                 if (!is_dir($dirname . $file)) {
-                    if (ZMTools::endsWith($file, $ext)) {
+                    if (ZMLangUtils::endsWith($file, $ext)) {
                         if (1 == preg_match("/" . $realImageBase . "/i", $file)) {
                             if ($file != basename($image)) {
                                 if ($realImageBase . preg_replace('/'.$realImageBase.'/', '', $file) == $file) {
