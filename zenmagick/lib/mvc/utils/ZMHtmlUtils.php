@@ -76,4 +76,37 @@ class ZMHtmlUtils {
         return $text;
     }
 
+    /**
+     * Strip HTML tags from the given text.
+     *
+     * @param string text The text to clean up.
+     * @param array tags Optional list of tags to deal with explicitely; default is <code>array('strong','b','u','i','em')</code>.
+     * @return string The stripped text.
+     */
+    public static function strip($text, $tags=array('strong','b','u','i','em')) {
+        $clean = $text;
+
+        // cr/lf
+        $clean = preg_replace('/\r|\t|\n/', ' ', $clean);
+        $clean = nl2br($clean);
+
+        // update breaks with a space
+        $clean = str_replace(array('<br>', '<br />', '<br/>', '<p>', '</p>'), '', $clean);
+
+        // clean general and specific tags:
+        foreach ($tags as $tag) {
+            if ($tag != '') {
+                $clean = preg_replace("/<[\/\!]*?" . $tag . "[^<>]*?>/si", ' ', $clean);
+            }
+        }
+
+        // remove any double-spaces created by cleanups:
+        while (strstr($clean, '  ')) { $clean = str_replace('  ', ' ', $clean); }
+
+        // remove other html code
+        $clean = strip_tags($clean);
+
+        return $clean;
+    }
+
 }

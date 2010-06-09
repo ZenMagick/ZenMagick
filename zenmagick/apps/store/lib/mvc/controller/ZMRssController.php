@@ -109,15 +109,14 @@ class ZMRssController extends ZMController {
      * @param ZMRssChannel channel The channel data.
      */
     function rssHeader($request, $channel) {
-        $toolbox = $request->getToolbox();
         $lines = array(
           '<?xml version="1.0" encoding="UTF-8"?>',
           '<!-- generator="ZenMagick '.ZMSettings::get('zenmagick.version').'" -->',
           '<rss version="2.0">',
           '  <channel>',
-          '    <title><![CDATA['.$toolbox->utils->encodeXML($channel->getTitle()).']]></title>',
+          '    <title><![CDATA['.ZMTools::encodeXML($channel->getTitle()).']]></title>',
           '    <link><![CDATA['.$channel->getLink().']]></link>',
-          '    <description><![CDATA['.$toolbox->utils->encodeXML($channel->getDescription()).']]></description>',
+          '    <description><![CDATA['.ZMTools::encodeXML($channel->getDescription()).']]></description>',
           '    <lastBuildDate>'.ZMTools::mkRssDate($channel->getLastBuildDate()).'</lastBuildDate>'
           );
 
@@ -154,11 +153,10 @@ class ZMRssController extends ZMController {
      * @param ZMRssItem item The item to render.
      */
     function rssItem($request, $item) {
-        $toolbox = $request->getToolbox();
         echo "    <item>\n";
-        echo "      <title>".$toolbox->utils->encodeXML($item->getTitle())."</title>\n";
+        echo "      <title>".ZMTools::encodeXML($item->getTitle())."</title>\n";
         echo "      <link>".$item->getLink()."</link>\n";
-        echo "      <description>".$toolbox->utils->encodeXML($item->getDescription())."</description>\n";
+        echo "      <description>".ZMTools::encodeXML($item->getDescription())."</description>\n";
         echo "      <guid>".$item->getLink()."</guid>\n";
         if (null !== $item->getPubDate()) {
             echo "      <pubDate>".ZMTools::mkRssDate($item->getPubDate())."</pubDate>\n";
@@ -186,7 +184,6 @@ class ZMRssController extends ZMController {
             return null;
         }
 
-        $toolbox = $request->getToolbox();
         $items = array();
         $lastPubDate = null;
         foreach ($reviews as $review) {
@@ -198,7 +195,7 @@ class ZMRssController extends ZMController {
 
             $params = 'products_id='.$review->getProductId().'&reviews_id='.$review->getId();
             $item->setLink($request->url(FILENAME_PRODUCT_REVIEWS_INFO, $params));
-            $item->setDescription($toolbox->html->more($review->getText(), 60));
+            $item->setDescription(ZMHtmlUtils::more($review->getText(), 60));
             $item->setPubDate(ZMTools::mkRssDate($review->getDateAdded()));
             array_push($items, $item);
 
@@ -267,15 +264,14 @@ class ZMRssController extends ZMController {
             return null;
         }
 
-        $toolbox = $request->getToolbox();
         $lastPubDate = null;
         $items = array();
         $products = array_slice(array_reverse(ZMProducts::instance()->getNewProducts()), 0, 20);
         foreach ($products as $product) {
             $item = ZMLoader::make("RssItem");
             $item->setTitle($product->getName());
-            $item->setLink(zm_product_href($product->getId(), null, false));
-            $item->setDescription($toolbox->html->more($toolbox->html->strip($product->getDescription()), 60));
+            $item->setLink($request->getToolbox()->net->product($product->getId(), null, false));
+            $item->setDescription(ZMHtmlUtils::more(ZMHtmlUtils::strip($product->getDescription()), 60));
             $item->setPubDate(ZMTools::mkRssDate($product->getDateAdded()));
             array_push($items, $item);
 
