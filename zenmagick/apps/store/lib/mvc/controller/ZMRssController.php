@@ -161,7 +161,7 @@ class ZMRssController extends ZMController {
         echo "      <description>".$toolbox->utils->encodeXML($item->getDescription())."</description>\n";
         echo "      <guid>".$item->getLink()."</guid>\n";
         if (null !== $item->getPubDate()) {
-            echo "      <pubDate>".zm_mk_rss_date($item->getPubDate())."</pubDate>\n";
+            echo "      <pubDate>".ZMTools::mkRssDate($item->getPubDate())."</pubDate>\n";
         }
         echo "    </item>\n";
     }
@@ -199,7 +199,7 @@ class ZMRssController extends ZMController {
             $params = 'products_id='.$review->getProductId().'&reviews_id='.$review->getId();
             $item->setLink($request->url(FILENAME_PRODUCT_REVIEWS_INFO, $params));
             $item->setDescription($toolbox->html->more($review->getText(), 60));
-            $item->setPubDate(zm_mk_rss_date($review->getDateAdded()));
+            $item->setPubDate(ZMTools::mkRssDate($review->getDateAdded()));
             array_push($items, $item);
 
             if (null === $lastPubDate) {
@@ -215,7 +215,7 @@ class ZMRssController extends ZMController {
         } else {
             $channel->setDescription(zm_l10n_get("Product Reviews at %s", ZMSettings::get('storeName')));
         }
-        $channel->setLastBuildDate(zm_mk_rss_date($lastPubDate));
+        $channel->setLastBuildDate(ZMTools::mkRssDate($lastPubDate));
 
         $feed = ZMLoader::make("RssFeed");
         $feed->setChannel($channel);
@@ -246,7 +246,7 @@ class ZMRssController extends ZMController {
         $channel->setTitle(zm_l10n_get("Chapter %s", $key));
         $channel->setLink($request->url(FILENAME_DEFAULT));
         $channel->setDescription(zm_l10n_get("All pages of Chapter %s", $key));
-        $channel->setLastBuildDate(zm_mk_rss_date());
+        $channel->setLastBuildDate(ZMTools::mkRssDate());
 
         $feed = ZMLoader::make("RssFeed");
         $feed->setChannel($channel);
@@ -276,7 +276,7 @@ class ZMRssController extends ZMController {
             $item->setTitle($product->getName());
             $item->setLink(zm_product_href($product->getId(), null, false));
             $item->setDescription($toolbox->html->more($toolbox->html->strip($product->getDescription()), 60));
-            $item->setPubDate(zm_mk_rss_date($product->getDateAdded()));
+            $item->setPubDate(ZMTools::mkRssDate($product->getDateAdded()));
             array_push($items, $item);
 
             if (null === $lastPubDate) {
