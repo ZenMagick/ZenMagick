@@ -26,13 +26,13 @@
 
 <div id="b_about">
   <div class="about" id="about">
-  <h2><?php zm_l10n("About ZenMagick") ?></h2>
-      <p><span class="label">Version:</span> <?php echo ZMSettings::get('zenmagick.version'); ?></p>
-      <p><span class="label">Homepage:</span> <a href="http://www.zenmagick.org">www.zenmagick.org</a></p>
-      <p><span class="label">Author:</span> Martin Rademacher</p>
+  <h2><?php _vzm("About ZenMagick") ?></h2>
+      <p><span class="label"><?php _vzm('Version:') ?></span> <?php echo ZMSettings::get('zenmagick.version'); ?></p>
+      <p><span class="label"><?php _vzm('Homepage:') ?></span> <a href="http://www.zenmagick.org">www.zenmagick.org</a></p>
+      <p><span class="label"><?php _vzm('Author:') ?></span> Martin Rademacher</p>
   </div>
   <div class="about">
     <?php echo $macro->phpinfo(1); ?>
-    <p><?php zm_l10n('For the full PHP info see zen-cart\'s <a href="server_info.php">server info</a>.') ?></p>
+    <p><?php _vzm('For the full PHP info see zen-cart\'s <a href="server_info.php">server info</a>.') ?></p>
   </div>
 </div>

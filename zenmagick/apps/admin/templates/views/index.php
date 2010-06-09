@@ -34,7 +34,7 @@
 
 ?>
 
-<h1>Dashboard...</h1>
+<h1>Dashboard</h1>
 
 <!-- TODO: allow to filter status -->
 <div class="dbox" style="float:left;border:2px solid #aaa;padding:2px 6px;">
@@ -48,12 +48,12 @@
 </div>
 
 <div class="dbox" style="float:left;border:2px solid #aaa;padding:2px 6px;">
-  <h3>Latest <a href="<?php echo $admin2->url('orders') ?>"><?php zm_l10n('Orders') ?></a></h3>
+  <h3>Latest <a href="<?php echo $admin2->url('orders') ?>"><?php _vzm('Orders') ?></a></h3>
   <table>
   <?php foreach (ZMOrders::instance()->getAllOrders($selectedLanguageId, 5) as $order) { ?>
     <tr>
       <?php $actualAccount = ZMAccounts::instance()->getAccountForId($order->getAccountId()); ?>
-      <?php $name = $actualAccount->getType() == ZMAccount::REGISTERED ? $order->getAccount()->getFullName() : zm_l10n_get('** Guest **'); ?>
+      <?php $name = $actualAccount->getType() == ZMAccount::REGISTERED ? $order->getAccount()->getFullName() : _vzm('** Guest **'); ?>
       <td><a href="<?php echo $admin2->url('order', 'orderId='.$order->getId()) ?>"><?php echo $order->getId() ?></a></td>
       <td><a href="<?php echo $admin2->url('account', 'accountId='.$order->getAccountId()) ?>"><?php echo $name ?></a></td>
       <td><?php echo $order->getOrderDate() ?></td>
@@ -65,7 +65,7 @@
 </div>
 
 <div class="dbox" style="float:left;border:2px solid #aaa;padding:2px 6px;">
-  <h3>Latest <a href="<?php echo $admin2->url('accounts') ?>"><?php zm_l10n('Accounts') ?></a></h3>
+  <h3>Latest <a href="<?php echo $admin2->url('accounts') ?>"><?php _vzm('Accounts') ?></a></h3>
   <table>
   <?php foreach (ZMAccounts::instance()->getAllAccounts(null, 5) as $account) { ?>
     <tr>

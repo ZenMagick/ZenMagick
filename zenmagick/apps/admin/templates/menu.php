@@ -26,14 +26,14 @@
 <?php
 
     // build full zen-cart menu
-    ZMAdminMenu::addItem(new ZMAdminMenuItem(null, 'config', zm_l10n_get('Configuration'), null));
+    ZMAdminMenu::addItem(new ZMAdminMenuItem(null, 'config', _zm('Configuration'), null));
     $configGroups = ZMConfig::instance()->getConfigGroups();
     foreach ($configGroups as $group) {
         if ($group->isVisible()) {
             $id = strtolower($group->getName());
             $id = str_replace(' ', '', $id);
             $id = str_replace('/', '-', $id);
-            ZMAdminMenu::addItem(new ZMAdminMenuItem('config', $id, zm_l10n_get($group->getName()), 'configuration.php?gID='.$group->getId()));
+            ZMAdminMenu::addItem(new ZMAdminMenuItem('config', $id, _zm($group->getName()), 'configuration.php?gID='.$group->getId()));
         }
     }
 
@@ -52,7 +52,7 @@
       | <a href="<?php echo $admin2->url('logoff') ?>">Logoff <?php echo $request->getUser()->getName() ?></a>
     </p>
     <p>
-      <a href="<?php echo $admin2->url('index') ?>">Home</a>
+      <a href="<?php echo $admin2->url('index') ?>">Dashboard</a>
       | <a href="<?php echo $admin2->url('installation') ?>">Installation</a>
       | <a href="<?php echo $admin2->url('plugins') ?>">Pugins</a>
       | <a href="<?php echo $admin2->url('catalog_manager') ?>">Catalog Manager</a>
