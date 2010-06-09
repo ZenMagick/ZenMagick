@@ -68,16 +68,28 @@ class ZMRssController extends ZMController {
         $channel = ucwords($request->getParameter('channel', null));
         $key = $request->getParameter('key', null);
 
-        // delegate items to channel method
-        $method = "get".$channel."Feed";
-        if (!method_exists($this, $method)) {
-            return $this->findView('error');
-        } 
+        // try registered RSS sources first...
+        $feed = null;
+        foreach (explode(',', ZMSettings::get('apps.store.rss.sources')) as $def) {
+            if (null != ($source = ZMBeanUtils::getBean(trim($def)))) {
+                if (null != ($feed = $source->getFeed($request, $channel, $key))) {
+                    break;
+                }
+            }
+        }
 
-        // get feed data
-        $feed = call_user_func(array($this, $method), $request, $key);
         if (null == $feed) {
-            return null;
+            // delegate items to channel method
+            $method = "get".$channel."Feed";
+            if (!method_exists($this, $method)) {
+                return $this->findView('error');
+            } 
+
+            // get feed data
+            $feed = call_user_func(array($this, $method), $request, $key);
+            if (null == $feed) {
+                return $this->findView('error');
+            }
         }
 
         // create content

@@ -132,6 +132,8 @@ Release 0.9.10
   zm_l10n()
 - cleanup ZMTools
 - fixed b:#3014025 - rss feed broken
+- extend RSS controller to allow to configure RSS sources as bean definition
+  via the setting 'apps.store.rss.sources'
 
 Release 0.9.9
 - in ZMDbTableMapper handle database exception building auto mappings
