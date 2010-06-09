@@ -1,0 +1,12 @@
+<?php
+
+class Foo {
+  function x() {
+    zm_l10n('Yooo');
+    echo zm_l10n_get("Bar");
+
+    _vzm("Foo %s Deng", 'yup');
+  }
+
+}
+?>

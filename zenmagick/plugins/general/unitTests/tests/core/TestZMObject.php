@@ -53,5 +53,4 @@ class TestZMObject extends ZMTestCase {
         $this->assertEqual(array('foo' => 'bar', 'deng' => 'poh'), $obj->getProperties());
     }
 
-
 }

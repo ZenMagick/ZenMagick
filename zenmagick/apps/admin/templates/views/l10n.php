@@ -84,7 +84,7 @@
 <p>Inherited mappings are mappings defined in <code>l10n.php</code> files in themes further up the theme chain.</p>
 <p><strong>NOTE:</strong> '%s' and other strings starting with '%' are used as placeholders for things like order numbers, etc.</p>
 
-<form action="<?php echo $toolbox->admin->url() ?>" method="POST">
+<form action="<?php echo $toolbox->admin2->url() ?>" method="POST">
   <fieldset>
     <legend>Select Theme to display the language mappings</legend>
     <select id="theme" name="theme" onchange="this.form.submit()">
@@ -101,7 +101,7 @@
   </fieldset>
 </form>
 <?php if ('' != $themePath) { ?>
-  <a href="<?php echo $toolbox->admin->url(null, 'theme='.$themePath.'&download=full'.($merge?"&amp;merge=true":"")) ?>">Download mapping</a>
+  <a href="<?php echo $toolbox->admin2->url(null, 'theme='.$themePath.'&download=full'.($merge?"&amp;merge=true":"")) ?>">Download mapping</a>
   <?php $map = zm_build_theme_l10n_map(DIR_FS_CATALOG.ZM_ROOT."themes/" . $themePath, $defaults, $merge) ?>
   <?php foreach ($map as $file => $strings) { ?>
     <h3><?php echo $file ?></h3>

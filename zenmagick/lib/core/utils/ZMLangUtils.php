@@ -21,7 +21,7 @@
 <?php
 
 /**
- * Language utils.
+ * PHP utils.
  *
  * @author DerManoMann
  * @package org.zenmagick.core.utils
