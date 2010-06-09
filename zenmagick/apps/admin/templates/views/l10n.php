@@ -89,7 +89,7 @@
     <legend>Select Theme to display the language mappings</legend>
     <select id="theme" name="theme" onchange="this.form.submit()">
       <option value="">Select Theme</option>
-        <?php foreach (ZMThemes::instance()->getThemes() as $theme) { ?>
+        <?php foreach ($themes as $theme) { ?>
         <?php $selected = $themePath == $theme->getThemeId() ? ' selected="selected"' : ''; ?>
         <option value="<?php echo $theme->getThemeId(); ?>"<?php echo $selected ?>><?php echo $theme->getName(); ?></option>
       <?php } ?>

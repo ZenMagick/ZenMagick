@@ -1,7 +1,10 @@
 <?php
 /*
- * ZenMagick - Another PHP framework.
+ * ZenMagick - Extensions for zen-cart
  * Copyright (C) 2006-2010 zenmagick.org
+ *
+ * Portions Copyright (c) 2003 The zen-cart developers
+ * Portions Copyright (c) 2003 osCommerce
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,25 +25,35 @@
 
 
 /**
- * Simple echo locale service.
+ * Admin controller for l10n page.
  *
  * @author DerManoMann
- * @package org.zenmagick.core.services.locale
+ * @package org.zenmagick.store.mvc.controller
+ * @version $Id$
  */
-class ZMEchoLocale implements ZMLocale {
+class ZML10nController extends ZMController {
 
     /**
-     * {@inheritDoc}
+     * Create new instance.
      */
-    public function translate($text, $context=null, $domain=ZMLocale::DEFAULT_DOMAIN) {
-        return $text;
+    function __construct() {
+        parent::__construct();
     }
 
     /**
+     * Destruct instance.
+     */
+    function __destruct() {
+        parent::__destruct();
+    }
+
+
+    /**
      * {@inheritDoc}
      */
-    public function translatePlural($single, $number, $plural=null, $context=null, $domain=ZMLocale::DEFAULT_DOMAIN) {
-        return (1 < $number && null != $plural) ? $plural : $single;
+    public function getViewData($request) {
+        return array('themes' => ZMThemes::instance()->getThemes());
+
     }
 
 }
