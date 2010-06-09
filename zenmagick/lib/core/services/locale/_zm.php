@@ -65,6 +65,6 @@ function _vzm($text) {
     $args = func_get_args();
     array_shift($args);
     // get translation using default context/domain
-    $translated = _zm($text);
+    $translated = ZMLocales::instance()->translate($text, null, ZMLocale::DEFAULT_DOMAIN);
     echo null != $args ? vsprintf($translated, $args) : $translated;
 }
