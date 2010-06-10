@@ -59,17 +59,7 @@ class ZMToolboxUtils extends ZMToolboxTool {
      * @return string The encoded string.
      */
     public function encodeXML($s) {
-        $encoding = array(
-            '<' => '&lt;',
-            '>' => '&gt;',
-            '&' => '&amp;'
-        );
-
-        foreach ($encoding as $char => $entity) {
-            $s = str_replace($char, $entity, $s);
-        }
-
-        return $s;
+        return ZMXmlTools::encodeXML($s);
     }
 
     /**

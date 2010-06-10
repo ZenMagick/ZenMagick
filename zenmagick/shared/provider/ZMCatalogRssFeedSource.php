@@ -109,7 +109,7 @@ class ZMCatalogRssFeedSource implements ZMRssSource {
                 $desc = ZMHtmlUtils::more($desc, 60);
             }
             $item->setDescription($desc);
-            $item->setPubDate(ZMTools::mkRssDate($product->getDateAdded()));
+            $item->setPubDate(ZMRssUtils::mkRssDate($product->getDateAdded()));
 
             $tags = array('category', 'model');
             $item->set('category', $product->getDefaultCategory()->getId());
@@ -165,7 +165,7 @@ class ZMCatalogRssFeedSource implements ZMRssSource {
                     $desc = ZMHtmlUtils::more($desc, 60);
                 }
                 $item->setDescription($desc);
-                $item->setPubDate(ZMTools::mkRssDate($category->getDateAdded()));
+                $item->setPubDate(ZMRssUtils::mkRssDate($category->getDateAdded()));
                 $tags = array('id', 'path', 'children');
                 $item->set('id', $category->getId());
                 $item->set('path', implode('_', $category->getPathArray()));

@@ -83,7 +83,7 @@ class ZMDefaultRssFeedSource implements ZMRssSource {
             $params = 'products_id='.$review->getProductId().'&reviews_id='.$review->getId();
             $item->setLink($request->url(FILENAME_PRODUCT_REVIEWS_INFO, $params));
             $item->setDescription(ZMHtmlUtils::more($review->getText(), 60));
-            $item->setPubDate(ZMTools::mkRssDate($review->getDateAdded()));
+            $item->setPubDate(ZMRssUtils::mkRssDate($review->getDateAdded()));
             array_push($items, $item);
 
             if (null === $lastPubDate) {
@@ -99,7 +99,7 @@ class ZMDefaultRssFeedSource implements ZMRssSource {
         } else {
             $channel->setDescription(zm_l10n_get("Product Reviews at %s", ZMSettings::get('storeName')));
         }
-        $channel->setLastBuildDate(ZMTools::mkRssDate($lastPubDate));
+        $channel->setLastBuildDate(ZMRssUtils::mkRssDate($lastPubDate));
 
         $feed = ZMLoader::make("RssFeed");
         $feed->setChannel($channel);
@@ -130,7 +130,7 @@ class ZMDefaultRssFeedSource implements ZMRssSource {
         $channel->setTitle(zm_l10n_get("Chapter %s", $key));
         $channel->setLink($request->url(FILENAME_DEFAULT));
         $channel->setDescription(zm_l10n_get("All pages of Chapter %s", $key));
-        $channel->setLastBuildDate(ZMTools::mkRssDate());
+        $channel->setLastBuildDate(ZMRssUtils::mkRssDate());
 
         $feed = ZMLoader::make("RssFeed");
         $feed->setChannel($channel);
@@ -159,7 +159,7 @@ class ZMDefaultRssFeedSource implements ZMRssSource {
             $item->setTitle($product->getName());
             $item->setLink($request->getToolbox()->net->product($product->getId(), null, false));
             $item->setDescription(ZMHtmlUtils::more(ZMHtmlUtils::strip($product->getDescription()), 60));
-            $item->setPubDate(ZMTools::mkRssDate($product->getDateAdded()));
+            $item->setPubDate(ZMRssUtils::mkRssDate($product->getDateAdded()));
             array_push($items, $item);
 
             if (null === $lastPubDate) {

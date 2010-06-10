@@ -20,6 +20,9 @@
 ?>
 <?php
 
+
+if (!defined('DATE_RSS')) { define('DATE_RSS', "D, d M Y H:i:s T"); }
+
 /**
  * RSS utils.
  *

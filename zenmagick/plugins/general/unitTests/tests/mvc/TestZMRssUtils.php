@@ -3,9 +3,6 @@
  * ZenMagick - Extensions for zen-cart
  * Copyright (C) 2006-2010 zenmagick.org
  *
- * Portions Copyright (c) 2003 The zen-cart developers
- * Portions Copyright (c) 2003 osCommerce
- *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or (at
@@ -19,19 +16,24 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
- *
- * $Id$
  */
 ?>
+<?php
 
-<?php $rss = ZMLoader::make('Rss', 'http://www.alistapart.com/rss.xml'); if ($rss->hasContents()) { $channel = $rss->getChannel(); ?>
-    <h3><a href="<?php echo $channel->getLink() ?>"<?php echo $html->hrefTarget() ?>><?php zm_l10n("[More]") ?></a><?php echo $html->encode($channel->getTitle()) ?></h3>
-    <div id="sb_rss" class="box">
-        <dl>
-            <?php foreach ($rss->getItems() as $item) { ?>
-                <dt><?php echo ZMRssUtils::parseRssDate($item->getPubDate()) ?></dt>
-                <dd><a href="<?php echo $item->getLink() ?>"<?php echo $html->hrefTarget() ?>><?php echo $html->encode($item->getTitle()); ?></a></dd>
-            <?php } ?>
-        </dl>
-    </div>
-<?php } ?>
+/**
+ * Test ZMRssUtils.
+ *
+ * @package org.zenmagick.plugins.unitTests.tests
+ * @author DerManoMann
+ * @version $Id$
+ */
+class TestZMRssUtils extends ZMTestCase {
+
+    /**
+     * Test parse RSS date.
+     */
+    public function testParseRSSDate() {
+        $this->assertEqual('12/Jan/2009', ZMRssUtils::parseRssDate('Mon, 12 Jan 2009 00:16:12 +0000'));
+    }
+
+}
