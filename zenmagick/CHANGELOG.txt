@@ -138,6 +138,7 @@ Release 0.9.10
 - add proper support for custom channel/item elements
 - add new catalog (all products / categories) RSS feed
 - move ZMRssController into mvc; add some new utils to hold helper functions
+- pomo: update to implement ZMLocale properly
 
 Release 0.9.9
 - in ZMDbTableMapper handle database exception building auto mappings
