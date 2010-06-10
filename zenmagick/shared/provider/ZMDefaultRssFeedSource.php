@@ -25,147 +25,32 @@
 
 
 /**
- * Request controller for RSS feeds.
+ * RSS source for default feeds.
  *
- * <p>The <code>processGet($request)</code> method is generic and will call an appropriate method
- * for item generation based on the <em>channel</em> request parameter.</p>
- *
- * <p>The item method is expected to return the last modified date of the channel.</p>
- *
- * @todo Support for custom/additional channel/item properties.
  * @author DerManoMann
- * @package org.zenmagick.store.mvc.controller
- * @version $Id$
+ * @package zenmagick.store.shared.provider
  */
-class ZMRssController extends ZMController {
+class ZMDefaultRssFeedSource implements ZMRssSource {
 
     /**
-     * Create new instance.
+     * {@inheritDoc}
      */
-    function __construct() {
-        parent::__construct();
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
+    public function getFeed($request, $channel, $key=null) {
+        // delegate items to channel method
+        $method = "get".ucwords($channel)."Feed";
+        if (!method_exists($this, $method)) {
+            return null;
+        } 
 
 
-    /**
-     * Process a HTTP GET request.
-     *
-     * <p>This implementation will grab the channel parameter from the request. All further processing
-     * is based on that value.</p>
-     *
-     * <p>Ideally, the only method that needs to be implemented (if not already there), is one that generates the
-     * feed contents. The method name is generated as: <code>get[ucwords($channel)]Feed</code>. So, for example,
-     * if channel is <em>reviews</em>, the method to be expected would be <code>getReviewsFeed($request, $key)</code>.</p>
-     */
-    public function processGet($request) {
-        $channel = $request->getParameter('channel');
-        $key = $request->getParameter('key');
-
-        // try registered RSS sources first...
-        $feed = null;
-        foreach (explode(',', ZMSettings::get('apps.store.rss.sources')) as $def) {
-            if (null != ($source = ZMBeanUtils::getBean(trim($def)))) {
-                if (null != ($feed = $source->getFeed($request, $channel, $key))) {
-                    break;
-                }
-            }
-        }
-
+        // get feed data
+        $feed = call_user_func(array($this, $method), $request, $key);
         if (null == $feed) {
-            return $this->findView('error');
+            return null;
         }
 
-        // create content
-        ob_start();
-        $this->setContentType('application/xhtml+xml');
-        $this->rssHeader($request, $feed->getChannel());
-        foreach ($feed->getItems() as $item) {
-            $this->rssItem($request, $item);
-        }
-        $this->rssFooter();
-        echo ob_get_clean();
-
-        return null;
+        return $feed;
     }
-
-
-    /**
-     * Write RSS header.
-     *
-     * <p>Required data are:</p>
-     * <ul>
-     *  <li>title</li>
-     *  <li>link</li>
-     *  <li>description</li>
-     *  <li>lastBuildDate</li>
-     * <ul>
-     *
-     * @param ZMRequest request The current request.
-     * @param ZMRssChannel channel The channel data.
-     */
-    protected function rssHeader($request, $channel) {
-        $lines = array(
-          '<?xml version="1.0" encoding="UTF-8"?>',
-          '<!-- generator="ZenMagick '.ZMSettings::get('zenmagick.version').'" -->',
-          '<rss version="2.0">',
-          '  <channel>',
-          '    <title><![CDATA['.ZMTools::encodeXML($channel->getTitle()).']]></title>',
-          '    <link><![CDATA['.$channel->getLink().']]></link>',
-          '    <description><![CDATA['.ZMTools::encodeXML($channel->getDescription()).']]></description>',
-          '    <lastBuildDate>'.ZMTools::mkRssDate($channel->getLastBuildDate()).'</lastBuildDate>'
-          );
-
-        foreach ($lines as $line) {
-            echo $line . "\n";
-        }
-    }
-
-    /**
-     * Generate RSS item.
-     *
-     * <p>Required data are:</p>
-     * <ul>
-     *  <li>title</li>
-     *  <li>link</li>
-     *  <li>description</li>
-     * <ul>
-     *
-     * @param ZMRequest request The current request.
-     * @param ZMRssItem item The item to render.
-     */
-    protected function rssItem($request, $item) {
-        echo "    <item>\n";
-        echo "      <title>".ZMTools::encodeXML($item->getTitle())."</title>\n";
-        echo "      <link>".$item->getLink()."</link>\n";
-        echo "      <description>".ZMTools::encodeXML($item->getDescription())."</description>\n";
-        echo "      <guid>".$item->getLink()."</guid>\n";
-        if (null !== $item->getPubDate()) {
-            echo "      <pubDate>".ZMTools::mkRssDate($item->getPubDate())."</pubDate>\n";
-        }
-        echo "    </item>\n";
-    }
-
-    /**
-     * Write RSS footer.
-     */
-    protected function rssFooter() {
-        $lines = array(
-          '  </channel>',
-          '</rss>'
-        );
-
-        foreach ($lines as $line) {
-            echo $line . "\n";
-        }
-    }
-
 
     /**
      * Generate RSS feed for reviews.
