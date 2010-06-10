@@ -135,6 +135,8 @@ Release 0.9.10
 - extend RSS controller to allow to configure RSS sources as bean definition
   via the setting 'apps.store.rss.sources'
 - refactor existing feeds from ZMRssController into ZMDefaultRssFeedSource
+- add proper support for custom channel/item elements
+- add new catalog (all products / categories) RSS feed
 
 Release 0.9.9
 - in ZMDbTableMapper handle database exception building auto mappings

@@ -34,8 +34,6 @@
  * @package zenmagick.store.shared.model.rss
  */
 class ZMRssItem extends ZMObject {
-    private $item_;
-
 
     /**
      * Create new RSS item.
@@ -44,7 +42,11 @@ class ZMRssItem extends ZMObject {
      */
     function __construct($item=null) {
         parent::__construct();
-        $this->item_ = null !== $item ? $item : array();
+        if (is_array($item)) {
+            foreach ($item as $key => $value) {
+                $this->set($key, $value);
+            }
+        }
     }
 
     /**
@@ -60,94 +62,83 @@ class ZMRssItem extends ZMObject {
      *
      * @return string The item title.
      */
-    public function getTitle() { return $this->getProperty('title'); }
+    public function getTitle() { return $this->get('title'); }
 
     /**
      * Get the item link.
      *
      * @return string The item link.
      */
-    public function getLink() { return $this->getProperty('link'); }
+    public function getLink() { return $this->get('link'); }
 
     /**
      * Get the item description.
      *
      * @return string The item description.
      */
-    public function getDescription() { return $this->getProperty('description'); }
+    public function getDescription() { return $this->get('description'); }
 
     /**
      * Get the item category.
      *
      * @return string The item category.
      */
-    public function getCategory() { return $this->getProperty('category'); }
+    public function getCategory() { return $this->get('category'); }
 
     /**
      * Get the item publish date.
      *
      * @return string The item publish date.
      */
-    public function getPubDate() { return $this->getProperty('pubDate'); }
+    public function getPubDate() { return $this->get('pubDate'); }
+
+    /**
+     * Get a list of custom tags to be handled.
+     *
+     * @return array List of custom tags.
+     */
+    public function getTags() { return $this->get('tags', array()); }
 
     /**
      * Set the item title.
      *
      * @param string title The item title.
      */
-    public function setTitle($title) { $this->item_['title'] = $title; }
+    public function setTitle($title) { $this->set('title', $title); }
 
     /**
      * Set the item link.
      *
      * @param string link The item link.
      */
-    public function setLink($link) { $this->item_['link'] = $link; }
+    public function setLink($link) { $this->set('link', $link); }
 
     /**
      * Set the item description.
      *
      * @param string description The item description.
      */
-    public function setDescription($description) { $this->item_['description'] = $description; }
+    public function setDescription($description) { $this->set('description', $description); }
 
     /**
      * set the item category.
      *
      * @param string category The item category.
      */
-    public function setCategory($category) { $this->item_['category'] = $category; }
+    public function setCategory($category) { $this->set('category', $category); }
 
     /**
      * Set the item publish date.
      *
      * @param string date The item publish date.
      */
-    public function setPubDate($date) { $this->item_['pubDate'] = $date; }
+    public function setPubDate($date) { $this->set('pubDate', $date); }
 
     /**
-     * Custom set method for properties that do not have a dedicated
-     * access method.
+     * Set a list of custom tags to be handled.
      *
-     * @param string name The property name.
-     * @param string value The value.
+     * @param array tags List of custom tags.
      */
-    public function setProperty($name, $value) { $this->item_[$name] = $value; }
-
-    /**
-     * Custom get method for properties that do not have a dedicated
-     * access method.
-     *
-     * @param string name The property name.
-     * @return string value The value or <code>null</code>.
-     */
-    public function getProperty($name) { return isset($this->item_[$name]) ? $this->item_[$name] : null; }
-
-    /**
-     * Get all properties.
-     *
-     * @return array Name/value map.
-     */
-    public function getProperties() { return $this->item_; }
+    public function setTags($tags) { $this->set('tags', $tags); }
 
 }
