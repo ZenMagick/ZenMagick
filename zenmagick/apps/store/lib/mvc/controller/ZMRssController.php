@@ -139,9 +139,7 @@ class ZMRssController extends ZMController {
         foreach ($obj->getTags() as $tag) {
             $value = $obj->get($tag);
             echo $indent."<zm:".$tag.">";
-            if (is_string($value)) {
-                echo ZMTools::encodeXML($obj->get($tag));
-            } else if (is_array($value)) {
+            if (is_array($value)) {
                 echo "\n";
                 foreach ($value as $stag => $svalues) {
                     foreach ($svalues as $sval) {
@@ -151,6 +149,9 @@ class ZMRssController extends ZMController {
                     }
                 }
                 echo $indent;
+            } else {
+                // treat as string
+                echo ZMTools::encodeXML($obj->get($tag));
             }
             echo "</zm:".$tag.">\n";
         }

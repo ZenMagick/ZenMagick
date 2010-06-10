@@ -67,8 +67,8 @@ class ZMCatalogRssFeedSource implements ZMRssSource {
      * @return ZMRssFeed The feed.
      */
     protected function getCatalogFeed($request) {
-        $categoriesFeed = $this->getCategoriesFeed($request);
-        $productsFeed = $this->getProductsFeed($request);
+        $categoriesFeed = $this->getCategoriesFeed($request, true);
+        $productsFeed = $this->getProductsFeed($request, true);
 
         $lastPubDate = $categoriesFeed->getLastBuildDate();
         if ($productsFeed->getLastBuildDate() > $lastPubDate) {
@@ -94,19 +94,36 @@ class ZMCatalogRssFeedSource implements ZMRssSource {
      * Generate RSS feed for all products.
      *
      * @param ZMRequest request The current request.
+     * @param boolean isCatalog Indicates whether the call is part of the catalog feed or not; default is <code>false</code>.
      * @return ZMRssFeed The feed.
      */
-    protected function getProductsFeed($request) {
+    protected function getProductsFeed($request, $isCatalog=false) {
         $lastPubDate = null;
         $items = array();
         foreach (ZMProducts::instance()->getAllProducts(true, $request->getSession()->getLanguageId()) as $product) {
             $item = ZMLoader::make("RssItem");
             $item->setTitle($product->getName());
             $item->setLink($request->getToolbox()->net->product($product->getId(), null, false));
-            $item->setDescription(ZMHtmlUtils::more(ZMHtmlUtils::strip($product->getDescription()), 60));
+            $desc = ZMHtmlUtils::strip($product->getDescription());
+            if (!$isCatalog) {
+                $desc = ZMHtmlUtils::more($desc, 60);
+            }
+            $item->setDescription($desc);
             $item->setPubDate(ZMTools::mkRssDate($product->getDateAdded()));
+
+            $tags = array('category', 'model');
             $item->set('category', $product->getDefaultCategory()->getId());
-            $item->setTags(array('category'));
+            $item->set('model', $product->getModel());
+
+            if ($isCatalog) {
+                $tags[] = 'price';
+                $offers = $product->getOffers();
+                $item->set('price', $offers->getCalculatedPrice());
+                $tags[] = 'type';
+                $item->set('type', 'product');
+            }
+
+            $item->setTags($tags);
             $items[] = $item;
 
             // make newest product
@@ -132,9 +149,10 @@ class ZMCatalogRssFeedSource implements ZMRssSource {
      * Generate RSS feed for all categories.
      *
      * @param ZMRequest request The current request.
+     * @param boolean isCatalog Indicates whether the call is part of the catalog feed or not; default is <code>false</code>.
      * @return ZMRssFeed The feed.
      */
-    protected function getCategoriesFeed($request) {
+    protected function getCategoriesFeed($request, $isCatalog) {
         $lastPubDate = null;
         $items = array();
         foreach (ZMCategories::instance()->getAllCategories($request->getSession()->getLanguageId()) as $category) {
@@ -142,12 +160,23 @@ class ZMCatalogRssFeedSource implements ZMRssSource {
                 $item = ZMLoader::make("RssItem");
                 $item->setTitle($category->getName());
                 $item->setLink($request->url('category', $category->getPath(), false));
-                $item->setDescription(ZMHtmlUtils::more(ZMHtmlUtils::strip($category->getDescription()), 60));
+                $desc = ZMHtmlUtils::strip($category->getDescription());
+                if (!$isCatalog) {
+                    $desc = ZMHtmlUtils::more($desc, 60);
+                }
+                $item->setDescription($desc);
                 $item->setPubDate(ZMTools::mkRssDate($category->getDateAdded()));
-                $item->setTags(array('id', 'path', 'children'));
+                $tags = array('id', 'path', 'children');
                 $item->set('id', $category->getId());
                 $item->set('path', implode('_', $category->getPathArray()));
                 $item->set('children', array('id' => $category->getChildIds(false)));
+
+                if ($isCatalog) {
+                    $tags[] = 'type';
+                    $item->set('type', 'category');
+                }
+
+                $item->setTags($tags);
                 $items[] = $item;
 
                 // make newest product
