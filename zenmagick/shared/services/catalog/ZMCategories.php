@@ -121,6 +121,16 @@ class ZMCategories extends ZMObject {
     /**
      * Get all categories.
      *
+     * @param int languageId Language id.
+     * @return array A list of <code>ZMCategory</code> instances.
+     */
+    public function getAllCategories($languageId) {
+        return $this->getCategories(null, $languageId);
+    }
+
+    /**
+     * Get all categories.
+     *
      * @param array ids Optional list of category ids.
      * @param int languageId Language id.
      * @return array A list of <code>ZMCategory</code> instances.

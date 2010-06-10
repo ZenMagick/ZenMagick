@@ -85,6 +85,7 @@ class ZMObject {
         if (array_key_exists($name, $this->properties_)) {
             return $this->properties_[$name];
         }
+
         return $default;
     }
 
@@ -99,6 +100,7 @@ class ZMObject {
         if (array_key_exists($name, $this->properties_)) {
             return $this->properties_[$name];
         }
+
         return null;
     }
 

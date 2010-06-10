@@ -711,7 +711,7 @@ class ZMShoppingCart extends ZMObject {
     function prepare_uploads($product, $attributes=array()) {
         $uploads = 0;
         foreach ($attributes as $name => $value) {
-            if (ZMTools::startsWith($name, ZMSettings::get('uploadOptionPrefix'))) {
+            if (ZMLangUtils::startsWith($name, ZMSettings::get('uploadOptionPrefix'))) {
                 ++$uploads;
             }
         }
@@ -747,7 +747,7 @@ class ZMShoppingCart extends ZMObject {
         $validAttributeIds = array();
         foreach ($defaultAttributes as $attribute) {
             $attributeId = $attribute->getId();
-            if (ZMTools::inArray($attribute->getType(), array(PRODUCTS_OPTIONS_TYPE_TEXT, PRODUCTS_OPTIONS_TYPE_FILE))) {
+            if (ZMLangUtils::inArray($attribute->getType(), array(PRODUCTS_OPTIONS_TYPE_TEXT, PRODUCTS_OPTIONS_TYPE_FILE))) {
                 $attributeId = ZMSettings::get('textOptionPrefix') . $attributeId;
             }
             $validAttributeIds[$attributeId] = $attributeId;
@@ -766,15 +766,15 @@ class ZMShoppingCart extends ZMObject {
                     }
                 }
 
-                if (ZMTools::inArray($attribute->getType(), array(PRODUCTS_OPTIONS_TYPE_RADIO, PRODUCTS_OPTIONS_TYPE_SELECT))) {
+                if (ZMLangUtils::inArray($attribute->getType(), array(PRODUCTS_OPTIONS_TYPE_RADIO, PRODUCTS_OPTIONS_TYPE_SELECT))) {
                     // use default id for radio and select
                     $attributes[$attributeId] = $defaultId;
-                } else if (ZMTools::inArray($attribute->getType(), array(PRODUCTS_OPTIONS_TYPE_TEXT, PRODUCTS_OPTIONS_TYPE_FILE))) {
+                } else if (ZMLangUtils::inArray($attribute->getType(), array(PRODUCTS_OPTIONS_TYPE_TEXT, PRODUCTS_OPTIONS_TYPE_FILE))) {
                     // use emtpy string for text input attributes
                     $attributes[$attributeId] = '';
                 }
             } else {
-                if (ZMTools::inArray($attribute->getType(), array(PRODUCTS_OPTIONS_TYPE_RADIO, PRODUCTS_OPTIONS_TYPE_SELECT))) {
+                if (ZMLangUtils::inArray($attribute->getType(), array(PRODUCTS_OPTIONS_TYPE_RADIO, PRODUCTS_OPTIONS_TYPE_SELECT))) {
                     // validate single non input attributes
                     $defaultId = null;
                     $isValid = false;

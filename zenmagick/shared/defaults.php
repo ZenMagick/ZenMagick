@@ -341,6 +341,8 @@
             // cache TTL
             'rssCacheTimeout' => 1200,
 
+            'apps.store.rss.sources' => 'DefaultRssFeedSource,CatalogRssFeedSource',
+
 
             /**************************************
              * Security and session

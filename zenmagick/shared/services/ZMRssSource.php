@@ -19,22 +19,27 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
- *
- * $Id$
  */
 ?>
+<?php
 
-<?php $currencyList = ZMCurrencies::instance()->getCurrencies(); ?>
-<?php if (0 < count($currencyList) && !ZMLangUtils::startsWith($request->getPageName(), 'checkout')) { ?>
-    <h2><?php zm_l10n("Currencies") ?></h2>
-    <div id="sb_currencies" class="box">
-        <?php echo $form->open(null, '', false, null, array('method'=>'get')) ?>
-            <div>
-                <?php echo $form->idpSelect('currency', $currencyList, $request->getCurrencyCode(), array('onchange'=>'this.form.submit()', 'oValue'=>'getCode')) ?>
-                <noscript>
-                    <div><input type="submit" class="btn" value="<?php zm_l10n('Go') ?>" /></div>
-                </noscript>
-            </div>
-        </form>
-    </div>
-<?php } ?>
+
+/**
+ * Source of RSS feed(s).
+ *
+ * @author DerManoMann
+ * @package zenmagick.store.shared.services
+ */
+interface ZMRssSource {
+
+    /**
+     * Get the feed.
+     *
+     * @param ZMRequest request The current request.
+     * @param string channel The feed name.
+     * @param string key Optional key in case a source supports more than one feed; default is <code>null</code>.
+     * @return ZMRssFeed The feed or <code>null</code>.
+     */
+    public function getFeed($request, $channel, $key=null);
+
+}

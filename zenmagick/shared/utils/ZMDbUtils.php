@@ -45,7 +45,7 @@ class ZMDbUtils {
             $_GET['debug'] = 'ON';
         }
         // disable to allow plugins to insert HTML into the database...
-        //$sql = ZMTools::sanitize($sql);
+        //$sql = ZMSecurityTools::sanitize($sql);
         if (!empty($sql)) {
             $results = zm_zen_execute_sql($sql, DB_DATABASE, DB_PREFIX);
             foreach (ZMDbUtils::processPatchResults($results) as $msg) {

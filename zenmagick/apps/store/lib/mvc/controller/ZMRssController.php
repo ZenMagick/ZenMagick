@@ -65,19 +65,21 @@ class ZMRssController extends ZMController {
      * if channel is <em>reviews</em>, the method to be expected would be <code>getReviewsFeed($request, $key)</code>.</p>
      */
     public function processGet($request) {
-        $channel = ucwords($request->getParameter('channel', null));
-        $key = $request->getParameter('key', null);
+        $channel = $request->getParameter('channel');
+        $key = $request->getParameter('key');
 
-        // delegate items to channel method
-        $method = "get".$channel."Feed";
-        if (!method_exists($this, $method)) {
-            return $this->findView('error');
-        } 
+        // try registered RSS sources first...
+        $feed = null;
+        foreach (explode(',', ZMSettings::get('apps.store.rss.sources')) as $def) {
+            if (null != ($source = ZMBeanUtils::getBean(trim($def)))) {
+                if (null != ($feed = $source->getFeed($request, $channel, $key))) {
+                    break;
+                }
+            }
+        }
 
-        // get feed data
-        $feed = call_user_func(array($this, $method), $request, $key);
         if (null == $feed) {
-            return null;
+            return $this->findView('error');
         }
 
         // create content
@@ -108,18 +110,19 @@ class ZMRssController extends ZMController {
      * @param ZMRequest request The current request.
      * @param ZMRssChannel channel The channel data.
      */
-    function rssHeader($request, $channel) {
-        $toolbox = $request->getToolbox();
+    protected function rssHeader($request, $channel) {
         $lines = array(
           '<?xml version="1.0" encoding="UTF-8"?>',
           '<!-- generator="ZenMagick '.ZMSettings::get('zenmagick.version').'" -->',
-          '<rss version="2.0">',
-          '  <channel>',
-          '    <title><![CDATA['.$toolbox->utils->encodeXML($channel->getTitle()).']]></title>',
-          '    <link><![CDATA['.$channel->getLink().']]></link>',
-          '    <description><![CDATA['.$toolbox->utils->encodeXML($channel->getDescription()).']]></description>',
-          '    <lastBuildDate>'.ZMTools::mkRssDate($channel->getLastBuildDate()).'</lastBuildDate>'
+          '<rss version="2.0" xmlns:zm="http://www.zenmagick.org/">',
+          ' <channel>',
+          '  <title><![CDATA['.ZMTools::encodeXML($channel->getTitle()).']]></title>',
+          '  <link><![CDATA['.$channel->getLink().']]></link>',
+          '  <description><![CDATA['.ZMTools::encodeXML($channel->getDescription()).']]></description>',
+          '  <lastBuildDate>'.ZMTools::mkRssDate($channel->getLastBuildDate()).'</lastBuildDate>'
           );
+
+        $this->customTags($channel, '  ');
 
         foreach ($lines as $line) {
             echo $line . "\n";
@@ -127,16 +130,29 @@ class ZMRssController extends ZMController {
     }
 
     /**
-     * Write RSS footer.
+     * Process custom tags.
+     *
+     * @param mixed obj The object.
+     * @param string indent The leading whitespace.
      */
-    function rssFooter() {
-        $lines = array(
-          '  </channel>',
-          '</rss>'
-        );
-
-        foreach ($lines as $line) {
-            echo $line . "\n";
+    protected function customTags($obj, $indent) {
+        foreach ($obj->getTags() as $tag) {
+            $value = $obj->get($tag);
+            echo $indent."<zm:".$tag.">";
+            if (is_string($value)) {
+                echo ZMTools::encodeXML($obj->get($tag));
+            } else if (is_array($value)) {
+                echo "\n";
+                foreach ($value as $stag => $svalues) {
+                    foreach ($svalues as $sval) {
+                        echo $indent." <zm:".$stag.">";
+                        echo ZMTools::encodeXML($sval);
+                        echo "</zm:".$stag.">\n";
+                    }
+                }
+                echo $indent;
+            }
+            echo "</zm:".$tag.">\n";
         }
     }
 
@@ -153,148 +169,33 @@ class ZMRssController extends ZMController {
      * @param ZMRequest request The current request.
      * @param ZMRssItem item The item to render.
      */
-    function rssItem($request, $item) {
-        $toolbox = $request->getToolbox();
-        echo "    <item>\n";
-        echo "      <title>".$toolbox->utils->encodeXML($item->getTitle())."</title>\n";
-        echo "      <link>".$item->getLink()."</link>\n";
-        echo "      <description>".$toolbox->utils->encodeXML($item->getDescription())."</description>\n";
-        echo "      <guid>".$item->getLink()."</guid>\n";
+    protected function rssItem($request, $item) {
+        echo "  <item>\n";
+        echo "   <title>".ZMTools::encodeXML($item->getTitle())."</title>\n";
+        echo "   <link>".$item->getLink()."</link>\n";
+        echo "   <description>".ZMTools::encodeXML($item->getDescription())."</description>\n";
+        echo "   <guid>".$item->getLink()."</guid>\n";
         if (null !== $item->getPubDate()) {
-            echo "      <pubDate>".zm_mk_rss_date($item->getPubDate())."</pubDate>\n";
-        }
-        echo "    </item>\n";
-    }
-
-
-    /**
-     * Generate RSS feed for reviews.
-     *
-     * @param ZMRequest request The current request.
-     * @param string key Optional product id.
-     * @return ZMRssFeed The feed data.
-     */
-    function getReviewsFeed($request, $key=null) {
-        $product = null;
-        if (null != $key)  {
-            $reviews = array_reverse(ZMReviews::instance()->getReviewsForProductId($key, $request->getSession()->getLanguageId()));
-            $product = ZMProducts::instance()->getProductForId($key);
-        } else {
-            $reviews = array_reverse(ZMReviews::instance()->getAllReviews($request->getSession()->getLanguageId()));
-        }
-        if (null != $key && null == $product) {
-            return null;
+            echo "   <pubDate>".ZMTools::mkRssDate($item->getPubDate())."</pubDate>\n";
         }
 
-        $toolbox = $request->getToolbox();
-        $items = array();
-        $lastPubDate = null;
-        foreach ($reviews as $review) {
-            if (null == $key) {
-                $product = ZMProducts::instance()->getProductForId($review->getProductId());
-            }
-            $item = ZMLoader::make("RssItem");
-            $item->setTitle(zm_l10n_get("Review: %s", $product->getName()));
+        $this->customTags($item, '   ');
 
-            $params = 'products_id='.$review->getProductId().'&reviews_id='.$review->getId();
-            $item->setLink($request->url(FILENAME_PRODUCT_REVIEWS_INFO, $params));
-            $item->setDescription($toolbox->html->more($review->getText(), 60));
-            $item->setPubDate(zm_mk_rss_date($review->getDateAdded()));
-            array_push($items, $item);
-
-            if (null === $lastPubDate) {
-                $lastPubDate = $review->getDateAdded(); 
-            }
-        }
-
-        $channel = ZMLoader::make("RssChannel");
-        $channel->setTitle(zm_l10n_get("Product Reviews"));
-        $channel->setLink($request->url(FILENAME_DEFAULT));
-        if (null != $key)  {
-            $channel->setDescription(zm_l10n_get("Product Reviews for %s at %s", $product->getName(), ZMSettings::get('storeName')));
-        } else {
-            $channel->setDescription(zm_l10n_get("Product Reviews at %s", ZMSettings::get('storeName')));
-        }
-        $channel->setLastBuildDate(zm_mk_rss_date($lastPubDate));
-
-        $feed = ZMLoader::make("RssFeed");
-        $feed->setChannel($channel);
-        $feed->setItems($items);
-
-        return $feed;
+        echo "  </item>\n";
     }
 
     /**
-     * Generate RSS feed for EZPages chapter.
-     *
-     * @param ZMRequest request The current request.
-     * @param string key EZPages chapter.
-     * @return ZMRssFeed The feed data.
+     * Write RSS footer.
      */
-    function getChapterFeed($request, $key=null) {
-        $items = array();
-        $toc = ZMEZPages::instance()->getPagesForChapterId($key, $request->getSession()->getLanguageId());
-        foreach ($toc as $page) {
-            $item = ZMLoader::make("RssItem");
-            $item->setTitle($page->getTitle());
-            $item->setLink($request->getToolbox()->net->ezPage($page));
-            $item->setDescription($page->getTitle());
-            array_push($items, $item);
+    protected function rssFooter() {
+        $lines = array(
+          ' </channel>',
+          '</rss>'
+        );
+
+        foreach ($lines as $line) {
+            echo $line . "\n";
         }
-
-        $channel = ZMLoader::make("RssChannel");
-        $channel->setTitle(zm_l10n_get("Chapter %s", $key));
-        $channel->setLink($request->url(FILENAME_DEFAULT));
-        $channel->setDescription(zm_l10n_get("All pages of Chapter %s", $key));
-        $channel->setLastBuildDate(zm_mk_rss_date());
-
-        $feed = ZMLoader::make("RssFeed");
-        $feed->setChannel($channel);
-        $feed->setItems($items);
-
-        return $feed;
-    }
-
-    /**
-     * Generate RSS feed for products.
-     *
-     * @param ZMRequest request The current request.
-     * @param string key Optional key value for various product types; supported: 'new'
-     * @return ZMRssFeed The feed data.
-     */
-    function getProductsFeed($request, $key=null) {
-        if ('new' != $key) {
-            return null;
-        }
-
-        $toolbox = $request->getToolbox();
-        $lastPubDate = null;
-        $items = array();
-        $products = array_slice(array_reverse(ZMProducts::instance()->getNewProducts()), 0, 20);
-        foreach ($products as $product) {
-            $item = ZMLoader::make("RssItem");
-            $item->setTitle($product->getName());
-            $item->setLink(zm_product_href($product->getId(), null, false));
-            $item->setDescription($toolbox->html->more($toolbox->html->strip($product->getDescription()), 60));
-            $item->setPubDate(zm_mk_rss_date($product->getDateAdded()));
-            array_push($items, $item);
-
-            if (null === $lastPubDate) {
-                $lastPubDate = $product->getDateAdded(); 
-            }
-        }
-
-        $channel = ZMLoader::make("RssChannel");
-        $channel->setTitle(zm_l10n_get("New Products at %s", ZMSettings::get('storeName')));
-        $channel->setLink($request->url(FILENAME_DEFAULT));
-        $channel->setDescription(zm_l10n_get("The latest updates to %s's product list", ZMSettings::get('storeName')));
-        $channel->setLastBuildDate($lastPubDate);
-
-        $feed = ZMLoader::make("RssFeed");
-        $feed->setChannel($channel);
-        $feed->setItems($items);
-
-        return $feed;
     }
 
 }

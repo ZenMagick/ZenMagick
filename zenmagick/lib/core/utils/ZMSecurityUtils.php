@@ -47,14 +47,13 @@ class ZMSecurityUtils {
      */
     public static function sanitize($value) {
         if (is_string($value)) {
-            $value = preg_replace('/ +/', ' ', $value);
+            //$value = preg_replace('/ +/', ' ', $value);
             $value = preg_replace('/[<>]/', '_', $value);
-            if (get_magic_quotes_gpc()) {
+            if (function_exists('get_magic_quotes_gpc') && get_magic_quotes_gpc()) {
                 $value = stripslashes($value);
             }
             return trim($value);
         } elseif (is_array($value)) {
-            reset($value);
             while (list($key, $val) = each($value)) {
                 $value[$key] = self::sanitize($val);
             }

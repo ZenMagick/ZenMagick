@@ -68,7 +68,7 @@ class ZMShippingProviderWrapper extends ZMObject implements ZMShippingProvider {
     /**
      * {@inheritDoc}
      */
-    public function hasIcon() { return !ZMTools::isEmpty($this->zenModule_->icon); }
+    public function hasIcon() { return !ZMLangUtils::isEmpty($this->zenModule_->icon); }
 
     /**
      * {@inheritDoc}

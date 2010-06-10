@@ -44,123 +44,6 @@ class ZMTools {
 
 
     /**
-     * Remove a directory (tree).
-     *
-     * @param string dir The directory name.
-     * @param boolean recursive Optional flag to enable/disable recursive deletion; (default is <code>true</code>)
-     * @return boolean <code>true</code> on success.
-     */
-    public static function rmdir($dir, $recursive=true) {
-        if (is_dir($dir)) {
-            if (substr($dir, -1) != '/') { $dir .= '/'; }
-            $handle = opendir($dir);
-            while (false !== ($file = readdir($handle))) {
-                if ('.' != $file && '..' != $file) {
-                    $path = $dir.$file;
-                    if (is_dir($path) && $recursive) {
-                        self::rmdir($path, $recursive);
-                    } else {
-                        unlink($path);
-                    }
-                }
-            }
-            closedir($handle);
-            rmdir($dir);
-        }
-        return true;
-    }
-
-
-    /**
-     * Make directory.
-     *
-     * @param string dir The folder name.
-     * @param int perms The file permisssions (octal); default: <code>null</code> to use the value of setting
-     *  <em>fs.permissions.defaults.folder</em>.
-     * @param boolean recursive Optional recursive flag; (default: <code>true</code>)
-     * @return boolean <code>true</code> on success.
-     */
-    public static function mkdir($dir, $perms=null, $recursive=true) {
-    	clearstatcache();
-        if (null == $dir || empty($dir)) {
-            return false;
-        }
-        if (file_exists($dir) && is_dir($dir)) {
-            return true;
-        }
-
-        $parent = dirname($dir);
-        if (!file_exists($parent) && $recursive) {
-            if (!self::mkdir($parent, $perms, $recursive))
-                return false;
-        }
-        
-        if (null === $perms) {
-        	$perms = ZMSettings::get('fs.permissions.defaults.folder');
-        }
-
-        $result = @mkdir($dir, $perms);
-        // somehow this always ends up 0755, even with 0777
-        self::setFilePerms($dir, $recursive, array('folder' => $perms));
-
-        if (!$result) {
-            ZMLogging::instance()->log("insufficient permission to create directory: '".$dir.'"', ZMLogging::WARN);
-        }
-        
-        return $result;
-    }
-
-    /**
-     * Check if a given value or array is empty.
-     *
-     * @param mixed value The value or array to check.
-     * @return boolean <code>true</code> if the value is empty or <code>null</code>, <code>false</code> if not.
-     */
-    public static function isEmpty($value) { 
-        return empty($value);
-    }
-
-    /**
-     * Check if the given string starts with the provided string.
-     *
-     * @param string s The haystack.
-     * @param string start The needle.
-     * @return boolean <code>true</code> if <code>$s</code> starts with <code>$start</code>,
-     *  <code>false</code> if not.
-     */
-    public static function startsWith($s, $start) {
-        return 0 === strpos($s, $start);
-    }
-
-
-    /**
-     * Check if the given string ends with the provided string.
-     *
-     * @param string s The haystack.
-     * @param string end The needle.
-     * @return boolean <code>true</code> if <code>$s</code> ends with <code>$start</code>,
-     *  <code>false</code> if not.
-     */
-    public static function endsWith($s, $end) {
-        $endLen = strlen($end);
-        return $end == substr($s, -$endLen);
-    }
-
-    /**
-     * Check if the given value exists in the array or comma separated list.
-     *
-     * @param string value The value to search for.
-     * @param mixed array Either an <code>array</code> or a string containing a comma separated list.
-     * @return boolean <code>true</code> if the given value exists in the array, <code>false</code> if not.
-     */
-    public static function inArray($value, $array) {
-        if (!is_array($array)) {
-            $array = explode(',', $array);
-        }
-        return in_array($value, $array);
-    }
-
-    /**
      * Convert a numeric range definition into an array of single values.
      *
      * <p>A range might be a single value, a range; for example <em>3-8</em> or a list of both.</p>
@@ -192,19 +75,6 @@ class ZMTools {
             }
         }
         return $arr;
-    }
-
-    /**
-     * Evaluate a string value as boolean.
-     *
-     * @param mixed value The value.
-     * @return boolean The boolean value.
-     */
-    public static function asBoolean($value) {
-        if (is_integer($value)) {
-            return $value;
-        }
-        return self::inArray(strtolower($value), "on,true,yes,1");
     }
 
     /**
@@ -256,31 +126,6 @@ class ZMTools {
         // Nothing has changed since their last request - serve a 304 and exit
         header('HTTP/1.0 304 Not Modified');
         return false;
-    }
-
-    /**
-     * Sanitize the given value.
-     *
-     * @param mixed value A string or array.
-     * @return mixed A sanitized version.
-     */
-    public static function sanitize($value) {
-        if (is_string($value)) {
-            $value = preg_replace('/ +/', ' ', $value);
-            $value = preg_replace('/[<>]/', '_', $value);
-            if (get_magic_quotes_gpc()) {
-                $value = stripslashes($value);
-            }
-            return trim($value);
-        } elseif (is_array($value)) {
-            reset($value);
-            while (list($key, $val) = each($value)) {
-                $value[$key] = self::sanitize($val);
-            }
-            return $value;
-        }
-
-        return $value;
     }
 
     /**
@@ -389,28 +234,6 @@ class ZMTools {
 
         return date(DATE_RSS, $date);
     } 
-
-    /**
-     * Create a unique key from all given parameters.
-     *
-     * @param var arg Arguments.
-     * @return string a unique key based on the arguments.
-     */
-    public static function mkUnique() {
-        $args = func_get_args();
-        $key = '';
-        foreach ($args as $arg) {
-            if (is_array($arg)) {
-                asort($arg);
-                foreach ($arg as $ar) {
-                    $key .= '@'.$ar;
-                }
-            } else {
-                $key .= ':'.$arg;
-            }
-        }
-        return md5($key);
-    }
 
     /**
      * Compare URLs.
@@ -549,69 +372,6 @@ class ZMTools {
     }
 
     /**
-     * Normalize filename.
-     *
-     * @param string filename The filename.
-     * @return string The normalized filename.
-     */
-    public static function normalizeFilename($filename) {
-        if (strpos($filename, '\\')) {
-            $filename = preg_replace('/\\\\+/', '\\', $filename);
-            $filename = str_replace('\\', DIRECTORY_SEPARATOR, $filename);
-        }
-
-        return $filename;
-    }
-
-    /**
-     * Convert values to array where reasonable.
-     *
-     * @param mixed value The value to convert; either already an array or a URL query form string.
-     * @return array The value as array.
-     */
-    public static function toArray($value) {
-        if (null === $value) {
-            return array();
-        }
-        if (is_array($value)) {
-            return $value;
-        }
-        parse_str($value, $map);
-        return $map;
-    }
-
-    /**
-     * Generate a random value.
-     *
-     * @param int length The length of the random value.
-     * @param string type Optional type; predefined values are: <em>mixed</em>, <em>chars</em>, <em>digits</em> or <em>hex</em>; default is <em>mixed</em>.
-     *  Any other value will be used as the valid character range.
-     * @return string The random string.
-     */
-    public static function random($length, $type='mixed') { 
-        static $types	=	array(
-            self::RANDOM_DIGITS => '0123456789', 
-            self::RANDOM_CHARS => 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ',
-            self::RANDOM_MIXED => '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789',
-            self::RANDOM_HEX => '0123456789abcdef',
-        );
-
-        if (!self::$seedDone) {
-            mt_srand((double)microtime() * 1000200);
-            self::$seedDone = true;
-        }
-
-        $chars = array_key_exists($type, $types) ? $types[$type] : $type;
-        $max=	strlen($chars) - 1;
-        $token = '';
-        for ($ii=0; $ii < $length; ++$ii) {
-            $token .=	$chars[(rand(0, $max))];
-        }
-
-        return $token;
-    }
-
-    /**
      * Resolve the given zen-cart class.
      *
      * <p>This function ensures that the given class is loaded.</p>
@@ -621,103 +381,6 @@ class ZMTools {
     public static function resolveZCClass($clazz) {
         if (!class_exists($clazz)) {
             require_once DIR_FS_CATALOG . DIR_WS_CLASSES . $clazz. '.php';
-        }
-    }
-
-    /**
-     * Move files and folders.
-     *
-     * @param string src The source (file or folder).
-     * @param string target The target (file or folder).
-     * @return boolean <code>true</code> on success.
-     */
-    public static function move($src, $target) {
-        if (is_dir($src)) {
-            if (is_file($target)) {
-                return false;
-            }
-            if ('/' != substr($src, -1)) {
-                $src .= '/';
-            }
-            if ('/' != substr($target, -1)) {
-                $target .= '/';
-            }
-
-            self::mkdir($target);
-            $handle = opendir($src);
-            if ($handle = opendir($src)) {
-                while (false !== ($file = readdir($handle))) {
-                    if ("." == $file || ".." == $file) {
-                        continue;
-                    }
-                    $fullfile = $src.$file;
-                    if (is_dir($fullfile)) {
-                        if (!self::move($fullfile.'/', $target.$file.'/')) {
-                            return false;
-                        }
-                    } else {
-                        if (!copy($fullfile, $target.$file)) {
-                            return false;
-                        }
-                    }
-                }
-                closedir($handle);
-                return self::rmdir($src, true);
-            } else {
-                return false;
-            }
-        } else {
-            if (is_dir($target)) {
-                if ('/' != substr($target, -1)) {
-                    $target .= '/';
-                }
-                self::mkdir($target);
-                if (!copy($src, $target.basename($src))) {
-                    return false;
-                }
-            } else {
-                self::mkdir(dirname($target));
-                if (!copy($src, $target)) {
-                    return false;
-                }
-            }
-            return unlink($src);
-        }
-    }
-
-    /**
-     * Unzip a file into the given directory.
-     *
-     * @param string filename The zip filename.
-     * @param string target The target directory.
-     * @return boolean <code>true</code> on success.
-     */
-    public static function unzip($filename, $target) {
-        if (!function_exists('zip_open')) {
-            return false;
-        }
-        if ('/' != substr($target, -1)) {
-            $target .= '/';
-        }
-
-        if ($zhandle = zip_open($filename)) {
-            while ($zentry = zip_read($zhandle)) {
-                if (zip_entry_open($zhandle, $zentry, 'r')) {
-                    $entryFilename = $target.zip_entry_name($zentry);
-                    // ensure folder exists, otherwise things get dropped silently
-                    self::mkDir(dirname($entryFilename));
-                    $buffer = zip_entry_read($zentry, zip_entry_filesize($zentry));
-                    zip_entry_close($zentry);
-                    $fp = fopen($entryFilename, 'wb');
-                    fwrite($fp, "$buffer");
-                    fclose($fp);
-                    self::setFilePerms($entryFilename);
-                } else {
-                    return false;
-                }
-            }
-            zip_close($zhandle);
-            return true;
         }
     }
 
@@ -732,6 +395,26 @@ class ZMTools {
         $multiplier = $zc_round_ceil * $y;
         $results = abs(round($x - $multiplier, 6));
         return $results;
+    }
+
+    /**
+     * Encode XML control characters.
+     *
+     * @param string s The input string.
+     * @return string The encoded string.
+     */
+    public static function encodeXML($s) {
+        $encoding = array(
+            '<' => '&lt;',
+            '>' => '&gt;',
+            '&' => '&amp;'
+        );
+
+        foreach ($encoding as $char => $entity) {
+            $s = str_replace($char, $entity, $s);
+        }
+
+        return $s;
     }
 
 }

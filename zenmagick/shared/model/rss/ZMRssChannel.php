@@ -34,8 +34,6 @@
  * @package zenmagick.store.shared.model.rss
  */
 class ZMRssChannel extends ZMObject {
-    private $rs_;
-
 
     /**
      * Create new RSS channel.
@@ -44,7 +42,11 @@ class ZMRssChannel extends ZMObject {
      */
     function __construct($rs=null) {
         parent::__construct();
-        $this->rs_ = null !== $rs ? $rs : array();
+        if (is_array($rs)) {
+            foreach ($rs as $key => $value) {
+                $this->set($key, $value);
+            }
+        }
     }
 
     /**
@@ -60,157 +62,146 @@ class ZMRssChannel extends ZMObject {
      *
      * @return string The channel title.
      */
-    public function getTitle() { return $this->rs_['title']; }
+    public function getTitle() { return $this->get('title'); }
 
     /**
      * Get the channel link.
      *
      * @return string The channel link.
      */
-    public function getLink() { return $this->rs_['link']; }
+    public function getLink() { return $this->get('link'); }
 
     /**
      * Get the channel encoding.
      *
      * @return string The channel encoding.
      */
-    public function getEncoding() { return $this->rs_['encoding']; }
+    public function getEncoding() { return $this->get('encoding'); }
 
     /**
      * Get the channel description.
      *
      * @return string The channel description.
      */
-    public function getDescription() { return $this->rs_['description']; }
+    public function getDescription() { return $this->get('description'); }
 
     /**
      * Get the channels last build date.
      *
      * @return string The channels last build date.
      */
-    public function getLastBuildDate() { return $this->rs_['lastBuildDate']; }
+    public function getLastBuildDate() { return $this->get('lastBuildDate'); }
 
     /**
      * Get the channels image title.
      *
      * @return string The channels image title.
      */
-    public function getImageTitle() { return $this->rs_['image_title']; }
+    public function getImageTitle() { return $this->get('image_title'); }
 
     /**
      * Get the channels image link.
      *
      * @return string The channels image link.
      */
-    public function getImageLink() { return $this->rs_['image_link']; }
+    public function getImageLink() { return $this->get('image_link'); }
 
     /**
      * Get the channels image width.
      *
      * @return string The channels image width.
      */
-    public function getImageWidth() { return $this->rs_['image_width']; }
+    public function getImageWidth() { return $this->get('image_width'); }
 
     /**
      * Get the channels image height.
      *
      * @return string The channels image height.
      */
-    public function getImageHeight() { return $this->rs_['image_height']; }
+    public function getImageHeight() { return $this->get('image_height'); }
+
+    /**
+     * Get a list of custom tags to be handled.
+     *
+     * @return array List of custom tags.
+     */
+    public function getTags() { return $this->get('tags', array()); }
 
     /**
      * Checks if the channel has an image.
      *
      * @return boolean <code>true</code> if a channel image is available, <code>false</code> if not.
      */
-    public function hasImage() { return array_key_exists($this->rs_, 'image_url'); }
+    public function hasImage() { return array_key_exists('image_url', $this->getPropertyNames()); }
 
     /**
      * Set the channel title.
      *
      * @param string title The channel title.
      */
-    public function setTitle($title) { $this->rs_['title'] = $title; }
+    public function setTitle($title) { $this->set('title', $title); }
 
     /**
      * Set the channel link.
      *
      * @param string link The channel link.
      */
-    public function setLink($link) { $this->rs_['link'] = $link; }
+    public function setLink($link) { $this->set('link', $link); }
 
     /**
      * Set the channel encoding.
      *
      * @param string encoding The channel encoding.
      */
-    public function setEncoding($encoding) { $this->rs_['encoding'] = $encoding; }
+    public function setEncoding($encoding) { $this->set('encoding', $encoding); }
 
     /**
      * Set the channel description.
      *
      * @param string description The channel description.
      */
-    public function setDescription($description) { $this->rs_['description'] = $description; }
+    public function setDescription($description) { $this->set('description', $description); }
 
     /**
      * Set the channels last build date.
      *
      * @param string date The channels last build date.
      */
-    public function setLastBuildDate($date) { $this->rs_['lastBuildDate'] = $date; }
+    public function setLastBuildDate($date) { $this->set('lastBuildDate', $date); }
 
     /**
      * Set the channels image title.
      *
      * @param string title The channels image title.
      */
-    public function setImageTitle($title) { $this->rs_['image_title'] = $title; }
+    public function setImageTitle($title) { $this->set('image_title', $title); }
 
     /**
      * set the channels image link.
      *
      * @param string link The channels image link.
      */
-    public function setImageLink($lin) { $this->rs_['image_link'] = $link; }
+    public function setImageLink($lin) { $this->set('image_link', $link); }
 
     /**
      * set the channels image width.
      *
      * @param int width The channels image width.
      */
-    public function setImageWidth($width) { $this->rs_['image_width'] = $width; }
+    public function setImageWidth($width) { $this->set('image_width', $width); }
 
     /**
      * Set the channels image height.
      *
      * @param int height The channels image height.
      */
-    public function setImageHeight($height) { $this->rs_['image_height'] = $height; }
+    public function setImageHeight($height) { $this->set('image_height', $height); }
 
     /**
-     * Custom set method for properties that do not have a dedicated
-     * access method.
+     * Set a list of custom tags to be handled.
      *
-     * @param string name The property name.
-     * @param string value The value.
+     * @param array tags List of custom tags.
      */
-    public function setProperty($name, $value) { $this->rs_[$name] = $value; }
-
-    /**
-     * Custom get method for properties that do not have a dedicated
-     * access method.
-     *
-     * @param string name The property name.
-     * @return string value The value or <code>null</code>.
-     */
-    public function getProperty($name) { return isset($this->rs_[$name]) ? $this->rs_[$name] : null; }
-
-    /**
-     * Get all properties.
-     *
-     * @return array Name/value map.
-     */
-    public function getProperties() { return $this->rs_; }
+    public function setTags($tags) { $this->set('tags', $tags); }
 
 }

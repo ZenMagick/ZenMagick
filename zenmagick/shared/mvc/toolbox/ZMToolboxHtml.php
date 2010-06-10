@@ -119,7 +119,7 @@ class ZMToolboxHtml extends ZMToolboxTool {
         $clean = preg_replace('/\n/', ' ', $clean);
         $clean= nl2br($clean);
 
-        // update breaks with a space for text displays in all listings with descriptions
+        // update breaks with a space
         while (strstr($clean, '<br>'))   $clean = str_replace('<br>',   ' ', $clean);
         while (strstr($clean, '<br />')) $clean = str_replace('<br />', ' ', $clean);
         while (strstr($clean, '<br/>'))  $clean = str_replace('<br/>',  ' ', $clean);

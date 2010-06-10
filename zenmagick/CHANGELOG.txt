@@ -130,6 +130,13 @@ Release 0.9.10
 - move more stuff into admin app
 - add _vzm() function as convenience wrapper arount _zm() acting the same as
   zm_l10n()
+- cleanup ZMTools
+- fixed b:#3014025 - rss feed broken
+- extend RSS controller to allow to configure RSS sources as bean definition
+  via the setting 'apps.store.rss.sources'
+- refactor existing feeds from ZMRssController into ZMDefaultRssFeedSource
+- add proper support for custom channel/item elements
+- add new catalog (all products / categories) RSS feed
 
 Release 0.9.9
 - in ZMDbTableMapper handle database exception building auto mappings

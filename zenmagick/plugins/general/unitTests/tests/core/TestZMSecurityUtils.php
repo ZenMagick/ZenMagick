@@ -21,38 +21,21 @@
 <?php
 
 /**
- * Test view utils.
+ * Test ZMSecurityTools.
  *
  * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann
  * @version $Id$
  */
-class TestRequest extends ZMTestCase {
+class TestZMSecurityUtils extends ZMTestCase {
 
     /**
-     * Test getPageBase
+     * Test sanitize.
      */
-    public function testGetPageBase() {
-        // test non secure
-        $_SERVER['SERVER_PORT'] = 80;
-        $_SERVER['HTTPS'] = false;
-        $request = new Request();
-        $zmrequest = new ZMRequest();
-        $this->assertEqual($request->getPageBase(), $zmrequest->absoluteUrl('', true));
-
-        // test secure
-        $_SERVER['SERVER_PORT'] = 443;
-        $_SERVER['HTTPS'] = true;
-        $this->assertEqual($request->getPageBase(), $zmrequest->absoluteUrl('', true));
-    }
-
-    /**
-     * Test getContext
-     */
-    public function testGetContext() {
-        $request = new Request();
-        $zmrequest = new ZMRequest();
-        $this->assertEqual($request->getContext(), $zmrequest->getContext());
+    public function testSanitize() {
+        $this->assertEqual('abc', ZMSecurityUtils::sanitize('   abc'));
+        $this->assertEqual('_abc_', ZMSecurityUtils::sanitize('<abc>'));
+        $this->assertEqual('abc', ZMSecurityUtils::sanitize('abc   '));
     }
 
 }
