@@ -341,7 +341,7 @@
             // cache TTL
             'rssCacheTimeout' => 1200,
 
-            'apps.store.rss.sources' => 'DefaultRssFeedSource,CatalogRssFeedSource',
+            'zenmagick.mvc.rss.sources' => 'DefaultRssFeedSource,CatalogRssFeedSource',
 
 
             /**************************************

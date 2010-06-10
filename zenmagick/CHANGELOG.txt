@@ -137,6 +137,7 @@ Release 0.9.10
 - refactor existing feeds from ZMRssController into ZMDefaultRssFeedSource
 - add proper support for custom channel/item elements
 - add new catalog (all products / categories) RSS feed
+- move ZMRssController into mvc; add some new utils to hold helper functions
 
 Release 0.9.9
 - in ZMDbTableMapper handle database exception building auto mappings
