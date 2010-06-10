@@ -32,6 +32,8 @@
  * @version $Id$
  */
 class ZMQuickEditTabController extends ZMPluginAdminController {
+    const STALE_CHECK_FIELD_PREFIX = '@_';
+
 
     /**
      * Create new instance.
@@ -108,10 +110,11 @@ class ZMQuickEditTabController extends ZMPluginAdminController {
                 if ($widget instanceof ZMFormWidget) {
                     $fieldName = $field['name'].'_'.$productId;
                     // use widget to *read* the value to allow for optional conversions, etc
-                    $widget->setValue($request->getParameter($fieldName));
+                    $widget->setValue($request->getParameter($fieldName, null, false));
                     $formData[$fieldMap[$field['name']]] = $widget->getStringValue();
-                    $widget->setValue($request->getParameter('_'.$fieldName));
+                    $widget->setValue($request->getParameter(self::STALE_CHECK_FIELD_PREFIX.$fieldName, null, false));
                     $_formData[$fieldMap[$field['name']]] = $widget->getStringValue();
+                    //$_formData[$fieldMap[$field['name']]] = $request->getParameter(self::STALE_CHECK_FIELD_PREFIX.$fieldName);
                 }
             }
             // load product, convert to map and compare with the submitted form data
@@ -136,7 +139,7 @@ class ZMQuickEditTabController extends ZMPluginAdminController {
         }    
 
         // need to do this to for using PluginAdminView rather than SimplePluginFormView
-        return $this->findView(null, $data);
+        return $this->findView();
     }
 
 }

@@ -21,38 +21,27 @@
 <?php
 
 /**
- * Test view utils.
+ * Test ZMRequest.
  *
  * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann
  * @version $Id$
  */
-class TestRequest extends ZMTestCase {
+class TestZMRequest extends ZMTestCase {
 
     /**
-     * Test getPageBase
+     * Test getParameter
      */
-    public function testGetPageBase() {
-        // test non secure
-        $_SERVER['SERVER_PORT'] = 80;
-        $_SERVER['HTTPS'] = false;
-        $request = new Request();
-        $zmrequest = new ZMRequest();
-        $this->assertEqual($request->getPageBase(), $zmrequest->absoluteUrl('', true));
-
-        // test secure
-        $_SERVER['SERVER_PORT'] = 443;
-        $_SERVER['HTTPS'] = true;
-        $this->assertEqual($request->getPageBase(), $zmrequest->absoluteUrl('', true));
+    public function testGetParameter() {
+        $request = new ZMRequest(array('foo' => 'bar  bar  bar <'));
+        $this->assertEqual('bar  bar  bar <', $request->getParameter('foo', null, false));
+        $this->assertEqual('bar  bar  bar _', $request->getParameter('foo'));
     }
 
     /**
-     * Test getContext
+     * Test getParameterMap
      */
-    public function testGetContext() {
-        $request = new Request();
-        $zmrequest = new ZMRequest();
-        $this->assertEqual($request->getContext(), $zmrequest->getContext());
+    public function testGetParameterMap() {
     }
 
 }

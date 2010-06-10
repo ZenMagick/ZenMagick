@@ -145,7 +145,10 @@ class ZMEventFixes extends ZMObject {
     public function onZMBootstrapDone($args) {
         $request = $args['request'];
 
-        $this->sanitizeRequest($request);
+        // TODO: remove once new admin is go
+        if (!defined('IS_ADMIN_FLAG') || !IS_ADMIN_FLAG) {
+            $this->sanitizeRequest($request);
+        }
 
         // START: zc_fixes
         // custom class mappings
