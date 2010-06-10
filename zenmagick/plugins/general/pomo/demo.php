@@ -14,9 +14,9 @@ class FOMO {
         print "<pre>";
         print _zm("This is how the story goes.\n\n");
         for ($number=6; $number>=0; $number--) {
-          print sprintf(_zmn("%d pig went to the market\n", 
-                $number, "%d pigs went to the market\n"), 
-             $number );
+          // get translated string
+          $ts = _zmn("%d pig went to the market\n", $number, "%d pigs went to the market\n");
+          print sprintf($ts, $number);
         }
         print "</pre>\n";
   }
