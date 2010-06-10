@@ -40,6 +40,11 @@ class ZMCatalogRssFeedSource implements ZMRssSource {
             return null;
         }
 
+        if (null == $key) {
+            // do both categories and products
+            $key = 'catalog';
+        }
+
         $method = "get".ucwords($key)."Feed";
         if (!method_exists($this, $method)) {
             return null;
@@ -54,6 +59,36 @@ class ZMCatalogRssFeedSource implements ZMRssSource {
         return $feed;
     }
 
+
+    /**
+     * Generate RSS feed for the whole catalog (categories plus products).
+     *
+     * @param ZMRequest request The current request.
+     * @return ZMRssFeed The feed.
+     */
+    protected function getCatalogFeed($request) {
+        $categoriesFeed = $this->getCategoriesFeed($request);
+        $productsFeed = $this->getProductsFeed($request);
+
+        $lastPubDate = $categoriesFeed->getLastBuildDate();
+        if ($productsFeed->getLastBuildDate() > $lastPubDate) {
+            $lastPubDate = $productsFeed->getLastBuildDate();
+        }
+
+        $channel = ZMLoader::make("RssChannel");
+        $channel->setTitle(zm_l10n_get("%s Catalog", ZMSettings::get('storeName')));
+        $channel->setLink($request->url(FILENAME_DEFAULT));
+        $channel->setDescription(zm_l10n_get("All categories and products at %s", ZMSettings::get('storeName')));
+        $channel->setLastBuildDate($lastPubDate);
+
+        $items = array_merge($categoriesFeed->getItems(), $productsFeed->getItems());
+
+        $feed = ZMLoader::make("RssFeed");
+        $feed->setChannel($channel);
+        $feed->setItems($items);
+
+        return $feed;
+    }
 
     /**
      * Generate RSS feed for all products.
