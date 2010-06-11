@@ -112,7 +112,7 @@ class ZMPayments extends ZMObject {
         $zenModule = $GLOBALS[$this->zenModules_->selected_module];
         if (!$zenModule) { 
             // must be GV, then, so build custom type
-            $paymentType = ZMLoader::make("PaymentType", 'gv', zm_l10n_get('Gift Certificate/Coupon'));
+            $paymentType = ZMLoader::make("PaymentType", 'gv', _zm('Gift Certificate/Coupon'));
             return $paymentType;
         }
         //XXX: doh!

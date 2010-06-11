@@ -84,7 +84,7 @@ class ZMAccountNotificationsController extends ZMController {
             $account = ZMAccounts::instance()->setSubscribedProductIds($account, $subscribedProducts);
         }
 
-        ZMMessages::instance()->success(zm_l10n_get('Your product subscriptions have been updated.'));
+        ZMMessages::instance()->success(_zm('Your product subscriptions have been updated.'));
         return $this->findView('success', array('currentAccount' => $request->getAccount()));
     }
 

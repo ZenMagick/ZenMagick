@@ -78,7 +78,7 @@ class ZMToolboxMacro extends ZMToolboxTool {
      */
     public function formatAddress($address, $html=true) {
         if (null == $address) {
-            $out = zm_l10n_get("N/A");    
+            $out = _zm("N/A");    
         } else {
             if (!ZMLangUtils::isEmpty($address->getLastName())) {
                 $firstname = $address->getFirstName();
@@ -192,9 +192,9 @@ class ZMToolboxMacro extends ZMToolboxTool {
             if (!$first) $html .= $sep;
             $first = false;
             if (null != $crumb->getURL()) {
-                $html .= '<a href="'.$crumb->getURL().'">'.ZMHtmlUtils::encode(zm_l10n_get($crumb->getName())).'</a>';
+                $html .= '<a href="'.$crumb->getURL().'">'.ZMHtmlUtils::encode(_zm($crumb->getName())).'</a>';
             } else {
-                $html .= ZMHtmlUtils::encode(zm_l10n_get($crumb->getName()));
+                $html .= ZMHtmlUtils::encode(_zm($crumb->getName()));
             }
         }
 		    $html .= '</div>';
@@ -282,16 +282,16 @@ class ZMToolboxMacro extends ZMToolboxTool {
             if (ZMSettings::get('isResolveClientIP')) {
                 $hostname = gethostbyaddr($session->getClientAddress());
             } else {
-                $hostname = zm_l10n_get("Disabled");
+                $hostname = _zm("Disabled");
             }
         }
 
         $context['office_only_text'] = "\n\n" .
-          zm_l10n_get("Office Use Only:") . "\n" .
-          zm_l10n_get("From: ") . $name . "\n" .
-          zm_l10n_get("Email: ") . $email . "\n" .
-          zm_l10n_get("Remote: ") . $session->getClientAddress() . " - " . $hostname . "\n" .
-          zm_l10n_get("Date: ") . date("D M j Y G:i:s T") . "\n\n";
+          _zm("Office Use Only:") . "\n" .
+          _zm("From: ") . $name . "\n" .
+          _zm("Email: ") . $email . "\n" .
+          _zm("Remote: ") . $session->getClientAddress() . " - " . $hostname . "\n" .
+          _zm("Date: ") . date("D M j Y G:i:s T") . "\n\n";
         $context['office_only_html'] = nl2br($context['office_only_text']);
 
         return $context;
@@ -515,12 +515,12 @@ class ZMToolboxMacro extends ZMToolboxTool {
         if ($value->hasImage() && $enableImage) {
             $label = '<img src="' . $toolbox->net->image($value->getImage()) . '" alt="'.$value->getName().'" title="'.$value->getName().'"'.$slash.'>';
         }
-        $label .= zm_l10n_get($value->getName());
+        $label .= _zm($value->getName());
 
         if ($value->isFree() && $product->isFree()) {
-            $label .= zm_l10n_get(' [FREE! (was: %s%s)]', $value->getPricePrefix(), $toolbox->utils->formatMoney($value->getPrice()));
+            $label .= sprintf(_zm(' [FREE! (was: %s%s)]'), $value->getPricePrefix(), $toolbox->utils->formatMoney($value->getPrice()));
         } else if (0 != $value->getPrice()) {
-            $label .= zm_l10n_get(' (%s%s)', $value->getPricePrefix(), $toolbox->utils->formatMoney(abs($value->getPrice())));
+            $label .= sprintf(_zm(' (%s%s)'), $value->getPricePrefix(), $toolbox->utils->formatMoney(abs($value->getPrice())));
         }
         //TODO: onetime and weight
 
@@ -540,7 +540,7 @@ class ZMToolboxMacro extends ZMToolboxTool {
 
         $html = '<span class="price">';
         if ($offers->isAttributePrice()) {
-            $html .= zm_l10n_get("Starting at: ");
+            $html .= _zm("Starting at: ");
         }
         if (!$product->isFree() && ($offers->isSpecial() || $offers->isSale())) {
             $html .= '<span class="strike base">' . $toolbox->utils->formatMoney($offers->getBasePrice($tax)) . '</span> ';
@@ -585,7 +585,7 @@ class ZMToolboxMacro extends ZMToolboxTool {
                     $high = $low;
                 }
                 if ($low != $high) {
-                    $qty = zm_l10n_get("%s-%s", $low, $high);
+                    $qty = sprintf(_zm("%s-%s"), $low, $high);
                 } else {
                     $qty = $low;
                 }
@@ -594,12 +594,12 @@ class ZMToolboxMacro extends ZMToolboxTool {
             }
 
             if ($ii == ($n - 1)) {
-                $qty = zm_l10n_get("%s+", $discounts[$ii]->getQuantity());
+                $qty = spritnf(_zm("%s+"), $discounts[$ii]->getQuantity());
             } else {
                 if ($discounts[$ii]->getQuantity() == ($discounts[$ii+1]->getQuantity() - 1)) {
                     $qty = $discounts[$ii]->getQuantity();
                 } else {
-                    $qty = zm_l10n_get("%s-%s", $discounts[$ii]->getQuantity(), ($discounts[$ii+1]->getQuantity() - 1));
+                    $qty = spritnf(_zm("%s-%s"), $discounts[$ii]->getQuantity(), ($discounts[$ii+1]->getQuantity() - 1));
                 }
             }
             $details[] = array('qty' => $qty, 'price' => $discounts[$ii]->getPrice());

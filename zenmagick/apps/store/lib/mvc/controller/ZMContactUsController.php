@@ -85,9 +85,9 @@ class ZMContactUsController extends ZMController {
         $context = array();
         $context['contactInfo'] = $contactInfo;
 
-        zm_mail(zm_l10n_get("Message from %s", ZMSettings::get('storeName')), 'contact_us', $context, ZMSettings::get('storeEmail'), null, $contactInfo->getEmail(), $contactInfo->getName());
+        zm_mail(sprintf(_zm("Message from %s"), ZMSettings::get('storeName')), 'contact_us', $context, ZMSettings::get('storeEmail'), null, $contactInfo->getEmail(), $contactInfo->getName());
 
-        ZMMessages::instance()->success(zm_l10n_get('Your message has been successfully sent.'));
+        ZMMessages::instance()->success(_zm('Your message has been successfully sent.'));
         // clear message before displaying form again
         $contactInfo->setMessage('');
 

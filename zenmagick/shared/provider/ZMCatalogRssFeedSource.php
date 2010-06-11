@@ -76,9 +76,9 @@ class ZMCatalogRssFeedSource implements ZMRssSource {
         }
 
         $channel = ZMLoader::make("RssChannel");
-        $channel->setTitle(zm_l10n_get("%s Catalog", ZMSettings::get('storeName')));
+        $channel->setTitle(sprintf(_zm("%s Catalog"), ZMSettings::get('storeName')));
         $channel->setLink($request->url(FILENAME_DEFAULT));
-        $channel->setDescription(zm_l10n_get("All categories and products at %s", ZMSettings::get('storeName')));
+        $channel->setDescription(sprintf(_zm("All categories and products at %s"), ZMSettings::get('storeName')));
         $channel->setLastBuildDate($lastPubDate);
 
         $items = array_merge($categoriesFeed->getItems(), $productsFeed->getItems());
@@ -133,9 +133,9 @@ class ZMCatalogRssFeedSource implements ZMRssSource {
         }
 
         $channel = ZMLoader::make("RssChannel");
-        $channel->setTitle(zm_l10n_get("Products at %s", ZMSettings::get('storeName')));
+        $channel->setTitle(sprintf(_zm("Products at %s"), ZMSettings::get('storeName')));
         $channel->setLink($request->url(FILENAME_DEFAULT));
-        $channel->setDescription(zm_l10n_get("All products at %s", ZMSettings::get('storeName')));
+        $channel->setDescription(sprintf(_zm("All products at %s"), ZMSettings::get('storeName')));
         $channel->setLastBuildDate($lastPubDate);
 
         $feed = ZMLoader::make("RssFeed");
@@ -187,9 +187,9 @@ class ZMCatalogRssFeedSource implements ZMRssSource {
         }
 
         $channel = ZMLoader::make("RssChannel");
-        $channel->setTitle(zm_l10n_get("Categories at %s", ZMSettings::get('storeName')));
+        $channel->setTitle(sprintf(_zm("Categories at %s"), ZMSettings::get('storeName')));
         $channel->setLink($request->url(FILENAME_DEFAULT));
-        $channel->setDescription(zm_l10n_get("All categories at %s", ZMSettings::get('storeName')));
+        $channel->setDescription(sprintf(_zm("All categories at %s"), ZMSettings::get('storeName')));
         $channel->setLastBuildDate($lastPubDate);
 
         $feed = ZMLoader::make("RssFeed");

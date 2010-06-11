@@ -75,7 +75,7 @@ class ZMAccountPasswordController extends ZMController {
         $confirmPassword = $request->getParameter('password_confirmation');
 
         if (!ZMAuthenticationManager::instance()->validatePassword($oldPassword, $account->getPassword())) {
-            ZMMessages::instance()->error(zm_l10n_get('Your current password did not match the password in our records. Please try again.'));
+            ZMMessages::instance()->error(_zm('Your current password did not match the password in our records. Please try again.'));
             return $this->findView();
         }
 
@@ -90,7 +90,7 @@ class ZMAccountPasswordController extends ZMController {
             )
         );
 
-        ZMMessages::instance()->success(zm_l10n_get('Your password has been updated.'));
+        ZMMessages::instance()->success(_zm('Your password has been updated.'));
 
         return $this->findView('success');
     }

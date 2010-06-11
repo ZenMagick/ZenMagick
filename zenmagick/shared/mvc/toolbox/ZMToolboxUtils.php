@@ -47,7 +47,7 @@ class ZMToolboxUtils extends ZMToolboxTool {
         $title = str_replace('_', ' ', $title);
         // capitalise words
         $title = ucwords($title);
-        $title = zm_l10n_get($title);
+        $title = _zm($title);
 
         return $title;
     }

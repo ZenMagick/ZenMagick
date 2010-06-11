@@ -88,7 +88,7 @@ class ZMProductReviewsWriteController extends ZMController {
 
         // account email
         if (ZMSettings::get('isApproveReviews') && ZMSettings::get('isEmailAdminReview')) {
-            $subject = zm_l10n_get("Product Review Pending Approval: %s", $product->getName());
+            $subject = sprintf(_zm("Product Review Pending Approval: %s"), $product->getName());
             $context = $request->getToolbox()->macro->officeOnlyEmailFooter($account->getFullName(), $account->getEmail(), $session);
             $context['currentAccount'] = $account;
             $context['currentReview'] = $review;
@@ -96,7 +96,7 @@ class ZMProductReviewsWriteController extends ZMController {
             zm_mail($subject, 'review', $context, ZMSettings::get('emailAdminReview'));
         }
 
-        ZMMessages::instance()->success(zm_l10n_get("Thank you for your submission"));
+        ZMMessages::instance()->success(_zm("Thank you for your submission"));
         return $this->findView('success', $this->viewData_, array('parameter' => 'products_id='.$product->getId()));
     }
 

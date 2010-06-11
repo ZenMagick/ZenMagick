@@ -62,7 +62,7 @@ class ZMGvSendConfirmController extends ZMController {
     public function processGet($request) {
         $data = array();
         $data['currentAccount'] = $request->getAccount();
-        $data['currentCoupon'] = ZMLoader::make("Coupon", 0, zm_l10n_get('THE_COUPON_CODE'));
+        $data['currentCoupon'] = ZMLoader::make("Coupon", 0, _zm('THE_COUPON_CODE'));
         return $this->findView(null, $data);
     }
 
@@ -119,7 +119,7 @@ class ZMGvSendConfirmController extends ZMController {
 
         // create gv_send email
         $context = array('currentAccount' => $account, 'gvReceiver' => $gvReceiver, 'currentCoupon' => $coupon, 'office_only_html' => '', 'office_only_text' => '');
-        zm_mail(zm_l10n_get("A gift from %s", $account->getFullName()), 'gv_send', $context, $gvReceiver->getEmail());
+        zm_mail(sprintf(_zm("A gift from %s"), $account->getFullName()), 'gv_send', $context, $gvReceiver->getEmail());
         if (ZMSettings::get('isEmailAdminGvSend')) {
             // store copy
             $session = $request->getSession();
@@ -127,10 +127,10 @@ class ZMGvSendConfirmController extends ZMController {
             $context['currentAccount'] = $account;
             $context['gvReceiver'] = $gvReceiver;
             $context['currentCoupon'] = $coupon;
-            zm_mail(zm_l10n_get("[GIFT CERTIFICATE] A gift from %s", $account->getFullName()), 'gv_send', $context, ZMSettings::get('emailAdminGvSend'));
+            zm_mail(sprintf(_zm("[GIFT CERTIFICATE] A gift from %s"), $account->getFullName()), 'gv_send', $context, ZMSettings::get('emailAdminGvSend'));
         }
 
-        ZMMessages::instance()->success(zm_l10n_get("Gift Certificate successfully send!"));
+        ZMMessages::instance()->success(_zm("Gift Certificate successfully send!"));
 
         return $this->findView('success');
     }

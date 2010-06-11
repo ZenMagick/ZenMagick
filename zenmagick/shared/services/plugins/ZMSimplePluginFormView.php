@@ -108,7 +108,7 @@ class ZMSimplePluginFormView extends ZMView {
     protected function generateSimpleConfigForm($request, $function, $title=null, $all=true) {
         $plugin = $this->getPlugin();
         $title = null == $title ? $this->getPlugin()->getName() : $title;
-        $title = zm_l10n_get($title);
+        $title = _zm($title);
         $contents = <<<EOT
 <h2><?php echo \$title ?></h2>
 <form action="<?php \$request->getToolbox()->admin->url() ?>" method="POST">
@@ -123,7 +123,7 @@ class ZMSimplePluginFormView extends ZMView {
         <?php } ?>
     </table>
     <input type="hidden" name="fkt" value="<?php echo \$function ?>">
-    <input type="submit" value="<?php zm_l10n("Update") ?>">
+    <input type="submit" value="<?php echo _zm("Update") ?>">
 </form>
 EOT;
         // XXX: use eval for PHP4 compatibility

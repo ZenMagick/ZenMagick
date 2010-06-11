@@ -140,6 +140,7 @@ Release 0.9.10
 - move ZMRssController into mvc; add some new utils to hold helper functions
 - pomo: update to implement ZMLocale properly
 - move most RSS code into mvc
+- start migrating backend code to using _zm() and _zmn()
 
 Release 0.9.9
 - in ZMDbTableMapper handle database exception building auto mappings

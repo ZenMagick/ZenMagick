@@ -91,7 +91,7 @@ class ZMAddressBookEditController extends ZMController {
             }
         }
 
-        ZMMessages::instance()->success(zm_l10n_get('The selected address has been successfully updated.'));
+        ZMMessages::instance()->success(_zm('The selected address has been successfully updated.'));
         return $this->findView('success');
     }
 
