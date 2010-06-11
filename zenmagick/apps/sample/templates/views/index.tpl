@@ -11,6 +11,7 @@
 <!-- manually set up form validation -->
 <script type="text/javascript">
   // change messages
+  // NOTE: these change the JS messages only
   zmFormValidation.messages = {
     'alreadySubmitted': 'Please be patient!',
     'errors': "Oopsey, why such a hurry?\n\n"
