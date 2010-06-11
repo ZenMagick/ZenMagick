@@ -60,7 +60,7 @@ class ZMXinhaFormWidget extends ZMTextAreaFormWidget {
             return parent::render($request);
         }
 
-        $baseUrl = $this->plugin_->pluginURL('xinha-0.9.5/');
+        $baseUrl = $this->plugin_->pluginURL('xinha-0.96.1/');
 
         // add required js
         //$request->getToolbox()->utils->jsTop($baseUrl.'XinhaCore.js');
