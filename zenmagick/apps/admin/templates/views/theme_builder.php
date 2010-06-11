@@ -56,7 +56,7 @@
 
 <h2><?php zm_l10n("ZenMagick Theme Builder") ?></h2>
 
-<form action="<?php echo $toolbox->admin->url() ?>" method="POST" onsubmit="return zenmagick.confirm('Create theme?', this);">
+<form action="<?php echo $toolbox->admin2->url() ?>" method="POST" onsubmit="return zenmagick.confirm('Create theme?', this);">
   <fieldset>
   <legend><?php zm_l10n("Create new ZenMagick Theme") ?></legend>
 
@@ -79,7 +79,7 @@
 </form>
 
 <p>Once you have created the new theme, make sure to (re-)generate the required dummy theme files for zen-cart
-using the <a href="<?php echo $admin->url('installation') ?>">installation</a> screen.</p>
+using the <a href="<?php echo $admin2->url('installation') ?>">installation</a> screen.</p>
 
 <p>Unused directories can safely be deleted</p>
 

@@ -62,6 +62,7 @@
       | <a href="<?php echo $admin2->url('update_user') ?>">Change <strong>Your</strong> Details</a>
       | <a href="<?php echo $admin2->url('admin_users') ?>">Manage Admin Users</a>
       | <a href="<?php echo $admin2->url('l10n') ?>">Translation Helper</a>
+      | <a href="<?php echo $admin2->url('console') ?>">Console</a>
       | <a href="<?php echo $admin2->url('about') ?>">About</a>
     </p>
   </div>
