@@ -93,13 +93,6 @@ class ZMForwardView extends ZMView {
     /**
      * {@inheritDoc}
      */
-    public function isValid($request) {
-        return true;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public function path($template, $type=ZMView::TEMPLATE) {
         throw new ZMException('not supported');
     }
@@ -108,7 +101,7 @@ class ZMForwardView extends ZMView {
      * {@inheritDoc}
      */
     public function isValid($request) {
-        return !ZMlangUtils::isEmpty($this->getTemplate());
+        return !ZMLangUtils::isEmpty($this->getRequestId());
     }
 
     /**

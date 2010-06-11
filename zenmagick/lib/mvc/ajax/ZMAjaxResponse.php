@@ -77,6 +77,6 @@ interface ZMAjaxResponse {
      *
      * @return string The response.
      */
-    public functiong createResponse();
+    public function createResponse();
 
 }

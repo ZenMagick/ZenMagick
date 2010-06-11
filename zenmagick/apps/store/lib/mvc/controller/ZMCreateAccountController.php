@@ -127,7 +127,7 @@ class ZMCreateAccountController extends ZMController {
             // store copy
             $context = $request->getToolbox()->macro->officeOnlyEmailFooter($account->getFullName(), $account->getEmail(), $session);
             $context['currentAccount'] = $account;
-            zm_mail(sprintf(_zm("[CREATE ACCOUNT] Welcome to %s"_, ZMSettings::get('storeName')), 'welcome', $context, ZMSettings::get('emailAdminCreateAccount'));
+            zm_mail(sprintf(_zm("[CREATE ACCOUNT] Welcome to %s"), ZMSettings::get('storeName')), 'welcome', $context, ZMSettings::get('emailAdminCreateAccount'));
         }
 
         ZMMessages::instance()->success(_zm("Thank you for signing up"));
