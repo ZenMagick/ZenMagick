@@ -1,10 +1,7 @@
 <?php
 /*
- * ZenMagick - Extensions for zen-cart
+ * ZenMagick - Another PHP framework.
  * Copyright (C) 2006-2010 zenmagick.org
- *
- * Portions Copyright (c) 2003 The zen-cart developers
- * Portions Copyright (c) 2003 osCommerce
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -28,7 +25,7 @@
  * Source of RSS feed(s).
  *
  * @author DerManoMann
- * @package zenmagick.store.shared.services
+ * @package org.zenmagick.mvc.rss
  */
 interface ZMRssSource {
 
