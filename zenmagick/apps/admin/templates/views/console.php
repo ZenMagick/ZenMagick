@@ -25,12 +25,6 @@
 ?>
 <?php
 
-    if ('true' == $request->getParameter('remove', 'false')) {
-        // destry myself
-        unlink(DIR_FS_ADMIN.'zmConsole.php');
-        zen_redirect(zen_href_link(FILENAME_DEFAULT));
-    }
-
     $code = stripslashes($request->getParameter('code', '', false));
     $zm_result = null;
     if ('' != $code) {
@@ -40,7 +34,7 @@
         ob_end_clean();                                                                                                   
     }
     if ('' == $code) {
-        $code = "\$product = ZMProducts::instance()->getProductForId(8);\n"
+        $code = "\$product = ZMProducts::instance()->getProductForId(8, 1);\n"
                ."if (null != \$product) {\n"
                ."   echo \$product->getName().\":\\n\".\$product->getDescription();\n"
                ."   \n"
@@ -52,18 +46,17 @@
 ?>
 
 <div id="b_console">
-  <form action="<?php echo $toolbox->admin->url() ?>" method="POST">
+  <form action="<?php echo $admin2->url() ?>" method="POST">
       <fieldset>
           <legend><?php zm_l10n("<code>PHP</code> Console") ?></legend>
           <label for="code"><?php zm_l10n("Code:") ?></label>
-          <textarea id="name" name="code" rows="10" cols="80"><?php echo $request->getToolbox()->html->encode($code) ?></textarea><br>
+          <textarea id="name" name="code" rows="10" cols="80"><?php echo $html->encode($code) ?></textarea><br>
           <input type="submit" value="<?php zm_l10n("Execute") ?>">
           <?php if (null != $zm_result) { ?>
               <div id="console">
-                  <?php echo str_replace("\n", "<br>", $request->getToolbox()->html->encode($zm_result)); ?>
+                  <?php echo str_replace("\n", "<br>", $html->encode($zm_result)); ?>
               </div>
           <?php } ?>
       </fieldset>
   </form>
-  <a href="<?php echo $toolbox->admin->url(null, 'remove=true') ?>" onclick="return zenmagick.confirm('Remove console ?', this);"><?php zm_l10n("Remove Console from admin menu") ?></a>
 </div>

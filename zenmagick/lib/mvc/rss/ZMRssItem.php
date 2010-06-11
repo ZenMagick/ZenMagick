@@ -1,11 +1,7 @@
 <?php
 /*
- * ZenMagick - Extensions for zen-cart
+ * ZenMagick - Another PHP framework.
  * Copyright (C) 2006-2010 zenmagick.org
- *
- * Portions Copyright (c)      Vojtech Semecky, webmaster @ webdot . cz
- * Portions Copyright (c) 2003 The zen-cart developers
- * Portions Copyright (c) 2003 osCommerce
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -28,10 +24,8 @@
 /**
  * A RSS feed item.
  *
- * <p>ZenMagick wrapper around <code>lastRSS</code>.
- *
  * @author DerManoMann
- * @package zenmagick.store.shared.model.rss
+ * @package org.zenmagick.mvc.rss
  */
 class ZMRssItem extends ZMObject {
 

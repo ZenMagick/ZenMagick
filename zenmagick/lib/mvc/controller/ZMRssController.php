@@ -1,10 +1,7 @@
 <?php
 /*
- * ZenMagick - Extensions for zen-cart
+ * ZenMagick - Another PHP framework.
  * Copyright (C) 2006-2010 zenmagick.org
- *
- * Portions Copyright (c) 2003 The zen-cart developers
- * Portions Copyright (c) 2003 osCommerce
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -27,15 +24,12 @@
 /**
  * Request controller for RSS feeds.
  *
- * <p>The <code>processGet($request)</code> method is generic and will call an appropriate method
- * for item generation based on the <em>channel</em> request parameter.</p>
+ * <p>Feed content is taken from the first of the configured <code>ZMRssSource</code> instances that returns data.</p>
  *
- * <p>The item method is expected to return the last modified date of the channel.</p>
+ * <p>Sources are configured by appending the implementation class name to '<em>zenmagick.mvc.rss.sources</em>'.</p>
  *
- * @todo Support for custom/additional channel/item properties.
  * @author DerManoMann
- * @package org.zenmagick.store.mvc.controller
- * @version $Id$
+ * @package org.zenmagick.mvc.controller
  */
 class ZMRssController extends ZMController {
 
@@ -55,14 +49,7 @@ class ZMRssController extends ZMController {
 
 
     /**
-     * Process a HTTP GET request.
-     *
-     * <p>This implementation will grab the channel parameter from the request. All further processing
-     * is based on that value.</p>
-     *
-     * <p>Ideally, the only method that needs to be implemented (if not already there), is one that generates the
-     * feed contents. The method name is generated as: <code>get[ucwords($channel)]Feed</code>. So, for example,
-     * if channel is <em>reviews</em>, the method to be expected would be <code>getReviewsFeed($request, $key)</code>.</p>
+     * {@inheritDoc}
      */
     public function processGet($request) {
         $channel = $request->getParameter('channel');
@@ -70,7 +57,7 @@ class ZMRssController extends ZMController {
 
         // try registered RSS sources first...
         $feed = null;
-        foreach (explode(',', ZMSettings::get('apps.store.rss.sources')) as $def) {
+        foreach (explode(',', ZMSettings::get('zenmagick.mvc.rss.sources')) as $def) {
             if (null != ($source = ZMBeanUtils::getBean(trim($def)))) {
                 if (null != ($feed = $source->getFeed($request, $channel, $key))) {
                     break;
@@ -116,10 +103,10 @@ class ZMRssController extends ZMController {
           '<!-- generator="ZenMagick '.ZMSettings::get('zenmagick.version').'" -->',
           '<rss version="2.0" xmlns:zm="http://www.zenmagick.org/">',
           ' <channel>',
-          '  <title><![CDATA['.ZMTools::encodeXML($channel->getTitle()).']]></title>',
+          '  <title><![CDATA['.ZMXmlUtils::encodeXML($channel->getTitle()).']]></title>',
           '  <link><![CDATA['.$channel->getLink().']]></link>',
-          '  <description><![CDATA['.ZMTools::encodeXML($channel->getDescription()).']]></description>',
-          '  <lastBuildDate>'.ZMTools::mkRssDate($channel->getLastBuildDate()).'</lastBuildDate>'
+          '  <description><![CDATA['.ZMXmlUtils::encodeXML($channel->getDescription()).']]></description>',
+          '  <lastBuildDate>'.ZMRssUtils::mkRssDate($channel->getLastBuildDate()).'</lastBuildDate>'
           );
 
         $this->customTags($channel, '  ');
@@ -139,18 +126,19 @@ class ZMRssController extends ZMController {
         foreach ($obj->getTags() as $tag) {
             $value = $obj->get($tag);
             echo $indent."<zm:".$tag.">";
-            if (is_string($value)) {
-                echo ZMTools::encodeXML($obj->get($tag));
-            } else if (is_array($value)) {
+            if (is_array($value)) {
                 echo "\n";
                 foreach ($value as $stag => $svalues) {
                     foreach ($svalues as $sval) {
                         echo $indent." <zm:".$stag.">";
-                        echo ZMTools::encodeXML($sval);
+                        echo ZMXmlUtils::encodeXML($sval);
                         echo "</zm:".$stag.">\n";
                     }
                 }
                 echo $indent;
+            } else {
+                // treat as string
+                echo ZMXmlUtils::encodeXML($obj->get($tag));
             }
             echo "</zm:".$tag.">\n";
         }
@@ -171,12 +159,12 @@ class ZMRssController extends ZMController {
      */
     protected function rssItem($request, $item) {
         echo "  <item>\n";
-        echo "   <title>".ZMTools::encodeXML($item->getTitle())."</title>\n";
+        echo "   <title>".ZMXmlUtils::encodeXML($item->getTitle())."</title>\n";
         echo "   <link>".$item->getLink()."</link>\n";
-        echo "   <description>".ZMTools::encodeXML($item->getDescription())."</description>\n";
+        echo "   <description>".ZMXmlUtils::encodeXML($item->getDescription())."</description>\n";
         echo "   <guid>".$item->getLink()."</guid>\n";
         if (null !== $item->getPubDate()) {
-            echo "   <pubDate>".ZMTools::mkRssDate($item->getPubDate())."</pubDate>\n";
+            echo "   <pubDate>".ZMRssUtils::mkRssDate($item->getPubDate())."</pubDate>\n";
         }
 
         $this->customTags($item, '   ');

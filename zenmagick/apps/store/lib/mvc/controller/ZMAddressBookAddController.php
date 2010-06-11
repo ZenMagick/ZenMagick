@@ -79,7 +79,7 @@ class ZMAddressBookAddController extends ZMController {
 
         // if guest, there is no address book!
         if ($request->isRegistered()) {
-            ZMMessages::instance()->success(zm_l10n_get('Address added to your address book.'));
+            ZMMessages::instance()->success(_zm('Address added to your address book.'));
         }
 
         return $this->findView('success');

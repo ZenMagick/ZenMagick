@@ -60,7 +60,7 @@ class ZMUnsubscribeController extends ZMController {
      */
     function processPost($request) {
         if (!ZMSettings::get('isAllowAnonymousUnsubscribe')) {
-            ZMMessages::instance()->error(zm_l10n_get('In order to unsubscribe you need to login first.'));
+            ZMMessages::instance()->error(_zm('In order to unsubscribe you need to login first.'));
             return $this->findView();
         }
 
@@ -72,15 +72,15 @@ class ZMUnsubscribeController extends ZMController {
         $account = ZMAccounts::getAccountForEmailAddress($emailAddress);
 
         if (null == $account) {
-            ZMMessages::instance()->error(zm_l10n_get('Email address not found.'));
+            ZMMessages::instance()->error(_zm('Email address not found.'));
         } else {
             if ($account->isNewsletterSubscriber()) {
                 // unsubscribe
                 $account->setNewsletterSubscriber(false);
                 ZMAccounts::instance()->updateAccount($account);
-                ZMMessages::instance()->success(zm_l10n_get('Email %s unsubscribed.', $emailAddress));
+                ZMMessages::instance()->success(sprintf(_zm('Email %s unsubscribed.'), $emailAddress));
             } else {
-                ZMMessages::instance()->warn(zm_l10n_get('You are already unsubscribed.'));
+                ZMMessages::instance()->warn(_zm('You are already unsubscribed.'));
             }
         }
 

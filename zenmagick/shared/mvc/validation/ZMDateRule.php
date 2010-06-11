@@ -83,7 +83,7 @@ class ZMDateRule extends ZMRule {
      * @return string Localized error message.
      */
     public function getErrorMsg() {
-        return zm_l10n_get((null != $this->getMsg() ? $this->getMsg() : $this->getDefaultMsg()), $this->getName(), $this->getFormat());
+        return sprintf(_zm(null != $this->getMsg() ? $this->getMsg() : $this->getDefaultMsg()), $this->getName(), $this->getFormat());
     }
 
 

@@ -83,7 +83,7 @@ class ZMToolboxMetaTags extends ZMToolboxTool {
         $requestId = $this->getRequest()->getRequestId();
         $pageTitleKey = ZMSettings::get('metaTitlePrefix').$requestId;
         if (null != _zm_l10n_lookup($pageTitleKey, null)) {
-            $title = zm_l10n_get($pageTitleKey);
+            $title = _zm($pageTitleKey);
         }
 
         // special handling for categories, manufacturers

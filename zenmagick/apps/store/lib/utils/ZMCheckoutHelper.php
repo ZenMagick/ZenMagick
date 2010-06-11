@@ -281,7 +281,7 @@ class ZMCheckoutHelper extends ZMObject {
 
         if (!$this->readyForCheckout()) {
             if ($messages) {
-                ZMMessages::instance()->error(zm_l10n_get('Please update your order ...'));
+                ZMMessages::instance()->error(_zm('Please update your order ...'));
             }
             return "cart_not_ready";
         }

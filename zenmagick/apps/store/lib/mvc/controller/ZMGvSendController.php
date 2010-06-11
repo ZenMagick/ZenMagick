@@ -77,7 +77,7 @@ class ZMGvSendController extends ZMController {
         $data = array();
         $data['currentAccount'] = $request->getAccount();
         // to fake the email content display
-        $data['currentCoupon'] = ZMLoader::make("Coupon", 0, zm_l10n_get('THE_COUPON_CODE'));
+        $data['currentCoupon'] = ZMLoader::make("Coupon", 0, _zm('THE_COUPON_CODE'));
 
         return $this->findView('success', $data);
     }

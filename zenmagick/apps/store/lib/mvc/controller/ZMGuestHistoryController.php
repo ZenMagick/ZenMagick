@@ -82,7 +82,7 @@ class ZMGuestHistoryController extends ZMController {
             $request->getToolbox()->crumbtrail->addCrumb("Order # ".$order->getId());
             return $this->findView('success', array('currentOrder' => $order));
         } else {
-            ZMMessages::instance()->warn(zm_l10n_get('No order information found'));
+            ZMMessages::instance()->warn(_zm('No order information found'));
             return $this->findView();
         }
     }

@@ -113,11 +113,4 @@ class TestZMTools extends ZMTestCase {
         }
     }
 
-    /**
-     * Test parse RSS date.
-     */
-    public function testParseRSSDate() {
-        $this->assertEqual('12/Jan/2009', ZMTools::parseRSSDate('Mon, 12 Jan 2009 00:16:12 +0000'));
-    }
-
 }

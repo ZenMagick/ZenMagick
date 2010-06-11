@@ -97,7 +97,7 @@ class ZMTellAFriendController extends ZMController {
         $emailMessage = $this->getFormData($request);
 
         $context = array('emailMessage' => $emailMessage, 'currentProduct' => $this->product_, 'office_only_html' => '', 'office_only_text' => '');
-        $subject = zm_l10n_get("Your friend %s has recommended this great product from %s", $emailMessage->getFromName(), ZMSettings::get('storeName'));
+        $subject = sprintf(_zm("Your friend %s has recommended this great product from %s"), $emailMessage->getFromName(), ZMSettings::get('storeName'));
         zm_mail($subject, 'tell_a_friend', $context, $emailMessage->getToEmail(), $emailMessage->getToName());
         if (ZMSettings::get('isEmailAdminTellAFriend')) {
             // store copy
@@ -108,7 +108,7 @@ class ZMTellAFriendController extends ZMController {
             zm_mail("[TELL A FRIEND] ".$subject, 'tell_a_friend', $context, ZMSettings::get('emailAdminTellAFriend'));
         }
 
-        ZMMessages::instance()->success(zm_l10n_get("Message send successfully"));
+        ZMMessages::instance()->success(_zm("Message send successfully"));
         $emailMessage = ZMLoader::make("EmailMessage");
 
         $data = array_merge($this->viewData_, array('emailMessage' => $emailMessage));

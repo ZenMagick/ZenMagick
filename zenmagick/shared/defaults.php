@@ -164,7 +164,7 @@
             // configure locale (used to be init plugin)
             'configureLocale' => false,
 
-            // use zm_10n and zm_l10n_get
+            // same as zm_10n / zm_l10n_get
             'zenmagick.core.locale.provider' => 'FileLocale',
 
             // default to default in ZM themes
@@ -341,7 +341,7 @@
             // cache TTL
             'rssCacheTimeout' => 1200,
 
-            'apps.store.rss.sources' => 'DefaultRssFeedSource,CatalogRssFeedSource',
+            'zenmagick.mvc.rss.sources' => 'DefaultRssFeedSource,CatalogRssFeedSource',
 
 
             /**************************************

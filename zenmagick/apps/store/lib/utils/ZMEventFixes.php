@@ -254,7 +254,7 @@ class ZMEventFixes extends ZMObject {
             if (0 < $account->getDefaultAddressId()) {
                 $_SESSION['customer_default_address_id'] = $account->getDefaultAddressId();
             } else {
-                ZMMessages::instance()->error(zm_l10n_get('Please provide a shipping address'));
+                ZMMessages::instance()->error(_zm('Please provide a shipping address'));
                 ZMRequest::instance()->redirect(ZMRequest::instance()->url(FILENAME_CHECKOUT_SHIPPING_ADDRESS, '', true));
             }
         }
@@ -267,7 +267,7 @@ class ZMEventFixes extends ZMObject {
         $shoppingCart = ZMRequest::instance()->getShoppingCart();
         // check for address
         if (!$shoppingCart->hasBillingAddress() && (!isset($_SESSION['customer_default_address_id']) || 0 == $_SESSION['customer_default_address_id'])) {
-            ZMMessages::instance()->error(zm_l10n_get('Please provide a billing address'));
+            ZMMessages::instance()->error(_zm('Please provide a billing address'));
             ZMRequest::instance()->redirect(ZMRequest::instance()->url(FILENAME_CHECKOUT_PAYMENT_ADDRESS, '', true));
         }
     }
@@ -284,7 +284,7 @@ class ZMEventFixes extends ZMObject {
 
         if ('checkout_confirmation' == $request->getRequestId() && 'free_free' == $_SESSION['shipping']) {
             ZMLogging::instance()->log('fixing free_free shipping method info', ZMLogging::WARN);
-            $_SESSION['shipping'] = array('title' => zm_l10n_get('Free Shipping'), 'cost' => 0, 'id' => 'free_free');
+            $_SESSION['shipping'] = array('title' => _zm('Free Shipping'), 'cost' => 0, 'id' => 'free_free');
         }
     }
 

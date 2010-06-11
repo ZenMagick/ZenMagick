@@ -62,7 +62,7 @@ class ZMPasswordForgottenController extends ZMController {
         $emailAddress = $request->getParameter('email_address');
         $account = ZMAccounts::instance()->getAccountForEmailAddress($emailAddress);
         if (null === $account || ZMAccount::REGISTERED != $account->getType()) {
-            ZMMessages::instance()->error(zm_l10n_get("Sorry, there is no account with the email address '%s'.", $emailAddress));
+            ZMMessages::instance()->error(sprintf(_zm("Sorry, there is no account with the email address '%s'."), $emailAddress));
             return $this->findView();
         }
 
@@ -74,7 +74,7 @@ class ZMPasswordForgottenController extends ZMController {
 
         // send email (clear text)
         $context = array('password' => $newPassword);
-        zm_mail(zm_l10n_get("Forgotten Password - %s", ZMSettings::get('storeName')), 'password_forgotten', $context, $emailAddress, $account->getFullName());
+        zm_mail(sprintf(_zm("Forgotten Password - %s"), ZMSettings::get('storeName')), 'password_forgotten', $context, $emailAddress, $account->getFullName());
 
         ZMEvents::instance()->fireEvent($this, Events::PASSWORD_CHANGED, array(
                 'controller' => $this, 
@@ -84,7 +84,7 @@ class ZMPasswordForgottenController extends ZMController {
         );
 
         // report success
-        ZMMessages::instance()->success(zm_l10n_get('A new password has been sent to your email address.'));
+        ZMMessages::instance()->success(_zm('A new password has been sent to your email address.'));
 
         return $this->findView('success');
     }

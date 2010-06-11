@@ -73,7 +73,7 @@ class ZMAddressBookDeleteController extends ZMController {
         $addressId = $request->getParameter('id', 0);
         if (0 < $addressId) {
             ZMAddresses::instance()->deleteAddressForId($addressId);
-            ZMMessages::instance()->success(zm_l10n_get('The selected address has been successfully removed from your address book.'));
+            ZMMessages::instance()->success(_zm('The selected address has been successfully removed from your address book.'));
         }
         return $this->findView('success');
     }

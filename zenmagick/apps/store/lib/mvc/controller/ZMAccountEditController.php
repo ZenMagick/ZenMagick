@@ -73,13 +73,13 @@ class ZMAccountEditController extends ZMController {
         if ($account->getEmail() != $currentAccount->getEmail()) {
             // XXX: move into validation rule email changed, so make sure it doesn't exist
             if (ZMAccounts::instance()->emailExists($account->getEmail())) {
-                ZMMessages::instance()->error(zm_l10n_get('Sorry, the entered email address already exists.'));
+                ZMMessages::instance()->error(_zm('Sorry, the entered email address already exists.'));
                 return $this->findView();
             }
         }
 
         ZMAccounts::instance()->updateAccount($account);
-        ZMMessages::instance()->success(zm_l10n_get('Your account has been updated.'));
+        ZMMessages::instance()->success(_zm('Your account has been updated.'));
 
         return $this->findView('success');
     }

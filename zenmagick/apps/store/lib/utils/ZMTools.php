@@ -23,8 +23,6 @@
 ?>
 <?php
 
-if (!defined('DATE_RSS')) { define('DATE_RSS', "D, d M Y H:i:s T"); }
-
 /**
  * (System) Tools.
  *
@@ -215,26 +213,6 @@ class ZMTools {
         return $regs[1].'/'.$regs[2].'/'.$regs[3];
     } 
 
-
-    /**
-     * Convert date to RSS date format.
-     * 
-     * @package org.zenmagick.misc
-     * @param mixed date The date string, timestamp (long) or <code>null</code> to use the current date.
-     * @return string A date string formatted according to RSS date rules.
-     */
-    public static function mkRssDate($date=null) {
-        if (null === $date) {
-            return date(DATE_RSS);
-        }
-
-        if (is_string($date)) {
-            $date = strtotime($date);
-        }
-
-        return date(DATE_RSS, $date);
-    } 
-
     /**
      * Compare URLs.
      *
@@ -395,26 +373,6 @@ class ZMTools {
         $multiplier = $zc_round_ceil * $y;
         $results = abs(round($x - $multiplier, 6));
         return $results;
-    }
-
-    /**
-     * Encode XML control characters.
-     *
-     * @param string s The input string.
-     * @return string The encoded string.
-     */
-    public static function encodeXML($s) {
-        $encoding = array(
-            '<' => '&lt;',
-            '>' => '&gt;',
-            '&' => '&amp;'
-        );
-
-        foreach ($encoding as $char => $entity) {
-            $s = str_replace($char, $entity, $s);
-        }
-
-        return $s;
     }
 
 }

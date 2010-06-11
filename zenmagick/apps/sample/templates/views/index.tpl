@@ -11,7 +11,8 @@
 <!-- manually set up form validation -->
 <script type="text/javascript">
   // change messages
-  validation.messages = {
+  // NOTE: these change the JS messages only
+  zmFormValidation.messages = {
     'alreadySubmitted': 'Please be patient!',
     'errors': "Oopsey, why such a hurry?\n\n"
   };
@@ -20,7 +21,7 @@
 <!-- semi automatic -->
 <?php echo ZMValidator::instance()->toJSString('mynameForm'); ?>
 
-<form action="<?php echo $request->url() ?>" id="mynameForm" onsubmit="return validation.validate(this);" method="POST">
+<form action="<?php echo $request->url() ?>" id="mynameForm" onsubmit="return zmFormValidation.validate(this);" method="POST">
   <p>Tell me your name?</p>
   <p>
     <input type="text" name="myname" value="">

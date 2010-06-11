@@ -3,9 +3,6 @@
  * ZenMagick - Extensions for zen-cart
  * Copyright (C) 2006-2010 zenmagick.org
  *
- * Portions Copyright (c) 2003 The zen-cart developers
- * Portions Copyright (c) 2003 osCommerce
- *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or (at
@@ -23,23 +20,20 @@
 ?>
 <?php
 
-
 /**
- * Source of RSS feed(s).
+ * Test ZMRssUtils.
  *
+ * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann
- * @package zenmagick.store.shared.services
+ * @version $Id$
  */
-interface ZMRssSource {
+class TestZMRssUtils extends ZMTestCase {
 
     /**
-     * Get the feed.
-     *
-     * @param ZMRequest request The current request.
-     * @param string channel The feed name.
-     * @param string key Optional key in case a source supports more than one feed; default is <code>null</code>.
-     * @return ZMRssFeed The feed or <code>null</code>.
+     * Test parse RSS date.
      */
-    public function getFeed($request, $channel, $key=null);
+    public function testParseRSSDate() {
+        $this->assertEqual('12/Jan/2009', ZMRssUtils::parseRssDate('Mon, 12 Jan 2009 00:16:12 +0000'));
+    }
 
 }

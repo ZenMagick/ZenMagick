@@ -47,7 +47,7 @@ class ZMToolboxUtils extends ZMToolboxTool {
         $title = str_replace('_', ' ', $title);
         // capitalise words
         $title = ucwords($title);
-        $title = zm_l10n_get($title);
+        $title = _zm($title);
 
         return $title;
     }
@@ -59,17 +59,7 @@ class ZMToolboxUtils extends ZMToolboxTool {
      * @return string The encoded string.
      */
     public function encodeXML($s) {
-        $encoding = array(
-            '<' => '&lt;',
-            '>' => '&gt;',
-            '&' => '&amp;'
-        );
-
-        foreach ($encoding as $char => $entity) {
-            $s = str_replace($char, $entity, $s);
-        }
-
-        return $s;
+        return ZMXmlTools::encodeXML($s);
     }
 
     /**

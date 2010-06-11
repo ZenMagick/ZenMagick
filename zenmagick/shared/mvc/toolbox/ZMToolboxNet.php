@@ -105,7 +105,7 @@ class ZMToolboxNet extends ZMToolboxTool {
      */
     public function ezPage($page) {
         if (null === $page) {
-            $href = zm_l10n_get('ezpage not found');
+            $href = _zm('ezpage not found');
             return $href;
         }
 

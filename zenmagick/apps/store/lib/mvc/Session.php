@@ -380,7 +380,7 @@ class Session extends ZMObject { //ZMSession {
      */
     public function registerAccount($account, $request, $source=null) {
         if (ZMAccounts::AUTHORIZATION_BLOCKED == $account->getAuthorization()) {
-            ZMMessages::instance()->error(zm_l10n_get('Access denied.'));
+            ZMMessages::instance()->error(_zm('Access denied.'));
             return false;
         }
 
