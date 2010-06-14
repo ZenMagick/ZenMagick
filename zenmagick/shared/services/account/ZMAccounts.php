@@ -218,13 +218,13 @@ class ZMAccounts extends ZMObject {
         ZMRuntime::getDatabase()->updateModel(TABLE_CUSTOMERS, $account);
 
         // check for existence in case record does not exist...
-        $sql = "select count(*) as total from " . TABLE_CUSTOMERS_INFO . "
-                where customers_info_id = :accountId";
+        $sql = "SELECT COUNT(*) AS total FROM " . TABLE_CUSTOMERS_INFO . "
+                WHERE customers_info_id = :accountId";
         $result = ZMRuntime::getDatabase()->querySingle($sql, array('accountId' => $account->getId()), array(TABLE_CUSTOMERS_INFO), ZMDatabase::MODEL_RAW);
         if ($result['total'] > 0) {
             $sql = "UPDATE " . TABLE_CUSTOMERS_INFO . "
-                    set customers_info_date_account_last_modified = now()
-                    where customers_info_id = :accountId";
+                    SET customers_info_date_account_last_modified = now()
+                    WHERE customers_info_id = :accountId";
         } else {
             $sql = "INSERT into " . TABLE_CUSTOMERS_INFO . "(
                     customers_info_id, customers_info_date_account_created, customers_info_date_account_last_modified
@@ -259,7 +259,7 @@ class ZMAccounts extends ZMObject {
                 WHERE customers_info_id = :accountId";
         $result = ZMRuntime::getDatabase()->querySingle($sql, array('accountId' => $accountId), TABLE_CUSTOMERS_INFO);
 
-        return $result['globalProductSubscriber'];
+        return (boolean)$result['globalProductSubscriber'];
     }
 
     /**
@@ -270,10 +270,10 @@ class ZMAccounts extends ZMObject {
      */
     public function setGlobalProductSubscriber($accountId, $globalProductSubscriber) {
         $sql = "UPDATE " . TABLE_CUSTOMERS_INFO . "
-                SET global_product_notifications = :globalProductSubscriber
+                SET global_product_notifications = :globalProductSubscriber, customers_info_date_account_last_modified = now()
                 WHERE customers_info_id = :accountId";
         $args = array('accountId' => $accountId, 'globalProductSubscriber' => $globalProductSubscriber);
-        ZMRuntime::getDatabase()->querySingle($sql, $args, TABLE_CUSTOMERS_INFO);
+        ZMRuntime::getDatabase()->update($sql, $args, TABLE_CUSTOMERS_INFO);
     }
 
     /**
@@ -298,9 +298,14 @@ class ZMAccounts extends ZMObject {
      *
      * @param ZMAccount account The account.
      * @param array productIds The new list of subscribed product ids.
-     * @return ZMAccount The aupdated account.
+     * @return ZMAccount The updated account.
      */
     public function setSubscribedProductIds($account, $productIds) {
+      var_dump($productIds);
+        if (0 == count($productIds)) {
+            return $account;
+        }
+
         $currentList = $account->getSubscribedProducts();
         $remove = array();
         $add = array();
@@ -316,17 +321,17 @@ class ZMAccounts extends ZMObject {
         }
 
         if (0 < count($remove)) {
-            $sql = "delete from " . TABLE_PRODUCTS_NOTIFICATIONS . "
-                    where  customers_id = :accountId
-                    and products_id in (:productId)";
-            ZMRuntime::getDatabase()->query($sql, array('accountId' => $account->getId(), 'productId' => $remove), TABLE_PRODUCTS_NOTIFICATIONS);
+            $sql = "DELETE FROM " . TABLE_PRODUCTS_NOTIFICATIONS . "
+                    WHERE  customers_id = :accountId
+                    AND products_id in (:productId)";
+            ZMRuntime::getDatabase()->update($sql, array('accountId' => $account->getId(), 'productId' => $remove), TABLE_PRODUCTS_NOTIFICATIONS);
         }
 
         if (0 < count($add)) {
-            $sql = "insert into " . TABLE_PRODUCTS_NOTIFICATIONS . "
-                    (products_id, customers_id) values (:productId, :accountId)";
+            $sql = "INSERT INTO " . TABLE_PRODUCTS_NOTIFICATIONS . "
+                    (products_id, customers_id) VALUES (:productId, :accountId)";
             foreach ($add as $id) {
-                ZMRuntime::getDatabase()->query($sql, array('accountId' => $account->getId(), 'productId' => $id), TABLE_PRODUCTS_NOTIFICATIONS);
+                ZMRuntime::getDatabase()->update($sql, array('accountId' => $account->getId(), 'productId' => $id), TABLE_PRODUCTS_NOTIFICATIONS);
             }
         }
 

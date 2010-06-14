@@ -142,6 +142,7 @@ Release 0.9.10
 - move most RSS code into mvc
 - start migrating backend code to using _zm() and _zmn()
 - xinha: upgraded to 0.96.1
+- fix broken global/product notification updates
 
 Release 0.9.9
 - in ZMDbTableMapper handle database exception building auto mappings

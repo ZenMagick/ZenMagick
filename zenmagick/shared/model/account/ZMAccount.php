@@ -348,7 +348,7 @@ class ZMAccount extends ZMObject {
      *
      * @param boolean globalProductSubscriber <code>true</code> if global product is selected, <code>false</code> if not.
      */
-    public function setGlobalProductSubscriber($globalProductSubscriber) { $this->globalSubscriber_ = $globalProductSubscriber; }
+    public function setGlobalProductSubscriber($globalProductSubscriber) { $this->globalSubscriber_ = (boolean)$globalProductSubscriber; }
 
     /**
      * Checks if the user has product subscriptions.

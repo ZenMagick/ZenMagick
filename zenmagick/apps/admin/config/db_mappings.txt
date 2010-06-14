@@ -102,7 +102,7 @@ array(
         //'numberOfLogons' => 'column=customers_info_number_of_logons;type=integer',
         'accountCreateDate' => 'column=customers_info_date_account_created;type=datetime',
         //'lastModifiedDate' => 'column=customers_info_date_account_last_modified;type=datetime',
-        'globalProductSubscriber' => 'column=global_product_notifications;type=integer'
+        'globalProductSubscriber' => 'column=global_product_notifications;type=boolean'
     ),
     'products_notifications' => array(
         'productId' => 'column=products_id;type=integer;key=true',
