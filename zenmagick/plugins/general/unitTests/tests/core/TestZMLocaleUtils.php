@@ -73,7 +73,7 @@ class TestZMLocaleUtils extends ZMTestCase {
 "Yooo": "Yooo"
 "Foo %s Deng": "Foo %s Deng"
 EOT;
-        $yaml = ZMLocaleUtils::map2yaml($map, self::$DATA_DIR);
+        $yaml = ZMLocaleUtils::map2yaml($map);
         $this->assertEqual($expectYaml, $yaml);
 
         // try to parse again...

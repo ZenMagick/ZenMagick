@@ -56,4 +56,69 @@ class ZML10nController extends ZMController {
 
     }
 
+    /**
+     * Process request and return all relevant data.
+     */
+    protected function processInternal($request) {
+        //TODO: use
+        $themeId = $request->getParameter('themeId');
+        $languageId = $request->getParameter('languageId', 1);
+        $includeDefaults = ZMLangUtils::asBoolean($request->getParameter('includeDefaults'));
+        $mergeExisting = ZMLangUtils::asBoolean($request->getParameter('mergeExisting'));
+        $scanShared = ZMLangUtils::asBoolean($request->getParameter('scanShared'));
+
+        $themesDir = Runtime::getThemesDir();
+
+        $defaultMap = array();
+        if ($includeDefaults) {
+            $defaultMap = ZMLocaleUtils::buildL10nMap($themesDir.ZMSettings::get('defaultThemeId'));
+        }
+
+        $existingMap = array();
+        if ($mergeExisting) {
+            // TODO: use languageId to resolve path
+            $l10nPath = ZMFileUtils::mkPath(array(Runtime::getTheme()->getBaseDir(), 'lang', 'english', 'l10n.yaml'));
+            if (file_exists($l10nPath)) {
+                $existingMap = array('l10n.yaml' => ZMRuntime::yamlLoad(file_get_contents($l10nPath)));
+            }
+        }
+
+        $sharedMap = array();
+        if ($scanShared) {
+            $sharedMap = ZMLocaleUtils::buildL10nMap(ZMRuntime::getInstallationPath().'shared');
+        }
+
+        $fileMap = array();
+        if (null != $themeId) {
+            $theme = ZMThemes::instance()->getThemeForId($themeId);
+            $fileMap = ZMLocaleUtils::buildL10nMap($theme->getBaseDir());
+        }
+
+        $translations = array_merge($sharedMap, $defaultMap, $existingMap, $fileMap);
+        return array('translations' => $translations, 'themeId' => $themeId, 'languageId' => $languageId,
+             'includeDefaults' => $includeDefaults, 'mergeExisting' => $mergeExisting, 'scanShared' => $scanShared);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function processGet($request) {
+        $data= $this->processInternal($request);
+        if ('full' == $request->getParameter('download')) {
+            header('Content-Type: text/YAML');
+            header('Content-Disposition: attachment; filename=l10n.yaml;');
+            echo ZMLocaleUtils::map2yaml($data['translations']);
+            return null;
+        }
+
+        return $this->findView();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function processPost($request) {
+        return $this->findView(null, $this->processInternal($request));
+    }
+
 }
