@@ -47,24 +47,31 @@
 <?php if ($request->getUser()) { ?>
   <div style="float:left;">
     <p>
-      <a href="<?php echo ZMSettings::get('apps.store.baseUrl') ?>" target="_blank">Storefront</a>
-      | <a href="<?php echo  ZMSettings::get('apps.store.oldAdminUrl') ?>">OLD Admin</a>
-      | <a href="<?php echo $admin2->url('logoff') ?>">Logoff <?php echo $request->getUser()->getName() ?></a>
+      <?php $userLink = '<a href="'.$admin2->url('update_user').'">'.$request->getUser()->getName().'</a>'; ?>
+      <?php _vzm('Logged in as %s', $userLink) ?>
+      | <?php echo date('l, F d, Y') ?>
+      | <a href="<?php echo $admin2->url('logoff') ?>"><?php _vzm('Log Out') ?></a>
     </p>
     <p>
-      <a href="<?php echo $admin2->url('index') ?>">Dashboard</a>
-      | <a href="<?php echo $admin2->url('installation') ?>">Installation</a>
-      | <a href="<?php echo $admin2->url('plugins') ?>">Pugins</a>
-      | <a href="<?php echo $admin2->url('catalog_manager') ?>">Catalog Manager</a>
-      | <a href="<?php echo $admin2->url('cache_admin') ?>">Cache Admin</a>
-      | <a href="<?php echo $admin2->url('ezpages') ?>">EZPages Editor</a>
-      | <a href="<?php echo $admin2->url('static_page_editor') ?>">Static Page Editor</a>
-      | <a href="<?php echo $admin2->url('update_user') ?>">Change <strong>Your</strong> Details</a>
-      | <a href="<?php echo $admin2->url('admin_users') ?>">Manage Admin Users</a>
-      | <a href="<?php echo $admin2->url('l10n') ?>">Translation Helper</a>
-      | <a href="<?php echo $admin2->url('console') ?>">Console</a>
-      | <a href="<?php echo $admin2->url('about') ?>">About</a>
+      <a href="<?php echo ZMSettings::get('apps.store.baseUrl') ?>" target="_blank">Storefront</a>
+      | <a href="<?php echo $admin2->url('about') ?>"><?php _vzm('About') ?></a>
+      | <a href="http://forum.zenmagick.org/" target="_blank"><?php _vzm('Get Help') ?></a>
+      | <a href="<?php echo  ZMSettings::get('apps.store.oldAdminUrl') ?>">OLD Admin</a>
     </p>
   </div>
+  <hr style="clear:left;">
+  <p>
+    <a href="<?php echo $admin2->url('index') ?>">Dashboard</a>
+    | <a href="<?php echo $admin2->url('catalog_manager') ?>">Catalog Manager</a>
+    | <a href="<?php echo $admin2->url('installation') ?>">Installation</a>
+    | <a href="<?php echo $admin2->url('plugins') ?>">Pugins</a>
+    | <a href="<?php echo $admin2->url('cache_admin') ?>">Cache Admin</a>
+    | <a href="<?php echo $admin2->url('ezpages') ?>">EZPages Editor</a>
+    | <a href="<?php echo $admin2->url('static_page_editor') ?>">Static Page Editor</a>
+    | <a href="<?php echo $admin2->url('admin_users') ?>">Manage Admin Users</a>
+    | <a href="<?php echo $admin2->url('l10n') ?>">Translation Helper</a>
+    | <a href="<?php echo $admin2->url('console') ?>">Console</a>
+  </p>
+<?php } else { ?>
+  <hr style="clear:left;">
 <?php } ?>
-<hr style="clear:left;">
