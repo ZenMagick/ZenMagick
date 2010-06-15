@@ -143,6 +143,11 @@ Release 0.9.10
 - start migrating backend code to using _zm() and _zmn()
 - xinha: upgraded to 0.96.1
 - fix broken global/product notification updates
+- convert l10n.php to l10n.yaml
+- modify and rename ZMFileLocale to ZMThemeYamlLocale and implement own
+  internal map of translations
+- make zm_l10n functions use the new locale framework and change ZMTheme to
+  load the new l10n.yaml into the locale implementation
 
 Release 0.9.9
 - in ZMDbTableMapper handle database exception building auto mappings

@@ -348,10 +348,14 @@ class ZMTheme extends ZMObject {
             // this may happen if the i18n patch hasn't been updated
             $language = Runtime::getDefaultLanguage();
         }
-        $path = $this->getLangDir().$language->getDirectory()."/";
-        $l10n = $path . "l10n.php";
+        $path = $this->getLangDir().$language->getDirectory().DIRECTORY_SEPARATOR;
+        $l10n = $path . "l10n.yaml";
         if (file_exists($l10n)) {
-            require_once($l10n);
+            if (null != ($locale = ZMLocales::instance()->getLocale()) && $locale instanceof ZMThemeYamlLocale) {
+              echo $l10n;
+                $translations = ZMRuntime::yamlLoad(file_get_contents($l10n));
+                $locale->addTanslations($translations);
+            }
         }
     }
 

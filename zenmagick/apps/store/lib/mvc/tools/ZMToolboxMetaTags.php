@@ -82,7 +82,7 @@ class ZMToolboxMetaTags extends ZMToolboxTool {
         // lookup localized page title
         $requestId = $this->getRequest()->getRequestId();
         $pageTitleKey = ZMSettings::get('metaTitlePrefix').$requestId;
-        if (null != _zm_l10n_lookup($pageTitleKey, null)) {
+        if ($pageTitleKey != _zm($pageTitleKey)) {
             $title = _zm($pageTitleKey);
         }
 

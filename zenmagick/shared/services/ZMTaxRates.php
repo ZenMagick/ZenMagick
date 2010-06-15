@@ -168,7 +168,7 @@ class ZMTaxRates extends ZMObject {
         $args = array('taxClassId' =>$taxClassId, 'countryId' => $countryId, 'zoneId' => $zoneId);
         $description = null;
         foreach (Runtime::getDatabase()->query($sql, $args, array(TABLE_TAX_RATES, TABLE_ZONES_TO_GEO_ZONES, TABLE_GEO_ZONES)) as $result) {
-            if (null !== $description) { $description .= _zm_l10n_lookup('tax.delim', ' + '); }
+            if (null !== $description) { $description .= _zm(ZMSettings::get('tax.delim', ' + ')); }
             $description .= $result['description'];
         }
         return $description;
@@ -182,7 +182,7 @@ class ZMTaxRates extends ZMObject {
      */
     public function getTaxRateForDescription($description) {
         $rate = 0.00;
-        $descriptions = explode(_zm_l10n_lookup('tax.delim', ' + '), $description);
+        $descriptions = explode(_zm(ZMSettings::get('tax.delim', ' + ')), $description);
         foreach ($descriptions as $description) {
             $sql = "SELECT tax_rate 
                     FROM " . TABLE_TAX_RATES . "

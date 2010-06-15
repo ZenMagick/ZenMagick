@@ -22,25 +22,65 @@
 
 
 /**
- * File based locale.
+ * Locale driven by theme yaml files per language.
  *
  * @author DerManoMann
  * @package zenmagick.store.shared.provider
  */
-class ZMFileLocale implements ZMLocale {
+class ZMThemeYamlLocale implements ZMLocale {
+    private $translations_;
+
+
+    /**
+     * Create new instance.
+     */
+    function __construct() {
+        $this->translations_ = array();
+    }
+
+    /**
+     * Destroy instance.
+     */
+    function __destruct() {
+    }
+
+
+    /**
+     * Add translation.
+     *
+     * @param string text The original text.
+     * @param string translation The translated text.
+     */
+    public function addTanslation($text, $translation) {
+        $this->translations_[$text] = $translation;
+    }
+
+    /**
+     * Add translations.
+     *
+     * @param array translations Map of translations.
+     */
+    public function addTanslations($translations) {
+        $this->translations_ = array_merge($this->translations_, $translations);
+    }
 
     /**
      * {@inheritDoc}
      */
     public function translate($text, $context=null, $domain=ZMLocale::DEFAULT_DOMAIN) {
-        return zm_l10n_get($text);
+        if (array_key_exists($text, $this->translations_)) {
+            return $this->translations_[$text];
+        }
+
+        return $text;
     }
 
     /**
      * {@inheritDoc}
      */
     public function translatePlural($single, $number, $plural=null, $context=null, $domain=ZMLocale::DEFAULT_DOMAIN) {
-        return zm_l10n_get((1 < $number && null != $plural) ? $plural : $single);
+        // not really supported
+        return $this->translate($single);
     }
 
 }
