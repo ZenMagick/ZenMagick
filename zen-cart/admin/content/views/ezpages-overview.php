@@ -73,15 +73,15 @@
 <table cellpadding="5" cellspacing="0"> 
   <thead>
     <tr>
-      <th><?php zm_l10n("Id") ?></th>
-      <th><?php zm_l10n("Title") ?></th>
-      <th><?php zm_l10n("New Window") ?></th>
-      <th><?php zm_l10n("Secure") ?></th>
-      <th><?php zm_l10n("Header") ?></th>
-      <th><?php zm_l10n("Sidebar") ?></th>
-      <th><?php zm_l10n("Footer") ?></th>
-      <th><?php zm_l10n("Chapter") ?></th>
-      <th><?php zm_l10n("TOC") ?></th>
+      <th><?php _vzm("Id") ?></th>
+      <th><?php _vzm("Title") ?></th>
+      <th><?php _vzm("New Window") ?></th>
+      <th><?php _vzm("Secure") ?></th>
+      <th><?php _vzm("Header") ?></th>
+      <th><?php _vzm("Sidebar") ?></th>
+      <th><?php _vzm("Footer") ?></th>
+      <th><?php _vzm("Chapter") ?></th>
+      <th><?php _vzm("TOC") ?></th>
       <th></th>
     </tr>
   </thead>

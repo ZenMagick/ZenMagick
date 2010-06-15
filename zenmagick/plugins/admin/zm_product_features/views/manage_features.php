@@ -155,16 +155,16 @@
 ?>
 
 <fieldset>
-<legend><?php zm_l10n('Feature Maintenance') ?></legend>
-<h3><?php zm_l10n('Available Features') ?></h3>
+<legend><?php _vzm('Feature Maintenance') ?></legend>
+<h3><?php _vzm('Available Features') ?></h3>
   <table cellspacing="0" cellpadding="2">
     <thead>
       <tr>
-        <th><?php zm_l10n('Name') ?></th>
-        <th><?php zm_l10n('Type') ?></th>
-        <th><?php zm_l10n('Description') ?></th>
-        <th><?php zm_l10n('Hidden') ?></th>
-        <th><?php zm_l10n('Options') ?></th>
+        <th><?php _vzm('Name') ?></th>
+        <th><?php _vzm('Type') ?></th>
+        <th><?php _vzm('Description') ?></th>
+        <th><?php _vzm('Hidden') ?></th>
+        <th><?php _vzm('Options') ?></th>
       </tr>
     </thead>
     <tbody>
@@ -190,10 +190,10 @@
     <table cellspacing="0" cellpadding="2">
       <thead>
         <tr>
-          <th><?php zm_l10n('Feature Type') ?></th>
-          <th><?php zm_l10n('Name') ?></th>
-          <th><?php zm_l10n('Description') ?></th>
-          <th><?php zm_l10n('Hidden') ?></th>
+          <th><?php _vzm('Feature Type') ?></th>
+          <th><?php _vzm('Name') ?></th>
+          <th><?php _vzm('Description') ?></th>
+          <th><?php _vzm('Hidden') ?></th>
           <th><th>
         </tr>
       </thead>
@@ -232,16 +232,16 @@
 
 <?php if (null != $product) { ?>
   <fieldset>
-      <legend><?php zm_l10n("Features for <span>%s</span>", $product->getName()) ?></legend>
+      <legend><?php _vzm("Features for <span>%s</span>", $product->getName()) ?></legend>
       <?php $productFeatures = $zm_features->getFeaturesForProductId($product->getId()); ?>
       <?php if (0 < count($productFeatures)) { ?>
         <table cellspacing="0" cellpadding="2">
           <thead>
             <tr>
-              <th><?php zm_l10n('Name') ?></th>
-              <th><?php zm_l10n('Value') ?></th>
-              <th><?php zm_l10n('Index') ?></th>
-              <th><?php zm_l10n('Options') ?></th>
+              <th><?php _vzm('Name') ?></th>
+              <th><?php _vzm('Value') ?></th>
+              <th><?php _vzm('Index') ?></th>
+              <th><?php _vzm('Options') ?></th>
             </tr>
           </thead>
           <tbody>
@@ -261,7 +261,7 @@
           </tbody>
         </table>
       <?php } ?>
-        <h3><?php zm_l10n($edit_product_feature ? "Update Product Feature" : "Add Product Feature") ?></h3>
+        <h3><?php _vzm($edit_product_feature ? "Update Product Feature" : "Add Product Feature") ?></h3>
         <?php echo $toolbox->form->open('', $zm_nav_params) ?>
           <div>
             <input type="hidden" name="action" value="<?php echo ($edit_product_feature ? "update_feature_value" : "add_feature_value") ?>">
@@ -269,9 +269,9 @@
           <table cellspacing="0" cellpadding="2" border=1 width="100%">
             <thead>
               <tr>
-                <th><?php zm_l10n('Feature') ?></th>
-                <th style="width:55%;"><?php zm_l10n('Value') ?></th>
-                <th><?php zm_l10n('Index') ?></th>
+                <th><?php _vzm('Feature') ?></th>
+                <th style="width:55%;"><?php _vzm('Value') ?></th>
+                <th><?php _vzm('Index') ?></th>
                 <th></th>
               </tr>
             </thead>

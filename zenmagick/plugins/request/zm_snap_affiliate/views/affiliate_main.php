@@ -10,18 +10,18 @@ var_dump($affiliateDetails);
 <p>Orders and Payments | <a href="<?php echo $request->url('affiliate_tools', '', true) ?>">Marketing Tools</a> | 
   <a href="<?php echo $request->url('affiliate_terms', '', false) ?>">Referrer Terms</a></p>
 
-<h3><?php zm_l10n('My Affiliate Information') ?></h3>
+<h3><?php _vzm('My Affiliate Information') ?></h3>
 <table>
   <tr>
-    <td><?php zm_l10n('Affiliate ID') ?></td>
+    <td><?php _vzm('Affiliate ID') ?></td>
     <td><?php echo $affiliateDetails->referrer_key ?></td>
   </tr>
   <tr>
-    <td><?php zm_l10n('Last payment made on') ?></td>
+    <td><?php _vzm('Last payment made on') ?></td>
     <td><?php echo $affiliateDetails->referrer_key ?></td>
   </tr>
   <tr>
-    <td><?php zm_l10n('Current commission rate') ?></td>
+    <td><?php _vzm('Current commission rate') ?></td>
     <td><?php echo $affiliateDetails->referrer_commission*100 ?>%</td>
   </tr>
 </table>

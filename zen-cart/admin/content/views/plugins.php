@@ -129,11 +129,11 @@
     <table cellpadding="5" cellspacing="0" style="width:90%;"> 
       <thead>
         <tr>
-          <th><?php zm_l10n("Name") ?></th>
-          <th style="width:45%;"><?php zm_l10n("Description") ?></th>
-          <th style="width:13em;"><?php zm_l10n("Status") ?></th>
-          <th style="width:3em;"><?php zm_l10n("Order") ?></th>
-          <th style="width:160px;"><?php zm_l10n("Options") ?></th>
+          <th><?php _vzm("Name") ?></th>
+          <th style="width:45%;"><?php _vzm("Description") ?></th>
+          <th style="width:13em;"><?php _vzm("Status") ?></th>
+          <th style="width:3em;"><?php _vzm("Order") ?></th>
+          <th style="width:160px;"><?php _vzm("Options") ?></th>
         </tr>
       </thead>
       <tbody>

@@ -78,7 +78,7 @@
 <script type="text/javascript" src="content/jquery/ui.tabs.js"></script>
 <script type="text/javascript" src="content/jquery/thickbox-3.1.pack.js"></script>
 
-<?php echo zm_catalog_tree(ZMCategories::instance()->getCategoryTree(), '', ZMSettings::get('admin.isShowCatalogTreeProducts')); ?>
+<?php echo zm_catalog_tree(ZMCategories::instance()->getCategoryTree(1), '', ZMSettings::get('admin.isShowCatalogTreeProducts')); ?>
 <?php $activeTab = 1; ?>
 <?php if (0 < count($tabInfo)) { ?>
     <div id="main-tab-container">

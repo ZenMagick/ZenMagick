@@ -54,10 +54,10 @@
 <div id="b_console">
   <form action="<?php echo $toolbox->admin->url() ?>" method="POST">
       <fieldset>
-          <legend><?php zm_l10n("<code>PHP</code> Console") ?></legend>
-          <label for="code"><?php zm_l10n("Code:") ?></label>
+          <legend><?php _vzm("<code>PHP</code> Console") ?></legend>
+          <label for="code"><?php _vzm("Code:") ?></label>
           <textarea id="name" name="code" rows="10" cols="80"><?php echo $request->getToolbox()->html->encode($code) ?></textarea><br>
-          <input type="submit" value="<?php zm_l10n("Execute") ?>">
+          <input type="submit" value="<?php _vzm("Execute") ?>">
           <?php if (null != $zm_result) { ?>
               <div id="console">
                   <?php echo str_replace("\n", "<br>", $request->getToolbox()->html->encode($zm_result)); ?>
@@ -65,5 +65,5 @@
           <?php } ?>
       </fieldset>
   </form>
-  <a href="<?php echo $toolbox->admin->url(null, 'remove=true') ?>" onclick="return zm_user_confirm('Remove console ?');"><?php zm_l10n("Remove Console from admin menu") ?></a>
+  <a href="<?php echo $toolbox->admin->url(null, 'remove=true') ?>" onclick="return zm_user_confirm('Remove console ?');"><?php _vzm("Remove Console from admin menu") ?></a>
 </div>

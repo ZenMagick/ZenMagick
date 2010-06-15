@@ -23,4 +23,4 @@
  * $Id$
  */
 ?>
-<h2><?php zm_l10n("Welcome to the ZenMagick Catalog Manager") ?></h2>
+<h2><?php _vzm("Welcome to the ZenMagick Catalog Manager") ?></h2>

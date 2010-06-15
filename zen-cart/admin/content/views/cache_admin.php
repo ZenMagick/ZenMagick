@@ -28,17 +28,17 @@
   $ii = 0; foreach (ZMCaches::instance()->getCaches() as $key => $cacheInfo) {
       if ('x' == $request->getParameter('cache_'.++$ii)) {
           $ok = $cacheInfo['instance']->clear();
-          ZMMessages::instance()->add(zm_l10n_get('Clear page cache \'' . $cacheInfo['group'] . '\' ' . ($ok ? 'successful' : 'failed')), $ok ? 'msg' : 'error');
+          ZMMessages::instance()->add('Clear page cache \'' . $cacheInfo['group'] . '\' ' . ($ok ? 'successful' : 'failed'), $ok ? 'msg' : 'error');
       }
   }
 
 ?>
 
-<h2><?php zm_l10n("ZenMagick Cache Admin") ?></h2>
+<h2><?php _vzm("ZenMagick Cache Admin") ?></h2>
 
 <form action="<?php echo $toolbox->admin->url() ?>" method="POST" onsubmit="return zm_user_confirm('Clear selected?');">
   <fieldset>
-    <legend><?php zm_l10n("Existing Caches") ?></legend>
+    <legend><?php _vzm("Existing Caches") ?></legend>
       <table cellspacing="0" cellpadding="0">
         <thead>
           <tr>

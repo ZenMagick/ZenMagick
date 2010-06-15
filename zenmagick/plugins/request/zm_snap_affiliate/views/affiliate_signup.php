@@ -21,13 +21,13 @@
 
     <?php echo $form->open('affiliate_signup', '', true, array('id'=>'affiliateSignup')) ?>
       <fieldset>
-        <legend><?php zm_l10n("Signup URL") ?></legend>
+        <legend><?php _vzm("Signup URL") ?></legend>
         <div>
-          <label for="url"><?php zm_l10n("Website URL") ?></label>
+          <label for="url"><?php _vzm("Website URL") ?></label>
           <input type="text" id="url" name="url" /> 
         </div>
       </fieldset>
-      <div class="btn"><input type="submit" class="btn" value="<?php zm_l10n("Submit") ?>" /></div>
+      <div class="btn"><input type="submit" class="btn" value="<?php _vzm("Submit") ?>" /></div>
     </form>
 <?php } ?>
 

@@ -27,7 +27,7 @@
 <?php if (isset($jscrollerSideboxes)) { ?>
     <?php $products = ZMProducts::instance()->getNewProducts(null, MAX_RANDOM_SELECT_NEW, null, $session->getLanguageId()); ?>
     <?php if (0 < count($products)) { ?>
-        <h3><a href="<?php echo $net->url(FILENAME_PRODUCTS_NEW) ?>"><?php zm_l10n("[More]") ?></a><?php zm_l10n("New Products") ?></h3>
+        <h3><a href="<?php echo $net->url(FILENAME_PRODUCTS_NEW) ?>"><?php _vzm("[More]") ?></a><?php _vzm("New Products") ?></h3>
         <div id="sb_newproducts" class="box">
             <?php if (1 == count($products)) { $product = $products[0]; ?>
                 <p><?php echo $html->productImageLink($product) ?></p>

@@ -27,18 +27,18 @@
     <ul class="bullet-menu" id="siteMenu">
         <?php echo preg_replace('%^\s*<ul>(.+)</ul>\s*$%sim', '\1', $categoriesULGenerator->buildTree(true)); ?>
         <?php if (SHOW_CATEGORIES_BOX_SPECIALS == 'true') { ?>
-           <li><a href="<?php echo $net->url(FILENAME_SPECIALS) ?>"><?php zm_l10n('Specials') ?></a></li>
+           <li><a href="<?php echo $net->url(FILENAME_SPECIALS) ?>"><?php _vzm('Specials') ?></a></li>
         <?php } ?>
         <?php if (SHOW_CATEGORIES_BOX_PRODUCTS_NEW == 'true') { ?>
-            <li><a href="<?php echo $net->url(FILENAME_PRODUCTS_NEW) ?>"><?php zm_l10n('New Products') ?></a></li>
+            <li><a href="<?php echo $net->url(FILENAME_PRODUCTS_NEW) ?>"><?php _vzm('New Products') ?></a></li>
         <?php } ?>
         <?php if (SHOW_CATEGORIES_BOX_FEATURED_PRODUCTS == 'true') { $featured = ZMProducts::instance()->getFeaturedProducts(null, 1); ?>
             <?php if (0 < count($featured)) { ?>
-              <li><a href="<?php echo $net->url(FILENAME_FEATURED_PRODUCTS) ?>"><?php zm_l10n('Featured Products') ?></a></li>
+              <li><a href="<?php echo $net->url(FILENAME_FEATURED_PRODUCTS) ?>"><?php _vzm('Featured Products') ?></a></li>
             <?php } ?>
         <?php } ?>
         <?php if (SHOW_CATEGORIES_BOX_PRODUCTS_ALL == 'true') { ?>
-            <li><a href="<?php echo $net->url(FILENAME_PRODUCTS_ALL) ?>"><?zm_l10n('All Products') ?></a></li>
+            <li><a href="<?php echo $net->url(FILENAME_PRODUCTS_ALL) ?>"><?_vzm('All Products') ?></a></li>
         <?php } ?>
     </ul>
 

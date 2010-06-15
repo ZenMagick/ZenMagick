@@ -47,7 +47,7 @@ if (!defined('IS_ADMIN_FLAG')) {
         if ($adminMenuPatch && $adminMenuPatch->isOpen()) {
             // only if no ZenMagick menu item
             $toolbox = $request->getToolbox();
-            $za_contents[] = array('text' => zm_l10n_get("ZenMagick Installation"), 'link' => $toolbox->admin->url('installation', '', true));
+            $za_contents[] = array('text' => _zm("ZenMagick Installation"), 'link' => $toolbox->admin->url('installation', '', true));
         }
     }
     

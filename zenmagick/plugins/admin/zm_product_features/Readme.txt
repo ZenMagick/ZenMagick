@@ -9,7 +9,7 @@ An example of how features could be displayed per product would be:
   <?php $features = ZMFeatures::instance()->getFeaturesforProductIdAndStatus($zm_product->getId()); ?>
   <?php if (0 < count($features)) { ?>
       <fieldset>
-          <legend><?php zm_l10n("Features") ?></legend>
+          <legend><?php _vzm("Features") ?></legend>
           <?php foreach ($features as $feature) { ?>
               <?php echo $feature->getName() ?>: <?php zm_list_values($feature->getValues()) ?> <?php zm_htmlencode($feature->getDescription()) ?><br>
           <?php } ?>

@@ -42,22 +42,22 @@
             // create dummy files
             $dummyPatch = new ZMThemeDummyPatch();
             $dummyPatch->patch(true);
-            ZMMessages::instance()->msg(zm_l10n_get('Created zen-cart template dummy files for "%s".', $name));
+            ZMMessages::instance()->msg(sprintf(_zm('Created zen-cart template dummy files for "%s".'), $name));
 
             // select new theme
             ZMThemes::instance()->updateZCThemeId($name);
-            ZMMessages::instance()->msg(zm_l10n_get('New theme "%s" selected as active zen-cart template.', $name));
+            ZMMessages::instance()->msg(sprintf(_zm('New theme "%s" selected as active zen-cart template.'), $name));
         }
 
     }
 
 ?>
 
-<h2><?php zm_l10n("ZenMagick Theme Builder") ?></h2>
+<h2><?php _vzm("ZenMagick Theme Builder") ?></h2>
 
 <form action="<?php echo $toolbox->admin->url() ?>" method="POST" onsubmit="return zm_user_confirm('Create theme?');">
   <fieldset>
-  <legend><?php zm_l10n("Create new ZenMagick Theme") ?></legend>
+  <legend><?php _vzm("Create new ZenMagick Theme") ?></legend>
 
       <label for="name">Name</label>
       <input type="text" id="name" name="name" value="">
@@ -73,7 +73,7 @@
       <label for="switchto">Switch to the new theme when created</label>
       <br>
 
-      <div class="submit"><input type="submit" value="<?php zm_l10n("Create") ?>"></div>
+      <div class="submit"><input type="submit" value="<?php _vzm("Create") ?>"></div>
   </fieldset>
 </form>
 

@@ -21,7 +21,7 @@ login:
 
     <div>
       <input type="checkbox" id="autoLogin" name="autoLogin" value="1" /> 
-      <label style="display:inline;" for="autoLogin"><?php zm_l10n("Remember Me") ?></label>
+      <label style="display:inline;" for="autoLogin"><?php _vzm("Remember Me") ?></label>
     </div>
 
 
@@ -30,7 +30,7 @@ create_account:
 
     <tr>
         <td></td>
-        <td><input type="checkbox" id="autoLogin" name="autoLogin" value="1" /><label for="autoLogin"><?php zm_l10n("Remember Me") ?></label></td>
+        <td><input type="checkbox" id="autoLogin" name="autoLogin" value="1" /><label for="autoLogin"><?php _vzm("Remember Me") ?></label></td>
     </tr>
 
 

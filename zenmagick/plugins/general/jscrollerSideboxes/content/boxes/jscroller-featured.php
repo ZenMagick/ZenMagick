@@ -28,7 +28,7 @@
     <?php $products = ZMProducts::instance()->getFeaturedProducts($request->getCategoryId(), 
               MAX_RANDOM_SELECT_FEATURED_PRODUCTS, false, $session->getLanguageId()); ?>
     <?php if (0 < count($products)) { ?>
-        <h3><a href="<?php echo $net->url(FILENAME_FEATURED_PRODUCTS) ?>"><?php zm_l10n("[More]") ?></a><?php zm_l10n("Featured") ?></h3>
+        <h3><a href="<?php echo $net->url(FILENAME_FEATURED_PRODUCTS) ?>"><?php _vzm("[More]") ?></a><?php _vzm("Featured") ?></h3>
         <div id="sb_featured" class="box">
             <?php if (1 == count($products)) { $product = $products[0]; ?>
                 <p><?php echo $html->productImageLink($product) ?></p>

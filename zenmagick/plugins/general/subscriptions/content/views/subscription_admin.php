@@ -25,16 +25,16 @@
 <?php $resultList->setPagination(10); ?>
 <?php if (1 < $resultList->getNumberOfPages()) { ?>
     <div class="rnav">
-        <span class="pno"><?php zm_l10n("Page %s/%s", $resultList->getPageNumber(), $resultList->getNumberOfPages()) ?></span>
+        <span class="pno"><?php _vzm("Page %s/%s", $resultList->getPageNumber(), $resultList->getNumberOfPages()) ?></span>
         <?php if ($resultList->hasPreviousPage()) { ?>
-            <a href="<?php echo $net->resultListBack($resultList) ?>"><?php zm_l10n("Previous") ?></a>&nbsp;
+            <a href="<?php echo $net->resultListBack($resultList) ?>"><?php _vzm("Previous") ?></a>&nbsp;
         <?php } else { ?>
-            <span class="nin"><?php zm_l10n("Previous") ?></span>&nbsp;
+            <span class="nin"><?php _vzm("Previous") ?></span>&nbsp;
         <?php } ?>
         <?php if ($resultList->hasNextPage()) { ?>
-            <a href="<?php echo $net->resultListNext($resultList) ?>"><?php zm_l10n("Next") ?></a>
+            <a href="<?php echo $net->resultListNext($resultList) ?>"><?php _vzm("Next") ?></a>
         <?php } else { ?>
-            <span class="nin"><?php zm_l10n("Next") ?></span>
+            <span class="nin"><?php _vzm("Next") ?></span>
         <?php } ?>
     </div>
 <?php } ?>
@@ -55,7 +55,7 @@
         <?php $first = true; $odd = true; foreach ($resultList->getResults() as $order) { ?>
             <tr class="<?php echo ($odd?"odd":"even").($first?" first":" other") ?>">
                 <td>
-                    <a href="<?php echo $request->url('orders.php', '&action=edit&oID='.$order->getId(), '', true) ?>"><?php zm_l10n("Order #%s", $order->getId()) ?></a>
+                    <a href="<?php echo $request->url('orders.php', '&action=edit&oID='.$order->getId(), '', true) ?>"><?php _vzm("Order #%s", $order->getId()) ?></a>
                 </td>
                 <td><?php echo $schedules[$order->getSchedule()]['name'] ?></td>
                 <td><?php echo $locale->shortDate($order->getNextOrder()) ?></td>

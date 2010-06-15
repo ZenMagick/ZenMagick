@@ -22,14 +22,14 @@ NOTE: The form id and form fields are expected to have the shown names/ids. Do n
 
 Example:
 
-  <h3><?php zm_l10n("Use OpenID") ?></h3>
+  <h3><?php _vzm("Use OpenID") ?></h3>
   <?php  $form->open('openID', '', true, array('id'=>'openid_login')) ?>
     <fieldset>
       <div>
-        <label for="openid"><?php zm_l10n("OpenID") ?></label>
+        <label for="openid"><?php _vzm("OpenID") ?></label>
         <input type="hidden" name="action" value="initAuth" /> 
         <input type="text" id="openid" name="openid" /> 
-        <input type="submit" class="btn" value="<?php zm_l10n("Login") ?>" />
+        <input type="submit" class="btn" value="<?php _vzm("Login") ?>" />
       </div>
     </fieldset>
   </form>
@@ -41,7 +41,7 @@ Here a new field to enter an OpenID needs to be added:
 Example:
 
   <tr>
-      <td><?php zm_l10n("OpenID") ?></td>
+      <td><?php _vzm("OpenID") ?></td>
       <td><input type="text" name="openid" value="<?php $html->encode($account->get('openid')) ?>" /></td>
   </tr>
 

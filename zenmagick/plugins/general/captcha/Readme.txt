@@ -58,8 +58,8 @@ an example for the contact_us page:
 
     <?php if (is_object($captcha)) { ?>
         <?php $captcha->showImage(); ?>
-        <a href="<?php $net->url(null) ?>"><?php zm_l10n("Click to refresh page")?></a><br />
-        <label for="captcha"><?php zm_l10n("Captcha") ?><span>*</span></label>
+        <a href="<?php $net->url(null) ?>"><?php _vzm("Click to refresh page")?></a><br />
+        <label for="captcha"><?php _vzm("Captcha") ?><span>*</span></label>
         <input type="text" id="captcha" name="captcha" value="" /><br />
     <?php } ?>
 

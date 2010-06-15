@@ -52,14 +52,14 @@
   }
   google.setOnLoadCallback(load_locator_map);
 </script>
-<div id="locator_map" style="width:400px;height:400px;border:1px solid #ccc;margin:10px;float:left;"><?php zm_l10n("Loading map...") ?></div>
+<div id="locator_map" style="width:400px;height:400px;border:1px solid #ccc;margin:10px;float:left;"><?php _vzm("Loading map...") ?></div>
 <div style="margin:10px;">
   <form action="<?php echo $toolbox->admin->url() ?>" method="POST">
     <div>
       <input type="hidden" name="fkt" value="google_store_locator_admin">
       <p><label for="zoom">Zoom</label> <input type="text" name="zoom" value="<?php echo $zoom ?>"></p>
       <p><label for="location">Location</label> <input type="text" name="location" value="<?php echo $location ?>"> <a href="#" onclick="copy_location(); return false;">Copy Location</a></p>
-      <p><input type="submit" value="<?php zm_l10n('Update') ?>"></p>
+      <p><input type="submit" value="<?php _vzm('Update') ?>"></p>
     </div>
   </form>
 </div>

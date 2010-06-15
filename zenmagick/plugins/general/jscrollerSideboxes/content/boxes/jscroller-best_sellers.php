@@ -26,7 +26,7 @@
 <?php if (isset($jscrollerSideboxes)) { ?>
     <?php $products = ZMProducts::instance()->getBestSellers($request->getCategoryId(), null, $session->getLanguageId()); ?>
     <?php if (0 < count($products)) { ?>
-        <h3><?php zm_l10n("Best Sellers") ?></h3>
+        <h3><?php _vzm("Best Sellers") ?></h3>
         <div id="sb_bestsellers" class="box">
             <?php if (1 == count($products)) { $product = $products[0]; ?>
                 <p><?php echo $html->productImageLink($product) ?></p>

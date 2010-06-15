@@ -10,7 +10,7 @@
 // +----------------------------------------------------------------------+
 ?>
 
-<h3><?php zm_l10n("Affiliate Terms &amp; Conditions") ?></h3>
+<h3><?php _vzm("Affiliate Terms &amp; Conditions") ?></h3>
 <ul>
     <li>Terms go here.</li>
     <li>And here.</li>

@@ -20,6 +20,6 @@
  * $Id$
  */
 ?>
-<h1><?php zm_l10n('Block Handler Admin') ?></h1>
+<h1><?php _vzm('Block Handler Admin') ?></h1>
 
 ... todo

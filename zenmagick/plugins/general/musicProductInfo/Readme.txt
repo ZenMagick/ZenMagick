@@ -36,11 +36,11 @@ The following code can be used to display music related information:
 
   <?php if ($artist) { ?>
     <fieldset>
-        <legend><?php zm_l10n("Additional Music Info") ?></legend>
-        <p><?php zm_l10n("Genre:") ?> <?php echo $artist->getGenre() ?></p>
+        <legend><?php _vzm("Additional Music Info") ?></legend>
+        <p><?php _vzm("Genre:") ?> <?php echo $artist->getGenre() ?></p>
         <?php if ($artist->hasUrl()) { ?>
             <p>
-                <?php zm_l10n("Homepage:") ?>
+                <?php _vzm("Homepage:") ?>
                 <a href="<?php echo $net->trackLink('url', $artist->getUrl()) ?>"<?php $html->hrefTarget() ?>><?php echo $artist->getName() ?></a>
             </p>
         <?php } ?>
@@ -49,7 +49,7 @@ The following code can be used to display music related information:
 
   <?php if (0 < count($collections)) { ?>
       <fieldset>
-          <legend><?php zm_l10n("Media Collections") ?></legend>
+          <legend><?php _vzm("Media Collections") ?></legend>
           <?php foreach($collections as $collection) { ?>
               <div class="mcol">
                   <h4><?php echo $collection->getName() ?></h4>

@@ -59,7 +59,7 @@
                     <?php if (array_key_exists($featureName, $features)) { $feature = $features[$featureName]; ?>
                         <td><?php  zm_list_values($feature->getValues()) ?></td>
                     <?php } else { ?>
-                        <td><?php zm_l10n("N/A") ?></td>
+                        <td><?php _vzm("N/A") ?></td>
                     <?php } ?>
                 <?php } ?>
             </tr>
@@ -68,5 +68,5 @@
 </table>
 <?php echo $toolbox->form->open('category', '', false, array('method'=>'get')) ?>
     <?php zm_hidden_list('compareId[]', ZMRequest::instance()->getParameter("compareId")) ?>
-    <div class="btn"><input type="submit" class="btn" value="<?php zm_l10n("Change Selection") ?>" /></div>
+    <div class="btn"><input type="submit" class="btn" value="<?php _vzm("Change Selection") ?>" /></div>
 </form>

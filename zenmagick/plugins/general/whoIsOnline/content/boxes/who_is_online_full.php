@@ -27,7 +27,7 @@
 <?php if (isset($whoIsOnline)) { ?>
     <?php $stats = $whoIsOnline->getStats(); ?>
     <?php if (0 < $stats['total']) { ?>
-        <h3><?php zm_l10n("Who's Online") ?></h3>
+        <h3><?php _vzm("Who's Online") ?></h3>
         <div id="sb_whos_online" class="box">
             <?php
                 $out = '';
