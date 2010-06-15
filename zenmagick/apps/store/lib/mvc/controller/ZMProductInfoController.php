@@ -65,7 +65,7 @@ class ZMProductInfoController extends ZMController {
         }
 
         if (ZMSettings::get('isLogPageStats')) {
-            ZMProducts::instance()->updateViewCount($product);
+            ZMProducts::instance()->updateViewCount($product->getId(), $request->getSession()->getLanguageId());
         }
 
         // crumbtrail handling

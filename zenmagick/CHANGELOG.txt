@@ -148,6 +148,8 @@ Release 0.9.10
   internal map of translations
 - make zm_l10n functions use the new locale framework and change ZMTheme to
   load the new l10n.yaml into the locale implementation
+- upgrade all code to using _zm, _vzm
+- fix updateViewCount for products
 
 Release 0.9.9
 - in ZMDbTableMapper handle database exception building auto mappings
