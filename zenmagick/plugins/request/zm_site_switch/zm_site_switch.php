@@ -83,7 +83,7 @@ class zm_site_switch extends Plugin {
         define('ZM_FILE_SITE_SWITCHER', $this->getConfigPath('config.php'));
         define('ZM_SITE_SWITCHER_CONFIGURE_LINE', '<?php include("'.ZM_FILE_SITE_SWITCHER.'"); /* added by zm_site_switch plugin */ ?>');
 
-        $this->addMenuItem('zm_site_switch', zm_l10n_get('Site Switching'), 'zm_site_switch_admin');
+        $this->addMenuItem('zm_site_switch', _zm('Site Switching'), 'zm_site_switch_admin');
 
         $hostname = ZMRequest::instance()->getHostname();
 

@@ -53,7 +53,7 @@
             // XXX: fix languageId
             $languageId = 1;
             $rootCategories = ZMCategories::instance()->getCategoryTree($languageId);
-            $root = ZMLoader::make("Category", 0, 0, zm_l10n_get('Catalog'), false);
+            $root = ZMLoader::make("Category", 0, 0, _zm('Catalog'), false);
             $root->setLanguageId($languageId);
             foreach ($rootCategories as $rc) {
                 $root->addChild($rc);
@@ -119,8 +119,8 @@
             ob_start(); 
             echo '<table cellspacing="0" cellpadding="0" class="presults">';
             echo '<thead><tr>';
-            echo '<th class="first">'.zm_l10n_get('Name').'</th>';
-            echo '<th class="last status">'.zm_l10n_get('Active').'</th>';
+            echo '<th class="first">'._zm('Name').'</th>';
+            echo '<th class="last status">'._zm('Active').'</th>';
             echo '</tr></thead>';
             echo '<tbody>';
             $first = true; 
@@ -128,23 +128,23 @@
             foreach ($resultList->getResults() as $product) {
                 echo '<tr class="'.($odd?"odd":"even").($first?" first":" other").'">';
                 echo '<td class="first"><a href="'.$request->url(null, 'productId='.$product->getId().'&'.$params).'">'.$product->getName().'</a></td>';
-                echo '<td class="last status">'.($product->getStatus()?zm_l10n_get('yes'):zm_l10n_get('no')).'</td>';
+                echo '<td class="last status">'.($product->getStatus()?_zm('yes'):_zm('no')).'</td>';
                 echo '</tr>';
                 $first = false; 
                 $odd = !$odd;
             }
             if (1 < $resultList->getNumberOfPages()) {
                 echo '<tr class="rnav"><td colspan="2">';
-                echo '<span class="pno">'.zm_l10n_get("Page %s/%s", $resultList->getPageNumber(), $resultList->getNumberOfPages()).'</span>';
+                echo '<span class="pno">'.sprintf(_zm("Page %s/%s"), $resultList->getPageNumber(), $resultList->getNumberOfPages()).'</span>';
                 if ($resultList->hasPreviousPage()) {
-                    echo '<a href="'.$toolbox->net->resultListBack($resultList).'">'.zm_l10n_get("Previous").'</a>&nbsp;';
+                    echo '<a href="'.$toolbox->net->resultListBack($resultList).'">'._zm("Previous").'</a>&nbsp;';
                 } else {
-                    echo '<span class="nin">'.zm_l10n_get("Previous").'</span>&nbsp;';
+                    echo '<span class="nin">'._zm("Previous").'</span>&nbsp;';
                 }
                 if ($resultList->hasNextPage()) {
-                    echo '<a href="'.$toolbox->net->resultListNext($resultList, null).'">'.zm_l10n_get("Next").'</a>';
+                    echo '<a href="'.$toolbox->net->resultListNext($resultList, null).'">'._zm("Next").'</a>';
                 } else {
-                    echo '<span class="nin">'.zm_l10n_get("Next").'</span>';
+                    echo '<span class="nin">'._zm("Next").'</span>';
                 }
                 echo '</td></tr>';
             }

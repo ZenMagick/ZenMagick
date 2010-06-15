@@ -24,7 +24,7 @@
  */
 ?>
 
-<?php $contact = '<a href="'.$net->url(FILENAME_CONTACT_US) .'">'.zm_l10n_get("let us know").'</a>'; ?>
+<?php $contact = '<a href="'.$net->url(FILENAME_CONTACT_US) .'">'._zm("let us know").'</a>'; ?>
 <p><?php _vzm("If you are having difficulty in locating something on our site, please %s!", $contact) ?></p>
 <?php echo $macro->categoryTree(ZMCategories::instance()->getCategoryTree($session->getLanguageId()), "catalog"); ?>
 <ul>

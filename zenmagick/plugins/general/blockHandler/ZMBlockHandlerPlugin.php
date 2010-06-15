@@ -59,7 +59,7 @@ class ZMBlockHandlerPlugin extends Plugin {
             ZMEvents::instance()->attach(ZMBlockManager::instance());
         }
 
-        $this->addMenuItem('BlockHandlerAdmin', zm_l10n_get('Block Handler Admin'), 'BlockHandlerAdmin');
+        $this->addMenuItem('BlockHandlerAdmin', _zm('Block Handler Admin'), 'BlockHandlerAdmin');
     }
 
 }

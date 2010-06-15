@@ -58,10 +58,10 @@ class ZMCategoryAdminPlugin extends Plugin implements ZMRequestHandler {
         $categoryId = $request->getCategoryId();
         if (0 < $categoryId) {
             // only available if category involved
-            $this->addMenuItem('categoryAdminTab', zm_l10n_get('Category'), 'CategoryAdminTab', ZMAdminMenu::MENU_CATALOG_MANAGER_TAB);
+            $this->addMenuItem('categoryAdminTab', _zm('Category'), 'CategoryAdminTab', ZMAdminMenu::MENU_CATALOG_MANAGER_TAB);
             if (false && !ZMSettings::get('admin.isShowCatalogTreeProducts')) {
                 if (0 < count(ZMProducts::instance()->getProductIdsForCategoryId($categoryId, false))) {
-                    $this->addMenuItem('zm_category_admin_list', zm_l10n_get('Products'), 'zm_category_admin_list', ZMAdminMenu::MENU_CATALOG_MANAGER_TAB);
+                    $this->addMenuItem('zm_category_admin_list', _zm('Products'), 'zm_category_admin_list', ZMAdminMenu::MENU_CATALOG_MANAGER_TAB);
                 }
             }
         }

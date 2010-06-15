@@ -72,7 +72,7 @@ class ZMToggleZMThemesPlugin extends Plugin implements ZMRequestHandler {
         $request = $args['request'];
         $contents = $args['contents'];
 
-        if (false !== strpos($contents, zm_l10n_get('Toggle ZenMagick theme support'))) {
+        if (false !== strpos($contents, _zm('Toggle ZenMagick theme support'))) {
             // already done
             return null;
         }
@@ -85,7 +85,7 @@ class ZMToggleZMThemesPlugin extends Plugin implements ZMRequestHandler {
         if ('category' == $request->getRequestId()) {
             $url = str_replace(ZM_PAGE_KEY.'=category', ZM_PAGE_KEY.'=index', $url);
         }      
-        $link = '<a href="'.$url.'">'.zm_l10n_get('Toggle ZenMagick theme support').'</a>';
+        $link = '<a href="'.$url.'">'._zm('Toggle ZenMagick theme support').'</a>';
         $switch = '<div id="theme-toggle" style="text-align:right;padding:2px 8px;">' . $link . '</div>';
 
         $args['contents'] = preg_replace('/(<body[^>]*>)/', '\1'.$switch, $contents, 1);

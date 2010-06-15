@@ -70,7 +70,7 @@ class ZMThemeSwitcherPlugin extends Plugin implements ZMRequestHandler {
         $request = $args['request'];
         $contents = $args['contents'];
 
-        if (false !== strpos($contents, zm_l10n_get('Switch theme: '))) {
+        if (false !== strpos($contents, _zm('Switch theme: '))) {
             // already done, do not change
             return null;
         }
@@ -110,7 +110,7 @@ class ZMThemeSwitcherPlugin extends Plugin implements ZMRequestHandler {
             }
         }
         if (!ZMLangUtils::isEmpty($links)) {
-            $switch =  '<div id="style-switcher" style="text-align:right;padding:2px 8px;">' . zm_l10n_get('Switch theme: ') . $links . '</div>';
+            $switch =  '<div id="style-switcher" style="text-align:right;padding:2px 8px;">' . _zm('Switch theme: ') . $links . '</div>';
             $contents =  preg_replace('/(<body[^>]*>)/', '\1'.$switch, $contents, 1);
         }
 

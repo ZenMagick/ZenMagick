@@ -69,7 +69,7 @@ class ZMProductComparisonController extends ZMController {
                 break;
         }
         if (3 < count($productIds)) {
-            ZMMessages::instance()->warn(zm_l10n_get("You can't compare more that 3 products - displaying first three."));
+            ZMMessages::instance()->warn(_zm("You can't compare more that 3 products - displaying first three."));
         }
 
         return $this->findView(null, array('resultList' => $resultList));

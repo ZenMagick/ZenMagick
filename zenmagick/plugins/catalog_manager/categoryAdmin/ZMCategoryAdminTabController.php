@@ -37,7 +37,7 @@ class ZMCategoryAdminTabController extends ZMPluginAdminController {
      * Create new instance.
      */
     function __construct() {
-        parent::__construct('category_admin_tab', zm_l10n_get('Category Admin'), 'categoryAdmin');
+        parent::__construct('category_admin_tab', _zm('Category Admin'), 'categoryAdmin');
     }
 
 
@@ -67,7 +67,7 @@ class ZMCategoryAdminTabController extends ZMPluginAdminController {
         }
         $category->setSortOrder($request->getParameter('sortOrder'));
         ZMCategories::instance()->updateCategory($category);
-        ZMMessages::instance()->success(zm_l10n_get('Category updated'));
+        ZMMessages::instance()->success(_zm('Category updated'));
 
         // need to do this to for using PluginAdminView rather than SimplePluginFormView
         return $this->findView();

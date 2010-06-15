@@ -31,7 +31,7 @@
             <div>
               <input type="hidden" name="products_id" value="<?php echo $request->getProductId() ?>" />
               <input type="submit" class="btn" value="<?php _vzm("Email") ?>" />
-              <?php $onfocus = "if(this.value=='" . zm_l10n_get("enter email") . "') this.value='';" ?>
+              <?php $onfocus = "if(this.value=='" . _zm("enter email") . "') this.value='';" ?>
               <input type="text" id="to_email_address" name="to_email_address" value="<?php _vzm("enter email") ?>" onfocus="<?php echo $onfocus ?>" />
             </div>
         </form>

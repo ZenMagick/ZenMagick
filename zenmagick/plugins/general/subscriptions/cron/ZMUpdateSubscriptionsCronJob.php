@@ -75,7 +75,7 @@ class ZMUpdateSubscriptionsCronJob implements ZMCronJob {
                 $status->setOrderId($order->getId());
                 $status->setOrderStatusId($order->getOrderStatusId());
                 $status->setCustomerNotified(!ZMLangUtils::isEmpty($scheduleEmailTemplate));
-                $status->setComment(zm_l10n_get('Scheduled order for subscription #%s', $scheduledOrderId));
+                $status->setComment(sprintf(_zm('Scheduled order for subscription #%s'), $scheduledOrderId));
                 ZMOrders::instance()->createOrderStatusHistory($status);
             }
 
@@ -116,7 +116,7 @@ class ZMUpdateSubscriptionsCronJob implements ZMCronJob {
         $context['INTRO_ORDER_NUMBER'] = $order->getId();
 
         $account = $order->getAccount();
-        zm_mail(zm_l10n_get("%s: Order Subscription Notification", ZMSettings::get('storeName')), $template, $context, 
+        zm_mail(sprintf(_zm("%s: Order Subscription Notification"), ZMSettings::get('storeName')), $template, $context, 
             $account->getEmail(), ZMSettings::get('storeEmail'), null);
     }
 

@@ -34,7 +34,7 @@ class ZMMasterPasswordAdminController extends ZMPluginAdminController {
      * Create new instance.
      */
     function __construct() {
-        parent::__construct('master_password_admin', zm_l10n_get('Set Master Password'), 'masterPassword');
+        parent::__construct('master_password_admin', _zm('Set Master Password'), 'masterPassword');
     }
 
     /**

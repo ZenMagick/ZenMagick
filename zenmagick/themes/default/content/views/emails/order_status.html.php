@@ -34,9 +34,9 @@
 
 <p><?php _vzm("This is to inform you that your order #%s has been updated.", $currentOrder->getId()) ?></p>
 <?php if (ZMAccount::REGISTERED == $currentAccount->getType()) {
-    $href = '<a href="'.$net->url(FILENAME_ACCOUNT_HISTORY_INFO, 'order_id='.$currentOrder->getId(), false).'">'.zm_l10n_get("order #%s", $currentOrder->getId()).'</a>';
+    $href = '<a href="'.$net->url(FILENAME_ACCOUNT_HISTORY_INFO, 'order_id='.$currentOrder->getId(), false).'">'.sprintf(_zm("order #%s"), $currentOrder->getId()).'</a>';
 } else {
-    $href = '<a href="'.$net->url('guest_history').'">'.zm_l10n_get("order #%s", $currentOrder->getId()).'</a>';
+    $href = '<a href="'.$net->url('guest_history').'">'.sprintf(_zm("order #%s"), $currentOrder->getId()).'</a>';
 } ?>
 <p><?php _vzm("More details can be found at the following URL: %s", $href) ?></p>
 

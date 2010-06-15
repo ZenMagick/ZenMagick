@@ -65,7 +65,7 @@ class ZMBirthdayEmailCronJob implements ZMCronJob {
         $results = ZMRuntime::getDatabase()->query($sql, array(), TABLE_CUSTOMERS, 'Account');
         foreach ($results as $account) {
             $context = array('account' => $account);
-            zm_mail(zm_l10n_get("It's your birthday, %s", $account->getFirstName()), $this->template_, $context, 
+            zm_mail(sprintf(_zm("It's your birthday, %s"), $account->getFirstName()), $this->template_, $context, 
                   $account->getEmail(), $account->getFullName());
         }
 

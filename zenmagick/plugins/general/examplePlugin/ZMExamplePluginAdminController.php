@@ -34,7 +34,7 @@ class ZMExamplePluginAdminController extends ZMPluginAdminController {
      * Create new instance.
      */
     function __construct() {
-        parent::__construct('Example_plugin_admin', zm_l10n_get('Example Plugin Admin Page'), 'examplePlugin');
+        parent::__construct('Example_plugin_admin', _zm('Example Plugin Admin Page'), 'examplePlugin');
     }
 
     /**

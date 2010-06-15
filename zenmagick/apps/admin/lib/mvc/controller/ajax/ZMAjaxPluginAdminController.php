@@ -55,14 +55,14 @@ class ZMAjaxPluginAdminController extends ZMScaffoldController {
                 }
                 $response->setStatus(true);
                 $response->set('hasOptions', $plugin->hasOptions());
-                $response->addMessage(zm_l10n_get('Plugin installed'), 'success');
+                $response->addMessage(_zm('Plugin installed'), 'success');
             } else {
                 $response->setStatus(false);
-                $response->addMessage(zm_l10n_get('Plugin already installed'), 'error');
+                $response->addMessage(_zm('Plugin already installed'), 'error');
             }
         } else {
             $response->setStatus(false);
-            $response->addMessage(zm_l10n_get('Invalid plugin id'), 'error');
+            $response->addMessage(_zm('Invalid plugin id'), 'error');
         }
 
         $response->createResponse($this);
@@ -96,14 +96,14 @@ class ZMAjaxPluginAdminController extends ZMScaffoldController {
                 foreach ($plugin->getMessages() as $msg) {
                     $response->addMessage($msg, 'info');
                 }
-                $response->addMessage(zm_l10n_get('Plugin removed'), 'success');
+                $response->addMessage(_zm('Plugin removed'), 'success');
             } else {
                 $response->setStatus(false);
-                $response->addMessage(zm_l10n_get('Plugin not installed'), 'error');
+                $response->addMessage(_zm('Plugin not installed'), 'error');
             }
         } else {
             $response->setStatus(false);
-            $response->addMessage(zm_l10n_get('Invalid plugin id'), 'error');
+            $response->addMessage(_zm('Invalid plugin id'), 'error');
         }
 
         $response->createResponse($this);
@@ -128,11 +128,11 @@ class ZMAjaxPluginAdminController extends ZMScaffoldController {
 
         if (null == ($plugin = ZMPlugins::instance()->initPluginForId($pluginId, false))) {
             $response->setStatus(false);
-            $response->addMessage(zm_l10n_get('Invalid plugin id'), 'error');
+            $response->addMessage(_zm('Invalid plugin id'), 'error');
         } else {
             $response->setStatus(true);
             $plugin->setEnabled($status);
-            $response->addMessage(zm_l10n_get('Status updated'), 'success');
+            $response->addMessage(_zm('Status updated'), 'success');
         }
 
         $response->createResponse($this);

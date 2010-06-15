@@ -103,7 +103,7 @@ class ZMPluginsController extends ZMController {
             if (null != ($plugin = ZMPlugins::instance()->initPluginForId($pluginId, false)) && $plugin->isInstalled()) {
                 ZMLogging::instance()->log('upgrade plugin: '.$plugin->getId(), ZMLogging::TRACE);
                 $plugin->upgrade();
-                ZMMessages::instance()->success(zm_l10n_get('Plugin %s upgraded successfully', $plugin->getName()));
+                ZMMessages::instance()->success(sprintf(_zm('Plugin %s upgraded successfully'), $plugin->getName()));
                 ZMMessages::instance()->addAll($plugin->getMessages());
                 $viewId = 'success-upgrade';
             }
@@ -131,7 +131,7 @@ class ZMPluginsController extends ZMController {
             if (null != ($plugin = ZMPlugins::instance()->initPluginForId($pluginId, false)) && !$plugin->isInstalled()) {
                 ZMLogging::instance()->log('install plugin: '.$plugin->getId(), ZMLogging::TRACE);
                 $plugin->install();
-                ZMMessages::instance()->success(zm_l10n_get('Plugin %s installed successfully', $plugin->getName()));
+                ZMMessages::instance()->success(sprintf(_zm('Plugin %s installed successfully'), $plugin->getName()));
                 ZMMessages::instance()->addAll($plugin->getMessages());
                 $viewId = 'success-install';
             } else {
@@ -141,7 +141,7 @@ class ZMPluginsController extends ZMController {
             if (null != ($plugin = ZMPlugins::instance()->initPluginForId($pluginId, false)) && $plugin->isInstalled()) {
                 ZMLogging::instance()->log('un-install plugin: '.$plugin->getId() . '; keepSettings: '.($keepSettings?'true':'false'), ZMLogging::TRACE);
                 $plugin->remove($keepSettings);
-                ZMMessages::instance()->success(zm_l10n_get('Plugin %s un-installed successfully', $plugin->getName()));
+                ZMMessages::instance()->success(sprintf(_zm('Plugin %s un-installed successfully'), $plugin->getName()));
                 ZMMessages::instance()->addAll($plugin->getMessages());
                 $viewId = 'success-uninstall';
             }

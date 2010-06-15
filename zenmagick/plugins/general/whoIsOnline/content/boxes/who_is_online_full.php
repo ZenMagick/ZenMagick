@@ -33,29 +33,29 @@
                 $out = '';
                 if (1 == $stats['total']) {
                     // 1
-                    $out .= zm_l10n_get("There is currently");
+                    $out .= _zm("There is currently");
                     if (1 == $stats['anonymous']) {
-                        $out .= zm_l10n_get(" one guest online.");
+                        $out .= _zm(" one guest online.");
                     } else {
-                        $out .= zm_l10n_get(" one registered user online.");
+                        $out .= _zm(" one registered user online.");
                     }
                 } else {
                     // >1
-                    $out .= zm_l10n_get("There are currently");
+                    $out .= _zm("There are currently");
                     if (1 == $stats['anonymous']) {
-                        $out .= zm_l10n_get(" one guest");
+                        $out .= _zm(" one guest");
                     } else if (1 < $stats['anonymous']) {
-                        $out .= zm_l10n_get(" %s guests", $stats['anonymous']);
+                        $out .= sprintf(_zm(" %s guests"), $stats['anonymous']);
                     }
                     if (0 < $stats['anonymous'] && 0 < $stats['registered']) {
-                        $out .= zm_l10n_get(" and");
+                        $out .= _zm(" and");
                     }
                     if (1 == $stats['registered']) {
-                        $out .= zm_l10n_get(" one registered user");
+                        $out .= _zm(" one registered user");
                     } else if (1 < $stats['registered']) {
-                        $out .= zm_l10n_get(" %s registered users", $stats['registered']);
+                        $out .= sprintf(_zm(" %s registered users"), $stats['registered']);
                     }
-                    $out .= zm_l10n_get(' online.');
+                    $out .= _zm(' online.');
                 }
                 echo $out;
             ?>

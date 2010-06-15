@@ -105,10 +105,10 @@ class ZMOpenIDController extends ZMController {
                 $session->setValue('openid', $openid);
                 return $this->initAuthentication($request, $openid);
             } else {
-                ZMMessages::instance()->error(zm_l10n_get('The provided OpenID does not seem to be valid'));
+                ZMMessages::instance()->error(_zm('The provided OpenID does not seem to be valid'));
             }
         } else {
-            ZMMessages::instance()->error(zm_l10n_get('The provided OpenID does not seem to be valid'));
+            ZMMessages::instance()->error(_zm('The provided OpenID does not seem to be valid'));
         }
 
         return $this->findView('login');
@@ -127,7 +127,7 @@ class ZMOpenIDController extends ZMController {
         $auth_request = $consumer->begin($openid);
 
         if (!$auth_request) {
-            ZMMessages::instance()->error(zm_l10n_get('The provided OpenID does not seem to be valid'));
+            ZMMessages::instance()->error(_zm('The provided OpenID does not seem to be valid'));
             return $this->findView('login');
         }
 
@@ -154,7 +154,7 @@ class ZMOpenIDController extends ZMController {
 
             // If the redirect URL can't be built, display an error message.
             if (Auth_OpenID::isFailure($redirect_url)) {
-                ZMMessages::instance()->error(zm_l10n_get('Could not redirect to server: %s', $redirect_url->message));
+                ZMMessages::instance()->error(sprintf(_zm('Could not redirect to server: %s'), $redirect_url->message));
                 return $this->findView('login');
             } else {
                 // send redirect.
@@ -166,7 +166,7 @@ class ZMOpenIDController extends ZMController {
             $form_html = $auth_request->htmlMarkup($realm, $this->returnTo_, false, array('id' => $form_id));
 
             if (Auth_OpenID::isFailure($form_html)) {
-                ZMMessages::instance()->error(zm_l10n_get('Could not redirect to server: %s', $form_html->message));
+                ZMMessages::instance()->error(sprintf(_zm('Could not redirect to server: %s'), $form_html->message));
                 return $this->findView('login');
             } else {
                 // render the HTML form

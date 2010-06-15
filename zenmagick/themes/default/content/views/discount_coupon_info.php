@@ -35,7 +35,7 @@
     <h4><?php _vzm("Category Restrictions")?></h4>
     <ul>
     <?php foreach ($restrictions->getCategories() as $rest) { $category = $rest->getCategory(); ?>
-        <li><?php echo $html->encode($category->getName()) ?> - <?php echo ($rest->isAllowed() ? zm_l10n_get(" included") : zm_l10n_get(" excluded")) ?></li>
+        <li><?php echo $html->encode($category->getName()) ?> - <?php echo ($rest->isAllowed() ? _zm(" included") : _zm(" excluded")) ?></li>
     <?php } ?>
     </ul>
 <?php } ?>
@@ -44,7 +44,7 @@
     <h4><?php _vzm("Product Restrictions")?></h4>
     <ul>
     <?php foreach ($restrictions->getProducts() as $rest) { $product = $rest->getProduct(); ?>
-        <li><?php echo $html->encode($product->getName()) ?> - <?php echo ($rest->isAllowed() ? zm_l10n_get(" included") : zm_l10n_get(" excluded")) ?></li>
+        <li><?php echo $html->encode($product->getName()) ?> - <?php echo ($rest->isAllowed() ? _zm(" included") : _zm(" excluded")) ?></li>
     <?php } ?>
     </ul>
 <?php } ?>

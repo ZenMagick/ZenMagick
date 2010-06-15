@@ -38,7 +38,7 @@
     $review = $reviews[0];
     $params = 'products_id='.$review->getProductId().'&reviews_id='.$review->getId();
     $href = $net->url(FILENAME_PRODUCT_REVIEWS_INFO, $params);
-    $rtext = zm_l10n_get("%s of 5 stars!", $review->getRating());
+    $rtext = sprintf(_zm("%s of 5 stars!"), $review->getRating());
     $rimg = '<img src="'.$this->asUrl('images/stars_'.$review->getRating().'.gif').'" alt="'.$rtext.'" title="'.$rtext.'"/>';
     ?>
     <h3><a href="<?php echo $net->url(FILENAME_REVIEWS) ?>"><?php _vzm("[More]") ?></a><?php _vzm("Reviews") ?></h3>

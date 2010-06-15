@@ -72,7 +72,7 @@ class ZMUpdateUserController extends ZMController {
 
         // validate password
         if (!ZMAuthenticationManager::instance()->validatePassword($updateUser->getCurrentPassword(), $user->getPassword())) {
-            ZMMessages::instance()->error(zm_l10n_get('Sorry, the entered password is not valid.'));
+            ZMMessages::instance()->error(_zm('Sorry, the entered password is not valid.'));
             return $this->findView();
         }
         $user->setName($updateUser->getName());
@@ -84,7 +84,7 @@ class ZMUpdateUserController extends ZMController {
         ZMAdminUsers::instance()->updateUser($user);
 
         // report success
-        ZMMessages::instance()->success(zm_l10n_get('Details updated.'));
+        ZMMessages::instance()->success(_zm('Details updated.'));
 
         return $this->findView('success');
     }

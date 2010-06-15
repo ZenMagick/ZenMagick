@@ -36,7 +36,7 @@
         $plugin = ZMPlugins::instance()->getPluginForId('zm_site_switch');
         $template = file_get_contents($plugin->getPluginDirectory().'/views/site_switch_admin.php');
         eval('?>'.$template);
-        return new ZMPluginPage('zm_site_switch_admin', zm_l10n_get('Site Switch'), null);
+        return new ZMPluginPage('zm_site_switch_admin', _zm('Site Switch'), null);
     }
 
 ?>

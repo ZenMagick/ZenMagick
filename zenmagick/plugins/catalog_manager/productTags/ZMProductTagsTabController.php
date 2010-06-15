@@ -34,7 +34,7 @@ class ZMProductTagsTabController extends ZMPluginAdminController {
      * Create new instance.
      */
     function __construct() {
-        parent::__construct('product_tags_admin', zm_l10n_get('Product Tags'), 'productTags');
+        parent::__construct('product_tags_admin', _zm('Product Tags'), 'productTags');
     }
 
 
@@ -72,7 +72,7 @@ class ZMProductTagsTabController extends ZMPluginAdminController {
                 }
             }
             ZMTags::instance()->setTagsForProductId($productId, $request->getSession()->getLanguageId(), $tags);
-            ZMMessages::instance()->success(zm_l10n_get('Tags updated'));
+            ZMMessages::instance()->success(_zm('Tags updated'));
         }
 
         // need to do this to for using PluginAdminView rather than SimplePluginFormView

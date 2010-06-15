@@ -157,7 +157,7 @@ class ZMCaptchaPlugin extends Plugin {
      * @param string parameter Optional additional parameter (name="value" name2="value2"...).
      */
     public function showImage($width='', $height='', $parameters='') {
-        $alt = zm_l10n_get("Click image to re-generate");
+        $alt = _zm("Click image to re-generate");
         $parameters .= ' onclick="document.getElementById(\'captcha-img\').src=\''.$this->captcha_->img_href.'&amp;rand=\'+Math.random();return false;"';
         $parameters .= ' style="cursor:pointer;cursor:hand;"';
         echo $this->captcha_->img($alt, $width, $height, $parameters);

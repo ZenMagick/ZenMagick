@@ -40,7 +40,7 @@ class PriceRangeFilter extends ZMResultListFilter {
      * Create new instance.
      */
     function __construct() {
-        parent::__construct('prfilter', zm_l10n_get('Price Range'));
+        parent::__construct('prfilter', _zm('Price Range'));
 
         $this->ranges_ = array();
         if (!empty($this->filterValues_) && is_array($this->filterValues_)) {

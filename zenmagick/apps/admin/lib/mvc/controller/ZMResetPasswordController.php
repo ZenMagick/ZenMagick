@@ -55,7 +55,7 @@ class ZMResetPasswordController extends ZMController {
         $email = $request->getParameter('email');
         $user = ZMAdminUsers::instance()->getUserForEmail($email);
         if (null === $user) {
-            ZMMessages::instance()->error(zm_l10n_get("Sorry, there is no account with the email address '%s'.", $email));
+            ZMMessages::instance()->error(sprintf(_zm("Sorry, there is no account with the email address '%s'."), $email));
             return $this->findView();
         }
 
@@ -72,7 +72,7 @@ class ZMResetPasswordController extends ZMController {
         $result = $mailer->send($message);
 
         // report success
-        ZMMessages::instance()->success(zm_l10n_get('A new password has been sent to your email address.'));
+        ZMMessages::instance()->success(_zm('A new password has been sent to your email address.'));
 
         return $this->findView('success');
     }

@@ -36,7 +36,7 @@
 
     <p id="author">
       <?php _vzm("Review by: %s", $currentReview->getAuthor()) ?>
-      <?php $rtext = zm_l10n_get("%s of 5 stars!", $currentReview->getRating()) ?>
+      <?php $rtext = sprintf(_zm("%s of 5 stars!"), $currentReview->getRating()) ?>
       <span id="stars">
         <img src="<?php echo $this->asUrl('images/stars_'.$currentReview->getRating().'.gif') ?>" alt="<?php echo $rtext ?>" />
         <?php $rtext ?>

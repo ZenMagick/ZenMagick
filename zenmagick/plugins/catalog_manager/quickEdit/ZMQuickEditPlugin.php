@@ -58,7 +58,7 @@ class ZMQuickEditPlugin extends Plugin implements ZMRequestHandler {
             $count = count(ZMProducts::instance()->getProductIdsForCategoryId($request->getCategoryId(), false));
             if (0 < $count) {
                 // only available if category involved
-                $this->addMenuItem('quickEditTab', zm_l10n_get('Quick Edit'), 'QuickEditTab', ZMAdminMenu::MENU_CATALOG_MANAGER_TAB);
+                $this->addMenuItem('quickEditTab', _zm('Quick Edit'), 'QuickEditTab', ZMAdminMenu::MENU_CATALOG_MANAGER_TAB);
             }
         }
     }

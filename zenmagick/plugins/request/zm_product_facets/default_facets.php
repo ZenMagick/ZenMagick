@@ -122,7 +122,7 @@
             $facet[$id]['id'] = $ii;
             if (0 == $ii) {
                 // first
-                $facet[$id]['name'] = zm_l10n_get("Less than %s", ZMRequest::instance()->getToolbox()->utils->formatMoney($bracket));
+                $facet[$id]['name'] = sprintf(_zm("Less than %s"), ZMRequest::instance()->getToolbox()->utils->formatMoney($bracket));
                     foreach ($products as $product) {
                         if ($product->getProductPrice() < $bracket) {
                             $facet[$id]['entries'][$product->getId()] = $product->getName();
@@ -130,7 +130,7 @@
                     }
             } else if (($ii+1) == $bracketLength) {
                 $prevBracket = $brackets[$ii-1];
-                $facet[$id]['name'] = zm_l10n_get("More than %s", ZMRequest::instance()->getToolbox()->utils->formatMoney($prevBracket));
+                $facet[$id]['name'] = sprintf(_zm("More than %s"), ZMRequest::instance()->getToolbox()->utils->formatMoney($prevBracket));
                 foreach ($products as $product) {
                     if ($product->getProductPrice() > $prevBracket) {
                         $facet[$id]['entries'][$product->getId()] = $product->getName();
@@ -139,7 +139,7 @@
             } else {
                 // all other
                 $prevBracket = $brackets[$ii-1];
-                $facet[$id]['name'] = zm_l10n_get("%s to %s", ZMRequest::instance()->getToolbox()->utils->formatMoney($prevBracket), ZMRequest::instance()->getToolbox()->utils->formatMoney($bracket));
+                $facet[$id]['name'] = sprintf(_zm("%s to %s"), ZMRequest::instance()->getToolbox()->utils->formatMoney($prevBracket), ZMRequest::instance()->getToolbox()->utils->formatMoney($bracket));
                 foreach ($products as $product) {
                     if ($product->getProductPrice() >= $prevBracket && $product->getProductPrice() <= $bracket) {
                         $facet[$id]['entries'][$product->getId()] = $product->getName();

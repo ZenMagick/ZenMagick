@@ -28,11 +28,11 @@
 
 <?php /* the available FAQ entries */
     $faq_topics = array(
-      'gv_purchase' => zm_l10n_get('Purchasing Gift Certificates'),
-      'gv_send' => zm_l10n_get('How to send Gift Certificates'),
-      'gv_use' => zm_l10n_get('Buying with Gift Certificates'),
-      'gv_redeem' => zm_l10n_get('Redeeming Gift Certificates'),
-      'gv_trouble' => zm_l10n_get('When problems occur...')
+      'gv_purchase' => _zm('Purchasing Gift Certificates'),
+      'gv_send' => _zm('How to send Gift Certificates'),
+      'gv_use' => _zm('Buying with Gift Certificates'),
+      'gv_redeem' => _zm('Redeeming Gift Certificates'),
+      'gv_trouble' => _zm('When problems occur...')
     ); 
 ?>
 

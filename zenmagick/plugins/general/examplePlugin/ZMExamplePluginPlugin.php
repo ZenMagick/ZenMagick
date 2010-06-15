@@ -69,7 +69,7 @@ class ZMExamplePluginPlugin extends Plugin implements ZMRequestHandler {
         ZMEvents::instance()->attach($this);
 
         // add admin page
-        $this->addMenuItem('ExamplePluginAdmin', zm_l10n_get('Example Plugin Admin Page'), 'ExamplePluginAdmin');
+        $this->addMenuItem('ExamplePluginAdmin', _zm('Example Plugin Admin Page'), 'ExamplePluginAdmin');
     }
 
     /**

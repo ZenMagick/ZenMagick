@@ -117,7 +117,7 @@ class ZMAffiliateSignupController extends ZMController {
         if (empty($email)) {
             $email = ZMSettings::get('storeEmail');
         }
-        zm_mail(zm_l10n_get("Form Handler notification: %s", $this->getId()), $template, array('data' => $data, 'id' => $this->getId()), 
+        zm_mail(sprintf(_zm("Form Handler notification: %s"), $this->getId()), $template, array('data' => $data, 'id' => $this->getId()), 
             $email, ZMSettings::get('storeEmail'), null);
     }
 

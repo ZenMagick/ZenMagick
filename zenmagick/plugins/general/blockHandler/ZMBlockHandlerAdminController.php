@@ -34,7 +34,7 @@ class ZMBlockHandlerAdminController extends ZMPluginAdminController {
      * Create new instance.
      */
     function __construct() {
-        parent::__construct('block_handler_admin', zm_l10n_get('Block Hander Admin'), 'blockHandler');
+        parent::__construct('block_handler_admin', _zm('Block Hander Admin'), 'blockHandler');
     }
 
     /**

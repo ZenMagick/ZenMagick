@@ -34,7 +34,7 @@ class ZMGoogleStoreLocatorAdminController extends ZMPluginAdminController {
      * Create new instance.
      */
     function __construct() {
-        parent::__construct('google_store_locator_admin', zm_l10n_get('Google Store Locator Admin'), 'googleStoreLocator');
+        parent::__construct('google_store_locator_admin', _zm('Google Store Locator Admin'), 'googleStoreLocator');
     }
 
     /**

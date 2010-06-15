@@ -37,7 +37,7 @@ class ZMCatalogDefaultTabController extends ZMPluginAdminController {
      * Create new instance.
      */
     function __construct() {
-        parent::__construct('catalog_default_tab', zm_l10n_get('Catalog Manager'), 'catalogDefault');
+        parent::__construct('catalog_default_tab', _zm('Catalog Manager'), 'catalogDefault');
     }
 
 

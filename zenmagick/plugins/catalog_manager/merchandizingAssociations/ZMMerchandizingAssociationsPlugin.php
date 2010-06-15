@@ -69,7 +69,7 @@ class ZMMerchandizingAssociationsPlugin extends Plugin implements ZMRequestHandl
     public function initRequest($request) {
         if (0 < $request->getProductId()) {
             // only available if product involved
-            $this->addMenuItem('merchandizingAssociationsAdminTab', zm_l10n_get('Merchandizing Associations'), 'MerchandizingAssociationsAdminTab', ZMAdminMenu::MENU_CATALOG_MANAGER_TAB);
+            $this->addMenuItem('merchandizingAssociationsAdminTab', _zm('Merchandizing Associations'), 'MerchandizingAssociationsAdminTab', ZMAdminMenu::MENU_CATALOG_MANAGER_TAB);
         }
 
         // attach JSON method to AJAX catalog controller

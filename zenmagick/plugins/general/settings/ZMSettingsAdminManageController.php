@@ -34,7 +34,7 @@ class ZMSettingsAdminManageController extends ZMPluginAdminController {
      * Create new instance.
      */
     function __construct() {
-        parent::__construct('settings_admin_manage', zm_l10n_get('Manage Settings'), 'settings');
+        parent::__construct('settings_admin_manage', _zm('Manage Settings'), 'settings');
     }
 
     /**

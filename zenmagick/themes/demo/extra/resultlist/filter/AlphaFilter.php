@@ -36,7 +36,7 @@ class AlphaFilter extends ZMResultListFilter {
      * Create new instance.
      */
     function __construct() {
-        parent::__construct('afilter', zm_l10n_get('First character of Name'));
+        parent::__construct('afilter', _zm('First character of Name'));
     }
 
     /**

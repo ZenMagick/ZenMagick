@@ -272,7 +272,7 @@ class ZMWordpressPlugin extends Plugin implements ZMRequestHandler {
             if (!ZMLangUtils::isEmpty($account->getNickName())) {
                 $password = $args['clearPassword'];
                 if (!$this->getAdapter()->createAccount($account, $password)) {
-                    ZMMessages::instance()->info(zm_l10n_get('Could not create wordpress account - please contact the store administrator.'));
+                    ZMMessages::instance()->info(_zm('Could not create wordpress account - please contact the store administrator.'));
                 }
             }
         }

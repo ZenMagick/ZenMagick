@@ -54,7 +54,7 @@ class ZMAccountController extends ZMController {
     public function processGet($request) {
         $accountId = $request->getParameter('accountId');
         if (null == ($account = ZMAccounts::instance()->getAccountForId($accountId))) {
-            ZMMessages::instance()->error(zm_l10n_get('Account for account id %s not found', $accountId));
+            ZMMessages::instance()->error(sprintf(_zm('Account for account id %s not found'), $accountId));
             return $this->findView(null, array('accountId' => $accountId));
         }
 

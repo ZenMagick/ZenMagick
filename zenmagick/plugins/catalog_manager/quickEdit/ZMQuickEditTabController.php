@@ -39,7 +39,7 @@ class ZMQuickEditTabController extends ZMPluginAdminController {
      * Create new instance.
      */
     function __construct() {
-        parent::__construct('quick_edit_tab', zm_l10n_get('Quick Edit'), 'quickEdit');
+        parent::__construct('quick_edit_tab', _zm('Quick Edit'), 'quickEdit');
     }
 
 

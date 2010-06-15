@@ -27,13 +27,13 @@
 <?php
   $coupon = ZMCoupons::instance()->getCouponForId($request->getParameter('cID'), $session->getLanguageId());
   $restrictions = $coupon->getRestrictions();
-  $fixed = 'This coupon entitles you to a %s discount against your order';
+  $fixed = _zm('This coupon entitles you to a %s discount against your order');
   if (ZMCoupons::TYPPE_FIXED == $coupon->getType()) {
-      $discount = zm_l10n_get($fixed, $utils->formatMoney($coupon->getAmount()));
+      $discount = sprintf($fixed, $utils->formatMoney($coupon->getAmount()));
   } else if (ZMCoupons::TYPPE_PERCENT == $coupon->getType()) {
-      $discount = zm_l10n_get($fixed, number_format($coupon->getAmount(), ZMSettings::get('discountDecimals')).'%');
+      $discount = sprintf($fixed, number_format($coupon->getAmount(), ZMSettings::get('discountDecimals')).'%');
   } else {
-      $discount = zm_l10n_get('This coupon gives you free shipping on your order');
+      $discount = _zm('This coupon gives you free shipping on your order');
   }
 
 ?>
@@ -50,7 +50,7 @@
     <h4><?php _vzm("Category Restrictions")?></h4>
     <ul>
     <?php foreach ($restrictions->getCategories() as $rest) { $category = $rest->getCategory(); ?>
-        <li><?php echo $html->encode($category->getName()) ?> - <?php echo ($rest->isAllowed() ? zm_l10n_get(" included") : zm_l10n_get(" excluded")) ?></li>
+        <li><?php echo $html->encode($category->getName()) ?> - <?php echo ($rest->isAllowed() ? _zm(" included") : _zm(" excluded")) ?></li>
     <?php } ?>
     </ul>
 <?php } ?>
@@ -59,7 +59,7 @@
     <h4><?php _vzm("Product Restrictions")?></h4>
     <ul>
     <?php foreach ($restrictions->getProducts() as $rest) { $product = $rest->getProduct(); ?>
-        <li><?php echo $html->encode($product->getName()) ?> - <?php echo ($rest->isAllowed() ? zm_l10n_get(" included") : zm_l10n_get(" excluded")) ?></li>
+        <li><?php echo $html->encode($product->getName()) ?> - <?php echo ($rest->isAllowed() ? _zm(" included") : _zm(" excluded")) ?></li>
     <?php } ?>
     </ul>
 <?php } ?>

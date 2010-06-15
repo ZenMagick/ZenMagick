@@ -37,7 +37,7 @@ class ZMProductGroupPricingTabController extends ZMPluginAdminController {
      * Create new instance.
      */
     function __construct() {
-        parent::__construct('product_group_pricing_tab', zm_l10n_get('Group Pricing'), 'productGroupPricing');
+        parent::__construct('product_group_pricing_tab', _zm('Group Pricing'), 'productGroupPricing');
     }
 
 

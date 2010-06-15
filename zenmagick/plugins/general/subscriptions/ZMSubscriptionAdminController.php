@@ -34,7 +34,7 @@ class ZMSubscriptionAdminController extends ZMPluginAdminController {
      * Create new instance.
      */
     function __construct() {
-        parent::__construct('subscription_admin', zm_l10n_get('Subscriptions'), 'subscriptions');
+        parent::__construct('subscription_admin', _zm('Subscriptions'), 'subscriptions');
     }
 
     /**
@@ -82,7 +82,7 @@ class ZMSubscriptionAdminController extends ZMPluginAdminController {
                     SET is_subscription_canceled = :subscriptionCanceled, is_subscription = :subscription
                     WHERE orders_id = :orderId";
             ZMRuntime::getDatabase()->update($sql, array('orderId' => $orderId, 'subscriptionCanceled' => true, 'subscription' => !$hard), TABLE_ORDERS);
-            ZMMessages::instance()->success(zm_l10n_get("Subscription canceled!"));
+            ZMMessages::instance()->success(_zm("Subscription canceled!"));
         }
 
         $order = ZMOrders::instance()->getOrderForId($orderId, $request->getSession()->getLanguageId());
@@ -106,7 +106,7 @@ class ZMSubscriptionAdminController extends ZMPluginAdminController {
         $context = array();
         $context['order'] = $order;
         $context['plugin'] = $this->getPlugin();
-        zm_mail(zm_l10n_get("%s: Order Subscription Canceled", ZMSettings::get('storeName')), $template, $context, 
+        zm_mail(sprintf(_zm("%s: Order Subscription Canceled"), ZMSettings::get('storeName')), $template, $context, 
             $email, ZMSettings::get('storeEmail'), null);
         $email = ZMSettings::get('storeEmail');
     }

@@ -68,7 +68,7 @@ class ZMMultiQuantityProductInfoController extends ZMController {
         }
 
         if (!$addedSome) {
-            ZMMessages::error(zm_l10n_get('Quantity missing - no product(s) added'));
+            ZMMessages::error(_zm('Quantity missing - no product(s) added'));
         }
 
         return $this->findView('success');

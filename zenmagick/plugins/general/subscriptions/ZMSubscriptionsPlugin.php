@@ -114,11 +114,11 @@ class ZMSubscriptionsPlugin extends Plugin {
         // set up request form validation
         ZMValidator::instance()->addRules('subscription_request', array(
             array('ListRule', 'type', array_keys($this->getRequestTypes())),
-            array('RequiredRule', 'message', zm_l10n_get("Please enter a message")),
+            array('RequiredRule', 'message', _zm("Please enter a message")),
         ));
 
         // add admin page
-        $this->addMenuItem('subscriptions', zm_l10n_get('Subscriptions'), 'ZMSubscriptionAdminController');
+        $this->addMenuItem('subscriptions', _zm('Subscriptions'), 'ZMSubscriptionAdminController');
     }
 
     /**
@@ -175,9 +175,9 @@ class ZMSubscriptionsPlugin extends Plugin {
      */
     public function getRequestTypes() {
         $defaults = array(
-                'cancel' => zm_l10n_get("Cancel Subscription"),
-                'enquire' => zm_l10n_get("Enquire order status"),
-                'other' => zm_l10n_get("Other"),
+                'cancel' => _zm("Cancel Subscription"),
+                'enquire' => _zm("Enquire order status"),
+                'other' => _zm("Other"),
         );
         return ZMSettings::get('plugins.zm_subscriptions.request.types', $defaults);
     }
@@ -225,7 +225,7 @@ class ZMSubscriptionsPlugin extends Plugin {
                     $status->setOrderId($order->getId());
                     $status->setCustomerNotified(false);
                     $schedules = $this->getSchedules();
-                    $status->setComment(zm_l10n_get('Subscription: %s', $schedules[$schedule]['name']));
+                    $status->setComment(sprintf(_zm('Subscription: %s'), $schedules[$schedule]['name']));
                     ZMOrders::instance()->createOrderStatusHistory($status);
                 }
             }

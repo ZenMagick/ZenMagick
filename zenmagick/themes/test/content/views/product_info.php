@@ -78,7 +78,7 @@
 
   <fieldset>
       <legend><?php _vzm("Shopping Options") ?></legend>
-      <?php $minMsg = ""; if (1 < $currentProduct->getMinOrderQty()) { $minMsg = zm_l10n_get(" (Order minimum: %s)", $currentProduct->getMinOrderQty()); } ?>
+      <?php $minMsg = ""; if (1 < $currentProduct->getMinOrderQty()) { $minMsg = sprintf(_zm(" (Order minimum: %s)"), $currentProduct->getMinOrderQty()); } ?>
       <?php if (!$isMultiQty) { ?>
           <label for="cart_quantity"><?php _vzm("Quantity") ?><?php echo $minMsg; ?></label>
           <input type="text" id="cart_quantity" name="cart_quantity" value="1" maxlength="6" size="4" />

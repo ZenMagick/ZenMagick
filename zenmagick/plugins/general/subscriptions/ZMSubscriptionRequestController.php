@@ -80,7 +80,7 @@ class ZMSubscriptionRequestController extends ZMController {
         $emailTemplate = ZMSettings::get('plugins.subscriptions.email.templates.request', 'subscription_request');
         $this->sendNotificationEmail($request->getParameterMap(), $emailTemplate, $plugin->get('adminEmail'));
 
-        ZMMessages::instance()->success(zm_l10n_get("Request submitted!"));
+        ZMMessages::instance()->success(_zm("Request submitted!"));
 
         return $this->findView('success', $data);
     }
@@ -95,7 +95,7 @@ class ZMSubscriptionRequestController extends ZMController {
         if (empty($email)) {
             $email = ZMSettings::get('storeEmail');
         }
-        zm_mail(zm_l10n_get("Subscription request notification", ZMSettings::get('storeName')), $template, $context, 
+        zm_mail(sprintf(_zm("Subscription request notification"), ZMSettings::get('storeName')), $template, $context, 
             $email, ZMSettings::get('storeEmail'), null);
     }
 

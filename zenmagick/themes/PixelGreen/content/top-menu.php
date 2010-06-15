@@ -1,19 +1,19 @@
 <ul>
   <?php
     $menu = array();
-    $menu[] = array($net->url(FILENAME_DEFAULT), zm_l10n_get("Home"));
+    $menu[] = array($net->url(FILENAME_DEFAULT), _zm("Home"));
     if ($request->isAnonymous()) {
-        $menu[] = array($net->url(FILENAME_LOGIN, '', true), zm_l10n_get("Login"));
+        $menu[] = array($net->url(FILENAME_LOGIN, '', true), _zm("Login"));
     }
     if ($request->isRegistered()) {
-        $menu[] = array($net->url(FILENAME_ACCOUNT, '', true), zm_l10n_get("Account"));
+        $menu[] = array($net->url(FILENAME_ACCOUNT, '', true), _zm("Account"));
     }
     if (!$request->isAnonymous()) {
-        $menu[] = array($net->url(FILENAME_LOGOFF, '', true), zm_l10n_get("Logoff"));
+        $menu[] = array($net->url(FILENAME_LOGOFF, '', true), _zm("Logoff"));
     }
     if (!$request->getShoppingCart()->isEmpty() && !$request->isCheckout()) {
-        $menu[] = array($net->url(FILENAME_SHOPPING_CART, '', true), zm_l10n_get("Cart"));
-        $menu[] = array($net->url(FILENAME_CHECKOUT_SHIPPING, '', true), zm_l10n_get("Checkout"));
+        $menu[] = array($net->url(FILENAME_SHOPPING_CART, '', true), _zm("Cart"));
+        $menu[] = array($net->url(FILENAME_CHECKOUT_SHIPPING, '', true), _zm("Checkout"));
     }
     foreach (ZMEZPages::instance()->getPagesForHeader($session->getLanguageId()) as $page) {
         $menu[] = array($net->ezPage($page), $page, false);

@@ -37,7 +37,7 @@ class ZMMerchandizingAssociationsAdminTabController extends ZMPluginAdminControl
      * Create new instance.
      */
     function __construct() {
-        parent::__construct('merchandizing_associations_admin', zm_l10n_get('Merchandizing Associations'), 'merchandizingAssociations');
+        parent::__construct('merchandizing_associations_admin', _zm('Merchandizing Associations'), 'merchandizingAssociations');
     }
 
 

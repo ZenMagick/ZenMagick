@@ -56,7 +56,7 @@ class ZMProductGroupPricingPlugin extends Plugin implements ZMRequestHandler {
     public function initRequest($request) {
         if (0 < $request->getProductId()) {
             // only available if product involved
-            $this->addMenuItem('productGroupPricingTab', zm_l10n_get('Group Pricing'), 'ProductGroupPricingTab', ZMAdminMenu::MENU_CATALOG_MANAGER_TAB);
+            $this->addMenuItem('productGroupPricingTab', _zm('Group Pricing'), 'ProductGroupPricingTab', ZMAdminMenu::MENU_CATALOG_MANAGER_TAB);
         }
     }
 

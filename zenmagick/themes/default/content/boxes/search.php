@@ -30,7 +30,7 @@
         <?php echo $form->open('search', '', false, array('method' => 'get')) ?>
             <div>
                 <input type="submit" class="btn" value="<?php _vzm("Go") ?>" />
-                <?php define('KEYWORD_DEFAULT', zm_l10n_get("enter search")); ?>
+                <?php define('KEYWORD_DEFAULT', _zm("enter search")); ?>
                 <?php $onfocus = "if(this.value=='" . KEYWORD_DEFAULT . "') this.value='';" ?>
                 <input type="text" id="keywords" name="keywords" value="<?php echo $html->encode($request->getParameter('keywords', KEYWORD_DEFAULT)) ?>" onfocus="<?php echo $onfocus ?>" />
             </div>
