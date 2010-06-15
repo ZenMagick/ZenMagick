@@ -1,4 +1,4 @@
-<h3><?php zm_l10n("Sidebar") ?></h3>
+<h3><?php _vzm("Sidebar") ?></h3>
 <div id="sb_wp_sidebar" class="box">
     <form method="get" id="searchform" action="">
         <div>

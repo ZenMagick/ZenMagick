@@ -24,7 +24,7 @@
  */
 ?>
 
-<h3><?php zm_l10n("Languages") ?></h3>
+<h3><?php _vzm("Languages") ?></h3>
 <div id="sb_languages" class="box">
     <?php $ii = 0; foreach (ZMLanguages::instance()->getLanguages() as $lang) { ?>
         <a href="<?php echo $net->url(null, "language=".$lang->getCode()) ?>"><img src="<?php echo $this->asUrl("images/lang/" . $lang->getDirectory() . "/" . $lang->getImage()) ?>" alt="<?php echo $html->encode($lang->getName()) ?>" title="<?php echo $html->encode($lang->getName()) ?>" /></a>

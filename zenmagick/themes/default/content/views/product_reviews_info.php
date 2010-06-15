@@ -32,10 +32,10 @@
       <?php echo $currentProduct->getDescription(); ?>
     </div>
     <strong><?php echo $utils->formatMoney($currentProduct->getPrice()); ?></strong>
-    <div class="btn"><input type="submit" class="btn" value="<?php zm_l10n("Add to cart") ?>" /></div>
+    <div class="btn"><input type="submit" class="btn" value="<?php _vzm("Add to cart") ?>" /></div>
 
     <p id="author">
-      <?php zm_l10n("Review by: %s", $currentReview->getAuthor()) ?>
+      <?php _vzm("Review by: %s", $currentReview->getAuthor()) ?>
       <?php $rtext = zm_l10n_get("%s of 5 stars!", $currentReview->getRating()) ?>
       <span id="stars">
         <img src="<?php echo $this->asUrl('images/stars_'.$currentReview->getRating().'.gif') ?>" alt="<?php echo $rtext ?>" />

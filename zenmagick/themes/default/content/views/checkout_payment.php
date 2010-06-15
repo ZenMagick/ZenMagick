@@ -25,9 +25,9 @@
 ?>
 
 <fieldset>
-    <legend><?php zm_l10n("Billing Address") ?></legend>
+    <legend><?php _vzm("Billing Address") ?></legend>
     <div class="btn">
-        <a class="btn" href="<?php $net->url(FILENAME_CHECKOUT_PAYMENT_ADDRESS, '', true) ?>"><?php zm_l10n("Change Billing Address") ?></a>
+        <a class="btn" href="<?php $net->url(FILENAME_CHECKOUT_PAYMENT_ADDRESS, '', true) ?>"><?php _vzm("Change Billing Address") ?></a>
     </div>
     <?php echo $macro->formatAddress($shoppingCart->getBillingAddress()) ?>
 </fieldset>
@@ -37,7 +37,7 @@
 
 <?php echo $form->open(FILENAME_CHECKOUT_CONFIRMATION, '', array('id'=>'checkout_payment')) ?>
   <fieldset>
-      <legend><?php zm_l10n("Order Totals") ?></legend>
+      <legend><?php _vzm("Order Totals") ?></legend>
       <table id="ot" cellspacing="0" cellpadding="0">
           <tbody>
           <?php
@@ -60,7 +60,7 @@
   <?php $creditTypes = $shoppingCart->getCreditTypes(); ?>
   <?php if (0 < count($creditTypes)) { ?>
       <fieldset>
-          <legend><?php zm_l10n("Credit Options") ?></legend>
+          <legend><?php _vzm("Credit Options") ?></legend>
           <?php foreach ($creditTypes as $type) { ?>
               <p class="credittype"><?php echo $type->getName() ?></p>
               <div class="instr"><?php echo $type->getInstructions() ?></div>
@@ -74,7 +74,7 @@
   <?php } ?>
 
   <fieldset id="paytypes">
-      <legend><?php zm_l10n("Payment Options") ?></legend>
+      <legend><?php _vzm("Payment Options") ?></legend>
   <?php
       $paymentTypes = $shoppingCart->getPaymentTypes();
       $single = 1 == count($paymentTypes);
@@ -99,11 +99,11 @@
   </fieldset>
 
   <fieldset>
-      <legend><?php zm_l10n("Comments") ?></legend>
-      <p class="inst"><?php zm_l10n("Special instructions or comments about your order.") ?></p>
+      <legend><?php _vzm("Comments") ?></legend>
+      <p class="inst"><?php _vzm("Special instructions or comments about your order.") ?></p>
       <?php /* Fix for IE bug regarding textarea... */ ?>
       <table><tr><td><textarea name="comments" rows="3" cols="45"><?php echo $html->encode($shoppingCart->getComment()) ?></textarea></td></tr></table>
   </fieldset>
 
-  <div class="btn"><input type="submit" class="btn" value="<?php zm_l10n("Continue") ?>" /></div>
+  <div class="btn"><input type="submit" class="btn" value="<?php _vzm("Continue") ?>" /></div>
 </form>

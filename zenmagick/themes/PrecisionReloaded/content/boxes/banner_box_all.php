@@ -26,7 +26,7 @@
 
 <?php $allBanners = ZMBanners::instance()->getAllBanners(); ?>
 <?php if (0 < count($allBanners)) { ?>
-    <h2><?php zm_l10n("Sponsors") ?></h2>
+    <h2><?php _vzm("Sponsors") ?></h2>
     <div id="sb_banner_box_all" class="box">
         <?php foreach ($allBanners as $banner) { ?>
             <?php echo $macro->showBanner($banner); ?>

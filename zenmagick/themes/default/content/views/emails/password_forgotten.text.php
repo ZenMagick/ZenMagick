@@ -22,12 +22,12 @@
  *
  * $Id$
  */
-?><?php zm_l10n("New Password Request\n") ?>
+?><?php _vzm("New Password Request\n") ?>
 
-<?php zm_l10n("This is in response to a request for a new password for your account at %s.\n", ZMSettings::get('storeName')) ?>
-<?php zm_l10n("Your new password is: %s\n\n", $password) ?>
-<?php zm_l10n("For security reasons please remember to change your password next time you logon.\n") ?>
+<?php _vzm("This is in response to a request for a new password for your account at %s.\n", ZMSettings::get('storeName')) ?>
+<?php _vzm("Your new password is: %s\n\n", $password) ?>
+<?php _vzm("For security reasons please remember to change your password next time you logon.\n") ?>
 
-<?php zm_l10n("Regards, %s\n", ZMSettings::get('storeName')) ?>
+<?php _vzm("Regards, %s\n", ZMSettings::get('storeName')) ?>
 
 <?php echo strip_tags($utils->staticPageContent('email_advisory')) ?>

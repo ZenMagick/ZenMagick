@@ -24,12 +24,12 @@
  */
 ?>
 
-<h3><?php zm_l10n("Subscription Enqiries") ?></h3>
+<h3><?php _vzm("Subscription Enqiries") ?></h3>
 
 <?php echo $form->open(ZM_FILENAME_SUBSCRIPTION_REQUEST, null, true, array('method' => 'post', 'id' => 'subscription_request')) ?>
     <fieldset>
-        <legend><?php zm_l10n("Subscription Enquiries") ?></legend>
-        <label for="type"><?php zm_l10n("Request Type") ?><span>*</span></label>
+        <legend><?php _vzm("Subscription Enquiries") ?></legend>
+        <label for="type"><?php _vzm("Request Type") ?><span>*</span></label>
         <select id="type" name="type">
             <?php foreach ($subscriptions->getRequestTypes() as $type => $name) { ?>
                 <?php $selected = $subscriptionRequest->getType() == $type ? ' selected' : ''; ?>
@@ -37,12 +37,12 @@
             <?php } ?>
         </select><br />
 
-        <label for="orderId"><?php zm_l10n("Order Number (optional)") ?></label>
+        <label for="orderId"><?php _vzm("Order Number (optional)") ?></label>
         <input type="text" id="orderId" name="orderId" size="8" value="<?php echo $html->encode($subscriptionRequest->getOrderId()) ?>" /><br />
 
-        <label for="message"><?php zm_l10n("Message") ?><span>*</span></label>
+        <label for="message"><?php _vzm("Message") ?><span>*</span></label>
         <textarea id="message" name="message" cols="30" rows="7"><?php echo $html->encode($subscriptionRequest->getMessage()) ?></textarea>
-        <p class="legend"><?php zm_l10n("<span>*</span> Mandatory fields") ?></p>
+        <p class="legend"><?php _vzm("<span>*</span> Mandatory fields") ?></p>
     </fieldset>
-    <div class="btn"><input type="submit" class="btn" value="<?php zm_l10n("Send") ?>" /></div>
+    <div class="btn"><input type="submit" class="btn" value="<?php _vzm("Send") ?>" /></div>
 </form>

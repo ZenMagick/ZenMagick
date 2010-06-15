@@ -27,14 +27,14 @@
 <?php define('KEYWORD_DEFAULT', zm_l10n_get("enter search")); ?>
 <?php echo $form->open('search', '', false, array('method' => 'get')) ?>
     <fieldset>
-    <legend><?php zm_l10n("Search again") ?></legend>
+    <legend><?php _vzm("Search again") ?></legend>
         <div>
             <?php define('KEYWORD_DEFAULT', zm_l10n_get("enter search")); ?>
             <?php $onfocus = "if(this.value=='" . KEYWORD_DEFAULT . "') this.value='';" ?>
             <input type="text" id="keywords" name="keywords" value="<?php echo $html->encode($searchCriteria->getKeywords(KEYWORD_DEFAULT)) ?>" onfocus="<?php echo $onfocus ?>" />
         </div>
-        <div class="btn"><input type="submit" class="btn" value="<?php zm_l10n("Search") ?>" /></div>
-        <a class="clear" href="<?php echo $net->url(FILENAME_ADVANCED_SEARCH, '&keywords='.$searchCriteria->getKeywords()) ?>"><?php zm_l10n("Advanced Search") ?></a>
+        <div class="btn"><input type="submit" class="btn" value="<?php _vzm("Search") ?>" /></div>
+        <a class="clear" href="<?php echo $net->url(FILENAME_ADVANCED_SEARCH, '&keywords='.$searchCriteria->getKeywords()) ?>"><?php _vzm("Advanced Search") ?></a>
     </fieldset>
 </form>
 
@@ -59,6 +59,6 @@
             </div>
         </form>
     <?php } else { ?>
-        <h2><?php zm_l10n("No products found") ?></h2>
+        <h2><?php _vzm("No products found") ?></h2>
     <?php } ?>
 <?php } ?>

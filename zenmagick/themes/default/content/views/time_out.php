@@ -25,13 +25,13 @@
 ?>
 
 <?php if ($request->isAnonymous()) { ?>
-    <h2><?php zm_l10n("Whoops! Your session has expired.") ?></h2>
+    <h2><?php _vzm("Whoops! Your session has expired.") ?></h2>
 <?php } else { ?>
-    <h2><?php zm_l10n("Whoops! Sorry, but you are not allowed to perform the action requested.") ?></h2>
+    <h2><?php _vzm("Whoops! Sorry, but you are not allowed to perform the action requested.") ?></h2>
 <?php } ?>
 
-<p><?php zm_l10n("If you were placing an order, please login and your shopping cart will be restored. You may then go back to the checkout and complete your final purchases.") ?></p>
+<p><?php _vzm("If you were placing an order, please login and your shopping cart will be restored. You may then go back to the checkout and complete your final purchases.") ?></p>
 
-<p><?php zm_l10n('If you had completed an order and wish to review it, or had a download and wish to retrieve it, please go to your <a href="%s">My Account</a> page to view your order.', $net->url(FILENAME_ACCOUNT, '', true)) ?></p>
+<p><?php _vzm('If you had completed an order and wish to review it, or had a download and wish to retrieve it, please go to your <a href="%s">My Account</a> page to view your order.', $net->url(FILENAME_ACCOUNT, '', true)) ?></p>
 
 <?php require("login.php"); ?>

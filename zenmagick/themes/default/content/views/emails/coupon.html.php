@@ -25,24 +25,24 @@
 ?><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html lang="<?php echo $language->getCode() ?>">
 <head>
-<title><?php zm_l10n("A coupon from %s", ZMSettings::get('storeName')) ?></title>
+<title><?php _vzm("A coupon from %s", ZMSettings::get('storeName')) ?></title>
 </head>
 <body>
 <body>
 <div style="font-family:Verdana,Arial,Helvetica,sans-serif;font-size:10pt;">
-<p><?php zm_l10n("Dear %s %s,", $currentAccount->getFirstName(), $currentAccount->getLastName()) ?></p>
+<p><?php _vzm("Dear %s %s,", $currentAccount->getFirstName(), $currentAccount->getLastName()) ?></p>
 
-<p><?php zm_l10n('We\'re pleased to offer you a Store Coupon for our online store at %s', ZMSettings::get('storeName')) ?></p>
-<p><?php zm_l10n('You can redeem this coupon during checkout. Just enter the code provided, and click on the redeem button.') ?></p>
+<p><?php _vzm('We\'re pleased to offer you a Store Coupon for our online store at %s', ZMSettings::get('storeName')) ?></p>
+<p><?php _vzm('You can redeem this coupon during checkout. Just enter the code provided, and click on the redeem button.') ?></p>
 
-<p><?php zm_l10n('The coupon code is <strong>%s</strong>.', $currentCoupon->getCode()) ?></p>
+<p><?php _vzm('The coupon code is <strong>%s</strong>.', $currentCoupon->getCode()) ?></p>
 
-<p><?php zm_l10n('The coupon is valid between %s and %s', $locale->shortDate($currentCoupon->getStartDate()), $locale->shortDate($currentCoupon->getExpiryDate())) ?></p>
+<p><?php _vzm('The coupon is valid between %s and %s', $locale->shortDate($currentCoupon->getStartDate()), $locale->shortDate($currentCoupon->getExpiryDate())) ?></p>
 
-<p><?php zm_l10n('Don\'t lose the coupon code, make sure to keep the code safe so you can benefit from this special offer.') ?></p>
+<p><?php _vzm('Don\'t lose the coupon code, make sure to keep the code safe so you can benefit from this special offer.') ?></p>
 
-<p><?php zm_l10n('Thank you for shopping with us!') ?></p>
-<p><?php zm_l10n("Sincerely, %s", ZMSettings::get('storeOwner')) ?></p>
+<p><?php _vzm('Thank you for shopping with us!') ?></p>
+<p><?php _vzm("Sincerely, %s", ZMSettings::get('storeOwner')) ?></p>
 
 <?php if (!isset($isSupressDisclaimer)) { echo $utils->staticPageContent('email_advisory'); } ?>
 <?php echo $office_only_html; ?>

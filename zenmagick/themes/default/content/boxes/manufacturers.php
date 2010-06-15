@@ -26,13 +26,13 @@
 
 <?php $manufacturers = ZMManufacturers::instance()->getManufacturers($session->getLanguageId()); ?>
 <?php if (0 < count($manufacturers)) { ?>
-    <h3><?php zm_l10n("Manufacturers") ?></h3>
+    <h3><?php _vzm("Manufacturers") ?></h3>
     <div id="sb_manufacturers" class="box">
         <?php echo $form->open('category', '', false, array('method' => 'get', 'onsubmit'=>null)) ?>
             <div>
                 <?php echo $form->idpSelect('manufacturers_id', array_merge(array(ZMLoader::make("IdNamePair", "", zm_l10n_get("Please Select"))), $manufacturers), $request->getManufacturerId(), array('size'=>3, 'onchange'=>'this.form.submit()')) ?>
                 <noscript>
-                    <div><input type="submit" class="btn" value="<?php zm_l10n('Go') ?>" /></div>
+                    <div><input type="submit" class="btn" value="<?php _vzm('Go') ?>" /></div>
                 </noscript>
             </div>
         </form>

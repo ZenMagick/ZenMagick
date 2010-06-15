@@ -25,9 +25,9 @@
 ?>
 
 <fieldset>
-    <legend><?php zm_l10n("Shipping Address") ?></legend>
+    <legend><?php _vzm("Shipping Address") ?></legend>
     <div class="btn">
-        <a class="btn" href="<?php echo $net->url(FILENAME_CHECKOUT_SHIPPING_ADDRESS, '', true) ?>"><?php zm_l10n("Change Shipping Address") ?></a>
+        <a class="btn" href="<?php echo $net->url(FILENAME_CHECKOUT_SHIPPING_ADDRESS, '', true) ?>"><?php _vzm("Change Shipping Address") ?></a>
     </div>
     <?php echo $macro->formatAddress($shoppingCart->getShippingAddress()) ?>
 </fieldset>
@@ -35,8 +35,8 @@
 <?php echo $form->open(FILENAME_CHECKOUT_SHIPPING, "action=process", true) ?>
     <?php if ($shoppingCart->getShippingProviders()) { ?>
         <fieldset>
-            <legend><?php zm_l10n("Shipping Methods") ?></legend>
-            <p class="inst"><?php zm_l10n("Please select the preferred shipping method to use on this order.") ?></p>
+            <legend><?php _vzm("Shipping Methods") ?></legend>
+            <p class="inst"><?php _vzm("Please select the preferred shipping method to use on this order.") ?></p>
             <table cellpadding="0" cellspacing="0" id="smethods">
                 <thead>
                     <tr>
@@ -50,7 +50,7 @@
                 <?php if ($utils->isFreeShipping($shoppingCart)) { $id = 'free_free'; ?>
                     <?php $selected = (1 == count($methods)); ?>
                     <tr class="smethod" onclick="document.getElementById('<?php echo $id ?>').checked = true;">
-                        <td><?php echo zm_l10n('Free Shipping') ?></td>
+                        <td><?php echo _vzm('Free Shipping') ?></td>
                         <td class="smcost"><?php echo $utils->formatMoney(0) ?></td>
                         <td class="smbutt"><input type="radio" id="<?php echo $id ?>" name="shipping" value="<?php echo $id ?>"<?php $form->checked(true, $selected) ?> /></td>
                     </tr>
@@ -60,7 +60,7 @@
                         $provider = $method->getProvider(); 
                         $errors = $provider->getErrors();
                         ?>
-                        <tr><td colspan="3"><strong><?php echo $html->encode($provider->getName()) ?></strong><?php if ($provider->hasErrors()) { zm_l10n("(%s)", $errors[0]); } ?></td></tr>
+                        <tr><td colspan="3"><strong><?php echo $html->encode($provider->getName()) ?></strong><?php if ($provider->hasErrors()) { _vzm("(%s)", $errors[0]); } ?></td></tr>
                     <?php } ?>
                     <?php $id = 'ship_'.$method->getId();?>
                     <?php $selected = (1 == count($methods)) || ($method->getShippingId() == $shoppingCart->getSelectedShippingMethodId()); ?>
@@ -76,11 +76,11 @@
     <?php } ?>
 
     <fieldset>
-        <legend><?php zm_l10n("Comments") ?></legend>
-        <p class="inst"><?php zm_l10n("Special instructions or comments about your order.") ?></p>
+        <legend><?php _vzm("Comments") ?></legend>
+        <p class="inst"><?php _vzm("Special instructions or comments about your order.") ?></p>
         <?php /* Fix for IE bug regarding textarea... */ ?>
         <table><tr><td><textarea name="comments" rows="3" cols="45"><?php echo $html->encode($shoppingCart->getComment()) ?></textarea></td></tr></table>
     </fieldset>
 
-    <div class="btn"><input type="submit" class="btn" value="<?php zm_l10n("Continue") ?>" /></div>
+    <div class="btn"><input type="submit" class="btn" value="<?php _vzm("Continue") ?>" /></div>
 </form>

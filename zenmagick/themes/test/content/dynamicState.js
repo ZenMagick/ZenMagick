@@ -35,7 +35,7 @@ function updateState() {
     if (all_zones[countryId]) {
         var state_value = $('#state').val();
         var state_select = '<select id="zoneId" name="zoneId">';
-        state_select += '<option value=""><?php zm_l10n("-- Please select a state --") ?></option>';
+        state_select += '<option value=""><?php _vzm("-- Please select a state --") ?></option>';
         for (var zoneId in all_zones[countryId]) {
             var name = all_zones[countryId][zoneId];
             var selected = state_value == name ? ' selected="selected"' : '';

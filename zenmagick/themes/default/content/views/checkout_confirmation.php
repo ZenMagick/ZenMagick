@@ -25,7 +25,7 @@
 ?>
 
 <fieldset>
-    <legend><?php zm_l10n("Shopping Cart Contents") ?></legend>
+    <legend><?php _vzm("Shopping Cart Contents") ?></legend>
     <table cellpadding="0" cellspacing="0" id="cart">
         <tbody>
         <?php foreach ($shoppingCart->getItems() as $item) { ?>
@@ -65,8 +65,8 @@
 </fieldset>
 
 <fieldset>
-    <legend><?php zm_l10n("Payment Method") ?></legend>
-    <div class="btn"><a class="btn" href="<?php echo $net->url(FILENAME_CHECKOUT_PAYMENT, '', true) ?>"><?php zm_l10n("Change") ?></a></div>
+    <legend><?php _vzm("Payment Method") ?></legend>
+    <div class="btn"><a class="btn" href="<?php echo $net->url(FILENAME_CHECKOUT_PAYMENT, '', true) ?>"><?php _vzm("Change") ?></a></div>
     <?php $paymentType = $shoppingCart->getPaymentType() ?>
     <?php if (null != $paymentType) { ?>
       <h4><?php echo $html->encode($paymentType->getName()) ?></h4>
@@ -84,41 +84,41 @@
 
 <?php if (!$shoppingCart->isVirtual()) { ?>
     <fieldset>
-        <legend><?php zm_l10n("Shipping") ?></legend>
-        <div class="btn"><a class="btn" href="<?php echo $net->url(FILENAME_CHECKOUT_SHIPPING, '', true) ?>"><?php zm_l10n("Change") ?></a></div>
+        <legend><?php _vzm("Shipping") ?></legend>
+        <div class="btn"><a class="btn" href="<?php echo $net->url(FILENAME_CHECKOUT_SHIPPING, '', true) ?>"><?php _vzm("Change") ?></a></div>
         <?php echo $html->encode($shoppingCart->getSelectedShippingMethod()) ?><br/>
     </fieldset>
 <?php } ?>
 
 <fieldset>
-    <legend><?php zm_l10n("Address Information") ?></legend>
+    <legend><?php _vzm("Address Information") ?></legend>
     <?php if ($shoppingCart->hasShippingAddress()) { ?>
         <div class="oadr">
-            <div class="btn"><a class="btn" href="<?php echo $net->url(FILENAME_CHECKOUT_SHIPPING_ADDRESS, '', true) ?>"><?php zm_l10n("Change") ?></a></div>
-            <h4><?php zm_l10n("Shipping Address") ?></h4>
+            <div class="btn"><a class="btn" href="<?php echo $net->url(FILENAME_CHECKOUT_SHIPPING_ADDRESS, '', true) ?>"><?php _vzm("Change") ?></a></div>
+            <h4><?php _vzm("Shipping Address") ?></h4>
             <?php echo $macro->formatAddress($shoppingCart->getShippingAddress()) ?>
         </div>
     <?php } else { ?>
         <div class="oadr">
-            <h4><?php zm_l10n("Shipping Address") ?></h4>
-            <?php zm_l10n("N/A") ?>
+            <h4><?php _vzm("Shipping Address") ?></h4>
+            <?php _vzm("N/A") ?>
         </div>
     <?php } ?>
     <div class="oadr snd">
-        <div class="btn"><a class="btn" href="<?php echo $net->url(FILENAME_CHECKOUT_PAYMENT_ADDRESS, '', true) ?>"><?php zm_l10n("Change") ?></a></div>
-        <h4><?php zm_l10n("Billing Address") ?></h4>
+        <div class="btn"><a class="btn" href="<?php echo $net->url(FILENAME_CHECKOUT_PAYMENT_ADDRESS, '', true) ?>"><?php _vzm("Change") ?></a></div>
+        <h4><?php _vzm("Billing Address") ?></h4>
         <?php echo $macro->formatAddress($shoppingCart->getBillingAddress()) ?>
     </div>
 </fieldset>
 
 <fieldset>
-    <legend><?php zm_l10n("Special instructions or comments") ?></legend>
-    <div class="btn"><a class="btn" href="<?php echo $net->url(FILENAME_CHECKOUT_PAYMENT, '', true) ?>"><?php zm_l10n("Change") ?></a></div>
+    <legend><?php _vzm("Special instructions or comments") ?></legend>
+    <div class="btn"><a class="btn" href="<?php echo $net->url(FILENAME_CHECKOUT_PAYMENT, '', true) ?>"><?php _vzm("Change") ?></a></div>
     <div><?php echo $html->encode(!ZMLangUtils::isEmpty($shoppingCart->getComment()) ? $shoppingCart->getComment() : "None") ?></div>
 </fieldset>
 
 
 <?php echo $form->open($shoppingCart->getOrderFormURL(), '', true) ?>
     <?php $shoppingCart->getOrderFormContent() ?>
-    <div class="btn"><input type="submit" class="btn" value="<?php zm_l10n("Confirm to order") ?>" /></div>
+    <div class="btn"><input type="submit" class="btn" value="<?php _vzm("Confirm to order") ?>" /></div>
 </form>

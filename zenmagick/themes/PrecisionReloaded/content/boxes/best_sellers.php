@@ -26,7 +26,7 @@
 
 <?php $products = ZMProducts::instance()->getBestSellers($request->getCategoryId(), null, $session->getLanguageId()); ?>
 <?php if (0 < count($products)) { ?>
-    <h2><?php zm_l10n("Best Sellers") ?></h2>
+    <h2><?php _vzm("Best Sellers") ?></h2>
     <div id="sb_bestsellers" class="box">
         <ol>
         <?php foreach ($products as $product) { ?>

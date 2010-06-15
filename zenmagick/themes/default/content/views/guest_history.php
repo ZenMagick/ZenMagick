@@ -26,15 +26,15 @@
 
 <?php echo $form->open('guest_history', '', true, array('id'=>'guest_history')) ?>
   <fieldset>
-    <legend><?php zm_l10n("Find Guest Order") ?></legend>
+    <legend><?php _vzm("Find Guest Order") ?></legend>
     <div>
-      <label for="email"><?php zm_l10n("E-Mail Address") ?></label>
+      <label for="email"><?php _vzm("E-Mail Address") ?></label>
       <input type="text" id="email" name="email" value="<?php echo $html->encode($request->getParameter('email', '')) ?>" /> 
     </div>
     <div>
-      <label for="orderId"><?php zm_l10n("Order Number") ?></label>
+      <label for="orderId"><?php _vzm("Order Number") ?></label>
       <input type="text" id="orderId" name="orderId" value="<?php echo $html->encode($request->getParameter('orderId', '')) ?>" /> 
     </div>
   </fieldset>
-  <div class="btn"><input type="submit" class="btn" value="<?php zm_l10n("Submit") ?>" /></div>
+  <div class="btn"><input type="submit" class="btn" value="<?php _vzm("Submit") ?>" /></div>
 </form>

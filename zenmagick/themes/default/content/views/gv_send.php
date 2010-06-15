@@ -24,25 +24,25 @@
  */
 ?>
 
-<p><?php zm_l10n("Current available balance: <strong>%s</strong>", $utils->formatMoney($request->getAccount()->getVoucherBalance())) ?></p>
+<p><?php _vzm("Current available balance: <strong>%s</strong>", $utils->formatMoney($request->getAccount()->getVoucherBalance())) ?></p>
 <?php echo $form->open(FILENAME_GV_SEND, '', true, array('id'=>'gvreceiverObject')) ?>
     <fieldset>
-        <legend><?php zm_l10n("EMail Gift Certificate") ?></legend>
-        <label for="name"><?php zm_l10n("Receiver Name") ?></label><br />
+        <legend><?php _vzm("EMail Gift Certificate") ?></legend>
+        <label for="name"><?php _vzm("Receiver Name") ?></label><br />
         <input type="text" id="name" name="name" size="40" value="<?php echo $html->encode($gvReceiver->getName()) ?>" /><br />
-        <label for="email"><?php zm_l10n("Receiver EMail Address") ?><span>*</span></label><br />
+        <label for="email"><?php _vzm("Receiver EMail Address") ?><span>*</span></label><br />
         <input type="text" id="email" name="email" size="40" value="<?php echo $html->encode($gvReceiver->getEmail()) ?>" /><br />
-        <label for="amount"><?php zm_l10n("Gift Certificate Amount") ?><span>*</span></label><br />
+        <label for="amount"><?php _vzm("Gift Certificate Amount") ?><span>*</span></label><br />
         <?php /* Do not convert the amout - either it is 0 or entered by the user; in either case it is fine as  is */ ?>
         <input type="text" id="amount" name="amount" value="<?php echo $utils->formatMoney($gvReceiver->getAmount(), false) ?>" /><br />
-        <label for="message"><?php zm_l10n("Message Text") ?></label><br />
+        <label for="message"><?php _vzm("Message Text") ?></label><br />
         <textarea id="message" name="message" cols="50" rows="8"><?php echo $html->encode($gvReceiver->getMessage()) ?></textarea><br />
-        <p class="man"><?php zm_l10n("<span>*</span> Mandatory fields") ?></p>
+        <p class="man"><?php _vzm("<span>*</span> Mandatory fields") ?></p>
     </fieldset>
-    <div class="btn"><input type="submit" class="btn" value="<?php zm_l10n("Send Gift Certificate") ?>" /></div>
+    <div class="btn"><input type="submit" class="btn" value="<?php _vzm("Send Gift Certificate") ?>" /></div>
 </form>
 
 <p class="rclear">
-    <strong><?php zm_l10n("The following message is included with all emails sent from this site:") ?></strong><br />
+    <strong><?php _vzm("The following message is included with all emails sent from this site:") ?></strong><br />
     <?php echo $utils->staticPageContent('email_advisory') ?>
 </p>

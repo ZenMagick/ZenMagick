@@ -24,6 +24,6 @@
  */
 ?>
 
-<h1><?php zm_l10n("Down for Maintenance ..."); ?></h1>
+<h1><?php _vzm("Down for Maintenance ..."); ?></h1>
 
-<h3><?php zm_l10n("The site is currently down for maintenance. Please try back later.") ?></h3>
+<h3><?php _vzm("The site is currently down for maintenance. Please try back later.") ?></h3>

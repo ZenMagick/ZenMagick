@@ -25,16 +25,16 @@
 ?><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html lang="<?php echo $language->getCode() ?>">
 <head>
-<title><?php zm_l10n("New Password Request - %s", ZMSettings::get('storeName')) ?></title>
+<title><?php _vzm("New Password Request - %s", ZMSettings::get('storeName')) ?></title>
 </head>
 <body>
 <body>
 <div style="font-family:Verdana,Arial,Helvetica,sans-serif;font-size:10pt;">
-<p><?php zm_l10n("New Password Request") ?></p>
-<p><?php zm_l10n("This is in response to a request for a new password for your account at %s.", ZMSettings::get('storeName')) ?></p>
-<p><?php zm_l10n("Your new password is: %s", $password) ?></p>
-<p><?php zm_l10n("For security reasons please remember to change your password next time you logon.") ?></p>
-<p><?php zm_l10n("Regards, %s", ZMSettings::get('storeName')) ?></p>
+<p><?php _vzm("New Password Request") ?></p>
+<p><?php _vzm("This is in response to a request for a new password for your account at %s.", ZMSettings::get('storeName')) ?></p>
+<p><?php _vzm("Your new password is: %s", $password) ?></p>
+<p><?php _vzm("For security reasons please remember to change your password next time you logon.") ?></p>
+<p><?php _vzm("Regards, %s", ZMSettings::get('storeName')) ?></p>
 
 <?php echo $utils->staticPageContent('email_advisory') ?>
 </div>

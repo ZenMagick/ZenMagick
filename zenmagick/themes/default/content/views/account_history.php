@@ -40,5 +40,5 @@
         <?php echo $this->fetch('views/resultlist/nav.php') ?>
     </div>
 <?php } else { ?>
-    <h2><?php zm_l10n("No orders found") ?></h2>
+    <h2><?php _vzm("No orders found") ?></h2>
 <?php } ?>

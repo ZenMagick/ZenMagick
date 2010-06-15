@@ -24,20 +24,20 @@
  */
 ?>
 
-<h2><?php zm_l10n("Redeem A Gift Certificate") ?></h2>
+<h2><?php _vzm("Redeem A Gift Certificate") ?></h2>
 <?php if ($gvRedeem->isRedeemed()) { ?>
-  <p><?php zm_l10n("Congratulations, you have redeemed a Gift Certificate worth %s.", $utils->formatMoney($gvRedeem->getAmount())) ?></p>
+  <p><?php _vzm("Congratulations, you have redeemed a Gift Certificate worth %s.", $utils->formatMoney($gvRedeem->getAmount())) ?></p>
 <?php } else { ?>
   <?php echo $form->open(FILENAME_GV_REDEEM, '', true, array('id'=>'gv_redeem')) ?>
     <fieldset>
-      <legend><?php zm_l10n("Redemption code details") ?></legend>
+      <legend><?php _vzm("Redemption code details") ?></legend>
       <div>
-        <label for="gvCode"><?php zm_l10n("Redemption Code") ?></label>
+        <label for="gvCode"><?php _vzm("Redemption Code") ?></label>
         <input type="text" id="gvCode" name="couponCode" value="<?php echo $html->encode($gvRedeem->getCouponCode()) ?>" /> 
       </div>
     </fieldset>
-    <div class="btn"><input type="submit" class="btn" value="<?php zm_l10n("Redeem") ?>" /></div>
+    <div class="btn"><input type="submit" class="btn" value="<?php _vzm("Redeem") ?>" /></div>
   </form>
 <?php } ?>
 <?php $faqLink = '<a href="'.$net->url(FILENAME_GV_FAQ).'">'.zm_l10n_get("Gift Certificate FAQ").'</a>'; ?>
-<p><?php zm_l10n("For more information regarding Gift Certificates, please see the %s.", $faqLink) ?></p>
+<p><?php _vzm("For more information regarding Gift Certificates, please see the %s.", $faqLink) ?></p>

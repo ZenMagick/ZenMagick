@@ -31,7 +31,7 @@
       <?php echo $currentProduct->getDescription(); ?>
     </div>
     <strong><?php echo $utils->formatMoney($currentProduct->getPrice()); ?></strong>
-    <div class="btn"><input type="submit" class="btn" value="<?php zm_l10n("Add to cart") ?>" /></div>
+    <div class="btn"><input type="submit" class="btn" value="<?php _vzm("Add to cart") ?>" /></div>
     <br /><br /><br /><br />
     <?php echo $this->fetch('views/reviews.php'); ?>
   </div>

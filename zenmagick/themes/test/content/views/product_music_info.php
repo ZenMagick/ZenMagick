@@ -37,7 +37,7 @@
       <?php } ?>
       <div id="desc"><?php echo $currentProduct->getDescription() ?></div>
       <?php if (null != $manufacturer) { ?>
-        <?php zm_l10n("Producer") ?>: <?php echo $html->encode($manufacturer->getName()); ?><br />
+        <?php _vzm("Producer") ?>: <?php echo $html->encode($manufacturer->getName()); ?><br />
       <?php } ?>
       <p id="price"><?php echo $html->encode($currentProduct->getModel()) ?>: <?php echo $macro->productPrice($currentProduct) ?></p>
   </div>
@@ -54,11 +54,11 @@
 
   <?php if ($artist) { ?>
     <fieldset>
-        <legend><?php zm_l10n("Additional Music Info") ?></legend>
-        <p><?php zm_l10n("Genre:") ?> <?php echo $artist->getGenre() ?></p>
+        <legend><?php _vzm("Additional Music Info") ?></legend>
+        <p><?php _vzm("Genre:") ?> <?php echo $artist->getGenre() ?></p>
         <?php if ($artist->hasUrl()) { ?>
             <p>
-                <?php zm_l10n("Homepage:") ?>
+                <?php _vzm("Homepage:") ?>
                 <a href="<?php echo $net->trackLink('url', $artist->getUrl()) ?>"<?php $html->hrefTarget() ?>><?php echo $artist->getName() ?></a>
             </p>
         <?php } ?>
@@ -67,7 +67,7 @@
 
   <?php if (0 < count($collections)) { ?>
       <fieldset>
-          <legend><?php zm_l10n("Media Collections") ?></legend>
+          <legend><?php _vzm("Media Collections") ?></legend>
           <?php foreach($collections as $collection) { ?>
               <div class="mcol">
                   <h4><?php echo $collection->getName() ?></h4>
@@ -83,17 +83,17 @@
   <?php } ?>
 
   <fieldset>
-      <legend><?php zm_l10n("Shopping Options") ?></legend>
+      <legend><?php _vzm("Shopping Options") ?></legend>
       <?php $minMsg = ""; if (1 < $currentProduct->getMinOrderQty()) { $minMsg = zm_l10n_get(" (Order minimum: %s)", $currentProduct->getMinOrderQty()); } ?>
-      <label for="cart_quantity"><?php zm_l10n("Quantity") ?><?php echo $minMsg; ?></label>
+      <label for="cart_quantity"><?php _vzm("Quantity") ?><?php echo $minMsg; ?></label>
       <input type="text" id="cart_quantity" name="cart_quantity" value="1" maxlength="6" size="4" />
-      <input type="submit" class="btn" value="<?php zm_l10n("Add to cart") ?>" />
+      <input type="submit" class="btn" value="<?php _vzm("Add to cart") ?>" />
   </fieldset>
 
   <?php $addImgList = $currentProduct->getAdditionalImages(); ?>
   <?php if (0 < count($addImgList)) { ?>
       <fieldset>
-          <legend><?php zm_l10n("Additional Images") ?></legend>
+          <legend><?php _vzm("Additional Images") ?></legend>
           <?php foreach ($addImgList as $addImg) { ?>
               <?php if ($addImg->hasLargeImage()) { ?>
                   <a href="<?php echo $request->absoluteURL($addImg->getLargeImage()) ?>" onclick="productPopup(event, this); return false;"><img src="<?php echo $request->absoluteURL($addImg->getDefaultImage()) ?>" alt="" title="" /></a>
@@ -105,15 +105,15 @@
   <?php } ?>
   <?php if ($currentProduct->hasReviews() || $currentProduct->getTypeSetting('reviews') || $currentProduct->getTypeSetting('tell_a_friend')) { ?>
       <fieldset>
-          <legend><?php zm_l10n("Other Options") ?></legend>
+          <legend><?php _vzm("Other Options") ?></legend>
           <?php if ($currentProduct->hasReviews()) { ?>
-              <a class="btn" href="<?php echo $net->url(FILENAME_PRODUCT_REVIEWS, '') ?>"><?php zm_l10n("Read Reviews") ?></a>
+              <a class="btn" href="<?php echo $net->url(FILENAME_PRODUCT_REVIEWS, '') ?>"><?php _vzm("Read Reviews") ?></a>
           <?php } ?>
           <?php if ($currentProduct->getTypeSetting('reviews')) { ?>
-              <a class="btn" href="<?php echo $net->url(FILENAME_PRODUCT_REVIEWS_WRITE, "products_id=".$currentProduct->getId()) ?>"><?php zm_l10n("Write a Review") ?></a>
+              <a class="btn" href="<?php echo $net->url(FILENAME_PRODUCT_REVIEWS_WRITE, "products_id=".$currentProduct->getId()) ?>"><?php _vzm("Write a Review") ?></a>
           <?php } ?>
           <?php if ($currentProduct->getTypeSetting('tell_a_friend')) { ?>
-              <a class="btn" href="<?php echo $net->url(FILENAME_TELL_A_FRIEND, "products_id=".$currentProduct->getId()) ?>"><?php zm_l10n("Tell a friend about this product") ?></a>
+              <a class="btn" href="<?php echo $net->url(FILENAME_TELL_A_FRIEND, "products_id=".$currentProduct->getId()) ?>"><?php _vzm("Tell a friend about this product") ?></a>
           <?php } ?>
       </fieldset>
   <?php } ?>

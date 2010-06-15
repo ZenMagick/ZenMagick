@@ -24,7 +24,7 @@
  */
 ?>
 
-<h3><?php zm_l10n("Item Details") ?></h3>
+<h3><?php _vzm("Item Details") ?></h3>
 <table cellpadding="0" cellspacing="0">
     <tbody>
     <?php foreach ($currentOrder->getOrderItems() as $orderItem) { ?>
@@ -56,7 +56,7 @@
     </tbody>
 </table>
 
-<h3><?php zm_l10n("Order History") ?></h3>
+<h3><?php _vzm("Order History") ?></h3>
 <table cellpadding="0" cellspacing="0">
     <tbody>
     <?php foreach ($currentOrder->getOrderStatusHistory($session->getLanguageId()) as $orderStatus) { ?>
@@ -69,18 +69,18 @@
     </tbody>
 </table>
 
-<h3><?php zm_l10n("Address Details") ?></h3>
+<h3><?php _vzm("Address Details") ?></h3>
 <div id="addr">
     <div id="daddr">
-        <h4><?php zm_l10n("Shipping Address") ?></h4>
+        <h4><?php _vzm("Shipping Address") ?></h4>
         <?php if (!$currentOrder->hasShippingAddress()) { ?>
-            <?php zm_l10n("N/A") ?>
+            <?php _vzm("N/A") ?>
         <?php } else { ?>
             <?php echo $macro->formatAddress($currentOrder->getShippingaddress()) ?>
         <?php } ?>
     </div>
     <div id="baddr">
-        <h4><?php zm_l10n("Billing Address") ?></h4>
+        <h4><?php _vzm("Billing Address") ?></h4>
         <?php echo $macro->formatAddress($currentOrder->getBillingAddress()) ?>
     </div>
 </div>

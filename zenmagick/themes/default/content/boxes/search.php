@@ -25,16 +25,16 @@
 ?>
 
 <?php if (false === strpos($request->getRequestId(), 'search')) { ?>
-    <h3><?php zm_l10n("Quick Search") ?></h3>
+    <h3><?php _vzm("Quick Search") ?></h3>
     <div id="sb_search" class="box">
         <?php echo $form->open('search', '', false, array('method' => 'get')) ?>
             <div>
-                <input type="submit" class="btn" value="<?php zm_l10n("Go") ?>" />
+                <input type="submit" class="btn" value="<?php _vzm("Go") ?>" />
                 <?php define('KEYWORD_DEFAULT', zm_l10n_get("enter search")); ?>
                 <?php $onfocus = "if(this.value=='" . KEYWORD_DEFAULT . "') this.value='';" ?>
                 <input type="text" id="keywords" name="keywords" value="<?php echo $html->encode($request->getParameter('keywords', KEYWORD_DEFAULT)) ?>" onfocus="<?php echo $onfocus ?>" />
             </div>
         </form>
-        <a class="clear" href="<?php echo $net->url(FILENAME_ADVANCED_SEARCH) ?>"><?php zm_l10n("Advanced Search") ?></a>
+        <a class="clear" href="<?php echo $net->url(FILENAME_ADVANCED_SEARCH) ?>"><?php _vzm("Advanced Search") ?></a>
     </div>
 <?php } ?>

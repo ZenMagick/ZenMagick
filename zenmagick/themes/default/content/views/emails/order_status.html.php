@@ -25,31 +25,31 @@
 ?><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html lang="<?php echo $language->getCode() ?>">
 <head>
-<title><?php zm_l10n("Order update #%s", $currentOrder->getId()) ?></title>
+<title><?php _vzm("Order update #%s", $currentOrder->getId()) ?></title>
 </head>
 <body>
 <body>
 <div style="font-family:Verdana,Arial,Helvetica,sans-serif;font-size:10pt;">
-<p><?php zm_l10n("Dear %s %s,", $currentAccount->getFirstName(), $currentAccount->getLastName()) ?></p>
+<p><?php _vzm("Dear %s %s,", $currentAccount->getFirstName(), $currentAccount->getLastName()) ?></p>
 
-<p><?php zm_l10n("This is to inform you that your order #%s has been updated.", $currentOrder->getId()) ?></p>
+<p><?php _vzm("This is to inform you that your order #%s has been updated.", $currentOrder->getId()) ?></p>
 <?php if (ZMAccount::REGISTERED == $currentAccount->getType()) {
     $href = '<a href="'.$net->url(FILENAME_ACCOUNT_HISTORY_INFO, 'order_id='.$currentOrder->getId(), false).'">'.zm_l10n_get("order #%s", $currentOrder->getId()).'</a>';
 } else {
     $href = '<a href="'.$net->url('guest_history').'">'.zm_l10n_get("order #%s", $currentOrder->getId()).'</a>';
 } ?>
-<p><?php zm_l10n("More details can be found at the following URL: %s", $href) ?></p>
+<p><?php _vzm("More details can be found at the following URL: %s", $href) ?></p>
 
 <?php if ($newOrderStatus != $currentOrder->getStatusName()) { ?>
-<?php zm_l10n("The new order status is: %s.", $newOrderStatus) ?>
+<?php _vzm("The new order status is: %s.", $newOrderStatus) ?>
 <?php } ?>
 
 <?php if (!empty($comment)) { ?>
-<p><?php zm_l10n("The following comment has been added to your order:") ?></p>
+<p><?php _vzm("The following comment has been added to your order:") ?></p>
 <p><?php echo $html->text2html($comment) ?></p>
 <?php } ?>
 
-<p><?php zm_l10n("Regards, %s", ZMSettings::get('storeName')) ?></p>
+<p><?php _vzm("Regards, %s", ZMSettings::get('storeName')) ?></p>
 
 <?php echo $utils->staticPageContent('email_advisory') ?>
 </div>

@@ -25,7 +25,7 @@
 ?>
 
 <?php if (null == $currentProduct) { ?>
-    <h3><?php zm_l10n("Product not found") ?></h3>
+    <h3><?php _vzm("Product not found") ?></h3>
 <?php } else { ?>
-    <h3><?php zm_l10n("'%s' is currently not on stock.", $currentProduct->getName()) ?></h3>
+    <h3><?php _vzm("'%s' is currently not on stock.", $currentProduct->getName()) ?></h3>
 <?php } ?>

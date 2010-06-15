@@ -26,17 +26,17 @@
 
 <?php echo $form->open('foo', '', true, array('id'=>'foo')) ?>
   <fieldset>
-    <legend><?php zm_l10n("Foo") ?></legend>
+    <legend><?php _vzm("Foo") ?></legend>
     <div>
-      <label for="foo"><?php zm_l10n("Foo") ?></label>
+      <label for="foo"><?php _vzm("Foo") ?></label>
       <input type="text" id="foo" name="foo" value="<?php echo $formData->getFoo() ?>" /> 
     </div>
     <div>
-      <label for="bar"><?php zm_l10n("Bar") ?></label>
+      <label for="bar"><?php _vzm("Bar") ?></label>
       <input type="text" id="bar" name="bar" value="<?php echo $formData->getBar() ?>"  /> 
     </div>
     <div>
-      <label for="doh"><?php zm_l10n("Bar") ?></label>
+      <label for="doh"><?php _vzm("Bar") ?></label>
       <select id="doh" name="doh[]" size="3" multiple style="width:4em;"> 
         <option value="do">do</option>
         <option value="re">re</option>
@@ -45,5 +45,5 @@
       </select>
     </div>
   </fieldset>
-  <div class="btn"><input type="submit" class="btn" value="<?php zm_l10n("Submit") ?>" /></div>
+  <div class="btn"><input type="submit" class="btn" value="<?php _vzm("Submit") ?>" /></div>
 </form>

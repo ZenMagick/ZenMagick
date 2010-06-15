@@ -25,26 +25,26 @@
 ?>
 
 <?php echo $form->open(FILENAME_CHECKOUT_SUCCESS, 'action=update', true, array('onsubmit'=>null)) ?>
-    <h2><?php zm_l10n("Thanks for shopping with us") ?></h2>
-    <p><?php zm_l10n("Your order number is: <strong>%s</strong>", $currentOrder->getId()) ?></p>
+    <h2><?php _vzm("Thanks for shopping with us") ?></h2>
+    <p><?php _vzm("Your order number is: <strong>%s</strong>", $currentOrder->getId()) ?></p>
     <?php if ($request->getAccount()->isRegistered()) { ?>
         <?php $account = '<a href="' . $net->url(FILENAME_ACCOUNT) . '">' . zm_l10n_get("My Account") . '</a>'; ?>
-        <p><?php zm_l10n("You can view your full order history by going to the %s page and by clicking on view all orders.", $account) ?></p>
+        <p><?php _vzm("You can view your full order history by going to the %s page and by clicking on view all orders.", $account) ?></p>
     <?php } ?>
     <?php $customercare = '<a href="' . $net->url(FILENAME_CONTACT_US) . '">' . zm_l10n_get("Customer Service") . '</a>'; ?>
-    <p><?php zm_l10n("Please direct any questions you have to %s.", $customercare) ?></p>
+    <p><?php _vzm("Please direct any questions you have to %s.", $customercare) ?></p>
 
     <?php if (!$request->getAccount()->isGlobalProductSubscriber()) { ?>
         <fieldset>
-            <legend><?php zm_l10n("Product Notifications") ?></legend>
-            <h4><?php zm_l10n("Please notify me of updates to the products I have selected below:") ?></h4>
+            <legend><?php _vzm("Product Notifications") ?></legend>
+            <h4><?php _vzm("Please notify me of updates to the products I have selected below:") ?></h4>
             <?php foreach ($currentOrder->getOrderItems() as $orderItem) { $id = "not_" . $orderItem->getProductId(); ?>
                 <p>
                     <input type="checkbox" id="<?php echo $id ?>" name="notify[]" value="<?php echo $orderItem->getProductId() ?>" />
                     <label for="<?php echo $id ?>"><?php echo $html->encode($orderItem->getName()) ?></label><br />
                 </p>
             <?php } ?>
-            <div class="btn"><input type="submit" class="btn" value="<?php zm_l10n("Update") ?>" /></div>
+            <div class="btn"><input type="submit" class="btn" value="<?php _vzm("Update") ?>" /></div>
         </fieldset>
     <?php } ?>
 
@@ -52,22 +52,22 @@
     <?php $voucherBalance = $request->getAccount()->getVoucherBalance(); ?>
     <?php if (0 < $voucherBalance) { ?>
         <fieldset>
-            <legend><?php zm_l10n("Gift Certificate Account") ?></legend>
+            <legend><?php _vzm("Gift Certificate Account") ?></legend>
             <p>
-                <?php zm_l10n("You have funds (%s) in your Gift Certificate Account.", $utils->formatMoney($voucherBalance)) ?><br />
+                <?php _vzm("You have funds (%s) in your Gift Certificate Account.", $utils->formatMoney($voucherBalance)) ?><br />
                 <?php $email = '<a href="' . $net->url(FILENAME_GV_SEND) . '">' . zm_l10n_get("email") . '</a>'; ?>
-                <?php zm_l10n("If you want to, you can send those funds by %s to someone.", $email) ?>
+                <?php _vzm("If you want to, you can send those funds by %s to someone.", $email) ?>
             </p>
-            <div class="btn"><a href="<?php echo $net->url(FILENAME_GV_SEND) ?>" class="btn"><?php zm_l10n("Send Gift Certificate") ?></a></div>
+            <div class="btn"><a href="<?php echo $net->url(FILENAME_GV_SEND) ?>" class="btn"><?php _vzm("Send Gift Certificate") ?></a></div>
         </fieldset>
     <?php } ?>
 
     <?php if ($request->isGuest()) { ?>
         <fieldset>
-            <legend><?php zm_l10n("Order Status Check") ?></legend>
+            <legend><?php _vzm("Order Status Check") ?></legend>
             <p>
                 <?php $lookupLink = '<a href="' . $net->url('guest_history') . '">' . zm_l10n_get("order status check") . '</a>'; ?>
-                <?php zm_l10n("You can check the status of your order using the %s.", $lookupLink) ?>
+                <?php _vzm("You can check the status of your order using the %s.", $lookupLink) ?>
             </p>
         </fieldset>
     <?php } ?>

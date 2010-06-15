@@ -31,15 +31,15 @@
 
 ?>
 
-<h1><?php zm_l10n("Shipping Calculator") ?></h1>
+<h1><?php _vzm("Shipping Calculator") ?></h1>
 
 <?php if ($shippingEstimator->isCartEmpty()) { ?>
-    <h2><?php zm_l10n("Shipping not available") ?></h2>
-    <p><?php zm_l10n("Whoops! Either your shopping cart is empty or your session has expired.") ?></p>
+    <h2><?php _vzm("Shipping not available") ?></h2>
+    <p><?php _vzm("Whoops! Either your shopping cart is empty or your session has expired.") ?></p>
 <?php } else { ?>
     <?php $address = $shippingEstimator->getAddress(); ?>
     <?php if (null != $address) { ?>
-        <h4><?php zm_l10n("Ship To") ?></h4>
+        <h4><?php _vzm("Ship To") ?></h4>
         <div id="cadr">
             <?php echo $macro->formatAddress($address); ?>
         </div>
@@ -47,11 +47,11 @@
         <?php echo $form->open(FILENAME_POPUP_SHIPPING_ESTIMATOR, '', true) ?>
           <table cellspacing="0" cellpadding="0"><tbody>
              <tr>
-                <td><?php zm_l10n("Country") ?></td>
+                <td><?php _vzm("Country") ?></td>
                 <td><?php echo $form->idpSelect('country_id', array_merge(array(ZMLoader::make("IdNamePair", "", zm_l10n_get("Select Country"))), ZMCountries::instance()->getCountries()), $shippingEstimator->getCountryId()) ?></td>
             </tr>
             <tr>
-                <td><?php zm_l10n("State/Province") ?></td>
+                <td><?php _vzm("State/Province") ?></td>
                 <td>
                     <?php $zones = ZMCountries::instance()->getZonesForCountryId($shippingEstimator->getCountryId()); ?>
                     <?php if (0 < count($zones)) { ?>
@@ -62,21 +62,21 @@
                 </td>
               </tr>
               <tr>
-                  <td><?php zm_l10n("Post Code") ?></td>
+                  <td><?php _vzm("Post Code") ?></td>
                   <td><input type="text" id="zip_code" name="zip_code" value="<?php echo $shippingEstimator->getPostcode() ?>" /></td>
               </tr>
           </tbody></table>
-          <div class="btn"><input type="submit" value="<?php zm_l10n("Calculate") ?>" /></div>
+          <div class="btn"><input type="submit" value="<?php _vzm("Calculate") ?>" /></div>
         </form>
     <?php } ?>
     <?php $zm_shipping = new ZMShipping(); if ($zm_shipping->isFreeShipping()) { ?>
-        <p class="inst"><?php zm_l10n("Shipping is free!") ?></p>
+        <p class="inst"><?php _vzm("Shipping is free!") ?></p>
     <?php } else {?>
         <table border="1" cellpadding="2" cellspacing ="2" id="smethods">
             <thead>
                 <tr>
-                <th id="smname"><?php zm_l10n("Shipping Method") ?></th>
-                <th id="smcost"><?php zm_l10n("Charge") ?></th>
+                <th id="smname"><?php _vzm("Shipping Method") ?></th>
+                <th id="smcost"><?php _vzm("Charge") ?></th>
                 </tr>
             </thead>
             <tbody>

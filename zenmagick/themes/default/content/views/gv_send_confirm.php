@@ -32,25 +32,25 @@
         <input type="hidden" name="message" value="<?php echo $html->encode($gvReceiver->getMessage()) ?>" />
     </div>
     <fieldset>
-        <legend><?php zm_l10n("Confirm Send Gift Certificate") ?></legend>
+        <legend><?php _vzm("Confirm Send Gift Certificate") ?></legend>
 
-        <p class="note"><?php zm_l10n("You are about to post a Gift Certificate worth %s to %s whose email address is %s.",
+        <p class="note"><?php _vzm("You are about to post a Gift Certificate worth %s to %s whose email address is %s.",
           $utils->formatMoney($gvReceiver->getAmount(), false), $gvReceiver->getName(), $gvReceiver->getEmail()) ?>
         </p>
 
         <fieldset>
-            <legend><?php zm_l10n("Your message") ?></legend>
+            <legend><?php _vzm("Your message") ?></legend>
             <?php echo zm_get_email_contents('email/gv_send', true, compact('currentAccount', 'gvReceiver', 'currentCoupon', array('isSupressDisclaimer' => false))) ?>
         </fieldset>
 
-        <p class="note"><?php zm_l10n("If these details are not correct, you may edit your message by clicking the edit button.") ?></p>
+        <p class="note"><?php _vzm("If these details are not correct, you may edit your message by clicking the edit button.") ?></p>
     </fieldset>
 
-    <div class="btn"><input type="submit" class="btn" value="<?php zm_l10n("Send Gift Certificate") ?>" /></div>
-    <div><input type="submit" class="btn" name="edit" value="<?php zm_l10n("Edit") ?>" /></div>
+    <div class="btn"><input type="submit" class="btn" value="<?php _vzm("Send Gift Certificate") ?>" /></div>
+    <div><input type="submit" class="btn" name="edit" value="<?php _vzm("Edit") ?>" /></div>
 </form>
 
 <div class="advisory">
-    <strong><?php zm_l10n("The following message is included with all emails sent from this site:") ?></strong><br />
+    <strong><?php _vzm("The following message is included with all emails sent from this site:") ?></strong><br />
     <?php echo $utils->staticPageContent('email_advisory') ?>
 </div>

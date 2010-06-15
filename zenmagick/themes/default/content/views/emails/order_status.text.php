@@ -22,28 +22,28 @@
  *
  * $Id$
  */
-?><?php zm_l10n("Dear %s %s,", $currentAccount->getFirstName(), $currentAccount->getLastName()) ?>
+?><?php _vzm("Dear %s %s,", $currentAccount->getFirstName(), $currentAccount->getLastName()) ?>
 
 
-<?php zm_l10n("This is to inform you that your order #%s has been updated.", $currentOrder->getId()) ?>
+<?php _vzm("This is to inform you that your order #%s has been updated.", $currentOrder->getId()) ?>
 
 <?php if (ZMAccount::REGISTERED == $currentAccount->getType()) { ?>
-<?php zm_l10n("More details can be found at the following URL: %s", $net->url(FILENAME_ACCOUNT_HISTORY_INFO, 'order_id='.$currentOrder->getId())) ?>
+<?php _vzm("More details can be found at the following URL: %s", $net->url(FILENAME_ACCOUNT_HISTORY_INFO, 'order_id='.$currentOrder->getId())) ?>
 <?php } else { ?>
-<?php zm_l10n("You can check the status of your order at: %s.", $net->url('guest_history')) ?>
+<?php _vzm("You can check the status of your order at: %s.", $net->url('guest_history')) ?>
 <?php } ?>
 
 <?php if ($newOrderStatus != $currentOrder->getStatusName()) { ?>
-<?php zm_l10n("The new order status is: %s.", $newOrderStatus) ?>
+<?php _vzm("The new order status is: %s.", $newOrderStatus) ?>
 <?php } ?>
 
 <?php if (!empty($comment)) { ?>
-<?php zm_l10n("The following comment has been added to your order:") ?>
+<?php _vzm("The following comment has been added to your order:") ?>
 
 <?php echo $comment ?>
 <?php } ?>
 
 
-<?php zm_l10n("Regards, %s", ZMSettings::get('storeName')) ?>
+<?php _vzm("Regards, %s", ZMSettings::get('storeName')) ?>
 
 <?php echo strip_tags($utils->staticPageContent('email_advisory')) ?>

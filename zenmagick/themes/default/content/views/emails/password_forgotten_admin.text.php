@@ -22,6 +22,6 @@
  *
  * $Id$
  */
-?><?php zm_l10n("New Password Request for %s\n", $adminName) ?>
+?><?php _vzm("New Password Request for %s\n", $adminName) ?>
 
 <?php echo $textMessage ?>

@@ -36,7 +36,7 @@
                 </td>
                 <td class="itm">
                     <?php if (!$item->isStockAvailable() && ZMSettings::get('isEnableStock')) { ?>
-                        <span class="note"><?php zm_l10n('* Out of Stock') ?></span><br/>
+                        <span class="note"><?php _vzm('* Out of Stock') ?></span><br/>
                     <?php } ?>
                     <?php echo $html->encode($item->getProduct()->getName()) ?>
                     <?php if ($item->hasAttributes()) { ?>
@@ -60,17 +60,17 @@
             </tr>
         <?php $odd = !$odd; $first = false; } ?>
         <tr class="other">
-            <td colspan="4" class="total"><?php zm_l10n("Subtotal") ?></td>
+            <td colspan="4" class="total"><?php _vzm("Subtotal") ?></td>
             <td class="price"><?php echo $utils->formatMoney($shoppingCart->getTotal()) ?></td>
         </tr>
         </tbody>
     </table>
     <div class="btn">
-        <input type="submit" class="btn" value="<?php zm_l10n("Update Cart") ?>" />
-        <a class="btn" href="<?php echo $net->url(FILENAME_CHECKOUT_SHIPPING, '', true) ?>"><?php zm_l10n("Checkout") ?></a>
+        <input type="submit" class="btn" value="<?php _vzm("Update Cart") ?>" />
+        <a class="btn" href="<?php echo $net->url(FILENAME_CHECKOUT_SHIPPING, '', true) ?>"><?php _vzm("Checkout") ?></a>
     </div>
     <div>
-        <a class="btn" href="<?php echo $net->url(FILENAME_POPUP_SHIPPING_ESTIMATOR, '', true) ?>" onclick="popupWindow(this.href); return false;"><?php zm_l10n("Shipping Estimator") ?></a>
+        <a class="btn" href="<?php echo $net->url(FILENAME_POPUP_SHIPPING_ESTIMATOR, '', true) ?>" onclick="popupWindow(this.href); return false;"><?php _vzm("Shipping Estimator") ?></a>
     </div>
 
     <?php if (defined('MODULE_PAYMENT_PAYPALWPP_STATUS') && MODULE_PAYMENT_PAYPALWPP_STATUS == 'True') {

@@ -24,13 +24,13 @@
  */
 ?>
 
-<p><?php zm_l10n("Are you sure you would like to delete the selected address from your address book?") ?></p>
+<p><?php _vzm("Are you sure you would like to delete the selected address from your address book?") ?></p>
 <?php echo $form->open('address_book_delete', '', true, array('onsubmit'=>null)) ?>
     <fieldset>
-        <legend><?php zm_l10n("Selected Address") ?></legend>
+        <legend><?php _vzm("Selected Address") ?></legend>
         <div class="btn">
             <input type="hidden" name="id" value="<?php echo $address->getId() ?>" />
-            <input type="submit" class="btn" value="<?php zm_l10n("Delete") ?>" />
+            <input type="submit" class="btn" value="<?php _vzm("Delete") ?>" />
         </div>
         <?php echo $macro->formatAddress($address) ?>
     </fieldset>

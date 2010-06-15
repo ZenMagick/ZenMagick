@@ -32,7 +32,7 @@
                     <?php /* if multi select do not auto submit */ ?>
                     <?php $opts = $filter->isMultiSelection() ? ' size="3" multiple="multiple"' : ' onchange="this.form.submit()"'; ?>
                     <select id="<?php echo str_replace('[]', '', $filter->getId()) ?>" name="<?php echo $filter->getId() ?>"<?php echo $opts ?>>
-                        <option value=""><?php zm_l10n("Filter by '%s' ...", $filter->getName()) ?></option>
+                        <option value=""><?php _vzm("Filter by '%s' ...", $filter->getName()) ?></option>
                         <?php foreach($filter->getOptions() as $option) { ?>
                             <?php $selected = $option->isActive() ? ' selected="selected"' : ''; ?>
                             <option value="<?php echo $option->getId() ?>"<?php echo $selected ?>><?php echo $option->getName() ?></option>
@@ -53,7 +53,7 @@
                 <?php } ?>
 
                 <select id="sort" name="sort_id" onchange="this.form.submit()">
-                    <option value=""><?php zm_l10n("Sort by ...") ?></option>
+                    <option value=""><?php _vzm("Sort by ...") ?></option>
                     <?php foreach($resultList->getSorters() as $sorter) { ?>
                         <?php foreach($sorter->getOptions() as $option) { ?>
                             <?php $selected = $option->isActive() ? ' selected="selected"' : ''; ?>
@@ -65,6 +65,6 @@
                 </select>
             </div>
         <?php } ?>
-        <div><input type="submit" class="btn" value="<?php zm_l10n("Sort / Reverse / Filter") ?>" /></div>
+        <div><input type="submit" class="btn" value="<?php _vzm("Sort / Reverse / Filter") ?>" /></div>
     </form>
 <?php } ?>

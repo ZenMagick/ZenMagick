@@ -26,5 +26,5 @@
 
 <?php echo $form->open('address_book_edit', '', true, array('id'=>'address')) ?>
     <?php echo $this->fetch('views/address.php'); ?>
-    <div class="btn"><input type="submit" class="btn" value="<?php zm_l10n("Update") ?>" /></div>
+    <div class="btn"><input type="submit" class="btn" value="<?php _vzm("Update") ?>" /></div>
 </form>

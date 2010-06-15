@@ -24,9 +24,9 @@
  */
 ?>
 
-<h3><?php zm_l10n("RSS Feeds") ?></h3>
+<h3><?php _vzm("RSS Feeds") ?></h3>
 <div id="sb_feeds" class="box">
-    <a href="<?php echo $net->rssFeed('reviews') ?>"><img src="<?php echo $this->asUrl('images/feed-icon-12x12.gif')?>" alt="<?php zm_l10n_get("RSS") ?>" /><?php zm_l10n("Product Reviews") ?></a>
-    <a href="<?php echo $net->rssFeed('products', 'new') ?>"><img src="<?php echo $this->asUrl('images/feed-icon-12x12.gif')?>" alt="<?php zm_l10n_get("RSS") ?>" /><?php zm_l10n("New Products") ?></a>
-    <a href="<?php echo $net->rssFeed('chapter', '10') ?>"><img src="<?php echo $this->asUrl('images/feed-icon-12x12.gif')?>" alt="<?php zm_l10n_get("RSS") ?>" /><?php zm_l10n("Chapter 10") ?></a>
+    <a href="<?php echo $net->rssFeed('reviews') ?>"><img src="<?php echo $this->asUrl('images/feed-icon-12x12.gif')?>" alt="<?php zm_l10n_get("RSS") ?>" /><?php _vzm("Product Reviews") ?></a>
+    <a href="<?php echo $net->rssFeed('products', 'new') ?>"><img src="<?php echo $this->asUrl('images/feed-icon-12x12.gif')?>" alt="<?php zm_l10n_get("RSS") ?>" /><?php _vzm("New Products") ?></a>
+    <a href="<?php echo $net->rssFeed('chapter', '10') ?>"><img src="<?php echo $this->asUrl('images/feed-icon-12x12.gif')?>" alt="<?php zm_l10n_get("RSS") ?>" /><?php _vzm("Chapter 10") ?></a>
 </div>

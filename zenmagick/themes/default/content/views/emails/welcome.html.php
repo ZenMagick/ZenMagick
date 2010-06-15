@@ -25,16 +25,16 @@
 ?><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html lang="<?php echo $language->getCode() ?>">
 <head>
-<title><?php zm_l10n("Welcome to %s", ZMSettings::get('storeName')) ?></title>
+<title><?php _vzm("Welcome to %s", ZMSettings::get('storeName')) ?></title>
 </head>
 <body>
 <body>
 <div style="font-family:Verdana,Arial,Helvetica,sans-serif;font-size:10pt;">
-<p><?php zm_l10n("Dear %s %s,", $currentAccount->getFirstName(), $currentAccount->getLastName()) ?></p>
+<p><?php _vzm("Dear %s %s,", $currentAccount->getFirstName(), $currentAccount->getLastName()) ?></p>
 
-<p><?php zm_l10n("We wish to welcome you to %s.", ZMSettings::get('storeName')) ?></p>
+<p><?php _vzm("We wish to welcome you to %s.", ZMSettings::get('storeName')) ?></p>
 <div><?php echo $utils->staticPageContent('email_welcome') ?></div>
-<p><?php zm_l10n("Sincerely, %s", ZMSettings::get('storeOwner')) ?></p>
+<p><?php _vzm("Sincerely, %s", ZMSettings::get('storeOwner')) ?></p>
 
 <?php echo $utils->staticPageContent('email_advisory') ?>
 <?php echo $office_only_html; ?>

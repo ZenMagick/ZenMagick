@@ -23,23 +23,23 @@
  * $Id$
  */
 ?>
-<?php zm_l10n("Hi %s,", $emailMessage->getToName()) ?>
+<?php _vzm("Hi %s,", $emailMessage->getToName()) ?>
 
 
-<?php zm_l10n("Your friend, %s, thought that you would be interested in %s from %s.", $emailMessage->getFromName(), $currentProduct->getName(), ZMSettings::get('storeName')) ?>
+<?php _vzm("Your friend, %s, thought that you would be interested in %s from %s.", $emailMessage->getFromName(), $currentProduct->getName(), ZMSettings::get('storeName')) ?>
 
 <?php if ($emailMessage->hasMessage()) { ?>
 
-<?php zm_l10n("%s also sent a note saying:", $emailMessage->getFromName()) ?>
+<?php _vzm("%s also sent a note saying:", $emailMessage->getFromName()) ?>
 
 <?php echo $emailMessage->getMessage() ?>
 
 <?php } ?>
 
-<?php zm_l10n("To view the product, click on the following link or copy and paste the link into your web browser: %s", $net->product($currentProduct->getId(), null)) ?>
+<?php _vzm("To view the product, click on the following link or copy and paste the link into your web browser: %s", $net->product($currentProduct->getId(), null)) ?>
 
 
-<?php zm_l10n("Regards, %s", ZMSettings::get('storeOwner')) ?>
+<?php _vzm("Regards, %s", ZMSettings::get('storeOwner')) ?>
 
 
 

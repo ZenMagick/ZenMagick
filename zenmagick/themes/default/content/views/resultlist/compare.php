@@ -25,6 +25,6 @@
 ?>
 <?php /* this needs some work
 <?php if (1 < $resultList->getNumberOfResults()) { ?>
-    <div class="btn"><input type="submit" class="btn" value="<?php zm_l10n("Compare Selected") ?>" /></div>
+    <div class="btn"><input type="submit" class="btn" value="<?php _vzm("Compare Selected") ?>" /></div>
 <?php } ?>
  */ ?>

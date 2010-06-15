@@ -25,7 +25,7 @@
 ?>
 
 <?php if (!$request->getShoppingCart()->isEmpty() && !$request->isCheckout()) { ?>
-    <h3><?php zm_l10n("Shopping Cart") ?></h3>
+    <h3><?php _vzm("Shopping Cart") ?></h3>
     <div id="sb_cart" class="box">
         <?php foreach ($request->getShoppingCart()->getItems() as $item) { ?>
             <?php echo $item->getQty(); ?> x <a href="<?php echo $net->product($item->getId()) ?>"><?php echo $html->encode($item->getProduct()->getName()) ?></a><br />

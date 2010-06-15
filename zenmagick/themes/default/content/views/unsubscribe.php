@@ -24,25 +24,25 @@
  */
 ?>
 
-<p><?php zm_l10n('We are sorry to hear that you wish to unsubscribe from our newsletter. If you have concerns about your privacy, 
+<p><?php _vzm('We are sorry to hear that you wish to unsubscribe from our newsletter. If you have concerns about your privacy, 
 please see our <a href="%s">privacy policy</a>.', $net->staticPage(FILENAME_PRIVACY)) ?></p>
 
-<p><?php zm_l10n('Subscribers to our newsletter are kept notified of new products, price reductions, and site news.') ?></p>
+<p><?php _vzm('Subscribers to our newsletter are kept notified of new products, price reductions, and site news.') ?></p>
 
 <?php if (ZMSettings::get('isAllowAnonymousUnsubscribe')) { ?>
-    <p><?php zm_l10n('If you still do not wish to receive your newsletter, please click the button below. 
+    <p><?php _vzm('If you still do not wish to receive your newsletter, please click the button below. 
           You will be taken to your account-preferences page, where you may edit your subscriptions. You may be prompted to log in first.') ?></p>
 
     <?php echo $form->open(FILENAME_UNSUBSCRIBE, "", true, array('id'=>'unsubscribe')) ?>
       <fieldset>
-        <legend><?php zm_l10n("Newsletter Unsubscribe") ?></legend>
+        <legend><?php _vzm("Newsletter Unsubscribe") ?></legend>
         <div>
-          <label for="email_address"><?php zm_l10n("E-Mail Address") ?></label>
+          <label for="email_address"><?php _vzm("E-Mail Address") ?></label>
           <input type="text" id="email_address" name="email_address" <?php echo $form->fieldLength(TABLE_CUSTOMERS, 'customers_email_address') ?> /> 
         </div>
       </fieldset>
-      <div class="btn"><input type="submit" class="btn" value="<?php zm_l10n("Unsubscribe") ?>" /></div>
+      <div class="btn"><input type="submit" class="btn" value="<?php _vzm("Unsubscribe") ?>" /></div>
     </form>
 <?php } else { ?>
-      <div class="btn"><a href="<?php echo $net->url(FILENAME_ACCOUNT_NEWSLETTERS, '', true) ?>" class="btn"><?php zm_l10n("Unsubscribe") ?></a></div>
+      <div class="btn"><a href="<?php echo $net->url(FILENAME_ACCOUNT_NEWSLETTERS, '', true) ?>" class="btn"><?php _vzm("Unsubscribe") ?></a></div>
 <?php } ?>

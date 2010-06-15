@@ -22,27 +22,27 @@
  *
  * $Id$
  */
-?><?php zm_l10n("Dear %s %s,", $currentAccount->getFirstName(), $currentAccount->getLastName()) ?>
+?><?php _vzm("Dear %s %s,", $currentAccount->getFirstName(), $currentAccount->getLastName()) ?>
 
 
-<?php zm_l10n('We\'re pleased to offer you a Store Coupon for our online store at %s', ZMSettings::get('storeName')) ?>
+<?php _vzm('We\'re pleased to offer you a Store Coupon for our online store at %s', ZMSettings::get('storeName')) ?>
 
 
-<?php zm_l10n('You can redeem this coupon during checkout. Just enter the code provided, and click on the redeem button.') ?>
+<?php _vzm('You can redeem this coupon during checkout. Just enter the code provided, and click on the redeem button.') ?>
 
 
-<?php zm_l10n('The coupon code is %s.', $currentCoupon->getCode()) ?>
+<?php _vzm('The coupon code is %s.', $currentCoupon->getCode()) ?>
 
 
-<?php zm_l10n('The coupon is valid between %s and %s', $locale->shortDate($currentCoupon->getStartDate()), $locale->shortDate($currentCoupon->getExpiryDate())) ?>
+<?php _vzm('The coupon is valid between %s and %s', $locale->shortDate($currentCoupon->getStartDate()), $locale->shortDate($currentCoupon->getExpiryDate())) ?>
 
 
-<?php zm_l10n('Don\'t lose the coupon code, make sure to keep the code safe so you can benefit from this special offer.') ?>
+<?php _vzm('Don\'t lose the coupon code, make sure to keep the code safe so you can benefit from this special offer.') ?>
 
 
-<?php zm_l10n('Thank you for shopping with us!') ?>
+<?php _vzm('Thank you for shopping with us!') ?>
 
-<?php zm_l10n("Sincerely, %s", ZMSettings::get('storeOwner')) ?>
+<?php _vzm("Sincerely, %s", ZMSettings::get('storeOwner')) ?>
 
 
 <?php echo strip_tags($utils->staticPageContent('email_advisory')) ?>

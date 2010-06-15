@@ -52,10 +52,10 @@
 </script>
 
 <?php if (!$request->isCheckout()) { ?>
-<h3><a href="<?php echo $net->url(FILENAME_SHOPPING_CART, '', true) ?>"><?php zm_l10n("[More]") ?></a><?php zm_l10n("Shopping Cart") ?></h3>
+<h3><a href="<?php echo $net->url(FILENAME_SHOPPING_CART, '', true) ?>"><?php _vzm("[More]") ?></a><?php _vzm("Shopping Cart") ?></h3>
     <div id="sb_cart" class="box">
         <?php if ($request->getShoppingCart()->isEmpty()) { ?>
-            <?php zm_l10n("Cart is Empty") ?>
+            <?php _vzm("Cart is Empty") ?>
         <?php } ?>
         <?php foreach ($request->getShoppingCart()->getItems() as $item) { ?>
             <?php echo $item->getQty(); ?> x <a href="<?php echo $net->product($item->getId()) ?>"><?php echo $html->encode($item->getProduct()->getName()); ?></a><br />

@@ -29,7 +29,7 @@
     <?php if (null != $product) { ?>
         <?php $manufacturer = $product->getManufacturer(); ?>
         <?php if (null != $manufacturer) { ?>
-            <h3><?php zm_l10n("Manufacturer Info") ?></h3>
+            <h3><?php _vzm("Manufacturer Info") ?></h3>
             <div id="sb_manufacturer_info" class="box">
                 <?php 
                 if ($manufacturer->hasImage()) {
@@ -42,7 +42,7 @@
                     ?><a href="<?php echo $url ?>"<?php echo $target ?>><?php echo $html->image($manufacturer->getImageInfo()) ?></a><?php
                     if (!ZMLangUtils::isEmpty($manufacturer->getUrl())) {
                         $url = $net->url('category', 'manufacturers_id='.$manufacturer->getId());
-                        ?><a href="<?php echo $url ?>"<?php echo $target ?>><?php zm_l10n("Other Products") ?></a><?php
+                        ?><a href="<?php echo $url ?>"<?php echo $target ?>><?php _vzm("Other Products") ?></a><?php
                     }
                 } else {
                     $url = $net->url('category', 'manufacturers_id='.$manufacturer->getId());
@@ -56,7 +56,7 @@
                     ?><a href="<?php echo $url ?>"<?php echo $target ?>><?php echo $text ?></a><?php
                     if (!ZMLangUtils::isEmpty($manufacturer->getUrl())) {
                         $url = $net->url('category', 'manufacturers_id='.$manufacturer->getId());
-                        ?><a href="<?php echo $url ?>"<?php echo $target ?>><?php zm_l10n("Other Products") ?></a><?php
+                        ?><a href="<?php echo $url ?>"<?php echo $target ?>><?php _vzm("Other Products") ?></a><?php
                     }
                 } ?>
             </div>

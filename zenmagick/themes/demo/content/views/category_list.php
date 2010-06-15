@@ -89,5 +89,5 @@
         </div>
     </form>
 <?php } else { ?>
-    <h2><?php zm_l10n("There are no products in this category") ?></h2>
+    <h2><?php _vzm("There are no products in this category") ?></h2>
 <?php } ?>

@@ -22,17 +22,17 @@
  *
  * $Id$
  */
-?><?php zm_l10n("%s Order Confirmation\n", ZMSettings::get('storeName')) ?>
+?><?php _vzm("%s Order Confirmation\n", ZMSettings::get('storeName')) ?>
 
-<?php zm_l10n("Thanks for shopping at %s,\n", ZMSettings::get('storeName')) ?>
-<?php zm_l10n("The following is a summary of your order.\n") ?>
+<?php _vzm("Thanks for shopping at %s,\n", ZMSettings::get('storeName')) ?>
+<?php _vzm("The following is a summary of your order.\n") ?>
 
-<?php zm_l10n("Order Details\n") ?>
+<?php _vzm("Order Details\n") ?>
 -----------------------------------------------
-<?php zm_l10n("Order Number: #%s\n", $order->getId()) ?>
-<?php zm_l10n("Order Date: %s\n", $locale->shortDate($order->getOrderDate())) ?>
+<?php _vzm("Order Number: #%s\n", $order->getId()) ?>
+<?php _vzm("Order Date: %s\n", $locale->shortDate($order->getOrderDate())) ?>
 
-<?php zm_l10n("Ordered Items\n") ?>
+<?php _vzm("Ordered Items\n") ?>
 -----------------------------------------------
 <?php foreach ($order->getOrderItems() as $orderItem) { ?>
 <?php printf("%3s x %26s  %7s\n", $orderItem->getQty(), $orderItem->getName(), $utils->formatMoney($orderItem->getCalculatedPrice())) ?>
@@ -42,21 +42,21 @@
 <?php printf("%32s  %7s\n", $orderTotalLine->getName(), $orderTotalLine->getValue()) ?>
 <?php } ?>
 
-<?php zm_l10n("Address Details\n") ?>
+<?php _vzm("Address Details\n") ?>
 -----------------------------------------------
-<?php zm_l10n("Shipping Address\n") ?>
+<?php _vzm("Shipping Address\n") ?>
 <?php if ($order->isStorePickup() || !$order->hasShippingAddress()) { ?>
-<?php zm_l10n("N/A") ?>
+<?php _vzm("N/A") ?>
 <?php } else { ?>
 <?php echo $macro->formatAddress($shippingAddress, false) ?>
 <?php } ?>
 
 
-<?php zm_l10n("Billing Address\n") ?>
+<?php _vzm("Billing Address\n") ?>
 <?php echo $macro->formatAddress($billingAddress, false) ?>
 
 
-<?php zm_l10n("Payment Details\n") ?>
+<?php _vzm("Payment Details\n") ?>
 -----------------------------------------------
 <?php $paymentType = $order->getPaymentType(); ?>
 <?php echo $html->encode($paymentType->getName()) ?>

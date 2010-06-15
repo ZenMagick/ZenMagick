@@ -23,21 +23,21 @@
  * $Id$
  */
 ?>
-<?php zm_l10n("Dear %s,", $gvReceiver->getName()) ?>
+<?php _vzm("Dear %s,", $gvReceiver->getName()) ?>
 
 
-<?php zm_l10n('You have been sent a Gift Certificate worth %s by %s.', $utils->formatMoney($gvReceiver->getAmount(), false), $currentAccount->getFullName()) ?>
+<?php _vzm('You have been sent a Gift Certificate worth %s by %s.', $utils->formatMoney($gvReceiver->getAmount(), false), $currentAccount->getFullName()) ?>
 
-<?php zm_l10n("The code to redeem your Gift Certificate is: %s.", $currentCoupon->getCode()) ?>
+<?php _vzm("The code to redeem your Gift Certificate is: %s.", $currentCoupon->getCode()) ?>
 
 <?php if ($gvReceiver->hasMessage()) { ?>
-<?php zm_l10n("%s says:", $currentAccount->getFirstName()); ?>
+<?php _vzm("%s says:", $currentAccount->getFirstName()); ?>
 
 <?php echo $gvReceiver->getMessage() ?>
 
 <?php } ?>
 
-<?php zm_l10n("To redeem your gift, visit %s.", $net->url(FILENAME_GV_REDEEM, 'couponCode='.$currentCoupon->getCode(), true)) ?>
+<?php _vzm("To redeem your gift, visit %s.", $net->url(FILENAME_GV_REDEEM, 'couponCode='.$currentCoupon->getCode(), true)) ?>
 
 
 <?php echo strip_tags($utils->staticPageContent('email_advisory')) ?>

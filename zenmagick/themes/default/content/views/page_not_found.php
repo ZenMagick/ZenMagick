@@ -24,7 +24,7 @@
  */
 ?>
 
-<h3><?php zm_l10n("Page Not Found") ?></h3>
+<h3><?php _vzm("Page Not Found") ?></h3>
 
 <?php echo $utils->staticPageContent("page_not_found") ?>
 

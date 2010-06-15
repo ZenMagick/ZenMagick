@@ -27,9 +27,9 @@
 <?php $currentAddress = $shoppingCart->getBillingAddress(); ?>
 <?php if (0 < count($addressList)) { ?>
     <?php echo $form->open(FILENAME_CHECKOUT_PAYMENT_ADDRESS, 'action=select', true) ?>
-        <h3><?php zm_l10n("Select an existing address") ?></h3>
+        <h3><?php _vzm("Select an existing address") ?></h3>
         <fieldset>
-            <legend><?php zm_l10n("Address Book") ?></legend>
+            <legend><?php _vzm("Address Book") ?></legend>
             <?php foreach ($addressList as $address) { ?>
                 <p>
                     <?php $checked = (null != $currentAddress && $currentAddress->getId() == $address->getId()) ? ' checked="checked"' : ""; ?>
@@ -42,11 +42,11 @@
                 </p>
             <?php } ?>
         </fieldset>
-        <div class="btn"><input type="submit" class="btn" value="<?php zm_l10n("Continue") ?>" /></div>
+        <div class="btn"><input type="submit" class="btn" value="<?php _vzm("Continue") ?>" /></div>
     </form>
-    <h3><?php zm_l10n("... or create a new one") ?></h3>
+    <h3><?php _vzm("... or create a new one") ?></h3>
 <?php } ?>
 <?php echo $form->open(FILENAME_CHECKOUT_PAYMENT_ADDRESS, 'action=create', true, array('id'=>'paymentAddress')) ?>
     <?php $this->assign(array('address' => $billingAddress)); echo $this->fetch('views/address.php') ?>
-    <div class="btn"><input type="submit" class="btn" value="<?php zm_l10n("Continue") ?>" /></div>
+    <div class="btn"><input type="submit" class="btn" value="<?php _vzm("Continue") ?>" /></div>
 </form>

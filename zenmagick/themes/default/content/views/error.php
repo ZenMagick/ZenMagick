@@ -23,5 +23,5 @@
  * $Id$
  */
 ?>
-<h3><?php zm_l10n("Oops - something went wrong!") ?></h3>
+<h3><?php _vzm("Oops - something went wrong!") ?></h3>
 <?php echo $utils->staticPageContent('error') ?>

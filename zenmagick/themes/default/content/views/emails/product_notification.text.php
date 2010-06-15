@@ -23,7 +23,7 @@
  * $Id$
  */
 ?>
-<?php zm_l10n("Dear %s %s,", $EMAIL_FIRST_NAME, $EMAIL_LAST_NAME) ?>
+<?php _vzm("Dear %s %s,", $EMAIL_FIRST_NAME, $EMAIL_LAST_NAME) ?>
 
 <?php echo strip_tags($EMAIL_MESSAGE_HTML) ?>
 

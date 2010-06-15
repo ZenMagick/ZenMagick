@@ -43,11 +43,11 @@
     </div>
 <?php } else { ?>
     <?php if ($currentCategory->hasChildren()) { ?>
-        <h3><?php zm_l10n("Available Sub-categories") ?></h3>
+        <h3><?php _vzm("Available Sub-categories") ?></h3>
         <?php foreach ($currentCategory->getChildren() as $category) { ?>
             <?php echo $html->encode($category->getName()) ?><br />
         <?php } ?>
     <?php } ?>
 
-    <h2><?php zm_l10n("There are no products in this category") ?></h2>
+    <h2><?php _vzm("There are no products in this category") ?></h2>
 <?php } ?>

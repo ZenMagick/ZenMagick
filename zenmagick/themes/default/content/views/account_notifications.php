@@ -24,22 +24,22 @@
  */
 ?>
 
-<p><?php zm_l10n("The product notification list allows you to stay up to date on products you find of interest.") ?></p>
-<p><?php zm_l10n("To be up to date on all product changes, select <strong>Global Product Notifications</strong>.") ?></p>
+<p><?php _vzm("The product notification list allows you to stay up to date on products you find of interest.") ?></p>
+<p><?php _vzm("To be up to date on all product changes, select <strong>Global Product Notifications</strong>.") ?></p>
 <?php echo $form->open(FILENAME_ACCOUNT_NOTIFICATIONS, "action=process", true, array('onsubmit'=>null)) ?>
     <fieldset>
-        <legend><?php zm_l10n("Global Product Notifications") ?></legend>
-        <p><input type="checkbox" id="product_global" name="product_global" value="1"<?php $form->checked($currentAccount->isGlobalProductSubscriber(), true) ?> /><label for="product_global"><?php zm_l10n("Global Product Notification") ?></label></p>
+        <legend><?php _vzm("Global Product Notifications") ?></legend>
+        <p><input type="checkbox" id="product_global" name="product_global" value="1"<?php $form->checked($currentAccount->isGlobalProductSubscriber(), true) ?> /><label for="product_global"><?php _vzm("Global Product Notification") ?></label></p>
     </fieldset>
 
     <?php if (!$currentAccount->isGlobalProductSubscriber() && $currentAccount->hasProductSubscriptions()) { ?>
         <fieldset>
-            <legend><?php zm_l10n("Product Notifications") ?></legend>
+            <legend><?php _vzm("Product Notifications") ?></legend>
             <?php $ii=0; 
             foreach ($currentAccount->getSubscribedProducts() as $productId) { $product = ZMProducts::instance()->getProductForId($productId, $session->getLanguageId()); ?>
                 <p><input type="checkbox" id="products_<?php echo $ii ?>" name="notify[<?php echo $ii ?>]" value="<?php echo $productId ?>" checked="checked" /><label for="products_<?php echo $ii ?>"><?php echo null != $product ? $html->encode($product->getName()) : '???' ?></label></p>
             <?php ++$ii; } ?>
         </fieldset>
     <?php } ?>
-    <div class="btn"><input type="submit" class="btn" value="<?php zm_l10n("Update") ?>" /></div>
+    <div class="btn"><input type="submit" class="btn" value="<?php _vzm("Update") ?>" /></div>
 </form>

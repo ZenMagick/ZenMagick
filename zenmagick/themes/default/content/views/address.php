@@ -26,7 +26,7 @@
 
 <?php $countryId = 0 != $address->getCountryId() ? $address->getCountryId() : ZMSettings::get('storeCountry'); ?>
 <fieldset>
-    <legend><?php zm_l10n("Address") ?></legend>
+    <legend><?php _vzm("Address") ?></legend>
     <table cellspacing="0" cellpadding="0" id="newaddress">
         <thead>
             <tr>
@@ -37,53 +37,53 @@
         <tbody>
             <?php if (ZMSettings::get('isAccountGender')) { ?>
                 <tr>
-                    <td><?php zm_l10n("Title") ?><span>*</span></td>
+                    <td><?php _vzm("Title") ?><span>*</span></td>
                     <td>
                         <input type="radio" id="male" name="gender" value="m"<?php $form->checked('m'==$address->getGender()) ?> />
-                        <label for="male"><?php zm_l10n("Mr.") ?></label>
+                        <label for="male"><?php _vzm("Mr.") ?></label>
                         <input type="radio" id="female" name="gender" value="f"<?php $form->checked('f', $address->getGender()) ?> />
-                        <label for="female"><?php zm_l10n("Ms.") ?></label>
+                        <label for="female"><?php _vzm("Ms.") ?></label>
                     </td>
                 </tr>
             <?php } ?>
             <tr>
-                <td><?php zm_l10n("First Name") ?><span>*</span></td>
+                <td><?php _vzm("First Name") ?><span>*</span></td>
                 <td><input type="text" id="firstName" name="firstName" value="<?php echo $html->encode($address->getFirstName()) ?>" /></td>
             </tr>
             <tr>
-                <td><?php zm_l10n("Last Name") ?><span>*</span></td>
+                <td><?php _vzm("Last Name") ?><span>*</span></td>
                 <td><input type="text" id="lastName" name="lastName" value="<?php echo $html->encode($address->getLastName()) ?>" /></td>
             </tr>
             <?php if (ZMSettings::get('isAccountCompany')) { ?>
                 <tr>
-                    <td><?php zm_l10n("Company Name") ?></td>
+                    <td><?php _vzm("Company Name") ?></td>
                     <td><input type="text" id="companyName" name="companyName" value="<?php echo $html->encode($address->getCompanyName()) ?>" /></td>
                 </tr>
             <?php } ?>
             <tr>
-                <td><?php zm_l10n("Street Address") ?><span>*</span></td>
+                <td><?php _vzm("Street Address") ?><span>*</span></td>
                 <td><input type="text" id="addressLine1" name="addressLine1" value="<?php echo $html->encode($address->getAddressLine1()) ?>" <?php echo $form->fieldLength(TABLE_ADDRESS_BOOK, 'entry_street_address') ?> /></td>
             </tr>
             <tr>
-                <td><?php zm_l10n("Suburb") ?></td>
+                <td><?php _vzm("Suburb") ?></td>
                 <td><input type="text" id="suburb" name="suburb" value="<?php echo $html->encode($address->getSuburb()) ?>" <?php echo $form->fieldLength(TABLE_ADDRESS_BOOK, 'entry_suburb') ?> /></td>
             </tr>
             <tr>
-                <td><?php zm_l10n("City") ?><span>*</span></td>
+                <td><?php _vzm("City") ?><span>*</span></td>
                 <td><input type="text" id="city" name="city" value="<?php echo $html->encode($address->getCity()) ?>" <?php echo $form->fieldLength(TABLE_ADDRESS_BOOK, 'entry_city') ?> /></td>
             </tr>
             <tr>
-                <td><?php zm_l10n("Post Code") ?><span>*</span></td>
+                <td><?php _vzm("Post Code") ?><span>*</span></td>
                 <td><input type="text" id="postcode" name="postcode" value="<?php echo $html->encode($address->getPostcode()) ?>" <?php echo $form->fieldLength(TABLE_ADDRESS_BOOK, 'entry_postcode') ?> /></td>
             </tr>
              <tr>
-                <td><?php zm_l10n("Country") ?><span>*</span></td>
+                <td><?php _vzm("Country") ?><span>*</span></td>
                 <td><?php echo $form->idpSelect('countryId', array_merge(array(ZMLoader::make("IdNamePair", "", zm_l10n_get("Select Country"))), ZMCountries::instance()->getCountries()), $countryId) ?></td>
             </tr>
             <?php if (ZMSettings::get('isAccountState')) { ?>
                 <?php $zones = ZMCountries::instance()->getZonesForCountryId($countryId); ?>
                 <tr>
-                    <td><?php zm_l10n("State/Province") ?><span>*</span></td>
+                    <td><?php _vzm("State/Province") ?><span>*</span></td>
                     <td>
                         <?php if (0 < count($zones)) { ?>
                             <?php echo $form->idpSelect('zoneId', $zones, $address->getZoneId()) ?>
@@ -99,14 +99,14 @@
                     <td>
                         <input type="hidden" name="_primary" value="<?php echo $address->isPrimary() ?>" />
                         <input type="checkbox" id="primary" name="primary" value="on" <?php $form->checked($address->isPrimary()) ?> />
-                        <label for="primary"><?php zm_l10n("Use as primary address") ?></label>
+                        <label for="primary"><?php _vzm("Use as primary address") ?></label>
                     </td>
                 </tr>
             <?php } ?>
             <tr class="legend">
                 <td colspan="2">
                     <input type="hidden" name="id" value="<?php echo $address->getId() ?>" />
-                    <?php zm_l10n("<span>*</span> Mandatory fields") ?>
+                    <?php _vzm("<span>*</span> Mandatory fields") ?>
                 </td>
             </tr>
         </tbody>

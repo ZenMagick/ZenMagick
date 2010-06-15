@@ -24,7 +24,7 @@
  */
 ?>
 
-<h2><?php zm_l10n("Gift Certificate FAQ") ?></h2>
+<h2><?php _vzm("Gift Certificate FAQ") ?></h2>
 
 <?php /* the available FAQ entries */
     $faq_topics = array(
@@ -38,7 +38,7 @@
 
 <ul>
 <?php foreach ($faq_topics as $key => $title) { ?>
-    <li><a href="<?php echo $net->url(FILENAME_GV_FAQ,'topic='.$key) ?>"><?php zm_l10n($title) ?></a></li>
+    <li><a href="<?php echo $net->url(FILENAME_GV_FAQ,'topic='.$key) ?>"><?php _vzm($title) ?></a></li>
 <?php } ?>
 </ul>
 
@@ -48,11 +48,11 @@
 
 <?php echo $form->open(FILENAME_GV_REDEEM, '', true, array('id'=>'gv_redeem')) ?>
   <fieldset>
-    <legend><?php zm_l10n("Redemption code details") ?></legend>
+    <legend><?php _vzm("Redemption code details") ?></legend>
     <div>
-      <label for="gvCode"><?php zm_l10n("Redemption Code") ?></label>
+      <label for="gvCode"><?php _vzm("Redemption Code") ?></label>
       <input type="text" id="gvCode" name="couponCode" value="<?php echo $html->encode($gvRedeem->getCouponCode()) ?>" /> 
     </div>
   </fieldset>
-  <div class="btn"><input type="submit" class="btn" value="<?php zm_l10n("Redeem") ?>" /></div>
+  <div class="btn"><input type="submit" class="btn" value="<?php _vzm("Redeem") ?>" /></div>
 </form>

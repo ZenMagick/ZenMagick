@@ -23,7 +23,7 @@
  * @version $Id: views.php 2696 2009-12-04 00:06:09Z dermanomann $
  */
 ?>
-<h2><?php zm_l10n("Find our <em>TEST</em> store using Google Maps!") ?></h2>
-<div id="locator_map" style="width:400px;height:400px;border:1px solid #ccc;"><?php zm_l10n("Loading map...") ?></div>
+<h2><?php _vzm("Find our <em>TEST</em> store using Google Maps!") ?></h2>
+<div id="locator_map" style="width:400px;height:400px;border:1px solid #ccc;"><?php _vzm("Loading map...") ?></div>
 <div id="stores">
 </div>

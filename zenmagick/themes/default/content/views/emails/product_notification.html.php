@@ -25,12 +25,12 @@
 ?><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html lang="<?php echo $language->getCode() ?>">
 <head>
-<title><?php zm_l10n("Product Update Notification") ?></title>
+<title><?php _vzm("Product Update Notification") ?></title>
 </head>
 <body>
 <body>
 <div style="font-family:Verdana,Arial,Helvetica,sans-serif;font-size:10pt;">
-<p><?php zm_l10n("Dear %s %s,", $EMAIL_FIRST_NAME, $EMAIL_LAST_NAME) ?></p>
+<p><?php _vzm("Dear %s %s,", $EMAIL_FIRST_NAME, $EMAIL_LAST_NAME) ?></p>
 
 <div><?php echo $EMAIL_MESSAGE_HTML; ?></div>
 

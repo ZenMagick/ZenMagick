@@ -25,23 +25,23 @@
 ?><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html lang="<?php echo $language->getCode() ?>">
 <head>
-<title><?php zm_l10n("A gift from %s", $currentAccount->getFullName()) ?></title>
+<title><?php _vzm("A gift from %s", $currentAccount->getFullName()) ?></title>
 </head>
 <body>
 <body>
 <div style="font-family:Verdana,Arial,Helvetica,sans-serif;font-size:10pt;">
-<p><?php zm_l10n("Dear %s,", $gvReceiver->getName()) ?></p>
+<p><?php _vzm("Dear %s,", $gvReceiver->getName()) ?></p>
 
-<p><?php zm_l10n('You have been sent a Gift Certificate worth %s by %s.', $utils->formatMoney($gvReceiver->getAmount(), false), $currentAccount->getFullName()) ?></p>
-<p><?php zm_l10n("The code to redeem your Gift Certificate is: %s.", $currentCoupon->getCode()) ?></p>
+<p><?php _vzm('You have been sent a Gift Certificate worth %s by %s.', $utils->formatMoney($gvReceiver->getAmount(), false), $currentAccount->getFullName()) ?></p>
+<p><?php _vzm("The code to redeem your Gift Certificate is: %s.", $currentCoupon->getCode()) ?></p>
 <?php if ($gvReceiver->hasMessage()) { ?>
 <p>
-<?php zm_l10n("%s says:", $currentAccount->getFirstName()); ?><br>
+<?php _vzm("%s says:", $currentAccount->getFirstName()); ?><br>
 <?php echo $html->text2html($gvReceiver->getMessage()) ?>
 </p>
 <?php } ?>
 <?php $href = '<a href="'.$net->url(FILENAME_GV_REDEEM, 'couponCode='.$currentCoupon->getCode(), true).'">'.ZMSettings::get('storeName').'</a>'; ?>
-<p><?php zm_l10n("To redeem your gift, visit %s.", $href) ?></p>
+<p><?php _vzm("To redeem your gift, visit %s.", $href) ?></p>
 
 <?php if (!isset($isSupressDisclaimer)) { echo $utils->staticPageContent('email_advisory'); } ?>
 <?php echo $office_only_html; ?>

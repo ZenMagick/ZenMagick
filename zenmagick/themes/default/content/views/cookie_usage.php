@@ -24,4 +24,4 @@
  */
 ?>
 
-<h2><?php zm_l10n("You need to enable Cookies in order to use the requested feature") ?></h2>
+<h2><?php _vzm("You need to enable Cookies in order to use the requested feature") ?></h2>

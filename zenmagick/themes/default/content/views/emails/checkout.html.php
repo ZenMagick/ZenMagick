@@ -25,20 +25,20 @@
 ?><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html lang="<?php echo $language->getCode() ?>">
 <head>
-<title><?php zm_l10n("%s Order Confirmation", ZMSettings::get('storeName')) ?></title>
+<title><?php _vzm("%s Order Confirmation", ZMSettings::get('storeName')) ?></title>
 </head>
 <body>
 <div style="font-family:Verdana,Arial,Helvetica,sans-serif;font-size:10pt;">
-<p><?php zm_l10n("Thanks for shopping at %s,", ZMSettings::get('storeName')) ?></p>
-<p><?php zm_l10n("The following is a summary of your order.") ?></p>
+<p><?php _vzm("Thanks for shopping at %s,", ZMSettings::get('storeName')) ?></p>
+<p><?php _vzm("The following is a summary of your order.") ?></p>
 
-<h3><?php zm_l10n("Order Details") ?></h3>
+<h3><?php _vzm("Order Details") ?></h3>
 <p>
-<?php zm_l10n("Order Number: #%s", $order->getId()) ?><br>
-<?php zm_l10n("Order Date: %s", $locale->shortDate($order->getOrderDate())) ?>
+<?php _vzm("Order Number: #%s", $order->getId()) ?><br>
+<?php _vzm("Order Date: %s", $locale->shortDate($order->getOrderDate())) ?>
 </p>
 
-<h4><?php zm_l10n("Ordered Items") ?></h4>
+<h4><?php _vzm("Ordered Items") ?></h4>
 <table cellpadding="3" cellspacing="2">
 <?php foreach ($order->getOrderItems() as $orderItem) { ?>
 <tr>
@@ -55,25 +55,25 @@
 <?php } ?>
 </table>
 
-<h3><?php zm_l10n("Address Details") ?></h3>
+<h3><?php _vzm("Address Details") ?></h3>
 <table cellpadding="3" cellspacing="2">
 <tr>
 <td valign="top">
-<h4><?php zm_l10n("Shipping Address") ?></h4>
+<h4><?php _vzm("Shipping Address") ?></h4>
 <?php if ($order->isStorePickup() || !$order->hasShippingAddress()) { ?>
-<?php zm_l10n("N/A") ?>
+<?php _vzm("N/A") ?>
 <?php } else { ?>
 <?php echo $macro->formatAddress($shippingAddress) ?>
 <?php } ?>
 </td>
 <td valign="top">
-<h4><?php zm_l10n("Billing Address") ?></h4>
+<h4><?php _vzm("Billing Address") ?></h4>
 <?php echo $macro->formatAddress($billingAddress) ?>
 </td>
 </tr>
 </table>
 
-<h3><?php zm_l10n("Payment Details") ?></h3>
+<h3><?php _vzm("Payment Details") ?></h3>
 <?php $paymentType = $order->getPaymentType(); ?>
 <p><?php echo $html->encode($paymentType->getName()) ?></p>
 <?php if (!empty($PAYMENT_METHOD_FOOTER)) { ?>

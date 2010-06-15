@@ -27,7 +27,7 @@
 <?php $toc = ZMEZPages::instance()->getPagesForChapterId($request->getParameter("chapter"), $session->getLanguageId()); ?>
 <?php if (1 < count($toc)) { ?>
     <div id="eztoc">
-        <h4><?php zm_l10n("Table of Contents") ?></h4>
+        <h4><?php _vzm("Table of Contents") ?></h4>
         <ul>
         <?php foreach ($toc as $page) { $active = $page->getId() == $ezPage->getId() ? ' class="act"' : ''; ?>
             <li<?php echo $active ?>><a href="<?php echo $net->ezPage($page) ?>"><?php echo $html->encode($page->getTitle()) ?></a></li>
@@ -59,8 +59,8 @@
         ?>
         <?php if (null != $prev && null != $next) { ?>
         <p>
-            <a href="<?php echo $net->ezPage($prev) ?>"><?php zm_l10n("&lt; Prev") ?></a>
-            <a href="<?php echo $net->ezPage($next) ?>"><?php zm_l10n("Next &gt;") ?></a>
+            <a href="<?php echo $net->ezPage($prev) ?>"><?php _vzm("&lt; Prev") ?></a>
+            <a href="<?php echo $net->ezPage($next) ?>"><?php _vzm("Next &gt;") ?></a>
         </p>
         <?php } ?>
     </div>

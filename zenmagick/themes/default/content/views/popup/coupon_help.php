@@ -37,17 +37,17 @@
   }
 
 ?>
-<h2><?php zm_l10n("Congratulations, you have redeemed a Discount Coupon.") ?></h2>
+<h2><?php _vzm("Congratulations, you have redeemed a Discount Coupon.") ?></h2>
 <p>
-  <?php zm_l10n("Coupon Name: %s", $coupon->getName()) ?><br/>
-  <?php zm_l10n("Coupon Description: %s", $html->encode($coupon->getDescription())) ?><br/>
+  <?php _vzm("Coupon Name: %s", $coupon->getName()) ?><br/>
+  <?php _vzm("Coupon Description: %s", $html->encode($coupon->getDescription())) ?><br/>
   <?php echo $discount ?>
 </p>
 
-<p><?php zm_l10n("The discount is valid between %s and %s.", $locale->shortDate($coupon->getStartDate()), $locale->shortDate($coupon->getExpiryDate())) ?></p>
+<p><?php _vzm("The discount is valid between %s and %s.", $locale->shortDate($coupon->getStartDate()), $locale->shortDate($coupon->getExpiryDate())) ?></p>
 
 <?php if ($restrictions->hasCategories()) { ?>
-    <h4><?php zm_l10n("Category Restrictions")?></h4>
+    <h4><?php _vzm("Category Restrictions")?></h4>
     <ul>
     <?php foreach ($restrictions->getCategories() as $rest) { $category = $rest->getCategory(); ?>
         <li><?php echo $html->encode($category->getName()) ?> - <?php echo ($rest->isAllowed() ? zm_l10n_get(" included") : zm_l10n_get(" excluded")) ?></li>
@@ -56,7 +56,7 @@
 <?php } ?>
 
 <?php if ($restrictions->hasProducts()) { ?>
-    <h4><?php zm_l10n("Product Restrictions")?></h4>
+    <h4><?php _vzm("Product Restrictions")?></h4>
     <ul>
     <?php foreach ($restrictions->getProducts() as $rest) { $product = $rest->getProduct(); ?>
         <li><?php echo $html->encode($product->getName()) ?> - <?php echo ($rest->isAllowed() ? zm_l10n_get(" included") : zm_l10n_get(" excluded")) ?></li>
@@ -65,9 +65,9 @@
 <?php } ?>
 
 <?php if (!$restrictions->hasRestrictions()) { ?>
-    <h4><?php zm_l10n("The coupon is valid for all categories and products.") ?></h4>
+    <h4><?php _vzm("The coupon is valid for all categories and products.") ?></h4>
 <?php } ?>
 
 <p>Discount Coupons may not be applied towards the purchase of Gift Certificates.</p>
 
-<div id="close"><a href="#" onclick="javascript:window.close()"><?php zm_l10n("Close Window [x]") ?></a></div>
+<div id="close"><a href="#" onclick="javascript:window.close()"><?php _vzm("Close Window [x]") ?></a></div>

@@ -29,7 +29,7 @@
     $products = array();
 ?>
 <?php if (0 < count($orders)) { ?>
-    <h3><?php zm_l10n("Previous Purchases") ?></h3>
+    <h3><?php _vzm("Previous Purchases") ?></h3>
     <div id="sb_order_history" class="box">
       <ul>
       <?php foreach ($orders as $order) {

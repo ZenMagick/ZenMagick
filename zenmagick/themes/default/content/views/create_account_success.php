@@ -26,7 +26,7 @@
 
 <?php $email = '<a href="' . $net->url(FILENAME_CONTACT_US) . '">' . zm_l10n_get("store owner") . '</a>'; ?>
 <?php $contactus = '<a href="' . $net->url(FILENAME_CONTACT_US) . '">' . zm_l10n_get("contact us") . '</a>'; ?>
-<h3><?php zm_l10n("Congratulations!" ) ?></h3>
-<p><?php zm_l10n("Your new account has been successfully created! You can now take advantage of member privileges to enhance your online shopping experience with us.") ?></p>
-<p><?php zm_l10n("If you have <small><strong>ANY</strong></small> questions about the operation of this online shop, please email the %s.", $email) ?></p>
-<p><?php zm_l10n("A confirmation has been sent to the provided email address. If you have not received it within the hour, please %s.", $contactus) ?></p>
+<h3><?php _vzm("Congratulations!" ) ?></h3>
+<p><?php _vzm("Your new account has been successfully created! You can now take advantage of member privileges to enhance your online shopping experience with us.") ?></p>
+<p><?php _vzm("If you have <small><strong>ANY</strong></small> questions about the operation of this online shop, please email the %s.", $email) ?></p>
+<p><?php _vzm("A confirmation has been sent to the provided email address. If you have not received it within the hour, please %s.", $contactus) ?></p>

@@ -24,4 +24,4 @@
  */
 ?>
 
-<h2><?php zm_l10n("Your Shopping Cart is empty") ?></h2>
+<h2><?php _vzm("Your Shopping Cart is empty") ?></h2>

@@ -25,21 +25,21 @@
 ?><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html lang="<?php echo $language->getCode() ?>">
 <head>
-<title><?php zm_l10n("A Gift Certificate from %s", ZMSettings::get('storeName')) ?></title>
+<title><?php _vzm("A Gift Certificate from %s", ZMSettings::get('storeName')) ?></title>
 </head>
 <body>
 <body>
 <div style="font-family:Verdana,Arial,Helvetica,sans-serif;font-size:10pt;">
 <?php if (empty($htmlMessage)) { ?>
-<p><?php zm_l10n("We're pleased to offer you a Gift Certificate") ?></p>
+<p><?php _vzm("We're pleased to offer you a Gift Certificate") ?></p>
 <?php } else { ?>
 <div><?php echo $message; ?></div>
 <?php } ?>
 
-<p><?php zm_l10n('You have been sent a Gift Certificate worth %s.', $utils->formatMoney($currentCoupon->getAmount(), false)) ?></p>
-<p><?php zm_l10n("The code to redeem your Gift Certificate is: %s.", $currentCoupon->getCode()) ?></p>
+<p><?php _vzm('You have been sent a Gift Certificate worth %s.', $utils->formatMoney($currentCoupon->getAmount(), false)) ?></p>
+<p><?php _vzm("The code to redeem your Gift Certificate is: %s.", $currentCoupon->getCode()) ?></p>
 <?php $href = '<a href="'.$net->url(FILENAME_GV_REDEEM, 'couponCode='.$currentCoupon->getCode(), true).'">'.ZMSettings::get('storeName').'</a>'; ?>
-<p><?php zm_l10n("To redeem your gift, visit %s.", $href) ?></p>
+<p><?php _vzm("To redeem your gift, visit %s.", $href) ?></p>
 
 <?php if (!isset($isSupressDisclaimer)) { echo $utils->staticPageContent('email_advisory'); } ?>
 <?php echo $office_only_html; ?>

@@ -23,9 +23,9 @@
  * $Id$
  */
 ?>
-<?php zm_l10n("A Product Review for %s has been submitted and requires your approval.", $currentProduct->getName()) ?>
+<?php _vzm("A Product Review for %s has been submitted and requires your approval.", $currentProduct->getName()) ?>
 
 
-<?php zm_l10n("Review Details: %s", $currentReview->getText()) ?>
+<?php _vzm("Review Details: %s", $currentReview->getText()) ?>
 
 <?php echo $office_only_text; ?>

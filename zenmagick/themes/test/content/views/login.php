@@ -26,46 +26,46 @@
 
 <?php echo $form->open(FILENAME_LOGIN, "action=process", true, array('id'=>'login')) ?>
   <fieldset>
-    <legend><?php zm_l10n("Login") ?></legend>
+    <legend><?php _vzm("Login") ?></legend>
     <div>
-      <label for="email_address"><?php zm_l10n("E-Mail Address") ?></label>
+      <label for="email_address"><?php _vzm("E-Mail Address") ?></label>
       <input type="text" id="email_address" name="email_address" <?php echo $form->fieldLength(TABLE_CUSTOMERS, 'customers_email_address') ?> /> 
     </div>
     <div>
-      <label for="password"><?php zm_l10n("Password") ?></label>
+      <label for="password"><?php _vzm("Password") ?></label>
       <input type="password" id="password" name="password" <?php echo $form->fieldLength(TABLE_CUSTOMERS, 'customers_password') ?> /> 
     </div>
   </fieldset>
-  <div class="btn"><input type="submit" class="btn" value="<?php zm_l10n("Submit") ?>" /></div>
+  <div class="btn"><input type="submit" class="btn" value="<?php _vzm("Submit") ?>" /></div>
 </form>
 
 <p>
-  <a href="<?php echo $net->url(FILENAME_PASSWORD_FORGOTTEN, '', true) ?>"><?php zm_l10n("Lost your password?") ?></a><br />
-  <a href="<?php echo $net->url(FILENAME_CREATE_ACCOUNT, '', true); ?>"><?php zm_l10n("Not registered yet?") ?></a>
+  <a href="<?php echo $net->url(FILENAME_PASSWORD_FORGOTTEN, '', true) ?>"><?php _vzm("Lost your password?") ?></a><br />
+  <a href="<?php echo $net->url(FILENAME_CREATE_ACCOUNT, '', true); ?>"><?php _vzm("Not registered yet?") ?></a>
 </p>
 
 <?php if (ZMSettings::get('isGuestCheckout') && $request->isAnonymous()) { ?>
-  <h3><?php zm_l10n("Don't need an account?") ?></h3>
+  <h3><?php _vzm("Don't need an account?") ?></h3>
   <?php echo $form->open('checkout_guest', "action=process", true, array('id'=>'checkout_guest')) ?>
     <fieldset>
-      <legend><?php zm_l10n("Checkout without registering") ?></legend>
+      <legend><?php _vzm("Checkout without registering") ?></legend>
       <div>
-        <label for="email_address_guest"><?php zm_l10n("E-Mail Address") ?></label>
+        <label for="email_address_guest"><?php _vzm("E-Mail Address") ?></label>
         <input type="text" id="email_address_guest" name="email_address" <?php echo $form->fieldLength(TABLE_CUSTOMERS, 'customers_email_address') ?> /> 
-        <input type="submit" class="btn" value="<?php zm_l10n("Checkout") ?>" />
+        <input type="submit" class="btn" value="<?php _vzm("Checkout") ?>" />
       </div>
     </fieldset>
   </form>
 <?php } ?>
 
-<h3><?php zm_l10n("Use OpenID") ?></h3>
+<h3><?php _vzm("Use OpenID") ?></h3>
 <?php echo $form->open('openID', '', true, array('id'=>'openid_login')) ?>
   <fieldset>
     <div>
-      <label for="openid"><?php zm_l10n("OpenID") ?></label>
+      <label for="openid"><?php _vzm("OpenID") ?></label>
       <input type="hidden" name="action" value="initAuth" /> 
       <input type="text" id="openid" name="openid" /> 
-      <input type="submit" class="btn" value="<?php zm_l10n("Login") ?>" />
+      <input type="submit" class="btn" value="<?php _vzm("Login") ?>" />
     </div>
   </fieldset>
 </form>

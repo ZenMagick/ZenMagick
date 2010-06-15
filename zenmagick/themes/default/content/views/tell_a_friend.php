@@ -26,27 +26,27 @@
 
 <?php echo $form->open(FILENAME_TELL_A_FRIEND, 'action=process&products_id=' . $request->getProductId(), true, array('id'=>'tellAFriend')) ?>
    <fieldset>
-        <legend><?php zm_l10n("Tell a friend about '%s'", $currentProduct->getName()); ?></legend>
+        <legend><?php _vzm("Tell a friend about '%s'", $currentProduct->getName()); ?></legend>
 
-        <label for="fromName"><?php zm_l10n("Your Name") ?><span>*</span></label>
+        <label for="fromName"><?php _vzm("Your Name") ?><span>*</span></label>
         <input type="text" id="fromName" name="fromName" size="40" value="<?php echo $html->encode($tellAFriend->getFromName()) ?>" /><br />
 
-        <label for="fromEmail"><?php zm_l10n("Your Email") ?><span>*</span></label>
+        <label for="fromEmail"><?php _vzm("Your Email") ?><span>*</span></label>
         <input type="text" id="fromEmail" name="fromEmail" size="40" value="<?php echo $html->encode($tellAFriend->getFromEmail()) ?>" /><br />
 
-        <label for="toName"><?php zm_l10n("Friend's Name") ?><span>*</span></label>
+        <label for="toName"><?php _vzm("Friend's Name") ?><span>*</span></label>
         <input type="text" id="toName" name="toName" size="40" value="<?php echo $html->encode($tellAFriend->getToName()) ?>" /><br />
 
-        <label for="toEmail"><?php zm_l10n("Friend's Email") ?><span>*</span></label>
+        <label for="toEmail"><?php _vzm("Friend's Email") ?><span>*</span></label>
         <input type="text" id="toEmail" name="toEmail" size="40" value="<?php echo $html->encode($tellAFriend->getToEmail()) ?>" /><br />
 
-        <label for="message"><?php zm_l10n("Message") ?></label>
+        <label for="message"><?php _vzm("Message") ?></label>
         <textarea id="message" name="message" cols="30" rows="7"><?php echo $html->encode($tellAFriend->getMessage()) ?></textarea>
-        <p class="legend"><?php zm_l10n("<span>*</span> Mandatory fields") ?></p>
+        <p class="legend"><?php _vzm("<span>*</span> Mandatory fields") ?></p>
     </fieldset>
-    <div class="btn"><input type="submit" class="btn" value="<?php zm_l10n("Send") ?>" /></div>
+    <div class="btn"><input type="submit" class="btn" value="<?php _vzm("Send") ?>" /></div>
 </form>
 <div class="advisory">
-    <strong><?php zm_l10n("The following message is included with all emails sent from this site:") ?></strong><br />
+    <strong><?php _vzm("The following message is included with all emails sent from this site:") ?></strong><br />
     <?php echo $utils->staticPageContent('email_advisory') ?>
 </div>

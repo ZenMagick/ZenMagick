@@ -25,16 +25,16 @@
 ?><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html lang="<?php echo $language->getCode() ?>">
 <head>
-<title><?php zm_l10n("Store Enquiry %s,", ZMSettings::get('storeName')) ?></title>
+<title><?php _vzm("Store Enquiry %s,", ZMSettings::get('storeName')) ?></title>
 </head>
 <body>
 <body>
 <div style="font-family:Verdana,Arial,Helvetica,sans-serif;font-size:10pt;">
-<p><?php zm_l10n("Store Enquiry %s,", ZMSettings::get('storeName')) ?></p>
+<p><?php _vzm("Store Enquiry %s,", ZMSettings::get('storeName')) ?></p>
 
 
-<p><?php zm_l10n("From: %s", $contactInfo->getName()) ?></p>
-<p><?php zm_l10n("Email: %s", $contactInfo->getEmail()) ?></p>
+<p><?php _vzm("From: %s", $contactInfo->getName()) ?></p>
+<p><?php _vzm("Email: %s", $contactInfo->getEmail()) ?></p>
 
 <hr>
 <div><?php echo $html->text2html($contactInfo->getMessage()) ?></div>

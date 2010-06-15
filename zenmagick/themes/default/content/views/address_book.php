@@ -27,14 +27,14 @@
 <?php foreach ($addressList as $address) { ?>
     <fieldset>
         <legend><?php echo $html->encode($address->getFirstName() . ' ' . $address->getLastName()) ?>
-        <?php echo ($address->isPrimary() ? zm_l10n("(primary)") : ''); ?></legend>
+        <?php echo ($address->isPrimary() ? _vzm("(primary)") : ''); ?></legend>
         <div class="btn">
             <?php if (!$address->isPrimary()) { ?>
-                <a class="btn" href="<?php echo $net->url('address_book_delete', 'id='.$address->getId(), '', true) ?>"><?php zm_l10n("Delete") ?></a>
+                <a class="btn" href="<?php echo $net->url('address_book_delete', 'id='.$address->getId(), '', true) ?>"><?php _vzm("Delete") ?></a>
             <?php } ?>
-            <a class="btn" href="<?php echo $net->url('address_book_edit', 'id='.$address->getId(), '', true) ?>"><?php zm_l10n("Edit") ?></a>
+            <a class="btn" href="<?php echo $net->url('address_book_edit', 'id='.$address->getId(), '', true) ?>"><?php _vzm("Edit") ?></a>
         </div>
         <?php echo $macro->formatAddress($address) ?>
     </fieldset>
 <?php } ?>
-<div class="btn"><a href="<?php echo $net->url('address_book_add', '', true) ?>" class="btn"><?php zm_l10n("Add Address") ?></a></div>
+<div class="btn"><a href="<?php echo $net->url('address_book_add', '', true) ?>" class="btn"><?php _vzm("Add Address") ?></a></div>

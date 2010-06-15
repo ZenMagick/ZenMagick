@@ -23,15 +23,15 @@
  * $Id$
  */
 ?>
-<?php zm_l10n("Dear %s %s,", $currentAccount->getFirstName(), $currentAccount->getLastName()) ?>
+<?php _vzm("Dear %s %s,", $currentAccount->getFirstName(), $currentAccount->getLastName()) ?>
 
 
-<?php zm_l10n("We wish to welcome you to %s.", ZMSettings::get('storeName')) ?>
+<?php _vzm("We wish to welcome you to %s.", ZMSettings::get('storeName')) ?>
 
 
 <?php echo strip_tags($utils->staticPageContent('email_welcome')) ?>
 
-<?php zm_l10n("Sincerely, %s", ZMSettings::get('storeOwner')) ?>
+<?php _vzm("Sincerely, %s", ZMSettings::get('storeOwner')) ?>
 
 
 <?php echo strip_tags($utils->staticPageContent('email_advisory')) ?>

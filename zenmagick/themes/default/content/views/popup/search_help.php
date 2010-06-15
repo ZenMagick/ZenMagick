@@ -24,8 +24,8 @@
  */
 ?>
 
-<h1><?php zm_l10n("Search Help") ?></h1>
+<h1><?php _vzm("Search Help") ?></h1>
 
 <?php echo $utils->staticPageContent('popup_search_help') ?>
 
-<div id="close"><a href="#" onclick="javascript:window.close()"><?php zm_l10n("Close Window [x]") ?></a></div>
+<div id="close"><a href="#" onclick="javascript:window.close()"><?php _vzm("Close Window [x]") ?></a></div>

@@ -25,14 +25,14 @@
 ?>
 
 <?php $restrictions = $currentCoupon->getRestrictions(); ?>
-<p><?php zm_l10n("The Discount Coupon Redemption Code you have entered is for %s.", $currentCoupon->getName()) ?></p>
-<p><?php zm_l10n("Discount Offer:") ?><br /><?php echo $html->encode($currentCoupon->getDescription()) ?></p>
+<p><?php _vzm("The Discount Coupon Redemption Code you have entered is for %s.", $currentCoupon->getName()) ?></p>
+<p><?php _vzm("Discount Offer:") ?><br /><?php echo $html->encode($currentCoupon->getDescription()) ?></p>
 
-<h4><?php zm_l10n("Promotional Period") ?></h4>
-<p><?php zm_l10n("The coupon is valid between %s and %s.", $locale->shortDate($currentCoupon->getStartDate()), $locale->shortDate($currentCoupon->getExpiryDate())) ?></p>
+<h4><?php _vzm("Promotional Period") ?></h4>
+<p><?php _vzm("The coupon is valid between %s and %s.", $locale->shortDate($currentCoupon->getStartDate()), $locale->shortDate($currentCoupon->getExpiryDate())) ?></p>
 
 <?php if ($restrictions->hasCategories()) { ?>
-    <h4><?php zm_l10n("Category Restrictions")?></h4>
+    <h4><?php _vzm("Category Restrictions")?></h4>
     <ul>
     <?php foreach ($restrictions->getCategories() as $rest) { $category = $rest->getCategory(); ?>
         <li><?php echo $html->encode($category->getName()) ?> - <?php echo ($rest->isAllowed() ? zm_l10n_get(" included") : zm_l10n_get(" excluded")) ?></li>
@@ -41,7 +41,7 @@
 <?php } ?>
 
 <?php if ($restrictions->hasProducts()) { ?>
-    <h4><?php zm_l10n("Product Restrictions")?></h4>
+    <h4><?php _vzm("Product Restrictions")?></h4>
     <ul>
     <?php foreach ($restrictions->getProducts() as $rest) { $product = $rest->getProduct(); ?>
         <li><?php echo $html->encode($product->getName()) ?> - <?php echo ($rest->isAllowed() ? zm_l10n_get(" included") : zm_l10n_get(" excluded")) ?></li>
@@ -50,14 +50,14 @@
 <?php } ?>
 
 <?php if (!$restrictions->hasRestrictions()) { ?>
-    <h4><?php zm_l10n("The coupon is valid for all categories and products.") ?></h4>
+    <h4><?php _vzm("The coupon is valid for all categories and products.") ?></h4>
 <?php } ?>
 
 <?php echo $form->open(FILENAME_DISCOUNT_COUPON, 'action=lookup', false, array('method' => 'get')) ?>
   <fieldset>
-    <legend><?php zm_l10n("Look-up another discount coupon ...") ?></legend>
-    <label for="lookup_discount_coupon"><?php zm_l10n("Your Code") ?></label>
+    <legend><?php _vzm("Look-up another discount coupon ...") ?></legend>
+    <label for="lookup_discount_coupon"><?php _vzm("Your Code") ?></label>
     <input type="text" id="lookup_discount_coupon" name="lookup_discount_coupon" size="40" value="<?php echo $html->encode($currentCouponCode) ?>" />
   </fieldset>
-  <div class="btn"><input type="submit" class="btn" value="<?php zm_l10n("Send") ?>" />
+  <div class="btn"><input type="submit" class="btn" value="<?php _vzm("Send") ?>" />
 </form>

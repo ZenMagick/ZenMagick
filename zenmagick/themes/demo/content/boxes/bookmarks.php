@@ -27,7 +27,7 @@
     $bmurl = urlencode($net->url(null, null));
     $bmtitle = zm_l10n_get("%s at %s", $metaTags->getTitle(), ZMSettings::get('storeName'));
 ?>
-<h3><a href="http://ekstreme.com/socializer/?url=<?php echo $bmurl ?>&amp;title=<?php echo $bmtitle ?>"<?php echo $html->hrefTarget()?>><?php zm_l10n("[More]") ?></a><?php zm_l10n("Bookmark this") ?></h3>
+<h3><a href="http://ekstreme.com/socializer/?url=<?php echo $bmurl ?>&amp;title=<?php echo $bmtitle ?>"<?php echo $html->hrefTarget()?>><?php _vzm("[More]") ?></a><?php _vzm("Bookmark this") ?></h3>
 <div id="sb_bookmarks" class="box">
 <a href="http://del.icio.us/post?v=2&amp;url=<?php echo $bmurl ?>&amp;title=<?php echo $bmtitle ?>"<?php echo $html->hrefTarget()?>><img src="<?php echo $this->asUrl("images/bookmarks/deliciou.png") ?>" alt="link to del.icio.us" />del.icio.us</a>
 
@@ -37,6 +37,6 @@
 
     <a href="http://myweb2.search.yahoo.com/myresults/bookmarklet?u=<?php echo $bmurl ?>&amp;t=<?php echo $bmtitle ?>"<?php echo $html->hrefTarget()?>><img src="<?php echo $this->asUrl("images/bookmarks/yahoo.png") ?>" alt="link to Yahoo" />Yahoo My Web</a>
 
-    <a href="http://www.addthis.com/bookmark.php?url=<?php echo $bmurl ?>&amp;title=<?php echo $bmtitle ?>" title="<?php zm_l10n('Bookmark using any bookmarking manager!') ?>"<?php echo $html->hrefTarget()?>><img src="<?php echo $this->asUrl("images/bookmarks/button1-bm.gif") ?>" alt="<?php zm_l10n('Bookmark using any bookmarking manager!') ?>" width="125" height="16" /></a>
+    <a href="http://www.addthis.com/bookmark.php?url=<?php echo $bmurl ?>&amp;title=<?php echo $bmtitle ?>" title="<?php _vzm('Bookmark using any bookmarking manager!') ?>"<?php echo $html->hrefTarget()?>><img src="<?php echo $this->asUrl("images/bookmarks/button1-bm.gif") ?>" alt="<?php _vzm('Bookmark using any bookmarking manager!') ?>" width="125" height="16" /></a>
 
 </div>
