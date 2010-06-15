@@ -29,6 +29,9 @@
  *
  * <p>Sorting and filtering is based on the corresponding result list support classes.</p>
  *
+ * <p>The setting '<em>apps.store.search.fulltext</em>' may be set to true to make the search SQL 
+ * use MySQL fulltext rather than simple <em>LIKE</em> queries.</p>
+ *
  * @author DerManoMann
  * @package zenmagick.store.shared.utils
  */
