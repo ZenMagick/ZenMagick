@@ -42,45 +42,46 @@
             // create dummy files
             $dummyPatch = new ZMThemeDummyPatch();
             $dummyPatch->patch(true);
-            ZMMessages::instance()->msg(zm_l10n_get('Created zen-cart template dummy files for "%s".', $name));
+            ZMMessages::instance()->msg(sprintf(_zm('Created zen-cart template dummy files for "%s".'), $name));
 
             // select new theme
             // XXX: TODO: fix lanugageId
             ZMThemes::instance()->updateZCThemeId($name);
-            ZMMessages::instance()->msg(zm_l10n_get('New theme "%s" selected as active zen-cart template.', $name));
+            ZMMessages::instance()->msg(sprintf(_zm('New theme "%s" selected as active zen-cart template.'), $name));
         }
 
     }
 
 ?>
 
-<h2><?php zm_l10n("ZenMagick Theme Builder") ?></h2>
+<h2><?php _vzm("ZenMagick Theme Builder") ?></h2>
 
-<form action="<?php echo $toolbox->admin2->url() ?>" method="POST" onsubmit="return zenmagick.confirm('Create theme?', this);">
+<form action="<?php echo $admin2->url() ?>" method="POST" onsubmit="return zenmagick.confirm('_vzm('Create theme?')', this);">
   <fieldset>
-  <legend><?php zm_l10n("Create new ZenMagick Theme") ?></legend>
+  <legend><?php _vzm("Create new ZenMagick Theme") ?></legend>
 
-      <label for="name">Name</label>
+  <label for="name"><?php _vzm('Name') ?></label>
       <input type="text" id="name" name="name" value="">
-      (This is what the folder will be named. <strong>Names are case sensitive!</strong>)
+      <?php _vzm('(This is what the folder will be named. <strong>Names are case sensitive!</strong>)') ?>
       <br>
 
       <input type="checkbox" id="inherit" name="inherit" value="1" checked>
-      <label for="inherit">Inherit theme defaults</label>
-      (Recommended, unless <strong>all files are copied</strong>)
+      <label for="inherit"><?php _vzm('Inherit theme defaults') ?></label>
+      <?php _vzm('(Recommended, unless <strong>all files are copied</strong>)') ?>
       <br>
 
       <input type="checkbox" id="switchto" name="switchto" value="1" checked>
-      <label for="switchto">Switch to the new theme when created</label>
+      <label for="switchto"><?php _vzm('Switch to the new theme when created') ?></label>
       <br>
 
-      <div class="submit"><input type="submit" value="<?php zm_l10n("Create") ?>"></div>
+      <div class="submit"><input type="submit" value="<?php _vzm("Create") ?>"></div>
   </fieldset>
 </form>
 
-<p>Once you have created the new theme, make sure to (re-)generate the required dummy theme files for zen-cart
-using the <a href="<?php echo $admin2->url('installation') ?>">installation</a> screen.</p>
+<?php $link = '<a href="'.$admin2->url('installation').'">'._zm('installation').'</a>'; ?>
+<p><?php echo sprintf(_zm('Once you have created the new theme, make sure to (re-)generate the required dummy theme files for zen-cart
+  using the %s screen.', $link)) ?></p>
 
-<p>Unused directories can safely be deleted</p>
+<p><?php _vzm('Unused directories can safely be deleted.') ?></p>
 
-<p><strong>It is not recommended to use whitespace in the name. You can always edit the generated files to adjust the description.</strong></p>
+<p><strong><?php _vzm('It is not recommended to use whitespace in the name. You can always edit the generated files to adjust the description.') ?></strong></p>

@@ -36,7 +36,7 @@
               <option value="<?php echo $lang->getId() ?>"<?php echo $selected ?>><?php echo $lang->getName() ?></option>
             <?php } ?>
           </select>
-        )<?php echo (null!==$editContents?': '.$selectedFile:'') ?>
+        )
   </h2>
 
   <p>This tool helps you find language strings in your themes. Just select a theme and you will 

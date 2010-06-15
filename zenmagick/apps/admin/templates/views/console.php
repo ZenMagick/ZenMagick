@@ -48,10 +48,10 @@
 <div id="b_console">
   <form action="<?php echo $admin2->url() ?>" method="POST">
       <fieldset>
-          <legend><?php zm_l10n("<code>PHP</code> Console") ?></legend>
-          <label for="code"><?php zm_l10n("Code:") ?></label>
+          <legend><?php _vzm("<code>PHP</code> Console") ?></legend>
+          <label for="code"><?php _vzm("Code:") ?></label>
           <textarea id="name" name="code" rows="10" cols="80"><?php echo $html->encode($code) ?></textarea><br>
-          <input type="submit" value="<?php zm_l10n("Execute") ?>">
+          <input type="submit" value="<?php _vzm("Execute") ?>">
           <?php if (null != $zm_result) { ?>
               <div id="console">
                   <?php echo str_replace("\n", "<br>", $html->encode($zm_result)); ?>

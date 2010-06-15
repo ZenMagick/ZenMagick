@@ -33,5 +33,5 @@
     <p><label for="newPassword">New password</label> <input type="password" id="newPassword" name="newPassword"></p>
     <p><label for="confirmPassword">Confirm password</label> <input type="password" id="confirmPassword" name="confirmPassword"></p>
   </fieldset>
-  <p><input type="submit" value="<?php zm_l10n("Update") ?>">
+  <p><input type="submit" value="<?php _vzm("Update") ?>">
 </form>

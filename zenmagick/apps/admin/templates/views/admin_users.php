@@ -23,30 +23,30 @@
  * $Id$
  */
 ?>
-<h1><?php zm_l10n("Admin Users") ?></h1>
+<h1><?php _vzm("Admin Users") ?></h1>
 
 <table>
   <tr>
-    <th><?php zm_l10n('ID') ?></th>
-    <th><?php zm_l10n('Name') ?></th>
-    <th><?php zm_l10n('Email') ?></th>
-    <th><?php zm_l10n('Demo') ?></th>
-    <th><?php zm_l10n('Options') ?></th>
+    <th><?php _vzm('ID') ?></th>
+    <th><?php _vzm('Name') ?></th>
+    <th><?php _vzm('Email') ?></th>
+    <th><?php _vzm('Demo') ?></th>
+    <th><?php _vzm('Options') ?></th>
   </tr>
   <?php foreach ($resultList->getResults() as $adminUser) { ?>
     <tr>
       <td><?php echo $adminUser->getId() ?></td>
       <td><a href="<?php echo $admin2->url('edit_admin_user', 'adminUserId='.$adminUser->getId()) ?>"><?php echo $adminUser->getName() ?></a></td>
       <td><?php echo $adminUser->getEmail() ?></td>
-      <td><?php echo ($adminUser->isDemo() ? zm_l10n_get('Demo') : zm_l10n_get('Live')) ?></td>
+      <td><?php echo ($adminUser->isDemo() ? _vzm('Demo') : _vzm('Live')) ?></td>
       <td>
         <form action="<?php echo $admin2->url('edit_admin_user') ?>" method="post">
           <input type="hidden" name="deleteUserId" value="<?php echo $adminUser->getId() ?>">
-          <input type="submit" value="<?php zm_l10n("Delete") ?>">
+          <input type="submit" value="<?php _vzm("Delete") ?>">
         </form>
       </td>
     </tr>
   <?php } ?>
 </table>
-<p><a href="<?php echo $admin2->url('edit_admin_user') ?>">Add User</a></p>
+<p><a href="<?php echo $admin2->url('edit_admin_user') ?>"><?php _vzm('Add User') ?></a></p>
 <?php echo $this->fetch('pagination.php'); ?>

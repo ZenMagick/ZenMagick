@@ -23,23 +23,23 @@
  * $Id$
  */
 ?>
-<h1><?php zm_l10n("%s Orders", (null != $orderStatus ? $orderStatus->getName() : '')) ?></h1>
+<h1><?php echo sprintf(_zm("%s Orders"), (null != $orderStatus ? $orderStatus->getName() : '')) ?></h1>
 
 <table>
   <tr>
-    <th><?php zm_l10n('ID') ?></th>
-    <th><?php zm_l10n('Account') ?></th>
-    <th><?php zm_l10n('Order Date') ?></th>
-    <th><?php zm_l10n('Payment') ?></th>
-    <th><?php zm_l10n('Shipping') ?></th>
-    <th><?php zm_l10n('Status') ?></th>
-    <th><?php zm_l10n('Total') ?></th>
+    <th><?php _vzm('ID') ?></th>
+    <th><?php _vzm('Account') ?></th>
+    <th><?php _vzm('Order Date') ?></th>
+    <th><?php _vzm('Payment') ?></th>
+    <th><?php _vzm('Shipping') ?></th>
+    <th><?php _vzm('Status') ?></th>
+    <th><?php _vzm('Total') ?></th>
   </tr>
   <?php foreach ($resultList->getResults() as $order) { ?>
     <tr>
       <td><a href="<?php echo $admin2->url('order', 'orderId='.$order->getId()) ?>"><?php echo $order->getId() ?></a></td>
       <?php $actualAccount = ZMAccounts::instance()->getAccountForId($order->getAccountId()); ?>
-      <?php $name = $actualAccount->getType() == ZMAccount::REGISTERED ? $order->getAccount()->getFullName() : zm_l10n_get('** Guest **'); ?>
+      <?php $name = $actualAccount->getType() == ZMAccount::REGISTERED ? $order->getAccount()->getFullName() : _vzm('** Guest **'); ?>
       <td><a href="<?php echo $admin2->url('account', 'accountId='.$order->getAccountId()) ?>"><?php echo $name ?></a></td>
       <td><?php echo $order->getOrderDate() ?></td>
       <td><?php echo $order->get('payment_method') ?></td>

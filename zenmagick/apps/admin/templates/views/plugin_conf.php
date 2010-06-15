@@ -35,5 +35,5 @@
       <p><?php echo $value->render($request) ?></p>
     </fieldset>
   <?php } ?>
-  <input type="submit" value="<?php zm_l10n("Update Settings") ?>">
+  <input type="submit" value="<?php _vzm("Update Settings") ?>">
 </form>

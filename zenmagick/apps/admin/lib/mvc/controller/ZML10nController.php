@@ -52,8 +52,9 @@ class ZML10nController extends ZMController {
      * {@inheritDoc}
      */
     public function getViewData($request) {
-        return array('themes' => ZMThemes::instance()->getThemes());
-
+      //TODO: where from?
+      return array('themes' => ZMThemes::instance()->getThemes(),
+          'themeId' => '', 'languageId' => 1, 'includeDefaults' => false, 'mergeExisting' => false, 'scanShared' => false);
     }
 
     /**

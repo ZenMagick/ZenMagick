@@ -143,7 +143,7 @@
                 }
             }
             foreach ($unfulfilled as $dId) {
-                ?><p class="error"><?php zm_l10n("Depends on: '%s'", $patchLabel[$dId]) ?></p><?php
+                ?><p class="error"><?php echo sprintf(_zm("Depends on: '%s'"), $patchLabel[$dId]) ?></p><?php
             }
             if (!$patch->isReady() && $patch->isOpen()) {
               ?><p class="error"><?php echo $patch->getPreconditionsMessage() ?></p><?php
@@ -159,9 +159,9 @@
               <br><?php
         } ?>
         <input type="checkbox" class="all" id="<?php echo $groupId ?>_all" name="<?php echo $groupId ?>_all" value="" onclick="sync_all(this, 'patch_<?php echo $groupId ?>_')">
-        <label for="<?php echo $groupId ?>_all"><?php zm_l10n("Select/Unselect All") ?></label><br>
+        <label for="<?php echo $groupId ?>_all"><?php _vzm("Select/Unselect All") ?></label><br>
         <div class="submit">
-            <input type="submit" value="<?php zm_l10n("Update") ?>">
+            <input type="submit" value="<?php _vzm("Update") ?>">
         </div>
     <?php }
 
@@ -183,11 +183,11 @@
     </script>
 
 <div id="b_installation">
-  <h2><?php zm_l10n("ZenMagick Installation") ?> <a class="btn" href="<?php echo $admin2->url() ?>"><?php zm_l10n("Refresh Page") ?></a></h2>
+  <h2><?php _vzm("ZenMagick Installation") ?> <a class="btn" href="<?php echo $admin2->url() ?>"><?php _vzm("Refresh Page") ?></a></h2>
 
   <form action="<?php echo $admin2->url() ?>" method="POST" onsubmit="return zenmagick.confirm('Update File Patches?', this);">
     <fieldset class="patches">
-      <legend><?php zm_l10n("ZenMagick File Patches") ?></legend>
+      <legend><?php _vzm("ZenMagick File Patches") ?></legend>
       <input type="hidden" name="update" value="file">
       <?php _zm_patch_group('file', $patchLabel) ?>
     </fieldset>
@@ -195,7 +195,7 @@
 
   <form action="<?php echo $admin2->url() ?>" method="POST" onsubmit="return zenmagick.confirm('Update SQL Patches?', this);">
     <fieldset class="patches">
-      <legend><?php zm_l10n("ZenMagick SQL Extensions") ?></legend>
+      <legend><?php _vzm("ZenMagick SQL Extensions") ?></legend>
       <input type="hidden" name="update" value="sql">
       <?php _zm_patch_group('sql', $patchLabel) ?>
       <div class="submit">
@@ -206,29 +206,29 @@
 
   <form action="<?php echo $admin2->url() ?>" method="POST" onsubmit="return zenmagick.confirm('Update selected optimisations?\n(This might take a while...)', this);">
     <fieldset id="optimisation">
-    <legend><?php zm_l10n("Optimising ZenMagick") ?></legend>
+    <legend><?php _vzm("Optimising ZenMagick") ?></legend>
         <input type="hidden" id="optimize" name="optimize" value="x">
         <?php $checked = $coreCompressor->isEnabled() ? ' checked="checked"' : ''; ?>
         <input type="checkbox" id="singleCore" name="singleCore" value="x"<?php echo $checked ?>>
-        <label for="singleCore"><?php zm_l10n("Use single core.php file"); ?></label>
+        <label for="singleCore"><?php _vzm("Use single core.php file"); ?></label>
         <?php if ($coreCompressor->isEnabled()) { ?>
             <input type="checkbox" id="singleCoreGenerate" name="singleCoreGenerate" value="x">
-            <label for="singleCoreGenerate"><?php zm_l10n("Regenerate core.php"); ?></label>
+            <label for="singleCoreGenerate"><?php _vzm("Regenerate core.php"); ?></label>
         <?php } ?>
         <br>
-        <p><?php zm_l10n("This option will compress all files under lib and all <strong>installed</strong> plugins into a single 
+        <p><?php _vzm("This option will compress all files under lib and all <strong>installed</strong> plugins into a single 
         file <code>core.php</code>.
         If you install/uninstall plugins or make any other changes to the lib directory you'll need to regenerate <code>core.php</code> in
         order to make these changes become active.") ?></p>
-        <div class="submit"><input type="submit" value="<?php zm_l10n("Update") ?>"></div>
+        <div class="submit"><input type="submit" value="<?php _vzm("Update") ?>"></div>
     </fieldset>
   </form>
 
   <form action="<?php echo $admin2->url() ?>" method="POST" onsubmit="return zenmagick.confirm('Delete selected files?', this);">
     <fieldset id="obsolete">
-    <legend><?php zm_l10n("Remove obsolete ZenMagick files") ?></legend>
+    <legend><?php _vzm("Remove obsolete ZenMagick files") ?></legend>
       <?php if (0 == count($obsolete)) { ?>
-      <h3><?php zm_l10n("Congratulations - Your installation appears to be clean!") ?></h3>
+      <h3><?php _vzm("Congratulations - Your installation appears to be clean!") ?></h3>
       <?php } else { ?>
         <p>This is a list of file <em>ZenMagick</em> considers to be obsolete. The files are not used by ZenMagick any more,
           and unless you have modified them, or are sure that you need them they can safely be removed.</p>
@@ -238,8 +238,8 @@
           <label for="obsolete-<?php echo $ii ?>"><?php echo $name ?></label><br>
         <?php ++$ii; } ?>
         <input type="checkbox" class="all" id="oall" name="oall" value="" onclick="sync_all(this, 'obsolete')">
-        <label for="oall"><?php zm_l10n("Select/Unselect All") ?></label><br>
-        <div class="submit"><input type="submit" value="<?php zm_l10n("Remove") ?>"></div>
+        <label for="oall"><?php _vzm("Select/Unselect All") ?></label><br>
+        <div class="submit"><input type="submit" value="<?php _vzm("Remove") ?>"></div>
       <?php } ?>
     </fieldset>
   </form>

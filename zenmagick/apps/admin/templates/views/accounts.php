@@ -23,22 +23,22 @@
  * $Id$
  */
 ?>
-<h1><?php zm_l10n("Accounts") ?></h1>
+<h1><?php _vzm("Accounts") ?></h1>
 
 <table>
   <tr>
-    <th><?php zm_l10n('ID') ?></th>
-    <th><?php zm_l10n('Name') ?></th>
-    <th><?php zm_l10n('Created') ?></th>
-    <th><?php zm_l10n('Authorization') ?></th>
+    <th><?php _vzm('ID') ?></th>
+    <th><?php _vzm('Name') ?></th>
+    <th><?php _vzm('Created') ?></th>
+    <th><?php _vzm('Authorization') ?></th>
   </tr>
   <?php foreach ($resultList->getResults() as $account) { ?>
     <tr>
       <td><?php echo $account->getId() ?></td>
-      <?php $name = $account->getType() == ZMAccount::REGISTERED ? $account->getFullName() : zm_l10n_get('** Guest **'); ?>
+      <?php $name = $account->getType() == ZMAccount::REGISTERED ? $account->getFullName() : _vzm('** Guest **'); ?>
       <td><a href="<?php echo $admin2->url('account', 'accountId='.$account->getId()) ?>"><?php echo $name ?></a></td>
       <td><?php echo $account->getAccountCreateDate() ?></td>
-      <td><?php echo ($account->getAuthorization() ? zm_l10n_get('Pending') : zm_l10n_get('Approved')) ?></td>
+      <td><?php echo ($account->getAuthorization() ? _vzm('Pending') : _vzm('Approved')) ?></td>
     </tr>
   <?php } ?>
 </table>

@@ -28,23 +28,24 @@
   $ii = 0; foreach (ZMCaches::instance()->getCaches() as $key => $cacheInfo) {
       if ('x' == $request->getParameter('cache_'.++$ii)) {
           $ok = $cacheInfo['instance']->clear();
-          ZMMessages::instance()->add(zm_l10n_get('Clear page cache \'' . $cacheInfo['group'] . '\' ' . ($ok ? 'successful' : 'failed')), $ok ? 'msg' : 'error');
+          $msg = 'Clear page cache \'%s\' ' . ($ok ? 'successful' : 'failed');
+          ZMMessages::instance()->add(sprintf(_zm($msg), $cacheInfo['group']), ($ok ? 'msg' : 'error'));
       }
   }
 
 ?>
 
-<h2><?php zm_l10n("ZenMagick Cache Admin") ?></h2>
+<h2><?php _vzm("ZenMagick Cache Admin") ?></h2>
 
-<form action="<?php echo $admin2->url() ?>" method="POST" onsubmit="return zenmagick.confirm('Clear selected?', this);">
+<form action="<?php echo $admin2->url() ?>" method="POST" onsubmit="return zenmagick.confirm('<?php _vzm('Clear selected caches?') ?>', this);">
   <fieldset>
-    <legend><?php zm_l10n("Existing Caches") ?></legend>
+    <legend><?php _vzm("Existing Caches") ?></legend>
       <table cellspacing="0" cellpadding="0">
         <thead>
           <tr>
-            <th>Group</th>
-            <th>Type</th>
-            <th>Config</th>
+          <th><?php _vzm('Group') ?></th>
+          <th><?php _vzm('Type') ?></th>
+          <th><?php _vzm('Config') ?></th>
           </tr>
         </thead>
         <tbody>
@@ -61,7 +62,7 @@
         </tbody>
       </table>
       <div class="submit">
-          <input type="submit" value="Clear selected caches">
+      <input type="submit" value="<?php _vzm('Clear selected caches') ?>">
       </div>
   </fieldset>
 </form>

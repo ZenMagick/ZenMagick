@@ -51,14 +51,14 @@
 <table>
   <?php foreach ($pluginList as $group => $plugins) { ?>
     <tr class="head">
-      <th colspan="5"><a href="<?php echo $admin2->url(null, 'group='.$group) ?>"><?php zm_l10n("%s Plugins", ucwords(str_replace('_', ' ', $group))) ?></a></th>
+      <th colspan="5"><a href="<?php echo $admin2->url(null, 'group='.$group) ?>"><?php echo sprintf(_zm("%s Plugins"), ucwords(str_replace('_', ' ', $group))) ?></a></th>
     </tr>
     <tr>
-      <th><?php zm_l10n("Name") ?></th>
-      <th><?php zm_l10n("Description") ?></th>
-      <th><?php zm_l10n("Status") ?></th>
-      <th><?php zm_l10n("Order") ?></th>
-      <th><?php zm_l10n("Options") ?></th>
+      <th><?php _vzm("Name") ?></th>
+      <th><?php _vzm("Description") ?></th>
+      <th><?php _vzm("Status") ?></th>
+      <th><?php _vzm("Order") ?></th>
+      <th><?php _vzm("Options") ?></th>
     </tr>
     <?php $odd = true; foreach ($plugins as $plugin) { $odd = !$odd; ?>
       <tr<?php if ($odd) { echo ' class="odd"'; } ?>
@@ -84,11 +84,11 @@
           <?php } else { ?>
             <input type="hidden" name="action" value="uninstall">
             <?php $cid = 'keepSettings-'.$plugin->getId(); ?>
-            <input type="checkbox" id="<?php echo $cid ?>" name="keepSettings" value="true" checked> <label for="<?php echo $cid ?>"><?php zm_l10n('Keep Settings') ?></label>
+            <input type="checkbox" id="<?php echo $cid ?>" name="keepSettings" value="true" checked> <label for="<?php echo $cid ?>"><?php _vzm('Keep Settings') ?></label>
             <button type="submit">Uninstall</button>
             <a href="<?php echo $admin2->url(null, 'action=upgrade&pluginId='.$plugin->getId().'&group='.$plugin->getGroup()) ?>#<?php echo $plugin->getId() ?>">Upgrade</a>
             <?php if ($plugin->hasOptions()) { /* enabled/disabled and sort order are handled by this page */ ?>
-            <a href="<?php echo $admin2->url(null, 'ajax=false&action=edit&pluginId='.$plugin->getId().'&group='.$plugin->getGroup()) ?>#<?php echo $plugin->getId() ?>" onclick="zenmagick.ajaxFormDialog(this.href, '<?php zm_l10n('Edit Plugin Options: %s', $plugin->getName()) ?>', 'ajax-form'); return false;">Edit</a>
+            <a href="<?php echo $admin2->url(null, 'ajax=false&action=edit&pluginId='.$plugin->getId().'&group='.$plugin->getGroup()) ?>#<?php echo $plugin->getId() ?>" onclick="zenmagick.ajaxFormDialog(this.href, '<?php sprintf(_zm('Edit Plugin Options: %s'), $plugin->getName()) ?>', 'ajax-form'); return false;">Edit</a>
           <?php } ?>
           <?php } ?>
           </form>

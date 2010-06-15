@@ -31,6 +31,7 @@
      *  <code>vsprintf(..)</code> to insert variables into the localized text.
      * @return string A localized version based on the current language, or the original text.
      * @package zenmagick.store.shared.locale
+     * @deprecated use _vzm instead
      */
     function zm_l10n($text) {
         // get the remaining args
@@ -47,6 +48,7 @@
      *  <code>vsprintf(..)</code> to insert variables into the localized text.
      * @return string A localized version based on the current language, or the original text.
      * @package zenmagick.store.shared.locale
+     * @deprecated use _zm instead
      */
     function zm_l10n_get($text) {
         // get the remaining args
@@ -92,6 +94,7 @@
      *
      * @param array map The new/additional mappings.
      * @package zenmagick.store.shared.locale
+     * @deprecated - no replacement
      */
     function zm_l10n_add($map) {
         // sanitiy check
@@ -116,6 +119,7 @@
      *  <code>vsprintf(..)</code> to insert variables into the localized text.
      * @return string A localized version based on the current language, or the original text.
      * @package zenmagick.store.shared.locale
+     * @deprecated use _zm instead
      */
     function _zm_l10n_lookup($text, $default, $args=null) {
         $l10n = array();

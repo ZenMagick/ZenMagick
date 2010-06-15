@@ -44,27 +44,27 @@
   }
 </script>
 
-<h1>Manage Roles</h1>
+<h1><?php _vzm('Manage Roles') ?></h1>
 <form action="<?php echo $admin2->url() ?>" method="POST" id="manage_roles">
   <fieldset>
     <p>
-      <strong>SELECT ALL TO UPDATE</strong>
-      <label for="mr_roles">Roles</label>
+      <strong><?php _vzm('SELECT ALL TO UPDATE') ?></strong>
+      <label for="mr_roles"><?php _vzm('Roles') ?></label>
       <select name="roles[]" id="mr_roles" multiple>
       <?php foreach ($roles as $role) { ?>
         <option value="<?php echo $role ?>"><?php echo ucwords($role) ?></option>
       <?php } ?>
       </select>
-      <input type="submit" value="<?php zm_l10n("Update Roles (select roles to keep)") ?>">
-      <a href="#" onclick="removeSelected(); return false"><?php zm_l10n('Remove selected') ?></a>
+      <input type="submit" value="<?php _vzm("Update Roles (select roles to keep)") ?>">
+      <a href="#" onclick="removeSelected(); return false"><?php _vzm('Remove selected') ?></a>
     </p>
-    <p><label for="newRole">Add Role</label> <input type="text" id="newRole" name="newRole" value=""> <input type="submit" value="<?php zm_l10n("Add Role") ?>" onclick="addRoleToList(); return false;"></p>
+    <p><label for="newRole"><?php _vzm('Add Role') ?></label> <input type="text" id="newRole" name="newRole" value=""> <input type="submit" value="<?php _vzm("Add Role") ?>" onclick="addRoleToList(); return false;"></p>
   </fieldset>
 </form>
 
 <table>
   <tr>
-    <th>Request Id</th>
+    <th><?php _vzm('Request Id') ?></th>
     <?php foreach ($roles as $role) { ?>
     <th><?php echo ucwords($role) ?></th>
     <?php } ?>
@@ -73,7 +73,7 @@
     <tr>
       <td><?php echo $requestId ?></td>
       <?php foreach ($roles as $role) { ?>
-        <td><?php echo (in_array($role, $mapping['roles']) ? 'Yup' : 'Nope') ?></td>
+        <td><?php echo (in_array($role, $mapping['roles']) ? _zm('Yup') : _zm('Nope')) ?></td>
       <?php } ?>
     </tr>
   <?php } ?>
