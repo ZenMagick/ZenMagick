@@ -33,6 +33,19 @@ body  {font-family:"Arial","Helvetica","Verdana","sans-serif";font-size:12px; }
 table, div.ui-dialog {font-size:12px;}
 
 div#main, div#content {padding:8px;position:relative;}
+
+/* liquid main centered */
+body {margin:14px 0px; padding:0px;text-align:center;}
+div#main {width:85%;margin:0 auto;text-align:left;padding:15px;border:1px dashed #333;background-color:#eee;}
+
+/* menu */
+#logo {float:left;padding:3px 12px;}
+#top-opts {float:right;text-align:right;}
+#main-menu {clear:left;border-top:1px solid black;padding-top:4px;}
+
+/* login */
+#p-login #content {width:600px;margin:0 auto;}
+
 fieldset {padding:12px;margin:12px 0;}
 legend {font-weight:bold;color:#fff;background-color:#777;padding:2px 9px;}
 legend span {font-size:114%;background:#eee;padding:3px;color:#000;}
@@ -110,7 +123,7 @@ input.all {margin-top:8px;}
 tr.edit td {background-color:#efefef;border-bottom:1px solid gray;}
 
 #b_about {text-align:center;}
-#b_about div.about {margin:5px 20%;padding:12px;text-align:left;border:1px solid gray;}
+#b_about div.about {margin:5px;padding:12px;text-align:left;border:1px solid gray;}
 #b_about #about p {margin:0px;}
 
 #b_installation h2 a {float:right;}

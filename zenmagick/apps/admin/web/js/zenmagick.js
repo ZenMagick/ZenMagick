@@ -77,6 +77,38 @@ var zenmagick = {
      * @param string url The ajax url to load the form.
      * @param string title The title.
      */
+    ajaxDialog: function(url, title, width) {
+        var dwidth = 660;
+        if (width) {
+            dwidth = width;
+        }
+        $('<div id="ajax-dialog">Loading...</div>').dialog({
+            modal: true,
+            position: ['center', 20],
+            title: title,
+            width: dwidth,
+            close: function() {
+                $(this).dialog("destroy");
+                $('#ajax-dialog').remove();
+            },
+            buttons: {
+                "OK": function() {
+                    $(this).dialog("destroy");
+                    $('#ajax-dialog').remove();
+                }
+            },
+        }).load(url, function() {
+            var div = this;
+            // nothing for now
+        });
+		},
+
+    /**
+     * Form dialog with ajax form loading and submit.
+     *
+     * @param string url The ajax url to load the form.
+     * @param string title The title.
+     */
     ajaxFormDialog: function(url, title, formId, callback) {
         $('<div id="ajax-form-dialog">Loading...</div>').dialog({
             modal: true,

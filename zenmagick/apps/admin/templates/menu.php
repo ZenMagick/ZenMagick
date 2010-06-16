@@ -41,37 +41,38 @@
 
 ?>
 
-<div style="float:left;padding:3px 12px;">
-  <img src="<?php echo $this->asUrl('images/logo-235x64.png', ZMView::RESOURCE) ?>" alt="logo">
-</div>
-<?php if ($request->getUser()) { ?>
-  <div style="float:left;">
-    <p>
-      <?php $userLink = '<a href="'.$admin2->url('update_user').'">'.$request->getUser()->getName().'</a>'; ?>
-      <?php _vzm('Logged in as %s', $userLink) ?>
-      | <?php echo date('l, F d, Y') ?>
-      | <a href="<?php echo $admin2->url('logoff') ?>"><?php _vzm('Log Out') ?></a>
-    </p>
-    <p>
-      <a href="<?php echo ZMSettings::get('apps.store.baseUrl') ?>" target="_blank">Storefront</a>
-      | <a href="<?php echo $admin2->url('about') ?>"><?php _vzm('About') ?></a>
-      | <a href="http://forum.zenmagick.org/" target="_blank"><?php _vzm('Get Help') ?></a>
-      | <a href="<?php echo  ZMSettings::get('apps.store.oldAdminUrl') ?>">OLD Admin</a>
-    </p>
+<div id="header">
+  <div id="logo">
+    <img src="<?php echo $this->asUrl('images/logo-235x64.png', ZMView::RESOURCE) ?>" alt="logo">
   </div>
-  <hr style="clear:left;">
-  <p>
-    <a href="<?php echo $admin2->url('index') ?>">Dashboard</a>
-    | <a href="<?php echo $admin2->url('catalog_manager') ?>">Catalog Manager</a>
-    | <a href="<?php echo $admin2->url('installation') ?>">Installation</a>
-    | <a href="<?php echo $admin2->url('plugins') ?>">Pugins</a>
-    | <a href="<?php echo $admin2->url('cache_admin') ?>">Cache Admin</a>
-    | <a href="<?php echo $admin2->url('ezpages') ?>">EZPages Editor</a>
-    | <a href="<?php echo $admin2->url('static_page_editor') ?>">Static Page Editor</a>
-    | <a href="<?php echo $admin2->url('admin_users') ?>">Manage Admin Users</a>
-    | <a href="<?php echo $admin2->url('l10n') ?>">Translation Helper</a>
-    | <a href="<?php echo $admin2->url('console') ?>">Console</a>
+  <?php if ($request->getUser()) { ?>
+    <div id="top-opts">
+      <p>
+        <?php $userLink = '<a href="'.$admin2->url('update_user').'">'.$request->getUser()->getName().'</a>'; ?>
+        <?php _vzm('Logged in as %s', $userLink) ?>
+        | <?php echo date('l, F d, Y') ?>
+        | <a href="<?php echo $admin2->url('logoff') ?>"><?php _vzm('Log Out') ?></a>
+      </p>
+      <p>
+        <a href="<?php echo ZMSettings::get('apps.store.baseUrl') ?>" target="_blank">Storefront</a>
+        | <a href="<?php echo $admin2->url('about') ?>" onclick="zenmagick.ajaxDialog(this.href, 'About ZenMagick', '85%'); return false;"><?php _vzm('About') ?></a>
+        | <a href="http://forum.zenmagick.org/" target="_blank"><?php _vzm('Get Help') ?></a>
+        | <a href="<?php echo  ZMSettings::get('apps.store.oldAdminUrl') ?>">OLD Admin</a>
+      </p>
+    </div>
+  <?php } ?>
+  <p id="main-menu">
+    <?php if ($request->getUser()) { ?>
+      <a href="<?php echo $admin2->url('index') ?>">Dashboard</a>
+      | <a href="<?php echo $admin2->url('catalog_manager') ?>">Catalog Manager</a>
+      | <a href="<?php echo $admin2->url('installation') ?>">Installation</a>
+      | <a href="<?php echo $admin2->url('plugins') ?>">Plugin Manager</a>
+      | <a href="<?php echo $admin2->url('cache_admin') ?>">Cache Admin</a>
+      | <a href="<?php echo $admin2->url('ezpages') ?>">EZPages Editor</a>
+      | <a href="<?php echo $admin2->url('static_page_editor') ?>">Static Page Editor</a>
+      | <a href="<?php echo $admin2->url('admin_users') ?>">Manage Admin Users</a>
+      | <a href="<?php echo $admin2->url('l10n') ?>">Translation Helper</a>
+      | <a href="<?php echo $admin2->url('console') ?>">Console</a>
+    <?php } ?>
   </p>
-<?php } else { ?>
-  <hr style="clear:left;">
-<?php } ?>
+</div>

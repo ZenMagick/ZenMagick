@@ -23,7 +23,7 @@
  * $Id$
  */
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!DOCTYPE html>
 <html>
   <head>
     <meta http-equiv="content-type" content="text/html; charset=<?php echo ZMSettings::get('zenmagick.mvc.html.charset') ?>">
@@ -35,7 +35,7 @@
     <?php $resources->jsFile('js/jquery.form.js') ?>
     <?php $resources->jsFile('js/zenmagick.js', ZMViewUtils::FOOTER) ?>
   </head>
-  <body>
+  <body id="p-<?php echo $request->getRequestId() ?>">
     <div id="main">
       <?php echo $this->fetch('menu.php'); ?>
       <?php if (ZMMessages::instance()->hasMessages()) { ?>
