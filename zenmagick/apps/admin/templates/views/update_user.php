@@ -25,7 +25,7 @@
 ?>
 <h1>Update User Details</h1>
 <p>Groups: <?php echo implode(', ', $request->getUser()->getRoles()) ?></p>
-<form action="<?php echo $admin2->url() ?>" method="POST">
+<form action="<?php echo $admin2->url() ?>" method="POST" id="updateUser">
   <fieldset>
     <p><label for="name">Name</label> <input type="text" id="name" name="name" value="<?php echo $html->encode($updateUser->getName()) ?>"></p>
     <p><label for="email">Email</label> <input type="text" id="email" name="email" value="<?php echo $html->encode($updateUser->getEmail()) ?>"></p>
