@@ -48,7 +48,7 @@
   <?php if ($request->getUser()) { ?>
     <div id="top-opts">
       <p>
-        <?php $userLink = '<a href="'.$admin2->url('update_user').'">'.$request->getUser()->getName().'</a>'; ?>
+        <?php $userLink = '<a href="'.$admin2->url('update_user').'" onclick="zenmagick.ajaxFormDialog(this.href, \''._zm('User Profile').'\', \'updateUser\'); return false;">'.$request->getUser()->getName().'</a>'; ?>
         <?php _vzm('Logged in as %s', $userLink) ?>
         | <?php echo date('l, F d, Y') ?>
         | <a href="<?php echo $admin2->url('logoff') ?>"><?php _vzm('Log Out') ?></a>

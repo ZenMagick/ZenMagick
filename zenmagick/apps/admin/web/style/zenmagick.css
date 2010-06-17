@@ -38,7 +38,10 @@ div#main, div#content {padding:8px;position:relative;}
 body {margin:14px 0px; padding:0px;text-align:center;}
 div#main {width:85%;margin:0 auto;text-align:left;padding:15px;border:1px dashed #333;background-color:#eee;}
 
-/* menu */
+/* dialogs */
+#user-confirm, #ajax-dialog, #ajax-form-dialog {text-align:left;}
+
+/* header */
 #logo {float:left;padding:3px 12px;}
 #top-opts {float:right;text-align:right;}
 #main-menu {clear:left;border-top:1px solid black;padding-top:4px;}

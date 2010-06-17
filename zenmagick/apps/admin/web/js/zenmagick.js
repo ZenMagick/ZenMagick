@@ -68,6 +68,7 @@ var zenmagick = {
                     }
                 }
             });
+
         return false;
     },
 
@@ -101,6 +102,8 @@ var zenmagick = {
             var div = this;
             // nothing for now
         });
+
+        return false;
 		},
 
     /**
@@ -136,6 +139,8 @@ var zenmagick = {
                 return false;
             });
         });
+
+        return false;
 		}
 
 };

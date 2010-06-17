@@ -37,7 +37,7 @@
   </head>
   <body id="p-<?php echo $request->getRequestId() ?>">
     <div id="main">
-      <?php echo $this->fetch('menu.php'); ?>
+      <?php echo $this->fetch('header.php'); ?>
       <?php if (ZMMessages::instance()->hasMessages()) { ?>
           <ul id="messages">
           <?php foreach (ZMMessages::instance()->getMessages() as $message) { ?>
