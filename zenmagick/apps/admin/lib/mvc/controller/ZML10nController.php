@@ -54,7 +54,7 @@ class ZML10nController extends ZMController {
     public function getViewData($request) {
       //TODO: where from?
       return array('themes' => ZMThemes::instance()->getThemes(),
-          'themeId' => '', 'languageId' => 1, 'includeDefaults' => false, 'mergeExisting' => false, 'scanShared' => false);
+          'themeId' => '', 'languageId' => 1, 'includeDefaults' => false, 'mergeExisting' => false, 'scanShared' => false, 'scanPlugins' => false);
     }
 
     /**
@@ -67,6 +67,7 @@ class ZML10nController extends ZMController {
         $includeDefaults = ZMLangUtils::asBoolean($request->getParameter('includeDefaults'));
         $mergeExisting = ZMLangUtils::asBoolean($request->getParameter('mergeExisting'));
         $scanShared = ZMLangUtils::asBoolean($request->getParameter('scanShared'));
+        $scanPlugins = ZMLangUtils::asBoolean($request->getParameter('scanPlugins'));
 
         $themesDir = Runtime::getThemesDir();
 
@@ -89,15 +90,20 @@ class ZML10nController extends ZMController {
             $sharedMap = ZMLocaleUtils::buildL10nMap(ZMRuntime::getInstallationPath().'shared');
         }
 
+        $pluginsMap = array();
+        if ($scanPlugins) {
+            $pluginsMap = ZMLocaleUtils::buildL10nMap(ZMRuntime::getPluginBasePath());
+        }
+
         $fileMap = array();
         if (null != $themeId) {
             $theme = ZMThemes::instance()->getThemeForId($themeId);
             $fileMap = ZMLocaleUtils::buildL10nMap($theme->getBaseDir());
         }
 
-        $translations = array_merge($sharedMap, $defaultMap, $existingMap, $fileMap);
+        $translations = array_merge($pluginsMap, $sharedMap, $defaultMap, $existingMap, $fileMap);
         return array('translations' => $translations, 'themeId' => $themeId, 'languageId' => $languageId,
-             'includeDefaults' => $includeDefaults, 'mergeExisting' => $mergeExisting, 'scanShared' => $scanShared);
+             'includeDefaults' => $includeDefaults, 'mergeExisting' => $mergeExisting, 'scanShared' => $scanShared, 'scanPlugins' => $scanPlugins);
     }
 
     /**

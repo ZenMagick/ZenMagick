@@ -58,6 +58,7 @@
     <input type="checkbox" id="includeDefaults" name="includeDefaults" value="true"<?php echo ($includeDefaults?' checked="checked"':'')?>><label for="includeDefaults">Add default theme</label><br>
     <input type="checkbox" id="mergeExisting" name="mergeExisting" value="true"<?php echo ($mergeExisting?' checked="checked"':'')?>><label for="mergeExisting">Add/merge with existing mappings</label><br>
     <input type="checkbox" id="scanShared" name="scanShared" value="true"<?php echo ($scanShared?' checked="checked"':'')?>><label for="scanShared">Add shared code strings</label><br>
+    <input type="checkbox" id="scanPlugins" name="scanPlugins" value="true"<?php echo ($scanPlugins?' checked="checked"':'')?>><label for="scanPlugins">Add plugin(s) code strings</label><br>
     <input type="submit" value="Display Mapping">
   </fieldset>
 </form>
