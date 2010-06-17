@@ -148,7 +148,7 @@ class ZMEvents extends ZMObject {
             'id' => $eventId,
             'method' => $method,
             'time' => ZMRuntime::getExecutionTime(),
-            'memory' => memory_get_usage(),
+            'memory' => memory_get_usage(true),
             'args' => $args
         );
         $args['source'] = $source;
