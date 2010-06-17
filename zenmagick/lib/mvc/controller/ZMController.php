@@ -143,7 +143,7 @@ class ZMController extends ZMObject {
             }
 
             if (!$view->isValid($request)) {
-                ZMLogging::instance()->log('invalid view: '.$view->getName().', expected: '.$view->getViewFilename(), ZMLogging::WARN);
+                ZMLogging::instance()->log('invalid view: '.$view->getTemplate().', expected: '.$view->getViewFilename(), ZMLogging::WARN);
                 $view = $this->findView(ZMSettings::get('zenmagick.mvc.request.missingPage'));
             }
             $this->view_ = $view;

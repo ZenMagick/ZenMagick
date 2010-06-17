@@ -125,9 +125,22 @@ class ZMSavantView extends ZMView {
      * Get the array of locations to search for templates.
      *
      * @param ZMRequest request The current request.
+     * @return array List of locations to look for templates.
      */
     public function getTemplatePath($request) {
-        return array($request->getTemplatePath());
+        $path = array();
+
+        // add plugins as well
+        foreach (explode(',', ZMSettings::get('zenmagick.core.plugins.groups')) as $group) {
+            // set context to 0 as we need all
+            foreach (ZMPlugins::instance()->getPluginsForGroup($group, 0) as $plugin) {
+                // use content here for now as the folder may contain views and/or (web) resources
+                $path[] = $plugin->getPluginDirectory().'content'.DIRECTORY_SEPARATOR;
+            }
+        }
+        $path[] = $request->getTemplatePath();
+
+        return $path;
     }
 
     /**
@@ -135,11 +148,22 @@ class ZMSavantView extends ZMView {
      *
      * <p>This default implementation will just return <code>getTemplatePath($request)</code>.</p>
      *
-     *
      * @param ZMRequest request The current request.
+     * @return array List of locations to look for resources.
      */
     public function getResourcePath($request) {
-        return $request->getWebPath();
+        $path = array();
+
+        // add plugins as well
+        foreach (explode(',', ZMSettings::get('zenmagick.core.plugins.groups')) as $group) {
+            foreach (ZMPlugins::instance()->getPluginsForGroup($group, ZMSettings::get('zenmagick.core.plugins.context', 0)) as $plugin) {
+                // XXX: see getTemplatePath() above
+                $path[] = $plugin->getPluginDirectory().'content'.DIRECTORY_SEPARATOR;
+            }
+        }
+        $path[] = $request->getWebPath();
+
+        return $path;
     }
 
     /**

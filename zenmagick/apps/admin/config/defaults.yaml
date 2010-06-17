@@ -10,7 +10,7 @@ zenmagick.mvc.seo.type: realpath
 zenmagick.core.logging.enabled: true
 zenmagick.core.logging.level: ALL
 
-zenmagick.core.database.provider: ZMCreoleDatabase
+zenmagick.core.database.provider: ZMPdoDatabase
 zenmagick.core.database.mappings.file: config/db_mappings.txt
 
 zenmagick.mvc.seo.type: default

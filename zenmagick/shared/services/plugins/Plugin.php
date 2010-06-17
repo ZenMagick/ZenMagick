@@ -359,6 +359,22 @@ class Plugin extends ZMPlugin {
     }
 
     /**
+     * Add custom plugin admin page to admin navigation.
+     *
+     * <p>Plugins are expected to implement a corresponding controller for the configured reuqestId.</p>
+     *
+     * @param string id The page id.
+     * @param string title The page title.
+     * @param string function The function to render the contents.
+     * @param string menuKey Optional key determining where the menu item should appear; default is <em>ZMAdminMenu::MENU_PLUGINS</em>.
+     */
+    public function addMenuItem2($title, $requestId, $menuKey=ZMAdminMenu::MENU_PLUGINS) {
+        if (ZMSettings::get('isAdmin')) {
+            ZMAdminMenu::addItem(ZMLoader::make("AdminMenuItem2", $menuKey, $requestId, $title, $requestId));
+        }
+    }
+
+    /**
      * Resolve a plugin relative URI.
      *
      * <p>The given <code>uri</code> is assumed to be relative to the plugin folder.</p>

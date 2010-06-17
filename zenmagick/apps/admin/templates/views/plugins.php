@@ -48,6 +48,20 @@
 
 </script>
 
+<div id="plugin-menu" style="float:left;width:180px">
+<?php
+    $pluginItems = ZMAdminMenu::getItemsForParentId(ZMAdminMenu::MENU_PLUGINS);
+    if (0 < count($pluginItems)) {
+        echo '<h2>'._zm('Plugins').'</h2>';
+        foreach ($pluginItems as $item) {
+            if ($item instanceof ZMAdminMenuItem2) {
+                echo '<a href="'.$admin2->url($item->getRequestId()).'">'.$item->getTitle().'</a><br>';
+            }
+        }
+    }
+?>
+</div>
+
 <table>
   <?php foreach ($pluginList as $group => $plugins) { ?>
     <tr class="head">

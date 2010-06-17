@@ -22,19 +22,19 @@
 
 
 /**
- * Admin controller.
+ * Example plugin admin controller.
  *
  * @author DerManoMann
  * @package org.zenmagick.plugins.examplePlugin
  * @version $Id$
  */
-class ZMExamplePluginAdminController extends ZMPluginAdminController {
+class ZMExamplePluginAdminController extends ZMController {
 
     /**
      * Create new instance.
      */
     function __construct() {
-        parent::__construct('Example_plugin_admin', _zm('Example Plugin Admin Page'), 'examplePlugin');
+        parent::__construct();
     }
 
     /**
