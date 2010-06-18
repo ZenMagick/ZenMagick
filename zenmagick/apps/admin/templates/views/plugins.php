@@ -52,10 +52,12 @@
 <?php
     $pluginItems = ZMAdminMenu::getItemsForParentId(ZMAdminMenu::MENU_PLUGINS);
     if (0 < count($pluginItems)) {
-        echo '<h2>'._zm('Plugins').'</h2>';
+        echo '<h2>'._zm('Plugin Options').'</h2>';
         foreach ($pluginItems as $item) {
             if ($item instanceof ZMAdminMenuItem2) {
                 echo '<a href="'.$admin2->url($item->getRequestId()).'">'.$item->getTitle().'</a><br>';
+                //TODO: allow plugins to opt in:
+                //echo '<a href="'.$admin2->url($item->getRequestId()).'"onclick="return zenmagick.ajaxFormDialog(this.href, \''.sprintf(_zm('Plugin Config: %s'), $item->getTitle()).'\', \'ajax-form\');">'.$item->getTitle().'</a><br>';
             }
         }
     }
