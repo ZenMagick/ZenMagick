@@ -60,7 +60,12 @@ class ZMMasterPasswordPlugin extends Plugin {
      */
     public function init() {
         parent::init();
-        $this->addMenuItem('master_password_admin', _zm('Master Password'), 'master_password_admin');
+
+        // add admin page
+        $this->addMenuItem2(_zm('Master Password'), 'masterPasswordAdmin');
+        // set up view mapping
+        ZMUrlManager::instance()->setMapping('masterPasswordAdmin', array('success' => array('view' => 'RedirectView')));
+
         ZMAuthenticationManager::instance()->addProvider('ZMMasterPasswordAuthentication');
     }
 

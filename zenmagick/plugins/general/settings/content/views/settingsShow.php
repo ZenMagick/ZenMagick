@@ -16,48 +16,26 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ *
+ * $Id$
  */
 ?>
-<?php
+<h1>Show Settings</h1>
 
+<?php 
 
-/**
- * Admin controller for block management.
- *
- * @author DerManoMann
- * @package org.zenmagick.plugins.blockHandler
- * @version $Id$
- */
-class ZMBlockHandlerAdminController extends ZMController {
-
-    /**
-     * Create new instance.
-     */
-    function __construct() {
-        parent::__construct();
+foreach ($settingDetails as $group => $groupDetails) { 
+    echo '<h2>',$group,'</h2>';
+    foreach ($groupDetails as $sub => $subDetails) {
+        echo '<h3>',$sub,'</h3>';
+        echo '<table width="98%" border="1">';
+        foreach ($subDetails as $details) {
+            echo '<tr>';
+            echo '<td width="32%">', $details['desc'], '</td>';
+            echo '<td width="28%">', $details['fullkey'], '</td>';
+            echo '<td>', $details['value'], '</td>';
+            echo '</tr>';
+        }
+        echo '</table>';
     }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
-
-
-    /**
-     * {@inheritDoc}
-     */
-    public function processGet($request) {
-        return parent::processGet($request);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function processPost($request) {
-        // todo: process form submit, etc
-        return parent::processPost($request);
-    }
-
 }

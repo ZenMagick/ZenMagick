@@ -52,6 +52,17 @@ class ZMSettingsPlugin extends Plugin {
     public function init() {
         parent::init();
 
+        // add admin pages
+        $this->addMenuItem2(_zm('Manage Settings'), 'settingsAdmin');
+        $this->addMenuItem2(_zm('Show Settings'), 'settingsShow');
+        // set up view mappings
+        // set up store locator view mappings
+        ZMUrlManager::instance()->setMappings(array(
+                'settingsAdmin' => array('success' => array('view' => 'RedirectView')),
+                'settingsShow' => array('success' => array('view' => 'RedirectView'))
+            )
+        );
+
         $this->addMenuItem('settings_manage', _zm('Manage Settings'), 'settings_admin_manage');
         $this->addMenuItem('settings_show', _zm('Show Settings'), 'settings_admin_show');
 

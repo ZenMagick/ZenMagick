@@ -28,13 +28,13 @@
  * @package org.zenmagick.plugins.googleStoreLocator
  * @version $Id$
  */
-class ZMGoogleStoreLocatorAdminController extends ZMPluginAdminController {
+class ZMGoogleStoreLocatorAdminController extends ZMPluginAdmin2Controller {
 
     /**
      * Create new instance.
      */
     function __construct() {
-        parent::__construct('google_store_locator_admin', _zm('Google Store Locator Admin'), 'googleStoreLocator');
+        parent::__construct('googleStoreLocator');
     }
 
     /**
@@ -46,23 +46,14 @@ class ZMGoogleStoreLocatorAdminController extends ZMPluginAdminController {
 
 
     /**
-     * Build view data.
-     *
-     * @return array View data map.
+     * {@inheritDoc}
      */
-    protected function getViewData() {
+    public function getViewData($request) {
         return array(
             'adminKey' => $this->getPlugin()->get('adminKey'),
             'location' => $this->getPlugin()->get('location'),
             'zoom' => $this->getPlugin()->get('zoom')
         );
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function processGet($request) {
-        return $this->findView(null, $this->getViewData());
     }
 
     /**
@@ -79,7 +70,7 @@ class ZMGoogleStoreLocatorAdminController extends ZMPluginAdminController {
 
         ZMMessages::instance()->success('Plugin settings updated!');
 
-        return $this->getRedirectView($request);
+        return $this->findView('success');
     }
 
 }

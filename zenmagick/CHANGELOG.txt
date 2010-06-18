@@ -150,6 +150,7 @@ Release 0.9.10
   load the new l10n.yaml into the locale implementation
 - upgrade all code to using _zm, _vzm
 - fix updateViewCount for products
+- upgrade affected general plugins admin controllers to the new UI
 
 Release 0.9.9
 - in ZMDbTableMapper handle database exception building auto mappings

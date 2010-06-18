@@ -28,13 +28,13 @@
  * @package org.zenmagick.plugins.settings
  * @version $Id$
  */
-class ZMSettingsAdminManageController extends ZMPluginAdminController {
+class ZMSettingsAdminController extends ZMPluginAdmin2Controller {
 
     /**
      * Create new instance.
      */
     function __construct() {
-        parent::__construct('settings_admin_manage', _zm('Manage Settings'), 'settings');
+        parent::__construct('settings');
     }
 
     /**
@@ -44,13 +44,6 @@ class ZMSettingsAdminManageController extends ZMPluginAdminController {
         parent::__destruct();
     }
 
-
-    /**
-     * {@inheritDoc}
-     */
-    public function processGet($request) {
-        return $this->getPluginAdminView($request);
-    }
 
     /**
      * {@inheritDoc}
@@ -94,7 +87,7 @@ class ZMSettingsAdminManageController extends ZMPluginAdminController {
             }
         }
 
-        return $this->getRedirectView($request);
+        return $this->findView('success');
     }
 
 }

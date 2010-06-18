@@ -28,13 +28,13 @@
  * @package org.zenmagick.plugins.settings
  * @version $Id$
  */
-class ZMSettingsAdminShowController extends ZMPluginAdminController {
+class ZMSettingsShowController extends ZMPluginAdmin2Controller {
 
     /**
      * Create new instance.
      */
     function __construct() {
-        parent::__construct('settings_admin_show', _zm('Display Settings'), 'settings');
+        parent::__construct('settings');
     }
 
     /**
@@ -168,7 +168,7 @@ class ZMSettingsAdminShowController extends ZMPluginAdminController {
             }
         }
 
-        return $this->getPluginAdminView($request, array('settingDetails' => $settingDetails)); 
+        return $this->findView(null, array('settingDetails' => $settingDetails)); 
     }
 
 }

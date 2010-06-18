@@ -28,13 +28,13 @@
  * @package org.zenmagick.plugins.masterPassword
  * @version $Id$
  */
-class ZMMasterPasswordAdminController extends ZMPluginAdminController {
+class ZMMasterPasswordAdminController extends ZMPluginAdmin2Controller {
 
     /**
      * Create new instance.
      */
     function __construct() {
-        parent::__construct('master_password_admin', _zm('Set Master Password'), 'masterPassword');
+        parent::__construct('masterPassword');
     }
 
     /**
@@ -57,9 +57,9 @@ class ZMMasterPasswordAdminController extends ZMPluginAdminController {
         }
         // update
         $this->getPlugin()->set('masterPassword', $masterPassword);
-        ZMMessages::instance()->success('Master password updated.');
+        ZMMessages::instance()->success('Master password updated'.(empty($masterPassword)?' [reset]':'').'.');
 
-        return $this->getRedirectView($request);
+        return $this->findView('success');
     }
 
 }

@@ -118,7 +118,9 @@ class ZMSubscriptionsPlugin extends Plugin {
         ));
 
         // add admin page
-        $this->addMenuItem('subscriptions', _zm('Subscriptions'), 'ZMSubscriptionAdminController');
+        $this->addMenuItem2(_zm('Subscriptions'), 'subscriptionAdmin');
+        // set up view mapping
+        ZMUrlManager::instance()->setMapping('subscriptionAdmin', array('success' => array('view' => 'RedirectView')));
     }
 
     /**

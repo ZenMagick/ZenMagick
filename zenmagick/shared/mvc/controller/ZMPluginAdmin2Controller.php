@@ -22,19 +22,26 @@
 
 
 /**
- * Admin controller for block management.
+ * Plugin admin controller base class.
+ *
+ * <p>The default implementation will use the <code>SimplePluginFormView</code> view
+ * to generate a simple plugin config form.</p>
  *
  * @author DerManoMann
- * @package org.zenmagick.plugins.blockHandler
- * @version $Id$
+ * @package zenmagick.store.shared.services.plugins
  */
-class ZMBlockHandlerAdminController extends ZMController {
+class ZMPluginAdmin2Controller extends ZMController {
+    private $plugin_;
+
 
     /**
-     * Create new instance.
+     * Create a new instance.
+     *
+     * @param mixed plugin The parent plugin.
      */
-    function __construct() {
+    function __construct($plugin) {
         parent::__construct();
+        $this->plugin_ = $plugin;
     }
 
     /**
@@ -46,18 +53,32 @@ class ZMBlockHandlerAdminController extends ZMController {
 
 
     /**
-     * {@inheritDoc}
+     * Set the plugin.
+     *
+     * @param mixed plugin A <code>ZMPlugin</code> instance or plugin id.
      */
-    public function processGet($request) {
-        return parent::processGet($request);
+    public function setPlugin($plugin) { 
+        $this->plugin_ = $plugin;
+    }
+
+    /**
+     * Get the plugin.
+     *
+     * @return ZMPlugin The plugin.
+     */
+    public function getPlugin() {
+        if (!is_object($this->plugin_)) {
+            $this->plugin_ = ZMPlugins::instance()->getPluginForId($this->plugin_);
+        }
+
+        return $this->plugin_;
     }
 
     /**
      * {@inheritDoc}
      */
-    public function processPost($request) {
-        // todo: process form submit, etc
-        return parent::processPost($request);
+    public function getViewData($request) {
+        return array('plugin' => $this->getPlugin());
     }
 
 }

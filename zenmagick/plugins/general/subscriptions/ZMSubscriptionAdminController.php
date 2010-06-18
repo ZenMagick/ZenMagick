@@ -28,13 +28,13 @@
  * @package org.zenmagick.plugins.subscriptions
  * @version $Id: ZMSubscriptionAdminController.php 2823 2010-01-08 03:45:57Z dermanomann $
  */
-class ZMSubscriptionAdminController extends ZMPluginAdminController {
+class ZMSubscriptionAdminController extends ZMPluginAdmin2Controller {
 
     /**
      * Create new instance.
      */
     function __construct() {
-        parent::__construct('subscription_admin', _zm('Subscriptions'), 'subscriptions');
+        parent::__construct('subscriptions');
     }
 
     /**
@@ -66,7 +66,7 @@ class ZMSubscriptionAdminController extends ZMPluginAdminController {
         $resultList->setResultSource($resultSource);
         $resultList->setPageNumber($request->getPageIndex());
 
-        return $this->getPluginAdminView($request, array('resultList' => $resultList));
+        return $this->findView(null,array('resultList' => $resultList));
 
     }
 
@@ -92,7 +92,7 @@ class ZMSubscriptionAdminController extends ZMPluginAdminController {
             $this->sendCancelEmail($order, $emailTemplate, $email);
         }
 
-        return $this->getRedirectView($request);
+        return $this->findView('success');
     }
 
     /**
