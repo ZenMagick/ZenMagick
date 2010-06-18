@@ -24,9 +24,6 @@
 /**
  * Plugin admin controller base class.
  *
- * <p>The default implementation will use the <code>SimplePluginFormView</code> view
- * to generate a simple plugin config form.</p>
- *
  * @author DerManoMann
  * @package zenmagick.store.shared.services.plugins
  */
