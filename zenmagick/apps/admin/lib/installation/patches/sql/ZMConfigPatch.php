@@ -29,7 +29,6 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.store.admin.installation.patches.sql
- * @version $Id$
  */
 class ZMConfigPatch extends ZMSQLPatch {
     var $sqlFiles_ = array(

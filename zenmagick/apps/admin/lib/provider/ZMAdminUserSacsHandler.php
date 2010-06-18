@@ -32,7 +32,6 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.admin.mvc
- * @version $Id$
  */
 class ZMAdminUserSacsHandler extends ZMObject implements ZMSacsHandler {
 

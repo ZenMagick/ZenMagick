@@ -29,7 +29,6 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.store.admin.installation.patches
- * @version $Id$
  */
 class ZMFilePatch extends ZMInstallationPatch {
 

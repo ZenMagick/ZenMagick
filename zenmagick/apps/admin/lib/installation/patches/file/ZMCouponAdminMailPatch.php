@@ -30,7 +30,6 @@ define('_ZM_ZEN_COUPON_ADMIN_PHP', DIR_FS_ADMIN . 'coupon_admin.php');
  *
  * @author DerManoMann
  * @package org.zenmagick.store.admin.installation.patches.file
- * @version $Id$
  */
 class ZMCouponAdminMailPatch extends ZMFilePatch {
 

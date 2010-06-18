@@ -26,7 +26,6 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.mvc.session
- * @version $Id$
  */
 class ZMAdminUserFactory implements ZMUserFactory {
 

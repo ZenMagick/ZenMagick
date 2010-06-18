@@ -30,7 +30,6 @@ define('_ZM_ZEN_CUSTOMERS_PHP', DIR_FS_ADMIN . 'customers.php');
  *
  * @author DerManoMann
  * @package org.zenmagick.store.admin.installation.patches.file
- * @version $Id$
  */
 class ZMCustomerEditPatch extends ZMFilePatch {
 

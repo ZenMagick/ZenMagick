@@ -29,7 +29,6 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.store.mvc.tools
- * @version $Id$
  */
 class ZMToolboxAdmin extends ZMToolboxTool {
 

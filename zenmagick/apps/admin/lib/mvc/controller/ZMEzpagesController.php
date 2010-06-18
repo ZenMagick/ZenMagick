@@ -29,7 +29,6 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.store.admin.mvc.controller
- * @version $Id$
  */
 class ZMEzpagesController extends ZMController {
 

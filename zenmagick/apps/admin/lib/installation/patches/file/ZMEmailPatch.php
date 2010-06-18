@@ -30,7 +30,6 @@ define('_ZM_ZEN_EMAIL_FILE', DIR_FS_CATALOG . DIR_WS_FUNCTIONS . 'functions_emai
  *
  * @author DerManoMann
  * @package org.zenmagick.store.admin.installation.patches.file
- * @version $Id$
  */
 class ZMEmailPatch extends ZMFilePatch {
     var $fktFilesCfg_ = array(

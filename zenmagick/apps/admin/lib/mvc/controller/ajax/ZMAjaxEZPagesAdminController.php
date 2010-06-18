@@ -29,7 +29,6 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.store.admin.mvc.controller.ajax
- * @version $Id$
  */
 class ZMAjaxEZPagesAdminController extends ZMAjaxController {
     private $response_;

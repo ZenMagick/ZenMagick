@@ -30,7 +30,6 @@ define('_ZM_ZEN_BASE_PHP', DIR_FS_CATALOG.DIR_WS_CLASSES."class.base.php");
  *
  * @author DerManoMann
  * @package org.zenmagick.store.admin.installation.patches.file
- * @version $Id$
  */
 class ZMEventProxyPatch extends ZMFilePatch {
 

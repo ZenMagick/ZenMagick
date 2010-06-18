@@ -29,7 +29,6 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.store.admin.services
- * @version $Id$
  */
 class ZMAdminUserRoles extends ZMObject {
 

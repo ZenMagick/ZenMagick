@@ -29,7 +29,6 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.store.admin.mvc
- * @version $Id$
  */
 class Request extends ZMRequest {
 

@@ -26,7 +26,6 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.mvc.session
- * @version $Id$
  */
 class ZMZenCartSessionHandler implements ZMSessionHandler {
     private $expiryTime_ = 1440;

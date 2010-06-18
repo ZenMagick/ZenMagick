@@ -29,7 +29,6 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.store.admin.installation
- * @version $Id$
  */
 class ZMInstallationPatch extends ZMObject {
     var $id_ = null;

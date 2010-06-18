@@ -29,7 +29,6 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.store.admin.utils
- * @version $Id$
  */
 class ZMCoreCompressor extends ZMPhpPackagePacker {
 

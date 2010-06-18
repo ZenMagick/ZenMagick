@@ -29,7 +29,6 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.store.admin
- * @version $Id$
  */
 class ZMAdminUserForm extends ZMObject {
 

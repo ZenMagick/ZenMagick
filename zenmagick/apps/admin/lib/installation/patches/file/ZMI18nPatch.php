@@ -33,7 +33,6 @@ define('_ZM_INIT_TEMPLATES_FILE', DIR_FS_ADMIN . DIR_WS_INCLUDES . 'init_include
  *
  * @author DerManoMann
  * @package org.zenmagick.store.admin.installation.patches.file
- * @version $Id$
  */
 class ZMI18nPatch extends ZMFilePatch {
 

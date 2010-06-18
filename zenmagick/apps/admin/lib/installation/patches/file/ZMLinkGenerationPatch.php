@@ -30,7 +30,6 @@ define('_ZM_ZEN_FUNCTIONS_FILE', DIR_FS_CATALOG . DIR_WS_FUNCTIONS . 'html_outpu
  *
  * @author DerManoMann
  * @package org.zenmagick.store.admin.installation.patches.file
- * @version $Id$
  */
 class ZMLinkGenerationPatch extends ZMFilePatch {
     var $fktFilesCfg_ = array(
