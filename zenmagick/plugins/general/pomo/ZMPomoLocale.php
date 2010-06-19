@@ -40,6 +40,7 @@ class ZMPomoLocale extends ZMObject implements ZMLocale {
      * Create new instance.
      */
     public function __construct() {
+        $this->translations_ = array();
         parent::__construct();
     }
 
@@ -62,7 +63,7 @@ class ZMPomoLocale extends ZMObject implements ZMLocale {
             return $this->translations_[$domain];
         } else {
             if (null == self::$EMPTY_) {
-                self::$EMPTY_ = new Translations;
+                self::$EMPTY_ = new ZMTranslations;
             }
             return self::$EMPTY_;
         }
@@ -91,7 +92,7 @@ class ZMPomoLocale extends ZMObject implements ZMLocale {
      * @return boolean <code>true</code> on success.
      */
     public function registerMO($filename, $domain=self::DEFAULT_DOMAIN) {
-        $mo = new MO();
+        $mo = new ZMMO();
         if (!$mo->import_from_file($filename)) {
             return false;
         }

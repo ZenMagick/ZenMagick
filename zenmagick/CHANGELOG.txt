@@ -151,6 +151,8 @@ Release 0.9.10
 - upgrade all code to using _zm, _vzm
 - fix updateViewCount for products
 - upgrade affected general plugins admin controllers to the new UI
+- pomo: add packer following the new packer concept; also add code to prefix
+  all pomo classes with 'ZM' to avoid possible conflicts
 
 Release 0.9.9
 - in ZMDbTableMapper handle database exception building auto mappings
