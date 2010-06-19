@@ -34,45 +34,145 @@
 
 <h1>Dashboard</h1>
 
-<!-- TODO: allow to filter status -->
-<div class="dbox" style="float:left;border:2px solid #aaa;padding:2px 6px;">
-  <h3>Order Stats</h3>
-  <p>
-  <?php foreach (ZMOrders::instance()->getOrderStatusList($selectedLanguageId) as $status) { ?>
-    <?php $result = ZMRuntime::getDatabase()->querySingle("SELECT count(*) AS count FROM " . TABLE_ORDERS . " where orders_status = :orderStatusId", array('orderStatusId' => $status->getOrderStatusId()), TABLE_ORDERS); ?>
-    <a href="<?php echo $admin2->url('orders', 'orderStatusId='.$status->getOrderStatusId()) ?>"><?php echo $status->getName() ?>: <?php echo $result['count'] ?></a><br>
-  <?php } ?>
-  </p>
+	<style type="text/css">
+	.db-column { width: 33%; float: left; padding-bottom: 100px; }
+	.portlet { margin: 0 1em 1em 0; }
+	.portlet-header { margin: 0.3em; padding-bottom: 4px; padding-left: 0.2em; }
+	.portlet-header .ui-icon { float: right; }
+	.portlet-content { padding: 0.4em; }
+	.ui-sortable-placeholder { border: 1px dotted black; visibility: visible !important; height: 50px !important; }
+	.ui-sortable-placeholder * { visibility: hidden; }
+	</style>
+	<script type="text/javascript">
+	$(function() {
+		$(".db-column").sortable({
+      connectWith: '.db-column',
+      handle: '.portlet-grip',
+      cursor: 'move'
+		});
+
+		$(".portlet").addClass("ui-widget ui-widget-content ui-helper-clearfix ui-corner-all")
+			.find(".portlet-header")
+				.addClass("ui-widget-header ui-corner-all")
+        .html(function(index, oldhtml) { return '<div class="portlet-grip">'+oldhtml+'</div>'; })
+				.prepend('<span class="ui-icon ui-icon-closethick"></span><span class="ui-icon ui-icon-wrench"></span><span class="ui-icon ui-icon-minusthick"></span>')
+				.end()
+			.find(".portlet-content");
+
+    // open/close
+		$(".portlet-header .ui-icon-minusthick, .portlet-header .ui-icon-plusthick").click(function() {
+			$(this).toggleClass("ui-icon-minusthick").toggleClass("ui-icon-plusthick");
+			$(this).parents(".portlet:first").find(".portlet-content").toggle();
+		});
+    // remove
+		$(".portlet-header .ui-icon-closethick").click(function() {
+			$(this).parents('.portlet').css('display', 'none');
+		});
+
+    $(".portlet-grip").hover(
+      function() { $(this).css('cursor', 'move'); }, 
+      function() { $(this).css('cursor', 'auto'); }
+    );
+    
+	});
+	</script>
+
+<?php
+  /*
+
+class ZMDashboardWidget extends ZMWidget {
+    private $minimize_; //boolean
+    private $options_; // url
+    private $maximize_; // boolean; later
+    private $title_;
+    private $contents_;
+}
+   */
+  /*
+ZMPortletWidget...
+
+views/portlets:
+
+order_stats.php
+<!-- minimize=true;options=http://;maximize=false;title=; -->
+content.....
+
+   */
+?>
+
+
+<?php
+  /*
+
+translations:
+Latest <a href="<?php echo $admin2->url('orders') ?>"><?php _vzm('Orders') ?></a>
+
+printf('Last %hOrders%%', '<a href="/foo">%h%%</a>');
+printf('Letzte %hBestellungen%%', '<a href="/foo">%h%%</a>');
+
+[^%]%([0-9]*)%([^%])+%%
+
+
+$s = 'Letzte %hBestellungen%%';
+preg_match_all('|[^%]%([0-9]*)h(.*[^%])%%|', $s, $matches);
+//preg_match_all('|[^%]%|', $s, $matches);
+var_dump($matches);
+   */
+
+?>
+
+<div id="db-column-1" class="db-column">
+	<div class="portlet">
+    <div class="portlet-header"><?php _vzm('Order Stats') ?></div>
+		<div class="portlet-content">
+      <?php foreach (ZMOrders::instance()->getOrderStatusList($selectedLanguageId) as $status) { ?>
+        <?php $result = ZMRuntime::getDatabase()->querySingle("SELECT count(*) AS count FROM " . TABLE_ORDERS . " where orders_status = :orderStatusId", array('orderStatusId' => $status->getOrderStatusId()), TABLE_ORDERS); ?>
+        <a href="<?php echo $admin2->url('orders', 'orderStatusId='.$status->getOrderStatusId()) ?>"><?php echo $status->getName() ?>: <?php echo $result['count'] ?></a><br>
+      <?php } ?>
+    </div>
+	</div>
+	
+	<div class="portlet">
+		<div class="portlet-header">Last 5 search terms</div>
+    <div class="portlet-content">
+    </div>
+	</div>
 </div>
 
-<div class="dbox" style="float:left;border:2px solid #aaa;padding:2px 6px;">
-  <h3>Latest <a href="<?php echo $admin2->url('orders') ?>"><?php _vzm('Orders') ?></a></h3>
-  <table>
-  <?php foreach (ZMOrders::instance()->getAllOrders($selectedLanguageId, 5) as $order) { ?>
-    <tr>
-      <?php $actualAccount = ZMAccounts::instance()->getAccountForId($order->getAccountId()); ?>
-      <?php $name = $actualAccount->getType() == ZMAccount::REGISTERED ? $order->getAccount()->getFullName() : _vzm('** Guest **'); ?>
-      <td><a href="<?php echo $admin2->url('order', 'orderId='.$order->getId()) ?>"><?php echo $order->getId() ?></a></td>
-      <td><a href="<?php echo $admin2->url('account', 'accountId='.$order->getAccountId()) ?>"><?php echo $name ?></a></td>
-      <td><?php echo $order->getOrderDate() ?></td>
-      <td><?php echo $order->getStatusName() ?></td>
-      <td><?php echo $utils->formatMoney($order->getTotal()) ?></td>
-    </tr>
-  <?php } ?>
-  </table>
+<div id="db-column-2" class="db-column">
+	<div class="portlet">
+		<div class="portlet-header">Latest <a href="<?php echo $admin2->url('orders') ?>"><?php _vzm('Orders') ?></a></div>
+		<div class="portlet-content">
+      <table>
+      <?php foreach (ZMOrders::instance()->getAllOrders($selectedLanguageId, 5) as $order) { ?>
+        <tr>
+          <?php $actualAccount = ZMAccounts::instance()->getAccountForId($order->getAccountId()); ?>
+          <?php $name = $actualAccount->getType() == ZMAccount::REGISTERED ? $order->getAccount()->getFullName() : _vzm('** Guest **'); ?>
+          <td><a href="<?php echo $admin2->url('order', 'orderId='.$order->getId()) ?>"><?php echo $order->getId() ?></a></td>
+          <td><a href="<?php echo $admin2->url('account', 'accountId='.$order->getAccountId()) ?>"><?php echo $name ?></a></td>
+          <td><?php echo $order->getOrderDate() ?></td>
+          <td><?php echo $order->getStatusName() ?></td>
+          <td><?php echo $utils->formatMoney($order->getTotal()) ?></td>
+        </tr>
+      <?php } ?>
+      </table>
+    </div>
+	</div>
 </div>
 
-<div class="dbox" style="float:left;border:2px solid #aaa;padding:2px 6px;">
-  <h3>Latest <a href="<?php echo $admin2->url('accounts') ?>"><?php _vzm('Accounts') ?></a></h3>
-  <table>
-  <?php foreach (ZMAccounts::instance()->getAllAccounts(null, 5) as $account) { ?>
-    <tr>
-      <td><?php echo $account->getId() ?></td>
-      <td><a href="<?php echo $admin2->url('account', 'accountId='.$account->getId()) ?>"><?php echo $account->getFullName() ?></a></td>
-      <td><?php echo $account->getAccountCreateDate() ?></td>
-    </tr>
-  <?php } ?>
-  </table>
+<div id="db-column-2" class="db-column">
+	<div class="portlet">
+		<div class="portlet-header">Latest <a href="<?php echo $admin2->url('accounts') ?>"><?php _vzm('Accounts') ?></a></div>
+		<div class="portlet-content">
+      <table>
+      <?php foreach (ZMAccounts::instance()->getAllAccounts(null, 5) as $account) { ?>
+        <tr>
+          <td><?php echo $account->getId() ?></td>
+          <td><a href="<?php echo $admin2->url('account', 'accountId='.$account->getId()) ?>"><?php echo $account->getFullName() ?></a></td>
+          <td><?php echo $account->getAccountCreateDate() ?></td>
+        </tr>
+      <?php } ?>
+      </table>
+    </div>
+	</div>
 </div>
-
-<br clear="left">

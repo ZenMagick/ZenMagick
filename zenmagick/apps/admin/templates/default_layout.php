@@ -46,7 +46,7 @@
       <div id="content">
         <?php echo $this->fetch($viewTemplate); ?>
       </div>
+      <?php echo $this->fetch('footer.php'); ?>
     </div>
-
   </body>
 </html>
