@@ -91,7 +91,7 @@ class ZMCaches extends ZMObject {
 
         $instance = null;
         if (!isset($this->caches_[$key])) {
-            $instance = ($instance = ZMLoader::make($class));
+            $instance = ZMLoader::make($class);
             $instance->init($group, $config);
             $this->caches_[$key] = array('instance' => $instance, 'group' => $group, 'config' => $config, 'type' => $type);
         } else {
