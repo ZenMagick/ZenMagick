@@ -19,7 +19,10 @@
  */
 ?>
 <?php
-  //TODO: move to controller or some central logic
+  //XXX: centralize 
+  if (!$session->getValue('languages_id')) {
+      $session->setValue('languages_id', 1);
+  }
   $currentLanguage = ZMLanguages::instance()->getLanguageForId($session->getValue('languages_id'));
   $selectedLanguageId = $request->getParameter('languageId', $currentLanguage->getId());
 ?>
