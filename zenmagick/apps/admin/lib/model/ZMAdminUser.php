@@ -38,7 +38,6 @@ class ZMAdminUser extends ZMObject {
 
     /**
      * Create new user.
-     * 
      */
     function __construct() {
         parent::__construct();

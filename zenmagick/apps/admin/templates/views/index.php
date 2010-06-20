@@ -78,6 +78,7 @@
   /*
 
 class ZMDashboardWidget extends ZMWidget {
+    private $id_;
     private $minimize_; //boolean
     private $options_; // url
     private $maximize_; // boolean; later
@@ -119,15 +120,8 @@ var_dump($matches);
 ?>
 
 <div id="db-column-1" class="db-column">
-	<div class="portlet">
-    <div class="portlet-header"><?php _vzm('Order Stats') ?></div>
-		<div class="portlet-content">
-      <?php foreach (ZMOrders::instance()->getOrderStatusList($selectedLanguageId) as $status) { ?>
-        <?php $result = ZMRuntime::getDatabase()->querySingle("SELECT count(*) AS count FROM " . TABLE_ORDERS . " where orders_status = :orderStatusId", array('orderStatusId' => $status->getOrderStatusId()), TABLE_ORDERS); ?>
-        <a href="<?php echo $admin2->url('orders', 'orderStatusId='.$status->getOrderStatusId()) ?>"><?php echo $status->getName() ?>: <?php echo $result['count'] ?></a><br>
-      <?php } ?>
-    </div>
-	</div>
+  <?php $portlet = ZMBeanUtils::getBean('OrderStatsDashboardWidget'); ?>
+  <?php echo $portlet->render($request); ?>
 	
 	<div class="portlet">
 		<div class="portlet-header">Last 5 search terms</div>
@@ -137,27 +131,11 @@ var_dump($matches);
 </div>
 
 <div id="db-column-2" class="db-column">
-	<div class="portlet">
-		<div class="portlet-header">Latest <a href="<?php echo $admin2->url('orders') ?>"><?php _vzm('Orders') ?></a></div>
-		<div class="portlet-content">
-      <table>
-      <?php foreach (ZMOrders::instance()->getAllOrders($selectedLanguageId, 5) as $order) { ?>
-        <tr>
-          <?php $actualAccount = ZMAccounts::instance()->getAccountForId($order->getAccountId()); ?>
-          <?php $name = $actualAccount->getType() == ZMAccount::REGISTERED ? $order->getAccount()->getFullName() : _vzm('** Guest **'); ?>
-          <td><a href="<?php echo $admin2->url('order', 'orderId='.$order->getId()) ?>"><?php echo $order->getId() ?></a></td>
-          <td><a href="<?php echo $admin2->url('account', 'accountId='.$order->getAccountId()) ?>"><?php echo $name ?></a></td>
-          <td><?php echo $order->getOrderDate() ?></td>
-          <td><?php echo $order->getStatusName() ?></td>
-          <td><?php echo $utils->formatMoney($order->getTotal()) ?></td>
-        </tr>
-      <?php } ?>
-      </table>
-    </div>
-	</div>
+  <?php $portlet = ZMBeanUtils::getBean('LatestOrdersDashboardWidget'); ?>
+  <?php echo $portlet->render($request); ?>
 </div>
 
-<div id="db-column-2" class="db-column">
+<div id="db-column-3" class="db-column">
 	<div class="portlet">
 		<div class="portlet-header">Latest <a href="<?php echo $admin2->url('accounts') ?>"><?php _vzm('Accounts') ?></a></div>
 		<div class="portlet-content">

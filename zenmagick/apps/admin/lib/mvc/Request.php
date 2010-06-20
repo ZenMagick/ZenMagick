@@ -51,4 +51,24 @@ class Request extends ZMRequest {
         parent::__destruct();
     }
 
+
+    /**
+     * Get the selected language.
+     *
+     * <p>Determine the currently active language, with respect to potentially selected language from a dropdown in admin UI.</p>
+     *
+     * @return ZMLanguage The selected language.
+     */
+    public function getSelectedLanguage() {
+        if (null == ($selectedLanguageId = $this->getParameter('languageId'))) {
+            // fallback to session
+            if (null == ($selectedLanguageId = $this->getSession()->getValue('languages_id'))) {
+                //todo: this should be store language??
+                $selectedLanguageId = 1;
+            }
+        }
+
+        return ZMLanguages::instance()->getLanguageForId($selectedLanguageId);
+    }
+
 }
