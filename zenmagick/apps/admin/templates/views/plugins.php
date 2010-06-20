@@ -43,7 +43,7 @@
 
 </script>
 
-<div id="plugin-menu" style="float:left;width:180px">
+<div id="sub-menu">
 <?php
     $pluginItems = ZMAdminMenu::getItemsForParentId(ZMAdminMenu::MENU_PLUGINS);
     if (0 < count($pluginItems)) {

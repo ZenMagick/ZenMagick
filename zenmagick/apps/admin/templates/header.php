@@ -50,24 +50,21 @@
       </p>
       <p>
         <a href="<?php echo ZMSettings::get('apps.store.baseUrl') ?>" target="_blank">Storefront</a>
-        | <a href="<?php echo $admin2->url('about') ?>" onclick="zenmagick.ajaxDialog(this.href, 'About ZenMagick', '85%'); return false;"><?php _vzm('About') ?></a>
-        | <a href="http://forum.zenmagick.org/" target="_blank"><?php _vzm('Get Help') ?></a>
         | <a href="<?php echo  ZMSettings::get('apps.store.oldAdminUrl') ?>">OLD Admin</a>
+        | <a href="http://forum.zenmagick.org/" target="_blank"><?php _vzm('Get Help') ?></a>
+        | <a href="<?php echo $admin2->url('about') ?>" onclick="zenmagick.ajaxDialog(this.href, 'About ZenMagick', '85%'); return false;"><?php _vzm('About') ?></a>
       </p>
     </div>
   <?php } ?>
   <p id="main-menu">
     <?php if ($request->getUser()) { ?>
       <a href="<?php echo $admin2->url('index') ?>">Dashboard</a>
-      | <a href="<?php echo $admin2->url('catalog_manager') ?>">Catalog Manager</a>
-      | <a href="<?php echo $admin2->url('installation') ?>">Installation</a>
-      | <a href="<?php echo $admin2->url('plugins') ?>">Plugin Manager</a>
-      | <a href="<?php echo $admin2->url('cache_admin') ?>">Cache Admin</a>
-      | <a href="<?php echo $admin2->url('ezpages') ?>">EZPages Editor</a>
-      | <a href="<?php echo $admin2->url('static_page_editor') ?>">Static Page Editor</a>
-      | <a href="<?php echo $admin2->url('admin_users') ?>">Manage Admin Users</a>
-      | <a href="<?php echo $admin2->url('l10n') ?>">Translation Helper</a>
-      | <a href="<?php echo $admin2->url('console') ?>">Console</a>
+      | <a href="<?php echo $admin2->url('catalog_manager') ?>">Catalog</a>
+      | <a href="<?php echo $admin2->url('fulfilment') ?>">Fulfilment</a>
+      | <a href="<?php echo $admin2->url('reports') ?>">Reports</a>
+      | <a href="<?php echo $admin2->url('configuration') ?>">Configuration</a>
+      | <a href="<?php echo $admin2->url('plugins') ?>">Plugins</a>
+      | <a href="<?php echo $admin2->url('tools') ?>">Tools</a>
     <?php } ?>
   </p>
 </div>
