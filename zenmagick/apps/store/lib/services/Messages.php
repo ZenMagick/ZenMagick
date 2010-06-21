@@ -33,7 +33,6 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.store.services
- * @version $Id$
  */
 class Messages extends ZMMessages {
 

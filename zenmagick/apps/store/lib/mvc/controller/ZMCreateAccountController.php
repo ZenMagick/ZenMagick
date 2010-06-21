@@ -37,7 +37,6 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.store.mvc.controller
- * @version $Id$
  */
 class ZMCreateAccountController extends ZMController {
     private $createDefaultAddress_;

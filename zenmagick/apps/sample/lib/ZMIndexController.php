@@ -26,7 +26,6 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.mvc.sample
- * @version $Id$
  */
 class ZMIndexController extends ZMController {
 

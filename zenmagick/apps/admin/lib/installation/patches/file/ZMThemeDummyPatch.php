@@ -26,7 +26,6 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.store.admin.installation.patches.file
- * @version $Id$
  */
 class ZMThemeDummyPatch extends ZMFilePatch {
     private $includeDefault_;

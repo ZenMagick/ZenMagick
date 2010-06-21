@@ -29,7 +29,6 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.store.utils
- * @version $Id$
  */
 class ZMEventFixes extends ZMObject {
     private $plugins_;

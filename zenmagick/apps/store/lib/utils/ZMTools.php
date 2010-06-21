@@ -28,7 +28,6 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.store.utils
- * @version $Id: ZMTools.php 2902 2010-02-16 07:51:36Z dermanomann $
  */
 class ZMTools {
     const RANDOM_DIGITS = 'digits';

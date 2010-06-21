@@ -29,7 +29,6 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.store.utils
- * @version $Id$
  */
 class ZMShippingEstimator extends ZMObject {
 

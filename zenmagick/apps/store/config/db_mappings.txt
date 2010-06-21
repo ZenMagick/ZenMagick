@@ -16,7 +16,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  *
- * @version $Id: db_mappings.txt 2280 2009-06-19 01:55:13Z DerManoMann $
  * @todo use boolean where appropriate
  */
 array(

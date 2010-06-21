@@ -31,7 +31,6 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.store.mvc
- * @version $Id$
  */
 class Session extends ZMObject { //ZMSession {
 

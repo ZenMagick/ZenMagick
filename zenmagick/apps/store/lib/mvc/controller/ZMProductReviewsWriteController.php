@@ -29,7 +29,6 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.store.mvc.controller
- * @version $Id$
  */
 class ZMProductReviewsWriteController extends ZMController {
     private $viewData_;

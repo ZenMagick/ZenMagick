@@ -29,7 +29,6 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.store.provider
- * @version $Id$
  */
 class ZMStoreDefaultSeoRewriter implements ZMSeoRewriter {
 

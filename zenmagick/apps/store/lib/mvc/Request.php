@@ -32,7 +32,6 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.store.mvc
- * @version $Id$
  */
 class Request extends ZMRequest {
     private $categoryPathArray_;

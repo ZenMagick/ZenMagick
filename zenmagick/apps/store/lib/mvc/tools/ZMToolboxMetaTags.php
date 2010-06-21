@@ -37,7 +37,6 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.store.mvc.tools
- * @version $Id$
  */
 class ZMToolboxMetaTags extends ZMToolboxTool {
     private $topCategories_ = null;

@@ -25,7 +25,6 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.mvc.utils
- * @version $Id$
  */
 class ViewUtils extends ZMViewUtils {
 
