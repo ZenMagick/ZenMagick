@@ -18,29 +18,20 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 ?>
-<?php
-
-  //XXX: centralize 
-  if (!$session->getValue('languages_id')) {
-      $session->setValue('languages_id', 1);
-  }
-  $currentLanguage = ZMLanguages::instance()->getLanguageForId($session->getValue('languages_id'));
-  $selectedLanguageId = $request->getParameter('languageId', $currentLanguage->getId());
-
-?>
-
 <h1>Dashboard</h1>
 
-	<style type="text/css">
+<style type="text/css">
 	.db-column { width: 33%; float: left; padding-bottom: 100px; }
 	.portlet { margin: 0 1em 1em 0; }
+	.portlet .ui-icon-wrench { display:none; }
+	.wrench span.ui-icon-wrench { display:inline; }
 	.portlet-header { margin: 0.3em; padding-bottom: 4px; padding-left: 0.2em; }
 	.portlet-header .ui-icon { float: right; }
 	.portlet-content { padding: 0.4em; }
 	.ui-sortable-placeholder { border: 1px dotted black; visibility: visible !important; height: 50px !important; }
 	.ui-sortable-placeholder * { visibility: hidden; }
-	</style>
-	<script type="text/javascript">
+</style>
+<script>
 	$(function() {
 		$(".db-column").sortable({
       connectWith: '.db-column',
@@ -72,32 +63,7 @@
     );
     
 	});
-	</script>
-
-<?php
-  /*
-
-class ZMDashboardWidget extends ZMWidget {
-    private $id_;
-    private $minimize_; //boolean
-    private $options_; // url
-    private $maximize_; // boolean; later
-    private $title_;
-    private $contents_;
-}
-   */
-  /*
-ZMPortletWidget...
-
-views/portlets:
-
-order_stats.php
-<!-- minimize=true;options=http://;maximize=false;title=; -->
-content.....
-
-   */
-?>
-
+</script>
 
 <?php
   /*
@@ -117,37 +83,31 @@ preg_match_all('|[^%]%([0-9]*)h(.*[^%])%%|', $s, $matches);
 var_dump($matches);
    */
 
+
+// all defaults
+$dashboardConfig = array(
+    'columns' => 3,
+    'widgets' => array(
+        array('OrderStatsDashboardWidget#open=false', 'RecentSearchesDashboardWidget#optionsUrl=abc'),
+        array('LatestOrdersDashboardWidget'),
+        array('LatestAccountsDashboardWidget')
+    )
+);
+
+// store widget state in js array
+/*
+id => (def => class, params => open=false&...),
+id => (def => class, params => open=false&...),
+id => (def => class, params => open=false&...),
+
+update that with UI events, convert into something like dashboardConfig, jsonify and send to backend
+*/
+
 ?>
-
-<div id="db-column-1" class="db-column">
-  <?php $portlet = ZMBeanUtils::getBean('OrderStatsDashboardWidget'); ?>
-  <?php echo $portlet->render($request); ?>
-	
-	<div class="portlet">
-		<div class="portlet-header">Last 5 search terms</div>
-    <div class="portlet-content">
-    </div>
-	</div>
-</div>
-
-<div id="db-column-2" class="db-column">
-  <?php $portlet = ZMBeanUtils::getBean('LatestOrdersDashboardWidget'); ?>
-  <?php echo $portlet->render($request); ?>
-</div>
-
-<div id="db-column-3" class="db-column">
-	<div class="portlet">
-		<div class="portlet-header">Latest <a href="<?php echo $admin2->url('accounts') ?>"><?php _vzm('Accounts') ?></a></div>
-		<div class="portlet-content">
-      <table>
-      <?php foreach (ZMAccounts::instance()->getAllAccounts(null, 5) as $account) { ?>
-        <tr>
-          <td><?php echo $account->getId() ?></td>
-          <td><a href="<?php echo $admin2->url('account', 'accountId='.$account->getId()) ?>"><?php echo $account->getFullName() ?></a></td>
-          <td><?php echo $account->getAccountCreateDate() ?></td>
-        </tr>
-      <?php } ?>
-      </table>
-    </div>
-	</div>
-</div>
+<?php for ($ii=0; $ii < $dashboardConfig['columns']; ++$ii) { $widgets = $dashboardConfig['widgets'][$ii]; ?>
+  <div id="db-column-<?php echo $ii ?>" class="db-column">
+    <?php foreach ($widgets as $widgetDef) { ?>
+      <?php $widget = ZMBeanUtils::getBean($widgetDef); echo $widget->render($request); ?>
+    <?php } ?>
+  </div>
+<?php } ?>

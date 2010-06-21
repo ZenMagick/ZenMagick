@@ -31,6 +31,8 @@ abstract class ZMDashboardWidget extends ZMWidget {
     private $id_;
     private $minimize_;
     private $maximize_;
+    private $optionsUrl_;
+    private $open_;
 
 
     /**
@@ -45,6 +47,8 @@ abstract class ZMDashboardWidget extends ZMWidget {
         $this->setTitle(null != $title ? $title : $this->id_);
         $this->minimize_ = true;
         $this->maximize_ = false;
+        $this->optionsUrl_ = null;
+        $this->open_ = true;
     }
 
     /**
@@ -110,13 +114,50 @@ abstract class ZMDashboardWidget extends ZMWidget {
     public function setMaximize($maximize) { $this->maximize_ = $maximize; }
 
     /**
+     * Set url for options dialog.
+     *
+     * @parm string url URL that can be used to render an options dialog for this widget.
+     */
+    public function setOptionsUrl($url) { $this->optionsUrl_ = $url; }
+
+    /**
+     * Get url for options dialog.
+     *
+     * @return string URL that can be used to render an options dialog for this widget.
+     */
+    public function getOptionsUrl() { return $this->optionsUrl_; }
+
+    /**
+     * Check if this widget has options.
+     *
+     * @return boolean <code>true</code> if this widget has configurable options.
+     */
+    public function hasOptions() { return null != $this->optionsUrl_; }
+
+    /**
+     * Get the open flag.
+     *
+     * <p>Tells the dashboard wheter this widget is currently open.</p>
+     *
+     * @return boolean The open flag.
+     */
+    public function isOpen() { return $this->open_; }
+
+    /**
+     * Set the open flag.
+     *
+     * @parm boolean open The new value.
+     */
+    public function setOpen($open) { $this->open_ = ZMLangUtils::asBoolean($open); }
+
+    /**
      * {@inheritDoc}
      */
     public function render($request) {
         $lines = array(
-            '<div class="portlet">',
+            '<div class="portlet'.($this->hasOptions() ? ' wrench' : '').'" id="portlet-'.$this->getId().'">',
             '  <div class="portlet-header">'.$this->getTitle().'</div>',
-            '  <div class="portlet-content">',
+            '  <div class="portlet-content"'.($this->isOpen() ? '' : ' style="display:none;"').'>',
             '    '.$this->getContents($request),
             '  </div>',
             '</div>'
