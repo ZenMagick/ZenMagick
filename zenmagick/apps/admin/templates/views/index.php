@@ -1,6 +1,6 @@
 <?php
 /*
- * ZenMagick - Extensions for zen-cart
+ * ZenMagick - Smart e-commerce
  * Copyright (C) 2006-2010 zenmagick.org
  *
  * This program is free software; you can redistribute it and/or modify
@@ -20,6 +20,7 @@
 ?>
 <?php $resources->cssFile('style/dashboard.css'); ?>
 <?php $resources->jsFile('js/dashboard.js'); ?>
+
 <h1><?php _vzm('Dashboard') ?></h1>
 <?php $adminId = $request->getUser()->getId(); ?>
 <?php for ($ii=0; $ii<ZMDashboard::getColumns($adminId); ++$ii) { $widgets = ZMDashboard::getWidgetsForColumn($adminId, $ii); ?>

@@ -1,6 +1,6 @@
 <?php
 /*
- * ZenMagick - Extensions for zen-cart
+ * ZenMagick - Smart e-commerce
  * Copyright (C) 2006-2009 ZenMagick
  *
  * Portions Copyright (c) 2003 The zen-cart developers

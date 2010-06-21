@@ -5,7 +5,7 @@ define('ZM_TABLE_OPENID_NONCES', ZM_DB_PREFIX . 'zm_openid_nonces');
 
 
 /**
- * ZenMagick - Extensions for zen-cart
+ * ZenMagick - Smart e-commerce
  * Copyright (C) 2006-2010 zenmagick.org
  *
  * A <code>OpenIDStore</code> implementation for the PHP OpenID library by 

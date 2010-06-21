@@ -1,6 +1,6 @@
 <?php
 /*
- * ZenMagick - Extensions for zen-cart
+ * ZenMagick - Smart e-commerce
  * Portions Copyright (c) 2003 osCommerce
  *
  * This program is free software; you can redistribute it and/or modify
