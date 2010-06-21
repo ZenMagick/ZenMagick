@@ -158,7 +158,7 @@ class ZMViewUtils extends ZMObject {
                     }
                 }
                 $css .= $details['attr']['prefix'];
-                $css .= '<link '.$attr.' href="'.$this->resolveResource($details['filename']).'"'.$slash.'>';
+                $css .= '<link'.$attr.' href="'.$this->resolveResource($details['filename']).'"'.$slash.'>';
                 $css .= $details['attr']['suffix']."\n";
             }
             $contents .= $css;
