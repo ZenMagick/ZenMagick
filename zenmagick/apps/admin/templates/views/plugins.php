@@ -95,7 +95,7 @@
           <?php } else { ?>
             <input type="hidden" name="action" value="uninstall">
             <?php $cid = 'keepSettings-'.$plugin->getId(); ?>
-            <input type="checkbox" id="<?php echo $cid ?>" name="keepSettings" value="true" checked> <label for="<?php echo $cid ?>"><?php _vzm('Keep Settings') ?></label>
+            <input type="checkbox" id="<?php echo $cid ?>" name="keepSettings" value="true"> <label for="<?php echo $cid ?>"><?php _vzm('Keep Settings') ?></label>
             <button type="submit">Uninstall</button>
             <a href="<?php echo $admin2->url(null, 'action=upgrade&pluginId='.$plugin->getId().'&group='.$plugin->getGroup()) ?>#<?php echo $plugin->getId() ?>">Upgrade</a>
             <?php if ($plugin->hasOptions()) { /* enabled/disabled and sort order are handled by this page */ ?>
