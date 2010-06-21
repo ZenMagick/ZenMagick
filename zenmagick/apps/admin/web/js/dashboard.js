@@ -28,7 +28,7 @@ $(function() {
       .addClass("ui-widget-header ui-corner-all")
       .html(function(index, oldhtml) { return '<div class="portlet-grip">'+oldhtml+'</div>'; })
       // add icons
-      .prepend('<span class="ui-icon ui-icon-closethick"></span><span class="ui-icon ui-icon-wrench"></span><span class="ui-icon ui-icon-minusthick"></span>')
+      .prepend('<span class="ui-icon ui-icon-closethick"></span><span class="ui-icon ui-icon-minusthick"></span></span><span class="ui-icon ui-icon-wrench"></span>')
       .end()
     .find(".portlet-content")
     .css('display', function(index, value) {
