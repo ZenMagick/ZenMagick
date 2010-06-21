@@ -68,3 +68,21 @@ function _vzm($text) {
     $translated = ZMLocales::instance()->translate($text, null, ZMLocale::DEFAULT_DOMAIN);
     echo null != $args ? vsprintf($translated, $args) : $translated;
 }
+
+
+/*
+TODO:
+translations:
+Latest <a href="<?php echo $admin2->url('orders') ?>"><?php _vzm('Orders') ?></a>
+
+printf('Last %hOrders%%', '<a href="/foo">%h%%</a>');
+printf('Letzte %hBestellungen%%', '<a href="/foo">%h%%</a>');
+
+[^%]%([0-9]*)%([^%])+%%
+
+
+$s = 'Letzte %hBestellungen%%';
+preg_match_all('|[^%]%([0-9]*)h(.*[^%])%%|', $s, $matches);
+//preg_match_all('|[^%]%|', $s, $matches);
+var_dump($matches);
+*/

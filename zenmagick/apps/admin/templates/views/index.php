@@ -18,53 +18,15 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 ?>
-<h1>Dashboard</h1>
 <?php $resources->cssFile('style/dashboard.css'); ?>
 <?php $resources->jsFile('js/dashboard.js'); ?>
-
-<?php
-  /*
-
-translations:
-Latest <a href="<?php echo $admin2->url('orders') ?>"><?php _vzm('Orders') ?></a>
-
-printf('Last %hOrders%%', '<a href="/foo">%h%%</a>');
-printf('Letzte %hBestellungen%%', '<a href="/foo">%h%%</a>');
-
-[^%]%([0-9]*)%([^%])+%%
-
-
-$s = 'Letzte %hBestellungen%%';
-preg_match_all('|[^%]%([0-9]*)h(.*[^%])%%|', $s, $matches);
-//preg_match_all('|[^%]%|', $s, $matches);
-var_dump($matches);
-   */
-
-
-// all defaults
-$dashboardConfig = array(
-    'columns' => 3,
-    'widgets' => array(
-        array('OrderStatsDashboardWidget#open=false', 'RecentSearchesDashboardWidget#optionsUrl=abc'),
-        array('LatestOrdersDashboardWidget'),
-        array('LatestAccountsDashboardWidget')
-    )
-);
-
-// store widget state in js array
-/*
-id => (def => class, params => open=false&...),
-id => (def => class, params => open=false&...),
-id => (def => class, params => open=false&...),
-
-update that with UI events, convert into something like dashboardConfig, jsonify and send to backend
-*/
-
-?>
-<?php for ($ii=0; $ii < $dashboardConfig['columns']; ++$ii) { $widgets = $dashboardConfig['widgets'][$ii]; ?>
+<h1><?php _vzm('Dashboard') ?></h1>
+<?php for ($ii=0; $ii<ZMDashboard::getColumns(); ++$ii) { $widgets = ZMDashboard::getWidgetsForColumn($ii); ?>
   <div id="db-column-<?php echo $ii ?>" class="db-column">
     <?php foreach ($widgets as $widgetDef) { ?>
       <?php $widget = ZMBeanUtils::getBean($widgetDef); echo $widget->render($request); ?>
     <?php } ?>
   </div>
 <?php } ?>
+
+<p style="clear:left;">Available widgets: <?php echo implode(', ', ZMDashboard::getWidgetList()) ?></p>
