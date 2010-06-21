@@ -156,4 +156,24 @@ class ZMAdminUser extends ZMObject {
      */
     public function hasRole($role) { return in_array($role, $this->roles_); }
 
+    /**
+     * Get an admin user pref.
+     *
+     * @param string name The pref name.
+     * @return string The value or <code>null</code>.
+     */
+    public function getPref($name) {
+        return ZMAdminUserPrefs::instance()->getPrefForName($this->getId(), $name);
+    }
+
+    /**
+     * Set an admin user pref.
+     *
+     * @param string name The pref name.
+     * @param string value The value.
+     */
+    public function setPref($name, $value) {
+        ZMAdminUserPrefs::instance()->setPrefForName($this->getId(), $name, $value);
+    }
+
 }

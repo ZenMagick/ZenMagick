@@ -32,30 +32,33 @@ class ZMDashboard {
     /**
      * Get the number of dashboard columns.
      *
+     * @param int adminId The admin id.
      * @return int The number of columns.
      */
-    public static function getColumns() {
-        $config = self::getConfig();
+    public static function getColumns($adminId) {
+        $config = self::getConfig($adminId);
         return $config['columns'];
     }
 
     /**
      * Get the configured widgets for the given column.
      *
+     * @param int adminId The admin id.
      * @param int column The column.
      * @return array List of widget definitions.
      */
-    public static function getWidgetsForColumn($column) {
-        $config = self::getConfig();
+    public static function getWidgetsForColumn($adminId, $column) {
+        $config = self::getConfig($adminId);
         return $config['widgets'][$column];
     }
 
     /**
      * Get widget list.
      *
+     * @param int adminId The admin id.
      * @return array List of all available widgets.
      */
-    public static function getWidgetList() {
+    public static function getWidgetList($adminId) {
         //TODO: load from setting
         return array('OrderStatsDashboardWidget', 'RecentSearchesDashboardWidget', 'LatestOrdersDashboardWidget', 'LatestAccountsDashboardWidget');
     }
@@ -63,10 +66,11 @@ class ZMDashboard {
     /**
      * Get dashboad state.
      *
+     * @param int adminId The admin id.
      * @return string The current dashboard state as JavaScript structure.
      */
-    public static function getState() {
-
+    public static function getState($adminId) {
+        $config = self::getConfig($adminId);
 // store widget state in js array
 /*
 id => (def => class, params => open=false&...),
@@ -81,18 +85,16 @@ update that with UI events, convert into something like dashboardConfig, jsonify
     /**
      * Get dashboard config.
      *
+     * @param int adminId The admin id.
      * @return array config map.
      */
-    public static function getConfig() {
-        // todo: load from db
-        return array(
-            'columns' => 3,
-            'widgets' => array(
-                array('OrderStatsDashboardWidget#open=false', 'RecentSearchesDashboardWidget#optionsUrl=abc'),
-                array('LatestOrdersDashboardWidget'),
-                array('LatestAccountsDashboardWidget')
-            )
-        );
+    public static function getConfig($adminId) {
+        $config = array();
+        $obj = json_decode(ZMAdminUserPrefs::instance()->getPrefForName($adminId, 'dashboard'));
+        foreach ($obj as $name => $value) {
+            $config[$name] = $value;
+        }
+        return $config;
     }
 
 }

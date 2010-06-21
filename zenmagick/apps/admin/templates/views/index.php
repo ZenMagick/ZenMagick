@@ -21,7 +21,8 @@
 <?php $resources->cssFile('style/dashboard.css'); ?>
 <?php $resources->jsFile('js/dashboard.js'); ?>
 <h1><?php _vzm('Dashboard') ?></h1>
-<?php for ($ii=0; $ii<ZMDashboard::getColumns(); ++$ii) { $widgets = ZMDashboard::getWidgetsForColumn($ii); ?>
+<?php $adminId = $request->getUser()->getId(); ?>
+<?php for ($ii=0; $ii<ZMDashboard::getColumns($adminId); ++$ii) { $widgets = ZMDashboard::getWidgetsForColumn($adminId, $ii); ?>
   <div id="db-column-<?php echo $ii ?>" class="db-column">
     <?php foreach ($widgets as $widgetDef) { ?>
       <?php $widget = ZMBeanUtils::getBean($widgetDef); echo $widget->render($request); ?>
@@ -29,4 +30,4 @@
   </div>
 <?php } ?>
 
-<p style="clear:left;">Available widgets: <?php echo implode(', ', ZMDashboard::getWidgetList()) ?></p>
+<p style="clear:left;">Available widgets: <?php echo implode(', ', ZMDashboard::getWidgetList($adminId)) ?></p>
