@@ -20,7 +20,7 @@
 ?>
 <?php
 
-    // build full zen-cart menu
+    // build config menu
     ZMAdminMenu::addItem(new ZMAdminMenuItem(null, 'config', _zm('Configuration'), null));
     $configGroups = ZMConfig::instance()->getConfigGroups();
     foreach ($configGroups as $group) {
