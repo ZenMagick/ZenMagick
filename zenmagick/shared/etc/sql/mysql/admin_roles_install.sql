@@ -19,8 +19,8 @@ CREATE TABLE admins_to_roles (
 INSERT INTO admin_roles VALUES(1, 'admin');
 INSERT INTO admin_roles VALUES(2, 'demo');
 
-## create demo user
-INSERT INTO admin VALUES (2, 'Demo', 'demo@localhost', '', 0);
+## create demo user with empty password, so it can't be used without manual change
+INSERT INTO admin VALUES (2, 'Demo', 'demo@localhost', '7f20db8a9ea16394abbe87a99a359e7e:d4', 0);
 
 INSERT INTO admins_to_roles VALUES(1, 1);
 INSERT INTO admins_to_roles VALUES(2, 2);

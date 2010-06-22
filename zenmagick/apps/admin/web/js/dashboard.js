@@ -18,7 +18,35 @@
  */
 $(function() {
     function buildState() {
-        return '{"columns":3,"widgets":[["OrderStatsDashboardWidget#open=false","RecentSearchesDashboardWidget#optionsUrl=abc"],["LatestOrdersDashboardWidget"],["LatestAccountsDashboardWidget"]]}';
+        var state = {};
+        state.columns = 1;
+        state.widgets = [];
+        $('.db-column').each(function(columnIndex, column) {
+            state.widgets[columnIndex] = [];
+            $(column).find('.portlet').each(function(index, portlet) {
+              var bean = portlet.getAttribute('id').substring(8)+'#';
+              var open = 0 != $(portlet).find('.ui-icon-minusthick').length;
+              bean += 'open='+(open?'true':'false');
+              var options = $(portlet).hasClass('wrench');
+              bean += '&options='+(options?'true':'false');
+              state.widgets[columnIndex].push(bean);
+            });
+            state.columns = columnIndex+1;
+        });
+        // convert to json
+        var json = '{"columns":'+state.columns+',"widgets":[';
+        for (var ii=0; ii<state.widgets.length; ++ii) {
+            if (0 < ii) { json += ','; }
+            json += '[';
+            for (var jj=0; jj<state.widgets[ii].length; ++jj) {
+                if (0 < jj) { json += ','; }
+                json += '"'+state.widgets[ii][jj]+'"';
+            }
+            json += ']';
+        }
+        json += ']}';
+        json = escape(json);
+        return json;
     }
 
     function saveState() {
@@ -40,6 +68,7 @@ $(function() {
     $(".db-column").sortable({
         connectWith: '.db-column',
         handle: '.portlet-grip',
+        update: function(event, ui) { saveState(); },
         cursor: 'move'
     });
 
