@@ -38,7 +38,7 @@
 
 <div id="header">
   <div id="logo">
-    <img src="<?php echo $this->asUrl('images/logo-235x64.png', ZMView::RESOURCE) ?>" alt="logo">
+    <a href="<?php echo $admin2->url('index') ?>"><img src="<?php echo $this->asUrl('images/logo-235x64.png', ZMView::RESOURCE) ?>" alt="logo"></a>
   </div>
   <?php if ($request->getUser()) { ?>
     <div id="top-opts">
