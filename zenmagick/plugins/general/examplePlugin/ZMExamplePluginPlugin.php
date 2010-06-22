@@ -34,7 +34,7 @@ class ZMExamplePluginPlugin extends Plugin implements ZMRequestHandler {
      */
     function __construct() {
         parent::__construct('ZenMagick Example Plugin', 'This is the ZenMagick Example Plugin');
-        $this->setLoaderPolicy(ZMPlugin::LP_ALL);
+        $this->setLoaderPolicy(ZMPlugin::LP_FOLDER);
     }
 
     /**

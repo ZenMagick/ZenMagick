@@ -42,6 +42,7 @@
         "sqlToken" => "Create the database table used by the token service",
         "sqlFulltext" => "Create indices for fulltext product search",
         "sqlAdminRoles" => "Create tables for new role based admin access control",
+        "sqlAdminPrefs" => "Create new admin preferences table",
     );
 
     $coreCompressor = new ZMCoreCompressor();
