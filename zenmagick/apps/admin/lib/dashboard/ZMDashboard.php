@@ -64,22 +64,13 @@ class ZMDashboard {
     }
 
     /**
-     * Get dashboad state.
+     * Set dashboad state.
      *
      * @param int adminId The admin id.
-     * @return string The current dashboard state as JavaScript structure.
+     * @param string state The state as JSON.
      */
-    public static function getState($adminId) {
-        $config = self::getConfig($adminId);
-// store widget state in js array
-/*
-id => (def => class, params => open=false&...),
-id => (def => class, params => open=false&...),
-id => (def => class, params => open=false&...),
-
-update that with UI events, convert into something like dashboardConfig, jsonify and send to backend
- */
-        return '';
+    public static function setState($adminId, $state) {
+        ZMAdminUserPrefs::instance()->setPrefForName($adminId, 'dashboard', $state);
     }
 
     /**

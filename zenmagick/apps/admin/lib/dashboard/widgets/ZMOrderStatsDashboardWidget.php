@@ -34,7 +34,7 @@ class ZMOrderStatsDashboardWidget extends ZMDashboardWidget {
      * 
      */
     function __construct() {
-        parent::__construct('orderStats', _zm('Order Stats'));
+        parent::__construct(_zm('Order Stats'));
     }
 
     /**

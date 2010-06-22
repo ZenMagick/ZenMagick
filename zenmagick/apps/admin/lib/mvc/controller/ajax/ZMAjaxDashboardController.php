@@ -22,35 +22,30 @@
 
 
 /**
- *Recent searches dashboard widget.
+ * Ajax dashboard controller.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.admin.dashbord.widgets
+ * @package org.zenmagick.store.admin.mvc.controller.ajax
  */
-class ZMRecentSearchesDashboardWidget extends ZMDashboardWidget {
+class ZMAjaxDashboardController extends ZMScaffoldController {
 
     /**
-     * Create new user.
-     * 
+     * Save state.
+     *
+     * <p>Request parameter:</p>
+     * <ul>
+     *  <li>state - The dashboard state.</li>
+     * </ul>
      */
-    function __construct() {
-        parent::__construct(_zm('Recent Searches'));
-    }
+    public function saveState($request) {
+        $state = $request->getParameter('state');
 
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
+        $response = ZMAjaxUtils::getAjaxResponse();
+        ZMDashboard::setState($request->getUser()->getId(), $state);
+        $response->setStatus(true);
 
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getContents($request) {
-        $contents = '<p>'._zm('No Data').'</p>';
-        return $contents;
+        $response->createResponse($this);
+        return $response->getStatus();
     }
 
 }

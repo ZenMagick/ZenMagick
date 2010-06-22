@@ -66,7 +66,7 @@ class ZMAjaxPluginAdminController extends ZMScaffoldController {
     }
 
     /**
-     * cwRemove plugin.
+     * Remove plugin.
      *
      * <p>Request parameter:</p>
      * <ul>

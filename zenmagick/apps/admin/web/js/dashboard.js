@@ -17,39 +17,60 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 $(function() {
-  $(".db-column").sortable({
-    connectWith: '.db-column',
-    handle: '.portlet-grip',
-    cursor: 'move'
-  });
+    function buildState() {
+        return '{"columns":3,"widgets":[["OrderStatsDashboardWidget#open=false","RecentSearchesDashboardWidget#optionsUrl=abc"],["LatestOrdersDashboardWidget"],["LatestAccountsDashboardWidget"]]}';
+    }
 
-  $(".portlet").addClass("ui-widget ui-widget-content ui-helper-clearfix ui-corner-all")
-    .find(".portlet-header")
-      .addClass("ui-widget-header ui-corner-all")
-      .html(function(index, oldhtml) { return '<div class="portlet-grip">'+oldhtml+'</div>'; })
-      // add icons
-      .prepend('<span class="ui-icon ui-icon-closethick"></span><span class="ui-icon ui-icon-minusthick"></span></span><span class="ui-icon ui-icon-wrench"></span>')
-      .end()
-    .find(".portlet-content")
-    .css('display', function(index, value) {
-      // fix open/close icon depending on initial state
-      $(this).parents(".portlet:first .ui-icon-minusthick").removeClass("ui-icon-minusthick").addClass("ui-icon-plusthick");
-    })
+    function saveState() {
+        state = buildState();
+        $.ajax({
+            type: "POST",
+            //TODO: how to set this??
+            url: "index.php?rid=ajax_dashboard&method=saveState",
+            data: 'state='+state,
+            success: function(msg) { 
+                // TODO:
+            },
+            error: function(msg) { 
+                alert(msg);
+            }
+        });
+    }
+
+    $(".db-column").sortable({
+        connectWith: '.db-column',
+        handle: '.portlet-grip',
+        cursor: 'move'
+    });
+
+    $(".portlet").addClass("ui-widget ui-widget-content ui-helper-clearfix ui-corner-all")
+        .find(".portlet-header")
+            .addClass("ui-widget-header ui-corner-all")
+            .html(function(index, oldhtml) { return '<div class="portlet-grip">'+oldhtml+'</div>'; })
+            // add icons
+            .prepend('<span class="ui-icon ui-icon-closethick"></span><span class="ui-icon ui-icon-minusthick"></span></span><span class="ui-icon ui-icon-wrench"></span>')
+            .end()
+        .find(".portlet-content")
+        .css('display', function(index, value) {
+            // fix open/close icon depending on initial state
+            $(this).parents(".portlet:first .ui-icon-minusthick").removeClass("ui-icon-minusthick").addClass("ui-icon-plusthick");
+        })
     ;
 
-  // open/close
-  $(".portlet-header .ui-icon-minusthick, .portlet-header .ui-icon-plusthick").click(function() {
-    $(this).toggleClass("ui-icon-minusthick").toggleClass("ui-icon-plusthick");
-    $(this).parents(".portlet:first").find(".portlet-content").toggle();
-  });
-  // remove
-  $(".portlet-header .ui-icon-closethick").click(function() {
-    $(this).parents('.portlet').css('display', 'none');
-  });
+    // open/close
+    $(".portlet-header .ui-icon-minusthick, .portlet-header .ui-icon-plusthick").click(function() {
+        $(this).toggleClass("ui-icon-minusthick").toggleClass("ui-icon-plusthick");
+        $(this).parents(".portlet:first").find(".portlet-content").toggle();
+        saveState();
+    });
+    // remove
+    $(".portlet-header .ui-icon-closethick").click(function() {
+        $(this).parents('.portlet').css('display', 'none');
+        saveState();
+    });
 
-  $(".portlet-grip").hover(
-    function() { $(this).css('cursor', 'move'); }, 
-    function() { $(this).css('cursor', 'auto'); }
-  );
-  
+    $(".portlet-grip").hover(
+        function() { $(this).css('cursor', 'move'); }, 
+        function() { $(this).css('cursor', 'auto'); }
+    );
 });

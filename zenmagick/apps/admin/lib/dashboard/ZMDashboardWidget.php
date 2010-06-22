@@ -38,12 +38,11 @@ abstract class ZMDashboardWidget extends ZMWidget {
     /**
      * Create new user.
      *
-     * @param string id The widget id; default is <code>null</code> to use the class name.
      * @param string title The title; default is <code>null</code> to use the id.
      */
-    function __construct($id=null, $title=null) {
+    function __construct($title=null) {
         parent::__construct();
-        $this->id_ = null != $id ? $id : get_class();
+        $this->id_ = get_class($this);
         $this->setTitle(null != $title ? $title : $this->id_);
         $this->minimize_ = true;
         $this->maximize_ = false;

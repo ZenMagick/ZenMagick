@@ -15,7 +15,7 @@ zenmagick.core.database.mappings.file: config/db_mappings.txt
 zenmagick.mvc.view.default: ZMSavantView
 zenmagick.mvc.view.defaultLayout: default_layout
 
-zenmagick.mvc.seo.type: realpath
+zenmagick.mvc.seo.type: default
 zenmagick.mvc.request.seoRewriter: DefaultSeoRewriter
 
 zenmagick.mvc.html.xhtml: false

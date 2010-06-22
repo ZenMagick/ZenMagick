@@ -34,7 +34,7 @@ class ZMLatestOrdersDashboardWidget extends ZMDashboardWidget {
      * 
      */
     function __construct() {
-        parent::__construct('latestOrders', _zm('Latest Orders'));
+        parent::__construct(_zm('Latest Orders'));
     }
 
     /**
