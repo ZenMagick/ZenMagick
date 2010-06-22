@@ -30,7 +30,7 @@
   <?php foreach ($resultList->getResults() as $account) { ?>
     <tr>
       <td><?php echo $account->getId() ?></td>
-      <?php $name = $account->getType() == ZMAccount::REGISTERED ? $account->getFullName() : _vzm('** Guest **'); ?>
+      <?php $name = $account->getType() == ZMAccount::REGISTERED ? $account->getFullName() : _zm('** Guest **'); ?>
       <td><a href="<?php echo $admin2->url('account', 'accountId='.$account->getId()) ?>"><?php echo $name ?></a></td>
       <td><?php echo $account->getAccountCreateDate() ?></td>
       <td><?php echo ($account->getAuthorization() ? _vzm('Pending') : _vzm('Approved')) ?></td>
