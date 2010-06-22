@@ -5,7 +5,6 @@
 #
 #
 zenmagick.mvc.templates.ext: .php
-zenmagick.mvc.seo.type: realpath
 
 zenmagick.core.logging.enabled: true
 zenmagick.core.logging.level: ALL
@@ -13,21 +12,23 @@ zenmagick.core.logging.level: ALL
 zenmagick.core.database.provider: ZMPdoDatabase
 zenmagick.core.database.mappings.file: config/db_mappings.txt
 
-zenmagick.mvc.seo.type: default
-#zenmagick.mvc.view.default: ZMSavantView#viewDir=
 zenmagick.mvc.view.default: ZMSavantView
-zenmagick.mvc.request.seoRewriter: DefaultSeoRewriter
 zenmagick.mvc.view.defaultLayout: default_layout
+
+zenmagick.mvc.seo.type: realpath
+zenmagick.mvc.request.seoRewriter: DefaultSeoRewriter
+
 zenmagick.mvc.html.xhtml: false
 zenmagick.mvc.html.charset: utf-8
 
 zenmagick.mvc.sacs.handler: AdminUserSacsHandler
 
-#zenmagick.mvc.request.index: zm.php
+## the main request handler (ie. the single point of entry in admin/web)
 zenmagick.mvc.request.index: index.php
-zenmagick.mvc.session.userFactory: AdminUserFactory
-
-# show login again if no session possible
+## show login again if no session possible; this is a requestId
 zenmagick.mvc.request.invalidSession: login
 
+zenmagick.mvc.session.userFactory: AdminUserFactory
+
+## toolbox tools
 zenmagick.mvc.toolbox.tools: net:ToolboxNet,html:ToolboxHtml,form:ToolboxForm,macro:ToolboxMacro,locale:ToolboxLocale,utils:ToolboxUtils,admin:ToolboxAdmin,admin2:ToolboxAdmin2
