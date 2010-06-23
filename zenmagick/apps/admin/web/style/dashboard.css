@@ -29,3 +29,5 @@
 .ui-sortable-placeholder * { visibility: hidden; }
 
 h1 .ui-icon {float:right;}
+#widget-box {width:500px;display:none;}
+.widget-box-col {width:48%;float:left;padding:3px; }

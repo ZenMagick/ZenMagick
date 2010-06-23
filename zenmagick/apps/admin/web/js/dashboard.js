@@ -72,9 +72,28 @@ $(function() {
 
     // set up dashboad
     $(".db-column").sortable({
-        connectWith: '.db-column',
+        connectWith: '.db-column, .widget-box-col',
         handle: '.portlet-grip',
         update: function(event, ui) { saveState(); },
+        receive: function(event, ui) { 
+            // open
+            $(ui.item).find('.ui-icon-plusthick').toggleClass("ui-icon-minusthick").toggleClass("ui-icon-plusthick")
+                .parents(".portlet:first").find(".portlet-content").toggle();
+            //TODO: clone and keep copy in widget-box?
+        },
+        cursor: 'move'
+    });
+
+    // set up widget box
+    $(".widget-box-col").sortable({
+        connectWith: '.widget-box-col, .db-column',
+        handle: '.portlet-grip',
+        receive: function(event, ui) { 
+            // close
+            $(ui.item).find('.ui-icon-minusthick').toggleClass("ui-icon-minusthick").toggleClass("ui-icon-plusthick")
+                .parents(".portlet:first").find(".portlet-content").toggle();
+            // TODO: remove if already there?
+        },
         cursor: 'move'
     });
 
@@ -94,14 +113,19 @@ $(function() {
 
     // track open/close
     $(".portlet-header .ui-icon-minusthick, .portlet-header .ui-icon-plusthick").click(function() {
-        $(this).toggleClass("ui-icon-minusthick").toggleClass("ui-icon-plusthick");
-        $(this).parents(".portlet:first").find(".portlet-content").toggle();
-        saveState();
+        if ($(this).parents('.db-column').length) {
+            $(this).toggleClass("ui-icon-minusthick").toggleClass("ui-icon-plusthick");
+            $(this).parents(".portlet:first").find(".portlet-content").toggle();
+            saveState();
+        }
     });
     // track remove
     $(".portlet-header .ui-icon-closethick").click(function() {
-        $(this).parents('.portlet').css('display', 'none');
-        saveState();
+        if ($(this).parents('.db-column').length) {
+            // we are in the dashboard
+            $(this).parents('.portlet').css('display', 'none');
+            saveState();
+        }
     });
 
     // set cursor on grip
