@@ -81,7 +81,11 @@ class ZMDashboard {
      */
     public static function getConfig($adminId) {
         $config = array();
-        $obj = json_decode(ZMAdminUserPrefs::instance()->getPrefForName($adminId, 'dashboard'));
+        $dashboard = ZMAdminUserPrefs::instance()->getPrefForName($adminId, 'dashboard');
+        if (empty($dashboard)) {
+            $dashboard = ZMSettings::get('apps.store.dashboad.default');
+        }
+        $obj = json_decode($dashboard);
         foreach ($obj as $name => $value) {
             $config[$name] = $value;
         }

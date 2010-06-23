@@ -8,5 +8,3 @@ CREATE TABLE admin_prefs (
   UNIQUE(admin_id, name),
   FOREIGN KEY (admin_id) REFERENCES admin (admin_id) ON DELETE CASCADE
 ) TYPE=MyISAM;
-
-INSERT INTO admin_prefs (admin_id, name, value) VALUES(1, 'dashboard', '{"columns":3,"widgets":[["OrderStatsDashboardWidget#open=false","RecentSearchesDashboardWidget#optionsUrl=abc"],["LatestOrdersDashboardWidget"],["LatestAccountsDashboardWidget"]]}');
