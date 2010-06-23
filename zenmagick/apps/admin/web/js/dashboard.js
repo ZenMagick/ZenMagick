@@ -74,6 +74,7 @@ $(function() {
     $(".db-column").sortable({
         connectWith: '.db-column, .widget-box-col',
         handle: '.portlet-grip',
+        zIndex: 2001,
         update: function(event, ui) { saveState(); },
         receive: function(event, ui) { 
             // open
