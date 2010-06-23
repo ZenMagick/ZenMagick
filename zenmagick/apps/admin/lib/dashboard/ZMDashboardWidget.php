@@ -31,7 +31,7 @@ abstract class ZMDashboardWidget extends ZMWidget {
     private $id_;
     private $minimize_;
     private $maximize_;
-    private $optionsUrl_;
+    private $options_;
     private $open_;
 
 
@@ -46,7 +46,7 @@ abstract class ZMDashboardWidget extends ZMWidget {
         $this->setTitle(null != $title ? $title : $this->id_);
         $this->minimize_ = true;
         $this->maximize_ = false;
-        $this->optionsUrl_ = null;
+        $this->options_ = null;
         $this->open_ = true;
     }
 
@@ -115,23 +115,23 @@ abstract class ZMDashboardWidget extends ZMWidget {
     /**
      * Set url for options dialog.
      *
-     * @parm string url URL that can be used to render an options dialog for this widget.
+     * @parm mixed options Options.
      */
-    public function setOptionsUrl($url) { $this->optionsUrl_ = $url; }
+    public function setOptions($options) { $this->options_ = $options; }
 
     /**
-     * Get url for options dialog.
+     * Get options.
      *
-     * @return string URL that can be used to render an options dialog for this widget.
+     * @return mixed The options or <code>null</code>.
      */
-    public function getOptionsUrl() { return $this->optionsUrl_; }
+    public function getOptions() { return $this->options_; }
 
     /**
      * Check if this widget has options.
      *
      * @return boolean <code>true</code> if this widget has configurable options.
      */
-    public function hasOptions() { return null != $this->optionsUrl_; }
+    public function hasOptions() { return null != $this->options_; }
 
     /**
      * Get the open flag.

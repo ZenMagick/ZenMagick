@@ -50,6 +50,8 @@ div#main {width:85%;margin:0 auto;text-align:left;padding:15px;border:1px dashed
 /* footer */
 #footer {clear:left;text-align:center;font-size:10px;}
 
+h1 {border-bottom:1px dotted black;padding:2px 5px;}
+
 /* login */
 #p-login #content {width:600px;margin:0 auto;}
 

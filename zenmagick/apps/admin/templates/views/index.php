@@ -21,7 +21,7 @@
 <?php $resources->cssFile('style/dashboard.css'); ?>
 <?php $resources->jsFile('js/dashboard.js'); ?>
 
-<h1><?php _vzm('Dashboard') ?></h1>
+<h1><?php _vzm('Dashboard') ?><a href=""><span class="ui-icon ui-icon-wrench"></span></a></h1>
 <?php $adminId = $request->getUser()->getId(); ?>
 <?php for ($ii=0; $ii<ZMDashboard::getColumns($adminId); ++$ii) { $widgets = ZMDashboard::getWidgetsForColumn($adminId, $ii); ?>
   <div id="db-column-<?php echo $ii ?>" class="db-column">
@@ -30,5 +30,3 @@
     <?php } ?>
   </div>
 <?php } ?>
-
-<p style="clear:left;">Available widgets: <?php echo implode(', ', ZMDashboard::getWidgetList($adminId)) ?></p>

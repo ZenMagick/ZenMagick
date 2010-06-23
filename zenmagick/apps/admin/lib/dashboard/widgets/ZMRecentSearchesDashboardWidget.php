@@ -35,6 +35,7 @@ class ZMRecentSearchesDashboardWidget extends ZMDashboardWidget {
      */
     function __construct() {
         parent::__construct(_zm('Recent Searches'));
+        $this->setOptions('abc');
     }
 
     /**

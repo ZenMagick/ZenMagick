@@ -29,8 +29,6 @@ $(function() {
               var bean = portlet.getAttribute('id').substring(8)+'#';
               var open = 0 != $(portlet).find('.ui-icon-minusthick').length;
               bean += 'open='+(open?'true':'false');
-              var options = $(portlet).hasClass('wrench');
-              bean += '&options='+(options?'true':'false');
               state.widgets[columnIndex].push(bean);
             });
             state.columns = columnIndex+1;
