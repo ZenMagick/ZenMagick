@@ -19,12 +19,8 @@
  */
 ?>
 <?php
-  //XXX: centralize 
-  if (!$session->getValue('languages_id')) {
-      $session->setValue('languages_id', 1);
-  }
-  $currentLanguage = ZMLanguages::instance()->getLanguageForId($session->getValue('languages_id'));
-  $selectedLanguageId = $request->getParameter('languageId', $currentLanguage->getId());
+  // XXX: always add to view
+  $selectedLanguageId = $request->getSelectedLanguage()->getId();
 ?>
 <form action="<?php echo $admin2->url() ?>" method="POST">
   <h2>ZenMagick Language Tool (
@@ -37,14 +33,14 @@
         )
   </h2>
 
-  <p>This tool helps you find language strings in your themes. Just select a theme and you will 
+  <p>This tool helps you find language strings in your themes and everywhere else in the app. Just select a theme and you will 
     get a full list of all strings and where they are used.</p>
-  <p>The selected mapping can also be downloaded in a format that you can cut'n paste right into your <code>l10n.php</code> file.</p>
-  <p>Inherited mappings are mappings defined in <code>l10n.php</code> files in themes further up the theme chain.</p>
+  <p>The selected mapping can also be downloaded in a format that you can cut'n paste right into your <code>l10n.yaml</code> file.</p>
+  <p>Inherited mappings are mappings defined in <code>l10n.yaml</code> files in themes further up the theme chain.</p>
   <p><strong>NOTE:</strong> '%s' and other strings starting with '%' are used as placeholders for things like order numbers, etc.</p>
 
   <fieldset>
-    <legend>Select Theme to display the language mappings</legend>
+    <legend>Select hheme or other options to display the language mappings</legend>
     <select id="themeId" name="themeId" onchange="this.form.submit()">
       <option value="">Select Theme</option>
         <?php foreach ($themes as $theme) { ?>
@@ -57,6 +53,8 @@
     <input type="checkbox" id="mergeExisting" name="mergeExisting" value="true"<?php echo ($mergeExisting?' checked="checked"':'')?>><label for="mergeExisting">Add/merge with existing mappings</label><br>
     <input type="checkbox" id="scanShared" name="scanShared" value="true"<?php echo ($scanShared?' checked="checked"':'')?>><label for="scanShared">Add shared code strings</label><br>
     <input type="checkbox" id="scanPlugins" name="scanPlugins" value="true"<?php echo ($scanPlugins?' checked="checked"':'')?>><label for="scanPlugins">Add plugin(s) code strings</label><br>
+    <input type="checkbox" id="scanAdmin" name="scanAdmin" value="true"<?php echo ($scanAdmin?' checked="checked"':'')?>><label for="scanAdmin">Add admin code strings</label><br>
+    <input type="checkbox" id="scanMvc" name="scanMvc" value="true"<?php echo ($scanMvc?' checked="checked"':'')?>><label for="scanMvc">Add core/mvc code strings</label><br>
     <input type="submit" value="Display Mapping">
   </fieldset>
 </form>

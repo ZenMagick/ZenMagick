@@ -50,7 +50,7 @@ class ZML10nController extends ZMController {
     public function getViewData($request) {
       //TODO: where from?
       return array('themes' => ZMThemes::instance()->getThemes(),
-          'themeId' => '', 'languageId' => 1, 'includeDefaults' => false, 'mergeExisting' => false, 'scanShared' => false, 'scanPlugins' => false);
+          'themeId' => '', 'languageId' => 1, 'includeDefaults' => false, 'mergeExisting' => false, 'scanShared' => false, 'scanPlugins' => false, 'scanAdmin' => false, 'scanMvc' => false);
     }
 
     /**
@@ -64,6 +64,8 @@ class ZML10nController extends ZMController {
         $mergeExisting = ZMLangUtils::asBoolean($request->getParameter('mergeExisting'));
         $scanShared = ZMLangUtils::asBoolean($request->getParameter('scanShared'));
         $scanPlugins = ZMLangUtils::asBoolean($request->getParameter('scanPlugins'));
+        $scanAdmin = ZMLangUtils::asBoolean($request->getParameter('scanAdmin'));
+        $scanMvc = ZMLangUtils::asBoolean($request->getParameter('scanMvc'));
 
         $themesDir = Runtime::getThemesDir();
 
@@ -91,15 +93,26 @@ class ZML10nController extends ZMController {
             $pluginsMap = ZMLocaleUtils::buildL10nMap(ZMRuntime::getPluginBasePath());
         }
 
+        $adminMap = array();
+        if ($scanAdmin) {
+            $adminMap = ZMLocaleUtils::buildL10nMap(ZMRuntime::getApplicationPath().'lib');
+        }
+
+        $mvcMap = array();
+        if ($scanMvc) {
+            $mvcMap = ZMLocaleUtils::buildL10nMap(ZMRuntime::getInstallationPath().'lib');
+        }
+
         $fileMap = array();
         if (null != $themeId) {
             $theme = ZMThemes::instance()->getThemeForId($themeId);
             $fileMap = ZMLocaleUtils::buildL10nMap($theme->getBaseDir());
         }
 
-        $translations = array_merge($pluginsMap, $sharedMap, $defaultMap, $existingMap, $fileMap);
+        $translations = array_merge($pluginsMap, $sharedMap, $defaultMap, $existingMap, $adminMap, $mvcMap, $fileMap);
         return array('translations' => $translations, 'themeId' => $themeId, 'languageId' => $languageId,
-             'includeDefaults' => $includeDefaults, 'mergeExisting' => $mergeExisting, 'scanShared' => $scanShared, 'scanPlugins' => $scanPlugins);
+          'includeDefaults' => $includeDefaults, 'mergeExisting' => $mergeExisting, 'scanShared' => $scanShared, 'scanPlugins' => $scanPlugins,
+          'scanAdmin' => $scanAdmin, 'scanMvc' => $scanMvc);
     }
 
     /**
