@@ -22,7 +22,7 @@
 .portlet { margin: 0 1em 1em 0; }
 .portlet .ui-icon-wrench { display:none; }
 .wrench span.ui-icon-wrench { display:inline; }
-.portlet-header { margin: 0.3em; padding-bottom: 4px; padding-left: 0.2em; }
+.portlet-header { margin: 0.3em; padding-bottom: 4px; padding-left: 0.2em; background: #ccc;}
 .portlet-header .ui-icon { float: right; }
 .portlet-content { padding: 0.4em; }
 .ui-sortable-placeholder { border: 1px dotted black; visibility: visible !important; height: 50px !important; }

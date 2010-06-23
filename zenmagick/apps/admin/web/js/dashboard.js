@@ -124,7 +124,7 @@ $(function() {
     $(".portlet-header .ui-icon-closethick").click(function() {
         if ($(this).parents('.db-column').length) {
             // we are in the dashboard
-            $(this).parents('.portlet').css('display', 'none');
+            $(this).parents('.portlet').remove();
             saveState();
         }
     });
