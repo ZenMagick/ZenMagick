@@ -17,6 +17,8 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 $(function() {
+    var lastState = '';
+
     function buildState() {
         var state = {};
         state.columns = 1;
@@ -51,6 +53,11 @@ $(function() {
 
     function saveState() {
         state = buildState();
+        if (state == lastState) {
+            // no change
+            return;
+        }
+        lastState = state;
         $.ajax({
             type: "POST",
             //TODO: how to set this??
@@ -65,6 +72,7 @@ $(function() {
         });
     }
 
+    // set up dashboad
     $(".db-column").sortable({
         connectWith: '.db-column',
         handle: '.portlet-grip',
@@ -72,32 +80,33 @@ $(function() {
         cursor: 'move'
     });
 
+    // inital setup
     $(".portlet").addClass("ui-widget ui-widget-content ui-helper-clearfix ui-corner-all")
         .find(".portlet-header")
             .addClass("ui-widget-header ui-corner-all")
             .html(function(index, oldhtml) { return '<div class="portlet-grip">'+oldhtml+'</div>'; })
             // add icons
-            .prepend('<span class="ui-icon ui-icon-closethick"></span><span class="ui-icon ui-icon-minusthick"></span></span><span class="ui-icon ui-icon-wrench"></span>')
+            .prepend(function(index, oldhtml) {
+                var oc = $(this).hasClass('open') ? 'minusthick' : 'plusthick';
+                return '<span class="ui-icon ui-icon-closethick"></span><span class="ui-icon ui-icon-'+oc+'"></span></span><span class="ui-icon ui-icon-wrench"></span>'
+            })
             .end()
         .find(".portlet-content")
-        .css('display', function(index, value) {
-            // fix open/close icon depending on initial state
-            $(this).parents(".portlet:first .ui-icon-minusthick").removeClass("ui-icon-minusthick").addClass("ui-icon-plusthick");
-        })
     ;
 
-    // open/close
+    // track open/close
     $(".portlet-header .ui-icon-minusthick, .portlet-header .ui-icon-plusthick").click(function() {
         $(this).toggleClass("ui-icon-minusthick").toggleClass("ui-icon-plusthick");
         $(this).parents(".portlet:first").find(".portlet-content").toggle();
         saveState();
     });
-    // remove
+    // track remove
     $(".portlet-header .ui-icon-closethick").click(function() {
         $(this).parents('.portlet').css('display', 'none');
         saveState();
     });
 
+    // set cursor on grip
     $(".portlet-grip").hover(
         function() { $(this).css('cursor', 'move'); }, 
         function() { $(this).css('cursor', 'auto'); }
