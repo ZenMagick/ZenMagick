@@ -80,7 +80,6 @@ $(function() {
             // open
             $(ui.item).find('.ui-icon-plusthick').toggleClass("ui-icon-minusthick").toggleClass("ui-icon-plusthick")
                 .parents(".portlet:first").find(".portlet-content").toggle();
-            //TODO: clone and keep copy in widget-box?
         },
         cursor: 'move'
     });
@@ -121,10 +120,16 @@ $(function() {
         }
     });
     // track remove
+    var nextAppendTo = 'first';
     $(".portlet-header .ui-icon-closethick").click(function() {
         if ($(this).parents('.db-column').length) {
-            // we are in the dashboard
-            $(this).parents('.portlet').remove();
+            // close
+            $(this).parents('.portlet')
+                .find('.ui-icon-minusthick').toggleClass("ui-icon-minusthick").toggleClass("ui-icon-plusthick")
+                .parents(".portlet:first").find(".portlet-content").toggle();
+            // move to widget-box
+            $(this).parents('.portlet').appendTo('#widget-box .widget-box-col:'+nextAppendTo);
+            nextAppendTo = 'first' == nextAppendTo ? 'last' : 'first';
             saveState();
         }
     });
