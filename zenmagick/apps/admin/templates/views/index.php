@@ -34,14 +34,18 @@
 <div id="widget-box">
   <?php $widgetList = ZMDashboard::getWidgetList($adminId); ?>
   <div id="widget-box-col-0" class="widget-box-col">
-    <?php for ($ii=0; $ii<count($widgetList); $ii+=2) { $widgetDef = $widgetList[$ii]; ?>
-      <?php $widget = ZMBeanUtils::getBean($widgetDef); $widget->setOpen(false); echo $widget->render($request); ?>
-    <?php } ?>
+    <?php for ($ii=0; $ii<count($widgetList); $ii+=2) { 
+      $widgetDef = $widgetList[$ii];
+      $widget = ZMBeanUtils::getBean($widgetDef); 
+      $widget->setOpen(false); echo $widget->render($request);
+    } ?>
   </div>
   <div id="widget-box-col-1" class="widget-box-col">
-    <?php for ($ii=1; $ii<count($widgetList); $ii+=2) { $widgetDef = $widgetList[$ii]; ?>
-      <?php $widget = ZMBeanUtils::getBean($widgetDef); $widget->setOpen(false); echo $widget->render($request); ?>
-    <?php } ?>
+    <?php for ($ii=1; $ii<count($widgetList); $ii+=2) { 
+      $widgetDef = $widgetList[$ii];
+      $widget = ZMBeanUtils::getBean($widgetDef); 
+      $widget->setOpen(false); echo $widget->render($request);
+    } ?>
   </div>
 </div>
 

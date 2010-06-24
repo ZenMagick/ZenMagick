@@ -59,8 +59,22 @@ class ZMDashboard {
      * @return array List of all available widgets.
      */
     public static function getWidgetList($adminId) {
-        //TODO: load from setting
-        return array('OrderStatsDashboardWidget', 'RecentSearchesDashboardWidget', 'LatestOrdersDashboardWidget', 'LatestAccountsDashboardWidget');
+        // first collect **class** info for all used widgets
+        $config = self::getConfig($adminId);
+        $inUse = array();
+        foreach ($config['widgets'] as $column => $widgets) {
+            foreach ($widgets as $def) {
+                $tmp = explode('#', $def);
+                $inUse[] = $tmp[0];
+            }
+        }
+
+        // get list of all widgets
+        $allWidgets = explode(',', ZMSettings::get('apps.store.dashboad.widgets'));
+
+        // figure out the difference
+        $available = array_values(array_diff($allWidgets, $inUse));
+        return $available;
     }
 
     /**

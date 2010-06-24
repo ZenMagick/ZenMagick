@@ -33,4 +33,8 @@ zenmagick.mvc.session.userFactory: AdminUserFactory
 ## toolbox tools
 zenmagick.mvc.toolbox.tools: net:ToolboxNet,html:ToolboxHtml,form:ToolboxForm,macro:ToolboxMacro,locale:ToolboxLocale,utils:ToolboxUtils,admin:ToolboxAdmin,admin2:ToolboxAdmin2
 
-apps.store.dashboad.default: '{"columns":3,"widgets":[["OrderStatsDashboardWidget#open=false","RecentSearchesDashboardWidget#optionsUrl=abc"],["LatestOrdersDashboardWidget"],["LatestAccountsDashboardWidget"]]}'
+## all available dashboard widgets
+apps.store.dashboad.widgets: ZMOrderStatsDashboardWidget,ZMLatestOrdersDashboardWidget,ZMLatestAccountsDashboardWidget,ZMRecentSearchesDashboardWidget
+
+## this is JSON
+apps.store.dashboad.default: '{"columns":3,"widgets":[["ZMOrderStatsDashboardWidget"],["ZMLatestOrdersDashboardWidget"],["ZMLatestAccountsDashboardWidget"]]}'
