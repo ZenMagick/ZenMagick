@@ -21,9 +21,12 @@
 .db-column { width: 33%; float: left; padding-bottom: 100px; }
 .portlet { margin: 0 1em 1em 0; }
 .portlet .ui-icon-wrench { display:none; }
-.wrench span.ui-icon-wrench { display:inline; }
-.portlet-header { margin: 0.3em; padding-bottom: 4px; padding-left: 0.2em; background: #ccc;}
-.portlet-header .ui-icon { float: right; }
+.wrench a.ui-icon-wrench { display:inline; }
+.portlet-header { margin: 0.3em; padding-bottom: 4px; padding-left: 0.2em; background: #ccc;position:relative;}
+.portlet-header .ui-icon {position:absolute;top:.14em;}
+.portlet-header .ui-icon-closethick {right:.3em;}
+.portlet-header .ui-icon-minusthick, .portlet-header .ui-icon-plusthick {right:1.4em;}
+.portlet-header .ui-icon-wrench {right:2.5em;}
 .portlet-content { padding: 0.4em; }
 .ui-sortable-placeholder { border: 1px dotted black; visibility: visible !important; height: 50px !important; }
 .ui-sortable-placeholder * { visibility: hidden; }
