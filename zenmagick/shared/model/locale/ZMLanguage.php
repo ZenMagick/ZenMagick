@@ -92,7 +92,7 @@ class ZMLanguage extends ZMObject {
      *
      * @param int id The language id.
      */
-    public function setId($id) { $this->set('lanugageId', $id); }
+    public function setId($id) { $this->set('languageId', $id); }
 
     /**
      * Set the language name.

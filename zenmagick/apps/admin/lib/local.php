@@ -22,3 +22,14 @@
 
     //TODO: this is default as the password column is restricted to 40 chars
     ZMAuthenticationManager::instance()->addProvider('ZenCartAuthentication', true);
+
+
+    class ZMViewFixer {
+        public function onZMViewStart($args) {
+            $request = $args['request'];
+            $view = $args['view'];
+            $view->setVar('currentLanguage', $request->getSelectedLanguage());
+        }
+    }
+
+    ZMEvents::instance()->attach(new ZMViewFixer());

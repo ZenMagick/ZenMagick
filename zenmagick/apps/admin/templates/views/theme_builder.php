@@ -40,8 +40,7 @@
             ZMMessages::instance()->msg(sprintf(_zm('Created zen-cart template dummy files for "%s".'), $name));
 
             // select new theme
-            // XXX: TODO: fix lanugageId
-            ZMThemes::instance()->updateZCThemeId($name);
+            ZMThemes::instance()->updateZCThemeId($name, $currentLanguage->getId());
             ZMMessages::instance()->msg(sprintf(_zm('New theme "%s" selected as active zen-cart template.'), $name));
         }
 

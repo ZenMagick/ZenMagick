@@ -18,15 +18,11 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 ?>
-<?php
-  // XXX: always add to view
-  $selectedLanguageId = $request->getSelectedLanguage()->getId();
-?>
 <form action="<?php echo $admin2->url() ?>" method="POST">
   <h2>ZenMagick Language Tool (
           <select id="languageId" name="languageId">
             <?php foreach (ZMLanguages::instance()->getLanguages() as $lang) { ?>
-              <?php $selected = $selectedLanguageId == $lang->getId() ? ' selected="selected"' : ''; ?>
+              <?php $selected = $currentLanguage->getId() == $lang->getId() ? ' selected="selected"' : ''; ?>
               <option value="<?php echo $lang->getId() ?>"<?php echo $selected ?>><?php echo $lang->getName() ?></option>
             <?php } ?>
           </select>
@@ -41,7 +37,7 @@
 
   <fieldset>
     <legend>Select hheme or other options to display the language mappings</legend>
-    <select id="themeId" name="themeId" onchange="this.form.submit()">
+    <select id="themeId" name="themeId">
       <option value="">Select Theme</option>
         <?php foreach ($themes as $theme) { ?>
         <?php $selected = $themeId == $theme->getThemeId() ? ' selected="selected"' : ''; ?>
@@ -59,7 +55,7 @@
   </fieldset>
 </form>
 <?php if (isset($translations)) { ?>
-  <a href="<?php echo $admin2->url(null, 'download=full&amp;theme='.$themeId.'&amp;includeDefaults='.$includeDefaults.'&amp;mergeExisting='.$mergeExisting.'&amp;scanShared='.$scanShared) ?>">Download mapping</a>
+  <a href="<?php echo $admin2->url(null, $downloadParams) ?>">Download mapping</a>
   <?php foreach ($translations as $file => $strings) { ?>
     <h3><?php echo $file ?></h3>
     <?php foreach ($strings as $key => $value) { ?>

@@ -35,7 +35,8 @@
      * @return string The created HTML.
      */
     function zm_catalog_tree($categories=array(), $params=null, $showProducts=false, $catUrls=true, $id='cat-tree', $root=true, $path=null) {
-        $toolbox = ZMRequest::instance()->getToolbox();
+        $request = ZMRequest::instance();
+        $toolbox = $request->getToolbox();
         if ($root) { 
             ob_start(); 
             $path = ZMRequest::instance()->getCategoryPathArray();
@@ -45,8 +46,7 @@
   $("#'.$id.'").treeview({ collapsed: true, unique: true, prerendered: false, toggle: function() { $(".open"); } }); 
 });
 </script>';
-            // XXX: fix languageId
-            $languageId = 1;
+            $languageId = $request->getSelectedLanguage()->getId();
             $rootCategories = ZMCategories::instance()->getCategoryTree($languageId);
             $root = ZMLoader::make("Category", 0, 0, _zm('Catalog'), false);
             $root->setLanguageId($languageId);
