@@ -118,6 +118,7 @@ $(function() {
             $(this).parents(".portlet:first").find(".portlet-content").toggle();
             saveState();
         }
+        return false;
     });
     // track remove
     var nextAppendTo = 'first';
@@ -132,6 +133,7 @@ $(function() {
             nextAppendTo = 'first' == nextAppendTo ? 'last' : 'first';
             saveState();
         }
+        return false;
     });
 
     // set cursor on grip
