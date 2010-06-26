@@ -21,7 +21,7 @@
 <?php $resources->cssFile('style/dashboard.css'); ?>
 <?php $resources->jsFile('js/dashboard.js'); ?>
 
-<h1><?php _vzm('Dashboard') ?><a href="" title="<?php _vzm('Customize Dashboard') ?>" onclick="$('#widget-box').dialog({width:500,position:['center', 20],title:'<?php _vzm('Widget Box') ?>'});return false;"><span class="ui-icon ui-icon-wrench"></span></a></h1>
+<h1><?php _vzm('Dashboard') ?><a href="" title="<?php _vzm('Customize Dashboard') ?>" onclick="$('#widget-box').dialog({width:500,position:['center', 20],title:'<?php _vzm('Widget Box') ?>'}).parents('.ui-dialog').css('overflow', 'visible');return false;"><span class="ui-icon ui-icon-wrench"></span></a></h1>
 <?php $adminId = $request->getUser()->getId(); ?>
 <?php for ($ii=0; $ii<ZMDashboard::getColumns($adminId); ++$ii) { $widgets = ZMDashboard::getWidgetsForColumn($adminId, $ii); ?>
   <div id="db-column-<?php echo $ii ?>" class="db-column">

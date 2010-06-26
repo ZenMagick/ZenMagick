@@ -72,7 +72,7 @@
       <th><?php _vzm("Options") ?></th>
     </tr>
     <?php $odd = true; foreach ($plugins as $plugin) { $odd = !$odd; ?>
-      <tr<?php if ($odd) { echo ' class="odd"'; } ?>
+      <tr<?php if ($odd) { echo ' class="odd"'; } ?>>
         <td><a name="<?php echo $plugin->getId() ?>"></a><?php echo $plugin->getName() ?></td>
         <td><?php echo $html->encode($plugin->getDescription()) ?></td>
         <td>

@@ -30,4 +30,5 @@
 
 h1 .ui-icon {float:right;}
 #widget-box {width:500px;display:none;}
+/*.ui-dialog {overflow:visible;} - makes the portlets visible when dragging out of widget box */
 .widget-box-col {width:48%;float:left;padding:3px; }
