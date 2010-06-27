@@ -33,8 +33,7 @@
   } else {
       $selectedFile = $file;
   }
-  $currentLanguage = ZMLanguages::instance()->getLanguageForId($session->getValue('languages_id'));
-  $selectedLanguageId = $request->getParameter('languageId', $currentLanguage->getId());
+  $selectedLanguageId = $currentLanguage->getId();
 
   $editContents = $request->getParameter('editContents', null, false);
   if (null != $request->getParameter('save') && null != $editContents) {

@@ -19,14 +19,10 @@
  */
 ?>
 <?php
-
-  $currentLanguage = ZMLanguages::instance()->getLanguageForId($session->getValue('languages_id'));
-  $selectedLanguageId = $request->getParameter('languageId', $currentLanguage->getId());
-
+  $selectedLanguageId = $currentLanguage->getId();
 ?>
 
 <form action="<?php echo $admin2->url() ?>" method="POST">
-  <input type="hidden" name="main_page" value="ezpages">
   <input type="hidden" name="languageId" value="<?php echo $selectedLanguageId ?>">
   <input type="hidden" name="updateId" value="<?php echo $ezPage->getId() ?>">
 

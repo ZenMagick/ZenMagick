@@ -18,13 +18,4 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 ?>
-
-<div id="sub-menu">
-  <a href="<?php echo $admin2->url('l10n') ?>">Translation Helper</a><br>
-  <a href="<?php echo $admin2->url('console') ?>">Console</a><br>
-  <a href="<?php echo $admin2->url('admin_users') ?>">Manage Admin Users</a><br>
-  <a href="<?php echo $admin2->url('ezpages') ?>">EZPages Editor</a><br>
-  <a href="<?php echo $admin2->url('static_page_editor') ?>">Static Page Editor</a><br>
-</div>
-
 <h1>Tools</h1>

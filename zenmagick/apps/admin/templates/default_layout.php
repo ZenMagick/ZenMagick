@@ -40,6 +40,7 @@
           <?php } ?>
           </ul>
       <?php } ?>
+      <?php if ($request->getUser() && 'index' != $request->getRequestId()) { echo $this->fetch('sub-menu.php'); } ?>
       <div id="content">
         <?php echo $this->fetch($viewTemplate); ?>
       </div>

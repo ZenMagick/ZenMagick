@@ -19,10 +19,7 @@
  */
 ?>
 <?php
-
-  $currentLanguage = ZMLanguages::instance()->getLanguageForId($session->getValue('languages_id'));
-  $selectedLanguageId = $request->getParameter('languageId', $currentLanguage->getId());
-
+  $selectedLanguageId = $currentLanguage->getId();
 ?>
 
 <script type="text/javascript">
@@ -51,8 +48,7 @@
 
 </script>
 
-<form action="<?php echo $admin2->url() ?>" method="GET">
-  <input type="hidden" name="main_page" value="ezpages">
+<form action="<?php echo $admin2->url() ?>" method="POST">
   <h2>EZPage Manager (
           <select id="languageId" name="languageId" onchange="this.form.submit();">
             <?php foreach (ZMLanguages::instance()->getLanguages() as $lang) { ?>
