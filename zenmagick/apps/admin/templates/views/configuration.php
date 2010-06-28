@@ -18,10 +18,4 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 ?>
-
-<div id="sub-menu">
-  <a href="<?php echo $admin2->url('installation') ?>">Installation</a><br>
-  <a href="<?php echo $admin2->url('cache_admin') ?>">Cache Admin</a><br>
-</div>
-
 <h1>Configuration</h1>

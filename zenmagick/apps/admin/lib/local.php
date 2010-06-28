@@ -31,7 +31,6 @@
             $view->setVar('currentLanguage', $request->getSelectedLanguage());
         }
     }
-
     ZMEvents::instance()->attach(new ZMViewFixer());
 
 
@@ -56,3 +55,12 @@
     ZMAdminMenu::setItem(array('parentId' => 'tools-dev', 'requestId' => 'l10n', 'title' => _zm('Translation Helper')));
     ZMAdminMenu::setItem(array('parentId' => 'tools-dev', 'requestId' => 'console', 'title' => _zm('Console')));
 
+    // configuration
+    ZMAdminMenu::setItem(array('parentId' => 'configuration', 'id' => 'configuration-patches', 'title' => _zm('Patches')));
+    ZMAdminMenu::setItem(array('parentId' => 'configuration-patches', 'requestId' => 'installation', 'title' => _zm('Patches')));
+    ZMAdminMenu::setItem(array('parentId' => 'configuration', 'id' => 'configuration-cache', 'title' => _zm('Cache')));
+    ZMAdminMenu::setItem(array('parentId' => 'configuration-cache', 'requestId' => 'cache_admin', 'title' => _zm('Cache Admin')));
+
+    // plugins (the generic part)
+    ZMAdminMenu::setItem(array('parentId' => 'plugins', 'id' => 'plugins-options', 'title' => _zm('Plugin Options')));
+    // these are set in Plugin::addMenuItem2

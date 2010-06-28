@@ -34,11 +34,29 @@
   <?php } ?>
 </div>
 <script type="text/javascript">
+  // hint for navigation matching
+  var treatAs = null;
+  <?php 
+    foreach (ZMAdminMenu::getAllItems() as $item) {
+      foreach ($item['other'] as $other) {
+        if ($request->getRequestId() == $other) {
+          echo "treatAs = '".$admin2->url($item['requestId'])."'";
+        }
+      }
+    }
+  ?>
+
 	$(function() {
 		$("#sub-menu").accordion({
 			autoHeight: false,
       collapsible: true,
-			navigation: true
+      navigation: true,
+      navigationFilter: function() {
+        if (treatAs) {
+          return -1 < this.href.indexOf(treatAs);
+        }
+        return this.href == location.href;
+      }
 		});
 	});
 </script>

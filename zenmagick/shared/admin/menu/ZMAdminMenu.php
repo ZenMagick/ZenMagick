@@ -133,6 +133,15 @@ class ZMAdminMenu {
     }
 
     /**
+     * Get all items.
+     *
+     * @return array List of item details.
+     */
+    public static function getAllItems() {
+        return self::$items2_;
+    }
+
+    /**
      * Get all child items for the given id.
      *
      * @param string parentId The parent id.
