@@ -64,3 +64,9 @@
     // plugins (the generic part)
     ZMAdminMenu::setItem(array('parentId' => 'plugins', 'id' => 'plugins-options', 'title' => _zm('Plugin Options')));
     // these are set in Plugin::addMenuItem2
+
+    // fulfilment
+    ZMAdminMenu::setItem(array('parentId' => 'fulfilment', 'id' => 'fulfilment-accounts', 'title' => _zm('Accounts')));
+    ZMAdminMenu::setItem(array('parentId' => 'fulfilment-accounts', 'requestId' => 'accounts', 'title' => _zm('Overview'), 'other' => array('account')));
+    ZMAdminMenu::setItem(array('parentId' => 'fulfilment', 'id' => 'fulfilment-orders', 'title' => _zm('Orders')));
+    ZMAdminMenu::setItem(array('parentId' => 'fulfilment-orders', 'requestId' => 'orders', 'title' => _zm('Overview'), 'other' => array('order')));

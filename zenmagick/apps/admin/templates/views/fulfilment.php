@@ -18,10 +18,4 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 ?>
-
-<div id="sub-menu">
-  <a href="<?php echo $admin2->url('accounts') ?>">Accounts</a><br>
-  <a href="<?php echo $admin2->url('orders') ?>">Orders</a>
-</div>
-
 <h1>Fulfilment</h1>
