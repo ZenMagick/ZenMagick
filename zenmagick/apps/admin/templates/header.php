@@ -18,24 +18,6 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 ?>
-<?php
-
-    // build config menu
-    ZMAdminMenu::addItem(new ZMAdminMenuItem(null, 'config', _zm('Configuration'), null));
-    $configGroups = ZMConfig::instance()->getConfigGroups();
-    foreach ($configGroups as $group) {
-        if ($group->isVisible()) {
-            $id = strtolower($group->getName());
-            $id = str_replace(' ', '', $id);
-            $id = str_replace('/', '-', $id);
-            ZMAdminMenu::addItem(new ZMAdminMenuItem('config', $id, _zm($group->getName()), 'configuration.php?gID='.$group->getId()));
-        }
-    }
-
-    //ZMAdminMenu::buildMenu();
-
-?>
-
 <div id="header">
   <div id="logo">
     <a href="<?php echo $admin2->url('index') ?>"><img src="<?php echo $this->asUrl('images/logo-235x64.png', ZMView::RESOURCE) ?>" alt="logo"></a>

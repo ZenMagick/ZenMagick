@@ -69,11 +69,13 @@ class ZMAdminMenu {
      *  <dd>The item title</dd>
      *  <dt>other</dt>
      *  <dd>Optional list of other request Ids that should be treated like this item</dd>
+     *  <dt>params</dt>
+     *  <dd>Optional URL parameter as per usual</dd>
      * </dl>
      * @param array item The item data.
      */
     public static function setItem($item) {
-        $defaults = array('requestId' => null, 'parentId' => null, 'other' => array());
+        $defaults = array('requestId' => null, 'parentId' => null, 'other' => array(), 'params' => '');
         $item = array_merge($defaults, $item);
         if (!array_key_exists('id', $item)) {
           $item['id'] = $item['requestId'];

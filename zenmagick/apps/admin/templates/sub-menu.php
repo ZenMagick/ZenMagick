@@ -26,7 +26,7 @@
       <div>
         <ul>
         <?php foreach (ZMAdminMenu::getItemsForParent($sub['id']) as $subItem) { ?>
-          <li><a href="<?php echo $admin2->url($subItem['requestId']) ?>"><?php echo $subItem['title'] ?></a></li>
+          <li><a href="<?php echo $admin2->url($subItem['requestId'], $subItem['params']) ?>"><?php echo $subItem['title'] ?></a></li>
         <?php } ?>
         </ul>
       </div>
@@ -40,7 +40,7 @@
     foreach (ZMAdminMenu::getAllItems() as $item) {
       foreach ($item['other'] as $other) {
         if ($request->getRequestId() == $other) {
-          echo "treatAs = '".$admin2->url($item['requestId'])."'";
+          echo "treatAs = '".$admin2->url($item['requestId'], $item['params'])."'";
         }
       }
     }

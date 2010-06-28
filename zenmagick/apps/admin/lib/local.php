@@ -70,3 +70,16 @@
     ZMAdminMenu::setItem(array('parentId' => 'fulfilment-accounts', 'requestId' => 'accounts', 'title' => _zm('Overview'), 'other' => array('account')));
     ZMAdminMenu::setItem(array('parentId' => 'fulfilment', 'id' => 'fulfilment-orders', 'title' => _zm('Orders')));
     ZMAdminMenu::setItem(array('parentId' => 'fulfilment-orders', 'requestId' => 'orders', 'title' => _zm('Overview'), 'other' => array('order')));
+
+
+    // legacy options
+    ZMAdminMenu::setItem(array('parentId' => 'configuration', 'id' => 'configuration-legacy', 'title' => _zm('Options')));
+    $configGroups = ZMConfig::instance()->getConfigGroups();
+    foreach ($configGroups as $group) {
+        if ($group->isVisible()) {
+            $id = strtolower($group->getName());
+            $id = str_replace(' ', '', $id);
+            $id = str_replace('/', '-', $id);
+            ZMAdminMenu::setItem(array('parentId' => 'configuration-legacy', 'requestId' => 'legacy-config', 'params' => 'groupId='.$group->getId(), 'title' => _zm($group->getName())));
+        }
+    }
