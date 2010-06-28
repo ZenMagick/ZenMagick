@@ -18,4 +18,15 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 ?>
-<h1>Legacy Config</h1>
+<?php $group = ZMConfig::instance()->getConfigGroupForId($request->getParameter('groupId')); ?>
+<h1><?php echo sprintf(_zm('Config: %s'), $group->getName()) ?></h1>
+<form>
+  <?php foreach (ZMConfig::instance()->getValuesForGroupId($group->getId()) as $value) { ?>
+    <?php if ($value instanceof ZMConfigValue) { ?>
+      <fieldset>
+        <legend><?php _vzm($value->getName()) ?></legend>
+        <p><?php _vzm($value->getDescription()) ?>
+      </fieldset>
+    <?php } ?>
+  <?php } ?>
+</form>

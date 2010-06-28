@@ -105,18 +105,15 @@ class ZMConfig extends ZMObject {
     }
 
     /**
-     * Get all config values for a given key pattern.
+     * Load config values for the given sql and args.
      *
-     * @param string pattern The key pattern; for example 'foo_%'.
+     * @param string sql The sql.
+     * @param array args The query args.
      * @return array A list of <code>ZMConfigValue</code> or <code>ZMWidget</code> instances.
      */
-    public function getConfigValues($pattern) {
-        $sql = "SELECT *
-                FROM " . TABLE_CONFIGURATION . "
-                WHERE configuration_key like :key
-                ORDER BY sort_order, configuration_id";
+    protected function loadValuesForSql($sql, $args) {
         $values = array();
-        foreach (Runtime::getDatabase()->query($sql, array('key' => $pattern), TABLE_CONFIGURATION) as $value) {
+        foreach (Runtime::getDatabase()->query($sql, $args, TABLE_CONFIGURATION) as $value) {
             if (0 === strpos($value['setFunction'], 'widget@')) {
                 $widgetDefinition = $value['setFunction'].'&'.$value['useFunction'];
                 // build definition from both function values (just in case)
@@ -137,6 +134,36 @@ class ZMConfig extends ZMObject {
             }
         }
         return $values;
+    }
+
+    /**
+     * Get all config values for a given key pattern.
+     *
+     * @param string pattern The key pattern; for example 'foo_%'.
+     * @return array A list of <code>ZMConfigValue</code> or <code>ZMWidget</code> instances.
+     */
+    public function getConfigValues($pattern) {
+        $sql = "SELECT *
+                FROM " . TABLE_CONFIGURATION . "
+                WHERE configuration_key like :key
+                ORDER BY sort_order, configuration_id";
+        $args = array('key' => $pattern);
+        return $this->loadValuesForSql($sql, $args);
+    }
+
+    /**
+     * Get all config values for a given group id.
+     *
+     * @param int groupId The group id.
+     * @return array A list of <code>ZMConfigValue</code> or <code>ZMWidget</code> instances.
+     */
+    public function getValuesForGroupId($groupId) {
+        $sql = "SELECT *
+                FROM " . TABLE_CONFIGURATION . "
+                WHERE configuration_group_id like :groupId
+                ORDER BY sort_order, configuration_id";
+        $args = array('groupId' => $groupId);
+        return $this->loadValuesForSql($sql, $args);
     }
 
     /**
@@ -162,6 +189,19 @@ class ZMConfig extends ZMObject {
     }
 
     /**
+     * Get a configuration group.
+     *
+     * @param int groupId The group id.
+     * @return ZMConfigGroup A <code>ZMConfigGroup</code> instance or <code>null</code>.
+     */
+    public function getConfigGroupForId($groupId) {
+        $sql = "SELECT *
+                FROM " . TABLE_CONFIGURATION_GROUP . " 
+                WHERE configuration_group_id = :id";
+        return ZMRuntime::getDatabase()->querySingle($sql, array('id' => $groupId), TABLE_CONFIGURATION_GROUP, 'ConfigGroup');
+    }
+
+    /**
      * Get all configuration groups.
      *
      * @return array List of ZMConfigGroup instances.
@@ -169,7 +209,6 @@ class ZMConfig extends ZMObject {
     public function getConfigGroups() {
         $sql = "SELECT *
                 FROM " . TABLE_CONFIGURATION_GROUP . " 
-                WHERE visible = '1'
                 ORDER BY sort_order";
         return ZMRuntime::getDatabase()->query($sql, array(), TABLE_CONFIGURATION_GROUP, 'ConfigGroup');
     }
