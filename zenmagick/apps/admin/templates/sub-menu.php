@@ -19,28 +19,20 @@
  */
 ?>
 <div id="sub-menu">
-  <h3><a href="#">Manage Content</a></h3>
-  <div>
-    <ul>
-    <li><a href="<?php echo $admin2->url('static_page_editor') ?>"><?php _vzm('Static Page Editor') ?></a></li>
-      <li><a href="<?php echo $admin2->url('ezpages') ?>"><?php _vzm('EZPages Editor') ?></a></li>
-    </ul>
-  </div>
-  <h3><a href="#">Admin</a></h3>
-  <div>
-    <ul>
-      <li><a href="<?php echo $admin2->url('admin_users') ?>"><?php _vzm('Manage Users') ?></a></li>
-    </ul>
-  </div>
-  <h3><a href="#">Development</a></h3>
-  <div>
-    <ul>
-      <li><a href="<?php echo $admin2->url('l10n') ?>"><?php _vzm('Translation Helper') ?></a></li>
-      <li><a href="<?php echo $admin2->url('console') ?>"><?php _vzm('Console') ?></a></li>
-    </ul>
-  </div>
+  <?php $root = ZMAdminMenu::getRootItemForRequestId($request->getRequestId()); ?>
+  <?php if (null != $root) { ?>
+    <?php foreach (ZMAdminMenu::getItemsForParent($root['id']) as $sub) { ?>
+      <h3><a href="#"><?php echo $sub['title'] ?></a></h3>
+      <div>
+        <ul>
+        <?php foreach (ZMAdminMenu::getItemsForParent($sub['id']) as $subItem) { ?>
+          <li><a href="<?php echo $admin2->url($subItem['requestId']) ?>"><?php echo $subItem['title'] ?></a></li>
+        <?php } ?>
+        </ul>
+      </div>
+    <?php } ?>
+  <?php } ?>
 </div>
-
 <script type="text/javascript">
 	$(function() {
 		$("#sub-menu").accordion({

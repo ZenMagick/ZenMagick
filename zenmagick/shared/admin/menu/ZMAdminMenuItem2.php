@@ -40,9 +40,9 @@ class ZMAdminMenuItem2 extends ZMObject {
      * @param string parent The id of the parent.
      * @param string id The page id.
      * @param string title The page title.
-     * @param string requestId The requestId.
+     * @param string requestId The requestId; default is <code>null</code>.
      */
-    function __construct($parent, $id, $title, $requestId) {
+    function __construct($parent, $id, $title, $requestId=null) {
         parent::__construct();
         $this->parent_ = $parent;
         // make it less likely to have name collisions...

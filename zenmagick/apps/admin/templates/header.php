@@ -58,13 +58,10 @@
   <?php } ?>
   <p id="main-menu">
     <?php if ($request->getUser()) { ?>
-      <a href="<?php echo $admin2->url('index') ?>">Dashboard</a>
-      | <a href="<?php echo $admin2->url('catalog_manager') ?>">Catalog</a>
-      | <a href="<?php echo $admin2->url('fulfilment') ?>">Fulfilment</a>
-      | <a href="<?php echo $admin2->url('reports') ?>">Reports</a>
-      | <a href="<?php echo $admin2->url('configuration') ?>">Configuration</a>
-      | <a href="<?php echo $admin2->url('plugins') ?>">Plugins</a>
-      | <a href="<?php echo $admin2->url('tools') ?>">Tools</a>
+      <?php $first = true; foreach (ZMAdminMenu::getItemsForParent(null) as $item) { ?>
+        <?php if (!$first) { ?> | <?php } $first = false; ?>
+        <a href="<?php echo $admin2->url($item['requestId']) ?>"><?php echo $item['title'] ?></a>
+      <?php } ?>
     <?php } ?>
   </p>
 </div>

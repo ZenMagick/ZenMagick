@@ -33,3 +33,26 @@
     }
 
     ZMEvents::instance()->attach(new ZMViewFixer());
+
+
+    // set up default menu
+    ZMAdminMenu::setItem(array('requestId' => 'dashboard', 'title' => _zm('Dashboard')));
+    ZMAdminMenu::setItem(array('requestId' => 'catalog', 'title' => _zm('Catalog')));
+    ZMAdminMenu::setItem(array('requestId' => 'fulfilment', 'title' => _zm('Fulfilment')));
+    ZMAdminMenu::setItem(array('requestId' => 'reports', 'title' => _zm('Reports')));
+    ZMAdminMenu::setItem(array('requestId' => 'configuration', 'title' => _zm('Configuration')));
+    ZMAdminMenu::setItem(array('requestId' => 'plugins', 'title' => _zm('Plugins')));
+    ZMAdminMenu::setItem(array('requestId' => 'tools', 'title' => _zm('Tools')));
+
+    // tools
+    ZMAdminMenu::setItem(array('parentId' => 'tools', 'id' => 'tools-cms','title' => _zm('Manage Content')));
+    ZMAdminMenu::setItem(array('parentId' => 'tools-cms', 'requestId' => 'static_page_editor', 'title' => _zm('Static Page Editor')));
+    ZMAdminMenu::setItem(array('parentId' => 'tools-cms', 'requestId' => 'ezpages', 'title' => _zm('EZPages Editor')));
+
+    ZMAdminMenu::setItem(array('parentId' => 'tools', 'id' => 'tools-admin', 'title' => _zm('Admin')));
+    ZMAdminMenu::setItem(array('parentId' => 'tools-admin', 'requestId' => 'admin_users', 'title' => _zm('Manage Users'), 'other' => array('edit_admin_user')));
+
+    ZMAdminMenu::setItem(array('parentId' => 'tools', 'id' => 'tools-dev', 'title' => _zm('Development')));
+    ZMAdminMenu::setItem(array('parentId' => 'tools-dev', 'requestId' => 'l10n', 'title' => _zm('Translation Helper')));
+    ZMAdminMenu::setItem(array('parentId' => 'tools-dev', 'requestId' => 'console', 'title' => _zm('Console')));
+

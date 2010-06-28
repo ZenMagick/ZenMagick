@@ -29,7 +29,7 @@
  * @author DerManoMann
  * @package zenmagick.store.shared.admin.menu
  */
-class ZMAdminMenu extends ZMObject {
+class ZMAdminMenu {
     /** Extras menu id. */
     const MENU_EXTRAS = 'menu_extras';
     /** Plugins menu id. */
@@ -40,28 +40,52 @@ class ZMAdminMenu extends ZMObject {
     const MENU_CATALOG_MANAGER_TAB = 'catalog_manager_tab';
     private static $items_ = array();
 
-
-    /**
-     * Get instance.
-     */
-    public static function instance() {
-        return ZMObject::singleton('AdminMenu');
-    }
+    // new
+    private static $items2_ = array();
 
 
     /**
      * Add a admin menu item.
      *
      * @param ZMAdminMenuItem item The new item.
+     * @deprecated
      */
     public static function addItem($item) {
         self::$items_[] = $item;
     }
 
     /**
+     * Configure a admin menu item.
+     *
+     * <p>Possible item data keys:</p>
+     * <dl>
+     *  <dt>requestId</dt>
+     *  <dd>The item's request id</dd>
+     *  <dt>parentId</dt>
+     *  <dd>Id of the parent</dd>
+     *  <dt>id</dt>
+     *  <dd>The item id - if not set, the requestId value will be taken</dd>
+     *  <dt>title</dt>
+     *  <dd>The item title</dd>
+     *  <dt>other</dt>
+     *  <dd>Optional list of other request Ids that should be treated like this item</dd>
+     * </dl>
+     * @param array item The item data.
+     */
+    public static function setItem($item) {
+        $defaults = array('requestId' => null, 'parentId' => null, 'other' => array());
+        $item = array_merge($defaults, $item);
+        if (!array_key_exists('id', $item)) {
+          $item['id'] = $item['requestId'];
+        }
+        self::$items2_[] = $item;
+    }
+
+    /**
      * Display the admin menu.
      *
      * @param string parent Parent menu id (used for recursive calls, do not set).
+     * @deprecated
      */
     public static function buildMenu($parent=null) {
         ob_start();
@@ -113,6 +137,7 @@ class ZMAdminMenu extends ZMObject {
      *
      * @param string parentId The parent id.
      * @return array A list of <code>ZMAdminMenuItem</code> instances.
+     * @deprecated
      */
     public static function getItemsForParentId($parentId) {
         $items = array();
@@ -123,6 +148,77 @@ class ZMAdminMenu extends ZMObject {
         }
 
         return $items;
+    }
+
+    /**
+     * Get all child items for the given id.
+     *
+     * @param string parentId The parent id.
+     * @return array A list of item data.
+     */
+    public static function getItemsForParent($parentId) {
+        $items = array();
+        foreach (self::$items2_ as $item) {
+            if ($item['parentId'] == $parentId) {
+                $items[] = $item;
+            }
+        }
+
+        return $items;
+    }
+
+    /**
+     * Get item for the given id.
+     *
+     * @param string id The id.
+     * @return array The item or <code>null</code>.
+     */
+    public static function getItemForId($id) {
+        foreach (self::$items2_ as $item) {
+            if ($item['id'] == $id) {
+                return $item;
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Get root item for the given request id.
+     *
+     * @param string requestId The request id.
+     * @return array The root item or <code>null</code>.
+     */
+    public static function getRootItemForRequestId($requestId) {
+        // first find the item for requestId
+        $item = null;
+        foreach (self::$items2_ as $tmp) {
+            if ($tmp['requestId'] == $requestId) {
+                $item = $tmp;
+                break;
+            }
+            foreach ($tmp['other'] as $oid) {
+                if ($oid == $requestId) {
+                    $item = $tmp;
+                    break;
+                }
+            }
+            if (null != $item) {
+                break;
+            }
+        }
+
+        if (null == $item) {
+            return null;
+        }
+
+        $parentId = $item['parentId'];
+        while (null != $parentId && null != $item) {
+            $item = self::getItemForId($parentId);
+            $parentId = null != $item ? $item['parentId'] : null;
+        }
+
+        return $item;
     }
 
 }
