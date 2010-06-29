@@ -48,4 +48,23 @@ class ZMXmlUtils {
         return $s;
     }
 
+    /**
+     * Encode XML attribute characters.
+     *
+     * @param string s The input string.
+     * @return string The encoded string.
+     */
+    public static function encodeAttribute($s) {
+        $encoding = array(
+            '"' => '&#34;',
+            "'" => '&#39;'
+        );
+
+        foreach ($encoding as $char => $entity) {
+            $s = str_replace($char, $entity, $s);
+        }
+
+        return $s;
+    }
+
 }

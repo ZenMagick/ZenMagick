@@ -21,12 +21,12 @@
 <?php $group = ZMConfig::instance()->getConfigGroupForId($request->getParameter('groupId')); ?>
 <h1><?php echo sprintf(_zm('Config: %s'), $group->getName()) ?></h1>
 <form>
-  <?php foreach (ZMConfig::instance()->getValuesForGroupId($group->getId()) as $value) { ?>
-    <?php if ($value instanceof ZMConfigValue) { ?>
-      <fieldset>
-        <legend><?php _vzm($value->getName()) ?></legend>
-        <p><?php _vzm($value->getDescription()) ?>
-      </fieldset>
+  <fieldset>
+    <legend><?php echo sprintf(_zm('Config: %s'), $group->getName()) ?></legend>
+    <?php foreach (ZMConfig::instance()->getValuesForGroupId($group->getId()) as $value) { ?>
+      <?php if ($value instanceof ZMConfigValue) { ?>
+          <p class="tt" title="<?php _vzm('Details: %s', $value->getName()) ?>|<?php echo ZMXmlUtils::encodeAttribute(_zm($value->getDescription())) ?>"><?php _vzm($value->getName()) ?></p>
+      <?php } ?>
     <?php } ?>
-  <?php } ?>
+ </fieldset>
 </form>

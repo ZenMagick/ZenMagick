@@ -55,6 +55,9 @@ div#main {width:85%;margin:0 auto;text-align:left;padding:8px;border:1px dashed 
 
 h1 {border-bottom:1px dotted black;padding:2px 5px;}
 
+/* tooltips */
+.cluetip-default {text-align:left;}
+
 /* dashboard */
 #p-index #content {margin-left:0;}
 

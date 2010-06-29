@@ -25,10 +25,12 @@
     <title><?php _vzm('ZenMagick Admin') ?></title>
     <?php $resources->cssFile('style/zenmagick.css') ?>
     <?php $resources->cssFile('style/jquery-ui-lightness/jquery-ui-1.8.1.custom.css') ?>
+    <?php $resources->cssFile('style/jquery.cluetip.css') ?>
     <?php $resources->jsFile('js/jquery-1.4.2.min.js') ?>
     <?php $resources->jsFile('js/jquery-ui-1.8.1.custom.min.js') ?>
     <?php $resources->jsFile('js/jquery.form.js') ?>
-    <?php $resources->jsFile('js/zenmagick.js', ZMViewUtils::FOOTER) ?>
+    <?php $resources->jsFile('js/jquery.cluetip.min.js') ?>
+    <?php $resources->jsFile('js/zenmagick.js') ?>
   </head>
   <body id="p-<?php echo $request->getRequestId() ?>">
     <div id="main">
@@ -46,5 +48,6 @@
       </div>
       <?php echo $this->fetch('footer.php'); ?>
     </div>
+    <script>$('.tt[title]').cluetip({showTitle: false, splitTitle: '|', positionBy: 'bottomTop'});</script>
   </body>
 </html>
