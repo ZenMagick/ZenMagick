@@ -200,6 +200,13 @@ class ZMConfig extends ZMObject {
                 case 'zen_cfg_pull_down_order_statuses':
                     $widget = ZMBeanUtils::getBean('OrderStatusSelectFormWidget');
                     break;
+                case 'zen_cfg_pull_down_country_list':
+                    $widget = ZMBeanUtils::getBean('CountrySelectFormWidget');
+                    break;
+                case 'zen_cfg_pull_down_country_list_none':
+                    $widget = ZMBeanUtils::getBean('CountrySelectFormWidget');
+                    $widget->setOptions(array('' => _zm('None')));
+                    break;
 
                 //TODO: implement more...
                 default:

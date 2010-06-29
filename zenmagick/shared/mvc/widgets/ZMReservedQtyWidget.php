@@ -35,6 +35,7 @@
 class ZMReservedQtyWidget extends ZMWidget {
     private static $qtyMap_ = null;
 
+
     /**
      * Create new instance.
      */
