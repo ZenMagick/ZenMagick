@@ -105,6 +105,40 @@ class ZMConfig extends ZMObject {
     }
 
     /**
+     * Split options into map.
+     *
+     * @param string value The set function value.
+     * @return array An options map.
+     */
+    private function splitOptions($value) {
+        // some initial stripping
+        $value = preg_replace('/.*\(array\((.*)\).*/', '\1', $value);
+
+        $idText = false;
+        if (false !== strpos($value, 'id') && false !== strpos($value, 'text') && false !== strpos($value, '=>')) {
+            // we do have an id/text mapping (nested arrays)
+            $idText = true;
+        }
+
+        $options = array();
+        if ($idText) {
+            foreach (explode(', array(', $value) as $option) {
+                $tmp = explode(',', $option);
+                $value = str_replace(array("'id'", '"id"', '=>', '"', "'"), '', trim($tmp[0]));
+                $text = str_replace(array("'text'", '"text"', '=>', '"', "'"), '', trim($tmp[1]));
+                $text = substr($text, 0, -1);
+                $options[$value] = $text;
+            }
+        } else {
+            foreach (explode(',', $value) as $option) {
+                $option = str_replace(array('"', "'"), '', trim($option));
+                $options[$option] = $option;
+            }
+        }
+        return $options;
+    }
+
+    /**
      * Load config values for the given sql and args.
      *
      * @param string sql The sql.
@@ -132,23 +166,58 @@ class ZMConfig extends ZMObject {
             } else {
                 // try to convert into widget...
                 $widget = null;
-                switch ($value['setFunction']) {
+                $setFunction = $value['setFunction'];
+                if (null != $setFunction) {
+                    $tmp = explode('(', $setFunction);
+                    $setFunction = trim($tmp[0]);
+                }
+                switch ($setFunction) {
                 case null:
                     $widget = ZMBeanUtils::getBean('TextFormWidget');
-                    $widget->setName($value['key']);
-                    $widget->setTitle($value['name']);
-                    $widget->setDescription($value['description']);
-                    $widget->setValue($value['value']);
-                    $widget->set('size', strlen($value['value'])+3);
-                    $widget->set('id', $value['key']);
-                    // needed for generic plugin config support
-                    $widget->set('configurationKey', $value['key']);
+                    $size = strlen($value['value'])+3;
+                    $size = 64 < $size ? 64 : $size;
+                    $widget->set('size', $size);
                     break;
+                case 'zen_cfg_textarea':
+                    $widget = ZMBeanUtils::getBean('TextAreaFormWidget');
+                    $widget->setRows(5);
+                    $widget->setCols(60);
+                    break;
+                case 'zen_cfg_textarea_small':
+                    $widget = ZMBeanUtils::getBean('TextAreaFormWidget');
+                    $widget->setRows(1);
+                    $widget->setCols(35);
+                    break;
+                case 'zen_cfg_select_option':
+                    // XXX: perhaps make radio group
+                    $widget = ZMBeanUtils::getBean('SelectFormWidget');
+                    $widget->setOptions($this->splitOptions($value['setFunction']));
+                    break;
+                case 'zen_cfg_select_drop_down':
+                    $widget = ZMBeanUtils::getBean('SelectFormWidget');
+                    $widget->setOptions($this->splitOptions($value['setFunction']));
+                    break;
+                case 'zen_cfg_pull_down_order_statuses':
+                    $widget = ZMBeanUtils::getBean('OrderStatusSelectFormWidget');
+                    break;
+
                 //TODO: implement more...
                 default:
+                    echo $setFunction.": ".$value['setFunction']."<BR>";
                     $widget = ZMBeanUtils::map2obj('ConfigValue', $value);
                     break;    
                 }
+                if ($widget instanceof ZMWidget) {
+                    // common stuff
+                    $widget->setName($value['key']);
+                    $widget->setTitle($value['name']);
+                    $widget->setDescription(htmlentities($value['description']));
+                    $widget->setValue(htmlentities($value['value']));
+                    $widget->set('id', $value['key']);
+                    // needed for generic plugin config support
+                    $widget->set('configurationKey', $value['key']);
+                }
+
                 $values[] = $widget;
             }
         }

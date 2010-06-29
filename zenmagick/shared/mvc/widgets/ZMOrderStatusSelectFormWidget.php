@@ -75,7 +75,7 @@ class ZMorderStatusSelectFormWidget extends ZMSelectFormWidget {
      */
     public function getOptions($request) {
         $options = parent::getOptions($request);
-        foreach (ZMOrders::instance()->getOrderStatusList($request->getSession()->getLanguageId()) as $idp) {
+        foreach (ZMOrders::instance()->getOrderStatusList($request->getSelectedLanguage()->getId()) as $idp) {
             $options[$idp->getOrderStatusId()] = $idp->getName() . ($this->showKey_ ? ' ('.$idp->getOrderStatusId().')': '');
         }
         return $options;

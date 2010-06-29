@@ -38,7 +38,6 @@ class ZMHtmlUtils {
     public static function encode($s) {
         $s = html_entity_decode($s, ENT_QUOTES, ZMSettings::get('zenmagick.mvc.html.charset')); 
         $s = htmlentities($s, ENT_QUOTES, ZMSettings::get('zenmagick.mvc.html.charset'));
-
         return $s;
     }
 

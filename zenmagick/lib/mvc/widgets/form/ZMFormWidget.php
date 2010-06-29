@@ -34,6 +34,7 @@ abstract class ZMFormWidget extends ZMWidget {
     private $name_;
     private $value_;
     private $attributeNames_;
+    private $encode_;
 
 
     /**
@@ -44,6 +45,7 @@ abstract class ZMFormWidget extends ZMWidget {
         $this->name_ = '';
         $this->value_ = null;
         $this->attributeNames_ = array();
+        $this->encode_ = true;
     }
 
     /**
@@ -88,6 +90,24 @@ abstract class ZMFormWidget extends ZMWidget {
      */
     public function getValue() {
         return $this->value_;
+    }
+
+    /**
+     * Enable/disable encoding of value and attributes.
+     *
+     * @param boolean value The new value.
+     */
+    public function setEncode($value) {
+        $this->encode_ = ZMLangUtils::asBoolean($value);
+    }
+
+    /**
+     * Indicate whether value and attributes will be encoded or not.
+     *
+     * @return boolean <code>true</code> if encoding will be done.
+     */
+    public function isEncode() {
+        return $this->encode_;
     }
 
     /**
@@ -152,13 +172,15 @@ abstract class ZMFormWidget extends ZMWidget {
                         $attr .= ' '.$name;
                     }
                 } else {
-                    $attr .= ' '.$name.'="'.ZMHtmlUtils::encode($value).'"';
+                    $value = $this->encode_ ? ZMHtmlUtils::encode($value) : $value;
+                    $attr .= ' '.$name.'="'.$value.'"';
                 }
             }
         }
 
         if ($addValue) {
-            $attr .= ' value="'.ZMHtmlUtils::encode($this->getValue()).'"';
+            $value = $this->encode_ ? ZMHtmlUtils::encode($this->getValue()) : $this->getValue();
+            $attr .= ' value="'.$value.'"';
         }
 
         return $attr;
