@@ -130,7 +130,26 @@ class ZMConfig extends ZMObject {
                     ZMLogging::instance()->log('failed to create widget: '.$widgetDefinition, ZMLogging::WARN);
                 }
             } else {
-                $values[] = ZMBeanUtils::map2obj('ConfigValue', $value);
+                // try to convert into widget...
+                $widget = null;
+                switch ($value['setFunction']) {
+                case null:
+                    $widget = ZMBeanUtils::getBean('TextFormWidget');
+                    $widget->setName($value['key']);
+                    $widget->setTitle($value['name']);
+                    $widget->setDescription($value['description']);
+                    $widget->setValue($value['value']);
+                    $widget->set('size', strlen($value['value'])+3);
+                    $widget->set('id', $value['key']);
+                    // needed for generic plugin config support
+                    $widget->set('configurationKey', $value['key']);
+                    break;
+                //TODO: implement more...
+                default:
+                    $widget = ZMBeanUtils::map2obj('ConfigValue', $value);
+                    break;    
+                }
+                $values[] = $widget;
             }
         }
         return $values;

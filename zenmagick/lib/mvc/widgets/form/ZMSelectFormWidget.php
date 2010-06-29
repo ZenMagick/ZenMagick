@@ -36,7 +36,7 @@ class ZMSelectFormWidget extends ZMFormWidget {
      */
     function __construct() {
         parent::__construct();
-        $this->setAttributeNames(array('id', 'class', 'size', 'multiple'));
+        $this->setAttributeNames(array('id', 'class', 'size', 'multiple', 'title'));
         $this->options_ = array();
     }
 

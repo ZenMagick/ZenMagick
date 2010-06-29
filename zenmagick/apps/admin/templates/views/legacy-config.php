@@ -24,9 +24,20 @@
   <fieldset>
     <legend><?php echo sprintf(_zm('Config: %s'), $group->getName()) ?></legend>
     <?php foreach (ZMConfig::instance()->getValuesForGroupId($group->getId()) as $value) { ?>
+      <p>
       <?php if ($value instanceof ZMConfigValue) { ?>
-          <p class="tt" title="<?php _vzm('Details: %s', $value->getName()) ?>|<?php echo ZMXmlUtils::encodeAttribute(_zm($value->getDescription())) ?>"><?php _vzm($value->getName()) ?></p>
+        <span class="tt" title="<?php _vzm('Details: %s', $value->getName()) ?>|<?php echo ZMXmlUtils::encodeAttribute(_zm($value->getDescription())) ?>"><?php _vzm($value->getName()) ?></span>
+        <strong>Function not supported: <?php echo $value->getSetFunction() ?></strong>
+      <?php } else { ?>
+          <label for="<?php echo $value->getName() ?>"><?php _vzm($value->getTitle()) ?></label>
+          <?php 
+            // tooltips
+            $value->set('class', 'tt');
+            $value->set('title', sprintf(_zm('Details: %s'), $value->getTitle()).'|'.ZMXmlUtils::encodeAttribute(_zm($value->getDescription()))); 
+            echo $value->render($request);
+          ?>
       <?php } ?>
+      </p>
     <?php } ?>
  </fieldset>
 </form>

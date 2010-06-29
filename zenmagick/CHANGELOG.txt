@@ -154,6 +154,7 @@ Release 0.9.10
 - pomo: add packer following the new packer concept; also add code to prefix
   all pomo classes with 'ZM' to avoid possible conflicts
 - make Runtime::getLanguage() obsolete
+- add code to convert zen_cfg_xxx() config setter to widgets in ZMConfig
 
 Release 0.9.9
 - in ZMDbTableMapper handle database exception building auto mappings
