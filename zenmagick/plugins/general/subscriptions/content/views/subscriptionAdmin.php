@@ -20,7 +20,7 @@
  * $Id: email_subscription_cancel.text.php 2861 2010-01-26 02:58:32Z dermanomann $
  */
 ?>
-<h1>All Subsctiptions</h1>
+<h1>All Subscriptions</h1>
 
 <?php $resultList->setPagination(10); ?>
 <?php if (1 < $resultList->getNumberOfPages()) { ?>
