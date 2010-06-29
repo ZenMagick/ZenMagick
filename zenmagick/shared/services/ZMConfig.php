@@ -207,6 +207,9 @@ class ZMConfig extends ZMObject {
                     $widget = ZMBeanUtils::getBean('CountrySelectFormWidget');
                     $widget->setOptions(array('' => _zm('None')));
                     break;
+                case 'zen_cfg_pull_down_htmleditors':
+                    $widget = ZMBeanUtils::getBean('EditorSelectFormWidget');
+                    break;
 
                 //TODO: implement more...
                 default:

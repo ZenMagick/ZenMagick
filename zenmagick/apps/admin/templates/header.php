@@ -32,7 +32,7 @@
       </p>
       <p>
         <a href="<?php echo ZMSettings::get('apps.store.baseUrl') ?>" target="_blank">Storefront</a>
-        | <a href="<?php echo  ZMSettings::get('apps.store.oldAdminUrl') ?>">OLD Admin</a>
+        | <a href="<?php echo  ZMSettings::get('apps.store.oldAdminUrl') ?>" target="_blank">OLD Admin</a>
         | <a href="http://forum.zenmagick.org/" target="_blank"><?php _vzm('Get Help') ?></a>
         | <a href="<?php echo $admin2->url('about') ?>" onclick="zenmagick.ajaxDialog(this.href, 'About ZenMagick', '85%'); return false;"><?php _vzm('About') ?></a>
       </p>

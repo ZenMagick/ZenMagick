@@ -52,7 +52,7 @@ class ZMSelectFormWidget extends ZMFormWidget {
      * {@inheritDoc}
      */
     public function setValue($value) {
-        $arr = unserialize($value);
+        $arr = @unserialize($value);
         if (is_array($arr)) {
             $value = $arr;
         }
