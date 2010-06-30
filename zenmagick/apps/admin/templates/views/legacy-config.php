@@ -18,13 +18,12 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 ?>
-<?php $group = ZMConfig::instance()->getConfigGroupForId($request->getParameter('groupId')); ?>
 <h1><?php echo sprintf(_zm('Config: %s'), $group->getName()) ?></h1>
-<form>
+<form method="POST" action="<?php echo $admin2->url() ?>">
   <fieldset>
     <legend><?php echo sprintf(_zm('Config: %s'), $group->getName()) ?></legend>
     <table>
-    <?php $odd = true; foreach (ZMConfig::instance()->getValuesForGroupId($group->getId()) as $value) { $odd = !$odd; ?>
+    <?php $odd = true; foreach ($groupValues as $value) { $odd = !$odd; ?>
       <tr class="<?php echo ($odd ? 'odd' : 'even') ?>">
       <?php if ($value instanceof ZMConfigValue) { ?>
         <td><span class="tt" title="<?php _vzm('Details: %s', $value->getName()) ?>|<?php echo ZMXmlUtils::encodeAttribute(_zm($value->getDescription())) ?>"><?php _vzm($value->getName()) ?></span></td>
@@ -41,5 +40,9 @@
       </tr>
     <?php } ?>
     </table>
+    <p>
+      <input type="hidden" name="groupId" value="<?php echo $group->getId() ?>">
+      <input type="submit" value="<?php _vzm('Update') ?>">
+    </p>
  </fieldset>
 </form>
