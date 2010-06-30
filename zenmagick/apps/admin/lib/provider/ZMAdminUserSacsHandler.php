@@ -62,23 +62,71 @@ class ZMAdminUserSacsHandler extends ZMObject implements ZMSacsHandler {
      * {@inheritDoc}
      */
     public function evaluate($requestId, $credentials, $manager) {
+        $qualifiedUsers = $manager->getMappingValue($requestId, 'users');
         $qualifiedRoles = $manager->getMappingValue($requestId, 'roles');
-        if (null === $qualifiedRoles) {
-            // we handle all requests!
-            return false;
-        }
 
-        if (empty($qualifiedRoles) || 0 == count($qualifiedRoles)) {
-            // no role required; ie. login
+        if (null === $qualifiedUsers && null === $qualifiedRoles) {
+            // neither users nor roles are set at all
             return true;
         }
 
         if (null == $credentials || (null != $credentials && !($credentials instanceof ZMAdminUser))) {
+            // need proper user in order to continue
             return false;
         }
 
+        if (true == $this->evaluateUsers($credentials, $qualifiedUsers)) {
+            return true;
+        }
+
+        if (true == $this->evaluateRoles($credentials, $qualifiedRoles)) {
+            return true;
+        }
+
+        // nothing left to evaluate
+        return false;
+    }
+
+    /**
+     * Evaluate user based permission.
+     *
+     * @param mixed credentials The user credentials.
+     * @param array users List of authorized users.
+     */
+    public function evaluateUsers($credentials, $users) {
+        if (null === $users) {
+            return false;
+        }
+
+        // check for user match
+        foreach ($users as $user) {
+            if ($user == $credentials->getName()) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Evaluate role based permission.
+     *
+     * @param mixed credentials The user credentials.
+     * @param array roles List of authorized roles.
+     */
+    public function evaluateRoles($credentials, $roles) {
+        if (null === $roles) {
+            return false;
+        }
+
+        // if set and no element, $roles will be a string ' '
+        if (empty($roles)  || 0 == count($roles)) {
+            // allow all authenticated users
+            return true;
+        }
+
         // check for role match
-        foreach ($qualifiedRoles as $role) {
+        foreach ($roles as $role) {
             if ($credentials->hasRole($role)) {
                 return true;
             }

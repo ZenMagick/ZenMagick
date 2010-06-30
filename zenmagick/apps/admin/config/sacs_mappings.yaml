@@ -8,35 +8,37 @@
 ## default for not explicitely mapped requests
 default:
   secure: true
+  ## require admin role
   roles: 
     - admin
 
 ## explicit mappings
 mappings:
   ###########################################
-  ## allow for all users
+  ## no permission at all
+  ##
+  login: 
+    secure: true
+  logoff: 
+    secure: true
+  reset_password: 
+    secure: true
+
+  ###########################################
+  ## allow for all users (empty roles list)
   ##
   ajax_plugin_admin: 
     secure: true
     roles:
   ajax_dashboard: 
-    roles: 
-    secure: true
-  login: 
-    secure: true
-    roles:
-  logoff: 
-    secure: true
-    roles:
-  reset_password: 
     secure: true
     roles:
   index: 
-    roles: 
     secure: true
+    roles:
 
   ###########################################
-  ## explicit permissions
+  ## explicit permissions (either roles or users or both)
   ##
   orders: 
     roles: 
