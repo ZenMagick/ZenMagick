@@ -24,6 +24,8 @@
 /**
  * A select form widget.
  *
+ * <p>Style can be: <em>select</em> (default) or <em>radio</em>.</p>
+ *
  * @author DerManoMann
  * @package org.zenmagick.mvc.widgets.form
  */
@@ -38,6 +40,8 @@ class ZMSelectFormWidget extends ZMFormWidget {
         parent::__construct();
         $this->setAttributeNames(array('id', 'class', 'size', 'multiple', 'title'));
         $this->options_ = array();
+        // defaults
+        $this->set('style', 'select');
     }
 
     /**
@@ -72,7 +76,7 @@ class ZMSelectFormWidget extends ZMFormWidget {
      * {@inheritDoc}
      */
     public function isMultiValue() {
-        return $this->isMultiple();
+        return ZMLangUtils::asBoolean($this->get('multiple'));
     }
 
     /**
@@ -110,6 +114,26 @@ class ZMSelectFormWidget extends ZMFormWidget {
      * {@inheritDoc}
      */
     public function render($request) {
+        if ($this->isMultiValue()) {
+            ZMLogging::instance()->log('multi-value: defaulting style to select', ZMLogging::TRACE);
+            $this->set('style', 'select');
+        }
+        switch ($this->get('style')) {
+            default:
+                ZMLogging::instance()->log('invalid style "'.$this->get('style').'" - using default', ZMLogging::DEBUG);
+            case 'select':
+                return $this->renderSelect($request);
+            case 'radio':
+                return $this->renderRadio($request);
+        }
+    }
+
+    /**
+     * Render as seclect drop down.
+     *
+     * @param ZMRequest request The current request.
+     */
+    public function renderSelect($request) {
         $values = $this->getValue();
         if (!is_array($values)) {
             $values = array($values);
@@ -128,6 +152,38 @@ class ZMSelectFormWidget extends ZMFormWidget {
         }
         $output .= '</select>';
         return $output;
+    }
+
+    /**
+     * Render as group of radio buttons.
+     *
+     * @param ZMRequest request The current request.
+     */
+    public function renderRadio($request) {
+        $slash = ZMSettings::get('zenmagick.mvc.html.xhtml') ? '/' : '';
+        $checked = ZMSettings::get('zenmagick.mvc.html.xhtml') ? ' checked="checked"' : ' checked';
+
+        $values = $this->getValue();
+        if (!is_array($values)) {
+            $values = array($values);
+        }
+
+        $idBase = ZMHtmlUtils::encode($this->get('id'));
+        if (empty($idBase)) {
+            // default to name; we need this to make label work
+            $idBase = $this->getName();
+        }
+
+        $value = $this->getValue();
+
+        ob_start();
+        $index = 0;
+        foreach ($this->getOptions($request) as $oval => $name) {
+            echo '<input type="radio" id="'.$idBase.'-'.$index.'" class="'.$this->get('class').'" name="'.$this->getName().'" value="'.ZMHtmlUtils::encode($oval).'"'.($oval==$value ? $checked : '').$slash.'>';
+            echo ' <label for="'.$idBase.'-'.$index.'">'.ZMHtmlUtils::encode(_zm($name)).'</label>';
+            ++$index;
+        }
+        return ob_get_clean();
     }
 
 }

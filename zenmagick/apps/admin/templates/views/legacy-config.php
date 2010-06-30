@@ -23,21 +23,23 @@
 <form>
   <fieldset>
     <legend><?php echo sprintf(_zm('Config: %s'), $group->getName()) ?></legend>
-    <?php foreach (ZMConfig::instance()->getValuesForGroupId($group->getId()) as $value) { ?>
-      <p>
+    <table>
+    <?php $odd = true; foreach (ZMConfig::instance()->getValuesForGroupId($group->getId()) as $value) { $odd = !$odd; ?>
+      <tr class="<?php echo ($odd ? 'odd' : 'even') ?>">
       <?php if ($value instanceof ZMConfigValue) { ?>
-        <span class="tt" title="<?php _vzm('Details: %s', $value->getName()) ?>|<?php echo ZMXmlUtils::encodeAttribute(_zm($value->getDescription())) ?>"><?php _vzm($value->getName()) ?></span>
-        <strong>Function not supported: <?php echo $value->getSetFunction() ?></strong>
+        <td><span class="tt" title="<?php _vzm('Details: %s', $value->getName()) ?>|<?php echo ZMXmlUtils::encodeAttribute(_zm($value->getDescription())) ?>"><?php _vzm($value->getName()) ?></span></td>
+        <td><strong>Function not supported: <?php echo $value->getSetFunction() ?></strong></td>
       <?php } else { ?>
-          <label for="<?php echo $value->getName() ?>"><?php _vzm($value->getTitle()) ?></label>
-          <?php 
-            // tooltips
-            $value->set('class', 'tt');
-            $value->set('title', sprintf(_zm('Details: %s'), $value->getTitle()).'|'.ZMXmlUtils::encodeAttribute(_zm($value->getDescription()))); 
-            echo $value->render($request);
-          ?>
+          <td><label for="<?php echo $value->getName() ?>"><?php _vzm($value->getTitle()) ?></label></td>
+          <td>
+            <?php /* tooltips */ ?>
+            <span class="tt" title="<?php echo sprintf(_zm('Details: %s'), $value->getTitle()).'|'.ZMXmlUtils::encodeAttribute(_zm($value->getDescription())) ?>">
+              <?php echo $value->render($request); ?>
+            </span>
+          </td>
       <?php } ?>
-      </p>
+      </tr>
     <?php } ?>
+    </table>
  </fieldset>
 </form>

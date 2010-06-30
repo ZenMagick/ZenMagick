@@ -155,6 +155,8 @@ Release 0.9.10
   all pomo classes with 'ZM' to avoid possible conflicts
 - make Runtime::getLanguage() obsolete
 - add code to convert zen_cfg_xxx() config setter to widgets in ZMConfig
+- add style option to ZMSelectFormWidget and support 'select' and 'radio'
+options; if multiple is set, default to 'select'
 
 Release 0.9.9
 - in ZMDbTableMapper handle database exception building auto mappings

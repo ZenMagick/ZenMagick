@@ -165,11 +165,13 @@ abstract class ZMFormWidget extends ZMWidget {
         foreach ($this->properties_ as $name => $value) {
             if (in_array($name, $this->attributeNames_)) {
                 if (in_array($name, self::$NO_VAL_ATTR)) {
-                    if ($isXhmtl) {
-                        $attr .= ' '.$name.'="'.$name.'"';
-                    } else {
-                        $selected = ' selected';
-                        $attr .= ' '.$name;
+                    if (ZMLangUtils::asBoolean($this->get($name))) {
+                        // only add if true
+                        if ($isXhmtl) {
+                            $attr .= ' '.$name.'="'.$name.'"';
+                        } else {
+                            $attr .= ' '.$name;
+                        }
                     }
                 } else {
                     $value = $this->encode_ ? ZMHtmlUtils::encode($value) : $value;

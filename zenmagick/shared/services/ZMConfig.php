@@ -190,8 +190,11 @@ class ZMConfig extends ZMObject {
                     break;
                 case 'zen_cfg_select_option':
                     // XXX: perhaps make radio group
-                    $widget = ZMBeanUtils::getBean('SelectFormWidget');
+                    $widget = ZMBeanUtils::getBean('SelectFormWidget#style=radio');
                     $widget->setOptions($this->splitOptions($value['setFunction']));
+                    if (3 < count($widget->getOptions())) {
+                        $widget->setStyle('select');
+                    }
                     break;
                 case 'zen_cfg_select_drop_down':
                     $widget = ZMBeanUtils::getBean('SelectFormWidget');
@@ -210,6 +213,8 @@ class ZMConfig extends ZMObject {
                 case 'zen_cfg_pull_down_htmleditors':
                     $widget = ZMBeanUtils::getBean('EditorSelectFormWidget');
                     break;
+                //zen_cfg_select_coupon_id
+                //zen_cfg_pull_down_zone_list
 
                 //TODO: implement more...
                 default:

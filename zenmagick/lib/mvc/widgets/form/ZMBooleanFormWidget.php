@@ -163,15 +163,12 @@ class ZMBooleanFormWidget extends ZMFormWidget {
         switch ($this->get('style')) {
             default:
                 ZMLogging::instance()->log('invalid style "'.$this->get('style').'" - using default', ZMLogging::DEBUG);
-            case 'radio':
-                return $this->renderRadio($request);
-                break;
-            case 'select':
-                return $this->renderSelect($request);
-                break;
             case 'checkbox':
                 return $this->renderCheckbox($request);
-                break;
+            case 'radio':
+                return $this->renderRadio($request);
+            case 'select':
+                return $this->renderSelect($request);
         }
     }
 
