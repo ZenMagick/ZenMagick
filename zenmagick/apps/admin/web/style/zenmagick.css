@@ -43,6 +43,7 @@ div#main {width:85%;margin:0 auto;text-align:left;padding:8px;border:1px dashed 
 /* header */
 #logo {float:left;padding:3px 12px;}
 #top-opts {float:right;text-align:right;}
+#demo-note {font-size:12px;color:red;font-weight:bold;}
 #main-menu {clear:left;border-top:1px solid black;padding-top:4px;}
 
 /* sub menu */

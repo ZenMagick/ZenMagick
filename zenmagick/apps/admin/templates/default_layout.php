@@ -48,6 +48,6 @@
       </div>
       <?php echo $this->fetch('footer.php'); ?>
     </div>
-    <script> $('.tt[title]').cluetip({splitTitle: '|', arrows: true }); </script>
+    <script> $('.tt[title]').cluetip({clickThrough: true, splitTitle: '|', arrows: true }); </script>
   </body>
 </html>
