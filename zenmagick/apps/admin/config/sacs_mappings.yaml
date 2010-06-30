@@ -13,9 +13,15 @@ default:
 
 ## explicit mappings
 mappings:
+  ###########################################
+  ## allow for all users
+  ##
   ajax_plugin_admin: 
     secure: true
     roles:
+  ajax_dashboard: 
+    roles: 
+    secure: true
   login: 
     secure: true
     roles:
@@ -27,9 +33,11 @@ mappings:
     roles:
   index: 
     roles: 
-      - admin
-      - demo
     secure: true
+
+  ###########################################
+  ## explicit permissions
+  ##
   orders: 
     roles: 
       - admin
