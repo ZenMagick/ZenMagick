@@ -213,12 +213,17 @@ class ZMConfig extends ZMObject {
                 case 'zen_cfg_pull_down_htmleditors':
                     $widget = ZMBeanUtils::getBean('EditorSelectFormWidget');
                     break;
-                //zen_cfg_select_coupon_id
-                //zen_cfg_pull_down_zone_list
+                case 'zen_cfg_pull_down_zone_list';
+                    $widget = ZMBeanUtils::getBean('ZoneSelectFormWidget');
+                    $widget->setOptions(array('' => _zm('None')));
+                    break;
+                case 'zen_cfg_select_coupon_id';
+                    $widget = ZMBeanUtils::getBean('CouponSelectFormWidget');
+                    $widget->setOptions(array('' => _zm('None')));
+                    break;
 
-                //TODO: implement more...
                 default:
-                    echo $setFunction.": ".$value['setFunction']."<BR>";
+                    //echo $setFunction.": ".$value['setFunction']."<BR>";
                     $widget = ZMBeanUtils::map2obj('ConfigValue', $value);
                     break;    
                 }

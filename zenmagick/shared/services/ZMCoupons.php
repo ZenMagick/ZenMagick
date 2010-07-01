@@ -314,4 +314,17 @@ class ZMCoupons extends ZMObject {
         return ZMLoader::make("CouponRestrictions", $categories, $products);
     }
 
+    /**
+     * Get all coupons.
+     *
+     * @param int languageId The languageId.
+     * @param boolean active Optional flag to control whether to retreive active coupons only; default is <code>true</code>.
+     * @return array List of coupons.
+     */
+    public function getCoupons($languageId, $active=true) {
+        $sql = "SELECT * FROM " . TABLE_COUPONS ." c, ". TABLE_COUPONS_DESCRIPTION . " cd 
+                WHERE cd.coupon_id = c.coupon_id AND cd.language_id = :languageId";
+        return ZMRuntime::getDatabase()->query($sql, array('languageId' => $languageId), array(TABLE_COUPONS, TABLE_COUPONS_DESCRIPTION), 'Coupon');
+    }
+
 }

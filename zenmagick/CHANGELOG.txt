@@ -158,6 +158,7 @@ Release 0.9.10
 - add style option to ZMSelectFormWidget and support 'select' and 'radio'
   options; if multiple is set, default to 'select'
 - add ZMUserRoleSacsHandler and ZMUserRoleCredentials to mvc and user in admin
+- add ZMCoupons::getCoupons() method
 
 Release 0.9.9
 - in ZMDbTableMapper handle database exception building auto mappings
