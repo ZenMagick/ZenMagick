@@ -21,7 +21,7 @@ zenmagick.mvc.request.seoRewriter: DefaultSeoRewriter
 zenmagick.mvc.html.xhtml: false
 zenmagick.mvc.html.charset: utf-8
 
-zenmagick.mvc.sacs.handler: AdminUserSacsHandler
+zenmagick.mvc.sacs.handler: UserRoleSacsHandler
 
 ## the main request handler (ie. the single point of entry in admin/web)
 zenmagick.mvc.request.index: index.php

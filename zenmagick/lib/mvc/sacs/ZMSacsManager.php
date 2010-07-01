@@ -42,7 +42,7 @@
  * indicates whether the configured resource requires secvu
  *
  * @author DerManoMann
- * @package org.zenmagick.mvc
+ * @package org.zenmagick.mvc.sacs
  */
 class ZMSacsManager extends ZMObject {
     private $mappings_;

@@ -31,7 +31,7 @@
  * the final result by the <code>ZMSacsManager</code>.</p>
  *
  * @author DerManoMann
- * @package org.zenmagick.mvc
+ * @package org.zenmagick.mvc.sacs
  */
 interface ZMSacsHandler {
 

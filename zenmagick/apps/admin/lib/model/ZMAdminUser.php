@@ -27,7 +27,7 @@
  * @author DerManoMann
  * @package org.zenmagick.store.admin
  */
-class ZMAdminUser extends ZMObject {
+class ZMAdminUser extends ZMObject implements ZMUserRoleCredentials {
     private $id_;
     private $name_;
     private $email_;
@@ -72,9 +72,7 @@ class ZMAdminUser extends ZMObject {
     public function setId($id) { $this->id_ = $id; }
 
     /**
-     * Get the name.
-     *
-     * @return string The name.
+     * {@inheritDoc}
      */
     public function getName() { return $this->name_; }
 
@@ -149,10 +147,7 @@ class ZMAdminUser extends ZMObject {
     public function addRole($role) { $this->roles_[] = $role; }
 
     /**
-     * Check if the user has the given role.
-     *
-     * @param string role The role.
-     * @return boolean <code>true</code> if this user has has the given role, <code>false</code> if not.
+     * {@inheritDoc}
      */
     public function hasRole($role) { return in_array($role, $this->roles_); }
 

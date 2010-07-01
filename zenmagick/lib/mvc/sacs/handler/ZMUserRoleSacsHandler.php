@@ -1,6 +1,6 @@
 <?php
 /*
- * ZenMagick - Smart e-commerce
+ * ZenMagick - Another PHP framework.
  * Copyright (C) 2006-2010 zenmagick.org
  *
  * This program is free software; you can redistribute it and/or modify
@@ -22,18 +22,14 @@
 
 
 /**
- * Handle access control and security mappings.
+ * SACS handler that supports user and role based authorization.
  *
- * <p>Access control mappings define the level of authentication required for resources.
- * Resources in this context are controller or page requests.</p>
- *
- * <p>Controller/resources marked as secure will be enforcer by redirects using SSL (if configured), if
- * non secure HTTP is used to access them.</p>
+ * <p>Credentials are expected to implement the <code>ZMUserRoleCredentials</code> interface.</p>
  *
  * @author DerManoMann
- * @package org.zenmagick.admin.mvc
+ * @package org.zenmagick.mvc.sacs.handler
  */
-class ZMAdminUserSacsHandler extends ZMObject implements ZMSacsHandler {
+class ZMUserRoleSacsHandler extends ZMObject implements ZMSacsHandler {
 
 
     /**
@@ -70,7 +66,7 @@ class ZMAdminUserSacsHandler extends ZMObject implements ZMSacsHandler {
             return true;
         }
 
-        if (null == $credentials || (null != $credentials && !($credentials instanceof ZMAdminUser))) {
+        if (null == $credentials || (null != $credentials && !($credentials instanceof ZMUserRoleCredentials))) {
             // need proper user in order to continue
             return false;
         }
