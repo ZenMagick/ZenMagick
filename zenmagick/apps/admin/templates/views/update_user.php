@@ -18,15 +18,15 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 ?>
-<h1>Update User Details</h1>
+<h1><?php _vzm('Update User Details') ?></h1>
 <p>Groups: <?php echo implode(', ', $request->getUser()->getRoles()) ?></p>
 <form action="<?php echo $admin2->url() ?>" method="POST" id="updateUser">
   <fieldset>
-    <p><label for="name">Name</label> <input type="text" id="name" name="name" value="<?php echo $html->encode($updateUser->getName()) ?>"></p>
-    <p><label for="email">Email</label> <input type="text" id="email" name="email" value="<?php echo $html->encode($updateUser->getEmail()) ?>"></p>
-    <p><label for="currentPassword">Current password</label> <input type="password" id="currentPassword" name="currentPassword"></p>
-    <p><label for="newPassword">New password</label> <input type="password" id="newPassword" name="newPassword"></p>
-    <p><label for="confirmPassword">Confirm password</label> <input type="password" id="confirmPassword" name="confirmPassword"></p>
+    <p><label for="name"><?php _vzm('Name') ?></label> <input type="text" id="name" name="name" value="<?php echo $html->encode($updateUser->getName()) ?>"></p>
+    <p><label for="email"><?php _vzm('Email') ?></label> <input type="text" id="email" name="email" value="<?php echo $html->encode($updateUser->getEmail()) ?>"></p>
+    <p><label for="currentPassword"><?php _vzm('Current password') ?></label> <input type="password" id="currentPassword" name="currentPassword"></p>
+    <p><label for="newPassword"><?php _vzm('New password') ?></label> <input type="password" id="newPassword" name="newPassword"></p>
+    <p><label for="confirmPassword"><?php _vzm('Confirm password') ?></label> <input type="password" id="confirmPassword" name="confirmPassword"></p>
   </fieldset>
-  <p><input type="submit" value="<?php _vzm("Update") ?>">
+  <p><input type="submit" value="<?php _vzm('Update') ?>") ?>
 </form>

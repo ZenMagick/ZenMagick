@@ -18,6 +18,6 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 ?>
-<h1>Account</h1>
+<h1><?php _vzm('Account') ?></h1>
 
 <?php var_dump($account) ?>

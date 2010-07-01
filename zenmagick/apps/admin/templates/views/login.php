@@ -18,20 +18,20 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 ?>
-<h1>Login</h1>
+<h1><?php _vzm('Login') ?></h1>
 
 <form action="<?php echo $admin2->url() ?>" method="POST">
 <input type="hidden" name="<?php echo ZMRequest::SESSION_TOKEN_NAME ?>" value="<?php echo $session->getToken() ?>">
 
 <p>
-<label for="name">User Name</label><br>
+<label for="name"><?php _vzm('User Name') ?></label><br>
 <input type="text" name="name" id="name">
 </p>
 
 <p>
-<label for="password">Password</label><br>
+<label for="password"><?php _vzm('Password') ?></label><br>
 <input type="password" name="password" id="password">
 </p>
 
-<p><input type="submit" value="Login"> <a href="<?php echo $admin2->url('reset_password') ?>">Reset Password</a></p>
+<p><input type="submit" value="<?php _vzm('Login') ?>"> <a href="<?php echo $admin2->url('reset_password') ?>"><?php _vzm('Reset Password') ?></a></p>
 </form>
