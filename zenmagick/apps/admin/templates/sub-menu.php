@@ -19,19 +19,24 @@
  */
 ?>
 <div id="sub-menu">
-  <?php $root = ZMAdminMenu::getRootItemForRequestId($request->getRequestId()); ?>
-  <?php if (null != $root) { ?>
-    <?php foreach (ZMAdminMenu::getItemsForParent($root['id']) as $sub) { ?>
-      <h3><a href="#"><?php echo $sub['title'] ?></a></h3>
-      <div>
-        <ul>
-        <?php foreach (ZMAdminMenu::getItemsForParent($sub['id']) as $subItem) { ?>
-          <li><a href="<?php echo $admin2->url($subItem['requestId'], $subItem['params']) ?>"><?php echo $subItem['title'] ?></a></li>
-        <?php } ?>
-        </ul>
-      </div>
+  <div id="common">
+    <?php $root = ZMAdminMenu::getRootItemForRequestId($request->getRequestId()); ?>
+    <?php if (null != $root) { ?>
+      <?php foreach (ZMAdminMenu::getItemsForParent($root['id']) as $sub) { ?>
+        <h3><a href="#"><?php echo $sub['title'] ?></a></h3>
+        <div>
+          <ul>
+          <?php foreach (ZMAdminMenu::getItemsForParent($sub['id']) as $subItem) { ?>
+            <li><a href="<?php echo $admin2->url($subItem['requestId'], $subItem['params']) ?>"><?php echo $subItem['title'] ?></a></li>
+          <?php } ?>
+          </ul>
+        </div>
+      <?php } ?>
     <?php } ?>
-  <?php } ?>
+  </div>
+  <?php if ($root['id'] == 'catalog') {
+    echo $this->fetch('catalog-tree.php');
+  } ?>
 </div>
 <script type="text/javascript">
   // hint for navigation matching
@@ -47,7 +52,7 @@
   ?>
 
 	$(function() {
-		$("#sub-menu").accordion({
+		$("#sub-common").accordion({
 			autoHeight: false,
       collapsible: true,
       navigation: true,

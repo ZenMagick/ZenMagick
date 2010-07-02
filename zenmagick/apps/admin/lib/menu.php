@@ -22,7 +22,7 @@
 
     // top level
     ZMAdminMenu::setItem(array('requestId' => 'index', 'title' => _zm('Dashboard')));
-    ZMAdminMenu::setItem(array('requestId' => 'catalog_manager', 'title' => _zm('Catalog')));
+    ZMAdminMenu::setItem(array('requestId' => 'catalog', 'title' => _zm('Catalog')));
     ZMAdminMenu::setItem(array('requestId' => 'fulfilment', 'title' => _zm('Fulfilment')));
     ZMAdminMenu::setItem(array('requestId' => 'reports', 'title' => _zm('Reports')));
     ZMAdminMenu::setItem(array('requestId' => 'configuration', 'title' => _zm('Configuration')));
