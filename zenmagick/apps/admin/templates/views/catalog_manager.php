@@ -18,7 +18,65 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 ?>
+
+<?php $resources->cssFile('style/catalog-tree/style.css') ?>
+<?php $resources->jsFile('js/jquery.jstree.min.js') ?>
+
+<div id="demo1" class="demo">
+	<ul>
+		<li id="phtml_1">
+			<a href="#">Root node 1</a>
+			<ul>
+				<li id="phtml_2">
+					<a href="#">Child node 1</a>
+				</li>
+				<li id="phtml_3">
+					<a href="#">Child node 2</a>
+				</li>
+			</ul>
+		</li>
+		<li id="phtml_4">
+			<a href="#">Root node 2</a>
+		</li>
+	</ul>
+</div>
+<script type="text/javascript">
+$(function () {
+	$("#demo1").jstree({ 
+    core: {
+      animation: 200,
+      //initially_open: ["phtml_1", "phtml_3"]
+      initially_open: []
+    },
+		plugins : ["themes", "html_data", "ui", "contextmenu"],
+    themes: {
+      dots: false
+    },
+    contextmenu: {
+			show_at_node : false,
+      items: function(node) {
+        return {
+          "create" : {
+            "separator_before"	: false,
+            "separator_after"	: true,
+            "label"				: "Create",
+            "action"			: function (obj) { this.create(obj); }
+          },
+          "rename" : {
+            "separator_before"	: false,
+            "separator_after"	: false,
+            "label"				: "Rename",
+            "action"			: function (obj) { this.rename(obj); }
+          }
+        }
+      }
+    }
+	});
+});
+</script>
+
 <?php  
+return;
 
   // peel fkt parameter from url string
   function get_fkt($url) {
