@@ -44,6 +44,7 @@
 
 .jstree-default a.jstree-search { color:aqua; }
 
+#vakata-contextmenu {text-align:left;}
 #vakata-contextmenu.jstree-default-context, 
 #vakata-contextmenu.jstree-default-context li ul { background:#f0f0f0; border:1px solid #979797; -moz-box-shadow: 1px 1px 2px #999; -webkit-box-shadow: 1px 1px 2px #999; box-shadow: 1px 1px 2px #999; }
 #vakata-contextmenu.jstree-default-context li { }

@@ -203,26 +203,6 @@ class Request extends ZMRequest {
     public function getCategoryPath() { return $this->getParameter('cPath', null); }
 
     /**
-     * Get the category path arry.
-     *
-     * @return array The current category path broken into an array of category ids.
-     */
-    public function getCategoryPathArray() {
-        $path = $this->getParameter('cPath');
-        $cPath = array();
-        if (null !== $path) {
-            $path = explode('_', $path);
-            foreach ($path as $categoryId) {
-                $categoryId = (int)$categoryId;
-                if (!in_array($categoryId, $cPath)) {
-                    $cPath[] = $categoryId;
-                }
-            }
-        }
-        return $cPath;
-    }
-
-    /**
      * Get the current category id.
      *
      * @return int The current category id or <code>0</code>.

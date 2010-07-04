@@ -19,42 +19,59 @@
  */
 ?>
 
+<?php
+    /**
+     * Build category tree as simple unordered list.
+     *
+     * @param ZMRequest request The current request.
+     * @param array categories List of root categories; default is <code>null</code>.
+     * @param boolean start Flag to indicate start of recursion; default is <code>true</code>.
+     * @return string The created HTML.
+     */
+    function _admin_category_tree($request, $categories=null, $start=true) {
+        $toolbox = $request->getToolbox();
+        $path = $request->getCategoryPathArray();
+        if ($start) { 
+            ob_start(); 
+            if (null === $categories) {
+                $languageId = $request->getSelectedLanguage()->getId();
+                $categories = ZMCategories::instance()->getCategoryTree($languageId);
+            }
+        }
+        echo '<ul>';
+        foreach ($categories as $category) {
+            $active = in_array($category->getId(), $path);
+            $cparams = $params.'&'.$category->getPath();
+            echo '<li id="ct-'.$category->getId().'">';
+            echo '<a href="#">'.ZMHtmlUtils::encode($category->getName()).'</a>';
+            if ($category->hasChildren()) {
+                _admin_category_tree($request, $category->getChildren(), false);
+            }
+            echo '</li>';
+        }
+        echo '</ul>';
+
+        if ($start) { 
+            return ob_get_clean();
+        }
+
+        return '';
+    }
+?>
+
 <?php $resources->cssFile('style/catalog-tree/style.css') ?>
 <?php $resources->jsFile('js/jquery.jstree.min.js') ?>
 
-<div id="demo1" class="demo">
-	<ul>
-		<li id="phtml_1">
-			<a href="#">Root node 1</a>
-			<ul>
-				<li id="phtml_2">
-					<a href="#">Child node 1</a>
-          <ul>
-            <li id="phtml_5">
-              <a href="#">Grandchild 5</a>
-            </li>
-            <li id="phtml_6">
-              <a href="#">Grandchild 6 a bit longer</a>
-            </li>
-          </ul>
-				</li>
-				<li id="phtml_3">
-					<a href="#">Child node 2</a>
-				</li>
-			</ul>
-		</li>
-		<li id="phtml_4">
-			<a href="#">Root node 2</a>
-		</li>
-	</ul>
+<div id="category-tree">
+<?php echo _admin_category_tree($request); ?>
 </div>
+
 <script type="text/javascript">
 $(function () {
-	$("#demo1").jstree({ 
+	$("#category-tree").jstree({ 
     core: {
       animation: 200,
-      //initially_open: ["phtml_1", "phtml_3"]
-      initially_open: []
+      initially_open: ["ct-3"]
     },
 		plugins : ["themes", "html_data", "ui", "contextmenu"],
     themes: {

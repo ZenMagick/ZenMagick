@@ -87,4 +87,24 @@ class Request extends ZMRequest {
         return false;
     }
 
+    /**
+     * Get the category path arry.
+     *
+     * @return array The current category path broken into an array of category ids.
+     */
+    public function getCategoryPathArray() {
+        $path = $this->getParameter('cPath');
+        $cPath = array();
+        if (null !== $path) {
+            $path = explode('_', $path);
+            foreach ($path as $categoryId) {
+                $categoryId = (int)$categoryId;
+                if (!in_array($categoryId, $cPath)) {
+                    $cPath[] = $categoryId;
+                }
+            }
+        }
+        return $cPath;
+    }
+
 }
