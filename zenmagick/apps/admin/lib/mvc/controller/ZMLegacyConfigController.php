@@ -59,6 +59,11 @@ class ZMLegacyConfigController extends ZMController {
      */
     public function processPost($request) {
         $groupId = $request->getParameter('groupId');
+
+        if ($request->handleDemo()) {
+            return $this->findView('success-demo', array(), array('parameter' => 'groupId='.$groupId));
+        }
+
         $group = ZMConfig::instance()->getConfigGroupForId($groupId);
         $groupValues = ZMConfig::instance()->getValuesForGroupId($groupId);
 

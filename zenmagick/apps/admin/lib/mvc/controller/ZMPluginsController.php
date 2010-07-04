@@ -117,6 +117,10 @@ class ZMPluginsController extends ZMController {
      * {@inheritDoc}
      */
     public function processPost($request) {
+        if ($request->handleDemo()) {
+            return $this->findView('success-demo');
+        }
+
         $action = $request->getParameter('action');
         $pluginId = $request->getParameter('pluginId');
         $group = $request->getParameter('group');
@@ -158,31 +162,6 @@ class ZMPluginsController extends ZMController {
         // do this last once all changes are made
         $this->refreshPluginStatus();
         return $this->findView($viewId);
-        // TODO: process...
-
-
-    // update
-    if ('POST' == $request->getMethod() && null !== ($pluginId = $request->getParameter('pluginId'))) {
-        $plugin = ZMPlugins::instance()->initPluginForId($pluginId, false);
-        foreach ($plugin->getConfigValues() as $widget) {
-            if ($widget instanceof ZMFormWidget && null !== ($value = $request->getParameter($widget->getName()))) {
-                if (!$widget->compare($value)) {
-                    // value changed, use widget to (optionally) format value
-                    $widget->setValue($value);
-                    $plugin->set($widget->getName(), $widget->getStringValue());
-                }
-            }
-        }
-        $refresh = $pluginId;
-        $needRefresh = true;
-        $editPlugin = $plugin;
-    }
-
-
-
-
-        $this->refreshPluginStatus();
-        return $this->findView('success');
     }
 
 }

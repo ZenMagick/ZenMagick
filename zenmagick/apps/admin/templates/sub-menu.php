@@ -19,7 +19,7 @@
  */
 ?>
 <div id="sub-menu">
-  <div id="common">
+  <div id="sub-common">
     <?php $root = ZMAdminMenu::getRootItemForRequestId($request->getRequestId()); ?>
     <?php if (null != $root) { ?>
       <?php foreach (ZMAdminMenu::getItemsForParent($root['id']) as $sub) { ?>

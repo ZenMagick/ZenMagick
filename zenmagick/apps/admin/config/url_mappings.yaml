@@ -2,6 +2,8 @@ null:
   error:
     template: error
     layout: 
+  success-demo:
+    view: RedirectView
     
 login:
   success:

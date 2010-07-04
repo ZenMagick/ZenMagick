@@ -40,6 +40,7 @@
 
     ZMAdminMenu::setItem(array('parentId' => 'tools', 'id' => 'tools-dev', 'title' => _zm('Development')));
     ZMAdminMenu::setItem(array('parentId' => 'tools-dev', 'requestId' => 'l10n', 'title' => _zm('Translation Helper')));
+    ZMAdminMenu::setItem(array('parentId' => 'tools-dev', 'requestId' => 'theme_builder', 'title' => _zm('Theme Builder')));
     ZMAdminMenu::setItem(array('parentId' => 'tools-dev', 'requestId' => 'console', 'title' => _zm('Console')));
 
     // configuration

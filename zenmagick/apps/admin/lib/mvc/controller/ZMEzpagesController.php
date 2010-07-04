@@ -63,6 +63,10 @@ class ZMEzpagesController extends ZMController {
      * {@inheritDoc}
      */
     public function processPost($request) {
+        if ($request->handleDemo()) {
+            return $this->findView('success-demo');
+        }
+
         if (null !== ($ezPageId = $request->getParameter('updateId'))) {
             $ezPageId = (int)$ezPageId;
             $languageId = $request->getParameter('languageId');

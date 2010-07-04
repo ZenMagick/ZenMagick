@@ -71,4 +71,20 @@ class Request extends ZMRequest {
         return ZMLanguages::instance()->getLanguageForId($selectedLanguageId);
     }
 
+    /**
+     * Deal with demo user.
+     *
+     * <p>Will create a message that the requested functionallity is not availale for demo users.</p>
+     *
+     * @return boolean <code>true</code> if the current user is a demo user.
+     */
+    public function handleDemo() {
+        if ($this->getUser()->isDemo()) {
+            ZMMessages::instance()->warn(_zm('Sorry, the action you tried to excute is not available to demo users'));
+            return true; 
+        }
+
+        return false;
+    }
+
 }

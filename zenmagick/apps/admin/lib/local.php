@@ -23,12 +23,24 @@
     //TODO: this is default as the password column is restricted to 40 chars
     ZMAuthenticationManager::instance()->addProvider('ZenCartAuthentication', true);
 
+    /**
+     * Custom admin event handler for various things.
+     */
+    class ZMAdminEventHandler {
+        /**
+         * Display message about invalid/insufficient credentional
+         */
+        public function onZMInsufficientCredentials($args) {
+            ZMMessages::instance()->warn(sprintf(_zm('You are not allowed to access the page with id: <em>%s</em>'), $args['request']->getRequestId()));
+        }
 
-    class ZMViewFixer {
+        /**
+         * Add <em>currentLanguage</em> to all views.
+         */
         public function onZMViewStart($args) {
             $request = $args['request'];
             $view = $args['view'];
             $view->setVar('currentLanguage', $request->getSelectedLanguage());
         }
     }
-    ZMEvents::instance()->attach(new ZMViewFixer());
+    ZMEvents::instance()->attach(new ZMAdminEventHandler());
