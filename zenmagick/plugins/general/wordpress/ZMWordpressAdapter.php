@@ -51,35 +51,38 @@ class ZMWordpressAdapter extends ZMObject {
     /**
      * Check for duplicate nickname.
      *
-     * @param array req The request data.
+     * @param ZMRequest request The current request.
+     * @param array data The data.
      * @return boolean <code>true</code> if the nickname is valid, <code>false</code> if not.
      */
-    public function vDuplicateNickname($req) {
-        return validate_username($req['nickName']);
+    public function vDuplicateNickname($request, $data) {
+        return validate_username($data['nickName']);
     }
 
     /**
      * Check for duplicate email address.
      *
-     * @param array req The request data.
+     * @param ZMRequest request The current request.
+     * @param array data The data.
      * @return boolean <code>true</code> if the email is valid, <code>false</code> if not.
      */
-    public function vDuplicateEmail($req) {
-		    return ZMLangUtils::isEmpty(email_exists($req['email']));
+    public function vDuplicateEmail($request, $data) {
+		    return ZMLangUtils::isEmpty(email_exists($data['email']));
     }
 
     /**
      * Check for duplicate email address if different from current account email address.
      *
-     * @param array req The request data.
+     * @param ZMRequest request The current request.
+     * @param array data The data.
      * @return boolean <code>true</code> if the email is valid, <code>false</code> if not.
      */
-    public function vDuplicateChangedEmail($req) {
+    public function vDuplicateChangedEmail($request, $data) {
         // the current account
         $account = ZMRequest::instance()->getAccount();
-        if ($account->getEmail() != $req['email']) {
+        if ($account->getEmail() != $data['email']) {
             // changed
-            return $this->vDuplicateEmail($req);
+            return $this->vDuplicateEmail($request, $data);
         }
         return true;
     }
