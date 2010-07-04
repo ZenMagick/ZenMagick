@@ -66,6 +66,11 @@ class ZMRequest extends ZMObject {
             $this->parameter_ = array_merge($_POST, $_GET);
         }
 
+        if (ZMLangUtils::isEmpty($this->getRequestId())) {
+            // empty string is not null!
+            $this->setRequestId(null);
+        }
+
         $this->setMethod($_SERVER['REQUEST_METHOD']);
         $this->controller_ = null;
         $this->session_ = null;
