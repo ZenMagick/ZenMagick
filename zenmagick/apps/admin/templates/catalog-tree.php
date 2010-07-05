@@ -75,7 +75,7 @@ $(function () {
     },
 		plugins : ["themes", "html_data", "ui", "contextmenu"],
     themes: {
-      dots: false
+      dots: true
     },
     contextmenu: {
 			show_at_node : false,
@@ -96,6 +96,9 @@ $(function () {
         }
       }
     }
+	});
+	$("#category-tree a").click(function(elem) {
+      window.location = this.href;
 	});
 });
 </script>
