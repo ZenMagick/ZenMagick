@@ -3,9 +3,6 @@
  * ZenMagick - Another PHP framework.
  * Copyright (C) 2006-2010 zenmagick.org
  *
- * Portions Copyright (c) 2003 The zen-cart developers
- * Portions Copyright (c) 2003 osCommerce
- *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or (at
@@ -75,7 +72,7 @@ class ZMQueryPager extends ZMObject {
         $sql = '';
         foreach ($this->filters_ as $filter) {
             if (!empty($sql)) {
-                $sql .= ' and ';
+                $sql .= ' AND ';
             }
             $sql .= $filter;
         }
@@ -92,45 +89,57 @@ class ZMQueryPager extends ZMObject {
             $queryDetails = $this->queryDetails_;
             $sql = $queryDetails->getSql();
 
-            $pos_to = strlen($sql);
-            $query_lower = strtolower($sql);
+            // split SQL
+            $lcSql = strtolower($sql);
+            // length of SQL to process
+            $posTo = strlen($sql);
 
-            $pos_select = strpos($query_lower, 'select ', 0);
+            // get some positions
+            $posSelect = strpos($lcSql, 'select ', 0);
+            $posFrom = strpos($lcSql, ' from', $posSelect);
+            $posWhere = strpos($lcSql, ' where', $posFrom);
+            $posGroupBy = strpos($lcSql, ' group by', $posFrom);
 
-            $pos_from = strpos($query_lower, ' from', $pos_select);
+            // reduce to essential query
 
-            $pos_where = strpos($query_lower, ' where', $pos_from);
-
-            $pos_group_by = strpos($query_lower, ' group by', $pos_from);
-            if (($pos_group_by < $pos_to) && ($pos_group_by != false)) { $pos_to = $pos_group_by; }
-
-            $pos_having = strpos($query_lower, ' having', $pos_from);
-            if (($pos_having < $pos_to) && ($pos_having != false)) { $pos_to = $pos_having; }
-
-            $pos_order_by = strpos($query_lower, ' order by', $pos_from);
-            if (($pos_order_by < $pos_to) && ($pos_order_by != false)) { $pos_to = $pos_order_by; }
-
-            if (null == ($count_string = $queryDetails->getCountCol())) {
-                $count_string = trim(preg_replace('/distinct/i', '', substr($sql, $pos_select+7, $pos_from-6)));
-            }
-            if (strpos($query_lower, 'distinct') || strpos($query_lower, 'group by')) {
-                $count_string = 'distinct '.$count_string;
+            // strip group by
+            if ($posGroupBy < $posTo && $posGroupBy !== false) {
+                $posTo = $posGroupBy;
             }
 
-            // count total results
-            $count_query = "select count(" . $count_string . ") as total " . substr($sql, $pos_from, ($pos_to - $pos_from));
+            // strip having
+            $posHaving = strpos($lcSql, ' having', $posFrom);
+            if ($posHaving < $posTo && $posHaving !== false) {
+                $posTo = $posHaving;
+            }
+
+            $posOrderBy = strpos($lcSql, ' order by', $posFrom);
+            if ($posOrderBy < $posTo && $posOrderBy !== false) {
+                $posTo = $posOrderBy;
+            }
+
+            // create count over selected data
+            if (null == ($countSql = $queryDetails->getCountCol())) {
+                $countSql = trim(preg_replace('/distinct/i', '', substr($sql, $posSelect+7, $posFrom-6)));
+            }
+            if (strpos($lcSql, 'distinct') || strpos($lcSql, 'group by')) {
+                $countSql = 'distinct '.$countSql;
+            }
+
+            // count results
+            $getTotalSql = "select count(" . $countSql . ") as total " . substr($sql, $posFrom, ($posTo - $posFrom));
 
             // apply filters (if any)
             $filter = $this->getFilterSQL();
             if (!empty($filter)) {
-                if (false === $pos_where) {
-                      $count_query .= ' where '.$filter;
+                if (false === $posWhere) {
+                      $getTotalSql .= ' where '.$filter;
                 } else {
-                      $count_query .= ' and '.$filter;
+                      $getTotalSql .= ' and '.$filter;
                 }
             }
 
-            $result = $queryDetails->getDatabase()->querySingle($count_query, $queryDetails->getArgs(), $queryDetails->getMapping(), ZMDatabase::MODEL_RAW);
+            $result = $queryDetails->getDatabase()->querySingle($getTotalSql, $queryDetails->getArgs(), $queryDetails->getMapping(), ZMDatabase::MODEL_RAW);
             $this->totalResultsCount_ = (int)$result['total'];
         }
 
@@ -146,14 +155,18 @@ class ZMQueryPager extends ZMObject {
      */
     public function getResults($page, $pagination) {
         $sql = $this->queryDetails_->getSql();
-        $query_lower = strtolower($sql);
+        $lcSql = strtolower($sql);
 
+        // calcualte offset
         $total = $this->getTotalNumberOfResults();
-        $number_of_pages = ceil($total / $pagination);
         $offset = ($pagination * ($page - 1));
-        if ($offset < 0) { $offset = 0; }
+        if ($offset < 0) {
+            // just in case
+            $offset = 0;
+        }
+
         if (!empty($this->orderBy_)) {
-            if (false !== ($pos = strpos($query_lower, 'order by'))) {
+            if (false !== ($pos = strpos($lcSql, 'order by'))) {
                 // keep original order also
                 $sql = preg_replace('/order by /i', 'order by '.$this->orderBy_.',', $sql);
             } else {
@@ -161,25 +174,27 @@ class ZMQueryPager extends ZMObject {
             }
         }
 
+        // apply filter
         $filter = $this->getFilterSQL();
         if (!empty($filter)) {
-            $pos_from = strpos($query_lower, ' from', 0);
-            $pos_where = strpos($query_lower, ' where', $pos_from);
-            if (false !== $pos_where) {
+            $posFrom = strpos($lcSql, ' from', 0);
+            $posWhere = strpos($lcSql, ' where', $posFrom);
+            if (false !== $posWhere) {
                 $sql = preg_replace('/ where /i', ' where '.$filter.' and ', $sql);
             } else {
-                $pos_insert = strlen($sql);
-                if (false !== ($pos_group_by = strpos($query_lower, ' group by', $pos_from))) {
-                    $pos_insert = $pos_group_by;
-                } else if (false !== ($pos_having = strpos($query_lower, ' having', $pos_from))) {
-                    $pos_insert = $pos_having;
-                } else if (false !== ($pos_order_by = strpos($query_lower, ' order by', $pos_from))) {
-                    $pos_insert = $pos_order_by;
+                $posInsert = strlen($sql);
+                if (false !== ($posGroupBy = strpos($lcSql, ' group by', $posFrom))) {
+                    $posInsert = $posGroupBy;
+                } else if (false !== ($posHaving = strpos($lcSql, ' having', $posFrom))) {
+                    $posInsert = $posHaving;
+                } else if (false !== ($posOrderBy = strpos($lcSql, ' order by', $posFrom))) {
+                    $posInsert = $posOrderBy;
                 }
-                $sql = substr($sql, 0, $pos_insert) . ' where ' . $filter . substr($sql, $pos_insert);
+                $sql = substr($sql, 0, $posInsert) . ' where ' . $filter . substr($sql, $posInsert);
             }
         }
 
+        // limit to current page
         $sql .= " limit " . $offset . ", " . $pagination;
         return $this->queryDetails_->query($sql);
     }
