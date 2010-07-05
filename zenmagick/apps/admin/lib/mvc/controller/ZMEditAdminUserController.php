@@ -76,6 +76,10 @@ class ZMEditAdminUserController extends ZMController {
      * {@inheritDoc}
      */
     public function processPost($request) {
+        if ($request->handleDemo()) {
+            return $this->findView('success');
+        }
+
         if (null != ($editUserId = $request->getParameter('adminUserId'))) {
             $adminUserForm = $this->getFormData($request);
 
