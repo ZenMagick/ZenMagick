@@ -1,15 +1,19 @@
 /*
-
-MODIFIED by p.hailey@virgin.net ie 6 fix attempt see zencart forum IH2 thread
-
 Simple Image Trail script- By JavaScriptKit.com
 Visit http://www.javascriptkit.com for this script and more
 This notice must stay intact
 
+Image Handler Jscript
+Version 4.2
+fix for horizontalscrollbar 23 june 2010
+This version brings in Opera support, and fixes the webkit (Safari and Chrome) Bugs
+Modified by Nigel Thomson (nigel@nigel.geek.nz) 12 June 2010
+http://nigeltsblog.blogspot.com/2010/06/zencart-image-handler-webkit-and-opera.html
+
+MODIFIED by p.hailey@virgin.net ie 6 fix attempt see zencart forum IH2 thread
 Modified by Tim Kroeger (tim@breakmyzencart.com) for use with
 image handler 2 and better cross browser functionality
 */
-
 var offsetfrommouse=[10,10]; //image x,y offsets from cursor position in pixels. Enter 0,0 for no offset
 var displayduration=0; //duration in seconds image should remain visible. 0 for always.
 var currentimageheight = 400;	// maximum image size.
@@ -19,6 +23,17 @@ var padding=10; // padding must by larger than specified div padding in stylessh
 // Defined in "showtrail()", used in "followmouse()"
 var zoomimg_w=0;
 var zoomimg_h=0;
+var vpos;
+//Detect IE
+var stIsIE = /*@cc_on!@*/false;
+//detect opera
+var isOpera =
+	window.opera?1:0;
+// Detect Webkit browsers
+var isWebKit =
+  navigator.userAgent.indexOf("AppleWebKit") > -1;
+//removes default browser tooltip
+//$("img").removeAttr("alt");
 
 
 if (document.getElementById || document.all){
@@ -44,15 +59,18 @@ function gettrail(){
 }
 
 function truebody(){
+if (isWebKit){
+  return document.body;
+  }else if (isOpera) {
+  return document.documentElement;
+  }else{
   return (!window.opera && document.compatMode && document.compatMode!="BackCompat")? document.documentElement : document.body
+  }
 }
 
 function showtrail(imagename,title,oriwidth,oriheight,zoomimgwidth,zoomimgheight, image, startx, starty, startw, starth){
 	zoomimg_w=zoomimgwidth;
 	zoomimg_h=zoomimgheight;
-  //if (oriwidth > 0){ offsetfrommouse[0] = oriwidth; }
-  //if (oriheight > 0){ offsetfrommouse[1] = -1 *(zoomimgheight-oriheight)/2 - 40; }
-  // alert (offsetfrommouse[0] + "," + offsetfrommouse[1]);
   if (zoomimgheight > 0){ currentimageheight = zoomimgheight; }
   trailobj = gettrail().obj;
   trailobj.style.width=(zoomimgwidth+(2*padding))+"px";
@@ -78,15 +96,16 @@ function followmouse(e){
 
   var xcoord=offsetfrommouse[0];
   var ycoord=offsetfrommouse[1];
-
+if (stIsIE){
   var docwidth=document.all? truebody().scrollLeft+truebody().clientWidth : pageXOffset+window.innerWidth-15;
   var docheight=document.all? Math.min(truebody().scrollHeight, truebody().clientHeight) : Math.min(window.innerHeight);
+}
+else
+{
+  var docwidth=pageXOffset+window.innerWidth-15;
+  var docheight=Math.min(window.innerHeight);
 
-  //if (document.all){
-  //	trail.obj.innerHTML = 'A = ' + truebody().scrollHeight + '<br>B = ' + truebody().clientHeight;
-  //} else {
-  //	trail.obj.innerHTML = 'C = ' + document.body.offsetHeight + '<br>D = ' + window.innerHeight;
-  //}
+}
   var relativeX = null;
   var relativeY = null;
   if (typeof e != "undefined"){
@@ -94,10 +113,11 @@ function followmouse(e){
       relativeX = e.layerX;
       relativeY = e.layerY;
     } else if ((typeof e.x != "undefined") && (typeof e.y != "undefined")) {
-      relativeX = e.x;
-      relativeY = e.y;
+//      relativeX = e.x; // original code replaced to work with Opera
+//      relativeY = e.y; // original code replaced to work with Opera
+      relativeX = event.offsetX;
+      relativeY = event.offsetX;
     }
-
     if (docwidth - e.pageX < zoomimg_w + (3 * padding)) {
       xcoord = e.pageX - xcoord - zoomimg_w - (2 * offsetfrommouse[0]);
     } else {
@@ -105,10 +125,12 @@ function followmouse(e){
     }
     if (docheight - e.pageY < zoomimg_h + (2 * padding)){
       ycoord += e.pageY - Math.max(0,(0 + zoomimg_h + (5 * padding) + e.pageY - docheight - truebody().scrollTop));
+	  // returning different values for ff and (opera and webkit) - fixed 12th june 2010
     } else {
       ycoord += e.pageY;
     }
-  } else if (typeof window.event != "undefined"){
+
+  } else if (typeof window.event != "undefined"){ // Seems to be IE
     if ((typeof event.x != "undefined") && (typeof event.y != "undefined")) {
       relativeX = event.x;
       relativeY = event.y;
@@ -143,14 +165,19 @@ var ie_offset = -20;
   title     = trail.obj.getAttribute("imgtitle");
 
   // calculate and set position BEFORE switching to visible
+if (stIsIE){
   var docwidth=document.all? truebody().scrollLeft+truebody().clientWidth : pageXOffset+window.innerWidth-15;
   var docheight=document.all? Math.max(truebody().scrollHeight, truebody().clientHeight) : Math.max(document.body.offsetHeight, window.innerHeight);
+}else{
+  var docwidth=pageXOffset+window.innerWidth-15;
+  var docheight=Math.max(document.body.offsetHeight, window.innerHeight);
+}
+
   if(ycoord < 0) { ycoord = ycoord*-1; }
   if ((trail.style.left == "-2000px") || (trail.style.left == "")) { trail.style.left=xcoord+"px"; }
   if ((trail.style.top == "-2000px") || (trail.style.top == "")) { trail.style.top=ycoord+"px"; }
   trail.style.left=xcoord+"px";
   trail.style.top=ycoord+"px";
-//	alert (trail.style.left+","+trail.style.top);
 
   if (trail.style.visibility != "visible") {
     if (((relativeX == null) || (relativeY == null)) ||
