@@ -6,3 +6,5 @@
 
 zenmagick.mvc.templates.ext: .tpl
 zenmagick.mvc.seo.type: realpath
+
+zenmagick.core.locale.provider: YamlLocale
