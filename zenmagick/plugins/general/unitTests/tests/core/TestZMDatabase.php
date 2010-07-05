@@ -28,7 +28,7 @@
  * @version $Id$
  */
 class TestZMDatabase extends ZMTestCase {
-    static $PROVIDERS = array('ZMCreoleDatabase', 'ZMZenCartDatabase', 'ZMPdoDatabase');
+    static $PROVIDERS = array('ZMZenCartDatabase', 'ZMPdoDatabase');
 
 
     /**
