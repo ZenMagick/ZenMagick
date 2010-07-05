@@ -31,6 +31,13 @@ interface ZMLocale {
     const DEFAULT_DOMAIN = 'defaults';
 
     /**
+     * Init locale.
+     *
+     * @param string language The language code; for exampe <em>de_DE</em> or <em>en_NZ</em>.
+     */
+    public function init($language);
+
+    /**
      * Translate the given text.
      *
      * @param string text The text to translate.

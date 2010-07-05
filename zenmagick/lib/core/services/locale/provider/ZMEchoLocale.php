@@ -32,6 +32,13 @@ class ZMEchoLocale implements ZMLocale {
     /**
      * {@inheritDoc}
      */
+    public function init($language) {
+        // nothing
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function translate($text, $context=null, $domain=ZMLocale::DEFAULT_DOMAIN) {
         return $text;
     }

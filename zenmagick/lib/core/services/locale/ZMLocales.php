@@ -76,6 +76,13 @@ class ZMLocales extends ZMObject implements ZMLocale {
     /**
      * {@inheritDoc}
      */
+    public function init($language) {
+        $this->getLocale()->init($language);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function translate($text, $context=null, $domain=ZMLocale::DEFAULT_DOMAIN) {
         return $this->getLocale()->translate($text, $context, $domain);
     }

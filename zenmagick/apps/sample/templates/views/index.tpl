@@ -1,4 +1,4 @@
-<h1><?php echo _zm('Hello world!') ?></h1>
+<h1><?php _vzm('Hello world!') ?></h1>
 
 <?php if (ZMMessages::instance()->hasMessages()) { ?>
     <ul id="messages">
@@ -13,8 +13,8 @@
   // change messages
   // NOTE: these change the JS messages only
   zmFormValidation.messages = {
-    'alreadySubmitted': 'Please be patient!',
-    'errors': "Oopsey, why such a hurry?\n\n"
+    'alreadySubmitted': '<?php _vzm('Please be patient!') ?>',
+    'errors': "<?php _vzm("Oopsey, why such a hurry?\n\n") ?>"
   };
 </script>
 
@@ -22,16 +22,16 @@
 <?php echo ZMValidator::instance()->toJSString('mynameForm'); ?>
 
 <form action="<?php echo $request->url() ?>" id="mynameForm" onsubmit="return zmFormValidation.validate(this);" method="POST">
-  <p>Tell me your name?</p>
+  <p><?php _vzm('Tell me your name?') ?></p>
   <p>
     <input type="text" name="myname" value="">
     <input type="submit" value="submit">
   </p>
 </form>
 <?php if (isset($name)) { ?>
-  <p>Your name is: <?php echo $name ?>.</p>
+  <p><?php _vzm('Your name is: %s.', $name) ?></p>
 <?php } ?>
-<p>Context is: '<?php echo $request->getContext() ?>'</p>
+<p><?php echo sprintf(_zm('Context is: %s', $request->getContext())) ?></p>
 
-<p><a href="<?php echo $request->url(null, 'clear=true', true) ?>">Clear session</a></p>
-<p><a href="<?php echo $request->url('about') ?>">About</a></p>
+<p><a href="<?php echo $request->url(null, 'clear=true', true) ?>"><?php _vzm('Clear session') ?></a></p>
+<p><a href="<?php echo $request->url('about') ?>"><?php _vzm('About') ?></a></p>

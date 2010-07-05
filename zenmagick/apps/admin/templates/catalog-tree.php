@@ -29,8 +29,8 @@
      * @return string The created HTML.
      */
     function _admin_category_tree($request, $categories=null, $start=true) {
-        $toolbox = $request->getToolbox();
-        $path = $request->getCategoryPathArray();
+        $admin2 = $request->getToolbox()->admin2;
+        $path = $admin2->getCategoryPathArray();
         if ($start) { 
             ob_start(); 
             if (null === $categories) {
@@ -43,7 +43,7 @@
             $active = in_array($category->getId(), $path);
             $cparams = $params.'&'.$category->getPath();
             echo '<li id="ct-'.$category->getId().'">';
-            echo '<a href="#">'.ZMHtmlUtils::encode($category->getName()).'</a>';
+            echo '<a href="'.$admin2->url('catalog', $category->getPath()).'">'.ZMHtmlUtils::encode($category->getName()).'</a>';
             if ($category->hasChildren()) {
                 _admin_category_tree($request, $category->getChildren(), false);
             }
@@ -63,7 +63,7 @@
 <?php $resources->jsFile('js/jquery.jstree.min.js') ?>
 
 <div id="category-tree">
-<?php echo _admin_category_tree($request); ?>
+  <?php echo _admin_category_tree($request); ?>
 </div>
 
 <script type="text/javascript">

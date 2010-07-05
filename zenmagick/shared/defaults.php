@@ -166,7 +166,7 @@
             'configureLocale' => false,
 
             // same as zm_10n / zm_l10n_get
-            'zenmagick.core.locale.provider' => 'ThemeYamlLocale',
+            'zenmagick.core.locale.provider' => 'YamlLocale',
 
             // default to default in ZM themes
             'isEnableThemeDefaults' => true,

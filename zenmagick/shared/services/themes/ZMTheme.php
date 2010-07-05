@@ -351,7 +351,7 @@ class ZMTheme extends ZMObject {
         $path = $this->getLangDir().$language->getDirectory().DIRECTORY_SEPARATOR;
         $l10n = $path . "l10n.yaml";
         if (file_exists($l10n)) {
-            if (null != ($locale = ZMLocales::instance()->getLocale()) && $locale instanceof ZMThemeYamlLocale) {
+            if (null != ($locale = ZMLocales::instance()->getLocale()) && $locale instanceof ZMYamlLocale) {
                 $translations = ZMRuntime::yamlLoad(file_get_contents($l10n));
                 $locale->addTanslations($translations);
             }

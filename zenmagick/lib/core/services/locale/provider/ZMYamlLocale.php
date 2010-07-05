@@ -22,12 +22,12 @@
 
 
 /**
- * Locale driven by theme yaml files per language.
+ * Locale driven by a single yaml file per language.
  *
  * @author DerManoMann
- * @package zenmagick.store.shared.provider
+ * @package org.zenmagick.core.services.locale
  */
-class ZMThemeYamlLocale implements ZMLocale {
+class ZMYamlLocale implements ZMLocale {
     private $translations_;
 
 
@@ -46,22 +46,20 @@ class ZMThemeYamlLocale implements ZMLocale {
 
 
     /**
-     * Add translation.
-     *
-     * @param string text The original text.
-     * @param string translation The translated text.
-     */
-    public function addTanslation($text, $translation) {
-        $this->translations_[$text] = $translation;
-    }
-
-    /**
      * Add translations.
      *
      * @param array translations Map of translations.
      */
     public function addTanslations($translations) {
         $this->translations_ = array_merge($this->translations_, $translations);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function init($language) {
+        $path = ZMFileUtils::mkPath(array(ZMRuntime::getApplicationPath(), 'locale', $language, 'LC_MESSAGES', 'messages.yaml'));
+        $this->translations_ = ZMRuntime::yamlLoad(@file_get_contents($path));
     }
 
     /**
