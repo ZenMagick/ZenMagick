@@ -414,6 +414,8 @@
 
             // show privacy message
             'isPrivacyMessage' => DISPLAY_PRIVACY_CONDITIONS == 'true',
+            // t&c message during checkout
+            'isConditionsMessage' => DISPLAY_CONDITIONS_ON_CHECKOUT == 'true',
 
             // allow unsubscribe without logging in
             'isAllowAnonymousUnsubscribe' => true,

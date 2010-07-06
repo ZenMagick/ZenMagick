@@ -36,6 +36,16 @@
 <?php echo $shoppingCart->getPaymentsJavaScript() ?>
 
 <?php echo $form->open(FILENAME_CHECKOUT_CONFIRMATION, '', array('id'=>'checkout_payment')) ?>
+  <?php if (ZMSettings::get('isConditionsMessage')) { ?>
+      <fieldset>
+          <legend><?php _vzm("Terms and Conditions") ?></legend>
+          <p>
+              <?php _vzm("Please acknowledge the terms and conditions bound to this order by ticking the following box.") ?></br>
+              <?php $href = '<a href="' . $net->staticPage('conditions') . '">' . _zm("here") . '</a>'; ?>
+              <?php _vzm("The terms and conditions can be read %s.", $href) ?></p>
+          <p><input type="checkbox" id="conditions" name="conditions" value="1" /><label for="conditions"><?php _vzm("I have read and agreed to the terms and conditions bound to this order.") ?></label></p>
+      </fieldset>
+  <?php } ?>
   <fieldset>
       <legend><?php _vzm("Order Totals") ?></legend>
       <table id="ot" cellspacing="0" cellpadding="0">
