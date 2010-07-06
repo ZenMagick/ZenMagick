@@ -31,7 +31,7 @@
  * @package org.zenmagick.plugins.quickEdit
  * @version $Id$
  */
-class ZMQuickEditTabController extends ZMPluginAdminController {
+class ZMQuickEditTabController extends ZMController implements ZMCatalogContentController {
     const STALE_CHECK_FIELD_PREFIX = '@_';
 
 
@@ -76,8 +76,7 @@ class ZMQuickEditTabController extends ZMPluginAdminController {
 
         $categoryId = $request->getCategoryId();
         $data['categoryId'] = $categoryId;
-
-        $productList = ZMProducts::instance()->getProductsForCategoryId($categoryId, false);
+        $productList = ZMProducts::instance()->getProductsForCategoryId($categoryId, false, $request->getSelectedLanguage()->getId());
         $data['productList'] = $productList;
 
         return $data;
@@ -114,7 +113,6 @@ class ZMQuickEditTabController extends ZMPluginAdminController {
                     $formData[$fieldMap[$field['name']]] = $widget->getStringValue();
                     $widget->setValue($request->getParameter(self::STALE_CHECK_FIELD_PREFIX.$fieldName, null, false));
                     $_formData[$fieldMap[$field['name']]] = $widget->getStringValue();
-                    //$_formData[$fieldMap[$field['name']]] = $request->getParameter(self::STALE_CHECK_FIELD_PREFIX.$fieldName);
                 }
             }
             // load product, convert to map and compare with the submitted form data
@@ -140,6 +138,27 @@ class ZMQuickEditTabController extends ZMPluginAdminController {
 
         // need to do this to for using PluginAdminView rather than SimplePluginFormView
         return $this->findView();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function isActive($request) {
+        return true;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getCatalogViewId() {
+        return 'quick_edit_tab';
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getName() {
+        return _zm('Quick Edit');
     }
 
 }

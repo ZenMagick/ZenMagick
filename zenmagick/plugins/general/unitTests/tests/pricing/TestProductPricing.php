@@ -35,7 +35,7 @@ class TestProductPricing extends ZMTestCase {
      * Test product base price.
      */
     public function testBasePrice() {
-        foreach (ZMProducts::instance()->getAllProducts(false) as $product) {
+        foreach (ZMProducts::instance()->getAllProducts(false, 1) as $product) {
             $offers = $product->getOffers();
             // without tax
             $this->assertEqual(zen_get_products_base_price($product->getId()), $offers->getBasePrice(false), '%s productId='.$product->getId());
@@ -46,7 +46,7 @@ class TestProductPricing extends ZMTestCase {
      * Test special price.
      */
     public function testSpecialPrice() {
-        foreach (ZMProducts::instance()->getAllProducts(false) as $product) {
+        foreach (ZMProducts::instance()->getAllProducts(false, 1) as $product) {
             $offers = $product->getOffers();
             // without tax
             $this->assertEqual(zen_get_products_special_price($product->getId(), true), $offers->getSpecialPrice(false), '%s productId='.$product->getId());
@@ -57,7 +57,7 @@ class TestProductPricing extends ZMTestCase {
      * Test sale price.
      */
     public function testSalePrice() {
-        foreach (ZMProducts::instance()->getAllProducts(false) as $product) {
+        foreach (ZMProducts::instance()->getAllProducts(false, 1) as $product) {
             $offers = $product->getOffers();
             // without tax
             $this->assertEqual(zen_get_products_special_price($product->getId(), false), $offers->getSalePrice(false), '%s productId='.$product->getId());

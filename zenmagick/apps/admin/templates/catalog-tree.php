@@ -30,7 +30,7 @@
      */
     function _admin_category_tree($request, $categories=null, $start=true) {
         $admin2 = $request->getToolbox()->admin2;
-        $path = $admin2->getCategoryPathArray();
+        $path = $request->getCategoryPathArray();
         if ($start) { 
             ob_start(); 
             if (null === $categories) {

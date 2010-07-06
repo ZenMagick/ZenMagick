@@ -59,7 +59,7 @@ class CategoryController extends ZMController {
         // decide what to do
         if (null != $request->getCategoryPath()) {
             $method = "getProductsForCategoryId";
-            $args = array($request->getCategoryId());
+            $args = array($request->getCategoryId(), $request->getLanguageId());
             $viewName = 'category_list';
         } else if (null != $request->getManufacturerId()) {
             $method = "getProductsForManufacturerId";

@@ -79,15 +79,10 @@ class ZMProducts extends ZMObject implements ZMSQLAware {
      * Get all products.
      *
      * @param boolean active If <code>true</code> return only active products; default is <code>true</code>.
-     * @param int languageId Optional language id; default is <code>null</code> for session language.
+     * @param int languageId Optional language id.
      * @return ZMQueryDetails Query details.
      */
-    protected function getAllProductsQueryDetails($active=true, $languageId=null) {
-        if (null === $languageId) {
-            $session = ZMRequest::instance()->getSession();
-            $languageId = $session->getLanguageId();
-        }
-
+    protected function getAllProductsQueryDetails($active=true, $languageId) {
         $sql = "SELECT p.*, pd.*, s.specials_new_products_price
                 FROM " . TABLE_PRODUCTS . " p 
                   LEFT JOIN " . TABLE_SPECIALS . " s ON (s.products_id = p.products_id AND s.status = 1), 
@@ -106,15 +101,10 @@ class ZMProducts extends ZMObject implements ZMSQLAware {
      * Get all products.
      *
      * @param boolean active If <code>true</code> return only active products; default is <code>true</code>.
-     * @param int languageId Optional language id; default is <code>null</code> for session language.
+     * @param int languageId Language id.
      * @return array A list of <code>ZMProduct</code> instances.
      */
-    public function getAllProducts($active=true, $languageId=null) {
-        if (null === $languageId) {
-            $session = ZMRequest::instance()->getSession();
-            $languageId = $session->getLanguageId();
-        }
-
+    public function getAllProducts($active=true, $languageId) {
         $sql = "SELECT p.products_id
                 FROM " . TABLE_PRODUCTS . " p, " .  TABLE_PRODUCTS_DESCRIPTION . " pd
                 WHERE ";
@@ -198,15 +188,10 @@ class ZMProducts extends ZMObject implements ZMSQLAware {
      *
      * @param int categoryId The category id.
      * @param boolean active If <code>true</code> return only active products; default is <code>true</code>.
-     * @param int languageId Optional language id; default is <code>null</code> for session language.
+     * @param int languageId Language id.
      * @return array A list of <code>ZMProduct</code> instances.
      */
-    protected function getProductsForCategoryIdQueryDetails($categoryId, $active=true, $languageId=null) {
-        if (null === $languageId) {
-            $session = ZMRequest::instance()->getSession();
-            $languageId = $session->getLanguageId();
-        }
-
+    protected function getProductsForCategoryIdQueryDetails($categoryId, $active=true, $languageId) {
         $sql = "SELECT p.*, pd.*, m.*, s.specials_new_products_price
                 FROM " . TABLE_PRODUCTS . " p 
                   LEFT JOIN " . TABLE_SPECIALS . " s ON (s.products_id = p.products_id AND s.status = 1)

@@ -25,33 +25,33 @@
 
 
 /**
- * Admin controller.
+ * Catalog content controller.
  *
  * @author DerManoMann
- * @package org.zenmagick.plugins.catalogDefault
- * @version $Id$
+ * @package zenmagick.store.shared.services
  */
-class ZMCatalogDefaultTabController extends ZMController implements ZMCatalogContentController {
+interface ZMCatalogContentController {
 
     /**
-     * {@inheritDoc}
+     * Query whether this content is active for the given request.
+     *
+     * @param ZMRequest request The current request.
+     * @return boolean <code>true</code> if the plugin requests to be rendered for this request.
      */
-    public function isActive($request) {
-        return true;
-    }
+    public function isActive($request);
 
     /**
-     * {@inheritDoc}
+     * Query the (catalog) view id this controller handles.
+     *
+     * @return string The view id this controller is responsible for.
      */
-    public function getCatalogViewId() {
-        return 'catalog_default_tab';
-    }
+    public function getCatalogViewId();
 
     /**
-     * {@inheritDoc}
+     * Get the name.
+     *
+     * @return string The name.
      */
-    public function getName() {
-        return _zm('Catalog Manager');
-    }
+    public function getName();
 
 }

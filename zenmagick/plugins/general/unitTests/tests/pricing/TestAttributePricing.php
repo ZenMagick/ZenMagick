@@ -45,7 +45,7 @@ class TestAttributePricing extends ZMTestCase {
      * Test attribute price.
      */
     public function testValuePrice() {
-        foreach (ZMProducts::instance()->getAllProducts(false) as $product) {
+        foreach (ZMProducts::instance()->getAllProducts(false, 1) as $product) {
             foreach ($product->getAttributes() as $attribute) {
                 foreach ($attribute->getValues() as $value) {
                     $priceInfo = $this->zen_cart_attribute_price_info['p'.$value->getAttributeValueDetailsId()];
@@ -60,7 +60,7 @@ class TestAttributePricing extends ZMTestCase {
      * Test one time price.
      */
     public function testValueOneTimePrice() {
-        foreach (ZMProducts::instance()->getAllProducts(false) as $product) {
+        foreach (ZMProducts::instance()->getAllProducts(false, 1) as $product) {
             foreach ($product->getAttributes() as $attribute) {
                 foreach ($attribute->getValues() as $value) {
                     $zprice = zen_get_attributes_price_final_onetime($value->getAttributeValueDetailsId(), 1, '');
