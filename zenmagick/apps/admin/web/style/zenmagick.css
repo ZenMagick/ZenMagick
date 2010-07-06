@@ -65,6 +65,12 @@ h1 {border-bottom:1px dotted black;padding:2px 5px;}
 /* login */
 #p-login #content {width:420px;margin:0 auto;}
 
+/* catalog tree */
+.ui-widget-content ins.ui-icon-empty {background:none;display:none;}
+.jstree-icon {cursor:hand;cursor:pointer;}
+div#vakata-contextmenu, div#vakata-contextmenu ul {text-align:left;min-width:120px;width:120px;}
+
+
 
 
 

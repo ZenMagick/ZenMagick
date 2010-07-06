@@ -59,7 +59,6 @@
     }
 ?>
 
-<?php $resources->cssFile('style/catalog-tree/style.css') ?>
 <?php $resources->jsFile('js/jquery.jstree.min.js') ?>
 
 <div id="category-tree">
@@ -73,25 +72,38 @@ $(function () {
       animation: 200,
       initially_open: ["ct-3"]
     },
-		plugins : ["themes", "html_data", "ui", "contextmenu"],
-    themes: {
-      dots: true
+		plugins : ["html_data", "ui", "contextmenu", "themeroller"],
+    themeroller: {
+      opened: "ui-icon-circle-minus",
+      closed: "ui-icon-circle-plus",
+      item: "ui-icon-empty",
+      leaf_icon: "ui-icon-empty",
+      item_icon: "ui-icon-empty"
     },
     contextmenu: {
 			show_at_node : false,
       items: function(node) {
         return {
-          "create" : {
-            "separator_before"	: false,
-            "separator_after"	: true,
-            "label"				: "Create",
-            "action"			: function (obj) { this.create(obj); }
+          "create": {
+            "separator_before": false,
+            "separator_after": true,
+            "icon": "ui-icon ui-icon-plusthick",
+            "label": "Create",
+            "action": function (obj) { this.create(obj); }
           },
-          "rename" : {
-            "separator_before"	: false,
-            "separator_after"	: false,
-            "label"				: "Rename",
-            "action"			: function (obj) { this.rename(obj); }
+          "rename": {
+            "separator_before": false,
+            "separator_after": false,
+            "icon": "ui-icon ui-icon-pencil",
+            "label": "Rename",
+            "action": function (obj) { this.rename(obj); }
+          },
+          "remove": {
+            "separator_before": false,
+            "separator_after": false,
+            "icon": "ui-icon ui-icon-scissors",
+            "label": "Remove",
+            "action": function (obj) { this.rename(obj); }
           }
         }
       }

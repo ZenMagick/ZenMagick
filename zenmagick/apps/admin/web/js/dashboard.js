@@ -105,7 +105,7 @@ $(function() {
             // add icons
             .prepend(function(index, oldhtml) {
                 var oc = $(this).hasClass('open') ? 'minusthick' : 'plusthick';
-                return '<a href="" class="ui-icon ui-icon-closethick"></a><a href="" class="ui-icon ui-icon-'+oc+'"></a><a href="" class="ui-icon ui-icon-wrench"></a>'
+                return '<a href="" class="ui-icon ui-icon-closethick"></a><a href="" class="ui-icon ui-icon-'+oc+'"></a><a href="" class="ui-icon ui-icon-gear"></a>'
             })
             .end()
         .find(".portlet-content")

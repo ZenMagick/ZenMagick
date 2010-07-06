@@ -20,3 +20,7 @@
 ?>
 
 <h1>Catalog</h1>
+
+<?php foreach (ZMPlugins::instance()->getPluginsForGroup('catalog') as $plugin) { ?>
+  xx<?php echo $plugin ?>
+<?php } ?>
