@@ -20,11 +20,11 @@
 ?>
 <div id="header">
   <div id="logo">
-    <a href="<?php echo $admin2->url('index') ?>"><img src="<?php echo $this->asUrl('images/logo-235x64.png', ZMView::RESOURCE) ?>" alt="logo"></a>
+    <a href="<?php echo $admin2->url('index') ?>"><img src="<?php echo $this->asUrl('images/logo.gif', ZMView::RESOURCE) ?>" alt="ZenMagick" title="ZenMagick"></a>
   </div>
   <?php if ($request->getUser()) { ?>
-    <div id="top-opts">
-      <p>
+    <div id="header-box">
+      <p id="header-state">
         <?php $userLink = '<a href="'.$admin2->url('update_user').'" onclick="zenmagick.ajaxFormDialog(this.href, \''.sprintf(_zm('User Profile: %s'), $request->getUser()->getName()).'\', \'updateUser\'); return false;">'.$request->getUser()->getName().'</a>'; ?>
         <?php _vzm('Logged in as %s', $userLink) ?>
         <?php if ($request->getUser()->isDemo()) { ?>
@@ -33,7 +33,7 @@
         | <?php echo date('l, F d, Y') ?>
         | <a href="<?php echo $admin2->url('logoff') ?>"><?php _vzm('Log Out') ?></a>
       </p>
-      <p>
+      <p id="header-opts">
         <a href="<?php echo ZMSettings::get('apps.store.baseUrl') ?>" target="_blank">Storefront</a>
         | <a href="<?php echo  ZMSettings::get('apps.store.oldAdminUrl') ?>" target="_blank">OLD Admin</a>
         | <a href="http://forum.zenmagick.org/" target="_blank"><?php _vzm('Get Help') ?></a>
@@ -44,7 +44,7 @@
   <p id="main-menu">
     <?php if ($request->getUser()) { ?>
       <?php $first = true; foreach (ZMAdminMenu::getItemsForParent(null) as $item) { ?>
-        <?php if (!$first) { ?> | <?php } $first = false; ?>
+        <?php if (false&&!$first) { ?> | <?php } $first = false; ?>
         <a href="<?php echo $admin2->url($item['requestId']) ?>"><?php echo $item['title'] ?></a>
       <?php } ?>
     <?php } ?>
