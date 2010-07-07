@@ -179,7 +179,6 @@ class ZMProducts extends ZMObject implements ZMSQLAware {
                 $ids = array_merge($ids, $this->getProductIdsForCategoryId($child->getId(), $active, true, $languageId));
             }
         }
-
         return $ids;
     }
 
@@ -217,7 +216,7 @@ class ZMProducts extends ZMObject implements ZMSQLAware {
      * @return array A list of <code>ZMProduct</code> instances.
      */
     public function getProductsForCategoryId($categoryId, $active=true, $languageId=null) {
-        return $this->getProductsForIds($this->getProductIdsForCategoryId($categoryId, $active, false, $languageId), true);
+        return $this->getProductsForIds($this->getProductIdsForCategoryId($categoryId, $active, false, $languageId), true, $languageId);
     }
 
     /*

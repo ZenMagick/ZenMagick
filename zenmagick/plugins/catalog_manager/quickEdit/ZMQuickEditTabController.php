@@ -39,7 +39,7 @@ class ZMQuickEditTabController extends ZMController implements ZMCatalogContentC
      * Create new instance.
      */
     function __construct() {
-        parent::__construct('quick_edit_tab', _zm('Quick Edit'), 'quickEdit');
+        parent::__construct();
     }
 
 
@@ -76,18 +76,11 @@ class ZMQuickEditTabController extends ZMController implements ZMCatalogContentC
 
         $categoryId = $request->getCategoryId();
         $data['categoryId'] = $categoryId;
+        $data['category'] = ZMCategories::instance()->getCategoryForId($categoryId, $request->getSelectedLanguage()->getId());
         $productList = ZMProducts::instance()->getProductsForCategoryId($categoryId, false, $request->getSelectedLanguage()->getId());
         $data['productList'] = $productList;
 
         return $data;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function processGet($request) {
-        // need to do this to for using PluginAdminView rather than SimplePluginFormView
-        return $this->findView();
     }
 
     /**
@@ -136,7 +129,6 @@ class ZMQuickEditTabController extends ZMController implements ZMCatalogContentC
             }
         }    
 
-        // need to do this to for using PluginAdminView rather than SimplePluginFormView
         return $this->findView();
     }
 
@@ -144,13 +136,13 @@ class ZMQuickEditTabController extends ZMController implements ZMCatalogContentC
      * {@inheritDoc}
      */
     public function isActive($request) {
-        return true;
+        return 0 < $request->getCategoryId() && 0 == $request->getProductId();
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getCatalogViewId() {
+    public function getCatalogRequestId() {
         return 'quick_edit_tab';
     }
 

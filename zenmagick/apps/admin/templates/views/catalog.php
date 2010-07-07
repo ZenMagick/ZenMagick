@@ -18,29 +18,31 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 ?>
-
 <h1>Catalog</h1>
-<?php
-  ZMSettings::set('apps.store.catalog.controller', 'CatalogDefaultTabController,QuickEditTabController');
-?>
 
-<?php
-
-  $catalogViewId = 'catalog_default_tab';
-  $catalogViewId = 'quick_edit_tab';
-
-  foreach (explode(',', ZMSettings::get('apps.store.catalog.controller')) as $controller) {
-      if (null != ($controller = ZMBeanUtils::getBean(trim($controller))) && $controller instanceof ZMCatalogContentController) {
-          if ($controller->isActive($request)) {
-              echo $controller->getName()."<BR>";
-              if ($catalogViewId == $controller->getCatalogViewId()) {
-                  $view = $controller->process($request);
-                  $view->setLayout(null);
-                  $view->setVar('currentLanguage', $request->getSelectedLanguage());
-                  $view->setTemplate($catalogViewId);
-                  echo $view->generate($request);
-              }
-          }
+<div id="catalog-tabs">
+	<ul>
+    <?php $tabIndex = 0; 
+    $index = 0;
+    foreach ($controllers as $controller) {
+      if ($catalogRequestId == $controller->getCatalogRequestId()) {
+        $tabIndex = $index;
+        $url = '#'.$catalogRequestId;
+      } else {
+        $url = $admin2->catalogTab($controller);
       }
-  }
-
+      ++$index; ?>
+      <li><a href="<?php echo $url ?>"><?php echo $controller->getName() ?></a></li>
+    <?php } ?>
+	</ul>
+  <div id="<?php echo $catalogRequestId ?>">
+    <?php if (null != $catalogViewContent) { echo $catalogViewContent; } ?>
+  </div>
+</div>
+<script type="text/javascript">
+	$(function() {
+    $("#catalog-tabs").tabs({
+      selected: <?php echo $tabIndex ?>
+    }).css("float", "left").css('width', '98%');
+	});
+</script>

@@ -56,7 +56,7 @@ class ZMCatalogDefaultPlugin extends Plugin {
      */
     public function init() {
         parent::init();
-        $this->addMenuItem('catalogDefaultTab', _zm('Catalog Manager'), 'CatalogDefaultTab', ZMAdminMenu::MENU_CATALOG_MANAGER_TAB);
+        ZMSettings::append('apps.store.catalog.controller', 'CatalogDefaultTabController');
     }
 
 }
