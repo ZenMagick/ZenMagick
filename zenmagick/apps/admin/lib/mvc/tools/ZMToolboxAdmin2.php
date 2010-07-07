@@ -30,7 +30,7 @@
 class ZMToolboxAdmin2 extends ZMToolboxTool {
 
     /**
-     * Create a plugin admin page URL.
+     * Create a admin page URL.
      *
      * @param string requestId The request id.
      * @param string params Query string style parameter; if <code>''</code>.
@@ -39,6 +39,33 @@ class ZMToolboxAdmin2 extends ZMToolboxTool {
      */
     public function url($requestId=null, $params='', $secure=true) {
         return $this->getRequest()->url($requestId, $params, $secure);
+    }
+
+    /**
+     * Create a catalog admin page URL.
+     *
+     * @param ZMCatalogContentController controller A controller: default is <code>null</code> to use the current <em>catalogRequestId</em>.
+     * @param string params Optional additional url parameter; default is <code>null</code>.
+     * @return string A full URL.
+     */
+    public function catalog($controller=null, $params=null) {
+        $request = $this->getRequest();
+        $ps = '';
+        if (null != ($cPath = $request->getCategoryPath())) {
+            $ps .= '&cPath='.$cPath;
+        }
+        if (null != ($productId = $request->getProductId())) {
+            $ps .= '&productId='.$productId;
+        }
+        if (null != $controller && $controller instanceof ZMCatalogContentController) {
+            $ps .= '&catalogRequestId='.$controller->getCatalogRequestId();
+        } else {
+            $ps .= '&catalogRequestId='.$request->getParameter('catalogRequestId');
+        }
+        if (null != $params) {
+            $ps .= '&'.$params;
+        }
+        return $this->url('catalog', $ps);
     }
 
     /**

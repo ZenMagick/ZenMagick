@@ -43,7 +43,7 @@ class ZMCatalogDefaultTabController extends ZMController implements ZMCatalogCon
     /**
      * {@inheritDoc}
      */
-    public function getCatalogViewId() {
+    public function getCatalogRequestId() {
         return 'catalog_default_tab';
     }
 

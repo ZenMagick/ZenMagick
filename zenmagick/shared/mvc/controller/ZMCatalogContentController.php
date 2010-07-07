@@ -41,11 +41,11 @@ interface ZMCatalogContentController {
     public function isActive($request);
 
     /**
-     * Query the (catalog) view id this controller handles.
+     * Query the (catalog) request id this controller handles.
      *
-     * @return string The view id this controller is responsible for.
+     * @return string The request id this controller is responsible for.
      */
-    public function getCatalogViewId();
+    public function getCatalogRequestId();
 
     /**
      * Get the name.

@@ -30,7 +30,7 @@
  * @author DerManoMann
  * @version $Id$
  */
-class ZMQuickEditPlugin extends Plugin implements ZMRequestHandler {
+class ZMQuickEditPlugin extends Plugin {
 
     /**
      * Create new instance.
@@ -53,14 +53,9 @@ class ZMQuickEditPlugin extends Plugin implements ZMRequestHandler {
     /**
      * {@inheritDoc}
      */
-    public function initRequest($request) {
-        if (0 < $request->getCategoryId() && 0 == $request->getProductId()) {
-            $count = count(ZMProducts::instance()->getProductIdsForCategoryId($request->getCategoryId(), false));
-            if (0 < $count) {
-                // only available if category involved
-                $this->addMenuItem('quickEditTab', _zm('Quick Edit'), 'QuickEditTab', ZMAdminMenu::MENU_CATALOG_MANAGER_TAB);
-            }
-        }
+    public function init() {
+        parent::init();
+        ZMSettings::append('apps.store.catalog.controller', 'QuickEditTabController');
     }
 
 }

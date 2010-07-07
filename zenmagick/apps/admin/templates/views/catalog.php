@@ -20,27 +20,9 @@
 ?>
 
 <h1>Catalog</h1>
-<?php
-  ZMSettings::set('apps.store.catalog.controller', 'CatalogDefaultTabController,QuickEditTabController');
-?>
+<?php foreach ($controllers as $controller) { ?>
+  <a href="<?php echo $admin2->catalog($controller) ?>"><?php echo $controller->getName() ?></a>
+<?php } ?>
 
-<?php
-
-  $catalogViewId = 'catalog_default_tab';
-  $catalogViewId = 'quick_edit_tab';
-
-  foreach (explode(',', ZMSettings::get('apps.store.catalog.controller')) as $controller) {
-      if (null != ($controller = ZMBeanUtils::getBean(trim($controller))) && $controller instanceof ZMCatalogContentController) {
-          if ($controller->isActive($request)) {
-              echo $controller->getName()."<BR>";
-              if ($catalogViewId == $controller->getCatalogViewId()) {
-                  $view = $controller->process($request);
-                  $view->setLayout(null);
-                  $view->setVar('currentLanguage', $request->getSelectedLanguage());
-                  $view->setTemplate($catalogViewId);
-                  echo $view->generate($request);
-              }
-          }
-      }
-  }
-
+<hr>
+<?php if (null != $catalogViewContent) { echo $catalogViewContent; } ?>
