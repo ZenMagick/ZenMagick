@@ -37,8 +37,8 @@
         fieldset {width:14em;min-height:8em;height:11.5em;float:left;margin-right:5px;padding:8px;}
         form p {clear:left;padding:7px;}
         #root {margin-left:3px;}
-        .filetree {width:17em;border:1px solid gray;min-height:670px;overflow:hidden;float:left;padding:3px;}
-        #report {margin-left:19em;}
+        .filetree {width:20em;border:1px solid gray;min-height:670px;overflow:hidden;float:left;padding:3px;}
+        #report {margin-left:22em;}
         #run {float:right;}
         ul#messages {margin-left:0;padding-left:0;}
         ul#messages li {list-style:none;padding:4px 3px;margin-left:0;border:1px solid #9a9a9a;}

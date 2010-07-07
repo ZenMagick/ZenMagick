@@ -160,4 +160,23 @@ class TestZMProducts extends ZMTestCase {
         }
     }
 
+    /**
+     * Test getProductIdsForCategoryId.
+     */
+    public function testGetProductIdsForCategoryId() {
+        $productIdList = ZMProducts::instance()->getProductIdsForCategoryId(10, true, false, 1);
+        $this->assertNotNull($productIdList);
+        $expect = array(11, 13, 18, 17, 6, 4, 10, 9);
+        $this->assertEqual($expect, $productIdList);
+    }
+
+    /**
+     * Test getProductsForCategoryId.
+     */
+    public function testGetProductsForCategoryId() {
+        $productList = ZMProducts::instance()->getProductsForCategoryId(10, true, 1);
+        $this->assertNotNull($productList);
+        $this->assertEqual(8, count($productList));
+    }
+
 }
