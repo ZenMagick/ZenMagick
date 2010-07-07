@@ -42,6 +42,7 @@
 <script type="text/javascript">
 	$(function() {
     $("#catalog-tabs").tabs({
+      cache: true,
       selected: <?php echo $tabIndex ?>
     }).css("float", "left").css('width', '98%');
 	});
