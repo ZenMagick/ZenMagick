@@ -59,13 +59,40 @@ class ZMToolboxAdmin2 extends ZMToolboxTool {
         }
         if (null != $controller && $controller instanceof ZMCatalogContentController) {
             $ps .= '&catalogRequestId='.$controller->getCatalogRequestId();
-        } else {
-            $ps .= '&catalogRequestId='.$request->getParameter('catalogRequestId');
+        } else if (null != ($catalogRequestId = $request->getParameter('catalogRequestId'))) {
+            $ps .= '&catalogRequestId='.$catalogRequestId;
         }
         if (null != $params) {
             $ps .= '&'.$params;
         }
         return $this->url('catalog', $ps);
+    }
+
+    /**
+     * Create a catalog tab admin page URL.
+     *
+     * @param ZMCatalogContentController controller A controller: default is <code>null</code> to use the current <em>catalogRequestId</em>.
+     * @param string params Optional additional url parameter; default is <code>null</code>.
+     * @return string A full URL.
+     */
+    public function catalogTab($controller=null, $params=null) {
+        $request = $this->getRequest();
+        $ps = '';
+        if (null != ($cPath = $request->getCategoryPath())) {
+            $ps .= '&cPath='.$cPath;
+        }
+        if (null != ($productId = $request->getProductId())) {
+            $ps .= '&productId='.$productId;
+        }
+        if (null != $controller && $controller instanceof ZMCatalogContentController) {
+            $catalogRequestId = $controller->getCatalogRequestId();
+        } else {
+            $catalogRequestId = $request->getParameter('catalogRequestId');
+        }
+        if (null != $params) {
+            $ps .= '&'.$params;
+        }
+        return $this->url($catalogRequestId, $ps);
     }
 
     /**

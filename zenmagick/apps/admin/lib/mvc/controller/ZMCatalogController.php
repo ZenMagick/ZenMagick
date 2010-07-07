@@ -76,19 +76,20 @@ class ZMCatalogController extends ZMController {
             if (0 < count($controllers)) {
                 $controller = $controllers[0];
                 $catalogRequestId = $controller->getCatalogRequestId();
+                ZMLogging::instance()->log('defaulting to controller : '.get_class($controller), ZMLogging::DEBUG);
             }
         } else {
             // let's see if we have a controller for this...
             $definition = ZMLoader::makeClassname($catalogRequestId.'Controller');
             $controller = ZMBeanUtils::getBean($definition);
+            ZMLogging::instance()->log('delegating to controller : '.get_class($controller), ZMLogging::DEBUG);
+
         }
 
         if (null == $controller) {
             // no controller found
             return parent::process($request);
         }
-
-        ZMLogging::instance()->log('delegating to controller : '.get_class($controller), ZMLogging::DEBUG);
 
         // fake requestId
         $requestId = $request->getRequestId();

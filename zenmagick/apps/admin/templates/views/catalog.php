@@ -18,11 +18,31 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 ?>
-
 <h1>Catalog</h1>
-<?php foreach ($controllers as $controller) { ?>
-  <a href="<?php echo $admin2->catalog($controller) ?>"><?php echo $controller->getName() ?></a>
-<?php } ?>
 
-<hr>
-<?php if (null != $catalogViewContent) { echo $catalogViewContent; } ?>
+<div id="catalog-tabs">
+	<ul>
+    <?php $tabIndex = 0; 
+    $index = 0;
+    foreach ($controllers as $controller) {
+      if ($catalogRequestId == $controller->getCatalogRequestId()) {
+        $tabIndex = $index;
+        $url = '#'.$catalogRequestId;
+      } else {
+        $url = $admin2->catalogTab($controller);
+      }
+      ++$index; ?>
+      <li><a href="<?php echo $url ?>"><?php echo $controller->getName() ?></a></li>
+    <?php } ?>
+	</ul>
+  <div id="<?php echo $catalogRequestId ?>">
+    <?php if (null != $catalogViewContent) { echo $catalogViewContent; } ?>
+  </div>
+</div>
+<script type="text/javascript">
+	$(function() {
+    $("#catalog-tabs").tabs({
+      selected: <?php echo $tabIndex ?>
+    }).css("float", "left").css('width', '98%');
+	});
+</script>
