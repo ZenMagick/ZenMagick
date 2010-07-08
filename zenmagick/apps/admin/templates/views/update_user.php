@@ -18,7 +18,6 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 ?>
-<?php zm_title($this, _zm('Update User Details')) ?></h1>
 <p>Groups: <?php echo implode(', ', $request->getUser()->getRoles()) ?></p>
 <form action="<?php echo $admin2->url() ?>" method="POST" id="updateUser">
   <fieldset>
