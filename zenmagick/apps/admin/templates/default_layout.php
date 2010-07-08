@@ -21,7 +21,14 @@
 <?php
   //TODO: where do they go??
 
-  function zm_title($title, $view) {
+  function zm_title($view, $title=null) {
+    $root = ZMAdminMenu::getRootItemForRequestId($view->request->getRequestId());
+    $pref = (null != $root) ? $root['title'] : null;
+    if (null == $title) {
+        $title = $pref;
+    } else if (null != $pref) {
+        $title = sprintf(_zm("%1s: %2s"), $pref, $title);
+    }
     ?>
     <h1><?php echo $title  ?></h1>
     <?php echo $view->fetch('sub-menu.php');

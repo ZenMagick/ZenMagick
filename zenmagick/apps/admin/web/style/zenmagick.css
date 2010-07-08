@@ -73,6 +73,7 @@ h1 {color:white;-moz-border-radius:6px 6px 0 0;-webkit-border-radius:6px 6px 0 0
 
 /* login */
 #p-login #content form {width:220px;margin:60px auto;}
+#p-reset_password #content form {width:420px;margin:60px auto;}
 
 /* catalog tree */
 .ui-widget-content ins.ui-icon-empty {background:none;display:none;}

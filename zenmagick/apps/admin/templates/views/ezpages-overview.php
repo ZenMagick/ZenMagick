@@ -48,6 +48,7 @@
 
 </script>
 
+<?php zm_title($this) ?>
 <form action="<?php echo $admin2->url() ?>" method="POST">
   <h2><?php _vzm('EZPage Manager') ?> (
           <select id="languageId" name="languageId" onchange="this.form.submit();">

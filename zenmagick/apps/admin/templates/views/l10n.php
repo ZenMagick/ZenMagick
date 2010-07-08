@@ -18,6 +18,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 ?>
+<?php zm_title($this, _zm('Translation Helper')) ?>
 <form action="<?php echo $admin2->url() ?>" method="POST">
   <h2>ZenMagick Language Tool (
           <select id="languageId" name="languageId">

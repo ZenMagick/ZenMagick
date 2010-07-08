@@ -43,8 +43,7 @@
 
 </script>
 
-<h1><?php _vzm('Plugins') ?></h1>
-<?php echo $this->fetch('sub-menu.php'); ?>
+<?php zm_title($this) ?></h1>
 
 <table>
   <?php foreach ($pluginList as $group => $plugins) { ?>

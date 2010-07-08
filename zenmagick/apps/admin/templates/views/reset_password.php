@@ -18,9 +18,11 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 ?>
-<h1><?php _vzm('Reset Password') ?></h1>
+<?php zm_title($this, _zm('Reset Password')) ?></h1>
 
 <form action="<?php echo $admin2->url() ?>" method="POST">
+<p><?php _vzm('Please enter your admin email address and a new password will be emailed to you.') ?></p>
+
 <input type="hidden" name="<?php echo ZMRequest::SESSION_TOKEN_NAME ?>" value="<?php echo $session->getToken() ?>">
 
 <p>

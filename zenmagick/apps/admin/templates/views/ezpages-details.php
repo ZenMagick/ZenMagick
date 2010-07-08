@@ -22,6 +22,7 @@
   $selectedLanguageId = $currentLanguage->getId();
 ?>
 
+<?php zm_title($this, _zm('Edit EZPage')) ?>
 <form action="<?php echo $admin2->url() ?>" method="POST">
   <input type="hidden" name="languageId" value="<?php echo $selectedLanguageId ?>">
   <input type="hidden" name="updateId" value="<?php echo $ezPage->getId() ?>">

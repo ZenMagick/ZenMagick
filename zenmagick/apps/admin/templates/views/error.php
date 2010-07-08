@@ -18,6 +18,6 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 ?>
-<h1><?php _vzm('Oops') ?></h1>
+<?php zm_title($this, _zm('Oops')) ?>
 
 <p><?php _vzm('Something went wrong.') ?></p>

@@ -40,6 +40,7 @@
 
 ?>
 
+<?php zm_title($this) ?>
 <div id="b_console">
   <form action="<?php echo $admin2->url() ?>" method="POST">
       <fieldset>

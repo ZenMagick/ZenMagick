@@ -39,7 +39,7 @@
   }
 </script>
 
-<h1><?php _vzm('Manage Roles') ?></h1>
+<?php zm_title($this, _zm('Mange Roles')) ?>
 <form action="<?php echo $admin2->url() ?>" method="POST" id="manage_roles">
   <fieldset>
     <p>

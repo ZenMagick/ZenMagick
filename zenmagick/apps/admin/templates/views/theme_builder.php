@@ -48,7 +48,7 @@
 
 ?>
 
-<h2><?php _vzm("ZenMagick Theme Builder") ?></h2>
+<?php zm_title($this, _zm('Theme Builder')) ?></h1>
 
 <form action="<?php echo $admin2->url() ?>" method="POST" onsubmit="return zenmagick.confirm('_vzm('Create theme?')', this);">
   <fieldset>
