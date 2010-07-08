@@ -43,6 +43,9 @@
 
 </script>
 
+<h1><?php _vzm('Plugins') ?></h1>
+<?php echo $this->fetch('sub-menu.php'); ?>
+
 <table>
   <?php foreach ($pluginList as $group => $plugins) { ?>
     <tr class="head">

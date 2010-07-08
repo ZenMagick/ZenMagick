@@ -18,6 +18,16 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 ?>
+<?php
+  //TODO: where do they go??
+
+  function zm_title($title, $view) {
+    ?>
+    <h1><?php echo $title  ?></h1>
+    <?php echo $view->fetch('sub-menu.php');
+  }
+
+?>
 <!DOCTYPE html>
 <html>
   <head>
@@ -35,7 +45,6 @@
   <body id="p-<?php echo $request->getRequestId() ?>">
     <div id="main">
       <?php echo $this->fetch('header.php'); ?>
-      <?php if ($request->getUser() && 'index' != $request->getRequestId()) { echo $this->fetch('sub-menu.php'); } ?>
       <div id="content">
         <?php if (ZMMessages::instance()->hasMessages()) { ?>
             <ul id="messages">

@@ -41,12 +41,12 @@
       </p>
     </div>
   <?php } ?>
-  <p id="main-menu">
+  <ul id="main-menu">
     <?php if ($request->getUser()) { ?>
-      <?php $first = true; foreach (ZMAdminMenu::getItemsForParent(null) as $item) { ?>
-        <?php if (false&&!$first) { ?> | <?php } $first = false; ?>
-        <a href="<?php echo $admin2->url($item['requestId']) ?>"><?php echo $item['title'] ?></a>
+      <?php $root = ZMAdminMenu::getRootItemForRequestId($request->getRequestId()); ?>
+      <?php foreach (ZMAdminMenu::getItemsForParent(null) as $item) { ?>
+        <li<?php if (null != $root && $root['id'] == $item['id']) { echo ' class="active"'; } ?>><a href="<?php echo $admin2->url($item['requestId']) ?>"><?php echo $item['title'] ?></a></li>
       <?php } ?>
     <?php } ?>
-  </p>
+  </ul>
 </div>

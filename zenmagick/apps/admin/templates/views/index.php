@@ -22,30 +22,31 @@
 <?php $resources->jsFile('js/dashboard.js'); ?>
 
 <h1><?php _vzm('Dashboard') ?><a href="" title="<?php _vzm('Customize Dashboard') ?>" onclick="$('#widget-box').dialog({width:500,position:['center', 20],title:'<?php _vzm('Widget Box') ?>'}).parents('.ui-dialog').css('overflow', 'visible');return false;"><span class="ui-icon ui-icon-wrench"></span></a></h1>
-<?php $adminId = $request->getUser()->getId(); ?>
-<?php for ($ii=0; $ii<ZMDashboard::getColumns($adminId); ++$ii) { $widgets = ZMDashboard::getWidgetsForColumn($adminId, $ii); ?>
-  <div id="db-column-<?php echo $ii ?>" class="db-column">
-    <?php foreach ($widgets as $widgetDef) { ?>
-      <?php $widget = ZMBeanUtils::getBean($widgetDef); echo $widget->render($request); ?>
-    <?php } ?>
-  </div>
-<?php } ?>
+<div id="dashboard">
+  <?php $adminId = $request->getUser()->getId(); ?>
+  <?php for ($ii=0; $ii<ZMDashboard::getColumns($adminId); ++$ii) { $widgets = ZMDashboard::getWidgetsForColumn($adminId, $ii); ?>
+    <div id="db-column-<?php echo $ii ?>" class="db-column">
+      <?php foreach ($widgets as $widgetDef) { ?>
+        <?php $widget = ZMBeanUtils::getBean($widgetDef); echo $widget->render($request); ?>
+      <?php } ?>
+    </div>
+  <?php } ?>
 
-<div id="widget-box">
-  <?php $widgetList = ZMDashboard::getWidgetList($adminId); ?>
-  <div id="widget-box-col-0" class="widget-box-col">
-    <?php for ($ii=0; $ii<count($widgetList); $ii+=2) { 
-      $widgetDef = $widgetList[$ii];
-      $widget = ZMBeanUtils::getBean($widgetDef); 
-      $widget->setOpen(false); echo $widget->render($request);
-    } ?>
-  </div>
-  <div id="widget-box-col-1" class="widget-box-col">
-    <?php for ($ii=1; $ii<count($widgetList); $ii+=2) { 
-      $widgetDef = $widgetList[$ii];
-      $widget = ZMBeanUtils::getBean($widgetDef); 
-      $widget->setOpen(false); echo $widget->render($request);
-    } ?>
+  <div id="widget-box">
+    <?php $widgetList = ZMDashboard::getWidgetList($adminId); ?>
+    <div id="widget-box-col-0" class="widget-box-col">
+      <?php for ($ii=0; $ii<count($widgetList); $ii+=2) { 
+        $widgetDef = $widgetList[$ii];
+        $widget = ZMBeanUtils::getBean($widgetDef); 
+        $widget->setOpen(false); echo $widget->render($request);
+      } ?>
+    </div>
+    <div id="widget-box-col-1" class="widget-box-col">
+      <?php for ($ii=1; $ii<count($widgetList); $ii+=2) { 
+        $widgetDef = $widgetList[$ii];
+        $widget = ZMBeanUtils::getBean($widgetDef); 
+        $widget->setOpen(false); echo $widget->render($request);
+      } ?>
+    </div>
   </div>
 </div>
-

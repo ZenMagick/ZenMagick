@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-body {margin:0;padding:4px 0;font-size:75%;font-family:Arial, Helvetica, sans-serif;text-align:center;}
+body {margin:0;padding:4px 0;font-size:75%;font-family:Arial, Helvetica, sans-serif;text-align:center;background-color:#F9FAFB;}
 a:link {color:#3561a5;}
 img {border:none;}
 
@@ -25,7 +25,7 @@ img {border:none;}
 /* liquid main centered */
 div#main {width:92%;margin:0 auto;text-align:left;}
 div#main, div#content {min-height:380px;}
-div#content {min-height:380px;margin-left:15em;}
+div#content {min-height:380px;}
 
 /* dialogs */
 #user-confirm, #ajax-dialog, #ajax-form-dialog {text-align:left;}
@@ -38,30 +38,44 @@ div#content {min-height:380px;margin-left:15em;}
 #header-box #header-state a {margin-top:3px;}
 #header-box #header-opts a {font-weight:bold;font-size:1.2em;text-decoration:none;}
 #demo-note {font-size:12px;color:red;font-weight:bold;}
-/*TODO: gradient */
-#main-menu {height:2.3em;clear:left;padding:.8em 6px 0;background-color:#abc;-moz-border-radius:9px;-webkit-border-radius:9px;border-radius:9px;}
-#main-menu a {color:white;font-weight:bold;font-size:1.2em;margin:0 6px;text-decoration:none;}
+
+/*IE: */
+#main-menu {background-image:url(../images/mm-bg.gif);}
+
+#main-menu .active {font-weight:bold;}
+#main-menu {list-style:none;line-height:2.9em;height:35px;clear:left;padding:0 8px 0;-moz-border-radius:9px;-webkit-border-radius:9px;border-radius:9px;background:-moz-linear-gradient(top,#5392EF 27%,#2C528F);background:-webkit-gradient(linear,left top,left bottom,color-stop(0.27,#5392EF),to(#2C528F));}
+#main-menu li {float:left;border-left:1px solid #5497D7;border-right: 1px solid #3A6EE2;}
+#main-menu a {color:white;font-size:1.2em;margin:0 6px;text-decoration:none;}
+#main-menu li:first-child {border-left:none;}
+#main-menu li:last-child {border-right:none;}
 
 /* sub menu */
 #sub-menu {float:left;width:13em;margin-right:5px;}
 #sub-menu ul {list-style:none;margin:0;padding:0;}
 #sub-menu .ui-accordion-content {padding-top:0;padding-bottom:5px;}
 
-/* footer */
-#footer {clear:left;text-align:center;font-size:10px;}
+/* view content excl. header */
+#content {-webkit-border-radius:6px;-moz-border-radius:6px;border-radius:6px;background-color:#fff;-moz-box-shadow:3px 3px 3px #ddd;-webkit-box-shadow:3px 3px 3px #ddd;box-shadow:3px 3px 3px #ddd;}
+/*IE: */
+#content {border:1px solid #ccc;}
 
-h1 {border-bottom:1px dotted black;padding:2px 5px;}
+/* footer */
+#footer {clear:left;text-align:center;font-size:10px;padding:5px;}
+#footer p {margin:0;}
+#footer a {color:#3561a5;}
+
+/*IE: */
+h1 {background-color:black;font-weight:normal;}
+h1 {color:white;-moz-border-radius:6px 6px 0 0;-webkit-border-radius:6px 6px 0 0;border-radius:6px 6px 0 0;padding-left:6px;background:-moz-linear-gradient(top,#303030 50%,#000);background:-webkit-gradient(linear,left top,left bottom,color-stop(0.50,#303030),to(#000));font-size:1.6em;height:29px;line-height:1.6em;padding:0 12px;border-bottom:3px solid #D4A84B;margin:0;}
 
 /* tooltips */
 .cluetip-default {text-align:left;}
 
-/* dashboard */
-#p-index #content {margin-left:0;}
-
 /* login */
-#p-login #content {width:420px;margin:0 auto;}
+#p-login #content form {width:220px;margin:60px auto;}
 
 /* catalog tree */
 .ui-widget-content ins.ui-icon-empty {background:none;display:none;}
 .jstree-icon {cursor:hand;cursor:pointer;}
 div#vakata-contextmenu, div#vakata-contextmenu ul {text-align:left;min-width:120px;width:120px;}
+

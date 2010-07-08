@@ -87,11 +87,12 @@ class ZMQuickEditTabController extends ZMController implements ZMCatalogContentC
      * {@inheritDoc}
      */
     public function processPost($request) {
+        $languageId = $request->getSelectedLanguage()->getId();
         $data = $this->getViewData($request);
         $fieldList = $data['fieldList'];
         $fieldMap = $data['fieldMap'];
 
-        $productIdList = ZMProducts::instance()->getProductIdsForCategoryId($request->getCategoryId(), false);
+        $productIdList = ZMProducts::instance()->getProductIdsForCategoryId($request->getCategoryId(), false, false, $languageId);
         foreach ($productIdList as $productId) {
             // build a data map for each submitted product
             $formData = array();
@@ -109,7 +110,7 @@ class ZMQuickEditTabController extends ZMController implements ZMCatalogContentC
                 }
             }
             // load product, convert to map and compare with the submitted form data
-            $product = ZMProducts::instance()->getProductForId($productId);
+            $product = ZMProducts::instance()->getProductForId($productId, $languageId);
             $productData = ZMBeanUtils::obj2map($product, $fieldMap);
             $isUpdate = false;
             foreach ($formData as $key => $value) {

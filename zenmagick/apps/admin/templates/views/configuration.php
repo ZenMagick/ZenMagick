@@ -19,3 +19,4 @@
  */
 ?>
 <h1><?php _vzm('Configuration') ?></h1>
+<?php echo $this->fetch('sub-menu.php'); ?>
