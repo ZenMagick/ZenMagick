@@ -61,6 +61,7 @@
             </ul>
         <?php } ?>
         <?php echo $this->fetch($viewTemplate); ?>
+        <br clear="both">
       </div>
       <?php echo $this->fetch('footer.php'); ?>
     </div>

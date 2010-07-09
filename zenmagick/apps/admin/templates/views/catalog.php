@@ -44,6 +44,6 @@
     $("#catalog-tabs").tabs({
       cache: true,
       selected: <?php echo $tabIndex ?>
-    }).css("float", "left").css('width', '98%');
+    }).css("float", "left").css('width', '80%');
 	});
 </script>
