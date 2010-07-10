@@ -31,13 +31,13 @@
  * @package org.zenmagick.plugins.productGroupPricing
  * @version $Id$
  */
-class ZMProductGroupPricingTabController extends ZMPluginAdminController {
+class ZMProductGroupPricingTabController extends ZMController implements ZMCatalogContentController {
 
     /**
      * Create new instance.
      */
     function __construct() {
-        parent::__construct('product_group_pricing_tab', _zm('Group Pricing'), 'productGroupPricing');
+        parent::__construct();
     }
 
 
@@ -90,7 +90,27 @@ class ZMProductGroupPricingTabController extends ZMPluginAdminController {
         }
 
         return $this->findView();
-        //return $this->getCatalogManagerRedirectView($request);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function isActive($request) {
+        return 0 < $request->getProductId();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getCatalogRequestId() {
+        return 'product_group_pricing_tab';
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getName() {
+        return _zm('Group Pricing');
     }
 
 }

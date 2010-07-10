@@ -31,7 +31,7 @@
  * @author DerManoMann
  * @version $Id$
  */
-class ZMProductGroupPricingPlugin extends Plugin implements ZMRequestHandler {
+class ZMProductGroupPricingPlugin extends Plugin {
 
     /**
      * Create new instance.
@@ -53,15 +53,14 @@ class ZMProductGroupPricingPlugin extends Plugin implements ZMRequestHandler {
     /**
      * {@inheritDoc}
      */
-    public function initRequest($request) {
-        if (0 < $request->getProductId()) {
-            // only available if product involved
-            $this->addMenuItem('productGroupPricingTab', _zm('Group Pricing'), 'ProductGroupPricingTab', ZMAdminMenu::MENU_CATALOG_MANAGER_TAB);
-        }
+    public function init() {
+        parent::init();
+        ZMSettings::append('apps.store.catalog.controller', 'ProductGroupPricingTabController');
     }
 
     /**
      * {@inheritDoc}
+     *
      */
     public function install() {
         parent::install();
