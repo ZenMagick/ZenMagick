@@ -162,6 +162,7 @@ Release 0.9.10
 - add generic yaml based ZMLocale implementation - ZMYamlLocale
 - dropped Creole
 - add optional T&C checkout checkbox/message
+- move catalog default tab into admin and drop the plugin
 
 Release 0.9.9
 - in ZMDbTableMapper handle database exception building auto mappings

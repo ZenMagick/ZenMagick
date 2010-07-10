@@ -38,3 +38,4 @@ apps.store.dashboad.widgets: ZMOrderStatsDashboardWidget,ZMLatestOrdersDashboard
 
 ## this is JSON
 apps.store.dashboad.default: '{"columns":3,"widgets":[["ZMOrderStatsDashboardWidget"],["ZMLatestOrdersDashboardWidget"],["ZMLatestAccountsDashboardWidget"]]}'
+apps.store.catalog.controller: CatalogDefaultTabController
