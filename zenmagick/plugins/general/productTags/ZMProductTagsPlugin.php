@@ -28,7 +28,7 @@
  * @author DerManoMann
  * @version $Id$
  */
-class ZMProductTagsPlugin extends Plugin implements ZMRequestHandler {
+class ZMProductTagsPlugin extends Plugin {
 
     /**
      * Create new instance.
@@ -50,12 +50,9 @@ class ZMProductTagsPlugin extends Plugin implements ZMRequestHandler {
     /**
      * {@inheritDoc}
      */
-    public function initRequest($request) {
-        ZMProductAssociations::instance()->registerHandler('ProductTagsProductAssociationHandler');
-        if (0 < $request->getProductId()) {
-            // only available if product involved
-            $this->addMenuItem('productTagsTab', _zm('Product Tags'), 'ProductTagsTab', ZMAdminMenu::MENU_CATALOG_MANAGER_TAB);
-        }
+    public function init() {
+        parent::init();
+        ZMSettings::append('apps.store.catalog.controller', 'ProductTagsTabController');
     }
 
     /**

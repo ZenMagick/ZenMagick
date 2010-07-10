@@ -28,13 +28,13 @@
  * @package org.zenmagick.plugins.productTags
  * @version $Id$
  */
-class ZMProductTagsTabController extends ZMPluginAdminController {
+class ZMProductTagsTabController extends ZMController implements ZMCatalogContentController {
 
     /**
      * Create new instance.
      */
     function __construct() {
-        parent::__construct('product_tags_admin', _zm('Product Tags'), 'productTags');
+        parent::__construct();
     }
 
 
@@ -42,7 +42,7 @@ class ZMProductTagsTabController extends ZMPluginAdminController {
      * {@inheritDoc}
      */
     public function getViewData($request) {
-        $languageId = $request->getSession()->getLanguageId();
+        $languageId = $request->getSelectedLanguage()->getId();
         return array(
             'productTags' => ZMTags::instance()->getTagsForProductId($request->getProductId(), $languageId),
             'allTags' => ZMTags::instance()->getAllTags($languageId)
@@ -52,17 +52,10 @@ class ZMProductTagsTabController extends ZMPluginAdminController {
     /**
      * {@inheritDoc}
      */
-    public function processGet($request) {
-        // need to do this to for using PluginAdminView rather than SimplePluginFormView
-        return $this->findView();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public function processPost($request) {
         $productId = $request->getProductId();
         if (0 < $productId && null != ($productTags = $request->getParameter('productTags'))) {
+            $languageId = $request->getSelectedLanguage()->getId();
             $tags = array();
             foreach (explode(',', $productTags) as $tag) {
                 $tag = trim($tag);
@@ -71,12 +64,32 @@ class ZMProductTagsTabController extends ZMPluginAdminController {
                     $tags[$tag] = $tag;
                 }
             }
-            ZMTags::instance()->setTagsForProductId($productId, $request->getSession()->getLanguageId(), $tags);
+            ZMTags::instance()->setTagsForProductId($productId, $languageId, $tags);
             ZMMessages::instance()->success(_zm('Tags updated'));
         }
 
-        // need to do this to for using PluginAdminView rather than SimplePluginFormView
         return $this->findView();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function isActive($request) {
+        return 0 < $request->getProductId();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getCatalogRequestId() {
+        return 'product_tags_tab';
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getName() {
+        return _zm('Tags');
     }
 
 }
