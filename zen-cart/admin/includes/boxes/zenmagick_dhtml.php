@@ -29,38 +29,10 @@ if (!defined('IS_ADMIN_FLAG')) {
 
     $toolbox = $request->getToolbox();
     $zm_heading = array();
-    $zm_heading = array('text' => "ZenMagick", 'link' => zen_href_link(FILENAME_ALT_NAV, '', 'NONSSL'));
+    $zm_heading = array('text' => "ZenMagick", 'link' => '../zenmagick/apps/admin/web/');
 
     $zm_contents = array();
-
-    $installer = new ZMInstallationPatcher();
-    $zm_contents[] = array('text' => _zm("Installation"), 'link' => $toolbox->admin->url('installation', '', true));
-    $zm_contents[] = array('text' => _zm("Plugin Manager"), 'link' => $toolbox->admin->url('plugins', '', true));
-
-    $zm_contents[] = array('text' => _zm("Catalog Manager"), 'link' => $toolbox->admin->url('catalog_manager', '', true));
-    $zm_contents[] = array('text' => _zm("Cache Admin"), 'link' => $toolbox->admin->url('cache_admin', '', true));
-    $zm_contents[] = array('text' => _zm("Language Tool"), 'link' => $toolbox->admin->url('l10n', '', true));
-    if (file_exists(DIR_FS_ADMIN.'zmConsole.php')) {
-        $zm_contents[] = array('text' => _zm("Console"), 'link' => $toolbox->admin->url('console', '', true));
-    }
-    $zm_contents[] = array('text' => _zm("Theme Builder"), 'link' => $toolbox->admin->url('theme_builder', '', true));
-    $zm_contents[] = array('text' => _zm("Static Page Editor"), 'link' => $toolbox->admin->url('static_page_editor', '', true));
-    $zm_contents[] = array('text' => _zm("EZPage Manager"), 'link' => $toolbox->admin->url('ezpages', '', true));
-    $zm_contents[] = array('text' => _zm("About"), 'link' => $toolbox->admin->url('about', '', true));
-    $zm_contents[] = array('text' => _zm("New Admin (Experimental)"), 'link' => '../zenmagick/apps/admin/web/');
     echo zen_draw_admin_box($zm_heading, $zm_contents);
-
-    $pluginItems = ZMAdminMenu::getItemsForParentId(ZMAdminMenu::MENU_PLUGINS);
-    if (0 < count($pluginItems)) {
-        $zp_heading = array('text' => "Plugins", 'link' => zen_href_link(FILENAME_ALT_NAV, '', 'NONSSL'));
-
-        $zp_contents = array();
-        foreach ($pluginItems as $item) {
-            $zp_contents[] = array('text' => $item->getTitle(), 'link' => $item->getURL(), '', 'NONSSL');
-        }
-
-        echo zen_draw_admin_box($zp_heading, $zp_contents);
-    }
 
 ?>
 <!-- zenmagick_eof //-->

@@ -44,11 +44,11 @@ if (!defined('IS_ADMIN_FLAG')) {
         }
 
         $adminMenuPatch = $installer->getPatchForId('adminMenu');
-        if ($adminMenuPatch && $adminMenuPatch->isOpen()) {
+        //if ($adminMenuPatch && $adminMenuPatch->isOpen()) {
             // only if no ZenMagick menu item
             $toolbox = $request->getToolbox();
             $za_contents[] = array('text' => _zm("ZenMagick Installation"), 'link' => $toolbox->admin->url('installation', '', true));
-        }
+        //}
     }
     
     foreach (ZMAdminMenu::getItemsForParentId(ZMAdminMenu::MENU_TOOLS) as $item) {
