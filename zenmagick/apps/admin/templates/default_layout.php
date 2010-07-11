@@ -54,9 +54,17 @@
       <?php echo $this->fetch('header.php'); ?>
       <div id="content">
         <?php if (ZMMessages::instance()->hasMessages()) { ?>
-            <ul id="messages">
+            <ul id="messages" class="ui-widget">
+            <?php
+              $messageClass = array(
+                  ZMMessages::T_SUCCESS => array('ui-state-default', 'ui-icon ui-icon-check'),
+                  ZMMessages::T_MESSAGE => array('ui-state-default', 'ui-icon ui-icon-info'),
+                  ZMMessages::T_WARN => array('ui-state-highlight', 'ui-icon ui-icon-alert'),
+                  ZMMessages::T_ERROR => array('ui-state-error', 'ui-icon ui-icon-alert')
+              );
+            ?>
             <?php foreach (ZMMessages::instance()->getMessages() as $message) { ?>
-                <li class="<?php echo $message->getType() ?>"><?php echo $message->getText() ?></li>
+                <li class="ui-corner-all <?php echo $messageClass[$message->getType()][0] ?>"><span class="<?php echo $messageClass[$message->getType()][1] ?>" style="float:left;margin-right:0.3em;"></span><?php echo $message->getText() ?></li>
             <?php } ?>
             </ul>
         <?php } ?>
