@@ -162,6 +162,7 @@ Release 0.9.10
 - add generic yaml based ZMLocale implementation - ZMYamlLocale
 - dropped Creole
 - add optional T&C checkout checkbox/message
+- add (empty) ZMApplicationContext context base class
 
 Release 0.9.9
 - in ZMDbTableMapper handle database exception building auto mappings

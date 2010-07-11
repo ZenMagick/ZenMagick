@@ -31,7 +31,21 @@
  */
 class ZMRuntime extends ZMObject {
     private static $databaseMap_ = array();
+    private static $context_ = null;
 
+
+    /**
+     * Get the application context.
+     *
+     * @return ZMApplicationContext The context.
+     */
+    public static function getContext() {
+        if (null === self::$context_) {
+            self::$context_ = ZMBeanUtils::getBean(ZMSettings::get('zenmagick.core.config.context', 'ApplicationContext'));
+        }
+
+        return self::$context_;
+    }
 
     /**
      * Get the database (provider).
