@@ -52,7 +52,6 @@
 
     $coreCompressor = new ZMCoreCompressor();
     $installer = new ZMInstallationPatcher();
-    $obsolete = zm_get_obsolete_files();
     $needRefresh = false;
 
     // install
@@ -83,49 +82,6 @@
                     }
                 }
             }
-        }
-    }
-
-    // delete
-    if (null != $request->getParameter('obsolete')) {
-        foreach ($request->getParameter('obsolete') as $file) {
-            if (is_file($file)) {
-                unlink($file);
-            } else if (is_dir($file)) {
-                rmdir($file);
-            }
-        }
-        $needRefresh = true;
-    }
-
-    // update core.php
-    if (isset($_POST)) {
-        $didGenerate = false;
-        $coreCompressor->setDebug(!ZMSettings::get('isStripCore'));
-        if (array_key_exists('singleCore', $_POST) && !$coreCompressor->isEnabled()) {
-            // allow for more time to run tests
-            set_time_limit(300);
-            $coreCompressor->packFiles(ZMSettings::get('isStripCore'), false);
-            $didGenerate = true;
-        }
-        if (array_key_exists('singleCoreGenerate', $_POST)) {
-            // allow for more time to run tests
-            set_time_limit(300);
-            $coreCompressor->packFiles(ZMSettings::get('isStripCore'), false);
-            $didGenerate = true;
-        }
-
-        if ($coreCompressor->hasErrors()) {
-            foreach ($coreCompressor->getErrors() as $msg) {
-                ZMMessages::instance()->error($msg);
-            }
-        } else if ($didGenerate) {
-            ZMMessages::instance()->success("Succsesfully (re-)generated core.php");
-        }
-
-        if (array_key_exists('optimize', $_POST) && !array_key_exists('singleCore', $_POST)) {
-            $coreCompressor->disable();
-            ZMMessages::instance()->msg("Disabled usage of core.php");
         }
     }
 
@@ -202,46 +158,6 @@
       <div class="submit">
         <strong>NOTE:</strong> It is <strong>strongly</strong> recommended to backup your database before appying/reverting SQL patches.
       </div>
-    </fieldset>
-  </form>
-
-  <form action="<?php echo $toolbox->admin->url() ?>" method="POST" onsubmit="return zm_user_confirm('Update selected optimisations?\n(This might take a while...)');">
-    <fieldset id="optimisation">
-    <legend><?php _vzm("Optimising ZenMagick") ?></legend>
-        <input type="hidden" id="optimize" name="optimize" value="x">
-        <?php $checked = $coreCompressor->isEnabled() ? ' checked="checked"' : ''; ?>
-        <input type="checkbox" id="singleCore" name="singleCore" value="x"<?php echo $checked ?>>
-        <label for="singleCore"><?php _vzm("Use single core.php file"); ?></label>
-        <?php if ($coreCompressor->isEnabled()) { ?>
-            <input type="checkbox" id="singleCoreGenerate" name="singleCoreGenerate" value="x">
-            <label for="singleCoreGenerate"><?php _vzm("Regenerate core.php"); ?></label>
-        <?php } ?>
-        <br>
-        <p><?php _vzm("This option will compress all files under lib and all <strong>installed</strong> plugins into a single 
-        file <code>core.php</code>.
-        If you install/uninstall plugins or make any other changes to the lib directory you'll need to regenerate <code>core.php</code> in
-        order to make these changes become active.") ?></p>
-        <div class="submit"><input type="submit" value="<?php _vzm("Update") ?>"></div>
-    </fieldset>
-  </form>
-
-  <form action="<?php echo $toolbox->admin->url() ?>" method="POST" onsubmit="return zm_user_confirm('Delete selected files?');">
-    <fieldset id="obsolete">
-    <legend><?php _vzm("Remove obsolete ZenMagick files") ?></legend>
-      <?php if (0 == count($obsolete)) { ?>
-      <h3><?php _vzm("Congratulations - Your installation appears to be clean!") ?></h3>
-      <?php } else { ?>
-        <p>This is a list of file <em>ZenMagick</em> considers to be obsolete. The files are not used by ZenMagick any more,
-          and unless you have modified them, or are sure that you need them they can safely be removed.</p>
-        <p><strong>There might be items on this list that need to be removed manually (for example, directories that are not empty).</strong></p>
-        <?php $ii = 0; foreach ($obsolete as $file) { $name = zm_mk_relative($file); ?>
-          <input type="checkbox" id="obsolete-<?php echo $ii ?>" name="obsolete[]" value="<?php echo $file ?>">
-          <label for="obsolete-<?php echo $ii ?>"><?php echo $name ?></label><br>
-        <?php ++$ii; } ?>
-        <input type="checkbox" class="all" id="oall" name="oall" value="" onclick="sync_all(this, 'obsolete')">
-        <label for="oall"><?php _vzm("Select/Unselect All") ?></label><br>
-        <div class="submit"><input type="submit" value="<?php _vzm("Remove") ?>"></div>
-      <?php } ?>
     </fieldset>
   </form>
 </div>

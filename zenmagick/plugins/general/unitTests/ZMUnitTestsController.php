@@ -54,6 +54,11 @@ class ZMUnitTestsController extends ZMController {
      * if the controller generates the contents itself.
      */
     public function processGet($request) {
+
+        // XXX: for adminusers testcase...
+        ZMLoader::instance()->addPath(ZMFileUtils::mkPath(array(ZMRuntime::getInstallationPath(), 'apps', 'admin', 'lib', 'services')));
+        ZMLoader::instance()->addPath(ZMFileUtils::mkPath(array(ZMRuntime::getInstallationPath(), 'apps', 'admin', 'lib', 'model')));
+
         // add tests folder to class path
         $testsLoader = ZMLoader::make("Loader");
         $testBaseDir = $this->plugin_->getPluginDirectory().'tests/';

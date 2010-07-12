@@ -25,6 +25,10 @@
 ?><?php
   require_once 'includes/application_top.php';
 
+  ZMLoader::instance()->addPath(ZMFileUtils::mkPath(array(ZMRuntime::getInstallationPath(), 'apps', 'admin', 'lib')));
+  ZMLoader::instance()->loadStatic();
+  ZMSettings::append('zenmagick.mvc.toolbox.tools', 'admin:ToolboxAdmin');
+
   // set some admin specific things...
   ZMUrlManager::instance()->clear();
   ZMSacsManager::instance()->reset();

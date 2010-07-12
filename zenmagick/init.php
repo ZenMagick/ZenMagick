@@ -30,17 +30,6 @@
 
     include 'bootstrap.php';
 
-//TODO: used for zmIndex.php admin pages
-if (defined('IS_ADMIN_FLAG') && IS_ADMIN_FLAG) {
-    ZMLoader::instance()->addPath(ZMFileUtils::mkPath(array(ZMRuntime::getInstallationPath(), 'apps', 'admin', 'lib')));
-    ZMLoader::instance()->loadStatic();
-    ZMSettings::append('zenmagick.mvc.toolbox.tools', 'admin:ToolboxAdmin');
-} else {
-    // for adminusers testcase...
-    ZMLoader::instance()->addPath(ZMFileUtils::mkPath(array(ZMRuntime::getInstallationPath(), 'apps', 'admin', 'lib', 'services')));
-    ZMLoader::instance()->addPath(ZMFileUtils::mkPath(array(ZMRuntime::getInstallationPath(), 'apps', 'admin', 'lib', 'model')));
-}
-
     // allow seo rewriters to fiddle with the request
     $_zm_request->seoDecode();
 
