@@ -17,11 +17,6 @@
             <param name="plugin.type" value="order_total" />
         </foreach>
 
-        <!-- build catalog_manager plugins -->
-        <foreach list="${plugins.type.catalog_manager}" target="plugin-release" param="plugin.name">
-            <param name="plugin.type" value="catalog_manager" />
-        </foreach>
-
         <!-- build editors plugins -->
         <foreach list="${plugins.type.editors}" target="plugin-release" param="plugin.name">
             <param name="plugin.type" value="editors" />

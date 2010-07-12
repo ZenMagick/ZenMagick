@@ -114,7 +114,6 @@
 
         <copy file="${dist.dir}/${full.version.file}.tar.bz2" tofile="${dist.dir}/${full.latest.file}.tar.bz2" />
         <checksum file="${dist.dir}/${full.latest.file}.tar.bz2" fileext=".sha" algorithm="SHA" todir="${dist.dir}/checksum" />
-
     </target>
 
     <!-- patch full release -->

@@ -215,7 +215,7 @@
 
 
     <!-- Do all -->
-    <target name="all" depends="mod-release,full-release,plugin-releases,theme-releases,phpdoctor" description="Build all.">
+    <target name="all" depends="mod-release,full-release,admin-release,plugin-releases,theme-releases,phpdoctor" description="Build all.">
     </target>
 
 </project>

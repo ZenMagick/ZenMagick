@@ -4,18 +4,13 @@
     <!-- Plugins properties -->
     <property file="etc/build/ant/admin.properties" />
 
+    <!-- The admin build dir -->
+    <property name="release.admin.dir" value="${build.dir}/admin-standalone" />
+
     <!-- Build admin releases -->
     <target name="admin-release" depends="clean,init" description="Build admin release.">
-        <!-- copy all files that go into zen-cart directories -->
-        <copy todir="${build.dir}">
-            <fileset dir="${zencart.src.dir}">
-                <exclude name=".git*" />
-                <exclude name="admin/includes/init_includes/**" />
-            </fileset>
-        </copy>
-
-        <!-- copy all ZenMagick files -->
-        <copy todir="${build.dir}/zenmagick">
+        <!-- copy all relevant ZenMagick files -->
+        <copy todir="${release.admin.dir}/zenmagick">
             <fileset dir="${zenmagick.src.dir}">
                 <include name="*.txt" />
                 <include name="bootstrap.php" />
@@ -27,14 +22,32 @@
             </fileset>
         </copy>
 
-        <!-- rename zenmagick folder -->
-        <move todir="${build.dir}/zmadmin">
-            <fileset dir="${build.dir}/zenmagick" />
+        <!-- copy integration files -->
+        <copy todir="${release.admin.dir}/">
+            <fileset dir="etc/build/">
+              <include name="admin/**" />
+            </fileset>
+        </copy>
+
+        <!-- rename zenmagick folder to avoid overlap with main build at the cost of having separate copies -->
+        <move todir="${release.admin.dir}/zmadmin">
+            <fileset dir="${release.admin.dir}/zenmagick" />
         </move>
 
         <antcall target="patch">
-            <param name="patch.dir" value="${build.dir}" />
+            <param name="patch.dir" value="${release.admin.dir}" />
         </antcall>
+
+        <!-- and zip -->
+        <zip zipfile="${dist.dir}/${admin.version.file}.zip" basedir="${release.admin.dir}" />
+        <checksum file="${dist.dir}/${admin.version.file}.zip" fileext=".sha" algorithm="SHA" todir="${dist.dir}/checksum" />
+
+        <!-- and TAR for easy incremental rsync plus smaller file size -->
+        <tar destfile="${dist.dir}/${admin.version.file}.tar" basedir="${release.admin.dir}" />
+        <checksum file="${dist.dir}/${admin.version.file}.tar" fileext=".sha" algorithm="SHA" todir="${dist.dir}/checksum" />
+
+        <bzip2 src="${dist.dir}/${admin.version.file}.tar" destfile="${dist.dir}/${admin.version.file}.tar.bz2" />
+        <checksum file="${dist.dir}/${admin.version.file}.tar.bz2" fileext=".sha" algorithm="SHA" todir="${dist.dir}/checksum" />
     </target>
 
 </project>
