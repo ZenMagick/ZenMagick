@@ -25,7 +25,6 @@
  *
  * @package org.zenmagick.plugins.minify
  * @author DerManoMann
- * @version $Id$
  */
 class ZMMinifyPlugin extends Plugin {
 

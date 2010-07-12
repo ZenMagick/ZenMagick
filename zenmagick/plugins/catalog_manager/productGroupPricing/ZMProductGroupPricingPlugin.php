@@ -29,7 +29,6 @@
  *
  * @package org.zenmagick.plugins.productGroupPricing
  * @author DerManoMann
- * @version $Id$
  */
 class ZMProductGroupPricingPlugin extends Plugin implements ZMRequestHandler {
 

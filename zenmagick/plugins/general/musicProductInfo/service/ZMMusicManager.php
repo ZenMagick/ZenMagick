@@ -29,7 +29,6 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.plugins.zm_product_music_info.service
- * @version $Id$
  */
 class ZMMusicManager extends ZMObject {
 

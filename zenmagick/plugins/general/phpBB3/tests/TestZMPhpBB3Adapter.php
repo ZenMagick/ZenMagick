@@ -25,7 +25,6 @@
  *
  * @package org.zenmagick.plugins.phpbb3
  * @author DerManoMann
- * @version $Id$
  */
 class TestZMPhpBB3Adapter extends ZMTestCase {
     private $adapter_ = null;

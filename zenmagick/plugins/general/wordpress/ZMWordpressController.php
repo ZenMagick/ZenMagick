@@ -26,7 +26,6 @@
  *
  * @author mano
  * @package org.zenmagick.plugins.wordpress
- * @version $Id$
  */
 class ZMWordpressController extends ZMController {
     private $plugin_;

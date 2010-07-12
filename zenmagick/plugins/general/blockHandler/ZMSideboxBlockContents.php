@@ -25,7 +25,6 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.plugins.blockHandler
- * @version $Id$
  */
 class ZMSideboxBlockContents extends ZMObject implements ZMBlockContents {
     private $boxName_;

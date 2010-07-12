@@ -26,7 +26,6 @@
  *
  * @package org.zenmagick.plugins.twig
  * @author DerManoMann
- * @version $Id$
  */
 class ZMTwigPlugin extends Plugin {
 

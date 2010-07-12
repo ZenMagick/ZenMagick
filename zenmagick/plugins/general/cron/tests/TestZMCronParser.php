@@ -25,7 +25,6 @@
  *
  * @package org.zenmagick.plugins.cron.tests
  * @author DerManoMann
- * @version $Id$
  */
 class TestZMCronParser extends ZMTestCase {
     protected static $TEXT_CRONTAB = array(

@@ -25,7 +25,6 @@
  *
  * @package org.zenmagick.plugins.merchandizingAssociations
  * @author DerManoMann
- * @version $Id$
  */
 class ZMMerchandizingAssociationsPlugin extends Plugin implements ZMRequestHandler {
 

@@ -29,7 +29,6 @@
  *
  * @author mano
  * @package org.zenmagick.plugins.musicProductInfo.model
- * @version $Id$
  */
 class ZMMediaType extends ZMObject {
     private $id_;

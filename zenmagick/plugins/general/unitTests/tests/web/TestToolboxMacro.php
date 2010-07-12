@@ -25,7 +25,6 @@
  *
  * @package org.zenmagick.plugins.unitTests.tests.web
  * @author DerManoMann
- * @version $Id$
  */
 class TestToolboxMacro extends ZMTestCase {
 

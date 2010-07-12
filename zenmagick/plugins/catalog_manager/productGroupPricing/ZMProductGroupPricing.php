@@ -29,7 +29,6 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.plugins.productGroupPricing
- * @version $Id$
  */
 class ZMProductGroupPricing extends ZMObject {
     private $id_;

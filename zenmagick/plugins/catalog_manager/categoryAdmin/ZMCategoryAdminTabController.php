@@ -29,7 +29,6 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.plugins.quickEdit
- * @version $Id$
  */
 class ZMCategoryAdminTabController extends ZMPluginAdminController {
 

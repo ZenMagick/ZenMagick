@@ -29,7 +29,6 @@
  *
  * @package org.zenmagick.plugins.vbulletin
  * @author DerManoMann
- * @version $Id$
  */
 class ZMVBulletinAdapter extends ZMObject {
     private $database_;

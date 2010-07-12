@@ -29,7 +29,6 @@ define('ZM_TABLE_PRODUCT_ASSOCIATIONS', ZM_DB_PREFIX . 'zm_product_associations'
  *
  * @author DerManoMann
  * @package org.zenmagick.plugins.merchandizingAssociations
- * @version $Id$
  */
 class ZMMechandizingProductAssociationHandler extends ZMObject {
     private $associationTypes_;

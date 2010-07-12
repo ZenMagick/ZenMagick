@@ -26,7 +26,6 @@
  *
  * @package org.zenmagick.plugins.rules
  * @author DerManoMann
- * @version $Id$
  */
 class ZMRulesPlugin extends Plugin {
 

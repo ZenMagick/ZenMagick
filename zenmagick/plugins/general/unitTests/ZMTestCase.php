@@ -25,7 +25,6 @@
  *
  * @package org.zenmagick.plugins.unitTests
  * @author DerManoMann
- * @version $Id$
  */
 class ZMTestCase extends UnitTestCase {
     private $defaultDb_;

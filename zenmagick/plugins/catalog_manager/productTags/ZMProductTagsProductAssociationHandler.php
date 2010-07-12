@@ -28,7 +28,6 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.plugins.productTags
- * @version $Id$
  */
 class ZMProductTagsProductAssociationHandler implements ZMProductAssociationHandler {
 

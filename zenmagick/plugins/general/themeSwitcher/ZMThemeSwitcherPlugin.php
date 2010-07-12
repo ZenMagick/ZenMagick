@@ -25,7 +25,6 @@
  *
  * @package org.zenmagick.plugins.themeSwitcher
  * @author DerManoMann
- * @version $Id$
  */
 class ZMThemeSwitcherPlugin extends Plugin implements ZMRequestHandler {
     /** query param key for new theme id. */

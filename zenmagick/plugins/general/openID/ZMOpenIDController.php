@@ -26,7 +26,6 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.plugins.openID
- * @version $Id$
  */
 class ZMOpenIDController extends ZMController {
     private $plugin_;

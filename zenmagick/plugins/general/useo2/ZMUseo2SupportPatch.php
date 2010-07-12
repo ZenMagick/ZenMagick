@@ -29,7 +29,6 @@
  *
  * @author mano
  * @package org.zenmagick.plugins.useo2
- * @version $Id$
  */
 class ZMUseo2SupportPatch extends ZMObject {
     private $adminFiles_ = array(

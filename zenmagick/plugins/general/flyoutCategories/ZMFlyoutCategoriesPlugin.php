@@ -26,7 +26,6 @@
  *
  * @package org.zenmagick.plugins.flyoutCategories
  * @author DerManoMann
- * @version $Id$
  */
 class ZMFlyoutCategoriesPlugin extends Plugin {
 

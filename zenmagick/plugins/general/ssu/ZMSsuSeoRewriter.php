@@ -25,7 +25,6 @@
  *
  * @package org.zenmagick.plugins.ssu
  * @author mano
- * @version $Id$
  */
 class ZMSsuSeoRewriter implements ZMSeoRewriter {
 

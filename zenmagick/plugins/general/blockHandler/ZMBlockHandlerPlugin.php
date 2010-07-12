@@ -28,7 +28,6 @@
  *
  * @package org.zenmagick.plugins.blockHandler
  * @author DerManoMann
- * @version $Id$
  */
 class ZMBlockHandlerPlugin extends Plugin {
 

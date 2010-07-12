@@ -26,7 +26,6 @@
  *
  * @package org.zenmagick.plugins.firePHP
  * @author DerManoMann
- * @version $Id$
  */
 class ZMFirePHPPlugin extends Plugin implements ZMRequestHandler {
 

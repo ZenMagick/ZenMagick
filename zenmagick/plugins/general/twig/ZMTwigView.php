@@ -26,7 +26,6 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.plugins.twig
- * @version $Id$
  */
 class ZMTwigView extends ZMView {
     private $viewDir_;

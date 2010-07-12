@@ -28,7 +28,6 @@
  *
  * @package org.zenmagick.plugins.fualSlimbox
  * @author DerManoMann
- * @version $Id$
  */
 class ZMFualSlimboxPlugin extends Plugin {
 

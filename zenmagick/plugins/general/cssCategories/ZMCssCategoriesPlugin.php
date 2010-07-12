@@ -26,7 +26,6 @@
  *
  * @package org.zenmagick.plugins.cssCategories
  * @author DerManoMann
- * @version $Id$
  */
 class ZMCssCategoriesPlugin extends Plugin {
 

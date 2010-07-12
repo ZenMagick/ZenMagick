@@ -28,7 +28,6 @@
  *
  * @package org.zenmagick.plugins.hoverbox3
  * @author mano
- * @version $Id$
  */
 class ZMHoverbox3Plugin extends Plugin {
 

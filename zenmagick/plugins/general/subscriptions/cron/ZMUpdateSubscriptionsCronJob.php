@@ -25,7 +25,6 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.plugins.subscriptions
- * @version $Id: ZMUpdateSubscriptionsCronJob.php 2764 2009-12-18 09:13:44Z dermanomann $
  */
 class ZMUpdateSubscriptionsCronJob implements ZMCronJob {
     

@@ -30,7 +30,6 @@ define('UNIT_TESTS_GROUP_OTHER', '@other');
  *
  * @package org.zenmagick.plugins.unitTests
  * @author DerManoMann
- * @version $Id$
  */
 class ZMUnitTestsPlugin extends Plugin {
     private $tests_;

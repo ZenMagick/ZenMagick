@@ -29,7 +29,6 @@ define('TABLE_PRODUCT_TAGS', ZM_DB_PREFIX . 'product_tags');
  *
  * @author DerManoMann
  * @package org.zenmagick.plugins.productTags
- * @version $Id$
  */
 class ZMTags extends ZMObject {
 

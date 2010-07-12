@@ -28,7 +28,6 @@
  *
  * @package org.zenmagick.plugins
  * @author DerManoMann
- * @version $Id$
  */
 class ZMToggleZMThemesPlugin extends Plugin implements ZMRequestHandler {
     const SESS_THEME_TOGGLE_KEY = 'themeToggle';

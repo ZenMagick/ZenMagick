@@ -27,7 +27,6 @@
  *
  * @author mano
  * @package org.zenmagick.plugins.googleStoreLocator
- * @version $Id$
  */
 class ZMGoogleStoreLocatorPlugin extends Plugin {
 

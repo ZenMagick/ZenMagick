@@ -26,7 +26,6 @@
  *
  * @author mano
  * @package org.zenmagick.plugins.multiQuantity
- * @version $Id$
  */
 class ZMMultiQuantityProductInfoController extends ZMController {
 

@@ -34,7 +34,6 @@
  *
  * @author mano
  * @package org.zenmagick.plugins.musicProductInfo
- * @version $Id$
  */
 class ZMMusicProductInfoPlugin extends Plugin {
 

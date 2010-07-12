@@ -28,7 +28,6 @@ define('RECAPTCHA_FIELD', 'recaptcha_response_field');
  *
  * @package org.zenmagick.plugins.recaptcha
  * @author mano
- * @version $Id$
  */
 class ZMRecaptchaPlugin extends Plugin {
     private $captchaEnabled_;

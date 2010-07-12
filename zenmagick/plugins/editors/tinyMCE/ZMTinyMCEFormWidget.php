@@ -29,7 +29,6 @@
  *
  * @package org.zenmagick.plugins.tinyMCE
  * @author DerManoMann
- * @version $Id$
  */
 class ZMTinyMCEFormWidget extends ZMTextAreaFormWidget {
     private $plugin_;

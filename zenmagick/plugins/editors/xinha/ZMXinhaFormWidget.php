@@ -29,7 +29,6 @@
  *
  * @package org.zenmagick.plugins.xinha
  * @author DerManoMann
- * @version $Id$
  */
 class ZMXinhaFormWidget extends ZMTextAreaFormWidget {
     private $plugin_;

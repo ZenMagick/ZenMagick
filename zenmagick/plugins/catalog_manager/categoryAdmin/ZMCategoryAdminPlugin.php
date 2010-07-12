@@ -29,7 +29,6 @@
  *
  * @package org.zenmagick.plugins.categoryAdmin
  * @author DerManoMann
- * @version $Id$
  */
 class ZMCategoryAdminPlugin extends Plugin implements ZMRequestHandler {
 

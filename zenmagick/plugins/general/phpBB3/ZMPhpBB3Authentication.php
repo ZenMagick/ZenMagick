@@ -26,7 +26,6 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.plugins.phpbb3
- * @version $Id$
  */
 class ZMPhpBB3Authentication implements ZMAuthentication {
     private $passwordHash_;

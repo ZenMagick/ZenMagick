@@ -26,7 +26,6 @@
  *
  * @package org.zenmagick.plugins.tinyMCE
  * @author DerManoMann
- * @version $Id$
  */
 class ZMTinyMCEPlugin extends Plugin {
 

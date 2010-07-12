@@ -26,7 +26,6 @@
  *
  * @package org.zenmagick.plugins.phpbb3
  * @author DerManoMann
- * @version $Id$
  */
 class ZMPhpBB3Plugin extends Plugin implements ZMRequestHandler {
     private $page_;

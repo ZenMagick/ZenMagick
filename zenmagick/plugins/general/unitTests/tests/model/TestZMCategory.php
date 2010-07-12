@@ -25,7 +25,6 @@
  *
  * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann
- * @version $Id$
  */
 class TestZMCategory extends ZMTestCase {
 

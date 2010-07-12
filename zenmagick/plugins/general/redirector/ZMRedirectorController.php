@@ -26,7 +26,6 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.plugins.redirector
- * @version $Id$
  */
 class ZMRedirectorController extends ZMController {
 

@@ -26,7 +26,6 @@
  *
  * @package org.zenmagick.plugins.formHandler
  * @author DerManoMann
- * @version $Id$
  */
 class ZMFormHandlerPlugin extends Plugin {
 

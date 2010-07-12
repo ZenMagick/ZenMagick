@@ -25,7 +25,6 @@
  *
  * @package org.zenmagick.plugins.productTags
  * @author DerManoMann
- * @version $Id$
  */
 class TestZMTags extends ZMTestCase {
 

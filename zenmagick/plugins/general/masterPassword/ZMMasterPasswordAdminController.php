@@ -26,7 +26,6 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.plugins.masterPassword
- * @version $Id$
  */
 class ZMMasterPasswordAdminController extends ZMPluginAdmin2Controller {
 

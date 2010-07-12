@@ -25,7 +25,6 @@
  *
  * @package org.zenmagick.plugins.openID
  * @author DerManoMann
- * @version $Id$
  */
 class TestZMOpenIDDatabaseStore extends ZMTestCase {
 

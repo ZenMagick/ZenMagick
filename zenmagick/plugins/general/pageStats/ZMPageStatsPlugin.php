@@ -26,7 +26,6 @@
  *
  * @package org.zenmagick.plugins.pageStats
  * @author DerManoMann
- * @version $Id$
  */
 class ZMPageStatsPlugin extends Plugin {
     private $pageCache_;

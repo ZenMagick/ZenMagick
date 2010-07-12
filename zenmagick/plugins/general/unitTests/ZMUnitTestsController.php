@@ -26,7 +26,6 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.plugins.unitTests
- * @version $Id$
  */
 class ZMUnitTestsController extends ZMController {
     private $plugin_;

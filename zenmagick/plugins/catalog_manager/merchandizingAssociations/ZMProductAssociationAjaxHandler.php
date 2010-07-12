@@ -26,7 +26,6 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.plugins.merchandizingAssociations
- * @version $Id$
  * @todo: get working again
  */
 class ZMProductAssociationAjaxHandler {

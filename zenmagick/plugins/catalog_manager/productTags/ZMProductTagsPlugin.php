@@ -26,7 +26,6 @@
  *
  * @package org.zenmagick.plugins.productTags
  * @author DerManoMann
- * @version $Id$
  */
 class ZMProductTagsPlugin extends Plugin implements ZMRequestHandler {
 

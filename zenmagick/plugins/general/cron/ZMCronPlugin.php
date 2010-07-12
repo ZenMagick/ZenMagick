@@ -26,7 +26,6 @@
  *
  * @package org.zenmagick.plugins.cron
  * @author DerManoMann
- * @version $Id$
  */
 class ZMCronPlugin extends Plugin {
 

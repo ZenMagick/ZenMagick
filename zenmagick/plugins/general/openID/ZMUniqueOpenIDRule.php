@@ -26,7 +26,6 @@
  *
  * @author mano
  * @package org.zenmagick.plugins.openID
- * @version $Id$
  */
 class ZMUniqueOpenIDRule extends ZMRule {
 

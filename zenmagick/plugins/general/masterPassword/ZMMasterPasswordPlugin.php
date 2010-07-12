@@ -26,7 +26,6 @@
  *
  * @author mano
  * @package org.zenmagick.plugins.masterPassword
- * @version $Id$
  */
 class ZMMasterPasswordPlugin extends Plugin {
 

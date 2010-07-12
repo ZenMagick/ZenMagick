@@ -26,7 +26,6 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.plugins.blockHandler
- * @version $Id$
  */
 class ZMBlockHandlerAdminController extends ZMController {
 

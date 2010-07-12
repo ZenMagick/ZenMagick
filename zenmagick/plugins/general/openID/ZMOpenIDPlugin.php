@@ -30,7 +30,6 @@ define('Auth_OpenID_RAND_SOURCE', null);
  *
  * @package org.zenmagick.plugins.openID
  * @author DerManoMann
- * @version $Id$
  */
 class ZMOpenIDPlugin extends Plugin {
 

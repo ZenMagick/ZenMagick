@@ -26,7 +26,6 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.plugins.productTags
- * @version $Id$
  */
 class ZMProductTagsTabController extends ZMPluginAdminController {
 
