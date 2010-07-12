@@ -47,7 +47,6 @@
 
     $coreCompressor = new ZMCoreCompressor();
     $installer = new ZMInstallationPatcher();
-    $obsolete = zm_get_obsolete_files();
     $needRefresh = false;
 
     // install
