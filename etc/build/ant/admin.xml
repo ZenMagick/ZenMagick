@@ -31,6 +31,10 @@
         <move todir="${build.dir}/zmadmin">
             <fileset dir="${build.dir}/zenmagick" />
         </move>
+
+        <antcall target="patch">
+            <param name="patch.dir" value="${build.dir}" />
+        </antcall>
     </target>
 
 </project>
