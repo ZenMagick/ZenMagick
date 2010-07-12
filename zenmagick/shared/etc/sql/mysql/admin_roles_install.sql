@@ -1,3 +1,7 @@
+#
+# Create ZenMagick admin user role tables
+#
+
 DROP TABLE IF EXISTS admin_roles;
 CREATE TABLE admin_roles (
   admin_role_id int(11) NOT NULL auto_increment,

@@ -1,8 +1,6 @@
 #
 # ZenMagick config SQL
 #
-# $Id: config.sql 2426 2009-07-14 10:11:10Z dermanomann $
-#
 
 ## create hidden group to store all general config stuff
 INSERT INTO configuration_group (configuration_group_title, configuration_group_description, visible)

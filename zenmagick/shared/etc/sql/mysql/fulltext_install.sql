@@ -1,3 +1,7 @@
+#
+# Create fulltext indices for search
+#
+
 ALTER TABLE products ENGINE = MYISAM;
 CREATE FULLTEXT INDEX ft_products_model ON products (products_model);
 

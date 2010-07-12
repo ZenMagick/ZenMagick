@@ -1,0 +1,36 @@
+<!-- $Id$ -->
+<project name="zenmagick-admin">
+
+    <!-- Plugins properties -->
+    <property file="etc/build/ant/admin.properties" />
+
+    <!-- Build admin releases -->
+    <target name="admin-release" depends="clean,init" description="Build admin release.">
+        <!-- copy all files that go into zen-cart directories -->
+        <copy todir="${build.dir}">
+            <fileset dir="${zencart.src.dir}">
+                <exclude name=".git*" />
+                <exclude name="admin/includes/init_includes/**" />
+            </fileset>
+        </copy>
+
+        <!-- copy all ZenMagick files -->
+        <copy todir="${build.dir}/zenmagick">
+            <fileset dir="${zenmagick.src.dir}">
+                <include name="*.txt" />
+                <include name="bootstrap.php" />
+                <include name="mvc.php" />
+                <include name="apps/admin/**" />
+                <include name="shared/**" />
+                <include name="lib/**" />
+                <exclude name=".git*" />
+            </fileset>
+        </copy>
+
+        <!-- rename zenmagick folder -->
+        <move todir="${build.dir}/zmadmin">
+            <fileset dir="${build.dir}/zenmagick" />
+        </move>
+    </target>
+
+</project>

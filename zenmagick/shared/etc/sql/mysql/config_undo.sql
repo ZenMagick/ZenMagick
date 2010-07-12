@@ -1,8 +1,6 @@
 #
 # ZenMagick config SQL - undo
 #
-# $Id: config_undo.sql 2426 2009-07-14 10:11:10Z dermanomann $
-#
 
 ## get the config group id
 SET @t4=0;
