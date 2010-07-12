@@ -28,7 +28,6 @@
  *
  * @package org.zenmagick.plugins.paymentSurcharge
  * @author DerManoMann
- * @version $Id: zm_payment_surcharge.php 2610 2009-11-20 02:45:25Z dermanomann $
  */
 class ZMPaymentSurchargePlugin extends Plugin implements ZMOrderTotal {
 

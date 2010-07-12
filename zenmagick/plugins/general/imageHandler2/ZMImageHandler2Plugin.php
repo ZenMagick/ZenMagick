@@ -28,7 +28,6 @@
  *
  * @package org.zenmagick.plugins.imageHandler2
  * @author mano
- * @version $Id$
  */
 class ZMImageHandler2Plugin extends Plugin {
 

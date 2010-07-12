@@ -1,10 +1,7 @@
 <?php
 /*
- * ZenMagick - Smart e-commerce
+ * ZenMagick - Another PHP framework.
  * Copyright (C) 2006-2010 zenmagick.org
- *
- * Portions Copyright (c) 2003 The zen-cart developers
- * Portions Copyright (c) 2003 osCommerce
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,25 +16,17 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
- *
- * $Id$
  */
-?><?php
+?>
+<?php
 
-  // make zc happy
-  define('IS_ADMIN_FLAG', true);
 
-  // app location relative to zenmagick installation (ZM_BASE_PATH)
-  define('ZM_APP_PATH', 'apps'.DIRECTORY_SEPARATOR.'admin'.DIRECTORY_SEPARATOR);
+/**
+ * Application context.
+ *
+ * @author DerManoMann
+ * @package org.zenmagick.core
+ */
+class ZMApplicationContext {
 
-  // share code
-  define('ZM_SHARED', 'shared');
-
-  // preload a couple zc files needed
-  require_once 'includes/configure.php';
-  require_once DIR_FS_CATALOG.DIR_WS_INCLUDES.'filenames.php';
-  require_once DIR_FS_CATALOG.DIR_WS_INCLUDES.'database_tables.php';
-
-  require_once '../zenmagick/bootstrap.php';
-  ZMSettings::set('zenmagick.mvc.request.index', 'zm.php');
-  require_once '../zenmagick/mvc.php';
+}

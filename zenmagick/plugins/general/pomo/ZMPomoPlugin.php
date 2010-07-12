@@ -26,7 +26,6 @@
  *
  * @package org.zenmagick.plugins.pomo
  * @author DerManoMann
- * @version $Id$
  */
 class ZMPomoPlugin extends Plugin {
 

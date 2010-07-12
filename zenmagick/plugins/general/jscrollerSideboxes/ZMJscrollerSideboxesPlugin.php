@@ -26,7 +26,6 @@
  *
  * @package org.zenmagick.plugins.jscrollerSideboxes
  * @author DerManoMann
- * @version $Id$
  */
 class ZMJscrollerSideboxesPlugin extends Plugin {
 

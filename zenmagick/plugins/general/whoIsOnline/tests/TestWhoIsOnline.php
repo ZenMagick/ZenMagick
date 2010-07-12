@@ -5,7 +5,6 @@
  *
  * @package org.zenmagick.plugins.whoIsOnline
  * @author DerManoMann
- * @version $Id$
  */
 class TestWhoIsOnline extends ZMTestCase {
 

@@ -26,7 +26,6 @@
  *
  * @package org.zenmagick.plugins.blockHandler
  * @author DerManoMann
- * @version $Id$
  */
 interface ZMBlockContents {
 

@@ -25,7 +25,6 @@
  *
  * @package org.zenmagick.plugins.zm_ssu
  * @author DerManoMann
- * @version $Id$
  */
 class ZMSsuPlugin extends Plugin {
 

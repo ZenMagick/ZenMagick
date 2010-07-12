@@ -28,7 +28,6 @@
  *
  * @package org.zenmagick.plugins.total
  * @author DerManoMann
- * @version $Id$
  */
 class ZMTotalPlugin extends Plugin implements ZMOrderTotal {
 

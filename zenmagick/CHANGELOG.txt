@@ -163,6 +163,7 @@ Release 0.9.10
 - dropped Creole
 - add optional T&C checkout checkbox/message
 - move catalog default tab into admin and drop the plugin
+- add (empty) ZMApplicationContext context base class
 
 Release 0.9.9
 - in ZMDbTableMapper handle database exception building auto mappings

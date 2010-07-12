@@ -26,7 +26,6 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.plugins.subscriptions
- * @version $Id: ZMSubscriptionRequestController.php 2696 2009-12-04 00:06:09Z dermanomann $
  */
 class ZMSubscriptionRequestController extends ZMController {
 

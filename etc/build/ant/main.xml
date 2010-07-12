@@ -25,6 +25,7 @@
     <import file="themes.xml" />
     <import file="phpdoctor.xml" />
     <import file="libraries.xml" />
+    <import file="admin.xml" />
 
     <!-- This is used to compare zip files; see http://zipdiff.sourceforge.net/ for details -->
     <taskdef name="zipdiff" classname="zipdiff.ant.ZipDiffTask"/>
@@ -109,9 +110,7 @@
     <target name="prepare" depends="clean,init,ask-versions" description="Prepare build files.">
         <!-- copy all files that go into zen-cart directories -->
         <copy todir="${build.dir}">
-            <fileset dir="${zencart.src.dir}">
-                <exclude name="admin/zm.php" />
-            </fileset>
+            <fileset dir="${zencart.src.dir}" />
         </copy>
 
         <!-- copy all ZenMagick files -->

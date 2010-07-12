@@ -25,7 +25,6 @@
  *
  * @package org.zenmagick.plugins.settings
  * @author DerManoMann
- * @version $Id$
  */
 class ZMSettingsPlugin extends Plugin {
 

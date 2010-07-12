@@ -26,7 +26,6 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.plugins.examplePlugin
- * @version $Id$
  */
 class ZMExamplePluginAdminController extends ZMController {
 

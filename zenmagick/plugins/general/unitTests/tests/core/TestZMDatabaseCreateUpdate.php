@@ -28,7 +28,6 @@ define('TABLE_CREATE_UPDATE_TESTS', ZM_DB_PREFIX . 'create_update_tests');
  *
  * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann
- * @version $Id$
  */
 class TestZMDatabaseCreateUpdate extends ZMTestCase {
 

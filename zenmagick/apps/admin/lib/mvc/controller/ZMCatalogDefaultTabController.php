@@ -29,7 +29,6 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.plugins.catalogDefault
- * @version $Id$
  */
 class ZMCatalogDefaultTabController extends ZMController implements ZMCatalogContentController {
 

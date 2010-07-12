@@ -27,7 +27,6 @@
  *
  * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann
- * @version $Id$
  */
 class TestProductPricing extends ZMTestCase {
 

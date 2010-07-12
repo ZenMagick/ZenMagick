@@ -29,7 +29,6 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.plugins.minify
- * @version $Id$
  */
 class ViewUtils extends ZMViewUtils {
     private $plugin_;

@@ -30,7 +30,6 @@
  *
  * @author mano
  * @package org.zenmagick.plugins.googleAdSense
- * @version $Id$
  */
 class ZMGoogleAdSensePlugin extends Plugin {
     const ADSENSE_PREFIX = 'adsense-';

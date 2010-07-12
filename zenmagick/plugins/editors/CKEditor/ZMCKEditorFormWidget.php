@@ -26,7 +26,6 @@
  *
  * @package org.zenmagick.plugins.ckeditor
  * @author DerManoMann
- * @version $Id$
  */
 class ZMCKEditorFormWidget extends ZMTextAreaFormWidget {
     private $plugin_;

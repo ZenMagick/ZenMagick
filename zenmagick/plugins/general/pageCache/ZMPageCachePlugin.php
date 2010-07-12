@@ -31,7 +31,6 @@ define('ZM_EVENT_PLUGINS_PAGE_CACHE_STATS', 'plugins_page_cache_stats');
  *
  * @package org.zenmagick.plugins.pageCache
  * @author DerManoMann
- * @version $Id$
  */
 class ZMPageCachePlugin extends Plugin {
     private $cache_;

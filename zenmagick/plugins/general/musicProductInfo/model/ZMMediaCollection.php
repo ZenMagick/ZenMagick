@@ -29,7 +29,6 @@
  *
  * @author mano
  * @package org.zenmagick.plugins.musicProductInfo.model
- * @version $Id$
  */
 class ZMMediaCollection extends ZMObject {
     private $collectionId_;

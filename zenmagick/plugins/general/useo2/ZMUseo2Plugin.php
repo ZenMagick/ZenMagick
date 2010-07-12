@@ -25,7 +25,6 @@
  *
  * @package org.zenmagick.plugins.useo2
  * @author mano
- * @version $Id$
  */
 class ZMUseo2Plugin extends Plugin {
 

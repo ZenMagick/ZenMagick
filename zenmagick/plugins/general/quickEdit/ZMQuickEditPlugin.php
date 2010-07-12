@@ -28,7 +28,6 @@
  *
  * @package org.zenmagick.plugins.quickEdit
  * @author DerManoMann
- * @version $Id$
  */
 class ZMQuickEditPlugin extends Plugin {
 

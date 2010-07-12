@@ -29,7 +29,6 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.plugins.minify
- * @version $Id: TemplateManager.php 2902 2010-02-16 07:51:36Z dermanomann $
  */
 class TemplateManager extends ZMTemplateManager {
     private $plugin_;

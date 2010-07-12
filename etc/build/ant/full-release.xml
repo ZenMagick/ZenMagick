@@ -88,7 +88,7 @@
         <unzip src="${dist.dir}/zenmagick-${zenmagick.version}.zip" dest="${release.full.dir}" />
 
         <!-- apply branding to the lot -->
-        <antcall target="apply-branding" />
+        <!--antcall target="apply-branding" /-->
 
         <!-- just in case (and the ZenMagick readme -->
         <antcall target="patch">

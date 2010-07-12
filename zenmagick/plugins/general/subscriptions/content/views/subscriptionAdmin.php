@@ -16,11 +16,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
- *
- * $Id: email_subscription_cancel.text.php 2861 2010-01-26 02:58:32Z dermanomann $
  */
 ?>
-<h1>All Subscriptions</h1>
+<?php zm_title($this) ?>
+<h2><?php _vzm('All Subscriptions') ?></h2>
 
 <?php $resultList->setPagination(10); ?>
 <?php if (1 < $resultList->getNumberOfPages()) { ?>

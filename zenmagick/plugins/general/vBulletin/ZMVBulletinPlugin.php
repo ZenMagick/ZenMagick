@@ -26,7 +26,6 @@
  *
  * @package org.zenmagick.plugins.vbulletin
  * @author DerManoMann
- * @version $Id$
  */
 class ZMVBulletinPlugin extends Plugin implements ZMRequestHandler {
     private $page_;

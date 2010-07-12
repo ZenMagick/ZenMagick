@@ -29,7 +29,6 @@ define('MULTI_QUANTITY_ID', 'multi_qty_id');
  *
  * @package org.zenmagick.plugins.multiQuantity
  * @author DerManoMann
- * @version $Id$
  */
 class ZMMultiQuantityPlugin extends Plugin {
 

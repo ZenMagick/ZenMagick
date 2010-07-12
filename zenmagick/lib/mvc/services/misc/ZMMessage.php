@@ -27,7 +27,7 @@
  * <p>References can be anything, but usually would be a field number if it
  * is a validation message. Everything else typically would be <code>null</code>.</p>
  *
- * <p><strong>Note:</strong> The message text needs ot be localised.</p>
+ * <p><strong>Note:</strong> The message text is expected to be already localised.</p>
  *
  * @author DerManoMann
  * @package org.zenmagick.mvc.services.misc

@@ -25,7 +25,6 @@
  *
  * @package org.zenmagick.plugins.zm_token.tests
  * @author DerManoMann
- * @version $Id$
  */
 class TestZMProductAssociations extends ZMTestCase {
 

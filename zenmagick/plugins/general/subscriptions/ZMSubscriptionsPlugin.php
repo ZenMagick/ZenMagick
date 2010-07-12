@@ -26,7 +26,6 @@
  *
  * @package org.zenmagick.plugins.subscriptions
  * @author DerManoMann
- * @version $Id: zm_subscriptions.php 2860 2010-01-24 21:16:35Z dermanomann $
  */
 class ZMSubscriptionsPlugin extends Plugin {
 

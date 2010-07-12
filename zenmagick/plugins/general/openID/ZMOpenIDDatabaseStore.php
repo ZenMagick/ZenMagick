@@ -28,7 +28,6 @@ define('ZM_TABLE_OPENID_NONCES', ZM_DB_PREFIX . 'zm_openid_nonces');
  * @package org.zenmagick.plugins.openID
  * @author S. Alexandre Lemaire, saeven.net consulting inc. saeven@saeven.net
  * @author DerManoMann
- * @version $Id$
  */
 class ZMOpenIDDatabaseStore extends Auth_OpenID_OpenIDStore {
     private $nonceLifetime;

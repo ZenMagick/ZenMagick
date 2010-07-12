@@ -26,7 +26,6 @@
  *
  * @package org.zenmagick.plugins.haml
  * @author DerManoMann
- * @version $Id$
  */
 class ZMSavantHamlCompiler extends ZMObject {
 

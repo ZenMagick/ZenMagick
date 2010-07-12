@@ -31,7 +31,6 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.plugins.blockHandler
- * @version $Id$
  */
 class ZMBlockManager extends ZMObject {
     const BLOCK_PATTERN = '/<!\-\-\s+block::(\S*)\s+\-\->/';

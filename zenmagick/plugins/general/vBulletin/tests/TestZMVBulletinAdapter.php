@@ -25,7 +25,6 @@
  *
  * @package org.zenmagick.plugins.vbulletin
  * @author DerManoMann
- * @version $Id$
  */
 class TestZMVBulletinAdapter extends ZMTestCase {
     private $adapter_ = null;

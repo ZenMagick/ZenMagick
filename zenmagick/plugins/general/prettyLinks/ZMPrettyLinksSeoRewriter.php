@@ -25,7 +25,6 @@
  *
  * @package org.zenmagick.plugins.prettyLinks
  * @author mano
- * @version $Id$
  */
 class ZMPrettyLinksSeoRewriter implements ZMSeoRewriter {
 

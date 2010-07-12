@@ -29,7 +29,6 @@
  *
  * @package org.zenmagick.plugins.zm_wordpress
  * @author DerManoMann
- * @version $Id$
  */
 class ZMWordpressAdapter extends ZMObject {
 

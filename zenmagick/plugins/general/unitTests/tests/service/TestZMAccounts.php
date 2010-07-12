@@ -25,7 +25,6 @@
  *
  * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann
- * @version $Id$
  */
 class TestZMAccounts extends ZMTestCase {
     // test account data

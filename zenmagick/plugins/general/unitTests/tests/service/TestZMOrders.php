@@ -25,7 +25,6 @@
  *
  * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann
- * @version $Id$
  * @todo create custom order and add specific asserts to test explicit data
  */
 class TestZMOrders extends ZMTestCase {

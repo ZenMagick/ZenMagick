@@ -26,7 +26,6 @@
  *
  * @package org.zenmagick.plugins.xinha
  * @author DerManoMann
- * @version $Id$
  */
 class ZMXinhaPlugin extends Plugin {
 

@@ -28,7 +28,6 @@
  *
  * @package org.zenmagick.plugins.subtotal
  * @author DerManoMann
- * @version $Id$
  */
 class ZMSubtotalPlugin extends Plugin implements ZMOrderTotal {
 

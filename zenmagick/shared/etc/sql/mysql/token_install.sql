@@ -1,3 +1,7 @@
+#
+# Create token table
+#
+
 DROP TABLE IF EXISTS token;
 CREATE TABLE token (
   hash_id int(11) NOT NULL auto_increment,

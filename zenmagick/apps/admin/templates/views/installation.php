@@ -47,7 +47,6 @@
 
     $coreCompressor = new ZMCoreCompressor();
     $installer = new ZMInstallationPatcher();
-    $obsolete = zm_get_obsolete_files();
     $needRefresh = false;
 
     // install
@@ -218,26 +217,6 @@
         If you install/uninstall plugins or make any other changes to the lib directory you'll need to regenerate <code>core.php</code> in
         order to make these changes become active.") ?></p>
         <div class="submit"><input type="submit" value="<?php _vzm("Update") ?>"></div>
-    </fieldset>
-  </form>
-
-  <form action="<?php echo $admin2->url() ?>" method="POST" onsubmit="return zenmagick.confirm('Delete selected files?', this);">
-    <fieldset id="obsolete">
-    <legend><?php _vzm("Remove obsolete ZenMagick files") ?></legend>
-      <?php if (0 == count($obsolete)) { ?>
-      <h3><?php _vzm("Congratulations - Your installation appears to be clean!") ?></h3>
-      <?php } else { ?>
-        <p>This is a list of file <em>ZenMagick</em> considers to be obsolete. The files are not used by ZenMagick any more,
-          and unless you have modified them, or are sure that you need them they can safely be removed.</p>
-        <p><strong>There might be items on this list that need to be removed manually (for example, directories that are not empty).</strong></p>
-        <?php $ii = 0; foreach ($obsolete as $file) { $name = zm_mk_relative($file); ?>
-          <input type="checkbox" id="obsolete-<?php echo $ii ?>" name="obsolete[]" value="<?php echo $file ?>">
-          <label for="obsolete-<?php echo $ii ?>"><?php echo $name ?></label><br>
-        <?php ++$ii; } ?>
-        <input type="checkbox" class="all" id="oall" name="oall" value="" onclick="sync_all(this, 'obsolete')">
-        <label for="oall"><?php _vzm("Select/Unselect All") ?></label><br>
-        <div class="submit"><input type="submit" value="<?php _vzm("Remove") ?>"></div>
-      <?php } ?>
     </fieldset>
   </form>
 </div>

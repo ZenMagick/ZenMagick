@@ -29,7 +29,6 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.plugins.quickEdit
- * @version $Id$
  */
 class ZMQuickEditTabController extends ZMController implements ZMCatalogContentController {
     const STALE_CHECK_FIELD_PREFIX = '@_';
