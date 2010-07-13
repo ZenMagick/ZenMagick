@@ -33,7 +33,7 @@
 class ImageInfo extends ZMImageInfo {
     private $image_;
     private $formattedParameter_;
-    private $disableIH2Attributes_;
+    private $zoomSmallImages_;
 
 
     /**
@@ -47,7 +47,7 @@ class ImageInfo extends ZMImageInfo {
         $this->image_ = $image;
         $this->formattedParameter_ = '';
         $plugin = ZMPlugins::instance()->getPluginForId('imageHandler2');
-        $this->disableIH2Attributes_ = null !== $plugin && $plugin->get('disableIH2Attributes');
+        $this->zoomSmallImages_ = null !== $plugin && $plugin->get('zoomSmallImages');
     }
 
     /**
@@ -69,8 +69,8 @@ class ImageInfo extends ZMImageInfo {
         $ext = $comp[1];
         $imageBase = $comp[2];
 
-        $newimg = handle_image(DIR_WS_IMAGES.$this->image_, $this->altText_, SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT, '');
-        if (!$this->disableIH2Attributes_) {
+        $newimg = $this->handle_image(DIR_WS_IMAGES.$this->image_, $this->altText_, SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT, '');
+        if ($this->zoomSmallImages_) {
             $this->formattedParameter_ = $newimg[4];
         }
         return $newimg[0];
@@ -95,8 +95,8 @@ class ImageInfo extends ZMImageInfo {
         $imageBase = $comp[2];
 
         $medium = $imageBase.ZMSettings::get('imgSuffixMedium').$ext;
-        $newimg = handle_image(DIR_WS_IMAGES.$medium, $this->altText_, MEDIUM_IMAGE_WIDTH, MEDIUM_IMAGE_HEIGHT, '');
-        if (!$this->disableIH2Attributes_) {
+        $newimg = $this->handle_image(DIR_WS_IMAGES.$medium, $this->altText_, MEDIUM_IMAGE_WIDTH, MEDIUM_IMAGE_HEIGHT, '');
+        if ($this->zoomSmallImages_) {
             $this->formattedParameter_ = $newimg[4];
         }
         return $newimg[0];
@@ -114,8 +114,8 @@ class ImageInfo extends ZMImageInfo {
         $imageBase = $comp[2];
 
         $large = $imageBase.ZMSettings::get('imgSuffixLarge').$ext;
-        $newimg = handle_image(DIR_WS_IMAGES.$large, $this->altText_, '', '', '');
-        if (!$this->disableIH2Attributes_) {
+        $newimg = $this->handle_image(DIR_WS_IMAGES.$large, $this->altText_, '', '', '');
+        if ($this->zoomSmallImages_) {
             $this->formattedParameter_ = $newimg[4];
         }
         return $newimg[0];
@@ -135,6 +135,39 @@ class ImageInfo extends ZMImageInfo {
      */
     public function getFormattedParameter() { 
         return $this->formattedParameter_;
+    }
+
+    /**
+     * The actual IH2 function.
+     *
+     * @todo assimilate
+     */
+    private function handle_image($src, $alt, $width, $height, $parameters) {
+        global $ihConf;
+        
+        if ($ihConf['resize']) {
+            $ih_image = new ZMIh2Image($src, $width, $height);
+          // override image path, get local image from cache
+          if ($ih_image) { 
+            $src = $ih_image->get_local();
+            $parameters = $ih_image->get_additional_parameters($alt, $ih_image->canvas['width'], $ih_image->canvas['height'], $parameters);
+          }
+        } else {
+          // default to standard Zen-Cart fallback behavior for large -> medium -> small images
+          $image_ext = substr($src, strrpos($src, '.'));
+          $image_base = substr($src, strlen(DIR_WS_IMAGES), -strlen($image_ext));
+          if (strrpos($src, IMAGE_SUFFIX_LARGE) && !is_file(DIR_FS_CATALOG . $src)) {
+            //large image wanted but not found
+            $image_base = $ihConf['medium']['prefix'] . substr($image_base, strlen($ihConf['large']['prefix']), -strlen($ihConf['large']['suffix'])) . $ihConf['medium']['suffix'];
+            $src = DIR_WS_IMAGES . $image_base . $image_ext;
+          }
+          if (strrpos($src, IMAGE_SUFFIX_MEDIUM) && !is_file(DIR_FS_CATALOG . $src)) {
+            //medium image wanted but not found
+            $image_base = substr($image_base, strlen($ihConf['medium']['prefix']), -strlen($ihConf['medium']['suffix'])); 
+            $src = DIR_WS_IMAGES . $image_base . $image_ext;
+          }
+        }
+        return array($src, $alt, intval($width), intval($height), $parameters);
     }
 
 }
