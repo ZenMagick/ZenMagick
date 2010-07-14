@@ -165,6 +165,7 @@ Release 0.9.10
 - move catalog default tab into admin and drop the plugin
 - add (empty) ZMApplicationContext context base class
 - add method to ZMView to expose view utils
+- category, category_list: make subcategory link with image support
 
 Release 0.9.9
 - in ZMDbTableMapper handle database exception building auto mappings

@@ -23,7 +23,6 @@
  * $Id$
  */
 ?>
-
 <?php if ($resultList->hasResults()) { ?>
     <div class="rnblk">
         <?php echo $this->fetch('views/resultlist/nav.php') ?>
@@ -43,10 +42,16 @@
     </div>
 <?php } else { ?>
     <?php if ($currentCategory->hasChildren()) { ?>
-        <h3><?php _vzm("Available Sub-categories") ?></h3>
-        <?php foreach ($currentCategory->getChildren() as $category) { ?>
-            <?php echo $html->encode($category->getName()) ?><br />
-        <?php } ?>
+        <div class="subcats">
+            <h3><?php _vzm("Available Sub-categories") ?></h3>
+            <?php foreach ($currentCategory->getChildren() as $category) { 
+                $encName = $html->encode($category->getName());
+                $catImage = $category->getImageInfo();
+                $linkText = null == $catImage ? $encName : '<img src="'.$catImage->getDefaultImage().'" alt="'.$encName.'" title="'.$encName.'">';
+                ?>
+                <a href="<?php echo $net->url('category', $category->getPath()) ?>"><?php echo $linkText ?></a>
+            <?php } ?>
+        </div>
     <?php } ?>
 
     <h2><?php _vzm("There are no products in this category") ?></h2>

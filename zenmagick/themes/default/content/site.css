@@ -326,3 +326,6 @@ div#eztoc p a:hover {text-decoration:none;}
 
 /* music */
 div.mcol {border:1px solid gray;background-color:#fafbfc;padding:2px;}
+
+/* category pages */
+.subcats {margin-bottom:8px;}

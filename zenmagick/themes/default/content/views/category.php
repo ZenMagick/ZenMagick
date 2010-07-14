@@ -26,12 +26,16 @@
 <h2><?php echo $html->encode($currentCategory->getName()) ?></h2>
 
 <?php if ($currentCategory->hasChildren()) { ?>
-    <h3><?php _vzm("Available Sub-categories") ?></h3>
-    <?php foreach ($currentCategory->getChildren() as $category) { ?>
-        <?php if ($category->isActive()) { ?>
-            <?php echo $html->encode($category->getName()) ?><br />
-        <?php } ?>
-    <?php } ?>
+  <div class="subcats">
+      <h3><?php _vzm("Available Sub-categories") ?></h3>
+      <?php foreach ($currentCategory->getChildren() as $category) { 
+          $encName = $html->encode($category->getName());
+          $catImage = $category->getImageInfo();
+          $linkText = null == $catImage ? $encName : '<img src="'.$catImage->getDefaultImage().'" alt="'.$encName.'" title="'.$encName.'">';
+          ?>
+          <a href="<?php echo $net->url('category', $category->getPath()) ?>"><?php echo $linkText ?></a>
+      <?php } ?>
+  </div>
 <?php } ?>
 
 <?php $featured = ZMProducts::instance()->getFeaturedProducts($currentCategory->getId(), 4, true, $session->getLanguageId()); ?>
