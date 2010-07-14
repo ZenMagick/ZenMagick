@@ -96,6 +96,13 @@ class ZMRedirectView extends ZMView {
     /**
      * {@inheritDoc}
      */
+    public function getViewUtils() {
+        return null;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function generate($request) { 
         $url = null;
         if (null != $this->url_) {

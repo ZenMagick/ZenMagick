@@ -37,6 +37,7 @@ class ZMSavantView extends ZMView {
     private $layout_;
     private $viewDir_;
     private $filters_;
+    private $utils_;
 
 
     /**
@@ -49,6 +50,7 @@ class ZMSavantView extends ZMView {
         $this->layout_ = array();
         $this->filters_ = null;
         $this->setViewDir('views/');
+        $this->utils_ = null;
     }
 
     /**
@@ -226,11 +228,21 @@ class ZMSavantView extends ZMView {
     /**
      * {@inheritDoc}
      */
+    public function getViewUtils() {
+        if (null == $this->utils_) {
+            $this->utils_ = ZMLoader::make('ViewUtils', $this);
+        }
+        return $this->utils_;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function generate($request) {
         $savant = $this->getSavant($request);
 
         // special view bits
-        $viewUtils = ZMLoader::make('ViewUtils', $this);
+        $viewUtils = $this->getViewUtils();
         $savant->assign('resources', $viewUtils);
 
         // put all vars into local scope

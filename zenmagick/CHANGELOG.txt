@@ -164,6 +164,7 @@ Release 0.9.10
 - add optional T&C checkout checkbox/message
 - move catalog default tab into admin and drop the plugin
 - add (empty) ZMApplicationContext context base class
+- add method to ZMView to expose view utils
 
 Release 0.9.9
 - in ZMDbTableMapper handle database exception building auto mappings
