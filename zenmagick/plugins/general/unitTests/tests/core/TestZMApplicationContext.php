@@ -1,6 +1,6 @@
 <?php
 /*
- * ZenMagick - Another PHP framework.
+ * ZenMagick - Smart e-commerce
  * Copyright (C) 2006-2010 zenmagick.org
  *
  * This program is free software; you can redistribute it and/or modify
@@ -20,43 +20,20 @@
 ?>
 <?php
 
-
 /**
- * Application context.
+ * Test ZMApplicationContext.
  *
+ * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann
- * @package org.zenmagick.core
  */
-class ZMApplicationContext extends ZMObject {
-    private $definitions_;
-
+class TestZMApplicationContext extends ZMTestCase {
 
     /**
-     * Create new instance.
+     * Test getContext.
      */
-    function __construct() {
-        parent::__construct();
-        $this->definitions_ = array();
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
-
-
-    /**
-     * Load context from a YAML style string.
-     *
-     * @param string yaml The yaml style mappings.
-     * @param boolean override Optional flag to control whether to override existing mappings or to merge;
-     *  default is <code>true</code> to override.
-     */
-    public function load($yaml, $override=true) {
-        $defs = ZMRuntime::yamlLoad($yaml);
-        var_dump($defs);
+    public function testGetContext() {
+        $context = ZMRuntime::getContext();
+        $this->assertNotNull($context);
     }
 
 }
