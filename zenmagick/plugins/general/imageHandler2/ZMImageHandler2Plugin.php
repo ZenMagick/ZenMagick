@@ -100,9 +100,11 @@ class ZMImageHandler2Plugin extends Plugin {
      */
     public function onZMViewStart($args) {
         if (ZMLangUtils::asBoolean($this->get('zoomSmallImages'))) {
-            $viewUtils = $args['view']->getViewUtils();
-            $viewUtils->cssFile('ih2/style_imagehover.css');
-            $viewUtils->jsFile('ih2/jscript_imagehover.js');
+            if (null != ($viewUtils = $args['view']->getViewUtils())) {
+                // might be null in case of redirect/forward/etc
+                $viewUtils->cssFile('ih2/style_imagehover.css');
+                $viewUtils->jsFile('ih2/jscript_imagehover.js');
+            }
         }
     }
 
