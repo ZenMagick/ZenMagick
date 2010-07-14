@@ -41,10 +41,10 @@
     <meta http-equiv="content-type" content="text/html; charset=<?php echo ZMSettings::get('zenmagick.mvc.html.charset') ?>">
     <title><?php _vzm('ZenMagick Admin') ?></title>
     <?php $resources->cssFile('style/zenmagick.css') ?>
-    <?php $resources->cssFile('style/jquery-ui-lightness/jquery-ui-1.8.1.custom.css') ?>
+    <?php $resources->cssFile('style/jquery-ui/jquery-ui-1.8.2.custom.css') ?>
     <?php $resources->cssFile('style/jquery.cluetip.css') ?>
     <?php $resources->jsFile('js/jquery-1.4.2.min.js') ?>
-    <?php $resources->jsFile('js/jquery-ui-1.8.1.custom.min.js') ?>
+    <?php $resources->jsFile('js/jquery-ui-1.8.2.custom.min.js') ?>
     <?php $resources->jsFile('js/jquery.form.js') ?>
     <?php $resources->jsFile('js/jquery.cluetip.min.js') ?>
     <?php $resources->jsFile('js/zenmagick.js') ?>
