@@ -30,13 +30,13 @@
  * @author DerManoMann
  * @package org.zenmagick.plugins.productImages
  */
-class ZMProductImagesTabController extends ZMController implements ZMCatalogContentController {
+class ZMProductImagesTabController extends ZMCatalogContentController {
 
     /**
      * Create new instance.
      */
     function __construct() {
-        parent::__construct();
+        parent::__construct('product_images_tab', _zm('Images'), self::ACTIVE_PRODUCT);
     }
 
 
@@ -56,27 +56,6 @@ class ZMProductImagesTabController extends ZMController implements ZMCatalogCont
      */
     public function processPost($request) {
         return $this->findView();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function isActive($request) {
-        return 0 < $request->getProductId();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getCatalogRequestId() {
-        return 'product_images_tab';
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getName() {
-        return _zm('Images');
     }
 
 }
