@@ -27,13 +27,13 @@
  * @author DerManoMann
  * @package org.zenmagick.plugins.productTags
  */
-class ZMProductTagsTabController extends ZMController implements ZMCatalogContentController {
+class ZMProductTagsTabController extends ZMCatalogContentController {
 
     /**
      * Create new instance.
      */
     function __construct() {
-        parent::__construct();
+        parent::__construct('product_tags_tab', _zm('Tags'), self::ACTIVE_PRODUCT);
     }
 
 
@@ -68,27 +68,6 @@ class ZMProductTagsTabController extends ZMController implements ZMCatalogConten
         }
 
         return $this->findView();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function isActive($request) {
-        return 0 < $request->getProductId();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getCatalogRequestId() {
-        return 'product_tags_tab';
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getName() {
-        return _zm('Tags');
     }
 
 }
