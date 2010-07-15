@@ -29,30 +29,6 @@ if (!defined('IS_ADMIN_FLAG')) {
   die('Illegal Access');
 }
 
-    if (class_exists('ZMInstallationPatcher')) {
-        /*
-         * Check for any patches that need be applied. If they are disabled or can't be applied, 
-         * display installation menu item for manual installation.
-         */
-
-        $isInstallation = null !== strpos($_SERVER['SCRIPT_FILENAME'], 'installation');
-        $duringUninstall = isset($_GET) && array_key_exists('uninstall', $_GET);
-        $installer = new ZMInstallationPatcher();
-        if (!$duringUninstall && !$isInstallation && $installer->isPatchesOpen()) {
-            // try to run all patches
-            $installer->patch();
-        }
-
-        $adminMenuPatch = $installer->getPatchForId('adminMenu');
-        //if ($adminMenuPatch && $adminMenuPatch->isOpen()) {
-            // only if no ZenMagick menu item
-            $toolbox = $request->getToolbox();
-            $za_contents[] = array('text' => _zm("ZenMagick Installation"), 'link' => $toolbox->admin->url('installation', '', true));
-        //}
-    }
-    
-    foreach (ZMAdminMenu::getItemsForParentId(ZMAdminMenu::MENU_TOOLS) as $item) {
-        $za_contents[] = array('text' => $item->getTitle(), 'link' => $item->getURL(), '', 'NONSSL');
-    }
+  $za_contents[] = array('text' => _zm("ZenMagick Installation"), 'link' => 'zmIndex.php?main_page=installation');
 
 ?>
