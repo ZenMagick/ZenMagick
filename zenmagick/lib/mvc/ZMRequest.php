@@ -37,6 +37,7 @@ class ZMRequest extends ZMObject {
      * <p>Will be used if the 'zenmagick.mvc.request.idName' is not set.</p>
      */
     const DEFAULT_REQUEST_ID = 'rid';
+
     /**
      * Name of the session token form field and also the name in the session.
      */
@@ -144,7 +145,7 @@ class ZMRequest extends ZMObject {
         if (null === $params) {
             // if requestId null, keep current and also current params
             $query = $this->getParameterMap();
-            unset($query[ZMSettings::get('zenmagick.mvc.request.idName', ZMRequest::DEFAULT_REQUEST_ID)]);
+            unset($query[$this->getRequestIdKey()]);
             unset($query[$this->getSession()->getName()]);
             if (null != $params) {
                 parse_str($params, $arr);
@@ -334,6 +335,15 @@ class ZMRequest extends ZMObject {
     }
 
     /**
+     * Get the name of the request parameter that contains the request id.
+     *
+     * @return string The request id key.
+     */
+    public function getRequestIdKey() {
+        return ZMSettings::get('zenmagick.mvc.request.idName', self::DEFAULT_REQUEST_ID);
+    }
+
+    /**
      * Get the request id.
      *
      * <p>The request id is the main criteria for selecting the controller and view to process this
@@ -342,7 +352,7 @@ class ZMRequest extends ZMObject {
      * @return string The request id of this request.
      */
     public function getRequestId() {
-        return $this->getParameter(ZMSettings::get('zenmagick.mvc.request.idName', self::DEFAULT_REQUEST_ID), 'index');
+        return $this->getParameter($this->getRequestIdKey(), 'index');
     }
 
     /**
@@ -351,7 +361,7 @@ class ZMRequest extends ZMObject {
      * @param string requestId The new request id.
      */
     public function setRequestId($requestId) {
-        $this->setParameter(ZMSettings::get('zenmagick.mvc.request.idName', self::DEFAULT_REQUEST_ID), $requestId);
+        $this->setParameter($this->getRequestIdKey(), $requestId);
     }
 
     /**
@@ -530,7 +540,7 @@ class ZMRequest extends ZMObject {
      */
     public function saveFollowUpUrl() {
         $params = $this->getParameterMap();
-        $ridKey = ZMSettings::get('zenmagick.mvc.request.idName', self::DEFAULT_REQUEST_ID);
+        $ridKey = $this->getRequestIdKey();
         if (array_key_exists($ridKey, $params)) {
             unset($params[$ridKey]);
         }
