@@ -30,7 +30,7 @@
  * @author DerManoMann
  * @package org.zenmagick.plugins.quickEdit
  */
-class ZMQuickEditTabController extends ZMController implements ZMCatalogContentController {
+class ZMQuickEditTabController extends ZMCatalogContentController {
     const STALE_CHECK_FIELD_PREFIX = '@_';
 
 
@@ -38,7 +38,7 @@ class ZMQuickEditTabController extends ZMController implements ZMCatalogContentC
      * Create new instance.
      */
     function __construct() {
-        parent::__construct();
+        parent::__construct('quick_edit_tab', _zm('Quick Edit'), self::ACTIVE_CATEGORY);
     }
 
 
@@ -130,27 +130,6 @@ class ZMQuickEditTabController extends ZMController implements ZMCatalogContentC
         }    
 
         return $this->findView();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function isActive($request) {
-        return 0 < $request->getCategoryId() && 0 == $request->getProductId();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getCatalogRequestId() {
-        return 'quick_edit_tab';
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getName() {
-        return _zm('Quick Edit');
     }
 
 }

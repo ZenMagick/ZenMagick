@@ -117,6 +117,10 @@ class ZMDefaultSeoRewriter implements ZMSeoRewriter {
      * @return boolean <code>true</code> if decoded, <code>false</code> if not.
      */
     protected function decodePath($request) {
+        // if requestid key already in request, do nothing
+        if (null != $request->getParameter($request->getRequestIdKey())) {
+            return true;
+        }
         $uri = $request->getUri();
         $context = $request->getContext().'/';
         if (0 === strpos($uri, $context.$this->pathBase_) && false === strpos($uri, '?')) {

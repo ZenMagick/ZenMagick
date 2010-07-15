@@ -30,27 +30,21 @@
  * @author DerManoMann
  * @package org.zenmagick.plugins.catalogDefault
  */
-class ZMCatalogDefaultTabController extends ZMController implements ZMCatalogContentController {
+class ZMCatalogDefaultTabController extends ZMCatalogContentController {
+
+    /**
+     * Create new instance.
+     */
+    function __construct() {
+        parent::__construct('catalog_default_tab', _zm('Catalog Manager'));
+    }
+
 
     /**
      * {@inheritDoc}
      */
     public function isActive($request) {
         return true;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getCatalogRequestId() {
-        return 'catalog_default_tab';
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getName() {
-        return _zm('Catalog Manager');
     }
 
 }

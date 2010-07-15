@@ -219,4 +219,11 @@ abstract class ZMView extends ZMObject {
      */
     public abstract function path($filename, $type=ZMView::TEMPLATE);
 
+    /**
+     * Get view utils.
+     *
+     * @return ZMViewUtils An instance of <code>ZMViewUtils</code> or <code>null</code>.
+     */
+    public abstract function getViewUtils();
+
 }

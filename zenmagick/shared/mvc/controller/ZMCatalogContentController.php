@@ -30,28 +30,65 @@
  * @author DerManoMann
  * @package zenmagick.store.shared.services
  */
-interface ZMCatalogContentController {
+abstract class ZMCatalogContentController extends ZMController {
+    const ACTIVE_CATEGORY = 1;
+    const ACTIVE_PRODUCT = 2;
+    protected $catalogRequestId_;
+    protected $name_;
+    private $active_;
+
+
+    /**
+     * Create new instance.
+     *
+     * @param string requestId Catalog requestId.
+     * @param string name The name.
+     * @param int active Active flag; example: <code>ACTIVE_CATEGORY|ACTIVE_PRODUCT</code>; default is <code>0</code>.
+     */
+    function __construct($catalogRequestId, $name, $active=0) {
+        parent::__construct($catalogRequestId);
+        $this->catalogRequestId_ = $catalogRequestId;
+        $this->name_ = $name;
+        $this->active_ = $active;
+    }
+
 
     /**
      * Query whether this content is active for the given request.
      *
+     * <p>Subclasses can control this by either setting the active (bit-)flags in the constructor or by
+     * overriding this method.</p>
+     *
      * @param ZMRequest request The current request.
      * @return boolean <code>true</code> if the plugin requests to be rendered for this request.
      */
-    public function isActive($request);
+    public function isActive($request) {
+        $bits = 0;
+        if (0 < $request->getCategoryId()) {
+            $bits |= self::ACTIVE_CATEGORY;
+        }
+        if (0 < $request->getProductId()) {
+            $bits |= self::ACTIVE_PRODUCT;
+        }
+        return $this->active_ & $bits;
+    }
 
     /**
      * Query the (catalog) request id this controller handles.
      *
      * @return string The request id this controller is responsible for.
      */
-    public function getCatalogRequestId();
+    public function getCatalogRequestId() {
+        return $this->catalogRequestId_;
+    }
 
     /**
      * Get the name.
      *
      * @return string The name.
      */
-    public function getName();
+    public function getName() {
+        return $this->name_;
+    }
 
 }

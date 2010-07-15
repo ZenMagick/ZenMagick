@@ -52,16 +52,15 @@ class ZMImageHandler2Plugin extends Plugin {
      */
     public function install() {
         parent::install();
-
         $this->addConfigValue('Resize images', 'resize', true, 'Select to activate automatic resizing and caching of images',
             'widget@BooleanFormWidget#name=resize&default=true&label=Automatic resize and caching');
-        $this->addConfigValue('Watermark gravity', 'watermarkGravity', 'c', 'Select the position for the watermark relative to the image''s canvas. Default is <strong>Center</Strong>',
+        $this->addConfigValue('Watermark gravity', 'watermarkGravity', 'c', 'Select the position for the watermark relative to the image\'s canvas. Default is <strong>Center</Strong>',
             'widget@SelectFormWidget#name=watermarkGravity&options='.urlencode('nw=North West&n=North&ne=North East&w=West&c=Center&e=east&sw=South West&s=South&se=South East'));
 
         // small
-        $this->addConfigValue('Small image filetype', 'smallImageType', '', 'You better stick to ''gif'' for transparency or ''jpg'' for larger images. ''no change'' means use the same file extension for small images as uploaded image''s.',
-            'widget@SelectFormWidget#name=smallImageType&options='.urlencode('gif=gif&jpg=jpg&png=png&=no change'));
-        $this->addConfigValue('Small image background', 'smallImageBackground', '255:255:255', 'If converted from an uploaded image with transparent areas, these areas become the specified color. Set to ''transparent'' to keep transparency');
+        $this->addConfigValue('Small image filetype', 'smallImageType', '', 'You better stick to \'gif\' for transparency or \'jpg\' for larger images. \'no change\' means use the same file extension for small images as uploaded image\'s.',
+            'widget@SelectFormWidget#name=smallImageType&options='.urlencode('gif=gif&jpg=jpg&png=png&no_change==no change'));
+        $this->addConfigValue('Small image background', 'smallImageBackground', '255:255:255', 'If converted from an uploaded image with transparent areas, these areas become the specified color. Set to \'transparent\' to keep transparency');
         $this->addConfigValue('Watermark small images', 'watermarkSmallImages', false, 'Select if you want to show watermarked small images',
             'widget@BooleanFormWidget#name=watermarkSmallImages&default=false&label=Add watermark');
         $this->addConfigValue('Zoom small images', 'zoomSmallImages', true, 'Select if you want to enable a nice zoom overlay while hovering the mouse pointer over small images',
@@ -69,17 +68,17 @@ class ZMImageHandler2Plugin extends Plugin {
         $this->addConfigValue('Small image compression quality', 'smallImageQuality', '85', 'Specify the desired image quality for small jpg images, decimal values ranging from 0 to 100. Higher is better quality and takes more space. Default is 85 which is ok unless you have very specific needs');
 
         // medium
-        $this->addConfigValue('Medium image filetype', 'mediumImageType', '', 'You better stick to ''gif'' for transparency or ''jpg'' for larger images. ''no change'' means use the same file extension for medium images as uploaded image''s.',
-            'widget@SelectFormWidget#name=mediumImageType&options='.urlencode('gif=gif&jpg=jpg&png=png&=no change'));
-        $this->addConfigValue('Medium image background', 'mediumImageBackground', '255:255:255', 'If converted from an uploaded image with transparent areas, these areas become the specified color. Set to ''transparent'' to keep transparency');
+        $this->addConfigValue('Medium image filetype', 'mediumImageType', '', 'You better stick to \'gif\' for transparency or \'jpg\' for larger images. \'no change\' means use the same file extension for medium images as uploaded image\'s.',
+            'widget@SelectFormWidget#name=mediumImageType&options='.urlencode('gif=gif&jpg=jpg&png=png&no_change==no change'));
+        $this->addConfigValue('Medium image background', 'mediumImageBackground', '255:255:255', 'If converted from an uploaded image with transparent areas, these areas become the specified color. Set to \'transparent\' to keep transparency');
         $this->addConfigValue('Watermark medium images', 'watermarkMediumImages', false, 'Select if you want to show watermarked medium images',
             'widget@BooleanFormWidget#name=watermarkMediumImages&default=false&label=Add watermark');
         $this->addConfigValue('Medium image compression quality', 'mediumImageQuality', '85', 'Specify the desired image quality for medium jpg images, decimal values ranging from 0 to 100. Higher is better quality and takes more space. Default is 85 which is ok unless you have very specific needs');
 
         // large
-        $this->addConfigValue('Large image filetype', 'largeImageType', '', 'You better stick to ''gif'' for transparency or ''jpg'' for larger images. ''no change'' means use the same file extension for large images as uploaded image''s.',
-            'widget@SelectFormWidget#name=largeImageType&options='.urlencode('gif=gif&jpg=jpg&png=png&=no change'));
-        $this->addConfigValue('Large image background', 'largeImageBackground', '255:255:255', 'If converted from an uploaded image with transparent areas, these areas become the specified color. Set to ''transparent'' to keep transparency');
+        $this->addConfigValue('Large image filetype', 'largeImageType', '', 'You better stick to \'gif\' for transparency or \'jpg\' for larger images. \'no change\' means use the same file extension for large images as uploaded image\'s.',
+            'widget@SelectFormWidget#name=largeImageType&options='.urlencode('gif=gif&jpg=jpg&png=png&no_change=no change'));
+        $this->addConfigValue('Large image background', 'largeImageBackground', '255:255:255', 'If converted from an uploaded image with transparent areas, these areas become the specified color. Set to \'transparent\' to keep transparency');
         $this->addConfigValue('Watermark large images', 'watermarkLargeImages', false, 'Select if you want to show watermarked large images',
             'widget@BooleanFormWidget#name=watermarkLargeImages&default=false&label=Add watermark');
         $this->addConfigValue('Large image compression quality', 'largeImageQuality', '85', 'Specify the desired image quality for large jpg images, decimal values ranging from 0 to 100. Higher is better quality and takes more space. Default is 85 which is ok unless you have very specific needs');
@@ -92,9 +91,20 @@ class ZMImageHandler2Plugin extends Plugin {
      */
     public function init() {
         parent::init();
+        ZMEvents::instance()->attach($this);
+    }
+
+
+    /**
+     * {@inheritDoc}
+     */
+    public function onZMViewStart($args) {
         if (ZMLangUtils::asBoolean($this->get('zoomSmallImages'))) {
-            ZMTemplateManager::instance()->cssFile('ih2/style_imagehover.css');
-            ZMTemplateManager::instance()->jsFile('ih2/jscript_imagehover.js', ZMTemplateManager::PAGE_TOP);
+            if (null != ($viewUtils = $args['view']->getViewUtils())) {
+                // might be null in case of redirect/forward/etc
+                $viewUtils->cssFile('ih2/style_imagehover.css');
+                $viewUtils->jsFile('ih2/jscript_imagehover.js');
+            }
         }
     }
 

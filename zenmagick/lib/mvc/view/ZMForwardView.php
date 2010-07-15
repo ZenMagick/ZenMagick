@@ -107,6 +107,13 @@ class ZMForwardView extends ZMView {
     /**
      * {@inheritDoc}
      */
+    public function getViewUtils() {
+        return null;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function generate($request) { 
         $req = ZMLoader::make('Request');
         $req->setParameterMap($request->getParameterMap());

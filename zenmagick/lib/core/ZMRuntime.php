@@ -41,7 +41,8 @@ class ZMRuntime extends ZMObject {
      */
     public static function getContext() {
         if (null === self::$context_) {
-            self::$context_ = ZMBeanUtils::getBean(ZMSettings::get('zenmagick.core.config.context', 'ApplicationContext'));
+            self::$context_ = ZMBeanUtils::getBean(ZMSettings::get('zenmagick.core.config.context', 'ApplicationContext'), true);
+            self::$context_->load(@file_get_contents(ZMFileUtils::mkPath(array(ZMRuntime::getApplicationPath(), 'config', 'context.yaml'))), false);
         }
 
         return self::$context_;

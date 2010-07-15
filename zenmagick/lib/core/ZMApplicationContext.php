@@ -27,6 +27,48 @@
  * @author DerManoMann
  * @package org.zenmagick.core
  */
-class ZMApplicationContext {
+class ZMApplicationContext extends ZMObject {
+    private $definitions_;
+
+
+    /**
+     * Create new instance.
+     */
+    function __construct() {
+        parent::__construct();
+        $this->definitions_ = array();
+    }
+
+    /**
+     * Destruct instance.
+     */
+    function __destruct() {
+        parent::__destruct();
+    }
+
+
+    /**
+     * Load context from a YAML style string.
+     *
+     * @param string yaml The yaml style mappings.
+     * @param boolean override Optional flag to control whether to override existing mappings or to merge;
+     *  default is <code>true</code> to override.
+     */
+    public function load($yaml, $override=true) {
+        $this->definitions_ = ZMRuntime::yamlLoad($yaml, $this->definitions_, $override);
+    }
+
+    /**
+     * Get a bean definition.
+     *
+     * @param string name The bean name.
+     * @return string A bean definition or <code>null</code>.
+     */
+    public function getDefinition($name) {
+        if (array_key_exists($name, $this->definitions_)) {
+            return $this->definitions_[$name];
+        }
+        return null;
+    }
 
 }

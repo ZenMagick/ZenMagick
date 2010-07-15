@@ -123,7 +123,7 @@
     <?php }
 
     if ($needRefresh) {
-        $request->redirect($toolbox->admin->url(null, '', true));
+        $request->redirect('zmIndex.php?main_page=installation');
     }
 
 ?>
@@ -142,7 +142,7 @@
 <div id="b_installation">
   <h2><?php _vzm("ZenMagick Installation") ?> <a class="btn" href=""><?php _vzm("Refresh Page") ?></a></h2>
 
-  <form action="<?php echo $toolbox->admin->url() ?>" method="POST" onsubmit="return zm_user_confirm('Update File Patches?');">
+  <form action="'zmIndex.php?main_page=installation'" method="POST" onsubmit="return zm_user_confirm('Update File Patches?');">
     <fieldset class="patches">
       <legend><?php _vzm("ZenMagick File Patches") ?></legend>
       <input type="hidden" name="update" value="file">
@@ -150,7 +150,7 @@
     </fieldset>
   </form>
 
-  <form action="<?php echo $toolbox->admin->url() ?>" method="POST" onsubmit="return zm_user_confirm('Update SQL Patches?');">
+  <form action="'zmIndex.php?main_page=installation'" method="POST" onsubmit="return zm_user_confirm('Update SQL Patches?');">
     <fieldset class="patches">
       <legend><?php _vzm("ZenMagick SQL Extensions") ?></legend>
       <input type="hidden" name="update" value="sql">

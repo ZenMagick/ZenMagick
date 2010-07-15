@@ -26,7 +26,7 @@
  * @author DerManoMann
  * @package org.zenmagick.mvc.ajax
  */
-abstract class ZMAbstractAjaxResponse extends ZMObject {
+abstract class ZMAbstractAjaxResponse extends ZMObject implements ZMAjaxResponse {
     protected $messages_;
     protected $status_;
     protected $data_;

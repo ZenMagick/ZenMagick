@@ -82,6 +82,13 @@ class ZMFunctionView extends ZMView {
     /**
      * {@inheritDoc}
      */
+    public function getViewUtils() {
+        return null;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function generate($request) {
         ob_start();
         if ($this->getFunction()) {
