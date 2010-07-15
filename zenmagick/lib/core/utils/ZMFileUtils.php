@@ -336,11 +336,15 @@ class ZMFileUtils {
     /**
      * Create a file system path using the given bits.
      *
-     * @param array List of path elements.
+     * @param mixed Either an array containing a list of path elements or a variable number of parameter to be taken as path elements.
      * @return string A valid filename.
      */
     public static function mkPath($bits) {
-        $path = implode(DIRECTORY_SEPARATOR, $bits);
+        $args = func_get_args();
+        if (is_array($args[0])) {
+            $args = array_values($args[0]);
+        }
+        $path = implode(DIRECTORY_SEPARATOR, $args);
         return self::normalizeFilename($path);
     }
 

@@ -103,4 +103,15 @@ class ZMTestCase extends UnitTestCase {
         return ZMPlugins::instance()->getPluginForId('unitTests');
     }
 
+    /**
+     * Get base directory of tests.
+     *
+     * <p><strong>This is important to make tests work with core.php.</strong></p>
+     *
+     * @return string The full directory name of the tests folder.
+     */
+    public function getTestsBaseDirectory() {
+        return ZMFileUtils::mkPath($this->getTestPlugin()->getPluginDirectory(), 'tests');
+    }
+
 }

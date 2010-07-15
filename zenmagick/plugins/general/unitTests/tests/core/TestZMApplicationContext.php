@@ -36,4 +36,17 @@ class TestZMApplicationContext extends ZMTestCase {
         $this->assertNotNull($context);
     }
 
+    /**
+     * Test load.
+     */
+    public function testLoad() {
+        $context = ZMRuntime::getContext();
+        $context->load(file_get_contents(ZMFileUtils::mkPath($this->getTestsBaseDirectory(), 'core', 'data', 'context.yaml')));
+        $this->assertEqual('ZMObject#name=yoo', $context->getDefinition('Yoo'));
+        $obj = ZMBeanUtils::getBean('Yoo');
+        if ($this->assertNotNull($obj)) {
+            $this->assertEqual('yoo', $obj->getName());
+        }
+    }
+
 }

@@ -55,8 +55,20 @@ class ZMApplicationContext extends ZMObject {
      *  default is <code>true</code> to override.
      */
     public function load($yaml, $override=true) {
-        $defs = ZMRuntime::yamlLoad($yaml);
-        var_dump($defs);
+        $this->definitions_ = ZMRuntime::yamlLoad($yaml, $this->definitions_, $override);
+    }
+
+    /**
+     * Get a bean definition.
+     *
+     * @param string name The bean name.
+     * @return string A bean definition or <code>null</code>.
+     */
+    public function getDefinition($name) {
+        if (array_key_exists($name, $this->definitions_)) {
+            return $this->definitions_[$name];
+        }
+        return null;
     }
 
 }

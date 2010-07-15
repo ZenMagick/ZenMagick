@@ -188,9 +188,10 @@ class ZMBeanUtils extends ZMObject {
      * <p>The syntax for bean definitions is: <em>[class name]#[property1=value1&property2=value2&...]<em>.</p>
      *
      * @param string definition The bean definition.
+     * @param boolean ignoreContext If set, the definition will be used as-is and no context loopup done; default is <code>false</code>.
      * @return mixed An object or <code>null</code>.
      */
-    public static function getBean($definition) {
+    public static function getBean($definition, $ignoreContext=false) {
         $isRef = false;
         if (0 === strpos($definition, 'bean::')) {
             $definition = substr($definition, 6);
@@ -210,6 +211,10 @@ class ZMBeanUtils extends ZMObject {
                 }
                 $definition .= '&'.$stoken[1];
             }
+        }
+        // got a valid definition, so let's look that up in the context, just in case
+        if (!$ignoreContext && null != ($contextDefinition = ZMRuntime::getContext()->getDefinition($definition))) {
+            $definition = $contextDefinition;
         }
 
         $tokens = explode('#', $definition, 2);
