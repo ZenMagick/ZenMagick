@@ -130,6 +130,8 @@
             /*** use ZM checkout shipping code ***/
             'apps.store.request.enableZMCheckoutShipping' => false,
 
+            'apps.store.docRoot' => DIR_FS_CATALOG,
+
             // use ZenMagick themes
             'isEnableZMThemes' => true,
 

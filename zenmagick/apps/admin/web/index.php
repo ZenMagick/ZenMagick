@@ -26,18 +26,20 @@
   // share code
   define('ZM_SHARED', 'shared');
 
-  // make zc happy
-  define('IS_ADMIN_FLAG', true);
-
-  // preload a couple zc files needed
+  // pre-load a couple zen-cart files needed
   define('ZC_INSTALL_PATH', dirname(dirname(dirname(dirname(dirname(__FILE__))))).DIRECTORY_SEPARATOR);
+  // make zen-cart happy
+  define('IS_ADMIN_FLAG', true);
   require_once ZC_INSTALL_PATH.'admin/includes/configure.php';
   require_once DIR_FS_CATALOG.DIR_WS_INCLUDES.'filenames.php';
   require_once DIR_FS_CATALOG.DIR_WS_INCLUDES.'database_tables.php';
 
   require '../../../bootstrap.php';
+
   // more zen-cart config stuff we need
-  ZMSettings::set('zenmagick.mvc.request.secure', 'true'==ENABLE_SSL_ADMIN);
+  ZMSettings::set('zenmagick.mvc.request.secure', 'true' == ENABLE_SSL_ADMIN);
   ZMSettings::set('apps.store.baseUrl', HTTP_CATALOG_SERVER . DIR_WS_CATALOG);
+  ZMSettings::set('apps.store.docRoot', DIR_FS_CATALOG);
   ZMSettings::set('apps.store.oldAdminUrl', HTTP_SERVER . DIR_WS_ADMIN.'index.php');
+
   require '../../../mvc.php';

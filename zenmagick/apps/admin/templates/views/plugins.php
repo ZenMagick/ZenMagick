@@ -85,7 +85,7 @@
             <button type="submit">Uninstall</button>
             <a href="<?php echo $admin2->url(null, 'action=upgrade&pluginId='.$plugin->getId().'&group='.$plugin->getGroup()) ?>#<?php echo $plugin->getId() ?>">Upgrade</a>
             <?php if ($plugin->hasOptions()) { /* enabled/disabled and sort order are handled by this page */ ?>
-            <a href="<?php echo $admin2->url(null, 'ajax=false&action=edit&pluginId='.$plugin->getId().'&group='.$plugin->getGroup()) ?>#<?php echo $plugin->getId() ?>" onclick="return zenmagick.ajaxFormDialog(this.href, '<?php sprintf(_zm('Edit Plugin Options: %s'), $plugin->getName()) ?>', 'ajax-form');">Edit</a>
+            <a href="<?php echo $admin2->url(null, 'ajax=false&action=edit&pluginId='.$plugin->getId().'&group='.$plugin->getGroup()) ?>#<?php echo $plugin->getId() ?>" onclick="return zenmagick.ajaxFormDialog(this.href, '<?php echo sprintf(_zm('Edit Plugin Options: %s'), $plugin->getName()) ?>', 'ajax-form');">Edit</a>
           <?php } ?>
           <?php } ?>
           </form>

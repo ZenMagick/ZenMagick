@@ -20,7 +20,7 @@ body {margin:0;padding:4px 0;font-size:75%;font-family:Arial, Helvetica, sans-se
 a:link {color:#3561a5;}
 img {border:none;}
 
-/*table, div.ui-dialog {font-size:12px;} */
+table, div.ui-dialog {font-size:12px;}
 
 /* liquid main centered */
 div#main {width:92%;margin:0 auto;text-align:left;}
@@ -92,7 +92,7 @@ div#vakata-contextmenu, div#vakata-contextmenu ul {text-align:left;min-width:120
 
 /* interim */
 div#main, div#content {padding:8px;position:relative;}
-fieldset {padding:12px;margin:12px 0;}
+fieldset {padding:6px;margin:4px 0;}
 legend {font-weight:bold;color:#fff;background-color:#777;padding:2px 9px;}
 legend span {font-size:114%;background:#eee;padding:3px;color:#000;}
 th {color:#000;background:#b0b0b0;border-right:1px solid #fff;padding:3px;}
