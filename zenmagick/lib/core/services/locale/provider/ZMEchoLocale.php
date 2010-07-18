@@ -25,7 +25,7 @@
  * Simple echo locale service.
  *
  * @author DerManoMann
- * @package org.zenmagick.core.services.locale
+ * @package org.zenmagick.core.services.locale.provider
  */
 class ZMEchoLocale implements ZMLocale {
 

@@ -2,6 +2,7 @@
 <project name="zenmagick-phpdoctor" default="phpdoctor">
 
     <!-- properties -->
+    <property name="phpdoctor.dir" location="../phpdoctor" />
     <property name="phpdoctor.ini.dir" location="etc/phpdoctor" />
     <property name="phpdoctor.source.path" location="${basedir}/${zenmagick.src.dir}/lib" />
     <property name="phpdoctor.apidocs.path" location="${basedir}/docs/apidocs/${zenmagick.version}" />
@@ -10,6 +11,11 @@
     <!-- Generate phpdoctor ini file -->
     <target name="phpdoctor" depends="clean,init,patch-phpdoctor-ini" description="Generate phpdoctor ini file.">
         <mkdir dir="${phpdoctor.apidocs.path}" />
+
+        <exec executable="php">
+          <arg value="${phpdoctor.dir}/phpdoc.php"/>
+          <arg value="${phpdoctor.ini.dir}/phpdoctor.ini"/>
+        </exec>
     </target>
 
 

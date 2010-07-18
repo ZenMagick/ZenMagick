@@ -31,7 +31,7 @@
  * </ul>
  *
  * @author DerManoMann
- * @package org.zenmagick.core
+ * @package org.zenmagick.core.build
  */
 class ZMSwiftMailerPacker extends ZMPhpPackagePacker implements ZMLibraryPacker {
 

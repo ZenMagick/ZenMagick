@@ -24,7 +24,7 @@
  * Packer for the <em>Savant3</em> library.
  *
  * @author DerManoMann
- * @package org.zenmagick.mvc
+ * @package org.zenmagick.core.build
  */
 class ZMSavant3Packer extends ZMPhpPackagePacker implements ZMLibraryPacker {
 

@@ -28,7 +28,7 @@
  * If a request Id is set, a full URL will be created.</p>
  *
  * @author DerManoMann
- * @package org.zenmagick.store.view
+ * @package org.zenmagick.mvc.view
  */
 class ZMRedirectView extends ZMView {
     protected $secure_;

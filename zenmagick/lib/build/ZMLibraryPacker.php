@@ -28,7 +28,7 @@
  * available via the build script.</p>
  *
  * @author DerManoMann
- * @package org.zenmagick.core
+ * @package org.zenmagick.core.build
  */
 interface ZMLibraryPacker {
 

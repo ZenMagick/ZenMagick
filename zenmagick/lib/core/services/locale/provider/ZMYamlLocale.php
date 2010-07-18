@@ -25,7 +25,7 @@
  * Locale driven by a single yaml file per language.
  *
  * @author DerManoMann
- * @package org.zenmagick.core.services.locale
+ * @package org.zenmagick.core.services.locale.provider
  */
 class ZMYamlLocale implements ZMLocale {
     private $translations_;
