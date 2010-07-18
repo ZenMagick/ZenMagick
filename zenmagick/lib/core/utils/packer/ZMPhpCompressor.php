@@ -28,8 +28,10 @@
  * which we will mask as T_ML_COMMENT for PHP 4.
  */
 if (!defined('T_ML_COMMENT')) {
+    /** @access private */
     define('T_ML_COMMENT', T_COMMENT);
 } else {
+    /** @access private */
     define('T_DOC_COMMENT', T_ML_COMMENT);
 }
 
