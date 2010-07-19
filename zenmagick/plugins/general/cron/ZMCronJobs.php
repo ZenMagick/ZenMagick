@@ -48,7 +48,7 @@ class ZMCronJobs extends ZMObject {
         if (null == $this->cronfile) {
             $this->cronfile = dirname(__FILE__).'/crontab.txt';
         }
-        $this->cronhistory =  $cronhistory;
+        $this->cronhistory = $cronhistory;
         if (null == $this->cronhistory) {
             $this->cronhistory = dirname(__FILE__).'/cronhistory.txt';
         }

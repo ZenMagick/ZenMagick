@@ -594,12 +594,12 @@ class ZMToolboxMacro extends ZMToolboxTool {
             }
 
             if ($ii == ($n - 1)) {
-                $qty = spritnf(_zm("%s+"), $discounts[$ii]->getQuantity());
+                $qty = sprintf(_zm("%s+"), $discounts[$ii]->getQuantity());
             } else {
                 if ($discounts[$ii]->getQuantity() == ($discounts[$ii+1]->getQuantity() - 1)) {
                     $qty = $discounts[$ii]->getQuantity();
                 } else {
-                    $qty = spritnf(_zm("%s-%s"), $discounts[$ii]->getQuantity(), ($discounts[$ii+1]->getQuantity() - 1));
+                    $qty = sprintf(_zm("%s-%s"), $discounts[$ii]->getQuantity(), ($discounts[$ii+1]->getQuantity() - 1));
                 }
             }
             $details[] = array('qty' => $qty, 'price' => $discounts[$ii]->getPrice());

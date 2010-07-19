@@ -27,24 +27,35 @@
  * @author DerManoMann
  */
 class TestZMFilePatcher extends ZMTestCase {
+    private $dataPath_;
+
+
+    /**
+     * Create new instance.
+     */
+    public function __construct() {
+        parent::__construct();
+        $this->dataPath_ = ZMFileUtils::mkPath($this->getTestsBaseDirectory(), 'core', 'data');
+    }
+
 
     /**
      * Clean up.
      */
     public function tearDown() {
         parent::tearDown();
-        @unlink(dirname(__FILE__).'/data/file-test-insert-before-out.txt');
-        @unlink(dirname(__FILE__).'/data/file-test-insert-before-edge-out.txt');
-        @unlink(dirname(__FILE__).'/data/file-test-insert-after-out.txt');
-        @unlink(dirname(__FILE__).'/data/file-test-insert-after-edge-out.txt');
+        @unlink($this->dataPath_.'file-test-insert-before-out.txt');
+        @unlink($this->dataPath_.'file-test-insert-before-edge-out.txt');
+        @unlink($this->dataPath_.'file-test-insert-after-out.txt');
+        @unlink($this->dataPath_.'file-test-insert-after-edge-out.txt');
     }
 
     /**
      * Test insert before.
      */
     public function testInsertBefore() {
-        $file = dirname(__FILE__).'/data/file-test-insert-before.txt';
-        $target = dirname(__FILE__).'/data/file-test-insert-before-out.txt';
+        $file = $this->dataPath_.'file-test-insert-before.txt';
+        $target = $this->dataPath_.'file-test-insert-before-out.txt';
         $patch = array(
             array(
                 'match'=>'some blubb', 
@@ -52,7 +63,7 @@ class TestZMFilePatcher extends ZMTestCase {
                 'data'=>'some doh'
             )
         );
-        $expected = dirname(__FILE__).'/data/file-test-insert-before-expected.txt';
+        $expected = $this->dataPath_.'file-test-insert-before-expected.txt';
 
         $patcher = ZMLoader::make('FilePatcher', $file, $patch, $target);
         $this->assertTrue($patcher->isOpen());
@@ -70,8 +81,8 @@ class TestZMFilePatcher extends ZMTestCase {
      * Test insert before edge case.
      */
     public function testInsertBeforeEdge() {
-        $file = dirname(__FILE__).'/data/file-test-insert-before.txt';
-        $target = dirname(__FILE__).'/data/file-test-insert-before-edge-out.txt';
+        $file = $this->dataPath_.'file-test-insert-before.txt';
+        $target = $this->dataPath_.'file-test-insert-before-edge-out.txt';
         $patch = array(
             array(
                 'match'=>'some bla', 
@@ -79,7 +90,7 @@ class TestZMFilePatcher extends ZMTestCase {
                 'data'=>'some doh'
             )
         );
-        $expected = dirname(__FILE__).'/data/file-test-insert-before-edge-expected.txt';
+        $expected = $this->dataPath_.'file-test-insert-before-edge-expected.txt';
 
         $patcher = ZMLoader::make('FilePatcher', $file, $patch, $target);
         $this->assertTrue($patcher->isOpen());
@@ -97,8 +108,8 @@ class TestZMFilePatcher extends ZMTestCase {
      * Test insert after.
      */
     public function testInsertAfter() {
-        $file = dirname(__FILE__).'/data/file-test-insert-after.txt';
-        $target = dirname(__FILE__).'/data/file-test-insert-after-out.txt';
+        $file = $this->dataPath_.'file-test-insert-after.txt';
+        $target = $this->dataPath_.'file-test-insert-after-out.txt';
         $patch = array(
             array(
                 'match'=>'some blubb', 
@@ -106,7 +117,7 @@ class TestZMFilePatcher extends ZMTestCase {
                 'data'=>'some doh'
             )
         );
-        $expected = dirname(__FILE__).'/data/file-test-insert-after-expected.txt';
+        $expected = $this->dataPath_.'file-test-insert-after-expected.txt';
 
         $patcher = ZMLoader::make('FilePatcher', $file, $patch, $target);
         $this->assertTrue($patcher->isOpen());
@@ -124,8 +135,8 @@ class TestZMFilePatcher extends ZMTestCase {
      * Test insert after edge case.
      */
     public function testInsertAfterEdge() {
-        $file = dirname(__FILE__).'/data/file-test-insert-after.txt';
-        $target = dirname(__FILE__).'/data/file-test-insert-after-edge-out.txt';
+        $file = $this->dataPath_.'file-test-insert-after.txt';
+        $target = $this->dataPath_.'file-test-insert-after-edge-out.txt';
         $patch = array(
             array(
                 'match'=>'and one more line!', 
@@ -133,7 +144,7 @@ class TestZMFilePatcher extends ZMTestCase {
                 'data'=>'some doh'
             )
         );
-        $expected = dirname(__FILE__).'/data/file-test-insert-after-edge-expected.txt';
+        $expected = $this->dataPath_.'file-test-insert-after-edge-expected.txt';
 
         $patcher = ZMLoader::make('FilePatcher', $file, $patch, $target);
         $this->assertTrue($patcher->isOpen());
