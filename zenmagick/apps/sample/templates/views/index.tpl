@@ -14,7 +14,7 @@
   // NOTE: these change the JS messages only
   zmFormValidation.messages = {
     'alreadySubmitted': '<?php _vzm('Please be patient!') ?>',
-    'errors': "<?php _vzm("Oopsey, why such a hurry?\n\n") ?>"
+    'errors': "<?php _vzm("Oopsey, why such a hurry?\\n\\n") ?>"
   };
 </script>
 
