@@ -83,6 +83,7 @@ ul#messages li {margin:2px 0;padding:2px;}
 .ui-widget-content ins.ui-icon-empty {background:none;display:none;}
 .jstree-icon {cursor:hand;cursor:pointer;}
 div#vakata-contextmenu, div#vakata-contextmenu ul {text-align:left;min-width:120px;width:120px;}
+#catalog-tabs {overflow:auto;}
 
 /* console */
 #b_console label {display:block;font-weight:bold; margin-bottom:4px;}
