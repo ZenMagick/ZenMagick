@@ -2,11 +2,7 @@
 
 class FOMO {
   public function onZMBootstrapDone($args) {
-      $locale = ZMLocales::instance()->getLocale();
-      if (null != $locale && $locale instanceof ZMPomoLocale) {
-          echo 'register MO...';
-          $locale->registerMOForLocale(dirname(__FILE__), 'de_CH', 'messages.mo');
-      }
+      ZMLocales::instance()->init('de_CH');
   }
 
   public function onZMInitDone($args) {

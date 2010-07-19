@@ -33,9 +33,9 @@ interface ZMLocale {
     /**
      * Init locale.
      *
-     * @param string language The language code; for exampe <em>de_DE</em> or <em>en_NZ</em>.
+     * @param string locale The locale to be used; for exampe <em>de_DE</em> or <em>en_NZ</em>.
      */
-    public function init($language);
+    public function init($locale);
 
     /**
      * Translate the given text.

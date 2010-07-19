@@ -53,6 +53,13 @@ class ZMPomoLocale extends ZMObject implements ZMLocale {
 
 
     /**
+     * {@inheritDoc}
+     */
+    public function init($locale) {
+        $this->registerMOForLocale(ZMRuntime::getApplicationPath(), $locale, 'messages.mo');
+    }
+
+    /**
      * Get translations for the given domain.
      *
      * @param string domain The domain name.
@@ -80,8 +87,8 @@ class ZMPomoLocale extends ZMObject implements ZMLocale {
      */
     public function registerMOForLocale($basedir, $locale, $filename=null, $domain=self::DEFAULT_DOMAIN) {
         $filename = null == $filename ? $domain.'.mo' : $filename;
-        $path = DIRECTORY_SEPARATOR. 'locale' . DIRECTORY_SEPARATOR . $locale . DIRECTORY_SEPARATOR . 'LC_MESSAGES' . DIRECTORY_SEPARATOR . $filename;
-        $this->registerMO($basedir.$path, $domain);
+        $path = ZMFileUtils::mkPath($basedir, 'locale', $locale, 'LC_MESSAGES', $filename);
+        $this->registerMO($path, $domain);
     }
 
     /**

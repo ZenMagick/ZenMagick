@@ -32,7 +32,7 @@ class ZMEchoLocale implements ZMLocale {
     /**
      * {@inheritDoc}
      */
-    public function init($language) {
+    public function init($locale) {
         // nothing
     }
 
