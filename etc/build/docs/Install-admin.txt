@@ -41,7 +41,10 @@ and change admin to whatever the name of your admin folder.
 3. Using ZenMagick admin
 ========================
 
-Open a browser and browse to http://[YOUR_DOMAIN]/zmadmin/apps/admin/web/
+Once installed, there will be a new menu item Tools = ZenMagick Admin that will let you log in into the 
+ZenMagick admin application.
+
+Alternatively, open a browser and browse to http://[YOUR_DOMAIN]/zmadmin/apps/admin/web/
 
 If all is well you should see the ZenMagick admin login page. Login details are shared with Zen Cart,
 so just login using your normal admin credentials.
