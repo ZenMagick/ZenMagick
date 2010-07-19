@@ -137,6 +137,10 @@
             </fileset>
         </copy>
 
+        <!-- copy docs -->
+        <copy tofile="${build.dir}/Readme.txt" file="etc/build/docs/Readme-mod.txt" />
+        <copy tofile="${build.dir}/Install.txt" file="etc/build/docs/Install-mod.txt" />
+
         <!-- remove various files we do not want included -->
         <delete includeemptydirs="true">
             <!-- source control files -->

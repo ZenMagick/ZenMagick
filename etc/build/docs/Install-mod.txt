@@ -1,3 +1,6 @@
+Installing ZenMagick into an existing Zen Cart installation
+===========================================================
+
 1. Copy/Upload Files
 ====================
 

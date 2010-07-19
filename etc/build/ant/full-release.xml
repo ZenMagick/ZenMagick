@@ -43,8 +43,9 @@
         <copy file="${basedir}/etc/build/full/sql/mysql_default_sideboxes.sql" todir="${release.full.dir}/zc_install/sql/plugins/" />
         <copy file="${basedir}/etc/build/full/sql/mysql_other.sql" todir="${release.full.dir}/zc_install/sql/plugins/" />
 
-        <!-- add ZenMagick readme -->
-        <copy file="${basedir}/etc/build/full/files/Readme.ZenMagick.txt" todir="${release.full.dir}/" />
+        <!-- copy docs -->
+        <copy tofile="${release.full.dir}/Readme.txt" file="etc/build/docs/Readme-full.txt" />
+        <copy tofile="${release.full.dir}/Install.txt" file="etc/build/docs/Install-full.txt" />
 
         <!-- remove unused zencart code -->
         <antcall target="drop-unused-zencart" />

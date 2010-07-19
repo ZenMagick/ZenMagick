@@ -169,6 +169,8 @@ Release 0.9.10
   ZMBeanUtils; also means that full bean definitions may be mapped to
 	something different! (this obsoletes the previouosly introduces option to
 	configure singletons via the setting 'zenmagick.core.singleton.NAME')
+- split install/readme into separate files for each package type
+  (mod/full/admin) and move into release root folder
 
 Release 0.9.9
 - in ZMDbTableMapper handle database exception building auto mappings

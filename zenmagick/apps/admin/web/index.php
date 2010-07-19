@@ -30,7 +30,11 @@
   define('ZC_INSTALL_PATH', dirname(dirname(dirname(dirname(dirname(__FILE__))))).DIRECTORY_SEPARATOR);
   // make zen-cart happy
   define('IS_ADMIN_FLAG', true);
-  require_once ZC_INSTALL_PATH.'admin/includes/configure.php';
+
+  // name of Zen Cart admin folder
+  define('ZC_ADMIN_NAME', 'admin');
+
+  require_once ZC_INSTALL_PATH.ZC_ADMIN_NAME.'/includes/configure.php';
   require_once DIR_FS_CATALOG.DIR_WS_INCLUDES.'filenames.php';
   require_once DIR_FS_CATALOG.DIR_WS_INCLUDES.'database_tables.php';
 
