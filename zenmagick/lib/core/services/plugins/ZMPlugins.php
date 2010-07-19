@@ -244,7 +244,7 @@ class ZMPlugins extends ZMObject {
         $pluginDir = $groupDir.$id;
         if (is_dir($pluginDir)) {
             // expect plugin file in the directory as 'ZMPlugin[CamelCaseId].php.php' extension
-            $pluginClass = ZMLoader::CLASS_PREFIX . $pluginClassSuffix . 'Plugin';
+            $pluginClass = ZMLoader::DEFAULT_CLASS_PREFIX . $pluginClassSuffix . 'Plugin';
             $file = $pluginDir . DIRECTORY_SEPARATOR . $pluginClass . '.php';
             if (!file_exists($file)) {
                 ZMLogging::instance()->log("can't find plugin file(dir) for '".$id."'", ZMLogging::DEBUG);
@@ -255,7 +255,7 @@ class ZMPlugins extends ZMObject {
             $pluginClass = $pluginClassSuffix;
             $file = $groupDir . $pluginClass . '.php';
             if (!is_file($file)) {
-                $pluginClass = ZMLoader::CLASS_PREFIX . $pluginClassSuffix . 'Plugin';
+                $pluginClass = ZMLoader::DEFAULT_CLASS_PREFIX . $pluginClassSuffix . 'Plugin';
                 $file = $groupDir . $pluginClass . '.php';
                 if (!is_file($file)) {
                     ZMLogging::instance()->log("can't find plugin file for '".$id."'", ZMLogging::DEBUG);

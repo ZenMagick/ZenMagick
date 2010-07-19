@@ -53,10 +53,11 @@
  * @package org.zenmagick.core
  */
 class ZMLoader {
-    const CLASS_PREFIX = 'ZM';
+    const DEFAULT_CLASS_PREFIX = 'ZM';
     private static $root_ = null;
     private static $counter_ = 1;
     private $name_;
+    private $prefix_;
     private $parent_;
     private $path_;
     private $cache_;
@@ -67,9 +68,11 @@ class ZMLoader {
      * Create a new loader.
      *
      * @param string name Optional class loader name.
+     * @param string prefix Optional prefix to use; defaults to <code>self::DEFAULT_CLASS_PREFIX</code>.
      */
-    public function __construct($name=null) {
+    public function __construct($name=null, $prefix=self::DEFAULT_CLASS_PREFIX) {
         $this->name_ = $name;
+        $this->prefix_ = $prefix;
         if (null == $this->name_) {
             $this->name_ = 'loader@'.self::$counter_++;
         }
@@ -83,10 +86,10 @@ class ZMLoader {
     /**
      * Get the root loader.
      *
-     * @param string prefix Optional prefix to be used for class resolving; default is <em>ZM</em>.
+     * @param string prefix Optional prefix to be used for class resolving; default is <em>self::DEFAULT_CLASS_PREFIX</em>.
      * @return ZMLoader The root loader.
      */
-    public static function instance($prefix=self::CLASS_PREFIX) {
+    public static function instance($prefix=self::DEFAULT_CLASS_PREFIX) {
         if (null == self::$root_) {
             self::$root_ = new ZMLoader('rootLoader', $prefix);
         }
@@ -249,7 +252,7 @@ class ZMLoader {
         // prefix operations are on the basename
         $baseName = basename($name);
 
-        if (0 === strpos($baseName, self::CLASS_PREFIX)) {
+        if (0 === strpos($baseName, $this->prefix_)) {
             if (class_exists($name, false) || interface_exists($name, false)) {
                 $this->cache_[$key] = $name;
                 return $name;
@@ -263,7 +266,7 @@ class ZMLoader {
             $parent = $name;
             while (false !== ($parent = get_parent_class($parent))) {
                 $baseName = basename($parent);
-                if (0 === strpos($baseName, self::CLASS_PREFIX)) {
+                if (0 === strpos($baseName, $this->prefix_)) {
                     $this->cache_[$key] = $name;
                     return $name;
                 }
@@ -273,7 +276,7 @@ class ZMLoader {
         // default to prefixed name
         $elems = explode('\\', $name);
         $num = count($elems);
-        $elems[$num-1] = self::CLASS_PREFIX.$elems[$num-1];
+        $elems[$num-1] = $this->prefix_.$elems[$num-1];
         return $this->resolveClass(implode('\\', $elems), $name);
     }
 
