@@ -119,3 +119,7 @@ footer = "ZenMagick ${zenmagick.version}"
 ; Create a class tree?
 
 tree = on
+
+; Use GeSHi to include formatted source files in the documentation
+
+include_source = off
