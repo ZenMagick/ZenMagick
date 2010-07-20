@@ -30,10 +30,18 @@
 interface ZMLocale {
     const DEFAULT_DOMAIN = 'defaults';
 
+
     /**
      * Init locale.
      *
-     * @param string locale The locale to be used; for exampe <em>de_DE</em> or <em>en_NZ</em>.
+     * <p>Init the configured locale implementation. This includes creating the singleton instance of the locale and calling <code>init($locale)</code>
+     * on the locale instance.</p>
+     *
+     * <p>The locale instance, in turn, will typically try to load the default language mappings for the locale/language given. Depending
+     * on the actual implementation used this can be a file (yaml, mo) or just a static map kept in memory.</p>
+     *
+     * @param string locale The locale to be used in the form: <code>[language code]_[country code]</code> or just <code>[language code]</code>;
+     *  for exampe <em>de_DE</em>, <em>en_NZ</em> or <em>es</code>.
      */
     public function init($locale);
 

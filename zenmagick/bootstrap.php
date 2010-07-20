@@ -95,5 +95,8 @@
         set_exception_handler(array(ZMLogging::instance(), 'exceptionHandler'));
     }
 
+    // set up locale
+    ZMLocales::instance()->init(ZMSettings::get('zenmagick.core.locales.locale'));
+
     // core and plugins loaded
     ZMEvents::instance()->fireEvent(null, ZMEvents::BOOTSTRAP_DONE, array('request' => $_zm_request));

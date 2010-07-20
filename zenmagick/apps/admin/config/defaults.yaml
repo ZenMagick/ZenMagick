@@ -1,10 +1,10 @@
 #
 # default settings
 #
-# $Id$
-#
-#
+
 zenmagick.mvc.templates.ext: .php
+
+zenmagick.core.locales.locale: en_NZ
 
 zenmagick.core.logging.enabled: true
 zenmagick.core.logging.level: ALL

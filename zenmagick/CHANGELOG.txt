@@ -171,6 +171,12 @@ Release 0.9.10
 	configure singletons via the setting 'zenmagick.core.singleton.NAME')
 - split install/readme into separate files for each package type
   (mod/full/admin) and move into release root folder
+- ZMFileUtils::normalizeFilename(): call realpath() only if valid filename to
+  avoid losing the path
+- add code to initialize locale based on setting
+  'zenmagick.core.locales.locale'; this is assumed to be in the form 'de_DE'
+	or just 'de' (language code), rather than the directory; existing
+	translations will continue to work, though
 
 Release 0.9.9
 - in ZMDbTableMapper handle database exception building auto mappings

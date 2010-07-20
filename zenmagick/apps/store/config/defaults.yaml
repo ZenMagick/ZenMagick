@@ -1,3 +1,9 @@
+#
+# default settings
+#
+
+zenmagick.core.locales.locale: en_NZ
+
 zenmagick.mvc.request.seoRewriter: StoreDefaultSeoRewriter
 zenmagick.mvc.request.idName: main_page
 zenmagick.mvc.view.default: SavantView

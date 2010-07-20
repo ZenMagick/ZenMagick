@@ -19,5 +19,5 @@ class FOMO {
 }
 
 // do this ASAP
-ZMSettings::set('zenmagick.core.locale.provider', 'PomoLocale');
+ZMSettings::set('zenmagick.core.locales.provider', 'PomoLocale');
 ZMEvents::instance()->attach(new FOMO());

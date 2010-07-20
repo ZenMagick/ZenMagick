@@ -270,7 +270,9 @@ class ZMFileUtils {
             $filename = str_replace('\\', DIRECTORY_SEPARATOR, $filename);
         }
 
-        $filename = realpath($filename);
+        if (file_exists($filename)) {
+            $filename = realpath($filename);
+        }
         if (is_dir($filename)) {
             $filename .= DIRECTORY_SEPARATOR;
         }

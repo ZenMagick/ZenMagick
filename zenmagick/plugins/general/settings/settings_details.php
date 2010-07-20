@@ -158,6 +158,18 @@
                         'desc' => 'Minimum password length.'
                     )
                 ),
+                'locales' => array(
+                    array(
+                        'key' => 'provider',
+                        'type' => 'string',
+                        'desc' => 'Name of the class implementing ZMLocale that should be used to lookup translations.'
+                    ),
+                    array(
+                        'key' => 'locale',
+                        'type' => 'string',
+                        'desc' => 'Active locale.'
+                    )
+                ),
                 'email' => array(
                     array(
                         'key' => 'transport',

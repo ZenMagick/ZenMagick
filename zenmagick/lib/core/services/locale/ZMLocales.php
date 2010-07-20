@@ -26,7 +26,7 @@
  *
  * <p>Delegates translations to an instance of <code>ZMLocale</code>.</p>
  *
- * <p>The implementation used can be configured via the setting 'zenmagick.core.locale.provider'. If none is
+ * <p>The implementation used can be configured via the setting 'zenmagick.core.locales.provider'. If none is
  *  configured, a default echo implementation will be used.</p>
  *
  * @author DerManoMann
@@ -62,11 +62,15 @@ class ZMLocales extends ZMObject implements ZMLocale {
     /**
      * Get the locale to be used.
      *
+     * <p>The reload flag is mainly to allow applications to switch to a different locale implementation at a later stage during 
+     * startup.</p>
+     *
+     * @param boolean reload Optional flag to force a reload; default is <code>false</code>.
      * @return ZMLocale The locale.
      */
-    public function getLocale() {
-        if (null == $this->locale_) {
-            $this->locale_ = ZMBeanUtils::getBean(ZMSettings::get('zenmagick.core.locale.provider', 'EchoLocale'));
+    public function getLocale($reload=false) {
+        if (null == $this->locale_ || $reload) {
+            $this->locale_ = ZMBeanUtils::getBean(ZMSettings::get('zenmagick.core.locales.provider', 'EchoLocale'));
         }
 
         return $this->locale_;
@@ -76,8 +80,8 @@ class ZMLocales extends ZMObject implements ZMLocale {
     /**
      * {@inheritDoc}
      */
-    public function init($language) {
-        $this->getLocale()->init($language);
+    public function init($locale) {
+        $this->getLocale()->init($locale);
     }
 
     /**
