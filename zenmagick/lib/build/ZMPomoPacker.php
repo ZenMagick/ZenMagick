@@ -21,10 +21,10 @@
 <?php
 
 /**
- * Packer for the <em>pomo</em> tools as included in Wordpress and/or glotpress.
+ * Packer for the <em>pomo</em> tools as included in Wordpress and glotpress.
  *
  * @author DerManoMann
- * @package org.zenmagick.mvc
+ * @package org.zenmagick.core.build
  */
 class ZMPomoPacker extends ZMPhpPackagePacker implements ZMLibraryPacker {
 

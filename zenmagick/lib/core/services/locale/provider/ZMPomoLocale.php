@@ -28,7 +28,7 @@
  * load (and merge) multiple files for a single domain and locale.</p>
  *
  * @author DerManoMann
- * @package org.zenmagick.plugins.pomo
+ * @package org.zenmagick.core.services.locale.provider
  */
 class ZMPomoLocale extends ZMObject implements ZMLocale {
     // loaded translations per domain and for the current locale
