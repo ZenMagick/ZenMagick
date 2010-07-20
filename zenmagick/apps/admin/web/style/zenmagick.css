@@ -61,8 +61,9 @@ div#content {min-height:380px;}
 
 /* footer */
 #footer {clear:left;text-align:center;font-size:10px;padding:5px;}
-#footer p {margin:0;}
+#footer p {margin:0;text-align:left;}
 #footer a {color:#3561a5;}
+#footer img {float:left;margin-right:14px;}
 
 /*IE: */
 h1 {background-image:url(../images/bg-t.png);;font-weight:normal;}
