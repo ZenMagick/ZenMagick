@@ -32,7 +32,7 @@
  * @author DerManoMann
  * @package org.zenmagick.core.services.locale
  */
-class ZMLocales extends ZMObject implements ZMLocale {
+class ZMLocales extends ZMObject {
     private $locale_;
 
 
@@ -80,13 +80,6 @@ class ZMLocales extends ZMObject implements ZMLocale {
         return $this->locale_;
     }
 
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getCode() {
-        return $this->getLocale()->getCode();
-    }
 
     /**
      * {@inheritDoc}
