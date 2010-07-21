@@ -4,6 +4,8 @@
 
 zenmagick.core.locales.locale: en_NZ
 
+zenmagick.core.events.listeners: EventFixes
+
 zenmagick.mvc.request.seoRewriter: StoreDefaultSeoRewriter
 zenmagick.mvc.request.idName: main_page
 zenmagick.mvc.view.default: SavantView
