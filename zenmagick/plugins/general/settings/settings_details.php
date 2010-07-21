@@ -164,6 +164,7 @@
                         'type' => 'string',
                         'desc' => 'List of comma separated class names of default event listeners..'
                     ),
+                ),
                 'locales' => array(
                     array(
                         'key' => 'provider',
