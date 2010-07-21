@@ -32,6 +32,13 @@ interface ZMLocale {
 
 
     /**
+     * Get the active locale code.
+     *
+     * @return string The current locale code.
+     */
+    public function getCode();
+
+    /**
      * Init locale.
      *
      * <p>Init the configured locale implementation. This includes creating the singleton instance of the locale and calling <code>init($locale)</code>

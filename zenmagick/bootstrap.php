@@ -79,6 +79,13 @@
         require_once ZM_BASE_PATH.'local.php';
     }
 
+    // set up default event listeners
+    foreach (explode(',', ZMSettings::get('zenmagick.core.events.listeners')) as $_zm_elc) {
+        if (null != ($_zm_el = ZMBeanUtils::getBean(trim($_zm_elc)))) {
+            ZMEvents::instance()->attach($_zm_el);
+        }
+    }
+
     // upset plugins if required
     if (ZMSettings::get('zenmagick.core.plugins.enabled')) {
         $plugins = ZMPlugins::instance()->initPluginsForGroups(explode(',', ZMSettings::get('zenmagick.core.plugins.groups')), ZMSettings::get('zenmagick.core.plugins.context', 0));

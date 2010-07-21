@@ -22,41 +22,26 @@
 
 
 /**
- * Simple echo locale service.
+ * Handle a few events.
+ *
+ * <p>Hooked up automatically via configs.yaml.</p>
  *
  * @author DerManoMann
- * @package org.zenmagick.core.services.locale.provider
+ * @package org.zenmagick.mvc.sample
  */
-class ZMEchoLocale implements ZMLocale {
-    private $locale_;
-
+class ZMSampleEventHandler {
 
     /**
-     * {@inheritDoc}
+     * Init done callback.
      */
-    public function getCode() {
-        return $this->locale_;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function init($locale) {
-        $this->locale_ = $locale;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function translate($text, $context=null, $domain=ZMLocale::DEFAULT_DOMAIN) {
-        return $text;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function translatePlural($single, $number, $plural=null, $context=null, $domain=ZMLocale::DEFAULT_DOMAIN) {
-        return (1 < $number && null != $plural) ? $plural : $single;
+    public function onZMInitDone($args) {
+        $request = $args['request'];
+        if (null != ($locale = $request->getParameter('locale'))) {
+            ZMLocales::instance()->getLocale(true, $locale);
+            $request->getSession()->setValue('locale', $locale);
+        } else if (null != ($locale = $request->getSession()->getValue('locale'))) {
+            ZMLocales::instance()->getLocale(true, $locale);
+        }
     }
 
 }

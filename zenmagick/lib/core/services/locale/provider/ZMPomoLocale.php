@@ -30,9 +30,10 @@
  * @author DerManoMann
  * @package org.zenmagick.core.services.locale.provider
  */
-class ZMPomoLocale extends ZMObject implements ZMLocale {
+class ZMPomoLocale implements ZMLocale {
     // loaded translations per domain and for the current locale
     private $translations_;
+    private $locale_;
     private static $EMPTY_ = null;
 
 
@@ -40,8 +41,8 @@ class ZMPomoLocale extends ZMObject implements ZMLocale {
      * Create new instance.
      */
     public function __construct() {
-        $this->translations_ = array();
         parent::__construct();
+        $this->translations_ = array();
     }
 
     /**
@@ -55,7 +56,15 @@ class ZMPomoLocale extends ZMObject implements ZMLocale {
     /**
      * {@inheritDoc}
      */
+    public function getCode() {
+        return $this->locale_;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function init($locale) {
+        $this->locale_ = $locale;
         $this->registerMOForLocale(ZMRuntime::getApplicationPath(), $locale, 'messages.mo');
     }
 

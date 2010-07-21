@@ -8,3 +8,4 @@ zenmagick.mvc.templates.ext: .tpl
 zenmagick.mvc.seo.type: realpath
 
 zenmagick.core.locales.provider: YamlLocale
+zenmagick.core.events.listeners: SampleEventHandler

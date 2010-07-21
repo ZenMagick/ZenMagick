@@ -47,6 +47,13 @@ class ZMIndexController extends ZMController {
     /**
      * {@inheritDoc}
      */
+    public function getViewData($request) {
+        return array('currentLocale' => ZMLocales::instance()->getCode(), 'languages' => array('en' => 'English', 'de_DE' => 'Deutsch'));
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function processGet($request) {
         $data = array();
         $name = $request->getSession()->getValue('name');

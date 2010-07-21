@@ -29,6 +29,7 @@
  */
 class ZMYamlLocale implements ZMLocale {
     private $translations_;
+    private $locale_;
 
 
     /**
@@ -57,7 +58,15 @@ class ZMYamlLocale implements ZMLocale {
     /**
      * {@inheritDoc}
      */
+    public function getCode() {
+        return $this->locale_;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function init($locale) {
+        $this->locale_ = $locale;
         $path = ZMFileUtils::mkPath(ZMRuntime::getApplicationPath(), 'locale', $locale, 'LC_MESSAGES', 'messages.yaml');
         if (null == ($path = ZMLocaleUtils::resolvePath($path, $locale))) {
             ZMLogging::instance()->log('unable to resolve locale path for locale = "'.$locale.'"', ZMLogging::DEBUG);
