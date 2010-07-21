@@ -70,10 +70,9 @@
             </ul>
         <?php } ?>
           <?php echo $this->fetch($viewTemplate); ?>
-          </div><!-- view-container -->
-        <br clear="both">
+        </div><!-- view-container -->
+        <?php echo $this->fetch('footer.php'); ?>
       </div>
-      <?php echo $this->fetch('footer.php'); ?>
     </div>
     <script> $('.tt[title]').cluetip({clickThrough: true, splitTitle: '|', arrows: true }); </script>
   </body>

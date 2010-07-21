@@ -92,6 +92,12 @@ div#vakata-contextmenu, div#vakata-contextmenu ul {text-align:left;min-width:120
 #b_console textarea {margin-bottom:8px;border:4px solid gray;font-size:115%;width:80em;font-family:monospace;padding:4px;}
 #b_console #console {color:white;background-color:black;width:80em;margin:20px 0;padding:4px;height:25em;overflow:scroll;border:4px solid gray;font-size:115%;font-family:monospace;}
 
+/* fancy tables */
+table.grid {text-align:left;border-collapse:collapse;border-color:#9a9a9a;}
+table.grid th {padding:3px 10px;background:url(../images/box2_bg.gif) repeat-x;text-shadow:0 1px 1px #fff;color:#1a1a1a;}
+table.grid th, table.grid td {border: 1px solid #9a9a9a;}
+table.grid tr.odd {background:#eceff2;}
+.portlet table {width:100%;}
 
 /* interim */
 fieldset {padding:6px;margin:4px 0;}
@@ -103,4 +109,5 @@ td {padding:2px 8px;}
 fieldset table {border:1px solid #c0c0c0;}
 fieldset p {margin:7px 0;}
 select option {padding:0 4px;}
+/* XXX: convert */
 tr.odd {background-color:#e0e0e0;}

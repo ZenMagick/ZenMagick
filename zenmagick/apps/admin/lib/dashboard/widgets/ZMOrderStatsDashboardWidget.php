@@ -50,15 +50,22 @@ class ZMOrderStatsDashboardWidget extends ZMDashboardWidget {
      */
     public function getContents($request) {
         $admin2 = $request->getToolbox()->admin2;
-        $contents = '';
+        $contents .= '<table class="grid" cellspacing="0">';
+        $contents .= '<tr><th>'._zm('Status').'</th><th>'._zm('Number of Orders').'</th></tr>';
         $language = $request->getSelectedLanguage();
         $sql = "SELECT count(*) AS count FROM " . TABLE_ORDERS . "
                 WHERE orders_status = :orderStatusId";
+        $odd = true;
         foreach (ZMOrders::instance()->getOrderStatusList($language->getId()) as $status) {
             $args = array('orderStatusId' => $status->getOrderStatusId());
             $result = ZMRuntime::getDatabase()->querySingle($sql, $args, TABLE_ORDERS);
-            $contents .= '<a href="'.$admin2->url('orders', 'orderStatusId='.$status->getOrderStatusId()).'">'._zm($status->getName()).': '.$result['count'].'</a><br>';
+            $contents .= '<tr class="'.($odd?'odd':'even').'">';
+            $odd = !$odd;
+            $contents .= '<td><a href="'.$admin2->url('orders', 'orderStatusId='.$status->getOrderStatusId()).'">'._zm($status->getName()).'</a></td>';
+            $contents .= '<td>'.$result['count'].'</td>';
+            $contents .= '</tr>';
         }
+        $contents .= '</table>';
         return $contents;
     }
 

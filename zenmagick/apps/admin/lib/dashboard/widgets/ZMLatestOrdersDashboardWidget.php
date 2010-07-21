@@ -53,9 +53,12 @@ class ZMLatestOrdersDashboardWidget extends ZMDashboardWidget {
         $utils = $request->getToolbox()->utils;
         $language = $request->getSelectedLanguage();
         $contents = '';
-        $contents .= '<table>';
+        $contents .= '<table class="grid" cellspacing="0">';
+        $contents .= '<tr><th>'._zm('Order Id').'</th><th>'._zm('Account').'</th><th>'._zm('Placed').'</th><th>'._zm('Status').'</th><th>'._zm('Total').'</th></tr>';
+        $odd = true;
         foreach (ZMOrders::instance()->getAllOrders($language->getId(), 5) as $order) {
-            $contents .= '  <tr>';
+            $contents .= '<tr class="'.($odd?'odd':'even').'">';
+            $odd = !$odd;
             $actualAccount = ZMAccounts::instance()->getAccountForId($order->getAccountId());
             $name = $actualAccount->getType() == ZMAccount::REGISTERED ? $order->getAccount()->getFullName() : _zm('** Guest **');
             $contents .= '    <td><a href="'.$admin2->url('order', 'orderId='.$order->getId()).'">'.$order->getId().'</a></td>';
