@@ -31,7 +31,7 @@
     }
     ?>
     <h1><?php echo $title  ?></h1>
-    <?php echo $view->fetch('sub-menu.php');
+    <?php echo $view->fetch('sub-menu.php'); echo '<div id="view-container">';
   }
 
 ?>
@@ -69,7 +69,8 @@
             <?php } ?>
             </ul>
         <?php } ?>
-        <?php echo $this->fetch($viewTemplate); ?>
+          <?php echo $this->fetch($viewTemplate); ?>
+          </div><!-- view-container -->
         <br clear="both">
       </div>
       <?php echo $this->fetch('footer.php'); ?>

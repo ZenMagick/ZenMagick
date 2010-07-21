@@ -53,6 +53,7 @@ div#content {min-height:380px;}
 #sub-menu {float:left;width:13em;margin-right:5px;}
 #sub-menu ul {list-style:none;margin:0;padding:0;}
 #sub-menu .ui-accordion-content {padding-top:0;padding-bottom:5px;}
+#view-container {margin-left:13em;padding:5px 8px;}
 
 /* view content excl. header */
 #content {-webkit-border-radius:6px;-moz-border-radius:6px;border-radius:6px;background-color:#fff;-moz-box-shadow:3px 3px 3px #ddd;-webkit-box-shadow:3px 3px 3px #ddd;box-shadow:3px 3px 3px #ddd;}
@@ -93,7 +94,6 @@ div#vakata-contextmenu, div#vakata-contextmenu ul {text-align:left;min-width:120
 
 
 /* interim */
-div#main, div#content {padding:8px;position:relative;}
 fieldset {padding:6px;margin:4px 0;}
 legend {font-weight:bold;color:#fff;background-color:#777;padding:2px 9px;}
 legend span {font-size:114%;background:#eee;padding:3px;color:#000;}
