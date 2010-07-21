@@ -1,8 +1,6 @@
 #
 # Form validation rules
 #
-# $Id$
-#
 
 mynameForm:
   myname:

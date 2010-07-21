@@ -1,8 +1,6 @@
 #
 # URL mappings
 #
-# $Id$
-#
 
 null:
   error:
