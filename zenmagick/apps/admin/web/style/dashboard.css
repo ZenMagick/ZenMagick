@@ -33,7 +33,10 @@
 .ui-sortable-placeholder {border:1px dotted black;visibility:visible !important;height:50px !important;}
 .ui-sortable-placeholder * {visibility:hidden;}
 
-h1 .ui-icon {float:right;}
-#widget-box {width:500px;display:none;}
+#grid-list {border:1px solid #777;padding:3px;margin-bottom:5px;}
+
+h1 {position:relative;}
+h1 .ui-icon {position:absolute;top:7px;right:8px;background-color:white;}
+#widget-box {width:500px;display:none;background-color:#eee;padding:.4em;}
 /*.ui-dialog {overflow:visible;} - makes the portlets visible when dragging out of widget box */
-.widget-box-col {width:48%;float:left;padding:3px;}
+.widget-box-col {width:49%;float:left;padding:3px 0;}

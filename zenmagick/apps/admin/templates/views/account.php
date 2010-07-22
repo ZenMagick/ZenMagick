@@ -20,4 +20,56 @@
 ?>
 <?php zm_title($this) ?>
 
-<?php var_dump($account) ?>
+<form>
+    <fieldset>
+        <legend><?php _vzm("Account: %s", $account->getFullName()) ?></legend>
+        <table cellspacing="0" cellpadding="0">
+            <tr>
+                <td><?php _vzm("Title") ?></td>
+                <td>
+                    <input type="radio" id="male" name="gender" value="m"<?php $form->checked('m', $account->getGender()) ?> />
+                    <label for="male"><?php _vzm("Mr.") ?></label>
+                    <input type="radio" id="female" name="gender" value="f"<?php $form->checked('f', $account->getGender()) ?> />
+                    <label for="female"><?php _vzm("Ms.") ?></label>
+                </td>
+            </tr>
+            <tr>
+                <td><?php _vzm("First Name") ?></td>
+                <td><input type="text" name="firstName" value="<?php echo $html->encode($account->getFirstName()) ?>" /></td>
+            </tr>
+            <tr>
+                <td><?php _vzm("Last Name") ?></td>
+                <td><input type="text" name="lastName" value="<?php echo $html->encode($account->getLastName()) ?>" /></td>
+            </tr>
+            <tr>
+                <td><?php _vzm("Date of Birth") ?></td>
+                <td><input type="text" name="dob" value="<?php echo $locale->shortDate($account->getDob()) ?>" /> <?php _vzm("Format: %s;&nbsp;(e.g: %s)", UI_DATE_FORMAT, UI_DATE_FORMAT_SAMPLE) ?></td>
+            </tr>
+            <tr>
+                <td><?php _vzm("E-Mail Address") ?></td>
+                <td><input type="text" name="email" value="<?php echo $html->encode($account->getEmail()) ?>" /></td>
+            </tr>
+            <tr>
+                <td><?php _vzm("Nickname") ?></td>
+                <td><input type="text" name="nickName" value="<?php echo $html->encode($account->getNickName()) ?>" /></td>
+            </tr>
+            <tr>
+                <td><?php _vzm("Telephone Number") ?></td>
+                <td><input type="text" name="phone" value="<?php echo $html->encode($account->getPhone()) ?>" /></td>
+            </tr>
+            <tr>
+                <td><?php _vzm("Fax Number") ?></td>
+                <td><input type="text" name="fax" value="<?php echo $html->encode($account->getFax()) ?>" /></td>
+            </tr>
+             <tr>
+                <td><?php _vzm("E-Mail Format") ?></td>
+                <td>
+                    <input type="radio" id="html" name="emailFormat" value="HTML"<?php $form->checked('HTML', $account->getEmailFormat(), 'HTML') ?> />
+                    <label for="html"><?php _vzm("HTML") ?></label>
+                    <input type="radio" id="text" name="emailFormat" value="TEXT"<?php $form->checked('TEXT', $account->getEmailFormat(), 'TEXT', true) ?> />
+                    <label for="text"><?php _vzm("Text") ?></label>
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+</form>
