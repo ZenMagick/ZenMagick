@@ -119,6 +119,6 @@
 
 
 <?php echo $form->open($shoppingCart->getOrderFormURL(), '', true) ?>
-    <?php $shoppingCart->getOrderFormContent() ?>
+    <?php echo $shoppingCart->getOrderFormContent() ?>
     <div class="btn"><input type="submit" class="btn" value="<?php _vzm("Confirm to order") ?>" /></div>
 </form>

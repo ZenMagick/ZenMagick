@@ -180,6 +180,7 @@ Release 0.9.10
 - add session backed language selector to sample app
 - add ZMLocale::getCode()
 - add new setting 'zenmagick.core.events.listeners' to register default event handler
+- fix missing order form values; b:#3033472
 
 Release 0.9.9
 - in ZMDbTableMapper handle database exception building auto mappings
