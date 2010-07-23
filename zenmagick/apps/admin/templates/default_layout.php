@@ -70,6 +70,7 @@
             </ul>
         <?php } ?>
           <?php echo $this->fetch($viewTemplate); ?>
+          <br clear="left">
         </div><!-- view-container -->
       </div><!-- content -->
       <?php echo $this->fetch('footer.php'); ?>

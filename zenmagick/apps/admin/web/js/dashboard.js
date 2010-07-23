@@ -22,7 +22,7 @@ $(function() {
 
     function buildState() {
         var state = {};
-        state.columns = 1;
+        state.layout = $('#dashboard').attr('class');;
         state.widgets = [];
         $('.db-column').each(function(columnIndex, column) {
             state.widgets[columnIndex] = [];
@@ -32,10 +32,9 @@ $(function() {
               bean += 'open='+(open?'true':'false');
               state.widgets[columnIndex].push(bean);
             });
-            state.columns = columnIndex+1;
         });
         // convert to json
-        var json = '{"columns":'+state.columns+',"widgets":[';
+        var json = '{"layout":"'+state.layout+'","widgets":[';
         for (var ii=0; ii<state.widgets.length; ++ii) {
             if (0 < ii) { json += ','; }
             json += '[';
@@ -70,19 +69,24 @@ $(function() {
         });
     }
 
-    // set up dashboad
-    $(".db-column").sortable({
-        connectWith: '.db-column, .widget-box-col',
-        handle: '.portlet-grip',
-        zIndex: 2001,
-        update: function(event, ui) { saveState(); },
-        receive: function(event, ui) { 
-            // open
-            $(ui.item).find('.ui-icon-plusthick').toggleClass("ui-icon-minusthick").toggleClass("ui-icon-plusthick")
-                .parents(".portlet:first").find(".portlet-content").toggle();
-        },
-        cursor: 'move'
-    });
+    function mkSortableColumn(selector) {
+        // set up dashboad
+        $(selector).sortable({
+            connectWith: '.db-column, .widget-box-col',
+            handle: '.portlet-grip',
+            zIndex: 2001,
+            update: function(event, ui) { saveState(); },
+            receive: function(event, ui) { 
+                // open
+                $(ui.item).find('.ui-icon-plusthick').toggleClass("ui-icon-minusthick").toggleClass("ui-icon-plusthick")
+                    .parents(".portlet:first").find(".portlet-content").toggle();
+            },
+            cursor: 'move'
+        });
+    }
+
+    // set up dashboard
+    mkSortableColumn('.db-column');
 
     // set up widget box
     $(".widget-box-col").sortable({
@@ -140,4 +144,32 @@ $(function() {
         function() { $(this).css('cursor', 'move'); }, 
         function() { $(this).css('cursor', 'auto'); }
     );
+
+    // attach callback to grid-layout links
+    $(".db-grid-selector").click(function() {
+        var selected = $(this).attr('id');
+        var current = $('#dashboard').attr('class');
+
+        // has it changed
+        if (selected != current) {
+            var cols = selected.match(/\d/);
+            if (0 != $('#dashboard #db-column-2').length && 2 == cols) {
+                // move widgets
+                $('#dashboard #db-column-2 .portlet').each(function(columnIndex, column) {
+                    $(column).appendTo($('#db-column-'+(columnIndex%2)));
+                });
+
+                // drop
+                $('#dashboard #db-column-2').remove();
+            } else if (0 == $('#dashboard #db-column-2').length && 3 == cols) {
+                // create
+                $('#dashboard').append('<div id="db-column-2" class="db-column"></div>');
+                // init selectable again
+                mkSortableColumn('#db-column-2');
+            }
+            $('#dashboard').attr('class', selected);
+            saveState();
+        }
+        return false;
+    });
 });

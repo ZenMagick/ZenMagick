@@ -55,12 +55,10 @@ class ZMOrderStatsDashboardWidget extends ZMDashboardWidget {
         $language = $request->getSelectedLanguage();
         $sql = "SELECT count(*) AS count FROM " . TABLE_ORDERS . "
                 WHERE orders_status = :orderStatusId";
-        $odd = true;
         foreach (ZMOrders::instance()->getOrderStatusList($language->getId()) as $status) {
             $args = array('orderStatusId' => $status->getOrderStatusId());
             $result = ZMRuntime::getDatabase()->querySingle($sql, $args, TABLE_ORDERS);
-            $contents .= '<tr class="'.($odd?'odd':'even').'">';
-            $odd = !$odd;
+            $contents .= '<tr>';
             $contents .= '<td><a href="'.$admin2->url('orders', 'orderStatusId='.$status->getOrderStatusId()).'">'._zm($status->getName()).'</a></td>';
             $contents .= '<td>'.$result['count'].'</td>';
             $contents .= '</tr>';

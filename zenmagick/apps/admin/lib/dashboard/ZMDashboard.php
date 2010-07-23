@@ -30,14 +30,25 @@
 class ZMDashboard {
 
     /**
-     * Get the number of dashboard columns.
+     * Get the dashboard layout.
+     *
+     * @param int adminId The admin id.
+     * @return string The layout.
+     */
+    public static function getLayout($adminId) {
+        $config = self::getConfig($adminId);
+        return $config['layout'];
+    }
+
+    /**
+     * Get the number of columns.
      *
      * @param int adminId The admin id.
      * @return int The number of columns.
      */
     public static function getColumns($adminId) {
         $config = self::getConfig($adminId);
-        return $config['columns'];
+        return preg_replace('/[^\d]/', '', $config['layout']);
     }
 
     /**
