@@ -52,13 +52,13 @@ class ZMLatestAccountsDashboardWidget extends ZMDashboardWidget {
         $admin2 = $request->getToolbox()->admin2;
         $contents = '';
         $contents .= '<table class="grid" cellspacing="0">';
-        $contents .= '<tr><th>'._zm('Account Id').'</th><th>'._zm('Name').'</th><th>'._zm('Registered').'</th></tr>';
+        $contents .= '<tr><th>'._zm('Name').'</th><th>'._zm('Registered').'</th></tr>';
         $odd = true;
         foreach (ZMAccounts::instance()->getAllAccounts(null, 5) as $account) {
             $contents .= '<tr class="'.($odd?'odd':'even').'">';
             $odd = !$odd;
-            $contents .= '<td>'.$account->getId().'</td>';
-            $contents .= '<td><a href="'.$admin2->url('account', 'accountId='.$account->getId()).'">'.$account->getFullName().'</a></td>';
+            $name = $account->getType() == ZMAccount::REGISTERED ? $account->getFullName() : _zm('** Guest **');
+            $contents .= '<td><a href="'.$admin2->url('account', 'accountId='.$account->getId()).'">'.$name.'</a></td>';
             $contents .= '<td>'.$account->getAccountCreateDate().'</td>';
             $contents .= '</tr>';
         }

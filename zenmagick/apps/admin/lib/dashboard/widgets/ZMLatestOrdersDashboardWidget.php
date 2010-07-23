@@ -54,7 +54,7 @@ class ZMLatestOrdersDashboardWidget extends ZMDashboardWidget {
         $language = $request->getSelectedLanguage();
         $contents = '';
         $contents .= '<table class="grid" cellspacing="0">';
-        $contents .= '<tr><th>'._zm('Order Id').'</th><th>'._zm('Account').'</th><th>'._zm('Placed').'</th><th>'._zm('Status').'</th><th>'._zm('Total').'</th></tr>';
+        $contents .= '<tr><th>'._zm('Order').'</th><th>'._zm('Account').'</th><th>'._zm('Placed').'</th><th>'._zm('Total').'</th></tr>';
         $odd = true;
         foreach (ZMOrders::instance()->getAllOrders($language->getId(), 5) as $order) {
             $contents .= '<tr class="'.($odd?'odd':'even').'">';
@@ -64,7 +64,6 @@ class ZMLatestOrdersDashboardWidget extends ZMDashboardWidget {
             $contents .= '    <td><a href="'.$admin2->url('order', 'orderId='.$order->getId()).'">'.$order->getId().'</a></td>';
             $contents .= '    <td><a href="'.$admin2->url('account', 'accountId='.$order->getAccountId()).'">'.$name.'</a></td>';
             $contents .= '    <td>'.$order->getOrderDate().'</td>';
-            $contents .= '    <td>'.$order->getStatusName().'</td>';
             $contents .= '    <td>'.$utils->formatMoney($order->getTotal()).'</td>';
             $contents .= '  </tr>';
         }

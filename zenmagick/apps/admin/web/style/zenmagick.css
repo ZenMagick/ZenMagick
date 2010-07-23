@@ -94,8 +94,9 @@ div#vakata-contextmenu, div#vakata-contextmenu ul {text-align:left;min-width:120
 
 /* fancy tables */
 table.grid {text-align:left;border-collapse:collapse;border-color:#9a9a9a;}
-table.grid th {padding:3px 10px;background:url(../images/box2_bg.gif) repeat-x;text-shadow:0 1px 1px #fff;color:#1a1a1a;}
+table.grid th {padding:3px 4px;background:-moz-linear-gradient(top,#F3F5F7 10%,#CACCD4);background:-webkit-gradient(linear,left top,left bottom,color-stop(0.10,#F3F5F7),to(#CACCD4));text-shadow:0 1px 1px #fff;color:#1a1a1a;}
 table.grid th, table.grid td {border: 1px solid #9a9a9a;}
+table.grid th {border-bottom:2px solid #B5B5B5;}
 table.grid tr.odd {background:#eceff2;}
 .portlet table {width:100%;}
 

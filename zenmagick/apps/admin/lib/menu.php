@@ -37,6 +37,7 @@
 
     ZMAdminMenu::setItem(array('parentId' => 'tools', 'id' => 'tools-admin', 'title' => _zm('Admin')));
     ZMAdminMenu::setItem(array('parentId' => 'tools-admin', 'requestId' => 'admin_users', 'title' => _zm('Manage Users'), 'other' => array('edit_admin_user')));
+    ZMAdminMenu::setItem(array('parentId' => 'tools-admin', 'requestId' => 'manage_roles', 'title' => _zm('Manage Roles')));
 
     ZMAdminMenu::setItem(array('parentId' => 'tools', 'id' => 'tools-dev', 'title' => _zm('Development')));
     ZMAdminMenu::setItem(array('parentId' => 'tools-dev', 'requestId' => 'l10n', 'title' => _zm('Translation Helper')));

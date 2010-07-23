@@ -47,3 +47,4 @@
     });//.css("float", "left");//.css('width', '80%');
 	});
 </script>
+<br clear="left">

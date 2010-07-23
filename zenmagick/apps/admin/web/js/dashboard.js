@@ -99,7 +99,7 @@ $(function() {
     // inital setup
     $(".portlet").addClass("ui-widget ui-widget-content ui-helper-clearfix ui-corner-all")
         .find(".portlet-header")
-            .addClass("ui-widget-header ui-corner-all")
+            .addClass("ui-widget-header ui-corner-top")
             .html(function(index, oldhtml) { return '<div class="portlet-grip">'+oldhtml+'</div>'; })
             // add icons
             .prepend(function(index, oldhtml) {
