@@ -90,7 +90,7 @@ class ZMAdminUserPrefs extends ZMObject {
         } else {
             $sql = "INSERT INTO " . ZM_TABLE_ADMIN_PREFS . "
                     (admin_id, name, value)
-                    VALUES (:admin_id, :name, value)";
+                    VALUES (:admin_id, :name, :value)";
         }
         ZMRuntime::getDatabase()->update($sql, $args, ZM_TABLE_ADMIN_PREFS);
     }

@@ -37,5 +37,5 @@ zenmagick.mvc.toolbox.tools: net:ToolboxNet,html:ToolboxHtml,form:ToolboxForm,ma
 apps.store.dashboad.widgets: ZMOrderStatsDashboardWidget,ZMLatestOrdersDashboardWidget,ZMLatestAccountsDashboardWidget,ZMRecentSearchesDashboardWidget
 
 ## this is JSON
-apps.store.dashboad.default: '{"columns":3,"widgets":[["ZMOrderStatsDashboardWidget"],["ZMLatestOrdersDashboardWidget"],["ZMLatestAccountsDashboardWidget"]]}'
+apps.store.dashboad.default: '{"layout":"col2l","widgets":[["ZMOrderStatsDashboardWidget","ZMLatestAccountsDashboardWidget"],["ZMLatestOrdersDashboardWidget"]]}'
 apps.store.catalog.controller: CatalogDefaultTabController

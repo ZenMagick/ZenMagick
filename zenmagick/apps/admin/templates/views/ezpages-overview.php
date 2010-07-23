@@ -65,59 +65,55 @@
   </h2>
 </form>
 
-<table cellpadding="5" cellspacing="0" width="80%"> 
-  <thead>
+<table class="grid"> 
+  <tr>
+    <th><?php _vzm("Id") ?></th>
+    <th><?php _vzm("Title") ?></th>
+    <th><?php _vzm("New Window") ?></th>
+    <th><?php _vzm("Secure") ?></th>
+    <th><?php _vzm("Header") ?></th>
+    <th><?php _vzm("Sidebar") ?></th>
+    <th><?php _vzm("Footer") ?></th>
+    <th><?php _vzm("Chapter") ?></th>
+    <th><?php _vzm("TOC") ?></th>
+    <th><?php _vzm("Action") ?></th>
+  </tr>
+  <?php foreach (ZMEZPages::instance()->getAllPages($selectedLanguageId) as $ezPage) { ?>
     <tr>
-      <th><?php _vzm("Id") ?></th>
-      <th><?php _vzm("Title") ?></th>
-      <th><?php _vzm("New Window") ?></th>
-      <th><?php _vzm("Secure") ?></th>
-      <th><?php _vzm("Header") ?></th>
-      <th><?php _vzm("Sidebar") ?></th>
-      <th><?php _vzm("Footer") ?></th>
-      <th><?php _vzm("Chapter") ?></th>
-      <th><?php _vzm("TOC") ?></th>
-      <th><?php _vzm("Action") ?></th>
+      <td><?php echo $ezPage->getId() ?></td>
+      <td><a href="<?php echo $admin2->url(null, 'editId='.$ezPage->getId().'&languageId='.$selectedLanguageId) ?>"><?php echo $html->encode($ezPage->getTitle()) ?></a><td>
+          <a href="#<?php echo $ezPage->getId().'-NewWin' ?>" onclick="toggle_status(this); return false;" id="<?php echo $ezPage->getId() ?>-NewWin" class="ezpage-status-<?php echo ($ezPage->isNewWin() ? 'on' : 'off') ?>"><span class="ui-icon <?php echo ($ezPage->isNewWin() ? 'ui-icon-check' : 'ui-icon-close') ?>"></a>
+      </td>
+      <td>
+          <a href="#<?php echo $ezPage->getId().'-SSL' ?>" onclick="toggle_status(this); return false;" id="<?php echo $ezPage->getId() ?>-SSL" class="ezpage-status-<?php echo ($ezPage->isSSL() ? 'on' : 'off') ?>"><span class="ui-icon <?php echo ($ezPage->isSSL() ? 'ui-icon-check' : 'ui-icon-close') ?>"></a>
+      </td>
+      <td>
+          <a href="#<?php echo $ezPage->getId().'-header' ?>" onclick="toggle_status(this); return false;" id="<?php echo $ezPage->getId() ?>-header" class="ezpage-status-<?php echo ($ezPage->isHeader() ? 'on' : 'off') ?>"><span class="ui-icon <?php echo ($ezPage->isHeader() ? 'ui-icon-check' : 'ui-icon-close') ?>"></a>
+          <?php echo $ezPage->getHeaderSort() ?>
+      </td>
+      <td>
+          <a href="#<?php echo $ezPage->getId().'-sidebox' ?>" onclick="toggle_status(this); return false;" id="<?php echo $ezPage->getId() ?>-sidebox" class="ezpage-status-<?php echo ($ezPage->isSidebox() ? 'on' : 'off') ?>"><span class="ui-icon <?php echo ($ezPage->isSidebox() ? 'ui-icon-check' : 'ui-icon-close') ?>"></a>
+          <?php echo $ezPage->getSideboxSort() ?>
+      </td>
+      <td>
+          <a href="#<?php echo $ezPage->getId().'-footer' ?>" onclick="toggle_status(this); return false;" id="<?php echo $ezPage->getId() ?>-footer" class="ezpage-status-<?php echo ($ezPage->isFooter() ? 'on' : 'off') ?>"><span class="ui-icon <?php echo ($ezPage->isFooter() ? 'ui-icon-check' : 'ui-icon-close') ?>"></a>
+          <?php echo $ezPage->getFooterSort() ?>
+      </td>
+      <td><?php echo $ezPage->getTocChapter() ?></td>
+      <td>
+          <a href="#<?php echo $ezPage->getId().'-toc' ?>" onclick="toggle_status(this); return false;" id="<?php echo $ezPage->getId() ?>-toc" class="ezpage-status-<?php echo ($ezPage->isToc() ? 'on' : 'off') ?>"><span class="ui-icon <?php echo ($ezPage->isToc() ? 'ui-icon-check' : 'ui-icon-close') ?>"></a>
+          <?php echo $ezPage->getTocSort() ?>
+      </td>
+      <td>
+        <form action="<?php echo $admin2->url() ?>" method="POST">
+          <input type="hidden" name="main_page" value="ezpages">
+          <input type="hidden" name="languageId" value="<?php echo $selectedLanguageId ?>">
+          <input type="hidden" name="deleteId" value="<?php echo $ezPage->getId() ?>">
+          <input type="submit" value="Delete">
+          <a href="<?php echo $admin2->url(null, 'editId='.$ezPage->getId().'&languageId='.$selectedLanguageId) ?>">Edit</a>
+        </form>
+      </td>
     </tr>
-  </thead>
-  <tbody>
-    <?php $odd = true; foreach (ZMEZPages::instance()->getAllPages($selectedLanguageId) as $ezPage) { $odd = !$odd; ?>
-      <tr<?php if ($odd) { echo ' class="odd"'; } ?>>
-        <td><?php echo $ezPage->getId() ?></td>
-        <td><a href="<?php echo $admin2->url(null, 'editId='.$ezPage->getId().'&languageId='.$selectedLanguageId) ?>"><?php echo $html->encode($ezPage->getTitle()) ?></a><td>
-            <a href="#<?php echo $ezPage->getId().'-NewWin' ?>" onclick="toggle_status(this); return false;" id="<?php echo $ezPage->getId() ?>-NewWin" class="ezpage-status-<?php echo ($ezPage->isNewWin() ? 'on' : 'off') ?>"><span class="ui-icon <?php echo ($ezPage->isNewWin() ? 'ui-icon-check' : 'ui-icon-close') ?>"></a>
-        </td>
-        <td>
-            <a href="#<?php echo $ezPage->getId().'-SSL' ?>" onclick="toggle_status(this); return false;" id="<?php echo $ezPage->getId() ?>-SSL" class="ezpage-status-<?php echo ($ezPage->isSSL() ? 'on' : 'off') ?>"><span class="ui-icon <?php echo ($ezPage->isSSL() ? 'ui-icon-check' : 'ui-icon-close') ?>"></a>
-        </td>
-        <td>
-            <a href="#<?php echo $ezPage->getId().'-header' ?>" onclick="toggle_status(this); return false;" id="<?php echo $ezPage->getId() ?>-header" class="ezpage-status-<?php echo ($ezPage->isHeader() ? 'on' : 'off') ?>"><span class="ui-icon <?php echo ($ezPage->isHeader() ? 'ui-icon-check' : 'ui-icon-close') ?>"></a>
-            <?php echo $ezPage->getHeaderSort() ?>
-        </td>
-        <td>
-            <a href="#<?php echo $ezPage->getId().'-sidebox' ?>" onclick="toggle_status(this); return false;" id="<?php echo $ezPage->getId() ?>-sidebox" class="ezpage-status-<?php echo ($ezPage->isSidebox() ? 'on' : 'off') ?>"><span class="ui-icon <?php echo ($ezPage->isSidebox() ? 'ui-icon-check' : 'ui-icon-close') ?>"></a>
-            <?php echo $ezPage->getSideboxSort() ?>
-        </td>
-        <td>
-            <a href="#<?php echo $ezPage->getId().'-footer' ?>" onclick="toggle_status(this); return false;" id="<?php echo $ezPage->getId() ?>-footer" class="ezpage-status-<?php echo ($ezPage->isFooter() ? 'on' : 'off') ?>"><span class="ui-icon <?php echo ($ezPage->isFooter() ? 'ui-icon-check' : 'ui-icon-close') ?>"></a>
-            <?php echo $ezPage->getFooterSort() ?>
-        </td>
-        <td><?php echo $ezPage->getTocChapter() ?></td>
-        <td>
-            <a href="#<?php echo $ezPage->getId().'-toc' ?>" onclick="toggle_status(this); return false;" id="<?php echo $ezPage->getId() ?>-toc" class="ezpage-status-<?php echo ($ezPage->isToc() ? 'on' : 'off') ?>"><span class="ui-icon <?php echo ($ezPage->isToc() ? 'ui-icon-check' : 'ui-icon-close') ?>"></a>
-            <?php echo $ezPage->getTocSort() ?>
-        </td>
-        <td>
-          <form action="<?php echo $admin2->url() ?>" method="POST">
-            <input type="hidden" name="main_page" value="ezpages">
-            <input type="hidden" name="languageId" value="<?php echo $selectedLanguageId ?>">
-            <input type="hidden" name="deleteId" value="<?php echo $ezPage->getId() ?>">
-            <input type="submit" value="Delete">
-            <a href="<?php echo $admin2->url(null, 'editId='.$ezPage->getId().'&languageId='.$selectedLanguageId) ?>">Edit</a>
-          </form>
-        </td>
-      </tr>
-    <?php } ?>
-  </tbody>
+  <?php } ?>
 </table>
 

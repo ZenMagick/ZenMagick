@@ -20,10 +20,20 @@
 ?>
 <?php $resources->cssFile('style/dashboard.css'); ?>
 <?php $resources->jsFile('js/dashboard.js'); ?>
+<script>
+  function _db_open_options() {
+      $('#widget-box').dialog({
+          width:500,
+          position:['center', 20],
+          title:'<?php _vzm('Dashboard Options') ?>'
+      }).parents('.ui-dialog').css('overflow', 'visible');
+      return false;
+  }
+</script>
 
-<h1><?php _vzm('Dashboard') ?><a href="" title="<?php _vzm('Customize Dashboard') ?>" onclick="$('#widget-box').dialog({width:500,position:['center', 20],title:'<?php _vzm('Widget Box') ?>'}).parents('.ui-dialog').css('overflow', 'visible');return false;"><span class="ui-icon ui-corner-all ui-icon-wrench"></span></a></h1>
-<div id="dashboard">
-  <?php $adminId = $request->getUser()->getId(); ?>
+<?php $adminId = $request->getUser()->getId(); ?>
+<h1><?php _vzm('Dashboard') ?><a href="" title="<?php _vzm('Customize Dashboard') ?>" onclick="return _db_open_options();"><span class="ui-icon ui-corner-all ui-icon-wrench"></span></a></h1><div><!--view-container-->
+<div id="dashboard" class="<?php echo (ZMDashboard::getLayout($adminId)) ?>">
   <?php for ($ii=0; $ii<ZMDashboard::getColumns($adminId); ++$ii) { $widgets = ZMDashboard::getWidgetsForColumn($adminId, $ii); ?>
     <div id="db-column-<?php echo $ii ?>" class="db-column">
       <?php foreach ($widgets as $widgetDef) { ?>
@@ -33,7 +43,13 @@
   <?php } ?>
 
   <div id="widget-box">
-    <div id="grid-list" class="ui-corner-all">yo bla bo</div>
+    <div id="grid-list" class="ui-corner-all">
+      <?php _vzm('Layout: ') ?>
+      <a href="" class="db-grid-selector" id="col2"><?php _vzm('2 Col') ?></a>
+      <a href="" class="db-grid-selector" id="col2l"><?php _vzm('1/3 2/3') ?></a>
+      <a href="" class="db-grid-selector" id="col2r"><?php _vzm('2/3 1/3') ?></a>
+      <a href="" class="db-grid-selector" id="col3"><?php _vzm('3 Col') ?></a>
+    </div>
     <div id="widget-box-cols" class="ui-corner-all">
       <?php $widgetList = ZMDashboard::getWidgetList($adminId); ?>
       <div id="widget-box-col-0" class="widget-box-col">

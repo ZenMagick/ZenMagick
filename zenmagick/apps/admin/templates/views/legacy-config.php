@@ -23,9 +23,9 @@
 <form method="POST" action="<?php echo $admin2->url() ?>">
   <fieldset>
     <legend><?php echo sprintf(_zm('Config: %s'), $group->getName()) ?></legend>
-    <table>
-    <?php $odd = true; foreach ($groupValues as $value) { $odd = !$odd; ?>
-      <tr class="<?php echo ($odd ? 'odd' : 'even') ?>">
+    <table class="grid" width="80%">
+    <?php foreach ($groupValues as $value) { ?>
+      <tr>
       <?php if ($value instanceof ZMConfigValue) { ?>
         <td><span class="tt" title="<?php _vzm('Details: %s', $value->getName()) ?>|<?php echo ZMXmlUtils::encodeAttribute(_zm($value->getDescription())) ?>"><?php _vzm($value->getName()) ?></span></td>
         <td><strong>Function not supported: <?php echo $value->getSetFunction() ?></strong></td>

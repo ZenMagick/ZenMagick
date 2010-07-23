@@ -45,8 +45,6 @@ plugins:
   plugin-conf:
     layout: 
     template: plugin_conf
-manage_roles:
-  layout:
 legacy-config:
   success:
     view: RedirectView

@@ -45,20 +45,19 @@
 
 <?php zm_title($this) ?></h1>
 
-<table>
+<table class="grid">
   <?php foreach ($pluginList as $group => $plugins) { ?>
-    <tr class="head">
+    <tr>
       <th colspan="5"><a href="<?php echo $admin2->url(null, 'group='.$group) ?>"><?php echo sprintf(_zm("%s Plugins"), ucwords(str_replace('_', ' ', $group))) ?></a></th>
     </tr>
     <tr>
       <th><?php _vzm("Name") ?></th>
       <th><?php _vzm("Description") ?></th>
       <th><?php _vzm("Status") ?></th>
-      <th><?php _vzm("Order") ?></th>
       <th><?php _vzm("Options") ?></th>
     </tr>
-    <?php $odd = true; foreach ($plugins as $plugin) { $odd = !$odd; ?>
-      <tr<?php if ($odd) { echo ' class="odd"'; } ?>>
+    <?php foreach ($plugins as $plugin) { ?>
+      <tr>
         <td><a name="<?php echo $plugin->getId() ?>"></a><?php echo $plugin->getName() ?></td>
         <td><?php echo $html->encode($plugin->getDescription()) ?></td>
         <td>
@@ -68,7 +67,6 @@
             N/A
           <?php } ?>
         </td>
-        <td><?php echo $plugin->getSortOrder() ?></td>
         <td>
           <?php /** TODO: install/remove via ajax */ ?>
           <?php $msg = ($plugin->isInstalled() ? 'Remove ' : 'Install ').'plugin: '.$plugin->getName(); ?>

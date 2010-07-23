@@ -20,12 +20,12 @@
 ?>
 <?php zm_title($this, _zm('Admin Users')) ?>
 
-<table>
+<table class="grid">
   <tr>
     <th><?php _vzm('ID') ?></th>
     <th><?php _vzm('Name') ?></th>
     <th><?php _vzm('Email') ?></th>
-    <th><?php _vzm('Demo') ?></th>
+    <th><?php _vzm('Status') ?></th>
     <th><?php _vzm('Options') ?></th>
   </tr>
   <?php foreach ($resultList->getResults() as $adminUser) { ?>

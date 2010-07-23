@@ -56,7 +56,7 @@ div#content {min-height:380px;}
 #view-container {margin-left:13em;padding:5px 8px;}
 
 /* view content excl. header */
-#content {-webkit-border-radius:6px;-moz-border-radius:6px;border-radius:6px;background-color:#fff;-moz-box-shadow:3px 3px 3px #ddd;-webkit-box-shadow:3px 3px 3px #ddd;box-shadow:3px 3px 3px #ddd;}
+#content {-webkit-border-radius:6px;-moz-border-radius:6px;border-radius:6px;background-color:#fff;-moz-box-shadow:3px 3px 3px #aaa;-webkit-box-shadow:3px 3px 3px #aaa;box-shadow:3px 3px 3px #aaa;}
 /*IE: */
 #content {border:1px solid #ccc;}
 
@@ -94,9 +94,12 @@ div#vakata-contextmenu, div#vakata-contextmenu ul {text-align:left;min-width:120
 
 /* fancy tables */
 table.grid {text-align:left;border-collapse:collapse;border-color:#9a9a9a;}
-table.grid th {padding:3px 10px;background:url(../images/box2_bg.gif) repeat-x;text-shadow:0 1px 1px #fff;color:#1a1a1a;}
+table.grid th {padding:3px 4px;background:-moz-linear-gradient(top,#F3F5F7 10%,#CACCD4);background:-webkit-gradient(linear,left top,left bottom,color-stop(0.10,#F3F5F7),to(#CACCD4));text-shadow:0 1px 1px #fff;color:#1a1a1a;}
 table.grid th, table.grid td {border: 1px solid #9a9a9a;}
-table.grid tr.odd {background:#eceff2;}
+table.grid th {border-bottom:2px solid #B5B5B5;}
+/* as selector, so no class required - or class */
+table.grid tr.odd, table.grid tr:nth-child(odd) {background:#eceff2;}
+table.grid td.total {text-align:right;}
 .portlet table {width:100%;}
 
 /* interim */
