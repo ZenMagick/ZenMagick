@@ -21,45 +21,61 @@
 <?php
 
 /**
- * Ajax response for JSON.
+ * RPC request using JSON.
  *
  * @author DerManoMann
- * @package org.zenmagick.mvc.ajax.formats
+ * @package org.zenmagick.mvc.rpc.json
  */
-class ZMAjaxResponseJSON extends ZMAbstractAjaxResponse {
+class ZMRpcRequestJSON implements ZMRpcRequest {
+    private $request_;
+    private $json_;
+
 
     /**
-     * Create new instance.
+     * Create new instance
+     *
+     * @param ZMRequest request The current request.
      */
-    function __construct() {
-        parent::__construct();
-    }
+    function __construct($request) {
+        $this->request_ = $request;
+        $this->json_ = json_decode(trim(file_get_contents('php://input')));
 
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
     }
 
 
     /**
      * {@inheritDoc}
-     *
-     * <p>Create <code>JSON</code> response.</p>
+     */
+    public function getRequest() {
+        return $this->request_;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getId() {
+        return $this->json_->id;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getMethod() {
+        return $this->json_->method;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getData() {
+        return $this->json_->params;
+    }
+
+    /**
+     * {@inheritDoc}
      */
     public function createResponse() {
-        $resp = array(
-            'status' => $this->status_,
-            'messages' => $this->messages_,
-            'properties' => $this->properties_,
-            'data' => ZMAjaxUtils::flattenObject($this->data_)
-        );
-
-        $json = json_encode($resp);
-        ZMNetUtils::setContentType('text/plain');
-        if (ZMSettings::get('zenmagick.mvc.json.echo')) { echo $json; }
-        return $json;
+        return ZMLoader::make('RpcResponseJSON', $this);
     }
 
 }

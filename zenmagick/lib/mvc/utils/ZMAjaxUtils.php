@@ -88,4 +88,15 @@ class ZMAjaxUtils {
         return ZMLoader::make('AjaxResponse'.$format);
     }
 
+    /**
+     * Create a RPC request wrapper for the given request.
+     *
+     * @param ZMRequest request The current request.
+     * @return ZMRpcRequest A <code>ZMRpcRequest</code> instance.
+     */
+    public static function createRpcRequest($request) {
+        $format = null != $format ? $format : ZMSettings::get('zenmagick.mvc.rpc.format');
+        return ZMLoader::make('RpcRequest'.$format, $request);
+    }
+
 }

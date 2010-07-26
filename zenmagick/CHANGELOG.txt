@@ -181,6 +181,9 @@ Release 0.9.10
 - add ZMLocale::getCode()
 - add new setting 'zenmagick.core.events.listeners' to register default event handler
 - fix missing order form values; b:#3033472
+- dropped 'zenmagick.mvc.json.header'
+- add new RPC controller for abstract RPC calls; also add JSON RCP
+  implementation and use for admin dashboard
 
 Release 0.9.9
 - in ZMDbTableMapper handle database exception building auto mappings

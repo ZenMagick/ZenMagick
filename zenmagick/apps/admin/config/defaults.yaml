@@ -28,6 +28,8 @@ zenmagick.mvc.request.index: index.php
 ## show login again if no session possible; this is a requestId
 zenmagick.mvc.request.invalidSession: login
 
+zenmagick.mvc.rpc.format: JSON
+
 zenmagick.mvc.session.userFactory: AdminUserFactory
 
 ## toolbox tools

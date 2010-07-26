@@ -45,7 +45,6 @@ $(function() {
             json += ']';
         }
         json += ']}';
-        json = escape(json);
         return json;
     }
 
@@ -56,15 +55,9 @@ $(function() {
             return;
         }
         lastState = state;
-        $.ajax({
-            type: "POST",
-            //TODO: how to set this??
-            url: saveUrl,
-            data: 'state='+state,
-            success: function(msg) { 
-            },
-            error: function(msg) { 
-                alert(msg);
+        zenmagick.rpc('dashboard', 'saveState', state, {
+            success: function(result) {
+                // nothing right now
             }
         });
     }

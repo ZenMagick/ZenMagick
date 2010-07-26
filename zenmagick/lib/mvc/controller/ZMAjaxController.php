@@ -28,6 +28,7 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.mvc.controller
+ * @deprecated use ZMRpcController instead
  */
 class ZMAjaxController extends ZMController {
 
@@ -99,7 +100,6 @@ class ZMAjaxController extends ZMController {
      */
     public function setJSONHeader($json) {
         $this->setContentType('text/plain');
-        if (ZMSettings::get('zenmagick.mvc.json.header')) { header("X-JSON: ".$json); }
         if (ZMSettings::get('zenmagick.mvc.json.echo')) { echo $json; }
     }
 

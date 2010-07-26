@@ -17,6 +17,11 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 var zenmagick = {
+    // base url for jsonRCP calls
+    _jsonRPCBaseUrl: 'index.php?rid=ajax_',
+    // unique request id for jsonRPC calls
+    _jsonRPCRequestId: 1,
+
 
     /**
      * ucwords.
@@ -27,6 +32,55 @@ var zenmagick = {
     ucwords: function(s) {
         return s.replace(/\w+/g, function(a) {
             return a.charAt(0).toUpperCase() + a.substr(1);
+        });
+    },
+
+    /**
+     * Default failure callback.
+     *
+     * @param mixed error Error object.
+     */
+    failure: function(error) {
+        alert('error: ' + error);
+    },
+
+    /**
+     * Perform Ajax JSON-RPC call.
+     *
+     * @param string controller The ZenMagick ajax controller name.
+     * @param string method The method to call on the controller.
+     * @param string params The payload as string.
+     * @param object callbacks Callback object with <code>success</code> and <code>failure</code> function.
+     */
+    rpc: function(controller, method, params, callbacks) {
+        var requestId = this._jsonRPCRequestId++;
+        $.ajax({
+            type: "POST",
+            contentType: 'application/json',
+            url: this._jsonRPCBaseUrl+controller,
+            data: '{"id":'+requestId+',"method":"'+method+'","params":'+params+',"jsonrpc":"2.0"}',
+            success: function(response) { 
+                // parse to figure out if success really means success
+                if (requestId == response.id && response.result && !response.error) {
+                    // success
+                    callbacks.success(response.result);
+                    return;
+                }
+                if (callbacks.failure) {
+                    callbacks.failure(response.error);
+                } else {
+                    // default callback
+                    this.failure(response.error);
+                }
+            },
+            error: function() { 
+                if (callbacks.failure) {
+                    callbacks.failure(null);
+                } else {
+                    // default callback
+                    this.failure(null);
+                }
+            }
         });
     },
 
@@ -106,6 +160,8 @@ var zenmagick = {
      *
      * @param string url The ajax url to load the form.
      * @param string title The title.
+     * @param formId The id of the form to 'ajaxify'.
+     * @param function callback Optional callback function called before the actual submit.
      */
     ajaxFormDialog: function(url, title, formId, callback) {
         $('<div id="ajax-form-dialog">Loading...</div>').dialog({

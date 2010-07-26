@@ -27,25 +27,21 @@
  * @author DerManoMann
  * @package org.zenmagick.store.admin.mvc.controller.ajax
  */
-class ZMAjaxDashboardController extends ZMScaffoldController {
+class ZMAjaxDashboardController extends ZMRpcController {
 
     /**
      * Save state.
      *
-     * <p>Request parameter:</p>
-     * <ul>
-     *  <li>state - The dashboard state.</li>
-     * </ul>
+     * @param ZMRpcRequest rpcRequest The RPC request.
      */
-    public function saveState($request) {
-        $state = $request->getParameter('state');
+    public function saveState($rpcRequest) {
+        $state = json_encode($rpcRequest->getData());
 
-        $response = ZMAjaxUtils::getAjaxResponse();
-        ZMDashboard::setState($request->getUser()->getId(), $state);
-        $response->setStatus(true);
+        $rpcResponse = $rpcRequest->createResponse();
+        ZMDashboard::setState($rpcRequest->getRequest()->getUser()->getId(), $state);
+        $rpcResponse->setStatus(true);
 
-        $response->createResponse($this);
-        return $response->getStatus();
+        return $rpcResponse;
     }
 
 }

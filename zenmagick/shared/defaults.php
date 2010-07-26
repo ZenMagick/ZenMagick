@@ -267,9 +267,6 @@
             // echo JSON response
             'zenmagick.mvc.json.echo' => true,
 
-            // put JSON response in X-JSON header
-            'zenmagick.mvc.json.header' => false,
-
             // default format; this is taken as method suffix to resolve Ajax methods
             'zenmagick.mvc.ajax.format' => 'JSON',
 
