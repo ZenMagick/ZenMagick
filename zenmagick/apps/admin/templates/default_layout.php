@@ -20,6 +20,23 @@
 ?>
 <?php
   //TODO: where do they go??
+  class ZMTitleUpdater {
+      private $title_;
+
+      function __construct($title) {
+          $this->title_ = $title;
+      }
+
+      /**
+       * {@inheritDoc}
+       */
+      public function onZMFinaliseContents($args) {
+          $request = $args['request'];
+          $contents = $args['contents'];
+          $args['contents'] = preg_replace('/<title>.*<\/title>/', '<title>'.$this->title_.'</title>', $contents, 1);
+          return $args;
+      }
+  }
 
   function zm_title($view, $title=null) {
     $root = ZMAdminMenu::getRootItemForRequestId($view->request->getRequestId());
@@ -32,6 +49,7 @@
     ?>
     <h1><?php echo $title  ?></h1>
     <?php echo $view->fetch('sub-menu.php'); echo '<div id="view-container">';
+    ZMEvents::instance()->attach(new ZMTitleUpdater(sprintf(_zm("%1s :: ZenMagick Admin"), $title)));
   }
 
 ?>
