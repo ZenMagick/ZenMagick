@@ -184,6 +184,9 @@ Release 0.9.10
 - dropped 'zenmagick.mvc.json.header'
 - add new RPC controller for abstract RPC calls; also add JSON RCP
   implementation and use for admin dashboard
+- imageHandler2: fix bug where additional ImageInfo parameter where ignored
+- ZMToolboxMacros: add 'attribute' element to productAttribute details to
+  allow to access the underlying ZMAttribute instance
 
 Release 0.9.9
 - in ZMDbTableMapper handle database exception building auto mappings
