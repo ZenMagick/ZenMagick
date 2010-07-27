@@ -31,80 +31,66 @@ class ZMAjaxPluginAdminController extends ZMRpcController {
 
     /**
      * Install plugin.
-     *
-     * <p>Request parameter:</p>
-     * <ul>
-     *  <li>pluginId - The id of the plugin to enable.</li>
-     * </ul>
+     */
     public function installPlugin($request) {
-        $pluginId = $request->getParameter('pluginId');
+        $pluginId = $rpcRequest->getData()->pluginId;
 
-        $response = ZMAjaxUtils::getAjaxResponse();
-        $response->set('pluginId', $pluginId);
+        $rpcResponse = $rpcRequest->createResponse();
 
         if (null != ($plugin = ZMPlugins::instance()->initPluginForId($pluginId, false))) {
             if (!$plugin->isInstalled()) {
                 $plugin->install();
                 foreach ($plugin->getMessages() as $msg) {
-                    $response->addMessage($msg, 'info');
+                    $rpcResponse->addMessage($msg, 'info');
                 }
-                $response->setStatus(true);
-                $response->set('hasOptions', $plugin->hasOptions());
-                $response->addMessage(_zm('Plugin installed'), 'success');
+                $rpcResponse->setStatus(true);
+                $rpcResponse->setData(array('pluginId' => $pluginId, 'hasOptions', $plugin->hasOptions()));
+                $rpcResponse->addMessage(_zm('Plugin installed'), 'success');
             } else {
-                $response->setStatus(false);
-                $response->addMessage(_zm('Plugin already installed'), 'error');
+                $rpcResponse->setStatus(false);
+                $rpcResponse->addMessage(_zm('Plugin already installed'), 'error');
             }
         } else {
-            $response->setStatus(false);
-            $response->addMessage(_zm('Invalid plugin id'), 'error');
+            $rpcResponse->setStatus(false);
+            $rpcResponse->addMessage(_zm('Invalid plugin id'), 'error');
         }
 
-        $response->createResponse($this);
-        return $response->getStatus();
+        return $rpcResponse;
     }
-     */
 
     /**
      * Remove plugin.
-     *
-     * <p>Request parameter:</p>
-     * <ul>
-     *  <li>pluginId - The id of the plugin to enable.</li>
-     * </ul>
+     */
     public function removePlugin($request) {
-        $pluginId = $request->getParameter('pluginId');
+        $pluginId = $rpcRequest->getData()->pluginId;
 
-        $response = ZMAjaxUtils::getAjaxResponse();
-        $response->set('pluginId', $pluginId);
+        $rpcResponse = $rpcRequest->createResponse();
 
         if (null != ($plugin = ZMPlugins::instance()->initPluginForId($remove, true)) && $plugin->isInstalled()) {
             $plugin->remove();
             foreach ($plugin->getMessages() as $msg) {
-                $response->addMessage($msg, 'info');
+                $rpcResponse->addMessage($msg, 'info');
             }
         }
         if (null != ($plugin = ZMPlugins::instance()->initPluginForId($pluginId, false))) {
             if ($plugin->isInstalled()) {
                 $plugin->remove();
-                $response->setStatus(true);
+                $rpcResponse->setStatus(true);
                 foreach ($plugin->getMessages() as $msg) {
-                    $response->addMessage($msg, 'info');
+                    $rpcResponse->addMessage($msg, 'info');
                 }
-                $response->addMessage(_zm('Plugin removed'), 'success');
+                $rpcResponse->addMessage(_zm('Plugin removed'), 'success');
             } else {
-                $response->setStatus(false);
-                $response->addMessage(_zm('Plugin not installed'), 'error');
+                $rpcResponse->setStatus(false);
+                $rpcResponse->addMessage(_zm('Plugin not installed'), 'error');
             }
         } else {
-            $response->setStatus(false);
-            $response->addMessage(_zm('Invalid plugin id'), 'error');
+            $rpcResponse->setStatus(false);
+            $rpcResponse->addMessage(_zm('Invalid plugin id'), 'error');
         }
 
-        $response->createResponse($this);
-        return $response->getStatus();
+        return $rpcResponse;
     }
-     */
 
     /**
      * Update plugin status.

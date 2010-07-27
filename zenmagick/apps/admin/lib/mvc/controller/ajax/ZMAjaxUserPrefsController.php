@@ -27,51 +27,39 @@
  * @author DerManoMann
  * @package org.zenmagick.store.admin.mvc.controller.ajax
  */
-class ZMAjaxUserPrefsController extends ZMScaffoldController {
+class ZMAjaxUserPrefsController extends ZMRpcController {
 
     /**
-     * Save pref.
-     *
-     * <p>Request parameter:</p>
-     * <ul>
-     *  <li>adminId - The user id.</li>
-     *  <li>name - The pref name.</li>
-     *  <li>value - The value.</li>
-     * </ul>
+     * Set pref.
      */
-    public function savePref($request) {
-        $adminId = $request->getParameter('adminId');
-        $name = $request->getParameter('name');
-        $value = $request->getParameter('value');
+    public function setPref($rpcRequest) {
+        $data = $rpcRequest->getData();
+        $adminId = $data->adminId;
+        $name = $data->name;
+        $value = $data->value;
 
-        $response = ZMAjaxUtils::getAjaxResponse();
         ZMAdminUserPrefs::instance()->setPrefForName($adminId, $name, $value);
-        $response->setStatus(true);
+        $rpcResponse = $rpcRequest->createResponse();
+        $rpcResponse->setStatus(true);
 
-        $response->createResponse($this);
-        return $response->getStatus();
+        return $rpcResponse;
     }
 
     /**
      * Get pref.
-     *
-     * <p>Request parameter:</p>
-     * <ul>
-     *  <li>adminId - The user id.</li>
-     *  <li>name - The pref name.</li>
-     * </ul>
      */
-    public function getPref($request) {
-        $adminId = $request->getParameter('adminId');
-        $name = $request->getParameter('name');
+    public function getPref($rpcRequest) {
+        $data = $rpcRequest->getData();
+        $adminId = $data->adminId;
+        $name = $data->name;
 
-        $response = ZMAjaxUtils::getAjaxResponse();
         $value = ZMAdminUserPrefs::instance()->getPrefForName($adminId, $name);
-        $response->setStatus(true);
-        $response->setData(array('value' => $value));
 
-        $response->createResponse($this);
-        return $response->getStatus();
+        $rpcResponse = $rpcRequest->createResponse();
+        $rpcResponse->setData(array('value' => $value));
+        $rpcResponse->setStatus(true);
+
+        return $rpcResponse;
     }
 
 }

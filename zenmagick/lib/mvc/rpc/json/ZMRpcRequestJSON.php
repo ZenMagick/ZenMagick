@@ -38,7 +38,7 @@ class ZMRpcRequestJSON implements ZMRpcRequest {
      */
     function __construct($request) {
         $this->request_ = $request;
-        $this->json_ = json_decode(trim(file_get_contents(STDIN)));
+        $this->json_ = json_decode(trim(file_get_contents('php://input')));
 
     }
 
