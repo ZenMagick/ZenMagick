@@ -27,7 +27,7 @@
  * @author DerManoMann
  * @package org.zenmagick.store.admin.mvc.controller.ajax
  */
-class ZMAjaxPluginAdminController extends ZMScaffoldController {
+class ZMAjaxPluginAdminController extends ZMRpcController {
 
     /**
      * Install plugin.
@@ -36,7 +36,6 @@ class ZMAjaxPluginAdminController extends ZMScaffoldController {
      * <ul>
      *  <li>pluginId - The id of the plugin to enable.</li>
      * </ul>
-     */
     public function installPlugin($request) {
         $pluginId = $request->getParameter('pluginId');
 
@@ -64,6 +63,7 @@ class ZMAjaxPluginAdminController extends ZMScaffoldController {
         $response->createResponse($this);
         return $response->getStatus();
     }
+     */
 
     /**
      * Remove plugin.
@@ -72,7 +72,6 @@ class ZMAjaxPluginAdminController extends ZMScaffoldController {
      * <ul>
      *  <li>pluginId - The id of the plugin to enable.</li>
      * </ul>
-     */
     public function removePlugin($request) {
         $pluginId = $request->getParameter('pluginId');
 
@@ -105,34 +104,28 @@ class ZMAjaxPluginAdminController extends ZMScaffoldController {
         $response->createResponse($this);
         return $response->getStatus();
     }
+     */
 
     /**
-     * Enable plugin.
-     *
-     * <p>Request parameter:</p>
-     * <ul>
-     *  <li>pluginId - The id of the plugin to enable.</li>
-     *  <li>status - The new status as boolean.</li>
-     * </ul>
+     * Update plugin status.
      */
-    public function setPluginStatus($request) {
-        $pluginId = $request->getParameter('pluginId');
-        $status = ZMLangUtils::asBoolean($request->getParameter('status'));
+    public function setPluginStatus($rpcRequest) {
+        $data = $rpcRequest->getData();
+        $pluginId = $data->pluginId;
+        $status = ZMLangUtils::asBoolean($data->status);
 
-        $response = ZMAjaxUtils::getAjaxResponse();
-        $response->set('pluginId', $pluginId);
+        $rpcResponse = $rpcRequest->createResponse();
 
         if (null == ($plugin = ZMPlugins::instance()->initPluginForId($pluginId, false))) {
-            $response->setStatus(false);
-            $response->addMessage(_zm('Invalid plugin id'), 'error');
+            $rpcResponse->setStatus(false);
+            $rpcResponse->addMessage(_zm('Invalid plugin id'), 'error');
         } else {
-            $response->setStatus(true);
+            $rpcResponse->setStatus(true);
             $plugin->setEnabled($status);
-            $response->addMessage(_zm('Status updated'), 'success');
+            $rpcResponse->addMessage(_zm('Status updated'), 'success');
         }
 
-        $response->createResponse($this);
-        return $response->getStatus();
+        return $rpcResponse;
     }
 
 }

@@ -19,30 +19,6 @@
  */
 ?>
 
-<script type="text/javascript">
-    var statusImgOn = 'images/icons/tick.gif';
-    var statusImgOff = 'images/icons/cross.gif';
-
-    function toggle_status(link) {
-        var currentStatus = link.className.split('-')[2];
-        var pluginId = link.id.split('-')[1];
-        $.ajax({
-            type: "POST",
-            url: "<?php echo $admin2->ajax('plugin_admin', 'setPluginStatus') ?>",
-            data: 'ajax=false&pluginId='+pluginId+'&status='+('on' == currentStatus ? 'false' : 'true'),
-            success: function(msg) { 
-                var selector = '#'+link.id+' img';
-                $('#'+link.id+' img').attr('src', 'on' == currentStatus ? statusImgOff : statusImgOn);
-                link.className = 'plugin-status-'+('on' == currentStatus ? 'off' : 'on');
-            },
-            error: function(msg) { 
-                alert(msg);
-            }
-        });
-    }
-
-</script>
-
 <?php zm_title($this) ?></h1>
 
 <table class="grid">
@@ -62,7 +38,7 @@
         <td><?php echo $html->encode($plugin->getDescription()) ?></td>
         <td>
           <?php if ($plugin->isInstalled()) { ?>
-            <a href="<?php echo $admin2->url() ?>#<?php echo $plugin->getId() ?>" onclick="toggle_status(this); return false;" id="status-<?php echo $plugin->getId() ?>" class="plugin-status-<?php echo ($plugin->isEnabled() ? 'on' : 'off') ?>"><?php echo ($plugin->isEnabled() ? 'Enabled' : 'Disabled') ?></a>
+            <span id="plugin-<?php echo $plugin->getId() ?>" class="plugin-status ui-icon ui-icon-circle-<?php echo ($plugin->isEnabled() ? 'check enabled' : 'close disabled') ?>"></span>
           <?php } else { ?>
             N/A
           <?php } ?>
@@ -92,3 +68,17 @@
     <?php } ?>
   <?php } ?>
 </table>
+<script>
+$('.plugin-status').click(function() {
+  var icon = this;
+  var pluginStatus = $(this).hasClass('disabled');
+  var pluginId = $(this).attr('id').split('-')[1];
+  var data = '{"pluginId":"'+pluginId+'","status":'+pluginStatus+'}';
+  zenmagick.rpc('plugin_admin', 'setPluginStatus', data, {
+      success: function(result) {
+          $(icon).toggleClass('ui-icon-circle-check').toggleClass('ui-icon-circle-close')
+              .toggleClass('enabled').toggleClass('disabled');
+      }
+  });
+});
+</script>
