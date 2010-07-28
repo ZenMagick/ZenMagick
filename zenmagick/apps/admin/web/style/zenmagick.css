@@ -53,6 +53,9 @@ div#content {min-height:380px;}
 #sub-menu {float:left;width:13em;margin-right:5px;}
 #sub-menu ul {list-style:none;margin:0;padding:0;}
 #sub-menu .ui-accordion-content {padding-top:0;padding-bottom:5px;}
+#sub-menu li {font-size:11px;font-family:Verdana,Arial,sans-serif;}
+#sub-menu a {text-decoration:none;}
+#sub-menu a:hover {text-decoration:underline;}
 #view-container {margin-left:13em;padding:5px 8px;}
 
 /* view content excl. header */

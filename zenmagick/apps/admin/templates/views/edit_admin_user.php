@@ -36,7 +36,6 @@
           <input type="checkbox" name="roles[]" id="role_<?php echo $role ?>" value="<?php echo $role ?>"<?php if (in_array($role, $adminUser->getRoles())) { echo ' checked'; } ?>>
           <label for="role_<?php echo $role ?>"><?php echo ucwords($role) ?></label>
         <?php } ?>
-        <br><a href="<?php echo $admin2->url('manage_roles') ?>" onclick="return zenmagick.ajaxFormDialog(this.href, '<?php _vzm('Admin Roles') ?>', 'manage_roles', 'fixSelect');"><?php _vzm('Manage Roles') ?></a>
       </td>
     </tr>
     <tr>

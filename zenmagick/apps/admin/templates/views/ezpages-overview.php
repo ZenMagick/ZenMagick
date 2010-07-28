@@ -23,8 +23,8 @@
 ?>
 
 <script type="text/javascript">
-    var on = 'ui-icon-check';
-    var off = 'ui-icon-close';
+    var on = 'ui-icon-circle-check';
+    var off = 'ui-icon-circle-close';
 
     function toggle_status(link) {
         var currentStatus = link.className.split('-')[2];
@@ -82,26 +82,26 @@
     <tr>
       <td><?php echo $ezPage->getId() ?></td>
       <td><a href="<?php echo $admin2->url(null, 'editId='.$ezPage->getId().'&languageId='.$selectedLanguageId) ?>"><?php echo $html->encode($ezPage->getTitle()) ?></a><td>
-          <a href="#<?php echo $ezPage->getId().'-NewWin' ?>" onclick="toggle_status(this); return false;" id="<?php echo $ezPage->getId() ?>-NewWin" class="ezpage-status-<?php echo ($ezPage->isNewWin() ? 'on' : 'off') ?>"><span class="ui-icon <?php echo ($ezPage->isNewWin() ? 'ui-icon-check' : 'ui-icon-close') ?>"></a>
+          <a href="#<?php echo $ezPage->getId().'-NewWin' ?>" onclick="toggle_status(this); return false;" id="<?php echo $ezPage->getId() ?>-NewWin" class="ezpage-status-<?php echo ($ezPage->isNewWin() ? 'on' : 'off') ?>"><span class="ui-icon <?php echo ($ezPage->isNewWin() ? 'ui-icon-circle-check' : 'ui-icon-circle-close') ?>"></a>
       </td>
       <td>
-          <a href="#<?php echo $ezPage->getId().'-SSL' ?>" onclick="toggle_status(this); return false;" id="<?php echo $ezPage->getId() ?>-SSL" class="ezpage-status-<?php echo ($ezPage->isSSL() ? 'on' : 'off') ?>"><span class="ui-icon <?php echo ($ezPage->isSSL() ? 'ui-icon-check' : 'ui-icon-close') ?>"></a>
+          <a href="#<?php echo $ezPage->getId().'-SSL' ?>" onclick="toggle_status(this); return false;" id="<?php echo $ezPage->getId() ?>-SSL" class="ezpage-status-<?php echo ($ezPage->isSSL() ? 'on' : 'off') ?>"><span class="ui-icon <?php echo ($ezPage->isSSL() ? 'ui-icon-circle-check' : 'ui-icon-circle-close') ?>"></a>
       </td>
       <td>
-          <a href="#<?php echo $ezPage->getId().'-header' ?>" onclick="toggle_status(this); return false;" id="<?php echo $ezPage->getId() ?>-header" class="ezpage-status-<?php echo ($ezPage->isHeader() ? 'on' : 'off') ?>"><span class="ui-icon <?php echo ($ezPage->isHeader() ? 'ui-icon-check' : 'ui-icon-close') ?>"></a>
+          <a href="#<?php echo $ezPage->getId().'-header' ?>" onclick="toggle_status(this); return false;" id="<?php echo $ezPage->getId() ?>-header" class="ezpage-status-<?php echo ($ezPage->isHeader() ? 'on' : 'off') ?>"><span class="ui-icon <?php echo ($ezPage->isHeader() ? 'ui-icon-circle-check' : 'ui-icon-circle-close') ?>"></a>
           <?php echo $ezPage->getHeaderSort() ?>
       </td>
       <td>
-          <a href="#<?php echo $ezPage->getId().'-sidebox' ?>" onclick="toggle_status(this); return false;" id="<?php echo $ezPage->getId() ?>-sidebox" class="ezpage-status-<?php echo ($ezPage->isSidebox() ? 'on' : 'off') ?>"><span class="ui-icon <?php echo ($ezPage->isSidebox() ? 'ui-icon-check' : 'ui-icon-close') ?>"></a>
+          <a href="#<?php echo $ezPage->getId().'-sidebox' ?>" onclick="toggle_status(this); return false;" id="<?php echo $ezPage->getId() ?>-sidebox" class="ezpage-status-<?php echo ($ezPage->isSidebox() ? 'on' : 'off') ?>"><span class="ui-icon <?php echo ($ezPage->isSidebox() ? 'ui-icon-circle-check' : 'ui-icon-circle-close') ?>"></a>
           <?php echo $ezPage->getSideboxSort() ?>
       </td>
       <td>
-          <a href="#<?php echo $ezPage->getId().'-footer' ?>" onclick="toggle_status(this); return false;" id="<?php echo $ezPage->getId() ?>-footer" class="ezpage-status-<?php echo ($ezPage->isFooter() ? 'on' : 'off') ?>"><span class="ui-icon <?php echo ($ezPage->isFooter() ? 'ui-icon-check' : 'ui-icon-close') ?>"></a>
+          <a href="#<?php echo $ezPage->getId().'-footer' ?>" onclick="toggle_status(this); return false;" id="<?php echo $ezPage->getId() ?>-footer" class="ezpage-status-<?php echo ($ezPage->isFooter() ? 'on' : 'off') ?>"><span class="ui-icon <?php echo ($ezPage->isFooter() ? 'ui-icon-circle-check' : 'ui-icon-circle-close') ?>"></a>
           <?php echo $ezPage->getFooterSort() ?>
       </td>
       <td><?php echo $ezPage->getTocChapter() ?></td>
       <td>
-          <a href="#<?php echo $ezPage->getId().'-toc' ?>" onclick="toggle_status(this); return false;" id="<?php echo $ezPage->getId() ?>-toc" class="ezpage-status-<?php echo ($ezPage->isToc() ? 'on' : 'off') ?>"><span class="ui-icon <?php echo ($ezPage->isToc() ? 'ui-icon-check' : 'ui-icon-close') ?>"></a>
+          <a href="#<?php echo $ezPage->getId().'-toc' ?>" onclick="toggle_status(this); return false;" id="<?php echo $ezPage->getId() ?>-toc" class="ezpage-status-<?php echo ($ezPage->isToc() ? 'on' : 'off') ?>"><span class="ui-icon <?php echo ($ezPage->isToc() ? 'ui-icon-circle-check' : 'ui-icon-circle-close') ?>"></a>
           <?php echo $ezPage->getTocSort() ?>
       </td>
       <td>

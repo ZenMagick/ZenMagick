@@ -27,13 +27,13 @@
     <?php foreach ($groupValues as $value) { ?>
       <tr>
       <?php if ($value instanceof ZMConfigValue) { ?>
-        <td><span class="tt" title="<?php _vzm('Details: %s', $value->getName()) ?>|<?php echo ZMXmlUtils::encodeAttribute(_zm($value->getDescription())) ?>"><?php _vzm($value->getName()) ?></span></td>
+        <td><span class="tt" title="<?php _vzm('%s', $value->getName()) ?>|<?php echo ZMXmlUtils::encodeAttribute(_zm($value->getDescription())) ?>"><?php _vzm($value->getName()) ?></span></td>
         <td><strong>Function not supported: <?php echo $value->getSetFunction() ?></strong></td>
       <?php } else { ?>
           <td><label for="<?php echo $value->getName() ?>"><?php _vzm($value->getTitle()) ?></label></td>
           <td>
             <?php /* tooltips */ ?>
-            <span class="tt" title="<?php echo sprintf(_zm('Details: %s'), $value->getTitle()).'|'.ZMXmlUtils::encodeAttribute(_zm($value->getDescription())) ?>">
+            <span class="tt" title="<?php echo sprintf(_zm('%s'), $value->getTitle()).'|'.ZMXmlUtils::encodeAttribute(_zm($value->getDescription())) ?>">
               <?php echo $value->render($request); ?>
             </span>
           </td>

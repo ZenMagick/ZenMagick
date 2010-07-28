@@ -62,7 +62,7 @@
 
 
     // legacy options
-    ZMAdminMenu::setItem(array('parentId' => 'configuration', 'id' => 'configuration-legacy', 'title' => _zm('Options')));
+    ZMAdminMenu::setItem(array('parentId' => 'configuration', 'id' => 'configuration-legacy', 'title' => _zm('Zen-Cart Config')));
     $configGroups = ZMConfig::instance()->getConfigGroups();
     foreach ($configGroups as $group) {
         if ($group->isVisible()) {

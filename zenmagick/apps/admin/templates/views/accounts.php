@@ -20,7 +20,7 @@
 ?>
 <?php zm_title($this) ?>
 
-<table>
+<table class="grid">
   <tr>
     <th><?php _vzm('ID') ?></th>
     <th><?php _vzm('Name') ?></th>

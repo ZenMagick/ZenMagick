@@ -20,7 +20,7 @@
 ?>
 <?php zm_title($this, sprintf(_zm("%s Orders"), (null != $orderStatus ? $orderStatus->getName() : ''))) ?></h1>
 
-<table>
+<table class="grid">
   <tr>
     <th><?php _vzm('ID') ?></th>
     <th><?php _vzm('Account') ?></th>
@@ -34,7 +34,7 @@
     <tr>
       <td><a href="<?php echo $admin2->url('order', 'orderId='.$order->getId()) ?>"><?php echo $order->getId() ?></a></td>
       <?php $actualAccount = ZMAccounts::instance()->getAccountForId($order->getAccountId()); ?>
-      <?php $name = $actualAccount->getType() == ZMAccount::REGISTERED ? $order->getAccount()->getFullName() : _vzm('** Guest **'); ?>
+      <?php $name = $actualAccount->getType() == ZMAccount::REGISTERED ? $order->getAccount()->getFullName() : _zm('** Guest **'); ?>
       <td><a href="<?php echo $admin2->url('account', 'accountId='.$order->getAccountId()) ?>"><?php echo $name ?></a></td>
       <td><?php echo $order->getOrderDate() ?></td>
       <td><?php echo $order->get('payment_method') ?></td>
