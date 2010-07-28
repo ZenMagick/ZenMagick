@@ -187,6 +187,8 @@ Release 0.9.10
 - imageHandler2: fix bug where additional ImageInfo parameter where ignored
 - ZMToolboxMacros: add 'attribute' element to productAttribute details to
   allow to access the underlying ZMAttribute instance
+- fix currency selection regression that would cause the form to post rather
+  than get and thus not update the session
 
 Release 0.9.9
 - in ZMDbTableMapper handle database exception building auto mappings
