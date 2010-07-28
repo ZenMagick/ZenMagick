@@ -134,7 +134,7 @@ class ImageInfo extends ZMImageInfo {
      * @return string HTML formatted parameter.
      */
     public function getFormattedParameter() { 
-        return $this->formattedParameter_;
+        return $this->formattedParameter_.parent::getFormattedParameter();
     }
 
 }

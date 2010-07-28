@@ -42,11 +42,11 @@
       <p id="price"><?php echo $html->encode($currentProduct->getModel()) ?>: <?php echo $macro->productPrice($currentProduct) ?></p>
   </div>
 
-  <?php $attributes = $macro->productAttributes($currentProduct); ?>
-  <?php foreach ($attributes as $attribute) { ?>
+  <?php $productAttributes = $macro->productAttributes($currentProduct); ?>
+  <?php foreach ($productAttributes as $details) { ?>
       <fieldset>
-          <legend><?php echo $html->encode($attribute['name']) ?></legend>
-          <?php foreach ($attribute['html'] as $option) { ?>
+          <legend><?php echo $html->encode($details['name']) ?></legend>
+          <?php foreach ($details['html'] as $option) { ?>
             <p><?php echo $option ?></p>
           <?php } ?>
       </fieldset>

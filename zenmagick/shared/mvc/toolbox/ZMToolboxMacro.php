@@ -322,27 +322,29 @@ class ZMToolboxMacro extends ZMToolboxTool {
         foreach ($attributes as $attribute) {
             switch ($attribute->getType()) {
                 case PRODUCTS_OPTIONS_TYPE_RADIO:
-                    $elements[] = $this->productRadioAttribute($product, $attribute);
+                    $details = $this->productRadioAttribute($product, $attribute);
                     break;
                 case PRODUCTS_OPTIONS_TYPE_CHECKBOX:
-                    $elements[] = $this->productCheckboxAttribute($product, $attribute);
+                    $details = $this->productCheckboxAttribute($product, $attribute);
                     break;
                 case PRODUCTS_OPTIONS_TYPE_READONLY:
-                    $elements[] = $this->productReadonlyAttribute($attribute);
+                    $details = $this->productReadonlyAttribute($attribute);
                     break;
                 case PRODUCTS_OPTIONS_TYPE_TEXT:
-                    $elements[] = $this->productTextAttribute($product, $attribute);
+                    $details = $this->productTextAttribute($product, $attribute);
                     break;
                 case PRODUCTS_OPTIONS_TYPE_FILE:
-                    $elements[] = $this->productUploadAttribute($product, $attribute, $uploadIndex);
+                    $details = $this->productUploadAttribute($product, $attribute, $uploadIndex);
                     ++$uploadIndex;
                     break;
                 case PRODUCTS_OPTIONS_TYPE_SELECT:
-                    $elements[] = $this->productSelectAttribute($product, $attribute);
+                    $details = $this->productSelectAttribute($product, $attribute);
                     break;
                 default:
                     throw new ZMException('Unsupported attribute type: '.$attribute->getType().'/'.$attribute->getName());
             }
+            $details['attribute'] = $attribute;
+            $elements[] = $details;
         }
 
         return $elements;
