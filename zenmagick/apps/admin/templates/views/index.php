@@ -32,7 +32,8 @@
 </script>
 
 <?php $adminId = $request->getUser()->getId(); ?>
-<h1><?php _vzm('Dashboard') ?><a href="" title="<?php _vzm('Customize Dashboard') ?>" onclick="return _db_open_options();"><span class="ui-icon ui-corner-all ui-icon-wrench"></span></a></h1><div><!--view-container-->
+<h1><?php _vzm('Dashboard') ?><a href="" title="<?php _vzm('Customize Dashboard') ?>" onclick="return _db_open_options();"><span class="ui-icon ui-corner-all ui-icon-wrench"></span></a></h1>
+<div><!--view-container-->
 <div id="dashboard" class="<?php echo (ZMDashboard::getLayout($adminId)) ?>">
   <?php for ($ii=0; $ii<ZMDashboard::getColumns($adminId); ++$ii) { $widgets = ZMDashboard::getWidgetsForColumn($adminId, $ii); ?>
     <div id="db-column-<?php echo $ii ?>" class="db-column">
@@ -41,15 +42,17 @@
       <?php } ?>
     </div>
   <?php } ?>
+</div>
 
-  <div id="widget-box">
-    <div id="grid-list" class="ui-corner-all">
-      <?php _vzm('Layout: ') ?>
-      <a href="" class="db-grid-selector" id="col2"><img src="<?php echo $this->asUrl('images/icons/col2.png', ZMView::RESOURCE) ?>" alt="<?php _vzm('two column') ?>" title="<?php _vzm('two column') ?>"></a>
-      <a href="" class="db-grid-selector" id="col2l"><img src="<?php echo $this->asUrl('images/icons/col2l.png', ZMView::RESOURCE) ?>" alt="<?php _vzm('two column - large right') ?>" title="<?php _vzm('two column - large right') ?>"></a>
-      <a href="" class="db-grid-selector" id="col2r"><img src="<?php echo $this->asUrl('images/icons/col2r.png', ZMView::RESOURCE) ?>" alt="<?php _vzm('two column - large left') ?>" title="<?php _vzm('two column - large left') ?>"></a>
-      <a href="" class="db-grid-selector" id="col3"><img src="<?php echo $this->asUrl('images/icons/col3.png', ZMView::RESOURCE) ?>" alt="<?php _vzm('three column') ?>" title="<?php _vzm('three column') ?>"></a>
-    </div>
+<div id="widget-box">
+  <div id="grid-list" class="ui-corner-all">
+    <a href="" class="db-grid-selector" id="col2"><img src="<?php echo $this->asUrl('images/icons/col2.png', ZMView::RESOURCE) ?>" alt="<?php _vzm('two column') ?>" title="<?php _vzm('two column') ?>"></a>
+    <a href="" class="db-grid-selector" id="col2l"><img src="<?php echo $this->asUrl('images/icons/col2l.png', ZMView::RESOURCE) ?>" alt="<?php _vzm('two column - large right') ?>" title="<?php _vzm('two column - large right') ?>"></a>
+    <a href="" class="db-grid-selector" id="col2r"><img src="<?php echo $this->asUrl('images/icons/col2r.png', ZMView::RESOURCE) ?>" alt="<?php _vzm('two column - large left') ?>" title="<?php _vzm('two column - large left') ?>"></a>
+    <a href="" class="db-grid-selector" id="col3"><img src="<?php echo $this->asUrl('images/icons/col3.png', ZMView::RESOURCE) ?>" alt="<?php _vzm('three column') ?>" title="<?php _vzm('three column') ?>"></a>
+  </div>
+
+  <div id="widget-list" class="ui-corner-all">
     <div id="widget-box-cols" class="ui-corner-all">
       <?php $widgetList = ZMDashboard::getWidgetList($adminId); ?>
       <div id="widget-box-col-0" class="widget-box-col">
@@ -67,5 +70,6 @@
         } ?>
       </div>
     </div>
+    <br clear="left">
   </div>
 </div>

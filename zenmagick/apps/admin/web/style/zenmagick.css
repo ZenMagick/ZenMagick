@@ -20,7 +20,7 @@ body {margin:0;padding:4px 0;font-size:75%;font-family:Arial, Helvetica, sans-se
 a:link {color:#3561a5;}
 img {border:none;}
 
-table, div.ui-dialog {font-size:12px;}
+table, div.ui-dialog {font-size:100%;}
 
 /* liquid main centered */
 div#main {width:92%;margin:0 auto;text-align:left;}

@@ -45,7 +45,8 @@
 .portlet-content table.grid th:last-child, .portlet-content table.grid td:last-child {border-right:none;}
 .portlet-content table.grid tr:last-child th, .portlet-content table.grid tr:last-child td {border-bottom:none;}
 
-#grid-list {border:1px solid #777;padding:3px;margin-bottom:5px;text-align:left;}
+#grid-list, #widget-list {border:1px solid #777;padding:3px;margin-bottom:5px;text-align:left;}
+#widget-list {min-height:140px;}
 
 h1 {position:relative;}
 h1 .ui-icon {position:absolute;top:7px;right:8px;background-color:white;}
