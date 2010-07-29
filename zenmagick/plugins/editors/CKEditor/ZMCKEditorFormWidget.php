@@ -36,7 +36,7 @@ class ZMCKEditorFormWidget extends ZMTextAreaFormWidget {
      */
     function __construct() {
         parent::__construct();
-        $this->plugin_ = ZMPlugins::instance()->getPluginForId('ckeditor');
+        $this->plugin_ = ZMPlugins::instance()->getPluginForId('cKEditor');
     }
 
     /**
@@ -56,7 +56,11 @@ class ZMCKEditorFormWidget extends ZMTextAreaFormWidget {
             return parent::render($request);
         }
 
-        require_once ZMFileUtils::mkPath(array($this->plugin_->getPluginDirectory(), 'ckeditor-3.1', 'ckeditor_php5.php'));
+        include_once ZMFileUtils::mkPath($this->plugin_->getPluginDirectory(), 'ckeditor-3.1', 'ckeditor_php5.php');
+        if (!class_exists('CKEditor')) {
+            // fallback
+            return parent::render($request);
+        }
         $CKEditor = new CKEditor();
         $CKEditor->returnOutput = true;
         $CKEditor->textareaAttributes = array(

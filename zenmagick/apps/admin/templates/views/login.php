@@ -18,7 +18,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 ?>
-<h1><?php _vzm('Login') ?></h1>
+<?php zm_title($this, _zm('Login')) ?>
 
 <form action="<?php echo $admin2->url() ?>" method="POST">
 <input type="hidden" name="<?php echo ZMRequest::SESSION_TOKEN_NAME ?>" value="<?php echo $session->getToken() ?>">
