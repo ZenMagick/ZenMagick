@@ -3,6 +3,8 @@
 
     <!-- Plugins properties -->
     <property file="etc/build/ant/plugins.properties" />
+    <!-- Plugin archive -->
+    <property name="plugin.archive" value="${dist.dir}/plugins/zenmagick-plugins-${zenmagick.version}.zip" />
 
 
     <!-- Build plugin releases -->
@@ -24,8 +26,8 @@
 
         <!-- build zip of all plugins -->
         <echo message="Building ful plugins archive ..." />
-        <zip zipfile="${dist.dir}/plugins/plugins-${zenmagick.version}.zip" basedir="${build.dir}/plugins" />
-        <checksum file="${dist.dir}/plugins/plugins-${zenmagick.version}.zip" fileext=".sha" algorithm="SHA" todir="${dist.dir}/plugins/${zenmagick.version}/checksum" />
+        <zip zipfile="${plugin.archive}" basedir="${build.dir}/plugins" />
+        <checksum file="${plugin.archive}" fileext=".sha" algorithm="SHA" todir="${dist.dir}/plugins/${zenmagick.version}/checksum" />
     </target>
 
     

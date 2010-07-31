@@ -55,7 +55,7 @@ class ZMPaymentSurchargePlugin extends Plugin implements ZMOrderTotal {
 
         // iterate over all conditions
         $output = array();
-        foreach (ZMSettings::get('plugins.paymentSurchage.conditions', array()) as $condition) {
+        foreach (ZMSettings::get('plugins.paymentSurcharge.conditions', array()) as $condition) {
             if ($paymentType->getId() == $condition['code'] || null === $condition['code']) {
                 // payment module match
                 if (null != $condition['cvalue']) {

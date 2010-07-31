@@ -15,7 +15,7 @@ Currently there is no UI to configure this pluing. All configuration is done via
 setting 'plugins.paymentSurcharge.conditions'.
 The setting is expected to be a list of arrays with each array being a condition.
 
-Echo condition consists of the following key/value pairs:
+Condition consists of the following key/value pairs:
 * code
   This identifies the payment module. Allowed values are
   # a single string, for example 'cc'
@@ -32,7 +32,7 @@ Echo condition consists of the following key/value pairs:
   The regular expression to evaluate a match on the configured field(s).
 
 * value
-  The surchage value. This is either a numeric value or percentage. Absolute amounts are specified as
+  The surcharge value. This is either a numeric value or percentage. Absolute amounts are specified as
   numeric value, for example 3.99. A percentage value needs to be prefixed with '%:'; for example '%:3' for
   a three percent surcharge.
 
@@ -53,7 +53,7 @@ Examples
  * title: The display title
  */
 
-ZMSettings::set('plugins.paymentSurchage.conditions', array(
+ZMSettings::set('plugins.paymentSurcharge.conditions', array(
     array(  
       'code' => 'cc', 
       'cvalue' => 'field:cc_card_number;cc_number', 
@@ -66,7 +66,7 @@ ZMSettings::set('plugins.paymentSurchage.conditions', array(
 
 2) A $3.00 surcharge for money orders:
 
-ZMSettings::set('plugins.paymentSurchage.conditions', array(
+ZMSettings::set('plugins.paymentSurcharge.conditions', array(
     array(  
       'code' => 'moneyorder', 
       'value' => '3',
