@@ -95,7 +95,7 @@
         }
 
         //XXX: right now this is fixed
-        $template = 'email/'.$template;
+        $template = 'emails/'.$template;
 
         $formats = zm_email_formats($template);
         $hasTextTemplate = 'text' == $formats || 'both' == $formats;
@@ -110,6 +110,7 @@
 
         // generate actual contents
         $text = $view->generate(ZMRequest::instance());
+        echo 'xx'.$text;
 
         // call actual mail function; the name must match the one used in the installation patch
         $mailFunc = function_exists('zen_mail_org') ? 'zen_mail_org' : 'zen_mail';
