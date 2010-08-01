@@ -211,7 +211,11 @@ class ZMBeanUtils extends ZMObject {
                 }
                 $definition .= '&'.$stoken[1];
             }
+            ZMLogging::instance()->log('resolving '.$stoken[0].' to: '.$definition, ZMLogging::TRACE);
         }
+        // some cleanup
+        $definition = str_replace('&&', '&', $definition);
+
         // got a valid definition, so let's look that up in the context, just in case
         if (!$ignoreContext && null != ($contextDefinition = ZMRuntime::getContext()->getDefinition($definition))) {
             $definition = $contextDefinition;
