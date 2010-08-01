@@ -192,7 +192,9 @@ Release 0.9.10
 - paymentSurcharge: fix spelling of setting name
 - template: account_newsletter: fix checkbox checking
 - product notifications: fix code (invalid product id '0' added with each
-  update)
+  update) b:#3038016
+- boxes: make form use secure action if page is secure to avoid
+  secure/unsecure warning; (most places where $form->open(..) is used)
 
 Release 0.9.9
 - in ZMDbTableMapper handle database exception building auto mappings

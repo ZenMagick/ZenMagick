@@ -27,7 +27,7 @@
 <?php if (false === strpos($request->getRequestId(), 'search')) { ?>
     <h3><?php _vzm("Quick Search") ?></h3>
     <div id="sb_search" class="box">
-        <?php echo $form->open('search', '', false, array('method' => 'get')) ?>
+        <?php echo $form->open('search', '', $request->isSecure(), array('method' => 'get')) ?>
             <div>
                 <input type="submit" class="btn" value="<?php _vzm("Go") ?>" />
                 <?php define('KEYWORD_DEFAULT', _zm("enter search")); ?>
