@@ -63,7 +63,7 @@ class ImageInfo extends ZMImageInfo {
      *
      * @return string The default image.
      */
-    public function getDefaultImage() { 
+    public function getDefaultImage() {
         $comp = ZMImageInfo::splitImageName($this->image_);
         $subdir = $comp[0];
         $ext = $comp[1];
@@ -133,7 +133,7 @@ class ImageInfo extends ZMImageInfo {
      *
      * @return string HTML formatted parameter.
      */
-    public function getFormattedParameter() { 
+    public function getFormattedParameter() {
         return $this->formattedParameter_.parent::getFormattedParameter();
     }
 

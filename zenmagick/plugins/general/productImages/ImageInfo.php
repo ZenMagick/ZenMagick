@@ -46,7 +46,7 @@ class ImageInfo extends ZMImageInfo {
         parent::__construct($image, $alt);
         $this->image_ = $image;
         $this->formattedParameter_ = '';
-        $plugin = ZMPlugins::instance()->getPluginForId('productImage');
+        $plugin = ZMPlugins::instance()->getPluginForId('productImages');
         $this->zoomSmallImages_ = null !== $plugin && $plugin->get('zoomSmallImages');
     }
 
@@ -63,7 +63,7 @@ class ImageInfo extends ZMImageInfo {
      *
      * @return string The default image.
      */
-    public function getDefaultImage() { 
+    public function getDefaultImage() {
         $comp = ZMImageInfo::splitImageName($this->image_);
         $subdir = $comp[0];
         $ext = $comp[1];
@@ -96,7 +96,8 @@ class ImageInfo extends ZMImageInfo {
 
         $medium = $imageBase.ZMSettings::get('imgSuffixMedium').$ext;
         $newimg = $this->handle_image(DIR_WS_IMAGES.$medium, $this->altText_, MEDIUM_IMAGE_WIDTH, MEDIUM_IMAGE_HEIGHT, '');
-        if ($this->zoomSmallImages_) {
+                return $this->formattedParameter_.parent::getFormattedParameter();
+if ($this->zoomSmallImages_) {
             $this->formattedParameter_ = $newimg[4];
         }
         return $newimg[0];
@@ -133,8 +134,8 @@ class ImageInfo extends ZMImageInfo {
      *
      * @return string HTML formatted parameter.
      */
-    public function getFormattedParameter() { 
-        return $this->formattedParameter_;
+    public function getFormattedParameter() {
+        return $this->formattedParameter_.parent::getFormattedParameter();
     }
 
     /**
@@ -148,7 +149,7 @@ class ImageInfo extends ZMImageInfo {
         if ($ihConf['resize']) {
             $ih_image = new ZMIh2Image($src, $width, $height);
           // override image path, get local image from cache
-          if ($ih_image) { 
+          if ($ih_image) {
             $src = $ih_image->get_local();
             $parameters = $ih_image->get_additional_parameters($alt, $ih_image->canvas['width'], $ih_image->canvas['height'], $parameters);
           }
@@ -171,5 +172,3 @@ class ImageInfo extends ZMImageInfo {
     }
 
 }
-
-?>
