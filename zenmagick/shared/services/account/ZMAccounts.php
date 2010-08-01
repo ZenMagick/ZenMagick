@@ -301,7 +301,6 @@ class ZMAccounts extends ZMObject {
      * @return ZMAccount The updated account.
      */
     public function setSubscribedProductIds($account, $productIds) {
-      var_dump($productIds);
         if (0 == count($productIds)) {
             return $account;
         }
@@ -309,7 +308,7 @@ class ZMAccounts extends ZMObject {
         $currentList = $account->getSubscribedProducts();
         $remove = array();
         $add = array();
-        foreach ($productIds as $id => $index) {
+        foreach ($productIds as $id) {
             if (!in_array($id, $currentList)) {
                 $add[] = $id;
             }

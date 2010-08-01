@@ -190,6 +190,9 @@ Release 0.9.10
 - fix currency selection regression that would cause the form to post rather
   than get and thus not update the session
 - paymentSurcharge: fix spelling of setting name
+- template: account_newsletter: fix checkbox checking
+- product notifications: fix code (invalid product id '0' added with each
+  update)
 
 Release 0.9.9
 - in ZMDbTableMapper handle database exception building auto mappings

@@ -309,7 +309,7 @@ class ZMAccount extends ZMObject {
      *
      * @return boolean <code>true</code> if newsletter subsricption ias active, <code>false</code> if not.
      */
-    public function isNewsletterSubscriber() { return $this->newsletter_; }
+    public function isNewsletterSubscriber() { return ZMLangUtils::asBoolean($this->newsletter_); }
 
     /**
      * Set the newsletter subscription status.

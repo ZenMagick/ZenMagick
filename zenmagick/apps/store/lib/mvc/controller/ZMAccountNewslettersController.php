@@ -66,7 +66,7 @@ class ZMAccountNewslettersController extends ZMController {
      * {@inheritDoc}
      */
     public function processPost($request) {
-        $newsletterSubscriber = ZMLangUtils::asBoolean($request->getParameter('newsletter_general', 0));
+        $newsletterSubscriber = ZMLangUtils::asBoolean($request->getParameter('newsletter_general', false));
 
         $account = $request->getAccount();
         if ($newsletterSubscriber != $account->isNewsletterSubscriber()) {

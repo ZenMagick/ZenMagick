@@ -29,7 +29,7 @@
 <?php echo $form->open(FILENAME_ACCOUNT_NOTIFICATIONS, "action=process", true, array('onsubmit'=>null)) ?>
     <fieldset>
         <legend><?php _vzm("Global Product Notifications") ?></legend>
-        <p><input type="checkbox" id="product_global" name="product_global" value="1"<?php $form->checked($currentAccount->isGlobalProductSubscriber(), true) ?> /><label for="product_global"><?php _vzm("Global Product Notification") ?></label></p>
+        <p><input type="checkbox" id="product_global" name="product_global" value="1"<?php $form->checked(true, $currentAccount->isGlobalProductSubscriber(), true) ?> /><label for="product_global"><?php _vzm("Global Product Notification") ?></label></p>
     </fieldset>
 
     <?php if (!$currentAccount->isGlobalProductSubscriber() && $currentAccount->hasProductSubscriptions()) { ?>
