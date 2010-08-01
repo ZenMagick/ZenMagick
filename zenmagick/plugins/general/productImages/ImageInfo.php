@@ -96,8 +96,7 @@ class ImageInfo extends ZMImageInfo {
 
         $medium = $imageBase.ZMSettings::get('imgSuffixMedium').$ext;
         $newimg = $this->handle_image(DIR_WS_IMAGES.$medium, $this->altText_, MEDIUM_IMAGE_WIDTH, MEDIUM_IMAGE_HEIGHT, '');
-                return $this->formattedParameter_.parent::getFormattedParameter();
-if ($this->zoomSmallImages_) {
+        if ($this->zoomSmallImages_) {
             $this->formattedParameter_ = $newimg[4];
         }
         return $newimg[0];

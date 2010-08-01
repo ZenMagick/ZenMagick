@@ -19,8 +19,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
- *
- * $Id$
  */
 ?>
 
@@ -32,7 +30,7 @@
   <div>
       <?php if ($imageInfo->hasLargeImage()) { ?>
           <a href="<?php echo $request->absoluteURL($imageInfo->getLargeImage()) ?>" rel="lightbox[gallery]"><?php echo $html->image($imageInfo, ZMProducts::IMAGE_MEDIUM) ?></a>
-          <br><a href="<?php echo $request->absoluteURL($imageInfo->getLargeImage()) ?>" rel="lightbox[gallery]">CLick to enlarge - FTW!</a>
+          <br><a href="<?php echo $request->absoluteURL($imageInfo->getLargeImage()) ?>" rel="lightbox[gallery]">Click to enlarge - FTW!</a>
           <br><?php if (function_exists('hover3_product_image_link')) { hover3_product_image_link($currentProduct, $imageInfo); } ?>
       <?php } else { ?>
           <?php echo $html->image($imageInfo, ZMProducts::IMAGE_MEDIUM) ?>
