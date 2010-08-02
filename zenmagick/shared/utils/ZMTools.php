@@ -27,7 +27,7 @@
  * (System) Tools.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.utils
+ * @package zenmagick.store.shared.utils
  */
 class ZMTools {
     const RANDOM_DIGITS = 'digits';
