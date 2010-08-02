@@ -6,7 +6,13 @@ Installation
 1) Unzip this plugin into the zenmagick/plugins directory.
 2) Install plugin using the ZenMagick Plugin Manager.
 3) Make sure the Zen Cart order total module ot_zenmagick is installed and enabled.
-3) Enjoy
+4) The Zen Cart class 'payment' in includes/classes/payment.php need some patching to avoid
+   errors for loading the same class twice. In order to do that you need to edit the class file
+   and wrap the whole class with 
+   if (!class_exists('payment')) {
+    // the class code
+   }
+5) Enjoy
 
 
 Configuration
