@@ -28,7 +28,7 @@
     <?php echo $form->open(null, null, false, array('method'=>'get','onsubmit'=>null)) ?>
         <?php if ($resultList->hasFilters()) { ?>
             <div class="rlf">
-                <?php var_dump($resultList); foreach($resultList->getFilters() as $filter) { if (!$filter->isAvailable()) continue; ?>
+                <?php foreach($resultList->getFilters() as $filter) { if (!$filter->isAvailable()) continue; ?>
                     <?php /* if multi select do not auto submit */ ?>
                     <?php $opts = $filter->isMultiSelection() ? ' size="3" multiple="multiple"' : ' onchange="this.form.submit()"'; ?>
                     <select id="<?php echo str_replace('[]', '', $filter->getId()) ?>" name="<?php echo $filter->getId() ?>"<?php echo $opts ?>>

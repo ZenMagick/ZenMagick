@@ -53,6 +53,7 @@ class ZMUpdateCheckerDashboardWidget extends ZMDashboardWidget {
         $contents = '<p id="update-checker">'._zm('Checking...').'</p>';
         $contents .= <<<EOT
 <script>
+  //TODO: check that we are in the dashboard!
   zenmagick.rpc('dashboard', 'getUpdateInfo', '""', {
       success: function(result) {
           //TODO: extend return info and parse...
@@ -67,7 +68,7 @@ class ZMUpdateCheckerDashboardWidget extends ZMDashboardWidget {
               $('#update-checker').html('You are using the latest version. Current version is: '+current);
           }
       },
-      error: function() { 
+      failure: function() { 
           $('#update-checker').html('Could not connect to update server.');
       }
   });

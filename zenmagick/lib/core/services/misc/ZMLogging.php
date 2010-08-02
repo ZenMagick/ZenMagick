@@ -107,7 +107,6 @@ class ZMLogging extends ZMObject {
             if (null !== $msg) {
                 echo '<h3>'.$msg.":</h3>\n";
             }
-            var_dump($obj);
             $info = ob_get_clean();
             if (@ini_get('display_errors')) {
                 echo $info;

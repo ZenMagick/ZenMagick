@@ -50,7 +50,7 @@ class ZMOrderStatsDashboardWidget extends ZMDashboardWidget {
      */
     public function getContents($request) {
         $admin2 = $request->getToolbox()->admin2;
-        $contents .= '<table class="grid" cellspacing="0">';
+        $contents = '<table class="grid" cellspacing="0">';
         $contents .= '<tr><th>'._zm('Status').'</th><th>'._zm('Number of Orders').'</th></tr>';
         $language = $request->getSelectedLanguage();
         $sql = "SELECT count(*) AS count FROM " . TABLE_ORDERS . "

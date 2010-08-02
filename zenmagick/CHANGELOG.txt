@@ -450,6 +450,7 @@ Release 0.9.9
 - improve rounding in ZMTaxRate
 - rename setting 'isTaxInclusive' to 'showPricesTaxIncluded'
 - fix: add saved tax rate on value returned by ZMOrderItem::getCalculatedPrice()
+- ZMCurrency: fix formatting of negative values
 
 Release 0.9.8
 - add Savant3 and experimental views (not used yet)

@@ -203,8 +203,11 @@ class ZMCurrency extends ZMObject {
      */
     public function format($amount, $convert=true) {
         $ratedValue = $convert ? $this->convertTo($amount) : $amount;
+        if ($isNegative = 0 > $ratedValue) {
+            $ratedValue *= -1;
+        }
         $formattedAmount = number_format($ratedValue, $this->decimalPlaces_, $this->decimalPoint_, $this->thousandsPoint_);
-        return $this->symbolLeft_ .  $formattedAmount . $this->symbolRight_;
+        return ($isNegative ? '-' : '').$this->symbolLeft_ .  $formattedAmount . $this->symbolRight_;
     }
 
     /**
