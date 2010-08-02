@@ -28,7 +28,7 @@
  * A crumbtrail crumb.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.mvc.tools
+ * @package zenmagick.store.sf.mvc.tools
  */
 class ZMCrumb extends ZMObject {
     private $name_;

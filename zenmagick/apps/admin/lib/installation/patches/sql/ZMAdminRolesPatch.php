@@ -25,7 +25,7 @@
  * Patch to create the admin group tables.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.admin.installation.patches.sql
+ * @package zenmagick.store.admin.installation.patches.sql
  */
 class ZMAdminRolesPatch extends ZMSQLPatch {
     var $sqlFiles_ = array(

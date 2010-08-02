@@ -25,7 +25,7 @@
  * Ajax EZPages admin controller.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.admin.mvc.controller.ajax
+ * @package zenmagick.store.admin.mvc.controller.ajax
  */
 class ZMAjaxEZPagesAdminController extends ZMAjaxController {
     private $response_;

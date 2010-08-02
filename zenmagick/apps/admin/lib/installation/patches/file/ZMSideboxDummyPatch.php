@@ -27,7 +27,7 @@ define('_ZM_ZEN_DIR_FS_BOXES', DIR_FS_CATALOG . DIR_WS_MODULES . "sideboxes/");
  * Patch to create dummy sidebox files for zen-cart.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.admin.installation.patches.file
+ * @package zenmagick.store.admin.installation.patches.file
  */
 class ZMSideboxDummyPatch extends ZMFilePatch {
 

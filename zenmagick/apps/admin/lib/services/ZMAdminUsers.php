@@ -25,7 +25,7 @@
  * Admin user service.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.admin.services
+ * @package zenmagick.store.admin.services
  */
 class ZMAdminUsers extends ZMObject {
 

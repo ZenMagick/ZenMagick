@@ -25,7 +25,7 @@
  * Patch to create the token service database table.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.admin.installation.patches.sql
+ * @package zenmagick.store.admin.installation.patches.sql
  */
 class ZMTokenPatch extends ZMSQLPatch {
     var $sqlFiles_ = array(

@@ -28,7 +28,7 @@
  * Request controller for tell a friend form.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.mvc.controller
+ * @package zenmagick.store.sf.mvc.controller
  */
 class ZMTellAFriendController extends ZMController {
     private $product_;

@@ -30,7 +30,7 @@
  * calculate the reserved quantity for the given product.</p>
  *
  * @author DerManoMann
- * @package zenmagick.store.shared.mvc.widgets
+ * @package zenmagick.store.admin.mvc.widgets
  */
 class ZMReservedQtyWidget extends ZMWidget {
     private static $qtyMap_ = null;

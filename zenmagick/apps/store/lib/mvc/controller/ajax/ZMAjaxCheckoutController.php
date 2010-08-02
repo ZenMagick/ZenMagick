@@ -28,7 +28,7 @@
  * Ajax controller for JSON checkout.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.mvc.controller.ajax
+ * @package zenmagick.store.sf.mvc.controller.ajax
  * @todo implement!
  */
 class ZMAjaxCheckoutController extends ZMAjaxController {

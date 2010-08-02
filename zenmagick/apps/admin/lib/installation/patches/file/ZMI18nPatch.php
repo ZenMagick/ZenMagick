@@ -29,7 +29,7 @@ define('_ZM_INIT_TEMPLATES_FILE', DIR_FS_ADMIN . DIR_WS_INCLUDES . 'init_include
  * Patch to enable ZenMagick's i18n support.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.admin.installation.patches.file
+ * @package zenmagick.store.admin.installation.patches.file
  */
 class ZMI18nPatch extends ZMFilePatch {
 

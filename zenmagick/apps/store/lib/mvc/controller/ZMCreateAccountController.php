@@ -36,7 +36,7 @@
  * <p><code>ZMUrlManager::instance()->setMapping('create_account', array('controller' => 'CreateAccountController#createDefaultAddress=false'), false);</code></p>
  *
  * @author DerManoMann
- * @package org.zenmagick.store.mvc.controller
+ * @package zenmagick.store.sf.mvc.controller
  */
 class ZMCreateAccountController extends ZMController {
     private $createDefaultAddress_;

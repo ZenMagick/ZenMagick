@@ -28,7 +28,7 @@
  * Redirect controller.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.mvc.controller
+ * @package zenmagick.store.sf.mvc.controller
  */
 class ZMRedirectController extends ZMController {
 

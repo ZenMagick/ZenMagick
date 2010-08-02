@@ -24,7 +24,7 @@
  * View utils.
  *
  * @author DerManoMann
- * @package org.zenmagick.mvc.utils
+ * @package zenmagick.store.sf.mvc.utils
  */
 class ViewUtils extends ZMViewUtils {
 

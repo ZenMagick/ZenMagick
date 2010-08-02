@@ -28,7 +28,7 @@
  * Controller for contact us age.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.mvc.controller
+ * @package zenmagick.store.sf.mvc.controller
  */
 class ZMContactUsController extends ZMController {
 

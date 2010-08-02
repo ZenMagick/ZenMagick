@@ -28,7 +28,7 @@
  * Fixes and stuff that are (can be) event driven.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.utils
+ * @package zenmagick.store.sf.utils
  */
 class ZMEventFixes extends ZMObject {
     private $plugins_;

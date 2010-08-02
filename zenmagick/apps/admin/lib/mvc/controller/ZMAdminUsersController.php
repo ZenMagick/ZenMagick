@@ -25,7 +25,7 @@
  * Admin controller for admin user management.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.mvc.controller
+ * @package zenmagick.store.admin.mvc.controller
  */
 class ZMAdminUsersController extends ZMController {
 

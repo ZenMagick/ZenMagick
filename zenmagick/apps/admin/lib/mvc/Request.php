@@ -25,7 +25,7 @@
  * Admin request wrapper.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.admin.mvc
+ * @package zenmagick.store.admin.mvc
  */
 class Request extends ZMRequest {
 

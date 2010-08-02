@@ -25,7 +25,7 @@
  * Order stats dashboard widget.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.admin.dashbord.widgets
+ * @package zenmagick.store.admin.dashbord.widgets
  */
 class ZMOrderStatsDashboardWidget extends ZMDashboardWidget {
 

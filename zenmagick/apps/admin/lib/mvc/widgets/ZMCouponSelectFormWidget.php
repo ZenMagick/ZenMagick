@@ -25,7 +25,7 @@
  * <p>A coupon select form widget.</p>
  *
  * @author DerManoMann
- * @package zenmagick.store.shared.mvc.widgets
+ * @package zenmagick.store.admin.mvc.widgets
  */
 class ZMCouponSelectFormWidget extends ZMSelectFormWidget {
 

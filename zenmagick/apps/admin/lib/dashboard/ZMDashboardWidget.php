@@ -25,7 +25,7 @@
  * A dashboard widget.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.admin.dashbord
+ * @package zenmagick.store.admin.dashbord
  */
 abstract class ZMDashboardWidget extends ZMWidget {
     private $id_;

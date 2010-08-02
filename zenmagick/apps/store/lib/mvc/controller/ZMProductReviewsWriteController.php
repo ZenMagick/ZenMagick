@@ -28,7 +28,7 @@
  * Request controller for write review page.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.mvc.controller
+ * @package zenmagick.store.sf.mvc.controller
  */
 class ZMProductReviewsWriteController extends ZMController {
     private $viewData_;

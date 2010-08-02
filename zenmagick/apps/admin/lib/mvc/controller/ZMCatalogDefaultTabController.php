@@ -28,7 +28,7 @@
  * Admin controller.
  *
  * @author DerManoMann
- * @package org.zenmagick.plugins.catalogDefault
+ * @package zenmagick.store.admin.mvc.controller
  */
 class ZMCatalogDefaultTabController extends ZMCatalogContentController {
 

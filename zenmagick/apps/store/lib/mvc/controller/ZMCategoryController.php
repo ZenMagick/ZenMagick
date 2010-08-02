@@ -28,7 +28,7 @@
  * Request controller for categories.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.mvc.controller
+ * @package zenmagick.store.sf.mvc.controller
  */
 class ZMCategoryController extends ZMController {
 

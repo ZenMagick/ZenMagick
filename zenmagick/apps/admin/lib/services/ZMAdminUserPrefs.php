@@ -25,7 +25,7 @@
  * Admin user prefs service.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.admin.services
+ * @package zenmagick.store.admin.services
  */
 class ZMAdminUserPrefs extends ZMObject {
 

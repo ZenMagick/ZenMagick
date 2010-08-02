@@ -28,7 +28,7 @@
  * Generic SQL patch.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.admin.installation.patches
+ * @package zenmagick.store.admin.installation.patches
  */
 class ZMSQLPatch extends ZMInstallationPatch {
 

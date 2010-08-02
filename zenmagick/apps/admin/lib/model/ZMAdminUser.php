@@ -25,7 +25,7 @@
  * A admin user.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.admin
+ * @package zenmagick.store.admin
  */
 class ZMAdminUser extends ZMObject implements ZMUserRoleCredentials {
     private $id_;

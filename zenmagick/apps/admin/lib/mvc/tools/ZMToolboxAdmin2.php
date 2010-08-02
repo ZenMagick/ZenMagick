@@ -25,7 +25,7 @@
  * Admin related functions.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.mvc.tools
+ * @package zenmagick.store.admin.mvc.tools
  */
 class ZMToolboxAdmin2 extends ZMToolboxTool {
 

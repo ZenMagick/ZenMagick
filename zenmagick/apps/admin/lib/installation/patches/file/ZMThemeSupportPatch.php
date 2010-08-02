@@ -26,7 +26,7 @@ define('_ZM_ZEN_INDEX_PHP', DIR_FS_CATALOG."index.php");
  * Patch to enable ZenMagick themes.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.admin.installation.patches.file
+ * @package zenmagick.store.admin.installation.patches.file
  */
 class ZMThemeSupportPatch extends ZMFilePatch {
 

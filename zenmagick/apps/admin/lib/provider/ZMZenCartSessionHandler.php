@@ -25,7 +25,7 @@
  * Simple session handler interface.
  *
  * @author DerManoMann
- * @package org.zenmagick.mvc.session
+ * @package zenmagick.store.admin.provider
  */
 class ZMZenCartSessionHandler implements ZMSessionHandler {
     private $expiryTime_ = 1440;

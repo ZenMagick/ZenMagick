@@ -25,7 +25,7 @@
  * User factory for admin users.
  *
  * @author DerManoMann
- * @package org.zenmagick.mvc.session
+ * @package zenmagick.store.admin.provider
  */
 class ZMAdminUserFactory implements ZMUserFactory {
 

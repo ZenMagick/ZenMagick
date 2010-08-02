@@ -27,7 +27,7 @@
  * <p>This controller acts as proxy for the actual controller. The actual controller is defined by the <em>catalogRequestId</em> parameter.</p>
  *
  * @author DerManoMann
- * @package org.zenmagick.store.mvc.controller
+ * @package zenmagick.store.admin.mvc.controller
  */
 class ZMCatalogController extends ZMController {
 

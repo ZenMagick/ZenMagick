@@ -103,7 +103,7 @@ if (!function_exists('zen_build_html_email_from_template')) {
      * zen_build_html_email_from_template wrapper that delegates to either the Zenmagick implementation or the renamed original
      * version of it.
      *
-     * @package org.zenmagick.store.override
+     * @package zenmagick.store.sf.override
      */
     function zen_build_html_email_from_template($template, $args=array()) {
         if (!class_exists('ZMEmailView')) { return zen_build_html_email_from_template_org($template, $args); }

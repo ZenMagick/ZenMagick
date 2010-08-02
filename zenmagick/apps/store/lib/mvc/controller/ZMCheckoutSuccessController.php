@@ -28,7 +28,7 @@
  * Request controller for checkout success page.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.mvc.controller
+ * @package zenmagick.store.sf.mvc.controller
  */
 class ZMCheckoutSuccessController extends ZMController {
 

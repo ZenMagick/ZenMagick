@@ -31,7 +31,7 @@
  * <p>One typical use is to prepend an empty option if required.</p>
  *
  * @author DerManoMann
- * @package zenmagick.store.shared.mvc.widgets
+ * @package zenmagick.store.admin.mvc.widgets
  */
 class ZMorderStatusSelectFormWidget extends ZMSelectFormWidget {
     private $showKey_;

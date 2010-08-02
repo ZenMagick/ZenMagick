@@ -25,7 +25,7 @@
  * Admin controller for accounts page.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.mvc.controller
+ * @package zenmagick.store.admin.mvc.controller
  */
 class ZMAccountsController extends ZMController {
 

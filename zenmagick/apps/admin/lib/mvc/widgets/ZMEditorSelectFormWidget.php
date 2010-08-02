@@ -29,7 +29,7 @@
  * up at the top of the list.</p>
  *
  * @author DerManoMann
- * @package zenmagick.store.shared.mvc.widgets
+ * @package zenmagick.store.admin.mvc.widgets
  */
 class ZMEditorSelectFormWidget extends ZMSelectFormWidget {
 

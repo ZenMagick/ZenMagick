@@ -25,7 +25,7 @@
  * Provides support for all file patching of zen-cart files ZenMagick might need.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.admin.installation
+ * @package zenmagick.store.admin.installation
  */
 class ZMInstallationPatcher extends ZMObject {
     var $patches_;

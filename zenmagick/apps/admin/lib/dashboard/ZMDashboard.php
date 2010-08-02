@@ -25,7 +25,7 @@
  * The dashboard.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.admin.dashbord
+ * @package zenmagick.store.admin.dashbord
  */
 class ZMDashboard {
 

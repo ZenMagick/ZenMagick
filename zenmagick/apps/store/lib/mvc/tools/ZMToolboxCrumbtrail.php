@@ -28,7 +28,7 @@
  * Crumbtrail.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.mvc.tools
+ * @package zenmagick.store.sf.mvc.tools
  */
 class ZMToolboxCrumbtrail extends ZMToolboxTool {
     private $crumbs_;

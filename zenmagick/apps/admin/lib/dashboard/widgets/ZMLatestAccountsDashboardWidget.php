@@ -25,7 +25,7 @@
  * Latest accounts dashboard widget.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.admin.dashbord.widgets
+ * @package zenmagick.store.admin.dashbord.widgets
  */
 class ZMLatestAccountsDashboardWidget extends ZMDashboardWidget {
 

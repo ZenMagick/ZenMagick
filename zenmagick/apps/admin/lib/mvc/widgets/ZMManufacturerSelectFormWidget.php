@@ -35,7 +35,7 @@
  * <p><code>'ManufacturerSelectFormWidget#title=Manufacturer&options=0= --- '</code></p>
  *
  * @author DerManoMann
- * @package zenmagick.store.shared.mvc.widgets
+ * @package zenmagick.store.admin.mvc.widgets
  */
 class ZMManufacturerSelectFormWidget extends ZMSelectFormWidget {
 

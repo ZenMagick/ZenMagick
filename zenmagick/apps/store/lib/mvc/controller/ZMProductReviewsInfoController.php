@@ -28,7 +28,7 @@
  * Request controller for product review pages.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.mvc.controller
+ * @package zenmagick.store.sf.mvc.controller
  */
 class ZMProductReviewsInfoController extends ZMController {
 

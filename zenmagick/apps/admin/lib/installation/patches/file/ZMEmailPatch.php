@@ -26,7 +26,7 @@ define('_ZM_ZEN_EMAIL_FILE', DIR_FS_CATALOG . DIR_WS_FUNCTIONS . 'functions_emai
  * Patch to replace zen_mail for supported email types.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.admin.installation.patches.file
+ * @package zenmagick.store.admin.installation.patches.file
  */
 class ZMEmailPatch extends ZMFilePatch {
     var $fktFilesCfg_ = array(

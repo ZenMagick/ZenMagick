@@ -25,7 +25,7 @@
  * Single installation patch.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.admin.installation
+ * @package zenmagick.store.admin.installation
  */
 class ZMInstallationPatch extends ZMObject {
     var $id_ = null;

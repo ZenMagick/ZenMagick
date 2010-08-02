@@ -25,7 +25,7 @@
  * Compress lib/core into a single file 'core.php'.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.admin.utils
+ * @package zenmagick.store.admin.utils
  */
 class ZMCoreCompressor extends ZMPhpPackagePacker {
 

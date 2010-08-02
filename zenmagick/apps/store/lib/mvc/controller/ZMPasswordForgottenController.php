@@ -28,7 +28,7 @@
  * Request controller for forgotten passwords.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.mvc.controller
+ * @package zenmagick.store.sf.mvc.controller
  */
 class ZMPasswordForgottenController extends ZMController {
 

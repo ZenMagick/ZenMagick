@@ -25,7 +25,7 @@
  * Admin controller for order page.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.mvc.controller
+ * @package zenmagick.store.admin.mvc.controller
  */
 class ZMOrderController extends ZMController {
 

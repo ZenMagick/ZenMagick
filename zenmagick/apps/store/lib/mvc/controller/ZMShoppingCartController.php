@@ -28,7 +28,7 @@
  * Request controller for shopping cart.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.mvc.controller
+ * @package zenmagick.store.sf.mvc.controller
  */
 class ZMShoppingCartController extends ZMController {
 

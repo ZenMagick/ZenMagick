@@ -25,7 +25,7 @@
  * A Savant(3) view with theme support and adjustment for theme folder structures (viewDir).
  *
  * @author DerManoMann
- * @package zenmagick.mvc.shared.view
+ * @package zenmagick.store.sf.mvc.view
  */
 class SavantView extends ZMSavantView {
 

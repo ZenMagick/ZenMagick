@@ -28,7 +28,7 @@
  * Request controller for reviews list.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.mvc.controller
+ * @package zenmagick.store.sf.mvc.controller
  */
 class ZMReviewsController extends ZMController {
 

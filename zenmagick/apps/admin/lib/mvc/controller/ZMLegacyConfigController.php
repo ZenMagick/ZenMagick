@@ -25,7 +25,7 @@
  * Admin controller for legacy config.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.mvc.controller
+ * @package zenmagick.store.admin.mvc.controller
  */
 class ZMLegacyConfigController extends ZMController {
 

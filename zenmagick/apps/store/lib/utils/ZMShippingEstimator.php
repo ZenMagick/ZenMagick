@@ -28,7 +28,7 @@
  * Shipping estimator.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.utils
+ * @package zenmagick.store.sf.utils
  */
 class ZMShippingEstimator extends ZMObject {
 

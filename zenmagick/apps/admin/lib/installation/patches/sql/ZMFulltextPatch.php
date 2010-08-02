@@ -25,7 +25,7 @@
  * Patch to create fulltext indexes for product search.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.admin.installation.patches.sql
+ * @package zenmagick.store.admin.installation.patches.sql
  */
 class ZMFulltextPatch extends ZMSQLPatch {
     var $sqlFiles_ = array(

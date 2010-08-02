@@ -28,7 +28,7 @@
  * Ajax controller for JSON shopping cart.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.mvc.controller.ajax
+ * @package zenmagick.store.sf.mvc.controller.ajax
  */
 class ZMAjaxShoppingCartController extends ZMAjaxController {
 

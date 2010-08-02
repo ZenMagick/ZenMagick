@@ -28,7 +28,7 @@
  * Default rewriter implementing the original zencart URL scheme.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.provider
+ * @package zenmagick.store.sf.provider
  */
 class ZMStoreDefaultSeoRewriter implements ZMSeoRewriter {
 

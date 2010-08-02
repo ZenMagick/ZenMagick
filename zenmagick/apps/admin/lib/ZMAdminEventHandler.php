@@ -22,39 +22,29 @@
 
 
 /**
- * Admin controller for account page.
+ * Custom admin event handler for various things.
  *
  * @author DerManoMann
- * @package zenmagick.store.admin.mvc.controller
+ * @package zenmagick.store.admin
  */
-class ZMAccountController extends ZMController {
-
+class ZMAdminEventHandler {
     /**
-     * Create new instance.
+     * Display message about invalid/insufficient credentional
      */
-    function __construct() {
-        parent::__construct();
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
-
-
-    /**
-     * {@inheritDoc}
-     */
-    public function processGet($request) {
-        $accountId = $request->getParameter('accountId');
-        if (null == ($account = ZMAccounts::instance()->getAccountForId($accountId))) {
-            ZMMessages::instance()->error(sprintf(_zm('Account for account id %s not found'), $accountId));
-            return $this->findView(null, array('accountId' => $accountId));
+    public function onZMInsufficientCredentials($args) {
+        $request = $args['request'];
+        if (null != $request->getUser()) {
+            // only if we still have a valid session
+            ZMMessages::instance()->warn(sprintf(_zm('You are not allowed to access the page with id: <em>%s</em>'), $request->getRequestId()));
         }
-
-        return $this->findView(null, array('account' => $account));
     }
 
+    /**
+     * Add <em>currentLanguage</em> to all views.
+     */
+    public function onZMViewStart($args) {
+        $request = $args['request'];
+        $view = $args['view'];
+        $view->setVar('currentLanguage', $request->getSelectedLanguage());
+    }
 }

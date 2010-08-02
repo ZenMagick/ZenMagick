@@ -25,7 +25,7 @@
  * Admin controller to manage roles.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.mvc.controller
+ * @package zenmagick.store.admin.mvc.controller
  */
 class ZMManageRolesController extends ZMController {
 

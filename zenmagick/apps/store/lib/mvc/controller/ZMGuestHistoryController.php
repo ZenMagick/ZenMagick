@@ -28,7 +28,7 @@
  * Request controller for guest history lookup.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.mvc.controller
+ * @package zenmagick.store.sf.mvc.controller
  */
 class ZMGuestHistoryController extends ZMController {
 

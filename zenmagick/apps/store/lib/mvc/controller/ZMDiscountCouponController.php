@@ -28,7 +28,7 @@
  * Controller for coupon code lookup page.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.mvc.controller
+ * @package zenmagick.store.sf.mvc.controller
  */
 class ZMDiscountCouponController extends ZMController {
 

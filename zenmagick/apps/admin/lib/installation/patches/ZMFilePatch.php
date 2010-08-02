@@ -25,7 +25,7 @@
  * Generic file patch.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.admin.installation.patches
+ * @package zenmagick.store.admin.installation.patches
  */
 class ZMFilePatch extends ZMInstallationPatch {
 

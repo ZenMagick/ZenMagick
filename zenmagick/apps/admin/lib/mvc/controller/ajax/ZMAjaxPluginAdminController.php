@@ -25,7 +25,7 @@
  * Ajax plugin admin controller.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.admin.mvc.controller.ajax
+ * @package zenmagick.store.admin.mvc.controller.ajax
  */
 class ZMAjaxPluginAdminController extends ZMRpcController {
 

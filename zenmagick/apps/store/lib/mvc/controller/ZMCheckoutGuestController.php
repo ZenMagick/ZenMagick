@@ -28,7 +28,7 @@
  * Request controller for guest checkout.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.mvc.controller
+ * @package zenmagick.store.sf.mvc.controller
  */
 class ZMCheckoutGuestController extends ZMController {
 

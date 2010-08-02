@@ -30,7 +30,7 @@
  * <p>The default for <em>autoSearch</em> is <code>true</code>.</p>
  *
  * @author DerManoMann
- * @package org.zenmagick.store.mvc.controller
+ * @package zenmagick.store.sf.mvc.controller
  */
 class ZMSearchController extends ZMController {
     private $autoSearch_;

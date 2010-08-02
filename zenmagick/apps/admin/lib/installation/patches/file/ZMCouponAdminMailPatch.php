@@ -26,7 +26,7 @@ define('_ZM_ZEN_COUPON_ADMIN_PHP', DIR_FS_ADMIN . 'coupon_admin.php');
  * Patch to enable ZenMagick templates for coupon admin emails.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.admin.installation.patches.file
+ * @package zenmagick.store.admin.installation.patches.file
  */
 class ZMCouponAdminMailPatch extends ZMFilePatch {
 

@@ -28,7 +28,7 @@
  * Request controller for checkout address change (shipping/billing).
  *
  * @author DerManoMann
- * @package org.zenmagick.store.mvc.controller
+ * @package zenmagick.store.sf.mvc.controller
  */
 class ZMCheckoutAddressController extends ZMController {
     private $settings_;

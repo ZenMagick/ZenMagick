@@ -30,7 +30,7 @@
  * <p><strong>PLEASE NOTE THAT THIS CLASS CURRENTLY DOES **NOT** EXTEND FROM <code>ZMSession</code>.</strong></p>
  *
  * @author DerManoMann
- * @package org.zenmagick.store.mvc
+ * @package zenmagick.store.sf.mvc
  */
 class Session extends ZMObject { //ZMSession {
 

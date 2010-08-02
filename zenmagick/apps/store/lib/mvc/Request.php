@@ -31,7 +31,7 @@
  * usage of request methods this will have a temp. name of <code>ZMRequest</code>.</p>
  *
  * @author DerManoMann
- * @package org.zenmagick.store.mvc
+ * @package zenmagick.store.sf.mvc
  */
 class Request extends ZMRequest {
     private $categoryPathArray_;

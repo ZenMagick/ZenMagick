@@ -25,7 +25,7 @@
  * EZPages admin controller.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.admin.mvc.controller
+ * @package zenmagick.store.admin.mvc.controller
  */
 class ZMEzpagesController extends ZMController {
 

@@ -25,7 +25,7 @@
  * Admin controller for cache admin.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.mvc.controller
+ * @package zenmagick.store.admin.mvc.controller
  */
 class ZMCacheAdminController extends ZMController {
 

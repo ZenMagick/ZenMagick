@@ -25,7 +25,7 @@
  * Request controller for editing (other) admin user details.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.mvc.controller
+ * @package zenmagick.store.admin.mvc.controller
  */
 class ZMEditAdminUserController extends ZMController {
 

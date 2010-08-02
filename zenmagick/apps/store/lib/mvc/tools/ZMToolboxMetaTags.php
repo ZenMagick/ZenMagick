@@ -36,7 +36,7 @@
  * Only exception is the homepage where the keywords will include the top categories.</p>
  *
  * @author DerManoMann
- * @package org.zenmagick.store.mvc.tools
+ * @package zenmagick.store.sf.mvc.tools
  */
 class ZMToolboxMetaTags extends ZMToolboxTool {
     private $topCategories_ = null;

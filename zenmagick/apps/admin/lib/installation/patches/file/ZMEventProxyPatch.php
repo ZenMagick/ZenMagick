@@ -26,7 +26,7 @@ define('_ZM_ZEN_BASE_PHP', DIR_FS_CATALOG.DIR_WS_CLASSES."class.base.php");
  * Patch to register <code>ZMEvents</code> as global event handler.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.admin.installation.patches.file
+ * @package zenmagick.store.admin.installation.patches.file
  */
 class ZMEventProxyPatch extends ZMFilePatch {
 

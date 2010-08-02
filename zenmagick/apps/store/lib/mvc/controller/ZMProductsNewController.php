@@ -28,7 +28,7 @@
  * Request controller for new products.
  *
  * @author DerManoMann
- * @package org.zenmagick.store.mvc.controller
+ * @package zenmagick.store.sf.mvc.controller
  */
 class ZMProductsNewController extends ZMController {
 
