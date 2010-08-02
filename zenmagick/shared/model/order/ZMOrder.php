@@ -244,7 +244,7 @@ class ZMOrder extends ZMObject {
      */
     public function hasShippingAddress() {
         $address = $this->getShippingAddress();
-        return !(ZMLangUtils::isEmpty($address->getLastName()) || ZMLangUtils::isEmpty($address->getAddress()));
+        return !(ZMLangUtils::isEmpty($address->getLastName()) || ZMLangUtils::isEmpty($address->getAddressLine1()));
     }
 
     /**

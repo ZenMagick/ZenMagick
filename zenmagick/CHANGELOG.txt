@@ -197,6 +197,7 @@ Release 0.9.10
   secure/unsecure warning; (most places where $form->open(..) is used)
 - default theme: add jquery and static JS to dynamically change the state
   field based on the country
+- fix ZMOrder::hasShippingAddress() logic (regression)
 
 Release 0.9.9
 - in ZMDbTableMapper handle database exception building auto mappings

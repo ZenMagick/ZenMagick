@@ -27,7 +27,7 @@
 <fieldset>
     <legend><?php _vzm("Billing Address") ?></legend>
     <div class="btn">
-        <a class="btn" href="<?php $net->url(FILENAME_CHECKOUT_PAYMENT_ADDRESS, '', true) ?>"><?php _vzm("Change Billing Address") ?></a>
+        <a class="btn" href="<?php echo $net->url(FILENAME_CHECKOUT_PAYMENT_ADDRESS, '', true) ?>"><?php _vzm("Change Billing Address") ?></a>
     </div>
     <?php echo $macro->formatAddress($shoppingCart->getBillingAddress()) ?>
 </fieldset>
