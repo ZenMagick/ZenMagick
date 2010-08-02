@@ -44,4 +44,19 @@ class ZMAjaxDashboardController extends ZMRpcController {
         return $rpcResponse;
     }
 
+    /**
+     * Lookup update information.
+     *
+     * @param ZMRpcRequest rpcRequest The RPC request.
+     */
+    public function getUpdateInfo($rpcRequest) {
+        $latest = file_get_contents("http://www.zenmagick.org/version.txt");
+
+        $rpcResponse = $rpcRequest->createResponse();
+        $rpcResponse->setStatus(true);
+        $rpcResponse->setData(trim($latest));
+
+        return $rpcResponse;
+    }
+
 }

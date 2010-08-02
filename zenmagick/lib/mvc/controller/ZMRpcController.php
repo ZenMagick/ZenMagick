@@ -60,6 +60,7 @@ class ZMRpcController extends ZMController {
         }
 
         if (method_exists($this, $method) || in_array($method, $this->getAttachedMethods())) {
+            ZMLogging::instance()->log('calling method: '.$method, ZMLogging::TRACE);
             $rpcResponse = $this->$method($rpcRequest);
         } else {
             $rpcResponse = $rpcRequest->createResponse();

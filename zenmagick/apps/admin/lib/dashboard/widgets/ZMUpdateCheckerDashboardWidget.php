@@ -22,19 +22,19 @@
 
 
 /**
- * Recent searches dashboard widget.
+ * Update checker widget.
  *
  * @author DerManoMann
  * @package org.zenmagick.store.admin.dashbord.widgets
  */
-class ZMRecentSearchesDashboardWidget extends ZMDashboardWidget {
+class ZMUpdateCheckerDashboardWidget extends ZMDashboardWidget {
 
     /**
      * Create new user.
      * 
      */
     function __construct() {
-        parent::__construct(_zm('Recent Searches'));
+        parent::__construct(_zm('Update Checker'));
     }
 
     /**
@@ -49,7 +49,30 @@ class ZMRecentSearchesDashboardWidget extends ZMDashboardWidget {
      * {@inheritDoc}
      */
     public function getContents($request) {
-        $contents = '<p>'._zm('No Data').'</p>';
+        $current = ZMSettings::get('zenmagick.version');
+        $contents = '<p id="update-checker">'._zm('Checking...').'</p>';
+        $contents .= <<<EOT
+<script>
+  zenmagick.rpc('dashboard', 'getUpdateInfo', '""', {
+      success: function(result) {
+          //TODO: extend return info and parse...
+          var latest = result.data;
+          var current = '$current';
+          
+          //TODO: improve compare
+          if (current != latest) {
+              // have update
+              $('#update-checker').html('A new version ('+latest+') is available. Current version is: '+current);
+          } else {
+              $('#update-checker').html('You are using the latest version. Current version is: '+current);
+          }
+      },
+      error: function() { 
+          $('#update-checker').html('Could not connect to update server.');
+      }
+  });
+</script>
+EOT;
         return $contents;
     }
 

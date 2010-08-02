@@ -37,6 +37,7 @@
 .portlet-header .ui-icon-gear {right:2.5em;}
 .portlet-grip {text-align:left;}
 .portlet-content {padding:0;}
+.portlet-content p {padding-left:5px;}
 .ui-sortable-placeholder {border:1px dotted black;visibility:visible !important;height:50px !important;}
 .ui-sortable-placeholder * {visibility:hidden;}
 /* avoid double borders */

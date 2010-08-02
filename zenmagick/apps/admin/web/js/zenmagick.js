@@ -70,7 +70,7 @@ var zenmagick = {
                     callbacks.failure(response.error);
                 } else {
                     // default callback
-                    this.failure(response.error);
+                    zenmagick.failure(response.error);
                 }
             },
             error: function() { 
@@ -78,7 +78,7 @@ var zenmagick = {
                     callbacks.failure(null);
                 } else {
                     // default callback
-                    this.failure(null);
+                    zenmagick.failure(null);
                 }
             }
         });
