@@ -23,6 +23,24 @@
  * $Id$
  */
 ?>
+<script type="text/javascript">
+    var all_zones = new Array();
+    <?php
+        foreach (ZMCountries::instance()->getCountries() as $country) { 
+            $zones = ZMCountries::instance()->getZonesForCountryId($country->getId());
+            if (0 < count($zones)) {
+                echo 'all_zones['.$country->getId() . '] = new Array();';
+                foreach ($zones as $zone) {
+                    echo "all_zones[".$country->getId()."][".$zone->getId()."] = '" . $zone->getName() ."';";
+                }
+            }
+        }
+    ?>
+</script>
+<?php $utils->jsNow('jquery.js') ?>
+<?php /*=== include to allow PHP execution in ZM context ==*/ ?>
+<script type="text/javascript"><?php echo $this->fetch("dynamicState.js") ?></script>
+
 <?php echo $form->open(FILENAME_CREATE_ACCOUNT, "action=process", true, array('id'=>'registration')) ?>
     <?php if (ZMSettings::get('isPrivacyMessage')) { ?>
         <fieldset>

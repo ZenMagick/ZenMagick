@@ -195,6 +195,8 @@ Release 0.9.10
   update) b:#3038016
 - boxes: make form use secure action if page is secure to avoid
   secure/unsecure warning; (most places where $form->open(..) is used)
+- default theme: add jquery and static JS to dynamically change the state
+  field based on the country
 
 Release 0.9.9
 - in ZMDbTableMapper handle database exception building auto mappings
