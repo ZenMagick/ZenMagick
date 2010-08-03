@@ -54,8 +54,11 @@ class ZMUpdateCheckerDashboardWidget extends ZMDashboardWidget {
         $contents .= <<<EOT
 <script>
 (function() {
+  // keep track of things already executed
+  var history = [];
+
   function checkUpdate() {
-    if (0 != $('#update-checker').closest('#dashboard').length && !$('#update-checker').hasClass('done')) {
+    if (0 != $('#update-checker').closest('#dashboard').length && !history['update-checker']) {
       zenmagick.rpc('dashboard', 'getUpdateInfo', '""', {
           success: function(result) {
               //TODO: extend return info and parse...
@@ -74,7 +77,8 @@ class ZMUpdateCheckerDashboardWidget extends ZMDashboardWidget {
               $('#update-checker').html('Could not connect to update server.');
           }
       });
-      $('#update-checker').addClass('done');
+      // remember that we are done
+      history['update-checker'] = 'done';
     }
   }
 
