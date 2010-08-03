@@ -53,25 +53,41 @@ class ZMUpdateCheckerDashboardWidget extends ZMDashboardWidget {
         $contents = '<p id="update-checker">'._zm('Checking...').'</p>';
         $contents .= <<<EOT
 <script>
-  //TODO: check that we are in the dashboard!
-  zenmagick.rpc('dashboard', 'getUpdateInfo', '""', {
-      success: function(result) {
-          //TODO: extend return info and parse...
-          var latest = result.data;
-          var current = '$current';
-          
-          //TODO: improve compare
-          if (current != latest) {
-              // have update
-              $('#update-checker').html('A new version ('+latest+') is available. Current version is: '+current);
-          } else {
-              $('#update-checker').html('You are using the latest version. Current version is: '+current);
+(function() {
+  function checkUpdate() {
+    if (0 != $('#update-checker').closest('#dashboard').length && !$('#update-checker').hasClass('done')) {
+      zenmagick.rpc('dashboard', 'getUpdateInfo', '""', {
+          success: function(result) {
+              //TODO: extend return info and parse...
+              var latest = result.data;
+              var current = '$current';
+              
+              //TODO: improve compare
+              if (current != latest) {
+                  // have update
+                  $('#update-checker').html('A new version ('+latest+') is available. Current version is: '+current);
+              } else {
+                  $('#update-checker').html('You are using the latest version. Current version is: '+current);
+              }
+          },
+          failure: function() { 
+              $('#update-checker').html('Could not connect to update server.');
           }
-      },
-      failure: function() { 
-          $('#update-checker').html('Could not connect to update server.');
-      }
+      });
+      $('#update-checker').addClass('done');
+    }
+  }
+
+  // check once right away
+  checkUpdate();
+
+  $( ".db-column" ).bind("sortreceive", function(event, ui) {
+    if ('portlet-ZMUpdateCheckerDashboardWidget' == ui.item.context.id && !$('#update-checker').hasClass('done')) {
+      // dragged from widget box into drashboard
+      checkUpdate();
+    }
   });
+})();
 </script>
 EOT;
         return $contents;
