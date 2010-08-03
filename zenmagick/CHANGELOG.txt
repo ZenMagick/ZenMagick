@@ -198,6 +198,9 @@ Release 0.9.10
 - default theme: add jquery and static JS to dynamically change the state
   field based on the country
 - fix ZMOrder::hasShippingAddress() logic (regression)
+- fix: add saved tax rate on value returned by ZMOrderItem::getCalculatedPrice()
+- ZMCurrency: fix formatting of negative values
+- recaptcha: upgrade to library version 1.11
 
 Release 0.9.9
 - in ZMDbTableMapper handle database exception building auto mappings
@@ -449,8 +452,6 @@ Release 0.9.9
   the trailing '/' to conform to what the context should be
 - improve rounding in ZMTaxRate
 - rename setting 'isTaxInclusive' to 'showPricesTaxIncluded'
-- fix: add saved tax rate on value returned by ZMOrderItem::getCalculatedPrice()
-- ZMCurrency: fix formatting of negative values
 
 Release 0.9.8
 - add Savant3 and experimental views (not used yet)
