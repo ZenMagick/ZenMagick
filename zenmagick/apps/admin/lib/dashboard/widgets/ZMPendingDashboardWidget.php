@@ -49,6 +49,7 @@ class ZMPendingDashboardWidget extends ZMDashboardWidget {
      * {@inheritDoc}
      */
     public function getContents($request) {
+        // TODO: convert into ajax pull
         $contents = '';
         $gvApprovalQueue = ZMCoupons::instance()->getCouponsForFlag('N');
         if (0 < count($gvApprovalQueue)) {

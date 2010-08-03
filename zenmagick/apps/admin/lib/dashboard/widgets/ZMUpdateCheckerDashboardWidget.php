@@ -53,12 +53,14 @@ class ZMUpdateCheckerDashboardWidget extends ZMDashboardWidget {
         $contents = '<p id="update-checker">'._zm('Checking...').'</p>';
         $contents .= <<<EOT
 <script>
+// convert into function that takes id and function
+// OR: add as template to an ajax dashboard widget base class
 (function() {
   // keep track of things already executed
-  var history = [];
+  var done = false;
 
   function checkUpdate() {
-    if (0 != $('#update-checker').closest('#dashboard').length && !history['update-checker']) {
+    if (0 != $('#update-checker').closest('#dashboard').length && !done) {
       zenmagick.rpc('dashboard', 'getUpdateInfo', '""', {
           success: function(result) {
               //TODO: extend return info and parse...
@@ -78,7 +80,7 @@ class ZMUpdateCheckerDashboardWidget extends ZMDashboardWidget {
           }
       });
       // remember that we are done
-      history['update-checker'] = 'done';
+      done = true;
     }
   }
 
@@ -86,7 +88,7 @@ class ZMUpdateCheckerDashboardWidget extends ZMDashboardWidget {
   checkUpdate();
 
   $( ".db-column" ).bind("sortreceive", function(event, ui) {
-    if ('portlet-ZMUpdateCheckerDashboardWidget' == ui.item.context.id && !$('#update-checker').hasClass('done')) {
+    if ('portlet-ZMUpdateCheckerDashboardWidget' == ui.item.context.id) {
       // dragged from widget box into drashboard
       checkUpdate();
     }
