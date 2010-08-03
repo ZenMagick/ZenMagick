@@ -31,15 +31,12 @@
  * @package zenmagick.store.sf.mvc.controller
  */
 class ZMProductReviewsWriteController extends ZMController {
-    private $viewData_;
-
 
     /**
      * Create new instance.
      */
     function __construct() {
         parent::__construct();
-        $this->viewData_ = array();
     }
 
     /**
@@ -53,11 +50,20 @@ class ZMProductReviewsWriteController extends ZMController {
     /**
      * {@inheritDoc}
      */
+    public function getViewData($request) {
+        $product = $this->getProduct($request);
+        return array('currentProduct' => $product, 'currentAccount' => $request->getAccount());
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function preProcess($request) {
         $product = $this->getProduct($request);
-        $this->viewData_['currentProduct'] = $product;
-        $this->viewData_['currentAccount'] = $request->getAccount();
-        $this->handleCrumbtrail($product, $request);
+        $request->getToolbox()->crumbtrail->addCategoryPath($request->getCategoryPathArray());
+        $request->getToolbox()->crumbtrail->addManufacturer($request->getManufacturerId());
+        $request->getToolbox()->crumbtrail->addProduct($product->getId());
+        $request->getToolbox()->crumbtrail->addCrumb("Reviews");
     }
 
     /**
@@ -65,9 +71,9 @@ class ZMProductReviewsWriteController extends ZMController {
      */
     public function processGet($request) {
         if (null == $this->getProduct($request)) {
-            return $this->findView('product_not_found', $this->viewData_);
+            return $this->findView('product_not_found');
         }
-        return $this->findView(null, $this->viewData_);
+        return $this->findView();
     }
 
     /**
@@ -75,7 +81,7 @@ class ZMProductReviewsWriteController extends ZMController {
      */
     public function processPost($request) {
         if (null == $this->getProduct($request)) {
-            return $this->findView('product_not_found', $this->viewData_);
+            return $this->findView('product_not_found');
         }
 
         $review = $this->getFormData($request);
@@ -96,7 +102,7 @@ class ZMProductReviewsWriteController extends ZMController {
         }
 
         ZMMessages::instance()->success(_zm("Thank you for your submission"));
-        return $this->findView('success', $this->viewData_, array('parameter' => 'products_id='.$product->getId()));
+        return $this->findView('success', array(), array('parameter' => 'products_id='.$product->getId()));
     }
 
     /**
@@ -113,19 +119,6 @@ class ZMProductReviewsWriteController extends ZMController {
             $product = ZMProducts::instance()->getProductForModel($request->getModel());
         }
         return $product;
-    }
-
-    /**
-     * Handle crumbtrail.
-     *
-     * @param ZMProduct product The current product.
-     * @param ZMRequest request The current request.
-     */
-    protected function handleCrumbtrail($product, $request) {
-        $request->getToolbox()->crumbtrail->addCategoryPath($request->getCategoryPathArray());
-        $request->getToolbox()->crumbtrail->addManufacturer($request->getManufacturerId());
-        $request->getToolbox()->crumbtrail->addProduct($product->getId());
-        $request->getToolbox()->crumbtrail->addCrumb("Reviews");
     }
 
 }
