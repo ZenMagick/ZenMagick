@@ -49,7 +49,18 @@ class ZMPendingDashboardWidget extends ZMDashboardWidget {
      * {@inheritDoc}
      */
     public function getContents($request) {
-        $contents = '<p id="pending">'._zm('Pending Stuff...').'</p>';
+        $contents = '';
+        $gvApprovalQueue = ZMCoupons::instance()->getCouponsForFlag('N');
+        if (0 < count($gvApprovalQueue)) {
+            $a = '<a href="'.str_replace('index.php', 'gv_queue.php', ZMSettings::get('apps.store.oldAdminUrl')).'">'._zm('approval').'</a>';
+            $contents .= sprintf(_zm('There are %s gift cards waiting for %s'), count($gvApprovalQueue), $a);
+        }
+
+        if (0 == strlen($contents)) {
+            $contents = _zm('Pending Stuff...');
+        }
+
+        $contents = '<p id="pending">'.$contents.'</p>';
         return $contents;
     }
 

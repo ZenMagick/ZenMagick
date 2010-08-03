@@ -243,6 +243,19 @@ class ZMCoupons extends ZMObject {
     }
 
     /**
+     * Get coupon queue entries for the given flag.
+     *
+     * @param string flag The flag; can be '<em>Y</em>' for approved or '<em>N</em>' for coupons waiting for approval.
+     * @return array A list of <code>ZMCouponQueue</code> entries.
+     */
+    public function getCouponsForFlag($flag='N') {
+        $sql = "SELECT * 
+                FROM " . TABLE_COUPON_GV_QUEUE . "
+                WHERE release_flag = :released";
+        return ZMRuntime::getDatabase()->query($sql, array('released' => $flag), TABLE_COUPON_GV_QUEUE, 'CouponQueue');
+    }
+
+    /**
      * Credit coupon for account.
      *
      * @param int couponId The coupon id.
