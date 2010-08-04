@@ -27,90 +27,33 @@
  * @author DerManoMann
  * @package zenmagick.store.admin.mvc.controller.ajax
  */
-class ZMAjaxEZPagesAdminController extends ZMAjaxController {
-    private $response_;
-
+class ZMAjaxEZPagesAdminController extends ZMRpcController {
 
     /**
-     * Create new instance.
+     * Set page property.
      */
-    function __construct() {
-        parent::__construct();
-        $this->response_ = array();
-    }
+    public function setEZPageProperty($rpcRequest) {
+        $data = $rpcRequest->getData();
+        $pageId = $data->pageId;
+        $languageId = $data->languageId;
+        $property = $data->property;
+        $value = $data->value;
 
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
-
-
-    /**
-     * Report.
-     *
-     * @param string msg The message.
-     * @param string type The message type.
-     */
-    protected function report($msg, $type) {
-        if (!array_key_exists($type, $this->response_)) {
-            $response_[$type] = array();
-        }
-        $this->response_[$type][] = $msg;
-    }
-
-    /**
-     * Update page property.
-     *
-     * <p>Request parameter:</p>
-     * <ul>
-     *  <li>pageId - The id of the ezPage to update.</li>
-     *  <li>languageId - The language id.</li>
-     *  <li>property - The property to set.</li>
-     *  <li>value - The new value.</li>
-     * </ul>
-     */
-    public function setEZPageProperty($request) {
-        $pageId = $request->getParameter('pageId');
-        $languageId = $request->getParameter('languageId');
-        $property = $request->getParameter('property');
-        $value = $request->getParameter('value');
         if (in_array($property, array('NewWin', 'SSL', 'header', 'sidebox', 'footer', 'toc'))) {
             $value = ZMLangUtils::asBoolean($value);
         }
 
-        if ($this->updateEZPageProperty($pageId, $languageId, $property, $value)) {
-            $this->report('Page updated', 'success');
-            $this->response_['pageId'] = $pageId;
-            $this->response_['languageId'] = $languageId;
+        $rpcResponse = $rpcRequest->createResponse();
+
+        if (null != ($ezPage = ZMEZPages::instance()->getPageForId($pageId, $languageId))) {
+            ZMBeanUtils::setAll($ezPage, array($property => $value));
+            ZMEZPages::instance()->updatePage($ezPage);
+            $rpcResponse->setStatus(true);
+        } else {
+            $rpcResponse->setStatus(false);
         }
 
-        $flatObj = ZMAjaxUtils::flattenObject($this->response_);
-        $json = $this->toJSON($flatObj);
-        $this->setJSONHeader($json);
-    }
-
-    /**
-     * Set the given ezpage property.
-     *
-     * @param string pageId The ezPage id.
-     * @param int languageId The language id.
-     * @param string property The property name.
-     * @param mixed value The new value.
-     * @return boolean <code>true</code> if the status was set, <code>false</code> for any error.
-     */
-    protected function updateEZPageProperty($pageId, $languageId, $property, $value) {
-        $ezPage = ZMEZPages::instance()->getPageForId($pageId, $languageId);
-        if (null == $ezPage) {
-            $this->report('Invalid ezPage id', 'error');
-            $this->response_['ezPageId'] = $pageId;
-            $this->response_['languageId'] = $languageId;
-            return false;
-        }
-        ZMBeanUtils::setAll($ezPage, array($property => $value));
-        ZMEZPages::instance()->updatePage($ezPage);
-        return true;
+        return $rpcResponse;
     }
 
 }

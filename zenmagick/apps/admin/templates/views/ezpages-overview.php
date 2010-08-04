@@ -18,10 +18,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 ?>
-<?php
-  $selectedLanguageId = $currentLanguage->getId();
-?>
-
+<?php $selectedLanguageId = $currentLanguage->getId(); ?>
 <script type="text/javascript">
     var on = 'ui-icon-circle-check';
     var off = 'ui-icon-circle-close';
@@ -31,24 +28,19 @@
         var pageId = link.id.split('-')[0];
         var property = link.id.split('-')[1];
         var languageId = $('#languageId option:selected')[0].value;
-        $.ajax({
-            type: "POST",
-            url: "<?php echo $admin2->ajax('EZPages_admin', 'setEZPageProperty') ?>",
-            data: 'pageId='+pageId+'&languageId='+languageId+'&property='+property+'&value='+('on' == currentStatus ? 'false' : 'true'),
-            success: function(msg) { 
-              if ('on' == currentStatus) {
-                  $('#'+link.id+' span').addClass(off).removeClass(on);
-              } else {
-                  $('#'+link.id+' span').addClass(on).removeClass(off);
-              }
-              link.className = 'ezpage-status-'+('on' == currentStatus ? 'off' : 'on');
-            },
-            error: function(msg) { 
-                alert(msg);
+
+        var data = '{"pageId":'+pageId+',"languageId":'+languageId+',"property":"'+property+'","value":'+('on' == currentStatus ? 'false' : 'true')+'}';
+        zenmagick.rpc('EZPages_admin', 'setEZPageProperty', data, {
+            success: function(result) {
+                if ('on' == currentStatus) {
+                    $('#'+link.id+' span').addClass(off).removeClass(on);
+                } else {
+                    $('#'+link.id+' span').addClass(on).removeClass(off);
+                }
+                link.className = 'ezpage-status-'+('on' == currentStatus ? 'off' : 'on');
             }
         });
     }
-
 </script>
 
 <?php zm_title($this) ?>

@@ -203,6 +203,7 @@ Release 0.9.10
 - recaptcha: upgrade to library version 1.11
 - ckeditor: upgrade to 3.3.2
 - tinymce: upgrade to 3.3.8
+- move editor plugins into general section
 
 Release 0.9.9
 - in ZMDbTableMapper handle database exception building auto mappings
