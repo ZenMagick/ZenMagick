@@ -25,7 +25,7 @@
 <h2><?php _vzm('Quick Edit: <em>%s</em>', $html->encode($category->getName())) ?></h2>
 
 <form action="<?php echo $admin2->catalog() ?>" method="POST">
-  <table cellspacing="0" cellpadding="0" class="presults" style="position:relative;width:auto;">
+  <table class="grid">
     <thead><tr>
       <th class="first">Id</th>
       <?php foreach ($fieldList as $ii => $field) { ?>

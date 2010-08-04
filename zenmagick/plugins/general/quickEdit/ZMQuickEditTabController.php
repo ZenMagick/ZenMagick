@@ -129,7 +129,7 @@ class ZMQuickEditTabController extends ZMCatalogContentController {
             }
         }    
 
-        return $this->findView();
+        return $this->findView('redirect');
     }
 
 }

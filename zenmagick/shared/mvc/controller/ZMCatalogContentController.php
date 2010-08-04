@@ -27,6 +27,9 @@
 /**
  * Catalog content controller.
  *
+ * <p>This class implements a special case <code>findView()</code> method to allow easy
+ * redirects to the same page.</p>
+ *
  * @author DerManoMann
  * @package zenmagick.store.shared.services
  */
@@ -89,6 +92,36 @@ abstract class ZMCatalogContentController extends ZMController {
      */
     public function getName() {
         return $this->name_;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function process($request) {
+        $view = parent::process($request);
+        if ($view->get('catalogRedirect')) {
+            // some hacky reuse... 
+            // set url
+            $admin2 = $view->getVar('admin2');
+            $view->setUrl($admin2->catalog($this));
+        }
+        return $view;
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * <p>Adds special handling to <code>'redirect' == $id</code> to allow proper redirects after POST handling without
+     * the subclass having to worry about details.<br>
+     * All other parameters will be handled as always.</p>
+     */
+    public function findView($id=null, $data=array(), $parameter=null) {
+        if ('redirect' == $id) {
+            // the property catalogRedirect tags the view as special redirect view...
+            return ZMBeanUtils::getBean('RedirectView#requestId=catalog&catalogRedirect=true&parameter='.urlencode($parameter).'&catalogRequestId='.$this->getCalogRequestId());
+        }
+
+        return parent::findView($id, $data, $parameter);
     }
 
 }
