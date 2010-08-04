@@ -59,7 +59,7 @@ class ZMTinyMCEFormWidget extends ZMTextAreaFormWidget {
             return parent::render($request);
         }
 
-        $baseUrl = $this->plugin_->pluginURL('tinymce-3.2.7/');
+        $baseUrl = $this->plugin_->pluginURL('tinymce-3.3.8/');
 
         // add required js
         $request->getToolbox()->utils->jsTop($baseUrl.'jscripts/tiny_mce/tiny_mce.js');

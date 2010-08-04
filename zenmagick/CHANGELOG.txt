@@ -201,6 +201,8 @@ Release 0.9.10
 - fix: add saved tax rate on value returned by ZMOrderItem::getCalculatedPrice()
 - ZMCurrency: fix formatting of negative values
 - recaptcha: upgrade to library version 1.11
+- ckeditor: upgrade to 3.3.2
+- tinymce: upgrade to 3.3.8
 
 Release 0.9.9
 - in ZMDbTableMapper handle database exception building auto mappings
