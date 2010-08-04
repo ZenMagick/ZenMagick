@@ -23,7 +23,7 @@
     echo '<h2>',$group,'</h2>';
     foreach ($groupDetails as $sub => $subDetails) {
         echo '<h3>',$sub,'</h3>';
-        echo '<table width="88%" border="1">';
+        echo '<table width="88%" class="grid">';
         foreach ($subDetails as $details) {
             echo '<tr>';
             echo '<td width="32%">', $details['desc'], '</td>';
