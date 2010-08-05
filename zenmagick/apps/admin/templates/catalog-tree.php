@@ -57,6 +57,14 @@
 
         return '';
     }
+
+    $initially_open = '';
+    foreach ($request->getCategoryPathArray() as $categoryId) {
+        if (!empty($initially_open)) {
+            $initially_open .= ',';
+        }
+        $initially_open .= '"ct-'.$categoryId.'"';
+    }
 ?>
 
 <?php $resources->jsFile('js/jquery.jstree.min.js') ?>
@@ -70,7 +78,7 @@ $(function () {
 	$("#category-tree").jstree({ 
     core: {
       animation: 200,
-      initially_open: ["ct-3"]
+      initially_open: [<?php echo $initially_open ?>]
     },
 		plugins : ["html_data", "ui", "contextmenu", "themeroller"],
     themeroller: {
