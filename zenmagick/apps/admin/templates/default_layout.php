@@ -93,6 +93,9 @@
       </div><!-- content -->
       <?php echo $this->fetch('footer.php'); ?>
     </div>
-    <script> $('.tt[title]').cluetip({clickThrough: true, splitTitle: '|', arrows: true }); </script>
   </body>
+    <script> 
+      $('.tt[title]').cluetip({clickThrough: true, splitTitle: '|', arrows: true });
+      $('.datepicker').datepicker();
+    </script>
 </html>

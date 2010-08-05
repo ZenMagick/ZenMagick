@@ -54,9 +54,9 @@
     </p>
     <p>
       <label for="startDate">Start Date</label> 
-      <input type="text" id="startDate" name="startDate" value="<?php echo $locale->shortDate($productGroupPricing->getStartDate()) ?>">
+      <input type="text" class="datepicker" id="startDate" name="startDate" value="<?php echo $locale->shortDate($productGroupPricing->getStartDate()) ?>">
       <label for="endDate">End Date</label> 
-      <input type="text" id="endDate" name="endDate" value="<?php echo $locale->shortDate($productGroupPricing->getEndDate()) ?>">
+      <input type="text" class="datepicker" id="endDate" name="endDate" value="<?php echo $locale->shortDate($productGroupPricing->getEndDate()) ?>">
       <?php echo UI_DATE_FORMAT ?>, for example: <?php echo UI_DATE_FORMAT_SAMPLE ?>
     </p>
   </fieldset>
@@ -70,6 +70,9 @@
     <?php } ?>
   </p>
 </form>
+<script> 
+  $('.datepicker').datepicker();
+</script>
 
 <?php if (0 < count($productGroupPricings)) { ?>
   <fieldset>
