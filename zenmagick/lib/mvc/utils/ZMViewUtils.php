@@ -111,7 +111,10 @@ class ZMViewUtils extends ZMObject {
                 $this->view_->fetch($filename);
                 echo '</script>',"\n";
             } else {
-                echo '<script type="text/javascript" src="',$this->resolveResource($filename),'"></script>',"\n";
+                // avoid empty src
+                if (null != ($src = $this->resolveResource($filename)) && !empty($src)) {
+                    echo '<script type="text/javascript" src="',$src,'"></script>',"\n";
+                }
             }
         }
     }
@@ -143,23 +146,28 @@ class ZMViewUtils extends ZMObject {
 
         if ('js' == $group) {
             foreach ($files as $details) {
-                $contents .= '<script type="text/javascript" src="'.$this->resolveResource($details['filename']).'"></script>'."\n";
+                // avoid empty src
+                if (null != ($src = $this->resolveResource($details['filename'])) && !empty($src)) {
+                    $contents .= '<script type="text/javascript" src="'.$src.'"></script>'."\n";
+                }
             }
         } else if ('css' == $group) {
             $slash = ZMSettings::get('zenmagick.mvc.html.xhtml') ? '/' : '';
             $css = '';
             foreach ($files as $details) {
-                // merge in defaults
-                $attr = '';
-                $details['attr'] = array_merge(array('rel' => 'stylesheet', 'type' => 'text/css', 'prefix' => '', 'suffix' => ''), $details['attr']);
-                foreach ($details['attr'] as $name => $value) {
-                    if (null !== $value && !in_array($name, array('prefix', 'suffix'))) {
-                        $attr .= ' '.$name.'="'.$value.'"';
+                if (null != ($href = $this->resolveResource($details['filename'])) && !empty($href)) {
+                    // merge in defaults
+                    $attr = '';
+                    $details['attr'] = array_merge(array('rel' => 'stylesheet', 'type' => 'text/css', 'prefix' => '', 'suffix' => ''), $details['attr']);
+                    foreach ($details['attr'] as $name => $value) {
+                        if (null !== $value && !in_array($name, array('prefix', 'suffix'))) {
+                            $attr .= ' '.$name.'="'.$value.'"';
+                        }
                     }
+                    $css .= $details['attr']['prefix'];
+                    $css .= '<link'.$attr.' href="'.$href.'"'.$slash.'>';
+                    $css .= $details['attr']['suffix']."\n";
                 }
-                $css .= $details['attr']['prefix'];
-                $css .= '<link'.$attr.' href="'.$this->resolveResource($details['filename']).'"'.$slash.'>';
-                $css .= $details['attr']['suffix']."\n";
             }
             $contents .= $css;
         }
