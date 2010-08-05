@@ -130,14 +130,18 @@ class ZMSacsManager extends ZMObject {
      * @param ZMRequest request The current request.
      * @param string requestId The request id to authorize.
      * @param mixed credientials User information; typically a map with username and password.
+     * @param boolean action Optional flag to control whether to actually action or not; default is <code>true</code>.
      * @return boolean <code>true</code> if authorization was sucessful.
      */
-    public function authorize($request, $requestId, $credentials) {
+    public function authorize($request, $requestId, $credentials, $action=true) {
         ZMLogging::instance()->log('authorizing requestId: '.$requestId, ZMLogging::TRACE);
         foreach ($this->handler_ as $handler) {
             if (null !== ($result = $handler->evaluate($requestId, $credentials, $this))) {
                 ZMLogging::instance()->log('evaluated by: '.get_class($handler).', result: '.($result ? 'true' : 'false'), ZMLogging::TRACE);
                 if (false === $result) {
+                    if (!$action) {
+                        return false;
+                    }
                     // fire event
                     ZMEvents::instance()->fireEvent($this, ZMMVCConstants::INSUFFICIENT_CREDENTIALS, 
                           array('request' => $request, 'credentials' => $credentials));

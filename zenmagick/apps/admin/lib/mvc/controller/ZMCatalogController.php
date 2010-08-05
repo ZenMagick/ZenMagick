@@ -86,7 +86,10 @@ class ZMCatalogController extends ZMController {
 
         }
 
-        if (null == $controller) {
+        // check authorization as we'll need the follwo up redirect point to the catalog URL, not a tab url
+        $authorized = ZMSacsManager::instance()->authorize($request, $request->getRequestId(), $request->getUser(), false);
+
+        if (null == $controller || !$authorized) {
             // no controller found
             return parent::process($request);
         }

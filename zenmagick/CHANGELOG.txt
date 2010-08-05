@@ -204,6 +204,8 @@ Release 0.9.10
 - ckeditor: upgrade to 3.3.2
 - tinymce: upgrade to 3.3.8
 - move editor plugins into general section
+- ZMSacsmanager::authorize(): allow to suppress redirect and only perform the
+  actual check
 
 Release 0.9.9
 - in ZMDbTableMapper handle database exception building auto mappings
