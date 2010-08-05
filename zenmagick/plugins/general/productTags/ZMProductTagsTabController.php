@@ -67,7 +67,7 @@ class ZMProductTagsTabController extends ZMCatalogContentController {
             ZMMessages::instance()->success(_zm('Tags updated'));
         }
 
-        return $this->findView();
+        return $this->findView('catalog-redirect');
     }
 
 }

@@ -126,10 +126,11 @@ class ZMQuickEditTabController extends ZMCatalogContentController {
             if ($isUpdate) {
                 $product = ZMBeanUtils::setAll($product, $formData);
                 ZMProducts::instance()->updateProduct($product);
+                ZMMessages::instance()->success('All changes saved');
             }
         }    
 
-        return $this->findView('redirect');
+        return $this->findView('catalog-redirect');
     }
 
 }

@@ -111,12 +111,12 @@ abstract class ZMCatalogContentController extends ZMController {
     /**
      * {@inheritDoc}
      *
-     * <p>Adds special handling to <code>'redirect' == $id</code> to allow proper redirects after POST handling without
+     * <p>Adds special handling to <code>'catalog-redirect' == $id</code> to allow proper redirects after POST handling without
      * the subclass having to worry about details.<br>
      * All other parameters will be handled as always.</p>
      */
     public function findView($id=null, $data=array(), $parameter=null) {
-        if ('redirect' == $id) {
+        if ('catalog-redirect' == $id) {
             // the property catalogRedirect tags the view as special redirect view...
             return ZMBeanUtils::getBean('RedirectView#requestId=catalog&catalogRedirect=true&parameter='.urlencode($parameter).'&catalogRequestId='.$this->getCalogRequestId());
         }

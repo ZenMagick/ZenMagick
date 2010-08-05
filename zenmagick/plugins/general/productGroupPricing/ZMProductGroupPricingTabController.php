@@ -88,7 +88,7 @@ class ZMProductGroupPricingTabController extends ZMCatalogContentController {
             $productGroupPricing = ZMProductGroupPricings::instance()->updateProductGroupPricing($productGroupPricing);
         }
 
-        return $this->findView();
+        return $this->findView('catalog-redirect');
     }
 
 }
