@@ -82,9 +82,9 @@ class ZMTinyMCEFormWidget extends ZMTextAreaFormWidget {
     + "bullist,numlist,outdent,indent",
     theme_advanced_buttons2 : "link,unlink,anchor,image,separator,"
     +"undo,redo,cleanup,separator,sub,sup,charmap",
-    theme_advanced_buttons3 : "",
-    height:"$height",
-    width:"$width"
+    //height:"$height",
+    //width:"$width",
+    theme_advanced_buttons3 : ""
   });
 </script>
 EOT;

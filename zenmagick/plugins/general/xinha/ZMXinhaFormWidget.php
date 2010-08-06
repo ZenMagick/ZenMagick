@@ -81,8 +81,8 @@ xinha_init = xinha_init ? xinha_init : function() {
   xinha_plugins = xinha_plugins ? xinha_plugins : [ 'CharacterMap', 'ContextMenu', 'ListType', 'Stylist', 'Linker', 'TableOperations' ];
   if(!Xinha.loadPlugins(xinha_plugins, xinha_init)) return;
   xinha_config = new Xinha.Config();
-  xinha_config.width  = '$width';
-  xinha_config.height = '$height';
+  //xinha_config.width  = '$width';
+  //xinha_config.height = '$height';
   xinha_config.toolbar =
   [
     ["popupeditor"],
