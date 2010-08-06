@@ -24,6 +24,33 @@ var ZenMagick = {
 
 
     /**
+     * Compare version numbers.
+     *
+     * Example: 0.9.10, 0.9.9+.20100804
+     */
+    versionCompare: function (first, second) {
+        if ('${zenmagick.version}' == first || '${zenmagick.version}' == second) {
+            return '${zenmagick.version}' == first ? ('${zenmagick.version}' == second ? 0 : 1) : -1;
+        }
+        var parseVersion = function (version) {
+            token = /(\d+)\.?(\d+)?\.?(\d+\+?)?\.?(\d+)?/.exec(version);
+            var maj = parseInt(token[1]) || 0;
+            var min = parseInt(token[2]) || 0;
+            var pat = parseInt(token[3].replace(/\+/, '0')) || 0;
+            var ts = parseInt(token[4]) || 0;
+            return Array(maj, min, pat, ts);
+        };
+        first = parseVersion(first);
+        second = parseVersion(second);
+        for (var ii=0; ii<4; ++ii) {
+            if (first[ii] != second[ii]) {
+                return first[ii] > second[ii] ? 1 : -1;
+            }
+        }
+        return 0;
+    },
+
+    /**
      * Init all date picker elements.
      */
     datepicker: function() {

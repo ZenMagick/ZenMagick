@@ -61,14 +61,12 @@ class ZMUpdateCheckerDashboardWidget extends ZMDashboardWidget {
 
   function checkUpdate() {
     if (0 != $('#update-checker').closest('#dashboard').length && !done) {
-      zenmagick.rpc('dashboard', 'getUpdateInfo', '""', {
+      ZenMagick.rpc('dashboard', 'getUpdateInfo', '""', {
           success: function(result) {
               //TODO: extend return info and parse...
               var latest = result.data;
               var current = '$current';
-              
-              //TODO: improve compare
-              if (current != latest) {
+              if (1 == ZenMagick.versionCompare(latest, current)) {
                   // have update
                   $('#update-checker').html('A new version ('+latest+') is available. Current version is: '+current);
               } else {
