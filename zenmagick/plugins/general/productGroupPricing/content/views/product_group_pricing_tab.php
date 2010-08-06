@@ -70,9 +70,7 @@
     <?php } ?>
   </p>
 </form>
-<script> 
-  $('.datepicker').datepicker();
-</script>
+<script> ZenMagick.datepicker(); </script>
 
 <?php if (0 < count($productGroupPricings)) { ?>
   <fieldset>

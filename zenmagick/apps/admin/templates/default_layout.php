@@ -96,6 +96,6 @@
   </body>
     <script> 
       $('.tt[title]').cluetip({clickThrough: true, splitTitle: '|', arrows: true });
-      $('.datepicker').datepicker();
+      ZenMagick.datepicker();
     </script>
 </html>

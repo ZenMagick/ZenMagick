@@ -23,7 +23,7 @@
   // add to roles list
   function addRoleToList() {
       var role = $('#newRole').val();
-      $('#manage_roles #mr_roles').append($("<option></option>").attr("value", role).text(zenmagick.ucwords(role))); 
+      $('#manage_roles #mr_roles').append($("<option></option>").attr("value", role).text(ZenMagick.ucwords(role))); 
   }
 
   // select all roles!!

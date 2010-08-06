@@ -30,7 +30,7 @@
         var languageId = $('#languageId option:selected')[0].value;
 
         var data = '{"pageId":'+pageId+',"languageId":'+languageId+',"property":"'+property+'","value":'+('on' == currentStatus ? 'false' : 'true')+'}';
-        zenmagick.rpc('EZPages_admin', 'setEZPageProperty', data, {
+        ZenMagick.rpc('EZPages_admin', 'setEZPageProperty', data, {
             success: function(result) {
                 if ('on' == currentStatus) {
                     $('#'+link.id+' span').addClass(off).removeClass(on);

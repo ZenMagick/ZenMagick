@@ -54,7 +54,7 @@ $(function() {
             return;
         }
         lastState = state;
-        zenmagick.rpc('dashboard', 'saveState', state, {
+        ZenMagick.rpc('dashboard', 'saveState', state, {
             success: function(result) {
                 // nothing right now
             }

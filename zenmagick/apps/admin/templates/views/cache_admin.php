@@ -32,7 +32,7 @@
 
 <?php zm_title($this, _zm('Cache Admin')) ?>
 
-<form action="<?php echo $admin2->url() ?>" method="POST" onsubmit="return zenmagick.confirm('<?php _vzm('Clear selected caches?') ?>', this);">
+<form action="<?php echo $admin2->url() ?>" method="POST" onsubmit="return ZenMagick.confirm('<?php _vzm('Clear selected caches?') ?>', this);">
   <fieldset>
     <legend><?php _vzm("Existing Caches") ?></legend>
       <table cellspacing="0" cellpadding="0">

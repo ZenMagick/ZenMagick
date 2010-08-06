@@ -109,6 +109,10 @@ table.grid td.total {text-align:right;}
 span.ui-icon-circle-check {background-image:url(jquery-ui/images/ui-icons_2e83ff_256x240.png);}
 span.ui-icon-circle-close {background-image:url(jquery-ui/images/ui-icons_cd0a0a_256x240.png);}
 
+/* widgets */
+.ui-datepicker-trigger {cursor:pointer;cursor:hand;background-image:url(../images/icons/calendar.png);background-repeat:no-repeat;width:17px;height:17px;vertical-align:text-bottom;}
+
+
 /* interim */
 fieldset {padding:6px;margin:4px 0;}
 legend {font-weight:bold;color:#fff;background-color:#777;padding:2px 9px;}
