@@ -50,7 +50,12 @@ class ZMAjaxDashboardController extends ZMRpcController {
      * @param ZMRpcRequest rpcRequest The RPC request.
      */
     public function getUpdateInfo($rpcRequest) {
-        $latest = file_get_contents("http://www.zenmagick.org/version.txt");
+        $versionUrl = 'http://www.zenmagick.org/version';
+        if (ZMSettings::exists('apps.store.update.channel')) {
+            $versionUrl .= '/'.ZMSettings::get('apps.store.update.channel');
+        }
+        $versionUrl .= '?current='.ZMSettings::get('zenmagick.version');
+        $latest = file_get_contents($versionUrl);
 
         $rpcResponse = $rpcRequest->createResponse();
         $rpcResponse->setStatus(true);

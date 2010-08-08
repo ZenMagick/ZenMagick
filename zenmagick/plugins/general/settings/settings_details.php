@@ -361,6 +361,13 @@
                         'desc' => 'Enable using ZenMagick checkout shipping code.'
                     )
                 ),
+                'update' => array(
+                    array(
+                        'key' => 'channel',
+                        'type' => 'string',
+                        'desc' => 'Set version check channel; valid are "stable" (default if empty) and "dev".'
+                    )
+                ),
                 'search' => array(
                     array(
                         'key' => 'fulltext',
