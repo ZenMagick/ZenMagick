@@ -95,15 +95,6 @@
 
       <label for="newfile">New File:</label>
       <input type="text" name="newfile" id="newfile">
-
-      <label for="editor">Editor:</label>
-      <?php $currentEditorClass = get_class($toolbox->utils->getCurrentEditor()); ?>
-      <select id="editor" name="editor">
-        <?php foreach ($toolbox->utils->getEditorMap() as $key => $name) { ?>
-          <?php $selected = (false !== strpos($currentEditorClass, $key) ? ' selected="selected"' : ''); ?>
-          <option value="<?php echo $key ?>"<?php echo $selected ?>><?php echo $name ?></option>
-        <?php } ?>
-      </select>
       <br><br>
       <input type="submit" value="Edit">
     </fieldset>
@@ -124,7 +115,7 @@
     <input type="hidden" name="languageId" value="<?php echo $selectedLanguageId ?>">
 
     <?php 
-      $editor = $toolbox->utils->getCurrentEditor();
+      $editor = $currentEditor;
       $editor->setId('editContents');
       $editor->setName('editContents');
       $editor->setRows(30);

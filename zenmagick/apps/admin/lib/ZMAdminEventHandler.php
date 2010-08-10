@@ -28,6 +28,7 @@
  * @package zenmagick.store.admin
  */
 class ZMAdminEventHandler {
+
     /**
      * Display message about invalid/insufficient credentional
      */
@@ -46,5 +47,26 @@ class ZMAdminEventHandler {
         $request = $args['request'];
         $view = $args['view'];
         $view->setVar('currentLanguage', $request->getSelectedLanguage());
+        $view->setVar('currentEditor', $this->getCurrentEditor($request));
     }
+
+    /**
+     * Get instance of the current editor.
+     *
+     * @param ZMRequest request The current request.
+     * @return ZMTextAreaFormWidget A text editor widget.
+     */
+    protected function getCurrentEditor($request) {
+        $user = $request->getUser();
+        if (null == ($editor = ZMAdminUserPrefs::instance()->getPrefForName($user->getId(), 'wysiwygEditor'))) {
+            $editor = ZMSettings::get('apps.store.admin.defaultEditor', 'TextAreaFormWidget');
+        }
+
+        if (null != ($obj = ZMBeanUtils::getBean($editor))) {
+            return $obj;
+        }
+
+        return ZMBeanUtils::getBean('TextAreaFormWidget');
+    }
+
 }

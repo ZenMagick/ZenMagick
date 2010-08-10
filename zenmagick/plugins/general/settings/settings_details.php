@@ -374,6 +374,13 @@
                         'type' => 'boolean',
                         'desc' => 'Enable MySQL fulltext search in product search.'
                     )
+                ),
+                'admin' => array(
+                    array(
+                        'key' => 'defaultEditor',
+                        'type' => 'string',
+                        'desc' => 'Name of the default text editor widget.'
+                    )
                 )
             )
         );

@@ -18,9 +18,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 ?>
-<?php
-  $selectedLanguageId = $currentLanguage->getId();
-?>
+<?php $selectedLanguageId = $currentLanguage->getId(); ?>
 
 <?php zm_title($this, _zm('Edit EZPage')) ?>
 <form action="<?php echo $admin2->url() ?>" method="POST">
@@ -91,7 +89,7 @@
   <fieldset>
     <legend><?php _vzm('Contents') ?></legend>
     <?php 
-      $editor = $toolbox->utils->getCurrentEditor();
+      $editor = $currentEditor;
       $editor->setId('htmlText');
       $editor->setName('htmlText');
       $editor->setRows(30);

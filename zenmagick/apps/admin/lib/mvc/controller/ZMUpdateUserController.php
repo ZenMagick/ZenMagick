@@ -47,6 +47,32 @@ class ZMUpdateUserController extends ZMController {
     /**
      * {@inheritDoc}
      */
+    public function getViewData($request) {
+        $user = $request->getUser();
+        $widgets = array();
+        $currentEditor = ZMAdminUserPrefs::instance()->getPrefForName($user->getId(), 'wysiwygEditor');
+        $widgets[] = ZMBeanUtils::getBean('EditorSelectFormWidget#title='._zm('Preferred Editor').'&value='.$currentEditor.'&name=wysiwygEditor');
+        return array('widgets' => $widgets);
+    }
+
+    /**
+     * Process prefs
+     *
+     * @param ZMRequest request The current request.
+     */
+    protected function processPrefs($request) {
+        $user = $request->getUser();
+        $viewData = $this->getViewData($request);
+        $widgets = $viewData['widgets'];
+        foreach ($widgets as $widget) {
+            $name = $widget->getName();
+            ZMAdminUserPrefs::instance()->setPrefForName($user->getId(), $name, $request->getParameter($name));
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function getFormData($request) {
         $updateUser = parent::getFormData($request);
         if (!$this->isFormSubmit($request)) {
@@ -78,6 +104,8 @@ class ZMUpdateUserController extends ZMController {
             $user->setPassword(ZMAuthenticationManager::instance()->encryptPassword($newPassword));
         }
         ZMAdminUsers::instance()->updateUser($user);
+        // process other prefs
+        $this->processPrefs($request);
 
         // report success
         ZMMessages::instance()->success(_zm('Details updated.'));

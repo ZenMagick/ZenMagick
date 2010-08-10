@@ -23,6 +23,9 @@
   <fieldset>
     <p><label for="name"><?php _vzm('Name') ?></label> <input type="text" id="name" name="name" value="<?php echo $html->encode($updateUser->getName()) ?>"></p>
     <p><label for="email"><?php _vzm('Email') ?></label> <input type="text" id="email" name="email" value="<?php echo $html->encode($updateUser->getEmail()) ?>"></p>
+    <?php foreach ($widgets as $widget) { ?>
+      <p><label for="<?php echo $widget->getId() ?>"><?php echo $widget->getTitle() ?></label> <?php echo $widget->render($request) ?></p>
+    <?php } ?>
     <p><label for="currentPassword"><?php _vzm('Current password') ?></label> <input type="password" id="currentPassword" name="currentPassword"></p>
     <p><label for="newPassword"><?php _vzm('New password') ?></label> <input type="password" id="newPassword" name="newPassword"></p>
     <p><label for="confirmPassword"><?php _vzm('Confirm password') ?></label> <input type="password" id="confirmPassword" name="confirmPassword"></p>

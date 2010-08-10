@@ -48,10 +48,26 @@ class ZMEditorSelectFormWidget extends ZMSelectFormWidget {
     }
 
     /**
+     * Get a list of all available editors.
+     *
+     * @return array A class/name map of editors.
+     */
+    public static function getEditorMap() {
+        $map = array('plain' => 'Plain');
+        $tokens = explode(',', ZMSettings::get('editorList'));
+        foreach ($tokens as $token) {
+            $nc = explode(':', $token);
+            $map[$nc[1]] = $nc[0];
+        }
+
+        return $map;
+    }
+
+    /**
      * {@inheritDoc}
      */
     public function getOptions($request) {
-        return array_merge(parent::getOptions($request), $request->getToolbox()->utils->getEditorMap());
+        return array_merge(parent::getOptions($request), self::getEditorMap());
     }
 
 }
