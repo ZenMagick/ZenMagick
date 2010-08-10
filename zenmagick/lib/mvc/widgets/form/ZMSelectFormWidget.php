@@ -90,6 +90,17 @@ class ZMSelectFormWidget extends ZMFormWidget {
     }
 
     /**
+     * Add a single option.
+     *
+     * @param string name The option name.
+     * @param string value The value; default is <code>null</code> to use the name.
+     */
+    public function addOption($name, $value=null) {
+        $value = null === $value ? $name : $value;
+        $this->options_[$value] = $name;
+    }
+
+    /**
      * Set the options map.
      *
      * @param mixed options Map of value/name pairs.

@@ -69,4 +69,15 @@ class ZMAdminEventHandler {
         return ZMBeanUtils::getBean('TextAreaFormWidget');
     }
 
+    /**
+     * Init locale.
+     */
+    public function onZMInitDone($args) {
+        $request = $args['request'];
+        $user = $request->getUser();
+        if (null != ($uiLocale = ZMAdminUserPrefs::instance()->getPrefForName($user->getId(), 'uiLocale'))) {
+            ZMLocales::instance()->getLocale(true, $uiLocale);
+        }
+    }
+
 }

@@ -31,7 +31,7 @@
  * @package org.zenmagick.core.services.locale
  */
 function _zm($text, $context=null, $domain=ZMLocale::DEFAULT_DOMAIN) {
-    return ZMLocales::instance()->translate($text, $context, $domain);
+    return ZMLocales::instance()->getLocale()->translate($text, $context, $domain);
 }
 
 
@@ -47,7 +47,7 @@ function _zm($text, $context=null, $domain=ZMLocale::DEFAULT_DOMAIN) {
  * @package org.zenmagick.core.services.locale
  */
 function _zmn($single, $number, $plural=null, $context=null, $domain=ZMLocale::DEFAULT_DOMAIN) {
-    return ZMLocales::instance()->translatePlural($single, $number, $plural, $context, $domain);
+    return ZMLocales::instance()->getLocale()->translatePlural($single, $number, $plural, $context, $domain);
 }
 
 /**
@@ -65,6 +65,6 @@ function _vzm($text) {
     $args = func_get_args();
     array_shift($args);
     // get translation using default context/domain
-    $translated = ZMLocales::instance()->translate($text, null, ZMLocale::DEFAULT_DOMAIN);
+    $translated = ZMLocales::instance()->getLocale()->translate($text, null, ZMLocale::DEFAULT_DOMAIN);
     echo null != $args ? vsprintf($translated, $args) : $translated;
 }

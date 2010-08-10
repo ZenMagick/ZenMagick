@@ -82,24 +82,12 @@ class ZMLocales extends ZMObject {
 
 
     /**
-     * {@inheritDoc}
+     * Init locale.
+     *
+     * @param string locale The locale name, for example: <em>en_NZ</em>.
      */
     public function init($locale) {
         $this->getLocale()->init($locale);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function translate($text, $context=null, $domain=ZMLocale::DEFAULT_DOMAIN) {
-        return $this->getLocale()->translate($text, $context, $domain);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function translatePlural($single, $number, $plural=null, $context=null, $domain=ZMLocale::DEFAULT_DOMAIN) {
-        return $this->getLocale()->translatePlural($single, $number, $plural, $context, $domain);
     }
 
 }
