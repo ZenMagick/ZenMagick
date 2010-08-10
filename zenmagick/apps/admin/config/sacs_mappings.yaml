@@ -40,6 +40,11 @@ mappings:
   ###########################################
   ## explicit permissions (either roles or users or both)
   ##
+  update_user: 
+    roles: 
+      - admin
+      - demo
+    secure: true
   orders: 
     roles: 
       - admin

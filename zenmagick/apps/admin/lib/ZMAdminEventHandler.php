@@ -58,7 +58,7 @@ class ZMAdminEventHandler {
      */
     protected function getCurrentEditor($request) {
         $user = $request->getUser();
-        if (null == ($editor = ZMAdminUserPrefs::instance()->getPrefForName($user->getId(), 'wysiwygEditor'))) {
+        if (null == $user || null == ($editor = ZMAdminUserPrefs::instance()->getPrefForName($user->getId(), 'wysiwygEditor'))) {
             $editor = ZMSettings::get('apps.store.admin.defaultEditor', 'TextAreaFormWidget');
         }
 
