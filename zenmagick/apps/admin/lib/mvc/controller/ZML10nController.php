@@ -105,7 +105,9 @@ class ZML10nController extends ZMController {
 
         $adminMap = array();
         if ($vd['scanAdmin']) {
-            $adminMap = ZMLocaleUtils::buildL10nMap(ZMRuntime::getApplicationPath().'lib');
+            $adminLibMap = ZMLocaleUtils::buildL10nMap(ZMRuntime::getApplicationPath().'lib');
+            $adminTemplatesMap = ZMLocaleUtils::buildL10nMap(ZMRuntime::getApplicationPath().'templates');
+            $adminMap = array_merge($adminLibMap, $adminTemplatesMap);
         }
 
         $mvcMap = array();
@@ -116,7 +118,9 @@ class ZML10nController extends ZMController {
         $fileMap = array();
         if (null != $vd['themeId']) {
             $theme = ZMThemes::instance()->getThemeForId($vd['themeId']);
-            $fileMap = ZMLocaleUtils::buildL10nMap($theme->getBaseDir());
+            $themeMap = ZMLocaleUtils::buildL10nMap($theme->getBaseDir());
+            $storeMap = ZMLocaleUtils::buildL10nMap(ZMRuntime::getInstallationPath().'apps/store');
+            $fileMap = array_merge($themeMap, $storeMap);
         }
 
         $translations = array_merge($pluginsMap, $sharedMap, $defaultMap, $existingMap, $adminMap, $mvcMap, $fileMap);
