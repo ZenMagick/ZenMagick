@@ -92,6 +92,9 @@ class ZMUpdateUserController extends ZMController {
         $updateUser = $this->getFormData($request);
         // assume validation is already done...
 
+        // allow pref changes without password
+        $this->processPrefs($request);
+
         // validate password
         if (!ZMAuthenticationManager::instance()->validatePassword($updateUser->getCurrentPassword(), $user->getPassword())) {
             ZMMessages::instance()->error(_zm('Sorry, the entered password is not valid.'));
@@ -104,8 +107,6 @@ class ZMUpdateUserController extends ZMController {
             $user->setPassword(ZMAuthenticationManager::instance()->encryptPassword($newPassword));
         }
         ZMAdminUsers::instance()->updateUser($user);
-        // process other prefs
-        $this->processPrefs($request);
 
         // report success
         ZMMessages::instance()->success(_zm('Details updated.'));

@@ -30,6 +30,9 @@ div#content {min-height:380px;}
 /* dialogs */
 #user-confirm, #ajax-dialog, #ajax-form-dialog {text-align:left;}
 
+/* forms */
+label span {color:#D4A84B;margin:0 3px;font-weight:bold;}
+
 /* header */
 #logo {float:left;padding:3px 8px;margin-bottom:4px;}
 #header-box {float:right;text-align:right;padding-right:8px;}
@@ -116,7 +119,6 @@ span.ui-icon-circle-close {background-image:url(jquery-ui/images/ui-icons_cd0a0a
 /* interim */
 fieldset {padding:6px;margin:4px 0;}
 legend {font-weight:bold;color:#fff;background-color:#777;padding:2px 9px;}
-legend span {font-size:114%;background:#eee;padding:3px;color:#000;}
 th {color:#000;background:#b0b0b0;border-right:1px solid #fff;padding:3px;}
 th a {color:#000;}
 td {padding:2px 8px;}
