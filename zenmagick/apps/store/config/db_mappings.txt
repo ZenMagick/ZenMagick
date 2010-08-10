@@ -670,7 +670,7 @@ array(
         'name' => 'column=admin_name;type=string',
         'email' => 'column=admin_email;type=string',
         'password' => 'column=admin_pass;type=string',
-        'demo' => 'column=admin_level;type=boolean'
+        'live' => 'column=admin_level;type=boolean'
     ),
     'token' => array(
         'hashId' => 'column=hash_id;type=integer;key=true;auto=true',

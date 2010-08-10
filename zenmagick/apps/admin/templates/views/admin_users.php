@@ -33,7 +33,7 @@
       <td><?php echo $adminUser->getId() ?></td>
       <td><a href="<?php echo $admin2->url('edit_admin_user', 'adminUserId='.$adminUser->getId()) ?>"><?php echo $adminUser->getName() ?></a></td>
       <td><?php echo $adminUser->getEmail() ?></td>
-      <td><?php echo ($adminUser->isDemo() ? _vzm('Demo') : _vzm('Live')) ?></td>
+      <td><?php echo (!$adminUser->isLive() ? _vzm('Demo') : _vzm('Live')) ?></td>
       <td>
         <form action="<?php echo $admin2->url('edit_admin_user') ?>" method="post">
           <input type="hidden" name="deleteUserId" value="<?php echo $adminUser->getId() ?>">

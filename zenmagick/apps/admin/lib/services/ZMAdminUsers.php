@@ -62,9 +62,6 @@ class ZMAdminUsers extends ZMObject {
             return null;
         }
 
-        // database 1 == NOT demo...
-        $user->setDemo(!$user->isDemo());
-
         // set roles
         foreach (ZMAdminUserRoles::instance()->getRolesForId($user->getId()) as $role) {
             $user->addRole($role);
@@ -150,11 +147,7 @@ class ZMAdminUsers extends ZMObject {
      * @return ZMAdminUser The updated <code>ZMAdminUser</code> instance.
      */
     public function updateUser($user) {
-        // revert demo flag as '0' means demo in the db!
-        $user->setDemo(!$user->isDemo());
         ZMRuntime::getDatabase()->updateModel(TABLE_ADMIN, $user);
-        // revert back
-        $user->setDemo(!$user->isDemo());
         ZMAdminUserRoles::instance()->setRolesForId($user->getId(), $user->getRoles());
         return true;
     }

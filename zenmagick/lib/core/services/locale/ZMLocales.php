@@ -87,6 +87,11 @@ class ZMLocales extends ZMObject {
      * @param string locale The locale name, for example: <em>en_NZ</em>.
      */
     public function init($locale) {
+        $token = explode('_', $locale);
+        if (false == setlocale(LC_ALL, $locale)) {
+            // try first token
+            setlocale(LC_ALL, $token[0]);
+        }
         $this->getLocale()->init($locale);
     }
 

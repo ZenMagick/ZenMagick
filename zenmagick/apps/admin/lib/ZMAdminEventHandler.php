@@ -75,7 +75,7 @@ class ZMAdminEventHandler {
     public function onZMInitDone($args) {
         $request = $args['request'];
         $user = $request->getUser();
-        if (null != ($uiLocale = ZMAdminUserPrefs::instance()->getPrefForName($user->getId(), 'uiLocale'))) {
+        if (null != $user && null != ($uiLocale = ZMAdminUserPrefs::instance()->getPrefForName($user->getId(), 'uiLocale'))) {
             ZMLocales::instance()->getLocale(true, $uiLocale);
         }
     }

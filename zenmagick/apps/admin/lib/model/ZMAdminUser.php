@@ -32,7 +32,7 @@ class ZMAdminUser extends ZMObject implements ZMUserRoleCredentials {
     private $name_;
     private $email_;
     private $password_;
-    private $demo_;
+    private $live_;
     private $roles_;
 
 
@@ -45,7 +45,7 @@ class ZMAdminUser extends ZMObject implements ZMUserRoleCredentials {
         $this->name_ = '';
         $this->email_ = null;
         $this->password_ = null;
-        $this->demo_ = true;
+        $this->live_ = false;
         $this->roles_ = array();
     }
 
@@ -112,18 +112,18 @@ class ZMAdminUser extends ZMObject implements ZMUserRoleCredentials {
     public function setPassword($password) { $this->password_ = $password; }
 
     /**
-     * Check if the user is a demo user.
+     * Check if the user is a live user.
      *
-     * @return boolean <code>true</code> if the user is a demo admin user.
+     * @return boolean <code>true</code> if the user is a live admin user.
      */
-    public function isDemo() { return $this->demo_; }
+    public function isLive() { return $this->live_; }
 
     /**
-     * Set the demo flag.
+     * Set the live flag.
      *
-     * @parm boolean demo The new value.
+     * @parm boolean live The new value.
      */
-    public function setDemo($demo) { $this->demo_ = $demo; }
+    public function setLive($live) { $this->live_ = $live; }
 
     /**
      * Get the roles for this user.

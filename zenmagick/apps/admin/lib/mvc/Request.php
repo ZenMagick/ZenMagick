@@ -71,14 +71,14 @@ class Request extends ZMRequest {
     }
 
     /**
-     * Deal with demo user.
+     * Deal with demo/non-live user.
      *
      * <p>Will create a message that the requested functionallity is not availale for demo users.</p>
      *
      * @return boolean <code>true</code> if the current user is a demo user.
      */
     public function handleDemo() {
-        if ($this->getUser()->isDemo()) {
+        if (!$this->getUser()->isLive()) {
             ZMMessages::instance()->warn(_zm('Sorry, the action you tried to excute is not available to demo users'));
             return true; 
         }

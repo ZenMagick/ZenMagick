@@ -39,8 +39,10 @@
       </td>
     </tr>
     <tr>
-      <td><?php _vzm('Demo Flag') ?></td>
-      <td><input type="checkbox" name="demo" id="demo" value="true"<?php if ($adminUser->isDemo()) { echo 'checked'; } ?>> <label for="demo"><?php _vzm('Demo User') ?></label></td>
+      <td><?php _vzm('Live Flag') ?></td>
+      <td>
+        <input type="checkbox" name="live" id="live" value="true"<?php if ($adminUser->isLive()) { echo 'checked'; } ?>> <label for="live"><?php _vzm('Live User') ?></label>
+      </td>
     <tr>
     <tr>
       <td><label for="password"><?php _vzm('Password') ?></label></td><td><input type="password" id="password" name="password"></td>

@@ -57,7 +57,7 @@ class ZMEditAdminUserController extends ZMController {
                     $adminUser->setAdminUserId($user->getId());
                     $adminUser->setName($user->getName());
                     $adminUser->setEmail($user->getEmail());
-                    $adminUser->setDemo($user->isDemo());
+                    $adminUser->setLive($user->isLive());
                     $adminUser->setRoles($user->getRoles());
                 }
             }
@@ -88,8 +88,7 @@ class ZMEditAdminUserController extends ZMController {
             $user->setName($adminUserForm->getName());
             $user->setEmail($adminUserForm->getEmail());
             $user->setRoles($adminUserForm->getRoles());
-            // sigh - bad logic
-            $user->setDemo(!ZMLangUtils::asBoolean($adminUserForm->getDemo()));
+            $user->setLive(ZMLangUtils::asBoolean($adminUserForm->getLive()));
             $clearPassword = $adminUserForm->getPassword();
             $current = ZMAdminUsers::instance()->getUserForId($user->getId());
             if (empty($clearPassword) && null != $current) {
