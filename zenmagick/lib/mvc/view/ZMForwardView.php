@@ -116,7 +116,7 @@ class ZMForwardView extends ZMView {
      */
     public function generate($request) { 
         $req = ZMLoader::make('Request');
-        $req->setParameterMap($request->getParameterMap());
+        $req->setParameterMap($request->getParameterMap(false));
         $req->setRequestId($this->getRequestId());
         // keep reference to original request
         $req->setParameter('rootRequestId', $request->getRequestId());
