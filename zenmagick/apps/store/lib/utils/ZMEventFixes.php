@@ -394,7 +394,7 @@ class ZMEventFixes extends ZMObject {
      * @param ZMRequest request The current request.
      */
     protected function sanitizeRequest($request) {
-        $parameter = $request->getParameterMap();
+        $parameter = $request->getParameterMap(false);
 
         /*
         // sanitize common parameter
