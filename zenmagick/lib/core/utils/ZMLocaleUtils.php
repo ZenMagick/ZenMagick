@@ -203,4 +203,26 @@ class ZMlocaleUtils {
         return null;
     }
 
+    /**
+     * Format a date as short.
+     *
+     * @param Date date A date.
+     * @return string A short version.
+     */
+    public static function dateShort($date) {
+        $format = ZMLocales::instance()->getLocale()->getFormat('date', 'short');
+        return strftime($format, strtotime($date));
+    }
+
+    /**
+     * Format a date as long.
+     *
+     * @param Date date A date.
+     * @return string A long version.
+     */
+    public static function dateLong($date) {
+        $format = ZMLocales::instance()->getLocale()->getFormat('date', 'long');
+        return strftime($format, strtotime($date));
+    }
+
 }

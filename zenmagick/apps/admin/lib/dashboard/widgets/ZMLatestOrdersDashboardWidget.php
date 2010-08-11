@@ -61,7 +61,7 @@ class ZMLatestOrdersDashboardWidget extends ZMDashboardWidget {
             $name = $actualAccount->getType() == ZMAccount::REGISTERED ? $order->getAccount()->getFullName() : _zm('** Guest **');
             $contents .= '    <td><a href="'.$admin2->url('order', 'orderId='.$order->getId()).'">'.$order->getId().'</a></td>';
             $contents .= '    <td><a href="'.$admin2->url('account', 'accountId='.$order->getAccountId()).'">'.$name.'</a></td>';
-            $contents .= '    <td>'.$order->getOrderDate().'</td>';
+            $contents .= '    <td>'.ZMLocaleUtils::dateShort($order->getOrderDate()).'</td>';
             $contents .= '    <td>'.$utils->formatMoney($order->getTotal()).'</td>';
             $contents .= '  </tr>';
         }

@@ -1,7 +1,7 @@
 name: Deutsch
 formats:
   date: 
-    short: %d.%m.%y
+    short: %d.%m.%Y
     long: %d %B %Y
   time:
     short: %h:%M:%S
