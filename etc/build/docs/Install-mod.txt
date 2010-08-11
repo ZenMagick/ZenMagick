@@ -1,5 +1,7 @@
 Installing ZenMagick into an existing Zen Cart installation
 ===========================================================
+Version: ${zenmagick.version}
+
 
 1. Copy/Upload Files
 ====================

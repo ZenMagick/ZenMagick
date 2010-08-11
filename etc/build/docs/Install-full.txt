@@ -1,5 +1,7 @@
 Installing ZenMagick
 ====================
+Version: ${zenmagick.version}
+
 
 1. Copy/Upload Files
 ====================

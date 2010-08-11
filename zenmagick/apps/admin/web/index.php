@@ -32,9 +32,11 @@
   define('IS_ADMIN_FLAG', true);
 
   // name of Zen Cart admin folder
-  define('ZC_ADMIN_NAME', 'admin');
+  if (!defined('ZC_ADMIN_FOLDER')) {
+      define('ZC_ADMIN_FOLDER', 'admin');
+  }
 
-  require_once ZC_INSTALL_PATH.ZC_ADMIN_NAME.'/includes/configure.php';
+  require_once ZC_INSTALL_PATH.ZC_ADMIN_FOLDER.'/includes/configure.php';
   require_once DIR_FS_CATALOG.DIR_WS_INCLUDES.'filenames.php';
   require_once DIR_FS_CATALOG.DIR_WS_INCLUDES.'database_tables.php';
 
