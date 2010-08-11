@@ -56,9 +56,7 @@ class ZMUpdateUserController extends ZMController {
         $widgets[] = ZMBeanUtils::getBean('EditorSelectFormWidget#title='._zm('Preferred Editor').'&value='.$currentEditor.'&name=wysiwygEditor');
 
         // uiLocale
-        // TODO: implement
-        //$locales = ZMLocales::instance()->getAllLocales();
-        $locales = array('en_NZ' => 'English (New Zealand)', 'de_DE' => 'Deutsch');
+        $locales = ZMLocales::instance()->getLocalesList();
         $uiLocaleWidget = ZMBeanUtils::getBean('SelectFormWidget#name=uiLocale&title='._zm('Admin Language'));
         foreach ($locales as $locale => $name) {
             $uiLocaleWidget->addOption($name, $locale);

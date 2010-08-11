@@ -35,7 +35,7 @@
 
 <p><a href="<?php echo $request->url(null, 'clear=true', true) ?>"><?php _vzm('Clear session') ?></a></p>
 <p>
-  <?php foreach ($languages as $locale => $name) { if ($locale == $currentLocale) {continue; } ?>
+  <?php foreach ($languages as $locale => $name) { if ($locale == $currentLocale) { continue; } ?>
     <a href="<?php echo $request->url(null, 'locale='.$locale) ?>"><?php echo $name ?></a> 
   <?php } ?>
 </p>

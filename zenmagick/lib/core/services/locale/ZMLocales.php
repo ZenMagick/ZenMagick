@@ -34,20 +34,22 @@
  */
 class ZMLocales extends ZMObject {
     private $locale_;
+    private $locales_;
 
 
     /**
      * Create new instance.
      */
-    public function __construct() {
+    function __construct() {
         parent::__construct();
         $this->locale_ = null;
+        $this->locales_ = null;
     }
 
     /**
      * Destruct instance.
      */
-    public function __destruct() {
+    function __destruct() {
         parent::__destruct();
     }
 
@@ -87,12 +89,33 @@ class ZMLocales extends ZMObject {
      * @param string locale The locale name, for example: <em>en_NZ</em>.
      */
     public function init($locale) {
-        $token = explode('_', $locale);
-        if (false == setlocale(LC_ALL, $locale)) {
-            // try first token
-            setlocale(LC_ALL, $token[0]);
-        }
         $this->getLocale()->init($locale);
+    }
+
+    /**
+     * Get locales.
+     *
+     * @return array Map of all available locales with the locale as key and the name as value.
+     */
+    public function getLocalesList() {
+        if (null === $this->locales_) {
+            $this->locales_ = array();
+            $path = ZMFileUtils::mkPath(ZMRuntime::getApplicationPath(), 'locale');
+            $handle = opendir($path);
+            while (false !== ($file = readdir($handle))) {
+                $yamlFile = $path.$file.DIRECTORY_SEPARATOR.'locale.yaml';
+                if (is_dir($path.$file) && file_exists($yamlFile)) {
+                    $yaml = ZMRuntime::yamlLoad(@file_get_contents($yamlFile));
+                    if (is_array($yaml)) {
+                        $name = array_key_exists('name', $yaml) ? $yaml['name'] : $file;
+                        $this->locales_[$file] = $name;
+                    }
+                }
+            }
+            closedir($handle);
+        }
+
+        return $this->locales_;
     }
 
 }

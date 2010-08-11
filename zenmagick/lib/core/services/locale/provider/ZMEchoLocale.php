@@ -27,23 +27,7 @@
  * @author DerManoMann
  * @package org.zenmagick.core.services.locale.provider
  */
-class ZMEchoLocale implements ZMLocale {
-    private $locale_;
-
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getCode() {
-        return $this->locale_;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function init($locale) {
-        $this->locale_ = $locale;
-    }
+class ZMEchoLocale extends ZMAbstractLocale {
 
     /**
      * {@inheritDoc}

@@ -1,0 +1,8 @@
+name: Deutsch
+formats:
+  date: 
+    short: %d.%m.%y
+    long: %d %B %Y
+  time:
+    short: %h:%M:%S
+    long: %h:%M:S %z

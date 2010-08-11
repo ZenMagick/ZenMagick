@@ -39,6 +39,13 @@ interface ZMLocale {
     public function getCode();
 
     /**
+     * Get the locale name.
+     *
+     * @return string The name.
+     */
+    public function getName();
+
+    /**
      * Init locale.
      *
      * <p>Init the configured locale implementation. This includes creating the singleton instance of the locale and calling <code>init($locale)</code>
@@ -49,6 +56,7 @@ interface ZMLocale {
      *
      * @param string locale The locale to be used in the form: <code>[language code]_[country code]</code> or just <code>[language code]</code>;
      *  for exampe <em>de_DE</em>, <em>en_NZ</em> or <em>es</code>.
+     * @return string The locale base path.
      */
     public function init($locale);
 
@@ -73,5 +81,14 @@ interface ZMLocale {
      * @return string The translated text or, if no translation found, the original text.
      */
     public function translatePlural($single, $number, $plural=null, $context=null, $domain=ZMLocale::DEFAULT_DOMAIN);
+
+    /**
+     * Get a format.
+     *
+     * @param string group The format group. Can be one of <em>date</em> or <em>time</em>.
+     * @param string type One of <em>short</em> or <em>long</em>.
+     * @return string A format string or <code>null</code>.
+     */
+    public function getFormat($group, $type);
 
 }

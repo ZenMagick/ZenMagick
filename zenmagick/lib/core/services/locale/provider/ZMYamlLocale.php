@@ -27,15 +27,15 @@
  * @author DerManoMann
  * @package org.zenmagick.core.services.locale.provider
  */
-class ZMYamlLocale implements ZMLocale {
+class ZMYamlLocale extends ZMAbstractLocale {
     private $translations_;
-    private $locale_;
 
 
     /**
      * Create new instance.
      */
     function __construct() {
+        parent::__construct();
         $this->translations_ = array();
     }
 
@@ -43,6 +43,7 @@ class ZMYamlLocale implements ZMLocale {
      * Destroy instance.
      */
     function __destruct() {
+        parent::__destruct();
     }
 
 
@@ -58,22 +59,9 @@ class ZMYamlLocale implements ZMLocale {
     /**
      * {@inheritDoc}
      */
-    public function getCode() {
-        return $this->locale_;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public function init($locale) {
-        $this->locale_ = $locale;
-        $path = ZMFileUtils::mkPath(ZMRuntime::getApplicationPath(), 'locale', $locale, 'LC_MESSAGES', 'messages.yaml');
-        if (null == ($path = ZMLocaleUtils::resolvePath($path, $locale))) {
-            ZMLogging::instance()->log('unable to resolve locale path for locale = "'.$locale.'"', ZMLogging::DEBUG);
-            return;
-        }
-
-        // valid file
+        $path = parent::init($locale);
+        $path = ZMFileUtils::mkPath($path, 'LC_MESSAGES', 'messages.yaml');
         $this->translations_ = ZMRuntime::yamlLoad(@file_get_contents($path));
     }
 

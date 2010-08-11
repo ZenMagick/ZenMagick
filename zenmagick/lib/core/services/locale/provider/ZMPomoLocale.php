@@ -30,10 +30,9 @@
  * @author DerManoMann
  * @package org.zenmagick.core.services.locale.provider
  */
-class ZMPomoLocale implements ZMLocale {
+class ZMPomoLocale extends ZMAbstractLocale {
     // loaded translations per domain and for the current locale
     private $translations_;
-    private $locale_;
     private static $EMPTY_ = null;
 
 
@@ -56,16 +55,9 @@ class ZMPomoLocale implements ZMLocale {
     /**
      * {@inheritDoc}
      */
-    public function getCode() {
-        return $this->locale_;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public function init($locale) {
-        $this->locale_ = $locale;
-        $this->registerMOForLocale(ZMRuntime::getApplicationPath(), $locale, 'messages.mo');
+        $path = parent::init($locale);
+        $this->registerMOForLocale($path, 'messages.mo');
     }
 
     /**
@@ -88,7 +80,7 @@ class ZMPomoLocale implements ZMLocale {
     /**
      * Register a .mo file for a specific locale.
      *
-     * @param string basedir The base directory where the .mo files are located.
+     * @param string basedir The locale base path.
      * @param string locale The locale.
      * @param string filename The actual filename without any path; default is <code>null</code> to match the domain.
      * @param string domain The translation domain; default is <code>self::DEFAULT_DOMAIN</code>.
@@ -96,7 +88,7 @@ class ZMPomoLocale implements ZMLocale {
      */
     public function registerMOForLocale($basedir, $locale, $filename=null, $domain=self::DEFAULT_DOMAIN) {
         $filename = null == $filename ? $domain.'.mo' : $filename;
-        $path = ZMFileUtils::mkPath($basedir, 'locale', $locale, 'LC_MESSAGES', $filename);
+        $path = ZMFileUtils::mkPath($path, 'LC_MESSAGES', $filename);
         if (null == ($path = ZMLocaleUtils::resolvePath($path, $locale))) {
             ZMLogging::instance()->log('unable to resolve locale path for locale = "'.$locale.'"', ZMLogging::DEBUG);
             return;
@@ -129,17 +121,17 @@ class ZMPomoLocale implements ZMLocale {
      * {@inheritDoc}
      */
     public function translate($text, $context=null, $domain=self::DEFAULT_DOMAIN) {
-      $translations = $this->getTranslationsForDomain($domain);
-      return $translations->translate($text, $context);
+        $translations = $this->getTranslationsForDomain($domain);
+        return $translations->translate($text, $context);
     }
 
     /**
      * {@inheritDoc}
      */
     public function translatePlural($single, $number, $plural=null, $context=null, $domain=self::DEFAULT_DOMAIN) {
-      $plural = null == $plural ? $single : $plural;
-      $translations = $this->getTranslationsForDomain($domain);
-      return $translations->translate_plural($single, $plural, $number, $context);
+        $plural = null == $plural ? $single : $plural;
+        $translations = $this->getTranslationsForDomain($domain);
+        return $translations->translate_plural($single, $plural, $number, $context);
     }
 
 }
