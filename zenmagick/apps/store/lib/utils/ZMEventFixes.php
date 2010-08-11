@@ -124,6 +124,10 @@ class ZMEventFixes extends ZMObject {
      */
     private function needsZC($request) {
         $requestId = $request->getRequestId();
+        if (ZMLangUtils::inArray($requestId, ZMSettings::get('apps.store.request.enableZCRequestHandling'))) {
+            ZMLogging::instance()->log('enable zencart request processing for requestId='.$requestId, ZMLogging::DEBUG);
+            return true;
+        }
         if (false === strpos($requestId, 'checkout_')) {
             // not checkout
             return false;

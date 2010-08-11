@@ -206,6 +206,8 @@ Release 0.9.10
 - move editor plugins into general section
 - ZMSacsmanager::authorize(): allow to suppress redirect and only perform the
   actual check
+- add new setting 'apps.store.request.enableZCRequestHandling' to explicitely
+  allow zencart request handling for the listed request ids
 
 Release 0.9.9
 - in ZMDbTableMapper handle database exception building auto mappings

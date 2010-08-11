@@ -359,6 +359,11 @@
                         'key' => 'enableZMCheckoutShipping',
                         'type' => 'boolean',
                         'desc' => 'Enable using ZenMagick checkout shipping code.'
+                    ),
+                    array(
+                        'key' => 'enableZCRequestHandling',
+                        'type' => 'string',
+                        'desc' => 'Comma separated list of request ids to be processed by Zen Cart.'
                     )
                 ),
                 'update' => array(
