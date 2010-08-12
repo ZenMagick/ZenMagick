@@ -61,7 +61,7 @@ class ZMUnitTestsController extends ZMController {
 
         // add tests folder to class path
         $testsLoader = ZMLoader::make("Loader");
-        $testBaseDir = $this->plugin_->getPluginDirectory().'tests/';
+        $testBaseDir = $this->plugin_->getPluginDirectory().'tests'.DIRECTORY_SEPARATOR;
         $testsLoader->addPath($testBaseDir);
         // test data  is lower case
         $testsLoader->loadStatic();
