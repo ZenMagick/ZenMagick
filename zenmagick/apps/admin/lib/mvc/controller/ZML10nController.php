@@ -68,7 +68,14 @@ class ZML10nController extends ZMController {
 
         $downloadParamsYaml = http_build_query(array_merge(array('download' => 'yaml'), $options));
         $downloadParamsPo = http_build_query(array_merge(array('download' => 'po'), $options));
-        return array_merge(array('themes' => ZMThemes::instance()->getThemes(), 'downloadParamsYaml' => $downloadParamsYaml, 'downloadParamsPo' => $downloadParamsPo), $options);
+        $downloadParamsPot = http_build_query(array_merge(array('download' => 'pot'), $options));
+        return array_merge(array(
+              'themes' => ZMThemes::instance()->getThemes(),
+              'downloadParamsYaml' => $downloadParamsYaml,
+              'downloadParamsPo' => $downloadParamsPo,
+              'downloadParamsPot' => $downloadParamsPot
+            ), 
+            $options);
     }
 
     /**
@@ -145,6 +152,11 @@ class ZML10nController extends ZMController {
             header('Content-Type: text/plain');
             header('Content-Disposition: attachment; filename=messages.po;');
             echo ZMLocaleUtils::map2po($data['translations']);
+            return null;
+        } else if ('pot' == $request->getParameter('download')) {
+            header('Content-Type: text/plain');
+            header('Content-Disposition: attachment; filename=messages.pot;');
+            echo ZMLocaleUtils::map2po($data['translations'], true);
             return null;
         }
 

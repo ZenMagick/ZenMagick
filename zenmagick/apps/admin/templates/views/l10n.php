@@ -59,6 +59,7 @@
   <strong>Download: </strong>
   <a href="<?php echo $admin2->url(null, $downloadParamsYaml) ?>">.yaml</a>
   <a href="<?php echo $admin2->url(null, $downloadParamsPo) ?>">.po</a>
+  <a href="<?php echo $admin2->url(null, $downloadParamsPot) ?>">.pot</a>
   <?php foreach ($translations as $file => $strings) { ?>
     <h3><?php echo $file ?></h3>
     <?php foreach ($strings as $key => $info) { ?>

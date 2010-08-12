@@ -177,21 +177,24 @@ class ZMlocaleUtils {
      * Create a po file from a l10n map.
      *
      * @param array map The map.
+     * @param boolean pot Optional flag to indicate pot format (empty translations); default is <code>false</code>.
      * @return string The formatted po content.
      */
-    public static function map2po($map) {
+    public static function map2po($map, $pot=false) {
         $lines = array();
-        $lines[] = 'msgid ""';
-        $lines[] = 'msgstr ""';
-        $lines[] = '"Project-Id-Version: '.ZMSettings::get('zenmagick.version').'\n"';
-        $lines[] = '"POT-Creation-Date: '.date().'\n"';
-        $lines[] = '"PO-Revision-Date: \n"';
-        $lines[] = '"Last-Translator: \n"';
-        $lines[] = '"Language-Team: \n"';
-        $lines[] = '"MIME-Version: 1.0\n"';
-        $lines[] = '"Content-Type: text/plain; charset=UTF-8\n"';
-        $lines[] = '"Content-Transfer-Encoding: 8bit\n"';
-        $lines[] = '';
+        if (!$pot) {
+            $lines[] = 'msgid ""';
+            $lines[] = 'msgstr ""';
+            $lines[] = '"Project-Id-Version: '.ZMSettings::get('zenmagick.version').'\n"';
+            $lines[] = '"POT-Creation-Date: '.date().'\n"';
+            $lines[] = '"PO-Revision-Date: \n"';
+            $lines[] = '"Last-Translator: \n"';
+            $lines[] = '"Language-Team: \n"';
+            $lines[] = '"MIME-Version: 1.0\n"';
+            $lines[] = '"Content-Type: text/plain; charset=UTF-8\n"';
+            $lines[] = '"Content-Transfer-Encoding: 8bit\n"';
+            $lines[] = '';
+        }
 
         $globalMap = array();
         foreach ($map as $filename => $strings) {
@@ -223,7 +226,7 @@ class ZMlocaleUtils {
                 // format the actual line
                 $lines[] = '#: '.$filename.':'.$info['line'];
                 $lines[] = 'msgid '.$quote.$key.$quote;
-                $lines[] = 'msgstr '.$quote.$info['msg'].$quote;
+                $lines[] = $pot ? 'msgstr ""' : 'msgstr '.$quote.$info['msg'].$quote;
                 $lines[] = '';
             }
         }
