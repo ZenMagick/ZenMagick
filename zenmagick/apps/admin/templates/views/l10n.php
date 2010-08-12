@@ -56,11 +56,13 @@
   </fieldset>
 </form>
 <?php if (isset($translations)) { ?>
-  <a href="<?php echo $admin2->url(null, $downloadParams) ?>">Download mapping</a>
+  <strong>Download: </strong>
+  <a href="<?php echo $admin2->url(null, $downloadParamsYaml) ?>">.yaml</a>
+  <a href="<?php echo $admin2->url(null, $downloadParamsPo) ?>">.po</a>
   <?php foreach ($translations as $file => $strings) { ?>
     <h3><?php echo $file ?></h3>
-    <?php foreach ($strings as $key => $value) { ?>
-      &nbsp;&nbsp;'<?php echo $key ?>' =&gt; '<?php echo $value ?>';<br>
+    <?php foreach ($strings as $key => $info) { ?>
+      &nbsp;&nbsp;'<?php echo $key ?>' =&gt; '<?php echo $info['msg'] ?>';<br>
     <?php } ?>
   <?php } ?>
 <?php } ?>

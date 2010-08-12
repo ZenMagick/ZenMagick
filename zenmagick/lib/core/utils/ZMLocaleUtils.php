@@ -106,7 +106,7 @@ class ZMlocaleUtils {
                                     break;
                                 }
                             }
-                            $strings[$text] = $text;
+                            $strings[$text] = array('msg' => $text, 'line' => substr_count($contents, "\n", 0, $pos));
                         } else {
                             // found something, but not a string
                             ZMLogging::instance()->log('found something: '.substr($contents, $qi-10, 20), ZMLogging::TRACE);
@@ -144,8 +144,8 @@ class ZMlocaleUtils {
                 continue;
             }
 
-            $lines[] = '## '.$filename;
-            foreach ($strings as $key => $value) {
+            $lines[] = '#: '.$filename;
+            foreach ($strings as $key => $info) {
                 $quote = '"';
                 // either we have escaped single quotes or double quotes that are not escaped
                 if (false !== strpos($key, '\\\'') || (false !== strpos($key, '"') && false === strpos($key, '\\"'))) {
@@ -155,18 +155,76 @@ class ZMlocaleUtils {
                 $line = '';
                 if (array_key_exists($key, $globalMap)) {
                     // key exists!
-                    if ($globalMap[$key] != $value) {
+                    if ($globalMap[$key] != $info['msg']) {
                         // same key different value!
-                        $line = '## ** WARNING: key exists with different translation : ';
+                        $line = '#. ** WARNING: key exists with different translation : ';
                     } else {
-                        $line = '## ** DUPLICATE: ';
+                        $line = '#. ** DUPLICATE: ';
                     }
                 }
-                $globalMap[$key] = $value;
+                $globalMap[$key] = $info;
 
                 // format the actual line
-                $line .= $quote.$key.$quote.': '.$quote.$value.$quote;
+                $line .= $quote.$key.$quote.': '.$quote.$info['msg'].$quote;
                 $lines[] = $line;
+            }
+        }
+
+        return implode("\n", $lines);
+    }
+
+    /**
+     * Create a po file from a l10n map.
+     *
+     * @param array map The map.
+     * @return string The formatted po content.
+     */
+    public static function map2po($map) {
+        $lines = array();
+        $lines[] = 'msgid ""';
+        $lines[] = 'msgstr ""';
+        $lines[] = '"Project-Id-Version: '.ZMSettings::get('zenmagick.version').'\n"';
+        $lines[] = '"POT-Creation-Date: '.date().'\n"';
+        $lines[] = '"PO-Revision-Date: \n"';
+        $lines[] = '"Last-Translator: \n"';
+        $lines[] = '"Language-Team: \n"';
+        $lines[] = '"MIME-Version: 1.0\n"';
+        $lines[] = '"Content-Type: text/plain; charset=UTF-8\n"';
+        $lines[] = '"Content-Transfer-Encoding: 8bit\n"';
+        $lines[] = '';
+
+        $globalMap = array();
+        foreach ($map as $filename => $strings) {
+            if (null === $strings) {
+                continue;
+            }
+
+            foreach ($strings as $key => $info) {
+                $quote = '"';
+                // either we have escaped single quotes or double quotes that are not escaped
+                if (false !== strpos($key, '\\\'') || (false !== strpos($key, '"') && false === strpos($key, '\\"'))) {
+                    $quote = "'";
+                }
+
+                if (array_key_exists($key, $globalMap)) {
+                    // key exists!
+                    $global = $globalMap[$key];
+                    if ($global['msg'] != $info['msg']) {
+                        // same key different value!
+                        $lines[] = '#. ** WARNING: key exists with different translation: '.$global['filename'].':'.$global['line'];
+                    } else {
+                        $lines[] = '#. ** DUPLICATE: '.$global['filename'].':'.$global['line'];
+                    }
+                }
+                // track already processed
+                $info['filename'] = $filename;
+                $globalMap[$key] = $info;
+
+                // format the actual line
+                $lines[] = '#: '.$filename.':'.$info['line'];
+                $lines[] = 'msgid '.$quote.$key.$quote;
+                $lines[] = 'msgstr '.$quote.$info['msg'].$quote;
+                $lines[] = '';
             }
         }
 
