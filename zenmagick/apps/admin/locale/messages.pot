@@ -1,0 +1,1225 @@
+#: shared\model\checkout\ZMShoppingCart.php:359
+msgid "Confirm to order"
+msgstr ""
+
+#: shared\mvc\resultlist\filter\ZMCategoryFilter.php:37
+msgid "Category"
+msgstr ""
+
+#: shared\mvc\resultlist\filter\ZMManufacturerFilter.php:35
+msgid "Manufacturer"
+msgstr ""
+
+#: shared\mvc\resultlist\filter\ZMOrderStatusIdFilter.php:35
+msgid "Order Status"
+msgstr ""
+
+#: shared\mvc\toolbox\ZMToolboxMacro.php:80
+msgid "N/A"
+msgstr ""
+
+#: shared\mvc\toolbox\ZMToolboxMacro.php:284
+msgid "Disabled"
+msgstr ""
+
+#: shared\mvc\toolbox\ZMToolboxMacro.php:289
+msgid "Office Use Only:"
+msgstr ""
+
+#: shared\mvc\toolbox\ZMToolboxMacro.php:290
+msgid "From: "
+msgstr ""
+
+#: shared\mvc\toolbox\ZMToolboxMacro.php:291
+msgid "Email: "
+msgstr ""
+
+#: shared\mvc\toolbox\ZMToolboxMacro.php:292
+msgid "Remote: "
+msgstr ""
+
+#: shared\mvc\toolbox\ZMToolboxMacro.php:293
+msgid "Date: "
+msgstr ""
+
+#: shared\mvc\toolbox\ZMToolboxMacro.php:522
+msgid " [FREE! (was: %s%s)]"
+msgstr ""
+
+#: shared\mvc\toolbox\ZMToolboxMacro.php:524
+msgid " (%s%s)"
+msgstr ""
+
+#: shared\mvc\toolbox\ZMToolboxMacro.php:544
+msgid "Starting at: "
+msgstr ""
+
+#: shared\mvc\toolbox\ZMToolboxMacro.php:603
+msgid "%s-%s"
+msgstr ""
+
+#: shared\mvc\toolbox\ZMToolboxMacro.php:598
+msgid "%s+"
+msgstr ""
+
+#: shared\mvc\toolbox\ZMToolboxNet.php:104
+msgid "ezpage not found"
+msgstr ""
+
+#: shared\provider\ZMCatalogRssFeedSource.php:75
+msgid "%s Catalog"
+msgstr ""
+
+#: shared\provider\ZMCatalogRssFeedSource.php:77
+msgid "All categories and products at %s"
+msgstr ""
+
+#: shared\provider\ZMCatalogRssFeedSource.php:132
+msgid "Products at %s"
+msgstr ""
+
+#: shared\provider\ZMCatalogRssFeedSource.php:134
+msgid "All products at %s"
+msgstr ""
+
+#: shared\provider\ZMCatalogRssFeedSource.php:186
+msgid "Categories at %s"
+msgstr ""
+
+#: shared\provider\ZMCatalogRssFeedSource.php:188
+msgid "All categories at %s"
+msgstr ""
+
+#: shared\provider\ZMDefaultRssFeedSource.php:77
+msgid "Review: %s"
+msgstr ""
+
+#: shared\provider\ZMDefaultRssFeedSource.php:91
+msgid "Product Reviews"
+msgstr ""
+
+#: shared\provider\ZMDefaultRssFeedSource.php:94
+msgid "Product Reviews for %s at %s"
+msgstr ""
+
+#: shared\provider\ZMDefaultRssFeedSource.php:96
+msgid "Product Reviews at %s"
+msgstr ""
+
+#: shared\provider\ZMDefaultRssFeedSource.php:126
+msgid "Chapter %s"
+msgstr ""
+
+#: shared\provider\ZMDefaultRssFeedSource.php:128
+msgid "All pages of Chapter %s"
+msgstr ""
+
+#: shared\provider\ZMDefaultRssFeedSource.php:167
+msgid "New Products at %s"
+msgstr ""
+
+#: shared\provider\ZMDefaultRssFeedSource.php:169
+msgid "The latest updates to %s's product list"
+msgstr ""
+
+#: shared\services\checkout\ZMPayments.php:114
+msgid "Gift Certificate/Coupon"
+msgstr ""
+
+#: shared\services\ZMConfig.php:221
+msgid "None"
+msgstr ""
+
+#: lib\dashboard\widgets\ZMLatestAccountsDashboardWidget.php:36
+msgid "Latest Accounts"
+msgstr ""
+
+#: lib\dashboard\widgets\ZMLatestAccountsDashboardWidget.php:54
+msgid "Name"
+msgstr ""
+
+#: lib\dashboard\widgets\ZMLatestAccountsDashboardWidget.php:54
+msgid "Registered"
+msgstr ""
+
+#: lib\dashboard\widgets\ZMLatestAccountsDashboardWidget.php:57
+msgid "** Guest **"
+msgstr ""
+
+#: lib\dashboard\widgets\ZMLatestOrdersDashboardWidget.php:36
+msgid "Latest Orders"
+msgstr ""
+
+#: lib\dashboard\widgets\ZMLatestOrdersDashboardWidget.php:56
+msgid "Order"
+msgstr ""
+
+#: lib\dashboard\widgets\ZMLatestOrdersDashboardWidget.php:56
+msgid "Account"
+msgstr ""
+
+#: lib\dashboard\widgets\ZMLatestOrdersDashboardWidget.php:56
+msgid "Placed"
+msgstr ""
+
+#: lib\dashboard\widgets\ZMLatestOrdersDashboardWidget.php:56
+msgid "Total"
+msgstr ""
+
+#. ** DUPLICATE: lib\dashboard\widgets\ZMLatestAccountsDashboardWidget.php:57
+#: lib\dashboard\widgets\ZMLatestOrdersDashboardWidget.php:60
+msgid "** Guest **"
+msgstr ""
+
+#: lib\dashboard\widgets\ZMOrderStatsDashboardWidget.php:36
+msgid "Order Stats"
+msgstr ""
+
+#: lib\dashboard\widgets\ZMOrderStatsDashboardWidget.php:53
+msgid "Status"
+msgstr ""
+
+#: lib\dashboard\widgets\ZMOrderStatsDashboardWidget.php:53
+msgid "Number of Orders"
+msgstr ""
+
+#: lib\dashboard\widgets\ZMPendingDashboardWidget.php:36
+msgid "Pending"
+msgstr ""
+
+#: lib\dashboard\widgets\ZMPendingDashboardWidget.php:55
+msgid "approval"
+msgstr ""
+
+#: lib\dashboard\widgets\ZMPendingDashboardWidget.php:56
+msgid "There are %s gift cards waiting for %s"
+msgstr ""
+
+#: lib\dashboard\widgets\ZMPendingDashboardWidget.php:60
+msgid "Pending Stuff..."
+msgstr ""
+
+#: lib\dashboard\widgets\ZMRecentSearchesDashboardWidget.php:36
+msgid "Recent Searches"
+msgstr ""
+
+#: lib\dashboard\widgets\ZMRecentSearchesDashboardWidget.php:51
+msgid "No Data"
+msgstr ""
+
+#: lib\dashboard\widgets\ZMUpdateCheckerDashboardWidget.php:36
+msgid "Update Checker"
+msgstr ""
+
+#: lib\dashboard\widgets\ZMUpdateCheckerDashboardWidget.php:52
+msgid "Checking..."
+msgstr ""
+
+#: lib\menu.php:23
+msgid "Dashboard"
+msgstr ""
+
+#: lib\menu.php:24
+msgid "Catalog"
+msgstr ""
+
+#: lib\menu.php:25
+msgid "Fulfilment"
+msgstr ""
+
+#: lib\menu.php:26
+msgid "Reports"
+msgstr ""
+
+#: lib\menu.php:27
+msgid "Configuration"
+msgstr ""
+
+#: lib\menu.php:28
+msgid "Plugins"
+msgstr ""
+
+#: lib\menu.php:29
+msgid "Tools"
+msgstr ""
+
+#: lib\menu.php:33
+msgid "Manage Content"
+msgstr ""
+
+#: lib\menu.php:34
+msgid "Static Page Editor"
+msgstr ""
+
+#: lib\menu.php:35
+msgid "EZPages Editor"
+msgstr ""
+
+#: lib\menu.php:37
+msgid "Admin"
+msgstr ""
+
+#: lib\menu.php:38
+msgid "Manage Users"
+msgstr ""
+
+#: lib\menu.php:39
+msgid "Manage Roles"
+msgstr ""
+
+#: lib\menu.php:41
+msgid "Development"
+msgstr ""
+
+#: lib\menu.php:42
+msgid "Translation Helper"
+msgstr ""
+
+#: lib\menu.php:43
+msgid "Theme Builder"
+msgstr ""
+
+#: lib\menu.php:44
+msgid "Console"
+msgstr ""
+
+#: lib\menu.php:48
+msgid "Patches"
+msgstr ""
+
+#: lib\menu.php:49
+msgid "Cache"
+msgstr ""
+
+#: lib\menu.php:50
+msgid "Cache Admin"
+msgstr ""
+
+#: lib\menu.php:53
+msgid "Plugin Options"
+msgstr ""
+
+#: lib\menu.php:57
+msgid "Accounts"
+msgstr ""
+
+#: lib\menu.php:60
+msgid "Overview"
+msgstr ""
+
+#: lib\menu.php:59
+msgid "Orders"
+msgstr ""
+
+#: lib\menu.php:64
+msgid "Zen-Cart Config"
+msgstr ""
+
+#: lib\mvc\controller\ajax\ZMAjaxPluginAdminController.php:47
+msgid "Plugin installed"
+msgstr ""
+
+#: lib\mvc\controller\ajax\ZMAjaxPluginAdminController.php:50
+msgid "Plugin already installed"
+msgstr ""
+
+#: lib\mvc\controller\ajax\ZMAjaxPluginAdminController.php:106
+msgid "Invalid plugin id"
+msgstr ""
+
+#: lib\mvc\controller\ajax\ZMAjaxPluginAdminController.php:81
+msgid "Plugin removed"
+msgstr ""
+
+#: lib\mvc\controller\ajax\ZMAjaxPluginAdminController.php:84
+msgid "Plugin not installed"
+msgstr ""
+
+#: lib\mvc\controller\ajax\ZMAjaxPluginAdminController.php:110
+msgid "Status updated"
+msgstr ""
+
+#: lib\mvc\controller\ZMAccountController.php:52
+msgid "Account for account id %s not found"
+msgstr ""
+
+#: lib\mvc\controller\ZMCatalogDefaultTabController.php:38
+msgid "Catalog Manager"
+msgstr ""
+
+#: lib\mvc\controller\ZMEditAdminUserController.php:102
+msgid "Details updated."
+msgstr ""
+
+#: lib\mvc\controller\ZMEditAdminUserController.php:105
+msgid "User created."
+msgstr ""
+
+#: lib\mvc\controller\ZMEditAdminUserController.php:109
+msgid "User deleted."
+msgstr ""
+
+#: lib\mvc\controller\ZMLegacyConfigController.php:81
+msgid "Sucessfully updated: %s."
+msgstr ""
+
+#: lib\mvc\controller\ZMLoginController.php:70
+msgid "Sorry, there is no match for that email address and/or password."
+msgstr ""
+
+#: lib\mvc\controller\ZMOrderController.php:53
+msgid "Order for orderId id %s not found"
+msgstr ""
+
+#: lib\mvc\controller\ZMPluginsController.php:101
+msgid "Plugin %s upgraded successfully"
+msgstr ""
+
+#: lib\mvc\controller\ZMPluginsController.php:133
+msgid "Plugin %s installed successfully"
+msgstr ""
+
+#: lib\mvc\controller\ZMPluginsController.php:143
+msgid "Plugin %s un-installed successfully"
+msgstr ""
+
+#: lib\mvc\controller\ZMResetPasswordController.php:53
+msgid "Sorry, there is no account with the email address '%s'."
+msgstr ""
+
+#: lib\mvc\controller\ZMResetPasswordController.php:70
+msgid "A new password has been sent to your email address."
+msgstr ""
+
+#: lib\mvc\controller\ZMUpdateUserController.php:55
+msgid "Preferred Editor"
+msgstr ""
+
+#: lib\mvc\controller\ZMUpdateUserController.php:59
+msgid "Admin Language"
+msgstr ""
+
+#: lib\mvc\controller\ZMUpdateUserController.php:115
+msgid "Sorry, the entered password is not valid."
+msgstr ""
+
+#. ** DUPLICATE: lib\mvc\controller\ZMEditAdminUserController.php:102
+#: lib\mvc\controller\ZMUpdateUserController.php:127
+msgid "Details updated."
+msgstr ""
+
+#: lib\mvc\Request.php:81
+msgid "Sorry, the action you tried to excute is not available to demo users"
+msgstr ""
+
+#: lib\ZMAdminEventHandler.php:38
+msgid "You are not allowed to access the page with id: <em>%s</em>"
+msgstr ""
+
+#: templates\default_layout.php:46
+msgid "%1s: %2s"
+msgstr ""
+
+#: templates\default_layout.php:51
+msgid "%1s :: ZenMagick Admin"
+msgstr ""
+
+#: templates\default_layout.php:59
+msgid "ZenMagick Admin"
+msgstr ""
+
+#: templates\footer.php:3
+msgid "Copyright &copy; 2006-2010 %s."
+msgstr ""
+
+#: templates\footer.php:4
+msgid "Design by %s."
+msgstr ""
+
+#: templates\header.php:27
+msgid "User Profile: %s"
+msgstr ""
+
+#: templates\header.php:28
+msgid "Logged in as %s"
+msgstr ""
+
+#: templates\header.php:30
+msgid "*** DEMO MODE ***"
+msgstr ""
+
+#: templates\header.php:33
+msgid "Log Out"
+msgstr ""
+
+#: templates\header.php:38
+msgid "Get Help"
+msgstr ""
+
+#: templates\header.php:39
+msgid "About"
+msgstr ""
+
+#: templates\pagination.php:22
+msgid "Page %s/%s"
+msgstr ""
+
+#: templates\pagination.php:26
+msgid "Previous"
+msgstr ""
+
+#: templates\pagination.php:31
+msgid "Next"
+msgstr ""
+
+#: templates\views\about.php:23
+msgid "About ZenMagick"
+msgstr ""
+
+#: templates\views\about.php:24
+msgid "Version:"
+msgstr ""
+
+#: templates\views\about.php:25
+msgid "Homepage:"
+msgstr ""
+
+#: templates\views\about.php:26
+msgid "Author:"
+msgstr ""
+
+#: templates\views\about.php:30
+msgid 'For the full PHP info see zen-cart\'s <a href="server_info.php">server info</a>.'
+msgstr ""
+
+#: templates\views\account.php:24
+msgid "Account: %s"
+msgstr ""
+
+#: templates\views\account.php:27
+msgid "Title"
+msgstr ""
+
+#: templates\views\account.php:30
+msgid "Mr."
+msgstr ""
+
+#: templates\views\account.php:32
+msgid "Ms."
+msgstr ""
+
+#: templates\views\account.php:36
+msgid "First Name"
+msgstr ""
+
+#: templates\views\account.php:40
+msgid "Last Name"
+msgstr ""
+
+#: templates\views\account.php:44
+msgid "Date of Birth"
+msgstr ""
+
+#: templates\views\account.php:45
+msgid "Format: %s;&nbsp;(e.g: %s)"
+msgstr ""
+
+#: templates\views\account.php:48
+msgid "E-Mail Address"
+msgstr ""
+
+#: templates\views\account.php:52
+msgid "Nickname"
+msgstr ""
+
+#: templates\views\account.php:56
+msgid "Telephone Number"
+msgstr ""
+
+#: templates\views\account.php:60
+msgid "Fax Number"
+msgstr ""
+
+#: templates\views\account.php:64
+msgid "E-Mail Format"
+msgstr ""
+
+#: templates\views\account.php:67
+msgid "HTML"
+msgstr ""
+
+#: templates\views\account.php:69
+msgid "Text"
+msgstr ""
+
+#. ** DUPLICATE: lib\dashboard\widgets\ZMLatestOrdersDashboardWidget.php:60
+#: templates\views\accounts.php:32
+msgid "** Guest **"
+msgstr ""
+
+#: templates\views\accounts.php:24
+msgid "ID"
+msgstr ""
+
+#. ** DUPLICATE: lib\dashboard\widgets\ZMLatestAccountsDashboardWidget.php:54
+#: templates\views\accounts.php:25
+msgid "Name"
+msgstr ""
+
+#: templates\views\accounts.php:26
+msgid "Created"
+msgstr ""
+
+#: templates\views\accounts.php:27
+msgid "Authorization"
+msgstr ""
+
+#. ** DUPLICATE: lib\dashboard\widgets\ZMPendingDashboardWidget.php:36
+#: templates\views\accounts.php:35
+msgid "Pending"
+msgstr ""
+
+#: templates\views\accounts.php:35
+msgid "Approved"
+msgstr ""
+
+#: templates\views\admin_users.php:20
+msgid "Admin Users"
+msgstr ""
+
+#. ** DUPLICATE: templates\views\accounts.php:24
+#: templates\views\admin_users.php:24
+msgid "ID"
+msgstr ""
+
+#. ** DUPLICATE: templates\views\accounts.php:25
+#: templates\views\admin_users.php:25
+msgid "Name"
+msgstr ""
+
+#: templates\views\admin_users.php:26
+msgid "Email"
+msgstr ""
+
+#. ** DUPLICATE: lib\dashboard\widgets\ZMOrderStatsDashboardWidget.php:53
+#: templates\views\admin_users.php:27
+msgid "Status"
+msgstr ""
+
+#: templates\views\admin_users.php:28
+msgid "Options"
+msgstr ""
+
+#: templates\views\admin_users.php:35
+msgid "Demo"
+msgstr ""
+
+#: templates\views\admin_users.php:35
+msgid "Live"
+msgstr ""
+
+#: templates\views\admin_users.php:39
+msgid "Delete"
+msgstr ""
+
+#: templates\views\admin_users.php:45
+msgid "Add User"
+msgstr ""
+
+#. ** DUPLICATE: lib\menu.php:50
+#: templates\views\cache_admin.php:32
+msgid "Cache Admin"
+msgstr ""
+
+#: templates\views\cache_admin.php:34
+msgid "Clear selected caches?"
+msgstr ""
+
+#: templates\views\cache_admin.php:36
+msgid "Existing Caches"
+msgstr ""
+
+#: templates\views\cache_admin.php:40
+msgid "Group"
+msgstr ""
+
+#: templates\views\cache_admin.php:41
+msgid "Type"
+msgstr ""
+
+#: templates\views\cache_admin.php:42
+msgid "Config"
+msgstr ""
+
+#: templates\views\cache_admin.php:59
+msgid "Clear selected caches"
+msgstr ""
+
+#: templates\views\catalog_default_tab.php:23
+msgid "Welcome to the ZenMagick Catalog Manager"
+msgstr ""
+
+#: templates\views\console.php:46
+msgid "<code>PHP</code> Console"
+msgstr ""
+
+#: templates\views\console.php:47
+msgid "Code:"
+msgstr ""
+
+#: templates\views\console.php:49
+msgid "Execute"
+msgstr ""
+
+#: templates\views\edit_admin_user.php:20
+msgid "Edit User Details"
+msgstr ""
+
+#. ** DUPLICATE: templates\views\admin_users.php:25
+#: templates\views\edit_admin_user.php:26
+msgid "Name"
+msgstr ""
+
+#. ** DUPLICATE: templates\views\admin_users.php:26
+#: templates\views\edit_admin_user.php:29
+msgid "Email"
+msgstr ""
+
+#: templates\views\edit_admin_user.php:32
+msgid "Roles"
+msgstr ""
+
+#: templates\views\edit_admin_user.php:41
+msgid "Live Flag"
+msgstr ""
+
+#: templates\views\edit_admin_user.php:43
+msgid "Live User"
+msgstr ""
+
+#: templates\views\edit_admin_user.php:47
+msgid "Password"
+msgstr ""
+
+#: templates\views\edit_admin_user.php:50
+msgid "Confirm password"
+msgstr ""
+
+#: templates\views\edit_admin_user.php:55
+msgid "Cancel"
+msgstr ""
+
+#: templates\views\error.php:20
+msgid "Oops"
+msgstr ""
+
+#: templates\views\error.php:22
+msgid "Something went wrong."
+msgstr ""
+
+#: templates\views\ezpages-details.php:22
+msgid "Edit EZPage"
+msgstr ""
+
+#: templates\views\ezpages-details.php:73
+msgid "Same Window"
+msgstr ""
+
+#: templates\views\ezpages-details.php:73
+msgid "New Window"
+msgstr ""
+
+#: templates\views\ezpages-details.php:76
+msgid "Secure Link"
+msgstr ""
+
+#: templates\views\ezpages-details.php:28
+msgid "Page"
+msgstr ""
+
+#. ** DUPLICATE: templates\views\account.php:27
+#: templates\views\ezpages-details.php:30
+msgid "Title"
+msgstr ""
+
+#: templates\views\ezpages-details.php:36
+msgid "Navigation"
+msgstr ""
+
+#: templates\views\ezpages-details.php:39
+msgid "Header"
+msgstr ""
+
+#: templates\views\ezpages-details.php:52
+msgid "Sort"
+msgstr ""
+
+#: templates\views\ezpages-details.php:45
+msgid "Sidebox"
+msgstr ""
+
+#: templates\views\ezpages-details.php:51
+msgid "Footer"
+msgstr ""
+
+#: templates\views\ezpages-details.php:57
+msgid "Table Of Contents"
+msgstr ""
+
+#: templates\views\ezpages-details.php:58
+msgid "TOC Sort"
+msgstr ""
+
+#: templates\views\ezpages-details.php:60
+msgid "Chapter"
+msgstr ""
+
+#: templates\views\ezpages-details.php:68
+msgid "Link Options"
+msgstr ""
+
+#: templates\views\ezpages-details.php:70
+msgid "Link Target"
+msgstr ""
+
+#: templates\views\ezpages-details.php:79
+msgid "Internal URL"
+msgstr ""
+
+#: templates\views\ezpages-details.php:83
+msgid "External URL"
+msgstr ""
+
+#: templates\views\ezpages-details.php:89
+msgid "Contents"
+msgstr ""
+
+#. ** DUPLICATE: templates\views\edit_admin_user.php:55
+#: templates\views\ezpages-details.php:103
+msgid "Cancel"
+msgstr ""
+
+#: templates\views\ezpages-overview.php:47
+msgid "EZPage Manager"
+msgstr ""
+
+#: templates\views\ezpages-overview.php:61
+msgid "Id"
+msgstr ""
+
+#. ** DUPLICATE: templates\views\ezpages-details.php:30
+#: templates\views\ezpages-overview.php:62
+msgid "Title"
+msgstr ""
+
+#. ** DUPLICATE: templates\views\ezpages-details.php:73
+#: templates\views\ezpages-overview.php:63
+msgid "New Window"
+msgstr ""
+
+#: templates\views\ezpages-overview.php:64
+msgid "Secure"
+msgstr ""
+
+#. ** DUPLICATE: templates\views\ezpages-details.php:39
+#: templates\views\ezpages-overview.php:65
+msgid "Header"
+msgstr ""
+
+#: templates\views\ezpages-overview.php:66
+msgid "Sidebar"
+msgstr ""
+
+#. ** DUPLICATE: templates\views\ezpages-details.php:51
+#: templates\views\ezpages-overview.php:67
+msgid "Footer"
+msgstr ""
+
+#. ** DUPLICATE: templates\views\ezpages-details.php:60
+#: templates\views\ezpages-overview.php:68
+msgid "Chapter"
+msgstr ""
+
+#: templates\views\ezpages-overview.php:69
+msgid "TOC"
+msgstr ""
+
+#: templates\views\ezpages-overview.php:70
+msgid "Action"
+msgstr ""
+
+#: templates\views\index.php:27
+msgid "Dashboard Options"
+msgstr ""
+
+#. ** DUPLICATE: lib\menu.php:23
+#: templates\views\index.php:34
+msgid "Dashboard"
+msgstr ""
+
+#: templates\views\index.php:34
+msgid "Customize Dashboard"
+msgstr ""
+
+#: templates\views\index.php:48
+msgid "two column"
+msgstr ""
+
+#: templates\views\index.php:49
+msgid "two column - large right"
+msgstr ""
+
+#: templates\views\index.php:50
+msgid "two column - large left"
+msgstr ""
+
+#: templates\views\index.php:51
+msgid "three column"
+msgstr ""
+
+#: templates\views\installation.php:156
+msgid "Select/Unselect All"
+msgstr ""
+
+#: templates\views\installation.php:218
+msgid "Update"
+msgstr ""
+
+#: templates\views\installation.php:181
+msgid "ZenMagick Installation"
+msgstr ""
+
+#: templates\views\installation.php:181
+msgid "Refresh Page"
+msgstr ""
+
+#: templates\views\installation.php:185
+msgid "ZenMagick File Patches"
+msgstr ""
+
+#: templates\views\installation.php:193
+msgid "ZenMagick SQL Extensions"
+msgstr ""
+
+#: templates\views\installation.php:204
+msgid "Optimising ZenMagick"
+msgstr ""
+
+#: templates\views\installation.php:208
+msgid "Use single core.php file"
+msgstr ""
+
+#: templates\views\installation.php:211
+msgid "Regenerate core.php"
+msgstr ""
+
+#: templates\views\installation.php:214
+msgid "This option will compress all files under lib and all <strong>installed</strong> plugins into a single 
+        file <code>core.php</code>.
+        If you install/uninstall plugins or make any other changes to the lib directory you'll need to regenerate <code>core.php</code> in
+        order to make these changes become active."
+msgstr ""
+
+#. ** DUPLICATE: lib\menu.php:42
+#: templates\views\l10n.php:20
+msgid "Translation Helper"
+msgstr ""
+
+#: templates\views\legacy-config.php:24
+msgid "Config: %s"
+msgstr ""
+
+#: templates\views\legacy-config.php:29
+msgid "%s"
+msgstr ""
+
+#. ** DUPLICATE: templates\views\installation.php:218
+#: templates\views\legacy-config.php:45
+msgid "Update"
+msgstr ""
+
+#: templates\views\login.php:35
+msgid "Login"
+msgstr ""
+
+#: templates\views\login.php:26
+msgid "User Name"
+msgstr ""
+
+#. ** DUPLICATE: templates\views\edit_admin_user.php:47
+#: templates\views\login.php:31
+msgid "Password"
+msgstr ""
+
+#: templates\views\login.php:35
+msgid "Reset Password"
+msgstr ""
+
+#. ** DUPLICATE: lib\menu.php:39
+#: templates\views\manage_roles.php:41
+msgid "Manage Roles"
+msgstr ""
+
+#: templates\views\manage_roles.php:70
+msgid "Yup"
+msgstr ""
+
+#: templates\views\manage_roles.php:70
+msgid "Nope"
+msgstr ""
+
+#: templates\views\manage_roles.php:45
+msgid "SELECT ALL TO UPDATE"
+msgstr ""
+
+#. ** DUPLICATE: templates\views\edit_admin_user.php:32
+#: templates\views\manage_roles.php:46
+msgid "Roles"
+msgstr ""
+
+#: templates\views\manage_roles.php:52
+msgid "Update Roles (select roles to keep)"
+msgstr ""
+
+#: templates\views\manage_roles.php:53
+msgid "Remove selected"
+msgstr ""
+
+#: templates\views\manage_roles.php:55
+msgid "Add Role"
+msgstr ""
+
+#: templates\views\manage_roles.php:61
+msgid "Request Id"
+msgstr ""
+
+#: templates\views\order.php:20
+msgid "Order: %s"
+msgstr ""
+
+#: templates\views\order.php:22
+msgid "Item Details"
+msgstr ""
+
+#: templates\views\order.php:54
+msgid "Order History"
+msgstr ""
+
+#: templates\views\order.php:67
+msgid "Address Details"
+msgstr ""
+
+#: templates\views\order.php:70
+msgid "Shipping Address"
+msgstr ""
+
+#. ** DUPLICATE: shared\mvc\toolbox\ZMToolboxMacro.php:80
+#: templates\views\order.php:72
+msgid "N/A"
+msgstr ""
+
+#: templates\views\order.php:78
+msgid "Billing Address"
+msgstr ""
+
+#: templates\views\orders.php:20
+msgid "%s Orders"
+msgstr ""
+
+#. ** DUPLICATE: templates\views\accounts.php:32
+#: templates\views\orders.php:36
+msgid "** Guest **"
+msgstr ""
+
+#. ** DUPLICATE: templates\views\admin_users.php:24
+#: templates\views\orders.php:24
+msgid "ID"
+msgstr ""
+
+#. ** DUPLICATE: lib\dashboard\widgets\ZMLatestOrdersDashboardWidget.php:56
+#: templates\views\orders.php:25
+msgid "Account"
+msgstr ""
+
+#: templates\views\orders.php:26
+msgid "Order Date"
+msgstr ""
+
+#: templates\views\orders.php:27
+msgid "Payment"
+msgstr ""
+
+#: templates\views\orders.php:28
+msgid "Shipping"
+msgstr ""
+
+#. ** DUPLICATE: templates\views\admin_users.php:27
+#: templates\views\orders.php:29
+msgid "Status"
+msgstr ""
+
+#. ** DUPLICATE: lib\dashboard\widgets\ZMLatestOrdersDashboardWidget.php:56
+#: templates\views\orders.php:30
+msgid "Total"
+msgstr ""
+
+#: templates\views\plugins.php:26
+msgid "%s Plugins"
+msgstr ""
+
+#: templates\views\plugins.php:61
+msgid "Edit Plugin Options: %s"
+msgstr ""
+
+#. ** DUPLICATE: templates\views\edit_admin_user.php:26
+#: templates\views\plugins.php:29
+msgid "Name"
+msgstr ""
+
+#: templates\views\plugins.php:30
+msgid "Description"
+msgstr ""
+
+#. ** DUPLICATE: templates\views\orders.php:29
+#: templates\views\plugins.php:31
+msgid "Status"
+msgstr ""
+
+#. ** DUPLICATE: templates\views\admin_users.php:28
+#: templates\views\plugins.php:32
+msgid "Options"
+msgstr ""
+
+#: templates\views\plugins.php:57
+msgid "Keep Settings"
+msgstr ""
+
+#: templates\views\plugin_conf.php:32
+msgid "Update Settings"
+msgstr ""
+
+#. ** DUPLICATE: templates\views\login.php:35
+#: templates\views\reset_password.php:20
+msgid "Reset Password"
+msgstr ""
+
+#: templates\views\reset_password.php:23
+msgid "Please enter your admin email address and a new password will be emailed to you."
+msgstr ""
+
+#. ** DUPLICATE: templates\views\edit_admin_user.php:29
+#: templates\views\reset_password.php:28
+msgid "Email"
+msgstr ""
+
+#: templates\views\reset_password.php:32
+msgid "Reset"
+msgstr ""
+
+#: templates\views\reset_password.php:32
+msgid "Back to Login"
+msgstr ""
+
+#: templates\views\static_page_editor.php:61
+msgid "Edit Define Pages"
+msgstr ""
+
+#: templates\views\theme_builder.php:39
+msgid 'Created zen-cart template dummy files for "%s".'
+msgstr ""
+
+#: templates\views\theme_builder.php:43
+msgid 'New theme "%s" selected as active zen-cart template.'
+msgstr ""
+
+#. ** DUPLICATE: lib\menu.php:43
+#: templates\views\theme_builder.php:50
+msgid "Theme Builder"
+msgstr ""
+
+#: templates\views\theme_builder.php:74
+msgid "installation"
+msgstr ""
+
+#: templates\views\theme_builder.php:75
+msgid "Once you have created the new theme, make sure to (re-)generate the required dummy theme files for zen-cart
+  using the %s screen."
+msgstr ""
+
+#: templates\views\theme_builder.php:52
+msgid "Create theme?"
+msgstr ""
+
+#: templates\views\theme_builder.php:54
+msgid "Create new ZenMagick Theme"
+msgstr ""
+
+#. ** DUPLICATE: templates\views\plugins.php:29
+#: templates\views\theme_builder.php:56
+msgid "Name"
+msgstr ""
+
+#: templates\views\theme_builder.php:58
+msgid "(This is what the folder will be named. <strong>Names are case sensitive!</strong>)"
+msgstr ""
+
+#: templates\views\theme_builder.php:62
+msgid "Inherit theme defaults"
+msgstr ""
+
+#: templates\views\theme_builder.php:63
+msgid "(Recommended, unless <strong>all files are copied</strong>)"
+msgstr ""
+
+#: templates\views\theme_builder.php:67
+msgid "Switch to the new theme when created"
+msgstr ""
+
+#: templates\views\theme_builder.php:70
+msgid "Create"
+msgstr ""
+
+#: templates\views\theme_builder.php:78
+msgid "Unused directories can safely be deleted."
+msgstr ""
+
+#: templates\views\theme_builder.php:80
+msgid "It is not recommended to use whitespace in the name. You can always edit the generated files to adjust the description."
+msgstr ""
+
+#. ** DUPLICATE: templates\views\orders.php:25
+#: templates\views\update_user.php:23
+msgid "Account"
+msgstr ""
+
+#. ** DUPLICATE: templates\views\theme_builder.php:56
+#: templates\views\update_user.php:24
+msgid "Name"
+msgstr ""
+
+#. ** DUPLICATE: templates\views\reset_password.php:28
+#: templates\views\update_user.php:25
+msgid "Email"
+msgstr ""
+
+#: templates\views\update_user.php:26
+msgid "Current password"
+msgstr ""
+
+#: templates\views\update_user.php:27
+msgid "New password"
+msgstr ""
+
+#. ** DUPLICATE: templates\views\edit_admin_user.php:50
+#: templates\views\update_user.php:28
+msgid "Confirm password"
+msgstr ""
+
+#: templates\views\update_user.php:31
+msgid "Preferences"
+msgstr ""
+
+#. ** DUPLICATE: templates\views\legacy-config.php:45
+#: templates\views\update_user.php:36
+msgid "Update"
+msgstr ""
