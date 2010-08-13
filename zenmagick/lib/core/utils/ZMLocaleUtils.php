@@ -106,7 +106,7 @@ class ZMlocaleUtils {
                                     break;
                                 }
                             }
-                            $strings[$text] = array('msg' => $text, 'line' => substr_count($contents, "\n", 0, $pos));
+                            $strings[$text] = array('msg' => $text, 'filename' => $filename, 'line' => substr_count($contents, "\n", 0, $pos));
                         } else {
                             // found something, but not a string
                             ZMLogging::instance()->log('found something: '.substr($contents, $qi-10, 20), ZMLogging::TRACE);
@@ -174,11 +174,13 @@ class ZMlocaleUtils {
     }
 
     /**
-     * Create a po file from a l10n map.
+     * Create a po(t) file from a l10n map.
+     *
+     * <p>This method operates only on the untranslated string. Translation itself happens further down the tool chain.</p>
      *
      * @param array map The map.
      * @param boolean pot Optional flag to indicate pot format (empty translations); default is <code>false</code>.
-     * @return string The formatted po content.
+     * @return string The formatted po(t) content.
      */
     public static function map2po($map, $pot=false) {
         $lines = array();
@@ -196,6 +198,8 @@ class ZMlocaleUtils {
             $lines[] = '';
         }
 
+        // build a unique list of strings
+
         $globalMap = array();
         foreach ($map as $filename => $strings) {
             if (null === $strings) {
@@ -203,32 +207,43 @@ class ZMlocaleUtils {
             }
 
             foreach ($strings as $key => $info) {
-                $quote = '"';
-                // either we have escaped single quotes or double quotes that are not escaped
-                if (false !== strpos($key, '\\\'') || (false !== strpos($key, '"') && false === strpos($key, '\\"'))) {
-                    $quote = "'";
+                if (!array_key_exists($key, $globalMap)) {
+                    $globalMap[$key] = array();
                 }
-
-                if (array_key_exists($key, $globalMap)) {
-                    // key exists!
-                    $global = $globalMap[$key];
-                    if ($global['msg'] != $info['msg']) {
-                        // same key different value!
-                        $lines[] = '#. ** WARNING: key exists with different translation: '.$global['filename'].':'.$global['line'];
-                    } else {
-                        $lines[] = '#. ** DUPLICATE: '.$global['filename'].':'.$global['line'];
-                    }
-                }
-                // track already processed
                 $info['filename'] = $filename;
-                $globalMap[$key] = $info;
-
-                // format the actual line
-                $lines[] = '#: '.$filename.':'.$info['line'];
-                $lines[] = 'msgid '.$quote.$key.$quote;
-                $lines[] = $pot ? 'msgstr ""' : 'msgstr '.$quote.$info['msg'].$quote;
-                $lines[] = '';
+                $globalMap[$key][] = $info;
             }
+        }
+
+        // process
+        $quote = '"';
+        foreach ($globalMap as $string => $infos) {
+            $location = '#:';
+            foreach ($infos as $info) {
+                $location .= ' '.$info['filename'].':'.$info['line'];
+            }
+            $lines[] = $location;
+
+            // preformat string
+            $string = stripslashes($string);
+            $string = str_replace('"', '\"', $string);
+
+            // newline in string?
+            $nl = 0 < substr_count($string, "\n");
+            if (!$nl) {
+                $string = '"'.trim($string).'"';
+            } else {
+                $tmp = '""'."\n";
+                foreach (explode("\n", $string) as $sl) {
+                    $tmp .= '"'.trim($sl).'"'."\n";
+                }
+                $string = $tmp;
+            }
+
+            // format the actual line(s)
+            $lines[] = 'msgid '.$string;
+            $lines[] = $pot ? 'msgstr ""' : 'msgstr '.$string;
+            $lines[] = '';
         }
 
         return implode("\n", $lines);
