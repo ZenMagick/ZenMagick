@@ -129,7 +129,10 @@ class Session extends ZMObject { //ZMSession {
     public function recreate($force=false) {
         if ($force || ZMSettings::get('isSessionRecreate')) {
             // yay!
-            include_once(DIR_WS_FUNCTIONS . 'whos_online.php');
+            //include_once(DIR_WS_FUNCTIONS . 'whos_online.php');
+            if (!function_exists('whos_online_session_recreate')) {
+                function whos_online_session_recreate($old_session, $new_session) { }
+            }
             zen_session_recreate();
         }
     }
