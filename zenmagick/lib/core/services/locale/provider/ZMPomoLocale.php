@@ -57,7 +57,7 @@ class ZMPomoLocale extends ZMAbstractLocale {
      */
     public function init($locale) {
         $path = parent::init($locale);
-        $this->registerMOForLocale($path, 'messages.mo');
+        $this->registerMOForLocale($path, $locale, 'messages.mo');
     }
 
     /**
@@ -88,7 +88,7 @@ class ZMPomoLocale extends ZMAbstractLocale {
      */
     public function registerMOForLocale($basedir, $locale, $filename=null, $domain=self::DEFAULT_DOMAIN) {
         $filename = null == $filename ? $domain.'.mo' : $filename;
-        $path = ZMFileUtils::mkPath($path, 'LC_MESSAGES', $filename);
+        $path = ZMFileUtils::mkPath($basedir, 'LC_MESSAGES', $filename);
         if (null == ($path = ZMLocaleUtils::resolvePath($path, $locale))) {
             ZMLogging::instance()->log('unable to resolve locale path for locale = "'.$locale.'"', ZMLogging::DEBUG);
             return;
