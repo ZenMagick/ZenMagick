@@ -44,8 +44,8 @@ class TestZMLocaleUtils extends ZMTestCase {
     public function testSimple() {
         $map = ZMLocaleUtils::buildL10nMap(self::$DATA_DIR.'l10n-simple', '.phpx');
         if ($this->assertTrue(2 == count($map))) {
-            $this->assertEqual(array('Bar' => array('msg' => 'Bar', 'line' => 2)), array_pop($map));
-            $this->assertEqual(array('Yooo' => array('msg' => 'Yooo', 'line' => 2)), array_pop($map));
+            $this->assertEqual(array('Bar' => array('msg' => 'Bar', 'filename' => 'l10n-simple\sub\l10n-test2.phpx', 'line' => 2)), array_pop($map));
+            $this->assertEqual(array('Yooo' => array('msg' => 'Yooo', 'filename' => 'l10n-simple\l10n-test1.phpx', 'line' => 2)), array_pop($map));
         }
     }
 
@@ -55,7 +55,12 @@ class TestZMLocaleUtils extends ZMTestCase {
     public function testMixed() {
         $map = ZMLocaleUtils::buildL10nMap(self::$DATA_DIR.'l10n-mixed', '.phpx');
         if ($this->assertTrue(1 == count($map))) {
-            $this->assertEqual(array('Yooo' =>  array('msg' => 'Yooo', 'line' => 4), 'Bar' =>  array('msg' => 'Bar', 'line' => 5), 'Foo %s Deng' =>  array('msg' => 'Foo %s Deng', 'line' => 7)), array_pop($map));
+            $expected = array(
+              'Yooo' => array('msg' => 'Yooo', 'filename' => 'l10n-mixed\l10n-test1.phpx', 'line' => 4),
+              'Bar' =>  array('msg' => 'Bar', 'filename' => 'l10n-mixed\l10n-test1.phpx', 'line' => 5),
+              'Foo %s Deng' =>  array('msg' => 'Foo %s Deng', 'filename' => 'l10n-mixed\l10n-test1.phpx', 'line' => 7)
+            );
+            $this->assertEqual($expected, array_pop($map));
         }
     }
 
