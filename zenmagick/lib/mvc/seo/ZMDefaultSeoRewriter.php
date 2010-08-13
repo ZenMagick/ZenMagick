@@ -83,7 +83,7 @@ class ZMDefaultSeoRewriter implements ZMSeoRewriter {
     public function rewrite($request, $args) {
         $requestId = $args['requestId'];
         $params = $args['params'];
-        $secure = $args['secure'];
+        $secure = ZMSettings::get('zenmagick.mvc.request.allSecure') ? true : $args['secure'];
 
         if (null != ($method = $this->methods_['rewrite'])) {
             return $this->$method($request, $requestId, $params, $secure);

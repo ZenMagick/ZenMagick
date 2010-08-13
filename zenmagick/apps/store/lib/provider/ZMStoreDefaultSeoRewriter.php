@@ -43,9 +43,10 @@ class ZMStoreDefaultSeoRewriter implements ZMSeoRewriter {
      * {@inheritDoc}
      */
     public function rewrite($request, $args) {
+        $secure = ZMSettings::get('zenmagick.mvc.request.allSecure') ? true : $args['secure'];
         // allow seo here to be able to provide the full set of parameters to SEO plugins
         // this means that in practice this will be the only rewriter called...
-        return self::furl($args['requestId'], $args['params'], $args['secure'] ? 'SSL' : 'NONSSL', true, true, false, true, $request);
+        return self::furl($args['requestId'], $args['params'], $secure ? 'SSL' : 'NONSSL', true, true, false, true, $request);
     }
 
     /**

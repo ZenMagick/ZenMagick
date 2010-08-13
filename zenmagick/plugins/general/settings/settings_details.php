@@ -283,7 +283,12 @@
                     array(
                         'key' => 'enforceSecure',
                         'type' => 'boolean',
-                        'desc' => 'Are secure requests to be enforced.'
+                        'desc' => 'Are secure requests to be enforced. This will create redirects from http:// to https:// if a secure page is loaded via http://'
+                    ),
+                    array(
+                        'key' => 'allSecure',
+                        'type' => 'boolean',
+                        'desc' => 'Enforce all urls to be secure.'
                     )
                 ),
                 'session' => array(
