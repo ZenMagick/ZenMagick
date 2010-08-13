@@ -61,11 +61,10 @@ class ZMUnitTestsController extends ZMController {
 
         // add tests folder to class path
         $testsLoader = ZMLoader::make("Loader");
-        $testBaseDir = $this->plugin_->getPluginDirectory().'tests'.DIRECTORY_SEPARATOR;
+        $testBaseDir = $this->plugin_->getPluginDirectory().'tests';
         $testsLoader->addPath($testBaseDir);
         // test data  is lower case
         $testsLoader->loadStatic();
-
         ZMLoader::instance()->setParent($testsLoader);
 
         $tests = array();
@@ -81,7 +80,7 @@ class ZMUnitTestsController extends ZMController {
             $dir = $file;
             $group = UNIT_TESTS_GROUP_DEFAULT;
             do {
-                $dir = dirname($dir).'/';
+                $dir = dirname($dir);
                 if ($dir != $testBaseDir) {
                     $group = basename($dir);
                 }
