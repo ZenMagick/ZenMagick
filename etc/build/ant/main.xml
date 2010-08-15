@@ -130,10 +130,14 @@
             </fileset>
         </copy>
 
-        <!-- copy example plugin -->
+        <!-- copy default plugins -->
         <copy todir="${build.dir}/zenmagick/plugins/general">
             <fileset dir="${zenmagick.src.dir}/plugins/general/">
                 <include name="examplePlugin/**" />
+                <include name="CKEditor/**" />
+                <include name="googleAnalytics/**" />
+                <include name="quickEdit/**" />
+                <include name="productGroupPricing/**" />
             </fileset>
         </copy>
 
