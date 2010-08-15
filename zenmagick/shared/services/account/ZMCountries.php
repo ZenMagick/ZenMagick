@@ -105,6 +105,22 @@ class ZMCountries extends ZMObject {
         return null;
     }
 
+    /**
+     * Get country for the given ISO code2.
+     *
+     * @param string code The country code.
+     * @return ZMCountry The country or <code>null</code>.
+     */
+    public function getCountryForIsoCode2($code) {
+        $this->getCountries();
+        foreach ($this->countries_ as $country) {
+            if ($code == $country->getIsoCode2()) {
+                return $country;
+            }
+        }
+        return null;
+    }
+
 
     /**
      * Get the zone code for the given country and zone id.

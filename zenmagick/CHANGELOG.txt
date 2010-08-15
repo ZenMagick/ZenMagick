@@ -210,6 +210,7 @@ Release 0.9.10
   allow zencart request handling for the listed request ids
 - add setting to enforce site to be secure: 'zenmagick.mvc.request.allSecure'
 - fix broken HTML email; regression
+- add CSV file utils
 
 Release 0.9.9
 - in ZMDbTableMapper handle database exception building auto mappings
