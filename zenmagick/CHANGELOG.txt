@@ -209,6 +209,7 @@ Release 0.9.10
 - add new setting 'apps.store.request.enableZCRequestHandling' to explicitely
   allow zencart request handling for the listed request ids
 - add setting to enforce site to be secure: 'zenmagick.mvc.request.allSecure'
+- fix broken HTML email; regression
 
 Release 0.9.9
 - in ZMDbTableMapper handle database exception building auto mappings

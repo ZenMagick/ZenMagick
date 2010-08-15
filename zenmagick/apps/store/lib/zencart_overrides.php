@@ -107,13 +107,14 @@ if (!function_exists('zen_build_html_email_from_template')) {
      */
     function zen_build_html_email_from_template($template, $args=array()) {
         if (!class_exists('ZMEmailView')) { return zen_build_html_email_from_template_org($template, $args); }
+        $request = ZMRequest::instance();
         $view = ZMLoader::make("EmailView", $template, true, $args);
-        if (!file_exists($view->getViewFilename()) && function_exists('zen_build_html_email_from_template_org')) {
+        if (!$view->isValid($request) && function_exists('zen_build_html_email_from_template_org')) {
             // default to zen-cart
             return zen_build_html_email_from_template_org($template, $args);
         }
         $view->setController(ZMRequest::instance()->getController());
-        $html = $view->generate();
+        $html = $view->generate($request);
         return $html;
     }
 
