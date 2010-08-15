@@ -90,4 +90,13 @@ EOT;
         $this->assertEqual($expectMap, $parsedYaml);
     }
 
+    /**
+     * Test blocks.
+     */
+    public function testBlocks() {
+        $s = 'Last %bOrders%% %1bfoo%%';
+        $result = _zmsprintf($s, '<a href="">%%block%%</a>', '%%block%%-bar');
+        $this->assertEqual('Last <a href="">Orders</a> foo-bar', $result);
+    }
+
 }

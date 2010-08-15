@@ -68,3 +68,55 @@ function _vzm($text) {
     $translated = ZMLocales::instance()->getLocale()->translate($text, null, ZMLocale::DEFAULT_DOMAIN);
     echo null != $args ? vsprintf($translated, $args) : $translated;
 }
+
+/**
+ * Helper function to parse translated strings for block replacements.
+ *
+ * <p>Acts like <code>sprintf</code> but also supports block replacements.</p>
+ *
+ * <p>Block replacements are useful, for example, if a single word in a string should be a link. Rather than
+ * splitting up the string into individual translatable strings it allows to keep the whole string as single
+ * translatable unit.</p>
+ *
+ * <p>Example:<br>
+ * String to translate: <em>Click <strong>here</strong> to open a new window.</em>.<br>
+ * The same with special block markers: <em>Click <strong>%bhere%%</strong> to open a new window.</em>.</p>
+ *
+ * <p>A block marker starts with <em>%b</em> or <em>%nb</em>, with <em>n</em> being a positonal integer; example: <em>%2b</em>. The 
+ * block content end is marked by a double '%': <em>%%</em>.</p>
+ *
+ * <p>Now, to update the word <em>here</em> from the example with a link (and link text being <em>here</em>), this code 
+ * can be used:</p>
+ *
+ * <p><code>_zmb('Click <strong>%bhere%%</strong> to open a new window.', '<a href="">%%block%%</a>');</code></p>
+ *
+ * @param string format The format string.
+ * @param mixed mixed Variable numer parameter.
+ * @return string The formatted string.
+ */
+function _zmsprintf($format, $mixed) {
+    $args = func_get_args();
+    array_shift($args);
+
+    // start with format as output
+    $string = $format;
+
+    // check for blocks
+    preg_match_all('|[^%]%([0-9]*)b(.*[^%])%%|U', $string, $matches, PREG_SET_ORDER);
+    if (0 < count($matches)) {
+        // found blocks
+        foreach ($matches as $match) {
+            // default empty position parameter to 0
+            $match[1] = empty($match[1]) ? 0 : (int)$match[1];
+            $match[0] = trim($match[0]);
+            if (isset($args[$match[1]])) {
+                // parameter with that index exists
+                $param = str_replace('%%block%%', $match[2], $args[$match[1]]);
+                $string = str_replace($match[0], $param, $string);
+            }
+        }
+    }
+
+    // do normal sprintf last
+    return vsprintf($string, $args);
+}
