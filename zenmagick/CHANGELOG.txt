@@ -214,6 +214,7 @@ Release 0.9.10
 - add custom locale sprintf to allow to replace blocks
 - change signature of ZMCategories::getCategories() - the optional ids
   parameter was first!
+- add initial APC based cache implementation
 
 Release 0.9.9
 - in ZMDbTableMapper handle database exception building auto mappings
