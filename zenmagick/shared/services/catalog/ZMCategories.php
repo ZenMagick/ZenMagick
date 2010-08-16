@@ -51,7 +51,7 @@ class ZMCategories extends ZMObject {
      */
     public function __construct() {
         parent::__construct();
-        $this->cache_ = ZMCaches::instance()->getCache('services', array(), ZMSettings::get('apps.store.categories.cache', ZMCache::TRANSIENT));
+        $this->cache_ = ZMCaches::instance()->getCache('services', array('compress' => true), ZMSettings::get('apps.store.categories.cache', ZMCache::TRANSIENT));
         $this->categories_ = array();
         $this->rootCategories_ = array();
         $this->productTypeIdMap_ = null;
