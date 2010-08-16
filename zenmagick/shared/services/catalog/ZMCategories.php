@@ -102,12 +102,12 @@ class ZMCategories extends ZMObject {
      */
     public function getRootCategories($languageId) {
         if (array_key_exists($languageId, $this->rootCategories_)) {
-            return $this->rootCagegories_[$languageId];
+            return $this->rootCategories_[$languageId];
         }
 
         // first check cache
         if (false !== ($rootCategories = $this->cache_->lookup(ZMLangUtils::mkUnique('categories', 'rootCategories', $languageId)))) {
-            $this->rootCagegories_[$languageId] = $rootCategories;
+            $this->rootCategories_[$languageId] = $rootCategories;
             return $rootCategories;
         }
 
@@ -125,7 +125,7 @@ class ZMCategories extends ZMObject {
 
         // save for later
         $this->cache_->save($rootCategories, ZMLangUtils::mkUnique('categories', 'rootCategories', $languageId));
-        $this->rootCagegories_[$languageId] = $rootCategories;
+        $this->rootCategories_[$languageId] = $rootCategories;
 
         return $rootCategories;
     }

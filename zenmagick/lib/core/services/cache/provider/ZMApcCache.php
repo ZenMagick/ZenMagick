@@ -74,8 +74,17 @@ class ZMApcCache extends ZMObject implements ZMCache {
      */
     public function clear() {
         $this->lastModified_ = time();
-        //TODO: clear by group
-		    return apc_clear_cache('user');
+
+        $groupPrefix = $this->group_.'/';
+        $cacheInfo = apc_cache_info('user');
+
+        // iterate over all entries and match the group prefix
+        foreach ($cacheInfo['cache_list'] as $entry) {
+            if (0 === strpos($entry['info'], $groupPrefix)) {
+                apc_delete($entry['info']);
+            }
+        }
+        return true;
     }
 
     /**
