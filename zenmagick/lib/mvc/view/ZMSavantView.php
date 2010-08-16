@@ -176,7 +176,7 @@ class ZMSavantView extends ZMView {
     public function setConfig($config) {
         $this->config_ = ZMLangUtils::toArray($config);
         foreach ($this->config_ as $key => $value) {
-            if ('compiler' == $key) {
+            if (('compiler' == $key || 'cache' == $key) && !is_object($value)) {
                 $this->config_[$key] = ZMBeanUtils::getBean($value);
             }
         }

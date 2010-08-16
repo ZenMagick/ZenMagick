@@ -215,6 +215,11 @@ Release 0.9.10
 - change signature of ZMCategories::getCategories() - the optional ids
   parameter was first!
 - add initial APC based cache implementation
+- make template caching work
+- add ZMSavantCache and ZMSimpleSavantCache; uses a comma separated list of
+  template names in setting 'zenmagick.mvc.templates.simpleCache' to decide
+	whether a template is cacheable or not
+
 
 Release 0.9.9
 - in ZMDbTableMapper handle database exception building auto mappings

@@ -32,11 +32,11 @@
  * <p>Also, adds support for caching. The config map supports a key <em>cache</em> that
  * is expected to be a class name that implements the following two methods:</p>
  * <dl>
- *   <dt><code>get($tpl)</code></dt>
+ *   <dt><code>lookup($tpl)</code></dt>
  *   <dd>Query the cache for the given template name and return the cached contents (if any).
  *     If the template is not cached (yet), or is not allowed to be cached, <code>null</code>
  *     should be returned.</dd>
- *   <dt><code>save($tpl, $result)</code></dt>
+ *   <dt><code>save($tpl, $contents)</code></dt>
  *   <dd>Save the contents of the given template fetch in the cache (if allowed).</dd>
  * </dl>
  *
@@ -53,6 +53,9 @@ class ZMSavant extends Savant3 {
      */
     function __construct($config=null) {
         parent::__construct($config);
+        if (isset($config['cache'])) {
+            $this->__config['cache'] = $config['cache'];
+        }
         if (isset($this->__config['cache']) && !is_object($this->__config['cache'])) {
             $this->__config['cache'] = ZMLoader::make($this->__config['cache']);
         }
@@ -130,7 +133,7 @@ class ZMSavant extends Savant3 {
         // check if caching enabled
         if (isset($this->__config['cache'])) {
             // check for cache hit
-            if (null != ($result = call_user_func(array($this->__config['cache'], 'get'), $tpl))) {
+            if (null != ($result = call_user_func(array($this->__config['cache'], 'lookup'), $tpl))) {
                 return $result;
             }
         }
