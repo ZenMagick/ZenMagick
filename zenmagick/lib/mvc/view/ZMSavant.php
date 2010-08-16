@@ -129,7 +129,7 @@ class ZMSavant extends Savant3 {
      *
      * Adds a hook for flexible caching.
      */
-    public function fetch($tpl = null) {
+    public function fetch($tpl=null) {
         // check if caching enabled
         if (isset($this->__config['cache'])) {
             // check for cache hit

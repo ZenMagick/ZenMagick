@@ -67,12 +67,11 @@
     }
 ?>
 
-<?php $resources->jsFile('js/jquery.jstree.min.js') ?>
-
 <div id="category-tree">
   <?php echo _admin_category_tree($request); ?>
 </div>
 
+<?php $resources->jsFile('js/jquery.jstree.min.js') ?>
 <script type="text/javascript">
 $(function () {
 	$("#category-tree").jstree({ 
