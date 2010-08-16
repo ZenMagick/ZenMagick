@@ -62,6 +62,10 @@ class ZMCategory extends ZMObject {
         parent::__destruct();
     }
 
+    public function X__sleep() {
+        return array('name_', 'active_', 'parentId_', 'childrenIds_', 'image_', 'languageId_', 'sortOrder_', 'properties_');
+    }
+
 
     /**
      * Get the id.
@@ -127,7 +131,7 @@ class ZMCategory extends ZMObject {
      * @return array A list of <code>ZMcategory</code> instances.
      */
     public function getChildren() { 
-        return ZMCategories::instance()->getCategories($this->childrenIds_, $this->languageId_);
+        return ZMCategories::instance()->getCategories($this->languageId_, $this->childrenIds_);
     }
 
     /**

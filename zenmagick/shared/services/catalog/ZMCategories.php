@@ -41,6 +41,9 @@ class ZMCategories extends ZMObject {
      * using it.</p>
      */
     private $cache_;
+    private $categories_;
+    private $rootCategories_;
+    private $productTypeIdMap_;
 
 
     /**
@@ -49,6 +52,9 @@ class ZMCategories extends ZMObject {
     public function __construct() {
         parent::__construct();
         $this->cache_ = ZMCaches::instance()->getCache('services', array(), ZMSettings::get('apps.store.categories.cache', ZMCache::TRANSIENT));
+        $this->categories_ = array();
+        $this->rootCategories_ = array();
+        $this->productTypeIdMap_ = null;
     }
 
     /**
@@ -95,8 +101,13 @@ class ZMCategories extends ZMObject {
      * @return array A list of <code>ZMCategory</code> instances.
      */
     public function getRootCategories($languageId) {
+        if (array_key_exists($languageId, $this->rootCategories_)) {
+            return $this->rootCagegories_[$languageId];
+        }
+
         // first check cache
         if (false !== ($rootCategories = $this->cache_->lookup(ZMLangUtils::mkUnique('categories', 'rootCategories', $languageId)))) {
+            $this->rootCagegories_[$languageId] = $rootCategories;
             return $rootCategories;
         }
 
@@ -114,6 +125,7 @@ class ZMCategories extends ZMObject {
 
         // save for later
         $this->cache_->save($rootCategories, ZMLangUtils::mkUnique('categories', 'rootCategories', $languageId));
+        $this->rootCagegories_[$languageId] = $rootCategories;
 
         return $rootCategories;
     }
@@ -125,23 +137,25 @@ class ZMCategories extends ZMObject {
      * @return array A list of <code>ZMCategory</code> instances.
      */
     public function getAllCategories($languageId) {
-        return $this->getCategories(null, $languageId);
+        return $this->getCategories($languageId);
     }
 
     /**
      * Get all categories.
      *
-     * @param array ids Optional list of category ids.
      * @param int languageId Language id.
+     * @param array ids Optional list of category ids; default is <code>null</code>.
      * @return array A list of <code>ZMCategory</code> instances.
      */
-    public function getCategories($ids=null, $languageId) {
-        // first check cache
-        if (false === ($categories = $this->cache_->lookup(ZMLangUtils::mkUnique('categories', 'categories', $languageId)))) {
+    public function getCategories($languageId, $ids=null) {
+        if (array_key_exists($languageId, $this->categories_)) {
+            $categories = $this->categories_[$languageId];
+        } else if (false === ($categories = $this->cache_->lookup(ZMLangUtils::mkUnique('categories', 'categories', $languageId)))) {
             $categories = $this->loadAndInitTree($languageId);
             // save for later
             $this->cache_->save($categories, ZMLangUtils::mkUnique('categories', 'categories', $languageId));
         }
+        $this->categories_[$languageId] = $categories;
 
         if (null === $ids) {
             return $categories;
@@ -162,7 +176,7 @@ class ZMCategories extends ZMObject {
      * @return array A list of all top level categories (<code>parentId == 0</code>).
      */
     public function getCategoryTree($languageId) {
-        $categories = $this->getCategories(null, $languageId);
+        $categories = $this->getCategories($languageId);
 
         $tlc = array();
         foreach ($categories as $id => $category) {
@@ -182,7 +196,7 @@ class ZMCategories extends ZMObject {
      * @return ZMCategory A <code>ZMCategory</code> instance or <code>null</code>.
      */
     public function getCategoryForId($categoryId, $languageId) {
-        $categories = $this->getCategories(null, $languageId);
+        $categories = $this->getCategories($languageId);
 
         if (array_key_exists($categoryId, $categories)) {
             return $categories[$categoryId];
@@ -233,9 +247,14 @@ class ZMCategories extends ZMObject {
      * @return array List of allowed product type ids; an empty list means no restrictions.
      */
     public function getProductTypeIds($categoryId) {
+        if (null !== $this->productTypeIdMap_) {
+            return array_key_exists($categoryId, $this->productTypeIdMap_) ? $this->productTypeIdMap_[$categoryId] : array();
+        }
+
         // first check cache
         if (false !== ($productTypeIdMap = $this->cache_->lookup(ZMLangUtils::mkUnique('categories', 'productTypeIdMap')))) {
-            return array_key_exists($categoryId, $productTypeIdMap) ? $productTypeIdMap[$categoryId] : array();
+            $this->productTypeIdMap_ = $productTypeIdMap;
+            return array_key_exists($categoryId, $this->productTypeIdMap_) ? $this->productTypeIdMap_[$categoryId] : array();
         }
 
         $productTypeIdMap = array();
@@ -250,6 +269,7 @@ class ZMCategories extends ZMObject {
 
         // save for later
         $this->cache_->save($productTypeIdMap, ZMLangUtils::mkUnique('categories', 'productTypeIdMap'));
+        $this->productTypeIdMap_ = $productTypeIdMap;
 
         return array_key_exists($categoryId, $productTypeIdMap) ? $productTypeIdMap[$categoryId] : array();
     }

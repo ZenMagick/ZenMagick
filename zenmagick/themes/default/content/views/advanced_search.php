@@ -43,7 +43,7 @@
         <legend><?php _vzm("Restrict Search By...")?></legend>
         <fieldset>
             <legend><?php _vzm("Category")?></legend>
-            <?php $categories = ZMCategories::instance()->getCategories(null, $session->getLanguageId()); ?>
+            <?php $categories = ZMCategories::instance()->getCategories($session->getLanguageId()); ?>
             <?php echo $form->idpSelect('categoryId', array_merge(array(ZMLoader::make("IdNamePair", "", _zm("All Categories"))), $categories), $searchCriteria->getCategoryId()) ?>
             <?php $checked = $searchCriteria->isIncludeSubcategories() ? 'checked="checked" ' : ''; ?>
             <input type="checkbox" id="includeSubcategories" name="includeSubcategories" value="1" <?php echo $checked?>/>

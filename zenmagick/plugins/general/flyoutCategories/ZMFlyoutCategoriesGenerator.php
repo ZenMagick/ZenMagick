@@ -43,7 +43,7 @@
 
    function __construct($request) {
      $this->data = array();
-     foreach (ZMCategories::instance()->getCategories(null, $request->getSession()->getLanguageId()) as $category) {
+     foreach (ZMCategories::instance()->getCategories($request->getSession()->getLanguageId()) as $category) {
         $this->data[$category->getParentId()][$category->getId()] = array('name' => $category->getName(), 'count' => 0);
      }
    }
