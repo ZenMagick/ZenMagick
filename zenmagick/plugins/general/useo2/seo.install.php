@@ -132,8 +132,8 @@
 
 			//IMAGINADW.COM
 			$this->default_config['SEO_URLS_ONLY_IN'] = array(
-				'DEFAULT' => 'index, category, product_info, products_new, products_all, featured_products, specials, contact_us, conditions, privacy, reviews, shippinginfo, faqs_all, site_map, gv_faq, discount_coupon, page, page_2, page_3, page_4',
-				'QUERY' => "INSERT INTO `".TABLE_CONFIGURATION."` VALUES ('', 'Enter pages to allow rewrite', 'SEO_URLS_ONLY_IN', 'index, category, product_info, products_new, products_all, featured_products, specials, contact_us, conditions, privacy, reviews, shippinginfo, faqs_all, site_map, gv_faq, discount_coupon, page, page_2, page_3, page_4', 'This setting will allow the rewrite only in the specified pages. If it\'s empty all pages will be rewrited. <br><br>The format <b>MUST</b> be in the form: <b>page1,page2,page3</b>', GROUP_INSERT_ID, ".$x.", NOW(), NOW(), NULL, NULL)"
+				'DEFAULT' => 'index, product_info, products_new, products_all, featured_products, specials, contact_us, conditions, privacy, reviews, shippinginfo, faqs_all, site_map, gv_faq, discount_coupon, page, page_2, page_3, page_4',
+				'QUERY' => "INSERT INTO `".TABLE_CONFIGURATION."` VALUES ('', 'Enter pages to allow rewrite', 'SEO_URLS_ONLY_IN', 'index, product_info, products_new, products_all, featured_products, specials, contact_us, conditions, privacy, reviews, shippinginfo, faqs_all, site_map, gv_faq, discount_coupon, page, page_2, page_3, page_4', 'This setting will allow the rewrite only in the specified pages. If it\'s empty all pages will be rewrited. <br><br>The format <b>MUST</b> be in the form: <b>page1,page2,page3</b>', GROUP_INSERT_ID, ".$x.", NOW(), NOW(), NULL, NULL)"
 			);
 			$x++;
 
@@ -158,8 +158,8 @@
 				$sql = "SELECT configuration_key, configuration_value  
 						FROM " . TABLE_CONFIGURATION . " 
 						WHERE configuration_key LIKE '%SEO%'";
-				$result = $this->db->Execute($sql);
-				$num_rows = $result->RecordCount();
+				$result = ZMRuntime::getDatabase()->update($sql);
+				$num_rows = count($result);
 				$this->attributes['IS_INSTALLED'] = (sizeof($container) == $num_rows) ? true : false;
 				if ( !$this->attributes['IS_INSTALLED'] ){
 					$this->install_settings(); 
@@ -188,9 +188,9 @@
  * @version 1.0
  */	
 	function uninstall_settings(){
-		$this->db->Execute("DELETE FROM `".TABLE_CONFIGURATION_GROUP."` WHERE `configuration_group_title` LIKE '%SEO%'");
-		$this->db->Execute("DELETE FROM `".TABLE_CONFIGURATION."` WHERE `configuration_key` LIKE '%SEO%'");
-		$this->db->Execute("DROP TABLE IF EXISTS " . TABLE_SEO_CACHE);
+		ZMRuntime::getDatabase()->update("DELETE FROM `".TABLE_CONFIGURATION_GROUP."` WHERE `configuration_group_title` LIKE '%SEO%'");
+		ZMRuntime::getDatabase()->update("DELETE FROM `".TABLE_CONFIGURATION."` WHERE `configuration_key` LIKE '%SEO%'");
+		ZMRuntime::getDatabase()->update("DROP TABLE IF EXISTS " . TABLE_SEO_CACHE);
 	} # end function
 	
 /**
@@ -201,19 +201,15 @@
 	function install_settings(){
 		$this->uninstall_settings();
 		$sort_order_query = "SELECT MAX(sort_order) as max_sort FROM `".TABLE_CONFIGURATION_GROUP."`";
-		$sort = $this->db->Execute($sort_order_query);
-		$next_sort = $sort->fields['max_sort'] + 1;
+		$sort = ZMRuntime::getDatabase()->querySingle($sort_order_query);
+		$next_sort = $sort['max_sort'] + 1;
 		$insert_group = "INSERT INTO `".TABLE_CONFIGURATION_GROUP."` VALUES ('', 'SEO URLs', 'Options for Ultimate SEO URLs by Chemo', '".$next_sort."', '1')";
-        // badly fix MySQL5 issue
-        $insert_group = str_replace(" (''", " (NULL", $insert_group);
-		$this->db->Execute($insert_group);
-		$group_id = $this->db->insert_ID();
+		$zmresult = ZMRuntime::getDatabase()->update($insert_group);
+		$group_id = $zmresult['lastInsertId'];
 
 		foreach ($this->default_config as $key => $value){
 			$sql = str_replace('GROUP_INSERT_ID', $group_id, $value['QUERY']);
-            // badly fix MySQL5 issue
-			$sql = str_replace(" (''", " (NULL", $sql);
-			$this->db->Execute($sql);
+			ZMRuntime::getDatabase()->update($sql);
 		}
 
 		$insert_cache_table = "CREATE TABLE " . TABLE_SEO_CACHE . " (
@@ -231,7 +227,7 @@
 		  KEY `cache_language_id` (`cache_language_id`),
 		  KEY `cache_global` (`cache_global`)
 		) TYPE=MyISAM;";
-		$this->db->Execute($insert_cache_table);
+		ZMRuntime::getDatabase()->update($insert_cache_table);
 	} # end function	
 } # end class
 ?>

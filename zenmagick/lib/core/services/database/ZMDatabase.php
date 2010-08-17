@@ -118,7 +118,7 @@ interface ZMDatabase {
      * @param string sql The update sql.
      * @param mixed data A model instance or array; default is an empty array.
      * @param mixed mapping The field mappings or table name (list); default is <code>null</code>.
-     * @return int The number of affected rows.
+     * @return array Details about the number of affected rows and last inserted id; example: array('rows' => 3, 'lastInsertId' => 3)
      * @throws ZMDatabaseException
      */
     public function update($sql, $data=array(), $mapping=null);

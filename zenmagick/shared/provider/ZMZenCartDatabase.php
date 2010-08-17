@@ -261,7 +261,7 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
         $this->db_->Execute($sql);
         ++$this->queriesCount;
         $this->queriesTime += $this->getExecutionTime($startTime);
-        return mysql_affected_rows($this->db_->link);
+        return array('rows' => mysql_affected_rows($this->db_->link), 'lastInsertId' => $this->db_->Insert_ID());
     }
 
     /**

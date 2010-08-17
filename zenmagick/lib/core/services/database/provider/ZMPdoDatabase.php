@@ -414,13 +414,14 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
             $stmt = $this->prepareStatement($sql, $data, $mapping);
             $stmt->execute();
             $rows = $stmt->rowCount();
+            $newId = $this->pdo_->lastInsertId();
             $stmt->closeCursor();
         } catch (PDOException $pdoe) {
             throw new ZMDatabaseException($pdoe->getMessage(), $pdoe->getCode(), $pdoe);
         }
 
         $this->queriesMap_[] = array('time' => $this->getExecutionTime($startTime), 'sql' => $sql);
-        return $rows;
+        return array('rows' => $rows, 'lastInsertId' => $newId);
     }
 
     /**

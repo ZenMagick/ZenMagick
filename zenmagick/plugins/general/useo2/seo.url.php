@@ -23,7 +23,7 @@
 	+----------------------------------------------------------------------+
 */
 
-	//require_once(dirname(__FILE__) . '/seo.install.php');
+	require_once(dirname(__FILE__) . '/seo.install.php');
 
 	class SEO_URL{
 		var $cache;
@@ -42,27 +42,27 @@
 		var $uri_parsed;
 		var $db;
 		var $installer;
-	
+
 		function SEO_URL($languages_id=''){
 			global $session_started;
-				
-			$this->installer = new SEO_URL_INSTALLER();
 
-			$this->db = $GLOBALS['db'];
+			$this->installer = &new SEO_URL_INSTALLER();
+
+			$this->db = &$GLOBALS['db'];
 
 			if ($languages_id == '') $languages_id = $_SESSION['languages_id'];
-			
-			$this->languages_id = (int)$languages_id; 
-		
-			$this->data = array(); 
-		
+
+			$this->languages_id = (int)$languages_id;
+
+			$this->data = array();
+
 			$seo_pages = array(
-				FILENAME_DEFAULT, 
-				'category', 
-				FILENAME_PRODUCT_INFO, 
+				FILENAME_DEFAULT,
+				FILENAME_PRODUCT_INFO,
 				FILENAME_POPUP_IMAGE,
 				FILENAME_PRODUCT_REVIEWS,
 				FILENAME_PRODUCT_REVIEWS_INFO,
+				FILENAME_EZPAGES,
 			);
 
 			// News & Article Manager SEO support
@@ -89,6 +89,7 @@
 				'USE_SEO_CACHE_MANUFACTURERS' => defined('USE_SEO_CACHE_MANUFACTURERS') ? USE_SEO_CACHE_MANUFACTURERS : 'false',
 				'USE_SEO_CACHE_ARTICLES' => defined('USE_SEO_CACHE_ARTICLES') ? USE_SEO_CACHE_ARTICLES : 'false',
 				'USE_SEO_CACHE_INFO_PAGES' => defined('USE_SEO_CACHE_INFO_PAGES') ? USE_SEO_CACHE_INFO_PAGES : 'false',
+				'USE_SEO_CACHE_EZ_PAGES' => defined('USE_SEO_CACHE_EZ_PAGES') ? USE_SEO_CACHE_EZ_PAGES : 'false',
 				'USE_SEO_REDIRECT' => defined('USE_SEO_REDIRECT') ? USE_SEO_REDIRECT : 'false',
 				'SEO_REWRITE_TYPE' => defined('SEO_REWRITE_TYPE') ? SEO_REWRITE_TYPE : 'false',
 				'SEO_URLS_FILTER_SHORT_WORDS' => defined('SEO_URLS_FILTER_SHORT_WORDS') ? SEO_URLS_FILTER_SHORT_WORDS : 'false',
@@ -97,11 +98,11 @@
 				'SEO_PAGES' => $seo_pages,
 				'SEO_INSTALLER' => $this->installer->attributes
 			);
-		
+
 			$this->base_url = HTTP_SERVER;
-			$this->base_url_ssl = HTTPS_SERVER;		
+			$this->base_url_ssl = HTTPS_SERVER;
 			$this->cache = array();
-		
+
 			$this->reg_anchors = array(
 				'products_id' => '-p-',
 				'cPath' => '-c-',
@@ -119,8 +120,11 @@
 
 				// Info Manager (Open Operations)
 				'info_manager_page_id' => '-i-',
+
+				// EZ-Pages SEO support
+				'id' => '-ezp-',
 			);
-		
+
 			if ($this->attributes['USE_SEO_CACHE_GLOBAL'] == 'true'){
 				$this->cache_file = 'seo_urls_v2_';
 				$this->cache_gc();
@@ -129,6 +133,7 @@
 				if ( $this->attributes['USE_SEO_CACHE_MANUFACTURERS'] == 'true' ) $this->generate_manufacturers_cache();
 				if ( $this->attributes['USE_SEO_CACHE_ARTICLES'] == 'true' && defined('TABLE_NEWS_ARTICLES_TEXT')) $this->generate_news_articles_cache();
 				if ( $this->attributes['USE_SEO_CACHE_INFO_PAGES'] == 'true' && defined('TABLE_INFO_MANAGER')) $this->generate_info_manager_cache();
+				if ( $this->attributes['USE_SEO_CACHE_EZ_PAGES'] == 'true' ) $this->generate_ezpages_cache();
 			}
 
 			if ($this->attributes['USE_SEO_REDIRECT'] == 'true'){
@@ -179,8 +184,8 @@
 				$separator = '?';
 			}
 
-			if ($this->not_null($parameters)) { 
-				$link .= $this->parse_parameters($page, $parameters, $separator);	
+			if ($this->not_null($parameters)) {
+				$link .= $this->parse_parameters($page, $parameters, $separator);
 			} else {
 				// support SEO pages with no parameters
 				switch ($page) {
@@ -192,9 +197,6 @@
 						break;
 					case FILENAME_NEWS_INDEX:
 						$link .= $this->make_url($page, FILENAME_NEWS_INDEX, 'news_dates', '', '', $separator);
-						break;
-					case 'category':
-						$link .= 'index.php?main_page=category';
 						break;
 
 					default:
@@ -249,9 +251,9 @@
 
 			if (!$static) {
 				if ($this->not_null($parameters)) {
-					$link .= 'index.php?'.ZM_PAGE_KEY.'='. $page . "&" . $this->output_string($parameters);
+					$link .= 'index.php?main_page='. $page . "&" . $this->output_string($parameters);
 				} else {
-					$link .= 'index.php?'.ZM_PAGE_KEY.'=' . $page;
+					$link .= 'index.php?main_page=' . $page;
 				}
 			} else {
 				if ($this->not_null($parameters)) {
@@ -332,23 +334,23 @@
 			} # end switch
 			return $return;
 		} # end function
-	
+
 /**
- * Function to parse the parameters into an SEO URL 
- * @author Bobby Easland 
+ * Function to parse the parameters into an SEO URL
+ * @author Bobby Easland
  * @version 1.2
  * @param string $page
  * @param string $params
  * @param string $separator NOTE: passed by reference
- * @return string 
- */	
-	function parse_parameters($page, $params, $separator) {
+ * @return string
+ */
+	function parse_parameters($page, $params, &$separator) {
 		$p = @explode('&', $params);
 		krsort($p);
 		$container = array();
 		foreach ($p as $index => $valuepair){
-			$p2 = @explode('=', $valuepair); 
-			switch ($p2[0]){ 
+			$p2 = @explode('=', $valuepair);
+			switch ($p2[0]){
 
 				case 'article_id':
 					switch(true) {
@@ -408,7 +410,7 @@
 					break;
 				case 'cPath':
 					switch(true){
-						case ($page == 'category' || $page == FILENAME_DEFAULT):
+						case ($page == FILENAME_DEFAULT):
 							$url = $this->make_url($page, $this->get_category_name($p2[1]), $p2[0], $p2[1], '.html', $separator);
 							break;
 						case ($this->is_product_string($params)):
@@ -423,14 +425,14 @@
 					break;
 				case 'manufacturers_id':
 					switch(true){
-						case (($page == 'category'  || $page == FILENAME_DEFAULT) && !$this->is_cPath_string($params) && !$this->is_product_string($params)):
+						case ($page == FILENAME_DEFAULT && !$this->is_cPath_string($params) && !$this->is_product_string($params)):
 							$url = $this->make_url($page, $this->get_manufacturer_name($p2[1]), $p2[0], $p2[1], '.html', $separator);
 							break;
 						case ($page == FILENAME_PRODUCT_INFO):
 							break;
 						default:
 							$container[$p2[0]] = $p2[1];
-							break;					
+							break;
 						} # end switch
 					break;
 				case 'pID':
@@ -443,8 +445,18 @@
 						break;
 					} # end switch
 					break;
+				case 'id':	// EZ-Pages
+					switch(true){
+						case ($page == FILENAME_EZPAGES):
+							$url = $this->make_url($page, $this->get_ezpages_name($p2[1]), $p2[0], $p2[1], '.html', $separator);
+							break;
+						default:
+							$container[$p2[0]] = $p2[1];
+							break;
+						} # end switch
+					break;
 				default:
-					$container[$p2[0]] = $p2[1]; 
+					$container[$p2[0]] = $p2[1];
 					break;
 			} # end switch
 		} # end foreach $p
@@ -459,8 +471,8 @@
 	} # end function
 
 /**
- * Function to return the generated SEO URL	 
- * @author Bobby Easland 
+ * Function to return the generated SEO URL
+ * @author Bobby Easland
  * @version 1.0
  * @param string $page
  * @param string $string Stripped, formed anchor
@@ -469,8 +481,8 @@
  * @param string $extension Default = .html
  * @param string $separator NOTE: passed by reference
  * @return string
- */	
-	function make_url($page, $string, $anchor_type, $id, $extension = '.html', $separator){
+ */
+	function make_url($page, $string, $anchor_type, $id, $extension = '.html', &$separator){
 		// Right now there is but one rewrite method since cName was dropped
 		// In the future there will be additional methods here in the switch
 		switch ( $this->attributes['SEO_REWRITE_TYPE'] ){
@@ -494,16 +506,16 @@
 				break;
 
 			default:
-				$sql = "SELECT pages_title  
-						FROM " . TABLE_INFO_MANAGER . " 
-						WHERE pages_id = " . (int)$pages_id . " 
+				$sql = "SELECT pages_title
+						FROM " . TABLE_INFO_MANAGER . "
+						WHERE pages_id = " . (int)$pages_id . "
 						LIMIT 1";
-				$result = $this->db->Execute($sql);
-				$pages_title = $this->strip($result->fields['pages_title']);
+				$result = ZMRuntime::getDatabase()->update($sql);
+				$pages_title = $this->strip($result['pages_title']);
 				$this->cache['INFO_MANAGER_PAGES'][$pages_id] = $pages_title;
 				$return = $pages_title;
-				break;	
-		}		
+				break;
+		}
 		return $return;
 	}
 
@@ -519,27 +531,27 @@
 				break;
 
 			default:
-				$sql = "SELECT news_article_name  
-						FROM " . TABLE_NEWS_ARTICLES_TEXT . " 
-						WHERE article_id = " . (int)$article_id . " 
-						AND language_id = " . (int)$this->languages_id . "  
+				$sql = "SELECT news_article_name
+						FROM " . TABLE_NEWS_ARTICLES_TEXT . "
+						WHERE article_id = " . (int)$article_id . "
+						AND language_id = " . (int)$this->languages_id . "
 						LIMIT 1";
-				$result = $this->db->Execute($sql);
-				$news_article_name = $this->strip($result->fields['news_article_name']);
+				$result = ZMRuntime::getDatabase()->update($sql);
+				$news_article_name = $this->strip($result['news_article_name']);
 				$this->cache['NEWS_ARTICLES'][$article_id] = $news_article_name;
 				$return = $news_article_name;
-				break;	
-		}		
+				break;
+		}
 		return $return;
 	}
 
 /**
- * Function to get the product name. Use evaluated cache, per page cache, or database query in that order of precedent	
- * @author Bobby Easland 
+ * Function to get the product name. Use evaluated cache, per page cache, or database query in that order of precedent
+ * @author Bobby Easland
  * @version 1.1
  * @param integer $pID
  * @return string Stripped anchor text
- */	
+ */
 	function get_product_name($pID){
 		switch(true){
 			case ($this->attributes['USE_SEO_CACHE_GLOBAL'] == 'true' && defined('PRODUCT_NAME_' . $pID)):
@@ -552,29 +564,29 @@
 				break;
 
 			default:
-				$sql = "SELECT products_name as pName 
-						FROM " . TABLE_PRODUCTS_DESCRIPTION . " 
-						WHERE products_id = " . (int)$pID . " 
-						AND language_id = " . (int)$this->languages_id . "  
+				$sql = "SELECT products_name as pName
+						FROM " . TABLE_PRODUCTS_DESCRIPTION . "
+						WHERE products_id = " . (int)$pID . "
+						AND language_id = " . (int)$this->languages_id . "
 						LIMIT 1";
-				$result = $this->db->Execute($sql);
-				$pName = $this->strip($result->fields['pName']);
+				$result = ZMRuntime::getDatabase()->update($sql);
+				$pName = $this->strip($result['pName']);
 				$this->cache['PRODUCTS'][$pID] = $pName;
 				$return = $pName;
-				break;								
-		} # end switch		
+				break;
+		} # end switch
 		return $return;
 	} # end function
-	
+
 /**
- * Function to get the category name. Use evaluated cache, per page cache, or database query in that order of precedent 
- * @author Bobby Easland 
+ * Function to get the category name. Use evaluated cache, per page cache, or database query in that order of precedent
+ * @author Bobby Easland
  * @version 1.1
  * @param integer $cID NOTE: passed by reference
  * @return string Stripped anchor text
- */	
-	function get_category_name($cID){
-		list($full_cPath, $single_cID) = $this->get_full_cPath($cID); // full cPath needed for uniformity
+ */
+	function get_category_name(&$cID){
+		$full_cPath = $this->get_full_cPath($cID, $single_cID); // full cPath needed for uniformity
 		switch(true){
 			case ($this->attributes['USE_SEO_CACHE_GLOBAL'] == 'true' && defined('CATEGORY_NAME_' . $full_cPath)):
 				$return = constant('CATEGORY_NAME_' . $full_cPath);
@@ -586,43 +598,43 @@
 			default:
 				switch(true){
 					case ($this->attributes['SEO_ADD_CAT_PARENT'] == 'true'):
-						$sql = "SELECT c.categories_id, c.parent_id, cd.categories_name as cName, cd2.categories_name as pName  
-								FROM ".TABLE_CATEGORIES_DESCRIPTION." cd, ".TABLE_CATEGORIES." c 
-								LEFT JOIN ".TABLE_CATEGORIES_DESCRIPTION." cd2 
-								ON c.parent_id=cd2.categories_id AND cd2.language_id='".(int)$this->languages_id."' 
-								WHERE c.categories_id='".(int)$single_cID."' 
-								AND cd.categories_id='".(int)$single_cID."' 
-								AND cd.language_id='".(int)$this->languages_id."' 
+						$sql = "SELECT c.categories_id, c.parent_id, cd.categories_name as cName, cd2.categories_name as pName
+								FROM ".TABLE_CATEGORIES_DESCRIPTION." cd, ".TABLE_CATEGORIES." c
+								LEFT JOIN ".TABLE_CATEGORIES_DESCRIPTION." cd2
+								ON c.parent_id=cd2.categories_id AND cd2.language_id='".(int)$this->languages_id."'
+								WHERE c.categories_id='".(int)$single_cID."'
+								AND cd.categories_id='".(int)$single_cID."'
+								AND cd.language_id='".(int)$this->languages_id."'
 								LIMIT 1";
-						$result = $this->db->Execute($sql);
-						$cName = $this->not_null($result->fields['pName']) ? $result->fields['pName'] . ' ' . $result->fields['cName'] : $result->fields['cName'];
+						$result = ZMRuntime::getDatabase()->update($sql);
+						$cName = $this->not_null($result['pName']) ? $result['pName'] . ' ' . $result['cName'] : $result['cName'];
 						break;
 					default:
-						$sql = "SELECT categories_name as cName 
-								FROM ".TABLE_CATEGORIES_DESCRIPTION." 
-								WHERE categories_id='".(int)$single_cID."' 
-								AND language_id='".(int)$this->languages_id."' 
+						$sql = "SELECT categories_name as cName
+								FROM ".TABLE_CATEGORIES_DESCRIPTION."
+								WHERE categories_id='".(int)$single_cID."'
+								AND language_id='".(int)$this->languages_id."'
 								LIMIT 1";
-						$result = $this->db->Execute($sql);
-						$cName = $result->fields['cName'];
+						$result = ZMRuntime::getDatabase()->update($sql);
+						$cName = $result['cName'];
 						break;
-				}										
+				}
 				$cName = $this->strip($cName);
 				$this->cache['CATEGORIES'][$full_cPath] = $cName;
 				$return = $cName;
-				break;								
-		} # end switch		
+				break;
+		} # end switch
 		$cID = $full_cPath;
 		return $return;
 	} # end function
 
 /**
  * Function to get the manufacturer name. Use evaluated cache, per page cache, or database query in that order of precedent.
- * @author Bobby Easland 
+ * @author Bobby Easland
  * @version 1.1
  * @param integer $mID
  * @return string
- */	
+ */
 	function get_manufacturer_name($mID){
 		switch(true){
 			case ($this->attributes['USE_SEO_CACHE_GLOBAL'] == 'true' && defined('MANUFACTURER_NAME_' . $mID)):
@@ -633,67 +645,96 @@
 				$return = $this->cache['MANUFACTURERS'][$mID];
 				break;
 			default:
-				$sql = "SELECT manufacturers_name as mName 
-						FROM ".TABLE_MANUFACTURERS." 
-						WHERE manufacturers_id='".(int)$mID."' 
+				$sql = "SELECT manufacturers_name as mName
+						FROM ".TABLE_MANUFACTURERS."
+						WHERE manufacturers_id='".(int)$mID."'
 						LIMIT 1";
-				$result = $this->db->Execute($sql);
-				$mName = $this->strip($result->fields['mName']);
+				$result = ZMRuntime::getDatabase()->update($sql);
+				$mName = $this->strip($result['mName']);
 				$this->cache['MANUFACTURERS'][$mID] = $mName;
 				$return = $mName;
-				break;								
-		} # end switch		
+				break;
+		} # end switch
 		return $return;
 	} # end function
 
 /**
- * Function to retrieve full cPath from category ID 
- * @author Bobby Easland 
+ * Function to get the EZ-Pages name. Use evaluated cache, per page cache, or database query in that order of precedent.
+ * @author Bobby Easland, Ronald Crawford
+ * @version 1.0
+ * @param integer $mID
+ * @return string
+ */
+	function get_ezpages_name($ezpID){
+		switch(true){
+			case ($this->attributes['USE_SEO_CACHE_GLOBAL'] == 'true' && defined('EZPAGES_NAME_' . $ezpID)):
+				$return = constant('EZPAGES_NAME_' . $ezpID);
+				$this->cache['EZPAGES'][$ezpID] = $return;
+				break;
+			case ($this->attributes['USE_SEO_CACHE_GLOBAL'] == 'true' && isset($this->cache['EZPAGES'][$ezpID])):
+				$return = $this->cache['EZPAGES'][$ezpID];
+				break;
+			default:
+				$sql = "SELECT pages_title as ezpName
+						FROM ".TABLE_EZPAGES."
+						WHERE pages_id='".(int)$ezpID."'
+						LIMIT 1";
+				$result = ZMRuntime::getDatabase()->update($sql);
+				$ezpName = $this->strip($result['ezpName']);
+				$this->cache['EZPAGES'][$ezpID] = $ezpName;
+				$return = $ezpName;
+				break;
+		} # end switch
+		return $return;
+	} # end function
+
+/**
+ * Function to retrieve full cPath from category ID
+ * @author Bobby Easland
  * @version 1.1
  * @param mixed $cID Could contain cPath or single category_id
- * @return array Full cPath string, original
- */	
-	function get_full_cPath($cID){
+ * @param integer $original Single category_id passed back by reference
+ * @return string Full cPath string
+ */
+	function get_full_cPath($cID, &$original){
 		if ( is_numeric(strpos($cID, '_')) ){
 			$temp = @explode('_', $cID);
 			$original = $temp[sizeof($temp)-1];
-			return array($cID, $original);
+			return $cID;
 		} else {
 			$c = array();
-			$c = $this->GetParentCategories($c, $cID);
+			$this->GetParentCategories($c, $cID);
 			$c = array_reverse($c);
 			$c[] = $cID;
 			$original = $cID;
 			$cID = sizeof($c) > 1 ? implode('_', $c) : $cID;
-			return array($cID, $original);
+			return $cID;
 		}
 	} # end function
 
 /**
- * Recursion function to retrieve parent categories from category ID 
- * @author Bobby Easland 
+ * Recursion function to retrieve parent categories from category ID
+ * @author Bobby Easland
  * @version 1.0
  * @param mixed $categories Passed by reference
  * @param integer $categories_id
- * @return mixed updated categories param.
- */	
-	function GetParentCategories($categories, $categories_id) {
+ */
+	function GetParentCategories(&$categories, $categories_id) {
 		$sql = "SELECT parent_id FROM " . TABLE_CATEGORIES . " WHERE categories_id = " . (int)$categories_id;
 
-		$parent_categories = $this->db->Execute($sql);
+		$parent_categories = ZMRuntime::getDatabase()->update($sql);
 
 		while (!$parent_categories->EOF) {
-			if ($parent_categories->fields['parent_id'] == 0) return $categories;
+			if ($parent_categories->fields['parent_id'] == 0) return true;
 
 			$categories[sizeof($categories)] = $parent_categories->fields['parent_id'];
 
 			if ($parent_categories->fields['parent_id'] != $categories_id) {
-				$categories = $this->GetParentCategories($categories, $parent_categories->fields['parent_id']);
+				$this->GetParentCategories($categories, $parent_categories->fields['parent_id']);
 			}
 
 			$parent_categories->MoveNext();
 		}
-    return $categories;
 	}
 
 	function not_null($value) {
@@ -723,32 +764,32 @@
 
 		return false;
 	}
-	
+
 /**
- * Function to strip the string of punctuation and white space 
- * @author Bobby Easland 
+ * Function to strip the string of punctuation and white space
+ * @author Bobby Easland
  * @version 1.1
  * @param string $string
  * @return string Stripped text. Removes all non-alphanumeric characters.
- */	
+ */
 	function strip($string){
 		if ( is_array($this->attributes['SEO_CHAR_CONVERT_SET']) ) $string = strtr($string, $this->attributes['SEO_CHAR_CONVERT_SET']);
 		$pattern = $this->attributes['SEO_REMOVE_ALL_SPEC_CHARS'] == 'true'
-						?	"/([^[:alnum:]])+/"
-						:	"/([[:punct:]])+/";
-		$anchor = preg_replace($pattern, '', strtolower($string));
-		$pattern = "/([[:space:]]|[[:blank:]])+/"; 
-		$anchor = preg_replace($pattern, '-', $anchor);
-		return $this->short_name($anchor); // return the short filtered name 
+						?	"([^[:alnum:]])+"
+						:	"([[:punct:]])+";
+		$anchor = ereg_replace($pattern, '', strtolower($string));
+		$pattern = "([[:space:]]|[[:blank:]])+";
+		$anchor = ereg_replace($pattern, '-', $anchor);
+		return $this->short_name($anchor); // return the short filtered name
 	} # end function
 
 /**
- * Function to expand the SEO_CONVERT_SET group 
- * @author Bobby Easland 
+ * Function to expand the SEO_CONVERT_SET group
+ * @author Bobby Easland
  * @version 1.0
  * @param string $set
  * @return mixed
- */	
+ */
 	function expand($set){
 		if ( $this->not_null($set) ){
 			if ( $data = @explode(',', $set) ){
@@ -765,13 +806,13 @@
 		}
 	} # end function
 /**
- * Function to return the short word filtered string 
- * @author Bobby Easland 
+ * Function to return the short word filtered string
+ * @author Bobby Easland
  * @version 1.0
  * @param string $str
  * @param integer $limit
  * @return string Short word filtered
- */	
+ */
 	function short_name($str, $limit=3){
 		if ( $this->attributes['SEO_URLS_FILTER_SHORT_WORDS'] != 'false' ) $limit = (int)$this->attributes['SEO_URLS_FILTER_SHORT_WORDS'];
 		$foo = @explode('-', $str);
@@ -782,52 +823,52 @@
 				default:
 					$container[] = $value;
 					break;
-			}		
+			}
 		} # end foreach
 		$container = ( sizeof($container) > 1 ? implode('-', $container) : $str );
 		return $container;
 	}
-	
+
 /**
- * Function to implode an associative array 
- * @author Bobby Easland 
+ * Function to implode an associative array
+ * @author Bobby Easland
  * @version 1.0
  * @param array $array Associative data array
  * @param string $inner_glue
  * @param string $outer_glue
  * @return string
- */	
+ */
 	function implode_assoc($array, $inner_glue='=', $outer_glue='&') {
 		$output = array();
 		foreach( $array as $key => $item ){
 			if ( $this->not_null($key) && $this->not_null($item) ){
 				$output[] = $key . $inner_glue . $item;
 			}
-		} # end foreach	
+		} # end foreach
 		return @implode($outer_glue, $output);
 	}
 
 /**
- * Function to translate a string 
- * @author Bobby Easland 
+ * Function to translate a string
+ * @author Bobby Easland
  * @version 1.0
  * @param string $data String to be translated
  * @param array $parse Array of tarnslation variables
  * @return string
- */	
+ */
 	function parse_input_field_data($data, $parse) {
 		return strtr(trim($data), $parse);
 	}
-	
+
 /**
- * Function to output a translated or sanitized string 
- * @author Bobby Easland 
+ * Function to output a translated or sanitized string
+ * @author Bobby Easland
  * @version 1.0
  * @param string $sting String to be output
  * @param mixed $translate Array of translation characters
  * @param boolean $protected Switch for htemlspecialchars processing
  * @return string
- */	
+ */
 	function output_string($string, $translate = false, $protected = false) {
 		if ($protected == true) {
 		  return htmlspecialchars($string);
@@ -841,20 +882,46 @@
 	}
 
 /**
- * Function to generate products cache entries 
- * @author Bobby Easland 
+ * Function to generate EZ-Pages cache entries
+ * @author Bobby Easland, Ronald Crawford
  * @version 1.0
- */	
-	function generate_products_cache(){
-		list($is_cached, $is_expired) = $this->is_cached($this->cache_file . 'products', $is_cached, $is_expired);  	
+ */
+	function generate_ezpages_cache(){
+		$this->is_cached($this->cache_file . 'ezpages', $is_cached, $is_expired);
 		if ( !$is_cached || $is_expired ) {
-		$sql = "SELECT p.products_id as id, pd.products_name as name 
-		        FROM ".TABLE_PRODUCTS." p 
-				LEFT JOIN ".TABLE_PRODUCTS_DESCRIPTION." pd 
-				ON p.products_id=pd.products_id 
-				AND pd.language_id='".(int)$this->languages_id."' 
+		$sql = "SELECT pages_id as id, pages_title as name
+				FROM ".TABLE_EZPAGES."
+				WHERE language_id = '".(int)$this->languages_id."'";
+		$ezpages = ZMRuntime::getDatabase()->update($sql);
+		$ezpages_cache = '';
+		while (!$ezpages->EOF) {
+			$define = 'define(\'EZPAGES_NAME_' . $ezpages->fields['id'] . '\', \'' . $this->strip($ezpages->fields['name']) . '\');';
+			$ezpages_cache .= $define . "\n";
+			eval("$define");
+			$product->MoveNext();
+		}
+		$this->save_cache($this->cache_file . 'ezpages', $ezpages_cache, 'EVAL', 1 , 1);
+		unset($ezpages_cache);
+		} else {
+			$this->get_cache($this->cache_file . 'ezpages');
+		}
+	} # end function
+
+/**
+ * Function to generate products cache entries
+ * @author Bobby Easland
+ * @version 1.0
+ */
+	function generate_products_cache(){
+		$this->is_cached($this->cache_file . 'products', $is_cached, $is_expired);
+		if ( !$is_cached || $is_expired ) {
+		$sql = "SELECT p.products_id as id, pd.products_name as name
+		        FROM ".TABLE_PRODUCTS." p
+				LEFT JOIN ".TABLE_PRODUCTS_DESCRIPTION." pd
+				ON p.products_id=pd.products_id
+				AND pd.language_id='".(int)$this->languages_id."'
 				WHERE p.products_status='1'";
-		$product = $this->db->Execute($sql);
+		$product = ZMRuntime::getDatabase()->update($sql);
 		$prod_cache = '';
 		while (!$product->EOF) {
 			$define = 'define(\'PRODUCT_NAME_' . $product->fields['id'] . '\', \'' . $this->strip($product->fields['name']) . '\');';
@@ -865,24 +932,24 @@
 		$this->save_cache($this->cache_file . 'products', $prod_cache, 'EVAL', 1 , 1);
 		unset($prod_cache);
 		} else {
-			$this->get_cache($this->cache_file . 'products');		
+			$this->get_cache($this->cache_file . 'products');
 		}
 	} # end function
-		
+
 /**
- * Function to generate manufacturers cache entries 
- * @author Bobby Easland 
+ * Function to generate manufacturers cache entries
+ * @author Bobby Easland
  * @version 1.0
- */	
+ */
 	function generate_manufacturers_cache(){
-		list($is_cached, $is_expired) = $this->is_cached($this->cache_file . 'manufacturers', $is_cached, $is_expired);  	
+		$this->is_cached($this->cache_file . 'manufacturers', $is_cached, $is_expired);
 		if ( !$is_cached || $is_expired ) { // it's not cached so create it
-		$sql = "SELECT m.manufacturers_id as id, m.manufacturers_name as name 
-		        FROM ".TABLE_MANUFACTURERS." m 
-				LEFT JOIN ".TABLE_MANUFACTURERS_INFO." md 
-				ON m.manufacturers_id=md.manufacturers_id 
+		$sql = "SELECT m.manufacturers_id as id, m.manufacturers_name as name
+		        FROM ".TABLE_MANUFACTURERS." m
+				LEFT JOIN ".TABLE_MANUFACTURERS_INFO." md
+				ON m.manufacturers_id=md.manufacturers_id
 				AND md.languages_id='".(int)$this->languages_id."'";
-		$manufacturers = $this->db->Execute($sql);
+		$manufacturers = ZMRuntime::getDatabase()->update($sql);
 		$man_cache = '';
 		while (!$manufacturers->EOF) {
 			$define = 'define(\'MANUFACTURER_NAME_' . $manufacturer->fields['id'] . '\', \'' . $this->strip($manufacturer->fields['name']) . '\');';
@@ -893,40 +960,40 @@
 		$this->save_cache($this->cache_file . 'manufacturers', $man_cache, 'EVAL', 1 , 1);
 		unset($man_cache);
 		} else {
-			$this->get_cache($this->cache_file . 'manufacturers');		
+			$this->get_cache($this->cache_file . 'manufacturers');
 		}
 	} # end function
 
 /**
- * Function to generate categories cache entries 
- * @author Bobby Easland 
+ * Function to generate categories cache entries
+ * @author Bobby Easland
  * @version 1.1
- */	
+ */
 	function generate_categories_cache(){
-		list($is_cached, $is_expired) = $this->is_cached($this->cache_file . 'categories', $is_cached, $is_expired);  	
+		$this->is_cached($this->cache_file . 'categories', $is_cached, $is_expired);
 		if ( !$is_cached || $is_expired ) { // it's not cached so create it
 			switch(true){
 				case ($this->attributes['SEO_ADD_CAT_PARENT'] == 'true'):
-					$sql = "SELECT c.categories_id as id, c.parent_id, cd.categories_name as cName, cd2.categories_name as pName  
-							FROM ".TABLE_CATEGORIES." c 
-							LEFT JOIN ".TABLE_CATEGORIES_DESCRIPTION." cd2 
-							ON c.parent_id=cd2.categories_id AND cd2.language_id='".(int)$this->languages_id."', 
-							".TABLE_CATEGORIES_DESCRIPTION." cd 
-							WHERE c.categories_id=cd.categories_id 
+					$sql = "SELECT c.categories_id as id, c.parent_id, cd.categories_name as cName, cd2.categories_name as pName
+							FROM ".TABLE_CATEGORIES." c
+							LEFT JOIN ".TABLE_CATEGORIES_DESCRIPTION." cd2
+							ON c.parent_id=cd2.categories_id AND cd2.language_id='".(int)$this->languages_id."',
+							".TABLE_CATEGORIES_DESCRIPTION." cd
+							WHERE c.categories_id=cd.categories_id
 							AND cd.language_id='".(int)$this->languages_id."'";
 					//IMAGINADW.COM;
 					break;
 				default:
-					$sql = "SELECT categories_id as id, categories_name as cName 
-							FROM ".TABLE_CATEGORIES_DESCRIPTION."  
+					$sql = "SELECT categories_id as id, categories_name as cName
+							FROM ".TABLE_CATEGORIES_DESCRIPTION."
 							WHERE language_id='".(int)$this->languages_id."'";
 					break;
 			} # end switch
-		$category = $this->db->Execute($sql);
+		$category = ZMRuntime::getDatabase()->update($sql);
 		$cat_cache = '';
-		while (!$category->EOF) {	
-			list($id, $single_cID) = $this->get_full_cPath($category->fields['id']);
-			$name = $this->not_null($category->fields['pName']) ? $category->fields['pName'] . ' ' . $category->fields['cName'] : $category->fields['cName']; 
+		while (!$category->EOF) {
+			$id = $this->get_full_cPath($category->fields['id'], $single_cID);
+			$name = $this->not_null($category->fields['pName']) ? $category->fields['pName'] . ' ' . $category->fields['cName'] : $category->fields['cName'];
 			$define = 'define(\'CATEGORY_NAME_' . $id . '\', \'' . $this->strip($name) . '\');';
 			$cat_cache .= $define . "\n";
 			eval("$define");
@@ -935,22 +1002,22 @@
 		$this->save_cache($this->cache_file . 'categories', $cat_cache, 'EVAL', 1 , 1);
 		unset($cat_cache);
 		} else {
-			$this->get_cache($this->cache_file . 'categories');		
+			$this->get_cache($this->cache_file . 'categories');
 		}
 	} # end function
 
 /**
- * Function to generate articles cache entries 
- * @author Bobby Easland 
+ * Function to generate articles cache entries
+ * @author Bobby Easland
  * @version 1.0
- */	
+ */
 	function generate_news_articles_cache(){
-		list($is_cached, $is_expired) = $this->is_cached($this->cache_file . 'news_articles', $is_cached, $is_expired);  	
+		$this->is_cached($this->cache_file . 'news_articles', $is_cached, $is_expired);
 		if ( !$is_cached || $is_expired ) { // it's not cached so create it
-			$sql = "SELECT article_id as id, news_article_name as name 
-					FROM ".TABLE_NEWS_ARTICLES_TEXT." 
+			$sql = "SELECT article_id as id, news_article_name as name
+					FROM ".TABLE_NEWS_ARTICLES_TEXT."
 					WHERE language_id = '".(int)$this->languages_id."'";
-			$article = $this->db->Execute($sql);
+			$article = ZMRuntime::getDatabase()->update($sql);
 			$article_cache = '';
 			while (!$article->EOF) {
 				$define = 'define(\'NEWS_ARTICLE_NAME_' . $article->fields['id'] . '\', \'' . $this->strip($article->fields['name']) . '\');';
@@ -961,21 +1028,21 @@
 			$this->save_cache($this->cache_file . 'news_articles', $article_cache, 'EVAL', 1 , 1);
 			unset($article_cache);
 		} else {
-			$this->get_cache($this->cache_file . 'news_articles');		
+			$this->get_cache($this->cache_file . 'news_articles');
 		}
 	} # end function
 
 /**
- * Function to generate information cache entries 
- * @author Bobby Easland 
+ * Function to generate information cache entries
+ * @author Bobby Easland
  * @version 1.0
- */	
+ */
 	function generate_info_manager_cache(){
-		list($is_cached, $is_expired) = $this->is_cached($this->cache_file . 'info_manager', $is_cached, $is_expired);  	
+		$this->is_cached($this->cache_file . 'info_manager', $is_cached, $is_expired);
 		if ( !$is_cached || $is_expired ) { // it's not cached so create it
-			$sql = "SELECT pages_id as id, pages_title as name 
+			$sql = "SELECT pages_id as id, pages_title as name
 					FROM ".TABLE_INFO_MANAGER;
-			$information = $this->db->Execute($sql);
+			$information = ZMRuntime::getDatabase()->update($sql);
 			$information_cache = '';
 			while (!$information->EOF) {
 				$define = 'define(\'INFO_MANAGER_PAGE_NAME_' . $information->fields['id'] . '\', \'' . $this->strip($information->fields['name']) . '\');';
@@ -986,13 +1053,13 @@
 			$this->save_cache($this->cache_file . 'info_manager', $information_cache, 'EVAL', 1 , 1);
 			unset($information_cache);
 		} else {
-			$this->get_cache($this->cache_file . 'info_manager');		
+			$this->get_cache($this->cache_file . 'info_manager');
 		}
 	} # end function
 
 /**
- * Function to save the cache to database 
- * @author Bobby Easland 
+ * Function to save the cache to database
+ * @author Bobby Easland
  * @version 1.0
  * @param string $name Cache name
  * @param mixed $value Can be array, string, PHP code, or just about anything
@@ -1000,7 +1067,7 @@
  * @param integer $gzip Enables compression
  * @param integer $global Sets whether cache record is global is scope
  * @param string $expires Sets the expiration
- */	
+ */
 	function save_cache($name, $value, $method='RETURN', $gzip=1, $global=0, $expires = '30 days'){
 		$expires = date('Y-m-d H:i:s', strtotime('+' . $expires));
 
@@ -1016,153 +1083,151 @@
 			'cache_method' => $method,
 			'cache_date' => date("Y-m-d H:i:s"),
 			'cache_expires' => $expires
-		);				
-		list($is_cached, $is_expired) = $this->is_cached($name, $is_cached, $is_expired);
+		);
+		$this->is_cached($name, $is_cached, $is_expired);
 		$cache_check = ( $is_cached ? 'true' : 'false' );
 		switch ( $cache_check ) {
-			case 'true': 
+			case 'true':
 				zen_db_perform(TABLE_SEO_CACHE, $sql_data_array, 'update', "cache_id='".md5($name)."'");
-				break;				
+				break;
 			case 'false':
 				zen_db_perform(TABLE_SEO_CACHE, $sql_data_array, 'insert');
-				break;				
+				break;
 			default:
 				break;
-		} # end switch ($cache check)		
+		} # end switch ($cache check)
 		# unset the variables...clean as we go
-		unset($value, $expires, $sql_data_array);		
+		unset($value, $expires, $sql_data_array);
 	}# end function save_cache()
-	
+
 /**
- * Function to get cache entry 
- * @author Bobby Easland 
+ * Function to get cache entry
+ * @author Bobby Easland
  * @version 1.0
  * @param string $name
  * @param boolean $local_memory
  * @return mixed
- */	
+ */
 	function get_cache($name = 'GLOBAL', $local_memory = false){
 		$select_list = 'cache_id, cache_language_id, cache_name, cache_data, cache_global, cache_gzip, cache_method, cache_date, cache_expires';
 		$global = ( $name == 'GLOBAL' ? true : false ); // was GLOBAL passed or is using the default?
 		switch($name){
-			case 'GLOBAL': 
-				$cache = $this->db->Execute("SELECT ".$select_list." FROM " . TABLE_SEO_CACHE . " WHERE cache_language_id='".(int)$this->languages_id."' AND cache_global='1'");
+			case 'GLOBAL':
+				$cache = ZMRuntime::getDatabase()->update("SELECT ".$select_list." FROM " . TABLE_SEO_CACHE . " WHERE cache_language_id='".(int)$this->languages_id."' AND cache_global='1'");
 				break;
-			default: 
-				$cache = $this->db->Execute("SELECT ".$select_list." FROM " . TABLE_SEO_CACHE . " WHERE cache_id='".md5($name)."' AND cache_language_id='".(int)$this->languages_id."'");
+			default:
+				$cache = ZMRuntime::getDatabase()->update("SELECT ".$select_list." FROM " . TABLE_SEO_CACHE . " WHERE cache_id='".md5($name)."' AND cache_language_id='".(int)$this->languages_id."'");
 				break;
 		}
 		$num_rows = $cache->RecordCount();
-		if ($num_rows){ 
+		if ($num_rows){
 			$container = array();
 			while(!$cache->EOF){
-				$cache_name = $cache->fields['cache_name']; 
-				if ( $cache->fields['cache_expires'] > date("Y-m-d H:i:s") ) { 
+				$cache_name = $cache->fields['cache_name'];
+				if ( $cache->fields['cache_expires'] > date("Y-m-d H:i:s") ) {
 					$cache_data = ( $cache->fields['cache_gzip'] == 1 ? gzinflate(base64_decode($cache->fields['cache_data'])) : stripslashes($cache->fields['cache_data']) );
 					switch($cache->fields['cache_method']){
 						case 'EVAL': // must be PHP code
 							eval("$cache_data");
-							break;							
-						case 'ARRAY': 
-							$cache_data = unserialize($cache_data);							
-						case 'RETURN': 
+							break;
+						case 'ARRAY':
+							$cache_data = unserialize($cache_data);
+						case 'RETURN':
 						default:
 							break;
-					} # end switch ($cache['cache_method'])					
-					if ($global) $container['GLOBAL'][$cache_name] = $cache_data; 
-					else $container[$cache_name] = $cache_data; // not global				
+					} # end switch ($cache['cache_method'])
+					if ($global) $container['GLOBAL'][$cache_name] = $cache_data;
+					else $container[$cache_name] = $cache_data; // not global
 				} else { // cache is expired
-					if ($global) $container['GLOBAL'][$cache_name] = false; 
-					else $container[$cache_name] = false; 
-				}# end if ( $cache['cache_expires'] > date("Y-m-d H:i:s") )			
+					if ($global) $container['GLOBAL'][$cache_name] = false;
+					else $container[$cache_name] = false;
+				}# end if ( $cache['cache_expires'] > date("Y-m-d H:i:s") )
 				if ( $this->keep_in_memory || $local_memory ) {
-					if ($global) $this->data['GLOBAL'][$cache_name] = $container['GLOBAL'][$cache_name]; 
-					else $this->data[$cache_name] = $container[$cache_name]; 
+					if ($global) $this->data['GLOBAL'][$cache_name] = $container['GLOBAL'][$cache_name];
+					else $this->data[$cache_name] = $container[$cache_name];
 				}
-				$cache->MoveNext();					
-			} # end while ($cache = $this->DB->FetchArray($this->cache_query))			
+				$cache->MoveNext();
+			} # end while ($cache = $this->DB->FetchArray($this->cache_query))
 			unset($cache_data);
 			switch (true) {
-				case ($num_rows == 1): 
+				case ($num_rows == 1):
 					if ($global){
 						if ($container['GLOBAL'][$cache_name] == false || !isset($container['GLOBAL'][$cache_name])) return false;
-						else return $container['GLOBAL'][$cache_name]; 
+						else return $container['GLOBAL'][$cache_name];
 					} else { // not global
 						if ($container[$cache_name] == false || !isset($container[$cache_name])) return false;
 						else return $container[$cache_name];
-					} # end if ($global)					
-				case ($num_rows > 1): 
-				default: 
-					return $container; 
+					} # end if ($global)
+				case ($num_rows > 1):
+				default:
+					return $container;
 					break;
-			}# end switch (true)			
-		} else { 
+			}# end switch (true)
+		} else {
 			return false;
-		}# end if ( $num_rows )		
+		}# end if ( $num_rows )
 	} # end function get_cache()
 
 /**
  * Function to get cache from memory
- * @author Bobby Easland 
+ * @author Bobby Easland
  * @version 1.0
  * @param string $name
  * @param string $method
  * @return mixed
- */	
+ */
 	function get_cache_memory($name, $method = 'RETURN'){
 		$data = ( isset($this->data['GLOBAL'][$name]) ? $this->data['GLOBAL'][$name] : $this->data[$name] );
-		if ( isset($data) && !empty($data) && $data != false ){ 
+		if ( isset($data) && !empty($data) && $data != false ){
 			switch($method){
 				case 'EVAL': // data must be PHP
 					eval("$data");
 					return true;
 					break;
-				case 'ARRAY': 
+				case 'ARRAY':
 				case 'RETURN':
 				default:
 					return $data;
 					break;
 			} # end switch ($method)
-		} else { 
+		} else {
 			return false;
 		} # end if (isset($data) && !empty($data) && $data != false)
 	} # end function get_cache_memory()
 
 /**
- * Function to perform basic garbage collection for database cache system 
- * @author Bobby Easland 
+ * Function to perform basic garbage collection for database cache system
+ * @author Bobby Easland
  * @version 1.0
- */	
+ */
 	function cache_gc(){
-		$this->db->Execute("DELETE FROM " . TABLE_SEO_CACHE . " WHERE cache_expires <= '" . date("Y-m-d H:i:s") . "'");
+		ZMRuntime::getDatabase()->update("DELETE FROM " . TABLE_SEO_CACHE . " WHERE cache_expires <= '" . date("Y-m-d H:i:s") . "'");
 	}
 
 /**
- * Function to check if the cache is in the database and expired  
- * @author Bobby Easland 
+ * Function to check if the cache is in the database and expired
+ * @author Bobby Easland
  * @version 1.0
  * @param string $name
- * @param boolean $is_cached 
- * @param boolean $is_expired 
- * return array (is_cached, is_expired)
- */	
-	function is_cached($name, $is_cached, $is_expired){
-		$this->cache_query = $this->db->Execute("SELECT cache_expires FROM " . TABLE_SEO_CACHE . " WHERE cache_id='".md5($name)."' AND cache_language_id='".(int)$this->languages_id."' LIMIT 1");
+ * @param boolean $is_cached NOTE: passed by reference
+ * @param boolean $is_expired NOTE: passed by reference
+ */
+	function is_cached($name, &$is_cached, &$is_expired){ // NOTE: $is_cached and $is_expired is passed by reference !!
+		$this->cache_query = ZMRuntime::getDatabase()->update("SELECT cache_expires FROM " . TABLE_SEO_CACHE . " WHERE cache_id='".md5($name)."' AND cache_language_id='".(int)$this->languages_id."' LIMIT 1");
 		$is_cached = ( $this->cache_query->RecordCount() > 0 ? true : false );
-		if ($is_cached){ 
+		if ($is_cached){
 			$is_expired = ( $this->cache_query->fields['cache_expires'] <= date("Y-m-d H:i:s") ? true : false );
 			unset($check);
 		}
-    return array($is_cached, $is_expired);
 	}# end function is_cached()
 
 /**
  * Function to initialize the redirect logic
- * @author Bobby Easland 
+ * @author Bobby Easland
  * @version 1.1
- */	
+ */
 	function check_redirect(){
-		$this->need_redirect = false; 
+		$this->need_redirect = false;
 		$this->uri = ltrim( basename($_SERVER['REQUEST_URI']), '/' );
 		$this->real_uri = ltrim( basename($_SERVER['SCRIPT_NAME']) . '?' . $_SERVER['QUERY_STRING'], '/' );
 
@@ -1176,62 +1241,62 @@
 		}
 
 		$this->attributes['SEO_REDIRECT']['URI'] = $this->uri;
-		$this->attributes['SEO_REDIRECT']['REAL_URI'] = $this->real_uri;			
-		$this->attributes['SEO_REDIRECT']['URI_PARSED'] = $this->uri_parsed;			
-		$this->need_redirect(); 
+		$this->attributes['SEO_REDIRECT']['REAL_URI'] = $this->real_uri;
+		$this->attributes['SEO_REDIRECT']['URI_PARSED'] = $this->uri_parsed;
+		$this->need_redirect();
 		$this->check_seo_page();
 
 		if ($this->need_redirect && $this->is_seopage && $this->attributes['USE_SEO_REDIRECT'] == 'true') {
-			$this->do_redirect();			
+			$this->do_redirect();
 		}
 	} # end function
-	
+
 /**
- * Function to check if the URL needs to be redirected 
- * @author Bobby Easland 
+ * Function to check if the URL needs to be redirected
+ * @author Bobby Easland
  * @version 1.2
- */	
+ */
 	function need_redirect() {
-		$this->need_redirect = ((preg_match('/'.ZM_PAGE_KEY.'=/i', $this->uri)) ? true : false);
-		// QUICK AND DIRTY WAY TO DISABLE REDIRECTS ON PAGES WHEN SEO_URLS_ONLY_IN is enabled IMAGINADW.COM 
-		$sefu = explode(",", preg_replace('/ +/', '', SEO_URLS_ONLY_IN ));
-		if ((SEO_URLS_ONLY_IN!="") && !in_array($_GET[ZM_PAGE_KEY],$sefu) ) $this->need_redirect = false;
+		$this->need_redirect = ((preg_match('/main_page=/i', $this->uri)) ? true : false);
+		// QUICK AND DIRTY WAY TO DISABLE REDIRECTS ON PAGES WHEN SEO_URLS_ONLY_IN is enabled IMAGINADW.COM
+		$sefu = explode(",", ereg_replace( ' +', '', SEO_URLS_ONLY_IN ));
+		if ((SEO_URLS_ONLY_IN!="") && !in_array($_GET['main_page'],$sefu) ) $this->need_redirect = false;
 		// IMAGINADW.COM
 
 		$this->attributes['SEO_REDIRECT']['NEED_REDIRECT'] = $this->need_redirect ? 'true' : 'false';
 	}
-	
+
 /**
- * Function to check if it's a valid redirect page 
- * @author Bobby Easland 
+ * Function to check if it's a valid redirect page
+ * @author Bobby Easland
  * @version 1.1
- */	
+ */
 	function check_seo_page() {
-		if (!isset($_GET[ZM_PAGE_KEY]) || (!$this->not_null($_GET[ZM_PAGE_KEY]))) {
-			$_GET[ZM_PAGE_KEY] = 'index';
+		if (!isset($_GET['main_page']) || (!$this->not_null($_GET['main_page']))) {
+			$_GET['main_page'] = 'index';
 		}
 
 		$this->is_seopage = (($this->attributes['SEO_ENABLED'] == 'true') ? true : false);
 
 		$this->attributes['SEO_REDIRECT']['IS_SEOPAGE'] = $this->is_seopage ? 'true' : 'false';
 	}
-	
+
 /**
- * Function to perform redirect 
- * @author Bobby Easland 
+ * Function to perform redirect
+ * @author Bobby Easland
  * @version 1.0
- */	
+ */
 	function do_redirect() {
 		$p = @explode('&', $this->uri_parsed['query']);
-		foreach( $p as $index => $value ) {						
+		foreach( $p as $index => $value ) {
 			$tmp = @explode('=', $value);
 
-			if ($tmp[0] == ZM_PAGE_KEY) continue;
+			if ($tmp[0] == 'main_page') continue;
 
 			switch($tmp[0]){
 				case 'products_id':
 					if ($this->is_attribute_string('products_id=' . $tmp[1])) {
-						$pieces = explode(':', $tmp[1]);						
+						$pieces = explode(':', $tmp[1]);
 						$params[] = $tmp[0] . '=' . $pieces[0];
 					} else {
 						$params[] = $tmp[0] . '=' . $tmp[1];
@@ -1239,18 +1304,18 @@
 					break;
 				default:
 					$params[] = $tmp[0].'='.$tmp[1];
-					break;						
+					break;
 			}
 		} # end foreach( $params as $var => $value )
 		$params = ( sizeof($params) > 1 ? implode('&', $params) : $params[0] );
 
-		$url = $this->href_link($_GET[ZM_PAGE_KEY], $params, 'NONSSL', false);
+		$url = $this->href_link($_GET['main_page'], $params, 'NONSSL', false);
 		// cleanup url for redirection
 		$url = str_replace('&amp;', '&', $url);
 
 		switch($this->attributes['USE_SEO_REDIRECT']){
 			case 'true':
-				header("HTTP/1.1 301 Moved Permanently"); 
+				header("HTTP/1.1 301 Moved Permanently");
 				header("Location: $url");
 				break;
 			default:

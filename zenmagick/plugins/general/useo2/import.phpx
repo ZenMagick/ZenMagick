@@ -1,0 +1,44 @@
+<?php
+
+$loadPath = "C:/Program Files/Apache Software Foundation/Apache2.2/htdocs/mods/ultimate_seo_urls_2-110/_zen_cart_folder_English/";
+$targetPath = "C:/Program Files/Apache Software Foundation/Apache2.2/htdocs/zenmagick/zenmagick/plugins/general/useo2/";
+
+// htaccess_sample
+unlink ($targetPath.'htaccess_sample');
+copy ($loadPath.'htaccess_sample', $targetPath.'htaccess_sample');
+
+// classes
+$seoClasses = array(
+    'includes/classes/seo.url.php',
+    'includes/classes/seo.install.php'
+);
+foreach ($seoClasses as $file) {
+    $contents = file_get_contents($loadPath.$file);
+
+    $contents = str_replace('$this->db->Execute($insert_group)', '$zmresult = ZMRuntime::getDatabase()->update($insert_group)', $contents);
+    $contents = str_replace('$this->db->insert_ID()', '$zmresult[\'lastInsertId\']', $contents);
+
+    $contents = str_replace('$this->db->Execute($sort_order_query', 'ZMRuntime::getDatabase()->querySingle($sort_order_query', $contents);
+    $contents = str_replace('$this->db->Execute', 'ZMRuntime::getDatabase()->update', $contents);
+    $contents = str_replace('$result->RecordCount()', 'count($result)', $contents);
+    $contents = str_replace('$result->fields[', '$result[', $contents);
+    $contents = str_replace('$sort->fields[', '$sort[', $contents);
+    file_put_contents($targetPath.basename($file), $contents);
+}
+
+// seo-functions
+unlink ($targetPath.'seo.functions.php');
+$seoFunctions = array(
+  'admin/includes/extra_datafiles/seo.php',
+  'admin/includes/functions/extra_functions/seo.php',
+);
+
+foreach ($seoFunctions as $file) {
+    $contents = file_get_contents($loadPath.$file);
+    $contents = str_replace('$this->db->Execute', 'ZMRuntime::getDatabase()->update', $contents);
+    file_put_contents($targetPath.'seo.functions.php', $contents, FILE_APPEND);
+}
+
+// and some conents
+$reset = '<?php function reset_seo_cache() { ZMRuntime::getDatabase()->update("DELETE FROM ".TABLE_SEO_CACHE." WHERE cache_name LIKE \'%seo_urls%\'"); } ?>';
+file_put_contents($targetPath.'seo.functions.php', $reset, FILE_APPEND);
