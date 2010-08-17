@@ -47,6 +47,7 @@ class ZMCaches extends ZMObject {
         parent::__construct();
         $this->caches_ = array();
         $this->types_ = array_merge(self::$DEFAULT_TYPES, ZMSettings::get('zenmagick.core.cache.mapping.defaults', array()));
+        ZMSettings::append('zenmagick.core.cache.providers', 'ZMApcCache,ZMFileCache,ZMMemcacheCache,ZMMemoryCache,ZMXcacheCache');
     }
 
     /**
@@ -102,13 +103,30 @@ class ZMCaches extends ZMObject {
     }
 
     /**
-     * Get a list of all active caches.
+     * Get a list of all <strong>currently active</strong> caches.
      *
      * @return array List of caches.
      */
     public function getCaches() {
         ksort($this->caches_);
         return $this->caches_;
+    }
+
+
+    /**
+     * Get a list of all providers.
+     *
+     * @return array List of all caches (instantiated).
+     */
+    public function getProviders() {
+        $providers = array();
+        foreach (explode(',', ZMSettings::get('zenmagick.core.cache.providers')) as $provider) {
+            $obj = ZMBeanUtils::getBean($provider);
+            if (null != $obj && $obj->isAvailable()) {
+                $providers[] = $obj;
+            }
+        }
+        return $providers;
     }
 
 }

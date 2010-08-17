@@ -30,6 +30,7 @@
  * @package org.zenmagick.core.services.cache.provider
  */
 class ZMApcCache extends ZMObject implements ZMCache {
+    const SYSTEM_KEY = "org.zenmagick.core.services.cache.provider.apc";
     private $group_;
     private $lifetime_;
     private $lastModified_;
@@ -42,7 +43,6 @@ class ZMApcCache extends ZMObject implements ZMCache {
         parent::__construct();
         $this->lifetime_ = 0;
         $this->lastModified_ = time();
-        $this->compress_ = 0;
     }
 
     /**
@@ -59,6 +59,15 @@ class ZMApcCache extends ZMObject implements ZMCache {
     public function init($group, $config) {
         $this->group_ = $group;
         $this->lifetime_ = $config['cacheTTL'];
+
+        // update system stats
+        $system = apc_fetch(self::SYSTEM_KEY);
+        if (!$system) {
+            $system = array();
+            $system['groups'] = array();
+        }
+        $system['groups'][$group] = $config;
+        apc_store(self::SYSTEM_KEY, $system, 0);
     }
 
 
@@ -115,6 +124,13 @@ class ZMApcCache extends ZMObject implements ZMCache {
      */
     public function lastModified() {
         return $this->lastModified_;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getStats() {
+        return array('lastModified' => $this->lastModified(), 'configs' => apc_fetch(self::SYSTEM_KEY));
     }
 
 }

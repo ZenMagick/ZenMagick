@@ -30,6 +30,7 @@
  * @package org.zenmagick.core.services.cache.provider
  */
 class ZMXcacheCache extends ZMObject implements ZMCache {
+    const SYSTEM_KEY = "org.zenmagick.core.services.cache.provider.xcache";
     private $group_;
     private $lifetime_;
     private $lastModified_;
@@ -58,6 +59,17 @@ class ZMXcacheCache extends ZMObject implements ZMCache {
     public function init($group, $config) {
         $this->group_ = $group;
         $this->lifetime_ = $config['cacheTTL'];
+
+
+        // update system stats
+        if (!xcache_isset(self::SYSTEM_KEY)) {
+            $system = array();
+            $system['groups'] = array();
+        } else {
+            $system = xcache_get(self::SYSTEM_KEY);
+        }
+        $system['groups'][$group] = $config;
+        xcache_set(self::SYSTEM_KEY, $system, false, 0);
     }
 
 
@@ -120,6 +132,13 @@ class ZMXcacheCache extends ZMObject implements ZMCache {
      */
     public function lastModified() {
         return $this->lastModified_;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getStats() {
+        return array('lastModified' => $this->lastModified(), 'configs' => xcache_get(self::SYSTEM_KEY));
     }
 
 }

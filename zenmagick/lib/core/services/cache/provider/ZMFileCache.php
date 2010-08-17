@@ -30,9 +30,11 @@
  * @package org.zenmagick.core.services.cache.provider
  */
 class ZMFileCache extends ZMObject implements ZMCache {
+    const SYSTEM_KEY = "org.zenmagick.core.services.cache.provider.file";
     private $group_;
     private $available_;
     private $cache_;
+    private $metaCache_;
 
 
     /**
@@ -40,6 +42,11 @@ class ZMFileCache extends ZMObject implements ZMCache {
      */
     function __construct() {
         parent::__construct();
+        $this->available_ = true;
+        $config['automaticSerialization'] = true;
+        $config['cacheDir'] = ZMSettings::get('zenmagick.core.cache.provider.file.baseDir');
+        $this->ensureCacheDir($config['cacheDir']);
+        $this->metaCache_ = new Cache_Lite($config);
     }
 
     /**
@@ -58,8 +65,18 @@ class ZMFileCache extends ZMObject implements ZMCache {
         $config['automaticSerialization'] = true;
         $config['cacheDir'] = ZMSettings::get('zenmagick.core.cache.provider.file.baseDir').$group.DIRECTORY_SEPARATOR;
         $this->group_ = $group;
-        $this->available_ = $this->_ensureCacheDir($config['cacheDir']);
+        $this->available_ = $this->ensureCacheDir($config['cacheDir']);
         $this->cache_ = new Cache_Lite($config);
+
+    
+        // update system stats
+        $system = $this->metaCache_->get(self::SYSTEM_KEY);
+        if (!$system) {
+            $system = array();
+            $system['groups'] = array();
+        }
+        $system['groups'][$group] = $config;
+        $this->metaCache_->save($system, self::SYSTEM_KEY);
     }
 
 
@@ -111,9 +128,16 @@ class ZMFileCache extends ZMObject implements ZMCache {
      * @param string dir The cache dir.
      * @return boolean <code>true</code> if the cache dir is usable, <code>false</code> if not.
      */
-    private function _ensureCacheDir($dir) {
+    private function ensureCacheDir($dir) {
         ZMFileUtils::mkdir($dir);
         return file_exists($dir) && is_writeable($dir);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getStats() {
+        return array('lastModified' => $this->metaCache_->lastModified(), 'configs' => $this->metaCache_->get(self::SYSTEM_KEY));
     }
 
 }

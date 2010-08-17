@@ -89,4 +89,11 @@ interface ZMCache {
      */
     public function lastModified();
 
+    /**
+     * Return some stats and info abuot this cache.
+     *
+     * @return array Map of stuff.
+     */
+    public function getStats();
+
 }

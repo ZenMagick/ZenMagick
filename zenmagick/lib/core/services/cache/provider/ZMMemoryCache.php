@@ -30,6 +30,7 @@
  * @package org.zenmagick.core.services.cache.provider
  */
 class ZMMemoryCache extends ZMObject implements ZMCache {
+    private $groups_;
     private $group_;
     private $cache_;
 
@@ -39,6 +40,7 @@ class ZMMemoryCache extends ZMObject implements ZMCache {
      */
     function __construct() {
         parent::__construct();
+        $groups_ = array();
     }
 
     /**
@@ -58,6 +60,7 @@ class ZMMemoryCache extends ZMObject implements ZMCache {
         $config['onlyMemoryCaching'] = true;
         $this->group_ = $group;
         $this->cache_ = new Cache_Lite($config);
+        $this->groups_[$group] = $config;
     }
 
 
@@ -99,6 +102,13 @@ class ZMMemoryCache extends ZMObject implements ZMCache {
      */
     public function lastModified() {
         return $this->cache_->lastModified();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getStats() {
+        return array('lastModified' => time(), 'configs' => $this->groups_);
     }
 
 }

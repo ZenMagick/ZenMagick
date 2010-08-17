@@ -30,6 +30,7 @@
  * @package org.zenmagick.core.services.cache.provider
  */
 class ZMMemcacheCache extends ZMObject implements ZMCache {
+    const SYSTEM_KEY = "org.zenmagick.core.services.cache.provider.memcache";
     private $group_;
     private $memcache_;
     private $lifetime_;
@@ -42,6 +43,7 @@ class ZMMemcacheCache extends ZMObject implements ZMCache {
      */
     function __construct() {
         parent::__construct();
+        $this->memcache_ = null;
         $this->lifetime_ = 0;
         $this->lastModified_ = time();
         $this->compress_ = 0;
@@ -56,15 +58,38 @@ class ZMMemcacheCache extends ZMObject implements ZMCache {
 
 
     /**
+     * Get a ready-to-use <code>Memcache</code> instance.
+     *
+     * @param array config Optional config values: default is an empty array.
+     * @return Memcache A <code>Memcache</code> instance.
+     */
+    protected function getMemcache($config=array()) {
+        if (null == $this->memcache_) {
+            $this->memcache_ = new Memcache();
+            $config = array_merge(array('host' => 'localhost', 'port' => 11211), $config);
+            $this->memcache_->connect($config['host'], $config['port']);
+        }
+        return $this->memcache_;
+    }
+
+    /**
      * {@inheritDoc}
      */
     public function init($group, $config) {
         $this->group_ = $group;
-        $this->memcache_ = new Memcache();
-        $config = array_merge(array('host' => 'localhost', 'port' => 11211, 'cacheTTL' => 0, 'compress' => false), $config);
+        $this->memcache_ = $this->getMemcache($config);
+        $config = array_merge(array('cacheTTL' => 0, 'compress' => false), $config);
         $this->lifetime_ = $config['cacheTTL'];
         $this->compress_ = $config['compress'] ? MEMCACHE_COMPRESSED : 0;
-        $this->memcache_->connect($config['host'], $config['port']);
+
+        // update system stats
+        $system = $this->memcache_->get(self::SYSTEM_KEY);
+        if (!$system) {
+            $system = array();
+            $system['groups'] = array();
+        }
+        $system['groups'][$group] = $config;
+        $this->memcache_->set(self::SYSTEM_KEY, $system, false, 0);
     }
 
 
@@ -125,6 +150,13 @@ class ZMMemcacheCache extends ZMObject implements ZMCache {
      */
     public function lastModified() {
         return $this->lastModified_;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getStats() {
+        return array('lastModified' => $this->lastModified(), 'configs' => $this->getMemcache()->get(self::SYSTEM_KEY));
     }
 
 }

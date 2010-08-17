@@ -70,15 +70,6 @@ class ZMSettings {
     }
 
     /**
-     * Set a map of all settings.
-     *
-     * @param array settings Map of settings.
-     */
-    public static function setAll($settings) {
-        ZMSettings::$settings_ = $settings;
-    }
-
-    /**
      * Add a map of settings.
      *
      * @param array settings Map of settings.

@@ -507,7 +507,7 @@
         return $map;
     }
 
-    ZMSettings::setAll(zm_get_default_settings());
+    ZMSettings::addAll(zm_get_default_settings());
 
     //** load all config values if not set **//
     if (!defined('STORE_NAME')) {
@@ -519,6 +519,6 @@
         // restore
         ZMSettings::set('zenmagick.core.database.provider', $currentProvider);
         // set again as some settings depend on zencart settings...
-        ZMSettings::setAll(zm_get_default_settings());
+        ZMSettings::addAll(zm_get_default_settings());
     }
 

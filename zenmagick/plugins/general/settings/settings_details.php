@@ -28,6 +28,11 @@
             'zenmagick.core' => array(
                 'cache' => array(
                     array(
+                        'key' => 'providers',
+                        'type' => 'string',
+                        'desc' => 'List of known cache providers.'
+                    ),
+                    array(
                         'key' => 'provider.file.baseDir',
                         'type' => 'string',
                         'desc' => 'Base directory for file based caching.'
