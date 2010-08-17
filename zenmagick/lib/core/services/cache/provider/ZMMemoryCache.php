@@ -108,7 +108,7 @@ class ZMMemoryCache extends ZMObject implements ZMCache {
      * {@inheritDoc}
      */
     public function getStats() {
-        return array('lastModified' => time(), 'configs' => $this->groups_);
+        return array('lastModified' => time(), 'system' => $this->groups_);
     }
 
 }

@@ -138,7 +138,7 @@ class ZMXcacheCache extends ZMObject implements ZMCache {
      * {@inheritDoc}
      */
     public function getStats() {
-        return array('lastModified' => $this->lastModified(), 'configs' => xcache_get(self::SYSTEM_KEY));
+        return array('lastModified' => $this->lastModified(), 'system' => xcache_get(self::SYSTEM_KEY));
     }
 
 }

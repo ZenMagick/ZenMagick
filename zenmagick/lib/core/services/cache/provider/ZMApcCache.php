@@ -130,7 +130,7 @@ class ZMApcCache extends ZMObject implements ZMCache {
      * {@inheritDoc}
      */
     public function getStats() {
-        return array('lastModified' => $this->lastModified(), 'configs' => apc_fetch(self::SYSTEM_KEY));
+        return array('lastModified' => $this->lastModified(), 'system' => apc_fetch(self::SYSTEM_KEY));
     }
 
 }

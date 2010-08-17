@@ -20,11 +20,15 @@
 ?>
 <?php
 
-  $ii = 0; foreach (ZMCaches::instance()->getCaches() as $key => $cacheInfo) {
-      if ('x' == $request->getParameter('cache_'.++$ii)) {
-          $ok = $cacheInfo['instance']->clear();
-          $msg = 'Clear page cache \'%s\' ' . ($ok ? 'successful' : 'failed');
-          ZMMessages::instance()->add(sprintf(_zm($msg), $cacheInfo['group']), ($ok ? 'msg' : 'error'));
+  foreach (ZMCaches::instance()->getProviders() as $type => $provider) { $stats = $provider->getStats();
+      foreach ($stats['system']['groups'] as $group => $config) { $hash = md5($type.$group.implode($config));
+          if ('x' == $request->getParameter('cache_'.$hash)) {
+              $cache = ZMCaches::instance()->getCache($group, $config, $type);
+            echo 'try: '.$cache;
+              $ok = $cache->clear();
+              $msg = 'Clear page cache \'%s\' ' . ($ok ? 'successful' : 'failed');
+              ZMMessages::instance()->add(sprintf(_zm($msg), $group), ($ok ? 'msg' : 'error'));
+          }
       }
   }
 
@@ -35,24 +39,26 @@
 <form action="<?php echo $admin2->url() ?>" method="POST" onsubmit="return ZenMagick.confirm('<?php _vzm('Clear selected caches?') ?>', this);">
   <fieldset>
     <legend><?php _vzm("Existing Caches") ?></legend>
-      <table cellspacing="0" cellpadding="0">
+      <table class="grid">
         <thead>
           <tr>
-          <th><?php _vzm('Group') ?></th>
-          <th><?php _vzm('Type') ?></th>
-          <th><?php _vzm('Config') ?></th>
+            <th><?php _vzm('Group') ?></th>
+            <th><?php _vzm('Type') ?></th>
+            <th><?php _vzm('Config') ?></th>
           </tr>
         </thead>
         <tbody>
-          <?php $ii = 0; foreach (ZMCaches::instance()->getCaches() as $key => $cacheInfo) { ++$ii; ?>
-            <tr>
-              <td>
-                  <input type="checkbox" id="cache_<?php echo $ii ?>" name="cache_<?php echo $ii ?>" value="x">
-                  <label for="cache_<?php echo $ii ?>"><?php echo $cacheInfo['group'] ?></label>
-              </td>
-              <td><?php echo $cacheInfo['type'] ?></td>
-              <td><?php print_r($cacheInfo['config']) ?></td>
-            </tr>
+          <?php foreach (ZMCaches::instance()->getProviders() as $type => $provider) { $stats = $provider->getStats(); ?>
+            <?php foreach ($stats['system']['groups'] as $group => $config) { $hash = md5($type.$group.implode($config)); ?>
+              <tr>
+                <td>
+                  <input type="checkbox" id="cache_<?php echo $hash ?>" name="cache_<?php echo$hash ?>" value="x">
+                  <label for="cache_<?php echo $hash ?>"><?php echo $group ?></label>
+                </td>
+                <td><?php echo $type ?></td>
+                <td><?php echo var_dump($config) ?></td>
+              </tr>
+            <?php } ?>
           <?php } ?>
         </tbody>
       </table>
