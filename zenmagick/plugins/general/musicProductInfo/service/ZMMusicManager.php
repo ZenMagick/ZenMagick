@@ -131,7 +131,6 @@ class ZMMusicManager extends ZMObject {
      */
     public function getMediaCollectionsForProductId($productId) {
         // get all media for the given product (id)
-        $db = Runtime::getDB();
         $sql = "SELECT media_id FROM " . TABLE_MEDIA_TO_PRODUCTS . " WHERE product_id = :productId";
         $productMediaIdList = ZMRuntime::getDatabase()->query($sql, array('productId' => $productId), TABLE_MEDIA_TO_PRODUCTS);
 
