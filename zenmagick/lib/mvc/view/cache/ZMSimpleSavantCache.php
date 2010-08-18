@@ -38,7 +38,7 @@ class ZMSimpleSavantCache extends ZMObject implements ZMSavantCache {
      */
     function __construct() {
         parent::__construct();
-        $this->cache_ = ZMCaches::instance()->getCache('templates', array(), ZMCache::PERSISTENT);
+        $this->cache_ = ZMCaches::instance()->getCache('templates', array('cacheTTL' => ZMSettings::get('zenmagick.mvc.templates.simpleCache.cacheTTL', 0)), ZMCache::PERSISTENT);
     }
 
     /**
@@ -60,7 +60,7 @@ class ZMSimpleSavantCache extends ZMObject implements ZMSavantCache {
      * {@inheritDoc}
      */
     public function save($tpl, $contents) {
-        if (ZMLangUtils::inArray($tpl, ZMSettings::get('zenmagick.mvc.templates.simpleCache'))) {
+        if (ZMLangUtils::inArray($tpl, ZMSettings::get('zenmagick.mvc.templates.simpleCache.templates'))) {
             $this->cache_->save($contents, $tpl);
         }
     }

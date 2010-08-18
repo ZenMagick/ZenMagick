@@ -217,8 +217,9 @@ Release 0.9.10
 - add initial APC based cache implementation
 - make template caching work
 - add ZMSavantCache and ZMSimpleSavantCache; uses a comma separated list of
-  template names in setting 'zenmagick.mvc.templates.simpleCache' to decide
-	whether a template is cacheable or not
+  template names in setting 'zenmagick.mvc.templates.simpleCache.templates'
+	to decide whether a template is cacheable or not
+- add setting 'zenmagick.mvc.templates.simpleCache.cacheTTL'
 
 
 Release 0.9.9

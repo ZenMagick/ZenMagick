@@ -64,6 +64,9 @@ class ZMFileCache extends ZMObject implements ZMCache {
         // set these, all others are passed through 'as is'
         $config['automaticSerialization'] = true;
         $config['cacheDir'] = ZMSettings::get('zenmagick.core.cache.provider.file.baseDir').$group.DIRECTORY_SEPARATOR;
+        if (isset($config['cacheTTL'])) {
+            $config['lifeTime'] = $config['cacheTTL'];
+        }
         $this->group_ = $group;
         $this->available_ = $this->ensureCacheDir($config['cacheDir']);
         $this->cache_ = new Cache_Lite($config);
