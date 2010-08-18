@@ -15,12 +15,54 @@ $seoClasses = array(
 foreach ($seoClasses as $file) {
     $contents = file_get_contents($loadPath.$file);
 
+    $contents = str_replace('require_once', '//require_once', $contents);
+    $contents = str_replace('&new', 'new', $contents);
+    $contents = str_replace('$this->db =', '//$this->db =', $contents);
+
     $contents = str_replace('$this->db->Execute($insert_group)', '$zmresult = ZMRuntime::getDatabase()->update($insert_group)', $contents);
     $contents = str_replace('$this->db->insert_ID()', '$zmresult[\'lastInsertId\']', $contents);
 
+    // fix auto-increment SQL
+    $contents = str_replace(
+        'INTO `".TABLE_CONFIGURATION_GROUP."` VALUES (\'\', ',
+        'INTO `".TABLE_CONFIGURATION_GROUP."` (configuration_group_title, configuration_group_description, sort_order, visible) VALUES (', 
+        $contents
+    );
+
+    $confColumns = "(configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function)";
+    $insertAfter = "\$sql = str_replace('GROUP_INSERT_ID', \$group_id, \$value['QUERY']);";
+    $contents = str_replace(
+        $insertAfter,
+			  $insertAfter."\n"."\$sql = str_replace('VALUES (\'\',', '".$confColumns." VALUES (', \$sql);",
+        $contents
+    );
+
+    // add category
+    $contents = str_replace('index, product_info, products_new', 'index, category, product_info, products_new', $contents);
+    $contents = str_replace('FILENAME_DEFAULT,', "FILENAME_DEFAULT,\n 'category',", $contents);
+    $contents = str_replace('switch ($page) {', "switch (\$page) {\ncase 'category': \$link .= 'index.php?main_page=category'; break;", $contents);
+    $contents = str_replace('case ($page == FILENAME_DEFAULT', "case ((\$page == FILENAME_DEFAULT || \$page == 'category')", $contents);
+    $contents = str_replace('case ($page == FILENAME_DEFAULT)', "case (\$page == FILENAME_DEFAULT || \$page == 'category')", $contents);
+
     $contents = str_replace('$this->db->Execute($sort_order_query', 'ZMRuntime::getDatabase()->querySingle($sort_order_query', $contents);
+    $contents = str_replace('$this->db->Execute("SELECT cache_expires FROM', 'ZMRuntime::getDatabase()->querySingle("SELECT cache_expires FROM', $contents);
+    $contents = str_replace('$this->cache_query->RecordCount()', 'count($this->cache_query)', $contents);
+    $contents = str_replace('this->cache_query->fields', 'this->cache_query', $contents);
+
+    // loops
+    $vars = array('parent_categories', 'ezpages', 'product', 'manufacturers', 'category', 'article', 'information', 'cache');
+    foreach ($vars as $var) {
+        $contents = preg_replace('/while \(!\$'.$var.'\->EOF\) {/', 'foreach ($'.$var.' as $xxxx) {', $contents);
+        $contents = preg_replace('/while\(!\$'.$var.'\->EOF\){/', 'foreach ($'.$var.' as $xxxx) {', $contents);
+        $contents = str_replace($var.'->fields', 'xxxx', $contents);
+        $contents = str_replace('$'.$var.'->MoveNext()', '//'.$var.'->MoveNext()', $contents);
+    }
+
+    $contents = str_replace('$result = $this->db->Execute', '$result = ZMRuntime::getDatabase()->querySingle', $contents);
+    $contents = str_replace('= $this->db->Execute', '= ZMRuntime::getDatabase()->query', $contents);
     $contents = str_replace('$this->db->Execute', 'ZMRuntime::getDatabase()->update', $contents);
-    $contents = str_replace('$result->RecordCount()', 'count($result)', $contents);
+    $contents = str_replace('$result->RecordCount()', 'count($result[\'rows\'])', $contents);
+    $contents = str_replace('$cache->RecordCount()', 'count($cache)', $contents);
     $contents = str_replace('$result->fields[', '$result[', $contents);
     $contents = str_replace('$sort->fields[', '$sort[', $contents);
     file_put_contents($targetPath.basename($file), $contents);

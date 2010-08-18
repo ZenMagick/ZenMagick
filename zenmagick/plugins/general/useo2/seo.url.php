@@ -23,7 +23,7 @@
 	+----------------------------------------------------------------------+
 */
 
-	require_once(dirname(__FILE__) . '/seo.install.php');
+	//require_once(dirname(__FILE__) . '/seo.install.php');
 
 	class SEO_URL{
 		var $cache;
@@ -46,9 +46,9 @@
 		function SEO_URL($languages_id=''){
 			global $session_started;
 
-			$this->installer = &new SEO_URL_INSTALLER();
+			$this->installer = new SEO_URL_INSTALLER();
 
-			$this->db = &$GLOBALS['db'];
+			//$this->db = &$GLOBALS['db'];
 
 			if ($languages_id == '') $languages_id = $_SESSION['languages_id'];
 
@@ -58,6 +58,7 @@
 
 			$seo_pages = array(
 				FILENAME_DEFAULT,
+ 'category',
 				FILENAME_PRODUCT_INFO,
 				FILENAME_POPUP_IMAGE,
 				FILENAME_PRODUCT_REVIEWS,
@@ -189,6 +190,7 @@
 			} else {
 				// support SEO pages with no parameters
 				switch ($page) {
+case 'category': $link .= 'index.php?main_page=category'; break;
 					case FILENAME_NEWS_RSS:
 						$link .= $this->make_url($page, FILENAME_NEWS_INDEX, 'news_rss_feed', '', '.xml', $separator);
 						break;
@@ -410,7 +412,7 @@
 					break;
 				case 'cPath':
 					switch(true){
-						case ($page == FILENAME_DEFAULT):
+						case (($page == FILENAME_DEFAULT || $page == 'category')):
 							$url = $this->make_url($page, $this->get_category_name($p2[1]), $p2[0], $p2[1], '.html', $separator);
 							break;
 						case ($this->is_product_string($params)):
@@ -425,7 +427,7 @@
 					break;
 				case 'manufacturers_id':
 					switch(true){
-						case ($page == FILENAME_DEFAULT && !$this->is_cPath_string($params) && !$this->is_product_string($params)):
+						case (($page == FILENAME_DEFAULT || $page == 'category') && !$this->is_cPath_string($params) && !$this->is_product_string($params)):
 							$url = $this->make_url($page, $this->get_manufacturer_name($p2[1]), $p2[0], $p2[1], '.html', $separator);
 							break;
 						case ($page == FILENAME_PRODUCT_INFO):
@@ -510,7 +512,7 @@
 						FROM " . TABLE_INFO_MANAGER . "
 						WHERE pages_id = " . (int)$pages_id . "
 						LIMIT 1";
-				$result = ZMRuntime::getDatabase()->update($sql);
+				$result = ZMRuntime::getDatabase()->querySingle($sql);
 				$pages_title = $this->strip($result['pages_title']);
 				$this->cache['INFO_MANAGER_PAGES'][$pages_id] = $pages_title;
 				$return = $pages_title;
@@ -536,7 +538,7 @@
 						WHERE article_id = " . (int)$article_id . "
 						AND language_id = " . (int)$this->languages_id . "
 						LIMIT 1";
-				$result = ZMRuntime::getDatabase()->update($sql);
+				$result = ZMRuntime::getDatabase()->querySingle($sql);
 				$news_article_name = $this->strip($result['news_article_name']);
 				$this->cache['NEWS_ARTICLES'][$article_id] = $news_article_name;
 				$return = $news_article_name;
@@ -569,7 +571,7 @@
 						WHERE products_id = " . (int)$pID . "
 						AND language_id = " . (int)$this->languages_id . "
 						LIMIT 1";
-				$result = ZMRuntime::getDatabase()->update($sql);
+				$result = ZMRuntime::getDatabase()->querySingle($sql);
 				$pName = $this->strip($result['pName']);
 				$this->cache['PRODUCTS'][$pID] = $pName;
 				$return = $pName;
@@ -606,7 +608,7 @@
 								AND cd.categories_id='".(int)$single_cID."'
 								AND cd.language_id='".(int)$this->languages_id."'
 								LIMIT 1";
-						$result = ZMRuntime::getDatabase()->update($sql);
+						$result = ZMRuntime::getDatabase()->querySingle($sql);
 						$cName = $this->not_null($result['pName']) ? $result['pName'] . ' ' . $result['cName'] : $result['cName'];
 						break;
 					default:
@@ -615,7 +617,7 @@
 								WHERE categories_id='".(int)$single_cID."'
 								AND language_id='".(int)$this->languages_id."'
 								LIMIT 1";
-						$result = ZMRuntime::getDatabase()->update($sql);
+						$result = ZMRuntime::getDatabase()->querySingle($sql);
 						$cName = $result['cName'];
 						break;
 				}
@@ -649,7 +651,7 @@
 						FROM ".TABLE_MANUFACTURERS."
 						WHERE manufacturers_id='".(int)$mID."'
 						LIMIT 1";
-				$result = ZMRuntime::getDatabase()->update($sql);
+				$result = ZMRuntime::getDatabase()->querySingle($sql);
 				$mName = $this->strip($result['mName']);
 				$this->cache['MANUFACTURERS'][$mID] = $mName;
 				$return = $mName;
@@ -679,7 +681,7 @@
 						FROM ".TABLE_EZPAGES."
 						WHERE pages_id='".(int)$ezpID."'
 						LIMIT 1";
-				$result = ZMRuntime::getDatabase()->update($sql);
+				$result = ZMRuntime::getDatabase()->querySingle($sql);
 				$ezpName = $this->strip($result['ezpName']);
 				$this->cache['EZPAGES'][$ezpID] = $ezpName;
 				$return = $ezpName;
@@ -722,18 +724,18 @@
 	function GetParentCategories(&$categories, $categories_id) {
 		$sql = "SELECT parent_id FROM " . TABLE_CATEGORIES . " WHERE categories_id = " . (int)$categories_id;
 
-		$parent_categories = ZMRuntime::getDatabase()->update($sql);
+		$parent_categories = ZMRuntime::getDatabase()->query($sql);
 
-		while (!$parent_categories->EOF) {
-			if ($parent_categories->fields['parent_id'] == 0) return true;
+		foreach ($parent_categories as $xxxx) {
+			if ($xxxx['parent_id'] == 0) return true;
 
-			$categories[sizeof($categories)] = $parent_categories->fields['parent_id'];
+			$categories[sizeof($categories)] = $xxxx['parent_id'];
 
-			if ($parent_categories->fields['parent_id'] != $categories_id) {
-				$this->GetParentCategories($categories, $parent_categories->fields['parent_id']);
+			if ($xxxx['parent_id'] != $categories_id) {
+				$this->GetParentCategories($categories, $xxxx['parent_id']);
 			}
 
-			$parent_categories->MoveNext();
+			//parent_categories->MoveNext();
 		}
 	}
 
@@ -892,13 +894,13 @@
 		$sql = "SELECT pages_id as id, pages_title as name
 				FROM ".TABLE_EZPAGES."
 				WHERE language_id = '".(int)$this->languages_id."'";
-		$ezpages = ZMRuntime::getDatabase()->update($sql);
+		$ezpages = ZMRuntime::getDatabase()->query($sql);
 		$ezpages_cache = '';
-		while (!$ezpages->EOF) {
-			$define = 'define(\'EZPAGES_NAME_' . $ezpages->fields['id'] . '\', \'' . $this->strip($ezpages->fields['name']) . '\');';
+		foreach ($ezpages as $xxxx) {
+			$define = 'define(\'EZPAGES_NAME_' . $xxxx['id'] . '\', \'' . $this->strip($xxxx['name']) . '\');';
 			$ezpages_cache .= $define . "\n";
 			eval("$define");
-			$product->MoveNext();
+			//product->MoveNext();
 		}
 		$this->save_cache($this->cache_file . 'ezpages', $ezpages_cache, 'EVAL', 1 , 1);
 		unset($ezpages_cache);
@@ -921,13 +923,13 @@
 				ON p.products_id=pd.products_id
 				AND pd.language_id='".(int)$this->languages_id."'
 				WHERE p.products_status='1'";
-		$product = ZMRuntime::getDatabase()->update($sql);
+		$product = ZMRuntime::getDatabase()->query($sql);
 		$prod_cache = '';
-		while (!$product->EOF) {
-			$define = 'define(\'PRODUCT_NAME_' . $product->fields['id'] . '\', \'' . $this->strip($product->fields['name']) . '\');';
+		foreach ($product as $xxxx) {
+			$define = 'define(\'PRODUCT_NAME_' . $xxxx['id'] . '\', \'' . $this->strip($xxxx['name']) . '\');';
 			$prod_cache .= $define . "\n";
 			eval("$define");
-			$product->MoveNext();
+			//product->MoveNext();
 		}
 		$this->save_cache($this->cache_file . 'products', $prod_cache, 'EVAL', 1 , 1);
 		unset($prod_cache);
@@ -949,13 +951,13 @@
 				LEFT JOIN ".TABLE_MANUFACTURERS_INFO." md
 				ON m.manufacturers_id=md.manufacturers_id
 				AND md.languages_id='".(int)$this->languages_id."'";
-		$manufacturers = ZMRuntime::getDatabase()->update($sql);
+		$manufacturers = ZMRuntime::getDatabase()->query($sql);
 		$man_cache = '';
-		while (!$manufacturers->EOF) {
+		foreach ($manufacturers as $xxxx) {
 			$define = 'define(\'MANUFACTURER_NAME_' . $manufacturer->fields['id'] . '\', \'' . $this->strip($manufacturer->fields['name']) . '\');';
 			$man_cache .= $define . "\n";
 			eval("$define");
-			$manufacturers->MoveNext();
+			//manufacturers->MoveNext();
 		}
 		$this->save_cache($this->cache_file . 'manufacturers', $man_cache, 'EVAL', 1 , 1);
 		unset($man_cache);
@@ -989,15 +991,15 @@
 							WHERE language_id='".(int)$this->languages_id."'";
 					break;
 			} # end switch
-		$category = ZMRuntime::getDatabase()->update($sql);
+		$category = ZMRuntime::getDatabase()->query($sql);
 		$cat_cache = '';
-		while (!$category->EOF) {
-			$id = $this->get_full_cPath($category->fields['id'], $single_cID);
-			$name = $this->not_null($category->fields['pName']) ? $category->fields['pName'] . ' ' . $category->fields['cName'] : $category->fields['cName'];
+		foreach ($category as $xxxx) {
+			$id = $this->get_full_cPath($xxxx['id'], $single_cID);
+			$name = $this->not_null($xxxx['pName']) ? $xxxx['pName'] . ' ' . $xxxx['cName'] : $xxxx['cName'];
 			$define = 'define(\'CATEGORY_NAME_' . $id . '\', \'' . $this->strip($name) . '\');';
 			$cat_cache .= $define . "\n";
 			eval("$define");
-			$category->MoveNext();
+			//category->MoveNext();
 		}
 		$this->save_cache($this->cache_file . 'categories', $cat_cache, 'EVAL', 1 , 1);
 		unset($cat_cache);
@@ -1017,13 +1019,13 @@
 			$sql = "SELECT article_id as id, news_article_name as name
 					FROM ".TABLE_NEWS_ARTICLES_TEXT."
 					WHERE language_id = '".(int)$this->languages_id."'";
-			$article = ZMRuntime::getDatabase()->update($sql);
+			$article = ZMRuntime::getDatabase()->query($sql);
 			$article_cache = '';
-			while (!$article->EOF) {
-				$define = 'define(\'NEWS_ARTICLE_NAME_' . $article->fields['id'] . '\', \'' . $this->strip($article->fields['name']) . '\');';
+			foreach ($article as $xxxx) {
+				$define = 'define(\'NEWS_ARTICLE_NAME_' . $xxxx['id'] . '\', \'' . $this->strip($xxxx['name']) . '\');';
 				$article_cache .= $define . "\n";
 				eval("$define");
-				$article->MoveNext();
+				//article->MoveNext();
 			}
 			$this->save_cache($this->cache_file . 'news_articles', $article_cache, 'EVAL', 1 , 1);
 			unset($article_cache);
@@ -1042,13 +1044,13 @@
 		if ( !$is_cached || $is_expired ) { // it's not cached so create it
 			$sql = "SELECT pages_id as id, pages_title as name
 					FROM ".TABLE_INFO_MANAGER;
-			$information = ZMRuntime::getDatabase()->update($sql);
+			$information = ZMRuntime::getDatabase()->query($sql);
 			$information_cache = '';
-			while (!$information->EOF) {
-				$define = 'define(\'INFO_MANAGER_PAGE_NAME_' . $information->fields['id'] . '\', \'' . $this->strip($information->fields['name']) . '\');';
+			foreach ($information as $xxxx) {
+				$define = 'define(\'INFO_MANAGER_PAGE_NAME_' . $xxxx['id'] . '\', \'' . $this->strip($xxxx['name']) . '\');';
 				$information_cache .= $define . "\n";
 				eval("$define");
-				$information->MoveNext();
+				//information->MoveNext();
 			}
 			$this->save_cache($this->cache_file . 'info_manager', $information_cache, 'EVAL', 1 , 1);
 			unset($information_cache);
@@ -1113,20 +1115,20 @@
 		$global = ( $name == 'GLOBAL' ? true : false ); // was GLOBAL passed or is using the default?
 		switch($name){
 			case 'GLOBAL':
-				$cache = ZMRuntime::getDatabase()->update("SELECT ".$select_list." FROM " . TABLE_SEO_CACHE . " WHERE cache_language_id='".(int)$this->languages_id."' AND cache_global='1'");
+				$cache = ZMRuntime::getDatabase()->query("SELECT ".$select_list." FROM " . TABLE_SEO_CACHE . " WHERE cache_language_id='".(int)$this->languages_id."' AND cache_global='1'");
 				break;
 			default:
-				$cache = ZMRuntime::getDatabase()->update("SELECT ".$select_list." FROM " . TABLE_SEO_CACHE . " WHERE cache_id='".md5($name)."' AND cache_language_id='".(int)$this->languages_id."'");
+				$cache = ZMRuntime::getDatabase()->query("SELECT ".$select_list." FROM " . TABLE_SEO_CACHE . " WHERE cache_id='".md5($name)."' AND cache_language_id='".(int)$this->languages_id."'");
 				break;
 		}
-		$num_rows = $cache->RecordCount();
+		$num_rows = count($cache);
 		if ($num_rows){
 			$container = array();
-			while(!$cache->EOF){
-				$cache_name = $cache->fields['cache_name'];
-				if ( $cache->fields['cache_expires'] > date("Y-m-d H:i:s") ) {
-					$cache_data = ( $cache->fields['cache_gzip'] == 1 ? gzinflate(base64_decode($cache->fields['cache_data'])) : stripslashes($cache->fields['cache_data']) );
-					switch($cache->fields['cache_method']){
+			foreach ($cache as $xxxx) {
+				$cache_name = $xxxx['cache_name'];
+				if ( $xxxx['cache_expires'] > date("Y-m-d H:i:s") ) {
+					$cache_data = ( $xxxx['cache_gzip'] == 1 ? gzinflate(base64_decode($xxxx['cache_data'])) : stripslashes($xxxx['cache_data']) );
+					switch($xxxx['cache_method']){
 						case 'EVAL': // must be PHP code
 							eval("$cache_data");
 							break;
@@ -1146,7 +1148,7 @@
 					if ($global) $this->data['GLOBAL'][$cache_name] = $container['GLOBAL'][$cache_name];
 					else $this->data[$cache_name] = $container[$cache_name];
 				}
-				$cache->MoveNext();
+				//cache->MoveNext();
 			} # end while ($cache = $this->DB->FetchArray($this->cache_query))
 			unset($cache_data);
 			switch (true) {
@@ -1213,10 +1215,10 @@
  * @param boolean $is_expired NOTE: passed by reference
  */
 	function is_cached($name, &$is_cached, &$is_expired){ // NOTE: $is_cached and $is_expired is passed by reference !!
-		$this->cache_query = ZMRuntime::getDatabase()->update("SELECT cache_expires FROM " . TABLE_SEO_CACHE . " WHERE cache_id='".md5($name)."' AND cache_language_id='".(int)$this->languages_id."' LIMIT 1");
-		$is_cached = ( $this->cache_query->RecordCount() > 0 ? true : false );
+		$this->cache_query = ZMRuntime::getDatabase()->querySingle("SELECT cache_expires FROM " . TABLE_SEO_CACHE . " WHERE cache_id='".md5($name)."' AND cache_language_id='".(int)$this->languages_id."' LIMIT 1");
+		$is_cached = ( count($this->cache_query) > 0 ? true : false );
 		if ($is_cached){
-			$is_expired = ( $this->cache_query->fields['cache_expires'] <= date("Y-m-d H:i:s") ? true : false );
+			$is_expired = ( $this->cache_query['cache_expires'] <= date("Y-m-d H:i:s") ? true : false );
 			unset($check);
 		}
 	}# end function is_cached()
