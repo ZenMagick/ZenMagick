@@ -24,10 +24,10 @@
 /**
  * CKEditor textarea form widget.
  *
- * @package org.zenmagick.plugins.ckeditor
+ * @package org.zenmagick.plugins.ckEditor
  * @author DerManoMann
  */
-class ZMCKEditorFormWidget extends ZMTextAreaFormWidget {
+class ZMCkEditorFormWidget extends ZMTextAreaFormWidget {
     private $plugin_;
 
 
@@ -36,7 +36,7 @@ class ZMCKEditorFormWidget extends ZMTextAreaFormWidget {
      */
     function __construct() {
         parent::__construct();
-        $this->plugin_ = ZMPlugins::instance()->getPluginForId('cKEditor');
+        $this->plugin_ = ZMPlugins::instance()->getPluginForId('ckEditor');
     }
 
     /**

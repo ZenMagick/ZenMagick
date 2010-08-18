@@ -114,6 +114,8 @@ class ZMDashboard {
         foreach ($obj as $name => $value) {
             $config[$name] = $value;
         }
+        // and again, just in case
+        $config = array_merge(array('layout' => "col2l", 'widgets' => array()), $config);
         return $config;
     }
 

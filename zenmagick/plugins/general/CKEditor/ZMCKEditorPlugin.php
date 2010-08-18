@@ -24,10 +24,10 @@
 /**
  * CKEditor plugin.
  *
- * @package org.zenmagick.plugins.ckeditor
+ * @package org.zenmagick.plugins.ckEditor
  * @author DerManoMann
  */
-class ZMCKEditorPlugin extends Plugin {
+class ZMCkEditorPlugin extends Plugin {
 
     /**
      * Create new instance.
@@ -50,9 +50,9 @@ class ZMCKEditorPlugin extends Plugin {
      */
     public function init() {
         parent::init();
-        ZMSettings::append('editorList', 'CKEditor:CKEditorFormWidget');
+        ZMSettings::append('editorList', 'CKEditor:CkEditorFormWidget');
         if (ZMLangUtils::asBoolean($this->get('defaultEditor'))) {
-            ZMSettings::set('apps.store.admin.defaultEditor', 'CKEditorFormWidget');
+            ZMSettings::set('apps.store.admin.defaultEditor', 'CkEditorFormWidget');
         }
     }
 
