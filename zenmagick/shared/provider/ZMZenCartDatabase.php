@@ -34,8 +34,7 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
     private static $typeMap = array('boolean' => 'integer', 'blob' => 'date', 'datetime' => 'date');
     private $db_;
     private $config_;
-    private $queriesCount;
-    private $queriesTime;
+    private $queriesMap_;
     private $mapper;
     private $debug;
 
@@ -58,8 +57,7 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
             $this->db_->connect($conf['host'], $conf['username'], $conf['password'], $conf['database'], USE_PCONNECT, false);
         }
         $this->config_ = $conf;
-        $this->queriesCount = 0;
-        $this->queriesTime = 0;
+        $this->queriesMap_ = array();
         $this->mapper = ZMDbTableMapper::instance();
         $this->debug = false;
         if (null != $conf['initQuery']) {
@@ -105,8 +103,13 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
      */
     public function getStats() {
         $stats = array();
-        $stats['time'] = $this->queriesTime;
-        $stats['queries'] = $this->queriesCount;
+        $time = 0;
+        foreach ($this->queriesMap_ as $query) {
+            $time += $query['time'];
+        }
+        $stats['time'] = $time;
+        $stats['queries'] = count($this->queriesMap_);
+        $stats['details'] = $this->queriesMap_;
         return $stats;
     }
 
@@ -163,7 +166,6 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
             ZMLogging::instance()->log($sql, ZMLogging::TRACE);
         }
         $rs = $this->db_->Execute($sql);
-        ++$this->queriesCount;
 
         $result = $rs->fields;
         if (null !== $mapping && ZMDatabase::MODEL_RAW != $modelClass) {
@@ -174,6 +176,7 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
         }
 
         $this->queriesTime += $this->getExecutionTime($startTime);
+        $this->queriesMap_[] = array('time' => $this->getExecutionTime($startTime), 'sql' => $sql);
         return $result;
     }
 
@@ -215,7 +218,6 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
             ZMLogging::instance()->log($sql, ZMLogging::TRACE);
         }
         $this->db_->Execute($sql);
-        ++$this->queriesCount;
 
         foreach ($mapping as $property => $field) {
             if ($field['auto']) {
@@ -224,6 +226,7 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
         }
 
         $this->queriesTime += $this->getExecutionTime($startTime);
+        $this->queriesMap_[] = array('time' => $this->getExecutionTime($startTime), 'sql' => $sql);
         return $model;
     }
 
@@ -259,8 +262,8 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
             ZMLogging::instance()->log($sql, ZMLogging::TRACE);
         }
         $this->db_->Execute($sql);
-        ++$this->queriesCount;
         $this->queriesTime += $this->getExecutionTime($startTime);
+        $this->queriesMap_[] = array('time' => $this->getExecutionTime($startTime), 'sql' => $sql);
         return array('rows' => mysql_affected_rows($this->db_->link), 'lastInsertId' => $this->db_->Insert_ID());
     }
 
@@ -310,8 +313,8 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
             ZMLogging::instance()->log($sql, ZMLogging::TRACE);
         }
         $this->db_->Execute($sql);
-        ++$this->queriesCount;
         $this->queriesTime += $this->getExecutionTime($startTime);
+        $this->queriesMap_[] = array('time' => $this->getExecutionTime($startTime), 'sql' => $sql);
     }
 
     /**
@@ -353,8 +356,8 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
             ZMLogging::instance()->log($sql, ZMLogging::TRACE);
         }
         $this->db_->Execute($sql);
-        ++$this->queriesCount;
         $this->queriesTime += $this->getExecutionTime($startTime);
+        $this->queriesMap_[] = array('time' => $this->getExecutionTime($startTime), 'sql' => $sql);
     }
 
     /**
@@ -392,7 +395,6 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
             ZMLogging::instance()->log($sql, ZMLogging::TRACE);
         }
         $rs = $this->db_->Execute($sql);
-        ++$this->queriesCount;
         while (!$rs->EOF) {
             $result = $rs->fields;
             if (null !== $mapping && ZMDatabase::MODEL_RAW != $modelClass) {
@@ -407,6 +409,7 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
         }
 
         $this->queriesTime += $this->getExecutionTime($startTime);
+        $this->queriesMap_[] = array('time' => $this->getExecutionTime($startTime), 'sql' => $sql);
         return $results;
     }
 
