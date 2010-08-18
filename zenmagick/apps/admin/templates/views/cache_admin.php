@@ -18,21 +18,6 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 ?>
-<?php
-
-  foreach (ZMCaches::instance()->getProviders() as $type => $provider) { $stats = $provider->getStats();
-      foreach ($stats['system']['groups'] as $group => $config) { $hash = md5($type.$group.implode($config));
-          if ('x' == $request->getParameter('cache_'.$hash)) {
-              $cache = ZMCaches::instance()->getCache($group, $config, $type);
-            echo 'try: '.$cache;
-              $ok = $cache->clear();
-              $msg = 'Clear page cache \'%s\' ' . ($ok ? 'successful' : 'failed');
-              ZMMessages::instance()->add(sprintf(_zm($msg), $group), ($ok ? 'msg' : 'error'));
-          }
-      }
-  }
-
-?>
 
 <?php zm_title($this, _zm('Cache Admin')) ?>
 
@@ -48,7 +33,7 @@
           </tr>
         </thead>
         <tbody>
-          <?php foreach (ZMCaches::instance()->getProviders() as $type => $provider) { $stats = $provider->getStats(); ?>
+          <?php foreach ($providers as $type => $provider) { $stats = $provider->getStats(); ?>
             <?php foreach ($stats['system']['groups'] as $group => $config) { $hash = md5($type.$group.implode($config)); ?>
               <tr>
                 <td>

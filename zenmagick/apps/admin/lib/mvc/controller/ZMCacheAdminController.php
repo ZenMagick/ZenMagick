@@ -26,6 +26,7 @@
  *
  * @author DerManoMann
  * @package zenmagick.store.admin.mvc.controller
+ * @todo move hash calculation into controller
  */
 class ZMCacheAdminController extends ZMController {
 
@@ -47,6 +48,13 @@ class ZMCacheAdminController extends ZMController {
     /**
      * {@inheritDoc}
      */
+    public function getViewData($request) {
+        return array('providers' => ZMCaches::instance()->getProviders());
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function processGet($request) {
         return $this->findView();
     }
@@ -59,9 +67,20 @@ class ZMCacheAdminController extends ZMController {
             return $this->findView('success-demo');
         }
 
-        //TODO:
+        foreach (ZMCaches::instance()->getProviders() as $type => $provider) {
+            $stats = $provider->getStats();
+            foreach ($stats['system']['groups'] as $group => $config) {
+                $hash = md5($type.$group.implode($config));
+                if ('x' == $request->getParameter('cache_'.$hash)) {
+                    $cache = ZMCaches::instance()->getCache($group, $config, $type);
+                    $result = $cache->clear();
+                    $msg = 'Clear page cache \'%s\' ' . ($result ? 'successful' : 'failed');
+                    ZMMessages::instance()->add(sprintf(_zm($msg), $type.'/'.$group), ($result ? 'success' : 'error'));
+                }
+            }
+        }
 
-        return $this->findView();
+        return $this->findView('success');
     }
 
 }
