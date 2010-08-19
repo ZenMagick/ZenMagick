@@ -181,7 +181,7 @@
 <div id="b_installation">
   <h2><?php _vzm("ZenMagick Installation") ?> <a class="btn" href="<?php echo $admin2->url() ?>"><?php _vzm("Refresh Page") ?></a></h2>
 
-  <form action="<?php echo $admin2->url() ?>" method="POST" onsubmit="return zenmagick.confirm('Update File Patches?', this);">
+  <form action="<?php echo $admin2->url() ?>" method="POST" onsubmit="return ZenMagick.confirm('Update File Patches?', this);">
     <fieldset class="patches">
       <legend><?php _vzm("ZenMagick File Patches") ?></legend>
       <input type="hidden" name="update" value="file">
@@ -189,7 +189,7 @@
     </fieldset>
   </form>
 
-  <form action="<?php echo $admin2->url() ?>" method="POST" onsubmit="return zenmagick.confirm('Update SQL Patches?', this);">
+  <form action="<?php echo $admin2->url() ?>" method="POST" onsubmit="return ZenMagick.confirm('Update SQL Patches?', this);">
     <fieldset class="patches">
       <legend><?php _vzm("ZenMagick SQL Extensions") ?></legend>
       <input type="hidden" name="update" value="sql">
@@ -200,7 +200,7 @@
     </fieldset>
   </form>
 
-  <form action="<?php echo $admin2->url() ?>" method="POST" onsubmit="return zenmagick.confirm('Update selected optimisations?\n(This might take a while...)', this);">
+  <form action="<?php echo $admin2->url() ?>" method="POST" onsubmit="return ZenMagick.confirm('Update selected optimisations?\n(This might take a while...)', this);">
     <fieldset id="optimisation">
     <legend><?php _vzm("Optimising ZenMagick") ?></legend>
         <input type="hidden" id="optimize" name="optimize" value="x">
