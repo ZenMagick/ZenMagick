@@ -65,6 +65,12 @@ foreach ($seoClasses as $file) {
     $contents = str_replace('$cache->RecordCount()', 'count($cache)', $contents);
     $contents = str_replace('$result->fields[', '$result[', $contents);
     $contents = str_replace('$sort->fields[', '$sort[', $contents);
+
+    // other fixes
+    $contents = str_replace('var $installer;', 'var $installer;'."\n".'var $keep_in_memory = false;', $contents);
+    $contents = str_replace('ereg_replace($pattern', 'preg_replace(\'/\'.$pattern.\'/\'', $contents);
+    $contents = str_replace("ereg_replace( ' +'", "preg_replace('/ +/'", $contents);
+
     file_put_contents($targetPath.basename($file), $contents);
 }
 

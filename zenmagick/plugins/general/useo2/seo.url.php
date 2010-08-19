@@ -42,6 +42,7 @@
 		var $uri_parsed;
 		var $db;
 		var $installer;
+var $keep_in_memory = false;
 
 		function SEO_URL($languages_id=''){
 			global $session_started;
@@ -779,9 +780,9 @@ case 'category': $link .= 'index.php?main_page=category'; break;
 		$pattern = $this->attributes['SEO_REMOVE_ALL_SPEC_CHARS'] == 'true'
 						?	"([^[:alnum:]])+"
 						:	"([[:punct:]])+";
-		$anchor = ereg_replace($pattern, '', strtolower($string));
+		$anchor = preg_replace('/'.$pattern.'/', '', strtolower($string));
 		$pattern = "([[:space:]]|[[:blank:]])+";
-		$anchor = ereg_replace($pattern, '-', $anchor);
+		$anchor = preg_replace('/'.$pattern.'/', '-', $anchor);
 		return $this->short_name($anchor); // return the short filtered name
 	} # end function
 
@@ -1261,7 +1262,7 @@ case 'category': $link .= 'index.php?main_page=category'; break;
 	function need_redirect() {
 		$this->need_redirect = ((preg_match('/main_page=/i', $this->uri)) ? true : false);
 		// QUICK AND DIRTY WAY TO DISABLE REDIRECTS ON PAGES WHEN SEO_URLS_ONLY_IN is enabled IMAGINADW.COM
-		$sefu = explode(",", ereg_replace( ' +', '', SEO_URLS_ONLY_IN ));
+		$sefu = explode(",", preg_replace('/ +/', '', SEO_URLS_ONLY_IN ));
 		if ((SEO_URLS_ONLY_IN!="") && !in_array($_GET['main_page'],$sefu) ) $this->need_redirect = false;
 		// IMAGINADW.COM
 

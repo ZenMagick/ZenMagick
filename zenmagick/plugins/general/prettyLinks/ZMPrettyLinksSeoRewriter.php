@@ -42,9 +42,9 @@ class ZMPrettyLinksSeoRewriter implements ZMSeoRewriter {
         $requestId = $args['requestId'];
         $params = $args['params'];
         $secure = $args['secure'];
-        $addSessionId = $args['addSessionId'];
-        $isStatic = $args['isStatic'];
-        $useContext = array_key_exists('useContext', $args) ? $args['useContext'] : true;
+        $addSessionId = isset($args['addSessionId']) ? $args['addSessionId'] : true;
+        $isStatic = isset($args['isStatic']) ? $args['isStatic'] : false;
+        $useContext = isset($args['useContext']) ? $args['useContext'] : true;
 
         if (null != ZMSettings::get('plugins.prettyLinks.seoEnabled') && !ZMLangUtils::inArray($requestId, ZMSettings::get('plugins.prettyLinks.seoEnabled'))) {
             // not doing anything

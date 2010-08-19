@@ -42,9 +42,9 @@ class ZMUseo2SeoRewriter implements ZMSeoRewriter {
         $requestId = $args['requestId'];
         $params = $args['params'];
         $secure = $args['secure'];
-        $addSessionId = $args['addSessionId'];
-        $isStatic = $args['isStatic'];
-        $useContext = array_key_exists('useContext', $args) ? $args['useContext'] : true;
+        $addSessionId = isset($args['addSessionId']) ? $args['addSessionId'] : true;
+        $isStatic = isset($args['isStatic']) ? $args['isStatic'] : false;
+        $useContext = isset($args['useContext']) ? $args['useContext'] : true;
 
         /* QUICK AND DIRTY WAY TO DISABLE REDIRECTS ON PAGES WHEN SEO_URLS_ONLY_IN is enabled IMAGINADW.COM */
         $sefu = explode(",", preg_replace('/ +/', '', SEO_URLS_ONLY_IN));
@@ -52,7 +52,7 @@ class ZMUseo2SeoRewriter implements ZMSeoRewriter {
             return null;
         }
         
-        if (!isset($GLOBALS['seo_urls']) && !is_object($GLOBALS['seo_urls'])) {
+        if (!isset($GLOBALS['seo_urls']) || !is_object($GLOBALS['seo_urls'])) {
             $GLOBALS['seo_urls'] = new SEO_URL($_SESSION['languages_id']);
         }
 

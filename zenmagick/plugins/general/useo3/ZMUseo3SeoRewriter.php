@@ -42,9 +42,9 @@ class ZMUseo3SeoRewriter implements ZMSeoRewriter {
         $requestId = $args['requestId'];
         $params = $args['params'];
         $secure = $args['secure'];
-        $addSessionId = $args['addSessionId'];
-        $isStatic = $args['isStatic'];
-        $useContext = array_key_exists('useContext', $args) ? $args['useContext'] : true;
+        $addSessionId = isset($args['addSessionId']) ? $args['addSessionId'] : true;
+        $isStatic = isset($args['isStatic']) ? $args['isStatic'] : false;
+        $useContext = isset($args['useContext']) ? $args['useContext'] : true;
 
         if ($requestId == 'category') { $requestId = 'index'; }
         if (isset($GLOBALS['SeoUrl']) && (null == ZMSettings::get('plugins.useo3.seoEnabled') || ZMLangUtils::inArray($view, ZMSettings::get('plugins.useo3.seoEnabled')))) {
