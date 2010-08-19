@@ -45,7 +45,7 @@
     @ini_set("register_globals", false);
 
     // load initial code
-    if (!IS_ADMIN_FLAG && file_exists(ZM_BASE_PATH.'core.php')) {
+    if (defined('USE_CORE_PHP') && USE_CORE_PHP && file_exists(ZM_BASE_PATH.'core.php')) {
         require ZM_BASE_PATH.'core.php';
         spl_autoload_register('ZMLoader::resolve');
     } else {

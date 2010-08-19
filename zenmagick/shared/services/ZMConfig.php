@@ -329,7 +329,7 @@ class ZMConfig extends ZMObject {
     public function loadAll() {
         $map = array();
         $sql = "SELECT configuration_key, configuration_value FROM " . TABLE_CONFIGURATION;
-        foreach(ZMRuntime::getDatabase()->query($sql) as $result) {
+        foreach (ZMRuntime::getDatabase()->query($sql) as $result) {
             $map[$result['configuration_key']] = $result['configuration_value'];
         }
 

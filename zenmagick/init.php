@@ -27,6 +27,8 @@
 
     // want to share code from here
     define('ZM_SHARED', 'shared');
+    // DO use core.php
+    define('USE_CORE_PHP', true);
 
     include 'bootstrap.php';
 

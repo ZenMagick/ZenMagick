@@ -25,6 +25,8 @@
 
   // share code
   define('ZM_SHARED', 'shared');
+  // do NOT use core.php
+  define('USE_CORE_PHP', false);
 
   // pre-load a couple zen-cart files needed
   define('ZC_INSTALL_PATH', dirname(dirname(dirname(dirname(dirname(__FILE__))))).DIRECTORY_SEPARATOR);
