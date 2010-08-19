@@ -43,7 +43,7 @@
     </table>
     <p>
       <input type="hidden" name="groupId" value="<?php echo $group->getId() ?>">
-      <input type="submit" value="<?php _vzm('Update') ?>">
+      <input type="submit" class="<?php echo $buttonClasses ?>" value="<?php _vzm('Update') ?>">
     </p>
  </fieldset>
 </form>

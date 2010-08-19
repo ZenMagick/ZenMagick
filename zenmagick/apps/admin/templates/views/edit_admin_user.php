@@ -52,7 +52,7 @@
     </tr>
   </table>
   <p>
-    <input type="submit" value="<?php _vzm((0 < $adminUser->getAdminUserId()) ? "Update" : "Create") ?>">
-    <a href="<?php echo $admin2->url('admin_users') ?>"><?php _vzm('Cancel') ?></a>
+    <input type="submit" class="<?php echo $buttonClasses ?>" value="<?php _vzm((0 < $adminUser->getAdminUserId()) ? "Update" : "Create") ?>">
+    <a class="<?php echo $buttonClasses ?>" href="<?php echo $admin2->url('admin_users') ?>"><?php _vzm('Cancel') ?></a>
   </p>
 </form>

@@ -34,5 +34,5 @@
       <p><label for="<?php echo $widget->getId() ?>"><?php echo $widget->getTitle() ?></label> <?php echo $widget->render($request) ?></p>
     <?php } ?>
   </fieldset>
-  <p><input type="submit" value="<?php _vzm('Update') ?>") ?>
+  <p><input class="<?php echo $buttonClasses ?>" type="submit" value="<?php _vzm('Update') ?>") ?>
 </form>

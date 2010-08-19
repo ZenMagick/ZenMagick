@@ -51,15 +51,15 @@
           <input type="hidden" name="group" value="<?php echo $plugin->getGroup() ?>">
           <?php if (!$plugin->isInstalled()) { ?>
             <input type="hidden" name="action" value="install">
-            <button type="submit">Install</button>
+            <button class="<?php echo $buttonClasses ?>" type="submit">Install</button>
           <?php } else { ?>
             <input type="hidden" name="action" value="uninstall">
             <?php $cid = 'keepSettings-'.$plugin->getId(); ?>
             <input type="checkbox" id="<?php echo $cid ?>" name="keepSettings" value="true"> <label for="<?php echo $cid ?>"><?php _vzm('Keep Settings') ?></label>
-            <button type="submit">Uninstall</button>
-            <a href="<?php echo $admin2->url(null, 'action=upgrade&pluginId='.$plugin->getId().'&group='.$plugin->getGroup()) ?>#<?php echo $plugin->getId() ?>">Upgrade</a>
+            <button class="<?php echo $buttonClasses ?>" type="submit">Uninstall</button>
+            <a class="<?php echo $buttonClasses ?>" href="<?php echo $admin2->url(null, 'action=upgrade&pluginId='.$plugin->getId().'&group='.$plugin->getGroup()) ?>#<?php echo $plugin->getId() ?>">Upgrade</a>
             <?php if ($plugin->hasOptions()) { /* enabled/disabled and sort order are handled by this page */ ?>
-            <a href="<?php echo $admin2->url(null, 'ajax=false&action=edit&pluginId='.$plugin->getId().'&group='.$plugin->getGroup()) ?>#<?php echo $plugin->getId() ?>" onclick="return ZenMagick.ajaxFormDialog(this.href, '<?php echo sprintf(_zm('Edit Plugin Options: %s'), $plugin->getName()) ?>', 'ajax-form');">Edit</a>
+            <a class="<?php echo $buttonClasses ?>" href="<?php echo $admin2->url(null, 'ajax=false&action=edit&pluginId='.$plugin->getId().'&group='.$plugin->getGroup()) ?>#<?php echo $plugin->getId() ?>" onclick="return ZenMagick.ajaxFormDialog(this.href, '<?php echo sprintf(_zm('Edit Plugin Options: %s'), $plugin->getName()) ?>', 'ajax-form');">Edit</a>
           <?php } ?>
           <?php } ?>
           </form>

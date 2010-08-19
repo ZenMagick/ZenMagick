@@ -48,6 +48,7 @@ class ZMAdminEventHandler {
         $view = $args['view'];
         $view->setVar('currentLanguage', $request->getSelectedLanguage());
         $view->setVar('currentEditor', $this->getCurrentEditor($request));
+        $view->setVar('buttonClasses', 'ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only');
     }
 
     /**

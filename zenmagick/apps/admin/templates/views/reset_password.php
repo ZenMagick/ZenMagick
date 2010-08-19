@@ -30,5 +30,5 @@
 <input type="text" name="email" id="email">
 </p>
 
-<p><input type="submit" value="<?php _vzm('Reset') ?>"> <a href="<?php echo $admin2->url('login') ?>"><?php _vzm('Back to Login') ?></p>
+<p><input class="<?php echo $buttonClasses ?>" type="submit" value="<?php _vzm('Reset') ?>"> <a class="<?php echo $buttonClasses ?>" href="<?php echo $admin2->url('login') ?>"><?php _vzm('Back to Login') ?></p>
 </form>

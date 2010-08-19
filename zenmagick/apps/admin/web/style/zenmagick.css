@@ -29,6 +29,7 @@ div#content {min-height:380px;}
 
 /* dialogs */
 #user-confirm, #ajax-dialog, #ajax-form-dialog {text-align:left;}
+a.ui-button, button.ui-button {padding:0.5em 1em;}
 
 /* forms */
 label span {color:#D4A84B;margin:0 3px;font-weight:bold;}

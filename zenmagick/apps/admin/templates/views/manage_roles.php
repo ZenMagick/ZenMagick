@@ -50,10 +50,10 @@
         <option value="<?php echo $role ?>"><?php echo ucwords($role) ?></option>
       <?php } ?>
       </select>
-      <input type="submit" value="<?php _vzm("Update Roles (select roles to keep)") ?>">
-      <a href="#" onclick="removeSelected(); return false"><?php _vzm('Remove selected') ?></a>
+      <input class="<?php echo $buttonClasses ?>" type="submit" value="<?php _vzm("Update Roles (select roles to keep)") ?>">
+      <a class="<?php echo $buttonClasses ?>" href="#" onclick="removeSelected(); return false"><?php _vzm('Remove selected') ?></a>
     </p>
-    <p><label for="newRole"><?php _vzm('Add Role') ?></label> <input type="text" id="newRole" name="newRole" value=""> <input type="submit" value="<?php _vzm("Add Role") ?>" onclick="addRoleToList(); return false;"></p>
+    <p><label for="newRole"><?php _vzm('Add Role') ?></label> <input type="text" id="newRole" name="newRole" value=""> <input class="<?php echo $buttonClasses ?>" type="submit" value="<?php _vzm("Add Role") ?>" onclick="addRoleToList(); return false;"></p>
   </fieldset>
 </form>
 

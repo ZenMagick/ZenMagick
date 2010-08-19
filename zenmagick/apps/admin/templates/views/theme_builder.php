@@ -68,7 +68,7 @@
       <label for="switchto"><?php _vzm('Switch to the new theme when created') ?></label>
       <br>
 
-      <div class="submit"><input type="submit" value="<?php _vzm("Create") ?>"></div>
+      <div class="submit"><input class="<?php echo $buttonClasses ?>" type="submit" value="<?php _vzm("Create") ?>"></div>
   </fieldset>
 </form>
 

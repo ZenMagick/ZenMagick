@@ -37,11 +37,11 @@
       <td>
         <form action="<?php echo $admin2->url('edit_admin_user') ?>" method="post">
           <input type="hidden" name="deleteUserId" value="<?php echo $adminUser->getId() ?>">
-          <input type="submit" value="<?php _vzm("Delete") ?>">
+          <input class="<?php echo $buttonClasses ?>" type="submit" value="<?php _vzm("Delete") ?>">
         </form>
       </td>
     </tr>
   <?php } ?>
 </table>
-<p><a href="<?php echo $admin2->url('edit_admin_user') ?>"><?php _vzm('Add User') ?></a></p>
+<p><a class="<?php echo $buttonClasses ?>" href="<?php echo $admin2->url('edit_admin_user') ?>"><?php _vzm('Add User') ?></a></p>
 <?php echo $this->fetch('pagination.php'); ?>

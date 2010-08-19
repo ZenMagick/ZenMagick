@@ -126,7 +126,7 @@
     /**
      * Show patch group.
      */
-    function _zm_patch_group($groupId, $patchLabel, $checkall=true) {
+    function _zm_patch_group($groupId, $patchLabel, $buttonClasses, $checkall=true) {
         $installer = new ZMInstallationPatcher();
         foreach ($installer->getPatches($groupId) as $id => $patch) {
             // check dependencies
@@ -156,7 +156,7 @@
         <input type="checkbox" class="all" id="<?php echo $groupId ?>_all" name="<?php echo $groupId ?>_all" value="" onclick="sync_all(this, 'patch_<?php echo $groupId ?>_')">
         <label for="<?php echo $groupId ?>_all"><?php _vzm("Select/Unselect All") ?></label><br>
         <div class="submit">
-            <input type="submit" value="<?php _vzm("Update") ?>">
+            <input class="<?php echo $buttonClasses ?>" type="submit" value="<?php _vzm("Update") ?>">
         </div>
     <?php }
 
@@ -185,7 +185,7 @@
     <fieldset class="patches">
       <legend><?php _vzm("ZenMagick File Patches") ?></legend>
       <input type="hidden" name="update" value="file">
-      <?php _zm_patch_group('file', $patchLabel) ?>
+      <?php _zm_patch_group('file', $patchLabel, $buttonClasses) ?>
     </fieldset>
   </form>
 
@@ -193,7 +193,7 @@
     <fieldset class="patches">
       <legend><?php _vzm("ZenMagick SQL Extensions") ?></legend>
       <input type="hidden" name="update" value="sql">
-      <?php _zm_patch_group('sql', $patchLabel) ?>
+      <?php _zm_patch_group('sql', $patchLabel, $buttonClasses) ?>
       <div class="submit">
         <strong>NOTE:</strong> It is <strong>strongly</strong> recommended to backup your database before appying/reverting SQL patches.
       </div>
@@ -216,7 +216,7 @@
         file <code>core.php</code>.
         If you install/uninstall plugins or make any other changes to the lib directory you'll need to regenerate <code>core.php</code> in
         order to make these changes become active.") ?></p>
-        <div class="submit"><input type="submit" value="<?php _vzm("Update") ?>"></div>
+        <div class="submit"><input class="<?php echo $buttonClasses ?>" type="submit" value="<?php _vzm("Update") ?>"></div>
     </fieldset>
   </form>
 </div>

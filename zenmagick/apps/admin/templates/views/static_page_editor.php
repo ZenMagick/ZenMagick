@@ -96,7 +96,7 @@
       <label for="newfile">New File:</label>
       <input type="text" name="newfile" id="newfile">
       <br><br>
-      <input type="submit" value="Edit">
+      <input class="<?php echo $buttonClasses ?>" type="submit" value="Edit">
     </fieldset>
   <?php } ?>
 </form>
@@ -125,9 +125,9 @@
      ?>
 
     <br><br>
-    <input type="submit" name="save" value="Save">
-    <a href="<?php echo $admin2->url() ?>">Cancel</a>
-    <a href="#" onclick="preview();return false;">Preview</a>
+    <input class="<?php echo $buttonClasses ?>" type="submit" name="save" value="Save">
+    <a class="<?php echo $buttonClasses ?>" href="<?php echo $admin2->url() ?>">Cancel</a>
+    <a class="<?php echo $buttonClasses ?>" href="#" onclick="preview();return false;">Preview</a>
   </form>
 <?php } ?>
 

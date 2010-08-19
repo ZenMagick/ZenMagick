@@ -30,5 +30,5 @@
       <p><?php echo $value->render($request) ?></p>
     </fieldset>
   <?php } ?>
-  <input type="submit" value="<?php _vzm("Update Settings") ?>">
+  <input class="<?php echo $buttonClasses ?>" type="submit" value="<?php _vzm("Update Settings") ?>">
 </form>

@@ -47,7 +47,7 @@
           <legend><?php _vzm("<code>PHP</code> Console") ?></legend>
           <label for="code"><?php _vzm("Code:") ?></label>
           <textarea id="name" name="code" rows="10" cols="80"><?php echo $html->encode($code) ?></textarea><br>
-          <input type="submit" value="<?php _vzm("Execute") ?>">
+          <input class="<?php echo $buttonClasses ?>" type="submit" value="<?php _vzm("Execute") ?>">
           <?php if (null != $zm_result) { ?>
               <div id="console">
                   <?php echo str_replace("\n", "<br>", $html->encode($zm_result)); ?>
