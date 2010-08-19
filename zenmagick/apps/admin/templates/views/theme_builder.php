@@ -74,7 +74,7 @@
 
 <?php $link = '<a href="'.$admin2->url('installation').'">'._zm('installation').'</a>'; ?>
 <p><?php echo sprintf(_zm('Once you have created the new theme, make sure to (re-)generate the required dummy theme files for zen-cart
-  using the %s screen.', $link)) ?></p>
+  using the %s screen.'), $link) ?></p>
 
 <p><?php _vzm('Unused directories can safely be deleted.') ?></p>
 

@@ -35,6 +35,7 @@ class ZMAdminUserForm extends ZMObject {
     function __construct() {
         parent::__construct();
         $this->set('adminUserId', 0);
+        $this->set('roles', array());
     }
 
 }
