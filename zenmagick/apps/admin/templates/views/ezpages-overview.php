@@ -101,8 +101,8 @@
           <input type="hidden" name="main_page" value="ezpages">
           <input type="hidden" name="languageId" value="<?php echo $selectedLanguageId ?>">
           <input type="hidden" name="deleteId" value="<?php echo $ezPage->getId() ?>">
-          <input type="submit" value="Delete">
-          <a href="<?php echo $admin2->url(null, 'editId='.$ezPage->getId().'&languageId='.$selectedLanguageId) ?>">Edit</a>
+          <input class="<?php echo $buttonClasses ?>" type="submit" value="Delete">
+          <a class="<?php echo $buttonClasses ?>" href="<?php echo $admin2->url(null, 'editId='.$ezPage->getId().'&languageId='.$selectedLanguageId) ?>">Edit</a>
         </form>
       </td>
     </tr>

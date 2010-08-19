@@ -100,7 +100,7 @@
   </fieldset>
   
   <div>
-    <input type="submit" value="Save">
-    <a href="<?php echo $admin2->url(null, 'languageId='.$selectedLanguageId) ?>"><?php _vzm('Cancel') ?></a>
+    <input class="<?php echo $buttonClasses ?>" type="submit" value="Save">
+    <a class="<?php echo $buttonClasses ?>" href="<?php echo $admin2->url(null, 'languageId='.$selectedLanguageId) ?>"><?php _vzm('Cancel') ?></a>
   </div>
 </form>
