@@ -223,6 +223,7 @@ Release 0.9.10
 - add init of default timezone from new setting 'zenmagick.core.date.timezone'
   and re-init the setting with the actually used timezone (should be the same
 	as long as the setting is valid)
+- add database table optimize option in installation page
 
 Release 0.9.9
 - in ZMDbTableMapper handle database exception building auto mappings

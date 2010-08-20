@@ -81,13 +81,14 @@
     }
 
     // optimize database tables
-    if (null != $request->getParameter('optimise')) {
-        /*TODO:
-        LOCK TABLES [table] READ;
-        CHECK TABLE [table];
-        UNLOCK TABLES;
-        OPTIMIZE TABLE [table];
-         */
+    if (null != $request->getParameter('optimizeDb')) {
+        $database = ZMRuntime::getDatabase();
+        $tableMeta = $database->getMetaData();
+        foreach ($tableMeta['tables'] as $table) {
+            $sql = str_replace('[table]', $table, "LOCK TABLES [table] READ; CHECK TABLE [table]; UNLOCK TABLES; OPTIMIZE TABLE [table];");
+            $database->update($sql);
+        }
+        ZMMessages::instance()->success("All tables optimized");
         $needRefresh = true;
     }
 
@@ -95,6 +96,7 @@
     if (isset($_POST)) {
         $didGenerate = false;
         $coreCompressor->setDebug(!ZMSettings::get('isStripCore'));
+        $wasEnabled = $coreCompressor->isEnabled();
         if (array_key_exists('singleCore', $_POST) && !$coreCompressor->isEnabled()) {
             // allow for more time to run tests
             set_time_limit(300);
@@ -116,7 +118,7 @@
             ZMMessages::instance()->success("Succsesfully (re-)generated core.php");
         }
 
-        if (array_key_exists('optimize', $_POST) && !array_key_exists('singleCore', $_POST)) {
+        if (array_key_exists('optimizeCore', $_POST) && !array_key_exists('singleCore', $_POST) && $wasEnabled) {
             $coreCompressor->disable();
             ZMMessages::instance()->msg("Disabled usage of core.php");
         }
@@ -202,15 +204,21 @@
   <form action="<?php echo $admin2->url() ?>" method="POST" onsubmit="return ZenMagick.confirm('Update selected optimisations?\n(This might take a while...)', this);">
     <fieldset id="optimisation">
     <legend><?php _vzm("Optimising ZenMagick") ?></legend>
-        <input type="hidden" id="optimize" name="optimize" value="x">
-        <?php $checked = $coreCompressor->isEnabled() ? ' checked="checked"' : ''; ?>
-        <input type="checkbox" id="singleCore" name="singleCore" value="x"<?php echo $checked ?>>
-        <label for="singleCore"><?php _vzm("Use single core.php file"); ?></label>
-        <?php if ($coreCompressor->isEnabled()) { ?>
-            <input type="checkbox" id="singleCoreGenerate" name="singleCoreGenerate" value="x">
-            <label for="singleCoreGenerate"><?php _vzm("Regenerate core.php"); ?></label>
-        <?php } ?>
-        <br>
+        <p>
+          <input type="checkbox" id="optimizeDb" name="optimizeDb" value="x">
+          <label for="optimizeDb"><?php _vzm("Optimize database tables"); ?></label>
+        </p>
+
+        <p>
+          <input type="hidden" id="optimizeCore" name="optimizeCore" value="x">
+          <?php $checked = $coreCompressor->isEnabled() ? ' checked="checked"' : ''; ?>
+          <input type="checkbox" id="singleCore" name="singleCore" value="x"<?php echo $checked ?>>
+          <label for="singleCore"><?php _vzm("Use single core.php file"); ?></label>
+          <?php if ($coreCompressor->isEnabled()) { ?>
+              <input type="checkbox" id="singleCoreGenerate" name="singleCoreGenerate" value="x">
+              <label for="singleCoreGenerate"><?php _vzm("Regenerate core.php"); ?></label>
+          <?php } ?>
+        </p>
         <p><?php _vzm("This option will compress all files under lib and all <strong>installed</strong> plugins into a single 
         file <code>core.php</code>.
         If you install/uninstall plugins or make any other changes to the lib directory you'll need to regenerate <code>core.php</code> in
