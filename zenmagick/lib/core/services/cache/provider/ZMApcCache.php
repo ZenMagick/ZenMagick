@@ -62,12 +62,12 @@ class ZMApcCache extends ZMObject implements ZMCache {
 
         // update system stats
         $system = apc_fetch(self::SYSTEM_KEY);
-        if (!$system) {
+        if (!is_array($system)) {
             $system = array();
             $system['groups'] = array();
         }
         $system['groups'][$group] = $config;
-        apc_store(self::SYSTEM_KEY, $system, 0);
+        $ret = apc_store(self::SYSTEM_KEY, $system, 0);
     }
 
 

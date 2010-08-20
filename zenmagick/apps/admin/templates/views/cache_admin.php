@@ -47,6 +47,7 @@
           <?php } ?>
         </tbody>
       </table>
+      <br>
       <div class="submit">
         <input class="<?php echo $buttonClasses ?>" type="submit" value="<?php _vzm('Clear selected caches') ?>">
       </div>

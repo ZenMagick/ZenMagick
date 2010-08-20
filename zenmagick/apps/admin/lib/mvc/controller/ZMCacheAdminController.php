@@ -74,7 +74,7 @@ class ZMCacheAdminController extends ZMController {
                 if ('x' == $request->getParameter('cache_'.$hash)) {
                     $cache = ZMCaches::instance()->getCache($group, $config, $type);
                     $result = $cache->clear();
-                    $msg = 'Clear page cache \'%s\' ' . ($result ? 'successful' : 'failed');
+                    $msg = 'Clear cache \'%s\' ' . ($result ? 'successful' : 'failed');
                     ZMMessages::instance()->add(sprintf(_zm($msg), $type.'/'.$group), ($result ? 'success' : 'error'));
                 }
             }
