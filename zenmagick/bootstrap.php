@@ -79,6 +79,13 @@
         require_once ZM_BASE_PATH.'local.php';
     }
 
+    // set a default timezone; note that warnings are suppressed for date_default_timezone_get() in case there isn't a default at all
+    date_default_timezone_set(ZMSettings::get('zenmagick.core.date.timezone', @date_default_timezone_get()));
+    if (null != ($_dt = date_timezone_get((new DateTime())))) {
+        // set back with the actually used value
+        ZMSettings::set('zenmagick.core.date.timezone', $_dt->getName());
+    }
+
     // set up default event listeners
     foreach (explode(',', ZMSettings::get('zenmagick.core.events.listeners')) as $_zm_elc) {
         if (null != ($_zm_el = ZMBeanUtils::getBean(trim($_zm_elc)))) {

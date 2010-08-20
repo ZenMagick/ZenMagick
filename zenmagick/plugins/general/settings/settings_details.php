@@ -163,12 +163,19 @@
                         'desc' => 'Minimum password length.'
                     )
                 ),
+                'date' => array(
+                    array(
+                        'key' => 'timezone',
+                        'type' => 'string',
+                        'desc' => 'Default timezone. Needs to be set in defaults.yaml'
+                    )
+                ),
                 'events' => array(
                     array(
                         'key' => 'listeners',
                         'type' => 'string',
-                        'desc' => 'List of comma separated class names of default event listeners..'
-                    ),
+                        'desc' => 'List of comma separated class names of default event listeners.'
+                    )
                 ),
                 'locales' => array(
                     array(
