@@ -80,15 +80,14 @@
         }
     }
 
-    // delete
-    if (null != $request->getParameter('obsolete')) {
-        foreach ($request->getParameter('obsolete') as $file) {
-            if (is_file($file)) {
-                unlink($file);
-            } else if (is_dir($file)) {
-                rmdir($file);
-            }
-        }
+    // optimize database tables
+    if (null != $request->getParameter('optimise')) {
+        /*TODO:
+        LOCK TABLES [table] READ;
+        CHECK TABLE [table];
+        UNLOCK TABLES;
+        OPTIMIZE TABLE [table];
+         */
         $needRefresh = true;
     }
 

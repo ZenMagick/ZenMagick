@@ -45,8 +45,8 @@
     ZMAdminMenu::setItem(array('parentId' => 'tools-dev', 'requestId' => 'console', 'title' => _zm('Console')));
 
     // configuration
-    ZMAdminMenu::setItem(array('parentId' => 'configuration', 'id' => 'configuration-patches', 'title' => _zm('Patches')));
-    ZMAdminMenu::setItem(array('parentId' => 'configuration-patches', 'requestId' => 'installation', 'title' => _zm('Patches')));
+    ZMAdminMenu::setItem(array('parentId' => 'configuration', 'id' => 'configuration-installation', 'title' => _zm('Installation')));
+    ZMAdminMenu::setItem(array('parentId' => 'configuration-installation', 'requestId' => 'installation', 'title' => _zm('Installation')));
     ZMAdminMenu::setItem(array('parentId' => 'configuration', 'id' => 'configuration-cache', 'title' => _zm('Cache')));
     ZMAdminMenu::setItem(array('parentId' => 'configuration-cache', 'requestId' => 'cache_admin', 'title' => _zm('Cache Admin')));
 
