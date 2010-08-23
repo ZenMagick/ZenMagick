@@ -153,7 +153,7 @@
         <copy todir="${build.dir}/zenmagick/plugins/general">
             <fileset dir="${zenmagick.src.dir}/plugins/general/">
                 <include name="examplePlugin/**" />
-                <include name="CKEditor/**" />
+                <include name="ckEditor/**" />
                 <include name="googleAnalytics/**" />
                 <include name="quickEdit/**" />
                 <include name="productGroupPricing/**" />
