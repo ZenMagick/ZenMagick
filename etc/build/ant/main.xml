@@ -106,6 +106,18 @@
     </target>
 
 
+    <!--Prepare copy -->
+    <target name="copy-prepare" depends="" description="Paramerized copy.">
+        <echo message="path.to = ${path.to}" />
+        <echo message="path = ${path}" />
+        <copy todir="${path.to}/${base.path}">
+            <fileset dir="${base.path}">
+                <include name="${path}/**" />
+            </fileset>
+        </copy>
+    </target>
+
+
     <!-- Prepare build files -->
     <target name="prepare" depends="clean,init,ask-versions" description="Prepare build files.">
         <!-- copy all files that go into zen-cart directories -->
@@ -120,6 +132,7 @@
                 <exclude name="themes/**" />
                 <exclude name="notes/**" />
                 <exclude name="apps/sample/**" />
+                <exclude name="apps/admin/locale/**" />
             </fileset>
 
             <!-- copy default and demo theme -->
@@ -129,6 +142,12 @@
                 <include name="themes/demo/**" />
             </fileset>
         </copy>
+
+        <!-- enabled admin locale -->
+        <foreach list="${locale.admin}" target="copy-prepare" param="path">
+            <param name="base.path" value="zenmagick/apps/admin/locale" />
+            <param name="path.to" value="${build.dir}" />
+        </foreach>
 
         <!-- copy default plugins -->
         <copy todir="${build.dir}/zenmagick/plugins/general">
