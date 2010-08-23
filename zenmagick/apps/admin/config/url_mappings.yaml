@@ -1,3 +1,9 @@
+#
+# ZenMagick admin default URL mappings
+#
+#
+
+## defaults
 null:
   error:
     template: error
