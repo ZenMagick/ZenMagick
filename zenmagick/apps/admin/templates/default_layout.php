@@ -60,10 +60,10 @@
     <title><?php _vzm('ZenMagick Admin') ?></title>
     <link rel="shortcut icon" href="<?php echo $this->asUrl('favicon.ico', ZMView::RESOURCE) ?>"> 
     <?php $resources->cssFile('style/zenmagick.css') ?>
-    <?php $resources->cssFile('style/jquery-ui/jquery-ui-1.8.2.custom.css') ?>
+    <?php $resources->cssFile('style/jquery-ui/jquery-ui-1.8.4.custom.css') ?>
     <?php $resources->cssFile('style/jquery.cluetip.css') ?>
     <?php $resources->jsFile('js/jquery-1.4.2.min.js') ?>
-    <?php $resources->jsFile('js/jquery-ui-1.8.2.custom.min.js') ?>
+    <?php $resources->jsFile('js/jquery-ui-1.8.4.custom.min.js') ?>
     <?php $resources->jsFile('js/jquery.form.js') ?>
     <?php $resources->jsFile('js/jquery.cluetip.min.js') ?>
     <?php $resources->jsFile('js/zenmagick.js') ?>

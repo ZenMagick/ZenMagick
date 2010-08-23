@@ -1653,6 +1653,7 @@ Release 0.8.6
 - renamed ZMOffers::getDiscount() to getDiscountPercent(), added a new
   function getDiscountAmount()
 - ckEditor: upgrade to 3.4
+- upgrade to jquery UI 1.8.4
 
 Release 0.8.5
 - add 'php_flag register_globals off' to main .htaccess file
