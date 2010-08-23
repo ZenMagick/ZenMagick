@@ -56,7 +56,7 @@ class ZMCkEditorFormWidget extends ZMTextAreaFormWidget {
             return parent::render($request);
         }
 
-        include_once ZMFileUtils::mkPath($this->plugin_->getPluginDirectory(), 'ckeditor-3.3.2', 'ckeditor_php5.php');
+        include_once ZMFileUtils::mkPath($this->plugin_->getPluginDirectory(), 'ckeditor-3.4', 'ckeditor_php5.php');
         if (!class_exists('CKEditor')) {
             // fallback
             return parent::render($request);
