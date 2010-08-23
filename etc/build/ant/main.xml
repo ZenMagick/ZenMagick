@@ -108,8 +108,6 @@
 
     <!--Prepare copy -->
     <target name="copy-prepare" depends="" description="Paramerized copy.">
-        <echo message="path.to = ${path.to}" />
-        <echo message="path = ${path}" />
         <copy todir="${path.to}/${base.path}">
             <fileset dir="${base.path}">
                 <include name="${path}/**" />
