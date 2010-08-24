@@ -224,6 +224,8 @@ Release 0.9.10
   and re-init the setting with the actually used timezone (should be the same
 	as long as the setting is valid)
 - add database table optimize option in installation page
+- ckEditor: upgrade to 3.4
+- upgrade to jquery UI 1.8.4
 
 Release 0.9.9
 - in ZMDbTableMapper handle database exception building auto mappings
@@ -1652,8 +1654,6 @@ Release 0.8.6
   htmlentities
 - renamed ZMOffers::getDiscount() to getDiscountPercent(), added a new
   function getDiscountAmount()
-- ckEditor: upgrade to 3.4
-- upgrade to jquery UI 1.8.4
 
 Release 0.8.5
 - add 'php_flag register_globals off' to main .htaccess file
