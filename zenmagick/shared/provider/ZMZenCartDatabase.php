@@ -175,7 +175,6 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
             $result = ZMBeanUtils::map2obj($modelClass, $result);
         }
 
-        $this->queriesTime += $this->getExecutionTime($startTime);
         $this->queriesMap_[] = array('time' => $this->getExecutionTime($startTime), 'sql' => $sql);
         return $result;
     }
@@ -225,7 +224,6 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
             }
         }
 
-        $this->queriesTime += $this->getExecutionTime($startTime);
         $this->queriesMap_[] = array('time' => $this->getExecutionTime($startTime), 'sql' => $sql);
         return $model;
     }
@@ -262,7 +260,6 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
             ZMLogging::instance()->log($sql, ZMLogging::TRACE);
         }
         $this->db_->Execute($sql);
-        $this->queriesTime += $this->getExecutionTime($startTime);
         $this->queriesMap_[] = array('time' => $this->getExecutionTime($startTime), 'sql' => $sql);
         return array('rows' => mysql_affected_rows($this->db_->link), 'lastInsertId' => $this->db_->Insert_ID());
     }
@@ -313,7 +310,6 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
             ZMLogging::instance()->log($sql, ZMLogging::TRACE);
         }
         $this->db_->Execute($sql);
-        $this->queriesTime += $this->getExecutionTime($startTime);
         $this->queriesMap_[] = array('time' => $this->getExecutionTime($startTime), 'sql' => $sql);
     }
 
@@ -356,7 +352,6 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
             ZMLogging::instance()->log($sql, ZMLogging::TRACE);
         }
         $this->db_->Execute($sql);
-        $this->queriesTime += $this->getExecutionTime($startTime);
         $this->queriesMap_[] = array('time' => $this->getExecutionTime($startTime), 'sql' => $sql);
     }
 
@@ -408,7 +403,6 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
             $rs->MoveNext();
         }
 
-        $this->queriesTime += $this->getExecutionTime($startTime);
         $this->queriesMap_[] = array('time' => $this->getExecutionTime($startTime), 'sql' => $sql);
         return $results;
     }
