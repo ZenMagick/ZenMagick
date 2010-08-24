@@ -741,7 +741,25 @@ case 'category': $link .= 'index.php?main_page=category'; break;
 	}
 
 	function not_null($value) {
-		return zen_not_null($value);
+    if (is_array($value)) {
+      if (sizeof($value) > 0) {
+        return true;
+      } else {
+        return false;
+      }
+    } elseif( is_a( $value, 'queryFactoryResult' ) ) {
+      if (sizeof($value->result) > 0) {
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      if (($value != '') && (strtolower($value) != 'null') && (strlen(trim($value)) > 0)) {
+        return true;
+      } else {
+        return false;
+      }
+    }
 	}
 
 	function is_attribute_string($params){
@@ -1091,10 +1109,10 @@ case 'category': $link .= 'index.php?main_page=category'; break;
 		$cache_check = ( $is_cached ? 'true' : 'false' );
 		switch ( $cache_check ) {
 			case 'true':
-				zen_db_perform(TABLE_SEO_CACHE, $sql_data_array, 'update', "cache_id='".md5($name)."'");
+        ZMRuntime::getDatabase()->updateModel(TABLE_SEO_CACHE, $sql_data_array);
 				break;
 			case 'false':
-				zen_db_perform(TABLE_SEO_CACHE, $sql_data_array, 'insert');
+				ZMRuntime::getDatabase()->updateModel(TABLE_SEO_CACHE, $sql_data_array);
 				break;
 			default:
 				break;
