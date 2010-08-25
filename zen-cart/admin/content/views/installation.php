@@ -91,6 +91,9 @@
     function _zm_patch_group($groupId, $patchLabel, $checkall=true) {
         $installer = new ZMInstallationPatcher();
         foreach ($installer->getPatches($groupId) as $id => $patch) {
+            if ('sqlFulltext' == $patch->getId()) {
+                continue;
+            }
             // check dependencies
             $unfulfilled = array();
             foreach ($patch->dependsOn() as $dId) {
