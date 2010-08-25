@@ -66,10 +66,19 @@ foreach ($seoClasses as $file) {
     $contents = str_replace('$result->fields[', '$result[', $contents);
     $contents = str_replace('$sort->fields[', '$sort[', $contents);
 
+    $contents = preg_replace('/.*zen_db_perform.*/', 'ZMRuntime::getDatabase()->updateModel(TABLE_SEO_CACHE, $sql_data_array);', $contents);
+
     // other fixes
     $contents = str_replace('var $installer;', 'var $installer;'."\n".'var $keep_in_memory = false;', $contents);
     $contents = str_replace('ereg_replace($pattern', 'preg_replace(\'/\'.$pattern.\'/\'', $contents);
     $contents = str_replace("ereg_replace( ' +'", "preg_replace('/ +/'", $contents);
+
+    // not_null
+    $notnull = 
+        'if (is_array($value)) { if (sizeof($value) > 0) { return true; } else { return false; }'
+        .'} elseif( is_a( $value, \'queryFactoryResult\' ) ) { if (sizeof($value->result) > 0) { return true; } else { return false; }'
+        .'} else { if (($value != \'\') && (strtolower($value) != \'null\') && (strlen(trim($value)) > 0)) { return true; } else { return false; } }';
+    $contents = str_replace('return zen_not_null($value);', $notnull, $contents);
 
     file_put_contents($targetPath.basename($file), $contents);
 }
