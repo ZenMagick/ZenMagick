@@ -138,6 +138,7 @@
                 <include name="themes/.htaccess" />
                 <include name="themes/default/**" />
                 <include name="themes/demo/**" />
+                <include name="plugins/.htaccess" />
             </fileset>
         </copy>
 
