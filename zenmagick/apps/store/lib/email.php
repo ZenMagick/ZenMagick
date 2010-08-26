@@ -32,6 +32,7 @@
      * @param array context The context data to be made available for the email template.
      * @return string The email contents.
      * @package zenmagick.store.shared.email
+     * @deprecated will be replaced in the future
      */
     function zm_get_email_contents($template, $asHTML=true, $context=array()) {
         $view = ZMLoader::make("EmailView", $template, $asHTML, $context);
@@ -110,7 +111,6 @@
 
         // generate actual contents
         $text = $view->generate(ZMRequest::instance());
-        echo 'xx'.$text;
 
         // call actual mail function; the name must match the one used in the installation patch
         $mailFunc = function_exists('zen_mail_org') ? 'zen_mail_org' : 'zen_mail';

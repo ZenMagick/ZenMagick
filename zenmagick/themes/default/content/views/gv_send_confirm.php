@@ -40,7 +40,7 @@
 
         <fieldset>
             <legend><?php _vzm("Your message") ?></legend>
-            <?php echo zm_get_email_contents('email/gv_send', true, compact('currentAccount', 'gvReceiver', 'currentCoupon', array('isSupressDisclaimer' => false))) ?>
+            <?php echo $html->encode($gvReceiver->getMessage()) ?>
         </fieldset>
 
         <p class="note"><?php _vzm("If these details are not correct, you may edit your message by clicking the edit button.") ?></p>
