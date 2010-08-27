@@ -36,7 +36,6 @@
      */
     function zm_get_email_contents($template, $asHTML=true, $context=array()) {
         $view = ZMLoader::make("EmailView", $template, $asHTML, $context);
-        $view->setController(ZMRequest::instance()->getController());
         return $view->generate(ZMRequest::instance());
     }
 
@@ -104,13 +103,15 @@
         // use text format unless only HTML available
         $view = ZMLoader::make("EmailView", $template, !$hasTextTemplate, $context);
 
-        $controller = ZMRequest::instance()->getController();
-        $view->setController($controller);
-        // event to allow additions to context (via the controller as we need an object to pass stuff back)
-        ZMEvents::instance()->fireEvent(null, Events::GENERATE_EMAIL, array('template' => $template, 'context' => $context, 'controller' => $controller, 'view' => $view));
+        $request = ZMRequest::instance();
+
+        // event to allow additions to context or view or...
+        ZMEvents::instance()->fireEvent(null, Events::GENERATE_EMAIL, array('template' => $template, 'context' => $context, 'view' => $view));
+        // save view context for HTML generation...
+        $request->set('emailViewVars', $view->getVars());
 
         // generate actual contents
-        $text = $view->generate(ZMRequest::instance());
+        $text = $view->generate($request);
 
         // call actual mail function; the name must match the one used in the installation patch
         $mailFunc = function_exists('zen_mail_org') ? 'zen_mail_org' : 'zen_mail';

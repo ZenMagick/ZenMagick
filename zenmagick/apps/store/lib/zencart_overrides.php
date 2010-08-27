@@ -22,7 +22,6 @@
  */
 ?>
 <?php
-
 if (!function_exists('zen_date_raw')) {
 
     /**
@@ -82,7 +81,7 @@ if (!function_exists('zen_mail')) {
         //ZMLogging::instance()->trace('mail: '.$module);
 
         // use zen_mail_org as fallback for emails without ZenMagick template
-        if ('none' != zm_email_formats($module)) {
+        if ('none' != zm_email_formats('emails/'.$module)) {
             // call ZenMagick implementation
             // NOTE: zm_mail will eventually call zen_mail_org to actually send the generated email...
             
@@ -106,14 +105,19 @@ if (!function_exists('zen_build_html_email_from_template')) {
      * @package zenmagick.store.sf.override
      */
     function zen_build_html_email_from_template($template, $args=array()) {
+        $zmTemplate = $template;
+        if (!ZMLangUtils::startsWith($template, 'emails/')) {
+            // need prefix...
+            $zmTemplate = 'emails/'.$template;
+        }
         if (!class_exists('ZMEmailView')) { return zen_build_html_email_from_template_org($template, $args); }
         $request = ZMRequest::instance();
-        $view = ZMLoader::make("EmailView", $template, true, $args);
+        $view = ZMLoader::make("EmailView", $zmTemplate, true, $args);
         if (!$view->isValid($request) && function_exists('zen_build_html_email_from_template_org')) {
             // default to zen-cart
             return zen_build_html_email_from_template_org($template, $args);
         }
-        $view->setController(ZMRequest::instance()->getController());
+        $view->setVars($request->get('emailViewVars'));
         $html = $view->generate($request);
         return $html;
     }
