@@ -28,7 +28,7 @@
 
 <?php _vzm('You have been sent a Gift Certificate worth %s by %s.', $utils->formatMoney($gvReceiver->getAmount(), false), $currentAccount->getFullName()) ?>
 
-<?php _vzm("The code to redeem your Gift Certificate is: %s.", $currentCoupon->getCode()) ?>
+<?php _vzm("The code to redeem your Gift Certificate is: %s", $currentCoupon->getCode()) ?>
 
 <?php if ($gvReceiver->hasMessage()) { ?>
 <?php _vzm("%s says:", $currentAccount->getFirstName()); ?>
@@ -37,7 +37,7 @@
 
 <?php } ?>
 
-<?php _vzm("To redeem your gift, visit %s.", $net->url(FILENAME_GV_REDEEM, 'couponCode='.$currentCoupon->getCode(), true)) ?>
+<?php _vzm("To redeem your gift, visit %s", $net->url(FILENAME_GV_REDEEM, 'couponCode='.$currentCoupon->getCode(), true)) ?>
 
 
 <?php echo strip_tags($utils->staticPageContent('email_advisory')) ?>

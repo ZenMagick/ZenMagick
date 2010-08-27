@@ -31,7 +31,7 @@
 <?php _vzm('You can redeem this coupon during checkout. Just enter the code provided, and click on the redeem button.') ?>
 
 
-<?php _vzm('The coupon code is %s.', $currentCoupon->getCode()) ?>
+<?php _vzm('The coupon code is %s', $currentCoupon->getCode()) ?>
 
 
 <?php _vzm('The coupon is valid between %s and %s', $locale->shortDate($currentCoupon->getStartDate()), $locale->shortDate($currentCoupon->getExpiryDate())) ?>

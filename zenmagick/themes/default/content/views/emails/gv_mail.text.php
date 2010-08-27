@@ -33,10 +33,10 @@
 <?php _vzm('The Gift Certificate is worth %s', $utils->formatMoney($currentCoupon->getAmount(), false)) ?>
 
 
-<?php _vzm("The code to redeem your Gift Certificate is: %s.", $currentCoupon->getCode()) ?>
+<?php _vzm("The code to redeem your Gift Certificate is: %s", $currentCoupon->getCode()) ?>
 
 
-<?php _vzm("To redeem your gift, visit %s.", $net->url(FILENAME_GV_REDEEM, 'couponCode='.$currentCoupon->getCode(), true)) ?>
+<?php _vzm("To redeem your gift, visit %s", $net->url(FILENAME_GV_REDEEM, 'couponCode='.$currentCoupon->getCode(), true)) ?>
 
 
 <?php echo strip_tags($utils->staticPageContent('email_advisory')) ?>
