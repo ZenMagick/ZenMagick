@@ -227,6 +227,7 @@ Release 0.9.10
 - ckEditor: upgrade to 3.4
 - upgrade to jquery UI 1.8.4
 - deprecate zm_get_email_contents
+- ad readonly to list of supported form widget attributes
 
 Release 0.9.9
 - in ZMDbTableMapper handle database exception building auto mappings

@@ -211,7 +211,9 @@ class ZMConfig extends ZMObject {
                     $widget->setOptions(array('' => _zm('None')));
                     break;
                 case 'zen_cfg_pull_down_htmleditors':
-                    $widget = ZMBeanUtils::getBean('EditorSelectFormWidget');
+                    $widget = ZMBeanUtils::getBean('TextFormWidget');
+                    $widget->set('readonly', true);
+                    //$widget = ZMBeanUtils::getBean('EditorSelectFormWidget');
                     break;
                 case 'zen_cfg_pull_down_zone_list';
                     $widget = ZMBeanUtils::getBean('ZoneSelectFormWidget');
