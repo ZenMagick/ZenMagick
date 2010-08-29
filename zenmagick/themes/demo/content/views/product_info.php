@@ -23,9 +23,9 @@
  * $Id$
  */
 ?>
-<?php $utils->jsBottom('lightbox/prototype.js') ?>
-<?php $utils->jsBottom('lightbox/scriptaculous.js?load=effects') ?>
-<?php $utils->jsBottom('lightbox/lightbox.js') ?>
+<?php $resources->jsFile('lightbox/prototype.js', ZMViewUtils::FOOTER) ?>
+<?php $resources->jsFile('lightbox/scriptaculous.js?load=effects', ZMViewUtils::FOOTER) ?>
+<?php $resources->jsFile('lightbox/lightbox.js', ZMViewUtils::FOOTER) ?>
 
 <?php $manufacturer = $currentProduct->getManufacturer() ?>
 <h2><?php echo $html->encode(null != $manufacturer ? $manufacturer->getName() : '') ?> <?php echo $html->encode($currentProduct->getName()) ?></h2>

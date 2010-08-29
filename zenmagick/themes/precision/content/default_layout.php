@@ -16,9 +16,9 @@ Released   : 20081126
     <title>Precision by Free CSS Templates</title>
     <meta name="keywords" content="" />
     <meta name="description" content="" />
-    <?php $utils->cssFile('style.css', array('media' => 'screen')) ?>
-    <?php $utils->cssFile('theme.css', array('media' => 'screen')) ?>
-    <?php $utils->jsBottom('common.js') ?>
+    <?php $resources->cssFile('style.css', array('media' => 'screen')) ?>
+    <?php $resources->cssFile('theme.css', array('media' => 'screen')) ?>
+    <?php $resources->jsFile('common.js', ZMViewUtils::FOOTER) ?>
   </head>
   <body>
     <div id="header">

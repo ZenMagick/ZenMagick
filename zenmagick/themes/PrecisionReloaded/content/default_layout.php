@@ -14,9 +14,9 @@ Released   : 20090515
     <title>Your Title Here </title>
     <meta name="keywords" content="" />  <!-- come back and fill in theses meta tags later  -->
     <meta name="description" content="" />
-    <?php $utils->cssFile('style.css', array('media' => 'screen')) ?>
-    <?php $utils->cssFile('theme.css', array('media' => 'screen')) ?>
-    <?php $utils->jsBottom('common.js') ?>
+    <?php $resources->cssFile('style.css', array('media' => 'screen')) ?>
+    <?php $resources->cssFile('theme.css', array('media' => 'screen')) ?>
+    <?php $resources->jsFile('common.js', ZMViewUtils::FOOTER) ?>
   </head>
   <body>
 

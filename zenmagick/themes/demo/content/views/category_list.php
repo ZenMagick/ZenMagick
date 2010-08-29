@@ -24,8 +24,8 @@
  */
 ?>
 
-<?php $utils->jsNow('jquery.js') ?>
-<?php $utils->jsBottom('interface.js') ?>
+<?php $resources->jsFile('jquery.js', ZMViewUtils::NOW) ?>
+<?php $resources->jsFile('interface.js', ZMViewUtils::FOOTER) ?>
 
 <script type="text/javascript">
     // set up drag/drop

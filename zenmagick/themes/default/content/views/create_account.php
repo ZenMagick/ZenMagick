@@ -37,7 +37,7 @@
         }
     ?>
 </script>
-<?php $utils->jsNow('jquery.js') ?>
+<?php $resources->jsFile('jquery.js', ZMViewUtils::NOW) ?>
 <?php /*=== include to allow PHP execution in ZM context ==*/ ?>
 <script type="text/javascript"><?php echo $this->fetch("dynamicState.js") ?></script>
 

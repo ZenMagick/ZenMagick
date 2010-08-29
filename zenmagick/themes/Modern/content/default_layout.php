@@ -11,11 +11,11 @@
     <?php if (defined('ROBOTS_PAGES_TO_SKIP') && in_array($current_page_base,explode(",",constant('ROBOTS_PAGES_TO_SKIP'))) || $current_page_base=='down_for_maintenance' || $robotsNoIndex === true) { ?>
       <meta name="robots" content="noindex, nofollow" />
     <?php } ?>
-    <?php $utils->cssFile('css/print_stylesheet.css', array('media' => 'print')) ?>
-    <?php $utils->cssFile('css/style_imagehover.css') ?>
-    <?php $utils->cssFile('css/stylesheet.css') ?>
-    <?php $utils->cssFile('css/stylesheet_boxes.css') ?>
-    <?php $utils->cssFile('css/stylesheet_css_buttons.css') ?>
+    <?php $resources->cssFile('css/print_stylesheet.css', array('media' => 'print')) ?>
+    <?php $resources->cssFile('css/style_imagehover.css') ?>
+    <?php $resources->cssFile('css/stylesheet.css') ?>
+    <?php $resources->cssFile('css/stylesheet_boxes.css') ?>
+    <?php $resources->cssFile('css/stylesheet_css_buttons.css') ?>
     <?php //echo $this->fetch('css/stylesheet.php'); ?>
     <?php if (defined('FAVICON')) { ?>
       <link rel="icon" href="<?php echo FAVICON; ?>" type="image/x-icon" />

@@ -24,8 +24,8 @@
  */
 ?>
 
-<?php $utils->jsBottom('jquery.js') ?>
-<?php $utils->jsBottom('interface.js') ?>
+<?php $resources->jsFile('jquery.js', ZMViewUtils::FOOTER) ?>
+<?php $resources->jsFile('interface.js', ZMViewUtils::FOOTER) ?>
 
 <script type="text/javascript">
     // callback used by drop handler to update cart contents

@@ -36,15 +36,15 @@
     <title><?php echo $metaTags->getTitle()?></title>
     <base href="<?php echo $request->getPageBase() ?>" />
     <meta http-equiv="content-type" content="text/html; charset=<?php echo ZMSettings::get('zenmagick.mvc.html.charset') ?>" />
-    <?php $utils->cssFile('popup.css') ?>
+    <?php $resources->cssFile('popup.css') ?>
     <?php /* give other themes the chance to add to the default CSS without having to copy everything */ ?>
     <?php if ($this->exists("theme.css")) { ?>
-        <?php $utils->cssFile('theme.css') ?>
+        <?php $resources->cssFile('theme.css') ?>
     <?php } ?>
     <?php $pageCSS = "css/".$request->getRequestId().".css"; ?>
     <?php /* page specific CSS */ ?>
     <?php if ($this->exists($pageCSS)) { ?>
-        <?php $utils->cssFile($pageCSS) ?>
+        <?php $resources->cssFile($pageCSS) ?>
     <?php } ?>
   </head>
 
