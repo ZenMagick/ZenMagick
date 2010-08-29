@@ -79,8 +79,8 @@ function _vzm($text) {
  * translatable unit.</p>
  *
  * <p>Example:<br>
- * String to translate: <em>Click <strong>here</strong> to open a new window.</em>.<br>
- * The same with special block markers: <em>Click <strong>%bhere%%</strong> to open a new window.</em>.</p>
+ * String to translate: <em>Click &lt;strong>here&lt;/strong> to open a new window.</em>.<br>
+ * The same with special block markers: <em>Click &lt;strong>%bhere%%&lt;/strong> to open a new window.</em>.</p>
  *
  * <p>A block marker starts with <em>%b</em> or <em>%nb</em>, with <em>n</em> being a positonal integer; example: <em>%2b</em>. The 
  * block content end is marked by a double '%': <em>%%</em>.</p>
@@ -88,11 +88,18 @@ function _vzm($text) {
  * <p>Now, to update the word <em>here</em> from the example with a link (and link text being <em>here</em>), this code 
  * can be used:</p>
  *
- * <p><code>_zmb('Click <strong>%bhere%%</strong> to open a new window.', '<a href="">%%block%%</a>');</code></p>
+ * <p><code>_zmsprintf(_zm('Click &lt;strong>%bhere%%&lt;/strong> to open a new window.'), '&lt;a href="">%%block%%&lt;/a>');</code></p>
+ *
+ * <p>The main point of this function is that the actual link text (<em>here</em>) is part of the full sentence to translate rather than
+ * a single word that gets concatenated. This helps to translate the link text in the context of the sentence rather than as a single word.</p>
+ *
+ * <p><strong>NOTE: This function in itself does not translate at all. As seen in the above example, <code>_zm()</code> needs to be used to
+ * pull the translatation first and use <code>_zmsprintf()</code> on that translated string.</p>
  *
  * @param string format The format string.
  * @param mixed mixed Variable numer parameter.
  * @return string The formatted string.
+ * @package org.zenmagick.core.services.locale
  */
 function _zmsprintf($format, $mixed) {
     $args = func_get_args();
