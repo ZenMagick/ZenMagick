@@ -73,7 +73,7 @@ class FormData extends ZMFormData {
         if (0 < count($this->fields_)) {
             // add custom table based names to the fields list, but only if we restrict fields anyway
             foreach ($this->tables_ as $table) {
-                $fields = array_keys(ZMDbTableMapper::instance()->getCustomFieldInfo($table));
+                $fields = array_keys(ZMDbTableMapper::instance()->getCustomFieldInfo($table, ZMRuntime::getDatabase()));
                 $this->fields_ = array_merge($this->fields_, $fields);
             }
             $fields = $this->fields_;

@@ -88,7 +88,6 @@ class ZMDbTableMapper extends ZMObject {
     private $tableMap_;
     private $cache_;
     private $isCached_;
-    private $tablePrefix_;
 
 
     /**
@@ -100,7 +99,6 @@ class ZMDbTableMapper extends ZMObject {
         parent::__construct();
         $this->tableMap_ = array();
         $this->isCached_ = false;
-        $this->tablePrefix_ = ZMSettings::get('zenmagick.core.database.tablePrefix', '');
         $this->cache_ = ZMCaches::instance()->getCache('services', array('cacheTTL' => 300));
         if (ZMSettings::get('zenmagick.core.database.mappings.cache.enabled', true)) {
             if (false !== ($cachedMap = $this->cache_->lookup(self::CACHE_KEY))) {
@@ -208,8 +206,9 @@ class ZMDbTableMapper extends ZMObject {
         if (!is_array($tables)) {
             $tables = array($tables);
         }
+        $config = $database->getConfig();
         foreach ($tables as $ii => $table) {
-            $tables[$ii] = str_replace($this->tablePrefix_, '', $table);
+            $tables[$ii] = str_replace($config['prefix'], '', $table);
         }
 
         $mappings = array();
@@ -228,7 +227,7 @@ class ZMDbTableMapper extends ZMObject {
                 $tableMap = $this->tableMap_[$table];
             } else {
                 // add the current custom fields at runtime as they might change
-                $tableMap = $this->addCustomFields($this->tableMap_[$table], $table);
+                $tableMap = $this->addCustomFields($this->tableMap_[$table], $table, $database);
             }
             $mappings = array_merge($mappings, $tableMap);
         }
@@ -254,9 +253,12 @@ class ZMDbTableMapper extends ZMObject {
             // non prefixed?
             ZMLogging::instance()->dump($dbe, 'missing table (non prefixed)', ZMLogging::TRACE);
         }
+
+        $config = $database->getConfig();
+
         if (null === $tableMetaData) {
             // try adding the prefix
-            $table = $this->tablePrefix_.$table;
+            $table = $config['prefix'].$table;
             try {
                 $tableMetaData = $database->getMetaData($table);
             } catch (ZMDatabaseException $dbe) {
@@ -270,7 +272,7 @@ class ZMDbTableMapper extends ZMObject {
 
         $mapping = array();
         ob_start();
-        echo "'".str_replace($this->tablePrefix_, '', $table)."' => array(\n";
+        echo "'".str_replace($config['prefix'], '', $table)."' => array(\n";
         $first = true;
         foreach ($tableMetaData as $column) {
             $type = preg_replace('/(.*)\(.*\)/', '\1', $column['type']);
@@ -310,18 +312,19 @@ class ZMDbTableMapper extends ZMObject {
      * on demand.</p>
      *
      * @param mixed mapping The field mappings or table name.
-     * @param ZMDatabase database Optional database; default is <code>null</code> to use the default.
+     * @param ZMDatabase database The database.
      * @return array A mapping or <code>null</code>.
      */
     public function ensureMapping($mapping, $database) {
         if (!is_array($mapping)) {
+            $config = $database->getConfig();
             // table name
             $table = $mapping;
             $mapping = $this->getMapping($table, $database);
             if (null === $mapping && ZMSettings::get('zenmagick.core.database.mappings.autoMap.enabled', true)) {
                 ZMLogging::instance()->log('creating dynamic mapping for table name: '.$table, ZMLogging::DEBUG);
                 $rawMapping = self::buildTableMapping($table, $database);
-                $this->setMappingForTable(str_replace($this->tablePrefix_, '', $table), $rawMapping);
+                $this->setMappingForTable(str_replace($config['prefix'], '', $table), $rawMapping);
                 $mapping = $this->getMapping($table, $database);
             }
             return $mapping;
@@ -348,10 +351,12 @@ class ZMDbTableMapper extends ZMObject {
      * <p>The returned array is a map with the property as key and an info map as value.</p>
      *
      * @param string table The table name.
+     * @param ZMDatabase database The database.
      * @return array A map of custom field details (if any)
      */
-    public function getCustomFieldInfo($table) {
-        $customFieldKey = 'zenmagick.core.database.sql.'.str_replace($this->tablePrefix_, '', $table).'.customFields';
+    public function getCustomFieldInfo($table, $database) {
+        $config = $database->getConfig();
+        $customFieldKey = 'zenmagick.core.database.sql.'.str_replace($config['prefix'], '', $table).'.customFields';
         $setting = ZMSettings::get($customFieldKey);
         if (empty($setting)) {
             return array();
@@ -375,11 +380,12 @@ class ZMDbTableMapper extends ZMObject {
      *
      * @param array mapping The existing mapping.
      * @param string table The table name.
+     * @param ZMDatabase database The database.
      * @return array The updated mapping
      */
-    protected function addCustomFields($mapping, $table) {
+    protected function addCustomFields($mapping, $table, $database) {
         $defaults = array('key' => false, 'auto' => false, 'custom' => true);
-        foreach ($this->getCustomFieldInfo($table) as $fieldId => $fieldInfo) {
+        foreach ($this->getCustomFieldInfo($table, $database) as $fieldId => $fieldInfo) {
             // merge in defaults
             $mapping[$fieldId] = array_merge($defaults, $fieldInfo);
         }

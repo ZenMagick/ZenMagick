@@ -228,6 +228,8 @@ Release 0.9.10
 - upgrade to jquery UI 1.8.4
 - deprecate zm_get_email_contents
 - ad readonly to list of supported form widget attributes
+- add table prefix ('prefix') as supported config option to ZMDatabase
+- deprecate setting 'zenmagick.core.database.tablePrefix'
 
 Release 0.9.9
 - in ZMDbTableMapper handle database exception building auto mappings

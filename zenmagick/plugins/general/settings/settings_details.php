@@ -94,11 +94,6 @@
                 ),
                 'database' => array(
                     array(
-                        'key' => 'tablePrefix',
-                        'type' => 'string',
-                        'desc' => 'Optional table prefix to be used for all table names.'
-                    ),
-                    array(
                         'key' => 'mappings.cache.enabled',
                         'type' => 'boolean',
                         'desc' => 'Enable/disable caching of database table mappings.'
