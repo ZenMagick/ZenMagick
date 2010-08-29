@@ -23,7 +23,7 @@ mappings:
     secure: true
 
   ###########################################
-  ## allow for all users (empty roles list)
+  ## allow for all valid users (empty roles list)
   ##
   ajax_plugin_admin: 
     secure: true
@@ -34,100 +34,3 @@ mappings:
   index: 
     secure: true
     roles:
-
-  ###########################################
-  ## explicit permissions (either roles or users or both)
-  ##
-  update_user: 
-    roles: 
-      - admin
-      - demo
-    secure: true
-  orders: 
-    roles: 
-      - admin
-      - demo
-    secure: true
-  order: 
-    roles: 
-      - admin
-      - demo
-    secure: true
-  accounts: 
-    roles: 
-      - admin
-      - demo
-    secure: true
-  account: 
-    roles: 
-      - admin
-      - demo
-    secure: true
-  installation: 
-    roles: 
-      - admin
-    secure: true
-  plugins: 
-    roles: 
-      - admin
-      - demo
-    secure: true
-  catalog_manager: 
-    roles: 
-      - admin
-      - demo
-    secure: true
-  cache_admin: 
-    roles: 
-      - admin
-      - demo
-    secure: true
-  l10n: 
-    roles: 
-      - admin
-      - demo
-    secure: true
-  theme_builder: 
-    roles: 
-      - admin
-      - demo
-    secure: true
-  static_page_editor: 
-    roles: 
-      - admin
-      - demo
-    secure: true
-  ezpages: 
-    roles: 
-      - admin
-      - demo
-    secure: true
-  admin_users: 
-    roles: 
-      - admin
-      - demo
-    secure: true
-  edit_admin_user: 
-    roles: 
-      - admin
-    secure: true
-  configuration: 
-    roles: 
-      - admin
-      - demo
-    secure: false
-  legacy-config: 
-    roles: 
-      - admin
-      - demo
-    secure: false
-  tools: 
-    roles: 
-      - admin
-      - demo
-    secure: false
-  about: 
-    roles: 
-      - admin
-      - demo
-    secure: false
