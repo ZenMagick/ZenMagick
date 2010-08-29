@@ -246,7 +246,7 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
             $results[] = $result;
         }
 
-        $this->queriesMap_[] = array('time' => $this->getExecutionTime($startTime), 'sql' => $sql);
+        $this->queriesMap_[] = array('start' => $startTime, 'time' => $this->getExecutionTime($startTime), 'sql' => $sql);
         return 1 == count($results) ? $results[0] : null;
     }
 
@@ -298,7 +298,7 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
             }
         }
 
-        $this->queriesMap_[] = array('time' => $this->getExecutionTime($startTime), 'sql' => $sql);
+        $this->queriesMap_[] = array('start' => $startTime, 'time' => $this->getExecutionTime($startTime), 'sql' => $sql);
         return $model;
     }
 
@@ -348,7 +348,7 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
             throw new ZMDatabaseException($pdoe->getMessage(), $pdoe->getCode(), $pdoe);
         }
 
-        $this->queriesMap_[] = array('time' => $this->getExecutionTime($startTime), 'sql' => $sql);
+        $this->queriesMap_[] = array('start' => $startTime, 'time' => $this->getExecutionTime($startTime), 'sql' => $sql);
     }
 
     /**
@@ -404,7 +404,7 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
             throw new ZMDatabaseException($pdoe->getMessage(), $pdoe->getCode(), $pdoe);
         }
 
-        $this->queriesMap_[] = array('time' => $this->getExecutionTime($startTime), 'sql' => $sql);
+        $this->queriesMap_[] = array('start' => $startTime, 'time' => $this->getExecutionTime($startTime), 'sql' => $sql);
     }
 
     /**
@@ -424,7 +424,7 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
             throw new ZMDatabaseException($pdoe->getMessage(), $pdoe->getCode(), $pdoe);
         }
 
-        $this->queriesMap_[] = array('time' => $this->getExecutionTime($startTime), 'sql' => $sql);
+        $this->queriesMap_[] = array('start' => $startTime, 'time' => $this->getExecutionTime($startTime), 'sql' => $sql);
         return array('rows' => $rows, 'lastInsertId' => $newId);
     }
 
@@ -463,7 +463,7 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
             $results[] = $result;
         }
 
-        $this->queriesMap_[] = array('time' => $this->getExecutionTime($startTime), 'sql' => $sql);
+        $this->queriesMap_[] = array('start' => $startTime, 'time' => $this->getExecutionTime($startTime), 'sql' => $sql);
         return $results;
     }
 
