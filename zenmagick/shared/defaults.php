@@ -81,6 +81,7 @@
                 'username' => DB_SERVER_USERNAME,
                 'password' => DB_SERVER_PASSWORD,
                 'database' => DB_DATABASE,
+                'prefix' => ZM_DB_PREFIX,
                 'port' => (null !== ($port = @ini_get('mysql.default_port')) ? $port : null),
                 'initQuery' => null
             ),

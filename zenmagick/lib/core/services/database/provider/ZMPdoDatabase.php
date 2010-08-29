@@ -84,6 +84,10 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
             // mysql and mysqli are the same for PDO
             $conf['driver'] = str_replace('mysqli', 'mysql', $conf['driver']);
 
+            if (!isset($conf['prefix'])) {
+                $conf['prefix'] = '';
+            }
+
             $url = $conf['driver'].':'.'host='.$conf['host'];
             if (isset($conf['port'])) {
                 $url .= ';port='.$conf['port'];
@@ -592,6 +596,9 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
     public function getMetaData($table=null) {
         $this->ensureResource(); 
         if (null !== $table) {
+            if (0 !== strpos($table, $this->config_['prefix'])) {
+                $table = $this->config_['prefix'].$table;
+            }
             $meta = array();
             try {
                 $columns = $this->pdo_->query("SHOW COLUMNS FROM " . $table, PDO::FETCH_ASSOC);

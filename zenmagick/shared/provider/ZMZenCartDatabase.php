@@ -56,7 +56,11 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
             $this->db_ = new queryFactory();
             $this->db_->connect($conf['host'], $conf['username'], $conf['password'], $conf['database'], USE_PCONNECT, false);
         }
+        if (!isset($conf['prefix'])) {
+            $conf['prefix'] = '';
+        }
         $this->config_ = $conf;
+
         $this->queriesMap_ = array();
         $this->mapper = ZMDbTableMapper::instance();
         $this->debug = false;
@@ -412,6 +416,9 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
      */
     public function getMetaData($table=null) {
         if (null !== $table) {
+            if (0 !== strpos($table, $this->config_['prefix'])) {
+                $table = $this->config_['prefix'].$table;
+            }
             $results = $this->db_->Execute("SHOW COLUMNS FROM " . $table);
             $meta = array();
             while (!$results->EOF) {

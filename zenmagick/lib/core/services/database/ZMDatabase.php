@@ -42,6 +42,8 @@
  *  <dd>The password for the database user.</dd>
  *  <dt>database</dt>
  *  <dd>The name of the database to connect to.</dd>
+ *  <dt>prefix</dt>
+ *  <dd>Optional table prefix.</dd>
  * </dl>
  *
  * <p>The data will be bound to the SQL using the configured table mappings.</p>
