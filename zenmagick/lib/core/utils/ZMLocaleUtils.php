@@ -27,8 +27,30 @@
  * @package org.zenmagick.core.utils
  */
 class ZMlocaleUtils {
-    const L10N_PATTERNS = 'zm_l10n_get,zm_l10n,_zmn,_zm,_vzm';
+    /** Locale patterns. */
+    const LOCALE_PATTERNS = 'zm_l10n_get,zm_l10n,_zmn,_zm,_vzm';
 
+
+    /**
+     * Get all parameter token for the function call pointed to by index.
+     *
+     * @param array tokens All tokens
+     * @param int index The index of the function to examine.
+     * @return array List of parameter token.
+     */
+    private function getParameterToken($tokens, $index) {
+        $parameters = array();
+        for ($ii=$index+1; $ii<count($tokens); ++$ii) {
+            $token = $tokens[$ii];
+            if (is_string($token) && ')' == $token) {
+                break;
+            }
+            if (is_array($token) && T_CONSTANT_ENCAPSED_STRING == $token[0]) {
+                $parameters[] = $token;
+            }
+        }
+        return $parameters;
+    }
 
     /**
      * Build a language map for all found l10n strings in the given directory tree.
@@ -40,7 +62,7 @@ class ZMlocaleUtils {
     public static function buildL10nMap($baseDir, $ext='.php') {
         $relBase = ZMFileUtils::normalizeFilename(dirname($baseDir));
 
-        $patterns = explode(',', self::L10N_PATTERNS);
+        $lnPatterns = explode(',', self::LOCALE_PATTERNS);
         $map = array();
         foreach (ZMLoader::findIncludes($baseDir.DIRECTORY_SEPARATOR, $ext, true) as $filename) {
             $strings = array();
@@ -49,79 +71,37 @@ class ZMlocaleUtils {
             $filename = ZMFileUtils::normalizeFilename($filename);
             $filename = str_replace($relBase, '', $filename);
 
-            foreach ($patterns as $pattern) {
-                $pos = 0;
-                while (-1 < $pos) {
-                    // search for multiple patterns
-                    $pos = strpos($contents, $pattern, $pos);
-                    if (false === $pos || -1 == $pos) {
-                        // nothing more to do
-                        break;
-                    }
+            // use PHP tokenizer to analyze...
+            $tokens = token_get_all($contents);
+            foreach ($tokens as $ii => $token) {
+                // need string token to start with..
+                if (is_array($token) && T_STRING == $token[0] && in_array($token[1], $lnPatterns) && ($ii+2) <= count($tokens)) {
+                    $parameters = self::getParameterToken($tokens, $ii);
+                    if (0 < count($parameters)) {
+                        $text = substr($parameters[0][1], 1, -1);
+                        $line = $parameters[0][2];
+                        $context = null;
+                        $plural = null;
 
-                    $ob = strpos($contents, '(', $pos+1);
-                    // allow for 10 chars between pattern and '('
-                    if ($pos < $ob && ($ob-$pos) < (strlen($pattern) + 10)) {
-                        // found something
-                        // examine first non whitespace char to figure out which quote to look for
-                        $quote = '';
-                        $qi = $ob+1;
-                        while (true) {
-                            $quote = trim(substr($contents, $qi, 1));
-                            if ("'" == $quote || '"' == $quote) {
-                                break;
+                        // check for context / plural
+                        if ('_zm' == $token[1] && 1 < count($parameters)) {
+                            $context = substr($parameters[1][1], 1, -1);
+                        } else if ('_zmn' == $token[1]) {
+                            if (2 < count($parameters)) {
+                                $plural = substr($parameters[1][1], 1, -1);
+                                $context = substr($parameters[2][1], 1, -1);
+                            } else  if (1 < count($parameters)) {
+                                $plural = substr($parameters[1][1], 1, -1);
                             }
-                            if ('' != $quote) {
-                                // not a string
-                                $quote = null;
-                                break;
-                            }
-
-                            ++$qi;
-                            // sanity check
-                            if ($qi-$ob > 10)
-                              break;
                         }
-
-                        if ('' != $quote) {
-                            // have a quote
-                            $pos += $qi-$ob+1;
-                            $text = '';
-                            $lastChar = '';
-                            $start = $qi+1;
-                            $len = 0;
-                            $char = '';
-                            while (true) {
-                                $char = substr($contents, $start+$len, 1);
-                                $len++;
-                                if ($char == $quote && $lastChar != '\\') {
-                                    break;
-                                }
-                                $lastChar = $char;
-                                $text .= $char;
-                                // sanity check
-                                if ($len > 1000) {
-                                    ZMLogging::instance()->log('unbound string in '.$filename.' around char '.$pos.'; skipping', ZMLogging::WARN);
-                                    ++$pos;
-                                    break;
-                                }
-                            }
-                            $strings[$text] = array('msg' => $text, 'filename' => $filename, 'line' => substr_count($contents, "\n", 0, $pos));
-                        } else {
-                            // found something, but not a string
-                            ZMLogging::instance()->log('found something: '.substr($contents, $qi-10, 20), ZMLogging::TRACE);
-                            ++$pos; //avoid getting stuck
-                        }
-                    } else {
-                        ++$pos; //avoid getting stuck
-                        break;
+                        $strings[$text] = array('msg' => $text, 'plural' => $plural, 'context' => $context, 'filename' => $filename, 'line' => $line);
                     }
-                }
-                if (0 < count($strings)) {
-                    $map[$filename] = $strings;
                 }
             }
 
+            if (0 < count($strings)) {
+                $map[$filename] = $strings;
+            }
         }
 
         return $map;
