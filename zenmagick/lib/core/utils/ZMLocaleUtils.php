@@ -87,6 +87,8 @@ class ZMlocaleUtils {
                         if ('_zm' == $token[1] && 1 < count($parameters)) {
                             $context = substr($parameters[1][1], 1, -1);
                         } else if ('_zmn' == $token[1]) {
+                            // default to single text
+                            $plural = $text;
                             if (2 < count($parameters)) {
                                 $plural = substr($parameters[1][1], 1, -1);
                                 $context = substr($parameters[2][1], 1, -1);
@@ -221,8 +223,20 @@ class ZMlocaleUtils {
             }
 
             // format the actual line(s)
+            if (null != $info['context']) {
+                $lines[] = 'msgctxt '.$info['context'];
+            }
             $lines[] = 'msgid '.$string;
-            $lines[] = $pot ? 'msgstr ""' : 'msgstr '.$string;
+            if (null != $info['plural']) {
+                $lines[] = 'msgid_plural '.$info['plural'];
+                if ($pot) {
+                    $lines[] = 'msgstr[0] ""';
+                    $lines[] = 'msgstr[1] ""';
+                }
+            } else {
+                $lines[] = $pot ? 'msgstr ""' : 'msgstr '.$string;
+            }
+
             $lines[] = '';
         }
 
