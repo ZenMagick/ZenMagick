@@ -21,10 +21,4 @@ CREATE TABLE admins_to_roles (
 
 ## create default mapping for main admin
 INSERT INTO admin_roles VALUES(1, 'admin');
-INSERT INTO admin_roles VALUES(2, 'demo');
-
-## create demo user with empty password, so it can't be used without manual change
-INSERT INTO admin VALUES (2, 'demo', 'demo@localhost', '', 0);
-
 INSERT INTO admins_to_roles VALUES(1, 1);
-INSERT INTO admins_to_roles VALUES(2, 2);
