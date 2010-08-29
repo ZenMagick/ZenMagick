@@ -160,15 +160,10 @@
         </foreach>
 
         <!-- copy default plugins -->
-        <copy todir="${build.dir}/zenmagick/plugins/general">
-            <fileset dir="${zenmagick.src.dir}/plugins/general/">
-                <include name="examplePlugin/**" />
-                <include name="ckEditor/**" />
-                <include name="googleAnalytics/**" />
-                <include name="quickEdit/**" />
-                <include name="productGroupPricing/**" />
-            </fileset>
-        </copy>
+        <foreach list="${plugins.defaults}" target="copy-prepare" param="path">
+            <param name="base.path" value="${zenmagick.src.dir}/plugins/general/" />
+            <param name="path.to" value="${build.dir}" />
+        </foreach>
 
         <!-- copy docs -->
         <copy tofile="${build.dir}/Readme.txt" file="etc/build/docs/Readme-mod.txt" />
