@@ -61,6 +61,8 @@ class ZMPageStatsPlugin extends Plugin {
         $this->addConfigValue('SQL', 'showSQLtiming', 'false', 'Enable to display all executed SQL and related timings.',
             'widget@BooleanFormWidget#name=showSQLtiming&default=false&label=Show SQL');
         $this->addConfigValue('Limit displayed SQL', 'sqlTimingLimit', '0', 'Limit displayed SQL to the top X queries (0 for all).');
+        $this->addConfigValue('Dump Queries to Error Log', 'dumpQueries', 'false', 'If set to true, all SQL queries will be dumped to error log.',
+            'widget@BooleanFormWidget#name=dumpQueries&default=false&label=Dump queries to error log');
     }
 
     /**
@@ -129,6 +131,16 @@ class ZMPageStatsPlugin extends Plugin {
                 }
             }
             echo '-->'."\n";
+        }
+
+        if (ZMLangUtils::asBoolean($this->get('dumpQueries'))) {
+            foreach (ZMRuntime::getDatabases() as $database) {
+                $stats = $database->getStats();
+                $details = $stats['details'];
+                foreach ($details as $query) {
+                    error_log("QUERYLOG: " . $query['start'] . " [" . $query['time'] . " secs] " . $query['sql']);
+                }
+            }
         }
 
         return ob_get_clean();
