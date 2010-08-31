@@ -286,23 +286,42 @@ class ZMOrder extends ZMObject {
     public function getOrderTotalLines() { return ZMOrders::instance()->getOrderTotalLines($this->getId()); }
 
     /**
-     * Get order total for the given name.
+     * Get order total lines for the given type.
      *
-     * @param string name The total name (without the <em>ot_</em> prefix).
+     * @param string type The total type (without the <em>ot_</em> prefix).
      * @param boolean force If set, a new order total will be created in case the order
      *  does not contain the one requested.
      * @return ZMOrderTotalLine A <code>ZMOrderTotalLine</code> or <code>null</code>.
      */
-    public function getOrderTotalLine($name, $force=false) { 
+    public function getOrderTotalLinesForType($type, $force=false) { 
+        $lines = array();
         $totals = $this->getOrderTotalLines();
-        $type = 'ot_'.$name;
+        $rawtype = 'ot_'.$name;
         foreach ($totals as $total) {
-            if ($type == $total->getType()) {
-                return $total;
+            if ($rawtype == $total->getType()) {
+                $lines[] = $total;
             }
         }
 
-        return $force ? ZMLoader::make("OrderTotalLine", ucwords($name), 0, 0, $type) : null;
+        if ($force && 0 == count($lines)) {
+            $lines[] = ZMLoader::make("OrderTotalLine", ucwords($name), 0, 0, $rawtype);
+        }
+
+        return $lines;
+    }
+
+    /**
+     * Get the total amount for a given total line type.
+     *
+     * @param string type The total type (without the <em>ot_</em> prefix).
+     * @return float The total amount for all total lines with the given type.
+     */
+    public function getOrderTotalLineAmountForType($tpye) {
+        $amount = 0;
+        foreach ($this->getOrderTotalLinesForType($type) as $line) {
+            $amount += $line->getAmount();
+        }
+        return $amount;
     }
 
     /**

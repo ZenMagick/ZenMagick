@@ -269,7 +269,7 @@ class ZMOrders extends ZMObject implements ZMSQLAware {
                 ORDER BY sort_order";
         $totals = array();
         foreach (Runtime::getDatabase()->query($sql, array('orderId' => $orderId), TABLE_ORDERS_TOTAL, 'OrderTotalLine') as $total) {
-            $totals[$total->getType()] = $total;
+            $totals[] = $total;
         }
 
         return $totals;

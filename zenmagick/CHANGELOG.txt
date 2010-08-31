@@ -481,6 +481,11 @@ Release 0.9.9
   the trailing '/' to conform to what the context should be
 - improve rounding in ZMTaxRate
 - rename setting 'isTaxInclusive' to 'showPricesTaxIncluded'
+- do not use the ot type as key for the returned array in
+  ZMOrders::getOrderTotalLines() to avoid dropping multiple lines with the same
+  type (for example tax)
+- renamed ZMOrder::getOrderTotalLine() to getOrderTotalLinesForType() and
+  changed the return type to array
 
 Release 0.9.8
 - add Savant3 and experimental views (not used yet)

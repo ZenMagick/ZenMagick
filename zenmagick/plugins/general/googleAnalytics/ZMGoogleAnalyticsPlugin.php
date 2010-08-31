@@ -187,12 +187,9 @@ class ZMGoogleAnalyticsPlugin extends Plugin {
         $address = $this->getAddress($this->order_);
         $country = $address->getCountry();
         // totals
-        $total = $this->order_->getOrderTotalLine('total', true);
-        $totalValue = number_format($total->getAmount(), 2, '.', '');
-        $tax = $this->order_->getOrderTotalLine('tax', true);
-        $taxValue = number_format($tax->getAmount(), 2, '.', '');
-        $shipping = $this->order_->getOrderTotalLine('shipping', true);
-        $shippingValue = number_format($shipping->getAmount(), 2, '.', '');
+        $totalValue = number_format($this->order_->getOrderTotalLineAmountForType('total'), 2, '.', '');
+        $taxValue = number_format($this->order_->getOrderTotalLineAmountForType('tax'), 2, '.', '');
+        $shippingValue = number_format($this->order_->getOrderTotalLineAmountForType('shipping'), 2, '.', '');
 
         $code = '<form style="display:none;" name="utmform"><textarea id="utmtrans">' . $this->eol_;
         // UTM:T|[order-id]|[affiliation]|[total]|[tax]|[shipping]|[city]|[state]|[country]
@@ -295,12 +292,9 @@ EOT;
 
         // totals
         $orderId = $this->order_->getId();
-        $total = $this->order_->getOrderTotalLine('total', true);
-        $totalValue = number_format($total->getAmount(), 2, '.', '');
-        $tax = $this->order_->getOrderTotalLine('tax', true);
-        $taxValue = number_format($tax->getAmount(), 2, '.', '');
-        $shipping = $this->order_->getOrderTotalLine('shipping', true);
-        $shippingValue = number_format($shipping->getAmount(), 2, '.', '');
+        $totalValue = number_format($this->order_->getOrderTotalLineAmountForType('total'), 2, '.', '');
+        $taxValue = number_format($this->order_->getOrderTotalLineAmountForType('tax'), 2, '.', '');
+        $shippingValue = number_format($this->order_->getOrderTotalLineAmountForType('shipping'), 2, '.', '');
 
         // order code
         $code = <<<EOT
@@ -373,11 +367,7 @@ EOT;
                 } else {
                     $baseUrl = "http://www.googleadservices.com/pagead";
                 }
-                $total = $this->order_->getOrderTotalLine('total', true);
-                if (0 >= $total) {
-                    $total = 1;
-                }
-                $totalValue = number_format($total->getAmount(), 2, '.', '');
+                $totalValue = number_format($this->order_->getOrderTotalLineAmountForType('total'), 2, '.', '');
                 $conversionLang = $this->get('conversionLang');
                 $code = <<<EOT
 <script type="text/javascript">
