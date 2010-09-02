@@ -397,7 +397,13 @@ class Plugin extends ZMPlugin {
      * @return boolean <code>true</code> if options are available.
      */
     public function hasOptions() {
-        return 2 < count($this->getConfigValues());
+        $count = 0;
+        foreach ($this->getConfigValues() as $value) {
+            if (!$value->isHidden()) {
+                ++$count;
+            }
+        }
+        return 2 < $count;
     }
 
     /**
@@ -411,6 +417,15 @@ class Plugin extends ZMPlugin {
         }
 
         return null;
+    }
+
+    /**
+     * Get dependencies.
+     *
+     * @return array List of plugin names this plugin depends on.
+     */
+    public function getDependencies() {
+        return array();
     }
 
 }

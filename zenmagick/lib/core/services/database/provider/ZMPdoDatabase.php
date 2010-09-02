@@ -596,7 +596,7 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
     public function getMetaData($table=null) {
         $this->ensureResource(); 
         if (null !== $table) {
-            if (0 !== strpos($table, $this->config_['prefix'])) {
+            if (!empty($this->config_['prefix']) && 0 !== strpos($table, $this->config_['prefix'])) {
                 $table = $this->config_['prefix'].$table;
             }
             $meta = array();

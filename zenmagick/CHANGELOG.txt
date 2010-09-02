@@ -1,5 +1,6 @@
 Release 0.9.11
 - wrap up apidocs in zip after creation
+- add Plugin::getDependencies() [not yet used]
 
 Release 0.9.10
 - restructure store and admin code into separate apps with most of the store
