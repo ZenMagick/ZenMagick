@@ -27,7 +27,7 @@
  * @package org.zenmagick.plugins.autoresponder
  * @author DerManoMann
  */
-class ZMAutoresponderPlugin extends Plugin implements ZMRequestHandler {
+class ZMAutoresponderPlugin extends Plugin {
     private $cookieUpdated;
 
     /**
@@ -49,10 +49,18 @@ class ZMAutoresponderPlugin extends Plugin implements ZMRequestHandler {
     /**
      * {@inheritDoc}
      */
+    public function getDependencies() {
+        return array('cron');
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function install() {
         parent::install();
 
         //add one hidden field to store al setups
+        /*
     $obj = new ZMObject();
     $obj->setLive(false);
     $obj->setBaseSet('orders');
@@ -67,12 +75,10 @@ class ZMAutoresponderPlugin extends Plugin implements ZMRequestHandler {
 
     var_dump($obj);
     var_dump(serialize($obj));
-
-        /*
-        $this->addConfigValue('Opt In', 'optIn', 'true', 'Allow users to opt in',
-            'widget@BooleanFormWidget#name=optIn&default=true&label=Allow opt in&style=checkbox');
-        $this->addConfigValue('Lifetime', 'lifetime', '7', 'Cookie/hash lifetime in days');
          */
+
+        $default = serialize(array());
+        $this->addConfigValue('Config', 'config', $default, 'Config data', 'widget@TextFormWidget#name=config&hidden=true&default='.$default);
 
         /*
 (NULL, 'Mode (1)', 'AUTO_MODE', 'test', '<br />Set mode <p />When in test mode, emails will be sent to store owner instead', @configuration_group_id, 3, NOW(), NULL, 'zen_cfg_select_option(array(''test'', ''live''), '),
@@ -87,6 +93,25 @@ class ZMAutoresponderPlugin extends Plugin implements ZMRequestHandler {
 (NULL, 'Restrict Product (1)', 'AUTO_PRODUCT_RESTRICT', '', '<br />Only send email when at least one of the following product IDs are ordered<p />E.g. 1, 2, 3<p />Otherwise leave blank<p />(ignore if in <b>account</b> state)<br />', @configuration_group_id, 15, NOW(), NULL, NULL),
 (NULL, 'Include Discount Coupon (1)', 'AUTO_COUPON', '', '<br />Enter existing coupon code to replicate settings from<p />Otherwise leave blank<br />', @configuration_group_id, 16, NOW(), NULL, NULL),
          */
+    }
+
+
+    /**
+     * Get the config data.
+     *
+     * @return array The config data.
+     */
+    public function getConfig() {
+        return unserialize($this->get('config'));
+    }
+
+    /**
+     * Set the config data.
+     *
+     * @param array config The config data.
+     */
+    public function setConfig($config) {
+        $this->set('config', serialize($config));
     }
 
 }
