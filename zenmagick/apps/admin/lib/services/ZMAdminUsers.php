@@ -101,13 +101,17 @@ class ZMAdminUsers extends ZMObject {
     /**
      * Get all users.
      *
+     * @param boolean demoOnly Optional flag to load demo users only; default is <code>false</code>.
      * @return array List of <code>ZMAdminUser</code> instances.
      */
-    public function getAllUsers() {
+    public function getAllUsers($demoOnly=false) {
         $sql = "SELECT *
                 FROM " . TABLE_ADMIN;
+        if ($demoOnly) {
+            $sql .= " WHERE admin_level = :live";
+        }
         $users = array();
-        foreach (ZMRuntime::getDatabase()->query($sql, array(), TABLE_ADMIN, 'AdminUser') as $adminUser) {
+        foreach (ZMRuntime::getDatabase()->query($sql, array('live' => false), TABLE_ADMIN, 'AdminUser') as $adminUser) {
             $users[] = $this->finalizeUser($adminUser);
         }
 

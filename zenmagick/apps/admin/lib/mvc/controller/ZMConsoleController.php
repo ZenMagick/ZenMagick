@@ -22,12 +22,12 @@
 
 
 /**
- * Admin controller for admin user management.
+ * Admin controller for the PHP console.
  *
  * @author DerManoMann
  * @package zenmagick.store.admin.mvc.controller
  */
-class ZMAdminUsersController extends ZMController {
+class ZMConsoleController extends ZMController {
 
     /**
      * Create new instance.
@@ -48,14 +48,20 @@ class ZMAdminUsersController extends ZMController {
      * {@inheritDoc}
      */
     public function processGet($request) {
-        $user = $request->getUser();
-        $resultSource = ZMLoader::make("ObjectResultSource", 'AdminUser', ZMAdminUsers::instance(), "getAllUsers", !$user->isLive());
-        $resultList = ZMLoader::make("ResultList");
-        $resultList->setResultSource($resultSource);
-        $resultList->setPageNumber($request->getParameter('page', 1));
+        if ($request->handleDemo()) {
+            return $this->findView('success-demo');
+        }
+        return parent::processGet($request);
+    }
 
-        $data = array('resultList' => $resultList);
-        return $this->findView(null, $data);
+    /**
+     * {@inheritDoc}
+     */
+    public function processPost($request) {
+        if ($request->handleDemo()) {
+            return $this->findView('success-demo');
+        }
+        return parent::processPost($request);
     }
 
 }

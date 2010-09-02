@@ -10,6 +10,7 @@ null:
     layout: 
   success-demo:
     view: RedirectView
+    template: index
     
 login:
   success:
