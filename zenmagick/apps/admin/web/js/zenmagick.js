@@ -36,7 +36,7 @@ var ZenMagick = {
             token = /(\d+)\.?(\d+)?\.?(\d+\+?)?\.?(\d+)?/.exec(version);
             var maj = parseInt(token[1]) || 0;
             var min = parseInt(token[2]) || 0;
-            var pat = parseInt(token[3].replace(/\+/, '0')) || 0;
+            var pat = parseInt(token[3].replace(/\+/, '')) || 0;
             var ts = parseInt(token[4]) || 0;
             return Array(maj, min, pat, ts);
         };
