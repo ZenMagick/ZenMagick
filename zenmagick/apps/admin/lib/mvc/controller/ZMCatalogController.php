@@ -70,6 +70,11 @@ class ZMCatalogController extends ZMController {
      * {@inheritDoc}
      */
     public function process($request) {
+        // disable POST in demo
+        if ('POST' == $request->getMethod() && $request->handleDemo()) {
+            return $this->findView('success-demo');
+        }
+
         $controllers = $this->getCatalogContentControllers($request);
         $controller = null;
         if (null == ($catalogRequestId = $request->getParameter('catalogRequestId'))) {
