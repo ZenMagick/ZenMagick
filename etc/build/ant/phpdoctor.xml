@@ -16,6 +16,9 @@
           <arg value="${phpdoctor.dir}/phpdoc.php"/>
           <arg value="${phpdoctor.ini.dir}/phpdoctor.ini"/>
         </exec>
+
+        <!-- wrap up -->
+        <zip zipfile="${dist.dir}/zenmagick-apidocs-${zenmagick.version}.zip" basedir="${phpdoctor.apidocs.path}" update="false" />
     </target>
 
 
