@@ -186,8 +186,6 @@ class ZMCronJobs extends ZMObject {
      */
     public function runJob($job) {
         try {
-            // make sure we can inherit from ZMCronJob
-            ZMLoader::resolve('ZMCronJob');
             ZMLogging::instance()->log("ZMCronJobs: Running: ".$job['line'], ZMLogging::DEBUG);
             $obj = ZMLoader::make($job['task']);
             if ($obj instanceof ZMCronJob) {
