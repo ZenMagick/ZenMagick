@@ -25,7 +25,7 @@
   <?php if ($request->getUser()) { ?>
     <div id="header-box">
       <p id="header-state">
-        <?php $userLink = '<a href="'.$admin2->url('update_user').'" onclick="ZenMagick.ajaxFormDialog(this.href, \''.sprintf(_zm('User Profile: %s'), $request->getUser()->getName()).'\', \'updateUser\'); return false;">'.$request->getUser()->getName().'</a>'; ?>
+        <?php $userLink = '<a href="'.$admin2->url('update_user').'" onclick="ZenMagick.ajaxFormDialog(this.href, {title:\''.sprintf(_zm('User Profile: %s'), $request->getUser()->getName()).'\', formId:\'updateUser\'}); return false;">'.$request->getUser()->getName().'</a>'; ?>
         <?php _vzm('Logged in as %s', $userLink) ?>
         <?php if (!$request->getUser()->isLive()) { ?>
           <span id="demo-note"><?php _vzm('*** DEMO MODE ***') ?></span>
@@ -37,7 +37,7 @@
         <a href="<?php echo ZMSettings::get('apps.store.baseUrl') ?>" target="_blank">Storefront</a>
         | <a href="<?php echo  ZMSettings::get('apps.store.oldAdminUrl') ?>" target="_blank">OLD Admin</a>
         | <a href="http://forum.zenmagick.org/" target="_blank"><?php _vzm('Get Help') ?></a>
-        | <a href="<?php echo $admin2->url('about') ?>" onclick="ZenMagick.ajaxDialog(this.href, 'About ZenMagick', '85%'); return false;"><?php _vzm('About') ?></a>
+        | <a href="<?php echo $admin2->url('about') ?>" onclick="ZenMagick.ajaxDialog(this.href, {title:'About ZenMagick', width:'85%', height:640}); return false;"><?php _vzm('About') ?></a>
       </p>
     </div>
   <?php } ?>

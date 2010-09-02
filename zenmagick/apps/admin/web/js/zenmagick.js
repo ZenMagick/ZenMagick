@@ -128,7 +128,7 @@ var ZenMagick = {
      *
      * @param string msg The message.
      * @param object src The source element.
-     * @param array args Optional arguments.
+     * @param obj args Optional arguments.
      */
     confirm: function(msg, src, args) {
         $('<div id="user-confirm"></div>')
@@ -164,32 +164,31 @@ var ZenMagick = {
      * Form dialog with ajax form loading and submit.
      *
      * @param string url The ajax url to load the form.
-     * @param string title The title.
+     * @param obj args Additional arguments: title, width, maxHeight, resizable, height, onload, id, modal, buttons
      */
-    ajaxDialog: function(url, title, width) {
-        var dwidth = 660;
-        if (width) {
-            dwidth = width;
-        }
-        $('<div id="ajax-dialog">Loading...</div>').dialog({
-            modal: true,
+    ajaxDialog: function(url, args) {
+        args.id = args.id || 'ajax-dialog';
+        args.width = args.width || 660;
+        args.maxHeight = args.maxHeight || false;
+        args.resizable = args.hasOwnProperty('resizable') ? args.resizable : true;
+        args.modal = args.hasOwnProperty('modal') ? args.modal : true;
+        args.height = args.height || 'auto';
+        args.onload = args.onload || function () {};
+        args.buttons = args.buttons || { "OK": function() { $(this).dialog("destroy"); $('#'+args.id).remove(); } };
+        $('<div id="'+args.id+'">Loading...</div>').dialog({
+            modal: args.modal,
             position: ['center', 20],
-            title: title,
-            width: dwidth,
+            title: args.title,
+            width: args.width,
+            height: args.height,
+            resizable: args.resizable,
+            maxHeight: args.maxHeight,
             close: function() {
                 $(this).dialog("destroy");
-                $('#ajax-dialog').remove();
+                $('#'+args.id).remove();
             },
-            buttons: {
-                "OK": function() {
-                    $(this).dialog("destroy");
-                    $('#ajax-dialog').remove();
-                }
-            },
-        }).load(url, function() {
-            var div = this;
-            // nothing for now
-        });
+            buttons: args.buttons,
+        }).load(url, args.onload);
 
         return false;
 		},
@@ -198,37 +197,33 @@ var ZenMagick = {
      * Form dialog with ajax form loading and submit.
      *
      * @param string url The ajax url to load the form.
-     * @param string title The title.
-     * @param formId The id of the form to 'ajaxify'.
-     * @param function callback Optional callback function called before the actual submit.
+     * @param obj args Additional arguments: all of <code>ajaxDialog</code> (except buttons), plus: formId, onsubmit,
      */
-    ajaxFormDialog: function(url, title, formId, callback) {
-        $('<div id="ajax-form-dialog">Loading...</div>').dialog({
-            modal: true,
-            position: ['center', 20],
-            title: title,
-            width: 660,
-            close: function() {
-                $(this).dialog("destroy");
-                $('#ajax-form-dialog').remove();
-            }
-        }).load(url, function() {
+    ajaxFormDialog: function(url, args) {
+        // default for form dialogs
+        args.id = args.id || 'ajax-form-dialog';
+        // no additional buttons
+        args.buttons = [];
+        // on dialog load
+        args.onload = function() {
             var div = this;
             // attach ajax form handler
-            $('#'+formId).submit(function() {
-                if (callback) {
-                  eval(callback+'(this);');
+            $('#'+args.formId).submit(function() {
+                if (args.onsubmit) {
+                  eval(args.onsubmit+'(this);');
                 }
                 $(this).ajaxSubmit({ 
                     success: function() {
                         $(div).dialog("destroy");
-                        $('#ajax-form-dialog').remove();
+                        $('#'+args.id).remove();
                     }
                 });
                 // return false to prevent normal browser submit and page navigation
                 return false;
             });
-        });
+        };
+
+        this.ajaxDialog(url, args);
 
         return false;
 		}
