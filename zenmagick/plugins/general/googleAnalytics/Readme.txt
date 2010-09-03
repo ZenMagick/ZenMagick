@@ -3,11 +3,6 @@ ZenMagick Google Analytics plugin
 
 This plugin allows to configure Goggle Analytics for use with the store.
 
-The plugin default is to create the new ga style JavaScript. If you need the older
-urchin style code, add the following line to your global or theme local.php:
-
-    ZMSettings::set('plugins.googleAnalytics.urchin', true);
-
 
 INSTALLAION
 ===========
