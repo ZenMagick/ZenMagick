@@ -34,19 +34,6 @@
  * @package zenmagick.store.shared.provider
  */
 class ZMZenCartAccountSacsHandler extends ZMObject implements ZMSacsHandler {
-    /** Access level registered. 
-     * @deprecated
-     */
-    const REGISTERED = 'registered';
-    /** Access level guest. 
-     * @deprecated
-     */
-    const GUEST = 'guest';
-    /** Access level anonymous.
-     * @deprecated
-     */
-    const ANONYMOUS = 'anonymous';
-
     private $levelMap_;
 
 

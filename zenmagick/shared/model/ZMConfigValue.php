@@ -36,7 +36,6 @@ class ZMConfigValue extends ZMObject {
     private $key_;
     private $value_;
     private $description_;
-    private $useFunction_;
     private $setFunction_;
 
 
@@ -96,14 +95,6 @@ class ZMConfigValue extends ZMObject {
     public function getDescription() { return $this->description_; }
 
     /**
-     * Get the use function.
-     *
-     * @return string The use function.
-     * @deprecated
-     */
-    public function getUseFunction() { return $this->useFunction_; }
-
-    /**
      * Get the set function.
      *
      * @return string The set function.
@@ -154,14 +145,6 @@ class ZMConfigValue extends ZMObject {
      * @param string description The description.
      */
     public function setDescription($description ) { $this->description_ = $description ; }
-
-    /**
-     * Set the use function.
-     *
-     * @param string function The use function.
-     * @deprecated
-     */
-    public function setUseFunction($function) { $this->useFunction_ = $function; }
 
     /**
      * Set the set function.

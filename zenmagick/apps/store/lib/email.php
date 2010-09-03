@@ -25,22 +25,6 @@
 
 
     /**
-     * Create email contents based on the given parameter.
-     *
-     * @param string template The template.
-     * @param boolean asHTML Flag whether HTML or text version should be generated.
-     * @param array context The context data to be made available for the email template.
-     * @return string The email contents.
-     * @package zenmagick.store.shared.email
-     * @deprecated will be replaced in the future
-     */
-    function zm_get_email_contents($template, $asHTML=true, $context=array()) {
-        $view = ZMLoader::make("EmailView", $template, $asHTML, $context);
-        return $view->generate(ZMRequest::instance());
-    }
-
-
-    /**
      * Check in which format a given email template exists.
      *
      * @param string template The email template name.

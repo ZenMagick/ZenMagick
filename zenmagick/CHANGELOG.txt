@@ -1,6 +1,11 @@
 Release 0.9.11
 - wrap up apidocs in zip after creation
 - add Plugin::getDependencies() [not yet used]
+- googleAnalytics: remove deprecated urchin code
+- remove deprecated zm_get_email_contents() function
+- remove deprecated REGISTERED/GUEST/ANONYMOUS consts from 
+  ZMZenCartAccountSacsHandler
+- remove deprecated getUseFunction()/setUseFunction() in ZMConfigValue
 
 Release 0.9.10
 - restructure store and admin code into separate apps with most of the store

@@ -109,13 +109,8 @@ class ZMGoogleAnalyticsPlugin extends Plugin {
         $request = $args['request'];
         $contents = $args['contents'];
 
-        if (ZMSettings::get('plugins.googleAnalytics.urchin', false)) {
-            $trackerCode = $this->getTrackerCodeUrchin($request);
-            $checkoutCode = $this->getCheckoutCodeUrchin($request);
-        } else {
-            $trackerCode = $this->getTrackerCodeGa($request);
-            $checkoutCode = $this->getCheckoutCodeGa($request);
-        }
+        $trackerCode = $this->getTrackerCodeGa($request);
+        $checkoutCode = $this->getCheckoutCodeGa($request);
         $code = !empty($checkoutCode) ? $checkoutCode : $trackerCode;
         $code .= $this->getConversionCode($request);
 
@@ -126,27 +121,6 @@ class ZMGoogleAnalyticsPlugin extends Plugin {
 
         $args['contents'] = preg_replace('/<\/body>/', $code . '</body>', $contents, 1);
         return $args;
-    }
-
-    /**
-     * Format the generic tracking code using the deprecated urchin format.
-     *
-     * @param ZMRequest request The current request.
-     * @return string The tracking code.
-     */
-    protected function getTrackerCodeUrchin($request) {
-        if ($request->isSecure()) {
-            $url = "https://ssl.google-analytics.com/urchin.js";
-        } else {
-            $url = "http://www.google-analytics.com/urchin.js";
-        }
-
-        $code = '<script src="' . $url . '" type="text/javascript"></script>' . $this->eol_;
-        $code .= '<script type="text/javascript">';
-        $code .= '_uacct = "' . $this->get('uacct') . '";';
-        $code .= 'urchinTracker(); </script>' . $this->eol_;
-
-        return $code;
     }
 
     /**
@@ -167,48 +141,6 @@ class ZMGoogleAnalyticsPlugin extends Plugin {
             break;
         }
         return $address;
-    }
-
-    /**
-     * Format the checkout order tracking code using the deprecated urchin format.
-     *
-     * @param ZMRequest request The current request.
-     * @return string The order tracking code or empty string if not applicable.
-     */
-    protected function getCheckoutCodeUrchin($request) {
-        if ('checkout_success' != $request->getRequestId()) {
-            return '';
-        }
-        if (null == $this->order_) {
-            ZMLogging::instance()->log('no order to process', ZMLogging::WARN);
-            return;
-        }
-
-        $address = $this->getAddress($this->order_);
-        $country = $address->getCountry();
-        // totals
-        $totalValue = number_format($this->order_->getOrderTotalLineAmountForType('total'), 2, '.', '');
-        $taxValue = number_format($this->order_->getOrderTotalLineAmountForType('tax'), 2, '.', '');
-        $shippingValue = number_format($this->order_->getOrderTotalLineAmountForType('shipping'), 2, '.', '');
-
-        $code = '<form style="display:none;" name="utmform"><textarea id="utmtrans">' . $this->eol_;
-        // UTM:T|[order-id]|[affiliation]|[total]|[tax]|[shipping]|[city]|[state]|[country]
-        $code .= 'UTM:T|'.$this->order_->getId().'|'.$this->get('affiliation').'|'.$totalValue.'|'.$taxValue.'|'.
-            $shippingValue.'|'.$address->getCity().'|'.$address->getState().'|'.$country->getIsoCode3() . $this->eol_;
-
-        //UTM:I|[order-id]|[sku/code]|[productname]|[category]|[price]|[quantity]
-        foreach ($this->order_->getOrderItems() as $orderItem) {
-            $identifier = 'model' == $this->get('identifier') ? $orderItem->getModel() : $orderItem->getProductId();
-            $category = ZMCategories::instance()->getDefaultCategoryForProductId($orderItem->getProductId(), $request->getSession()->getLanguageId());
-            $price = number_format($orderItem->getCalculatedPrice(), 2, '.', '');
-            $code .= 'UTM:I|'.$this->order_->getId().'|'.$identifier.'|'.$orderItem->getName().'|'.$category->getName().'|'.$price.'|'.$orderItem->getQty() .$this->eol_;
-        }
-
-        $code .= '</textarea></form>' . $this->eol_;
-        $code .= '<script type="text/javascript">';
-        $code .= '__utmSetTrans();</script>' . $this->eol_;
-        
-        return $code;
     }
 
     /**
