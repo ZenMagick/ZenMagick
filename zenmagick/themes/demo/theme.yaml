@@ -23,4 +23,7 @@ urls:
   login:
     ajax_success: 
       template: ajax/login_success
+  ## re-use category-list
+  products_new:
+    template: category_list
 
