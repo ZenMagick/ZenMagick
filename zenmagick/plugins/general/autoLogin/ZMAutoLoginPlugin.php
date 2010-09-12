@@ -60,6 +60,11 @@ class ZMAutoLoginPlugin extends Plugin implements ZMRequestHandler {
         $this->addConfigValue('Opt In', 'optIn', 'true', 'Allow users to opt in',
             'widget@BooleanFormWidget#name=optIn&default=true&label=Allow opt in&style=checkbox');
         $this->addConfigValue('Lifetime', 'lifetime', '7', 'Cookie/hash lifetime in days');
+        $this->addConfigValue('URL token', 'urlToken', 'false', 'Accept token in URL query parameters',
+            'widget@BooleanFormWidget#name=urlToken&default=false&label=Accept URL token&style=checkbox');
+        $this->addConfigValue('Expire URL token', 'expireUrlToken', 'true', 'Invalidate URL token after use',
+            'widget@BooleanFormWidget#name=expireUrlToken&default=true&label=Expire URL token after use&style=checkbox');
+        $this->addConfigValue('URL token name', 'urlTokenName', 'token', 'Name of the URL token parameter');
     }
 
     /**
@@ -70,22 +75,15 @@ class ZMAutoLoginPlugin extends Plugin implements ZMRequestHandler {
 
         $session = $request->getSession();
         if ('GET' == $request->getMethod() && 'logoff' != $request->getRequestId() && $session->isAnonymous()) {
-            // try to login
-            if (isset($_COOKIE[AUTO_LOGIN_COOKIE])) {
-                // prepare cookie data
-			          $cookie = explode('~~~', $_COOKIE[AUTO_LOGIN_COOKIE]);
+            if (null != ($token = $this->getRequestToken($request))) {
                 // need account to login
                 $account = null;
 
-                // validate using token in cookie
-                $token = ZMTokens::instance()->getTokenForHash($cookie[0]);
-                if (null != $token) {
-                    // resource = auto_login/id/[accountId]
-                    $bits = explode('/', $token->getResource());
-                    if (3 == count($bits) && 'auto_login' == $bits[0] && 'id' == $bits[1]) {
-                        $account = ZMAccounts::instance()->getAccountForId((int)$bits[2]);
-                        // TODO: renew cookie if required
-                    }
+                // resource = auto_login/id/[accountId]
+                $bits = explode('/', $token->getResource());
+                if (3 == count($bits) && 'auto_login' == $bits[0] && 'id' == $bits[1]) {
+                    $account = ZMAccounts::instance()->getAccountForId((int)$bits[2]);
+                    // TODO: renew cookie if required
                 }
 
                 if (null != $account) {
@@ -100,6 +98,33 @@ class ZMAutoLoginPlugin extends Plugin implements ZMRequestHandler {
         }
     }
 
+
+    /**
+     * Try to get a token from the current request.
+     *
+     * @param ZMRequest request The current request.
+     * @return ZMToken A token or <code>null</code>.
+     */
+    protected function getRequestToken($request) {
+        // try cookie first
+        if (isset($_COOKIE[AUTO_LOGIN_COOKIE])) {
+            // prepare cookie data
+            $cookie = explode('~~~', $_COOKIE[AUTO_LOGIN_COOKIE]);
+            return ZMTokens::instance()->getTokenForHash($cookie[0]);
+        }
+
+        // check for url parameter if enabled
+        if ($this->get('urlToken') && null != ($hash = $request->getParameter($this->get('urlTokenName')))) {
+            if (null != ($token = ZMTokens::instance()->getTokenForHash($hash)) && $this->get('expireUrlToken')) {
+                // expire after first use (set lifetime to 0)
+                ZMTokens::instance()->updateToken($token, 0);
+            }
+            return $token;
+        }
+
+        // no token
+        return null;
+    }
 
     /**
      * Make a resource string based on the given account.
