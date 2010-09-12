@@ -106,14 +106,28 @@ class ZMPayments extends ZMObject {
     /**
      * Get the selected payment type.
      *
+     * @param string paymentTypeId Optional payment type id hint.
      * @return ZMPaymentType The payment type or <code>null</code>.
      */
-    function getSelectedPaymentType() {
+    function getSelectedPaymentType($paymentTypeId=null) {
+      echo $paymentTypeId;
         $zenModule = $GLOBALS[$this->zenModules_->selected_module];
         if (!$zenModule) { 
-            // must be GV, then, so build custom type
-            $paymentType = ZMLoader::make("PaymentType", 'gv', _zm('Gift Certificate/Coupon'));
-            return $paymentType;
+            $paymentType = null;
+            if (null != $paymentTypeId) {
+                // try that first
+                foreach ($this->getPaymentTypes() as $pt) {
+                    if ($pt->getId() == $paymentTypeId) {
+                        $paymentType = $pt;
+                        break;
+                    }
+                }
+            }
+            if (null == $paymentType) {
+                // must be GV, then, so build custom type
+                $paymentType = ZMLoader::make("PaymentType", 'gv', _zm('Gift Certificate/Coupon'));
+                return $paymentType;
+            }
         }
         //XXX: doh!
         if ('checkout_confirmation' == ZMRequest::instance()->getRequestId()) {
@@ -125,6 +139,10 @@ class ZMPayments extends ZMObject {
             foreach ($confirmation['fields'] as $zenField) {
                 $paymentType->addField(ZMLoader::make("PaymentField", $zenField['title'], $zenField['field']));
             }
+        }
+
+        if (!ZMLangUtils::isEmpty($zenModule->email_footer)) {
+            $paymentType->setInfo(nl2br($zenModule->email_footer));
         }
 
         return $paymentType;

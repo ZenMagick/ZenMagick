@@ -416,7 +416,7 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
      */
     public function getMetaData($table=null) {
         if (null !== $table) {
-            if (0 !== strpos($table, $this->config_['prefix'])) {
+            if (!ZMLangUtils::isEmpty($this->config_['prefix']) && 0 !== strpos($table, $this->config_['prefix'])) {
                 $table = $this->config_['prefix'].$table;
             }
             $results = $this->db_->Execute("SHOW COLUMNS FROM " . $table);

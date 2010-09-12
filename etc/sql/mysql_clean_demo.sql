@@ -3,8 +3,6 @@
 #
 # This script will clean out *ALL* product related data plus the the demo customer
 #
-# $Id$
-#
 
 UPDATE configuration SET configuration_value='false' WHERE configuration_key='DOWNLOAD_ENABLED';
 DELETE FROM address_book where customers_id = 1;

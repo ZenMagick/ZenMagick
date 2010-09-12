@@ -3,8 +3,6 @@
 #
 # This script will clean out *ALL* product related data plus the the demo customer
 #
-# $Id$
-#
 
 TRUNCATE TABLE address_book;
 TRUNCATE TABLE categories;

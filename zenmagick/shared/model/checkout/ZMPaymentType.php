@@ -36,6 +36,7 @@ class ZMPaymentType extends ZMObject {
     private $instructions_;
     private $error_;
     private $fields_;
+    private $info_;
 
 
     /**
@@ -52,6 +53,7 @@ class ZMPaymentType extends ZMObject {
         $this->instructions_ = $instructions;
         $this->error_ = null;
         $this->fields_ = array();
+        $this->info_ = '';
     }
 
     /**
@@ -107,5 +109,19 @@ class ZMPaymentType extends ZMObject {
      * @param ZMPaymentField field The new form field.
      */
     public function addField($field) { array_push($this->fields_, $field); }
+
+    /**
+     * Get the info field.
+     *
+     * @return string Additional information.
+     */
+    public function getInfo() { return $this->info_; }
+
+    /**
+     * Set the info field.
+     *
+     * @param string info Additional information.
+     */
+    public function setInfo($info) { $this->info_ = $info; }
 
 }

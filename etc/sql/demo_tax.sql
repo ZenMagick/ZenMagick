@@ -3,8 +3,6 @@
 #
 # This is demo data that is actually in the core Zen Cart SQL.
 #
-# $Id$
-#
 
 # USA/Florida
 INSERT INTO tax_rates VALUES (1, 1, 1, 1, 7.0, 'FL TAX 7.0%', now(), now());
