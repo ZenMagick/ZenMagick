@@ -11,6 +11,10 @@ Release 0.9.11
 - autoLogin: add options to accept url parameter token
 - add HEAD support to ZMController
 - add ZMPaymentTypes to eventually replace the dodgy ZMPayments
+- ZMShoppingCart: change getPaymentMethodId to getPaymentTypeId; templates
+  affected: checkout_payment.php
+- fix regression in payment JS validation: checkout_payment.php
+- display payment details in order history: account_history_info.php
 
 Release 0.9.10
 - restructure store and admin code into separate apps with most of the store

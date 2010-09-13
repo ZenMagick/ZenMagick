@@ -251,11 +251,11 @@ class ZMShoppingCart extends ZMObject {
     }
 
     /**
-     * Get the id of the selected payment method.
+     * Get the id of the selected payment type.
      *
-     * @return int The payment method id.
+     * @return int The payment type id.
      */
-    public function getPaymentMethodId() { 
+    public function getPaymentTypeId() { 
         return isset($_SESSION['payment']) ? $_SESSION['payment'] : null;
     }
 
@@ -289,11 +289,13 @@ class ZMShoppingCart extends ZMObject {
     /**
      * Get the selected payment type.
      *
-     * @return ZMPaymentType The payment type.
+     * @return ZMPaymentType The payment type or <code>null</code>.
      */
     public function getPaymentType() {
-        $payments = ZMLoader::make("Payments");
-        return $payments->getSelectedPaymentType();
+        return ZMPaymentTypes::instance()->getPaymentTypeForId($this->getPaymentTypeId());
+        //TODO: remove
+        //$payments = ZMLoader::make("Payments");
+        //return $payments->getSelectedPaymentType();
     }
 
     /**
@@ -460,9 +462,11 @@ class ZMShoppingCart extends ZMObject {
      *
      * @return array List of <code>ZMPaymentType</code> instances.
      */
-    function getPaymentTypes() {
-        $payments = $this->_getPayments();
-        return $payments->getPaymentTypes();
+    public function getPaymentTypes() {
+        return $this->helper_->getPaymentTypes();
+        //TODO: remove
+        //$payments = $this->_getPayments();
+        //return $payments->getPaymentTypes();
     }
 
     /**

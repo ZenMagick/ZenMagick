@@ -346,9 +346,11 @@ class ZMOrder extends ZMObject {
      *
      * @return ZMPaymentType A payment type or <code>null</code> if N/A.
      */
-    function getPaymentType() {
-        $payments = ZMLoader::make("Payments");
-        return $payments->getSelectedPaymentType($this->get('payment_module_code'));
+    public function getPaymentType() {
+        return ZMPaymentTypes::instance()->getPaymentTypeForId($this->get('payment_module_code'));
+        // TODO: remove
+        //$payments = ZMLoader::make("Payments");
+        //return $payments->getSelectedPaymentType($this->get('payment_module_code'));
     }
 
 }

@@ -35,7 +35,7 @@
 <script type="text/javascript">var submitter = 0;</script>
 <?php echo $shoppingCart->getPaymentsJavaScript() ?>
 
-<?php echo $form->open(FILENAME_CHECKOUT_CONFIRMATION, '', array('id'=>'checkout_payment')) ?>
+<?php echo $form->open(FILENAME_CHECKOUT_CONFIRMATION, '', true, array('id'=>'checkout_payment', 'onsubmit' => 'return check_form();')) ?>
   <?php if (ZMSettings::get('isConditionsMessage')) { ?>
       <fieldset>
           <legend><?php _vzm("Terms and Conditions") ?></legend>
@@ -93,7 +93,7 @@
         if ($single) {
           ?><p><input type="hidden" id="<?php echo $sptid ?>" name="payment" value="<?php echo $type->getId() ?>" /><?php
         } else {
-          ?><p class="paytype" onclick="document.getElementById('<?php echo $sptid ?>').checked = true;"><input type="radio" id="<?php echo $sptid ?>" name="payment" value="<?php echo $type->getId() ?>"<?php $form->checked($shoppingCart->getPaymentMethodId(), $type->getId()) ?> /><?php
+          ?><p class="paytype" onclick="document.getElementById('<?php echo $sptid ?>').checked = true;"><input type="radio" id="<?php echo $sptid ?>" name="payment" value="<?php echo $type->getId() ?>"<?php $form->checked($shoppingCart->getPaymentTypeId(), $type->getId()) ?> /><?php
         }
         ?><label for="<?php echo $sptid ?>"><?php echo $type->getName() ?></label></p><?php
         $fields = $type->getFields();

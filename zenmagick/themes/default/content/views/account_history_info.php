@@ -55,14 +55,14 @@
     <?php } ?>
     </tbody>
 </table>
-<?php /*
+
 <h3><?php _vzm("Payment Details") ?></h3>
 <?php $paymentType = $currentOrder->getPaymentType(); ?>
 <p><?php echo $html->encode($paymentType->getName()) ?></p>
 <?php if (!ZMLangUtils::isEmpty($paymentType->getInfo())) { ?>
   <p><?php echo $html->encode($paymentType->getInfo()) ?></p>
 <?php } ?>
- */ ?>
+
 <h3><?php _vzm("Order History") ?></h3>
 <table cellpadding="0" cellspacing="0">
     <tbody>

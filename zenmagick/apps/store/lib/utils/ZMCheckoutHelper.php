@@ -323,4 +323,29 @@ class ZMCheckoutHelper extends ZMObject {
         }
     }
 
+    /**
+     * Get available payment types for the cart.
+     *
+     * <p>Includes logic to handle the <em>freecharger</code> payment type.</p>
+     *
+     * @return array List of <code>ZMPaymentType</code> instances.
+     */
+    public function getPaymentTypes() {
+        $cartTotal = $this->shoppingCart_->getTotal();
+        //TODO: fix
+        $shippingCost = $_SESSION['shipping']['cost'];
+
+        if (defined('MODULE_PAYMENT_FREECHARGER_STATUS') && MODULE_PAYMENT_FREECHARGER_STATUS && 0 == $cartTotal && 0 == $shippingCost) {
+            return array(ZMPaymentTypes::instance()->getPaymentTypeForId('freecharger'));
+        }
+
+        // all available except freecharger
+        $paymentTypes = ZMPaymentTypes::instance()->getPaymentTypes();
+        if (array_key_exists('freecharger', $paymentTypes)) {
+            unset($paymentTypes['freecharger']);
+        }
+
+        return $paymentTypes;
+    }
+
 }

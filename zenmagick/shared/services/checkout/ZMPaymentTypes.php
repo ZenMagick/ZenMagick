@@ -31,11 +31,14 @@
  * @package zenmagick.store.shared.services.checkout
  */
 class ZMPaymentTypes extends ZMObject {
+    private $paymentTypes_;
+
 
     /**
      * Create new instance.
      */
     function __construct() {
+        $this->paymentTypes_ = null;
     }
 
     /**
@@ -60,32 +63,58 @@ class ZMPaymentTypes extends ZMObject {
      * @return array List of <code>ZMPaymentType</code> instances.
      */
     public function getPaymentTypes($all=false) {
-        $paymentTypes = array();
-
-        if (defined('MODULE_PAYMENT_INSTALLED') && !ZMLangUtils::isEmpty(MODULE_PAYMENT_INSTALLED)) {
-            // get a list of modules and stuff
-            $moduleInfos = array();
-            foreach (explode(';', MODULE_PAYMENT_INSTALLED) as $filename) {
-                if (file_exists(DIR_FS_CATALOG . DIR_WS_MODULES . '/payment/' . $filename)) {
-                    $class = substr($filename, 0, strrpos($filename, '.'));
-                    $moduleInfos[] = array('class' => $class, 'filename' => $filename);
+        if (null === $this->paymentTypes_) {
+            $this->paymentTypes_ = array();
+            if (defined('MODULE_PAYMENT_INSTALLED') && !ZMLangUtils::isEmpty(MODULE_PAYMENT_INSTALLED)) {
+                // get a list of modules and stuff
+                $moduleInfos = array();
+                foreach (explode(';', MODULE_PAYMENT_INSTALLED) as $filename) {
+                    $path = DIR_FS_CATALOG.DIR_WS_MODULES.'/payment/'.$filename;
+                    if (file_exists($path)) {
+                        $class = substr($filename, 0, strrpos($filename, '.'));
+                        $moduleInfos[] = array('class' => $class, 'filename' => $filename, 'path' => $path);
+                    }
                 }
-            }
 
-            foreach ($moduleInfos as $info) {
-                $lang_file = DIR_WS_LANGUAGES.$_SESSION['language'].'/modules/payment/'.$info['filename'];
-                if (@file_exists($lang_file)) {
-                    include_once $lang_file;
-                }
-                include_once DIR_WS_MODULES.'payment/'.$info['filename'];
-                $module = new $info['class'];
-                if ($module->enabled) {
-                    $paymentTypes[$module->code] = $module;
+                foreach ($moduleInfos as $info) {
+                    $lang_file = DIR_WS_LANGUAGES.$_SESSION['language'].'/modules/payment/'.$info['filename'];
+                    if (@file_exists($lang_file)) {
+                        include_once $lang_file;
+                    }
+                    include_once $info['path'];
+                    $module = new $info['class'];
+                    if ($module->enabled) {
+
+                        // set up module details
+                        $selection = $module->selection();
+                        $paymentType = ZMLoader::make("PaymentType", $selection['id'], $selection['module']);
+                        if (isset($selection['error'])) {
+                            $paymentType->error_ = $selection['error'];
+                        }
+                        if (isset($selection['fields'])) {
+                            foreach ($selection['fields'] as $zenField) {
+                                $paymentType->addField(ZMLoader::make("PaymentField", $zenField['title'], $zenField['field']));
+                            }
+                        }
+
+                        $this->paymentTypes_[$module->code] = $paymentType;
+                    }
                 }
             }
         }
 
-        return $paymentTypes;
+        return $this->paymentTypes_;
+    }
+
+    /**
+     * Get the payment type for the give id.
+     *
+     * @param string id The payment type id.
+     * @return ZMPaymentType A <code>ZMPaymentType</code> instance or <code>null</code>.
+     */
+    public function getPaymentTypeForId($id) {
+        $paymentTypes = $this->getPaymentTypes();
+        return array_key_exists($id, $paymentTypes) ? $paymentTypes[$id] : null;
     }
 
 }
