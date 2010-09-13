@@ -70,15 +70,9 @@
     <?php $paymentType = $shoppingCart->getPaymentType() ?>
     <?php if (null != $paymentType) { ?>
       <h4><?php echo $html->encode($paymentType->getName()) ?></h4>
-      <?php $fields = $paymentType->getFields();
-          if (0 < count($fields)) {
-              ?><table cellpadding="0" cellspacing="0"><tbody><?php
-              foreach ($fields as $field) {
-                ?><tr><td><label><?php echo $field->getLabel() ?></label></td><td><?php echo $field->getHTML() ?></td></tr><?php
-              }
-              ?></table><?php
-            }
-      ?>
+      <?php if (!ZMLangUtils::isEmpty($paymentType->getInfo())) { ?>
+        <p><?php echo nl2br($paymentType->getInfo()) ?></p>
+      <?php } ?>
     <?php } ?>
 </fieldset>
 

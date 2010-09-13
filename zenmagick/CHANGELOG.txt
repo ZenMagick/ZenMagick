@@ -15,6 +15,10 @@ Release 0.9.11
   affected: checkout_payment.php
 - fix regression in payment JS validation: checkout_payment.php
 - display payment details in order history: account_history_info.php
+- use new ZMPaymentTypes service; deprecate ZMPayments
+- add ZMPaymentType::getInfo() to display additional info; templates:
+  checkout_confirmation.php, checkout_payment.php, checkout.html.php,
+  checkout.text.php
 
 Release 0.9.10
 - restructure store and admin code into separate apps with most of the store

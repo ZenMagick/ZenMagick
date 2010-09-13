@@ -60,7 +60,7 @@
 <?php $paymentType = $currentOrder->getPaymentType(); ?>
 <p><?php echo $html->encode($paymentType->getName()) ?></p>
 <?php if (!ZMLangUtils::isEmpty($paymentType->getInfo())) { ?>
-  <p><?php echo $html->encode($paymentType->getInfo()) ?></p>
+  <p><?php echo nl2br($paymentType->getInfo()) ?></p>
 <?php } ?>
 
 <h3><?php _vzm("Order History") ?></h3>

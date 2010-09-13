@@ -76,8 +76,8 @@
 <h3><?php _vzm("Payment Details") ?></h3>
 <?php $paymentType = $order->getPaymentType(); ?>
 <p><?php echo $html->encode($paymentType->getName()) ?></p>
-<?php if (!empty($PAYMENT_METHOD_FOOTER)) { ?>
-<p><?php echo $PAYMENT_METHOD_FOOTER ?></p>
+<?php if (!ZMLangUtils::isEmpty($paymentType->getInfo())) { ?>
+<p><?php echo nl2br($paymentType->getInfo()) ?></p>
 <?php } ?>
 
 <?php echo $utils->staticPageContent('email_advisory') ?>

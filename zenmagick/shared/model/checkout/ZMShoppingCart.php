@@ -293,9 +293,6 @@ class ZMShoppingCart extends ZMObject {
      */
     public function getPaymentType() {
         return ZMPaymentTypes::instance()->getPaymentTypeForId($this->getPaymentTypeId());
-        //TODO: remove
-        //$payments = ZMLoader::make("Payments");
-        //return $payments->getSelectedPaymentType();
     }
 
     /**
@@ -464,9 +461,6 @@ class ZMShoppingCart extends ZMObject {
      */
     public function getPaymentTypes() {
         return $this->helper_->getPaymentTypes();
-        //TODO: remove
-        //$payments = $this->_getPayments();
-        //return $payments->getPaymentTypes();
     }
 
     /**

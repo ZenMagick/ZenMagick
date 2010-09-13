@@ -60,10 +60,10 @@
 -----------------------------------------------
 <?php $paymentType = $order->getPaymentType(); ?>
 <?php echo $html->encode($paymentType->getName()) ?>
-<?php if (!empty($PAYMENT_METHOD_FOOTER)) { ?>
+<?php if (!ZMLangUtils::isEmpty($paymentType->getInfo())) { ?>
 
 
-<?php echo $PAYMENT_METHOD_FOOTER ?>
+<?php echo $paymentType->getInfo() ?>
 <?php } ?>
 
 

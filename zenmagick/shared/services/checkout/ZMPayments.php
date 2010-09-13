@@ -29,6 +29,7 @@
  *
  * @author DerManoMann
  * @package zenmagick.store.shared.services.checkout
+ * @deprecated use ZMPaymentTypes instead
  */
 class ZMPayments extends ZMObject {
     var $zenModules_;

@@ -83,8 +83,8 @@ class ZMPaymentTypes extends ZMObject {
                     }
                     include_once $info['path'];
                     $module = new $info['class'];
-                    if ($module->enabled) {
-
+                    if ($all || $module->enabled) {
+                        //TODO: create new payment type implementation that wraps the module rather than just grabbing values...
                         // set up module details
                         $selection = $module->selection();
                         $paymentType = ZMLoader::make("PaymentType", $selection['id'], $selection['module']);
@@ -95,6 +95,10 @@ class ZMPaymentTypes extends ZMObject {
                             foreach ($selection['fields'] as $zenField) {
                                 $paymentType->addField(ZMLoader::make("PaymentField", $zenField['title'], $zenField['field']));
                             }
+                        }
+
+                        if (!ZMLangUtils::isEmpty($module->email_footer)) {
+                            $paymentType->setInfo($module->email_footer);
                         }
 
                         $this->paymentTypes_[$module->code] = $paymentType;

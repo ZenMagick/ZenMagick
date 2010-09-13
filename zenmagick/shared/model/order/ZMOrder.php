@@ -348,9 +348,6 @@ class ZMOrder extends ZMObject {
      */
     public function getPaymentType() {
         return ZMPaymentTypes::instance()->getPaymentTypeForId($this->get('payment_module_code'));
-        // TODO: remove
-        //$payments = ZMLoader::make("Payments");
-        //return $payments->getSelectedPaymentType($this->get('payment_module_code'));
     }
 
 }
