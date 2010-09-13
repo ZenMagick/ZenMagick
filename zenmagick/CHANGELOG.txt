@@ -9,6 +9,7 @@ Release 0.9.11
 - add info property to ZMPaymentType
 - change admin url schekda to default
 - autoLogin: add options to accept url parameter token
+- add HEAD support to ZMController
 
 Release 0.9.10
 - restructure store and admin code into separate apps with most of the store

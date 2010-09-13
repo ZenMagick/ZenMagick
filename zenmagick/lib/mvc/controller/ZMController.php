@@ -102,6 +102,9 @@ class ZMController extends ZMObject {
         if (null == $view) {
             try {
                 switch ($request->getMethod()) {
+                    case 'HEAD':
+                        $view = $this->processHead($request);
+                        break;
                     case 'GET':
                         $view = $this->processGet($request);
                         break;
@@ -214,6 +217,17 @@ class ZMController extends ZMObject {
      */
     public function isFormSubmit($request) {
         return 'POST' == $request->getMethod();
+    }
+
+    /**
+     * Process a HTTP HEAD request.
+     * 
+     * @param ZMRequest request The request to process.
+     * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
+     * if the controller generates the contents itself.
+     */
+    public function processHead($request) {
+        return null;
     }
 
     /**
