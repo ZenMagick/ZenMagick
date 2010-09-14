@@ -109,11 +109,11 @@ class ZMTokens extends ZMObject {
     public function validateHash($resource, $hash, $expire=true) {
         $sql = "SELECT * FROM " . ZM_TABLE_TOKEN . "
                 WHERE hash = :hash AND resource = :resource AND expires >= now()";
-        $token = ZMRuntime::getDatabase()->querySingle($sql, array('hash'=>$hash, 'resource'=>$resource), ZM_TABLE_TOKEN, 'Token');
+        $token = ZMRuntime::getDatabase()->querySingle($sql, array('hash' => $hash, 'resource' => $resource), ZM_TABLE_TOKEN, 'Token');
         if ($expire && null !== $token) {
             $sql = "DELETE FROM " . ZM_TABLE_TOKEN . "
                     WHERE hash = :hash AND resource = :resource";
-            ZMRuntime::getDatabase()->update($sql, array('hash'=>$hash, 'resource'=>$resource), ZM_TABLE_TOKEN);
+            ZMRuntime::getDatabase()->update($sql, array('hash' => $hash, 'resource' => $resource), ZM_TABLE_TOKEN);
         }
         return $token;
     }
@@ -127,7 +127,7 @@ class ZMTokens extends ZMObject {
     public function getTokenForResource($resource) {
         $sql = "SELECT * FROM " . ZM_TABLE_TOKEN . "
                 WHERE resource = :resource AND expires >= now()";
-        return ZMRuntime::getDatabase()->query($sql, array('resource'=>$resource), ZM_TABLE_TOKEN, 'Token');
+        return ZMRuntime::getDatabase()->query($sql, array('resource' => $resource), ZM_TABLE_TOKEN, 'Token');
     }
 
     /**
@@ -139,9 +139,14 @@ class ZMTokens extends ZMObject {
     public function getTokenForHash($hash) {
         $sql = "SELECT * FROM " . ZM_TABLE_TOKEN . "
                 WHERE hash = :hash AND expires >= now()";
-        $results = ZMRuntime::getDatabase()->query($sql, array('hash'=>$hash), ZM_TABLE_TOKEN, 'Token');
+        $results = ZMRuntime::getDatabase()->query($sql, array('hash' => $hash), ZM_TABLE_TOKEN, 'Token');
         if (1 < count($results)) {
-            throw new ZMException('duplicate hash');
+            ZMLogging::instance()->log('duplicate token for hash: '.$hash, ZMLogging::WARN);
+            // expire all
+            foreach ($results as $token) {
+                $this->updateToken($token, 0);
+            }
+            return null;
         }
         return 1 == count($results) ? $results[0] : null;
     }
