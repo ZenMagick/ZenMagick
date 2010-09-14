@@ -19,6 +19,12 @@ Release 0.9.11
 - add ZMPaymentType::getInfo() to display additional info; templates:
   checkout_confirmation.php, checkout_payment.php, checkout.html.php,
   checkout.text.php
+- changed name/signature of cart method to get payment validation JS;
+  template: checkout_payment.php
+- change ZMShoppingCart::getOrderFormContent(), add
+	$request parameter; template: checkout_confirmation.php
+- change ZMShoppingCart::getOrderFormURL() to getOrderFormUrl() and add
+	$request parameter; template: checkout_confirmation.php
 
 Release 0.9.10
 - restructure store and admin code into separate apps with most of the store

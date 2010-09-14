@@ -77,6 +77,15 @@ class ZMPaymentTypes extends ZMObject {
                 }
 
                 foreach ($moduleInfos as $info) {
+                    // TODO: fix: try to use global instances set up by zc
+                    if (isset($GLOBALS[$info['class']])) {
+                        $module = $GLOBALS[$info['class']];
+                        if ($all || $module->enabled) {
+                            $this->paymentTypes_[$module->code] = ZMLoader::make('PaymentTypeWrapper', $module);
+                        }
+                        continue;
+                    }
+
                     $lang_file = DIR_WS_LANGUAGES.$_SESSION['language'].'/modules/payment/'.$info['filename'];
                     if (@file_exists($lang_file)) {
                         include_once $lang_file;
@@ -84,24 +93,7 @@ class ZMPaymentTypes extends ZMObject {
                     include_once $info['path'];
                     $module = new $info['class'];
                     if ($all || $module->enabled) {
-                        //TODO: create new payment type implementation that wraps the module rather than just grabbing values...
-                        // set up module details
-                        $selection = $module->selection();
-                        $paymentType = ZMLoader::make("PaymentType", $selection['id'], $selection['module']);
-                        if (isset($selection['error'])) {
-                            $paymentType->error_ = $selection['error'];
-                        }
-                        if (isset($selection['fields'])) {
-                            foreach ($selection['fields'] as $zenField) {
-                                $paymentType->addField(ZMLoader::make("PaymentField", $zenField['title'], $zenField['field']));
-                            }
-                        }
-
-                        if (!ZMLangUtils::isEmpty($module->email_footer)) {
-                            $paymentType->setInfo($module->email_footer);
-                        }
-
-                        $this->paymentTypes_[$module->code] = $paymentType;
+                        $this->paymentTypes_[$module->code] = ZMLoader::make('PaymentTypeWrapper', $module);
                     }
                 }
             }
@@ -119,6 +111,60 @@ class ZMPaymentTypes extends ZMObject {
     public function getPaymentTypeForId($id) {
         $paymentTypes = $this->getPaymentTypes();
         return array_key_exists($id, $paymentTypes) ? $paymentTypes[$id] : null;
+    }
+
+    /**
+     * Generate the JavaScript for the payment form validation.
+     *
+     * <p>This method is only defined in <em>storefront</em> context.</p>
+     *
+     * @param ZMRequest request The current request.
+     * @return string Fully formatted JavaScript incl. of wrapping &lt;script&gt; tag.
+     */
+    public function getPaymentFormValidationJS($request) {
+        $shoppingCart = $request->getShoppingCart();
+        $paymentTypes = $shoppingCart->getPaymentTypes();
+        $js = '';
+        if (0 < count($paymentTypes)) {
+            $js = '<script type="text/javascript">' . "\n" .
+            'function check_form() {' . "\n" .
+            '  var error = 0;' . "\n" .
+            '  var error_message = "' . _zm('Errors have occurred during the processing of your form.\n\nPlease make the following corrections:\n\n') . '";' . "\n" .
+            '  var payment_value = null;' . "\n" .
+            '  if (document.checkout_payment.payment) {' . "\n" .
+            '    if (document.checkout_payment.payment.length) {' . "\n" .
+            '      for (var i=0; i<document.checkout_payment.payment.length; i++) {' . "\n" .
+            '        if (document.checkout_payment.payment[i].checked) {' . "\n" .
+            '          payment_value = document.checkout_payment.payment[i].value;' . "\n" .
+            '        }' . "\n" .
+            '      }' . "\n" .
+            '    } else if (document.checkout_payment.payment.checked) {' . "\n" .
+            '      payment_value = document.checkout_payment.payment.value;' . "\n" .
+            '    } else if (document.checkout_payment.payment.value) {' . "\n" .
+            '      payment_value = document.checkout_payment.payment.value;' . "\n" .
+            '    }' . "\n" .
+            '  }' . "\n\n";
+
+            foreach ($paymentTypes as $paymentType) {
+                $js .= $paymentType->getFormValidationJS($request);
+            }
+
+            $js .= "\n" . '  if (payment_value == null && submitter != 1) {' . "\n" .
+            '    error_message = error_message + "' . _zm('* Please select a payment method for your order.') . '";' . "\n" .
+            '    error = 1;' . "\n" .
+            '  }' . "\n\n" .
+            '  if (error == 1 && submitter != 1) {' . "\n" .
+            '    alert(error_message);' . "\n" .
+            '    return false;' . "\n" .
+            '  } else {' . "\n" .
+            '    return true;' . "\n" .
+            '  }' . "\n" .
+            '}' . "\n" .
+            '</script>' . "\n";
+            $js = str_replace('document.checkout_payment', 'document.forms.checkout_payment', $js);
+        }
+
+        return $js;
     }
 
 }

@@ -1,7 +1,7 @@
 <?php
 /*
- * ZenMagick - Smart e-commerce
- * Copyright (C) 2006-2010 zenmagick.org
+ * ZenMagick - Extensions for zen-cart
+ * Copyright (C) 2006-2009 ZenMagick
  *
  * Portions Copyright (c) 2003 The zen-cart developers
  * Portions Copyright (c) 2003 osCommerce
@@ -25,18 +25,18 @@
 
 
 /**
- * A single payment type including all required information and settings.
+ * A credit type wrapper for Zen Cart credit classes.
  *
  * @author DerManoMann
- * @package zenmagick.store.shared.model.checkout
+ * @package org.zenmagick.model.checkout
+ * @version $Id: ZMPaymentType.php 954 2008-03-29 10:12:29Z DerManoMann $
  */
-class ZMPaymentType extends ZMObject {
+class ZMCreditTypeWrapper extends ZMObject {
     private $id_;
     private $name_;
     private $instructions_;
     private $error_;
     private $fields_;
-    private $info_;
 
 
     /**
@@ -46,14 +46,13 @@ class ZMPaymentType extends ZMObject {
      * @param string name The name.
      * @param string instructions Optional instructions.
      */
-    function __construct($id, $name, $instructions=null) {
+    function __construct($id, $name, $instructions='') {
         parent::__construct();
         $this->id_ = $id;
         $this->name_ = $name;
         $this->instructions_ = $instructions;
         $this->error_ = null;
         $this->fields_ = array();
-        $this->info_ = '';
     }
 
     /**
@@ -110,18 +109,6 @@ class ZMPaymentType extends ZMObject {
      */
     public function addField($field) { array_push($this->fields_, $field); }
 
-    /**
-     * Get the info field.
-     *
-     * @return string Additional information.
-     */
-    public function getInfo() { return $this->info_; }
-
-    /**
-     * Set the info field.
-     *
-     * @param string info Additional information.
-     */
-    public function setInfo($info) { $this->info_ = $info; }
-
 }
+
+?>

@@ -33,7 +33,7 @@
 </fieldset>
 
 <script type="text/javascript">var submitter = 0;</script>
-<?php echo $shoppingCart->getPaymentsJavaScript() ?>
+<?php echo $shoppingCart->getPaymentFormValidationJS($request) ?>
 
 <?php echo $form->open(FILENAME_CHECKOUT_CONFIRMATION, '', true, array('id'=>'checkout_payment', 'onsubmit' => 'return check_form();')) ?>
   <?php if (ZMSettings::get('isConditionsMessage')) { ?>

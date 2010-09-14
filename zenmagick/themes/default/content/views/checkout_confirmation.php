@@ -69,7 +69,7 @@
     <div class="btn"><a class="btn" href="<?php echo $net->url(FILENAME_CHECKOUT_PAYMENT, '', true) ?>"><?php _vzm("Change") ?></a></div>
     <?php $paymentType = $shoppingCart->getPaymentType() ?>
     <?php if (null != $paymentType) { ?>
-      <h4><?php echo $html->encode($paymentType->getName()) ?></h4>
+      <h4><?php echo $paymentType->getName() ?></h4>
       <?php if (!ZMLangUtils::isEmpty($paymentType->getInfo())) { ?>
         <p><?php echo nl2br($paymentType->getInfo()) ?></p>
       <?php } ?>
@@ -112,7 +112,7 @@
 </fieldset>
 
 
-<?php echo $form->open($shoppingCart->getOrderFormURL(), '', true) ?>
-    <?php echo $shoppingCart->getOrderFormContent() ?>
+<?php echo $form->open($shoppingCart->getOrderFormUrl($request), '', true) ?>
+    <?php echo $shoppingCart->getOrderFormContent($request) ?>
     <div class="btn"><input type="submit" class="btn" value="<?php _vzm("Confirm to order") ?>" /></div>
 </form>

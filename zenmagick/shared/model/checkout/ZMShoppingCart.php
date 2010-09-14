@@ -35,7 +35,6 @@
 class ZMShoppingCart extends ZMObject {
     public $cart_;
     private $zenTotals_;
-    private $payments_;
     private $items_;
     private $helper_;
     private $comment_;
@@ -51,7 +50,6 @@ class ZMShoppingCart extends ZMObject {
         $this->setComment(isset($_SESSION['comments']) ?  $_SESSION['comments'] : '');
         $this->setAccountId(isset($_SESSION['customer_id']) ? $_SESSION['customer_id'] : 0);
         $this->zenTotals_ = null;
-        $this->payments_ = null;
         $this->items_ = null;
         $this->helper_ = new ZMCheckoutHelper($this);
     }
@@ -251,15 +249,6 @@ class ZMShoppingCart extends ZMObject {
     }
 
     /**
-     * Get the id of the selected payment type.
-     *
-     * @return int The payment type id.
-     */
-    public function getPaymentTypeId() { 
-        return isset($_SESSION['payment']) ? $_SESSION['payment'] : null;
-    }
-
-    /**
      * Get the selected shipping method.
      *
      * @return mixed The zen-cart shipping method.
@@ -287,14 +276,61 @@ class ZMShoppingCart extends ZMObject {
     }
 
     /**
+     * Get a list of the available payment types.
+     *
+     * @return array List of <code>ZMPaymentType</code> instances.
+     */
+    public function getPaymentTypes() {
+        return $this->helper_->getPaymentTypes();
+    }
+
+    /**
+     * Get the id of the selected payment type.
+     *
+     * @return int The payment type id.
+     */
+    public function getPaymentTypeId() { 
+        return isset($_SESSION['payment']) ? $_SESSION['payment'] : null;
+    }
+
+    /**
      * Get the selected payment type.
      *
      * @return ZMPaymentType The payment type or <code>null</code>.
      */
     public function getPaymentType() {
-        return ZMPaymentTypes::instance()->getPaymentTypeForId($this->getPaymentTypeId());
+        $paymentType = ZMPaymentTypes::instance()->getPaymentTypeForId($this->getPaymentTypeId());
+        return $paymentType;
     }
 
+    /**
+     * Returns the URL for the actual order form.
+     *
+     * <p>An example for the actual order form might look similar to this:</p>
+     * <pre>
+     *   &lt;?php echo $form->open($zm_cart-&gt;getOrderFormURL(), '', true) ?&gt;
+     *     &lt;?php $shoppingCart-&gt;getOrderFormContent() ?&gt;
+     *     &lt;div class="btn"&gt;&lt;input type="submit" class="btn" value="&lt;?php echo _zm("Confirm to order") ?&gt;" /&gt;&lt;/div&gt;
+     *   &lt;/form&gt;
+     * </pre>
+     *
+     * @param ZMRequest request The current request.
+     * @return string The URL to be used for the actual order form.
+     */
+    public function getOrderFormUrl($request) {
+        return $this->getPaymentType()->getOrderFormUrl($request);
+    }
+
+    /**
+     * Returns the order form elements.
+     *
+     * @param ZMRequest request The current request.
+     * @return mixed The form content for the actual order process form.
+     */
+    public function getOrderFormContent($request) {
+        return $this->getPaymentType()->getOrderFormContent($request);
+    }
+    
     /**
      * Checks if the cart has a shipping address.
      *
@@ -350,41 +386,6 @@ class ZMShoppingCart extends ZMObject {
     }
 
     /**
-     * Returns the URL for the actual order form.
-     *
-     * <p>An example for the actual order form might look similar to this:</p>
-     * <pre>
-     *   &lt;?php echo $form->open($zm_cart-&gt;getOrderFormURL(), '', true) ?&gt;
-     *     &lt;?php $shoppingCart-&gt;getOrderFormContent() ?&gt;
-     *     &lt;div class="btn"&gt;&lt;input type="submit" class="btn" value="&lt;?php echo _zm("Confirm to order") ?&gt;" /&gt;&lt;/div&gt;
-     *   &lt;/form&gt;
-     * </pre>
-     *
-     * @return string The URL to be used for the actual order form.
-     */
-    function getOrderFormURL() {
-    global $$_SESSION['payment'];
-        $url = ZMRequest::instance()->url(FILENAME_CHECKOUT_PROCESS, '', true);
-        if (isset($$_SESSION['payment']->form_action_url)) {
-            $url = $$_SESSION['payment']->form_action_url;
-        }
-        return $url;
-    }
-
-    /**
-     * Returns the order form elements.
-     *
-     * @return mixed The form content for the actual order process.
-     */
-    function getOrderFormContent() {
-        $payments = $this->_getPayments();
-        $zenModules = $payments->getZenModules();
-        $content = $zenModules->process_button();
-
-        return $content;
-    }
-    
-    /**
      * Get zen-cart order totals.
      */
     protected function _getZenTotals() {
@@ -398,7 +399,6 @@ class ZMShoppingCart extends ZMObject {
             }
             if (!isset($GLOBALS['order']) || !is_object($GLOBALS['order'])) {
                 ZMTools::resolveZCClass('order');
-                $GLOBALS['order'] = new order();
             }
             $this->zenTotals_->process();
         }
@@ -427,40 +427,16 @@ class ZMShoppingCart extends ZMObject {
     }
 
     /**
-     * Get payments.
-     */
-    protected function _getPayments() {
-        if (null == $this->payments_) {
-            $this->payments_ = ZMLoader::make("Payments");
-        }
-        return $this->payments_;
-    }
-
-    /**
      * Generate the JavaScript for the payment form validation.
      *
+     * <p>This method is only defined in <em>storefront</em> context.</p>
+     *
+     * @param ZMRequest request The current request.
      * @return string Fully formatted JavaScript incl. of wrapping &lt;script&gt; tag.
      */
-    function getPaymentsJavaScript() {
-        $payments = $this->_getPayments();
-        $js = $payments->getPaymentsJavaScript();
-
-        //XXX strip invalid script attribute
-        $js = str_replace(' language="javascript"', '', $js);
-
-        //XXX XHMTL does not know name attributes on form elements
-        $js = str_replace('document.checkout_payment', 'document.forms.checkout_payment', $js);
-
-        return $js;
-    }
-
-    /**
-     * Get a list of the available payment types.
-     *
-     * @return array List of <code>ZMPaymentType</code> instances.
-     */
-    public function getPaymentTypes() {
-        return $this->helper_->getPaymentTypes();
+    public function getPaymentFormValidationJS($request) {
+        //TODO: move here...
+        return ZMPaymentTypes::instance()->getPaymentFormValidationJS($request);
     }
 
     /**
@@ -473,12 +449,12 @@ class ZMShoppingCart extends ZMObject {
      * @return array List of <code>ZMPaymentType</code> instances.
      */
     function getCreditTypes() {
-        // looks suspiciously like getPaymentTypes in ZMPayments...
+        // looks suspiciously like getPaymentTypes in ZMPaymentTypes...
         $zenTotals = $this->_getZenTotals();
         $zenTypes = $zenTotals->credit_selection();
         $creditTypes = array();
         foreach ($zenTypes as $zenType) {
-            $creditType = ZMLoader::make("PaymentType", $zenType['id'], $zenType['module'], $zenType['redeem_instructions']);
+            $creditType = ZMLoader::make("CreditTypeWrapper", $zenType['id'], $zenType['module'], $zenType['redeem_instructions']);
             if (isset($zenType['credit_class_error'])) {
                 $creditType->error_ = $zenType['credit_class_error'];
             }
