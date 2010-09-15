@@ -49,10 +49,13 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
      */
     function __construct($conf=null) {
         parent::__construct();
-        if ($conf['database'] == DB_DATABASE) {
+        // try to use global $db
         global $db;
+        if ($conf['database'] == DB_DATABASE && null != $db) {
             $this->db_ = $db;
         } else {
+            require_once DIR_FS_CATALOG . DIR_WS_CLASSES .'class.base.php';
+            require_once DIR_FS_CATALOG . DIR_WS_CLASSES .'/db/mysql/query_factory.php';
             $this->db_ = new queryFactory();
             $this->db_->connect($conf['host'], $conf['username'], $conf['password'], $conf['database'], USE_PCONNECT, false);
         }
