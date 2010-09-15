@@ -329,9 +329,7 @@ HR {
 	margin: 0;
 }
 
-#productMainImage{
-	width: 
-}
+#productMainImage{}
 
 .categoryIcon {}
 
@@ -1167,7 +1165,7 @@ span.normalprice, .productSpecialPriceSale {
 }
 
 #sb_categories .leftBoxesStyle ul li ul li{
-	background: url(images/bullet_cat.gif) no-repeat left;
+	background: url(images/bullet_cat.gif) no-repeat left .4em;
 	padding: 0 0 3px 15px;
 }
 #sb_categories .leftBoxesStyle ul li ul{

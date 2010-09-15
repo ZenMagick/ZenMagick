@@ -41,5 +41,3 @@
 		<div class="leftBoxesFooter"></div>
 	</div>
 <?php } ?>
-
-

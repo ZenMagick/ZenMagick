@@ -29,7 +29,7 @@
     	<tr class="tableHeading">
     		<th><?php zm_l10n('Qty.') ?></th>
     		<th colspan="2"><?php zm_l10n('Item Name') ?></th>
-    		<th style="text-align: left""><?php zm_l10n('Total') ?></th>
+    		<th style="text-align: left"><?php zm_l10n('Total') ?></th>
     		<th style="width: 50px" align="right">&nbsp;</th>
     	</tr>
         <tbody>
@@ -90,6 +90,3 @@
 </form>
 
 <?php echo $html->backLink('Continue Shopping') ?>
-
-
-
