@@ -1,5 +1,5 @@
 <p>
-	<strong>Conditions of Use Sample TextÂ ...</strong></p>
+	<strong>Conditions of Use Sample Text ...</strong></p>
 <p>
 	This section of text is from the <code>Static Page Editor</code> located under ZenMagick in the Admin.</p>
 <p>
