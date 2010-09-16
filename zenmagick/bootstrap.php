@@ -61,7 +61,7 @@
         if (null != ZMRuntime::getApplicationPath()) {
             ZMLoader::instance()->addPath(ZMFileUtils::mkPath(array(ZMRuntime::getApplicationPath(), 'lib')));
         }
-        // load static stuff and leave the rest to __autoload()
+        // load static stuff and leave the rest to autoload
         ZMLoader::instance()->loadStatic();
     }
 

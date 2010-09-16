@@ -85,7 +85,7 @@
                 'port' => (null !== ($port = @ini_get('mysql.default_port')) ? $port : null),
                 'initQuery' => null
             ),
-            'zenmagick.core.database.provider' => 'ZMPdoCartDatabase',
+            'zenmagick.core.database.provider' => 'ZMZenCartDatabase',
             'zenmagick.core.database.mappings.file' => 'config/db_mappings.txt',
             'zenmagick.core.database.mappings.cache.enabled' => false,
             'zenmagick.core.database.mappings.autoMap.enabled' => true,
