@@ -35,10 +35,6 @@
     // allow seo rewriters to fiddle with the request
     $_zm_request->seoDecode();
 
-    // load mvc mappings
-    ZMUrlManager::instance()->load(file_get_contents(ZMFileUtils::mkPath(array(ZMRuntime::getApplicationPath(), 'config', 'url_mappings.yaml'))), false);
-    ZMSacsManager::instance()->load(file_get_contents(ZMFileUtils::mkPath(array(ZMRuntime::getApplicationPath(), 'config', 'sacs_mappings.yaml'))), false);
-
     // make sure we use the appropriate protocol (HTTPS, for example) if required
     ZMSacsManager::instance()->ensureAccessMethod($_zm_request);
 

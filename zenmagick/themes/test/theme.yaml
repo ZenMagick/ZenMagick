@@ -9,4 +9,7 @@ urls:
   ## show conditions as homepage!
   index:
     template: conditions
+  login:
+    success:
+      template: conditions
       
