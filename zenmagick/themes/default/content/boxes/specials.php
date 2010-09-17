@@ -32,7 +32,7 @@
             <p><?php echo $html->productImageLink($product) ?></p>
             <p><a href="<?php echo $net->product($product->getId()) ?>"><?php echo $html->encode($product->getName()) ?></a></p>
             <?php $offers = $product->getOffers(); ?>
-            <p><?php echo $utils->formatMoney($offers->getCalculatedPrice()) ?></p>
+            <p class="price"><?php echo $utils->formatMoney($offers->getCalculatedPrice()) ?></p>
         </div>
     <?php } ?>
 <?php } ?>

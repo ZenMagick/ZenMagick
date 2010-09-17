@@ -33,5 +33,5 @@
 			<?php echo $macro->categoryTree($tree, true, ZMSettings::get('isUseCategoryPage')) ?>
 		</div>
 	</div>
-	<div class="leftBoxesFooter"></div>
+  <div class="leftBoxesFooter"></div>
 </div>

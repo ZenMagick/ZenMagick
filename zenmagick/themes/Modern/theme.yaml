@@ -24,8 +24,14 @@ description: 'Modern / RI0007'
 # - change use of HTTP_SERVER.DIR_WS_CATALOG to $net->url(FILENAME_DEFAULT)
 # - remove wrongly placed content/views/options.php
 # - moved content/images/ri_template.jpg to themes/Modern/preview.jpg
-#
-#
+# - add CSS rule for sb_information to make links wrap
+# - removed code to generate RHS column
+# - add custom theme.css with rules to make other sideboxes look better
+# - also add code to default_layout.php to add the footer div to not customized boxes
+# - explicitely set the leftBoxContainer width to 220px to avoid the centre column wrapping
+# - !added price class to default theme sidebox prices
+
+
 # Notes:
 # - I think with all those classes and ids, there is almost no justification for inline styles as used in a few places
 # - style: element names in CSS rules should be lower case
@@ -40,3 +46,5 @@ description: 'Modern / RI0007'
 # - in addition to the above, there are: if ($request->isAnonymous()) and: if ($request->isGuest())
 #   NOTE: if a user is guest, logoff is available, the account page not!
 # - not sure if the search was tested, but the ZenMagick search results page doesn't look that flash
+# - maybe the code for the right hand side column should be removed completely in default_layout.php
+

@@ -1148,6 +1148,8 @@ span.normalprice, .productSpecialPriceSale {
 	padding-bottom: 9px;
 }
 
+#sb_information a {display:block;}
+
 #sb_manufacturers .leftBoxesStyle form{
 	padding: 10px 0px;
 }

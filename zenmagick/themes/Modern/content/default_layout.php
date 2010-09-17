@@ -92,23 +92,16 @@
 		          <?php foreach (ZMTemplateManager::instance()->getLeftColBoxNames() as $box) { ?>
 		            <?php if ($this->exists('boxes/'.$box)) { ?>
 		            <div class="leftBoxContainer">
-		              	<?php echo $this->fetch('boxes/'.$box) ?>
+                    <?php /* avoid footer if no box output */ $out = trim($this->fetch('boxes/'.$box)); echo $out; ?>
+		              	<?php if (!in_array($box, array('categories.php', 'manufacturers.php', 'featured.php')) && !empty($out)) { ?>
+                      <div class="sbFooter"></div>
+		                <?php } ?>
 		            </div>
 		            <?php } ?>
 		          <?php } ?>
 		        </div>
 		      <?php } ?>
 		
-		      <?php if (ZMTemplateManager::instance()->isRightColEnabled()) { ?>
-		        <div id="rightcol">
-		          <?php foreach (ZMTemplateManager::instance()->getRightColBoxNames() as $box) { ?>
-		            <?php if ($this->exists('boxes/'.$box)) { ?>
-		              <?php echo $this->fetch('boxes/'.$box) ?>
-		            <?php } ?>
-		          <?php } ?>
-		        </div>
-		      <?php } ?>
-		      
 		      <?php $bgConent = ('index' == $request->getRequestId()) ? '' : 'bgContent ';?>
 		      <div id="mainColumn" class="<?php echo $bgConent; ?>forward">
 		        <div id="mainColumnWrapper">

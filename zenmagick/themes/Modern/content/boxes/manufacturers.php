@@ -36,6 +36,6 @@
 	        </form>
 	        </div>
 		</div>
-		<div class="leftBoxesFooter"></div>
+    <div class="leftBoxesFooter"></div>
 	</div>
 <?php } ?>
