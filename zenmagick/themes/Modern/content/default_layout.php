@@ -84,7 +84,7 @@
                 	<li class="<?php echo $message->getType() ?>"><?php echo $message->getText() ?></li>
             	<?php } ?>
             </ul>
-		<?php } ?>
+		      <?php } ?>
        	 
        	 <div id="contentWrapper">
 		      <?php if (ZMTemplateManager::instance()->isLeftColEnabled()) { ?>
@@ -93,7 +93,7 @@
 		            <?php if ($this->exists('boxes/'.$box)) { ?>
 		            <div class="leftBoxContainer">
                     <?php /* avoid footer if no box output */ $out = trim($this->fetch('boxes/'.$box)); echo $out; ?>
-		              	<?php if (!in_array($box, array('categories.php', 'manufacturers.php', 'featured.php')) && !empty($out)) { ?>
+		              	<?php if (!empty($out)) { ?>
                       <div class="sbFooter"></div>
 		                <?php } ?>
 		            </div>

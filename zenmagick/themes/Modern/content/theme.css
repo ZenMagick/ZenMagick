@@ -1,3 +1,4 @@
+/* general left column / box rules */
 .leftBoxContainer {margin-bottom:16px;width:220px;}
 .columnLeft h3 a:hover { color: #F05922; text-decoration: none; } 
 .columnLeft h3 { background: url(images/cat_bg_top.png) no-repeat left top; width: 220px; line-height: 32px; vertical-align: middle; color: #323232; padding-left: 15px; }
@@ -5,10 +6,17 @@
 .box { background: url(images/cat_bg.png) repeat-y left top; width: 100%; padding: 5px 5px 19px 5px; }
 .leftBoxContainer .sbFooter { background: url(images/cat_bg_bot.png) no-repeat left top; width: 100%; padding-bottom: 9px; }
 
-/* general box rules  like leftBoxesStyle */
+.box {padding:5px;}
 .box a{ font-size: 1.1em }
 .box a:hover{ color: #F05922; }
 .box select, .box input{ width: 180px; border: 1px solid #323232; }
 .box img{ margin: 0 auto; display: block; width: 100px; }
 .box div.price, .box p.price {padding:2px 5px; font-weight: bold;}
-.box p {width:220px;padding:2px 5px;}
+.box p {width:210px;padding:2px 0;}
+.box select, .box input {width:180px;border:1px solid #323232;}
+.box ul li {list-style-type: none; list-style-position: outside; }
+
+/* individual box styles */
+#sb_manufacturers {padding: 10px 0px;text-align:center;}
+#sb_featured, #sb_newproducts {text-align:center;}
+#sb_categories {padding-left:15px;font-size:1.1em;}

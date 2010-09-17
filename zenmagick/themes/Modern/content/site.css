@@ -1155,29 +1155,29 @@ span.normalprice, .productSpecialPriceSale {
 }
 
 /** for categories **/
-#sb_categories .leftBoxesStyle ul li{
+#sb_categories ul li{
 	padding-bottom: 5px;
 }
-#sb_categories .leftBoxesStyle ul li a{
+#sb_categories ul li a{
 	color: #F05922;
 	font-size: 1.3em;
 }
-#sb_categories .leftBoxesStyle ul li a:hover{
+#sb_categories ul li a:hover{
 	text-decoration: underline;
 }
 
-#sb_categories .leftBoxesStyle ul li ul li{
+#sb_categories ul li ul li{
 	background: url(images/bullet_cat.gif) no-repeat left .4em;
 	padding: 0 0 3px 15px;
 }
-#sb_categories .leftBoxesStyle ul li ul{
+#sb_categories ul li ul{
 	padding-top: 3px;
 }
-#sb_categories .leftBoxesStyle ul li ul li a{
+#sb_categories ul li ul li a{
 	color: #515151;
 	font-size: 1.1em;
 }
-#sb_categories .leftBoxesStyle ul li ul li a:hover{
+#sb_categories ul li ul li a:hover{
 	color: #F05922;
 	text-decoration: none;
 }

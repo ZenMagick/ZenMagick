@@ -30,6 +30,11 @@ description: 'Modern / RI0007'
 # - also add code to default_layout.php to add the footer div to not customized boxes
 # - explicitely set the leftBoxContainer width to 220px to avoid the centre column wrapping
 # - !added price class to default theme sidebox prices
+# - removed featured.php box as default works
+# - !change manufacturers drop-down size to 1 in default theme
+# - removed manufacturers.php box as default works
+# - removed .leftBoxesStyle from all #sb_categories CSS rules in style.css
+# - removed categories.php box as default works
 
 
 # Notes:

@@ -26,6 +26,7 @@ Release 0.9.11
 - change ZMShoppingCart::getOrderFormURL() to getOrderFormUrl() and add
 	$request parameter; template: checkout_confirmation.php
 - add price class to all price <p> elements in sideboxes
+- sidebox: manufacturers: set size to 1
 
 Release 0.9.10
 - restructure store and admin code into separate apps with most of the store
