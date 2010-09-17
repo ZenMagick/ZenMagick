@@ -35,6 +35,7 @@ description: 'Modern / RI0007'
 # - removed manufacturers.php box as default works
 # - removed .leftBoxesStyle from all #sb_categories CSS rules in style.css
 # - removed categories.php box as default works
+# - make sidebox prices same color as centre homepage
 
 
 # Notes:
