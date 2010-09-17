@@ -52,4 +52,6 @@ description: 'Modern / RI0007'
 #   NOTE: if a user is guest, logoff is available, the account page not!
 # - not sure if the search was tested, but the ZenMagick search results page doesn't look that flash
 # - maybe the code for the right hand side column should be removed completely in default_layout.php
-
+#
+# - NOTE: If there are simple things to change in the default theme that will make your life easier, we should do those rather work
+#   around. In the long run more people will benefit from that! So, let me know or send me pull requests.
