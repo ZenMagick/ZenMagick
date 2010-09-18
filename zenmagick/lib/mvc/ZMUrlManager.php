@@ -86,10 +86,10 @@ class ZMUrlManager extends ZMObject {
      *
      * @param string requestId The request id to configure.
      * @param mixed mapping The mapping, either as YAML string fragment or nested array.
-     * @param boolean override Optional flag to control whether to override existing mappings or to merge;
-     *  default is <code>true</code> to override.
+     * @param boolean replace Optional flag to control whether to replace an existing mapping or to merge;
+     *  default is <code>true</code> to replace.
      */
-    public function setMapping($requestId, $mapping, $override=true) {
+    public function setMapping($requestId, $mapping, $replace=true) {
         if (null == $requestId) {
             // globals
             $requestId = 'null';
@@ -109,10 +109,10 @@ class ZMUrlManager extends ZMObject {
      * Set multiple mappings.
      *
      * @param mixed mappings The mappings, either as YAML string fragment or nested array.
-     * @param boolean override Optional flag to control whether to override existing mappings or to merge;
-     *  default is <code>true</code> to override.
+     * @param boolean replace Optional flag to control whether to replace existing mappings or to merge;
+     *  default is <code>false</code> to merge.
      */
-    public function setMappings($mappings, $override=true) {
+    public function setMappings($mappings, $replace=false) {
         if (is_array($mappings)) {
             if ($override) {
                 $this->mappings_ = $mappings;

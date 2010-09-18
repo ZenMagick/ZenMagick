@@ -21,7 +21,6 @@
 <?php
 
 
-
 /**
  * Plugin adding a Google Maps based store locator.
  *
