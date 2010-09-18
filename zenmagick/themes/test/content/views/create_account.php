@@ -187,5 +187,6 @@
             </tbody>
         </table>
     </fieldset>
+    <?php echo $this->fetch('views/howDidYouHearOptions.php') ?>
     <div class="btn"><input type="submit" class="btn" value="<?php _vzm("Create Account") ?>" /></div>
 </form>
