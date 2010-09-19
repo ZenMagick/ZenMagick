@@ -85,7 +85,6 @@
                 'port' => (null !== ($port = @ini_get('mysql.default_port')) ? $port : null),
                 'initQuery' => null
             ),
-            'zenmagick.core.database.provider' => 'ZMZenCartDatabase',
             'zenmagick.core.database.mappings.file' => 'config/db_mappings.txt',
             'zenmagick.core.database.mappings.cache.enabled' => false,
             'zenmagick.core.database.mappings.autoMap.enabled' => true,
@@ -508,13 +507,4 @@
     }
 
     ZMSettings::addAll(zm_get_default_settings());
-
-    //** load all config values if not set **//
-    if (!defined('STORE_NAME')) {
-        foreach (ZMConfig::instance()->loadAll() as $key => $value) {
-            define($key, $value);
-        }
-        // set again as some settings depend on zencart settings...
-        ZMSettings::addAll(zm_get_default_settings());
-    }
 

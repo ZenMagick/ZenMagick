@@ -31,7 +31,9 @@
  * @package org.zenmagick.core.services.misc
  */
 class ZMEvents extends ZMObject {
-    /** Fired after the inital code load is done. */
+    /** Fired after the inital load of core, mvc, app code and config. */
+    const APP_INIT_DONE = 'app_init_done';
+    /** Fired after the bootstrap code is finished. */
     const BOOTSTRAP_DONE = 'bootstrap_done';
     /** Fired once a group of plugins has been loaded and initialized. */
     const INIT_PLUGIN_GROUP_DONE = 'init_plugin_group_done';

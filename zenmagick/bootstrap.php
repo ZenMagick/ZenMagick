@@ -78,6 +78,9 @@
     // create the main request instance
     $request = $_zm_request = ZMRequest::instance();
 
+    // app config and code loaded
+    ZMEvents::instance()->fireEvent(null, ZMEvents::APP_INIT_DONE, array('request' => $_zm_request));
+
     // load global settings
     if (file_exists(ZM_BASE_PATH.'local.php')) {
         require_once ZM_BASE_PATH.'local.php';
