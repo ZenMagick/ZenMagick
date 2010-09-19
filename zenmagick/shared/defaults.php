@@ -123,7 +123,6 @@
 
             /*** request ***/
             //'zenmagick.mvc.request.idName' => ZM_PAGE_KEY,
-            'zenmagick.mvc.seo.type' => 'path',
             //'zenmagick.mvc.request.seoRewriter' => 'StoreDefaultSeoRewriter',
 
             /*** use ZM checkout shipping code ***/
@@ -268,8 +267,6 @@
 
             // default format; this is taken as method suffix to resolve Ajax methods
             'zenmagick.mvc.ajax.format' => 'JSON',
-
-            'zenmagick.mvc.toolbox.tools' => 'form:ToolboxForm,macro:ToolboxMacro,locale:ToolboxLocale,utils:ToolboxUtils,admin:ToolboxAdmin,crumbtrail:ToolboxCrumbtrail,metaTags:ToolboxMetaTags',
 
             /**************************************
              * formatting and other defaults
@@ -507,4 +504,3 @@
     }
 
     ZMSettings::addAll(zm_get_default_settings());
-

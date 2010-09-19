@@ -222,6 +222,7 @@ class ZMLoader {
      */
     private function resolveFromClassPath($name) {
         $classfile = $this->getClassFile($name);
+
         if (null != $classfile) {
             // we know about the class
             if (!class_exists($name, false) && !interface_exists($name, false)) {
@@ -414,7 +415,7 @@ class ZMLoader {
                 $name = $file;
             }
             $namespace = dirname(str_replace($path, '', $file));
-            $namespace = $baseNamespace.'\\'.str_replace('.', '', $namespace);
+            $namespace = $baseNamespace.'\\'.str_replace('.', '', $namespace).'\\';
             // store with namespace
             $map[$namespace.$name] = $file;
             // and without
