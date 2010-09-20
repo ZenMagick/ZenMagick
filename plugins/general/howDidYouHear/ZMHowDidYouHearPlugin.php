@@ -20,6 +20,7 @@
 ?>
 <?php
 
+define('ID_SOURCE_OTHER', 9999);
 define('TABLE_SOURCES', ZM_DB_PREFIX . 'sources');
 define('TABLE_SOURCES_OTHER', ZM_DB_PREFIX . 'sources_other');
 
@@ -77,8 +78,7 @@ class ZMHowDidYouHearPlugin extends Plugin {
         // set up as event subscriber
         ZMEvents::instance()->attach($this);
 
-        //TODO: 
-        // - add custom database fields
+        ZMSettings::append('zenmagick.core.database.sql.customers_info.customFields', 'customers_info_source_id;integer;sourceId');
     }
 
     /**
@@ -124,7 +124,7 @@ class ZMHowDidYouHearPlugin extends Plugin {
             }
             if ($this->isDisplayOther()) {
                 $source = new ZMObject();
-                $source->setId(9999);
+                $source->setId(ID_SOURCE_OTHER);
                 $source->setName(_zm('Other - (please specifiy)'));
                 $howDidYouHearSources[] = $source;
             }

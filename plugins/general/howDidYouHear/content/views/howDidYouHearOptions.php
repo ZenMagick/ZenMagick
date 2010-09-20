@@ -23,7 +23,7 @@
   <legend><?php echo _zm('How did you hear about us') ?></legend>
   <p>
     <label for="source" ><?php echo _zm('Please select a source:') ?></label>
-    <?php echo $form->idpSelect('source', $howDidYouHearSources) ?>
+    <?php echo $form->idpSelect('source', $howDidYouHearSources, $registration->getSourceId()) ?>
   </p>
 
   <?php if ($howDidYouHear->isDisplayOther()) { ?>
