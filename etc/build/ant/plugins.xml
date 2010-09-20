@@ -20,7 +20,7 @@
         </foreach>
 
         <!-- build zip of all plugins -->
-        <echo message="Building ful plugins archive ..." />
+        <echo message="Building full plugins archive ..." />
         <zip zipfile="${plugin.archive}" basedir="${build.dir}/plugins" />
         <checksum file="${plugin.archive}" fileext=".sha" algorithm="SHA" todir="${dist.dir}/plugins/${zenmagick.version}/checksum" />
     </target>

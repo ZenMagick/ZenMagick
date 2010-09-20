@@ -5,15 +5,17 @@
 
 
     <!-- The ZenMagick source dir -->
-    <property name="zenmagick.src.dir" value="zenmagick" />
+    <property name="zenmagick.src.dir" value="./" />
     <!-- The ZenMagick sources that go into zen-cart folder -->
-    <property name="zencart.src.dir" value="zen-cart" />
-    <!-- The zen-cart admin folder -->
+    <property name="zencart.src.dir" value="etc/zen-cart" />
+    <!-- The zen-cart root folder -->
+    <property name="zencart.target.dir" value="../" />
+    <!-- The zen-cart admin folder name -->
     <property name="zencart.admin.dir" value="admin" />
     <!-- Work dir -->
-    <property name="build.dir" value="tmp" />
+    <property name="build.dir" value="build/tmp" />
     <!-- Place for release files -->
-    <property name="dist.dir" value="releases" />
+    <property name="dist.dir" value="build/releases" />
 
     <!-- Default properties -->
     <property file="etc/build/ant/build.properties" />
@@ -107,7 +109,7 @@
 
 
     <!--Prepare copy -->
-    <target name="copy-prepare" depends="" description="Paramerized copy.">
+    <target name="copy-prepare" depends="" description="Parameterized copy.">
         <copy todir="${path.to}/${base.path}">
             <fileset dir="${base.path}">
                 <include name="${path}/**" />
@@ -119,8 +121,8 @@
     <!-- Prepare build files -->
     <target name="prepare" depends="clean,init,ask-versions" description="Prepare build files.">
         <!-- fail if admin/store database mappings are different -->
-        <checksum file="zenmagick/apps/admin/config/db_mappings.txt" property="admin.db.checksum" />
-        <checksum file="zenmagick/apps/store/config/db_mappings.txt" property="store.db.checksum" />
+        <checksum file="apps/admin/config/db_mappings.txt" property="admin.db.checksum" />
+        <checksum file="apps/store/config/db_mappings.txt" property="store.db.checksum" />
         <fail message="Database mappings differ!">
             <condition>
                 <not>
@@ -137,11 +139,17 @@
         <!-- copy all ZenMagick files -->
         <copy todir="${build.dir}/zenmagick">
             <fileset dir="${zenmagick.src.dir}">
+                <exclude name=".git/**" />
+                <exclude name="build/**" />
                 <exclude name="plugins/**" />
                 <exclude name="themes/**" />
                 <exclude name="notes/**" />
+                <exclude name="etc/**" />
                 <exclude name="apps/sample/**" />
                 <exclude name="apps/admin/locale/**" />
+                <exclude name="build.xml" />
+                <exclude name="local.properties" />
+                <exclude name="local.xml" />
             </fileset>
 
             <!-- copy default and demo theme -->
@@ -155,7 +163,7 @@
 
         <!-- enabled admin locale -->
         <foreach list="${locale.admin}" target="copy-prepare" param="path">
-            <param name="base.path" value="zenmagick/apps/admin/locale" />
+            <param name="base.path" value="apps/admin/locale" />
             <param name="path.to" value="${build.dir}" />
         </foreach>
 
@@ -224,7 +232,7 @@
 
     <!-- Update zen-cart installation -->
     <target name="update-zencart" description="Update zen-cart installation.">
-      <copy todir="${basedir}" overwrite="true">
+      <copy todir="${zencart.target.dir}" overwrite="true">
           <fileset dir="${zencart.src.dir}">
                 <exclude name="**/.svn*" />
                 <exclude name="**/.git*" />
@@ -233,16 +241,11 @@
         </copy>
 
         <!-- files duplicated in admin area -->
-        <copy todir="admin" overwrite="true">
+        <copy todir="${zencart.target.dir}/${zencart.admin.dir}" overwrite="true">
             <fileset dir="${zencart.src.dir}">
                 <include name="includes/functions/extra_functions/zenmagick_zencart_overrides.php" />
             </fileset>
         </copy>
-
-        <!-- if different admin folder name, move all admin stuff we just created... -->
-        <move todir="${zencart.admin.dir}">
-            <fileset dir="admin" />
-        </move>
     </target>
 
 

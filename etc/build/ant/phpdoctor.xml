@@ -2,10 +2,10 @@
 <project name="zenmagick-phpdoctor" default="phpdoctor">
 
     <!-- properties -->
-    <property name="phpdoctor.dir" location="../phpdoctor" />
+    <property name="phpdoctor.dir" location="../../phpdoctor" />
     <property name="phpdoctor.ini.dir" location="etc/phpdoctor" />
     <property name="phpdoctor.source.path" value="${basedir}/${zenmagick.src.dir}/lib,${basedir}/${zenmagick.src.dir}/shared/,${basedir}/${zenmagick.src.dir}/apps/admin/lib/,${basedir}/${zenmagick.src.dir}/apps/store/lib/" />
-    <property name="phpdoctor.apidocs.path" location="${basedir}/docs/apidocs/${zenmagick.version}" />
+    <property name="phpdoctor.apidocs.path" location="${zencart.target.dir}/docs/apidocs/${zenmagick.version}" />
 
 
     <!-- Generate phpdoctor ini file -->
@@ -14,7 +14,7 @@
 
         <exec executable="php">
           <arg value="${phpdoctor.dir}/phpdoc.php"/>
-          <arg value="${phpdoctor.ini.dir}/phpdoctor.ini"/>
+          <arg value="${build.dir}/phpdoctor.ini"/>
         </exec>
 
         <!-- wrap up -->
@@ -28,13 +28,13 @@
         <mkdir dir="${phpdoctor.apidocs.path}" />
 
         <!-- copy template file -->
-        <copy file="${phpdoctor.ini.dir}/phpdoctor.ini.in" tofile="${phpdoctor.ini.dir}/phpdoctor.ini" overwrite="true" />
+        <copy file="etc/build/phpdoctor.ini.in" tofile="${build.dir}/phpdoctor.ini" overwrite="true" />
 
         <!-- patch file -->
         <echo message="Patching phpdoctor.ini... " />
-        <replace file="${phpdoctor.ini.dir}/phpdoctor.ini" token="$${phpdoctor.source.path}" value="${phpdoctor.source.path}"/>
-        <replace file="${phpdoctor.ini.dir}/phpdoctor.ini" token="$${phpdoctor.apidocs.path}" value="${phpdoctor.apidocs.path}"/>
-        <replace file="${phpdoctor.ini.dir}/phpdoctor.ini" token="$${zenmagick.version}" value="${zenmagick.version}"/>
+        <replace file="${build.dir}/phpdoctor.ini" token="$${phpdoctor.source.path}" value="${phpdoctor.source.path}"/>
+        <replace file="${build.dir}/phpdoctor.ini" token="$${phpdoctor.apidocs.path}" value="${phpdoctor.apidocs.path}"/>
+        <replace file="${build.dir}/phpdoctor.ini" token="$${zenmagick.version}" value="${zenmagick.version}"/>
 
     </target>
 
