@@ -85,7 +85,6 @@
                 'port' => (null !== ($port = @ini_get('mysql.default_port')) ? $port : null),
                 'initQuery' => null
             ),
-            'zenmagick.core.database.provider' => 'ZMZenCartDatabase',
             'zenmagick.core.database.mappings.file' => 'config/db_mappings.txt',
             'zenmagick.core.database.mappings.cache.enabled' => false,
             'zenmagick.core.database.mappings.autoMap.enabled' => true,
@@ -115,7 +114,6 @@
             'zenmagick.mvc.sacs.handler' => 'ZMZenCartAccountSacsHandler',
 
             /*** html ***/
-            'zenmagick.mvc.html.xhtml' => true,
             /*** session token secured forms ***/
             'zenmagick.mvc.html.tokenSecuredForms' => 'login',
 
@@ -124,7 +122,6 @@
 
             /*** request ***/
             //'zenmagick.mvc.request.idName' => ZM_PAGE_KEY,
-            'zenmagick.mvc.seo.type' => 'path',
             //'zenmagick.mvc.request.seoRewriter' => 'StoreDefaultSeoRewriter',
 
             /*** use ZM checkout shipping code ***/
@@ -269,8 +266,6 @@
 
             // default format; this is taken as method suffix to resolve Ajax methods
             'zenmagick.mvc.ajax.format' => 'JSON',
-
-            'zenmagick.mvc.toolbox.tools' => 'form:ToolboxForm,macro:ToolboxMacro,locale:ToolboxLocale,utils:ToolboxUtils,admin:ToolboxAdmin,crumbtrail:ToolboxCrumbtrail,metaTags:ToolboxMetaTags',
 
             /**************************************
              * formatting and other defaults
@@ -508,13 +503,3 @@
     }
 
     ZMSettings::addAll(zm_get_default_settings());
-
-    //** load all config values if not set **//
-    if (!defined('STORE_NAME')) {
-        foreach (ZMConfig::instance()->loadAll() as $key => $value) {
-            define($key, $value);
-        }
-        // set again as some settings depend on zencart settings...
-        ZMSettings::addAll(zm_get_default_settings());
-    }
-

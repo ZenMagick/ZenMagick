@@ -98,7 +98,7 @@ class ZMUrlManager extends ZMObject {
             $mapping = ZMRuntime::yamlLoad($mapping);
         }
 
-        if ($override || !array_key_exists($requestId, $this->mappings_)) {
+        if ($replace || !array_key_exists($requestId, $this->mappings_)) {
             $this->mappings_[$requestId] = $mapping;
         } else {
             $this->mappings_[$requestId] = ZMLangUtils::arrayMergeRecursive($this->mappings_[$requestId], $mapping);
@@ -114,13 +114,13 @@ class ZMUrlManager extends ZMObject {
      */
     public function setMappings($mappings, $replace=false) {
         if (is_array($mappings)) {
-            if ($override) {
+            if ($replace) {
                 $this->mappings_ = $mappings;
             } else {
                 $this->mappings_ = ZMLangUtils::arrayMergeRecursive($this->mappings_, $mappings);
             }
         } else {
-            $this->load($mappings, $override);
+            $this->load($mappings, $replace);
         }
     }
 

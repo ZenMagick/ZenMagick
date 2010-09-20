@@ -30,6 +30,9 @@ Release 0.9.11
 - changed apps/xxx/config/defaults.yaml to config.yaml
 - load url and sacs mappings earlier to allow custom code to properly modify
   default mappings
+- add new event APP_INIT_DONE that is fired after the initial load of
+  core/mvc/app code and app configs
+- make ZMPdoDatabase the default for both storefront and admin
 
 Release 0.9.10
 - restructure store and admin code into separate apps with most of the store

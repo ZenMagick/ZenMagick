@@ -53,6 +53,35 @@ class ZMController extends ZMObject {
         parent::__destruct();
     }
 
+    /**
+     * Init view vars.
+     *
+     * @param ZMView view The view to init.
+     * @param ZMRequest request The current request.
+     * @param mixed formData Optional form data; default is <code>null</code>.
+     */
+    public function initViewVars($view, $request, $formData=null) {
+        // safe data set via findView() in the controller to avoid losing that to getViewData()
+        $initialVars = $view->getVars();
+
+        // set a few default things...
+        $view->setVar('request', $request);
+        $view->setVar('session', $request->getSession());
+        $toolbox = $request->getToolbox();
+        $view->setVar('toolbox', $toolbox);
+
+        // custom view data
+        $view->setVars($this->getViewData($request));
+        // make sure these prevail
+        $view->setVars($initialVars);
+
+        // also set individual tools
+        $view->setVars($toolbox->getTools());
+        if (null != $formData && !array_key_exists($formData->getFormId(), $view->getVars())) {
+            // avoid overriding default data set by the controller
+            $view->setVar($formData->getFormId(), $formData);
+        }
+    }
 
     /**
      * Process a HTTP request.
@@ -124,30 +153,11 @@ class ZMController extends ZMObject {
         }
 
         if (null != $view) {
-            // safe data set via findView() in the controller to avoid losing that to getViewData()
-            $initialVars = $view->getVars();
-
-            // set a few default things...
-            $view->setVar('request', $request);
-            $view->setVar('session', $request->getSession());
-            $toolbox = $request->getToolbox();
-            $view->setVar('toolbox', $toolbox);
-
-            // custom view data
-            $view->setVars($this->getViewData($request));
-            // make sure these prevail
-            $view->setVars($initialVars);
-
-            // also set individual tools
-            $view->setVars($toolbox->getTools());
-            if (null != $formData && !array_key_exists($formData->getFormId(), $view->getVars())) {
-                // avoid overriding default data set by the controller
-                $view->setVar($formData->getFormId(), $formData);
-            }
-
+            $this->initViewVars($view, $request, $formData);
             if (!$view->isValid($request)) {
                 ZMLogging::instance()->log('invalid view: '.$view->getTemplate().', expected: '.$view->getViewFilename(), ZMLogging::WARN);
                 $view = $this->findView(ZMSettings::get('zenmagick.mvc.request.missingPage'));
+                $this->initViewVars($view, $request, $formData);
             }
             $this->view_ = $view;
         }

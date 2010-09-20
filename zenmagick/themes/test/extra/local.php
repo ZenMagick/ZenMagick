@@ -89,4 +89,5 @@
 
     ZMEvents::instance()->attach(new SearchLogger());
 
-?>
+    // programmatically change the url mapping
+    ZMUrlManager::instance()->setMapping('privacy', array('view' => 'RedirectView#url=http://www.dilbert.com/'));

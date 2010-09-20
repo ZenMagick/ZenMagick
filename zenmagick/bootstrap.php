@@ -78,6 +78,9 @@
     // create the main request instance
     $request = $_zm_request = ZMRequest::instance();
 
+    // app config and code loaded; do not log to allow plugins to provider alternative logger
+    ZMEvents::instance()->fireEvent(null, ZMEvents::APP_INIT_DONE, array('request' => $_zm_request), false);
+
     // load global settings
     if (file_exists(ZM_BASE_PATH.'local.php')) {
         require_once ZM_BASE_PATH.'local.php';

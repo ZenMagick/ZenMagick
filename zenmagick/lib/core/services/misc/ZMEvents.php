@@ -31,7 +31,9 @@
  * @package org.zenmagick.core.services.misc
  */
 class ZMEvents extends ZMObject {
-    /** Fired after the inital code load is done. */
+    /** Fired after the inital load of core, mvc, app code and config. */
+    const APP_INIT_DONE = 'app_init_done';
+    /** Fired after the bootstrap code is finished. */
     const BOOTSTRAP_DONE = 'bootstrap_done';
     /** Fired once a group of plugins has been loaded and initialized. */
     const INIT_PLUGIN_GROUP_DONE = 'init_plugin_group_done';
@@ -140,9 +142,10 @@ class ZMEvents extends ZMObject {
      * @param mixed source The event source.
      * @param string eventId The event id.
      * @param array args Optional parameter; default is <code>array()</code>.
+     * @param boolean log Optional parameter to enable/disable event logging; default is <code>true</code>.
      * @return array The final <code>$args</code>.
      */
-    public function fireEvent($source, $eventId, $args=array()) {
+    public function fireEvent($source, $eventId, $args=array(), $log=true) {
         $method = $this->event2method($eventId);
         $this->eventLog_[] = array(
             'id' => $eventId,
@@ -152,7 +155,9 @@ class ZMEvents extends ZMObject {
             'args' => $args
         );
         $args['source'] = $source;
-        ZMLogging::instance()->log('fire ZenMagick event'.(null!=$source?' ('.get_class($source).')':'').': ' . $eventId . '/'.$method, ZMLogging::DEBUG);
+        if ($log) {
+            ZMLogging::instance()->log('fire ZenMagick event'.(null!=$source?' ('.get_class($source).')':'').': ' . $eventId . '/'.$method, ZMLogging::DEBUG);
+        }
         foreach($this->subscribers_ as $subscriber) {
             if (null === $subscriber['methods']) {
                 $subscriber['methods'] = get_class_methods($subscriber['obj']);

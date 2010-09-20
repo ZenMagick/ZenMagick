@@ -268,7 +268,14 @@ class ZMToolboxForm extends ZMToolboxTool {
         foreach ($list as $item) {
             $selected = $item->$oValue() === $selectedId;
             $html .= '<option value="' . $item->$oValue() . '"';
-            $html .= ($selected ? ' selected="selected"' : '');
+            if ($selected) {
+                if (ZMSettings::get('zenmagick.mvc.html.xhtml')) {
+                    $selected = ' selected="selected"';
+                } else {
+                    $selected = ' selected';
+                }
+                $html .= $selected;
+            }
             $html .= '>' . $item->$oText() . '</option>';
         }
         $html .= '</select>';

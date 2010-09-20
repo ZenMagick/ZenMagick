@@ -47,6 +47,14 @@ class ZMAccountController extends ZMController {
     /**
      * {@inheritDoc}
      */
+    public function getViewData($request) {
+        $priceGroups = ZMGroupPricing::instance()->getPriceGroups();
+        return array('priceGroups' => array_merge(array(new ZMIdNamePair(0, _zm('-- none --'))), $priceGroups));
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function processGet($request) {
         $accountId = $request->getParameter('accountId');
         if (null == ($account = ZMAccounts::instance()->getAccountForId($accountId))) {
