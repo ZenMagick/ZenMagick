@@ -24,6 +24,7 @@ ipn_main_handler.php
 license.txt
 local.properties
 local.xml
+local.php
 mcs_learn_more.html
 nddbc.html
 nochex_apc_handler.php
