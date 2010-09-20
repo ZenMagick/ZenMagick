@@ -6,7 +6,7 @@
     <!-- Line ending to be used for multi line substitutes -->
     <property name="nl" value="&#13;&#10;" />
     <!-- assuming it's here ... -->
-    <property name="zencart.base.dir" value="../../zc-base" />
+    <property name="zencart.base.dir" value="../zc-base" />
 
 
     <!-- build full release -->
