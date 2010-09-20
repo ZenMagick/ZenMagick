@@ -9,7 +9,10 @@ urls:
   ## show conditions as homepage!
   index:
     template: conditions
+  ## change redirect view after sucessful login
   login:
     success:
       template: conditions
-      
+  ## redirect externally
+  privacy:
+    view: RedirectView#url=http://www.dilbert.com/
