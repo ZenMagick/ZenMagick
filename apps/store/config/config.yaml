@@ -2,6 +2,25 @@
 # default settings
 #
 
+## version
+zenmagick.version: ${zenmagick.version}
+
+## db
+zenmagick.core.database.mappings.file: config/db_mappings.txt
+zenmagick.core.database.mappings.cache.enabled: false
+zenmagick.core.database.mappings.autoMap.enabled: true
+
+## logging
+zenmagick.core.logging.level: 3
+zenmagick.core.logging.enabled: false
+zenmagick.core.logging.handleErrors: false
+
+## fs
+zenmagick.core.fs.permissions.fix: true
+zenmagick.core.fs.permissions.defaults.file: 0666
+zenmagick.core.fs.permissions.defaults.folder: 0777
+
+
 zenmagick.core.locales.locale: en_NZ
 
 zenmagick.core.events.listeners: EventFixes

@@ -71,9 +71,6 @@
      */
     function zm_get_default_settings() {
         $map = array(
-            /*** version ***/
-            'zenmagick.version' => '${zenmagick.version}',
-
             /*** database ***/
             'zenmagick.core.database.connections.default' => array(
                 'driver' => 'mysql',
@@ -85,15 +82,6 @@
                 'port' => (null !== ($port = @ini_get('mysql.default_port')) ? $port : null),
                 'initQuery' => null
             ),
-            'zenmagick.core.database.mappings.file' => 'config/db_mappings.txt',
-            'zenmagick.core.database.mappings.cache.enabled' => false,
-            'zenmagick.core.database.mappings.autoMap.enabled' => true,
-
-            /*** logging ***/
-            'zenmagick.core.logging.level' => 3,
-            'zenmagick.core.logging.enabled' => false,
-            'zenmagick.core.logging.filename' => null,
-            'zenmagick.core.logging.handleErrors' => false,
 
             /*** cache ***/
             'zenmagick.core.cache.mapping.defaults' => array(),
@@ -104,10 +92,6 @@
             'zenmagick.core.plugins.baseDir' => ZM_BASE_PATH.'plugins'.DIRECTORY_SEPARATOR,
             'zenmagick.core.plugins.groups' => 'general,order_total',
         
-            /*** fs ***/
-            'zenmagick.core.fs.permissions.fix' => true,
-            'zenmagick.core.fs.permissions.defaults.file' => 0666,
-            'zenmagick.core.fs.permissions.defaults.folder' => 0777,
         
             /*** security ***/
             'zenmagick.core.authentication.minPasswordLength' => ENTRY_PASSWORD_MIN_LENGTH < 6 ? 6 : ENTRY_PASSWORD_MIN_LENGTH,
