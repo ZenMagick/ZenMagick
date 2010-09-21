@@ -19,6 +19,33 @@
  */
 ?>
 
+<script type="text/javascript">
+  // select/unselect all
+  function sync_all(box, name) {
+    var boxes = document.getElementsByTagName('input');
+    for (var ii=0; ii<boxes.length; ++ii) {
+      if (0 == boxes[ii].name.indexOf(name) && !boxes[ii].disabled) {
+        boxes[ii].checked = box.checked;
+      }
+    }
+  }
+  // update submit form with all checked plugin ids
+  function collectIds(form, name) {
+    var multiPluginId = '';
+    var boxes = document.getElementsByTagName('input');
+    for (var ii=0; ii<boxes.length; ++ii) {
+      if (0 == boxes[ii].name.indexOf(name) && !boxes[ii].disabled && boxes[ii].checked) {
+        multiPluginId += boxes[ii].value + ',';
+      }
+    }
+    if (0 == multiPluginId.length) {
+        return false;
+    }
+    form.multiPluginId.value = multiPluginId;
+    return true;
+  }
+</script>
+
 <?php zm_title($this) ?></h1>
 
 <table class="grid">
@@ -27,6 +54,7 @@
       <th colspan="5"><a href="<?php echo $admin2->url(null, 'group='.$group) ?>"><?php echo sprintf(_zm("%s Plugins"), ucwords(str_replace('_', ' ', $group))) ?></a></th>
     </tr>
     <tr>
+      <th></th>
       <th><?php _vzm("Name") ?></th>
       <th><?php _vzm("Description") ?></th>
       <th><?php _vzm("Status") ?></th>
@@ -34,6 +62,7 @@
     </tr>
     <?php foreach ($plugins as $plugin) { ?>
       <tr>
+        <td><input type="checkbox" name="multiUpdate[]" value="<?php echo $plugin->getId() ?>"></td>
         <td><a name="<?php echo $plugin->getId() ?>"></a><?php echo $plugin->getName() ?></td>
         <td><?php echo $html->encode($plugin->getDescription()) ?></td>
         <td>
@@ -67,6 +96,24 @@
       </tr>
     <?php } ?>
   <?php } ?>
+      <tr>
+        <td><input type="checkbox" name="multi-update-toggle" value="" onclick="sync_all(this, 'multiUpdate[]')"></td>
+        <td colspan="4">
+          <form action="<?php echo $admin2->url() ?>" method="POST" onsubmit="return collectIds(this, 'multiUpdate[]');">
+            <input type="hidden" name="multiPluginId" value="">
+            <?php _vzm('With selected:') ?><select name="multiAction">
+            <option value=""><?php _vzm(' -- Select -- ') ?></option>
+            <option value="install"><?php _vzm('Install') ?></option>
+            <option value="uninstall"><?php _vzm('Uninstall') ?></option>
+            <option value="upgrade"><?php _vzm('Upgrade') ?></option>
+          <?php /*
+            <option value="enable"><?php _vzm('Enable') ?></option>
+            <option value="disable"><?php _vzm('Disable') ?></option>
+          */ ?>
+          </select>
+          <input type="submit" value="<?php _vzm('Go') ?>">
+        </form>
+      </tr>
 </table>
 <script>
 $('.plugin-status').click(function() {

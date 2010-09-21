@@ -33,6 +33,7 @@ Release 0.9.11
 - add new event APP_INIT_DONE that is fired after the initial load of
   core/mvc/app code and app configs
 - make ZMPdoDatabase the default for both storefront and admin
+- plugins: allow multi install/uninstall/upgrade
 
 Release 0.9.10
 - restructure store and admin code into separate apps with most of the store
