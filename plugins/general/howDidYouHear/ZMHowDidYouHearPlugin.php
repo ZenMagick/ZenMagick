@@ -93,8 +93,8 @@ class ZMHowDidYouHearPlugin extends Plugin {
         if ($this->isRequired()) {
             // add validation rules
             $rules = array(
-                array("RequiredRule", 'source', 'Please select/provide the source where you first heard about us.'),
-                array("SourceOtherRule", 'source_other', 'Please provide a description about where you first heard about us.')
+                array("RequiredRule", 'sourceId', 'Please select/provide the source where you first heard about us.'),
+                array("SourceOtherRule", 'sourceOther', 'Please provide a description about where you first heard about us.')
             );
             ZMValidator::instance()->addRules('registration', $rules);
         }

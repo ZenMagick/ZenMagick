@@ -58,8 +58,8 @@ class ZMSourceOtherRule extends ZMRequiredRule {
      * @return boolean <code>true</code> if other is valid, <code>false</code> if not.
      */
     public function validate($request, $data) {
-        $source = $data['source'];
-        if (ID_SOURCE_OTHER != $source) {
+        $sourceId = $data['sourceId'];
+        if (ID_SOURCE_OTHER != $sourceId) {
             return true;
         }
 
@@ -74,7 +74,11 @@ class ZMSourceOtherRule extends ZMRequiredRule {
      */
     public function toJSString() {
         $js = "    new Array(function(form, name) {"
-              . " alert('yo');"
+              . " var sourceId = form.elements['sourceId'];"
+              . " if (-1 < sourceId.selectedIndex && ".ID_SOURCE_OTHER." == sourceId.options[sourceId.selectedIndex].value) {"
+              . "   return zmFormValidation.isNotEmpty(form.elements['sourceOther']);"
+              . " }"
+              . " return true;"
               . "}";
         $js .= ",'".$this->getJSName()."'";
         $js .= ",'".addslashes($this->getErrorMsg())."'";

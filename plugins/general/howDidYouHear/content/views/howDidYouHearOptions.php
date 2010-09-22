@@ -22,14 +22,14 @@
 <fieldset>
   <legend><?php echo _zm('How did you hear about us') ?></legend>
   <p>
-    <label for="source" ><?php echo _zm('Please select a source:') ?></label>
-    <?php echo $form->idpSelect('source', $howDidYouHearSources, $registration->getSourceId()) ?>
+    <label for="sourceId" ><?php echo _zm('Please select a source:') ?></label>
+    <?php echo $form->idpSelect('sourceId', $howDidYouHearSources, $registration->getSourceId()) ?>
   </p>
 
   <?php if ($howDidYouHear->isDisplayOther()) { ?>
     <p>
-      <label for="source_other" ><?php echo _zm('(if "Other" please specify):') ?></label>
-      <input type="text" name="source_other" id="source_other" value="<?php echo ($howDidYouHear->isRequired() ? '*' : '') ?>">
+      <label for="sourceOther" ><?php echo _zm('(if "Other" please specify):') ?></label>
+      <input type="text" name="sourceOther" id="sourceOther" value="<?php echo $html->encode($request->getParameter('source_other', '')) ?>">
     </p>
   <?php } ?>
 </fieldset>
