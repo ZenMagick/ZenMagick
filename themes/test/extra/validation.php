@@ -47,7 +47,7 @@
         array('MaxFieldLengthRule' ,'email', TABLE_CUSTOMERS, 'customers_email_address'),
         array('UniqueEmailRule' ,'email', 'The entered email address is already in use.'),
         array('RequiredRule' ,'password', 'Please enter you password.'),
-        array('MinRule' ,'password', ZMSettings::get('minPasswordLength'), 'Your password must contain a minimum of %2$s characters.'),
+        array('MinRule' ,'password', ZMSettings::get('zenmagick.core.authentication.minPasswordLength'), 'Your password must contain a minimum of %2$s characters.'),
         array('RequiredRule' ,'confirmation', 'Please confirm the password.'),
         array('FieldMatchRule' ,'password', 'confirmation', 'The password and confirm password must match.'),
     ), true);
