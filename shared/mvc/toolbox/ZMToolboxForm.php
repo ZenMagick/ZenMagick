@@ -38,7 +38,9 @@ class ZMToolboxForm extends ZMToolboxTool {
     public function insertJSValidation($id) {
         echo ZMValidator::instance()->toJSString($id);
         // inline JS to allow PHP
+        echo "<script>\n";
         include_once Runtime::getTheme()->themeFile("validation.js");
+        echo "</script>\n";
     }
 
     /**
@@ -59,7 +61,7 @@ class ZMToolboxForm extends ZMToolboxTool {
      * <p>Default attributes are:</p>
      * <ul>
      *  <li>method - <em>post</em></li>
-     *  <li>onsubmit - <em>return validate(this);</em> (This will be applied only if the <em>id</em> attribute is also set)</li>
+     *  <li>onsubmit - <em>return zmFormValidation.validate(this);</em> (This will be applied only if the <em>id</em> attribute is also set)</li>
      * </ul>
      *
      * <p>To remove any default attributes, set a value of <code>null</code> in the <code>$attr</code> parameter.</p>
@@ -73,7 +75,7 @@ class ZMToolboxForm extends ZMToolboxTool {
      * @return string A HTML form tag plus optional hidden form fields.
      */
     public function open($page=null, $params='', $secure=true, $attr=null) {
-        $defaults = array('method' => 'post', 'onsubmit' => 'return validate(this);');
+        $defaults = array('method' => 'post', 'onsubmit' => 'return zmFormValidation.validate(this);');
         $hasId = isset($attr['id']);
         $hasOnsubmit = isset($attr['onsubmit']);
         if (null === $attr) {

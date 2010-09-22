@@ -34,6 +34,11 @@ Release 0.9.11
   core/mvc/app code and app configs
 - make ZMPdoDatabase the default for both storefront and admin
 - plugins: allow multi install/uninstall/upgrade
+- improve validation.js
+- change name of JS form validation function to zmFormValidation.validate(form)
+  templates: demo/login.php (Ajax login)
+- change validation.js to be a proper js file, so no <script> wrapper in the
+  .js file any more
 
 Release 0.9.10
 - restructure store and admin code into separate apps with most of the store

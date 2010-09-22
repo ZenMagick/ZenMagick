@@ -98,25 +98,36 @@ var zmFormValidation = {
      * @return boolean <code>true</code> if the element value is <strong>not</strong> empty.
      */
     isNotEmpty: function(elem) {
-        if (!elem || undefined == elem) { return false; }
-        if (elem.type) {
-            switch (elem.type.toLowerCase()) {
-                case 'text':
-                case 'password':
-                case 'textarea':
-                    return '' != elem.value;
-                case 'checkbox':
-                    return elem.checked;
-                case 'radio':
-                    if (typeof(elem.length) == "undefined" && elem.checked) { return true; }
-                    for (var ii=0; ii<elem.length; ++ii) {
-                        if (elem[ii].checked) { return true; }
-                    }
-                    return false;
+        if (!elem || undefined == elem) {
+            return false;
+        }
+        if (elem.nodeName) {
+            // single form elements
+            switch (elem.nodeName.toLowerCase()) {
+                case 'input':
+                  switch (elem.type.toLowerCase()) {
+                      case 'text':
+                      case 'password':
+                      case 'textarea':
+                          return '' != elem.value;
+                      case 'checkbox':
+                          return elem.checked;
+                      case 'radio':
+                          if (typeof(elem.length) == "undefined" && elem.checked) {
+                              return true;
+                          }
+                          for (var ii=0; ii<elem.length; ++ii) {
+                              if (elem[ii].checked) {
+                                  return true;
+                              }
+                          }
+                          return false;
+                      }
                 case 'select':
-                    return -1 != elem.selectedIndex;
+                    return -1 != elem.selectedIndex && '' != elem.options[elem.selectedIndex].value;
             }
         } else {
+            // radio/checkbox group
             for (var ii=0; ii<elem.length; ++ii) {
                 if (elem[ii].checked) { return true; }
             }
