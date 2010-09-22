@@ -73,7 +73,13 @@ class ZMSourceOtherRule extends ZMRequiredRule {
      * @return string Formatted JavaScript .
      */
     public function toJSString() {
-        return '';
+        $js = "    new Array(function(form, name) {"
+              . " alert('yo');"
+              . "}";
+        $js .= ",'".$this->getJSName()."'";
+        $js .= ",'".addslashes($this->getErrorMsg())."'";
+        $js .= ")";
+        return $js;
     }
 
 }
