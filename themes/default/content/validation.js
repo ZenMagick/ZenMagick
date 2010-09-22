@@ -213,60 +213,67 @@ var zmFormValidation = {
         var rules = eval("zm_"+form.getAttribute('id')+"_validation_rules");
         for (var ii=0; ii<rules.length; ++ii) {
             var rule = rules[ii];
-            switch (rule[0]) {
-                case 'required':
-                    var relems = rule[1].split(',');
-                    var isEmpty = true;
-                    for (var jj=0; jj<relems.length; ++jj) {
-                        if (this.isNotEmpty(form.elements[relems[jj]])) {
-                            isEmpty = false;
-                            break;
+            if (typeof rule[0] == 'function') {
+                if (!rule[0](form, rule[1])) {
+                    isValid = false;
+                    msg += '* ' + rule[2] + '\n';
+                }
+            } else {
+                switch (rule[0]) {
+                    case 'required':
+                        var relems = rule[1].split(',');
+                        var isEmpty = true;
+                        for (var jj=0; jj<relems.length; ++jj) {
+                            if (this.isNotEmpty(form.elements[relems[jj]])) {
+                                isEmpty = false;
+                                break;
+                            }
                         }
-                    }
-                    if (isEmpty) {
-                        isValid = false;
-                        msg += '* ' + rule[2] + '\n';
-                    }
-                    break;
-                case 'min':
-                    if (!this.isMinLength(form.elements[rule[1]], rule[3])) {
-                        isValid = false;
-                        msg += '* ' + rule[2] + '\n';
-                    }
-                    break;
-                case 'max':
-                    if (!this.isMaxLength(form.elements[rule[1]], rule[3])) {
-                        isValid = false;
-                        msg += '* ' + rule[2] + '\n';
-                    }
-                    break;
-                case 'regexp':
-                    if (!this.isRegexp(form.elements[rule[1]], rule[3])) {
-                        isValid = false;
-                        msg += '* ' + rule[2] + '\n';
-                    }
-                    break;
-                case 'fieldMatch':
-                    if (!this.isFieldMatch(form.elements[rule[1]], form.elements[rule[3]])) {
-                        isValid = false;
-                        msg += '* ' + rule[2] + '\n';
-                    }
-                    break;
-                case 'list':
-                    if (!this.inArray(form.elements[rule[1]], rule[3])) {
-                        isValid = false;
-                        msg += '* ' + rule[2] + '\n';
-                    }
-                    break;
-                case 'date':
-                    if (!this.isDate(form.elements[rule[1]], rule[3])) {
-                        isValid = false;
-                        msg += '* ' + rule[2] + '\n';
-                    }
-                    break;
-                default:
-                    //alert('unknown validation rule: ' + rule[0]);
-                    break;
+                        if (isEmpty) {
+                            isValid = false;
+                            msg += '* ' + rule[2] + '\n';
+                        }
+                        break;
+                    case 'min':
+                        if (!this.isMinLength(form.elements[rule[1]], rule[3])) {
+                            isValid = false;
+                            msg += '* ' + rule[2] + '\n';
+                        }
+                        break;
+                    case 'max':
+                        if (!this.isMaxLength(form.elements[rule[1]], rule[3])) {
+                            isValid = false;
+                            msg += '* ' + rule[2] + '\n';
+                        }
+                        break;
+                    case 'regexp':
+                        if (!this.isRegexp(form.elements[rule[1]], rule[3])) {
+                            isValid = false;
+                            msg += '* ' + rule[2] + '\n';
+                        }
+                        break;
+                    case 'fieldMatch':
+                        if (!this.isFieldMatch(form.elements[rule[1]], form.elements[rule[3]])) {
+                            isValid = false;
+                            msg += '* ' + rule[2] + '\n';
+                        }
+                        break;
+                    case 'list':
+                        if (!this.inArray(form.elements[rule[1]], rule[3])) {
+                            isValid = false;
+                            msg += '* ' + rule[2] + '\n';
+                        }
+                        break;
+                    case 'date':
+                        if (!this.isDate(form.elements[rule[1]], rule[3])) {
+                            isValid = false;
+                            msg += '* ' + rule[2] + '\n';
+                        }
+                        break;
+                    default:
+                        //alert('unknown validation rule: ' + rule[0]);
+                        break;
+                }
             }
         }
 
