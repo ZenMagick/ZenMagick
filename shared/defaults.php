@@ -80,6 +80,7 @@
                 'database' => DB_DATABASE,
                 'prefix' => ZM_DB_PREFIX,
                 'port' => (null !== ($port = @ini_get('mysql.default_port')) ? $port : null),
+                'socket' => (null !== ($socket = @ini_get('mysql.default_socket')) ? $socket : null),
                 'initQuery' => null
             ),
 

@@ -61,6 +61,8 @@ class ZMRuntime extends ZMObject {
      *  <dd>The database host; default is <code>DB_SERVER</code>.</dd>
      *  <dt>port</dt>
      *  <dd>The database port; optional, no default.</dd>
+     *  <dt>socket</dt>
+     *  <dd>Optional unix socket name if used to talk to the database instead of IP.</dd>
      *  <dt>username</dt>
      *  <dd>The database username; default is <code>DB_SERVER_USERNAME</code>.</dd>
      *  <dt>password</dt>

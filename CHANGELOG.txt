@@ -39,6 +39,7 @@ Release 0.9.11
   templates: demo/login.php (Ajax login)
 - change validation.js to be a proper js file, so no <script> wrapper in the
   .js file any more
+- add socket option to database config array
 
 Release 0.9.10
 - restructure store and admin code into separate apps with most of the store

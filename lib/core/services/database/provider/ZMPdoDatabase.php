@@ -76,7 +76,7 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
                 $conf['port'] = substr($conf['host'], $colon+1);
                 $conf['host'] = substr($conf['host'], 0, $colon);
             }
-            if (isset($conf['port']) && 'localhost' == $conf['host']) {
+            if (isset($conf['port']) && 'localhost' == $conf['host'] && !isset($conf['socket'])) {
                 // can't do port on localhost!
                 $conf['host'] = '127.0.0.1';
             }
@@ -89,10 +89,13 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
             }
 
             $url = $conf['driver'].':'.'host='.$conf['host'];
-            if (isset($conf['port'])) {
+            if (isset($conf['port']) && !isset($conf['socket'])) {
                 $url .= ';port='.$conf['port'];
             }
             $url .= ';dbname='.$conf['database'];
+            if (isset($conf['socket'])) {
+                $url .= ';unix_socket='.$conf['socket'];
+            }
             $params = array();
             if (isset($conf['persistent']) && $conf['persistent']) {
                 $params[PDO::ATTR_PERSISTENT] = true;
