@@ -356,21 +356,33 @@ class Plugin extends ZMPlugin {
     }
 
     /**
+     * Add new plugin menu group.
+     *
+     * @param string title The page title.
+     * @param string parentid Optional parent id; default is <em>plugins</em>.
+     * @return string The menu key to be used to add items to this group.
+     * @todo: fix and allow optional other parameter, etc...
+     */
+    public function addMenuGroup($title, $parentId='plugins') {
+        if (ZMSettings::get('isAdmin')) {
+            $key = 'plugins-'.$this->getId().microtime();
+            ZMAdminMenu::setItem(array('parentId' => 'plugins', 'id' => $key, 'title' => $title));
+        }
+        return $key;
+    }
+
+    /**
      * Add custom plugin admin page to admin navigation.
      *
      * <p>Plugins are expected to implement a corresponding controller for the configured reuqestId.</p>
      *
-     * @param string id The page id.
      * @param string title The page title.
-     * @param string function The function to render the contents.
+     * @param string requestId The corresponding requestId.
      * @param string menuKey Optional key determining where the menu item should appear; default is <em>ZMAdminMenu::MENU_PLUGINS</em>.
-     * @todo: fix and allow optional other parameter, etc...
      */
     public function addMenuItem2($title, $requestId, $menuKey=ZMAdminMenu::MENU_PLUGINS) {
         if (ZMSettings::get('isAdmin')) {
-            // TODO: remove
-            ZMAdminMenu::addItem(ZMLoader::make("AdminMenuItem2", $menuKey, $requestId, $title, $requestId));
-            ZMAdminMenu::setItem(array('parentId' => 'plugins-options', 'requestId' => $requestId, 'title' => $title));
+            ZMAdminMenu::setItem(array('parentId' => $menuKey, 'requestId' => $requestId, 'title' => $title));
         }
     }
 

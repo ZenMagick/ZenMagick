@@ -42,6 +42,9 @@ Release 0.9.11
 - add socket option to database config array
 - simplify ZMFormData (get rid of field restrictions) and remove FormData
 - add support for custom columns in customers_info (ZMAccounts)
+- make plugin menu item registration work properly
+- add method to create a new menu group (for plugins that add more than one
+  page)
 
 Release 0.9.10
 - restructure store and admin code into separate apps with most of the store

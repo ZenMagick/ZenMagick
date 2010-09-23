@@ -33,7 +33,7 @@ class ZMAdminMenu {
     /** Extras menu id. */
     const MENU_EXTRAS = 'menu_extras';
     /** Plugins menu id. */
-    const MENU_PLUGINS = 'menu_plugins';
+    const MENU_PLUGINS = 'plugins-options';
     /** Tools menu id. */
     const MENU_TOOLS = 'menu_tools';
     /** Menu id for Catalog Manager tabs. */
