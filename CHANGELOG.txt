@@ -41,6 +41,7 @@ Release 0.9.11
   .js file any more
 - add socket option to database config array
 - simplify ZMFormData (get rid of field restrictions) and remove FormData
+- add support for custom columns in customers_info (ZMAccounts)
 
 Release 0.9.10
 - restructure store and admin code into separate apps with most of the store

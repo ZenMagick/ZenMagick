@@ -192,13 +192,9 @@ class ZMAccounts extends ZMObject {
      */
     public function createAccount($account) {
         $account = ZMRuntime::getDatabase()->createModel(TABLE_CUSTOMERS, $account);
-
-        $sql = "INSERT INTO `" . TABLE_CUSTOMERS_INFO . "`
-               (customers_info_id, customers_info_date_account_created, global_product_notifications) 
-               VALUES (:accountId, now(), :globalProductSubscriber)";
-        $args = array('accountId' => $account->getId(), 'globalProductSubscriber' => $account->isGlobalProductSubscriber());
-        ZMRuntime::getDatabase()->update($sql, $args, TABLE_CUSTOMERS_INFO);
-
+        $account->setAccountCreateDate(date(ZMDatabase::DATETIME_FORMAT));
+        $account->setLastModifiedDate(date(ZMDatabase::DATETIME_FORMAT));
+        ZMRuntime::getDatabase()->createModel(TABLE_CUSTOMERS_INFO, $account);
         return $account;
     }
 
@@ -216,21 +212,18 @@ class ZMAccounts extends ZMObject {
      */
     public function updateAccount($account) {
         ZMRuntime::getDatabase()->updateModel(TABLE_CUSTOMERS, $account);
+        $account->setLastModifiedDate(date(ZMDatabase::DATETIME_FORMAT));
 
         // check for existence in case record does not exist...
         $sql = "SELECT COUNT(*) AS total FROM " . TABLE_CUSTOMERS_INFO . "
                 WHERE customers_info_id = :accountId";
         $result = ZMRuntime::getDatabase()->querySingle($sql, array('accountId' => $account->getId()), array(TABLE_CUSTOMERS_INFO), ZMDatabase::MODEL_RAW);
         if ($result['total'] > 0) {
-            $sql = "UPDATE " . TABLE_CUSTOMERS_INFO . "
-                    SET customers_info_date_account_last_modified = now()
-                    WHERE customers_info_id = :accountId";
+            ZMRuntime::getDatabase()->updateModel(TABLE_CUSTOMERS_INFO, $account);
         } else {
-            $sql = "INSERT into " . TABLE_CUSTOMERS_INFO . "(
-                    customers_info_id, customers_info_date_account_created, customers_info_date_account_last_modified
-                    ) values (:accountId, now(), now())";
+            $account->setAccountCreateDate(date(ZMDatabase::DATETIME_FORMAT));
+            $account = ZMRuntime::getDatabase()->createModel(TABLE_CUSTOMERS_INFO, $account);
         }
-        ZMRuntime::getDatabase()->update($sql, array('accountId' => $account->getId()), TABLE_CUSTOMERS_INFO);
 
         return $account;
     }

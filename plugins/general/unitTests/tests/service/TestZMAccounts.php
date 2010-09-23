@@ -58,7 +58,7 @@ class TestZMAccounts extends ZMTestCase {
             if ('Dob' == $key) {
                 $value = ZMTools::translateDateString($value, 'dd/mm/yyyy', ZM_DATETIME_FORMAT);
             }
-            $method = 'set'.$key;
+            $method = 'set'.ucwords($key);
             $account->$method($value);
         }
         return $account;
@@ -98,7 +98,7 @@ class TestZMAccounts extends ZMTestCase {
         $this->assertNotEqual(0, $account->getId());
         $reloaded = ZMAccounts::instance()->getAccountForId($account->getId());
         foreach (array_keys($this->accountData1) as $key) {
-            $getter = 'get'.$key;
+            $getter = 'get'.ucwords($key);
             $this->assertEqual($account->$getter(), $reloaded->$getter(), '%s getter='.$getter);
         }
     }
@@ -113,7 +113,7 @@ class TestZMAccounts extends ZMTestCase {
         $this->assertNotEqual(0, $account->getId());
         $reloaded = ZMAccounts::instance()->getAccountForId($account->getId());
         foreach (array_keys($this->accountData1) as $key) {
-            $getter = 'get'.$key;
+            $getter = 'get'.ucwords($key);
             $this->assertEqual($account->$getter(), $reloaded->$getter(), '%s getter='.$getter);
         }
     }
@@ -129,7 +129,7 @@ class TestZMAccounts extends ZMTestCase {
         ZMAccounts::instance()->updateAccount($account);
         $reloaded = ZMAccounts::instance()->getAccountForId($account->getId());
         foreach (array_keys($this->accountData1) as $key) {
-            $getter = 'get'.$key;
+            $getter = 'get'.ucwords($key);
             $this->assertEqual($account->$getter(), $reloaded->$getter(), '%s getter='.$getter);
         }
     }
@@ -171,7 +171,6 @@ class TestZMAccounts extends ZMTestCase {
         foreach ($testProductIds as $id) {
             $this->assertTrue(in_array($id, $subscribedProductIds));
         }
-
     }
 
 }
