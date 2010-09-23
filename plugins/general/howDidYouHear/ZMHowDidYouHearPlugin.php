@@ -79,6 +79,9 @@ class ZMHowDidYouHearPlugin extends Plugin {
         ZMEvents::instance()->attach($this);
 
         ZMSettings::append('zenmagick.core.database.sql.customers_info.customFields', 'customers_info_source_id;integer;sourceId');
+
+        // add stats page
+        $this->addMenuItem2(_zm('Referral Sources'), 'howDidYouHearSourcesStats');
     }
 
     /**

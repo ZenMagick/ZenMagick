@@ -10,7 +10,8 @@ INSERT INTO sources VALUES (1, 'Google');
 INSERT INTO sources VALUES (2, 'Yahoo!');
 INSERT INTO sources VALUES (3, 'AOL');
 INSERT INTO sources VALUES (4, 'MSN');
-INSERT INTO sources VALUES (5, 'ZenCart');
+INSERT INTO sources VALUES (5, 'ZenMagick');
+INSERT INTO sources VALUES (9999, 'Other');
 
 DROP TABLE IF EXISTS sources_other;
 CREATE TABLE sources_other (
@@ -19,7 +20,7 @@ CREATE TABLE sources_other (
   PRIMARY KEY (customers_id)
 );
 
-ALTER TABLE customers_info ADD customers_info_source_id int NOT NULL DEFAULT 9999 AFTER customers_info_date_account_last_modified;
+ALTER TABLE customers_info ADD customers_info_source_id int DEFAULT 9999 AFTER customers_info_date_account_last_modified;
 
 
 INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, date_added) VALUES ('Display "Other" Referral option', 'DISPLAY_REFERRAL_OTHER', 'true', 'Display "Other - please specify" with text box in referral source in account creation', '1', '22', 'zen_cfg_select_option(array(\'true\', \'false\'), ', now());
