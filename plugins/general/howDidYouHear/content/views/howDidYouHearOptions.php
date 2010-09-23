@@ -29,7 +29,7 @@
   <?php if ($howDidYouHear->isDisplayOther()) { ?>
     <p>
       <label for="sourceOther" ><?php echo _zm('(if "Other" please specify):') ?></label>
-      <input type="text" name="sourceOther" id="sourceOther" value="<?php echo $html->encode($request->getParameter('source_other', '')) ?>">
+      <input type="text" name="sourceOther" id="sourceOther" value="<?php echo $html->encode($registration->getSourceOther()) ?>">
     </p>
   <?php } ?>
 </fieldset>

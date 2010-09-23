@@ -24,25 +24,24 @@
 /**
  * Basic form data container.
  *
- * <p>Extending from this class allows to restrict the fields taken from the request to a given
- * list via <code>addFields()</code>.</p>
+ * <p>If no form class is configured for an url, the form will be stored in an <code>array()</code>.
+ * If custom pre-processing of form data is required, a custom container class extending <code>ZMFormData</code>
+ * can be used.</p>
  *
- * <p>If no fields are added at all, all request parameter will be 
- * used.</p>
+ * <p>The default implementation of <code>populate($request)</code> will just populate the form container instance
+ * with all request data. Custom implementations are free to override/extend <code>populate($request)</code> to hook
+ * up their own population code.</p>
  *
  * @author DerManoMann
  * @package org.zenmagick.mvc.forms
  */
 class ZMFormData extends ZMObject {
-    protected $fields_;
-
 
     /**
      * Create new instance.
      */
     function __construct() {
         parent::__construct();
-        $this->fields_ = array();
     }
 
     /**
@@ -54,25 +53,14 @@ class ZMFormData extends ZMObject {
 
 
     /**
-     * Limit populating this form bean to the given fields.
-     *
-     * @param mixed fields Either an array or comma separated list of field names.
-     */
-    public function addFields($fields) {
-        if (!is_array($fields)) {
-            $fields = explode(',', $fields);
-        }
-        $this->fields_ = array_merge($this->fields_, $fields);
-    }
-
-    /**
      * Populate this form.
+     *
+     * <p>Populate this <em>bean</em> with all request parameters.</p>
      *
      * @param ZMRequest request The request to process.
      */
     public function populate($request) {
-        $fields = (0 < count($this->fields_)) ?  $this->fields_ : null;
-        ZMBeanUtils::setAll($this, $request->getParameterMap(), $fields);
+        ZMBeanUtils::setAll($this, $request->getParameterMap(), null);
     }
 
 }

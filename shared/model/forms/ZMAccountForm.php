@@ -27,15 +27,13 @@
  * @author DerManoMann
  * @package zenmagick.store.shared.model.forms
  */
-class ZMAccountForm extends FormData {
+class ZMAccountForm extends ZMFormData {
 
     /**
      * Create new instance.
      */
     function __construct() {
         parent::__construct();
-        $this->addFields('gender,firstName,lastName,dob,email,nickName,companyName,phone,fax,emailFormat');
-        $this->addTables('customers,customers_info');
         $this->loadAccount();
     }
 
