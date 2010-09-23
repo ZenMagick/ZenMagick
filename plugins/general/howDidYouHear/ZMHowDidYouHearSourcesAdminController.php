@@ -48,21 +48,9 @@ class ZMHowDidYouHearSourcesAdminController extends ZMController {
      * {@inheritDoc}
      */
     public function getViewData($request) {
-        if (!ZMLangUtils::asBoolean($request->getParameter('other', false))) {
-            $sql = "SELECT count(ci.customers_info_source_id) AS count, s.sources_name AS name, s.sources_id as sourceId
-                    FROM " . TABLE_CUSTOMERS_INFO . " ci LEFT JOIN " . TABLE_SOURCES . " s ON s.sources_id = ci.customers_info_source_id
-                    GROUP BY s.sources_id
-                    ORDER BY ci.customers_info_source_id DESC";
-            $isOther = false;
-        } else {
-          $sql = "SELECT count(ci.customers_info_source_id) as count, so.sources_other_name as name
-                  FROM " . TABLE_CUSTOMERS_INFO . " ci, " . TABLE_SOURCES_OTHER . " so
-                  WHERE ci.customers_info_source_id = " . ID_SOURCE_OTHER . " AND so.customers_id = ci.customers_info_id
-                  GROUP BY so.sources_other_name
-                  ORDER BY so.sources_other_name DESC";
-            $isOther = true;
-        }
-
+        $sql = "SELECT s.sources_name AS name, s.sources_id as sourceId
+                FROM " . TABLE_SOURCES . " s
+                ORDER BY s.sources_name ASC";
         $sourceStats = ZMRuntime::getDatabase()->query($sql, array(), array(TABLE_SOURCES), 'ZMObject');
         $resultSource = ZMLoader::make("ArrayResultSource", 'ZMObject', $sourceStats);
         $resultList = ZMLoader::make("ResultList");
@@ -75,6 +63,23 @@ class ZMHowDidYouHearSourcesAdminController extends ZMController {
      * {@inheritDoc}
      */
     public function processPost($request) {
+        $action = $request->getParameter('action');
+        if ('create' == $action) {
+            $name = $request->getParameter('source');
+            if (!empty($name)) {
+                ZMRuntime::getDatabase()->createModel(TABLE_SOURCES, array('sources_name' => $name));
+                ZMMessages::instance()->success('Source "'.$name.'" created.');
+            }
+        } else if ('delete' == $action) {
+            $sourceId = $request->getParameter('sourceId');
+            if (!empty($sourceId)) {
+                $model = ZMRuntime::getDatabase()->loadModel(TABLE_SOURCES, array('sources_id' => $sourceId));
+                if (null !== $model) {
+                    ZMRuntime::getDatabase()->removeModel(TABLE_SOURCES, array('sources_id' => $sourceId));
+                    ZMMessages::instance()->success('Source "'.$model['sources_name'].'" deleted.');
+                }
+            }
+        }
         return $this->findView('success');
     }
 

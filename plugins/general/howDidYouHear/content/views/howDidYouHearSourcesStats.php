@@ -37,6 +37,6 @@
   <?php } ?>
 </table>
 <?php if ($isOther) { ?>
-  <p><a href="<?php echo $admin2->url(null, '') ?>"><?php _vzm('Overview') ?></a></p>
+  <p><a href="<?php echo $admin2->url(null, '') ?>" class="<?php echo $buttonClasses ?>"><?php _vzm('Back to overview') ?></a></p>
 <?php } ?>
 <?php echo $this->fetch('pagination.php') ?>
