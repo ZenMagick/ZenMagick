@@ -138,7 +138,13 @@ class ZMHowDidYouHearPlugin extends Plugin {
      * Custom create account processing
      */
     public function onZMCreateAccount($args) {
-        //??
+        $account = $args['account'];
+        if (ID_SOURCE_OTHER == $account->getSourceId()) {
+            // need to store sourceOther
+            $sql = "INSERT INTO " . TABLE_SOURCES_OTHER . "
+                    VALUES (:customers_id, :sources_other_name)";
+            ZMRuntime::getDatabase()->update($sql, array('customers_id' => $account->getId(), 'sources_other_name' => $account->getSourceOther()), TABLE_SOURCES_OTHER);
+        }
     }
 
     /**
