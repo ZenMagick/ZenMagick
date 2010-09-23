@@ -79,7 +79,7 @@ class ZMCheckoutShippingController extends ZMController {
         $shoppingCart = $request->getShoppingCart();
         $checkoutHelper = ZMLoader::make('CheckoutHelper', $shoppingCart);
 
-        if (null !== ($viewId = $checkoutHelper->validateCheckout(false))) {
+        if (null !== ($viewId = $checkoutHelper->validateCheckout($request, false))) {
             return $this->findView($viewId);
         }
 
@@ -114,7 +114,7 @@ class ZMCheckoutShippingController extends ZMController {
         $shoppingCart = $request->getShoppingCart();
         $checkoutHelper = ZMLoader::make('CheckoutHelper', $shoppingCart);
 
-        if (null !== ($viewId = $checkoutHelper->validateCheckout(false))) {
+        if (null !== ($viewId = $checkoutHelper->validateCheckout($request, false))) {
             return $this->findView($viewId);
         }
 

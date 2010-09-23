@@ -264,17 +264,19 @@ class ZMCheckoutHelper extends ZMObject {
     /**
      * Validate the current checkout request.
      *
+     * @param ZMRequest request The current request.
      * @param boolean messages Optional flag to enable/hide messages related to validation issues; default is <code>true</code>.
      * @return string Either a <em>viewId</em>, which would indicate an error/issue, or <code>null</code>
      *  if everything is ok.
      */
-    public function validateCheckout($messages=true) {
+    public function validateCheckout($request, $messages=true) {
         if ($this->shoppingCart_->isEmpty()) {
             return "empty_cart";
         }
-        $session = ZMRequest::instance()->getSession();
+        $session = $request->getSession();
         if (null == ZMAccounts::instance()->getAccountForId($session->getAccountId())) {
             $session->clear();
+            $request->saveFollowUpUrl();
             return "login";
         }
 

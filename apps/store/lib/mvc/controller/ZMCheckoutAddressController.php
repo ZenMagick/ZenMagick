@@ -105,7 +105,7 @@ class ZMCheckoutAddressController extends ZMController {
      */
     protected function checkCart($request) {
         $checkoutHelper = ZMLoader::make('CheckoutHelper', $request->getShoppingCart());
-        if (null !== ($viewId = $checkoutHelper->validateCheckout(false))) {
+        if (null !== ($viewId = $checkoutHelper->validateCheckout($request, false))) {
             return $this->findView($viewId, $this->viewData_);
         }
 
