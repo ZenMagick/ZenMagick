@@ -111,7 +111,7 @@
             <option value="disable"><?php _vzm('Disable') ?></option>
           */ ?>
           </select>
-          <input type="submit" value="<?php _vzm('Go') ?>">
+          <input type="submit" class="<?php echo $buttonClasses ?>" value="<?php _vzm('Go') ?>">
         </form>
       </tr>
 </table>

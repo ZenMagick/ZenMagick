@@ -5,6 +5,8 @@
 
 ## defaults
 null:
+  success:
+    view: RedirectView
   error:
     template: error
     layout: 

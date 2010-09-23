@@ -22,6 +22,8 @@ img {border:none;}
 
 table, div.ui-dialog {font-size:100%;}
 
+form.button-form {display:inline;}
+
 /* liquid main centered */
 div#main {width:92%;margin:0 auto;text-align:left;}
 div#main, div#content {min-height:380px;}

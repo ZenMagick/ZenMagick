@@ -74,13 +74,6 @@ class ZMGoogleStoreLocatorPlugin extends Plugin {
 
         // add admin page
         $this->addMenuItem2(_zm('Google Store Locator'), 'googleStoreLocatorAdmin');
-
-        // set up store locator view mappings
-        ZMUrlManager::instance()->setMappings(array(
-                'store_locator' => array('template' => 'store_locator'),
-                'googleStoreLocatorAdmin' => array('success' => array('view' => 'RedirectView'))
-            )
-        );
     }
 
     /**

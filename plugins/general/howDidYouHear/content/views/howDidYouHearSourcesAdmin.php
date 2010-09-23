@@ -24,12 +24,29 @@
   <tr>
     <th><?php _vzm('Source') ?></th>
     <th><?php _vzm('Count') ?></th>
+    <th><?php _vzm('Options') ?></th>
   </tr>
   <?php foreach ($resultList->getResults() as $line) { ?>
   <tr>
     <td><?php echo $html->encode($line->getName()) ?></td>
     <td><?php echo $line->getCount() ?></td>
+    <td>
+      <a href="" class="<?php echo $buttonClasses ?>"><?php _vzm('Edit') ?></a>
+      <form class="button-form" action="<?php echo $admin2->url() ?>" method="POST" onsubmit="return ZenMagick.confirm('<?php _vzm('Are you sure?') ?>', this);">
+        <input type="hidden" name="action" value="delete">
+        <input type="submit" class="<?php echo $buttonClasses ?>" value="<?php _vzm('Delete') ?>">
+      </form>
+    </td>
   </tr>
   <?php } ?>
+  <tr>
+    <td colspan="3">
+      <form action="<?php echo $admin2->url() ?>" method="POST" onsubmit="return ZenMagick.confirm('<?php _vzm('Are you sure?') ?>', this);">
+        <input type="hidden" name="action" value="create">
+        <label for="source"><?php _vzm('New Source') ?></label> <input type="text" id="source" name="source" value="">
+        <input type="submit" class="<?php echo $buttonClasses ?>" value="<?php _vzm('Create') ?>">
+      </form>
+    </td>
+  </tr>
 </table>
 <?php echo $this->fetch('pagination.php') ?>

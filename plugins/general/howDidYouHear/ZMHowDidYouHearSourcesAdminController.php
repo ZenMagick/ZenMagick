@@ -71,4 +71,11 @@ class ZMHowDidYouHearSourcesAdminController extends ZMController {
         return array('resultList' => $resultList, 'isOther' => $isOther);
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    public function processPost($request) {
+        return $this->findView('success');
+    }
+
 }

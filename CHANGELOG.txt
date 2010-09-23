@@ -45,6 +45,7 @@ Release 0.9.11
 - make plugin menu item registration work properly
 - add method to create a new menu group (for plugins that add more than one
   page)
+- admin: add default success mapper that just redirects to the same page
 
 Release 0.9.10
 - restructure store and admin code into separate apps with most of the store
