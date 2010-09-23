@@ -22,12 +22,12 @@
 
 
 /**
- * Display sources stats.
+ * Sources admin.
  *
  * @author DerManoMann
  * @package org.zenmagick.plugins.howDidYouHear
  */
-class ZMHowDidYouHearSourcesStatsController extends ZMController {
+class ZMHowDidYouHearSourcesAdminController extends ZMController {
 
     /**
      * Create new instance.
