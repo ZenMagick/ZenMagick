@@ -63,7 +63,7 @@
 <form action="<?php echo $admin2->url() ?>" method="POST">
     <fieldset>
         <legend>Current Settings</legend>
-        <table>
+        <table class="grid">
             <thead>
                 <tr>
                     <th>title</th>
