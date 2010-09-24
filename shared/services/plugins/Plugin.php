@@ -367,8 +367,9 @@ class Plugin extends ZMPlugin {
         if (ZMSettings::get('isAdmin')) {
             $key = 'plugins-'.$this->getId().microtime();
             ZMAdminMenu::setItem(array('parentId' => 'plugins', 'id' => $key, 'title' => $title));
+            return $key;
         }
-        return $key;
+        return null;
     }
 
     /**
