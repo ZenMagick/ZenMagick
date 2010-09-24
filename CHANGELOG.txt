@@ -46,6 +46,10 @@ Release 0.9.11
 - add method to create a new menu group (for plugins that add more than one
   page)
 - admin: add default success mapper that just redirects to the same page
+- keep track of last visited page;
+- redirect back to last page visited when logging off
+- redirect back to last page visited when logging in, unless there is already 
+  a sticky URL
 
 Release 0.9.10
 - restructure store and admin code into separate apps with most of the store

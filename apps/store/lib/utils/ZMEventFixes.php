@@ -114,6 +114,11 @@ class ZMEventFixes extends ZMObject {
         $request = $args['request'];
         // clear messages if not redirect...
         $request->getSession()->clearMessages();
+
+        // save url to be used as redirect in some cases
+        if ('login' != $request->getRequestId() && 'logoff' != $request->getRequestId()) {
+            $request->setLastUrl();
+        }
     }
 
     /**

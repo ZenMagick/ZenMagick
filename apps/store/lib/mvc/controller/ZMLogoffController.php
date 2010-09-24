@@ -48,21 +48,21 @@ class ZMLogoffController extends ZMController {
 
 
     /**
-     * Process a HTTP GET request.
-     * 
-     * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
-     * if the controller generates the contents itself.
+     * {@inheritDoc}
      */
-    function processGet($request) {
+    public function processGet($request) {
         // pre logoff account
         $account = $request->getAccount();
+
+        // get before wiping the session!
+        $lastUrl = $request->getLastUrl();
 
         $session = $request->getSession();
         if (!$session->isAnonymous()) {
             // logged in
             $session->clear();
             // redisplay to allow update of state
-            return $this->findView('success');
+            return $this->findView('success', array(), array('url' => $lastUrl));
         }
 
         // info only
@@ -70,6 +70,7 @@ class ZMLogoffController extends ZMController {
 
         // display page
         $request->getToolbox()->crumbtrail->addCrumb($request->getToolbox()->utils->getTitle());
+
         return $this->findView();
     }
 

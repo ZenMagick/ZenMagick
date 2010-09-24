@@ -368,4 +368,25 @@ class Request extends ZMRequest {
         return dirname(ZMRuntime::getInstallationPath()).DIRECTORY_SEPARATOR;
     }
 
+    /**
+     * Set the last URL.
+     */
+    public function setLastUrl() {
+        // save url to be used as redirect in some cases
+        if ('GET' == $this->getMethod()) {
+            $this->getSession()->setValue('lastUrl', $this->url());
+        } else {
+            $this->getSession()->setValue('lastUrl', null);
+        }
+    }
+
+    /**
+     * Get the last URL.
+     *
+     * @return string The last URL or <code>null</code>.
+     */
+    public function getLastUrl() {
+        return $this->getSession()->getValue('lastUrl');
+    }
+
 }

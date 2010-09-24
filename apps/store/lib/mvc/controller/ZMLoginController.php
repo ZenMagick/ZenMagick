@@ -56,10 +56,7 @@ class ZMLoginController extends ZMController {
     }
 
     /**
-     * Process a HTTP GET request.
-     * 
-     * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
-     * if the controller generates the contents itself.
+     * {@inheritDoc}
      */
     public function processGet($request) {
         $session = $request->getSession();
@@ -78,13 +75,13 @@ class ZMLoginController extends ZMController {
     }
 
     /**
-     * Process a HTTP POST request.
-     * 
-     * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
-     * if the controller generates the contents itself.
+     * {@inheritDoc}
      */
     public function processPost($request) {
         $session = $request->getSession();
+
+        // get before doing anything with the session!
+        $lastUrl = $request->getLastUrl();
 
         if (!$session->isStarted()) {
             $session->removeValue(self::$KEY_REDIRECT);
@@ -122,6 +119,9 @@ class ZMLoginController extends ZMController {
         if (null == $stickyUrl) {
             $stickyUrl = $session->getValue(self::$KEY_REDIRECT);
             $session->removeValue(self::$KEY_REDIRECT);
+        }
+        if (null == $stickyUrl) {
+            $stickyUrl = $lastUrl;
         }
 
         return $this->findView('success', array(), array('url' => $stickyUrl));
