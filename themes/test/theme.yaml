@@ -16,3 +16,8 @@ urls:
   ## redirect externally
   privacy:
     view: RedirectView#url=http://www.dilbert.com/
+
+## optional settngs
+settings:
+  zenmagick.mvc.resultlist.defaultPagination: 3
+  

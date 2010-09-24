@@ -27,3 +27,7 @@ urls:
   products_new:
     template: category_list
 
+## optional settngs
+settings:
+  zenmagick.mvc.resultlist.defaultPagination: 5
+

@@ -230,6 +230,13 @@ class ZMEventFixes extends ZMObject {
                 ZMUrlManager::instance()->setMappings($urls, false);
             }
 
+            // add optional settings
+            $settings = $theme->getConfig('settings');
+            if ($settings && is_array($settings)) {
+                // merge
+                ZMSettings::addAll($settings, true);
+            }
+
             Runtime::setTheme($theme);
             $args = array_merge($args, array('theme' => $theme, 'themeId' => $theme->getId()));
             ZMEvents::instance()->fireEvent(null, Events::THEME_RESOLVED, $args);

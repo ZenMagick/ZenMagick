@@ -51,6 +51,7 @@ Release 0.9.11
 - redirect back to last page visited when logging in, unless there is already 
   a sticky URL
 - fix a bug in ZMShippingProviders and make using it the default
+- allow settings in theme.yaml
 
 Release 0.9.10
 - restructure store and admin code into separate apps with most of the store
