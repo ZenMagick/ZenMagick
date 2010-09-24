@@ -217,9 +217,6 @@
             // will be used if the original view is not valid/does not exist
             'zenmagick.mvc.request.missingPage' => 'error',
 
-            // redirect page for invalid sessions
-            'zenmagick.mvc.request.invalidSession' => FILENAME_COOKIE_USAGE,
-
             // static homepage
             'staticHome' => null,
 

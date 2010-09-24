@@ -11,8 +11,8 @@ zenmagick.core.database.mappings.cache.enabled: false
 zenmagick.core.database.mappings.autoMap.enabled: true
 
 ## logging
-zenmagick.core.logging.level: 3
-zenmagick.core.logging.enabled: false
+zenmagick.core.logging.level: ALL
+zenmagick.core.logging.enabled: true
 zenmagick.core.logging.handleErrors: false
 
 ## fs
@@ -29,14 +29,13 @@ zenmagick.core.locales.locale: en_NZ
 zenmagick.core.locales.provider: PomoLocale
 zenmagick.core.events.listeners: AdminEventHandler
 
-zenmagick.core.logging.enabled: true
-zenmagick.core.logging.level: ALL
 
 zenmagick.core.database.provider: ZMPdoDatabase
 zenmagick.core.database.mappings.file: config/db_mappings.txt
 
 zenmagick.mvc.view.default: ZMSavantView
 zenmagick.mvc.view.defaultLayout: default_layout
+zenmagick.mvc.request.invalidSession: login
 
 zenmagick.mvc.request.seoRewriter: DefaultSeoRewriter
 zenmagick.mvc.seo.type: default
