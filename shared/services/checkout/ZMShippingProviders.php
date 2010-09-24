@@ -134,9 +134,9 @@ class ZMShippingProviders extends ZMObject {
         foreach ($moduleInfos as $moduleInfo) {
             $lang_file = DIR_FS_CATALOG . zen_get_file_directory(DIR_WS_LANGUAGES . $_SESSION['language'] . '/modules/shipping/', $moduleInfo['file'], 'false');
             if (@file_exists($lang_file)) {
-                include_once($lang_file);
+                include_once $lang_file;
             }
-            include_once(DIR_FS_CATALOG . DIR_WS_MODULES . 'shipping/' . $moduleInfo['file']);
+            include_once DIR_FS_CATALOG . DIR_WS_MODULES . 'shipping/' . $moduleInfo['file'];
             if (class_exists($moduleInfo['class'])) {
                 // create instance
                 $module = new $moduleInfo['class']();
