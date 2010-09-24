@@ -49,7 +49,7 @@
     ?>
     <h1><?php echo $title  ?></h1>
     <?php echo $view->fetch('sub-menu.php'); echo '<div id="view-container">';
-    ZMEvents::instance()->attach(new ZMTitleUpdater(sprintf(_zm("%1s :: ZenMagick Admin"), $title)));
+    ZMEvents::instance()->attach(new ZMTitleUpdater(sprintf(_zm("%1s :: %2s :: ZenMagick Admin"), ZMSettings::get('storeName'), $title)));
   }
 
 ?>
