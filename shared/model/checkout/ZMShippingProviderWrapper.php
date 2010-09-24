@@ -123,7 +123,11 @@ class ZMShippingProviderWrapper extends ZMObject implements ZMShippingProvider {
             $_SESSION['cart'] = new shoppingCart();
         }
 
-        $total_count = $shoppingCart->getSize();
+        // get total number of products, not line items...
+        $total_count = 0;
+        foreach ($shoppingCart->getItems() as $item) {
+            $total_count += $item->getQuantity();
+        }
 
         // START: adjust boxes, weight and tare
         $shipping_quoted = '';

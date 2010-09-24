@@ -110,7 +110,7 @@
             //'zenmagick.mvc.request.seoRewriter' => 'StoreDefaultSeoRewriter',
 
             /*** use ZM checkout shipping code ***/
-            'apps.store.request.enableZMCheckoutShipping' => false,
+            'apps.store.request.enableZMCheckoutShipping' => true,
 
             'apps.store.docRoot' => DIR_FS_CATALOG,
 
