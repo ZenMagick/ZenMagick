@@ -49,13 +49,21 @@ class ZMSettings {
     /**
      * Set configuration value.
      *
+     * <p>A value of <code>null</code> will remove the setting.</p>
+     *
      * @param string name The setting to check.
      * @param mixed value (New) value.
      * @return mixed The old setting value or <code>null</code>.
      */
     public static function set($name, $value) {
         $oldValue = isset(ZMSettings::$settings_[$name]) ? ZMSettings::$settings_[$name] : null;
-        ZMSettings::$settings_[$name] = $value;
+        if (null !== $value) {
+            ZMSettings::$settings_[$name] = $value;
+        } else {
+            if (array_key_exists($name, ZMSettings::$settings_)) {
+                unset(ZMSettings::$settings_[$name]);
+            }
+        }
 
         return $oldValue;
     }
