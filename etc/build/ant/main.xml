@@ -163,18 +163,18 @@
         <!-- enabled admin locale -->
         <foreach list="${locale.admin}" target="copy-prepare" param="path">
             <param name="base.path" value="apps/admin/locale" />
-            <param name="path.to" value="${build.dir}" />
+            <param name="path.to" value="${build.dir}/zenmagick" />
         </foreach>
 
         <!-- copy default plugins -->
         <foreach list="${plugins.defaults}" target="copy-prepare" param="path">
             <param name="base.path" value="${zenmagick.src.dir}/plugins/general/" />
-            <param name="path.to" value="${build.dir}" />
+            <param name="path.to" value="${build.dir}/zenmagick" />
         </foreach>
 
         <!-- copy docs -->
-        <copy tofile="${build.dir}/Readme.txt" file="etc/build/docs/Readme-mod.txt" />
-        <copy tofile="${build.dir}/Install.txt" file="etc/build/docs/Install-mod.txt" />
+        <copy tofile="${build.dir}/zenmagick/Readme.txt" file="etc/build/docs/Readme-mod.txt" />
+        <copy tofile="${build.dir}/zenmagick/Install.txt" file="etc/build/docs/Install-mod.txt" />
 
         <!-- remove various files we do not want included -->
         <delete includeemptydirs="true">
@@ -218,7 +218,7 @@
 
 
     <!-- Do release build -->
-    <target name="mod-release" depends="clean,prepare,patch-release,build-release,incr-release" description="Full release build.">
+    <target name="mod-release" depends="clean,prepare,patch-release,build-release,incr-release" description="Mod release build.">
         <!-- add diff file -->
         <zip zipfile="${dist.dir}/zenmagick-${zenmagick.version}.zip" update="true">
             <fileset dir="${build.dir}">
