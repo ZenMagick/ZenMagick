@@ -158,7 +158,7 @@ class TestZMPhpSourceAnalyzer extends ZMTestCase {
         );
 
         $path = ZMFileUtils::mkPath(array($this->getTestPlugin()->getPluginDirectory(), 'tests', 'core', 'testclasses', 'deps'));
-        $tree = ZMPhpSourceAnalyzer::buildDepdencyTree(ZMLoader::findIncludes($path, '.phpx', true), array('SystemClass'));
+        $tree = ZMPhpSourceAnalyzer::buildDepdencyTree(ZMFileUtils::findIncludes($path, '.phpx', true), array('SystemClass'));
         // strip path to make comparable and also just look at keys here
         foreach ($tree as $level => $files) {
             $tmp = array();

@@ -47,9 +47,6 @@ if (!defined('T_ML_COMMENT')) {
  *
  * <p>If no temp folder is configured, the location of this file will be used to store temporary files and folders.</p>
  *
- * <p>This class maintains its own version of <code>findIncludes()</code> as the <code>ZMLoader</code> version does not
- * reflect the hierachy (any more).</p>
- *
  * @author DerManoMann
  * @package org.zenmagick.core.utils.packer
  */
@@ -306,7 +303,7 @@ class ZMPhpCompressor {
      * @param boolean recursive If <code>true</code>, scan recursively.
      * @return array List of full filenames of <code>.php</code> files.
      */
-    public static function findIncludes($dir, $ext='.php', $recursive=false) {
+    protected function findIncludes($dir, $ext='.php', $recursive=false) {
        $includes = array();
        if (!is_dir($dir) || false !== strpos($dir, '.svn')) {
            return $includes;
@@ -332,7 +329,7 @@ class ZMPhpCompressor {
        // process folders last
        if ($recursive) {
            foreach ($dirs as $dir) {
-               $includes = array_merge($includes, self::findIncludes($dir.DIRECTORY_SEPARATOR, $ext, $recursive));
+               $includes = array_merge($includes, $this->findIncludes($dir.DIRECTORY_SEPARATOR, $ext, $recursive));
            }
        }
 
@@ -342,7 +339,7 @@ class ZMPhpCompressor {
     /**
      * Recursivley strip a directory.
      *
-     * <p>Uses <code>self::findIncludes()</code> to find files to process.</p>
+     * <p>Uses <code>findIncludes()</code> to find files to process.</p>
      *
      * @param string in The input directory.
      * @param string out The output directory.
@@ -353,7 +350,7 @@ class ZMPhpCompressor {
         if (!ZMLangUtils::endsWith($in, DIRECTORY_SEPARATOR)) $in .= DIRECTORY_SEPARATOR;
         if (!ZMLangUtils::endsWith($out, DIRECTORY_SEPARATOR)) $out .= DIRECTORY_SEPARATOR;
 
-        $files = self::findIncludes($in, '.php', $recursive);
+        $files = $this->findIncludes($in, '.php', $recursive);
 
         foreach ($files as $name => $infile) {
             $name = basename($infile);
@@ -389,7 +386,7 @@ class ZMPhpCompressor {
      */
     protected function flattenDirStructure($in, $out) {
         //echo "** flatten " . $in . " into " . $out . "\n";
-        $files = self::findIncludes($in.DIRECTORY_SEPARATOR, '.php', true);
+        $files = $this->findIncludes($in.DIRECTORY_SEPARATOR, '.php', true);
 
         if (!file_exists($out)) {
             ZMFileUtils::mkdir($out);
@@ -466,7 +463,7 @@ class ZMPhpCompressor {
      */
     protected function compressToSingleFile($in, $outfile) {
         //echo "** compress " . $in . " into " . $outfile . "\n";
-        $files = self::findIncludes($in.DIRECTORY_SEPARATOR, '.php', true);
+        $files = $this->findIncludes($in.DIRECTORY_SEPARATOR, '.php', true);
 
         $tmp = array();
         // mess around with results ...

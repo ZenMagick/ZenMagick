@@ -102,7 +102,7 @@ class ZMUnitTestsController extends ZMController {
                 if (is_dir($ptests)) {
                     $pluginLoader->addPath($ptests);
                     // scan for tests
-                    foreach (ZMLoader::findIncludes($ptests) as $file) {
+                    foreach (ZMFileUtils::findIncludes($ptests) as $file) {
                         $name = basename($file);
                         if (ZMLangUtils::startsWith($name, 'Test')) {
                             $name = str_replace('.php', '', $name);

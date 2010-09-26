@@ -64,7 +64,7 @@ class ZMlocaleUtils {
 
         $lnPatterns = explode(',', self::LOCALE_PATTERNS);
         $map = array();
-        foreach (ZMLoader::findIncludes($baseDir.DIRECTORY_SEPARATOR, $ext, true) as $filename) {
+        foreach (ZMFileUtils::findIncludes($baseDir.DIRECTORY_SEPARATOR, $ext, true) as $filename) {
             $strings = array();
             $contents = file_get_contents($filename);
             // try to convert into relative path

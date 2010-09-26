@@ -148,7 +148,7 @@ class ZMPhpPackagePacker {
      * @return array A list of file names.
      */
     protected function getFileList() {
-        return ZMLoader::findIncludes($this->rootFolder_, '.php', true);
+        return ZMFileUtils::findIncludes($this->rootFolder_, '.php', true);
     }
 
     /**

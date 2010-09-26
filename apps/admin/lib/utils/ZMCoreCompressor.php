@@ -86,7 +86,7 @@ class ZMCoreCompressor extends ZMPhpPackagePacker {
 
         $files = array();
         foreach ($pathList as $path) {
-            $pathFiles = ZMLoader::findIncludes($path, '.php', true);
+            $pathFiles = ZMFileUtils::findIncludes($path, '.php', true);
             $files = array_merge($files, $pathFiles);
         }
 
@@ -117,7 +117,7 @@ class ZMCoreCompressor extends ZMPhpPackagePacker {
                     if ($noDir || ZMPlugin::LP_PLUGIN == $flag) {
                         $files = array($pluginDir.get_class($plugin).'.php');
                     } else {
-                        $files = ZMLoader::findIncludes($pluginDir, '.php', ZMPlugin::LP_FOLDER != $flag);
+                        $files = ZMFileUtils::findIncludes($pluginDir, '.php', ZMPlugin::LP_FOLDER != $flag);
                     }
                     foreach ($files as $file) {
                         $fileBase = str_replace($pluginDir, '', $file);

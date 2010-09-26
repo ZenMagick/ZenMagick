@@ -353,15 +353,14 @@ class ZMLoader {
     /**
      * Scan (recursively) for <code>.php</code> files.
      *
-     * <p>It is worth mentioning that directories will always be processed only after
-     * all plain files in a directory are done.</p>
+     * <p>The loader class has its own version to make boostrap loading depend only on <code>ZMLoader</code> being available.</p>
      *
      * @param string dir The name of the root directory to scan.
      * @param string ext Optional file suffix/extension; default is <em>.php</em>.
      * @param boolean recursive If <code>true</code>, scan recursively.
      * @return array List of full filenames of <code>.php</code> files.
      */
-    public static function findIncludes($dir, $ext='.php', $recursive=false, $level=0) {
+    protected function findIncludes($dir, $ext='.php', $recursive=false, $level=0) {
         $includes = array();
 
         // sanity check
@@ -376,7 +375,7 @@ class ZMLoader {
             }
             $file = $dir.$name;
             if (is_dir($file) && $recursive) {
-                $includes = array_merge($includes, self::findIncludes($file.DIRECTORY_SEPARATOR, $ext, $recursive, $level+1));
+                $includes = array_merge($includes, $this->findIncludes($file.DIRECTORY_SEPARATOR, $ext, $recursive, $level+1));
             } else if ($ext == substr($name, -strlen($ext))) {
                 $includes[] = $file;
             }
@@ -404,7 +403,7 @@ class ZMLoader {
         // then add trailing ds
         $path = $path.DIRECTORY_SEPARATOR;
 
-        $files = self::findIncludes($path, '.php', $recursive);
+        $files = $this->findIncludes($path, '.php', $recursive);
         $map = array();
         foreach ($files as $file) {
             $name = str_replace('.php', '', basename($file));

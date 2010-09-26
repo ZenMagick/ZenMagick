@@ -52,8 +52,8 @@ class ZMSavant3Packer extends ZMPhpPackagePacker implements ZMLibraryPacker {
     protected function getFileList() {
         // just Savant3.php in the rootFolder and the classes in the Savant3 folder, but not resources and not tests
         return array_merge(
-            ZMLoader::findIncludes($this->rootFolder_, '.php', false),
-            ZMLoader::findIncludes($this->rootFolder_.'Savant3'.DIRECTORY_SEPARATOR, '.php', false)
+            ZMFileUtils::findIncludes($this->rootFolder_, '.php', false),
+            ZMFileUtils::findIncludes($this->rootFolder_.'Savant3'.DIRECTORY_SEPARATOR, '.php', false)
         );
     }
 
