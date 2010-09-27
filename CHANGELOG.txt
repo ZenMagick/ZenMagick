@@ -54,6 +54,7 @@ Release 0.9.11
 - allow settings in theme.yaml
 - change ZMWidget::render($request) to ZMWidget::render($request,$view)
 - preserver sort for for ZMProducts::getNewProducts()
+- remove setting 'isEnableThemeDefaults' and always fallback on default theme
 
 Release 0.9.10
 - restructure store and admin code into separate apps with most of the store

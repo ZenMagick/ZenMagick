@@ -199,9 +199,8 @@ class ZMEventFixes extends ZMObject {
         if (ZMSettings::get('isEnableZMThemes') && !ZM_CLI_CALL) {
             $language = $request->getSession()->getLanguage();
 
-            // resolve theme to be used 
-            $themeId = (ZMSettings::get('isEnableThemeDefaults') ? ZMSettings::get('defaultThemeId') : Runtime::getThemeId());
-            $theme = ZMThemes::instance()->resolveTheme($themeId, $language);
+            // resolve theme to be used; always start with default
+            $theme = ZMThemes::instance()->resolveTheme(ZMSettings::get('defaultThemeId'), $language);
             // finalise i18n
             if (null === $language) {
                 // this may happen if the i18n patch hasn't been updated

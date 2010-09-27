@@ -60,10 +60,9 @@ class SavantView extends ZMSavantView {
             }
         }
 
-        if (ZMSettings::get('isEnableThemeDefaults')) {
-            // add default theme as fallback
-            $path[] = ZMThemes::instance()->getThemeForId(ZMSettings::get('defaultThemeId'))->getContentDir();
-        }
+        // add default theme as fallback
+        $path[] = ZMThemes::instance()->getThemeForId(ZMSettings::get('defaultThemeId'))->getContentDir();
+
         // add current theme
         $path[] = Runtime::getTheme()->getContentDir();
 
@@ -79,9 +78,7 @@ class SavantView extends ZMSavantView {
         return $this->getTemplatePath($request);
         /*
         $path = array();
-        if (ZMSettings::get('isEnableThemeDefaults')) {
-            $path[] = ZMThemes::instance()->getThemeForId(ZMSettings::get('defaultThemeId'))->getBaseDir();
-        }
+        $path[] = ZMThemes::instance()->getThemeForId(ZMSettings::get('defaultThemeId'))->getBaseDir();
         $path[] = Runtime::getTheme()->getBaseDir();
         return $path;
         */

@@ -22,12 +22,10 @@
 
     if ('POST' == $request->getMethod()) {
         $name = $request->getParameter('name');
-        $inherit = $request->getParameter('inherit', false);
         $switchto = $request->getParameter('switchto', false);
 
         $themeBuilder = new ZMThemeBuilder();
         $themeBuilder->setName($request->getParameter('name'));
-        $themeBuilder->setInheritDefaults($request->getParameter('inherit', false));
         $buildOK = $themeBuilder->build();
         foreach ($themeBuilder->getMessages() as $msgInfo) {
             ZMMessages::instance()->add($msgInfo[1], $msgInfo[0]);
@@ -57,11 +55,6 @@
   <label for="name"><?php _vzm('Name') ?></label>
       <input type="text" id="name" name="name" value="">
       <?php _vzm('(This is what the folder will be named. <strong>Names are case sensitive!</strong>)') ?>
-      <br>
-
-      <input type="checkbox" id="inherit" name="inherit" value="1" checked>
-      <label for="inherit"><?php _vzm('Inherit theme defaults') ?></label>
-      <?php _vzm('(Recommended, unless <strong>all files are copied</strong>)') ?>
       <br>
 
       <input type="checkbox" id="switchto" name="switchto" value="1" checked>

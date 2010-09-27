@@ -131,15 +131,12 @@ class ZMTheme extends ZMObject {
      *
      * <p>The given <code>uri</code> is assumed to be relative to the themes <em>content</em> folder.</p>
      *
-     * <p>If the file is not found and <code>isEnableThemeDefaults</code> is set to <code>true</code>,
-     * the method will try to resolve the name in the default theme.</p>
-     *
      * @param string uri The relative URI.
      * @return string An absolute URL.
      */
     public function themeURL($uri) {
         $url = Runtime::getThemesPathPrefix().$this->themeId_."/".'content/'.$uri;
-        if (ZMSettings::get('isEnableThemeDefaults') && !file_exists($this->getContentDir().$uri)) {
+        if (!file_exists($this->getContentDir().$uri)) {
             if (file_exists(Runtime::getThemesDir().ZMSettings::get('defaultThemeId').DIRECTORY_SEPARATOR.'content'.DIRECTORY_SEPARATOR.$uri)) {
                 $url = Runtime::getThemesPathPrefix().ZMSettings::get('defaultThemeId')."/".'content/'.$uri;
             }
@@ -197,16 +194,13 @@ class ZMTheme extends ZMObject {
     /**
      * Resolve a theme relative filename into a full path.
      *
-     * <p>If the file is not found and <code>isEnableThemeDefaults</code> is set to <code>true</code>,
-     * the method will try to resolve the name in the default theme.</p>
-     *
      * @param string name A theme relative filename.
      * @param string baseDir An optional base directory; default is <code>content/</code>
      * @return string A fully qualified filename.
      */
     public function themeFile($name, $baseDir='content/') {
         $file = $this->getBaseDir().$baseDir.$name;
-        if (ZMSettings::get('isEnableThemeDefaults') && !file_exists($file)) {
+        if (!file_exists($file)) {
             // check for default
             $dfile = Runtime::getThemesDir().ZMSettings::get('defaultThemeId').DIRECTORY_SEPARATOR.$baseDir.$name;
             if (file_exists($dfile)) {
@@ -304,9 +298,6 @@ class ZMTheme extends ZMObject {
     /**
      * Get the content of a static (define) page.
      *
-     * <p>If the file is not found and <code>isEnableThemeDefaults</code> is set to <code>true</code>,
-     * the method will try to resolve the name in the default theme.</p>
-     *
      * @param string page The page name.
      * @param int languageId Language id.
      * @return string The content or <code>null</code>.
@@ -317,7 +308,7 @@ class ZMTheme extends ZMObject {
         $path = $this->getLangDir().$languageDir.DIRECTORY_SEPARATOR.'static'.DIRECTORY_SEPARATOR;
 
         $filename = $path.$page.'.php';
-        if (!file_exists($filename) && ZMSettings::get('isEnableThemeDefaults')) {
+        if (!file_exists($filename)) {
             $filename = Runtime::getThemesDir().ZMSettings::get('defaultThemeId').DIRECTORY_SEPARATOR.'lang'.DIRECTORY_SEPARATOR.$languageDir.DIRECTORY_SEPARATOR.'static'.DIRECTORY_SEPARATOR.$page.'.php';
         }
 

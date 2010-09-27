@@ -141,9 +141,6 @@ class ZMToolboxUtils extends ZMToolboxTool {
     /**
      * Get the content of a static (define) page.
      *
-     * <p>If the file is not found and <code>isEnableThemeDefaults</code> is set to <code>true</code>,
-     * the method will try to resolve the name in the default theme.</p>
-     *
      * @param string pageName The page name.
      * @return string The content or <code>null</code>.
      */
