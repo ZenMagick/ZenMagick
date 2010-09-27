@@ -51,7 +51,7 @@ class ZMTextAreaFormWidget extends ZMFormWidget {
     /**
      * {@inheritDoc}
      */
-    public function render($request) {
+    public function render($request, $view) {
         $value = $this->isEncode() ? ZMHtmlUtils::encode($this->getValue()) : $this->getValue();
         return '<textarea'.$this->getAttributeString($request, false).'>'.$value.'</textarea>';
     }

@@ -30,7 +30,7 @@
  * <p>Depending on the nature of the widgets, subclasses might implement custom properties as
  * needed.</p>
  *
- * <p>Since widgets are typically used in the context of an HTML page, the <code>render($request)</code> method is expected
+ * <p>Since widgets are typically used in the context of an HTML page, the <code>render($request,$view)</code> method is expected
  * to return valid HTML that will display the widget.</p>
  *
  * @author DerManoMann
@@ -117,8 +117,9 @@ abstract class ZMWidget extends ZMObject {
      * Get the HTML to render this widget.
      *
      * @param ZMRequest request The current request.
+     * @param ZMView view The current view.
      * @return string The HTML.
      */
-    public abstract function render($request);
+    public abstract function render($request, $view);
 
 }

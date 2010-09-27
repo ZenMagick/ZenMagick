@@ -53,10 +53,10 @@ class ZMXinhaFormWidget extends ZMTextAreaFormWidget {
     /**
      * {@inheritDoc}
      */
-    public function render($request) {
+    public function render($request, $view) {
         if (!$this->plugin_) {
             // fallback
-            return parent::render($request);
+            return parent::render($request, $view);
         }
 
         $baseUrl = $this->plugin_->pluginURL('xinha-0.96.1/');
@@ -101,7 +101,7 @@ Xinha._addEvent(window,'load', xinha_init);
 </script>
 EOT;
 
-        return $jsInit.parent::render($request);
+        return $jsInit.parent::render($request, $view);
     }
 
 }

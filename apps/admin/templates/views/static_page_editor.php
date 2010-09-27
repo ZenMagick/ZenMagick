@@ -121,7 +121,7 @@
       $editor->setRows(30);
       $editor->setCols(100);
       $editor->setValue($editContents);
-      echo $editor->render($request);
+      echo $editor->render($request, $this);
      ?>
 
     <br><br>

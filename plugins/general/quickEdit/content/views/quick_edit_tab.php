@@ -46,7 +46,7 @@
             $widget->setValue($value);
             ?>
             <td<?php echo ($ii == $lastIndex ? ' class="last"' : '') ?> style="text-align:center;">
-              <?php echo $widget->render($request) ?>
+              <?php echo $widget->render($request, $this) ?>
               <input type="hidden" name="<?php echo ZMQuickEditTabController::STALE_CHECK_FIELD_PREFIX.$fieldName ?>" value="<?php echo $html->encode($value) ?>">
             </td>
           <?php } ?>

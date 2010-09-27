@@ -152,7 +152,7 @@ abstract class ZMDashboardWidget extends ZMWidget {
     /**
      * {@inheritDoc}
      */
-    public function render($request) {
+    public function render($request, $view) {
         $lines = array(
             '<div class="portlet'.($this->hasOptions() ? ' gear' : '').'" id="portlet-'.$this->getId().'">',
             '  <div class="portlet-header'.($this->isOpen() ? ' open' : ' closed"').'">'.$this->getTitle().'</div>',

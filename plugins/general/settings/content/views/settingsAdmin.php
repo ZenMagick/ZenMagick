@@ -80,7 +80,7 @@
                         <tr>
                             <td><?php echo $value->getTitle() ?></td>
                             <td><?php echo $value->getName() ?></td>
-                            <td><?php echo $value->render($request); ?></td>
+                            <td><?php echo $value->render($request, $this); ?></td>
                         </tr>
                     <?php } ?>
                 <?php } ?>

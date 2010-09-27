@@ -159,7 +159,7 @@ class ZMBooleanFormWidget extends ZMFormWidget {
     /**
      * {@inheritDoc}
      */
-    public function render($request) {
+    public function render($request, $view) {
         switch ($this->get('style')) {
             default:
                 ZMLogging::instance()->log('invalid style "'.$this->get('style').'" - using default', ZMLogging::DEBUG);

@@ -76,7 +76,7 @@ class ZMReservedQtyWidget extends ZMWidget {
     /**
      * {@inheritDoc}
      */
-    public function render($request) {
+    public function render($request, $view) {
         $stats = $this->getStats();
         $product = $this->getProduct();
         if (array_key_exists($product->getId(), $stats)) {

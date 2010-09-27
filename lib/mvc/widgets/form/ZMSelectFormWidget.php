@@ -124,7 +124,7 @@ class ZMSelectFormWidget extends ZMFormWidget {
     /**
      * {@inheritDoc}
      */
-    public function render($request) {
+    public function render($request, $view) {
         if ($this->isMultiValue()) {
             ZMLogging::instance()->log('multi-value: defaulting style to select', ZMLogging::TRACE);
             $this->set('style', 'select');

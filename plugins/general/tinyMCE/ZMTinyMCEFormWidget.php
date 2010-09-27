@@ -53,10 +53,10 @@ class ZMTinyMCEFormWidget extends ZMTextAreaFormWidget {
     /**
      * {@inheritDoc}
      */
-    public function render($request) {
+    public function render($request, $view) {
         if (!$this->plugin_) {
             // fallback
-            return parent::render($request);
+            return parent::render($request, $view);
         }
 
         $baseUrl = $this->plugin_->pluginURL('tinymce-3.3.8/');
@@ -89,7 +89,7 @@ class ZMTinyMCEFormWidget extends ZMTextAreaFormWidget {
 </script>
 EOT;
 
-        return $jsInit.parent::render($request);
+        return $jsInit.parent::render($request, $view);
     }
 
 }
