@@ -388,7 +388,7 @@ class ZMProducts extends ZMObject implements ZMSQLAware {
         $args =  array('categoryId' => $categoryId, 'dateAdded' => $date);
         $tables = array(TABLE_PRODUCTS, TABLE_PRODUCTS_TO_CATEGORIES);
         $productIds = 0 != $max ? $this->getRandomProductIds($sql, $max, $args, $tables) : $this->getProductIds($sql, $args, $tables);
-        return $this->getProductsForIds($productIds, false, $languageId);
+        return $this->getProductsForIds($productIds, true, $languageId);
     }
 
     /**

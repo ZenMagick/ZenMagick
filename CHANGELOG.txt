@@ -53,6 +53,7 @@ Release 0.9.11
 - fix a bug in ZMShippingProviders and make using it the default
 - allow settings in theme.yaml
 - change ZMWidget::render($request) to ZMWidget::render($request,$view)
+- preserver sort for for ZMProducts::getNewProducts()
 
 Release 0.9.10
 - restructure store and admin code into separate apps with most of the store
