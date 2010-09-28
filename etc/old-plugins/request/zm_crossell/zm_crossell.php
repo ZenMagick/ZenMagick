@@ -35,7 +35,6 @@ if (!defined('SHOW_PRODUCT_INFO_COLUMNS_XSELL_PRODUCTS')) define('SHOW_PRODUCT_I
  *
  * @package org.zenmagick.plugins.zm_crossell
  * @author DerManoMann
- * @version $Id$
  */
 class zm_crossell extends Plugin {
 

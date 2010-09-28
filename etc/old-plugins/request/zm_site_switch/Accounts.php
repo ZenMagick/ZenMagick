@@ -29,7 +29,6 @@
  *
  * @author mano
  * @package org.zenmagick.plugins.zm_site_switch
- * @version $Id$
  */
 class Accounts extends ZMAccounts {
     private $isShareAccounts;

@@ -39,7 +39,6 @@
  *
  * @author DerManoMann
  * @package org.zenmagick
- * @version $Id$
  */
 class ot_zenmagick {
     var $title;

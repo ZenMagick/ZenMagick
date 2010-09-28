@@ -32,7 +32,6 @@ define('TABLE_COMMISSION', DB_PREFIX . 'commission');
  *
  * @package org.zenmagick.plugins.zm_snap_affiliate
  * @author DerManoMann
- * @version $Id$
  */
 class zm_snap_affiliate extends Plugin {
 

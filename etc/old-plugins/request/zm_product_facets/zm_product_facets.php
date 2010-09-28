@@ -28,7 +28,6 @@
  *
  * @package org.zenmagick.plugins.zm_product_facets
  * @author DerManoMann
- * @version $Id$
  */
 class zm_product_facets extends Plugin {
 

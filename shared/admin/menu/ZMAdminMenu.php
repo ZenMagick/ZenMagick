@@ -30,14 +30,10 @@
  * @package zenmagick.store.shared.admin.menu
  */
 class ZMAdminMenu {
-    /** Extras menu id. */
-    const MENU_EXTRAS = 'menu_extras';
     /** Plugins menu id. */
     const MENU_PLUGINS = 'plugins-options';
-    /** Tools menu id. */
-    const MENU_TOOLS = 'menu_tools';
     /** Menu id for Catalog Manager tabs. */
-    const MENU_CATALOG_MANAGER_TAB = 'catalog_manager_tab';
+    const MENU_CATALOG_MANAGER_TAB = 'catalog-manager-tab';
     private static $items_ = array();
 
     // new

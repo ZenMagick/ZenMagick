@@ -29,7 +29,6 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.plugins.zm_snap_affiliate
- * @version $Id$
  */
 class ZMAffiliateDetails extends ZMObject {
 

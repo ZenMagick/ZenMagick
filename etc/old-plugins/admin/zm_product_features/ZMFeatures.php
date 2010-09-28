@@ -29,7 +29,6 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.service
- * @version $Id$
  */
 class ZMFeatures extends ZMObject {
     var $features_;

@@ -29,7 +29,6 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.model.catalog
- * @version $Id$
  */
 class ZMFeature extends ZMObject {
     var $id_;

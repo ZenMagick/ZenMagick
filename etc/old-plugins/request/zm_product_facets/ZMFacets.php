@@ -29,7 +29,6 @@
  *
  * @author mano
  * @package org.zenmagick.plugins.zm_product_facets
- * @version $Id$
  */
 class ZMFacets extends ZMObject {
     private $facetBuilder_;

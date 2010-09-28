@@ -1,4 +1,3 @@
-<!-- $Id$ -->
 <project name="zenmagick-main" default="mod-release">
 
     <tstamp />

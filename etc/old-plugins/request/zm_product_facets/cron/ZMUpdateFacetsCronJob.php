@@ -25,7 +25,6 @@
  *
  * @author DerManoMann
  * @package org.zenmagick.plugins.zm_product_facets
- * @version $Id$
  */
 class ZMUpdateFacetsCronJob implements ZMCronJob {
     

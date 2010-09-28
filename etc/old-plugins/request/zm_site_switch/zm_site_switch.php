@@ -33,7 +33,6 @@ if (ZMSettings::get('isAdmin')) {
  *
  * @package org.zenmagick.plugins.zm_site_switch
  * @author mano
- * @version $Id$
  */
 class zm_site_switch extends Plugin {
 

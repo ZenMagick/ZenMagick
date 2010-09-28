@@ -1,4 +1,3 @@
-<!-- $Id$ -->
 <project name="zenmagick-libraries" default="pack-libraries">
 
     <!-- Plugins properties -->

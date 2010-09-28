@@ -1,4 +1,3 @@
-<!-- $Id$ -->
 <project name="full-release">
 
     <!-- The full release build dir -->
@@ -83,7 +82,7 @@
         <replaceregexp match="'pub'=>'777 read\/write\/execute'," replace="" flags="g"><fileset file="${release.full.dir}/zc_install/includes/modules/pages/inspect/header_php.php"></fileset></replaceregexp>
 
         <!-- remove music extra stuff -->
-        <delete file="${release.full.dir}/admin/includes/boxes/extra_boxes/product_music_extras_dhtml.php" />
+        <!--delete file="${release.full.dir}/admin/includes/boxes/extra_boxes/product_music_extras_dhtml.php" /-->
 
         <!-- add ZenMagick -->
         <unzip src="${dist.dir}/zenmagick-${zenmagick.version}.zip" dest="${release.full.dir}" />
