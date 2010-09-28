@@ -37,7 +37,7 @@ class ZMHowDidYouHearPlugin extends Plugin {
      * Create new instance.
      */
     function __construct() {
-        parent::__construct('How did you hear about us', 'Adds a drop down to the register page asking: "How did you hear about us"');
+        parent::__construct('How did you hear about us', 'Adds a drop down to the register page asking: "How did you hear about us"', '${plugin.version}');
         $this->setLoaderPolicy(ZMPlugin::LP_FOLDER);
     }
 
