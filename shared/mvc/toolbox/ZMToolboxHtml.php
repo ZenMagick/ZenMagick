@@ -203,7 +203,7 @@ class ZMToolboxHtml extends ZMToolboxTool {
      */
     public function productImageLink($product, $categoryId=null, $attr=null, $format=ZMProducts::IMAGE_SMALL) {
         $defaults = array('class' => 'product');
-        if (null === $attr) {
+        if (!is_array($attr)) {
             $attr = $defaults;
         } else {
             $attr = array_merge($defaults, $attr);
