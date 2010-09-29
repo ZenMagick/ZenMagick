@@ -36,6 +36,10 @@ description: 'Modern / RI0007'
 # - removed .leftBoxesStyle from all #sb_categories CSS rules in style.css
 # - removed categories.php box as default works
 # - make sidebox prices same color as centre homepage
+# - fix copyright links to not use language defines
+# - change product_info to make the add-to-cart input element type="image" and use locale dependant image
+# - moved locale images
+# - CSS: make add-to-cart form on product_info bottom aligned
 
 
 # Notes:

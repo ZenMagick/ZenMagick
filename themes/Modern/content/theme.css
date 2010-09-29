@@ -20,3 +20,5 @@
 #sb_manufacturers {padding: 10px 0px;text-align:center;}
 #sb_featured, #sb_newproducts {text-align:center;}
 #sb_categories {padding-left:15px;font-size:1.1em;}
+
+#cartAdd input {vertical-align:middle;margin-bottom:0;}
