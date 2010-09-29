@@ -55,6 +55,8 @@ Release 0.9.11
 - change ZMWidget::render($request) to ZMWidget::render($request,$view)
 - preserver sort for for ZMProducts::getNewProducts()
 - remove setting 'isEnableThemeDefaults' and always fallback on default theme
+- add locale specifc folders (example: locale/en_NZ, locale/en) to list of
+  folders used to resolve resources
 
 Release 0.9.10
 - restructure store and admin code into separate apps with most of the store

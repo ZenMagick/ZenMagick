@@ -140,7 +140,13 @@ class ZMSavantView extends ZMView {
                 $path[] = $plugin->getPluginDirectory().'content'.DIRECTORY_SEPARATOR;
             }
         }
+
         $path[] = $request->getTemplatePath();
+
+        // add path for locale specific resources
+        foreach (ZMLocales::instance()->getValidLocaleCodes() as $code) {
+            $path[] = ZMFileUtils::mkpath($request->getTemplatePath(), 'locale', $code);
+        }
 
         return $path;
     }

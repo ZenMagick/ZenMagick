@@ -82,6 +82,20 @@ class ZMLocales extends ZMObject {
         return $this->locale_;
     }
 
+    /**
+     * Get a list of all valid locale codes for the current locale in decreasing order of importance.
+     *
+     * @return array List of locale codes.
+     */
+    public function getValidLocaleCodes() {
+        $code = $this->getLocale()->getCode();
+        $codes = array($code);
+        $token = explode('_', $code);
+        if (1 < count($token)) {
+            $codes[] = $token[0];
+        }
+        return $codes;
+    }
 
     /**
      * Init locale.
