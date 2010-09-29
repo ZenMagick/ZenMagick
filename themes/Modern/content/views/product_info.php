@@ -54,7 +54,7 @@
 					<?php $minMsg = ""; if (1 < $currentProduct->getMinOrderQty()) { $minMsg = zm_l10n_get(" (Order minimum: %s)", $currentProduct->getMinOrderQty()); } ?>
 	      			<label for="cart_quantity"><?php zm_l10n("Quantity") ?><?php echo $minMsg; ?></label>
 	      			<input type="text" id="cart_quantity" name="cart_quantity" value="1" maxlength="6" size="4" />
-	      			<input type="submit" class="btn" value="<?php zm_l10n("Add to cart") ?>" />
+              <input type="image" value="<?php zm_l10n("Add to cart") ?>" src="<?php echo $this->asUrl('images/button_in_cart.gif') ?>" />
 				</div>
 				
 				<div id="tellAFriendInfo">
