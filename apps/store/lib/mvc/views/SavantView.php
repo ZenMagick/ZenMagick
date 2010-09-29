@@ -53,28 +53,32 @@ class SavantView extends ZMSavantView {
     public function getTemplatePath($request) {
         $path = array();
 
+        // available locale
+        $localeCodes = array_reverse(ZMLocales::instance()->getValidLocaleCodes());
+
         // add plugins as fallback fallback
         foreach (explode(',', ZMSettings::get('zenmagick.core.plugins.groups')) as $group) {
             foreach (ZMPlugins::instance()->getPluginsForGroup($group, Plugin::CONTEXT_STOREFRONT) as $plugin) {
-                $path[] = $plugin->getPluginDirectory().'content'.DIRECTORY_SEPARATOR;
+                $ppath = $plugin->getPluginDirectory().'content'.DIRECTORY_SEPARATOR;
+                $path[] = $ppath;
+                foreach ($localeCodes as $code) {
+                    $path[] = ZMFileUtils::mkpath($ppath, 'locale', $code);
+                }
             }
         }
 
+        // add default theme as fallback, incl. locale
         $defaultTheme = ZMThemes::instance()->getThemeForId(ZMSettings::get('defaultThemeId'));
-        $localeCodes = ZMLocales::instance()->getValidLocaleCodes();
-
-        // add default theme as fallback
         $path[] = $defaultTheme->getContentDir();
-        // add path for locale specific resources
-        foreach (ZMLocales::instance()->getValidLocaleCodes() as $code) {
+        foreach ($localeCodes as $code) {
             $path[] = ZMFileUtils::mkpath($defaultTheme->getContentDir(), 'locale', $code);
         }
+
 
         // add current theme
         $theme =  Runtime::getTheme();
         $path[] = $theme->getContentDir();
-        // add path for locale specific resources
-        foreach (ZMLocales::instance()->getValidLocaleCodes() as $code) {
+        foreach ($localeCodes as $code) {
             $path[] = ZMFileUtils::mkpath($theme->getContentDir(), 'locale', $code);
         }
 

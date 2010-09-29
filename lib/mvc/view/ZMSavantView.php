@@ -134,19 +134,12 @@ class ZMSavantView extends ZMView {
 
         // add plugins as well
         foreach (explode(',', ZMSettings::get('zenmagick.core.plugins.groups')) as $group) {
-            // set context to 0 as we need all
             foreach (ZMPlugins::instance()->getPluginsForGroup($group, 0) as $plugin) {
-                // use content here for now as the folder may contain views and/or (web) resources
                 $path[] = $plugin->getPluginDirectory().'content'.DIRECTORY_SEPARATOR;
             }
         }
 
         $path[] = $request->getTemplatePath();
-
-        // add path for locale specific resources
-        foreach (ZMLocales::instance()->getValidLocaleCodes() as $code) {
-            $path[] = ZMFileUtils::mkpath($request->getTemplatePath(), 'locale', $code);
-        }
 
         return $path;
     }
@@ -162,14 +155,26 @@ class ZMSavantView extends ZMView {
     public function getResourcePath($request) {
         $path = array();
 
+        // available locale
+        $localeCodes = array_reverse(ZMLocales::instance()->getValidLocaleCodes());
+
         // add plugins as well
         foreach (explode(',', ZMSettings::get('zenmagick.core.plugins.groups')) as $group) {
             foreach (ZMPlugins::instance()->getPluginsForGroup($group, ZMSettings::get('zenmagick.core.plugins.context', 0)) as $plugin) {
-                // XXX: see getTemplatePath() above
-                $path[] = $plugin->getPluginDirectory().'content'.DIRECTORY_SEPARATOR;
+                $ppath = $plugin->getPluginDirectory().'content'.DIRECTORY_SEPARATOR;
+                $path[] = $ppath;
+                foreach ($localeCodes as $code) {
+                    $path[] = ZMFileUtils::mkpath($ppath, 'locale', $code);
+                }
             }
         }
+
         $path[] = $request->getWebPath();
+
+        // add path for locale specific resources
+        foreach ($localeCodes as $code) {
+            $path[] = ZMFileUtils::mkpath($request->getWebPath(), 'locale', $code);
+        }
 
         return $path;
     }
