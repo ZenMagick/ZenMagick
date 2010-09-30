@@ -193,8 +193,8 @@ class ZMBlockManager extends ZMObject {
 
         $blockIds = $this->parseBlocks($contents);
         foreach ($blockIds as $blockId) {
-            $blockContents = '';
             if (array_key_exists($blockId, $mappings)) {
+                $blockContents = '';
                 foreach ($mappings[$blockId] as $ii => $blockInfo) {
                     $blockContents .= $blockInfo['block']->getBlockContents(array_merge($args, ($blockInfo['args'] === null ? array() : $blockInfo['args'])));
                 }
