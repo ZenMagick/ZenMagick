@@ -70,7 +70,7 @@ class ZML10nController extends ZMController {
         $downloadParamsPo = http_build_query(array_merge(array('download' => 'po'), $options));
         $downloadParamsPot = http_build_query(array_merge(array('download' => 'pot'), $options));
         return array_merge(array(
-              'themes' => ZMThemes::instance()->getThemes(),
+              'themes' => ZMThemes::instance()->getAvailableThemes(),
               'downloadParamsYaml' => $downloadParamsYaml,
               'downloadParamsPo' => $downloadParamsPo,
               'downloadParamsPot' => $downloadParamsPot

@@ -78,7 +78,7 @@ class ZMThemeSwitcherPlugin extends Plugin implements ZMRequestHandler {
         if (!ZMSettings::exists('plugins.themeSwitcher.themes')) {
             // iterate over all themes and build default config
             $defaultConfig = '';
-            foreach (ZMThemes::instance()->getThemes() as $theme) {
+            foreach (ZMThemes::instance()->getAvailableThemes() as $theme) {
                 $defaultConfig .= $theme->getThemeId().':'.$theme->getName().',';
             }
         }

@@ -77,7 +77,7 @@
       <label for="themeId">Theme:</label>
       <select id="themeId" name="themeId" onchange="this.form.submit();">
         <option value="">Select Theme</option>
-        <?php foreach (ZMThemes::instance()->getThemes() as $theme) { ?>
+        <?php foreach (ZMThemes::instance()->getAvailableThemes() as $theme) { ?>
           <?php $selected = $selectedThemeId == $theme->getThemeId() ? ' selected="selected"' : ''; ?>
           <option value="<?php echo $theme->getThemeId(); ?>"<?php echo $selected ?>><?php echo $theme->getName(); ?></option>
         <?php } ?>

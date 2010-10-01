@@ -166,7 +166,7 @@ class ZMSideboxDummyPatch extends ZMFilePatch {
         $boxPathList = array();
 
         // 1) themes
-        foreach (ZMThemes::instance()->getThemes() as $theme) {
+        foreach (ZMThemes::instance()->getAvailableThemes() as $theme) {
             $boxPathList[] = $theme->getBoxesDir();
         }
 

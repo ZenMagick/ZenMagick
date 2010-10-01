@@ -55,7 +55,7 @@ class ZMThemes extends ZMObject {
      *
      * @return array A list of <code>ZMTheme</code> instances.
      */ 
-    public function getThemes() {
+    public function getAvailableThemes() {
         $themes = array();
         $basePath = Runtime::getThemesDir();
         $dirs = $this->getThemeDirList();
@@ -99,24 +99,24 @@ class ZMThemes extends ZMObject {
     }
 
     /**
-     * Get the configured zen-cart theme id (aka the template directory name).
+     * Get the active theme id (aka the template directory name).
      *
      * @param int languageId Language id.
-     * @return string The configured zen-cart theme id.
+     * @return string The configured theme id.
      */
-    public function getZCThemeId($languageId) {
-        $sql = "SELECT template_dir
+    public function getActiveThemeId($languageId) {
+        $sql = "SELECT *
                 FROM " . TABLE_TEMPLATE_SELECT . "
                 WHERE template_language = :languageId";
         $result = ZMRuntime::getDatabase()->querySingle($sql, array('languageId' => $languageId), TABLE_TEMPLATE_SELECT);
         if (null !== $result) {
-            $themeId = $result['dir'];
+            $themeId = $result['themeId'];
         } else {
-            $sql = "SELECT template_dir
+            $sql = "SELECT *
                     FROM " . TABLE_TEMPLATE_SELECT . "
                     WHERE template_language = 0";
             $result = ZMRuntime::getDatabase()->querySingle($sql, array('languageId' => $languageId), TABLE_TEMPLATE_SELECT);
-            $themeId = $result['dir'];
+            $themeId = $result['themeId'];
         }
 
         $themeId = empty($themeId) ? ZMSettings::get('defaultThemeId') : $themeId;
@@ -124,12 +124,12 @@ class ZMThemes extends ZMObject {
     }
 
     /**
-     * Update the configured zen-cart theme id.
+     * Set the active theme id.
      *
      * @param string themeId The theme id.
      * @param int languageId Optional language id; default is <em>0</em> for all.
      */
-    public function updateZCThemeId($themeId, $languageId=0) {
+    public function setActiveThemeId($themeId, $languageId=0) {
         // update or insert?
         $sql = "SELECT template_id
                 FROM " . TABLE_TEMPLATE_SELECT . "
@@ -139,15 +139,15 @@ class ZMThemes extends ZMObject {
         $sql = '';
         if (null !== $result) {
             $sql = "UPDATE " . TABLE_TEMPLATE_SELECT . " 
-                    SET template_dir = :dir
+                    SET template_dir = :themeId
                     WHERE template_id = :id
                       AND template_language = :languageId";
         } else {
             $sql = "INSERT INTO " . TABLE_TEMPLATE_SELECT . " 
                     (template_dir, template_language)
-                    values (:dir, :languageId)";
+                    values (:themeId, :languageId)";
         }
-        $args = array('id' => $result['id'], 'dir' => $themeId, 'languageId' => $languageId);
+        $args = array('id' => $result['id'], 'themeId' => $themeId, 'languageId' => $languageId);
         ZMRuntime::getDatabase()->update($sql, $args, TABLE_TEMPLATE_SELECT);
     }
 
