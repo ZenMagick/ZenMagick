@@ -44,7 +44,7 @@ class ZMObjectResultSource extends ZMObject implements ZMResultSource {
      * @param string resultClass The class of the results.
      * @param mixed object The object to be used.
      * @param string method The method to call on the object.
-     * @param array args Optional method parameter.
+     * @param mixed args Optional method parameter (single value or array of args); default is an empty array.
      */
     function __construct($resultClass, $object, $method, $args=array()) {
         parent::__construct();
@@ -52,6 +52,9 @@ class ZMObjectResultSource extends ZMObject implements ZMResultSource {
         $this->object_ = $object;
         $this->method_ = $method;
         $this->args_ = $args;
+        if (!is_array($this->args_)) {
+            $this->args_ = array($this->args_);
+        }
         $this->results_ = null;
         $this->totalNumberOfResults_ = null;
         $this->isFinal_ = null;
