@@ -29,7 +29,6 @@
  */
 class ZMTheme extends ZMObject {
     private $themeId_;
-    private $themeInfo_;
     private $config_;
 
 
@@ -41,12 +40,22 @@ class ZMTheme extends ZMObject {
     function __construct($themeId) {
         parent::__construct();
         $this->themeId_ = $themeId;
-        $this->themeInfo_ = null;
         $configFile = $this->getBaseDir().'theme.yaml';
         if (file_exists($configFile)) {
             $this->config_ = ZMRuntime::yamlLoad(file_get_contents($configFile));
         } else {
             $this->config_ = array();
+            //XXX: try for zc theme
+            $templatePath = ZMFileUtils::mkPath(DIR_FS_CATALOG, 'includes', 'templates', $themeId);
+            if (is_dir($templatePath) && file_exists($templatePath.'template_info.php')) {
+                include $templatePath.'template_info.php';
+                if (isset($template_name)) {
+                    $this->config_['name'] = $template_name.' (Zen Cart)';
+                    $this->config_['version'] = $template_version;
+                    $this->config_['author'] = $template_author;
+                    $this->config_['description'] = $template_description;
+                }
+            }
         }
     }
 

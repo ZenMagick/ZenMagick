@@ -124,12 +124,34 @@ class ZMThemes extends ZMObject {
     }
 
     /**
+     * Get a list of configured themes.
+     *
+     * @return string The configured theme id.
+     */
+    public function getThemeConfigList() {
+        $sql = "SELECT *
+                FROM " . TABLE_TEMPLATE_SELECT;
+        return ZMRuntime::getDatabase()->query($sql, array(), TABLE_TEMPLATE_SELECT, 'ZMObject');
+    }
+
+    /**
+     * Update theme config.
+     *
+     * @param mixed config The theme config to update.
+     * @return boolean <code>true</code> on success.
+     */
+    public function updateThemeConfig($config) {
+        return ZMRuntime::getDatabase()->updateModel(TABLE_TEMPLATE_SELECT, $config);
+    }
+
+    /**
      * Set the active theme id.
      *
      * @param string themeId The theme id.
+     * @param string variationId Optional variation (theme) id.
      * @param int languageId Optional language id; default is <em>0</em> for all.
      */
-    public function setActiveThemeId($themeId, $languageId=0) {
+    public function setActiveThemeId($themeId, $variationId=null, $languageId=0) {
         // update or insert?
         $sql = "SELECT template_id
                 FROM " . TABLE_TEMPLATE_SELECT . "
@@ -139,15 +161,15 @@ class ZMThemes extends ZMObject {
         $sql = '';
         if (null !== $result) {
             $sql = "UPDATE " . TABLE_TEMPLATE_SELECT . " 
-                    SET template_dir = :themeId
+                    SET template_dir = :themeId, variation_dir = :variationId
                     WHERE template_id = :id
                       AND template_language = :languageId";
         } else {
             $sql = "INSERT INTO " . TABLE_TEMPLATE_SELECT . " 
-                    (template_dir, template_language)
-                    values (:themeId, :languageId)";
+                    (template_dir, variation_dir, template_language)
+                    values (:themeId, :variationId, :languageId)";
         }
-        $args = array('id' => $result['id'], 'themeId' => $themeId, 'languageId' => $languageId);
+        $args = array('id' => $result['id'], 'themeId' => $themeId, 'variationId' => $variationId, 'languageId' => $languageId);
         ZMRuntime::getDatabase()->update($sql, $args, TABLE_TEMPLATE_SELECT);
     }
 

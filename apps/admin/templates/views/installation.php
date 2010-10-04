@@ -43,6 +43,7 @@
         "sqlFulltext" => "Create indices for fulltext product search",
         "sqlAdminRoles" => "Create tables for new role based admin access control",
         "sqlAdminPrefs" => "Create new admin preferences table",
+        "sqlThemeVariation" => "Create additional column for theme variation selection",
     );
 
     $coreCompressor = new ZMCoreCompressor();
