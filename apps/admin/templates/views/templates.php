@@ -3,9 +3,6 @@
  * ZenMagick - Smart e-commerce
  * Copyright (C) 2006-2010 zenmagick.org
  *
- * Portions Copyright (c) 2003 The zen-cart developers
- * Portions Copyright (c) 2003 osCommerce
- *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or (at
@@ -19,17 +16,19 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
- *
- * $Id$
  */
 ?>
-<?php
+<?php zm_title($this, _zm('Templates')) ?>
 
-    if (false && 'contact_us' == ZMRequest::instance()->getRequestId()) {
-        Runtime::setThemeId(ZMSettings::get('apps.store.themes.default'));
-    }
-
-    // add custom filter
-    ZMSettings::append('resultListProductFilter', 'AlphaFilter,PriceRangeFilter');
-
-?>
+<table class="grid">
+  <tr>
+    <th><?php _vzm('Id') ?></th>
+    <th><?php _vzm('Name') ?></th>
+  </tr>
+  <?php foreach ($themes as $theme) { ?>
+    <tr>
+      <td><?php echo $theme->getThemeId() ?></td>
+      <td><?php echo $theme->getName() ?></td>
+    </tr>
+  <?php } ?>
+</table>

@@ -54,7 +54,7 @@ class ZMThemeDummyPatch extends ZMFilePatch {
      */
     function isOpen() {
         foreach (ZMThemes::instance()->getThemes() as $theme) {
-            if (ZMSettings::get('defaultThemeId') == $theme->getThemeId() && !$this->includeDefault_) {
+            if (ZMSettings::get('apps.store.themes.default') == $theme->getThemeId() && !$this->includeDefault_) {
                 continue;
             }
             if (!file_exists(DIR_FS_CATALOG_TEMPLATES.$theme->getThemeId())) {
@@ -109,7 +109,7 @@ class ZMThemeDummyPatch extends ZMFilePatch {
         }
 
         foreach (ZMThemes::instance()->getThemes() as $theme) {
-            if (ZMSettings::get('defaultThemeId') == $theme->getThemeId() && !$this->includeDefault_) {
+            if (ZMSettings::get('apps.store.themes.default') == $theme->getThemeId() && !$this->includeDefault_) {
                 continue;
             }
             $themeId = $theme->getThemeId();

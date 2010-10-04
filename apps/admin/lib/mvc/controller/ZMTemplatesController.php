@@ -3,9 +3,6 @@
  * ZenMagick - Smart e-commerce
  * Copyright (C) 2006-2010 zenmagick.org
  *
- * Portions Copyright (c) 2003 The zen-cart developers
- * Portions Copyright (c) 2003 osCommerce
- *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or (at
@@ -19,17 +16,47 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
- *
- * $Id$
  */
 ?>
 <?php
 
-    if (false && 'contact_us' == ZMRequest::instance()->getRequestId()) {
-        Runtime::setThemeId(ZMSettings::get('apps.store.themes.default'));
+
+/**
+ * Admin controller for templates page.
+ *
+ * @author DerManoMann
+ * @package zenmagick.store.admin.mvc.controller
+ */
+class ZMTemplatesController extends ZMController {
+
+    /**
+     * Create new instance.
+     */
+    function __construct() {
+        parent::__construct();
     }
 
-    // add custom filter
-    ZMSettings::append('resultListProductFilter', 'AlphaFilter,PriceRangeFilter');
+    /**
+     * Destruct instance.
+     */
+    function __destruct() {
+        parent::__destruct();
+    }
 
-?>
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getViewData($request) {
+        // strip default theme
+        $themes = array();
+        foreach (ZMThemes::instance()->getAvailableThemes() as $theme) {
+            if (ZMSettings::get('apps.store.themes.default') != $theme->getThemeId()) {
+                $themes[] = $theme;
+            }
+        }
+
+        return array('themes' => $themes);
+    }
+
+}

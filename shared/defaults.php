@@ -118,7 +118,7 @@
             'isEnableZMThemes' => true,
 
             // default theme
-            'defaultThemeId' => 'default',
+            'apps.store.themes.default' => 'default',
 
             // are we in admin or storefront?
             'isAdmin' => defined('IS_ADMIN_FLAG') && IS_ADMIN_FLAG,

@@ -88,7 +88,7 @@ class ZML10nController extends ZMController {
 
         $defaultMap = array();
         if ($vd['includeDefaults']) {
-            $defaultMap = ZMLocaleUtils::buildL10nMap($themesDir.ZMSettings::get('defaultThemeId'));
+            $defaultMap = ZMLocaleUtils::buildL10nMap($themesDir.ZMSettings::get('apps.store.themes.default'));
         }
 
         $existingMap = array();

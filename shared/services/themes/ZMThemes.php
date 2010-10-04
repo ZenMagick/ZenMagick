@@ -119,7 +119,7 @@ class ZMThemes extends ZMObject {
             $themeId = $result['themeId'];
         }
 
-        $themeId = empty($themeId) ? ZMSettings::get('defaultThemeId') : $themeId;
+        $themeId = empty($themeId) ? ZMSettings::get('apps.store.themes.default') : $themeId;
         return $themeId;
     }
 
@@ -172,7 +172,7 @@ class ZMThemes extends ZMObject {
      */
     public function resolveTheme($themeId, $language) {
         if (null == $themeId) {
-            $themeId = ZMSettings::get('defaultThemeId');
+            $themeId = ZMSettings::get('apps.store.themes.default');
         }
         // set up theme
         $theme = ZMThemes::instance()->getThemeForId($themeId);

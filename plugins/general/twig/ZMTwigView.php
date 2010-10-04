@@ -72,7 +72,7 @@ class ZMTwigView extends ZMView {
      */
     public function getTemplatePath($request) {
         $path = array();
-        $path[] = ZMThemes::instance()->getThemeForId(ZMSettings::get('defaultThemeId'))->getContentDir();
+        $path[] = ZMThemes::instance()->getThemeForId(ZMSettings::get('apps.store.themes.default'))->getContentDir();
         $path[] = Runtime::getTheme()->getContentDir();
         return $path;
     }
