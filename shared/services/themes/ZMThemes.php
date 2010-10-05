@@ -58,10 +58,17 @@ class ZMThemes extends ZMObject {
     public function getAvailableThemes() {
         $themes = array();
         $basePath = Runtime::getThemesDir();
-        $dirs = $this->getThemeDirList();
+        $themeDirs = $this->getThemeDirList();
         // load info classes and get instance
-        foreach ($dirs as $dir) {
+        foreach ($themeDirs as $dir) {
             if (file_exists($basePath.$dir.DIRECTORY_SEPARATOR.'theme.yaml')) {
+                $themes[] =  ZMLoader::make("Theme", $dir);
+            }
+        }
+
+        //XXX: try for zc themes
+        foreach ($this->getZCThemeDirList() as $dir) {
+            if (!in_array($dir, $themeDirs)) {
                 $themes[] =  ZMLoader::make("Theme", $dir);
             }
         }
@@ -89,7 +96,25 @@ class ZMThemes extends ZMObject {
         $themes = array();
         $handle = @opendir(Runtime::getThemesDir());
         while (false !== ($file = readdir($handle))) { 
-            if (ZMLangUtils::startsWith($file, '.') || 'CVS' == $file) {
+            if (ZMLangUtils::startsWith($file, '.')) {
+                continue;
+            }
+            array_push($themes, $file);
+        }
+        @closedir($handle);
+        return $themes;
+    }
+
+    /**
+     * Generate a list of all zencart directories.
+     *
+     * @return array List of all directories.
+     */
+    private function getZCThemeDirList() {
+        $themes = array();
+        $handle = @opendir(ZMFileUtils::mkPath(DIR_FS_CATALOG, 'includes', 'templates'));
+        while (false !== ($file = readdir($handle))) { 
+            if (ZMLangUtils::startsWith($file, '.')) {
                 continue;
             }
             array_push($themes, $file);
