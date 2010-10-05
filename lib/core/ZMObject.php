@@ -41,9 +41,11 @@ class ZMObject {
 
     /**
      * Create new instance.
+     *
+     * @param array properties Optional properties; default is an empty array;
      */
-    function __construct() {
-        $this->properties_ = array();
+    function __construct($properties=array()) {
+        $this->properties_ = $properties;
     }
 
     /**

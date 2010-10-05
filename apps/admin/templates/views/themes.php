@@ -18,9 +18,9 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 ?>
-<?php zm_title($this, _zm('Templates')) ?>
+<?php zm_title($this, _zm('Themes')) ?>
 
-<h2><?php _vzm('Configured Themes') ?></h2>
+<h2><?php _vzm('Manage Themes') ?></h2>
 <form action="<?php echo $admin2->url() ?>" method="POST">
   <table class="grid">
     <tr>
@@ -33,6 +33,7 @@
       <tr>
         <td>
           <select name="themeId[<?php echo $config->getLanguageId() ?>]">
+            <option value=""> - </option>
             <?php foreach ($themes as $theme) { ?>
               <?php $selected = ($config->getThemeId() == $theme->getThemeId() ? ' selected' : ''); ?>
               <option value="<?php echo $theme->getThemeId() ?>"<?php echo $selected ?>><?php echo $theme->getName() ?></option>
@@ -51,8 +52,45 @@
         <?php if (0 != $config->getLanguageId()) { $languageName = ZMLanguages::instance()->getLanguageForId($config->getLanguageId())->getName(); } else { $languageName = _zm('Default (All)'); } ?>
         <td><?php echo  $languageName ?></td>
         <td>
-          <?php if (1 < count($themeConfig)) { ?>Delete<?php } ?>
-          <input type="submit" name="update[<?php echo $config->getLanguageId() ?>]" value="<?php _vzm('Update') ?>">
+          <?php if (1 < count($themeConfig)) { ?>
+            <input type="submit" class="<?php echo $buttonClasses ?>" name="delete[<?php echo $config->getLanguageId() ?>]" value="<?php _vzm('Delete') ?>">
+          <?php } ?>
+          <input type="submit" class="<?php echo $buttonClasses ?>" name="update[<?php echo $config->getLanguageId() ?>]" value="<?php _vzm('Update') ?>">
+        </td>
+      </tr>
+    <?php } ?>
+    <?php if (0 < count($unmappedLanguages)) { ?>
+      <tr class="sep">
+        <td colspan=4"></td>
+      </tr>
+      <tr>
+        <th colspan=4><?php _vzm('Add mapping') ?></th>
+      </tr>
+      <tr>
+        <td>
+          <select name="newThemeId">
+            <?php foreach ($themes as $theme) { ?>
+              <option value="<?php echo $theme->getThemeId() ?>"><?php echo $theme->getName() ?></option>
+            <?php } ?>
+          </select>
+        </td>
+        <td>
+          <select name="newVariationId">
+            <option value=""> - </option>
+            <?php foreach ($themes as $theme) { ?>
+              <option value="<?php echo $theme->getThemeId() ?>"><?php echo $theme->getName() ?></option>
+            <?php } ?>
+          </select>
+        </td>
+        <td>
+          <select name="newLanguageId">
+            <?php foreach ($unmappedLanguages as $language) { ?>
+              <option value="<?php echo $language->getId() ?>"><?php echo $language->getName() ?></option>
+            <?php } ?>
+          </select>
+        </td>
+        <td>
+          <input type="submit" class="<?php echo $buttonClasses ?>" name="create" value="<?php _vzm('Create') ?>">
         </td>
       </tr>
     <?php } ?>

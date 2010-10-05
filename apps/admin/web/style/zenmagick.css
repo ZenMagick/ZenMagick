@@ -109,6 +109,8 @@ table.grid th {border-bottom:2px solid #B5B5B5;}
 /* as selector, so no class required - or class */
 table.grid tr.odd, table.grid tr:nth-child(odd) {background:#eceff2;}
 table.grid td.total {text-align:right;}
+table.grid tr.sep td {background-color:#fff; border-left:none;border-right:none;height:.8em;}
+
 .portlet table {width:100%;}
 
 /* icons */
