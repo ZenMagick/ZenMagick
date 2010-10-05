@@ -69,6 +69,7 @@
       <tr>
         <td>
           <select name="newThemeId">
+            <option value=""> - </option>
             <?php foreach ($themes as $theme) { ?>
               <option value="<?php echo $theme->getThemeId() ?>"><?php echo $theme->getName() ?></option>
             <?php } ?>
