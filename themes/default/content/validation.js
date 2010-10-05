@@ -123,6 +123,7 @@ var zmFormValidation = {
                           }
                           return false;
                       }
+                    break;
                 case 'select':
                     return -1 != elem.selectedIndex && '' != elem.options[elem.selectedIndex].value;
             }
@@ -263,7 +264,7 @@ var zmFormValidation = {
                             isValid = false;
                             msg += '* ' + rule[2] + '\n';
                         }
-                        break;
+                        http://vim.wikia.com/wiki/Remove_unwanted_spacesbreak;
                     case 'date':
                         if (!this.isDate(form.elements[rule[1]], rule[3])) {
                             isValid = false;
