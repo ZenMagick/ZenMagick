@@ -20,44 +20,41 @@
 ?>
 <?php zm_title($this, _zm('Templates')) ?>
 
-<?php //var_dump($languages) ?>
-
 <h2><?php _vzm('Configured Themes') ?></h2>
-<table class="grid">
-  <tr>
-    <th><?php _vzm('Theme') ?></th>
-    <th><?php _vzm('Variation') ?></th>
-    <th><?php _vzm('Language') ?></th>
-  </tr>
-  <?php foreach ($themeConfig as $config) { $theme = $config->getTheme(); $variation = $config->getVariation(); ?>
-    <tr>
-      <td><?php echo $theme->getName() ?></td>
-      <?php if (null != $variation) { ?>
-          <td><?php echo $variation->getName() ?></td>
-      <?php } else { ?>
-          <td> - </td>
-      <?php } ?>
-      <td><?php echo $config->getLanguageId() ?></td>
-    </tr>
-  <?php } ?>
-</table>
-
-<h2><?php _vzm('Configure') ?></h2>
 <form action="<?php echo $admin2->url() ?>" method="POST">
-  <label for="themeId"><?php _vzm('Theme') ?></label>
-  <select id="themeId" name="themeId">
-    <?php foreach ($themes as $theme) { ?>
-      <option value="<?php echo $theme->getThemeId() ?>"><?php echo $theme->getName() ?></option>
+  <table class="grid">
+    <tr>
+      <th><?php _vzm('Theme') ?></th>
+      <th><?php _vzm('Variation') ?></th>
+      <th><?php _vzm('Language') ?></th>
+      <th><?php _vzm('Options') ?></th>
+    </tr>
+    <?php foreach ($themeConfig as $config) { ?>
+      <tr>
+        <td>
+          <select name="themeId[<?php echo $config->getLanguageId() ?>]">
+            <?php foreach ($themes as $theme) { ?>
+              <?php $selected = ($config->getThemeId() == $theme->getThemeId() ? ' selected' : ''); ?>
+              <option value="<?php echo $theme->getThemeId() ?>"<?php echo $selected ?>><?php echo $theme->getName() ?></option>
+            <?php } ?>
+          </select>
+        </td>
+        <td>
+          <select name="variationId[<?php echo $config->getLanguageId() ?>]">
+            <option value=""> - </option>
+            <?php foreach ($themes as $theme) { ?>
+              <?php $selected = ($config->getVariationId() == $theme->getThemeId() ? ' selected' : ''); ?>
+              <option value="<?php echo $theme->getThemeId() ?>"<?php echo $selected ?>><?php echo $theme->getName() ?></option>
+            <?php } ?>
+          </select>
+        </td>
+        <?php if (0 != $config->getLanguageId()) { $languageName = ZMLanguages::instance()->getLanguageForId($config->getLanguageId())->getName(); } else { $languageName = _zm('Default (All)'); } ?>
+        <td><?php echo  $languageName ?></td>
+        <td>
+          <?php if (1 < count($themeConfig)) { ?>Delete<?php } ?>
+          <input type="submit" name="update[<?php echo $config->getLanguageId() ?>]" value="<?php _vzm('Update') ?>">
+        </td>
+      </tr>
     <?php } ?>
-  </select>
-  <label for="variationId"><?php _vzm('Variation') ?></label>
-  <select id="variationId" name="variationId">
-    <?php foreach ($themes as $theme) { ?>
-      <option value="<?php echo $theme->getThemeId() ?>"><?php echo $theme->getName() ?></option>
-    <?php } ?>
-  </select>
-  <?php if (1 < count($languages)) { ?>
-      <?php //TODO ?>
-  <?php } ?>
-  <input type="submit" value="<?php _vzm('Create') ?>">
+  </table>
 </form>

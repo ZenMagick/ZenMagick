@@ -70,28 +70,51 @@ class ZMThemesController extends ZMController {
      * {@inheritDoc}
      */
     public function processPost($request) {
+        // array
         $themeId = $request->getParameter('themeId');
+        // array
         $variationId = $request->getParameter('variationId');
+        // single
         $languageId = $request->getParameter('languageId', 0);
+        // array
+        $update = array_flip($request->getParameter('update', array()));
 
-        // check for match with existing language
-        $update = null;
-        $themeConfig = ZMThemes::instance()->getThemeConfigList();
-        foreach ($themeConfig as $config) {
-            if ($config->getLanguageId() == $languageId) {
-                $update = $config;
-                break;
-            }
+        $action = null;
+        if (1 == count($update)) {
+            // update, so let's find the language
+            $languageId = array_pop($update);
+            $action = 'update';
         }
-        
-        if (null != $update) {
-            $update->setThemeId($themeId);
-            $update->setVariationId($variationId);
-            ZMThemes::instance()->updateThemeConfig($update);
-            ZMMessages::instance()->success(_zm('Theme config updated.'));
+
+        switch ($action) {
+        case  'update':
+            if (null != ($config = $this->getConfigForLanguageId($languageId))) {
+                $config->setThemeId($themeId[$languageId]);
+                $config->setVariationId($variationId[$languageId]);
+                ZMThemes::instance()->updateThemeConfig($config);
+                ZMMessages::instance()->success(_zm('Theme config updated.'));
+            }
+            break;
         }
 
         return $this->findView('success');
+    }
+
+    /**
+     * Get config for language id.
+     *
+     * @param int languageId The language id.
+     * @return mixed Config or <code>null</code>.
+     */
+    protected function getConfigForLanguageId($languageId) {
+        $themeConfig = ZMThemes::instance()->getThemeConfigList();
+        foreach ($themeConfig as $config) {
+            if ($config->getLanguageId() == $languageId) {
+                return $config;
+            }
+        }
+
+        return null;
     }
 
 }
