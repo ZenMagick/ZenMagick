@@ -165,35 +165,6 @@ class ZMThemes extends ZMObject {
     }
 
     /**
-     * Set the active theme id.
-     *
-     * @param string themeId The theme id.
-     * @param string variationId Optional variation (theme) id.
-     * @param int languageId Optional language id; default is <em>0</em> for all.
-     */
-    public function setActiveThemeId($themeId, $variationId=null, $languageId=0) {
-        // update or insert?
-        $sql = "SELECT template_id
-                FROM " . TABLE_TEMPLATE_SELECT . "
-                WHERE template_language = :languageId";
-        $result = ZMRuntime::getDatabase()->querySingle($sql, array('languageId' => $languageId), TABLE_TEMPLATE_SELECT);
-
-        $sql = '';
-        if (null !== $result) {
-            $sql = "UPDATE " . TABLE_TEMPLATE_SELECT . " 
-                    SET template_dir = :themeId, variation_dir = :variationId
-                    WHERE template_id = :id
-                      AND template_language = :languageId";
-        } else {
-            $sql = "INSERT INTO " . TABLE_TEMPLATE_SELECT . " 
-                    (template_dir, variation_dir, template_language)
-                    values (:themeId, :variationId, :languageId)";
-        }
-        $args = array('id' => $result['id'], 'themeId' => $themeId, 'variationId' => $variationId, 'languageId' => $languageId);
-        ZMRuntime::getDatabase()->update($sql, $args, TABLE_TEMPLATE_SELECT);
-    }
-
-    /**
      * Resolve theme incl. loader update, theme switching and all theme default
      * handling.
      *

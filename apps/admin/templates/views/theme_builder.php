@@ -22,26 +22,12 @@
 
     if ('POST' == $request->getMethod()) {
         $name = $request->getParameter('name');
-        $switchto = $request->getParameter('switchto', false);
-
         $themeBuilder = new ZMThemeBuilder();
         $themeBuilder->setName($request->getParameter('name'));
         $buildOK = $themeBuilder->build();
         foreach ($themeBuilder->getMessages() as $msgInfo) {
             ZMMessages::instance()->add($msgInfo[1], $msgInfo[0]);
         }
-
-        if ($switchto && $buildOK) {
-            // create dummy files
-            $dummyPatch = new ZMThemeDummyPatch();
-            $dummyPatch->patch(true);
-            ZMMessages::instance()->msg(sprintf(_zm('Created zen-cart template dummy files for "%s".'), $name));
-
-            // select new theme
-            ZMThemes::instance()->setActiveThemeId($name, null, $currentLanguage->getId());
-            ZMMessages::instance()->msg(sprintf(_zm('New theme "%s" selected as active zen-cart template.'), $name));
-        }
-
     }
 
 ?>
@@ -55,10 +41,6 @@
   <label for="name"><?php _vzm('Name') ?></label>
       <input type="text" id="name" name="name" value="">
       <?php _vzm('(This is what the folder will be named. <strong>Names are case sensitive!</strong>)') ?>
-      <br>
-
-      <input type="checkbox" id="switchto" name="switchto" value="1" checked>
-      <label for="switchto"><?php _vzm('Switch to the new theme when created') ?></label>
       <br>
 
       <div class="submit"><input class="<?php echo $buttonClasses ?>" type="submit" value="<?php _vzm("Create") ?>"></div>

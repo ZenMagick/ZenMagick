@@ -59,6 +59,9 @@ Release 0.9.11
   folders used to resolve resources
 - change setting 'defaultThemeId' to 'apps.store.themes.default'
 - admin: add manage themes page, incl. support for variation (new SQL patch)
+- ZMThemes: remove setActiveThemeId(); this means the theme builder won't
+  automatically switch to a new theme, but that should be ok with the new theme
+  management page
 
 Release 0.9.10
 - restructure store and admin code into separate apps with most of the store
