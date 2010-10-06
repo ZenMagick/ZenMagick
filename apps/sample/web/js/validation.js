@@ -123,6 +123,7 @@ var zmFormValidation = {
                           }
                           return false;
                       }
+                    break;
                 case 'select':
                     return -1 != elem.selectedIndex && '' != elem.options[elem.selectedIndex].value;
             }
