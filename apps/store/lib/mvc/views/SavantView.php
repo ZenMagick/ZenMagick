@@ -67,19 +67,11 @@ class SavantView extends ZMSavantView {
             }
         }
 
-        // add default theme as fallback, incl. locale
-        $defaultTheme = ZMThemes::instance()->getThemeForId(ZMSettings::get('apps.store.themes.default'));
-        $path[] = $defaultTheme->getContentDir();
-        foreach ($localeCodes as $code) {
-            $path[] = ZMFileUtils::mkpath($defaultTheme->getContentDir(), 'locale', $code);
-        }
-
-
-        // add current theme
-        $theme =  Runtime::getTheme();
-        $path[] = $theme->getContentDir();
-        foreach ($localeCodes as $code) {
-            $path[] = ZMFileUtils::mkpath($theme->getContentDir(), 'locale', $code);
+        foreach (ZMThemes::instance()->getThemeChain($request->getSession()->getlanguageId()) as $theme) {
+            $path[] = $theme->getContentDir();
+            foreach ($localeCodes as $code) {
+                $path[] = ZMFileUtils::mkpath($theme->getContentDir(), 'locale', $code);
+            }
         }
 
         return $path;

@@ -77,6 +77,37 @@ class ZMThemes extends ZMObject {
     }
 
     /**
+     * Get theme chain.
+     *
+     * @param int languageId Language id.
+     * @return array List of active themes in increasing order of importance.
+     */
+    public function getThemeChain($languageId) {
+        $chain = array();
+        $sql = "SELECT *
+                FROM " . TABLE_TEMPLATE_SELECT . "
+                WHERE template_language = :languageId";
+        $result = ZMRuntime::getDatabase()->querySingle($sql, array('languageId' => $languageId), TABLE_TEMPLATE_SELECT);
+        if (null === $result) {
+            $sql = "SELECT *
+                    FROM " . TABLE_TEMPLATE_SELECT . "
+                    WHERE template_language = 0";
+            $result = ZMRuntime::getDatabase()->querySingle($sql, array('languageId' => $languageId), TABLE_TEMPLATE_SELECT);
+        }
+
+        // fill the chain
+        $chain[] = $this->getThemeForId(ZMSettings::get('apps.store.themes.default'));
+        if (!empty($result['themeId']) && null != ($theme  = $this->getThemeForId($result['themeId']))) {
+            $chain[] = $theme;
+        }
+        if (!empty($result['variationId']) && null != ($variation  = $this->getThemeForId($result['variationId']))) {
+            $chain[] = $variation;
+        }
+
+        return $chain;
+    }
+
+    /**
      * Get <code>ZMTheme</code> instance for the given theme Id.
      *
      * @param string themeId The theme id.
