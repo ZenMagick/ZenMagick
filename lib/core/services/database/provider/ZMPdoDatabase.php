@@ -72,11 +72,12 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
     private function ensureResource($conf=null) {
         if (null == $this->pdo_){
             $conf = null !== $conf ? $conf : $this->config_;
+            $useSocket = isset($conf['socket']) && !empty($conf['socket']);
             if (false !== ($colon = strpos($conf['host'], ':'))) {
                 $conf['port'] = substr($conf['host'], $colon+1);
                 $conf['host'] = substr($conf['host'], 0, $colon);
             }
-            if (isset($conf['port']) && 'localhost' == $conf['host'] && !isset($conf['socket'])) {
+            if (isset($conf['port']) && 'localhost' == $conf['host'] && !$useSocket) {
                 // can't do port on localhost!
                 $conf['host'] = '127.0.0.1';
             }
@@ -89,11 +90,11 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
             }
 
             $url = $conf['driver'].':'.'host='.$conf['host'];
-            if (isset($conf['port']) && !isset($conf['socket'])) {
+            if (isset($conf['port']) && !$useSocket) {
                 $url .= ';port='.$conf['port'];
             }
             $url .= ';dbname='.$conf['database'];
-            if (isset($conf['socket'])) {
+            if ($useSocket) {
                 $url .= ';unix_socket='.$conf['socket'];
             }
             $params = array();
