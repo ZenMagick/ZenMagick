@@ -153,6 +153,11 @@ class ZMEventFixes extends ZMObject {
     public function onZMBootstrapDone($args) {
         $request = $args['request'];
 
+        // set locale
+        if (null != ($language = $request->getSession()->getLanguage())) {
+            ZMSettings::set('zenmagick.core.locales.locale', $language->getCode());
+        }
+
         // TODO: remove once new admin is go
         if (!defined('IS_ADMIN_FLAG') || !IS_ADMIN_FLAG) {
             $this->sanitizeRequest($request);
