@@ -28,6 +28,10 @@
  * @package zenmagick.store.admin.mvc.controller
  */
 class ZMPluginsController extends ZMController {
+    private static $TYPE_MAP = array(
+        'order_total' => ZMOrderTotal,
+        'payment' => ZMPaymentType
+    );
 
     /**
      * Create new instance.
@@ -64,6 +68,27 @@ class ZMPluginsController extends ZMController {
     }
 
     /**
+     * Get the plugin type.
+     *
+     * @param ZMPlugin plugin The plugin.
+     * @return String The type.
+     */
+    protected function getPluginType($plugin) {
+        $types = array();
+        foreach (self::$TYPE_MAP as $name => $type) {
+            if ($plugin instanceof $type) {
+                $types[] = $name;
+            }
+        }
+
+        if (empty($types)) {
+            $types[] = 'general';
+        }
+
+        return implode(',', $types);
+    }
+
+    /**
      * Refresh plugin status data.
      */
     protected function refreshPluginStatus() {
@@ -72,6 +97,7 @@ class ZMPluginsController extends ZMController {
             foreach ($plugins as $plugin) {
                 $pluginStatus[$plugin->getId()] = array(
                     'group' => $plugin->getGroup(),
+                    'type' => $this->getPluginType($plugin),
                     'scope' => $plugin->getScope(),
                     'installed' => $plugin->isInstalled(),
                     'enabled' => $plugin->isEnabled(),
