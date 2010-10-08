@@ -57,8 +57,12 @@ class ZMThemeSwitcherPlugin extends Plugin implements ZMRequestHandler {
             $session->setValue(self::SESS_THEME_KEY, $themeId);
         }
 
+        $languageId = $session->getLanguageId();
         if (null != ($themeId = $session->getValue(self::SESS_THEME_KEY))) {
-            Runtime::setThemeId($themeId);
+            $themeChain = array();
+            $themeChain[] = ZMThemes::instance()->getThemeForId(ZMSettings::get('apps.store.themes.default'));
+            $themeChain[] = ZMThemes::instance()->getThemeForId($themeId);
+            ZMThemes::instance()->setThemeChain($languageId, $themeChain);
         }
     }
 
@@ -79,7 +83,9 @@ class ZMThemeSwitcherPlugin extends Plugin implements ZMRequestHandler {
             // iterate over all themes and build default config
             $defaultConfig = '';
             foreach (ZMThemes::instance()->getAvailableThemes() as $theme) {
-                $defaultConfig .= $theme->getThemeId().':'.$theme->getName().',';
+                if (!$theme->getConfig('zencart')) {
+                    $defaultConfig .= $theme->getThemeId().':'.$theme->getName().',';
+                }
             }
         }
         $themes = explode(',', ZMSettings::get('plugins.themeSwitcher.themes', $defaultConfig));
@@ -102,7 +108,9 @@ class ZMThemeSwitcherPlugin extends Plugin implements ZMRequestHandler {
                 $url .= ($hasParams ? '&' : '?') . 'themeId='.$details[0];
 
                 $link = '<a href="'.$url.'">'.$details[1].'</a>';
-                if ($details[0] == Runtime::getThemeId()) {
+                $themeChain = ZMThemes::instance()->getThemeChain($request->getSession()->getLanguageId());
+                $currentTheme = array_pop($themeChain);
+                if ($details[0] == $currentTheme->getThemeId()) {
                     $link = '<strong style="text-decoration:underline">'.$link.'</strong>';
                 }
                 $links .= $link;

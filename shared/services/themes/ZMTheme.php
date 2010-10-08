@@ -54,6 +54,7 @@ class ZMTheme extends ZMObject {
                     $this->config_['version'] = $template_version;
                     $this->config_['author'] = $template_author;
                     $this->config_['description'] = $template_description;
+                    $this->config_['zencart'] = true;
                 }
             }
         }
@@ -72,7 +73,7 @@ class ZMTheme extends ZMObject {
      *
      * @return string The theme id.
      */
-    public function getThemeId() { 
+    public function getThemeId() {
         return $this->themeId_;
     }
 
@@ -246,7 +247,7 @@ class ZMTheme extends ZMObject {
         $pages = array();
         if (is_dir($path)) {
             $handle = @opendir($path);
-            while (false !== ($file = readdir($handle))) { 
+            while (false !== ($file = readdir($handle))) {
                 if (!ZMLangUtils::endsWith($file, '.php')) {
                     continue;
                 }
@@ -260,7 +261,7 @@ class ZMTheme extends ZMObject {
             $path = Runtime::getThemesDir().ZMSettings::get('apps.store.themes.default').DIRECTORY_SEPARATOR.'lang'.DIRECTORY_SEPARATOR.$languageDir.DIRECTORY_SEPARATOR.'static'.DIRECTORY_SEPARATOR;
             if (is_dir($path)) {
                 $handle = @opendir($path);
-                while (false !== ($file = readdir($handle))) { 
+                while (false !== ($file = readdir($handle))) {
                     if (!ZMLangUtils::endsWith($file, '.php')) {
                         continue;
                     }

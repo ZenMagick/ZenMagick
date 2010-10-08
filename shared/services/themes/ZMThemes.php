@@ -27,12 +27,15 @@
  * @package zenmagick.store.shared.services.themes
  */
 class ZMThemes extends ZMObject {
+    private $themeChain_;
+
 
     /**
      * Create new instance.
      */
     function __construct() {
         parent::__construct();
+        $this->themeChain_ = null;
     }
 
     /**
@@ -54,7 +57,7 @@ class ZMThemes extends ZMObject {
      * Get a list of all available themes.
      *
      * @return array A list of <code>ZMTheme</code> instances.
-     */ 
+     */
     public function getAvailableThemes() {
         $themes = array();
         $basePath = Runtime::getThemesDir();
@@ -77,34 +80,52 @@ class ZMThemes extends ZMObject {
     }
 
     /**
+     * Override the dynamic theme chain.
+     *
+     * @param int languageId Language id.
+     * @param array themeChain The theme chain to use.
+     */
+    public function setThemeChain($languageId, $themeChain) {
+        if (null === $this->themeChain_) {
+            $this->themeChain_ = array();
+        }
+        $this->themeChain_[$languageId] = $themeChain;
+    }
+
+    /**
      * Get theme chain.
      *
      * @param int languageId Language id.
      * @return array List of active themes in increasing order of importance.
      */
     public function getThemeChain($languageId) {
-        $chain = array();
-        $sql = "SELECT *
-                FROM " . TABLE_TEMPLATE_SELECT . "
-                WHERE template_language = :languageId";
-        $result = ZMRuntime::getDatabase()->querySingle($sql, array('languageId' => $languageId), TABLE_TEMPLATE_SELECT);
-        if (null === $result) {
+        if (null === $this->themeChain_ || !array_key_exists($languageId, $this->themeChain_)) {
+            if (null === $this->themeChain_) {
+                $this->themeChain_ = array();
+            }
+            $this->themeChain_[$languageId] = array();
             $sql = "SELECT *
                     FROM " . TABLE_TEMPLATE_SELECT . "
-                    WHERE template_language = 0";
+                    WHERE template_language = :languageId";
             $result = ZMRuntime::getDatabase()->querySingle($sql, array('languageId' => $languageId), TABLE_TEMPLATE_SELECT);
+            if (null === $result) {
+                $sql = "SELECT *
+                        FROM " . TABLE_TEMPLATE_SELECT . "
+                        WHERE template_language = 0";
+                $result = ZMRuntime::getDatabase()->querySingle($sql, array('languageId' => $languageId), TABLE_TEMPLATE_SELECT);
+            }
+
+            // fill the chain
+            $this->themeChain_[$languageId][] = $this->getThemeForId(ZMSettings::get('apps.store.themes.default'));
+            if (!empty($result['themeId']) && null != ($theme  = $this->getThemeForId($result['themeId']))) {
+                $this->themeChain_[$languageId][] = $theme;
+            }
+            if (!empty($result['variationId']) && null != ($variation  = $this->getThemeForId($result['variationId']))) {
+                $this->themeChain_[$languageId][] = $variation;
+            }
         }
 
-        // fill the chain
-        $chain[] = $this->getThemeForId(ZMSettings::get('apps.store.themes.default'));
-        if (!empty($result['themeId']) && null != ($theme  = $this->getThemeForId($result['themeId']))) {
-            $chain[] = $theme;
-        }
-        if (!empty($result['variationId']) && null != ($variation  = $this->getThemeForId($result['variationId']))) {
-            $chain[] = $variation;
-        }
-
-        return $chain;
+        return $this->themeChain_[$languageId];
     }
 
     /**
@@ -126,7 +147,7 @@ class ZMThemes extends ZMObject {
     private function getThemeDirList() {
         $themes = array();
         $handle = @opendir(Runtime::getThemesDir());
-        while (false !== ($file = readdir($handle))) { 
+        while (false !== ($file = readdir($handle))) {
             if (ZMLangUtils::startsWith($file, '.')) {
                 continue;
             }
@@ -144,7 +165,7 @@ class ZMThemes extends ZMObject {
     private function getZCThemeDirList() {
         $themes = array();
         $handle = @opendir(ZMFileUtils::mkPath(DIR_FS_CATALOG, 'includes', 'templates'));
-        while (false !== ($file = readdir($handle))) { 
+        while (false !== ($file = readdir($handle))) {
             if (ZMLangUtils::startsWith($file, '.')) {
                 continue;
             }
