@@ -36,9 +36,11 @@
         <?php if (ZMTemplateManager::instance()->isRightColEnabled()) { ?>
           <div id="sidebar" >
             <?php foreach (ZMTemplateManager::instance()->getRightColBoxNames() as $box) { ?>
-                <div class="sidebox">
-                    <?php echo $this->fetch('boxes/'.$box) ?>
-                </div>
+                <?php if ($this->exists('boxes/'.$box)) { ?>
+                    <div class="sidebox">
+                        <?php echo $this->fetch('boxes/'.$box) ?>
+                    </div>
+                <?php } ?>
             <?php } ?>
           </div>
         <?php } ?>

@@ -62,6 +62,8 @@ Release 0.9.11
 - ZMThemes: remove setActiveThemeId(); this means the theme builder won't
   automatically switch to a new theme, but that should be ok with the new theme
   management page
+- remove obsolete methods from ZMTemplateManager/ZMToolboxUtils that moved to
+  ZMViewUtils
 
 Release 0.9.10
 - restructure store and admin code into separate apps with most of the store

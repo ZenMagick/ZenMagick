@@ -37,6 +37,7 @@ class ZMToolboxForm extends ZMToolboxTool {
      */
     public function insertJSValidation($id) {
         echo ZMValidator::instance()->toJSString($id);
+
         // inline JS to allow PHP
         echo "<script>\n";
         include_once Runtime::getTheme()->themeFile("validation.js");
