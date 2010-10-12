@@ -53,7 +53,7 @@ class ZMThemeDummyPatch extends ZMFilePatch {
      * @return boolean <code>true</code> if this patch can still be applied.
      */
     function isOpen() {
-        foreach (ZMThemes::instance()->getThemes() as $theme) {
+        foreach (ZMThemes::instance()->getAvailableThemes() as $theme) {
             if (ZMSettings::get('apps.store.themes.default') == $theme->getThemeId() && !$this->includeDefault_) {
                 continue;
             }
@@ -108,7 +108,7 @@ class ZMThemeDummyPatch extends ZMFilePatch {
             return false;
         }
 
-        foreach (ZMThemes::instance()->getThemes() as $theme) {
+        foreach (ZMThemes::instance()->getAvailableThemes() as $theme) {
             if (ZMSettings::get('apps.store.themes.default') == $theme->getThemeId() && !$this->includeDefault_) {
                 continue;
             }

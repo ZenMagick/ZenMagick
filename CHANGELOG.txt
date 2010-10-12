@@ -64,6 +64,7 @@ Release 0.9.11
   management page
 - remove obsolete methods from ZMTemplateManager/ZMToolboxUtils that moved to
   ZMViewUtils
+- fix bug b:#3083634; change getThemes() to getAvailableThemes()
 
 Release 0.9.10
 - restructure store and admin code into separate apps with most of the store
