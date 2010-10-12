@@ -65,6 +65,9 @@ Release 0.9.11
 - remove obsolete methods from ZMTemplateManager/ZMToolboxUtils that moved to
   ZMViewUtils
 - fix bug b:#3083634; change getThemes() to getAvailableThemes()
+- hoverbox3: change signature of hover3_product_image_link(), add $view as
+  first parameter
+- flag ZMTheme::themeUrl() deprecated
 
 Release 0.9.10
 - restructure store and admin code into separate apps with most of the store

@@ -100,7 +100,8 @@ class ZMToolboxUtils extends ZMToolboxTool {
      */
     public function staticPageContent($pageName) {
         $language = $this->getRequest()->getSession()->getLanguage();
-        $theme = ZMThemes::instance()->getActiveTheme($language->getId());
+        $themeId = ZMThemes::instance()->getActiveThemeId($language->getId());
+        $theme = ZMThemes::instance()->getThemeForId($themeId);
         return $theme->staticPageContent($pageName, $language->getId());
     }
 

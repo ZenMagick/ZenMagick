@@ -42,7 +42,7 @@ Replace the line (around line #34):
 
 with this call to hover3_product_image_link():
 
-      <?php hover3_product_image_link($currentProduct, $imageInfo) ?>
+      <?php hover3_product_image_link($this, $currentProduct, $imageInfo) ?>
 
 
 For additional images, change the line (around line #71):
@@ -51,7 +51,7 @@ For additional images, change the line (around line #71):
 
 with this call:
 
-      <?php hover3_product_image_link($currentProduct, $addImg, false) ?>
+      <?php hover3_product_image_link($this, $currentProduct, $addImg, false) ?>
 
 
 2) Reviews sidebox:
@@ -63,4 +63,4 @@ Replace the line:
 with:
 
       <?php $product = ZMProducts::instance()->getProductForId($review->getProductId()); ?>
-      <p><?php hover3_product_image_link($currentProduct), $review->getProductImageInfo(), false) ?></p>
+      <p><?php hover3_product_image_link($this, $currentProduct), $review->getProductImageInfo(), false) ?></p>
