@@ -264,7 +264,6 @@ var zmFormValidation = {
                             isValid = false;
                             msg += '* ' + rule[2] + '\n';
                         }
-                        http://vim.wikia.com/wiki/Remove_unwanted_spacesbreak;
                     case 'date':
                         if (!this.isDate(form.elements[rule[1]], rule[3])) {
                             isValid = false;

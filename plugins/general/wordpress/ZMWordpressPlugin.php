@@ -92,12 +92,12 @@ class ZMWordpressPlugin extends Plugin implements ZMRequestHandler {
 
         ZMUrlManager::instance()->setMapping(FILENAME_WP, array(
             'controller' => 'WordpressController',
-            FILENAME_WP.'_index' => array('template' => FILENAME_WP.'/index'),
-            FILENAME_WP.'_single' => array('template' => FILENAME_WP.'/single'),
-            FILENAME_WP.'_page' => array('template' => FILENAME_WP.'/page'),
-            FILENAME_WP.'_archive' => array('template' => FILENAME_WP.'/archive'),
-            FILENAME_WP.'_archives' => array('template' => FILENAME_WP.'/archives'),
-            FILENAME_WP.'_search' => array('template' => FILENAME_WP.'/search')
+            'wp_index' => array('template' => 'wp/index'),
+            'wp_single' => array('template' => 'wp/single'),
+            'wp_page' => array('template' => 'wp/page'),
+            'wp_archive' => array('template' => 'wp/archive'),
+            'wp_archives' => array('template' => 'wp/archives'),
+            'wp_search' => array('template' => 'wp/search')
         ));
     }
 
@@ -110,6 +110,25 @@ class ZMWordpressPlugin extends Plugin implements ZMRequestHandler {
         }
 
         return $this->adapter_;
+    }
+
+    /**
+     * Handle view start.
+     *
+     * @param array args Optional event args.
+     */
+    public function onZMViewStart($args=null) {
+        $request = $args['request'];
+
+        // create single request handler
+        $wordpressEnabledPages = $this->get('wordpressEnabledPages');
+        if ($this->initWP() && (empty($wordpressEnabledPages) || ZMLangUtils::inArray($request->getRequestId(), $wordpressEnabledPages))) {
+            // need to do this on all enabled pages, not just wp
+            $requestHandler = $this->getRequestHandler($request);
+            if (ZMLangUtils::asBoolean($this->get('urlRewrite'))) {
+                $requestHandler->registerFilter($args['view']);
+            }
+        }
     }
 
     /**
@@ -129,9 +148,6 @@ class ZMWordpressPlugin extends Plugin implements ZMRequestHandler {
             // need to do this on all enabled pages, not just wp
             $requestHandler = $this->getRequestHandler($request);
             $requestHandler->preProcess($request);
-            if (ZMLangUtils::asBoolean($this->get('urlRewrite'))) {
-                $requestHandler->register();
-            }
 
             // TODO: make optional
             if (false) {

@@ -28,9 +28,11 @@
  * @package org.zenmagick.plugins.wordpress
  */
 class ZMWordpressRequestHandler extends ZMController {
+    public $wp_filter_id;
     private $plugin_;
     private $request_;
     private $viewName_;
+    private $view_;
 
 
     /**
@@ -41,9 +43,11 @@ class ZMWordpressRequestHandler extends ZMController {
      */
     function __construct($plugin, $request) {
         parent::__construct();
+        $this->wp_filter_id = get_class($this);
         $this->plugin_ = $plugin;
         $this->request_ = $request;
         $this->viewName_ = null;
+        $this->view_ = null;
     }
 
     /**
@@ -96,8 +100,11 @@ class ZMWordpressRequestHandler extends ZMController {
 
     /**
      * Register all necessary filter to manipulate WP content to fit into ZenMagick.
+     *
+     * @param ZMView view The current view.
      */
-    public function register() {
+    public function registerFilter($view) {
+        $this->view_ = $view;
         add_filter('tag_link', array($this, 'link_filter'));
         add_filter('post_link', array($this, 'link_filter'));
         add_filter('page_link', array($this, 'link_filter'));
@@ -131,7 +138,7 @@ class ZMWordpressRequestHandler extends ZMController {
                 //$_SERVER['REQUEST_URI'] = str_replace($this->request_->getContext().$this->plugin_->get('permaPrefix').'/', '', $_SERVER['REQUEST_URI']);
             }
         } else {
-            return ZMRequest::instance()->url(FILENAME_WP, $urlToken['query']);
+            return $this->request_->url(FILENAME_WP, $urlToken['query']);
         }
     }
 
@@ -139,11 +146,7 @@ class ZMWordpressRequestHandler extends ZMController {
      * WP filter to adjust comments include.
      */
     public function comments_template_filter($arg) {
-        if (ZMSettings::get('plugins.wordpress.isUseOwnViews', false)) {
-            return $this->plugin_->getPluginDirectory().'content/wp/comments.php';
-          } else {
-            return Runtime::getTheme()->themeFile('views/wp/comments.php');
-          }
+        return $this->view_->path('views/wp/comments.php');
     }
 
 }

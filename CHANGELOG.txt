@@ -68,6 +68,11 @@ Release 0.9.11
 - hoverbox3: change signature of hover3_product_image_link(), add $view as
   first parameter
 - flag ZMTheme::themeUrl() deprecated
+- wordpress: simplify code, get rid of annoying undeclared property warning
+  when rewriting urls, make things a bit faster, fix comments url, use view to
+	resolve view templates
+- allow toolbox tools to access the view (if available)
+- deprecate Runtime::getTheme/setTheme
 
 Release 0.9.10
 - restructure store and admin code into separate apps with most of the store

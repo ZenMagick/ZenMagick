@@ -77,6 +77,7 @@ class Runtime extends ZMRuntime {
      * Get the effective theme id.
      *
      * @return string The currently effective theme id.
+     * @deprecated use <code>ZMThemes::instance()->getActiveThemeId($languageId=0)</code> instead
      */
     public static function getThemeId() {
         if (null != self::$themeId_) {
@@ -108,6 +109,7 @@ class Runtime extends ZMRuntime {
      * to be updated - <strong>this is not completely implemented yet</strong>.</p>
      *
      * @param string themeId The new theme id.
+     * @deprecated use <code>ZMThemes::instance()->setThemeChain(...)</code> instead
      */
     public static function setThemeId($themeId) { 
         self::$themeId_ = $themeId; 
