@@ -23,6 +23,18 @@
 ?>
 <?php
 
+    //setup globals
+    if (isset($autoLoadConfig)) {
+        foreach ($autoLoadConfig as $level) {
+            foreach ($level as $entry) {
+                if ('classInstantiate' == $entry['autoType'] && !empty($entry['objectName'])) {
+                    $objectName = $entry['objectName'];
+                    global $$objectName;
+                }
+            }
+        }
+    }
+
     // will be modified by admin patch
     $zmLanguagesBefore = true;
 

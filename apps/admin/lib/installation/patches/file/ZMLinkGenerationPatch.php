@@ -21,6 +21,7 @@
 <?php
 
 define('_ZM_ZEN_FUNCTIONS_FILE', DIR_FS_CATALOG . DIR_WS_FUNCTIONS . 'html_output.php');
+define('_ZM_ZEN_ADMIN_FUNCTIONS_FILE', DIR_FS_ADMIN . DIR_WS_FUNCTIONS . 'html_output.php');
 
 /**
  * Patch to enable replace zen_href_link to allow full pretty link support.
@@ -31,6 +32,9 @@ define('_ZM_ZEN_FUNCTIONS_FILE', DIR_FS_CATALOG . DIR_WS_FUNCTIONS . 'html_outpu
 class ZMLinkGenerationPatch extends ZMFilePatch {
     var $fktFilesCfg_ = array(
         _ZM_ZEN_FUNCTIONS_FILE => array(
+            array('zen_href_link', '_DISABLED')
+        ),
+        _ZM_ZEN_ADMIN_FUNCTIONS_FILE => array(
             array('zen_href_link', '_DISABLED')
         )
     );
@@ -66,7 +70,7 @@ class ZMLinkGenerationPatch extends ZMFilePatch {
      * @return boolean <code>true</code> if this patch is ready and all preconditions are met.
      */
     function isReady() {
-        return is_writeable(_ZM_ZEN_FUNCTIONS_FILE);
+        return is_writeable(_ZM_ZEN_FUNCTIONS_FILE) && is_writeable(_ZM_ZEN_ADMIN_FUNCTIONS_FILE);
     }
 
     /**
@@ -77,7 +81,7 @@ class ZMLinkGenerationPatch extends ZMFilePatch {
      * @return string The preconditions message or an empty string.
      */
     function getPreconditionsMessage() {
-        return $this->isReady() ? "" : "Need permission to write " . _ZM_ZEN_FUNCTIONS_FILE;
+        return $this->isReady() ? "" : "Need permission to write " . _ZM_ZEN_FUNCTIONS_FILE . " and " . _ZM_ZEN_ADMIN_FUNCTIONS_FILE;
     }
 
     /**
