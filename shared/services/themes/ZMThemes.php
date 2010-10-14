@@ -134,7 +134,7 @@ class ZMThemes extends ZMObject {
      * @param string themeId The theme id.
      * @return ZMTheme <code>ZMTheme</code> instance or <code>null</code>.
      */
-    public function getThemeForId($themeId=null) {
+    public function getThemeForId($themeId) {
         $theme = ZMLoader::make("Theme", $themeId);
         return $theme;
     }
@@ -178,10 +178,10 @@ class ZMThemes extends ZMObject {
     /**
      * Get the active theme id (aka the template directory name).
      *
-     * @param int languageId Language id.
+     * @param int languageId Language id; default is <em>0</em> to load the language default theme.
      * @return string The configured theme id.
      */
-    public function getActiveThemeId($languageId) {
+    public function getActiveThemeId($languageId=0) {
         $sql = "SELECT *
                 FROM " . TABLE_TEMPLATE_SELECT . "
                 WHERE template_language = :languageId";
@@ -283,8 +283,9 @@ class ZMThemes extends ZMObject {
         }
 
         // check for theme switching
-        if (Runtime::getThemeId() != $theme->getThemeId()) {
-            $nextTheme = $this->resolveTheme(Runtime::getThemeId(), $language);
+        $activeThemeId = $this->getActiveThemeId($language->getId());
+        if ($activeThemeId != $theme->getThemeId()) {
+            $nextTheme = $this->resolveTheme($activeThemeId, $language);
             // merge with parent..
             $nextTheme->setConfig(ZMLangUtils::arrayMergeRecursive($theme->getConfig(), $nextTheme->getConfig()));
             return $nextTheme;

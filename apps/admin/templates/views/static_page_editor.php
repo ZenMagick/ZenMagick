@@ -26,7 +26,7 @@
       $toolbox->utils->setCurrentEditor($editor);
   }
 
-  $selectedThemeId = $request->getParameter('themeId', Runtime::getThemeId());
+  $selectedThemeId = $request->getParameter('themeId', ZMThemes::instance()->getActiveThemeId());
   $selectedTheme = new ZMTheme($selectedThemeId);
   if (null === ($file = $request->getParameter('file')) || empty($file)) {
       $selectedFile = $request->getParameter('newfile');

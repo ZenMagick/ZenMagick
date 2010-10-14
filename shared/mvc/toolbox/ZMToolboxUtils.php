@@ -82,52 +82,6 @@ class ZMToolboxUtils extends ZMToolboxTool {
     }
 
     /**
-     * Add the given CSS file to the final contents.
-     *
-     * <p>The underlying code (<code>ZMTemplateManager</code>) will ensure that each CSS file is included once only.</p>
-     *
-     * @param string filename A relative CSS filename.
-     * @param array attr Optional attribute map.
-     */
-    public function cssFile($filename, $attr=array()) {
-        ZMTemplateManager::instance()->cssFile($filename, $attr);
-    }
-
-    /**
-     * Add the given JS file to the header section of the final contents.
-     *
-     * <p>The underlying code (<code>ZMTemplateManager</code>) will ensure that each JS file is included once only.</p>
-     *
-     * @param string filename A relative JavaScript filename.
-     */
-    public function jsTop($filename) {
-        ZMTemplateManager::instance()->jsFile($filename, ZMTemplateManager::PAGE_TOP);
-    }
-
-    /**
-     * Add the given JS file to the end of the final contents (before the closing <body> element).
-     *
-     * <p>The underlying code (<code>ZMTemplateManager</code>) will ensure that each JS file is included once only.</p>
-     * <p>Also, if the same JS file is requested for both <em>top</em> and <em>bottom</em>, it will be included at the
-     * top only. The same applies to calling <code>jsNow()</code> on a file that has been already included or is marked for
-     * inclusion at the bottom.</p>
-     *
-     * @param string filename A relative JavaScript filename.
-     */
-    public function jsBottom($filename) {
-        ZMTemplateManager::instance()->jsFile($filename, ZMTemplateManager::PAGE_BOTTOM);
-    }
-
-    /**
-     * Add the given JS file now.
-     *
-     * @param string filename A relative JavaScript filename.
-     */
-    public function jsNow($filename) {
-        ZMTemplateManager::instance()->jsFile($filename, ZMTemplateManager::PAGE_NOW);
-    }
-
-    /**
      * Check if the given shopping cart qualifies for free shipping (as per free shipping ot).
      *
      * @param ZMShoppingCart shoppingCart The cart to examine.
@@ -145,8 +99,9 @@ class ZMToolboxUtils extends ZMToolboxTool {
      * @return string The content or <code>null</code>.
      */
     public function staticPageContent($pageName) {
-        $theme = Runtime::getTheme();
         $language = $this->getRequest()->getSession()->getLanguage();
+        $themeId = ZMThemes::instance()->getActiveThemeId($language->getId());
+        $theme = ZMThemes::instance()->getThemeForId($themeId);
         return $theme->staticPageContent($pageName, $language->getId());
     }
 

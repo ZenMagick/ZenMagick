@@ -30,6 +30,7 @@
 class ZMToolboxTool extends ZMObject {
     protected $request_;
     protected $toolbox_;
+    protected $view_;
 
 
     /**
@@ -81,6 +82,24 @@ class ZMToolboxTool extends ZMObject {
      */
     public function getToolbox() {
         return $this->toolbox_;
+    }
+
+    /**
+     * Set the current view.
+     *
+     * @param ZMView view The view.
+     */
+    public function setView($view) {
+        $this->view_ = $view;
+    }
+
+    /**
+     * Get the view (if any).
+     *
+     * @return ZMView The view.
+     */
+    public function getView() {
+        return $this->view_;
     }
 
 }

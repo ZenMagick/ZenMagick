@@ -143,6 +143,7 @@ class ZMTheme extends ZMObject {
      *
      * @param string uri The relative URI.
      * @return string An absolute URL.
+     * @deprecated
      */
     public function themeURL($uri) {
         $url = Runtime::getThemesPathPrefix().$this->themeId_."/".'content/'.$uri;

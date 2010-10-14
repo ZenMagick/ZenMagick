@@ -84,12 +84,6 @@ class SavantView extends ZMSavantView {
      */
     public function getResourcePath($request) {
         return $this->getTemplatePath($request);
-        /*
-        $path = array();
-        $path[] = ZMThemes::instance()->getThemeForId(ZMSettings::get('apps.store.themes.default'))->getBaseDir();
-        $path[] = Runtime::getTheme()->getBaseDir();
-        return $path;
-        */
     }
 
 }

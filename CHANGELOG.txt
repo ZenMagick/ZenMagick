@@ -62,6 +62,17 @@ Release 0.9.11
 - ZMThemes: remove setActiveThemeId(); this means the theme builder won't
   automatically switch to a new theme, but that should be ok with the new theme
   management page
+- remove obsolete methods from ZMTemplateManager/ZMToolboxUtils that moved to
+  ZMViewUtils
+- fix bug b:#3083634; change getThemes() to getAvailableThemes()
+- hoverbox3: change signature of hover3_product_image_link(), add $view as
+  first parameter
+- flag ZMTheme::themeUrl() deprecated
+- wordpress: simplify code, get rid of annoying undeclared property warning
+  when rewriting urls, make things a bit faster, fix comments url, use view to
+	resolve view templates
+- allow toolbox tools to access the view (if available)
+- deprecate Runtime::getTheme/setTheme
 - add foundation for block handling
 
 Release 0.9.10

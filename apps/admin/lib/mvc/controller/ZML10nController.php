@@ -84,10 +84,9 @@ class ZML10nController extends ZMController {
     protected function processInternal($request) {
         $vd = $this->getViewData($request);
 
-        $themesDir = Runtime::getThemesDir();
-
         $defaultMap = array();
         if ($vd['includeDefaults']) {
+            $themesDir = ZMThemes::instance()->getActiveThemeId();
             $defaultMap = ZMLocaleUtils::buildL10nMap($themesDir.ZMSettings::get('apps.store.themes.default'));
         }
 

@@ -25,11 +25,5 @@
 ?>
 <?php
 
-    if (false && 'contact_us' == ZMRequest::instance()->getRequestId()) {
-        Runtime::setThemeId(ZMSettings::get('apps.store.themes.default'));
-    }
-
     // add custom filter
     ZMSettings::append('resultListProductFilter', 'AlphaFilter,PriceRangeFilter');
-
-?>

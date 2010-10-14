@@ -61,9 +61,18 @@ class ZMImageHandler2Plugin extends Plugin {
      */
     public function init() {
         parent::init();
+        ZMEvents::instance()->attach($this);
+    }
+
+    /**
+     * Add resources.
+     */
+    public function onZMViewStart($args) {
         if (!ZMLangUtils::asBoolean($this->get('disableIH2Attributes'))) {
-            ZMTemplateManager::instance()->cssFile('ih2/style_imagehover.css');
-            ZMTemplateManager::instance()->jsFile('ih2/jscript_imagehover.js', ZMTemplateManager::PAGE_TOP);
+            if (null != ($viewUtils = $args['view']->getViewUtils())) {
+                $viewUtils->cssFile('ih2/style_imagehover.css');
+                $viewUtils->jsFile('ih2/jscript_imagehover.js', ZMViewUtils::HEADER);
+            }
         }
     }
 

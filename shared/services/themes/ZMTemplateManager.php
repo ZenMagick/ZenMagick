@@ -39,8 +39,6 @@ class ZMTemplateManager extends ZMObject {
     private $leftColBoxes_;
     private $rightColBoxes_;
     private $tableMeta_;
-    private $cssFiles_;
-    private $jsFiles_;
 
 
     /**
@@ -53,9 +51,6 @@ class ZMTemplateManager extends ZMObject {
         $this->leftColBoxes_ = null;
         $this->rightColBoxes_ = null;
         $this->tableMeta_ = array();
-        $this->cssFiles_ = array();
-        $this->jsFiles_ = array();
-        ZMEvents::instance()->attach($this);
     }
 
     /**
@@ -125,15 +120,13 @@ class ZMTemplateManager extends ZMObject {
             return $this->leftColBoxes_;
         }
 
-        $theme = Runtime::getTheme();
-
         $sql = "SELECT DISTINCT layout_box_name from " . TABLE_LAYOUT_BOXES . "
                 WHERE layout_box_location = 0
                   AND layout_box_status = '1'
                   AND layout_template = :themeId
                 ORDER BY layout_box_sort_order";
         $boxes = array();
-        foreach (Runtime::getDatabase()->query($sql, array('themeId' => Runtime::getThemeId()), TABLE_LAYOUT_BOXES) as $boxInfo) {
+        foreach (ZMRuntime::getDatabase()->query($sql, array('themeId' => Runtime::getThemeId()), TABLE_LAYOUT_BOXES) as $boxInfo) {
             // boxes use .php
             $box = str_replace('.php', ZMSettings::get('zenmagick.mvc.templates.ext'), $boxInfo['name']);
             $boxes[] = $box;
@@ -152,15 +145,13 @@ class ZMTemplateManager extends ZMObject {
             return $this->rightColBoxes_;
         }
 
-        $theme = Runtime::getTheme();
-
         $sql = "SELECT DISTINCT layout_box_name from " . TABLE_LAYOUT_BOXES . "
                 WHERE layout_box_location = 1
                   AND layout_box_status = '1'
                   AND layout_template = :themeId
                 ORDER BY layout_box_sort_order";
         $boxes = array();
-        foreach (Runtime::getDatabase()->query($sql, array('themeId' => Runtime::getThemeId()), TABLE_LAYOUT_BOXES) as $boxInfo) {
+        foreach (ZMRuntime::getDatabase()->query($sql, array('themeId' => Runtime::getThemeId()), TABLE_LAYOUT_BOXES) as $boxInfo) {
             // boxes use .php
             $box = str_replace('.php', ZMSettings::get('zenmagick.mvc.templates.ext'), $boxInfo['name']);
             $boxes[] = $box;
@@ -210,136 +201,6 @@ class ZMTemplateManager extends ZMObject {
         }
 
         return $template . '_info';
-    }
-
-    /**
-     * Event handler to inject JavaScript and CSS resources.
-     */
-    public function onZMFinaliseContents($args) {
-        if (0 == count($this->cssFiles_) && 0 == count($this->jsFiles_)) {
-            return null;
-        }
-
-        $request = $args['request']; 
-        $slash = ZMSettings::get('zenmagick.mvc.html.xhtml') ? '/' : '';
-
-        $css = '';
-        foreach ($this->cssFiles_ as $info) {
-            // merge in defaults
-            $attr = '';
-            $info['attr'] = array_merge(array('rel' => 'stylesheet', 'type' => 'text/css', 'prefix' => '', 'suffix' => ''), $info['attr']);
-            foreach ($info['attr'] as $name => $value) {
-                if (null !== $value && !in_array($name, array('prefix', 'suffix'))) {
-                    $attr .= ' '.$name.'="'.$value.'"';
-                }
-            }
-            $css .= $info['attr']['prefix'];
-            $css .= '<link '.$attr.' href="'.$this->resolveThemeResource($request, $info['filename']).'"'.$slash.'>';
-            $css .= $info['attr']['suffix']."\n";
-        }
-
-        // first build separate lists to allow group processing
-        $jsTopList = array();
-        $jsBottomList = array();
-        foreach ($this->jsFiles_ as $filename => $info) {
-            if (!$info['done']) {
-                if (self::PAGE_TOP == $info['position']) {
-                    $jsTopList[] = $info;
-                } else if (self::PAGE_BOTTOM == $info['position']) {
-                    $jsBottomList[] = $info;
-                }
-                $this->jsFiles_[$filename]['done'] = true;
-            }
-        }
-
-        $jsTop = '';
-        $jsBottom = '';
-        if (null == ($jsTop = $this->handleResources($jsTopList, 'js', self::PAGE_TOP))) {
-            $jsTop = '';
-            foreach ($jsTopList as $info) {
-                $jsTop .= '<script type="text/javascript" src="'.$this->resolveThemeResource($request, $info['filename']).'"></script>'."\n";
-            }
-        }
-        if (null == ($jsBottom = $this->handleResources($jsBottomList, 'js', self::PAGE_BOTTOM))) {
-            $jsBottom = '';
-            foreach ($jsBottomList as $info) {
-                $jsBottom .= '<script type="text/javascript" src="'.$this->resolveThemeResource($request, $info['filename']).'"></script>'."\n";
-            }
-        }
-
-        $contents = $args['contents'];
-        $contents = preg_replace('/<\/head>/', $css.$jsTop . '</head>', $contents, 1);
-        $contents = preg_replace('/<\/body>/', $jsBottom . '</body>', $contents, 1);
-        $args['css'] = $css;
-        $args['jsTop'] = $jsTop;
-        $args['jsBottom'] = $jsBottom;
-        $args['contents'] = $contents;
-        return $args;
-    }
-
-    /**
-     * Resolve theme resource.
-     *
-     * @param request The current request.
-     * @param string resource The url.
-     * @return string The resolved final URL.
-     */
-    public function resolveThemeResource($request, $resource) {
-        if ('/' == $resource[0]) {
-            // absolute; for example plugin URL
-            return $resource;
-        }
-        return Runtime::getTheme()->themeURL($resource);
-    }
-
-    /**
-     * Empty callback method for group processing.
-     *
-     * @param array List of file infos.
-     * @param string type The type; either <code>css</code> or <code>js</code>.
-     * @param string location The location; either <code>ZMTemplateManager::PAGE_TOP</code> or <code>ZMTemplateManager::PAGE_BOTTOM</code>.
-     * @return string Fully processed script code or null.
-     */
-    public function handleResources($files, $type, $location) {
-        return null;
-    }
-
-    /**
-     * Add the given CSS file to the final contents.
-     *
-     * @param string filename A relative CSS filename.
-     * @param array attr Optional attribute map; special keys 'prefix' and 'suffix' may be used to wrap.
-     */
-    public function cssFile($filename, $attr=array()) {
-        $this->cssFiles_[$filename] = array('filename' => $filename, 'attr' => $attr);
-    }
-
-    /**
-     * Add the given JavaScript file to the final contents.
-     *
-     * @param string filename A relative JavaScript filename.
-     * @param string position Optional position; either <code>PAGE_TOP</code> (default), or <code>PAGE_BOTTOM</code>.
-     */
-    public function jsFile($filename, $position=self::PAGE_TOP) {
-        if (array_key_exists($filename, $this->jsFiles_)) {
-            // check if we need to do anything else or update the position
-            if ($this->jsFiles_[$filename]['done']) {
-                ZMLogging::instance()->log('skipping '.$filename.' as already done', ZMLogging::TRACE);
-                return;
-            }
-            if (self::PAGE_BOTTOM == $this->jsFiles_[$filename]['position']) {
-                if (self::PAGE_TOP == $position) {
-                    ZMLogging::instance()->log('upgrading '.$filename.' to PAGE_TOP', ZMLogging::TRACE);
-                    return;
-                }
-            }
-            // either it's now or same as already registered
-        }
-        $this->jsFiles_[$filename] = array('filename' => $filename, 'position' => $position, 'done' => false);
-        if (self::PAGE_NOW == $position) {
-            $this->jsFiles_[$filename]['done'] = true;
-            echo '<script type="text/javascript" src="',$this->resolveThemeResource($request, $filename),'"></script>',"\n";
-        }
     }
 
 }

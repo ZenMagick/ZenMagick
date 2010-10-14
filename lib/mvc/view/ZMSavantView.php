@@ -256,6 +256,12 @@ class ZMSavantView extends ZMView {
         $viewUtils = $this->getViewUtils();
         $savant->assign('resources', $viewUtils);
 
+        // assign view to toolbox tools
+        foreach ($this->getVars() as $var) {
+            if ($var instanceof ZMToolboxTool) {
+                $var->setView($this);
+            }
+        }
         // put all vars into local scope
         $savant->assign($this->getVars());
 
