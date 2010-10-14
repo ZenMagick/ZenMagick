@@ -23,11 +23,13 @@
 ?>
 <?php
 
-    // load languages before ZenMagick init
-    require_once dirname(dirname(__FILE__)) . "/init_languages.php";
 
-    // init ZenMagick
-    include DIR_FS_CATALOG."zenmagick/init.php";
+    if (!defined('ZM_START_TIME')) {
+        // load languages before ZenMagick init
+        require_once dirname(dirname(__FILE__)) . "/init_languages.php";
+        // init ZenMagick
+        include_once DIR_FS_CATALOG."zenmagick/init.php";
+    }
 
     // load original init script
-    require dirname(dirname(__FILE__)) . "/init_templates.php";
+    require_once dirname(dirname(__FILE__)) . "/init_templates.php";

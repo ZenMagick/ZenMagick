@@ -43,13 +43,15 @@
         require_once dirname(dirname(__FILE__)) . "/init_languages.php";
     }
 
-    // init ZenMagick
-    include DIR_FS_CATALOG."zenmagick/init.php";
+    if (!defined('ZM_START_TIME')) {
+        // init ZenMagick
+        include_once DIR_FS_CATALOG."zenmagick/init.php";
+    }
 
     if (!$zmLanguagesBefore) {
         // once all i18n is patched, this line will be used
-        require dirname(__FILE__) . "/init_languages.php";
+        require_once dirname(__FILE__) . "/init_languages.php";
     }
 
     // load original init script
-    require dirname(dirname(__FILE__)) . "/init_templates.php";
+    require_once dirname(dirname(__FILE__)) . "/init_templates.php";
