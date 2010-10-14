@@ -226,4 +226,28 @@ abstract class ZMView extends ZMObject {
      */
     public abstract function getViewUtils();
 
+    /**
+     * Fetch/generate the contents for a given block id.
+     *
+     * @param request The current request.
+     * @param string blockId The block id.
+     * @return string The contents.
+     */
+    public abstract function fetchBlock($request, $blockId);
+
+    /**
+     * Fetch/generate the contents for a list of block ids.
+     *
+     * @param request The current request.
+     * @param array blockIds The block ids.
+     * @return array Map of contents of each block, keyed by the respective block id.
+     */
+    public function fetchBlocks($request, $blockIds) {
+        $contents = array();
+        foreach ($blockIds as $blockId) {
+            $contents[$blockId] = $this->fetchBlock($request, $blockId);
+        }
+        return $contents;
+    }
+
 }

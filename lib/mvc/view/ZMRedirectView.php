@@ -68,6 +68,13 @@ class ZMRedirectView extends ZMView {
     /**
      * {@inheritDoc}
      */
+    public function fetchBlock($request, $blockId) {
+        throw new ZMException('not supported');
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function exists($request, $template, $type=ZMView::TEMPLATE) {
         throw new ZMException('not supported');
     }
@@ -103,7 +110,7 @@ class ZMRedirectView extends ZMView {
     /**
      * {@inheritDoc}
      */
-    public function generate($request) { 
+    public function generate($request) {
         $url = null;
         if (null != $this->url_) {
             $url = $this->url_;

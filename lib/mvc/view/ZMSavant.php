@@ -150,16 +150,17 @@ class ZMSavant extends Savant3 {
     }
 
     /**
-     * Call the block handler for the given block id.
+     * Fetch/generate the contents for a given block group id.
      *
-     * <p>All registered block contents that is found at this time will be returned as ready-to-use HTML.</p>
-     *
-     * @param string blockId The block id.
-     * @param array args Optional parameter; default is an empty array.
-     * @return string The HTML content for this block.
+     * @param string groupI The group id.
+     * @return string The contents.
      */
-    public function block($blockId, $args=array()) {
-        return '';
+    public function fetchBlockGroup($groupId) {
+        $contents = '';
+        foreach (ZMBlockManager::instance()->getBlocksForId($request, $groupId) as $block) {
+            $contents .= $block->render($request, $view);
+        }
+        return $contents;
     }
 
 }

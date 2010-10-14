@@ -79,6 +79,13 @@ class ZMForwardView extends ZMView {
     /**
      * {@inheritDoc}
      */
+    public function fetchBlock($request, $blockId) {
+        throw new ZMException('not supported');
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function exists($request, $template, $type=ZMView::TEMPLATE) {
         throw new ZMException('not supported');
     }
@@ -114,7 +121,7 @@ class ZMForwardView extends ZMView {
     /**
      * {@inheritDoc}
      */
-    public function generate($request) { 
+    public function generate($request) {
         $req = ZMLoader::make('Request');
         $req->setParameterMap($request->getParameterMap(false));
         $req->setRequestId($this->getRequestId());

@@ -193,11 +193,15 @@ class ZMBeanUtils extends ZMObject {
      */
     public static function getBean($definition, $ignoreContext=false) {
         $isRef = false;
+        $isPlugin = false;
         if (0 === strpos($definition, 'bean::')) {
             $definition = substr($definition, 6);
             if ('null' == $definition) {
                 return null;
             }
+        } else if (0 === strpos($definition, 'plugin::')) {
+            $definition = substr($definition, 8);
+            $isPlugin = true;
         } else if (0 === strpos($definition, 'ref::')) {
             $definition = substr($definition, 5);
             $isRef = true;
@@ -231,6 +235,11 @@ class ZMBeanUtils extends ZMObject {
         if ($isRef && null != ($ref = self::singleton($tokens[0]))) {
             self::setAll($ref, $properties);
             return $ref;
+        }
+
+        if ($isPlugin && null != ($plugin = ZMPlugins::getPluginForId($tokens[0]))) {
+            self::setAll($plugin, $properties);
+            return $plugin;
         }
 
         return self::map2obj($tokens[0], $properties);

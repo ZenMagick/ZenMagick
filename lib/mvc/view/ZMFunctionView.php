@@ -75,6 +75,13 @@ class ZMFunctionView extends ZMView {
     /**
      * {@inheritDoc}
      */
+    public function fetchBlock($request, $blockId) {
+        throw new ZMException('not supported');
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function isValid($request) {
         return true;
     }

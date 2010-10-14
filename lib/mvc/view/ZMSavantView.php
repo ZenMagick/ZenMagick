@@ -323,4 +323,11 @@ class ZMSavantView extends ZMView {
         return $this->getSavant($request)->path($filename, $type);
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    public function fetchBlock($request, $blockId) {
+        return $this->getSavant($request)->fetchBlock($blockId);
+    }
+
 }
