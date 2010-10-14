@@ -18,7 +18,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 ?>
-<?php  
+<?php
 
     // top level
     ZMAdminMenu::setItem(array('requestId' => 'index', 'title' => _zm('Dashboard')));
@@ -28,6 +28,7 @@
     ZMAdminMenu::setItem(array('requestId' => 'tools', 'title' => _zm('Tools')));
     ZMAdminMenu::setItem(array('requestId' => 'plugins', 'title' => _zm('Plugins')));
     ZMAdminMenu::setItem(array('requestId' => 'configuration', 'title' => _zm('Configuration')));
+    ZMAdminMenu::setItem(array('requestId' => 'zc_admin', 'title' => _zm('Zen Cart Admin')));
 
 
     // tools
