@@ -1,12 +1,11 @@
 <link rel="stylesheet" type="text/css" href="<?php echo DIR_WS_CATALOG.ZC_ADMIN_FOLDER ?>/includes/stylesheet.css">
+<script>
+function check_form() {
+  return true;
+}
+</script>
 <?php
 if (!function_exists('zen_href_link')) {
-
-    /**
-     * zen_href_link wrapper that delegates to the Zenmagick implementation.
-     *
-     * @package zenmagick.store.sf.override
-     */
     function zen_href_link($page='', $params='', $transport='NONSSL', $addSessionId=true, $seo=true, $isStatic=false, $useContext=true) {
         if (defined('ZC_INSTALL_PATH')) {
             $request = ZMRequest::instance();
@@ -14,8 +13,19 @@ if (!function_exists('zen_href_link')) {
         }
         return zen_href_link_DISABLED($page, $params, $transport, $addSessionId, $seo, $isStatic, $useContext);
     }
-
 }
+
+if (!function_exists('zen_date_raw')) {
+    function zen_date_raw($date, $reverse=false) {
+        return zen_date_raw_DISABLED($date, $reverse);
+    }
+}
+
+function split_slash($s) {
+  $s = preg_replace('#(\S)/#', '$1 /', $s);
+  return preg_replace('#/(\S)#', '/ $1', $s);
+}
+
 $zcAdminFolder = ZC_INSTALL_PATH.ZC_ADMIN_FOLDER.DIRECTORY_SEPARATOR;
 $zcPage = $request->getParameter('zpid', 'index').'.php';
 chdir($zcAdminFolder);
@@ -23,7 +33,6 @@ chdir($zcAdminFolder);
 // prepare globals
 global $PHP_SELF, $db, $autoLoadConfig, $sniffer, $currencies, $template, $current_page_base;
 $PHP_SELF = $zcAdminFolder.$zcPage;
-
 $code = file_get_contents($zcAdminFolder.$zcPage);
 $code = preg_replace("/<!doctype[^>]*>/s", '', $code);
 $code = preg_replace("/<html.*<body[^>]*>/s", '', $code);
@@ -42,20 +51,24 @@ $content = str_replace(array('onmouseover="rowOverEffect(this)"', 'onmouseout="r
   <div id="sub-common">
     <?php
       ob_start();
-      $zc_menus = array('catalog', 'modules', 'customers', 'taxes', 'localization', 'reports', 'tools', 'gv_admin', 'extras', 'zenmagick');
+      $zc_menus = array('catalog', 'modules', 'customers', 'taxes', 'localization', 'reports', 'tools', 'gv_admin', 'extras');
       $menu = array();
       foreach ($zc_menus as $zm_menu) {
           require(DIR_WS_BOXES . $zm_menu . '_dhtml.php');
-          if ('zenmagick' == $zm_menu) {
-              continue;
-          }
-          $header = $za_heading['text'];
+          $header = split_slash($za_heading['text']);
           $menu[$header] = array();
+          $skipList = array('zmIndex', 'template_select');
           foreach ($za_contents as $item) {
-              if (-1 < strpos('zmIndex', $item['link'])) {
-                  continue;
+              $skip = false;
+              foreach ($skipList as $s) {
+                  if (-1 < strpos($item['link'], $s)) {
+                      $skip = true;
+                      break;
+                  }
               }
-              $menu[$header][$item['text']] = $item['link'];
+              if (!$skip) {
+                  $menu[$header][split_slash($item['text'])] = $item['link'];
+              }
           }
       }
       ob_end_clean();
