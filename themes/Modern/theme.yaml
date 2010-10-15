@@ -40,6 +40,7 @@ description: 'Modern / RI0007'
 # - change product_info to make the add-to-cart input element type="image" and use locale dependant image
 # - moved locale images
 # - CSS: make add-to-cart form on product_info bottom aligned
+# - upgrade cart with new locale dependant button images
 
 
 # Notes:

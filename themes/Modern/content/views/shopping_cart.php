@@ -74,12 +74,15 @@
         </tbody>
     </table>
     <div class="btn">
-        <div class="back"><input type="submit" class="btn" value="<?php zm_l10n("Update Cart") ?>" /></div>
-        <div class="forward"><a class="btn" href="<?php echo $net->url(FILENAME_CHECKOUT_SHIPPING, '', true) ?>"><?php zm_l10n("Checkout") ?></a></div>
+        <div class="back">
+          <?php echo $html->backLink('<img title="'._zm('Continue Shopping ').'" alt="'._zm('Continue Shopping').'" src="'.$this->asUrl('images/button_continue_shopping.gif').'">') ?>
+          <input type="image" title="<?php _vzm(' Change your quantity by highlighting the number in the box, correcting the quantity and clicking this button. ') ?>" alt="<?php _vzm('Change your quantity by highlighting the number in the box, correcting the quantity and clicking this button.') ?>" src="<?php echo $this->asUrl('images/button_update_cart.gif') ?>">
+        </div>
+        <div class="forward"><a class="btn" href="<?php echo $net->url(FILENAME_CHECKOUT_SHIPPING, '', true) ?>"><img title="<?php _vzm(' Checkout ') ?>" alt="<?php _vzm('Checkout') ?>" src="<?php echo $this->asUrl('images/button_checkout.gif') ?>"></a></div>
         <div class="clearBoth"></div>
     </div>
     <div>
-        <a class="btn" href="<?php echo $net->url(FILENAME_POPUP_SHIPPING_ESTIMATOR, '', true) ?>" onclick="popupWindow(this.href); return false;"><?php zm_l10n("Shipping Estimator") ?></a>
+        <a class="btn" href="<?php echo $net->url(FILENAME_POPUP_SHIPPING_ESTIMATOR, '', true) ?>" onclick="popupWindow(this.href); return false;"><img title="<?php _vzm(' Shipping Estimator ') ?>" alt="<?php _vzm('Shipping Estimator') ?>" src="<?php echo $this->asUrl('images/button_shipping_estimator.gif') ?>"></a>
     </div>
 
     <?php if (defined('MODULE_PAYMENT_PAYPALWPP_STATUS') && MODULE_PAYMENT_PAYPALWPP_STATUS == 'True') {
@@ -89,4 +92,3 @@
 
 </form>
 
-<?php echo $html->backLink('Continue Shopping') ?>
