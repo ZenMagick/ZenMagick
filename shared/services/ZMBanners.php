@@ -55,6 +55,20 @@ class ZMBanners extends ZMObject {
 
 
     /**
+     * Get a list of all banner groups.
+     *
+     * @return array List of banner group ids.
+     */
+    public function getBannerGroupIds() {
+        $sql = "SELECT DISTINCT banners_group FROM " . TABLE_BANNERS;
+        $ids = array();
+        foreach (ZMRuntime::getDatabase()->query($sql, array(), TABLE_BANNERS) as $result) {
+            $ids[] = $result['group'];
+        }
+        return $ids;
+    }
+
+    /**
      * Get a <strong>random, single</strong> banner for the given symbolic banner group set (yes!) name.
      *
      * <p>A banner set is either a single banner group or a list of banner groups.</p>
@@ -78,7 +92,7 @@ class ZMBanners extends ZMObject {
      *
      * @return array A list of <code>ZMBanner</code> instances.
      */
-    public function getAllBanners() { 
+    public function getAllBanners() {
         return $this->getBannersForGroupName(ZMSettings::get('banners.all', 'bannerGroupAll'), true);
     }
 
@@ -88,11 +102,11 @@ class ZMBanners extends ZMObject {
      * <p>If <code>$all</code> is set to <code>true</code>, all matching banners will be returned.</p>
      *
      * @param string identifiers One ore more identifiers, separated by ':'.
-     * @param boolean all If set to <code>true</code>, all banners will be returned, ordered in 
+     * @param boolean all If set to <code>true</code>, all banners will be returned, ordered in
      *  the configured sort order; default is <code>false</code> to shuffle results.
      * @return array A list of <code>ZMBanner</code> instances.
      */
-    protected function getBannersForGroupName($identifiers, $all=false) { 
+    protected function getBannersForGroupName($identifiers, $all=false) {
         if (empty($identifiers)) {
             return array();
         }
@@ -133,7 +147,7 @@ class ZMBanners extends ZMObject {
      * @param integer id The banner id.
      * @return mixed A <code>ZMBanner</code> instance or <code>null</code>.
      */
-    public function getBannerForId($id) { 
+    public function getBannerForId($id) {
         $sql = "SELECT *
                 FROM " . TABLE_BANNERS . "
                 WHERE status = 1 AND banners_id = :id";
