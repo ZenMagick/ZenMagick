@@ -76,6 +76,8 @@ Release 0.9.11
 - add foundation for block handling
 - implement sideboxes as blocks, setup sidebox block provider, update test
   theme to use the new block (manager) code
+- add ZMWysiwygFormWidget that acts as placeholder for the currently
+  configured wysiwyg editor
 
 Release 0.9.10
 - restructure store and admin code into separate apps with most of the store
