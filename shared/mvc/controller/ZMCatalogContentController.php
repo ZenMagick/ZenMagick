@@ -31,7 +31,7 @@
  * redirects to the same page.</p>
  *
  * @author DerManoMann
- * @package zenmagick.store.shared.services
+ * @package zenmagick.store.shared.mvc.controller
  */
 abstract class ZMCatalogContentController extends ZMController {
     const ACTIVE_CATEGORY = 1;
