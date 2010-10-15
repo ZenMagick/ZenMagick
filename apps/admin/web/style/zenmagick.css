@@ -76,8 +76,8 @@ label span {color:#D4A84B;margin:0 3px;font-weight:bold;}
 #footer img {float:left;margin-right:14px;}
 
 /*IE: */
-h1 {background-image:url(../images/bg-t.png);;font-weight:normal;}
-h1 {color:white;-moz-border-radius:6px 6px 0 0;-webkit-border-radius:6px 6px 0 0;border-radius:6px 6px 0 0;padding-left:6px;background:-moz-linear-gradient(top,#303030 40%,#000);background:-webkit-gradient(linear,left top,left bottom,color-stop(0.40,#303030),to(#000));font-size:1.6em;height:31px;line-height:1.6em;padding:0 12px;border-bottom:3px solid #D4A84B;margin:0;}
+#content h1 {background-image:url(../images/bg-t.png);;font-weight:normal;font-variant:normal;}
+#content h1 {color:white;-moz-border-radius:6px 6px 0 0;-webkit-border-radius:6px 6px 0 0;border-radius:6px 6px 0 0;padding-left:6px;background:-moz-linear-gradient(top,#303030 40%,#000);background:-webkit-gradient(linear,left top,left bottom,color-stop(0.40,#303030),to(#000));font-size:1.6em;height:31px;line-height:1.6em;padding:0 12px;border-bottom:3px solid #D4A84B;margin:0;}
 
 /* messages */
 ul#messages {margin:0;padding:0;list-style:none;}
