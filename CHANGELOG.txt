@@ -74,6 +74,8 @@ Release 0.9.11
 - allow toolbox tools to access the view (if available)
 - deprecate Runtime::getTheme/setTheme
 - add foundation for block handling
+- implement sideboxes as blocks, setup sidebox block provider, update test
+  theme to use the new block (manager) code
 
 Release 0.9.10
 - restructure store and admin code into separate apps with most of the store

@@ -193,6 +193,8 @@
             // default product association handler
             'defaultProductAssociationHandler' => 'SimilarOrderProductAssociationHandler',
         
+            // sidebox block provider
+            'zenmagick.mvc.blocks.blockProviders' => 'SideboxBlockProvider',
 
 
             /**************************************

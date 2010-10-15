@@ -29,6 +29,7 @@
  */
 class ZMBlockManager extends ZMObject {
     private $providers_;
+    private $mappings_;
 
 
     /**
@@ -37,6 +38,7 @@ class ZMBlockManager extends ZMObject {
     function __construct() {
         parent::__construct();
         $this->providers_ = null;
+        $this->mappings_ = array();
     }
 
     /**
@@ -62,7 +64,7 @@ class ZMBlockManager extends ZMObject {
     public function getProviders() {
         if (null == $this->providers_) {
             $this->providers_ = array();
-            foreach (explode(',', ZMSettings::get('plugins.blockHandler.blockContentsProviders')) as $providerId) {
+            foreach (explode(',', ZMSettings::get('zenmagick.mvc.blocks.blockProviders')) as $providerId) {
                 $provider = ZMBeanUtils::getBean($providerId);
                 if (null != $provider && $provider instanceof ZMBlockContentsProvider) {
                     $this->providers_[] = $provider;
@@ -83,7 +85,34 @@ class ZMBlockManager extends ZMObject {
      * @return array List of <code>ZMBlockWidget</code> instances.
      */
     public function getBlocksForId($request, $groupId) {
+        if (array_key_exists($groupId, $this->mappings_)) {
+            // ensure bean definitions are resolved first...
+            $group = array();
+            foreach ($this->mappings_[$groupId] as $block) {
+                $widget = null;
+                if (is_string($block)) {
+                    $widget = ZMBeanUtils::getBean($block);
+                } else if (is_object($block) && $block instanceof ZMBlockWidget) {
+                    $widget = $block;
+                }
+                if (null != $widget) {
+                    $group[] = $widget;
+                }
+            }
+            $this->mappings_[$groupId] = $group;
+            return $this->mappings_[$groupId];
+        }
+
         return array();
+    }
+
+    /**
+     * Set mappings.
+     *
+     * @param array mappings The mappings.
+     */
+    public function setMappings($mappings) {
+        $this->mappings_ = $mappings;
     }
 
 }

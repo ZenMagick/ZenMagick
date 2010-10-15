@@ -30,6 +30,7 @@
  * @package org.zenmagick.mvc.services.blocks.widgets
  */
 class ZMBlockWidget extends ZMWidget {
+    private $sortOrder_;
     private $template_;
 
 
@@ -38,6 +39,7 @@ class ZMBlockWidget extends ZMWidget {
      */
     function __construct() {
         parent::__construct();
+        $this->sortOrder_ = 0;
         $this->template_ = null;
     }
 
@@ -48,6 +50,24 @@ class ZMBlockWidget extends ZMWidget {
         parent::__destruct();
     }
 
+
+    /**
+     * Set the sort order.
+     *
+     * @param int sortOrder The sort order.
+     */
+    public function setSortOrder($sortOrder) {
+        $this->sortOrder_ = $sortOrder;
+    }
+
+    /**
+     * Get the sort order.
+     *
+     * @return int The sort order.
+     */
+    public function getSortOrder() {
+        return $this->sortOrder_;
+    }
 
     /**
      * Set the template name.
@@ -71,11 +91,11 @@ class ZMBlockWidget extends ZMWidget {
      * {@inheritDoc}
      */
     public function render($request, $view) {
-        if (empty($this->template_)) {
+        if (empty($this->template_) || !$view->exists($request, $this->template_)) {
             return '';
         }
 
-        return $view->fetch($this->template_);
+        return $view->fetch($request, $this->template_);
     }
 
 }

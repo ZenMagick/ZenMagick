@@ -158,7 +158,7 @@ class ZMSavant extends Savant3 {
     public function fetchBlockGroup($groupId) {
         $contents = '';
         foreach (ZMBlockManager::instance()->getBlocksForId($request, $groupId) as $block) {
-            $contents .= $block->render($request, $view);
+            $contents .= $block->render($request, $this->view);
         }
         return $contents;
     }

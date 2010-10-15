@@ -74,11 +74,11 @@
       <?php echo $this->fetch('menu.php') ?>
 
       <div id="leftcol">
-        <!-- block::leftColumn -->
+        <?php echo $this->fetchBlockGroup('leftColumn') ?>
       </div>
 
       <div id="rightcol">
-        <!-- block::rightColumn -->
+        <?php echo $this->fetchBlockGroup('rightColumn') ?>
       </div>
 
       <div id="content">

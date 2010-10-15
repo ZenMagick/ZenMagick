@@ -22,22 +22,22 @@
 
 
 /**
- * Interface for for block content provider.
+ * Interface for block provider.
  *
- * <p>Classes that generate block contents can implement this interface and then
- * register themselfs via the setting 'plugins.blockHandler.blockContentsProviders'.</p>
+ * <p>Classes that manage blocks must implement this interface and then
+ * register themselfs via the setting 'zenmagick.mvc.blocks.blockProviders'.</p>
  *
  * @author DerManoMann
  * @package org.zenmagick.mvc.services.blocks
  */
-interface ZMBlockContentsProvider {
+interface ZMBlockProvider {
 
     /**
-     * Return list of block contents availabe from this provider for the given block id.
+     * Return list of blocks availabe from this provider.
      *
      * @param array args Optional parameter; default is an empty array.
-     * @return array List of block contents objects or bean definitions.
+     * @return array List of block objects or bean definitions.
      */
-    public function getBlockContentsList($args=array());
+    public function getBlockList($args=array());
 
 }
