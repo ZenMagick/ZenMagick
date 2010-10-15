@@ -46,7 +46,7 @@
   }
 </script>
 
-<?php zm_title($this) ?></h1>
+<?php zm_title($this) ?>
 
 <table class="grid">
   <?php foreach ($pluginList as $group => $plugins) { ?>
