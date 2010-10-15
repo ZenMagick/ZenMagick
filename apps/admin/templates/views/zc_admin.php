@@ -1,3 +1,4 @@
+<h1><?php _vzm('Zen Cart Admin') ?></h1>
 <link rel="stylesheet" type="text/css" href="<?php echo DIR_WS_CATALOG.ZC_ADMIN_FOLDER ?>/includes/stylesheet.css">
 <script>
 function check_form() {
@@ -43,6 +44,7 @@ $code = preg_replace("/require\(\s*DIR_WS_INCLUDES\s*\.\s*'application_bottom.ph
 ob_start();
 eval('?>'.$code);
 $content = ob_get_clean();
+$content = str_replace('id="main"', '', $content);
 $content = str_replace('src="includes', 'src="'.DIR_WS_ADMIN.'includes', $content);
 $content = str_replace('src="images', 'src="'.DIR_WS_ADMIN.'images', $content);
 $content = str_replace(array('onmouseover="rowOverEffect(this)"', 'onmouseout="rowOutEffect(this)"'), '', $content);
@@ -86,19 +88,17 @@ $content = str_replace(array('onmouseover="rowOverEffect(this)"', 'onmouseout="r
   </div>
 </div>
 <script type="text/javascript">
-	$(function() {
-		$("#sub-common").accordion({
+  $(function() {
+    $("#sub-common").accordion({
       active: false,
-			autoHeight: false,
+      autoHeight: false,
       collapsible: true,
       navigation: true,
       navigationFilter: function() {
         return this.href == location.href;
       }
-		});
-	});
+    });
+  });
 </script>
 <div id="view-container">
   <?php echo $content; ?>
-  <br clear="left">
-</div>
