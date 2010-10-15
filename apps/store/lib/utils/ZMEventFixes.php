@@ -110,18 +110,20 @@ class ZMEventFixes extends ZMObject {
         // TODO: do via admin and just load mapping from somewhere
         $mappings = array();
         if (ZMTemplateManager::instance()->isLeftColEnabled()) {
+            $index = 1;
             $mappings['leftColumn'] = array();
             foreach (ZMTemplateManager::instance()->getLeftColBoxNames() as $boxName) {
                 // avoid duplicates by using $box as key
-                $mappings['leftColumn'][$boxName] = 'BlockWidget#template=boxes/'.$boxName;
+                $mappings['leftColumn'][$boxName] = 'BlockWidget#template=boxes/'.$boxName.'&sortOrder='.$index++;
             }
         }
 
         if (ZMTemplateManager::instance()->isRightColEnabled()) {
+            $index = 1;
             $mappings['rightColumn'] = array();
             foreach (ZMTemplateManager::instance()->getRightColBoxNames() as $boxName) {
                 // avoid duplicates by using $box as key
-                $mappings['rightColumn'][$boxName] = 'BlockWidget#template=boxes/'.$boxName;
+                $mappings['rightColumn'][$boxName] = 'BlockWidget#template=boxes/'.$boxName.'&sortOrder='.$index++;
             }
         }
         ZMBlockManager::instance()->setMappings($mappings);
