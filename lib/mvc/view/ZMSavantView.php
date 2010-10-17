@@ -254,7 +254,7 @@ class ZMSavantView extends ZMView {
 
         // special view bits
         $viewUtils = $this->getViewUtils();
-        $savant->assign('resources', $viewUtils);
+        $this->setVar('resources', $viewUtils);
 
         // assign view to toolbox tools
         foreach ($this->getVars() as $var) {
@@ -262,20 +262,22 @@ class ZMSavantView extends ZMView {
                 $var->setView($this);
             }
         }
-        // put all vars into local scope
-        $savant->assign($this->getVars());
 
         // load template...
         $template = null;
         try {
-            $savant->assign(array('view' => $this));
+            $this->setVar('view', $this);
             if (!ZMLangUtils::isEmpty($this->getLayout())) {
                 $template = $this->getLayout();
                 $view = $this->getTemplate().ZMSettings::get('zenmagick.mvc.templates.ext', '.php');
-                $savant->assign(array('viewTemplate' => $view));
+                $this->setVar('viewTemplate', $view);
             } else {
                 $template = $this->getTemplate();
             }
+
+            // put all vars into local scope
+            $savant->assign($this->getVars());
+
             $template .= ZMSettings::get('zenmagick.mvc.templates.ext', '.php');
             $contents = $savant->fetch($template);
             if (null !== ($resources = $viewUtils->getResourceContents())) {

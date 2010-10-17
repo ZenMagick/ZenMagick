@@ -40,19 +40,19 @@
       <legend><?php _vzm('Header') ?></legend>
       <label for="headerSort"><?php _vzm('Sort') ?></label>
           <input type="text" id="headerSort" name="headerSort" value="<?php echo $ezPage->getHeaderSort() ?>" size="4">
-          <?php echo ZMBeanUtils::getBean('BooleanFormWidget#id=header&name=header&title=Header&value='.$ezPage->isHeader())->render($request, $this) ?>
+          <?php echo ZMBeanUtils::getBean('BooleanFormWidget#id=header&name=header&title=Header&value='.$ezPage->isHeader())->render($request, $view) ?>
       </fieldset>
       <fieldset style="float:left;width:15%;border:1px solid #aaa;padding:4px;margin:0 8px 0 0;">
       <legend><?php _vzm('Sidebox') ?></legend>
       <label for="sideboxSort"><?php _vzm('Sort') ?></label>
           <input type="text" id="sideboxSort" name="sideboxSort" value="<?php echo $ezPage->getSideboxSort() ?>" size="4">
-          <?php echo ZMBeanUtils::getBean('BooleanFormWidget#id=sidebox&name=sidebox&title=Sidebox&value='.$ezPage->isSidebox())->render($request, $this) ?>
+          <?php echo ZMBeanUtils::getBean('BooleanFormWidget#id=sidebox&name=sidebox&title=Sidebox&value='.$ezPage->isSidebox())->render($request, $view) ?>
       </fieldset>
       <fieldset style="float:left;width:15%;border:1px solid #aaa;padding:4px;margin:0 8px 0 0;">
       <legend><?php _vzm('Footer') ?></legend>
       <label for="footerSort"><?php _vzm('Sort') ?></label>
           <input type="text" id="footerSort" name="footerSort" value="<?php echo $ezPage->getFooterSort() ?>" size="4">
-          <?php echo ZMBeanUtils::getBean('BooleanFormWidget#id=footer&name=footer&title=Footer&value='.$ezPage->isFooter())->render($request, $this) ?>
+          <?php echo ZMBeanUtils::getBean('BooleanFormWidget#id=footer&name=footer&title=Footer&value='.$ezPage->isFooter())->render($request, $view) ?>
       </fieldset>
       <fieldset style="float:left;min-width:35%;border:1px solid #aaa;padding:4px;margin:0 8px 0 0;">
       <legend><?php _vzm('Table Of Contents') ?></legend>
@@ -60,7 +60,7 @@
           <input type="text" id="tocSort" name="tocSort" value="<?php echo $ezPage->getTocSort() ?>" size="4">
           <label for="tocChapter"><?php _vzm('Chapter') ?></label>
           <input type="text" id="tocChapter" name="tocChapter" value="<?php echo $ezPage->getTocChapter() ?>" size="4">
-          <?php echo ZMBeanUtils::getBean('BooleanFormWidget#id=toc&name=toc&title=TOC&value='.$ezPage->isToc())->render($request, $this) ?>
+          <?php echo ZMBeanUtils::getBean('BooleanFormWidget#id=toc&name=toc&title=TOC&value='.$ezPage->isToc())->render($request, $view) ?>
       </fieldset>
     </p>
   </fieldset>
@@ -72,9 +72,9 @@
       <?php 
           $select = ZMBeanUtils::getBean('SelectFormWidget#id=newWin&name=newWin&value='.$ezPage->isNewWin()); 
           $select->setOptions(array(false => _zm('Same Window'), true => _zm('New Window')));
-          echo $select->render($request, $this);
+          echo $select->render($request, $view);
       ?>
-      <?php echo ZMBeanUtils::getBean('BooleanFormWidget#id=SSL&name=SSL&title='._zm('Secure Link').'&value='.$ezPage->isSSL())->render($request, $this) ?>
+      <?php echo ZMBeanUtils::getBean('BooleanFormWidget#id=SSL&name=SSL&title='._zm('Secure Link').'&value='.$ezPage->isSSL())->render($request, $view) ?>
     </p>
     <p>
       <label for="altUrl"><?php _vzm('Internal URL') ?></label>
@@ -95,7 +95,7 @@
       $editor->setRows(30);
       $editor->setCols(100);
       $editor->setValue($ezPage->getHtmlText());
-      echo $editor->render($request, $this);
+      echo $editor->render($request, $view);
      ?>
   </fieldset>
   

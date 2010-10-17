@@ -62,8 +62,6 @@ class ZMXinhaFormWidget extends ZMTextAreaFormWidget {
         $baseUrl = $this->plugin_->pluginURL('xinha-0.96.1/');
 
         $id = $this->getId();
-        //$height = (1.3 * $this->getRows()).'em';
-        //$width = (1.1 * $this->getCols()).'em';
 
         $jsInit = <<<EOT
 <script type="text/javascript">

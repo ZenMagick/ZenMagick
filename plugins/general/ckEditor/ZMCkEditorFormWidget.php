@@ -73,10 +73,6 @@ class ZMCkEditorFormWidget extends ZMTextAreaFormWidget {
 
         $config = array();
 
-        // scale based on rows/cols
-        //$config['height'] = (1.3 * $this->getRows()).'em';
-        //$config['width'] = (0.7 * $this->getCols()).'em';
-
         //TODO: allow for predefined 'basic', 'standard' and 'advanced' presettings in abstract ZMWysiwygEditorFormWidget base class
         $config['toolbar'] = array(
             array('Source', '-', 'Bold', 'Italic', 'Underline', 'Strike'),

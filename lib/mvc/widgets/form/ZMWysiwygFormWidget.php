@@ -79,7 +79,7 @@ class ZMWysiwygFormWidget extends ZMFormWidget {
         foreach ($this->getProperties() as $name => $value) {
             $editor->set($name, $value);
         }
-        return $this->getValue();//$editor->render($request, $view);
+        return $editor->render($request, $view);
     }
 
 }

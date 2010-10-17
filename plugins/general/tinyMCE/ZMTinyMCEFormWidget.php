@@ -31,6 +31,7 @@
  * @author DerManoMann
  */
 class ZMTinyMCEFormWidget extends ZMTextAreaFormWidget {
+    private static $ID_LIST = array();
     private $plugin_;
 
 
@@ -59,21 +60,31 @@ class ZMTinyMCEFormWidget extends ZMTextAreaFormWidget {
             return parent::render($request, $view);
         }
 
-        $baseUrl = $this->plugin_->pluginURL('tinymce-3.3.8/');
-
         // add required js
-        $request->getToolbox()->utils->jsTop($baseUrl.'jscripts/tiny_mce/tiny_mce.js');
+        $resources = $view->getVar('resources');
+        $resources->jsFile('tinymce-3.3.8/jscripts/tiny_mce/tiny_mce.js', ZMViewUtils::HEADER);
 
+        self::$ID_LIST[] = $this->getId();
         $id = $this->getId();
-        //$height = (1.3 * $this->getRows()).'em';
-        //$width = (1.1 * $this->getCols()).'em';
+        // create init script code at the end once we know all the ids
+        ZMEvents::instance()->attach($this);
+        return parent::render($request, $view);
+    }
 
-        $jsInit = <<<EOT
-<script type="text/javascript">
+    /**
+     * Add init code.
+     */
+    public function onZMFinaliseContents($args) {
+        if (0 < count(self::$ID_LIST)) {
+            $contents = $args['contents'];
+
+            $idString = implode(',', self::$ID_LIST);
+            $jsInit = <<<EOT
+<script>
   tinyMCE.init({
     theme : "advanced",
     mode: "exact",
-    elements : "$id",
+    elements : "$idString",
     plugins : "paste, save",
     theme_advanced_toolbar_location : "top",
     theme_advanced_toolbar_align:"left",
@@ -82,14 +93,15 @@ class ZMTinyMCEFormWidget extends ZMTextAreaFormWidget {
     + "bullist,numlist,outdent,indent",
     theme_advanced_buttons2 : "link,unlink,anchor,image,separator,"
     +"undo,redo,cleanup,separator,sub,sup,charmap",
-    //height:"$height",
-    //width:"$width",
     theme_advanced_buttons3 : ""
   });
 </script>
 EOT;
-
-        return $jsInit.parent::render($request, $view);
+            $args['contents'] = preg_replace('/<\/body>/', $jsInit . '</body>', $contents, 1);
+            // clear to create js only once
+            self::$ID_LIST = array();
+        }
+        return $args;
     }
 
 }

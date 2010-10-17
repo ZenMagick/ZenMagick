@@ -27,7 +27,7 @@
     <fieldset style="width:94%;">
       <legend><?php echo $value->getTitle() ?></legend>
       <p><?php echo $value->getDescription() ?></p>
-      <p><?php echo $value->render($request, $this) ?></p>
+      <p><?php echo $value->render($request, $view) ?></p>
     </fieldset>
   <?php } ?>
   <input class="<?php echo $buttonClasses ?>" type="submit" value="<?php _vzm("Update Settings") ?>">

@@ -34,7 +34,7 @@
           <td>
             <?php /* tooltips */ ?>
             <span class="tt" title="<?php echo sprintf(_zm('%s'), $value->getTitle()).'|'.ZMXmlUtils::encodeAttribute(_zm($value->getDescription())) ?>">
-              <?php echo $value->render($request, $this); ?>
+              <?php echo $value->render($request, $view); ?>
             </span>
           </td>
       <?php } ?>

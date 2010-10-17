@@ -108,8 +108,18 @@ class ZMSavant extends Savant3 {
      */
     public function asUrl($filename, $type=ZMView::TEMPLATE) {
         if (null != ($path = $this->findFile($type, $filename))) {
-            $basePath = ZMVIEW::TEMPLATE == $type ? $this->request->getTemplatePath() : $this->request->getWebPath();
+            $basePath = ZMView::TEMPLATE == $type ? $this->request->getTemplatePath() : $this->request->getWebPath();
             $relpath = str_replace($basePath, '', $path);
+            if ($relpath == $path) {
+                //TODO: assumes certain relative folders
+                // plugin referenced from apps/xxx/web
+                $basePath = dirname(dirname(ZMRuntime::getPluginBasePath())).DIRECTORY_SEPARATOR;
+                $relpath = str_replace($basePath, '', $path);
+                if ($relpath != $path) {
+                    $contextBase = preg_replace('#(.*)/zenmagick/.*#', '$1/', $this->request->getContext());
+                    $relpath = $contextBase . $relpath;
+                }
+            }
             if ($relpath != $path) {
                 // only if matched and replaced...
                 // now convert to URL...
