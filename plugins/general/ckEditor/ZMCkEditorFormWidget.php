@@ -61,6 +61,7 @@ class ZMCkEditorFormWidget extends ZMTextAreaFormWidget {
             // fallback
             return parent::render($request, $view);
         }
+
         $CKEditor = new CKEditor();
         $CKEditor->returnOutput = true;
         $CKEditor->textareaAttributes = array(

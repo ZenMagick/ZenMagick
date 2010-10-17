@@ -65,7 +65,7 @@ class ZMTinyMCEFormWidget extends ZMTextAreaFormWidget {
         $resources->jsFile('tinymce-3.3.8/jscripts/tiny_mce/tiny_mce.js', ZMViewUtils::HEADER);
 
         self::$ID_LIST[] = $this->getId();
-        $id = $this->getId();
+
         // create init script code at the end once we know all the ids
         ZMEvents::instance()->attach($this);
         return parent::render($request, $view);
