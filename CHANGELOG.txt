@@ -81,6 +81,7 @@ Release 0.9.11
 - settings: allow vanilla input on wysiwyg widgets
 - properly resolve plugin resources from apps/xxx apps
 - tinyMCE: add support for multiple instances per page
+- xinha: add support for multiple instances per page
 
 Release 0.9.10
 - restructure store and admin code into separate apps with most of the store

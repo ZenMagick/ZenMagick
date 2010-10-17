@@ -31,6 +31,7 @@
  * @author DerManoMann
  */
 class ZMXinhaFormWidget extends ZMTextAreaFormWidget {
+    private static $ID_LIST = array();
     private $plugin_;
 
 
@@ -59,11 +60,23 @@ class ZMXinhaFormWidget extends ZMTextAreaFormWidget {
             return parent::render($request, $view);
         }
 
-        $baseUrl = $this->plugin_->pluginURL('xinha-0.96.1/');
+        self::$ID_LIST[] = $this->getId();
 
-        $id = $this->getId();
+        // create init script code at the end once we know all the ids
+        ZMEvents::instance()->attach($this);
+        return parent::render($request, $view);
+    }
 
-        $jsInit = <<<EOT
+    /**
+     * Add init code.
+     */
+    public function onZMFinaliseContents($args) {
+        if (0 < count(self::$ID_LIST)) {
+            $contents = $args['contents'];
+
+            $baseUrl = $this->plugin_->pluginURL('xinha-0.96.1/');
+            $idList = implode("', '", self::$ID_LIST);
+            $jsInit = <<<EOT
 <script type="text/javascript">
 _editor_url  = "$baseUrl"; _editor_lang = "en";
 xinha_editors = null; xinha_init = null; xinha_config = null; xinha_plugins = null;
@@ -72,12 +85,10 @@ xinha_editors = null; xinha_init = null; xinha_config = null; xinha_plugins = nu
 <script type="text/javascript">
 // This contains the names of textareas we will make into Xinha editors
 xinha_init = xinha_init ? xinha_init : function() {
-  xinha_editors = xinha_editors ? xinha_editors : [ '$id' ];
+  xinha_editors = xinha_editors ? xinha_editors : [ '$idList' ];
   xinha_plugins = xinha_plugins ? xinha_plugins : [ 'CharacterMap', 'ContextMenu', 'ListType', 'Stylist', 'Linker', 'TableOperations' ];
   if(!Xinha.loadPlugins(xinha_plugins, xinha_init)) return;
   xinha_config = new Xinha.Config();
-  //xinha_config.width  = '$width';
-  //xinha_config.height = '$height';
   xinha_config.toolbar =
   [
     ["popupeditor"],
@@ -98,8 +109,11 @@ xinha_init = xinha_init ? xinha_init : function() {
 Xinha._addEvent(window,'load', xinha_init);
 </script>
 EOT;
-
-        return $jsInit.parent::render($request, $view);
+            $args['contents'] = preg_replace('/<\/body>/', $jsInit . '</body>', $contents, 1);
+            // clear to create js only once
+            self::$ID_LIST = array();
+        }
+        return $args;
     }
 
 }
