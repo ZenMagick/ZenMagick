@@ -52,6 +52,7 @@
                 <option value="CountrySelectFormWidget#">Country (dropdown)</option>
                 <option value="CountrySelectFormWidget#title=None&options=0= --- ">Country (dropdown, incl. empty default)</option>
                 <option value="EditorSelectFormWidget#">WYSIWYG Editor (dropdown)</option>
+                <option value="WysiwygFormWidget#">WYSIWYG text field</option>
             </select>
         </p>
         <p>
@@ -80,7 +81,7 @@
                         <tr>
                             <td><?php echo $value->getTitle() ?></td>
                             <td><?php echo $value->getName() ?></td>
-                            <td><?php echo $value->render($request, $this); ?></td>
+                            <td><?php echo $value->render($request, $view); ?></td>
                         </tr>
                     <?php } ?>
                 <?php } ?>

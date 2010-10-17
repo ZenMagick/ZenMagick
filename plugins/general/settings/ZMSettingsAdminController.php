@@ -67,16 +67,9 @@ class ZMSettingsAdminController extends ZMPluginAdmin2Controller {
                 $plugin->addConfigValue($title, $key, $value, '', 'widget@'.$type.'&id='.$key.'&name='.$key.$parValue);
             }
         } else if ('update' == $action) {
-            $parameter = array();
-            foreach ($request->getParameterMap() as $name => $value) {
-                // TODO:::: sanitized by zc
-                $lname = str_replace('_', '.', $name);
-                $parameter[$lname] = $value;
-            }
-
             foreach ($plugin->getConfigValues() as $widget) {
-                if ($widget instanceof ZMFormWidget && null !== $request->getParameter($widget->getName())) {
-                    $value = $parameter[$widget->getName()];
+                $sanitize = !($widget instanceof ZMWysiwygFormWidget);
+                if ($widget instanceof ZMFormWidget && null != ($value = $request->getParameter($widget->getName(), null, $sanitize))) {
                     if (!$widget->compare($value)) {
                         // value changed, use widget to (optionally) format value
                         $widget->setValue($value);
