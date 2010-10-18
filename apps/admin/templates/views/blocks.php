@@ -20,9 +20,17 @@
 ?>
 <?php zm_title($this) ?>
 
-<?php foreach (ZMBlockManager::instance()->getProviders() as $provider) { ?>
-  <?php foreach ($provider->getBlockList() as $block) { ?>
-    <?php $block = ZMBeanUtils::getBean($block); ?>
-    <?php echo $block->getTitle()."<BR>" ?>
-  <?php } ?>
+<h2>Blocks</h2>
+<?php foreach ($blocks as $def => $title) { ?>
+  <?php echo $title."<BR>" ?>
 <?php } ?>
+<h2>Block Groups</h2>
+<?php foreach ($blockGroups as $groupId) { ?>
+  <form action="<?php echo $admin2->url() ?>" method="POST"><?php echo $groupId ?><input type="hidden" name="groupId" value="<?php echo $groupId ?>"><input type="hidden" name="action" value="removeGroup"><input type="submit" value="Remove"></form>
+<?php } ?>
+<form action="<?php echo $admin2->url() ?>" method="POST">
+  <p>Create group</p>
+  <input type="text" id="groupId" name="groupId" value="">
+  <input type="hidden" name="action" value="addGroup">
+  <input type="submit" value="Add">
+</form>
