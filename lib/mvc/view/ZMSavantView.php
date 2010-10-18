@@ -50,7 +50,11 @@ class ZMSavantView extends ZMView {
         $this->layout_ = array();
         $this->filters_ = null;
         $this->setViewDir('views/');
-        $this->utils_ = null;
+        
+        // special view bits
+        $viewUtils = $this->getViewUtils();
+        $this->setVar('resources', $viewUtils);
+
     }
 
     /**
@@ -252,10 +256,6 @@ class ZMSavantView extends ZMView {
     public function generate($request) {
         $savant = $this->getSavant($request);
 
-        // special view bits
-        $viewUtils = $this->getViewUtils();
-        $this->setVar('resources', $viewUtils);
-
         // assign view to toolbox tools
         foreach ($this->getVars() as $var) {
             if ($var instanceof ZMToolboxTool) {
@@ -280,6 +280,7 @@ class ZMSavantView extends ZMView {
 
             $template .= ZMSettings::get('zenmagick.mvc.templates.ext', '.php');
             $contents = $savant->fetch($template);
+            $viewUtils = $this->getViewUtils();
             if (null !== ($resources = $viewUtils->getResourceContents())) {
                 // apply resources...
                 $contents = preg_replace('/<\/head>/', $resources['header'] . '</head>', $contents, 1);
