@@ -58,7 +58,7 @@ class ZMPendingDashboardWidget extends ZMDashboardWidget {
         }
 
         if (0 == strlen($contents)) {
-            $contents = _zm('Pending Stuff...');
+            $contents = _zm('No pending tasks found.');
         }
 
         $contents = '<p id="pending">'.$contents.'</p>';
