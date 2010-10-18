@@ -100,10 +100,10 @@ class ZMProductImagesPlugin extends Plugin {
      */
     public function onZMViewStart($args) {
         if (ZMLangUtils::asBoolean($this->get('zoomSmallImages'))) {
-            if (null != ($viewUtils = $args['view']->getViewUtils())) {
+            if (null != ($resources = $args['view']->getVar('resources'))) {
                 // might be null in case of redirect/forward/etc
-                $viewUtils->cssFile('ih2/style_imagehover.css');
-                $viewUtils->jsFile('ih2/jscript_imagehover.js');
+                $resources->cssFile('ih2/style_imagehover.css');
+                $resources->jsFile('ih2/jscript_imagehover.js', ZMViewUtils::FOOTER);
             }
         }
     }

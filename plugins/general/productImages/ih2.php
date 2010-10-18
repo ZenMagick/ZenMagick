@@ -1,6 +1,5 @@
 <?php
 /**
- * bmz_image_handler_conf.php
  * additional configuration entries for image handler
  *
  * @author  Tim Kroeger (original author)

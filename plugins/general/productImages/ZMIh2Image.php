@@ -1,108 +1,89 @@
 <?php
 /**
- * bmz_image_handler.class.php
  * IH2 class for image manipulation
  *
  * @author  Tim Kroeger (original author)
  * @copyright Copyright 2005-2006
  * @license http://www.gnu.org/licenses/gpl.txt GNU General Public License V2.0
- * @version $Id: bmz_image_handler.class.php,v 2.0 Rev 8 2010-05-31 23:46:5 DerManoMann Exp $
- * modified by yellow1912 (rubikintegration.com)
- * Last modified by DerManoMann 2010-05-31 23:40:21
  */
-
 class ZMIh2Image {
+    // full path
+    private $src = null;
+    // cached
+    private $local = null;
+    // the plugin
+    private $plugin_;
 
-	/**
-   * $orig is the original image source passed to the constructor
-   * $src = is the reference to an actual physical image
-	 * $local is the cached image reference
-	 */
-  var $orig = null;
-	var $src = null;
-  var $local = null;
-	var $filename;
-	var $extension;
-	var $width;
-	var $height;
-	var $sizetype;
-	var $canvas;
-	var $zoom;
-	var $watermark;
-  var $force_canvas;
+    private $filename;
+    private $extension;
+    private $width;
+    private $height;
+    private $sizetype;
+    var $canvas;
+    private $zoom;
+    private $watermark;
+    private $force_canvas;
 
-/**
- * ih_image class constructor
- * @author Tim Kroeger (tim@breakmyzencart.com)
- * @version 1.99
- * @param string $src Image source (e.g. - images/productimage.jpg)
- * @param string $width The image's width
- * @param string $height The image's height
- */
-
-	function __construct($src, $width, $height){
-		global $ihConf;
-		
-    
-    $this->orig = $src;
-    $this->src = $src;
-    $this->width = $width;
-    $this->height = $height;
-    $this->zoom = array();
-    
- 		$this->determine_image_sizetype();
-    
-    if ((($this->sizetype == 'large') || ($this->sizetype == 'medium')) && $this->file_not_found()) {
-      // large or medium image specified but not found. strip superflous suffix.
-      // now we can actually access the default image referenced in the database.
-		  $this->src = $this->strip_sizetype_suffix($this->src);
-    }
-		$this->filename = $ihConf['dir']['docroot'] . $this->src;
-		$this->extension = substr($this->src, strrpos($this->src, '.'));
-
-		list($newwidth, $newheight, $resize) = $this->calculate_size($this->width, $this->height);
-		// set canvas dimensions
-		if (($newwidth > 0) && ($newheight > 0)) {
-			$this->canvas['width'] = $newwidth;
-			$this->canvas['height'] = $newheight;
-		}
-
-		// initialize overlays (watermark, zoom overlay)
-		$this->initialize_overlays($this->sizetype);
-	} # end class constructor
-
-  function file_not_found() {
-    global $ihConf;
-    // try to find file by using different file extensions if initial
-    // source doesn't succeed
-    if (is_file($ihConf['dir']['docroot'] . $this->src)) {
-      return false;
-    } else {
-      // do a quick search for files with common extensions
-      $extensions = array('.png', '.PNG', '.jpg', '.JPG', '.jpeg', '.JPEG', '.gif', '.GIF');
-      $base = substr($this->src, 0, strrpos($this->src, '.'));
-      for ($i=0; $i<count($extensions); $i++) {
-        if (is_file($ihConf['dir']['docroot'] . $base . $extensions[$i])) {
-          $this->src = $base . $extensions[$i];
-          return false;
+    /**
+     * Constructor
+     *
+     * @param string src Image source name (e.g. - images/productimage.jpg)
+     * @param string width The image width.
+     * @param string height The image height.
+     */
+    function __construct($src, $width, $height) {
+        $this->plugin_ = ZMPlugins::instance()->getPluginForId('productImages');
+        $this->src = $src;
+        $this->width = $width;
+        $this->height = $height;
+        $this->zoom = array();
+        
+        $this->determine_image_sizetype();
+        
+        if (($this->sizetype == 'large' || $this->sizetype == 'medium') && !$this->file_exists()) {
+            // large or medium image specified but not found. strip superflous suffix.
+            // now we can actually access the default image referenced in the database.
+            $this->src = $this->strip_sizetype_suffix($this->src);
         }
-      }
-    }
-    // still here? no file found...
-    return true;
-  }
-  
-  function is_real() {
-    // return true if the source images are really present and medium
-    // or large are not just a descendant from the default image.
-    // small default images always return true.
-    
-    // strip file extensions, they don't matter
-    $orig = substr($this->orig, 0, strrpos($this->orig, '.'));
-    $src = substr($this->src, 0, strrpos($this->src, '.'));
-    return ($orig == $src);
-  }
+        $this->filename = DIR_FS_CATALOG . $this->src;
+        $this->extension = substr($this->src, strrpos($this->src, '.'));
 
+        list($newwidth, $newheight, $resize) = $this->calculate_size($this->width, $this->height);
+        // set canvas dimensions
+        if ($newwidth > 0 && $newheight > 0) {
+            $this->canvas['width'] = $newwidth;
+            $this->canvas['height'] = $newheight;
+        }
+
+        // initialize overlays (watermark, zoom overlay)
+        $this->initialize_overlays($this->sizetype);
+	  }
+
+    /**
+     * Check if the file exists.
+     *
+     * @return boolean <code>true</code> if found.
+     */
+    protected function file_exists() {
+        // try to find file by using different file extensions if initial
+        // source doesn't succeed
+        if (is_file(DIR_FS_CATALOG . $this->src)) {
+            return true;
+        } else {
+            // do a quick search for files with common extensions
+            $extensions = array('.png', '.PNG', '.jpg', '.JPG', '.jpeg', '.JPEG', '.gif', '.GIF');
+            $base = substr($this->src, 0, strrpos($this->src, '.'));
+            for ($i=0; $i<count($extensions); $i++) {
+                if (is_file(DIR_FS_CATALOG . $base . $extensions[$i])) {
+                    $this->src = $base . $extensions[$i];
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+  
 	function determine_image_sizetype() {
 		global $ihConf;
 		
@@ -130,16 +111,16 @@ class ZMIh2Image {
 		
 		switch ($sizetype) {
 			case 'large':
-				$this->watermark['file'] = ($ihConf['large']['watermark']) ? $ihConf['dir']['docroot'] . $ihConf['dir']['images'] . 'large/watermark' . $ihConf['large']['suffix'] . '.png' : '';
-				$this->zoom['file'] = (isset($ihConf['large']['zoom'])&&$ihConf['large']['zoom']) ? $ihConf['dir']['docroot'] . $ihConf['dir']['images'] . 'large/zoom' . $ihConf['large']['suffix'] . '.png' : '';
+				$this->watermark['file'] = ($ihConf['large']['watermark']) ? DIR_FS_CATALOG . $ihConf['dir']['images'] . 'large/watermark' . $ihConf['large']['suffix'] . '.png' : '';
+				$this->zoom['file'] = (isset($ihConf['large']['zoom'])&&$ihConf['large']['zoom']) ? DIR_FS_CATALOG . $ihConf['dir']['images'] . 'large/zoom' . $ihConf['large']['suffix'] . '.png' : '';
 				break;
 			case 'medium':
-				$this->watermark['file'] = ($ihConf['medium']['watermark']) ? $ihConf['dir']['docroot'] . $ihConf['dir']['images'] . 'medium/watermark' . $ihConf['medium']['suffix'] . '.png': '';
-				$this->zoom['file'] = (isset($ihConf['large']['zoom'])&&$ihConf['medium']['zoom']) ? $ihConf['dir']['docroot'] . $ihConf['dir']['images'] . 'medium/zoom' . $ihConf['medium']['suffix'] . '.png' : '';
+				$this->watermark['file'] = ($ihConf['medium']['watermark']) ? DIR_FS_CATALOG . $ihConf['dir']['images'] . 'medium/watermark' . $ihConf['medium']['suffix'] . '.png': '';
+				$this->zoom['file'] = (isset($ihConf['large']['zoom'])&&$ihConf['medium']['zoom']) ? DIR_FS_CATALOG . $ihConf['dir']['images'] . 'medium/zoom' . $ihConf['medium']['suffix'] . '.png' : '';
 				break;
 			case 'small':
-				$this->watermark['file'] = ($ihConf['small']['watermark']) ? $ihConf['dir']['docroot'] . $ihConf['dir']['images'] . 'watermark.png' : '';
-				$this->zoom['file'] = (isset($ihConf['large']['zoom'])&&$ihConf['small']['zoom']) ? $ihConf['dir']['docroot'] . $ihConf['dir']['images'] . 'zoom.png' : '';
+				$this->watermark['file'] = ($ihConf['small']['watermark']) ? DIR_FS_CATALOG . $ihConf['dir']['images'] . 'watermark.png' : '';
+				$this->zoom['file'] = (isset($ihConf['large']['zoom'])&&$ihConf['small']['zoom']) ? DIR_FS_CATALOG . $ihConf['dir']['images'] . 'zoom.png' : '';
 				break;
 			default:
 				$this->watermark['file'] = '';
@@ -185,7 +166,7 @@ class ZMIh2Image {
     $allowed = false;
     if ($ihConf['resize'] && 
         ((strpos($this->src, $ihConf['dir']['images']) === 0) || 
-         ((strpos($this->src, substr(ZMSettings::get('plugins.imageHandler2.cachedir'), strlen($ihConf['dir']['docroot']))) === 0))) &&
+         ((strpos($this->src, substr(ZMSettings::get('plugins.imageHandler2.cachedir'), strlen(DIR_FS_CATALOG))) === 0))) &&
         (strpos($this->src, ZMSettings::get('plugins.imageHandler2.noresize_key')) === false)) {
       $allowed = true;
       foreach (ZMSettings::get('plugins.imageHandler2.noresize_dirs') as $dir) {
@@ -243,7 +224,7 @@ class ZMIh2Image {
 			if ( (($mtime > @filemtime($this->filename)) && ($mtime > @filemtime($this->watermark['file'])) && ($mtime > @filemtime($this->zoom['file'])) ) ||
 				$this->resize_imageIM($file_extension, $local, $background, $quality) ||
 				$this->resize_imageGD($file_extension, $local, $background, $quality) ) {
-				return str_replace($ihConf['dir']['docroot'], '', $local);
+				return str_replace(DIR_FS_CATALOG, '', $local);
 			}
 			//still here? resizing failed
 		}
@@ -673,7 +654,7 @@ class ZMIh2Image {
         $products_image_zoom = $ihConf['dir']['images'] . $zoom_sizetype . '/' . $products_image_directory . $products_image_filename . $ihConf[$zoom_sizetype]['suffix'] . $this->extension;
         $ih_zoom_image = new ZMIh2Image($products_image_zoom, $ihConf[$zoom_sizetype]['width'], $ihConf[$zoom_sizetype]['height']);
         $products_image_zoom = $ih_zoom_image->get_local();
-        list($zoomwidth, $zoomheight) = @getimagesize($ihConf['dir']['docroot'] . $products_image_zoom);
+        list($zoomwidth, $zoomheight) = @getimagesize(DIR_FS_CATALOG . $products_image_zoom);
         // we should parse old parameters here and possibly merge some inc case they're duplicate
         $parameters .= ($parameters != '') ? ' ' : '';
         return $parameters . 'style="position:relative" onmouseover="showtrail(' . "'$products_image_zoom','$alt',$width,$height,$zoomwidth,$zoomheight,this," . $this->zoom['startx'].','.$this->zoom['starty'].','.$this->zoom['width'].','.$this->zoom['height'].');" onmouseout="hidetrail();" ';
