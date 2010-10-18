@@ -169,7 +169,6 @@ class ZMBanners extends ZMObject {
                       (banners_id, banners_shown, banners_history_date)
                     VALUES (:id, 1, now())";
         }
-        var_dump($sql);
         ZMRuntime::getDatabase()->update($sql, array('id' => $bannerId), TABLE_BANNERS_HISTORY);
     }
 
