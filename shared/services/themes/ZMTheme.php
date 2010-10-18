@@ -110,7 +110,7 @@ class ZMTheme extends ZMObject {
      * @return string The name.
      */
     public function getName() {
-        return $this->config_['name'];
+        return array_key_exists('name', $this->config_) ? $this->config_['name'] : '??';
     }
 
     /**
