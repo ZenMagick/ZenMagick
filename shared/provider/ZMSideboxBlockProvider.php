@@ -27,7 +27,7 @@
  * @author DerManoMann
  * @package zenmagick.store.shared.provider
  */
-class ZMBlockContentsProvider extends ZMBlockProvider {
+class ZMSideboxBlockProvider implements ZMBlockProvider {
 
     /**
      * {@inheritDoc}
@@ -37,14 +37,14 @@ class ZMBlockContentsProvider extends ZMBlockProvider {
         if (ZMTemplateManager::instance()->isLeftColEnabled()) {
             foreach (ZMTemplateManager::instance()->getLeftColBoxNames() as $boxName) {
                 // avoid duplicates by using $box as key
-                $blocks[$boxName] = 'BlockWidget#template=boxes/'.$boxName;
+                $blocks[$boxName] = 'BlockWidget#template=boxes/'.$boxName.'&title='.str_replace('.php', '', $boxName);
             }
         }
 
         if (ZMTemplateManager::instance()->isRightColEnabled()) {
             foreach (ZMTemplateManager::instance()->getRightColBoxNames() as $boxName) {
                 // avoid duplicates by using $box as key
-                $blocks[$boxName] = 'BlockWidget#template=boxes/'.$boxName;
+                $blocks[$boxName] = 'BlockWidget#template=boxes/'.$boxName.'&title='.str_replace('.php', '', $boxName);
             }
         }
 

@@ -38,6 +38,7 @@
 
     ZMAdminMenu::setItem(array('parentId' => 'tools', 'id' => 'tools-admin', 'title' => _zm('Admin')));
     ZMAdminMenu::setItem(array('parentId' => 'tools-admin', 'requestId' => 'themes', 'title' => _zm('Themes')));
+    ZMAdminMenu::setItem(array('parentId' => 'tools-admin', 'requestId' => 'blocks', 'title' => _zm('Blocks')));
     ZMAdminMenu::setItem(array('parentId' => 'tools-admin', 'requestId' => 'admin_users', 'title' => _zm('Manage Users'), 'other' => array('edit_admin_user')));
     ZMAdminMenu::setItem(array('parentId' => 'tools-admin', 'requestId' => 'manage_roles', 'title' => _zm('Manage Roles')));
     ZMAdminMenu::setItem(array('parentId' => 'tools-admin', 'requestId' => 'cache_admin', 'title' => _zm('Manage Caches')));

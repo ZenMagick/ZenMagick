@@ -66,7 +66,7 @@ class ZMBlockManager extends ZMObject {
             $this->providers_ = array();
             foreach (explode(',', ZMSettings::get('zenmagick.mvc.blocks.blockProviders')) as $providerId) {
                 $provider = ZMBeanUtils::getBean($providerId);
-                if (null != $provider && $provider instanceof ZMBlockContentsProvider) {
+                if (null != $provider && $provider instanceof ZMBlockProvider) {
                     $this->providers_[] = $provider;
                 } else {
                     ZMLogging::instance()->log('invalid block contents provider: '.$providerId, ZMLogging::WARN);
