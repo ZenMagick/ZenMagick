@@ -106,8 +106,8 @@ class ZMEventFixes extends ZMObject {
         // append again to make this the first one called to provide some useful default for zencart args
         ZMSettings::append('zenmagick.mvc.request.seoRewriter', 'StoreDefaultSeoRewriter');
 
-        // hook up sidebox blocks
         // TODO: do via admin and just load mapping from somewhere
+        // sidebox blocks
         $mappings = array();
         if (ZMTemplateManager::instance()->isLeftColEnabled()) {
             $index = 1;
@@ -117,7 +117,6 @@ class ZMEventFixes extends ZMObject {
                 $mappings['leftColumn'][$boxName] = 'BlockWidget#template=boxes/'.$boxName.'&sortOrder='.$index++;
             }
         }
-
         if (ZMTemplateManager::instance()->isRightColEnabled()) {
             $index = 1;
             $mappings['rightColumn'] = array();
@@ -126,6 +125,9 @@ class ZMEventFixes extends ZMObject {
                 $mappings['rightColumn'][$boxName] = 'BlockWidget#template=boxes/'.$boxName.'&sortOrder='.$index++;
             }
         }
+        // general banners block group - if used, the group needs to be passed into fetchBlockGroup()
+        $mappings['banners'][$groupId] = 'BannerBlockWidget';
+
         ZMBlockManager::instance()->setMappings($mappings);
     }
 

@@ -47,7 +47,7 @@ class ZMFunctionView extends ZMView {
     /**
      * {@inheritDoc}
      */
-    public function fetch($request, $template, $type=ZMView::TEMPLATE) {
+    public function fetch($request, $template, $vars=array()) {
         throw new ZMException('not supported');
     }
 
@@ -69,13 +69,6 @@ class ZMFunctionView extends ZMView {
      * {@inheritDoc}
      */
     public function path($template, $type=ZMView::TEMPLATE) {
-        throw new ZMException('not supported');
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function fetchBlock($request, $blockId) {
         throw new ZMException('not supported');
     }
 

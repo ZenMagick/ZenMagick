@@ -79,9 +79,11 @@ class ZMBanners extends ZMObject {
      *
      * @param string name A banner group set name.
      * @return mixed A <code>ZMBanner</code> instance or <code>null</code>.
+     * @deprecated
      */
     public function getBannerForSet($name) {
-        $list = $this->getBannersForGroupName(ZMSettings::get('banners.'.$name));
+        $list = $this->getBannersForGroupName(ZMSettings::get('banners.'.$name), ZMRequest::instance()->isSecure());
+        shuffle($list);
         return 0 < count($list) ? $list[0] : null;
     }
 
@@ -91,9 +93,10 @@ class ZMBanners extends ZMObject {
      * <p>this will return all banner as configured using the zen-cart define <code>SHOW_BANNERS_GROUP_SET_ALL</code>.
      *
      * @return array A list of <code>ZMBanner</code> instances.
+     * @deprecated
      */
     public function getAllBanners() {
-        return $this->getBannersForGroupName(ZMSettings::get('banners.all', 'bannerGroupAll'), true);
+        return $this->getBannersForGroupName(ZMSettings::get('banners.all', 'bannerGroupAll'));
     }
 
     /**
@@ -101,13 +104,12 @@ class ZMBanners extends ZMObject {
      *
      * <p>If <code>$all</code> is set to <code>true</code>, all matching banners will be returned.</p>
      *
-     * @param string identifiers One ore more identifiers, separated by ':'.
-     * @param boolean all If set to <code>true</code>, all banners will be returned, ordered in
-     *  the configured sort order; default is <code>false</code> to shuffle results.
+     * @param string group One ore more group names, separated by ':'.
+     * @param boolean secure Optional flag to load just banners for secure/unsecure pages; default is <code>null</code> for all.
      * @return array A list of <code>ZMBanner</code> instances.
      */
-    protected function getBannersForGroupName($identifiers, $all=false) {
-        if (empty($identifiers)) {
+    public function getBannersForGroupName($group, $secure=null) {
+        if (empty($group)) {
             return array();
         }
 
@@ -115,13 +117,13 @@ class ZMBanners extends ZMObject {
                 FROM " . TABLE_BANNERS . "
                 WHERE status = 1";
 
-        if (ZMRequest::instance()->isSecure()) {
+        if (null !== $secure) {
             $sql .= " AND banners_on_ssl= :ssl";
         }
 
-        // handle multiple identifiers
+        // handle multiple groups
         $groupList = array();
-        foreach (explode(':', $identifiers) as $group) {
+        foreach (explode(':', $group) as $group) {
             if (!empty($group)) {
                 $groupList[] = $group;
             }
@@ -129,16 +131,9 @@ class ZMBanners extends ZMObject {
         if (0 < count($groupList) && !empty($groupList[0])) {
             $sql .= " AND banners_group IN (:group)";
         }
-        if ($all) {
-            $sql .= " ORDER BY banners_sort_order";
-        }
+        $sql .= " ORDER BY banners_sort_order";
 
-        $banner = ZMRuntime::getDatabase()->query($sql, array('ssl' => 1, 'group' => $groupList), TABLE_BANNERS, 'Banner');
-        if (!$all) {
-            shuffle($banner);
-        }
-
-        return $banner;
+        return ZMRuntime::getDatabase()->query($sql, array('ssl' => $secure, 'group' => $groupList), TABLE_BANNERS, 'Banner');
     }
 
     /**
@@ -151,13 +146,7 @@ class ZMBanners extends ZMObject {
         $sql = "SELECT *
                 FROM " . TABLE_BANNERS . "
                 WHERE status = 1 AND banners_id = :id";
-        if (ZMRequest::instance()->isSecure()) {
-            $sql .= " AND banners_on_ssl= :ssl";
-        }
-
-        $banner = ZMRuntime::getDatabase()->querySingle($sql, array('ssl' => 1, 'id' => $id), TABLE_BANNERS, 'Banner');
-
-        return $banner;
+        return ZMRuntime::getDatabase()->querySingle($sql, array('id' => $id), TABLE_BANNERS, 'Banner');
     }
 
     /**
@@ -175,13 +164,13 @@ class ZMBanners extends ZMObject {
             $sql = "UPDATE " . TABLE_BANNERS_HISTORY . "
                     SET banners_shown = banners_shown +1
                     WHERE banners_id = :id AND date_format(banners_history_date, '%%Y%%m%%d') = date_format(now(), '%%Y%%m%%d')";
-            ZMRuntime::getDatabase()->update($sql, array('id' => $bannerId), TABLE_BANNERS_HISTORY);
         } else {
             $sql = "INSERT INTO " . TABLE_BANNERS_HISTORY . "
                       (banners_id, banners_shown, banners_history_date)
                     VALUES (:id, 1, now())";
-            ZMRuntime::getDatabase()->update($sql, array('id' => $bannerId), TABLE_BANNERS_HISTORY);
         }
+        var_dump($sql);
+        ZMRuntime::getDatabase()->update($sql, array('id' => $bannerId), TABLE_BANNERS_HISTORY);
     }
 
     /**

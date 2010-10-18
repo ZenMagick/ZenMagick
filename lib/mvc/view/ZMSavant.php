@@ -162,13 +162,14 @@ class ZMSavant extends Savant3 {
     /**
      * Fetch/generate the contents for a given block group id.
      *
-     * @param string groupI The group id.
+     * @param string group The group id.
+     * @param array args Optional parameter; default is an empty array.
      * @return string The contents.
      */
-    public function fetchBlockGroup($groupId) {
+    public function fetchBlockGroup($groupId, $args=array()) {
         $contents = '';
-        foreach (ZMBlockManager::instance()->getBlocksForId($request, $groupId) as $block) {
-            $contents .= $block->render($request, $this->view);
+        foreach (ZMBlockManager::instance()->getBlocksForId($this->request, $groupId, $args) as $block) {
+            $contents .= $block->render($this->request, $this->view);
         }
         return $contents;
     }

@@ -295,11 +295,13 @@ class ZMSavantView extends ZMView {
     /**
      * {@inheritDoc}
      */
-    public function fetch($request, $template) {
+    public function fetch($request, $template, $vars=array()) {
         $savant = $this->getSavant($request);
 
-        // put all vars into local scope
+        // put all general vars into local scope
         $savant->assign($this->getVars());
+        // also assign custom vars
+        $savant->assign($vars);
 
         // load template...
         try {
@@ -329,13 +331,6 @@ class ZMSavantView extends ZMView {
      */
     public function path($filename, $type=ZMView::TEMPLATE) {
         return $this->getSavant($request)->path($filename, $type);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function fetchBlock($request, $blockId) {
-        return $this->getSavant($request)->fetchBlock($blockId);
     }
 
 }

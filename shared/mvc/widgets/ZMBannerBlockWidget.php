@@ -28,7 +28,8 @@
  * @package zenmagick.store.shared.mvc.widgets
  */
 class ZMBannerBlockWidget extends ZMWidget {
-    private $bannerId;
+    private $group_;
+    private $trackDisplay_;
 
 
     /**
@@ -36,7 +37,8 @@ class ZMBannerBlockWidget extends ZMWidget {
      */
     function __construct() {
         parent::__construct();
-        $this->bannerId_ = null;
+        $this->group_ = null;
+        $this->trackDisplay_ = true;
     }
 
     /**
@@ -48,53 +50,75 @@ class ZMBannerBlockWidget extends ZMWidget {
 
 
     /**
-     * Set the banner id.
+     * Get the group name.
      *
-     * @param string bannerId The banner id.
+     * @return string The group name.
      */
-    public function setBannerId($bannerId) {
-        $this->bannerId_ = $bannerId;
+    public function getGroup() {
+        return $this->group_;
     }
 
     /**
-     * Get the banner id.
+     * Set the group name.
      *
-     * @return string The banner id.
+     * @param string group The group name.
      */
-    public function getBannerId() {
-        return $this->bannerId_;
+    public function setGroup($group) {
+        $this->group_ = $group;
+    }
+
+    /**
+     * Enable/disable display tracking.
+     *
+     * @param boolean trackDisplay The new value.
+     */
+    public function setTrackDisplay($trackDisplay) {
+        $this->trackDisplay_ = $trackDisplay;
+    }
+
+    /**
+     * Check if display tracking is enabled.
+     *
+     * @return boolean <code>true</code> if tracking is enabled.
+     */
+    public function isTrackDisplay() {
+        return $this->trackDisplay_;
     }
 
     /**
      * {@inheritDoc}
      */
     public function render($request, $view) {
-        if (null == ($banner = ZMBanners::instance()->getBannerForSet($this->bannerId_))) {
+        // try to load a banner for the given group
+        if (null == ($banners = ZMBanners::instance()->getBannersForGroupName($this->group_, $request->isSecure(), false))) {
             return '';
         }
 
-        // render banner
+        // render first banner
         $content = '';
-        if (!ZMLangUtils::isEmpty($banner->getText())) {
-            // use text if not empty
-            $html = $banner->getText();
-        } else {
-            $net = $view->getVar('net');
-            $slash = ZMSettings::get('zenmagick.mvc.html.xhtml') ? '/' : '';
-            $img = '<img src="'.$net->image($banner->getImage()).'" alt="'.
-                      ZMHtmlUtils::encode($banner->getTitle()).'"'.$slash.'>';
-            if (ZMLangUtils::isEmpty($banner->getUrl())) {
-                // if we do not have a url try our luck with the image...
-                $content = $img;
+        if (0 < count($banners)) {
+            $banner = $banners[0];
+            if (!ZMLangUtils::isEmpty($banner->getText())) {
+                // use text if not empty
+                $html = $banner->getText();
             } else {
-                $html = $view->getVar('html');
-                $content = '<a href="'.$net->trackLink('banner', $banner->getId()).'"'.
-                            $html->hrefTarget($banner->isNewWin()).'>'.$img.'</a>';
+                $net = $view->getVar('net');
+                $slash = ZMSettings::get('zenmagick.mvc.html.xhtml') ? '/' : '';
+                $img = '<img src="'.$net->image($banner->getImage()).'" alt="'.
+                          ZMHtmlUtils::encode($banner->getTitle()).'"'.$slash.'>';
+                if (ZMLangUtils::isEmpty($banner->getUrl())) {
+                    // if we do not have a url try our luck with the image...
+                    $content = $img;
+                } else {
+                    $html = $view->getVar('html');
+                    $content = '<a href="'.$net->trackLink('banner', $banner->getId()).'"'.
+                                $html->hrefTarget($banner->isNewWin()).'>'.$img.'</a>';
+                }
             }
-        }
 
-        if ($updateStats) {
-            ZMBanners::instance()->updateBannerDisplayCount($banner->getId());
+            if ($this->isTrackDisplay()) {
+                ZMBanners::instance()->updateBannerDisplayCount($banner->getId());
+            }
         }
 
         return $content;

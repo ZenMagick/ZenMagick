@@ -264,6 +264,10 @@ class ZMThemes extends ZMObject {
         if (null == $themeId) {
             $themeId = ZMSettings::get('apps.store.themes.default');
         }
+        if (null == $language) {
+            // default language
+            $language = ZMLanguages::instance()->getLanguageForCode(ZMSettings::get('defaultLanguageCode'));
+        }
         // set up theme
         $theme = ZMThemes::instance()->getThemeForId($themeId);
 

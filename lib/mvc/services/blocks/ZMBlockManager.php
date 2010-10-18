@@ -82,9 +82,10 @@ class ZMBlockManager extends ZMObject {
      *
      * @param ZMRequest request The current request.
      * @param string groupId The block group id.
+     * @param array args Optional parameter; default is an empty array.
      * @return array List of <code>ZMBlockWidget</code> instances.
      */
-    public function getBlocksForId($request, $groupId) {
+    public function getBlocksForId($request, $groupId, $args) {
         if (array_key_exists($groupId, $this->mappings_)) {
             // ensure bean definitions are resolved first...
             $group = array();
@@ -96,6 +97,7 @@ class ZMBlockManager extends ZMObject {
                     $widget = $block;
                 }
                 if (null != $widget) {
+                    ZMBeanUtils::setAll($widget, $args);
                     $group[] = $widget;
                 }
             }

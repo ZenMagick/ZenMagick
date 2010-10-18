@@ -95,7 +95,8 @@ class ZMBlockWidget extends ZMWidget {
             return '';
         }
 
-        return $view->fetch($request, $this->template_);
+        // hand on all custom properties
+        return $view->fetch($request, $this->template_, $this->getProperties());
     }
 
 }

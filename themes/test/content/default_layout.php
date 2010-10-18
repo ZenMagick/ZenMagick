@@ -65,9 +65,7 @@
   </head>
 
   <body id="b_<?php echo $request->getRequestId() ?>">
-    <?php if (null != ($bannerBox = ZMBanners::instance()->getBannerForSet('header1'))) { ?>
-        <div id="bannerOne"><?php echo $macro->showBanner($bannerBox); ?></div>
-    <?php } ?>
+    <div id="bannerOne"><?php echo $this->fetchBlockGroup('banners', array('group' => 'Wide-Banners')) ?></div>
 
     <div id="container">
       <?php echo $this->fetch('header.php') ?>

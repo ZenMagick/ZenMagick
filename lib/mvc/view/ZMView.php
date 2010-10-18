@@ -183,9 +183,10 @@ abstract class ZMView extends ZMObject {
      *
      * @param request The current request.
      * @param string template The template name.
+     * @param array vars Additional template variables; default is an empty array.
      * @return string The contents.
      */
-    public abstract function fetch($request, $template);
+    public abstract function fetch($request, $template, $vars=array());
 
     /**
      * Check if the given templates file exists.
@@ -225,29 +226,5 @@ abstract class ZMView extends ZMObject {
      * @return ZMViewUtils An instance of <code>ZMViewUtils</code> or <code>null</code>.
      */
     public abstract function getViewUtils();
-
-    /**
-     * Fetch/generate the contents for a given block id.
-     *
-     * @param request The current request.
-     * @param string blockId The block id.
-     * @return string The contents.
-     */
-    public abstract function fetchBlock($request, $blockId);
-
-    /**
-     * Fetch/generate the contents for a list of block ids.
-     *
-     * @param request The current request.
-     * @param array blockIds The block ids.
-     * @return array Map of contents of each block, keyed by the respective block id.
-     */
-    public function fetchBlocks($request, $blockIds) {
-        $contents = array();
-        foreach ($blockIds as $blockId) {
-            $contents[$blockId] = $this->fetchBlock($request, $blockId);
-        }
-        return $contents;
-    }
 
 }
