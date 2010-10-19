@@ -119,7 +119,7 @@ class ZMShoppingCart extends ZMObject {
 
     /**
      * Check for virtual cart.
-     * 
+     *
      * @return boolean <code>true</code> if the cart is purely virtual.
      */
     public function isVirtual() {
@@ -160,7 +160,7 @@ class ZMShoppingCart extends ZMObject {
      *
      * @return float The cart subtotal.
      */
-    public function getSubTotal() { 
+    public function getSubTotal() {
         ZMTools::resolveZCClass('order');
         $order = new order();
         return $order->info['subtotal'];
@@ -171,7 +171,7 @@ class ZMShoppingCart extends ZMObject {
      *
      * @return float The cart total.
      */
-    public function getTotal() { 
+    public function getTotal() {
         return $this->cart_->show_total();
     }
 
@@ -198,7 +198,7 @@ class ZMShoppingCart extends ZMObject {
      *
      * @return string The customer comment.
      */
-    public function getComment() { 
+    public function getComment() {
         return $this->comment_;
     }
 
@@ -207,7 +207,7 @@ class ZMShoppingCart extends ZMObject {
      *
      * @param string comment The customer comment.
      */
-    public function setComment($comment) { 
+    public function setComment($comment) {
         $this->comment_ = $comment;
     }
 
@@ -244,7 +244,7 @@ class ZMShoppingCart extends ZMObject {
      *
      * @return int The shipping method id.
      */
-    public function getSelectedShippingMethodId() { 
+    public function getSelectedShippingMethodId() {
         return (isset($_SESSION['shipping']) && isset($_SESSION['shipping']['id'])) ? $_SESSION['shipping']['id'] : null;
     }
 
@@ -289,7 +289,7 @@ class ZMShoppingCart extends ZMObject {
      *
      * @return int The payment type id.
      */
-    public function getPaymentTypeId() { 
+    public function getPaymentTypeId() {
         return isset($_SESSION['payment']) ? $_SESSION['payment'] : null;
     }
 
@@ -330,7 +330,7 @@ class ZMShoppingCart extends ZMObject {
     public function getOrderFormContent($request) {
         return $this->getPaymentType()->getOrderFormContent($request);
     }
-    
+
     /**
      * Checks if the cart has a shipping address.
      *
@@ -389,7 +389,7 @@ class ZMShoppingCart extends ZMObject {
      * Get zen-cart order totals.
      */
     protected function _getZenTotals() {
-    global $order_total_modules;
+    global $order, $order_total_modules;
 
         if (null == $this->zenTotals_) {
             $this->zenTotals_ = $order_total_modules;
@@ -399,6 +399,7 @@ class ZMShoppingCart extends ZMObject {
             }
             if (!isset($GLOBALS['order']) || !is_object($GLOBALS['order'])) {
                 ZMTools::resolveZCClass('order');
+                $order = new order();
             }
             $this->zenTotals_->process();
         }
@@ -480,7 +481,7 @@ class ZMShoppingCart extends ZMObject {
 
         return $creditTypes;
     }
-    
+
 
     /**
      * Check whether the cart is ready for checkout or not.
@@ -556,7 +557,7 @@ class ZMShoppingCart extends ZMObject {
      *
      * @param int productId The product id.
      * @param int quantity The quantity; default is <code>1</code>.
-     * @param array attributes Optional list of attributes; key is the attribute id, the value can 
+     * @param array attributes Optional list of attributes; key is the attribute id, the value can
      *  be either an int or <code>ZMAttributeValue</code>; default is an empty <code>array</code>.
      * @param boolean notify Flag whether to add the product to the notify list or not; default is <code>true</code>
      * @return boolean <code>true</code> if the product was added, <code>false</code> if not.
