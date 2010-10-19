@@ -39,6 +39,7 @@ class ZMBannerBlockWidget extends ZMWidget {
         parent::__construct();
         $this->group_ = null;
         $this->trackDisplay_ = true;
+        $this->setTitle('Banner Block');
     }
 
     /**

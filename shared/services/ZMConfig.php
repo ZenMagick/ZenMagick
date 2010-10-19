@@ -247,6 +247,20 @@ class ZMConfig extends ZMObject {
     }
 
     /**
+     * Get a single config value for the given key pattern.
+     *
+     * @param string pattern The key pattern; for example 'foo_%'.
+     * @return mixed A single <code>ZMConfigValue</code> instance, <code>ZMWidget</code> instance or <code>null</code>.
+     */
+    public function getConfigValue($pattern) {
+        $values = $this->getConfigValues($pattern);
+        if (null != $values && 0 < count($values)) {
+            return $values[0];
+        }
+        return null;
+    }
+
+    /**
      * Get all config values for a given key pattern.
      *
      * @param string pattern The key pattern; for example 'foo_%'.

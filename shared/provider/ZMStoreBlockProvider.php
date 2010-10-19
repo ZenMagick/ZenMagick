@@ -22,31 +22,35 @@
 
 
 /**
- * Sidebox block provider.
+ * Store block provider.
  *
  * @author DerManoMann
  * @package zenmagick.store.shared.provider
  */
-class ZMSideboxBlockProvider implements ZMBlockProvider {
+class ZMStoreBlockProvider implements ZMBlockProvider {
 
     /**
      * {@inheritDoc}
      */
     public function getBlockList($args=array()) {
         $blocks = array();
+
+        // sideboxes
         if (ZMTemplateManager::instance()->isLeftColEnabled()) {
             foreach (ZMTemplateManager::instance()->getLeftColBoxNames() as $boxName) {
                 // avoid duplicates by using $box as key
-                $blocks[$boxName] = 'BlockWidget#template=boxes/'.$boxName.'&title='.str_replace('.php', '', $boxName);
+                $blocks[$boxName] = 'BlockWidget#template=boxes/'.$boxName.'&title='.ucwords(str_replace(array('.php', '_'), array('', ' '), $boxName));
             }
         }
-
         if (ZMTemplateManager::instance()->isRightColEnabled()) {
             foreach (ZMTemplateManager::instance()->getRightColBoxNames() as $boxName) {
                 // avoid duplicates by using $box as key
-                $blocks[$boxName] = 'BlockWidget#template=boxes/'.$boxName.'&title='.str_replace('.php', '', $boxName);
+                $blocks[$boxName] = 'BlockWidget#template=boxes/'.$boxName.'&title='.ucwords(str_replace(array('.php', '_'), array('', ' '), $boxName));
             }
         }
+
+        // banners
+        $blocks[] = 'BannerBlockWidget';
 
         return $blocks;
     }
