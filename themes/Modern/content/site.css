@@ -860,6 +860,7 @@ TEXTAREA {
 /* Product Listing */
 .itemTitle{
 	padding: 10px 0;
+  min-height:3.6em;
 }
 .itemTitle a{
 	color: #151515;

@@ -52,6 +52,12 @@
 	      <div class="itemTitle"><a href="<?php echo $net->product($product->getId()) ?>"><?php echo $html->encode($product->getName()) ?></a></div>
 	      <?php $offers = $product->getOffers(); ?>
 	      <div class="itemPrice"><?php echo $utils->formatMoney($offers->getCalculatedPrice()) ?></div>
+        <div class="itemCartAdd">
+          <?php echo $form->addProduct($product->getId()) ?>
+	      			<input type="hidden" name="cart_quantity" value="1" />
+              <input type="image" value="<?php zm_l10n("Add to cart") ?>" src="<?php echo $this->asUrl('images/button_buy_now.gif') ?>" />
+          </form>
+        </div>
 	    </div>
 	   <?php 
 	   	if($colInRow == $i){ $i = 0; ?>
@@ -82,6 +88,12 @@
 	      <div class="itemTitle"><a href="<?php echo $net->product($product->getId()) ?>"><?php echo $html->encode($product->getName()) ?></a></div>
 	      <?php $offers = $product->getOffers(); ?>
 	      <div class="itemPrice"><?php echo $utils->formatMoney($offers->getCalculatedPrice()) ?></div>
+        <div class="itemCartAdd">
+          <?php echo $form->addProduct($product->getId()) ?>
+	      			<input type="hidden" name="cart_quantity" value="1" />
+              <input type="image" value="<?php zm_l10n("Add to cart") ?>" src="<?php echo $this->asUrl('images/button_buy_now.gif') ?>" />
+          </form>
+        </div>
 	    </div>
 	   <?php 
 	   	if($colInRow == $i){ $i = 0; ?>

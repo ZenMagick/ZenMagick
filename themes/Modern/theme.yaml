@@ -41,6 +41,7 @@ description: 'Modern / RI0007'
 # - moved locale images
 # - CSS: make add-to-cart form on product_info bottom aligned
 # - upgrade cart with new locale dependant button images
+# - .itemTitle: set min-height:3.4em to align price/add-to-cart button
 
 
 # Notes:
