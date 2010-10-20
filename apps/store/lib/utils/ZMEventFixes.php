@@ -126,7 +126,8 @@ class ZMEventFixes extends ZMObject {
             }
         }
         // general banners block group - if used, the group needs to be passed into fetchBlockGroup()
-        $mappings['banners'][$groupId] = 'BannerBlockWidget';
+        $mappings['banners'] = array();
+        $mappings['banners'][] = 'BannerBlockWidget';
 
         ZMBlockManager::instance()->setMappings($mappings);
     }

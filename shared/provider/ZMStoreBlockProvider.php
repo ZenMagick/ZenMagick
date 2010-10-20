@@ -50,7 +50,7 @@ class ZMStoreBlockProvider implements ZMBlockProvider {
         }
 
         // banners
-        $blocks[] = 'BannerBlockWidget';
+        $blocks['BannerBlockWidget'] = 'BannerBlockWidget';
 
         return $blocks;
     }
