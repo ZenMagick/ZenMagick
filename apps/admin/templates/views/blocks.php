@@ -20,17 +20,25 @@
 ?>
 <?php zm_title($this) ?>
 
-<h2>Blocks</h2>
-<?php foreach ($blocks as $def => $title) { ?>
-  <?php echo $title."<BR>" ?>
-<?php } ?>
-<h2>Block Groups</h2>
-<?php foreach ($blockGroups as $groupId) { ?>
-  <form action="<?php echo $admin2->url() ?>" method="POST"><?php echo $groupId ?><input type="hidden" name="groupId" value="<?php echo $groupId ?>"><input type="hidden" name="action" value="removeGroup"><input type="submit" value="Remove"></form>
-<?php } ?>
-<form action="<?php echo $admin2->url() ?>" method="POST">
-  <p>Create group</p>
-  <input type="text" id="groupId" name="groupId" value="">
-  <input type="hidden" name="action" value="addGroup">
-  <input type="submit" value="Add">
-</form>
+<div class="col3" style="float:left;width:32%;border:1px solid gray;padding:5px;margin:1px;">
+  <h2>Blocks</h2>
+  <?php foreach ($blocks as $def => $title) { ?>
+    <?php echo $title."<BR>" ?>
+  <?php } ?>
+</div>
+<div class="col3" style="float:left;width:32%;border:1px solid gray;padding:5px;margin:1px;">
+  <h2>Block Group Setup</h2>
+</div>
+<div class="col3" style="float:left;width:32%;border:1px solid gray;padding:5px;margin:1px;">
+  <h2>Block Groups</h2>
+  <?php foreach ($blockGroups as $groupId) { ?>
+    <form action="<?php echo $admin2->url() ?>" method="POST"><?php echo $groupId ?><input type="hidden" name="groupId" value="<?php echo $groupId ?>"><input type="hidden" name="action" value="removeGroup"><input type="submit" value="Remove"></form>
+  <?php } ?>
+  <form action="<?php echo $admin2->url() ?>" method="POST">
+    <h3>Create group</h3>
+    <input type="text" id="groupId" name="groupId" value="">
+    <input type="hidden" name="action" value="addGroup">
+    <input type="submit" value="Add">
+  </form>
+</div>
+<br clear="left">
