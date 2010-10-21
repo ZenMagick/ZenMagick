@@ -61,7 +61,8 @@ label span {color:#D4A84B;margin:0 3px;font-weight:bold;}
 #sub-menu .ui-accordion-content {padding-top:0;padding-bottom:5px;}
 #sub-menu li {font-size:11px;font-family:Verdana,Arial,sans-serif;}
 #sub-menu a {text-decoration:none;}
-#sub-menu a:hover {text-decoration:underline;}
+#sub-menu li a:hover {text-decoration:underline;}
+#sub-menu li {padding:2px 0;}
 #view-container {margin-left:13em;padding:5px 8px;}
 
 /* view content excl. header */

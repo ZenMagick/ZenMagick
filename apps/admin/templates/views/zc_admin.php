@@ -59,7 +59,7 @@ $content = str_replace(array('onmouseover="rowOverEffect(this)"', 'onmouseout="r
           require(DIR_WS_BOXES . $zm_menu . '_dhtml.php');
           $header = split_slash($za_heading['text']);
           $menu[$header] = array();
-          $skipList = array('zmIndex', 'template_select');
+          $skipList = array('zmIndex', 'template_select', 'server_info', 'sqlpatch');
           foreach ($za_contents as $item) {
               $skip = false;
               foreach ($skipList as $s) {
