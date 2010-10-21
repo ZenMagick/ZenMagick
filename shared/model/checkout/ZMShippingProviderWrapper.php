@@ -172,7 +172,7 @@ class ZMShippingProviderWrapper extends ZMObject implements ZMShippingProvider {
         $quotes = $module->quote();
 
         // capture error(s)
-        if (array_key_exists('error', $quotes)) {
+        if (is_array($quotes) && array_key_exists('error', $quotes)) {
             $this->errors_ = array($quotes['error']);
             return array();
         }
@@ -182,7 +182,7 @@ class ZMShippingProviderWrapper extends ZMObject implements ZMShippingProvider {
         $taxRate->setRate(isset($quotes['tax']) ? $quotes['tax'] : 0);
 
         $methods = array();
-        if (array_key_exists('methods', $quotes)) {
+        if (is_array($quotes) && array_key_exists('methods', $quotes)) {
             foreach ($quotes['methods'] as $method) {
                 $shippingMethod = ZMLoader::make("ShippingMethod", $this, $method);
                 $shippingMethod->setProvider($this);
