@@ -86,6 +86,7 @@ Release 0.9.11
   available
 - change ZMShoppingCart:;getSelectedShippingMethod() to return a
   ZMShippingMethod instance; templates: checkout_confirmation.php
+- checkout_confirmation.php: display shipping provider + method
 
 Release 0.9.10
 - restructure store and admin code into separate apps with most of the store
