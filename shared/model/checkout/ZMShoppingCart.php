@@ -161,8 +161,12 @@ class ZMShoppingCart extends ZMObject {
      * @return float The cart subtotal.
      */
     public function getSubTotal() {
-        ZMTools::resolveZCClass('order');
-        $order = new order();
+    global $order;
+
+        if (!isset($GLOBALS['order']) || !is_object($GLOBALS['order'])) {
+            ZMTools::resolveZCClass('order');
+            $order = new order();
+        }
         return $order->info['subtotal'];
     }
 
