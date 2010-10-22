@@ -80,7 +80,10 @@
     <fieldset>
         <legend><?php _vzm("Shipping") ?></legend>
         <div class="btn"><a class="btn" href="<?php echo $net->url(FILENAME_CHECKOUT_SHIPPING, '', true) ?>"><?php _vzm("Change") ?></a></div>
-        <?php echo $html->encode($shoppingCart->getSelectedShippingMethod()) ?><br/>
+        <br/>
+        <?php if (null != ($shippingMethod = $shoppingCart->getSelectedShippingMethod())) { ?>
+          <?php echo $html->encode($shippingMethod->getProvider()->getName()) . ': ' . $html->encode($shippingMethod->getName()) ?><br/>
+        <?php } ?>
     </fieldset>
 <?php } ?>
 
