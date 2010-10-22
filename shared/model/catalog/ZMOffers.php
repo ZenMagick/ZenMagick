@@ -378,7 +378,7 @@ class ZMOffers extends ZMObject {
         $args = array('productId' => $this->product_->getId());
         $this->discounts_ = ZMRuntime::getDatabase()->query($sql, $args, TABLE_PRODUCTS_DISCOUNT_QUANTITY, 'QuantityDiscount');
 
-        if (0 < count($this-_discounts_)) {
+        if (0 < count($this->discounts_)) {
             $product = $this->product_;
             $basePrice = $this->getBasePrice($tax);
             if (self::DISCOUNT_FROM_SPECIAL_PRICE == $product->getDiscountTypeFrom() && 0 != ($specialPrice = $this->getSpecialPrice($tax))) {

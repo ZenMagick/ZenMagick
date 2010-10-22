@@ -191,7 +191,7 @@ class ZMReviews extends ZMObject {
                   AND pd.language_id = :languageId
                   AND r.status = 1
                 ORDER BY date_added DESC";
-        $args = array('productId' => $productId, 'languageId' => $languageId);
+        $args = array('languageId' => $languageId);
         return ZMRuntime::getDatabase()->query($sql, $args, array(TABLE_REVIEWS, TABLE_REVIEWS_DESCRIPTION, TABLE_PRODUCTS, TABLE_PRODUCTS_DESCRIPTION), 'Review');
     }
 

@@ -174,12 +174,21 @@ class TestZMOrders extends ZMTestCase {
             $this->assertTrue(is_array($orderTotalLines));
             $this->assertEqual(3, count($orderTotalLines));
             
-            // test total total
-            $total = $orderTotalLines['ot_total'];
-            $this->assertEqual('Total:', $total->getName());
-            //$this->assertEqual('$42.49', $total->getValue());
-            //$this->assertEqual(42.49, $total->getAmount());
-            $this->assertEqual('ot_total', $total->getType());
+            // find ot_total
+            $total = null;
+            foreach ($orderTotalLines as $orderTotalLine) {
+                if ('ot_total' == $orderTotalLine->getType()) {
+                    $total = $orderTotalLine;
+                    break;
+                }
+            }
+            if ($this->assertNotNull($total)) {
+                // test total total
+                $this->assertEqual('Total:', $total->getName());
+                //$this->assertEqual('$42.49', $total->getValue());
+                //$this->assertEqual(42.49, $total->getAmount());
+                $this->assertEqual('ot_total', $total->getType());
+            }
         }
     }
 
