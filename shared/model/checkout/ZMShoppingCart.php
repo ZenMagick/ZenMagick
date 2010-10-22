@@ -242,6 +242,9 @@ class ZMShoppingCart extends ZMObject {
     /**
      * Get the selected shipping method id.
      *
+     * <p><strong>NOTE: If a value is returned it will be a <em>combined key</em> in the form
+     * <em>providerId]_[methodId]</em>.</p>
+     *
      * @return int The shipping method id.
      */
     public function getSelectedShippingMethodId() {
@@ -251,15 +254,21 @@ class ZMShoppingCart extends ZMObject {
     /**
      * Get the selected shipping method.
      *
-     * @return mixed The zen-cart shipping method.
+     * @return ZMShippingProvider The selected shipping provider or <code>null</code>.
      */
     public function getSelectedShippingMethod() {
-    global $order;
-
-        if (!isset($order)) {
-            $order = new order();
+        $shippingMethodId = $this->getSelectedShippingMethodId();
+        if (null == $shippingMethodId) {
+            return null;
         }
-        return array_key_exists('shipping_method', $order->info) ? $order->info['shipping_method'] : null;
+        $token = explode('_', $shippingMethodId);
+        if (2 != count($token)) {
+            return null;
+        }
+        if (null == ($shippingProvider = ZMShippingProviders::instance()->getShippingProviderForId($token[0], true))) {
+            return null;
+        }
+        return $shippingProvider->getShippingMethodForId($token[1], $this);
     }
 
     /**

@@ -85,22 +85,22 @@ interface ZMShippingProvider {
     public function getErrors();
 
     /**
-     * Get a specific shipping method for the given address.
+     * Get a specific shipping method.
      *
      * @param string id The method id.
      * @param ZMShoppingCart shoppingCart The shopping cart.
-     * @param ZMAddress address The shipping address.
+     * @param ZMAddress address Optional shipping address; default is <code>null</code>.
      * @return ZMShippingMethod A shipping method or <code>null</code>.
      */
-    public function getShippingMethodForId($id, $shoppingCart, $address);
+    public function getShippingMethodForId($id, $shoppingCart, $address=null);
 
     /**
      * Get available shipping methods for the given address.
      *
      * @param ZMShoppingCart shoppingCart The shopping cart.
-     * @param ZMAddress address The shipping address.
+     * @param ZMAddress address Optional shipping address; default is <code>null</code>.
      * @return array A list of <code>ZMShippingMethod</code> instances.
      */
-    public function getShippingMethods($shoppingCart, $address);
+    public function getShippingMethods($shoppingCart, $address=null);
 
 }

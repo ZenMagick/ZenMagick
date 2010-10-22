@@ -61,10 +61,13 @@ class ZMShippingProviders extends ZMObject {
      * Get a shipping provider for the given id.
      *
      * @param string shippingProviderId The shipping provider id.
-     * @return ZMShippingProvider A shipping provider or <code>null</code>
+     * @param boolean configured If <code>true</code>, return only configured provider; default is <code>false</code>.
+     * @return ZMShippingProvider A shipping provider or <code>null</code>.
      */
-    public function getShippingProviderForId($shippingProviderId) {
-        $configured = false;
+    public function getShippingProviderForId($shippingProviderId, $configured=false) {
+        if (null == $shippingProviderId) {
+            return null;
+        }
         if (!isset($this->providers_[$configured])) {
             // load
             $providers = $this->getShippingProviders($configured);

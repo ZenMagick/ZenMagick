@@ -29,6 +29,7 @@
  *
  * @author DerManoMann
  * @package zenmagick.store.sf.utils
+ * @deprecated use ZMShippingProviders::getShippingProvidersForAddress instead
  */
 class ZMShippingEstimator extends ZMObject {
 

@@ -29,6 +29,7 @@
  *
  * @author DerManoMann
  * @package zenmagick.store.shared.services.checkout
+ * @deprecated use ZMShippingProviders instead
  */
 class ZMShipping extends ZMObject {
     var $provider_;

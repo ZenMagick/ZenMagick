@@ -84,6 +84,8 @@ Release 0.9.11
 - xinha: add support for multiple instances per page
 - templates: shipping: display providers with errors, display icon if
   available
+- change ZMShoppingCart:;getSelectedShippingMethod() to return a
+  ZMShippingMethod instance; templates: checkout_confirmation.php
 
 Release 0.9.10
 - restructure store and admin code into separate apps with most of the store

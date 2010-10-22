@@ -93,7 +93,7 @@ class ZMShippingProviderWrapper extends ZMObject implements ZMShippingProvider {
     /**
      * {@inheritDoc}
      */
-    public function getShippingMethodForId($id, $shoppingCart, $address) { 
+    public function getShippingMethodForId($id, $shoppingCart, $address=null) { 
         $methods = $this->getShippingMethods($shoppingCart, $address);
         return (array_key_exists($id, $methods) ? $methods[$id] : null);
     }
@@ -101,9 +101,10 @@ class ZMShippingProviderWrapper extends ZMObject implements ZMShippingProvider {
     /**
      * {@inheritDoc}
      */
-    public function getShippingMethods($shoppingCart, $address) { 
+    public function getShippingMethods($shoppingCart, $address=null) { 
         if (null == $address) {
-            return null;
+            // now we just want the shipping method, but we need an address right now...
+            $address = $shoppingCart->getShippingAddress();
         }
 
         $this->errors_ = array();
