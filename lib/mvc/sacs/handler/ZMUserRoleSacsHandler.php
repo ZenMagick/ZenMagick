@@ -93,7 +93,6 @@ class ZMUserRoleSacsHandler extends ZMObject implements ZMSacsHandler {
         if (null === $users) {
             return false;
         }
-
         // check for user match
         foreach ($users as $user) {
             if ($user == $credentials->getName()) {

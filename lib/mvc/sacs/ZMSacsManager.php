@@ -47,6 +47,7 @@
 class ZMSacsManager extends ZMObject {
     private $mappings_;
     private $handler_;
+    private $permissionProviders_;
 
 
     /**
@@ -78,6 +79,7 @@ class ZMSacsManager extends ZMObject {
     public function reset() {
         $this->mappings_ = array('default' => array(), 'mappings' => array());
         $this->handler_ = array();
+        $this->permissionProviders_ = array();
         foreach (explode(',', ZMSettings::get('zenmagick.mvc.sacs.handler')) as $class) {
             if (null != ($handler = ZMBeanUtils::getBean($class))) {
                 $this->handler_[$handler->getName()] = $handler;
@@ -97,6 +99,40 @@ class ZMSacsManager extends ZMObject {
     }
 
     /**
+     * Load mappings from all configured providers.
+     *
+     * @param string providers Comma separated list of provider bean definitions.
+     */
+    public function loadProviderMappings($providers) {
+        foreach (explode(',', $providers) as $class) {
+            if (null != ($provider = ZMBeanUtils::getBean($class)) && $provider instanceof ZMSacsPermissionProvider) {
+                $this->permissionProviders_[] = $provider;
+                foreach ($provider->getMappings() as $providerMapping) {
+                    $requestId = $providerMapping['rid'];
+                    $type = $providerMapping['type'];
+                    $name = $providerMapping['name'];
+                    // morph into something we can use
+                    if (!array_key_exists($requestId, $this->mappings_['mappings'])) {
+                        $this->mappings_['mappings'][$requestId] = array();
+                    }
+                    $typeKey = null;
+                    switch ($type) {
+                    case 'role':
+                        $typeKey = 'roles';
+                        break;
+                    case 'user':
+                        $typeKey = 'users';
+                        break;
+                    }
+                    if (null != $typeKey) {
+                        $this->mappings_['mappings'][$requestId] = ZMLangUtils::arrayMergeRecursive($this->mappings_['mappings'][$requestId], array($typeKey => array($name)));
+                    }
+                }
+            }
+        }
+    }
+
+    /**
      * Add a <code>ZMSacsHandler</code>.
      *
      * @param ZMSacsHandler handler The new handler.
@@ -110,7 +146,7 @@ class ZMSacsManager extends ZMObject {
      *
      * <p>The <em>authentication</code> value depends on the acutal handler implementation and is passed through <em>as-is</em>.</p>
      *
-     * @param string requestId The request id [ie. the request name as set via the <code>ZM_PAGE_KEY</code> URL parameter].
+     * @param string requestId The request id [ie. the request name as set via the <code>rid</code> URL parameter].
      * @param mixed authentication The level of authentication required; default is <code>null</code>.
      * @param boolean secure Mark resource as secure; default is <code>true</code>.
      * @param array args Optional additional parameter map; default is an empty array.
@@ -119,7 +155,7 @@ class ZMSacsManager extends ZMObject {
         if (null == $requestId) {
             throw new ZMException("invalid sacs mapping (requestId missing)");
         }
-        $this->mappings_['mappings'][$requestId] = array_merge($args, array('level' => $authentication, 'secure' => $secure));
+        $this->mappings_['mappings'][$requestId] = ZMLangUtils::arrayMergeRecursive($args, array('level' => $authentication, 'secure' => $secure));
     }
 
     /**

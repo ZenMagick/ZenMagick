@@ -71,6 +71,7 @@
     ZMUrlManager::instance()->load(file_get_contents(ZMFileUtils::mkPath(ZMRuntime::getApplicationPath(), 'config', 'url_mappings.yaml')), false);
     // sacs mappings
     ZMSacsManager::instance()->load(file_get_contents(ZMFileUtils::mkPath(ZMRuntime::getApplicationPath(), 'config', 'sacs_mappings.yaml')), false);
+    ZMSacsManager::instance()->loadProviderMappings(ZMSettings::get('zenmagick.mvc.sacs.mappingProviders'));
 
     // as default disable plugins for CLI calls
     ZMSettings::set('zenmagick.core.plugins.enabled', !ZM_CLI_CALL);

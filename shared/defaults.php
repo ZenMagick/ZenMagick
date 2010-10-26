@@ -49,6 +49,7 @@
     define('ZM_TABLE_ADMIN_ROLES', ZM_DB_PREFIX . 'admin_roles');
     define('ZM_TABLE_ADMINS_TO_ROLES', ZM_DB_PREFIX . 'admins_to_roles');
     define('ZM_TABLE_ADMIN_PREFS', ZM_DB_PREFIX . 'admin_prefs');
+    define('ZM_TABLE_SACS_PERMISSIONS', ZM_DB_PREFIX . 'sacs_permissions');
     
 
     //** date/time formats used internally by all models **//
