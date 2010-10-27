@@ -99,7 +99,7 @@ class ZMPlugins extends ZMObject {
     public function getGroups() {
         $types = array();
         $handle = opendir($this->pluginBaseDir_);
-        while (false !== ($name = readdir($handle))) { 
+        while (false !== ($name = readdir($handle))) {
             if (ZMLangUtils::startsWith($name, '.')) {
                 continue;
             }
@@ -141,7 +141,7 @@ class ZMPlugins extends ZMObject {
         $dir = $this->pluginBaseDir_ . $group . DIRECTORY_SEPARATOR;
         $idList = array();
         if (false !== ($handle = @opendir($dir))) {
-            while (false !== ($file = readdir($handle))) { 
+            while (false !== ($file = readdir($handle))) {
                 if (ZMLangUtils::startsWith($file, '.')) {
                     continue;
                 }
@@ -355,7 +355,9 @@ class ZMPlugins extends ZMObject {
             // get list
             $plugin = $this->getPluginForId($id);
             if (null != $plugin && ($plugin && $plugin->isEnabled() || !$enabled)) {
-                if (ZMPlugin::LP_ALL == $plugin->getLoaderPolicy()) {
+                if (ZMPlugin::LP_LIB == $plugin->getLoaderPolicy()) {
+                    $pluginLoader->addPath($plugin->getPluginDirectory().'lib'.DIRECTORY_SEPARATOR);
+                } else if (ZMPlugin::LP_ALL == $plugin->getLoaderPolicy()) {
                     $pluginLoader->addPath($plugin->getPluginDirectory());
                 } else if (ZMPlugin::LP_FOLDER == $plugin->getLoaderPolicy()) {
                     $pluginLoader->addPath($plugin->getPluginDirectory(), '', false);

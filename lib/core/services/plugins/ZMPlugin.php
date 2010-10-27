@@ -39,12 +39,12 @@
  *  <dt>version</dt>
  *  <dd><em>0.0</em>.</dd>
  *  <dt>enabled</dt>
- *  <dd><code>null<code>; unless the status is explicitely set, the setting 
+ *  <dd><code>null<code>; unless the status is explicitely set, the setting
  *   <em>zenmagick.core.plugins.[id].enabled</em> will be checked instead.</dd>
  *  <dt>pluginDirectory</dt>
  *  <dd>Location of the plugin class file.</dd>
  *  <dt>loaderPolicy</dt>
- *  <dd><code>ZMPlugin::LP_ALL</code>.</dd>
+ *  <dd><code>ZMPlugin::LP_LIB</code>.</dd>
  *  <dt>context</dt>
  *  <dd>Generic code to allow to configure different context values where the plugin allowed; default is <em>0</em>.</dd>
  * </dl>
@@ -57,10 +57,10 @@
 abstract class ZMPlugin extends ZMObject {
     /** Do not load any plugin files (except, of course, the plugin itself). */
     const LP_NONE = 'NONE';
-    /** Alias for <code>LP_NONE</code>. */
-    const LP_PLUGIN = 'PLUGIN';
     /** Load files from the plugin folder, but ignore subfolder. */
     const LP_FOLDER = 'FOLDER';
+    /** Load all files from a lib subfolder, including subfolder. */
+    const LP_LIB = 'LIB';
     /** Load all files including subfolder. */
     const LP_ALL = 'ALL';
 
@@ -88,7 +88,7 @@ abstract class ZMPlugin extends ZMObject {
         $this->version_ = '0.0';
         $this->enabled_ = null;
         $this->pluginDirectory_ = null;
-        $this->loaderPolicy_ = self::LP_ALL;
+        $this->loaderPolicy_ = self::LP_LIB;
         $this->context_ = 0;
     }
 
@@ -240,7 +240,6 @@ abstract class ZMPlugin extends ZMObject {
      * <p>It also affects the code included in <code>core.php</code>. Valid values are:</p>
      * <dl>
      *   <dt>ZMPlugin::LP_NONE</dt><dd>Not supported.</dd>
-     *   <dt>ZMPlugin::LP_PLUGIN</dt><dd>Only the plugin class may be added; this is the default.</dd>
      *   <dt>ZMPlugin::LP_FOLDER</dt><dd>Everything in the plugin folder, excluding all subfolder and their contents.</dd>
      *   <dt>ZMPlugin::LP_ALL</dt><dd>All (<code>.php</code>) files can be added to <code>core.php</code>.</dd>
      * </dl>

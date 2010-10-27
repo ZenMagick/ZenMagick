@@ -87,6 +87,9 @@ Release 0.9.11
 - change ZMShoppingCart:;getSelectedShippingMethod() to return a
   ZMShippingMethod instance; templates: checkout_confirmation.php
 - checkout_confirmation.php: display shipping provider + method
+- drop ZMPlugin::LP_PLUGIN, add ZMPlugin::LP_LIB; LP_LIB will (obviously) load
+  the plugin itself and will try to recursively load all code from a lib folder
+  inside the plugin dir
 
 Release 0.9.10
 - restructure store and admin code into separate apps with most of the store

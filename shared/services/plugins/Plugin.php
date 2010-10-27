@@ -60,11 +60,9 @@ class Plugin extends ZMPlugin {
      */
     function __construct($title='', $description='', $version='0.0') {
         parent::__construct();
-
         $this->setName($title);
         $this->setDescription($description);
         $this->setVersion($version);
-        $this->setLoaderPolicy(ZMPlugin::LP_PLUGIN);
         $this->messages_ = array();
         $this->preferredSortOrder_ = 0;
         // both
@@ -92,7 +90,7 @@ class Plugin extends ZMPlugin {
      * Get optional files to be loaded in global scope.
      *
      * <p>Files returned here would typically have an extension different to <em>.php</em> as otherwise
-     * the loader will load them as static.</p> 
+     * the loader will load them as static.</p>
      *
      * @param ZMRequest request The current request.
      * @return array List of filenames relative to the plugin location.
@@ -260,7 +258,7 @@ class Plugin extends ZMPlugin {
     /**
      * {@inheritDoc}
      */
-    public function setGroup($group) { 
+    public function setGroup($group) {
         parent::setGroup($group);
         $this->configPrefix_ = strtoupper(self::KEY_PREFIX . $group . '_'. $this->getId() . '_');
         $this->enabledKey_ = $this->configPrefix_.self::KEY_ENABLED;
@@ -276,7 +274,7 @@ class Plugin extends ZMPlugin {
      * @param string file The filename.
      * @return string A fully qualified filename.
      */
-    public function getConfigPath($file) { 
+    public function getConfigPath($file) {
         $configPath = Runtime::getInstallationPath().'config'.DIRECTORY_SEPARATOR;
         $configFile = $configPath.$this->getId().DIRECTORY_SEPARATOR.$file;
 
@@ -342,7 +340,7 @@ class Plugin extends ZMPlugin {
      *   <lI>ADVANCED:<br>
      *     Content is not generated directly, but included as part of the returned <code>ZMPluginPage</code>
      *     instance.</li>
-     * </ol> 
+     * </ol>
      *
      * @param string id The page id.
      * @param string title The page title.
