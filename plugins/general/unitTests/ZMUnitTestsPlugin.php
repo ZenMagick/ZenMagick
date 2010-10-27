@@ -41,7 +41,6 @@ class ZMUnitTestsPlugin extends Plugin {
      */
     function __construct() {
         parent::__construct('Unit Testing', 'Run unit tests using SimpleTest.');
-        $this->setLoaderPolicy(ZMPlugin::LP_FOLDER);
         $this->tests_ = array();
         $this->customDone_ = false;
     }
@@ -61,8 +60,8 @@ class ZMUnitTestsPlugin extends Plugin {
         parent::init();
         ZMSettings::set('zenmagick.mvc.templates.ext', '.php');
         ZMUrlManager::instance()->setMapping('tests', array(
-            'layout' => '', 
-            'template' => 'tests', 
+            'layout' => '',
+            'template' => 'tests',
             'controller' => 'UnitTestsController'
        ));
     }
