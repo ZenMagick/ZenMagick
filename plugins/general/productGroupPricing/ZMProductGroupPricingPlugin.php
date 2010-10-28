@@ -37,7 +37,6 @@ class ZMProductGroupPricingPlugin extends Plugin {
      */
     function __construct() {
         parent::__construct('Product Group Pricing', 'Product Group Pricing', '${zenmagick.version}');
-        $this->setLoaderPolicy(ZMPlugin::LP_FOLDER);
         $this->setPreferredSortOrder(15);
     }
 

@@ -38,7 +38,6 @@ class ZMOpenIDPlugin extends Plugin {
      */
     function __construct() {
         parent::__construct('OpenID', 'Allows to login using OpenID', '${plugin.version}');
-        $this->setLoaderPolicy(ZMPlugin::LP_ALL);
     }
 
     /**

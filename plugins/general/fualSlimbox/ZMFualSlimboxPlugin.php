@@ -36,7 +36,6 @@ class ZMFualSlimboxPlugin extends Plugin {
      */
     function __construct() {
         parent::__construct('Fual Slimbox', 'Fual Slimbox support for ZenMagick', '${plugin.version}');
-        $this->setLoaderPolicy(ZMPlugin::LP_ALL);
         $this->setContext(Plugin::CONTEXT_STOREFRONT);
     }
 

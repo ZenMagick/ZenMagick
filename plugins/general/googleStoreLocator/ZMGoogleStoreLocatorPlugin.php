@@ -34,7 +34,6 @@ class ZMGoogleStoreLocatorPlugin extends Plugin {
      */
     function __construct() {
         parent::__construct('Google Store Locator', 'Google Maps Store Locator.', '${plugin.version}');
-        $this->setLoaderPolicy(ZMPlugin::LP_FOLDER);
     }
 
     /**

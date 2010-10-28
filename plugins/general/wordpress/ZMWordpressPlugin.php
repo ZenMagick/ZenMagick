@@ -39,7 +39,6 @@ class ZMWordpressPlugin extends Plugin implements ZMRequestHandler {
      */
     function __construct() {
         parent::__construct('Wordpress', 'Allows to display Wordpress content in ZenMagick', '${plugin.version}');
-        $this->setLoaderPolicy(ZMPlugin::LP_FOLDER);
         $this->requestId_ = '';
         $this->requestHandler_ = null;
         $this->adapter_ = null;

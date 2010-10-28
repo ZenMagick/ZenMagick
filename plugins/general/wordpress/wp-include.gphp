@@ -36,5 +36,3 @@
       $wp->query_posts();
       $wp->register_globals();
   }
-
-?>

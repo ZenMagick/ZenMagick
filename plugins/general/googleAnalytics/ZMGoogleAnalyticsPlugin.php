@@ -44,6 +44,7 @@ class ZMGoogleAnalyticsPlugin extends Plugin {
     public function __construct() {
         parent::__construct('Google Analytics', 'Adds Google Analytics.', '${plugin.version}');
         $this->setContext(Plugin::CONTEXT_STOREFRONT);
+        $this->setLoaderPolicy(ZMPlugin::LP_NONE);
         $this->eol_ = "\n";
         $this->order_ = null;
     }

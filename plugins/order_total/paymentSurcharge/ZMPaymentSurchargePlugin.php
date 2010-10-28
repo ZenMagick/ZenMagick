@@ -36,7 +36,7 @@ class ZMPaymentSurchargePlugin extends Plugin implements ZMOrderTotal {
      */
     function __construct() {
         parent::__construct('Payment Surcharge', 'Conditional payment surcharge/discount', '${plugin.version}');
-        $this->setLoaderPolicy(ZMPlugin::LP_FOLDER);
+        $this->setLoaderPolicy(ZMPlugin::LP_NONE);
     }
 
     /**

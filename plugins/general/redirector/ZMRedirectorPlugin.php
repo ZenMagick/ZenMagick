@@ -34,7 +34,6 @@ class ZMRedirectorPlugin extends Plugin {
      */
     function __construct() {
         parent::__construct('Redirector', 'Handle redirects for missing products and categories.');
-        $this->setLoaderPolicy(ZMPlugin::LP_ALL);
     }
 
     /**

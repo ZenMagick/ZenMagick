@@ -39,6 +39,7 @@ class ZMToggleZMThemesPlugin extends Plugin implements ZMRequestHandler {
     function __construct() {
         parent::__construct('Toggle themes', 'Allow users to toggle theme support');
         $this->setContext(Plugin::CONTEXT_STOREFRONT);
+        $this->setLoaderPolicy(ZMPlugin::LP_NONE);
     }
 
     /**

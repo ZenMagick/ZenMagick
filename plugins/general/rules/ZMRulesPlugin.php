@@ -34,7 +34,6 @@ class ZMRulesPlugin extends Plugin {
      */
     function __construct() {
         parent::__construct('PHP Rules', 'PHP Rules for ZenMagick', '${plugin.version}');
-        $this->setLoaderPolicy(ZMPlugin::LP_ALL);
     }
 
     /**

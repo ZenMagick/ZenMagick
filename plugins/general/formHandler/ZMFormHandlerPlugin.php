@@ -34,7 +34,6 @@ class ZMFormHandlerPlugin extends Plugin {
      */
     function __construct() {
         parent::__construct('Form Handler', 'Generic form handler with email notification', '${plugin.version}');
-        $this->setLoaderPolicy(ZMPlugin::LP_FOLDER);
     }
 
     /**

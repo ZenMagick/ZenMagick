@@ -34,7 +34,6 @@ class ZMCssCategoriesPlugin extends Plugin {
      */
     function __construct() {
         parent::__construct('CSS Categories', 'CSS Categories menu.', '${plugin.version}');
-        $this->setLoaderPolicy(ZMPlugin::LP_FOLDER);
         $this->setContext(Plugin::CONTEXT_STOREFRONT);
     }
 

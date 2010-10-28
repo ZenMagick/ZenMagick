@@ -38,7 +38,6 @@ class ZMVBulletinPlugin extends Plugin implements ZMRequestHandler {
      */
     function __construct() {
         parent::__construct('vBulletin', 'vBulletin for ZenMagick');
-        $this->setLoaderPolicy(ZMPlugin::LP_FOLDER);
         $this->page_ = '';
         $this->prePostAccount_ = null;
         $this->adapter_ = null;

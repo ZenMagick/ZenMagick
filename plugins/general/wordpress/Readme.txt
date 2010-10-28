@@ -45,8 +45,6 @@ To only show wp-sidebar.php when in the blog add the following to your theme's l
         ZMLayout::instance()->setRightColBoxes(array('wp-sidebar.php'));
     }
 
-Of course, you have to copy the included sidebar example template to your themes boxes folder first!
-
 
 Permalinks
 ==========

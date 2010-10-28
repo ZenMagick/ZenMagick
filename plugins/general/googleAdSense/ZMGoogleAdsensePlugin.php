@@ -41,7 +41,7 @@ class ZMGoogleAdSensePlugin extends Plugin {
      */
     function __construct() {
         parent::__construct('Google AdSense', 'Plugin to manage Google AdSense JS (including four sideboxes).', '${plugin.version}');
-        $this->setLoaderPolicy(ZMPlugin::LP_FOLDER);
+        $this->setLoaderPolicy(ZMPlugin::LP_NONE);
         $this->totalAds_ = ZMSettings::get('plugins.googleAdSense.totalAds', 6);
     }
 

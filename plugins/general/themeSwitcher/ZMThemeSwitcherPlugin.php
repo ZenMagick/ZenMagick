@@ -37,6 +37,7 @@ class ZMThemeSwitcherPlugin extends Plugin implements ZMRequestHandler {
     function __construct() {
         parent::__construct('Theme Switcher', 'Allow users to select a theme');
         $this->setContext(Plugin::CONTEXT_STOREFRONT);
+        $this->setLoaderPolicy(ZMPlugin::LP_NONE);
     }
 
     /**

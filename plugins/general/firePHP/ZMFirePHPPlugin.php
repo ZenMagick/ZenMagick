@@ -34,7 +34,6 @@ class ZMFirePHPPlugin extends Plugin implements ZMRequestHandler {
      */
     function __construct() {
         parent::__construct('FirePHP', 'Adds FirePHP support to ZenMagick', '${plugin.version}');
-        $this->setLoaderPolicy(ZMPlugin::LP_ALL);
     }
 
     /**

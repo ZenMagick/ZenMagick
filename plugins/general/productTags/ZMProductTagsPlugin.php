@@ -34,7 +34,6 @@ class ZMProductTagsPlugin extends Plugin {
      */
     function __construct() {
         parent::__construct('Product Tags', 'Tag all your products', '${zenmagick.version}');
-        $this->setLoaderPolicy(ZMPlugin::LP_FOLDER);
         $this->setPreferredSortOrder(22);
     }
 

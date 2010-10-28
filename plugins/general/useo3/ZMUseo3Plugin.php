@@ -33,7 +33,6 @@ class ZMUseo3Plugin extends Plugin {
      */
     function __construct() {
         parent::__construct('Ultimate SEO3', 'Ultimate SEO 3.x for ZenMagick', '${plugin.version}');
-        $this->setLoaderPolicy(ZMPlugin::LP_ALL);
     }
 
     /**

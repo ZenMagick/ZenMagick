@@ -36,7 +36,6 @@ class ZMProductImagesPlugin extends Plugin {
      */
     function __construct() {
         parent::__construct('Product Images', 'Serious product image support', '${plugin.version}');
-        $this->setLoaderPolicy(ZMPlugin::LP_FOLDER);
     }
 
     /**

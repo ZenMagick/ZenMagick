@@ -38,7 +38,6 @@ class ZMPhpBB3Plugin extends Plugin implements ZMRequestHandler {
      */
     function __construct() {
         parent::__construct('phpBB3', 'phpBB3 for ZenMagick', '${plugin.version}');
-        $this->setLoaderPolicy(ZMPlugin::LP_FOLDER);
         $this->page_ = '';
         $this->prePostAccount_ = null;
         $this->adapter_ = null;
