@@ -20,7 +20,7 @@
 ?>
 <?php
 
-define('ZM_EVENT_PLUGINS_PAGE_CACHE_STATS', 'plugins_page_cache_stats');
+define('ZM_EVENT_PLUGINS_PAGE_CACHE_CONTENTS_DONE', 'plugins_page_cache_contents_done');
 
 
 /**
@@ -55,13 +55,23 @@ class ZMPageCachePlugin extends Plugin {
 
 
     /**
+     * {@inheritDoc}
+     */
+    public function install() {
+        parent::install();
+
+        $this->addConfigValue('Cache TTL', 'ttl', 300, '(T)ime (T)o (L)ive for cache entries in seconds.');
+        $this->addConfigValue('Load stats', 'loadStats', 'false', 'If set to true, add some hidden (HTML comment) page load stats',
+            'widget@BooleanFormWidget#name=loadStats&default=false&label=Add hidden page load stats.');
+    }
+
+    /**
      * Init this plugin.
      */
     public function init() {
         parent::init();
         ZMEvents::instance()->attach($this);
-        $config = array('cacheTTL' => ZMSettings::get('plugins.pageCache.ttl', 300));
-        $this->cache_ = ZMCaches::instance()->getCache('pages', $config);
+        $this->cache_ = ZMCaches::instance()->getCache('pages', array('cacheTTL' => $this->get('ttl')));
     }
 
 
@@ -117,8 +127,8 @@ class ZMPageCachePlugin extends Plugin {
             if (false !== ($contents = $this->cache_->lookup($this->getRequestKey($request))) && $this->isCacheable($request)) {
                 ZMLogging::instance()->log('cache hit for requestId: '.$request->getRequestId(), ZMLogging::DEBUG);
                 echo $contents;
-                if (ZMSettings::get('plugins.pageCache.stats', true)) {
-                    ZMEvents::instance()->fireEvent($this, ZM_EVENT_PLUGINS_PAGE_CACHE_STATS, $args);
+                ZMEvents::instance()->fireEvent($this, ZM_EVENT_PLUGINS_PAGE_CACHE_CONTENTS_DONE, $args);
+                if ($this->get('loadStats')) {
                     echo '<!-- pageCache stats: page: ' . Runtime::getExecutionTime() . ' sec.; ';
                     echo 'lastModified: ' . $this->cache_->lastModified() . ' -->';
                 }

@@ -90,6 +90,8 @@ Release 0.9.11
 - drop ZMPlugin::LP_PLUGIN, add ZMPlugin::LP_LIB; LP_LIB will (obviously) load
   the plugin itself and will try to recursively load all code from a lib folder
   inside the plugin dir
+- pageCache: convert settings to plugin options, change event name that is
+  fired after the contents of a cache hit has been returned
 
 Release 0.9.10
 - restructure store and admin code into separate apps with most of the store

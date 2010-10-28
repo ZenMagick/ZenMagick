@@ -77,8 +77,9 @@ class ZMPageStatsPlugin extends Plugin {
      * Generate hidden stats.
      *
      * @param ZMRequest request The current request.
+     * @param ZMView view The current view.
      */
-    private function hiddenStats($request) {
+    private function hiddenStats($request, $view) {
         ob_start();
         echo '<!--'."\n";
         echo '  Client IP: '.$_SERVER['REMOTE_ADDR']."\n";
@@ -94,8 +95,6 @@ class ZMPageStatsPlugin extends Plugin {
         }
         echo "\n";
 
-        $controller = $request->getController();
-        $view = $controller->getView();
         if (null != $view) {
             $vars = $view->getVars();
             if (isset($vars['exception']) && null !== ($exception = $vars['exception'])) {
@@ -151,8 +150,8 @@ class ZMPageStatsPlugin extends Plugin {
      *
      * @param array args Optional parameter.
      */
-    public function onZMPluginsPageCacheStats($args=array()) {
-        echo $this->hiddenStats($args['request']);
+    public function onZMPluginsPageCacheContentsDone($args=array()) {
+        echo $this->hiddenStats($args['request'], null);
     }
 
     /**
@@ -161,9 +160,10 @@ class ZMPageStatsPlugin extends Plugin {
     public function onZMFinaliseContents($args) {
         $request = $args['request'];
         $contents = $args['contents'];
+        $view = array_key_exists('view', $args) ? $args['view'] : null;
 
         if (ZMLangUtils::asBoolean($this->get('hideStats'))) {
-            $args['contents'] = $contents.$this->hiddenStats($args['request']);
+            $args['contents'] = $contents.$this->hiddenStats($args['request'], $view);
             return $args;
         }
 
@@ -237,8 +237,6 @@ class ZMPageStatsPlugin extends Plugin {
             echo '</table>';
         }
 
-        $controller = $request->getController();
-        $view = $controller->getView();
         if (null != $view) {
             $vars = $view->getVars();
             if (isset($vars['exception']) && null !== ($exception = $vars['exception'])) {
