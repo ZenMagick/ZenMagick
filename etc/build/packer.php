@@ -24,7 +24,8 @@
      * Simple command line packer script.
      */
 
-    $coreDir = dirname(dirname(dirname(__FILE__))).DIRECTORY_SEPARATOR.'zenmagick'.DIRECTORY_SEPARATOR.'lib'.DIRECTORY_SEPARATOR.'core'.DIRECTORY_SEPARATOR;
+    error_reporting(E_ERROR);
+    $coreDir = dirname(dirname(dirname(__FILE__))).DIRECTORY_SEPARATOR.'lib'.DIRECTORY_SEPARATOR.'core'.DIRECTORY_SEPARATOR;
     include $coreDir.'ZMLoader.php';
     ZMLoader::instance()->addPath($coreDir);
     ZMLoader::instance()->addPath(dirname($coreDir).DIRECTORY_SEPARATOR.'build'.DIRECTORY_SEPARATOR);
