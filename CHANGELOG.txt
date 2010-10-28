@@ -92,6 +92,10 @@ Release 0.9.11
   inside the plugin dir
 - pageCache: convert settings to plugin options, change event name that is
   fired after the contents of a cache hit has been returned
+- add method property to ZMController; this allows to configure an alternative
+  process method name, overiding the request method based mapping; if set,
+	SACS mappings on method level will be evaluated, the sacs mapping key is:
+	[requestId]#[method name]
 
 Release 0.9.10
 - restructure store and admin code into separate apps with most of the store

@@ -30,6 +30,7 @@
 class ZMController extends ZMObject {
     private $requestId_;
     private $isAjax_;
+    private $method_;
     private $view_;
     private $formData_;
 
@@ -43,6 +44,7 @@ class ZMController extends ZMObject {
         parent::__construct();
         $this->requestId_ = $requestId;
         $this->view_ = null;
+        $this->method_ = null;
         $this->formData_ = null;
     }
 
@@ -129,8 +131,9 @@ class ZMController extends ZMObject {
         }
 
         if (null == $view) {
+            $method = null != $this->getMethod() ? $this->getMethod() : $request->getMethod();
             try {
-                switch ($request->getMethod()) {
+                switch ($method) {
                     case 'HEAD':
                         $view = $this->processHead($request);
                         break;
@@ -141,7 +144,17 @@ class ZMController extends ZMObject {
                         $view = $this->processPost($request);
                         break;
                     default:
-                        throw new ZMException('unsupported request method: ' . $request->getMethod());
+                        //return call_user_func_array($target, $margs);
+                        if (method_exists($this, $method) || in_array($method, $this->getAttachedMethods())) {
+                            // (re-)check on method level if mapping exists
+                            $methodRequestId = $request->getRequestId().'#'.$method;
+                            if (ZMSacsManager::instance()->hasMappingForRequestId($methodRequestId)) {
+                                ZMSacsManager::instance()->authorize($request, $methodRequestId, $request->getUser());
+                            }
+                            $view = $this->$method($request);
+                            break;
+                        }
+                        throw new ZMException('unsupported method: ' . $method);
                 }
             } catch (Exception $e) {
                 if ($enableTransactions) {
@@ -381,6 +394,7 @@ class ZMController extends ZMObject {
      * Get the current view.
      *
      * @return ZMView The view or <code>null</code>.
+     * @deprecated Not used at all
      */
     public function getView() {
         return $this->view_;
@@ -390,9 +404,28 @@ class ZMController extends ZMObject {
      * Set the current view.
      *
      * @param ZMView view The view or <code>null</code>.
+     * @deprecated Not used at all
      */
     public function setView($view) {
         $this->view_ = $view;
+    }
+
+    /**
+     * Get the method to be used for processing.
+     *
+     * @return string Either a method name or <code>null</code> to pick the method based on the request method (GET, POST, etc).
+     */
+    public function getMethod() {
+        return $this->method_;
+    }
+
+    /**
+     * Set the method to be used for processing.
+     *
+     * @param string method The method name.
+     */
+    public function setMethod($method) {
+        $this->method_ = $method;
     }
 
     /**

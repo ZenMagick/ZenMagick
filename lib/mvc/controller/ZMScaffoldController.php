@@ -24,7 +24,7 @@
 /**
  * Scaffold controller.
  *
- * <p>Allows to execute a specific method based on request parameters.</p>
+ * <p>Allows to execute a specific method based on the <code>method</code> request parameters.</p>
  *
  * @author DerManoMann
  * @package org.zenmagick.mvc.controller

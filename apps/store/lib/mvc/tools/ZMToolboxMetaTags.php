@@ -87,7 +87,6 @@ class ZMToolboxMetaTags extends ZMToolboxTool {
 
         // special handling for categories, manufacturers
         $controller = $this->getRequest()->getController();
-        $view = $controller->getView();
         if ('index' == $requestId) {
             $title = ZMSettings::get('storeName');
         } else if (ZMLangUtils::startsWith($requestId, 'product_')) {
@@ -116,10 +115,10 @@ class ZMToolboxMetaTags extends ZMToolboxTool {
                 $title = $this->category_;
             }
         } else if ('page' == $requestId) {
-            $vars = $controller->getView()->getVars();
-            $ezpage = $vars['ezPage'];
-            if (null != $ezpage) {
-                $title = $ezpage->getTitle();
+            if (null != ($view = $this->getView())) {
+                if (null != ($ezpage = $view->getVar('ezPage'))) {
+                    $title = $ezpage->getTitle();
+                }
             }
         }
 
