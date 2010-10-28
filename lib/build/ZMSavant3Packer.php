@@ -57,4 +57,20 @@ class ZMSavant3Packer extends ZMPhpPackagePacker implements ZMLibraryPacker {
         );
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    public function patchFile($filename, $lines) {
+        if ('Savant3.php' == basename($filename)) {
+            foreach ($lines as $ii => $line) {
+                if (false !== strpos($line, '$arg1 = @func_get_arg(1);')) {
+                    $lines[$ii] = '$arg1 = 1 < func_num_args() ? @func_get_arg(1) : null;';
+                    break;
+                }
+            }
+            return $lines;
+        }
+        return null;
+    }
+
 }

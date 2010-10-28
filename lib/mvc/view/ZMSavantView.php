@@ -276,7 +276,7 @@ class ZMSavantView extends ZMView {
             }
 
             // put all vars into local scope
-            $savant->assign($this->getVars(), '-make-savant-happy');
+            $savant->assign($this->getVars());
 
             $template .= ZMSettings::get('zenmagick.mvc.templates.ext', '.php');
             $contents = $savant->fetch($template);
@@ -300,9 +300,9 @@ class ZMSavantView extends ZMView {
         $savant = $this->getSavant($request);
 
         // put all general vars into local scope
-        $savant->assign($this->getVars(), '-make-savant-happy');
+        $savant->assign($this->getVars());
         // also assign custom vars
-        $savant->assign($vars, '-make-savant-happy');
+        $savant->assign($vars);
 
         // load template...
         try {
