@@ -9,13 +9,7 @@
     <!-- Build plugin releases -->
     <target name="plugin-releases" depends="clean,init" description="Build plugin releases.">
         <!-- build general plugins -->
-        <foreach list="${plugins.type.general}" target="plugin-release" param="plugin.name">
-            <param name="plugin.type" value="general" />
-        </foreach>
-
-        <!-- build order_total plugins -->
-        <foreach list="${plugins.type.order_total}" target="plugin-release" param="plugin.name">
-            <param name="plugin.type" value="order_total" />
+        <foreach list="${plugins.list}" target="plugin-release" param="plugin.name">
         </foreach>
 
         <!-- build zip of all plugins -->
@@ -38,8 +32,8 @@
 
         <copy todir="${build.dir}/plugins">
             <fileset dir="${zenmagick.src.dir}/plugins">
-              <include name="${plugin.type}/${plugin.name}.php" />
-              <include name="${plugin.type}/${plugin.name}/**" />
+              <include name="${plugin.name}.php" />
+              <include name="${plugin.name}/**" />
             </fileset>
         </copy>
 
@@ -49,8 +43,8 @@
 
         <zip zipfile="${dist.dir}/plugins/${zenmagick.version}/plugin-${plugin.name}-${plugin.version}.zip">
             <fileset dir="${build.dir}/plugins">
-                <include name="${plugin.type}/${plugin.name}.php" />
-                <include name="${plugin.type}/${plugin.name}/**" />
+                <include name="${plugin.name}.php" />
+                <include name="${plugin.name}/**" />
             </fileset>
         </zip>
         <checksum file="${dist.dir}/plugins/${zenmagick.version}/plugin-${plugin.name}-${plugin.version}.zip" fileext=".sha" algorithm="SHA" todir="${dist.dir}/plugins/${zenmagick.version}/checksum" />
