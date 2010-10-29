@@ -137,10 +137,8 @@ class ZMSavantView extends ZMView {
         $path = array();
 
         // add plugins as well
-        foreach (explode(',', ZMSettings::get('zenmagick.core.plugins.groups')) as $group) {
-            foreach (ZMPlugins::instance()->getPluginsForGroup($group, 0) as $plugin) {
-                $path[] = $plugin->getPluginDirectory().'content'.DIRECTORY_SEPARATOR;
-            }
+        foreach (ZMPlugins::instance()->getAllPlugins() as $plugin) {
+            $path[] = $plugin->getPluginDirectory().'content'.DIRECTORY_SEPARATOR;
         }
 
         $path[] = $request->getTemplatePath();
@@ -163,13 +161,11 @@ class ZMSavantView extends ZMView {
         $localeCodes = array_reverse(ZMLocales::instance()->getValidLocaleCodes());
 
         // add plugins as well
-        foreach (explode(',', ZMSettings::get('zenmagick.core.plugins.groups')) as $group) {
-            foreach (ZMPlugins::instance()->getPluginsForGroup($group, ZMSettings::get('zenmagick.core.plugins.context', 0)) as $plugin) {
-                $ppath = $plugin->getPluginDirectory().'content'.DIRECTORY_SEPARATOR;
-                $path[] = $ppath;
-                foreach ($localeCodes as $code) {
-                    $path[] = ZMFileUtils::mkpath($ppath, 'locale', $code);
-                }
+        foreach (ZMPlugins::instance()->getAllPlugins(ZMSettings::get('zenmagick.core.plugins.context', 0)) as $plugin) {
+            $ppath = $plugin->getPluginDirectory().'content'.DIRECTORY_SEPARATOR;
+            $path[] = $ppath;
+            foreach ($localeCodes as $code) {
+                $path[] = ZMFileUtils::mkpath($ppath, 'locale', $code);
             }
         }
 

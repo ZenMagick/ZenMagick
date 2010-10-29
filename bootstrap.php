@@ -103,8 +103,7 @@
 
     // upset plugins if required
     if (ZMSettings::get('zenmagick.core.plugins.enabled')) {
-        $plugins = ZMPlugins::instance()->initPluginsForGroups(explode(',', ZMSettings::get('zenmagick.core.plugins.groups')), ZMSettings::get('zenmagick.core.plugins.context', 0));
-        foreach ($plugins as $plugin) {
+        foreach (ZMPlugins::instance()->initAllPlugins(ZMSettings::get('zenmagick.core.plugins.context', 0)) as $plugin) {
             if ($plugin instanceof ZMRequestHandler) {
                 $plugin->initRequest($_zm_request);
             }

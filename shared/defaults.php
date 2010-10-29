@@ -92,7 +92,6 @@
             /*** plugins ***/
             'zenmagick.core.plugins.enabled' => true,
             'zenmagick.core.plugins.baseDir' => ZM_BASE_PATH.'plugins'.DIRECTORY_SEPARATOR,
-            'zenmagick.core.plugins.groups' => 'general,order_total',
         
         
             /*** security ***/

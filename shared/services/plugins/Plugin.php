@@ -78,6 +78,17 @@ class Plugin extends ZMPlugin {
 
 
     /**
+     * {@inheritDoc}
+     */
+    public function setId($id) {
+        parent::setId($id);
+
+        $this->configPrefix_ = strtoupper(self::KEY_PREFIX . $id . '_');
+        $this->enabledKey_ = $this->configPrefix_.self::KEY_ENABLED;
+        $this->orderKey_ = $this->configPrefix_.self::KEY_SORT_ORDER;
+    }
+
+    /**
      * Get optional installation messages.
      *
      * @return array List of <code>ZMMessage</code> instances.
@@ -254,16 +265,6 @@ class Plugin extends ZMPlugin {
      * @param int sortOrder The sort order index.
      */
     public function setSortOrder($sortOrder) { $this->set(self::KEY_SORT_ORDER, $sortOrder); }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function setGroup($group) {
-        parent::setGroup($group);
-        $this->configPrefix_ = strtoupper(self::KEY_PREFIX . $group . '_'. $this->getId() . '_');
-        $this->enabledKey_ = $this->configPrefix_.self::KEY_ENABLED;
-        $this->orderKey_ = $this->configPrefix_.self::KEY_SORT_ORDER;
-    }
 
     /**
      * Get a plugin config file path.

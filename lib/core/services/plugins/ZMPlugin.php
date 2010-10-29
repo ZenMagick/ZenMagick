@@ -30,8 +30,6 @@
  * <dl>
  *  <dt>id</dt>
  *  <dd>The plugin's class name.</dd>
- *  <dt>group</dt>
- *  <dd>The group this plugin belongs to.</dd>
  *  <dt>name</dt>
  *  <dd>Empty string.</dd>
  *  <dt>description</dt>
@@ -65,7 +63,6 @@ abstract class ZMPlugin extends ZMObject {
     const LP_ALL = 'ALL';
 
     private $id_;
-    private $group_;
     private $name_;
     private $description_;
     private $version_;
@@ -82,7 +79,6 @@ abstract class ZMPlugin extends ZMObject {
         parent::__construct();
         // default
         $this->id_ = get_class($this);
-        $this->group_ = null;
         $this->name_ = '';
         $this->description_ = '';
         $this->version_ = '0.0';
@@ -116,24 +112,6 @@ abstract class ZMPlugin extends ZMObject {
      */
     public function setId($id) {
         $this->id_ = $id;
-    }
-
-    /**
-     * Get the group.
-     *
-     * @return string The group.
-     */
-    public function getGroup() {
-        return $this->group_;
-    }
-
-    /**
-     * Set the group.
-     *
-     * @param string group The group.
-     */
-    public function setGroup($group) {
-        $this->group_ = $group;
     }
 
    /**

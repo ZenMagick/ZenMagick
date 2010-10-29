@@ -101,38 +101,36 @@ class ZMCoreCompressor extends ZMPhpPackagePacker {
      */
     private function getPluginFiles() {
         $pluginFiles = array();
-        foreach (ZMPlugins::instance()->getAllPlugins() as $group => $plugins) {
-            foreach ($plugins as $plugin) {
-                if (!$plugin->isEnabled()) {
-                    continue;
+        foreach (ZMPlugins::instance()->getAllPlugins() as $plugin) {
+            if (!$plugin->isEnabled()) {
+                continue;
+            }
+            $flag = $plugin->getLoaderPolicy();
+            if (ZMPlugin::LP_NONE != $flag) {
+                $pluginDir = $plugin->getPluginDirectory();
+                $hasDir = true;
+                if (empty($pluginDir)) {
+                    $pluginDir = Runtime::getPluginBasePath() . $group . DIRECTORY_SEPARATOR;
+                    $hasDir = false;
                 }
-                $flag = $plugin->getLoaderPolicy();
-                if (ZMPlugin::LP_NONE != $flag) {
-                    $pluginDir = $plugin->getPluginDirectory();
-                    $hasDir = true;
-                    if (empty($pluginDir)) {
-                        $pluginDir = Runtime::getPluginBasePath() . $group . DIRECTORY_SEPARATOR;
-                        $hasDir = false;
+                if ($hasDir) {
+                    if (ZMPlugin::LP_LIB == $flag) {
+                        $files = ZMFileUtils::findIncludes($pluginDir.'lib'.DIRECTORY_SEPARATOR, '.php', true);
+                    } else {
+                        $files = ZMFileUtils::findIncludes($pluginDir, '.php', ZMPlugin::LP_FOLDER != $flag);
                     }
-                    if ($hasDir) {
-                        if (ZMPlugin::LP_LIB == $flag) {
-                            $files = ZMFileUtils::findIncludes($pluginDir.'lib'.DIRECTORY_SEPARATOR, '.php', true);
-                        } else {
-                            $files = ZMFileUtils::findIncludes($pluginDir, '.php', ZMPlugin::LP_FOLDER != $flag);
-                        }
+                }
+                foreach ($files as $file) {
+                    $fileBase = str_replace($pluginDir, '', $file);
+                    $relDir = dirname($fileBase).DIRECTORY_SEPARATOR;
+                    if ('.'.DIRECTORY_SEPARATOR == $relDir) {
+                        $relDir = '';
                     }
-                    foreach ($files as $file) {
-                        $fileBase = str_replace($pluginDir, '', $file);
-                        $relDir = dirname($fileBase).DIRECTORY_SEPARATOR;
-                        if ('.'.DIRECTORY_SEPARATOR == $relDir) {
-                            $relDir = '';
-                        }
-                        if (false === ($source = file_get_contents($file))) {
-                            ZMLogging::instance()->log('unable to read plugin source: '.$file, ZMLogging::WARN);
-                            continue;
-                        }
-                        $pluginFiles[] = $file;
+                    if (false === ($source = file_get_contents($file))) {
+                        ZMLogging::instance()->log('unable to read plugin source: '.$file, ZMLogging::WARN);
+                        continue;
                     }
+                    $pluginFiles[] = $file;
                 }
             }
         }

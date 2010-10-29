@@ -171,11 +171,9 @@ class ZMSideboxDummyPatch extends ZMFilePatch {
         }
 
         // 2) plugins
-        foreach (explode(',', ZMSettings::get('zenmagick.core.plugins.groups')) as $group) {
-            foreach (ZMPlugins::instance()->getPluginsForGroup($group) as $plugin) {
-                $dir = ZMFileUtils::mkPath(array($plugin->getPluginDirectory(), 'content', 'boxes'));
-                $boxPathList[] = $dir;
-            }
+        foreach (ZMPlugins::instance()->getAllPlugins() as $plugin) {
+            $dir = ZMFileUtils::mkPath(array($plugin->getPluginDirectory(), 'content', 'boxes'));
+            $boxPathList[] = $dir;
         }
 
         $missingBoxes = array();

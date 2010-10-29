@@ -52,18 +52,8 @@ class ZMPluginsController extends ZMController {
      * {@inheritDoc}
      */
     public function getViewData($request) {
-        if (null != ($group = $request->getParameter('group'))) {
-            $pluginList = array($group => ZMPlugins::instance()->getPluginsForGroup($group, 0, false));
-        } else {
-            $pluginList = ZMPlugins::instance()->getAllPlugins(0, false);
-            foreach ($pluginList as $group => $plugins) {
-                // remove empty groups
-                if (0 == count($plugins)) {
-                    unset($pluginList[$group]);
-                }
-            }
-        }
-
+        // TODO: make flat list
+        $pluginList['general'] = ZMPlugins::instance()->getAllPlugins(0, false);
         return array('pluginList' => $pluginList);
     }
 
@@ -93,18 +83,15 @@ class ZMPluginsController extends ZMController {
      */
     protected function refreshPluginStatus() {
         $pluginStatus = array();
-        foreach (ZMPlugins::instance()->getAllPlugins(0, false) as $group => $plugins) {
-            foreach ($plugins as $plugin) {
-                $pluginStatus[$plugin->getId()] = array(
-                    'group' => $plugin->getGroup(),
-                    'type' => $this->getPluginType($plugin),
-                    'scope' => $plugin->getScope(),
-                    'installed' => $plugin->isInstalled(),
-                    'enabled' => $plugin->isEnabled(),
-                    'context' => $plugin->getContext(),
-                    'order' => $plugin->getSortOrder()
-                );
-            }
+        foreach (ZMPlugins::instance()->getAllPlugins(0, false) as $plugin) {
+            $pluginStatus[$plugin->getId()] = array(
+                'type' => $this->getPluginType($plugin),
+                'scope' => $plugin->getScope(),
+                'installed' => $plugin->isInstalled(),
+                'enabled' => $plugin->isEnabled(),
+                'context' => $plugin->getContext(),
+                'order' => $plugin->getSortOrder()
+            );
         }
         // update in db
         ZMLogging::instance()->log('updating plugin status...', ZMLogging::TRACE);
@@ -117,7 +104,6 @@ class ZMPluginsController extends ZMController {
     public function processGet($request) {
         $action = $request->getParameter('action');
         $pluginId = $request->getParameter('pluginId');
-        $group = $request->getParameter('group');
 
         $viewId = null;
 
@@ -151,7 +137,6 @@ class ZMPluginsController extends ZMController {
         $multiAction = $request->getParameter('multiAction');
         $pluginId = $request->getParameter('pluginId');
         $multiPluginId = $request->getParameter('multiPluginId');
-        $group = $request->getParameter('group');
 
         // convert single action into multi
         if (null != $action && null != $pluginId) {
@@ -175,7 +160,7 @@ class ZMPluginsController extends ZMController {
                 }
             } else if ('uninstall' == $action) {
                 $keepSettings = ZMLangUtils::asBoolean($request->getParameter('keepSettings', false));
-                if (null != ($plugin = ZMPlugins::instance()->initPluginForId($pluginId, false)) && $plugin->isInstalled()) {
+                if (null != ($plugin = ZMPlugins::instance()->initPluginForId($pluginId, true)) && $plugin->isInstalled()) {
                     ZMLogging::instance()->log('un-install plugin: '.$plugin->getId() . '; keepSettings: '.($keepSettings?'true':'false'), ZMLogging::TRACE);
                     $plugin->remove($keepSettings);
                     ZMMessages::instance()->success(sprintf(_zm('Plugin %s un-installed successfully'), $plugin->getName()));
@@ -183,7 +168,7 @@ class ZMPluginsController extends ZMController {
                     $viewId = 'success-uninstall';
                 }
             } else if ('upgrade' == $action) {
-                if (null != ($plugin = ZMPlugins::instance()->initPluginForId($pluginId, false)) && $plugin->isInstalled()) {
+                if (null != ($plugin = ZMPlugins::instance()->initPluginForId($pluginId, true)) && $plugin->isInstalled()) {
                     ZMLogging::instance()->log('upgrade plugin: '.$plugin->getId(), ZMLogging::TRACE);
                     $plugin->upgrade();
                     ZMMessages::instance()->success(sprintf(_zm('Plugin %s upgraded successfully'), $plugin->getName()));

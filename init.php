@@ -39,12 +39,10 @@
     ZMSacsManager::instance()->ensureAccessMethod($_zm_request);
 
     // load stuff that really needs to be global!
-    foreach (ZMPlugins::instance()->getAllPlugins(true) as $group => $plugins) {
-        foreach ($plugins as $plugin) {
-            if ($plugin->isEnabled()) {
-                foreach ($plugin->getGlobal($_zm_request) as $_zm_file) {
-                    include_once $_zm_file;
-                }
+    foreach (ZMPlugins::instance()->initAllPlugins(ZMSettings::get('zenmagick.core.plugins.context', 0)) as $plugin) {
+        if ($plugin->isEnabled()) {
+            foreach ($plugin->getGlobal($_zm_request) as $_zm_file) {
+                include_once $_zm_file;
             }
         }
     }

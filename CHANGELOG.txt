@@ -96,6 +96,7 @@ Release 0.9.11
   process method name, overiding the request method based mapping; if set,
 	SACS mappings on method level will be evaluated, the sacs mapping key is:
 	[requestId]#[method name]
+- drop plugin group folders and move all plugins up one level
 
 Release 0.9.10
 - restructure store and admin code into separate apps with most of the store

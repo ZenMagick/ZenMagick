@@ -63,11 +63,9 @@ class ot_zenmagick {
 
         // find all order total plugins
         $this->plugins_ = array();
-        foreach (ZMPlugins::instance()->getAllPlugins() as $type => $plugins) {
-            foreach ($plugins as $plugin) {
-                if ($plugin instanceof ZMOrderTotal) {
-                    $this->plugins_[$plugin->getId()] = $plugin;
-                }
+        foreach (ZMPlugins::instance()->getAllPlugins() as $plugin) {
+            if ($plugin instanceof ZMOrderTotal) {
+                $this->plugins_[$plugin->getId()] = $plugin;
             }
         }
 
