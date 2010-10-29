@@ -29,8 +29,8 @@
  */
 class ZMPluginsController extends ZMController {
     private static $TYPE_MAP = array(
-        'order_total' => ZMOrderTotal,
-        'payment' => ZMPaymentType
+        'order_total' => 'ZMOrderTotal',
+        'payment' => 'ZMPaymentType'
     );
 
     /**
