@@ -109,7 +109,7 @@ var ZenMagick = {
                     callbacks.failure(response.error);
                 } else {
                     // default callback
-                    zenmagick.failure(response.error);
+                    ZenMagick.failure(response.error);
                 }
             },
             error: function() { 
@@ -117,7 +117,7 @@ var ZenMagick = {
                     callbacks.failure(null);
                 } else {
                     // default callback
-                    zenmagick.failure(null);
+                    ZenMagick.failure(null);
                 }
             }
         });
