@@ -56,9 +56,11 @@ class ZMSelectFormWidget extends ZMFormWidget {
      * {@inheritDoc}
      */
     public function setValue($value) {
-        $arr = @unserialize($value);
-        if (is_array($arr)) {
-            $value = $arr;
+        if ($this->isMultiValue()) {
+            $arr = @unserialize($value);
+            if (is_array($arr)) {
+                $value = $arr;
+            }
         }
         parent::setValue($value);
     }
