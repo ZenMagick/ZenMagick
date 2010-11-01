@@ -87,6 +87,10 @@ class ZMFirePHPPlugin extends Plugin implements ZMRequestHandler {
                 // avoid being used!
                 self::singleton('Logging', new ZMLogging(), true);
             }
+        } else {
+            if (!(ZMLogging::instance() instanceof Logging)) {
+                self::singleton('Logging', new Logging(), true);
+            }
         }
     }
 
