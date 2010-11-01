@@ -99,6 +99,7 @@ Release 0.9.11
 - drop plugin group folders and move all plugins up one level
 - plugins: methodController: new example plugin illustrating some aspects of
   url mappings and view/controller logic
+- add sfYaml to phase out spyc
 
 Release 0.9.10
 - restructure store and admin code into separate apps with most of the store
