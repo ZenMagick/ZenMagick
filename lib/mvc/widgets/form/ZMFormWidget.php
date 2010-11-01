@@ -30,7 +30,7 @@
  * @package org.zenmagick.mvc.widgets.form
  */
 abstract class ZMFormWidget extends ZMWidget {
-    private static $NO_VAL_ATTR = array('multiple');
+    private static $NO_VAL_ATTR = array('multiple', 'readonly', 'disabled');
     private $name_;
     private $value_;
     private $attributeNames_;
