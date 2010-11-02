@@ -176,4 +176,29 @@ class ZMLangUtils {
         return $base;
     }
 
+    /**
+     * Get bytes from K/M/G sizes
+     *
+     * <p>
+     * echo ini_get('post_max_size'); // 8M
+     * echo ZMLangUtils::asBytes('8M'); // 8388608
+     * </p>
+     *
+     * @param string val number with g/k/m suffix.
+     * @return int bytes from <code>val</code>.
+     */
+    public static function asBytes($val) {
+        $val = trim($val);
+        $unit = strtolower(substr($val,strlen($val/1),1));
+        switch($unit) {
+        case 'g':
+            $val *= 1024;
+        case 'm':
+            $val *= 1024;
+        case 'k':
+            $val *= 1024;
+        }
+        return $val;
+    }
+
 }
