@@ -18,41 +18,6 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 ?>
-<?php
-  //TODO: where do they go??
-  class ZMTitleUpdater {
-      private $title_;
-
-      function __construct($title) {
-          $this->title_ = $title;
-      }
-
-      /**
-       * {@inheritDoc}
-       */
-      public function onZMFinaliseContents($args) {
-          $request = $args['request'];
-          $contents = $args['contents'];
-          $args['contents'] = preg_replace('/<title>.*<\/title>/', '<title>'.$this->title_.'</title>', $contents, 1);
-          return $args;
-      }
-  }
-
-  function zm_title($view, $title=null) {
-    $root = ZMAdminMenu::getRootItemForRequestId($view->request->getRequestId());
-    $pref = (null != $root) ? $root['title'] : null;
-    if (null == $title) {
-        $title = $pref;
-    } else if (null != $pref) {
-        $title = sprintf(_zm("%1s: %2s"), $pref, $title);
-    }
-    ?>
-    <h1><?php echo $title  ?></h1>
-    <?php echo $view->fetch('sub-menu.php'); echo '<div id="view-container">';
-    ZMEvents::instance()->attach(new ZMTitleUpdater(sprintf(_zm("%1s :: %2s :: ZenMagick Admin"), ZMSettings::get('storeName'), $title)));
-  }
-
-?>
 <!DOCTYPE html>
 <html>
   <head>

@@ -18,7 +18,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 ?>
-<?php zm_title($this, _zm('Themes')) ?>
+<?php $admin2->title(_zm('Themes')) ?>
 
 <h2><?php _vzm('Manage Themes') ?></h2>
 <form action="<?php echo $admin2->url() ?>" method="POST">

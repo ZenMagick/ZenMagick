@@ -18,7 +18,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 ?>
-<?php zm_title($this, _zm('Admin Users')) ?>
+<?php $admin2->title(_zm('Admin Users')) ?>
 
 <table class="grid">
   <tr>

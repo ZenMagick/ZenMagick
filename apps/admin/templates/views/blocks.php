@@ -18,7 +18,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 ?>
-<?php zm_title($this) ?>
+<?php $admin2->title() ?>
 
 <div class="col3" style="float:left;width:32%;border:1px solid gray;padding:5px;margin:1px;">
   <h2>Blocks</h2>

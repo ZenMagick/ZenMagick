@@ -46,7 +46,7 @@
   }
 </script>
 
-<?php zm_title($this) ?>
+<?php $admin2->title() ?>
 
 <table class="grid">
   <?php foreach ($pluginList as $group => $plugins) { ?>

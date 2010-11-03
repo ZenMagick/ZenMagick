@@ -32,7 +32,7 @@
 
 ?>
 
-<?php zm_title($this, _zm('Theme Builder')) ?></h1>
+<?php $admin2->title(_zm('Theme Builder')) ?></h1>
 
 <form action="<?php echo $admin2->url() ?>" method="POST" onsubmit="return ZenMagick.confirm('_vzm('Create theme?')', this);">
   <fieldset>

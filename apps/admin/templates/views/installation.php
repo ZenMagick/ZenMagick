@@ -184,7 +184,7 @@
       }
     </script>
 
-<?php zm_title($this) ?>
+<?php $admin2->title() ?>
 <div id="b_installation">
   <h2><?php _vzm("ZenMagick Installation") ?> <a class="btn" href="<?php echo $admin2->url() ?>"><?php _vzm("Refresh Page") ?></a></h2>
 

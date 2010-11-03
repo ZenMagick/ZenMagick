@@ -18,7 +18,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 ?>
-<?php zm_title($this, $group->getName()) ?>
+<?php $admin2->title($group->getName()) ?>
 
 <form method="POST" action="<?php echo $admin2->url() ?>">
   <fieldset>

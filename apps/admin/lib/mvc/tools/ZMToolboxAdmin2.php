@@ -28,6 +28,17 @@
  * @package zenmagick.store.admin.mvc.tools
  */
 class ZMToolboxAdmin2 extends ZMToolboxTool {
+    private $tags_;
+
+
+    /**
+     * Create new instance.
+     */
+    function __construct() {
+        $this->tags_ = array();
+        ZMEvents::instance()->attach($this);
+    }
+
 
     /**
      * Create a admin page URL.
@@ -110,6 +121,62 @@ class ZMToolboxAdmin2 extends ZMToolboxTool {
         $url = str_replace('&amp;', '&', $this->getRequest()->url($controller, $params.'&method='.$method, $this->getRequest()->isSecure()));
 
         return $url;
+    }
+
+    /**
+     * Set the page title and create the side nav.
+     *
+     * <p><strong>NOTE: This method will return the derived page title to be used in a <em>h1</em>.</strong></p>
+     *
+     * @param string title Optional fixed (sub-)title; default is <code>null</code> for none.
+     */
+    public function title($title=null) {
+        $root = ZMAdminMenu::getRootItemForRequestId($this->getRequest()->getRequestId());
+        $pref = (null != $root) ? $root['title'] : null;
+        if (null == $title) {
+            $title = $pref;
+        } else if (null != $pref) {
+            $title = sprintf(_zm("%1s: %2s"), $pref, $title);
+        }
+        ?><h1><?php echo $title ?></h1><?php
+        echo $this->getView()->fetch($this->getRequest(), 'sub-menu.php'); echo '<div id="view-container">';
+        $this->tag('title', sprintf(_zm("%1s :: %2s :: ZenMagick Admin"), ZMSettings::get('storeName'), $title));
+        return $title;
+    }
+
+    /**
+     * Manipulate the content of a given tag.
+     *
+     * <p>Typical tags would be <em>title</em> or meta tags.</p>
+     *
+     * <p>If <code>value</code> is a function, it will get passed the current value as single parameter.
+     * The returned value will be taken as the new value.</p>
+     *
+     * @param string tag The tag name.
+     * @param mixed value The new value or a function to compute the new value.
+     */
+    public function tag($tag, $value) {
+        $this->tags_[$tag] = $value;
+    }
+
+    /**
+     * Handle tag updates.
+     */
+    public function onZMFinaliseContents($args) {
+        $request = $args['request'];
+        $contents = $args['contents'];
+
+        // process all tags
+        foreach ($this->tags_ as $tag => $value) {
+            if (function_exists($value) || is_array($value)) {
+                preg_replace('/<'.$tag.'>(.*)<\/'.$tag.'>/', $contents, $matches);
+                $value = call_user_func($value, 1 == count($matches) ? $matches[0] : null);
+            }
+            $contents = preg_replace('/<'.$tag.'>.*<\/'.$tag.'>/', '<'.$tag.'>'.$value.'</'.$tag.'>', $contents, 1);
+        }
+
+        $args['contents'] = $contents;
+        return $args;
     }
 
 }

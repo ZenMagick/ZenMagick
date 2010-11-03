@@ -19,7 +19,7 @@
  */
 ?>
 
-<?php zm_title($this, _zm('Cache Admin')) ?>
+<?php $admin2->title(_zm('Cache Admin')) ?>
 
 <form action="<?php echo $admin2->url() ?>" method="POST" onsubmit="return ZenMagick.confirm('<?php _vzm('Clear selected caches?') ?>', this);">
   <fieldset>

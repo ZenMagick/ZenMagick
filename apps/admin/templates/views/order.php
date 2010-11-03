@@ -18,7 +18,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 ?>
-<?php zm_title($this, sprintf(_zm('Order: %s'), $order->getId())) ?>
+<?php $admin2->title(sprintf(_zm('Order: %s'), $order->getId())) ?>
 
 <h3><?php _vzm("Item Details") ?></h3>
 <table class="grid">
