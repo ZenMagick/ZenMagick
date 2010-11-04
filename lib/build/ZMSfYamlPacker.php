@@ -36,7 +36,7 @@ class ZMSfYamlPacker extends ZMPhpPackagePacker implements ZMLibraryPacker {
         $this->outputFilename_ = $targetDir.'sf-yaml-'.$version.'.packed.php';
 
         // run the parent package packer; strip/leave references
-        $this->packFiles($strip, true);
+        $this->packFiles($strip, false);
     }
 
 }
