@@ -103,6 +103,7 @@ Release 0.9.11
 - add new widget() method to make using widgets easier
 - add ZMSavant::find() method to allow to find (and filter using regexp) all
   available templates/resources within a given path
+- add ZMTaxClass and code to find one (ZMTaxRates::getTaxClassForId())
 
 Release 0.9.10
 - restructure store and admin code into separate apps with most of the store

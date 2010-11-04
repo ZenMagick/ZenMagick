@@ -75,4 +75,13 @@ class TestZMTaxRates extends ZMTestCase {
         $this->assertEqual(0, ZMTaxRates::instance()->getTaxRateForDescription('foo bar'));
     }
 
+    /**
+     * Test get tax class
+     */
+    public function testGetTaxClassForId() {
+        $taxClass = ZMTaxRates::instance()->getTaxClassForId(1);
+        $this->assertNotNull($taxClass);
+        $this->assertEqual('Taxable Goods', $taxClass->getTitle());
+    }
+
 }

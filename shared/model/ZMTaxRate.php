@@ -81,11 +81,11 @@ class ZMTaxRate extends ZMObject {
      *
      * @return string The tax description.
      */
-    public function getDescription() { 
+    public function getDescription() {
         if (null == $this->description_) {
             $this->description_ = ZMTaxRates::instance()->getTaxDescription($this->classId_, $this->countryId_, $this->zoneId_);
         }
-        return $this->description_; 
+        return $this->description_;
     }
 
     /**

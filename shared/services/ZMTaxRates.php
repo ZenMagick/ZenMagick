@@ -184,7 +184,7 @@ class ZMTaxRates extends ZMObject {
         $rate = 0.00;
         $descriptions = explode(_zm(ZMSettings::get('tax.delim', ' + ')), $description);
         foreach ($descriptions as $description) {
-            $sql = "SELECT tax_rate 
+            $sql = "SELECT tax_rate
                     FROM " . TABLE_TAX_RATES . "
                     WHERE tax_description = :description";
             $result = ZMRuntime::getDatabase()->querySingle($sql, array('description' => $description), TABLE_TAX_RATES);
@@ -195,6 +195,18 @@ class ZMTaxRates extends ZMObject {
 
         // round 2 better as calculations use
         return round($rate, ZMSettings::get('calculationDecimals') + 2);
+    }
+
+    /**
+     * Get a tax class for the given id.
+     *
+     * @param int id The tax class id.
+     * @return ZMTaxClass A <code>ZMTaxClass</code> instance or <code>null</code>.
+     */
+    public function getTaxClassForId($id) {
+        $sql = "SELECT * FROM " . TABLE_TAX_CLASS . "
+                WHERE tax_class_id = :taxClassId";
+        return ZMRuntime::getDatabase()->querySingle($sql, array('taxClassId' => $id), TABLE_TAX_CLASS, "TaxClass");
     }
 
 }
