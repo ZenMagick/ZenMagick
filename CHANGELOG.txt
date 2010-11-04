@@ -101,6 +101,8 @@ Release 0.9.11
   url mappings and view/controller logic
 - add sfYaml to phase out spyc
 - add new widget() method to make using widgets easier
+- add ZMSavant::find() method to allow to find (and filter using regexp) all
+  available templates/resources within a given path
 
 Release 0.9.10
 - restructure store and admin code into separate apps with most of the store

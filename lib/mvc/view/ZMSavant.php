@@ -78,7 +78,7 @@ class ZMSavant extends Savant3 {
      *
      * @param string filename The filename, relative to the template path.
      * @param string type The lookup type; valid values are <code>ZMView::TEMPLATE</code> and <code>ZMView::RESOURCE</code>;
-     *  default is <code>ZMVIew::TEMPLATE</code>.
+     *  default is <code>ZMView::TEMPLATE</code>.
      * @return boolean <code>true</code> if the file exists, <code>false</code> if not.
      */
     public function exists($filename, $type=ZMView::TEMPLATE) {
@@ -90,7 +90,7 @@ class ZMSavant extends Savant3 {
      *
      * @param string filename The filename, relative to the template path.
      * @param string type The lookup type; valid values are <code>ZMView::TEMPLATE</code> and <code>ZMView::RESOURCE</code>;
-     *  default is <code>ZMVIew::TEMPLATE</code>.
+     *  default is <code>ZMView::TEMPLATE</code>.
      * @return string A fully qualified filename or <code>null</code>.
      */
     public function path($filename, $type=ZMView::TEMPLATE) {
@@ -103,7 +103,7 @@ class ZMSavant extends Savant3 {
      *
      * @param string filename The filename, relative to the template path.
      * @param string type The lookup type; valid values are <code>ZMView::TEMPLATE</code> and <code>ZMView::RESOURCE</code>;
-     *  default is <code>ZMVIew::TEMPLATE</code>.
+     *  default is <code>ZMView::TEMPLATE</code>.
      * @return string A url.
      */
     public function asUrl($filename, $type=ZMView::TEMPLATE) {
@@ -206,6 +206,65 @@ class ZMSavant extends Savant3 {
             ZMBeanUtils::setAll($wObj, $args);
         }
         return $wObj->render($this->request, $this->view);
+    }
+
+    /**
+     * Find templates/resources for the given path.
+     *
+     * <p><strong>Example:</strong></p>
+     *
+     * <p>Find all styles in a particular folder (<em>style</em>).</p>
+     * <code><pre>
+     *   $styles = $this->find('style', '/css/');
+     *   foreach ($styles as $name => $url) {
+     *    echo '<link rel="stylesheet" type="text/css" href="'.$url.'"/>';
+     *   }
+     * </pre></code>
+     *
+     * <p>Alternatively, using the build in $resource helper, it would look like this:</p>
+     * <code><pre>
+     *   $styles = $this->find('style', '/css/');
+     *   foreach ($styles as $name => $url) {
+     *    $resource->cssFile($name);
+     *   }
+     * </pre></code>
+     *
+     * @param string path The base path, relative to the template/resource path.
+     * @param string regexp Optional filter expression; default is <code>null</code> for none.
+     * @param string type The lookup type; valid values are <code>ZMView::TEMPLATE</code> and <code>ZMView::RESOURCE</code>;
+     *  default is <code>ZMView::RESOURCE</code>.
+     * @return array A map of matching filename/relative url pairs.
+     */
+    public function find($path, $regexp=null, $type=ZMView::RESOURCE) {
+        switch ($type) {
+        case ZMView::TEMPLATE:
+            $dirs = $this->view->getTemplatePath($this->request);
+            break;
+        case ZMView::RESOURCE:
+            $dirs = $this->view->getResourcePath($this->request);
+            break;
+        default: 
+            $dirs = array();
+            break;
+        }
+
+        // iterate in ascending priority, so the more important win
+        $files = array();
+        foreach ($dirs as $base) { 
+            $dir = $base.$path;
+            if (file_exists($dir) && is_dir($dir)) {
+                $it = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($dir));
+                if (null != $regexp) {
+                    $it = new RegexIterator($it, $regexp, RegexIterator::MATCH);
+                }
+                for ($it->rewind(); $it->valid(); $it->next()) {
+                    $name = str_replace(array($base, '\\'), array('', '/'), $it->current()->getPathname());
+                    $files[$name] = $this->asUrl($name);
+                }
+            }
+        }
+
+        return $files;
     }
 
 }
