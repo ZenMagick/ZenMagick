@@ -49,7 +49,7 @@ class ZMUnitTestsController extends ZMController {
 
     /**
      * Process a HTTP GET request.
-     * 
+     *
      * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
      * if the controller generates the contents itself.
      */
@@ -145,9 +145,10 @@ class ZMUnitTestsController extends ZMController {
         foreach ($testCaseMap as $testCase) {
             $testCases[] = $testCase;
         }
-        
+
         $context['all_selected_testCases'] = array_flip($testCases);
         $context['all_selected_tests'] = array_flip($tests);
+        $context['all_results'] = array();
         if (0 < count($testCases)) {
             // prepare selected tests
             $suite = new TestSuite('ZenMagick Tests');

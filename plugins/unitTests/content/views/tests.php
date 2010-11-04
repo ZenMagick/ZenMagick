@@ -57,7 +57,7 @@
         }
       }
     </script>
-    <script type="text/javascript"> $(document).ready(function() { 
+    <script type="text/javascript"> $(document).ready(function() {
       $(".filetree").treeview({ collapsed: true, unique: false, prerendered: false }); });
     </script>
   </head>
@@ -82,17 +82,17 @@
             <?php $open = false; foreach ($testCases as $testCase) { if (isset($all_selected_testCases[$testCase->getLabel()])) { $open = true; break; } } ?>
             <li<?php if ($open) { echo ' class="open"'; } ?>>
               <div class="">
-                <input type="checkbox" id="<?php echo $idGroup ?>" onclick="sync_all(this)"> 
+                <input type="checkbox" id="<?php echo $idGroup ?>" onclick="sync_all(this)">
                 <label for="<?php echo $idGroup ?>"><strong><?php echo $group ?></strong></label>
               </div>
               <ul>
-                <?php foreach ($testCases as $testCase) { $label = $testCase->getLabel(); $tests = $testCase->getTests(); $result = $all_results[$label]; ?>
+                <?php foreach ($testCases as $testCase) { $label = $testCase->getLabel(); $tests = $testCase->getTests(); $result = array_key_exists($label, $all_results) ? $all_results[$label] : null; ?>
                   <?php $incomplete = false; foreach ($tests as $test) { if (!isset($all_selected_tests[$label.'-'.$test])) { $incomplete = true; break; } } ?>
                   <?php $selected = isset($all_selected_testCases[$label]); ?>
                   <li<?php echo (($selected && ($incomplete || (null !== $result && !$result['status']))) ? ' class="open"' : '') ?>>
                     <div class="<?php if ($selected) { echo (null === $result ? "skip" : ($result['status'] ? "pass" : "fail")); } ?>">
                       <input type="checkbox" name="testCases[]" id="<?php echo $idGroup.'-'.$label ?>" onclick="sync_all(this)"
-                           value="<?php echo $label ?>" <?php echo ($selected ? 'checked' : '') ?>> 
+                           value="<?php echo $label ?>" <?php echo ($selected ? 'checked' : '') ?>>
                       <label for="<?php echo $idGroup.'-'.$label ?>"><?php echo $label ?></label>
                     </div>
                     <ul>
@@ -101,7 +101,7 @@
                           <li>
                             <span class="<?php if ($selected) { echo (null === $result ? "skip" : ($result['tests'][$test]['status'] ? "pass" : "fail")); } ?>">
                               <input type="checkbox" name="tests[]" id="<?php echo $idGroup.'-'.$label.'-'.$test ?>"
-                                   value="<?php echo $label.'-'.$test ?>" <?php echo ($selected ? 'checked' : '') ?>> 
+                                   value="<?php echo $label.'-'.$test ?>" <?php echo ($selected ? 'checked' : '') ?>>
                               <label for="<?php echo $idGroup.'-'.$label.'-'.$test ?>"><?php echo $test ?></label>
                             </span>
                           </li>
