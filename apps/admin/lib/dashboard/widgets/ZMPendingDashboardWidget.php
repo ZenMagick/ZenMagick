@@ -53,7 +53,7 @@ class ZMPendingDashboardWidget extends ZMDashboardWidget {
         $contents = '';
         $gvApprovalQueue = ZMCoupons::instance()->getCouponsForFlag('N');
         if (0 < count($gvApprovalQueue)) {
-            $a = '<a href="'.str_replace('index.php', 'gv_queue.php', ZMSettings::get('apps.store.oldAdminUrl')).'">'._zm('approval').'</a>';
+            $a = '<a href="'.$request->getToolbox()->admin2->url('zc_admin', 'zpid=gv_queue').'">'._zm('approval').'</a>';
             $contents .= sprintf(_zm('There are %s gift cards waiting for %s'), count($gvApprovalQueue), $a);
         }
 
