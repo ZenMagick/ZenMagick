@@ -104,6 +104,7 @@ Release 0.9.11
 - add ZMSavant::find() method to allow to find (and filter using regexp) all
   available templates/resources within a given path
 - add ZMTaxClass and code to find one (ZMTaxRates::getTaxClassForId())
+- update admin jquery to 1.4.3 and 1.8.6, respectively
 
 Release 0.9.10
 - restructure store and admin code into separate apps with most of the store
