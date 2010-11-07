@@ -30,7 +30,6 @@
  * <p>This is an example for a multi value filter.</p>
  *
  * @author mano
- * @version $Id$
  */
 class PriceRangeFilter extends ZMResultListFilter {
     private $ranges_;

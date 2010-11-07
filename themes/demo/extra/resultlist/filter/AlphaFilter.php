@@ -28,7 +28,6 @@
  * Alpha key filter for products.
  *
  * @author mano
- * @version $Id$
  */
 class AlphaFilter extends ZMResultListFilter {
 
