@@ -116,7 +116,7 @@ class ZMLoader {
      * Get the class file for the given class name.
      *
      * @param string name The class name without the <em>ZM</em> prefix.
-     * @return string The class filename that or <code>null</code>.
+     * @return string The class filename or <code>null</code>.
      */
     protected function getClassFile($name) {
         $filename = null;
