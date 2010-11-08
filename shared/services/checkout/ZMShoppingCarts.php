@@ -57,7 +57,7 @@ class ZMShoppingCarts extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return ZMObject::singleton('ShoppingCarts');
+        return ZMRuntime::singleton('ShoppingCarts');
     }
 
 

@@ -232,7 +232,7 @@ class ZMBeanUtils extends ZMObject {
             $properties = array();
         }
 
-        if ($isRef && null != ($ref = self::singleton($tokens[0]))) {
+        if ($isRef && null != ($ref = ZMRuntime::singleton($tokens[0]))) {
             self::setAll($ref, $properties);
             return $ref;
         }

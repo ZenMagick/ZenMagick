@@ -76,7 +76,7 @@ class ZMMailer extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return ZMObject::singleton('Mailer');
+        return ZMRuntime::singleton('Mailer');
     }
 
 

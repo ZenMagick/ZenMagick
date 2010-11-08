@@ -69,7 +69,7 @@ class ZMFirePHPPlugin extends Plugin implements ZMRequestHandler {
     public function init() {
         if (ZMLangUtils::asBoolean($this->get('isOnDemand'))) {
             // use regular looging until decided whether there is demand...
-            self::singleton('Logging', new ZMLogging(), true);
+            ZMRuntime::singleton('Logging', new ZMLogging(), true);
         }
     }
 
@@ -82,14 +82,14 @@ class ZMFirePHPPlugin extends Plugin implements ZMRequestHandler {
                 // enable logging
                 ZMSettings::set('zenmagick.core.logging.enabled', true);
                 ZMSettings::set('zenmagick.core.logging.level', (int)$this->get('onDemandLogLevel'));
-                self::singleton('Logging', new Logging(), true);
+                ZMRuntime::singleton('Logging', new Logging(), true);
             } else {
                 // avoid being used!
-                self::singleton('Logging', new ZMLogging(), true);
+                ZMRuntime::singleton('Logging', new ZMLogging(), true);
             }
         } else {
             if (!(ZMLogging::instance() instanceof Logging)) {
-                self::singleton('Logging', new Logging(), true);
+                ZMRuntime::singleton('Logging', new Logging(), true);
             }
         }
     }

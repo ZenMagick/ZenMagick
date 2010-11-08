@@ -50,7 +50,7 @@ class ZMAddresses extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return ZMObject::singleton('Addresses');
+        return ZMRuntime::singleton('Addresses');
     }
 
 

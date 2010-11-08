@@ -50,7 +50,7 @@ class ZMGroupPricing extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return ZMObject::singleton('GroupPricing');
+        return ZMRuntime::singleton('GroupPricing');
     }
 
 

@@ -95,7 +95,7 @@ class ZMRequest extends ZMObject {
      * available.</p>
      */
     public static function instance() {
-        return ZMObject::singleton('Request');
+        return ZMRuntime::singleton('Request');
     }
 
     /**

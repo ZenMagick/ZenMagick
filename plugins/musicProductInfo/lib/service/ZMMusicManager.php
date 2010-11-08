@@ -119,7 +119,7 @@ class ZMMusicManager extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return ZMObject::singleton('MusicManager');
+        return ZMRuntime::singleton('MusicManager');
     }
 
 

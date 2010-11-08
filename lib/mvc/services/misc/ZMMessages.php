@@ -72,7 +72,7 @@ class ZMMessages extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return ZMObject::singleton('Messages');
+        return ZMRuntime::singleton('Messages');
     }
 
 

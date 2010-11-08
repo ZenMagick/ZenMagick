@@ -50,7 +50,7 @@ class ZMConfig extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return ZMObject::singleton('Config');
+        return ZMRuntime::singleton('Config');
     }
 
 

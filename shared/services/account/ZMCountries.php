@@ -53,7 +53,7 @@ class ZMCountries extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return ZMObject::singleton('Countries');
+        return ZMRuntime::singleton('Countries');
     }
 
 

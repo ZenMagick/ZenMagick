@@ -50,7 +50,7 @@ class ZMBanners extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return ZMObject::singleton('Banners');
+        return ZMRuntime::singleton('Banners');
     }
 
 

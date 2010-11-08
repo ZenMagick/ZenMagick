@@ -59,7 +59,7 @@ class ZMCoupons extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return ZMObject::singleton('Coupons');
+        return ZMRuntime::singleton('Coupons');
     }
 
 

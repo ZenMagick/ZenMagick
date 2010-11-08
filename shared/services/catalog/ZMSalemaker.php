@@ -53,7 +53,7 @@ class ZMSaleMaker extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return ZMObject::singleton('SaleMaker');
+        return ZMRuntime::singleton('SaleMaker');
     }
 
 

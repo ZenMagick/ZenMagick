@@ -117,7 +117,7 @@ class ZMDbTableMapper extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return ZMObject::singleton('DbTableMapper');
+        return ZMRuntime::singleton('DbTableMapper');
     }
 
 

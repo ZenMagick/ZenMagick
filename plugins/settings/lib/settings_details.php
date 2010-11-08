@@ -179,6 +179,18 @@
                         'desc' => 'Active locale.'
                     )
                 ),
+                'loader' => array(
+                    array(
+                        'key' => 'singletons.@name@',
+                        'type' => 'string',
+                        'desc' => 'Bean definition for singleton with name "@name"@.'
+                    ),
+                    array(
+                        'key' => 'locale',
+                        'type' => 'string',
+                        'desc' => 'Active locale.'
+                    )
+                ),
                 'email' => array(
                     array(
                         'key' => 'transport',

@@ -49,7 +49,7 @@ class ZMThemes extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return ZMObject::singleton('Themes');
+        return ZMRuntime::singleton('Themes');
     }
 
 

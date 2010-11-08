@@ -53,7 +53,7 @@ class ZMShippingProviders extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return ZMObject::singleton('ShippingProviders');
+        return ZMRuntime::singleton('ShippingProviders');
     }
 
 

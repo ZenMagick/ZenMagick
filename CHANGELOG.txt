@@ -110,6 +110,7 @@ Release 0.9.11
 - remove obsolete ZMAdminView
 - simplify email content generation; use new ZMEmails service; remove obsolete
   ZMEmailView
+- move ZMObject::singleton() method into ZMRuntime and make public
 
 Release 0.9.10
 - restructure store and admin code into separate apps with most of the store

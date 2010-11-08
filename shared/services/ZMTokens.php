@@ -47,7 +47,7 @@ class ZMTokens extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return ZMObject::singleton('Tokens');
+        return ZMRuntime::singleton('Tokens');
     }
 
 

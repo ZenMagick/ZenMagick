@@ -69,7 +69,7 @@ class ZMSacsManager extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return ZMObject::singleton('SacsManager');
+        return ZMRuntime::singleton('SacsManager');
     }
 
 

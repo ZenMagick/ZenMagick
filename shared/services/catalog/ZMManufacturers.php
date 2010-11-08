@@ -46,7 +46,7 @@ class ZMManufacturers extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return ZMObject::singleton('Manufacturers');
+        return ZMRuntime::singleton('Manufacturers');
     }
 
 

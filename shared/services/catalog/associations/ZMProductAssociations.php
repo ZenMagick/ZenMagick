@@ -60,7 +60,7 @@ class ZMProductAssociations extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return ZMObject::singleton('ProductAssociations');
+        return ZMRuntime::singleton('ProductAssociations');
     }
 
 

@@ -59,7 +59,7 @@ class ZMUrlManager extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return ZMObject::singleton('UrlManager');
+        return ZMRuntime::singleton('UrlManager');
     }
 
 

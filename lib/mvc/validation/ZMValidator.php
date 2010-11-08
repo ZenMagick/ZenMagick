@@ -54,7 +54,7 @@ class ZMValidator extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return ZMObject::singleton('Validator');
+        return ZMRuntime::singleton('Validator');
     }
 
 

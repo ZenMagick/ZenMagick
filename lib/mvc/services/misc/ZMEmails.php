@@ -53,7 +53,7 @@ class ZMEmails extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return ZMObject::singleton('Emails');
+        return ZMRuntime::singleton('Emails');
     }
 
 

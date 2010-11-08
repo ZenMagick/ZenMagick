@@ -29,11 +29,32 @@
  * @author DerManoMann
  * @package org.zenmagick.core
  */
-class ZMRuntime extends ZMObject {
+class ZMRuntime {
+    private static $singletons_ = array();
     private static $databaseMap_ = array();
     private static $context_ = null;
     private static $yaml_ = null;
 
+
+    /**
+     * Get a singleton instance of the named class.
+     *
+     * @param string name The class name.
+     * @param string instance If set, register the given object, unless the name is already taken.
+     * @param boolean force Optional flag to force replacement.
+     * @return mixed A singleton object.
+     */
+    public static function singleton($name, $instance=null, $force=false) {
+        // allow to override names
+        $name = ZMSettings::get('zenmagick.core.loader.singletons.'.$name, $name);
+        if (null != $instance && ($force || !isset(self::$singletons_[$name]))) {
+            self::$singletons_[$name] = $instance;
+        } else if (!array_key_exists($name, self::$singletons_)) {
+            self::$singletons_[$name] = ZMBeanUtils::getBean($name);
+        }
+
+        return self::$singletons_[$name];
+    }
 
     /**
      * Get the application context.

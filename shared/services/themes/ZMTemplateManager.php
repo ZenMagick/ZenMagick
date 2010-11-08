@@ -64,7 +64,7 @@ class ZMTemplateManager extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return ZMObject::singleton('TemplateManager');
+        return ZMRuntime::singleton('TemplateManager');
     }
 
 

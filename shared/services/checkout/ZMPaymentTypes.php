@@ -52,7 +52,7 @@ class ZMPaymentTypes extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return ZMObject::singleton('PaymentTypes');
+        return ZMRuntime::singleton('PaymentTypes');
     }
 
 

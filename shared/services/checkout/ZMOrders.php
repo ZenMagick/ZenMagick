@@ -50,7 +50,7 @@ class ZMOrders extends ZMObject implements ZMSQLAware {
      * Get instance.
      */
     public static function instance() {
-        return ZMObject::singleton('Orders');
+        return ZMRuntime::singleton('Orders');
     }
 
 

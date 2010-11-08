@@ -50,7 +50,7 @@ class ZMAttributes extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return ZMObject::singleton('Attributes');
+        return ZMRuntime::singleton('Attributes');
     }
 
 

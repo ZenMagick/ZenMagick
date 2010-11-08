@@ -47,7 +47,7 @@ class ZMAdminUserRoles extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return ZMObject::singleton('AdminUserRoles');
+        return ZMRuntime::singleton('AdminUserRoles');
     }
 
 

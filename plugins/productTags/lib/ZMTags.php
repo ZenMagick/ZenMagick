@@ -50,7 +50,7 @@ class ZMTags extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return ZMObject::singleton('Tags');
+        return ZMRuntime::singleton('Tags');
     }
 
 

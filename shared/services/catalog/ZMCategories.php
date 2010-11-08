@@ -68,7 +68,7 @@ class ZMCategories extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return ZMObject::singleton('Categories');
+        return ZMRuntime::singleton('Categories');
     }
 
 

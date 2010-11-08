@@ -57,7 +57,7 @@ class ZMFacets extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return ZMObject::singleton('Facets');
+        return ZMRuntime::singleton('Facets');
     }
 
 

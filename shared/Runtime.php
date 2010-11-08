@@ -144,7 +144,7 @@ class Runtime extends ZMRuntime {
      * @return ZMLanguage The current language.
      */
     public static function getLanguage() {
-        return ZMObject::singleton('Session')->getLanguage();
+        return ZMRuntime::singleton('Session')->getLanguage();
     }
 
     /**
@@ -170,7 +170,7 @@ class Runtime extends ZMRuntime {
      * @return ZMCurrency The current currency.
      */
     public static function getCurrency() {
-        $session = ZMObject::singleton('Session');
+        $session = ZMRuntime::singleton('Session');
         $currency = ZMCurrencies::instance()->getCurrencyForCode($session->getCurrencyCode());
         return $currency;
     }

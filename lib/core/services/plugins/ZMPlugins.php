@@ -73,7 +73,7 @@ class ZMPlugins extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return ZMObject::singleton('Plugins');
+        return ZMRuntime::singleton('Plugins');
     }
 
 
