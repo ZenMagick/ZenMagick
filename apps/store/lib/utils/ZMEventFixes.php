@@ -312,8 +312,8 @@ class ZMEventFixes extends ZMObject {
      */
     public function onZMGenerateEmail($args=array()) {
         $context = $args['context'];
-        $template = basename($args['template']);
-        $request =  ZMRequest::instance();
+        $template = $args['template'];
+        $request =  $args['request'];
 
         // set for all
         $context['language'] = Runtime::getLanguage();
@@ -371,7 +371,7 @@ class ZMEventFixes extends ZMObject {
         if ('gv_queue' == $template) {
             $queueId = $request->getParameter('gid');
             $couponQueue = ZMCoupons::instance()->getCouponQueueEntryForId($queueId);
-            $context['zm_couponQueue'] = $couponQueue;
+            $context['couponQueue'] = $couponQueue;
             $account = ZMAccounts::instance()->getAccountForId($couponQueue->getAccountId());
             $context['currentAccount'] = $account;
             $order = ZMOrders::instance()->getOrderForId($couponQueue->getOrderId(), $request->getSession()->getLanguageId());

@@ -34,7 +34,7 @@
 
 <p><?php _vzm('For security reasons this was not made immediately available to you. However, this amount has now been released. You may now visit our store and send the value of the Gift Certificate via email to someone else, or use it yourself.') ?></p>
 
-<p><?php _vzm('The Gift Certificate(s) you purchased are worth %s', $utils->formatMoney($currentCoupon->getAmount(), false)) ?></p>
+<p><?php _vzm('The Gift Certificate(s) you purchased are worth %s', $utils->formatMoney($couponQueue->getAmount(), false)) ?></p>
 
 <p><?php _vzm('Thank you for shopping with us!') ?></p>
 <p><?php _vzm("Sincerely, %s", ZMSettings::get('storeOwner')) ?></p>
