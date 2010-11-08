@@ -81,7 +81,8 @@ if (!function_exists('zen_mail')) {
         //ZMLogging::instance()->trace('mail: '.$module);
 
         // use zen_mail_org as fallback for emails without ZenMagick template
-        if ('none' != ZMEmails::instance()->getFormatsForTemplate($module, ZMRequest::instance())) {
+        $formats = ZMEmails::instance()->getFormatsForTemplate($module, ZMRequest::instance());
+        if (0 < count($formats)) {
             // call ZenMagick implementation
             // NOTE: zm_mail will eventually call zen_mail_org to actually send the generated email...
             

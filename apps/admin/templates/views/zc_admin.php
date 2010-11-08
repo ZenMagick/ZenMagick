@@ -10,11 +10,17 @@ if (!function_exists('zen_href_link')) {
     function zen_href_link($page='', $params='', $transport='NONSSL', $addSessionId=true, $seo=true, $isStatic=false, $useContext=true) {
         if (defined('ZC_INSTALL_PATH')) {
             $request = ZMRequest::instance();
-            return $request->url('zc_admin', 'zpid='.$page.'&'.$params);
+            return $request->url('zc_admin', 'zpid='.str_replace('.php', '', $page).'&'.$params);
         }
         return zen_href_link_DISABLED($page, $params, $transport, $addSessionId, $seo, $isStatic, $useContext);
     }
 }
+
+// load ZM email wrapper and replacement functions
+require_once ZMRuntime::getInstallationPath().'apps/store/lib/email.php';
+require_once ZMRuntime::getInstallationPath().'apps/store/lib/zencart_overrides.php';
+// map emails view; here we want a store view; merge
+ZMUrlManager::instance()->setMapping(null, array('emails' => array('view' => 'SavantView')), false);
 
 if (!function_exists('zen_date_raw')) {
     function zen_date_raw($date, $reverse=false) {
@@ -28,11 +34,11 @@ function split_slash($s) {
 }
 
 $zcAdminFolder = ZC_INSTALL_PATH.ZC_ADMIN_FOLDER.DIRECTORY_SEPARATOR;
-$zcPage = $request->getParameter('zpid', 'index').'.php';
+$zcPage = str_replace('.php', '', $request->getParameter('zpid', 'index')).'.php';
 chdir($zcAdminFolder);
 
 // prepare globals
-global $PHP_SELF, $db, $autoLoadConfig, $sniffer, $currencies, $template, $current_page_base;
+global $PHP_SELF, $db, $autoLoadConfig, $sniffer, $currencies, $template, $current_page_base, $zco_notifier;
 $PHP_SELF = $zcAdminFolder.$zcPage;
 $code = file_get_contents($zcAdminFolder.$zcPage);
 $code = preg_replace("/<!doctype[^>]*>/s", '', $code);
