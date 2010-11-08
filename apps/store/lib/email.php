@@ -23,36 +23,10 @@
 ?>
 <?php
 
-
-    /**
-     * Check in which format a given email template exists.
-     *
-     * @param string template The email template name.
-     * @return string Valid return strings are: <code>html</code>, <code>text</code>, <code>both</code> or <code>none</code>.
-     * @package zenmagick.store.shared.email
-     */
-    function zm_email_formats($template) {
-        $htmlView = ZMLoader::make("EmailView", $template, true);
-        $textView = ZMLoader::make("EmailView", $template, false);
-
-        $formats = 'none';
-        $request = ZMRequest::instance();
-        if ($htmlView->isValid($request) && $textView->isValid($request)) {
-            $formats = 'both';
-        } else if ($htmlView->isValid($request)) {
-            $formats = 'html';
-        } else if ($textView->isValid($request)) {
-            $formats = 'text';
-        }
-
-        return $formats;
-    }
-
-
     /**
      * Send email.
      *
-     * <p>Contents generation is delegated to a <code>ZMEmailView</code>.</p>
+     * <p>Contents generation is delegated to a <code>ZMEmails</code>.</p>
      *
      * <p>The environment will be se same as for the actual HTML response view. This is done
      * by attaching the current controller to the view.</p>
@@ -78,24 +52,22 @@
             $attparam = array('file' => $attachment);
         }
 
-        //XXX: right now this is fixed
-        $template = 'emails/'.$template;
-
-        $formats = zm_email_formats($template);
-        $hasTextTemplate = 'text' == $formats || 'both' == $formats;
-
-        // use text format unless only HTML available
-        $view = ZMLoader::make("EmailView", $template, !$hasTextTemplate, $context);
-
+        // need that
         $request = ZMRequest::instance();
 
         // event to allow additions to context or view or...
-        ZMEvents::instance()->fireEvent(null, Events::GENERATE_EMAIL, array('template' => $template, 'context' => $context, 'view' => $view));
-        // save view context for HTML generation...
-        $request->set('emailViewVars', $view->getVars());
+        $args = ZMEvents::instance()->fireEvent(null, Events::GENERATE_EMAIL, array('template' => $template, 'context' => $context, 'view' => $view));
+        $context = $args['context'];
+        // save context for legacy HTML generation...
+        $request->set('ZM_EMAIL_CONTEXT', $context);
 
-        // generate actual contents
-        $text = $view->generate($request);
+        // generate text content if text version exists
+        $formats = ZMEmails::instance()->getFormatsForTemplate($template, ZMRequest::instance());
+        if (in_array('text', $formats)) {
+            $text = ZMEmails::instance()->createContents($template, false, $request, $context);
+        } else {
+            $text = null;
+        }
 
         // call actual mail function; the name must match the one used in the installation patch
         $mailFunc = function_exists('zen_mail_org') ? 'zen_mail_org' : 'zen_mail';

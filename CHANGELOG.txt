@@ -108,6 +108,8 @@ Release 0.9.11
 - simplify zmIndex.ph - eventually this is going to be merged into a separate
   installer
 - remove obsolete ZMAdminView
+- simplify email content generation; use new ZMEmails service; remove obsolete
+  ZMEmailView
 
 Release 0.9.10
 - restructure store and admin code into separate apps with most of the store

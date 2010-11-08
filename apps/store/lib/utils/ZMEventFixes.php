@@ -31,15 +31,12 @@
  * @package zenmagick.store.sf.utils
  */
 class ZMEventFixes extends ZMObject {
-    private $plugins_;
-
 
     /**
      * Create new instance.
      */
     function __construct() {
         parent::__construct();
-        $this->plugins_ = array();
     }
 
     /**
@@ -65,29 +62,6 @@ class ZMEventFixes extends ZMObject {
                 $controllerId = str_replace('NOTIFY_HEADER_END_', '', $eventId);
                 $args = array_merge($args, array('controllerId' => $controllerId, 'request' => ZMRequest::instance()));
                 ZMEvents::instance()->fireEvent($this, Events::CONTROLLER_PROCESS_END, $args);
-            }
-        }
-    }
-
-    /**
-     * Keep track of loaded plugins and make available to views - part I.
-     */
-    public function onZMInitPluginGroupDone($args) {
-        foreach ($args['plugins'] as $plugin) {
-            if (!array_key_exists($plugin->getId(), $this->plugins_)) {
-                $this->plugins_[$plugin->getId()] = $plugin;
-            }
-        }
-    }
-
-    /**
-     * Keep track of loaded plugins and make available to views - part II.
-     */
-    public function onZMViewStart($args) {
-        if (array_key_exists('view', $args)) {
-            $view = $args['view'];
-            foreach ($this->plugins_ as $id => $plugin) {
-                $view->setVar($id, $plugin);
             }
         }
     }
@@ -339,12 +313,10 @@ class ZMEventFixes extends ZMObject {
     public function onZMGenerateEmail($args=array()) {
         $context = $args['context'];
         $template = basename($args['template']);
-        $view = $args['view'];
         $request =  ZMRequest::instance();
 
-        // XXX: improve!
-        // simulate onZMViewStart ...
-        $this->onZMViewStart($args);
+        // set for all
+        $context['language'] = Runtime::getLanguage();
 
         if (ZMSettings::get('isAdmin') && 'send_email_to_user' == $request->getParameter('action')) {
             // gv mail
@@ -358,11 +330,11 @@ class ZMEventFixes extends ZMObject {
                         $currency = ZMCurrencies::instance()->getCurrencyForCode(ZMSettings::get('defaultCurrency'));
                         $coupon->setAmount($currency->parse($context['GV_WORTH']));
                     }
-                    $view->setVar('currentCoupon', $coupon);
+                    $context['currentCoupon'] = $coupon;
                 }
 
-                $view->setVar('message', $request->getParameter('message', ''));
-                $view->setVar('htmlMessage', $request->getParameter('message_html', '', false));
+                $context['message'] = $request->getParameter('message', '');
+                $context['htmlMessage'] = $request->getParameter('message_html', '', false);
             }
         }
 
@@ -372,10 +344,10 @@ class ZMEventFixes extends ZMObject {
             $billingAddress = $order->getBillingAddress();
             $paymentType = $order->getPaymentType();
 
-            $view->setVar('order', $order);
-            $view->setVar('shippingAddress', $shippingAddress);
-            $view->setVar('billingAddress', $billingAddress);
-            $view->setVar('paymentType', $paymentType);
+            $context['order'] = $order;
+            $context['shippingAddress'] = $shippingAddress;
+            $context['billingAddress'] = $billingAddress;
+            $context['paymentType'] = $paymentType;
         }
 
         if ('order_status' == $template) {
@@ -383,42 +355,45 @@ class ZMEventFixes extends ZMObject {
             preg_match('/[^:]*:(.*)/ms', $context['EMAIL_TEXT_STATUS_COMMENTS'], $matches);
             $comment = strip_tags(trim($matches[1]));
 
-            $view->setVar('newOrderStatus', $newOrderStatus);
-            $view->setVar('comment', $comment);
+            $context['newOrderStatus'] = $newOrderStatus;
+            $context['comment'] = $comment;
 
             // from zc_fixes
             if (null !== $request->getParameter("oID") && 'update_order' == $request->getParameter("action")) {
                 $orderId = $request->getParameter("oID");
                 $order = ZMOrders::instance()->getOrderForId($orderId, $request->getSession()->getLanguageId());
-                $view->setVar('currentOrder', $order);
+                $context['currentOrder'] = $order;
                 $account = ZMAccounts::instance()->getAccountForId($order->getAccountId());
-                $view->setVar('currentAccount', $account);
+                $context['currentAccount'] = $account;
             }
         }
 
         if ('gv_queue' == $template) {
             $queueId = $request->getParameter('gid');
             $couponQueue = ZMCoupons::instance()->getCouponQueueEntryForId($queueId);
-            $view->setVar('zm_couponQueue', $couponQueue);
+            $context['zm_couponQueue'] = $couponQueue;
             $account = ZMAccounts::instance()->getAccountForId($couponQueue->getAccountId());
-            $view->setVar('currentAccount', $account);
+            $context['currentAccount'] = $account;
             $order = ZMOrders::instance()->getOrderForId($couponQueue->getOrderId(), $request->getSession()->getLanguageId());
-            $view->setVar('currentOrder', $order);
+            $context['currentOrder'] = $order;
         }
 
         if ('coupon' == $template) {
             $couponId = $request->getParameter('cid');
             $coupon = ZMCoupons::instance()->getCouponForId($couponId, $request->getSession()->getLanguageId());
-            $view->setVar('currentCoupon', $coupon);
+            $context['currentCoupon'] = $coupon;
             $account = ZMAccounts::instance()->getAccountForId($context['accountId']);
-            $view->setVar('currentAccount', $account);
+            $context['currentAccount'] = $account;
         }
 
         if ('password_forgotten_admin' == $template) {
-            $view->setVar('adminName',  $context['EMAIL_CUSTOMERS_NAME']);
-            $view->setVar('htmlMessage',  $context['EMAIL_MESSAGE_HTML']);
-            $view->setVar('textMessage',  $context['text_msg']);
+            $context['adminName'] = $context['EMAIL_CUSTOMERS_NAME'];
+            $context['htmlMessage'] = $context['EMAIL_MESSAGE_HTML'];
+            $context['textMessage'] = $context['text_msg'];
         }
+
+        $args['context'] = $context;
+        return $args;
     }
 
     /**

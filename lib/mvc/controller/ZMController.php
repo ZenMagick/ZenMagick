@@ -83,6 +83,10 @@ class ZMController extends ZMObject {
             // avoid overriding default data set by the controller
             $view->setVar($formData->getFormId(), $formData);
         }
+
+        foreach (ZMPlugins::instance()->getAllPlugins() as $plugin) {
+            $view->setVar($plugin->getId(), $plugin);
+        }
     }
 
     /**

@@ -116,14 +116,17 @@ class ZMEmails extends ZMObject {
         $view->setVar('session', $request->getSession());
         $toolbox = $request->getToolbox();
         $view->setVar('toolbox', $toolbox);
+
         // also set individual tools
         $view->setVars($toolbox->getTools());
-        if (null != $formData && !array_key_exists($formData->getFormId(), $view->getVars())) {
-            // avoid overriding default data set by the controller
-            $view->setVar($formData->getFormId(), $formData);
-        }
 
+        // make sure these prevail
         $view->setVars($context);
+
+        // all enabled
+        foreach (ZMPlugins::instance()->getAllPlugins() as $plugin) {
+            $view->setVar($plugin->getId(), $plugin);
+        }
 
         // create contents
         return $view->generate($request);
