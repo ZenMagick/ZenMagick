@@ -123,7 +123,9 @@ class Plugin extends ZMPlugin {
         if (defined($dname)) {
             return constant($dname);
         }
-        return null;
+
+        // regular dynamic property
+        return parent::__get($name);
     }
 
     /**
@@ -148,7 +150,8 @@ class Plugin extends ZMPlugin {
         if (defined($dname)) {
             ZMConfig::instance()->updateConfigValue($dname, $value);
         } else {
-            ZMLogging::instance()->trace('invalid plugin config key: '.$dname, ZMLogging::TRACE);
+            // regular dynamic property
+            parent::__set($name, $value);
         }
     }
 

@@ -111,6 +111,8 @@ Release 0.9.11
 - simplify email content generation; use new ZMEmails service; remove obsolete
   ZMEmailView
 - move ZMObject::singleton() method into ZMRuntime and make public
+- change Plugin to treat use default dynamic property behaviour for properties
+  set/get that are not offical plugin options
 
 Release 0.9.10
 - restructure store and admin code into separate apps with most of the store
