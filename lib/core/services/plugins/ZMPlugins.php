@@ -285,7 +285,7 @@ class ZMPlugins extends ZMObject {
         }
 
         // plugins get their own loader
-        $pluginLoader = ZMLoader::make('Loader', 'plugins');
+        $pluginLoader = new ZMLoader('plugins');
 
         $plugins = array();
         foreach ($ids as $id) {

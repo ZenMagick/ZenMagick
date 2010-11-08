@@ -272,7 +272,7 @@ class ZMThemes extends ZMObject {
         $theme = ZMThemes::instance()->getThemeForId($themeId);
 
         // configure theme loader
-        $themeLoader = ZMLoader::make("Loader");
+        $themeLoader = new ZMLoader();
         $themeLoader->addPath($theme->getExtraDir());
 
         // add loader to root loader

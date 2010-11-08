@@ -60,7 +60,7 @@ class ZMUnitTestsController extends ZMController {
         ZMLoader::instance()->addPath(ZMFileUtils::mkPath(array(ZMRuntime::getInstallationPath(), 'apps', 'admin', 'lib', 'model')));
 
         // add tests folder to class path
-        $testsLoader = ZMLoader::make("Loader");
+        $testsLoader = new ZMLoader();
         $testBaseDir = $this->plugin_->getPluginDirectory().'tests';
         $testsLoader->addPath($testBaseDir);
         // test data  is lower case
@@ -92,7 +92,7 @@ class ZMUnitTestsController extends ZMController {
         }
 
         // add plugins/tests folder of all available plugins to loader
-        $pluginLoader = ZMLoader::make("Loader");
+        $pluginLoader = new ZMLoader();
         foreach (ZMPlugins::instance()->getAllPlugins() as $plugin) {
             if ($plugin instanceof ZMUnitTestsPlugin) {
                 continue;

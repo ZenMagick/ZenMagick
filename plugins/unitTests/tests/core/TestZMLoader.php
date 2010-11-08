@@ -32,7 +32,7 @@ class TestZMLoader extends ZMTestCase {
      * Test parent loader.
      */
     public function testParentLoader() {
-        $parentLoader = ZMLoader::make("Loader");
+        $parentLoader = new ZMLoader();
         $parentLoader->registerClass('LoaderTestClass1', $this->getTestPlugin()->getPluginDirectory().'tests/core/testclasses/LoaderTestClass1.phpx');
         $parentLoader->registerClass('LoaderTestClass2', $this->getTestPlugin()->getPluginDirectory().'tests/core/testclasses/LoaderTestClass2.phpx');
 
