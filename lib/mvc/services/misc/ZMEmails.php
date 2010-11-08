@@ -123,11 +123,6 @@ class ZMEmails extends ZMObject {
         // make sure these prevail
         $view->setVars($context);
 
-        // all enabled
-        foreach (ZMPlugins::instance()->getAllPlugins() as $plugin) {
-            $view->setVar($plugin->getId(), $plugin);
-        }
-
         // create contents
         return $view->generate($request);
     }

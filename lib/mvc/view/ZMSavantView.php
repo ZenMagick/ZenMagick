@@ -259,6 +259,11 @@ class ZMSavantView extends ZMView {
             }
         }
 
+        // set all plugins
+        foreach (ZMPlugins::instance()->getAllPlugins() as $plugin) {
+            $this->setVar($plugin->getId(), $plugin);
+        }
+
         // load template...
         $template = null;
         try {
