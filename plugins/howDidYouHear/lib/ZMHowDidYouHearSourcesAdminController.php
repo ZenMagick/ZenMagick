@@ -53,7 +53,7 @@ class ZMHowDidYouHearSourcesAdminController extends ZMController {
                 ORDER BY s.sources_name ASC";
         $sourceStats = ZMRuntime::getDatabase()->query($sql, array(), array(TABLE_SOURCES), 'ZMObject');
         $resultSource = ZMLoader::make("ArrayResultSource", 'ZMObject', $sourceStats);
-        $resultList = ZMLoader::make("ResultList");
+        $resultList = ZMBeanUtils::getBean("ResultList");
         $resultList->setResultSource($resultSource);
         $resultList->setPageNumber($request->getParameter('page', 1));
         return array('resultList' => $resultList, 'isOther' => $isOther);

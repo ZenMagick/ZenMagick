@@ -73,7 +73,7 @@ class ZMToolbox {
         foreach (explode(',', ZMSettings::get('zenmagick.mvc.toolbox.tools')) as $toolInfo) {
             $token = explode(':', $toolInfo);
             if (2 == count($token)) {
-                $tools[$token[0]] = ZMLoader::make($token[1]);
+                $tools[$token[0]] = ZMBeanUtils::getBean($token[1]);
             }
         }
 

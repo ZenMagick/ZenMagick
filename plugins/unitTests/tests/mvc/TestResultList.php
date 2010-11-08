@@ -47,7 +47,7 @@ class TestResultList extends ZMTestCase {
     public function getResults($resultClass, $size) {
         $results = array();
         for ($ii=0; $ii<$size; ++$ii) {
-            $result = ZMLoader::make($resultClass);
+            $result = ZMBeanUtils::getBean($resultClass);
             // assume products...
             $result->setId($ii+1);
             $result->setName('product-'.($ii+1));

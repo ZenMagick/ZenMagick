@@ -78,7 +78,7 @@ class TestZMOrders extends ZMTestCase {
     public function testChangeAddress() {
         $order = ZMOrders::instance()->getOrderForId(1, 1);
         if ($this->assertNotNull($order)) {
-            $address = ZMLoader::make('Address');
+            $address = ZMBeanUtils::getBean('Address');
             $address->setFirstName('foo');
             $address->setLastName('bar');
             $address->setCompanyName('dooh inc.');
@@ -140,7 +140,7 @@ class TestZMOrders extends ZMTestCase {
             $this->assertTrue(is_array($orderStatusHistory));
             $oldCount = count($orderStatusHistory);
 
-            $newOrderStatus = ZMLoader::make('OrderStatus');
+            $newOrderStatus = ZMBeanUtils::getBean('OrderStatus');
             $newOrderStatus->setOrderId(1);
             $newOrderStatus->setOrderStatusId(2);
             $newOrderStatus = ZMOrders::instance()->createOrderStatusHistory($newOrderStatus);

@@ -179,11 +179,11 @@
                         'desc' => 'Active locale.'
                     )
                 ),
-                'loader' => array(
+                'beans' => array(
                     array(
-                        'key' => 'singletons.@name@',
+                        'key' => 'definitions.@name@',
                         'type' => 'string',
-                        'desc' => 'Bean definition for singleton with name "@name"@.'
+                        'desc' => 'Bean/singleton definition mapping for a bean with name "@name"@.'
                     ),
                     array(
                         'key' => 'locale',

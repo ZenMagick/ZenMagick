@@ -113,6 +113,9 @@ Release 0.9.11
 - move ZMObject::singleton() method into ZMRuntime and make public
 - change Plugin to treat use default dynamic property behaviour for properties
   set/get that are not offical plugin options
+- drop unused context related code
+- make the setting 'zenmagick.core.beans.definitions.NAME' work as mapping for
+  beans for all beans (incl. singletons)
 
 Release 0.9.10
 - restructure store and admin code into separate apps with most of the store

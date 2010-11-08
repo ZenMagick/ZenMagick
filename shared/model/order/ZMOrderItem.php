@@ -108,7 +108,7 @@ class ZMOrderItem extends ZMObject {
      */
     public function getTaxRate() { 
         if (null == $this->taxRate_) {
-            $this->taxRate_ = ZMLoader::make('TaxRate');
+            $this->taxRate_ = ZMBeanUtils::getBean('TaxRate');
             $this->taxRate_->setRate($this->get('taxValue'));
         }
 

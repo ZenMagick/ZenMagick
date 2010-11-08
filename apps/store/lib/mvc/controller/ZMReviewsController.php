@@ -57,7 +57,7 @@ class ZMReviewsController extends ZMController {
         $request->getToolbox()->crumbtrail->addProduct($request->getProductId());
         $request->getToolbox()->crumbtrail->addCrumb("Reviews");
 
-        $resultList = ZMLoader::make("ResultList");
+        $resultList = ZMBeanUtils::getBean("ResultList");
         $resultSource = ZMLoader::make("ObjectResultSource", 'Review', ZMReviews::instance(), "getAllReviews", array($request->getSession()->getLanguageId()));
         $resultList->setResultSource($resultSource);
         $resultList->setPageNumber($request->getPageIndex());

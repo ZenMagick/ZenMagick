@@ -61,7 +61,7 @@ class ZMSubscriptionAdminController extends ZMPluginAdmin2Controller {
         }
 
         $resultSource = ZMLoader::make('ArrayResultSource', 'ZMOrder', $orderIds);
-        $resultList = ZMLoader::make('ResultList');
+        $resultList = ZMBeanUtils::getBean('ResultList');
         $resultList->setResultSource($resultSource);
         $resultList->setPageNumber($request->getPageIndex());
 

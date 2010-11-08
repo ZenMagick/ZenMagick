@@ -55,7 +55,7 @@ class ZMAccountController extends ZMController {
 
         // orders are sorted desc...
         $resultSource = ZMLoader::make("ObjectResultSource", 'Order', ZMOrders::instance(), "getOrdersForAccountId", array($request->getAccountId(), $request->getSession()->getLanguageId()));
-        $resultList = ZMLoader::make("ResultList");
+        $resultList = ZMBeanUtils::getBean("ResultList");
         $resultList->setResultSource($resultSource);
         $resultList->setPageNumber($request->getPageIndex());
 

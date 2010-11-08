@@ -177,9 +177,9 @@ class ZMBeanUtils extends ZMObject {
         $obj = ZMLoader::make($clazz);
         if (null !== $obj) {
             self::setAll($obj, $data, $keys);
+            return $obj;
         }
-
-        return $obj;
+        return null;
     }
 
     /**
@@ -188,10 +188,10 @@ class ZMBeanUtils extends ZMObject {
      * <p>The syntax for bean definitions is: <em>[class name]#[property1=value1&property2=value2&...]<em>.</p>
      *
      * @param string definition The bean definition.
-     * @param boolean ignoreContext If set, the definition will be used as-is and no context loopup done; default is <code>false</code>.
+     * @param boolean useBeanMapping If set, the definition (class only) will be used to lookup a custom bean definition; default is <code>true</code>.
      * @return mixed An object or <code>null</code>.
      */
-    public static function getBean($definition, $ignoreContext=false) {
+    public static function getBean($definition, $useBeanMapping=true) {
         $isRef = false;
         $isPlugin = false;
         if (0 === strpos($definition, 'bean::')) {
@@ -217,15 +217,26 @@ class ZMBeanUtils extends ZMObject {
             }
             ZMLogging::instance()->log('resolving '.$stoken[0].' to: '.$definition, ZMLogging::TRACE);
         }
+
+        // got a valid definition, so let's look that up in the context, just in case
+        $tokens = explode('#', $definition, 2);
+        if ($useBeanMapping && null != ($mappedDefinition = ZMSettings::get('zenmagick.core.beans.definitions.'.$tokens[0]))) {
+            $mappedTokens = explode('#', $mappedDefinition, 2);
+            // the class to use
+            $definition = $mappedTokens[0].'#';
+            // merge properties
+            if (1 < count($tokens)) {
+                $definition .= $tokens[1];
+            }
+            if (1 < count($mappedTokens)) {
+                $definition .= '&'.$mappedTokens[1];
+            }
+            $tokens = explode('#', $definition, 2);
+        }
+
         // some cleanup
         $definition = str_replace('&&', '&', $definition);
 
-        // got a valid definition, so let's look that up in the context, just in case
-        if (!$ignoreContext && null != ($contextDefinition = ZMRuntime::getContext()->getDefinition($definition))) {
-            $definition = $contextDefinition;
-        }
-
-        $tokens = explode('#', $definition, 2);
         if (1 < count($tokens)) {
             parse_str($tokens[1], $properties);
         } else {

@@ -82,7 +82,7 @@ class ZMFeatures extends ZMObject {
 
         $this->features_ = array();
         while (!$results->EOF) {
-            $feature = ZMLoader::make("Feature");
+            $feature = ZMBeanUtils::getBean("Feature");
             $feature->id_ = $results->fields['feature_id'];
             $feature->type_ = $results->fields['feature_type_id'];
             $feature->name_ = $results->fields['feature_name'];
@@ -350,7 +350,7 @@ class ZMFeatures extends ZMObject {
                 if (null != $feature) {
                     $features[$feature->getName()] = $feature;
                 }
-                $feature = ZMLoader::make("Feature");
+                $feature = ZMBeanUtils::getBean("Feature");
             }
             $feature->id_ = $results->fields['feature_id'];
             $tmp = $this->features_[$feature->id_];

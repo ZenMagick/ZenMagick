@@ -33,7 +33,7 @@ class TestZMShippingProviders extends ZMTestCase {
      */
     public function testGetProvider() {
         $providers = ZMShippingProviders::instance()->getShippingProviders(true);
-        $address = ZMLoader::make('Address');
+        $address = ZMBeanUtils::getBean('Address');
         $address->setCountryId(153);
         foreach ($providers as $provider) {
             echo "provider id: ".$provider->getId().", name: ".$provider->getName()."<BR>";

@@ -242,7 +242,7 @@ class ZMOrders extends ZMObject implements ZMSQLAware {
             $args = array('orderId' => $orderId, 'orderItemId' => $item->getId());
             foreach (Runtime::getDatabase()->query($sql, $args, TABLE_ORDERS_PRODUCTS_ATTRIBUTES, 'AttributeValue') as $value) {
                 if (!array_key_exists($value->getAttributeId(), $attributes)) {
-                    $attribute = ZMLoader::make("Attribute");
+                    $attribute = ZMBeanUtils::getBean("Attribute");
                     $attribute->setName($value->getAttributeName());
                     $attributes[$value->getAttributeId()] = $attribute;
                 }

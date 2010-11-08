@@ -53,7 +53,7 @@ class TestZMAccounts extends ZMTestCase {
      * Create test account.
      */
     public function createAccount($data) {
-        $account = ZMLoader::make('Account');
+        $account = ZMBeanUtils::getBean('Account');
         foreach ($data as $key => $value) {
             if ('Dob' == $key) {
                 $value = ZMTools::translateDateString($value, 'dd/mm/yyyy', ZM_DATETIME_FORMAT);

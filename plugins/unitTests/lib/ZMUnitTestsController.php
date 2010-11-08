@@ -119,7 +119,7 @@ class ZMUnitTestsController extends ZMController {
         // create instances rather than just class names
         foreach ($allTests as $group => $tests) {
             foreach ($tests as $key => $clazz) {
-                if (null != ($test = ZMLoader::make($clazz))) {
+                if (null != ($test = ZMBeanUtils::getBean($clazz))) {
                     $allTests[$group][$key] = $test;
                 } else {
                     ZMMessages::instance()->warn('could not create instance of '.$clazz);
@@ -153,7 +153,7 @@ class ZMUnitTestsController extends ZMController {
             // prepare selected tests
             $suite = new TestSuite('ZenMagick Tests');
             foreach ($testCases as $name) {
-                $testCase = ZMLoader::make($name);
+                $testCase = ZMBeanUtils::getBean($name);
                 if ($testCase instanceof SimpleTestCase) {
                     $suite->add($name);
                 }

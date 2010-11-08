@@ -45,8 +45,6 @@ class ZMRuntime {
      * @return mixed A singleton object.
      */
     public static function singleton($name, $instance=null, $force=false) {
-        // allow to override names
-        $name = ZMSettings::get('zenmagick.core.loader.singletons.'.$name, $name);
         if (null != $instance && ($force || !isset(self::$singletons_[$name]))) {
             self::$singletons_[$name] = $instance;
         } else if (!array_key_exists($name, self::$singletons_)) {
@@ -54,20 +52,6 @@ class ZMRuntime {
         }
 
         return self::$singletons_[$name];
-    }
-
-    /**
-     * Get the application context.
-     *
-     * @return ZMApplicationContext The context.
-     */
-    public static function getContext() {
-        if (null === self::$context_) {
-            self::$context_ = ZMBeanUtils::getBean(ZMSettings::get('zenmagick.core.config.context', 'ApplicationContext'), true);
-            self::$context_->load(@file_get_contents(ZMFileUtils::mkPath(array(ZMRuntime::getApplicationPath(), 'config', 'context.yaml'))), false);
-        }
-
-        return self::$context_;
     }
 
     /**

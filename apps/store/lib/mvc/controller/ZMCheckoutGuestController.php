@@ -76,7 +76,7 @@ class ZMCheckoutGuestController extends ZMController {
         }
 
         // create anonymous account
-        $account = ZMLoader::make("Account");
+        $account = ZMBeanUtils::getBean("Account");
         $account->setEmail($request->getParameter('email_address'));
         $account->setPassword('');
         $account->setDob(ZMDatabase::NULL_DATETIME);

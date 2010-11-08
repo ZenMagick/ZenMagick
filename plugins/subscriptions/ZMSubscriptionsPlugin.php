@@ -220,7 +220,7 @@ class ZMSubscriptionsPlugin extends Plugin {
 
             if (ZMLangUtils::asBoolean($this->get('subscriptionComment'))) {
                 if (null != ($order = ZMOrders::instance()->getOrderForId($orderId, $request->getSession()->getLanguageId()))) {
-                    $status = ZMLoader::make('OrderStatus');
+                    $status = ZMBeanUtils::getBean('OrderStatus');
                     $status->setOrderStatusId($order->getOrderStatusId());
                     $status->setOrderId($order->getId());
                     $status->setCustomerNotified(false);

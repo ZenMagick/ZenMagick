@@ -56,14 +56,14 @@ class ZMProductsNewController extends ZMController {
         $request->getToolbox()->crumbtrail->addManufacturer($request->getManufacturerId());
         $request->getToolbox()->crumbtrail->addCrumb("New Products");
 
-        $resultList = ZMLoader::make("ResultList");
+        $resultList = ZMBeanUtils::getBean("ResultList");
         $resultSource = ZMLoader::make("ObjectResultSource", 'Product', ZMProducts::instance(), "getNewProducts");
         $resultList->setResultSource($resultSource);
         foreach (explode(',', ZMSettings::get('resultListProductFilter')) as $filter) {
-            $resultList->addFilter(ZMLoader::make($filter));
+            $resultList->addFilter(ZMBeanUtils::getBean($filter));
         }
         foreach (explode(',', ZMSettings::get('resultListProductSorter')) as $sorter) {
-            $resultList->addSorter(ZMLoader::make($sorter));
+            $resultList->addSorter(ZMBeanUtils::getBean($sorter));
         }
         $resultList->setPageNumber($request->getPageIndex());
 

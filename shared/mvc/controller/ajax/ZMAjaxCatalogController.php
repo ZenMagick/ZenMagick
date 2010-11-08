@@ -99,7 +99,7 @@ class ZMAjaxCatalogController extends ZMAjaxController {
             // use result list to paginate
             $args = array($categoryId, $activeOnly);
             $resultSource = ZMLoader::make("ObjectResultSource", 'Product', ZMProducts::instance(), "getProductsForCategoryId", $args);
-            $resultList = ZMLoader::make("ResultList");
+            $resultList = ZMBeanUtils::getBean("ResultList");
             $resultList->setResultSource($resultSource);
             $resultList->setPageNumber($page);
             if (null !== ($pagination = $request->getParameter('pagination'))) {

@@ -54,7 +54,7 @@ class ZMInstallationPatcher extends ZMObject {
         foreach (ZMLoader::instance()->getClassPath() as $clazz => $file) {
             // ignore namespace classes
             if ('\\' != $clazz[0] && false !== strpos($file, "installation") && false != strpos($file, "patches") && 'patches' != basename(dirname($file))) {
-                $patch = ZMLoader::make($clazz);
+                $patch = ZMBeanUtils::getBean($clazz);
                 $this->patches_[$patch->getId()] = $patch;
             }
         }

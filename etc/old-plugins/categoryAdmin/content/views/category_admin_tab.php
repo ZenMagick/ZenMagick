@@ -28,7 +28,7 @@
 
     $category = ZMCategories::instance()->getCategoryForId($request->getCategoryId(), $selectedLanguageId);
     if (null === $category) {
-        $category = ZMLoader::make("Category");
+        $category = ZMBeanUtils::getBean("Category");
         $category->setName('** new category **');
 
         // set a few defaults from the default language category

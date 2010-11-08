@@ -74,7 +74,7 @@ class ZMDefaultRssFeedSource implements ZMRssSource {
             if (null == $key) {
                 $product = ZMProducts::instance()->getProductForId($review->getProductId());
             }
-            $item = ZMLoader::make("RssItem");
+            $item = ZMBeanUtils::getBean("RssItem");
             $item->setTitle(sprintf(_zm("Review: %s"), $product->getName()));
 
             $params = 'products_id='.$review->getProductId().'&reviews_id='.$review->getId();
@@ -88,7 +88,7 @@ class ZMDefaultRssFeedSource implements ZMRssSource {
             }
         }
 
-        $channel = ZMLoader::make("RssChannel");
+        $channel = ZMBeanUtils::getBean("RssChannel");
         $channel->setTitle(_zm("Product Reviews"));
         $channel->setLink($request->url(FILENAME_DEFAULT));
         if (null != $key)  {
@@ -98,7 +98,7 @@ class ZMDefaultRssFeedSource implements ZMRssSource {
         }
         $channel->setLastBuildDate(ZMRssUtils::mkRssDate($lastPubDate));
 
-        $feed = ZMLoader::make("RssFeed");
+        $feed = ZMBeanUtils::getBean("RssFeed");
         $feed->setChannel($channel);
         $feed->setItems($items);
 
@@ -116,20 +116,20 @@ class ZMDefaultRssFeedSource implements ZMRssSource {
         $items = array();
         $toc = ZMEZPages::instance()->getPagesForChapterId($key, $request->getSession()->getLanguageId());
         foreach ($toc as $page) {
-            $item = ZMLoader::make("RssItem");
+            $item = ZMBeanUtils::getBean("RssItem");
             $item->setTitle($page->getTitle());
             $item->setLink($request->getToolbox()->net->ezPage($page));
             $item->setDescription($page->getTitle());
             array_push($items, $item);
         }
 
-        $channel = ZMLoader::make("RssChannel");
+        $channel = ZMBeanUtils::getBean("RssChannel");
         $channel->setTitle(sprintf(_zm("Chapter %s"), $key));
         $channel->setLink($request->url(FILENAME_DEFAULT));
         $channel->setDescription(sprintf(_zm("All pages of Chapter %s"), $key));
         $channel->setLastBuildDate(ZMRssUtils::mkRssDate());
 
-        $feed = ZMLoader::make("RssFeed");
+        $feed = ZMBeanUtils::getBean("RssFeed");
         $feed->setChannel($channel);
         $feed->setItems($items);
 
@@ -152,7 +152,7 @@ class ZMDefaultRssFeedSource implements ZMRssSource {
         $items = array();
         $products = array_slice(array_reverse(ZMProducts::instance()->getNewProducts()), 0, 20);
         foreach ($products as $product) {
-            $item = ZMLoader::make("RssItem");
+            $item = ZMBeanUtils::getBean("RssItem");
             $item->setTitle($product->getName());
             $item->setLink($request->getToolbox()->net->product($product->getId(), null, false));
             $item->setDescription(ZMHtmlUtils::more(ZMHtmlUtils::strip($product->getDescription()), 60));
@@ -164,13 +164,13 @@ class ZMDefaultRssFeedSource implements ZMRssSource {
             }
         }
 
-        $channel = ZMLoader::make("RssChannel");
+        $channel = ZMBeanUtils::getBean("RssChannel");
         $channel->setTitle(sprintf(_zm("New Products at %s"), ZMSettings::get('storeName')));
         $channel->setLink($request->url(FILENAME_DEFAULT));
         $channel->setDescription(sprintf(_zm("The latest updates to %s's product list"), ZMSettings::get('storeName')));
         $channel->setLastBuildDate($lastPubDate);
 
-        $feed = ZMLoader::make("RssFeed");
+        $feed = ZMBeanUtils::getBean("RssFeed");
         $feed->setChannel($channel);
         $feed->setItems($items);
 

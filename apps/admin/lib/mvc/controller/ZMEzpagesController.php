@@ -49,7 +49,7 @@ class ZMEzpagesController extends ZMController {
             $ezPageId = (int)$ezPageId;
             $languageId = $request->getParameter('languageId');
             if (0 == $ezPageId) {
-                $ezPage = ZMLoader::make('EZPage');
+                $ezPage = ZMBeanUtils::getBean('EZPage');
             } else {
                 $ezPage = ZMEZPages::instance()->getPageForId($ezPageId, $languageId);
             }
@@ -72,7 +72,7 @@ class ZMEzpagesController extends ZMController {
             $languageId = $request->getParameter('languageId');
             if (0 == $ezPageId) {
                 // create
-                $ezPage = ZMLoader::make('EZPage');
+                $ezPage = ZMBeanUtils::getBean('EZPage');
                 ZMBeanUtils::setAll($ezPage, $request->getParameterMap(false));
                 $ezPage = ZMEZPages::instance()->createPage($ezPage);
                 if (0 < $ezPage->getId()) {

@@ -57,7 +57,7 @@ class ZMAccountHistoryController extends ZMController {
         $request->getToolbox()->crumbtrail->addCrumb("Account", $request->url(FILENAME_ACCOUNT, '', true));
         $request->getToolbox()->crumbtrail->addCrumb($request->getToolbox()->utils->getTitle());
 
-        $resultList = ZMLoader::make("ResultList");
+        $resultList = ZMBeanUtils::getBean("ResultList");
         $resultSource = ZMLoader::make("ObjectResultSource", 'Order', ZMOrders::instance(), "getOrdersForAccountId", array($request->getAccountId(), $request->getSession()->getLanguageId()));
         $resultList->setResultSource($resultSource);
         $resultList->setPageNumber($request->getPageIndex());

@@ -108,7 +108,7 @@ class ZMTellAFriendController extends ZMController {
         }
 
         ZMMessages::instance()->success(_zm("Message send successfully"));
-        $emailMessage = ZMLoader::make("EmailMessage");
+        $emailMessage = ZMBeanUtils::getBean("EmailMessage");
 
         $data = array_merge($this->viewData_, array('emailMessage' => $emailMessage));
         return $this->findView('success', $data, array('parameter' => 'products_id='.$this->product_->getId()));

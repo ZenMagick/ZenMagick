@@ -156,7 +156,7 @@ class Runtime extends ZMRuntime {
         $language = ZMLanguages::instance()->getLanguageForId(ZMSettings::get('storeDefaultLanguageId'));
         if (null == $language) {
             ZMLogging::instance()->log('no default language found - using en as fallback', ZMLogging::WARN);
-            $language = ZMLoader::make("Language");
+            $language = ZMBeanUtils::getBean("Language");
             $language->setId(1);
             $language->setDirectory('english');
             $language->setCode('en');

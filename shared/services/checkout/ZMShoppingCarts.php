@@ -142,13 +142,13 @@ class ZMShoppingCarts extends ZMObject {
             $attributeResults[$ii]['attributeId'] = preg_replace('/([0-9]*).*/', '\1', $attributeResult['attributeId']);
         }
 
-        $shoppingCart = ZMLoader::make('ShoppingCart');
+        $shoppingCart = ZMBeanUtils::getBean('ShoppingCart');
         $items = array();
 
         $sql = "SELECT * FROM " . TABLE_CUSTOMERS_BASKET . "
                 WHERE customers_id = :accountId";
         foreach (Runtime::getDatabase()->query($sql, array('accountId' => $accountId), TABLE_CUSTOMERS_BASKET) as $productResult) {
-            $item = ZMLoader::make('ShoppingCartItem');
+            $item = ZMBeanUtils::getBean('ShoppingCartItem');
             $item->setId($productResult['skuId']);
             $item->setQuantity($productResult['quantity']);
             $productAttributes = null;

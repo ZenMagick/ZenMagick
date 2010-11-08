@@ -312,7 +312,7 @@ class ZMCoupons extends ZMObject {
                 WHERE coupon_id = :couponId";
         $results = ZMRuntime::getDatabase()->query($sql, array('couponId' => $couponId), TABLE_COUPON_RESTRICT);
 
-        $restrictions = ZMLoader::make("CouponRestrictions");
+        $restrictions = ZMBeanUtils::getBean("CouponRestrictions");
         $products = array();
         foreach ($results as $result) {
             if (0 != $result['categoryId']) {

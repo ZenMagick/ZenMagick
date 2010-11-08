@@ -72,7 +72,7 @@ class ZMCatalogRssFeedSource implements ZMRssSource {
             $lastPubDate = $productsFeed->getLastBuildDate();
         }
 
-        $channel = ZMLoader::make("RssChannel");
+        $channel = ZMBeanUtils::getBean("RssChannel");
         $channel->setTitle(sprintf(_zm("%s Catalog"), ZMSettings::get('storeName')));
         $channel->setLink($request->url(FILENAME_DEFAULT));
         $channel->setDescription(sprintf(_zm("All categories and products at %s"), ZMSettings::get('storeName')));
@@ -80,7 +80,7 @@ class ZMCatalogRssFeedSource implements ZMRssSource {
 
         $items = array_merge($categoriesFeed->getItems(), $productsFeed->getItems());
 
-        $feed = ZMLoader::make("RssFeed");
+        $feed = ZMBeanUtils::getBean("RssFeed");
         $feed->setChannel($channel);
         $feed->setItems($items);
 
@@ -98,7 +98,7 @@ class ZMCatalogRssFeedSource implements ZMRssSource {
         $lastPubDate = null;
         $items = array();
         foreach (ZMProducts::instance()->getAllProducts(true, $request->getSession()->getLanguageId()) as $product) {
-            $item = ZMLoader::make("RssItem");
+            $item = ZMBeanUtils::getBean("RssItem");
             $item->setTitle($product->getName());
             $item->setLink($request->getToolbox()->net->product($product->getId(), null, false));
             $desc = ZMHtmlUtils::strip($product->getDescription());
@@ -129,13 +129,13 @@ class ZMCatalogRssFeedSource implements ZMRssSource {
             }
         }
 
-        $channel = ZMLoader::make("RssChannel");
+        $channel = ZMBeanUtils::getBean("RssChannel");
         $channel->setTitle(sprintf(_zm("Products at %s"), ZMSettings::get('storeName')));
         $channel->setLink($request->url(FILENAME_DEFAULT));
         $channel->setDescription(sprintf(_zm("All products at %s"), ZMSettings::get('storeName')));
         $channel->setLastBuildDate($lastPubDate);
 
-        $feed = ZMLoader::make("RssFeed");
+        $feed = ZMBeanUtils::getBean("RssFeed");
         $feed->setChannel($channel);
         $feed->setItems($items);
 
@@ -154,7 +154,7 @@ class ZMCatalogRssFeedSource implements ZMRssSource {
         $items = array();
         foreach (ZMCategories::instance()->getAllCategories($request->getSession()->getLanguageId()) as $category) {
             if ($category->isActive()) {
-                $item = ZMLoader::make("RssItem");
+                $item = ZMBeanUtils::getBean("RssItem");
                 $item->setTitle($category->getName());
                 $item->setLink($request->url('category', $category->getPath(), false));
                 $desc = ZMHtmlUtils::strip($category->getDescription());
@@ -183,13 +183,13 @@ class ZMCatalogRssFeedSource implements ZMRssSource {
             }
         }
 
-        $channel = ZMLoader::make("RssChannel");
+        $channel = ZMBeanUtils::getBean("RssChannel");
         $channel->setTitle(sprintf(_zm("Categories at %s"), ZMSettings::get('storeName')));
         $channel->setLink($request->url(FILENAME_DEFAULT));
         $channel->setDescription(sprintf(_zm("All categories at %s"), ZMSettings::get('storeName')));
         $channel->setLastBuildDate($lastPubDate);
 
-        $feed = ZMLoader::make("RssFeed");
+        $feed = ZMBeanUtils::getBean("RssFeed");
         $feed->setChannel($channel);
         $feed->setItems($items);
 

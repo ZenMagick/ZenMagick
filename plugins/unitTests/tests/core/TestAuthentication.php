@@ -84,7 +84,7 @@ class TestAuthentication extends ZMTestCase {
     public function testProviders() {
         $implementations = array('ZMZenCartAuthentication', 'ZMSha1Authentication');
         foreach ($implementations as $class) {
-            $provider = ZMLoader::make($class);
+            $provider = ZMBeanUtils::getBean($class);
             if ($this->assertNotNull($provider, '%s: '.$class)) {
                 $plaintext = 'foobar';
                 $encrypted = $provider->encryptPassword($plaintext);

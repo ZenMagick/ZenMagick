@@ -45,12 +45,12 @@ class TestZMQueryPager extends ZMTestCase {
             $resultList = new ZMResultList();
             $resultSource = ZMLoader::make('ObjectResultSource', 'ZMOrder', ZMOrders::instance(), 'getAllOrders', array(1));
             $resultList->setResultSource($resultSource);
-            $sorter = ZMLoader::make('OrderSorter');
+            $sorter = ZMBeanUtils::getBean('OrderSorter');
             $sorter->setSortId('date');
             $sorter->setDescending(true);
             $queryDetails = $sorter->getQueryDetails();
             $resultList->addSorter($sorter);
-            $filter = ZMLoader::make('OrderStatusIdFilter');
+            $filter = ZMBeanUtils::getBean('OrderStatusIdFilter');
             $resultList->addFilter($filter);
             $resultList->setPageNumber(3);
             $orders = $resultList->getResults();

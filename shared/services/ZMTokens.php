@@ -77,7 +77,7 @@ class ZMTokens extends ZMObject {
      * @return ZMToken A token.
      */
     public function getNewToken($resource, $lifetime) {
-        $token = ZMLoader::make('Token');
+        $token = ZMBeanUtils::getBean('Token');
         $token->setHash($this->createToken());
         $token->setResource($resource);
         $now = time();

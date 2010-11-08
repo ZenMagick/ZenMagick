@@ -83,7 +83,7 @@ class ZMEditAdminUserController extends ZMController {
         if (null != ($editUserId = $request->getParameter('adminUserId'))) {
             $adminUserForm = $this->getFormData($request);
 
-            $user = ZMLoader::make('AdminUser');
+            $user = ZMBeanUtils::getBean('AdminUser');
             $user->setId($adminUserForm->getAdminUserId());
             $user->setName($adminUserForm->getName());
             $user->setEmail($adminUserForm->getEmail());

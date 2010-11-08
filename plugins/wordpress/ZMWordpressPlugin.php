@@ -105,7 +105,7 @@ class ZMWordpressPlugin extends Plugin implements ZMRequestHandler {
      */
     protected function getAdapter() {
         if (null == $this->adapter_) {
-            $this->adapter_ = ZMLoader::make('WordpressAdapter');
+            $this->adapter_ = ZMBeanUtils::getBean('WordpressAdapter');
         }
 
         return $this->adapter_;

@@ -179,7 +179,7 @@ class ZMShippingProviderWrapper extends ZMObject implements ZMShippingProvider {
         }
 
         // capture tax
-        $taxRate = ZMLoader::make("TaxRate"); 
+        $taxRate = ZMBeanUtils::getBean("TaxRate"); 
         $taxRate->setRate(isset($quotes['tax']) ? $quotes['tax'] : 0);
 
         $methods = array();

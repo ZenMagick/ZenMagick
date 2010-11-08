@@ -133,7 +133,7 @@ class ZMOrder extends ZMObject {
      */
     public function getAccount() { 
         if (null === $this->account_) {
-            $this->account_ = ZMLoader::make("Account");
+            $this->account_ = ZMBeanUtils::getBean("Account");
             $this->account_->setAccountId($this->accountId_);
             // orders has only name, not first/last...
             $this->account_->setLastName($this->get('customers_name'));
@@ -158,7 +158,7 @@ class ZMOrder extends ZMObject {
      * Create address instance.
      */
     private function mkAddress($prefix) {
-        $address = ZMLoader::make("Address");
+        $address = ZMBeanUtils::getBean("Address");
         $address->setAddressId(0);
         // orders has only name, not first/last...
         $address->setLastName($this->get($prefix.'_name'));

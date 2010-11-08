@@ -115,7 +115,7 @@ class ZMForwardView extends ZMView {
      * {@inheritDoc}
      */
     public function generate($request) {
-        $req = ZMLoader::make('Request');
+        $req = ZMBeanUtils::getBean('Request');
         $req->setParameterMap($request->getParameterMap(false));
         $req->setRequestId($this->getRequestId());
         // keep reference to original request

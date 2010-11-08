@@ -226,7 +226,7 @@ class ZMPhpPackagePacker {
      * @param boolean stripRef If <code>true</code>, strip code that uses references.
      */
     protected function compressFiles($stripCode, $stripRef) {
-        $compressor = ZMLoader::make('PhpCompressor');
+        $compressor = ZMBeanUtils::getBean('PhpCompressor');
         $compressor->setRoot($this->outputFilename_.'.prep'.DIRECTORY_SEPARATOR);
         $compressor->setOut($this->outputFilename_);
         $compressor->setTemp($this->tempFolder_);

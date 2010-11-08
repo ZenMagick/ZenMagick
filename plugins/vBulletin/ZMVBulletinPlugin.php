@@ -68,7 +68,7 @@ class ZMVBulletinPlugin extends Plugin implements ZMRequestHandler {
      */
     protected function getAdapter() {
         if (null == $this->adapter_) {
-            $this->adapter_ = ZMLoader::make('VBulletinAdapter');
+            $this->adapter_ = ZMBeanUtils::getBean('VBulletinAdapter');
         }
 
         return $this->adapter_;

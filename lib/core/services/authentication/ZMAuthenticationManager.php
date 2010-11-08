@@ -78,7 +78,7 @@ class ZMAuthenticationManager extends ZMObject {
         foreach ($keys as $key) {
             $implementation = $this->providers_[$key];
             if (!is_object($implementation)) {
-                $implementation = ZMLoader::make($key);
+                $implementation = ZMBeanUtils::getBean($key);
                 if (!($implementation instanceof ZMAuthentication)) {
                     throw new ZMException('invalid auth provider: '. get_class($implementation));
                 }

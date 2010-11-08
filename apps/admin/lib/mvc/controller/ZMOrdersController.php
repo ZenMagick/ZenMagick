@@ -67,7 +67,7 @@ class ZMOrdersController extends ZMController {
         } else {
             $resultSource = ZMLoader::make("ObjectResultSource", 'Order', ZMOrders::instance(), "getAllOrders", array($languageId));
         }
-        $resultList = ZMLoader::make("ResultList");
+        $resultList = ZMBeanUtils::getBean("ResultList");
         $resultList->setResultSource($resultSource);
         $resultList->setPageNumber($request->getParameter('page', 1));
 
