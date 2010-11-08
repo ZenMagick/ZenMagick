@@ -105,6 +105,9 @@ Release 0.9.11
   available templates/resources within a given path
 - add ZMTaxClass and code to find one (ZMTaxRates::getTaxClassForId())
 - update admin jquery to 1.4.3 and 1.8.6, respectively
+- simplify zmIndex.ph - eventually this is going to be merged into a separate
+  installer
+- remove obsolete ZMAdminView
 
 Release 0.9.10
 - restructure store and admin code into separate apps with most of the store

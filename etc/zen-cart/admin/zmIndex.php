@@ -25,48 +25,17 @@
 
   ZMLoader::instance()->addPath(ZMFileUtils::mkPath(array(ZMRuntime::getInstallationPath(), 'apps', 'admin', 'lib')));
   ZMLoader::instance()->loadStatic();
-  ZMSettings::append('zenmagick.mvc.toolbox.tools', 'admin:ToolboxAdmin');
 
   // set some admin specific things...
   ZMUrlManager::instance()->clear();
   ZMSacsManager::instance()->reset();
   ZMSacsManager::instance()->load(file_get_contents(ZMFileUtils::mkPath(array(ZMRuntime::getInstallationPath(), 'apps/admin/config', 'sacs_mappings.yaml'))), false);
-  // make sure we use the appropriate protocol (HTTPS, for example) if required
-  //TODO: redirect uses net, not admin... ZMSacsManager::instance()->ensureAccessMethod($request);
 
-  ZMSettings::set('isStoreNameInTitle', false);
-  ZMSettings::set('zenmagick.mvc.view.default', 'AdminView');
   if (ZMLangUtils::isEmpty($request->getRequestId())) {
       $request->setParameter('main_page', 'index');
   }
 
-  /* TODO: use once a new admin UI is done
-  ZMDispatcher::dispatch($request);
-  exit;
-  */
-
-  // use default mappings only, taken from ZMDispatcher...
-  $controller = $request->getController();
-  $view = null;
-
-  try {
-      // execute controller
-      $view = $controller->process($request);
-
-      // taken from ZMController
-      // set a few default things...
-      $view->setVar('request', $request);
-      $view->setVar('session', $request->getSession());
-      $toolbox = $request->getToolbox();
-      $view->setVar('toolbox', $toolbox);
-      // also set individual tools
-      $view->setVars($toolbox->getTools());
-  } catch (Exception $e) {
-      ZMLogging::instance()->dump($e, null, ZMLogging::ERROR);
-      $controller = ZMLoader::make(ZMSettings::get('zenmagick.mvc.controller.defaultClass', 'DefaultController'));
-      $view = $controller->findView('error', array('exception' => $e));
-      $request->setController($controller);
-  }
+  $viewFile = 'content/views/'.$request->getRequestId().'.php';
 
   //XXX: buffer code, so redirects should still work...
   ob_start();
@@ -101,8 +70,8 @@
 
     <div id="main">
       <div id="content">
-        <?php if (null != $view) {
-            echo $view->generate($request);
+        <?php if (file_exists($viewFile)) {
+            include $viewFile;
         } else { ?>
             <h2>Invalid request</h2>
         <?php } ?>
