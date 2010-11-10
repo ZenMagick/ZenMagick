@@ -265,11 +265,11 @@ class ZMCheckoutHelper extends ZMObject {
      * Validate the current checkout request.
      *
      * @param ZMRequest request The current request.
-     * @param boolean messages Optional flag to enable/hide messages related to validation issues; default is <code>true</code>.
+     * @param boolean showMessages Optional flag to enable/hide messages related to validation issues; default is <code>true</code>.
      * @return string Either a <em>viewId</em>, which would indicate an error/issue, or <code>null</code>
      *  if everything is ok.
      */
-    public function validateCheckout($request, $messages=true) {
+    public function validateCheckout($request, $showMessages=true) {
         if ($this->shoppingCart_->isEmpty()) {
             return "empty_cart";
         }
@@ -281,14 +281,55 @@ class ZMCheckoutHelper extends ZMObject {
         }
 
         if (!$this->readyForCheckout()) {
-            if ($messages) {
+            if ($showMessages) {
                 ZMMessages::instance()->error(_zm('Please update your order ...'));
             }
             return "cart_not_ready";
         }
 
-        if (!$this->checkStock($messages)) {
+        if (!$this->checkStock($showMessages)) {
             return "low_stock";
+        }
+
+        if (!$this->isVirtual() && null == $this->shoppingCart_->getSelectedShippingMethod()) {
+            return 'require_shipping';
+        }
+
+        return null;
+    }
+
+    /**
+     * Validate checkout addresses.
+     *
+     * @param ZMRequest request The current request.
+     * @param boolean showMessages Optional flag to enable/hide messages related to validation issues; default is <code>true</code>.
+     * @return string Either a <em>viewId</em>, which would indicate an error/issue, or <code>null</code>
+     *  if everything is ok.
+     */
+    public function validateAddresses($request, $showMessages=true) {
+        // validate addresses
+        $session = $request->getSession();
+        $account = $request->getAccount();
+        if (!$session->isAnonymous() && !$this->shoppingCart_->hasShippingAddress() && !$this->shoppingCart_->isVirtual()) {
+            if (0 < $account->getDefaultAddressId()) {
+                $this->shoppingCart_->setShippingAddressId($account->getDefaultAddressId());
+                // TODO: reset selected shipping method as address changed (if addressId set in session is invalid)
+            } else {
+                if ($showMessages) {
+                    ZMMessages::instance()->error(_zm('Please provide a shipping address'));
+                }
+                return "require_shipping_address";
+            }
+        }
+        if (!$this->shoppingCart_->hasBillingAddress()) {
+            if (0 < $account->getDefaultAddressId()) {
+                $this->shoppingCart_->setBillingAddressId($account->getDefaultAddressId());
+            } else {
+                if ($showMessages) {
+                    ZMMessages::instance()->error(_zm('Please provide a billing address'));
+                }
+            }
+            return "require_payment_address";
         }
 
         return null;

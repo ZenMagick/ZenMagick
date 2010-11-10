@@ -50,14 +50,6 @@ class ZMCheckoutShippingController extends ZMController {
      * {@inheritDoc}
      */
     public function preProcess($request) {
-        $shoppingCart = $request->getShoppingCart();
-        // set default address if required
-        if (!$shoppingCart->hasShippingAddress()) {
-            $account = $request->getAccount();
-            $shoppingCart->setShippingAddressId($account->getDefaultAddresssId());
-            // TODO: reset selected shipping method as address changed (if addressId set in session is invalid)
-        }
-
         $request->getToolbox()->crumbtrail->addCrumb("Checkout", $request->url(FILENAME_CHECKOUT_SHIPPING, '', true));
         $request->getToolbox()->crumbtrail->addCrumb($request->getToolbox()->utils->getTitle());
     }
@@ -79,7 +71,10 @@ class ZMCheckoutShippingController extends ZMController {
         $shoppingCart = $request->getShoppingCart();
         $checkoutHelper = ZMLoader::make('CheckoutHelper', $shoppingCart);
 
-        if (null !== ($viewId = $checkoutHelper->validateCheckout($request, false))) {
+        if (null !== ($viewId = $checkoutHelper->validateCheckout($request, false)) && 'require_shipping' != $viewId) {
+            return $this->findView($viewId);
+        }
+        if (null !== ($viewId = $checkoutHelper->validateAddresses($request, true))) {
             return $this->findView($viewId);
         }
 
@@ -90,13 +85,6 @@ class ZMCheckoutShippingController extends ZMController {
         if ($checkoutHelper->isVirtual()) {
             $checkoutHelper->markCartFreeShipping();
             return $this->findView('skip_shipping');
-        }
-
-        // already checked that cart is not virtual
-        if (null == $shoppingCart->getShippingAddress()) {
-            $shoppingCart->setShippingAddressId($request->getAccount()->getDefaultAddressId());
-        } else {
-            //TODO: check selected address is valid
         }
 
         //TODO: preselect shipping
@@ -114,7 +102,10 @@ class ZMCheckoutShippingController extends ZMController {
         $shoppingCart = $request->getShoppingCart();
         $checkoutHelper = ZMLoader::make('CheckoutHelper', $shoppingCart);
 
-        if (null !== ($viewId = $checkoutHelper->validateCheckout($request, false))) {
+        if (null !== ($viewId = $checkoutHelper->validateCheckout($request, false)) && 'require_shipping' != $viewId) {
+            return $this->findView($viewId);
+        }
+        if (null !== ($viewId = $checkoutHelper->validateAddresses($request, true))) {
             return $this->findView($viewId);
         }
 

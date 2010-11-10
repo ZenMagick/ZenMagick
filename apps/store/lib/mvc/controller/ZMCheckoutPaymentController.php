@@ -48,16 +48,49 @@ class ZMCheckoutPaymentController extends ZMController {
 
 
     /**
-     * Process a HTTP GET request.
-     * 
-     * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
-     * if the controller generates the contents itself.
+     * {@inheritDoc}
      */
-    function processGet($request) {
+    public function preProcess($request) {
         $request->getToolbox()->crumbtrail->addCrumb("Checkout", $request->url(FILENAME_CHECKOUT_PAYMENT, '', true));
         $request->getToolbox()->crumbtrail->addCrumb($request->getToolbox()->utils->getTitle());
+    }
 
-        return $this->findView(null, array('shoppingCart' => $request->getShoppingCart()));
+    /**
+     * {@inheritDoc}
+     */
+    public function getViewData($request) {
+        return array(
+          'shoppingCart' => $request->getShoppingCart(),
+          'comments' => $request->getParameter('comments', $request->getSession()->getValue('comments'))
+        );
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function processGet($request) {
+        $shoppingCart = $request->getShoppingCart();
+        $checkoutHelper = ZMLoader::make('CheckoutHelper', $shoppingCart);
+
+        if (null !== ($viewId = $checkoutHelper->validateCheckout($request, false))) {
+            return $this->findView($viewId);
+        }
+        if (null !== ($viewId = $checkoutHelper->validateAddresses($request, true))) {
+            return $this->findView($viewId);
+        }
+
+        if (!$checkoutHelper->verifyHash($request)) {
+            return $this->findView('check_cart');
+        }
+
+        return $this->findView();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function processPost($request) {
+        //TODO: move processing here!
     }
 
 }

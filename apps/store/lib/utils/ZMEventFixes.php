@@ -138,12 +138,16 @@ class ZMEventFixes extends ZMObject {
         }
 
         // supported by ZenMagick
-        $supportedCheckoutPages = array('checkout_shipping_address', 'checkout_payment_address');
+        $supportedCheckoutPages = array('checkout_shipping_address', 'checkout_payment_address', 'checkout_payment');
         if (ZMLangUtils::asBoolean(ZMSettings::get('apps.store.request.enableZMCheckoutShipping'))) {
             $supportedCheckoutPages[] = 'checkout_shipping';
         }
 
-        return !in_array($requestId, $supportedCheckoutPages);
+        $needs = !in_array($requestId, $supportedCheckoutPages);
+        if ($needs) {
+            ZMLogging::instance()->log('enable zencart request processing for requestId='.$requestId, ZMLogging::DEBUG);
+        }
+        return $needs;
     }
 
     /**
@@ -256,37 +260,6 @@ class ZMEventFixes extends ZMObject {
         $this->checkAuthorization($request);
         if (ZMSettings::get('configureLocale')) {
             $this->configureLocale($request);
-        }
-    }
-
-    /**
-     * Validate addresses for guest checkout.
-     */
-    public function onNotifyHeaderEndCheckoutShipping() {
-        $shoppingCart = ZMRequest::instance()->getShoppingCart();
-        // check for address
-        $session = ZMRequest::instance()->getSession();
-        // if anonymous, we need to login/register first, so no point asking yet
-        if (!$session->isAnonymous() && !$shoppingCart->hasShippingAddress() && !$shoppingCart->isVirtual()) {
-            $account = ZMRequest::instance()->getAccount();
-            if (0 < $account->getDefaultAddressId()) {
-                $_SESSION['customer_default_address_id'] = $account->getDefaultAddressId();
-            } else {
-                ZMMessages::instance()->error(_zm('Please provide a shipping address'));
-                ZMRequest::instance()->redirect(ZMRequest::instance()->url(FILENAME_CHECKOUT_SHIPPING_ADDRESS, '', true));
-            }
-        }
-    }
-
-    /**
-     * Validate addresses for guest checkout.
-     */
-    public function onNotifyHeaderStartCheckoutPayment() {
-        $shoppingCart = ZMRequest::instance()->getShoppingCart();
-        // check for address
-        if (!$shoppingCart->hasBillingAddress() && (!isset($_SESSION['customer_default_address_id']) || 0 == $_SESSION['customer_default_address_id'])) {
-            ZMMessages::instance()->error(_zm('Please provide a billing address'));
-            ZMRequest::instance()->redirect(ZMRequest::instance()->url(FILENAME_CHECKOUT_PAYMENT_ADDRESS, '', true));
         }
     }
 

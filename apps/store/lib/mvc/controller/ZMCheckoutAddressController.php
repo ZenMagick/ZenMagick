@@ -59,9 +59,9 @@ class ZMCheckoutAddressController extends ZMController {
      */
     public function setMode($mode) {
         if ('shipping' == $mode) {
-            $this->settings_ = array('url' => 'checkout_shipping', 'method' => 'setShippingAddressId');
+            $this->settings_ = array('url' => 'checkout_shipping', 'method' => 'setShippingAddressId', 'ignoreCheckId' => 'require_shipping');
         } else if ('billing' == $mode) {
-            $this->settings_ = array('url' => 'checkout_payment', 'method' => 'setBillingAddressId');
+            $this->settings_ = array('url' => 'checkout_payment', 'method' => 'setBillingAddressId', 'ignoreCheckId' => 'require_payment');
         }
     }
 
@@ -105,7 +105,7 @@ class ZMCheckoutAddressController extends ZMController {
      */
     protected function checkCart($request) {
         $checkoutHelper = ZMLoader::make('CheckoutHelper', $request->getShoppingCart());
-        if (null !== ($viewId = $checkoutHelper->validateCheckout($request, false))) {
+        if (null !== ($viewId = $checkoutHelper->validateCheckout($request, false)) && $this->settings_['ignoreCheckId'] != $viewId) {
             return $this->findView($viewId, $this->viewData_);
         }
 

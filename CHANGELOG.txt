@@ -116,6 +116,9 @@ Release 0.9.11
 - drop unused context related code
 - make the setting 'zenmagick.core.beans.definitions.NAME' work as mapping for
   beans for all beans (incl. singletons)
+- fix guest checkout address checks
+- enable support for checkout_payment (no POST processing as that is currently
+  in checkout_confirmation...)
 
 Release 0.9.10
 - restructure store and admin code into separate apps with most of the store

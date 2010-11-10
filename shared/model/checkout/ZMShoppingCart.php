@@ -249,7 +249,7 @@ class ZMShoppingCart extends ZMObject {
      * <p><strong>NOTE: If a value is returned it will be a <em>combined key</em> in the form
      * <em>providerId]_[methodId]</em>.</p>
      *
-     * @return int The shipping method id.
+     * @return int The shipping method id or <code>null</code>.
      */
     public function getSelectedShippingMethodId() {
         return (isset($_SESSION['shipping']) && isset($_SESSION['shipping']['id'])) ? $_SESSION['shipping']['id'] : null;

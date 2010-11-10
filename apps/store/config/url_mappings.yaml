@@ -35,6 +35,18 @@ null:
   low_stock:
     view: RedirectView
     template: shopping_cart
+  require_shipping:
+    view: RedirectView
+    template: checkout_shipping
+  require_shipping_address:
+    view: RedirectView
+    template: checkout_shipping_address
+  require_billing:
+    view: RedirectView
+    template: checkout_payment
+  require_billing_address:
+    view: RedirectView
+    template: checkout_payment_address
 
 # view without classname# prefix will be completed to: [default-view-classname]#[value]
 popup_cvv_help:
