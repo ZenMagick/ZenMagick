@@ -116,9 +116,11 @@ class ZMShippingProviderWrapper extends ZMObject implements ZMShippingProvider {
         $order->delivery = array();
         $order->delivery['country'] = array();
 
-        $order->delivery['country']['id'] = $address->getCountryId();
-        $order->delivery['country']['iso_code_2'] = $address->getCountry()->getIsoCode2();
-        $order->delivery['zone_id'] = $address->getZoneId();
+        if (null != $address) {
+            $order->delivery['country']['id'] = $address->getCountryId();
+            $order->delivery['country']['iso_code_2'] = $address->getCountry()->getIsoCode2();
+            $order->delivery['zone_id'] = $address->getZoneId();
+        }
 
         if (!isset($_SESSION['cart'])) {
             $_SESSION['cart'] = new shoppingCart();
