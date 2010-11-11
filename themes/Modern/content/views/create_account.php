@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 ?>
-<?php echo $form->open(FILENAME_CREATE_ACCOUNT, "action=process", true, array('id'=>'registration')) ?>
+<?php echo $form->open(FILENAME_CREATE_ACCOUNT, '', true, array('id'=>'registration')) ?>
     <?php if (ZMSettings::get('isPrivacyMessage')) { ?>
         <fieldset>
             <legend><?php zm_l10n("About Privacy") ?></legend>

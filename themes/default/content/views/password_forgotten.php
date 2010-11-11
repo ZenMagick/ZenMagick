@@ -23,7 +23,7 @@
 ?>
 
 <p><?php _vzm("Enter your E-Mail address below and we'll send you an e-mail message containing your new password.") ?></p>
-<?php echo $form->open(FILENAME_PASSWORD_FORGOTTEN, "action=process", true) ?>
+<?php echo $form->open(FILENAME_PASSWORD_FORGOTTEN) ?>
   <fieldset>
     <legend><?php _vzm("Request new password") ?></legend>
     <label for="email_address"><?php _vzm("E-Mail Address") ?></label>

@@ -22,7 +22,7 @@
  */
 ?>
 <p><?php _vzm("Including store news, new products, special offers, and other promotional announcements.") ?></p>
-<?php echo $form->open(FILENAME_ACCOUNT_NEWSLETTERS, "action=process", true, array('onsubmit'=>null)) ?>
+<?php echo $form->open(FILENAME_ACCOUNT_NEWSLETTERS, '', true, array('onsubmit'=>null)) ?>
     <fieldset>
         <legend><?php _vzm("Store Newsletter") ?></legend>
         <p><input type="checkbox" id="newsletter_general" name="newsletter_general" value="1"<?php $form->checked(true, $currentAccount->isNewsletterSubscriber(), true) ?> /><label for="newsletter_general"><?php _vzm("Receive Store Newsletter") ?></label></p>

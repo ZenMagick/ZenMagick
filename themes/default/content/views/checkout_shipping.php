@@ -30,7 +30,7 @@
     <?php echo $macro->formatAddress($shoppingCart->getShippingAddress()) ?>
 </fieldset>
 
-<?php echo $form->open(FILENAME_CHECKOUT_SHIPPING, "action=process", true) ?>
+<?php echo $form->open(FILENAME_CHECKOUT_SHIPPING) ?>
     <?php if ($shoppingCart->getShippingProviders()) { ?>
         <fieldset>
             <legend><?php _vzm("Shipping Methods") ?></legend>

@@ -22,7 +22,7 @@
  */
 ?>
 
-<?php echo $form->open(FILENAME_ACCOUNT_PASSWORD, "action=process", true, array('id'=>'account_password')) ?>
+<?php echo $form->open(FILENAME_ACCOUNT_PASSWORD, '', true, array('id'=>'account_password')) ?>
     <fieldset>
         <legend><?php _vzm("Change Password") ?></legend>
         <p>

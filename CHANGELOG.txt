@@ -121,6 +121,10 @@ Release 0.9.11
   in checkout_confirmation...)
 - templates: change ZMShoppingCart::getComment() to getComments();
   affected: checkout_shipping, checkout_payment, checkout_confirmation
+- remove obsolete 'action=process' parameters from forms; affected: login,
+  create_account, checkout_shipping, password_forgotten, tell_a_friend,
+	product_reviews_write, account_password, account_notification,
+	account_newsletter
 
 Release 0.9.10
 - restructure store and admin code into separate apps with most of the store

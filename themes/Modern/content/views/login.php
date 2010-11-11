@@ -22,7 +22,7 @@
  */
 ?>
 
-<?php echo $form->open(FILENAME_LOGIN, "action=process", true, array('id'=>'login')) ?>
+<?php echo $form->open(FILENAME_LOGIN, '', true, array('id'=>'login')) ?>
   <fieldset>
     <legend><?php zm_l10n("Login") ?></legend>
     <table cellspacing="0" cellpadding="0">
@@ -46,7 +46,7 @@
 
 <?php if (ZMSettings::get('isGuestCheckout') && !$request->getShoppingCart()->isEmpty() && $request->isAnonymous()) { ?>
   <h3><?php zm_l10n("Don't need an account?") ?></h3>
-  <?php echo $form->open('checkout_guest', "action=process", true, array('id'=>'checkout_guest')) ?>
+  <?php echo $form->open('checkout_guest', '', true, array('id'=>'checkout_guest')) ?>
     <fieldset>
       <legend><?php zm_l10n("Checkout without registering") ?></legend>
       <div>

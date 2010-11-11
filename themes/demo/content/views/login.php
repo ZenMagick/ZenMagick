@@ -53,7 +53,7 @@
     }
 </script>
 
-<?php echo $form->open(FILENAME_LOGIN, "action=process", true, array('id' => 'login', 'method' => 'post', 'onsubmit' => 'return zmFormValidation.validate(this);')) ?>
+<?php echo $form->open(FILENAME_LOGIN, '', true, array('id' => 'login', 'method' => 'post', 'onsubmit' => 'return zmFormValidation.validate(this);')) ?>
   <fieldset>
     <legend><?php _vzm("Login") ?></legend>
     <div>
@@ -78,7 +78,7 @@
 
 <?php if (ZMSettings::get('isGuestCheckout') && !$request->getShoppingCart()->isEmpty()) { ?>
   <h3><?php _vzm("Don't need an account?") ?></h3>
-  <?php echo $form->open('checkout_guest', "action=process", true, array('id' => 'checkout_guest', 'method' => 'post', 'onsubmit' => 'return zmFormValidation.validate(this);')) ?>
+  <?php echo $form->open('checkout_guest', '', true, array('id' => 'checkout_guest', 'method' => 'post', 'onsubmit' => 'return zmFormValidation.validate(this);')) ?>
     <fieldset>
       <legend><?php _vzm("Checkout without registering") ?></legend>
       <div>

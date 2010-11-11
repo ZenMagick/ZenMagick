@@ -25,7 +25,7 @@
 <?php if ($request->isAnonymous() && 'login' != $request->getRequestId() && 'time_out' != $request->getRequestId()) { ?>
     <h3><?php _vzm("Login") ?></h3>
     <div id="sb_login" class="box">
-        <?php echo $form->open(FILENAME_LOGIN, "action=process", true, array('id'=>'login')) ?>
+        <?php echo $form->open(FILENAME_LOGIN, '', true, array('id'=>'login')) ?>
             <div>
                 <label for="email_address"><?php _vzm("E-Mail Address") ?></label>
                 <input type="text" id="email_address" name="email_address" <?php echo $form->fieldLength(TABLE_CUSTOMERS, 'customers_email_address', 20) ?> /> 
