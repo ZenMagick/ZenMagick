@@ -67,7 +67,7 @@
                   <?php } ?>
                   <?php foreach ($methods as $method) { ?>
                       <?php $id = 'ship_'.$method->getId();?>
-                      <?php $selected = (1 == count($methods)) || ($method->getShippingId() == $shoppingCart->getSelectedShippingMethodId()); ?>
+                      <?php $selected = (1 == count($methods) && 1 == count($providers)) || ($method->getShippingId() == $shoppingCart->getSelectedShippingMethodId()); ?>
                       <tr class="smethod" onclick="document.getElementById('<?php echo $id ?>').checked = true;">
                           <td><?php echo $html->encode($method->getName()) ?></td>
                           <td class="smcost"><?php echo $utils->formatMoney($method->getCost()) ?></td>
