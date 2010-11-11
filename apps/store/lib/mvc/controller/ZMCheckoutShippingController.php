@@ -58,10 +58,7 @@ class ZMCheckoutShippingController extends ZMController {
      * {@inheritDoc}
      */
     public function getViewData($request) {
-        return array(
-          'shoppingCart' => $request->getShoppingCart(),
-          'comments' => $request->getParameter('comments', $request->getShoppingCart()->getComments())
-        );
+        return array('shoppingCart' => $request->getShoppingCart());
     }
 
     /**
@@ -134,7 +131,7 @@ class ZMCheckoutShippingController extends ZMController {
             return $this->findView();
         }
 
-        $shoppingCart->setShippingMethod($shippingMethod);
+        $shoppingCart->setSelectedShippingMethod($shippingMethod);
 
         return $this->findView('success');
     }

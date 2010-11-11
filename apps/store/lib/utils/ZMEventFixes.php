@@ -70,12 +70,15 @@ class ZMEventFixes extends ZMObject {
      * Fake theme resolved event if using zen-cart templates and handle persisted messages.
      */
     public function onZMInitDone($args) {
+        $request = $args['request'];
         if (!ZMsettings::get('isEnableZMThemes')) {
-            $request = $args['request'];
             // pass on already set args
             $args = array_merge($args, array('themeId' => ZMThemes::instance()->getActiveThemeId($request->getSession()->getLanguageId())));
             ZMEvents::instance()->fireEvent(null, Events::THEME_RESOLVED, $args);
         }
+
+        // if using ZMCheckoutPaymentController, we need 'conditions' in $POST to make zencarts checkout_confirmation header_php.php happy
+        if (isset($_GET['conditions']) && 'checkout_confirmation' == $request->getRequestId()) { $_POST['conditions'] = 1; }
 
         // append again to make this the first one called to provide some useful default for zencart args
         ZMSettings::append('zenmagick.mvc.request.seoRewriter', 'StoreDefaultSeoRewriter');

@@ -295,6 +295,9 @@ class ZMCheckoutHelper extends ZMObject {
             return 'require_shipping';
         }
 
+        // TODO: check for free shipping and return back to shipping page if so?
+        // or just add message about qualifying and leave it to the user?
+
         return null;
     }
 

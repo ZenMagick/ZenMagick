@@ -64,7 +64,7 @@ A simple way of doing this would be to modify the checkout_payments.php template
 
       ....
       $schedule = $subscriptions->getSelectedSchedule();
-      $paymentTypes = $shoppingCart->getPaymentTypes();
+      $paymentTypes = $shoppingCart->getSelectedPaymentTypes();
       $single = 1 == count($paymentTypes);
       foreach ($paymentTypes as $type) {
         // check against list of allowed subscription payment types

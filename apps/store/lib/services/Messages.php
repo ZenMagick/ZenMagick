@@ -79,15 +79,19 @@ class Messages extends ZMMessages {
             $this->addAll($session->getMessages());
         }
 
-        // also check for messages in the request...
-        if (null != ($error = ZMRequest::instance()->getParameter('error_message'))) {
+        // also check for other messages in the request...
+        $request = ZMRequest::instance();
+        if (null != ($error = $request->getParameter('error_message'))) {
             $this->error($error);
         }
-        if (null != ($error = ZMRequest::instance()->getParameter('credit_class_error'))) {
+        if (null != ($error = $request->getParameter('credit_class_error'))) {
             $this->error($error);
         }
-        if (null != ($info = ZMRequest::instance()->getParameter('info_message'))) {
+        if (null != ($info = $request->getParameter('info_message'))) {
             $this->info($info);
+        }
+        if (null != ($perror = $request->getParameter('payment_error'))) {
+            $this->error($request->getParameter('error', $perror));
         }
 
         $session->clearMessages();

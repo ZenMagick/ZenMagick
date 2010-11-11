@@ -51,7 +51,7 @@ class ZMPaymentSurchargePlugin extends Plugin implements ZMOrderTotal {
      * {@inheritDoc}
      */
     public function calculate($request, $shoppingCart) {
-        $paymentType = $shoppingCart->getPaymentType();
+        $paymentType = $shoppingCart->getSelectedPaymentType();
 
         // iterate over all conditions
         $output = array();

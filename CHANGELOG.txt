@@ -125,6 +125,11 @@ Release 0.9.11
   create_account, checkout_shipping, password_forgotten, tell_a_friend,
 	product_reviews_write, account_password, account_notification,
 	account_newsletter
+- changed ZMShoppingCart methods getPaymentType and getPaymentTypeId to
+  getSelectedPaymentType and getSelectedPaymentTypeId, respectively;
+	affects checkout_confirmation, checkout_payment; plugins: subscriptions,
+	paymentSurcharge
+- also pull payment errors from GET urls (payment_error/error)
 
 Release 0.9.10
 - restructure store and admin code into separate apps with most of the store

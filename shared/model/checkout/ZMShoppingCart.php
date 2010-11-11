@@ -39,6 +39,7 @@ class ZMShoppingCart extends ZMObject {
     private $helper_;
     private $comments_;
     private $accountId_;
+    private $selectedPaymentType_;
 
 
     /**
@@ -53,6 +54,7 @@ class ZMShoppingCart extends ZMObject {
         $this->zenTotals_ = null;
         $this->items_ = null;
         $this->helper_ = new ZMCheckoutHelper($this);
+        $this->selectedPaymentType_;
     }
 
     /**
@@ -283,7 +285,7 @@ class ZMShoppingCart extends ZMObject {
      *
      * @param ZMShippingMethod method The shipping method to use.
      */
-    public function setShippingMethod($method) {
+    public function setSelectedShippingMethod($method) {
         $_SESSION['shipping'] = array(
             'id' => $method->getShippingId(),
             'title' => $method->getName(),
@@ -305,7 +307,7 @@ class ZMShoppingCart extends ZMObject {
      *
      * @return int The payment type id.
      */
-    public function getPaymentTypeId() {
+    public function getSelectedPaymentTypeId() {
         return isset($_SESSION['payment']) ? $_SESSION['payment'] : null;
     }
 
@@ -314,9 +316,20 @@ class ZMShoppingCart extends ZMObject {
      *
      * @return ZMPaymentType The payment type or <code>null</code>.
      */
-    public function getPaymentType() {
-        $paymentType = ZMPaymentTypes::instance()->getPaymentTypeForId($this->getPaymentTypeId());
-        return $paymentType;
+    public function getSelectedPaymentType() {
+        if (null == $this->selectedPaymentType_) {
+            $this->selectedPaymentType_ = ZMPaymentTypes::instance()->getPaymentTypeForId($this->getSelectedPaymentTypeId());
+        }
+        return $this->selectedPaymentType_;
+    }
+
+    /**
+     * Set the selected payment type.
+     *
+     * @param ZMPaymentType paymentType The payment type.
+     */
+    public function setSelectedPaymentType($paymentType) {
+        $_SESSION['payment'] = $paymentType->getId();
     }
 
     /**
@@ -334,7 +347,7 @@ class ZMShoppingCart extends ZMObject {
      * @return string The URL to be used for the actual order form.
      */
     public function getOrderFormUrl($request) {
-        return $this->getPaymentType()->getOrderFormUrl($request);
+        return $this->getSelectedPaymentType()->getOrderFormUrl($request);
     }
 
     /**
@@ -344,7 +357,7 @@ class ZMShoppingCart extends ZMObject {
      * @return mixed The form content for the actual order process form.
      */
     public function getOrderFormContent($request) {
-        return $this->getPaymentType()->getOrderFormContent($request);
+        return $this->getSelectedPaymentType()->getOrderFormContent($request);
     }
 
     /**

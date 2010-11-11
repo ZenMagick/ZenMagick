@@ -59,10 +59,7 @@ class ZMCheckoutPaymentController extends ZMController {
      * {@inheritDoc}
      */
     public function getViewData($request) {
-        return array(
-          'shoppingCart' => $request->getShoppingCart(),
-          'comments' => $request->getParameter('comments', $request->getSession()->getValue('comments'))
-        );
+        return array('shoppingCart' => $request->getShoppingCart());
     }
 
     /**
@@ -83,14 +80,61 @@ class ZMCheckoutPaymentController extends ZMController {
             return $this->findView('check_cart');
         }
 
+        // TODO: add check if payment is needed at all (if subtotal is zero we don't need payment?)
+
         return $this->findView();
     }
 
     /**
      * {@inheritDoc}
+     *
+     * <p><strong>NOTE: This is currently not used as the payments form points to checkout_confirmation</strong>.</p>
      */
     public function processPost($request) {
-        //TODO: move processing here!
+        $shoppingCart = $request->getShoppingCart();
+        $checkoutHelper = ZMLoader::make('CheckoutHelper', $shoppingCart);
+
+        if (null !== ($viewId = $checkoutHelper->validateCheckout($request, false)) && 'require_shipping' != $viewId) {
+            return $this->findView($viewId);
+        }
+        if (null !== ($viewId = $checkoutHelper->validateAddresses($request, true))) {
+            return $this->findView($viewId);
+        }
+
+        if (!$checkoutHelper->verifyHash($request)) {
+            return $this->findView('check_cart');
+        }
+
+        if (null != ($comments = $request->getParameter('comments'))) {
+            $shoppingCart->setComments($comments);
+        }
+
+        if (ZMSettings::get('isConditionsMessage') && !ZMLangUtils::asBoolean($request->getParameter('conditions'))) {
+            ZMMessages::instance()->error(_zm('PPlease confirm the terms and conditions bound to this order by ticking the box below.'));
+            return $this->findView();
+        }
+
+        // TODO: check if credit/gv covers total (currently in order_total::pre_confirmation_check)
+
+        if (null == ($paymentTypeId = $request->getParameter('payment'))) {
+            ZMMessages::instance()->error(_zm('Please select a payment type.'));
+            return $this->findView();
+        }
+
+        if (null == ($paymentType = ZMPaymentTypes::instance()->getPaymentTypeForId($paymentTypeId))) {
+            ZMMessages::instance()->error(_zm('Please select a valid payment type.'));
+            return $this->findView();
+        }
+
+        $shoppingCart->setSelectedPaymentType($paymentType);
+
+        // TODO: update customer referral discount coupon (??)
+        // TODO: add support for custom 'edit shipping url' in confirmation page (should be in ZMCheckoutConfirmation:processGet(), I guess) [implemented but inactive in paypalpww]
+        //       [also needed in ZMCheckoutShippingController -> checkout helper?]
+        // TODO: add support for 'flag disable address payment' [again, implemented (and used, this time) in paypalpww]
+
+        // checkout_confirmations header_php.php needs conditions=1 in $_POST!! - see also the fix in ZMEventFixes/onZMInitDone
+        return $this->findView('success', array(), array('parameter' => 'conditions=1'));
     }
 
 }

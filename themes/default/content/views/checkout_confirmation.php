@@ -65,7 +65,7 @@
 <fieldset>
     <legend><?php _vzm("Payment Method") ?></legend>
     <div class="btn"><a class="btn" href="<?php echo $net->url(FILENAME_CHECKOUT_PAYMENT, '', true) ?>"><?php _vzm("Change") ?></a></div>
-    <?php $paymentType = $shoppingCart->getPaymentType() ?>
+    <?php $paymentType = $shoppingCart->getSelectedPaymentType() ?>
     <?php if (null != $paymentType) { ?>
       <h4><?php echo $paymentType->getName() ?></h4>
       <?php if (!ZMLangUtils::isEmpty($paymentType->getInfo())) { ?>
