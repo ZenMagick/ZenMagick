@@ -60,7 +60,7 @@ class ZMCheckoutShippingController extends ZMController {
     public function getViewData($request) {
         return array(
           'shoppingCart' => $request->getShoppingCart(),
-          'comments' => $request->getParameter('comments', $request->getSession()->getValue('comments'))
+          'comments' => $request->getParameter('comments', $request->getShoppingCart()->getComments())
         );
     }
 
@@ -118,9 +118,8 @@ class ZMCheckoutShippingController extends ZMController {
             return $this->findView('skip_shipping');
         }
 
-        $comments = $request->getSession()->getValue('comments');
         if (null != ($comments = $request->getParameter('comments'))) {
-            $request->getSession()->setValue('comments', $comments);
+            $shoppingCart->setComments($comments);
         }
 
         // process selected shipping method

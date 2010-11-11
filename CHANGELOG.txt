@@ -119,6 +119,8 @@ Release 0.9.11
 - fix guest checkout address checks
 - enable support for checkout_payment (no POST processing as that is currently
   in checkout_confirmation...)
+- templates: change ZMShoppingCart::getComment() to getComments();
+  affected: checkout_shipping, checkout_payment, checkout_confirmation
 
 Release 0.9.10
 - restructure store and admin code into separate apps with most of the store

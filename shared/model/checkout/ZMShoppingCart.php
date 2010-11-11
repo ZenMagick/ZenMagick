@@ -37,7 +37,7 @@ class ZMShoppingCart extends ZMObject {
     private $zenTotals_;
     private $items_;
     private $helper_;
-    private $comment_;
+    private $comments_;
     private $accountId_;
 
 
@@ -47,7 +47,8 @@ class ZMShoppingCart extends ZMObject {
     function __construct() {
         parent::__construct();
         $this->cart_ = $_SESSION['cart'];
-        $this->setComment(isset($_SESSION['comments']) ?  $_SESSION['comments'] : '');
+        // TODO: remove
+        $this->setComments(isset($_SESSION['comments']) ? $_SESSION['comments'] : '');
         $this->setAccountId(isset($_SESSION['customer_id']) ? $_SESSION['customer_id'] : 0);
         $this->zenTotals_ = null;
         $this->items_ = null;
@@ -202,17 +203,19 @@ class ZMShoppingCart extends ZMObject {
      *
      * @return string The customer comment.
      */
-    public function getComment() {
-        return $this->comment_;
+    public function getComments() {
+        return $this->comments_;
     }
 
     /**
      * Set the customer comment.
      *
-     * @param string comment The customer comment.
+     * @param string comments The customer comment.
      */
-    public function setComment($comment) {
-        $this->comment_ = $comment;
+    public function setComments($comments) {
+        $this->comments_ = $comments;
+        //TODO: remove
+        $_SESSION['comments'] = $comments;
     }
 
     /**

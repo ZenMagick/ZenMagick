@@ -109,7 +109,7 @@
 <fieldset>
     <legend><?php _vzm("Special instructions or comments") ?></legend>
     <div class="btn"><a class="btn" href="<?php echo $net->url(FILENAME_CHECKOUT_PAYMENT, '', true) ?>"><?php _vzm("Change") ?></a></div>
-    <div><?php echo $html->encode(!ZMLangUtils::isEmpty($shoppingCart->getComment()) ? $shoppingCart->getComment() : "None") ?></div>
+    <div><?php echo $html->encode(!ZMLangUtils::isEmpty($shoppingCart->getComments()) ? $shoppingCart->getComments() : "None") ?></div>
 </fieldset>
 
 

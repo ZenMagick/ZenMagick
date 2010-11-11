@@ -84,7 +84,7 @@
         <legend><?php _vzm("Comments") ?></legend>
         <p class="inst"><?php _vzm("Special instructions or comments about your order.") ?></p>
         <?php /* Fix for IE bug regarding textarea... */ ?>
-        <table><tr><td><textarea name="comments" rows="3" cols="45"><?php echo $html->encode($shoppingCart->getComment()) ?></textarea></td></tr></table>
+        <table><tr><td><textarea name="comments" rows="3" cols="45"><?php echo $html->encode($shoppingCart->getComments()) ?></textarea></td></tr></table>
     </fieldset>
 
     <div class="btn"><input type="submit" class="btn" value="<?php _vzm("Continue") ?>" /></div>
