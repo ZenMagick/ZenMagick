@@ -77,10 +77,13 @@ class ZMPaymentTypes extends ZMObject {
                 }
 
                 foreach ($moduleInfos as $info) {
+echo '* '.$info['class']."<BR>";
                     // TODO: fix: try to use global instances set up by zc
                     if (isset($GLOBALS[$info['class']])) {
+echo 'got global<BR>';                      
                         $module = $GLOBALS[$info['class']];
                         if ($all || $module->enabled) {
+echo 'adn enabled<BR>';                      
                             $this->paymentTypes_[$module->code] = ZMLoader::make('PaymentTypeWrapper', $module);
                         }
                         continue;
@@ -88,11 +91,14 @@ class ZMPaymentTypes extends ZMObject {
 
                     $lang_file = DIR_WS_LANGUAGES.$_SESSION['language'].'/modules/payment/'.$info['filename'];
                     if (@file_exists($lang_file)) {
+echo 'load lang<BR>';                      
                         include_once $lang_file;
                     }
+echo 'load code<BR>';                      
                     include_once $info['path'];
                     $module = new $info['class'];
                     if ($all || $module->enabled) {
+echo 'and fresh enabled<BR>';                      
                         $this->paymentTypes_[$module->code] = ZMLoader::make('PaymentTypeWrapper', $module);
                     }
                 }

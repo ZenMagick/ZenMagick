@@ -109,59 +109,7 @@ class ZMShippingProviderWrapper extends ZMObject implements ZMShippingProvider {
 
         $this->errors_ = array();
 
-        // TODO: setup globals, etc with address information, similar to shipping estimator...
-        global $order, $shipping_weight, $shipping_quoted, $shipping_num_boxes, $total_count;
-
-        $order = new stdClass();
-        $order->delivery = array();
-        $order->delivery['country'] = array();
-
-        if (null != $address) {
-            $order->delivery['country']['id'] = $address->getCountryId();
-            $order->delivery['country']['iso_code_2'] = $address->getCountry()->getIsoCode2();
-            $order->delivery['zone_id'] = $address->getZoneId();
-        }
-
-        if (!isset($_SESSION['cart'])) {
-            $_SESSION['cart'] = new shoppingCart();
-        }
-
-        // get total number of products, not line items...
-        $total_count = 0;
-        foreach ($shoppingCart->getItems() as $item) {
-            $total_count += $item->getQuantity();
-        }
-
-        // START: adjust boxes, weight and tare
-        $shipping_quoted = '';
-        $shipping_num_boxes = 1;
-        $shipping_weight = $shoppingCart->getWeight();
-
-        $za_tare_array = preg_split("/[:,]/" , SHIPPING_BOX_WEIGHT);
-        $zc_tare_percent= $za_tare_array[0];
-        $zc_tare_weight= $za_tare_array[1];
-
-        $za_large_array = preg_split("/[:,]/" , SHIPPING_BOX_PADDING);
-        $zc_large_percent= $za_large_array[0];
-        $zc_large_weight= $za_large_array[1];
-
-        switch (true) {
-          // large box add padding
-          case(SHIPPING_MAX_WEIGHT <= $shipping_weight):
-            $shipping_weight = $shipping_weight + ($shipping_weight*($zc_large_percent/100)) + $zc_large_weight;
-            break;
-          default:
-          // add tare weight < large
-            $shipping_weight = $shipping_weight + ($shipping_weight*($zc_tare_percent/100)) + $zc_tare_weight;
-            break;
-        }
-
-        if ($shipping_weight > SHIPPING_MAX_WEIGHT) { // Split into many boxes
-          $shipping_num_boxes = ceil($shipping_weight/SHIPPING_MAX_WEIGHT);
-          $shipping_weight = $shipping_weight/$shipping_num_boxes;
-        }
-        // END: adjust boxes, weight and tare
-
+        ZMTools::prepareWrapperEnv($shoppingCart, $address);
 
         // create new instance for each quote!
         // this is required as most modules do stuff in the c'tor (for example zone checks)

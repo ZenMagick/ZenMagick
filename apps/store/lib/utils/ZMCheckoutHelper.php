@@ -165,7 +165,16 @@ class ZMCheckoutHelper extends ZMObject {
      * @return boolean <code>true</code> if the cart is purely virtual.
      */
     public function isVirtual() {
-        return 'virtual' == $this->shoppingCart_->cart_->get_content_type();
+        return 'virtual' == $this->getType();
+    }
+
+    /**
+     * Get the cart type.
+     * 
+     * @return string The cart type; one of <em>physical</em>, <em>mixed</em>, <em>virtual</em>.
+     */
+    public function getType() {
+        return $this->shoppingCart_->cart_->get_content_type();
     }
 
     /**
@@ -378,6 +387,9 @@ class ZMCheckoutHelper extends ZMObject {
      */
     public function getPaymentTypes() {
         $cartTotal = $this->shoppingCart_->getTotal();
+
+        ZMTools::prepareWrapperEnv($this->shoppingCart_, $this->shoppingCart_->getBillingAddress());
+
         //TODO: fix
         $shippingCost = $_SESSION['shipping']['cost'];
 
