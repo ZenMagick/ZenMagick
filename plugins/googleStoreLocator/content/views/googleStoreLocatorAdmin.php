@@ -50,7 +50,7 @@
   }
   google.setOnLoadCallback(load_locator_map);
 </script>
-<?php zm_title($this) ?>
+<?php $admin2->title() ?>
 <div id="locator_map" style="width:400px;height:400px;border:1px solid #ccc;margin:10px;float:left;"><?php _vzm("Loading map...") ?></div>
 <div style="margin:10px;">
   <form action="<?php echo $admin2->url() ?>" method="POST">
