@@ -45,6 +45,7 @@ class Plugin extends ZMPlugin {
     const CONTEXT_ADMIN = 2;
 
     private $configPrefix_;
+    private $configValues_;
     private $enabledKey_;
     private $orderKey_;
     private $preferredSortOrder_;
@@ -65,6 +66,7 @@ class Plugin extends ZMPlugin {
         $this->setVersion($version);
         $this->messages_ = array();
         $this->preferredSortOrder_ = 0;
+        $this->configValues_ = null;
         // both
         $this->setContext(self::CONTEXT_STOREFRONT|self::CONTEXT_ADMIN);
     }
@@ -86,6 +88,10 @@ class Plugin extends ZMPlugin {
         $this->configPrefix_ = strtoupper(self::KEY_PREFIX . $id . '_');
         $this->enabledKey_ = $this->configPrefix_.self::KEY_ENABLED;
         $this->orderKey_ = $this->configPrefix_.self::KEY_SORT_ORDER;
+
+        foreach ($this->getConfigValues() as $configValue) {
+            $this->set($configValue->getName(), $configValue->getValue());
+        }
     }
 
     /**
@@ -329,7 +335,13 @@ class Plugin extends ZMPlugin {
      * @return array A list of <code>ZMConfigValue</code> instances.
      */
     public function getConfigValues() {
-        return ZMConfig::instance()->getConfigValues($this->configPrefix_.'%');
+        if (null === $this->configValues_) {
+            $this->configValues_ = array();
+            foreach (ZMConfig::instance()->getConfigValues($this->configPrefix_.'%') as $configValue) {
+                $this->configValues_[$configValue->getName()] = $configValue;
+            }
+        }
+        return $this->configValues_;
     }
 
     /**
