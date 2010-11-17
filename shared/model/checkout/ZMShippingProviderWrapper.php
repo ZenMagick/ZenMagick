@@ -93,7 +93,7 @@ class ZMShippingProviderWrapper extends ZMObject implements ZMShippingProvider {
     /**
      * {@inheritDoc}
      */
-    public function getShippingMethodForId($id, $shoppingCart, $address=null) { 
+    public function getShippingMethodForId($id, $shoppingCart, $address=null) {
         $methods = $this->getShippingMethods($shoppingCart, $address);
         return (array_key_exists($id, $methods) ? $methods[$id] : null);
     }
@@ -101,7 +101,7 @@ class ZMShippingProviderWrapper extends ZMObject implements ZMShippingProvider {
     /**
      * {@inheritDoc}
      */
-    public function getShippingMethods($shoppingCart, $address=null) { 
+    public function getShippingMethods($shoppingCart, $address=null) {
         if (null == $address) {
             // now we just want the shipping method, but we need an address right now...
             $address = $shoppingCart->getShippingAddress();
@@ -120,6 +120,7 @@ class ZMShippingProviderWrapper extends ZMObject implements ZMShippingProvider {
             $order->delivery['country']['id'] = $address->getCountryId();
             $order->delivery['country']['iso_code_2'] = $address->getCountry()->getIsoCode2();
             $order->delivery['zone_id'] = $address->getZoneId();
+            $order->delivery['postcode'] = $address->getPostcode();
         }
 
         if (!isset($_SESSION['cart'])) {
@@ -181,7 +182,7 @@ class ZMShippingProviderWrapper extends ZMObject implements ZMShippingProvider {
         }
 
         // capture tax
-        $taxRate = ZMBeanUtils::getBean("TaxRate"); 
+        $taxRate = ZMBeanUtils::getBean("TaxRate");
         $taxRate->setRate(isset($quotes['tax']) ? $quotes['tax'] : 0);
 
         $methods = array();
