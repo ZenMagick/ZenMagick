@@ -126,7 +126,11 @@ class ZMProductFinder {
             $args['zoneId'] = $criteria->getZoneId();
         }
 
-        $where = " WHERE (p.products_status = 1 AND p.products_id = pd.products_id AND pd.language_id = :languageId";
+        $where = " WHERE (";
+        if (!$criteria->isSearchAll()) {
+            $where .= "p.products_status = 1 AND ";
+        }
+        $where .= "p.products_id = pd.products_id AND pd.language_id = :languageId";
         if ($needsP2c) {
             $where .= " AND p.products_id = p2c.products_id AND p2c.categories_id = c.categories_id";
 

@@ -130,6 +130,7 @@ Release 0.9.11
 	affects checkout_confirmation, checkout_payment; plugins: subscriptions,
 	paymentSurcharge
 - also pull payment errors from GET urls (payment_error/error)
+- add support for product status to search criteria
 
 Release 0.9.10
 - restructure store and admin code into separate apps with most of the store

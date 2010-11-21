@@ -86,6 +86,8 @@ class ZMSearchController extends ZMController {
         $request->getToolbox()->crumbtrail->addCrumb($request->getToolbox()->utils->getTitle());
 
         $criteria = $this->getFormData($request);
+        // never search inactive products
+        $criteria->setSearchAll(false);
 
         if (!ZMLangUtils::isEmpty($criteria->getKeywords()) && $this->autoSearch_) {
             $resultList = ZMBeanUtils::getBean('ResultList');
