@@ -583,14 +583,9 @@ class ZMProducts extends ZMObject implements ZMSQLAware {
      * Update the view count for a product.
      *
      * @param int productId The product id.
-     * @param int languageId Optional language id; default is <code>null</code> for session language.
+     * @param int languageId Language id.
      */
-    public function updateViewCount($productId, $languageId=null) {
-        if (null === $languageId) {
-            $session = ZMRequest::instance()->getSession();
-            $languageId = $session->getLanguageId();
-        }
-
+    public function updateViewCount($productId, $languageId) {
         $sql = "UPDATE " . TABLE_PRODUCTS_DESCRIPTION . "
                 SET products_viewed = products_viewed+1
                 WHERE products_id = :productId
