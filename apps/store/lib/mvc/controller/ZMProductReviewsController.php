@@ -57,7 +57,7 @@ class ZMProductReviewsController extends ZMController {
         $request->getToolbox()->crumbtrail->addProduct($request->getProductId());
         $request->getToolbox()->crumbtrail->addCrumb("Reviews");
 
-        $product = ZMProducts::instance()->getProductForId($request->getProductId());
+        $product = ZMProducts::instance()->getProductForId($request->getProductId(), $this->getRequest()->getSession()->getLanguageId());
         if (null == $product) {
             return $this->findView('product_not_found');
         }

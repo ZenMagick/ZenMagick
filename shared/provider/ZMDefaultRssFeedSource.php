@@ -58,11 +58,12 @@ class ZMDefaultRssFeedSource implements ZMRssSource {
      */
     protected function getReviewsFeed($request, $key=null) {
         $product = null;
+        $languageId = $request->getSession()->getLanguageId();
         if (null != $key)  {
-            $reviews = array_reverse(ZMReviews::instance()->getReviewsForProductId($key, $request->getSession()->getLanguageId()));
-            $product = ZMProducts::instance()->getProductForId($key);
+            $reviews = array_reverse(ZMReviews::instance()->getReviewsForProductId($key, $languageId));
+            $product = ZMProducts::instance()->getProductForId($key, $languageId);
         } else {
-            $reviews = array_reverse(ZMReviews::instance()->getAllReviews($request->getSession()->getLanguageId()));
+            $reviews = array_reverse(ZMReviews::instance()->getAllReviews($languageId));
         }
         if (null != $key && null == $product) {
             return null;

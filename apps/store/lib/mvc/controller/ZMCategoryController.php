@@ -65,6 +65,7 @@ class ZMCategoryController extends ZMController {
         $args = null;
         $data = array();
 
+        $languageId = $request->getSession()->getLanguageId();
         // get category
 
         // decide what to do
@@ -72,14 +73,14 @@ class ZMCategoryController extends ZMController {
             $method = "getProductsForCategoryId";
             $args = array($request->getCategoryId(), true, $request->getSession()->getLanguageId());
             $viewName = 'category_list';
-            if (null == ($category = ZMCategories::instance()->getCategoryForId($request->getCategoryId(), $request->getSession()->getLanguageId())) || !$category->isActive()) {
+            if (null == ($category = ZMCategories::instance()->getCategoryForId($request->getCategoryId(), $languageId)) || !$category->isActive()) {
                 return $this->findView('category_not_found');
             }
         } else if (null != $request->getManufacturerId()) {
             $method = "getProductsForManufacturerId";
-            $args = array($request->getManufacturerId());
+            $args = array($request->getManufacturerId(), true, $languageId);
             $viewName = 'manufacturer';
-            if (null == ($manufacturer = ZMManufacturers::instance()->getManufacturerForId($request->getManufacturerId(), $request->getSession()->getLanguageId()))) {
+            if (null == ($manufacturer = ZMManufacturers::instance()->getManufacturerForId($request->getManufacturerId(), $languageId))) {
                 return $this->findView('manufacturer_not_found');
             }
         }

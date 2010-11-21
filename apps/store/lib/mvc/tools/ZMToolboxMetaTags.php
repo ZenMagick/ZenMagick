@@ -283,7 +283,7 @@ class ZMToolboxMetaTags extends ZMToolboxTool {
         if (null == $this->getRequest()->getProductId() || null != $this->productName_)
             return;
 
-        if (null != ($this->product_ = ZMProducts::instance()->getProductForId($this->getRequest()->getProductId()))) {
+        if (null != ($this->product_ = ZMProducts::instance()->getProductForId($this->getRequest()->getProductId(), $this->getRequest()->getSession()->getLanguageId()))) {
             $this->productName_ = $this->product_->getName();
             if (!ZMLangUtils::isEmpty($this->product_->getModel())) {
                 $this->productName_ .= ' [' . $this->product_->getModel() . ']';

@@ -160,7 +160,7 @@ class ZMProductAssociations extends ZMObject {
             }
 
             $assoc = array();
-            $products = ZMProducts::instance()->getProductIdsForCategoryId($categoryId, !$all, $args['includeChildren'], $args['languageId']);
+            $products = ZMProducts::instance()->getProductIdsForCategoryId($categoryId, $args['languageId'], !$all, $args['includeChildren']);
             foreach ($products as $product) {
                 foreach ($product->getProductAssociationsForType($type, $args, $all) as $pa) {
                     if (!array_key_exists($pa->getProductId(), $assoc)) {

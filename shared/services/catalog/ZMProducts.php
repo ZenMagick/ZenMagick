@@ -129,17 +129,12 @@ class ZMProducts extends ZMObject implements ZMSQLAware {
      * this will ignore language preferences.
      *
      * @param int categoryId The category id.
+     * @param int languageId Language id.
      * @param boolean active If <code>true</code> return only active products; default is <code>true</code>.
      * @param boolean includeChildren Optional flag to include subcategories; default is <code>false</code>.
-     * @param int languageId Optional language id; default is <code>null</code> for session language.
      * @return array A list of product ids.
      */
-    public function getProductIdsForCategoryId($categoryId, $active=true, $includeChildren=false, $languageId=null) {
-        if (null === $languageId) {
-            $session = ZMRequest::instance()->getSession();
-            $languageId = $session->getLanguageId();
-        }
-
+    public function getProductIdsForCategoryId($categoryId, $languageId, $active=true, $includeChildren=false) {
         // asuming that if we do this once we might do this more often...
         $mainKey = $active ? 'active' : 'all';
         $mainKey .= ':'.$languageId;
@@ -176,7 +171,7 @@ class ZMProducts extends ZMObject implements ZMSQLAware {
         if ($includeChildren) {
             $category = ZMCategories::instance()->getCategoryForId($categoryId, $languageId);
             foreach ($category->getChildren() as $child) {
-                $ids = array_merge($ids, $this->getProductIdsForCategoryId($child->getId(), $active, true, $languageId));
+                $ids = array_merge($ids, $this->getProductIdsForCategoryId($child->getId(), $languageId, $active));
             }
         }
         return $ids;
@@ -216,7 +211,7 @@ class ZMProducts extends ZMObject implements ZMSQLAware {
      * @return array A list of <code>ZMProduct</code> instances.
      */
     public function getProductsForCategoryId($categoryId, $active=true, $languageId=null) {
-        return $this->getProductsForIds($this->getProductIdsForCategoryId($categoryId, $active, false, $languageId), true, $languageId);
+        return $this->getProductsForIds($this->getProductIdsForCategoryId($categoryId, $languageId, $active), true, $languageId);
     }
 
     /*
@@ -224,15 +219,10 @@ class ZMProducts extends ZMObject implements ZMSQLAware {
      *
      * @param int manufacturerId The manufacturers id.
      * @param boolean active If <code>true</code> return only active products; default is <code>true</code>.
-     * @param int languageId Optional language id; default is <code>null</code> for session language.
+     * @param int languageId Language id.
      * @return array A list of <code>ZMProduct</code> instances.
      */
-    public function getProductsForManufacturerId($manufacturerId, $active=true, $languageId=null) {
-        if (null === $languageId) {
-            $session = ZMRequest::instance()->getSession();
-            $languageId = $session->getLanguageId();
-        }
-
+    public function getProductsForManufacturerId($manufacturerId, $active=true, $languageId) {
         $sql = "SELECT p.products_id
                 FROM " . TABLE_PRODUCTS . " p, " .  TABLE_PRODUCTS_DESCRIPTION . " pd, " .  TABLE_MANUFACTURERS . " m
                 WHERE ";
@@ -454,15 +444,10 @@ class ZMProducts extends ZMObject implements ZMSQLAware {
      * Get a product for the given model name.
      *
      * @param string model The model name.
-     * @param int languageId Optional language id; default is <code>null</code> for session language.
+     * @param int languageId Language id.
      * @return ZMProduct The product or <code>null</code>.
      */
-    public function getProductForModel($model, $languageId=null) {
-        if (null === $languageId) {
-            $session = ZMRequest::instance()->getSession();
-            $languageId = $session->getLanguageId();
-        }
-
+    public function getProductForModel($model, $languageId) {
         $sql = "SELECT p.*, pd.*, s.specials_new_products_price
                 FROM " . TABLE_PRODUCTS . " p 
                 LEFT JOIN " . TABLE_SPECIALS . " s ON (s.products_id = p.products_id AND s.status = 1), 

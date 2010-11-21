@@ -320,11 +320,12 @@ class ZMEventFixes extends ZMObject {
      * Fix category path.
      */
     protected function fixCategoryPath($request) {
+        $languageId = $request->getSession()->getLanguageId();
         if (0 != ($productId = $request->getProductId())) {
             if (null == $request->getCategoryPath()) {
                 // set default based on product default category
-                if (null != ($product = ZMProducts::instance()->getProductForId($productId))) {
-                    $defaultCategory = $product->getDefaultCategory($request->getSession()->getLanguageId());
+                if (null != ($product = ZMProducts::instance()->getProductForId($productId, $languageId))) {
+                    $defaultCategory = $product->getDefaultCategory($languageId);
                     if (null != $defaultCategory) {
                         $request->setCategoryPathArray($defaultCategory->getPathArray());
                     }
@@ -338,7 +339,7 @@ class ZMEventFixes extends ZMObject {
                 $last = count($path) - 1;
                 $valid = true;
                 foreach ($path as $ii => $categoryId) {
-                    $category = ZMCategories::instance()->getCategoryForId($categoryId, $request->getSession()->getLanguageId());
+                    $category = ZMCategories::instance()->getCategoryForId($categoryId, $languageId);
                     if ($ii < $last) {
                         if (null == ($parent = $category->getParent())) {
                             // can't have top level category in the middle
@@ -356,7 +357,7 @@ class ZMEventFixes extends ZMObject {
                     }
                 }
                 if (!$valid) {
-                    $category = ZMCategories::instance()->getCategoryForId(array_pop($request->getCategoryPathArray(), $request->getSession()->getLanguageId()));
+                    $category = ZMCategories::instance()->getCategoryForId(array_pop($request->getCategoryPathArray(), $languageId));
                     $request->setCategoryPathArray($category->getPathArray());
                 }
             }

@@ -56,10 +56,11 @@ class ZMTellAFriendController extends ZMController {
      * {@inheritDoc}
      */
     public function preProcess($request) { 
+        $languageId = $request->getSession->getLanguageId();
         if ($request->getProductId()) {
-            $this->product_ = ZMProducts::instance()->getProductForId($request->getProductId());
+            $this->product_ = ZMProducts::instance()->getProductForId($request->getProductId(), $languageId);
         } else if ($request->getModel()) {
-            $this->product_ = ZMProducts::instance()->getProductForModel($request->getModel());
+            $this->product_ = ZMProducts::instance()->getProductForModel($request->getModel(), $languageId);
         }
         if (null != $this->product_) {
             $this->viewData_['currentProduct'] = $this->product_;

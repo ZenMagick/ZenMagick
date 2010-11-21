@@ -68,7 +68,7 @@ class ZMAjaxCatalogController extends ZMAjaxController {
     public function getProductForIdJSON($request) {
         $productId = $request->getProductId();
 
-        $flatObj = ZMAjaxUtils::flattenObject(ZMProducts::instance()->getProductForId($productId), $this->get('ajaxProductMap'));
+        $flatObj = ZMAjaxUtils::flattenObject(ZMProducts::instance()->getProductForId($productId, $request->getSession()->getLanguageId()), $this->get('ajaxProductMap'));
         $json = $this->toJSON($flatObj);
         $this->setJSONHeader($json);
     }

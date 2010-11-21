@@ -103,7 +103,7 @@ class ZMMechandizingProductAssociationHandler extends ZMObject {
     public function getProductAssociationsForCategoryId($categoryId, $type, $all=false) {
         $associations = array();
 
-        $productIds = ZMProducts::instance()->getProductIdsForCategoryId($categoryId, !$all);
+        $productIds = ZMProducts::instance()->getProductIdsForCategoryId($categoryId, !$all, false);
         if (0 == count($productIds)) {
             return $associations;
         }

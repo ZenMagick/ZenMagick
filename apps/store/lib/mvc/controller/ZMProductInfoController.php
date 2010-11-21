@@ -52,10 +52,11 @@ class ZMProductInfoController extends ZMController {
      */
     public function processGet($request) {
         $product = null;
+        $languageId = $request->getSession->getLanguageId();
         if ($request->getProductId()) {
-            $product = ZMProducts::instance()->getProductForId($request->getProductId());
+            $product = ZMProducts::instance()->getProductForId($request->getProductId(), $languageId);
         } else if ($request->getModel()) {
-            $product = ZMProducts::instance()->getProductForModel($request->getModel());
+            $product = ZMProducts::instance()->getProductForModel($request->getModel(), $languageId);
         }
 
         $data = array('currentProduct' => $product);

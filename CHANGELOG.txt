@@ -133,6 +133,10 @@ Release 0.9.11
 - add support for product status to search criteria
 - update meta tags too when calling ZMProducts::updateProduct
 - make languageId optional for ZMProduct::getmetaTagDetails()
+- change parameter order and make languageId mandatory for
+  ZMProducts::getProductIdsForCategoryId(), getProductsForManufacturerId(),
+	getProductForModel() [templates: review.php, product_info.php,
+	account_notifications.php, manufacturers_info.php (box)]
 
 Release 0.9.10
 - restructure store and admin code into separate apps with most of the store

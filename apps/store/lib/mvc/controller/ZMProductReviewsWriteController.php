@@ -89,7 +89,7 @@ class ZMProductReviewsWriteController extends ZMController {
         $session = $request->getSession();
         ZMReviews::instance()->createReview($review, $account, $session->getLanguageId());
 
-        $product = ZMProducts::instance()->getProductForId($review->getProductId());
+        $product = ZMProducts::instance()->getProductForId($review->getProductId(), $this->getRequest()->getSession()->getLanguageId());
 
         // account email
         if (ZMSettings::get('isApproveReviews') && ZMSettings::get('isEmailAdminReview')) {
@@ -113,10 +113,11 @@ class ZMProductReviewsWriteController extends ZMController {
      */
     protected function getProduct($request) {
         $product = null;
+        $languageId = $request->getSession->getLanguageId();
         if ($request->getProductId()) {
-            $product = ZMProducts::instance()->getProductForId($request->getProductId());
+            $product = ZMProducts::instance()->getProductForId($request->getProductId(), $languageId);
         } else if ($request->getModel()) {
-            $product = ZMProducts::instance()->getProductForModel($request->getModel());
+            $product = ZMProducts::instance()->getProductForModel($request->getModel(), $languageId);
         }
         return $product;
     }

@@ -22,7 +22,7 @@
  */
 ?>
 <?php
-    $currentProduct = ZMProducts::instance()->getProductForId($request->getProductId());
+    $currentProduct = ZMProducts::instance()->getProductForId($request->getProductId(), $session->getLanguageId());
 ?>
 
   <h2>Product Associations for &lsquo;<?php echo $currentProduct->getName() ?>&rsquo;</h2>

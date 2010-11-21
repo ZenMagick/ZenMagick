@@ -45,7 +45,7 @@ class CategoriesUlGenerator {
   function __construct($request) {
     $this->data = array();
     foreach (ZMCategories::instance()->getCategories($request->getSession()->getLanguageId()) as $category) {
-      $products_in_category = SHOW_COUNTS == 'true' ? count(ZMProducts::instance()->getProductIdsForCategoryId($category->getId())) : 0;
+      $products_in_category = SHOW_COUNTS == 'true' ? count(ZMProducts::instance()->getProductIdsForCategoryId($category->getId(), $request->getSession()->getLanguageId())) : 0;
       $this->data[$category->getParentId()][$category->getId()] = array('name' => $category->getName(), 'count' => $products_in_category);
     }
   }
