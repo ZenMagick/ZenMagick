@@ -586,6 +586,7 @@ class ZMProducts extends ZMObject implements ZMSQLAware {
     public function updateProduct($product) {
         ZMRuntime::getDatabase()->updateModel(TABLE_PRODUCTS, $product);
         ZMRuntime::getDatabase()->updateModel(TABLE_PRODUCTS_DESCRIPTION, $product);
+        ZMRuntime::getDatabase()->updateModel(TABLE_META_TAGS_PRODUCTS_DESCRIPTION, $product->getMetaTagDetails());
 
         // update cache
         $this->cache_->remove(ZMLangUtils::mkUnique('product', $product->getId(), $product->getLanguageId()));

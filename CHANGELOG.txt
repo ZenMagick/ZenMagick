@@ -131,6 +131,8 @@ Release 0.9.11
 	paymentSurcharge
 - also pull payment errors from GET urls (payment_error/error)
 - add support for product status to search criteria
+- update meta tags too when calling ZMProducts::updateProduct
+- make languageId optional for ZMProduct::getmetaTagDetails()
 
 Release 0.9.10
 - restructure store and admin code into separate apps with most of the store
