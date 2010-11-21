@@ -193,7 +193,7 @@ class ZMProducts extends ZMObject implements ZMSQLAware {
     protected function getProductsForCategoryIdQueryDetails($categoryId, $active=true, $languageId) {
         $sql = "SELECT p.*, pd.*, m.*, s.specials_new_products_price
                 FROM " . TABLE_PRODUCTS . " p 
-                  LEFT JOIN " . TABLE_SPECIALS . " s ON (s.products_id = p.products_id AND s.status = 1)
+                  LEFT JOIN " . TABLE_SPECIALS . " s ON (s.products_id = p.products_id)
                   LEFT JOIN " . TABLE_MANUFACTURERS . " m ON (m.manufacturers_id = p.manufacturers_id),
                   " . TABLE_PRODUCTS_DESCRIPTION . " pd, " .  TABLE_PRODUCTS_TO_CATEGORIES . " p2c
                 WHERE pd.products_id = p.products_id AND p2c.categories_id = :categoryId
@@ -579,8 +579,6 @@ class ZMProducts extends ZMObject implements ZMSQLAware {
 
     /**
      * Update an existing product.
-     *
-     * <p><strong>NOTE: Currently only the products table is updated!</strong></p>
      *
      * @param ZMProduct product The product.
      * @return ZMProduct The updated product.
