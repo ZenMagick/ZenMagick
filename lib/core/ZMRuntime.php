@@ -169,7 +169,7 @@ class ZMRuntime {
      * @param boolean override Optional flag to control whether to override existing mappings or to merge;
      *  default is <code>true</code> to override.
      */
-    public static function yamlLoad($yaml, $defaults=array(), $override=true) {
+    public static function yamlLoadx($yaml, $defaults=array(), $override=true) {
         if ($override) {
             return Spyc::YAMLLoadString($yaml);
         } else {
@@ -185,7 +185,7 @@ class ZMRuntime {
      * @param boolean override Optional flag to control whether to override existing mappings or to merge;
      *  default is <code>true</code> to override.
      */
-    public static function yamlLoad2($yaml, $defaults=array(), $override=true) {
+    public static function yamlLoad($yaml, $defaults=array(), $override=true) {
         if (null == self::$yaml_) {
             self::$yaml_ = new sfYamlParser();
         }

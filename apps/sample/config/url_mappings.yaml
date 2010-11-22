@@ -2,21 +2,25 @@
 # URL mappings
 #
 
-null:
+## global mappings
+global:
   error:
     template: error
   index:
     template: index
-index:
-  layout: default_layout
-  ## name of the validation rules in validation.yaml
-  formId: mynameForm
-  ## form data container
-  form: ZMObject
-  success:
-    view: RedirectView
-    template: index
-## explicit mapping - not required as all defaults
-## NOTE: there is no default layout configured, so about is a full page, not just a view
-#about:
-#  template: about
+
+## page mappings    
+page:
+  index:
+    layout: default_layout
+    ## name of the validation rules in validation.yaml
+    formId: mynameForm
+    ## form data container
+    form: ZMObject
+    success:
+      view: RedirectView
+      template: index
+  ## explicit mapping - not required as all defaults
+  ## NOTE: there is no default layout configured, so about is a full page, not just a view
+  #about:
+  #  template: about

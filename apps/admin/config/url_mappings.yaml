@@ -1,10 +1,10 @@
 #
-# ZenMagick admin default URL mappings
+# ZenMagick admin URL mappings
 #
 #
 
-## defaults
-null:
+## global mappings
+global:
   success:
     view: RedirectView
   error:
@@ -13,52 +13,54 @@ null:
   success-demo:
     view: RedirectView
     template: index
-    
-login:
-  success:
-    view: RedirectView
-    template: index
-  logged-in:
-    view: RedirectView
-    template: index
-logoff:
-  success:
-    view: RedirectView
-    template: login
-reset_password:
-  success:
-    view: RedirectView
-    template: login
-update_user:
-  formId: updateUser
-  form: AdminUserForm
-  success:
-    view: RedirectView
-    template: index
-edit_admin_user:
-  formId: adminUser
-  form: AdminUserForm
-  success:
-    view: RedirectView
-    template: admin_users
-cache_admin:
-  success:
-    view: RedirectView
-    template: cache_admin
-plugins:
-  success-install:
-    view: RedirectView
-    template: plugins
-  success-uninstall:
-    view: RedirectView
-    template: plugins
-  success-upgrade:
-    view: RedirectView
-    template: plugins
-  plugin-conf:
-    layout: 
-    template: plugin_conf
-legacy-config:
-  success:
-    view: RedirectView
-    template: legacy-config
+
+## page mappings    
+page:
+  login:
+    success:
+      view: RedirectView
+      template: index
+    logged-in:
+      view: RedirectView
+      template: index
+  logoff:
+    success:
+      view: RedirectView
+      template: login
+  reset_password:
+    success:
+      view: RedirectView
+      template: login
+  update_user:
+    formId: updateUser
+    form: AdminUserForm
+    success:
+      view: RedirectView
+      template: index
+  edit_admin_user:
+    formId: adminUser
+    form: AdminUserForm
+    success:
+      view: RedirectView
+      template: admin_users
+  cache_admin:
+    success:
+      view: RedirectView
+      template: cache_admin
+  plugins:
+    success-install:
+      view: RedirectView
+      template: plugins
+    success-uninstall:
+      view: RedirectView
+      template: plugins
+    success-upgrade:
+      view: RedirectView
+      template: plugins
+    plugin-conf:
+      layout: 
+      template: plugin_conf
+  legacy-config:
+    success:
+      view: RedirectView
+      template: legacy-config

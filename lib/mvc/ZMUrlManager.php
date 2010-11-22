@@ -36,7 +36,8 @@
  * @package org.zenmagick.mvc
  */
 class ZMUrlManager extends ZMObject {
-    private static $MAPPING_KEYS = array('controller', 'formId' , 'form' , 'view', 'template', 'layout');
+    private static $MAPPING_KEYS = array('controller', 'formId', 'form', 'view', 'template', 'layout');
+    private static $TYPE_KEYS = array('global', 'page');
     private $mappings_;
 
 
@@ -67,7 +68,7 @@ class ZMUrlManager extends ZMObject {
      * Clear all mappings.
      */
     public function clear() {
-        $this->mappings_ = array();
+        $this->mappings_ = array('global' => array(), 'page' => array());
     }
 
     /**
@@ -84,24 +85,33 @@ class ZMUrlManager extends ZMObject {
     /**
      * Set mapping details for a given request id.
      *
-     * @param string requestId The request id to configure.
+     * @param string requestId The request id to configure or <code>null</code> for a global mapping.
      * @param mixed mapping The mapping, either as YAML string fragment or nested array.
      * @param boolean replace Optional flag to control whether to replace an existing mapping or to merge;
      *  default is <code>true</code> to replace.
      */
     public function setMapping($requestId, $mapping, $replace=true) {
-        if (null == $requestId) {
-            // globals
-            $requestId = 'null';
-        }
+        $type = null == $requestId ? 'global' : 'page';
         if (!is_array($mapping)) {
             $mapping = ZMRuntime::yamlLoad($mapping);
         }
 
-        if ($replace || !array_key_exists($requestId, $this->mappings_)) {
-            $this->mappings_[$requestId] = $mapping;
+        if (null == $requestId) {
+            // global
+            $this->mappings_[$type] = ZMLangUtils::arrayMergeRecursive($this->mappings_[$type], $mapping);
         } else {
-            $this->mappings_[$requestId] = ZMLangUtils::arrayMergeRecursive($this->mappings_[$requestId], $mapping);
+            if ($replace) {
+                $this->mappings_[$type][$requestId] = $mapping;
+            } else {
+                $this->mappings_[$type][$requestId] = ZMLangUtils::arrayMergeRecursive($this->mappings_[$type][$requestId], $mapping);
+            }
+        }
+
+        // ensure we do have both required keys
+        foreach (self::$TYPE_KEYS as $type) {
+            if (!array_key_exists($type, $this->mappings_)) {
+                $this->mappings_[$type] = array();
+            }
         }
     }
 
@@ -120,7 +130,14 @@ class ZMUrlManager extends ZMObject {
                 $this->mappings_ = ZMLangUtils::arrayMergeRecursive($this->mappings_, $mappings);
             }
         } else {
-            $this->load($mappings, $replace);
+            $this->mappings_ = ZMRuntime::yamlLoad($mappings, $this->mappings_, $replace);
+        }
+
+        // ensure we do have both required keys
+        foreach (self::$TYPE_KEYS as $type) {
+            if (!array_key_exists($type, $this->mappings_)) {
+                $this->mappings_[$type] = array();
+            }
         }
     }
 
@@ -147,27 +164,47 @@ class ZMUrlManager extends ZMObject {
             throw new ZMException('invalid arguments');
         }
 
-        if (!array_key_exists($requestId, $this->mappings_) 
-            || (null != $viewId && !array_key_exists($viewId, $this->mappings_[$requestId]) 
-                && array_key_exists('null', $this->mappings_) && array_key_exists($viewId, $this->mappings_['null']))) {
-            // try global mappings
-            $requestId = 'null';
+        // all matching mapping data
+        $data = array();
+
+        if (null != $viewId) {
+            if (null != $requestId) {
+                // both
+                if (array_key_exists($requestId, $this->mappings_['page'])) {
+                    // a start: requestId defaults
+                    $data = $this->mappings_['page'][$requestId];
+                    if (array_key_exists($viewId, $this->mappings_['page'][$requestId])) {
+                        // requestId specific viewId
+                        $data = array_merge($data, $this->mappings_['page'][$requestId][$viewId]);
+                    }
+                } else if (array_key_exists($viewId, $this->mappings_['global'])) {
+                    // global viewId
+                    $data = array_merge($data, $this->mappings_['global'][$viewId]);
+                }
+            } else {
+                // viewId only
+                $data = $this->mappings_['global'][$viewId];
+            }
+        } else {
+            // requestId only
+            if (array_key_exists($requestId, $this->mappings_['page'])) {
+                // a start: requestId defaults
+                $data = $this->mappings_['page'][$requestId];
+            } else {
+                if (array_key_exists($requestId, $this->mappings_['global'])) {
+                    // all there is
+                    $data = $this->mappings_['global'][$requestId];
+                }
+            }
         }
 
         $mapping = array();
-        if (array_key_exists($requestId, $this->mappings_) && (null == $viewId || array_key_exists($viewId, $this->mappings_[$requestId]))) {
-            // either default mappings or viewId specific mappings...
-            if (null == $viewId) {
-                $from = $this->mappings_[$requestId];
+        // set defaults for all missing keys
+        foreach (self::$MAPPING_KEYS as $key) {
+            if (array_key_exists($key, $data)) {
+                $mapping[$key] = $data[$key];
             } else {
-                $from = array_merge($this->mappings_[$requestId], $this->mappings_[$requestId][$viewId]);
-            }
-            foreach (self::$MAPPING_KEYS as $key) {
-                if (array_key_exists($key, $from)) {
-                    $mapping[$key] = $from[$key];
-                } else {
-                    $mapping[$key] = null;
-                }
+                $mapping[$key] = null;
             }
         }
 
@@ -189,10 +226,10 @@ class ZMUrlManager extends ZMObject {
      */
     public function findController($requestId) {
         ZMLogging::instance()->log('find controller: requestId='.$requestId, ZMLogging::TRACE);
-        $definition = null;
-        if (array_key_exists($requestId, $this->mappings_) && array_key_exists('controller', $this->mappings_[$requestId])) {
+        $mapping = $this->findMapping($requestId);
+        if (null != $mapping['controller']) {
             // configured
-            $definition = $this->mappings_[$requestId]['controller'];
+            $definition = $mapping['controller'];
         } else {
             $definition = ZMLoader::makeClassname($requestId.'Controller');
         }
