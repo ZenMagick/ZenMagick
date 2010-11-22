@@ -96,7 +96,7 @@ class ZML10nController extends ZMController {
             $language = ZMLanguages::instance()->getLanguageForId($vd['languageId']);
             $l10nPath = ZMFileUtils::mkPath(array($theme->getBaseDir(), 'lang', $language->getDirectory(), 'l10n.yaml'));
             if (file_exists($l10nPath)) {
-                $existingMap = array('l10n.yaml' => ZMRuntime::yamlLoad(file_get_contents($l10nPath)));
+                $existingMap = array('l10n.yaml' => ZMRuntime::yamlParse(file_get_contents($l10nPath)));
             }
         }
 

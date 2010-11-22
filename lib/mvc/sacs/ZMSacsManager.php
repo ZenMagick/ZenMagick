@@ -95,7 +95,7 @@ class ZMSacsManager extends ZMObject {
      *  default is <code>true</code> to override.
      */
     public function load($yaml, $override=true) {
-        $this->mappings_ = ZMRuntime::yamlLoad($yaml, $this->mappings_, $override);
+        $this->mappings_ = ZMRuntime::yamlParse($yaml, $this->mappings_, $override);
     }
 
     /**

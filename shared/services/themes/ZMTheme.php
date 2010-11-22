@@ -42,7 +42,7 @@ class ZMTheme extends ZMObject {
         $this->themeId_ = $themeId;
         $configFile = $this->getBaseDir().'theme.yaml';
         if (file_exists($configFile)) {
-            $this->config_ = ZMRuntime::yamlLoad(file_get_contents($configFile));
+            $this->config_ = ZMRuntime::yamlParse(file_get_contents($configFile));
         } else {
             $this->config_ = array();
             //XXX: try for zc theme
@@ -354,7 +354,7 @@ class ZMTheme extends ZMObject {
         $l10n = $path . "l10n.yaml";
         if (file_exists($l10n)) {
             if (null != ($locale = ZMLocales::instance()->getLocale()) && $locale instanceof ZMYamlLocale) {
-                $translations = ZMRuntime::yamlLoad(file_get_contents($l10n));
+                $translations = ZMRuntime::yamlParse(file_get_contents($l10n));
                 $locale->addTanslations($translations);
             }
         }

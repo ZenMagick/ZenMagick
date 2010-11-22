@@ -119,7 +119,7 @@ class ZMLocales extends ZMObject {
             while (false !== ($file = readdir($handle))) {
                 $yamlFile = $path.$file.DIRECTORY_SEPARATOR.'locale.yaml';
                 if (is_dir($path.$file) && file_exists($yamlFile)) {
-                    $yaml = ZMRuntime::yamlLoad(@file_get_contents($yamlFile));
+                    $yaml = ZMRuntime::yamlParse(@file_get_contents($yamlFile));
                     if (is_array($yaml)) {
                         $name = array_key_exists('name', $yaml) ? $yaml['name'] : $file;
                         $this->locales_[$file] = $name;

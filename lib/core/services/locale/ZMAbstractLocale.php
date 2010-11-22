@@ -83,7 +83,7 @@ abstract class ZMAbstractLocale extends ZMObject implements ZMLocale {
             return null;
         }
 
-        $yaml = ZMRuntime::yamlLoad(@file_get_contents(ZMFileUtils::mkPath($path, 'locale.yaml')));
+        $yaml = ZMRuntime::yamlParse(@file_get_contents(ZMFileUtils::mkPath($path, 'locale.yaml')));
         if (is_array($yaml)) {
             if (array_key_exists('name', $yaml)) {
                 $this->name_ = $yaml['name'];

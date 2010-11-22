@@ -79,7 +79,7 @@ class ZMUrlManager extends ZMObject {
      *  default is <code>true</code> to override.
      */
     public function load($yaml, $override=true) {
-        $this->mappings_ = ZMRuntime::yamlLoad($yaml, $this->mappings_, $override);
+        $this->mappings_ = ZMRuntime::yamlParse($yaml, $this->mappings_, $override);
     }
 
     /**
@@ -93,7 +93,7 @@ class ZMUrlManager extends ZMObject {
     public function setMapping($requestId, $mapping, $replace=true) {
         $type = null == $requestId ? 'global' : 'page';
         if (!is_array($mapping)) {
-            $mapping = ZMRuntime::yamlLoad($mapping);
+            $mapping = ZMRuntime::yamlParse($mapping);
         }
 
         if (null == $requestId) {
@@ -130,7 +130,7 @@ class ZMUrlManager extends ZMObject {
                 $this->mappings_ = ZMLangUtils::arrayMergeRecursive($this->mappings_, $mappings);
             }
         } else {
-            $this->mappings_ = ZMRuntime::yamlLoad($mappings, $this->mappings_, $replace);
+            $this->mappings_ = ZMRuntime::yamlParse($mappings, $this->mappings_, $replace);
         }
 
         // ensure we do have both required keys
