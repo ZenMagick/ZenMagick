@@ -240,15 +240,11 @@ class ZMSacsManager extends ZMObject {
             // have explicit mapping for this requestId
             if (array_key_exists($key, $this->mappings_['mappings'][$requestId])) {
                 $value = $this->mappings_['mappings'][$requestId][$key];
-            } else {
-                // use provided default
             }
         } else {
             // do we have a default mapping?
             if (array_key_exists($key, $this->mappings_['default'])) {
                 $value = $this->mappings_['default'][$key];
-            } else {
-                // use provided default
             }
         }
        
