@@ -170,6 +170,12 @@ class ZMRuntime {
      *  default is <code>true</code> to override.
      */
     public static function yamlParse($yaml, $defaults=array(), $override=true) {
+        if ($override) {
+            return Spyc::YAMLLoadString($yaml);
+        } else {
+            return ZMLangUtils::arrayMergeRecursive($defaults, Spyc::YAMLLoadString($yaml));
+        }
+        /*
         if (null == self::$yaml_) {
             self::$yaml_ = new sfYamlParser();
         }
@@ -178,6 +184,7 @@ class ZMRuntime {
         } else {
             return ZMLangUtils::arrayMergeRecursive($defaults, self::$yaml_->parse($yaml));
         }
+        */
     }
 
 }
