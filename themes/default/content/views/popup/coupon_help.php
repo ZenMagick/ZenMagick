@@ -47,8 +47,8 @@
 <?php if ($restrictions->hasCategories()) { ?>
     <h4><?php _vzm("Category Restrictions")?></h4>
     <ul>
-    <?php foreach ($restrictions->getCategories() as $rest) { $category = $rest->getCategory(); ?>
-        <li><?php echo $html->encode($category->getName()) ?> - <?php echo ($rest->isAllowed() ? _zm(" included") : _zm(" excluded")) ?></li>
+    <?php foreach ($restrictions->getCategories() as $restriction) { $category = $restriction->getCategory($session->getLanguageId()); ?>
+        <li><?php echo $html->encode($category->getName()) ?> - <?php echo ($restriction->isAllowed() ? _zm(" included") : _zm(" excluded")) ?></li>
     <?php } ?>
     </ul>
 <?php } ?>
@@ -56,8 +56,8 @@
 <?php if ($restrictions->hasProducts()) { ?>
     <h4><?php _vzm("Product Restrictions")?></h4>
     <ul>
-    <?php foreach ($restrictions->getProducts() as $rest) { $product = $rest->getProduct(); ?>
-        <li><?php echo $html->encode($product->getName()) ?> - <?php echo ($rest->isAllowed() ? _zm(" included") : _zm(" excluded")) ?></li>
+    <?php foreach ($restrictions->getProducts() as $restriction) { $product = $restriction->getProduct($session->getLanguageId()); ?>
+        <li><?php echo $html->encode($product->getName()) ?> - <?php echo ($restriction->isAllowed() ? _zm(" included") : _zm(" excluded")) ?></li>
     <?php } ?>
     </ul>
 <?php } ?>
