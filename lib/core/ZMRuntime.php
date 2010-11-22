@@ -169,22 +169,6 @@ class ZMRuntime {
      * @param boolean override Optional flag to control whether to override existing mappings or to merge;
      *  default is <code>true</code> to override.
      */
-    public static function yamlLoadx($yaml, $defaults=array(), $override=true) {
-        if ($override) {
-            return Spyc::YAMLLoadString($yaml);
-        } else {
-            return ZMLangUtils::arrayMergeRecursive($defaults, Spyc::YAMLLoadString($yaml));
-        }
-    }
-
-    /**
-     * Load mappings from a YAML style string.
-     *
-     * @param string yaml The yaml style mappings.
-     * @param array defaults Optional defaults for merging; default is an empty array.
-     * @param boolean override Optional flag to control whether to override existing mappings or to merge;
-     *  default is <code>true</code> to override.
-     */
     public static function yamlLoad($yaml, $defaults=array(), $override=true) {
         if (null == self::$yaml_) {
             self::$yaml_ = new sfYamlParser();

@@ -142,6 +142,8 @@ Release 0.9.11
 - change coupon restriction class (category/product) to require a languageId 
   parameter as the languageId is not available at that level;
 	templates: coupon_help.php, discount_coupon_info.php
+- change url mapping syntax slightly to avoid the 'funny' null map key
+- make sfYaml the default yaml parser and drop spyc
 
 Release 0.9.10
 - restructure store and admin code into separate apps with most of the store
