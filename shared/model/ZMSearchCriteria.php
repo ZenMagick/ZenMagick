@@ -39,6 +39,7 @@ class ZMSearchCriteria extends ZMObject {
         $this->set('countryId', ZMSettings::get('storeCountry'));
         $this->set('zoneId', ZMSettings::get('storeCountry'));
         $this->set('languageId', ZMSettings::get('storeDefaultLanguageId'));
+        $this->set('searchAll', false);
     }
 
     /**
@@ -172,5 +173,19 @@ class ZMSearchCriteria extends ZMObject {
      * @return integer The language id.
      */
     public function getLanguageId() { return $this->get('languageId'); }
+
+    /**
+     * Check if only active products should be searched or all.
+     *
+     * @return boolean <code>true</code> if all products should be searched, <code>false</code> for active only.
+     */
+    public function isSearchAll() { return $this->get('searchAll'); }
+
+    /**
+     * Set the search all flag.
+     *
+     * @param boolean value <code>true</code> if all products should be searched, <code>false</code> for active only.
+     */
+    public function setSearchAll($value) { $this->set('searchAll', $value); }
 
 }

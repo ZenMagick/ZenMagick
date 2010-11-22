@@ -65,8 +65,9 @@ class ZMProductCouponRestriction extends ZMObject {
     /**
      * Returns the product.
      *
-     * @return A <code>ZMProduct</code> instance.
+     * @param int languageId Language id.
+     * @return ZMProduct A <code>ZMProduct</code> instance.
      */
-    public function getProduct() { return ZMProducts::instance()->getProductForId($this->productId_); }
+    public function getProduct($languageId) { return ZMProducts::instance()->getProductForId($this->productId_, $languageId); }
 
 }

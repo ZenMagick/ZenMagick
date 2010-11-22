@@ -73,7 +73,7 @@ class ZMSwiftMailerPacker extends ZMPhpPackagePacker implements ZMLibraryPacker 
                         continue;
                     }
                     if (false !== strpos($l, 'require')) {
-                        $l = '$swift_mime_types = ZMRuntime::yamlLoad(file_get_contents(ZMFileUtils::mkPath(array(ZMRuntime::getInstallationPath(), "lib", "core", "external", "mime_types.yaml"))));';
+                        $l = '$swift_mime_types = ZMRuntime::yamlParse(file_get_contents(ZMFileUtils::mkPath(array(ZMRuntime::getInstallationPath(), "lib", "core", "external", "mime_types.yaml"))));';
                     }
                     
                     $staticInit[] = $l;

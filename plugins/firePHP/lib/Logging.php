@@ -31,26 +31,19 @@
  * @package org.zenmagick.plugins.firePHP
  */
 class Logging extends ZMLogging {
-    protected $LEVEL_MAP = null;
-
+    protected static $LEVEL_MAP = array(
+        ZMLogging::ERROR => FirePHP::ERROR,
+        ZMLogging::WARN => FirePHP::WARN,
+        ZMLogging::INFO => FirePHP::INFO,
+        ZMLogging::DEBUG => FirePHP::LOG,
+        ZMLogging::TRACE => FirePHP::LOG
+    );
 
     /**
      * Create new instance.
      */
     function __construct() {
         parent::__construct();
-        // resolve before using it
-        ZMLoader::resolve('FirePHP');
-
-        // we need to resolve FirePHP before using it, therefore
-        // we can't initialize this globally
-        $this->LEVEL_MAP = array(
-            ZMLogging::ERROR => FirePHP::ERROR,
-            ZMLogging::WARN => FirePHP::WARN,
-            ZMLogging::INFO => FirePHP::INFO,
-            ZMLogging::DEBUG => FirePHP::LOG,
-            ZMLogging::TRACE => FirePHP::LOG
-        );
     }
 
     /**
@@ -67,7 +60,7 @@ class Logging extends ZMLogging {
     public function log($msg, $level=ZMLogging::INFO) {
         if (ZMSettings::get('zenmagick.core.logging.enabled') && $level <= ZMSettings::get('zenmagick.core.logging.level')) {
             if (!headers_sent()) {
-                FirePHP::getInstance(true)->fb($msg, $this->LEVEL_MAP[$level]);
+                FirePHP::getInstance(true)->fb($msg, self::$LEVEL_MAP[$level]);
             }
         }
     }
@@ -136,5 +129,3 @@ class Logging extends ZMLogging {
     } 
 
 }
-
-?>

@@ -91,7 +91,7 @@ class ZMQuickEditTabController extends ZMCatalogContentController {
         $fieldList = $data['fieldList'];
         $fieldMap = $data['fieldMap'];
 
-        $productIdList = ZMProducts::instance()->getProductIdsForCategoryId($request->getCategoryId(), false, false, $languageId);
+        $productIdList = ZMProducts::instance()->getProductIdsForCategoryId($request->getCategoryId(), $languageId, false, false);
         foreach ($productIdList as $productId) {
             // build a data map for each submitted product
             $formData = array();

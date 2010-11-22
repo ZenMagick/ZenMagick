@@ -63,7 +63,7 @@ class ZMYamlLocale extends ZMAbstractLocale {
         $path = parent::init($locale);
         $path = ZMFileUtils::mkPath($path, 'LC_MESSAGES', 'messages.yaml');
         if (file_exists($path) && is_file($path)) {
-            $this->translations_ = ZMRuntime::yamlLoad(@file_get_contents($path));
+            $this->translations_ = ZMRuntime::yamlParse(@file_get_contents($path));
         } else {
             $this->translations_ = array();
         }

@@ -32,7 +32,7 @@ Swift_DependencyContainer::getInstance()
 // mime_deps.php
 
 
-$swift_mime_types = ZMRuntime::yamlLoad(file_get_contents(ZMFileUtils::mkPath(array(ZMRuntime::getInstallationPath(), "lib", "core", "external", "mime_types.yaml"))));
+$swift_mime_types = ZMRuntime::yamlParse(file_get_contents(ZMFileUtils::mkPath(array(ZMRuntime::getInstallationPath(), "lib", "core", "external", "mime_types.yaml"))));
 
 Swift_DependencyContainer::getInstance()
     

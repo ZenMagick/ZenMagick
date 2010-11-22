@@ -86,7 +86,7 @@ EOT;
             "Yooo" => "Yooo",
             "Foo %s Deng" => "Foo %s Deng"
         );
-        $parsedYaml = ZMRuntime::yamlLoad($yaml);
+        $parsedYaml = ZMRuntime::yamlParse($yaml);
         $this->assertEqual($expectMap, $parsedYaml);
     }
 

@@ -55,6 +55,7 @@ class ToolboxMacro extends ZMToolboxMacro {
      */
     public function categoryTree($categories, $showProductCount=false, $useCategoryPage=false, $activeParent=false, $root=true, $path=null) {
         $toolbox = $this->getToolbox();
+        $languageId = $this->getRequest()->getSession()->getLanguageId();
         $css_root = '';
         if ($root) { 
             ob_start();
@@ -75,7 +76,7 @@ class ToolboxMacro extends ZMToolboxMacro {
         	}*/
             
             $active = in_array($category->getId(), $path);
-            $noOfProductsInCat = $showProductCount ? count(ZMProducts::instance()->getProductIdsForCategoryId($category->getId(), true, false)) : 0;
+            $noOfProductsInCat = $showProductCount ? count(ZMProducts::instance()->getProductIdsForCategoryId($category->getId(), $languageId, true, false)) : 0;
             $isEmpty = 0 == $noOfProductsInCat;
             echo '<li'.$css_root.'>';
             $class = '';
@@ -88,7 +89,7 @@ class ToolboxMacro extends ZMToolboxMacro {
                         $this->getRequest()->url('category', '&'.$category->getPath()) .
                         '">'.$toolbox->html->encode($category->getName()).'</a>';
             /*if ($showProductCount) {
-                if (0 < ($noOfProductsInTree = count(ZMProducts::instance()->getProductIdsForCategoryId($category->getId(), true, true)))) {
+                if (0 < ($noOfProductsInTree = count(ZMProducts::instance()->getProductIdsForCategoryId($category->getId(), $languageId, true, true)))) {
                     echo '('.$noOfProductsInTree.')';
                 }
             }

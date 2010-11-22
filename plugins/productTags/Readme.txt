@@ -10,10 +10,10 @@ Tag groups
 ==========
 It is possible to find related products by doing the following:
 
-    $product = ZMProducts::instance()->getProductForId(3);
+    $product = ZMProducts::instance()->getProductForId(3, $session->getLanguageId());
     $similarTaggedProducts = $product->getProductAssociationsForType('productTags');
     foreach ($similarOrder as $assoc) { 
-        $aproduct = ZMProducts::instance()->getProductForId($assoc->getProductId());
+        $aproduct = ZMProducts::instance()->getProductForId($assoc->getProductId(), $session->getLanguageId());
         ?><p><?php echo $aproduct->getName() ?></p><?php
     }
 

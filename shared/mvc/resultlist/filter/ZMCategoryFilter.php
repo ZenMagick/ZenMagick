@@ -50,7 +50,8 @@ class ZMCategoryFilter extends ZMResultListFilter implements ZMSQLAware {
     // lazy load all included productIds
     protected function getProductIds() {
         if (null === $this->productIds_) {
-            $this->productIds_ = ZMProducts::instance()->getProductIdsForCategoryId($this->filterValues_[0]);
+            $languageId = ZMRequest::instance()->getSession()->getLanguageId();
+            $this->productIds_ = ZMProducts::instance()->getProductIdsForCategoryId($this->filterValues_[0], $languageId);
         }
         return $this->productIds_;
     }

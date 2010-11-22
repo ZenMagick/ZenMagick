@@ -121,6 +121,15 @@ class ZMShoppingCart extends ZMObject {
     }
 
     /**
+     * Get the cart type.
+     * 
+     * @return string The cart type; one of <em>physical</em>, <em>mixed</em>, <em>virtual</em>.
+     */
+    public function getType() {
+        return $this->helper_->getType();
+    }
+
+    /**
      * Check for virtual cart.
      *
      * @return boolean <code>true</code> if the cart is purely virtual.

@@ -58,10 +58,11 @@ class ZMProductReviewsInfoController extends ZMController {
         $request->getToolbox()->crumbtrail->addCrumb("Reviews");
 
         $data = array();
-        $product = ZMProducts::instance()->getProductForId($request->getProductId());
+        $languageId = $request->getSession->getLanguageId();
+        $product = ZMProducts::instance()->getProductForId($request->getProductId(), $languageId);
         $data['currentProduct'] = $product;
 
-        if (null == ($review = ZMReviews::instance()->getReviewForId($request->getReviewId(), $request->getSession()->getLanguageId()))) {
+        if (null == ($review = ZMReviews::instance()->getReviewForId($request->getReviewId(), $languageId))) {
             return $this->findView('error');
         }
 

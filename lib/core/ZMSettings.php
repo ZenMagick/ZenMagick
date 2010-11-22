@@ -136,7 +136,7 @@ class ZMSettings {
      *  default is <code>true</code> to override.
      */
     public static function load($yaml, $override=true) {
-        ZMSettings::$settings_ = ZMRuntime::yamlLoad($yaml, ZMSettings::$settings_, $override);
+        ZMSettings::$settings_ = ZMRuntime::yamlParse($yaml, ZMSettings::$settings_, $override);
     }
 
 }

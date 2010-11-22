@@ -92,11 +92,11 @@ class ZMTools {
      *
      * @package org.zenmagick.misc
      * @param string timestamp The last change date of whatever resource this is about.
-     * @param boolean <code>true<code> <strong>if</strong> a body should be returned, 
+     * @param boolean <code>true<code> <strong>if</strong> a body should be returned,
      *  <code>false</code> if the resource changed.
      */
     public static function ifModifiedSince($timestamp) {
-        // A PHP implementation of conditional get, see 
+        // A PHP implementation of conditional get, see
         // http://fishbowl.pastiche.org/archives/001132.html
         $last_modified = substr(date('r', $timestamp), 0, -5).'GMT';
         $etag = '"'.md5($last_modified).'"';
@@ -108,7 +108,7 @@ class ZMTools {
             stripslashes($_SERVER['HTTP_IF_MODIFIED_SINCE']) :
             true;
         $if_none_match = isset($_SERVER['HTTP_IF_NONE_MATCH']) ?
-            stripslashes($_SERVER['HTTP_IF_NONE_MATCH']) : 
+            stripslashes($_SERVER['HTTP_IF_NONE_MATCH']) :
             true;
         if (!$if_modified_since && !$if_none_match) {
             return true;
@@ -187,7 +187,7 @@ class ZMTools {
             $components['yy'] = substr($s, $cypos+2, 2);
         }
 
-        $components['yyyy'] = $components['cc'].$components['yy']; 
+        $components['yyyy'] = $components['cc'].$components['yy'];
 
         // ensure all components are digits only
         foreach ($components as $key => $component) {
@@ -203,14 +203,14 @@ class ZMTools {
 
     /**
      * Parse RSS date.
-     * 
+     *
      * @param string date The date.
      * @return array An array with 3 elements in the order [day] [month] [year].
      */
     public static function parseRssDate($date) {
         preg_match("/[a-zA-Z]+, ([0-3]?[0-9]) ([a-zA-Z]+) ([0-9]{2,4}) .*/", $date, $regs);
         return $regs[1].'/'.$regs[2].'/'.$regs[3];
-    } 
+    }
 
     /**
      * Compare URLs.
@@ -294,7 +294,7 @@ class ZMTools {
      * Apply user/group settings to file(s) that should allow ftp users to modify/delete them.
      *
      * <p>The file group attribute is only going to be changed if the <code>$perms</code> parameter is not empty.</p>
-     * 
+     *
      * <p>This method may be disabled by setting <em>fs.permissions.fix</em> to <code>false</code>.</p>
      *
      * @param mixed files Either a single filename or list of files.
@@ -314,7 +314,7 @@ class ZMTools {
                 return;
             }
         }
-        
+
         if (!is_array($files)) {
             $files = array($files);
         }
@@ -336,7 +336,7 @@ class ZMTools {
                 }
                 $subfiles = array();
                 $handle = @opendir($dir);
-                while (false !== ($file = readdir($handle))) { 
+                while (false !== ($file = readdir($handle))) {
                     if ("." == $file || ".." == $file) {
                         continue;
                     }
@@ -372,6 +372,68 @@ class ZMTools {
         $multiplier = $zc_round_ceil * $y;
         $results = abs(round($x - $multiplier, 6));
         return $results;
+    }
+
+    /**
+     * Prepare face zc globals to make wrapper work.
+     *
+     * @param ZMShoppingCart shoppingCart The current shopping cart.
+     * @param ZMAddress address Optional address; default is <code>null</code>.
+     */
+    public static function prepareWrapperEnv($shoppingCart, $address=null) {
+    global $order, $shipping_weight, $shipping_quoted, $shipping_num_boxes, $total_count;
+
+        $order = new stdClass();
+        $order->content_type = $shoppingCart->getType();
+        $order->delivery = array();
+        $order->delivery['country'] = array();
+
+        if (null != $address) {
+            $order->delivery['country']['id'] = $address->getCountryId();
+            $order->delivery['country']['iso_code_2'] = $address->getCountry()->getIsoCode2();
+            $order->delivery['zone_id'] = $address->getZoneId();
+            $order->delivery['postcode'] = $address->getPostcode();
+        }
+
+        if (!isset($_SESSION['cart'])) {
+            $_SESSION['cart'] = new shoppingCart();
+        }
+
+        // get total number of products, not line items...
+        $total_count = 0;
+        foreach ($shoppingCart->getItems() as $item) {
+            $total_count += $item->getQuantity();
+        }
+
+        // START: adjust boxes, weight and tare
+        $shipping_quoted = '';
+        $shipping_num_boxes = 1;
+        $shipping_weight = $shoppingCart->getWeight();
+
+        $za_tare_array = preg_split("/[:,]/" , SHIPPING_BOX_WEIGHT);
+        $zc_tare_percent= $za_tare_array[0];
+        $zc_tare_weight= $za_tare_array[1];
+
+        $za_large_array = preg_split("/[:,]/" , SHIPPING_BOX_PADDING);
+        $zc_large_percent= $za_large_array[0];
+        $zc_large_weight= $za_large_array[1];
+
+        switch (true) {
+          // large box add padding
+          case(SHIPPING_MAX_WEIGHT <= $shipping_weight):
+            $shipping_weight = $shipping_weight + ($shipping_weight*($zc_large_percent/100)) + $zc_large_weight;
+            break;
+          default:
+          // add tare weight < large
+            $shipping_weight = $shipping_weight + ($shipping_weight*($zc_tare_percent/100)) + $zc_tare_weight;
+            break;
+        }
+
+        if ($shipping_weight > SHIPPING_MAX_WEIGHT) { // Split into many boxes
+          $shipping_num_boxes = ceil($shipping_weight/SHIPPING_MAX_WEIGHT);
+          $shipping_weight = $shipping_weight/$shipping_num_boxes;
+        }
+        // END: adjust boxes, weight and tare
     }
 
 }

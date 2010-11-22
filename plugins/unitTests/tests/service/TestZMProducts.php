@@ -39,11 +39,11 @@ class TestZMProducts extends ZMTestCase {
      * Test update product.
      */
     public function testUpdateProduct() {
-        $product = ZMProducts::instance()->getProductForId(2);
+        $product = ZMProducts::instance()->getProductForId(2, 1);
         $this->assertNotNull($product);
         $product->setName($product->getName().'@@@');
         ZMProducts::instance()->updateProduct($product);
-        $reloaded = ZMProducts::instance()->getProductForId($product->getId());
+        $reloaded = ZMProducts::instance()->getProductForId($product->getId(), 1);
         foreach (array_keys(ZMDbTableMapper::instance()->getMapping(array(TABLE_PRODUCTS, TABLE_PRODUCTS_DESCRIPTION), ZMRuntime::getDatabase())) as $key) {
             $prefixList = array('get', 'is', 'has');
             $done = false;
@@ -73,7 +73,7 @@ class TestZMProducts extends ZMTestCase {
             'reviews' => true,
             'tell_a_friend' => true
         );
-        $product = ZMProducts::instance()->getProductForId(2);
+        $product = ZMProducts::instance()->getProductForId(2, 1);
         foreach ($fieldData as $field => $value) {
             $this->assertEqual($value, $product->getTypeSetting($field), '%s field='.$field);
         }
@@ -152,7 +152,7 @@ class TestZMProducts extends ZMTestCase {
      * Test getProductForModel.
      */
     public function testGetProductForModel() {
-        $product = ZMProducts::instance()->getProductForModel('MG200MMS');
+        $product = ZMProducts::instance()->getProductForModel('MG200MMS', 1);
         if ($this->assertNotNull($product)) {
             $this->assertTrue($product instanceof ZMProduct);
             $this->assertEqual(1, $product->getId());
@@ -163,7 +163,7 @@ class TestZMProducts extends ZMTestCase {
      * Test getProductIdsForCategoryId.
      */
     public function testGetProductIdsForCategoryId() {
-        $productIdList = ZMProducts::instance()->getProductIdsForCategoryId(10, true, false, 1);
+        $productIdList = ZMProducts::instance()->getProductIdsForCategoryId(10, 1, true, false);
         $this->assertNotNull($productIdList);
         $expect = array(11, 13, 18, 17, 6, 4, 10, 9);
         $this->assertEqual($expect, $productIdList);

@@ -183,7 +183,7 @@
                     array(
                         'key' => 'definitions.@name@',
                         'type' => 'string',
-                        'desc' => 'Bean/singleton definition mapping for a bean with name "@name"@.'
+                        'desc' => 'Bean/singleton definition mapping for a bean with name "@name@".'
                     ),
                     array(
                         'key' => 'locale',

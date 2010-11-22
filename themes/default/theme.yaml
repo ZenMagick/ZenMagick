@@ -1,4 +1,4 @@
-## $id$
+##
 name: 'ZenMagick Default'
 version: '${zenmagick.version}'
 author: 'zenmagick.org'
