@@ -38,7 +38,7 @@ class ZMlocaleUtils {
      * @param int index The index of the function to examine.
      * @return array List of parameter token.
      */
-    private function getParameterToken($tokens, $index) {
+    private static function getParameterToken($tokens, $index) {
         $parameters = array();
         for ($ii=$index+1; $ii<count($tokens); ++$ii) {
             $token = $tokens[$ii];
