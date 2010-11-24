@@ -90,7 +90,7 @@ class ZMBannerBlockWidget extends ZMWidget {
      * {@inheritDoc}
      */
     public function render($request, $view) {
-        // try to load a banner for the given group
+        // try to load banners for the given group
         if (null == ($banners = ZMBanners::instance()->getBannersForGroupName($this->group_, $request->isSecure(), false))) {
             return '';
         }
