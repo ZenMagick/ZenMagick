@@ -71,7 +71,7 @@ class ZMRedirectorController extends ZMController {
      */
     protected function processMissingProduct($request) {
         $product = null;
-        $languageId = $request->getSession->getLanguageId();
+        $languageId = $request->getSession()->getLanguageId();
         // try to find product based on the current request
         if ($request->getProductId()) {
             $product = ZMProducts::instance()->getProductForId($request->getProductId(), $languageId);

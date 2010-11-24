@@ -58,7 +58,7 @@ class ZMProductReviewsInfoController extends ZMController {
         $request->getToolbox()->crumbtrail->addCrumb("Reviews");
 
         $data = array();
-        $languageId = $request->getSession->getLanguageId();
+        $languageId = $request->getSession()->getLanguageId();
         $product = ZMProducts::instance()->getProductForId($request->getProductId(), $languageId);
         $data['currentProduct'] = $product;
 

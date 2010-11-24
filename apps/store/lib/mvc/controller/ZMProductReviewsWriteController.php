@@ -113,7 +113,7 @@ class ZMProductReviewsWriteController extends ZMController {
      */
     protected function getProduct($request) {
         $product = null;
-        $languageId = $request->getSession->getLanguageId();
+        $languageId = $request->getSession()->getLanguageId();
         if ($request->getProductId()) {
             $product = ZMProducts::instance()->getProductForId($request->getProductId(), $languageId);
         } else if ($request->getModel()) {
