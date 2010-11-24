@@ -29,9 +29,7 @@
         <?php } ?>
     </p>
 
-    <?php if (null != ($bannerBox = ZMBanners::instance()->getBannerForSet('footer2'))) { ?>
-        <div id="bannerFive"><?php echo $macro->showBanner($bannerBox); ?></div>
-    <?php } ?>
+    <div id="bannerFive"><?php echo $this->fetchBlockGroup('banners.footer2') ?></div>
 
     <p>Powered by <a href="http://www.zen-cart.com">zen-cart</a> and <a href="http://www.zenmagick.org">ZenMagick</a></p>
     <p>&copy; 2006-2010  <a href="http://www.zenmagick.org">ZenMagick</a> | Design based on andreas08 by <a href="http://andreasviklund.com">Andreas Viklund</a></p>

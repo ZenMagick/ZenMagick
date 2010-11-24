@@ -29,9 +29,7 @@
         <?php } ?>
     </p>
 
-    <?php if (null != ($bannerBox = ZMBanners::instance()->getBannerForSet('footer2'))) { ?>
-        <div id="bannerFive"><?php echo $macro->showBanner($bannerBox); ?></div>
-    <?php } ?>
+    <div id="bannerFive"><?php echo $this->fetchBlockGroup('banners.footer2') ?></div>
 
     <p id="sview">
         <a href="<?php echo $net->url('source_view', 'template_name='.$view->getLayout()) ?>">Template: '<?php echo basename($view->getLayout()) ?>'</a>

@@ -22,12 +22,9 @@
  */
 ?>
 
-<?php $allBanners = ZMBanners::instance()->getAllBanners(); ?>
-<?php if (0 < count($allBanners)) { ?>
+<?php if (null != ($banner = $this->fetchBlockGroup('banners.all', array('showAll' => true))) && !empty($banner)) { ?>
     <h3><?php _vzm("Sponsors") ?></h3>
     <div id="sb_banner_box_all" class="box">
-        <?php foreach ($allBanners as $banner) { ?>
-            <?php echo $macro->showBanner($banner); ?>
-        <?php } ?>
+        <?php echo $banner ?>
     </div>
 <?php } ?>

@@ -55,9 +55,7 @@
   </head>
 
   <body id="b_<?php echo $request->getRequestId() ?>">
-    <?php if (null != ($bannerBox = ZMBanners::instance()->getBannerForSet('header1'))) { ?>
-        <div id="bannerOne"><?php echo $macro->showBanner($bannerBox); ?></div>
-    <?php } ?>
+    <div id="bannerOne"><?php echo $this->fetchBlockGroup('banners.header1') ?></div>
 
     <div id="container">
       <?php echo $this->fetch('header.php') ?>
@@ -88,9 +86,7 @@
             <?php echo $macro->buildCrumbtrail($crumbtrail, " &gt; "); ?>
         <?php } ?>
 
-        <?php if (null != ($bannerBox = ZMBanners::instance()->getBannerForSet('header3'))) { ?>
-            <div id="bannerThree"><?php echo $macro->showBanner($bannerBox); ?></div>
-        <?php } ?>
+        <div id="bannerThree"><?php echo $this->fetchBlockGroup('banners.header3') ?></div>
 
         <?php if (ZMMessages::instance()->hasMessages()) { ?>
             <ul id="messages">
@@ -102,17 +98,13 @@
 
         <?php echo $this->fetch($viewTemplate); ?>
 
-        <?php if (null != ($bannerBox = ZMBanners::instance()->getBannerForSet('footer1'))) { ?>
-            <div id="bannerFour"><?php echo $macro->showBanner($bannerBox); ?></div>
-        <?php } ?>
+        <div id="bannerFour"><?php echo $this->fetchBlockGroup('banners.footer1') ?></div>
       </div>
 
       <?php echo $this->fetch('footer.php') ?>
     </div>
 
-    <?php if (null != ($bannerBox = ZMBanners::instance()->getBannerForSet('footer3'))) { ?>
-        <div id="bannerSix"><?php echo $macro->showBanner($bannerBox); ?></div>
-    <?php } ?>
+    <div id="bannerSix"><?php echo $this->fetchBlockGroup('banners.footer3') ?></div>
 
   </body>
 </html>

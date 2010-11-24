@@ -86,9 +86,7 @@
 
         <?php echo $this->fetch($viewTemplate); ?>
 
-        <?php if (null != ($bannerBox = ZMBanners::instance()->getBannerForSet('footer1'))) { ?>
-            <div id="bannerFour"><?php echo $macro->showBanner($bannerBox); ?></div>
-        <?php } ?>
+        <div id="bannerFour"><?php echo $this->fetchBlockGroup('banners.footer1') ?></div>
       </div>
 
       <?php echo $this->fetch('footer.php') ?>

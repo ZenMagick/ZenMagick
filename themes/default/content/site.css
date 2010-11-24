@@ -173,6 +173,9 @@ body#b_account_password #content {padding-left:20px;}
 
 #sb_languages, #sb_product_notifications {text-align:center;}
 
+#sb_banner_box_all {text-align:center;}
+#sb_banner_box_all a {display:block;margin:1.2em 0;}
+
 body#b_account_edit #content table {padding-left:20px;}
 body#b_account_edit #content table #label {width:12em;}
 body#b_account_edit #content table td {padding:2px;}

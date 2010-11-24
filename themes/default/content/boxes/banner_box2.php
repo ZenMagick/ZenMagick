@@ -22,9 +22,9 @@
  */
 ?>
 
-<?php if (null != ($bannerBox = ZMBanners::instance()->getBannerForSet('box2'))) { ?>
+<?php if (null != ($banner = $this->fetchBlockGroup('banners.box2')) && !empty($banner)) { ?>
     <h3><?php _vzm("Have you seen ...") ?></h3>
     <div id="sb_banner_box2" class="box">
-        <?php echo $macro->showBanner($bannerBox); ?>
+        <?php echo $banner; ?>
     </div>
 <?php } ?>

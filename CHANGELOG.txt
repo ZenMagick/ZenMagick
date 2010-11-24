@@ -144,6 +144,8 @@ Release 0.9.11
 	templates: coupon_help.php, discount_coupon_info.php
 - change url mapping syntax slightly to avoid the 'funny' null map key
 - make sfYaml the default yaml parser and drop spyc
+- update all themes to using the new block code for banner display
+- add CSS for #sb_banner_box_all
 
 Release 0.9.10
 - restructure store and admin code into separate apps with most of the store

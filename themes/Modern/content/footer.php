@@ -72,9 +72,7 @@ if (SHOW_FOOTER_IP == '1') {
 <!--eof-ip address display -->
 
 <!--bof-banner #5 display -->
-<?php if (null != ($bannerBox = ZMBanners::instance()->getBannerForSet('footer2'))) { ?>
-	<div id="bannerFive"><?php echo $macro->showBanner($bannerBox); ?></div>
-<?php } ?>
+<div id="bannerFive"><?php echo $this->fetchBlockGroup('banners.footer2') ?></div>
 <!--eof-banner #5 display -->
 
 <!--bof- site copyright display -->

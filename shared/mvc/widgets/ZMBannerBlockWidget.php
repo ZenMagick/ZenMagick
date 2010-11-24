@@ -30,6 +30,7 @@
 class ZMBannerBlockWidget extends ZMWidget {
     private $group_;
     private $trackDisplay_;
+    private $showAll_;
 
 
     /**
@@ -39,6 +40,7 @@ class ZMBannerBlockWidget extends ZMWidget {
         parent::__construct();
         $this->group_ = null;
         $this->trackDisplay_ = true;
+        $this->showAll_ = false;
         $this->setTitle('Banner Block');
     }
 
@@ -87,6 +89,24 @@ class ZMBannerBlockWidget extends ZMWidget {
     }
 
     /**
+     * Enable/disable displaying all available banners in the given group.
+     *
+     * @param boolean value The new value.
+     */
+    public function setShowAll($value) {
+        $this->showAll_ = ZMLangUtils::asBoolean($value);
+    }
+
+    /**
+     * Check if all banners in the group should be displayed.
+     *
+     * @return boolean <code>true</code> if all banners are to be displayed.
+     */
+    public function isShowAll() {
+        return $this->showAll_;
+    }
+
+    /**
      * {@inheritDoc}
      */
     public function render($request, $view) {
@@ -98,25 +118,27 @@ class ZMBannerBlockWidget extends ZMWidget {
         // make random
         shuffle($banners);
 
+        // first or all
+        if (!$this->showAll_) {
+            $banners = array(array_pop($banners));
+        }
+
         // render (random) first banner
         $content = '';
-        if (0 < count($banners)) {
-            $banner = $banners[0];
+        foreach ($banners as $banner) {
             if (!ZMLangUtils::isEmpty($banner->getText())) {
                 // use text if not empty
                 $html = $banner->getText();
             } else {
                 $net = $view->getVar('net');
                 $slash = ZMSettings::get('zenmagick.mvc.html.xhtml') ? '/' : '';
-                $img = '<img src="'.$net->image($banner->getImage()).'" alt="'.
-                          ZMHtmlUtils::encode($banner->getTitle()).'"'.$slash.'>';
+                $img = '<img src="'.$net->image($banner->getImage()).'" alt="'.ZMHtmlUtils::encode($banner->getTitle()).'"'.$slash.'>';
                 if (ZMLangUtils::isEmpty($banner->getUrl())) {
                     // if we do not have a url try our luck with the image...
-                    $content = $img;
+                    $content .= $img;
                 } else {
                     $html = $view->getVar('html');
-                    $content = '<a href="'.$net->trackLink('banner', $banner->getId()).'"'.
-                                $html->hrefTarget($banner->isNewWin()).'>'.$img.'</a>';
+                    $content .= '<a href="'.$net->trackLink('banner', $banner->getId()).'"'.$html->hrefTarget($banner->isNewWin()).'>'.$img.'</a>';
                 }
             }
 
