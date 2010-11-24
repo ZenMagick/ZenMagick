@@ -1,3 +1,4 @@
+<?php if (function_exists('the_search_query')) { ?>
 <h3><?php _vzm("Sidebar") ?></h3>
 <div id="sb_wp_sidebar" class="box">
     <form method="get" id="searchform" action="">
@@ -22,3 +23,4 @@
     </ul>
     <?php SidebarEventsCalendar(); ?>
 </div>
+<?php } ?>
