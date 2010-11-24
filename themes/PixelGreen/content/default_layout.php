@@ -33,17 +33,9 @@
       <div id="content-wrap"><div id="content">		
         
         
-        <?php if (ZMTemplateManager::instance()->isRightColEnabled()) { ?>
-          <div id="sidebar" >
-            <?php foreach (ZMTemplateManager::instance()->getRightColBoxNames() as $box) { ?>
-                <?php if ($this->exists('boxes/'.$box)) { ?>
-                    <div class="sidebox">
-                        <?php echo $this->fetch('boxes/'.$box) ?>
-                    </div>
-                <?php } ?>
-            <?php } ?>
-          </div>
-        <?php } ?>
+        <div id="sidebar" >
+          <?php echo $this->fetchBlockGroup('rightColumn', array('format' => '<div class="sidebox">%s</div>')) ?>
+        </div>
 
         <div id="main">		
           <?php if (!ZMLangUtils::inArray($request->getRequestId(), 'index')) { /* this is the actual view, not neccessarily what is in the URL */ ?>

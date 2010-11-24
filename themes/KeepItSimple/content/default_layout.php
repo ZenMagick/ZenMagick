@@ -69,28 +69,14 @@
       
         <div class="grid_4 alpha">
         
-          <?php if (ZMTemplateManager::instance()->isLeftColEnabled()) { ?>
-            <div id="sidebar" >
-              <?php foreach (ZMTemplateManager::instance()->getLeftColBoxNames() as $box) { ?>
-                <?php if ($this->exists('boxes/'.$box)) { ?>
-                  <div class="sidebox">
-                    <?php echo $this->fetch('boxes/'.$box) ?>
-                  </div>
-                <?php } ?>
-              <?php } ?>
-            </div>
-          <?php } ?>
+        <div id="sidebar" >
+          <?php echo $this->fetchBlockGroup('leftColumn', array('format' => '<div class="sidebox">%s</div>')) ?>
+        </div>
 
         </div>
       
         <div class="grid_4 omega">
-      
-          <?php foreach (ZMTemplateManager::instance()->getRightColBoxNames() as $box) { ?>
-            <?php if ($this->exists('boxes/'.$box)) { ?>
-              <?php echo $this->fetch('boxes/'.$box) ?>
-            <?php } ?>
-          <?php } ?>
-        
+          <?php echo $this->fetchBlockGroup('rightColumn') ?>
         </div>	
       
       <!-- end left-columns -->

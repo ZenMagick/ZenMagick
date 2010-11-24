@@ -70,14 +70,7 @@ Released   : 20090515
 				
 				<div id="sidebar1" class="sidebar">
 				<ul>
-					<?php foreach (ZMTemplateManager::instance()->getLeftColBoxNames() as $box) { ?>
-            <?php if ($this->exists('boxes/'.$box)) { ?>
-              <li>
-              <?php echo $this->fetch('boxes/'.$box) ?>
-              </li>
-					  <?php } ?>
-					<?php } ?>
-				
+	        <?php echo $this->fetchBlockGroup('leftColumn', array('format' => '<li>%s</li>')) ?>
 				</ul>
 			</div>    <!-- end leftcol here -->
       <?php } ?>
@@ -89,15 +82,8 @@ Released   : 20090515
         <!-- start sidebar2 -->
         <div id="sidebar2" class="sidebar">
           <ul>
-            <?php foreach (ZMTemplateManager::instance()->getRightColBoxNames() as $box) { ?>
-              <?php if ($this->exists('boxes/'.$box)) { ?>
-                <li>
-                <?php echo $this->fetch('boxes/'.$box) ?>
-                </li>
-              <?php } ?>
-            <?php } ?>
- 
-		  </ul>
+	          <?php echo $this->fetchBlockGroup('rightColumn', array('format' => '<li>%s</li>')) ?>
+		      </ul>
         </div>
         <!-- end RightCol -->
       <?php } ?>

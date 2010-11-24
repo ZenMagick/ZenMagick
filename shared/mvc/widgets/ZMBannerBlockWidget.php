@@ -123,9 +123,10 @@ class ZMBannerBlockWidget extends ZMWidget {
             $banners = array(array_pop($banners));
         }
 
-        // render (random) first banner
-        $content = '';
+        // render banner(s)
+        $bannerContentList = array();
         foreach ($banners as $banner) {
+            $content = '';
             if (!ZMLangUtils::isEmpty($banner->getText())) {
                 // use text if not empty
                 $html = $banner->getText();
@@ -145,9 +146,21 @@ class ZMBannerBlockWidget extends ZMWidget {
             if ($this->isTrackDisplay()) {
                 ZMBanners::instance()->updateBannerDisplayCount($banner->getId());
             }
+            if (!ZMLangUtils::isEmpty($this->getFormat()) && !empty($content)) {
+                $content = sprintf($this->getFormat(), $content);
+            }
+            $bannerContentList[] = $content;
         }
 
-        return $content;
+        // always set
+        $this->set('bannerContentList', $bannerContentList);
+
+        if (!ZMLangUtils::isEmpty($this->getTemplate())) {
+            // leave formatting to template rather than just concatenating
+            return parent::render($request, $view);
+        }
+
+        return implode('', $bannerContentList);
     }
 
 }

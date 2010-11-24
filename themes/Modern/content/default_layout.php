@@ -77,16 +77,7 @@
        	 <div id="contentWrapper">
 		      <?php if (ZMTemplateManager::instance()->isLeftColEnabled()) { ?>
 		        <div id="navColumnOne" class="columnLeft back">
-		          <?php foreach (ZMTemplateManager::instance()->getLeftColBoxNames() as $box) { ?>
-		            <?php if ($this->exists('boxes/'.$box)) { ?>
-		            <div class="leftBoxContainer">
-                    <?php /* avoid footer if no box output */ $out = trim($this->fetch('boxes/'.$box)); echo $out; ?>
-		              	<?php if (!empty($out)) { ?>
-                      <div class="sbFooter"></div>
-		                <?php } ?>
-		            </div>
-		            <?php } ?>
-		          <?php } ?>
+			        <?php echo $this->fetchBlockGroup('leftColumn', array('format' => '<div class="leftBoxContainer">%s<div class="sbFooter"></div></div>')) ?>
 		        </div>
 		      <?php } ?>
 		

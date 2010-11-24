@@ -26,12 +26,19 @@
  *
  * <p>This base class will render the configured template if set, or return an empty string.</p>
  *
+ * <p>In addition to rendering the template, it is possible to pass in a format string. The string is takes as
+ * <code>sprintf</code> type format string with the template output as the single parameter (typically <em>%s</em>
+ * would be used to position the template content).</p>
+ * <p>This makes is rather simple to wrap the template output in something like a &lt;li&gt; tag or similar. For more
+ * complex formatting nested blocks should be considered.</p>
+ *
  * @author DerManoMann
  * @package org.zenmagick.mvc.services.blocks.widgets
  */
 class ZMBlockWidget extends ZMWidget {
     private $sortOrder_;
     private $template_;
+    private $format_;
 
 
     /**
@@ -41,6 +48,7 @@ class ZMBlockWidget extends ZMWidget {
         parent::__construct();
         $this->sortOrder_ = 0;
         $this->template_ = null;
+        $this->format_ = null;
     }
 
     /**
@@ -88,15 +96,40 @@ class ZMBlockWidget extends ZMWidget {
     }
 
     /**
+     * Set the optional format string.
+     *
+     * <p><strong>Note:</strong> The format, if set, will only be used if the generated content is <strong>not empty</strong>.</p>
+     *
+     * @param string format The format.
+     */
+    public function setFormat($format) {
+        $this->format_ = $format;
+    }
+
+    /**
+     * Get the format string.
+     *
+     * @return string The format string or <code>null</code> if not set.
+     */
+    public function getFormat() {
+        return $this->format_;
+    }
+
+    /**
      * {@inheritDoc}
      */
     public function render($request, $view) {
-        if (empty($this->template_) || !$view->exists($request, $this->template_)) {
-            return '';
+        $content = '';
+        if (!empty($this->template_) && $view->exists($request, $this->template_)) {
+            // hand on all custom properties
+            $content = $view->fetch($request, $this->template_, $this->getProperties());
         }
 
-        // hand on all custom properties
-        return $view->fetch($request, $this->template_, $this->getProperties());
+        if (!empty($this->format_) && !empty($content)) {
+            $content = sprintf($this->format_, $content);
+        }
+
+        return $content;
     }
 
 }

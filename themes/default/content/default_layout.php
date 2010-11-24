@@ -61,25 +61,13 @@
       <?php echo $this->fetch('header.php') ?>
       <?php echo $this->fetch('menu.php') ?>
 
-      <?php if (ZMTemplateManager::instance()->isLeftColEnabled()) { ?>
-        <div id="leftcol">
-          <?php foreach (ZMTemplateManager::instance()->getLeftColBoxNames() as $box) { ?>
-            <?php if ($this->exists('boxes/'.$box)) { ?>
-              <?php echo $this->fetch('boxes/'.$box) ?>
-            <?php } ?>
-          <?php } ?>
-        </div>
-      <?php } ?>
+      <div id="leftcol">
+        <?php echo $this->fetchBlockGroup('leftColumn') ?>
+      </div>
 
-      <?php if (ZMTemplateManager::instance()->isRightColEnabled()) { ?>
-        <div id="rightcol">
-          <?php foreach (ZMTemplateManager::instance()->getRightColBoxNames() as $box) { ?>
-            <?php if ($this->exists('boxes/'.$box)) { ?>
-              <?php echo $this->fetch('boxes/'.$box) ?>
-            <?php } ?>
-          <?php } ?>
-        </div>
-      <?php } ?>
+      <div id="rightcol">
+        <?php echo $this->fetchBlockGroup('rightColumn') ?>
+      </div>
 
       <div id="content">
         <?php if ('index' != $request->getRequestId()) { /* this is the actual view, not neccessarily what is in the URL */ ?>

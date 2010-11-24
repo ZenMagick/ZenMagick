@@ -146,6 +146,10 @@ Release 0.9.11
 - make sfYaml the default yaml parser and drop spyc
 - update all themes to using the new block code for banner display
 - add CSS for #sb_banner_box_all
+- add format property to ZMBlockWidget to allow simple formating of individual
+  blocks without having to use nested blocks (still recommended for complex
+	formatting, though)
+- convert all themes to using the new block code for sidebox rendering
 
 Release 0.9.10
 - restructure store and admin code into separate apps with most of the store

@@ -65,15 +65,9 @@
     <img src="<?php echo $this->asUrl("images/headerphoto.jpg") ?>" width="820" height="120" alt="headerphoto" class="no-border" />
       
       <div id="sidebar" >							
-        <?php if (ZMTemplateManager::instance()->isLeftColEnabled()) { ?>
-          <div id="leftcol">
-            <?php foreach (ZMTemplateManager::instance()->getLeftColBoxNames() as $box) { ?>
-              <?php if ($this->exists('boxes/'.$box)) { ?>
-                <?php echo $this->fetch('boxes/'.$box) ?>
-              <?php } ?>
-            <?php } ?>
-          </div>
-        <?php } ?>
+        <div id="leftcol">
+          <?php echo $this->fetchBlockGroup('leftColumn') ?>
+        </div>
       </div>
         
       <div id="main">	
@@ -93,16 +87,9 @@
       </div>	
         
       <div id="rightbar">
-      <?php if (ZMTemplateManager::instance()->isRightColEnabled()) { ?>
         <div id="rightcol">
-          <?php foreach (ZMTemplateManager::instance()->getRightColBoxNames() as $box) { ?>
-            <?php if ($this->exists('boxes/'.$box)) { ?>
-              <?php echo $this->fetch('boxes/'.$box) ?>
-            <?php } ?>
-          <?php } ?>
+          <?php echo $this->fetchBlockGroup('rightColumn') ?>
         </div>
-      <?php } ?>
-
       </div>			
         
     <!-- content-wrap ends here -->		
