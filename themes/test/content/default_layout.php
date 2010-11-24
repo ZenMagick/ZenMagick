@@ -74,9 +74,7 @@
             <?php echo $macro->buildCrumbtrail($crumbtrail, " &gt; "); ?>
         <?php } ?>
 
-        <?php if (null != ($bannerBox = ZMBanners::instance()->getBannerForSet('header3'))) { ?>
-            <div id="bannerThree"><?php echo $macro->showBanner($bannerBox); ?></div>
-        <?php } ?>
+        <div id="bannerThree"><?php echo $this->fetchBlockGroup('banners.header3') ?></div>
 
         <?php if (ZMMessages::instance()->hasMessages()) { ?>
             <ul id="messages">
@@ -96,9 +94,7 @@
       <?php echo $this->fetch('footer.php') ?>
     </div>
 
-    <?php if (null != ($bannerBox = ZMBanners::instance()->getBannerForSet('footer3'))) { ?>
-        <div id="bannerSix"><?php echo $macro->showBanner($bannerBox); ?></div>
-    <?php } ?>
+    <div id="bannerSix"><?php echo $this->fetchBlockGroup('banners.footer3') ?></div>
 
   </body>
 </html>

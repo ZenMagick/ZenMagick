@@ -106,6 +106,19 @@ class ZMEventFixes extends ZMObject {
         $mappings['banners'] = array();
         $mappings['banners'][] = 'BannerBlockWidget';
 
+        // individual banner groups as per current convention
+        $defaultBannerGroupNames = array(
+            'banners.header1', 'banners.header2', 'banners.header3',
+            'banners.footer1', 'banners.footer2', 'banners.footer3',
+            'banners.box1', 'banners.box2',
+            'banners.all'
+        );
+        foreach ($defaultBannerGroupNames as $blockGroupName) {
+            // the banner group name is configured as setting..
+            $bannerGroup = ZMSettings::get($blockGroupName);
+            $mappings[$blockGroupName] = array('BannerBlockWidget#group='.$bannerGroup);
+        }
+
         ZMBlockManager::instance()->setMappings($mappings);
     }
 

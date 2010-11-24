@@ -91,11 +91,14 @@ class ZMBannerBlockWidget extends ZMWidget {
      */
     public function render($request, $view) {
         // try to load banners for the given group
-        if (null == ($banners = ZMBanners::instance()->getBannersForGroupName($this->group_, $request->isSecure(), false))) {
+        if (empty($this->group_) || null == ($banners = ZMBanners::instance()->getBannersForGroupName($this->group_, $request->isSecure()))) {
             return '';
         }
 
-        // render first banner
+        // make random
+        shuffle($banners);
+
+        // render (random) first banner
         $content = '';
         if (0 < count($banners)) {
             $banner = $banners[0];
