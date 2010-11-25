@@ -31,7 +31,7 @@
  * @package zenmagick.store.shared.services.catalog
  */
 class ZMManufacturers extends ZMObject {
-    private $cache;
+    private $cache_;
 
 
     /**
@@ -39,7 +39,7 @@ class ZMManufacturers extends ZMObject {
      */
     function __construct() {
         parent::__construct();
-        $this->cache = ZMCaches::instance()->getCache('services', array(), ZMCache::TRANSIENT);
+        $this->cache_ = ZMCaches::instance()->getCache('services', array(), ZMCache::TRANSIENT);
     }
 
     /**
@@ -65,9 +65,32 @@ class ZMManufacturers extends ZMObject {
         $args = array('manufacturerId' => $id, 'languageId' => $languageId);
 
         $cacheKey = ZMLangUtils::mkUnique('manufacturer', $id, $languageId);
-        if (false === ($manufacturer = $this->cache->lookup($cacheKey))) {
+        if (false === ($manufacturer = $this->cache_->lookup($cacheKey))) {
             $manufacturer = ZMRuntime::getDatabase()->querySingle($sql, $args, array(TABLE_MANUFACTURERS, TABLE_MANUFACTURERS_INFO), 'Manufacturer');
-            $this->cache->save($manufacturer, $cacheKey);
+            $this->cache_->save($manufacturer, $cacheKey);
+        }
+
+        return $manufacturer;
+    }
+
+    /**
+     * Get manufacturer for name.
+     *
+     * @param string name The manufacturer name.
+     * @param int languageId Language id.
+     * @return ZMManufacturer The manufacturer or <code>null</code>.
+     */
+    public function getManufacturerForName($name, $languageId) {
+        $sql = "SELECT mi.*, m.*
+                FROM " . TABLE_MANUFACTURERS . " m
+                  LEFT JOIN " . TABLE_MANUFACTURERS_INFO . " mi ON (m.manufacturers_id = mi.manufacturers_id AND mi.languages_id = :languageId)
+                WHERE m.manufacturers_name LIKE :name";
+        $args = array('name' => $name, 'languageId' => $languageId);
+
+        $cacheKey = ZMLangUtils::mkUnique('manufacturer', $name, $languageId);
+        if (false === ($manufacturer = $this->cache_->lookup($cacheKey))) {
+            $manufacturer = ZMRuntime::getDatabase()->querySingle($sql, $args, array(TABLE_MANUFACTURERS, TABLE_MANUFACTURERS_INFO), 'Manufacturer');
+            $this->cache_->save($manufacturer, $cacheKey);
         }
 
         return $manufacturer;
@@ -101,15 +124,15 @@ class ZMManufacturers extends ZMObject {
      * @return array List of <code>ZMManufacturer</code> instances.
      */
     public function getManufacturers($languageId) {
-        $sql = "SELECT mi.*, m.* 
+        $sql = "SELECT mi.*, m.*
                 FROM " . TABLE_MANUFACTURERS . " m
                   LEFT JOIN " . TABLE_MANUFACTURERS_INFO . " mi ON (m.manufacturers_id = mi.manufacturers_id AND mi.languages_id = :languageId)";
         $args = array('languageId' => $languageId);
 
         $cacheKey = ZMLangUtils::mkUnique('manufacturer', $languageId);
-        if (false === ($manufacturers = $this->cache->lookup($cacheKey))) {
+        if (false === ($manufacturers = $this->cache_->lookup($cacheKey))) {
             $manufacturers = ZMRuntime::getDatabase()->query($sql, $args, array(TABLE_MANUFACTURERS, TABLE_MANUFACTURERS_INFO), 'Manufacturer');
-            $this->cache->save($manufacturers, $cacheKey);
+            $this->cache_->save($manufacturers, $cacheKey);
         }
 
         return $manufacturers;
@@ -124,14 +147,14 @@ class ZMManufacturers extends ZMObject {
     public function updateManufacturerClickCount($id, $languageId) {
         // clear global cache
         $cacheKey = ZMLangUtils::mkUnique('manufacturer', $languageId);
-        $this->cache->remove($cacheKey);
+        $this->cache_->remove($cacheKey);
         // remove from cache
         $cacheKey = ZMLangUtils::mkUnique('manufacturer', $id, $languageId);
-        $this->cache->remove($cacheKey);
+        $this->cache_->remove($cacheKey);
 
         $sql = "UPDATE " . TABLE_MANUFACTURERS_INFO . "
-                SET url_clicked = url_clicked+1, date_last_click = now() 
-                WHERE manufacturers_id = :manufacturerId 
+                SET url_clicked = url_clicked+1, date_last_click = now()
+                WHERE manufacturers_id = :manufacturerId
                 AND languages_id = :languageId";
         $args = array('manufacturerId' => $id, 'languageId' => $languageId);
         return ZMRuntime::getDatabase()->update($sql, $args, array(TABLE_MANUFACTURERS, TABLE_MANUFACTURERS_INFO));

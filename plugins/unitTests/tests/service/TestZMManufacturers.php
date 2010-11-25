@@ -29,6 +29,15 @@
 class TestZMManufacturers extends ZMTestCase {
 
     /**
+     * Test get for name.
+     */
+    public function testGetForName() {
+        $manufacturer = ZMManufacturers::instance()->getManufacturerForName('Matrox', 1);
+        $this->assertNotNull($manufacturer);
+        $this->assertEqual(1, $manufacturer->getId());
+    }
+
+    /**
      * Test update manufacturer.
      */
     public function testUpdateManufacturer() {

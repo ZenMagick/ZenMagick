@@ -150,6 +150,7 @@ Release 0.9.11
   blocks without having to use nested blocks (still recommended for complex
 	formatting, though)
 - convert all themes to using the new block code for sidebox rendering
+- added ZMManufacturers::getManufactuerForName()
 
 Release 0.9.10
 - restructure store and admin code into separate apps with most of the store
