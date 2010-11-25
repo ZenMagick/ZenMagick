@@ -58,6 +58,8 @@
  *  <dd>If set to <code>true</code> this field is part of a table key.</dd>
  *  <dt>auto</dt>
  *  <dd>Indicates that this column is an auto-increment column, so new model instances will be updated with the new value on create.</dd>
+ *  <dt>default</dt>
+ *  <dd>A default value to be used if either the value given is <code>null</code>, or the corresponding field is not present at all.</dd>
  * </dl>
  *
  * @author DerManoMann
@@ -175,7 +177,7 @@ class ZMDbTableMapper extends ZMObject {
      * @return array The parsed mapping.
      */
     protected function parseTable($mapping) {
-        $defaults = array('key' => false, 'auto' => false, 'custom' => false);
+        $defaults = array('key' => false, 'auto' => false, 'custom' => false, 'default' => null);
         $tableInfo = array();
         foreach ($mapping as $property => $info) {
             $arr = array();
@@ -368,7 +370,8 @@ class ZMDbTableMapper extends ZMObject {
             if (!empty($field)) {
                 $info = explode(';', trim($field));
                 $fieldId = (count($info) > 2 ? $info[2] : $info[0]);
-                $customFields[$fieldId] = array('column' => $info[0], 'type' => $info[1], 'property' => $fieldId);
+                $default = (count($info) > 3 ? $info[3] : null);
+                $customFields[$fieldId] = array('column' => $info[0], 'type' => $info[1], 'property' => $fieldId, 'default' => $default);
             }
         }
 
@@ -384,7 +387,7 @@ class ZMDbTableMapper extends ZMObject {
      * @return array The updated mapping
      */
     protected function addCustomFields($mapping, $table, $database) {
-        $defaults = array('key' => false, 'auto' => false, 'custom' => true);
+        $defaults = array('key' => false, 'auto' => false, 'custom' => true, 'default' => null);
         foreach ($this->getCustomFieldInfo($table, $database) as $fieldId => $fieldInfo) {
             // merge in defaults
             $mapping[$fieldId] = array_merge($defaults, $fieldInfo);

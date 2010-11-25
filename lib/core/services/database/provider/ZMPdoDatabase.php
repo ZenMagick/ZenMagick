@@ -276,6 +276,12 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
         $firstSet = true;
         $properties = array_keys($modelData);
         foreach ($mapping as $field) {
+            if (!in_array($field['property'], $properties) && null != $mapping[$field['property']]['default']) {
+                // use default
+                $modelData[$field['property']] = $mapping[$field['property']]['default'];
+                // add to properties list
+                $properties[] = $field['property'];
+            }
             if (in_array($field['property'], $properties)) {
                 if (!$field['auto']) {
                     if (!$firstSet) {
@@ -379,6 +385,12 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
         $where = ' WHERE ';
         $properties = array_keys($modelData);
         foreach ($mapping as $field) {
+            if (!in_array($field['property'], $properties) && null != $mapping[$field['property']]['default']) {
+                // use default
+                $modelData[$field['property']] = $mapping[$field['property']]['default'];
+                // add to properties list
+                $properties[] = $field['property'];
+            }
             if (in_array($field['property'], $properties) && null !== $modelData[$field['property']]) {
                 if ($field['key']) {
                     if (!$firstWhere) {
@@ -522,6 +534,13 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
                 $args = array_merge($args, $aargs);
                 // update SQL
                 $sql = str_replace(':'.$name, ':'.implode(', :', array_keys($aargs)), $sql);
+            }
+        }
+
+        // defaults
+        foreach ($mapping as $field) {
+            if (!array_key_exists($field['property'], $args) && null != $field['default']) {
+                $args[$field['property']] = $field['default'];
             }
         }
 

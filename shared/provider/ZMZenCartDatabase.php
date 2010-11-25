@@ -208,6 +208,12 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
         $firstSet = true;
         $properties = array_keys($modelData);
         foreach ($mapping as $field) {
+            if (!in_array($field['property'], $properties) && null != $mapping[$field['property']]['default']) {
+                // use default
+                $modelData[$field['property']] = $mapping[$field['property']]['default'];
+                // add to properties list
+                $properties[] = $field['property'];
+            }
             if (in_array($field['property'], $properties)) {
                 if (!$field['auto']) {
                     if (!$firstSet) {
@@ -244,6 +250,13 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
         $mapping = $this->mapper->ensureMapping($mapping, $this);
 
         if (is_array($data)) {
+            // defaults
+            foreach ($mapping as $field) {
+                if (!array_key_exists($field['property'], $data) && null != $field['default']) {
+                    $data[$field['property']] = $field['default'];
+                }
+            }
+
             // find out the order of args
             // the sorting is done to avoid invalid matches in cases where one key is the prefix of another
             $argKeys = array_keys($data);
@@ -291,6 +304,12 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
         $where = ' WHERE ';
         $properties = array_keys($modelData);
         foreach ($mapping as $field) {
+            if (!in_array($field['property'], $properties) && null != $mapping[$field['property']]['default']) {
+                // use default
+                $modelData[$field['property']] = $mapping[$field['property']]['default'];
+                // add to properties list
+                $properties[] = $field['property'];
+            }
             if (in_array($field['property'], $properties) && null !== $modelData[$field['property']]) {
                 if ($field['key']) {
                     if (!$firstWhere) {
@@ -376,6 +395,13 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
     public function query($sql, $args=array(), $mapping=null, $modelClass=null) {
         $startTime = microtime();
         $mapping = $this->mapper->ensureMapping($mapping, $this);
+
+        // defaults
+        foreach ($mapping as $field) {
+            if (!array_key_exists($field['property'], $args) && null != $field['default']) {
+                $args[$field['property']] = $field['default'];
+            }
+        }
 
         // find out the order of args
         // the sorting is done to avoid invalid matches in cases where one key is the prefix of another
@@ -536,6 +562,15 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
         }
 
         $data = ZMBeanUtils::obj2map($obj, array_keys($labels));
+
+        if (null != $mapping) {
+            // defaults
+            foreach ($mapping as $field) {
+                if (!array_key_exists($field['property'], $data) && null != $field['default']) {
+                    $data[$field['property']] = $field['default'];
+                }
+            }
+        }
 
         foreach ($labels as $property => $info) {
             $value = null;
