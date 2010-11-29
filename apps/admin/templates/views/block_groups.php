@@ -20,25 +20,31 @@
 ?>
 <?php $admin2->title() ?>
 
-<div class="col3" style="float:left;width:32%;border:1px solid gray;padding:5px;margin:1px;">
-  <h2>Blocks</h2>
-  <?php foreach ($blocks as $def => $title) { ?>
-    <?php echo $title."<BR>" ?>
-  <?php } ?>
-</div>
-<div class="col3" style="float:left;width:32%;border:1px solid gray;padding:5px;margin:1px;">
-  <h2>Block Group Setup</h2>
-</div>
-<div class="col3" style="float:left;width:32%;border:1px solid gray;padding:5px;margin:1px;">
-  <h2>Block Groups</h2>
+<table class="grid">
+  <tr>
+    <th><?php _vzm('Block group id') ?></th>
+    <th><?php _vzm('Options') ?></th>
+  </tr>
   <?php foreach ($blockGroups as $groupId) { ?>
-    <form action="<?php echo $admin2->url() ?>" method="POST"><?php echo $groupId ?><input type="hidden" name="groupId" value="<?php echo $groupId ?>"><input type="hidden" name="action" value="removeGroup"><input type="submit" value="Remove"></form>
+    <tr>
+      <td><?php echo $groupId ?></td>
+      <td>
+        <form class="button-form" action="<?php echo $admin2->url() ?>" method="POST">
+          <input type="hidden" name="groupId" value="<?php echo $groupId ?>">
+          <input type="hidden" name="action" value="removeGroup">
+          <input type="submit" class="<?php echo $buttonClasses ?>" value="Remove">
+        </form>
+        <a href="<?php echo $admin2->url('block_group_admin', 'groupId='.$groupId) ?>" class="<?php echo $buttonClasses ?>"><?php _vzm('Configure') ?></a>
+      </td>
+    </tr>
   <?php } ?>
-  <form action="<?php echo $admin2->url() ?>" method="POST">
-    <h3>Create group</h3>
-    <input type="text" id="groupId" name="groupId" value="">
-    <input type="hidden" name="action" value="addGroup">
-    <input type="submit" value="Add">
-  </form>
-</div>
-<br clear="left">
+  <tr>
+    <td colspan="2">
+      <form action="<?php echo $admin2->url() ?>" method="POST">
+        <input type="hidden" name="action" value="addGroup">
+        <input type="text" id="groupId" name="groupId" value="">
+        <input type="submit" class="<?php echo $buttonClasses ?>" value="Add group">
+      </form>
+    </td>
+  </tr>
+</table>

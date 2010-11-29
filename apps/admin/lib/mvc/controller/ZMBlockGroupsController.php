@@ -48,14 +48,6 @@ class ZMBlockGroupsController extends ZMController {
      * {@inheritDoc}
      */
     public function getViewData($request) {
-        $blocks = array();
-        foreach (ZMBlockManager::instance()->getProviders() as $provider) {
-            foreach ($provider->getBlockList() as $def) {
-                $widget = ZMBeanUtils::getBean($def);
-                $blocks[$def] = $widget->getTitle();
-            }
-        }
-
         $blockGroups = array();
         if (null == ($configValue = ZMConfig::instance()->getConfigValue('ZENMAGICK_BLOCK_GROUPS'))) {
             // create if not exist
@@ -64,14 +56,7 @@ class ZMBlockGroupsController extends ZMController {
             $blockGroups = explode(',', $configValue->getValue());
         }
 
-        return array('blocks' => $blocks, 'blockGroups' => $blockGroups);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function processGet($request) {
-        return $this->findView();
+        return array('blockGroups' => $blockGroups);
     }
 
     /**

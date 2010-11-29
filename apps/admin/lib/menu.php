@@ -37,7 +37,7 @@
     ZMAdminMenu::setItem(array('parentId' => 'tools-cms', 'requestId' => 'ezpages', 'title' => _zm('EZPages Editor')));
 
     ZMAdminMenu::setItem(array('parentId' => 'tools', 'id' => 'tools-admin', 'title' => _zm('Admin')));
-    ZMAdminMenu::setItem(array('parentId' => 'tools-admin', 'requestId' => 'themes', 'title' => _zm('Themes')));
+    ZMAdminMenu::setItem(array('parentId' => 'tools-admin', 'requestId' => 'themes', 'title' => _zm('Themes'), 'other' => array('block_group_admin')));
     ZMAdminMenu::setItem(array('parentId' => 'tools-admin', 'requestId' => 'block_groups', 'title' => _zm('Blocks')));
     ZMAdminMenu::setItem(array('parentId' => 'tools-admin', 'requestId' => 'admin_users', 'title' => _zm('Manage Users'), 'other' => array('edit_admin_user')));
     ZMAdminMenu::setItem(array('parentId' => 'tools-admin', 'requestId' => 'manage_roles', 'title' => _zm('Manage Roles')));
