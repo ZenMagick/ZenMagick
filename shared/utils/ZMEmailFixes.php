@@ -136,6 +136,15 @@ class ZMEmailFixes extends ZMObject {
             $context['textMessage'] = $context['text_msg'];
         }
 
+        if ('product_notification' == $template) {
+            $account = new ZMAccount();
+            $account->setFirstName($context['EMAIL_FIRST_NAME']);
+            $account->setLastName($context['EMAIL_LAST_NAME']);
+            $context['currentAccount'] = $account;
+            $context['message'] = $context['text_msg'];
+            $context['htmlMessage'] = $context['EMAIL_MESSAGE_HTML'];
+        }
+
         $args['context'] = $context;
         return $args;
     }

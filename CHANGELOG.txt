@@ -151,6 +151,11 @@ Release 0.9.11
 	formatting, though)
 - convert all themes to using the new block code for sidebox rendering
 - added ZMManufacturers::getManufactuerForName()
+- add basic email preview for all current emails
+- add fixes to make product notification emails use ZM standard vars rather
+  the raw zencart context variables (old code will still work, though)
+	NOTE: the currentAccount object used is not a fully populated instance and
+	only first and last name should be used
 
 Release 0.9.10
 - restructure store and admin code into separate apps with most of the store

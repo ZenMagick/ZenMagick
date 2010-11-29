@@ -28,9 +28,9 @@
 <body>
 <body>
 <div style="font-family:Verdana,Arial,Helvetica,sans-serif;font-size:10pt;">
-<p><?php _vzm("Dear %s %s,", $EMAIL_FIRST_NAME, $EMAIL_LAST_NAME) ?></p>
+<p><?php _vzm("Dear %s %s,", $currentAccount->getFirstName(), $currentAccount->getLastName()) ?></p>
 
-<div><?php echo $EMAIL_MESSAGE_HTML; ?></div>
+<div><?php echo $htmlMessage ?></div>
 
 <?php echo $utils->staticPageContent('email_advisory') ?>
 </div>

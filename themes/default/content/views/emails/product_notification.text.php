@@ -21,8 +21,8 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 ?>
-<?php _vzm("Dear %s %s,", $EMAIL_FIRST_NAME, $EMAIL_LAST_NAME) ?>
+<?php _vzm("Dear %s %s,", $currentAccount->getFirstName(), $currentAccount->getLastName()) ?>
 
-<?php echo strip_tags($EMAIL_MESSAGE_HTML) ?>
+<?php echo $message ?>
 
 <?php echo strip_tags($utils->staticPageContent('email_advisory')) ?>
