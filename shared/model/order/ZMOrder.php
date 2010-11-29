@@ -48,6 +48,7 @@ class ZMOrder extends ZMObject {
         parent::__construct();
         $this->setId(0);
         $this->account_ = null;
+        $this->accountId_ = 0;
         $this->shippingAddress_ = null;
         $this->billingAddress_ = null;
     }

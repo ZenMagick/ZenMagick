@@ -215,6 +215,9 @@ class ZMSavantView extends ZMView {
             }
         }
 
+        $this->savant_->assign('view', $this);
+        $this->savant_->assign('request', $request);
+
         return $this->savant_;
     }
 
@@ -331,8 +334,15 @@ class ZMSavantView extends ZMView {
     /**
      * {@inheritDoc}
      */
-    public function path($filename, $type=ZMView::TEMPLATE) {
+    public function path($request, $filename, $type=ZMView::TEMPLATE) {
         return $this->getSavant($request)->path($filename, $type);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function find($request, $path, $regexp=null, $type=ZMView::RESOURCE) {
+        return $this->getSavant($request)->find($path, $regexp, $type);
     }
 
 }

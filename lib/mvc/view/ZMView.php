@@ -218,12 +218,13 @@ abstract class ZMView extends ZMObject {
     /**
      * Resolve the given templates filename to a fully qualified filename.
      *
+     * @param request The current request.
      * @param string filename The filename, relative to the template path.
      * @param string type The lookup type; valid values are <code>ZMView::TEMPLATE</code> and <code>ZMView::RESOURCE</code>;
      *  default is <code>ZMVIew::TEMPLATE</code>.
      * @return string A fully qualified filename or <code>null</code>.
      */
-    public abstract function path($filename, $type=ZMView::TEMPLATE);
+    public abstract function path($request, $filename, $type=ZMView::TEMPLATE);
 
     /**
      * Get view utils.
@@ -231,5 +232,35 @@ abstract class ZMView extends ZMObject {
      * @return ZMViewUtils An instance of <code>ZMViewUtils</code> or <code>null</code>.
      */
     public abstract function getViewUtils();
+
+    /**
+     * Find templates/resources for the given path.
+     *
+     * <p><strong>Example:</strong></p>
+     *
+     * <p>Find all styles in a particular folder (<em>style</em>).</p>
+     * <code><pre>
+     *   $styles = $this->find('style', '/css/');
+     *   foreach ($styles as $name => $url) {
+     *    echo '<link rel="stylesheet" type="text/css" href="'.$url.'"/>';
+     *   }
+     * </pre></code>
+     *
+     * <p>Alternatively, using the build in $resource helper, it would look like this:</p>
+     * <code><pre>
+     *   $styles = $this->find('style', '/css/');
+     *   foreach ($styles as $name => $url) {
+     *    $resource->cssFile($name);
+     *   }
+     * </pre></code>
+     *
+     * @param request The current request.
+     * @param string path The base path, relative to the template/resource path.
+     * @param string regexp Optional filter expression; default is <code>null</code> for none.
+     * @param string type The lookup type; valid values are <code>ZMView::TEMPLATE</code> and <code>ZMView::RESOURCE</code>;
+     *  default is <code>ZMView::RESOURCE</code>.
+     * @return array A map of matching filename/relative url pairs.
+     */
+    public abstract function find($request, $path, $regexp=null, $type=ZMView::RESOURCE);
 
 }

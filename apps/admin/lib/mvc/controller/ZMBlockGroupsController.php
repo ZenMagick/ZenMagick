@@ -22,12 +22,12 @@
 
 
 /**
- * Admin controller for blocks page.
+ * Admin controller for block groups.
  *
  * @author DerManoMann
  * @package zenmagick.store.admin.mvc.controller
  */
-class ZMBlocksController extends ZMController {
+class ZMBlockGroupsController extends ZMController {
 
     /**
      * Create new instance.

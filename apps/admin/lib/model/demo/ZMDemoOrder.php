@@ -1,6 +1,6 @@
 <?php
 /*
- * ZenMagick - Another PHP framework.
+ * ZenMagick - Smart e-commerce
  * Copyright (C) 2006-2010 zenmagick.org
  *
  * This program is free software; you can redistribute it and/or modify
@@ -22,18 +22,20 @@
 
 
 /**
- * A view using a function to generate content.
+ * Demo order.
  *
  * @author DerManoMann
- * @package org.zenmagick.mvc.view
+ * @package zenmagick.store.admin.model.demo
  */
-class ZMFunctionView extends ZMView {
+class ZMDemoOrder extends ZMOrder {
 
     /**
      * Create new instance.
      */
     function __construct() {
         parent::__construct();
+        $this->setId(3);
+        $this->setOrderDate(time());
     }
 
     /**
@@ -47,61 +49,43 @@ class ZMFunctionView extends ZMView {
     /**
      * {@inheritDoc}
      */
-    public function fetch($request, $template, $vars=array()) {
-        throw new ZMException('not supported');
+    public function getAccount() {
+        return new ZMDemoAccount();
     }
 
     /**
      * {@inheritDoc}
      */
-    public function exists($request, $template, $type=ZMView::TEMPLATE) {
-        throw new ZMException('not supported');
+    public function getShippingAddress() { 
+        return new ZMDemoAddress();
     }
 
     /**
      * {@inheritDoc}
      */
-    public function asUrl($request, $template, $type=ZMView::TEMPLATE) {
-        throw new ZMException('not supported');
+    public function getBillingAddress() { 
+        return new ZMDemoAddress();
     }
 
     /**
      * {@inheritDoc}
      */
-    public function path($request, $template, $type=ZMView::TEMPLATE) {
-        throw new ZMException('not supported');
+    public function getOrderItems() { 
+        return array(new ZMDemoOrderItem(1), new ZMDemoOrderItem(2));
     }
 
     /**
      * {@inheritDoc}
      */
-    public function find($request, $path, $regexp=null, $type=ZMView::RESOURCE) {
-        throw new ZMException('not supported');
+    public function getOrderTotalLines() {
+        return array(new ZMOrderTotalLine('Tax', 9, '$9.00'), new ZMOrderTotalLine('Subtotal', 119.20, '$119.20'), new ZMOrderTotalLine('Total', 119.20, '$119.20'));
     }
 
     /**
      * {@inheritDoc}
      */
-    public function isValid($request) {
-        return true;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getViewUtils() {
-        return null;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function generate($request) {
-        ob_start();
-        if ($this->getFunction()) {
-            call_user_func($this->getFunction());
-        }
-        return ob_get_clean();
+    public function getPaymentType() {
+        return new ZMDemoPaymentType();
     }
 
 }

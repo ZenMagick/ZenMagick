@@ -93,7 +93,14 @@ class ZMForwardView extends ZMView {
     /**
      * {@inheritDoc}
      */
-    public function path($template, $type=ZMView::TEMPLATE) {
+    public function path($request, $template, $type=ZMView::TEMPLATE) {
+        throw new ZMException('not supported');
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function find($request, $path, $regexp=null, $type=ZMView::RESOURCE) {
         throw new ZMException('not supported');
     }
 

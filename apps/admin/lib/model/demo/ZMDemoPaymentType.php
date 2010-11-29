@@ -1,6 +1,6 @@
 <?php
 /*
- * ZenMagick - Another PHP framework.
+ * ZenMagick - Smart e-commerce
  * Copyright (C) 2006-2010 zenmagick.org
  *
  * This program is free software; you can redistribute it and/or modify
@@ -22,12 +22,12 @@
 
 
 /**
- * A view using a function to generate content.
+ * Demo payment type.
  *
  * @author DerManoMann
- * @package org.zenmagick.mvc.view
+ * @package zenmagick.store.admin.model.demo
  */
-class ZMFunctionView extends ZMView {
+class ZMDemoPaymentType extends ZMObject implements ZMPaymentType {
 
     /**
      * Create new instance.
@@ -47,61 +47,71 @@ class ZMFunctionView extends ZMView {
     /**
      * {@inheritDoc}
      */
-    public function fetch($request, $template, $vars=array()) {
-        throw new ZMException('not supported');
+    public function getId() {
+        return 'demo';
     }
 
     /**
      * {@inheritDoc}
      */
-    public function exists($request, $template, $type=ZMView::TEMPLATE) {
-        throw new ZMException('not supported');
+    public function getName() {
+        return 'Demo Payment';
     }
 
     /**
      * {@inheritDoc}
      */
-    public function asUrl($request, $template, $type=ZMView::TEMPLATE) {
-        throw new ZMException('not supported');
+    public function getTitle() {
+        return 'Demo Payment';
     }
 
     /**
      * {@inheritDoc}
      */
-    public function path($request, $template, $type=ZMView::TEMPLATE) {
-        throw new ZMException('not supported');
+    public function getDescription() {
+        return 'Demo Payment Type';
     }
 
     /**
      * {@inheritDoc}
      */
-    public function find($request, $path, $regexp=null, $type=ZMView::RESOURCE) {
-        throw new ZMException('not supported');
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function isValid($request) {
-        return true;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getViewUtils() {
+    public function getError() {
         return null;
     }
 
     /**
      * {@inheritDoc}
      */
-    public function generate($request) {
-        ob_start();
-        if ($this->getFunction()) {
-            call_user_func($this->getFunction());
-        }
-        return ob_get_clean();
+    public function getFields() {
+      return array();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getInfo() {
+        return '';
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getFormValidationJS($request) {
+        return null;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getOrderFormContent($request) {
+        return null;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getOrderFormUrl($request) {
+        return null;
     }
 
 }

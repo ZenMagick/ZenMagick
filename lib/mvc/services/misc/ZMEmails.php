@@ -30,16 +30,21 @@
  *  <code>ZMUrlManager::instance()->findView(null, 'emails')</code>, so if you need special settings, etc.
  *  it is possible to configure that via the regular url mappings.</p>
  *
+ * <p>The default view view id is <em>emails</em>.</p>
+ *
  * @author DerManoMann
  * @package org.zenmagick.mvc.services.misc
  */
 class ZMEmails extends ZMObject {
+    private $viewViewId_;
+
 
     /**
      * Create new instance.
      */
     function __construct() {
         parent::__construct();
+        $this->viewViewId_ = 'emails';
     }
 
     /**
@@ -58,6 +63,24 @@ class ZMEmails extends ZMObject {
 
 
     /**
+     * Set the view id to be used to lookup the view to format email content.
+     *
+     * @param string viewId The new view id.
+     */
+    public function setViewViewId($viewId) {
+        $this->viewViewId_ = $viewId;
+    }
+
+    /**
+     * Get the view id to be used to lookup the view to format email content.
+     *
+     * @return string The view id.
+     */
+    public function getViewViewId() {
+        return $this->viewViewId_;
+    }
+
+    /**
      * Get available formats.
      *
      * @param string template The template name.
@@ -66,7 +89,7 @@ class ZMEmails extends ZMObject {
      */
     public function getFormatsForTemplate($template, $request) {
         // use configured/default view for viewId 'emails'
-        $view = ZMUrlManager::instance()->findView(null, 'emails');
+        $view = ZMUrlManager::instance()->findView(null, $this->viewViewId_);
         // check for html/text versions
         $templateBase = 'emails'.DIRECTORY_SEPARATOR.$template;
         $formats = array();
@@ -106,7 +129,7 @@ class ZMEmails extends ZMObject {
         }
 
         // set up view
-        $view = ZMUrlManager::instance()->findView(null, 'emails');
+        $view = ZMUrlManager::instance()->findView(null, $this->viewViewId_);
         $view->setTemplate('emails'.DIRECTORY_SEPARATOR.$template.'.'.$format);
         // disable layout for now
         $view->setLayout(null);

@@ -60,7 +60,7 @@
 ?>
 
 <?php $admin2->title(_zm('Edit Define Pages')) ?></h1>
-<form action="<?php echo $admin2->url() ?>" method="get">
+<form action="<?php echo $admin2->url() ?>" method="GET">
   <input type="hidden" name="rid" value="static_page_editor">
   <h2>ZenMagick Static Page Editor (
           <select id="languageId" name="languageId" onchange="this.form.submit();">

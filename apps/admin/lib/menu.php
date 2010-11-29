@@ -38,10 +38,12 @@
 
     ZMAdminMenu::setItem(array('parentId' => 'tools', 'id' => 'tools-admin', 'title' => _zm('Admin')));
     ZMAdminMenu::setItem(array('parentId' => 'tools-admin', 'requestId' => 'themes', 'title' => _zm('Themes')));
-    ZMAdminMenu::setItem(array('parentId' => 'tools-admin', 'requestId' => 'blocks', 'title' => _zm('Blocks')));
+    ZMAdminMenu::setItem(array('parentId' => 'tools-admin', 'requestId' => 'block_groups', 'title' => _zm('Blocks')));
     ZMAdminMenu::setItem(array('parentId' => 'tools-admin', 'requestId' => 'admin_users', 'title' => _zm('Manage Users'), 'other' => array('edit_admin_user')));
     ZMAdminMenu::setItem(array('parentId' => 'tools-admin', 'requestId' => 'manage_roles', 'title' => _zm('Manage Roles')));
     ZMAdminMenu::setItem(array('parentId' => 'tools-admin', 'requestId' => 'cache_admin', 'title' => _zm('Manage Caches')));
+    ZMAdminMenu::setItem(array('parentId' => 'tools', 'id' => 'tools-misc', 'title' => _zm('Misc')));
+    ZMAdminMenu::setItem(array('parentId' => 'tools-misc', 'requestId' => 'email_preview', 'title' => _zm('Preview Email Templates')));
 
     // configuration
     ZMAdminMenu::setItem(array('parentId' => 'configuration', 'id' => 'configuration-installation', 'title' => _zm('Installation')));

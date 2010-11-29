@@ -13,6 +13,8 @@ global:
   success-demo:
     view: RedirectView
     template: index
+  store-view:
+    view: SavantView
 
 ## page mappings    
 page:
