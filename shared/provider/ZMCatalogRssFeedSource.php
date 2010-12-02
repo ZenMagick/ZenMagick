@@ -166,7 +166,7 @@ class ZMCatalogRssFeedSource implements ZMRssSource {
                 $tags = array('id', 'path', 'children');
                 $item->set('id', $category->getId());
                 $item->set('path', implode('_', $category->getPathArray()));
-                $item->set('children', array('id' => $category->getChildIds(false)));
+                $item->set('children', array('id' => $category->getDecendantIds(false)));
 
                 if ($isCatalog) {
                     $tags[] = 'type';

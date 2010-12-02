@@ -209,23 +209,16 @@ class ZMCategories extends ZMObject {
      * Invalidate all cache entries.
      *
      * @param int languageId The language id.
+     * @param ZMCategory category Optional category to update in runtime cache; default is <code>null</code>.
      */
-    protected function invalidateCache($languageId) {
+    protected function invalidateCache($languageId, $category=null) {
         $this->cache_->remove(ZMLangUtils::mkUnique('categories', 'categories', $languageId));
         $this->cache_->remove(ZMLangUtils::mkUnique('categories', 'rootCategories', $languageId));
         $this->cache_->remove(ZMLangUtils::mkUnique('categories', 'productTypeIdMap'));
-    }
 
-    /**
-     * Update an existing category.
-     *
-     * @param ZMCategory category The category.
-     * @return Category The updated category.
-     */
-    public function updateCategory($category) {
-        ZMRuntime::getDatabase()->updateModel(TABLE_CATEGORIES, $category);
-        ZMRuntime::getDatabase()->updateModel(TABLE_CATEGORIES_DESCRIPTION, $category);
-        $this->invalidateCache($category->getLanguageId());
+        if (null != $category && array_key_exists($languageId, $this->categories_)) {
+            $this->categories_[$languageId][$category->getId()] = $category;
+        }
     }
 
     /**
@@ -235,10 +228,88 @@ class ZMCategories extends ZMObject {
      * @return Category The updated category.
      */
     public function createCategory($category) {
+        $languageId = $category->getLanguageId();
+        $parent = null;
+        if (0 != $category->getParentId()) {
+            if (null == ($parent = $this->getCategoryForId($category->getParentId(), $languageId))) {
+                // invalid parent
+                $category->setParentId(0);        
+            }
+        }
         $category = ZMRuntime::getDatabase()->createModel(TABLE_CATEGORIES, $category);
         $category = ZMRuntime::getDatabase()->createModel(TABLE_CATEGORIES_DESCRIPTION, $category);
         $this->invalidateCache($category->getLanguageId());
+
+        // update children
+        foreach ($category->getChildren() as $child) {
+            $child->setParentId($category->getId());
+            ZMRuntime::getDatabase()->updateModel(TABLE_CATEGORIES, $child);
+            $this->invalidateCache($languageId, $child);
+        }
+
+        $this->invalidateCache($category->getLanguageId(), $category);
+
         return $category;
+    }
+
+    /**
+     * Update an existing category.
+     *
+     * @param ZMCategory category The category.
+     * @return Category The updated category.
+     */
+    public function updateCategory($category) {
+        $languageId = $category->getLanguageId();
+        ZMRuntime::getDatabase()->updateModel(TABLE_CATEGORIES, $category);
+        ZMRuntime::getDatabase()->updateModel(TABLE_CATEGORIES_DESCRIPTION, $category);
+        $this->invalidateCache($languageId, $category);
+
+        // two way check of parent/child relationships
+        $childIds = array_keys($category->getChildren());
+        foreach ($this->getCategories($languageId) as $cat) {
+            if ($cat->getParentId() != $category->getId() && in_array($cat->getId(), $childIds)) {
+                // new child
+                $cat->setParentId($category->getId());
+                ZMRuntime::getDatabase()->updateModel(TABLE_CATEGORIES, $cat);
+                $this->invalidateCache($languageId, $cat);
+            }
+
+            // check for removed children
+            if ($cat->getParentId() == $category->getId() && !in_array($cat->getId(), $childIds)) {
+                // removed
+                $cat->setParentId(0);
+                ZMRuntime::getDatabase()->updateModel(TABLE_CATEGORIES, $cat);
+                $this->invalidateCache($languageId, $cat);
+            }
+        }
+
+        return $category;
+    }
+
+    /**
+     * Delete a category.
+     *
+     * @param ZMCategory category The category.
+     */
+    public function deleteCategory($category) {
+        $languageId = $category->getLanguageId();
+        ZMRuntime::getDatabase()->removeModel(TABLE_CATEGORIES, $category);
+        ZMRuntime::getDatabase()->removeModel(TABLE_CATEGORIES_DESCRIPTION, $category);
+        $this->invalidateCache($category->getLanguageId());
+
+        if (array_key_exists($languageId, $this->categories_) && array_key_exists($category->getId(), $this->categories_[$languageId])) {
+            unset($this->categories_[$languageId][$category->getId()]);
+        }
+
+        // check for dangling child categories
+        $categoryId = $category->getId();
+        foreach ($this->getCategories($category->getLanguageId()) as $cat) {
+            if ($cat->getParentId() == $categoryId) {
+                $cat->setParentId(0);
+                ZMRuntime::getDatabase()->updateModel(TABLE_CATEGORIES, $cat);
+                $this->invalidateCache($languageId, $cat);
+            }
+        }
     }
 
     /**

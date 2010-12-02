@@ -156,6 +156,8 @@ Release 0.9.11
   the raw zencart context variables (old code will still work, though)
 	NOTE: the currentAccount object used is not a fully populated instance and
 	only first and last name should be used
+- add proper create/update/delete category methods in ZMCategories
+- rename ZMCategory::getChildIds() to getDecendantIds()
 
 Release 0.9.10
 - restructure store and admin code into separate apps with most of the store

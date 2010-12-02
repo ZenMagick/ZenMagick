@@ -34,7 +34,7 @@ class TestZMCategory extends ZMTestCase {
     public function testChildIds() {
         $expect = array(3, 10, 13, 12, 15, 11, 14);
         $category = ZMCategories::instance()->getCategoryForId(3, 1);
-        $ids = $category->getChildIds();
+        $ids = $category->getDecendantIds();
         $this->assertEqual(count($expect), count($ids));
         foreach ($expect as $id) {
             $this->assertTrue(in_array($id, $ids));
@@ -47,7 +47,7 @@ class TestZMCategory extends ZMTestCase {
     public function testChildIdsExclude() {
         $expect = array(10, 13, 12, 15, 11, 14);
         $category = ZMCategories::instance()->getCategoryForId(3, 1);
-        $ids = $category->getChildIds(false);
+        $ids = $category->getDecendantIds(false);
         $this->assertEqual(count($expect), count($ids));
         foreach ($expect as $id) {
             $this->assertTrue(in_array($id, $ids));

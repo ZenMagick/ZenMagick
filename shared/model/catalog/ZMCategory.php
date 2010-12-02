@@ -53,6 +53,8 @@ class ZMCategory extends ZMObject {
         $this->childrenIds_ = array();
         $this->image_ = null;
         $this->languageId_ = 0;
+        $this->setDateAdded(null);
+        $this->setLastModified(null);
     }
 
     /**
@@ -60,10 +62,6 @@ class ZMCategory extends ZMObject {
      */
     function __destruct() {
         parent::__destruct();
-    }
-
-    public function X__sleep() {
-        return array('name_', 'active_', 'parentId_', 'childrenIds_', 'image_', 'languageId_', 'sortOrder_', 'properties_');
     }
 
 
@@ -128,7 +126,7 @@ class ZMCategory extends ZMObject {
     /**
      * Get the child categories of this category.
      *
-     * @return array A list of <code>ZMcategory</code> instances.
+     * @return array A list of <code>ZMCategory</code> instances.
      */
     public function getChildren() { 
         return ZMCategories::instance()->getCategories($this->languageId_, $this->childrenIds_);
@@ -144,6 +142,22 @@ class ZMCategory extends ZMObject {
         if (!in_array($id, $this->childrenIds_)) {
             $this->childrenIds_[] = $id;
         }
+    }
+
+    /**
+     * Remove a child category.
+     *
+     * @param mixed child Either a category or category id.
+     */
+    public function removeChild($child) { 
+        $cid = ($child instanceof ZMCategory)  ? $child->getId() : $child;
+        $tmp = array();
+        foreach ($this->childrenIds_ as $id) {
+            if ($id != $cid) {
+                $tmp[] = $id;
+            }
+        }
+        $this->childrenIds_ = $tmp;
     }
 
     /**
@@ -262,18 +276,20 @@ class ZMCategory extends ZMObject {
     public function setLanguageId($languageId) { $this->languageId_ = $languageId; }
 
     /**
-     * Get a list of all child category ids.
+     * Get a list of <strong>all</strong> decendant category ids.
+     *
+     * <p>This is a recursive function. If you only want the direct children use <code>getChildren()</code>.</p>
      *
      * @param boolean includeSelf Optional flag to include this category in the list; default is <code>true</code>.
      * @return array A list of category ids.
      */
-    public function getChildIds($includeSelf=true) {
+    public function getDecendantIds($includeSelf=true) {
         $ids = array();
         if ($includeSelf) {
             $ids[] = $this->properties_['categoryId'];
         }
         foreach ($this->getChildren() as $child) {
-            $childIds = $child->getChildIds(true);
+            $childIds = $child->getDecendantIds(true);
             $ids = array_merge($ids, $childIds);
         }
         return $ids;
