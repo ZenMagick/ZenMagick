@@ -119,7 +119,7 @@ class ZMCategories extends ZMObject {
                     AND c.parent_id = 0
                   ORDER BY c.parent_id, sort_order, cd.categories_name";
         $args = array('languageId' => $languageId);
-        foreach (Runtime::getDatabase()->query($sql, $args, array(TABLE_CATEGORIES, TABLE_CATEGORIES_DESCRIPTION), 'Category') as $category) {
+        foreach (ZMRuntime::getDatabase()->query($sql, $args, array(TABLE_CATEGORIES, TABLE_CATEGORIES_DESCRIPTION), 'Category') as $category) {
             $rootCategories[$category->getId()] = $category;
         }
 
@@ -310,6 +310,12 @@ class ZMCategories extends ZMObject {
                 $this->invalidateCache($languageId, $cat);
             }
         }
+
+        // remove all product/category mappings
+        $sql = "DELETE FROM " . TABLE_PRODUCTS_TO_CATEGORIES ." WHERE categories_id = :categoryId";
+        ZMRuntime::getDatabase()->update($sql, array('categoryId' => $category->getId()), TABLE_PRODUCTS_TO_CATEGORIES);
+        $sql = "DELETE FROM " . TABLE_PRODUCT_TYPES_TO_CATEGORY ." WHERE category_id = :categoryId";
+        ZMRuntime::getDatabase()->update($sql, array('categoryId' => $category->getId()), TABLE_PRODUCT_TYPES_TO_CATEGORY);
     }
 
     /**
@@ -331,7 +337,7 @@ class ZMCategories extends ZMObject {
         $productTypeIdMap = array();
         $sql = "SELECT * FROM " . TABLE_PRODUCT_TYPES_TO_CATEGORY ."
                 ORDER BY category_id";
-        foreach (Runtime::getDatabase()->query($sql, array(), TABLE_PRODUCT_TYPES_TO_CATEGORY) as $result) {
+        foreach (ZMRuntime::getDatabase()->query($sql, array(), TABLE_PRODUCT_TYPES_TO_CATEGORY) as $result) {
             if (!array_key_exists($result['categoryId'],  $productTypeIdMap)) {
                 $productTypeIdMap[$result['categoryId']] = array();
             }
@@ -361,7 +367,7 @@ class ZMCategories extends ZMObject {
         $sql .= " ORDER BY c.parent_id, sort_order, cd.categories_name";
 
         $categories = array();
-        foreach (Runtime::getDatabase()->query($sql, $args, array(TABLE_CATEGORIES, TABLE_CATEGORIES_DESCRIPTION), 'Category') as $category) {
+        foreach (ZMRuntime::getDatabase()->query($sql, $args, array(TABLE_CATEGORIES, TABLE_CATEGORIES_DESCRIPTION), 'Category') as $category) {
             $categories[$category->getId()] = $category;
         }
 
