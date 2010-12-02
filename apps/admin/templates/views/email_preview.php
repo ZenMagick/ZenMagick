@@ -20,6 +20,14 @@
 ?>
 <?php $admin2->title() ?>
 
+<script>
+  function load_preview(template, format) {
+    var urlTemplate = '<?php echo $admin2->url(null, 'template=##TEMPLATE##'.$name.'&format=##FORMAT##') ?>';
+    var url = urlTemplate.replace('##TEMPLATE##', template).replace('##FORMAT##', format);
+    $('#preview').attr('src', url);
+  }
+</script>
+
 <table class="grid">
   <tr>
     <th><?php _vzm('Template') ?></th>
@@ -32,17 +40,19 @@
       <?php
         $textLink = null;
         if (in_array('text', $formats)) {
-            $textLink = '<a target="_blank" href="'.$admin2->url(null, 'template='.$name.'&format=text').'">'._zm('Show').'</a>';
+            $textLink = '<a target="_blank" href="'.$admin2->url(null, 'template='.$name.'&format=text').'" onclick="load_preview(\''.$name.'\', \'text\'); return false;">'._zm('Show').'</a>';
         }
       ?>
       <td><?php echo (null != $textLink ? $textLink : '') ?></td>
       <?php
         $htmlLink = null;
         if (in_array('html', $formats)) {
-            $htmlLink = '<a target="_blank" href="'.$admin2->url(null, 'template='.$name.'&format=html').'">'._zm('Show').'</a>';
+            $htmlLink = '<a target="_blank" href="'.$admin2->url(null, 'template='.$name.'&format=html').'" onclick="load_preview(\''.$name.'\', \'html\'); return false;">'._zm('Show').'</a>';
         }
       ?>
       <td><?php echo (null != $htmlLink ? $htmlLink : '') ?></td>
     </tr>
   <?php } ?>
 </table>
+
+<iframe id="preview" name="preview" width="100%" height="400px" scrolling="auto"></iframe>
