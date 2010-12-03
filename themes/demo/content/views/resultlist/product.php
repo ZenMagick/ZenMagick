@@ -23,7 +23,6 @@
 ?>
 
 <tr class="<?php echo ($odd?"odd":"even").($first?" first":" other") ?>">
-    <td class="cpt"><input type="checkbox" name="compareId[]" value="<?php echo $product->getId() ?>" /></td>
     <!-- need id on link to identify the product -->
     <td><a href="<?php echo $net->product($product->getId(), $request->getCategoryId()) ?>" id="product_<?php echo $product->getId() ?>" class="product"><?php echo $html->image($product->getImageInfo(), ZMProducts::IMAGE_SMALL) ?></a></td>
     <td class="pinfo">

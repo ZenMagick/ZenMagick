@@ -158,6 +158,7 @@ Release 0.9.11
 	only first and last name should be used
 - add proper create/update/delete category methods in ZMCategories
 - rename ZMCategory::getChildIds() to getDecendantIds()
+- remove leftover product comparison code
 
 Release 0.9.10
 - restructure store and admin code into separate apps with most of the store

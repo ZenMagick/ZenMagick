@@ -72,20 +72,17 @@
         <?php echo $this->fetch('views/resultlist/options.php') ?>
     </div>
 
-    <?php echo $form->open('compare_products', '', false, array('method' => 'get')) ?>
-        <div class="rlist">
-            <table cellspacing="0" cellpadding="0"><tbody>
-                <?php $first = true; $odd = true; foreach ($resultList->getResults() as $product) {
-                    $this->assign(array('product' => $product, 'first' => $first, 'odd' => $odd)); ?>
-                  <?php echo $this->fetch('views/resultlist/product.php') ?>
-                <?php $first = false; $odd = !$odd; } ?>
-            </tbody></table>
-        </div>
-        <div class="rnblk">
-            <?php echo $this->fetch('views/resultlist/compare.php') ?>
-            <?php echo $this->fetch('views/resultlist/nav.php') ?>
-        </div>
-    </form>
+    <div class="rlist">
+        <table cellspacing="0" cellpadding="0"><tbody>
+            <?php $first = true; $odd = true; foreach ($resultList->getResults() as $product) {
+                $this->assign(array('product' => $product, 'first' => $first, 'odd' => $odd)); ?>
+              <?php echo $this->fetch('views/resultlist/product.php') ?>
+            <?php $first = false; $odd = !$odd; } ?>
+        </tbody></table>
+    </div>
+    <div class="rnblk">
+        <?php echo $this->fetch('views/resultlist/nav.php') ?>
+    </div>
 <?php } else { ?>
     <h2><?php _vzm("There are no products in this category") ?></h2>
 <?php } ?>

@@ -283,12 +283,6 @@ div#eztoc p a:hover {text-decoration:none;}
 #b_contact_us label {width:11em;float:left;}
 #b_contact_us fieldset br {clear:left;}
 
-/* product comparison */
-#pcompare {border-bottom:1px solid gray;border-right:1px solid gray;width:98%;margin-bottom:6px;}
-#pcompare th {text-align:center;}
-#pcompare th a {display:block;}
-#pcompare th, #pcompare td {padding:2px;border-top:1px solid gray;border-left:1px solid gray;}
-
 /* index */
 #b_index h3 {text-decoration:underline;}
 #featured div {float:left;width:150px;min-height:195px;_height:195px;border:1px dotted gray;text-align:center;margin:3px 6px 6px 0;}

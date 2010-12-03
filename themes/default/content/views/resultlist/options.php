@@ -49,8 +49,6 @@
                     <input type="hidden" name="cPath" value="<?php echo $request->getCategoryPath() ?>" />
                 <?php } else if ($request->getManufacturerId()) { ?>
                     <input type="hidden" name="manufacturers_id" value="<?php echo $request->getManufacturerId() ?>" />
-                <?php } else if (null != $request->getParameter("compareId")) { ?>
-                    <?php echo $form->hiddenList('compareId[]',$request->getParameter("compareId")) ?>
                 <?php } ?>
 
                 <select id="sort" name="sort_id" onchange="this.form.submit()">
