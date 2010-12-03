@@ -52,6 +52,8 @@ class ZMTaxRate extends ZMObject {
         $this->classId_ = 0;
         $this->countryId_ = 0;
         $this->zoneId_ = 0;
+        $this->setDateAdded(null);
+        $this->setLastModified(null);
     }
 
     /**

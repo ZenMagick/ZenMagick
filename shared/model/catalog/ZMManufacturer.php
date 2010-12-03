@@ -51,6 +51,8 @@ class ZMManufacturer extends ZMObject {
         $this->url_ = null;
         $this->clickCount_ = 0;
         $this->lastClick_ = null;
+        $this->setDateAdded(null);
+        $this->setLastModified(null);
     }
 
     /**

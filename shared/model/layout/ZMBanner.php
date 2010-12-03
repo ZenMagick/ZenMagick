@@ -52,6 +52,8 @@ class ZMBanner extends ZMObject {
         $this->isNewWin_ = false;
         $this->url_ = null;
         $this->active_ = true;
+        $this->setDateAdded(null);
+        $this->setLastModified(null);
     }
 
     /**

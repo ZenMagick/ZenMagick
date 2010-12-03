@@ -90,6 +90,8 @@ class ZMProduct extends ZMObject {
         $this->qtyBoxStatus_ = 1;
         $this->priceSorter_ = 0;
         $this->languageId_ = 0;
+        $this->setDateAdded(null);
+        $this->setLastModified(null);
     }
 
     /**

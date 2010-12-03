@@ -46,9 +46,10 @@ class ZMOrderStatus extends ZMObject {
         $this->setId(0);
         $this->orderId_ = 0;
         $this->setName(null);
-        $this->dateAdded_ = null;
         $this->customerNotified_ = false;
         $this->comment_ = null;
+        $this->setDateAdded(null);
+        $this->setLastModified(null);
     }
 
     /**
