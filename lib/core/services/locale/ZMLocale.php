@@ -85,6 +85,8 @@ interface ZMLocale {
     /**
      * Get a format.
      *
+     * <p>The format strings returned are expected to be used in conjunction with the <code>DateTime</code> class.</p>
+     *
      * @param string group The format group. Can be one of <em>date</em> or <em>time</em>.
      * @param string type One of <em>short</em> or <em>long</em>.
      * @return string A format string or <code>null</code>.

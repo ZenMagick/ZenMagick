@@ -54,7 +54,7 @@
             </tr>
             <tr>
                 <td><?php _vzm("Date of Birth") ?></td>
-                <td><input type="text" name="dob" value="<?php echo $locale->shortDate($account->getDob()) ?>"> <?php echo sprintf(_zm("Format: %s;&nbsp;(e.g: %s)"), _zm('date-long-ui-format'), _zm('date-long-ui-example')) ?></td>
+                <td><input type="text" name="dob" value="<?php echo $locale->longDate($account->getDob(), ZMLocales::instance()->getLocale()->getFormat('date', 'long')) ?>"></td>
             </tr>
             <tr>
                 <td><?php _vzm("E-Mail Address") ?></td>

@@ -52,7 +52,7 @@ class ZMRegistrationForm extends ZMFormData {
         }
 
         // special treatment
-        $properties['dob'] = DateTime::createFromFormat(_zm('date-long'), $properties['dob']);
+        $properties['dob'] = DateTime::createFromFormat(ZMLocales::instance()->getLocale()->getFormat('date', 'long'), $properties['dob']);
 
         $account = ZMBeanUtils::setAll($account, $properties);
         return $account;

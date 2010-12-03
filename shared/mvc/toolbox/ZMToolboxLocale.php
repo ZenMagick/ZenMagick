@@ -29,7 +29,7 @@
 class ZMToolboxLocale extends ZMToolboxTool {
 
     /**
-     * Format and display a date using the magic locale key (<em>date-short</em>).
+     * Format and display a date using the locales date/short.
      *
      * @param string date The date.
      * @param string format Optional format string to override the format provided by the active <code>ZMLocale</code>; default is <code>null</code>.
@@ -45,7 +45,7 @@ class ZMToolboxLocale extends ZMToolboxTool {
     }
 
     /**
-     * Format and display a date using the magic locale key (<em>date-long</em>).
+     * Format and display a date using the locales date/long.
      *
      * @param string date The date.
      * @param string format Optional format string to override the format provided by the active <code>ZMLocale</code>; default is <code>null</code>.

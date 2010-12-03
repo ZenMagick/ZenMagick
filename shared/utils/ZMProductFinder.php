@@ -206,14 +206,15 @@ class ZMProductFinder {
         }
         $where .= ')';
 
+        $dateFormat = ZMLocales::instance()->getLocale()->getFormat('date', 'long');
         if (!ZMLangUtils::isEmpty($criteria->getDateFrom())) {
             $where .= " AND p.products_date_added >= :1#dateAdded";
-            $args['1#dateAdded'] = DateTime::createFromFormat(_zm('date-long'), $criteria->getDateFrom());
+            $args['1#dateAdded'] = DateTime::createFromFormat($dateFormat, $criteria->getDateFrom());
         }
 
         if (!ZMLangUtils::isEmpty($criteria->getDateTo())) {
             $where .= " AND p.products_date_added <= :2#dateAdded";
-            $args['2#dateAdded'] = DateTime::createFromFormat(_zm('date-long'), $criteria->getDateTo());
+            $args['2#dateAdded'] = DateTime::createFromFormat($dateFormat, $criteria->getDateTo());
         }
 
         if ($criteria->isIncludeTax()) {

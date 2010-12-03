@@ -35,12 +35,12 @@ class ZMDateRule extends ZMRule {
      * Create new date rule.
      *
      * @param string name The field name.
-     * @param string format The date format (eg: DD/MM/YYYY); if not set, <code>_zm('date-long')</code> will be used; default is <code>null</code>.
+     * @param string format The date format (eg: DD/MM/YYYY); if not set, the date/long format of the current locale will be used.
      * @param string msg Optional message.
      */
     function __construct($name, $format=null, $msg=null) {
         parent::__construct($name, "Please enter a valid date (%s).", $msg);
-        $this->format_ = null != $format ? $format : _zm('date-long');
+        $this->format_ = null != $format ? $format : ZMLocales::instance()->getLocale->getFormat('date', 'long');
     }
 
     /**
