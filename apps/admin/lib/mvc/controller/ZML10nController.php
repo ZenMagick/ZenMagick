@@ -94,9 +94,9 @@ class ZML10nController extends ZMController {
         if ($vd['mergeExisting']) {
             $theme = ZMThemes::instance()->getThemeForId($vd['themeId']);
             $language = ZMLanguages::instance()->getLanguageForId($vd['languageId']);
-            $l10nPath = ZMFileUtils::mkPath(array($theme->getBaseDir(), 'lang', $language->getDirectory(), 'l10n.yaml'));
+            $l10nPath = ZMFileUtils::mkPath(array($theme->getBaseDir(), 'lang', $language->getDirectory(), 'locale.yaml'));
             if (file_exists($l10nPath)) {
-                $existingMap = array('l10n.yaml' => ZMRuntime::yamlParse(file_get_contents($l10nPath)));
+                $existingMap = array('locale.yaml' => ZMRuntime::yamlParse(file_get_contents($l10nPath)));
             }
         }
 
@@ -144,7 +144,7 @@ class ZML10nController extends ZMController {
         $data = $this->processInternal($request);
         if ('yaml' == $request->getParameter('download')) {
             header('Content-Type: text/YAML');
-            header('Content-Disposition: attachment; filename=l10n.yaml;');
+            header('Content-Disposition: attachment; filename=locale.yaml;');
             echo ZMLocaleUtils::map2yaml($data['translations']);
             return null;
         } else if ('po' == $request->getParameter('download')) {
