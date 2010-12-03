@@ -26,6 +26,7 @@
      * ZenMagick MVC layout conventions.
      */
 
+    $_zm_cel = error_reporting(-1);
 
     // start time for stats
     define('ZM_START_TIME', microtime());
@@ -121,3 +122,5 @@
 
     // core and plugins loaded
     ZMEvents::instance()->fireEvent(null, ZMEvents::BOOTSTRAP_DONE, array('request' => $_zm_request));
+
+    error_reporting($_zm_cel);

@@ -20,6 +20,8 @@
 ?>
 <?php
 
+    $_zm_cel = error_reporting(-1);
+
     // allow seo rewriters to fiddle with the request
     $_zm_request->seoDecode();
 
