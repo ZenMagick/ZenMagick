@@ -159,6 +159,11 @@ Release 0.9.11
 - add proper create/update/delete category methods in ZMCategories
 - rename ZMCategory::getChildIds() to getDecendantIds()
 - remove leftover product comparison code
+- convert date and datetime format from/to database to DateTime instance
+- deprecate UI_DATE_FORMAT and UI_DATE_FORMAT_SAMPLE; added support for magic
+  keys in i10n.yaml to handle all that
+- use longDate rather than shortDate in dob form field handling; templates:
+  account.php, create_account.php, account_edit.php, advanced_search.php
 
 Release 0.9.10
 - restructure store and admin code into separate apps with most of the store

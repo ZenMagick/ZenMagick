@@ -39,8 +39,8 @@ abstract class ZMAbstractLocale extends ZMObject implements ZMLocale {
     public function __construct() {
         $this->locale_ = null;
         $this->name_ = null;
-        // absolute defaults
-        $this->formats_ = array('date' => array('short' => '%d/%m/%y', 'long' => '%d/%m/%y'), 'time' => array('short' => '%h:%M:%S', 'long' => '%h:%M:%S'));
+        // absolute defaults for DateTime::format()
+        $this->formats_ = array('date' => array('short' => 'd/m/Y', 'long' => 'd/m/Y'), 'time' => array('short' => 'H:i:s', 'long' => 'H:i:s'));
     }
 
     /**

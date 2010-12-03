@@ -62,10 +62,9 @@
 
         <fieldset> 
             <legend><?php _vzm("Date"); ?></legend>
-            <?php /* UI_DATE_FORMAT is defined in the theme's i18n.php setup */ ?>
-            <?php $onfocus = "if(this.value=='" . UI_DATE_FORMAT . "') this.value='';" ?>
-            <input type="text" id="dateFrom" name="dateFrom" value="<?php echo $html->encode($searchCriteria->getDateFrom(UI_DATE_FORMAT)) ?>" onfocus="<?php echo $onfocus ?>" />
-            <input type="text" id="dateTo" name="dateTo" value="<?php echo $html->encode($searchCriteria->getDateTo(UI_DATE_FORMAT)) ?>" onfocus="<?php echo $onfocus ?>" />
+            <?php $onfocus = "if(this.value=='" . _zm('date-long-ui-format') . "') this.value='';" ?>
+            <input type="text" id="dateFrom" name="dateFrom" value="<?php echo $html->encode($searchCriteria->getDateFrom(_zm('date-long-ui-format'))) ?>" onfocus="<?php echo $onfocus ?>" />
+            <input type="text" id="dateTo" name="dateTo" value="<?php echo $html->encode($searchCriteria->getDateTo(_zm('date-long-ui-format'))) ?>" onfocus="<?php echo $onfocus ?>" />
         </fieldset> 
     </fieldset> 
 

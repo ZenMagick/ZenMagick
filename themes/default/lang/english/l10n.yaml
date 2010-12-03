@@ -17,6 +17,17 @@
 #* Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
 #*
 
+# magic date/time formats; see: http://php.net/manual/en/function.date.php
+'date-short': 'd/m/y'
+'date-short-ui-format': 'dd/mm/yy'
+'date-short-ui-example': '16/11/67'
+'date-long': 'd/m/Y'
+'date-long-ui-format': 'dd/mm/yyyy'
+'date-long-ui-example': '16/11/1967'
+'time-short': 'H:i:s'
+'time-long': 'H:i:s'
+
+
 # sort options
 'PRODUCT_LIST_NAME': 'Name'
 'PRODUCT_LIST_PRICE': 'Price'

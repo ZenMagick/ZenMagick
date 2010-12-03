@@ -82,10 +82,10 @@ class ZMProductGroupPricing extends ZMObject {
         $startDate = $request->getParameter('startDate');
         if (empty($startDate)) {
             // default to current date
-            $startDate = ZMTools::translateDateString(date('Y-m-d'), 'yyyy-mm-dd', UI_DATE_FORMAT);
+            $startDate = new DateTime();
         }
-        $this->startDate_ = ZMTools::translateDateString($startDate, UI_DATE_FORMAT, ZM_DATE_FORMAT);
-        $this->endDate_ = ZMTools::translateDateString($request->getParameter('endDate'), UI_DATE_FORMAT, ZM_DATE_FORMAT);
+        $this->startDate_ = DateTime::createFromFormat(_zm('date-long'), $startDate);
+        $this->endDate_ = DateTime::createFromFormat(_zm('date-long'), $request->getParameter('endDate'));
     }
 
 

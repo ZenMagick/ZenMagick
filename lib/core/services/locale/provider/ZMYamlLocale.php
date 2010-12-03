@@ -24,6 +24,18 @@
 /**
  * Locale driven by a single yaml file per language.
  *
+ * <p>Date and time formats can be configured via the following magic mappings:</p>
+ * <dl>
+ *  <dt>date-short</dt>
+ *  <dd>The short date format.</dd>
+ *  <dt>date-long</dt>
+ *  <dd>The long date format.</dd>
+ *  <dt>time-short</dt>
+ *  <dd>The short time format.</dd>
+ *  <dt>time-long</dt>
+ *  <dd>The long time format.</dd>
+ * </dl>
+ *
  * @author DerManoMann
  * @package org.zenmagick.core.services.locale.provider
  */
@@ -86,6 +98,20 @@ class ZMYamlLocale extends ZMAbstractLocale {
     public function translatePlural($single, $number, $plural=null, $context=null, $domain=ZMLocale::DEFAULT_DOMAIN) {
         // not really supported
         return $this->translate($single);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getFormat($group, $type) {
+        $magicKey = $group.'-'.$type;
+        if (array_key_exists($magicKey, $this->translations_)) {
+            // found magic key
+            return $this->translations_[$magicKey];
+        }
+
+        // default
+        return parent::getFormat($group, $type);
     }
 
 }

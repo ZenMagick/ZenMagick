@@ -29,14 +29,35 @@
 class ZMToolboxLocale extends ZMToolboxTool {
 
     /**
-     * Format and display a date(time) using the configured ui date format (<em>UI_DATE_FORMAT</em>).
+     * Format and display a date using the magic locale key (<em>date-short</em>).
      *
      * @param string date The date.
+     * @param string format Optional format string to override the format provided by the active <code>ZMLocale</code>; default is <code>null</code>.
      * @return string The formatted date.
      */
-    public function shortDate($date) { 
-        $ds = ZMTools::translateDateString($date, ZM_DATETIME_FORMAT, UI_DATE_FORMAT); 
-        return $ds;
+    public function shortDate($date, $format=null) {
+        if ($date instanceof DateTime) {
+            $format = null != $format ? $format : ZMLocales::instance()->getLocale()->getFormat('date', 'short');
+            return $date->format($format);
+        }
+
+        return $date;
+    }
+
+    /**
+     * Format and display a date using the magic locale key (<em>date-long</em>).
+     *
+     * @param string date The date.
+     * @param string format Optional format string to override the format provided by the active <code>ZMLocale</code>; default is <code>null</code>.
+     * @return string The formatted date.
+     */
+    public function longDate($date, $format=null) {
+        if ($date instanceof DateTime) {
+            $format = null != $format ? $format : ZMLocales::instance()->getLocale()->getFormat('date', 'long');
+            return $date->format($format);
+        }
+
+        return $date;
     }
 
 }

@@ -29,23 +29,23 @@
 class TestZMAccounts extends ZMTestCase {
     // test account data
     protected $accountData1 = array(
-            'FirstName' => 'john',
-            'LastName' => 'doe',
-            'Dob' => '16/11/1967',
-            'NickName' => 'johnd',
-            'Gender' => 'm',
-            'Email' => 'john.doe@somewhere.com',
-            'Phone' => '03 333 3333',
-            'Fax' => '',
-            'EmailFormat' => 'TEXT',
-            'Referral' => '',
-            'Password' => 'myprecious',
-            'Authorization' => 0,
-            'NewsletterSubscriber' => false,
-            'GlobalProductSubscriber' => true,
-            'SubscribedProducts' => null,
-            'Type' => ZMAccount::REGISTERED,
-            'PriceGroupId' => 0,
+        'FirstName' => 'john',
+        'LastName' => 'doe',
+        'Dob' => '1967-11-16',
+        'NickName' => 'johnd',
+        'Gender' => 'm',
+        'Email' => 'john.doe@somewhere.com',
+        'Phone' => '03 333 3333',
+        'Fax' => '',
+        'EmailFormat' => 'TEXT',
+        'Referral' => '',
+        'Password' => 'myprecious',
+        'Authorization' => 0,
+        'NewsletterSubscriber' => false,
+        'GlobalProductSubscriber' => true,
+        'SubscribedProducts' => null,
+        'Type' => ZMAccount::REGISTERED,
+        'PriceGroupId' => 0
     );
 
 
@@ -56,7 +56,7 @@ class TestZMAccounts extends ZMTestCase {
         $account = ZMBeanUtils::getBean('Account');
         foreach ($data as $key => $value) {
             if ('Dob' == $key) {
-                $value = ZMTools::translateDateString($value, 'dd/mm/yyyy', ZM_DATETIME_FORMAT);
+                $value = new DateTime($value);
             }
             $method = 'set'.ucwords($key);
             $account->$method($value);

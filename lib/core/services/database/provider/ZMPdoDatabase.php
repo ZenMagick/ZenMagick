@@ -560,10 +560,18 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
                     throw new ZMDatabaseException('unsupported data(prepare) type='.$type.' for name='.$name);
                 }
                 //XXX: yeah, yeah
-                if ($type == 'datetime' && null === $value) {
-                    $value = ZMDatabase::NULL_DATETIME;
-                } else if ($type == 'date' && null === $value) {
-                    $value = ZMDatabase::NULL_DATE;
+                if ($type == 'datetime') {
+                    if (null === $value) {
+                        $value = ZMDatabase::NULL_DATETIME;
+                    } else if ($value instanceof DateTime) {
+                        $value = $value->format(ZMDatabase::DATETIME_FORMAT);
+                    }
+                } else if ($type == 'date') {
+                    if (null === $value) {
+                        $value = ZMDatabase::NULL_DATE;
+                    } else if ($value instanceof DateTime) {
+                        $value = $value->format(ZMDatabase::DATE_FORMAT);
+                    }
                 }
                 $x = $stmt->bindValue(':'.$name, $value, $typeMap[$type]);
             }
@@ -592,10 +600,14 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
                 if ('datetime' == $field['type']) {
                     if (ZMDatabase::NULL_DATETIME == $mappedRow[$field['property']]) {
                         $mappedRow[$field['property']] = null;
+                    } else {
+                        $mappedRow[$field['property']] = new DateTime($mappedRow[$field['property']]);
                     }
                 } else if ('date' == $field['type']) {
                     if (ZMDatabase::NULL_DATE == $mappedRow[$field['property']]) {
                         $mappedRow[$field['property']] = null;
+                    } else {
+                        $mappedRow[$field['property']] = new DateTime($mappedRow[$field['property']]);
                     }
                 } else if ('boolean' == $field['type']) {
                     $mappedRow[$field['property']] = ZMLangUtils::asBoolean($row[$field['column']]);

@@ -209,8 +209,8 @@ class ZMEventFixes extends ZMObject {
         }
 
         // used by some zen-cart validation code
-        if (defined('UI_DATE_FORMAT')) {
-            define('DOB_FORMAT_STRING', UI_DATE_FORMAT);
+        if (null != _zm('date-long-ui-format')) {
+            define('DOB_FORMAT_STRING', _zm('date-long-ui-format'));
         }
 
         // do not check for valid product id

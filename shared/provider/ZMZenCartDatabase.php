@@ -31,7 +31,12 @@
  * @package zenmagick.store.shared.provider
  */
 class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
-    private static $typeMap = array('boolean' => 'integer', 'blob' => 'date', 'datetime' => 'date');
+    private static $typeMap = array(
+        'boolean' => 'integer', 
+        'blob' => 'string', 
+        'date' => 'date', 
+        'datetime' => 'date'
+    );
     private $db_;
     private $config_;
     private $queriesMap_;
@@ -167,7 +172,7 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
 
         $field = $mapping[$keyName];
         $sql = 'SELECT * from '.$table.' WHERE '.$field['column'].' = :'.$keyName;
-        $sql = $this->db_->bindVars($sql, ':'.$keyName, $key, $field['type']);
+        $sql = $this->bindValue($sql, ':'.$keyName, $key, $field['type']);
 
         if ($this->debug) {
             ZMLogging::instance()->log($sql, ZMLogging::TRACE);
@@ -268,7 +273,7 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
                 if (is_array($value)) {
                     $sql = $this->bindValueList($sql, ':'.$name, $value, self::getMappedType($mapping[$typeName]['type']));
                 } else {
-                    $sql = $this->db_->bindVars($sql, ':'.$name, $value, self::getMappedType($mapping[$typeName]['type']));
+                    $sql = $this->bindValue($sql, ':'.$name, $value, self::getMappedType($mapping[$typeName]['type']));
                 }
             }
         } else if (is_object($data)) {
@@ -288,6 +293,10 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
      * {@inheritDoc}
      */
     public function updateModel($table, $model, $mapping=null) {
+        if (null === $model) {
+            return;
+        }
+
         $startTime = microtime();
         $mapping = $this->mapper->ensureMapping(null !== $mapping ? $mapping : $table, $this);
 
@@ -343,6 +352,10 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
      * {@inheritDoc}
      */
     public function removeModel($table, $model, $mapping=null) {
+        if (null === $model) {
+            return;
+        }
+
         $startTime = microtime();
         $mapping = $this->mapper->ensureMapping(null !== $mapping ? $mapping : $table, $this);
 
@@ -414,7 +427,7 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
             if (is_array($value)) {
                 $sql = $this->bindValueList($sql, ':'.$name, $value, self::getMappedType($mapping[$typeName]['type']));
             } else {
-                $sql = $this->db_->bindVars($sql, ':'.$name, $value, self::getMappedType($mapping[$typeName]['type']));
+                $sql = $this->bindValue($sql, ':'.$name, $value, self::getMappedType($mapping[$typeName]['type']));
             }
         }
 
@@ -507,6 +520,8 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
                 if ('date' == $this->getMappedType($field['type'])) {
                     if (ZMDatabase::NULL_DATETIME == $mappedRow[$field['property']]) {
                         $mappedRow[$field['property']] = null;
+                    } else {
+                        $mappedRow[$field['property']] = new DateTime($mappedRow[$field['property']]);
                     }
                 }
             }
@@ -577,16 +592,7 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
             if (array_key_exists($property, $data)) {
                 $value = $data[$property];
             }
-            
-            // bind
-            if ('date' == $info[1]) {
-                // if not empty nothing, otherwise assume NULL
-                if (empty($value)) {
-                    $value = ZMDatabase::NULL_DATETIME;
-                    $info[1] = 'date';
-                }
-            }
-            $sql = $this->db_->bindVars($sql, $info[0], $value, $info[1]);
+            $sql = $this->bindValue($sql, $info[0], $value, $info[1]);
         }
 
         return $sql;
@@ -607,10 +613,30 @@ class ZMZenCartDatabase extends ZMObject implements ZMDatabase {
         $fragment = '';
         foreach ($values as $value) {
             if ('' != $fragment) $fragment .= ', ';
-            $fragment .= $this->db_->bindVars(":value", ":value", $value, $type);
+            $fragment .= $this->bindValue(":value", ":value", $value, $type);
         }
 
-        return $this->db_->bindVars($sql, $bindName, $fragment, 'passthru');
+        return $this->bindValue($sql, $bindName, $fragment, 'passthru');
+    }
+
+    /**
+     * Bind a single value to a given SQL query.
+     *
+     * @param string sql The sql query to work on.
+     * @param string bindName The name to bind the list to.
+     * @param mixed value The value.
+     * @param string type The value type; default is 'string'
+     * @return string The sql with <code>$bindName</code> replaced with a properly formatted value list.
+     */
+    protected function bindValue($sql, $bindName, $value, $type='string') {
+        if ('date' == $type) {
+            if (null == $value) {
+                $value = ZMDatabase::NULL_DATETIME;
+            } else if ($value instanceof DateTime) {
+                $value = $value->format(ZMDatabase::DATETIME_FORMAT);
+            }
+        }
+        return $this->db_->bindVars($sql, $bindName, $value, $type);
     }
 
 }

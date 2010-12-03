@@ -208,12 +208,12 @@ class ZMProductFinder {
 
         if (!ZMLangUtils::isEmpty($criteria->getDateFrom())) {
             $where .= " AND p.products_date_added >= :1#dateAdded";
-            $args['1#dateAdded'] = ZMTools::translateDateString($criteria->getDateFrom(), UI_DATE_FORMAT, ZM_DATETIME_FORMAT);
+            $args['1#dateAdded'] = DateTime::createFromFormat(_zm('date-long'), $criteria->getDateFrom());
         }
 
         if (!ZMLangUtils::isEmpty($criteria->getDateTo())) {
             $where .= " AND p.products_date_added <= :2#dateAdded";
-            $args['2#dateAdded'] = ZMTools::translateDateString($criteria->getDateTo(), UI_DATE_FORMAT, ZM_DATETIME_FORMAT);
+            $args['2#dateAdded'] = DateTime::createFromFormat(_zm('date-long'), $criteria->getDateTo());
         }
 
         if ($criteria->isIncludeTax()) {

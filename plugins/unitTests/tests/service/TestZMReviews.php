@@ -40,7 +40,7 @@ class TestZMReviews extends ZMTestCase {
             $this->assertEqual('There\'s Something About Mary Linked', $review->getProductName());
             $this->assertEqual('dvd/theres_something_about_mary.gif', $review->getProductImage());
             $this->assertEqual('This really is a very funny but old movie!', $review->getText());
-            $this->assertEqual('2003-12-23 03:18:19', $review->getDateAdded());
+            $this->assertEqual(new DateTime('2003-12-23 03:18:19'), $review->getDateAdded());
             $this->assertEqual('Bill Smith', $review->getAuthor());
         }
     }

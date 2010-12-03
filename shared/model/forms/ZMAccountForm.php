@@ -78,7 +78,7 @@ class ZMAccountForm extends ZMFormData {
         }
 
         // special treatment
-        $properties['dob'] = ZMTools::translateDateString($properties['dob'], UI_DATE_FORMAT, ZM_DATETIME_FORMAT);
+        $properties['dob'] = DateTime::createFromFormat(_zm('date-long'), $properties['dob']);
 
         $account = ZMBeanUtils::setAll($account, $properties);
         return $account;

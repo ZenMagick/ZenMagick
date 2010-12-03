@@ -35,12 +35,12 @@ class ZMDateRule extends ZMRule {
      * Create new date rule.
      *
      * @param string name The field name.
-     * @param string format The date format (eg: DD/MM/YYYY); if <code>null</code>, <em>UI_DATE_FORMAT</em> will be used.
+     * @param string format The date format (eg: DD/MM/YYYY); if not set, <code>_zm('date-long')</code> will be used; default is <code>null</code>.
      * @param string msg Optional message.
      */
     function __construct($name, $format=null, $msg=null) {
         parent::__construct($name, "Please enter a valid date (%s).", $msg);
-        $this->format_ = $format;
+        $this->format_ = null != $format ? $format : _zm('date-long');
     }
 
     /**
@@ -54,12 +54,8 @@ class ZMDateRule extends ZMRule {
     /**
      * Get the format string.
      */
-    protected function getFormat() {
-        if (null == $this->format_) {
-            return constant('UI_DATE_FORMAT');
-        } else {
-            return $this->format_;
-        }
+    public function getFormat() {
+        return $this->format_;
     }
 
     /**
@@ -71,9 +67,7 @@ class ZMDateRule extends ZMRule {
      */
     public function validate($request, $data) {
         $value = $data[$this->getName()];
-        $format = $this->getFormat();
-        $da = ZMTools::parseDateString($value, $format);
-        return empty($value) || (@checkdate($da['mm'], $da['dd'], $da['cc'].$da['yy']) && strlen($format) == strlen($value));
+        return empty($value) || null != DateTime::createFromFormat($this->format_, $value);
     }
 
 
@@ -93,6 +87,8 @@ class ZMDateRule extends ZMRule {
      * @return string Formatted JavaScript .
      */
     public function toJSString() {
+        //TODO: need to separate between DateTime format and ui format (as used by js validation)
+        return '';
         $js = "    new Array('date'";
         $js .= ",'".$this->getJSName()."'";
         $js .= ",'".addslashes($this->getErrorMsg())."'";
