@@ -209,8 +209,8 @@ class ZMEventFixes extends ZMObject {
         }
 
         // used by some zen-cart validation code
-        if (null != _zm('date-long-ui-format')) {
-            define('DOB_FORMAT_STRING', _zm('date-long-ui-format'));
+        if (!defined('DOB_FORMAT_STRING') && null != ZMLocaleUtils::getFormat('date', 'short-ui-format')) {
+            define('DOB_FORMAT_STRING', ZMLocaleUtils::getFormat('date', 'short-ui-format'));
         }
 
         // do not check for valid product id

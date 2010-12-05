@@ -1,8 +1,11 @@
 name: Deutsch
 formats:
   date: 
-    short: 'd/m/y'
-    long: 'd/m/Y'
+    'short': 'd/m/Y'
+    'short-ui-format': 'dd/mm/yy'
+    'short-ui-example': '16/11/67'
+    'long': 'd/m/Y'
   time:
-    short: 'H:i:s'
-    long: 'H:i:s u'
+    'short': 'H:i:s'
+    'long': 'H:i:s u'
+  dir: 'ltr'

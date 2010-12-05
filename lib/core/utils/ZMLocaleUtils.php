@@ -277,22 +277,44 @@ class ZMlocaleUtils {
      * Format a date as short.
      *
      * @param Date date A date.
+     * @param string format Optional format string to override the format provided by the active <code>ZMLocale</code>; default is <code>null</code>.
      * @return string A short version.
      */
-    public static function dateShort($date) {
-        $format = ZMLocales::instance()->getLocale()->getFormat('date', 'short');
-        return strftime($format, strtotime($date));
+    public static function dateShort($date, $format=null) {
+        if ($date instanceof DateTime) {
+            $format = null != $format ? $format : ZMLocales::instance()->getLocale()->getFormat('date', 'short');
+            return $date->format($format);
+        }
+
+        return $date;
     }
 
     /**
      * Format a date as long.
      *
      * @param Date date A date.
+     * @param string format Optional format string to override the format provided by the active <code>ZMLocale</code>; default is <code>null</code>.
      * @return string A long version.
      */
-    public static function dateLong($date) {
-        $format = ZMLocales::instance()->getLocale()->getFormat('date', 'long');
-        return strftime($format, strtotime($date));
+    public static function dateLong($date, $format=null) {
+        if ($date instanceof DateTime) {
+            $format = null != $format ? $format : ZMLocales::instance()->getLocale()->getFormat('date', 'long');
+            return $date->format($format);
+        }
+
+        return $date;
+    }
+
+    /**
+     * Convenience method to lookup a locale format.
+     *
+     * @param string group The group.
+     * @param string type Optional type.
+     * @return string The format or <code>null</code>
+     * @see ZMLocale::getFormat(string,string)
+     */
+    public static function getFormat($group, $type=null) {
+        return ZMLocales::instance()->getLocale()->getFormat($group, $type);
     }
 
 }

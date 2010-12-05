@@ -36,12 +36,7 @@ class ZMToolboxLocale extends ZMToolboxTool {
      * @return string The formatted date.
      */
     public function shortDate($date, $format=null) {
-        if ($date instanceof DateTime) {
-            $format = null != $format ? $format : ZMLocales::instance()->getLocale()->getFormat('date', 'short');
-            return $date->format($format);
-        }
-
-        return $date;
+        return ZMLocaleUtils::dateShort($date, $format);
     }
 
     /**
@@ -52,12 +47,19 @@ class ZMToolboxLocale extends ZMToolboxTool {
      * @return string The formatted date.
      */
     public function longDate($date, $format=null) {
-        if ($date instanceof DateTime) {
-            $format = null != $format ? $format : ZMLocales::instance()->getLocale()->getFormat('date', 'long');
-            return $date->format($format);
-        }
+        return ZMLocaleUtils::dateLong($date, $format);
+    }
 
-        return $date;
+    /**
+     * Convenience method to lookup a locale format.
+     *
+     * @param string group The group.
+     * @param string type Optional type.
+     * @return string The format or <code>null</code>
+     * @see ZMLocale::getFormat(string,string)
+     */
+    public function getFormat($group, $type=null) {
+        return ZMLocaleUtils::getFormat($group, $type);
     }
 
 }

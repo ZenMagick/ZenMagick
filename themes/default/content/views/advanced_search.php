@@ -62,9 +62,10 @@
 
         <fieldset> 
             <legend><?php _vzm("Date"); ?></legend>
-            <?php $onfocus = "if(this.value=='" . _zm('date-long-ui-format') . "') this.value='';" ?>
-            <input type="text" id="dateFrom" name="dateFrom" value="<?php echo $html->encode($searchCriteria->getDateFrom(_zm('date-long-ui-format'))) ?>" onfocus="<?php echo $onfocus ?>" />
-            <input type="text" id="dateTo" name="dateTo" value="<?php echo $html->encode($searchCriteria->getDateTo(_zm('date-long-ui-format'))) ?>" onfocus="<?php echo $onfocus ?>" />
+            <?php $defaultDateValue = $locale->getFormat('date', 'short-ui-format'); ?>
+            <?php $onfocus = "if(this.value=='" . $defaultDateValue . "') this.value='';" ?>
+            <input type="text" id="dateFrom" name="dateFrom" value="<?php echo $html->encode($searchCriteria->getDateFrom($defaultDateValue)) ?>" onfocus="<?php echo $onfocus ?>" />
+            <input type="text" id="dateTo" name="dateTo" value="<?php echo $html->encode($searchCriteria->getDateTo($defaultDateValue)) ?>" onfocus="<?php echo $onfocus ?>" />
         </fieldset> 
     </fieldset> 
 

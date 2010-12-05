@@ -28,7 +28,7 @@ if (!function_exists('zen_date_raw')) {
      * Convert UI date into a <em>raw date format</em> that zen-cart
      * understands.
      *
-     * <p>This generic implementation will work as long as <code>_zm('date-long-ui-format')</code>
+     * <p>This generic implementation will work as long as the locale's date <em>short-ui-format</em>
      * is defined.<br>
      * The function will honour <code>DD</code>, <code>MM</code>, <code>CC</code>, <code>YY</code>
      * and <code>YYYY</code> in the format.</p>
@@ -41,7 +41,7 @@ if (!function_exists('zen_date_raw')) {
      * @return string The provided date converted into the format <code>YYYYDDMM</code> or <code>MMDDYYYY</code>, respectivley.
      */
     function zen_date_raw($date, $reverse=false) {
-        $da = ZMTools::parseDateString($date, _zm('date-long-ui-format'));
+        $da = ZMTools::parseDateString($date, ZMLocaleUtils::getFormat('date', 'long-ui-format'));
         $raw = $reverse ? $da['mm'].$da['dd'].$da['cc'].$da['yy'] : $da['cc'].$da['yy'].$da['mm'].$da['dd'];
         return $raw;
     }

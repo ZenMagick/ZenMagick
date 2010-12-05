@@ -69,13 +69,14 @@ class ZMLocales extends ZMObject {
      *
      * @param boolean reload Optional flag to force a reload; default is <code>false</code>.
      * @param string locale Optional locale to init the locale if a new one is created; default is <code>null</code>.
+     * @param string path Optional path to override the default path generation based on the locale name; default is <code>null</code>.
      * @return ZMLocale The locale.
      */
-    public function getLocale($reload=false, $locale=null) {
+    public function getLocale($reload=false, $locale=null, $path=null) {
         if (null == $this->locale_ || $reload) {
             $this->locale_ = ZMBeanUtils::getBean(ZMSettings::get('zenmagick.core.locales.provider', 'EchoLocale'));
             if (null !== $locale) {
-                $this->locale_->init($locale);
+                $this->locale_->init($locale, $path);
             }
         }
 
@@ -101,9 +102,11 @@ class ZMLocales extends ZMObject {
      * Init locale.
      *
      * @param string locale The locale name, for example: <em>en_NZ</em>.
+     * @param string path Optional path to override the default path generation based on the locale name; default is <code>null</code>.
+     * @param boolean reload Optional flag to force a reload; default is <code>false</code>.
      */
-    public function init($locale) {
-        $this->getLocale()->init($locale);
+    public function init($locale, $path=null, $reload=false) {
+        $this->getLocale($reload)->init($locale, $path);
     }
 
     /**

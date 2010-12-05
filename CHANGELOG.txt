@@ -162,9 +162,12 @@ Release 0.9.11
 - convert date and datetime format from/to database to DateTime instance
 - deprecate UI_DATE_FORMAT and UI_DATE_FORMAT_SAMPLE; added support for magic
   keys in i10n.yaml to handle all that
-- use longDate rather than shortDate in dob form field handling; templates:
+- use new getFormat method to lookup date format and sample fields; templates:
   account.php, create_account.php, account_edit.php, advanced_search.php
 - rename l10n.yaml to locale.yaml in all themes
+- merge pomo and yaml based locale.yaml file formats; now the only difference
+  is that for pomo the actual language mappins are in po files, for yaml all
+	is in a single file
 
 Release 0.9.10
 - restructure store and admin code into separate apps with most of the store

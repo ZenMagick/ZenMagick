@@ -20,8 +20,6 @@
 ?>
 <?php
 
-    $_zm_cel = error_reporting(-1);
-
     if (!defined('ZM_APP_PATH')) {
         // app location relative to zenmagick installation (ZM_BASE_PATH)
         define('ZM_APP_PATH', 'apps'.DIRECTORY_SEPARATOR.'store'.DIRECTORY_SEPARATOR);
@@ -51,5 +49,3 @@
 
     $request = $_zm_request;
     ZMEvents::instance()->fireEvent(null, ZMEvents::INIT_DONE, array('request' => $_zm_request));
-
-    error_reporting($_zm_cel);

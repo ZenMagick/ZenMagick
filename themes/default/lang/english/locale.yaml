@@ -17,32 +17,31 @@
 #* Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
 #*
 
-# magic date/time formats; see: http://php.net/manual/en/function.date.php
-'date-short': 'd/m/y'
-'date-short-ui-format': 'dd/mm/yy'
-'date-short-ui-example': '16/11/67'
-'date-long': 'd/m/Y'
-'date-long-ui-format': 'dd/mm/yyyy'
-'date-long-ui-example': '16/11/1967'
-'time-short': 'H:i:s'
-'time-long': 'H:i:s'
+name: English
 
+formats:
+  date: 
+    'short': 'd/m/Y'
+    'short-ui-format': 'dd/mm/yy'
+    'short-ui-example': '16/11/67'
 
-# sort options
-'PRODUCT_LIST_NAME': 'Name'
-'PRODUCT_LIST_PRICE': 'Price'
-'PRODUCT_LIST_MANUFACTURER': 'Manufacturer'
+# translations
+messages:
+  # sort options
+  'PRODUCT_LIST_NAME': 'Name'
+  'PRODUCT_LIST_PRICE': 'Price'
+  'PRODUCT_LIST_MANUFACTURER': 'Manufacturer'
 
-# static names / crumbtrails
-'Shippinginfo': 'Shipping & Returns'
-'Privacy': 'Our Privacy Policy'
-'Account': 'My Account'
-'Account Edit': 'Edit Account'
-'Account Password': 'My Password'
-'Checkout Shipping': 'Shipping Method'
-'Checkout Shipping Address': 'Change Shipping Address'
-'Checkout Payment Address': 'Change Billing Address'
-'Change Payment Address': 'Change Billing Address'
-'Checkout Confirmation': 'Confirmation'
-'Gv Send': 'Send Gift Certificate'
-'Gv Redeem': 'Redeem Gift Certificate'
+  # static names / crumbtrails
+  'Shippinginfo': 'Shipping & Returns'
+  'Privacy': 'Our Privacy Policy'
+  'Account': 'My Account'
+  'Account Edit': 'Edit Account'
+  'Account Password': 'My Password'
+  'Checkout Shipping': 'Shipping Method'
+  'Checkout Shipping Address': 'Change Shipping Address'
+  'Checkout Payment Address': 'Change Billing Address'
+  'Change Payment Address': 'Change Billing Address'
+  'Checkout Confirmation': 'Confirmation'
+  'Gv Send': 'Send Gift Certificate'
+  'Gv Redeem': 'Redeem Gift Certificate'

@@ -351,13 +351,8 @@ class ZMTheme extends ZMObject {
             $language = Runtime::getDefaultLanguage();
         }
         $path = $this->getLangDir().$language->getDirectory().DIRECTORY_SEPARATOR;
-        $l10n = $path . "locale.yaml";
-        if (file_exists($l10n)) {
-            if (null != ($locale = ZMLocales::instance()->getLocale()) && $locale instanceof ZMYamlLocale) {
-                $translations = ZMRuntime::yamlParse(file_get_contents($l10n));
-                $locale->addTanslations($translations);
-            }
-        }
+        // re-init with next file
+        ZMLocales::instance()->getLocale()->init(ZMSettings::get('zenmagick.core.locales.locale'), $path);
     }
 
 }

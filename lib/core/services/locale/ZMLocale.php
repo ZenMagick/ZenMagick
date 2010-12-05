@@ -56,9 +56,10 @@ interface ZMLocale {
      *
      * @param string locale The locale to be used in the form: <code>[language code]_[country code]</code> or just <code>[language code]</code>;
      *  for exampe <em>de_DE</em>, <em>en_NZ</em> or <em>es</code>.
-     * @return string The locale base path.
+     * @param string path Optional path to override the default path generation based on the locale name; default is <code>null</code>.
+     * @return array Two element array with path and 'locale.yaml' content (as yaml) as data.
      */
-    public function init($locale);
+    public function init($locale, $path=null);
 
     /**
      * Translate the given text.
@@ -85,12 +86,31 @@ interface ZMLocale {
     /**
      * Get a format.
      *
-     * <p>The format strings returned are expected to be used in conjunction with the <code>DateTime</code> class.</p>
+     * <p>Formats can be anything that should be handled different for different languages/locale. The <code>type</code> is optional and
+     * only required if the <code>group</code> has subgroups.</p>
      *
-     * @param string group The format group. Can be one of <em>date</em> or <em>time</em>.
-     * @param string type One of <em>short</em> or <em>long</em>.
+     * <p>The date/time related format strings are expected to be used in conjunction with the <code>DateTime</code> class.</p>
+     *
+     * <p>Predefined groups/types are:</p>
+     * <ul>
+     *  <li><p>date</p>
+     *    <ul>
+     *      <li>short - a short date</li>
+     *      <li>long - a long date</li>
+     *    </ul>
+     *  </li>
+     *  <li><p>time</p>
+     *    <ul>
+     *      <li>short - a short time</li>
+     *      <li>long - a long time</li>
+     *    </ul>
+     *  </li>
+     * </ul>
+     *
+     * @param string group The format group.
+     * @param string type The subtype if required; default is <code>null</code>.
      * @return string A format string or <code>null</code>.
      */
-    public function getFormat($group, $type);
+    public function getFormat($group, $type=null);
 
 }

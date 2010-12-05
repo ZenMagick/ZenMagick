@@ -55,8 +55,8 @@ class ZMPomoLocale extends ZMAbstractLocale {
     /**
      * {@inheritDoc}
      */
-    public function init($locale) {
-        $path = parent::init($locale);
+    public function init($locale, $path=null) {
+        list($path, $yaml) = parent::init($locale, $path);
         $this->registerMOForLocale($path, $locale, 'messages.mo');
     }
 

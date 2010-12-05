@@ -206,7 +206,7 @@ class ZMProductFinder {
         }
         $where .= ')';
 
-        $dateFormat = ZMLocales::instance()->getLocale()->getFormat('date', 'long');
+        $dateFormat = ZMLocales::instance()->getLocale()->getFormat('date', 'short');
         if (!ZMLangUtils::isEmpty($criteria->getDateFrom())) {
             $where .= " AND p.products_date_added >= :1#dateAdded";
             $args['1#dateAdded'] = DateTime::createFromFormat($dateFormat, $criteria->getDateFrom());

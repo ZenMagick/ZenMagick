@@ -40,7 +40,16 @@ abstract class ZMAbstractLocale extends ZMObject implements ZMLocale {
         $this->locale_ = null;
         $this->name_ = null;
         // absolute defaults for DateTime::format()
-        $this->formats_ = array('date' => array('short' => 'd/m/Y', 'long' => 'd/m/Y'), 'time' => array('short' => 'H:i:s', 'long' => 'H:i:s'));
+        $this->formats_ = array(
+            'date' => array(
+                'short' => 'd/m/Y',
+                'long' => 'D, d M Y'
+            ), 
+            'time' => array(
+                'short' => 'H:i:s',
+                'long' => 'H:i:s u'
+            )
+        );
     }
 
     /**
@@ -67,7 +76,7 @@ abstract class ZMAbstractLocale extends ZMObject implements ZMLocale {
     /**
      * {@inheritDoc}
      */
-    public function init($locale) {
+    public function init($locale, $path=null) {
         $token = explode('_', $locale);
         if (false == setlocale(LC_ALL, $locale)) {
             // try first token
@@ -77,33 +86,43 @@ abstract class ZMAbstractLocale extends ZMObject implements ZMLocale {
         $this->locale_ = $locale;
         $this->name_ = $locale;
 
-        $path = ZMFileUtils::mkPath(ZMRuntime::getApplicationPath(), 'locale', $locale);
-        if (null == ($path = ZMLocaleUtils::resolvePath($path, $locale))) {
-            ZMLogging::instance()->log('unable to resolve path for locale = "'.$locale.'"', ZMLogging::DEBUG);
-            return null;
-        }
-
-        $yaml = ZMRuntime::yamlParse(@file_get_contents(ZMFileUtils::mkPath($path, 'locale.yaml')));
-        if (is_array($yaml)) {
-            if (array_key_exists('name', $yaml)) {
-                $this->name_ = $yaml['name'];
-            }
-            if (array_key_exists('formats', $yaml)) {
-                $this->formats_ = ZMLangUtils::arrayMergeRecursive($this->formats_, $yaml['formats']);
+        if (null == $path) {
+            $path = ZMFileUtils::mkPath(ZMRuntime::getApplicationPath(), 'locale', $locale);
+            if (null == ($path = ZMLocaleUtils::resolvePath($path, $locale))) {
+                ZMLogging::instance()->log('unable to resolve path for locale = "'.$locale.'"', ZMLogging::DEBUG);
+                return null;
             }
         }
 
-        return $path;
+        $yaml = array();
+        $filename = ZMFileUtils::mkPath($path, 'locale.yaml');
+        if (file_exists($filename)) {
+            $yaml = ZMRuntime::yamlParse(@file_get_contents(ZMFileUtils::mkPath($path, 'locale.yaml')));
+            if (is_array($yaml)) {
+                if (array_key_exists('name', $yaml)) {
+                    $this->name_ = $yaml['name'];
+                }
+                if (array_key_exists('formats', $yaml)) {
+                    $this->formats_ = ZMLangUtils::arrayMergeRecursive($this->formats_, $yaml['formats']);
+                }
+            }
+        }
+
+        return array($path, $yaml);
     }
 
     /**
      * {@inheritDoc}
-     *
-     * <p>Since the underlying <code>locale.yaml</code> file has no fixed format it is possible to add
-     * your own formats and types by just following the existing structures.</p>
      */
-    public function getFormat($group, $type) {
-        return $this->formats_[$group][$type];        
+    public function getFormat($group, $type=null) {
+        if (array_key_exists($group, $this->formats_)) {
+            if (null == $type) {
+                return $this->formats_[$group];        
+            } else if (array_key_exists($type, $this->formats_[$group])) {
+                return $this->formats_[$group][$type];        
+            }
+        }
+        return null;
     }
 
 }

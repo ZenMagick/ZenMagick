@@ -65,7 +65,7 @@
                 <!--<?php if (ZMSettings::get('isAccountDOB')) { ?>
                     <tr>
                         <td><?php _vzm("Date of Birth") ?><span>*</span></td>
-                        <td><input type="text" name="dob" value="<?php echo $html->encode($registration->getDob()) ?>" /> <?php echo sprintf(_zm("Format: %s;&nbsp;(e.g: %s)"), _zm('date-long-ui-format'), _zm('date-long-ui-example')) ?></td>
+                        <td><input type="text" name="dob" value="<?php echo $html->encode($registration->getDob()) ?>" /> <?php echo sprintf(_zm("Format: %s;&nbsp;(e.g: %s)"), $locale->getFormat('date', 'short-ui-format'), $locale->getFormat('date', 'short-ui-example')) ?></td>
                     </tr>
                 <?php } ?> -->
                 <tr>
