@@ -22,8 +22,8 @@ name: English
 formats:
   date: 
     'short': 'd/m/Y'
-    'short-ui-format': 'dd/mm/yy'
-    'short-ui-example': '16/11/67'
+    'short-ui-format': 'dd/mm/yyyy'
+    'short-ui-example': '16/11/1967'
 
 # translations
 messages:
