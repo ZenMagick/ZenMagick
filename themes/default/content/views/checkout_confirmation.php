@@ -113,7 +113,7 @@
 </fieldset>
 
 
-<?php echo $form->open($shoppingCart->getOrderFormUrl($request), '', true) ?>
-    <?php echo $shoppingCart->getOrderFormContent($request) ?>
+<?php echo $form->open($orderFormUrl, '', true) ?>
+    <?php echo $orderFormContent ?>
     <div class="btn"><input type="submit" class="btn" value="<?php _vzm("Confirm to order") ?>" /></div>
 </form>

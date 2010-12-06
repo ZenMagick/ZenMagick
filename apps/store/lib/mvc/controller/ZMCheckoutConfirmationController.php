@@ -54,7 +54,17 @@ class ZMCheckoutConfirmationController extends ZMController {
         $request->getToolbox()->crumbtrail->addCrumb("Checkout", $request->url('checkout', '', true));
         $request->getToolbox()->crumbtrail->addCrumb($request->getToolbox()->utils->getTitle());
 
-        return $this->findView(null, array('shoppingCart' => $request->getShoppingCart()));
+        // some defaults
+        $orderFormContent =  '';
+        $orderFormUrl = $request->url('checkout_process', '', true);
+
+        $shoppingCart = $request->getShoppingCart();
+        if (null != ($paymentType = $shoppingCart->getSelectedPaymentType())) {
+            $orderFormContent = $paymentType->getOrderFormContent($request);
+            $orderFormUrl = $paymentType->getOrderFormUrl($request);
+        }
+
+        return $this->findView(null, array('shoppingCart' => $shoppingCart, 'orderFormContent' => $orderFormContent, 'orderFormUrl' => $orderFormUrl));
     }
 
 }

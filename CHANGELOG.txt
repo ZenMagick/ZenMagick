@@ -168,6 +168,9 @@ Release 0.9.11
 - merge pomo and yaml based locale.yaml file formats; now the only difference
   is that for pomo the actual language mappins are in po files, for yaml all
 	is in a single file
+- change ZMCheckoutConfirmationController to provide $orderFormUrl and
+  $orderFormContent to avoid issues when no payment type required (mostly when
+	a coupon or gv covers the order total); templates: checkout_confirmation.php
 
 Release 0.9.10
 - restructure store and admin code into separate apps with most of the store
