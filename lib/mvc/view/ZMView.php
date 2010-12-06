@@ -117,6 +117,15 @@ abstract class ZMView extends ZMObject {
      * @return string The contents.
      */
     public function generate($request) {
+        // set a few default things...
+        $view->setVar('request', $request);
+        $view->setVar('session', $request->getSession());
+        $toolbox = $request->getToolbox();
+        $view->setVar('toolbox', $toolbox);
+
+        // also set individual tools
+        $view->setVars($toolbox->getTools());
+
         // set all plugins
         foreach (ZMPlugins::instance()->getAllPlugins() as $plugin) {
             $this->setVar($plugin->getId(), $plugin);

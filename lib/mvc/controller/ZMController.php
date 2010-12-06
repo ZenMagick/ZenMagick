@@ -66,23 +66,10 @@ class ZMController extends ZMObject {
         // safe data set via findView() in the controller to avoid losing that to getViewData()
         $initialVars = $view->getVars();
 
-        // set a few default things...
-        $view->setVar('request', $request);
-        $view->setVar('session', $request->getSession());
-        $toolbox = $request->getToolbox();
-        $view->setVar('toolbox', $toolbox);
-
         // custom view data
         $view->setVars($this->getViewData($request));
         // make sure these prevail
         $view->setVars($initialVars);
-
-        // also set individual tools
-        $view->setVars($toolbox->getTools());
-        if (null != $formData && !array_key_exists($formData->getFormId(), $view->getVars())) {
-            // avoid overriding default data set by the controller
-            $view->setVar($formData->getFormId(), $formData);
-        }
     }
 
     /**

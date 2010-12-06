@@ -134,15 +134,6 @@ class ZMEmails extends ZMObject {
         // disable layout for now
         $view->setLayout(null);
 
-        // set a few default things...
-        $view->setVar('request', $request);
-        $view->setVar('session', $request->getSession());
-        $toolbox = $request->getToolbox();
-        $view->setVar('toolbox', $toolbox);
-
-        // also set individual tools
-        $view->setVars($toolbox->getTools());
-
         // make sure these prevail
         $view->setVars($context);
 

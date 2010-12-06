@@ -255,11 +255,18 @@ class ZMSavantView extends ZMView {
     public function generate($request) {
         $savant = $this->getSavant($request);
 
-        // assign view to toolbox tools
-        foreach ($this->getVars() as $var) {
-            if ($var instanceof ZMToolboxTool) {
-                $var->setView($this);
+        // set a few default things...
+        $this->setVar('request', $request);
+        $this->setVar('session', $request->getSession());
+        $toolbox = $request->getToolbox();
+        $this->setVar('toolbox', $toolbox);
+
+        // also set individual tools
+        foreach ($toolbox->getTools() as $name => $tool) {
+            if ($tool instanceof ZMToolboxTool) {
+                $tool->setView($this);
             }
+            $this->setVar($name, $tool);
         }
 
         // set all plugins
