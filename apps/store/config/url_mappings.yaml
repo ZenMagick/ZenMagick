@@ -173,6 +173,16 @@ page:
     success: 
       template: checkout_payment
       view: RedirectView
+  ## alias to have a neutral point to start the checkout process
+  checkout: 
+    template: checkout_shipping
+    controller: CheckoutShippingController
+    skip_shipping: 
+      template: checkout_payment
+      view: RedirectView
+    success: 
+      template: checkout_payment
+      view: RedirectView
   checkout_shipping_address: 
     controller: 'CheckoutAddressController#mode=shipping'
     formId: shippingAddress
