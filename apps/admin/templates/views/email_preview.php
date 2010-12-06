@@ -42,14 +42,14 @@
       <?php
         $textLink = null;
         if (in_array('text', $formats)) {
-            $textLink = '<a class="plink" target="_blank" href="'.$admin2->url(null, 'template='.$name.'&format=text').'">'._zm('Show').'</a>';
+            $textLink = '<a class="plink" target="_blank" href="'.$admin2->url(null, 'template='.$name.'&format=text').'">'._zm('Text').'</a>';
         }
       ?>
       <td><?php echo (null != $textLink ? $textLink : '') ?></td>
       <?php
         $htmlLink = null;
         if (in_array('html', $formats)) {
-            $htmlLink = '<a class="plink" target="_blank" href="'.$admin2->url(null, 'template='.$name.'&format=html').'">'._zm('Show').'</a>';
+            $htmlLink = '<a class="plink" target="_blank" href="'.$admin2->url(null, 'template='.$name.'&format=html').'">'._zm('HTML').'</a>';
         }
       ?>
       <td><?php echo (null != $htmlLink ? $htmlLink : '') ?></td>
