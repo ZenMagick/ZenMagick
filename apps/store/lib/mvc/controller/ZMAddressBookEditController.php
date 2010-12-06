@@ -51,8 +51,8 @@ class ZMAddressBookEditController extends ZMController {
      * {@inheritDoc}
      */
     public function preProcess($request) {
-        $request->getToolbox()->crumbtrail->addCrumb("Account", $request->url(FILENAME_ACCOUNT, '', true));
-        $request->getToolbox()->crumbtrail->addCrumb("Address Book", $request->url(FILENAME_ADDRESS_BOOK, '', true));
+        $request->getToolbox()->crumbtrail->addCrumb("Account", $request->url('account', '', true));
+        $request->getToolbox()->crumbtrail->addCrumb("Address Book", $request->url('address_book', '', true));
         $request->getToolbox()->crumbtrail->addCrumb("Edit");
     }
 

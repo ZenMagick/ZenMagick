@@ -125,7 +125,7 @@ class ZMShippingProviders extends ZMObject {
         //TODO:(1): bad, bad hack to make admin's zen_get_shipping_enabled() work for pages other than admin/modules.php
         global $PHP_SELF;
         $phpSelf = $PHP_SELF;
-        $PHP_SELF = FILENAME_MODULES;
+        $PHP_SELF = 'modules.php';
 
         // TODO: create fake environment
         global $template, $shipping_weight;

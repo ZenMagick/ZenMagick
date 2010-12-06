@@ -51,7 +51,7 @@ class ZMCheckoutPaymentController extends ZMController {
      * {@inheritDoc}
      */
     public function preProcess($request) {
-        $request->getToolbox()->crumbtrail->addCrumb("Checkout", $request->url(FILENAME_CHECKOUT_PAYMENT, '', true));
+        $request->getToolbox()->crumbtrail->addCrumb("Checkout", $request->url('checkout_payment', '', true));
         $request->getToolbox()->crumbtrail->addCrumb($request->getToolbox()->utils->getTitle());
     }
 

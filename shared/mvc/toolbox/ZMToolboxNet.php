@@ -81,7 +81,7 @@ class ZMToolboxNet extends ZMToolboxTool {
                 $cPath = '&'.$category->getPath();
             }
         }
-        return $this->getRequest()->url(FILENAME_PRODUCT_INFO, '&products_id='.$productId.$cPath);
+        return $this->getRequest()->url('product_info', '&products_id='.$productId.$cPath);
     }
 
     /**
@@ -111,7 +111,7 @@ class ZMToolboxNet extends ZMToolboxTool {
             $params .= '&chapter='.$page->getTocChapter();
         }
 
-        $href = $this->getRequest()->url(FILENAME_EZPAGES, $params, $page->isSSL());
+        $href = $this->getRequest()->url('page', $params, $page->isSSL());
         if (!ZMLangUtils::isEmpty($page->getAltUrl())) {
             $url = parse_url($page->getAltUrl());
             parse_str($url['query'], $query);
@@ -152,7 +152,7 @@ class ZMToolboxNet extends ZMToolboxTool {
      * @return string A full URL.
      */
     public function trackLink($action, $id) {
-        return $this->getRequest()->url(FILENAME_REDIRECT, "action=".$action."&goto=".$id);
+        return $this->getRequest()->url('redirect', "action=".$action."&goto=".$id);
     }
 
     /**

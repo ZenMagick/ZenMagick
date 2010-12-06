@@ -383,8 +383,8 @@ class ZMEventFixes extends ZMObject {
     protected function checkAuthorization($request) {
         $account = $request->getAccount();
         if (null != $account && !ZMSettings::get('isAdmin') && ZMAccounts::AUTHORIZATION_PENDING == $account->getAuthorization()) {
-            if (!in_array($request->getRequestId(), array(CUSTOMERS_AUTHORIZATION_FILENAME, FILENAME_LOGIN, FILENAME_LOGOFF, FILENAME_CONTACT_US, FILENAME_PRIVACY))) {
-                $request->redirect($request->url(CUSTOMERS_AUTHORIZATION_FILENAME));
+            if (!in_array($request->getRequestId(), array('customers_authorization', 'login', 'ogoff', 'contact_us', 'privacy'))) {
+                $request->redirect($request->url('customers_authorization'));
             }
         }
     }

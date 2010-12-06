@@ -63,7 +63,7 @@ class ZMToolboxCrumbtrail extends ZMToolboxTool {
     public function reset() {
         $this->crumbs_ = array();
         // always add home
-        $this->addCrumb("Home", $this->getRequest()->url(FILENAME_DEFAULT));
+        $this->addCrumb("Home", $this->getRequest()->url('index'));
     }
 
     /**

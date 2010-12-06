@@ -51,7 +51,7 @@ class ZMGvSendConfirmController extends ZMController {
      * {@inheritDoc}
      */
     public function preProcess($request) { 
-        $request->getToolbox()->crumbtrail->addCrumb("Account", $request->url(FILENAME_ACCOUNT, '', true));
+        $request->getToolbox()->crumbtrail->addCrumb("Account", $request->url('account', '', true));
         $request->getToolbox()->crumbtrail->addCrumb($request->getToolbox()->utils->getTitle());
     }
 

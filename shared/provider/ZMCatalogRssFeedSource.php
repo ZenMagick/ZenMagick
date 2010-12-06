@@ -74,7 +74,7 @@ class ZMCatalogRssFeedSource implements ZMRssSource {
 
         $channel = ZMBeanUtils::getBean("RssChannel");
         $channel->setTitle(sprintf(_zm("%s Catalog"), ZMSettings::get('storeName')));
-        $channel->setLink($request->url(FILENAME_DEFAULT));
+        $channel->setLink($request->url('index'));
         $channel->setDescription(sprintf(_zm("All categories and products at %s"), ZMSettings::get('storeName')));
         $channel->setLastBuildDate($lastPubDate);
 
@@ -131,7 +131,7 @@ class ZMCatalogRssFeedSource implements ZMRssSource {
 
         $channel = ZMBeanUtils::getBean("RssChannel");
         $channel->setTitle(sprintf(_zm("Products at %s"), ZMSettings::get('storeName')));
-        $channel->setLink($request->url(FILENAME_DEFAULT));
+        $channel->setLink($request->url('index'));
         $channel->setDescription(sprintf(_zm("All products at %s"), ZMSettings::get('storeName')));
         $channel->setLastBuildDate($lastPubDate);
 
@@ -185,7 +185,7 @@ class ZMCatalogRssFeedSource implements ZMRssSource {
 
         $channel = ZMBeanUtils::getBean("RssChannel");
         $channel->setTitle(sprintf(_zm("Categories at %s"), ZMSettings::get('storeName')));
-        $channel->setLink($request->url(FILENAME_DEFAULT));
+        $channel->setLink($request->url('index'));
         $channel->setDescription(sprintf(_zm("All categories at %s"), ZMSettings::get('storeName')));
         $channel->setLastBuildDate($lastPubDate);
 

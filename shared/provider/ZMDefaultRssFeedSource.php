@@ -79,7 +79,7 @@ class ZMDefaultRssFeedSource implements ZMRssSource {
             $item->setTitle(sprintf(_zm("Review: %s"), $product->getName()));
 
             $params = 'products_id='.$review->getProductId().'&reviews_id='.$review->getId();
-            $item->setLink($request->url(FILENAME_PRODUCT_REVIEWS_INFO, $params));
+            $item->setLink($request->url('product_reviews_info', $params));
             $item->setDescription(ZMHtmlUtils::more($review->getText(), 60));
             $item->setPubDate(ZMRssUtils::mkRssDate($review->getDateAdded()));
             array_push($items, $item);
@@ -91,7 +91,7 @@ class ZMDefaultRssFeedSource implements ZMRssSource {
 
         $channel = ZMBeanUtils::getBean("RssChannel");
         $channel->setTitle(_zm("Product Reviews"));
-        $channel->setLink($request->url(FILENAME_DEFAULT));
+        $channel->setLink($request->url('index'));
         if (null != $key)  {
             $channel->setDescription(sprintf(_zm("Product Reviews for %s at %s"), $product->getName(), ZMSettings::get('storeName')));
         } else {
@@ -126,7 +126,7 @@ class ZMDefaultRssFeedSource implements ZMRssSource {
 
         $channel = ZMBeanUtils::getBean("RssChannel");
         $channel->setTitle(sprintf(_zm("Chapter %s"), $key));
-        $channel->setLink($request->url(FILENAME_DEFAULT));
+        $channel->setLink($request->url('index'));
         $channel->setDescription(sprintf(_zm("All pages of Chapter %s"), $key));
         $channel->setLastBuildDate(ZMRssUtils::mkRssDate());
 
@@ -167,7 +167,7 @@ class ZMDefaultRssFeedSource implements ZMRssSource {
 
         $channel = ZMBeanUtils::getBean("RssChannel");
         $channel->setTitle(sprintf(_zm("New Products at %s"), ZMSettings::get('storeName')));
-        $channel->setLink($request->url(FILENAME_DEFAULT));
+        $channel->setLink($request->url('index'));
         $channel->setDescription(sprintf(_zm("The latest updates to %s's product list"), ZMSettings::get('storeName')));
         $channel->setLastBuildDate($lastPubDate);
 

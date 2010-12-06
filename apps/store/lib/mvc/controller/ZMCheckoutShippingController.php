@@ -50,7 +50,7 @@ class ZMCheckoutShippingController extends ZMController {
      * {@inheritDoc}
      */
     public function preProcess($request) {
-        $request->getToolbox()->crumbtrail->addCrumb("Checkout", $request->url(FILENAME_CHECKOUT_SHIPPING, '', true));
+        $request->getToolbox()->crumbtrail->addCrumb("Checkout", $request->url('checkout_shipping', '', true));
         $request->getToolbox()->crumbtrail->addCrumb($request->getToolbox()->utils->getTitle());
     }
 
