@@ -68,6 +68,12 @@ class ZMController extends ZMObject {
 
         // custom view data
         $view->setVars($this->getViewData($request));
+
+        if (null != $formData && !array_key_exists($formData->getFormId(), $view->getVars())) {
+            // avoid overriding default data set by the controller
+            $view->setVar($formData->getFormId(), $formData);
+        }
+
         // make sure these prevail
         $view->setVars($initialVars);
     }
