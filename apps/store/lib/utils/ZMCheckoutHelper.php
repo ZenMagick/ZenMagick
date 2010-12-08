@@ -403,6 +403,8 @@ class ZMCheckoutHelper extends ZMObject {
             unset($paymentTypes['freecharger']);
         }
 
+        ZMTools::cleanupWrapperEnv();
+
         return $paymentTypes;
     }
 

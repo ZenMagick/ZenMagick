@@ -436,4 +436,13 @@ class ZMTools {
         // END: adjust boxes, weight and tare
     }
 
+    /**
+     * Cleanup fake zc globals to make wrapper work.
+     *
+     */
+    public static function cleanupWrapperEnv() {
+    global $order, $shipping_weight, $shipping_quoted, $shipping_num_boxes, $total_count;
+        unset($order); unset($shipping_weight); unset($shipping_quoted); unset($shipping_num_boxes); unset($total_count);
+    }
+
 }

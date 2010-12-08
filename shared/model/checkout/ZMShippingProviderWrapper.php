@@ -142,6 +142,8 @@ class ZMShippingProviderWrapper extends ZMObject implements ZMShippingProvider {
             }
         }
 
+        ZMTools::cleanupWrapperEnv();
+
         return $methods;
     }
 
