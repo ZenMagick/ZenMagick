@@ -47,6 +47,14 @@ class TestZMUrlManager extends ZMTestCase {
     }
 
     /**
+     * Test global default.
+     */
+    public function testGlobalDefault() {
+        $mapping = ZMUrlManager::instance()->findMapping('checkout_shipping', 'check_cart');
+        $this->assertEqual(array('controller'=>null,'formId'=>null,'form'=>null,'view'=>'RedirectView','template'=>'shopping_cart', 'layout' => null), $mapping);
+    }
+
+    /**
      * Test checkout_guest:success.
      */
     public function testCheckoutGuestSuccess() {

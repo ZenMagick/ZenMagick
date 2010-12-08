@@ -176,6 +176,9 @@ class ZMUrlManager extends ZMObject {
                     if (array_key_exists($viewId, $this->mappings_['page'][$requestId])) {
                         // requestId specific viewId
                         $data = array_merge($data, $this->mappings_['page'][$requestId][$viewId]);
+                    } else if (array_key_exists($viewId, $this->mappings_['global'])) {
+                        // global viewId
+                        $data = array_merge($data, $this->mappings_['global'][$viewId]);
                     }
                 } else if (array_key_exists($viewId, $this->mappings_['global'])) {
                     // global viewId

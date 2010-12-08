@@ -69,15 +69,15 @@ class ZMCheckoutPaymentController extends ZMController {
         $shoppingCart = $request->getShoppingCart();
         $checkoutHelper = ZMLoader::make('CheckoutHelper', $shoppingCart);
 
+        if (!$checkoutHelper->verifyHash($request)) {
+            return $this->findView('check_cart');
+        }
+
         if (null !== ($viewId = $checkoutHelper->validateCheckout($request, false))) {
             return $this->findView($viewId);
         }
         if (null !== ($viewId = $checkoutHelper->validateAddresses($request, true))) {
             return $this->findView($viewId);
-        }
-
-        if (!$checkoutHelper->verifyHash($request)) {
-            return $this->findView('check_cart');
         }
 
         // TODO: add check if payment is needed at all (if subtotal is zero we don't need payment?)
@@ -94,15 +94,15 @@ class ZMCheckoutPaymentController extends ZMController {
         $shoppingCart = $request->getShoppingCart();
         $checkoutHelper = ZMLoader::make('CheckoutHelper', $shoppingCart);
 
+        if (!$checkoutHelper->verifyHash($request)) {
+            return $this->findView('check_cart');
+        }
+
         if (null !== ($viewId = $checkoutHelper->validateCheckout($request, false)) && 'require_shipping' != $viewId) {
             return $this->findView($viewId);
         }
         if (null !== ($viewId = $checkoutHelper->validateAddresses($request, true))) {
             return $this->findView($viewId);
-        }
-
-        if (!$checkoutHelper->verifyHash($request)) {
-            return $this->findView('check_cart');
         }
 
         if (null != ($comments = $request->getParameter('comments'))) {

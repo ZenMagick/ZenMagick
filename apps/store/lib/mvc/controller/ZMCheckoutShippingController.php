@@ -68,15 +68,15 @@ class ZMCheckoutShippingController extends ZMController {
         $shoppingCart = $request->getShoppingCart();
         $checkoutHelper = ZMLoader::make('CheckoutHelper', $shoppingCart);
 
+        if (!$checkoutHelper->verifyHash($request)) {
+            return $this->findView('check_cart');
+        }
+
         if (null !== ($viewId = $checkoutHelper->validateCheckout($request, false)) && 'require_shipping' != $viewId) {
             return $this->findView($viewId);
         }
         if (null !== ($viewId = $checkoutHelper->validateAddresses($request, true))) {
             return $this->findView($viewId);
-        }
-
-        if (!$checkoutHelper->verifyHash($request)) {
-            return $this->findView('check_cart');
         }
 
         if ($checkoutHelper->isVirtual()) {
@@ -99,15 +99,15 @@ class ZMCheckoutShippingController extends ZMController {
         $shoppingCart = $request->getShoppingCart();
         $checkoutHelper = ZMLoader::make('CheckoutHelper', $shoppingCart);
 
+        if (!$checkoutHelper->verifyHash($request)) {
+            return $this->findView('check_cart');
+        }
+
         if (null !== ($viewId = $checkoutHelper->validateCheckout($request, false)) && 'require_shipping' != $viewId) {
             return $this->findView($viewId);
         }
         if (null !== ($viewId = $checkoutHelper->validateAddresses($request, true))) {
             return $this->findView($viewId);
-        }
-
-        if (!$checkoutHelper->verifyHash($request)) {
-            return $this->findView('check_cart');
         }
 
         if ($checkoutHelper->isVirtual()) {
