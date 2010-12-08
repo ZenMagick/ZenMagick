@@ -57,4 +57,5 @@
   <?php } ?>
 </table>
 
+<h2><?php _vzm('Preview') ?></h2>
 <iframe id="preview" name="preview" width="100%" height="400px" scrolling="auto"></iframe>
