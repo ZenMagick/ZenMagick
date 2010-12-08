@@ -25,7 +25,7 @@
 
 
 /**
- * Order total line details as returned by a pluing implementing the <code>ZMOrderTotal</code>
+ * Order total line details as returned by a plugin implementing the <code>ZMOrderTotal</code>
  * interface.
  *
  * <p>The <em>title</em> and <em>amount</em> are the minimum requirements for an order
