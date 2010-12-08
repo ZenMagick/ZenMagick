@@ -179,17 +179,19 @@ class ZMDbTableMapper extends ZMObject {
     protected function parseTable($mapping) {
         $defaults = array('key' => false, 'auto' => false, 'custom' => false, 'default' => null);
         $tableInfo = array();
-        foreach ($mapping as $property => $info) {
-            $arr = array();
-            parse_str(str_replace(';', '&', $info), $arr);
-            $tableInfo[$property] = array_merge($defaults, $arr);
-            $tableInfo[$property]['property'] = $property;
-            // handle boolean values
-            foreach ($tableInfo[$property] as $name => $value) {
-                if ('false' == $value) {
-                    $tableInfo[$property][$name] = false;
-                } else if ('true' == $value) {
-                    $tableInfo[$property][$name] = true;
+        if (null != $mapping) {
+            foreach ($mapping as $property => $info) {
+                $arr = array();
+                parse_str(str_replace(';', '&', $info), $arr);
+                $tableInfo[$property] = array_merge($defaults, $arr);
+                $tableInfo[$property]['property'] = $property;
+                // handle boolean values
+                foreach ($tableInfo[$property] as $name => $value) {
+                    if ('false' == $value) {
+                        $tableInfo[$property][$name] = false;
+                    } else if ('true' == $value) {
+                        $tableInfo[$property][$name] = true;
+                    }
                 }
             }
         }
