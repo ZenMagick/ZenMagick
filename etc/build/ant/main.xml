@@ -167,7 +167,7 @@
 
         <!-- copy default plugins -->
         <foreach list="${plugins.defaults}" target="copy-prepare" param="path">
-            <param name="base.path" value="${zenmagick.src.dir}/plugins/general/" />
+            <param name="base.path" value="${zenmagick.src.dir}/plugins/" />
             <param name="path.to" value="${build.dir}/zenmagick" />
         </foreach>
 
