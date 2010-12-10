@@ -8,6 +8,9 @@
 
     <!-- Build plugin releases -->
     <target name="plugin-releases" depends="clean,init" description="Build plugin releases.">
+        <!-- just in case there is something to pack -->
+        <antcall target="pack-libraries" />
+
         <!-- build general plugins -->
         <foreach list="${plugins.list}" target="plugin-release" param="plugin.name">
         </foreach>

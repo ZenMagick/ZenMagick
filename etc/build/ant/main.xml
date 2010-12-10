@@ -191,6 +191,8 @@
             <fileset dir="${build.dir}" includes="**/*.log" />
             <fileset dir="${build.dir}" includes="**/*.db" />
         </delete>
+
+        <antcall target="pack-libraries" />
     </target>
 
 

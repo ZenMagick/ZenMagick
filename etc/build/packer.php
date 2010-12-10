@@ -33,23 +33,23 @@
     spl_autoload_register('ZMLoader::resolve');
 
     if (6 > $argc) {
-        echo PHP_EOL."  usage: php packer.php [ZMLibraryPacker implementation] [source dir] [target dir] [version] [true|false]".PHP_EOL;
+        echo PHP_EOL."  usage: php packer.php [ZMLibraryPacker implementation] [source dir] [target dir] [version] [true|false] [target base directory] [classpath]".PHP_EOL;
         exit;
     }
 
     $class = $argv[1];
     $source = $argv[2];
-    $target = $argv[3];
-    $version = $argv[4];
-    $strip = ZMLangUtils::asBoolean($argv[5]);
-    $classpath = '';
+    $targetBaseDir = $argv[3];
+    $target = $argv[4];
+    $version = $argv[5];
+    $strip = ZMLangUtils::asBoolean($argv[6]);
     if (6 < $argc) {
-        foreach (explode(';', $argv[6]) as $path) {
+        foreach (explode(';', $argv[7]) as $path) {
             ZMLoader::instance()->addPath($path);
         }
     }
 
     $packer = new $class();
-    $packer->process($source, $target, $version, $strip);
+    $packer->process($source, $targetBaseDir.$target, $version, $strip);
 
     exit;

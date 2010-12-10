@@ -3,7 +3,6 @@
     <!-- Plugins properties -->
     <property file="etc/build/ant/libraries.properties" />
 
-
     <!-- Pack a PHP library -->
     <target name="pack-library" description="Pack a PHP library by running php etc/build/packer.php ...">
         <echo message="Packing ${library.name} ..." />
@@ -23,6 +22,7 @@
             <arg value="etc/build/packer.php"/>
             <arg value="${packer.class}"/>
             <arg value="${packer.sourceDir}"/>
+            <arg value="${libraries.targetBaseDir}"/>
             <arg value="${packer.targetDir}"/>
             <arg value="${packer.version}"/>
             <arg value="${libraries.strip}"/>
@@ -32,6 +32,8 @@
 
     <!-- Pack SwiftMailer -->
     <target name="pack-libraries" description="Pack all configured libraries.">
+        <echo message="Packing libraries with baseTargetDir: ${libraries.targetBaseDir}" />
+
         <foreach list="${libraries}" target="pack-library" param="library.name">
         </foreach>
     </target>
