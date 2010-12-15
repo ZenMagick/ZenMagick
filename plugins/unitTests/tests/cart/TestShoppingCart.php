@@ -33,6 +33,27 @@ class TestShoppingCart extends ZMTestCase {
      */
     public function setUp() {
         parent::setUp();
+
+        if (!defined('ATTRIBUTES_PRICE_FACTOR_FROM_SPECIAL')) {
+            define('ATTRIBUTES_PRICE_FACTOR_FROM_SPECIAL', '0');
+        }
+        if (!defined('TEXT_PREFIX')) {
+            define('TEXT_PREFIX', 'txt_');
+        }
+
+        // some vales zencart's order class wants...
+        $_SESSION['sendto'] = '1';
+        $_SESSION['billto'] = '1';
+        $_SESSION['payment'] = 'moneyorder';
+        $_SESSION['shipping'] = 'flat';
+        $GLOBALS['moneyorder'] = new ZMObject();
+        $GLOBALS['moneyorder']->title = 'moneyorder';
+        $GLOBALS['moneyorder']->code = 'moneyorder';
+
+        // cart checks for user...
+        $account = ZMAccounts::instance()->getAccountForId(1);
+        $this->getRequest()->getSession()->setAccount($account);
+
         // clear session and database
         $_SESSION['cart']->reset(true);
         $_SESSION['cart']->restore_contents();
@@ -60,7 +81,7 @@ class TestShoppingCart extends ZMTestCase {
             $qty = 5 == $qty ? 3: 5;
         }
         // load again from DB
-        $serviceShoppingCart = ZMShoppingCarts::instance()->loadCartForAccountId(17);
+        $serviceShoppingCart = ZMShoppingCarts::instance()->loadCartForAccountId($this->getRequest()->getSession()->getAccountId());
         $itemMap = $serviceShoppingCart->getItems();
 
         foreach ($referenceCart->getItems() as $item) {
@@ -88,7 +109,7 @@ class TestShoppingCart extends ZMTestCase {
         }
 
         // load again from DB
-        $serviceShoppingCart = ZMShoppingCarts::instance()->loadCartForAccountId(17);
+        $serviceShoppingCart = ZMShoppingCarts::instance()->loadCartForAccountId($this->getRequest()->getSession()->getAccountId());
         $itemMap = $serviceShoppingCart->getItems();
 
         // get product data from order

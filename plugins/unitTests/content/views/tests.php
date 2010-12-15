@@ -75,6 +75,7 @@
       <?php echo $form->open('tests', '', false, array('method'=>'post')); ?>
         <div id="root">
           <input type="submit" id="run" value="Run Selected">
+          <input type="checkbox" id="hideErrors" name="hideErrors" value="true"<?php echo ($hideErrors ? ' checked' : '') ?>> <label for="hideErrors"><strong>Hide errors</strong></label><br>
           <input type="checkbox" id="all__all" onclick="sync_all(this)"> <label for="all__all"><strong>Select All</strong></label>
         </div>
         <ul>

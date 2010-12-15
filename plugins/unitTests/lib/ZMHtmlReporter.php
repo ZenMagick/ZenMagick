@@ -31,17 +31,21 @@ class ZMHtmlReporter extends HtmlReporter {
     private $currentTest_;
     private $results_;
     private $enabled_;
+    private $hideErrors_;
 
 
     /**
      * Create new instance.
+     *
+     * @param boolean hideErrors Optional flag to disable display of errors/exceptions; default is <code>false</code> to show exception.
      */
-    function __construct() {
+    function __construct($hideErrors=false) {
         parent::__construct('ISO-8859-1');
         $this->currentCase_ = null;
         $this->currentTest_ = null;
         $this->results_ = array();
         $this->enabled_ = array();
+        $this->hideErrors_ = $hideErrors;
     }
 
     /**
@@ -149,7 +153,21 @@ class ZMHtmlReporter extends HtmlReporter {
     /**
      * {@inheritDoc}
      */
+    public function paintError($exception) {
+        if ($this->hideErrors_) {
+            return;
+        }
+        parent::paintError($exception);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function paintException($exception) {
+        if ($this->hideErrors_) {
+            return;
+        }
+
         // log just in case
         ZMLogging::instance()->dump($exception, null, ZMLogging::WARN);
 

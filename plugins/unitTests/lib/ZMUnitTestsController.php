@@ -146,6 +146,9 @@ class ZMUnitTestsController extends ZMController {
             $testCases[] = $testCase;
         }
 
+        $hideErrors = ZMLangUtils::asBoolean($request->getParameter('hideErrors', false));
+        $context['hideErrors'] = $hideErrors;
+
         $context['all_selected_testCases'] = array_flip($testCases);
         $context['all_selected_tests'] = array_flip($tests);
         $context['all_results'] = array();
@@ -163,7 +166,7 @@ class ZMUnitTestsController extends ZMController {
             set_time_limit(300);
 
             // run tests
-            $reporter = new ZMHtmlReporter();
+            $reporter = new ZMHtmlReporter($hideErrors);
             // enable all selected tests
             foreach ($tests as $id) {
                 // XXX: this should not be handled by the reporter

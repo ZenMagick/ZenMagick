@@ -275,7 +275,7 @@ class ZMShoppingCarts extends ZMObject {
                         $attributePrice += $word_count * $value->getPriceWords();
                     }
 
-                    $letters_count = zen_get_letters_count($string) - $value->getLettersFree();
+                    $letters_count = zen_get_letters_count($value->getName()) - $value->getLettersFree();
                     $letters_price = $letters_count * $value->getPriceLetters();
                     if (0 < $letters_price) {
                         $attributePrice += $letters_price;
