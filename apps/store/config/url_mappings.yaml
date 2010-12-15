@@ -183,6 +183,9 @@ page:
     success: 
       template: checkout_payment
       view: RedirectView
+  ## avoid redirect loop
+  empty_cart:
+    template: empty_cart
   checkout_shipping_address: 
     controller: 'CheckoutAddressController#mode=shipping'
     formId: shippingAddress
