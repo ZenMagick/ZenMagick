@@ -98,7 +98,7 @@ class ZMCheckoutPaymentController extends ZMController {
             return $this->findView('check_cart');
         }
 
-        if (null !== ($viewId = $checkoutHelper->validateCheckout($request, false)) && 'require_shipping' != $viewId) {
+        if (null !== ($viewId = $checkoutHelper->validateCheckout($request, false))) {
             return $this->findView($viewId);
         }
         if (null !== ($viewId = $checkoutHelper->validateAddresses($request, true))) {
@@ -110,7 +110,7 @@ class ZMCheckoutPaymentController extends ZMController {
         }
 
         if (ZMSettings::get('isConditionsMessage') && !ZMLangUtils::asBoolean($request->getParameter('conditions'))) {
-            ZMMessages::instance()->error(_zm('PPlease confirm the terms and conditions bound to this order by ticking the box below.'));
+            ZMMessages::instance()->error(_zm('Please confirm the terms and conditions bound to this order by ticking the box below.'));
             return $this->findView();
         }
 
