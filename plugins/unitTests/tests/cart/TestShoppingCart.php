@@ -65,8 +65,8 @@ class TestShoppingCart extends ZMTestCase {
     public function tearDown() {
         parent::tearDown();
         // clear session and database
-        //$_SESSION['cart']->reset(true);
-        //$_SESSION['cart']->restore_contents();
+        $_SESSION['cart']->reset(true);
+        $_SESSION['cart']->restore_contents();
     }
 
 
