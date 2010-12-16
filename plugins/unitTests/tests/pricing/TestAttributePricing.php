@@ -29,16 +29,6 @@
  * @author DerManoMann
  */
 class TestAttributePricing extends ZMTestCase {
-    protected $zen_cart_attribute_price_info;
-
-    /**
-     * Load expected prices.
-     */
-    public function setUp() {
-        parent::setUp();
-    global $attribute_prices;
-        $this->zen_cart_attribute_price_info = $attribute_prices;
-    }
 
     /**
      * Test attribute price.
@@ -47,9 +37,9 @@ class TestAttributePricing extends ZMTestCase {
         foreach (ZMProducts::instance()->getAllProducts(false, 1) as $product) {
             foreach ($product->getAttributes() as $attribute) {
                 foreach ($attribute->getValues() as $value) {
-                    $priceInfo = $this->zen_cart_attribute_price_info['p'.$value->getAttributeValueDetailsId()];
+                    $zprice = zen_get_attributes_price_final($value->get('attributeValueDetailsId'), 1, '');
                     // default is 4 decimal digits...
-                    $this->assertEqual((int)(10000*$priceInfo['dicount_price']), (int)(10000*$value->getPrice(false)), '%s productId='.$product->getId().' $valueId='.$value->getAttributeValueId().'/'.$value->getAttributeValueDetailsId());
+                    $this->assertEqual((int)(10000*$zprice), (int)(10000*$value->getPrice(false)), '%s productId='.$product->getId().' $valueId='.$value->getAttributeValueId().'/'.$value->getAttributeValueDetailsId());
                 }
             }
         }
