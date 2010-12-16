@@ -38,7 +38,7 @@ class TestShoppingCart extends ZMTestCase {
             define('ATTRIBUTES_PRICE_FACTOR_FROM_SPECIAL', '0');
         }
         if (!defined('TEXT_PREFIX')) {
-            define('TEXT_PREFIX', 'txt_');
+            define('TEXT_PREFIX', 'TEXT_PREFIX');
         }
 
         // some vales zencart's order class wants...
@@ -65,8 +65,8 @@ class TestShoppingCart extends ZMTestCase {
     public function tearDown() {
         parent::tearDown();
         // clear session and database
-        $_SESSION['cart']->reset(true);
-        $_SESSION['cart']->restore_contents();
+        //$_SESSION['cart']->reset(true);
+        //$_SESSION['cart']->restore_contents();
     }
 
 

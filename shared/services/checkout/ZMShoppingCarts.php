@@ -222,22 +222,17 @@ class ZMShoppingCarts extends ZMObject {
             $productPrice = 0;
         } else {
             if ($hasOfferPrice && !$product->isPricedByAttributes()) {
-//echo '-- special: offers && !pricedByAttributes<BR>';
                 $productPrice = $offers->getCalculatedPrice(false);
             } else {
-//echo '-- no offers || pricedByAttributes<BR>';
                 $productPrice = $product->getProductPrice();
             }
 
             // start with the regular or offer price...
             if ($product->isPricedByAttributes() && $item->hasAttributes()) {
-//echo '-- has attributes and  pricedByAttributes<BR>';
                 $productPrice = $product->getProductPrice();
             } else {
-//echo '-- qty discount<BR>';
                 // apply quantity discounts
                 foreach ($product->getOffers()->getQuantityDiscounts(false) as $discount) {
-//echo $discount->getQuantity() . ' - '. $item->getQuantity()."<BR>";
                     if ($discount->getQuantity() <= $item->getQuantity()) {
                         $productPrice = $discount->getPrice();
                     } else {
@@ -247,7 +242,6 @@ class ZMShoppingCarts extends ZMObject {
             }
         }
 
-//echo '** P: '.$item->getProduct()->getName().": ". $productPrice."<BR>";
         return $productPrice;
     }
 
@@ -263,7 +257,6 @@ class ZMShoppingCarts extends ZMObject {
         foreach ($item->getAttributes() as $attribute) {
             $attributePrice = 0;
             foreach ($attribute->getValues() as $value) {
-//echo $value->getName().": ".$value->getPrice(false)."<BR>";
                 $attributePrice += $value->getPrice(false, $item->getQuantity());
 
                 // add special code to calculate word/letter price
@@ -282,10 +275,8 @@ class ZMShoppingCarts extends ZMObject {
                     }
                 }
             }
-//echo '* '.$attribute->getName().": ". $attributePrice."<BR>";
             $itemAttributesPrice += $attributePrice;
         }
-//echo '** A: '.$item->getProduct()->getName().": ". $itemAttributesPrice."<BR>";
 
         return $itemAttributesPrice;
     }
@@ -297,7 +288,15 @@ class ZMShoppingCarts extends ZMObject {
      * @return float The amount.
      */
     protected function calculateOneTimeCharge($item) {
-        return 0;
+        $charge = 0;
+
+        foreach ($item->getAttributes() as $attribute) {
+            foreach ($attribute->getValues() as $value) {
+                $charge += $value->getOneTimePrice(false);
+            }
+        }
+
+        return $charge;
     }
 
 }

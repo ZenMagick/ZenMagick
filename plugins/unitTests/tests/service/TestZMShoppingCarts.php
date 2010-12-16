@@ -33,6 +33,10 @@ class TestZMShoppingCarts extends ZMTestCase {
      */
     public function skip() {
         $account = $this->getRequest()->getAccount();
+        if (null == $account) {
+            $account = ZMAccounts::instance()->getAccountForId(1);
+            $this->getRequest()->getSession()->setAccount($account);
+        }
         $this->skipIf(null == $account || ZMAccount::REGISTERED != $account->getType(), 'Need to be logged in for this test');
     }
 
@@ -50,10 +54,12 @@ class TestZMShoppingCarts extends ZMTestCase {
      * Dump cart.
      *
      * @param ZMShoppingCart shoppingCart The cart to dump.
+     * @return string The dump.
      */
     protected function dumpCart($shoppingCart) {
         $html = $this->getRequest()->getToolbox()->html;
         $utils = $this->getRequest()->getToolbox()->utils;
+        ob_start();
         foreach ($shoppingCart->getItems() as $item) {
             echo $item->getId().":".$html->encode($item->getName())."; qty=".$item->getQuantity().'; '.$utils->formatMoney($item->getItemPrice()).'/'.$utils->formatMoney($item->getItemTotal())."<BR>";
             if ($item->hasAttributes()) {
@@ -65,6 +71,7 @@ class TestZMShoppingCarts extends ZMTestCase {
                 }
             }
         }
+        return ob_get_clean();
     }
 
     /**
@@ -72,11 +79,13 @@ class TestZMShoppingCarts extends ZMTestCase {
      */
     public function testLoadCart() {
         $shoppingCart = ZMShoppingCarts::instance()->loadCartForAccountId($this->getAccountId());
-        $this->dumpCart($shoppingCart);
-        echo '<hr>';
+        $cartDump = $this->dumpCart($shoppingCart);
+        echo $cartDump.'<hr>';
         $_SESSION['cart']->reset(false);
         $_SESSION['cart']->restore_contents();
-        $this->dumpCart(new ZMShoppingCart());
+        $loadedCartDump = $this->dumpCart(new ZMShoppingCart());
+        echo $loadedCartDump;
+        $this->assertEqual($cartDump, $loadedCartDump);
     }
 
 }
