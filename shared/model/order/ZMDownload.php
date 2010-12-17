@@ -189,6 +189,7 @@ class ZMDownload extends ZMObject {
      * @return boolean <code>true</code> if this download is (still) available for download.
      */
     public function isDownloadable() {
+      var_dump($this->orderDate);
         $datetime = ZMTools::parseDateString($this->orderDate, ZM_DATETIME_FORMAT);
         $expiry_time = mktime(23, 59, 59, $datetime['mm'], $datetime['dd'] + $this->maxDays, $datetime['yyyy']);
         return file_exists(ZMSettings::get('downloadBaseDir').$this->filename)

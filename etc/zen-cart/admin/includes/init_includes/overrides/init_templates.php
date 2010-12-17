@@ -23,7 +23,7 @@
 ?>
 <?php
 
-    //setup globals
+    // setup globals - used when loading zencart admin pages inside ZenMagick admin
     if (isset($autoLoadConfig)) {
         foreach ($autoLoadConfig as $level) {
             foreach ($level as $entry) {
@@ -35,22 +35,9 @@
         }
     }
 
-    // will be modified by admin patch
-    $zmLanguagesBefore = true;
-
-    if ($zmLanguagesBefore) {
-        // initial setup loading languages first
-        require_once dirname(dirname(__FILE__)) . "/init_languages.php";
-    }
-
     if (!defined('ZM_START_TIME')) {
         // init ZenMagick
         include_once DIR_FS_CATALOG."zenmagick/init.php";
-    }
-
-    if (!$zmLanguagesBefore) {
-        // once all i18n is patched, this line will be used
-        require_once dirname(__FILE__) . "/init_languages.php";
     }
 
     // load original init script
