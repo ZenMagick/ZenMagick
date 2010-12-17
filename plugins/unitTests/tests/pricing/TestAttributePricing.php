@@ -37,7 +37,12 @@ class TestAttributePricing extends ZMTestCase {
         foreach (ZMProducts::instance()->getAllProducts(false, 1) as $product) {
             foreach ($product->getAttributes() as $attribute) {
                 foreach ($attribute->getValues() as $value) {
-                    $zprice = zen_get_attributes_price_final($value->get('attributeValueDetailsId'), 1, '');
+                    if ($value->isDiscounted()) {
+                        $zprice = zen_get_attributes_price_final($value->getAttributeValueDetailsId(), 1, '');
+                        $zprice = zen_get_discount_calc($product->getId(), true, $zprice);
+                    } else {
+                        $zprice = $value->getValuePrice();
+                    }
                     // default is 4 decimal digits...
                     $this->assertEqual((int)(10000*$zprice), (int)(10000*$value->getPrice(false)), '%s productId='.$product->getId().' $valueId='.$value->getAttributeValueId().'/'.$value->getAttributeValueDetailsId());
                 }
