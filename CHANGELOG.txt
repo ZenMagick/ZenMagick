@@ -172,6 +172,7 @@ Release 0.9.11
   $orderFormContent to avoid issues when no payment type required (mostly when
 	a coupon or gv covers the order total); templates: checkout_confirmation.php
 - unitTests: add option to hide error/exception messages
+- fix order confirmation email templates when no payment is available
 
 Release 0.9.10
 - restructure store and admin code into separate apps with most of the store

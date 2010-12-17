@@ -56,12 +56,13 @@
 
 <?php _vzm("Payment Details\n") ?>
 -----------------------------------------------
-<?php $paymentType = $order->getPaymentType(); ?>
+<?php if (null != ($paymentType = $order->getPaymentType())) { ?>
 <?php echo $html->encode($paymentType->getName()) ?>
 <?php if (!ZMLangUtils::isEmpty($paymentType->getInfo())) { ?>
 
 
 <?php echo $paymentType->getInfo() ?>
+<?php } ?>
 <?php } ?>
 
 
