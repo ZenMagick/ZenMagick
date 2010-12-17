@@ -148,7 +148,7 @@ class ZMEventFixes extends ZMObject {
             ZMLogging::instance()->log('enable zencart request processing for requestId='.$requestId, ZMLogging::DEBUG);
             return true;
         }
-        if (false === strpos($requestId, 'checkout_')) {
+        if (false === strpos($requestId, 'checkout_') && 'download' != $requestId) {
             // not checkout
             return false;
         }

@@ -351,4 +351,13 @@ class ZMOrder extends ZMObject {
         return ZMPaymentTypes::instance()->getPaymentTypeForId($this->get('payment_module_code'));
     }
 
+    /**
+     * Get downloads.
+     *
+     * @return array List of <code>ZMDownload</code> instances.
+     */
+    public function getDownloads() {
+        return ZMOrders::instance()->getDownloadsForOrderId($this->getId());
+    }
+
 }

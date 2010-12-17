@@ -55,10 +55,13 @@
 </table>
 
 <h3><?php _vzm("Payment Details") ?></h3>
-<?php $paymentType = $currentOrder->getPaymentType(); ?>
-<p><?php echo $html->encode($paymentType->getName()) ?></p>
-<?php if (!ZMLangUtils::isEmpty($paymentType->getInfo())) { ?>
-  <p><?php echo nl2br($paymentType->getInfo()) ?></p>
+<?php if (null != ($paymentType = $currentOrder->getPaymentType())) { ?>
+    <p><?php echo $html->encode($paymentType->getName()) ?></p>
+    <?php if (!ZMLangUtils::isEmpty($paymentType->getInfo())) { ?>
+      <p><?php echo nl2br($paymentType->getInfo()) ?></p>
+    <?php } ?>
+<?php } else { ?>
+    <p><?php _vzm('N/A') ?></p>
 <?php } ?>
 
 <h3><?php _vzm("Order History") ?></h3>
@@ -73,6 +76,29 @@
     <?php } ?>
     </tbody>
 </table>
+
+<?php if (null != ($downloads = $currentOrder->getDownloads()) && 0 < count($downloads)) { ?>
+    <h3><?php _vzm('Downloads') ?></h3>
+    <p><?php _vzm('To download your files click the download button and choose "Save to Disk" from the popup menu.') ?></p>
+    <table class="grid">
+      <tr>
+          <th><?php _vzm('Item') ?></th>
+          <th><?php _vzm('Filename') ?></th>
+          <th><?php _vzm('Size') ?></th>
+          <th><?php _vzm('Remaining') ?></th>
+          <th></th>
+      </tr>
+      <?php foreach ($downloads as $download) { $downloadProduct = ZMProducts::instance()->getProductForId($download->getProductId(), $session->getLanguageId()); ?>
+          <tr>
+              <th><?php echo $html->encode($downloadProduct->getName()) ?></th>
+              <th><?php echo $html->encode($download->getFilename()) ?></th>
+              <th><?php echo $download->getFileSize() ?> bytes</th>
+              <th><?php echo $download->getDownloadCount() ?></th>
+              <th><a href="<?php echo $net->url('download', 'order='.$currentOrder->getId().'&id='.$download->getId(), $request->isSecure()) ?>"><?php _vzm('Download') ?></a></th>
+          </tr>
+      <?php } ?>
+    </table>
+<?php } ?>
 
 <h3><?php _vzm("Address Details") ?></h3>
 <div id="addr">

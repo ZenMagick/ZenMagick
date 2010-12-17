@@ -174,6 +174,7 @@ Release 0.9.11
 - unitTests: add option to hide error/exception messages
 - fix order confirmation email templates when no payment is available
 - simplify init overrides for admin
+- add support for downloads to checkout_success and account_history_info
 
 Release 0.9.10
 - restructure store and admin code into separate apps with most of the store

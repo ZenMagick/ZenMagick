@@ -46,6 +46,30 @@
         </fieldset>
     <?php } ?>
 
+    <?php if (null != ($downloads = $currentOrder->getDownloads()) && 0 < count($downloads)) { ?>
+        <fieldset>
+            <legend><?php _vzm('Downloads') ?></legend>
+            <p><?php _vzm('To download your files click the download button and choose "Save to Disk" from the popup menu.') ?></p>
+            <table class="grid">
+              <tr>
+                  <th><?php _vzm('Item') ?></th>
+                  <th><?php _vzm('Filename') ?></th>
+                  <th><?php _vzm('Size') ?></th>
+                  <th><?php _vzm('Remaining') ?></th>
+                  <th></th>
+              </tr>
+              <?php foreach ($downloads as $download) { $downloadProduct = ZMProducts::instance()->getProductForId($download->getProductId(), $session->getLanguageId()); ?>
+                  <tr>
+                      <th><?php echo $html->encode($downloadProduct->getName()) ?></th>
+                      <th><?php echo $html->encode($download->getFilename()) ?></th>
+                      <th><?php echo $download->getFileSize() ?> bytes</th>
+                      <th><?php echo $download->getDownloadCount() ?></th>
+                      <th><a href="<?php echo $net->url('download', 'order='.$currentOrder->getId().'&id='.$download->getId(), $request->isSecure()) ?>"><?php _vzm('Download') ?></a></th>
+                  </tr>
+              <?php } ?>
+            </table>
+        </fieldset>
+    <?php } ?>
 
     <?php $voucherBalance = $request->getAccount()->getVoucherBalance(); ?>
     <?php if (0 < $voucherBalance) { ?>
