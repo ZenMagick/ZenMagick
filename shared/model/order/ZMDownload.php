@@ -184,21 +184,43 @@ class ZMDownload extends ZMObject {
     public function setStatus($status) { $this->status = $status; }
 
     /**
+     * Get the expiry date for this download.
+     *
+     * @return DateTime The expiry date.
+     */
+    public function getExpiryDate() {
+        $expiry = clone $this->getOrderDate();
+        //XX: use DateInterval in PHP5.3
+        $expiry->modify('+'.$this->getMaxDays().' day');
+        return $expiry;
+    }
+
+    /**
+     * Check if this download is expired.
+     *
+     * @return boolean <code>true</code> if this download is expired.
+     */
+    public function isExpired() {
+        $now = new DateTime();
+        $snow = $now->format('d-m-Y');
+        $sexpiry = $this->getExpiryDate()->format('d-m-Y');
+        return $snow > $sexpiry;
+    }
+
+    /**
      * Check if downloadable.
      *
      * @return boolean <code>true</code> if this download is (still) available for download.
      */
     public function isDownloadable() {
-        $datetime = ZMTools::parseDateString($this->orderDate, ZM_DATETIME_FORMAT);
-        $expiry_time = mktime(23, 59, 59, $datetime['mm'], $datetime['dd'] + $this->maxDays, $datetime['yyyy']);
         return file_exists(ZMSettings::get('downloadBaseDir').$this->filename)
-            && (!$this->isLimited() || (0 < $this->downloadCount && $expiry_time > time()));
+            && (!$this->isLimited() || (0 < $this->downloadCount && !$this->isExpired()));
     }
 
     /**
      * Check if this download is limited.
      *
-     * @return boolean <code>true</code> if this download is limited by date/count.
+     * @return boolean <code>true</code> if this download is limited by date.
      */
     public function isLimited() {
         return 0 != $this->maxDays;

@@ -100,11 +100,16 @@ class TestZMOrders extends ZMTestCase {
      * Test downloads.
      */
     public function testDownloads() {
-        $downloads = ZMOrders::instance()->getDownloadsForOrderId(62, array(1));
+        $downloads = ZMOrders::instance()->getDownloadsForOrderId(12);
         foreach ($downloads as $dl) {
-            echo $dl->getId().': isDownloadable:'.$dl->isDownloadable()."<BR>";
-            echo $dl->getId().': isLimited:'.$dl->isLimited()."<BR>";
-            echo $dl->getId().': getFileSize:'.$dl->getFileSize()."<BR>";
+            $this->assertTrue($dl->getorderDate() instanceof DateTime);
+            echo 'id: '.$dl->getId()."<BR>";
+            echo '* isDownloadable:'.$dl->isDownloadable()."<BR>";
+            echo '* isLimited:'.$dl->isLimited()."<BR>";
+            echo '* getFileSize:'.$dl->getFileSize()."<BR>";
+            echo '* getOrderDate:'.$dl->getOrderDate()->format('Y-m-d')."<BR>";
+            echo '* getMaxDays:'.$dl->getMaxDays()."<BR>";
+            echo '* getExpiryDate:'.$dl->getExpiryDate()->format('Y-m-d')."<BR>";
         }
     }
 

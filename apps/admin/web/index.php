@@ -35,7 +35,7 @@
 
   // name of Zen Cart admin folder
   if (!defined('ZC_ADMIN_FOLDER')) {
-      define('ZC_ADMIN_FOLDER', 'admin');
+      define('ZC_ADMIN_FOLDER', 'aadmin');
   }
 
   require_once ZC_INSTALL_PATH.ZC_ADMIN_FOLDER.'/includes/configure.php';
