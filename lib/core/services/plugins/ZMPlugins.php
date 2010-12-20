@@ -215,7 +215,7 @@ class ZMPlugins extends ZMObject {
             require_once($file);
         }
 
-        $plugin = new $pluginClass();
+        $plugin = ZMLoader::make($pluginClass);
         $id = substr(preg_replace('/Plugin$/', '', $pluginClass), 2);
         $id[0] = strtolower($id[0]);
         $plugin->setId($id);
