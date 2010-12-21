@@ -70,7 +70,7 @@ class ZMShoppingCarts extends ZMObject {
         // get existing data to decide on whether to INSERT or UPDATE
         $sql = "SELECT products_id FROM " . TABLE_CUSTOMERS_BASKET . " WHERE customers_id = :accountId";
         $skuIds = array();
-        foreach (Runtime::getDatabase()->query($sql, array('accountId' => $shoppingCart->getAccountId()), TABLE_CUSTOMERS_BASKET) as $result) {
+        foreach (ZMRuntime::getDatabase()->query($sql, array('accountId' => $shoppingCart->getAccountId()), TABLE_CUSTOMERS_BASKET) as $result) {
             $skuIds[] = $result['skuId'];
         }
 
@@ -147,7 +147,7 @@ class ZMShoppingCarts extends ZMObject {
 
         $sql = "SELECT * FROM " . TABLE_CUSTOMERS_BASKET . "
                 WHERE customers_id = :accountId";
-        foreach (Runtime::getDatabase()->query($sql, array('accountId' => $accountId), TABLE_CUSTOMERS_BASKET) as $productResult) {
+        foreach (ZMRuntime::getDatabase()->query($sql, array('accountId' => $accountId), TABLE_CUSTOMERS_BASKET) as $productResult) {
             $item = ZMBeanUtils::getBean('ShoppingCartItem');
             $item->setId($productResult['skuId']);
             $item->setQuantity($productResult['quantity']);

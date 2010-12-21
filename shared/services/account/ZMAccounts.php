@@ -280,7 +280,7 @@ class ZMAccounts extends ZMObject {
                 FROM " . TABLE_PRODUCTS_NOTIFICATIONS . "
                 WHERE customers_id = :accountId";
         $productIds = array();
-        foreach (Runtime::getDatabase()->query($sql, array('accountId' => $accountId), TABLE_PRODUCTS_NOTIFICATIONS) as $result) {
+        foreach (ZMRuntime::getDatabase()->query($sql, array('accountId' => $accountId), TABLE_PRODUCTS_NOTIFICATIONS) as $result) {
             $productIds[] = $result['productId'];
         }
         return $productIds;

@@ -105,7 +105,7 @@ class ZMAttributes extends ZMObject {
         // read all in one go
         $args = array('attributeId' => array_keys($attributeMap), 'productId' => $product->getId(), 'languageId' => $product->getLanguageId());
         $mapping = array(TABLE_PRODUCTS_OPTIONS_VALUES, TABLE_PRODUCTS_ATTRIBUTES);
-        foreach (Runtime::getDatabase()->query($sql, $args, $mapping, 'AttributeValue') as $value) {
+        foreach (ZMRuntime::getDatabase()->query($sql, $args, $mapping, 'AttributeValue') as $value) {
             $attribute = $attributeMap[$value->getAttributeId()];
             $value->setAttribute($attribute);
             $value->setTaxRate($product->getTaxRate());

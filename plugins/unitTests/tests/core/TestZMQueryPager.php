@@ -32,7 +32,7 @@ class TestZMQueryPager extends ZMTestCase {
      * Test simple.
      */
     public function testSimple() {
-        $queryPager = new ZMQueryPager(new ZMQueryDetails(Runtime::getDatabase(), 'select * from '.TABLE_PRODUCTS, array(), TABLE_PRODUCTS, 'Product'));
+        $queryPager = new ZMQueryPager(new ZMQueryDetails(ZMRuntime::getDatabase(), 'select * from '.TABLE_PRODUCTS, array(), TABLE_PRODUCTS, 'Product'));
         $queryPager->getResults(2, 13);
     }
 

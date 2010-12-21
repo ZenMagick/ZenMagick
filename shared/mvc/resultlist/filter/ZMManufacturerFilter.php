@@ -74,7 +74,7 @@ class ZMManufacturerFilter extends ZMResultListFilter implements ZMSQLAware {
      * {@inheritDoc}
      */
     public function getQueryDetails($method=null, $args=array()) {
-        return new ZMQueryDetails(Runtime::getDatabase(), 'p.manufacturers_id = '.(int)$this->getValue());
+        return new ZMQueryDetails(ZMRuntime::getDatabase(), 'p.manufacturers_id = '.(int)$this->getValue());
     }
 
 }

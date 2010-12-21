@@ -90,7 +90,7 @@ class ZMCategoryFilter extends ZMResultListFilter implements ZMSQLAware {
      * {@inheritDoc}
      */
     public function getQueryDetails($method=null, $args=array()) {
-        return new ZMQueryDetails(Runtime::getDatabase(), 'p.master_categories_id = '.(int)$this->getValue());
+        return new ZMQueryDetails(ZMRuntime::getDatabase(), 'p.master_categories_id = '.(int)$this->getValue());
     }
 
 }

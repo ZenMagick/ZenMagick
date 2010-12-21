@@ -136,7 +136,7 @@ class ZMProductSorter extends ZMResultListSorter implements ZMSQLAware {
             return null;
         }
 
-        return new ZMQueryDetails(Runtime::getDatabase(), $this->sql_[$this->sortId_] . ($this->isDescending() ? ' DESC' : ' ASC'));
+        return new ZMQueryDetails(ZMRuntime::getDatabase(), $this->sql_[$this->sortId_] . ($this->isDescending() ? ' DESC' : ' ASC'));
     }
 
 }

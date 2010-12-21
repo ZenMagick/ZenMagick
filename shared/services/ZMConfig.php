@@ -147,7 +147,7 @@ class ZMConfig extends ZMObject {
      */
     protected function loadValuesForSql($sql, $args) {
         $values = array();
-        foreach (Runtime::getDatabase()->query($sql, $args, TABLE_CONFIGURATION) as $value) {
+        foreach (ZMRuntime::getDatabase()->query($sql, $args, TABLE_CONFIGURATION) as $value) {
             if (0 === strpos($value['setFunction'], 'widget@')) {
                 $widgetDefinition = $value['setFunction'].'&'.$value['useFunction'];
                 // build definition from both function values (just in case)

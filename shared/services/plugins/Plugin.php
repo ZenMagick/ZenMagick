@@ -285,7 +285,7 @@ class Plugin extends ZMPlugin {
      * @return string A fully qualified filename.
      */
     public function getConfigPath($file) {
-        $configPath = Runtime::getInstallationPath().'config'.DIRECTORY_SEPARATOR;
+        $configPath = ZMRuntime::getInstallationPath().'config'.DIRECTORY_SEPARATOR;
         $configFile = $configPath.$this->getId().DIRECTORY_SEPARATOR.$file;
 
         if (file_exists($configFile) || !file_exists($this->getPluginDirectory().$file)) {

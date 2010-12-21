@@ -100,7 +100,7 @@ class ZMReviews extends ZMObject {
         $sql .= " ORDER BY date_added DESC";
         $args = array('productId' => $productId, 'languageId' => $languageId);
         $reviewIds = array();
-        foreach (Runtime::getDatabase()->query($sql, $args, array(TABLE_REVIEWS, TABLE_REVIEWS_DESCRIPTION)) as $result) {
+        foreach (ZMRuntime::getDatabase()->query($sql, $args, array(TABLE_REVIEWS, TABLE_REVIEWS_DESCRIPTION)) as $result) {
             $reviewIds[] = $result['reviewId'];
         }
 

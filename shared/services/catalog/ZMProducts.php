@@ -94,7 +94,7 @@ class ZMProducts extends ZMObject implements ZMSQLAware {
         }
         $sql .= " ORDER BY p.products_sort_order, pd.products_name";
         $args = array('languageId' => $languageId);
-        return new ZMQueryDetails(Runtime::getDatabase(), $sql, $args, array(TABLE_PRODUCTS, TABLE_SPECIALS, TABLE_PRODUCTS_DESCRIPTION), 'Product', 'p.products_id');
+        return new ZMQueryDetails(ZMRuntime::getDatabase(), $sql, $args, array(TABLE_PRODUCTS, TABLE_SPECIALS, TABLE_PRODUCTS_DESCRIPTION), 'Product', 'p.products_id');
     }
 
     /**
@@ -199,7 +199,7 @@ class ZMProducts extends ZMObject implements ZMSQLAware {
         }
         $sql .= " ORDER BY p.products_sort_order, pd.products_name";
         $args = array('categoryId' => $categoryId, 'languageId' => $languageId);
-        return new ZMQueryDetails(Runtime::getDatabase(), $sql, $args, array(TABLE_PRODUCTS, TABLE_SPECIALS, TABLE_PRODUCTS_DESCRIPTION, TABLE_PRODUCTS_TO_CATEGORIES), 'Product', 'p.products_id');
+        return new ZMQueryDetails(ZMRuntime::getDatabase(), $sql, $args, array(TABLE_PRODUCTS, TABLE_SPECIALS, TABLE_PRODUCTS_DESCRIPTION, TABLE_PRODUCTS_TO_CATEGORIES), 'Product', 'p.products_id');
     }
 
     /**
@@ -604,7 +604,7 @@ class ZMProducts extends ZMObject implements ZMSQLAware {
      */
     private function getProductIds($sql, $args=array(), $tables=TABLE_PRODUCTS) {
         $productIds = array();
-        foreach (Runtime::getDatabase()->query($sql, $args, $tables) as $result) {
+        foreach (ZMRuntime::getDatabase()->query($sql, $args, $tables) as $result) {
             $productId = $result['productId'];
             $productIds[] = $productId;
         }
@@ -624,7 +624,7 @@ class ZMProducts extends ZMObject implements ZMSQLAware {
      */
     private function getRandomProductIds($sql, $max=0, $args=array(), $tables=TABLE_PRODUCTS) {
         $productIds = array();
-        foreach (Runtime::getDatabase()->query($sql, $args, $tables) as $result) {
+        foreach (ZMRuntime::getDatabase()->query($sql, $args, $tables) as $result) {
             $productId = $result['productId'];
             $productIds[$productId] = $productId;
         }

@@ -63,7 +63,7 @@ class ZMCurrencies extends ZMObject {
     private function load() {
         $sql = "SELECT * FROM " . TABLE_CURRENCIES;
         $this->currencies = array();
-        foreach (Runtime::getDatabase()->query($sql, array(), TABLE_CURRENCIES, 'Currency') as $currency) {
+        foreach (ZMRuntime::getDatabase()->query($sql, array(), TABLE_CURRENCIES, 'Currency') as $currency) {
             $this->currencies[$currency->getCode()] = $currency;
         }
     }

@@ -33,7 +33,7 @@ class ZMCoreCompressor extends ZMPhpPackagePacker {
      * Create new instance.
      */
     function __construct() {
-        parent::__construct(null, Runtime::getInstallationPath().'core.php', Runtime::getInstallationPath().'core.tmp');
+        parent::__construct(null, ZMRuntime::getInstallationPath().'core.php', ZMRuntime::getInstallationPath().'core.tmp');
         $this->setResolveInheritance(true);
         $this->setDebug(false);
     }
@@ -43,7 +43,7 @@ class ZMCoreCompressor extends ZMPhpPackagePacker {
      * Disable / remove the core.php file, effectively disabling the use of it.
      */
     public function disable() {
-        @unlink(Runtime::getInstallationPath().'core.php');
+        @unlink(ZMRuntime::getInstallationPath().'core.php');
     }
 
     /**
@@ -52,7 +52,7 @@ class ZMCoreCompressor extends ZMPhpPackagePacker {
      * @return boolean <code>true</code> if core.php exists, <code>false</code> if not.
      */
     public function isEnabled() {
-        return file_exists(Runtime::getInstallationPath().'core.php');
+        return file_exists(ZMRuntime::getInstallationPath().'core.php');
     }
 
     /**
@@ -78,10 +78,10 @@ class ZMCoreCompressor extends ZMPhpPackagePacker {
      */
     protected function getFileList() {
         $pathList = array(
-            ZMFileUtils::mkPath(array(Runtime::getInstallationPath(), 'lib', 'core')),
-            ZMFileUtils::mkPath(array(Runtime::getInstallationPath(), 'lib', 'mvc')),
-            ZMFileUtils::mkPath(array(Runtime::getInstallationPath(), ZM_SHARED)),
-            ZMFileUtils::mkPath(array(Runtime::getInstallationPath(), 'apps', 'store', 'lib'))
+            ZMFileUtils::mkPath(array(ZMRuntime::getInstallationPath(), 'lib', 'core')),
+            ZMFileUtils::mkPath(array(ZMRuntime::getInstallationPath(), 'lib', 'mvc')),
+            ZMFileUtils::mkPath(array(ZMRuntime::getInstallationPath(), ZM_SHARED)),
+            ZMFileUtils::mkPath(array(ZMRuntime::getInstallationPath(), 'apps', 'store', 'lib'))
         );
 
         $files = array();
@@ -113,7 +113,7 @@ class ZMCoreCompressor extends ZMPhpPackagePacker {
             } else {
                 $hasDir = true;
                 if (empty($pluginDir)) {
-                    $pluginDir = Runtime::getPluginBasePath() . $group . DIRECTORY_SEPARATOR;
+                    $pluginDir = ZMRuntime::getPluginBasePath() . $group . DIRECTORY_SEPARATOR;
                     $hasDir = false;
                 }
                 if ($hasDir) {

@@ -70,7 +70,7 @@ class ProductFinder extends ZMProductFinder {
 
         $sql = $select . $weight . ' AS weight'. $from . $where . $sort;
         $tables = array(TABLE_PRODUCTS_DESCRIPTION);
-        return new ZMQueryDetails(Runtime::getDatabase(), $sql, $args, $tables, null, 'pd.products_id');
+        return new ZMQueryDetails(ZMRuntime::getDatabase(), $sql, $args, $tables, null, 'pd.products_id');
     }
 
 }

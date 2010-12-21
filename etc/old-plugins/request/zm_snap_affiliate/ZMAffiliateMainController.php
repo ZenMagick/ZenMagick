@@ -99,7 +99,7 @@ class ZMAffiliateMainController extends ZMController {
                    "WHERE c.commission_referrer_key = :commission_referrer_key AND o.orders_id = t.orders_id
                        AND o.orders_id = c.commission_orders_id AND t.class = :type";
             $args = array('commission_referrer_key' => $affiliateDetails->referrer_key, 'type' => 'ot_shipping');
-            foreach (Runtime::getDatabase()->query($sql, $args, array(TABLE_REFERRERS, TABLE_ORDERS_TOTAL, TABLE_COMMISSION)) as $result) {
+            foreach (ZMRuntime::getDatabase()->query($sql, $args, array(TABLE_REFERRERS, TABLE_ORDERS_TOTAL, TABLE_COMMISSION)) as $result) {
               /*
 	$commission = floatval($totals->fields['commission_rate']);
 	$purchase_date = strtotime($totals->fields['date_purchased']);

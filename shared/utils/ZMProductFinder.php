@@ -273,7 +273,7 @@ class ZMProductFinder {
 
         $sql = $select . $from . $where . $sort;
         $tables = array(TABLE_PRODUCTS, TABLE_PRODUCTS_DESCRIPTION, TABLE_MANUFACTURERS, TABLE_CATEGORIES, TABLE_TAX_RATES, TABLE_ZONES_TO_GEO_ZONES);
-        return new ZMQueryDetails(Runtime::getDatabase(), $sql, $args, $tables, null, 'p.products_id');
+        return new ZMQueryDetails(ZMRuntime::getDatabase(), $sql, $args, $tables, null, 'p.products_id');
     }
 
 }
