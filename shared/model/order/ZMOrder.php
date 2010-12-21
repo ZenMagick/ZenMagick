@@ -295,10 +295,9 @@ class ZMOrder extends ZMObject {
      * @return ZMOrderTotalLine A <code>ZMOrderTotalLine</code> or <code>null</code>.
      */
     public function getOrderTotalLinesForType($type, $force=false) { 
+        $rawtype = 'ot_'.$type;
         $lines = array();
-        $totals = $this->getOrderTotalLines();
-        $rawtype = 'ot_'.$name;
-        foreach ($totals as $total) {
+        foreach ($this->getOrderTotalLines() as $total) {
             if ($rawtype == $total->getType()) {
                 $lines[] = $total;
             }
@@ -317,7 +316,7 @@ class ZMOrder extends ZMObject {
      * @param string type The total type (without the <em>ot_</em> prefix).
      * @return float The total amount for all total lines with the given type.
      */
-    public function getOrderTotalLineAmountForType($tpye) {
+    public function getOrderTotalLineAmountForType($type) {
         $amount = 0;
         foreach ($this->getOrderTotalLinesForType($type) as $line) {
             $amount += $line->getAmount();
