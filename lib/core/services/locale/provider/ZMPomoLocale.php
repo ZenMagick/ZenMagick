@@ -71,7 +71,7 @@ class ZMPomoLocale extends ZMAbstractLocale {
             return $this->translations_[$domain];
         } else {
             if (null == self::$EMPTY_) {
-                self::$EMPTY_ = new ZMTranslations;
+                self::$EMPTY_ = new ZMTranslations();
             }
             return self::$EMPTY_;
         }
