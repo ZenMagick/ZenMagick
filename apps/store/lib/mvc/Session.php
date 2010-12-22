@@ -67,7 +67,8 @@ class Session extends ZMObject { //ZMSession {
      * @return boolean <code>true</code> if the session is started, <code>false</code> if not.
      */
     public function isStarted() {
-        return $this->isValid();
+        $id = session_id();
+        return !empty($id);
     }
 
     /**
@@ -211,9 +212,11 @@ class Session extends ZMObject { //ZMSession {
      * <p>This will effectively logoff the curent account.
      */
     public function clear() {
-        session_destroy();
-        unset($_SESSION['account_type']);
-        $_SESSION['customers_id'] = '';
+        if ($this->isStarted() && isset($_SESSION)) {
+            session_destroy();
+            unset($_SESSION['account_type']);
+            $_SESSION['customers_id'] = '';
+        }
     }
 
     /**
