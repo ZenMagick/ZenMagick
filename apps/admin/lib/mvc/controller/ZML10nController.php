@@ -107,7 +107,9 @@ class ZML10nController extends ZMController {
 
         $pluginsMap = array();
         if ($vd['scanPlugins']) {
-            $pluginsMap = ZMLocaleUtils::buildL10nMap(ZMRuntime::getPluginBasePath());
+            foreach (ZMRuntime::getPluginBasePath() as $path) {
+                $pluginsMap = array_merge($pluginsMap, ZMLocaleUtils::buildL10nMap($path));
+            }
         }
 
         $adminMap = array();

@@ -138,14 +138,14 @@ class ZMRuntime {
      *
      * <p>May be configured via the setting <em></em>. Default is <em>../lib/plugins</em>.</p>
      *
-     * @return string The base directory for plugins.
-     * @todo make this a list to allow general and app plugins
+     * @return array List of base directories for plugins.
      */
     public static function getPluginBasePath() { 
         if (null === ZMSettings::get('zenmagick.core.plugins.baseDir')) {
             ZMSettings::set('zenmagick.core.plugins.baseDir', self::getInstallationPath().'plugins'.DIRECTORY_SEPARATOR);
         }
-        return ZMSettings::get('zenmagick.core.plugins.baseDir');
+
+        return explode(',', ZMSettings::get('zenmagick.core.plugins.baseDir'));
     }
 
     /**

@@ -111,19 +111,12 @@ class ZMCoreCompressor extends ZMPhpPackagePacker {
                 // plugin class only
                 $pluginFiles[] = $pluginDir.get_class($plugin).'.php';
             } else {
-                $hasDir = true;
-                if (empty($pluginDir)) {
-                    $pluginDir = ZMRuntime::getPluginBasePath() . $group . DIRECTORY_SEPARATOR;
-                    $hasDir = false;
-                }
-                if ($hasDir) {
-                    if (ZMPlugin::LP_LIB == $flag) {
-                        // plugin class as well
-                        $pluginFiles[] = $pluginDir.get_class($plugin).'.php';
-                        $files = ZMFileUtils::findIncludes($pluginDir.'lib'.DIRECTORY_SEPARATOR, '.php', true);
-                    } else {
-                        $files = ZMFileUtils::findIncludes($pluginDir, '.php', ZMPlugin::LP_FOLDER != $flag);
-                    }
+                if (ZMPlugin::LP_LIB == $flag) {
+                    // plugin class as well
+                    $pluginFiles[] = $pluginDir.get_class($plugin).'.php';
+                    $files = ZMFileUtils::findIncludes($pluginDir.'lib'.DIRECTORY_SEPARATOR, '.php', true);
+                } else {
+                    $files = ZMFileUtils::findIncludes($pluginDir, '.php', ZMPlugin::LP_FOLDER != $flag);
                 }
                 foreach ($files as $file) {
                     $fileBase = str_replace($pluginDir, '', $file);

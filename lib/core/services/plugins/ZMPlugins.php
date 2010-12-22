@@ -45,8 +45,8 @@ class ZMPlugins extends ZMObject {
     protected $plugins_;
     // plugin status details
     protected $pluginStatus_;
-    // plugin base dir
-    protected $pluginBaseDir_;
+    // plugin/basePath map
+    protected $pathIdMap_;
 
 
     /**
@@ -59,7 +59,7 @@ class ZMPlugins extends ZMObject {
         if (!is_array($this->pluginStatus_)) {
             $this->pluginStatus_ = array();
         }
-        $this->pluginBaseDir_ = ZMRuntime::getPluginBasePath();
+        $this->pathIdMap_ = null;
     }
 
     /**
@@ -90,24 +90,33 @@ class ZMPlugins extends ZMObject {
     }
 
     /**
-     * Generate a full list of plugin ids.
+     * Generate a full map of plugins and their base path.
      *
-     * @return array List of plugin ids.
+     * @return array Map of plugin ids with the plugin base path as key.
      */
-    protected function getPluginIds() {
-        $idList = array();
-        if (false !== ($handle = @opendir($this->pluginBaseDir_))) {
-            while (false !== ($file = readdir($handle))) { 
-                if (ZMLangUtils::startsWith($file, '.')) {
-                    continue;
-                }
+    protected function getPluginBasePathMap() {
+        if (null === $this->pathIdMap_) {
+            $this->pathIdMap_ = array();
+            foreach (ZMRuntime::getPluginBasePath() as $basePath) {
+                $this->pathIdMap_[$basePath] = array();
+                if (false !== ($handle = @opendir($basePath))) {
+                    while (false !== ($file = readdir($handle))) { 
+                        if (ZMLangUtils::startsWith($file, '.')) {
+                            continue;
+                        }
 
-                $idList[] = str_replace('.php', '', $file);
+                        $id = str_replace('.php', '', $file);
+                        // single file plugin
+                        $id = str_replace(array('Plugin', ZMLoader::DEFAULT_CLASS_PREFIX), '', $id);
+                        $id{0} = strtolower($id{0});
+                        $this->pathIdMap_[$basePath][] = $id;
+                    }
+                    @closedir($handle);
+                }
             }
-            @closedir($handle);
         }
 
-        return $idList;
+        return $this->pathIdMap_;
     }
 
     /**
@@ -118,34 +127,43 @@ class ZMPlugins extends ZMObject {
      * @return array A list of <code>ZMPlugin</code> instances.
      */
     public function getAllPlugins($context=0, $enabled=true) {
-        $idList = array();
+        $pathIdMap = array();
         // populate list of plugin ids to load
         if ($enabled) {
             // use plugin status to select plugins
             foreach ($this->pluginStatus_ as $id => $status) {
                 if ($status['enabled'] && (0 == $context || ($context&$status['context']))) {
-                    $idList[] = $id;
+                    $basePath = array_key_exists('basePath', $status) ? $status['basePath'] : $this->getBasePathForId($id);
+                    if (!array_key_exists($basePath, $pathIdMap)) {
+                        $pathIdMap[$basePath] = array();
+                    }
+                    $pathIdMap[$basePath][] = $id;
                 }
             }
         } else {
             // do it the long way...
-            $idList = $this->getPluginIds();
+            $pathIdMap = $this->getPluginBasePathMap();
             // make sure we have valid pluginStatus data
-            foreach ($idList as $id) {
-                if (!array_key_exists($id, $this->pluginStatus_)) {
-                    $this->pluginStatus_[$id] = array(
-                      'context' => 0,
-                      'enabled' => false
-                    );
+            foreach ($pathIdMap as $basePath => $idList) {
+                foreach ($idList as $id) {
+                    if (!array_key_exists($id, $this->pluginStatus_)) {
+                        $this->pluginStatus_[$id] = array(
+                          'context' => 0,
+                          'basePath' => $basePath,
+                          'enabled' => false
+                        );
+                    }
                 }
             }
         }
 
         $plugins = array();
-        foreach ($idList as $id) {
-            $plugin = $this->getPluginForId($id);
-            if (null != $plugin) {
-                $plugins[$id] = $plugin;
+        foreach ($pathIdMap as $basePath => $idList) {
+            foreach ($idList as $id) {
+                $plugin = $this->getPluginForId($id);
+                if (null != $plugin) {
+                    $plugins[$id] = $plugin;
+                }
             }
         }
 
@@ -175,6 +193,21 @@ class ZMPlugins extends ZMObject {
     }
 
     /**
+     * Get the base path for the given plugin id.
+     *
+     * @param string id The plugin id.
+     * @return string The base path for this plugin or <code>null</code> if not found.
+     */
+    protected function getBasePathForId($id) {
+        foreach ($this->getPluginBasePathMap() as $basePath => $idList) {
+            if (in_array($id, $idList)) {
+                return $basePath;
+            }
+        }
+        return null;
+    }
+
+    /**
      * Get the plugin for the given id.
      *
      * @param string id The plugin id.
@@ -186,7 +219,8 @@ class ZMPlugins extends ZMObject {
         }
 
         $pluginClassSuffix = ZMLoader::makeClassname($id);
-        $pluginDir = $this->pluginBaseDir_.$id;
+        $basePath = $this->getBasePathForId($id);
+        $pluginDir = $basePath.$id;
         if (is_dir($pluginDir)) {
             // expect plugin file in the directory as 'ZM[CamelCaseId]Plugin.php.php' extension
             $pluginClass = ZMLoader::DEFAULT_CLASS_PREFIX . $pluginClassSuffix . 'Plugin';
@@ -198,10 +232,10 @@ class ZMPlugins extends ZMObject {
         } else {
             // single file, so either the id is just the id or the filename; let's try both...
             $pluginClass = $pluginClassSuffix;
-            $file = $this->pluginBaseDir_ . $pluginClass . '.php';
+            $file = $basePath . $pluginClass . '.php';
             if (!is_file($file)) {
                 $pluginClass = ZMLoader::DEFAULT_CLASS_PREFIX . $pluginClassSuffix . 'Plugin';
-                $file = $this->pluginBaseDir_ . $pluginClass . '.php';
+                $file = $basePath . $pluginClass . '.php';
                 if (!is_file($file)) {
                     ZMLogging::instance()->log("can't find plugin file for id = '".$id."'; dir = '".$pluginDir."'", ZMLogging::DEBUG);
                     return null;
@@ -221,7 +255,7 @@ class ZMPlugins extends ZMObject {
         $plugin->setId($id);
         //PHP5.3 only: $plugin->setId(lcfirst(substr(preg_replace('/Plugin$/', '', $pluginClass), 2)));
         $pluginDir = dirname($file) . DIRECTORY_SEPARATOR;
-        $plugin->setPluginDirectory($pluginDir == $this->pluginBaseDir_ ? $this->pluginBaseDir_ : $pluginDir);
+        $plugin->setPluginDirectory($pluginDir == $basePath ? $basePath : $pluginDir);
 
         $this->plugins_[$id] = array('plugin' => $plugin, 'init' => false);
         return $plugin;

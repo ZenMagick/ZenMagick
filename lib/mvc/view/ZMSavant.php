@@ -113,7 +113,8 @@ class ZMSavant extends Savant3 {
             if ($relpath == $path) {
                 //TODO: assumes certain relative folders
                 // plugin referenced from apps/xxx/web
-                $basePath = dirname(dirname(ZMRuntime::getPluginBasePath())).DIRECTORY_SEPARATOR;
+                $pluginBasePath = ZMRuntime::getPluginBasePath();
+                $basePath = dirname(dirname($pluginBasePath[0])).DIRECTORY_SEPARATOR;
                 $relpath = str_replace($basePath, '', $path);
                 if ($relpath != $path) {
                     $contextBase = preg_replace('#(.*)/zenmagick/.*#', '$1/', $this->request->getContext());
