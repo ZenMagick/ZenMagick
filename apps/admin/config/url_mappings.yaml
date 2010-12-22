@@ -11,8 +11,7 @@ global:
     template: error
     layout: 
   success-demo:
-    view: RedirectView
-    template: index
+    view: RedirectView#requestId=index
   store-view:
     view: SavantView
 
@@ -20,49 +19,38 @@ global:
 page:
   login:
     success:
-      view: RedirectView
-      template: index
+      view: RedirectView#requestId=index
     logged-in:
-      view: RedirectView
-      template: index
+      view: RedirectView#requestId=index
   logoff:
     success:
-      view: RedirectView
-      template: login
+      view: RedirectView#requestId=login
   reset_password:
     success:
-      view: RedirectView
-      template: login
+      view: RedirectView#requestId=login
   update_user:
     formId: updateUser
     form: AdminUserForm
     success:
-      view: RedirectView
-      template: index
+      view: RedirectView#requestId=index
   edit_admin_user:
     formId: adminUser
     form: AdminUserForm
     success:
-      view: RedirectView
-      template: admin_users
+      view: RedirectView#requestId=admin_users
   cache_admin:
     success:
-      view: RedirectView
-      template: cache_admin
+      view: RedirectView#requestId=cache_admin
   plugins:
     success-install:
-      view: RedirectView
-      template: plugins
+      view: RedirectView#requestId=plugins
     success-uninstall:
-      view: RedirectView
-      template: plugins
+      view: RedirectView#requestId=plugins
     success-upgrade:
-      view: RedirectView
-      template: plugins
+      view: RedirectView#requestId=plugins
     plugin-conf:
       layout: 
       template: plugin_conf
   legacy-config:
     success:
-      view: RedirectView
-      template: legacy-config
+      view: RedirectView#requestId=legacy-config
