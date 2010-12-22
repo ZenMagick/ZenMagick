@@ -176,6 +176,7 @@ Release 0.9.11
 - simplify init overrides for admin
 - add support for downloads to checkout_success and account_history_info
 - removed admin/includes/init_includes/overrides/init_languages.php
+- make ZMForwardView and ZMRedirectView expect a requestId rather template
 
 Release 0.9.10
 - restructure store and admin code into separate apps with most of the store

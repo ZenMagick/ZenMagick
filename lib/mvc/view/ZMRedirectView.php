@@ -180,8 +180,7 @@ class ZMRedirectView extends ZMView {
      * @return string The request id.
      */
     public function getRequestId() {
-        //TODO: remove getTemplate()
-        return null != $this->requestId_ ? $this->requestId_ : $this->getTemplate();
+        return $this->requestId_;
     }
 
 }
