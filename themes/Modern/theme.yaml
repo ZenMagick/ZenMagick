@@ -43,6 +43,7 @@ description: 'Modern / RI0007'
 # - upgrade cart with new locale dependant button images
 # - .itemTitle: set min-height:3.4em to align price/add-to-cart button
 # - make all btn links on checkout_confirmation float right
+# - add navEZCol class span around all ezpage links in header.php
 
 
 # Notes:

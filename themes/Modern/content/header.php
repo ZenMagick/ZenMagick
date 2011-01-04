@@ -77,7 +77,8 @@
 <ul>
 	<li><a href="<?php echo $net->url(FILENAME_DEFAULT) ?>"><span class="navEZCol"><?php echo zm_l10n("Home"); ?></span></a></li>
   <?php foreach (ZMEZPages::instance()->getPagesForHeader($session->getLanguageId()) as $page) { ?>
-    <li><?php echo $html->ezpageLink($page->getId()); ?></li>
+    <?php $text = '<span class="navEZCol">'.$html->encode($page->getTitle()).'</span>'; ?>
+    <li><?php echo $html->ezpageLink($page->getId(), $text); ?></li>
   <?php } ?>
 </ul>
 </div>
