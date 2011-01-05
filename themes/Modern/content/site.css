@@ -562,7 +562,7 @@ FORM{
 	padding: 0;
 }
 
-INPUT, TEXTAREA {
+INPUT, TEXTAREA, BUTTON {
 	display: inline;
 	color: #9b9b9b;
 }

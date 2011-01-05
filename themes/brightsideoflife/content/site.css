@@ -117,13 +117,13 @@ label {
 	font-weight:bold;
 	margin:5px 0;
 }
-input {
+input, button {
 	padding: 2px;
 	border:1px solid #ddd;
 	font: normal 1em Verdana, sans-serif;
 	color:#777;
 }
-input.btn {cursor:pointer;}
+input.btn, button.btn {cursor:pointer;}
 textarea {
 	width:300px;
 	padding:2px;

@@ -22,7 +22,7 @@
 body {color:#6A5F5F;background:#F5F5F5;}
 a {color:#E58C43;}
 a:hover {color:#E58C43;text-decoration:underline;}
-input.btn, a.btn {background-color:#ccc;color:black;}
+input.btn, a.btn, button.btn {background-color:#ccc;color:black;}
 #content a.btn:hover {color:white;}
 p.man span {color:#f02025;}
 label span, .legend span {color:#f02025;}

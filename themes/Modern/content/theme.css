@@ -23,3 +23,9 @@
 
 #cartAdd input {vertical-align:middle;margin-bottom:0;}
 #b_checkout_confirmation div.btn {float:right;}
+
+button.btn {cursor:pointer;}
+/*
+#button.submit span {display:none;}
+#button.submit {border:none;width:84px;height:28px;padding:0;background:url(locale/en/images/button_submit.gif);}
+*/

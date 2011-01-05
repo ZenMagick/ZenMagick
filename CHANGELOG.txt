@@ -180,6 +180,9 @@ Release 0.9.11
 - make ZMRuntime::getPluginBasePath() return an array rather than a single
   path; this means 'zenmagick.core.plugins.baseDir' can now be a comma 
 	separated list of locations
+- change input type="submit" in password_forgotten.php to button type="submit"
+  in the default theme; also update site.css to make things look the same;
+  button text is wrapped in a span so it can easily be addressed via CSS
 
 Release 0.9.10
 - restructure store and admin code into separate apps with most of the store

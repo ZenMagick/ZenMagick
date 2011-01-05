@@ -44,6 +44,7 @@ description: 'Modern / RI0007'
 # - .itemTitle: set min-height:3.4em to align price/add-to-cart button
 # - make all btn links on checkout_confirmation float right
 # - add navEZCol class span around all ezpage links in header.php
+# - make BUTTON the same as INPUT, TEXTAREA in site.css #565 
 
 
 # Notes:
