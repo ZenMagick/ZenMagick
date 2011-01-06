@@ -65,7 +65,7 @@ class SavantView extends ZMSavantView {
             }
         }
 
-        foreach (ZMThemes::instance()->getThemeChain($request->getSession()->getlanguageId()) as $theme) {
+        foreach (ZMThemes::instance()->getThemeChain($request->getSession()->getLanguageId()) as $theme) {
             $path[] = $theme->getContentDir();
             foreach ($localeCodes as $code) {
                 $path[] = ZMFileUtils::mkpath($theme->getContentDir(), 'locale', $code);
