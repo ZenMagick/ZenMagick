@@ -26,7 +26,7 @@
 	<div id="logoWrapper" class="back">
     	<div id="logo"><div id="logoContent" class="unitPng"><a href="<?php echo $net->url(FILENAME_DEFAULT) ?>" title="<?php echo _zm('ZenMagick - Smart e-commerce') ?>"><span>&nbsp;</span></a></div></div>
 	</div>
-	
+
 	<!--bof header_content_wrapper-->
 	<div id="headerContentWrapper" class="forward">
 		<!--bof header_search-->
@@ -39,7 +39,7 @@
 		</div>
 		<!--eof header_search-->
 		<br class="clearBoth" />
-		
+
 		<div id="smallNaviHeader" class="forward">
 			<ul>
 			<?php if (!$request->isAnonymous()) { ?>
