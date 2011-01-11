@@ -184,6 +184,7 @@ Release 0.9.11
   in the default theme; also update site.css to make things look the same;
   button text is wrapped in a span so it can easily be addressed via CSS
 - add ZMBigDecimal class (and test cases) to fix rounding issues
+- themes: add Modern to build scripts
 
 Release 0.9.10
 - restructure store and admin code into separate apps with most of the store

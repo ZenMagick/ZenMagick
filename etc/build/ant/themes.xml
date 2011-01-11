@@ -5,35 +5,16 @@
 
     <!-- Build theme releases -->
     <target name="theme-releases" depends="clean,init" description="Build theme releases.">
-        <antcall target="theme-release">
-            <param name="theme.name" value="brightsideoflife" />
-            <param name="theme.version" value="${themes.brightsideoflife.version}" />
-        </antcall>
-
-        <antcall target="theme-release">
-            <param name="theme.name" value="KeepItSimple" />
-            <param name="theme.version" value="${themes.KeepItSimple.version}" />
-        </antcall>
-
-        <antcall target="theme-release">
-            <param name="theme.name" value="PixelGreen" />
-            <param name="theme.version" value="${themes.PixelGreen.version}" />
-        </antcall>
-
-        <antcall target="theme-release">
-            <param name="theme.name" value="precision" />
-            <param name="theme.version" value="${themes.precision.version}" />
-        </antcall>
-
-        <antcall target="theme-release">
-            <param name="theme.name" value="PrecisionReloaded" />
-            <param name="theme.version" value="${themes.PrecisionReloaded.version}" />
-        </antcall>
+        <foreach list="${themes}" target="theme-release" param="theme.name">
+        </foreach>
     </target>
 
     
     <!-- Create release for a single theme -->
     <target name="theme-release" description="Create release for a single theme.">
+        <var name="theme.version" unset="true"/>
+        <propertycopy name="theme.version" from="themes.${theme.name}.version" />
+
         <mkdir dir="${build.dir}/themes" />
         <mkdir dir="${dist.dir}/themes/${zenmagick.version}" />
         <mkdir dir="${dist.dir}/themes/${zenmagick.version}/checksum" />
