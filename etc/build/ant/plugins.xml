@@ -33,9 +33,11 @@
         <mkdir dir="${dist.dir}/plugins/${zenmagick.version}" />
         <mkdir dir="${dist.dir}/plugins/${zenmagick.version}/checksum" />
 
-        <copy todir="${build.dir}/plugins">
+        <copy todir="${build.dir}/plugins" verbose="true">
+            <fileset dir="${zenmagick.src.dir}/plugins" casesensitive="no">
+              <include name="ZM${plugin.name}Plugin.php" />
+            </fileset>
             <fileset dir="${zenmagick.src.dir}/plugins">
-              <include name="${plugin.name}.php" />
               <include name="${plugin.name}/**" />
             </fileset>
         </copy>
@@ -45,8 +47,10 @@
         <replaceregexp match="\$$\{plugin.version\}" replace="${plugin.version}" flags="g"><fileset dir="${build.dir}/plugins" /></replaceregexp>
 
         <zip zipfile="${dist.dir}/plugins/${zenmagick.version}/plugin-${plugin.name}-${plugin.version}.zip">
+            <fileset dir="${zenmagick.src.dir}/plugins" casesensitive="no">
+              <include name="ZM${plugin.name}Plugin.php" />
+            </fileset>
             <fileset dir="${build.dir}/plugins">
-                <include name="${plugin.name}.php" />
                 <include name="${plugin.name}/**" />
             </fileset>
         </zip>
