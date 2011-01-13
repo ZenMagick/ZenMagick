@@ -157,14 +157,6 @@ class ZMQueryPager extends ZMObject {
         $sql = $this->queryDetails_->getSql();
         $lcSql = strtolower($sql);
 
-        // calcualte offset
-        $total = $this->getTotalNumberOfResults();
-        $offset = ($pagination * ($page - 1));
-        if ($offset < 0) {
-            // just in case
-            $offset = 0;
-        }
-
         if (!empty($this->orderBy_)) {
             if (false !== ($pos = strpos($lcSql, 'order by'))) {
                 // keep original order also
@@ -194,8 +186,22 @@ class ZMQueryPager extends ZMObject {
             }
         }
 
+        if (0 != $pagination) {
+            // calcualte offset
+            $offset = ($pagination * ($page - 1));
+            if ($offset < 0) {
+                // just in case
+                $offset = 0;
+            }
+        } else {
+            $offset = 0;
+            $pagination = $this->getTotalNumberOfResults();
+        }
+
         // limit to current page
         $sql .= " limit " . $offset . ", " . $pagination;
+        echo $sql;
+
         return $this->queryDetails_->query($sql);
     }
 

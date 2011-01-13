@@ -39,9 +39,11 @@ interface ZMResultSource {
     /**
      * Get the results.
      *
+     * @param boolean reload Optional reload flag; default is <code>false</code>.
+     *
      * @return array List of results.
      */
-    public function getResults();
+    public function getResults($reload=false);
 
     /**
      * Get the class name of the results.

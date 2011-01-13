@@ -185,6 +185,7 @@ Release 0.9.11
   button text is wrapped in a span so it can easily be addressed via CSS
 - add ZMBigDecimal class (and test cases) to fix rounding issues
 - themes: add Modern to build scripts
+- allow to set resultList pagination to 0 to get all results
 
 Release 0.9.10
 - restructure store and admin code into separate apps with most of the store

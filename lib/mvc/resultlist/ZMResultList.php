@@ -218,6 +218,7 @@ class ZMResultList extends ZMObject {
     public function setPagination($pagination) {
         $this->pagination_ = $pagination;
         $this->results_ = null;
+        $this->allResults_ = null;
     }
 
     /**
@@ -226,6 +227,9 @@ class ZMResultList extends ZMObject {
      * @return int The number of pages; will return <em>0</em> if no results available.
      */
     public function getNumberOfPages() {
+        if (0 == $this->pagination_) {
+            return 1;
+        }
         return (int)ceil($this->getNumberOfResults() / $this->pagination_);
     }
 
@@ -291,10 +295,18 @@ class ZMResultList extends ZMObject {
                 }
             }
 
-            $end = $this->page_ * $this->pagination_;
-            $end = $end > count($results) ? count($results) : $end;
-            $start = ((int)($end / $this->pagination_)) * $this->pagination_;
-            $start = ($start == $end && 0 < $end) ? $start - $this->pagination_ : $start;
+            var_dump($this->pagination_);
+            if (0 != $this->pagination_) {
+                $end = $this->page_ * $this->pagination_;
+                $end = $end > count($results) ? count($results) : $end;
+                $start = ((int)($end / $this->pagination_)) * $this->pagination_;
+                $start = ($start == $end && 0 < $end) ? $start - $this->pagination_ : $start;
+            } else {
+                // all
+                $end = count($results);
+                $start = 0;
+                var_dump($end);
+            }
 
             // use this as array_slice might reorder the array if keys are not in order
             $this->results_ = array();
@@ -328,7 +340,8 @@ class ZMResultList extends ZMObject {
      */
     protected function buildResults() {
         if (null !== $this->resultSource_) {
-            return $this->resultSource_->getResults();
+            // always force load here; either it is the first time, or the pagination changed, so we need to reload anyway
+            return $this->resultSource_->getResults(true);
         }
         return array();
     }
