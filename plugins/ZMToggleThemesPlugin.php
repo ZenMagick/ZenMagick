@@ -24,12 +24,12 @@
 <?php
 
 /**
- * Allow users to toggle ZenMagick themes.
+ * Allow users to toggle ZenMagick themes support.
  *
  * @package org.zenmagick.plugins
  * @author DerManoMann
  */
-class ZMToggleZMThemesPlugin extends Plugin implements ZMRequestHandler {
+class ZMToggleThemesPlugin extends Plugin implements ZMRequestHandler {
     const SESS_THEME_TOGGLE_KEY = 'themeToggle';
 
 

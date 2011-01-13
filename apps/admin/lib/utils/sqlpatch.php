@@ -60,10 +60,10 @@ if ($_GET['debug']=='ON') echo $line . '<br />';
             break;
           case (substr($line_upper, 0, 11) == 'DROP TABLE ' && $param[2] != 'IF'):
             if (!$checkprivs = zm_zen_check_database_privs('DROP')) $result=sprintf(REASON_NO_PRIVILEGES,'DROP');
-            if (!zm_zen_table_exists($param[2]) || zen_not_null($result)) {
-              zm_zen_write_to_upgrade_exceptions_table($line, (zen_not_null($result) ? $result : sprintf(REASON_TABLE_DOESNT_EXIST,$param[2])), $sql_file);
+            if (!zm_zen_table_exists($param[2]) || !ZMLangUtils::isEmpty($result)) {
+              zm_zen_write_to_upgrade_exceptions_table($line, (!ZMLangUtils::isEmpty($result) ? $result : sprintf(REASON_TABLE_DOESNT_EXIST,$param[2])), $sql_file);
               $ignore_line=true;
-              $result=(zen_not_null($result) ? $result : sprintf(REASON_TABLE_DOESNT_EXIST,$param[2])); //duplicated here for on-screen error-reporting
+              $result=(!ZMLangUtils::isEmpty($result) ? $result : sprintf(REASON_TABLE_DOESNT_EXIST,$param[2])); //duplicated here for on-screen error-reporting
               break;
             } else {
               $line = 'DROP TABLE ' . $table_prefix . substr($line, 11);
@@ -144,7 +144,7 @@ if ($_GET['debug']=='ON') echo $line . '<br />';
             break;
           case (substr($line_upper, 0, 13) == 'RENAME TABLE '):
             // RENAME TABLE command cannot be parsed to insert table prefixes, so skip if zen is using prefixes
-            if (zen_not_null(DB_PREFIX)) {
+            if (!ZMLangUtils::isEmpty(DB_PREFIX)) {
               zm_zen_write_to_upgrade_exceptions_table($line, 'RENAME TABLE command not supported by upgrader. Please use phpMyAdmin instead.', $sql_file);
               $messageStack->add('RENAME TABLE command not supported by upgrader. Please use phpMyAdmin instead.', 'caution');
 
@@ -243,7 +243,7 @@ if ($_GET['debug']=='ON') echo $line . '<br />';
           $results++;
           $string .= $newline.'<br />';
           $return_output[]=$output;
-          if (zen_not_null($result)) $errors[]=$result;
+          if (!ZMLangUtils::isEmpty($result)) $errors[]=$result;
           // reset var's
           $newline = '';
           $keep_together=1;
@@ -298,7 +298,7 @@ if ($_GET['debug']=='ON') echo $line . '<br />';
     $db = get_db();
     global $db_test;
     $granted_privs_list='';
-    if (ZC_UPG_DEBUG3==true) echo '<br />Checking for priv: ['.(zen_not_null($priv) ? $priv : 'none specified').']<br />';
+    if (ZC_UPG_DEBUG3==true) echo '<br />Checking for priv: ['.(!ZMLangUtils::isEmpty($priv) ? $priv : 'none specified').']<br />';
     if (!defined('DB_SERVER'))          define('DB_SERVER',$zdb_server);
     if (!defined('DB_SERVER_USERNAME')) define('DB_SERVER_USERNAME',$zdb_user);
     if (!defined('DB_DATABASE'))        define('DB_DATABASE',$zdb_name);
@@ -322,7 +322,7 @@ if ($_GET['debug']=='ON') echo $line . '<br />';
         $granted_privs = substr($granted_privs,0,strpos($granted_privs,' ON ')); //remove anything after the "ON" keyword
         $granted_privs_list .= ($granted_privs_list=='') ? $granted_privs : ', '.$granted_privs;
 
-        $specific_priv_found = (zen_not_null($priv) && substr_count($granted_privs,$priv)==1);
+        $specific_priv_found = (!ZMLangUtils::isEmpty($priv) && substr_count($granted_privs,$priv)==1);
         if (ZC_UPG_DEBUG3==true) echo 'specific priv['.$priv.'] found ='.$specific_priv_found.'<br />';
 
         if (ZC_UPG_DEBUG3==true) echo 'spec+db='.($specific_priv_found && $db_priv_ok == true).' ||| ';
@@ -346,7 +346,7 @@ if ($_GET['debug']=='ON') echo $line . '<br />';
     if (!$checkprivs = zm_zen_check_database_privs('INDEX')) return sprintf(REASON_NO_PRIVILEGES,'INDEX');
     //this is only slightly different from the ALTER TABLE DROP INDEX command
     $db = get_db();
-    if (!zen_not_null($param)) return "Empty SQL Statement";
+    if (ZMLangUtils::isEmpty($param)) return "Empty SQL Statement";
     $index = $param[2];
     $sql = "show index from " . DB_PREFIX . $param[4];
     $result = $db->Execute($sql);
@@ -366,7 +366,7 @@ if ($_GET['debug']=='ON') echo $line . '<br />';
     //this is only slightly different from the ALTER TABLE CREATE INDEX command
     if (!$checkprivs = zm_zen_check_database_privs('INDEX')) return sprintf(REASON_NO_PRIVILEGES,'INDEX');
     $db = get_db();
-    if (!zen_not_null($param)) return "Empty SQL Statement";
+    if (ZMLangUtils::isEmpty($param)) return "Empty SQL Statement";
     $index = (strtoupper($param[1])=='INDEX') ? $param[2] : $param[3];
     if (in_array('USING',$param)) return 'USING parameter found. Cannot validate syntax. Please run manually in phpMyAdmin.';
     $table = (strtoupper($param[2])=='INDEX' && strtoupper($param[4])=='ON') ? $param[5] : $param[4];
@@ -388,7 +388,7 @@ if ($_GET['debug']=='ON') echo $line . '<br />';
 
   function zm_zen_check_alter_command($param) {
     $db = get_db();
-    if (!zen_not_null($param)) return "Empty SQL Statement";
+    if (ZMLangUtils::isEmpty($param)) return "Empty SQL Statement";
     if (!$checkprivs = zm_zen_check_database_privs('ALTER')) return sprintf(REASON_NO_PRIVILEGES,'ALTER');
     switch (strtoupper($param[3])) {
       case ("ADD"):
