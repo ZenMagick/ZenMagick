@@ -18,27 +18,27 @@
     <!-- wrap starts here -->
     <div id="wrap">
 
-      <div id="header"><div id="header-content">	
-        
-        <h1 id="logo"><a href="<?php echo $net->url(FILENAME_DEFAULT) ?>" title="">Zen<span class="gray">Magick</span></a></h1>	
-        <h2 id="slogan">As simple as that!</h2>		
-        
+      <div id="header"><div id="header-content">
+
+        <h1 id="logo"><a href="<?php echo $net->url(FILENAME_DEFAULT) ?>" title="">Zen<span class="gray">Magick</span></a></h1>
+        <h2 id="slogan">As simple as that!</h2>
+
         <!-- Menu Tabs -->
         <?php echo $this->fetch('top-menu.php') ?>
       </div></div>
-      
+
       <div class="headerphoto"></div>
-            
+
       <!-- content-wrap starts here -->
-      <div id="content-wrap"><div id="content">		
-        
-        
+      <div id="content-wrap"><div id="content">
+
+
         <div id="sidebar" >
           <?php echo $this->fetchBlockGroup('rightColumn', array('format' => '<div class="sidebox">%s</div>')) ?>
         </div>
 
-        <div id="main">		
-          <?php if (!ZMLangUtils::inArray($request->getRequestId(), 'index')) { /* this is the actual view, not neccessarily what is in the URL */ ?>
+        <div id="main">
+          <?php if (!ZMLangUtils::inArray($request->getRequestId(), 'index')) { ?>
               <?php echo $macro->buildCrumbtrail($crumbtrail, " &gt; "); ?>
           <?php } ?>
 
@@ -49,50 +49,50 @@
               <?php } ?>
               </ul>
           <?php } ?>
-        
+
           <?php echo $this->fetch($viewTemplate); ?>
-                        
-        </div>					
-        
-      <!-- content-wrap ends here -->		
+
+        </div>
+
+      <!-- content-wrap ends here -->
       </div></div>
 
-    <!-- footer starts here -->	
+    <!-- footer starts here -->
     <div id="footer"><div id="footer-content">
-      
+
         <div class="col float-left">
           <h1>Site Partners</h1>
-          <ul>				
+          <ul>
             <li><a href="http://www.zenmagick.org/"><strong>ZenMagick</strong> - zen-cart the easy way</a></li>
-          </ul>			
+          </ul>
         </div>
-        
+
         <div class="col float-left">
           <h1>Links</h1>
-          <ul>				
+          <ul>
             <?php foreach (ZMEZPages::instance()->getPagesForFooter($session->getLanguageId()) as $page) { ?>
                 <li><?php echo $html->ezpageLink($page->getId()) ?></li>
             <?php } ?>
-          </ul>			
-        </div>		
-      
+          </ul>
+        </div>
+
         <div class="col2 float-right">
         <p>
         Powered by <strong><a href="http://www.zenmagick.org">ZenMagick</a></strong>
-        <br /> 
+        <br />
         Design by: <a href="http://www.styleshout.com/"><strong>styleshout</strong></a> &nbsp; &nbsp;
-        Valid <a href="http://jigsaw.w3.org/css-validator/check/referer"><strong>CSS</strong></a> | 
+        Valid <a href="http://jigsaw.w3.org/css-validator/check/referer"><strong>CSS</strong></a> |
               <a href="http://validator.w3.org/check/referer"><strong>XHTML</strong></a>
         </p>
-        
-        <ul>						
+
+        <ul>
           <li><a href="<?php echo $net->url(FILENAME_DEFAULT) ?>"><strong>Home</strong></a></li>
-        </ul>	
+        </ul>
         </div>
-      
+
     </div></div>
     <!-- footer ends here -->
-      
+
     <!-- wrap ends here -->
     </div>
 

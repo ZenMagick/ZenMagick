@@ -12,16 +12,16 @@
   <body>
   <!-- wrap starts here -->
   <div id="wrap">
-    
-    <div id="header">				
-      <h1 id="logo"><span class="green">Zen</span><span class="blue">Magick</span></h1>	
-      <h2 id="slogan">As simple as that!</h2> 
-  
+
+    <div id="header">
+      <h1 id="logo"><span class="green">Zen</span><span class="blue">Magick</span></h1>
+      <h2 id="slogan">As simple as that!</h2>
+
       <form method="POST" class="searchform" action="#">
         <p><input type="text" name="search_query" class="textbox" />
           <input type="submit" name="search" class="button" value="Search" /></p>
       </form>
-        
+
       <!-- Menu Tabs -->
       <ul>
         <?php
@@ -44,7 +44,7 @@
               $menu[] = array($html->ezpageLink($page->getId(), '<span>'.$html->encode($page->getTitle()).'</span>', array()));
           }
           foreach ($menu as $item) {
-              if (2 == count($item)) { 
+              if (2 == count($item)) {
                 $current = ZMTools::compareStoreUrl($item[0]) ? ' id="current"' : '';
                 ?><li<?php echo $current ?>><a href="<?php echo $item[0] ?>"><span><?php echo $item[1] ?></span></a></li><?php
               } else {
@@ -52,26 +52,26 @@
                 //TODO:
                 //preg_match('/.*href=[\'"]([^\'"]*)[\'"].*/', $item[0], $matches);
                 //$current = ZMTools::compareStoreUrl($matches[1]) ? ' id="current"' : '';
-                ?><li<?php echo $current ?>><?php echo $item[0] ?></li><?php 
+                ?><li<?php echo $current ?>><?php echo $item[0] ?></li><?php
               }
           }
         ?>
-      </ul>	
-    </div>	
-          
+      </ul>
+    </div>
+
     <!-- content-wrap starts here -->
-    <div id="content-wrap">		
-                        
+    <div id="content-wrap">
+
     <img src="<?php echo $this->asUrl("images/headerphoto.jpg") ?>" width="820" height="120" alt="headerphoto" class="no-border" />
-      
-      <div id="sidebar" >							
+
+      <div id="sidebar" >
         <div id="leftcol">
           <?php echo $this->fetchBlockGroup('leftColumn') ?>
         </div>
       </div>
-        
-      <div id="main">	
-        <?php if (!ZMLangUtils::inArray($request->getRequestId(), 'index')) { /* this is the actual view, not neccessarily what is in the URL */ ?>
+
+      <div id="main">
+        <?php if (!ZMLangUtils::inArray($request->getRequestId(), 'index')) { ?>
             <?php echo $macro->buildCrumbtrail($crumbtrail, " &gt; "); ?>
         <?php } ?>
 
@@ -84,29 +84,29 @@
         <?php } ?>
 
         <?php echo $this->fetch($viewTemplate); ?>
-      </div>	
-        
+      </div>
+
       <div id="rightbar">
         <div id="rightcol">
           <?php echo $this->fetchBlockGroup('rightColumn') ?>
         </div>
-      </div>			
-        
-    <!-- content-wrap ends here -->		
+      </div>
+
+    <!-- content-wrap ends here -->
     </div>
 
-  <!-- footer starts here -->	
+  <!-- footer starts here -->
   <div id="footer">
-    
+
     <div class="footer-left">
-      <p class="align-left">			
+      <p class="align-left">
       &copy; 2008 <strong>ZenMagick</strong> |
       Design by <a href="http://www.styleshout.com/">styleshout</a> |
       Valid <a href="http://validator.w3.org/check/referer">XHTML</a> |
       <a href="http://jigsaw.w3.org/css-validator/check/referer">CSS</a>
-      </p>		
+      </p>
     </div>
-    
+
     <div class="footer-right">
       <p class="align-right">
         <?php $first = true; foreach (ZMEZPages::instance()->getPagesForFooter($session->getLanguageId()) as $page) { ?>
@@ -115,10 +115,10 @@
         <?php } ?>
       </p>
     </div>
-    
+
   </div>
   <!-- footer ends here -->
-    
+
   <!-- wrap ends here -->
   </div>
 

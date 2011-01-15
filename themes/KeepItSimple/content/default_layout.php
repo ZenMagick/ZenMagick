@@ -18,18 +18,18 @@
   </head>
   <body>
     <!-- header starts-->
-    <div id="header-wrap"><div id="header" class="container_16">						
-      
-      <h1 id="logo-text"><a href="<?php echo $net->url(FILENAME_DEFAULT) ?>" title="">ZenMagick</a></h1>		
-      <p id="intro">As simple as that!</p>				
-      
+    <div id="header-wrap"><div id="header" class="container_16">
+
+      <h1 id="logo-text"><a href="<?php echo $net->url(FILENAME_DEFAULT) ?>" title="">ZenMagick</a></h1>
+      <p id="intro">As simple as that!</p>
+
       <!-- navigation -->
       <div  id="nav">
         <?php echo $this->fetch('top-menu.php') ?>
-      </div>		
-      
-      <div id="header-image"></div> 		
-      
+      </div>
+
+      <div id="header-image"></div>
+
       <?php echo $form->open('search', '', false, array('method' => 'get', 'id' => 'quick-search')) ?>
         <p>
         <label for="qsearch">Search:</label>
@@ -38,17 +38,17 @@
         <input class="tbox" id="qsearch" type="text" name="keywords" value="<?php echo $html->encode($request->getParameter('keywords', KEYWORD_DEFAULT)) ?>" onfocus="<?php echo $onfocus ?>" title="Start typing and hit ENTER" />
         <input class="btn" alt="Search" type="image" name="searchsubmit" title="Search" src="<?php echo $this->asUrl("images/search.gif") ?>" />
         </p>
-      </form>					
-    
+      </form>
+
     <!-- header ends here -->
     </div></div>
-    
+
     <!-- content starts -->
     <div id="content-outer"><div id="content-wrapper" class="container_16">
-    
+
       <!-- main -->
       <div id="main" class="grid_8">
-          <?php if (!ZMLangUtils::inArray($request->getRequestId(), 'index')) { /* this is the actual view, not neccessarily what is in the URL */ ?>
+          <?php if (!ZMLangUtils::inArray($request->getRequestId(), 'index')) { ?>
               <?php echo $macro->buildCrumbtrail($crumbtrail, " &gt; "); ?>
           <?php } ?>
 
@@ -59,50 +59,50 @@
               <?php } ?>
               </ul>
           <?php } ?>
-        
+
           <?php echo $this->fetch($viewTemplate); ?>
       <!-- main ends -->
       </div>
-      
+
       <!-- left-columns starts -->
       <div id="left-columns" class="grid_8">
-      
+
         <div class="grid_4 alpha">
-        
+
         <div id="sidebar" >
           <?php echo $this->fetchBlockGroup('leftColumn', array('format' => '<div class="sidebox">%s</div>')) ?>
         </div>
 
         </div>
-      
+
         <div class="grid_4 omega">
           <?php echo $this->fetchBlockGroup('rightColumn') ?>
-        </div>	
-      
+        </div>
+
       <!-- end left-columns -->
-      </div>		
-    
-    <!-- contents end here -->	
+      </div>
+
+    <!-- contents end here -->
     </div></div>
 
-    <!-- footer starts here -->	
+    <!-- footer starts here -->
     <div id="footer-wrapper" class="container_16">
-    
+
       <div id="footer-bottom">
-    
-        <p class="bottom-left">			
+
+        <p class="bottom-left">
         &nbsp; &copy;2008 ZenMagick&nbsp; &nbsp;
-        Design by : <a href="http://www.styleshout.com/">styleshout</a>												
-        </p>	
-        
+        Design by : <a href="http://www.styleshout.com/">styleshout</a>
+        </p>
+
         <p class="bottom-right">
             <?php $first = true; foreach (ZMEZPages::instance()->getPagesForFooter($session->getLanguageId()) as $page) { ?>
                 <?php if (!$first) { ?>| <?php } $first = false; ?><?php echo $html->ezpageLink($page->getId()) ?>
             <?php } ?>
         </p>
-    
-      </div>	
-        
+
+      </div>
+
     </div>
     <!-- footer ends here -->
 

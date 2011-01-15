@@ -70,7 +70,7 @@
       </div>
 
       <div id="content">
-        <?php if ('index' != $request->getRequestId()) { /* this is the actual view, not neccessarily what is in the URL */ ?>
+        <?php if ('index' != $request->getRequestId()) { ?>
             <?php echo $macro->buildCrumbtrail($crumbtrail, " &gt; "); ?>
         <?php } ?>
 

@@ -59,13 +59,13 @@
 
     <div id="mainWrapper">
       <?php echo $this->fetch('header.php') ?>
-      
+
       <div id="contentMainWrapper">
-      	
-		 <?php //if ('index' != $request->getRequestId()) { /* this is the actual view, not neccessarily what is in the URL */ ?>
+
+		 <?php //if ('index' != $request->getRequestId()) { ?>
             <?php echo $macro->buildCrumbtrail($crumbtrail, " :: "); ?>
        	 <?php //} ?>
-       	 
+
        	 <?php if (ZMMessages::instance()->hasMessages()) { ?>
             <ul id="messages">
            		<?php foreach (ZMMessages::instance()->getMessages() as $message) { ?>
@@ -73,14 +73,14 @@
             	<?php } ?>
             </ul>
 		      <?php } ?>
-       	 
+
        	 <div id="contentWrapper">
 		      <?php if (ZMTemplateManager::instance()->isLeftColEnabled()) { ?>
 		        <div id="navColumnOne" class="columnLeft back">
 			        <?php echo $this->fetchBlockGroup('leftColumn', array('format' => '<div class="leftBoxContainer">%s<div class="sbFooter"></div></div>')) ?>
 		        </div>
 		      <?php } ?>
-		
+
 		      <?php $bgConent = ('index' == $request->getRequestId()) ? '' : 'bgContent ';?>
 		      <div id="mainColumn" class="<?php echo $bgConent; ?>forward">
 		        <div id="mainColumnWrapper">
@@ -92,7 +92,7 @@
 	      </div>
 	      <div class="clearBoth"></div>
 	  </div>
-		
+
       <?php echo $this->fetch('footer.php') ?>
     </div>
 

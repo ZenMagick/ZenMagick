@@ -22,13 +22,13 @@ Released   : 20090515
 
 	<div id="container">  <!-- wrap the entire package  -->
 	<div id="header"> <!-- for the logo image set we will use a CSS background solution here  -->
-      <div id="logo">       
+      <div id="logo">
 		<!--	<img src="xxx.jpg" alt="" class="logoimage" />   -->
-			
+
 		<h1>Zenmagick <br/> Enterprises <br/></h1>
         <h2>Online</h2>
       </div>  <!-- end of logo div  -->
-     
+
 	 <div id="creatacct"> <!-- insert the create account here  -->
 	 <a href="http://www.zenmagick.org/index.php?main_page=create_account"> Create Your Account </a>
 	 </div>
@@ -36,7 +36,7 @@ Released   : 20090515
         <?php echo $this->fetch('top-menu.php') ?>
       </div> <!-- end of menu div -->
     </div> <!-- end of header div  -->
-	
+
 	<div id="pagebar">  <!-- insert page menu bar here  -->
 		  <div id="pagemenu">
           <?php echo $this->fetch('page_menu.php') ?>
@@ -45,11 +45,11 @@ Released   : 20090515
 
 	<!-- start page -->
     <div id ="colmask" class="threecol">
-		<div id="colmid">  
+		<div id="colmid">
 			<div id="colleft">
 				<!-- start content center column  -->
       <div id="content">
-          <?php if (!ZMLangUtils::inArray($request->getRequestId(), 'index')) { /* this is the actual view, not neccessarily what is in the URL */ ?>
+          <?php if (!ZMLangUtils::inArray($request->getRequestId(), 'index')) { ?>
               <?php echo $macro->buildCrumbtrail($crumbtrail, " &gt; "); ?>
           <?php } ?>
 
@@ -60,14 +60,14 @@ Released   : 20090515
               <?php } ?>
               </ul>
           <?php } ?>
-        
+
           <?php echo $this->fetch($viewTemplate); ?>
       </div>
-      <!-- end content center column-->			
-			
+      <!-- end content center column-->
+
 				<!-- start leftcol here -->
 				<?php if (ZMTemplateManager::instance()->isLeftColEnabled()) { ?>
-				
+
 				<div id="sidebar1" class="sidebar">
 				<ul>
 	        <?php echo $this->fetchBlockGroup('leftColumn', array('format' => '<li>%s</li>')) ?>
@@ -75,8 +75,8 @@ Released   : 20090515
 			</div>    <!-- end leftcol here -->
       <?php } ?>
 
-      
-	  
+
+
 		<!-- begin RightCol material  -->
       <?php if (ZMTemplateManager::instance()->isRightColEnabled()) { ?>
         <!-- start sidebar2 -->
@@ -89,19 +89,19 @@ Released   : 20090515
       <?php } ?>
 
       <div style="clear: both;">&nbsp;</div>
-    
+
 	</div>  <!-- end of colleft  -->
 	</div>  <!-- end of colmid  -->
 	</div>    <!-- end colmask threecol -->
-	
-	
-	
-	
+
+
+
+
     <div id="footer">
       <p class="legal">&copy;2009 All Rights Reserved - &nbsp;<strong>Your Web Store Site</strong>&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;| Powered by <strong><a href="http://www.zenmagick.org">ZenMagick</a></strong></p>
       <p class="credit">Design by <strong>You the chief designer</strong></p>
     </div> <!-- end of footer div  -->
 	</div> <!-- end of container div  -->
-	
+
   </body>
 </html>

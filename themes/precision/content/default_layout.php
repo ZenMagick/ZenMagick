@@ -45,7 +45,7 @@ Released   : 20081126
 
       <!-- start content -->
       <div id="content">
-          <?php if (!ZMLangUtils::inArray($request->getRequestId(), 'index')) { /* this is the actual view, not neccessarily what is in the URL */ ?>
+          <?php if (!ZMLangUtils::inArray($request->getRequestId(), 'index')) { ?>
               <?php echo $macro->buildCrumbtrail($crumbtrail, " &gt; "); ?>
           <?php } ?>
 
@@ -56,7 +56,7 @@ Released   : 20081126
               <?php } ?>
               </ul>
           <?php } ?>
-        
+
           <?php echo $this->fetch($viewTemplate); ?>
       </div>
       <!-- end content -->
