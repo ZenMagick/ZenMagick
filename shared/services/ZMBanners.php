@@ -118,7 +118,7 @@ class ZMBanners extends ZMObject {
                 WHERE status = 1";
 
         if (null !== $secure) {
-            $sql .= " AND banners_on_ssl= :ssl";
+            $sql .= " AND banners_on_ssl = :ssl";
         }
 
         // handle multiple groups
