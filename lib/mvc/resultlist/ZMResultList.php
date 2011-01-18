@@ -295,7 +295,6 @@ class ZMResultList extends ZMObject {
                 }
             }
 
-            var_dump($this->pagination_);
             if (0 != $this->pagination_) {
                 $end = $this->page_ * $this->pagination_;
                 $end = $end > count($results) ? count($results) : $end;
@@ -305,7 +304,6 @@ class ZMResultList extends ZMObject {
                 // all
                 $end = count($results);
                 $start = 0;
-                var_dump($end);
             }
 
             // use this as array_slice might reorder the array if keys are not in order
