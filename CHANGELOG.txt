@@ -1,3 +1,7 @@
+Release 0.9.12
+- add new base package (for the PHP 5.3 code) and an improved and simplified
+  class loader
+
 Release 0.9.11
 - wrap up apidocs in zip after creation
 - add Plugin::getDependencies() [not yet used]

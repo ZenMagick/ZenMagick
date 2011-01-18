@@ -43,6 +43,14 @@
     // no, no
     @ini_set("register_globals", false);
 
+    // init class loader
+    require_once ZM_BASE_PATH."/lib/base/zenmagick/base/ClassLoader.php";
+    $baseLoader = new zenmagick\base\ClassLoader(array(
+        'zenmagick\base' => ZM_BASE_PATH.'lib'.DIRECTORY_SEPARATOR.'base'
+    ));
+    $baseLoader->register();
+    unset($baseLoader);
+
     // load initial code
     if (defined('USE_CORE_PHP') && USE_CORE_PHP && file_exists(ZM_BASE_PATH.'core.php')) {
         require ZM_BASE_PATH.'core.php';
