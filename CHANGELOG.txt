@@ -1,3 +1,7 @@
+Release 0.9.11.1
+- remove debug code
+- fix misplaced lib/plugins folder in release packages
+
 Release 0.9.11
 - wrap up apidocs in zip after creation
 - add Plugin::getDependencies() [not yet used]
