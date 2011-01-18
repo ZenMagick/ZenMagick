@@ -61,7 +61,7 @@ class ZMArrayResultSource extends ZMObject implements ZMResultSource {
     /**
      * {@inheritDoc}
      */
-    public function getResults() {
+    public function getResults($reload=false) {
         return $this->list_;
     }
 

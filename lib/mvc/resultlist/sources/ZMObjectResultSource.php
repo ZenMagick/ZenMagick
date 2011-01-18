@@ -78,8 +78,8 @@ class ZMObjectResultSource extends ZMObject implements ZMResultSource {
     /**
      * {@inheritDoc}
      */
-    public function getResults() {
-        if (null === $this->results_) {
+    public function getResults($reload=false) {
+        if ($reload || null === $this->results_) {
             if ($this->object_ instanceof ZMSQLAware) {
                 if (null != ($queryDetails = $this->object_->getQueryDetails($this->method_, $this->args_))) {
                     // potentially final, so check sorter and filter

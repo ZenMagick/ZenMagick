@@ -66,8 +66,8 @@ class ZMSearchResultSource extends ZMObject implements ZMResultSource {
     /**
      * {@inheritDoc}
      */
-    public function getResults() {
-        if (null === $this->results_) {
+    public function getResults($reload=false) {
+        if ($reload || null === $this->results_) {
             $finder = ZMBeanUtils::getBean('ProductFinder');
             $finder->setCriteria($this->criteria_);
             if (null !== $this->resultList_) {
