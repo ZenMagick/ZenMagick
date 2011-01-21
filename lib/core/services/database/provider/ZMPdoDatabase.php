@@ -31,12 +31,12 @@
  * @package org.zenmagick.core.services.database.provider
  */
 class ZMPdoDatabase extends ZMObject implements ZMDatabase {
-    private $pdo_;
-    private $config_;
-    private $queriesMap_;
-    private $mapper_;
-    private static $SAVEPOINT_DRIVER = array('pgsql', 'mysql');
-    private $savepointLevel_;
+    protected $pdo_;
+    protected $config_;
+    protected $queriesMap_;
+    protected $mapper_;
+    protected static $SAVEPOINT_DRIVER = array('pgsql', 'mysql');
+    protected $savepointLevel_;
 
 
 
@@ -69,7 +69,7 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
      *
      * @param array conf Optional config; if <code>null</code> the global config will be used; default is <code>null</code>.
      */
-    private function ensureResource($conf=null) {
+    protected function ensureResource($conf=null) {
         if (null == $this->pdo_){
             $conf = null !== $conf ? $conf : $this->config_;
             $useSocket = isset($conf['socket']) && !empty($conf['socket']);
@@ -385,12 +385,6 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
         $where = ' WHERE ';
         $properties = array_keys($modelData);
         foreach ($mapping as $field) {
-            if (!in_array($field['property'], $properties) && null != $mapping[$field['property']]['default']) {
-                // use default
-                $modelData[$field['property']] = $mapping[$field['property']]['default'];
-                // add to properties list
-                $properties[] = $field['property'];
-            }
             if (in_array($field['property'], $properties) && null !== $modelData[$field['property']]) {
                 if ($field['key']) {
                     if (!$firstWhere) {
@@ -537,12 +531,12 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
             }
         }
 
-        // defaults
-        foreach ($mapping as $field) {
+        // defaults - i think we only want to use this on create
+        /*foreach ($mapping as $field) {
             if (!array_key_exists($field['property'], $args) && null != $field['default']) {
                 $args[$field['property']] = $field['default'];
             }
-        }
+        }*/
 
         // create statement
         $this->ensureResource();
@@ -652,7 +646,8 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
                     'name' => $field,
                     'key' => $col['Key'] == "PRI",
                     'autoIncrement' => false !== strpos($col['Extra'], 'auto_increment'),
-                    'maxLen' => (3 == count($matches) ? (int)str_replace(array('(', ')'), '', $matches[2]) : null)
+                    'maxLen' => (3 == count($matches) ? (int)str_replace(array('(', ')'), '', $matches[2]) : null),
+		    'default' => $col['Default']
                 );
             }
             return $meta;
