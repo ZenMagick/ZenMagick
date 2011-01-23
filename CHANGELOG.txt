@@ -1,6 +1,7 @@
 Release 0.9.12
 - add new base package (for the PHP 5.3 code) and an improved and simplified
   class loader
+- add code to show all results if showAll is set as url parameter
 
 Release 0.9.11.1
 - remove debug code

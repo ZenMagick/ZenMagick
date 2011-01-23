@@ -123,6 +123,19 @@ class ZMEventFixes extends ZMObject {
     }
 
     /**
+     * Handle 'showAll' parameter for result lists.
+     */
+    public function onZMViewStart($args) {
+        $request = $args['request'];
+        if (null !== $request->getParameter('showAll')) {
+            $view = $args['view'];
+            if (null != ($resultList = $view->getVar('resultList'))) {
+                $resultList->setPagination(0);
+            }
+        }
+    }
+
+    /**
      * Final cleanup.
      */
     public function onZMAllDone($args) {

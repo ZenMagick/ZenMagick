@@ -200,7 +200,6 @@ class ZMQueryPager extends ZMObject {
 
         // limit to current page
         $sql .= " limit " . $offset . ", " . $pagination;
-        echo $sql;
 
         return $this->queryDetails_->query($sql);
     }
