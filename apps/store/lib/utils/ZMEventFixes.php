@@ -233,46 +233,9 @@ class ZMEventFixes extends ZMObject {
         // set the default authentication provider for zen cart
         ZMAuthenticationManager::instance()->addProvider(ZMSettings::get('defaultAuthenticationProvider'), true);
 
-        if (ZMSettings::get('isEnableZMThemes') && !ZM_CLI_CALL) {
+        if (!ZM_CLI_CALL) {
             $language = $request->getSession()->getLanguage();
-
-            // resolve theme to be used; always start with default
-            $theme = ZMThemes::instance()->resolveTheme(ZMSettings::get('apps.store.themes.default'), $language);
-            // finalise i18n
-            if (null === $language) {
-                // this may happen if the i18n patch hasn't been updated
-                $language = Runtime::getDefaultLanguage();
-            }
-            $lang = $language->getDirectory();
-            $i18n = $theme->getConfig('locale');
-            if (array_key_exists($lang, $i18n)) {
-                foreach ($i18n[$lang] as $name => $value) {
-                    //echo $name.' '.$value.'<BR>';
-                    if (!defined($name)) {
-                        define($name, $value);
-                    }
-                    if ('LC_TIME' == $name) {
-                        @setlocale(LC_TIME, $value);
-                    } else if ('HTML_CHARSET' == $name) {
-                        ZMSettings::set('zenmagick.mvc.html.charset', $value); 
-                    }
-                }
-            }
-
-            // add optional url mappings
-            $urls = $theme->getConfig('urls');
-            if ($urls && is_array($urls)) {
-                // merge
-                ZMUrlManager::instance()->setMappings($urls, false);
-            }
-
-            // add optional settings
-            $settings = $theme->getConfig('settings');
-            if ($settings && is_array($settings)) {
-                // merge
-                ZMSettings::addAll($settings, true);
-            }
-
+            $theme = ZMThemes::instance()->initThemes($language);
             Runtime::setTheme($theme);
             $args = array_merge($args, array('theme' => $theme, 'themeId' => $theme->getId()));
             ZMEvents::instance()->fireEvent(null, Events::THEME_RESOLVED, $args);

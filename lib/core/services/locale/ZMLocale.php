@@ -113,4 +113,13 @@ interface ZMLocale {
      */
     public function getFormat($group, $type=null);
 
+    /**
+     * Set formats.
+     *
+     * <p>Merge additional formats into this locale.</p>
+     *
+     * @param array formats Nested map of format definitions.
+     */
+    public function setFormats($formats);
+
 }

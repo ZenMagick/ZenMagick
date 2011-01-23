@@ -242,8 +242,7 @@ class ZMThemes extends ZMObject {
     }
 
     /**
-     * Resolve theme incl. loader update, theme switching and all theme default
-     * handling.
+     * Init themes.
      *
      * <p>This is <strong>the</strong> method in the ZenMagick theme handling. It will:</p>
      * <ol>
@@ -251,48 +250,35 @@ class ZMThemes extends ZMObject {
      *  <li>Init l10n/i18n</li>
      *  <li>Load the theme specific <code>extra</code> code</li>
      *  <li>Check for theme switching and repeat the process if needed</li>
+     *  <li>Load custome theme settings from <em>theme.yaml</em></li>
      * </ol>
      *
-     * <p>Passing default theme id rather than the current theme id is equivalent to
-     * enabling default theme fallback. Coincidentally, this is also the default behaviour.</p>
-     *
-     * @param string themeId The themeId to start with.
      * @param ZMLanguage language The language.
      * @return ZMTheme The final theme.
      */
-    public function resolveTheme($themeId, $language) {
-        if (null == $themeId) {
-            $themeId = ZMSettings::get('apps.store.themes.default');
-        }
+    public function initThemes($language) {
         if (null == $language) {
             // default language
             $language = ZMLanguages::instance()->getLanguageForCode(ZMSettings::get('defaultLanguageCode'));
         }
-        // set up theme
-        $theme = ZMThemes::instance()->getThemeForId($themeId);
 
-        // configure theme loader
-        $themeLoader = new ZMLoader();
-        $themeLoader->addPath($theme->getExtraDir());
+        foreach ($this->getThemeChain($language->getId()) as $theme) {
+            // configure theme loader
+            $themeLoader = new ZMLoader($theme->getName());
+            $themeLoader->addPath($theme->getExtraDir());
 
-        // add loader to root loader
-        ZMLoader::instance()->setParent($themeLoader);
+            // add loader to root loader
+            ZMLoader::instance()->setParent($themeLoader);
 
-        // init l10n/i18n
-        $theme->loadLocale($language);
+            // init l10n/i18n
+            $theme->loadLocale($language);
+            // custom theme.yaml settings
+            $theme->loadSettings();
 
-        // use theme loader to load static stuff
-        foreach ($themeLoader->getStatic() as $static) {
-            require_once($static);
-        }
-
-        // check for theme switching
-        $activeThemeId = $this->getActiveThemeId($language->getId());
-        if ($activeThemeId != $theme->getThemeId()) {
-            $nextTheme = $this->resolveTheme($activeThemeId, $language);
-            // merge with parent..
-            $nextTheme->setConfig(ZMLangUtils::arrayMergeRecursive($theme->getConfig(), $nextTheme->getConfig()));
-            return $nextTheme;
+            // use theme loader to load static stuff
+            foreach ($themeLoader->getStatic() as $static) {
+                require_once($static);
+            }
         }
 
         return $theme;

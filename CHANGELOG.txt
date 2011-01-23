@@ -2,6 +2,12 @@ Release 0.9.12
 - add new base package (for the PHP 5.3 code) and an improved and simplified
   class loader
 - add code to show all results if showAll is set as url parameter
+- set default encoding to UTF-8
+- simplify theme loading (issue #61)
+- add notice to installation page about disabling the i18n patch
+- change store bootstrap so that themes are always initialized (even if themes
+  are disabled); only exception are cases where code is run from the command
+	line
 
 Release 0.9.11.1
 - remove debug code

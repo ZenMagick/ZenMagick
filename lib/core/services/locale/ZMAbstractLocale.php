@@ -125,4 +125,11 @@ abstract class ZMAbstractLocale extends ZMObject implements ZMLocale {
         return null;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    public function setFormats($formats) {
+        $this->formats_ = ZMLangUtils::arrayMergeRecursive($this->formats_, $formats);
+    }
+
 }

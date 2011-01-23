@@ -5,13 +5,16 @@ author: 'zenmagick.org'
 description: 'ZenMagick demo theme including additional product pages and extra code'
 
 locale:
-  english:
-    HTML_CHARSET: 'utf-8'
-    ## to format dates
-    DATE_FORMAT: 'm/d/Y'
-    ## to parse user input 
-    UI_DATE_FORMAT: 'mm/dd/yyyy'
-    UI_DATE_FORMAT_SAMPLE: '11/16/1967'
+  en:
+    date: 
+      'short': 'd/m/Y'
+      'short-ui-format': 'dd/mm/yy'
+      'short-ui-example': '09/08/66'
+      'long': 'd/m/Y'
+    time:
+      'short': 'H:i:s'
+      'long': 'H:i:s u'
+    
 
 ## optional url mappings
 urls:

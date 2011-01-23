@@ -339,10 +339,6 @@ class ZMTheme extends ZMObject {
     /**
      * Load locale settings (l10n/i18n).
      *
-     * <p>NOTE: This is only going to load mappings. However, since i18n
-     * settings need to be set using <code>define(..)</code>, this is done
-     * in a separate function, once loading (and theme switching) is over.</p>
-     *
      * @param ZMLanguage language The language.
      */
     public function loadLocale($language) {
@@ -353,6 +349,34 @@ class ZMTheme extends ZMObject {
         $path = $this->getLangDir().$language->getDirectory().DIRECTORY_SEPARATOR;
         // re-init with next file
         ZMLocales::instance()->getLocale()->init(ZMSettings::get('zenmagick.core.locales.locale'), $path);
+    }
+
+    /**
+     * Load additional theme config settins from <em>theme.yaml</em>.
+     */
+    public function loadSettings() {
+        if (null !== ($localeSettings = $this->getConfig('locale'))) {
+            $locale = ZMLocales::instance()->getLocale();
+            foreach (ZMLocales::instance()->getValidLocaleCodes() as $code) {
+                if (array_key_exists($code, $localeSettings)) {
+                    $locale->setFormats($localeSettings[$code]);
+                }
+            }
+        }
+
+        // add optional url mappings
+        $urls = $this->getConfig('urls');
+        if ($urls && is_array($urls)) {
+            // merge
+            ZMUrlManager::instance()->setMappings($urls, false);
+        }
+
+        // add optional settings
+        $settings = $this->getConfig('settings');
+        if ($settings && is_array($settings)) {
+            // merge
+            ZMSettings::addAll($settings, true);
+        }
     }
 
 }

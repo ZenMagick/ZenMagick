@@ -158,7 +158,7 @@
             <param name="rename.suffix" value="_org" />
         </antcall>
 
-        <!-- i18n patches -->
+        <!-- i18n patches 
         <antcall target="rename-function">
             <param name="rename.file" value="${release.full.dir}/includes/languages/english.php" />
             <param name="rename.function" value="zen_date_raw" />
@@ -169,6 +169,7 @@
             <param name="rename.function" value="zen_date_raw" />
             <param name="rename.suffix" value="_DISABLED" />
         </antcall>
+        -->
 
         <!-- edit customer patch -->
         <antcall target="insert-after">
