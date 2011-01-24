@@ -35,6 +35,7 @@ zenmagick.mvc.request.invalidSession: cookie_usage
 
 zenmagick.mvc.toolbox.tools: net:ToolboxNet,html:ToolboxHtml,form:ToolboxForm,macro:ToolboxMacro,locale:ToolboxLocale,utils:ToolboxUtils,crumbtrail:ToolboxCrumbtrail,metaTags:ToolboxMetaTags
 
+zenmagick.mvc.html.dir: ltr
 zenmagick.mvc.html.xhtml: true
 zenmagick.mvc.html.charset: utf-8
 

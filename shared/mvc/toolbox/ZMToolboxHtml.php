@@ -65,6 +65,18 @@ class ZMToolboxHtml extends ZMToolboxTool {
     }
 
     /**
+     * Get the HTML base dir.
+     *
+     * <p>If <em>dir</em> is not configured for the active locale, the setting 'zenmagick.mvc.html.dir' is used.</p>
+     *
+     * @return string Either <em>ltr</em> or <em>rtl<em>, depending on the locale.
+     */
+    public function getDir() {
+        $dir = ZMLocales::instance()->getLocale()->getFormat('dir');
+        return null != $dir ? $dir : ZMSettings::get('zenmagick.mvc.html.dir', 'ltr');
+    }
+
+    /**
      * Creates a HTML <code>&lt;img&gt;</code> tag for the given <code>ZMImageInfo</code>.
      *
      * @param ZMImageInfo imageInfo The image info.

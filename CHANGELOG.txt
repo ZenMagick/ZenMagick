@@ -9,6 +9,9 @@ Release 0.9.12
   are disabled); only exception are cases where code is run from the command
 	line
 - fix screwed file permissions; bug #67
+- upgrade admin jquery to 1.4.4/1.8.9, respectively; task #55
+- feature #28: add new setting 'zenmagick.mvc.html.dir' with a default of
+  'ltr', add new ZMHtmlToolbox::getDir() method
 
 Release 0.9.11.1
 - remove debug code

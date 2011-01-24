@@ -227,6 +227,11 @@
                         'desc' => 'Control generation of HTML/XHTML content.'
                     ),
                     array(
+                        'key' => 'dir',
+                        'type' => 'string',
+                        'desc' => 'The default base dir; either <em>ltr</em> or <em>rtl</em>.'
+                    ),
+                    array(
                         'key' => 'contentType',
                         'type' => 'string',
                         'desc' => 'Content type.'
