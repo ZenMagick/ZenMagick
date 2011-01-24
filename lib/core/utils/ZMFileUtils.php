@@ -88,6 +88,10 @@ class ZMFileUtils {
             $perms = ZMSettings::get('zenmagick.core.fs.permissions.defaults.folder', '0755');
         }
 
+        if (is_string($perms)) {
+            $perms = intval($perms, 8);
+        }
+
         $result = @mkdir($dir, $perms);
         self::setFilePerms($dir, $recursive, array('folder' => $perms));
 
@@ -226,6 +230,11 @@ class ZMFileUtils {
 
         $filePerms = array_merge(array('file' => ZMSettings::get('zenmagick.core.fs.permissions.defaults.file', '0644'),
                                     'folder' => ZMSettings::get('zenmagick.core.fs.permissions.defaults.folder', '0755')), $perms);
+        foreach ($filePerms as $type => $perms) {
+            if (is_string($perms)) {
+                $filePerms[$type] = intval($perms, 8);
+            }
+        }
 
         foreach ($files as $file) {
             if (0 < count($perms)) {

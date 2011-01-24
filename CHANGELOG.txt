@@ -8,6 +8,7 @@ Release 0.9.12
 - change store bootstrap so that themes are always initialized (even if themes
   are disabled); only exception are cases where code is run from the command
 	line
+- fix screwed file permissions; bug #67
 
 Release 0.9.11.1
 - remove debug code
