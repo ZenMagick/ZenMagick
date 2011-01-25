@@ -19,6 +19,7 @@ Release 0.9.12
 - remove deprecated methods: ZMTheme::themeURL(), zm_l10n_chunk_get(),
   zm_l10n_add(), ZMTheme::themeFile(), ZMTheme::themeFileExists()
 - bug #70: static page content is always from default theme
+- remove warnings about accessing undeclared properties in ZMObject
 
 Release 0.9.11.1
 - remove debug code
