@@ -12,6 +12,10 @@ Release 0.9.12
 - upgrade admin jquery to 1.4.4/1.8.9, respectively; task #55
 - feature #28: add new setting 'zenmagick.mvc.html.dir' with a default of
   'ltr', add new ZMHtmlToolbox::getDir() method
+- feature #68: add new Logging class acting as manager, dispatching logging
+  calls to all registered LoggingHandlers
+- firePHP: upgrade to 0.3.2, convert to LoggingHandler to use the new logging
+  code
 
 Release 0.9.11.1
 - remove debug code

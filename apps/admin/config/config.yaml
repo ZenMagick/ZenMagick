@@ -13,7 +13,8 @@ zenmagick.core.database.mappings.autoMap.enabled: true
 ## logging
 zenmagick.core.logging.level: ALL
 zenmagick.core.logging.enabled: true
-zenmagick.core.logging.handleErrors: false
+zenmagick.core.logging.handleErrors: true
+zenmagick.base.logging.handler: \zenmagick\base\services\logging\handler\DefaultLoggingHandler
 
 ## fs
 zenmagick.core.fs.permissions.fix: true

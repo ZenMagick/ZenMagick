@@ -30,8 +30,8 @@
  * @author DerManoMann
  * @package org.zenmagick.plugins.firePHP
  */
-class Logging extends ZMLogging {
-    protected static $LEVEL_MAP = array(
+class FirePHPLoggingHandler extends \zenmagick\base\services\logging\handler\DefaultLoggingHandler {
+    private static $LEVEL_MAP = array(
         ZMLogging::ERROR => FirePHP::ERROR,
         ZMLogging::WARN => FirePHP::WARN,
         ZMLogging::INFO => FirePHP::INFO,
@@ -39,29 +39,13 @@ class Logging extends ZMLogging {
         ZMLogging::TRACE => FirePHP::LOG
     );
 
-    /**
-     * Create new instance.
-     */
-    function __construct() {
-        parent::__construct();
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
-
 
     /**
      * {@inheritDoc}
      */
-    public function log($msg, $level=ZMLogging::INFO) {
-        if (ZMSettings::get('zenmagick.core.logging.enabled') && $level <= ZMSettings::get('zenmagick.core.logging.level')) {
-            if (!headers_sent()) {
-                FirePHP::getInstance(true)->fb($msg, self::$LEVEL_MAP[$level]);
-            }
+    public function log($msg, $level) {
+        if (!headers_sent()) {
+            FirePHP::getInstance(true)->fb($msg, self::$LEVEL_MAP[$level]);
         }
     }
 
@@ -69,13 +53,11 @@ class Logging extends ZMLogging {
      * {@inheritDoc}
      */
     public function dump($obj, $msg=null, $level=ZMLogging::DEBUG) {
-        if (ZMSettings::get('zenmagick.core.logging.enabled') && $level <= ZMSettings::get('zenmagick.core.logging.level')) {
-            if (!headers_sent()) {
-                if ($obj instanceof Exception) {
-                    FirePHP::getInstance(true)->fb($obj);
-                } else {
-                    FirePHP::getInstance(true)->fb($obj, $msg, FirePHP::DUMP);
-                }
+        if (!headers_sent()) {
+            if ($obj instanceof Exception) {
+                FirePHP::getInstance(true)->fb($obj);
+            } else {
+                FirePHP::getInstance(true)->fb($obj, $msg, FirePHP::DUMP);
             }
         }
     }
@@ -84,10 +66,8 @@ class Logging extends ZMLogging {
      * {@inheritDoc}
      */
     public function trace($msg=null, $level=ZMLogging::DEBUG) {
-        if (ZMSettings::get('zenmagick.core.logging.enabled') && $level <= ZMSettings::get('zenmagick.core.logging.level')) {
-            if (!headers_sent()) {
-                FirePHP::getInstance(true)->fb($msg, FirePHP::TRACE);
-            }
+        if (!headers_sent()) {
+            FirePHP::getInstance(true)->fb($msg, FirePHP::TRACE);
         }
     }
 
@@ -115,17 +95,12 @@ class Logging extends ZMLogging {
         ); 
 
         if (!headers_sent()) {
-            FirePHP::getInstance(true)->fb($line, $errTypes[$info['errno']]);
+            if (array_key_exists('exception', $info)) {
+                FirePHP::getInstance(true)->fb($info['exception']);
+            } else {
+                FirePHP::getInstance(true)->fb($line, $errTypes[$info['errno']]);
+            }
         }
     }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function exceptionHandler($e) { 
-        if (!headers_sent()) {
-            FirePHP::getInstance(true)->fb($e);
-        }
-    } 
 
 }

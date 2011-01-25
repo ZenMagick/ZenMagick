@@ -25,6 +25,15 @@
      */
     function zm_get_settings_details() {
         return array(
+            'zenmagick.base' => array(
+                'logging' => array(
+                    array(
+                        'key' => 'handler',
+                        'type' => 'string',
+                        'desc' => 'List of configured logging handler.'
+                    ),
+                ),
+            ),
             'zenmagick.core' => array(
                 'cache' => array(
                     array(

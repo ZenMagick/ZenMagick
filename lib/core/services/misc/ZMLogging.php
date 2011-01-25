@@ -24,53 +24,71 @@
 /**
  * ZenMagick logging service.
  *
- * <p>The <em>dump</em> and <em>trace</em> methods are browser oriented and
- *  will generate HTML in the response page.</p>
- *
- * <p>Browser output depends on the PHP ini setting <em>display_errors</em>.</p>
+ * <p>Degraded to a compatibility/convenience wrapper around<code>\zenmagick\base\services\logging\Logging</code>.</p>
  *
  * @author DerManoMann
  * @package org.zenmagick.core.services.misc
  */
 class ZMLogging extends ZMObject {
-    private static $LABEL = array('NONE', 'ERROR', 'WARN', 'INFO', 'DEBUG', 'TRACE');
     /** Log level: Disabled. */
-    const NONE = 0;
+    const NONE = \zenmagick\base\services\logging\Logging::NONE;
     /** Log level: Error. */
-    const ERROR = 1;
+    const ERROR = \zenmagick\base\services\logging\Logging::ERROR;
     /** Log level: Warning. */
-    const WARN = 2;
+    const WARN = \zenmagick\base\services\logging\Logging::WARN;
     /** Log level: Info. */
-    const INFO = 3;
+    const INFO = \zenmagick\base\services\logging\Logging::INFO;
     /** Log level: Debug. */
-    const DEBUG = 4;
+    const DEBUG = \zenmagick\base\services\logging\Logging::DEBUG;
     /** Log level: Trace. */
-    const TRACE = 5;
+    const TRACE = \zenmagick\base\services\logging\Logging::TRACE;
     /** Log level: ALL. */
-    const ALL = 99999;
+    const ALL = \zenmagick\base\services\logging\Logging::ALL;
 
-
-    /**
-     * Create new instance.
-     */
-    function __construct() {
-        parent::__construct();
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
 
     /**
      * Get instance.
      */
     public static function instance() {
-        return ZMRuntime::singleton('Logging');
+        return ZMRuntime::singleton('ZMLogging');
     }
 
+
+    /**
+     * Log info.
+     *
+     * @param string msg The message to log.
+     */
+    public function info($msg) {
+        \zenmagick\base\services\logging\Logging::instance()->log($msg, self::INFO);
+    }
+
+    /**
+     * Log warning.
+     *
+     * @param string msg The message to log.
+     */
+    public function warn($msg) {
+        \zenmagick\base\services\logging\Logging::instance()->log($msg, self::WARN);
+    }
+
+    /**
+     * Log error.
+     *
+     * @param string msg The message to log.
+     */
+    public function error($msg) {
+        \zenmagick\base\services\logging\Logging::instance()->log($msg, self::ERROR);
+    }
+
+    /**
+     * Log debug.
+     *
+     * @param string msg The message to log.
+     */
+    public function debug($msg) {
+        \zenmagick\base\services\logging\Logging::instance()->log($msg, self::DEBUG);
+    }
 
     /**
      * Simple logging function.
@@ -82,16 +100,7 @@ class ZMLogging extends ZMObject {
      * @param int level Optional level; default: <code>ZMLogging::INFO</code>.
      */
     public function log($msg, $level=self::INFO) {
-        if (ZMSettings::get('zenmagick.core.logging.enabled') && $level <= ZMSettings::get('zenmagick.core.logging.level')) {
-            if (array_key_exists($level, self::$LABEL)) {
-                $msg = self::$LABEL[$level] . ': ' . $msg;
-            }
-            if (ZMSettings::get('zenmagick.core.logging.handleErrors')) {
-                @trigger_error($msg, E_USER_NOTICE);
-            } else {
-                error_log($msg);
-            }
-        }
+        \zenmagick\base\services\logging\Logging::instance()->log($msg, $level);
     }
 
     /**
@@ -102,17 +111,7 @@ class ZMLogging extends ZMObject {
      * @param int level Optional level; default: <code>ZMLogging::DEBUG</code>.
      */
     public function dump($obj, $msg=null, $level=self::DEBUG) {
-        if (ZMSettings::get('zenmagick.core.logging.enabled') && $level <= ZMSettings::get('zenmagick.core.logging.level')) {
-            ob_start();
-            if (null !== $msg) {
-                echo '<h3>'.$msg.":</h3>\n";
-            }
-            $info = ob_get_clean();
-            if (@ini_get('display_errors')) {
-                echo $info;
-            }
-            $this->log(trim(html_entity_decode(strip_tags($info))), $level);
-        }
+        \zenmagick\base\services\logging\Logging::instance()->dump($obj, $msg, $level);
     }
 
     /**
@@ -122,83 +121,7 @@ class ZMLogging extends ZMObject {
      * @param int level Optional level; default: <code>ZMLogging::DEBUG</code>.
      */
     public function trace($msg=null, $level=self::DEBUG) {
-        if (ZMSettings::get('zenmagick.core.logging.enabled') && $level <= ZMSettings::get('zenmagick.core.logging.level')) {
-            ob_start();
-            if (null !== $msg) {
-                if (is_array($msg)) {
-                    echo "<pre>";
-                    print_r($msg);
-                    echo "</pre>";
-                } else {
-                    echo '<h3>'.$msg.":</h3>\n";
-                }
-            }
-            $root = ZMFileUtils::normalizeFilename(ZMRuntime::getInstallationPath());
-            echo "<pre>";
-            foreach (debug_backtrace() as $line) {
-                echo ' ';
-                if (isset($line['class'])) {
-                    echo $line['class'].'::';
-                }
-                if (isset($line['file'])) {
-                    $file = ZMFileUtils::normalizeFilename($line['file']);
-                    $lineNumber = $line['line'];
-                    $location = '#'.$line['line'].':'.$file;
-                } else {
-                    $location = 'no source';
-                }
-                // make filename relative
-                $file = str_replace($root, '', $file);
-                $class = array_key_exists('class', $line) ? $line['class'].'::' : '';
-                echo $class.$line['function'].' ('.$location.")\n";
-            }
-            echo "</pre>";
-            $info = ob_get_clean();
-            if (@ini_get('display_errors')) {
-                echo $info;
-            }
-            $this->log(trim(html_entity_decode(strip_tags($info))), $level);
-        }
-    }
-
-    /**
-     * Format error handler log line.
-     *
-     * @param int errno The error level.
-     * @param string errstr The error message.
-     * @param string errfile The source filename.
-     * @param int errline The line number.
-     * @param array errcontext All variables of scope when error triggered.
-     * @return string A formatted log line.
-     */
-    protected function formatLog($errno, $errstr, $errfile, $errline, $errcontext) {
-        $time = date("d M Y H:i:s");
-        // Get the error names from the error number
-        $errTypes = array (
-        1 => "Error",
-        2 => "Warning",
-        4 => "Parsing Error",
-        8 => "Notice",
-        16 => "Core Error",
-        32 => "Core Warning",
-        64 => "Compile Error",
-        128 => "Compile Warning",
-        256 => "User Error",
-        512 => "User Warning",
-        1024 => "User Notice",
-        2048 => "Strict",
-        4096 => "Recoverable Error",
-        8192 => "Deprecated",
-        16384 => "User Deprecated",
-        );
-
-        if (isset($errTypes[$errno])) {
-            $errlevel = $errTypes[$errno];
-        } else {
-            $errlevel = "Unknown";
-        }
-
-        return "\"$time\",\"$errfile: $errline\",\"($errlevel) $errstr\"\r\n";
+        \zenmagick\base\services\logging\Logging::instance()->trace($msg, $level);
     }
 
     /**
@@ -208,45 +131,7 @@ class ZMLogging extends ZMObject {
      * @param array info All available log information.
      */
     public function logError($line, $info) {
-        $logfile = ZMSettings::get('zenmagick.core.logging.filename');
-        if (!ZMLangUtils::isEmpty($logfile) && null != ($handle = fopen($logfile, "a"))) {
-            fputs($handle, $line);
-            fclose($handle);
-            ZMFileUtils::setFilePerms($logfile);
-        } else {
-            error_log($line);
-        }
-    }
-
-    /**
-     * PHP error handler callback.
-     *
-     * <p>if configured, this method will append all messages to the file
-     * configured with <em>zmLogFilename</em>.</p>
-     *
-     * <p>If no file is configured, the regular webserver error file will be used.</p>
-     *
-     * @param int errno The error level.
-     * @param string errstr The error message.
-     * @param string errfile The source filename.
-     * @param int errline The line number.
-     * @param array errcontext All variables of scope when error triggered.
-     */
-    public function errorHandler($errno, $errstr, $errfile, $errline, $errcontext) {
-        // convert all into an easy to handle array
-        $info = array('errno' => $errno, 'msg' => $errstr, 'file' => $errfile, 'line' => $errline, 'context' => $errcontext);
-
-        $line = $this->formatLog($errno, $errstr, $errfile, $errline, $errcontext);
-        $this->logError($line, $info);
-    }
-
-    /**
-     * PHP exception handler callback.
-     *
-     * @param Exception e The exception.
-     */
-    public function exceptionHandler($e) {
-        $this->logError('Uncaught exception: '.$e->getMessage(), array('errno' => E_ERROR, 'context' => array('exception' => $e)));
+        \zenmagick\base\services\logging\Logging::instance()->logError($line, $info);
     }
 
 }
