@@ -137,27 +137,6 @@ class ZMTheme extends ZMObject {
     }
 
     /**
-     * Resolve a theme relative URI.
-     *
-     * <p>The given <code>uri</code> is assumed to be relative to the themes <em>content</em> folder.</p>
-     *
-     * @param string uri The relative URI.
-     * @return string An absolute URL.
-     * @deprecated
-     */
-    public function themeURL($uri) {
-        $url = Runtime::getThemesPathPrefix().$this->themeId_."/".'content/'.$uri;
-        if (!file_exists($this->getContentDir().$uri)) {
-            if (file_exists(Runtime::getThemesDir().ZMSettings::get('apps.store.themes.default').DIRECTORY_SEPARATOR.'content'.DIRECTORY_SEPARATOR.$uri)) {
-                $url = Runtime::getThemesPathPrefix().ZMSettings::get('apps.store.themes.default')."/".'content/'.$uri;
-            }
-        }
-
-        return ZMHtmlUtils::encode($url);
-    }
-
-
-    /**
      * Return the path of the extra directory.
      *
      * @return string A full filename denoting the themes extra directory.
@@ -200,37 +179,6 @@ class ZMTheme extends ZMObject {
      */
     public function getLangDir() {
         return $this->getBaseDir() . 'lang'.DIRECTORY_SEPARATOR;
-    }
-
-    /**
-     * Resolve a theme relative filename into a full path.
-     *
-     * @param string name A theme relative filename.
-     * @param string baseDir An optional base directory; default is <code>content/</code>
-     * @return string A fully qualified filename.
-     */
-    public function themeFile($name, $baseDir='content/') {
-        $file = $this->getBaseDir().$baseDir.$name;
-        if (!file_exists($file)) {
-            // check for default
-            $dfile = Runtime::getThemesDir().ZMSettings::get('apps.store.themes.default').DIRECTORY_SEPARATOR.$baseDir.$name;
-            if (file_exists($dfile)) {
-                $file = $dfile;
-            }
-        }
-
-        return $file;
-    }
-
-    /**
-     * Check if the given theme relative file exists.
-     *
-     * @param string name A theme relative filename.
-     * @param string baseDir An optional base directory; default is <code>content/</code>
-     * @return boolean <code>true</code> if the file exists, <code>false</code> if not.
-     */
-    public function themeFileExists($name, $baseDir='content/') {
-		    return file_exists($this->themeFile($name, $baseDir));
     }
 
     /**
@@ -320,20 +268,14 @@ class ZMTheme extends ZMObject {
 
         $filename = $path.$page.'.php';
         if (!file_exists($filename)) {
-            $filename = Runtime::getThemesDir().ZMSettings::get('apps.store.themes.default').DIRECTORY_SEPARATOR.'lang'.DIRECTORY_SEPARATOR.$languageDir.DIRECTORY_SEPARATOR.'static'.DIRECTORY_SEPARATOR.$page.'.php';
+            return null;
         }
 
-        $contents = null;
-        if (file_exists($filename)) {
-            $contents = file_get_contents($filename);
-        }
-
+        $contents = @file_get_contents($filename);
         // allow PHP
         ob_start();
         eval('?>'.$contents);
-        $contents = ob_get_clean();
-
-        return $contents;
+        return ob_get_clean();
     }
 
     /**

@@ -99,12 +99,16 @@ class ZMToolboxUtils extends ZMToolboxTool {
      * @return string The content or <code>null</code>.
      */
     public function staticPageContent($pageName) {
-        if (null == ($language = Runtime::getLanguage())) {
-            $language = Runtime::getDefaultLanguage();
+        $languageId = $this->getRequest()->getSession()->getLanguageId();
+        // most specific first
+        $themeChain = array_reverse(ZMThemes::instance()->getThemeChain($languageId));
+        foreach ($themeChain as $theme) {
+            if (null != ($content = $theme->staticPageContent($pageName, $languageId))) {
+                return $content;
+            }
         }
-        $themeId = ZMThemes::instance()->getActiveThemeId($language->getId());
-        $theme = ZMThemes::instance()->getThemeForId($themeId);
-        return $theme->staticPageContent($pageName, $language->getId());
+
+        return null;
     }
 
 }
