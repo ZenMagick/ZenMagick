@@ -20,6 +20,7 @@ Release 0.9.12
   zm_l10n_add(), ZMTheme::themeFile(), ZMTheme::themeFileExists()
 - bug #70: static page content is always from default theme
 - remove warnings about accessing undeclared properties in ZMObject
+- add doctrine2 as git submodule in lib/vendor
 
 Release 0.9.11.1
 - remove debug code
