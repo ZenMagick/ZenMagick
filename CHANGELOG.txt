@@ -21,6 +21,7 @@ Release 0.9.12
 - bug #70: static page content is always from default theme
 - remove warnings about accessing undeclared properties in ZMObject
 - add doctrine2 as git submodule in lib/vendor
+- remove date handling related patch and override code
 
 Release 0.9.11.1
 - remove debug code
