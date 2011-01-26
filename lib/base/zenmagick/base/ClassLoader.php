@@ -68,6 +68,42 @@ class ClassLoader {
 
 
     /**
+     * Add mappings from a <em>classloader.ini</em> file.
+     *
+     * <p>All mappings in the <em>.ini</em> file are relative to the location of the <em>.ini</em> file.</p>
+     *
+     * <p>Example file:</p>
+     * <code><pre>
+     * [namespaces]
+     * Doctrine\ORM = doctrine/lib
+     * </pre></code>
+     *
+     * <p>To map the folder containing the <em>.ini</em> file, leave the path empty.</p>
+     *
+     * @param string path Path to a directory (assuming <em>classloader.ini</em>), or ini file.
+     */
+    public function addConfig($path) {
+        if (is_dir($path)) {
+            $path .= DIRECTORY_SEPARATOR . 'classloader.ini';
+        }
+        $path = realpath($path);
+        if (!empty($path) && file_exists($path) && is_file($path)) {
+            $baseDir = dirname($path) . DIRECTORY_SEPARATOR;
+            $mappings = parse_ini_file($path, true);
+            if (array_key_exists('namespaces', $mappings)) {
+                foreach ($mappings['namespaces'] as $namespace => $folder) {
+                    $this->addNamespace($namespace, realpath($baseDir.$folder));
+                }
+            }
+            if (array_key_exists('prefixes', $mappings)) {
+                foreach ($mappings['prefixes'] as $prefix => $folder) {
+                    $this->addPrefix($prefix, realpath($baseDir.$folder));
+                }
+            }
+        }
+    }
+
+    /**
      * Add a list of namespaces.
      *
      * @param array A map of namespace =&gt; path pairs.

@@ -45,9 +45,9 @@
 
     // init class loader
     require_once ZM_BASE_PATH."/lib/base/zenmagick/base/ClassLoader.php";
-    $baseLoader = new zenmagick\base\ClassLoader(array(
-        'zenmagick\base' => ZM_BASE_PATH.'lib'.DIRECTORY_SEPARATOR.'base'
-    ));
+    $baseLoader = new zenmagick\base\ClassLoader();
+    $baseLoader->addConfig(ZM_BASE_PATH.'lib'.DIRECTORY_SEPARATOR.'base');
+    $baseLoader->addConfig(ZM_BASE_PATH.'lib'.DIRECTORY_SEPARATOR.'vendor');
     $baseLoader->register();
     unset($baseLoader);
 
