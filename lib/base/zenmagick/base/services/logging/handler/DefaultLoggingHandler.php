@@ -26,13 +26,20 @@ namespace zenmagick\base\services\logging\handler;
  *
  * <p>Simple logger writing to the <em>SAPI logging handler</em>.</p>
  *
- * <p>Additionally, if <code>display_errors</code> is enabled, all logging will be <em>echo'ed</em> as well.</p>
- *
  * @author DerManoMann
  * @package zenmagick.base.services.logging.handler
  */
 class DefaultLoggingHandler implements \zenmagick\base\services\logging\LoggingHandler {
-    public static $LABEL = array('NONE', 'ERROR', 'WARN', 'INFO', 'DEBUG', 'TRACE');
+    private $logLevel;
+
+    /**
+     * Create new instance.
+     *
+     * @param int logLevel Optional custom log level; default is <code>null</code>.
+     */
+    public function __construct($logLevel=null) {
+        $this->logLevel = $logLevel;
+    }
 
     /**
      * Do the actual logging.
@@ -40,18 +47,31 @@ class DefaultLoggingHandler implements \zenmagick\base\services\logging\LoggingH
      * @param string msg The message.
      */
     protected function doLog($msg) {
-        if (@ini_get('display_errors')) {
-            echo $msg;
-        }
         error_log(trim(html_entity_decode(strip_tags($msg))), 4);
+    }
+
+    /**
+     * Set the custom log level for this handler.
+     *
+     * @param int logLevel The new custom log level.
+     */
+    public function setLogLevel($logLevel) {
+        $this->logLevel = $logLevel;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getLogLevel() {
+        return $this->logLevel;
     }
 
     /**
      * {@inheritDoc}
      */
     public function log($msg, $level) {
-        if (array_key_exists($level, self::$LABEL)) {
-            $msg = self::$LABEL[$level] . ': ' . $msg;
+        if (array_key_exists($level, \zenmagick\base\services\logging\Logging::$LOG_LEVEL)) {
+            $msg = \zenmagick\base\services\logging\Logging::$LOG_LEVEL[$level] . ': ' . $msg;
         }
         $this->doLog($msg.'<br>');
     }

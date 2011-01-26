@@ -24,6 +24,8 @@ namespace zenmagick\base\services\logging\handler;
 /**
  * Echo logging handler.
  *
+ * <p>If <code>display_errors</code> is enabled, all logging will be <em>echo'ed</em>.</p>
+ *
  * @author DerManoMann
  * @package zenmagick.base.services.logging.handler
  */
@@ -33,10 +35,12 @@ class EchoLoggingHandler extends DefaultLoggingHandler
      * {@inheritDoc}
      */
     public function log($msg, $level) {
-        if (array_key_exists($level, self::$LABEL)) {
-            $msg = self::$LABEL[$level] . ': ' . $msg;
+        if (@ini_get('display_errors')) {
+            if (array_key_exists($level, \zenmagick\base\services\logging\Logging::$LOG_LEVEL)) {
+                $msg = \zenmagick\base\services\logging\Logging::$LOG_LEVEL[$level] . ': ' . $msg;
+            }
+            echo $msg.'<br>';
         }
-        echo $msg.'<br>';
     }
 
 }

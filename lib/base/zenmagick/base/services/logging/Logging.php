@@ -46,6 +46,23 @@ class Logging {
     const TRACE = 5;
     /** Log level: ALL. */
     const ALL = 99999;
+
+    /** String to log level lookup. */
+    private static $LOG_LEVEL_LOOKUP = array(
+        'NONE' => self::NONE, 
+        'ERROR' => self::ERROR,
+        'WARN' => self::WARN,
+        'INFO' => self::INFO,
+        'DEBUG' => self::DEBUG,
+        'TRACE' => self::TRACE,
+        'ALL' => self::ALL
+    );
+
+    /** Readable list of log level. */
+    public static $LOG_LEVEL = array('NONE', 'ERROR', 'WARN', 'INFO', 'DEBUG', 'TRACE');
+
+    private $enabled_;
+    private $globalLogLevel_;
     private $handler_;
     private $handlerList_;
     private $ERR_MAP = array(
@@ -73,6 +90,12 @@ class Logging {
     function __construct() {
         $this->handler_ = null;
         $this->handlerList_ = array();
+        $this->enabled_ = \ZMSettings::get('zenmagick.core.logging.enabled', false);
+        $this->globalLogLevel_ = \ZMSettings::get('zenmagick.core.logging.level', 0);
+        // allow string values
+        if (array_key_exists($this->globalLogLevel_, self::$LOG_LEVEL_LOOKUP)) {
+            $this->globalLogLevel_ = self::$LOG_LEVEL_LOOKUP[$this->globalLogLevel_];
+        }
     }
 
 
@@ -80,9 +103,11 @@ class Logging {
      * Get instance.
      */
     public static function instance() {
-        //TODO: fix
-        $logging = new \zenmagick\base\services\logging\Logging();
-        \ZMRuntime::singleton('\zenmagick\base\services\logging\Logging', $logging);
+        // TODO: bean/inject?
+        if (null == \ZMRuntime::singleton('\zenmagick\base\services\logging\Logging')) {
+            $logging = new \zenmagick\base\services\logging\Logging();
+            \ZMRuntime::singleton('\zenmagick\base\services\logging\Logging', $logging);
+        }
         return \ZMRuntime::singleton('\zenmagick\base\services\logging\Logging');
     }
 
@@ -102,7 +127,7 @@ class Logging {
                     $tmp[$def] = $this->handlerList_[$def];
                 } else {
                     // create new instance
-                    //XXX
+                    // TODO: bean/inject?
                     $tmp[$def] = new $def();
                 }
             }
@@ -158,9 +183,11 @@ class Logging {
      * @param int level Optional level; default: <code>ZMLogging::INFO</code>.
      */
     public function log($msg, $level=self::INFO) {
-        if (\ZMSettings::get('zenmagick.core.logging.enabled') && $level <= \ZMSettings::get('zenmagick.core.logging.level')) {
+      if ($this->enabled_) {
             foreach ($this->getHandlers() as $handler) {
-                $handler->log($msg, $level);
+                if ((null === ($customLevel = $handler->getLogLevel()) && $level <= $this->globalLogLevel_) || $level <= $customLevel) {
+                    $handler->log($msg, $level);
+                }
             }
         }
     }
@@ -173,9 +200,11 @@ class Logging {
      * @param int level Optional level; default: <code>ZMLogging::DEBUG</code>.
      */
     public function dump($obj, $msg=null, $level=self::DEBUG) {
-        if (\ZMSettings::get('zenmagick.core.logging.enabled') && $level <= \ZMSettings::get('zenmagick.core.logging.level')) {
+      if ($this->enabled_) {
             foreach ($this->getHandlers() as $handler) {
-                $handler->dump($obj, $msg, $level);
+                if ((null === ($customLevel = $handler->getLogLevel()) && $level <= $this->globalLogLevel_) || $level <= $customLevel) {
+                    $handler->dump($obj, $msg, $level);
+                }
             }
         }
     }
@@ -187,9 +216,11 @@ class Logging {
      * @param int level Optional level; default: <code>ZMLogging::DEBUG</code>.
      */
     public function trace($msg=null, $level=self::DEBUG) {
-        if (\ZMSettings::get('zenmagick.core.logging.enabled') && $level <= \ZMSettings::get('zenmagick.core.logging.level')) {
+      if ($this->enabled_) {
             foreach ($this->getHandlers() as $handler) {
-                $handler->trace($msg, $level);
+                if ((null === ($customLevel = $handler->getLogLevel()) && $level <= $this->globalLogLevel_) || $level <= $customLevel) {
+                    $handler->trace($msg, $level);
+                }
             }
         }
     }
@@ -254,8 +285,12 @@ class Logging {
      * @param array info All available log information.
      */
     public function logError($line, $info) {
-        foreach ($this->getHandlers() as $handler) {
-            $handler->logError($line, $info);
+      if ($this->enabled_) {
+            foreach ($this->getHandlers() as $handler) {
+                if ((null === ($customLevel = $handler->getLogLevel()) && self::ERROR <= $this->globalLogLevel_) || self::ERROR <= $customLevel) {
+                    $handler->logError($line, $info);
+                }
+            }
         }
     }
 

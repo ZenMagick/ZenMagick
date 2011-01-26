@@ -30,6 +30,13 @@ namespace zenmagick\base\services\logging;
 interface LoggingHandler {
 
     /**
+     * Get the log level for this handler.
+     *
+     * @return int The log level or <code>null</code> to use the global level.
+     */
+    public function getLogLevel();
+
+    /**
      * Log message.
      *
      * @param string msg The message to log.

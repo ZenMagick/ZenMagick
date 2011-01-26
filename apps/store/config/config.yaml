@@ -11,7 +11,7 @@ zenmagick.core.database.mappings.cache.enabled: false
 zenmagick.core.database.mappings.autoMap.enabled: true
 
 ## logging
-zenmagick.core.logging.level: 3
+zenmagick.core.logging.level: INFO
 zenmagick.core.logging.enabled: false
 zenmagick.core.logging.handleErrors: true
 zenmagick.base.logging.handler: \zenmagick\base\services\logging\handler\DefaultLoggingHandler
