@@ -22,6 +22,7 @@ Release 0.9.12
 - remove warnings about accessing undeclared properties in ZMObject
 - add doctrine2 as git submodule in lib/vendor
 - remove date handling related patch and override code
+- remove custom sfYaml version and use the version referenced by doctrine
 
 Release 0.9.11.1
 - remove debug code
