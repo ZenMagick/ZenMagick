@@ -31,7 +31,7 @@ namespace zenmagick\base;
  *  <li><a href="https://gist.github.com/221634">SplClassLoader</a></li>
  *  <li><a href="https://github.com/symfony/symfony/blob/master/src/Symfony/Component/HttpFoundation/UniversalClassLoader.php"> Symfony UniversalClassLoader</a></li>
  *  <li><a href="https://github.com/doctrine/common/blob/master/lib/Doctrine/Common/ClassLoader.php">Doctrine ClassLoader</a></li>
- * <ul>
+ * </ul>
  *
  * <p>The default namespace separator is '\\'.</p>
  *
@@ -43,6 +43,42 @@ namespace zenmagick\base;
  * <p>A namespace path can be either a string (single path) or array of strings (mulitple path). That means a class loader may have multiple locations for a single
  * namespace.</p>
  *
+ * <p>It is able to load classes that use either:</p>
+ *
+ * <ul>
+ *  <li>The technical interoperability standards for PHP 5.3 namespaces and class names (http://groups.google.com/group/php-standards/web/psr-0-final-proposal);</li>
+ *  <li>The PEAR naming convention for classes (http://pear.php.net/).</li>
+ * </ul>
+ *
+ * <p>Classes from a sub-namespace or a sub-hierarchy of PEAR classes can be looked for in a list of locations to ease the vendoring of a sub-set of
+ * classes for large projects.</p>
+ *
+ * <p>Example usage:</p>
+ *
+ * <code><pre>
+ *
+ * $loader = new ClassLoader();
+ *
+ * // register classes with namespaces
+ * $loader->registerNamespaces(array(
+ *   'Symfony\Component' => __DIR__.'/component',
+ *   'Symfony' => __DIR__.'/framework',
+ * ));
+ *
+ * // register a library using the PEAR naming convention
+ * $loader->registerPrefixes(array(
+ *   'Swift_' => __DIR__.'/Swift',
+ * ));
+ *
+ * // activate the autoloader
+ * $loader->register();
+ * </pre></code>
+ *
+ * <p>In this example, if you try to use a class in the Symfony\Component namespace or one of its children (Symfony\Component\Console for instance),
+ * the autoloader will first look for the class under the component/ directory, and it will then fallback to the framework/ directory if not
+ * found before giving up.</p>
+ *
+ * @author Fabien Potencier <fabien.potencier@symfony-project.org>
  * @author DerManoMann
  * @package zenmagick.base
  */

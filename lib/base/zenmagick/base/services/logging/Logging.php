@@ -21,6 +21,10 @@
 <?php
 namespace zenmagick\base\services\logging;
 
+
+use zenmagick\base\Application;
+use zenmagick\base\Beans;
+
 /**
  * The ZenMagick logging service.
  *
@@ -103,12 +107,7 @@ class Logging {
      * Get instance.
      */
     public static function instance() {
-        // TODO: bean/inject?
-        if (null == \ZMRuntime::singleton('\zenmagick\base\services\logging\Logging')) {
-            $logging = new \zenmagick\base\services\logging\Logging();
-            \ZMRuntime::singleton('\zenmagick\base\services\logging\Logging', $logging);
-        }
-        return \ZMRuntime::singleton('\zenmagick\base\services\logging\Logging');
+        return Application::singleton('\zenmagick\base\services\logging\Logging');
     }
 
 
@@ -119,19 +118,14 @@ class Logging {
      */
     protected function getHandlers() {
         if ($this->handler_ != ($setting = \ZMSettings::get('zenmagick.base.logging.handler', '\zenmagick\base\services\logging\handler\DefaultLoggingHandler'))) {
-            $tmp = array();
+            // populate freshly
+            $this->handlerList_ = array();
             foreach (explode(',', $setting) as $def) {
                 $def = trim($def);
-                if (array_key_exists($def, $this->handlerList_)) {
-                    // keep
-                    $tmp[$def] = $this->handlerList_[$def];
-                } else {
-                    // create new instance
-                    // TODO: bean/inject?
-                    $tmp[$def] = new $def();
+                if (null != ($handler = Beans::getBean($def))) {
+                    $this->handlerList_[$def] = $handler;
                 }
             }
-            $this->handlerList_ = $tmp;
         }
 
         return $this->handlerList_;
@@ -180,7 +174,7 @@ class Logging {
      * error handler is installed, trigger a <em>E_USER_NOTICE</em> error.</p>
      *
      * @param string msg The message to log.
-     * @param int level Optional level; default: <code>ZMLogging::INFO</code>.
+     * @param int level Optional level; default: <code>INFO</code>.
      */
     public function log($msg, $level=self::INFO) {
       if ($this->enabled_) {
@@ -197,7 +191,7 @@ class Logging {
      *
      * @param mixed obj The object to dump.
      * @param string msg An optional message.
-     * @param int level Optional level; default: <code>ZMLogging::DEBUG</code>.
+     * @param int level Optional level; default: <code>DEBUG</code>.
      */
     public function dump($obj, $msg=null, $level=self::DEBUG) {
       if ($this->enabled_) {
@@ -213,7 +207,7 @@ class Logging {
      * Create a simple stack trace.
      *
      * @param mixed msg An optional string or array.
-     * @param int level Optional level; default: <code>ZMLogging::DEBUG</code>.
+     * @param int level Optional level; default: <code>DEBUG</code>.
      */
     public function trace($msg=null, $level=self::DEBUG) {
       if ($this->enabled_) {
