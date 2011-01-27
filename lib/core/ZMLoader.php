@@ -267,6 +267,10 @@ class ZMLoader {
         // default to prefixed name
         $elems = explode('\\', $name);
         $num = count($elems);
+        if (0 === strpos($elems[$num-1], $this->prefix_)) {
+            // got already the prefix, so giving up
+            return null;
+        }
         $elems[$num-1] = $this->prefix_.$elems[$num-1];
         return $this->resolveClass(implode('\\', $elems), $name);
     }
