@@ -23,6 +23,7 @@ Release 0.9.12
 - add doctrine2 as git submodule in lib/vendor
 - remove date handling related patch and override code
 - remove custom sfYaml version and use the version referenced by doctrine
+- remove custom (packed) swift package and add vanilla vendor version
 
 Release 0.9.11.1
 - remove debug code
