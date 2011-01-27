@@ -29,7 +29,7 @@ namespace zenmagick\base\services\logging\handler;
  * @author DerManoMann
  * @package zenmagick.base.services.logging.handler
  */
-class EchoLoggingHandler extends DefaultLoggingHandler
+class EchoLoggingHandler extends DefaultLoggingHandler {
 
     /**
      * {@inheritDoc}
