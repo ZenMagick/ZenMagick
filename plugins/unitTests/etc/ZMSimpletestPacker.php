@@ -36,7 +36,7 @@ class ZMSimpletestPacker extends ZMPhpPackagePacker implements ZMLibraryPacker {
         $this->outputFilename_ = $targetDir.'simpletest-'.$version.'.packed.php';
 
         // run the parent package packer; strip/leave references
-        $this->packFiles($strip, false);
+        $this->packFiles($strip, true);
     }
 
     /**

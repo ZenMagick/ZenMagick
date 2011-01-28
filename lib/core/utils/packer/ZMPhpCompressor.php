@@ -256,8 +256,9 @@ class ZMPhpCompressor {
         }
         $src = ob_get_clean();
         if ($this->stripRef_) {
-          $src = str_replace(array(',&$', ', &$', '( &$', '(&$', '=&', '&new', '& new', 'function &'), 
-              array(',$', ', $', '( $', '($', '=', 'new', 'new', 'function '), $src);
+            $src = str_replace(array(',&$', ', &$', '( &$', '(&$', '=&', '&new', '& new', 'function &', ' = &'), 
+                array(',$', ', $', '( $', '($', '=', 'new', 'new', 'function ', ' = '),
+                $src);
         }
         return $src;
     }
@@ -491,6 +492,12 @@ class ZMPhpCompressor {
                     ++$processed;
                     unset($files[$key]);
                     $source = file_get_contents($infile);
+
+                    if ($this->stripRef_) {
+                        $source = str_replace(array(',&$', ', &$', '( &$', '(&$', '=&', '&new', '& new', 'function &', ' = &'), 
+                            array(',$', ', $', '( $', '($', '=', 'new', 'new', 'function ', ' = '),
+                            $source);
+                    }
 
                     if (!$this->stripCode_) {
                         echo "<?php /* ".$infile." */ ?>\n";
