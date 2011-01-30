@@ -50,11 +50,16 @@ class ClassLoaderPharBuilder {
     public function getIncludes() {
         // get all directories to include...
         $includes = array();
-        foreach (parse_ini_file($this->path.DIRECTORY_SEPARATOR.'classloader.ini', true) as $mappings) {
-            foreach ($mappings as $dir) {
-                $includes[] = realpath($this->path.DIRECTORY_SEPARATOR.$dir);
+        foreach (parse_ini_file($this->path.DIRECTORY_SEPARATOR.'classloader.ini', true) as $type => $mappings) {
+            foreach ($mappings as $key => $dir) {
+                $path = realpath($this->path.DIRECTORY_SEPARATOR.$dir);
+                if ('namespaces' == $type) {
+                    $path = realpath($path . DIRECTORY_SEPARATOR . str_replace('\\', DIRECTORY_SEPARATOR, $key));
+                }
+                $includes[$path] = $path;
             }
         }
+        $includes = array_keys($includes);
         return $includes;
     }
 
@@ -71,12 +76,13 @@ class ClassLoaderPharBuilder {
      * Create the <code>phar</code>.
      */
     public function create() {
-        $iterator = new \RecursiveDirectoryIterator($this->path, \FilesystemIterator::SKIP_DOTS);// | \FilesystemIterator::FOLLOW_SYMLINKS);
+        $iterator = new \RecursiveDirectoryIterator($this->path, \FilesystemIterator::SKIP_DOTS | \FilesystemIterator::FOLLOW_SYMLINKS);
         // real recursive iterator
         $iterator = new \RecursiveIteratorIterator($iterator, \RecursiveIteratorIterator::SELF_FIRST);
         // filter based on the folder list take from the classloader.ini
         $iterator = new FolderWhitelistFilterIterator($iterator, $this->getIncludes());
 
+        echo $this->getPharPath()."<BR>";
         // create phar
         $phar = new \Phar($this->getPharPath());
         $phar->buildFromIterator($iterator, $this->path);

@@ -48,7 +48,7 @@ class FolderWhitelistFilterIterator extends \FilterIterator {
     public function accept() {
         $fileinfo = $this->getInnerIterator()->current();
         foreach ($this->includes as $include) {
-            if (0 === strpos($fileinfo, $include)) {
+            if (0 === strpos($fileinfo, $include) && !$fileinfo->isDir()) {
                 return true;
             }
         }
