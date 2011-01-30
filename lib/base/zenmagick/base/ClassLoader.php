@@ -119,6 +119,9 @@ class ClassLoader {
      * @param string path Path to a directory (assuming <em>classloader.ini</em>), or ini file.
      */
     public function addConfig($path) {
+        // optional phar
+        $phar = realpath($path . DIRECTORY_SEPARATOR . basename($path) . '.phar');
+        $usePhar = file_exists($phar);
         if (is_dir($path)) {
             $path .= DIRECTORY_SEPARATOR . 'classloader.ini';
         }
@@ -128,12 +131,14 @@ class ClassLoader {
             $mappings = parse_ini_file($path, true);
             if (array_key_exists('namespaces', $mappings)) {
                 foreach ($mappings['namespaces'] as $namespace => $folder) {
-                    $this->addNamespace($namespace, realpath($baseDir.$folder));
+                    $nspath = $usePhar ? 'phar://'.$phar.'/'.$folder : realpath($baseDir.$folder);
+                    $this->addNamespace($namespace, $nspath);
                 }
             }
             if (array_key_exists('prefixes', $mappings)) {
                 foreach ($mappings['prefixes'] as $prefix => $folder) {
-                    $this->addPrefix($prefix, realpath($baseDir.$folder));
+                    $pxpath = $usePhar ? 'phar://'.$phar.'/'.$folder : realpath($baseDir.$folder);
+                    $this->addPrefix($prefix, $pxpath);
                 }
             }
         }

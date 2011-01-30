@@ -44,7 +44,12 @@
     @ini_set("register_globals", false);
 
     // init class loader
-    require_once ZM_BASE_PATH."/lib/base/zenmagick/base/ClassLoader.php";
+    $basephar = 'phar://'.ZM_BASE_PATH.'/lib/base/base.phar';
+    if (file_exists($basephar)) {
+        require_once $basephar.'/zenmagick/base/ClassLoader.php';
+    } else {
+        require_once ZM_BASE_PATH."/lib/base/zenmagick/base/ClassLoader.php";
+    }
     $baseLoader = new zenmagick\base\ClassLoader();
     $baseLoader->addConfig(ZM_BASE_PATH.'lib'.DIRECTORY_SEPARATOR.'base');
     $baseLoader->addConfig(ZM_BASE_PATH.'lib'.DIRECTORY_SEPARATOR.'vendor');
