@@ -4,3 +4,6 @@
 [submodule "lib/vendor/doctrine-utils/DoctrineExtensions"]
 	path = lib/vendor/doctrine-utils/DoctrineExtensions
 	url = git://github.com/l3pp4rd/DoctrineExtensions.git
+[submodule "lib/vendor/symfony2"]
+	path = lib/vendor/symfony2
+	url = git://github.com/fabpot/symfony.git
