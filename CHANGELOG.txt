@@ -26,6 +26,7 @@ Release 0.9.12
 - remove custom (packed) swift package and add vanilla vendor version
 - minify: fix cache path
 - unitTests: strip ref usage in simpletest; upgrade to todays trunk HEAD
+- allow ZM_SHARED to be a list of folder names relative to zenmagick
 
 Release 0.9.11.1
 - remove debug code

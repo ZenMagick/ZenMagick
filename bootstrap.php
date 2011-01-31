@@ -68,7 +68,9 @@
         ZMLoader::instance()->addPath(ZM_BASE_PATH.'lib'.DIRECTORY_SEPARATOR.'core'.DIRECTORY_SEPARATOR);
         ZMLoader::instance()->addPath(ZM_BASE_PATH.'lib'.DIRECTORY_SEPARATOR.'mvc'.DIRECTORY_SEPARATOR);
         if (defined('ZM_SHARED')) {
-            ZMLoader::instance()->addPath(ZM_BASE_PATH.ZM_SHARED.DIRECTORY_SEPARATOR);
+            foreach (explode(',', ZM_SHARED) as $name) {
+                ZMLoader::instance()->addPath(ZM_BASE_PATH.trim($name).DIRECTORY_SEPARATOR);
+            }
         }
         if (null != ZMRuntime::getApplicationPath()) {
             ZMLoader::instance()->addPath(ZMFileUtils::mkPath(array(ZMRuntime::getApplicationPath(), 'lib')));
