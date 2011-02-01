@@ -7,3 +7,6 @@
 [submodule "lib/vendor/symfony2"]
 	path = lib/vendor/symfony2
 	url = git://github.com/fabpot/symfony.git
+[submodule "lib/vendor/swiftmailer"]
+	path = lib/vendor/swiftmailer
+	url = git://github.com/swiftmailer/swiftmailer.git
