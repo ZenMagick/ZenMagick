@@ -34,14 +34,6 @@ create_account:
     </tr>
 
 
-Token support
-=============
-The token service will be used to avoid having to store the actual password hash in the new cookie.
-
-
-Cookie name
-===========
-The code uses a different cookie name compared to the original zen-cart mod. If you require full compatibility,
-you can do so by adding the following line to your local.php file (and token support disabled):
-
-  define('AUTO_LOGIN_COOKIE', 'zencart_cookie_permlogin');
+Security
+========
+In contrast to the original mod this plugin uses the ZenMagick token service to avoid having to put the account id into the cookie.

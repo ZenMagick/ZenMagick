@@ -1,3 +1,5 @@
+Captcha Plugin
+==============
 This is the ZenMagick plugin for CAPTCHA support,
 based on the CAPTCH zen-cart contribution by Andrew Berezin.
 (http://www.zen-cart.com/index.php?main_page=product_contrib_info&products_id=551)
@@ -14,7 +16,6 @@ Installation
 
 After the plugin has been installed you should have the CAPTCHA
 configuration options available in the admin interface.
-
 
 
 captcha modifications
@@ -39,7 +40,6 @@ class you'll need to reapply those changes.
 5) Renamed c'tor __construct()
 
 6) Added $request parameter to __construct()
-
 
 I also modified the install.sql script to make it work in batch mode. All required is
 to replace backslash-single quote:  \'  with two single quotes:  ''
