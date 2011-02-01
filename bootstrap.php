@@ -68,9 +68,13 @@
         ZMLoader::instance()->addPath(ZM_BASE_PATH.'lib'.DIRECTORY_SEPARATOR.'core'.DIRECTORY_SEPARATOR);
         ZMLoader::instance()->addPath(ZM_BASE_PATH.'lib'.DIRECTORY_SEPARATOR.'mvc'.DIRECTORY_SEPARATOR);
         if (defined('ZM_SHARED')) {
+            $sharedLoader = new zenmagick\base\ClassLoader();
             foreach (explode(',', ZM_SHARED) as $name) {
                 ZMLoader::instance()->addPath(ZM_BASE_PATH.trim($name).DIRECTORY_SEPARATOR);
+                $sharedLoader->addConfig(ZM_BASE_PATH.trim($name));
             }
+            $sharedLoader->register();
+            unset($sharedLoader);
         }
         if (null != ZMRuntime::getApplicationPath()) {
             ZMLoader::instance()->addPath(ZMFileUtils::mkPath(array(ZMRuntime::getApplicationPath(), 'lib')));
