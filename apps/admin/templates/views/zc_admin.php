@@ -22,12 +22,6 @@ require_once ZMRuntime::getInstallationPath().'apps/store/lib/zencart_overrides.
 // map emails view; here we want a store view; merge
 ZMUrlManager::instance()->setMapping(null, array('emails' => array('view' => 'SavantView')), false);
 
-if (!function_exists('zen_date_raw')) {
-    function zen_date_raw($date, $reverse=false) {
-        return zen_date_raw_DISABLED($date, $reverse);
-    }
-}
-
 function split_slash($s) {
   $s = preg_replace('#(\S)/#', '$1 /', $s);
   return preg_replace('#/(\S)#', '/ $1', $s);
@@ -43,10 +37,11 @@ $PHP_SELF = $zcAdminFolder.$zcPage;
 $code = file_get_contents($zcAdminFolder.$zcPage);
 $code = preg_replace("/<!doctype[^>]*>/s", '', $code);
 $code = preg_replace("/<html.*<body[^>]*>/s", '', $code);
-$code = preg_replace("/require\(\s*DIR_WS_INCLUDES\s*\.\s*'header.php'\s*\);/", '', $code);
-$code = preg_replace("/require\(\s*DIR_WS_INCLUDES\s*\.\s*'footer.php'\s*\);/", '', $code);
+$code = preg_replace("/require\(.*header.php'\s*\);/", '', $code);
+$code = preg_replace("/require\(.*footer.php'\s*\);/", '', $code);
 $code = preg_replace("/<\/body>\s*<\/html>/s", '', $code);
-$code = preg_replace("/require\(\s*DIR_WS_INCLUDES\s*\.\s*'application_bottom.php'\s*\);/", '', $code);
+$code = preg_replace("/require\(.*application_bottom.php'\s*\);/", '', $code);
+//echo '<pre>'; echo htmlentities($code); echo '</pre>';
 ob_start();
 eval('?>'.$code);
 $content = ob_get_clean();
