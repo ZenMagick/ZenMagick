@@ -36,7 +36,7 @@
 
         "rewriteBase" => "Update RewriteBase value in .htaccess (pretty links, SEO)",
 
-        "dynamicAdmin" => "Disable zen-cart admin header/footer (use zmAdmin.php instead of index.php)",
+        "adminFolderName" => "Adjust admin folder name for ZenMagick admin",
 
         "sqlConfig" => "Setup ZenMagick config groups and initial values",
         "sqlToken" => "Create the database table used by the token service",
