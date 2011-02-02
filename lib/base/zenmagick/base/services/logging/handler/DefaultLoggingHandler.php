@@ -21,6 +21,10 @@
 <?php
 namespace zenmagick\base\services\logging\handler;
 
+use \zenmagick\base\services\logging\Logging;
+use \zenmagick\base\services\logging\LoggingHandler;
+
+
 /**
  * Default logging handler.
  *
@@ -29,7 +33,7 @@ namespace zenmagick\base\services\logging\handler;
  * @author DerManoMann
  * @package zenmagick.base.services.logging.handler
  */
-class DefaultLoggingHandler implements \zenmagick\base\services\logging\LoggingHandler {
+class DefaultLoggingHandler implements LoggingHandler {
     private $logLevel;
 
     /**
@@ -70,8 +74,8 @@ class DefaultLoggingHandler implements \zenmagick\base\services\logging\LoggingH
      * {@inheritDoc}
      */
     public function log($msg, $level) {
-        if (array_key_exists($level, \zenmagick\base\services\logging\Logging::$LOG_LEVEL)) {
-            $msg = \zenmagick\base\services\logging\Logging::$LOG_LEVEL[$level] . ': ' . $msg;
+        if (array_key_exists($level, Logging::$LOG_LEVEL)) {
+            $msg = Logging::$LOG_LEVEL[$level] . ': ' . $msg;
         }
         $this->doLog($msg.'<br>');
     }
@@ -133,7 +137,7 @@ class DefaultLoggingHandler implements \zenmagick\base\services\logging\LoggingH
      * {@inheritDoc}
      */
     public function logError($line, $info) {
-        $this->log($line, \zenmagick\base\services\logging\Logging::ERROR);
+        $this->log($line, Logging::ERROR);
     }
 
 }

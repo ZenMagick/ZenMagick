@@ -21,6 +21,9 @@
 <?php
 namespace zenmagick\base\services\logging\handler;
 
+use \zenmagick\base\services\logging\Logging;
+
+
 /**
  * Echo logging handler.
  *
@@ -36,8 +39,8 @@ class EchoLoggingHandler extends DefaultLoggingHandler {
      */
     public function log($msg, $level) {
         if (@ini_get('display_errors')) {
-            if (array_key_exists($level, \zenmagick\base\services\logging\Logging::$LOG_LEVEL)) {
-                $msg = \zenmagick\base\services\logging\Logging::$LOG_LEVEL[$level] . ': ' . $msg;
+            if (array_key_exists($level, Logging::$LOG_LEVEL)) {
+                $msg = Logging::$LOG_LEVEL[$level] . ': ' . $msg;
             }
             echo $msg.'<br>';
         }
