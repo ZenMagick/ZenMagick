@@ -53,10 +53,12 @@ class ZMAdminFolderNamePatch extends ZMFilePatch {
      */
     function isOpen($lines=null) {
         $lines = $this->getFileLines(_ZM_ADMIN_INDEX_PHP);
-        foreach ($lines as $line) {
-            if (false !== strpos($line, "define('ZC_ADMIN_FOLDER'")) {
-                eval($line);
-                break;
+        if (!defined('ZC_ADMIN_FOLDER')) {
+            foreach ($lines as $line) {
+                if (false !== strpos($line, "define('ZC_ADMIN_FOLDER'")) {
+                    eval($line);
+                    break;
+                }
             }
         }
         return basename(DIR_WS_ADMIN) != ZC_ADMIN_FOLDER;
