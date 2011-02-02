@@ -130,8 +130,8 @@
 
     // register custom error handler
     if (ZMSettings::get('zenmagick.core.logging.handleErrors')) {
-        set_error_handler(array(\zenmagick\base\services\logging\Logging::instance(), 'errorHandler'));
-        set_exception_handler(array(\zenmagick\base\services\logging\Logging::instance(), 'exceptionHandler'));
+        set_error_handler(array(\zenmagick\base\logging\Logging::instance(), 'errorHandler'));
+        set_exception_handler(array(\zenmagick\base\logging\Logging::instance(), 'exceptionHandler'));
     }
 
     // set up locale

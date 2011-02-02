@@ -24,26 +24,26 @@
 /**
  * ZenMagick logging service.
  *
- * <p>Degraded to a compatibility/convenience wrapper around<code>\zenmagick\base\services\logging\Logging</code>.</p>
+ * <p>Degraded to a compatibility/convenience wrapper around<code>\zenmagick\base\logging\Logging</code>.</p>
  *
  * @author DerManoMann
  * @package org.zenmagick.core.services.misc
  */
 class ZMLogging extends ZMObject {
     /** Log level: Disabled. */
-    const NONE = \zenmagick\base\services\logging\Logging::NONE;
+    const NONE = \zenmagick\base\logging\Logging::NONE;
     /** Log level: Error. */
-    const ERROR = \zenmagick\base\services\logging\Logging::ERROR;
+    const ERROR = \zenmagick\base\logging\Logging::ERROR;
     /** Log level: Warning. */
-    const WARN = \zenmagick\base\services\logging\Logging::WARN;
+    const WARN = \zenmagick\base\logging\Logging::WARN;
     /** Log level: Info. */
-    const INFO = \zenmagick\base\services\logging\Logging::INFO;
+    const INFO = \zenmagick\base\logging\Logging::INFO;
     /** Log level: Debug. */
-    const DEBUG = \zenmagick\base\services\logging\Logging::DEBUG;
+    const DEBUG = \zenmagick\base\logging\Logging::DEBUG;
     /** Log level: Trace. */
-    const TRACE = \zenmagick\base\services\logging\Logging::TRACE;
+    const TRACE = \zenmagick\base\logging\Logging::TRACE;
     /** Log level: ALL. */
-    const ALL = \zenmagick\base\services\logging\Logging::ALL;
+    const ALL = \zenmagick\base\logging\Logging::ALL;
 
 
     /**
@@ -60,7 +60,7 @@ class ZMLogging extends ZMObject {
      * @param string msg The message to log.
      */
     public function info($msg) {
-        \zenmagick\base\services\logging\Logging::instance()->log($msg, self::INFO);
+        \zenmagick\base\logging\Logging::instance()->log($msg, self::INFO);
     }
 
     /**
@@ -69,7 +69,7 @@ class ZMLogging extends ZMObject {
      * @param string msg The message to log.
      */
     public function warn($msg) {
-        \zenmagick\base\services\logging\Logging::instance()->log($msg, self::WARN);
+        \zenmagick\base\logging\Logging::instance()->log($msg, self::WARN);
     }
 
     /**
@@ -78,7 +78,7 @@ class ZMLogging extends ZMObject {
      * @param string msg The message to log.
      */
     public function error($msg) {
-        \zenmagick\base\services\logging\Logging::instance()->log($msg, self::ERROR);
+        \zenmagick\base\logging\Logging::instance()->log($msg, self::ERROR);
     }
 
     /**
@@ -87,7 +87,7 @@ class ZMLogging extends ZMObject {
      * @param string msg The message to log.
      */
     public function debug($msg) {
-        \zenmagick\base\services\logging\Logging::instance()->log($msg, self::DEBUG);
+        \zenmagick\base\logging\Logging::instance()->log($msg, self::DEBUG);
     }
 
     /**
@@ -100,7 +100,7 @@ class ZMLogging extends ZMObject {
      * @param int level Optional level; default: <code>ZMLogging::INFO</code>.
      */
     public function log($msg, $level=self::INFO) {
-        \zenmagick\base\services\logging\Logging::instance()->log($msg, $level);
+        \zenmagick\base\logging\Logging::instance()->log($msg, $level);
     }
 
     /**
@@ -111,7 +111,7 @@ class ZMLogging extends ZMObject {
      * @param int level Optional level; default: <code>ZMLogging::DEBUG</code>.
      */
     public function dump($obj, $msg=null, $level=self::DEBUG) {
-        \zenmagick\base\services\logging\Logging::instance()->dump($obj, $msg, $level);
+        \zenmagick\base\logging\Logging::instance()->dump($obj, $msg, $level);
     }
 
     /**
@@ -121,7 +121,7 @@ class ZMLogging extends ZMObject {
      * @param int level Optional level; default: <code>ZMLogging::DEBUG</code>.
      */
     public function trace($msg=null, $level=self::DEBUG) {
-        \zenmagick\base\services\logging\Logging::instance()->trace($msg, $level);
+        \zenmagick\base\logging\Logging::instance()->trace($msg, $level);
     }
 
     /**
@@ -131,7 +131,7 @@ class ZMLogging extends ZMObject {
      * @param array info All available log information.
      */
     public function logError($line, $info) {
-        \zenmagick\base\services\logging\Logging::instance()->logError($line, $info);
+        \zenmagick\base\logging\Logging::instance()->logError($line, $info);
     }
 
 }

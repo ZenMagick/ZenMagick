@@ -19,7 +19,7 @@
  */
 ?>
 <?php
-namespace zenmagick\base\services\logging;
+namespace zenmagick\base\logging;
 
 
 use zenmagick\base\Application;
@@ -107,7 +107,7 @@ class Logging {
      * Get instance.
      */
     public static function instance() {
-        return Application::singleton('\zenmagick\base\services\logging\Logging');
+        return Application::singleton('\zenmagick\base\logging\Logging');
     }
 
 
@@ -117,7 +117,7 @@ class Logging {
      * @return array A list of handlers.
      */
     protected function getHandlers() {
-        if ($this->handler_ != ($setting = \ZMSettings::get('zenmagick.base.logging.handler', '\zenmagick\base\services\logging\handler\DefaultLoggingHandler'))) {
+        if ($this->handler_ != ($setting = \ZMSettings::get('zenmagick.base.logging.handler', '\zenmagick\base\logging\handler\DefaultLoggingHandler'))) {
             // populate freshly
             $this->handlerList_ = array();
             foreach (explode(',', $setting) as $def) {

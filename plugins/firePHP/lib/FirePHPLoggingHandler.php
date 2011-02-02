@@ -20,6 +20,9 @@
 ?>
 <?php
 
+use \zenmagick\base\logging\Logging;
+use zenmagick\base\logging\handler\DefaultLoggingHandler;
+
 
 /**
  * FirePHP ZenMagick logging service.
@@ -30,13 +33,13 @@
  * @author DerManoMann
  * @package org.zenmagick.plugins.firePHP
  */
-class FirePHPLoggingHandler extends \zenmagick\base\services\logging\handler\DefaultLoggingHandler {
+class FirePHPLoggingHandler extends DefaultLoggingHandler {
     private static $LEVEL_MAP = array(
-        ZMLogging::ERROR => FirePHP::ERROR,
-        ZMLogging::WARN => FirePHP::WARN,
-        ZMLogging::INFO => FirePHP::INFO,
-        ZMLogging::DEBUG => FirePHP::LOG,
-        ZMLogging::TRACE => FirePHP::LOG
+        Logging::ERROR => FirePHP::ERROR,
+        Logging::WARN => FirePHP::WARN,
+        Logging::INFO => FirePHP::INFO,
+        Logging::DEBUG => FirePHP::LOG,
+        Logging::TRACE => FirePHP::LOG
     );
 
 
@@ -52,7 +55,7 @@ class FirePHPLoggingHandler extends \zenmagick\base\services\logging\handler\Def
     /**
      * {@inheritDoc}
      */
-    public function dump($obj, $msg=null, $level=ZMLogging::DEBUG) {
+    public function dump($obj, $msg=null, $level=Logging::DEBUG) {
         if (!headers_sent()) {
             if ($obj instanceof Exception) {
                 FirePHP::getInstance(true)->fb($obj);
@@ -65,7 +68,7 @@ class FirePHPLoggingHandler extends \zenmagick\base\services\logging\handler\Def
     /**
      * {@inheritDoc}
      */
-    public function trace($msg=null, $level=ZMLogging::DEBUG) {
+    public function trace($msg=null, $level=Logging::DEBUG) {
         if (!headers_sent()) {
             FirePHP::getInstance(true)->fb($msg, FirePHP::TRACE);
         }

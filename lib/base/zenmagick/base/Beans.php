@@ -22,7 +22,7 @@
 namespace zenmagick\base;
 
 
-use zenmagick\base\services\logging\Logging;
+use zenmagick\base\logging\Logging;
 
 /**
  * ZenMagick beans.

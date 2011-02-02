@@ -19,10 +19,10 @@
  */
 ?>
 <?php
-namespace zenmagick\base\services\logging\handler;
+namespace zenmagick\base\logging\handler;
 
-use \zenmagick\base\services\logging\Logging;
-use \zenmagick\base\services\logging\LoggingHandler;
+use \zenmagick\base\logging\Logging;
+use \zenmagick\base\logging\LoggingHandler;
 
 
 /**

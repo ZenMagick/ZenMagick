@@ -19,7 +19,7 @@
  */
 ?>
 <?php
-namespace zenmagick\base\services\logging;
+namespace zenmagick\base\logging;
 
 /**
  * Logging handler.
