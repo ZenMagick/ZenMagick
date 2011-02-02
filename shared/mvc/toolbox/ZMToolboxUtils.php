@@ -100,6 +100,10 @@ class ZMToolboxUtils extends ZMToolboxTool {
      */
     public function staticPageContent($pageName) {
         $languageId = $this->getRequest()->getSession()->getLanguageId();
+        if (empty($languageId)) {
+            // XXX: when called in admin
+            $languageId = ZMLanguages::instance()->getLanguageForCode(ZMSettings::get('defaultLanguageCode'))->getLanguageId();
+        }
         // most specific first
         $themeChain = array_reverse(ZMThemes::instance()->getThemeChain($languageId));
         foreach ($themeChain as $theme) {
