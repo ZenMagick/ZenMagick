@@ -338,10 +338,30 @@ class ClassLoader {
     }
 
     /**
+     * Create a normalized class names based on a name.
+     *
+     * <p>This is pretty much following Java conventions.</p>
+     *
+     * @param string name The name (file name, etc).
+     * @return string A corresponding class name.
+     */
+    public static function className($name) {
+        // strip potential file extension and dir
+        $classname = str_replace('.php', '', basename($name));
+        // '_' == word boundary
+        $classname = str_replace(array('_', '-'), ' ', $classname);
+        // capitalise words
+        $classname = ucwords($classname);
+        // cuddle together :)
+        $classname = str_replace(' ', '', $classname);
+        return $classname;
+    }
+
+    /**
      * Resolve the given class/interface name to a file.
      *
      * @param string name The name of the class or interface to load.
-     * return string A filename or <code>null</code>.
+     * return string A name or <code>null</code>.
      */
     protected function resolveClass($name) {
         if ($this->namespaceSeparator === $name[0]) {

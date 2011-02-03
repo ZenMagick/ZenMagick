@@ -75,11 +75,32 @@ class Application {
      * @return array List of base directories for plugins.
      */
     public static function getPluginBasePath() { 
-        if (null === ZMSettings::get('zenmagick.core.plugins.baseDir')) {
-            ZMSettings::set('zenmagick.core.plugins.baseDir', self::getInstallationPath().'plugins'.DIRECTORY_SEPARATOR);
+        if (null === \ZMSettings::get('zenmagick.core.plugins.baseDir')) {
+            \ZMSettings::set('zenmagick.core.plugins.baseDir', self::getInstallationPath().'plugins'.DIRECTORY_SEPARATOR);
         }
 
-        return explode(',', ZMSettings::get('zenmagick.core.plugins.baseDir'));
+        return explode(',', \ZMSettings::get('zenmagick.core.plugins.baseDir'));
+    }
+
+    /**
+     * Get a logging instance.
+     *
+     * <p>The scope is for future use.</p>
+     *
+     * @param mixed scope The scope of the logging instance; default is <code>null</code>.
+     * @return Logging A <code>Logging</code> instance.
+     */
+    public static function getLogging($scope=null) {
+        return self::singleton('\zenmagick\base\logging\Logging');        
+    }
+
+    /**
+     * Get an event dispatcher instance.
+     *
+     * @return EventDispatcher A <code>EventDispatcher</code> instance.
+     */
+    public static function getEventDispatcher() {
+        return self::singleton('\zenmagick\base\events\EventDispatcher');        
     }
 
 }
