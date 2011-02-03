@@ -94,6 +94,7 @@ class ZMEvents extends ZMObject {
      * Get the event log.
      *
      * @return array Log of all events and timings.
+     * @deprecated listen yourself!
      */
     public function getEventLog() {
         return $this->eventLog_;

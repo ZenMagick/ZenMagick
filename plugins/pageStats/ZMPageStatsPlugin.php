@@ -20,6 +20,8 @@
 ?>
 <?php
 
+use zenmagick\base\Application;
+use zenmagick\base\events\EventDispatcher;
 
 /**
  * Plugin to show page stats.
@@ -29,6 +31,7 @@
  */
 class ZMPageStatsPlugin extends Plugin {
     private $pageCache_;
+    private $events_;
 
 
     /**
@@ -38,6 +41,7 @@ class ZMPageStatsPlugin extends Plugin {
         parent::__construct('Page Stats', 'Show page stats', '${plugin.version}');
         $this->setLoaderPolicy(ZMPlugin::LP_NONE);
         $this->pageCache_ = null;
+        $this->events_ = array();
     }
 
     /**
@@ -71,6 +75,16 @@ class ZMPageStatsPlugin extends Plugin {
     public function init() {
         parent::init();
         ZMEvents::instance()->attach($this);
+        Application::getEventDispatcher()->listen(array($this, 'logEvent'));
+    }
+
+    /**
+     * Log all events.
+     *
+     * @param Event event An event.
+     */
+    public function logEvent($event) {
+        $this->events_[] = $event;
     }
 
     /**
@@ -106,8 +120,8 @@ class ZMPageStatsPlugin extends Plugin {
         if (ZMSettings::get('plugins.pageStats.showEvents', ZMLangUtils::asBoolean($this->get('showEvents')))) {
             echo '<!--'."\n";
             echo '  '.Runtime::getExecutionTime(ZM_START_TIME).' ZM_START_TIME '."\n";
-            foreach (ZMEvents::instance()->getEventLog() as $event) {
-                echo '  '.$event['time'].' '.$event['method'].' / '.$event['id'].' args: '.implode(',', array_keys($event['args']))."\n";
+            foreach ($this->events_ as $event) {
+                echo '  '.Runtime::getExecutionTime($event->getTimestamp()).' '.EventDispatcher::n2m($event->getName()).' / '.$event->getName().' args: '.implode(',', array_keys($event->all()))."\n";
             }
             echo '-->'."\n";
         }
@@ -192,14 +206,14 @@ class ZMPageStatsPlugin extends Plugin {
             echo '<td style="text-align:right;padding:4px;">'.Runtime::getExecutionTime(ZM_START_TIME).'</td>';
             echo '<td colspan="4" style="text-align:left;padding:4px;">ZM_START_TIME</td>';
             echo '</tr>';
-            foreach (ZMEvents::instance()->getEventLog() as $event) {
+            foreach ($this->events_ as $event) {
                 echo '<tr>';
-                echo '<td style="text-align:right;padding:4px;">'.$event['time'].'</td>';
-                echo '<td style="text-align:left;padding:4px;">'.$event['id'].'</td>';
-                echo '<td style="text-align:left;padding:4px;">'.sprintf("%d", $event['memory']).'</td>';
-                echo '<td style="text-align:left;padding:4px;">'.$event['method'].'</td>';
-                $eargs = is_array($event['args']) ? $event['args'] : array($event['args']);
-                if (Events::FINALISE_CONTENTS == $event['id']) {
+                echo '<td style="text-align:right;padding:4px;">'.Runtime::getExecutionTime($event->getTimestamp()).'</td>';
+                echo '<td style="text-align:left;padding:4px;">'.$event->getName().'</td>';
+                echo '<td style="text-align:left;padding:4px;">'.sprintf("%d", $event->getMemory()).'</td>';
+                echo '<td style="text-align:left;padding:4px;">'.EventDispatcher::n2m($event->getName()).'</td>';
+                $eargs = $event->all();
+                if (Events::FINALISE_CONTENTS == $event->getName()) {
                     $eargs['contents'] = '**response**';
                 }
                 // handle array eargs
