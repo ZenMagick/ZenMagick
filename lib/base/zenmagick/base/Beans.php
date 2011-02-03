@@ -21,7 +21,6 @@
 <?php
 namespace zenmagick\base;
 
-
 use zenmagick\base\logging\Logging;
 
 /**

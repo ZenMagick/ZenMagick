@@ -20,9 +20,8 @@
 ?>
 <?php
 
-use \zenmagick\base\logging\Logging;
+use zenmagick\base\logging\Logging;
 use zenmagick\base\logging\handler\DefaultLoggingHandler;
-
 
 /**
  * FirePHP ZenMagick logging service.

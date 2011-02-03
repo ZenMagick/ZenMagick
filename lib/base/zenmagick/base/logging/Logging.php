@@ -21,7 +21,6 @@
 <?php
 namespace zenmagick\base\logging;
 
-
 use zenmagick\base\Application;
 use zenmagick\base\Beans;
 
@@ -33,7 +32,7 @@ use zenmagick\base\Beans;
  * <p>Logging calls will be dispatched to all <code>LoggingHandler</code> classes registered via the setting <em>'zenmagick.base.logging.handler'</em>.</p>
  *
  * @author DerManoMann
- * @package zenmagick.base.services.logging
+ * @package zenmagick.base.logging
  */
 class Logging {
     /** Log level: Disabled. */
@@ -91,7 +90,7 @@ class Logging {
     /**
      * Create new instance.
      */
-    function __construct() {
+    public function __construct() {
         $this->handler_ = null;
         $this->handlerList_ = array();
         $this->enabled_ = \ZMSettings::get('zenmagick.core.logging.enabled', false);
@@ -100,14 +99,6 @@ class Logging {
         if (array_key_exists($this->globalLogLevel_, self::$LOG_LEVEL_LOOKUP)) {
             $this->globalLogLevel_ = self::$LOG_LEVEL_LOOKUP[$this->globalLogLevel_];
         }
-    }
-
-
-    /**
-     * Get instance.
-     */
-    public static function instance() {
-        return Application::singleton('\zenmagick\base\logging\Logging');
     }
 
 

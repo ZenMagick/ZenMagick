@@ -18,9 +18,9 @@
  * and is licensed under the LGPL. For more information, see
  * <http://www.doctrine-project.org>.
  */
-
 namespace zenmagick\base\database\doctrine;
-use \Doctrine\ORM\Event\LoadClassMetadataEventArgs;
+
+use Doctrine\ORM\Event\LoadClassMetadataEventArgs;
 
 class TablePrefix
 {

@@ -21,9 +21,8 @@
 <?php
 namespace zenmagick\base\logging\handler;
 
-use \zenmagick\base\logging\Logging;
-use \zenmagick\base\logging\LoggingHandler;
-
+use zenmagick\base\logging\Logging;
+use zenmagick\base\logging\LoggingHandler;
 
 /**
  * Default logging handler.
@@ -31,7 +30,7 @@ use \zenmagick\base\logging\LoggingHandler;
  * <p>Simple logger writing to the <em>SAPI logging handler</em>.</p>
  *
  * @author DerManoMann
- * @package zenmagick.base.services.logging.handler
+ * @package zenmagick.base.logging.handler
  */
 class DefaultLoggingHandler implements LoggingHandler {
     private $logLevel;

@@ -21,8 +21,7 @@
 <?php
 namespace zenmagick\base\logging\handler;
 
-use \zenmagick\base\logging\Logging;
-
+use zenmagick\base\logging\Logging;
 
 /**
  * Echo logging handler.
@@ -30,7 +29,7 @@ use \zenmagick\base\logging\Logging;
  * <p>If <code>display_errors</code> is enabled, all logging will be <em>echo'ed</em>.</p>
  *
  * @author DerManoMann
- * @package zenmagick.base.services.logging.handler
+ * @package zenmagick.base.logging.handler
  */
 class EchoLoggingHandler extends DefaultLoggingHandler {
 
