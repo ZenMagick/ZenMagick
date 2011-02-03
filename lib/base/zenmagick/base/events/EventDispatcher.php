@@ -42,32 +42,11 @@ class EventDispatcher extends \Symfony\Component\EventDispatcher\EventDispatcher
     /**
      * Listen to all events.
      *
-     * @param object $listener A PHP object instance.
+     * @param mixed $listener A PHP object instance or PHP callable.
      * @param integer $priority The priority (between -10 and 10 -- defaults to 0).
      */
     public function listen($listener, $priority=0) {
         $this->connect(EventDispatcher::LISTEN_ALL, $listener, $priority);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function notify(EventInterface $event) {
-        parent::notify($event);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function notifyUntil(EventInterface $event) {
-        return parent::notifyUntil($event);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function filter(EventInterface $event, $value) {
-        return parent::filter($event, $value);
     }
 
     /**
@@ -85,10 +64,14 @@ class EventDispatcher extends \Symfony\Component\EventDispatcher\EventDispatcher
                 $tmp = array();
                 // filter and prepare as PHP callable
                 foreach ($pl as $l) {
-                    $methods = get_class_methods($l);
-                }
-                if (in_array($method, $methods)) {
-                    $tmp[] = array($l, $method);
+                    if (is_callable($l)) {
+                        $tmp[] = $l;
+                    } else {
+                        $methods = get_class_methods($l);
+                        if (in_array($method, $methods)) {
+                            $tmp[] = array($l, $method);
+                        }
+                    }
                 }
                 $listeners = array_merge($listeners, $tmp);
             }

@@ -29,6 +29,7 @@ namespace zenmagick\base\events;
  */
 class Event extends \Symfony\Component\EventDispatcher\Event {
     private $timestamp;
+    private $memory;
 
 
     /**
@@ -38,6 +39,7 @@ class Event extends \Symfony\Component\EventDispatcher\Event {
         parent::__construct($subject, $name, $parameters);
         list($u, $s) = explode(' ',microtime());
         $this->timestamp = bcadd($u, $s, 7); 
+        $this->memory = memory_get_usage(true);
     }
 
 
@@ -47,7 +49,16 @@ class Event extends \Symfony\Component\EventDispatcher\Event {
      * @return float The timestamp in seconds.
      */
     public function getTimestamp() {
-        return $this->timestamp();
+        return $this->timestamp;
+    }
+
+    /**
+     * Get the used memory at the time.
+     *
+     * @return lon The memory usage in bytes.
+     */
+    public function getMemory() {
+        return $this->memory;
     }
 
 }
