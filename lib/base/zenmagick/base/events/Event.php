@@ -38,7 +38,7 @@ class Event extends \Symfony\Component\EventDispatcher\Event {
     public function __construct($subject, $name, $parameters=array()) {
         parent::__construct($subject, $name, $parameters);
         list($u, $s) = explode(' ',microtime());
-        $this->timestamp = bcadd($u, $s, 7); 
+        $this->timestamp = bcadd($u, $s, 4); 
         $this->memory = memory_get_usage(true);
     }
 
