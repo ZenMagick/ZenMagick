@@ -20,6 +20,8 @@
 ?>
 <?php
 
+use zenmagick\base\Application;
+use zenmagick\base\events\Event;
 
 /**
  * Event service.
@@ -78,6 +80,8 @@ class Events extends ZMEvents {
      * @param array args Optional parameter; default is <code>null</code>.
      */
     public function update($notifier, $eventId, $args=array()) {
+        // forward to new event dispatcher
+        Application::getEventDispatcher()->notify(new Event($source, $eventId, $args));
         $method = $this->event2method($eventId, 'on');
         $args = is_array($args) ? $args : array();
         $this->eventLog_[] = array('id' => $eventId, 'method' => $method, 'time' => Runtime::getExecutionTime(), 'memory' => memory_get_usage(true), 'args' => array_keys($args));

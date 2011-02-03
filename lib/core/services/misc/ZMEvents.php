@@ -20,6 +20,8 @@
 ?>
 <?php
 
+use zenmagick\base\Application;
+use zenmagick\base\events\Event;
 
 /**
  * Event service.
@@ -146,6 +148,8 @@ class ZMEvents extends ZMObject {
      * @return array The final <code>$args</code>.
      */
     public function fireEvent($source, $eventId, $args=array(), $log=true) {
+        // forward to new event dispatcher
+        Application::getEventDispatcher()->notify(new Event($source, $eventId, $args));
         $method = $this->event2method($eventId);
         $this->eventLog_[] = array(
             'id' => $eventId,
