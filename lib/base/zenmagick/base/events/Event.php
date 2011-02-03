@@ -28,5 +28,26 @@ namespace zenmagick\base\events;
  * @package zenmagick.base.events
  */
 class Event extends \Symfony\Component\EventDispatcher\Event {
+    private $timestamp;
+
+
+    /**
+     * {@inheritDoc}
+     */
+    public function __construct($subject, $name, $parameters=array()) {
+        parent::__construct($subject, $name, $parameters);
+        list($u, $s) = explode(' ',microtime());
+        $this->timestamp = bcadd($u, $s, 7); 
+    }
+
+
+    /**
+     * Get the timestamp.
+     *
+     * @return float The timestamp in seconds.
+     */
+    public function getTimestamp() {
+        return $this->timestamp();
+    }
 
 }
