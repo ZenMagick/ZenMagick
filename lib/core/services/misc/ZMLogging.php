@@ -20,6 +20,8 @@
 ?>
 <?php
 
+use zenmagick\base\Application;
+use zenmagick\base\logging\Logging;
 
 /**
  * ZenMagick logging service.
@@ -31,19 +33,19 @@
  */
 class ZMLogging extends ZMObject {
     /** Log level: Disabled. */
-    const NONE = \zenmagick\base\logging\Logging::NONE;
+    const NONE = Logging::NONE;
     /** Log level: Error. */
-    const ERROR = \zenmagick\base\logging\Logging::ERROR;
+    const ERROR = Logging::ERROR;
     /** Log level: Warning. */
-    const WARN = \zenmagick\base\logging\Logging::WARN;
+    const WARN = Logging::WARN;
     /** Log level: Info. */
-    const INFO = \zenmagick\base\logging\Logging::INFO;
+    const INFO = Logging::INFO;
     /** Log level: Debug. */
-    const DEBUG = \zenmagick\base\logging\Logging::DEBUG;
+    const DEBUG = Logging::DEBUG;
     /** Log level: Trace. */
-    const TRACE = \zenmagick\base\logging\Logging::TRACE;
+    const TRACE = Logging::TRACE;
     /** Log level: ALL. */
-    const ALL = \zenmagick\base\logging\Logging::ALL;
+    const ALL = Logging::ALL;
 
 
     /**
@@ -60,7 +62,7 @@ class ZMLogging extends ZMObject {
      * @param string msg The message to log.
      */
     public function info($msg) {
-        \zenmagick\base\logging\Logging::instance()->log($msg, self::INFO);
+        Application::getLogging()->log($msg, self::INFO);
     }
 
     /**
@@ -69,7 +71,7 @@ class ZMLogging extends ZMObject {
      * @param string msg The message to log.
      */
     public function warn($msg) {
-        \zenmagick\base\logging\Logging::instance()->log($msg, self::WARN);
+        Application::getLogging()->log($msg, self::WARN);
     }
 
     /**
@@ -78,7 +80,7 @@ class ZMLogging extends ZMObject {
      * @param string msg The message to log.
      */
     public function error($msg) {
-        \zenmagick\base\logging\Logging::instance()->log($msg, self::ERROR);
+        Application::getLogging()->log($msg, self::ERROR);
     }
 
     /**
@@ -87,7 +89,7 @@ class ZMLogging extends ZMObject {
      * @param string msg The message to log.
      */
     public function debug($msg) {
-        \zenmagick\base\logging\Logging::instance()->log($msg, self::DEBUG);
+        Application::getLogging()->log($msg, self::DEBUG);
     }
 
     /**
@@ -100,7 +102,7 @@ class ZMLogging extends ZMObject {
      * @param int level Optional level; default: <code>ZMLogging::INFO</code>.
      */
     public function log($msg, $level=self::INFO) {
-        \zenmagick\base\logging\Logging::instance()->log($msg, $level);
+        Application::getLogging()->log($msg, $level);
     }
 
     /**
@@ -111,7 +113,7 @@ class ZMLogging extends ZMObject {
      * @param int level Optional level; default: <code>ZMLogging::DEBUG</code>.
      */
     public function dump($obj, $msg=null, $level=self::DEBUG) {
-        \zenmagick\base\logging\Logging::instance()->dump($obj, $msg, $level);
+        Application::getLogging()->dump($obj, $msg, $level);
     }
 
     /**
@@ -121,7 +123,7 @@ class ZMLogging extends ZMObject {
      * @param int level Optional level; default: <code>ZMLogging::DEBUG</code>.
      */
     public function trace($msg=null, $level=self::DEBUG) {
-        \zenmagick\base\logging\Logging::instance()->trace($msg, $level);
+        Application::getLogging()->trace($msg, $level);
     }
 
     /**
@@ -131,7 +133,7 @@ class ZMLogging extends ZMObject {
      * @param array info All available log information.
      */
     public function logError($line, $info) {
-        \zenmagick\base\logging\Logging::instance()->logError($line, $info);
+        Application::getLogging()->logError($line, $info);
     }
 
 }
