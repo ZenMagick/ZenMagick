@@ -28,6 +28,7 @@ Release 0.9.12
 - unitTests: strip ref usage in simpletest; upgrade to todays trunk HEAD
 - allow ZM_SHARED to be a list of folder names relative to zenmagick
 - fix: gv_mail coupon amount is zero
+- firephp: upgrade to current 1.0 beta server library
 
 Release 0.9.11.1
 - remove debug code
