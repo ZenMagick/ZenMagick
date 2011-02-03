@@ -193,7 +193,7 @@ class TestZMDatabase extends ZMTestCase {
         $tname = ZM_DB_PREFIX."db_test";
         $create_table = "CREATE TABLE ".$tname." (id int(11) NOT NULL auto_increment, name varchar(32) NOT NULL, other varchar(32), PRIMARY KEY (id)) TYPE=MyISAM;";
         $drop_table = "DROP TABLE IF EXISTS ".$tname.";";
-        $insert = "INSERT INTO ".$tname." name = :name;";
+        $insert = "INSERT INTO ".$tname." SET name = :name;";
 
         foreach (self::getProviders() as $provider => $database) {
             // create test table
@@ -219,7 +219,7 @@ class TestZMDatabase extends ZMTestCase {
         $tname = ZM_DB_PREFIX."db_test";
         $create_table = "CREATE TABLE ".$tname." (id int(11) NOT NULL auto_increment, name varchar(32) NOT NULL, other varchar(32), PRIMARY KEY (id)) TYPE=MyISAM;";
         $drop_table = "DROP TABLE IF EXISTS ".$tname.";";
-        $insert = "INSERT INTO ".$tname." name = :name;";
+        $insert = "INSERT INTO ".$tname." SET name = :name;";
 
         foreach (self::getProviders() as $provider => $database) {
             // create test table
