@@ -52,7 +52,7 @@ class ZMCategoryAdminTabController extends ZMPluginAdminController {
      * {@inheritDoc}
      */
     public function processPost($request) {
-        $languageId = $request->getParameter('languageId', Runtime::getLanguage()->getId());
+        $languageId = $request->getParameter('languageId', $request->getSelectedLanguage()->getId());
         $category = ZMCategories::instance()->getCategoryForId($request->getCategoryId(), $languageId);
         $category->setActive($request->getParameter('status'), false);
         $category->setName($request->getParameter('categoryName'));
