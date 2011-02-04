@@ -20,7 +20,7 @@
 ?>
 <?php
 
-use zenmagick\base\Application;
+use zenmagick\base\Runtime;
 use zenmagick\base\logging\Logging;
 
 /**
@@ -62,7 +62,7 @@ class ZMLogging extends ZMObject {
      * @param string msg The message to log.
      */
     public function info($msg) {
-        Application::getLogging()->log($msg, self::INFO);
+        Runtime::getLogging()->log($msg, self::INFO);
     }
 
     /**
@@ -71,7 +71,7 @@ class ZMLogging extends ZMObject {
      * @param string msg The message to log.
      */
     public function warn($msg) {
-        Application::getLogging()->log($msg, self::WARN);
+        Runtime::getLogging()->log($msg, self::WARN);
     }
 
     /**
@@ -80,7 +80,7 @@ class ZMLogging extends ZMObject {
      * @param string msg The message to log.
      */
     public function error($msg) {
-        Application::getLogging()->log($msg, self::ERROR);
+        Runtime::getLogging()->log($msg, self::ERROR);
     }
 
     /**
@@ -89,7 +89,7 @@ class ZMLogging extends ZMObject {
      * @param string msg The message to log.
      */
     public function debug($msg) {
-        Application::getLogging()->log($msg, self::DEBUG);
+        Runtime::getLogging()->log($msg, self::DEBUG);
     }
 
     /**
@@ -102,7 +102,7 @@ class ZMLogging extends ZMObject {
      * @param int level Optional level; default: <code>ZMLogging::INFO</code>.
      */
     public function log($msg, $level=self::INFO) {
-        Application::getLogging()->log($msg, $level);
+        Runtime::getLogging()->log($msg, $level);
     }
 
     /**
@@ -113,7 +113,7 @@ class ZMLogging extends ZMObject {
      * @param int level Optional level; default: <code>ZMLogging::DEBUG</code>.
      */
     public function dump($obj, $msg=null, $level=self::DEBUG) {
-        Application::getLogging()->dump($obj, $msg, $level);
+        Runtime::getLogging()->dump($obj, $msg, $level);
     }
 
     /**
@@ -123,7 +123,7 @@ class ZMLogging extends ZMObject {
      * @param int level Optional level; default: <code>ZMLogging::DEBUG</code>.
      */
     public function trace($msg=null, $level=self::DEBUG) {
-        Application::getLogging()->trace($msg, $level);
+        Runtime::getLogging()->trace($msg, $level);
     }
 
     /**
@@ -133,7 +133,7 @@ class ZMLogging extends ZMObject {
      * @param array info All available log information.
      */
     public function logError($line, $info) {
-        Application::getLogging()->logError($line, $info);
+        Runtime::getLogging()->logError($line, $info);
     }
 
 }

@@ -20,7 +20,7 @@
 ?>
 <?php
 
-use zenmagick\base\Application;
+use zenmagick\base\Runtime;
 use zenmagick\base\events\Event;
 
 /**
@@ -81,10 +81,10 @@ class Events extends ZMEvents {
      */
     public function update($notifier, $eventId, $args=array()) {
         // forward to new event dispatcher
-        Application::getEventDispatcher()->notify(new Event($source, $eventId, $args));
+        Runtime::getEventDispatcher()->notify(new Event($source, $eventId, $args));
         $method = $this->event2method($eventId, 'on');
         $args = is_array($args) ? $args : array();
-        $this->eventLog_[] = array('id' => $eventId, 'method' => $method, 'time' => Runtime::getExecutionTime(), 'memory' => memory_get_usage(true), 'args' => array_keys($args));
+        $this->eventLog_[] = array('id' => $eventId, 'method' => $method, 'time' => \Runtime::getExecutionTime(), 'memory' => memory_get_usage(true), 'args' => array_keys($args));
         ZMLogging::instance()->log('fire zen-cart event: ' . $eventId . '/'.$method, ZMLogging::DEBUG);
         foreach($this->subscribers_ as $subscriber) {
             if (null === $subscriber['methods']) {

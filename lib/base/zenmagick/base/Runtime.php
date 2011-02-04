@@ -22,12 +22,12 @@
 namespace zenmagick\base;
 
 /**
- * Central place for application/runtime stuff.
+ * Central place for runtime stuff.
  *
  * @author DerManoMann
  * @package zenmagick.base
  */
-class Application {
+class Runtime {
     private static $singletons_ = array();
 
 

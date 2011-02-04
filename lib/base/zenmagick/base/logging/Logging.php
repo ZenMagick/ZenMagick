@@ -21,7 +21,6 @@
 <?php
 namespace zenmagick\base\logging;
 
-use zenmagick\base\Application;
 use zenmagick\base\Beans;
 
 /**

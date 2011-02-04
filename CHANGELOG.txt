@@ -29,6 +29,7 @@ Release 0.9.12
 - allow ZM_SHARED to be a list of folder names relative to zenmagick
 - fix: gv_mail coupon amount is zero
 - firephp: upgrade to current 1.0 beta server library
+- remove core.php feature in favour of phar files
 
 Release 0.9.11.1
 - remove debug code

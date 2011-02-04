@@ -20,7 +20,7 @@
 ?>
 <?php
 
-use zenmagick\base\Application;
+use zenmagick\base\Runtime;
 use zenmagick\base\events\Event;
 
 /**
@@ -150,7 +150,7 @@ class ZMEvents extends ZMObject {
      */
     public function fireEvent($source, $eventId, $args=array(), $log=true) {
         // forward to new event dispatcher
-        Application::getEventDispatcher()->notify(new Event($source, $eventId, $args));
+        Runtime::getEventDispatcher()->notify(new Event($source, $eventId, $args));
         $method = $this->event2method($eventId);
         $this->eventLog_[] = array(
             'id' => $eventId,

@@ -25,8 +25,6 @@
 
   // share code
   //define('ZM_SHARED', 'shared');
-  // do NOT use core.php
-  define('USE_CORE_PHP', false);
 
   require '../../../bootstrap.php';
   require '../../../mvc.php';

@@ -19,6 +19,8 @@
  */
 ?>
 <?php
+use zenmagick\base\Runtime;
+use zenmagick\base\ClassLoader;
 
     /*
      * To use this, 'ZM_APP_PATH' needs to be defined first. 
@@ -50,45 +52,45 @@
     } else {
         require_once ZM_BASE_PATH."/lib/base/zenmagick/base/ClassLoader.php";
     }
-    $baseLoader = new zenmagick\base\ClassLoader();
+    $baseLoader = new ClassLoader();
     $baseLoader->addConfig(ZM_BASE_PATH.'lib'.DIRECTORY_SEPARATOR.'base');
     $baseLoader->addConfig(ZM_BASE_PATH.'lib'.DIRECTORY_SEPARATOR.'vendor');
     $baseLoader->register();
     unset($baseLoader);
 
     // load initial code
-    if (defined('USE_CORE_PHP') && USE_CORE_PHP && file_exists(ZM_BASE_PATH.'core.php')) {
-        require ZM_BASE_PATH.'core.php';
-        spl_autoload_register('ZMLoader::resolve');
-    } else {
-        require_once ZM_BASE_PATH."lib/core/ZMLoader.php";
-        spl_autoload_register('ZMLoader::resolve');
+    require_once ZM_BASE_PATH."lib/core/ZMLoader.php";
+    spl_autoload_register('ZMLoader::resolve');
 
-        // configure loader
-        ZMLoader::instance()->addPath(ZM_BASE_PATH.'lib'.DIRECTORY_SEPARATOR.'core'.DIRECTORY_SEPARATOR);
-        ZMLoader::instance()->addPath(ZM_BASE_PATH.'lib'.DIRECTORY_SEPARATOR.'mvc'.DIRECTORY_SEPARATOR);
-        if (defined('ZM_SHARED')) {
-            $sharedLoader = new zenmagick\base\ClassLoader();
-            foreach (explode(',', ZM_SHARED) as $name) {
-                ZMLoader::instance()->addPath(ZM_BASE_PATH.trim($name).DIRECTORY_SEPARATOR);
-                $sharedLoader->addConfig(ZM_BASE_PATH.trim($name));
-            }
-            $sharedLoader->register();
-            unset($sharedLoader);
+    // configure loader
+    ZMLoader::instance()->addPath(ZM_BASE_PATH.'lib'.DIRECTORY_SEPARATOR.'core'.DIRECTORY_SEPARATOR);
+    ZMLoader::instance()->addPath(ZM_BASE_PATH.'lib'.DIRECTORY_SEPARATOR.'mvc'.DIRECTORY_SEPARATOR);
+    if (defined('ZM_SHARED')) {
+        $sharedLoader = new ClassLoader();
+        foreach (explode(',', ZM_SHARED) as $name) {
+            ZMLoader::instance()->addPath(ZM_BASE_PATH.trim($name).DIRECTORY_SEPARATOR);
+            $sharedLoader->addConfig(ZM_BASE_PATH.trim($name));
         }
-        if (null != ZMRuntime::getApplicationPath()) {
-            ZMLoader::instance()->addPath(ZMFileUtils::mkPath(array(ZMRuntime::getApplicationPath(), 'lib')));
-        }
-        // load static stuff and leave the rest to autoload
-        ZMLoader::instance()->loadStatic();
+        $sharedLoader->register();
+        unset($sharedLoader);
     }
+    if (null != Runtime::getApplicationPath()) {
+        $appLibDir = Runtime::getApplicationPath() . DIRECTORY_SEPARATOR . 'lib';
+        ZMLoader::instance()->addPath($appLibDir . DIRECTORY_SEPARATOR);
+        $appLoader = new ClassLoader();
+        $appLoader->addConfig($appLibDir);
+        $appLoader->register();
+        unset($appLoader);
+    }
+    // load static stuff and leave the rest to autoload
+    ZMLoader::instance()->loadStatic();
 
     // load defaults and configs...
-    ZMSettings::load(file_get_contents(ZMFileUtils::mkPath(ZMRuntime::getApplicationPath(), 'config', 'config.yaml')), false);
+    ZMSettings::load(file_get_contents(ZMFileUtils::mkPath(Runtime::getApplicationPath(), 'config', 'config.yaml')), false);
     // mvc mappings
-    ZMUrlManager::instance()->load(file_get_contents(ZMFileUtils::mkPath(ZMRuntime::getApplicationPath(), 'config', 'url_mappings.yaml')), false);
+    ZMUrlManager::instance()->load(file_get_contents(ZMFileUtils::mkPath(Runtime::getApplicationPath(), 'config', 'url_mappings.yaml')), false);
     // sacs mappings
-    ZMSacsManager::instance()->load(file_get_contents(ZMFileUtils::mkPath(ZMRuntime::getApplicationPath(), 'config', 'sacs_mappings.yaml')), false);
+    ZMSacsManager::instance()->load(file_get_contents(ZMFileUtils::mkPath(Runtime::getApplicationPath(), 'config', 'sacs_mappings.yaml')), false);
     ZMSacsManager::instance()->loadProviderMappings(ZMSettings::get('zenmagick.mvc.sacs.mappingProviders'));
 
     // as default disable plugins for CLI calls
@@ -130,8 +132,8 @@
 
     // register custom error handler
     if (ZMSettings::get('zenmagick.core.logging.handleErrors')) {
-        set_error_handler(array(\zenmagick\base\Application::getLogging(), 'errorHandler'));
-        set_exception_handler(array(\zenmagick\base\Application::getLogging(), 'exceptionHandler'));
+        set_error_handler(array(Runtime::getLogging(), 'errorHandler'));
+        set_exception_handler(array(Runtime::getLogging(), 'exceptionHandler'));
     }
 
     // set up locale

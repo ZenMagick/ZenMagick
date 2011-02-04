@@ -21,7 +21,7 @@
 <?php
 namespace zenmagick\base\plugins;
 
-use zenmagick\base\Application;
+use zenmagick\base\Runtime;
 use zenmagick\base\ClassLoader;
 
 /**
@@ -74,7 +74,7 @@ class Plugins {
      * Get instance.
      */
     public static function instance() {
-        return Application::singleton('\zenmagick\base\plugins\Plugins');
+        return Runtime::singleton('\zenmagick\base\plugins\Plugins');
     }
 
 
@@ -98,7 +98,7 @@ class Plugins {
     protected function getPluginBasePathMap() {
         if (null === $this->pathIdMap_) {
             $this->pathIdMap_ = array();
-            foreach (Application::getPluginBasePath() as $basePath) {
+            foreach (Runtime::getPluginBasePath() as $basePath) {
                 $this->pathIdMap_[$basePath] = array();
                 foreach (new \DirectoryIterator($basePath) as $fileInfo) {
                     if ($fileInfo->isDot()) {
@@ -221,7 +221,7 @@ class Plugins {
             $pluginClass = $pluginClassSuffix . 'Plugin';
             $file = $pluginDir . DIRECTORY_SEPARATOR . $pluginClass . '.php';
             if (!file_exists($file)) {
-                Application::getLogging($this)->debug("can't find plugin file(dir) for id = '".$id."'; dir = '".$pluginDir."'");
+                Runtime::getLogging($this)->debug("can't find plugin file(dir) for id = '".$id."'; dir = '".$pluginDir."'");
                 return null;
             }
         } else {
@@ -232,7 +232,7 @@ class Plugins {
                 $pluginClass = $pluginClassSuffix . 'Plugin';
                 $file = $basePath . $pluginClass . '.php';
                 if (!is_file($file)) {
-                    Application::getLogging($this)->debug("can't find plugin file for id = '".$id."'; dir = '".$pluginDir."'");
+                    Runtime::getLogging($this)->debug("can't find plugin file for id = '".$id."'; dir = '".$pluginDir."'");
                     return null;
                 }
             }
