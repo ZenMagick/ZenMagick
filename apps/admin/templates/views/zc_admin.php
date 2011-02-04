@@ -54,13 +54,14 @@ $content = str_replace(array('onmouseover="rowOverEffect(this)"', 'onmouseout="r
   <div id="sub-common">
     <?php
       ob_start();
-      $zc_menus = array('catalog', 'modules', 'customers', 'taxes', 'localization', 'reports', 'tools', 'gv_admin');//, 'extras');
+      $zc_menus = array('catalog', 'modules', 'customers', 'taxes', 'localization', 'reports', 'tools', 'gv_admin', 'extras');
       $menu = array();
       foreach ($zc_menus as $zm_menu) {
           require(DIR_WS_BOXES . $zm_menu . '_dhtml.php');
           $header = split_slash($za_heading['text']);
           $menu[$header] = array();
-          $skipList = array('zmIndex', 'template_select', 'server_info', 'sqlpatch', 'zpid=admin', 'ezpages', 'define_page_editor');
+          $skipList = array('zmIndex', 'template_select', 'server_info', 'sqlpatch', 'zpid=admin','ezpages', 'define_page_editor',
+          'record_artists', 'record_company', 'music_genre', 'media_manager', 'media_types');
           foreach ($za_contents as $item) {
               $skip = false;
               foreach ($skipList as $s) {
@@ -70,7 +71,7 @@ $content = str_replace(array('onmouseover="rowOverEffect(this)"', 'onmouseout="r
                   }
               }
               if (!$skip) {
-                  $menu[$header][split_slash($item['text'])] = $item['link'];
+                  $menu[$header][strip_tags(split_slash($item['text']))] = $item['link'];
               }
           }
       }
