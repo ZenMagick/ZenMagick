@@ -80,11 +80,9 @@ class TestZMShoppingCarts extends ZMTestCase {
     public function testLoadCart() {
         $shoppingCart = ZMShoppingCarts::instance()->loadCartForAccountId($this->getAccountId());
         $cartDump = $this->dumpCart($shoppingCart);
-        echo $cartDump.'<hr>';
         $_SESSION['cart']->reset(false);
         $_SESSION['cart']->restore_contents();
         $loadedCartDump = $this->dumpCart(new ZMShoppingCart());
-        echo $loadedCartDump;
         $this->assertEqual($cartDump, $loadedCartDump);
     }
 
