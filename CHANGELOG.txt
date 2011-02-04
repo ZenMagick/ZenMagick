@@ -30,6 +30,7 @@ Release 0.9.12
 - fix: gv_mail coupon amount is zero
 - firephp: upgrade to current 1.0 beta server library
 - remove core.php feature in favour of phar files
+- remove almost all Runtime methods
 
 Release 0.9.11.1
 - remove debug code

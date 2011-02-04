@@ -414,7 +414,8 @@ class Plugin extends ZMPlugin {
             throw new ZMException('pluginDirectory missing');
         }
 
-        return ZMHtmlUtils::encode(Runtime::getPluginPathPrefix() . $this->getId() . '/' . $uri);
+        // TODO: fix
+        return ZMHtmlUtils::encode(DIR_WS_CATALOG.ZM_ROOT.'plugins/' . $this->getId() . '/' . $uri);
     }
 
     /**

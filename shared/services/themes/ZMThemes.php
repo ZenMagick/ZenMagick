@@ -28,6 +28,7 @@
  */
 class ZMThemes extends ZMObject {
     private $themeChain_;
+    private $initLanguage_;
 
 
     /**
@@ -36,6 +37,7 @@ class ZMThemes extends ZMObject {
     function __construct() {
         parent::__construct();
         $this->themeChain_ = null;
+        $this->initLanguage_ = null;
     }
 
     /**
@@ -54,13 +56,20 @@ class ZMThemes extends ZMObject {
 
 
     /**
+     * Return the directory containing all themes.
+     *
+     * @return string The base directory for themes.
+     */
+    public static function getThemesDir() { return ZM_BASE_PATH.'themes'.DIRECTORY_SEPARATOR; }
+
+    /**
      * Get a list of all available themes.
      *
      * @return array A list of <code>ZMTheme</code> instances.
      */
     public function getAvailableThemes() {
         $themes = array();
-        $basePath = Runtime::getThemesDir();
+        $basePath = self::getThemesDir();
         $themeDirs = $this->getThemeDirList();
         // load info classes and get instance
         foreach ($themeDirs as $dir) {
@@ -77,6 +86,17 @@ class ZMThemes extends ZMObject {
         }
 
         return $themes;
+    }
+
+    /**
+     * Get the active theme.
+     *
+     * @return ZMTheme The active theme.
+     */
+    public function getActiveTheme() {
+        $languageId = $this->initLanguage_->getId();
+        $length = count($this->themeChain_[$languageId]);
+        return $this->themeChain_[$languageId][$length-1];
     }
 
     /**
@@ -146,7 +166,7 @@ class ZMThemes extends ZMObject {
      */
     private function getThemeDirList() {
         $themes = array();
-        $handle = @opendir(Runtime::getThemesDir());
+        $handle = @opendir(self::getThemesDir());
         while (false !== ($file = readdir($handle))) {
             if (ZMLangUtils::startsWith($file, '.')) {
                 continue;
@@ -261,6 +281,7 @@ class ZMThemes extends ZMObject {
             // default language
             $language = ZMLanguages::instance()->getLanguageForCode(ZMSettings::get('defaultLanguageCode'));
         }
+        $this->initLanguage_ = $language;
 
         foreach ($this->getThemeChain($language->getId()) as $theme) {
             // configure theme loader

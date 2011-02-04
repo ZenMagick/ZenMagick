@@ -83,7 +83,7 @@ class ZMTheme extends ZMObject {
      * @return string The theme base directory.
      */
     public function getBaseDir() {
-        return Runtime::getThemesDir() . $this->themeId_ . DIRECTORY_SEPARATOR;
+        return ZMThemes::getThemesDir() . $this->themeId_ . DIRECTORY_SEPARATOR;
     }
 
     /**
@@ -207,7 +207,7 @@ class ZMTheme extends ZMObject {
         }
 
         if ($includeDefaults) {
-            $path = Runtime::getThemesDir().ZMSettings::get('apps.store.themes.default').DIRECTORY_SEPARATOR.'lang'.DIRECTORY_SEPARATOR.$languageDir.DIRECTORY_SEPARATOR.'static'.DIRECTORY_SEPARATOR;
+            $path = ZMThemes::getThemesDir().ZMSettings::get('apps.store.themes.default').DIRECTORY_SEPARATOR.'lang'.DIRECTORY_SEPARATOR.$languageDir.DIRECTORY_SEPARATOR.'static'.DIRECTORY_SEPARATOR;
             if (is_dir($path)) {
                 $handle = @opendir($path);
                 while (false !== ($file = readdir($handle))) {
@@ -286,7 +286,7 @@ class ZMTheme extends ZMObject {
     public function loadLocale($language) {
         if (null === $language) {
             // this may happen if the i18n patch hasn't been updated
-            $language = Runtime::getDefaultLanguage();
+            $language = ZMLanguages::getDefaultLanguage();
         }
         $path = $this->getLangDir().$language->getDirectory().DIRECTORY_SEPARATOR;
         // re-init with next file

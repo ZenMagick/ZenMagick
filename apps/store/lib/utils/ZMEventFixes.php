@@ -236,7 +236,6 @@ class ZMEventFixes extends ZMObject {
         if (!ZM_CLI_CALL) {
             $language = $request->getSession()->getLanguage();
             $theme = ZMThemes::instance()->initThemes($language);
-            Runtime::setTheme($theme);
             $args = array_merge($args, array('theme' => $theme, 'themeId' => $theme->getId()));
             ZMEvents::instance()->fireEvent(null, Events::THEME_RESOLVED, $args);
 
@@ -395,7 +394,7 @@ class ZMEventFixes extends ZMObject {
                 }
             }
             if (null == $language) {
-                $language = Runtime::getDefaultLanguage();
+                $language = ZMLanguages::getDefaultLanguage();
                 ZMLogging::instance()->log('invalid or missing language - using default language', ZMLogging::WARN);
             }
 

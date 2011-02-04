@@ -117,4 +117,13 @@ class ZMLanguages extends ZMObject {
         return null;
     }
 
+    /**
+     * Get the default language.
+     *
+     * @return ZMLanguage The default language for this store.
+     */
+    public static function getDefaultLanguage() {
+        ZMLanguages::instance()->getLanguageForId(ZMSettings::get('storeDefaultLanguageId'));
+    }
+
 }

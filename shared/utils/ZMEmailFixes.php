@@ -56,10 +56,7 @@ class ZMEmailFixes extends ZMObject {
         $request =  $args['request'];
 
         // set for all
-        $language = Runtime::getLanguage();
-        if (null == $language) {
-            $language = Runtime::getDefaultLanguage();
-        }
+        $language = $request->getSelectedLanguage();
         $context['language'] = $language;
 
         if (ZMSettings::get('isAdmin') && 'send_email_to_user' == $request->getParameter('action')) {

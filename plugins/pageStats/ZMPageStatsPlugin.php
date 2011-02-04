@@ -88,6 +88,13 @@ class ZMPageStatsPlugin extends Plugin {
     }
 
     /**
+     * Get the database dao.
+     *
+     * @return queryFactory *The* zen-cart <code>queryFactory</code> instance.
+     */
+    private function getDB() { global $db; return $db; }
+
+    /**
      * Generate hidden stats.
      *
      * @param ZMRequest request The current request.
@@ -98,7 +105,7 @@ class ZMPageStatsPlugin extends Plugin {
         echo '<!--'."\n";
         echo '  Client IP: '.$_SERVER['REMOTE_ADDR']."\n";
         echo '  total page execution: '.ZMRuntime::getExecutionTime().' secconds;'."\n";
-        if (null != ($db = \Runtime::getDB())) {
+        if (null != ($db = $this->getDB())) {
             echo '  db: SQL queries: '.$db->queryCount().', duration: '.round($db->queryTime(), 4).' seconds;';
         }
         echo '  databases: ';
@@ -186,7 +193,7 @@ class ZMPageStatsPlugin extends Plugin {
         echo '<div id="page-stats">';
         echo 'Client IP: <strong>'.$_SERVER['REMOTE_ADDR'].'</strong>;';
         echo '&nbsp;&nbsp;&nbsp;total page execution: <strong>'.ZMRuntime::getExecutionTime().'</strong> secconds;<br'.$slash.'>';
-        if (null != ($db = \Runtime::getDB())) {
+        if (null != ($db = $this->getDB())) {
             echo '<strong>db</strong>: SQL queries: <strong>'.$db->queryCount().'</strong>, duration: <strong>'.round($db->queryTime(), 4).'</strong> seconds;';
         }
         echo '&nbsp;&nbsp;<strong>databases:</strong> ';

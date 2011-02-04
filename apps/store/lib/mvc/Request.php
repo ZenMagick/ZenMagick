@@ -170,8 +170,7 @@ class Request extends ZMRequest {
      * Get the language code.
      *
      * <p><strong>NOTE:</strong> This will return only the language code as found in the request. If you 
-     * want to find out the session language (ie the language for the current request), use <code>Runtime::getLanguageId()</code>
-     * or <code>Runtime::getLanguage()</code>.</p>
+     * want to find out the session language (ie the language for the current request), use <code>getSelectedLanguage()</code>.</p>
      *
      * @return string The language code or <code>null</code>.
      */
@@ -387,6 +386,34 @@ class Request extends ZMRequest {
      */
     public function getLastUrl() {
         return $this->getSession()->getValue('lastUrl');
+    }
+
+    /**
+     * Get the selected language.
+     *
+     * <p>Determine the currently active language, with respect to potentially selected language from a dropdown in admin UI.</p>
+     *
+     * @return ZMLanguage The selected language.
+     */
+    public function getSelectedLanguage() {
+        $session = $this->getSession();
+        $language = null;
+        if (null != ($code = $session->getValue('languages_code'))) {
+            // try session language code
+            if (null == ($language = ZMLanguages::instance()->getLanguageForId($code))) {
+                // try store default
+                $language = ZMLanguages::instance()->getLanguageForId(ZMSettings::get('storeDefaultLanguageId'));
+            }
+        }
+
+        if (null == $language) {
+            ZMLogging::instance()->log('no default language found - using en as fallback', ZMLogging::WARN);
+            $language = ZMBeanUtils::getBean("Language");
+            $language->setId(1);
+            $language->setDirectory('english');
+            $language->setCode('en');
+        }
+        return $language;
     }
 
 }
