@@ -119,6 +119,18 @@ class ZMManufacturers extends ZMObject {
     }
 
     /**
+     * Create a manufacturer.
+     *
+     * @param ZMManufacturer manufacturer The manufacturer.
+     * @return ZMManufacturer The created manufacturer.
+     */
+    public function createManufacturer($manufacturer) {
+        $manufacturer = ZMRuntime::getDatabase()->createModel(TABLE_MANUFACTURERS, $manufacturer);
+        ZMRuntime::getDatabase()->createModel(TABLE_MANUFACTURERS_INFO, $manufacturer);
+        return $manufacturer;
+    }
+
+    /**
      * Get all manufacturers.
      *
      * @param int languageId Language id.
