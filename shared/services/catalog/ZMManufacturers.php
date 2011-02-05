@@ -113,8 +113,9 @@ class ZMManufacturers extends ZMObject {
      * @return ZMManufacturer The updated manufacturer.
      */
     public function updateManufacturer($manufacturer) {
-        ZMRuntime::getDatabase()->updateModel(TABLE_MANUFACTURERS, $manufacturer);
+        $manufacturer = ZMRuntime::getDatabase()->updateModel(TABLE_MANUFACTURERS, $manufacturer);
         ZMRuntime::getDatabase()->updateModel(TABLE_MANUFACTURERS_INFO, $manufacturer);
+        return $manufacturer;
     }
 
     /**
