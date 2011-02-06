@@ -82,9 +82,11 @@ class ZMPageStatsPlugin extends Plugin {
      * Log all events.
      *
      * @param Event event An event.
+     * @param mixed value Optional value for filter events.
      */
-    public function logEvent($event) {
+    public function logEvent($event, $value=null) {
         $this->events_[] = $event;
+        return $value;
     }
 
     /**
