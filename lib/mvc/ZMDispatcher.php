@@ -19,7 +19,8 @@
  */
 ?>
 <?php
-use zenmagick\base\events\EventDispatcher;
+use zenmagick\base\Runtime;
+use zenmagick\base\events\Event;
 
 
 /**
@@ -48,9 +49,10 @@ class ZMDispatcher {
         // allow plugins and event subscribers to filter/modify the final contents; corresponds with ob_start() in init.php
         $args = \ZMEvents::instance()->fireEvent(null, 'finalise_contents', 
                     array('request' => $request, 'view' => $view, 'contents' => ob_get_clean()));
-        echo $args['contents'];
+        $contents = Runtime::getEventDispatcher()->filter(new Event(null, 'finalise_contents', $args), $args['contents']);
+        echo $contents;
 
-        \ZMEvents::instance()->fireEvent(null, 'all_done', array('request' => $request, 'view' => $view, 'contents' => $args['contents']));
+        \ZMEvents::instance()->fireEvent(null, 'all_done', array('request' => $request, 'view' => $view, 'contents' => $contents));
     }
 
     /**

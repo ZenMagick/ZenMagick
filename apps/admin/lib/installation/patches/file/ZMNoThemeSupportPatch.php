@@ -100,7 +100,7 @@ class ZMNoThemeSupportPatch extends ZMFilePatch {
             return true;
         }
 
-        $PATCHLINE = "if (!ZMSettings::get('isEnableZMThemes')) { \$_zm_args = ZMEvents::instance()->fireEvent(null, Events::FINALISE_CONTENTS, array('contents' => ob_get_clean(), 'request' => ZMRequest::instance())); echo \$_zm_args['contents']; ZMRequest::instance()->getSession()->clearMessages(); ZMEvents::instance()->fireEvent(null, Events::ALL_DONE, array('request' => ZMRequest::instance())); } /* added by ZenMagick installation patcher */";
+        $PATCHLINE = "if (!ZMSettings::get('isEnableZMThemes')) { \$_zm_args = ZMEvents::instance()->fireEvent(null, Events::FINALISE_CONTENTS, array('contents' => ob_get_clean(), 'request' => ZMRequest::instance())); \$_zm_args['contents'] = \\zenmagick\\base\\Runtime::getEventDispatcher()->filter(new \\zenmagick\\base\\events\\Event(null, 'finalise_contents', \$_zm_args), \$_zm_args['contents']); echo \$_zm_args['contents']; ZMRequest::instance()->getSession()->clearMessages(); ZMEvents::instance()->fireEvent(null, Events::ALL_DONE, array('request' => ZMRequest::instance())); } /* added by ZenMagick installation patcher */";
 
         if ((ZMSettings::get('isEnablePatching')) || $force) {
             if (is_writeable(_ZM_ZEN_APP_BOTTOM_PHP)) {

@@ -23,13 +23,15 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
+
 /**
  * Allow users to toggle ZenMagick themes support.
  *
  * @package org.zenmagick.plugins
  * @author DerManoMann
  */
-class ZMToggleThemesPlugin extends Plugin implements ZMRequestHandler {
+class ZMToggleThemesPlugin extends \Plugin implements \ZMRequestHandler {
     const SESS_THEME_TOGGLE_KEY = 'themeToggle';
 
 
@@ -38,8 +40,8 @@ class ZMToggleThemesPlugin extends Plugin implements ZMRequestHandler {
      */
     function __construct() {
         parent::__construct('Toggle themes', 'Allow users to toggle theme support');
-        $this->setContext(Plugin::CONTEXT_STOREFRONT);
-        $this->setLoaderPolicy(ZMPlugin::LP_NONE);
+        $this->setContext(\Plugin::CONTEXT_STOREFRONT);
+        $this->setLoaderPolicy(\ZMPlugin::LP_NONE);
     }
 
     /**
@@ -53,7 +55,7 @@ class ZMToggleThemesPlugin extends Plugin implements ZMRequestHandler {
      * {@inheritDoc}
      */
     public function initRequest($request) {
-        ZMEvents::instance()->attach($this);
+        Runtime::getEventDispatcher()->connect('finalise_contents', array($this, 'onFinaliseContents'));
 
         $session = $request->getSession();
         if (null != ($themeToggle = $request->getParameter('themeToggle'))) {
@@ -61,23 +63,22 @@ class ZMToggleThemesPlugin extends Plugin implements ZMRequestHandler {
         }
 
         if (null != ($themeToggle = $session->getValue(self::SESS_THEME_TOGGLE_KEY))) {
-            ZMSettings::set('isEnableZMThemes', ZMLangUtils::asBoolean($themeToggle));
+            \ZMSettings::set('isEnableZMThemes', \ZMLangUtils::asBoolean($themeToggle));
         }
     }
 
     /**
-     * {@inheritDoc}
+     * Handle contents filter event.
      */
-    public function onZMFinaliseContents($args) {
-        $request = $args['request'];
-        $contents = $args['contents'];
+    public function onFinaliseContents($event, $contents) {
+        $request = $event->get('request');
 
         if (false !== strpos($contents, _zm('Toggle ZenMagick theme support'))) {
             // already done
-            return null;
+            return $contents;
         }
 
-        $toggleValue = ZMSettings::get('isEnableZMThemes') ? 'false' : 'true';
+        $toggleValue = \ZMSettings::get('isEnableZMThemes') ? 'false' : 'true';
         $url = $request->url(null, null, $request->isSecure());
         $hasParams = false !== strpos($url, '?');
         $url .= ($hasParams ? '&' : '?') . 'themeToggle='.$toggleValue;
@@ -88,8 +89,7 @@ class ZMToggleThemesPlugin extends Plugin implements ZMRequestHandler {
         $link = '<a href="'.$url.'">'._zm('Toggle ZenMagick theme support').'</a>';
         $switch = '<div id="theme-toggle" style="text-align:right;padding:2px 8px;">' . $link . '</div>';
 
-        $args['contents'] = preg_replace('/(<body[^>]*>)/', '\1'.$switch, $contents, 1);
-        return $args;
+        return  preg_replace('/(<body[^>]*>)/', '\1'.$switch, $contents, 1);
     }
 
 }

@@ -75,7 +75,10 @@ class ZMPageStatsPlugin extends Plugin {
     public function init() {
         parent::init();
         ZMEvents::instance()->attach($this);
+        // register to log events
         Runtime::getEventDispatcher()->listen(array($this, 'logEvent'));
+        // register for method mapped events
+        Runtime::getEventDispatcher()->listen($this);
     }
 
     /**
@@ -178,16 +181,14 @@ class ZMPageStatsPlugin extends Plugin {
     }
 
     /**
-     * {@inheritDoc}
+     * Handle finalize contents filter event.
      */
-    public function onZMFinaliseContents($args) {
-        $request = $args['request'];
-        $contents = $args['contents'];
-        $view = array_key_exists('view', $args) ? $args['view'] : null;
+    public function onFinaliseContents($event, $contents) {
+        $request = $event->get('request');
+        $view = $event->has('view') ? $event->get('view') : null;
 
         if (ZMLangUtils::asBoolean($this->get('hideStats'))) {
-            $args['contents'] = $contents.$this->hiddenStats($args['request'], $view);
-            return $args;
+            return $contents.$this->hiddenStats($request, $view);
         }
 
         ob_start();
@@ -271,8 +272,7 @@ class ZMPageStatsPlugin extends Plugin {
 
         $info = ob_get_clean();
 
-        $args['contents'] = preg_replace('/<\/body>/', $info . '</body>', $contents, 1);
-        return $args;
+        return preg_replace('/<\/body>/', $info . '</body>', $contents, 1);
     }
 
     /**
