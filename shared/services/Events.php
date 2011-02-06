@@ -81,7 +81,7 @@ class Events extends ZMEvents {
      */
     public function update($notifier, $eventId, $args=array()) {
         // forward to new event dispatcher
-        Runtime::getEventDispatcher()->notify(new Event($source, $eventId, $args));
+        Runtime::getEventDispatcher()->notify(new Event($notifier, $eventId, $args));
         $method = $this->event2method($eventId, 'on');
         $args = is_array($args) ? $args : array();
         $this->eventLog_[] = array('id' => $eventId, 'method' => $method, 'time' => ZMRuntime::getExecutionTime(), 'memory' => memory_get_usage(true), 'args' => array_keys($args));
