@@ -100,7 +100,7 @@ use zenmagick\base\ClassLoader;
     $request = $_zm_request = ZMRequest::instance();
 
     // app config and code loaded; do not log to allow plugins to provider alternative logger
-    ZMEvents::instance()->fireEvent(null, ZMEvents::APP_INIT_DONE, array('request' => $_zm_request), false);
+    ZMEvents::instance()->fireEvent(null, 'app_init_done', array('request' => $_zm_request), false);
 
     // load global settings
     if (file_exists(ZM_BASE_PATH.'local.php')) {
@@ -140,4 +140,4 @@ use zenmagick\base\ClassLoader;
     ZMLocales::instance()->init(ZMSettings::get('zenmagick.core.locales.locale'));
 
     // core and plugins loaded
-    ZMEvents::instance()->fireEvent(null, ZMEvents::BOOTSTRAP_DONE, array('request' => $_zm_request));
+    ZMEvents::instance()->fireEvent(null, 'bootstrap_done', array('request' => $_zm_request));

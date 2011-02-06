@@ -352,7 +352,7 @@ class ZMPlugins extends ZMObject {
                 $this->plugins_[$id] = array('plugin' => $plugin, 'init' => true);
             }
         }
-        ZMEvents::instance()->fireEvent($this, ZMEvents::INIT_PLUGIN_GROUP_DONE, array('ids' => $ids, 'plugins' => $plugins));
+        ZMEvents::instance()->fireEvent($this, 'init_plugin_group_done', array('ids' => $ids, 'plugins' => $plugins));
 
         return $plugins;
     }

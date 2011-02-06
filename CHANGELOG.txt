@@ -33,6 +33,7 @@ Release 0.9.12
 - drop shared/Runtime.php
 - remove deprecated zm_l10n functions
 - drop ZMMVCConstants
+- drop ZMEvents::xxx event constants
 
 Release 0.9.11.1
 - remove debug code

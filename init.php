@@ -48,4 +48,4 @@
     }
 
     $request = $_zm_request;
-    ZMEvents::instance()->fireEvent(null, ZMEvents::INIT_DONE, array('request' => $_zm_request));
+    ZMEvents::instance()->fireEvent(null, 'init_done', array('request' => $_zm_request));
