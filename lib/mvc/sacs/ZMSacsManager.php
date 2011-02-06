@@ -179,7 +179,7 @@ class ZMSacsManager extends ZMObject {
                         return false;
                     }
                     // fire event
-                    ZMEvents::instance()->fireEvent($this, ZMMVCConstants::INSUFFICIENT_CREDENTIALS, 
+                    ZMEvents::instance()->fireEvent($this, 'insufficient_credentials', 
                           array('request' => $request, 'credentials' => $credentials));
                     // not required level of authentication
                     $session = $request->getSession();

@@ -19,6 +19,7 @@
  */
 ?>
 <?php
+use zenmagick\base\events\EventDispatcher;
 
 
 /**
@@ -38,18 +39,18 @@ class ZMDispatcher {
         ob_start();
 
         // load saved messages
-        ZMMessages::instance()->loadMessages($request->getSession());
+        \ZMMessages::instance()->loadMessages($request->getSession());
 
-        ZMEvents::instance()->fireEvent(null, ZMMVCConstants::DISPATCH_START, array('request' => $request));
+        \ZMEvents::instance()->fireEvent(null, 'dispatch_start', array('request' => $request));
         $view = self::handleRequest($request);
-        ZMEvents::instance()->fireEvent(null, ZMMVCConstants::DISPATCH_DONE, array('request' => $request));
+        \ZMEvents::instance()->fireEvent(null, 'dispatch_done', array('request' => $request));
 
         // allow plugins and event subscribers to filter/modify the final contents; corresponds with ob_start() in init.php
-        $args = ZMEvents::instance()->fireEvent(null, ZMMVCConstants::FINALISE_CONTENTS, 
+        $args = \ZMEvents::instance()->fireEvent(null, 'finalise_contents', 
                     array('request' => $request, 'view' => $view, 'contents' => ob_get_clean()));
         echo $args['contents'];
 
-        ZMEvents::instance()->fireEvent(null, ZMMVCConstants::ALL_DONE, array('request' => $request, 'view' => $view, 'contents' => $args['contents']));
+        \ZMEvents::instance()->fireEvent(null, 'all_done', array('request' => $request, 'view' => $view, 'contents' => $args['contents']));
     }
 
     /**
@@ -66,8 +67,8 @@ class ZMDispatcher {
             // execute controller
             $view = $controller->process($request);
         } catch (Exception $e) {
-            ZMLogging::instance()->dump($e, 'controller::process failed', ZMLogging::ERROR);
-            $controller = ZMBeanUtils::getBean(ZMSettings::get('zenmagick.mvc.controller.default', 'Controller'));
+            \ZMLogging::instance()->dump($e, 'controller::process failed', \ZMLogging::ERROR);
+            $controller = \ZMBeanUtils::getBean(\ZMSettings::get('zenmagick.mvc.controller.default', 'Controller'));
             $view = $controller->findView('error', array('exception' => $e));
             $request->setController($controller);
             $controller->initViewVars($view, $request);
@@ -83,17 +84,17 @@ class ZMDispatcher {
                 header($s);
             }
 
-            ZMEvents::instance()->fireEvent($view, ZMMVCConstants::VIEW_START, array('request' => $request, 'view' => $view));
+            \ZMEvents::instance()->fireEvent($view, 'view_start', array('request' => $request, 'view' => $view));
             try {
                 // generate response
                 echo $view->generate($request);
             } catch (Exception $e) {
-                ZMLogging::instance()->dump($e, 'view::generate failed', ZMLogging::ERROR);
+                \ZMLogging::instance()->dump($e, 'view::generate failed', \ZMLogging::ERROR);
                 //TODO: what to do?
             } 
-            ZMEvents::instance()->fireEvent($view, ZMMVCConstants::VIEW_DONE, array('request' => $request, 'view' => $view));
+            \ZMEvents::instance()->fireEvent($view, 'view_done', array('request' => $request, 'view' => $view));
         } else {
-            ZMLogging::instance()->log('null view, skipping $view->generate()', ZMLogging::DEBUG);
+            \ZMLogging::instance()->log('null view, skipping $view->generate()', \ZMLogging::DEBUG);
         }
 
         return $view;

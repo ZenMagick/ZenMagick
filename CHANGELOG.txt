@@ -32,6 +32,7 @@ Release 0.9.12
 - remove core.php feature in favour of phar files
 - drop shared/Runtime.php
 - remove deprecated zm_l10n functions
+- drop ZMMVCConstants
 
 Release 0.9.11.1
 - remove debug code

@@ -90,7 +90,7 @@
   }
 
   // allow plugins and event subscribers to filter/modify the final contents; corresponds with ob_start() in init.php
-  $args = ZMEvents::instance()->fireEvent(null, ZMMVCConstants::FINALISE_CONTENTS, 
+  $args = ZMEvents::instance()->fireEvent(null, 'finalise_contents', 
           array('request' => $request, 'view' => $view, 'contents' => ob_get_clean()));
   echo $args['contents'];
 
