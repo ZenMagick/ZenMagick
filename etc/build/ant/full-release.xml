@@ -9,7 +9,7 @@
 
 
     <!-- build full release -->
-    <target name="full-release" depends="mod-release" description="Build full release including zen cart.">
+    <target name="full-release" depends="" description="Build full release including zen cart.">
         <mkdir dir="${release.full.dir}" />
         <!-- overwrite to get a fresh copy -->
         <copy todir="${release.full.dir}" overwrite="true">
@@ -182,7 +182,7 @@
         <antcall target="insert-before">
             <param name="insert.file" value="${release.full.dir}/includes/application_bottom.php" />
             <param name="insert.regexp" value="session_write_close" />
-            <param name="insert.substitution" value="if (!ZMSettings::get('isEnableZMThemes')) { $$_zm_args = ZMEvents::instance()->fireEvent(null, Events::FINALISE_CONTENTS, array('contents' => ob_get_clean(), 'request' => ZMRequest::instance())); echo $$_zm_args['contents']; ZMRequest::instance()->getSession()->clearMessages(); ZMEvents::instance()->fireEvent(null, Events::ALL_DONE, array('request' => ZMRequest::instance())); } /* added by ZenMagick installation patcher */" />
+            <param name="insert.substitution" value="if (!ZMSettings::get('isEnableZMThemes')) { $_zm_args = ZMEvents::instance()->fireEvent(null, Events::FINALISE_CONTENTS, array('contents' => ob_get_clean(), 'request' => ZMRequest::instance())); $_zm_args['contents'] = \\\\\zenmagick\\\\\base\\\\\Runtime::getEventDispatcher()->filter(new \\\\\zenmagick\\\\\base\\\\\events\\\\\Event(null, 'finalise_contents', $_zm_args), $_zm_args['contents']); echo $_zm_args['contents']; ZMRequest::instance()->getSession()->clearMessages(); ZMEvents::instance()->fireEvent(null, Events::ALL_DONE, array('request' => ZMRequest::instance())); } /* added by ZenMagick installation patcher */" />
         </antcall>
 
         <!-- theme support patch -->
