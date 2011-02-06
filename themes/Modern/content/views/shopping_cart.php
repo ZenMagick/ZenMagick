@@ -25,9 +25,9 @@
 <?php echo $form->open(FILENAME_SHOPPING_CART, "action=update_product", true) ?>
     <table cellpadding="0" cellspacing="0" width="100%">
     	<tr class="tableHeading">
-    		<th><?php zm_l10n('Qty.') ?></th>
-    		<th colspan="2"><?php zm_l10n('Item Name') ?></th>
-    		<th style="text-align: left"><?php zm_l10n('Total') ?></th>
+    		<th><?php echo _vzm('Qty.') ?></th>
+    		<th colspan="2"><?php echo _vzm('Item Name') ?></th>
+    		<th style="text-align: left"><?php echo _vzm('Total') ?></th>
     		<th style="width: 50px" align="right">&nbsp;</th>
     	</tr>
         <tbody>
@@ -43,7 +43,7 @@
                 </td>
                 <td class="itm">
                     <?php if (!$item->isStockAvailable() && ZMSettings::get('isEnableStock')) { ?>
-                        <span class="note"><?php zm_l10n('* Out of Stock') ?></span><br/>
+                        <span class="note"><?php echo _vzm('* Out of Stock') ?></span><br/>
                     <?php } ?>
                     <?php echo $html->encode($item->getProduct()->getName()) ?>
                     <?php if ($item->hasAttributes()) { ?>
@@ -67,7 +67,7 @@
             </tr>
         <?php $odd = !$odd; $first = false; } ?>
         <tr class="other">
-            <td colspan="5" class="total" align="right"><?php zm_l10n("Subtotal") ?>: <?php echo $utils->formatMoney($shoppingCart->getTotal()) ?></td>
+            <td colspan="5" class="total" align="right"><?php echo _vzm("Subtotal") ?>: <?php echo $utils->formatMoney($shoppingCart->getTotal()) ?></td>
         </tr>
         </tbody>
     </table>

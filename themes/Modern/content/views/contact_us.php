@@ -29,21 +29,21 @@
 
 <?php echo $form->open(FILENAME_CONTACT_US, 'action=send', false, array('id' => 'contactUs')) ?>
     <fieldset>
-        <legend><?php zm_l10n("Contact us") ?></legend>
+        <legend><?php echo _vzm("Contact us") ?></legend>
         <table cellspacing="0" cellpadding="0"> 
 	        <tr>
-	        	<td class="label"><?php zm_l10n("Full Name") ?><span>*</span></td>
+	        	<td class="label"><?php echo _vzm("Full Name") ?><span>*</span></td>
         		<td><input type="text" id="name" name="name" size="40" value="<?php echo $html->encode($contactUs->getName()) ?>" /></td>
         	</tr>
         	<tr>
-        		<td><?php zm_l10n("Email Address") ?><span>*</span></td>
+        		<td><?php echo _vzm("Email Address") ?><span>*</span></td>
         		<td><input type="text" id="email" name="email" size="40" value="<?php echo $html->encode($contactUs->getEmail()) ?>" /></td>
         	</tr>
 			<tr>
-				<td><?php zm_l10n("Message") ?><span>*</span></td>
+				<td><?php echo _vzm("Message") ?><span>*</span></td>
         		<td><textarea id="message" name="message" cols="30" rows="7"><?php echo $html->encode($contactUs->getMessage()) ?></textarea></td>
       		</tr>
         </table>
     </fieldset>
-    <div class="btnwrapper"><input type="submit" class="btn" value="<?php zm_l10n("Send") ?>" /></div>
+    <div class="btnwrapper"><input type="submit" class="btn" value="<?php echo _vzm("Send") ?>" /></div>
 </form>

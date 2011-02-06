@@ -28,7 +28,7 @@
  */
 class ZMlocaleUtils {
     /** Locale patterns. */
-    const LOCALE_PATTERNS = 'zm_l10n_get,zm_l10n,_zmn,_zm,_vzm';
+    const LOCALE_PATTERNS = '_zmn,_zm,_vzm';
 
 
     /**

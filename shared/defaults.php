@@ -149,7 +149,7 @@
             // configure locale (used to be init plugin)
             'configureLocale' => false,
 
-            // same as zm_10n / zm_l10n_get
+            // class to use to load locale strings
             'zenmagick.core.locales.provider' => 'YamlLocale',
 
             // template suffix/extension

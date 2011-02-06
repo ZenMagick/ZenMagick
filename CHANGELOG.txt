@@ -31,6 +31,7 @@ Release 0.9.12
 - firephp: upgrade to current 1.0 beta server library
 - remove core.php feature in favour of phar files
 - drop shared/Runtime.php
+- remove deprecated zm_l10n functions
 
 Release 0.9.11.1
 - remove debug code
