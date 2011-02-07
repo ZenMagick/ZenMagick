@@ -50,7 +50,6 @@
         "sacsPermissions" => "Create new table to store custom admin access rules",
     );
 
-    $coreCompressor = new ZMCoreCompressor();
     $installer = new ZMInstallationPatcher();
     $needRefresh = false;
 

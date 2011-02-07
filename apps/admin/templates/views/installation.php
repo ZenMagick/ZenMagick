@@ -47,7 +47,6 @@
         "sacsPermissions" => "Create new table to store custom admin access rules",
     );
 
-    $coreCompressor = new ZMCoreCompressor();
     $installer = new ZMInstallationPatcher();
     $needRefresh = false;
 
@@ -92,38 +91,6 @@
         }
         ZMMessages::instance()->success("All tables optimized");
         $needRefresh = true;
-    }
-
-    // update core.php
-    if (isset($_POST)) {
-        $didGenerate = false;
-        $coreCompressor->setDebug(!ZMSettings::get('isStripCore'));
-        $wasEnabled = $coreCompressor->isEnabled();
-        if (array_key_exists('singleCore', $_POST) && !$coreCompressor->isEnabled()) {
-            // allow for more time to run tests
-            set_time_limit(300);
-            $coreCompressor->packFiles(ZMSettings::get('isStripCore'), false);
-            $didGenerate = true;
-        }
-        if (array_key_exists('singleCoreGenerate', $_POST)) {
-            // allow for more time to run tests
-            set_time_limit(300);
-            $coreCompressor->packFiles(ZMSettings::get('isStripCore'), false);
-            $didGenerate = true;
-        }
-
-        if ($coreCompressor->hasErrors()) {
-            foreach ($coreCompressor->getErrors() as $msg) {
-                ZMMessages::instance()->error($msg);
-            }
-        } else if ($didGenerate) {
-            ZMMessages::instance()->success("Succsesfully (re-)generated core.php");
-        }
-
-        if (array_key_exists('optimizeCore', $_POST) && !array_key_exists('singleCore', $_POST) && $wasEnabled) {
-            $coreCompressor->disable();
-            ZMMessages::instance()->msg("Disabled usage of core.php");
-        }
     }
 
     /**
@@ -217,20 +184,6 @@
           <label for="optimizeDb"><?php _vzm("Optimize database tables"); ?></label>
         </p>
 
-        <p>
-          <input type="hidden" id="optimizeCore" name="optimizeCore" value="x">
-          <?php $checked = $coreCompressor->isEnabled() ? ' checked="checked"' : ''; ?>
-          <input type="checkbox" id="singleCore" name="singleCore" value="x"<?php echo $checked ?>>
-          <label for="singleCore"><?php _vzm("Use single core.php file"); ?></label>
-          <?php if ($coreCompressor->isEnabled()) { ?>
-              <input type="checkbox" id="singleCoreGenerate" name="singleCoreGenerate" value="x">
-              <label for="singleCoreGenerate"><?php _vzm("Regenerate core.php"); ?></label>
-          <?php } ?>
-        </p>
-        <p><?php _vzm("This option will compress all files under lib and all <strong>installed</strong> plugins into a single 
-        file <code>core.php</code>.
-        If you install/uninstall plugins or make any other changes to the lib directory you'll need to regenerate <code>core.php</code> in
-        order to make these changes become active.") ?></p>
         <div class="submit"><input class="<?php echo $buttonClasses ?>" type="submit" value="<?php _vzm("Update") ?>"></div>
     </fieldset>
   </form>
