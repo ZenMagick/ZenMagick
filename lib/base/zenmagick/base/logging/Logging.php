@@ -183,9 +183,9 @@ class Logging {
      *
      * @param mixed obj The object to dump.
      * @param string msg An optional message.
-     * @param int level Optional level; default: <code>DEBUG</code>.
+     * @param int level Optional level; default: <code>TRACE</code>.
      */
-    public function dump($obj, $msg=null, $level=self::DEBUG) {
+    public function dump($obj, $msg=null, $level=self::TRACE) {
       if ($this->enabled_) {
             foreach ($this->getHandlers() as $handler) {
                 if ((null === ($customLevel = $handler->getLogLevel()) && $level <= $this->globalLogLevel_) || $level <= $customLevel) {
@@ -199,9 +199,9 @@ class Logging {
      * Create a simple stack trace.
      *
      * @param mixed msg An optional string or array.
-     * @param int level Optional level; default: <code>DEBUG</code>.
+     * @param int level Optional level; default: <code>TRACE</code>.
      */
-    public function trace($msg=null, $level=self::DEBUG) {
+    public function trace($msg=null, $level=self::TRACE) {
       if ($this->enabled_) {
             foreach ($this->getHandlers() as $handler) {
                 if ((null === ($customLevel = $handler->getLogLevel()) && $level <= $this->globalLogLevel_) || $level <= $customLevel) {
