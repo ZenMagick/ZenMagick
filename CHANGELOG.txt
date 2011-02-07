@@ -34,6 +34,7 @@ Release 0.9.12
 - remove deprecated zm_l10n functions
 - drop ZMMVCConstants
 - drop ZMEvents::xxx event constants
+- add applicationPath/plugins to plugin base dir list
 
 Release 0.9.11.1
 - remove debug code

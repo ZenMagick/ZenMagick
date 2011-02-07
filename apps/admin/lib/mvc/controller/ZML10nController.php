@@ -20,6 +20,8 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
+
 
 /**
  * Admin controller for l10n page.
@@ -27,7 +29,7 @@
  * @author DerManoMann
  * @package zenmagick.store.admin.mvc.controller
  */
-class ZML10nController extends ZMController {
+class ZML10nController extends \ZMController {
 
     /**
      * Create new instance.
@@ -61,7 +63,7 @@ class ZML10nController extends ZMController {
             }
             $value = $request->getParameter($name, $def);
             if ('b' == $token[0]) {
-                $value = ZMLangUtils::asBoolean($value);
+                $value = \ZMLangUtils::asBoolean($value);
             }
             $options[$name] = $value;
         }
@@ -70,7 +72,7 @@ class ZML10nController extends ZMController {
         $downloadParamsPo = http_build_query(array_merge(array('download' => 'po'), $options));
         $downloadParamsPot = http_build_query(array_merge(array('download' => 'pot'), $options));
         return array_merge(array(
-              'themes' => ZMThemes::instance()->getAvailableThemes(),
+              'themes' => \ZMThemes::instance()->getAvailableThemes(),
               'downloadParamsYaml' => $downloadParamsYaml,
               'downloadParamsPo' => $downloadParamsPo,
               'downloadParamsPot' => $downloadParamsPot
@@ -86,49 +88,49 @@ class ZML10nController extends ZMController {
 
         $defaultMap = array();
         if ($vd['includeDefaults']) {
-            $themesDir = ZMThemes::instance()->getActiveThemeId();
-            $defaultMap = ZMLocaleUtils::buildL10nMap($themesDir.ZMSettings::get('apps.store.themes.default'));
+            $themesDir = \ZMThemes::instance()->getActiveThemeId();
+            $defaultMap = \ZMLocaleUtils::buildL10nMap($themesDir.\ZMSettings::get('apps.store.themes.default'));
         }
 
         $existingMap = array();
         if ($vd['mergeExisting']) {
-            $theme = ZMThemes::instance()->getThemeForId($vd['themeId']);
-            $language = ZMLanguages::instance()->getLanguageForId($vd['languageId']);
-            $l10nPath = ZMFileUtils::mkPath(array($theme->getBaseDir(), 'lang', $language->getDirectory(), 'locale.yaml'));
+            $theme = \ZMThemes::instance()->getThemeForId($vd['themeId']);
+            $language = \ZMLanguages::instance()->getLanguageForId($vd['languageId']);
+            $l10nPath = \ZMFileUtils::mkPath(array($theme->getBaseDir(), 'lang', $language->getDirectory(), 'locale.yaml'));
             if (file_exists($l10nPath)) {
-                $existingMap = array('locale.yaml' => ZMRuntime::yamlParse(file_get_contents($l10nPath)));
+                $existingMap = array('locale.yaml' => \ZMRuntime::yamlParse(file_get_contents($l10nPath)));
             }
         }
 
         $sharedMap = array();
         if ($vd['scanShared']) {
-            $sharedMap = ZMLocaleUtils::buildL10nMap(ZMRuntime::getInstallationPath().'shared');
+            $sharedMap = \ZMLocaleUtils::buildL10nMap(\ZMRuntime::getInstallationPath().'shared');
         }
 
         $pluginsMap = array();
         if ($vd['scanPlugins']) {
-            foreach (ZMRuntime::getPluginBasePath() as $path) {
-                $pluginsMap = array_merge($pluginsMap, ZMLocaleUtils::buildL10nMap($path));
+            foreach (\ZMRuntime::getPluginBasePath() as $path) {
+                $pluginsMap = array_merge($pluginsMap, \ZMLocaleUtils::buildL10nMap($path));
             }
         }
 
         $adminMap = array();
         if ($vd['scanAdmin']) {
-            $adminLibMap = ZMLocaleUtils::buildL10nMap(ZMRuntime::getApplicationPath().'lib');
-            $adminTemplatesMap = ZMLocaleUtils::buildL10nMap(ZMRuntime::getApplicationPath().'templates');
+            $adminLibMap = \ZMLocaleUtils::buildL10nMap(Runtime::getApplicationPath().'lib');
+            $adminTemplatesMap = \ZMLocaleUtils::buildL10nMap(Runtime::getApplicationPath().'templates');
             $adminMap = array_merge($adminLibMap, $adminTemplatesMap);
         }
 
         $mvcMap = array();
         if ($vd['scanMvc']) {
-            $mvcMap = ZMLocaleUtils::buildL10nMap(ZMRuntime::getInstallationPath().'lib');
+            $mvcMap = \ZMLocaleUtils::buildL10nMap(\ZMRuntime::getInstallationPath().'lib');
         }
 
         $fileMap = array();
         if (null != $vd['themeId']) {
-            $theme = ZMThemes::instance()->getThemeForId($vd['themeId']);
-            $themeMap = ZMLocaleUtils::buildL10nMap($theme->getBaseDir());
-            $storeMap = ZMLocaleUtils::buildL10nMap(ZMRuntime::getInstallationPath().'apps/store');
+            $theme = \ZMThemes::instance()->getThemeForId($vd['themeId']);
+            $themeMap = \ZMLocaleUtils::buildL10nMap($theme->getBaseDir());
+            $storeMap = \ZMLocaleUtils::buildL10nMap(\ZMRuntime::getInstallationPath().'apps/store');
             $fileMap = array_merge($themeMap, $storeMap);
         }
 
@@ -147,17 +149,17 @@ class ZML10nController extends ZMController {
         if ('yaml' == $request->getParameter('download')) {
             header('Content-Type: text/YAML');
             header('Content-Disposition: attachment; filename=locale.yaml;');
-            echo ZMLocaleUtils::map2yaml($data['translations']);
+            echo \ZMLocaleUtils::map2yaml($data['translations']);
             return null;
         } else if ('po' == $request->getParameter('download')) {
             header('Content-Type: text/plain');
             header('Content-Disposition: attachment; filename=messages.po;');
-            echo ZMLocaleUtils::map2po($data['translations']);
+            echo \ZMLocaleUtils::map2po($data['translations']);
             return null;
         } else if ('pot' == $request->getParameter('download')) {
             header('Content-Type: text/plain');
             header('Content-Disposition: attachment; filename=messages.pot;');
-            echo ZMLocaleUtils::map2po($data['translations'], true);
+            echo \ZMLocaleUtils::map2po($data['translations'], true);
             return null;
         }
 

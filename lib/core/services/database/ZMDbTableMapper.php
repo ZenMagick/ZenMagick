@@ -20,6 +20,8 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
+
 
 /**
  * Database table mapping *service*.
@@ -65,7 +67,7 @@
  * @author DerManoMann
  * @package org.zenmagick.core.services.database
  */
-class ZMDbTableMapper extends ZMObject {
+class ZMDbTableMapper extends \ZMObject {
     /** Mapping of native data types to API types. */
     public static $NATIVE_TO_API_TYPEMAP = array(
         'char' => 'string',
@@ -101,15 +103,15 @@ class ZMDbTableMapper extends ZMObject {
         parent::__construct();
         $this->tableMap_ = array();
         $this->isCached_ = false;
-        $this->cache_ = ZMCaches::instance()->getCache('services', array('cacheTTL' => 300));
-        if (ZMSettings::get('zenmagick.core.database.mappings.cache.enabled', true)) {
+        $this->cache_ = \ZMCaches::instance()->getCache('services', array('cacheTTL' => 300));
+        if (\ZMSettings::get('zenmagick.core.database.mappings.cache.enabled', true)) {
             if (false !== ($cachedMap = $this->cache_->lookup(self::CACHE_KEY))) {
                 $this->tableMap_ = $cachedMap;
                 $this->isCached_ = true;
             } else {
                 $this->loadMappingFile();
             }
-            ZMEvents::instance()->attach($this);
+            \ZMEvents::instance()->attach($this);
         } else {
             $this->loadMappingFile();
         }
@@ -119,7 +121,7 @@ class ZMDbTableMapper extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return ZMRuntime::singleton('DbTableMapper');
+        return \ZMRuntime::singleton('DbTableMapper');
     }
 
 
@@ -127,8 +129,8 @@ class ZMDbTableMapper extends ZMObject {
      * Refresh cache if empty.
      */
     public function onZMInitDone() {
-        if (ZMSettings::get('zenmagick.core.database.mappings.cache.enabled', true) && !$this->isCached()) {
-            $this->updateCache(ZMRuntime::getDatabase());
+        if (\ZMSettings::get('zenmagick.core.database.mappings.cache.enabled', true) && !$this->isCached()) {
+            $this->updateCache(\ZMRuntime::getDatabase());
         }
     }
 
@@ -137,7 +139,7 @@ class ZMDbTableMapper extends ZMObject {
      */
     protected function loadMappingFile() {
         // load from file
-        eval('$mappings = '.file_get_contents(ZMRuntime::getApplicationPath().ZMSettings::get('zenmagick.core.database.mappings.file', 'config/db_mappings.txt')));
+        eval('$mappings = '.file_get_contents(Runtime::getApplicationPath().\ZMSettings::get('zenmagick.core.database.mappings.file', 'config/db_mappings.txt')));
         foreach ($mappings as $table => $mapping) {
             $this->tableMap_[$table] = $this->parseTable($mapping);
         }
@@ -220,8 +222,8 @@ class ZMDbTableMapper extends ZMObject {
             if (empty($table)) {
                 continue;
             }
-            if (!array_key_exists($table, $this->tableMap_) && ZMSettings::get('zenmagick.core.database.mappings.autoMap.enabled', true)) {
-                ZMLogging::instance()->log('creating dynamic mapping for table name: '.$table, ZMLogging::DEBUG);
+            if (!array_key_exists($table, $this->tableMap_) && \ZMSettings::get('zenmagick.core.database.mappings.autoMap.enabled', true)) {
+                \ZMLogging::instance()->log('creating dynamic mapping for table name: '.$table, \ZMLogging::DEBUG);
                 $rawMapping = self::buildTableMapping($table, $database);
                 $this->setMappingForTable($table, $rawMapping);
             }
@@ -253,9 +255,9 @@ class ZMDbTableMapper extends ZMObject {
         $tableMetaData = null;
         try {
             $tableMetaData = $database->getMetaData($table);
-        } catch (ZMDatabaseException $dbe) {
+        } catch (\ZMDatabaseException $dbe) {
             // non prefixed?
-            ZMLogging::instance()->dump($dbe, 'missing table (non prefixed)', ZMLogging::TRACE);
+            \ZMLogging::instance()->dump($dbe, 'missing table (non prefixed)', \ZMLogging::TRACE);
         }
 
         $config = $database->getConfig();
@@ -265,7 +267,7 @@ class ZMDbTableMapper extends ZMObject {
             $table = $config['prefix'].$table;
             try {
                 $tableMetaData = $database->getMetaData($table);
-            } catch (ZMDatabaseException $dbe) {
+            } catch (\ZMDatabaseException $dbe) {
                 // definitely not there!
             }
         }
@@ -325,8 +327,8 @@ class ZMDbTableMapper extends ZMObject {
             // table name
             $table = $mapping;
             $mapping = $this->getMapping($table, $database);
-            if (null === $mapping && ZMSettings::get('zenmagick.core.database.mappings.autoMap.enabled', true)) {
-                ZMLogging::instance()->log('creating dynamic mapping for table name: '.$table, ZMLogging::DEBUG);
+            if (null === $mapping && \ZMSettings::get('zenmagick.core.database.mappings.autoMap.enabled', true)) {
+                \ZMLogging::instance()->log('creating dynamic mapping for table name: '.$table, \ZMLogging::DEBUG);
                 $rawMapping = self::buildTableMapping($table, $database);
                 $this->setMappingForTable(str_replace($config['prefix'], '', $table), $rawMapping);
                 $mapping = $this->getMapping($table, $database);
@@ -361,7 +363,7 @@ class ZMDbTableMapper extends ZMObject {
     public function getCustomFieldInfo($table, $database) {
         $config = $database->getConfig();
         $customFieldKey = 'zenmagick.core.database.sql.'.str_replace($config['prefix'], '', $table).'.customFields';
-        $setting = ZMSettings::get($customFieldKey);
+        $setting = \ZMSettings::get($customFieldKey);
         if (empty($setting)) {
             return array();
         }

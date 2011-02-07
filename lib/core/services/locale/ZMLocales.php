@@ -20,6 +20,8 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
+
 
 /**
  * Locale service.
@@ -32,7 +34,7 @@
  * @author DerManoMann
  * @package org.zenmagick.core.services.locale
  */
-class ZMLocales extends ZMObject {
+class ZMLocales extends \ZMObject {
     private $locale_;
     private $locales_;
 
@@ -57,7 +59,7 @@ class ZMLocales extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return ZMRuntime::singleton('Locales');
+        return \ZMRuntime::singleton('Locales');
     }
 
 
@@ -74,7 +76,7 @@ class ZMLocales extends ZMObject {
      */
     public function getLocale($reload=false, $locale=null, $path=null) {
         if (null == $this->locale_ || $reload) {
-            $this->locale_ = ZMBeanUtils::getBean(ZMSettings::get('zenmagick.core.locales.provider', 'EchoLocale'));
+            $this->locale_ = \ZMBeanUtils::getBean(\ZMSettings::get('zenmagick.core.locales.provider', 'EchoLocale'));
             if (null !== $locale) {
                 $this->locale_->init($locale, $path);
             }
@@ -117,12 +119,12 @@ class ZMLocales extends ZMObject {
     public function getLocalesList() {
         if (null === $this->locales_) {
             $this->locales_ = array();
-            $path = ZMFileUtils::mkPath(ZMRuntime::getApplicationPath(), 'locale');
+            $path = \ZMFileUtils::mkPath(Runtime::getApplicationPath(), 'locale');
             $handle = opendir($path);
             while (false !== ($file = readdir($handle))) {
                 $yamlFile = $path.$file.DIRECTORY_SEPARATOR.'locale.yaml';
                 if (is_dir($path.$file) && file_exists($yamlFile)) {
-                    $yaml = ZMRuntime::yamlParse(@file_get_contents($yamlFile));
+                    $yaml = \ZMRuntime::yamlParse(@file_get_contents($yamlFile));
                     if (is_array($yaml)) {
                         $name = array_key_exists('name', $yaml) ? $yaml['name'] : $file;
                         $this->locales_[$file] = $name;

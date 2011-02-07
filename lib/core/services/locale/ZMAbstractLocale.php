@@ -20,6 +20,8 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
+
 
 /**
  * Abstract base class for <code>Locale</code> implementations.
@@ -27,7 +29,7 @@
  * @author DerManoMann
  * @package org.zenmagick.core.services.locale
  */
-abstract class ZMAbstractLocale extends ZMObject implements ZMLocale {
+abstract class ZMAbstractLocale extends \ZMObject implements \ZMLocale {
     private $locale_;
     private $name_;
     private $formats_;
@@ -87,23 +89,23 @@ abstract class ZMAbstractLocale extends ZMObject implements ZMLocale {
         $this->name_ = $locale;
 
         if (null == $path) {
-            $path = ZMFileUtils::mkPath(ZMRuntime::getApplicationPath(), 'locale', $locale);
-            if (null == ($path = ZMLocaleUtils::resolvePath($path, $locale))) {
-                ZMLogging::instance()->log('unable to resolve path for locale = "'.$locale.'"', ZMLogging::DEBUG);
+            $path = \ZMFileUtils::mkPath(Runtime::getApplicationPath(), 'locale', $locale);
+            if (null == ($path = \ZMLocaleUtils::resolvePath($path, $locale))) {
+                \ZMLogging::instance()->log('unable to resolve path for locale = "'.$locale.'"', \ZMLogging::DEBUG);
                 return null;
             }
         }
 
         $yaml = array();
-        $filename = ZMFileUtils::mkPath($path, 'locale.yaml');
+        $filename = \ZMFileUtils::mkPath($path, 'locale.yaml');
         if (file_exists($filename)) {
-            $yaml = ZMRuntime::yamlParse(@file_get_contents(ZMFileUtils::mkPath($path, 'locale.yaml')));
+            $yaml = \ZMRuntime::yamlParse(@file_get_contents(\ZMFileUtils::mkPath($path, 'locale.yaml')));
             if (is_array($yaml)) {
                 if (array_key_exists('name', $yaml)) {
                     $this->name_ = $yaml['name'];
                 }
                 if (array_key_exists('formats', $yaml)) {
-                    $this->formats_ = ZMLangUtils::arrayMergeRecursive($this->formats_, $yaml['formats']);
+                    $this->formats_ = \ZMLangUtils::arrayMergeRecursive($this->formats_, $yaml['formats']);
                 }
             }
         }
@@ -129,7 +131,7 @@ abstract class ZMAbstractLocale extends ZMObject implements ZMLocale {
      * {@inheritDoc}
      */
     public function setFormats($formats) {
-        $this->formats_ = ZMLangUtils::arrayMergeRecursive($this->formats_, $formats);
+        $this->formats_ = \ZMLangUtils::arrayMergeRecursive($this->formats_, $formats);
     }
 
 }

@@ -20,6 +20,8 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
+
 
 /**
  * Patch to create the sacs permission tables.
@@ -27,7 +29,7 @@
  * @author DerManoMann
  * @package zenmagick.store.admin.installation.patches.sql
  */
-class ZMSacsPermissionsPatch extends ZMSQLPatch {
+class ZMSacsPermissionsPatch extends \ZMSQLPatch {
     var $sqlFiles_ = array(
         "shared/etc/sql/mysql/sacs_perms_install.sql"
     );
@@ -57,7 +59,7 @@ class ZMSacsPermissionsPatch extends ZMSQLPatch {
      * @return boolean <code>true</code> if this patch can still be applied.
      */
     function isOpen() {
-	      $meta = ZMRuntime::getDatabase()->getMetaData();
+	      $meta = \ZMRuntime::getDatabase()->getMetaData();
         return !in_array(ZM_TABLE_SACS_PERMISSIONS, $meta['tables']);
     }
 
@@ -69,7 +71,7 @@ class ZMSacsPermissionsPatch extends ZMSQLPatch {
      * @return boolean <code>true</code> if patching was successful, <code>false</code> if not.
      */
     function patch($force=false) {
-        $baseDir = ZMRuntime::getInstallationPath();
+        $baseDir = \ZMRuntime::getInstallationPath();
         // do only interactive
         if ($force) {
             $status = true;
@@ -93,7 +95,7 @@ class ZMSacsPermissionsPatch extends ZMSQLPatch {
             return true;
         }
 
-        $baseDir = ZMRuntime::getInstallationPath();
+        $baseDir = \ZMRuntime::getInstallationPath();
         $status = true;
         foreach ($this->sqlUndoFiles_ as $file) {
             $sql = file($baseDir.$file);

@@ -20,6 +20,8 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
+
 
 /**
  * Central place for runtime stuff.
@@ -45,13 +47,7 @@ class ZMRuntime {
      * @return mixed A singleton object.
      */
     public static function singleton($name, $instance=null, $force=false) {
-        if (null != $instance && ($force || !isset(self::$singletons_[$name]))) {
-            self::$singletons_[$name] = $instance;
-        } else if (!array_key_exists($name, self::$singletons_)) {
-            self::$singletons_[$name] = ZMBeanUtils::getBean($name);
-        }
-
-        return self::$singletons_[$name];
+        return Runtime::singleton($name, $instance, $force);
     }
 
     /**
@@ -121,7 +117,7 @@ class ZMRuntime {
      * @return string The ZenMagick installation folder.
      */
     public static function getInstallationPath() { 
-        return defined('ZM_BASE_PATH') ? constant('ZM_BASE_PATH') : dirname(dirname(__FILE__)).DIRECTORY_SEPARATOR;
+        return Runtime::getInstallationPath();
     }
 
     /**
@@ -130,7 +126,7 @@ class ZMRuntime {
      * @return string The application base folder or <code>null</code>.
      */
     public static function getApplicationPath() { 
-        return defined('ZM_APP_PATH') ? ZM_BASE_PATH.ZM_APP_PATH : null;
+        return Runtime::getApplicationPath();
     }
 
     /**
@@ -141,11 +137,7 @@ class ZMRuntime {
      * @return array List of base directories for plugins.
      */
     public static function getPluginBasePath() { 
-        if (null === ZMSettings::get('zenmagick.core.plugins.baseDir')) {
-            ZMSettings::set('zenmagick.core.plugins.baseDir', self::getInstallationPath().'plugins'.DIRECTORY_SEPARATOR);
-        }
-
-        return explode(',', ZMSettings::get('zenmagick.core.plugins.baseDir'));
+        return Runtime::getPluginBasePath();
     }
 
     /**

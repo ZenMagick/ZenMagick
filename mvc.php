@@ -19,20 +19,21 @@
  */
 ?>
 <?php
+use zenmagick\base\Runtime;
 
     // allow seo rewriters to fiddle with the request
     $_zm_request->seoDecode();
 
     // make sure we use the appropriate protocol (HTTPS, for example) if required
-    ZMSacsManager::instance()->ensureAccessMethod($_zm_request);
+    \ZMSacsManager::instance()->ensureAccessMethod($_zm_request);
 
     // form validation
-    ZMValidator::instance()->load(file_get_contents(ZMFileUtils::mkPath(array(ZMRuntime::getApplicationPath(), 'config', 'validation.yaml'))));
+    \ZMValidator::instance()->load(file_get_contents(\ZMFileUtils::mkPath(array(Runtime::getApplicationPath(), 'config', 'validation.yaml'))));
 
     // reset as other global code migth fiddle with it...
     $request = $_zm_request;
-    ZMEvents::instance()->fireEvent(null, 'init_done', array('request' => $_zm_request));
+    \ZMEvents::instance()->fireEvent(null, 'init_done', array('request' => $_zm_request));
 
-    ZMDispatcher::dispatch($_zm_request);
+    \ZMDispatcher::dispatch($_zm_request);
     $_zm_request->closeSession();
     exit;

@@ -21,6 +21,7 @@
 <?php
 namespace zenmagick\base;
 
+
 /**
  * Central place for runtime stuff.
  *
@@ -43,7 +44,9 @@ class Runtime {
         if (null != $instance && ($force || !isset(self::$singletons_[$name]))) {
             self::$singletons_[$name] = $instance;
         } else if (!array_key_exists($name, self::$singletons_)) {
-            self::$singletons_[$name] = Beans::getBean($name);
+            if (null == (self::$singletons_[$name] = \ZMBeanUtils::getBean($name))) {
+                self::$singletons_[$name] = Beans::getBean($name);
+            }
         }
 
         return self::$singletons_[$name];
@@ -76,7 +79,8 @@ class Runtime {
      */
     public static function getPluginBasePath() { 
         if (null === \ZMSettings::get('zenmagick.core.plugins.baseDir')) {
-            \ZMSettings::set('zenmagick.core.plugins.baseDir', self::getInstallationPath().'plugins'.DIRECTORY_SEPARATOR);
+            \ZMSettings::append('zenmagick.core.plugins.baseDir', self::getInstallationPath().'plugins'.DIRECTORY_SEPARATOR);
+            \ZMSettings::append('zenmagick.core.plugins.baseDir', self::getApplicationPath().'plugins'.DIRECTORY_SEPARATOR);
         }
 
         return explode(',', \ZMSettings::get('zenmagick.core.plugins.baseDir'));

@@ -20,6 +20,8 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
+
 
 /**
  * Patch to create ZenMagick config basics.
@@ -27,7 +29,7 @@
  * @author DerManoMann
  * @package zenmagick.store.admin.installation.patches.sql
  */
-class ZMConfigPatch extends ZMSQLPatch {
+class ZMConfigPatch extends \ZMSQLPatch {
     var $sqlFiles_ = array(
         "shared/etc/sql/mysql/config.sql"
     );
@@ -68,7 +70,7 @@ class ZMConfigPatch extends ZMSQLPatch {
      * @return boolean <code>true</code> if patching was successful, <code>false</code> if not.
      */
     function patch($force=false) {
-        $baseDir = ZMRuntime::getInstallationPath();
+        $baseDir = \ZMRuntime::getInstallationPath();
         // do only interactive
         if ($force) {
             $status = true;
@@ -92,7 +94,7 @@ class ZMConfigPatch extends ZMSQLPatch {
             return true;
         }
 
-        $baseDir = ZMRuntime::getInstallationPath();
+        $baseDir = \ZMRuntime::getInstallationPath();
         $status = true;
         foreach ($this->sqlUndoFiles_ as $file) {
             $sql = file($baseDir.$file);
