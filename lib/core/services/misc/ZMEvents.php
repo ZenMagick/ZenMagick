@@ -146,7 +146,7 @@ class ZMEvents extends ZMObject {
         $this->eventLog_[] = array(
             'id' => $eventId,
             'method' => $method,
-            'time' => ZMRuntime::getExecutionTime(),
+            'time' => Runtime::getExecutionTime(),
             'memory' => memory_get_usage(true),
             'args' => $args
         );

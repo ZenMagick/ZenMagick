@@ -147,12 +147,7 @@ class ZMRuntime {
      * @return long The execution time in milliseconds.
      */
     public static function getExecutionTime($time=null) {
-        $startTime = explode (' ', ZM_START_TIME);
-        $endTime = explode (' ', (null!=$time?$time:microtime()));
-        // $time might be float
-        if (1 == count($endTime)) { $endTime[] = 0;}
-        $executionTime = $endTime[1]+$endTime[0]-$startTime[1]-$startTime[0];
-        return round($executionTime, 4);
+        return Runtime::getExecutionTime($time);
     }
 
     /**
