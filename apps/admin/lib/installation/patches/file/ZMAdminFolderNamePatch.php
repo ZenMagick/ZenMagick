@@ -20,7 +20,10 @@
 ?>
 <?php
 
-define('_ZM_ADMIN_INDEX_PHP', ZMRuntime::getInstallationPath() . "apps/admin/web/index.php");
+use zenmagick\base\Runtime;
+
+
+define('_ZM_ADMIN_INDEX_PHP', Runtime::getInstallationPath() . "apps/admin/web/index.php");
 
 /**
  * Patch to update the admin folder name in apps/admin/web/index.php.
@@ -28,7 +31,7 @@ define('_ZM_ADMIN_INDEX_PHP', ZMRuntime::getInstallationPath() . "apps/admin/web
  * @author DerManoMann
  * @package zenmagick.store.admin.installation.patches.file
  */
-class ZMAdminFolderNamePatch extends ZMFilePatch {
+class ZMAdminFolderNamePatch extends \ZMFilePatch {
 
     /**
      * Create new instance.
@@ -97,7 +100,7 @@ class ZMAdminFolderNamePatch extends ZMFilePatch {
             return true;
         }
 
-        if ((ZMSettings::get('isEnablePatching')) || $force) {
+        if ((\ZMSettings::get('isEnablePatching')) || $force) {
             if (is_writeable(_ZM_ADMIN_INDEX_PHP)) {
                 $patchedLines = array();
                 foreach ($lines as $line) {
@@ -109,12 +112,12 @@ class ZMAdminFolderNamePatch extends ZMFilePatch {
 
                 return $this->putFileLines(_ZM_ADMIN_INDEX_PHP, $patchedLines);
             } else {
-                ZMLogging::instance()->log("** ZenMagick: no permission to patch admin folder name", ZMLogging::ERROR);
+                \ZMLogging::instance()->log("** ZenMagick: no permission to patch admin folder name", \ZMLogging::ERROR);
                 return false;
             }
         } else {
             // disabled
-            ZMLogging::instance()->log("** ZenMagick: patch admin folder name disabled - skipping");
+            \ZMLogging::instance()->log("** ZenMagick: patch admin folder name disabled - skipping");
             return false;
         }
 
@@ -143,7 +146,7 @@ class ZMAdminFolderNamePatch extends ZMFilePatch {
 
             return $this->putFileLines(_ZM_ADMIN_INDEX_PHP, $unpatchedLines);
         } else {
-            ZMLogging::instance()->log("** ZenMagick: no permission to patch admin index.php for uninstall", ZMLogging::ERROR);
+            \ZMLogging::instance()->log("** ZenMagick: no permission to patch admin index.php for uninstall", \ZMLogging::ERROR);
             return false;
         }
 

@@ -20,6 +20,8 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
+
 
 /**
  * Patch to create the theme variation column.
@@ -27,7 +29,7 @@
  * @author DerManoMann
  * @package zenmagick.store.admin.installation.patches.sql
  */
-class ZMThemeVariationPatch extends ZMSQLPatch {
+class ZMThemeVariationPatch extends \ZMSQLPatch {
     var $sqlFiles_ = array(
         "shared/etc/sql/mysql/theme_chaining_install.sql"
     );
@@ -57,7 +59,7 @@ class ZMThemeVariationPatch extends ZMSQLPatch {
      * @return boolean <code>true</code> if this patch can still be applied.
      */
     function isOpen() {
-	      $meta = ZMRuntime::getDatabase()->getMetaData('template_select');
+	      $meta = \ZMRuntime::getDatabase()->getMetaData('template_select');
         return !array_key_exists('variation_dir', $meta);
     }
 
@@ -69,7 +71,7 @@ class ZMThemeVariationPatch extends ZMSQLPatch {
      * @return boolean <code>true</code> if patching was successful, <code>false</code> if not.
      */
     function patch($force=false) {
-        $baseDir = ZMRuntime::getInstallationPath();
+        $baseDir = Runtime::getInstallationPath();
         // do only interactive
         if ($force) {
             $status = true;
@@ -93,7 +95,7 @@ class ZMThemeVariationPatch extends ZMSQLPatch {
             return true;
         }
 
-        $baseDir = ZMRuntime::getInstallationPath();
+        $baseDir = Runtime::getInstallationPath();
         $status = true;
         foreach ($this->sqlUndoFiles_ as $file) {
             $sql = file($baseDir.$file);

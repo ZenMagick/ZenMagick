@@ -20,6 +20,8 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
+
 
 /**
  * Store plugin base class.
@@ -31,7 +33,7 @@
  * @author DerManoMann
  * @package zenmagick.store.shared.services.plugins
  */
-class Plugin extends ZMPlugin {
+class Plugin extends \ZMPlugin {
     /** internal key constant */
     const KEY_PREFIX = 'PLUGIN_';
     /** internal key constant */
@@ -154,7 +156,7 @@ class Plugin extends ZMPlugin {
     function __set($name, $value) {
         $dname = strtoupper($this->configPrefix_ . $name);
         if (defined($dname)) {
-            ZMConfig::instance()->updateConfigValue($dname, $value);
+            \ZMConfig::instance()->updateConfigValue($dname, $value);
         } else {
             // regular dynamic property
             parent::__set($name, $value);
@@ -202,7 +204,7 @@ class Plugin extends ZMPlugin {
      * @param boolean keepSettings If set to <code>true</code>, the settings will not be removed; default is <code>false</code>.
      */
     public function remove($keepSettings=false) {
-        $config = ZMConfig::instance();
+        $config = \ZMConfig::instance();
 
         // always remove these keys
         $config->removeConfigValue($this->enabledKey_);
@@ -249,7 +251,7 @@ class Plugin extends ZMPlugin {
      */
     public function isEnabled() {
         $enabled = $this->get(self::KEY_ENABLED);
-        return null !== $enabled && ZMLangUtils::asBoolean($enabled);
+        return null !== $enabled && \ZMLangUtils::asBoolean($enabled);
     }
 
     /**
@@ -285,7 +287,7 @@ class Plugin extends ZMPlugin {
      * @return string A fully qualified filename.
      */
     public function getConfigPath($file) {
-        $configPath = ZMRuntime::getInstallationPath().'config'.DIRECTORY_SEPARATOR;
+        $configPath = Runtime::getInstallationPath().'config'.DIRECTORY_SEPARATOR;
         $configFile = $configPath.$this->getId().DIRECTORY_SEPARATOR.$file;
 
         if (file_exists($configFile) || !file_exists($this->getPluginDirectory().$file)) {
@@ -315,17 +317,17 @@ class Plugin extends ZMPlugin {
             $widget = 'widget@TextFormWidget#name='.$key.'&default=&size=12&maxlength=56';
         }
 
-        if (!ZMLangUtils::startsWith($key, $this->configPrefix_)) {
+        if (!\ZMLangUtils::startsWith($key, $this->configPrefix_)) {
             $key = $this->configPrefix_ . $key;
         }
         // keys are always upper case
         $key = strtoupper($key);
 
-        $tmp = ZMConfig::instance()->getConfigValues($key);
+        $tmp = \ZMConfig::instance()->getConfigValues($key);
         // check if value exists
         if (0 == count($tmp)) {
             // ZENMAGICK_PLUGIN_GROUP_ID is created via config.sql SQL
-            ZMConfig::instance()->createConfigValue($title, $key, $value, ZENMAGICK_PLUGIN_GROUP_ID, $description, $sortOrder, $widget);
+            \ZMConfig::instance()->createConfigValue($title, $key, $value, ZENMAGICK_PLUGIN_GROUP_ID, $description, $sortOrder, $widget);
         }
     }
 
@@ -337,7 +339,7 @@ class Plugin extends ZMPlugin {
     public function getConfigValues() {
         if (null === $this->configValues_) {
             $this->configValues_ = array();
-            foreach (ZMConfig::instance()->getConfigValues($this->configPrefix_.'%') as $configValue) {
+            foreach (\ZMConfig::instance()->getConfigValues($this->configPrefix_.'%') as $configValue) {
                 $this->configValues_[$configValue->getName()] = $configValue;
             }
         }
@@ -363,9 +365,9 @@ class Plugin extends ZMPlugin {
      * @param string function The function to render the contents.
      * @param string menuKey Optional key determining where the menu item should appear; default is <em>ZMAdminMenu::MENU_PLUGINS</em>.
      */
-    public function addMenuItem($id, $title, $function, $menuKey=ZMAdminMenu::MENU_PLUGINS) {
-        if (ZMSettings::get('isAdmin')) {
-            ZMAdminMenu::addItem(ZMLoader::make("AdminMenuItem", $menuKey, $id, $title, $function));
+    public function addMenuItem($id, $title, $function, $menuKey=\ZMAdminMenu::MENU_PLUGINS) {
+        if (\ZMSettings::get('isAdmin')) {
+            \ZMAdminMenu::addItem(\ZMLoader::make("AdminMenuItem", $menuKey, $id, $title, $function));
         }
     }
 
@@ -378,9 +380,9 @@ class Plugin extends ZMPlugin {
      * @todo: fix and allow optional other parameter, etc...
      */
     public function addMenuGroup($title, $parentId='plugins') {
-        if (ZMSettings::get('isAdmin')) {
+        if (\ZMSettings::get('isAdmin')) {
             $key = 'plugins-'.$this->getId().microtime();
-            ZMAdminMenu::setItem(array('parentId' => 'plugins', 'id' => $key, 'title' => $title));
+            \ZMAdminMenu::setItem(array('parentId' => 'plugins', 'id' => $key, 'title' => $title));
             return $key;
         }
         return null;
@@ -395,9 +397,9 @@ class Plugin extends ZMPlugin {
      * @param string requestId The corresponding requestId.
      * @param string menuKey Optional key determining where the menu item should appear; default is <em>ZMAdminMenu::MENU_PLUGINS</em>.
      */
-    public function addMenuItem2($title, $requestId, $menuKey=ZMAdminMenu::MENU_PLUGINS) {
-        if (ZMSettings::get('isAdmin')) {
-            ZMAdminMenu::setItem(array('parentId' => $menuKey, 'requestId' => $requestId, 'title' => $title));
+    public function addMenuItem2($title, $requestId, $menuKey=\ZMAdminMenu::MENU_PLUGINS) {
+        if (\ZMSettings::get('isAdmin')) {
+            \ZMAdminMenu::setItem(array('parentId' => $menuKey, 'requestId' => $requestId, 'title' => $title));
         }
     }
 
@@ -411,11 +413,11 @@ class Plugin extends ZMPlugin {
      */
     public function pluginURL($uri) {
         if (null == $this->getPluginDirectory()) {
-            throw new ZMException('pluginDirectory missing');
+            throw new \ZMException('pluginDirectory missing');
         }
 
         // TODO: fix
-        return ZMHtmlUtils::encode(DIR_WS_CATALOG.ZM_ROOT.'plugins/' . $this->getId() . '/' . $uri);
+        return \ZMHtmlUtils::encode(DIR_WS_CATALOG.ZM_ROOT.'plugins/' . $this->getId() . '/' . $uri);
     }
 
     /**
@@ -439,8 +441,8 @@ class Plugin extends ZMPlugin {
      * @return ZMAdminMenu An admin menu instance or <code>null</code> if not available.
      */
     public function getAdminMenu() {
-        if (ZMSettings::get('isAdmin')) {
-            return ZMAdminMenu::instance();
+        if (\ZMSettings::get('isAdmin')) {
+            return \ZMAdminMenu::instance();
         }
 
         return null;

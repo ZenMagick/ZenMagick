@@ -20,6 +20,8 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
+
 
 /**
  * Unit testing controller.
@@ -27,7 +29,7 @@
  * @author DerManoMann
  * @package org.zenmagick.plugins.unitTests
  */
-class ZMUnitTestsController extends ZMController {
+class ZMUnitTestsController extends \ZMController {
     private $plugin_;
 
 
@@ -36,7 +38,7 @@ class ZMUnitTestsController extends ZMController {
      */
     function __construct() {
         parent::__construct();
-        $this->plugin_ = ZMPlugins::instance()->getPluginForId('unitTests');
+        $this->plugin_ = \ZMPlugins::instance()->getPluginForId('unitTests');
     }
 
     /**
@@ -56,20 +58,20 @@ class ZMUnitTestsController extends ZMController {
     public function processGet($request) {
 
         // XXX: for adminusers testcase...
-        ZMLoader::instance()->addPath(ZMFileUtils::mkPath(array(ZMRuntime::getInstallationPath(), 'apps', 'admin', 'lib', 'services')));
-        ZMLoader::instance()->addPath(ZMFileUtils::mkPath(array(ZMRuntime::getInstallationPath(), 'apps', 'admin', 'lib', 'model')));
+        \ZMLoader::instance()->addPath(\ZMFileUtils::mkPath(array(Runtime::getInstallationPath(), 'apps', 'admin', 'lib', 'services')));
+        \ZMLoader::instance()->addPath(\ZMFileUtils::mkPath(array(Runtime::getInstallationPath(), 'apps', 'admin', 'lib', 'model')));
 
         // add tests folder to class path
-        $testsLoader = new ZMLoader();
+        $testsLoader = new \ZMLoader();
         $testBaseDir = $this->plugin_->getPluginDirectory().'tests';
         $testsLoader->addPath($testBaseDir);
         // test data  is lower case
         $testsLoader->loadStatic();
-        ZMLoader::instance()->setParent($testsLoader);
+        \ZMLoader::instance()->setParent($testsLoader);
 
         $tests = array();
         foreach ($testsLoader->getClassPath() as $class => $file) {
-            if (ZMLangUtils::startsWith($class, 'Test')) {
+            if (\ZMLangUtils::startsWith($class, 'Test')) {
                 $tests[$class] = $file;
             }
         }
@@ -92,25 +94,25 @@ class ZMUnitTestsController extends ZMController {
         }
 
         // add plugins/tests folder of all available plugins to loader
-        $pluginLoader = new ZMLoader();
-        foreach (ZMPlugins::instance()->getAllPlugins() as $plugin) {
-            if ($plugin instanceof ZMUnitTestsPlugin) {
+        $pluginLoader = new \ZMLoader();
+        foreach (\ZMPlugins::instance()->getAllPlugins() as $plugin) {
+            if ($plugin instanceof \ZMUnitTestsPlugin) {
                 continue;
             }
             $ptests = $plugin->getPluginDirectory().'tests' . DIRECTORY_SEPARATOR;
             if (is_dir($ptests)) {
                 $pluginLoader->addPath($ptests);
                 // scan for tests
-                foreach (ZMFileUtils::findIncludes($ptests) as $file) {
+                foreach (\ZMFileUtils::findIncludes($ptests) as $file) {
                     $name = basename($file);
-                    if (ZMLangUtils::startsWith($name, 'Test')) {
+                    if (\ZMLangUtils::startsWith($name, 'Test')) {
                         $name = str_replace('.php', '', $name);
                         $this->plugin_->addTest($name);
                     }
                 }
             }
         }
-        ZMLoader::instance()->setParent($pluginLoader);
+        \ZMLoader::instance()->setParent($pluginLoader);
 
         // merge in all custom registered tests
         $allTests = array_merge($allTests, $this->plugin_->getTests());
@@ -119,10 +121,10 @@ class ZMUnitTestsController extends ZMController {
         // create instances rather than just class names
         foreach ($allTests as $group => $tests) {
             foreach ($tests as $key => $clazz) {
-                if (null != ($test = ZMBeanUtils::getBean($clazz))) {
+                if (null != ($test = \ZMBeanUtils::getBean($clazz))) {
                     $allTests[$group][$key] = $test;
                 } else {
-                    ZMMessages::instance()->warn('could not create instance of '.$clazz);
+                    \ZMMessages::instance()->warn('could not create instance of '.$clazz);
                     unset($allTests[$group][$key]);
                 }
             }
@@ -146,7 +148,7 @@ class ZMUnitTestsController extends ZMController {
             $testCases[] = $testCase;
         }
 
-        $hideErrors = ZMLangUtils::asBoolean($request->getParameter('hideErrors', false));
+        $hideErrors = \ZMLangUtils::asBoolean($request->getParameter('hideErrors', false));
         $context['hideErrors'] = $hideErrors;
 
         $context['all_selected_testCases'] = array_flip($testCases);
@@ -156,7 +158,7 @@ class ZMUnitTestsController extends ZMController {
             // prepare selected tests
             $suite = new TestSuite('ZenMagick Tests');
             foreach ($testCases as $name) {
-                $testCase = ZMBeanUtils::getBean($name);
+                $testCase = \ZMBeanUtils::getBean($name);
                 if ($testCase instanceof SimpleTestCase) {
                     $suite->add($name);
                 }
@@ -166,7 +168,7 @@ class ZMUnitTestsController extends ZMController {
             set_time_limit(300);
 
             // run tests
-            $reporter = new ZMHtmlReporter($hideErrors);
+            $reporter = new \ZMHtmlReporter($hideErrors);
             // enable all selected tests
             foreach ($tests as $id) {
                 // XXX: this should not be handled by the reporter

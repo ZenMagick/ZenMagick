@@ -21,8 +21,10 @@
 <?php
 namespace zenmagick\base\logging\handler;
 
+use zenmagick\base\Runtime;
 use zenmagick\base\logging\Logging;
 use zenmagick\base\logging\LoggingHandler;
+
 
 /**
  * Default logging handler.
@@ -108,7 +110,7 @@ class DefaultLoggingHandler implements LoggingHandler {
                 echo '<h3>'.$msg.":</h3>\n";
             }
         }
-        $root = \ZMFileUtils::normalizeFilename(\ZMRuntime::getInstallationPath());
+        $root = \ZMFileUtils::normalizeFilename(Runtime::getInstallationPath());
         echo "<pre>";
         foreach (debug_backtrace() as $line) {
             echo ' ';

@@ -20,6 +20,9 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
+
+
 /**
  * Plugin to use minify.
  *
@@ -49,7 +52,7 @@ class ZMMinifyPlugin extends Plugin {
     public function install() {
         parent::install();
         // create minify cache dir
-        ZMFileUtils::mkdir(dirname(ZMRuntime::getInstallationPath()).DIRECTORY_SEPARATOR.'cache'.DIRECTORY_SEPARATOR.'zenmagick'.DIRECTORY_SEPARATOR.'minify');
+        \ZMFileUtils::mkdir(dirname(Runtime::getInstallationPath()).DIRECTORY_SEPARATOR.'cache'.DIRECTORY_SEPARATOR.'zenmagick'.DIRECTORY_SEPARATOR.'minify');
     }
 
     //TODO: install options: =f only, create dynamica groups, enable js, enable/disable css, PHP support: off, simple, ZenMagick Context (controller)

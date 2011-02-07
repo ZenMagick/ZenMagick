@@ -104,7 +104,7 @@ class ZML10nController extends \ZMController {
 
         $sharedMap = array();
         if ($vd['scanShared']) {
-            $sharedMap = \ZMLocaleUtils::buildL10nMap(\ZMRuntime::getInstallationPath().'shared');
+            $sharedMap = \ZMLocaleUtils::buildL10nMap(Runtime::getInstallationPath().'shared');
         }
 
         $pluginsMap = array();
@@ -123,14 +123,14 @@ class ZML10nController extends \ZMController {
 
         $mvcMap = array();
         if ($vd['scanMvc']) {
-            $mvcMap = \ZMLocaleUtils::buildL10nMap(\ZMRuntime::getInstallationPath().'lib');
+            $mvcMap = \ZMLocaleUtils::buildL10nMap(Runtime::getInstallationPath().'lib');
         }
 
         $fileMap = array();
         if (null != $vd['themeId']) {
             $theme = \ZMThemes::instance()->getThemeForId($vd['themeId']);
             $themeMap = \ZMLocaleUtils::buildL10nMap($theme->getBaseDir());
-            $storeMap = \ZMLocaleUtils::buildL10nMap(\ZMRuntime::getInstallationPath().'apps/store');
+            $storeMap = \ZMLocaleUtils::buildL10nMap(Runtime::getInstallationPath().'apps/store');
             $fileMap = array_merge($themeMap, $storeMap);
         }
 

@@ -70,7 +70,7 @@ class ZMConfigPatch extends \ZMSQLPatch {
      * @return boolean <code>true</code> if patching was successful, <code>false</code> if not.
      */
     function patch($force=false) {
-        $baseDir = \ZMRuntime::getInstallationPath();
+        $baseDir = Runtime::getInstallationPath();
         // do only interactive
         if ($force) {
             $status = true;
@@ -94,7 +94,7 @@ class ZMConfigPatch extends \ZMSQLPatch {
             return true;
         }
 
-        $baseDir = \ZMRuntime::getInstallationPath();
+        $baseDir = Runtime::getInstallationPath();
         $status = true;
         foreach ($this->sqlUndoFiles_ as $file) {
             $sql = file($baseDir.$file);

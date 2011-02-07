@@ -23,13 +23,13 @@
 ?><?php
   require_once 'includes/application_top.php';
 
-  ZMLoader::instance()->addPath(ZMFileUtils::mkPath(array(ZMRuntime::getInstallationPath(), 'apps', 'admin', 'lib')));
+  ZMLoader::instance()->addPath(ZMFileUtils::mkPath(array(zenmagick\base\Runtime::getInstallationPath(), 'apps', 'admin', 'lib')));
   ZMLoader::instance()->loadStatic();
 
   // set some admin specific things...
   ZMUrlManager::instance()->clear();
   ZMSacsManager::instance()->reset();
-  ZMSacsManager::instance()->load(file_get_contents(ZMFileUtils::mkPath(array(ZMRuntime::getInstallationPath(), 'apps/admin/config', 'sacs_mappings.yaml'))), false);
+  ZMSacsManager::instance()->load(file_get_contents(ZMFileUtils::mkPath(array(zenmagick\base\Runtime::getInstallationPath(), 'apps/admin/config', 'sacs_mappings.yaml'))), false);
 
   if (ZMLangUtils::isEmpty($request->getRequestId())) {
       $request->setParameter('main_page', 'index');

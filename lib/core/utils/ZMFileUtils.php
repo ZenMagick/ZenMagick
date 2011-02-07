@@ -20,6 +20,9 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
+
+
 /**
  * File utilities.
  *
@@ -85,7 +88,7 @@ class ZMFileUtils {
         }
 
         if (null === $perms) {
-            $perms = ZMSettings::get('zenmagick.core.fs.permissions.defaults.folder', '0755');
+            $perms = \ZMSettings::get('zenmagick.core.fs.permissions.defaults.folder', '0755');
         }
 
         if (is_string($perms)) {
@@ -96,7 +99,7 @@ class ZMFileUtils {
         self::setFilePerms($dir, $recursive, array('folder' => $perms));
 
         if (!$result) {
-            ZMLogging::instance()->log("insufficient permission to create directory: '".$dir.'"', ZMLogging::WARN);
+            \ZMLogging::instance()->log("insufficient permission to create directory: '".$dir.'"', \ZMLogging::WARN);
         }
 
         return $result;
@@ -212,7 +215,7 @@ class ZMFileUtils {
      *  <em>fs.permissions.defaults.file</em> for files.
      */
     public static function setFilePerms($files, $recursive=false, $perms=array()) {
-        if (!ZMSettings::get('zenmagick.core.fs.permissions.fix')) {
+        if (!\ZMSettings::get('zenmagick.core.fs.permissions.fix')) {
             return;
         }
         if (null == self::$fileOwner_ || null == self::$fileGroup_) {
@@ -228,8 +231,8 @@ class ZMFileUtils {
             $files = array($files);
         }
 
-        $filePerms = array_merge(array('file' => ZMSettings::get('zenmagick.core.fs.permissions.defaults.file', '0644'),
-                                    'folder' => ZMSettings::get('zenmagick.core.fs.permissions.defaults.folder', '0755')), $perms);
+        $filePerms = array_merge(array('file' => \ZMSettings::get('zenmagick.core.fs.permissions.defaults.file', '0644'),
+                                    'folder' => \ZMSettings::get('zenmagick.core.fs.permissions.defaults.folder', '0755')), $perms);
         foreach ($filePerms as $type => $perms) {
             if (is_string($perms)) {
                 $filePerms[$type] = intval($perms, 8);
@@ -246,7 +249,7 @@ class ZMFileUtils {
 
             if (is_dir($file) && $recursive) {
                 $dir = $file;
-                if (!ZMLangUtils::endsWith($dir, DIRECTORY_SEPARATOR)) {
+                if (!\ZMLangUtils::endsWith($dir, DIRECTORY_SEPARATOR)) {
                     $dir .= '/';
                 }
                 $subfiles = array();
@@ -296,7 +299,7 @@ class ZMFileUtils {
      * @return string A relative filename (if within the installation folder).
      */
     public static function mkRelativePath($filename) {
-        $root = self::normalizeFilename(ZMRuntime::getInstallationPath());
+        $root = self::normalizeFilename(Runtime::getInstallationPath());
         $filename = self::normalizeFilename($filename);
         // make filename relative
         return str_replace($root, '', $filename);
@@ -396,7 +399,7 @@ class ZMFileUtils {
         for ($ii=$keyOffset; $ii < ($rowCount+$keyOffset); ++$ii) {
             $line = self::csvString2Array($csvLines[$ii]);
             if (count($line) != $keyCount) {
-                ZMLogging::instance()->log( 'invalid line count; skipping line'.$ii . '; expected='.$keyCount.', actual='.count($line), ZMLogging::WARN);
+                \ZMLogging::instance()->log( 'invalid line count; skipping line'.$ii . '; expected='.$keyCount.', actual='.count($line), \ZMLogging::WARN);
                 continue;
             }
             $row = array();

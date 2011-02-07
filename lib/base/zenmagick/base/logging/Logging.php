@@ -21,7 +21,9 @@
 <?php
 namespace zenmagick\base\logging;
 
+use zenmagick\base\Runtime;
 use zenmagick\base\Beans;
+
 
 /**
  * The ZenMagick logging service.
@@ -256,7 +258,7 @@ class Logging {
             $errlevel = "Unknown";
         }
 
-        $root = \ZMFileUtils::normalizeFilename(dirname(\ZMRuntime::getInstallationPath()));
+        $root = \ZMFileUtils::normalizeFilename(dirname(Runtime::getInstallationPath()));
         $errfile = str_replace($root, '', \ZMFileUtils::normalizeFilename($errfile));
 
         return "\"$time\",\"$errfile: $errline\",\"($errlevel) $errstr\"\r\n";

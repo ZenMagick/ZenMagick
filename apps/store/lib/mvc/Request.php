@@ -23,6 +23,8 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
+
 
 /**
  * Store request wrapper.
@@ -33,7 +35,7 @@
  * @author DerManoMann
  * @package zenmagick.store.sf.mvc
  */
-class Request extends ZMRequest {
+class Request extends \ZMRequest {
     private $categoryPathArray_;
     private $shoppingCart_;
     private $metaTags_;
@@ -70,7 +72,7 @@ class Request extends ZMRequest {
         if (null == $requestId || null === $params) {
             // if requestId null, keep current and also current params
             $query = $this->getParameterMap();
-            unset($query[ZMSettings::get('zenmagick.mvc.request.idName', ZMRequest::DEFAULT_REQUEST_ID)]);
+            unset($query[\ZMSettings::get('zenmagick.mvc.request.idName', \ZMRequest::DEFAULT_REQUEST_ID)]);
             unset($query[$this->getSession()->getName()]);
             if (null != $params) {
                 parse_str($params, $arr);
@@ -101,7 +103,7 @@ class Request extends ZMRequest {
             }
         }
 
-        ZMLogging::instance()->trace('unresolved URL: '.$requestId);
+        \ZMLogging::instance()->trace('unresolved URL: '.$requestId);
         return null;
     }
 
@@ -129,9 +131,9 @@ class Request extends ZMRequest {
         if (null == $this->shoppingCart_) {
         	// TODO: enable
         	if ($this->isAnonymous() || true) {
-              $this->shoppingCart_ = ZMBeanUtils::getBean('ShoppingCart');
+              $this->shoppingCart_ = \ZMBeanUtils::getBean('ShoppingCart');
         	} else {
-        		  $this->shoppingCart_ = ZMShoppingCarts::instance()->loadCartForAccountId($this->getAccountId());
+        		  $this->shoppingCart_ = \ZMShoppingCarts::instance()->loadCartForAccountId($this->getAccountId());
         	}
         }
 
@@ -246,7 +248,7 @@ class Request extends ZMRequest {
             $this->setParameter('cPath', implode('_', $cPath));
             $this->setParameter('cPath', implode('_', $cPath));
         } else {
-            ZMLogging::instance()->log('invalid cPath: ' . $cPath, ZMLogging::ERROR);
+            \ZMLogging::instance()->log('invalid cPath: ' . $cPath, \ZMLogging::ERROR);
         }
     }
 
@@ -282,7 +284,7 @@ class Request extends ZMRequest {
             return null;
         }
 
-        return ZMAccounts::instance()->getAccountForId($accountId);
+        return \ZMAccounts::instance()->getAccountForId($accountId);
     }
 
     /**
@@ -356,7 +358,7 @@ class Request extends ZMRequest {
      */
     public function getTemplatePath() {
         // for storefront both templates and resources are relative to the installation folder
-        return dirname(ZMRuntime::getInstallationPath()).DIRECTORY_SEPARATOR;
+        return dirname(Runtime::getInstallationPath()).DIRECTORY_SEPARATOR;
     }
 
     /**
@@ -364,7 +366,7 @@ class Request extends ZMRequest {
      */
     public function getWebPath() {
         // for storefront both templates and resources are relative to the installation folder
-        return dirname(ZMRuntime::getInstallationPath()).DIRECTORY_SEPARATOR;
+        return dirname(Runtime::getInstallationPath()).DIRECTORY_SEPARATOR;
     }
 
     /**
@@ -400,15 +402,15 @@ class Request extends ZMRequest {
         $language = null;
         if (null != ($code = $session->getValue('languages_code'))) {
             // try session language code
-            if (null == ($language = ZMLanguages::instance()->getLanguageForId($code))) {
+            if (null == ($language = \ZMLanguages::instance()->getLanguageForId($code))) {
                 // try store default
-                $language = ZMLanguages::instance()->getLanguageForId(ZMSettings::get('storeDefaultLanguageId'));
+                $language = \ZMLanguages::instance()->getLanguageForId(\ZMSettings::get('storeDefaultLanguageId'));
             }
         }
 
         if (null == $language) {
-            ZMLogging::instance()->log('no default language found - using en as fallback', ZMLogging::WARN);
-            $language = ZMBeanUtils::getBean("Language");
+            \ZMLogging::instance()->log('no default language found - using en as fallback', \ZMLogging::WARN);
+            $language = \ZMBeanUtils::getBean("Language");
             $language->setId(1);
             $language->setDirectory('english');
             $language->setCode('en');

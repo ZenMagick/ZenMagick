@@ -87,7 +87,7 @@
 
             /*** cache ***/
             'zenmagick.core.cache.mapping.defaults' => array(),
-            'zenmagick.core.cache.provider.file.baseDir' => dirname(ZMRuntime::getInstallationPath()).'/cache/zenmagick/',
+            'zenmagick.core.cache.provider.file.baseDir' => dirname(zenmagick\base\Runtime::getInstallationPath()).'/cache/zenmagick/',
 
             /*** plugins ***/
             'zenmagick.core.plugins.enabled' => true,
@@ -310,7 +310,7 @@
              **************************************/
 
             // cache folder
-            'rssCacheDir' => dirname(ZMRuntime::getInstallationPath())."/cache/zenmagick/rss/",
+            'rssCacheDir' => dirname(zenmagick\base\Runtime::getInstallationPath())."/cache/zenmagick/rss/",
 
             // cache TTL
             'rssCacheTimeout' => 1200,

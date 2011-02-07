@@ -20,6 +20,8 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
+
 
 /**
  * Patch to create zen-cart theme dummy files for all ZenMagick themes.
@@ -27,7 +29,7 @@
  * @author DerManoMann
  * @package zenmagick.store.admin.installation.patches.file
  */
-class ZMThemeDummyPatch extends ZMFilePatch {
+class ZMThemeDummyPatch extends \ZMFilePatch {
     private $includeDefault_;
 
 
@@ -53,8 +55,8 @@ class ZMThemeDummyPatch extends ZMFilePatch {
      * @return boolean <code>true</code> if this patch can still be applied.
      */
     function isOpen() {
-        foreach (ZMThemes::instance()->getAvailableThemes() as $theme) {
-            if (ZMSettings::get('apps.store.themes.default') == $theme->getThemeId() && !$this->includeDefault_) {
+        foreach (\ZMThemes::instance()->getAvailableThemes() as $theme) {
+            if (\ZMSettings::get('apps.store.themes.default') == $theme->getThemeId() && !$this->includeDefault_) {
                 continue;
             }
             if (!file_exists(DIR_FS_CATALOG_TEMPLATES.$theme->getThemeId())) {
@@ -102,14 +104,14 @@ class ZMThemeDummyPatch extends ZMFilePatch {
      * @return boolean <code>true</code> if patching was successful, <code>false</code> if not.
      */
     function patch($force=false) {
-        if (!(ZMSettings::get('isEnablePatching')) && !$force && $this->isOpen()) {
+        if (!(\ZMSettings::get('isEnablePatching')) && !$force && $this->isOpen()) {
             // disabled
-            ZMLogging::instance()->log("** ZenMagick: create theme dummies disabled - skipping");
+            \ZMLogging::instance()->log("** ZenMagick: create theme dummies disabled - skipping");
             return false;
         }
 
-        foreach (ZMThemes::instance()->getAvailableThemes() as $theme) {
-            if (ZMSettings::get('apps.store.themes.default') == $theme->getThemeId() && !$this->includeDefault_) {
+        foreach (\ZMThemes::instance()->getAvailableThemes() as $theme) {
+            if (\ZMSettings::get('apps.store.themes.default') == $theme->getThemeId() && !$this->includeDefault_) {
                 continue;
             }
             $themeId = $theme->getThemeId();
@@ -117,16 +119,16 @@ class ZMThemeDummyPatch extends ZMFilePatch {
                 if (is_writeable(DIR_FS_CATALOG_TEMPLATES)) {
                     $templateDir = DIR_FS_CATALOG_TEMPLATES.$themeId.DIRECTORY_SEPARATOR;
                     $themeConfig = $theme->getConfig();
-                    ZMFileUtils::mkdir($templateDir);
-                    ZMFileUtils::mkdir($templateDir.'images');
+                    \ZMFileUtils::mkdir($templateDir);
+                    \ZMFileUtils::mkdir($templateDir.'images');
                     if (!array_key_exists('preview', $themeConfig)) {
                         $imageName = 'preview.jpg';
                     }
-                    $theme = ZMThemes::instance()->getThemeForId($themeId);
+                    $theme = \ZMThemes::instance()->getThemeForId($themeId);
                     if (file_exists($theme->getBaseDir().'preview.jpg')) {
                         copy($theme->getBaseDir().'preview.jpg', $templateDir.'images'.DIRECTORY_SEPARATOR.$imageName);
                     } else {
-                        copy(ZMRuntime::getInstallationPath().'lib/store/etc/images/preview_not_found.jpg', $templateDir.'images'.DIRECTORY_SEPARATOR.$imageName);
+                        copy(Runtime::getInstallationPath().'lib/store/etc/images/preview_not_found.jpg', $templateDir.'images'.DIRECTORY_SEPARATOR.$imageName);
                     }
                     $handle = fopen(DIR_FS_CATALOG_TEMPLATES.$themeId."/template_info.php", 'ab');
                     fwrite($handle, '<?php /** dummy file created by ZenMagick installation patcher **/'."\n");
@@ -137,11 +139,11 @@ class ZMThemeDummyPatch extends ZMFilePatch {
                     fwrite($handle, '  $template_screenshot = ' . "'" . $imageName . "';\n");
                     fwrite($handle, '?>');
                     fclose($handle);
-                    ZMFileUtils::setFilePerms($templateDir."template_info.php");
-                    ZMFileUtils::setFilePerms($templateDir."images");
-                    ZMFileUtils::setFilePerms($templateDir."images".DIRECTORY_SEPARATOR.$imageName);
+                    \ZMFileUtils::setFilePerms($templateDir."template_info.php");
+                    \ZMFileUtils::setFilePerms($templateDir."images");
+                    \ZMFileUtils::setFilePerms($templateDir."images".DIRECTORY_SEPARATOR.$imageName);
                 } else {
-                    ZMLogging::instance()->log("** ZenMagick: no permission to create theme dummy ".$themeId, ZMLogging::ERROR);
+                    \ZMLogging::instance()->log("** ZenMagick: no permission to create theme dummy ".$themeId, \ZMLogging::ERROR);
                     return false;
                 }
             }
@@ -160,8 +162,8 @@ class ZMThemeDummyPatch extends ZMFilePatch {
         foreach ($dummies as $file) {
             // avoid recursive delete, just in case
             @unlink($file."/template_info.php");
-            ZMFileUtils::rmdir($file.'/images', true);
-            ZMFileUtils::rmdir($file, false);
+            \ZMFileUtils::rmdir($file.'/images', true);
+            \ZMFileUtils::rmdir($file, false);
         }
 
         return true;
@@ -178,7 +180,7 @@ class ZMThemeDummyPatch extends ZMFilePatch {
         if (file_exists(DIR_FS_CATALOG_TEMPLATES)) {
             $handle = opendir(DIR_FS_CATALOG_TEMPLATES);
             while (false !== ($file = readdir($handle))) {
-                if (is_dir(DIR_FS_CATALOG_TEMPLATES.$file) && !ZMLangUtils::startsWith($file, '.')) {
+                if (is_dir(DIR_FS_CATALOG_TEMPLATES.$file) && !\ZMLangUtils::startsWith($file, '.')) {
                     if (file_exists(DIR_FS_CATALOG_TEMPLATES.$file."/template_info.php")) {
                         $contents = file_get_contents(DIR_FS_CATALOG_TEMPLATES.$file."/template_info.php");
                         if (false !== strpos($contents, 'created by ZenMagick')) {
