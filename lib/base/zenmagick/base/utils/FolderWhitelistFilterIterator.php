@@ -52,7 +52,7 @@ class FolderWhitelistFilterIterator extends \FilterIterator {
                 return true;
             }
         }
-     
+
         return false;
     }
 

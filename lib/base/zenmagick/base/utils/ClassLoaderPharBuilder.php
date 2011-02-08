@@ -30,7 +30,7 @@ namespace zenmagick\base\utils;
  */
 class ClassLoaderPharBuilder {
     private $path;
-    
+
 
     /**
      * Create a new instance.

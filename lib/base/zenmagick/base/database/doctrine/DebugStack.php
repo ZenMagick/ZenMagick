@@ -34,7 +34,7 @@ namespace zenmagick\base\database\doctrine;
  * @author  Roman Borschel <roman@code-factory.org>
  * @author  Johnny Robeson <johnny@localmomentum.net>
  *
- * Modified to match ZenMagick's 
+ * Modified to match ZenMagick's
  */
 class DebugStack implements SQLLogger
 {

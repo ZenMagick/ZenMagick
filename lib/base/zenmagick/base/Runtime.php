@@ -57,7 +57,7 @@ class Runtime {
      *
      * @return string The ZenMagick installation folder.
      */
-    public static function getInstallationPath() { 
+    public static function getInstallationPath() {
         return defined('ZM_BASE_PATH') ? constant('ZM_BASE_PATH') : dirname(dirname(__FILE__)).DIRECTORY_SEPARATOR;
     }
 
@@ -66,7 +66,7 @@ class Runtime {
      *
      * @return string The application base folder or <code>null</code>.
      */
-    public static function getApplicationPath() { 
+    public static function getApplicationPath() {
         return defined('ZM_APP_PATH') ? ZM_BASE_PATH.ZM_APP_PATH : null;
     }
 
@@ -77,7 +77,7 @@ class Runtime {
      *
      * @return array List of base directories for plugins.
      */
-    public static function getPluginBasePath() { 
+    public static function getPluginBasePath() {
         if (null === \ZMSettings::get('zenmagick.core.plugins.baseDir')) {
             \ZMSettings::append('zenmagick.core.plugins.baseDir', self::getInstallationPath().'plugins'.DIRECTORY_SEPARATOR);
             \ZMSettings::append('zenmagick.core.plugins.baseDir', self::getApplicationPath().'plugins'.DIRECTORY_SEPARATOR);
@@ -110,7 +110,7 @@ class Runtime {
      * @return Logging A <code>Logging</code> instance.
      */
     public static function getLogging($scope=null) {
-        return self::singleton('\zenmagick\base\logging\Logging');        
+        return self::singleton('\zenmagick\base\logging\Logging');
     }
 
     /**
@@ -119,7 +119,7 @@ class Runtime {
      * @return EventDispatcher A <code>EventDispatcher</code> instance.
      */
     public static function getEventDispatcher() {
-        return self::singleton('\zenmagick\base\events\EventDispatcher');        
+        return self::singleton('\zenmagick\base\events\EventDispatcher');
     }
 
     /**
@@ -128,7 +128,7 @@ class Runtime {
      * @return Settings A <code>Settings</code> instance.
      */
     public static function getSettings() {
-        return self::singleton('\zenmagick\base\settings\Settings');        
+        return self::singleton('\zenmagick\base\settings\Settings');
     }
 
 }

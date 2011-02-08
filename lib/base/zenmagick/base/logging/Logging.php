@@ -53,7 +53,7 @@ class Logging {
 
     /** String to log level lookup. */
     private static $LOG_LEVEL_LOOKUP = array(
-        'NONE' => self::NONE, 
+        'NONE' => self::NONE,
         'ERROR' => self::ERROR,
         'WARN' => self::WARN,
         'INFO' => self::INFO,
