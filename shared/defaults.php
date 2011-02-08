@@ -24,7 +24,7 @@
 <?php
 
     /**
-     * If you are changing ZM_ROOT, make sure to update 
+     * If you are changing ZM_ROOT, make sure to update
      * ..\zen-cart\includes\init_includes\overrides\init_templates.php
      * and
      * ..\zen-cart\admin\includes\init_includes\overrides\init_templates.php
@@ -50,7 +50,7 @@
     define('ZM_TABLE_ADMINS_TO_ROLES', ZM_DB_PREFIX . 'admins_to_roles');
     define('ZM_TABLE_ADMIN_PREFS', ZM_DB_PREFIX . 'admin_prefs');
     define('ZM_TABLE_SACS_PERMISSIONS', ZM_DB_PREFIX . 'sacs_permissions');
-    
+
 
     //** date/time formats used internally by all models **//
     define('ZM_DATE_FORMAT', 'yyyy-mm-dd');
@@ -89,10 +89,6 @@
             'zenmagick.core.cache.mapping.defaults' => array(),
             'zenmagick.core.cache.provider.file.baseDir' => dirname(zenmagick\base\Runtime::getInstallationPath()).'/cache/zenmagick/',
 
-            /*** plugins ***/
-            'zenmagick.core.plugins.enabled' => true,
-        
-        
             /*** security ***/
             'zenmagick.core.authentication.minPasswordLength' => ENTRY_PASSWORD_MIN_LENGTH < 6 ? 6 : ENTRY_PASSWORD_MIN_LENGTH,
             'zenmagick.mvc.sacs.handler' => 'ZMZenCartAccountSacsHandler',
@@ -154,7 +150,7 @@
             // template suffix/extension
             'zenmagick.mvc.templates.ext' => '.php',
 
-            // enable gift vouchers 
+            // enable gift vouchers
             'isEnabledGV' => MODULE_ORDER_TOTAL_GV_STATUS == 'true',
 
             // enable coupons
@@ -191,7 +187,7 @@
 
             // default product association handler
             'defaultProductAssociationHandler' => 'SimilarOrderProductAssociationHandler',
-        
+
             // sidebox block provider
             'zenmagick.mvc.blocks.blockProviders' => 'StoreBlockProvider',
 
@@ -371,7 +367,7 @@
              * Layout/API behaviour
              **************************************/
 
-            // max 
+            // max
             'maxBestSellers' => MAX_DISPLAY_BESTSELLERS,
             'maxSpecialProducts' => MAX_RANDOM_SELECT_SPECIALS,
             'maxNewProducts' => SHOW_NEW_PRODUCTS_LIMIT,
@@ -424,7 +420,7 @@
             'isOrderTotalFreeShipping' => defined('MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING') && MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING == 'true',
             'freeShippingDestination' => MODULE_ORDER_TOTAL_SHIPPING_DESTINATION,
             'freeShippingOrderThreshold' => MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING_OVER,
-         
+
 
             /**************************************
              * Banner

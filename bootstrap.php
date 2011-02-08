@@ -63,6 +63,9 @@ use Symfony\Component\Yaml\Yaml;
     $baseLoader->register();
     unset($baseLoader);
 
+    // as default disable plugins for CLI calls
+    Runtime::getSettings()->set('zenmagick.base.plugins.enabled', !ZM_CLI_CALL);
+
 // XXX: legacy loader
 require_once ZM_BASE_PATH."lib/core/ZMLoader.php";
 spl_autoload_register('ZMLoader::resolve');
@@ -101,7 +104,7 @@ ZMLoader::instance()->loadStatic();
 ZMSettings::load(file_get_contents(ZMFileUtils::mkPath(Runtime::getApplicationPath(), 'config', 'config.yaml')), false);
 
     // hook up default event listeners
-    foreach (explode(',', Runtime::getSettings()->get('zenmagick.core.events.listeners')) as $_zm_elc) {
+    foreach (explode(',', Runtime::getSettings()->get('zenmagick.base.events.listeners')) as $_zm_elc) {
         if (null != ($_zm_el = Beans::getBean(trim($_zm_elc)))) {
             Runtime::getEventDispatcher()->listen($_zm_el);
         }
@@ -113,9 +116,6 @@ ZMSettings::load(file_get_contents(ZMFileUtils::mkPath(Runtime::getApplicationPa
     // sacs mappings
     ZMSacsManager::instance()->load(file_get_contents(ZMFileUtils::mkPath(Runtime::getApplicationPath(), 'config', 'sacs_mappings.yaml')), false);
     ZMSacsManager::instance()->loadProviderMappings(ZMSettings::get('zenmagick.mvc.sacs.mappingProviders'));
-
-    // as default disable plugins for CLI calls
-    ZMSettings::set('zenmagick.core.plugins.enabled', !ZM_CLI_CALL);
 
     // create the main request instance
     $request = $_zm_request = ZMRequest::instance();
@@ -136,7 +136,7 @@ ZMSettings::load(file_get_contents(ZMFileUtils::mkPath(Runtime::getApplicationPa
     }
 
     // upset plugins if required
-    if (ZMSettings::get('zenmagick.core.plugins.enabled')) {
+    if (Runtime::getSettings()->get('zenmagick.base.plugins.enabled')) {
         foreach (ZMPlugins::instance()->initAllPlugins(ZMSettings::get('zenmagick.core.plugins.context', 0)) as $plugin) {
             if ($plugin instanceof ZMRequestHandler) {
                 $plugin->initRequest($_zm_request);
