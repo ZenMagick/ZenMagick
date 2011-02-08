@@ -172,7 +172,7 @@ class Beans {
      */
     public static function map2obj($clazz, $data, $keys=null) {
         //TODO: remove once we get rid of ZMLoader
-        $zmloader = \ZMLoader::resolve($clazz);
+        $zmloader = class_exists('\ZMLoader') ? \ZMLoader::resolve($clazz) : null;
         if (ClassLoader::classExists($clazz) && (null == $zmloader || $zmloader == $clazz)) {
             $obj = new $clazz();
             self::setAll($obj, $data, $keys);

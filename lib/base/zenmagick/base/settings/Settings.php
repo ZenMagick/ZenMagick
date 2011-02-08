@@ -21,6 +21,9 @@
 <?php
 namespace zenmagick\base\settings;
 
+use zenmagick\base\Toolbox;
+
+
 /**
  * A hierarchical settings repository.
  *
@@ -140,7 +143,7 @@ class Settings {
         if ($settings instanceof Settings) {
             $settings = $settings->getAll();
         }
-        $this->settings_ = \ZMLangUtils::arrayMergeRecursive($this->settings_, $settings);
+        $this->settings_ = Toolbox::arrayMergeRecursive($this->settings_, $settings);
     }
 
 }
