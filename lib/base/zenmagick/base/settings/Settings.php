@@ -19,7 +19,7 @@
  */
 ?>
 <?php
-namespace zenmagick\base;
+namespace zenmagick\base\settings;
 
 /**
  * A hierarchical settings repository.

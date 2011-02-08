@@ -20,7 +20,7 @@
 ?>
 <?php
 
-use zenmagick\base\Settings;
+use zenmagick\base\settings\Settings;
 
 /**
  * Test settings

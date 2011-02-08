@@ -128,7 +128,7 @@ class Runtime {
      * @return Settings A <code>Settings</code> instance.
      */
     public static function getSettings() {
-        return self::singleton('\zenmagick\base\Settings');        
+        return self::singleton('\zenmagick\base\settings\Settings');        
     }
 
 }
