@@ -14,7 +14,7 @@ zenmagick.core.database.mappings.autoMap.enabled: true
 zenmagick.core.logging.level: INFO
 zenmagick.core.logging.enabled: false
 zenmagick.core.logging.handleErrors: true
-zenmagick.base.logging.handler: \zenmagick\base\logging\handler\DefaultLoggingHandler
+zenmagick.base.logging.handler: zenmagick\base\logging\handler\DefaultLoggingHandler
 
 ## fs
 zenmagick.core.fs.permissions.fix: true
@@ -24,7 +24,7 @@ zenmagick.core.fs.permissions.defaults.folder: 0777
 
 zenmagick.core.locales.locale: en_NZ
 
-zenmagick.core.events.listeners: EventFixes,EmailFixes
+zenmagick.core.events.listeners: EventFixes,EmailFixes,zenmagick\apps\store\StoreEventListener
 
 zenmagick.mvc.request.seoRewriter: StoreDefaultSeoRewriter
 zenmagick.mvc.request.idName: main_page
