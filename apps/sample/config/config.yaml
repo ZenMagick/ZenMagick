@@ -2,8 +2,18 @@
 # default settings
 #
 
-zenmagick.mvc.templates.ext: .tpl
-zenmagick.mvc.seo.type: realpath
+zenmagick:
+  mvc:
+    templates:
+      ext: .tpl
+    seo:
+      type: realpath
 
-zenmagick.core.locales.provider: YamlLocale
-zenmagick.core.events.listeners: SampleEventHandler
+  core:
+    locales:
+      provider: YamlLocale
+
+  base:
+    events:
+      listeners:
+        - ZMSampleEventHandler

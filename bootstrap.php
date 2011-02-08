@@ -98,14 +98,13 @@ ZMLoader::instance()->addPath(Runtime::getApplicationPath().DIRECTORY_SEPARATOR.
     }
 
     // load application config
-    //Runtime::getSettings()->setAll(Yaml::load(Runtime::getApplicationPath().DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.'config.yaml'));
+    Runtime::getSettings()->setAll(Yaml::load(Runtime::getApplicationPath().DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.'config.yaml'));
 
 // XXX: legacy: load static stuff and leave the rest to autoload
 ZMLoader::instance()->loadStatic();
-ZMSettings::load(file_get_contents(ZMFileUtils::mkPath(Runtime::getApplicationPath(), 'config', 'config.yaml')), false);
 
     // hook up default event listeners
-    foreach (explode(',', Runtime::getSettings()->get('zenmagick.base.events.listeners')) as $_zm_elc) {
+    foreach (Runtime::getSettings()->get('zenmagick.base.events.listeners') as $_zm_elc) {
         if (null != ($_zm_el = Beans::getBean(trim($_zm_elc)))) {
             Runtime::getEventDispatcher()->listen($_zm_el);
         }

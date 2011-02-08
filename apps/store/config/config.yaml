@@ -1,42 +1,73 @@
 #
-# default settings
+# storefront settings
 #
 
-## version
-zenmagick.version: ${zenmagick.version}
+## general settings
+zenmagick:
+  version: ${zenmagick.version}
 
-## db
-zenmagick.core.database.mappings.file: config/db_mappings.txt
-zenmagick.core.database.mappings.cache.enabled: false
-zenmagick.core.database.mappings.autoMap.enabled: true
+  ## core
+  core:
+    ## db
+    database:
+      provider: ZMPdoDatabase
+      mappings:
+        file: config/db_mappings.txt
+        cache:
+          enabled: false
+        autoMap:
+          enabled: true
 
-## logging
-zenmagick.core.logging.level: INFO
-zenmagick.core.logging.enabled: false
-zenmagick.core.logging.handleErrors: true
-zenmagick.base.logging.handler: zenmagick\base\logging\handler\DefaultLoggingHandler
+    ## logging
+    logging:
+      level: INFO
+      enabled: false
+      handleErrors: true
+      handler:
+        - zenmagick\base\logging\handler\DefaultLoggingHandler
 
-## fs
-zenmagick.core.fs.permissions.fix: true
-zenmagick.core.fs.permissions.defaults.file: 0666
-zenmagick.core.fs.permissions.defaults.folder: 0777
+    ## locales
+    locales:
+      locale: en_NZ
+      provider: YamlLocale
+
+    ## fs
+    fs:
+      permissions:
+        fix: true
+        defaults:
+          file: 0666
+          folder: 0777
+
+  ## base
+  base:
+    ## events
+    events:
+      listeners:
+        - ZMEventFixes
+        - ZMEmailFixes
+        - zenmagick\apps\store\StoreEventListener
 
 
-zenmagick.core.locales.locale: en_NZ
+  ## mvc
+  mvc:
+    ## request
+    request:
+      idName: main_page
+      invalidSession: cookie_usage
+      seoRewriter: StoreDefaultSeoRewriter
 
-zenmagick.base.events.listeners: EventFixes,EmailFixes,zenmagick\apps\store\StoreEventListener
+    ## html
+    html:
+      xhtml: true
+      charset: utf-8
+ 
+    ## view
+    view:
+      #default: SavantView
+      default: 'SavantView#config=cache%3DSimpleSavantCache&filters=ShortTagFilter'
+      defaultLayout: default_layout
 
-zenmagick.mvc.request.seoRewriter: StoreDefaultSeoRewriter
-zenmagick.mvc.request.idName: main_page
-#zenmagick.mvc.view.default: SavantView
-zenmagick.mvc.view.default: SavantView#config=cache%3DSimpleSavantCache&filters=ShortTagFilter
-#zenmagick.mvc.view.default: SavantView#filters=ShortTagFilter
-zenmagick.mvc.request.invalidSession: cookie_usage
-
-
-zenmagick.mvc.toolbox.tools: net:ToolboxNet,html:ToolboxHtml,form:ToolboxForm,macro:ToolboxMacro,locale:ToolboxLocale,utils:ToolboxUtils,crumbtrail:ToolboxCrumbtrail,metaTags:ToolboxMetaTags
-
-zenmagick.mvc.html.dir: ltr
-zenmagick.mvc.html.xhtml: true
-zenmagick.mvc.html.charset: utf-8
-
+    ## toolbox tools
+    toolbox:
+      tools: net:ToolboxNet,html:ToolboxHtml,form:ToolboxForm,macro:ToolboxMacro,locale:ToolboxLocale,utils:ToolboxUtils,crumbtrail:ToolboxCrumbtrail,metaTags:ToolboxMetaTags

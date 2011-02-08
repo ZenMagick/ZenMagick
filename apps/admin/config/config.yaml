@@ -1,68 +1,102 @@
 #
-# default settings
+# admin settings
 #
 
-## version
-zenmagick.version: ${zenmagick.version}
+## general settings
+zenmagick:
+  version: ${zenmagick.version}
 
-## db
-zenmagick.core.database.mappings.file: config/db_mappings.txt
-zenmagick.core.database.mappings.cache.enabled: false
-zenmagick.core.database.mappings.autoMap.enabled: true
+  ## core
+  core:
+    ## db
+    database:
+      provider: ZMPdoDatabase
+      mappings:
+        file: config/db_mappings.txt
+        cache:
+          enabled: false
+        autoMap:
+          enabled: true
 
-## logging
-zenmagick.core.logging.level: ALL
-zenmagick.core.logging.enabled: false
-zenmagick.core.logging.handleErrors: true
-zenmagick.base.logging.handler: zenmagick\base\logging\handler\DefaultLoggingHandler
+    ## logging
+    logging:
+      level: ALL
+      enabled: false
+      handleErrors: true
+      handler:
+        - zenmagick\base\logging\handler\DefaultLoggingHandler
 
-## fs
-zenmagick.core.fs.permissions.fix: true
-zenmagick.core.fs.permissions.defaults.file: 0666
-zenmagick.core.fs.permissions.defaults.folder: 0777
+    ## locales
+    locales:
+      locale: en_NZ
+      provider: PomoLocale
+
+    ## fs
+    fs:
+      permissions:
+        fix: true
+        defaults:
+          file: 0666
+          folder: 0777
+
+  ## base
+  base:
+    ## events
+    events:
+      listeners:
+        - AdminEventHandler
+        - EmailFixes
+  
+  ## mvc
+  mvc:
+    ## templates
+    templates:
+      ext: .php
+
+    ## view
+    view:
+      default: ZMSavantView
+      defaultLayout: default_layout
+
+    ## request
+    request:
+      index: index.php
+      invalidSession: login
+      seoRewriter: DefaultSeoRewriter
+
+    ## seo
+    seo:
+      type: default
+
+    ## html
+    html:
+      xhtml: false
+      charset: utf-8
+
+    ## sacs
+    sacs:
+      handler: UserRoleSacsHandler
+      mappingProviders: DBSacsPermissionProvider
+
+    ## rpc
+    rpc:
+      format: JSON
+
+    ## session
+    session:
+      userFactory: AdminUserFactory
+
+    ## toolbox tools
+    toolbox:
+      tools: net:ToolboxNet,html:ToolboxHtml,form:ToolboxForm,macro:ToolboxMacro,locale:ToolboxLocale,utils:ToolboxUtils,admin:ToolboxAdmin,admin2:ToolboxAdmin2
 
 
-
-
-zenmagick.mvc.templates.ext: .php
-
-zenmagick.core.locales.locale: en_NZ
-zenmagick.core.locales.provider: PomoLocale
-zenmagick.base.events.listeners: AdminEventHandler,EmailFixes
-
-
-zenmagick.core.database.provider: ZMPdoDatabase
-zenmagick.core.database.mappings.file: config/db_mappings.txt
-
-zenmagick.mvc.view.default: ZMSavantView
-zenmagick.mvc.view.defaultLayout: default_layout
-zenmagick.mvc.request.invalidSession: login
-
-zenmagick.mvc.request.seoRewriter: DefaultSeoRewriter
-zenmagick.mvc.seo.type: default
-
-zenmagick.mvc.html.dir: ltr
-zenmagick.mvc.html.xhtml: false
-zenmagick.mvc.html.charset: utf-8
-
-zenmagick.mvc.sacs.handler: UserRoleSacsHandler
-zenmagick.mvc.sacs.mappingProviders: DBSacsPermissionProvider
-
-## the main request handler (ie. the single point of entry in admin/web)
-zenmagick.mvc.request.index: index.php
-## show login again if no session possible; this is a requestId
-zenmagick.mvc.request.invalidSession: login
-
-zenmagick.mvc.rpc.format: JSON
-
-zenmagick.mvc.session.userFactory: AdminUserFactory
-
-## toolbox tools
-zenmagick.mvc.toolbox.tools: net:ToolboxNet,html:ToolboxHtml,form:ToolboxForm,macro:ToolboxMacro,locale:ToolboxLocale,utils:ToolboxUtils,admin:ToolboxAdmin,admin2:ToolboxAdmin2
-
+## app settings
 ## all available dashboard widgets
-apps.store.dashboad.widgets: ZMOrderStatsDashboardWidget,ZMLatestOrdersDashboardWidget,ZMLatestAccountsDashboardWidget,ZMRecentSearchesDashboardWidget,ZMUpdateCheckerDashboardWidget,ZMPendingDashboardWidget
-
-## this is JSON
-apps.store.dashboad.default: '{"layout":"col2l","widgets":[["ZMOrderStatsDashboardWidget","ZMLatestAccountsDashboardWidget"],["ZMLatestOrdersDashboardWidget"]]}'
-apps.store.catalog.controller: CatalogDefaultTabController
+apps:
+  store:
+    dashboad:
+      widgets: ZMOrderStatsDashboardWidget,ZMLatestOrdersDashboardWidget,ZMLatestAccountsDashboardWidget,ZMRecentSearchesDashboardWidget,ZMUpdateCheckerDashboardWidget,ZMPendingDashboardWidget
+      default: '{"layout":"col2l","widgets":[["ZMOrderStatsDashboardWidget","ZMLatestAccountsDashboardWidget"],["ZMLatestOrdersDashboardWidget"]]}'
+    catalog:
+      controller: CatalogDefaultTabController
