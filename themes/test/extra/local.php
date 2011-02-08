@@ -33,7 +33,7 @@
     //echo split_desc($s, true)."<BR>"; echo split_desc($s, false)."<BR>";
 
     class RestrictCategory {
-        public function onZMInitDone($args=null) {
+        public function onInitDone($args=null) {
             $request = $args['request'];
             if (in_array($request->getRequestId(), array('index', 'category', 'product_info'))) {
                 $catPath = $request->getCategoryPath();
@@ -50,7 +50,7 @@
             }
         }
     }
-    ZMEvents::instance()->attach(new RestrictCategory());
+    zenmagick\base\Runtime::getEventDispatcher()->listen(new RestrictCategory());
 
     if ('haml_product' == ZMRequest::instance()->getRequestId()) {
         ZMUrlManager::instance()->setMapping('haml_product', array(
@@ -74,7 +74,7 @@
     }
 
     class SearchLogger {
-        public function onZMSearch($args) {
+        public function onSearch($args) {
             $criteria = $args['criteria'];
 				    if (!isset($_SESSION['search_log_term']) || ($_SESSION['search_log_term'] != $criteria->getKeywords())) {
 					      $_SESSION['search_log_term'] = $criteria->getKeywords();
@@ -87,7 +87,7 @@
         }
     }
 
-    ZMEvents::instance()->attach(new SearchLogger());
+    zenmagick\base\Runtime::getEventDispatcher()->listen(new SearchLogger());
 
     // programmatically change the url mapping
     ZMUrlManager::instance()->setMapping('privacy', array('view' => 'RedirectView#url=http://www.dilbert.com/'));

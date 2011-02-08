@@ -23,6 +23,8 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
+use zenmagick\base\events\Event;
 
 /**
  * Request controller for forgotten passwords.
@@ -50,7 +52,7 @@ class ZMPasswordForgottenController extends ZMController {
     /**
      * {@inheritDoc}
      */
-    public function preProcess($request) { 
+    public function preProcess($request) {
         $request->getToolbox()->crumbtrail->addCrumb($request->getToolbox()->utils->getTitle());
     }
 
@@ -75,12 +77,7 @@ class ZMPasswordForgottenController extends ZMController {
         $context = array('password' => $newPassword);
         zm_mail(sprintf(_zm("Forgotten Password - %s"), ZMSettings::get('storeName')), 'password_forgotten', $context, $emailAddress, $account->getFullName());
 
-        ZMEvents::instance()->fireEvent($this, Events::PASSWORD_CHANGED, array(
-                'controller' => $this, 
-                'account' => $account, 
-                'clearPassword' => $newPassword
-            )
-        );
+        Runtime::getEventDispatcher()->notify(new Event($this, 'password_changed', array('controller' => $this, 'account' => $account, 'clearPassword' => $newPassword)));
 
         // report success
         ZMMessages::instance()->success(_zm('A new password has been sent to your email address.'));

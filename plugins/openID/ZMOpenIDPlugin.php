@@ -22,7 +22,7 @@
 
 define('FILENAME_OPEN_ID', 'openID');
 define('OPENID_ENABLED', true);
-define('Auth_OpenID_RAND_SOURCE', null); 
+define('Auth_OpenID_RAND_SOURCE', null);
 
 
 /**
@@ -70,6 +70,7 @@ class ZMOpenIDPlugin extends Plugin {
      */
     public function init() {
         parent::init();
+        zenmagick\base\Runtime::getEventDispatcher()->listen($this);
 
         // add OpenID field to accounts fields list
         ZMSettings::append('zenmagick.core.database.sql.customers.customFields', 'openid;string');
@@ -88,10 +89,8 @@ class ZMOpenIDPlugin extends Plugin {
      *
      * <p>Setup additional validation rules; this is done here to avoid getting in the way of
      * custom global/theme validation rule setups.</p>
-     *
-     * @param array args Optional parameter.
      */
-    public function onZMInitDone($args=null) {
+    public function onInitDone($event) {
         // initial rule
         $rules = array(
             array('RequiredRule', 'openid', 'Please enter your OpenID.')

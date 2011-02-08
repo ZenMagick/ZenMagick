@@ -22,6 +22,7 @@
 use zenmagick\base\Runtime;
 use zenmagick\base\Beans;
 use zenmagick\base\ClassLoader;
+use zenmagick\base\events\Event;
 use Symfony\Component\Yaml\Yaml;
 
 
@@ -121,7 +122,7 @@ ZMSettings::load(file_get_contents(ZMFileUtils::mkPath(Runtime::getApplicationPa
     $request = $_zm_request = ZMRequest::instance();
 
     // app config and code loaded; do not log to allow plugins to provider alternative logger
-    ZMEvents::instance()->fireEvent(null, 'app_init_done', array('request' => $_zm_request), false);
+    Runtime::getEventDispatcher()->notify(new Event(null, 'app_init_done',  array('request' => $_zm_request)));
 
     // load global settings
     if (file_exists(ZM_BASE_PATH.'local.php')) {
@@ -154,4 +155,4 @@ ZMSettings::load(file_get_contents(ZMFileUtils::mkPath(Runtime::getApplicationPa
     ZMLocales::instance()->init(ZMSettings::get('zenmagick.core.locales.locale'));
 
     // core and plugins loaded
-    ZMEvents::instance()->fireEvent(null, 'bootstrap_done', array('request' => $_zm_request));
+    Runtime::getEventDispatcher()->notify(new Event(null, 'bootstrap_done',  array('request' => $_zm_request)));

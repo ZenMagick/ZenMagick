@@ -23,6 +23,8 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
+use zenmagick\base\events\Event;
 
 /**
  * Request controller for account creation page.
@@ -71,7 +73,7 @@ class ZMCreateAccountController extends ZMController {
     /**
      * {@inheritDoc}
      */
-    public function preProcess($request) { 
+    public function preProcess($request) {
         $request->getToolbox()->crumbtrail->addCrumb("Account", $request->url('account', '', true));
         $request->getToolbox()->crumbtrail->addCrumb($request->getToolbox()->utils->getTitle());
     }
@@ -99,14 +101,8 @@ class ZMCreateAccountController extends ZMController {
         }
 
         // here we have a proper account, so time to let other know about it
-        ZMEvents::instance()->fireEvent($this, Events::CREATE_ACCOUNT, array(
-                'request' => $request, 
-                'controller' => $this, 
-                'account' => $account, 
-                'address' => $address, 
-                'clearPassword' => $clearPassword
-            )
-        );
+        $args = array('request' => $request, 'controller' => $this, 'account' => $account, 'address' => $address, 'clearPassword' => $clearPassword);
+        Runtime::getEventDispatcher()->notify(new Event($this, 'create_account', $args));
 
         // in case it got changed
         ZMAccounts::instance()->updateAccount($account);

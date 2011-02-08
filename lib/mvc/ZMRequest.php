@@ -21,6 +21,7 @@
 <?php
 
 use zenmagick\base\Runtime;
+use zenmagick\base\events\Event;
 
 
 /**
@@ -33,8 +34,8 @@ use zenmagick\base\Runtime;
  * @package org.zenmagick.mvc
  */
 class ZMRequest extends \ZMObject {
-    /** 
-     * Default paramter name containing the request id. 
+    /**
+     * Default paramter name containing the request id.
      *
      * <p>Will be used if the 'zenmagick.mvc.request.idName' is not set.</p>
      */
@@ -93,7 +94,7 @@ class ZMRequest extends \ZMObject {
     /**
      * Get instance.
      *
-     * <p>A final straw to get the shared request instance if nothing else is 
+     * <p>A final straw to get the shared request instance if nothing else is
      * available.</p>
      */
     public static function instance() {
@@ -264,10 +265,10 @@ class ZMRequest extends \ZMObject {
      *
      * @return ZMSession The session.
      */
-    public function getSession() { 
-        if (!isset($this->session_)) { 
-            $this->session_ = \ZMBeanUtils::getBean("Session"); 
-        } 
+    public function getSession() {
+        if (!isset($this->session_)) {
+            $this->session_ = \ZMBeanUtils::getBean("Session");
+        }
 
         return $this->session_;
     }
@@ -277,7 +278,7 @@ class ZMRequest extends \ZMObject {
      *
      * @param ZMSession session The session.
      */
-    public function setSession($session) { 
+    public function setSession($session) {
         $this->session_ = $session;
     }
 
@@ -314,7 +315,7 @@ class ZMRequest extends \ZMObject {
      * @param boolean sanitize If <code>true</code>, sanitze value; default is <code>true</code>.
      * @return array Map of all request parameters
      */
-    public function getParameterMap($sanitize=true) { 
+    public function getParameterMap($sanitize=true) {
         $map = array();
         foreach (array_keys($this->parameter_) as $key) {
             // checkbox special case
@@ -380,14 +381,14 @@ class ZMRequest extends \ZMObject {
      * @param boolean sanitize If <code>true</code>, sanitze value; default is <code>true</code>.
      * @return mixed The parameter value or the default value or <code>null</code>.
      */
-    public function getParameter($name, $default=null, $sanitize=true) { 
+    public function getParameter($name, $default=null, $sanitize=true) {
         if (isset($this->parameter_[$name])) {
             return $sanitize ? \ZMSecurityUtils::sanitize($this->parameter_[$name]) : $this->parameter_[$name];
         }
 
         // special case for checkboxes/radioboxes?
         if (isset($this->parameter_['_'.$name])) {
-            // checkbox boolean value 
+            // checkbox boolean value
             return false;
         }
 
@@ -401,7 +402,7 @@ class ZMRequest extends \ZMObject {
      * @param mixed value The value.
      * @return mixed The previous value or <code>null</code>.
      */
-    public function setParameter($name, $value) { 
+    public function setParameter($name, $value) {
         $old = null;
         if (isset($this->parameter_[$name])) {
             $old = $this->parameter_[$name];
@@ -419,12 +420,12 @@ class ZMRequest extends \ZMObject {
      *
      * @return ZMController The current controller.
      */
-    public function getController() { 
+    public function getController() {
         if (null === $this->controller_) {
             $this->controller_ = \ZMUrlManager::instance()->findController($this->getRequestId());
         }
 
-        return $this->controller_; 
+        return $this->controller_;
     }
 
     /**
@@ -442,7 +443,7 @@ class ZMRequest extends \ZMObject {
      * @return boolean <code>true</code> if the current request is secure; eg. SSL, <code>false</code> if not.
      */
     public function isSecure() {
-        return (isset($_SERVER['SERVER_PORT']) && 443 == $_SERVER['SERVER_PORT']) 
+        return (isset($_SERVER['SERVER_PORT']) && 443 == $_SERVER['SERVER_PORT'])
             || (isset($_SERVER['HTTPS']) && \ZMLangUtils::asBoolean($_SERVER['HTTPS']));
     }
 
@@ -454,7 +455,7 @@ class ZMRequest extends \ZMObject {
      */
     public function redirect($url, $status=302) {
         $url = str_replace('&amp;', '&', $url);
-        \ZMEvents::instance()->fireEvent($this, 'redirect', array('request' => $this, 'url' => $url));
+        Runtime::getEventDispatcher()->notify(new Event($this, 'redirect',  array('request' => $request, 'url' => $url)));
         \ZMLogging::instance()->trace('redirect url: ' . $url, \ZMLogging::TRACE);
         \ZMMessages::instance()->saveMessages($this->getSession());
         $this->closeSession();

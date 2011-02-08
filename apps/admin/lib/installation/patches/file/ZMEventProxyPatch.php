@@ -23,7 +23,7 @@
 define('_ZM_ZEN_BASE_PHP', DIR_FS_CATALOG.DIR_WS_CLASSES."class.base.php");
 
 /**
- * Patch to register <code>ZMEvents</code> as global event handler.
+ * Patch to hook up ZenMagick as glboal zencart event listener.
  *
  * @author DerManoMann
  * @package zenmagick.store.admin.installation.patches.file
@@ -58,7 +58,7 @@ class ZMEventProxyPatch extends ZMFilePatch {
 
         // look for ZenMagick code...
         foreach ($lines as $line) {
-            if (false !== strpos($line, '$zm_events') || false !== strpos($line, 'ZMEvents::instance()')) {
+            if (false !== strpos($line, '$zm_events') || false !== strpos($line, 'ZMEvents::instance()') || false !== strpos($line, 'getEventDispatcher()')) {
                 return false;
             }
         }
@@ -106,7 +106,7 @@ class ZMEventProxyPatch extends ZMFilePatch {
                     array_push($patchedLines, $line);
                     if (false !== strpos($line, "function notify(")) {
                         // need to insert after the matched line
-                        array_push($patchedLines, '    if(class_exists("ZMEvents")) { ZMEvents::instance()->update($this, $eventID, $paramArray); } /* added by ZenMagick installation patcher */');
+                        array_push($patchedLines, '    if(class_exists("zenmagick\\\base\\\Runtime")) { zenmagick\\base\\Runtime::getEventDispatcher()->notify(new zenmagick\\base\\events\\Event($this, $eventID, $paramArray)); } /* added by ZenMagick installation patcher */');
                     }
                 }
 
@@ -138,7 +138,7 @@ class ZMEventProxyPatch extends ZMFilePatch {
         if (is_writeable(_ZM_ZEN_BASE_PHP)) {
             $unpatchedLines = array();
             foreach ($lines as $line) {
-                if (false !== strpos($line, '$zm_events') || false !== strpos($line, 'ZMEvents::instance()')) {
+                if (false !== strpos($line, '$zm_events') || false !== strpos($line, 'ZMEvents::instance()') || false !== strpos($line, 'getEventDispatcher()')) {
                     continue;
                 }
                 array_push($unpatchedLines, $line);
@@ -152,5 +152,5 @@ class ZMEventProxyPatch extends ZMFilePatch {
 
         return true;
     }
-    
+
 }

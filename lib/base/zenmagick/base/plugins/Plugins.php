@@ -23,6 +23,7 @@ namespace zenmagick\base\plugins;
 
 use zenmagick\base\Runtime;
 use zenmagick\base\ClassLoader;
+use zenmagick\base\events\Event;
 
 /**
  * Basic plugin service.
@@ -332,7 +333,7 @@ class Plugins {
                 $this->plugins_[$id] = array('plugin' => $plugin, 'init' => true);
             }
         }
-        \ZMEvents::instance()->fireEvent($this, 'init_plugin_group_done', array('ids' => $ids, 'plugins' => $plugins));
+        Runtime::getEventDispatcher()->notify(new Event($this, 'init_plugin_group_done', array('ids' => $ids, 'plugins' => $plugins)));
 
         return $plugins;
     }

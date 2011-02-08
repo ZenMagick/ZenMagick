@@ -18,9 +18,9 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 ?>
-<?php  
+<?php
 
     //TODO: this is default as the password column is restricted to 40 chars
     ZMAuthenticationManager::instance()->addProvider('ZenCartAuthentication', true);
 
-    ZMEvents::instance()->attach(new ZMAdminEventHandler());
+    zenmagick\base\Runtime::getEventDispatcher()->listen(new ZMAdminEventHandler());

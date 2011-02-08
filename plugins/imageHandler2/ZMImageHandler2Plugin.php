@@ -60,15 +60,15 @@ class ZMImageHandler2Plugin extends Plugin {
      */
     public function init() {
         parent::init();
-        ZMEvents::instance()->attach($this);
+        zenmagick\base\Runtime::getEventDispatcher()->listen($this);
     }
 
     /**
      * Add resources.
      */
-    public function onZMViewStart($args) {
+    public function onViewStart($event) {
         if (!ZMLangUtils::asBoolean($this->get('disableIH2Attributes'))) {
-            if (null != ($viewUtils = $args['view']->getViewUtils())) {
+            if (null != ($viewUtils = $event->get('view')->getViewUtils())) {
                 $viewUtils->cssFile('ih2/style_imagehover.css');
                 $viewUtils->jsFile('ih2/jscript_imagehover.js', ZMViewUtils::HEADER);
             }

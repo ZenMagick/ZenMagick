@@ -20,6 +20,8 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
+use zenmagick\base\events\Event;
 
 /**
  * Admin controller for email previews.
@@ -75,8 +77,7 @@ class ZMEmailPreviewController extends ZMController {
             $emails->setViewViewId('store-view');
 
             $context = $this->getInitialContext($request);
-            $args = ZMEvents::instance()->fireEvent($this, 'email_preview', array('template' => $template, 'format' => $format, 'context' => $context, 'request' => $request));
-            $context = $args['context'];
+            $context = Runtime::getEventDispatcher()->filter(new Event($this, 'email_preview', array('template' => $template, 'format' => $format, 'request' => $request), $context);
 
             $content = $emails->createContents($template, 'html'==$format, $request, $context);
             if ('text' == $format) {

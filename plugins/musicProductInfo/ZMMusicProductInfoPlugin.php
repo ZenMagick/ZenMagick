@@ -77,10 +77,10 @@ class ZMMusicProductInfoPlugin extends Plugin {
     public function init() {
         parent::init();
 
-        ZMEvents::instance()->attach($this);
+        zenmagick\base\Runtime::getEventDispatcher()->listen($this);
 
         // attach mediaUrl method to the $net toolbox tool
-        ZMObject::attachMethod('mediaUrl', 'ZMToolboxNet', 
+        ZMObject::attachMethod('mediaUrl', 'ZMToolboxNet',
             array($this, 'mediaUrl'));
 
         // add mapping for this product type
@@ -90,12 +90,12 @@ class ZMMusicProductInfoPlugin extends Plugin {
     }
 
     /**
-     * {@inheritDocs}
+     * Event handler.
      */
-    public function onZMViewStart($args) {
-        $view = $args['view'];
+    public function onViewStart($event) {
+        $view = $event->get('view');
         if ('product_music_info' == $view->getViewId()) {
-            $request = $args['request'];
+            $request = $event->get('request');
             $musicManager = ZMMusicManager::instance();
             // artist information
             $artist = $musicManager->getArtistForProductId($request->getProductId(), $request->getSession()->getLanguageId());

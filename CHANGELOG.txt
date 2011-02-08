@@ -35,6 +35,7 @@ Release 0.9.12
 - drop ZMMVCConstants
 - drop ZMEvents::xxx event constants
 - add applicationPath/plugins to plugin base dir list
+- replace ZMEvents/Events code with new event dispatcher and remove
 
 Release 0.9.11.1
 - remove debug code

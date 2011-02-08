@@ -20,6 +20,8 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
+use zenmagick\base\events\Event;
 
 /**
  * Basic plugin service.
@@ -100,7 +102,7 @@ class ZMPlugins extends ZMObject {
             foreach (ZMRuntime::getPluginBasePath() as $basePath) {
                 $this->pathIdMap_[$basePath] = array();
                 if (false !== ($handle = @opendir($basePath))) {
-                    while (false !== ($file = readdir($handle))) { 
+                    while (false !== ($file = readdir($handle))) {
                         if (ZMLangUtils::startsWith($file, '.')) {
                             continue;
                         }
@@ -352,7 +354,8 @@ class ZMPlugins extends ZMObject {
                 $this->plugins_[$id] = array('plugin' => $plugin, 'init' => true);
             }
         }
-        ZMEvents::instance()->fireEvent($this, 'init_plugin_group_done', array('ids' => $ids, 'plugins' => $plugins));
+
+        Runtime::getEventDispatcher()->notify(new Event($this, 'init_plugin_group_done', array('ids' => $ids, 'plugins' => $plugins)));
 
         return $plugins;
     }

@@ -19,6 +19,7 @@
  */
 ?>
 <?php
+
 use zenmagick\base\Runtime;
 use zenmagick\base\events\Event;
 
@@ -42,17 +43,16 @@ class ZMDispatcher {
         // load saved messages
         \ZMMessages::instance()->loadMessages($request->getSession());
 
-        \ZMEvents::instance()->fireEvent(null, 'dispatch_start', array('request' => $request));
+        Runtime::getEventDispatcher()->notify(new Event(null, 'dispatch_start', array('request' => $request)));
         $view = self::handleRequest($request);
-        \ZMEvents::instance()->fireEvent(null, 'dispatch_done', array('request' => $request));
+        Runtime::getEventDispatcher()->notify(new Event(null, 'dispatch_done', array('request' => $request)));
 
         // allow plugins and event subscribers to filter/modify the final contents; corresponds with ob_start() in init.php
-        $args = \ZMEvents::instance()->fireEvent(null, 'finalise_contents', 
-                    array('request' => $request, 'view' => $view, 'contents' => ob_get_clean()));
-        $contents = Runtime::getEventDispatcher()->filter(new Event(null, 'finalise_contents', $args), $args['contents']);
+        $contents = Runtime::getEventDispatcher()->filter(new Event(null, 'finalise_contents', array('request' => $request, 'view' => $view)), ob_get_clean());
         echo $contents;
 
-        \ZMEvents::instance()->fireEvent(null, 'all_done', array('request' => $request, 'view' => $view, 'contents' => $contents));
+        // all done
+        Runtime::getEventDispatcher()->notify(new Event(null, 'all_done',  array('request' => $request, 'view' => $view, 'contents' => $contents)));
     }
 
     /**
@@ -86,15 +86,15 @@ class ZMDispatcher {
                 header($s);
             }
 
-            \ZMEvents::instance()->fireEvent($view, 'view_start', array('request' => $request, 'view' => $view));
+            Runtime::getEventDispatcher()->notify(new Event(null, 'view_start',  array('request' => $request, 'view' => $view)));
             try {
                 // generate response
                 echo $view->generate($request);
             } catch (Exception $e) {
                 \ZMLogging::instance()->dump($e, 'view::generate failed', \ZMLogging::ERROR);
                 //TODO: what to do?
-            } 
-            \ZMEvents::instance()->fireEvent($view, 'view_done', array('request' => $request, 'view' => $view));
+            }
+            Runtime::getEventDispatcher()->notify(new Event(null, 'view_done',  array('request' => $request, 'view' => $view)));
         } else {
             \ZMLogging::instance()->log('null view, skipping $view->generate()', \ZMLogging::DEBUG);
         }

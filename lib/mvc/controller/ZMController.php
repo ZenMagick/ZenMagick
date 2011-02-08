@@ -20,6 +20,8 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
+use zenmagick\base\events\Event;
 
 /**
  * Request controller base class.
@@ -87,7 +89,7 @@ class ZMController extends ZMObject {
      * @param ZMRequest request The request to process.
      * @return ZMView A <code>ZMView</code> instance or <code>null</code>.
      */
-    public function process($request) { 
+    public function process($request) {
         // ensure a usable id is set
         $this->requestId_ = null != $this->requestId_ ? $this->requestId_ : $request->getRequestId();
         $this->isAjax_ = $this->isAjax($request);
@@ -101,7 +103,7 @@ class ZMController extends ZMObject {
             ZMRuntime::getDatabase()->beginTransaction();
         }
 
-        ZMEvents::instance()->fireEvent($this, 'controller_process_start', array('request' => $request, 'controller' => $this));
+        Runtime::getEventDispatcher()->notify(new Event($this, 'controller_process_start', array('request' => $request, 'controller' => $controller)));
 
         // method independant (pre-)processing
         $this->preProcess($request);
@@ -168,7 +170,7 @@ class ZMController extends ZMObject {
             $this->view_ = $view;
         }
 
-        ZMEvents::instance()->fireEvent($this, 'controller_process_end', array('request' => $request, 'controller' => $this, 'view' => $this->view_));
+        Runtime::getEventDispatcher()->notify(new Event($this, 'controller_process_end', array('request' => $request, 'controller' => $controller, 'view' => $this->view_)));
 
         if ($enableTransactions) {
             ZMRuntime::getDatabase()->commit();
@@ -237,7 +239,7 @@ class ZMController extends ZMObject {
 
     /**
      * Process a HTTP HEAD request.
-     * 
+     *
      * @param ZMRequest request The request to process.
      * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
      * if the controller generates the contents itself.
@@ -248,7 +250,7 @@ class ZMController extends ZMObject {
 
     /**
      * Process a HTTP GET request.
-     * 
+     *
      * @param ZMRequest request The request to process.
      * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
      * if the controller generates the contents itself.
@@ -260,7 +262,7 @@ class ZMController extends ZMObject {
 
     /**
      * Process a HTTP POST request.
-     * 
+     *
      * @param ZMRequest request The request to process.
      * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
      * if the controller generates the contents itself.

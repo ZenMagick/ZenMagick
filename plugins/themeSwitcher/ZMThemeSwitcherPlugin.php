@@ -51,7 +51,7 @@ class ZMThemeSwitcherPlugin extends Plugin implements ZMRequestHandler {
      * {@inheritDoc}
      */
     public function initRequest($request) {
-        ZMEvents::instance()->attach($this);
+        zenmagick\base\Runtime::getEventDispatcher()->listen($this);
 
         $session = $request->getSession();
         if (null != ($themeId = $request->getParameter('themeId'))) {
@@ -68,11 +68,10 @@ class ZMThemeSwitcherPlugin extends Plugin implements ZMRequestHandler {
     }
 
     /**
-     * {@inheritDoc}
+     * Inject html.
      */
-    public function onZMFinaliseContents($args) {
-        $request = $args['request'];
-        $contents = $args['contents'];
+    public function onFinaliseContents($event, $contents) {
+        $request = $event->get('request');
 
         if (false !== strpos($contents, _zm('Switch theme: '))) {
             // already done, do not change
@@ -122,8 +121,7 @@ class ZMThemeSwitcherPlugin extends Plugin implements ZMRequestHandler {
             $contents =  preg_replace('/(<body[^>]*>)/', '\1'.$switch, $contents, 1);
         }
 
-        $args['contents'] = $contents;
-        return $args;
+        return $contents;
     }
 
 }

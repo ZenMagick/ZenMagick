@@ -90,9 +90,8 @@
   }
 
   // allow plugins and event subscribers to filter/modify the final contents; corresponds with ob_start() in init.php
-  $args = ZMEvents::instance()->fireEvent(null, 'finalise_contents', 
-          array('request' => $request, 'view' => $view, 'contents' => ob_get_clean()));
-  echo $args['contents'];
+  $contents = zenmagick\base\Runtime::getEventDispatcher()->filter(new zenmagick\base\events\Event(null, 'finalise_contents', array('request' => $request, 'view' => $view)), ob_get_clean());
+  echo $contents;
 
   require DIR_WS_INCLUDES . 'application_bottom.php';
 ?>

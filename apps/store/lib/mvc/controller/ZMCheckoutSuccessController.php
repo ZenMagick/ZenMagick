@@ -54,8 +54,8 @@ class ZMCheckoutSuccessController extends ZMController {
         $request->getToolbox()->crumbtrail->addCrumb("Checkout", $request->url('checkout', '', true));
         $request->getToolbox()->crumbtrail->addCrumb($request->getToolbox()->utils->getTitle());
 
-        // see: onZMViewDone()
-        ZMEvents::instance()->attach($this);
+        // see: onViewDone()
+        zenmagick\base\Runtime::getEventDispatcher()->listen($this);
 
         $orders = ZMOrders::instance()->getOrdersForAccountId($request->getAccountId(), $request->getSession()->getLanguageId(), 1);
         $data = array('currentOrder' => $orders[0], 'currentAccount' => $request->getAccount());
@@ -66,8 +66,8 @@ class ZMCheckoutSuccessController extends ZMController {
     /**
      * Event handler to logout guest users only *after* the view is done.
      */
-    public function onZMViewDone($args) {
-        $request = $args['request'];
+    public function onZiewDone($event) {
+        $request = $event->get('request');
         if (ZMSettings::get('isLogoffGuestAfterOrder') && $request->isGuest()) {
             $session = $request->getSession();
             $session->clear();

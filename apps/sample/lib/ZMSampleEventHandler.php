@@ -34,8 +34,8 @@ class ZMSampleEventHandler {
     /**
      * Init done callback.
      */
-    public function onZMInitDone($args) {
-        $request = $args['request'];
+    public function onInitDone($event) {
+        $request = $event->get('request');
         if (null != ($locale = $request->getParameter('locale'))) {
             ZMLocales::instance()->getLocale(true, $locale);
             $request->getSession()->setValue('locale', $locale);

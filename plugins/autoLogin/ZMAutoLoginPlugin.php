@@ -71,7 +71,7 @@ class ZMAutoLoginPlugin extends Plugin implements ZMRequestHandler {
      * {@inheritDoc}
      */
     public function initRequest($request) {
-        ZMEvents::instance()->attach($this);
+        zenmagick\base\Runtime::getEventDispatcher()->listen($this);
 
         $session = $request->getSession();
         if ('GET' == $request->getMethod() && 'logoff' != $request->getRequestId() && $session->isAnonymous()) {
@@ -162,11 +162,9 @@ class ZMAutoLoginPlugin extends Plugin implements ZMRequestHandler {
 
     /**
      * Event handler to update the cookie if required.
-     *
-     * @param array args Optional parameter.
      */
-    public function onZMFinaliseContents($args=array()) {
-        $request = $args['request'];
+    public function onFinaliseContents($event, $contents) {
+        $request = $event->get('request');
         $session = $request->getSession();
         if ('GET' == $request->getMethod() && $session->isRegistered()) {
             if (!$this->cookieUpdated) {
@@ -177,28 +175,22 @@ class ZMAutoLoginPlugin extends Plugin implements ZMRequestHandler {
 
     /**
      * Event handler for create account.
-     *
-     * @param array args Optional parameter.
      */
-    public function onZMCreateAccount($args=array()) {
-        $this->onOptIn($args['account'], $args['request']->getParameter(AUTO_LOGIN_OPT_IN));
+    public function onCreateAccount($event) {
+        $this->onOptIn($event->get('account'), $event->get('request')->getParameter(AUTO_LOGIN_OPT_IN));
     }
 
     /**
      * Event handler for login.
-     *
-     * @param array args Optional parameter.
      */
-    public function onZMLoginSuccess($args=array()) {
-        $this->onOptIn($args['account'], $args['request']->getParameter(AUTO_LOGIN_OPT_IN));
+    public function onLoginSuccess($event) {
+        $this->onOptIn($event->get('account'), $event->get('request')->getParameter(AUTO_LOGIN_OPT_IN));
     }
 
     /**
      * Event handler for logout.
-     *
-     * @param array args Optional parameter.
      */
-    public function onZMLogoffSuccess($args=array()) {
+    public function onLogoffSuccess($event) {
         if (array_key_exists(AUTO_LOGIN_COOKIE, $_COOKIE)) {
             setcookie(AUTO_LOGIN_COOKIE, 'expired', time() - 3600);
             $this->cookieUpdated = true;

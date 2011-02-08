@@ -33,7 +33,7 @@ namespace zenmagick\apps\store;
  */
 class StoreEventListener {
     public function onInitDone($event) {
-        echo 'init done';
+        //echo 'init done';
     }
 
 }

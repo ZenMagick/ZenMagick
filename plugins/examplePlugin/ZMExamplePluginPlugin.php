@@ -20,6 +20,8 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
+
 /**
  * Example plugin to illustrate a few key points of the ZenMagick plugin architecture.
  *
@@ -48,7 +50,7 @@ class ZMExamplePluginPlugin extends Plugin implements ZMRequestHandler {
     public function install() {
         parent::install();
 
-        $this->addConfigValue('Plugin true/false', 'rq1key1', 'true', 'Select true or false', 
+        $this->addConfigValue('Plugin true/false', 'rq1key1', 'true', 'Select true or false',
             'widget@BooleanFormWidget#name=rq1key1&default=false&label=Select true or false&style=radio');
         $this->addConfigValue('Plugin text config', 'rq1key2', 'doh', 'Some text');
     }
@@ -62,9 +64,9 @@ class ZMExamplePluginPlugin extends Plugin implements ZMRequestHandler {
         /*
          * this is the place to do init stuff other than just setting up the infrastructure
          */
-      
+
         // set up as event subscriber
-        ZMEvents::instance()->attach($this);
+        Runtime::getEventDispatcher()->listen($this);
 
         // add admin page
         $this->addMenuItem2(_zm('Example Plugin Admin Page'), 'examplePluginAdmin');
@@ -78,25 +80,23 @@ class ZMExamplePluginPlugin extends Plugin implements ZMRequestHandler {
     }
 
     /**
-     * As zco subscriber all methods that match a zen-cart zco event (see <code>ZMEvents</code> for more details)
-     * will be called (back) automatically when subscribed...
+     * As event listener a class is also automatically registered as listener for zen-cart zco events.
      */
-    public function onNotifyHeaderStartIndex($args) {
+    public function onNotifyHeaderStartIndex($event) {
         echo "Start of Zen Cart's index page event callback in " . $this->getName() . " ...<br>";
     }
 
     /**
-     * {@inheritDoc}
+     * Handle final contents.
      */
-    public function onZMFinaliseContents($args) {
-        $contents = $args['contents'];
-        $request = $args['request'];
+    public function onFinaliseContents($event, $contents) {
+        $request = $event->get('request');
 
         if ('login' == $request->getRequestId()) {
-            $args['contents'] = preg_replace('/<\/h1>/', ' (modified by ' . $this->getName() . ')</h1>', $contents, 1);
+            $contents = preg_replace('/<\/h1>/', ' (modified by ' . $this->getName() . ')</h1>', $contents, 1);
         }
 
-        return $args;
+        return $contents;
     }
 
 }

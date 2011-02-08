@@ -67,10 +67,7 @@ class ZMGoogleStoreLocatorPlugin extends Plugin {
      */
     public function init() {
         parent::init();
-
-        // subscribe to events to add the required JS
-        ZMEvents::instance()->attach($this);
-
+        zenmagick\base\Runtime::getEventDispatcher()->listen($this);
         // add admin page
         $this->addMenuItem2(_zm('Google Store Locator'), 'googleStoreLocatorAdmin');
     }
@@ -78,9 +75,8 @@ class ZMGoogleStoreLocatorPlugin extends Plugin {
     /**
      * Event callback to add required JS.
      */
-    public function onZMFinaliseContents($args) {
-        $request = $args['request'];
-        $contents = $args['contents'];
+    public function onFinaliseContents($event, $contents) {
+        $request = $event->get('request');
 
         if ('store_locator' == $request->getRequestId()) {
             $storeKey = $this->get('storeKey');
@@ -104,9 +100,9 @@ class ZMGoogleStoreLocatorPlugin extends Plugin {
   google.setOnLoadCallback(load_locator_map);
 </script>
 ';
-            $args['contents'] = preg_replace('/<\/body>/', $script.'</body>', $contents, 1);
+            $contents = preg_replace('/<\/body>/', $script.'</body>', $contents, 1);
         }
-        return $args;
+        return $contents;
     }
 
 }

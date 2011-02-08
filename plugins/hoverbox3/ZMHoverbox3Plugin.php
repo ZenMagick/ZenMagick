@@ -69,20 +69,19 @@ class ZMHoverbox3Plugin extends Plugin {
      */
     public function init() {
         parent::init();
-        ZMEvents::instance()->attach($this);
+        zenmagick\base\Runtime::getEventDispatcher()->listen($this);
     }
 
     /**
      * {@inheritDoc}
      */
-    public function onZMFinaliseContents($args) {
-        $contents = $args['contents'];
+    public function onFinaliseContents($event, $contents) {
         if (false === strpos($contents, 'hoverbox')) {
             // no tagged images
             return null;
         }
 
-        $view = $args['view'];
+        $view = $event->get('view');
         if ($view instanceof ZMSavantView) {
             // hover3 used in this page
             $h3head = '';
@@ -96,11 +95,8 @@ class ZMHoverbox3Plugin extends Plugin {
             $h3head .= $h3config;
             $h3head .= '<script type="text/javascript" src="' . $view->asUrl($request, 'hover3/ic_hoverbox3.js') . '"></script>';
             $contents = preg_replace('/<\/head>/', $h3head.'</head>', $contents, 1);
-            $args['contents'] = $contents;
-            return $args;
-        } else {
-            return null;
         }
+        return $contents;
     }
 
 }

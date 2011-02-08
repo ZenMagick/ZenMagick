@@ -23,6 +23,8 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
+use zenmagick\base\events\Event;
 
 /**
  * Request controller for account password page.
@@ -50,7 +52,7 @@ class ZMAccountPasswordController extends ZMController {
     /**
      * {@inheritDoc}
      */
-    public function preProcess($request) { 
+    public function preProcess($request) {
         $request->getToolbox()->crumbtrail->addCrumb("Account", $request->url('account', '', true));
         $request->getToolbox()->crumbtrail->addCrumb($request->getToolbox()->utils->getTitle());
     }
@@ -82,12 +84,7 @@ class ZMAccountPasswordController extends ZMController {
         $newEncrpytedPassword = ZMAuthenticationManager::instance()->encryptPassword($newPassword);
         ZMAccounts::instance()->setAccountPassword($account->getId(), $newEncrpytedPassword);
 
-        ZMEvents::instance()->fireEvent($this, Events::PASSWORD_CHANGED, array(
-                'controller' => $this, 
-                'account' => $account, 
-                'clearPassword' => $newPassword
-            )
-        );
+        Runtime::getEventDispatcher()->notify(new Event($this, 'password_changed', array('controller' => $this, 'account' => $account, 'clearPassword' => $newPassword)));
 
         ZMMessages::instance()->success(_zm('Your password has been updated.'));
 

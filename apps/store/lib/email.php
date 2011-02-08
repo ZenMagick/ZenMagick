@@ -56,8 +56,8 @@
         $request = ZMRequest::instance();
 
         // event to allow additions to context or view or...
-        $args = ZMEvents::instance()->fireEvent(null, Events::GENERATE_EMAIL, array('template' => $template, 'context' => $context, 'request' => $request));
-        $context = $args['context'];
+        $args = array('template' => $template, 'request' => $request);
+        $context = zenmagick\base\Runtime::getEventDispatcher()->filter(new \zenmagick\base\events\Event(null, 'generate_email', $args));
         // save context for legacy HTML generation...
         $request->set('ZM_EMAIL_CONTEXT', $context);
 

@@ -53,7 +53,7 @@ class ZMCronPlugin extends Plugin {
         $this->addConfigValue('Trigger', 'image', 'false', 'Enable image trigger',
             'widget@BooleanFormWidget#name=image&default=false&label=Enable image trigger&style=checkbox');
         $this->addConfigValue('Image trigger pages', 'triggerPages', 'index', 'List of pages (separated by comma \',\') to be used for imger trigger');
-        $this->addConfigValue('Missed run policy', 'missedRuns', 'false', 'Select what should happen when one or more runs have been missed', 
+        $this->addConfigValue('Missed run policy', 'missedRuns', 'false', 'Select what should happen when one or more runs have been missed',
             'widget@BooleanFormWidget#name=missedRuns&default=false&style=select&label_true=Catch-up&label_false=Ignore');
     }
 
@@ -62,16 +62,14 @@ class ZMCronPlugin extends Plugin {
      */
     public function init() {
         parent::init();
-
-        ZMEvents::instance()->attach($this);
+        zenmagick\base\Runtime::getEventDispatcher()->listen($this);
     }
 
     /**
-     * {@inheritDoc}
+     * Handle event.
      */
-    public function onZMFinaliseContents($args) {
-        $contents = $args['contents'];
-        $request = $args['request'];
+    public function onFinaliseContents($event, $contents) {
+        $request = $event->get('request');
 
         if ($this->isEnabled() && ZMLangUtils::asBoolean($this->get('image'))) {
             $pages = $this->get('triggerPages');
@@ -82,8 +80,7 @@ class ZMCronPlugin extends Plugin {
             }
         }
 
-        $args['contents'] = $contents;
-        return $args;
+        return $contents;
     }
 
     /**

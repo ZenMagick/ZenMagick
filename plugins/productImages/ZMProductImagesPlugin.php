@@ -90,16 +90,16 @@ class ZMProductImagesPlugin extends Plugin {
      */
     public function init() {
         parent::init();
-        ZMEvents::instance()->attach($this);
+        zenmagick\base\Runtime::getEventDispatcher()->listen($this);
         ZMSettings::append('apps.store.catalog.controller', 'ProductImagesTabController');
     }
 
     /**
-     * {@inheritDoc}
+     * Add resources.
      */
-    public function onZMViewStart($args) {
+    public function onViewStart($event) {
         if (ZMLangUtils::asBoolean($this->get('zoomSmallImages'))) {
-            if (null != ($resources = $args['view']->getVar('resources'))) {
+            if (null != ($resources = $event->get('view')->getVar('resources'))) {
                 // might be null in case of redirect/forward/etc
                 $resources->cssFile('ih2/style_imagehover.css');
                 $resources->jsFile('ih2/jscript_imagehover.js', ZMViewUtils::FOOTER);

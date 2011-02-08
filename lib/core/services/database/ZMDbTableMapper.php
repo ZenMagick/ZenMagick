@@ -111,7 +111,7 @@ class ZMDbTableMapper extends \ZMObject {
             } else {
                 $this->loadMappingFile();
             }
-            \ZMEvents::instance()->attach($this);
+            Runtime::getEventDispatcher()->listen($this);
         } else {
             $this->loadMappingFile();
         }
@@ -128,7 +128,7 @@ class ZMDbTableMapper extends \ZMObject {
     /**
      * Refresh cache if empty.
      */
-    public function onZMInitDone() {
+    public function onInitDone($event) {
         if (\ZMSettings::get('zenmagick.core.database.mappings.cache.enabled', true) && !$this->isCached()) {
             $this->updateCache(\ZMRuntime::getDatabase());
         }

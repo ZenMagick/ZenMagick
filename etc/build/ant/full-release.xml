@@ -131,7 +131,7 @@
         <antcall target="insert-after">
             <param name="insert.file" value="${release.full.dir}/includes/classes/class.base.php" />
             <param name="insert.regexp" value="function notify\(" />
-            <param name="insert.substitution" value='    if(class_exists("ZMEvents")) { ZMEvents::instance()->update($$this, $$eventID, $$paramArray); } /* added by ZenMagick installation patcher */' />
+            <param name="insert.substitution" value='    if(class_exists("\\\\\zenmagick\\\\\base\\\\\Runtime")) { \\\\\zenmagick\\\\\base\\\\\Runtime::getEventDispatcher()->notify(new \\\\\zenmagick\\\\\base\\\\\events\\\\\Event($$this, $$eventID, $$paramArray)); } /* added by ZenMagick installation patcher */' />
         </antcall>
 
         <!-- patch zen_href_link -->
@@ -182,7 +182,7 @@
         <antcall target="insert-before">
             <param name="insert.file" value="${release.full.dir}/includes/application_bottom.php" />
             <param name="insert.regexp" value="session_write_close" />
-            <param name="insert.substitution" value="if (!ZMSettings::get('isEnableZMThemes')) { $_zm_args = ZMEvents::instance()->fireEvent(null, Events::FINALISE_CONTENTS, array('contents' => ob_get_clean(), 'request' => ZMRequest::instance())); $_zm_args['contents'] = \\\\\zenmagick\\\\\base\\\\\Runtime::getEventDispatcher()->filter(new \\\\\zenmagick\\\\\base\\\\\events\\\\\Event(null, 'finalise_contents', $_zm_args), $_zm_args['contents']); echo $_zm_args['contents']; ZMRequest::instance()->getSession()->clearMessages(); ZMEvents::instance()->fireEvent(null, Events::ALL_DONE, array('request' => ZMRequest::instance())); } /* added by ZenMagick installation patcher */" />
+            <param name="insert.substitution" value="if (!ZMSettings::get('isEnableZMThemes')) { $_zm_contents = \\\\\zenmagick\\\\\base\\\\\Runtime::getEventDispatcher()->filter(new \\\\\zenmagick\\\\\base\\\\\events\\\\\Event(null, 'finalise_contents'), ob_get_clean()); echo $_zm_contents; ZMRequest::instance()->getSession()->clearMessages(); \\\\\zenmagick\\\\\base\\\\\Runtime::getEventDispatcher()->notify(new \\\\\zenmagick\\\\\base\\\\\events\\\\\Event(null, 'all_done', array('request' => ZMRequest::instance()))); } /* added by ZenMagick installation patcher */" />
         </antcall>
 
         <!-- theme support patch -->

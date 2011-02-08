@@ -23,6 +23,8 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
+use zenmagick\base\events\Event;
 
 /**
  * Simple wrapper around <code>$_SESSION</code> to centralise access.
@@ -224,7 +226,7 @@ class Session extends ZMObject { //ZMSession {
      */
     public function restoreCart() {
         if (isset($_SESSION['cart'])) {
-            //TODO: 
+            //TODO:
             $_SESSION['cart']->restore_contents();
         }
     }
@@ -366,7 +368,7 @@ class Session extends ZMObject { //ZMSession {
      * @param boolean renew If <code>true</code> a new token will be generated; default is <code>false</code>.
      * @return string The security token.
      */
-    public function getToken($renew=false) { 
+    public function getToken($renew=false) {
         if ($renew || !isset($_SESSION['securityToken'])) {
             $_SESSION['securityToken'] = md5(uniqid(rand(), true));
         }
@@ -390,7 +392,7 @@ class Session extends ZMObject { //ZMSession {
         }
 
         // info only
-        ZMEvents::instance()->fireEvent($source, Events::LOGIN_SUCCESS, array('controller' => $source, 'request' => $request, 'account' => $account));
+        Runtime::getEventDispatcher()->notify(new Event($this, 'login_success', array('controller' => $this, 'account' => $account, 'request' => $request)));
 
         // update session with valid account
         $this->recreate();

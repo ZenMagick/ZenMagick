@@ -50,10 +50,9 @@ class ZMEmailFixes extends ZMObject {
     /**
      * Fix email context for various emails.
      */
-    public function onZMGenerateEmail($args=array()) {
-        $context = $args['context'];
-        $template = $args['template'];
-        $request =  $args['request'];
+    public function onGenerateEmail($event, $context) {
+        $template = $event->get('template');
+        $request =  $event->get('request');
 
         // set for all
         $language = $request->getSelectedLanguage();
@@ -142,8 +141,7 @@ class ZMEmailFixes extends ZMObject {
             $context['htmlMessage'] = $context['EMAIL_MESSAGE_HTML'];
         }
 
-        $args['context'] = $context;
-        return $args;
+        return $context;
     }
 
 }

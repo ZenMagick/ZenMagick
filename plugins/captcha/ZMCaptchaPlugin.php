@@ -69,7 +69,7 @@ class ZMCaptchaPlugin extends Plugin {
      */
     public function init() {
         parent::init();
-        ZMEvents::instance()->attach($this);
+        zenmagick\base\Runtime::getEventDispatcher()->listen($this);
         // page => (status, form_name)
         $this->pageConfig_ = array(
             'create_account' => array(CAPTCHA_CREATE_ACCOUNT, 'registration'),
@@ -93,11 +93,9 @@ class ZMCaptchaPlugin extends Plugin {
      *
      * <p>Setup additional validation rules; this is done here to avoid getting in the way of
      * custom global/theme validation rule setups.</p>
-     *
-     * @param array args Optional parameter.
      */
-    public function onZMInitDone($args=null) {
-        $request = $args['request'];
+    public function onInitDone($event) {
+        $request = $event->get('request');
 
         // check if we need to do anything for this request...
         $disableRegistered = ZMLangUtils::asBoolean($this->get('disableRegistered'));
@@ -148,7 +146,7 @@ class ZMCaptchaPlugin extends Plugin {
      *
      * <p>This is a convenience method around <code>$captcha->img()</code>.</p>
      *
-     * <p>This method will automatically generate an <code>onclick</code> attribute to 
+     * <p>This method will automatically generate an <code>onclick</code> attribute to
      * regenerate the image on click.</p>
      *
      * @param string width Optional width.

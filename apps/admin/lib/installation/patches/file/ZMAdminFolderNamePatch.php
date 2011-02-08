@@ -138,7 +138,7 @@ class ZMAdminFolderNamePatch extends \ZMFilePatch {
         if (is_writeable(_ZM_ADMIN_INDEX_PHP)) {
             $unpatchedLines = array();
             foreach ($lines as $line) {
-                if (false !== strpos($line, '$zm_events') || false !== strpos($line, 'ZMEvents::instance()')) {
+                if (false !== strpos($line, '$zm_events') || false !== strpos($line, 'ZMEvents::instance()') || false !== strpos($line, 'getEventDispatcher()')) {
                     continue;
                 }
                 array_push($unpatchedLines, $line);
@@ -152,5 +152,5 @@ class ZMAdminFolderNamePatch extends \ZMFilePatch {
 
         return true;
     }
-    
+
 }

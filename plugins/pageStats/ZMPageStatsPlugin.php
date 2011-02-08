@@ -22,6 +22,7 @@
 
 use zenmagick\base\Runtime;
 use zenmagick\base\events\EventDispatcher;
+use zenmagick\base\logging\Logging;
 
 /**
  * Plugin to show page stats.
@@ -74,7 +75,6 @@ class ZMPageStatsPlugin extends Plugin {
      */
     public function init() {
         parent::init();
-        ZMEvents::instance()->attach($this);
         // register to log events
         Runtime::getEventDispatcher()->listen(array($this, 'logEvent'));
         // register for method mapped events
@@ -88,6 +88,7 @@ class ZMPageStatsPlugin extends Plugin {
      * @param mixed value Optional value for filter events.
      */
     public function logEvent($event, $value=null) {
+        Runtime::getLogging()->info('event:'.(null!=$event->getSubject()?' ('.get_class($event->getSubject()).')':'').': ' . $event->getName() . '/'.EventDispatcher::n2m($event->getName()));
         $this->events_[] = $event;
         return $value;
     }
@@ -173,11 +174,9 @@ class ZMPageStatsPlugin extends Plugin {
 
     /**
      * Event handler for page cache hits.
-     *
-     * @param array args Optional parameter.
      */
-    public function onZMPluginsPageCacheContentsDone($args=array()) {
-        echo $this->hiddenStats($args['request'], null);
+    public function onPluginsPageCacheContentsDone($event) {
+        echo $this->hiddenStats($event->get('request'), null);
     }
 
     /**
@@ -223,7 +222,7 @@ class ZMPageStatsPlugin extends Plugin {
                 echo '<td style="text-align:left;padding:4px;">'.sprintf("%d", $event->getMemory()).'</td>';
                 echo '<td style="text-align:left;padding:4px;">'.EventDispatcher::n2m($event->getName()).'</td>';
                 $eargs = $event->all();
-                if (Events::FINALISE_CONTENTS == $event->getName()) {
+                if ('finalise_contents' == $event->getName()) {
                     $eargs['contents'] = '**response**';
                 }
                 // handle array eargs

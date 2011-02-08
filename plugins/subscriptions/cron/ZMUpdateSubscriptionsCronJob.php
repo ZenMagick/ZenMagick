@@ -20,6 +20,9 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
+use zenmagick\base\events\Event;
+
 /**
  * A cron job to create new subscription orders.
  *
@@ -27,7 +30,7 @@
  * @package org.zenmagick.plugins.subscriptions
  */
 class ZMUpdateSubscriptionsCronJob implements ZMCronJob {
-    
+
     /**
      * {@inheritDoc}
      */
@@ -90,7 +93,7 @@ class ZMUpdateSubscriptionsCronJob implements ZMCronJob {
             }
 
             // event
-            ZMEvents::instance()->fireEvent($this, Events::CREATE_ORDER, array('orderId' => $order->getId()));
+            Runtime::getEventDispatcher()->notify(new Event($this, 'create_order', array('orderId' => $order->getId())));
         }
 
         return true;
@@ -115,7 +118,7 @@ class ZMUpdateSubscriptionsCronJob implements ZMCronJob {
         $context['INTRO_ORDER_NUMBER'] = $order->getId();
 
         $account = $order->getAccount();
-        zm_mail(sprintf(_zm("%s: Order Subscription Notification"), ZMSettings::get('storeName')), $template, $context, 
+        zm_mail(sprintf(_zm("%s: Order Subscription Notification"), ZMSettings::get('storeName')), $template, $context,
             $account->getEmail(), ZMSettings::get('storeEmail'), null);
     }
 
@@ -207,7 +210,7 @@ class ZMUpdateSubscriptionsCronJob implements ZMCronJob {
         $plugin = $this->getPlugin();
         $sql = "SELECT orders_id, is_subscription_canceled FROM " . TABLE_ORDERS . "
                 WHERE  is_subscription = :subscription
-                  AND subscription_next_order <= DATE_ADD(now(), INTERVAL " . $plugin->get('scheduleOffset') . " DAY) 
+                  AND subscription_next_order <= DATE_ADD(now(), INTERVAL " . $plugin->get('scheduleOffset') . " DAY)
                   AND NOT (subscription_next_order = '0001-01-01 00:00:00')";
         $results = ZMRuntime::getDatabase()->query($sql, array('subscription' => true), TABLE_ORDERS);
         $tmp = array();

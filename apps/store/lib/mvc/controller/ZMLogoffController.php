@@ -23,6 +23,9 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
+use zenmagick\base\events\Event;
+
 
 /**
  * Request controller for logoff page.
@@ -66,7 +69,7 @@ class ZMLogoffController extends ZMController {
         }
 
         // info only
-        ZMEvents::instance()->fireEvent($this, Events::LOGOFF_SUCCESS, array('controller' => $this, 'account' => $account));
+        Runtime::getEventDispatcher()->notify(new Event($this, 'logoff_success', array('controller' => $this, 'account' => $account)));
 
         // display page
         $request->getToolbox()->crumbtrail->addCrumb($request->getToolbox()->utils->getTitle());

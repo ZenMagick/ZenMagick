@@ -20,6 +20,8 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
+use zenmagick\base\events\Event;
 
 /**
  * Handle access control and security mappings.
@@ -179,8 +181,7 @@ class ZMSacsManager extends ZMObject {
                         return false;
                     }
                     // fire event
-                    ZMEvents::instance()->fireEvent($this, 'insufficient_credentials', 
-                          array('request' => $request, 'credentials' => $credentials));
+                    Runtime::getEventDispatcher()->notify(new Event($this, 'insufficient_credentials', array('request' => $request, 'credentials' => $credentials)));
                     // not required level of authentication
                     $session = $request->getSession();
                     // secure flag: leave to net() to lookup via ZMSacsManager if configured, but leave as default parameter to allow override
@@ -247,8 +248,8 @@ class ZMSacsManager extends ZMObject {
                 $value = $this->mappings_['default'][$key];
             }
         }
-       
-       
+
+
         if ('secure' == $key) {
             $value = ZMLangUtils::asBoolean($value);
         }

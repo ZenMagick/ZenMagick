@@ -57,11 +57,11 @@ class ZMEventFixes extends ZMObject {
             if (0 === strpos($eventId, 'NOTIFY_HEADER_START_')) {
                 $controllerId = str_replace('NOTIFY_HEADER_START_', '', $eventId);
                 $args = array_merge($args, array('controllerId' => $controllerId, 'request' => ZMRequest::instance()));
-                ZMEvents::instance()->fireEvent($this, Events::CONTROLLER_PROCESS_START, $args);
+                zenmagick\base\Runtime::getEventDispatcher()->notify(new zenmagick\base\events\Event($this, 'controller_process_start', $args));
             } else if (0 === strpos($eventId, 'NOTIFY_HEADER_END_')) {
                 $controllerId = str_replace('NOTIFY_HEADER_END_', '', $eventId);
                 $args = array_merge($args, array('controllerId' => $controllerId, 'request' => ZMRequest::instance()));
-                ZMEvents::instance()->fireEvent($this, Events::CONTROLLER_PROCESS_END, $args);
+                zenmagick\base\Runtime::getEventDispatcher()->notify(new zenmagick\base\events\Event($this, 'controller_process_end', $args));
             }
         }
     }
@@ -69,12 +69,12 @@ class ZMEventFixes extends ZMObject {
     /**
      * Fake theme resolved event if using zen-cart templates and handle persisted messages.
      */
-    public function onZMInitDone($args) {
-        $request = $args['request'];
+    public function onInitDone($event) {
+        $request = $event->get('request');
         if (!ZMsettings::get('isEnableZMThemes')) {
             // pass on already set args
-            $args = array_merge($args, array('themeId' => ZMThemes::instance()->getActiveThemeId($request->getSession()->getLanguageId())));
-            ZMEvents::instance()->fireEvent(null, Events::THEME_RESOLVED, $args);
+            $args = array_merge($event->all(), array('themeId' => ZMThemes::instance()->getActiveThemeId($request->getSession()->getLanguageId())));
+            zenmagick\base\Runtime::getEventDispatcher()->notify(new zenmagick\base\events\Event($this, 'theme_resolved', $args));
         }
 
         // if using ZMCheckoutPaymentController, we need 'conditions' in $POST to make zencarts checkout_confirmation header_php.php happy
@@ -125,10 +125,10 @@ class ZMEventFixes extends ZMObject {
     /**
      * Handle 'showAll' parameter for result lists.
      */
-    public function onZMViewStart($args) {
-        $request = $args['request'];
+    public function onViewStart($event) {
+        $request = $event->get('request');
         if (null !== $request->getParameter('showAll')) {
-            $view = $args['view'];
+            $view = $event->get('view');
             if (null != ($resultList = $view->getVar('resultList'))) {
                 $resultList->setPagination(0);
             }
@@ -138,8 +138,8 @@ class ZMEventFixes extends ZMObject {
     /**
      * Final cleanup.
      */
-    public function onZMAllDone($args) {
-        $request = $args['request'];
+    public function onAllDone($event) {
+        $request = $event->get('request');
         // clear messages if not redirect...
         $request->getSession()->clearMessages();
 
@@ -182,8 +182,8 @@ class ZMEventFixes extends ZMObject {
     /**
      * More store startup code.
      */
-    public function onZMBootstrapDone($args) {
-        $request = $args['request'];
+    public function onBootstrapDone($event) {
+        $request = $event->get('request');
 
         // set locale
         if (null != ($language = $request->getSession()->getLanguage())) {
@@ -236,11 +236,11 @@ class ZMEventFixes extends ZMObject {
         if (!ZM_CLI_CALL) {
             $language = $request->getSession()->getLanguage();
             $theme = ZMThemes::instance()->initThemes($language);
-            $args = array_merge($args, array('theme' => $theme, 'themeId' => $theme->getId()));
-            ZMEvents::instance()->fireEvent(null, Events::THEME_RESOLVED, $args);
+            $args = array_merge($event->all(), array('theme' => $theme, 'themeId' => $theme->getId()));
+            zenmagick\base\Runtime::getEventDispatcher()->notify(new zenmagick\base\events\Event($this, 'theme_resolved', $args));
 
             // now we can check for a static homepage
-            if (!ZMLangUtils::isEmpty(ZMSettings::get('staticHome')) && 'index' == $request->getRequestId() 
+            if (!ZMLangUtils::isEmpty(ZMSettings::get('staticHome')) && 'index' == $request->getRequestId()
                 && (0 == $request->getCategoryId() && 0 == $request->getManufacturerId())) {
                 require ZMSettings::get('staticHome');
                 exit;
@@ -257,8 +257,8 @@ class ZMEventFixes extends ZMObject {
     /**
      * Remove ajax requests from navigation history, grab zencart messages and fix free shipping.
      */
-    public function onZMDispatchStart($args) {
-        $request = $args['request'];
+    public function onDispatchStart($event) {
+        $request = $event->get('request');
         // remove ajax calls from call history
         if (false !== strpos($request->getRequestId(), 'ajax')) {
             $_SESSION['navigation']->remove_current_page();
@@ -273,9 +273,9 @@ class ZMEventFixes extends ZMObject {
     /**
      * Create ZenMagick order created event that contains the order id.
      */
-    public function onNotifyCheckoutProcessAfterOrderCreateAddProducts($args=array()) {
-        $args = array_merge($args, array('request' => ZMRequest::instance(), 'orderId' => $_SESSION['order_number_created']));
-        ZMEvents::instance()->fireEvent(null, Events::CREATE_ORDER, $args);
+    public function onNotifyCheckoutProcessAfterOrderCreateAddProducts($event) {
+        $args = array_merge($event->all(), array('request' => ZMRequest::instance(), 'orderId' => $_SESSION['order_number_created']));
+        zenmagick\base\Runtime::getEventDispatcher()->notify(new zenmagick\base\events\Event($this, 'create_order', $args));
     }
 
     /**
@@ -413,7 +413,7 @@ class ZMEventFixes extends ZMObject {
         if (isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
             // build list of language identifiers
             $browser_languages = explode(',', $_SERVER['HTTP_ACCEPT_LANGUAGE']);
-            
+
             // build list of language substitutions
             if (defined('BROWSER_LANGUAGE_SUBSTITUTIONS') && BROWSER_LANGUAGE_SUBSTITUTIONS != '') {
                 $substitutions = explode(',', BROWSER_LANGUAGE_SUBSTITUTIONS);
@@ -427,11 +427,11 @@ class ZMEventFixes extends ZMObject {
             for ($i=0, $n=sizeof($browser_languages); $i<$n; $i++) {
                 // separate the clear language identifier from possible language quality (q param)
                 $lang = explode(';', $browser_languages[$i]);
-                
+
                 if (strlen($lang[0]) == 2) {
                     // 2 letter only language code (code without subtags)
                     $code = $lang[0];
-                
+
                 } elseif (strpos($lang[0], '-') == 2 || strpos($lang[0], '_') == 2) {
                     // 2 letter language code with subtags
                     // use only language code and throw out all possible subtags

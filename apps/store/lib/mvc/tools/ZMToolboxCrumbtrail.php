@@ -39,7 +39,7 @@ class ZMToolboxCrumbtrail extends ZMToolboxTool {
      */
     function __construct() {
         parent::__construct();
-        ZMEvents::instance()->attach($this);
+        zenmagick\base\Runtime::getEventDispatcher()->listen($this);
     }
 
     /**
@@ -53,7 +53,7 @@ class ZMToolboxCrumbtrail extends ZMToolboxTool {
     /**
      * {@inheritDoc}
      */
-    public function onZMInitDone($args) {
+    public function onInitDone($event) {
         $this->reset();
     }
 

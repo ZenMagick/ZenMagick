@@ -19,6 +19,8 @@
  */
 ?>
 <?php
+use zenmagick\base\Runtime;
+use zenmagick\base\events\Event;
 
     if (!defined('ZM_APP_PATH')) {
         // app location relative to zenmagick installation (ZM_BASE_PATH)
@@ -48,4 +50,4 @@
     }
 
     $request = $_zm_request;
-    ZMEvents::instance()->fireEvent(null, 'init_done', array('request' => $_zm_request));
+    Runtime::getEventDispatcher()->notify(new Event(null, 'init_done',  array('request' => $_zm_request)));

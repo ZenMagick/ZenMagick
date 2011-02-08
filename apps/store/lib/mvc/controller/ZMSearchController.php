@@ -23,6 +23,8 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
+use zenmagick\base\events\Event;
 
 /**
  * Search controller.
@@ -100,7 +102,7 @@ class ZMSearchController extends ZMController {
             $resultList->setResultSource($source);
             $resultList->setPageNumber($request->getPageIndex());
             $args = array('request' => $request, 'criteria' => $criteria, 'resultList' => $resultList, 'autoSearch' => $this->isAutoSearch());
-            ZMEvents::instance()->fireEvent($this, Events::SEARCH, $args);
+            Runtime::getEventDispatcher()->notify(new Event($this, 'search', $args);
             return $this->findView('results', array('resultList' => $resultList));
         }
 

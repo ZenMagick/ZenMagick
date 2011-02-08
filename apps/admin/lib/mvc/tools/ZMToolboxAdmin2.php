@@ -36,7 +36,7 @@ class ZMToolboxAdmin2 extends ZMToolboxTool {
      */
     function __construct() {
         $this->tags_ = array();
-        ZMEvents::instance()->attach($this);
+        zenmagick\base\Runtime::getEventDispatcher()->listen($this);
     }
 
 
@@ -116,7 +116,7 @@ class ZMToolboxAdmin2 extends ZMToolboxTool {
      * @param string params Query string style parameter; if <code>null</code> add all current parameter
      * @return string A complete Ajax URL.
      */
-    public function ajax($controller, $method, $params='') { 
+    public function ajax($controller, $method, $params='') {
         $controller = 'ajax_'.$controller;
         $url = str_replace('&amp;', '&', $this->getRequest()->url($controller, $params.'&method='.$method, $this->getRequest()->isSecure()));
 
@@ -162,9 +162,8 @@ class ZMToolboxAdmin2 extends ZMToolboxTool {
     /**
      * Handle tag updates.
      */
-    public function onZMFinaliseContents($args) {
-        $request = $args['request'];
-        $contents = $args['contents'];
+    public function onFinaliseContents($event, $contents) {
+        $request = $event->get('request');
 
         // process all tags
         foreach ($this->tags_ as $tag => $value) {
@@ -175,8 +174,7 @@ class ZMToolboxAdmin2 extends ZMToolboxTool {
             $contents = preg_replace('/<'.$tag.'>.*<\/'.$tag.'>/', '<'.$tag.'>'.$value.'</'.$tag.'>', $contents, 1);
         }
 
-        $args['contents'] = $contents;
-        return $args;
+        return $contents;
     }
 
 }

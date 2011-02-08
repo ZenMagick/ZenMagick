@@ -25,7 +25,7 @@
  * Plugin providing functionallity to add Goggle Analytics code to the store.
  *
  * <p>This plugin is based on features of the 'Simple Google Analytics' mod'
- * by Dayne Larsen (info@barracudaproductions.com) and 
+ * by Dayne Larsen (info@barracudaproductions.com) and
  * Andrew Berezin (andrew@ecommerce-service.com).</p>
  *
  * <p>For more about Google Analytics see https://www.google.com/support/analytics/bin/answer.py?answer=27203.</p>
@@ -88,27 +88,26 @@ class ZMGoogleAnalyticsPlugin extends Plugin {
      */
     public function init() {
         parent::init();
-        ZMEvents::instance()->attach($this);
+        zenmagick\base\Runtime::getEventDispatcher()->listen($this);
     }
 
     /**
-     * {@inheritDoc}
+     * Event handler.
      */
-    public function onZMControllerProcessEnd($args) {
-        $request = $args['request'];
+    public function onControllerProcessEnd($event) {
+        $request = $event->get('request');
         if ('checkout_success' == $request->getRequestId()) {
-            $view = $args['view'];
+            $view = $event->get('view');
             $vars = $view->getVars();
             $this->order_ = $vars['currentOrder'];
         }
     }
 
     /**
-     * {@inheritDoc}
+     * Event handler.
      */
-    public function onZMFinaliseContents($args) {
-        $request = $args['request'];
-        $contents = $args['contents'];
+    public function onFinaliseContents($event, $contents) {
+        $request = $event->get('request');
 
         $trackerCode = $this->getTrackerCodeGa($request);
         $checkoutCode = $this->getCheckoutCodeGa($request);
@@ -120,8 +119,7 @@ class ZMGoogleAnalyticsPlugin extends Plugin {
             $code = str_replace('</script>', '/script-->', $code);
         }
 
-        $args['contents'] = preg_replace('/<\/body>/', $code . '</body>', $contents, 1);
-        return $args;
+        return preg_replace('/<\/body>/', $code . '</body>', $contents, 1);
     }
 
     /**

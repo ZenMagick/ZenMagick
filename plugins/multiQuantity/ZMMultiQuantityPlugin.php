@@ -52,16 +52,14 @@ class ZMMultiQuantityPlugin extends Plugin {
      */
     public function init() {
         parent::init();
-
-        // register as event listener
-        ZMEvents::instance()->attach($this);
+        zenmagick\base\Runtime::getEventDispatcher()->listen($this);
     }
 
     /**
      * Stop zen-cart processing multi quantity requests.
      */
-    public function onZMInitDone($args) {
-        $request = $args['request'];
+    public function onInitDone($event) {
+        $request = $event->get('request');
         if (null != $request->getParameter(MULTI_QUANTITY_ID)) {
             // this is a multi quantity request, so leave it to the custom controller to handle
             unset($_GET['action']);

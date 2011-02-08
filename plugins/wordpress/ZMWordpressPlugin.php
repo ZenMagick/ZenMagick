@@ -61,11 +61,11 @@ class ZMWordpressPlugin extends Plugin implements ZMRequestHandler {
               'widget@TextFormWidget#name=wordpressDir&default=&size=24&maxlength=255');
         $this->addConfigValue('Permalink Path Prefix', 'permaPrefix', '', 'Path prefix for Wordpress permalinks; leave empty if not using permalinks');
         $this->addConfigValue('WP enabled pages', 'wordpressEnabledPages', FILENAME_WP, 'Comma separated list of pages that can display WP content (leave empty for all).');
-        $this->addConfigValue('User syncing', 'syncUser', false, 'Automatically create WP account (and update)', 
+        $this->addConfigValue('User syncing', 'syncUser', false, 'Automatically create WP account (and update)',
             'widget@BooleanFormWidget#name=syncUser&default=false&label=Update WP');
-        $this->addConfigValue('Nickname policy', 'requireNickname', true, 'Make nick name mandatory (empty nickname will skip automatic WP registration)', 
+        $this->addConfigValue('Nickname policy', 'requireNickname', true, 'Make nick name mandatory (empty nickname will skip automatic WP registration)',
             'widget@BooleanFormWidget#name=requireNickname&default=true&label=Require nickname');
-        $this->addConfigValue('URL rewriting', 'urlRewrite', true, 'Convert Wordpress URLs to store URLs pointing to the plugin templates', 
+        $this->addConfigValue('URL rewriting', 'urlRewrite', true, 'Convert Wordpress URLs to store URLs pointing to the plugin templates',
             'widget@BooleanFormWidget#name=urlRewrite&default=true&label=Rewrite WP URLs');
     }
 
@@ -82,7 +82,7 @@ class ZMWordpressPlugin extends Plugin implements ZMRequestHandler {
         }
         define('ZM_WORDPRESS_ROOT', $wordpressDir);
 
-        ZMEvents::instance()->attach($this);
+        zenmagick\base\Runtime::getEventDispatcher()->listen($this);
 
         if ($this->get('requireNickname')) {
             // enable nick name field
@@ -113,11 +113,9 @@ class ZMWordpressPlugin extends Plugin implements ZMRequestHandler {
 
     /**
      * Handle view start.
-     *
-     * @param array args Optional event args.
      */
-    public function onZMViewStart($args=null) {
-        $request = $args['request'];
+    public function onViewStart($event) {
+        $request = $event->get('request');
 
         // create single request handler
         $wordpressEnabledPages = $this->get('wordpressEnabledPages');
@@ -125,7 +123,7 @@ class ZMWordpressPlugin extends Plugin implements ZMRequestHandler {
             // need to do this on all enabled pages, not just wp
             $requestHandler = $this->getRequestHandler($request);
             if (ZMLangUtils::asBoolean($this->get('urlRewrite'))) {
-                $requestHandler->registerFilter($args['view']);
+                $requestHandler->registerFilter($event->get('view'));
             }
         }
     }
@@ -135,11 +133,9 @@ class ZMWordpressPlugin extends Plugin implements ZMRequestHandler {
      *
      * <p>Code in here can't be executed in <code>init()</code>, as it depends on the global
      * WP stuff being loaded first.</p>
-     *
-     * @param array args Optional event args.
      */
-    public function onZMInitDone($args=null) {
-        $request = $args['request'];
+    public function onInitDone($event) {
+        $request = $event->get('request');
 
         // create single request handler
         $wordpressEnabledPages = $this->get('wordpressEnabledPages');
@@ -186,20 +182,19 @@ class ZMWordpressPlugin extends Plugin implements ZMRequestHandler {
     }
 
     /**
-     * {@inheritDoc}
+     * Handle final contents.
      */
-    public function onZMFinaliseContents($args) {
-        $request = $args['request'];
-        $contents = $args['contents'];
+    public function onFinaliseContents($event, $contents) {
+        $request = $event->get('request');
 
         if (FILENAME_WP == $request->getRequestId()) {
             ob_start();
             wp_head();
             $wp_head = ob_get_clean();
-            $args['contents'] = preg_replace('/<\/head>/', $wp_head . '</head>', $contents, 1);
+            $contents = preg_replace('/<\/head>/', $wp_head . '</head>', $contents, 1);
         }
 
-        return $args;
+        return $contents;
     }
 
     /**
@@ -277,14 +272,12 @@ class ZMWordpressPlugin extends Plugin implements ZMRequestHandler {
      *
      * <p>Here the additional processing is done by checking the result view id. As per convention,
      * ZenMagick controller will use the viewId 'success' if POST processing was successful.</p>
-     *
-     * @param array args Optional parameter.
      */
-    public function onZMCreateAccount($args) {
+    public function onCreateAccount($event) {
         if (ZMLangUtils::asBoolean($this->get('syncUser'))) {
-            $account = $args['account'];
+            $account = $event->get('account');
             if (!ZMLangUtils::isEmpty($account->getNickName())) {
-                $password = $args['clearPassword'];
+                $password = $event->get('clearPassword');
                 if (!$this->getAdapter()->createAccount($account, $password)) {
                     ZMMessages::instance()->info(_zm('Could not create wordpress account - please contact the store administrator.'));
                 }
@@ -297,14 +290,12 @@ class ZMWordpressPlugin extends Plugin implements ZMRequestHandler {
      *
      * <p>Here the additional processing is done by checking the result view id. As per convention,
      * ZenMagick controller will use the viewId 'success' if POST processing was successful.</p>
-     *
-     * @param array args Optional parameter.
      */
-    public function onZMPasswordChanged($args) {
+    public function onPasswordChanged($event) {
         if (ZMLangUtils::asBoolean($this->get('syncUser'))) {
-            $account = $args['account'];
+            $account = $event->get('account');
             if (!ZMLangUtils::isEmpty($account->getNickName())) {
-                $password = $args['clearPassword'];
+                $password = $event->get('clearPassword');
                 $this->getAdapter()->updateAccount($account->getNickName(), $password, $account->getEmail());
             }
         }
@@ -315,15 +306,13 @@ class ZMWordpressPlugin extends Plugin implements ZMRequestHandler {
      *
      * <p>Here the additional processing is done by checking the result view id. As per convention,
      * ZenMagick controller will use the viewId 'success' if POST processing was successful.</p>
-     *
-     * @param array args Optional parameter ('view' => $view).
      */
-    public function onZMControllerProcessEnd($args) {
-        $request = $args['request'];
+    public function onControllerProcessEnd($event) {
+        $request = $event->get('request');
 
         if (ZMLangUtils::asBoolean($this->get('syncUser'))) {
             if ('POST' == $request->getMethod()) {
-                $view = $args['view'];
+                $view = $event->get('view');
                 if ('account_edit' == $this->requestId_ && 'success' == $view->getMappingId()) {
                     $account = ZMAccounts::instance()->getAccountForId($request->getAccountId());
                     if (null != $account && !ZMLangUtils::isEmpty($account->getNickName())) {

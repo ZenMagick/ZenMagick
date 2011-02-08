@@ -54,9 +54,9 @@ class ZMHowDidYouHearPlugin extends Plugin {
         parent::install();
         ZMDbUtils::executePatch(file(ZMDbUtils::resolveSQLFilename($this->getPluginDirectory()."sql/install_referrals.sql")), $this->messages_);
         $this->addConfigValue('Display "Other', 'displayOther', 'true',
-            'Display "Other - please specify" with text box in referral source in account creation', 
+            'Display "Other - please specify" with text box in referral source in account creation',
             'widget@BooleanFormWidget#name=displayOther&default=true&label=Allow other&style=checkbox');
-        $this->addConfigValue('Require Source', 'requireSource', 'true', 'Require the Referral Source in account creation', 
+        $this->addConfigValue('Require Source', 'requireSource', 'true', 'Require the Referral Source in account creation',
             'widget@BooleanFormWidget#name=requireSource&default=true&label=Require Source&style=checkbox');
     }
 
@@ -73,9 +73,7 @@ class ZMHowDidYouHearPlugin extends Plugin {
      */
     public function init() {
         parent::init();
-
-        // set up as event subscriber
-        ZMEvents::instance()->attach($this);
+        zenmagick\base\Runtime::getEventDispatcher()->listen($this);
 
         ZMSettings::append('zenmagick.core.database.sql.customers_info.customFields', 'customers_info_source_id;integer;sourceId');
 
@@ -90,10 +88,8 @@ class ZMHowDidYouHearPlugin extends Plugin {
      *
      * <p>Setup additional validation rules; this is done here to avoid getting in the way of
      * custom global/theme validation rule setups.</p>
-     *
-     * @param array args Optional parameter.
      */
-    public function onZMInitDone($args=null) {
+    public function onInitDone($event) {
         if ($this->isRequired()) {
             // add validation rules
             $rules = array(
@@ -107,8 +103,8 @@ class ZMHowDidYouHearPlugin extends Plugin {
     /**
      * Add custom view data.
      */
-    public function onZMViewStart($args) {
-        $request = $args['request'];
+    public function onViewStart($event) {
+        $request = $event->get('request');
         if ('create_account' == $request->getRequestId()) {
             // create sources list
             $howDidYouHearSources = array();
@@ -133,7 +129,7 @@ class ZMHowDidYouHearPlugin extends Plugin {
                 $howDidYouHearSources[] = $source;
             }
             // add to view context
-            $view = $args['view'];
+            $view = $event->get('view');
             $view->setVar('howDidYouHearSources', $howDidYouHearSources);
         }
     }
@@ -141,8 +137,8 @@ class ZMHowDidYouHearPlugin extends Plugin {
     /**
      * Custom create account processing
      */
-    public function onZMCreateAccount($args) {
-        $account = $args['account'];
+    public function onCreateAccount($event) {
+        $account = $event->get('account');
         if (ID_SOURCE_OTHER == $account->getSourceId()) {
             // need to store sourceOther
             $sql = "INSERT INTO " . TABLE_SOURCES_OTHER . "

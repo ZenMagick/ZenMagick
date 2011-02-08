@@ -32,8 +32,8 @@ class ZMAdminEventHandler {
     /**
      * Display message about invalid/insufficient credentional
      */
-    public function onZMInsufficientCredentials($args) {
-        $request = $args['request'];
+    public function onInsufficientCredentials($event) {
+        $request = $event->get('request');
         if (null != $request->getUser()) {
             // only if we still have a valid session
             ZMMessages::instance()->warn(sprintf(_zm('You are not allowed to access the page with id: <em>%s</em>'), $request->getRequestId()));
@@ -43,9 +43,9 @@ class ZMAdminEventHandler {
     /**
      * Add <em>currentLanguage</em> to all views.
      */
-    public function onZMViewStart($args) {
-        $request = $args['request'];
-        $view = $args['view'];
+    public function onViewStart($event) {
+        $request = $event->get('request');
+        $view = $event->get('view');
         $view->setVar('currentLanguage', $request->getSelectedLanguage());
         $view->setVar('currentEditor', $this->getCurrentEditor($request));
         $view->setVar('buttonClasses', 'ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only');
@@ -73,8 +73,8 @@ class ZMAdminEventHandler {
     /**
      * Init locale.
      */
-    public function onZMInitDone($args) {
-        $request = $args['request'];
+    public function onInitDone($event) {
+        $request = $event->get('request');
         $user = $request->getUser();
         if (null != $user && null != ($uiLocale = ZMAdminUserPrefs::instance()->getPrefForName($user->getId(), 'uiLocale'))) {
             ZMLocales::instance()->getLocale(true, $uiLocale);
@@ -86,7 +86,7 @@ class ZMAdminEventHandler {
      *
      * @todo: remove and load individual values as required
      */
-    public function onZMAppInitDone($args) {
+    public function onAppInitDone($event) {
         //** load all config values if not set **//
         if (!defined('STORE_NAME')) {
             foreach (ZMConfig::instance()->loadAll() as $key => $value) {

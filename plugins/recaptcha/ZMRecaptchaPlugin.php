@@ -80,7 +80,7 @@ class ZMRecaptchaPlugin extends Plugin {
      */
     public function init() {
         parent::init();
-        ZMEvents::instance()->attach($this);
+        zenmagick\base\Runtime::getEventDispatcher()->listen($this);
     }
 
     /**
@@ -88,11 +88,9 @@ class ZMRecaptchaPlugin extends Plugin {
      *
      * <p>Setup additional validation rules; this is done here to avoid getting in the way of
      * custom global/theme validation rule setups.</p>
-     *
-     * @param array args Optional parameter.
      */
-    public function onZMInitDone($args=null) {
-        $request = $args['request'];
+    public function onInitDone($event) {
+        $request = $event->get('request');
         $disableRegistered = ZMLangUtils::asBoolean($this->get('disableRegistered'));
         if ($disableRegistered && $request->isRegistered()) {
             // skip
@@ -101,7 +99,7 @@ class ZMRecaptchaPlugin extends Plugin {
 
         // check if we need to do anything for this request...
         $requestId = $request->getRequestId();
-        if (true == $this->get($requestId) && isset($this->pageConfig_[$requestId])) { 
+        if (true == $this->get($requestId) && isset($this->pageConfig_[$requestId])) {
             $form = $this->pageConfig_[$requestId][1];
             // active for this page
             $this->captchaEnabled_ = true;

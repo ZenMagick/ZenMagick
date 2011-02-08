@@ -58,7 +58,7 @@ class ZMPhpBB3Plugin extends Plugin implements ZMRequestHandler {
 
         $this->addConfigValue('phpBB3 Installation Folder', 'phpBB3Dir', '', 'Path to your phpBB3 installation',
               'widget@TextFormWidget#name=phpBB3Dir&default=&size=24&maxlength=255');
-        $this->addConfigValue('Nickname policy', 'requireNickname', true, 'Make nickname mandatory (If disabled, automatic phpBB registration will be skipped)', 
+        $this->addConfigValue('Nickname policy', 'requireNickname', true, 'Make nickname mandatory (If disabled, automatic phpBB registration will be skipped)',
             'widget@BooleanFormWidget#name=requireNickname&default=true&label=Require nickname');
     }
 
@@ -93,7 +93,7 @@ class ZMPhpBB3Plugin extends Plugin implements ZMRequestHandler {
         ZMSettings::set('isAccountNickname', true);
 
         // using events
-        ZMEvents::instance()->attach($this);
+        zenmagick\base\Runtime::getEventDispatcher()->listen($this);
     }
 
     /**
@@ -101,10 +101,8 @@ class ZMPhpBB3Plugin extends Plugin implements ZMRequestHandler {
      *
      * <p>Setup additional validation rules; this is done here to avoid getting in the way of
      * custom global/theme validation rule setups.</p>
-     *
-     * @param array args Optional parameter.
      */
-    public function onZMInitDone($args=null) {
+    public function onInitDone($event) {
         if ('create_account' == $this->page_) {
             $phpBB = $this->getAdapter();
             // add custom validation rules
@@ -118,7 +116,7 @@ class ZMPhpBB3Plugin extends Plugin implements ZMRequestHandler {
             }
             ZMValidator::instance()->addRules('registration', $rules);
         } else if ('account_password' == $this->page_) {
-            ZMEvents::instance()->attach($this);
+            // ??
         } else if ('account_edit' == $this->page_) {
             $phpBB = $this->getAdapter();
             $rules = array(
@@ -130,7 +128,6 @@ class ZMPhpBB3Plugin extends Plugin implements ZMRequestHandler {
                 $rules[] = array('RequiredRule', 'nickName', 'Please enter a nick name.');
             }
             ZMValidator::instance()->addRules('account', $rules);
-            ZMEvents::instance()->attach($this);
         }
     }
 
@@ -139,13 +136,11 @@ class ZMPhpBB3Plugin extends Plugin implements ZMRequestHandler {
      *
      * <p>Here the additional processing is done by checking the result view id. As per convention,
      * ZenMagick controller will use the viewId 'success' if POST processing was successful.</p>
-     *
-     * @param array args Optional parameter.
      */
-    public function onZMCreateAccount($args) {
-        $account = $args['account'];
+    public function onCreateAccount($event) {
+        $account = $event->get('account');
         if (!ZMLangUtils::isEmpty($account->getNickName())) {
-            $password = $args['clearPassword'];
+            $password = $event->get('clearPassword');
             $this->getAdapter()->createAccount($account, $password);
         }
     }
@@ -155,13 +150,11 @@ class ZMPhpBB3Plugin extends Plugin implements ZMRequestHandler {
      *
      * <p>Here the additional processing is done by checking the result view id. As per convention,
      * ZenMagick controller will use the viewId 'success' if POST processing was successful.</p>
-     *
-     * @param array args Optional parameter.
      */
-    public function onZMPasswordChanged($args) {
-        $account = $args['account'];
+    public function onPasswordChanged($event) {
+        $account = $event->get('account');
         if (!ZMLangUtils::isEmpty($account->getNickName())) {
-            $password = $args['clearPassword'];
+            $password = $event->get('clearPassword');
             $this->getAdapter()->updateAccount($account->getNickName(), $password, $account->getEmail());
         }
     }
@@ -171,14 +164,12 @@ class ZMPhpBB3Plugin extends Plugin implements ZMRequestHandler {
      *
      * <p>Here the additional processing is done by checking the result view id. As per convention,
      * ZenMagick controller will use the viewId 'success' if POST processing was successful.</p>
-     *
-     * @param array args Optional parameter ('view' => $view).
      */
-    function onZMControllerProcessEnd($args) {
-        $request = $args['request'];
+    public function onControllerProcessEnd($event) {
+        $request = $event->get('request');
 
         if ('POST' == $request->getMethod()) {
-            $view = $args['view'];
+            $view = $event->get('view');
             if ('account_edit' == $this->page_ && 'success' == $view->getMappingId()) {
                 $account = ZMAccounts::instance()->getAccountForId($request->getAccountId());
                 if (null != $account && !ZMLangUtils::isEmpty($account->getNickName())) {

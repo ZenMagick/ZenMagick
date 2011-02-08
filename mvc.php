@@ -20,6 +20,7 @@
 ?>
 <?php
 use zenmagick\base\Runtime;
+use zenmagick\base\events\Event;
 
     // allow seo rewriters to fiddle with the request
     $_zm_request->seoDecode();
@@ -32,7 +33,7 @@ use zenmagick\base\Runtime;
 
     // reset as other global code migth fiddle with it...
     $request = $_zm_request;
-    \ZMEvents::instance()->fireEvent(null, 'init_done', array('request' => $_zm_request));
+    Runtime::getEventDispatcher()->notify(new Event(null, 'init_done',  array('request' => $_zm_request)));
 
     \ZMDispatcher::dispatch($_zm_request);
     $_zm_request->closeSession();

@@ -21,6 +21,7 @@
 <?php
 
 use zenmagick\base\Runtime;
+use zenmagick\base\events\Event;
 
 
 define('ZM_EVENT_PLUGINS_PAGE_CACHE_CONTENTS_DONE', 'plugins_page_cache_contents_done');
@@ -73,7 +74,7 @@ class ZMPageCachePlugin extends \Plugin {
      */
     public function init() {
         parent::init();
-        \ZMEvents::instance()->attach($this);
+        Runtime::getEventDispatcher()->listen($this);
         $this->cache_ = \ZMCaches::instance()->getCache('pages', array('cacheTTL' => $this->get('ttl')));
     }
 
@@ -81,7 +82,7 @@ class ZMPageCachePlugin extends \Plugin {
     /**
      * Create unique cache key for the context of the current request.
      *
-     * <p>Depending on whether the user is logged in or not, a user 
+     * <p>Depending on whether the user is logged in or not, a user
      * specifc keu will be generated, to avoid session leaks.</p>
      *
      * @param ZMRequest request The current request.
@@ -91,7 +92,7 @@ class ZMPageCachePlugin extends \Plugin {
         $session = $request->getSession();
         $parameters = $request->getParameterMap();
         ksort($parameters);
-        return $request->getRequestId() . '-' . http_build_query($parameters) . '-' . $request->getAccountId() . '-' . 
+        return $request->getRequestId() . '-' . http_build_query($parameters) . '-' . $request->getAccountId() . '-' .
                   $session->getLanguageId() . '-' . \ZMThemes::instance()->getActiveThemeId($session->getLanguageId());
     }
 
@@ -119,18 +120,16 @@ class ZMPageCachePlugin extends \Plugin {
      *
      * <p>This is the point during request handling where it is decided whether to
      * use the page cache or not.</p>
-     *
-     * @param array args Contains the final theme (key: 'theme').
      */
-    public function onZMThemeResolved($args) {
-        $request = $args['request'];
+    public function onThemeResolved($event) {
+        $request = $event->get('request');
 
         // handle page caching
         if ($this->isEnabled() && !\ZMSettings::get('isAdmin')) {
             if (false !== ($contents = $this->cache_->lookup($this->getRequestKey($request))) && $this->isCacheable($request)) {
                 \ZMLogging::instance()->log('cache hit for requestId: '.$request->getRequestId(), \ZMLogging::DEBUG);
                 echo $contents;
-                \ZMEvents::instance()->fireEvent($this, ZM_EVENT_PLUGINS_PAGE_CACHE_CONTENTS_DONE, $args);
+                Runtime::getEventDispatcher()->notify(new Event($this, ZM_EVENT_PLUGINS_PAGE_CACHE_CONTENTS_DONE, $args));
                 if ($this->get('loadStats')) {
                     echo '<!-- pageCache stats: page: ' . Runtime::getExecutionTime() . ' sec.; ';
                     echo 'lastModified: ' . $this->cache_->lastModified() . ' -->';
@@ -145,11 +144,11 @@ class ZMPageCachePlugin extends \Plugin {
 
 
     /**
-     * {@inheritDoc}
+     * Event handler
      */
-    public function onZMAllDone($args) {
-        $contents = $args['contents'];
-        $request = $args['request'];
+    public function onAllDone($event) {
+        $request = $event->get('request');
+        $contents = $event->get('contents');
 
         if ($this->isEnabled() && $this->isCacheable($request)) {
             $this->cache_->save($contents, $this->getRequestKey($request));

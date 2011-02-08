@@ -100,7 +100,7 @@ class ZMSubscriptionsPlugin extends Plugin {
     public function init() {
         parent::init();
 
-        ZMEvents::instance()->attach($this);
+        zenmagick\base\Runtime::getEventDispatcher()->listen($this);
 
         // set mappings and permissions of custom pages
         ZMSacsManager::instance()->setMapping('cancel_subscription', ZMAccount::REGISTERED);
@@ -124,7 +124,7 @@ class ZMSubscriptionsPlugin extends Plugin {
     /**
      * Event handler to pick up subscription checkout options.
      */
-    public function onZMInitDone($args=array()) {
+    public function onInitDone($event) {
         if ('checkout_shipping' == ZMRequest::instance()->getRequestId() && 'POST' == ZMRequest::instance()->getMethod()) {
             if (ZMLangUtils::asBoolean(ZMRequest::instance()->getParameter('subscription'))) {
                 ZMRequest::instance()->getSession()->setValue('subscription_schedule', ZMRequest::instance()->getParameter('schedule'));
@@ -168,7 +168,7 @@ class ZMSubscriptionsPlugin extends Plugin {
 
     /**
      * Get all available request types as map.
-     * 
+     *
      * <p>This can be configured/changed via the setting <em>plugins.zm_subscriptions.request.types</em>.</p>
      *
      * @return array Hash map of schedule key => name.
@@ -184,7 +184,7 @@ class ZMSubscriptionsPlugin extends Plugin {
 
     /**
      * Get all available schedules as map.
-     * 
+     *
      * <p>This can be configured/changed via the setting <em>plugins.zm_subscriptions.schedules</em>.</p>
      *
      * @return array Hash map of schedule key => name.
@@ -202,14 +202,14 @@ class ZMSubscriptionsPlugin extends Plugin {
     /**
      * Order created event handler.
      */
-    public function onZMCreateOrder($args=array()) {
-        if ($args['source'] instanceof ZMUpdateSubscriptionsCronJob) {
+    public function onCreateOrder($event) {
+        if ($event->getSubject() instanceof ZMUpdateSubscriptionsCronJob) {
             // do not process orders created by our cron job
             return;
         }
 
-        $request = $args['request'];
-        $orderId = $args['orderId'];
+        $request = $event->get('request');
+        $orderId = $event->get('orderId');
         if (null != ($schedule = $this->getSelectedSchedule())) {
             $sql = "UPDATE " . TABLE_ORDERS . "
                     SET subscription_next_order = DATE_ADD(date_purchased, INTERVAL " . self::schedule2SQL($schedule) . "),
@@ -240,7 +240,7 @@ class ZMSubscriptionsPlugin extends Plugin {
      * @return string A string that can be used in SQL <em>DATE_ADD</em>.
      */
     public static function schedule2SQL($schedule, $factor=1) {
-        $schedule = preg_replace('/[^0-9dwmy]/', '', $schedule); 
+        $schedule = preg_replace('/[^0-9dwmy]/', '', $schedule);
         $schedule = str_replace(array('d', 'w', 'm', 'y'), array(' DAY', ' WEEK', ' MONTH', ' YEAR'), $schedule);
         if (1 < $factor) {
             // multiply

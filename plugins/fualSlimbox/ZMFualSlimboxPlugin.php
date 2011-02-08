@@ -68,22 +68,21 @@ class ZMFualSlimboxPlugin extends Plugin {
      */
     public function init() {
         parent::init();
-        ZMEvents::instance()->attach($this);
+        zenmagick\base\Runtime::getEventDispatcher()->listen($this);
     }
 
     /**
-     * {@inheritDoc}
+     * Event handler.
      */
-    public function onZMFinaliseContents($args) {
-        $contents = $args['contents'];
+    public function onFinaliseContents($event, $contents) {
         if (false === strpos($contents, 'lightbox')) {
             // no tagged images
             return null;
         }
 
-        $view = $args['view'];
+        $view = $event->get('view');
         if ($view instanceof ZMSavantView) {
-            $request = $args['request'];
+            $request = $event->get('request');
             $fualSO = new FualSlimboxOptions();
             ob_start();
             // create manually as different folder structure
@@ -116,11 +115,9 @@ class ZMFualSlimboxPlugin extends Plugin {
             }
 
             $contents = preg_replace('/<\/head>/', ob_get_clean().'</head>', $contents, 1);
-            $args['contents'] = $contents;
-            return $args;
-        } else {
-            return null;
         }
+
+        return $contents;
     }
 
 }

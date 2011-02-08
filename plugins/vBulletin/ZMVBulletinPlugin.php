@@ -58,7 +58,7 @@ class ZMVBulletinPlugin extends Plugin implements ZMRequestHandler {
 
         $this->addConfigValue('vBulletin Installation Folder', 'vBulletinDir', '', 'Path to your vBulletin installation',
               'widget@TextFormWidget#name=vBulletinDir&default=&size=24&maxlength=255');
-        $this->addConfigValue('Nickname policy', 'requireNickname', true, 'Make nickname mandatory (If disabled, automatic vBulletin registration will be skipped)', 
+        $this->addConfigValue('Nickname policy', 'requireNickname', true, 'Make nickname mandatory (If disabled, automatic vBulletin registration will be skipped)',
             'widget@BooleanFormWidget#name=requireNickname&default=true&label=Require nickname');
     }
 
@@ -92,7 +92,7 @@ class ZMVBulletinPlugin extends Plugin implements ZMRequestHandler {
         ZMSettings::set('isAccountNickname', true);
 
         // using events
-        ZMEvents::instance()->attach($this);
+        zenmagick\base\Runtme::getEventDispatcher()->listen($this);
     }
 
     /**
@@ -100,10 +100,8 @@ class ZMVBulletinPlugin extends Plugin implements ZMRequestHandler {
      *
      * <p>Setup additional validation rules; this is done here to avoid getting in the way of
      * custom global/theme validation rule setups.</p>
-     *
-     * @param array args Optional parameter.
      */
-    public function onZMInitDone($args=null) {
+    public function onInitDone($event) {
         if ('create_account' == $this->page_) {
             $vBulletin = $this->getAdapter();
             // add custom validation rules
@@ -117,7 +115,7 @@ class ZMVBulletinPlugin extends Plugin implements ZMRequestHandler {
             }
             ZMValidator::instance()->addRules('registration', $rules);
         } else if ('account_password' == $this->page_) {
-            ZMEvents::instance()->attach($this);
+            // ??
         } else if ('account_edit' == $this->page_) {
             $vBulletin = $this->getAdapter();
             $rules = array(
@@ -129,7 +127,6 @@ class ZMVBulletinPlugin extends Plugin implements ZMRequestHandler {
                 $rules[] = array('RequiredRule', 'nickName', 'Please enter a nick name.');
             }
             ZMValidator::instance()->addRules('account', $rules);
-            ZMEvents::instance()->attach($this);
         }
     }
 
@@ -138,13 +135,11 @@ class ZMVBulletinPlugin extends Plugin implements ZMRequestHandler {
      *
      * <p>Here the additional processing is done by checking the result view id. As per convention,
      * ZenMagick controller will use the viewId 'success' if POST processing was successful.</p>
-     *
-     * @param array args Optional parameter.
      */
-    public function onZMCreateAccount($args) {
-        $account = $args['account'];
+    public function onCreateAccount($event) {
+        $account = $event->get('account');
         if (!ZMLangUtils::isEmpty($account->getNickName())) {
-            $password = $args['clearPassword'];
+            $password = $event->get('clearPassword');
             $this->getAdapter()->createAccount($account, $password);
         }
     }
@@ -154,26 +149,22 @@ class ZMVBulletinPlugin extends Plugin implements ZMRequestHandler {
      *
      * <p>Here the additional processing is done by checking the result view id. As per convention,
      * ZenMagick controller will use the viewId 'success' if POST processing was successful.</p>
-     *
-     * @param array args Optional parameter.
      */
-    public function onZMPasswordChanged($args) {
-        $account = $args['account'];
+    public function onPasswordChanged($event) {
+        $account = $event->get('account');
         if (!ZMLangUtils::isEmpty($account->getNickName())) {
-            $password = $args['clearPassword'];
+            $password = $event->get('clearPassword');
             $this->getAdapter()->updateAccount($account->getNickName(), $password, $account->getEmail());
         }
     }
 
     /**
      * Event handler for login.
-     *
-     * @param array args Optional parameter.
      */
-    public function onZMLoginSuccess($args=array()) {
-        $request = $args['request'];
-        $account = $args['account'];
-        // check if nickname set and no matching forum user 
+    public function onLoginSuccess($event) {
+        $request = $event->get('request');
+        $account = $event->get('account');
+        // check if nickname set and no matching forum user
         if (!ZMLangUtils::isEmpty($account->getNickName())) {
             if (null == $this->getAdapter()->getAccountForNickName($account->getNickName())) {
                 // no vBulletin user found, so create one now!
@@ -188,13 +179,11 @@ class ZMVBulletinPlugin extends Plugin implements ZMRequestHandler {
      *
      * <p>Here the additional processing is done by checking the result view id. As per convention,
      * ZenMagick controller will use the viewId 'success' if POST processing was successful.</p>
-     *
-     * @param array args Optional parameter ('view' => $view).
      */
-    public function onZMControllerProcessEnd($args) {
-        $request = $args['request'];
+    public function onControllerProcessEnd($event) {
+        $request = $event->get('request');
         if ('POST' == $request->getMethod()) {
-            $view = $args['view'];
+            $view = $event->get('view');
             if ('account_edit' == $this->page_ && 'success' == $view->getMappingId()) {
                 $account = ZMAccounts::instance()->getAccountForId($request->getAccountId());
                 $vbAccount = $this->getAdapter()->getAccountForNickName($account->getNickName());

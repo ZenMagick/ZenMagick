@@ -23,6 +23,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 
 /**
  * TinyMCE textarea form widget.
@@ -30,7 +31,7 @@
  * @package org.zenmagick.plugins.tinyMCE
  * @author DerManoMann
  */
-class ZMTinyMCEFormWidget extends ZMTextAreaFormWidget {
+class ZMTinyMCEFormWidget extends \ZMTextAreaFormWidget {
     private static $ID_LIST = array();
     private $plugin_;
 
@@ -40,7 +41,7 @@ class ZMTinyMCEFormWidget extends ZMTextAreaFormWidget {
      */
     function __construct() {
         parent::__construct();
-        $this->plugin_ = ZMPlugins::instance()->getPluginForId('tinyMCE');
+        $this->plugin_ = \ZMPlugins::instance()->getPluginForId('tinyMCE');
     }
 
     /**
@@ -62,22 +63,20 @@ class ZMTinyMCEFormWidget extends ZMTextAreaFormWidget {
 
         // add required js
         $resources = $view->getVar('resources');
-        $resources->jsFile('tinymce-3.3.8/jscripts/tiny_mce/tiny_mce.js', ZMViewUtils::HEADER);
+        $resources->jsFile('tinymce-3.3.8/jscripts/tiny_mce/tiny_mce.js', \ZMViewUtils::HEADER);
 
         self::$ID_LIST[] = $this->getId();
 
         // create init script code at the end once we know all the ids
-        ZMEvents::instance()->attach($this);
+        Runtime::getEventDispatcher()->listen($this);
         return parent::render($request, $view);
     }
 
     /**
      * Add init code.
      */
-    public function onZMFinaliseContents($args) {
+    public function onFinaliseContents($event, $contents) {
         if (0 < count(self::$ID_LIST)) {
-            $contents = $args['contents'];
-
             $idString = implode(',', self::$ID_LIST);
             $jsInit = <<<EOT
 <script>
@@ -97,11 +96,11 @@ class ZMTinyMCEFormWidget extends ZMTextAreaFormWidget {
   });
 </script>
 EOT;
-            $args['contents'] = preg_replace('/<\/body>/', $jsInit . '</body>', $contents, 1);
+            $contents = preg_replace('/<\/body>/', $jsInit . '</body>', $contents, 1);
             // clear to create js only once
             self::$ID_LIST = array();
         }
-        return $args;
+        return $contents;
     }
 
 }
