@@ -34,9 +34,6 @@ namespace zenmagick\base;
  *  <dd>This prefix indicates that the following string is to be taken as bean definition. However, the instance created/obtained
  *   will first be looked up as singleton instance. It is important to remember that by setting properties on references these settings
  *   will be permanent for all subsequent code using that singleton.</dd>
- *  <dt>set::</dt>
- *  <dd>The string following <em>set::</em> is used for a settings lookup (<code>ZMSettings::get()</code>). The configured value (string)
- *   is then used to create the bean instance. This allows to use symbolic names and configure default implementations via settings.</dd>
  * </dl>
  *
  * @author DerManoMann
@@ -148,7 +145,7 @@ class Beans {
     public static function setAll($obj, $data, $keys=null, $setGeneric=true) {
         $isGeneric = ($obj instanceof \ZMObject);
         foreach ($data as $property => $value) {
-            if (is_string($value) && (0 === strpos($value, 'ref::') || 0 === strpos($value, 'bean::') || 0 === strpos($value, 'set::'))) {
+            if (is_string($value) && (0 === strpos($value, 'ref::') || 0 === strpos($value, 'bean::'))) {
                 $value = self::getBean($value);
             }
             if (null === $keys || in_array($property, $keys)) {
@@ -174,7 +171,9 @@ class Beans {
      * @return mixed An instance of the given class or <code>null</code>.
      */
     public static function map2obj($clazz, $data, $keys=null) {
-        if (ClassLoader::classExists($clazz)) {
+        //TODO: remove once we get rid of ZMLoader
+        $zmloader = \ZMLoader::resolve($clazz);
+        if (ClassLoader::classExists($clazz) && (null == $zmloader || $zmloader == $clazz)) {
             $obj = new $clazz();
             self::setAll($obj, $data, $keys);
             return $obj;
@@ -188,10 +187,9 @@ class Beans {
      * <p>The syntax for bean definitions is: <em>[class name]#[property1=value1&property2=value2&...]<em>.</p>
      *
      * @param string definition The bean definition.
-     * @param boolean useBeanMapping If set, the definition (class only) will be used to lookup a custom bean definition; default is <code>true</code>.
      * @return mixed An object or <code>null</code>.
      */
-    public static function getBean($definition, $useBeanMapping=true) {
+    public static function getBean($definition) {
         $isRef = false;
         $isPlugin = false;
         if (0 === strpos($definition, 'bean::')) {

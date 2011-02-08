@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 
 /**
  * Settings (ZenMagick's configuration).
@@ -28,8 +29,6 @@
  * @package org.zenmagick.core
  */
 class ZMSettings {
-    private static $settings_ = array();
-
 
     /**
      * Get the value for the given setting name.
@@ -39,11 +38,7 @@ class ZMSettings {
      * @return mixed The setting value or <code>null</code>.
      */
     public static function get($name, $default=null) {
-        if (!array_key_exists($name, ZMSettings::$settings_)) {
-            return $default;
-        }
-
-        return ZMSettings::$settings_[$name];
+        return Runtime::getSettings()->get($name, $default);
     }
 
     /**
@@ -56,16 +51,7 @@ class ZMSettings {
      * @return mixed The old setting value or <code>null</code>.
      */
     public static function set($name, $value) {
-        $oldValue = isset(ZMSettings::$settings_[$name]) ? ZMSettings::$settings_[$name] : null;
-        if (null !== $value) {
-            ZMSettings::$settings_[$name] = $value;
-        } else {
-            if (array_key_exists($name, ZMSettings::$settings_)) {
-                unset(ZMSettings::$settings_[$name]);
-            }
-        }
-
-        return $oldValue;
+        return Runtime::getSettings()->set($name, $value);
     }
 
     /**
@@ -74,7 +60,7 @@ class ZMSettings {
      * @return array Map of all settings.
      */
     public static function getAll() {
-        return ZMSettings::$settings_;
+        return Runtime::getSettings()->getAll();
     }
 
     /**
@@ -84,13 +70,11 @@ class ZMSettings {
      * @param boolean replace If <code>true</code> existing settings will be replaced; default is <code>true</code>.
      */
     public static function addAll($settings, $replace=true) {
-        if ($replace) {
-            ZMSettings::$settings_ = array_merge(ZMSettings::$settings_, $settings);
-        } else {
-            foreach ($settings as $name => $value) {
-                if (!isset(ZMSettings::$settings_[$name])) {
-                    ZMSettings::$settings_[$name] = $value;
-                }
+        // old style map with path keys, not nested arrays
+        $zettings = Runtime::getSettings();
+        foreach ($settings as $name => $value) {
+            if ($replace || !$zettings->exists($name)) {
+                $zettings->set($name, $value);
             }
         }
     }
@@ -106,7 +90,7 @@ class ZMSettings {
      * @return boolean <code>true</code> if a setting with the given name exists.
      */
     public static function exists($name) {
-        return isset(ZMSettings::$settings_[$name]);
+        return Runtime::getSettings()->exists($name);
     }
 
     /**
@@ -118,14 +102,7 @@ class ZMSettings {
      * @return mixed The old setting value or <code>null</code>.
      */
     public static function append($name, $value, $delim=',') {
-        $oldValue = ZMSettings::get($name);
-        if (isset(ZMSettings::$settings_[$name]) && !empty($oldValue)) {
-            ZMSettings::$settings_[$name] = $oldValue.$delim.$value;
-        } else {
-            ZMSettings::$settings_[$name] = $value;
-        }
-
-        return $oldValue;
+        return Runtime::getSettings()->append($name, $value, $delim);
     }
 
     /**
@@ -136,7 +113,7 @@ class ZMSettings {
      *  default is <code>true</code> to override.
      */
     public static function load($yaml, $override=true) {
-        ZMSettings::$settings_ = ZMRuntime::yamlParse($yaml, ZMSettings::$settings_, $override);
+        self::addAll(\ZMRuntime::yamlParse($yaml), $override);
     }
 
 }
