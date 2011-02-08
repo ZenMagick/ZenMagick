@@ -96,6 +96,38 @@ class TestSettings extends ZMTestCase {
     }
 
     /**
+     * Test add new value.
+     */
+    public function testAddNewValue() {
+        $settings = new Settings();
+        $key = 'a.b.n@@';
+        $value = 'doh';
+
+        $this->assertFalse($settings->exists($key));
+        $oldValue = $settings->add($key, $value);
+        $this->assertNull($oldValue);
+        $this->assertEqual(array($value), $settings->get($key));
+    }
+
+    /**
+     * Test add existing value.
+     */
+    public function testAddExistingValue() {
+        $settings = new Settings();
+        $key = 'a.b.n@@';
+        $value = 'doh';
+        $nextValue = 'bah';
+
+        // set first value
+        $settings->set($key, $value);
+        $this->assertEqual($value, $settings->get($key));
+
+        $oldValue = $settings->add($key, $nextValue);
+        $this->assertEqual($value, $oldValue);
+        $this->assertEqual(array($value, $nextValue), $settings->get($key));
+    }
+
+    /**
      * Test new value.
      */
     public function testNewValue() {

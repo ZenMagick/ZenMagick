@@ -126,6 +126,31 @@ class Settings {
     }
 
     /**
+     * Add to an existing value.
+     *
+     * <p>If the value doesn't exist, it will be created, if it exists and is not an array it will be converted to an array
+     * with the current value as the first and the new value as the second element.</p>
+     *
+     * @param string path The path to append to.
+     * @param mixed value The value to append.
+     * @return mixed The old value or <code>null</code>.
+     */
+    public function add($path, $value) {
+        if (null !== ($lookup = $this->lookup($path))) {
+            if (!is_array($lookup[2][$lookup[1]])) {
+                $lookup[2][$lookup[1]] = array($lookup[2][$lookup[1]]);
+            }
+            $lookup[2][$lookup[1]][] = $value;
+            return $lookup[0];
+        }
+
+        if (!is_array($value)) {
+            $value = array($value);
+        }
+        return $this->set($path, $value);
+    }
+
+    /**
      * Get a map of all settings.
      *
      * @return array Map of all settings.
