@@ -122,4 +122,13 @@ class Runtime {
         return self::singleton('\zenmagick\base\events\EventDispatcher');        
     }
 
+    /**
+     * Get a settings instance.
+     *
+     * @return Settings A <code>Settings</code> instance.
+     */
+    public static function getSettings() {
+        return self::singleton('\zenmagick\base\Settings');        
+    }
+
 }
