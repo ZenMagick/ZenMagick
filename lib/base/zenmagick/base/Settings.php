@@ -122,4 +122,22 @@ class Settings {
         return $this->set($path, $value);
     }
 
+    /**
+     * Get a map of all settings.
+     *
+     * @return array Map of all settings.
+     */
+    public function getAll() {
+        return $this->settings_;
+    }
+
+    /**
+     * Merge in a map of settings.
+     *
+     * @param array settings Map of settings.
+     */
+    public function setAll($settings) {
+        $this->settings_ = \ZMLangUtils::arrayMergeRecursive($this->settings_, $settings);
+    }
+
 }
