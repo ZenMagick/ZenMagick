@@ -23,7 +23,7 @@ use zenmagick\base\Runtime;
 use zenmagick\base\ClassLoader;
 
     /*
-     * To use this, 'ZM_APP_PATH' needs to be defined first. 
+     * To use this, 'ZM_APP_PATH' needs to be defined first.
      * Expected value is the (full) path to an app directory following the
      * ZenMagick MVC layout conventions.
      */
@@ -37,15 +37,16 @@ use zenmagick\base\ClassLoader;
     // base installation directory
     define('ZM_BASE_PATH', dirname(__FILE__).DIRECTORY_SEPARATOR);
 
-    error_reporting(E_ALL^E_NOTICE);
     // hide as to avoid filenames that contain account names, etc.
     ini_set("display_errors", false);
-    // enable logging
-    ini_set("log_errors", true); 
-    // no, no
-    @ini_set("register_globals", false);
 
-    // init class loader
+    // all
+    error_reporting(-1);
+
+    // enable logging
+    ini_set("log_errors", true);
+
+    // set up base class loader
     $basephar = 'phar://'.ZM_BASE_PATH.'/lib/base/base.phar';
     if (file_exists($basephar)) {
         require_once $basephar.'/zenmagick/base/ClassLoader.php';
@@ -58,34 +59,41 @@ use zenmagick\base\ClassLoader;
     $baseLoader->register();
     unset($baseLoader);
 
-    // load initial code
+    // XXX: legacy loader
     require_once ZM_BASE_PATH."lib/core/ZMLoader.php";
     spl_autoload_register('ZMLoader::resolve');
-
     // configure loader
     ZMLoader::instance()->addPath(ZM_BASE_PATH.'lib'.DIRECTORY_SEPARATOR.'core'.DIRECTORY_SEPARATOR);
     ZMLoader::instance()->addPath(ZM_BASE_PATH.'lib'.DIRECTORY_SEPARATOR.'mvc'.DIRECTORY_SEPARATOR);
+
+    // set up shared class loader
     if (defined('ZM_SHARED')) {
         $sharedLoader = new ClassLoader();
         foreach (explode(',', ZM_SHARED) as $name) {
+            // XXX: legacy loader
             ZMLoader::instance()->addPath(ZM_BASE_PATH.trim($name).DIRECTORY_SEPARATOR);
             $sharedLoader->addConfig(ZM_BASE_PATH.trim($name));
         }
         $sharedLoader->register();
         unset($sharedLoader);
     }
+
+    // TODO: swap with shared
+    // set up application class loader
     if (null != Runtime::getApplicationPath()) {
         $appLibDir = Runtime::getApplicationPath() . DIRECTORY_SEPARATOR . 'lib';
+        // XXX: legacy loader
         ZMLoader::instance()->addPath($appLibDir . DIRECTORY_SEPARATOR);
         $appLoader = new ClassLoader();
         $appLoader->addConfig($appLibDir);
         $appLoader->register();
         unset($appLoader);
     }
-    // load static stuff and leave the rest to autoload
+
+    // XXX: legacy: load static stuff and leave the rest to autoload
     ZMLoader::instance()->loadStatic();
 
-    // load defaults and configs...
+    // load application configs...
     ZMSettings::load(file_get_contents(ZMFileUtils::mkPath(Runtime::getApplicationPath(), 'config', 'config.yaml')), false);
     // mvc mappings
     ZMUrlManager::instance()->load(file_get_contents(ZMFileUtils::mkPath(Runtime::getApplicationPath(), 'config', 'url_mappings.yaml')), false);
