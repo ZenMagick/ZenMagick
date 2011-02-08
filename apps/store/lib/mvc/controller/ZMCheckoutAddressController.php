@@ -31,7 +31,7 @@
  * @package zenmagick.store.sf.mvc.controller
  */
 class ZMCheckoutAddressController extends ZMController {
-    private $settings_;
+    private $modeSettings_;
     private $viewData_;
 
 
@@ -40,7 +40,7 @@ class ZMCheckoutAddressController extends ZMController {
      */
     function __construct() {
         parent::__construct();
-        $this->settings_ = array();
+        $this->modeSettings_ = array();
         $this->viewData_ = array();
         $this->setMode('shipping');
     }
@@ -59,9 +59,9 @@ class ZMCheckoutAddressController extends ZMController {
      */
     public function setMode($mode) {
         if ('shipping' == $mode) {
-            $this->settings_ = array('url' => 'checkout_shipping', 'method' => 'setShippingAddressId', 'ignoreCheckId' => 'require_shipping');
+            $this->modeSettings_ = array('url' => 'checkout_shipping', 'method' => 'setShippingAddressId', 'ignoreCheckId' => 'require_shipping');
         } else if ('billing' == $mode) {
-            $this->settings_ = array('url' => 'checkout_payment', 'method' => 'setBillingAddressId', 'ignoreCheckId' => 'require_payment');
+            $this->modeSettings_ = array('url' => 'checkout_payment', 'method' => 'setBillingAddressId', 'ignoreCheckId' => 'require_payment');
         }
     }
 
@@ -69,7 +69,7 @@ class ZMCheckoutAddressController extends ZMController {
      * {@inheritDoc}
      */
     public function preProcess($request) {
-        $request->getToolbox()->crumbtrail->addCrumb("Checkout", $request->url($this->settings_['url'], '', true));
+        $request->getToolbox()->crumbtrail->addCrumb("Checkout", $request->url($this->modeSettings_['url'], '', true));
         $request->getToolbox()->crumbtrail->addCrumb($request->getToolbox()->utils->getTitle());
 
         $shoppingCart = $request->getShoppingCart();
@@ -105,7 +105,7 @@ class ZMCheckoutAddressController extends ZMController {
      */
     protected function checkCart($request) {
         $checkoutHelper = ZMLoader::make('CheckoutHelper', $request->getShoppingCart());
-        if (null !== ($viewId = $checkoutHelper->validateCheckout($request, false)) && $this->settings_['ignoreCheckId'] != $viewId) {
+        if (null !== ($viewId = $checkoutHelper->validateCheckout($request, false)) && $this->modeSettings_['ignoreCheckId'] != $viewId) {
             return $this->findView($viewId, $this->viewData_);
         }
 
@@ -133,7 +133,7 @@ class ZMCheckoutAddressController extends ZMController {
 
         $shoppingCart = $request->getShoppingCart();
         // which addres do we update?
-        $method = $this->settings_['method'];
+        $method = $this->modeSettings_['method'];
 
         // if address field in request, it's a select; otherwise a new address
         $addressId = $request->getParameter('addressId', null);

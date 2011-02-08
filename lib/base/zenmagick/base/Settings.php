@@ -134,9 +134,12 @@ class Settings {
     /**
      * Merge in a map of settings.
      *
-     * @param array settings Map of settings.
+     * @param mixed settings Either a map of settings or another <code>Settings</code> instance.
      */
     public function setAll($settings) {
+        if ($settings instanceof Settings) {
+            $settings = $settings->getAll();
+        }
         $this->settings_ = \ZMLangUtils::arrayMergeRecursive($this->settings_, $settings);
     }
 

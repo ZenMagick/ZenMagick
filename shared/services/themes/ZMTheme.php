@@ -279,7 +279,7 @@ class ZMTheme extends ZMObject {
     }
 
     /**
-     * Load locale settings (l10n/i18n).
+     * Load locale (l10n/i18n).
      *
      * @param ZMLanguage language The language.
      */
@@ -314,10 +314,10 @@ class ZMTheme extends ZMObject {
         }
 
         // add optional settings
-        $settings = $this->getConfig('settings');
-        if ($settings && is_array($settings)) {
+        $themeSettings = $this->getConfig('settings');
+        if ($themeSettings && is_array($themeSettings)) {
             // merge
-            ZMSettings::addAll($settings, true);
+            ZMSettings::addAll($themeSettings, true);
         }
     }
 
