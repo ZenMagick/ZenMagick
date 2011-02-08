@@ -44,8 +44,8 @@ class Runtime {
         if (null != $instance && ($force || !isset(self::$singletons_[$name]))) {
             self::$singletons_[$name] = $instance;
         } else if (!array_key_exists($name, self::$singletons_)) {
-            if (null == (self::$singletons_[$name] = \ZMBeanUtils::getBean($name))) {
-                self::$singletons_[$name] = Beans::getBean($name);
+            if (null == (self::$singletons_[$name] = Beans::getBean($name))) {
+                self::$singletons_[$name] = \ZMBeanUtils::getBean($name);
             }
         }
 
@@ -110,7 +110,7 @@ class Runtime {
      * @return Logging A <code>Logging</code> instance.
      */
     public static function getLogging($scope=null) {
-        return self::singleton('\zenmagick\base\logging\Logging');
+        return self::singleton('zenmagick\base\logging\Logging');
     }
 
     /**
@@ -119,7 +119,7 @@ class Runtime {
      * @return EventDispatcher A <code>EventDispatcher</code> instance.
      */
     public static function getEventDispatcher() {
-        return self::singleton('\zenmagick\base\events\EventDispatcher');
+        return self::singleton('zenmagick\base\events\EventDispatcher');
     }
 
     /**
@@ -128,7 +128,7 @@ class Runtime {
      * @return Settings A <code>Settings</code> instance.
      */
     public static function getSettings() {
-        return self::singleton('\zenmagick\base\settings\Settings');
+        return self::singleton('zenmagick\base\settings\Settings');
     }
 
 }
