@@ -21,8 +21,6 @@
 <?php
 namespace zenmagick\base;
 
-use zenmagick\base\logging\Logging;
-
 /**
  * ZenMagick beans.
  *
@@ -207,37 +205,10 @@ class Beans {
         } else if (0 === strpos($definition, 'ref::')) {
             $definition = substr($definition, 5);
             $isRef = true;
-        } else if (0 === strpos($definition, 'set::')) {
-            $stoken = explode('#', substr($definition, 5), 2);
-            $definition = \ZMSettings::get($stoken[0]);
-            if (2 == count($stoken)) {
-                // append
-                if (false === strpos($definition, '#')) {
-                    $definition .= '#';
-                }
-                $definition .= '&'.$stoken[1];
-            }
-            Logging::trace('resolving '.$stoken[0].' to: '.$definition);
         }
 
         // got a valid definition, so let's look that up in the context, just in case
         $tokens = explode('#', $definition, 2);
-        if ($useBeanMapping && null != ($mappedDefinition = \ZMSettings::get('zenmagick.core.beans.definitions.'.$tokens[0]))) {
-            $mappedTokens = explode('#', $mappedDefinition, 2);
-            // the class to use
-            $definition = $mappedTokens[0].'#';
-            // merge properties
-            if (1 < count($tokens)) {
-                $definition .= $tokens[1];
-            }
-            if (1 < count($mappedTokens)) {
-                $definition .= '&'.$mappedTokens[1];
-            }
-            $tokens = explode('#', $definition, 2);
-        }
-
-        // some cleanup
-        $definition = str_replace('&&', '&', $definition);
 
         if (1 < count($tokens)) {
             parse_str($tokens[1], $properties);
