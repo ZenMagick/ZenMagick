@@ -168,7 +168,9 @@ class Settings {
         if ($settings instanceof Settings) {
             $settings = $settings->getAll();
         }
-        $this->settings_ = Toolbox::arrayMergeRecursive($this->settings_, $settings);
+        if (is_array($settings)) {
+            $this->settings_ = Toolbox::arrayMergeRecursive($this->settings_, $settings);
+        }
     }
 
 }
