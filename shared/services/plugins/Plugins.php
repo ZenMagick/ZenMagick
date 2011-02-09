@@ -70,16 +70,4 @@ class Plugins extends ZMPlugins {
         return $status;
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    protected function comparePlugins($a, $b) {
-        $ao = $a->getSortOrder();
-        $bo = $b->getSortOrder();
-        if ($ao == $bo) {
-            return parent::comparePlugins($a, $b);
-        }
-        return ($ao < $bo) ? -1 : 1;
-    }
-
 }

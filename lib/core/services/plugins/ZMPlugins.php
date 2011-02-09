@@ -171,27 +171,10 @@ class ZMPlugins extends ZMObject {
 
         if (!$enabled) {
             // sort
-            usort($plugins, array($this, "comparePlugins"));
+            usort($plugins);
         }
 
         return $plugins;
-    }
-
-    /**
-     * Compare plugins.
-     *
-     * @param ZMPlugin a First plugin.
-     * @param ZMPlugin b Second plugin.
-     * @return integer Value less than, equal to, or greater than zero if the first argument is
-     *  considered to be respectively less than, equal to, or greater than the second.
-     */
-    protected function comparePlugins($a, $b) {
-        $an = $a->getName();
-        $bn = $b->getName();
-        if ($an == $bn) {
-            return 0;
-        }
-        return ($an < $bn) ? -1 : 1;
     }
 
     /**

@@ -111,7 +111,7 @@ class Runtime {
      * <p>The scope is for future use.</p>
      *
      * @param mixed scope The scope of the logging instance; default is <code>null</code>.
-     * @return Logging A <code>Logging</code> instance.
+     * @return zenmagick\base\logging\Logging A <code>zenmagick\base\logging\Logging</code> instance.
      */
     public static function getLogging($scope=null) {
         return self::singleton('zenmagick\base\logging\Logging');
@@ -120,19 +120,28 @@ class Runtime {
     /**
      * Get an event dispatcher instance.
      *
-     * @return EventDispatcher A <code>EventDispatcher</code> instance.
+     * @return zenmagick\base\events\EventDispatcher A <code>zenmagick\base\events\EventDispatcher</code> instance.
      */
     public static function getEventDispatcher() {
         return self::singleton('zenmagick\base\events\EventDispatcher');
     }
 
     /**
-     * Get a settings instance.
+     * Get the settings service.
      *
-     * @return Settings A <code>Settings</code> instance.
+     * @return zenmagick\base\settings\Settings A <code>zenmagick\base\settings\Settings</code> instance.
      */
     public static function getSettings() {
         return self::singleton('zenmagick\base\settings\Settings');
+    }
+
+    /**
+     * Get the pugins service.
+     *
+     * @return zenmagick\base\plugins\Plugins A <code>zenmagick\base\plugins\Plugins</code> instance.
+     */
+    public static function getPlugins() {
+        return self::singleton('zenmagick\base\plugins\Plugins');
     }
 
 }
