@@ -21,7 +21,6 @@
 <?php
 
 use zenmagick\base\Runtime;
-use zenmagick\base\events\Event;
 
 /**
  * Basic plugin service.
@@ -337,8 +336,6 @@ class ZMPlugins extends ZMObject {
                 $this->plugins_[$id] = array('plugin' => $plugin, 'init' => true);
             }
         }
-
-        Runtime::getEventDispatcher()->notify(new Event($this, 'init_plugin_group_done', array('ids' => $ids, 'plugins' => $plugins)));
 
         return $plugins;
     }

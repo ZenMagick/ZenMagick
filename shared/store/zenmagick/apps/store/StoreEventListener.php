@@ -38,6 +38,27 @@ class StoreEventListener {
      * Keep up support for local.php.
      */
     public function onBootstrapDone($event) {
+        // load some static files that we still need
+        $statics = array(
+          'lib/core/external/zm-pomo-3.0.packed.php',
+          'lib/core/services/locale/_zm.php',
+          'shared/defaults.php',
+          'shared/external/lastRSS.php',
+          // store
+          'apps/store/lib/email.php',
+          'apps/store/lib/zencart_overrides.php',
+          // admin
+          'apps/'.ZM_APP_NAME.'/lib/local.php',
+          'apps/'.ZM_APP_NAME.'/lib/menu.php',
+          'apps/'.ZM_APP_NAME.'/lib/utils/sqlpatch.php',
+        );
+        foreach ($statics as $static) {
+            $file = Runtime::getInstallationPath().$static;
+            if (file_exists($file)) {
+                require_once $file;
+            }
+        }
+
         $local = Runtime::getInstallationPath().DIRECTORY_SEPARATOR.'local.php';
         if (file_exists($local)) {
             include $local;

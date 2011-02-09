@@ -45,7 +45,7 @@ use Symfony\Component\Yaml\Yaml;
     define('ZM_APP_NAME', basename(ZM_APP_PATH));
 
     // hide as to avoid filenames that contain account names, etc.
-    ini_set('display_errors', false);
+    ini_set('display_errors', true);
 
     // all
     error_reporting(-1);
@@ -103,9 +103,6 @@ ZMLoader::instance()->addPath(Runtime::getApplicationPath().DIRECTORY_SEPARATOR.
     // load application config
     Runtime::getSettings()->setAll(Yaml::load(Runtime::getApplicationPath().DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.'config.yaml'));
 
-// XXX: legacy: load static stuff and leave the rest to autoload
-ZMLoader::instance()->loadStatic();
-
     // hook up default event listeners
     foreach (Runtime::getSettings()->get('zenmagick.base.events.listeners') as $_zm_elc) {
         if (null != ($_zm_el = Beans::getBean(trim($_zm_elc)))) {
@@ -126,14 +123,29 @@ ZMLoader::instance()->loadStatic();
     // load global config
     Runtime::getSettings()->setAll(Yaml::load(Runtime::getInstallationPath().DIRECTORY_SEPARATOR.'global.yaml'));
 
+    // register custom error handler
+    if (Runtime::getSettings()->get('zenmagick.base.logging.handleErrors')) {
+        set_error_handler(array(Runtime::getLogging(), 'errorHandler'));
+        set_exception_handler(array(Runtime::getLogging(), 'exceptionHandler'));
+    }
+
+    // set up locale
+    ZMLocales::instance()->init(Runtime::getSettings()->get('zenmagick.core.locales.locale'));
+
+    Runtime::getEventDispatcher()->notify(new Event(null, 'bootstrap_done'));
+
+
+//---
+
+
+
     // upset plugins if required
     if (Runtime::getSettings()->get('zenmagick.base.plugins.enabled', true)) {
         ZMPlugins::instance()->initAllPlugins(Runtime::getSettings()->get('zenmagick.base.plugins.context'));
+        Runtime::getEventDispatcher()->notify(new Event(null, 'init_plugins_done'));
     }
 
-//-- bootstrap done!
 
-    Runtime::getEventDispatcher()->notify(new Event(null, 'bootstrap_done'));
 
     // create the main request instance
     $request = $_zm_request = ZMRequest::instance();
@@ -149,15 +161,6 @@ ZMLoader::instance()->loadStatic();
             }
         }
     }
-
-    // register custom error handler
-    if (Runtime::getSettings()->get('zenmagick.base.logging.handleErrors')) {
-        set_error_handler(array(Runtime::getLogging(), 'errorHandler'));
-        set_exception_handler(array(Runtime::getLogging(), 'exceptionHandler'));
-    }
-
-    // set up locale
-    ZMLocales::instance()->init(Runtime::getSettings()->get('zenmagick.core.locales.locale'));
 
     // core and plugins loaded
     Runtime::getEventDispatcher()->notify(new Event(null, 'bootstrap2_done',  array('request' => $_zm_request)));

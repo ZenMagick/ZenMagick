@@ -37,8 +37,8 @@ zenmagick:
     ## events
     events:
       listeners:
-        - zenmagick\http\BootstrapListener
         - zenmagick\apps\store\StoreEventListener
+        - zenmagick\http\BootstrapListener
         - AdminEventHandler
         - EmailFixes
     ## logging

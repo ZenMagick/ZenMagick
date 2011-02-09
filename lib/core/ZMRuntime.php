@@ -84,7 +84,7 @@ class ZMRuntime {
      * @param mixed conf Optional configuration; either an array with any of the supported keys, or a string; default is <em>default</em>.
      * @return ZMDatabase A <code>ZMDatabase</code> implementation.
      */
-    public static function getDatabase($conf='default') { 
+    public static function getDatabase($conf='default') {
         if (is_string($conf)) {
             $dbconf = ZMLangUtils::toArray(ZMSettings::get('zenmagick.core.database.connections.'.$conf));
         } else {
@@ -116,7 +116,7 @@ class ZMRuntime {
      *
      * @return string The ZenMagick installation folder.
      */
-    public static function getInstallationPath() { 
+    public static function getInstallationPath() {
         return Runtime::getInstallationPath();
     }
 
@@ -125,7 +125,7 @@ class ZMRuntime {
      *
      * @return string The application base folder or <code>null</code>.
      */
-    public static function getApplicationPath() { 
+    public static function getApplicationPath() {
         return Runtime::getApplicationPath();
     }
 
@@ -136,7 +136,7 @@ class ZMRuntime {
      *
      * @return array List of base directories for plugins.
      */
-    public static function getPluginBasePath() { 
+    public static function getPluginBasePath() {
         return Runtime::getPluginBasePath();
     }
 
@@ -159,6 +159,8 @@ class ZMRuntime {
      *  default is <code>true</code> to override.
      */
     public static function yamlParse($yaml, $defaults=array(), $override=true) {
+        require_once Runtime::getInstallationPath().'lib/core/external/spyc.php';
+
         if ($override) {
             return Spyc::YAMLLoadString($yaml);
         } else {
