@@ -78,12 +78,16 @@ class Runtime {
      * @return array List of base directories for plugins.
      */
     public static function getPluginBasePath() {
-        if (null === \ZMSettings::get('zenmagick.core.plugins.baseDir')) {
-            \ZMSettings::append('zenmagick.core.plugins.baseDir', self::getInstallationPath().'plugins'.DIRECTORY_SEPARATOR);
-            \ZMSettings::append('zenmagick.core.plugins.baseDir', self::getApplicationPath().'plugins'.DIRECTORY_SEPARATOR);
+        $settings = self::getSettings();
+        if (null === $settings->get('zenmagick.core.plugins.baseDir')) {
+            // set default
+            $settings->set('zenmagick.core.plugins.baseDir', array(
+                self::getInstallationPath().'plugins'.DIRECTORY_SEPARATOR,
+                self::getApplicationPath().'plugins'.DIRECTORY_SEPARATOR
+            ));
         }
 
-        return explode(',', \ZMSettings::get('zenmagick.core.plugins.baseDir'));
+        return $settings->get('zenmagick.core.plugins.baseDir');
     }
 
     /**
