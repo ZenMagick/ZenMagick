@@ -70,4 +70,12 @@ zenmagick:
 
     ## toolbox tools
     toolbox:
-      tools: net:ToolboxNet,html:ToolboxHtml,form:ToolboxForm,macro:ToolboxMacro,locale:ToolboxLocale,utils:ToolboxUtils,crumbtrail:ToolboxCrumbtrail,metaTags:ToolboxMetaTags
+      tools:
+        - net:ToolboxNet
+        - html:ToolboxHtml
+        - form:ToolboxForm
+        - macro:ToolboxMacro
+        - locale:ToolboxLocale
+        - utils:ToolboxUtils
+        - crumbtrail:ToolboxCrumbtrail
+        - metaTags:ToolboxMetaTags

@@ -88,7 +88,15 @@ zenmagick:
 
     ## toolbox tools
     toolbox:
-      tools: net:ToolboxNet,html:ToolboxHtml,form:ToolboxForm,macro:ToolboxMacro,locale:ToolboxLocale,utils:ToolboxUtils,admin:ToolboxAdmin,admin2:ToolboxAdmin2
+      tools:
+        - net:ToolboxNet
+        - html:ToolboxHtml
+        - form:ToolboxForm
+        - macro:ToolboxMacro
+        - locale:ToolboxLocale
+        - utils:ToolboxUtils
+        - admin:ToolboxAdmin
+        - admin2:ToolboxAdmin2
 
 
 ## app settings
