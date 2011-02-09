@@ -134,11 +134,6 @@ ZMLoader::instance()->addPath(Runtime::getApplicationPath().DIRECTORY_SEPARATOR.
 
     Runtime::getEventDispatcher()->notify(new Event(null, 'bootstrap_done'));
 
-
-//---
-
-
-
     // upset plugins if required
     if (Runtime::getSettings()->get('zenmagick.base.plugins.enabled', true)) {
         ZMPlugins::instance()->initAllPlugins(Runtime::getSettings()->get('zenmagick.base.plugins.context'));

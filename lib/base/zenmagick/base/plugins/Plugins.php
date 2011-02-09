@@ -164,8 +164,7 @@ class Plugins {
         }
 
         if (!$enabled) {
-            // sort
-            usort($plugins);
+            ksort($plugins);
         }
 
         return $plugins;

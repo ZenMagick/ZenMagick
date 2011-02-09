@@ -86,7 +86,7 @@ class ZMAdminEventHandler {
      *
      * @todo: remove and load individual values as required
      */
-    public function onAppInitDone($event) {
+    public function onBootstrapDone($event) {
         //** load all config values if not set **//
         if (!defined('STORE_NAME')) {
             foreach (ZMConfig::instance()->loadAll() as $key => $value) {

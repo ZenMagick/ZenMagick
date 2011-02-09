@@ -39,8 +39,8 @@ zenmagick:
       listeners:
         - zenmagick\apps\store\StoreEventListener
         - zenmagick\http\BootstrapListener
-        - AdminEventHandler
-        - EmailFixes
+        - ZMAdminEventHandler
+        - ZMEmailFixes
     ## logging
     logging:
       level: ALL

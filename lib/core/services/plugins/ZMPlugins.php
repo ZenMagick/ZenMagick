@@ -170,7 +170,7 @@ class ZMPlugins extends ZMObject {
 
         if (!$enabled) {
             // sort
-            usort($plugins);
+            ksort($plugins);
         }
 
         return $plugins;
