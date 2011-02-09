@@ -165,6 +165,7 @@ class ZMLoader {
      */
     public function loadStatic() {
         foreach ($this->getStatic() as $static) {
+            zenmagick\base\Runtime::getLogging()->warn('static files are deprecated: '.$static);
             ++$this->stats_['static'];
             require_once $static;
         }
