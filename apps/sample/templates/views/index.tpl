@@ -31,7 +31,7 @@
 <?php if (isset($name)) { ?>
   <p><?php _vzm('Your name is: %s.', $name) ?></p>
 <?php } ?>
-<p><?php echo sprintf(_zm('Context is: %s', $request->getContext())) ?></p>
+<p><?php echo sprintf(_vzm('Context is: %s', $request->getContext())) ?></p>
 
 <p><a href="<?php echo $request->url(null, 'clear=true', true) ?>"><?php _vzm('Clear session') ?></a></p>
 <p>
