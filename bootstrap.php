@@ -128,7 +128,6 @@ ZMLoader::instance()->loadStatic();
 
     // upset plugins if required
     if (Runtime::getSettings()->get('zenmagick.base.plugins.enabled', true)) {
-      echo 'init';
         ZMPlugins::instance()->initAllPlugins(Runtime::getSettings()->get('zenmagick.base.plugins.context'));
     }
 
@@ -144,7 +143,6 @@ ZMLoader::instance()->loadStatic();
 
     // upset plugins if required
     if (Runtime::getSettings()->get('zenmagick.base.plugins.enabled', true)) {
-      echo 'init2';
         foreach (ZMPlugins::instance()->getAllPlugins(Runtime::getSettings()->get('zenmagick.base.plugins.context')) as $plugin) {
             if ($plugin instanceof ZMRequestHandler) {
                 $plugin->initRequest($_zm_request);
