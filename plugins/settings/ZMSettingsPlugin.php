@@ -49,7 +49,6 @@ class ZMSettingsPlugin extends Plugin {
      */
     public function init() {
         parent::init();
-
         // add admin pages
         $menuKey = $this->addMenuGroup(_zm('Settings'));
         $this->addMenuItem2(_zm('Manage Settings'), 'settingsAdmin', $menuKey);
