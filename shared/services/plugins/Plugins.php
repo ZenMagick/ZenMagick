@@ -59,9 +59,12 @@ class Plugins extends ZMPlugins {
      * {@inheritDoc}
      */
     protected function loadStatus() {
-        $status = unserialize(ZENMAGICK_PLUGIN_STATUS);
-        if (!is_array($status)) {
-            $status = array();
+        $status = array();
+        if (defined('ZENMAGICK_PLUGIN_STATUS')) {
+            $status = unserialize(ZENMAGICK_PLUGIN_STATUS);
+            if (!is_array($status)) {
+                $status = array();
+            }
         }
 
         return $status;
