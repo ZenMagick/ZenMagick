@@ -151,7 +151,7 @@ ZMLoader::instance()->loadStatic();
     }
 
     // register custom error handler
-    if (Runtime::getSettings()->get('zenmagick.core.logging.handleErrors')) {
+    if (Runtime::getSettings()->get('zenmagick.base.logging.handleErrors')) {
         set_error_handler(array(Runtime::getLogging(), 'errorHandler'));
         set_exception_handler(array(Runtime::getLogging(), 'exceptionHandler'));
     }

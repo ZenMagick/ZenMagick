@@ -18,14 +18,6 @@ zenmagick:
         autoMap:
           enabled: true
 
-    ## logging
-    logging:
-      level: INFO
-      enabled: false
-      handleErrors: true
-      handler:
-        - zenmagick\base\logging\handler\DefaultLoggingHandler
-
     ## locales
     locales:
       locale: en_NZ
@@ -52,7 +44,13 @@ zenmagick:
         - zenmagick\apps\store\StoreEventListener
         - ZMEventFixes
         - ZMEmailFixes
-
+    ## logging
+    logging:
+      level: INFO
+      enabled: false
+      handleErrors: true
+      handler:
+        - zenmagick\base\logging\handler\DefaultLoggingHandler
 
   ## mvc
   mvc:

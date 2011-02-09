@@ -50,7 +50,7 @@ class ZMFirePHPPlugin extends Plugin implements ZMRequestHandler {
     public function install() {
         parent::install();
 
-        $this->addConfigValue('Enable on demand only', 'isOnDemand', 'false', 'If set, the plugin will be inactive unless the configured query parameter is set', 
+        $this->addConfigValue('Enable on demand only', 'isOnDemand', 'false', 'If set, the plugin will be inactive unless the configured query parameter is set',
             'widget@BooleanFormWidget#name=isOnDemand&default=false&label=Enable on demand only&style=radio');
         $this->addConfigValue('On demand query parameter name', 'onDemandName', 'firephp', 'The name of the query parameter to enable FirePHP.');
         $this->addConfigValue('On demand log level', 'onDemandLogLevel', ZMLogging::TRACE, 'The log level to be used for on deman logging.',
@@ -70,8 +70,8 @@ class ZMFirePHPPlugin extends Plugin implements ZMRequestHandler {
         if (ZMLangUtils::asBoolean($this->get('isOnDemand'))) {
             if (null != $request->getParameter($this->get('onDemandName'))) {
                 // enable logging
-                ZMSettings::set('zenmagick.core.logging.enabled', true);
-                ZMSettings::set('zenmagick.core.logging.level', (int)$this->get('onDemandLogLevel'));
+                ZMSettings::set('zenmagick.base.logging.enabled', true);
+                ZMSettings::set('zenmagick.base.logging.level', (int)$this->get('onDemandLogLevel'));
                 ZMSettings::append('zenmagick.base.logging.handler', 'FirePHPLoggingHandler');
             }
         } else {

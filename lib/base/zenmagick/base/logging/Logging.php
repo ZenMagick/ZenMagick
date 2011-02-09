@@ -94,8 +94,8 @@ class Logging {
     public function __construct() {
         $this->handler_ = null;
         $this->handlerList_ = array();
-        $this->enabled_ = \ZMSettings::get('zenmagick.core.logging.enabled', false);
-        $this->globalLogLevel_ = \ZMSettings::get('zenmagick.core.logging.level', 0);
+        $this->enabled_ = \ZMSettings::get('zenmagick.base.logging.enabled', false);
+        $this->globalLogLevel_ = \ZMSettings::get('zenmagick.base.logging.level', 0);
         // allow string values
         if (array_key_exists($this->globalLogLevel_, self::$LOG_LEVEL_LOOKUP)) {
             $this->globalLogLevel_ = self::$LOG_LEVEL_LOOKUP[$this->globalLogLevel_];
@@ -112,7 +112,7 @@ class Logging {
         if ($this->handler_ != ($setting = \ZMSettings::get('zenmagick.base.logging.handler', '\zenmagick\base\logging\handler\DefaultLoggingHandler'))) {
             // populate freshly
             $this->handlerList_ = array();
-            foreach (explode(',', $setting) as $def) {
+            foreach ($setting as $def) {
                 $def = trim($def);
                 if (null != ($handler = Beans::getBean($def))) {
                     $this->handlerList_[$def] = $handler;
