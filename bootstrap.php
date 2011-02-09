@@ -41,6 +41,9 @@ use Symfony\Component\Yaml\Yaml;
     // base installation directory
     define('ZM_BASE_PATH', dirname(__FILE__).DIRECTORY_SEPARATOR);
 
+    // app name
+    define('ZM_APP_NAME', basename(ZM_APP_PATH));
+
     // hide as to avoid filenames that contain account names, etc.
     ini_set('display_errors', false);
 
