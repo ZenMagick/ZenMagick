@@ -127,8 +127,9 @@ ZMLoader::instance()->loadStatic();
     Runtime::getSettings()->setAll(Yaml::load(Runtime::getInstallationPath().DIRECTORY_SEPARATOR.'global.yaml'));
 
     // upset plugins if required
-    if (Runtime::getSettings()->get('zenmagick.base.plugins.enabled')) {
-        ZMPlugins::instance()->initAllPlugins(Runtime::getSettings()->get('zenmagick.core.plugins.context'));
+    if (Runtime::getSettings()->get('zenmagick.base.plugins.enabled', true)) {
+      echo 'init';
+        ZMPlugins::instance()->initAllPlugins(Runtime::getSettings()->get('zenmagick.base.plugins.context'));
     }
 
 //-- bootstrap done!
@@ -142,8 +143,9 @@ ZMLoader::instance()->loadStatic();
     Runtime::getEventDispatcher()->notify(new Event(null, 'app_init_done',  array('request' => $_zm_request)));
 
     // upset plugins if required
-    if (Runtime::getSettings()->get('zenmagick.base.plugins.enabled')) {
-        foreach (ZMPlugins::instance()->getAllPlugins(Runtime::getSettings()->get('zenmagick.core.plugins.context')) as $plugin) {
+    if (Runtime::getSettings()->get('zenmagick.base.plugins.enabled', true)) {
+      echo 'init2';
+        foreach (ZMPlugins::instance()->getAllPlugins(Runtime::getSettings()->get('zenmagick.base.plugins.context')) as $plugin) {
             if ($plugin instanceof ZMRequestHandler) {
                 $plugin->initRequest($_zm_request);
             }

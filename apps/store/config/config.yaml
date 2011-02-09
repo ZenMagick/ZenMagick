@@ -31,10 +31,6 @@ zenmagick:
           file: 0666
           folder: 0777
 
-    ## plugins
-    plugins:
-      context: 1
-
   ## base
   base:
     ## events
@@ -51,6 +47,10 @@ zenmagick:
       handleErrors: true
       handlers:
         - zenmagick\base\logging\handler\DefaultLoggingHandler
+    ## plugins
+    plugins:
+      context: 1
+
 
   ## mvc
   mvc:

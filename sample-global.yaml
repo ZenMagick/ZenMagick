@@ -15,6 +15,9 @@ zenmagick:
       level: ALL
       # register ZenMagick log system to handle errors/exceptions
       handleErrors: true
+    pugins:
+      # enable plugins
+      enabled: true
 
 
 #############################
