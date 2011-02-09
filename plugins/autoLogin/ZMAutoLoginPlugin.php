@@ -31,7 +31,7 @@ define('AUTO_LOGIN_OPT_IN', 'autoLogin');
  * @package org.zenmagick.plugins.autoLogin
  * @author DerManoMann
  */
-class ZMAutoLoginPlugin extends Plugin implements ZMRequestHandler {
+class ZMAutoLoginPlugin extends Plugin {
     private $cookieUpdated;
 
     /**
@@ -70,8 +70,16 @@ class ZMAutoLoginPlugin extends Plugin implements ZMRequestHandler {
     /**
      * {@inheritDoc}
      */
-    public function initRequest($request) {
+    public function init() {
+        parent::init();
         zenmagick\base\Runtime::getEventDispatcher()->listen($this);
+    }
+
+    /**
+     * Handle init request.
+     */
+    public function onInitRequest($event) {
+        $request = $event->get('request');
 
         $session = $request->getSession();
         if ('GET' == $request->getMethod() && 'logoff' != $request->getRequestId() && $session->isAnonymous()) {

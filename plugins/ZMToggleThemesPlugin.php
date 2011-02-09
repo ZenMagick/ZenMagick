@@ -31,7 +31,7 @@ use zenmagick\base\Runtime;
  * @package org.zenmagick.plugins
  * @author DerManoMann
  */
-class ZMToggleThemesPlugin extends \Plugin implements \ZMRequestHandler {
+class ZMToggleThemesPlugin extends \Plugin {
     const SESS_THEME_TOGGLE_KEY = 'themeToggle';
 
 
@@ -54,8 +54,16 @@ class ZMToggleThemesPlugin extends \Plugin implements \ZMRequestHandler {
     /**
      * {@inheritDoc}
      */
-    public function initRequest($request) {
-        Runtime::getEventDispatcher()->connect('finalise_contents', array($this, 'onFinaliseContents'));
+    public function init() {
+        parent::init();
+        zenmagick\base\Runtime::getEventDispatcher()->listen($this);
+    }
+
+    /**
+     * Handle init request.
+     */
+    public function onInitRequest($event) {
+        $request = $event->get('request');
 
         $session = $request->getSession();
         if (null != ($themeToggle = $request->getParameter('themeToggle'))) {
@@ -85,7 +93,7 @@ class ZMToggleThemesPlugin extends \Plugin implements \ZMRequestHandler {
         // special case for ZM_PAGE_KEY=category
         if ('category' == $request->getRequestId()) {
             $url = str_replace(ZM_PAGE_KEY.'=category', ZM_PAGE_KEY.'=index', $url);
-        }      
+        }
         $link = '<a href="'.$url.'">'._zm('Toggle ZenMagick theme support').'</a>';
         $switch = '<div id="theme-toggle" style="text-align:right;padding:2px 8px;">' . $link . '</div>';
 

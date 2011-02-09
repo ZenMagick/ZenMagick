@@ -28,7 +28,7 @@ use zenmagick\base\Runtime;
  * @package org.zenmagick.plugins.examplePlugin
  * @author DerManoMann
  */
-class ZMExamplePluginPlugin extends Plugin implements ZMRequestHandler {
+class ZMExamplePluginPlugin extends Plugin {
 
     /**
      * Create new instance.
@@ -73,10 +73,10 @@ class ZMExamplePluginPlugin extends Plugin implements ZMRequestHandler {
     }
 
     /**
-     * {@inheritDoc}
+     * Handle init request.
      */
-    public function initRequest($request) {
-        //var_dump($request);
+    public function onInitRequest($event) {
+        $request = $event->get('request');
     }
 
     /**

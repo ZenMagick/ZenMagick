@@ -27,7 +27,7 @@
  * @package org.zenmagick.plugins.phpbb3
  * @author DerManoMann
  */
-class ZMPhpBB3Plugin extends Plugin implements ZMRequestHandler {
+class ZMPhpBB3Plugin extends Plugin {
     private $page_;
     private $prePostAccount_;
     private $adapter_;
@@ -77,7 +77,16 @@ class ZMPhpBB3Plugin extends Plugin implements ZMRequestHandler {
     /**
      * {@inheritDoc}
      */
-    public function initRequest($request) {
+    public function init() {
+        parent::init();
+        zenmagick\base\Runtime::getEventDispatcher()->listen($this);
+    }
+
+    /**
+     * Handle init request.
+     */
+    public function onInitRequest($event) {
+        $request = $event->get('request');
         $this->page_ = $request->getRequestId();
         $this->prePostAccount_ = $request->getAccount();
 
@@ -91,9 +100,6 @@ class ZMPhpBB3Plugin extends Plugin implements ZMRequestHandler {
 
         // enable nick name field
         ZMSettings::set('isAccountNickname', true);
-
-        // using events
-        zenmagick\base\Runtime::getEventDispatcher()->listen($this);
     }
 
     /**

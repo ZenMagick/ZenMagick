@@ -28,7 +28,7 @@ use zenmagick\base\Runtime;
  * @package org.zenmagick.plugins.firePHP
  * @author DerManoMann
  */
-class ZMFirePHPPlugin extends Plugin implements ZMRequestHandler {
+class ZMFirePHPPlugin extends Plugin {
 
     /**
      * Create new instance.
@@ -67,7 +67,16 @@ class ZMFirePHPPlugin extends Plugin implements ZMRequestHandler {
     /**
      * {@inheritDoc}
      */
-    public function initRequest($request) {
+    public function init() {
+        parent::init();
+        zenmagick\base\Runtime::getEventDispatcher()->listen($this);
+    }
+
+    /**
+     * Handle init request.
+     */
+    public function onInitRequest($event) {
+        $request = $event->get('request');
         $settings = Runtime::getSettings();
         if (ZMLangUtils::asBoolean($this->get('isOnDemand'))) {
             if (null != $request->getParameter($this->get('onDemandName'))) {

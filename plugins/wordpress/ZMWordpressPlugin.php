@@ -28,7 +28,7 @@ define('FILENAME_WP', 'wp');
  * @package org.zenmagick.plugins.wordpress
  * @author DerManoMann
  */
-class ZMWordpressPlugin extends Plugin implements ZMRequestHandler {
+class ZMWordpressPlugin extends Plugin {
     private $requestId_;
     private $requestHandler_;
     private $adapter_;
@@ -72,7 +72,16 @@ class ZMWordpressPlugin extends Plugin implements ZMRequestHandler {
     /**
      * {@inheritDoc}
      */
-    public function initRequest($request) {
+    public function init() {
+        parent::init();
+        zenmagick\base\Runtime::getEventDispatcher()->listen($this);
+    }
+
+    /**
+     * Handle init request.
+     */
+    public function onInitRequest($event) {
+        $request = $event->get('request');
         $this->requestId_ = $request->getRequestId();
 
         // main define to get at things

@@ -22,6 +22,14 @@
 use zenmagick\base\Runtime;
 use zenmagick\base\events\Event;
 
+
+
+    // create the main request instance
+    $request = $_zm_request = ZMRequest::instance();
+
+    // tell everyone interested that we have a request
+    Runtime::getEventDispatcher()->notify(new Event(null, 'init_request',  array('request' => $_zm_request)));
+
     // allow seo rewriters to fiddle with the request
     $_zm_request->seoDecode();
 

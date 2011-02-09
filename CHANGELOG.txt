@@ -36,6 +36,7 @@ Release 0.9.12
 - drop ZMEvents::xxx event constants
 - add applicationPath/plugins to plugin base dir list
 - replace ZMEvents/Events code with new event dispatcher and remove
+- remove ZMRequestHandler interface in favour of a new event
 
 Release 0.9.11.1
 - remove debug code

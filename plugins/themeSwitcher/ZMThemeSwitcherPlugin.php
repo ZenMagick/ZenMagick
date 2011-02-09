@@ -26,7 +26,7 @@
  * @package org.zenmagick.plugins.themeSwitcher
  * @author DerManoMann
  */
-class ZMThemeSwitcherPlugin extends Plugin implements ZMRequestHandler {
+class ZMThemeSwitcherPlugin extends Plugin {
     /** query param key for new theme id. */
     const SESS_THEME_KEY = 'themeId';
 
@@ -50,8 +50,16 @@ class ZMThemeSwitcherPlugin extends Plugin implements ZMRequestHandler {
     /**
      * {@inheritDoc}
      */
-    public function initRequest($request) {
+    public function init() {
+        parent::init();
         zenmagick\base\Runtime::getEventDispatcher()->listen($this);
+    }
+
+    /**
+     * Handle init request.
+     */
+    public function onInitRequest($event) {
+        $request = $event->get('request');
 
         $session = $request->getSession();
         if (null != ($themeId = $request->getParameter('themeId'))) {

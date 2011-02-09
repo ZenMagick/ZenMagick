@@ -139,23 +139,3 @@ ZMLoader::instance()->addPath(Runtime::getApplicationPath().DIRECTORY_SEPARATOR.
         ZMPlugins::instance()->initAllPlugins(Runtime::getSettings()->get('zenmagick.base.plugins.context'));
         Runtime::getEventDispatcher()->notify(new Event(null, 'init_plugins_done'));
     }
-
-
-
-    // create the main request instance
-    $request = $_zm_request = ZMRequest::instance();
-
-    // app config and code loaded; do not log to allow plugins to provider alternative logger
-    Runtime::getEventDispatcher()->notify(new Event(null, 'app_init_done',  array('request' => $_zm_request)));
-
-    // upset plugins if required
-    if (Runtime::getSettings()->get('zenmagick.base.plugins.enabled', true)) {
-        foreach (ZMPlugins::instance()->getAllPlugins(Runtime::getSettings()->get('zenmagick.base.plugins.context')) as $plugin) {
-            if ($plugin instanceof ZMRequestHandler) {
-                $plugin->initRequest($_zm_request);
-            }
-        }
-    }
-
-    // core and plugins loaded
-    Runtime::getEventDispatcher()->notify(new Event(null, 'bootstrap2_done',  array('request' => $_zm_request)));
