@@ -182,7 +182,7 @@ class ZMEventFixes extends ZMObject {
     /**
      * More store startup code.
      */
-    public function onBootstrapDone($event) {
+    public function onBootstrap2Done($event) {
         $request = $event->get('request');
 
         // set locale

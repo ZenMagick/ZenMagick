@@ -44,9 +44,10 @@ zenmagick:
     ## events
     events:
       listeners:
+        - zenmagick\http\BootstrapListener
+        - zenmagick\apps\store\StoreEventListener
         - ZMEventFixes
         - ZMEmailFixes
-        - zenmagick\apps\store\StoreEventListener
 
 
   ## mvc

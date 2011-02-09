@@ -24,7 +24,7 @@
   define('ZM_APP_PATH', 'apps'.DIRECTORY_SEPARATOR.basename(dirname(dirname(__FILE__))).DIRECTORY_SEPARATOR);
 
   // share code
-  define('ZM_SHARED', 'shared');
+  define('ZM_SHARED', 'lib/http,shared');
 
   // pre-load a couple zen-cart files needed
   define('ZC_INSTALL_PATH', dirname(dirname(dirname(dirname(dirname(__FILE__))))).DIRECTORY_SEPARATOR);

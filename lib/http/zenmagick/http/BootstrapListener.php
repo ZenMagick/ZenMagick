@@ -1,10 +1,7 @@
 <?php
 /*
- * ZenMagick - Smart e-commerce
+ * ZenMagick - Another PHP framework.
  * Copyright (C) 2006-2010 zenmagick.org
- *
- * Portions Copyright (c) 2003 The zen-cart developers
- * Portions Copyright (c) 2003 osCommerce
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,26 +19,26 @@
  */
 ?>
 <?php
-namespace zenmagick\apps\store;
+namespace zenmagick\http;
 
 use zenmagick\base\Runtime;
 
 /**
- * Shared store event listener.
+ * HTTP bootstrap listener.
  *
  * @author DerManoMann
- * @package zenmagick.apps.store
+ * @package zenmagick.http
  */
-class StoreEventListener {
-
+class BootstrapListener {
     /**
-     * Keep up support for local.php.
+     * Listen to bootstrap.
      */
     public function onBootstrapDone($event) {
-        $local = Runtime::getInstallationPath().DIRECTORY_SEPARATOR.'local.php';
-        if (file_exists($local)) {
-            include $local;
-        }
+        // mvc mappings
+        \ZMUrlManager::instance()->load(file_get_contents(\ZMFileUtils::mkPath(Runtime::getApplicationPath(), 'config', 'url_mappings.yaml')), false);
+        // sacs mappings
+        \ZMSacsManager::instance()->load(file_get_contents(\ZMFileUtils::mkPath(Runtime::getApplicationPath(), 'config', 'sacs_mappings.yaml')), false);
+        \ZMSacsManager::instance()->loadProviderMappings(Runtime::getSettings()->get('zenmagick.mvc.sacs.mappingProviders'));
     }
 
 }

@@ -16,4 +16,5 @@ zenmagick:
   base:
     events:
       listeners:
+        - zenmagick\http\BootstrapListener
         - ZMSampleEventHandler

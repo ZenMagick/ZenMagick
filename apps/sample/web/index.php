@@ -24,7 +24,7 @@
   define('ZM_APP_PATH', 'apps'.DIRECTORY_SEPARATOR.basename(dirname(dirname(__FILE__))).DIRECTORY_SEPARATOR);
 
   // share code
-  //define('ZM_SHARED', 'shared');
+  define('ZM_SHARED', 'lib/http');
 
   require '../../../bootstrap.php';
   require '../../../mvc.php';

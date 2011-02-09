@@ -28,9 +28,7 @@ use zenmagick\base\events\Event;
     }
 
     // want to share code from here
-    define('ZM_SHARED', 'shared');
-    // DO use core.php
-    define('USE_CORE_PHP', true);
+    define('ZM_SHARED', 'lib/http,shared');
 
     include 'bootstrap.php';
 

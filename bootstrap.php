@@ -61,11 +61,11 @@ use Symfony\Component\Yaml\Yaml;
         require_once ZM_BASE_PATH.'/lib/base/zenmagick/base/ClassLoader.php';
     }
     unset($basephar);
-    $baseLoader = new ClassLoader();
-    $baseLoader->addConfig(ZM_BASE_PATH.'lib'.DIRECTORY_SEPARATOR.'base');
-    $baseLoader->addConfig(ZM_BASE_PATH.'lib'.DIRECTORY_SEPARATOR.'vendor');
-    $baseLoader->register();
-    unset($baseLoader);
+    $libLoader = new ClassLoader();
+    $libLoader->addConfig(ZM_BASE_PATH.'lib'.DIRECTORY_SEPARATOR.'base');
+    $libLoader->addConfig(ZM_BASE_PATH.'lib'.DIRECTORY_SEPARATOR.'vendor');
+    $libLoader->register();
+    unset($libLoader);
 
     // as default disable plugins for CLI calls
     Runtime::getSettings()->set('zenmagick.base.plugins.enabled', !ZM_CLI_CALL);
@@ -113,12 +113,27 @@ ZMLoader::instance()->loadStatic();
         }
     }
 
-    // TODO: move into app event listener
-    // mvc mappings
-    ZMUrlManager::instance()->load(file_get_contents(ZMFileUtils::mkPath(Runtime::getApplicationPath(), 'config', 'url_mappings.yaml')), false);
-    // sacs mappings
-    ZMSacsManager::instance()->load(file_get_contents(ZMFileUtils::mkPath(Runtime::getApplicationPath(), 'config', 'sacs_mappings.yaml')), false);
-    ZMSacsManager::instance()->loadProviderMappings(ZMSettings::get('zenmagick.mvc.sacs.mappingProviders'));
+    // set up locale
+    ZMLocales::instance()->init(Runtime::getSettings()->get('zenmagick.core.locales.locale'));
+
+    // set a default timezone; note that warnings are suppressed for date_default_timezone_get() in case there isn't a default at all
+    date_default_timezone_set(ZMSettings::get('zenmagick.core.date.timezone', @date_default_timezone_get()));
+    if (null != ($_dt = date_timezone_get((new DateTime())))) {
+        // set back with the actually used value
+        Runtime::getSettings()->set('zenmagick.core.date.timezone', $_dt->getName());
+    }
+
+    // load global config
+    Runtime::getSettings()->setAll(Yaml::load(Runtime::getInstallationPath().DIRECTORY_SEPARATOR.'global.yaml'));
+
+    // upset plugins if required
+    if (Runtime::getSettings()->get('zenmagick.base.plugins.enabled')) {
+        ZMPlugins::instance()->initAllPlugins(ZMSettings::get('zenmagick.core.plugins.context'));
+    }
+
+//-- bootstrap done!
+
+    Runtime::getEventDispatcher()->notify(new Event(null, 'bootstrap_done'));
 
     // create the main request instance
     $request = $_zm_request = ZMRequest::instance();
@@ -126,21 +141,9 @@ ZMLoader::instance()->loadStatic();
     // app config and code loaded; do not log to allow plugins to provider alternative logger
     Runtime::getEventDispatcher()->notify(new Event(null, 'app_init_done',  array('request' => $_zm_request)));
 
-    // load global settings
-    if (file_exists(ZM_BASE_PATH.'local.php')) {
-        require_once ZM_BASE_PATH.'local.php';
-    }
-
-    // set a default timezone; note that warnings are suppressed for date_default_timezone_get() in case there isn't a default at all
-    date_default_timezone_set(ZMSettings::get('zenmagick.core.date.timezone', @date_default_timezone_get()));
-    if (null != ($_dt = date_timezone_get((new DateTime())))) {
-        // set back with the actually used value
-        ZMSettings::set('zenmagick.core.date.timezone', $_dt->getName());
-    }
-
     // upset plugins if required
     if (Runtime::getSettings()->get('zenmagick.base.plugins.enabled')) {
-        foreach (ZMPlugins::instance()->initAllPlugins(ZMSettings::get('zenmagick.core.plugins.context', 0)) as $plugin) {
+        foreach (ZMPlugins::instance()->getAllPlugins(ZMSettings::get('zenmagick.core.plugins.context')) as $plugin) {
             if ($plugin instanceof ZMRequestHandler) {
                 $plugin->initRequest($_zm_request);
             }
@@ -157,4 +160,4 @@ ZMLoader::instance()->loadStatic();
     ZMLocales::instance()->init(ZMSettings::get('zenmagick.core.locales.locale'));
 
     // core and plugins loaded
-    Runtime::getEventDispatcher()->notify(new Event(null, 'bootstrap_done',  array('request' => $_zm_request)));
+    Runtime::getEventDispatcher()->notify(new Event(null, 'bootstrap2_done',  array('request' => $_zm_request)));

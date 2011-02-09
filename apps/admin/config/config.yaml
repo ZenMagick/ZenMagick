@@ -44,6 +44,8 @@ zenmagick:
     ## events
     events:
       listeners:
+        - zenmagick\http\BootstrapListener
+        - zenmagick\apps\store\StoreEventListener
         - AdminEventHandler
         - EmailFixes
   
