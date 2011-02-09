@@ -103,7 +103,7 @@ class ZMController extends ZMObject {
             ZMRuntime::getDatabase()->beginTransaction();
         }
 
-        Runtime::getEventDispatcher()->notify(new Event($this, 'controller_process_start', array('request' => $request, 'controller' => $controller)));
+        Runtime::getEventDispatcher()->notify(new Event($this, 'controller_process_start', array('request' => $request, 'controller' => $this)));
 
         // method independant (pre-)processing
         $this->preProcess($request);
@@ -170,7 +170,7 @@ class ZMController extends ZMObject {
             $this->view_ = $view;
         }
 
-        Runtime::getEventDispatcher()->notify(new Event($this, 'controller_process_end', array('request' => $request, 'controller' => $controller, 'view' => $this->view_)));
+        Runtime::getEventDispatcher()->notify(new Event($this, 'controller_process_end', array('request' => $request, 'controller' => $this, 'view' => $this->view_)));
 
         if ($enableTransactions) {
             ZMRuntime::getDatabase()->commit();
