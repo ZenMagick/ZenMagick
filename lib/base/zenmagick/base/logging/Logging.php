@@ -65,9 +65,7 @@ class Logging {
     /** Readable list of log level. */
     public static $LOG_LEVEL = array('NONE', 'ERROR', 'WARN', 'INFO', 'DEBUG', 'TRACE');
 
-    private $enabled_;
     private $globalLogLevel_;
-    private $handler_;
     private $handlerList_;
     private $ERR_MAP = array(
         1 => "Error",
@@ -92,9 +90,7 @@ class Logging {
      * Create new instance.
      */
     public function __construct() {
-        $this->handler_ = null;
         $this->handlerList_ = array();
-        $this->enabled_ = Runtime::getSettings()->get('zenmagick.base.logging.enabled', false);
         $this->globalLogLevel_ = Runtime::getSettings()->get('zenmagick.base.logging.level', 0);
         // allow string values
         if (array_key_exists($this->globalLogLevel_, self::$LOG_LEVEL_LOOKUP)) {
@@ -109,12 +105,19 @@ class Logging {
      * @return array A list of handlers.
      */
     protected function getHandlers() {
-        $setting = Runtime::getSettings()->get('zenmagick.base.logging.handler', '\zenmagick\base\logging\handler\DefaultLoggingHandler');
-        if ($this->handler_ != $setting) {
-            // populate freshly
-            $this->handlerList_ = array();
-            foreach ($setting as $def) {
-                $def = trim($def);
+        // save current
+        $tmp = $this->handlerList_;
+        $this->handlerList_ = array();
+        foreach (Runtime::getSettings()->get('zenmagick.base.logging.handlers', array('\zenmagick\base\logging\handler\DefaultLoggingHandler')) as $def) {
+            $needInstance = true;
+            foreach ($tmp as $handler) {
+                if ($handler instanceof $def) {
+                    $this->handlerList_[$def] = $handler;
+                    $needInstance = false;
+                    break;
+                }
+            }
+            if ($needInstance) {
                 if (null != ($handler = Beans::getBean($def))) {
                     $this->handlerList_[$def] = $handler;
                 }
@@ -170,7 +173,7 @@ class Logging {
      * @param int level Optional level; default: <code>INFO</code>.
      */
     public function log($msg, $level=self::INFO) {
-      if ($this->enabled_) {
+      if (Runtime::getSettings()->get('zenmagick.base.logging.enabled', false)) {
             foreach ($this->getHandlers() as $handler) {
                 if ((null === ($customLevel = $handler->getLogLevel()) && $level <= $this->globalLogLevel_) || $level <= $customLevel) {
                     $handler->log($msg, $level);
@@ -187,7 +190,7 @@ class Logging {
      * @param int level Optional level; default: <code>TRACE</code>.
      */
     public function dump($obj, $msg=null, $level=self::TRACE) {
-      if ($this->enabled_) {
+      if (Runtime::getSettings()->get('zenmagick.base.logging.enabled', false)) {
             foreach ($this->getHandlers() as $handler) {
                 if ((null === ($customLevel = $handler->getLogLevel()) && $level <= $this->globalLogLevel_) || $level <= $customLevel) {
                     $handler->dump($obj, $msg, $level);
@@ -203,7 +206,7 @@ class Logging {
      * @param int level Optional level; default: <code>TRACE</code>.
      */
     public function trace($msg=null, $level=self::TRACE) {
-      if ($this->enabled_) {
+      if (Runtime::getSettings()->get('zenmagick.base.logging.enabled', false)) {
             foreach ($this->getHandlers() as $handler) {
                 if ((null === ($customLevel = $handler->getLogLevel()) && $level <= $this->globalLogLevel_) || $level <= $customLevel) {
                     $handler->trace($msg, $level);
@@ -272,7 +275,7 @@ class Logging {
      * @param array info All available log information.
      */
     public function logError($line, $info) {
-      if ($this->enabled_) {
+      if (Runtime::getSettings()->get('zenmagick.base.logging.enabled', false)) {
             foreach ($this->getHandlers() as $handler) {
                 if ((null === ($customLevel = $handler->getLogLevel()) && self::ERROR <= $this->globalLogLevel_) || self::ERROR <= $customLevel) {
                     $handler->logError($line, $info);

@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 
 /**
  * FirePHP support for ZenMagick.
@@ -67,15 +68,16 @@ class ZMFirePHPPlugin extends Plugin implements ZMRequestHandler {
      * {@inheritDoc}
      */
     public function initRequest($request) {
+        $settings = Runtime::getSettings();
         if (ZMLangUtils::asBoolean($this->get('isOnDemand'))) {
             if (null != $request->getParameter($this->get('onDemandName'))) {
                 // enable logging
-                ZMSettings::set('zenmagick.base.logging.enabled', true);
-                ZMSettings::set('zenmagick.base.logging.level', (int)$this->get('onDemandLogLevel'));
-                ZMSettings::append('zenmagick.base.logging.handler', 'FirePHPLoggingHandler');
+                $settings->set('zenmagick.base.logging.enabled', true);
+                $settings->set('zenmagick.base.logging.level', (int)$this->get('onDemandLogLevel'));
+                $settings->add('zenmagick.base.logging.handlers', 'FirePHPLoggingHandler');
             }
         } else {
-            ZMSettings::append('zenmagick.base.logging.handler', 'FirePHPLoggingHandler');
+            $settings->add('zenmagick.base.logging.handlers', 'FirePHPLoggingHandler');
         }
     }
 

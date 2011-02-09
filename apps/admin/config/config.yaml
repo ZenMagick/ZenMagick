@@ -49,7 +49,7 @@ zenmagick:
       level: ALL
       enabled: false
       handleErrors: true
-      handler:
+      handlers:
         - zenmagick\base\logging\handler\DefaultLoggingHandler
 
   ## mvc
