@@ -128,7 +128,7 @@ ZMLoader::instance()->loadStatic();
 
     // upset plugins if required
     if (Runtime::getSettings()->get('zenmagick.base.plugins.enabled')) {
-        ZMPlugins::instance()->initAllPlugins(ZMSettings::get('zenmagick.core.plugins.context'));
+        ZMPlugins::instance()->initAllPlugins(Runtime::getSettings()->get('zenmagick.core.plugins.context'));
     }
 
 //-- bootstrap done!
@@ -143,7 +143,7 @@ ZMLoader::instance()->loadStatic();
 
     // upset plugins if required
     if (Runtime::getSettings()->get('zenmagick.base.plugins.enabled')) {
-        foreach (ZMPlugins::instance()->getAllPlugins(ZMSettings::get('zenmagick.core.plugins.context')) as $plugin) {
+        foreach (ZMPlugins::instance()->getAllPlugins(Runtime::getSettings()->get('zenmagick.core.plugins.context')) as $plugin) {
             if ($plugin instanceof ZMRequestHandler) {
                 $plugin->initRequest($_zm_request);
             }
@@ -151,13 +151,13 @@ ZMLoader::instance()->loadStatic();
     }
 
     // register custom error handler
-    if (ZMSettings::get('zenmagick.core.logging.handleErrors')) {
+    if (Runtime::getSettings()->get('zenmagick.core.logging.handleErrors')) {
         set_error_handler(array(Runtime::getLogging(), 'errorHandler'));
         set_exception_handler(array(Runtime::getLogging(), 'exceptionHandler'));
     }
 
     // set up locale
-    ZMLocales::instance()->init(ZMSettings::get('zenmagick.core.locales.locale'));
+    ZMLocales::instance()->init(Runtime::getSettings()->get('zenmagick.core.locales.locale'));
 
     // core and plugins loaded
     Runtime::getEventDispatcher()->notify(new Event(null, 'bootstrap2_done',  array('request' => $_zm_request)));

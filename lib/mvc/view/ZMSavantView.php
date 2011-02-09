@@ -50,7 +50,7 @@ class ZMSavantView extends ZMView {
         $this->layout_ = array();
         $this->filters_ = null;
         $this->setViewDir('views/');
-        
+
         // special view bits
         $viewUtils = $this->getViewUtils();
         $this->setVar('resources', $viewUtils);
@@ -161,7 +161,7 @@ class ZMSavantView extends ZMView {
         $localeCodes = array_reverse(ZMLocales::instance()->getValidLocaleCodes());
 
         // add plugins as well
-        foreach (ZMPlugins::instance()->getAllPlugins(ZMSettings::get('zenmagick.core.plugins.context', 0)) as $plugin) {
+        foreach (ZMPlugins::instance()->getAllPlugins(ZMSettings::get('zenmagick.core.plugins.context')) as $plugin) {
             $ppath = $plugin->getPluginDirectory().'content'.DIRECTORY_SEPARATOR;
             $path[] = $ppath;
             foreach ($localeCodes as $code) {

@@ -39,6 +39,10 @@ zenmagick:
           file: 0666
           folder: 0777
 
+    ## plugins
+    plugins:
+      context: 1
+
   ## base
   base:
     ## events
