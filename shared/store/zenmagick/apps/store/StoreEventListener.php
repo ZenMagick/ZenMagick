@@ -44,6 +44,13 @@ class StoreEventListener {
         // load the custom config
         Runtime::getSettings()->setAll(Yaml::load(Runtime::getInstallationPath().DIRECTORY_SEPARATOR.'shared'.DIRECTORY_SEPARATOR.'store'.DIRECTORY_SEPARATOR.'store-config.yaml'));
 
+        // set default
+        Runtime::getSettings()->set('zenmagick.base.plugins.dirs', array(
+            Runtime::getInstallationPath().'plugins'.DIRECTORY_SEPARATOR,
+            Runtime::getInstallationPath().'apps/admin/plugins'.DIRECTORY_SEPARATOR,
+            Runtime::getInstallationPath().'apps/store/plugins'.DIRECTORY_SEPARATOR
+        ));
+
         // load some static files that we still need
         $statics = array(
           'lib/core/external/zm-pomo-3.0.packed.php',

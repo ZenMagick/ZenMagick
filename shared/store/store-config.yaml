@@ -3,3 +3,17 @@
 ##
 ## NOTE: This file is generated (and may be re-written) automaticlly - edit at own risk.
 ##
+zenmagick:
+  core:
+    database:
+      connections:
+        default:
+          driver: mysql
+          host: localhost
+          username: root
+          password: root
+          database: zmdev
+          prefix: zen_
+          port: null
+          socket: null
+          initQuery: null

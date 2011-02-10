@@ -73,6 +73,7 @@
     function zm_get_default_settings() {
         $map = array(
             /*** database ***/
+          /*
             'zenmagick.core.database.connections.default' => array(
                 'driver' => 'mysql',
                 'host' => DB_SERVER,
@@ -84,9 +85,9 @@
                 'socket' => (null !== ($socket = @ini_get('mysql.default_socket')) ? $socket : null),
                 'initQuery' => null
             ),
+           */
 
             /*** cache ***/
-            'zenmagick.core.cache.mapping.defaults' => array(),
             'zenmagick.core.cache.provider.file.baseDir' => dirname(zenmagick\base\Runtime::getInstallationPath()).'/cache/zenmagick/',
 
             /*** security ***/

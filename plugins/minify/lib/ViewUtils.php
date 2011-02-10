@@ -52,7 +52,7 @@ class ViewUtils extends ZMViewUtils {
      */
     public function resolveResource($filename) {
         $plugin = $this->getPlugin();
-        return $plugin->pluginUrl('min/f='.parent::resolveResource($filename));
+        return $plugin->pluginURL('min/f='.parent::resolveResource($filename));
     }
 
     /**
@@ -65,7 +65,7 @@ class ViewUtils extends ZMViewUtils {
                 // use parent method to do proper resolve and not minify twice!
                 $srcList[] = parent::resolveResource($info['filename']);
             }
-            return '<script type="text/javascript" src="'.$this->getPlugin()->pluginUrl('min/f='.implode(',', $srcList)).'"></script>'."\n";
+            return '<script type="text/javascript" src="'.$this->getPlugin()->pluginURL('min/f='.implode(',', $srcList)).'"></script>'."\n";
         } else if ('css' == $group) {
             // group by same attributes/prefix/suffix
             $attrGroups = array();
@@ -91,7 +91,7 @@ class ViewUtils extends ZMViewUtils {
                     $attrGroups[$attrGroupKey]['files'][] = $details['filename'];
                 }
             }
-            $css = ''; 
+            $css = '';
             foreach ($attrGroups as $attrGroup) {
                 $details = $attrGroup['details'];
                 $files = $attrGroup['files'];
@@ -105,7 +105,7 @@ class ViewUtils extends ZMViewUtils {
                 if (0 < count($srcList)) {
                     $slash = ZMSettings::get('zenmagick.mvc.html.xhtml') ? '/' : '';
                     $css .= $details['attr']['prefix'];
-                    $css .= '<link'.$details['attrstr'].' href="'.$this->getPlugin()->pluginUrl('min/f='.implode(',', $srcList)).'"'.$slash.'>';
+                    $css .= '<link'.$details['attrstr'].' href="'.$this->getPlugin()->pluginURL('min/f='.implode(',', $srcList)).'"'.$slash.'>';
                     $css .= $details['attr']['suffix']."\n";
                 }
             }

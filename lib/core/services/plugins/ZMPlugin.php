@@ -38,7 +38,7 @@
  *  <dd><em>0.0</em>.</dd>
  *  <dt>enabled</dt>
  *  <dd><code>null<code>; unless the status is explicitely set, the setting
- *   <em>zenmagick.core.plugins.[id].enabled</em> will be checked instead.</dd>
+ *   <em>zenmagick.base.plugins.[id].enabled</em> will be checked instead.</dd>
  *  <dt>pluginDirectory</dt>
  *  <dd>Location of the plugin class file.</dd>
  *  <dt>loaderPolicy</dt>

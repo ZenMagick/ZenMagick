@@ -82,7 +82,7 @@ class Plugins {
     /**
      * Load the plugin status data.
      *
-     * <p>The default implementation is to look at settings in the form <em>zenmagick.core.plugins.[id].enabled</em>, so this
+     * <p>The default implementation is to look at settings in the form <em>zenmagick.base.plugins.[id].enabled</em>, so this
      * implementation returns just an empty array.</p>
      *
      * @return array The status of all plugins.
