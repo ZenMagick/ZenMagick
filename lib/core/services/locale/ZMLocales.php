@@ -19,6 +19,8 @@
  */
 ?>
 <?php
+//TODO: can we just move them in here?
+require_once dirname(__FILE__).DIRECTORY_SEPARATOR.'_zm.php';
 
 use zenmagick\base\Runtime;
 
@@ -66,7 +68,7 @@ class ZMLocales extends \ZMObject {
     /**
      * Get the locale to be used.
      *
-     * <p>The reload flag is mainly to allow applications to switch to a different locale implementation at a later stage during 
+     * <p>The reload flag is mainly to allow applications to switch to a different locale implementation at a later stage during
      * startup.</p>
      *
      * @param boolean reload Optional flag to force a reload; default is <code>false</code>.
