@@ -109,9 +109,6 @@
 
             'apps.store.docRoot' => DIR_FS_CATALOG,
 
-            // use ZenMagick themes
-            'isEnableZMThemes' => true,
-
             // default theme
             'apps.store.themes.default' => 'default',
 

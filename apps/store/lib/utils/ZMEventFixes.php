@@ -53,7 +53,7 @@ class ZMEventFixes extends ZMObject {
      * <p>Implemented to generate some ZenMagick events triggered by zen-cart events.</p>
      */
     public function update($eventId, $args) {
-        if (!ZMsettings::get('isEnableZMThemes')) {
+        if (!ZMsettings::get('isEnableZMThemes', true)) {
             if (0 === strpos($eventId, 'NOTIFY_HEADER_START_')) {
                 $controllerId = str_replace('NOTIFY_HEADER_START_', '', $eventId);
                 $args = array_merge($args, array('controllerId' => $controllerId, 'request' => ZMRequest::instance()));
@@ -71,7 +71,7 @@ class ZMEventFixes extends ZMObject {
      */
     public function onInitDone($event) {
         $request = $event->get('request');
-        if (!ZMsettings::get('isEnableZMThemes')) {
+        if (!ZMsettings::get('isEnableZMThemes', true)) {
             // pass on already set args
             $args = array_merge($event->all(), array('themeId' => ZMThemes::instance()->getActiveThemeId($request->getSession()->getLanguageId())));
             zenmagick\base\Runtime::getEventDispatcher()->notify(new zenmagick\base\events\Event($this, 'theme_resolved', $args));
@@ -200,7 +200,7 @@ class ZMEventFixes extends ZMObject {
         ZMLoader::instance()->registerClass('httpClient', DIR_FS_CATALOG . DIR_WS_CLASSES . 'http_client.php');
 
         // skip more zc request handling
-        if (!$this->needsZC($request) && ZMSettings::get('isEnableZMThemes')) {
+        if (!$this->needsZC($request) && ZMSettings::get('isEnableZMThemes', true)) {
         global $code_page_directory;
             $code_page_directory = 'zenmagick';
         }

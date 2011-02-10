@@ -31,7 +31,7 @@ use zenmagick\base\Runtime;
  * @package org.zenmagick.plugins
  * @author DerManoMann
  */
-class ZMToggleThemesPlugin extends \Plugin {
+class ZMToggleThemesPlugin extends Plugin {
     const SESS_THEME_TOGGLE_KEY = 'themeToggle';
 
 
@@ -40,8 +40,8 @@ class ZMToggleThemesPlugin extends \Plugin {
      */
     function __construct() {
         parent::__construct('Toggle themes', 'Allow users to toggle theme support');
-        $this->setContext(\Plugin::CONTEXT_STOREFRONT);
-        $this->setLoaderPolicy(\ZMPlugin::LP_NONE);
+        $this->setContext(Plugin::CONTEXT_STOREFRONT);
+        $this->setLoaderPolicy(ZMPlugin::LP_NONE);
     }
 
     /**
@@ -56,7 +56,7 @@ class ZMToggleThemesPlugin extends \Plugin {
      */
     public function init() {
         parent::init();
-        zenmagick\base\Runtime::getEventDispatcher()->listen($this);
+        Runtime::getEventDispatcher()->listen($this);
     }
 
     /**
@@ -64,14 +64,14 @@ class ZMToggleThemesPlugin extends \Plugin {
      */
     public function onInitRequest($event) {
         $request = $event->get('request');
-
         $session = $request->getSession();
-        if (null != ($themeToggle = $request->getParameter('themeToggle'))) {
+
+        if (null !== ($themeToggle = $request->getParameter('themeToggle'))) {
             $session->setValue(self::SESS_THEME_TOGGLE_KEY, $themeToggle);
         }
 
-        if (null != ($themeToggle = $session->getValue(self::SESS_THEME_TOGGLE_KEY))) {
-            \ZMSettings::set('isEnableZMThemes', \ZMLangUtils::asBoolean($themeToggle));
+        if (null !== ($themeToggle = $session->getValue(self::SESS_THEME_TOGGLE_KEY))) {
+            Runtime::getSettings()->set('isEnableZMThemes', \ZMLangUtils::asBoolean($themeToggle));
         }
     }
 
@@ -86,7 +86,7 @@ class ZMToggleThemesPlugin extends \Plugin {
             return $contents;
         }
 
-        $toggleValue = \ZMSettings::get('isEnableZMThemes') ? 'false' : 'true';
+        $toggleValue = \ZMSettings::get('isEnableZMThemes', true) ? 'false' : 'true';
         $url = $request->url(null, null, $request->isSecure());
         $hasParams = false !== strpos($url, '?');
         $url .= ($hasParams ? '&' : '?') . 'themeToggle='.$toggleValue;

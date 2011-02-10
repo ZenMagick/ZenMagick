@@ -21,7 +21,7 @@
 <?php
 
     // main request processor
-    if (ZMSettings::get('isEnableZMThemes')) {
+    if (ZMSettings::get('isEnableZMThemes', true)) {
         ZMDispatcher::dispatch($_zm_request);
         $_zm_request->closeSession();
         exit;
