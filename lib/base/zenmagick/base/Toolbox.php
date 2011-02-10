@@ -21,6 +21,7 @@
 <?php
 namespace zenmagick\base;
 
+use Symfony\Component\Yaml\Yaml;
 
 /**
  * Shared tools.
@@ -65,6 +66,22 @@ class Toolbox {
             }
         }
         return $base;
+    }
+
+    /**
+     * Load a <em>YAML</em> file and automatically merge any <code>environment</code> settings contained.
+     *
+     * @param string filename The file to load.
+     * @param string environment Optional environment; default is the value of <code>ZM_ENVIRONMENT</code>.
+     * @return mixed The parsed YAML.
+     */
+    public static function loadWithEnv($filename, $environment=ZM_ENVIRONMENT) {
+        $environment = strtoupper($environment);
+        $yaml = Yaml::load($filename);
+        if (array_key_exists($environment, $yaml)) {
+            $yaml = self::arrayMergeRecursive($yaml, $yaml[$environment]);
+        }
+        return $yaml;
     }
 
 }

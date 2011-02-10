@@ -22,8 +22,8 @@
 use zenmagick\base\Runtime;
 use zenmagick\base\Beans;
 use zenmagick\base\ClassLoader;
+use zenmagick\base\Toolbox;
 use zenmagick\base\events\Event;
-use Symfony\Component\Yaml\Yaml;
 
 
     /*
@@ -101,7 +101,7 @@ ZMLoader::instance()->addPath(ZM_BASE_PATH.trim($name).DIRECTORY_SEPARATOR);
     }
 
     // load application config
-    Runtime::getSettings()->setAll(Yaml::load(Runtime::getApplicationPath().DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.'config.yaml'));
+    Runtime::getSettings()->setAll(Toolbox::loadWithEnv(Runtime::getApplicationPath().DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.'config.yaml'));
 
     // hook up default event listeners
     foreach (Runtime::getSettings()->get('zenmagick.base.events.listeners', array()) as $_zm_elc) {
@@ -111,7 +111,7 @@ ZMLoader::instance()->addPath(ZM_BASE_PATH.trim($name).DIRECTORY_SEPARATOR);
     }
 
     // load global config to allow overriding app settings
-    Runtime::getSettings()->setAll(Yaml::load(Runtime::getInstallationPath().DIRECTORY_SEPARATOR.'global.yaml'));
+    Runtime::getSettings()->setAll(Toolbox::loadWithEnv(Runtime::getInstallationPath().DIRECTORY_SEPARATOR.'global.yaml'));
 
     // set up locale
     ZMLocales::instance()->init(Runtime::getSettings()->get('zenmagick.core.locales.locale'));
@@ -129,6 +129,7 @@ ZMLoader::instance()->addPath(ZM_BASE_PATH.trim($name).DIRECTORY_SEPARATOR);
         set_exception_handler(array(Runtime::getLogging(), 'exceptionHandler'));
     }
 
+    Runtime::getLogging()->info('environment is: '.ZM_ENVIRONMENT);
     Runtime::getEventDispatcher()->notify(new Event(null, 'bootstrap_done'));
 
     // upset plugins if required

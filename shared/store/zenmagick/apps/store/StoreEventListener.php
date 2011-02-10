@@ -25,7 +25,7 @@
 namespace zenmagick\apps\store;
 
 use zenmagick\base\Runtime;
-use Symfony\Component\Yaml\Yaml;
+use zenmagick\base\Toolbox;
 
 /**
  * Shared store event listener.
@@ -46,7 +46,7 @@ class StoreEventListener {
             if ($fileInfo->isDot()) {
                 continue;
             }
-            Runtime::getSettings()->setAll(Yaml::load($fileInfo->getPath()));
+            Runtime::getSettings()->setAll(Toolbox::loadWithEnv($fileInfo->getPath()));
         }
 
         // set default
