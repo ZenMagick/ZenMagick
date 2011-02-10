@@ -42,7 +42,7 @@ class StoreEventListener {
      */
     public function onBootstrapDone($event) {
         // load the custom config
-        Runtime::getSettings()->setAll(Yaml::load(Runtime::getApplicationPath().DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.ZM_APP_NAME.'-config.yaml'));
+        Runtime::getSettings()->setAll(Yaml::load(Runtime::getInstallationPath().DIRECTORY_SEPARATOR.'shared'.DIRECTORY_SEPARATOR.'store'.DIRECTORY_SEPARATOR.'store-config.yaml'));
 
         // load some static files that we still need
         $statics = array(
