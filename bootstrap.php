@@ -113,8 +113,9 @@ ZMLoader::instance()->addPath(Runtime::getApplicationPath().DIRECTORY_SEPARATOR.
     // set up locale
     ZMLocales::instance()->init(Runtime::getSettings()->get('zenmagick.core.locales.locale'));
 
-    // set a default timezone; note that warnings are suppressed for date_default_timezone_get() in case there isn't a default at all
-    date_default_timezone_set(ZMSettings::get('zenmagick.core.date.timezone', @date_default_timezone_get()));
+    // set a default timezone
+    // NOTE: warnings are suppressed for date_default_timezone_get() in case there isn't a default at all
+    date_default_timezone_set(Runtime::getSettings()->get('zenmagick.core.date.timezone', @date_default_timezone_get()));
     if (null != ($_dt = date_timezone_get((new DateTime())))) {
         // set back with the actually used value
         Runtime::getSettings()->set('zenmagick.core.date.timezone', $_dt->getName());
@@ -128,9 +129,6 @@ ZMLoader::instance()->addPath(Runtime::getApplicationPath().DIRECTORY_SEPARATOR.
         set_error_handler(array(Runtime::getLogging(), 'errorHandler'));
         set_exception_handler(array(Runtime::getLogging(), 'exceptionHandler'));
     }
-
-    // set up locale
-    ZMLocales::instance()->init(Runtime::getSettings()->get('zenmagick.core.locales.locale'));
 
     Runtime::getEventDispatcher()->notify(new Event(null, 'bootstrap_done'));
 
