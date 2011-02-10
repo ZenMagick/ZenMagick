@@ -44,7 +44,7 @@ use Symfony\Component\Yaml\Yaml;
     define('ZM_APP_NAME', defined('ZM_APP_PATH') ? basename(ZM_APP_PATH) : null);
 
     // hide as to avoid filenames that contain account names, etc.
-    ini_set('display_errors', true);
+    ini_set('display_errors', false);
     // all
     error_reporting(-1);
     // enable logging
