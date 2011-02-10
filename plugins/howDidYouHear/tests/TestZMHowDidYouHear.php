@@ -79,9 +79,6 @@ class TestZMHowDidYouHear extends ZMTestCase {
     public function createAccount($data) {
         $account = ZMBeanUtils::getBean('Account');
         foreach ($data as $key => $value) {
-            if ('Dob' == $key) {
-                $value = ZMTools::translateDateString($value, 'dd/mm/yyyy', ZM_DATETIME_FORMAT);
-            }
             $method = 'set'.ucwords($key);
             $account->$method($value);
         }

@@ -51,8 +51,8 @@ use zenmagick\base\Runtime;
  *    <li>boolean - a boolean</li>
  *    <li>string - a string</li>
  *    <li>float - a float</li>
- *    <li>date - a date in the format <em>'yyyy-mm-dd'<em> (as defined by <code>ZM_DATE_FORMAT</code>)</li>
- *    <li>datetime - a date and time value in the format <em>'yyyy-mm-dd hh:ii:ss'<em> (as defined by <code>ZM_DATETIME_FORMAT</code>)</li>
+ *    <li>date - a date</li>
+ *    <li>datetime - a date and time value</li>
  *    <li>blob - binary data</li>
  *   </ul>
  *  </dd>

@@ -23,23 +23,11 @@
 ?>
 <?php
 
-    /**
-     * If you are changing ZM_ROOT, make sure to update
-     * ..\zen-cart\includes\init_includes\overrides\init_templates.php
-     * and
-     * ..\zen-cart\admin\includes\init_includes\overrides\init_templates.php
-     *
-     * The full order of action is:
-     * 1) Uninstall all ZenMagick patches (as some use this value to generate code)
-     * 2) Rename directory
-     * 3) Update ZM_ROOT
-     * 4) Update the files mentioned above
-     * 5) Re-install plugins
-     */
+    // TODO: remove
     define('ZM_ROOT', 'zenmagick/');
 
 
-    //** url page name key **//
+    // TODO: remove
     define('ZM_PAGE_KEY', 'main_page');
 
 
@@ -50,12 +38,6 @@
     define('ZM_TABLE_ADMINS_TO_ROLES', ZM_DB_PREFIX . 'admins_to_roles');
     define('ZM_TABLE_ADMIN_PREFS', ZM_DB_PREFIX . 'admin_prefs');
     define('ZM_TABLE_SACS_PERMISSIONS', ZM_DB_PREFIX . 'sacs_permissions');
-
-
-    //** date/time formats used internally by all models **//
-    define('ZM_DATE_FORMAT', 'yyyy-mm-dd');
-    define('ZM_DATETIME_FORMAT', 'yyyy-mm-dd hh:ii:ss');
-
 
     //** others **//
     define('PRODUCTS_OPTIONS_TYPE_SELECT', 0);
@@ -73,7 +55,6 @@
     function zm_get_default_settings() {
         $map = array(
             /*** database ***/
-          /*
             'zenmagick.core.database.connections.default' => array(
                 'driver' => 'mysql',
                 'host' => DB_SERVER,
@@ -85,6 +66,7 @@
                 'socket' => (null !== ($socket = @ini_get('mysql.default_socket')) ? $socket : null),
                 'initQuery' => null
             ),
+          /*
            */
 
             /*** cache ***/
