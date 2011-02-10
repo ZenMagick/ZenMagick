@@ -65,7 +65,9 @@ class ViewUtils extends ZMViewUtils {
                 // use parent method to do proper resolve and not minify twice!
                 $srcList[] = parent::resolveResource($info['filename']);
             }
-            return '<script type="text/javascript" src="'.$this->getPlugin()->pluginURL('min/f='.implode(',', $srcList)).'"></script>'."\n";
+            if (0 < count($srcList)) {
+                return '<script type="text/javascript" src="'.$this->getPlugin()->pluginURL('min/f='.implode(',', $srcList)).'"></script>'."\n";
+            }
         } else if ('css' == $group) {
             // group by same attributes/prefix/suffix
             $attrGroups = array();
