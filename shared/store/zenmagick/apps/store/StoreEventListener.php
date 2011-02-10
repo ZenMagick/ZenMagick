@@ -25,9 +25,12 @@
 namespace zenmagick\apps\store;
 
 use zenmagick\base\Runtime;
+use Symfony\Component\Yaml\Yaml;
 
 /**
  * Shared store event listener.
+ *
+ * <p>This is the ZenMagick store bootstrapper.</p>
  *
  * @author DerManoMann
  * @package zenmagick.apps.store
@@ -38,6 +41,9 @@ class StoreEventListener {
      * Keep up support for local.php.
      */
     public function onBootstrapDone($event) {
+        // load the custom config
+        Runtime::getSettings()->setAll(Yaml::load(Runtime::getApplicationPath().DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.ZM_APP_NAME.'-config.yaml'));
+
         // load some static files that we still need
         $statics = array(
           'lib/core/external/zm-pomo-3.0.packed.php',

@@ -1,5 +1,5 @@
 #
-# storefront settings
+# storefront default settings
 #
 
 ## general settings
@@ -36,6 +36,7 @@ zenmagick:
     ## events
     events:
       listeners:
+        ## TODO: these should be swapped
         - zenmagick\apps\store\StoreEventListener
         - zenmagick\http\BootstrapListener
         - ZMEventFixes
