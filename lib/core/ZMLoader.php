@@ -165,10 +165,8 @@ class ZMLoader {
      */
     public function loadStatic() {
         foreach ($this->getStatic() as $static) {
-            ++$this->stats_['static'];
             zenmagick\base\Runtime::getLogging()->error('static files are no longer supported: '.$static);
-//echo 'static: '.$static."<BR>";
-            //throw new ZMException('static files are no longer supported: '.$static);
+            //++$this->stats_['static'];
             //require_once $static;
         }
     }

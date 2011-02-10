@@ -53,5 +53,6 @@ use zenmagick\base\events\Event;
         }
     }
 
+    // restore
     $request = $_zm_request;
     Runtime::getEventDispatcher()->notify(new Event(null, 'init_done',  array('request' => $_zm_request)));

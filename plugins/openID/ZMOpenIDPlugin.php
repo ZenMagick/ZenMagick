@@ -82,6 +82,9 @@ class ZMOpenIDPlugin extends Plugin {
         ZMUrlManager::instance()->setMapping('openID', array(
             'success' => array('template' => 'account', 'view' => 'RedirectView')
         ));
+
+        // TODO: manually load lib for now
+        require_once dirname(__FILE__).'/lib/openid-2.1.3-php53.packed.php';
     }
 
     /**

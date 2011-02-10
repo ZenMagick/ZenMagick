@@ -63,7 +63,10 @@ class ZMUnitTestsPlugin extends Plugin {
             'layout' => '',
             'template' => 'tests',
             'controller' => 'UnitTestsController'
-       ));
+        ));
+
+        // TODO: manually load lib for now
+        require_once dirname(__FILE__).'/lib/simpletest-trunk-20110128.packed.php';
     }
 
     /**

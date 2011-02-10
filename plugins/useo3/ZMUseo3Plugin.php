@@ -48,6 +48,9 @@ class ZMUseo3Plugin extends Plugin {
     public function init() {
         parent::init();
         ZMSettings::append('zenmagick.mvc.request.seoRewriter', 'Useo3SeoRewriter');
+
+        // TODO: manually load lib for now
+        require_once dirname(__FILE__).'/lib/seo.functions.php';
     }
 
 }

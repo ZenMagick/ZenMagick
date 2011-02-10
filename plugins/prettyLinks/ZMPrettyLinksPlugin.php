@@ -49,6 +49,9 @@ class ZMPrettyLinksPlugin extends Plugin {
     public function init() {
         parent::init();
         ZMSettings::append('zenmagick.mvc.request.seoRewriter', 'PrettyLinksSeoRewriter');
+
+        // TODO: manually load lib for now
+        require_once dirname(__FILE__).'/lib/functions.php';
     }
 
 }

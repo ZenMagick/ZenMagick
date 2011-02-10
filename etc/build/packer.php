@@ -19,7 +19,7 @@
  */
 ?>
 <?php
-    
+
     /**
      * Simple command line packer script.
      */
@@ -29,7 +29,7 @@
     include $coreDir.'ZMLoader.php';
     ZMLoader::instance()->addPath($coreDir);
     ZMLoader::instance()->addPath(dirname($coreDir).DIRECTORY_SEPARATOR.'build'.DIRECTORY_SEPARATOR);
-    ZMLoader::instance()->loadStatic();
+    //ZMLoader::instance()->loadStatic();
     spl_autoload_register('ZMLoader::resolve');
 
     if (6 > $argc) {

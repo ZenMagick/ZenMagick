@@ -76,6 +76,9 @@ class ZMPageCachePlugin extends \Plugin {
         parent::init();
         Runtime::getEventDispatcher()->listen($this);
         $this->cache_ = \ZMCaches::instance()->getCache('pages', array('cacheTTL' => $this->get('ttl')));
+
+        // TODO: manually load lib for now
+        require_once dirname(__FILE__).'/lib/defaults.php';
     }
 
 

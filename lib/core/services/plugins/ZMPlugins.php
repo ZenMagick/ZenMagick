@@ -325,7 +325,7 @@ class ZMPlugins extends ZMObject {
         ZMLoader::instance()->setParent($pluginLoader);
 
         // do *after* the loader is active to allow to use plugin classes in static contents!
-        $pluginLoader->loadStatic();
+        //$pluginLoader->loadStatic();
 
         // do the actual init only after all plugins have been loaded to allow
         // them to depend on each other

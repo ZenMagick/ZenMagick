@@ -24,7 +24,7 @@
   require_once 'includes/application_top.php';
 
   ZMLoader::instance()->addPath(ZMFileUtils::mkPath(array(zenmagick\base\Runtime::getInstallationPath(), 'apps', 'admin', 'lib')));
-  ZMLoader::instance()->loadStatic();
+  //ZMLoader::instance()->loadStatic();
 
   // set some admin specific things...
   ZMUrlManager::instance()->clear();

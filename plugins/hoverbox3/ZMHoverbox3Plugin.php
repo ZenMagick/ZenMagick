@@ -70,6 +70,9 @@ class ZMHoverbox3Plugin extends Plugin {
     public function init() {
         parent::init();
         zenmagick\base\Runtime::getEventDispatcher()->listen($this);
+
+        // TODO: manually load lib for now
+        require_once dirname(__FILE__).'/lib/functions.php';
     }
 
     /**
