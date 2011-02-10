@@ -49,7 +49,7 @@ use zenmagick\base\events\Event;
 
     // hide as to avoid filenames that contain account names, etc.
     ini_set('display_errors', false);
-    // all
+    // enable all reporting
     error_reporting(-1);
     // enable logging
     ini_set('log_errors', true);
