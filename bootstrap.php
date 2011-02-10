@@ -85,9 +85,9 @@ ZMLoader::instance()->addPath(Runtime::getApplicationPath().DIRECTORY_SEPARATOR.
     }
 
     // set up lib class loader
-    if (defined('ZM_SHARED')) {
+    if (defined('ZM_LIBS')) {
         $libLoader = new ClassLoader();
-        foreach (explode(',', ZM_SHARED) as $name) {
+        foreach (explode(',', ZM_LIBS) as $name) {
 // XXX: legacy loader
 ZMLoader::instance()->addPath(ZM_BASE_PATH.trim($name).DIRECTORY_SEPARATOR);
             $libLoader->addConfig(ZM_BASE_PATH.trim($name));

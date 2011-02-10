@@ -22,37 +22,37 @@
 use zenmagick\base\Runtime;
 use zenmagick\base\events\Event;
 
-    if (!defined('ZM_APP_PATH')) {
-        // app location relative to zenmagick installation (ZM_BASE_PATH)
-        define('ZM_APP_PATH', 'apps'.DIRECTORY_SEPARATOR.'store'.DIRECTORY_SEPARATOR);
-    }
+  if (!defined('ZM_APP_PATH')) {
+      // app location relative to zenmagick installation (ZM_BASE_PATH)
+      define('ZM_APP_PATH', 'apps'.DIRECTORY_SEPARATOR.'store'.DIRECTORY_SEPARATOR);
+  }
 
-    // want to share code from here
-    define('ZM_SHARED', 'lib/http,shared');
+  // additional libraries
+  define('ZM_LIBS', 'lib/http,shared');
 
-    include 'bootstrap.php';
+  include 'bootstrap.php';
 
-    // create the main request instance
-    $request = $_zm_request = ZMRequest::instance();
+  // create the main request instance
+  $request = $_zm_request = ZMRequest::instance();
 
-    // tell everyone interested that we have a request
-    Runtime::getEventDispatcher()->notify(new Event(null, 'init_request',  array('request' => $_zm_request)));
+  // tell everyone interested that we have a request
+  Runtime::getEventDispatcher()->notify(new Event(null, 'init_request',  array('request' => $_zm_request)));
 
-    // allow seo rewriters to fiddle with the request
-    $_zm_request->seoDecode();
+  // allow seo rewriters to fiddle with the request
+  $_zm_request->seoDecode();
 
-    // make sure we use the appropriate protocol (HTTPS, for example) if required
-    ZMSacsManager::instance()->ensureAccessMethod($_zm_request);
+  // make sure we use the appropriate protocol (HTTPS, for example) if required
+  ZMSacsManager::instance()->ensureAccessMethod($_zm_request);
 
-    // load stuff that really needs to be global!
-    if (Runtime::getSettings()->get('zenmagick.base.plugins.enabled', true)) {
-        foreach (ZMPlugins::instance()->initAllPlugins(ZMSettings::get('zenmagick.core.plugins.context')) as $plugin) {
-            foreach ($plugin->getGlobal($_zm_request) as $_zm_file) {
-                include_once $_zm_file;
-            }
-        }
-    }
+  // load stuff that really needs to be global!
+  if (Runtime::getSettings()->get('zenmagick.base.plugins.enabled', true)) {
+      foreach (ZMPlugins::instance()->initAllPlugins(ZMSettings::get('zenmagick.core.plugins.context')) as $plugin) {
+          foreach ($plugin->getGlobal($_zm_request) as $_zm_file) {
+              include_once $_zm_file;
+          }
+      }
+  }
 
-    // restore
-    $request = $_zm_request;
-    Runtime::getEventDispatcher()->notify(new Event(null, 'init_done',  array('request' => $_zm_request)));
+  // restore
+  $request = $_zm_request;
+  Runtime::getEventDispatcher()->notify(new Event(null, 'init_done',  array('request' => $_zm_request)));
