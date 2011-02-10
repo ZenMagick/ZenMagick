@@ -27,33 +27,30 @@ use Symfony\Component\Yaml\Yaml;
 
 
     /*
-     * To use this, 'ZM_APP_PATH' needs to be defined first.
-     * Expected value is the (full) path to an app directory following the
-     * ZenMagick MVC layout conventions.
+     * If 'ZM_APP_PATH' is defined, the following conventions are expected:
+     *
+     *   - ZM_APP_PATH is a full path pointing to a directory
+     *   - ZM_APP_PATH contains a lib and a config folder
+     *   - the config folder should contain the main application config file: config.yaml
      */
 
     // start time for stats
     define('ZM_START_TIME', microtime());
-
     // detect CLI calls
     define('ZM_CLI_CALL', defined('STDIN'));
-
     // base installation directory
     define('ZM_BASE_PATH', dirname(__FILE__).DIRECTORY_SEPARATOR);
-
     // app name
-    define('ZM_APP_NAME', basename(ZM_APP_PATH));
+    define('ZM_APP_NAME', defined('ZM_APP_PATH') ? basename(ZM_APP_PATH) : null);
 
     // hide as to avoid filenames that contain account names, etc.
     ini_set('display_errors', true);
-
     // all
     error_reporting(-1);
-
     // enable logging
     ini_set('log_errors', true);
 
-    // ** set up base class loader
+    // set up base class loader
     $basephar = 'phar://'.ZM_BASE_PATH.'/lib/base/base.phar';
     if (file_exists($basephar)) {
         require_once $basephar.'/zenmagick/base/ClassLoader.php';
@@ -61,11 +58,11 @@ use Symfony\Component\Yaml\Yaml;
         require_once ZM_BASE_PATH.'/lib/base/zenmagick/base/ClassLoader.php';
     }
     unset($basephar);
-    $libLoader = new ClassLoader();
-    $libLoader->addConfig(ZM_BASE_PATH.'lib'.DIRECTORY_SEPARATOR.'base');
-    $libLoader->addConfig(ZM_BASE_PATH.'lib'.DIRECTORY_SEPARATOR.'vendor');
-    $libLoader->register();
-    unset($libLoader);
+    $baseLoader = new ClassLoader();
+    $baseLoader->addConfig(ZM_BASE_PATH.'lib'.DIRECTORY_SEPARATOR.'base');
+    $baseLoader->addConfig(ZM_BASE_PATH.'lib'.DIRECTORY_SEPARATOR.'vendor');
+    $baseLoader->register();
+    unset($baseLoader);
 
     // as default disable plugins for CLI calls
     Runtime::getSettings()->set('zenmagick.base.plugins.enabled', !ZM_CLI_CALL);
@@ -77,20 +74,7 @@ spl_autoload_register('ZMLoader::resolve');
 ZMLoader::instance()->addPath(ZM_BASE_PATH.'lib'.DIRECTORY_SEPARATOR.'core'.DIRECTORY_SEPARATOR);
 ZMLoader::instance()->addPath(ZM_BASE_PATH.'lib'.DIRECTORY_SEPARATOR.'mvc'.DIRECTORY_SEPARATOR);
 
-    // ** set up shared class loader
-    if (defined('ZM_SHARED')) {
-        $sharedLoader = new ClassLoader();
-        foreach (explode(',', ZM_SHARED) as $name) {
-// XXX: legacy loader
-ZMLoader::instance()->addPath(ZM_BASE_PATH.trim($name).DIRECTORY_SEPARATOR);
-            $sharedLoader->addConfig(ZM_BASE_PATH.trim($name));
-        }
-        $sharedLoader->register();
-        unset($sharedLoader);
-    }
-
-    // TODO: swap with shared once defaults are loaded as part of the app event listener
-    // ** set up application class loader
+    // set up application class loader
     if (null != Runtime::getApplicationPath()) {
 // XXX: legacy loader
 ZMLoader::instance()->addPath(Runtime::getApplicationPath().DIRECTORY_SEPARATOR.'lib'.DIRECTORY_SEPARATOR);
@@ -100,29 +84,40 @@ ZMLoader::instance()->addPath(Runtime::getApplicationPath().DIRECTORY_SEPARATOR.
         unset($appLoader);
     }
 
+    // set up lib class loader
+    if (defined('ZM_SHARED')) {
+        $libLoader = new ClassLoader();
+        foreach (explode(',', ZM_SHARED) as $name) {
+// XXX: legacy loader
+ZMLoader::instance()->addPath(ZM_BASE_PATH.trim($name).DIRECTORY_SEPARATOR);
+            $libLoader->addConfig(ZM_BASE_PATH.trim($name));
+        }
+        $libLoader->register();
+        unset($libLoader);
+    }
+
     // load application config
     Runtime::getSettings()->setAll(Yaml::load(Runtime::getApplicationPath().DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.'config.yaml'));
 
     // hook up default event listeners
-    foreach (Runtime::getSettings()->get('zenmagick.base.events.listeners') as $_zm_elc) {
+    foreach (Runtime::getSettings()->get('zenmagick.base.events.listeners', array()) as $_zm_elc) {
         if (null != ($_zm_el = Beans::getBean(trim($_zm_elc)))) {
             Runtime::getEventDispatcher()->listen($_zm_el);
         }
     }
 
+    // load global config to allow overriding app settings
+    Runtime::getSettings()->setAll(Yaml::load(Runtime::getInstallationPath().DIRECTORY_SEPARATOR.'global.yaml'));
+
     // set up locale
     ZMLocales::instance()->init(Runtime::getSettings()->get('zenmagick.core.locales.locale'));
 
-    // set a default timezone
-    // NOTE: warnings are suppressed for date_default_timezone_get() in case there isn't a default at all
+    // set a default timezone; NOTE: warnings are suppressed for date_default_timezone_get() in case there isn't a default at all
     date_default_timezone_set(Runtime::getSettings()->get('zenmagick.core.date.timezone', @date_default_timezone_get()));
     if (null != ($_dt = date_timezone_get((new DateTime())))) {
         // set back with the actually used value
         Runtime::getSettings()->set('zenmagick.core.date.timezone', $_dt->getName());
     }
-
-    // load global config
-    Runtime::getSettings()->setAll(Yaml::load(Runtime::getInstallationPath().DIRECTORY_SEPARATOR.'global.yaml'));
 
     // register custom error handler
     if (Runtime::getSettings()->get('zenmagick.base.logging.handleErrors')) {
