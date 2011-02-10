@@ -4,8 +4,9 @@
 ## This is the most restrictive configuration, with exceptions configured
 ## in subfolders as required.
 ##
-## $Id$
-##
+
+## set the ZenMagick environment
+SetEnv ZM_ENVIRONMENT PRODUCTION
 
 ## no directory indexing
 Options -Indexes
