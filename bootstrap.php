@@ -46,7 +46,6 @@ use Symfony\Component\Yaml\Yaml;
     // set up the environment to run in
     $getenv_func = function_exists('apache_getenv') ? 'apache_getenv' : 'getenv';
     defined('ZM_ENVIRONMENT') || define('ZM_ENVIRONMENT', ($getenv_func('ZM_ENVIRONMENT') ? $getenv_func('ZM_ENVIRONMENT') : 'PRODUCTION'));
-    echo ZM_ENVIRONMENT;
 
     // hide as to avoid filenames that contain account names, etc.
     ini_set('display_errors', false);
