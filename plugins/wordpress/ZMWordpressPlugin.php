@@ -72,6 +72,13 @@ class ZMWordpressPlugin extends Plugin {
     /**
      * {@inheritDoc}
      */
+    public function isEnabled() {
+        return !(defined('WP_USE_THEMES') && WP_USE_THEMES);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function init() {
         parent::init();
         zenmagick\base\Runtime::getEventDispatcher()->listen($this);
@@ -219,6 +226,7 @@ class ZMWordpressPlugin extends Plugin {
      * {@inheritDoc}
      */
     public function getGlobal($request) {
+      echo 'getGlobal';
         $wordpressEnabledPages = $this->get('wordpressEnabledPages');
         if (empty($wordpressEnabledPages) || ZMLangUtils::inArray($request->getRequestId(), $wordpressEnabledPages)) {
             if ($this->isPermalinksEnabled()) {
