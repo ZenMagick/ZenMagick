@@ -33,7 +33,7 @@
 class ZMPdoDatabase extends ZMObject implements ZMDatabase {
     protected $pdo_;
     protected $config_;
-    protected $queriesMap_;
+    protected $logger_;
     protected $mapper_;
     protected static $SAVEPOINT_DRIVER = array('pgsql', 'mysql');
     protected $savepointLevel_;
@@ -51,7 +51,7 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
         parent::__construct();
         $this->config_ = $conf;
         $this->mapper_ = ZMDbTableMapper::instance();
-        $this->queriesMap_ = array();
+        $this->logger_ = new \Doctrine\DBAL\Logging\DebugStack;
         $this->ensureResource($conf);
     }
 
@@ -188,32 +188,20 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
     public function getStats() {
         $stats = array();
         $time = 0;
-        foreach ($this->queriesMap_ as $query) {
-            $time += $query['time'];
+        foreach ($this->logger_->queries as $key => $query) {
+            $this->logger_->queries[$key]['time'] = $query['executionMS'];
+            $time += $query['executionMS'];
         }
         $stats['time'] = $time;
-        $stats['queries'] = count($this->queriesMap_);
-        $stats['details'] = $this->queriesMap_;
+        $stats['queries'] = count($this->logger_->queries);
+        $stats['details'] = $this->logger_->queries;
         return $stats;
-    }
-
-    /**
-     * Get the elapsed time since <code>$start</code>.
-     *
-     * @param string start The starting time.
-     * @return long The time in milliseconds.
-     */
-    protected function getExecutionTime($start) {
-        $start = explode (' ', $start);
-        $end = explode (' ', microtime());
-        return $end[1]+$end[0]-$start[1]-$start[0];
     }
 
     /**
      * {@inheritDoc}
      */
     public function loadModel($table, $key, $modelClass, $mapping=null) {
-        $startTime = microtime();
         $mapping = $this->mapper_->ensureMapping(null !== $mapping ? $mapping : $table, $this);
 
         $keyName = ZMSettings::get('zenmagick.core.database.model.keyName');
@@ -231,14 +219,16 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
         $sql = 'SELECT * from '.$table.' WHERE '.$field['column'].' = :'.$keyName;
         $stmt = $this->prepareStatement($sql, array($keyName => $key), $mapping);
 
+
         try {
+            $this->logger_->startQuery($sql, array($keyName => $key));
             $stmt->execute();
             $rows = $stmt->fetchAll();
             $stmt->closeCursor();
+            $this->logger_->stopQuery();
         } catch (PDOException $pdoe) {
             throw new ZMDatabaseException($pdoe->getMessage(), $pdoe->getCode(), $pdoe);
         }
-
         $results = array();
         foreach ($rows as $result) {
             if (null !== $mapping && ZMDatabase::MODEL_RAW != $modelClass) {
@@ -250,7 +240,6 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
             $results[] = $result;
         }
 
-        $this->queriesMap_[] = array('start' => $startTime, 'time' => $this->getExecutionTime($startTime), 'sql' => $sql);
         return 1 == count($results) ? $results[0] : null;
     }
 
@@ -262,7 +251,6 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
             return null;
         }
 
-        $startTime = microtime();
         $mapping = $this->mapper_->ensureMapping(null !== $mapping ? $mapping : $table, $this);
 
         // convert to array
@@ -294,10 +282,12 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
         }
 
         try {
+            $this->logger_->startQuery($sql, $modelData);
             $stmt = $this->prepareStatement($sql, $modelData, $mapping);
             $stmt->execute();
             $newId = $this->pdo_->lastInsertId();
             $stmt->closeCursor();
+            $this->logger_->stopQuery();
         } catch (PDOException $pdoe) {
             throw new ZMDatabaseException($pdoe->getMessage(), $pdoe->getCode(), $pdoe);
         }
@@ -308,7 +298,6 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
             }
         }
 
-        $this->queriesMap_[] = array('start' => $startTime, 'time' => $this->getExecutionTime($startTime), 'sql' => $sql);
         return $model;
     }
 
@@ -320,7 +309,6 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
             return null;
         }
 
-        $startTime = microtime();
         $mapping = $this->mapper_->ensureMapping(null !== $mapping ? $mapping : $table, $this);
 
         // convert to array
@@ -351,14 +339,14 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
         $sql .= $where;
 
         try {
+            $this->logger_->startQuery($sql, $modelData);
             $stmt = $this->prepareStatement($sql, $modelData, $mapping);
             $stmt->execute();
             $stmt->closeCursor();
+            $this->logger_->stopQuery();
         } catch (PDOException $pdoe) {
             throw new ZMDatabaseException($pdoe->getMessage(), $pdoe->getCode(), $pdoe);
         }
-
-        $this->queriesMap_[] = array('start' => $startTime, 'time' => $this->getExecutionTime($startTime), 'sql' => $sql);
     }
 
     /**
@@ -369,7 +357,6 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
             return;
         }
 
-        $startTime = microtime();
         $mapping = $this->mapper_->ensureMapping(null !== $mapping ? $mapping : $table, $this);
 
         // convert to array
@@ -407,34 +394,34 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
         $sql .= $where;
 
         try {
+            $this->logger_->startQuery($sql, $modelData);
             $stmt = $this->prepareStatement($sql, $model, $mapping);
             $stmt->execute();
             $stmt->closeCursor();
+            $this->logger_->stopQuery();
         } catch (PDOException $pdoe) {
             throw new ZMDatabaseException($pdoe->getMessage(), $pdoe->getCode(), $pdoe);
         }
-
-        $this->queriesMap_[] = array('start' => $startTime, 'time' => $this->getExecutionTime($startTime), 'sql' => $sql);
     }
 
     /**
      * {@inheritDoc}
      */
     public function update($sql, $data=array(), $mapping=null) {
-        $startTime = microtime();
         $mapping = $this->mapper_->ensureMapping($mapping, $this);
 
         try {
+            $this->logger_->startQuery($sql, $data);
             $stmt = $this->prepareStatement($sql, $data, $mapping);
             $stmt->execute();
             $rows = $stmt->rowCount();
             $newId = $this->pdo_->lastInsertId();
             $stmt->closeCursor();
+            $this->logger_->stopQuery();
         } catch (PDOException $pdoe) {
             throw new ZMDatabaseException($pdoe->getMessage(), $pdoe->getCode(), $pdoe);
         }
 
-        $this->queriesMap_[] = array('start' => $startTime, 'time' => $this->getExecutionTime($startTime), 'sql' => $sql);
         return array('rows' => $rows, 'lastInsertId' => $newId);
     }
 
@@ -450,14 +437,15 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
      * {@inheritDoc}
      */
     public function query($sql, $args=array(), $mapping=null, $modelClass=null) {
-        $startTime = microtime();
         $mapping = $this->mapper_->ensureMapping($mapping, $this);
 
         try {
+            $this->logger_->startQuery($sql, $args);
             $stmt = $this->prepareStatement($sql, $args, $mapping);
             $stmt->execute();
             $rows = $stmt->fetchAll();
             $stmt->closeCursor();
+            $this->logger_->stopQuery();
         } catch (PDOException $pdoe) {
             throw new ZMDatabaseException($pdoe->getMessage(), $pdoe->getCode(), $pdoe);
         }
@@ -473,7 +461,6 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
             $results[] = $result;
         }
 
-        $this->queriesMap_[] = array('start' => $startTime, 'time' => $this->getExecutionTime($startTime), 'sql' => $sql);
         return $results;
     }
 
