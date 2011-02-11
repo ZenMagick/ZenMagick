@@ -76,12 +76,22 @@ class Toolbox {
      * @return mixed The parsed YAML.
      */
     public static function loadWithEnv($filename, $environment=ZM_ENVIRONMENT) {
-        $environment = strtoupper($environment);
-        $yaml = Yaml::load($filename);
-        if (array_key_exists($environment, $yaml)) {
-            $yaml = self::arrayMergeRecursive($yaml, $yaml[$environment]);
+        if (!file_exists($filename)) {
+            return array();
         }
-        return $yaml;
+        $environment = strtoupper($environment);
+        try {
+            $yaml = Yaml::load($filename);
+            if (is_array($yaml)) {
+                if (array_key_exists($environment, $yaml)) {
+                    $yaml = self::arrayMergeRecursive($yaml, $yaml[$environment]);
+                }
+                return $yaml;
+            }
+        } catch (\InvalidArgumentException $e) {
+            Runtime::getLogging()->dump(e);
+        }
+        return array();
     }
 
 }
