@@ -46,7 +46,6 @@ class StoreEventListener {
             if ($fileInfo->isDir()) {
                 continue;
             }
-            echo $fileInfo->getPathName();
             Runtime::getSettings()->setAll(Toolbox::loadWithEnv($fileInfo->getPathName()));
         }
 
