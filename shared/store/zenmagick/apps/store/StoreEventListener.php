@@ -43,10 +43,11 @@ class StoreEventListener {
     public function onBootstrapDone($event) {
         // load custom configs in shared/store/config
         foreach (new \DirectoryIterator(Runtime::getInstallationPath().'shared'.DIRECTORY_SEPARATOR.'store'.DIRECTORY_SEPARATOR.'config') as $fileInfo) {
-            if ($fileInfo->isDot()) {
+            if ($fileInfo->isDir()) {
                 continue;
             }
-            Runtime::getSettings()->setAll(Toolbox::loadWithEnv($fileInfo->getPath()));
+            echo $fileInfo->getPathName();
+            Runtime::getSettings()->setAll(Toolbox::loadWithEnv($fileInfo->getPathName()));
         }
 
         // set default
