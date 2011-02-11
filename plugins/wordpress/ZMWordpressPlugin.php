@@ -73,7 +73,7 @@ class ZMWordpressPlugin extends Plugin {
      * {@inheritDoc}
      */
     public function isEnabled() {
-        return !(defined('WP_USE_THEMES') && WP_USE_THEMES);
+        return parent::isEnabled() && !(defined('WP_USE_THEMES') && WP_USE_THEMES);
     }
 
     /**
