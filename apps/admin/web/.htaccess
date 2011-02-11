@@ -26,6 +26,11 @@
 RewriteEngine on
 ## adjust
 #RewriteBase /zenmagick/apps/admin/web
+
+## allow environment front controller
+#RewriteRule index_(.*)\.php index_xxx.php [L,E=ZM_ENVIRONMENT:$1]
+
+#catch all for non existing files
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule . index.php [L]
