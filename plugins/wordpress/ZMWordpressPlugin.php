@@ -226,7 +226,6 @@ class ZMWordpressPlugin extends Plugin {
      * {@inheritDoc}
      */
     public function getGlobal($request) {
-      echo 'getGlobal';
         $wordpressEnabledPages = $this->get('wordpressEnabledPages');
         if (empty($wordpressEnabledPages) || ZMLangUtils::inArray($request->getRequestId(), $wordpressEnabledPages)) {
             if ($this->isPermalinksEnabled()) {
