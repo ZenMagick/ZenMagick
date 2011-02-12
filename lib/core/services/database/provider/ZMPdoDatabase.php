@@ -34,7 +34,6 @@
 class ZMPdoDatabase extends ZMObject implements ZMDatabase {
     protected $pdo_;
     protected $config_;
-    protected $logger_;
     protected $mapper_;
     protected static $SAVEPOINT_DRIVER = array('pgsql', 'mysql');
     protected $savepointLevel_;
@@ -52,7 +51,6 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
         parent::__construct();
         $this->config_ = $conf;
         $this->mapper_ = ZMDbTableMapper::instance();
-        $this->logger_ = new \Doctrine\DBAL\Logging\DebugStack;
         $this->ensureResource($conf);
     }
 
@@ -97,6 +95,8 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
                 $conf['driver_options'][PDO::ATTR_PERSISTENT] = true;
             }
             $pdo = Doctrine\DBAL\DriverManager::getConnection($conf);
+
+            $pdo->getConfiguration()->setSQLLogger(new Doctrine\DBAL\Logging\DebugStack);
 
             if (null !== $conf['initQuery']) {
                 try {
@@ -183,13 +183,14 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
     public function getStats() {
         $stats = array();
         $time = 0;
-        foreach ($this->logger_->queries as $key => $query) {
-            $this->logger_->queries[$key]['time'] = $query['executionMS'];
+        $logger = $this->pdo_->getConfiguration()->getSQLLogger();
+        foreach ($logger->queries as $key => $query) {
+            $logger->queries[$key]['time'] = $query['executionMS'];
             $time += $query['executionMS'];
         }
         $stats['time'] = $time;
-        $stats['queries'] = count($this->logger_->queries);
-        $stats['details'] = $this->logger_->queries;
+        $stats['queries'] = count($logger->queries);
+        $stats['details'] = $logger->queries;
         return $stats;
     }
 
@@ -216,11 +217,9 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
 
 
         try {
-            $this->logger_->startQuery($sql, array($keyName => $key));
             $stmt->execute();
             $rows = $stmt->fetchAll();
             $stmt->closeCursor();
-            $this->logger_->stopQuery();
         } catch (PDOException $pdoe) {
             throw new ZMDatabaseException($pdoe->getMessage(), $pdoe->getCode(), $pdoe);
         }
@@ -277,12 +276,10 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
         }
 
         try {
-            $this->logger_->startQuery($sql, $modelData);
             $stmt = $this->prepareStatement($sql, $modelData, $mapping);
             $stmt->execute();
             $newId = $this->pdo_->lastInsertId();
             $stmt->closeCursor();
-            $this->logger_->stopQuery();
         } catch (PDOException $pdoe) {
             throw new ZMDatabaseException($pdoe->getMessage(), $pdoe->getCode(), $pdoe);
         }
@@ -334,11 +331,9 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
         $sql .= $where;
 
         try {
-            $this->logger_->startQuery($sql, $modelData);
             $stmt = $this->prepareStatement($sql, $modelData, $mapping);
             $stmt->execute();
             $stmt->closeCursor();
-            $this->logger_->stopQuery();
         } catch (PDOException $pdoe) {
             throw new ZMDatabaseException($pdoe->getMessage(), $pdoe->getCode(), $pdoe);
         }
@@ -389,11 +384,9 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
         $sql .= $where;
 
         try {
-            $this->logger_->startQuery($sql, $modelData);
             $stmt = $this->prepareStatement($sql, $model, $mapping);
             $stmt->execute();
             $stmt->closeCursor();
-            $this->logger_->stopQuery();
         } catch (PDOException $pdoe) {
             throw new ZMDatabaseException($pdoe->getMessage(), $pdoe->getCode(), $pdoe);
         }
@@ -406,13 +399,11 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
         $mapping = $this->mapper_->ensureMapping($mapping, $this);
 
         try {
-            $this->logger_->startQuery($sql, $data);
             $stmt = $this->prepareStatement($sql, $data, $mapping);
             $stmt->execute();
             $rows = $stmt->rowCount();
             $newId = $this->pdo_->lastInsertId();
             $stmt->closeCursor();
-            $this->logger_->stopQuery();
         } catch (PDOException $pdoe) {
             throw new ZMDatabaseException($pdoe->getMessage(), $pdoe->getCode(), $pdoe);
         }
@@ -435,12 +426,10 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
         $mapping = $this->mapper_->ensureMapping($mapping, $this);
 
         try {
-            $this->logger_->startQuery($sql, $args);
             $stmt = $this->prepareStatement($sql, $args, $mapping);
             $stmt->execute();
             $rows = $stmt->fetchAll();
             $stmt->closeCursor();
-            $this->logger_->stopQuery();
         } catch (PDOException $pdoe) {
             throw new ZMDatabaseException($pdoe->getMessage(), $pdoe->getCode(), $pdoe);
         }
