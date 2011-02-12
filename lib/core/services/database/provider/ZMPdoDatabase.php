@@ -76,7 +76,7 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
             }
 
             if (isset($conf['persistent']) && $conf['persistent']) {
-                $conf['driver_options'][PDO::ATTR_PERSISTENT] = true;
+                $conf['driverOptions'][PDO::ATTR_PERSISTENT] = true;
             }
             $pdo = Doctrine\DBAL\DriverManager::getConnection($conf);
 
