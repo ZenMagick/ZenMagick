@@ -22,12 +22,13 @@
 
 
 /**
- * Implementation of the ZenMagick database layer using <em>PDO</em>.
+ * Implementation of the ZenMagick database layer using <em>PDO</em> via <em>Doctrine DBAL</em>.
  *
  * <p>Support for nested transactions via <code>SAVEPOINT</code>s inspired by
  * http://www.kennynet.co.uk/2008/12/02/php-pdo-nested-transactions/.</p>
  *
  * @author DerManoMann
+ * @author Johnny Robeson <johnny@localmomentum.net>
  * @package org.zenmagick.core.services.database.provider
  */
 class ZMPdoDatabase extends ZMObject implements ZMDatabase {
@@ -72,37 +73,31 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
     protected function ensureResource($conf=null) {
         if (null == $this->pdo_){
             $conf = null !== $conf ? $conf : $this->config_;
-            $useSocket = isset($conf['socket']) && !empty($conf['socket']);
+
             if (false !== ($colon = strpos($conf['host'], ':'))) {
                 $conf['port'] = substr($conf['host'], $colon+1);
                 $conf['host'] = substr($conf['host'], 0, $colon);
             }
-            if (isset($conf['port']) && 'localhost' == $conf['host'] && !$useSocket) {
-                // can't do port on localhost!
-                $conf['host'] = '127.0.0.1';
-            }
 
             // mysql and mysqli are the same for PDO
             $conf['driver'] = str_replace('mysqli', 'mysql', $conf['driver']);
-
+            if (false === strpos($conf['driver'], 'pdo_')) {
+                $conf['driver'] = 'pdo_' . $conf['driver'];
+            }
             if (!isset($conf['prefix'])) {
                 $conf['prefix'] = '';
             }
 
-            $url = $conf['driver'].':'.'host='.$conf['host'];
-            if (isset($conf['port']) && !$useSocket) {
-                $url .= ';port='.$conf['port'];
+            $conf['user'] = $conf['username'];
+            $conf['dbname'] = $conf['database'];
+            if (isset($conf['socket']) && !empty($conf['socket'])) {
+                $conf['unix_socket'] = $conf['socket'];
             }
-            $url .= ';dbname='.$conf['database'];
-            if ($useSocket) {
-                $url .= ';unix_socket='.$conf['socket'];
-            }
-            $params = array();
             if (isset($conf['persistent']) && $conf['persistent']) {
-                $params[PDO::ATTR_PERSISTENT] = true;
+                $conf['driver_options'][PDO::ATTR_PERSISTENT] = true;
             }
-            $pdo = new PDO($url, $conf['username'], $conf['password'], $params);
-            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $pdo = Doctrine\DBAL\DriverManager::getConnection($conf);
+
             if (null !== $conf['initQuery']) {
                 try {
                     $pdo->query($conf['initQuery']);
@@ -528,7 +523,6 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
         // create statement
         $this->ensureResource();
         $stmt = $this->pdo_->prepare($sql);
-        $stmt->setFetchMode(PDO::FETCH_ASSOC);
         foreach ($args as $name => $value) {
             $typeName = preg_replace('/[0-9]+'.$PDO_INDEX_SEP.'/', '', $name);
             if (false !== strpos($sql, ':'.$name) && array_key_exists($typeName, $mapping)) {
