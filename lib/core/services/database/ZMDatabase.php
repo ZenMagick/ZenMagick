@@ -31,16 +31,16 @@
  * <p>Support for the following array keys is required:</p>
  * <dl>
  *  <dt>driver</dt>
- *  <dd>The database type; typical values would be: <em>mysql</em>, <em>sqlite</em> or <em>pgsql</em>.</dd>
+ *  <dd>The database type; typical values would be: <em>pdo_mysql</em>, <em>pdo_sqlite</em> or <em>pdo_pgsql</em>.</dd>
  *  <dt>host</dt>
  *  <dd>The database host (and port).</dd>
  *  <dt>port</dt>
  *  <dd>The database port.</dd>
- *  <dt>username</dt>
+ *  <dt>user</dt>
  *  <dd>The database username.</dd>
  *  <dt>password</dt>
  *  <dd>The password for the database user.</dd>
- *  <dt>database</dt>
+ *  <dt>dbname</dt>
  *  <dd>The name of the database to connect to.</dd>
  *  <dt>prefix</dt>
  *  <dd>Optional table prefix.</dd>

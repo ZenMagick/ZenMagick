@@ -31,11 +31,11 @@ It is possible to configure an alternative database using the setting: 'plugins.
 Syntax is the same as for each database. The configured values will be merged with the defaults, so usually
 something like the following should be sufficient:
 
-    ZMSettings::set('plugins.unitTests.database.test', 'database=mytestdatabase');
+    ZMSettings::set('plugins.unitTests.database.test', 'dbname=mytestdatabase');
 
 However, it is possible to configure all aspects in this setting:
 
-    ZMSettings::set('plugins.unitTests.database.test', 'database=test&provider=ZMPdoDatabase&user=dbuser&password=dbpwd');
+    ZMSettings::set('plugins.unitTests.database.test', 'dbname=test&provider=ZMPdoDatabase&user=dbuser&password=dbpwd');
 
 
 Custom tests

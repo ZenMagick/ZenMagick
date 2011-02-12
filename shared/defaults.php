@@ -56,14 +56,14 @@
         $map = array(
             /*** database ***/
             'zenmagick.core.database.connections.default' => array(
-                'driver' => 'mysql',
+                'driver' => 'pdo_mysql',
                 'host' => DB_SERVER,
-                'username' => DB_SERVER_USERNAME,
+                'user' => DB_SERVER_USERNAME,
                 'password' => DB_SERVER_PASSWORD,
-                'database' => DB_DATABASE,
+                'dbname' => DB_DATABASE,
                 'prefix' => ZM_DB_PREFIX,
                 'port' => (null !== ($port = @ini_get('mysql.default_port')) ? $port : null),
-                'socket' => (null !== ($socket = @ini_get('mysql.default_socket')) ? $socket : null),
+                'unix_socket' => (null !== ($socket = @ini_get('mysql.default_socket')) ? $socket : null),
                 'initQuery' => null
             ),
           /*

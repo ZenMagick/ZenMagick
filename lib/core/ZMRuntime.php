@@ -58,18 +58,18 @@ class ZMRuntime {
      * <p>Supported keys for <em>$conf</em> are:</p>
      * <dl>
      *  <dt>driver</dt>
-     *  <dd>The database driver/type; default is <code>mysql</code>.</dd>
+     *  <dd>The database driver/type; default is <code>pdo_mysql</code>.</dd>
      *  <dt>host</dt>
      *  <dd>The database host; default is <code>DB_SERVER</code>.</dd>
      *  <dt>port</dt>
      *  <dd>The database port; optional, no default.</dd>
-     *  <dt>socket</dt>
+     *  <dt>unix_socket</dt>
      *  <dd>Optional unix socket name if used to talk to the database instead of IP.</dd>
-     *  <dt>username</dt>
+     *  <dt>user</dt>
      *  <dd>The database username; default is <code>DB_SERVER_USERNAME</code>.</dd>
      *  <dt>password</dt>
      *  <dd>The database password; default is <code>DB_SERVER_PASSWORD</code>.</dd>
-     *  <dt>database</dt>
+     *  <dt>dbname</dt>
      *  <dd>The database name; default is <code>DB_DATABASE</code>.</dd>
      *  <dt>provider</dt>
      *  <dd>The requested implementation class; if omitted, this defaults to

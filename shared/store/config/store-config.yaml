@@ -10,10 +10,10 @@ zenmagick:
         default:
           driver: mysql
           host: localhost
-          username: root
+          user: root
           password: root
-          database: zmdev
+          dbname: zmdev
           prefix: zen_
           port: null
-          socket: null
+          unix_socket: null
           initQuery: null

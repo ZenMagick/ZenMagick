@@ -32,7 +32,7 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
     protected $pdo_;
     protected $config_;
     protected $mapper_;
-    protected static $SAVEPOINT_DRIVER = array('pgsql', 'mysql');
+    protected static $SAVEPOINT_DRIVER = array('pdo_pgsql', 'pdo_mysql');
 
     /**
      * Create a new instance.
@@ -71,25 +71,16 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
                 $conf['host'] = substr($conf['host'], 0, $colon);
             }
 
-            // mysql and mysqli are the same for PDO
-            $conf['driver'] = str_replace('mysqli', 'mysql', $conf['driver']);
-            if (false === strpos($conf['driver'], 'pdo_')) {
-                $conf['driver'] = 'pdo_' . $conf['driver'];
-            }
             if (!isset($conf['prefix'])) {
                 $conf['prefix'] = '';
             }
 
-            $conf['user'] = $conf['username'];
-            $conf['dbname'] = $conf['database'];
-            if (isset($conf['socket']) && !empty($conf['socket'])) {
-                $conf['unix_socket'] = $conf['socket'];
-            }
             if (isset($conf['persistent']) && $conf['persistent']) {
                 $conf['driver_options'][PDO::ATTR_PERSISTENT] = true;
             }
             $pdo = Doctrine\DBAL\DriverManager::getConnection($conf);
 
+            // @todo don't tie logging to the pageStats plugin
             $pdo->getConfiguration()->setSQLLogger(new Doctrine\DBAL\Logging\DebugStack);
             $pdo->setNestTransactionsWithSavepoints($this->isNestedTransactions());
 
