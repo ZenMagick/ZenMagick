@@ -93,6 +93,12 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
             $pdo->getConfiguration()->setSQLLogger(new Doctrine\DBAL\Logging\DebugStack);
             $pdo->setNestTransactionsWithSavepoints($this->isNestedTransactions());
 
+            // work around zencart's usage of blob and zenmagick's enum
+            // @todo use a blob type, remove enum usage
+            $pdo->getDatabasePlatform()->registerDoctrineTypeMapping('blob', 'text');
+            $pdo->getDatabasePlatform()->registerDoctrineTypeMapping('mediumblob', 'text');
+            $pdo->getDatabasePlatform()->registerDoctrineTypeMapping('enum', 'string');
+
             if (null !== $conf['initQuery']) {
                 try {
                     $pdo->query($conf['initQuery']);
@@ -573,43 +579,40 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
      * {@inheritDoc}
      */
     public function getMetaData($table=null) {
-        $this->ensureResource(); 
+        $this->ensureResource();
+        $sm = $this->pdo_->getSchemaManager();
+
         if (null !== $table) {
             if (!empty($this->config_['prefix']) && 0 !== strpos($table, $this->config_['prefix'])) {
                 $table = $this->config_['prefix'].$table;
             }
-            $meta = array();
+
+			$meta = array();
             try {
-                $columns = $this->pdo_->query("SHOW COLUMNS FROM " . $table, PDO::FETCH_ASSOC);
-            } catch (PDOException $pdoe) {
+                $tableDetails = $sm->listTableDetails($table);
+            } catch(Doctrine\DBAL\Schema\SchemaException $pdoe) {
                 throw new ZMDatabaseException($pdoe->getMessage(), $pdoe->getCode(), $pdoe);
             }
-            foreach($columns as $key => $col) {
-                $field = $col['Field'];
-                preg_match('/([^(]*)(\([0-9]+\))?/', $col['Type'], $matches);
-                $type = $matches[1];
-                if (array_key_exists($type, ZMDbTableMapper::$NATIVE_TO_API_TYPEMAP)) {
-                    $type = ZMDbTableMapper::$NATIVE_TO_API_TYPEMAP[$type];
-                }
-                $meta[$field] = array(
-                    'type' => $type,
-                    'name' => $field,
-                    'key' => $col['Key'] == "PRI",
-                    'autoIncrement' => false !== strpos($col['Extra'], 'auto_increment'),
-                    'maxLen' => (3 == count($matches) ? (int)str_replace(array('(', ')'), '', $matches[2]) : null),
-		    'default' => $col['Default']
-                );
-            }
-            return $meta;
+			$keys = $tableDetails->getPrimaryKey()->getColumns();
+			foreach($tableDetails->getColumns() as $column) {
+                $meta[$column->getName()] = array(
+                    'type' => $column->getType()->getName(),
+                    'name' => $column->getName(),
+                    'key' => in_array($column->getName(), $keys),
+                    'autoIncrement' => $column->getAutoincrement(),
+					'maxLen' => $column->getLength(),/* TODO doesn't work for integers*/
+		            'default' => $column->getDefault()
+                 );
+			}
+			return $meta;
         } else {
             $tables = array();
             try {
-                $results = $this->pdo_->query("SHOW TABLES", PDO::FETCH_NUM);
-            } catch (PDOException $pdoe) {
+                foreach ($sm->listTables() as $table) {
+                    $tables[] = $table->getName();
+                }
+            } catch (Doctrine\DBAL\Schema\SchemaException $pdoe) {
                 throw new ZMDatabaseException($pdoe->getMessage(), $pdoe->getCode(), $pdoe);
-            }
-            foreach ($results as $row) {
-                $tables[] = $row[0];
             }
             return array('tables' => $tables);
         }
