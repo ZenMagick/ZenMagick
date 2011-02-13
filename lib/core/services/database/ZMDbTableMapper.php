@@ -80,10 +80,10 @@ class ZMDbTableMapper extends \ZMObject {
         'int unsigned' => 'integer',
         'decimal' => 'float',
         'real' => 'float',
-        'text' => 'string',
-        'tinytext' => 'string',
-        'mediumtext' => 'string',
-        'longtext' => 'string',
+        'text' => 'text',
+        'tinytext' => 'text',
+        'mediumtext' => 'text',
+        'longtext' => 'text',
         'mediumblob' => 'blob'
     );
 
