@@ -27,7 +27,7 @@
  * @author DerManoMann
  */
 class TestZMDatabase extends ZMTestCase {
-    static $PROVIDERS = array('ZMZenCartDatabase', 'ZMPdoDatabase');
+    static $PROVIDERS = array('ZMPdoDatabase');
 
 
     /**
