@@ -16,7 +16,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  *
- * @todo use boolean where appropriate
  */
 array(
     'currencies' => array(
@@ -38,7 +37,7 @@ array(
         'sortOrder' => 'column=sort_order;type=integer',
         'dateAdded' => 'column=date_added;type=datetime',
         'lastModified' => 'column=last_modified;type=datetime',
-        'active' => 'column=categories_status;type=integer'
+        'active' => 'column=categories_status;type=boolean'
     ),
     'categories_description' => array(
         'categoryId' => 'column=categories_id;type=integer;key=true',
@@ -158,11 +157,11 @@ array(
         'id' => 'column=layout_id;type=integer;key=true;auto=true',
         'themeId' => 'column=layout_template;type=string',
         'name' => 'column=layout_box_name;type=string',
-        'status' => 'column=layout_box_status;type=integer',
+        'status' => 'column=layout_box_status;type=boolean',
         'location' => 'column=layout_box_location;type=integer',
         'sortOrder' => 'column=layout_box_sort_order;type=integer',
         'singleSortOrder' => 'column=layout_box_sort_order_single;type=integer',
-        'singleStatus' => 'column=layout_box_status_single;type=integer'
+        'singleStatus' => 'column=layout_box_status_single;type=boolean'
     ),
     'products' => array(
         'productId' => 'column=products_id;type=integer;key=true;auto=true',
@@ -176,30 +175,30 @@ array(
         'lastModified' => 'column=products_last_modified;type=datetime',
         'dateAvailable' => 'column=products_date_available;type=datetime',
         'weight' => 'column=products_weight;type=float',
-        'status' => 'column=products_status;type=integer',
+        'status' => 'column=products_status;type=boolean',
         'taxClassId' => 'column=products_tax_class_id;type=integer',
         'manufacturerId' => 'column=manufacturers_id;type=integer',
         'ordered' => 'column=products_ordered;type=float',
         'qtyOrderMin' => 'column=products_quantity_order_min;type=float',
         'qtyOrderUnits' => 'column=products_quantity_order_units;type=float',
         'pricedByAttributes' => 'column=products_priced_by_attribute;type=integer',
-        'free' => 'column=product_is_free;type=integer',
-        'call' => 'column=product_is_call;type=integer',
-        'qtyMixed' => 'column=products_quantity_mixed;type=integer',
-        'alwaysFreeShipping' => 'column=product_is_always_free_shipping;type=integer',
-        'qtyBoxStatus' => 'column=products_qty_box_status;type=integer',
+        'free' => 'column=product_is_free;type=boolean',
+        'call' => 'column=product_is_call;type=boolean',
+        'qtyMixed' => 'column=products_quantity_mixed;type=boolean',
+        'alwaysFreeShipping' => 'column=product_is_always_free_shipping;type=boolean',
+        'qtyBoxStatus' => 'column=products_qty_box_status;type=boolean',
         'qtyOrderMax' => 'column=products_quantity_order_max;type=float',
         'sortOrder' => 'column=products_sort_order;type=integer',
         'discountType' => 'column=products_discount_type;type=integer',
         'discountTypeFrom' => 'column=products_discount_type_from;type=integer',
         'priceSorter' => 'column=products_price_sorter;type=float',
         'masterCategoryId' => 'column=master_categories_id;type=integer',
-        'qtyMixedDiscount' => 'column=products_mixed_discount_quantity;type=integer',
-        'metatagsTitleStatus' => 'column=metatags_title_status;type=integer',
-        'metatagsProductsNameStatus' => 'column=metatags_products_name_status;type=integer',
-        'metatagsModelStatus' => 'column=metatags_model_status;type=integer',
-        'metatagsPriceStatus' => 'column=metatags_price_status;type=integer',
-        'metatagsTitleTaglineStatus' => 'column=metatags_title_tagline_status;type=integer'
+        'qtyMixedDiscount' => 'column=products_mixed_discount_quantity;type=boolean',
+        'metatagsTitleStatus' => 'column=metatags_title_status;type=boolean',
+        'metatagsProductsNameStatus' => 'column=metatags_products_name_status;type=boolean',
+        'metatagsModelStatus' => 'column=metatags_model_status;type=boolean',
+        'metatagsPriceStatus' => 'column=metatags_price_status;type=boolean',
+        'metatagsTitleTaglineStatus' => 'column=metatags_title_tagline_status;type=boolean'
     ),
     'meta_tags_products_description' => array(
         'productId' => 'column=products_id;type=integer;key=true',
@@ -221,7 +220,7 @@ array(
         'name' => 'column=type_name;type=string',
         'handler' => 'column=type_handler;type=string',
         'masterType' => 'column=type_master_type;type=integer',
-        'addToCart' => 'column=allow_add_to_cart;type=string',
+        'addToCart' => 'column=allow_add_to_cart;type=string', /* @todo should be boolean */
         'defaultImage' => 'column=default_image;type=string',
         'dateAdded' => 'column=date_added;type=datetime',
         'lastModified' => 'column=last_modified;type=datetime'
@@ -246,7 +245,7 @@ array(
         'lastModified' => 'column=featured_last_modified;type=datetime',
         'expiryDate' => 'column=expires_date;type=date',
         'statusChangeDate' => 'column=date_status_change;type=datetime',
-        'status' => 'column=status;type=integer',
+        'status' => 'column=status;type=boolean',
         'availableDate' => 'column=featured_date_available;type=date'
     ),
     'specials' => array(
@@ -257,7 +256,7 @@ array(
         'lastModified' => 'column=specials_last_modified;type=datetime',
         'expiryDate' => 'column=expires_date;type=date',
         'statusChangeDate' => 'column=date_status_change;type=datetime',
-        'status' => 'column=status;type=integer',
+        'status' => 'column=status;type=boolean',
         'availableDate' => 'column=specials_date_available;type=date'
     ),
     'ezpages' => array(
@@ -267,16 +266,16 @@ array(
         'altUrl' => 'column=alt_url;type=string',
         'altUrlExternal' => 'column=alt_url_external;type=string',
         'htmlText' => 'column=pages_html_text;type=string',
-        'header' => 'column=status_header;type=integer',
-        'sidebox' => 'column=status_sidebox;type=integer',
-        'footer' => 'column=status_footer;type=integer',
+        'header' => 'column=status_header;type=boolean',
+        'sidebox' => 'column=status_sidebox;type=boolean',
+        'footer' => 'column=status_footer;type=boolean',
         'toc' => 'column=status_toc;type=integer',
         'headerSort' => 'column=header_sort_order;type=integer',
         'sideboxSort' => 'column=sidebox_sort_order;type=integer',
         'footerSortOrder' => 'column=footer_sort_order;type=integer',
         'tocSort' => 'column=toc_sort_order;type=integer',
-        'newWin' => 'column=page_open_new_window;type=integer',
-        'ssl' => 'column=page_is_ssl;type=integer',
+        'newWin' => 'column=page_open_new_window;type=boolean',
+        'ssl' => 'column=page_is_ssl;type=boolean',
         'tocChapter' => 'column=toc_chapter;type=integer'
     ),
     'template_select' => array(
@@ -294,14 +293,14 @@ array(
         'valuePrice' => 'column=options_values_price;type=float',
         'pricePrefix' => 'column=price_prefix;type=string',
         'sortOrder' => 'column=products_options_sort_order;type=integer',
-        'free' => 'column=product_attribute_is_free;type=integer',
+        'free' => 'column=product_attribute_is_free;type=boolean',
         'weight' => 'column=products_attributes_weight;type=float',
         'weightPrefix' => 'column=products_attributes_weight_prefix;type=string',
-        'displayOnly' => 'column=attributes_display_only;type=integer',
-        'default' => 'column=attributes_default;type=integer',
-        'discounted' => 'column=attributes_discounted;type=integer',
+        'displayOnly' => 'column=attributes_display_only;type=boolean',
+        'default' => 'column=attributes_default;type=boolean',
+        'discounted' => 'column=attributes_discounted;type=boolean',
         'image' => 'column=attributes_image;type=string',
-        'includeInBasePrice' => 'column=attributes_price_base_included;type=integer',
+        'includeInBasePrice' => 'column=attributes_price_base_included;type=boolean',
         'oneTimePrice' => 'column=attributes_price_onetime;type=float',
         'priceFactor' => 'column=attributes_price_factor;type=float',
         'priceFactorOffset' => 'column=attributes_price_factor_offset;type=float',
@@ -313,7 +312,7 @@ array(
         'priceWordsFree' => 'column=attributes_price_words_free;type=integer',
         'priceLetters' => 'column=attributes_price_letters;type=integer',
         'priceLettersFree' => 'column=attributes_price_letters_free;type=integer',
-        'required' => 'column=attributes_required;type=integer'
+        'required' => 'column=attributes_required;type=boolean'
     ),
     // attribute; model, size, memory, etc
     'products_options' => array(
@@ -376,9 +375,9 @@ array(
         'dateScheduled' => 'column=date_scheduled;type=datetime',
         'dateAdded' => 'column=date_added;type=datetime',
         'dateStatusChange' => 'column=date_status_change;type=datetime',
-        'status' => 'column=status;type=integer',
-        'newWin' => 'column=banners_open_new_windows;type=integer',
-        'ssl' => 'column=banners_on_ssl;type=integer',
+        'status' => 'column=status;type=boolean',
+        'newWin' => 'column=banners_open_new_windows;type=boolean',
+        'ssl' => 'column=banners_on_ssl;type=boolean',
         'sortOrder' => 'column=banners_sort_order;type=integer'
     ),
     'banners_history' => array(
@@ -449,11 +448,11 @@ array(
         'name' => 'column=products_options_values;type=string',
         'valuePrice' => 'column=options_values_price;type=float',
         'pricePrefix' => 'column=price_prefix;type=string',
-        'free' => 'column=product_attribute_is_free;type=integer',
+        'free' => 'column=product_attribute_is_free;type=boolean',
         'weight' => 'column=products_attributes_weight;type=float',
         'weightPrefix' => 'column=products_attributes_weight_prefix;type=string',
-        'discounted' => 'column=attributes_discounted;type=integer',
-        'includeInBasePrice' => 'column=attributes_price_base_included;type=integer',
+        'discounted' => 'column=attributes_discounted;type=boolean',
+        'includeInBasePrice' => 'column=attributes_price_base_included;type=boolean',
         'oneTimePrice' => 'column=attributes_price_onetime;type=float',
         'priceFactor' => 'column=attributes_price_factor;type=float',
         'priceFactorOffset' => 'column=attributes_price_factor_offset;type=float',
@@ -511,8 +510,8 @@ array(
         'taxValue' => 'column=products_tax;type=float',
         'qty' => 'column=products_quantity;type=float',
         'oneTimeCharges' => 'column=onetime_charges;type=integer',
-        'pricedByAttribute' => 'column=products_priced_by_attribute;type=integer',
-        'free' => 'column=product_is_free;type=integer',
+        'pricedByAttribute' => 'column=products_priced_by_attribute;type=boolean',
+        'free' => 'column=product_is_free;type=boolean',
         'discountType' => 'column=products_discount_type;type=integer',
         'discountTypeFrom' => 'column=products_discount_type_from;type=integer',
         'sku' => 'column=products_prid;type=string'
@@ -539,7 +538,7 @@ array(
         //'restrict_to_products' => 'column=restrict_to_products;type=string',
         //'restrict_to_categories' => 'column=restrict_to_categories;type=string',
         //'restrict_to_customers' => 'column=restrict_to_customers;type=string',
-        'active' => 'column=coupon_active;type=string',
+        'active' => 'column=coupon_active;type=string', /* @todo should be boolean */
         //'date_created' => 'column=date_created;type=datetime',
         //'date_modified' => 'column=date_modified;type=datetime',
         //'coupon_zone_restriction' => 'column=coupon_zone_restriction;type=integer'
@@ -580,7 +579,7 @@ array(
     ),
     'salemaker_sales' => array(
         'saleId' => 'column=sale_id;type=integer;key=true;auto=true',
-        'status' => 'column=sale_status;type=integer',
+        'status' => 'column=sale_status;type=boolean',
         'name' => 'column=sale_name;type=string',
         'deductionValue' => 'column=sale_deduction_value;type=float',
         'deductionType' => 'column=sale_deduction_type;type=integer',
