@@ -110,6 +110,7 @@ class ZMPageStatsPlugin extends Plugin {
         ob_start();
         echo '<!--'."\n";
         echo '  Client IP: '.$_SERVER['REMOTE_ADDR']."\n";
+        echo '  PHP: '.phpversion()."\n";
         echo '  environment: '.ZM_ENVIRONMENT."\n";
         echo '  total page execution: '.Runtime::getExecutionTime().' secconds;'."\n";
         if (null != ($db = $this->getDB())) {
@@ -195,6 +196,7 @@ class ZMPageStatsPlugin extends Plugin {
         $slash = ZMSettings::get('zenmagick.mvc.html.xhtml') ? '/' : '';
         echo '<div id="page-stats">';
         echo 'Client IP: <strong>'.$_SERVER['REMOTE_ADDR'].'</strong>;';
+        echo '&nbsp;&nbsp;&nbsp;PHP: <strong>'.phpversion().'</strong>;';
         echo '&nbsp;&nbsp;&nbsp;environment: <strong>'.ZM_ENVIRONMENT.'</strong>;';
         echo '&nbsp;&nbsp;&nbsp;total page execution: <strong>'.Runtime::getExecutionTime().'</strong> secconds;<br'.$slash.'>';
         if (null != ($db = $this->getDB())) {
