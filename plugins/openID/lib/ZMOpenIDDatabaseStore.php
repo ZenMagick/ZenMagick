@@ -1,18 +1,18 @@
 <?php
 
-define('ZM_TABLE_OPENID_ASSOCIATIONS', ZM_DB_PREFIX . 'zm_openid_associations');
-define('ZM_TABLE_OPENID_NONCES', ZM_DB_PREFIX . 'zm_openid_nonces');
+define('ZM_TABLE_OPENID_ASSOCIATIONS', DB_PREFIX . 'zm_openid_associations');
+define('ZM_TABLE_OPENID_NONCES', DB_PREFIX . 'zm_openid_nonces');
 
 
 /**
  * ZenMagick - Smart e-commerce
  * Copyright (C) 2006-2010 zenmagick.org
  *
- * A <code>OpenIDStore</code> implementation for the PHP OpenID library by 
+ * A <code>OpenIDStore</code> implementation for the PHP OpenID library by
  * JanRain (http://www.openidenabled.com/).
- * 
+ *
  * Based on the code http://www.saeven.net/openid.htm.
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, using version 3 of the License.
@@ -74,10 +74,10 @@ class ZMOpenIDDatabaseStore extends Auth_OpenID_OpenIDStore {
      */
     public function storeAssociation($server_url, $association) {
         $sql = "REPLACE INTO ".ZM_TABLE_OPENID_ASSOCIATIONS."
-                (server_url, handle, secret, issued, lifetime, assoc_type) 
+                (server_url, handle, secret, issued, lifetime, assoc_type)
                 VALUES (:server_url, :handle, :secret, :issued, :lifetime, :type)";
         $args = array(
-            'server_url' => $server_url, 
+            'server_url' => $server_url,
             'handle' => $association->handle,
             'secret' => $association->secret,
             'issued' => $association->issued,
@@ -86,7 +86,7 @@ class ZMOpenIDDatabaseStore extends Auth_OpenID_OpenIDStore {
         );
         ZMRuntime::getDatabase()->update($sql, $args, ZM_TABLE_OPENID_ASSOCIATIONS);
     }
-	
+
     /**
      * Get either a specific association or the newest available.
      *
@@ -95,9 +95,9 @@ class ZMOpenIDDatabaseStore extends Auth_OpenID_OpenIDStore {
      * @return Auth_OpenID_Association The association or <code>null</code>.
      */
     public function getAssociation($server_url, $handle=null) {
-        $associations = array();		
+        $associations = array();
         if ($handle != null) {
-            $sql = "SELECT server_url, handle, secret, issued, lifetime, assoc_type 
+            $sql = "SELECT server_url, handle, secret, issued, lifetime, assoc_type
                     FROM ".ZM_TABLE_OPENID_ASSOCIATIONS."
                     WHERE server_url = :server_url AND handle = :handle";
             $row = ZMRuntime::getDatabase()->querySingle($sql, array('server_url' => $server_url, 'handle' => $handle), ZM_TABLE_OPENID_ASSOCIATIONS);
@@ -105,7 +105,7 @@ class ZMOpenIDDatabaseStore extends Auth_OpenID_OpenIDStore {
                 $associations[] = new Auth_OpenID_Association($row['handle'], $row['secret'], $row['issued'], $row['lifetime'], $row['type']);
             }
         } else {
-            $sql = "SELECT server_url, handle, secret, issued, lifetime, assoc_type 
+            $sql = "SELECT server_url, handle, secret, issued, lifetime, assoc_type
                     FROM ".ZM_TABLE_OPENID_ASSOCIATIONS."
                     WHERE server_url = :server_url";
             $rows = ZMRuntime::getDatabase()->query($sql, array('server_url' => $server_url), ZM_TABLE_OPENID_ASSOCIATIONS);
@@ -120,7 +120,7 @@ class ZMOpenIDDatabaseStore extends Auth_OpenID_OpenIDStore {
                 if (!$assoc->getExpiresIn()) {
                     $this->removeAssociation($server_url, $assoc->handle);
                     continue;
-                }				
+                }
 
                 if ( $newest == null) {
                     $newest = $assoc;
@@ -128,16 +128,16 @@ class ZMOpenIDDatabaseStore extends Auth_OpenID_OpenIDStore {
                     if ($newest->issued < $assoc->issued) {
                         $newest = $assoc;
                     }
-                }					
-            }			
+                }
+            }
         }
 
         return $newest;
     }
-	
+
     /**
      * Delete an association
-     * 
+     *
      * @param string $server_url
      * @param string $handle
      */
@@ -148,7 +148,7 @@ class ZMOpenIDDatabaseStore extends Auth_OpenID_OpenIDStore {
         ZMRuntime::getDatabase()->update($sql, $args, ZM_TABLE_OPENID_ASSOCIATIONS);
         return true;
     }
-	
+
     /**
      * Use nonce.
      */
@@ -158,13 +158,13 @@ class ZMOpenIDDatabaseStore extends Auth_OpenID_OpenIDStore {
         }
 
         $sql = "INSERT INTO ".ZM_TABLE_OPENID_NONCES."
-                (server_url, issued, salt) 
+                (server_url, issued, salt)
                 VALUES (:server_url, :issued, :salt)";
         $args = array('server_url' => $server_url, 'issued' => $issued, 'salt' => $salt);
         ZMRuntime::getDatabase()->update($sql, $args, ZM_TABLE_OPENID_NONCES);
         return true;
     }
-	
+
     /**
      * Cleanup nonces.
      */
@@ -176,7 +176,7 @@ class ZMOpenIDDatabaseStore extends Auth_OpenID_OpenIDStore {
         $args = array('issued' => $timestamp);
         return ZMRuntime::getDatabase()->update($sql, $args, ZM_TABLE_OPENID_NONCES);
     }
-	
+
     /**
      * Cleanup associations.
      */
@@ -187,7 +187,7 @@ class ZMOpenIDDatabaseStore extends Auth_OpenID_OpenIDStore {
         $args = array('lifetime' => time());
         return ZMRuntime::getDatabase()->update($sql, $args, ZM_TABLE_OPENID_ASSOCIATIONS);
     }
-	
+
     /**
      * Reset.
      */

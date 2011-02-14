@@ -127,28 +127,20 @@ class ZMUseo2SupportPatch extends ZMObject {
             return true;
         }
 
-        if (true /*(ZMSettings::get('isEnablePatching') && ZMSettings::get('isUltimateSeoPatchSupport'))*/ || $force) {
-            $files = $this->_getUnpatchedAdminFiles();
-            foreach ($files as $file => $lines) {
-                if (is_writeable($file)) {
-                    ZMFileUtils::putFileLines($file, $lines);
-                } else {
-                    ZMLogging::instance()->log("** ZenMagick: no permission to patch Ultimate SEO support into ".$file, ZMLogging::ERROR);
-                    return false;
-                }
+        $files = $this->_getUnpatchedAdminFiles();
+        foreach ($files as $file => $lines) {
+            if (is_writeable($file)) {
+                ZMFileUtils::putFileLines($file, $lines);
+            } else {
+                ZMLogging::instance()->log("** ZenMagick: no permission to patch Ultimate SEO support into ".$file, ZMLogging::ERROR);
+                return false;
             }
+        }
 
-            // force init
-            if (class_exists('SEO_URL_INSTALLER')) {
-                $seoInstaller = new SEO_URL_INSTALLER();
-                $seoInstaller->init();
-            }
-
-            return true;
-        } else {
-            // disabled
-            ZMLogging::instance()->log("** ZenMagick: Ultimate SEO patch support disabled - skipping");
-            return false;
+        // force init
+        if (class_exists('SEO_URL_INSTALLER')) {
+            $seoInstaller = new SEO_URL_INSTALLER();
+            $seoInstaller->init();
         }
 
         return true;
@@ -197,7 +189,7 @@ class ZMUseo2SupportPatch extends ZMObject {
 
         return $files;
     }
-    
+
     /**
      * Revert the patch.
      *

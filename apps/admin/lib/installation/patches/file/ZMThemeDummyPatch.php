@@ -104,12 +104,6 @@ class ZMThemeDummyPatch extends \ZMFilePatch {
      * @return boolean <code>true</code> if patching was successful, <code>false</code> if not.
      */
     function patch($force=false) {
-        if (!(\ZMSettings::get('isEnablePatching')) && !$force && $this->isOpen()) {
-            // disabled
-            \ZMLogging::instance()->log("** ZenMagick: create theme dummies disabled - skipping");
-            return false;
-        }
-
         foreach (\ZMThemes::instance()->getAvailableThemes() as $theme) {
             if (\ZMSettings::get('apps.store.themes.default') == $theme->getThemeId() && !$this->includeDefault_) {
                 continue;
@@ -168,7 +162,7 @@ class ZMThemeDummyPatch extends \ZMFilePatch {
 
         return true;
     }
-    
+
 
     /**
      * Find all dummies.

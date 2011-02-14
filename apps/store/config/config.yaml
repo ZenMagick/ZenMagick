@@ -23,6 +23,10 @@ zenmagick:
       locale: en_NZ
       provider: YamlLocale
 
+    ## security
+    security:
+      defaultAuthenticationProvider: ZMZenCartAuthentication
+
     ## fs
     fs:
       permissions:
@@ -58,6 +62,7 @@ zenmagick:
     ## request
     request:
       idName: main_page
+      missingPage: error
       invalidSession: cookie_usage
       seoRewriter: StoreDefaultSeoRewriter
 
@@ -65,6 +70,7 @@ zenmagick:
     html:
       xhtml: true
       charset: utf-8
+      tokenSecuredForms: login
  
     ## view
     view:
@@ -83,3 +89,17 @@ zenmagick:
         - utils:ToolboxUtils
         - crumbtrail:ToolboxCrumbtrail
         - metaTags:ToolboxMetaTags
+
+    ## sacs
+    sacs:
+      handler:
+        - ZMZenCartAccountSacsHandler
+
+    ## resultlist
+    resultlist:
+      defaultPagination: 10
+
+apps:
+  store:
+    themes:
+      default: default

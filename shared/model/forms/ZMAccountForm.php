@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 
 /**
  * An account form (bean).
@@ -73,7 +74,7 @@ class ZMAccountForm extends ZMFormData {
 
         // TODO: see comment in c'tor
         // don't need these
-        foreach (array(ZM_PAGE_KEY, 'formId', 'action') as $name) {
+        foreach (array(Runtime::getSettings()->get('zenmagick.mvc.request.idName'), 'formId', 'action') as $name) {
             unset($properties[$name]);
         }
 

@@ -90,9 +90,10 @@ class ZMToggleThemesPlugin extends Plugin {
         $url = $request->url(null, null, $request->isSecure());
         $hasParams = false !== strpos($url, '?');
         $url .= ($hasParams ? '&' : '?') . 'themeToggle='.$toggleValue;
-        // special case for ZM_PAGE_KEY=category
+        // special case for requestId == category
+        $idName = Runtime::getSettings()->get('zenmagick.mvc.request.idName');
         if ('category' == $request->getRequestId()) {
-            $url = str_replace(ZM_PAGE_KEY.'=category', ZM_PAGE_KEY.'=index', $url);
+            $url = str_replace($idName.'=category', $idName.'=index', $url);
         }
         $link = '<a href="'.$url.'">'._zm('Toggle ZenMagick theme support').'</a>';
         $switch = '<div id="theme-toggle" style="text-align:right;padding:2px 8px;">' . $link . '</div>';

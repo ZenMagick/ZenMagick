@@ -101,32 +101,24 @@ class ZMCouponAdminMailPatch extends ZMFilePatch {
             return true;
         }
 
-        if ((ZMSettings::get('isEnablePatching')) || $force) {
-            if (is_writeable(_ZM_ZEN_COUPON_ADMIN_PHP)) {
-                $patchedLines = array();
-                foreach ($lines as $line) {
-                    array_push($patchedLines, $line);
-                    // need to insert after the match
-                    if (false !== strpos($line, "audience_select = get_audience_sql_query")) {
-                        array_push($patchedLines, '    $audience_select["query_string"] = $db->bindVars("select customers_id, customers_firstname, customers_lastname, customers_email_address from " . TABLE_CUSTOMERS . " where customers_email_address = :emailAddress", ":emailAddress", zen_db_prepare_input($_POST["customers_email_address"]), "string"); // added by ZenMagick');
-                    }
-                    if (false !== strpos($line, "html_msg['EMAIL_FIRST_NAME'] =")) {
-                        array_push($patchedLines, '    $html_msg["accountId"] = $mail->fields["customers_id"]; // added by ZenMagick');
-                    }
+        if (is_writeable(_ZM_ZEN_COUPON_ADMIN_PHP)) {
+            $patchedLines = array();
+            foreach ($lines as $line) {
+                array_push($patchedLines, $line);
+                // need to insert after the match
+                if (false !== strpos($line, "audience_select = get_audience_sql_query")) {
+                    array_push($patchedLines, '    $audience_select["query_string"] = $db->bindVars("select customers_id, customers_firstname, customers_lastname, customers_email_address from " . TABLE_CUSTOMERS . " where customers_email_address = :emailAddress", ":emailAddress", zen_db_prepare_input($_POST["customers_email_address"]), "string"); // added by ZenMagick');
                 }
-
-                return $this->putFileLines(_ZM_ZEN_COUPON_ADMIN_PHP, $patchedLines);
-            } else {
-                ZMLogging::instance()->log("** ZenMagick: no permission to patch coupon admin mail fix into coupon_admin.php", ZMLogging::ERROR);
-                return false;
+                if (false !== strpos($line, "html_msg['EMAIL_FIRST_NAME'] =")) {
+                    array_push($patchedLines, '    $html_msg["accountId"] = $mail->fields["customers_id"]; // added by ZenMagick');
+                }
             }
+
+            return $this->putFileLines(_ZM_ZEN_COUPON_ADMIN_PHP, $patchedLines);
         } else {
-            // disabled
-            ZMLogging::instance()->log("** ZenMagick: patch customer edit support disabled - skipping");
+            ZMLogging::instance()->log("** ZenMagick: no permission to patch coupon admin mail fix into coupon_admin.php", ZMLogging::ERROR);
             return false;
         }
-
-        return true;
     }
 
     /**
@@ -157,5 +149,5 @@ class ZMCouponAdminMailPatch extends ZMFilePatch {
 
         return true;
     }
-    
+
 }

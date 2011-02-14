@@ -78,7 +78,7 @@
             $criteria = $args['criteria'];
 				    if (!isset($_SESSION['search_log_term']) || ($_SESSION['search_log_term'] != $criteria->getKeywords())) {
 					      $_SESSION['search_log_term'] = $criteria->getKeywords();
-                $tableName = ZM_DB_PREFIX.'search_log';
+                $tableName = DB_PREFIX.'search_log';
                 $resultList = $args['resultList'];
                 $sql = "insert into " . $tableName . " (search_term, search_time, search_results) values (:search_term,now(),:search_results)";
                 $args = array('search_term' => $criteria->getKeywords(), 'search_results' => $resultList->getNumberOfResults());

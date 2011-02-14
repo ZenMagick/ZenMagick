@@ -111,7 +111,7 @@ class Request extends \ZMRequest {
      * {@inheritDoc}
      */
     public function getRequestId() {
-        return $this->getParameter(ZM_PAGE_KEY);
+        return $this->getParameter(Runtime::getSettings()->get('zenmagick.mvc.request.idName'));
     }
 
     /**
@@ -119,7 +119,7 @@ class Request extends \ZMRequest {
      */
     public function setRequestId($requestId) {
         parent::setRequestId($requestId);
-        $this->setParameter(ZM_PAGE_KEY, $requestId);
+        $this->setParameter(Runtime::getSettings()->get('zenmagick.mvc.request.idName'), $requestId);
     }
 
     /**
@@ -127,7 +127,7 @@ class Request extends \ZMRequest {
      *
      * @return ZMShoppingCart The current shopping cart (may be empty).
      */
-    public function getShoppingCart() { 
+    public function getShoppingCart() {
         if (null == $this->shoppingCart_) {
         	// TODO: enable
         	if ($this->isAnonymous() || true) {
@@ -154,7 +154,7 @@ class Request extends \ZMRequest {
      */
     public function getSortId() {  return $this->getParameter('sort_id'); }
 
-    /** 
+    /**
      * Get the sub page name; this is the contents name for static pages.
      *
      * @return strin The static page contents id.
@@ -171,7 +171,7 @@ class Request extends \ZMRequest {
     /**
      * Get the language code.
      *
-     * <p><strong>NOTE:</strong> This will return only the language code as found in the request. If you 
+     * <p><strong>NOTE:</strong> This will return only the language code as found in the request. If you
      * want to find out the session language (ie the language for the current request), use <code>getSelectedLanguage()</code>.</p>
      *
      * @return string The language code or <code>null</code>.
@@ -182,7 +182,7 @@ class Request extends \ZMRequest {
      * Get the currency code.
      *
      * <p><strong>NOTE:</strong> This will return the currency code as found in the request. If not set,
-     * the session currency code will be returned instead. To access the session currency code directly, use 
+     * the session currency code will be returned instead. To access the session currency code directly, use
      * <code>$request->getSession()->getCurrencyCode()</code>.</p>
      *
      * @return string The currency code or <code>null</code>.
@@ -333,7 +333,7 @@ class Request extends \ZMRequest {
 
     /**
      * Checks, if the current page is a checkout page.
-     * 
+     *
      * @package org.zenmagick.misc
      * @param boolean includeCart If <code>true</code>, the shopping cart is considered a checkout page, too; (defaults to <code>true</code>)
      * @return boolean <code>true</code> if the current page is a checkout page.

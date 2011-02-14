@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 
 /**
  * Authentication service.
@@ -45,7 +46,7 @@ class ZMAuthenticationManager extends ZMObject {
         $this->providers_ = array();
         $this->default_ = null;
         // set default, just in case
-        $this->addProvider('ZMSha1Authentication', true);
+        $this->addProvider(Runtime::getSettings()->get('zenmagick.core.security.defaultAuthenticationProvider', 'ZMSha1Authentication'), true);
     }
 
     /**

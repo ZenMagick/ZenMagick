@@ -60,13 +60,13 @@ class TestZMDatabase extends ZMTestCase {
      * Test auto mapping.
      */
     public function testAutoMapping() {
-        $tname = ZM_DB_PREFIX."db_test";
+        $tname = DB_PREFIX."db_test";
         $create_table = "CREATE TABLE ".$tname." (id int(11) NOT NULL auto_increment, name varchar(32) NOT NULL, other varchar(32), PRIMARY KEY (id)) TYPE=MyISAM;";
         $drop_table = "DROP TABLE IF EXISTS ".$tname.";";
         $expectedMapping = array(
             'id' => 'column=id;type=integer;key=true;auto=true',
             'name' => 'column=name;type=string',
-            'other' => 'column=other;type=string' 
+            'other' => 'column=other;type=string'
         );
         $expectedOutput = "'db_test' => array(\n    'id' => 'column=id;type=integer;key=true;auto=true',\n    'name' => 'column=name;type=string',\n    'other' => 'column=other;type=string'\n),\n";
 
@@ -190,7 +190,7 @@ class TestZMDatabase extends ZMTestCase {
      * Test exceptions (and dynamic table mapping without prefix).
      */
     public function testExceptions() {
-        $tname = ZM_DB_PREFIX."db_test";
+        $tname = DB_PREFIX."db_test";
         $create_table = "CREATE TABLE ".$tname." (id int(11) NOT NULL auto_increment, name varchar(32) NOT NULL, other varchar(32), PRIMARY KEY (id)) TYPE=MyISAM;";
         $drop_table = "DROP TABLE IF EXISTS ".$tname.";";
         $insert = "INSERT INTO ".$tname." SET name = :name;";
@@ -216,7 +216,7 @@ class TestZMDatabase extends ZMTestCase {
      * Test exceptions (and dynamic table mapping with prefix).
      */
     public function testExceptionsPrefix() {
-        $tname = ZM_DB_PREFIX."db_test";
+        $tname = DB_PREFIX."db_test";
         $create_table = "CREATE TABLE ".$tname." (id int(11) NOT NULL auto_increment, name varchar(32) NOT NULL, other varchar(32), PRIMARY KEY (id)) TYPE=MyISAM;";
         $drop_table = "DROP TABLE IF EXISTS ".$tname.";";
         $insert = "INSERT INTO ".$tname." SET name = :name;";

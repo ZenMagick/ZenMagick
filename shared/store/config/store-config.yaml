@@ -9,11 +9,19 @@ zenmagick:
       connections:
         default:
           driver: mysql
-          host: localhost
-          user: root
-          password: root
-          dbname: zmdev
-          prefix: zen_
-          port: null
-          unix_socket: null
+          host: '<?php echo DB_SERVER ?>'
+          username: '<?php echo DB_SERVER_USERNAME ?>'
+          password: '<?php echo DB_SERVER_PASSWORD ?>'
+          database: '<?php echo DB_DATABASE ?>'
+          prefix: '<?php echo DB_PREFIX ?>'
+          port: '<?php echo (null !== ($port = @ini_get('mysql.default_port')) ? $port : null) ?>'
+          socket: '<?php echo (null !== ($socket = @ini_get('mysql.default_socket')) ? $socket : null) ?>'
           initQuery: null
+
+    email:
+      transport: '<?php echo EMAIL_TRANSPORT ?>'
+      smtp:
+        host: '<?php EMAIL_SMTPAUTH_MAIL_SERVER ?>'
+        port: '<?php EMAIL_SMTPAUTH_MAIL_SERVER_PORT ?>'
+        user: '<?php EMAIL_SMTPAUTH_MAILBOX ?>'
+        password: '<?php EMAIL_SMTPAUTH_PASSWORD ?>'

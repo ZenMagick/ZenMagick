@@ -67,6 +67,7 @@ zenmagick:
     ## request
     request:
       index: index.php
+      missingPage: error
       invalidSession: login
       seoRewriter: DefaultSeoRewriter
 
@@ -104,6 +105,11 @@ zenmagick:
         - admin:ToolboxAdmin
         - admin2:ToolboxAdmin2
 
+    ## sacs
+    sacs:
+      handler:
+        - ZMUserRoleSacsHandler
+
 
 ## app settings
 ## all available dashboard widgets
@@ -114,3 +120,5 @@ apps:
       default: '{"layout":"col2l","widgets":[["ZMOrderStatsDashboardWidget","ZMLatestAccountsDashboardWidget"],["ZMLatestOrdersDashboardWidget"]]}'
     catalog:
       controller: CatalogDefaultTabController
+    themes:
+      default: default

@@ -23,6 +23,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 
 /**
  * Fixes and stuff that are (can be) event driven.
@@ -167,10 +168,7 @@ class ZMEventFixes extends ZMObject {
         }
 
         // supported by ZenMagick
-        $supportedCheckoutPages = array('checkout_shipping_address', 'checkout_payment_address', 'checkout_payment');
-        if (ZMLangUtils::asBoolean(ZMSettings::get('apps.store.request.enableZMCheckoutShipping'))) {
-            $supportedCheckoutPages[] = 'checkout_shipping';
-        }
+        $supportedCheckoutPages = array('checkout_shipping_address', 'checkout_payment_address', 'checkout_payment', 'checkout_shipping');
 
         $needs = !in_array($requestId, $supportedCheckoutPages);
         if ($needs) {
@@ -230,9 +228,6 @@ class ZMEventFixes extends ZMObject {
         $_SESSION['check_valid'] = 'false';
         // END: zc_fixes
 
-        // set the default authentication provider for zen cart
-        ZMAuthenticationManager::instance()->addProvider(ZMSettings::get('defaultAuthenticationProvider'), true);
-
         if (!ZM_CLI_CALL) {
             $language = $request->getSession()->getLanguage();
             $theme = ZMThemes::instance()->initThemes($language);
@@ -249,9 +244,7 @@ class ZMEventFixes extends ZMObject {
 
         $this->fixCategoryPath($request);
         $this->checkAuthorization($request);
-        if (ZMSettings::get('configureLocale')) {
-            $this->configureLocale($request);
-        }
+        $this->configureLocale($request);
     }
 
     /**
@@ -286,19 +279,9 @@ class ZMEventFixes extends ZMObject {
     protected function sanitizeRequest($request) {
         $parameter = $request->getParameterMap(false);
 
-        /*
-        // sanitize common parameter
-        if (isset($parameter['products_id'])) $parameter['products_id'] = preg_replace('/[^0-9a-f:]/', '', $parameter['products_id']);
-        if (isset($parameter['manufacturers_id'])) $parameter['manufacturers_id'] = preg_replace('/[^0-9]/', '', $parameter['manufacturers_id']);
-        if (isset($parameter['cPath'])) $parameter['cPath'] = preg_replace('/[^0-9_]/', '', $parameter['cPath']);
-        if (isset($parameter[ZM_PAGE_KEY])) $parameter[ZM_PAGE_KEY] = preg_replace('/[^0-9a-zA-Z_]/', '', $parameter[ZM_PAGE_KEY]);
-
-        // sanitize other stuff
-        $_SERVER['REMOTE_ADDR'] = preg_replace('/[^0-9.%]/', '', $_SERVER['REMOTE_ADDR']);
-        */
-
-        if (!isset($parameter[ZM_PAGE_KEY]) || empty($parameter[ZM_PAGE_KEY])) {
-            $parameter[ZM_PAGE_KEY] = 'index';
+        $idName = Runtime::getSettings()->get('zenmagick.mvc.request.idName');
+        if (!isset($parameter[$idName]) || empty($parameter[$idName])) {
+            $parameter[$idName] = 'index';
         }
 
         $request->setParameterMap($parameter);

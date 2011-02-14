@@ -20,6 +20,8 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
+
 /**
  * Test ZMTools.
  *
@@ -48,37 +50,39 @@ class TestZMTools extends ZMTestCase {
      * Test compareStoreUrl current.
      */
     public function testCmpStoreUrlCurrent() {
-        $this->assertTrue(ZMTools::compareStoreUrl('index.php?'.ZM_PAGE_KEY.'=tests&abc=def'));
+        $this->assertTrue(ZMTools::compareStoreUrl('index.php?'.Runtime::getSettings()->get('zenmagick.mvc.request.idName').'=tests&abc=def'));
     }
 
     /**
      * Test compareStoreUrl two.
      */
     public function testCmpStoreUrlTwo() {
-        $this->assertTrue(ZMTools::compareStoreUrl('index.php?'.ZM_PAGE_KEY.'=tests&abc=def', 'index.php?'.ZM_PAGE_KEY.'=tests'));
-        $this->assertFalse(ZMTools::compareStoreUrl('index.php?'.ZM_PAGE_KEY.'=page&id=1', 'index.php?'.ZM_PAGE_KEY.'=page'));
-        $this->assertTrue(ZMTools::compareStoreUrl('index.php?'.ZM_PAGE_KEY.'=static&cat=foo', 'http://localhost/index.php?'.ZM_PAGE_KEY.'=static&cat=foo'));
+        $idName = Runtime::getSettings()->get('zenmagick.mvc.request.idName');
+        $this->assertTrue(ZMTools::compareStoreUrl('index.php?'.$idName.'=tests&abc=def', 'index.php?'.$idName.'=tests'));
+        $this->assertFalse(ZMTools::compareStoreUrl('index.php?'.$idName.'=page&id=1', 'index.php?'.$idName.'=page'));
+        $this->assertTrue(ZMTools::compareStoreUrl('index.php?'.$idName.'=static&cat=foo', 'http://localhost/index.php?'.$idName.'=static&cat=foo'));
     }
 
     /**
      * Test compareStoreUrl incomplete.
      */
     public function testCmpStoreUrlIncomplete() {
-        $this->assertTrue(ZMTools::compareStoreUrl('index.php', 'index.php?'.ZM_PAGE_KEY.'=index'));
-        $this->assertTrue(ZMTools::compareStoreUrl('index.php?'.ZM_PAGE_KEY.'=', 'index.php?'.ZM_PAGE_KEY.'=index'));
+        $this->assertTrue(ZMTools::compareStoreUrl('index.php', 'index.php?'.$idName.'=index'));
+        $this->assertTrue(ZMTools::compareStoreUrl('index.php?'.$idName.'=', 'index.php?'.$idName.'=index'));
     }
 
     /**
      * Test compareStoreUrl some more.
      */
     public function testCmpStoreUrlSomeMore() {
-        $this->assertFalse(ZMTools::compareStoreUrl('https://localhost/zen-cart/index.php?'.ZM_PAGE_KEY.'=login', ''));
-        $this->assertTrue(ZMTools::compareStoreUrl('https://localhost/zen-cart/index.php?'.ZM_PAGE_KEY.'=login', ''.ZM_PAGE_KEY.'=login'));
-        $this->assertFalse(ZMTools::compareStoreUrl('https://localhost/zen-cart/index.php?'.ZM_PAGE_KEY.'=wp', ''.ZM_PAGE_KEY.'=login'));
-        $this->assertTrue(ZMTools::compareStoreUrl('http://localhost/zen-cart/index.php?'.ZM_PAGE_KEY.'=page&id=6', 'http://localhost/zen-cart/index.php?'.ZM_PAGE_KEY.'=page&amp;id=6'));
-        $this->assertTrue(ZMTools::compareStoreUrl('index.php?'.ZM_PAGE_KEY.'=page&id=6', 'http://localhost/zen-cart/index.php?'.ZM_PAGE_KEY.'=page&amp;id=6'));
-        $this->assertTrue(ZMTools::compareStoreUrl('http://localhost/zen-cart/index.php?'.ZM_PAGE_KEY.'=page&id=6', 'index.php?'.ZM_PAGE_KEY.'=page&amp;id=6'));
-        $this->assertTrue(ZMTools::compareStoreUrl('index.php?'.ZM_PAGE_KEY.'=page&id=6', 'index.php?'.ZM_PAGE_KEY.'=page&amp;id=6'));
+        $idName = Runtime::getSettings()->get('zenmagick.mvc.request.idName');
+        $this->assertFalse(ZMTools::compareStoreUrl('https://localhost/zen-cart/index.php?'.$idName.'=login', ''));
+        $this->assertTrue(ZMTools::compareStoreUrl('https://localhost/zen-cart/index.php?'.$idName.'=login', ''.$idName.'=login'));
+        $this->assertFalse(ZMTools::compareStoreUrl('https://localhost/zen-cart/index.php?'.$idName.'=wp', ''.$idName.'=login'));
+        $this->assertTrue(ZMTools::compareStoreUrl('http://localhost/zen-cart/index.php?'.$idName.'=page&id=6', 'http://localhost/zen-cart/index.php?'.$idName.'=page&amp;id=6'));
+        $this->assertTrue(ZMTools::compareStoreUrl('index.php?'.$idName.'=page&id=6', 'http://localhost/zen-cart/index.php?'.$idName.'=page&amp;id=6'));
+        $this->assertTrue(ZMTools::compareStoreUrl('http://localhost/zen-cart/index.php?'.$idName.'=page&id=6', 'index.php?'.$idName.'=page&amp;id=6'));
+        $this->assertTrue(ZMTools::compareStoreUrl('index.php?'.$idName.'=page&id=6', 'index.php?'.$idName.'=page&amp;id=6'));
     }
 
     /**

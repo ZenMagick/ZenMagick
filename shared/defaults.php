@@ -27,17 +27,12 @@
     define('ZM_ROOT', 'zenmagick/');
 
 
-    // TODO: remove
-    define('ZM_PAGE_KEY', 'main_page');
-
-
     //** db **//
-    define('ZM_DB_PREFIX', DB_PREFIX);
-    define('ZM_TABLE_TOKEN', ZM_DB_PREFIX . 'token');
-    define('ZM_TABLE_ADMIN_ROLES', ZM_DB_PREFIX . 'admin_roles');
-    define('ZM_TABLE_ADMINS_TO_ROLES', ZM_DB_PREFIX . 'admins_to_roles');
-    define('ZM_TABLE_ADMIN_PREFS', ZM_DB_PREFIX . 'admin_prefs');
-    define('ZM_TABLE_SACS_PERMISSIONS', ZM_DB_PREFIX . 'sacs_permissions');
+    define('ZM_TABLE_TOKEN', DB_PREFIX . 'token');
+    define('ZM_TABLE_ADMIN_ROLES', DB_PREFIX . 'admin_roles');
+    define('ZM_TABLE_ADMINS_TO_ROLES', DB_PREFIX . 'admins_to_roles');
+    define('ZM_TABLE_ADMIN_PREFS', DB_PREFIX . 'admin_prefs');
+    define('ZM_TABLE_SACS_PERMISSIONS', DB_PREFIX . 'sacs_permissions');
 
     //** others **//
     define('PRODUCTS_OPTIONS_TYPE_SELECT', 0);
@@ -54,55 +49,16 @@
      */
     function zm_get_default_settings() {
         $map = array(
-            /*** database ***/
-            'zenmagick.core.database.connections.default' => array(
-                'driver' => 'pdo_mysql',
-                'host' => DB_SERVER,
-                'user' => DB_SERVER_USERNAME,
-                'password' => DB_SERVER_PASSWORD,
-                'dbname' => DB_DATABASE,
-                'prefix' => ZM_DB_PREFIX,
-                'port' => (null !== ($port = @ini_get('mysql.default_port')) ? $port : null),
-                'unix_socket' => (null !== ($socket = @ini_get('mysql.default_socket')) ? $socket : null),
-                'initQuery' => null
-            ),
-          /*
-           */
-
             /*** cache ***/
             'zenmagick.core.cache.provider.file.baseDir' => dirname(zenmagick\base\Runtime::getInstallationPath()).'/cache/zenmagick/',
 
             /*** security ***/
             'zenmagick.core.authentication.minPasswordLength' => ENTRY_PASSWORD_MIN_LENGTH < 6 ? 6 : ENTRY_PASSWORD_MIN_LENGTH,
-            'zenmagick.mvc.sacs.handler' => 'ZMZenCartAccountSacsHandler',
-
-            /*** html ***/
-            /*** session token secured forms ***/
-            'zenmagick.mvc.html.tokenSecuredForms' => 'login',
-
-            /*** resultlist ***/
-            'zenmagick.mvc.resultlist.defaultPagination' => 10,
-
-            /*** request ***/
-            //'zenmagick.mvc.request.idName' => ZM_PAGE_KEY,
-            //'zenmagick.mvc.request.seoRewriter' => 'StoreDefaultSeoRewriter',
-
-            /*** use ZM checkout shipping code ***/
-            'apps.store.request.enableZMCheckoutShipping' => true,
 
             'apps.store.docRoot' => DIR_FS_CATALOG,
 
-            // default theme
-            'apps.store.themes.default' => 'default',
-
             // are we in admin or storefront?
             'isAdmin' => defined('IS_ADMIN_FLAG') && IS_ADMIN_FLAG,
-
-            // whether to strip code in core.php
-            'isStripCore' => true,
-
-            // enable auto patching during installation
-            'isEnablePatching' => true,
 
             // default access level; same as anonymous
             'defaultAccessLevel' => null,
@@ -118,12 +74,6 @@
 
             // verify category path
             'verifyCategoryPath' => false,
-
-            // configure locale (used to be init plugin)
-            'configureLocale' => false,
-
-            // class to use to load locale strings
-            'zenmagick.core.locales.provider' => 'YamlLocale',
 
             // template suffix/extension
             'zenmagick.mvc.templates.ext' => '.php',
@@ -149,9 +99,6 @@
             // download base folder
             'downloadBaseDir' => DIR_FS_DOWNLOAD,
 
-
-            // default authentication provider
-            'defaultAuthenticationProvider' => 'ZMZenCartAuthentication',
 
             // enable/disable transaction support in request processing
             'zenmagick.mvc.transactions.enabled' => false,
@@ -184,9 +131,6 @@
             /**************************************
              * Error pages, other global page settings
              **************************************/
-
-            // will be used if the original view is not valid/does not exist
-            'zenmagick.mvc.request.missingPage' => 'error',
 
             // static homepage
             'staticHome' => null,
@@ -318,13 +262,6 @@
             /**************************************
              * EMAIL
              **************************************/
-
-            // transport
-            'zenmagick.core.email.transport' => EMAIL_TRANSPORT,
-            'zenmagick.core.email.smtp.host' => EMAIL_SMTPAUTH_MAIL_SERVER,
-            'zenmagick.core.email.smtp.port' => EMAIL_SMTPAUTH_MAIL_SERVER_PORT,
-            'zenmagick.core.email.smtp.user' => EMAIL_SMTPAUTH_MAILBOX,
-            'zenmagick.core.email.smtp.password' => EMAIL_SMTPAUTH_PASSWORD,
 
             // email
             'isEmailEnabled' => SEND_EMAILS == 'true',

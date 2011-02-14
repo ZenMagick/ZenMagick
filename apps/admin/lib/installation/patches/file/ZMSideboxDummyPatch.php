@@ -95,24 +95,18 @@ class ZMSideboxDummyPatch extends ZMFilePatch {
         $missingBoxes = $this->getMissingZCSideboxes();
 
         if (0 < count($missingBoxes)) {
-            if ((ZMSettings::get('isEnablePatching')) || $force) {
-                foreach ($missingBoxes as $box) {
-                    if ($this->isReady()) {
-                        if (!file_exists(_ZM_ZEN_DIR_FS_BOXES.$box)) {
-                            $handle = fopen(_ZM_ZEN_DIR_FS_BOXES.$box, 'ab');
-                            fwrite($handle, '<?php /** dummy file created by ZenMagick installation patcher **/ ?>');
-                            fclose($handle);
-                            ZMFileUtils::setFilePerms($_ZM_ZEN_DIR_FS_BOXES.$box);
-                        }
-                    } else {
-                        ZMLogging::instance()->log("** ZenMagick: no permission to create dummy sidebox " . $box, ZMLogging::ERROR);
-                        return false;
+            foreach ($missingBoxes as $box) {
+                if ($this->isReady()) {
+                    if (!file_exists(_ZM_ZEN_DIR_FS_BOXES.$box)) {
+                        $handle = fopen(_ZM_ZEN_DIR_FS_BOXES.$box, 'ab');
+                        fwrite($handle, '<?php /** dummy file created by ZenMagick installation patcher **/ ?>');
+                        fclose($handle);
+                        ZMFileUtils::setFilePerms($_ZM_ZEN_DIR_FS_BOXES.$box);
                     }
+                } else {
+                    ZMLogging::instance()->log("** ZenMagick: no permission to create dummy sidebox " . $box, ZMLogging::ERROR);
+                    return false;
                 }
-            } else {
-                // disabled
-                ZMLogging::instance()->log("** ZenMagick: create sidebox dummies disabled - skipping");
-                return false;
             }
         }
 
@@ -132,7 +126,7 @@ class ZMSideboxDummyPatch extends ZMFilePatch {
 
         return true;
     }
-    
+
     /**
      * Find all dummies.
      *
@@ -199,7 +193,7 @@ class ZMSideboxDummyPatch extends ZMFilePatch {
                 foreach ($zmBoxes as $box) {
                     if (!array_key_exists($box, $zcBoxes) && '.' != $box && '..' != $box && ZMLangUtils::endsWith($box, '.php')) {
                         $missingBoxes[$box] = $box;
-                    } 
+                    }
                 }
             }
         }

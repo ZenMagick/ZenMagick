@@ -100,26 +100,20 @@ class ZMThemeSupportPatch extends ZMFilePatch {
             return true;
         }
 
-        if ((ZMSettings::get('isEnablePatching')) || $force) {
-            if (is_writeable(_ZM_ZEN_INDEX_PHP)) {
-                $patchedLines = array();
-                foreach ($lines as $line) {
-                    // need to insert before the zen-cart html_header...
-                    if (false !== strpos($line, "require") && false !== strpos($line, "html_header.php")) {
-                        array_push($patchedLines, "  include('".ZM_BASE_PATH."store.php'); /* added by ZenMagick installation patcher */");
-                    }
-
-                    array_push($patchedLines, $line);
+        if (is_writeable(_ZM_ZEN_INDEX_PHP)) {
+            $patchedLines = array();
+            foreach ($lines as $line) {
+                // need to insert before the zen-cart html_header...
+                if (false !== strpos($line, "require") && false !== strpos($line, "html_header.php")) {
+                    array_push($patchedLines, "  include('".ZM_BASE_PATH."store.php'); /* added by ZenMagick installation patcher */");
                 }
 
-                return $this->putFileLines(_ZM_ZEN_INDEX_PHP, $patchedLines);
-            } else {
-                ZMLogging::instance()->log("** ZenMagick: no permission to patch theme support into index.php", ZMLogging::ERROR);
-                return false;
+                array_push($patchedLines, $line);
             }
+
+            return $this->putFileLines(_ZM_ZEN_INDEX_PHP, $patchedLines);
         } else {
-            // disabled
-            ZMLogging::instance()->log("** ZenMagick: patch theme support disabled - skipping");
+            ZMLogging::instance()->log("** ZenMagick: no permission to patch theme support into index.php", ZMLogging::ERROR);
             return false;
         }
 
@@ -154,5 +148,5 @@ class ZMThemeSupportPatch extends ZMFilePatch {
 
         return true;
     }
-    
+
 }

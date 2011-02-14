@@ -82,8 +82,8 @@ class ZMSacsManager extends ZMObject {
         $this->mappings_ = array('default' => array(), 'mappings' => array());
         $this->handler_ = array();
         $this->permissionProviders_ = array();
-        foreach (explode(',', ZMSettings::get('zenmagick.mvc.sacs.handler')) as $class) {
-            if (null != ($handler = ZMBeanUtils::getBean($class))) {
+        foreach (ZMSettings::get('zenmagick.mvc.sacs.handler') as $def) {
+            if (null != ($handler = ZMBeanUtils::getBean($def))) {
                 $this->handler_[$handler->getName()] = $handler;
             }
         }

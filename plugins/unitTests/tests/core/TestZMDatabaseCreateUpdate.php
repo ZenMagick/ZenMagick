@@ -20,7 +20,7 @@
 ?>
 <?php
 
-define('TABLE_CREATE_UPDATE_TESTS', ZM_DB_PREFIX . 'create_update_tests');
+define('TABLE_CREATE_UPDATE_TESTS', DB_PREFIX . 'create_update_tests');
 
 
 /**
@@ -109,8 +109,8 @@ class TestZMDatabaseCreateUpdate extends ZMTestCase {
         $map['class_name'] = 'class3';
         $map['method_name'] = 'method3';
         $map['parameter_list'] = '';
-        $sql = "INSERT INTO ".TABLE_CREATE_UPDATE_TESTS." 
-                (name, class_name, method_name, parameter_list) VALUES 
+        $sql = "INSERT INTO ".TABLE_CREATE_UPDATE_TESTS."
+                (name, class_name, method_name, parameter_list) VALUES
                 (:name, :class_name, :method_name, :parameter_list)";
         foreach (TestZMDatabase::getProviders() as $provider => $database) {
             $database->update($sql, $map, TABLE_CREATE_UPDATE_TESTS);
@@ -129,8 +129,8 @@ class TestZMDatabaseCreateUpdate extends ZMTestCase {
 
         $this->registerTableMapping();
 
-        $sql = "INSERT INTO ".TABLE_CREATE_UPDATE_TESTS." 
-                (name, class_name, method_name, parameter_list) VALUES 
+        $sql = "INSERT INTO ".TABLE_CREATE_UPDATE_TESTS."
+                (name, class_name, method_name, parameter_list) VALUES
                 (:name, :className, :methodName, :parameterList)";
         foreach (TestZMDatabase::getProviders() as $provider => $database) {
             $database->update($sql, $obj, TABLE_CREATE_UPDATE_TESTS);
@@ -149,8 +149,8 @@ class TestZMDatabaseCreateUpdate extends ZMTestCase {
 
         $this->registerTableMapping();
 
-        $sql = "INSERT INTO ".TABLE_CREATE_UPDATE_TESTS." 
-                (name, class_name, method_name, parameter_list) VALUES 
+        $sql = "INSERT INTO ".TABLE_CREATE_UPDATE_TESTS."
+                (name, class_name, method_name, parameter_list) VALUES
                 (:name, :className, :methodName, :parameterList)";
         foreach (TestZMDatabase::getProviders() as $provider => $database) {
             $database->update($sql, $map, TABLE_CREATE_UPDATE_TESTS);

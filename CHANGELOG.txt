@@ -37,6 +37,11 @@ Release 0.9.12
 - add applicationPath/plugins to plugin base dir list
 - replace ZMEvents/Events code with new event dispatcher and remove
 - remove ZMRequestHandler interface in favour of a new event
+- deprecate ZM_PAGE_KEY
+- drop ZM_DB_PREFIX
+- drop setting 'enableZMCheckoutShipping'
+- drop settings 'configureLocale' and 'isEnablePatching'
+- introduce setting 'zenmagick.core.security.defaultAuthenticationProvider'
 
 Release 0.9.11.1
 - remove debug code

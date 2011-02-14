@@ -23,6 +23,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 
 /**
  * Default rewriter implementing the original zencart URL scheme.
@@ -82,11 +83,11 @@ class ZMStoreDefaultSeoRewriter implements ZMSeoRewriter {
         if (!$isAdmin && $seo && 0 < count($rewriters)) {
             $rewrittenUrl = null;
             $args = array(
-              'requestId' => $page, 
-              'params' => $params, 
-              'secure' => 'SSL'==$transport, 
-              'addSessionId' => $addSessionId, 
-              'isStatic' => $isStatic, 
+              'requestId' => $page,
+              'params' => $params,
+              'secure' => 'SSL'==$transport,
+              'addSessionId' => $addSessionId,
+              'isStatic' => $isStatic,
               'useContext' => $useContext
             );
             foreach ($rewriters as $rewriter) {
@@ -120,7 +121,7 @@ class ZMStoreDefaultSeoRewriter implements ZMSeoRewriter {
             $path .= $page;
         } else {
             $path .= 'index.php';
-            $query .= ZM_PAGE_KEY . '=' . $page;
+            $query .= Runtime::getSettings()->get('zenmagick.mvc.request.idName') . '=' . $page;
         }
 
         if (!empty($params)) {
