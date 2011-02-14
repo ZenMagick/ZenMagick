@@ -75,9 +75,6 @@
             // verify category path
             'verifyCategoryPath' => false,
 
-            // class to use to load locale strings
-            'zenmagick.core.locales.provider' => 'YamlLocale',
-
             // template suffix/extension
             'zenmagick.mvc.templates.ext' => '.php',
 
