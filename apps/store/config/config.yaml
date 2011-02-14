@@ -65,6 +65,7 @@ zenmagick:
     html:
       xhtml: true
       charset: utf-8
+      tokenSecuredForms: login
  
     ## view
     view:
@@ -84,7 +85,12 @@ zenmagick:
         - crumbtrail:ToolboxCrumbtrail
         - metaTags:ToolboxMetaTags
 
+    ## sacs
     sacs:
       handler:
         - ZMZenCartAccountSacsHandler
+
+    ## resultlist
+    resultlist:
+      defaultPagination: 10
 

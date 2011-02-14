@@ -55,19 +55,6 @@
             /*** security ***/
             'zenmagick.core.authentication.minPasswordLength' => ENTRY_PASSWORD_MIN_LENGTH < 6 ? 6 : ENTRY_PASSWORD_MIN_LENGTH,
 
-            /*** html ***/
-            /*** session token secured forms ***/
-            'zenmagick.mvc.html.tokenSecuredForms' => 'login',
-
-            /*** resultlist ***/
-            'zenmagick.mvc.resultlist.defaultPagination' => 10,
-
-            /*** request ***/
-            //'zenmagick.mvc.request.seoRewriter' => 'StoreDefaultSeoRewriter',
-
-            /*** use ZM checkout shipping code ***/
-            'apps.store.request.enableZMCheckoutShipping' => true,
-
             'apps.store.docRoot' => DIR_FS_CATALOG,
 
             // default theme

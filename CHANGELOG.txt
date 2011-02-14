@@ -39,6 +39,7 @@ Release 0.9.12
 - remove ZMRequestHandler interface in favour of a new event
 - deprecate ZM_PAGE_KEY
 - drop ZM_DB_PREFIX
+- drop setting 'enableZMCheckoutShipping'
 
 Release 0.9.11.1
 - remove debug code

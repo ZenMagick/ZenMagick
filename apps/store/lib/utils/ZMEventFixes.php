@@ -168,10 +168,7 @@ class ZMEventFixes extends ZMObject {
         }
 
         // supported by ZenMagick
-        $supportedCheckoutPages = array('checkout_shipping_address', 'checkout_payment_address', 'checkout_payment');
-        if (ZMLangUtils::asBoolean(ZMSettings::get('apps.store.request.enableZMCheckoutShipping'))) {
-            $supportedCheckoutPages[] = 'checkout_shipping';
-        }
+        $supportedCheckoutPages = array('checkout_shipping_address', 'checkout_payment_address', 'checkout_payment', 'checkout_shipping');
 
         $needs = !in_array($requestId, $supportedCheckoutPages);
         if ($needs) {
