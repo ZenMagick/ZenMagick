@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 
 /**
  * Networking/URL related functions.
@@ -73,7 +74,7 @@ class ZMToolboxNet extends ZMToolboxTool {
      * @param int categoryId Optional category id.
      * @return string A complete product URL.
      */
-    public function product($productId, $categoryId=null) { 
+    public function product($productId, $categoryId=null) {
         $cPath = '';
         if (null != $categoryId) {
             $category = ZMCategories::instance()->getCategoryForId($categoryId, $this->getRequest()->getSession()->getLanguageId());
@@ -90,7 +91,7 @@ class ZMToolboxNet extends ZMToolboxTool {
      * @param string name The static page name.
      * @return string A complete URL for the given static page.
      */
-    public function staticPage($name) { 
+    public function staticPage($name) {
         return $this->getRequest()->url('static', '&cat='.$name);
     }
 
@@ -115,8 +116,8 @@ class ZMToolboxNet extends ZMToolboxTool {
         if (!ZMLangUtils::isEmpty($page->getAltUrl())) {
             $url = parse_url($page->getAltUrl());
             parse_str($url['query'], $query);
-            $view = $query[ZM_PAGE_KEY];
-            unset($query[ZM_PAGE_KEY]);
+            $view = $query[Runtime::getSettings()->get('zenmagick.mvc.request.idName')];
+            unset($query[Runtime::getSettings()->get('zenmagick.mvc.request.idName')]);
             $params = '';
             foreach ($query as $name => $value) {
                 $params .= "&".$name."=".$value;
@@ -165,7 +166,7 @@ class ZMToolboxNet extends ZMToolboxTool {
      * @param string params Query string style parameter; if <code>null</code> add all current parameter
      * @return string A complete Ajax URL.
      */
-    public function ajax($controller, $method, $params='') { 
+    public function ajax($controller, $method, $params='') {
         if (ZMSettings::get('isAdmin')) {
             $params .= '&controller=ajax_'.$controller;
             $controller = 'zmAjaxHandler.php';
@@ -185,7 +186,7 @@ class ZMToolboxNet extends ZMToolboxTool {
      * @param string key Optional key; for example, 'new' for the product channel.
      * @return string A complete URL.
      */
-    public function rssFeed($channel, $key=null) { 
+    public function rssFeed($channel, $key=null) {
         $params = 'channel='.$channel;
         if (null !== $key) {
             $params .= "&key=".$key;

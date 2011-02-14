@@ -28,12 +28,12 @@
      * and as second parameter a complete map of query parameters.</p>
      *
      * @package org.zenmagick.plugins.zm_pretty_links
-     * @param string view The view name (ie. the page name as referred to by the parameter <code>ZM_PAGE_KEY</code>)
+     * @param string view The view name (ie. the page name as referred to by the parameter <code>Runtime::getSettings()->get('zenmagick.mvc.request.idName')</code>)
      * @param mixed convert Function converting the view name to a pretty link; default is <code>null</code>
      *  which will be interpreted as using the view name.
      * @param array params List of query parameters to append as part of the pretty link.
      */
-    function zm_pretty_links_set_mapping($view, $convert=null, $params=array(), $exclude=array()) { 
+    function zm_pretty_links_set_mapping($view, $convert=null, $params=array(), $exclude=array()) {
     global $_zm_pretty_link_map;
 
         if (!isset($_zm_pretty_link_map)) {
@@ -42,5 +42,5 @@
 
         $_zm_pretty_link_map[$view] = array('convert' => $convert, 'params' => $params, 'exclude' => $exclude);
     }
-    
+
 ?>

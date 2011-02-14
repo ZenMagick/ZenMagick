@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 
 /**
  * Form related functions.
@@ -53,7 +54,7 @@ class ZMToolboxForm extends ZMToolboxTool {
      * <p>To remove any default attributes, set a value of <code>null</code> in the <code>$attr</code> parameter.</p>
      *
      * <p>All attribute names are expected in lower case.</p>
-     * 
+     *
      * @param string page The action page name.
      * @param string params Query string style parameter.
      * @param boolean secure Flag indicating whether to create a secure or non secure action URL; default is <code>true</code>.
@@ -85,11 +86,11 @@ class ZMToolboxForm extends ZMToolboxTool {
 
         // parse params
         parse_str($params, $hidden);
-        // set best ZM_PAGE_KEY value
-        if (!isset($hidden[ZM_PAGE_KEY])) {
+        // set best requestId value
+        if (!isset($hidden[Runtime::getSettings()->get('zenmagick.mvc.request.idName')])) {
             $page = null === $page ? $this->getRequest()->getRequestId() : $page;
             if (null !== $page) {
-                $hidden[ZM_PAGE_KEY] = $page;
+                $hidden[Runtime::getSettings()->get('zenmagick.mvc.request.idName')] = $page;
             }
         }
 
@@ -139,7 +140,7 @@ class ZMToolboxForm extends ZMToolboxTool {
      *
      * <p>The calling page is responsible for adding a submit button and a closing <code>&lt;form&gt;</code>
      * tag.</p>
-     * 
+     *
      * @param int productId The product (id) to add.
      * @param int quantity Optional quantity; default to 0 which means that the card_quantity field will <strong>not</strong> be added
      * @param array attr Optional HTML attribute map; default is an empty array.
@@ -169,7 +170,7 @@ class ZMToolboxForm extends ZMToolboxTool {
         if ($item->hasAttributes()) {
             foreach ($item->getAttributes() as $attribute) {
                 foreach ($attribute->getValues() as $attributeValue) {
-                    $html .= '<input type="hidden" name="id[' . $item->getId() . '][' . $attribute->getId() . ']" value="' . 
+                    $html .= '<input type="hidden" name="id[' . $item->getId() . '][' . $attribute->getId() . ']" value="' .
                       $attributeValue->getId() . '"'.$slash.'>';
                 }
             }
@@ -221,7 +222,7 @@ class ZMToolboxForm extends ZMToolboxTool {
     /**
      * Create a id/name pair based select box.
      *
-     * <p>Helper function that can create a HTML <code>&lt;select&gt;</code> tag from 
+     * <p>Helper function that can create a HTML <code>&lt;select&gt;</code> tag from
      * any array that contains class instances that provide <code>getId()</code> and
      * <code>getName()</code> getter methods.</p>
      *

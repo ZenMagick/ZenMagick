@@ -27,10 +27,6 @@
     define('ZM_ROOT', 'zenmagick/');
 
 
-    // TODO: remove
-    define('ZM_PAGE_KEY', 'main_page');
-
-
     //** db **//
     define('ZM_DB_PREFIX', DB_PREFIX);
     define('ZM_TABLE_TOKEN', ZM_DB_PREFIX . 'token');
@@ -83,7 +79,6 @@
             'zenmagick.mvc.resultlist.defaultPagination' => 10,
 
             /*** request ***/
-            //'zenmagick.mvc.request.idName' => ZM_PAGE_KEY,
             //'zenmagick.mvc.request.seoRewriter' => 'StoreDefaultSeoRewriter',
 
             /*** use ZM checkout shipping code ***/

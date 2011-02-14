@@ -20,6 +20,8 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
+
 /**
  * SEO rewriter for pretty link (SEO) support.
  *
@@ -65,9 +67,9 @@ class ZMPrettyLinksSeoRewriter implements ZMSeoRewriter {
         if (ZMLangUtils::startsWith($path, '\\')) {
             $path = substr($path, 1);
         }
-        $requestId = $query[ZM_PAGE_KEY];
+        $requestId = $query[Runtime::getSettings()->get('zenmagick.mvc.request.idName')];
         $translate = true;
-        $removeNames = array(ZM_PAGE_KEY, 'cPath', 'manufacturers_id', 'cat', 'products_id', 'order_id', 'reviews_id', 'id');
+        $removeNames = array(Runtime::getSettings()->get('zenmagick.mvc.request.idName'), 'cPath', 'manufacturers_id', 'cat', 'products_id', 'order_id', 'reviews_id', 'id');
         switch ($requestId) {
             case 'index':
             case 'category':

@@ -23,6 +23,8 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
+
 /**
  * (System) Tools.
  *
@@ -259,10 +261,11 @@ class ZMTools {
             return false;
         }
 
-        $query1[ZM_PAGE_KEY] = (array_key_exists(ZM_PAGE_KEY, $query1) && !empty($query1[ZM_PAGE_KEY])) ? $query1[ZM_PAGE_KEY] : 'index';
-        $query2[ZM_PAGE_KEY] = (array_key_exists(ZM_PAGE_KEY, $query2) && !empty($query2[ZM_PAGE_KEY])) ? $query2[ZM_PAGE_KEY] : 'index';
+        $idName = Runtime::getSettings()->get('zenmagick.mvc.request.idName');
+        $query1[$idName] = (array_key_exists($idName, $query1) && !empty($query1[$idName])) ? $query1[$idName] : 'index';
+        $query2[$idName] = (array_key_exists($idName, $query2) && !empty($query2[$idName])) ? $query2[$idName] : 'index';
 
-        $equal = $query1[ZM_PAGE_KEY] == $query2[ZM_PAGE_KEY];
+        $equal = $query1[$idName] == $query2[$idName];
         // additional test for sub parameter
         if ($equal) {
             $subArgs = array(
@@ -275,8 +278,8 @@ class ZMTools {
                 'product_reviews' => array('products_id'),
                 'product_reviews_info' => array('products_id', 'reviews_id')
             );
-            if (isset($subArgs[$query1[ZM_PAGE_KEY]])) {
-                foreach ($subArgs[$query1[ZM_PAGE_KEY]] as $sub) {
+            if (isset($subArgs[$query1[$idName]])) {
+                foreach ($subArgs[$query1[$idName]] as $sub) {
                     if (array_key_exists($sub, $query1) || array_key_exists($sub, $query2)) {
                         $equal = array_key_exists($sub, $query1) && array_key_exists($sub, $query2) && $query1[$sub] === $query2[$sub];
                         if (!$equal) {
