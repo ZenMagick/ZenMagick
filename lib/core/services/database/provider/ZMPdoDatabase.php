@@ -435,16 +435,6 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
      */
     protected function prepareStatement($sql, $args, $mapping=null) {
         $PDO_INDEX_SEP = '__';
-        static $typeMap = array(
-          'integer' => PDO::PARAM_INT, 
-          'string' => PDO::PARAM_STR,
-          'boolean' => PDO::PARAM_BOOL,
-          'date' => PDO::PARAM_STR,
-          'time' => PDO::PARAM_INT,
-          'blob' => PDO::PARAM_LOB,
-          'datetime' => PDO::PARAM_STR,
-          'float' => PDO::PARAM_STR
-        );
 
         // make sure we are working on a map
         if (is_object($args)) {
@@ -494,24 +484,24 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
             if (false !== strpos($sql, ':'.$name) && array_key_exists($typeName, $mapping)) {
                 // only bind if actually used
                 $type = $mapping[$typeName]['type'];
-                if (!array_key_exists($type, $typeMap)) {
+
+                // @todo do we really want to keep ZMDatabase::NULL_DATE* for native ZM code/plugins or keep it at all?
+                if ('datetime' == $type && null == $value) {
+                    $value = ZMDatabase::NULL_DATETIME;
+                }
+                if ('date' == $type && null == $value) {
+                   $value = ZMDatabase::NULL_DATE;
+                }
+                if(('date' == 'type' || 'datetime' == $type) && is_string($value)) {
+                    $value = new DateTime($value);
+                }
+
+                try {
+                    $dbalType = $this->pdo_->getDatabasePlatform()->getDoctrineTypeMapping($type);
+                } catch(\Doctrine\DBAL\DBALException $e) {
                     throw new ZMDatabaseException('unsupported data(prepare) type='.$type.' for name='.$name);
                 }
-                //XXX: yeah, yeah
-                if ($type == 'datetime') {
-                    if (null === $value) {
-                        $value = ZMDatabase::NULL_DATETIME;
-                    } else if ($value instanceof DateTime) {
-                        $value = $value->format(ZMDatabase::DATETIME_FORMAT);
-                    }
-                } else if ($type == 'date') {
-                    if (null === $value) {
-                        $value = ZMDatabase::NULL_DATE;
-                    } else if ($value instanceof DateTime) {
-                        $value = $value->format(ZMDatabase::DATE_FORMAT);
-                    }
-                }
-                $x = $stmt->bindValue(':'.$name, $value, $typeMap[$type]);
+                $x = $stmt->bindValue(':'.$name, $value, $dbalType);
             }
         }
         return $stmt;
