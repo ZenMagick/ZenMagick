@@ -60,7 +60,6 @@ class StoreEventListener {
         $statics = array(
           'lib/core/external/zm-pomo-3.0.packed.php',
           'lib/core/services/locale/_zm.php',
-          'shared/defaults.php',
           'shared/external/lastRSS.php',
           // admin
           'apps/'.ZM_APP_NAME.'/lib/local.php',
