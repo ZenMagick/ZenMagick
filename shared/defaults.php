@@ -28,12 +28,11 @@
 
 
     //** db **//
-    define('ZM_DB_PREFIX', DB_PREFIX);
-    define('ZM_TABLE_TOKEN', ZM_DB_PREFIX . 'token');
-    define('ZM_TABLE_ADMIN_ROLES', ZM_DB_PREFIX . 'admin_roles');
-    define('ZM_TABLE_ADMINS_TO_ROLES', ZM_DB_PREFIX . 'admins_to_roles');
-    define('ZM_TABLE_ADMIN_PREFS', ZM_DB_PREFIX . 'admin_prefs');
-    define('ZM_TABLE_SACS_PERMISSIONS', ZM_DB_PREFIX . 'sacs_permissions');
+    define('ZM_TABLE_TOKEN', DB_PREFIX . 'token');
+    define('ZM_TABLE_ADMIN_ROLES', DB_PREFIX . 'admin_roles');
+    define('ZM_TABLE_ADMINS_TO_ROLES', DB_PREFIX . 'admins_to_roles');
+    define('ZM_TABLE_ADMIN_PREFS', DB_PREFIX . 'admin_prefs');
+    define('ZM_TABLE_SACS_PERMISSIONS', DB_PREFIX . 'sacs_permissions');
 
     //** others **//
     define('PRODUCTS_OPTIONS_TYPE_SELECT', 0);
@@ -50,21 +49,6 @@
      */
     function zm_get_default_settings() {
         $map = array(
-            /*** database ***/
-            'zenmagick.core.database.connections.default' => array(
-                'driver' => 'mysql',
-                'host' => DB_SERVER,
-                'username' => DB_SERVER_USERNAME,
-                'password' => DB_SERVER_PASSWORD,
-                'database' => DB_DATABASE,
-                'prefix' => ZM_DB_PREFIX,
-                'port' => (null !== ($port = @ini_get('mysql.default_port')) ? $port : null),
-                'socket' => (null !== ($socket = @ini_get('mysql.default_socket')) ? $socket : null),
-                'initQuery' => null
-            ),
-          /*
-           */
-
             /*** cache ***/
             'zenmagick.core.cache.provider.file.baseDir' => dirname(zenmagick\base\Runtime::getInstallationPath()).'/cache/zenmagick/',
 

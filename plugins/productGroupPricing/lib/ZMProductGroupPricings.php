@@ -24,7 +24,7 @@
 <?php
 
 
-define('ZM_TABLE_PRODUCT_GROUP_PRICING', ZM_DB_PREFIX . 'product_group_pricing');
+define('ZM_TABLE_PRODUCT_GROUP_PRICING', DB_PREFIX . 'product_group_pricing');
 
 
 /**

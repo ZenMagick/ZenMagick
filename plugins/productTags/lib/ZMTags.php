@@ -21,8 +21,8 @@
 <?php
 
 
-define('TABLE_TAGS', ZM_DB_PREFIX . 'tags');
-define('TABLE_PRODUCT_TAGS', ZM_DB_PREFIX . 'product_tags');
+define('TABLE_TAGS', DB_PREFIX . 'tags');
+define('TABLE_PRODUCT_TAGS', DB_PREFIX . 'product_tags');
 
 /**
  * <em>Tags</em>.
@@ -93,7 +93,7 @@ class ZMTags extends ZMObject {
         foreach (ZMRuntime::getDatabase()->query($sql, $args, array(TABLE_PRODUCT_TAGS, TABLE_TAGS)) as $result) {
             $ids[] = $result['product_id'];
         }
-        
+
         return $ids;
     }
 
@@ -138,7 +138,7 @@ class ZMTags extends ZMObject {
         // delete existing tags for product
         $tagIds = array_keys($this->getTagsForProductId($productId, $languageId));
         if (0 < count($tagIds)) {
-            $sql = "DELETE FROM " . TABLE_PRODUCT_TAGS . " 
+            $sql = "DELETE FROM " . TABLE_PRODUCT_TAGS . "
                     WHERE product_tag_id in (:product_tag_id)";
             ZMRuntime::getDatabase()->update($sql, array('product_tag_id' => $tagIds), TABLE_PRODUCT_TAGS);
         }
@@ -158,7 +158,7 @@ class ZMTags extends ZMObject {
      * Purge unused tags.
      */
     public function cleanupTags() {
-        $sql = "DELETE FROM " . TABLE_TAGS . " 
+        $sql = "DELETE FROM " . TABLE_TAGS . "
                 WHERE NOT tag_id in (SELECT DISTINCT tag_id from " . TABLE_PRODUCT_TAGS . ")";
         ZMRuntime::getDatabase()->update($sql);
     }
@@ -170,7 +170,7 @@ class ZMTags extends ZMObject {
      * @return array A map of tag =&gt; number-ofproducts.
      */
     public function getStats($languageId) {
-        $sql = "SELECT COUNT(*) as tag_id, t.name 
+        $sql = "SELECT COUNT(*) as tag_id, t.name
                 FROM " . TABLE_PRODUCT_TAGS . " pt, " . TABLE_TAGS . " t
                 WHERE t.tag_id = pt.tag_id AND t.language_id = :language_id
                 GROUP BY name";
