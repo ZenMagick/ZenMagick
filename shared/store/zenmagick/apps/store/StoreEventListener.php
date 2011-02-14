@@ -60,15 +60,14 @@ class StoreEventListener {
         $statics = array(
           'lib/core/external/zm-pomo-3.0.packed.php',
           'lib/core/services/locale/_zm.php',
-          'shared/defaults.php',
           'shared/external/lastRSS.php',
-          // store
-          'apps/store/lib/email.php',
-          'apps/store/lib/zencart_overrides.php',
           // admin
           'apps/'.ZM_APP_NAME.'/lib/local.php',
           'apps/'.ZM_APP_NAME.'/lib/menu.php',
           'apps/'.ZM_APP_NAME.'/lib/utils/sqlpatch.php',
+          // store
+          'apps/'.ZM_APP_NAME.'/lib/email.php',
+          'apps/'.ZM_APP_NAME.'/lib/zencart_overrides.php',
         );
         foreach ($statics as $static) {
             $file = Runtime::getInstallationPath().$static;
