@@ -41,6 +41,7 @@ Release 0.9.12
 - drop ZM_DB_PREFIX
 - drop setting 'enableZMCheckoutShipping'
 - drop settings 'configureLocale' and 'isEnablePatching'
+- introduce setting 'zenmagick.core.security.defaultAuthenticationProvider'
 
 Release 0.9.11.1
 - remove debug code

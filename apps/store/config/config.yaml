@@ -23,6 +23,10 @@ zenmagick:
       locale: en_NZ
       provider: YamlLocale
 
+    ## security
+    security:
+      defaultAuthenticationProvider: ZMZenCartAuthentication
+
     ## fs
     fs:
       permissions:

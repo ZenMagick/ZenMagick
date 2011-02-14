@@ -103,9 +103,6 @@
             'downloadBaseDir' => DIR_FS_DOWNLOAD,
 
 
-            // default authentication provider
-            'defaultAuthenticationProvider' => 'ZMZenCartAuthentication',
-
             // enable/disable transaction support in request processing
             'zenmagick.mvc.transactions.enabled' => false,
 

@@ -228,9 +228,6 @@ class ZMEventFixes extends ZMObject {
         $_SESSION['check_valid'] = 'false';
         // END: zc_fixes
 
-        // set the default authentication provider for zen cart
-        ZMAuthenticationManager::instance()->addProvider(ZMSettings::get('defaultAuthenticationProvider'), true);
-
         if (!ZM_CLI_CALL) {
             $language = $request->getSession()->getLanguage();
             $theme = ZMThemes::instance()->initThemes($language);
