@@ -43,7 +43,7 @@ class StoreEventListener {
     public function onBootstrapDone($event) {
         // load custom configs in shared/store/config
         foreach (new \DirectoryIterator(Runtime::getInstallationPath().'shared'.DIRECTORY_SEPARATOR.'store'.DIRECTORY_SEPARATOR.'config') as $fileInfo) {
-            if ($fileInfo->isDir()) {
+            if ($fileInfo->isDir() || '.yaml' != substr($fileInfo->getPathName(), -5)) {
                 continue;
             }
             Runtime::getSettings()->setAll(Toolbox::loadWithEnv($fileInfo->getPathName()));
