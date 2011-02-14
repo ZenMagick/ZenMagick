@@ -67,6 +67,7 @@ zenmagick:
     ## request
     request:
       index: index.php
+      missingPage: error
       invalidSession: login
       seoRewriter: DefaultSeoRewriter
 

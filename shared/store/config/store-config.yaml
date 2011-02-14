@@ -18,4 +18,10 @@ zenmagick:
           socket: '<?php echo (null !== ($socket = @ini_get('mysql.default_socket')) ? $socket : null) ?>'
           initQuery: null
 
-
+    email:
+      transport: '<?php echo EMAIL_TRANSPORT ?>'
+      smtp:
+        host: '<?php EMAIL_SMTPAUTH_MAIL_SERVER ?>'
+        port: '<?php EMAIL_SMTPAUTH_MAIL_SERVER_PORT ?>'
+        user: '<?php EMAIL_SMTPAUTH_MAILBOX ?>'
+        password: '<?php EMAIL_SMTPAUTH_PASSWORD ?>'

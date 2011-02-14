@@ -62,6 +62,7 @@ zenmagick:
     ## request
     request:
       idName: main_page
+      missingPage: error
       invalidSession: cookie_usage
       seoRewriter: StoreDefaultSeoRewriter
 
