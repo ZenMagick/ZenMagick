@@ -3,7 +3,7 @@
 chdir('../');
 
 define('ZM_APP_PATH', 'apps/admin/');
-
+define('ZM_LIBS', 'shared');
 // pre-load a couple zen-cart files needed
 define('ZC_INSTALL_PATH', realpath('../') . DIRECTORY_SEPARATOR);
 
@@ -19,7 +19,6 @@ $helpers = array(
     'dialog' => new Symfony\Component\Console\Helper\DialogHelper(),
     //'em' => new \Doctrine\ORM\Tools\Console\Helper\EntityManagerHelper($em)
 );
-
 $cli = new Symfony\Component\Console\Application('Doctrine Command Line Interface', Doctrine\Common\Version::VERSION);
 $cli->setCatchExceptions(true);
 $helperSet = $cli->getHelperSet();
