@@ -23,10 +23,6 @@
 ?>
 <?php
 
-    // TODO: remove
-    define('ZM_ROOT', 'zenmagick/');
-
-
     //** db **//
     define('ZM_TABLE_TOKEN', DB_PREFIX . 'token');
     define('ZM_TABLE_ADMIN_ROLES', DB_PREFIX . 'admin_roles');

@@ -25,6 +25,8 @@ use zenmagick\base\ClassLoader;
 use zenmagick\base\Toolbox;
 use zenmagick\base\events\Event;
 
+    // TODO: remove
+    define('ZM_ROOT', basename(dirname(__FILE__)).'/');
 
     /*
      * If 'ZM_APP_PATH' is defined, the following conventions are expected:
