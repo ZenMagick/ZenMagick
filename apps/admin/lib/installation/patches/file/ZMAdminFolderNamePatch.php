@@ -100,24 +100,18 @@ class ZMAdminFolderNamePatch extends \ZMFilePatch {
             return true;
         }
 
-        if ((\ZMSettings::get('isEnablePatching')) || $force) {
-            if (is_writeable(_ZM_ADMIN_INDEX_PHP)) {
-                $patchedLines = array();
-                foreach ($lines as $line) {
-                    if (false !== strpos($line, "define('ZC_ADMIN_FOLDER'")) {
-                        $line = "     define('ZC_ADMIN_FOLDER', '".basename(DIR_WS_ADMIN)."'); /* added by ZenMagick installation patcher */";
-                    }
-                    array_push($patchedLines, $line);
+        if (is_writeable(_ZM_ADMIN_INDEX_PHP)) {
+            $patchedLines = array();
+            foreach ($lines as $line) {
+                if (false !== strpos($line, "define('ZC_ADMIN_FOLDER'")) {
+                    $line = "     define('ZC_ADMIN_FOLDER', '".basename(DIR_WS_ADMIN)."'); /* added by ZenMagick installation patcher */";
                 }
-
-                return $this->putFileLines(_ZM_ADMIN_INDEX_PHP, $patchedLines);
-            } else {
-                \ZMLogging::instance()->log("** ZenMagick: no permission to patch admin folder name", \ZMLogging::ERROR);
-                return false;
+                array_push($patchedLines, $line);
             }
+
+            return $this->putFileLines(_ZM_ADMIN_INDEX_PHP, $patchedLines);
         } else {
-            // disabled
-            \ZMLogging::instance()->log("** ZenMagick: patch admin folder name disabled - skipping");
+            \ZMLogging::instance()->log("** ZenMagick: no permission to patch admin folder name", \ZMLogging::ERROR);
             return false;
         }
 

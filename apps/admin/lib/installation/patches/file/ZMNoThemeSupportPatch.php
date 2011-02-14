@@ -59,7 +59,7 @@ class ZMNoThemeSupportPatch extends ZMFilePatch {
         // look for ZenMagick code...
         $storeInclude = false;
         foreach ($lines as $line) {
-            if (false !== strpos($line, 'ZMSettings')) {
+            if (false !== strpos($line, 'getEventDispatcher')) {
                 $storeInclude = true;
             }
         }
@@ -102,27 +102,19 @@ class ZMNoThemeSupportPatch extends ZMFilePatch {
 
         $PATCHLINE = "if (!ZMSettings::get('isEnableZMThemes')) { \$_zm_contents = \\zenmagick\\base\\Runtime::getEventDispatcher()->filter(new \\zenmagick\\base\\events\\\Event(null, 'finalise_contents'), ob_get_clean()); echo \$_zm_contents; ZMRequest::instance()->getSession()->clearMessages(); \\zenmagick\\base\\Runtime::getEventDispatcher()->notify(new \\zenmagick\\base\\events\\\Event(null, 'all_done', array('request' => ZMRequest::instance()))); } /* added by ZenMagick installation patcher */";
 
-        if ((ZMSettings::get('isEnablePatching')) || $force) {
-            if (is_writeable(_ZM_ZEN_APP_BOTTOM_PHP)) {
-                $patchedLines = array();
-                foreach ($lines as $line) {
-                    if (false !== strpos($line, "session_write_close")) {
-                        array_push($patchedLines, $PATCHLINE);
-                    }
-                    $patchedLines[] = $line;
+        if (is_writeable(_ZM_ZEN_APP_BOTTOM_PHP)) {
+            $patchedLines = array();
+            foreach ($lines as $line) {
+                if (false !== strpos($line, "session_write_close")) {
+                    array_push($patchedLines, $PATCHLINE);
                 }
-                return $this->putFileLines(_ZM_ZEN_APP_BOTTOM_PHP, $patchedLines);
-            } else {
-                ZMLogging::instance()->log("** ZenMagick: no permission to patch no theme support into application_bottpm.php", ZMLogging::ERROR);
-                return false;
+                $patchedLines[] = $line;
             }
+            return $this->putFileLines(_ZM_ZEN_APP_BOTTOM_PHP, $patchedLines);
         } else {
-            // disabled
-            ZMLogging::instance()->log("** ZenMagick: patch no theme support disabled - skipping");
+            ZMLogging::instance()->log("** ZenMagick: no permission to patch no theme support into application_bottpm.php", ZMLogging::ERROR);
             return false;
         }
-
-        return true;
     }
 
     /**
@@ -139,7 +131,7 @@ class ZMNoThemeSupportPatch extends ZMFilePatch {
         if (is_writeable(_ZM_ZEN_APP_BOTTOM_PHP)) {
             $unpatchedLines = array();
             foreach ($lines as $line) {
-                if (false !== strpos($line, "isEnableZMThemes") && false !== strpos($line, "fireEvent")) {
+                if (false !== strpos($line, "finalise_contents") && false !== strpos($line, "getEventDispatcher")) {
                     continue;
                 }
                 $unpatchedLines[] = $line;

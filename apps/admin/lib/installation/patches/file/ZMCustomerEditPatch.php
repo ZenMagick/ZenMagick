@@ -101,25 +101,19 @@ class ZMCustomerEditPatch extends ZMFilePatch {
             return true;
         }
 
-        if ((ZMSettings::get('isEnablePatching')) || $force) {
-            if (is_writeable(_ZM_ZEN_CUSTOMERS_PHP)) {
-                $patchedLines = array();
-                foreach ($lines as $line) {
-                    array_push($patchedLines, $line);
-                    // need to insert after the match
-                    if (false !== strpos($line, "where customers_email_address = '")) {
-                        array_push($patchedLines, "  and NOT customers_password = ''");
-                    }
+        if (is_writeable(_ZM_ZEN_CUSTOMERS_PHP)) {
+            $patchedLines = array();
+            foreach ($lines as $line) {
+                array_push($patchedLines, $line);
+                // need to insert after the match
+                if (false !== strpos($line, "where customers_email_address = '")) {
+                    array_push($patchedLines, "  and NOT customers_password = ''");
                 }
-
-                return $this->putFileLines(_ZM_ZEN_CUSTOMERS_PHP, $patchedLines);
-            } else {
-                ZMLogging::instance()->log("** ZenMagick: no permission to patch edit fix into customers.php", ZMLogging::ERROR);
-                return false;
             }
+
+            return $this->putFileLines(_ZM_ZEN_CUSTOMERS_PHP, $patchedLines);
         } else {
-            // disabled
-            ZMLogging::instance()->log("** ZenMagick: patch customer edit support disabled - skipping");
+            ZMLogging::instance()->log("** ZenMagick: no permission to patch edit fix into customers.php", ZMLogging::ERROR);
             return false;
         }
 
@@ -154,5 +148,5 @@ class ZMCustomerEditPatch extends ZMFilePatch {
 
         return true;
     }
-    
+
 }

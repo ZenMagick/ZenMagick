@@ -60,9 +60,6 @@
             // are we in admin or storefront?
             'isAdmin' => defined('IS_ADMIN_FLAG') && IS_ADMIN_FLAG,
 
-            // enable auto patching during installation
-            'isEnablePatching' => true,
-
             // default access level; same as anonymous
             'defaultAccessLevel' => null,
 

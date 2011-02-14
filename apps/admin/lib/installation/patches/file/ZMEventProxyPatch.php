@@ -99,25 +99,19 @@ class ZMEventProxyPatch extends ZMFilePatch {
             return true;
         }
 
-        if ((ZMSettings::get('isEnablePatching')) || $force) {
-            if (is_writeable(_ZM_ZEN_BASE_PHP)) {
-                $patchedLines = array();
-                foreach ($lines as $line) {
-                    array_push($patchedLines, $line);
-                    if (false !== strpos($line, "function notify(")) {
-                        // need to insert after the matched line
-                        array_push($patchedLines, '    if(class_exists("zenmagick\\\base\\\Runtime")) { zenmagick\\base\\Runtime::getEventDispatcher()->notify(new zenmagick\\base\\events\\Event($this, $eventID, $paramArray)); } /* added by ZenMagick installation patcher */');
-                    }
+        if (is_writeable(_ZM_ZEN_BASE_PHP)) {
+            $patchedLines = array();
+            foreach ($lines as $line) {
+                array_push($patchedLines, $line);
+                if (false !== strpos($line, "function notify(")) {
+                    // need to insert after the matched line
+                    array_push($patchedLines, '    if(class_exists("zenmagick\\\base\\\Runtime")) { zenmagick\\base\\Runtime::getEventDispatcher()->notify(new zenmagick\\base\\events\\Event($this, $eventID, $paramArray)); } /* added by ZenMagick installation patcher */');
                 }
-
-                return $this->putFileLines(_ZM_ZEN_BASE_PHP, $patchedLines);
-            } else {
-                ZMLogging::instance()->log("** ZenMagick: no permission to patch event proxy support into class.base.php", ZMLogging::ERROR);
-                return false;
             }
+
+            return $this->putFileLines(_ZM_ZEN_BASE_PHP, $patchedLines);
         } else {
-            // disabled
-            ZMLogging::instance()->log("** ZenMagick: patch event proxy support disabled - skipping");
+            ZMLogging::instance()->log("** ZenMagick: no permission to patch event proxy support into class.base.php", ZMLogging::ERROR);
             return false;
         }
 

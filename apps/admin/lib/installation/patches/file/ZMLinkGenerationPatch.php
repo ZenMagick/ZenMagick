@@ -96,15 +96,7 @@ class ZMLinkGenerationPatch extends ZMFilePatch {
             return true;
         }
 
-        if ((ZMSettings::get('isEnablePatching')) || $force) {
-            return $this->patchFilesFkt($this->fktFilesCfg_);
-        } else {
-            // disabled
-            ZMLogging::instance()->log("** ZenMagick: Pretty Link patch support disabled - skipping");
-            return false;
-        }
-
-        return true;
+        return $this->patchFilesFkt($this->fktFilesCfg_);
     }
 
     /**
@@ -115,5 +107,5 @@ class ZMLinkGenerationPatch extends ZMFilePatch {
     function undo() {
         return $this->undoFilesFkt($this->fktFilesCfg_);
     }
-    
+
 }
