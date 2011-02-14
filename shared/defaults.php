@@ -74,7 +74,6 @@
 
             /*** security ***/
             'zenmagick.core.authentication.minPasswordLength' => ENTRY_PASSWORD_MIN_LENGTH < 6 ? 6 : ENTRY_PASSWORD_MIN_LENGTH,
-            'zenmagick.mvc.sacs.handler' => 'ZMZenCartAccountSacsHandler',
 
             /*** html ***/
             /*** session token secured forms ***/

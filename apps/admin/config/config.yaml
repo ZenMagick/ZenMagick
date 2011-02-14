@@ -104,6 +104,11 @@ zenmagick:
         - admin:ToolboxAdmin
         - admin2:ToolboxAdmin2
 
+    ## sacs
+    sacs:
+      handler:
+        - ZMUserRoleSacsHandler
+
 
 ## app settings
 ## all available dashboard widgets

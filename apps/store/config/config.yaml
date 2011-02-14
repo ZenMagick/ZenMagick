@@ -83,3 +83,8 @@ zenmagick:
         - utils:ToolboxUtils
         - crumbtrail:ToolboxCrumbtrail
         - metaTags:ToolboxMetaTags
+
+    sacs:
+      handler:
+        - ZMZenCartAccountSacsHandler
+
