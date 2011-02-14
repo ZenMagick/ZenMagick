@@ -494,9 +494,6 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
             if (false !== strpos($sql, ':'.$name) && array_key_exists($typeName, $mapping)) {
                 // only bind if actually used
                 $type = $mapping[$typeName]['type'];
-                if (array_key_exists($type, ZMDbTableMapper::$NATIVE_TO_API_TYPEMAP)) {
-                    $type = ZMDbTableMapper::$NATIVE_TO_API_TYPEMAP[$type];
-                }
                 if (!array_key_exists($type, $typeMap)) {
                     throw new ZMDatabaseException('unsupported data(prepare) type='.$type.' for name='.$name);
                 }

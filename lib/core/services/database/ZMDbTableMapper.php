@@ -68,25 +68,6 @@ use zenmagick\base\Runtime;
  * @package org.zenmagick.core.services.database
  */
 class ZMDbTableMapper extends \ZMObject {
-    /** Mapping of native data types to API types. */
-    public static $NATIVE_TO_API_TYPEMAP = array(
-        'char' => 'string',
-        'varchar' => 'string',
-        'tinyint' => 'integer',
-        'smallint' => 'integer',
-        'mediumint' => 'integer',
-        'int' => 'integer',
-        'bigint' => 'integer',
-        'int unsigned' => 'integer',
-        'decimal' => 'float',
-        'real' => 'float',
-        'text' => 'text',
-        'tinytext' => 'text',
-        'mediumtext' => 'text',
-        'longtext' => 'text',
-        'mediumblob' => 'blob'
-    );
-
     /** Key used to cache table mappings. */
     const CACHE_KEY = "ZMDbTableMapper::mappings";
     private $tableMap_;
@@ -281,12 +262,7 @@ class ZMDbTableMapper extends \ZMObject {
         echo "'".str_replace($config['prefix'], '', $table)."' => array(\n";
         $first = true;
         foreach ($tableMetaData as $column) {
-            $type = preg_replace('/(.*)\(.*\)/', '\1', $column['type']);
-            if (array_key_exists($type, self::$NATIVE_TO_API_TYPEMAP)) {
-                $type = self::$NATIVE_TO_API_TYPEMAP[$type];
-            }
-
-            $line = 'column=' . $column['name'] . ';type=' . $type;
+            $line = 'column=' . $column['name'] . ';type=' . $column['type'];
             if ($column['key']) {
                 $line .= ';key=true';
             }
