@@ -75,9 +75,6 @@
             // verify category path
             'verifyCategoryPath' => false,
 
-            // configure locale (used to be init plugin)
-            'configureLocale' => false,
-
             // class to use to load locale strings
             'zenmagick.core.locales.provider' => 'YamlLocale',
 

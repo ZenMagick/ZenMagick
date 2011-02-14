@@ -40,6 +40,7 @@ Release 0.9.12
 - deprecate ZM_PAGE_KEY
 - drop ZM_DB_PREFIX
 - drop setting 'enableZMCheckoutShipping'
+- drop settings 'configureLocale' and 'isEnablePatching'
 
 Release 0.9.11.1
 - remove debug code

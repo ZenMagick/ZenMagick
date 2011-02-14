@@ -247,9 +247,7 @@ class ZMEventFixes extends ZMObject {
 
         $this->fixCategoryPath($request);
         $this->checkAuthorization($request);
-        if (ZMSettings::get('configureLocale')) {
-            $this->configureLocale($request);
-        }
+        $this->configureLocale($request);
     }
 
     /**
