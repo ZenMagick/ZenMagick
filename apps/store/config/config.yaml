@@ -94,3 +94,7 @@ zenmagick:
     resultlist:
       defaultPagination: 10
 
+apps:
+  store:
+    themes:
+      default: default

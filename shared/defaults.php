@@ -57,14 +57,8 @@
 
             'apps.store.docRoot' => DIR_FS_CATALOG,
 
-            // default theme
-            'apps.store.themes.default' => 'default',
-
             // are we in admin or storefront?
             'isAdmin' => defined('IS_ADMIN_FLAG') && IS_ADMIN_FLAG,
-
-            // whether to strip code in core.php
-            'isStripCore' => true,
 
             // enable auto patching during installation
             'isEnablePatching' => true,

@@ -119,3 +119,5 @@ apps:
       default: '{"layout":"col2l","widgets":[["ZMOrderStatsDashboardWidget","ZMLatestAccountsDashboardWidget"],["ZMLatestOrdersDashboardWidget"]]}'
     catalog:
       controller: CatalogDefaultTabController
+    themes:
+      default: default
