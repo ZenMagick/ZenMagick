@@ -39,6 +39,7 @@ class ZMWordpressPlugin extends Plugin {
      */
     function __construct() {
         parent::__construct('Wordpress', 'Allows to display Wordpress content in ZenMagick', '${plugin.version}');
+        $this->setContext(Plugin::CONTEXT_STOREFRONT);
         $this->requestId_ = '';
         $this->requestHandler_ = null;
         $this->adapter_ = null;
@@ -227,7 +228,7 @@ class ZMWordpressPlugin extends Plugin {
      */
     public function getGlobal($request) {
         $wordpressEnabledPages = $this->get('wordpressEnabledPages');
-        if (empty($wordpressEnabledPages) || ZMLangUtils::inArray($request->getRequestId(), $wordpressEnabledPages)) {
+        if (empty($wordpressEnabledPages) || (!ZMLangUtils::isEmpty($request->getRequestId()) && ZMLangUtils::inArray($request->getRequestId(), $wordpressEnabledPages))) {
             if ($this->isPermalinksEnabled()) {
                 $path = $request->getContext().$this->get('permaPrefix');
                 if (false === strpos($_SERVER['REQUEST_URI'], '?')) {

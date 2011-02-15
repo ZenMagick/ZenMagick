@@ -23,10 +23,6 @@
 ?>
 <?php
 
-    // TODO: remove
-    define('ZM_ROOT', 'zenmagick/');
-
-
     //** db **//
     define('ZM_TABLE_TOKEN', DB_PREFIX . 'token');
     define('ZM_TABLE_ADMIN_ROLES', DB_PREFIX . 'admin_roles');
@@ -262,6 +258,14 @@
             /**************************************
              * EMAIL
              **************************************/
+
+            // transport
+            'zenmagick.core.email.transport' => EMAIL_TRANSPORT,
+            'zenmagick.core.email.smtp.host' => EMAIL_SMTPAUTH_MAIL_SERVER,
+            'zenmagick.core.email.smtp.port' => EMAIL_SMTPAUTH_MAIL_SERVER_PORT,
+            'zenmagick.core.email.smtp.user' => EMAIL_SMTPAUTH_MAILBOX,
+            'zenmagick.core.email.smtp.password' => EMAIL_SMTPAUTH_PASSWORD,
+
 
             // email
             'isEmailEnabled' => SEND_EMAILS == 'true',

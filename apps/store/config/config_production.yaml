@@ -1,0 +1,4 @@
+imports:
+    - { resource: config.yaml, insert: pre }
+    - { resource: ../../../shared/store/store-config.yaml }
+    - { resource: config_production_local.yaml, mode: append }

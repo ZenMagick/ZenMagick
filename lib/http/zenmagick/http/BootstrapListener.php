@@ -30,6 +30,7 @@ use zenmagick\base\Runtime;
  * @package zenmagick.http
  */
 class BootstrapListener {
+
     /**
      * Listen to bootstrap.
      */
@@ -39,6 +40,18 @@ class BootstrapListener {
         // sacs mappings
         \ZMSacsManager::instance()->load(file_get_contents(\ZMFileUtils::mkPath(Runtime::getApplicationPath(), 'config', 'sacs_mappings.yaml')), false);
         \ZMSacsManager::instance()->loadProviderMappings(Runtime::getSettings()->get('zenmagick.mvc.sacs.mappingProviders'));
+    }
+
+    /**
+     * Listen to init_request.
+     */
+    public function onInitRequest($event) {
+        $request = $event->get('request');
+        // adjust front controller parameter
+        if ($request->getFrontController() != Runtime::getSettings()->get('zenmagick.mvc.request.index')) {
+             Runtime::getSettings()->set('zenmagick.mvc.request.index', $request->getFrontController());
+        }
+
     }
 
 }

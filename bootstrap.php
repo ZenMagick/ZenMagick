@@ -25,6 +25,8 @@ use zenmagick\base\ClassLoader;
 use zenmagick\base\Toolbox;
 use zenmagick\base\events\Event;
 
+    // TODO: remove
+    define('ZM_ROOT', basename(dirname(__FILE__)).'/');
 
     /*
      * If 'ZM_APP_PATH' is defined, the following conventions are expected:
@@ -45,10 +47,10 @@ use zenmagick\base\events\Event;
 
     // set up the environment to run in
     $getenv_func = function_exists('apache_getenv') ? 'apache_getenv' : 'getenv';
-    defined('ZM_ENVIRONMENT') || define('ZM_ENVIRONMENT', ($getenv_func('ZM_ENVIRONMENT') ? $getenv_func('ZM_ENVIRONMENT') : 'PRODUCTION'));
+    defined('ZM_ENVIRONMENT') || define('ZM_ENVIRONMENT', ($getenv_func('ZM_ENVIRONMENT') ? $getenv_func('ZM_ENVIRONMENT') : 'production'));
 
     // hide as to avoid filenames that contain account names, etc.
-    ini_set('display_errors', false);
+    ini_set('display_errors', true);
     // enable all reporting
     error_reporting(-1);
     // enable logging

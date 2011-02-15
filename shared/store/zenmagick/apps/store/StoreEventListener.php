@@ -41,13 +41,8 @@ class StoreEventListener {
      * Keep up support for local.php.
      */
     public function onBootstrapDone($event) {
-        // load custom configs in shared/store/config
-        foreach (new \DirectoryIterator(Runtime::getInstallationPath().'shared'.DIRECTORY_SEPARATOR.'store'.DIRECTORY_SEPARATOR.'config') as $fileInfo) {
-            if ($fileInfo->isDir() || '.yaml' != substr($fileInfo->getPathName(), -5)) {
-                continue;
-            }
-            Runtime::getSettings()->setAll(Toolbox::loadWithEnv($fileInfo->getPathName()));
-        }
+        // in old zencart
+        Runtime::getSettings()->set('zenmagick.core.plugins.context', (defined('IS_ADMIN_FLAG') && IS_ADMIN_FLAG) ? 2 : 1);
 
         // set default
         Runtime::getSettings()->set('zenmagick.base.plugins.dirs', array(
@@ -58,6 +53,7 @@ class StoreEventListener {
 
         // load some static files that we still need
         $statics = array(
+          'shared/defaults.php',
           'lib/core/external/zm-pomo-3.0.packed.php',
           'lib/core/services/locale/_zm.php',
           'shared/external/lastRSS.php',

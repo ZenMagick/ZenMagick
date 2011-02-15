@@ -92,7 +92,7 @@ class ZMAdminEventHandler {
             foreach (ZMConfig::instance()->loadAll() as $key => $value) {
                 define($key, $value);
             }
-            include ZMRuntime::getInstallationPath() . '/shared/defaults.php';
+            require_once ZMRuntime::getInstallationPath() . '/shared/defaults.php';
             // set shared defaults again as some settings depend on zencart settings...
             ZMSettings::addAll(zm_get_default_settings());
         }

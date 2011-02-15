@@ -73,25 +73,66 @@ class Toolbox {
      *
      * @param string filename The file to load.
      * @param string environment Optional environment; default is the value of <code>ZM_ENVIRONMENT</code>.
+     * @param boolean useEnvFile Optional flag to load the <em>file_[$environemnt].yaml</em> file if available; default is <code>true</code>.
      * @return mixed The parsed YAML.
      */
-    public static function loadWithEnv($filename, $environment=ZM_ENVIRONMENT) {
+    public static function loadWithEnv($filename, $environment=ZM_ENVIRONMENT, $useEnvFile=true) {
+        $filename = realpath($filename);
+        $envFilename = null;
+        if ($useEnvFile) {
+            $envFilename = str_replace('.yaml', '_'.$environment.'.yaml', $filename);
+            if (file_exists($envFilename)) {
+                // load that and expect the 'import:' data in the file to pull in whatever is needed.
+                $filename = $envFilename;
+            }
+        }
+
+        $data = array();
         if (!file_exists($filename)) {
-            return array();
+            return $data;
         }
         $environment = strtoupper($environment);
         try {
             $yaml = Yaml::load($filename);
             if (is_array($yaml)) {
-                if (array_key_exists($environment, $yaml)) {
-                    $yaml = self::arrayMergeRecursive($yaml, $yaml[$environment]);
+                if (null != $environment && array_key_exists($environment, $yaml)) {
+                    $data = self::arrayMergeRecursive($yaml, $yaml[$environment]);
+                } else {
+                    $data = $yaml;
                 }
-                return $yaml;
             }
         } catch (\InvalidArgumentException $e) {
             Runtime::getLogging()->dump(e);
         }
-        return array();
+
+        // check for imports:
+        if (array_key_exists('imports', $data)) {
+            // split into prepend/append mode
+            $prepend = array();
+            $append = array();
+            foreach ($data['imports'] as $import) {
+                if (!array_key_exists('mode', $import)) {
+                    $import['mode'] = 'prepend';
+                }
+                if ('append' == $import['mode']) {
+                    $append[] = $import;
+                } else {
+                    $prepend[] = $import;
+                }
+            }
+
+            $tmp = array();
+            $currentDir = dirname($filename).DIRECTORY_SEPARATOR;
+            foreach ($prepend as $import) {
+                $tmp = self::arrayMergeRecursive($tmp, self::loadWithEnv($currentDir.$import['resource'], $environment, false));
+            }
+            $data = self::arrayMergeRecursive($tmp, $data);
+            foreach ($append as $import) {
+                $data = self::arrayMergeRecursive($data, self::loadWithEnv($currentDir.$import['resource'], $environment, false));
+            }
+        }
+
+        return $data;
     }
 
 }

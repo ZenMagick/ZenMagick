@@ -501,6 +501,18 @@ class ZMRequest extends \ZMObject {
     }
 
     /**
+     * Get the front controller name.
+     *
+     * @return string The name of the main <em>.php</em> file.
+     */
+    public function getFrontController() {
+        if (false !== ($components = parse_url($_SERVER['REQUEST_URI']))) {
+            return basename($components['path']);
+        }
+        return 'index.php';
+    }
+
+    /**
      * Get the template path.
      *
      * @return string The path.
