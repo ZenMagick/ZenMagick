@@ -105,14 +105,31 @@ class Toolbox {
             Runtime::getLogging()->dump(e);
         }
 
-        // check for import:
+        // check for imports:
         if (array_key_exists('imports', $data)) {
+            // split into prepend/append mode
+            $prepend = array();
+            $append = array();
+            foreach ($data['imports'] as $import) {
+                if (!array_key_exists('mode', $import)) {
+                    $import['mode'] = 'prepend';
+                }
+                if ('append' == $import['mode']) {
+                    $append[] = $import;
+                } else {
+                    $prepend[] = $import;
+                }
+            }
+
             $tmp = array();
             $currentDir = dirname($filename).DIRECTORY_SEPARATOR;
-            foreach ($data['imports'] as $import) {
+            foreach ($prepend as $import) {
                 $tmp = self::arrayMergeRecursive($tmp, self::loadWithEnv($currentDir.$import['resource'], $environment, false));
             }
             $data = self::arrayMergeRecursive($tmp, $data);
+            foreach ($append as $import) {
+                $data = self::arrayMergeRecursive($data, self::loadWithEnv($currentDir.$import['resource'], $environment, false));
+            }
         }
 
         return $data;
