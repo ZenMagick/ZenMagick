@@ -53,6 +53,7 @@ class StoreEventListener {
 
         // load some static files that we still need
         $statics = array(
+          'shared/defaults.php',
           'lib/core/external/zm-pomo-3.0.packed.php',
           'lib/core/services/locale/_zm.php',
           'shared/external/lastRSS.php',
