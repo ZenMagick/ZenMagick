@@ -41,6 +41,9 @@ class StoreEventListener {
      * Keep up support for local.php.
      */
     public function onBootstrapDone($event) {
+        // in old zencart
+        Runtime::getSettings()->set('zenmagick.core.plugins.context', (defined('IS_ADMIN_FLAG') && IS_ADMIN_FLAG) ? 2 : 1);
+
         // set default
         Runtime::getSettings()->set('zenmagick.base.plugins.dirs', array(
             Runtime::getInstallationPath().'plugins'.DIRECTORY_SEPARATOR,
