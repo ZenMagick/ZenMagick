@@ -41,14 +41,6 @@ class StoreEventListener {
      * Keep up support for local.php.
      */
     public function onBootstrapDone($event) {
-        // load custom configs in shared/store/config
-        foreach (new \DirectoryIterator(Runtime::getInstallationPath().'shared'.DIRECTORY_SEPARATOR.'store'.DIRECTORY_SEPARATOR.'config') as $fileInfo) {
-            if ($fileInfo->isDir() || '.yaml' != substr($fileInfo->getPathName(), -5)) {
-                continue;
-            }
-            Runtime::getSettings()->setAll(Toolbox::loadWithEnv($fileInfo->getPathName()));
-        }
-
         // set default
         Runtime::getSettings()->set('zenmagick.base.plugins.dirs', array(
             Runtime::getInstallationPath().'plugins'.DIRECTORY_SEPARATOR,
