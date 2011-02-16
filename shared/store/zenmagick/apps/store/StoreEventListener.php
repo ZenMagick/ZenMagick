@@ -51,13 +51,6 @@ class StoreEventListener {
             Runtime::getInstallationPath().'apps/store/plugins'.DIRECTORY_SEPARATOR
         ));
 
-        //** load all config values if not set **//
-        if (!defined('STORE_NAME')) {
-            foreach (\ZMConfig::instance()->loadAll() as $key => $value) {
-                define($key, $value);
-            }
-        }
-
         // load some static files that we still need
         $statics = array(
           'shared/defaults.php',
@@ -76,6 +69,13 @@ class StoreEventListener {
             $file = Runtime::getInstallationPath().$static;
             if (file_exists($file)) {
                 require_once $file;
+            }
+        }
+
+        //** load all config values if not set **//
+        if (!defined('STORE_NAME')) {
+            foreach (\ZMConfig::instance()->loadAll() as $key => $value) {
+                define($key, $value);
             }
         }
 
