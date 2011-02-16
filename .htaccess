@@ -6,7 +6,7 @@
 ##
 
 ## set the ZenMagick environment
-#SetEnv ZM_ENVIRONMENT PRODUCTION
+#SetEnv ZM_ENVIRONMENT production
 
 ## no directory indexing
 Options -Indexes
