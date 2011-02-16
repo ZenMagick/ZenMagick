@@ -32,6 +32,7 @@
   <p><?php _vzm('Your name is: %s.', $name) ?></p>
 <?php } ?>
 <p><?php echo sprintf(_vzm('Context is: %s', $request->getContext())) ?></p>
+<p><?php echo sprintf(_vzm('DocRoot is: %s', $request->getDocRoot())) ?></p>
 
 <p><a href="<?php echo $request->url(null, 'clear=true', true) ?>"><?php _vzm('Clear session') ?></a></p>
 <p>

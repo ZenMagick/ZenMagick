@@ -68,6 +68,13 @@ class ZMFunctionView extends ZMView {
     /**
      * {@inheritDoc}
      */
+    public function file2uri($request, $filename) {
+        throw new ZMException('not supported');
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function path($request, $template, $type=ZMView::TEMPLATE) {
         throw new ZMException('not supported');
     }

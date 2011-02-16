@@ -51,6 +51,13 @@ class StoreEventListener {
             Runtime::getInstallationPath().'apps/store/plugins'.DIRECTORY_SEPARATOR
         ));
 
+        //** load all config values if not set **//
+        if (!defined('STORE_NAME')) {
+            foreach (\ZMConfig::instance()->loadAll() as $key => $value) {
+                define($key, $value);
+            }
+        }
+
         // load some static files that we still need
         $statics = array(
           'shared/defaults.php',
@@ -71,6 +78,9 @@ class StoreEventListener {
                 require_once $file;
             }
         }
+
+        // set shared defaults again as some settings depend on zencart settings...
+        \ZMSettings::addAll(zm_get_default_settings());
 
         $local = Runtime::getInstallationPath().DIRECTORY_SEPARATOR.'local.php';
         if (file_exists($local)) {

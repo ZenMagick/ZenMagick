@@ -34,7 +34,7 @@ use zenmagick\base\events\Event;
  * @author DerManoMann
  * @package zenmagick.store.sf.mvc
  */
-class Session extends ZMObject { //ZMSession {
+class Session extends ZMSession {
 
     /**
      * Create new instance.
@@ -61,16 +61,6 @@ class Session extends ZMObject { //ZMSession {
 
         // zen-cart / ZenMagick init plugin
         return $session_started || $_SERVER['session_started'];
-    }
-
-    /**
-     * Check if this session is started.
-     *
-     * @return boolean <code>true</code> if the session is started, <code>false</code> if not.
-     */
-    public function isStarted() {
-        $id = session_id();
-        return !empty($id);
     }
 
     /**
