@@ -10,6 +10,11 @@ if (!function_exists('zen_href_link')) {
     function zen_href_link($page='', $params='', $transport='NONSSL', $addSessionId=true, $seo=true, $isStatic=false, $useContext=true) {
         if (defined('ZC_INSTALL_PATH')) {
             $request = ZMRequest::instance();
+            // strip rid,zpid frm params
+            parse_str($params, $tmp);
+            unset($tmp['rid']);
+            unset($tmp['zpid']);
+            $params = http_build_query($tmp);
             return $request->url('zc_admin', 'zpid='.str_replace('.php', '', $page).'&'.$params);
         }
         return zen_href_link_DISABLED($page, $params, $transport, $addSessionId, $seo, $isStatic, $useContext);
@@ -49,6 +54,9 @@ $content = str_replace('id="main"', '', $content);
 $content = str_replace('src="includes', 'src="'.DIR_WS_ADMIN.'includes', $content);
 $content = str_replace('src="images', 'src="'.DIR_WS_ADMIN.'images', $content);
 $content = str_replace(array('onmouseover="rowOverEffect(this)"', 'onmouseout="rowOutEffect(this)"'), '', $content);
+//action="/zmdev/zenmagick/apps/admin/web/index.php?rid=zc_admin&zpid=categories&" method="get">
+$content = preg_replace('/(action="[^"]*index.php\?rid=zc_admin&zpid=)([^&"]*)([^>]*>)/', '$1$2$3<input type="hidden" name="rid" value="zc_admin"><input type="hidden" name="zpid" value="$2">', $content);
+//$content = preg_replace('/(action="[^"]*index.php)\?rid=zc_admin&zpid=[^&"]*([^>]*>)/', '$1$2', $content);
 ?>
 <div id="sub-menu">
   <div id="sub-common">
