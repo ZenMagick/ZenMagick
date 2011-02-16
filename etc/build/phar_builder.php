@@ -43,8 +43,9 @@ use zenmagick\base\utils\ClassLoaderPharBuilder;
         $baseDir = $argv[2];
     }
 
-    $path = realpath($baseDir.DIRECTORY_SEPARATOR.$pharPath);
+    $path = $baseDir.DIRECTORY_SEPARATOR.$pharPath;
     echo 'Run builder with path: '.$path.PHP_EOL;
+    $path = realpath($path);
     $pharBuilder = new ClassLoaderPharBuilder($path);
     $pharBuilder->create();
 

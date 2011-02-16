@@ -24,13 +24,11 @@
      * Simple command line packer script.
      */
 
-    error_reporting(E_ERROR);
-    $coreDir = dirname(dirname(dirname(__FILE__))).DIRECTORY_SEPARATOR.'lib'.DIRECTORY_SEPARATOR.'core'.DIRECTORY_SEPARATOR;
-    include $coreDir.'ZMLoader.php';
-    ZMLoader::instance()->addPath($coreDir);
-    ZMLoader::instance()->addPath(dirname($coreDir).DIRECTORY_SEPARATOR.'build'.DIRECTORY_SEPARATOR);
-    //ZMLoader::instance()->loadStatic();
-    spl_autoload_register('ZMLoader::resolve');
+    $installDir = dirname(dirname(dirname(__FILE__)));
+    $baseDir = $installDir;
+    chdir($installDir);
+    include 'bootstrap.php';
+    ZMLoader::instance()->addPath($installDir.DIRECTORY_SEPARATOR.'lib'.DIRECTORY_SEPARATOR.'build'.DIRECTORY_SEPARATOR);
 
     if (6 > $argc) {
         echo PHP_EOL."  usage: php packer.php [ZMLibraryPacker implementation] [source dir] [target dir] [version] [true|false] [target base directory] [classpath]".PHP_EOL;
@@ -43,7 +41,7 @@
     $target = $argv[4];
     $version = $argv[5];
     $strip = ZMLangUtils::asBoolean($argv[6]);
-    if (6 < $argc) {
+    if (7 < $argc) {
         foreach (explode(';', $argv[7]) as $path) {
             ZMLoader::instance()->addPath($path);
         }

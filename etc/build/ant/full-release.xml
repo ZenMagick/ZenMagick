@@ -9,7 +9,7 @@
 
 
     <!-- build full release -->
-    <target name="full-release" depends="" description="Build full release including zen cart.">
+    <target name="full-release" depends="mod-release" description="Build full release including zen cart.">
         <mkdir dir="${release.full.dir}" />
         <!-- overwrite to get a fresh copy -->
         <copy todir="${release.full.dir}" overwrite="true">

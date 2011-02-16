@@ -180,7 +180,8 @@
             <!-- source control files -->
             <fileset dir="${build.dir}" includes="**/.svn*" />
             <fileset dir="${build.dir}" includes="**/.git*" />
-            <!-- generated files and phpdoc -->
+            <!-- generated files, phpdoc and local files -->
+            <fileset dir="${build.dir}" includes="zenmagick/global.yaml" />
             <fileset dir="${build.dir}" includes="zenmagick/core.php" />
             <fileset dir="${build.dir}" includes="zenmagick/local.php" />
             <fileset dir="${build.dir}" includes="zenmagick/lib/*.html" />
@@ -190,9 +191,21 @@
             <fileset dir="${build.dir}" includes="**/*swp" />
             <fileset dir="${build.dir}" includes="**/*.log" />
             <fileset dir="${build.dir}" includes="**/*.db" />
+            <fileset dir="${build.dir}/zenmagick/config/store">
+                <exclude name="sample-*.*" />
+            </fileset>
+            <fileset dir="${build.dir}/zenmagick/config/admin">
+                <exclude name="sample-*.*" />
+            </fileset>
+            <!-- all vendor -->
+            <fileset dir="${build.dir}/zenmagick/lib/vendor">
+                <exclude name="classloader.ini" />
+                <exclude name="*.phar" />
+            </fileset>
         </delete>
 
         <antcall target="pack-libraries" />
+        <antcall target="pack-phars" />
     </target>
 
 

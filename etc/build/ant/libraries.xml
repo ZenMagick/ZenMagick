@@ -3,7 +3,7 @@
     <!-- Libraries properties -->
     <property file="etc/build/ant/libraries.properties" />
     <!-- Default -->
-    <property name="phars.baseDir" value="${basedir}" />
+    <property name="phars.baseDir" value="${build.dir}/zenmagick" />
 
     <!-- Pack a PHP library -->
     <target name="pack-library" description="Pack a PHP library by running php etc/build/packer.php ...">
