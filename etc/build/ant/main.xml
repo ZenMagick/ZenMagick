@@ -177,6 +177,10 @@
         <copy tofile="${build.dir}/zenmagick/Readme.txt" file="etc/build/docs/Readme-mod.txt" />
         <copy tofile="${build.dir}/zenmagick/Install.txt" file="etc/build/docs/Install-mod.txt" />
 
+        <!-- build before deleting stuff -->
+        <antcall target="pack-libraries" />
+        <antcall target="pack-phars" />
+
         <!-- remove various files we do not want included -->
         <delete includeemptydirs="true">
             <!-- source control files -->
@@ -205,9 +209,6 @@
                 <exclude name="*.phar" />
             </fileset>
         </delete>
-
-        <antcall target="pack-libraries" />
-        <antcall target="pack-phars" />
     </target>
 
 
