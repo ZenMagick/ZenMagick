@@ -23,14 +23,14 @@
 	+----------------------------------------------------------------------+
 */
 
-	class SEO_URL_INSTALLER{	
+	class SEO_URL_INSTALLER{
 		var $default_config;
 		var $db;
 		var $attributes;
 
 		function SEO_URL_INSTALLER() {
 			$this->attributes = array();
-		
+
 			$x = 0;
 			$this->default_config = array();
 
@@ -141,12 +141,12 @@
 
 			$this->init();
 		}
-	
+
 /**
- * Initializer - if there are settings not defined the default config will be used and database settings installed. 
- * @author Bobby Easland 
+ * Initializer - if there are settings not defined the default config will be used and database settings installed.
+ * @author Bobby Easland
  * @version 1.1
- */	
+ */
 	function init() {
 		foreach( $this->default_config as $key => $value ){
 			$container[] = defined($key) ? 'true' : 'false';
@@ -155,14 +155,14 @@
 		switch(true){
 			case ( !$this->attributes['IS_DEFINED'] ):
 				$this->eval_defaults();
-				$sql = "SELECT configuration_key, configuration_value  
-						FROM " . TABLE_CONFIGURATION . " 
+				$sql = "SELECT configuration_key, configuration_value
+						FROM " . TABLE_CONFIGURATION . "
 						WHERE configuration_key LIKE '%SEO%'";
 				$result = ZMRuntime::getDatabase()->querySingle($sql);
 				$num_rows = count($result['rows']);
 				$this->attributes['IS_INSTALLED'] = (sizeof($container) == $num_rows) ? true : false;
 				if ( !$this->attributes['IS_INSTALLED'] ){
-					$this->install_settings(); 
+					$this->install_settings();
 				}
 				break;
 			default:
@@ -170,12 +170,12 @@
 				break;
 		} # end switch
 	} # end function
-	
+
 /**
- * This function evaluates the default serrings into defined constants 
- * @author Bobby Easland 
+ * This function evaluates the default serrings into defined constants
+ * @author Bobby Easland
  * @version 1.0
- */	
+ */
 	function eval_defaults(){
 		foreach( $this->default_config as $key => $value ){
 			define($key, $value['DEFAULT']);
@@ -184,20 +184,20 @@
 
 /**
  * This function removes the database settings (configuration and cache)
- * @author Bobby Easland 
+ * @author Bobby Easland
  * @version 1.0
- */	
+ */
 	function uninstall_settings(){
 		ZMRuntime::getDatabase()->update("DELETE FROM `".TABLE_CONFIGURATION_GROUP."` WHERE `configuration_group_title` LIKE '%SEO%'");
 		ZMRuntime::getDatabase()->update("DELETE FROM `".TABLE_CONFIGURATION."` WHERE `configuration_key` LIKE '%SEO%'");
 		ZMRuntime::getDatabase()->update("DROP TABLE IF EXISTS " . TABLE_SEO_CACHE);
 	} # end function
-	
+
 /**
  * This function installs the database settings
- * @author Bobby Easland 
+ * @author Bobby Easland
  * @version 1.0
- */	
+ */
 	function install_settings(){
 		$this->uninstall_settings();
 		$sort_order_query = "SELECT MAX(sort_order) as max_sort FROM `".TABLE_CONFIGURATION_GROUP."`";
@@ -227,8 +227,8 @@ $sql = str_replace('VALUES (\'\',', '(configuration_title, configuration_key, co
 		  KEY `cache_id` (`cache_id`),
 		  KEY `cache_language_id` (`cache_language_id`),
 		  KEY `cache_global` (`cache_global`)
-		) TYPE=MyISAM;";
+		) engine=MyISAM;";
 		ZMRuntime::getDatabase()->update($insert_cache_table);
-	} # end function	
+	} # end function
 } # end class
 ?>
