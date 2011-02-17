@@ -82,7 +82,6 @@ class ClassLoaderPharBuilder {
         // filter based on the folder list take from the classloader.ini
         $iterator = new FolderWhitelistFilterIterator($iterator, $this->getIncludes());
 
-        echo $this->getPharPath()."<BR>";
         // create phar
         $phar = new \Phar($this->getPharPath());
         $phar->buildFromIterator($iterator, $this->path);

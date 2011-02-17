@@ -51,8 +51,6 @@
             /*** security ***/
             'zenmagick.core.authentication.minPasswordLength' => ENTRY_PASSWORD_MIN_LENGTH < 6 ? 6 : ENTRY_PASSWORD_MIN_LENGTH,
 
-            'apps.store.docRoot' => DIR_FS_CATALOG,
-
             // are we in admin or storefront?
             'isAdmin' => defined('IS_ADMIN_FLAG') && IS_ADMIN_FLAG,
 

@@ -144,4 +144,13 @@ class Runtime {
         return self::singleton('zenmagick\base\plugins\Plugins');
     }
 
+    /**
+     * Get the dependency injection container.
+     *
+     * @return Symfony\Component\DependencyInjection\ContainerInterface A <code>Symfony\Component\DependencyInjection\ContainerInterface</code> instance.
+     */
+    public static function getContainer() {
+        return null;
+    }
+
 }

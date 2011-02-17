@@ -487,6 +487,21 @@ class ZMRequest extends \ZMObject {
     }
 
     /**
+     * Get the document root path.
+     *
+     * @return string The document root.
+     */
+    public function getDocRoot() {
+        if (!array_key_exists('DOCUMENT_ROOT', $_SERVER) || empty($_SERVER['DOCUMENT_ROOT'])) {
+            $docRoot = str_replace(DIRECTORY_SEPARATOR, '/', substr($_SERVER['SCRIPT_FILENAME'], 0, 0-strlen($_SERVER['PHP_SELF'])));
+        } else {
+            $docRoot = $_SERVER['DOCUMENT_ROOT'];
+        }
+
+        return $docRoot;
+    }
+
+    /**
      * Get the uri for this request.
      *
      * @return string The URI.

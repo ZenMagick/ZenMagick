@@ -1,7 +1,9 @@
 <project name="zenmagick-libraries" default="pack-libraries">
 
-    <!-- Plugins properties -->
+    <!-- Libraries properties -->
     <property file="etc/build/ant/libraries.properties" />
+    <!-- Default -->
+    <property name="phars.baseDir" value="${build.dir}/zenmagick" />
 
     <!-- Pack a PHP library -->
     <target name="pack-library" description="Pack a PHP library by running php etc/build/packer.php ...">
@@ -30,12 +32,30 @@
         </exec>
     </target>
 
-    <!-- Pack SwiftMailer -->
+    <!-- Pack all configured libraries -->
     <target name="pack-libraries" description="Pack all configured libraries.">
         <echo message="Packing libraries with baseTargetDir: ${libraries.targetBaseDir}" />
 
         <foreach list="${libraries}" target="pack-library" param="library.name">
         </foreach>
+    </target>
+
+    <!-- (Re-)generate all configured phars -->
+    <target name="pack-phars" description="Pack all configured phars.">
+        <echo message="Packing phars in baseDir: ${phars.baseDir}" />
+        <foreach list="${phars}" target="pack-phar" param="phar.location">
+        </foreach>
+    </target>
+
+    <!-- Pack a phar archive -->
+    <target name="pack-phar" description="Pack a PHP phar">
+        <echo message="Packing ${phar.location} ..." />
+
+        <exec executable="php">
+            <arg value="etc/build/phar_builder.php"/>
+            <arg value="${phar.location}"/>
+            <arg value="${phars.baseDir}"/>
+        </exec>
     </target>
 
 </project>

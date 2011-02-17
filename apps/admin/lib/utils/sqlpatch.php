@@ -97,7 +97,7 @@ if ($_GET['debug']=='ON') echo $line . '<br />';
             //check to see if table prefix is going to match
             if (!$tbl_exists = zm_zen_table_exists($param[2])) $result=sprintf(REASON_TABLE_NOT_FOUND,$param[2]).' CHECK PREFIXES!';
             // check to see if INSERT command may be safely executed for "configuration" or "product_type_layout" tables
-            if (($param[2]=='configuration'       && ($result=zm_zen_check_config_key($line))) or 
+            if (($param[2]=='configuration'       && ($result=zm_zen_check_config_key($line))) or
                 ($param[2]=='product_type_layout' && ($result=zm_zen_check_product_type_layout_key($line))) or
                 (!$tbl_exists)    ) {
               zm_zen_write_to_upgrade_exceptions_table($line, $result, $sql_file);
@@ -111,7 +111,7 @@ if ($_GET['debug']=='ON') echo $line . '<br />';
             //check to see if table prefix is going to match
             if (!$tbl_exists = zm_zen_table_exists($param[2])) $result=sprintf(REASON_TABLE_NOT_FOUND,$param[2]).' CHECK PREFIXES!';
             // check to see if INSERT command may be safely executed for "configuration" or "product_type_layout" tables
-            if (($param[2]=='configuration'       && ($result=zm_zen_check_config_key($line))) or 
+            if (($param[2]=='configuration'       && ($result=zm_zen_check_config_key($line))) or
                 ($param[2]=='product_type_layout' && ($result=zm_zen_check_product_type_layout_key($line))) or
                 (!$tbl_exists)    ) {
               zm_zen_write_to_upgrade_exceptions_table($line, $result, $sql_file);
@@ -215,7 +215,7 @@ if ($_GET['debug']=='ON') echo $line . '<br />';
               } //end foreach
               if (substr($line,-1)==',') $line = substr($line,0,(strlen($line)-1)); // remove trailing ','
             } else { //didn't have a comma, but starts with "FROM ", so insert table prefix
-              $line = str_replace('FROM ', 'FROM '.$table_prefix, $line); 
+              $line = str_replace('FROM ', 'FROM '.$table_prefix, $line);
             }//endif substr_count(,)
             break;
           default:
@@ -226,8 +226,8 @@ if ($_GET['debug']=='ON') echo $line . '<br />';
 
         if ( substr($line,-1) ==  ';') {
           //found a semicolon, so treat it as a full command, incrementing counter of rows to process at once
-          if (substr($newline,-1)==' ') $newline = substr($newline,0,(strlen($newline)-1)); 
-          $lines_to_keep_together_counter++; 
+          if (substr($newline,-1)==' ') $newline = substr($newline,0,(strlen($newline)-1));
+          $lines_to_keep_together_counter++;
           if ($lines_to_keep_together_counter == $keep_together) { // if all grouped rows have been loaded, go to execute.
             $complete_line = true;
             $lines_to_keep_together_counter=0;
@@ -279,7 +279,7 @@ if ($_GET['debug']=='ON') echo $line . '<br />';
       return true;
     } else {
       return false;
-    }   
+    }
   }
 
   function zm_zen_check_database_privs($priv='',$table='',$show_privs=false) {
@@ -292,7 +292,7 @@ if ($_GET['debug']=='ON') echo $line . '<br />';
     //Display permissions, or check for suitable permissions to carry out a particular task
       //possible outputs:
       //GRANT ALL PRIVILEGES ON *.* TO 'xyz'@'localhost' WITH GRANT OPTION
-      //GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, FILE, INDEX, ALTER ON *.* TO 'xyz'@'localhost' IDENTIFIED BY PASSWORD '2344'	
+      //GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, FILE, INDEX, ALTER ON *.* TO 'xyz'@'localhost' IDENTIFIED BY PASSWORD '2344'
       //GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, INDEX, ALTER ON `db1`.* TO 'xyz'@'localhost'
       //GRANT SELECT (id) ON db1.tablename TO 'xyz'@'localhost
     $db = get_db();
@@ -381,7 +381,7 @@ if ($_GET['debug']=='ON') echo $line . '<br />';
     }
 /*
  * @TODO: verify that individual columns exist, by parsing the index_col_name parameters list
- *        Structure is (colname(len)), 
+ *        Structure is (colname(len)),
  *                  or (colname),
  */
   }
@@ -455,8 +455,8 @@ if ($_GET['debug']=='ON') echo $line . '<br />';
             }
             $result->MoveNext();
           }
-/* 
- * @TODO -- add check for FIRST parameter, to check that the FIRST colname specified actually exists 
+/*
+ * @TODO -- add check for FIRST parameter, to check that the FIRST colname specified actually exists
  */
         }
         break;
@@ -524,9 +524,9 @@ if ($_GET['debug']=='ON') echo $line . '<br />';
         // if we get here, then the column didn't exist
         return sprintf(REASON_COLUMN_DOESNT_EXIST_TO_CHANGE,$colname);
         break;
-      default: 
+      default:
         // if we get here, then we're processing an ALTER command other than what we're checking for, so let it be processed.
-        return; 
+        return;
         break;
     } //end switch
   }
@@ -577,14 +577,14 @@ if ($_GET['debug']=='ON') echo $line . '<br />';
 
   function zm_zen_create_exceptions_table() {
     $db = get_db();
-    if (!zm_zen_table_exists(TABLE_UPGRADE_EXCEPTIONS)) {  
+    if (!zm_zen_table_exists(TABLE_UPGRADE_EXCEPTIONS)) {
       $result = $db->Execute("CREATE TABLE " . DB_PREFIX . TABLE_UPGRADE_EXCEPTIONS ." (
             upgrade_exception_id smallint(5) NOT NULL auto_increment,
             sql_file varchar(50) default NULL,
             reason varchar(200) default NULL,
             errordate datetime default '0001-01-01 00:00:00',
             sqlstatement text, PRIMARY KEY  (upgrade_exception_id)
-          ) TYPE=MyISAM   ");
+          ) engine=MyISAM   ");
     return $result;
     }
   }

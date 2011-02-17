@@ -1,3 +1,4 @@
+#!/usr/bin/env php
 <?php
 /*
  * ZenMagick - Another PHP framework.
@@ -20,34 +21,32 @@
 ?>
 <?php
 
+use zenmagick\base\utils\ClassLoaderPharBuilder;
+
+
     /**
-     * Simple command line packer script.
+     * Simple command line phar builder script.
      */
 
     $installDir = dirname(dirname(dirname(__FILE__)));
     $baseDir = $installDir;
     chdir($installDir);
     include 'bootstrap.php';
-    ZMLoader::instance()->addPath($installDir.DIRECTORY_SEPARATOR.'lib'.DIRECTORY_SEPARATOR.'build'.DIRECTORY_SEPARATOR);
 
-    if (6 > $argc) {
-        echo PHP_EOL."  usage: php packer.php [ZMLibraryPacker implementation] [source dir] [target dir] [version] [true|false] [target base directory] [classpath]".PHP_EOL;
+    if (2 > $argc) {
+        echo PHP_EOL."  usage: php phar_builder.php [path-to-classloader.ini-directory]".PHP_EOL;
         exit;
     }
 
-    $class = $argv[1];
-    $source = $argv[2];
-    $targetBaseDir = $argv[3];
-    $target = $argv[4];
-    $version = $argv[5];
-    $strip = ZMLangUtils::asBoolean($argv[6]);
-    if (7 < $argc) {
-        foreach (explode(';', $argv[7]) as $path) {
-            ZMLoader::instance()->addPath($path);
-        }
+    $pharPath = $argv[1];
+    if (2 < $argc) {
+        $baseDir = $argv[2];
     }
 
-    $packer = new $class();
-    $packer->process($source, $targetBaseDir.$target, $version, $strip);
+    $path = $baseDir.DIRECTORY_SEPARATOR.$pharPath;
+    echo 'Run builder with path: '.$path.PHP_EOL;
+    $path = realpath($path);
+    $pharBuilder = new ClassLoaderPharBuilder($path);
+    $pharBuilder->create();
 
     exit;

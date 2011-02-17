@@ -131,7 +131,9 @@
 
         <!-- copy all files that go into zen-cart directories -->
         <copy todir="${build.dir}">
-            <fileset dir="${zencart.src.dir}" />
+            <fileset dir="${zencart.src.dir}">
+              <exclude name="index_zm.php" />
+            </fileset>
         </copy>
 
         <!-- copy all ZenMagick files -->
@@ -175,12 +177,17 @@
         <copy tofile="${build.dir}/zenmagick/Readme.txt" file="etc/build/docs/Readme-mod.txt" />
         <copy tofile="${build.dir}/zenmagick/Install.txt" file="etc/build/docs/Install-mod.txt" />
 
+        <!-- build before deleting stuff -->
+        <antcall target="pack-libraries" />
+        <antcall target="pack-phars" />
+
         <!-- remove various files we do not want included -->
         <delete includeemptydirs="true">
             <!-- source control files -->
             <fileset dir="${build.dir}" includes="**/.svn*" />
             <fileset dir="${build.dir}" includes="**/.git*" />
-            <!-- generated files and phpdoc -->
+            <!-- generated files, phpdoc and local files -->
+            <fileset dir="${build.dir}" includes="zenmagick/global.yaml" />
             <fileset dir="${build.dir}" includes="zenmagick/core.php" />
             <fileset dir="${build.dir}" includes="zenmagick/local.php" />
             <fileset dir="${build.dir}" includes="zenmagick/lib/*.html" />
@@ -190,9 +197,18 @@
             <fileset dir="${build.dir}" includes="**/*swp" />
             <fileset dir="${build.dir}" includes="**/*.log" />
             <fileset dir="${build.dir}" includes="**/*.db" />
+            <fileset dir="${build.dir}/zenmagick/config/store">
+                <exclude name="sample-*.*" />
+            </fileset>
+            <fileset dir="${build.dir}/zenmagick/config/admin">
+                <exclude name="sample-*.*" />
+            </fileset>
+            <!-- all vendor -->
+            <fileset dir="${build.dir}/zenmagick/lib/vendor">
+                <exclude name="classloader.ini" />
+                <exclude name="*.phar" />
+            </fileset>
         </delete>
-
-        <antcall target="pack-libraries" />
     </target>
 
 

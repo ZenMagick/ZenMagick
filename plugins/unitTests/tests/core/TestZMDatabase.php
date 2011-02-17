@@ -61,7 +61,7 @@ class TestZMDatabase extends ZMTestCase {
      */
     public function testAutoMapping() {
         $tname = DB_PREFIX."db_test";
-        $create_table = "CREATE TABLE ".$tname." (id int(11) NOT NULL auto_increment, name varchar(32) NOT NULL, other varchar(32), PRIMARY KEY (id)) TYPE=MyISAM;";
+        $create_table = "CREATE TABLE ".$tname." (id int(11) NOT NULL auto_increment, name varchar(32) NOT NULL, other varchar(32), PRIMARY KEY (id)) engine=MyISAM;";
         $drop_table = "DROP TABLE IF EXISTS ".$tname.";";
         $expectedMapping = array(
             'id' => 'column=id;type=integer;key=true;auto=true',
@@ -191,7 +191,7 @@ class TestZMDatabase extends ZMTestCase {
      */
     public function testExceptions() {
         $tname = DB_PREFIX."db_test";
-        $create_table = "CREATE TABLE ".$tname." (id int(11) NOT NULL auto_increment, name varchar(32) NOT NULL, other varchar(32), PRIMARY KEY (id)) TYPE=MyISAM;";
+        $create_table = "CREATE TABLE ".$tname." (id int(11) NOT NULL auto_increment, name varchar(32) NOT NULL, other varchar(32), PRIMARY KEY (id)) engine=MyISAM;";
         $drop_table = "DROP TABLE IF EXISTS ".$tname.";";
         $insert = "INSERT INTO ".$tname." SET name = :name;";
 
@@ -217,7 +217,7 @@ class TestZMDatabase extends ZMTestCase {
      */
     public function testExceptionsPrefix() {
         $tname = DB_PREFIX."db_test";
-        $create_table = "CREATE TABLE ".$tname." (id int(11) NOT NULL auto_increment, name varchar(32) NOT NULL, other varchar(32), PRIMARY KEY (id)) TYPE=MyISAM;";
+        $create_table = "CREATE TABLE ".$tname." (id int(11) NOT NULL auto_increment, name varchar(32) NOT NULL, other varchar(32), PRIMARY KEY (id)) engine=MyISAM;";
         $drop_table = "DROP TABLE IF EXISTS ".$tname.";";
         $insert = "INSERT INTO ".$tname." SET name = :name;";
 

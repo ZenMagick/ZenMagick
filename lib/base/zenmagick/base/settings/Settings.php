@@ -42,7 +42,7 @@ class Settings {
      */
     private function lookup($path) {
         $current = &$this->settings_;
-        foreach (explode('.', $path) as $element) {
+        foreach (Toolbox::mexplode('./', $path) as $element) {
             if (empty($element)) {
                 throw new \RuntimeException(sprintf('invalid path: %s', $path));
             }
@@ -95,7 +95,7 @@ class Settings {
 
         // create path
         $current = &$this->settings_;
-        foreach (explode('.', $path) as $element) {
+        foreach (Toolbox::mexplode('./', $path) as $element) {
             if (empty($element)) {
                 throw new \RuntimeException(sprintf('invalid path: %s', $path));
             }

@@ -99,6 +99,26 @@ class ZMSavant extends Savant3 {
     }
 
     /**
+     * Convert a full fs path to uri.
+     *
+     * @param string filename The full filename.
+     * @return string The uri or <code>null</code> if the filename is invalid.
+     */
+    public function file2uri($filename) {
+        $filename = realpath($filename);
+        $docRoot = realpath($this->request->getDocRoot());
+        if (empty($filename) || empty($docRoot)) {
+            return null;
+        }
+        if (0 !== strpos($filename, $docRoot)) {
+            // outside docroot
+            return null;
+        }
+
+        return str_replace(DIRECTORY_SEPARATOR, '/', substr($filename, strlen($docRoot)));
+    }
+
+    /**
      * Resolve the given (relative) templates filename into a url.
      *
      * @param string filename The filename, relative to the template path.
@@ -108,25 +128,9 @@ class ZMSavant extends Savant3 {
      */
     public function asUrl($filename, $type=ZMView::TEMPLATE) {
         if (null != ($path = $this->findFile($type, $filename))) {
-            $basePath = ZMView::TEMPLATE == $type ? $this->request->getTemplatePath() : $this->request->getWebPath();
-            $relpath = str_replace($basePath, '', $path);
-            if ($relpath == $path) {
-                //TODO: assumes certain relative folders
-                // plugin referenced from apps/xxx/web
-                $pluginBasePath = ZMRuntime::getPluginBasePath();
-                $basePath = dirname(dirname($pluginBasePath[0])).DIRECTORY_SEPARATOR;
-                $relpath = str_replace($basePath, '', $path);
-                if ($relpath != $path) {
-                    $contextBase = preg_replace('#(.*)/zenmagick/.*#', '$1/', $this->request->getContext());
-                    $relpath = $contextBase . $relpath;
-                }
-            }
-            if ($relpath != $path) {
-                // only if matched and replaced...
-                // now convert to URL...
-                $relpath = str_replace('\\', '/', $relpath);
-                $url = $this->request->absoluteURL($relpath);
-                ZMLogging::instance()->log('resolve filename '.$filename.' (type='.$type.') as url: '.$url.'; relpath='.$relpath, ZMLogging::TRACE);
+            if (null != ($uri= $this->file2uri($path))) {
+                $url = $this->request->absoluteURL($uri);
+                ZMLogging::instance()->log('resolve filename '.$filename.' (type='.$type.') as url: '.$url.'; path='.$path, ZMLogging::TRACE);
                 return $url;
             }
         }
@@ -244,14 +248,14 @@ class ZMSavant extends Savant3 {
         case ZMView::RESOURCE:
             $dirs = $this->view->getResourcePath($this->request);
             break;
-        default: 
+        default:
             $dirs = array();
             break;
         }
 
         // iterate in ascending priority, so the more important win
         $files = array();
-        foreach ($dirs as $base) { 
+        foreach ($dirs as $base) {
             $dir = $base.$path;
             if (file_exists($dir) && is_dir($dir)) {
                 $it = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($dir));

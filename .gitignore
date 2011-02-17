@@ -5,3 +5,5 @@ local.properties
 local.xml
 local.php
 global.yaml
+/config/admin/config_*.yaml
+/config/store/config_*.yaml

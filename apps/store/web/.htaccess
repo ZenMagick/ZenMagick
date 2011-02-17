@@ -2,6 +2,7 @@
 ## Apache httpd access control
 ##
 
+
 ## Allow GET for all
 #<LimitExcept GET>
 #  order allow,deny
@@ -23,16 +24,16 @@
 # BEGIN real-path seo rewrite
 <IfModule mod_rewrite.c>
 RewriteEngine on
-  ## adjust
-  #RewriteBase /zenmagick/apps/admin/sample
+## adjust
+#RewriteBase /zenmagick/apps/admin/web
 
-  ## allow environment front controller
-  RewriteCond %{REQUEST_FILENAME} !-f
-  RewriteRule index_(.*)\.php index_xxx.php?ZM_ENVIRONMENT=$1 [QSA,L]
+## allow environment front controller
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule index_(.*)\.php index_xxx.php?ZM_ENVIRONMENT=$1 [QSA,L]
 
-  #catch all for non existing files
-  RewriteCond %{REQUEST_FILENAME} !-f
-  RewriteCond %{REQUEST_FILENAME} !-d
-  RewriteRule . index.php [L]
+#catch all for non existing files
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . index.php [L]
 </IfModule>
 # END real-path seo rewrite

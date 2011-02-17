@@ -236,6 +236,15 @@ abstract class ZMView extends ZMObject {
     public abstract function path($request, $filename, $type=ZMView::TEMPLATE);
 
     /**
+     * Convert a full file system path to uri.
+     *
+     * @param request The current request.
+     * @param string filename The full filename.
+     * @return string The uri or <code>null</code> if the filename is invalid.
+     */
+    public abstract function file2uri($request, $filename);
+
+    /**
      * Get view utils.
      *
      * @return ZMViewUtils An instance of <code>ZMViewUtils</code> or <code>null</code>.

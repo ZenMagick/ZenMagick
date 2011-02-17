@@ -21,30 +21,23 @@
 <?php
 
   // app location relative to zenmagick installation (ZM_BASE_PATH)
-  define('ZM_APP_PATH', 'apps'.DIRECTORY_SEPARATOR.basename(dirname(dirname(__FILE__))).DIRECTORY_SEPARATOR);
+  define('ZM_APP_PATH', 'apps'.DIRECTORY_SEPARATOR.'store'.DIRECTORY_SEPARATOR);
 
   // additional libraries
   define('ZM_LIBS', 'lib/http,shared');
 
   // pre-load a couple zen-cart files needed
-  define('ZC_INSTALL_PATH', dirname(dirname(dirname(dirname(dirname(__FILE__))))).DIRECTORY_SEPARATOR);
+  define('ZC_INSTALL_PATH', dirname(__FILE__).DIRECTORY_SEPARATOR);
   // make zen-cart happy
-  define('IS_ADMIN_FLAG', true);
+  define('IS_ADMIN_FLAG', false);
 
-  // name of Zen Cart admin folder
-  if (!defined('ZC_ADMIN_FOLDER')) {
-     define('ZC_ADMIN_FOLDER', 'admin');
-  }
-
-  require_once ZC_INSTALL_PATH.ZC_ADMIN_FOLDER.'/includes/configure.php';
+  require_once ZC_INSTALL_PATH.'/includes/configure.php';
   require_once DIR_FS_CATALOG.DIR_WS_INCLUDES.'filenames.php';
   require_once DIR_FS_CATALOG.DIR_WS_INCLUDES.'database_tables.php';
 
-  require '../../../bootstrap.php';
+  require 'zenmagick/bootstrap.php';
 
   // more zen-cart config stuff we need
-  ZMSettings::set('zenmagick.mvc.request.secure', 'true' == ENABLE_SSL_ADMIN);
-  ZMSettings::set('apps.store.baseUrl', HTTP_CATALOG_SERVER . DIR_WS_CATALOG);
-  ZMSettings::set('apps.store.oldAdminUrl', HTTP_SERVER . DIR_WS_ADMIN.'index.php');
+  ZMSettings::set('zenmagick.mvc.request.secure', 'true' == ENABLE_SSL);
 
-  require '../../../mvc.php';
+  require 'zenmagick/mvc.php';
