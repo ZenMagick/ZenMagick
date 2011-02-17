@@ -21,6 +21,7 @@
 <?php
 
 use zenmagick\base\settings\Settings;
+use zenmagick\base\Toolbox;
 
 /**
  * Test settings
@@ -157,6 +158,35 @@ class TestSettings extends ZMTestCase {
         $oldValue = $settings->set($key, $newValue);
         $this->assertEqual($value, $oldValue);
         $this->assertEqual($newValue, $settings->get($key));
+    }
+
+    /**
+     * Test slash.
+     */
+    public function testSlash() {
+        $settings = new Settings();
+        $skey = 'a/b/n@@';
+        $dkey = 'a.b.n@@';
+        $value = 'doh';
+        $newValue = 'deng';
+
+        $settings->set($dkey, $value);
+        $this->assertEqual($value, $settings->get($dkey));
+        $this->assertEqual($value, $settings->get($skey));
+        $oldValue = $settings->set($skey, $newValue);
+        $this->assertEqual($value, $oldValue);
+        $this->assertEqual($newValue, $settings->get($dkey));
+        $this->assertEqual($newValue, $settings->get($skey));
+    }
+
+    /**
+     * Test strtok.
+     * TODO: move into toolbox test
+     */
+    public function testStrtok() {
+        $path = 'a.b.c.d.e';
+        $explodeElements = explode('.', $path);
+        $this->assertEqual($explodeElements, Toolbox::mexplode('./', $path));
     }
 
 }
