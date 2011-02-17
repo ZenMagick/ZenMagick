@@ -110,7 +110,12 @@ class ZMSavant extends Savant3 {
         if (empty($filename) || empty($docRoot)) {
             return null;
         }
-        return str_replace(array($docRoot, DIRECTORY_SEPARATOR), array('', '/'), $filename);
+        if (0 !== strpos($filename, $docRoot)) {
+            // outside docroot
+            return null;
+        }
+
+        return str_replace(DIRECTORY_SEPARATOR, '/', substr($filename, strlen($docRoot)));
     }
 
     /**
