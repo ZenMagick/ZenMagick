@@ -131,7 +131,9 @@
 
         <!-- copy all files that go into zen-cart directories -->
         <copy todir="${build.dir}">
-            <fileset dir="${zencart.src.dir}" />
+            <fileset dir="${zencart.src.dir}">
+              <exclude name="index_zm.php" />
+            </fileset>
         </copy>
 
         <!-- copy all ZenMagick files -->
