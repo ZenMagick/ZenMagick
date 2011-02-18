@@ -55,6 +55,11 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
         $dbalConfig->setSQLLogger(new Doctrine\DBAL\Logging\DebugStack);
         $this->dbalConfig_ = $dbalConfig;
 
+        if (!Doctrine\DBAL\Types\Type::hasType('blob')) {
+            Doctrine\DBAL\Types\Type::addType('blob', '\zenmagick\base\database\doctrine\types\Blob');
+            Doctrine\DBAL\Types\Type::addType('mediumblob', '\zenmagick\base\database\doctrine\types\MediumBlob');
+        }
+
         $this->ensureResource($conf);
     }
 
@@ -114,11 +119,13 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
 
             $pdo->setNestTransactionsWithSavepoints($this->isNestedTransactions());
 
-            // work around zencart's usage of blob and zenmagick's enum
-            // @todo use a blob type, remove enum usage
-            $pdo->getDatabasePlatform()->registerDoctrineTypeMapping('blob', 'text');
-            $pdo->getDatabasePlatform()->registerDoctrineTypeMapping('mediumblob', 'text');
+            // @todo can we set these up earlier?
+            $pdo->getDatabasePlatform()->registerDoctrineTypeMapping('blob', 'blob');
+            $pdo->getDatabasePlatform()->registerDoctrineTypeMapping('mediumblob', 'mediumblob');
+            // @todo enum: remove or add doctrine mapping type
             $pdo->getDatabasePlatform()->registerDoctrineTypeMapping('enum', 'string');
+            // alias boolean to boolean so ZMDbTableMapper maps continue to work
+            $pdo->getDatabasePlatform()->registerDoctrineTypeMapping('boolean', 'boolean');
 
             if (null !== $conf['initQuery']) {
                 try {
