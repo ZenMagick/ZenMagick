@@ -13,11 +13,10 @@ require_once ZC_INSTALL_PATH . 'includes/database_tables.php';
 
 include 'bootstrap.php';
 
-$dbal = ZMRuntime::getDatabase()->getResource();
 $helpers = array(
-    'db' => new Doctrine\DBAL\Tools\Console\Helper\ConnectionHelper($dbal),
+    'db' => new Doctrine\DBAL\Tools\Console\Helper\ConnectionHelper(ZMRuntime::getDatabase()->getResource()),
     'dialog' => new Symfony\Component\Console\Helper\DialogHelper(),
-    //'em' => new \Doctrine\ORM\Tools\Console\Helper\EntityManagerHelper($em)
+    'em' => new \Doctrine\ORM\Tools\Console\Helper\EntityManagerHelper(ZMRuntime::getEntityManager())
 );
 $cli = new Symfony\Component\Console\Application('Doctrine Command Line Interface', Doctrine\Common\Version::VERSION);
 $cli->setCatchExceptions(true);
@@ -37,7 +36,7 @@ $cli->addCommands(array(
     new Doctrine\DBAL\Migrations\Tools\Console\Command\StatusCommand(),
     new Doctrine\DBAL\Migrations\Tools\Console\Command\VersionCommand(),
     // ORM Commands
-    /*new \Doctrine\ORM\Tools\Console\Command\ClearCache\MetadataCommand(),
+    new \Doctrine\ORM\Tools\Console\Command\ClearCache\MetadataCommand(),
     new \Doctrine\ORM\Tools\Console\Command\ClearCache\ResultCommand(),
     new \Doctrine\ORM\Tools\Console\Command\ClearCache\QueryCommand(),
     new \Doctrine\ORM\Tools\Console\Command\SchemaTool\CreateCommand(),
@@ -49,7 +48,7 @@ $cli->addCommands(array(
     new \Doctrine\ORM\Tools\Console\Command\GenerateProxiesCommand(),
     new \Doctrine\ORM\Tools\Console\Command\ConvertMappingCommand(),
     new \Doctrine\ORM\Tools\Console\Command\RunDqlCommand(),
-    new \Doctrine\ORM\Tools\Console\Command\ValidateSchemaCommand(),*/
+    new \Doctrine\ORM\Tools\Console\Command\ValidateSchemaCommand(),
 
 ));
 $cli->run();
