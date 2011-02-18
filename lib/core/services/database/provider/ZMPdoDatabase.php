@@ -43,7 +43,7 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
      */
     function __construct($conf) {
         parent::__construct();
-        $this->config_ = $conf;
+        $this->config_ = $this->resolveConf($conf);
         $this->mapper_ = ZMDbTableMapper::instance();
         $this->ensureResource($conf);
     }
@@ -56,6 +56,38 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
         $this->pdo_ = null;
     }
 
+    /**
+     *  Fix up db parameters that come in a variety of formats across the codebase
+     *
+     *  @todo remove?
+     *  @todo where should these db parameters be validated/munged?
+     *  @param $conf mixed
+     */
+    public function resolveConf($conf = null) {
+        // @todo get defaults here? or elsewhere?
+        $rename = array('database' => 'dbname', 'username' => 'user', 'socket' => 'unix_socket');
+        foreach ($rename as $old => $new) {
+            if (array_key_exists($old, $conf) && !empty($conf[$old])) {
+                $conf[$new] = $conf[$old];
+                unset($conf[$old]);
+            }
+        }
+        if (isset($conf['driver']) && (false !== strpos('pdo_', $conf['driver']))) {
+            $conf['driver'] = 'pdo_' . str_replace('mysqli', 'mysql', $conf['driver']);
+        }
+        if (false !== ($colon = strpos($conf['host'], ':'))) {
+            $conf['port'] = substr($conf['host'], $colon+1);
+            $conf['host'] = substr($conf['host'], 0, $colon);
+        }
+        if (!isset($conf['host']) || empty($conf['host'])) $conf['host'] = 'localhost';
+
+        if (!isset($conf['prefix']) || is_null($conf['prefix'])) $conf['prefix'] = '';
+
+        if (isset($conf['persistent']) && $conf['persistent']) {
+            $conf['driverOptions'][PDO::ATTR_PERSISTENT] = true;
+        }
+        return $conf;
+    }
 
     /**
      * Create native resource.
@@ -64,20 +96,8 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
      */
     protected function ensureResource($conf=null) {
         if (null == $this->pdo_){
-            $conf = null !== $conf ? $conf : $this->config_;
+            $conf = null !== $conf ? $this->resolveConf($conf) : $this->config_;
 
-            if (false !== ($colon = strpos($conf['host'], ':'))) {
-                $conf['port'] = substr($conf['host'], $colon+1);
-                $conf['host'] = substr($conf['host'], 0, $colon);
-            }
-
-            if (!isset($conf['prefix'])) {
-                $conf['prefix'] = '';
-            }
-
-            if (isset($conf['persistent']) && $conf['persistent']) {
-                $conf['driverOptions'][PDO::ATTR_PERSISTENT] = true;
-            }
             $pdo = Doctrine\DBAL\DriverManager::getConnection($conf);
 
             // @todo don't tie logging to the pageStats plugin
