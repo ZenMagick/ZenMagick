@@ -33,6 +33,7 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
     protected $config_;
     protected $mapper_;
     protected static $SAVEPOINT_DRIVER = array('pdo_pgsql', 'pdo_mysql');
+    protected $evm_;
 
     /**
      * Create a new instance.
@@ -45,6 +46,8 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
         parent::__construct();
         $this->config_ = $this->resolveConf($conf);
         $this->mapper_ = ZMDbTableMapper::instance();
+        $this->evm_ = new Doctrine\Common\EventManager();
+
         $this->ensureResource($conf);
     }
 
@@ -98,7 +101,9 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
         if (null == $this->pdo_){
             $conf = null !== $conf ? $this->resolveConf($conf) : $this->config_;
 
-            $pdo = Doctrine\DBAL\DriverManager::getConnection($conf);
+            $pdo = Doctrine\DBAL\DriverManager::getConnection($conf, null, $this->evm_);
+            // @todo charset and collation (note that this is db specific)
+            //$this->evm_->addEventSubscriber(new MysqlSessionInit('UTF8', 'collation?'));
 
             // @todo don't tie logging to the pageStats plugin
             $pdo->getConfiguration()->setSQLLogger(new Doctrine\DBAL\Logging\DebugStack);
