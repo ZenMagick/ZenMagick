@@ -28,7 +28,7 @@ use Doctrine\DBAL\Platforms\AbstractPlatform;
  * @todo do we want explicit base64ing here?
  * @author Roman Sklenar
  */
-class Blob extends Doctrine\DBAL\Types\Type
+class Blob extends \Doctrine\DBAL\Types\Type
 {
     const BLOB = 'blob';
 
