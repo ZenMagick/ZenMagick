@@ -35,6 +35,8 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
     protected static $SAVEPOINT_DRIVER = array('pdo_pgsql', 'pdo_mysql');
     protected $evm_;
     protected $dbalConfig_;
+    protected $ormConfig_;
+    protected $em_;
 
     /**
      * Create a new instance.
@@ -137,6 +139,59 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
             $this->pdo_ = $pdo;
             $this->config_ = $conf;
         }
+    }
+ 
+    /**
+     *  Initialize the entity manager
+     *
+     *  @todo where should it really go
+     *  @todo probably could be shortened
+     *  @todo rewrite it!
+     *  @param mixed $conf
+     */
+    public function initEntityManager($conf = array()) {
+
+        $config = new Doctrine\ORM\Configuration();
+
+        $config->setProxyDir(ZMSettings::get('zenmagick.core.cache.provider.file.baseDir') . $conf['proxy_dir']);
+        $config->setProxyNamespace($conf['proxy_namespace']);
+        $config->setAutoGenerateProxyClasses($conf['auto_generate_proxy_classes']);
+
+        $config->setQueryCacheImpl(new $conf['query_cache_driver']);
+        $config->setResultCacheImpl(new $conf['result_cache_driver']);
+        $config->setMetadataCacheImpl(new $conf['metadata_cache_driver']);
+
+        $chainDriverImpl = new \Doctrine\ORM\Mapping\Driver\DriverChain();
+
+        $mapping = $conf['mappings']['zenmagick'];
+        foreach ((array)$mapping['dirs'] as $dir) {
+            $paths[] = ZMRuntime::getInstallationPath() . 'shared/model/' . $dir;
+        }
+        $driverImpl = $config->newDefaultAnnotationDriver($paths);
+        $chainDriverImpl->addDriver($driverImpl, $mapping['prefix']);
+        $config->setMetadataDriverImpl($chainDriverImpl);
+
+        $this->ormConfig_ = $config;
+
+        // Table Prefix
+        $tablePrefix = new zenmagick\base\database\doctrine\TablePrefix($this->config_['prefix']);
+        $this->evm_->addEventListener(Doctrine\ORM\Events::loadClassMetadata, $tablePrefix);
+    }
+
+    /**
+     * Get an entity manager instance
+     *
+     * @param mixed $conf
+     * @todo this is very niave, we can do better
+     */
+    public function getEntityManager($conf=null) {
+        if (is_null($this->ormConfig_)) {
+            $this->initEntityManager($conf);
+        }
+        if (is_null($this->em_)) {
+            $this->em_ = Doctrine\ORM\EntityManager::create($this->pdo_, $this->ormConfig_, $this->evm_);
+        }
+        return $this->em_;
     }
 
     /**

@@ -34,6 +34,7 @@ use zenmagick\base\Runtime;
 class ZMRuntime {
     private static $singletons_ = array();
     private static $databaseMap_ = array();
+    private static $entityManagerMap_ = array();
     private static $context_ = null;
     private static $yaml_ = null;
 
@@ -109,6 +110,27 @@ class ZMRuntime {
      */
     public static function getDatabases() {
         return self::$databaseMap_;
+    }
+
+    /**
+     * Get a specific entity manager by configuration name
+     *
+     * @todo really only supports one entity manager
+     * @return array List of <code>Doctrine\ORM\EntityManager</code> instances.
+     */
+    public static function getEntityManager($conf='default') {
+        $dbal = current(self::$databaseMap_);
+        self::$entityManagerMap_[$conf] = $dbal->getEntityManager(ZMLangUtils::toArray(ZMSettings::get('doctrine.orm')));
+        return self::$entityManagerMap_[$conf];
+    }
+
+    /**
+     * Get a list of all used entity managers
+     *
+     * @return array List of <code>Doctrine\ORM\EntityManager</code> instances.
+     */
+    public static function getEntityManagers() {
+        return self::$entityManagerMap_;
     }
 
     /**
