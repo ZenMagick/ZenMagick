@@ -34,6 +34,7 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
     protected $mapper_;
     protected static $SAVEPOINT_DRIVER = array('pdo_pgsql', 'pdo_mysql');
     protected $evm_;
+    protected $dbalConfig_;
 
     /**
      * Create a new instance.
@@ -47,6 +48,12 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
         $this->config_ = $this->resolveConf($conf);
         $this->mapper_ = ZMDbTableMapper::instance();
         $this->evm_ = new Doctrine\Common\EventManager();
+
+        // @todo don't tie logging to the pageStats plugin
+        // @todo look at doctrine.dbal.logging (boolean) and doctrine.dbal.logger_class
+        $dbalConfig = new Doctrine\DBAL\Configuration;
+        $dbalConfig->setSQLLogger(new Doctrine\DBAL\Logging\DebugStack);
+        $this->dbalConfig_ = $dbalConfig;
 
         $this->ensureResource($conf);
     }
@@ -101,12 +108,10 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
         if (null == $this->pdo_){
             $conf = null !== $conf ? $this->resolveConf($conf) : $this->config_;
 
-            $pdo = Doctrine\DBAL\DriverManager::getConnection($conf, null, $this->evm_);
+            $pdo = Doctrine\DBAL\DriverManager::getConnection($conf, $this->dbalConfig_, $this->evm_);
             // @todo charset and collation (note that this is db specific)
             //$this->evm_->addEventSubscriber(new MysqlSessionInit('UTF8', 'collation?'));
 
-            // @todo don't tie logging to the pageStats plugin
-            $pdo->getConfiguration()->setSQLLogger(new Doctrine\DBAL\Logging\DebugStack);
             $pdo->setNestTransactionsWithSavepoints($this->isNestedTransactions());
 
             // work around zencart's usage of blob and zenmagick's enum
