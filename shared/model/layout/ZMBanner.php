@@ -29,29 +29,114 @@
  *
  * @author DerManoMann
  * @package zenmagick.store.shared.model.layout
+ * @Table(name="banners")
+ * @Entity
  */
 class ZMBanner extends ZMObject {
-    private $id_;
-    private $title_;
-    private $image_;
-    private $text_;
-    private $isNewWin_;
-    private $url_;
-    private $active_;
+    /**
+     * @var integer $id
+     *
+     * @Column(name="banners_id", type="integer", nullable=false)
+     * @Id
+     * @GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+    /**
+     * @var string $title
+     *
+     * @Column(name="banners_title", type="string", length=64, nullable=false)
+     */
+    private $title;
+    /**
+     * @var string $image
+     *
+     * @Column(name="banners_image", type="string", length=64, nullable=false)
+     */
+    private $image;
+    /**
+     * @var text $text
+     *
+     * @Column(name="banners_html_text", type="text", nullable=true)
+     */
+    private $text;
+    /**
+     * @var integer $isNewWin
+     *
+     * @Column(name="banners_open_new_windows", type="integer", nullable=false)
+     */
+    private $isNewWin;
+    /**
+     * @var string $url
+     *
+     * @Column(name="banners_url", type="string", length=255, nullable=false)
+     */
+    private $url;
+    /**
+     * @var integer $active
+     *
+     * @Column(name="status", type="integer", nullable=false)
+     */
+    private $active;
+    /**
+     * @var string $group
+     *
+     * @Column(name="banners_group", type="string", length=15, nullable=false)
+     */
+    private $group;
+    /**
+     * @var integer $expiresImpressions
+     *
+     * @Column(name="expires_impressions", type="integer", nullable=true)
+     */
+    private $expiresImpressions;
+    /**
+     * @var datetime $expiresDate
+     *
+     * @Column(name="expires_date", type="datetime", nullable=true)
+     */
+    private $expiresDate;
+    /**
+     * @var datetime $dateScheduled
+     *
+     * @Column(name="date_scheduled", type="datetime", nullable=true)
+     */
+    private $dateScheduled;
+    /**
+     * @var datetime $dateAdded
+     *
+     * @Column(name="date_added", type="datetime", nullable=false)
+     */
+    private $dateAdded;
+    /**
+     * @var datetime $lastModified
+     *
+     * @Column(name="date_status_change", type="datetime", nullable=true)
+     */
+    private $lastModified;
+    /**
+     * @var integer $isShowOnSsl
+     *
+     * @Column(name="banners_on_ssl", type="integer", nullable=false)
+     */
+    private $isShowOnSsl;
 
-
+    /**
+     * @var integer $sortOrder
+     *
+     * @Column(name="banners_sort_order", type="integer", nullable=false)
+     */
+    private $sortOrder;
     /**
      * Create new instance.
      */
     function __construct() {
         parent::__construct();
-        $this->id_ = 0;
-        $this->title_ = null;
-        $this->image_ = null;
-        $this->text_ = null;
-        $this->isNewWin_ = false;
-        $this->url_ = null;
-        $this->active_ = true;
+        $this->title = null;
+        $this->image = null;
+        $this->text = null;
+        $this->isNewWin = false;
+        $this->url = null;
+        $this->active = true;
         $this->setDateAdded(null);
         $this->setLastModified(null);
     }
@@ -67,99 +152,212 @@ class ZMBanner extends ZMObject {
     /**
      * Get the banner id.
      *
-     * @return int The banner id.
+     * @return int $id The banner id.
      */
-    public function getId() { return $this->id_; }
+    public function getId() { return $this->id; }
 
     /**
      * Get the banner title.
      *
-     * @return string The banner title.
+     * @return string $title The banner title.
      */
-    public function getTitle() { return $this->title_; }
+    public function getTitle() { return $this->title; }
 
     /**
      * Get the banner image.
      *
-     * @return string The banner image.
+     * @return string $image The banner image.
      */
-    public function getImage() { return $this->image_; }
+    public function getImage() { return $this->image; }
 
     /**
      * Get the banner text.
      *
-     * @return string The banner text.
+     * @return text $text The banner text.
      */
-    public function getText() { return $this->text_; }
+    public function getText() { return $this->text; }
 
     /**
      * Check if the banner click should open a new window.
      *
-     * @return boolean <code>true</code> if the banner URL should be opened in a new window, <code>false</code> if not.
+     * @return boolean $isNewWin <code>true</code> if the banner URL should be opened in a new window, <code>false</code> if not.
      */
-    public function isNewWin() { return $this->isNewWin_; }
+    public function isNewWin() { return $this->isNewWin; }
 
     /**
      * Check if the banner is active.
      *
-     * @return boolean <code>true</code> if the banner is active.
+     * @return boolean $status <code>true</code> if the banner is active.
      */
-    public function isActive() { return $this->active_; }
+    public function isActive() { return $this->active; }
 
     /**
      * Get the banner URL.
      *
-     * @return string The banner URL.
+     * @return string $url The banner URL.
      */
-    public function getUrl() { return $this->url_; }
+    public function getUrl() { return $this->url; }
 
     /**
-     * Set the banner id.
+     * Get bannersGroup
      *
-     * @param int id The banner id.
+     * @return string $bannersGroup
      */
-    public function setId($id) { $this->id_ = $id; }
+    public function getGroup() { return $this->group; }
 
+   /**
+     * Get expiresImpressions
+     *
+     * @return integer $expiresImpressions
+     */
+    public function getExpiresImpressions() { return $this->expiresImpressions; }
+
+    /**
+     * Get expiresDate
+     *
+     * @return datetime $expiresDate
+     */
+    public function getExpiresDate() { return $this->expiresDate; }
+
+    /**
+     * Get dateScheduled
+     *
+     * @return datetime $dateScheduled
+     */
+    public function getDateScheduled() { return $this->dateScheduled; }
+
+    /**
+     * Get dateAdded
+     *
+     * @return datetime $dateAdded
+     */
+    public function getDateAdded() { return $this->dateAdded; }
+
+    /**
+     * Get dateStatusChange
+     *
+     * @return datetime $dateStatusChange
+     */
+    public function getDateStatusChange() { return $this->dateStatusChange; }
+
+    /**
+     * Get sortOrder
+     *
+     * @return integer $sortOrder
+     */
+    public function getSortOrder() { return $this->sortOrder; }
+
+    /**
+     * Show banner on SSLed connection
+     *
+     * @return integer $isShowOnSsl
+     */
+    public function isShowOnSsl() { return $this->isShowOnSsl; }
+
+    /**
+     * Set the id.
+     *
+     * @param string $id The id.
+     */
+    public function setId($id) { $this->id = $id; }
+    
     /**
      * Set the banner title.
      *
-     * @param string title The banner title.
+     * @param string $title The banner title.
      */
-    public function setTitle($title) { $this->title_ = $title; }
+    public function setTitle($title) { $this->title = $title; }
 
     /**
      * Set the banner image.
      *
-     * @param string image The banner image.
+     * @param string $image The banner image.
      */
-    public function setImage($image) { $this->image_ = $image; }
+    public function setImage($image) { $this->image = $image; }
 
     /**
      * Set the banner text.
      *
-     * @param string text The banner text.
+     * @param string $text The banner text.
      */
-    public function setText($text) { $this->text_ = $text; }
+    public function setText($text) { $this->text = $text; }
 
     /**
      * Set if the banner click should open a new window.
      *
-     * @param boolean newWin <code>true</code> if the banner URL should be opened in a new window, <code>false</code> if not.
+     * @param boolean $newWin <code>true</code> if the banner URL should be opened in a new window, <code>false</code> if not.
      */
-    public function setNewWin($newWin) { $this->isNewWin_ = $newWin; }
+    public function setNewWin($newWin) { $this->isNewWin = $newWin; }
 
     /**
      * Set the banner URL.
      *
-     * @param string url The banner URL.
+     * @param string $url The banner URL.
      */
-    public function setUrl($url) { $this->url_ = $url; }
+    public function setUrl($url) { $this->url = $url; }
 
     /**
      * Set the banner status.
      *
-     * @param boolean status The banner status.
+     * @param boolean $status The banner status.
      */
-    public function setActive($status) { $this->active_ = $status; }
+    public function setActive($status) { $this->active = $status; }
 
+    /**
+     * Set Group
+     *
+     * @param string $group
+     */
+    public function setGroup($group) { $this->group = $group; }
+
+
+    /**
+     * Set expiresImpressions
+     *
+     * @author  DerManoMann
+     * @param integer $expiresImpressions
+     */
+    public function setExpiresImpressions($expiresImpressions) { $this->expiresImpressions = $expiresImpressions; }
+
+    /**
+     * Set expiresDate
+     *
+     * @param datetime $expiresDate
+     */
+    public function setExpiresDate($expiresDate) { $this->expiresDate = $expiresDate; }
+
+    /**
+     * Set dateScheduled
+     *
+     * @param datetime $dateScheduled
+     */
+    public function setDateScheduled($dateScheduled) { $this->dateScheduled = $dateScheduled; }
+
+    /**
+     * Set dateAdded
+     *
+     * @param datetime $dateAdded
+     */
+    public function setDateAdded($dateAdded) { $this->dateAdded = $dateAdded; }
+
+    /**
+     * Set dateStatusChange
+     *
+     * @param datetime $dateStatusChange
+     */
+    public function setDateStatusChange($dateStatusChange) { $this->dateStatusChange = $dateStatusChange; }
+
+    /**
+     * Set showOnSsl
+     *
+     * @param integer $showOnSsl
+     */
+    public function setShowOnSsl($isShowOnSsl) { $this->isShowOnSsl = $isShowOnSsl; }
+
+    /**
+     * Set sortOrder
+     *
+     * @param integer $sortOrder
+     */
+    public function setBannersSortOrder($sortOrder) { $this->sortOrder = $sortOrder; }
 }
