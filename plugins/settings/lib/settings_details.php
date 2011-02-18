@@ -415,6 +415,67 @@
                         'desc' => 'Name of the default text editor widget.'
                     )
                 )
+            ),
+            'doctrine' => array(
+                'dbal' => array(
+                    array(
+                        'key' => 'logging',
+                        'type' => 'boolean',
+                        'desc' => 'Enable SQL query logging. (required by pageStats plugin)'
+                    ),
+                    array(
+                        'key' => 'logger_class',
+                        'type' => 'string',
+                        'desc' => 'SQL query logging handler.'
+                    ),
+                    array(
+                        'key' => 'connections.default',
+                        'type' => 'array',
+                        'desc' => 'Default connection settings.'
+                    ),
+                    array( // @todo how does this work?
+                        'key' => 'connections.@name@',
+                        'type' => 'dynamic:name:string',
+                        'desc' => 'Connection settings for symbolic name "@name@".'
+                    ),
+                ),
+                'orm' => array(
+                    array(
+                        'key' => 'auto_generate_proxy_classes',
+                        'type' => 'boolean',
+                        'desc' => 'Enable/disable generation of proxy classes for the ORM.'
+                    ),
+                    array(
+                        'key' => 'proxy_dir',
+                        'type' => 'string',
+                        'desc' => 'Directory used to store generated ORM proxy classes. (relative to the file cache)'
+                    ),
+                    array(
+                        'key' => 'proxy_namespace',
+                        'type' => 'string',
+                        'desc' => 'Namespace for generated proxy classes.'
+                    ),
+                    array(
+                        'key' => 'metadata_cache_driver',
+                        'type' => 'string',
+                        'desc' => 'Cache storage handler for ORM metadata.'
+                    ),
+                    array(
+                        'key' => 'query_cache_driver',
+                        'type' => 'string',
+                        'desc' => 'Cache storage handler for ORM queries.'
+                    ),
+                    array(
+                        'key' => 'result_cache_driver',
+                        'type' => 'string',
+                        'desc' => 'cache storage handler for ORM query results.'
+                    ),
+                    array(
+                        'key' => 'mappings',
+                        'type' => 'array',
+                        'desc' => 'A list of ORM table mappings.'
+                    ),
+                ),
             )
         );
     }
