@@ -1,19 +1,16 @@
 ##
 ## ZenMagick store config
 ##
-## NOTE: This file is generated (and may be re-written) automaticlly - edit at own risk.
+## NOTE: This file is generated (and may be re-written) automatically - edit at own risk.
 ##
-zenmagick:
-  core:
-    database:
-      connections:
-        default:
-          driver: mysql
-          host: '<?php echo DB_SERVER ?>'
-          username: '<?php echo DB_SERVER_USERNAME ?>'
-          password: '<?php echo DB_SERVER_PASSWORD ?>'
-          database: '<?php echo DB_DATABASE ?>'
-          prefix: '<?php echo DB_PREFIX ?>'
-          port: '<?php echo (null !== ($port = @ini_get('mysql.default_port')) ? $port : null) ?>'
-          socket: '<?php echo (null !== ($socket = @ini_get('mysql.default_socket')) ? $socket : null) ?>'
-          initQuery: null
+
+# database configuration settings
+doctrine:
+  dbal:
+    connections:
+      default:
+        host: '<?php echo DB_SERVER ?>'
+        user: '<?php echo DB_SERVER_USERNAME ?>'
+        password: '<?php echo DB_SERVER_PASSWORD ?>'
+        dbname: '<?php echo DB_DATABASE ?>'
+        prefix: '<?php echo DB_PREFIX ?>'

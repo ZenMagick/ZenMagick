@@ -80,16 +80,16 @@ class ZMRuntime {
      * </dl>
      *
      * <p>If the given parameter <code>$conf</code> is a string, the method will
-     * lookup database settings using a settings key build like:  <em>zenmagick.core.database.connections.[<code>$conf</code>]</em>.</p>
+     * lookup database settings using a settings key build like:  <em>doctrine.dbal.connections.[<code>$conf</code>]</em>.</p>
      *
      * @param mixed conf Optional configuration; either an array with any of the supported keys, or a string; default is <em>default</em>.
      * @return ZMDatabase A <code>ZMDatabase</code> implementation.
      */
     public static function getDatabase($conf='default') {
         if (is_string($conf)) {
-            $dbconf = ZMLangUtils::toArray(ZMSettings::get('zenmagick.core.database.connections.'.$conf));
+            $dbconf = ZMLangUtils::toArray(ZMSettings::get('doctrine.dbal.connections.'.$conf));
         } else {
-            $default = ZMLangUtils::toArray(ZMSettings::get('zenmagick.core.database.connections.default'));
+            $default = ZMLangUtils::toArray(ZMSettings::get('doctrine.dbal.connections.default'));
             $dbconf = array_merge($default, $conf);
         }
 
