@@ -29,11 +29,42 @@
  *
  * @author DerManoMann
  * @package zenmagick.store.shared.model
+ * @Table(name="configuration_group")
+ * @Entity
  */
 class ZMConfigGroup extends ZMObject {
-    private $id_;
-    private $name_;
-    private $visible_;
+    /**
+     * @var integer $id
+     *
+     * @Column(name="configuration_group_id", type="integer", nullable=false)
+     * @Id
+     * @GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+    /**
+     * @var string $name
+     *
+     * @Column(name="configuration_group_title", type="string", length=64, nullable=false)
+     */
+    private $name;
+    /**
+     * @var string $description
+     *
+     * @Column(name="configuration_group_description", type="string", length=255, nullable=false)
+     */
+    private $description;
+    /**
+     * @var integer $sortOrder
+     *
+     * @Column(name="sort_order", type="integer", nullable=true)
+     */
+    private $sortOrder;
+    /**
+     * @var boolean $visible
+     *
+     * @Column(name="visible", type="boolean", nullable=true)
+     */
+    private $visible;
 
 
     /**
@@ -41,9 +72,10 @@ class ZMConfigGroup extends ZMObject {
      */
     function __construct() {
         parent::__construct();
-		    $this->id_ = 0;
-		    $this->name_ = null;
-		    $this->visible_ = false;
+        $this->name = null;
+        $this->description = null;
+        $this->sortOrder = 0;
+        $this->visible = false;
     }
 
     /**
@@ -57,43 +89,70 @@ class ZMConfigGroup extends ZMObject {
     /**
      * Get the id.
      *
-     * @return string The id.
+     * @return integer $id The id.
      */
-    public function getId() { return $this->id_; }
+    public function getId() { return $this->id; }
 
     /**
      * Get the name.
      *
-     * @return string The name.
+     * @return string $name The name.
      */
-    public function getName() { return $this->name_; }
+    public function getName() { return $this->name; }
+
+    /**
+     * Get description
+     *
+     * @return string $description
+     */
+    public function getDescription() { return $this->description; }
+
+    /**
+     * Get sortOrder
+     *
+     * @return integer $sortOrder
+     */
+    public function getSortOrder() { return $this->sortOrder; }
 
     /**
      * Get the visible flag.
      *
-     * @return boolean The flag.
+     * @return boolean $visible The flag.
      */
-    public function isVisible() { return $this->visible_; }
+    public function isVisible() { return $this->visible; }
 
     /**
      * Set the id.
      *
-     * @param string id The id.
+     * @param string $id The id.
      */
-    public function setId($id) { $this->id_ = $id; }
+    public function setId($id) { $this->id = $id; }
 
     /**
      * Set the name.
      *
-     * @param string name The name.
+     * @param string $name The name.
      */
-    public function setName($name) {return $this->name_ = $name; }
+    public function setName($name) { $this->name = $name; }
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     */
+    public function setDescription($description) { $this->description = $description; }
+
+    /**
+     * Set sortOrder
+     *
+     * @param integer $sortOrder
+     */
+    public function setSortOrder($sortOrder) { $this->sortOrder = $sortOrder; }
 
     /**
      * Set the visible flag.
      *
-     * @param boolean visible The new value.
+     * @param boolean $visible The new value.
      */
-    public function setVisible($visble) {return $this->visible_ = $visble; }
-
+    public function setVisible($visible) { $this->visible = $visible; }
 }

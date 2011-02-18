@@ -29,14 +29,78 @@
  *
  * @author DerManoMann
  * @package zenmagick.store.shared.model
+ * @Table(name="configuration")
+ * @Entity
  */
 class ZMConfigValue extends ZMObject {
-    private $id_;
-    private $name_;
-    private $key_;
-    private $value_;
-    private $description_;
-    private $setFunction_;
+    /**
+     * @var integer $id
+     *
+     * @Column(name="configuration_id", type="integer", nullable=false)
+     * @Id
+     * @GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+    /**
+     * @var text $name
+     *
+     * @Column(name="configuration_title", type="text", nullable=false)
+     */
+    private $name;
+    /**
+     * @var string $key
+     *
+     * @Column(name="configuration_key", type="string", length=255, nullable=false)
+     */
+    private $key;
+    /**
+     * @var text $value
+     *
+     * @Column(name="configuration_value", type="text", nullable=false)
+     */
+    private $value;
+    /**
+     * @var text $description
+     *
+     * @Column(name="configuration_description", type="text", nullable=false)
+     */
+    private $description;
+    /**
+     * @var integer $groupId
+     *
+     * @Column(name="configuration_group_id", type="integer", nullable=false)
+     */
+    private $groupId;
+    /**
+     * @var integer $sortOrder
+     *
+     * @Column(name="sort_order", type="integer", nullable=true)
+     */
+    private $sortOrder;
+    /**
+     * @var datetime $lastModified
+     *
+     * @Column(name="last_modified", type="datetime", nullable=true)
+     */
+    private $lastModified;
+    /**
+     * @var datetime $dateAdded
+     *
+     * @Column(name="date_added", type="datetime", nullable=false)
+     */
+    private $dateAdded;
+    /**
+     * @var text $useFunction
+     *
+     * @Column(name="use_function", type="text", nullable=true)
+     */
+    private $useFunction;
+    /**
+     * @var text $setFunction
+     *
+     * @Column(name="set_function", type="text", nullable=true)
+     */
+    private $setFunction;
 
 
     /**
@@ -44,11 +108,10 @@ class ZMConfigValue extends ZMObject {
      */
     function __construct() {
         parent::__construct();
-		    $this->id_ = 0;
-		    $this->name_ = null;
-		    $this->description_ = null;
-		    $this->key_ = null;
-		    $this->value_ = null;
+		    $this->name = null;
+		    $this->description = null;
+		    $this->key = null;
+		    $this->value = null;
     }
 
     /**
@@ -62,45 +125,80 @@ class ZMConfigValue extends ZMObject {
     /**
      * Get the id.
      *
-     * @return string The id.
+     * @return integer $id The id.
      */
-    public function getId() { return $this->id_; }
+    public function getId() { return $this->id; }
 
     /**
      * Get the name.
      *
-     * @return string The name.
+     * @return text $name The name.
      */
-    public function getName() { return $this->name_; }
+    public function getName() { return $this->name; }
 
     /**
      * Get the key.
      *
-     * @return string The key.
+     * @return string $key The key.
      */
-    public function getKey() { return $this->key_; }
+    public function getKey() { return $this->key; }
 
     /**
      * Get the value.
      *
-     * @return mixed The value.
+     * @return mixed $value The value.
      */
-    public function getValue() { return $this->value_; }
+    public function getValue() { return $this->value; }
 
     /**
      * Get the description.
      *
-     * @return string The description.
+     * @return text $description The description.
      */
-    public function getDescription() { return $this->description_; }
+    public function getDescription() { return $this->description; }
+
+    /**
+     * Get groupId
+     *
+     * @return integer $GroupId
+     */
+    public function getGroupId() { return $this->groupId; }
+
+    /**
+     * Get sortOrder
+     *
+     * @return integer $sortOrder
+     */
+    public function getSortOrder() { return $this->sortOrder; }
+
+    /**
+     * Get lastModified
+     *
+     * @return datetime $lastModified
+     */
+    public function getLastModified() { return $this->lastModified; }
+
+    /**
+     * Get dateAdded
+     *
+     * @return datetime $dateAdded
+     */
+    public function getDateAdded() { return $this->dateAdded; }
+
+    /**
+     * Get useFunction
+     *
+     * @return text $useFunction
+     */
+    public function getUseFunction() { return $this->useFunction; }
 
     /**
      * Get the set function.
      *
-     * @return string The set function.
+     * @return text $setFunction The set function.
      * @deprecated
      */
-    public function getSetFunction() { return $this->setFunction_; }
+    public function getSetFunction() { return $this->setFunction; }
 
     /**
      * Check if a set function is set or not.
@@ -108,7 +206,7 @@ class ZMConfigValue extends ZMObject {
      * @return boolean <code>true</code> if a set function is configured, <code>false<code> if not.
      */
     public function hasSetFunction() {
-        return !empty($this->setFunction_);
+        return !empty($this->setFunction);
     }
 
     /**
@@ -116,42 +214,76 @@ class ZMConfigValue extends ZMObject {
      *
      * @param string id The id.
      */
-    public function setId($id) { $this->id_ = $id; }
+    public function setId($id) { $this->id = $id; }
 
     /**
      * Set the name.
      *
-     * @param string name The name.
+     * @param text $name The name.
      */
-    public function setName($name) { $this->name_ = $name; }
+    public function setName($name) { $this->name = $name; }
 
     /**
      * Set the key.
      *
-     * @param string key The key.
+     * @param string $key The key.
      */
-    public function setKey($key) { $this->key_ = $key; }
+    public function setKey($key) { $this->key = $key; }
 
     /**
      * Set the value.
      *
-     * @param mixed value The value.
+     * @param mixed $value The value.
      */
-    public function setValue($value) { $this->value_ = $value; }
+    public function setValue($value) { $this->value = $value; }
 
     /**
      * Set the description.
      *
-     * @param string description The description.
+     * @param text $description The description.
      */
-    public function setDescription($description ) { $this->description_ = $description ; }
+    public function setDescription($description) { $this->description = $description ; }
+
+    /**
+     * Set groupId
+     *
+     * @param integer $groupId
+     */
+    public function setgroupId($groupId) { $this->groupId = $groupId; }
+
+    /**
+     * Set sortOrder
+     *
+     * @param integer $sortOrder
+     */
+    public function setSortOrder($sortOrder) { $this->sortOrder = $sortOrder; }
+
+    /**
+     * Set lastModified
+     *
+     * @param datetime $lastModified
+     */
+    public function setLastModified($lastModified) { $this->lastModified = $lastModified; }
+
+    /**
+     * Set dateAdded
+     *
+     * @param datetime $dateAdded
+     */
+    public function setDateAdded($dateAdded) { $this->dateAdded = $dateAdded; }
+
+    /**
+     * Set useFunction
+     *
+     * @param text $useFunction
+     */
+    public function setUseFunction($useFunction) { $this->useFunction = $useFunction; }
 
     /**
      * Set the set function.
      *
-     * @param string function The use function.
+     * @param text $setFunction function The use function.
      * @deprecated
      */
-    public function setSetFunction($function) { $this->setFunction_ = $function; }
-
+    public function setSetFunction($setFunction) { $this->setFunction = $setFunction; }
 }
