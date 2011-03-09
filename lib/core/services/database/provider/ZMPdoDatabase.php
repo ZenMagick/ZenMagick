@@ -119,6 +119,7 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
             // @todo charset and collation (note that this is db specific)
             //$this->evm_->addEventSubscriber(new MysqlSessionInit('UTF8', 'collation?'));
 
+            // @todo ask DBAL if the driver/db type supports nested transactions
             $pdo->setNestTransactionsWithSavepoints($this->isNestedTransactions());
 
             // @todo can we set these up earlier?
@@ -175,7 +176,11 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
 
         // Table Prefix
         $tablePrefix = new zenmagick\base\database\doctrine\TablePrefix($this->config_['prefix']);
+        // @todo it doesn't work on the DBAL, so while developing plugins it is recommended not to use a table prefix
         $this->evm_->addEventListener(Doctrine\ORM\Events::loadClassMetadata, $tablePrefix);
+
+        $timestampableListener = new Gedmo\Timestampable\TimestampableListener();
+        $this->evm_->addEventSubscriber($timestampableListener);
     }
 
     /**
@@ -322,7 +327,6 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
         } else {
             $modelData = $model;
         }
-
         $sql = 'INSERT INTO '.$table.' SET';
         $firstSet = true;
         $properties = array_keys($modelData);
