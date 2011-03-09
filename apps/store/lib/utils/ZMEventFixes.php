@@ -353,7 +353,7 @@ class ZMEventFixes extends ZMObject {
     public function configureLocale($request) {
         // ** currency **
         $session = $request->getSession();
-        if (null == $session->getCurrencyCode() || null != ($currencyCode = $request->getCurrencyCode())) {
+        if (null == ($currencyCode = $session->getCurrencyCode()) || null != ($currencyCode = $request->getCurrencyCode())) {
             if (null != $currencyCode) {
                 if (null == ZMCurrencies::instance()->getCurrencyForCode($currencyCode)) {
                     $currencyCode = ZMSettings::get('defaultCurrency');
