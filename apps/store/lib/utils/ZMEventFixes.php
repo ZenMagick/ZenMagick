@@ -58,11 +58,11 @@ class ZMEventFixes extends ZMObject {
             if (0 === strpos($eventId, 'NOTIFY_HEADER_START_')) {
                 $controllerId = str_replace('NOTIFY_HEADER_START_', '', $eventId);
                 $args = array_merge($args, array('controllerId' => $controllerId, 'request' => ZMRequest::instance()));
-                zenmagick\base\Runtime::getEventDispatcher()->notify(new zenmagick\base\events\Event($this, 'controller_process_start', $args));
+                Runtime::getEventDispatcher()->notify(new zenmagick\base\events\Event($this, 'controller_process_start', $args));
             } else if (0 === strpos($eventId, 'NOTIFY_HEADER_END_')) {
                 $controllerId = str_replace('NOTIFY_HEADER_END_', '', $eventId);
                 $args = array_merge($args, array('controllerId' => $controllerId, 'request' => ZMRequest::instance()));
-                zenmagick\base\Runtime::getEventDispatcher()->notify(new zenmagick\base\events\Event($this, 'controller_process_end', $args));
+                Runtime::getEventDispatcher()->notify(new zenmagick\base\events\Event($this, 'controller_process_end', $args));
             }
         }
     }
@@ -75,7 +75,7 @@ class ZMEventFixes extends ZMObject {
         if (!ZMsettings::get('isEnableZMThemes', true)) {
             // pass on already set args
             $args = array_merge($event->all(), array('themeId' => ZMThemes::instance()->getActiveThemeId($request->getSession()->getLanguageId())));
-            zenmagick\base\Runtime::getEventDispatcher()->notify(new zenmagick\base\events\Event($this, 'theme_resolved', $args));
+            Runtime::getEventDispatcher()->notify(new zenmagick\base\events\Event($this, 'theme_resolved', $args));
         }
 
         // if using ZMCheckoutPaymentController, we need 'conditions' in $POST to make zencarts checkout_confirmation header_php.php happy
@@ -232,7 +232,7 @@ class ZMEventFixes extends ZMObject {
             $language = $request->getSession()->getLanguage();
             $theme = ZMThemes::instance()->initThemes($language);
             $args = array_merge($event->all(), array('theme' => $theme, 'themeId' => $theme->getId()));
-            zenmagick\base\Runtime::getEventDispatcher()->notify(new zenmagick\base\events\Event($this, 'theme_resolved', $args));
+            Runtime::getEventDispatcher()->notify(new zenmagick\base\events\Event($this, 'theme_resolved', $args));
 
             // now we can check for a static homepage
             if (!ZMLangUtils::isEmpty(ZMSettings::get('staticHome')) && 'index' == $request->getRequestId()
@@ -268,7 +268,7 @@ class ZMEventFixes extends ZMObject {
      */
     public function onNotifyCheckoutProcessAfterOrderCreateAddProducts($event) {
         $args = array_merge($event->all(), array('request' => ZMRequest::instance(), 'orderId' => $_SESSION['order_number_created']));
-        zenmagick\base\Runtime::getEventDispatcher()->notify(new zenmagick\base\events\Event($this, 'create_order', $args));
+        Runtime::getEventDispatcher()->notify(new zenmagick\base\events\Event($this, 'create_order', $args));
     }
 
     /**

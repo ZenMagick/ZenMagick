@@ -20,6 +20,8 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
+
 /**
  * Themes.
  *
@@ -296,10 +298,8 @@ class ZMThemes extends ZMObject {
             // custom theme.yaml settings
             $theme->loadSettings();
 
-            // use theme loader to load static stuff
-            foreach ($themeLoader->getStatic() as $static) {
-                require_once($static);
-            }
+            $args = array('language' => $language, 'theme' => $theme);
+            Runtime::getEventDispatcher()->notify(new zenmagick\base\events\Event($this, 'theme_loaded', $args));
         }
 
         return $theme;

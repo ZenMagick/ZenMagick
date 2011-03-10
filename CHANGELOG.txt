@@ -42,6 +42,7 @@ Release 0.9.12
 - drop setting 'enableZMCheckoutShipping'
 - drop settings 'configureLocale' and 'isEnablePatching'
 - introduce setting 'zenmagick.core.security.defaultAuthenticationProvider'
+- add new theme_loaded event that is fired for each loaded theme
 
 Release 0.9.11.1
 - remove debug code
