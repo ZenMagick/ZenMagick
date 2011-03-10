@@ -29,30 +29,123 @@
  *
  * @author DerManoMann
  * @package zenmagick.store.shared.model
+ * @Table(name="ezpages")
+ * @Entity
  */
 class ZMEZPage extends ZMObject {
-    private $id_;
-    private $title_;
+    /**
+     * @var integer $id
+     *
+     * @Column(name="pages_id", type="integer", nullable=false)
+     * @Id
+     * @GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
 
-    private $altUrl_;
-    private $altUrlExternal_;
+    /**
+     * @var integer $languageId
+     *
+     * @Column(name="languages_id", type="integer", nullable=false)
+     */
+    private $languageId;
 
-    private $htmlText_;
+    /**
+     * @var string $title
+     *
+     * @Column(name="pages_title", type="string", length=64, nullable=false)
+     */
+    private $title;
 
-    private $isHeader_;
-    private $headerSort_;
-    private $isSidebox_;
-    private $sideboxSort_;
-    private $isFooter_;
-    private $footerSort_;
-    private $isToc_;
+    /**
+     * @var string $altUrl
+     *
+     * @Column(name="alt_url", type="string", length=255, nullable=false)
+     */
+    private $altUrl;
 
-    private $tocChapter_;
-    private $tocSort_;
+    /**
+     * @var string $altUrlExternal
+     *
+     * @Column(name="alt_url_external", type="string", length=255, nullable=false)
+     */
+    private $altUrlExternal;
 
-    private $isNewWin_;
+    /**
+     * @var text $htmlText
+     *
+     * @Column(name="pages_html_text", type="text", nullable=true)
+     */
+    private $htmlText;
 
-    private $isSSL_;
+    /**
+     * @var boolean $isHeader
+     *
+     * @Column(name="status_header", type="integer", nullable=false)
+     */
+    private $isHeader;
+    /**
+     * @var integer $headerSort
+     *
+     * @Column(name="header_sort_order", type="integer", nullable=false)
+     */
+    private $headerSort;
+    /**
+     * @var integer $iSidebox
+     *
+     * @Column(name="status_sidebox", type="integer", nullable=false)
+     */
+    private $isSidebox;
+    /**
+     * @var integer $sideboxSort
+     *
+     * @Column(name="sidebox_sort_order", type="integer", nullable=false)
+     */
+    private $sideboxSort;
+    /**
+     * @var boolean $isFooter
+     *
+     * @Column(name="status_footer", type="integer", nullable=false)
+     */
+    private $isFooter;
+    /**
+     * @var integer $footerSort
+     *
+     * @Column(name="footer_sort_order", type="integer", nullable=false)
+     */
+    private $footerSort;
+    /**
+     * @var boolean $isToc
+     *
+     * @Column(name="status_toc", type="integer", nullable=false)
+     */
+    private $isToc;
+
+    /**
+     * @var integer $tocChapter
+     *
+     * @Column(name="toc_chapter", type="integer", nullable=false)
+     */
+    private $tocChapter;
+    /**
+     * @var integer $tocSort
+     *
+     * @Column(name="toc_sort_order", type="integer", nullable=false)
+     */
+    private $tocSort;
+
+    /**
+     * @var boolean $isNewWin
+     *
+     * @Column(name="page_open_new_window", type="integer", nullable=false)
+     */
+    private $isNewWin;
+
+    /**
+     * @var integer $isSSL
+     *
+     * @Column(name="page_is_ssl", type="integer", nullable=false)
+     */
+    private $isSSL;
 
 
     /**
@@ -64,22 +157,22 @@ class ZMEZPage extends ZMObject {
     function __construct($id=0, $title=null) {
         parent::__construct();
 
-        $this->id_ = $id;
-        $this->title_ = $title;
-        $this->altUrl_ = null;
-        $this->altUrlExternal_ = null;
-        $this->htmlText_ = null;
-        $this->isHeader_ = false;
-        $this->isSidebox_ = false;
-        $this->isFooter_ = false;
-        $this->isToc_ = false;
-        $this->headerSort_ = 0;
-        $this->sideboxSort_ = 0;
-        $this->footerSort_ = 0;
-        $this->isNewWin_ = false;
-        $this->isSSL_ = false;
-        $this->tocChapter_ = 0;
-        $this->tocSort_ = 0;
+        $this->id = $id;
+        $this->title = $title;
+        $this->altUrl = null;
+        $this->altUrlExternal = null;
+        $this->htmlText = null;
+        $this->isHeader = false;
+        $this->isSidebox = false;
+        $this->isFooter = false;
+        $this->isToc = false;
+        $this->headerSort = 0;
+        $this->sideboxSort = 0;
+        $this->footerSort = 0;
+        $this->isNewWin = false;
+        $this->isSSL = false;
+        $this->tocChapter = 0;
+        $this->tocSort = 0;
     }
 
     /**
@@ -90,38 +183,40 @@ class ZMEZPage extends ZMObject {
     }
 
 
-    public function getId() { return $this->id_; }
-    public function getTitle() { return $this->title_; }
-    public function getAltUrl() { return $this->altUrl_; }
-    public function getAltUrlExternal() { return $this->altUrlExternal_; }
-    public function getHtmlText() { return $this->htmlText_; }
-    public function isHeader() { return $this->isHeader_; }
-    public function isSidebox() { return $this->isSidebox_; }
-    public function isFooter() { return $this->isFooter_; }
-    public function isToc() { return $this->isToc_; }
-    public function getHeaderSort() { return $this->headerSort_; }
-    public function getSideboxSort() { return $this->sideboxSort_; }
-    public function getFooterSort() { return $this->footerSort_; }
-    public function getTocSort() { return $this->tocSort_; }
-    public function isNewWin() { return $this->isNewWin_; }
-    public function isSSL() { return $this->isSSL_; }
-    public function getTocChapter() { return $this->tocChapter_; }
+    public function getId() { return $this->id; }
+    public function getLanguageId() { return $this->languageId; }
+    public function getTitle() { return $this->title; }
+    public function getAltUrl() { return $this->altUrl; }
+    public function getAltUrlExternal() { return $this->altUrlExternal; }
+    public function getHtmlText() { return $this->htmlText; }
+    public function isHeader() { return $this->isHeader; }
+    public function isSidebox() { return $this->isSidebox; }
+    public function isFooter() { return $this->isFooter; }
+    public function isToc() { return $this->isToc; }
+    public function getHeaderSort() { return $this->headerSort; }
+    public function getSideboxSort() { return $this->sideboxSort; }
+    public function getFooterSort() { return $this->footerSort; }
+    public function getTocSort() { return $this->tocSort; }
+    public function isNewWin() { return $this->isNewWin; }
+    public function isSSL() { return $this->isSSL; }
+    public function getTocChapter() { return $this->tocChapter; }
 
-    public function setId($id) { $this->id_ = $id; }
-    public function setTitle($title) { $this->title_ = $title; }
-    public function setAltUrl($url) { $this->altUrl_ = $url; }
-    public function setAltUrlExternal($url) { $this->altUrlExternal_ = $url; }
-    public function setHtmlText($text) { $this->htmlText_ = $text; }
-    public function setHeader($value) { $this->isHeader_ = ZMLangUtils::asBoolean($value); }
-    public function setSidebox($value) { $this->isSidebox_ = ZMLangUtils::asBoolean($value); }
-    public function setFooter($value) { $this->isFooter_ = ZMLangUtils::asBoolean($value); }
-    public function setToc($value) { $this->isToc_ = ZMLangUtils::asBoolean($value); }
-    public function setHeaderSort($sortOrder) { $this->headerSort_ = $sortOrder; }
-    public function setSideboxSort($sortOrder) { $this->sideboxSort_ = $sortOrder; }
-    public function setFooterSort($sortOrder) { $this->footerSort_ = $sortOrder; }
-    public function setTocSort($value) { $this->tocSort_ = $value; }
-    public function setNewWin($value) { $this->isNewWin_ = ZMLangUtils::asBoolean($value); }
-    public function setSSL($value) { $this->isSSL_ = ZMLangUtils::asBoolean($value); }
-    public function setTocChapter($chapter) { $this->tocChapter_ = $chapter; }
+    public function setId($id) { $this->id = $id; }
+    public function setLanguageId($languageId) { $this->languageId = $languageId; }
+    public function setTitle($title) { $this->title = $title; }
+    public function setAltUrl($url) { $this->altUrl = $url; }
+    public function setAltUrlExternal($url) { $this->altUrlExternal = $url; }
+    public function setHtmlText($text) { $this->htmlText = $text; }
+    public function setHeader($value) { $this->isHeader = ZMLangUtils::asBoolean($value); }
+    public function setSidebox($value) { $this->isSidebox = ZMLangUtils::asBoolean($value); }
+    public function setFooter($value) { $this->isFooter = ZMLangUtils::asBoolean($value); }
+    public function setToc($value) { $this->isToc = ZMLangUtils::asBoolean($value); }
+    public function setHeaderSort($sortOrder) { $this->headerSort = $sortOrder; }
+    public function setSideboxSort($sortOrder) { $this->sideboxSort = $sortOrder; }
+    public function setFooterSort($sortOrder) { $this->footerSort = $sortOrder; }
+    public function setTocSort($value) { $this->tocSort = $value; }
+    public function setNewWin($value) { $this->isNewWin = ZMLangUtils::asBoolean($value); }
+    public function setSSL($value) { $this->isSSL = ZMLangUtils::asBoolean($value); }
+    public function setTocChapter($chapter) { $this->tocChapter = $chapter; }
 
 }
