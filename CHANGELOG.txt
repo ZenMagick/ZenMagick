@@ -43,6 +43,7 @@ Release 0.9.12
 - drop settings 'configureLocale' and 'isEnablePatching'
 - introduce setting 'zenmagick.core.security.defaultAuthenticationProvider'
 - add new theme_loaded event that is fired for each loaded theme
+- convert theme local.php to theme event listener
 
 Release 0.9.11.1
 - remove debug code

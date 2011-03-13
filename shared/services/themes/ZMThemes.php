@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\ClassLoader;
 use zenmagick\base\Runtime;
 
 /**
@@ -31,21 +32,23 @@ use zenmagick\base\Runtime;
 class ZMThemes extends ZMObject {
     private $themeChain_;
     private $initLanguage_;
+    private $cache_;
 
 
     /**
      * Create new instance.
      */
-    function __construct() {
+    public function __construct() {
         parent::__construct();
         $this->themeChain_ = null;
         $this->initLanguage_ = null;
+        $this->cache_ = ZMCaches::instance()->getCache('services', array(), ZMCache::TRANSIENT);
     }
 
     /**
      * Destruct instance.
      */
-    function __destruct() {
+    public function __destruct() {
         parent::__destruct();
     }
 
@@ -138,11 +141,11 @@ class ZMThemes extends ZMObject {
             }
 
             // fill the chain
-            $this->themeChain_[$languageId][] = $this->getThemeForId(ZMSettings::get('apps.store.themes.default'));
-            if (!empty($result['themeId']) && null != ($theme  = $this->getThemeForId($result['themeId']))) {
+            $this->themeChain_[$languageId][] = $this->getThemeForId(ZMSettings::get('apps.store.themes.default'), $languageId);
+            if (!empty($result['themeId']) && null != ($theme = $this->getThemeForId($result['themeId'], $languageId))) {
                 $this->themeChain_[$languageId][] = $theme;
             }
-            if (!empty($result['variationId']) && null != ($variation  = $this->getThemeForId($result['variationId']))) {
+            if (!empty($result['variationId']) && null != ($variation  = $this->getThemeForId($result['variationId'], $languageId))) {
                 $this->themeChain_[$languageId][] = $variation;
             }
         }
@@ -154,10 +157,47 @@ class ZMThemes extends ZMObject {
      * Get <code>ZMTheme</code> instance for the given theme Id.
      *
      * @param string themeId The theme id.
+     * @param init languageId Optional language id to init/load the theme; default is <code>null</code>.
      * @return ZMTheme <code>ZMTheme</code> instance or <code>null</code>.
      */
-    public function getThemeForId($themeId) {
+    public function getThemeForId($themeId, $languageId=null) {
+        $cacheKey = ZMLangUtils::mkUnique('themes', $themeId, $languageId);
+        if (false !== ($theme = $this->cache_->lookup($cacheKey))) {
+            return $theme;
+        }
+
         $theme = ZMLoader::make("Theme", $themeId);
+
+        if (null !== $languageId) {
+            $language = ZMLanguages::instance()->getLanguageForId($languageId);
+
+            $themeLoader = new ClassLoader();
+            $themeLoader->addConfig($theme->getBaseDir().DIRECTORY_SEPARATOR.'lib');
+            $themeLoader->register();
+
+// TODO: remove
+$themeLoader = new ZMLoader();
+$themeLoader->addPath($theme->getExtraDir());
+ZMLoader::instance()->setParent($themeLoader);
+
+            // init l10n/i18n
+            $theme->loadLocale($language);
+            // custom theme.yaml settings
+            $theme->loadSettings();
+
+            // always add an event listener in the theme's base namespace
+            $eventListener = 'zenmagick\\themes\\'.ucwords($themeId).'EventListener';
+            if (ClassLoader::classExists($eventListener)) {
+                Runtime::getEventDispatcher()->listen(new $eventListener());
+            }
+
+            $args = array('language' => $language, 'theme' => $theme, 'themeId' => $themeId, 'languageId' => $languageId);
+            Runtime::getEventDispatcher()->notify(new zenmagick\base\events\Event($this, 'theme_loaded', $args));
+        }
+
+        // cache to avoid to init a theme more than once
+        $this->cache_->save($theme, $cacheKey);
+
         return $theme;
     }
 
@@ -285,24 +325,12 @@ class ZMThemes extends ZMObject {
         }
         $this->initLanguage_ = $language;
 
-        foreach ($this->getThemeChain($language->getId()) as $theme) {
-            // configure theme loader
-            $themeLoader = new ZMLoader($theme->getName());
-            $themeLoader->addPath($theme->getExtraDir());
+        $themeLoader = new ClassLoader();
+        $themeLoader->register();
 
-            // add loader to root loader
-            ZMLoader::instance()->setParent($themeLoader);
-
-            // init l10n/i18n
-            $theme->loadLocale($language);
-            // custom theme.yaml settings
-            $theme->loadSettings();
-
-            $args = array('language' => $language, 'theme' => $theme);
-            Runtime::getEventDispatcher()->notify(new zenmagick\base\events\Event($this, 'theme_loaded', $args));
-        }
-
-        return $theme;
+        // load if not set
+        $themeChain = $this->getThemeChain($language->getId());
+        return $themeChain[count($themeChain)-1];
     }
 
 }
