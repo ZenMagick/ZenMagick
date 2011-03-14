@@ -88,6 +88,12 @@ ZMLoader::instance()->addPath(Runtime::getApplicationPath().DIRECTORY_SEPARATOR.
         $appLoader->addConfig(Runtime::getApplicationPath().DIRECTORY_SEPARATOR.'lib');
         $appLoader->register();
         unset($appLoader);
+
+        // always add an application event listener
+        $eventListener = 'zenmagick\\apps\\'.ZM_APP_NAME.'\\EventListener';
+        if (ClassLoader::classExists($eventListener)) {
+            Runtime::getEventDispatcher()->listen(new $eventListener());
+        }
     }
 
     // set up lib class loader

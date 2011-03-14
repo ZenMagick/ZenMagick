@@ -31,6 +31,9 @@ zenmagick:
           file: 0666
           folder: 0777
 
+    ## security
+    security:
+      defaultAuthenticationProvider: ZMZenCartAuthentication
 
   ## base
   base:
