@@ -258,8 +258,13 @@
                 ),
                 'sacs' => array(
                     array(
+                        'key' => 'mappingProviders',
+                        'type' => 'array',
+                        'desc' => 'List of SACS permission providers.'
+                    ),
+                    array(
                         'key' => 'handler',
-                        'type' => 'string',
+                        'type' => 'array',
                         'desc' => 'List of handler classes to handle (S)imple (A)ccess (C)ontrol (S)ystem requests.'
                     )
                 ),
@@ -273,7 +278,7 @@
                 'toolbox' => array(
                     array(
                         'key' => 'tools',
-                        'type' => 'string',
+                        'type' => 'array',
                         'desc' => 'Custom tools (example: name:class,name:class)'
                     )
                 ),

@@ -83,12 +83,6 @@ zenmagick:
       xhtml: false
       charset: utf-8
 
-    ## sacs
-    sacs:
-      handler: UserRoleSacsHandler
-      mappingProviders:
-        - DBSacsPermissionProvider
-
     ## rpc
     rpc:
       format: JSON
@@ -113,6 +107,8 @@ zenmagick:
     sacs:
       handler:
         - ZMUserRoleSacsHandler
+      mappingProviders:
+        - ZMDBSacsPermissionProvider
 
 
 ## app settings
