@@ -6,7 +6,8 @@
  * @license http://www.zen-cart.com/license/2_0.txt GNU Public License V2.0
  * @version $Id$
  */
- function get_db() {
+class ZMSQLRunner {
+ static function get_db() {
  global $db;
 
    if (!isset($db)) {
@@ -20,11 +21,11 @@
    return $db;
  }
 
- function zm_zen_execute_sql($lines, $database, $table_prefix = '') {
+ static function zm_zen_execute_sql($lines, $database, $table_prefix = '') {
    if (!get_cfg_var('safe_mode')) {
      @set_time_limit(1200);
    }
-   $db = get_db();
+   $db = self::get_db();
    global $debug;
    $sql_file='SQLPATCH';
    $newline = '';
@@ -55,13 +56,13 @@ if ($_GET['debug']=='ON') echo $line . '<br />';
           $line_upper=strtoupper($line);
           switch (true) {
           case (substr($line_upper, 0, 21) == 'DROP TABLE IF EXISTS '):
-//            if (!$checkprivs = zm_zen_check_database_privs('DROP')) return sprintf(REASON_NO_PRIVILEGES,'DROP');
+//            if (!$checkprivs = self::zm_zen_check_database_privs('DROP')) return sprintf(REASON_NO_PRIVILEGES,'DROP');
             $line = 'DROP TABLE IF EXISTS ' . $table_prefix . substr($line, 21);
             break;
           case (substr($line_upper, 0, 11) == 'DROP TABLE ' && $param[2] != 'IF'):
-            if (!$checkprivs = zm_zen_check_database_privs('DROP')) $result=sprintf(REASON_NO_PRIVILEGES,'DROP');
-            if (!zm_zen_table_exists($param[2]) || !ZMLangUtils::isEmpty($result)) {
-              zm_zen_write_to_upgrade_exceptions_table($line, (!ZMLangUtils::isEmpty($result) ? $result : sprintf(REASON_TABLE_DOESNT_EXIST,$param[2])), $sql_file);
+            if (!$checkprivs = self::zm_zen_check_database_privs('DROP')) $result=sprintf(REASON_NO_PRIVILEGES,'DROP');
+            if (!self::zm_zen_table_exists($param[2]) || !ZMLangUtils::isEmpty($result)) {
+              self::zm_zen_write_to_upgrade_exceptions_table($line, (!ZMLangUtils::isEmpty($result) ? $result : sprintf(REASON_TABLE_DOESNT_EXIST,$param[2])), $sql_file);
               $ignore_line=true;
               $result=(!ZMLangUtils::isEmpty($result) ? $result : sprintf(REASON_TABLE_DOESNT_EXIST,$param[2])); //duplicated here for on-screen error-reporting
               break;
@@ -72,9 +73,9 @@ if ($_GET['debug']=='ON') echo $line . '<br />';
           case (substr($line_upper, 0, 13) == 'CREATE TABLE '):
             // check to see if table exists
             $table = (strtoupper($param[2].' '.$param[3].' '.$param[4]) == 'IF NOT EXISTS') ? $param[5] : $param[2];
-            $result=zm_zen_table_exists($table);
+            $result=self::zm_zen_table_exists($table);
             if ($result==true) {
-              zm_zen_write_to_upgrade_exceptions_table($line, sprintf(REASON_TABLE_ALREADY_EXISTS,$table), $sql_file);
+              self::zm_zen_write_to_upgrade_exceptions_table($line, sprintf(REASON_TABLE_ALREADY_EXISTS,$table), $sql_file);
               $ignore_line=true;
               $result=sprintf(REASON_TABLE_ALREADY_EXISTS,$table); //duplicated here for on-screen error-reporting
               break;
@@ -84,9 +85,9 @@ if ($_GET['debug']=='ON') echo $line . '<br />';
             break;
           case (substr($line_upper, 0, 15) == 'TRUNCATE TABLE '):
             // check to see if TRUNCATE command may be safely executed
-            if (!$tbl_exists = zm_zen_table_exists($param[2])) {
+            if (!$tbl_exists = self::zm_zen_table_exists($param[2])) {
               $result=sprintf(REASON_TABLE_NOT_FOUND,$param[2]).' CHECK PREFIXES!' . $param[2];
-              zm_zen_write_to_upgrade_exceptions_table($line, $result, $sql_file);
+              self::zm_zen_write_to_upgrade_exceptions_table($line, $result, $sql_file);
               $ignore_line=true;
               break;
             } else {
@@ -95,12 +96,12 @@ if ($_GET['debug']=='ON') echo $line . '<br />';
             break;
           case (substr($line_upper, 0, 13) == 'REPLACE INTO '):
             //check to see if table prefix is going to match
-            if (!$tbl_exists = zm_zen_table_exists($param[2])) $result=sprintf(REASON_TABLE_NOT_FOUND,$param[2]).' CHECK PREFIXES!';
+            if (!$tbl_exists = self::zm_zen_table_exists($param[2])) $result=sprintf(REASON_TABLE_NOT_FOUND,$param[2]).' CHECK PREFIXES!';
             // check to see if INSERT command may be safely executed for "configuration" or "product_type_layout" tables
-            if (($param[2]=='configuration'       && ($result=zm_zen_check_config_key($line))) or
-                ($param[2]=='product_type_layout' && ($result=zm_zen_check_product_type_layout_key($line))) or
+            if (($param[2]=='configuration'       && ($result=self::zm_zen_check_config_key($line))) or
+                ($param[2]=='product_type_layout' && ($result=self::zm_zen_check_product_type_layout_key($line))) or
                 (!$tbl_exists)    ) {
-              zm_zen_write_to_upgrade_exceptions_table($line, $result, $sql_file);
+                  self::zm_zen_write_to_upgrade_exceptions_table($line, $result, $sql_file);
               $ignore_line=true;
               break;
             } else {
@@ -109,12 +110,12 @@ if ($_GET['debug']=='ON') echo $line . '<br />';
             break;
           case (substr($line_upper, 0, 12) == 'INSERT INTO '):
             //check to see if table prefix is going to match
-            if (!$tbl_exists = zm_zen_table_exists($param[2])) $result=sprintf(REASON_TABLE_NOT_FOUND,$param[2]).' CHECK PREFIXES!';
+            if (!$tbl_exists = self::zm_zen_table_exists($param[2])) $result=sprintf(REASON_TABLE_NOT_FOUND,$param[2]).' CHECK PREFIXES!';
             // check to see if INSERT command may be safely executed for "configuration" or "product_type_layout" tables
-            if (($param[2]=='configuration'       && ($result=zm_zen_check_config_key($line))) or
-                ($param[2]=='product_type_layout' && ($result=zm_zen_check_product_type_layout_key($line))) or
+            if (($param[2]=='configuration'       && ($result=self::zm_zen_check_config_key($line))) or
+                ($param[2]=='product_type_layout' && ($result=self::zm_zen_check_product_type_layout_key($line))) or
                 (!$tbl_exists)    ) {
-              zm_zen_write_to_upgrade_exceptions_table($line, $result, $sql_file);
+                  self::zm_zen_write_to_upgrade_exceptions_table($line, $result, $sql_file);
               $ignore_line=true;
               break;
             } else {
@@ -123,9 +124,9 @@ if ($_GET['debug']=='ON') echo $line . '<br />';
             break;
           case (substr($line_upper, 0, 19) == 'INSERT IGNORE INTO '):
             //check to see if table prefix is going to match
-            if (!$tbl_exists = zm_zen_table_exists($param[3])) {
+            if (!$tbl_exists = self::zm_zen_table_exists($param[3])) {
 	    $result=sprintf(REASON_TABLE_NOT_FOUND,$param[3]).' CHECK PREFIXES!';
-              zm_zen_write_to_upgrade_exceptions_table($line, $result, $sql_file);
+      self::zm_zen_write_to_upgrade_exceptions_table($line, $result, $sql_file);
               $ignore_line=true;
               break;
             } else {
@@ -134,8 +135,8 @@ if ($_GET['debug']=='ON') echo $line . '<br />';
             break;
           case (substr($line_upper, 0, 12) == 'ALTER TABLE '):
             // check to see if ALTER command may be safely executed
-            if ($result=zm_zen_check_alter_command($param)) {
-              zm_zen_write_to_upgrade_exceptions_table($line, $result, $sql_file);
+            if ($result=self::zm_zen_check_alter_command($param)) {
+              self::zm_zen_write_to_upgrade_exceptions_table($line, $result, $sql_file);
               $ignore_line=true;
               break;
             } else {
@@ -145,7 +146,7 @@ if ($_GET['debug']=='ON') echo $line . '<br />';
           case (substr($line_upper, 0, 13) == 'RENAME TABLE '):
             // RENAME TABLE command cannot be parsed to insert table prefixes, so skip if zen is using prefixes
             if (!ZMLangUtils::isEmpty(DB_PREFIX)) {
-              zm_zen_write_to_upgrade_exceptions_table($line, 'RENAME TABLE command not supported by upgrader. Please use phpMyAdmin instead.', $sql_file);
+              self::zm_zen_write_to_upgrade_exceptions_table($line, 'RENAME TABLE command not supported by upgrader. Please use phpMyAdmin instead.', $sql_file);
               $messageStack->add('RENAME TABLE command not supported by upgrader. Please use phpMyAdmin instead.', 'caution');
 
               $ignore_line=true;
@@ -153,8 +154,8 @@ if ($_GET['debug']=='ON') echo $line . '<br />';
             break;
           case (substr($line_upper, 0, 7) == 'UPDATE '):
             //check to see if table prefix is going to match
-            if (!$tbl_exists = zm_zen_table_exists($param[1])) {
-              zm_zen_write_to_upgrade_exceptions_table($line, sprintf(REASON_TABLE_NOT_FOUND,$param[1]).' CHECK PREFIXES!', $sql_file);
+            if (!$tbl_exists = self::zm_zen_table_exists($param[1])) {
+              self::zm_zen_write_to_upgrade_exceptions_table($line, sprintf(REASON_TABLE_NOT_FOUND,$param[1]).' CHECK PREFIXES!', $sql_file);
               $result=sprintf(REASON_TABLE_NOT_FOUND,$param[1]).' CHECK PREFIXES!';
               $ignore_line=true;
               break;
@@ -164,8 +165,8 @@ if ($_GET['debug']=='ON') echo $line . '<br />';
             break;
           case (substr($line_upper, 0, 14) == 'UPDATE IGNORE '):
             //check to see if table prefix is going to match
-            if (!$tbl_exists = zm_zen_table_exists($param[2])) {
-              zm_zen_write_to_upgrade_exceptions_table($line, sprintf(REASON_TABLE_NOT_FOUND,$param[2]).' CHECK PREFIXES!', $sql_file);
+            if (!$tbl_exists = self::zm_zen_table_exists($param[2])) {
+              self::zm_zen_write_to_upgrade_exceptions_table($line, sprintf(REASON_TABLE_NOT_FOUND,$param[2]).' CHECK PREFIXES!', $sql_file);
               $result=sprintf(REASON_TABLE_NOT_FOUND,$param[2]).' CHECK PREFIXES!';
               $ignore_line=true;
               break;
@@ -178,8 +179,8 @@ if ($_GET['debug']=='ON') echo $line . '<br />';
             break;
           case (substr($line_upper, 0, 11) == 'DROP INDEX '):
             // check to see if DROP INDEX command may be safely executed
-            if ($result=zm_zen_drop_index_command($param)) {
-              zm_zen_write_to_upgrade_exceptions_table($line, $result, $sql_file);
+            if ($result=self::zm_zen_drop_index_command($param)) {
+              self::zm_zen_write_to_upgrade_exceptions_table($line, $result, $sql_file);
               $ignore_line=true;
               break;
             } else {
@@ -188,8 +189,8 @@ if ($_GET['debug']=='ON') echo $line . '<br />';
             break;
           case (substr($line_upper, 0, 13) == 'CREATE INDEX ' || (strtoupper($param[0])=='CREATE' && strtoupper($param[2])=='INDEX')):
             // check to see if CREATE INDEX command may be safely executed
-            if ($result=zm_zen_create_index_command($param)) {
-              zm_zen_write_to_upgrade_exceptions_table($line, $result, $sql_file);
+            if ($result=self::zm_zen_create_index_command($param)) {
+              self::zm_zen_write_to_upgrade_exceptions_table($line, $result, $sql_file);
               $ignore_line=true;
               break;
             } else {
@@ -271,8 +272,8 @@ if ($_GET['debug']=='ON') echo $line . '<br />';
    return array('queries'=> $results, 'string'=>$string, 'output'=>$return_output, 'ignored'=>($ignored_count), 'errors'=>$errors);
   } //end function
 
-  function zm_zen_table_exists($tablename, $pre_install=false) {
-    $db = get_db();
+  static function zm_zen_table_exists($tablename, $pre_install=false) {
+    $db = self::get_db();
     $tables = $db->Execute("SHOW TABLES like '" . DB_PREFIX . $tablename . "'");
     if (ZC_UPG_DEBUG3==true) echo 'Table check ('.$tablename.') = '. $tables->RecordCount() .'<br>';
     if ($tables->RecordCount() > 0) {
@@ -282,7 +283,7 @@ if ($_GET['debug']=='ON') echo $line . '<br />';
     }
   }
 
-  function zm_zen_check_database_privs($priv='',$table='',$show_privs=false) {
+  static function zm_zen_check_database_privs($priv='',$table='',$show_privs=false) {
     // bypass until future version
     return true;
     // end bypass
@@ -295,7 +296,7 @@ if ($_GET['debug']=='ON') echo $line . '<br />';
       //GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, FILE, INDEX, ALTER ON *.* TO 'xyz'@'localhost' IDENTIFIED BY PASSWORD '2344'
       //GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, INDEX, ALTER ON `db1`.* TO 'xyz'@'localhost'
       //GRANT SELECT (id) ON db1.tablename TO 'xyz'@'localhost
-    $db = get_db();
+    $db = self::get_db();
     global $db_test;
     $granted_privs_list='';
     if (ZC_UPG_DEBUG3==true) echo '<br />Checking for priv: ['.(!ZMLangUtils::isEmpty($priv) ? $priv : 'none specified').']<br />';
@@ -342,10 +343,10 @@ if ($_GET['debug']=='ON') echo $line . '<br />';
     }
   }
 
-  function zm_zen_drop_index_command($param) {
-    if (!$checkprivs = zm_zen_check_database_privs('INDEX')) return sprintf(REASON_NO_PRIVILEGES,'INDEX');
+  static function zm_zen_drop_index_command($param) {
+    if (!$checkprivs = self::zm_zen_check_database_privs('INDEX')) return sprintf(REASON_NO_PRIVILEGES,'INDEX');
     //this is only slightly different from the ALTER TABLE DROP INDEX command
-    $db = get_db();
+    $db = self::get_db();
     if (ZMLangUtils::isEmpty($param)) return "Empty SQL Statement";
     $index = $param[2];
     $sql = "show index from " . DB_PREFIX . $param[4];
@@ -353,7 +354,7 @@ if ($_GET['debug']=='ON') echo $line . '<br />';
     while (!$result->EOF) {
       if (ZC_UPG_DEBUG3==true) echo $result->fields['Key_name'].'<br />';
       if  ($result->fields['Key_name'] == $index) {
-//        if (!$checkprivs = zm_zen_check_database_privs('INDEX')) return sprintf(REASON_NO_PRIVILEGES,'INDEX');
+//        if (!$checkprivs = self::zm_zen_check_database_privs('INDEX')) return sprintf(REASON_NO_PRIVILEGES,'INDEX');
         return; // if we get here, the index exists, and we have index privileges, so return with no error
       }
       $result->MoveNext();
@@ -362,10 +363,10 @@ if ($_GET['debug']=='ON') echo $line . '<br />';
     return sprintf(REASON_INDEX_DOESNT_EXIST_TO_DROP,$index,$param[4]);
   }
 
-  function zm_zen_create_index_command($param) {
+  static function zm_zen_create_index_command($param) {
     //this is only slightly different from the ALTER TABLE CREATE INDEX command
-    if (!$checkprivs = zm_zen_check_database_privs('INDEX')) return sprintf(REASON_NO_PRIVILEGES,'INDEX');
-    $db = get_db();
+    if (!$checkprivs = self::zm_zen_check_database_privs('INDEX')) return sprintf(REASON_NO_PRIVILEGES,'INDEX');
+    $db = self::get_db();
     if (ZMLangUtils::isEmpty($param)) return "Empty SQL Statement";
     $index = (strtoupper($param[1])=='INDEX') ? $param[2] : $param[3];
     if (in_array('USING',$param)) return 'USING parameter found. Cannot validate syntax. Please run manually in phpMyAdmin.';
@@ -386,10 +387,10 @@ if ($_GET['debug']=='ON') echo $line . '<br />';
  */
   }
 
-  function zm_zen_check_alter_command($param) {
-    $db = get_db();
+  static function zm_zen_check_alter_command($param) {
+    $db = self::get_db();
     if (ZMLangUtils::isEmpty($param)) return "Empty SQL Statement";
-    if (!$checkprivs = zm_zen_check_database_privs('ALTER')) return sprintf(REASON_NO_PRIVILEGES,'ALTER');
+    if (!$checkprivs = self::zm_zen_check_database_privs('ALTER')) return sprintf(REASON_NO_PRIVILEGES,'ALTER');
     switch (strtoupper($param[3])) {
       case ("ADD"):
         if (strtoupper($param[4]) == 'INDEX') {
@@ -531,8 +532,8 @@ if ($_GET['debug']=='ON') echo $line . '<br />';
     } //end switch
   }
 
-  function zm_zen_check_config_key($line) {
-    $db = get_db();
+  static function zm_zen_check_config_key($line) {
+    $db = self::get_db();
     $values=array();
     $values=explode("'",$line);
      //INSERT INTO configuration blah blah blah VALUES ('title','key', blah blah blah);
@@ -548,8 +549,8 @@ if ($_GET['debug']=='ON') echo $line . '<br />';
     if ($result->RecordCount() >0 ) return sprintf(REASON_CONFIG_KEY_ALREADY_EXISTS,$key);
   }
 
-  function zm_zen_check_product_type_layout_key($line) {
-    $db = get_db();
+  static function zm_zen_check_product_type_layout_key($line) {
+    $db = self::get_db();
     $values=array();
     $values=explode("'",$line);
     $title = $values[1];
@@ -559,25 +560,25 @@ if ($_GET['debug']=='ON') echo $line . '<br />';
     if ($result->RecordCount() >0 ) return sprintf(REASON_PRODUCT_TYPE_LAYOUT_KEY_ALREADY_EXISTS,$key);
   }
 
-  function zm_zen_write_to_upgrade_exceptions_table($line, $reason, $sql_file) {
-    $db = get_db();
-    zm_zen_create_exceptions_table();
+  static function zm_zen_write_to_upgrade_exceptions_table($line, $reason, $sql_file) {
+    $db = self::get_db();
+    self::zm_zen_create_exceptions_table();
     $sql="INSERT INTO " . DB_PREFIX . TABLE_UPGRADE_EXCEPTIONS . " VALUES (0,'". $sql_file."','".$reason."', now(), '".addslashes($line)."')";
      if (ZC_UPG_DEBUG3==true) echo '<br />sql='.$sql.'<br />';
     $result = $db->Execute($sql);
     return $result;
   }
 
-  function zm_zen_purge_exceptions_table() {
-    $db = get_db();
-    zm_zen_create_exceptions_table();
+  static function zm_zen_purge_exceptions_table() {
+    $db = self::get_db();
+    self::zm_zen_create_exceptions_table();
     $result = $db->Execute("TRUNCATE TABLE " . DB_PREFIX . TABLE_UPGRADE_EXCEPTIONS );
     return $result;
   }
 
-  function zm_zen_create_exceptions_table() {
-    $db = get_db();
-    if (!zm_zen_table_exists(TABLE_UPGRADE_EXCEPTIONS)) {
+  static function zm_zen_create_exceptions_table() {
+    $db = self::get_db();
+    if (!self::zm_zen_table_exists(TABLE_UPGRADE_EXCEPTIONS)) {
       $result = $db->Execute("CREATE TABLE " . DB_PREFIX . TABLE_UPGRADE_EXCEPTIONS ." (
             upgrade_exception_id smallint(5) NOT NULL auto_increment,
             sql_file varchar(50) default NULL,
@@ -588,3 +589,4 @@ if ($_GET['debug']=='ON') echo $line . '<br />';
     return $result;
     }
   }
+}
