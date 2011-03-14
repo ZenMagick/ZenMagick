@@ -86,7 +86,8 @@ zenmagick:
     ## sacs
     sacs:
       handler: UserRoleSacsHandler
-      mappingProviders: DBSacsPermissionProvider
+      mappingProviders:
+        - DBSacsPermissionProvider
 
     ## rpc
     rpc:

@@ -103,10 +103,10 @@ class ZMSacsManager extends ZMObject {
     /**
      * Load mappings from all configured providers.
      *
-     * @param string providers Comma separated list of provider bean definitions.
+     * @param array providers List of provider bean definitions.
      */
     public function loadProviderMappings($providers) {
-        foreach (explode(',', $providers) as $class) {
+        foreach ($providers as $class) {
             if (null != ($provider = ZMBeanUtils::getBean($class)) && $provider instanceof ZMSacsPermissionProvider) {
                 $this->permissionProviders_[] = $provider;
                 foreach ($provider->getMappings() as $providerMapping) {
