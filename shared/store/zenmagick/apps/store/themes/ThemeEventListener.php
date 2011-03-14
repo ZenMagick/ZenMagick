@@ -19,26 +19,34 @@
  */
 ?>
 <?php
-namespace zenmagick\themes;
-
-use zenmagick\apps\store\themes\ThemeEventListener;
+namespace zenmagick\apps\store\themes;
 
 /**
- * Theme event listener.
+ * Base theme event listener.
  *
  * @author DerManoMann
  * @package zenmagick.themes
  */
-class PrecisionEventListener extends ThemeEventListener {
+class ThemeEventListener {
 
     /**
-     * {@inheritDoc}
+     * Handle load theme event.
+     */
+    public function onThemeLoaded($event) {
+        $class = array_pop(explode('\\', get_class($this)));
+        $myThemeId = strtolower(str_replace('EventListener', '', $class));
+        echo $myThemeId;
+        if ($myThemeId == strtolower($event->get('themeId'))) {
+            $this->themeLoaded($event);
+        }
+    }
+
+    /**
+     * Theme specific onload callback.
+     *
+     * @param Event event The event.
      */
     public function themeLoaded($event) {
-        \ZMTemplateManager::instance()->setLeftColBoxes(array('categories.php', 'featured.php', 'information.php'));
-        \ZMTemplateManager::instance()->setRightColBoxes(array('search.php', 'manufacturers.php', 'ezpages.php'));
-
-        \ZMSettings::set('isUseCategoryPage', false);
-        \ZMSettings::set('resultListProductFilter', '');
     }
+
 }

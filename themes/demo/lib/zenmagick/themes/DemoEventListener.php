@@ -21,20 +21,21 @@
 <?php
 namespace zenmagick\themes;
 
+use zenmagick\apps\store\themes\ThemeEventListener;
+
 /**
  * Demo theme event listener.
  *
  * @author DerManoMann
  * @package zenmagick.themes
  */
-class DemoEventListener {
+class DemoEventListener extends ThemeEventListener {
+
     /**
-     * Handle load theme event.
+     * {@inheritDoc}
      */
-    public function onThemeLoaded($event) {
-        if ('demo' == $event->get('themeId')) {
-            // add custom filter
-            \ZMSettings::append('resultListProductFilter', 'AlphaFilter,PriceRangeFilter');
-        }
+    public function themeLoaded($event) {
+        // add custom filter
+        \ZMSettings::append('resultListProductFilter', 'AlphaFilter,PriceRangeFilter');
     }
 }

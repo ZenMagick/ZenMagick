@@ -21,20 +21,21 @@
 <?php
 namespace zenmagick\themes;
 
+use zenmagick\apps\store\themes\ThemeEventListener;
+
 /**
  * Theme event listener.
  *
  * @author DerManoMann
  * @package zenmagick.themes
  */
-class PrecisionReloadedEventListener {
+class PrecisionReloadedEventListener extends ThemeEventListener {
+
     /**
-     * Handle load theme event.
+     * {@inheritDoc}
      */
-    public function onThemeLoaded($event) {
-        if ('PrecisionReloaded' == $event->get('themeId')) {
-            \ZMSettings::set('isUseCategoryPage', false);
-            \ZMSettings::set('resultListProductFilter', '');
-        }
+    public function themeLoaded($event) {
+        \ZMSettings::set('isUseCategoryPage', false);
+        \ZMSettings::set('resultListProductFilter', '');
     }
 }

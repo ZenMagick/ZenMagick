@@ -21,23 +21,24 @@
 <?php
 namespace zenmagick\themes;
 
+use zenmagick\apps\store\themes\ThemeEventListener;
+
 /**
  * Theme event listener.
  *
  * @author DerManoMann
  * @package zenmagick.themes
  */
-class BrightsideoflifeEventListener {
-    /**
-     * Handle load theme event.
-     */
-    public function onThemeLoaded($event) {
-        if ('brightsideoflife' == $event->get('themeId')) {
-            \ZMTemplateManager::instance()->setLeftColBoxes(array('categories.php', 'information.php'));
-            \ZMTemplateManager::instance()->setRightColBoxes(array('search.php', 'manufacturers.php', 'banner_box.php'));
+class BrightsideoflifeEventListener extends ThemeEventListener {
 
-            \ZMSettings::set('isUseCategoryPage', false);
-            \ZMSettings::set('resultListProductFilter', '');
-        }
+    /**
+     * {@inheritDoc}
+     */
+    public function themeLoaded($event) {
+        \ZMTemplateManager::instance()->setLeftColBoxes(array('categories.php', 'information.php'));
+        \ZMTemplateManager::instance()->setRightColBoxes(array('search.php', 'manufacturers.php', 'banner_box.php'));
+
+        \ZMSettings::set('isUseCategoryPage', false);
+        \ZMSettings::set('resultListProductFilter', '');
     }
 }

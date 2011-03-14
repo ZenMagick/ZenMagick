@@ -21,24 +21,25 @@
 <?php
 namespace zenmagick\themes;
 
+use zenmagick\apps\store\themes\ThemeEventListener;
+
 /**
  * Default theme event listener.
  *
  * @author DerManoMann
  * @package zenmagick.themes
  */
-class DefaultEventListener {
+class DefaultEventListener extends ThemeEventListener {
+
     /**
-     * Handle load theme event.
+     * {@inheritDoc}
      */
-    public function onThemeLoaded($event) {
-        if ('default' == $event->get('themeId')) {
-            //TODO: change validation
-            $theme = $event->get('theme');
-            $validation = $theme->getExtraDir().'validation.php';
-            if (file_exists($validation)) {
-                require $validation;
-            }
+    public function themeLoaded($event) {
+        //TODO: change validation
+        $theme = $event->get('theme');
+        $validation = $theme->getExtraDir().'validation.php';
+        if (file_exists($validation)) {
+            require $validation;
         }
     }
 }

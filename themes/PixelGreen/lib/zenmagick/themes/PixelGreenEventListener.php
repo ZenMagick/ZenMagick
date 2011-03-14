@@ -21,21 +21,22 @@
 <?php
 namespace zenmagick\themes;
 
+use zenmagick\apps\store\themes\ThemeEventListener;
+
 /**
  * Theme event listener.
  *
  * @author DerManoMann
  * @package zenmagick.themes
  */
-class PixelGreenEventListener {
+class PixelGreenEventListener extends ThemeEventListener {
+
     /**
-     * Handle load theme event.
+     * {@inheritDoc}
      */
-    public function onThemeLoaded($event) {
-        if ('PixelGreen' == $event->get('themeId')) {
-            \ZMTemplateManager::instance()->setRightColBoxes(array('search.php', 'categories.php', 'information.php'));
-            \ZMSettings::set('isUseCategoryPage', false);
-            \ZMSettings::set('resultListProductFilter', '');
-        }
+    public function themeLoaded($event) {
+        \ZMTemplateManager::instance()->setRightColBoxes(array('search.php', 'categories.php', 'information.php'));
+        \ZMSettings::set('isUseCategoryPage', false);
+        \ZMSettings::set('resultListProductFilter', '');
     }
 }
