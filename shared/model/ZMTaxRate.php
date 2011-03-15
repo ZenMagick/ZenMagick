@@ -31,27 +31,77 @@
  *
  * @author DerManoMann
  * @package zenmagick.store.shared.model
+ * @Table(name="tax_rates")
+ * @Entity
  */
 class ZMTaxRate extends ZMObject {
-    var $id_;
-    var $classId_;
-    var $countryId_;
-    var $zoneId_;
-    var $rate_;
-    var $description_;
+    /**
+     * @var integer $taxRatesId
+     *
+     * @Column(name="tax_rates_id", type="integer", nullable=false)
+     * @Id
+     * @GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+    /**
+     * @var integer $classId
+     *
+     * @Column(name="tax_class_id", type="integer", nullable=false)
+     */
+    private $classId;
+    private $countryId;
+    /**
+     * @var integer $zoneId
+     *
+     * @Column(name="tax_zone_id", type="integer", nullable=false)
+     */
+    private $zoneId;
 
+    /**
+     * @var integer $priority
+     *
+     * @Column(name="tax_priority", type="integer", nullable=true)
+     */
+    private $priority;
+
+    /**
+     * @var decimal $rate
+     *
+     * @Column(name="tax_rate", type="decimal", nullable=false)
+     */
+    private $rate;
+    /**
+     * @var string $description
+     *
+     * @Column(name="tax_description", type="string", length=255, nullable=false)
+     */
+    private $description;
+    /**
+     * @var datetime $lastModified
+     *
+     * @Column(name="last_modified", type="datetime", nullable=true)
+     */
+    private $lastModified;
+
+    /**
+     * @var datetime $dateAdded
+     *
+     * @Column(name="date_added", type="datetime", nullable=false)
+     */
+    private $dateAdded;
 
     /**
      * Create new instance.
      */
     function __construct() {
         parent::__construct();
-        $this->id_ = null;
-        $this->rate_ = 0.00;
-        $this->description_ = null;
-        $this->classId_ = 0;
-        $this->countryId_ = 0;
-        $this->zoneId_ = 0;
+        $this->id = null;
+        $this->rate = 0.00;
+        $this->description = null;
+        $this->classId = 0;
+        $this->countryId = 0;
+        $this->zoneId = 0;
+        $this->priority = 0;
         $this->setDateAdded(null);
         $this->setLastModified(null);
     }
@@ -63,95 +113,138 @@ class ZMTaxRate extends ZMObject {
         parent::__destruct();
     }
 
-
     /**
      * Get the tax rate idendtifier
      *
-     * @return string The tax rate idendtifier.
+     * @return integer $id The tax rate idendtifier.
      */
-    public function getId() { return $this->id_; }
+    public function getId() { return $this->id; }
 
     /**
-     * Set the tax rate idendtifier
+     * Set the tax rate identifier
      *
-     * @param string id The tax rate idendtifier.
+     * @param integer $id The tax rate identifier.
      */
-    public function setId($id) { $this->id_ = $id; }
+    public function setId($id) { $this->id = $id; }
 
     /**
-     * Get the tax descrption.
+     * Get the tax description.
      *
-     * @return string The tax description.
+     * @return string $description The tax description.
      */
     public function getDescription() {
-        if (null == $this->description_) {
-            $this->description_ = ZMTaxRates::instance()->getTaxDescription($this->classId_, $this->countryId_, $this->zoneId_);
+        if (null == $this->description) {
+            $this->description = ZMTaxRates::instance()->getTaxDescription($this->classId, $this->countryId, $this->zoneId);
         }
-        return $this->description_;
+        return $this->description;
     }
 
     /**
      * Get the tax rate.
      *
-     * @return float The tax rate.
+     * @return float $rate The tax rate.
      */
-    public function getRate() { return $this->rate_; }
+    public function getRate() { return $this->rate; }
 
     /**
      * Set the tax description.
      *
-     * @param string description The tax description.
+     * @param string $description The tax description.
      */
-    public function setDescription($description) { $this->description_ = $description; }
+    public function setDescription($description) { $this->description = $description; }
 
     /**
      * Set the tax rate.
      *
-     * @param float rate The tax rate.
+     * @param float $rate The tax rate.
      */
-    public function setRate($rate) { $this->rate_ = round($rate, ZMSettings::get('calculationDecimals') + 2); }
+    public function setRate($rate) { $this->rate = round($rate, ZMSettings::get('calculationDecimals') + 2); }
 
     /**
      * Get the tax class id.
      *
-     * @return int The tax class id or <em>0</em>.
+     * @return integer  $classId The tax class id or <em>0</em>.
      */
-    public function getClassId() { return $this->classId_; }
+    public function getClassId() { return $this->classId; }
 
     /**
      * Set the tax class id.
      *
-     * @param int classId The tax class id.
+     * @param integer $classId The tax class id.
      */
-    public function setClassId($classId) { $this->classId_ = $classId; }
+    public function setClassId($classId) { $this->classId = $classId; }
 
     /**
      * Get the country id.
      *
      * @return int The country id or <em>0</em>.
      */
-    public function getCountryId() { return $this->countryId_; }
+    public function getCountryId() { return $this->countryId; }
 
     /**
      * Set the country id.
      *
      * @param int countryId The country id.
      */
-    public function setCountryId($countryId) { $this->countryId_ = $countryId; }
+    public function setCountryId($countryId) { $this->countryId = $countryId; }
 
     /**
      * Get the zone id.
      *
-     * @return int The zone id or <em>0</em>.
+     * @return integer  $zoneId The zone id or <em>0</em>.
      */
-    public function getZoneId() { return $this->zoneId_; }
+    public function getZoneId() { return $this->zoneId; }
 
     /**
      * Set the zone id.
      *
-     * @param int zoneId The zone id.
+     * @param integer $zoneId The zone id.
      */
-    public function setZoneId($zoneId) { $this->zoneId_ = $zoneId; }
+    public function setZoneId($zoneId) { $this->zoneId = $zoneId; }
+
+    /**
+     * Get tax priority.
+     *
+     * @return integer $priority
+     */
+    public function getPriority() { return $this->priority; }
+
+    /**
+     * Set tax priority.
+     *
+     * @param integer $priority
+     */
+    public function setPriority($priority) { $this->priority = $priority; }
+
+    /**
+     * Get dateAdded
+     *
+     * @return datetime $dateAdded
+     */
+    public function getDateAdded() { return $this->dateAdded; }
+
+    /**
+     * Set dateAdded
+     *
+     * @param datetime $dateAdded
+     */
+    public function setDateAdded($dateAdded) { $this->dateAdded = $dateAdded; }
+
+    /**
+     * Get lastModified
+     *
+     * @author DerManoMann
+     * @return datetime $lastModified
+     */
+    public function getLastModified() { return $this->lastModified; }
+
+    /**
+     * Set lastModified
+     *
+     * @author  DerManoMann
+     * @param datetime $lastModified
+     */
+    public function setLastModified($lastModified) { $this->lastModified = $lastModified; }
 
     /**
      * Add tax to the given amount.
@@ -161,7 +254,7 @@ class ZMTaxRate extends ZMObject {
      */
     public function addTax($amount) {
         $currency = $this->getCurrency();
-        if (ZMSettings::get('showPricesTaxIncluded') && 0 < $this->rate_) {
+        if (ZMSettings::get('showPricesTaxIncluded') && 0 < $this->rate) {
             return round($amount + $this->getTaxAmount($amount), $currency->getDecimalPlaces());
         }
 
@@ -176,7 +269,7 @@ class ZMTaxRate extends ZMObject {
      */
     public function getTaxAmount($amount) {
         $currency = $this->getCurrency();
-        return $amount * $this->rate_ / 100;
+        return $amount * $this->rate / 100;
     }
 
     /**
@@ -195,5 +288,4 @@ class ZMTaxRate extends ZMObject {
 
         return $currency;
     }
-
 }
