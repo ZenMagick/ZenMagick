@@ -33,7 +33,8 @@ function split_slash($s) {
 }
 
 $zcAdminFolder = ZC_INSTALL_PATH.ZC_ADMIN_FOLDER.DIRECTORY_SEPARATOR;
-$zcPage = str_replace('.php', '', $request->getParameter('zpid', 'index')).'.php';
+$zpid = str_replace('.php', '', $request->getParameter('zpid', 'index'));
+$zcPage = $zpid.'.php';
 chdir($zcAdminFolder);
 
 // prepare globals
@@ -41,7 +42,7 @@ global $PHP_SELF, $db, $autoLoadConfig, $sniffer, $currencies, $template, $curre
 $PHP_SELF = $zcAdminFolder.$zcPage;
 $code = file_get_contents($zcAdminFolder.$zcPage);
 $code = preg_replace("/<!doctype[^>]*>/s", '', $code);
-$code = preg_replace("/<html.*<body[^>]*>/s", '', $code);
+//$code = preg_replace("/<html.*<body[^>]*>/s", '', $code);
 $code = preg_replace("/require\(.*header.php'\s*\);/", '', $code);
 $code = preg_replace("/require\(.*footer.php'\s*\);/", '', $code);
 $code = preg_replace("/<\/body>\s*<\/html>/s", '', $code);
@@ -57,6 +58,7 @@ $content = str_replace(array('onmouseover="rowOverEffect(this)"', 'onmouseout="r
 //action="/zmdev/zenmagick/apps/admin/web/index.php?rid=zc_admin&zpid=categories&" method="get">
 $content = preg_replace('/(action="[^"]*index.php\?rid=zc_admin&zpid=)([^&"]*)([^>]*>)/', '$1$2$3<input type="hidden" name="rid" value="zc_admin"><input type="hidden" name="zpid" value="$2">', $content);
 //$content = preg_replace('/(action="[^"]*index.php)\?rid=zc_admin&zpid=[^&"]*([^>]*>)/', '$1$2', $content);
+//echo $content;return;
 ?>
 <div id="sub-menu">
   <div id="sub-common">

@@ -69,8 +69,8 @@ class ZMThemeSwitcherPlugin extends Plugin {
         $languageId = $session->getLanguageId();
         if (null != ($themeId = $session->getValue(self::SESS_THEME_KEY))) {
             $themeChain = array();
-            $themeChain[] = ZMThemes::instance()->getThemeForId(ZMSettings::get('apps.store.themes.default'));
-            $themeChain[] = ZMThemes::instance()->getThemeForId($themeId);
+            $themeChain[] = ZMThemes::instance()->getThemeForId(ZMSettings::get('apps.store.themes.default'), true);
+            $themeChain[] = ZMThemes::instance()->getThemeForId($themeId, $languageId);
             ZMThemes::instance()->setThemeChain($languageId, $themeChain);
         }
     }
