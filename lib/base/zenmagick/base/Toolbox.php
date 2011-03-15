@@ -152,4 +152,21 @@ class Toolbox {
         return $tokens;
     }
 
+    /**
+     * Evaluate a string value as boolean.
+     *
+     * @param mixed value The value.
+     * @return boolean The boolean value.
+     */
+    public static function asBoolean($value) {
+        if (is_integer($value)) {
+            return (bool)$value;
+        }
+        if (is_bool($value)) {
+            return $value;
+        }
+
+        return in_array(strtolower($value), array('on', 'true', 'yes', '1'));
+    }
+
 }
