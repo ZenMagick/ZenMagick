@@ -165,7 +165,7 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
         $chainDriverImpl = new \Doctrine\ORM\Mapping\Driver\DriverChain();
 
         $mapping = $conf['mappings']['zenmagick'];
-        foreach ((array)$mapping['dirs'] as $dir) {
+        foreach ((array)$mapping['dir'] as $dir) {
             $paths[] = ZMRuntime::getInstallationPath() . 'shared/model/' . $dir;
         }
         $driverImpl = $config->newDefaultAnnotationDriver($paths);
