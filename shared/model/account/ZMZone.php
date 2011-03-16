@@ -29,11 +29,37 @@
  *
  * @author DerManoMann
  * @package zenmagick.store.shared.model.account
+ * @Table(name="zones")
+ * @Entity
  */
 class ZMZone extends ZMObject {
-    private $code_;
-    private $name_;
-
+    /**
+     * @var integer $zoneId
+     *
+     * @Column(name="zone_id", type="integer", nullable=false)
+     * @Id
+     * @GeneratedValue(strategy="IDENTITY")
+     * @todo rename to private $id;
+     */
+    private $zoneId;
+    /**
+     * @var integer $countryId
+     *
+     * @Column(name="zone_country_id", type="integer", nullable=false)
+     */
+    private $countryId;
+    /**
+     * @var string $code
+     *
+     * @Column(name="zone_code", type="string", length=32, nullable=false)
+     */
+    private $code;
+    /**
+     * @var string $name
+     *
+     * @Column(name="zone_name", type="string", length=32, nullable=false)
+     */
+    private $name;
 
     /**
      * Create new zone.
@@ -41,8 +67,9 @@ class ZMZone extends ZMObject {
     function __construct() {
         parent::__construct();
         $this->setId(0);
-        $this->code_ = null;
-        $this->name_ = null;
+        $this->countryId = 0;
+        $this->code = null;
+        $this->name = null;
     }
 
     /**
@@ -52,47 +79,59 @@ class ZMZone extends ZMObject {
         parent::__destruct();
     }
 
-
     /**
      * Get the id.
      *
-     * @return string The id.
+     * @return integer $zoneId The id.
      */
-    public function getId() { return $this->get('zoneId'); }
+    public function getId() { return $this->zoneId; }
+
+    /**
+     * Get the country id.
+     *
+     * @return integer $countryId
+     */
+    public function getCountryId() { return $this->countryId; }
 
     /**
      * Get the code.
      *
-     * @return string The code.
+     * @return string $code The code.
      */
-    public function getCode() { return $this->code_; }
+    public function getCode() { return $this->code; }
 
     /**
      * Get the name.
      *
-     * @return string The name.
+     * @return string $name The name.
      */
-    public function getName() { return $this->name_; }
+    public function getName() { return $this->name; }
 
     /**
      * Set the id.
      *
      * @param string id The id.
      */
-    public function setId($id) { $this->set('zoneId', $id); }
+    public function setId($id) { $this->zoneId =  $id; }
+
+    /**
+     * Set the country id.
+     *
+     * @param integer $countryId
+     */
+    public function setCountryId($countryId) { $this->countryId = $countryId; }
 
     /**
      * Set the code.
      *
-     * @param string code The code.
+     * @param string $code The code.
      */
-    public function setCode($code) { $this->code_ = $code; }
+    public function setCode($code) { $this->code = $code; }
 
     /**
      * Set the name.
      *
-     * @param string name The name.
+     * @param string $name The name.
      */
-    public function setName($name) { $this->name_ = $name; }
-
+    public function setName($name) { $this->name = $name; }
 }
