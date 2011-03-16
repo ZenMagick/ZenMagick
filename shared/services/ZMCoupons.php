@@ -222,7 +222,7 @@ class ZMCoupons extends ZMObject {
         $tracker->set('orderId', 0);
         ZMRuntime::getDatabase()->createModel(TABLE_COUPON_REDEEM_TRACK, $tracker);
 
-        $sql = "UPDATE " . TABLE_COUPONS . " 
+        $sql = "UPDATE " . TABLE_COUPONS . "
                 SET coupon_active = :active
                 WHERE coupon_id = :couponId";
         $args = array('couponId' => $couponId, 'active' => 'N');
@@ -236,7 +236,7 @@ class ZMCoupons extends ZMObject {
      * @return ZMCouponQueue A queue entry or <code>null</code>.
      */
     public function getCouponQueueEntryForId($queueId) {
-        $sql = "SELECT * 
+        $sql = "SELECT *
                 FROM " . TABLE_COUPON_GV_QUEUE . "
                 WHERE unique_id = :id";
         return ZMRuntime::getDatabase()->querySingle($sql, array('id' => $queueId), TABLE_COUPON_GV_QUEUE, 'CouponQueue');
@@ -249,7 +249,7 @@ class ZMCoupons extends ZMObject {
      * @return array A list of <code>ZMCouponQueue</code> entries.
      */
     public function getCouponsForFlag($flag='N') {
-        $sql = "SELECT * 
+        $sql = "SELECT *
                 FROM " . TABLE_COUPON_GV_QUEUE . "
                 WHERE release_flag = :released";
         return ZMRuntime::getDatabase()->query($sql, array('released' => $flag), TABLE_COUPON_GV_QUEUE, 'CouponQueue');
@@ -280,7 +280,7 @@ class ZMCoupons extends ZMObject {
     public function createCouponCode($salt, $length=0) {
         $length = 0 == $length ? ZMSettings::get('couponCodeLength') : $length;
 
-        srand((double)microtime()*1000000); 
+        srand((double)microtime()*1000000);
         $codes = md5(uniqid(@rand().$salt, true));
         $codes .= md5(uniqid($salt, true));
         $codes .= md5(uniqid($salt.@rand(), false));
@@ -314,6 +314,7 @@ class ZMCoupons extends ZMObject {
 
         $restrictions = ZMBeanUtils::getBean("CouponRestrictions");
         $products = array();
+        $categories = array();
         foreach ($results as $result) {
             if (0 != $result['categoryId']) {
                 $restriction = ZMLoader::make("CategoryCouponRestriction", $result['restriction'] == 'N', $result['categoryId']);
@@ -335,7 +336,7 @@ class ZMCoupons extends ZMObject {
      * @return array List of coupons.
      */
     public function getCoupons($languageId, $active=true) {
-        $sql = "SELECT * FROM " . TABLE_COUPONS ." c, ". TABLE_COUPONS_DESCRIPTION . " cd 
+        $sql = "SELECT * FROM " . TABLE_COUPONS ." c, ". TABLE_COUPONS_DESCRIPTION . " cd
                 WHERE cd.coupon_id = c.coupon_id AND cd.language_id = :languageId";
         return ZMRuntime::getDatabase()->query($sql, array('languageId' => $languageId), array(TABLE_COUPONS, TABLE_COUPONS_DESCRIPTION), 'Coupon');
     }
