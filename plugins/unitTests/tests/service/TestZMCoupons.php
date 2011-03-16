@@ -183,14 +183,18 @@ class TestZMCoupons extends ZMTestCase {
         $gvReceiver = ZMBeanUtils::getBean('GVReceiver');
         $gvReceiver->setEmail('foo@bar.com');
 
-        ZMCoupons::instance()->createCouponTracker($coupon, $account, $gvReceiver);
+        if (null != $account) {
+            ZMCoupons::instance()->createCouponTracker($coupon, $account, $gvReceiver);
 
-        // manually check database
-        $sql = "SELECT * FROM " . TABLE_COUPON_EMAIL_TRACK . "
-                WHERE coupon_id = :couponId";
-        $result = ZMRuntime::getDatabase()->querySingle($sql, array('couponId' => $coupon->getId()), TABLE_COUPON_EMAIL_TRACK, 'ZMObject');
-        $this->assertNotNull($result);
-        $this->assertEqual('foo@bar.com', $result->getEmailTo());
+            // manually check database
+            $sql = "SELECT * FROM " . TABLE_COUPON_EMAIL_TRACK . "
+                    WHERE coupon_id = :couponId";
+            $result = ZMRuntime::getDatabase()->querySingle($sql, array('couponId' => $coupon->getId()), TABLE_COUPON_EMAIL_TRACK, 'ZMObject');
+            $this->assertNotNull($result);
+            $this->assertEqual('foo@bar.com', $result->getEmailTo());
+        } else {
+            $this->fail('no test account found');
+        }
     }
 
     /**
