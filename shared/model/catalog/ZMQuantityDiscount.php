@@ -29,13 +29,39 @@
  *
  * @author DerManoMann
  * @package zenmagick.store.shared.model.catalog
+ * @Table(name="products_discount_quantity")
+ * @Entity
  */
 class ZMQuantityDiscount extends ZMObject {
-    private $productId_;
-    private $quantity_;
-    private $value_;
-    private $price_;
-
+    /**
+     * @var integer $productId
+     *
+     * @Column(name="products_id", type="integer", nullable=false)
+     * @Id
+     * @GeneratedValue(strategy="NONE")
+     */
+    private $productId;
+    /**
+     * @var integer $quantityDiscountId
+     *
+     * @Column(name="discount_id", type="integer", nullable=false)
+     * @Id
+     * @GeneratedValue(strategy="NONE")
+     */
+    private $quantityDiscountId;
+    /**
+     * @var float $quantity
+     *
+     * @Column(name="discount_qty", type="float", nullable=false)
+     */
+    private $quantity;
+    /**
+     * @var decimal $value
+     *
+     * @Column(name="discount_price", type="decimal", nullable=false)
+     */
+    private $value;
+    private $price;
 
     /**
      * Create new instance.
@@ -43,10 +69,10 @@ class ZMQuantityDiscount extends ZMObject {
     function __construct() {
         parent::__construct();
         $this->setId(0);
-        $this->productId_ = 0;
-        $this->quantity_ = 0;
-        $this->value_ = 0;
-        $this->price_ = 0;
+        $this->productId = 0;
+        $this->quantity = 0;
+        $this->value = 0;
+        $this->price = 0;
     }
 
     /**
@@ -56,75 +82,74 @@ class ZMQuantityDiscount extends ZMObject {
         parent::__destruct();
     }
 
-
     /**
      * Get the discount id.
      *
-     * @return int The discount id.
+     * @todo doctrine this id is NOT UNIQUE
+     * @return int $quantityDiscountIdThe discount id.
      */
-    public function getId() { return $this->get('quantityDiscountId'); }
+    public function getId() { return $this->quantityDiscountId; }
 
     /**
      * Get the product id.
      *
-     * @return int The product id.
+     * @return integer $productId The product id.
      */
-    public function getProductId() { return $this->productId_; }
+    public function getProductId() { return $this->productId; }
 
     /**
-     * Get the upper quantity [excl.].
+    * Get the upper quantity [excl.].
      *
-     * @return int The upper quantity.
+     * @return integer $quantity The upper quantity.
      */
-    public function getQuantity() { return $this->quantity_; }
+    public function getQuantity() { return $this->quantity; }
 
     /**
      * Get the discount value (amount, percent, etc).
      *
      * @return float The discount value.
      */
-    public function getValue() { return $this->value_; }
+    public function getValue() { return $this->value; }
 
     /**
      * Get the calculated discount price.
      *
-     * @return float The discounted price.
+     * @return float $price The discounted price.
      */
-    public function getPrice() { return $this->price_; }
+    public function getPrice() { return $this->price; }
 
     /**
      * Set the discount id.
      *
      * @param int id The discount id.
      */
-    public function setId($id) { return $this->set('quantityDiscountId', $id); }
+    public function setId($id) { return $this->quantityDiscountId = $id; }
 
     /**
      * Set the product id.
      *
-     * @param int productId The product id.
+     * @param integer $productId The product id.
      */
-    public function setProductId($productId) { $this->productId_ = $productId; }
+    public function setProductId($productId) { $this->productId = $productId; }
 
     /**
      * Set the upper quantity [excl.].
      *
-     * @param int quantity The upper quantity.
+     * @param float $quantity The upper quantity.
      */
-    public function setQuantity($quantity) { $this->quantity_ = $quantity; }
+    public function setQuantity($quantity) { $this->quantity = $quantity; }
 
     /**
      * Set the discount value (amount, percent, etc).
      *
      * @param float value The discount value.
      */
-    public function setValue($value) { $this->value_ = $value; }
+    public function setValue($value) { $this->value = $value; }
 
     /**
      * Set the calculated discount price.
      *
-     * @param float price The discounted price.
+     * @param float $price The discounted price.
      */
-    public function setPrice($price) { $this->price_ = $price; }
-
+    public function setPrice($price) { $this->price = $price; }
 }
