@@ -29,13 +29,48 @@
  *
  * @author DerManoMann
  * @package zenmagick.store.shared.model
+ * @Table(name="languages")
+ * @Entity
  */
 class ZMLanguage extends ZMObject {
-    private $name_;
-    private $image_;
-    private $code_;
-    private $directory_;
-
+    /**
+     * @var integer $languageId
+     *
+     * @Column(name="languages_id", type="integer", nullable=false)
+     * @Id
+     * @GeneratedValue(strategy="IDENTITY")
+     */
+    private $languageId;
+    /**
+     * @var string $name
+     *
+     * @Column(name="name", type="string", length=32, nullable=false)
+     */
+    private $name;
+    /**
+     * @var string $image
+     *
+     * @Column(name="image", type="string", length=64, nullable=true)
+     */
+    private $image;
+    /**
+     * @var string $code
+     *
+     * @Column(name="code", type="string", length=2, nullable=false)
+     */
+    private $code;
+    /**
+     * @var string $directory
+     *
+     * @Column(name="directory", type="string", length=32, nullable=true)
+     */
+    private $directory;
+    /**
+     * @var integer $sortOrder
+     *
+     * @Column(name="sort_order", type="integer", nullable=true)
+     */
+    private $sortOrder;
 
     /**
      * Create new instance.
@@ -51,75 +86,87 @@ class ZMLanguage extends ZMObject {
         parent::__destruct();
     }
 
-
     /**
      * Get the language id.
      *
-     * @return int The language id.
+     * @return int $id The language id.
      */
-    public function getId() { return $this->get('languageId'); }
+    public function getId() { return $this->languageId; }
 
     /**
      * Get the language name.
      *
-     * @return string The language name.
+     * @return string $name The language name.
      */
-    public function getName() { return $this->name_; }
+    public function getName() { return $this->name; }
 
     /**
      * Get the language image.
      *
-     * @return string The language image.
+     * @return string $image The language image.
      */
-    public function getImage() { return $this->image_; }
+    public function getImage() { return $this->image; }
 
     /**
      * Get the language code.
      *
-     * @return string The language code.
+     * @return string $code The language code.
      */
-    public function getCode() { return $this->code_; }
+    public function getCode() { return $this->code; }
 
     /**
      * Get the language directory name.
      *
-     * @return string The language directory name.
+     * @return string $directory The language directory name.
      */
-    public function getDirectory() { return $this->directory_; }
+    public function getDirectory() { return $this->directory; }
+
+    /**
+     * Get the language sort order.
+     *
+     * @return integer $sortOrder
+     */
+    public function getSortOrder() { return $this->sortOrder; }
 
     /**
      * Set the language id.
      *
-     * @param int id The language id.
+     * @param int $id The language id.
      */
-    public function setId($id) { $this->set('languageId', $id); }
+    public function setId($id) { $this->languageId = $id; }
 
     /**
      * Set the language name.
      *
-     * @param string name The language name.
+     * @param string $name The language name.
      */
-    public function setName($name) { $this->name_ = $name; }
+    public function setName($name) { $this->name = $name; }
 
     /**
      * Set the language image.
      *
-     * @param string image The language image.
+     * @param string $image The language image.
      */
-    public function setImage($image) { $this->image_ = $image; }
+    public function setImage($image) { $this->image = $image; }
 
     /**
      * Set the language code.
      *
-     * @param string code The language code.
+     * @param string $code The language code.
      */
-    public function setCode($code) { $this->code_ = $code; }
+    public function setCode($code) { $this->code = $code; }
 
     /**
      * Set the language directory name.
      *
-     * @param string directory The language directory name.
+     * @param string $directory The language directory name.
      */
-    public function setDirectory($directory) { $this->directory_ = $directory; }
+    public function setDirectory($directory) { $this->directory = $directory; }
 
+    /**
+     * Set the language sort order.
+     *
+     * @param integer $sortOrder
+     */
+    public function setSortOrder($sortOrder) { $this->sortOrder = $sortOrder; }
 }
