@@ -131,7 +131,7 @@ class ZMNoThemeSupportPatch extends ZMFilePatch {
         if (is_writeable(_ZM_ZEN_APP_BOTTOM_PHP)) {
             $unpatchedLines = array();
             foreach ($lines as $line) {
-                if (false !== strpos($line, "finalise_contents") && false !== strpos($line, "getEventDispatcher")) {
+                if (false !== stripos($line, "finalise_contents") && (false !== strpos($line, "getEventDispatcher") || false !== strpos($line, "ZMEvents"))) {
                     continue;
                 }
                 $unpatchedLines[] = $line;
