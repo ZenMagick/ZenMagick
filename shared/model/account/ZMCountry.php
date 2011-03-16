@@ -29,13 +29,42 @@
  *
  * @author DerManoMann
  * @package zenmagick.store.shared.model
+ * @Table(name="countries")
+ * @Entity
  */
 class ZMCountry extends ZMObject {
-    private $name_;
-    private $isoCode2_;
-    private $isoCode3_;
-    private $addressFormatId_;
-
+    /**
+     * @var integer $countryId
+     *
+     * @Column(name="countries_id", type="integer", nullable=false)
+     * @Id
+     * @GeneratedValue(strategy="IDENTITY")
+     */
+    private $countryId;
+    /**
+     * @var string $name
+     *
+     * @Column(name="countries_name", type="string", length=64, nullable=false)
+     */
+    private $name;
+    /**
+     * @var string $isoCode2
+     *
+     * @Column(name="countries_iso_code_2", type="string", length=2, nullable=false)
+     */
+    private $isoCode2;
+    /**
+     * @var string $isoCode3
+     *
+     * @Column(name="countries_iso_code_3", type="string", length=3, nullable=false)
+     */
+    private $isoCode3;
+    /**
+     * @var integer $addressFormatId
+     *
+     * @Column(name="address_format_id", type="integer", nullable=false)
+     */
+    private $addressFormatId;
 
     /**
      * Create new instance.
@@ -44,10 +73,10 @@ class ZMCountry extends ZMObject {
         parent::__construct();
 
         $this->setId(0);
-        $this->name_ = null;
-        $this->isoCode2_ = null;
-        $this->isoCode3_ = null;
-        $this->addressFormatId_ = 0;
+        $this->name = null;
+        $this->isoCode2 = null;
+        $this->isoCode3 = null;
+        $this->addressFormatId = 0;
     }
 
     /**
@@ -57,75 +86,73 @@ class ZMCountry extends ZMObject {
         parent::__destruct();
     }
 
-
     /**
      * Get the country id.
      *
-     * @return int The country id.
+     * @return integer $countryId The country id.
      */
-    public function getId() { return $this->get('countryId'); }
+    public function getId() { return $this->countryId; }
 
     /**
      * Get the country name.
      *
-     * @return string The country name.
+     * @return string $name The country name.
      */
-    public function getName() { return $this->name_; }
+    public function getName() { return $this->name; }
 
     /**
      * Get the country ISO code 2.
      *
-     * @return string The country ISO code 2.
+     * @return string $isoCode2 The country ISO code 2.
      */
-    public function getIsoCode2() { return $this->isoCode2_; }
+    public function getIsoCode2() { return $this->isoCode2; }
 
     /**
      * Get the country ISO code 3.
      *
-     * @return string The country ISO code 3.
+     * @return string $isoCode3 The country ISO code 3.
      */
-    public function getIsoCode3() { return $this->isoCode3_; }
+    public function getIsoCode3() { return $this->isoCode3; }
 
     /**
      * Get the address format id.
      *
-     * @return int The address format id.
+     * @return int $addressFormatId The address format id.
      */
-    public function getAddressFormatId() { return $this->addressFormatId_; }
+    public function getAddressFormatId() { return $this->addressFormatId; }
 
     /**
      * Set the country id.
      *
      * @param int id The country id.
      */
-    public function setId($id) { $this->set('countryId', $id); }
+    public function setId($id) { $this->countryId = $id; }
 
     /**
      * Set the country name.
      *
-     * @param string name The country name.
+     * @param string $name The country name.
      */
-    public function setName($name) { $this->name_ = $name; }
+    public function setName($name) { $this->name = $name; }
 
     /**
      * Set the country ISO code 2.
      *
-     * @param string code The country ISO code 2.
+     * @param string $code The country ISO code 2.
      */
-    public function setIsoCode2($code) { $this->isoCode2_ = $code; }
+    public function setIsoCode2($code) { $this->isoCode2 = $code; }
 
     /**
      * Set the country ISO code 3.
      *
-     * @param string code The country ISO code 3.
+     * @param string $code The country ISO code 3.
      */
-    public function setIsoCode3($code) { $this->isoCode3_ = $code; }
+    public function setIsoCode3($code) { $this->isoCode3 = $code; }
 
     /**
      * Set the address format id.
      *
-     * @param int addressFormatId The address format id.
+     * @param int $addressFormatId The address format id.
      */
-    public function setAddressFormatId($addressFormatId) { $this->addressFormatId_ = $addressFormatId; }
-
+    public function setAddressFormatId($addressFormatId) { $this->addressFormatId = $addressFormatId; }
 }
