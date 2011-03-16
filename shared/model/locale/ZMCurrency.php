@@ -29,17 +29,72 @@
  *
  * @author DerManoMann
  * @package zenmagick.store.shared.model
+ * @Table(name="currencies")
+ * @Entity
  */
 class ZMCurrency extends ZMObject {
-    private $code_;
-    private $name_;
-    private $symbolLeft_;
-    private $symbolRight_;
-    private $decimalPoint_;
-    private $thousandsPoint_;
-    private $decimalPlaces_;
-    private $rate_;
-
+    /**
+     * @var integer $currencyId
+     *
+     * @Column(name="currencies_id", type="integer", nullable=false)
+     * @Id
+     * @GeneratedValue(strategy="IDENTITY")
+     */
+    private $currencyId;
+    /**
+     * @var string $code
+     *
+     * @Column(name="code", type="string", length=3, nullable=false)
+     */
+    private $code;
+    /**
+     * @var string $name
+     *
+     * @Column(name="title", type="string", length=32, nullable=false)
+     */
+    private $name;
+    /**
+     * @var string $symbolLeft
+     *
+     * @Column(name="symbol_left", type="string", length=24, nullable=true)
+     */
+    private $symbolLeft;
+    /**
+     * @var string $symbolRight
+     *
+     * @Column(name="symbol_right", type="string", length=24, nullable=true)
+     */
+    private $symbolRight;
+    /**
+     * @var string $decimalPoint
+     *
+     * @Column(name="decimal_point", type="string", length=1, nullable=true)
+     */
+    private $decimalPoint;
+    /**
+     * @var string $thousandsPoint
+     *
+     * @Column(name="thousands_point", type="string", length=1, nullable=true)
+     */
+    private $thousandsPoint;
+    /**
+     * @var string $decimalPlaces
+     *
+     * @Column(name="decimal_places", type="string", length=1, nullable=true)
+     */
+    private $decimalPlaces;
+    /**
+     * @var float $rate
+     *
+     * @Column(name="value", type="float", nullable=true)
+     */
+    private $rate;
+    /**
+     * @var datetime $lastUpdate
+     *
+     * @Column(name="last_updated", type="datetime", nullable=true)
+     */
+    private $lastUpdate;
 
     /**
      * Create new instance.
@@ -48,11 +103,11 @@ class ZMCurrency extends ZMObject {
         parent::__construct();
 
         $this->setId(0);
-        $this->code_ = null;
-        $this->name_ = null;
-        $this->decimalPlaces_ = 2;
-        $this->thousandsPoint_ = null;
-        $this->rate_ = 1;
+        $this->code = null;
+        $this->name = null;
+        $this->decimalPlaces = 2;
+        $this->thousandsPoint = null;
+        $this->rate = 1;
     }
 
     /**
@@ -62,62 +117,61 @@ class ZMCurrency extends ZMObject {
         parent::__destruct();
     }
 
-
     /**
      * Get the currency id.
      *
-     * @return int The currency id.
+     * @return integer $currencyId The currency id.
      */
-    public function getId() { return $this->get('currencyId'); }
+    public function getId() { return $this->currencyId; }
 
     /**
      * Get the currency code.
      *
-     * @return string The currency code.
+     * @return string $code The currency code.
      */
-    public function getCode() { return $this->code_; }
+    public function getCode() { return $this->code; }
 
     /**
      * Get the currency name.
      *
-     * @return string The currency name.
+     * @return string $name The currency name.
      */
-    public function getName() { return $this->name_; }
+    public function getName() { return $this->name; }
 
     /**
      * Get the currency symbox (left).
      *
      * @return string The currency symbol (left).
      */
-    public function getSymbolLeft() { return $this->symbolLeft_; }
+    public function getSymbolLeft() { return $this->symbolLeft; }
 
     /**
      * Get the currency symbox (right).
      *
      * @return string The currency symbol (right).
      */
-    public function getSymbolRight() { return $this->symbolRight_; }
+    public function getSymbolRight() { return $this->symbolRight; }
 
     /**
      * Get the currency decimal point.
      *
      * @return string The currency decimal point.
      */
-    public function getDecimalPoint() { return $this->decimalPoint_; }
+    public function getDecimalPoint() { return $this->decimalPoint; }
 
     /**
      * Get the currency thousands point.
      *
      * @return string The currency thousands point.
      */
-    public function getThousandsPoint() { return $this->thousandsPoint_; }
+    public function getThousandsPoint() { return $this->thousandsPoint; }
 
     /**
      * Get the currency decimal places.
      *
      * @return int The currency decimal places.
      */
-    public function getDecimalPlaces() { return $this->decimalPlaces_; }
+    public function getDecimalPlaces() { return $this->decimalPlaces; }
 
     /**
      * Get the currency rate.
@@ -126,72 +180,87 @@ class ZMCurrency extends ZMObject {
      *
      * @return double The currency rate.
      */
-    public function getRate() { return $this->rate_; }
+    public function getRate() { return $this->rate; }
+
+    /**
+     * Get date of last currency rate update
+     *
+     * @author DerManoMann
+     * @return datetime $lastUpdate
+     */
+    public function getLastUpdate() { return $this->lastUpdate; }
 
     /**
      * Set the currency id.
      *
      * @param int id The currency id.
      */
-    public function setId($id) { $this->set('currencyId', $id); }
+    public function setId($id) { $this->currencyId = $id; }
 
     /**
      * Set the currency code.
      *
-     * @param string code The currency code.
+     * @param string $code The currency code.
      */
-    public function setCode($code) { $this->code_ = $code; }
+    public function setCode($code) { $this->code = $code; }
 
     /**
      * Set the currency name.
      *
-     * @param string name The currency name.
+     * @param string $name The currency name.
      */
-    public function setName($name) { $this->name_ = $name; }
+    public function setName($name) { $this->name = $name; }
 
     /**
      * Set the currency symbox (left).
      *
-     * @param string symbol The currency symbol (left).
+     * @param string $symbol The currency symbol (left).
      */
-    public function setSymbolLeft($symbol) { $this->symbolLeft_ = $symbol; }
+    public function setSymbolLeft($symbol) { $this->symbolLeft = $symbol; }
 
     /**
      * Set the currency symbox (right).
      *
      * @param string symbol The currency symbol (right).
      */
-    public function setSymbolRight($symbol) { return $this->symbolRight_ = $symbol; }
+    public function setSymbolRight($symbol) { return $this->symbolRight = $symbol; }
 
     /**
      * Set the currency decimal point.
      *
-     * @param string point The currency decimal point.
+     * @param string $point The currency decimal point.
      */
-    public function setDecimalPoint($point) { $this->decimalPoint_ = $point;}
+    public function setDecimalPoint($point) { $this->decimalPoint = $point;}
 
     /**
      * Set the currency thousands point.
      *
-     * @param string point The currency thousands point.
+     * @param string $point The currency thousands point.
      */
-    public function setThousandsPoint($point) { $this->thousandsPoint_ = $point; }
+    public function setThousandsPoint($point) { $this->thousandsPoint = $point; }
 
     /**
      * Set the currency decimal places.
      *
-     * @param int decimals The currency decimal places.
+     * @param int $decimals The currency decimal places.
      */
-    public function setDecimalPlaces($decimals) { $this->decimalPlaces_ = $decimals; }
+    public function setDecimalPlaces($decimals) { $this->decimalPlaces = $decimals; }
 
     /**
      * Set the currency rate.
      *
      * <p>This is the rate in relation to the default currency.</p>
      *
-     * @param double rate The currency rate.
+     * @param double $rate The currency rate.
      */
-    public function setRate($rate) { $this->rate_ = $rate; }
+    public function setRate($rate) { $this->rate = $rate; }
+
+    /**
+     * Set lastUpdate
+     *
+     * @param datetime $lastUpdate
+     */
+    public function setLastUpdate($lastUpdate) { $this->lastUpdate = $lastUpdate; }
 
     /**
      * Format the given amount according to this currency's rate and formatting rules.
@@ -206,8 +275,8 @@ class ZMCurrency extends ZMObject {
         if ($isNegative = 0 > $ratedValue) {
             $ratedValue *= -1;
         }
-        $formattedAmount = number_format($ratedValue, $this->decimalPlaces_, $this->decimalPoint_, $this->thousandsPoint_);
-        return ($isNegative ? '-' : '').$this->symbolLeft_ .  $formattedAmount . $this->symbolRight_;
+        $formattedAmount = number_format($ratedValue, $this->decimalPlaces, $this->decimalPoint, $this->thousandsPoint);
+        return ($isNegative ? '-' : '').$this->symbolLeft .  $formattedAmount . $this->symbolRight;
     }
 
     /**
@@ -217,7 +286,7 @@ class ZMCurrency extends ZMObject {
      * @return float The converted amount.
      */
     public function convertTo($amount) {
-        return round($amount * $this->rate_, $this->decimalPlaces_);
+        return round($amount * $this->rate, $this->decimalPlaces);
     }
 
     /**
@@ -227,7 +296,7 @@ class ZMCurrency extends ZMObject {
      * @return float The converted amount.
      */
     public function convertFrom($amount) {
-        return round($amount * (1/$this->rate_), $this->decimalPlaces_);
+        return round($amount * (1/$this->rate), $this->decimalPlaces);
     }
 
     /**
@@ -237,8 +306,8 @@ class ZMCurrency extends ZMObject {
      * @return float The amount.
      */
     public function parse($value) {
-        $value = preg_replace('/[^0-9\\'.$this->decimalPoint_.']/', '', $value);
-        $value = str_replace($this->decimalPoint_, '.', $value);
+        $value = preg_replace('/[^0-9\\'.$this->decimalPoint.']/', '', $value);
+        $value = str_replace($this->decimalPoint, '.', $value);
 
         if (0 != preg_match('[^0-9\.]', $value)) {
             return null;
@@ -246,5 +315,4 @@ class ZMCurrency extends ZMObject {
 
         return (float)$value;
     }
-
 }
