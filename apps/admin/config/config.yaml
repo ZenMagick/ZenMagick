@@ -31,6 +31,9 @@ zenmagick:
           file: 0666
           folder: 0777
 
+    ## security
+    security:
+      defaultAuthenticationProvider: ZMZenCartAuthentication
 
   ## base
   base:
@@ -80,11 +83,6 @@ zenmagick:
       xhtml: false
       charset: utf-8
 
-    ## sacs
-    sacs:
-      handler: UserRoleSacsHandler
-      mappingProviders: DBSacsPermissionProvider
-
     ## rpc
     rpc:
       format: JSON
@@ -109,6 +107,8 @@ zenmagick:
     sacs:
       handler:
         - ZMUserRoleSacsHandler
+      mappingProviders:
+        - ZMDBSacsPermissionProvider
 
 
 ## app settings

@@ -19,15 +19,19 @@
  */
 ?>
 <?php
+namespace zenmagick\http\sacs;
 
+use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
+use zenmagick\base\Toolbox;
 use zenmagick\base\events\Event;
+use zenmagick\base\logging\Logging;
 
 /**
  * Handle access control and security mappings.
  *
  * <p>This manager class provides abstract access to access control methods. The actual processing is delegated to
- * implementations of the <code>ZMSacsHandler</code> interface.
+ * implementations of the <code>SacsHandler</code> interface.
  *
  * <p>Access control mappings define the level of authentication required for resources.
  * Resources in this context are controller or page requests.</p>
@@ -35,43 +39,28 @@ use zenmagick\base\events\Event;
  * <p>Controller/resources marked as secure will result in redirects using SSL (if configured), if
  * non secure HTTP is used to access them.</p>
  *
- * <p>Default handler (class names) may be set as a comma separated list with the setting <em>zenmagick.mvc.sacs.handler</em>.</p>
+ * <p>Handler (bean definitions) may be set as a list with the setting <em>zenmagick.http.sacs.handler</em>.</p>
  *
- * <p>To add handler dynamically the preferred way is to use <code>addHandler()</code> as the default handler list is only evaluated when
+ * <p>To add a handler dynamically the preferred way is to use <code>addHandler()</code> as the default handler list is only evaluated when
  * the manager instance is created.</p>
  *
- * <p><strong>NOTE: The only required element for each mapping (if done via YAML) is <em>'level'</em>. It is expected to be boolean and
- * indicates whether the configured resource requires secvu
+ * <p><strong>NOTE: The only predefined mapping key is <em>secure</em>. It is a boolean flag indicating whether the resource requires
+ * a secure access method (ie. SSL/HTTPS) or not.</p>
  *
  * @author DerManoMann
- * @package org.zenmagick.mvc.sacs
+ * @package zenmagick.http.sacs
  */
-class ZMSacsManager extends ZMObject {
+class SacsManager {
     private $mappings_;
-    private $handler_;
+    private $handlers_;
     private $permissionProviders_;
 
 
     /**
      * Create new instance.
      */
-    function __construct() {
-        parent::__construct();
+    public function __construct() {
         $this->reset();
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
-
-    /**
-     * Get instance.
-     */
-    public static function instance() {
-        return ZMRuntime::singleton('SacsManager');
     }
 
 
@@ -80,24 +69,29 @@ class ZMSacsManager extends ZMObject {
      */
     public function reset() {
         $this->mappings_ = array('default' => array(), 'mappings' => array());
-        $this->handler_ = array();
+        $this->handlers_ = array();
         $this->permissionProviders_ = array();
-        foreach (ZMSettings::get('zenmagick.mvc.sacs.handler') as $def) {
-            if (null != ($handler = ZMBeanUtils::getBean($def))) {
-                $this->handler_[$handler->getName()] = $handler;
+        foreach (Runtime::getSettings()->get('zenmagick.http.sacs.handler', array()) as $def) {
+            if (null != ($handler = Beans::getBean($def))) {
+                $this->handlers_[$handler->getName()] = $handler;
             }
         }
     }
 
     /**
-     * Load mappings from a YAML style string.
+     * Load mappings from a YAML file.
      *
-     * @param string yaml The yaml style mappings.
+     * @param string filename The yaml filename.
      * @param boolean override Optional flag to control whether to override existing mappings or to merge;
      *  default is <code>true</code> to override.
      */
-    public function load($yaml, $override=true) {
-        $this->mappings_ = ZMRuntime::yamlParse($yaml, $this->mappings_, $override);
+    public function load($filename, $override=true) {
+        $mappings = Toolbox::loadWithEnv($filename);
+        if ($override) {
+            $this->mappings_ = $mappings;
+        } else {
+            $this->mappings_ = Toolbox::arrayMergeRecursive($this->mappings_, $mappings);
+        }
     }
 
     /**
@@ -106,8 +100,8 @@ class ZMSacsManager extends ZMObject {
      * @param array providers List of provider bean definitions.
      */
     public function loadProviderMappings($providers) {
-        foreach ($providers as $class) {
-            if (null != ($provider = ZMBeanUtils::getBean($class)) && $provider instanceof ZMSacsPermissionProvider) {
+        foreach ($providers as $def) {
+            if (null != ($provider = Beans::getBean($def)) && $provider instanceof SacsPermissionProvider) {
                 $this->permissionProviders_[] = $provider;
                 foreach ($provider->getMappings() as $providerMapping) {
                     $requestId = $providerMapping['rid'];
@@ -127,7 +121,7 @@ class ZMSacsManager extends ZMObject {
                         break;
                     }
                     if (null != $typeKey) {
-                        $this->mappings_['mappings'][$requestId] = ZMLangUtils::arrayMergeRecursive($this->mappings_['mappings'][$requestId], array($typeKey => array($name)));
+                        $this->mappings_['mappings'][$requestId] = Toolbox::arrayMergeRecursive($this->mappings_['mappings'][$requestId], array($typeKey => array($name)));
                     }
                 }
             }
@@ -135,9 +129,9 @@ class ZMSacsManager extends ZMObject {
     }
 
     /**
-     * Add a <code>ZMSacsHandler</code>.
+     * Add a <code>SacsHandler</code>.
      *
-     * @param ZMSacsHandler handler The new handler.
+     * @param SacsHandler handler The new handler.
      */
     public function addHandler($handler) {
         $this->hander_[] = $handler;
@@ -149,15 +143,13 @@ class ZMSacsManager extends ZMObject {
      * <p>The <em>authentication</code> value depends on the acutal handler implementation and is passed through <em>as-is</em>.</p>
      *
      * @param string requestId The request id [ie. the request name as set via the <code>rid</code> URL parameter].
-     * @param mixed authentication The level of authentication required; default is <code>null</code>.
-     * @param boolean secure Mark resource as secure; default is <code>true</code>.
-     * @param array args Optional additional parameter map; default is an empty array.
+     * @param array mapping The mapping.
      */
-    public function setMapping($requestId, $authentication=null, $secure=true, $args=array()) {
+    public function setMapping($requestId, $mapping) {
         if (null == $requestId) {
-            throw new ZMException("invalid sacs mapping (requestId missing)");
+            throw new RuntimeException("invalid sacs mapping (requestId missing)");
         }
-        $this->mappings_['mappings'][$requestId] = ZMLangUtils::arrayMergeRecursive($args, array('level' => $authentication, 'secure' => $secure));
+        $this->mappings_['mappings'][$requestId] = $mapping;
     }
 
     /**
@@ -165,17 +157,17 @@ class ZMSacsManager extends ZMObject {
      *
      * <p>If no configured handler is found, all requests will be authorized.</p>
      *
-     * @param ZMRequest request The current request.
+     * @param Request request The current request.
      * @param string requestId The request id to authorize.
      * @param mixed credientials User information; typically a map with username and password.
      * @param boolean action Optional flag to control whether to actually action or not; default is <code>true</code>.
      * @return boolean <code>true</code> if authorization was sucessful.
      */
     public function authorize($request, $requestId, $credentials, $action=true) {
-        ZMLogging::instance()->log('authorizing requestId: '.$requestId, ZMLogging::TRACE);
-        foreach ($this->handler_ as $handler) {
+        Runtime::getLogging()->log('authorizing requestId: '.$requestId, Logging::TRACE);
+        foreach ($this->handlers_ as $handler) {
             if (null !== ($result = $handler->evaluate($requestId, $credentials, $this))) {
-                ZMLogging::instance()->log('evaluated by: '.get_class($handler).', result: '.($result ? 'true' : 'false'), ZMLogging::TRACE);
+                Runtime::getLogging()->log('evaluated by: '.get_class($handler).', result: '.($result ? 'true' : 'false'), Logging::TRACE);
                 if (false === $result) {
                     if (!$action) {
                         return false;
@@ -184,14 +176,14 @@ class ZMSacsManager extends ZMObject {
                     Runtime::getEventDispatcher()->notify(new Event($this, 'insufficient_credentials', array('request' => $request, 'credentials' => $credentials)));
                     // not required level of authentication
                     $session = $request->getSession();
-                    // secure flag: leave to net() to lookup via ZMSacsManager if configured, but leave as default parameter to allow override
+                    // secure flag: leave to net() to lookup via SacsManager if configured, but leave as default parameter to allow override
                     if (!$session->isStarted()) {
                         // no valid session
-                        $request->redirect($request->url(ZMSettings::get('zenmagick.mvc.request.invalidSession')));
+                        $request->redirect($request->url(Runtime::getSettings()->get('zenmagick.http.request.invalidSession')));
                         exit;
                     }
                     $request->saveFollowUpUrl();
-                    $request->redirect($request->url(ZMSettings::get('zenmagick.mvc.request.login', 'login'), '', true));
+                    $request->redirect($request->url(Runtime::getSettings()->get('zenmagick.http.request.login', 'login'), '', true));
                     exit;
                 }
                 break;
@@ -210,9 +202,10 @@ class ZMSacsManager extends ZMObject {
      * @param string requestId The request id.
      */
     public function ensureAccessMethod($request) {
-        $secure = ZMLangUtils::asBoolean($this->getMappingValue($request->getRequestId(), 'secure', false));
-        if ($secure && !$request->isSecure() && ZMSettings::get('zenmagick.mvc.request.secure') && ZMSettings::get('zenmagick.mvc.request.enforceSecure')) {
-            ZMLogging::instance()->log('redirecting to enforce secure access: '.$request->getRequestId(), ZMLogging::TRACE);
+        $secure = Toolbox::asBoolean($this->getMappingValue($request->getRequestId(), 'secure', false));
+        $settings = Runtime::getSettings();
+        if ($secure && !$request->isSecure() && $settings->get('zenmagick.http.request.secure') && $settings->get('zenmagick.http.request.enforceSecure')) {
+            Runtime::getLogging()->log('redirecting to enforce secure access: '.$request->getRequestId(), Logging::TRACE);
             $request->redirect($request->url(null, null, true));
         }
     }
@@ -227,7 +220,7 @@ class ZMSacsManager extends ZMObject {
      */
     public function getMappingValue($requestId, $key, $default=null) {
         if (null == $requestId) {
-            ZMLogging::instance()->log('null is not a valid requestId', ZMLogging::DEBUG);
+            Runtime::getLogging()->debug('null is not a valid requestId');
             return null;
         }
 
@@ -236,11 +229,18 @@ class ZMSacsManager extends ZMObject {
          * b) do we have a mapping default value
          * c) use provided default
          */
+
+        // init with the given default value
         $value = $default;
-        if (array_key_exists($requestId, $this->mappings_['mappings'])) {
-            // have explicit mapping for this requestId
+        if (array_key_exists($requestId, $this->mappings_['mappings']) && is_array($this->mappings_['mappings'][$requestId])) {
+            // have a mapping for this requestId
             if (array_key_exists($key, $this->mappings_['mappings'][$requestId])) {
                 $value = $this->mappings_['mappings'][$requestId][$key];
+            } else {
+                // do we have a default mapping?
+                if (array_key_exists($key, $this->mappings_['default'])) {
+                    $value = $this->mappings_['default'][$key];
+                }
             }
         } else {
             // do we have a default mapping?
@@ -249,9 +249,8 @@ class ZMSacsManager extends ZMObject {
             }
         }
 
-
         if ('secure' == $key) {
-            $value = ZMLangUtils::asBoolean($value);
+            $value = Toolbox::asBoolean($value);
         }
 
         return $value;
@@ -264,7 +263,7 @@ class ZMSacsManager extends ZMObject {
      * @return boolean <code>true</code> if a secure conenction is required.
      */
     public function requiresSecurity($requestId) {
-        return $this->getMappingValue($requestId, 'level', false);
+        return $this->getMappingValue($requestId, 'secure', false);
     }
 
     /**

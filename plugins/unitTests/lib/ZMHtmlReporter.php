@@ -220,6 +220,8 @@ class ZMHtmlReporter extends \HtmlReporter {
      */
     public function paintFail($message) {
         ob_start(); parent::paintFail($message); $html = ob_get_clean();
+        $html = preg_replace('#\[.*\\'.DIRECTORY_SEPARATOR.'#', '[', $html);
+        echo $html;
         $this->results_[$this->currentCase_]['tests'][$this->currentTest_]['status'] = false;
     }
 

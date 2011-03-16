@@ -107,7 +107,7 @@ class ZMSettingsShowController extends ZMPluginAdmin2Controller {
     public function processGet($request) {
         $settingDetails = array();
         // prepare values
-        foreach (zm_get_settings_details() as $group => $groupDetails) { 
+        foreach (zm_get_settings_details() as $group => $groupDetails) {
             foreach ($groupDetails as $sub => $subDetails) {
                 foreach ($subDetails as $subKey => $details) {
                     $key = $group.'.'.$sub.'.'.$details['key'];
@@ -149,7 +149,7 @@ class ZMSettingsShowController extends ZMPluginAdmin2Controller {
 
         // check for settings without details
         foreach (ZMSettings::getAll() as $key => $value) {
-            foreach ($settingDetails as $group => $groupDetails) { 
+            foreach ($settingDetails as $group => $groupDetails) {
                 if (ZMLangUtils::startsWith($key, $group.'.')) {
                     $found = false;
                     foreach ($groupDetails as $subDetails) {
@@ -167,7 +167,7 @@ class ZMSettingsShowController extends ZMPluginAdmin2Controller {
             }
         }
 
-        return $this->findView(null, array('settingDetails' => $settingDetails)); 
+        return $this->findView(null, array('settingDetails' => $settingDetails));
     }
 
 }

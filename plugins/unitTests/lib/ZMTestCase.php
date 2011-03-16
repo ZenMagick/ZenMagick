@@ -51,11 +51,7 @@ class ZMTestCase extends UnitTestCase {
             ZMSettings::set('doctrine.dbal.connections.default', $merged);
         }
 
-        $session = $this->getRequest()->getSession();
-        if (!$session->isAnonymous()) {
-            // logged in
-            $session->clear();
-        }
+        $this->getRequest()->getSession()->setAccount(null);
     }
 
     /**
@@ -64,6 +60,7 @@ class ZMTestCase extends UnitTestCase {
     public function tearDown() {
         // restore
         ZMSettings::set('doctrine.dbal.connections.default', $this->defaultDb_);
+        $this->getRequest()->getSession()->setAccount(null);
     }
 
     /**
@@ -84,7 +81,7 @@ class ZMTestCase extends UnitTestCase {
         if (!$result) {
             $location = explode(' ', trim(str_replace(array('[', ']'), '', $this->getAssertionLine())));
             $details = array(
-                'line' => array_pop($location), 
+                'line' => array_pop($location),
                 'message' => trim(str_replace('%s', '', $message)),
                 'expectation' => $expectation,
                 'compare' => $compare

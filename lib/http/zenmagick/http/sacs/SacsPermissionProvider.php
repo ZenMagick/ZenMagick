@@ -1,6 +1,6 @@
 <?php
 /*
- * ZenMagick - Smart e-commerce
+ * ZenMagick - Another PHP framework.
  * Copyright (C) 2006-2010 zenmagick.org
  *
  * This program is free software; you can redistribute it and/or modify
@@ -19,26 +19,34 @@
  */
 ?>
 <?php
-namespace zenmagick\themes;
+namespace zenmagick\http\sacs;
 
-use zenmagick\apps\store\themes\ThemeEventListener;
 
 /**
- * Theme event listener.
+ * Permission provider.
+ *
+ * <p>Implementing this interface allows to feed permissions from custom storage into the scas manager.</p>
  *
  * @author DerManoMann
- * @package zenmagick.themes
+ * @package zenmagick.http.sacs
  */
-class PrecisionEventListener extends ThemeEventListener {
+interface SacsPermissionProvider {
 
     /**
-     * {@inheritDoc}
+     * Get mappings.
+     *
+     * <p>Each returned line needs at least the following key/value pairs:</p>
+     * <dl>
+     *  <dt>rid</dt>
+     *  <dd>The request id</dd>
+     *  <dt>type</dt>
+     *  <dd>The mapping type; allowed values are <em>user</em> and <em>role</em>.</dd>
+     *  <dt>name</dt>
+     *  <dd>The type name; depending on the role value this is assumed to be either the user or role name.</dd>
+     * </dl>
+     *
+     * @return array List of mappings.
      */
-    public function themeLoaded($event) {
-        \ZMTemplateManager::instance()->setLeftColBoxes(array('categories.php', 'featured.php', 'information.php'));
-        \ZMTemplateManager::instance()->setRightColBoxes(array('search.php', 'manufacturers.php', 'ezpages.php'));
+    public function getMappings();
 
-        \ZMSettings::set('isUseCategoryPage', false);
-        \ZMSettings::set('resultListProductFilter', '');
-    }
 }

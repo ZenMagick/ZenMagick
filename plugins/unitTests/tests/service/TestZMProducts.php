@@ -111,7 +111,7 @@ class TestZMProducts extends ZMTestCase {
         ZMRuntime::getDatabase()->update($sql, array('dateAdded' => date(ZMDatabase::DATETIME_FORMAT)), TABLE_PRODUCTS);
 
         $products = ZMProducts::instance()->getNewProducts();
-        $this->assertEqual(125, count($products));
+        $this->assertEqual(50, count($products));
 
         ZMRuntime::getDatabase()->update($sql, array('dateAdded' => '2003-11-03 12:32:17'), TABLE_PRODUCTS);
     }
@@ -165,7 +165,7 @@ class TestZMProducts extends ZMTestCase {
     public function testGetProductIdsForCategoryId() {
         $productIdList = ZMProducts::instance()->getProductIdsForCategoryId(10, 1, true, false);
         $this->assertNotNull($productIdList);
-        $expect = array(11, 13, 18, 17, 6, 4, 10, 9);
+        $expect = array(12, 11, 13, 18, 17, 6, 4, 10, 9);
         $this->assertEqual($expect, $productIdList);
     }
 
@@ -175,7 +175,7 @@ class TestZMProducts extends ZMTestCase {
     public function testGetProductsForCategoryId() {
         $productList = ZMProducts::instance()->getProductsForCategoryId(10, true, 1);
         $this->assertNotNull($productList);
-        $this->assertEqual(8, count($productList));
+        $this->assertEqual(9, count($productList));
     }
 
 }

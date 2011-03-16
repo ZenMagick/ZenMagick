@@ -28,8 +28,9 @@
  */
 class TestZMCoupons extends ZMTestCase {
     private $createdCouponIds_;
+    private $testCouponId_;
 
-    
+
     /**
      * {@inheritDoc}
      */
@@ -37,6 +38,12 @@ class TestZMCoupons extends ZMTestCase {
         parent::setUp();
         $this->createdCouponIds_ = array();
         $this->accountIds_ = array($this->getAccountId());
+        // create one basic test coupon
+        $couponCode = ZMCoupons::instance()->createCouponCode('foo@bar.com');
+        $this->assertNotNull($couponCode);
+        $coupon = ZMCoupons::instance()->createCoupon($couponCode, 5, ZMCoupons::TYPPE_GV);
+        $this->createdCouponIds_[] = $coupon->getId();
+        $this->testCouponId_ = $coupon->getId();
     }
 
     /**
@@ -146,7 +153,7 @@ class TestZMCoupons extends ZMTestCase {
      * Test restrictions.
      */
     public function testRestrictions() {
-        $coupon = ZMCoupons::instance()->getCouponForId(9, 1);
+        $coupon = ZMCoupons::instance()->getCouponForId($this->testCouponId_, 1);
         if (null != $coupon) {
             $restrictions = $coupon->getRestrictions();
             $this->assertNotNull($restrictions);
@@ -161,7 +168,7 @@ class TestZMCoupons extends ZMTestCase {
      * Test is redeemable.
      */
     public function testIsCouponRedeemable() {
-        $this->assertFalse(ZMCoupons::instance()->isCouponRedeemable(1));
+        $this->assertTrue(ZMCoupons::instance()->isCouponRedeemable($this->testCouponId_));
         $this->assertTrue(ZMCoupons::instance()->isCouponRedeemable(99999));
     }
 
@@ -176,14 +183,18 @@ class TestZMCoupons extends ZMTestCase {
         $gvReceiver = ZMBeanUtils::getBean('GVReceiver');
         $gvReceiver->setEmail('foo@bar.com');
 
-        ZMCoupons::instance()->createCouponTracker($coupon, $account, $gvReceiver);
+        if (null != $account) {
+            ZMCoupons::instance()->createCouponTracker($coupon, $account, $gvReceiver);
 
-        // manually check database
-        $sql = "SELECT * FROM " . TABLE_COUPON_EMAIL_TRACK . "
-                WHERE coupon_id = :couponId";
-        $result = ZMRuntime::getDatabase()->querySingle($sql, array('couponId' => $coupon->getId()), TABLE_COUPON_EMAIL_TRACK, 'ZMObject');
-        $this->assertNotNull($result);
-        $this->assertEqual('foo@bar.com', $result->getEmailTo());
+            // manually check database
+            $sql = "SELECT * FROM " . TABLE_COUPON_EMAIL_TRACK . "
+                    WHERE coupon_id = :couponId";
+            $result = ZMRuntime::getDatabase()->querySingle($sql, array('couponId' => $coupon->getId()), TABLE_COUPON_EMAIL_TRACK, 'ZMObject');
+            $this->assertNotNull($result);
+            $this->assertEqual('foo@bar.com', $result->getEmailTo());
+        } else {
+            $this->fail('no test account found');
+        }
     }
 
     /**

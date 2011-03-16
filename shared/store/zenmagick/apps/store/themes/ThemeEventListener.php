@@ -19,8 +19,33 @@
  */
 ?>
 <?php
+namespace zenmagick\apps\store\themes;
 
-    //TODO: this is default as the password column is restricted to 40 chars
-    ZMAuthenticationManager::instance()->addProvider('ZenCartAuthentication', true);
+/**
+ * Base theme event listener.
+ *
+ * @author DerManoMann
+ * @package zenmagick.themes
+ */
+class ThemeEventListener {
 
-    zenmagick\base\Runtime::getEventDispatcher()->listen(new ZMAdminEventHandler());
+    /**
+     * Handle load theme event.
+     */
+    public function onThemeLoaded($event) {
+        $class = array_pop(explode('\\', get_class($this)));
+        $myThemeId = strtolower(str_replace('EventListener', '', $class));
+        if ($myThemeId == strtolower($event->get('themeId'))) {
+            $this->themeLoaded($event);
+        }
+    }
+
+    /**
+     * Theme specific onload callback.
+     *
+     * @param Event event The event.
+     */
+    public function themeLoaded($event) {
+    }
+
+}

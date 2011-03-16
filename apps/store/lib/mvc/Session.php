@@ -186,15 +186,19 @@ class Session extends ZMSession {
      * @param ZMAccount account The account.
      */
     public function setAccount($account) {
-        $_SESSION['customer_id'] = $account->getId();
-        $_SESSION['customer_default_address_id'] = $account->getDefaultAddressId();
-        $_SESSION['customers_authorization'] = $account->getAuthorization();
-        $_SESSION['customer_first_name'] = $account->getFirstName();
-        $_SESSION['account_type'] = $account->getType();
-        $address = ZMAddresses::instance()->getAddressForId($account->getDefaultAddressId());
-        if (null != $address) {
-            $_SESSION['customer_country_id'] = $address->getCountryId();
-            $_SESSION['customer_zone_id'] = $address->getZoneId();
+        if (null == $account) {
+            $_SESSION['customer_id'] = '';
+        } else {
+            $_SESSION['customer_id'] = $account->getId();
+            $_SESSION['customer_default_address_id'] = $account->getDefaultAddressId();
+            $_SESSION['customers_authorization'] = $account->getAuthorization();
+            $_SESSION['customer_first_name'] = $account->getFirstName();
+            $_SESSION['account_type'] = $account->getType();
+            $address = ZMAddresses::instance()->getAddressForId($account->getDefaultAddressId());
+            if (null != $address) {
+                $_SESSION['customer_country_id'] = $address->getCountryId();
+                $_SESSION['customer_zone_id'] = $address->getZoneId();
+            }
         }
     }
 

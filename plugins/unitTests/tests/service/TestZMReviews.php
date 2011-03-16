@@ -124,7 +124,7 @@ class TestZMReviews extends ZMTestCase {
     public function testCreateReview() {
         ZMSettings::set('isApproveReviews', false);
         $account = ZMAccounts::instance()->getAccountForId(1);
-        if ($this->assertNotNull($account)) {
+        if (null != $account) {
             $review = ZMBeanUtils::getBean('Review');
             $review->setProductId(3);
             $review->setRating(4);
@@ -148,6 +148,8 @@ class TestZMReviews extends ZMTestCase {
             ZMRuntime::getDatabase()->update($sql, array('reviewId' => $newReview->getId()), TABLE_REVIEWS);
             $sql = 'DELETE FROM '.TABLE_REVIEWS_DESCRIPTION.' WHERE reviews_id = :reviewId';
             ZMRuntime::getDatabase()->update($sql, array('reviewId' => $newReview->getId()), TABLE_REVIEWS_DESCRIPTION);
+        } else {
+            $this->fail('no test account found');
         }
     }
 
@@ -156,7 +158,7 @@ class TestZMReviews extends ZMTestCase {
      */
     public function testApproveReview() {
         $account = ZMAccounts::instance()->getAccountForId(1);
-        if ($this->assertNotNull($account)) {
+        if (null != $account) {
             $review = ZMBeanUtils::getBean('Review');
             $review->setProductId(3);
             $review->setRating(4);
@@ -181,6 +183,8 @@ class TestZMReviews extends ZMTestCase {
             ZMRuntime::getDatabase()->update($sql, array('reviewId' => $newReview->getId()), TABLE_REVIEWS);
             $sql = 'DELETE FROM '.TABLE_REVIEWS_DESCRIPTION.' WHERE reviews_id = :reviewId';
             ZMRuntime::getDatabase()->update($sql, array('reviewId' => $newReview->getId()), TABLE_REVIEWS_DESCRIPTION);
+        } else {
+            $this->fail('no test account found');
         }
     }
 

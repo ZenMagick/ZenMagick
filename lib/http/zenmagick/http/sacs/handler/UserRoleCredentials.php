@@ -1,6 +1,6 @@
 <?php
 /*
- * ZenMagick - Smart e-commerce
+ * ZenMagick - Another PHP framework.
  * Copyright (C) 2006-2010 zenmagick.org
  *
  * This program is free software; you can redistribute it and/or modify
@@ -19,26 +19,30 @@
  */
 ?>
 <?php
-namespace zenmagick\themes;
+namespace zenmagick\http\sacs\handler;
 
-use zenmagick\apps\store\themes\ThemeEventListener;
 
 /**
- * Theme event listener.
+ * User/role credentials.
+ *
+ * <p>Interface to be implemented by user classes when using the <code>zenmagick\http\sacs\handler\UserRoleSacsHandler</code> for authorization.</p>
  *
  * @author DerManoMann
- * @package zenmagick.themes
+ * @package zenmagick.http.sacs.handler
  */
-class PrecisionEventListener extends ThemeEventListener {
+interface UserRoleCredentials {
 
     /**
-     * {@inheritDoc}
+     * Get the user name.
      */
-    public function themeLoaded($event) {
-        \ZMTemplateManager::instance()->setLeftColBoxes(array('categories.php', 'featured.php', 'information.php'));
-        \ZMTemplateManager::instance()->setRightColBoxes(array('search.php', 'manufacturers.php', 'ezpages.php'));
+    public function getName();
 
-        \ZMSettings::set('isUseCategoryPage', false);
-        \ZMSettings::set('resultListProductFilter', '');
-    }
+    /**
+     * Check if the the user has a given role.
+     *
+     * @param string role A role name.
+     * @return boolean <code>true</code> if, and only if, the user has the given role.
+     */
+    public function hasRole($role);
+
 }
