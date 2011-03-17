@@ -38,8 +38,10 @@ class TestAttributePricing extends ZMTestCase {
             foreach ($product->getAttributes() as $attribute) {
                 foreach ($attribute->getValues() as $value) {
                     if ($value->isDiscounted()) {
+                        $er = error_reporting(0);
                         $zprice = zen_get_attributes_price_final($value->getAttributeValueDetailsId(), 1, '');
                         $zprice = zen_get_discount_calc($product->getId(), true, $zprice);
+                        error_reporting($er);
                     } else {
                         $zprice = $value->getValuePrice();
                     }
@@ -57,7 +59,9 @@ class TestAttributePricing extends ZMTestCase {
         foreach (ZMProducts::instance()->getAllProducts(false, 1) as $product) {
             foreach ($product->getAttributes() as $attribute) {
                 foreach ($attribute->getValues() as $value) {
+                    $er = error_reporting(0);
                     $zprice = zen_get_attributes_price_final_onetime($value->getAttributeValueDetailsId(), 1, '');
+                    error_reporting($er);
                     $this->assertEqual($zprice, $value->getOneTimePrice(false), '%s productId='.$product->getId().' $valueId='.$value->getAttributeValueId());
                 }
             }

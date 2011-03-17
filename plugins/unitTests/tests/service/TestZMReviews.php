@@ -149,7 +149,7 @@ class TestZMReviews extends ZMTestCase {
             $sql = 'DELETE FROM '.TABLE_REVIEWS_DESCRIPTION.' WHERE reviews_id = :reviewId';
             ZMRuntime::getDatabase()->update($sql, array('reviewId' => $newReview->getId()), TABLE_REVIEWS_DESCRIPTION);
         } else {
-            $this->fail('no test account found');
+            $this->skip('no test account found');
         }
     }
 
@@ -184,7 +184,7 @@ class TestZMReviews extends ZMTestCase {
             $sql = 'DELETE FROM '.TABLE_REVIEWS_DESCRIPTION.' WHERE reviews_id = :reviewId';
             ZMRuntime::getDatabase()->update($sql, array('reviewId' => $newReview->getId()), TABLE_REVIEWS_DESCRIPTION);
         } else {
-            $this->fail('no test account found');
+            $this->skip('no test account found');
         }
     }
 
