@@ -410,6 +410,10 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
     public function update($sql, $data=array(), $mapping=null) {
         $mapping = $this->mapper_->ensureMapping($mapping, $this);
 
+        // convert to array
+        if (is_object($data)) {
+            $data = ZMBeanUtils::obj2map($data, array_keys($mapping));
+        }
         try {
             $this->logger_->startQuery($sql, $data);
             $stmt = $this->prepareStatement($sql, $data, $mapping);
@@ -475,7 +479,7 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
     protected function prepareStatement($sql, $args, $mapping=null) {
         $PDO_INDEX_SEP = '__';
         static $typeMap = array(
-          'integer' => PDO::PARAM_INT, 
+          'integer' => PDO::PARAM_INT,
           'string' => PDO::PARAM_STR,
           'boolean' => PDO::PARAM_BOOL,
           'date' => PDO::PARAM_STR,
@@ -610,7 +614,7 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
      * {@inheritDoc}
      */
     public function getMetaData($table=null) {
-        $this->ensureResource(); 
+        $this->ensureResource();
         if (null !== $table) {
             if (!empty($this->config_['prefix']) && 0 !== strpos($table, $this->config_['prefix'])) {
                 $table = $this->config_['prefix'].$table;
@@ -656,7 +660,7 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
      * {@inheritDoc}
      */
     public function getResource() {
-        $this->ensureResource(); 
+        $this->ensureResource();
         return $this->pdo_;
     }
 
