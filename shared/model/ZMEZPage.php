@@ -78,11 +78,11 @@ class ZMEZPage extends ZMObject {
     private $htmlText;
 
     /**
-     * @var boolean $isHeader
+     * @var boolean $header
      *
      * @Column(name="status_header", type="integer", nullable=false)
      */
-    private $isHeader;
+    private $header;
     /**
      * @var integer $headerSort
      *
@@ -90,11 +90,11 @@ class ZMEZPage extends ZMObject {
      */
     private $headerSort;
     /**
-     * @var integer $iSidebox
+     * @var integer $sidebox
      *
      * @Column(name="status_sidebox", type="integer", nullable=false)
      */
-    private $isSidebox;
+    private $sidebox;
     /**
      * @var integer $sideboxSort
      *
@@ -102,11 +102,11 @@ class ZMEZPage extends ZMObject {
      */
     private $sideboxSort;
     /**
-     * @var boolean $isFooter
+     * @var boolean $footer
      *
      * @Column(name="status_footer", type="integer", nullable=false)
      */
-    private $isFooter;
+    private $footer;
     /**
      * @var integer $footerSort
      *
@@ -114,11 +114,11 @@ class ZMEZPage extends ZMObject {
      */
     private $footerSort;
     /**
-     * @var boolean $isToc
+     * @var boolean $toc
      *
      * @Column(name="status_toc", type="integer", nullable=false)
      */
-    private $isToc;
+    private $toc;
 
     /**
      * @var integer $tocChapter
@@ -134,18 +134,18 @@ class ZMEZPage extends ZMObject {
     private $tocSort;
 
     /**
-     * @var boolean $isNewWin
+     * @var boolean $newWin
      *
      * @Column(name="page_open_new_window", type="integer", nullable=false)
      */
-    private $isNewWin;
+    private $newWin;
 
     /**
-     * @var integer $isSSL
+     * @var integer $ssl
      *
      * @Column(name="page_is_ssl", type="integer", nullable=false)
      */
-    private $isSSL;
+    private $ssl;
 
 
     /**
@@ -158,19 +158,20 @@ class ZMEZPage extends ZMObject {
         parent::__construct();
 
         $this->id = $id;
+        $this->languageId = 0;
         $this->title = $title;
         $this->altUrl = null;
         $this->altUrlExternal = null;
         $this->htmlText = null;
-        $this->isHeader = false;
-        $this->isSidebox = false;
-        $this->isFooter = false;
-        $this->isToc = false;
+        $this->header = false;
+        $this->sidebox = false;
+        $this->footer = false;
+        $this->toc = false;
         $this->headerSort = 0;
         $this->sideboxSort = 0;
         $this->footerSort = 0;
-        $this->isNewWin = false;
-        $this->isSSL = false;
+        $this->newWin = false;
+        $this->ssl = false;
         $this->tocChapter = 0;
         $this->tocSort = 0;
     }
@@ -189,16 +190,16 @@ class ZMEZPage extends ZMObject {
     public function getAltUrl() { return $this->altUrl; }
     public function getAltUrlExternal() { return $this->altUrlExternal; }
     public function getHtmlText() { return $this->htmlText; }
-    public function isHeader() { return $this->isHeader; }
-    public function isSidebox() { return $this->isSidebox; }
-    public function isFooter() { return $this->isFooter; }
-    public function isToc() { return $this->isToc; }
+    public function isHeader() { return $this->header; }
+    public function isSidebox() { return $this->sidebox; }
+    public function isFooter() { return $this->footer; }
+    public function isToc() { return $this->toc; }
     public function getHeaderSort() { return $this->headerSort; }
     public function getSideboxSort() { return $this->sideboxSort; }
     public function getFooterSort() { return $this->footerSort; }
     public function getTocSort() { return $this->tocSort; }
-    public function isNewWin() { return $this->isNewWin; }
-    public function isSSL() { return $this->isSSL; }
+    public function isNewWin() { return $this->newWin; }
+    public function isSSL() { return $this->ssl; }
     public function getTocChapter() { return $this->tocChapter; }
 
     public function setId($id) { $this->id = $id; }
@@ -207,16 +208,16 @@ class ZMEZPage extends ZMObject {
     public function setAltUrl($url) { $this->altUrl = $url; }
     public function setAltUrlExternal($url) { $this->altUrlExternal = $url; }
     public function setHtmlText($text) { $this->htmlText = $text; }
-    public function setHeader($value) { $this->isHeader = ZMLangUtils::asBoolean($value); }
-    public function setSidebox($value) { $this->isSidebox = ZMLangUtils::asBoolean($value); }
-    public function setFooter($value) { $this->isFooter = ZMLangUtils::asBoolean($value); }
-    public function setToc($value) { $this->isToc = ZMLangUtils::asBoolean($value); }
+    public function setHeader($value) { $this->header = ZMLangUtils::asBoolean($value); }
+    public function setSidebox($value) { $this->sidebox = ZMLangUtils::asBoolean($value); }
+    public function setFooter($value) { $this->footer = ZMLangUtils::asBoolean($value); }
+    public function setToc($value) { $this->toc = ZMLangUtils::asBoolean($value); }
     public function setHeaderSort($sortOrder) { $this->headerSort = $sortOrder; }
     public function setSideboxSort($sortOrder) { $this->sideboxSort = $sortOrder; }
     public function setFooterSort($sortOrder) { $this->footerSort = $sortOrder; }
     public function setTocSort($value) { $this->tocSort = $value; }
-    public function setNewWin($value) { $this->isNewWin = ZMLangUtils::asBoolean($value); }
-    public function setSSL($value) { $this->isSSL = ZMLangUtils::asBoolean($value); }
+    public function setNewWin($value) { $this->newWin = ZMLangUtils::asBoolean($value); }
+    public function setSSL($value) { $this->ssl = ZMLangUtils::asBoolean($value); }
     public function setTocChapter($chapter) { $this->tocChapter = $chapter; }
 
 }
