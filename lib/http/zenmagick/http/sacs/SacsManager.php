@@ -92,6 +92,11 @@ class SacsManager {
         } else {
             $this->mappings_ = Toolbox::arrayMergeRecursive($this->mappings_, $mappings);
         }
+        foreach (array('default', 'mappings') as $key) {
+            if (!array_key_exists($key, $this->mappings_)) {
+                $this->mappings_[$key] = array();
+            }
+        }
     }
 
     /**
