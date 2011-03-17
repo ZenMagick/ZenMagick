@@ -67,6 +67,7 @@ class TestZMTools extends ZMTestCase {
      * Test compareStoreUrl incomplete.
      */
     public function testCmpStoreUrlIncomplete() {
+        $idName = Runtime::getSettings()->get('zenmagick.mvc.request.idName');
         $this->assertTrue(ZMTools::compareStoreUrl('index.php', 'index.php?'.$idName.'=index'));
         $this->assertTrue(ZMTools::compareStoreUrl('index.php?'.$idName.'=', 'index.php?'.$idName.'=index'));
     }

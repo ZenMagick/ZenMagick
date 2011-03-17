@@ -471,6 +471,10 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
     public function update($sql, $data=array(), $mapping=null) {
         $mapping = $this->mapper_->ensureMapping($mapping, $this);
 
+        // convert to array
+        if (is_object($data)) {
+            $data = ZMBeanUtils::obj2map($data, array_keys($mapping));
+        }
         try {
             $stmt = $this->prepareStatement($sql, $data, $mapping);
             $stmt->execute();
@@ -696,7 +700,7 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
      * {@inheritDoc}
      */
     public function getResource() {
-        $this->ensureResource(); 
+        $this->ensureResource();
         return $this->pdo_;
     }
 

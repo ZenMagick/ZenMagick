@@ -39,11 +39,11 @@ class TestZMUrlManager extends ZMTestCase {
 
         // test store mapping
         $mapping = ZMUrlManager::instance()->findMapping('foo', 'empty_cart');
-        $this->assertEqual(array('controller'=>null,'formId'=>null,'form'=>null,'view'=>'RedirectView','template'=>'empty_cart', 'layout' => null), $mapping);
+        $this->assertEqual(array('controller'=>null,'formId'=>null,'form'=>null,'view'=>'RedirectView#requestId=empty_cart','template'=>'', 'layout' => null), $mapping);
 
         // test store mapping
         $mapping = ZMUrlManager::instance()->findMapping(null, 'low_stock');
-        $this->assertEqual(array('controller'=>null,'formId'=>null,'form'=>null,'view'=>'RedirectView','template'=>'shopping_cart', 'layout' => null), $mapping);
+        $this->assertEqual(array('controller'=>null,'formId'=>null,'form'=>null,'view'=>'RedirectView#requestId=shopping_cart','template'=>'', 'layout' => null), $mapping);
     }
 
     /**
@@ -51,7 +51,7 @@ class TestZMUrlManager extends ZMTestCase {
      */
     public function testGlobalDefault() {
         $mapping = ZMUrlManager::instance()->findMapping('checkout_shipping', 'check_cart');
-        $this->assertEqual(array('controller'=>null,'formId'=>null,'form'=>null,'view'=>'RedirectView','template'=>'shopping_cart', 'layout' => null), $mapping);
+        $this->assertEqual(array('controller'=>null,'formId'=>null,'form'=>null,'view'=>'RedirectView#requestId=shopping_cart','template'=>'', 'layout' => null), $mapping);
     }
 
     /**
@@ -60,7 +60,7 @@ class TestZMUrlManager extends ZMTestCase {
     public function testCheckoutGuestSuccess() {
         $manager = ZMUrlManager::instance();
         $mapping = $manager->findMapping('checkout_guest', 'success');
-        $this->assertEqual(array('controller'=>null,'formId'=>null,'form'=>null,'view'=>'RedirectView','template'=>'checkout_shipping', 'layout' => null), $mapping);
+        $this->assertEqual(array('controller'=>null,'formId'=>null,'form'=>null,'view'=>'RedirectView#requestId=checkout_shipping','template'=>'login', 'layout' => null), $mapping);
     }
 
 }

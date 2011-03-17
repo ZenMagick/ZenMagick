@@ -58,8 +58,8 @@ class TestZMFilePatcher extends ZMTestCase {
         $target = $this->dataPath_.'file-test-insert-before-out.txt';
         $patch = array(
             array(
-                'match'=>'some blubb', 
-                'action'=>'insert-before', 
+                'match'=>'some blubb',
+                'action'=>'insert-before',
                 'data'=>'some doh'
             )
         );
@@ -85,8 +85,8 @@ class TestZMFilePatcher extends ZMTestCase {
         $target = $this->dataPath_.'file-test-insert-before-edge-out.txt';
         $patch = array(
             array(
-                'match'=>'some bla', 
-                'action'=>'insert-before', 
+                'match'=>'some bla',
+                'action'=>'insert-before',
                 'data'=>'some doh'
             )
         );
@@ -112,8 +112,8 @@ class TestZMFilePatcher extends ZMTestCase {
         $target = $this->dataPath_.'file-test-insert-after-out.txt';
         $patch = array(
             array(
-                'match'=>'some blubb', 
-                'action'=>'insert-after', 
+                'match'=>'some blubb',
+                'action'=>'insert-after',
                 'data'=>'some doh'
             )
         );
@@ -139,8 +139,8 @@ class TestZMFilePatcher extends ZMTestCase {
         $target = $this->dataPath_.'file-test-insert-after-edge-out.txt';
         $patch = array(
             array(
-                'match'=>'and one more line!', 
-                'action'=>'insert-after', 
+                'match'=>'and one more line!',
+                'action'=>'insert-after',
                 'data'=>'some doh'
             )
         );
