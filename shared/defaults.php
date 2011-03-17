@@ -32,6 +32,9 @@
 
     //** others **//
     define('PRODUCTS_OPTIONS_TYPE_SELECT', 0);
+    if (!defined('ATTRIBUTES_PRICE_FACTOR_FROM_SPECIAL')) {
+        define('ATTRIBUTES_PRICE_FACTOR_FROM_SPECIAL', 0);
+    }
 
 
     /**
