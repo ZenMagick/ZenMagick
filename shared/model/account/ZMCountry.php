@@ -93,6 +93,9 @@ class ZMCountry extends ZMObject {
      */
     public function getId() { return $this->countryId; }
 
+    // @todo deprecated doctrine backwards compatibility
+    public function getCountryId() { return $this->getId(); }
+
     /**
      * Get the country name.
      *
@@ -127,6 +130,9 @@ class ZMCountry extends ZMObject {
      * @param int id The country id.
      */
     public function setId($id) { $this->countryId = $id; }
+
+    //@todo doctrine deprecated backwards compatibility
+    public function setCountryId($id) { $this->setId($id); }
 
     /**
      * Set the country name.

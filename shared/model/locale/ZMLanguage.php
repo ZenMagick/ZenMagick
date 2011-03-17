@@ -86,6 +86,9 @@ class ZMLanguage extends ZMObject {
         parent::__destruct();
     }
 
+    // @todo deprecated, but needed until we change the property name
+    public function getLanguageId() { return $this->getId(); }
+
     /**
      * Get the language id.
      *
@@ -134,6 +137,9 @@ class ZMLanguage extends ZMObject {
      * @param int $id The language id.
      */
     public function setId($id) { $this->languageId = $id; }
+
+    // @todo doctrine deprecated
+    public function setLanguageId($id) { $this->setId($id); }
 
     /**
      * Set the language name.
