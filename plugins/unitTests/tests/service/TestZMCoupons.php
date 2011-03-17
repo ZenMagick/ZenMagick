@@ -160,7 +160,7 @@ class TestZMCoupons extends ZMTestCase {
             $direct = ZMCoupons::instance()->getRestrictionsForCouponId(9);
             $this->assertNotNull($direct);
         } else {
-            $this->fail('test coupon not found');
+            $this->skip('test coupon not found');
         }
     }
 
@@ -193,7 +193,7 @@ class TestZMCoupons extends ZMTestCase {
             $this->assertNotNull($result);
             $this->assertEqual('foo@bar.com', $result->getEmailTo());
         } else {
-            $this->fail('no test account found');
+            $this->skip('no test account found');
         }
     }
 
