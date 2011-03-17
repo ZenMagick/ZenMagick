@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\http\sacs\SacsPermissionProvider;
 
 /**
  * Database based permission provider.
@@ -27,7 +28,7 @@
  * @author DerManoMann
  * @package zenmagick.store.shared.provider
  */
-class ZMDBSacsPermissionProvider implements ZMSacsPermissionProvider {
+class ZMDBSacsPermissionProvider implements SacsPermissionProvider {
 
     /**
      * {@inheritDoc}

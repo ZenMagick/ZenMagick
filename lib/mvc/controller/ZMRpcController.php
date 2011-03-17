@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\http\sacs\SacsManager;
 
 /**
  * RPC controller.
@@ -51,12 +52,12 @@ class ZMRpcController extends ZMController {
         $method = $sacsMethod = $rpcRequest->getMethod();
 
         // check access on controller level
-        ZMSacsManager::instance()->authorize($request, $request->getRequestId(), $request->getUser());
+        SacsManager::instance()->authorize($request, $request->getRequestId(), $request->getUser());
 
         // (re-)check on method level if mapping exists
         $methodRequestId = $request->getRequestId().'#'.$sacsMethod;
-        if (ZMSacsManager::instance()->hasMappingForRequestId($methodRequestId)) {
-            ZMSacsManager::instance()->authorize($request, $methodRequestId, $request->getUser());
+        if (SacsManager::instance()->hasMappingForRequestId($methodRequestId)) {
+            SacsManager::instance()->authorize($request, $methodRequestId, $request->getUser());
         }
 
         if (method_exists($this, $method) || in_array($method, $this->getAttachedMethods())) {

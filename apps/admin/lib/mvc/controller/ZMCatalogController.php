@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\http\sacs\SacsManager;
 
 /**
  * Admin controller for catalog page(s).
@@ -92,7 +93,7 @@ class ZMCatalogController extends ZMController {
         }
 
         // check authorization as we'll need the follwo up redirect point to the catalog URL, not a tab url
-        $authorized = ZMSacsManager::instance()->authorize($request, $request->getRequestId(), $request->getUser(), false);
+        $authorized = SacsManager::instance()->authorize($request, $request->getRequestId(), $request->getUser(), false);
 
         if (null == $controller || !$authorized) {
             // no controller found
@@ -112,7 +113,7 @@ class ZMCatalogController extends ZMController {
         } catch (Exception $e) {
             ZMLogging::instance()->dump($e, 'view::generate failed', ZMLogging::ERROR);
             $catalogViewContent = null;
-        } 
+        }
 
         // restore for normal processing
         $request->setRequestId($requestId);

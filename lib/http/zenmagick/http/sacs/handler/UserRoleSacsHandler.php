@@ -60,7 +60,6 @@ class UserRoleSacsHandler implements SacsHandler {
         if (array_key_exists('roles', $defaultMapping)) {
             $qualifiedRoles = array_merge($defaultMapping['roles'], $qualifiedRoles);
         }
-
         // special case for '*' user
         if (in_array('*', $qualifiedUsers)) {
             return true;
@@ -68,7 +67,7 @@ class UserRoleSacsHandler implements SacsHandler {
 
         if (null == $credentials || !($credentials instanceof UserRoleCredentials)) {
             // need proper credentials in order to continue
-            return false;
+            return null;
         }
 
         // special case for '*' role

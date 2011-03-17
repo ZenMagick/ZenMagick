@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\http\sacs\SacsManager;
 
 /**
  * Request controller for ajax requests.
@@ -76,12 +77,12 @@ class ZMAjaxController extends ZMController {
         }
 
         // check access on controller level
-        ZMSacsManager::instance()->authorize($request, $request->getRequestId(), $request->getUser());
+        SacsManager::instance()->authorize($request, $request->getRequestId(), $request->getUser());
 
         // (re-)check on method level if mapping exists
         $methodRequestId = $request->getRequestId().'#'.$sacsMethod;
-        if (ZMSacsManager::instance()->hasMappingForRequestId($methodRequestId)) {
-            ZMSacsManager::instance()->authorize($request, $methodRequestId, $request->getUser());
+        if (SacsManager::instance()->hasMappingForRequestId($methodRequestId)) {
+            SacsManager::instance()->authorize($request, $methodRequestId, $request->getUser());
         }
 
         if (method_exists($this, $method) || in_array($method, $this->getAttachedMethods())) {
@@ -112,7 +113,7 @@ class ZMAjaxController extends ZMController {
      * <p>If the given object is an array, all elements will be converted, too. Generally speaking, this method works
      * recursively. Arrays are preserved, array values, in turn, will be flattened.</p>
      *
-     * <p>The methods array may contain nested arrays to allow recursiv method mapping. The Ajax product controller is 
+     * <p>The methods array may contain nested arrays to allow recursiv method mapping. The Ajax product controller is
      * a good example for this.</p>
      *
      * @param mixed obj The object.

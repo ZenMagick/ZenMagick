@@ -22,6 +22,7 @@
 
 use zenmagick\base\Runtime;
 use zenmagick\base\events\Event;
+use zenmagick\http\sacs\SacsManager;
 
 /**
  * Request controller base class.
@@ -95,7 +96,7 @@ class ZMController extends ZMObject {
         $this->isAjax_ = $this->isAjax($request);
 
         // check authorization
-        ZMSacsManager::instance()->authorize($request, $request->getRequestId(), $request->getUser());
+        SacsManager::instance()->authorize($request, $request->getRequestId(), $request->getUser());
 
         $enableTransactions = ZMSettings::get('zenmagick.mvc.transactions.enabled', false);
 
@@ -143,8 +144,8 @@ class ZMController extends ZMObject {
                         if (method_exists($this, $method) || in_array($method, $this->getAttachedMethods())) {
                             // (re-)check on method level if mapping exists
                             $methodRequestId = $request->getRequestId().'#'.$method;
-                            if (ZMSacsManager::instance()->hasMappingForRequestId($methodRequestId)) {
-                                ZMSacsManager::instance()->authorize($request, $methodRequestId, $request->getUser());
+                            if (SacsManager::instance()->hasMappingForRequestId($methodRequestId)) {
+                                SacsManager::instance()->authorize($request, $methodRequestId, $request->getUser());
                             }
                             $view = $this->$method($request);
                             break;
@@ -295,7 +296,7 @@ class ZMController extends ZMObject {
         $view = ZMUrlManager::instance()->findView($this->requestId_, $id, $parameter);
 
         // ensure secure option is set if required
-        if (ZMSacsManager::instance()->requiresSecurity($this->requestId_)) {
+        if (SacsManager::instance()->requiresSecurity($this->requestId_)) {
             $view->setSecure(true);
         }
 

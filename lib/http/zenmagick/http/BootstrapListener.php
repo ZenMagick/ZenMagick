@@ -22,6 +22,7 @@
 namespace zenmagick\http;
 
 use zenmagick\base\Runtime;
+use zenmagick\http\sacs\SacsManager;
 
 /**
  * HTTP bootstrap listener.
@@ -38,8 +39,8 @@ class BootstrapListener {
         // mvc mappings
         \ZMUrlManager::instance()->load(file_get_contents(\ZMFileUtils::mkPath(Runtime::getApplicationPath(), 'config', 'url_mappings.yaml')), false);
         // sacs mappings
-        \ZMSacsManager::instance()->load(file_get_contents(\ZMFileUtils::mkPath(Runtime::getApplicationPath(), 'config', 'sacs_mappings.yaml')), false);
-        \ZMSacsManager::instance()->loadProviderMappings(Runtime::getSettings()->get('zenmagick.mvc.sacs.mappingProviders'));
+        SacsManager::instance()->load(\ZMFileUtils::mkPath(Runtime::getApplicationPath(), 'config', 'sacs_mappings.yaml'), false);
+        SacsManager::instance()->loadProviderMappings(Runtime::getSettings()->get('zenmagick.http.sacs.mappingProviders'));
     }
 
     /**

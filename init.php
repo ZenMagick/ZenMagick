@@ -19,8 +19,11 @@
  */
 ?>
 <?php
+
 use zenmagick\base\Runtime;
 use zenmagick\base\events\Event;
+use zenmagick\http\sacs\SacsManager;
+
 
   if (!defined('ZM_APP_PATH')) {
       // app location relative to zenmagick installation (ZM_BASE_PATH)
@@ -42,7 +45,7 @@ use zenmagick\base\events\Event;
   $_zm_request->seoDecode();
 
   // make sure we use the appropriate protocol (HTTPS, for example) if required
-  ZMSacsManager::instance()->ensureAccessMethod($_zm_request);
+  SacsManager::instance()->ensureAccessMethod($_zm_request);
 
   // load stuff that really needs to be global!
   if (Runtime::getSettings()->get('zenmagick.base.plugins.enabled', true)) {

@@ -59,7 +59,7 @@ class TestZMZenCartAccountSacsHandler extends ZMTestCase {
     public function testAnonymous() {
         $sacsManager = $this->getSacsManager();
         $handler = new ZMZenCartAccountSacsHandler();
-        $this->assertNull($handler->evaluate('index', $this->getAccount(ZMAccount::ANONYMOUS), $sacsManager));
+        $this->assertTrue($handler->evaluate('index', $this->getAccount(ZMAccount::ANONYMOUS), $sacsManager));
         $this->assertFalse($handler->evaluate('account', $this->getAccount(ZMAccount::ANONYMOUS), $sacsManager));
     }
 
@@ -69,7 +69,7 @@ class TestZMZenCartAccountSacsHandler extends ZMTestCase {
     public function testRegistered() {
         $sacsManager = $this->getSacsManager();
         $handler = new ZMZenCartAccountSacsHandler();
-        $this->assertNull($handler->evaluate('index', $this->getAccount(ZMAccount::REGISTERED), $sacsManager));
+        $this->assertTrue($handler->evaluate('index', $this->getAccount(ZMAccount::REGISTERED), $sacsManager));
         $this->assertTrue($handler->evaluate('account', $this->getAccount(ZMAccount::REGISTERED), $sacsManager));
     }
 
@@ -79,7 +79,7 @@ class TestZMZenCartAccountSacsHandler extends ZMTestCase {
     public function testGuest() {
         $sacsManager = $this->getSacsManager();
         $handler = new ZMZenCartAccountSacsHandler();
-        $this->assertNull($handler->evaluate('index', $this->getAccount(ZMAccount::GUEST), $sacsManager));
+        $this->assertTrue($handler->evaluate('index', $this->getAccount(ZMAccount::GUEST), $sacsManager));
         $this->assertFalse($handler->evaluate('account', $this->getAccount(ZMAccount::GUEST), $sacsManager));
         $this->assertTrue($handler->evaluate('checkout_shipping', $this->getAccount(ZMAccount::GUEST), $sacsManager));
     }

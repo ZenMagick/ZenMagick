@@ -7,30 +7,33 @@
 default:
   secure: true
   ## require admin role
-  roles: 
+  roles:
     - admin
 
 ## explicit mappings
 mappings:
   ###########################################
-  ## no permission at all
+  ## allowed for all (wildcard users)
   ##
   login: 
-    secure: true
+    users:
+      - '*'
   logoff: 
-    secure: true
+    users:
+      - '*'
   reset_password: 
-    secure: true
+    users:
+      - '*'
 
   ###########################################
-  ## allow for all valid users (empty roles list)
+  ## allow for all valid users (wildcard role)
   ##
   ajax_plugin_admin: 
-    secure: true
     roles:
+      - '*'
   ajax_dashboard: 
-    secure: true
     roles:
+      - '*'
   index: 
-    secure: true
     roles:
+      - '*'
