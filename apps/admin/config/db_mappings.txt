@@ -151,7 +151,7 @@ array(
         'code' => 'column=code;type=string',
         'image' => 'column=image;type=string',
         'directory' => 'column=directory;type=string',
-        //'sortOrder' => 'column=sort_order;type=integer'
+        'sortOrder' => 'column=sort_order;type=integer'
     ),
     'layout_boxes' => array(
         'id' => 'column=layout_id;type=integer;key=true;auto=true',
@@ -272,7 +272,7 @@ array(
         'toc' => 'column=status_toc;type=integer',
         'headerSort' => 'column=header_sort_order;type=integer',
         'sideboxSort' => 'column=sidebox_sort_order;type=integer',
-        'footerSortOrder' => 'column=footer_sort_order;type=integer',
+        'footerSort' => 'column=footer_sort_order;type=integer',
         'tocSort' => 'column=toc_sort_order;type=integer',
         'newWin' => 'column=page_open_new_window;type=boolean',
         'ssl' => 'column=page_is_ssl;type=boolean',
