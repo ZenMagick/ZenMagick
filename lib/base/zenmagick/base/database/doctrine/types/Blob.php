@@ -49,6 +49,6 @@ class Blob extends \Doctrine\DBAL\Types\Type
 
     public function convertToPHPValue($value, AbstractPlatform $platform)
     {
-        return ($value === null) ? null : /* base64_decode($value) */;
+        return ($value === null) ? null :$value /* base64_decode($value) */;
     }
 }
