@@ -29,15 +29,46 @@
  *
  * @author DerManoMann
  * @package zenmagick.store.shared.model.catalog
+ * @Table(name="manufacturers")
+ * @Entity
  */
 class ZMManufacturer extends ZMObject {
-    private $name_;
-    private $image_;
-    private $languageId_;
-    private $url_;
-    private $clickCount_;
-    private $lastClick_;
-
+    /**
+     * @var integer $manufacturerId
+     *
+     * @Column(name="manufacturers_id", type="integer", nullable=false)
+     * @Id
+     * @GeneratedValue(strategy="IDENTITY")
+     */
+    private $manufacturerId;
+    /**
+     * @var string $name
+     *
+     * @Column(name="manufacturers_name", type="string", length=32, nullable=false)
+     */
+    private $name;
+    /**
+     * @var string $image
+     *
+     * @Column(name="manufacturers_image", type="string", length=64, nullable=true)
+     */
+    private $image;
+    /**
+     * @var datetime $dateAdded
+     *
+     * @Column(name="date_added", type="datetime", nullable=true)
+     */
+    private $dateAdded;
+    /**
+     * @var datetime $lastModified
+     *
+     * @Column(name="last_modified", type="datetime", nullable=true)
+     */
+    private $lastModified;
+    private $languageId;
+    private $url;
+    private $clickCount;
+    private $lastClick;
 
     /**
      * Create new instance
@@ -45,12 +76,12 @@ class ZMManufacturer extends ZMObject {
     function __construct() {
         parent::__construct();
         $this->setId(0);
-        $this->name_ = null;
-        $this->image_ = null;
-        $this->languageId_ = 0;
-        $this->url_ = null;
-        $this->clickCount_ = 0;
-        $this->lastClick_ = null;
+        $this->name = null;
+        $this->image = null;
+        $this->languageId = 0;
+        $this->url = null;
+        $this->clickCount = 0;
+        $this->lastClick = null;
         $this->setDateAdded(null);
         $this->setLastModified(null);
     }
@@ -62,117 +93,152 @@ class ZMManufacturer extends ZMObject {
         parent::__destruct();
     }
 
-
     /**
      * Get the manufacturer id.
      *
-     * @return int The manufacturer id.
+     * @return integer $manufacturerId The manufacturer id.
      */
-    public function getId() { return $this->get('manufacturerId'); }
+    public function getId() { return $this->manufacturerId; }
+
+    //@todo deprecated doctrine backwards compatibility
+    public function getManufacturerId() { return $this->getId(); }
 
     /**
      * Get the manufacturer name.
      *
-     * @return string The manufacturer name.
+     * @return string $name The manufacturer name.
      */
-    public function getName() { return $this->name_; }
+    public function getName() { return $this->name; }
 
     /**
      * Get the manufacturer image.
      *
-     * @return string The manufacturer image.
+     * @return string $image The manufacturer image.
      */
-    public function getImage() { return $this->image_; }
+    public function getImage() { return $this->image; }
+
+    /**
+     * Get dateAdded
+     *
+     * @return datetime $dateAdded
+     */
+    public function getDateAdded() { return $this->dateAdded; }
+
+    /**
+     * Get lastModified
+     *
+     * @return datetime $lastModified
+     */
+    public function getLastModified() { return $this->lastModified; }
 
     /**
      * Check if a manufacturer image exists.
      *
      * @return boolean <code>true</code> if an image exists, <code>false</code> if not.
      */
-    public function hasImage() { return !empty($this->image_); }
+    public function hasImage() { return !empty($this->image); }
 
     /**
      * Get the manufacturer image info.
      *
      * @return ZMImageInfo The image info.
      */
-    public function getImageInfo() { return ZMLoader::make("ImageInfo", $this->image_, $this->name_); }
+    public function getImageInfo() { return ZMLoader::make("ImageInfo", $this->image, $this->name); }
 
     /**
      * Get the manufacturer url.
      *
      * @return string The manufacturer url.
      */
-    public function getUrl() { return $this->url_; }
+    public function getUrl() { return $this->url; }
 
     /**
      * Set the manufacturer id.
      *
      * @param int id The manufacturer id.
      */
-    public function setId($id) { $this->set('manufacturerId', $id); }
+    public function setId($id) { $this->manufacturerId = $id; }
+
+    // @todo deprecated doctrine backwards compatbility 
+    public function setManufacturerId($id) { $this->setId($id); }
 
     /**
      * Set the manufacturer name.
      *
-     * @param string name The manufacturer name.
+     * @param string $name The manufacturer name.
      */
-    public function setName($name) { $this->name_ = $name; }
+    public function setName($name) { $this->name = $name; }
 
     /**
      * Set the manufacturer image.
      *
-     * @param string image The manufacturer image.
+     * @param string $image The manufacturer image.
      */
-    public function setImage($image) { $this->image_ = $image; }
+    public function setImage($image) { $this->image = $image; }
+
+    /**
+     * Set dateAdded
+     *
+     * @author  DerManoMann
+     * @param datetime $dateAdded
+     */
+    public function setDateAdded($dateAdded) { $this->dateAdded = $dateAdded; }
+
+    /**
+     * Set lastModified
+     *
+     * @author  DerManoMann
+     * @param datetime $lastModified
+     */
+    public function setLastModified($lastModified) { $this->lastModified = $lastModified; }
 
     /**
      * Set the manufacturer url.
      *
      * @param string url The manufacturer url.
      */
-    public function setUrl($url) { $this->url_ = $url; }
+    public function setUrl($url) { $this->url = $url; }
 
     /**
      * Get the language id.
      *
      * @return int The language id.
      */
-    public function getLanguageId() { return $this->languageId_; }
+    public function getLanguageId() { return $this->languageId; }
 
     /**
      * Set the language id.
      *
      * @param int languageId The language id.
      */
-    public function setLanguageId($languageId) { $this->languageId_ = $languageId; }
+    public function setLanguageId($languageId) { $this->languageId = $languageId; }
 
     /**
      * Get the click counter.
      *
      * @return int The click count for this manufactuer and language.
      */
-    public function getClickCount() { return $this->clickCount_; }
+    public function getClickCount() { return $this->clickCount; }
 
     /**
      * Set the click counter.
      *
      * @param int clickCount The click count for this manufactuer and language.
      */
-    public function setClickCount($clickCount) { $this->clickCount_ = $clickCount; }
+    public function setClickCount($clickCount) { $this->clickCount = $clickCount; }
 
     /**
      * Get the date of the last click.
      *
      * @return date The last click date.
      */
-    public function getLastClick() { return $this->lastClick_; }
+    public function getLastClick() { return $this->lastClick; }
 
     /**
      * Set the date of the last click.
      *
      * @param date lastClick The last click date.
      */
-    public function setLastClick($lastClick) { $this->lastClick_ = $lastClick; }
+    public function setLastClick($lastClick) { $this->lastClick = $lastClick; }
 
 }
