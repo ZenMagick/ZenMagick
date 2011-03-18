@@ -33,20 +33,87 @@
  *
  * @author DerManoMann
  * @package zenmagick.store.shared.model
+ * @Table(name="coupons")
+ * @Entity
  */
 class ZMCoupon extends ZMObject {
-    private $code_;
-    private $type_;
-    private $amount_;
-    private $name_;
-    private $description_;
-    private $minOrderAmount_;
-    private $startDate_;
-    private $expiryDate_;
-    private $usesPerCoupon_;
-    private $usesPerUser_;
-    private $active_;
+    /**
+     * @var integer $couponId
+     *
+     * @Column(name="coupon_id", type="integer", nullable=false)
+     * @Id
+     * @GeneratedValue(strategy="IDENTITY")
+     */
+    private $couponId;
 
+    /**
+     * @var string $code
+     *
+     * @Column(name="coupon_code", type="string", length=32, nullable=false)
+     */
+    private $code;
+    /**
+     * @var string $type
+     *
+     * @Column(name="coupon_type", type="string", length=1, nullable=false)
+     */
+    private $type;
+    /**
+     * @var decimal $amount
+     *
+     * @Column(name="coupon_amount", type="decimal", nullable=false)
+     */
+    private $amount;
+    private $name;
+    private $description;
+    /**
+     * @var decimal $minOrderAmount
+     *
+     * @Column(name="coupon_minimum_order", type="decimal", nullable=false)
+     */
+    private $minOrderAmount;
+    /**
+     * @var datetime $startDate
+     *
+     * @Column(name="coupon_start_date", type="datetime", nullable=false)
+     */
+    private $startDate;
+    /**
+     * @var datetime $expiryDate
+     *
+     * @Column(name="coupon_expire_date", type="datetime", nullable=false)
+     */
+    private $expiryDate;
+    /**
+     * @var integer $usesPerCoupon
+     *
+     * @Column(name="uses_per_coupon", type="integer", nullable=false)
+     */
+    private $usesPerCoupon;
+    /**
+     * @var integer $usesPerUser
+     *
+     * @Column(name="uses_per_user", type="integer", nullable=false)
+     */
+    private $usesPerUser;
+    /**
+     * @var string $active
+     *
+     * @Column(name="coupon_active", type="string", length=1, nullable=false)
+     */
+    private $active;
+    /**
+     * @var datetime $dateCreated
+     *
+     * @Column(name="date_created", type="datetime", nullable=false)
+     */
+    private $dateCreated;
+    /**
+     * @var datetime $dateModified
+     *
+     * @Column(name="date_modified", type="datetime", nullable=false)
+     */
+    private $dateModified;
 
     /**
      * Create new instance
@@ -58,12 +125,12 @@ class ZMCoupon extends ZMObject {
     function __construct($id=0, $code='', $type='') {
         parent::__construct();
         $this->setId($id);
-        $this->code_ = $code;
-        $this->type_ = $type;
-        $this->active_ = 'Y';
-        $this->minOrderAmount_ = 0;
-        $this->usesPerCoupon_ = 1;
-        $this->usesPerUser_ = 0;
+        $this->code = $code;
+        $this->type = $type;
+        $this->active = 'Y';
+        $this->minOrderAmount = 0;
+        $this->usesPerCoupon = 1;
+        $this->usesPerUser = 0;
     }
 
     /**
@@ -73,111 +140,127 @@ class ZMCoupon extends ZMObject {
         parent::__destruct();
     }
 
-
     /**
      * Get the coupon id.
      *
-     * @return int The coupon id.
+     * @return int $couponId The coupon id.
      */
-    public function getId() { return $this->get('couponId'); }
+    public function getId() { return $this->couponId; }
+
+    // @todo deprecated doctrine backwards compatiblity
+    public function getCouponId() { return $this->getId(); }
 
     /**
      * Get the coupon code.
      *
-     * @return string The coupon code.
+     * @return string $code The coupon code.
      */
-    public function getCode() { return $this->code_; }
+    public function getCode() { return $this->code; }
 
     /**
      * Get the coupon type.
      *
-     * @return string The coupon type.
+     * @return string $type The coupon type.
      */
-    public function getType() { return $this->type_; }
+    public function getType() { return $this->type; }
 
     /**
      * Get the amount.
      *
-     * @return float The coupon amount.
+     * @return float $amount The coupon amount.
      */
-    public function getAmount() { return $this->amount_; }
+    public function getAmount() { return $this->amount; }
 
     /**
      * Get the coupon name.
      *
      * @return string The coupon name.
      */
-    public function getName() { return $this->name_; }
+    public function getName() { return $this->name; }
 
     /**
      * Get the coupon description.
      *
      * @return string The coupon description.
      */
-    public function getDescription() { return $this->description_; }
+    public function getDescription() { return $this->description; }
 
     /**
      * Get the minimum order amount.
      *
-     * @return float The minimum order amount.
+     * @return float $minOrderAmount The minimum order amount.
      */
-    public function getMinOrderAmount() { return $this->minOrderAmount_; }
+    public function getMinOrderAmount() { return $this->minOrderAmount; }
 
     /**
      * Get the coupon start date.
      *
-     * @return string The coupon start date.
+     * @return datetime $startDate The coupon start date.
      */
-    public function getStartDate() { return $this->startDate_; }
+    public function getStartDate() { return $this->startDate; }
 
     /**
      * Get the coupon expiry date.
      *
-     * @return string The coupon expiry date.
+     * @return datetime $expiryDate The coupon expiry date.
      */
-    public function getExpiryDate() { return $this->expiryDate_; }
+    public function getExpiryDate() { return $this->expiryDate; }
 
     /**
      * Get the uses per coupon.
      *
-     * @return int The uses per coupon.
+     * @return int $usesPerCoupon The uses per coupon.
      */
-    public function getUsesPerCoupon() { return $this->usesPerCoupon_; }
+    public function getUsesPerCoupon() { return $this->usesPerCoupon; }
 
     /**
      * Get the uses per coupon.
      *
-     * @return int The uses per coupon.
+     * @return int $usesPerUser The uses per coupon.
      */
-    public function getUsesPerUser() { return $this->usesPerUser_; }
+    public function getUsesPerUser() { return $this->usesPerUser; }
 
     /**
      * Check if this coupon qualifies for free shipping.
      *
      * @return boolean <code>true</code> if this coupon qualifies for free shipping, <code>false</code> if not.
      */
-    public function isFreeShipping() { return 'S' == $this->type_; }
+    public function isFreeShipping() { return 'S' == $this->type; }
 
     /**
      * Check if this coupon is active.
      *
-     * @return boolean <code>true</code> if this coupon is active.
+     * @return boolean $active <code>true</code> if this coupon is active.
      */
-    public function isActive() { return 'Y' == $this->active_; }
+    public function isActive() { return 'Y' == $this->active; }
 
     /**
      * Check if this a fixed amount coupon.
      *
      * @return boolean <code>true</code> if this coupon has a fixed amount assigned, <code>false</code> if not.
      */
-    public function isFixedAmount() { return 'F' == $this->type_; }
+    public function isFixedAmount() { return 'F' == $this->type; }
 
     /**
      * Check if this a percentage amount coupon.
      *
      * @return boolean <code>true</code> if this coupon has a percentage amount assigned, <code>false</code> if not.
      */
-    public function isPercentage() { return 'P' == $this->type_; }
+    public function isPercentage() { return 'P' == $this->type; }
+
+    /**
+     * Get the date the coupon was created.
+     *
+     * @return datetime $dateCreated
+     */
+    public function getDateCreated() { return $this->dateCreated; }
+
+    /**
+     * Get the date the coupon was last modified.
+     *
+     * @return datetime $dateModified
+     */
+    public function getDateModified() { return $this->dateModified; }
 
     /**
      * Get coupon restrictions.
@@ -185,91 +268,106 @@ class ZMCoupon extends ZMObject {
      * @return array An array of <code>ZMCouponRestriction</code> instances.
      */
     public function getRestrictions() {
-        return ZMCoupons::instance()->getRestrictionsForCouponId($this->get('couponId'));
+        return ZMCoupons::instance()->getRestrictionsForCouponId($this->couponId);
     }
 
     /**
      * Set the coupon id.
      *
-     * @param int id The coupon id.
+     * @param int $id The coupon id.
      */
-    public function setId($id) { $this->set('couponId', $id); }
+    public function setId($id) { $this->couponId = $id; }
+
+    // @todo deperecated doctrine backwards compatibility
+    public function setCouponId($id) { $this->setId($id); }
 
     /**
      * Set the coupon code.
      *
-     * @param string code The coupon code.
+     * @param string $code The coupon code.
      */
-    public function setCode($code) { $this->code_ = $code; }
+    public function setCode($code) { $this->code = $code; }
 
     /**
      * Set the coupon type.
      *
-     * @param string type The coupon type.
+     * @param string $type The coupon type.
      */
-    public function setType($type) { $this->type_ = $type; }
+    public function setType($type) { $this->type = $type; }
 
     /**
      * Set the amount.
      *
-     * @param float amount The coupon amount.
+     * @param float $amount The coupon amount.
      */
-    public function setAmount($amount) { $this->amount_ = $amount; }
+    public function setAmount($amount) { $this->amount = $amount; }
 
     /**
      * Set the coupon name.
      *
      * @param string name The coupon name.
      */
-    public function setName($name) { $this->name_ = $name; }
+    public function setName($name) { $this->name = $name; }
 
     /**
      * Set the coupon description.
      *
      * @param string description The coupon description.
      */
-    public function setDescription($description) { $this->description_ = $description; }
+    public function setDescription($description) { $this->description = $description; }
 
     /**
      * Set the minimum order amount.
      *
-     * @param float amount The new minimum order amount.
+     * @param float $amount The new minimum order amount.
      */
-    public function setMinOrderAmount($amount) { $this->minOrderAmount_ = $amount; }
+    public function setMinOrderAmount($amount) { $this->minOrderAmount = $amount; }
 
     /**
      * Set the coupon start date.
      *
-     * @param string date The coupon start date.
+     * @param string $date The coupon start date.
      */
-    public function setStartDate($date) { $this->startDate_ = $date; }
+    public function setStartDate($date) { $this->startDate = $date; }
 
     /**
      * Set the coupon expiry date.
      *
-     * @param string date The coupon expiry date.
+     * @param string $date The coupon expiry date.
      */
-    public function setExpiryDate($date) { $this->expiryDate_ = $date; }
+    public function setExpiryDate($date) { $this->expiryDate = $date; }
 
     /**
      * Set the uses per coupon.
      *
-     * @param int uses The uses per coupon.
+     * @param int $uses The uses per coupon.
      */
-    public function setUsesPerCoupon($uses) { $this->usesPerCoupon_ = $uses; }
+    public function setUsesPerCoupon($uses) { $this->usesPerCoupon = $uses; }
 
     /**
      * Set the uses per user.
      *
-     * @param int uses The uses per user.
+     * @param int $uses The uses per user.
      */
-    public function setUsesPerUser($uses) { $this->usesPerUser_ = $uses; }
+    public function setUsesPerUser($uses) { $this->usesPerUser = $uses; }
 
     /**
      * Set the active flag.
      *
-     * @param string active The new flag.
+     * @param string $active The new flag.
      */
-    public function setActive($active) { $this->active_ = $active; }
+    public function setActive($active) { $this->active = $active; }
 
+    /**
+     * Set the date the coupon was created
+     *
+     * @param datetime $dateCreated
+     */
+    public function setDateCreated($dateCreated) { $this->dateCreated = $dateCreated; }
+
+    /**
+     * Set the date the coupon was modified.
+     * @param datetime $dateModified
+     */
+    public function setDateModified($dateModified) { $this->dateModified = $dateModified; }
 }
