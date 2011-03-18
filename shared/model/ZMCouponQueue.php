@@ -29,15 +29,54 @@
  *
  * @author DerManoMann
  * @package zenmagick.store.shared.model
+ * @Table(name="coupon_gv_queue")
+ * @Entity
  */
 class ZMCouponQueue extends ZMObject {
+    /**
+     * @var integer $id
+     *
+     * @Column(name="unique_id", type="integer", nullable=false)
+     * @Id
+     * @GeneratedValue(strategy="IDENTITY")
+     */
     private $id;
+    /**
+     * @var integer $accountId
+     *
+     * @Column(name="customer_id", type="integer", nullable=false)
+     */
     private $accountId;
+    /**
+     * @var integer $orderId
+     *
+     * @Column(name="order_id", type="integer", nullable=false)
+     */
     private $orderId;
+    /**
+     * @var decimal $amount
+     *
+     * @Column(name="amount", type="decimal", nullable=false)
+     */
     private $amount;
+    /**
+     * @var datetime $dateCreated
+     *
+     * @Column(name="date_created", type="datetime", nullable=false)
+     */
     private $dateCreated;
+    /**
+     * @var string $ipAddr
+     *
+     * @Column(name="ipaddr", type="string", length=32, nullable=false)
+     */
+    private $ipAddr;
+    /**
+     * @var string $released
+     *
+     * @Column(name="release_flag", type="string", length=1, nullable=false)
+     */
     private $released;
-
 
     /**
      * Create new instance
@@ -58,39 +97,52 @@ class ZMCouponQueue extends ZMObject {
         parent::__destruct();
     }
 
-
     /**
      * Get the coupon queue id.
      *
-     * @return int The coupon queue id.
+     * @return int $id The coupon queue id.
      */
     public function getId() { return $this->id; }
 
     /**
      * Get the account id.
      *
-     * @return int The account id.
+     * @return int $accountId The account id.
      */
     public function getAccountId() { return $this->accountId; }
 
     /**
      * Get the order id.
      *
-     * @return int The order id.
+     * @return int $orderId The order id.
      */
     public function getOrderId() { return $this->orderId; }
 
     /**
      * Get the amount.
      *
-     * @return float The coupon amount.
+     * @return float $amount The coupon amount.
      */
     public function getAmount() { return $this->amount; }
 
     /**
+     * Get the date the coupon was created
+     *
+     * @return datetime $dateCreated
+     */
+    public function getDateCreated() { return $this->dateCreated; }
+
+    /**
+     * Get ipAddr
+     *
+     * @return string $ipAddr
+     */
+    public function getIpAddr() { return $this->ipAddr; }
+
+    /**
      * Get the release flag value.
      *
-     * @return string The flag.
+     * @return string $released The flag.
      */
     public function getReleased() { return $this->released; }
 
@@ -111,29 +163,42 @@ class ZMCouponQueue extends ZMObject {
     /**
      * Set the account id.
      *
-     * @param int accountId The account id.
+     * @param int $accountId The account id.
      */
     public function setAccountId($accountId) { $this->accountId = $accountId; }
 
     /**
      * Set the order id.
      *
-     * @param int orderId The order id.
+     * @param int $orderId The order id.
      */
     public function setOrderId($orderId) { $this->orderId = $orderId; }
 
     /**
      * Set the amount.
      *
-     * @param float amount The coupon amount.
+     * @param float $amount The coupon amount.
      */
     public function setAmount($amount) { $this->amount = $amount; }
 
     /**
+     * Set dateCreated
+     *
+     * @param datetime $dateCreated
+     */
+    public function setDateCreated($dateCreated) { $this->dateCreated = $dateCreated; }
+
+    /**
+     * Set ipaddr
+     *
+     * @param string $ipAddr
+     */
+    public function setIpAddr($ipAddr) { $this->ipAddr = $ipAddr; }
+
+    /**
      * Set the release flag value.
      *
-     * @param string value The flag.
+     * @param string $value The flag.
      */
     public function setReleased($value) { $this->released = $value; }
-
 }
