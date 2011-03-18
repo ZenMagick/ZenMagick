@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\http\sacs\SacsManager;
 
 /**
  * Admin controller to manage roles.
@@ -49,8 +50,8 @@ class ZMManageRolesController extends ZMController {
      */
     public function getViewData($request) {
         $roles = ZMAdminUserRoles::instance()->getAllRoles();
-        $mappings = ZMSacsManager::instance()->getMappings();
-        $defaultMapping = ZMSacsManager::instance()->getDefaultMapping();
+        $mappings = SacsManager::instance()->getMappings();
+        $defaultMapping = SacsManager::instance()->getDefaultMapping();
         return array('roles' => $roles, 'mappings' => $mappings, 'defaultMapping' => $defaultMapping);
     }
 
@@ -84,7 +85,7 @@ class ZMManageRolesController extends ZMController {
                 ZMMessages::instance()->error('Adding role failed');
             }
         }
-        
+
         return $this->findView();
     }
 

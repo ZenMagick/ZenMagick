@@ -63,6 +63,10 @@ class SacsManager {
         $this->reset();
     }
 
+    //TODO: move to DI
+    public static function instance() {
+        return Runtime::singleton('zenmagick\http\sacs\SacsManager');
+    }
 
     /**
      * Reset all internal data structures.
@@ -91,6 +95,11 @@ class SacsManager {
             $this->mappings_ = $mappings;
         } else {
             $this->mappings_ = Toolbox::arrayMergeRecursive($this->mappings_, $mappings);
+        }
+        foreach (array('default', 'mappings') as $key) {
+            if (!array_key_exists($key, $this->mappings_)) {
+                $this->mappings_[$key] = array();
+            }
         }
     }
 
@@ -165,29 +174,33 @@ class SacsManager {
      */
     public function authorize($request, $requestId, $credentials, $action=true) {
         Runtime::getLogging()->log('authorizing requestId: '.$requestId, Logging::TRACE);
+        // no responsible handler means fail
+        $result = null;
         foreach ($this->handlers_ as $handler) {
             if (null !== ($result = $handler->evaluate($requestId, $credentials, $this))) {
-                Runtime::getLogging()->log('evaluated by: '.get_class($handler).', result: '.($result ? 'true' : 'false'), Logging::TRACE);
-                if (false === $result) {
-                    if (!$action) {
-                        return false;
-                    }
-                    // fire event
-                    Runtime::getEventDispatcher()->notify(new Event($this, 'insufficient_credentials', array('request' => $request, 'credentials' => $credentials)));
-                    // not required level of authentication
-                    $session = $request->getSession();
-                    // secure flag: leave to net() to lookup via SacsManager if configured, but leave as default parameter to allow override
-                    if (!$session->isStarted()) {
-                        // no valid session
-                        $request->redirect($request->url(Runtime::getSettings()->get('zenmagick.http.request.invalidSession')));
-                        exit;
-                    }
-                    $request->saveFollowUpUrl();
-                    $request->redirect($request->url(Runtime::getSettings()->get('zenmagick.http.request.login', 'login'), '', true));
-                    exit;
-                }
                 break;
             }
+        }
+
+        Runtime::getLogging()->log('evaluated by: '.get_class($handler).', result: '.($result ? 'true' : 'false'), Logging::TRACE);
+        if (!$result) {
+            // null | false
+            if (!$action) {
+                return false;
+            }
+            // fire event
+            Runtime::getEventDispatcher()->notify(new Event($this, 'insufficient_credentials', array('request' => $request, 'credentials' => $credentials)));
+            // not required level of authentication
+            $session = $request->getSession();
+            // secure flag: leave to net() to lookup via SacsManager if configured, but leave as default parameter to allow override
+            if (!$session->isStarted()) {
+                // no valid session
+                $request->redirect($request->url(Runtime::getSettings()->get('zenmagick.http.request.invalidSession')));
+                exit;
+            }
+            $request->saveFollowUpUrl();
+            $request->redirect($request->url(Runtime::getSettings()->get('zenmagick.http.request.login', 'login'), '', true));
+            exit;
         }
 
         return true;

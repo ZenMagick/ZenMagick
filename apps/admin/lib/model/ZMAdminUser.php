@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\http\sacs\handler\UserRoleCredentials;
 
 /**
  * A admin user.
@@ -27,7 +28,7 @@
  * @author DerManoMann
  * @package zenmagick.store.admin.model
  */
-class ZMAdminUser extends ZMObject implements ZMUserRoleCredentials {
+class ZMAdminUser extends ZMObject implements UserRoleCredentials {
     private $id_;
     private $name_;
     private $email_;

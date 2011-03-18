@@ -63,7 +63,6 @@ zenmagick:
     request:
       idName: main_page
       missingPage: error
-      invalidSession: cookie_usage
       seoRewriter: StoreDefaultSeoRewriter
 
     ## html
@@ -90,14 +89,19 @@ zenmagick:
         - crumbtrail:ToolboxCrumbtrail
         - metaTags:ToolboxMetaTags
 
+    ## resultlist
+    resultlist:
+      defaultPagination: 10
+
+  http:
+    ## request
+    request:
+      invalidSession: cookie_usage
+      login: login
     ## sacs
     sacs:
       handler:
         - ZMZenCartAccountSacsHandler
-
-    ## resultlist
-    resultlist:
-      defaultPagination: 10
 
 apps:
   store:

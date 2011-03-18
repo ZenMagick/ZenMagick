@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\http\sacs\SacsHandler;
 
 /**
  * Handle access control and security mappings.
@@ -33,28 +34,20 @@
  * @author DerManoMann
  * @package zenmagick.store.shared.provider
  */
-class ZMZenCartAccountSacsHandler extends ZMObject implements ZMSacsHandler {
+class ZMZenCartAccountSacsHandler implements SacsHandler {
     private $levelMap_;
 
 
     /**
      * Create new instance.
      */
-    function __construct() {
-        parent::__construct();
+    public function __construct() {
         // which level allows what
         $this->levelMap_ = array(
             ZMAccount::ANONYMOUS => array(ZMAccount::ANONYMOUS, ZMAccount::GUEST, ZMAccount::REGISTERED),
             ZMAccount::GUEST => array(ZMAccount::GUEST, ZMAccount::REGISTERED),
             ZMAccount::REGISTERED => array(ZMAccount::REGISTERED)
         );
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
     }
 
     /**
@@ -69,12 +62,12 @@ class ZMZenCartAccountSacsHandler extends ZMObject implements ZMSacsHandler {
      * {@inheritDoc}
      */
     public function evaluate($requestId, $credentials, $manager) {
-        if (null != $credentials && !($credentials instanceof ZMAccount)) {
-            return null;
+        $requiredLevel = $manager->getMappingValue($requestId, 'level', ZMSettings::get('defaultAccessLevel'));
+        if (null == $requiredLevel || ZMAccount::ANONYMOUS == $requiredLevel) {
+            return true;
         }
 
-        $requiredLevel = $manager->getMappingValue($requestId, 'level', ZMSettings::get('defaultAccessLevel'));
-        if (null == $requiredLevel) {
+        if (null == $credentials || !($credentials instanceof ZMAccount)) {
             return null;
         }
 

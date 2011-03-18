@@ -19,9 +19,10 @@
  */
 ?>
 <?php
+
 use zenmagick\base\Runtime;
 use zenmagick\base\events\Event;
-
+use zenmagick\http\sacs\SacsManager;
 
 
     // create the main request instance
@@ -34,7 +35,7 @@ use zenmagick\base\events\Event;
     $_zm_request->seoDecode();
 
     // make sure we use the appropriate protocol (HTTPS, for example) if required
-    \ZMSacsManager::instance()->ensureAccessMethod($_zm_request);
+    SacsManager::instance()->ensureAccessMethod($_zm_request);
 
     // form validation
     \ZMValidator::instance()->load(file_get_contents(\ZMFileUtils::mkPath(array(Runtime::getApplicationPath(), 'config', 'validation.yaml'))));

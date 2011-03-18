@@ -49,7 +49,7 @@ interface SacsHandler {
      * @param ZMRequest request The current request.
      * @param mixed credentials The user credentials.
      * @param SacsManager manager The delegating manager.
-     * @return mixed Either <code>null</code> to indicate that the given request is not configured for this handler, or
+     * @return mixed Either <code>null</code> to indicate that the given request can't be handled, or
      *  either <code>true</code> for valid credentials or <code>false</code> for invalid credentials.
      */
     public function evaluate($request, $credentials, $manager);

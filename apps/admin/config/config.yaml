@@ -71,7 +71,6 @@ zenmagick:
     request:
       index: index.php
       missingPage: error
-      invalidSession: login
       seoRewriter: DefaultSeoRewriter
 
     ## seo
@@ -103,10 +102,15 @@ zenmagick:
         - admin:ToolboxAdmin
         - admin2:ToolboxAdmin2
 
+  http:
+    ## request
+    request:
+      invalidSession: login
+      login: login
     ## sacs
     sacs:
       handler:
-        - ZMUserRoleSacsHandler
+        - zenmagick\http\sacs\handler\UserRoleSacsHandler
       mappingProviders:
         - ZMDBSacsPermissionProvider
 
