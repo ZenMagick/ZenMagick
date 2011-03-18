@@ -35,8 +35,10 @@ class TestZMSalemaker extends ZMTestCase {
         foreach (ZMProducts::instance()->getAllProducts(false, 1) as $product) {
             $productId = $product->getId();
             $info = ZMSalemaker::instance()->getSaleDiscountTypeInfo($productId);
+            $er = error_reporting(0);
             $type = zen_get_products_sale_discount_type($productId);
             $amount = zen_get_products_sale_discount_type($productId, false, 'amount');
+            error_reporting($er);
             if (!$this->assertEqual(array('type'=>$type, 'amount'=>$amount), $info)) {
                 echo $productId . $product->getName();
                 break;
