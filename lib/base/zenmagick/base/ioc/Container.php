@@ -21,6 +21,7 @@
 <?php
 namespace zenmagick\base\ioc;
 
+use zenmagick\base\ClassLoader;
 
 /**
  * Dependency injection container.
@@ -31,4 +32,23 @@ namespace zenmagick\base\ioc;
  * @package zenmagick.base.ioc
  */
 class Container extends \Symfony\Component\DependencyInjection\ContainerBuilder {
+
+    /**
+     * {@inheritDoc}
+     */
+    public function get($id, $invalidBehavior=self::EXCEPTION_ON_INVALID_REFERENCE) {
+        if ($this->has($id)) {
+            return parent::get($id, $invalidBehavior);
+        }
+
+        // try to default to the id as class name
+        if (ClassLoader::classExists($id)) {
+            return new $id();
+        }
+
+        if (self::EXCEPTION_ON_INVALID_REFERENCE === $invalidBehavior) {
+            throw new \InvalidArgumentException(sprintf('The service "%s" does not exist.', $id));
+        }
+    }
+
 }
