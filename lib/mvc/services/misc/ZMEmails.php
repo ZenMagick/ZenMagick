@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 
 /**
  * Useful stuff to create email contents.
@@ -58,7 +59,7 @@ class ZMEmails extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return ZMRuntime::singleton('Emails');
+        return Runtime::getContainer()->getService('ZMEmails');
     }
 
 

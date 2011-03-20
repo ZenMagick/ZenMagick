@@ -23,6 +23,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 
 /**
  * General access class for shipping provider.
@@ -53,7 +54,7 @@ class ZMShippingProviders extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return ZMRuntime::singleton('ShippingProviders');
+        return Runtime::getContainer()->getService('ZMShippingProviders');
     }
 
 

@@ -23,6 +23,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 
 /**
  * Accounts.
@@ -55,7 +56,7 @@ class ZMAccounts extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return ZMRuntime::singleton('Accounts');
+        return Runtime::getContainer()->getService('ZMAccounts');
     }
 
 
@@ -142,7 +143,7 @@ class ZMAccounts extends ZMObject {
         if (0 < $limit) {
             $sql .= " LIMIT ".$limit;
         }
-        
+
         $accounts = array();
         foreach (ZMRuntime::getDatabase()->query($sql, array(), array(TABLE_CUSTOMERS, TABLE_CUSTOMERS_INFO), 'Account') as $account) {
             if (ZMLangUtils::isEmpty($account->getPassword())) {
@@ -203,7 +204,7 @@ class ZMAccounts extends ZMObject {
      *
      * <p><strong>NOTE:</strong> This will not update product notification
      * changes!</p>
-     * <p>Use <code>setGlobalProductSubscriber(..)</code> and 
+     * <p>Use <code>setGlobalProductSubscriber(..)</code> and
      * <code>setSubscribedProductIds(..)</code> * to update product
      * subscriptions.</p>
      *

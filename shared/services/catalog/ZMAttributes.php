@@ -23,6 +23,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 
 /**
  * Attribute service.
@@ -50,7 +51,7 @@ class ZMAttributes extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return ZMRuntime::singleton('Attributes');
+        return Runtime::getContainer()->getService('ZMAttributes');
     }
 
 
@@ -59,7 +60,7 @@ class ZMAttributes extends ZMObject {
      *
      * @param ZMProduct product The product.
      * @return boolean <code>true</code> if attributes eixst, <code>false</code> if not.
-     */ 
+     */
     public function getAttributesForProduct($product) {
         // set up sort order SQL
         $attributesOrderBy = '';

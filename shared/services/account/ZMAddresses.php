@@ -23,6 +23,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 
 /**
  * Addresses.
@@ -50,7 +51,7 @@ class ZMAddresses extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return ZMRuntime::singleton('Addresses');
+        return Runtime::getContainer()->getService('ZMAddresses');
     }
 
 
@@ -131,7 +132,7 @@ class ZMAddresses extends ZMObject {
      */
     public function deleteAddressForId($addressId) {
         $sql = "DELETE FROM " . TABLE_ADDRESS_BOOK . "
-                WHERE  address_book_id = :id"; 
+                WHERE  address_book_id = :id";
         ZMRuntime::getDatabase()->update($sql, array('id' => $addressId), TABLE_ADDRESS_BOOK);
         return true;
     }

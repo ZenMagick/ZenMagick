@@ -23,6 +23,8 @@ namespace zenmagick\base\ioc;
 
 use zenmagick\base\ClassLoader;
 
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
+
 /**
  * Dependency injection container.
  *
@@ -32,6 +34,15 @@ use zenmagick\base\ClassLoader;
  * @package zenmagick.base.ioc
  */
 class Container extends \Symfony\Component\DependencyInjection\ContainerBuilder {
+    private $services_;
+
+    /**
+     * Create new instance.
+     */
+    public function __construct(ParameterBagInterface $parameterBag=null) {
+        parent::__construct($parameterBag);
+        $this->services_ = array();
+    }
 
     /**
      * {@inheritDoc}
@@ -45,10 +56,33 @@ class Container extends \Symfony\Component\DependencyInjection\ContainerBuilder 
         if (ClassLoader::classExists($id)) {
             return new $id();
         }
+        //TODO: remove
+        if (null != ($realid = \ZMLoader::resolve($id))) {
+            return new $realid();
+        }
 
         if (self::EXCEPTION_ON_INVALID_REFERENCE === $invalidBehavior) {
             throw new \InvalidArgumentException(sprintf('The service "%s" does not exist.', $id));
         }
+    }
+
+    /**
+     * Get a singleton service.
+     *
+     * @param string id The service id.
+     * @param  int invalidBehavior The behavior when the service does not exist.
+     * @return mixed The service instance.
+     */
+    public function getService($id, $invalidBehavior=self::EXCEPTION_ON_INVALID_REFERENCE) {
+        if (!array_key_exists($id, $this->services_)) {
+            $this->services_[$id] = $this->get($id, $invalidBehavior);
+        }
+
+        if (array_key_exists($id, $this->services_)) {
+            return $this->services_[$id];
+        }
+
+        return null;
     }
 
 }

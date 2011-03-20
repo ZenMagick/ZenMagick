@@ -23,6 +23,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 
 /**
  * Countries.
@@ -53,7 +54,7 @@ class ZMCountries extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return ZMRuntime::singleton('Countries');
+        return Runtime::getContainer()->getService('ZMCountries');
     }
 
 
@@ -124,7 +125,7 @@ class ZMCountries extends ZMObject {
 
     /**
      * Get the zone code for the given country and zone id.
-     * 
+     *
      * @param int countryId The country id.
      * @param int zoneId The zone id.
      * @param string defaultZone Optional default value; default is <code>''</code>.

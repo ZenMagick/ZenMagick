@@ -23,6 +23,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 
 /**
  * Tax rates.
@@ -59,7 +60,7 @@ class ZMTaxRates extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return ZMRuntime::singleton('TaxRates');
+        return Runtime::getContainer()->getService('ZMTaxRates');
     }
 
 

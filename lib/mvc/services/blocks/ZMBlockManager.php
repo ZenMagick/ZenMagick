@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 
 /**
  * Manage template blocks.
@@ -53,7 +54,7 @@ class ZMBlockManager extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return ZMRuntime::singleton('BlockManager');
+        return Runtime::getContainer()->getService('ZMBlockManager');
     }
 
     /**

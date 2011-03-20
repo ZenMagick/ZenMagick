@@ -68,7 +68,7 @@ class Plugins {
      * Get instance.
      */
     public static function instance() {
-        return Runtime::singleton('\zenmagick\base\plugins\Plugins');
+        return Runtime::getContainer()->getService('\zenmagick\base\plugins\Plugins');
     }
 
 

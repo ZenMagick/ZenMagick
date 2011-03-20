@@ -23,6 +23,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 
 define('ZM_TABLE_PRODUCT_GROUP_PRICING', DB_PREFIX . 'product_group_pricing');
 
@@ -63,7 +64,7 @@ class ZMProductGroupPricings extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return ZMRuntime::singleton('ProductGroupPricings');
+        return Runtime::getContainer()->getService('ZMProductGroupPricings');
     }
 
 

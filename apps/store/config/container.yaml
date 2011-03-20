@@ -1,0 +1,7 @@
+services:
+  ZMRequest:
+    class: Request
+    scope: container
+  ZMPlugins:
+    class: Plugins
+    scope: container

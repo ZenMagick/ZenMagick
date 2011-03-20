@@ -23,6 +23,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 
 /**
  * Currencies.
@@ -53,7 +54,7 @@ class ZMCurrencies extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return ZMRuntime::singleton('Currencies');
+        return Runtime::getContainer()->getService('ZMCurrencies');
     }
 
 

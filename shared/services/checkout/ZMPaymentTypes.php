@@ -23,6 +23,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 
 /**
  * Payments.
@@ -52,7 +53,7 @@ class ZMPaymentTypes extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return ZMRuntime::singleton('PaymentTypes');
+        return Runtime::getContainer()->getService('ZMPaymentTypes');
     }
 
 

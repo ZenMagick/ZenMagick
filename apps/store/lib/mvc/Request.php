@@ -131,7 +131,7 @@ class Request extends \ZMRequest {
         if (null == $this->shoppingCart_) {
         	// TODO: enable
         	if ($this->isAnonymous() || true) {
-              $this->shoppingCart_ = \ZMBeanUtils::getBean('ShoppingCart');
+              $this->shoppingCart_ = Runtime::getContainer()->getService('ZMShoppingCart');
         	} else {
         		  $this->shoppingCart_ = \ZMShoppingCarts::instance()->loadCartForAccountId($this->getAccountId());
         	}

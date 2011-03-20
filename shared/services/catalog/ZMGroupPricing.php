@@ -23,6 +23,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 
 /**
  * Group pricing.
@@ -50,7 +51,7 @@ class ZMGroupPricing extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return ZMRuntime::singleton('GroupPricing');
+        return Runtime::getContainer()->getService('ZMGroupPricing');
     }
 
 
@@ -60,7 +61,7 @@ class ZMGroupPricing extends ZMObject {
      * @return array List of ZMPriceGroup objects.
      */
     function getPriceGroups() {
-        $sql = "SELECT * 
+        $sql = "SELECT *
                 FROM " . TABLE_GROUP_PRICING;
         return ZMRuntime::getDatabase()->query($sql, array(), TABLE_GROUP_PRICING, 'PriceGroup');
     }

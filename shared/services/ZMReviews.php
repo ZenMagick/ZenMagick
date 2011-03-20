@@ -23,6 +23,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 
 /**
  * Reviews.
@@ -50,7 +51,7 @@ class ZMReviews extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return ZMRuntime::singleton('Reviews');
+        return Runtime::getContainer()->getService('ZMReviews');
     }
 
 
@@ -83,7 +84,7 @@ class ZMReviews extends ZMObject {
      */
     public function getRandomReviews($languageId, $productId=null, $max=null) {
         $max = null === $max ? ZMSettings::get('maxRandomReviews') : $max;
-        
+
         $sql = "SELECT r.reviews_id
                 FROM " . TABLE_REVIEWS . " r, " . TABLE_REVIEWS_DESCRIPTION . " rd, "
                        . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd

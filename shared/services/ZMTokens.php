@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 
 /**
  * Token service.
@@ -47,7 +48,7 @@ class ZMTokens extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return ZMRuntime::singleton('Tokens');
+        return Runtime::getContainer()->getService('ZMTokens');
     }
 
 

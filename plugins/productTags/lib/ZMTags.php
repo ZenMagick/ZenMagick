@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 
 define('TABLE_TAGS', DB_PREFIX . 'tags');
 define('TABLE_PRODUCT_TAGS', DB_PREFIX . 'product_tags');
@@ -50,7 +51,7 @@ class ZMTags extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return ZMRuntime::singleton('Tags');
+        return Runtime::getContainer()->getService('ZMTags');
     }
 
 

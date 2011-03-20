@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 
 /**
  * Caching service.
@@ -61,7 +62,7 @@ class ZMCaches extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return ZMRuntime::singleton('Caches');
+        return Runtime::getContainer()->getService('ZMCaches');
     }
 
 

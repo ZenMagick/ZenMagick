@@ -98,7 +98,7 @@ class ZMRequest extends \ZMObject {
      * available.</p>
      */
     public static function instance() {
-        return \ZMRuntime::singleton('Request');
+        return Runtime::getContainer()->getService('ZMRequest');
     }
 
     /**

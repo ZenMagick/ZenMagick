@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 
 /**
  * <em>SwiftMailer</em> Email service.
@@ -76,7 +77,7 @@ class ZMMailer extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return ZMRuntime::singleton('Mailer');
+        return Runtime::getContainer()->getService('ZMMailer');
     }
 
 
@@ -89,7 +90,7 @@ class ZMMailer extends ZMObject {
         $transport = ZMSettings::get('zenmagick.core.email.transport', 'smtp');
         if ('smtp' == $transport) {
             //XXX: do we need a new instance for each call??
-            $transport = Swift_SmtpTransport::newInstance(ZMSettings::get('zenmagick.core.email.smtp.host', 'localhost'), 
+            $transport = Swift_SmtpTransport::newInstance(ZMSettings::get('zenmagick.core.email.smtp.host', 'localhost'),
                   (int)ZMSettings::get('zenmagick.core.email.smtp.port', 25))
               ->setUsername(ZMSettings::get('zenmagick.core.email.smtp.user', ''))
               ->setPassword(ZMSettings::get('zenmagick.core.email.smtp.password', ''))

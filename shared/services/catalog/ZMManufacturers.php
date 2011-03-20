@@ -23,6 +23,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 
 /**
  * Manufacturers.
@@ -46,7 +47,7 @@ class ZMManufacturers extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return ZMRuntime::singleton('Manufacturers');
+        return Runtime::getContainer()->getService('ZMManufacturers');
     }
 
 

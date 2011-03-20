@@ -23,6 +23,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 
 /**
  * Coupons.
@@ -59,7 +60,7 @@ class ZMCoupons extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return ZMRuntime::singleton('Coupons');
+        return Runtime::getContainer()->getService('ZMCoupons');
     }
 
 

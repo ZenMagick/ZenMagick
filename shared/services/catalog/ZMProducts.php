@@ -23,6 +23,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 
 /**
  * Product access.
@@ -60,7 +61,7 @@ class ZMProducts extends ZMObject implements ZMSQLAware {
      * Get instance.
      */
     public static function instance() {
-        return ZMRuntime::singleton('Products');
+        return Runtime::getContainer()->getService('ZMProducts');
     }
 
 
@@ -84,8 +85,8 @@ class ZMProducts extends ZMObject implements ZMSQLAware {
      */
     protected function getAllProductsQueryDetails($active=true, $languageId) {
         $sql = "SELECT p.*, pd.*, s.specials_new_products_price
-                FROM " . TABLE_PRODUCTS . " p 
-                  LEFT JOIN " . TABLE_SPECIALS . " s ON (s.products_id = p.products_id AND s.status = 1), 
+                FROM " . TABLE_PRODUCTS . " p
+                  LEFT JOIN " . TABLE_SPECIALS . " s ON (s.products_id = p.products_id AND s.status = 1),
                   " . TABLE_PRODUCTS_DESCRIPTION . " pd
                 WHERE pd.products_id = p.products_id
                   AND pd.language_id = :languageId";
@@ -187,7 +188,7 @@ class ZMProducts extends ZMObject implements ZMSQLAware {
      */
     protected function getProductsForCategoryIdQueryDetails($categoryId, $active=true, $languageId) {
         $sql = "SELECT p.*, pd.*, m.*, s.specials_new_products_price
-                FROM " . TABLE_PRODUCTS . " p 
+                FROM " . TABLE_PRODUCTS . " p
                   LEFT JOIN " . TABLE_SPECIALS . " s ON (s.products_id = p.products_id)
                   LEFT JOIN " . TABLE_MANUFACTURERS . " m ON (m.manufacturers_id = p.manufacturers_id),
                   " . TABLE_PRODUCTS_DESCRIPTION . " pd, " .  TABLE_PRODUCTS_TO_CATEGORIES . " p2c
@@ -299,9 +300,9 @@ class ZMProducts extends ZMObject implements ZMSQLAware {
 		    $sql = null;
         if (null == $categoryId) {
             $sql = "select distinct p.products_id
-                    from " . TABLE_PRODUCTS . " p 
+                    from " . TABLE_PRODUCTS . " p
                     left join " . TABLE_FEATURED . " f on p.products_id = f.products_id
-                    where p.products_id = f.products_id 
+                    where p.products_id = f.products_id
                       and p.products_status = '1'
                       and f.status = '1'";
         } else {
@@ -328,7 +329,7 @@ class ZMProducts extends ZMObject implements ZMSQLAware {
      *
      * @param int categoryId Optional category id to narrow down results; default is <code>null</code> for all.
      * @param int max The maximum number of results; default is <code>0</code> for all.
-     * @param int timeLimit Optional time limit in days (or first of month for using <em>1</em); 
+     * @param int timeLimit Optional time limit in days (or first of month for using <em>1</em);
      *  default is <code>null</code> to use the setting 'maxNewProducts'.
      * @param int languageId Optional language id; default is <code>null</code> for session language.
      * @return array A list of <code>ZMProduct</code> instances.
@@ -396,7 +397,7 @@ class ZMProducts extends ZMObject implements ZMSQLAware {
         if (null !== $categoryId) {
             $sql = "SELECT DISTINCT p.products_id
                     FROM " . TABLE_PRODUCTS . " p, "
-                    . TABLE_PRODUCTS_TO_CATEGORIES . " p2c, " . TABLE_CATEGORIES . " c 
+                    . TABLE_PRODUCTS_TO_CATEGORIES . " p2c, " . TABLE_CATEGORIES . " c
                     WHERE p.products_status = '1'
                       AND p.products_ordered > 0
                       AND p.products_id = p2c.products_id
@@ -449,8 +450,8 @@ class ZMProducts extends ZMObject implements ZMSQLAware {
      */
     public function getProductForModel($model, $languageId) {
         $sql = "SELECT p.*, pd.*, s.specials_new_products_price
-                FROM " . TABLE_PRODUCTS . " p 
-                LEFT JOIN " . TABLE_SPECIALS . " s ON (s.products_id = p.products_id AND s.status = 1), 
+                FROM " . TABLE_PRODUCTS . " p
+                LEFT JOIN " . TABLE_SPECIALS . " s ON (s.products_id = p.products_id AND s.status = 1),
                 " . TABLE_PRODUCTS_DESCRIPTION . " pd
                 WHERE p.products_status = '1'
                   AND p.products_model = :model
@@ -484,8 +485,8 @@ class ZMProducts extends ZMObject implements ZMSQLAware {
         }
 
         $sql = "SELECT p.*, pd.*, s.specials_new_products_price
-                FROM " . TABLE_PRODUCTS . " p 
-                LEFT JOIN " . TABLE_SPECIALS . " s ON (s.products_id = p.products_id AND s.status = 1), 
+                FROM " . TABLE_PRODUCTS . " p
+                LEFT JOIN " . TABLE_SPECIALS . " s ON (s.products_id = p.products_id AND s.status = 1),
                 " . TABLE_PRODUCTS_DESCRIPTION . " pd
                 WHERE p.products_id = :productId
                   AND pd.products_id = p.products_id
@@ -502,7 +503,7 @@ class ZMProducts extends ZMObject implements ZMSQLAware {
      * Load a list of products.
      *
      * @param array productIds A list of (int) product ids.
-     * @param boolean preserveOrder Optional flag to return the products in the order of the given id list, rather 
+     * @param boolean preserveOrder Optional flag to return the products in the order of the given id list, rather
      *  than using the default product sort order; default is <code>false</code>.
      * @param int languageId Optional language id; default is <code>null</code> for session language.
      * @return ZMProduct The product or <code>null</code>.
@@ -530,8 +531,8 @@ class ZMProducts extends ZMObject implements ZMSQLAware {
 
         if (0 < count($needLoadIds)) {
             $sql = "SELECT p.*, pd.*, s.specials_new_products_price
-                    FROM " . TABLE_PRODUCTS . " p 
-                    LEFT JOIN " . TABLE_SPECIALS . " s ON (s.products_id = p.products_id AND s.status = 1), 
+                    FROM " . TABLE_PRODUCTS . " p
+                    LEFT JOIN " . TABLE_SPECIALS . " s ON (s.products_id = p.products_id AND s.status = 1),
                     " . TABLE_PRODUCTS_DESCRIPTION . " pd
                     WHERE p.products_id in (:productId)
                       AND pd.products_id = p.products_id

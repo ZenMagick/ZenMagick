@@ -23,6 +23,8 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
+
 
 /**
  * Music manager.
@@ -119,7 +121,7 @@ class ZMMusicManager extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return ZMRuntime::singleton('MusicManager');
+        return Runtime::getContainer()->getService('ZMMusicManager');
     }
 
 

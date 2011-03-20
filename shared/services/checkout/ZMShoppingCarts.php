@@ -23,6 +23,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 
 /**
  * Shopping cart service.
@@ -57,7 +58,7 @@ class ZMShoppingCarts extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return ZMRuntime::singleton('ShoppingCarts');
+        return Runtime::getContainer()->getService('ZMShoppingCarts');
     }
 
 

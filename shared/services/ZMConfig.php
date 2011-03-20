@@ -23,6 +23,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 
 /**
  * Configuration.
@@ -50,7 +51,7 @@ class ZMConfig extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return ZMRuntime::singleton('Config');
+        return Runtime::getContainer()->getService('ZMConfig');
     }
 
 
@@ -72,7 +73,7 @@ class ZMConfig extends ZMObject {
 
         $sql = "INSERT INTO " . TABLE_CONFIGURATION . " (
                   configuration_title, configuration_key, configuration_value, configuration_group_id,
-                  configuration_description, sort_order, 
+                  configuration_description, sort_order,
                   date_added, use_function, set_function)
                 VALUES (:name, :key, :value, :groupId,
                   :description, :sortOrder,
@@ -227,7 +228,7 @@ class ZMConfig extends ZMObject {
                 default:
                     //echo $setFunction.": ".$value['setFunction']."<BR>";
                     $widget = ZMBeanUtils::map2obj('ConfigValue', $value);
-                    break;    
+                    break;
                 }
                 if ($widget instanceof ZMWidget) {
                     // common stuff
@@ -320,7 +321,7 @@ class ZMConfig extends ZMObject {
      */
     public function getConfigGroupForId($groupId) {
         $sql = "SELECT *
-                FROM " . TABLE_CONFIGURATION_GROUP . " 
+                FROM " . TABLE_CONFIGURATION_GROUP . "
                 WHERE configuration_group_id = :id";
         return ZMRuntime::getDatabase()->querySingle($sql, array('id' => $groupId), TABLE_CONFIGURATION_GROUP, 'ConfigGroup');
     }
@@ -332,7 +333,7 @@ class ZMConfig extends ZMObject {
      */
     public function getConfigGroups() {
         $sql = "SELECT *
-                FROM " . TABLE_CONFIGURATION_GROUP . " 
+                FROM " . TABLE_CONFIGURATION_GROUP . "
                 ORDER BY sort_order";
         return ZMRuntime::getDatabase()->query($sql, array(), TABLE_CONFIGURATION_GROUP, 'ConfigGroup');
     }

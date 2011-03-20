@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 
 /**
  * A validator framework.
@@ -54,7 +55,7 @@ class ZMValidator extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return ZMRuntime::singleton('Validator');
+        return Runtime::getContainer()->getService('ZMValidator');
     }
 
 

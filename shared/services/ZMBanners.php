@@ -23,6 +23,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 
 /**
  * Banner.
@@ -50,7 +51,7 @@ class ZMBanners extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return ZMRuntime::singleton('Banners');
+        return Runtime::getContainer()->getService('ZMBanners');
     }
 
 

@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 
 /**
  * Admin user prefs service.
@@ -47,7 +48,7 @@ class ZMAdminUserPrefs extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return ZMRuntime::singleton('AdminUserPrefs');
+        return Runtime::getContainer()->getService('ZMAdminUserPrefs');
     }
 
 

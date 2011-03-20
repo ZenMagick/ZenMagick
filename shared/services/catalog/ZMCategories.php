@@ -23,6 +23,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 
 /**
  * Category DAO.
@@ -34,7 +35,7 @@
  * @package zenmagick.store.shared.services.catalog
  */
 class ZMCategories extends ZMObject {
-    /** 
+    /**
      * Flat list of <code>ZMCategory</code> instances.
      *
      * <p>This gets loaded on demand, so subclasses have to ensure this is populated before
@@ -68,7 +69,7 @@ class ZMCategories extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return ZMRuntime::singleton('Categories');
+        return Runtime::getContainer()->getService('ZMCategories');
     }
 
 
@@ -233,7 +234,7 @@ class ZMCategories extends ZMObject {
         if (0 != $category->getParentId()) {
             if (null == ($parent = $this->getCategoryForId($category->getParentId(), $languageId))) {
                 // invalid parent
-                $category->setParentId(0);        
+                $category->setParentId(0);
             }
         }
         $category = ZMRuntime::getDatabase()->createModel(TABLE_CATEGORIES, $category);

@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 
 /**
  * Bean utility.
@@ -243,7 +244,7 @@ class ZMBeanUtils extends ZMObject {
             $properties = array();
         }
 
-        if ($isRef && null != ($ref = ZMRuntime::singleton($tokens[0]))) {
+        if ($isRef && null != ($ref = Runtime::getContainer()->getService($tokens[0]))) {
             self::setAll($ref, $properties);
             return $ref;
         }
