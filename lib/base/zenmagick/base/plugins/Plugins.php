@@ -54,8 +54,7 @@ class Plugins {
     /**
      * Create new instance.
      */
-    function __construct() {
-        parent::__construct();
+    public function __construct() {
         $this->plugins_ = array();
         $this->pluginStatus_ = $this->loadStatus();
         if (!is_array($this->pluginStatus_)) {
@@ -64,12 +63,6 @@ class Plugins {
         $this->pathIdMap_ = null;
     }
 
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
 
     /**
      * Get instance.
