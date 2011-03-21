@@ -44,7 +44,7 @@ class ZMRegistrationForm extends ZMFormData {
      * @return ZMAccount An account.
      */
     public function getAccount() {
-        $account = ZMBeanUtils::getBean('Account');
+        $account = ZMBeanUtils::getBean('ZMAccount');
         $properties = $this->properties_;
 
         // don't need these
@@ -65,7 +65,7 @@ class ZMRegistrationForm extends ZMFormData {
      * @return ZMAddress An address.
      */
     public function getAddress() {
-        $address = ZMBeanUtils::getBean('Address');
+        $address = ZMBeanUtils::getBean('ZMAddress');
         $properties = $this->properties_;
 
         // don't need these

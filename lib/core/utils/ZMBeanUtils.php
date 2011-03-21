@@ -21,6 +21,7 @@
 <?php
 
 use zenmagick\base\Runtime;
+use zenmagick\base\ioc\Container;
 
 /**
  * Bean utility.
@@ -175,7 +176,7 @@ class ZMBeanUtils extends ZMObject {
      * @return mixed An instance of the given class or <code>null</code>.
      */
     public static function map2obj($clazz, $data, $keys=null) {
-        $obj = ZMLoader::make($clazz);
+        $obj = Runtime::getContainer()->get($clazz, Container::NULL_ON_INVALID_REFERENCE);
         if (null !== $obj) {
             self::setAll($obj, $data, $keys);
             return $obj;

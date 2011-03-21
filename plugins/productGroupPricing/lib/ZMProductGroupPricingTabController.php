@@ -47,7 +47,7 @@ class ZMProductGroupPricingTabController extends ZMCatalogContentController {
         $priceGroups = ZMGroupPricing::instance()->getPriceGroups();
         $groupId = $request->getParameter('groupId', $priceGroups[0]->getId());
         $productGroupPricings = ZMProductGroupPricings::instance()->getProductGroupPricings($request->getProductId(), $groupId, false);
-        $productGroupPricing = ZMBeanUtils::getBean("ProductGroupPricing");
+        $productGroupPricing = ZMBeanUtils::getBean("ZMProductGroupPricing");
         // TODO: should not need to check for delete - viewData should not override findView(.., data) data
         if (null != ($groupPricingId = $request->getParameter('groupPricingId')) && 0 < $groupPricingId && null == $request->getParameter('delete')) {
             $productGroupPricing = ZMProductGroupPricings::instance()->getProductGroupPricingForId($groupPricingId);
@@ -66,19 +66,19 @@ class ZMProductGroupPricingTabController extends ZMCatalogContentController {
     public function processGet($request) {
         //TODO: this should be POST!!
         if (ZMLangUtils::asBoolean($request->getParameter('delete'))) {
-            $productGroupPricing = ZMBeanUtils::getBean("ProductGroupPricing");
+            $productGroupPricing = ZMBeanUtils::getBean("ZMProductGroupPricing");
             $productGroupPricing->populate($request);
             // delete
             ZMProductGroupPricings::instance()->updateProductGroupPricing($productGroupPricing);
         }
-        return $this->findView(null, array('productGroupPricing' => ZMBeanUtils::getBean("ProductGroupPricing")));
+        return $this->findView(null, array('productGroupPricing' => ZMBeanUtils::getBean("ZMProductGroupPricing")));
     }
 
     /**
      * {@inheritDoc}
      */
     public function processPost($request) {
-        $productGroupPricing = ZMBeanUtils::getBean("ProductGroupPricing");
+        $productGroupPricing = ZMBeanUtils::getBean("ZMProductGroupPricing");
         $productGroupPricing->populate($request);
         if (0 == $productGroupPricing->getId()) {
             // create

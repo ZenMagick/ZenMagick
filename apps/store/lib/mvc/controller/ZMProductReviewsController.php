@@ -64,8 +64,8 @@ class ZMProductReviewsController extends ZMController {
         $data = array();
         $data['currentProduct'] = $product;
 
-        $resultList = ZMBeanUtils::getBean("ResultList");
-        $resultSource = ZMLoader::make("ObjectResultSource", 'Review', ZMReviews::instance(), "getReviewsForProductId", array($product->getId(), $request->getSession()->getLanguageId()));
+        $resultList = ZMBeanUtils::getBean("ZMResultList");
+        $resultSource = ZMLoader::make("ZMObjectResultSource", 'Review', ZMReviews::instance(), "getReviewsForProductId", array($product->getId(), $request->getSession()->getLanguageId()));
         $resultList->setResultSource($resultSource);
         $resultList->setPageNumber($request->getPageIndex());
         $data['resultList'] = $resultList;

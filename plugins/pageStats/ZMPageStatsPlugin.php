@@ -60,14 +60,14 @@ class ZMPageStatsPlugin extends Plugin {
         parent::install();
 
         $this->addConfigValue('Hidden Stats', 'hideStats', 'false', 'If set to true, page stats will be hidden (as HTML comment).',
-            'widget@BooleanFormWidget#name=hideStats&default=false&label=Hide stats');
+            'widget@ZMBooleanFormWidget#name=hideStats&default=false&label=Hide stats');
         $this->addConfigValue('Events', 'showEvents', 'false', 'Enable to display all fired events.',
-            'widget@BooleanFormWidget#name=showEvents&default=false&label=Show events');
+            'widget@ZMBooleanFormWidget#name=showEvents&default=false&label=Show events');
         $this->addConfigValue('SQL', 'showSQLtiming', 'false', 'Enable to display all executed SQL and related timings.',
-            'widget@BooleanFormWidget#name=showSQLtiming&default=false&label=Show SQL');
+            'widget@ZMBooleanFormWidget#name=showSQLtiming&default=false&label=Show SQL');
         $this->addConfigValue('Limit displayed SQL', 'sqlTimingLimit', '0', 'Limit displayed SQL to the top X queries (0 for all).');
         $this->addConfigValue('Dump Queries to Error Log', 'dumpQueries', 'false', 'If set to true, all SQL queries will be dumped to error log.',
-            'widget@BooleanFormWidget#name=dumpQueries&default=false&label=Dump queries to error log');
+            'widget@ZMBooleanFormWidget#name=dumpQueries&default=false&label=Dump queries to error log');
     }
 
     /**

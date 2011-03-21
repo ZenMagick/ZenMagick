@@ -7,9 +7,9 @@ named 'plugins.quickEdit.fieldList' that contains a custom field map.
 
   // custom fields
   ZMSettings::set('plugins.quickEdit.fieldList', array(
-      array('name' => 'name', 'widget' => 'TextFormWidget#title=Name&name=name&size=35'),
-      array('name' => 'status', 'widget' => 'BooleanFormWidget#style=checkbox&title=Enabled&name=status&size=35'),
-      array('name' => 'manufacturerId', 'widget' => 'ManufacturerSelectFormWidget#title=Manufacturer&options=0= --- '),
+      array('name' => 'name', 'widget' => 'ZMTextFormWidget#title=Name&name=name&size=35'),
+      array('name' => 'status', 'widget' => 'ZMBooleanFormWidget#style=checkbox&title=Enabled&name=status&size=35'),
+      array('name' => 'manufacturerId', 'widget' => 'ZMManufacturerSelectFormWidget#title=Manufacturer&options=0= --- '),
   ));
 
 ?>

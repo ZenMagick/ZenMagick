@@ -82,7 +82,7 @@ class ZMPaymentTypes extends ZMObject {
                     if (isset($GLOBALS[$info['class']])) {
                         $module = $GLOBALS[$info['class']];
                         if ($all || $module->enabled) {
-                            $this->paymentTypes_[$module->code] = ZMLoader::make('PaymentTypeWrapper', $module);
+                            $this->paymentTypes_[$module->code] = ZMLoader::make('ZMPaymentTypeWrapper', $module);
                         }
                         continue;
                     }
@@ -94,7 +94,7 @@ class ZMPaymentTypes extends ZMObject {
                     include_once $info['path'];
                     $module = new $info['class'];
                     if ($all || $module->enabled) {
-                        $this->paymentTypes_[$module->code] = ZMLoader::make('PaymentTypeWrapper', $module);
+                        $this->paymentTypes_[$module->code] = ZMLoader::make('ZMPaymentTypeWrapper', $module);
                     }
                 }
             }

@@ -139,7 +139,7 @@ class TestZMDatabase extends ZMTestCase {
             $database->update($deleteTestModelSql, array('isoCode3' => '@@@'), TABLE_COUNTRIES);
 
             // set up test data
-            $model = ZMBeanUtils::getBean('Country#name="test&isoCode2=@@&isoCode3=@@@&addressFormatId=1');
+            $model = ZMBeanUtils::getBean('ZMCountry#name="test&isoCode2=@@&isoCode3=@@@&addressFormatId=1');
             $result = $database->createModel(TABLE_COUNTRIES, $model);
             if ($this->assertNotNull($result, '%s: '.$provider)) {
                 $this->assertTrue(0 != $result->getId(), '%s: '.$provider);
@@ -174,7 +174,7 @@ class TestZMDatabase extends ZMTestCase {
             $database->update($deleteTestModelSql, array('isoCode3' => '%%%'), TABLE_COUNTRIES);
 
             // set up test data
-            $model = ZMBeanUtils::getBean('Country#name="test&isoCode2=%%&isoCode3=%%%&addressFormatId=1');
+            $model = ZMBeanUtils::getBean('ZMCountry#name="test&isoCode2=%%&isoCode3=%%%&addressFormatId=1');
             $result = $database->createModel(TABLE_COUNTRIES, $model);
             if ($this->assertNotNull($result, '%s: '.$provider)) {
                 $database->removeModel(TABLE_COUNTRIES, $result);

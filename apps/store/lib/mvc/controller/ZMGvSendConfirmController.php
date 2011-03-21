@@ -50,7 +50,7 @@ class ZMGvSendConfirmController extends ZMController {
     /**
      * {@inheritDoc}
      */
-    public function preProcess($request) { 
+    public function preProcess($request) {
         $request->getToolbox()->crumbtrail->addCrumb("Account", $request->url('account', '', true));
         $request->getToolbox()->crumbtrail->addCrumb($request->getToolbox()->utils->getTitle());
     }
@@ -61,7 +61,7 @@ class ZMGvSendConfirmController extends ZMController {
     public function processGet($request) {
         $data = array();
         $data['currentAccount'] = $request->getAccount();
-        $data['currentCoupon'] = ZMLoader::make("Coupon", 0, _zm('THE_COUPON_CODE'));
+        $data['currentCoupon'] = ZMLoader::make("ZMCoupon", 0, _zm('THE_COUPON_CODE'));
         return $this->findView(null, $data);
     }
 
@@ -79,7 +79,7 @@ class ZMGvSendConfirmController extends ZMController {
 
     /**
      * Process a HTTP POST request.
-     * 
+     *
      * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
      * if the controller generates the contents itself.
      */
@@ -95,7 +95,7 @@ class ZMGvSendConfirmController extends ZMController {
         // current balance
         $balance = $account->getVoucherBalance();
         // coupon amount
-        $amount = $gvReceiver->getAmount(); 
+        $amount = $gvReceiver->getAmount();
 
         $currentCurrencyCode = $request->getCurrencyCode();
         if (ZMSettings::get('defaultCurrency') != $currentCurrencyCode) {

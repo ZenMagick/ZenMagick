@@ -66,7 +66,7 @@ class ZMLanguages extends ZMObject {
                 FROM " . TABLE_LANGUAGES . "
                 ORDER BY sort_order";
         $this->languages = array();
-        foreach (ZMRuntime::getDatabase()->query($sql, array(), TABLE_LANGUAGES, 'Language') as $language) {
+        foreach (ZMRuntime::getDatabase()->query($sql, array(), TABLE_LANGUAGES, 'ZMLanguage') as $language) {
             $this->languages[$language->getCode()] = $language;
         }
     }

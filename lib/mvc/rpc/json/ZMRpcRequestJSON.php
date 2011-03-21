@@ -75,7 +75,7 @@ class ZMRpcRequestJSON implements ZMRpcRequest {
      * {@inheritDoc}
      */
     public function createResponse() {
-        return ZMLoader::make('RpcResponseJSON', $this);
+        return ZMLoader::make('ZMRpcResponseJSON', $this);
     }
 
 }

@@ -61,7 +61,7 @@ class ZMCaptchaPlugin extends Plugin {
         ZMDbUtils::executePatch(file(ZMDbUtils::resolveSQLFilename($this->getPluginDirectory()."sql/install.sql")), $this->messages_);
 
         $this->addConfigValue('Disable for registered users', 'disableRegistered', false, 'Disable the captcha for registered (logged in) users',
-            'widget@BooleanFormWidget#name=disableRegistered&default=false&label=Disable&style=checkbox');
+            'widget@ZMBooleanFormWidget#name=disableRegistered&default=false&label=Disable&style=checkbox');
     }
 
     /**
@@ -114,8 +114,8 @@ class ZMCaptchaPlugin extends Plugin {
                 // active for this page
                 $this->captchaEnabled_ = true;
                 $rules = array(
-                    array('RequiredRule', CAPTCHA_FIELD, 'Please enter the captcha.'),
-                    array("WrapperRule", CAPTCHA_FIELD, 'The entered captcha is not correct.', array($this, 'vCaptcha'))
+                    array('ZMRequiredRule', CAPTCHA_FIELD, 'Please enter the captcha.'),
+                    array("ZMWrapperRule", CAPTCHA_FIELD, 'The entered captcha is not correct.', array($this, 'vCaptcha'))
                 );
                 ZMValidator::instance()->addRules($form, $rules);
             }

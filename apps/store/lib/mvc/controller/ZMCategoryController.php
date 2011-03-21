@@ -50,7 +50,7 @@ class ZMCategoryController extends ZMController {
     /**
      * {@inheritDoc}
      */
-    public function preProcess($request) { 
+    public function preProcess($request) {
         $request->getToolbox()->crumbtrail->addCategoryPath($request->getCategoryPathArray());
         $request->getToolbox()->crumbtrail->addManufacturer($request->getManufacturerId());
         $request->getToolbox()->crumbtrail->addProduct($request->getProductId());
@@ -87,8 +87,8 @@ class ZMCategoryController extends ZMController {
 
         $resultList = null;
         if (null !== $method) {
-            $resultSource = ZMLoader::make("ObjectResultSource", 'Product', ZMProducts::instance(), $method, $args);
-            $resultList = ZMBeanUtils::getBean("ResultList");
+            $resultSource = ZMLoader::make("ZMObjectResultSource", 'Product', ZMProducts::instance(), $method, $args);
+            $resultList = ZMBeanUtils::getBean("ZMResultList");
             $resultList->setResultSource($resultSource);
             foreach (explode(',', ZMSettings::get('resultListProductFilter')) as $filter) {
                 $resultList->addFilter(ZMBeanUtils::getBean($filter));
@@ -101,8 +101,8 @@ class ZMCategoryController extends ZMController {
         }
 
 
-        if ($viewName == "category_list" 
-            && ((null == $resultList || !$resultList->hasResults() || (null != $category && $category->hasChildren())) 
+        if ($viewName == "category_list"
+            && ((null == $resultList || !$resultList->hasResults() || (null != $category && $category->hasChildren()))
                 && ZMSettings::get('isUseCategoryPage'))) {
             $viewName = 'category';
         }

@@ -48,8 +48,8 @@ class ZMAccountsController extends ZMController {
      * {@inheritDoc}
      */
     public function processGet($request) {
-        $resultSource = ZMLoader::make("ObjectResultSource", 'Account', ZMAccounts::instance(), "getAllAccounts");
-        $resultList = ZMBeanUtils::getBean("ResultList");
+        $resultSource = ZMLoader::make("ZMObjectResultSource", 'Account', ZMAccounts::instance(), "getAllAccounts");
+        $resultList = ZMBeanUtils::getBean("ZMResultList");
         $resultList->setResultSource($resultSource);
         $resultList->setPageNumber($request->getParameter('page', 1));
 

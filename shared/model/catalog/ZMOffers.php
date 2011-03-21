@@ -83,7 +83,7 @@ class ZMOffers extends ZMObject {
      *
      * @return boolean <code>true</code> if attribute prices exist.
      */
-    function isAttributePrice() { 
+    function isAttributePrice() {
         foreach ($this->product_->getAttributes() as $attribute) {
             foreach ($attribute->getValues() as $value) {
                 if (0 < $value->getPrice()) {
@@ -317,12 +317,12 @@ class ZMOffers extends ZMObject {
      *
      * @return float The tax rate.
      */
-    public function getTaxRate() { 
+    public function getTaxRate() {
         if (null == $this->taxRate_) {
             $this->taxRate_ = $this->product_->getTaxRate();
         }
 
-        return $this->taxRate_; 
+        return $this->taxRate_;
     }
 
     /**
@@ -347,7 +347,7 @@ class ZMOffers extends ZMObject {
      * @param boolean tax Set to <code>true</code> to include tax (if applicable); default is <code>true</code>.
      * @return float The calculated price.
      */
-    public function getCalculatedPrice($tax=true) { 
+    public function getCalculatedPrice($tax=true) {
         if ($this->product_->isFree()) {
             return 0;
         } else if (0 != ($salePrice = $this->getSalePrice($tax))) {
@@ -355,7 +355,7 @@ class ZMOffers extends ZMObject {
         } else if (0 != ($specialPrice = $this->getSpecialPrice($tax))) {
             return $specialPrice;
         } else {
-            return $this->getBasePrice($tax); 
+            return $this->getBasePrice($tax);
         }
     }
 
@@ -376,7 +376,7 @@ class ZMOffers extends ZMObject {
                 ORDER BY discount_qty";
 
         $args = array('productId' => $this->product_->getId());
-        $this->discounts_ = ZMRuntime::getDatabase()->query($sql, $args, TABLE_PRODUCTS_DISCOUNT_QUANTITY, 'QuantityDiscount');
+        $this->discounts_ = ZMRuntime::getDatabase()->query($sql, $args, TABLE_PRODUCTS_DISCOUNT_QUANTITY, 'ZMQuantityDiscount');
 
         if (0 < count($this->discounts_)) {
             $product = $this->product_;
@@ -412,10 +412,10 @@ class ZMOffers extends ZMObject {
     }
 
     /**
-     * Calculate discount for either product or the given amount 
+     * Calculate discount for either product or the given amount
      * (for example to calculate discounts on attributes).
      *
-     * @param float amount Optional amount; default is <code>null</code> to calculate the discount 
+     * @param float amount Optional amount; default is <code>null</code> to calculate the discount
      *  of the product price.
      * @return float The discounted amount.
      */

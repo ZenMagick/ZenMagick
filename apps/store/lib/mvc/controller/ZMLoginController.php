@@ -51,7 +51,7 @@ class ZMLoginController extends ZMController {
     /**
      * {@inheritDoc}
      */
-    public function preProcess($request) { 
+    public function preProcess($request) {
         $request->getToolbox()->crumbtrail->addCrumb($request->getToolbox()->utils->getTitle());
     }
 
@@ -78,6 +78,7 @@ class ZMLoginController extends ZMController {
      * {@inheritDoc}
      */
     public function processPost($request) {
+      echo 'xx';die();
         $session = $request->getSession();
 
         // get before doing anything with the session!

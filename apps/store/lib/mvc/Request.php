@@ -410,7 +410,7 @@ class Request extends \ZMRequest {
 
         if (null == $language) {
             \ZMLogging::instance()->log('no default language found - using en as fallback', \ZMLogging::WARN);
-            $language = \ZMBeanUtils::getBean("Language");
+            $language = \ZMBeanUtils::getBean("ZMLanguage");
             $language->setId(1);
             $language->setDirectory('english');
             $language->setCode('en');

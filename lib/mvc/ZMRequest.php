@@ -112,7 +112,7 @@ class ZMRequest extends \ZMObject {
     public function getSeoRewriter() {
         if (null === $this->seoRewriter_) {
             $this->seoRewriter_ = array();
-            $rewriters = array_reverse(explode(',', \ZMSettings::get('zenmagick.mvc.request.seoRewriter', 'DefaultSeoRewriter')));
+            $rewriters = array_reverse(explode(',', \ZMSettings::get('zenmagick.mvc.request.seoRewriter', 'ZMDefaultSeoRewriter')));
             foreach ($rewriters as $rewriter) {
                 if (null != ($obj = \ZMBeanUtils::getBean($rewriter))) {
                     $this->seoRewriter_[] = $obj;
@@ -267,7 +267,7 @@ class ZMRequest extends \ZMObject {
      */
     public function getSession() {
         if (!isset($this->session_)) {
-            $this->session_ = \ZMBeanUtils::getBean("Session");
+            $this->session_ = \ZMBeanUtils::getBean("ZMSession");
         }
 
         return $this->session_;
@@ -477,7 +477,7 @@ class ZMRequest extends \ZMObject {
      */
     public function getToolbox() {
         if (null == $this->toolbox_) {
-            $this->toolbox_ = \ZMLoader::make('Toolbox', $this);
+            $this->toolbox_ = \ZMLoader::make('ZMToolbox', $this);
         }
 
         return $this->toolbox_;

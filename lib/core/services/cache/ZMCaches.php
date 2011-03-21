@@ -88,7 +88,7 @@ class ZMCaches extends ZMObject {
         if (array_key_exists($type, $this->types_)) {
             $type = $this->types_[$type];
         }
-        $class = ucwords($type).'Cache';
+        $class = 'ZM'.ucwords($type).'Cache';
         $key = $group.':'.$class.':'.serialize($config);
 
         $instance = null;
@@ -122,7 +122,7 @@ class ZMCaches extends ZMObject {
     public function getProviders() {
         $providers = array();
        foreach (explode(',', ZMSettings::get('zenmagick.core.cache.providers')) as $type) {
-            $class = ucwords($type).'Cache';
+            $class = 'ZM'.ucwords($type).'Cache';
             $obj = ZMBeanUtils::getBean($class);
             if (null != $obj && $obj->isAvailable()) {
                 $providers[$type] = $obj;

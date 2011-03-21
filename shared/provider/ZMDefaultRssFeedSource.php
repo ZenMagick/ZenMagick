@@ -37,7 +37,7 @@ class ZMDefaultRssFeedSource implements ZMRssSource {
         $method = "get".ucwords($channel)."Feed";
         if (!method_exists($this, $method)) {
             return null;
-        } 
+        }
 
 
         // get feed data
@@ -75,7 +75,7 @@ class ZMDefaultRssFeedSource implements ZMRssSource {
             if (null == $key) {
                 $product = ZMProducts::instance()->getProductForId($review->getProductId());
             }
-            $item = ZMBeanUtils::getBean("RssItem");
+            $item = ZMBeanUtils::getBean("ZMRssItem");
             $item->setTitle(sprintf(_zm("Review: %s"), $product->getName()));
 
             $params = 'products_id='.$review->getProductId().'&reviews_id='.$review->getId();
@@ -85,11 +85,11 @@ class ZMDefaultRssFeedSource implements ZMRssSource {
             array_push($items, $item);
 
             if (null === $lastPubDate) {
-                $lastPubDate = $review->getDateAdded(); 
+                $lastPubDate = $review->getDateAdded();
             }
         }
 
-        $channel = ZMBeanUtils::getBean("RssChannel");
+        $channel = ZMBeanUtils::getBean("ZMRssChannel");
         $channel->setTitle(_zm("Product Reviews"));
         $channel->setLink($request->url('index'));
         if (null != $key)  {
@@ -99,7 +99,7 @@ class ZMDefaultRssFeedSource implements ZMRssSource {
         }
         $channel->setLastBuildDate(ZMRssUtils::mkRssDate($lastPubDate));
 
-        $feed = ZMBeanUtils::getBean("RssFeed");
+        $feed = ZMBeanUtils::getBean("ZMRssFeed");
         $feed->setChannel($channel);
         $feed->setItems($items);
 
@@ -117,20 +117,20 @@ class ZMDefaultRssFeedSource implements ZMRssSource {
         $items = array();
         $toc = ZMEZPages::instance()->getPagesForChapterId($key, $request->getSession()->getLanguageId());
         foreach ($toc as $page) {
-            $item = ZMBeanUtils::getBean("RssItem");
+            $item = ZMBeanUtils::getBean("ZMRssItem");
             $item->setTitle($page->getTitle());
             $item->setLink($request->getToolbox()->net->ezPage($page));
             $item->setDescription($page->getTitle());
             array_push($items, $item);
         }
 
-        $channel = ZMBeanUtils::getBean("RssChannel");
+        $channel = ZMBeanUtils::getBean("ZMRssChannel");
         $channel->setTitle(sprintf(_zm("Chapter %s"), $key));
         $channel->setLink($request->url('index'));
         $channel->setDescription(sprintf(_zm("All pages of Chapter %s"), $key));
         $channel->setLastBuildDate(ZMRssUtils::mkRssDate());
 
-        $feed = ZMBeanUtils::getBean("RssFeed");
+        $feed = ZMBeanUtils::getBean("ZMRssFeed");
         $feed->setChannel($channel);
         $feed->setItems($items);
 
@@ -153,7 +153,7 @@ class ZMDefaultRssFeedSource implements ZMRssSource {
         $items = array();
         $products = array_slice(array_reverse(ZMProducts::instance()->getNewProducts()), 0, 20);
         foreach ($products as $product) {
-            $item = ZMBeanUtils::getBean("RssItem");
+            $item = ZMBeanUtils::getBean("ZMRssItem");
             $item->setTitle($product->getName());
             $item->setLink($request->getToolbox()->net->product($product->getId(), null, false));
             $item->setDescription(ZMHtmlUtils::more(ZMHtmlUtils::strip($product->getDescription()), 60));
@@ -161,17 +161,17 @@ class ZMDefaultRssFeedSource implements ZMRssSource {
             array_push($items, $item);
 
             if (null === $lastPubDate) {
-                $lastPubDate = $product->getDateAdded(); 
+                $lastPubDate = $product->getDateAdded();
             }
         }
 
-        $channel = ZMBeanUtils::getBean("RssChannel");
+        $channel = ZMBeanUtils::getBean("ZMRssChannel");
         $channel->setTitle(sprintf(_zm("New Products at %s"), ZMSettings::get('storeName')));
         $channel->setLink($request->url('index'));
         $channel->setDescription(sprintf(_zm("The latest updates to %s's product list"), ZMSettings::get('storeName')));
         $channel->setLastBuildDate($lastPubDate);
 
-        $feed = ZMBeanUtils::getBean("RssFeed");
+        $feed = ZMBeanUtils::getBean("ZMRssFeed");
         $feed->setChannel($channel);
         $feed->setItems($items);
 

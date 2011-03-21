@@ -65,13 +65,13 @@ class TestZMFilePatcher extends ZMTestCase {
         );
         $expected = $this->dataPath_.'file-test-insert-before-expected.txt';
 
-        $patcher = ZMLoader::make('FilePatcher', $file, $patch, $target);
+        $patcher = ZMLoader::make('ZMFilePatcher', $file, $patch, $target);
         $this->assertTrue($patcher->isOpen());
         $this->assertTrue($patcher->patch());
         $this->assertEqual(@file_get_contents($expected), @file_get_contents($target));
 
         // undo
-        $patcher = ZMLoader::make('FilePatcher', $target, $patch);
+        $patcher = ZMLoader::make('ZMFilePatcher', $target, $patch);
         $this->assertFalse($patcher->isOpen());
         $this->assertTrue($patcher->undo());
         $this->assertEqual(@file_get_contents($file), @file_get_contents($target));
@@ -92,13 +92,13 @@ class TestZMFilePatcher extends ZMTestCase {
         );
         $expected = $this->dataPath_.'file-test-insert-before-edge-expected.txt';
 
-        $patcher = ZMLoader::make('FilePatcher', $file, $patch, $target);
+        $patcher = ZMLoader::make('ZMFilePatcher', $file, $patch, $target);
         $this->assertTrue($patcher->isOpen());
         $this->assertTrue($patcher->patch());
         $this->assertEqual(@file_get_contents($expected), @file_get_contents($target));
 
         // undo
-        $patcher = ZMLoader::make('FilePatcher', $target, $patch);
+        $patcher = ZMLoader::make('ZMFilePatcher', $target, $patch);
         $this->assertFalse($patcher->isOpen());
         $this->assertTrue($patcher->undo());
         $this->assertEqual(@file_get_contents($file), @file_get_contents($target));
@@ -119,13 +119,13 @@ class TestZMFilePatcher extends ZMTestCase {
         );
         $expected = $this->dataPath_.'file-test-insert-after-expected.txt';
 
-        $patcher = ZMLoader::make('FilePatcher', $file, $patch, $target);
+        $patcher = ZMLoader::make('ZMFilePatcher', $file, $patch, $target);
         $this->assertTrue($patcher->isOpen());
         $this->assertTrue($patcher->patch());
         $this->assertEqual(@file_get_contents($expected), @file_get_contents($target));
 
         // undo
-        $patcher = ZMLoader::make('FilePatcher', $target, $patch);
+        $patcher = ZMLoader::make('ZMFilePatcher', $target, $patch);
         $this->assertFalse($patcher->isOpen());
         $this->assertTrue($patcher->undo());
         $this->assertEqual(@file_get_contents($file), @file_get_contents($target));
@@ -146,13 +146,13 @@ class TestZMFilePatcher extends ZMTestCase {
         );
         $expected = $this->dataPath_.'file-test-insert-after-edge-expected.txt';
 
-        $patcher = ZMLoader::make('FilePatcher', $file, $patch, $target);
+        $patcher = ZMLoader::make('ZMFilePatcher', $file, $patch, $target);
         $this->assertTrue($patcher->isOpen());
         $this->assertTrue($patcher->patch());
         $this->assertEqual(@file_get_contents($expected), @file_get_contents($target));
 
         // undo
-        $patcher = ZMLoader::make('FilePatcher', $target, $patch);
+        $patcher = ZMLoader::make('ZMFilePatcher', $target, $patch);
         $this->assertFalse($patcher->isOpen());
         $this->assertTrue($patcher->undo());
         $this->assertEqual(@file_get_contents($file), @file_get_contents($target));

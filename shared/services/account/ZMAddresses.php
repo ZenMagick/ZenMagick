@@ -69,7 +69,7 @@ class ZMAddresses extends ZMObject {
         if (null !== $accountId) {
             $sql .= " AND customers_id = :accountId";
         }
-        $address = ZMRuntime::getDatabase()->querySingle($sql, array('id' => $addressId, 'accountId' => $accountId), TABLE_ADDRESS_BOOK, 'Address');
+        $address = ZMRuntime::getDatabase()->querySingle($sql, array('id' => $addressId, 'accountId' => $accountId), TABLE_ADDRESS_BOOK, 'ZMAddress');
         if (null != $address) {
             $defaultAddressId = $this->getDefaultAddressId($address->getAccountId());
             $address->setPrimary($address->getId() == $defaultAddressId);
@@ -89,7 +89,7 @@ class ZMAddresses extends ZMObject {
         $sql = "SELECT *
                 FROM " . TABLE_ADDRESS_BOOK . "
                 WHERE customers_id = :accountId";
-        $addresses = ZMRuntime::getDatabase()->query($sql, array('accountId' => $accountId), TABLE_ADDRESS_BOOK, 'Address');
+        $addresses = ZMRuntime::getDatabase()->query($sql, array('accountId' => $accountId), TABLE_ADDRESS_BOOK, 'ZMAddress');
 
         $defaultAddressId = $this->getDefaultAddressId($accountId);
         foreach ($addresses as $address) {

@@ -82,7 +82,7 @@ class ZMTestSubscriptions extends ZMTestCase {
             return;
         }
 
-        $job = ZMBeanUtils::getBean('UpdateSubscriptionsCronJob');
+        $job = ZMBeanUtils::getBean('ZMUpdateSubscriptionsCronJob');
         $this->assertNotNull($job);
         $status = $job->execute();
         $this->assertTrue($status);

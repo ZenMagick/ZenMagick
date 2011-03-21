@@ -260,7 +260,7 @@ class Session extends ZMSession {
         $messages = array();
         if (isset($_SESSION['messageToStack']) && is_array($_SESSION['messageToStack'])) {
             foreach ($_SESSION['messageToStack'] as $arr) {
-                array_push($messages, ZMLoader::make("Message", $arr['text'], $arr['type'], $arr['class']));
+                array_push($messages, ZMLoader::make("ZMMessage", $arr['text'], $arr['type'], $arr['class']));
             }
         }
 

@@ -55,7 +55,7 @@ class ZMAjaxShoppingCartController extends ZMAjaxController {
      * @param ZMRequest request The current request.
      */
     public function estimateShippingJSON($request) {
-        $shippingEstimator = ZMBeanUtils::getBean("ShippingEstimator");
+        $shippingEstimator = ZMBeanUtils::getBean("ZMShippingEstimator");
         $shippingEstimator->prepare();
         $response = array();
 
@@ -66,10 +66,10 @@ class ZMAjaxShoppingCartController extends ZMAjaxController {
 
         $methods = array();
         if (!$shippingEstimator->isCartEmpty()) {
-            $shipping = ZMBeanUtils::getBean("Shipping");
+            $shipping = ZMBeanUtils::getBean("ZMShipping");
             if (!$shipping->isFreeShipping()) {
                 foreach ($shipping->getShippingProvider() as $provider) {
-                    if ($provider->hasError()) 
+                    if ($provider->hasError())
                         continue;
 
                     foreach ($provider->getShippingMethods() as $method) {

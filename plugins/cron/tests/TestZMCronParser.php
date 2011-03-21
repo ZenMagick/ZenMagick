@@ -41,7 +41,7 @@ class TestZMCronParser extends ZMTestCase {
      * @retun ZMCronParser A parser instance.
      */
     protected function getParser() {
-        $parser = ZMBeanUtils::getBean('CronParser');
+        $parser = ZMBeanUtils::getBean('ZMCronParser');
         $this->assertNotNull($parser);
         return $parser;
     }

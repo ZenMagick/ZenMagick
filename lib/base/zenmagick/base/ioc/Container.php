@@ -53,14 +53,17 @@ class Container extends \Symfony\Component\DependencyInjection\ContainerBuilder 
         }
 
         // try to default to the id as class name
-        if (ClassLoader::classExists($id)) {
+        if (ClassLoader::classExists($id) && class_exists($id)) {
             return new $id();
         }
+
         //TODO: remove
-        if (null != ($realid = \ZMLoader::resolve($id))) {
+        if (null != ($realid = \ZMLoader::resolve($id))&& class_exists($realid)) {
             return new $realid();
         }
-
+        if (null != ($realid = \ZMLoader::resolve('ZM'.$id))&& class_exists($realid)) {
+            return new $realid();
+        }
         if (self::EXCEPTION_ON_INVALID_REFERENCE === $invalidBehavior) {
             throw new \InvalidArgumentException(sprintf('The service "%s" does not exist.', $id));
         }

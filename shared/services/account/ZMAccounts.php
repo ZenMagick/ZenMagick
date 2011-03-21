@@ -72,7 +72,7 @@ class ZMAccounts extends ZMObject {
                   LEFT JOIN " . TABLE_CUSTOMERS_INFO . " ci ON (c.customers_id = ci.customers_info_id)
                 WHERE c.customers_id = :accountId";
         $args = array('accountId' => $accountId);
-        if (null != ($account = ZMRuntime::getDatabase()->querySingle($sql, $args, array(TABLE_CUSTOMERS, TABLE_CUSTOMERS_INFO), 'Account'))) {
+        if (null != ($account = ZMRuntime::getDatabase()->querySingle($sql, $args, array(TABLE_CUSTOMERS, TABLE_CUSTOMERS_INFO), 'ZMAccount'))) {
             if (ZMLangUtils::isEmpty($account->getPassword())) {
                 $account->setType(ZMAccount::GUEST);
             }
@@ -93,7 +93,7 @@ class ZMAccounts extends ZMObject {
                 WHERE customers_email_address = :email
                 AND NOT (customers_password = '')";
         $args = array('email' => $emailAddress);
-        if (null != ($account = ZMRuntime::getDatabase()->querySingle($sql, $args, array(TABLE_CUSTOMERS, TABLE_CUSTOMERS_INFO), 'Account'))) {
+        if (null != ($account = ZMRuntime::getDatabase()->querySingle($sql, $args, array(TABLE_CUSTOMERS, TABLE_CUSTOMERS_INFO), 'ZMAccount'))) {
             if (ZMLangUtils::isEmpty($account->getPassword())) {
                 $account->setType(ZMAccount::GUEST);
             }
@@ -114,7 +114,7 @@ class ZMAccounts extends ZMObject {
                 WHERE customers_email_address = :email";
         $args = array('email' => $emailAddress);
         $accounts = array();
-        foreach (ZMRuntime::getDatabase()->query($sql, $args, array(TABLE_CUSTOMERS, TABLE_CUSTOMERS_INFO), 'Account') as $account) {
+        foreach (ZMRuntime::getDatabase()->query($sql, $args, array(TABLE_CUSTOMERS, TABLE_CUSTOMERS_INFO), 'ZMAccount') as $account) {
             if (ZMLangUtils::isEmpty($account->getPassword())) {
                 $account->setType(ZMAccount::GUEST);
             }
@@ -145,7 +145,7 @@ class ZMAccounts extends ZMObject {
         }
 
         $accounts = array();
-        foreach (ZMRuntime::getDatabase()->query($sql, array(), array(TABLE_CUSTOMERS, TABLE_CUSTOMERS_INFO), 'Account') as $account) {
+        foreach (ZMRuntime::getDatabase()->query($sql, array(), array(TABLE_CUSTOMERS, TABLE_CUSTOMERS_INFO), 'ZMAccount') as $account) {
             if (ZMLangUtils::isEmpty($account->getPassword())) {
                 $account->setType(ZMAccount::GUEST);
             }

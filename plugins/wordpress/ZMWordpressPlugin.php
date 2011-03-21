@@ -59,15 +59,15 @@ class ZMWordpressPlugin extends Plugin {
         parent::install();
 
         $this->addConfigValue('Wordpress Installation Folder', 'wordpressDir', '', 'Path to your Wordpress installation',
-              'widget@TextFormWidget#name=wordpressDir&default=&size=24&maxlength=255');
+              'widget@ZMTextFormWidget#name=wordpressDir&default=&size=24&maxlength=255');
         $this->addConfigValue('Permalink Path Prefix', 'permaPrefix', '', 'Path prefix for Wordpress permalinks; leave empty if not using permalinks');
         $this->addConfigValue('WP enabled pages', 'wordpressEnabledPages', FILENAME_WP, 'Comma separated list of pages that can display WP content (leave empty for all).');
         $this->addConfigValue('User syncing', 'syncUser', false, 'Automatically create WP account (and update)',
-            'widget@BooleanFormWidget#name=syncUser&default=false&label=Update WP');
+            'widget@ZMBooleanFormWidget#name=syncUser&default=false&label=Update WP');
         $this->addConfigValue('Nickname policy', 'requireNickname', true, 'Make nick name mandatory (empty nickname will skip automatic WP registration)',
-            'widget@BooleanFormWidget#name=requireNickname&default=true&label=Require nickname');
+            'widget@ZMBooleanFormWidget#name=requireNickname&default=true&label=Require nickname');
         $this->addConfigValue('URL rewriting', 'urlRewrite', true, 'Convert Wordpress URLs to store URLs pointing to the plugin templates',
-            'widget@BooleanFormWidget#name=urlRewrite&default=true&label=Rewrite WP URLs');
+            'widget@ZMBooleanFormWidget#name=urlRewrite&default=true&label=Rewrite WP URLs');
     }
 
     /**
@@ -122,7 +122,7 @@ class ZMWordpressPlugin extends Plugin {
      */
     protected function getAdapter() {
         if (null == $this->adapter_) {
-            $this->adapter_ = ZMBeanUtils::getBean('WordpressAdapter');
+            $this->adapter_ = ZMBeanUtils::getBean('ZMWordpressAdapter');
         }
 
         return $this->adapter_;
@@ -278,7 +278,7 @@ class ZMWordpressPlugin extends Plugin {
      */
     public function getRequestHandler($request) {
         if (null == $this->requestHandler_) {
-            $this->requestHandler_ = ZMLoader::make('WordpressRequestHandler', $this, $request);
+            $this->requestHandler_ = ZMLoader::make('ZMWordpressRequestHandler', $this, $request);
         }
 
         return $this->requestHandler_;

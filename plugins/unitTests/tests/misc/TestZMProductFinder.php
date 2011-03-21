@@ -32,14 +32,14 @@ class TestZMProductFinder extends ZMTestCase {
      * Test.
      */
     public function test() {
-        $criteria = ZMBeanUtils::getBean('SearchCriteria');
+        $criteria = ZMBeanUtils::getBean('ZMSearchCriteria');
         //$criteria->setIncludeTax(true);
         $criteria->setCategoryId(3);
         $criteria->setIncludeSubcategories(true);
         $criteria->setPriceFrom(20);
         $criteria->setKeywords('dvd');
 
-        $search = ZMBeanUtils::getBean('ProductFinder');
+        $search = ZMBeanUtils::getBean('ZMProductFinder');
 
         // should there be a criteria method to set the currency?
         global $currencies;

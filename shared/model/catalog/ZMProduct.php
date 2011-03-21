@@ -177,7 +177,7 @@ class ZMProduct extends ZMObject {
      *
      * @return string The default image.
      */
-    public function getDefaultImage() { 
+    public function getDefaultImage() {
         return (empty($this->image_) && ZMSettings::get('isShowNoPicture')) ? ZMSettings::get('imgNotFound') : $this->image_;
     }
 
@@ -234,8 +234,8 @@ class ZMProduct extends ZMObject {
      *
      * @return ZMManufacturer The manufacturer.
      */
-    public function getManufacturer() { 
-        return ZMManufacturers::instance()->getManufacturerForProduct($this); 
+    public function getManufacturer() {
+        return ZMManufacturers::instance()->getManufacturerForProduct($this);
     }
 
     /**
@@ -401,7 +401,7 @@ class ZMProduct extends ZMObject {
 
     /**
      * Get the discount type from.
-     * 
+     *
      * <p>Legal values:</p>
      * <ul>
      *  <li><em>ZMOffers::DISCOUNT_FROM_BASE_PRICE</em> - use base price to calculate discount pricing</li>
@@ -483,9 +483,9 @@ class ZMProduct extends ZMObject {
      *
      * @return ZMOffers The offers (if any), for this product.
      */
-    public function getOffers() { 
+    public function getOffers() {
         if (null == $this->offers_) {
-            $this->offers_ = ZMLoader::make("Offers", $this); 
+            $this->offers_ = ZMLoader::make("ZMOffers", $this);
         }
         return $this->offers_;
     }
@@ -503,7 +503,7 @@ class ZMProduct extends ZMObject {
      *
      * @return array A list of {@link org.zenmagick.model.catalog.ZMAttribute ZMAttribute} instances.
      */
-    public function getAttributes() { 
+    public function getAttributes() {
         if (null === $this->attributes_) {
             $this->attributes_ = ZMAttributes::instance()->getAttributesForProduct($this);
         }
@@ -516,7 +516,7 @@ class ZMProduct extends ZMObject {
      *
      * @return ZMImageInfo The product image info.
      */
-    public function getImageInfo() { return ZMLoader::make("ImageInfo", $this->image_, $this->name_); }
+    public function getImageInfo() { return ZMLoader::make("ZMImageInfo", $this->image_, $this->name_); }
 
     /**
      * Set the product image.
@@ -554,7 +554,7 @@ class ZMProduct extends ZMObject {
      *
      * @return boolean <code>true</code> if reviews exist, <code>false</code> if not.
      */
-    public function hasReviews() { 
+    public function hasReviews() {
         return 0 < $this->getReviewCount();
     }
 
@@ -563,7 +563,7 @@ class ZMProduct extends ZMObject {
      *
      * @return int The number of reviews.
      */
-    public function getReviewCount() { 
+    public function getReviewCount() {
         return ZMReviews::instance()->getReviewCount($this->getId(), $this->languageId_);
     }
 
@@ -575,7 +575,7 @@ class ZMProduct extends ZMObject {
      * @param string field The field name.
      * @return mixed The setting value.
      */
-    public function getTypeSetting($field) { 
+    public function getTypeSetting($field) {
         return ZMProducts::instance()->getProductTypeSetting($this->getId(), $field);
     }
 

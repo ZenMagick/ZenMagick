@@ -57,9 +57,9 @@ class ZMVBulletinPlugin extends Plugin {
         parent::install();
 
         $this->addConfigValue('vBulletin Installation Folder', 'vBulletinDir', '', 'Path to your vBulletin installation',
-              'widget@TextFormWidget#name=vBulletinDir&default=&size=24&maxlength=255');
+              'widget@ZMTextFormWidget#name=vBulletinDir&default=&size=24&maxlength=255');
         $this->addConfigValue('Nickname policy', 'requireNickname', true, 'Make nickname mandatory (If disabled, automatic vBulletin registration will be skipped)',
-            'widget@BooleanFormWidget#name=requireNickname&default=true&label=Require nickname');
+            'widget@ZMBooleanFormWidget#name=requireNickname&default=true&label=Require nickname');
     }
 
 
@@ -68,7 +68,7 @@ class ZMVBulletinPlugin extends Plugin {
      */
     protected function getAdapter() {
         if (null == $this->adapter_) {
-            $this->adapter_ = ZMBeanUtils::getBean('VBulletinAdapter');
+            $this->adapter_ = ZMBeanUtils::getBean('ZMVBulletinAdapter');
         }
 
         return $this->adapter_;

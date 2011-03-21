@@ -77,7 +77,7 @@ class ZMCategory extends ZMObject {
      *
      * @return ZMCategory The parent category or <code>null</code>.
      */
-    public function getParent() { 
+    public function getParent() {
         return 0 != $this->parentId_ ? ZMCategories::instance()->getCategoryForId($this->parentId_, $this->languageId_) : null;
     }
 
@@ -128,7 +128,7 @@ class ZMCategory extends ZMObject {
      *
      * @return array A list of <code>ZMCategory</code> instances.
      */
-    public function getChildren() { 
+    public function getChildren() {
         return ZMCategories::instance()->getCategories($this->languageId_, $this->childrenIds_);
     }
 
@@ -137,7 +137,7 @@ class ZMCategory extends ZMObject {
      *
      * @param mixed child Either a category or category id.
      */
-    public function addChild($child) { 
+    public function addChild($child) {
         $id = ($child instanceof ZMCategory)  ? $child->getId() : $child;
         if (!in_array($id, $this->childrenIds_)) {
             $this->childrenIds_[] = $id;
@@ -149,7 +149,7 @@ class ZMCategory extends ZMObject {
      *
      * @param mixed child Either a category or category id.
      */
-    public function removeChild($child) { 
+    public function removeChild($child) {
         $cid = ($child instanceof ZMCategory)  ? $child->getId() : $child;
         $tmp = array();
         foreach ($this->childrenIds_ as $id) {
@@ -186,8 +186,8 @@ class ZMCategory extends ZMObject {
      *
      * @return ZMImageInfo The <code>ZMImageInfo</code> for this categorie's image, or <code>null</code>.
      */
-    public function getImageInfo() { 
-        return !empty($this->image_) ? ZMLoader::make("ImageInfo", $this->image_, $this->name_) : null;
+    public function getImageInfo() {
+        return !empty($this->image_) ? ZMLoader::make("ZMImageInfo", $this->image_, $this->name_) : null;
     }
 
     /**

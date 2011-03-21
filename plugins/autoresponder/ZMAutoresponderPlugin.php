@@ -77,7 +77,7 @@ class ZMAutoresponderPlugin extends Plugin {
          */
 
         $default = serialize(array());
-        $this->addConfigValue('Config', 'config', $default, 'Config data', 'widget@TextFormWidget#name=config&hidden=true&default='.$default);
+        $this->addConfigValue('Config', 'config', $default, 'Config data', 'widget@ZMTextFormWidget#name=config&hidden=true&default='.$default);
 
         /*
 (NULL, 'Mode (1)', 'AUTO_MODE', 'test', '<br />Set mode <p />When in test mode, emails will be sent to store owner instead', @configuration_group_id, 3, NOW(), NULL, 'zen_cfg_select_option(array(''test'', ''live''), '),

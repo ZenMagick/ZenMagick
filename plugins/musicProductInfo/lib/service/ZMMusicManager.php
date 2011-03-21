@@ -141,15 +141,15 @@ class ZMMusicManager extends ZMObject {
             // all media collections
             $sql = "SELECT * FROM " . TABLE_MEDIA_MANAGER . " WHERE media_id = :collectionId";
             $args = array('collectionId' => $mediaId['mediaId']);
-            foreach (ZMRuntime::getDatabase()->query($sql, $args, TABLE_MEDIA_MANAGER, 'MediaCollection') as $collection) {
+            foreach (ZMRuntime::getDatabase()->query($sql, $args, TABLE_MEDIA_MANAGER, 'ZMMediaCollection') as $collection) {
                 // populate collection
                 $sql = "SELECT * FROM " . TABLE_MEDIA_CLIPS . " WHERE media_id = :mediaId";
-                foreach (ZMRuntime::getDatabase()->query($sql, array('mediaId' => $mediaId['mediaId']), TABLE_MEDIA_CLIPS, 'MediaItem') as $mediaItem) {
+                foreach (ZMRuntime::getDatabase()->query($sql, array('mediaId' => $mediaId['mediaId']), TABLE_MEDIA_CLIPS, 'ZMMediaItem') as $mediaItem) {
                     // plus clip types
                     $sql = "SELECT * FROM " . TABLE_MEDIA_TYPES . " WHERE type_id = :mediaTypeId";
                     $args = array('mediaTypeId' => $mediaItem->getMediaTypeId());
                     // maybe null
-                    $mediaType = ZMRuntime::getDatabase()->querySingle($sql, $args, TABLE_MEDIA_TYPES, 'MediaType');
+                    $mediaType = ZMRuntime::getDatabase()->querySingle($sql, $args, TABLE_MEDIA_TYPES, 'ZMMediaType');
                     $mediaItem->setType($mediaType);
                     $collection->addItem($mediaItem);
                 }
@@ -172,7 +172,7 @@ class ZMMusicManager extends ZMObject {
         $extraInfo = ZMRuntime::getDatabase()->querySingle($sql, array('productId' => $productId), TABLE_PRODUCT_MUSIC_EXTRA);
 
         $sql = "SELECT * FROM " . TABLE_RECORD_ARTISTS . " WHERE artists_id = :artistId";
-        $artist = ZMRuntime::getDatabase()->querySingle($sql, array('artistId' => $extraInfo['artistId']), TABLE_RECORD_ARTISTS, 'Artist');
+        $artist = ZMRuntime::getDatabase()->querySingle($sql, array('artistId' => $extraInfo['artistId']), TABLE_RECORD_ARTISTS, 'ZMArtist');
 
         if (null == $artist) {
             return null;
@@ -185,7 +185,7 @@ class ZMMusicManager extends ZMObject {
 
         $sql = "SELECT * FROM " . TABLE_RECORD_COMPANY . " WHERE record_company_id = :recordCompanyId";
         $args = array('recordCompanyId' => $extraInfo['recordCompanyId']);
-        $recordCompany = ZMRuntime::getDatabase()->querySingle($sql, $args, TABLE_RECORD_COMPANY, 'RecordCompany');
+        $recordCompany = ZMRuntime::getDatabase()->querySingle($sql, $args, TABLE_RECORD_COMPANY, 'ZMRecordCompany');
 
         if (null != $recordCompany) {
             $sql = "SELECT * FROM " . TABLE_RECORD_COMPANY_INFO . " WHERE record_company_id = :recordCompanyId AND languages_id = :languageId";

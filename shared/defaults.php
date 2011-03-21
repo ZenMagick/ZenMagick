@@ -102,16 +102,16 @@
 
 
             // default controller and view class
-            'zenmagick.mvc.controller.default' => 'DefaultController',
+            'zenmagick.mvc.controller.default' => 'ZMDefaultController',
             //'zenmagick.mvc.view.default' => 'SavantView',
             'zenmagick.mvc.view.defaultLayout' => 'default_layout',
 
 
             // default product association handler
-            'defaultProductAssociationHandler' => 'SimilarOrderProductAssociationHandler',
+            'defaultProductAssociationHandler' => 'ZMSimilarOrderProductAssociationHandler',
 
             // sidebox block provider
-            'zenmagick.mvc.blocks.blockProviders' => 'StoreBlockProvider',
+            'zenmagick.mvc.blocks.blockProviders' => 'ZMStoreBlockProvider',
 
 
             /**************************************
@@ -175,8 +175,8 @@
             'defaultLanguageCode' => DEFAULT_LANGUAGE,
 
             // comma separated lists
-            'resultListProductFilter' => 'CategoryFilter,ManufacturerFilter',
-            'resultListProductSorter' => 'ProductSorter',
+            'resultListProductFilter' => 'ZMCategoryFilter,ZMManufacturerFilter',
+            'resultListProductSorter' => 'ZMProductSorter',
 
             // cart form constants
             'textOptionPrefix' => TEXT_PREFIX,
@@ -230,7 +230,7 @@
             // cache TTL
             'rssCacheTimeout' => 1200,
 
-            'zenmagick.mvc.rss.sources' => 'DefaultRssFeedSource,CatalogRssFeedSource',
+            'zenmagick.mvc.rss.sources' => 'ZMDefaultRssFeedSource,ZMCatalogRssFeedSource',
 
 
             /**************************************

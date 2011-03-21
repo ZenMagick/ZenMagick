@@ -32,7 +32,7 @@ class TestZMQueryPager extends ZMTestCase {
      * Test simple.
      */
     public function testSimple() {
-        $queryPager = new ZMQueryPager(new ZMQueryDetails(ZMRuntime::getDatabase(), 'select * from '.TABLE_PRODUCTS, array(), TABLE_PRODUCTS, 'Product'));
+        $queryPager = new ZMQueryPager(new ZMQueryDetails(ZMRuntime::getDatabase(), 'select * from '.TABLE_PRODUCTS, array(), TABLE_PRODUCTS, 'ZMProduct'));
         $queryPager->getResults(2, 13);
     }
 
@@ -43,14 +43,14 @@ class TestZMQueryPager extends ZMTestCase {
      */
     public function testSQLAware() {
             $resultList = new ZMResultList();
-            $resultSource = ZMLoader::make('ObjectResultSource', 'ZMOrder', ZMOrders::instance(), 'getAllOrders', array(1));
+            $resultSource = ZMLoader::make('ZMObjectResultSource', 'ZMOrder', ZMOrders::instance(), 'getAllOrders', array(1));
             $resultList->setResultSource($resultSource);
-            $sorter = ZMBeanUtils::getBean('OrderSorter');
+            $sorter = ZMBeanUtils::getBean('ZMOrderSorter');
             $sorter->setSortId('date');
             $sorter->setDescending(true);
             $queryDetails = $sorter->getQueryDetails();
             $resultList->addSorter($sorter);
-            $filter = ZMBeanUtils::getBean('OrderStatusIdFilter');
+            $filter = ZMBeanUtils::getBean('ZMOrderStatusIdFilter');
             $resultList->addFilter($filter);
             $resultList->setPageNumber(3);
             $orders = $resultList->getResults();

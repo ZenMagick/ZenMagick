@@ -25,7 +25,7 @@
 <script type="text/javascript">
     var all_zones = new Array();
     <?php
-        foreach (ZMCountries::instance()->getCountries() as $country) { 
+        foreach (ZMCountries::instance()->getCountries() as $country) {
             $zones = ZMCountries::instance()->getZonesForCountryId($country->getId());
             if (0 < count($zones)) {
                 echo 'all_zones['.$country->getId() . '] = new Array();';
@@ -94,7 +94,7 @@
             </tr>
              <tr>
                 <td><?php _vzm("Country") ?><span>*</span></td>
-                <td><?php echo $form->idpSelect('countryId', array_merge(array(ZMLoader::make("IdNamePair", "", _zm("Select Country"))), ZMCountries::instance()->getCountries()), $countryId) ?></td>
+                <td><?php echo $form->idpSelect('countryId', array_merge(array(ZMLoader::make("ZMIdNamePair", "", _zm("Select Country"))), ZMCountries::instance()->getCountries()), $countryId) ?></td>
             </tr>
             <?php if (ZMSettings::get('isAccountState')) { ?>
                 <?php $zones = ZMCountries::instance()->getZonesForCountryId($countryId); ?>

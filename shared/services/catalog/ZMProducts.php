@@ -95,7 +95,7 @@ class ZMProducts extends ZMObject implements ZMSQLAware {
         }
         $sql .= " ORDER BY p.products_sort_order, pd.products_name";
         $args = array('languageId' => $languageId);
-        return new ZMQueryDetails(ZMRuntime::getDatabase(), $sql, $args, array(TABLE_PRODUCTS, TABLE_SPECIALS, TABLE_PRODUCTS_DESCRIPTION), 'Product', 'p.products_id');
+        return new ZMQueryDetails(ZMRuntime::getDatabase(), $sql, $args, array(TABLE_PRODUCTS, TABLE_SPECIALS, TABLE_PRODUCTS_DESCRIPTION), 'ZMProduct', 'p.products_id');
     }
 
     /**
@@ -200,7 +200,7 @@ class ZMProducts extends ZMObject implements ZMSQLAware {
         }
         $sql .= " ORDER BY p.products_sort_order, pd.products_name";
         $args = array('categoryId' => $categoryId, 'languageId' => $languageId);
-        return new ZMQueryDetails(ZMRuntime::getDatabase(), $sql, $args, array(TABLE_PRODUCTS, TABLE_SPECIALS, TABLE_PRODUCTS_DESCRIPTION, TABLE_PRODUCTS_TO_CATEGORIES), 'Product', 'p.products_id');
+        return new ZMQueryDetails(ZMRuntime::getDatabase(), $sql, $args, array(TABLE_PRODUCTS, TABLE_SPECIALS, TABLE_PRODUCTS_DESCRIPTION, TABLE_PRODUCTS_TO_CATEGORIES), 'ZMProduct', 'p.products_id');
     }
 
     /**
@@ -459,7 +459,7 @@ class ZMProducts extends ZMObject implements ZMSQLAware {
                   AND pd.language_id = :languageId";
         $args = array('model' => $model, 'languageId' => $languageId);
 
-        $product = ZMRuntime::getDatabase()->querySingle($sql, $args, array(TABLE_PRODUCTS, TABLE_PRODUCTS_DESCRIPTION, TABLE_SPECIALS), 'Product');
+        $product = ZMRuntime::getDatabase()->querySingle($sql, $args, array(TABLE_PRODUCTS, TABLE_PRODUCTS_DESCRIPTION, TABLE_SPECIALS), 'ZMProduct');
         if (null != $product) {
             $this->cache_->save($product, ZMLangUtils::mkUnique('product', $product->getId(), $product->getLanguageId()));
         }
@@ -492,7 +492,7 @@ class ZMProducts extends ZMObject implements ZMSQLAware {
                   AND pd.products_id = p.products_id
                   AND pd.language_id = :languageId";
         $args = array('productId' => $productId, 'languageId' => $languageId);
-        $product = ZMRuntime::getDatabase()->querySingle($sql, $args, array(TABLE_PRODUCTS, TABLE_PRODUCTS_DESCRIPTION, TABLE_SPECIALS), 'Product');
+        $product = ZMRuntime::getDatabase()->querySingle($sql, $args, array(TABLE_PRODUCTS, TABLE_PRODUCTS_DESCRIPTION, TABLE_SPECIALS), 'ZMProduct');
 
         $this->cache_->save($product, ZMLangUtils::mkUnique('product', $productId, $languageId));
 
@@ -541,7 +541,7 @@ class ZMProducts extends ZMObject implements ZMSQLAware {
                 $sql .= " ORDER BY p.products_sort_order, pd.products_name";
             }
             $args = array('productId' => $needLoadIds, 'languageId' => $languageId);
-            $results = ZMRuntime::getDatabase()->query($sql, $args, array(TABLE_PRODUCTS, TABLE_PRODUCTS_DESCRIPTION, TABLE_SPECIALS), 'Product');
+            $results = ZMRuntime::getDatabase()->query($sql, $args, array(TABLE_PRODUCTS, TABLE_PRODUCTS_DESCRIPTION, TABLE_SPECIALS), 'ZMProduct');
             foreach ($results as $product) {
                 $products[] = $product;
                 // put in cache
@@ -683,7 +683,7 @@ class ZMProducts extends ZMObject implements ZMSQLAware {
                 WHERE products_id = :productId
                   AND language_id = :languageId";
         $args = array('productId' => $productId, 'languageId' => $languageId);
-        return ZMRuntime::getDatabase()->querySingle($sql, $args, TABLE_META_TAGS_PRODUCTS_DESCRIPTION, 'MetaTagDetails');
+        return ZMRuntime::getDatabase()->querySingle($sql, $args, TABLE_META_TAGS_PRODUCTS_DESCRIPTION, 'ZMMetaTagDetails');
     }
 
 }

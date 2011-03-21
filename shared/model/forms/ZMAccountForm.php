@@ -69,7 +69,7 @@ class ZMAccountForm extends ZMFormData {
      * @return ZMAccount An account.
      */
     public function getAccount() {
-        $account = ZMBeanUtils::getBean('Account');
+        $account = ZMBeanUtils::getBean('ZMAccount');
         $properties = $this->properties_;
 
         // TODO: see comment in c'tor

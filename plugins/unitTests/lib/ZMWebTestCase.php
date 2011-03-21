@@ -53,7 +53,7 @@ class ZMWebTestCase extends WebTestCase {
      */
     public function assertEqual($first, $second, $message = '%s') {
         if (is_array($second)) {
-            return $this->assert(ZMLoader::make('ArrayEqualExpectation', $first), $second, $message);
+            return $this->assert(ZMLoader::make('ZMArrayEqualExpectation', $first), $second, $message);
         }
         return parent::assertEqual($first, $second, $message);
     }
@@ -66,7 +66,7 @@ class ZMWebTestCase extends WebTestCase {
         if (!$result) {
             $location = explode(' ', trim(str_replace(array('[', ']'), '', $this->getAssertionLine())));
             $details = array(
-                'line' => array_pop($location), 
+                'line' => array_pop($location),
                 'message' => trim(str_replace('%s', '', $message)),
                 'expectation' => $expectation,
                 'compare' => $compare

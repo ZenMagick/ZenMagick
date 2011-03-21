@@ -21,7 +21,7 @@ zenmagick:
     ## locales
     locales:
       locale: en_NZ
-      provider: YamlLocale
+      provider: ZMYamlLocale
 
     ## security
     security:
@@ -63,7 +63,7 @@ zenmagick:
     request:
       idName: main_page
       missingPage: error
-      seoRewriter: StoreDefaultSeoRewriter
+      seoRewriter: ZMStoreDefaultSeoRewriter
 
     ## html
     html:
@@ -80,14 +80,14 @@ zenmagick:
     ## toolbox tools
     toolbox:
       tools:
-        - net:ToolboxNet
-        - html:ToolboxHtml
-        - form:ToolboxForm
-        - macro:ToolboxMacro
-        - locale:ToolboxLocale
-        - utils:ToolboxUtils
-        - crumbtrail:ToolboxCrumbtrail
-        - metaTags:ToolboxMetaTags
+        - net:ZMToolboxNet
+        - html:ZMToolboxHtml
+        - form:ZMToolboxForm
+        - macro:ZMToolboxMacro
+        - locale:ZMToolboxLocale
+        - utils:ZMToolboxUtils
+        - crumbtrail:ZMToolboxCrumbtrail
+        - metaTags:ZMToolboxMetaTags
 
     ## resultlist
     resultlist:

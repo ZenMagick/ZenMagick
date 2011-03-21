@@ -55,7 +55,7 @@ class ZMFormHandlerPlugin extends Plugin {
             'Email address for admin notifications (use store email if empty)');
         $this->addConfigValue('Notification template', 'emailTemplate', 'form_handler', 'Name of common notification email template (empty will use the page name as template)');
         $this->addConfigValue('Secure', 'secure', 'false', 'Flag *all* form urls as secure',
-            'widget@BooleanFormWidget#name=secure&default=false&label=Enforce HTTPS&style=checkbox');
+            'widget@ZMBooleanFormWidget#name=secure&default=false&label=Enforce HTTPS&style=checkbox');
     }
 
     /**
@@ -71,8 +71,8 @@ class ZMFormHandlerPlugin extends Plugin {
             $secure = ZMLangUtils::asBoolean($this->get('secure'));
             foreach ($pages as $page) {
                 ZMUrlManager::instance()->setMapping($page, array(
-                  'template' => $page, 
-                  'controller' => 'FormHandlerController',
+                  'template' => $page,
+                  'controller' => 'ZMFormHandlerController',
                   'success' => array('view' => 'RedirectView')
                 ));
             }

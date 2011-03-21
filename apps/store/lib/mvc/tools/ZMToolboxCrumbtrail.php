@@ -118,7 +118,7 @@ class ZMToolboxCrumbtrail extends ZMToolboxTool {
         if (!is_array($this->crumbs_)) {
             $this->reset();
         }
-        array_push($this->crumbs_, ZMLoader::make("Crumb", $name, $url));
+        array_push($this->crumbs_, ZMLoader::make("ZMCrumb", $name, $url));
     }
 
     /**

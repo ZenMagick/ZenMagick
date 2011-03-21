@@ -68,7 +68,7 @@ class ZMTestCase extends UnitTestCase {
      */
     public function assertEqual($first, $second, $message = '%s') {
         if (is_array($second)) {
-            return $this->assert(ZMLoader::make('ArrayEqualExpectation', $first), $second, $message);
+            return $this->assert(ZMLoader::make('ZMArrayEqualExpectation', $first), $second, $message);
         }
         return parent::assertEqual($first, $second, $message);
     }

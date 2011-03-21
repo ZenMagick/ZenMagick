@@ -51,7 +51,7 @@ class TestZMVBulletinAdapter extends ZMTestCase {
      */
     protected function getAdapter() {
         if (null == $this->adapter_) {
-            $this->adapter_ = ZMLoader::make('VBulletinAdapter');
+            $this->adapter_ = ZMLoader::make('ZMVBulletinAdapter');
         }
 
         return $this->adapter_;

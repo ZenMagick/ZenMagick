@@ -49,7 +49,7 @@ class ZMAccountHistoryController extends ZMController {
 
     /**
      * Process a HTTP GET request.
-     * 
+     *
      * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
      * if the controller generates the contents itself.
      */
@@ -57,8 +57,8 @@ class ZMAccountHistoryController extends ZMController {
         $request->getToolbox()->crumbtrail->addCrumb("Account", $request->url('account', '', true));
         $request->getToolbox()->crumbtrail->addCrumb($request->getToolbox()->utils->getTitle());
 
-        $resultList = ZMBeanUtils::getBean("ResultList");
-        $resultSource = ZMLoader::make("ObjectResultSource", 'Order', ZMOrders::instance(), "getOrdersForAccountId", array($request->getAccountId(), $request->getSession()->getLanguageId()));
+        $resultList = ZMBeanUtils::getBean("ZMResultList");
+        $resultSource = ZMLoader::make("ZMObjectResultSource", 'Order', ZMOrders::instance(), "getOrdersForAccountId", array($request->getAccountId(), $request->getSession()->getLanguageId()));
         $resultList->setResultSource($resultSource);
         $resultList->setPageNumber($request->getPageIndex());
 

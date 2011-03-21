@@ -108,7 +108,7 @@ class PriceRangeFilter extends ZMResultListFilter {
             $start += $diff;
             $name = $toolbox->utils->formatMoney($from) . ' - ' . $toolbox->utils->formatMoney($to);
             $key = $from.'-'.$to;
-            $option = ZMLoader::make("FilterOption", $name, $key, array_key_exists($key, $this->ranges_));
+            $option = ZMLoader::make("ZMFilterOption", $name, $key, array_key_exists($key, $this->ranges_));
             $options[$option->getId()] = $option;
         }
 

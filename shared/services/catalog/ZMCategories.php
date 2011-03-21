@@ -120,7 +120,7 @@ class ZMCategories extends ZMObject {
                     AND c.parent_id = 0
                   ORDER BY c.parent_id, sort_order, cd.categories_name";
         $args = array('languageId' => $languageId);
-        foreach (ZMRuntime::getDatabase()->query($sql, $args, array(TABLE_CATEGORIES, TABLE_CATEGORIES_DESCRIPTION), 'Category') as $category) {
+        foreach (ZMRuntime::getDatabase()->query($sql, $args, array(TABLE_CATEGORIES, TABLE_CATEGORIES_DESCRIPTION), 'ZMCategory') as $category) {
             $rootCategories[$category->getId()] = $category;
         }
 
@@ -368,7 +368,7 @@ class ZMCategories extends ZMObject {
         $sql .= " ORDER BY c.parent_id, sort_order, cd.categories_name";
 
         $categories = array();
-        foreach (ZMRuntime::getDatabase()->query($sql, $args, array(TABLE_CATEGORIES, TABLE_CATEGORIES_DESCRIPTION), 'Category') as $category) {
+        foreach (ZMRuntime::getDatabase()->query($sql, $args, array(TABLE_CATEGORIES, TABLE_CATEGORIES_DESCRIPTION), 'ZMCategory') as $category) {
             $categories[$category->getId()] = $category;
         }
 
@@ -395,7 +395,7 @@ class ZMCategories extends ZMObject {
                 WHERE categories_id = :categoryId
                   AND language_id = :languageId";
         $args = array('categoryId' => $categoryId, 'languageId' => $languageId);
-        return ZMRuntime::getDatabase()->querySingle($sql, $args, TABLE_METATAGS_CATEGORIES_DESCRIPTION, 'MetaTagDetails');
+        return ZMRuntime::getDatabase()->querySingle($sql, $args, TABLE_METATAGS_CATEGORIES_DESCRIPTION, 'ZMMetaTagDetails');
     }
 
 }

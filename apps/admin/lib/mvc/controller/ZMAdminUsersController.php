@@ -49,8 +49,8 @@ class ZMAdminUsersController extends ZMController {
      */
     public function processGet($request) {
         $user = $request->getUser();
-        $resultSource = ZMLoader::make("ObjectResultSource", 'AdminUser', ZMAdminUsers::instance(), "getAllUsers", !$user->isLive());
-        $resultList = ZMBeanUtils::getBean("ResultList");
+        $resultSource = ZMLoader::make("ZMObjectResultSource", 'AdminUser', ZMAdminUsers::instance(), "getAllUsers", !$user->isLive());
+        $resultList = ZMBeanUtils::getBean("ZMResultList");
         $resultList->setResultSource($resultSource);
         $resultList->setPageNumber($request->getParameter('page', 1));
 

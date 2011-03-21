@@ -132,7 +132,7 @@ class ZMOrder extends ZMObject {
      *
      * @return ZMAccount The account.
      */
-    public function getAccount() { 
+    public function getAccount() {
         if (null === $this->account_) {
             $this->account_ = ZMBeanUtils::getBean("Account");
             $this->account_->setAccountId($this->accountId_);
@@ -199,7 +199,7 @@ class ZMOrder extends ZMObject {
      *
      * @return ZMAddress The shipping address or <code>null</code>.
      */
-    public function getShippingAddress() { 
+    public function getShippingAddress() {
         if (null === $this->shippingAddress_) {
             $this->shippingAddress_ = $this->mkAddress('delivery');
         }
@@ -211,7 +211,7 @@ class ZMOrder extends ZMObject {
      *
      * @param ZMAddress address The shipping address.
      */
-    public function setShippingAddress($address) { 
+    public function setShippingAddress($address) {
         $this->shippingAddress_ = $address;
         $this->loadAddress($address, 'delivery');
     }
@@ -221,7 +221,7 @@ class ZMOrder extends ZMObject {
      *
      * @return ZMAddress The billing address or <code>null</code>.
      */
-    public function getBillingAddress() { 
+    public function getBillingAddress() {
         if (null === $this->billingAddress_) {
             $this->billingAddress_ = $this->mkAddress('billing');
         }
@@ -233,7 +233,7 @@ class ZMOrder extends ZMObject {
      *
      * @param ZMAddress address The billing address.
      */
-    public function setBillingAddress($address) { 
+    public function setBillingAddress($address) {
         $this->billingAddress_ = $address;
         $this->loadAddress($address, 'billing');
     }
@@ -253,7 +253,7 @@ class ZMOrder extends ZMObject {
      *
      * @return array A list of <code>ZMOrderItem<code> instances.
      */
-    public function getOrderItems() { 
+    public function getOrderItems() {
         return ZMOrders::instance()->getOrderItems($this->getId());
     }
 
@@ -294,7 +294,7 @@ class ZMOrder extends ZMObject {
      *  does not contain the one requested.
      * @return ZMOrderTotalLine A <code>ZMOrderTotalLine</code> or <code>null</code>.
      */
-    public function getOrderTotalLinesForType($type, $force=false) { 
+    public function getOrderTotalLinesForType($type, $force=false) {
         $rawtype = 'ot_'.$type;
         $lines = array();
         foreach ($this->getOrderTotalLines() as $total) {
@@ -304,7 +304,7 @@ class ZMOrder extends ZMObject {
         }
 
         if ($force && 0 == count($lines)) {
-            $lines[] = ZMLoader::make("OrderTotalLine", ucwords($name), 0, 0, $rawtype);
+            $lines[] = ZMLoader::make("ZMOrderTotalLine", ucwords($name), 0, 0, $rawtype);
         }
 
         return $lines;

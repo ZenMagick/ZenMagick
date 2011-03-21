@@ -55,7 +55,7 @@ class ZMTellAFriendController extends ZMController {
     /**
      * {@inheritDoc}
      */
-    public function preProcess($request) { 
+    public function preProcess($request) {
         $languageId = $request->getSession()->getLanguageId();
         if ($request->getProductId()) {
             $this->product_ = ZMProducts::instance()->getProductForId($request->getProductId(), $languageId);
@@ -109,7 +109,7 @@ class ZMTellAFriendController extends ZMController {
         }
 
         ZMMessages::instance()->success(_zm("Message send successfully"));
-        $emailMessage = ZMBeanUtils::getBean("EmailMessage");
+        $emailMessage = ZMBeanUtils::getBean("ZMEmailMessage");
 
         $data = array_merge($this->viewData_, array('emailMessage' => $emailMessage));
         return $this->findView('success', $data, array('parameter' => 'products_id='.$this->product_->getId()));

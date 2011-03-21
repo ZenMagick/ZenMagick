@@ -128,7 +128,7 @@ class ZMReviews extends ZMObject {
                   AND r.reviews_id in (:reviewId)
                 ORDER BY date_added DESC";
         $args = array('productId' => $productId, 'languageId' => $languageId, 'reviewId' => $reviewIds);
-        return ZMRuntime::getDatabase()->query($sql, $args, array(TABLE_REVIEWS, TABLE_REVIEWS_DESCRIPTION, TABLE_PRODUCTS, TABLE_PRODUCTS_DESCRIPTION), 'Review');
+        return ZMRuntime::getDatabase()->query($sql, $args, array(TABLE_REVIEWS, TABLE_REVIEWS_DESCRIPTION, TABLE_PRODUCTS, TABLE_PRODUCTS_DESCRIPTION), 'ZMReview');
     }
 
     /**
@@ -171,7 +171,7 @@ class ZMReviews extends ZMObject {
                   AND p.products_id = :productId
                 ORDER BY date_added DESC";
         $args = array('productId' => $productId, 'languageId' => $languageId);
-        return ZMRuntime::getDatabase()->query($sql, $args, array(TABLE_REVIEWS, TABLE_REVIEWS_DESCRIPTION, TABLE_PRODUCTS, TABLE_PRODUCTS_DESCRIPTION), 'Review');
+        return ZMRuntime::getDatabase()->query($sql, $args, array(TABLE_REVIEWS, TABLE_REVIEWS_DESCRIPTION, TABLE_PRODUCTS, TABLE_PRODUCTS_DESCRIPTION), 'ZMReview');
     }
 
     /**
@@ -193,7 +193,7 @@ class ZMReviews extends ZMObject {
                   AND r.status = 1
                 ORDER BY date_added DESC";
         $args = array('languageId' => $languageId);
-        return ZMRuntime::getDatabase()->query($sql, $args, array(TABLE_REVIEWS, TABLE_REVIEWS_DESCRIPTION, TABLE_PRODUCTS, TABLE_PRODUCTS_DESCRIPTION), 'Review');
+        return ZMRuntime::getDatabase()->query($sql, $args, array(TABLE_REVIEWS, TABLE_REVIEWS_DESCRIPTION, TABLE_PRODUCTS, TABLE_PRODUCTS_DESCRIPTION), 'ZMReview');
     }
 
     /**
@@ -216,7 +216,7 @@ class ZMReviews extends ZMObject {
                   AND r.status = 1
                   AND r.reviews_id = :reviewId";
         $args = array('reviewId' => $reviewId, 'languageId' => $languageId);
-        return ZMRuntime::getDatabase()->querySingle($sql, $args, array(TABLE_REVIEWS, TABLE_REVIEWS_DESCRIPTION, TABLE_PRODUCTS, TABLE_PRODUCTS_DESCRIPTION), 'Review');
+        return ZMRuntime::getDatabase()->querySingle($sql, $args, array(TABLE_REVIEWS, TABLE_REVIEWS_DESCRIPTION, TABLE_PRODUCTS, TABLE_PRODUCTS_DESCRIPTION), 'ZMReview');
     }
 
     /**

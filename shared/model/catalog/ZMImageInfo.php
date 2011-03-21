@@ -165,7 +165,7 @@ class ZMImageInfo extends ZMObject {
      *
      * @return string HTML formatted parameter.
      */
-    public function getFormattedParameter() { 
+    public function getFormattedParameter() {
         $html = '';
         foreach ($this->parameter_ as $attr => $value) {
             $html .= ' '.$attr.'="'.$value.'"';
@@ -235,7 +235,7 @@ class ZMImageInfo extends ZMObject {
         // create ZMImageInfo list...
         $imageInfoList = array();
         foreach ($imageList as $aimg) {
-            array_push($imageInfoList, ZMLoader::make("ImageInfo", $subdir.$aimg));
+            array_push($imageInfoList, ZMLoader::make("ZMImageInfo", $subdir.$aimg));
         }
 
         return $imageInfoList;

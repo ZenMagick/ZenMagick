@@ -52,7 +52,7 @@ class ZMImageHandler2Plugin extends Plugin {
     public function install() {
         parent::install();
         $this->addConfigValue('Disable IH img attributes', 'disableIH2Attributes', false, 'Disable IH2 showtrail/hidetrail mouseover handler and styles on img elements',
-            'widget@BooleanFormWidget#name=disableIH2Attributes&default=false&label=Disable&style=checkbox');
+            'widget@ZMBooleanFormWidget#name=disableIH2Attributes&default=false&label=Disable&style=checkbox');
     }
 
     /**

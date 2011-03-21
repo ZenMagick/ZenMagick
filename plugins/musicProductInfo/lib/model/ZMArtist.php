@@ -105,7 +105,7 @@ class ZMArtist extends ZMObject {
      *
      * @return ZMImageInfo The image info.
      */
-    public function getImageInfo() { return ZMLoader::make("ImageInfo", $this->image_, $this->name_); }
+    public function getImageInfo() { return ZMLoader::make("ZMImageInfo", $this->image_, $this->name_); }
 
     /**
      * Check if a URL is available.

@@ -174,54 +174,54 @@ class ZMConfig extends ZMObject {
                 }
                 switch ($setFunction) {
                 case null:
-                    $widget = ZMBeanUtils::getBean('TextFormWidget');
+                    $widget = ZMBeanUtils::getBean('ZMTextFormWidget');
                     $size = strlen($value['value'])+3;
                     $size = 64 < $size ? 64 : $size;
                     $widget->set('size', $size);
                     break;
                 case 'zen_cfg_textarea':
-                    $widget = ZMBeanUtils::getBean('TextAreaFormWidget');
+                    $widget = ZMBeanUtils::getBean('ZMTextAreaFormWidget');
                     $widget->setRows(5);
                     $widget->setCols(60);
                     break;
                 case 'zen_cfg_textarea_small':
-                    $widget = ZMBeanUtils::getBean('TextAreaFormWidget');
+                    $widget = ZMBeanUtils::getBean('ZMTextAreaFormWidget');
                     $widget->setRows(1);
                     $widget->setCols(35);
                     break;
                 case 'zen_cfg_select_option':
                     // XXX: perhaps make radio group
-                    $widget = ZMBeanUtils::getBean('SelectFormWidget#style=radio');
+                    $widget = ZMBeanUtils::getBean('ZMSelectFormWidget#style=radio');
                     $widget->setOptions($this->splitOptions($value['setFunction']));
                     if (3 < count($widget->getOptions())) {
                         $widget->setStyle('select');
                     }
                     break;
                 case 'zen_cfg_select_drop_down':
-                    $widget = ZMBeanUtils::getBean('SelectFormWidget');
+                    $widget = ZMBeanUtils::getBean('ZMSelectFormWidget');
                     $widget->setOptions($this->splitOptions($value['setFunction']));
                     break;
                 case 'zen_cfg_pull_down_order_statuses':
-                    $widget = ZMBeanUtils::getBean('OrderStatusSelectFormWidget');
+                    $widget = ZMBeanUtils::getBean('ZMOrderStatusSelectFormWidget');
                     break;
                 case 'zen_cfg_pull_down_country_list':
-                    $widget = ZMBeanUtils::getBean('CountrySelectFormWidget');
+                    $widget = ZMBeanUtils::getBean('ZMCountrySelectFormWidget');
                     break;
                 case 'zen_cfg_pull_down_country_list_none':
-                    $widget = ZMBeanUtils::getBean('CountrySelectFormWidget');
+                    $widget = ZMBeanUtils::getBean('ZMCountrySelectFormWidget');
                     $widget->setOptions(array('' => _zm('None')));
                     break;
                 case 'zen_cfg_pull_down_htmleditors':
-                    $widget = ZMBeanUtils::getBean('TextFormWidget');
+                    $widget = ZMBeanUtils::getBean('ZMTextFormWidget');
                     $widget->set('readonly', true);
-                    //$widget = ZMBeanUtils::getBean('EditorSelectFormWidget');
+                    //$widget = ZMBeanUtils::getBean('ZMEditorSelectFormWidget');
                     break;
                 case 'zen_cfg_pull_down_zone_list';
-                    $widget = ZMBeanUtils::getBean('ZoneSelectFormWidget');
+                    $widget = ZMBeanUtils::getBean('ZMZoneSelectFormWidget');
                     $widget->setOptions(array('' => _zm('None')));
                     break;
                 case 'zen_cfg_select_coupon_id';
-                    $widget = ZMBeanUtils::getBean('CouponSelectFormWidget');
+                    $widget = ZMBeanUtils::getBean('ZMCouponSelectFormWidget');
                     $widget->setOptions(array('' => _zm('None')));
                     break;
 
@@ -323,7 +323,7 @@ class ZMConfig extends ZMObject {
         $sql = "SELECT *
                 FROM " . TABLE_CONFIGURATION_GROUP . "
                 WHERE configuration_group_id = :id";
-        return ZMRuntime::getDatabase()->querySingle($sql, array('id' => $groupId), TABLE_CONFIGURATION_GROUP, 'ConfigGroup');
+        return ZMRuntime::getDatabase()->querySingle($sql, array('id' => $groupId), TABLE_CONFIGURATION_GROUP, 'ZMConfigGroup');
     }
 
     /**
@@ -335,7 +335,7 @@ class ZMConfig extends ZMObject {
         $sql = "SELECT *
                 FROM " . TABLE_CONFIGURATION_GROUP . "
                 ORDER BY sort_order";
-        return ZMRuntime::getDatabase()->query($sql, array(), TABLE_CONFIGURATION_GROUP, 'ConfigGroup');
+        return ZMRuntime::getDatabase()->query($sql, array(), TABLE_CONFIGURATION_GROUP, 'ZMConfigGroup');
     }
 
     /**

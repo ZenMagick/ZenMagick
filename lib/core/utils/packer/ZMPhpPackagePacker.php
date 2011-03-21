@@ -162,12 +162,12 @@ class ZMPhpPackagePacker {
             // interfaces
             'Traversable', 'Iterator', 'IteratorAggregate', 'ArrayAccess', 'Serializable',
             // SPL interfaces
-            'Countable', 'OuterIterator', 'RecursiveIterator', 'SeekableIterator', 'SplObserver', 'SplSubject', 
+            'Countable', 'OuterIterator', 'RecursiveIterator', 'SeekableIterator', 'SplObserver', 'SplSubject',
             // exceptions
-            'Exception', 'ErrorException', 
+            'Exception', 'ErrorException',
             // SPL exceptions
-            'BadFunctionCallException', 'BadMethodCallException', 'DomainException', 'InvalidArgumentException', 'LengthException', 
-            'LogicException', 'OutOfBoundsException', 'OutOfRangeException', 'OverflowException', 'RangeException', 'RuntimeException', 
+            'BadFunctionCallException', 'BadMethodCallException', 'DomainException', 'InvalidArgumentException', 'LengthException',
+            'LogicException', 'OutOfBoundsException', 'OutOfRangeException', 'OverflowException', 'RangeException', 'RuntimeException',
             'UnderflowException', 'UnexpectedValueException'
         );
     }
@@ -226,7 +226,7 @@ class ZMPhpPackagePacker {
      * @param boolean stripRef If <code>true</code>, strip code that uses references.
      */
     protected function compressFiles($stripCode, $stripRef) {
-        $compressor = ZMBeanUtils::getBean('PhpCompressor');
+        $compressor = ZMBeanUtils::getBean('ZMPhpCompressor');
         $compressor->setRoot($this->outputFilename_.'.prep'.DIRECTORY_SEPARATOR);
         $compressor->setOut($this->outputFilename_);
         $compressor->setTemp($this->tempFolder_);

@@ -89,7 +89,7 @@ class ZMMessages extends ZMObject {
             return;
 
         $this->uniqueMsgRef_[$text] = $text;
-        array_push($this->messages_, ZMLoader::make("Message", $text, $type, $ref));
+        array_push($this->messages_, ZMLoader::make("ZMMessage", $text, $type, $ref));
     }
 
     /**

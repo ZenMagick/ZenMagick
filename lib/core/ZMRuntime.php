@@ -95,7 +95,7 @@ class ZMRuntime {
         ksort($dbconf);
         $key = serialize($dbconf);
         if (!array_key_exists($key, self::$databaseMap_)) {
-            $provider = array_key_exists('provider', $dbconf) ? $dbconf['provider'] : ZMSettings::get('zenmagick.core.database.provider', 'PdoDatabase');
+            $provider = array_key_exists('provider', $dbconf) ? $dbconf['provider'] : ZMSettings::get('zenmagick.core.database.provider', 'ZMPdoDatabase');
             self::$databaseMap_[$key] = ZMLoader::make($provider, $dbconf);
         }
 

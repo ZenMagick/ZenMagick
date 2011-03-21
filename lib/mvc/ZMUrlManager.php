@@ -237,12 +237,12 @@ class ZMUrlManager extends ZMObject {
             // configured
             $definition = $mapping['controller'];
         } else {
-            $definition = ZMLoader::makeClassname($requestId.'Controller');
+            $definition = 'ZM'.ZMLoader::makeClassname($requestId.'Controller');
         }
 
         ZMLogging::instance()->log('controller definition: '.$definition, ZMLogging::TRACE);
         if (null == ($controller = ZMBeanUtils::getBean($definition))) {
-            $controller = ZMBeanUtils::getBean(ZMSettings::get('zenmagick.mvc.controller.default', 'Controller'));
+            $controller = ZMBeanUtils::getBean(ZMSettings::get('zenmagick.mvc.controller.default', 'ZMController'));
         }
 
         return $controller;

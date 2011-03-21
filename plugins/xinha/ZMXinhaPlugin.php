@@ -62,7 +62,7 @@ class ZMXinhaPlugin extends Plugin {
     public function install() {
         parent::install();
         $this->addConfigValue('Default Editor', 'defaultEditor', false, 'Make Xinha the default editor',
-            'widget@BooleanFormWidget#name=defaultEditor&default=false&label=Default Editor&style=checkbox');
+            'widget@ZMBooleanFormWidget#name=defaultEditor&default=false&label=Default Editor&style=checkbox');
     }
 
 }

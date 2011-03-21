@@ -60,8 +60,8 @@ class ZMSubscriptionAdminController extends ZMPluginAdmin2Controller {
             }
         }
 
-        $resultSource = ZMLoader::make('ArrayResultSource', 'ZMOrder', $orderIds);
-        $resultList = ZMBeanUtils::getBean('ResultList');
+        $resultSource = ZMLoader::make('ZMArrayResultSource', 'ZMOrder', $orderIds);
+        $resultList = ZMBeanUtils::getBean('ZMResultList');
         $resultList->setResultSource($resultSource);
         $resultList->setPageNumber($request->getPageIndex());
 
@@ -105,7 +105,7 @@ class ZMSubscriptionAdminController extends ZMPluginAdmin2Controller {
         $context = array();
         $context['order'] = $order;
         $context['plugin'] = $this->getPlugin();
-        zm_mail(sprintf(_zm("%s: Order Subscription Canceled"), ZMSettings::get('storeName')), $template, $context, 
+        zm_mail(sprintf(_zm("%s: Order Subscription Canceled"), ZMSettings::get('storeName')), $template, $context,
             $email, ZMSettings::get('storeEmail'), null);
         $email = ZMSettings::get('storeEmail');
     }

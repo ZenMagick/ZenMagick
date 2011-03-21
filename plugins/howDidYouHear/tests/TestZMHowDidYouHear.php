@@ -77,7 +77,7 @@ class TestZMHowDidYouHear extends ZMTestCase {
      * Create test account.
      */
     public function createAccount($data) {
-        $account = ZMBeanUtils::getBean('Account');
+        $account = ZMBeanUtils::getBean('ZMAccount');
         foreach ($data as $key => $value) {
             $method = 'set'.ucwords($key);
             $account->$method($value);

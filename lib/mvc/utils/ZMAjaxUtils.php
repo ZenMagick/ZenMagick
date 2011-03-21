@@ -37,7 +37,7 @@ class ZMAjaxUtils {
      * <p>If the given object is an array, all elements will be converted, too. Generally speaking, this method works
      * recursively. Arrays are preserved, array values, in turn, will be flattened.</p>
      *
-     * <p>The methods array may contain nested arrays to allow recursiv method mapping. The Ajax product controller is 
+     * <p>The methods array may contain nested arrays to allow recursiv method mapping. The Ajax product controller is
      * a good example for this.</p>
      *
      * @param mixed obj The object.
@@ -85,7 +85,7 @@ class ZMAjaxUtils {
      */
     public static function createRpcRequest($request) {
         $format = ZMSettings::get('zenmagick.mvc.rpc.format', 'JSON');
-        return ZMLoader::make('RpcRequest'.$format, $request);
+        return ZMLoader::make('ZMRpcRequest'.$format, $request);
     }
 
 }
