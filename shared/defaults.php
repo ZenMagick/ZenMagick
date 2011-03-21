@@ -103,7 +103,6 @@
 
             // default controller and view class
             'zenmagick.mvc.controller.default' => 'ZMDefaultController',
-            //'zenmagick.mvc.view.default' => 'SavantView',
             'zenmagick.mvc.view.defaultLayout' => 'default_layout',
 
 

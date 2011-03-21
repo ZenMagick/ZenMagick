@@ -194,6 +194,10 @@ class ZMBeanUtils extends ZMObject {
      * @return mixed An object or <code>null</code>.
      */
     public static function getBean($definition, $useBeanMapping=true) {
+        if (empty($definition)) {
+            return null;
+        }
+
         $isRef = false;
         $isPlugin = false;
         if (0 === strpos($definition, 'bean::')) {

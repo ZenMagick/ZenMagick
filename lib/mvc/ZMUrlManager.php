@@ -273,7 +273,7 @@ class ZMUrlManager extends ZMObject {
             $mapping['template'] = $requestId;
         }
         // default
-        $view = ZMSettings::get('zenmagick.mvc.view.default', 'SavantView');
+        $view = ZMSettings::get('zenmagick.mvc.view.default', 'ZMSavantView');
         if (array_key_exists('view', $mapping) && null != $mapping['view']) {
             $view = $mapping['view'];
         }

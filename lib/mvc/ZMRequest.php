@@ -462,7 +462,7 @@ class ZMRequest extends \ZMObject {
      */
     public function redirect($url, $status=302) {
         $url = str_replace('&amp;', '&', $url);
-        Runtime::getEventDispatcher()->notify(new Event($this, 'redirect',  array('request' => $request, 'url' => $url)));
+        Runtime::getEventDispatcher()->notify(new Event($this, 'redirect',  array('request' => $this, 'url' => $url)));
         \ZMLogging::instance()->trace('redirect url: ' . $url, \ZMLogging::TRACE);
         \ZMMessages::instance()->saveMessages($this->getSession());
         $this->closeSession();

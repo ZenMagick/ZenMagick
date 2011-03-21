@@ -21,6 +21,8 @@
 <?php
 namespace zenmagick\base;
 
+use zenmagick\base\ioc\Container;
+
 /**
  * ZenMagick beans.
  *
@@ -171,9 +173,7 @@ class Beans {
      * @return mixed An instance of the given class or <code>null</code>.
      */
     public static function map2obj($clazz, $data, $keys=null) {
-        //TODO: remove once we get rid of ZMLoader
-        $zmloader = class_exists('\ZMLoader') ? \ZMLoader::resolve($clazz) : null;
-        if (ClassLoader::classExists($clazz) && (null == $zmloader || $zmloader == $clazz)) {
+        if (null != ($obj = Runtime::getContainer()->get($clazz, Container::NULL_ON_INVALID_REFERENCE))) {
             $obj = new $clazz();
             self::setAll($obj, $data, $keys);
             return $obj;
@@ -190,6 +190,10 @@ class Beans {
      * @return mixed An object or <code>null</code>.
      */
     public static function getBean($definition) {
+        if (empty($definition)) {
+            return null;
+        }
+
         $isRef = false;
         $isPlugin = false;
         if (0 === strpos($definition, 'bean::')) {
