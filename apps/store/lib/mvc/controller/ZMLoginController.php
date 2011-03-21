@@ -78,7 +78,6 @@ class ZMLoginController extends ZMController {
      * {@inheritDoc}
      */
     public function processPost($request) {
-      echo 'xx';die();
         $session = $request->getSession();
 
         // get before doing anything with the session!
