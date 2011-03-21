@@ -5,3 +5,18 @@ services:
   ZMPlugins:
     class: Plugins
     scope: container
+  ZMSession:
+    class: Session
+    scope: container
+  ZMSavantView:
+    class: SavantView
+    scope: container
+  ZMMessages:
+    class: Messages
+    scope: container
+  ZMViewUtils:
+    class: ViewUtils
+    scope: prototype
+  ZMForwardView:
+    class: ForwardView
+    scope: prototype
