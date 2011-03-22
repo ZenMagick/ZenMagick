@@ -34,7 +34,7 @@ use zenmagick\base\events\Event;
  * @author DerManoMann
  * @package zenmagick.store.sf.mvc
  */
-class Session extends ZMSession {
+class Session extends ZMObject {
 
     /**
      * Create new instance.
