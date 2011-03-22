@@ -203,6 +203,16 @@ class Session extends ZMObject {
     }
 
     /**
+     * Check if we have a session yet.
+     *
+     * @return boolean <code>true<code> if the session has been already started.
+     */
+    public function isStarted() {
+        $id = session_id();
+        return !empty($id);
+    }
+
+    /**
      * Clear the session.
      *
      * <p>This will effectively logoff the curent account.

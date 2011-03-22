@@ -896,5 +896,4 @@ return zen_get_uprid($productId, $attributes);
         return $fullProductId;
     }
 
-
 }
