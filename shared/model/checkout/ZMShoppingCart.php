@@ -591,7 +591,7 @@ return $this->zenTotals_;
         $baseProductId = self::extractBaseProductId($itemId);
 
         $qty = 0;
-        foreach ($contents as $pid) {
+        foreach (array_keys($contents) as $pid) {
             $bpid = self::extractBaseProductId($pid);
             if ($bpid == $baseProductId) {
                 $qty += $contents[$pid]['qty'];
