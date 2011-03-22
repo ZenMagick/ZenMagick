@@ -71,7 +71,7 @@ class ZMXinhaFormWidget extends \ZMTextAreaFormWidget {
     /**
      * Add init code.
      */
-    public function onFinaliseContents($event, $content) {
+    public function onFinaliseContents($event, $contents) {
         if (0 < count(self::$ID_LIST)) {
             $baseUrl = $this->plugin_->pluginURL('xinha-0.96.1/');
             $idList = implode("', '", self::$ID_LIST);
