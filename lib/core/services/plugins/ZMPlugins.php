@@ -100,7 +100,7 @@ class ZMPlugins extends ZMObject {
             $this->pathIdMap_ = array();
             foreach (ZMRuntime::getPluginBasePath() as $basePath) {
                 $this->pathIdMap_[$basePath] = array();
-                if (false !== ($handle = @opendir($basePath))) {
+                if (file_exists($basePath) && is_dir($basePath) && false !== ($handle = @opendir($basePath))) {
                     while (false !== ($file = readdir($handle))) {
                         if (ZMLangUtils::startsWith($file, '.')) {
                             continue;
