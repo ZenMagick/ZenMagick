@@ -96,7 +96,7 @@ class ZMPaymentTypeWrapper extends ZMObject implements ZMPaymentType {
         if (null === $this->fields_) {
             if (array_key_exists('fields', $this->selection_)) {
                 foreach ($this->selection_['fields'] as $field) {
-                    $this->fields_[] = ZMLoader::make("PaymentField", $field['title'], $field['field']);
+                    $this->fields_[] = ZMLoader::make("ZMPaymentField", $field['title'], $field['field']);
                 }
             }
         }

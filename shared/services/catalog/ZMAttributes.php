@@ -23,6 +23,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 
 /**
  * Attribute service.
@@ -50,7 +51,7 @@ class ZMAttributes extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return ZMRuntime::singleton('Attributes');
+        return Runtime::getContainer()->getService('ZMAttributes');
     }
 
 
@@ -59,7 +60,7 @@ class ZMAttributes extends ZMObject {
      *
      * @param ZMProduct product The product.
      * @return boolean <code>true</code> if attributes eixst, <code>false</code> if not.
-     */ 
+     */
     public function getAttributesForProduct($product) {
         // set up sort order SQL
         $attributesOrderBy = '';
@@ -78,7 +79,7 @@ class ZMAttributes extends ZMObject {
                   AND po.language_id = :languageId" .
                 $attributesOrderBy;
         $args = array('productId' => $product->getId(), 'languageId' => $product->getLanguageId());
-        $attributes = ZMRuntime::getDatabase()->query($sql, $args, array(TABLE_PRODUCTS_OPTIONS, TABLE_PRODUCTS_ATTRIBUTES), 'Attribute');
+        $attributes = ZMRuntime::getDatabase()->query($sql, $args, array(TABLE_PRODUCTS_OPTIONS, TABLE_PRODUCTS_ATTRIBUTES), 'ZMAttribute');
         if (0 == count($attributes)) {
             return $attributes;
         }
@@ -105,7 +106,7 @@ class ZMAttributes extends ZMObject {
         // read all in one go
         $args = array('attributeId' => array_keys($attributeMap), 'productId' => $product->getId(), 'languageId' => $product->getLanguageId());
         $mapping = array(TABLE_PRODUCTS_OPTIONS_VALUES, TABLE_PRODUCTS_ATTRIBUTES);
-        foreach (ZMRuntime::getDatabase()->query($sql, $args, $mapping, 'AttributeValue') as $value) {
+        foreach (ZMRuntime::getDatabase()->query($sql, $args, $mapping, 'ZMAttributeValue') as $value) {
             $attribute = $attributeMap[$value->getAttributeId()];
             $value->setAttribute($attribute);
             $value->setTaxRate($product->getTaxRate());

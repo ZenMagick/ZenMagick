@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 
 /**
  * A validator framework.
@@ -54,7 +55,7 @@ class ZMValidator extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return ZMRuntime::singleton('Validator');
+        return Runtime::getContainer()->getService('ZMValidator');
     }
 
 
@@ -130,7 +131,7 @@ class ZMValidator extends ZMObject {
 
         if ($compile) {
             $rules = $ruleSet;
-            $ruleSet = ZMLoader::make('RuleSet', $id);
+            $ruleSet = ZMLoader::make('ZMRuleSet', $id);
             foreach ($rules as $ruleDef) {
                 if (null == ($rule = ZMLoader::make($ruleDef))) {
                     ZMLogging::instance()->dump($ruleDef, "can't instantiate rule", ZMLogging::WARN);

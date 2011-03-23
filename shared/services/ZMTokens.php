@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 
 /**
  * Token service.
@@ -47,7 +48,7 @@ class ZMTokens extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return ZMRuntime::singleton('Tokens');
+        return Runtime::getContainer()->getService('ZMTokens');
     }
 
 
@@ -77,7 +78,7 @@ class ZMTokens extends ZMObject {
      * @return ZMToken A token.
      */
     public function getNewToken($resource, $lifetime) {
-        $token = ZMBeanUtils::getBean('Token');
+        $token = ZMBeanUtils::getBean('ZMToken');
         $token->setHash($this->createToken());
         $token->setResource($resource);
         $now = time();
@@ -109,7 +110,7 @@ class ZMTokens extends ZMObject {
     public function validateHash($resource, $hash, $expire=true) {
         $sql = "SELECT * FROM " . ZM_TABLE_TOKEN . "
                 WHERE hash = :hash AND resource = :resource AND expires >= now()";
-        $token = ZMRuntime::getDatabase()->querySingle($sql, array('hash' => $hash, 'resource' => $resource), ZM_TABLE_TOKEN, 'Token');
+        $token = ZMRuntime::getDatabase()->querySingle($sql, array('hash' => $hash, 'resource' => $resource), ZM_TABLE_TOKEN, 'ZMToken');
         if ($expire && null !== $token) {
             $sql = "DELETE FROM " . ZM_TABLE_TOKEN . "
                     WHERE hash = :hash AND resource = :resource";
@@ -127,7 +128,7 @@ class ZMTokens extends ZMObject {
     public function getTokenForResource($resource) {
         $sql = "SELECT * FROM " . ZM_TABLE_TOKEN . "
                 WHERE resource = :resource AND expires >= now()";
-        return ZMRuntime::getDatabase()->query($sql, array('resource' => $resource), ZM_TABLE_TOKEN, 'Token');
+        return ZMRuntime::getDatabase()->query($sql, array('resource' => $resource), ZM_TABLE_TOKEN, 'ZMToken');
     }
 
     /**
@@ -139,7 +140,7 @@ class ZMTokens extends ZMObject {
     public function getTokenForHash($hash) {
         $sql = "SELECT * FROM " . ZM_TABLE_TOKEN . "
                 WHERE hash = :hash AND expires >= now()";
-        $results = ZMRuntime::getDatabase()->query($sql, array('hash' => $hash), ZM_TABLE_TOKEN, 'Token');
+        $results = ZMRuntime::getDatabase()->query($sql, array('hash' => $hash), ZM_TABLE_TOKEN, 'ZMToken');
         if (1 < count($results)) {
             ZMLogging::instance()->log('duplicate token for hash: '.$hash, ZMLogging::WARN);
             // expire all

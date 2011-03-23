@@ -44,6 +44,7 @@ Release 0.9.12
 - introduce setting 'zenmagick.core.security.defaultAuthenticationProvider'
 - add new theme_loaded event that is fired for each loaded theme
 - convert theme local.php to theme event listener
+- add IoC container and replace current singleton, etc code
 
 Release 0.9.11.1
 - remove debug code

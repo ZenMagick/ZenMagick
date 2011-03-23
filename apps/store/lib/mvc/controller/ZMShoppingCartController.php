@@ -54,7 +54,7 @@ class ZMShoppingCartController extends ZMController {
         $request->getToolbox()->crumbtrail->addCrumb($request->getToolbox()->utils->getTitle());
         $session = $request->getSession();
         $shoppingCart = $request->getShoppingCart();
-        $helper = ZMLoader::make('CheckoutHelper', $shoppingCart);
+        $helper = ZMLoader::make('ZMCheckoutHelper', $shoppingCart);
 
         // set cart hash
         $helper->saveHash($request);

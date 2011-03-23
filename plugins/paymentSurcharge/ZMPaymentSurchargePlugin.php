@@ -104,7 +104,7 @@ class ZMPaymentSurchargePlugin extends Plugin implements ZMOrderTotal {
                         $amount =  $shoppingCart->getSubtotal() * ($amount/100);
                     }
 
-                    $details = ZMBeanUtils::getBean('OrderTotalLineDetails');
+                    $details = ZMBeanUtils::getBean('ZMOrderTotalLineDetails');
                     $details->setTitle($condition['title']);
                     $details->setAmount($amount);
                     $details->setDisplayValue($amount);

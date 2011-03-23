@@ -52,10 +52,10 @@ class ZMFirePHPPlugin extends Plugin {
         parent::install();
 
         $this->addConfigValue('Enable on demand only', 'isOnDemand', 'false', 'If set, the plugin will be inactive unless the configured query parameter is set',
-            'widget@BooleanFormWidget#name=isOnDemand&default=false&label=Enable on demand only&style=radio');
+            'widget@ZMBooleanFormWidget#name=isOnDemand&default=false&label=Enable on demand only&style=radio');
         $this->addConfigValue('On demand query parameter name', 'onDemandName', 'firephp', 'The name of the query parameter to enable FirePHP.');
         $this->addConfigValue('On demand log level', 'onDemandLogLevel', ZMLogging::TRACE, 'The log level to be used for on deman logging.',
-            'widget@SelectFormWidget#name=onDemandLogLevel&default='.ZMLogging::TRACE.'false&options='.urlencode(
+            'widget@ZMSelectFormWidget#name=onDemandLogLevel&default='.ZMLogging::TRACE.'false&options='.urlencode(
                 ZMLOGGING::ERROR.'=Error&'.
                 ZMLOGGING::WARN.'=Warn&'.
                 ZMLOGGING::INFO.'=Info&'.

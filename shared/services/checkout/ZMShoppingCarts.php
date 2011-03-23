@@ -23,6 +23,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 
 /**
  * Shopping cart service.
@@ -57,7 +58,7 @@ class ZMShoppingCarts extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return ZMRuntime::singleton('ShoppingCarts');
+        return Runtime::getContainer()->getService('ZMShoppingCarts');
     }
 
 
@@ -142,13 +143,13 @@ class ZMShoppingCarts extends ZMObject {
             $attributeResults[$ii]['attributeId'] = preg_replace('/([0-9]*).*/', '\1', $attributeResult['attributeId']);
         }
 
-        $shoppingCart = ZMBeanUtils::getBean('ShoppingCart');
+        $shoppingCart = ZMBeanUtils::getBean('ZMShoppingCart');
         $items = array();
 
         $sql = "SELECT * FROM " . TABLE_CUSTOMERS_BASKET . "
                 WHERE customers_id = :accountId";
         foreach (ZMRuntime::getDatabase()->query($sql, array('accountId' => $accountId), TABLE_CUSTOMERS_BASKET) as $productResult) {
-            $item = ZMBeanUtils::getBean('ShoppingCartItem');
+            $item = ZMBeanUtils::getBean('ZMShoppingCartItem');
             $item->setId($productResult['skuId']);
             $item->setQuantity($productResult['quantity']);
             $productAttributes = null;

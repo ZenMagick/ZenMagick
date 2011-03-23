@@ -46,14 +46,14 @@
           <table cellspacing="0" cellpadding="0"><tbody>
              <tr>
                 <td><?php _vzm("Country") ?></td>
-                <td><?php echo $form->idpSelect('country_id', array_merge(array(ZMLoader::make("IdNamePair", "", _zm("Select Country"))), ZMCountries::instance()->getCountries()), $shippingEstimator->getCountryId()) ?></td>
+                <td><?php echo $form->idpSelect('country_id', array_merge(array(ZMLoader::make("ZMIdNamePair", "", _zm("Select Country"))), ZMCountries::instance()->getCountries()), $shippingEstimator->getCountryId()) ?></td>
             </tr>
             <tr>
                 <td><?php _vzm("State/Province") ?></td>
                 <td>
                     <?php $zones = ZMCountries::instance()->getZonesForCountryId($shippingEstimator->getCountryId()); ?>
                     <?php if (0 < count($zones)) { ?>
-                        <?php echo $form->idpSelect('state', array_merge(array(ZMLoader::make("IdNamePair", "", _zm("Select State"))), $zones), $shippingEstimator->getStateId()) ?>
+                        <?php echo $form->idpSelect('state', array_merge(array(ZMLoader::make("ZMIdNamePair", "", _zm("Select State"))), $zones), $shippingEstimator->getStateId()) ?>
                     <?php } else { ?>
                         <input type="text" name="state" value="" />
                     <?php } ?>

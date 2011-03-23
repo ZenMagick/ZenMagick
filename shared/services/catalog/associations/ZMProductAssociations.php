@@ -20,13 +20,14 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 
 /**
  * Manage pluggable product associations.
  *
  * <p>Handler can be explicitely registered using the <code>registerHandler(..)</code> method, or, preferrably
  * via the setting '<em>defaultProductAssociationHandler</em>' - as comma separated list of class names.</p>
- * 
+ *
  * @author DerManoMann
  * @package zenmagick.store.shared.services.catalog.associations
  */
@@ -60,14 +61,14 @@ class ZMProductAssociations extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return ZMRuntime::singleton('ProductAssociations');
+        return Runtime::getContainer()->getService('ZMProductAssociations');
     }
 
 
     /**
      * Register an association handler.
      *
-     * <p>The optional <code>$type</code> parameter allows to register a 
+     * <p>The optional <code>$type</code> parameter allows to register a
      * handler as string. If omitted, an instance of the handler will be
      * created immediately in order to query the type. This also allows to
      * register the same handler for different types, if required.</p>
@@ -80,7 +81,7 @@ class ZMProductAssociations extends ZMObject {
     	  if (null === $type) {
             if (!is_object($handler)) {
                 $handler = ZMBeanUtils::getBean($handler);
-            } 
+            }
             $type = $handler->getType();
     	  }
 

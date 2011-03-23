@@ -52,12 +52,12 @@ class ZMQuickEditTabController extends ZMCatalogContentController {
             // use defaults
             $fieldList = array(
                 // name, widget, propert is optional in case the fieldname and product proerty name do not match
-                array('name' => 'name', 'widget' => 'TextFormWidget#title=Name&name=name&size=35'),
-                array('name' => 'model', 'widget' => 'TextFormWidget#title=Model&name=model&size=14'),
-                array('name' => 'image', 'widget' => 'TextFormWidget#title=Image&name=image&size=24', 'property' => 'defaultImage'),
-                array('name' => 'quantity', 'widget' => 'TextFormWidget#title=Quantity&name=quantity&size=4'),
-                array('name' => 'productPrice', 'widget' => 'TextFormWidget#title=Product Price&name=productPrice&size=7'),
-                array('name' => 'status', 'widget' => 'TextFormWidget#title=Status&name=status&size=2')
+                array('name' => 'name', 'widget' => 'ZMTextFormWidget#title=Name&name=name&size=35'),
+                array('name' => 'model', 'widget' => 'ZMTextFormWidget#title=Model&name=model&size=14'),
+                array('name' => 'image', 'widget' => 'ZMTextFormWidget#title=Image&name=image&size=24', 'property' => 'defaultImage'),
+                array('name' => 'quantity', 'widget' => 'ZMTextFormWidget#title=Quantity&name=quantity&size=4'),
+                array('name' => 'productPrice', 'widget' => 'ZMTextFormWidget#title=Product Price&name=productPrice&size=7'),
+                array('name' => 'status', 'widget' => 'ZMTextFormWidget#title=Status&name=status&size=2')
             );
         }
 
@@ -128,7 +128,7 @@ class ZMQuickEditTabController extends ZMCatalogContentController {
                 ZMProducts::instance()->updateProduct($product);
                 ZMMessages::instance()->success('All changes saved');
             }
-        }    
+        }
 
         return $this->findView('catalog-redirect');
     }

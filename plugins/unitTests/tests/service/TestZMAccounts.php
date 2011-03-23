@@ -53,7 +53,7 @@ class TestZMAccounts extends ZMTestCase {
      * Create test account.
      */
     public function createAccount($data) {
-        $account = ZMBeanUtils::getBean('Account');
+        $account = ZMBeanUtils::getBean('ZMAccount');
         foreach ($data as $key => $value) {
             if ('Dob' == $key) {
                 $value = new DateTime($value);

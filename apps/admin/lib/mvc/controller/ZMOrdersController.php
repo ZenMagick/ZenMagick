@@ -63,11 +63,11 @@ class ZMOrdersController extends ZMController {
         }
 
         if (null != $orderStatus) {
-            $resultSource = ZMLoader::make("ObjectResultSource", 'Order', ZMOrders::instance(), "getOrdersForStatusId", array($orderStatusId, $languageId));
+            $resultSource = ZMLoader::make("ZMObjectResultSource", 'Order', ZMOrders::instance(), "getOrdersForStatusId", array($orderStatusId, $languageId));
         } else {
-            $resultSource = ZMLoader::make("ObjectResultSource", 'Order', ZMOrders::instance(), "getAllOrders", array($languageId));
+            $resultSource = ZMLoader::make("ZMObjectResultSource", 'Order', ZMOrders::instance(), "getAllOrders", array($languageId));
         }
-        $resultList = ZMBeanUtils::getBean("ResultList");
+        $resultList = ZMBeanUtils::getBean("ZMResultList");
         $resultList->setResultSource($resultSource);
         $resultList->setPageNumber($request->getParameter('page', 1));
 

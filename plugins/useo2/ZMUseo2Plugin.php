@@ -91,7 +91,7 @@ class ZMUseo2Plugin extends Plugin {
         $messages = parent::getMessages();
         $patch = new ZMUseo2SupportPatch();
         if (null !== $patch && $patch->isOpen() && !$patch->isReady()) {
-            $messages[] = ZMLoader::make('Message', $patch->getPreconditionsMessage(), ZMMessages::T_WARN);
+            $messages[] = ZMLoader::make('ZMMessage', $patch->getPreconditionsMessage(), ZMMessages::T_WARN);
         }
         return $messages;
     }

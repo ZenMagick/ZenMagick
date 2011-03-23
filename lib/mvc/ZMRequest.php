@@ -98,7 +98,7 @@ class ZMRequest extends \ZMObject {
      * available.</p>
      */
     public static function instance() {
-        return \ZMRuntime::singleton('Request');
+        return Runtime::getContainer()->getService('ZMRequest');
     }
 
     /**
@@ -112,7 +112,7 @@ class ZMRequest extends \ZMObject {
     public function getSeoRewriter() {
         if (null === $this->seoRewriter_) {
             $this->seoRewriter_ = array();
-            $rewriters = array_reverse(explode(',', \ZMSettings::get('zenmagick.mvc.request.seoRewriter', 'DefaultSeoRewriter')));
+            $rewriters = array_reverse(explode(',', \ZMSettings::get('zenmagick.mvc.request.seoRewriter', 'ZMDefaultSeoRewriter')));
             foreach ($rewriters as $rewriter) {
                 if (null != ($obj = \ZMBeanUtils::getBean($rewriter))) {
                     $this->seoRewriter_[] = $obj;
@@ -267,7 +267,7 @@ class ZMRequest extends \ZMObject {
      */
     public function getSession() {
         if (!isset($this->session_)) {
-            $this->session_ = \ZMBeanUtils::getBean("Session");
+            $this->session_ = \ZMBeanUtils::getBean("ZMSession");
         }
 
         return $this->session_;
@@ -462,7 +462,7 @@ class ZMRequest extends \ZMObject {
      */
     public function redirect($url, $status=302) {
         $url = str_replace('&amp;', '&', $url);
-        Runtime::getEventDispatcher()->notify(new Event($this, 'redirect',  array('request' => $request, 'url' => $url)));
+        Runtime::getEventDispatcher()->notify(new Event($this, 'redirect',  array('request' => $this, 'url' => $url)));
         \ZMLogging::instance()->trace('redirect url: ' . $url, \ZMLogging::TRACE);
         \ZMMessages::instance()->saveMessages($this->getSession());
         $this->closeSession();
@@ -477,7 +477,7 @@ class ZMRequest extends \ZMObject {
      */
     public function getToolbox() {
         if (null == $this->toolbox_) {
-            $this->toolbox_ = \ZMLoader::make('Toolbox', $this);
+            $this->toolbox_ = \ZMLoader::make('ZMToolbox', $this);
         }
 
         return $this->toolbox_;

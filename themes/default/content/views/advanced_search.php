@@ -42,7 +42,7 @@
         <fieldset>
             <legend><?php _vzm("Category")?></legend>
             <?php $categories = ZMCategories::instance()->getCategories($session->getLanguageId()); ?>
-            <?php echo $form->idpSelect('categoryId', array_merge(array(ZMLoader::make("IdNamePair", "", _zm("All Categories"))), $categories), $searchCriteria->getCategoryId()) ?>
+            <?php echo $form->idpSelect('categoryId', array_merge(array(ZMLoader::make("ZMIdNamePair", "", _zm("All Categories"))), $categories), $searchCriteria->getCategoryId()) ?>
             <?php $checked = $searchCriteria->isIncludeSubcategories() ? 'checked="checked" ' : ''; ?>
             <input type="checkbox" id="includeSubcategories" name="includeSubcategories" value="1" <?php echo $checked?>/>
             <label for="includeSubcategories"><?php _vzm("Include subcategories"); ?></label>
@@ -51,23 +51,23 @@
         <fieldset>
             <legend><?php _vzm("Manufacturer"); ?></legend>
             <?php $manufacturers = ZMManufacturers::instance()->getManufacturers($session->getLanguageId()); ?>
-            <?php echo $form->idpSelect('manufacturerId', array_merge(array(ZMLoader::make("IdNamePair", "", _zm("All Manufacturers"))), $manufacturers), $searchCriteria->getManufacturerId()) ?>
+            <?php echo $form->idpSelect('manufacturerId', array_merge(array(ZMLoader::make("ZMIdNamePair", "", _zm("All Manufacturers"))), $manufacturers), $searchCriteria->getManufacturerId()) ?>
         </fieldset>
 
         <fieldset>
             <legend><?php _vzm("Price Range"); ?></legend>
             <input type="text" id="priceFrom" name="priceFrom" value="<?php echo $html->encode($searchCriteria->getPriceFrom()) ?>" />
             <input type="text" id="priceTo" name="priceTo" value="<?php echo $html->encode($searchCriteria->getPriceTo()) ?>" />
-        </fieldset> 
+        </fieldset>
 
-        <fieldset> 
+        <fieldset>
             <legend><?php _vzm("Date"); ?></legend>
             <?php $defaultDateValue = $locale->getFormat('date', 'short-ui-format'); ?>
             <?php $onfocus = "if(this.value=='" . $defaultDateValue . "') this.value='';" ?>
             <input type="text" id="dateFrom" name="dateFrom" value="<?php echo $html->encode($searchCriteria->getDateFrom($defaultDateValue)) ?>" onfocus="<?php echo $onfocus ?>" />
             <input type="text" id="dateTo" name="dateTo" value="<?php echo $html->encode($searchCriteria->getDateTo($defaultDateValue)) ?>" onfocus="<?php echo $onfocus ?>" />
-        </fieldset> 
-    </fieldset> 
+        </fieldset>
+    </fieldset>
 
     <div class="btn"><input type="submit" class="btn" value="<?php _vzm("Search") ?>" /></div>
 </form>

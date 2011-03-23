@@ -67,11 +67,11 @@ class ZMObjectResultSource extends ZMObject implements ZMResultSource {
         parent::__destruct();
     }
 
- 
+
     /**
      * {@inheritDoc}
      */
-    public function setResultList($resultList) { 
+    public function setResultList($resultList) {
         $this->resultList_ = $resultList;
     }
 
@@ -84,7 +84,7 @@ class ZMObjectResultSource extends ZMObject implements ZMResultSource {
                 if (null != ($queryDetails = $this->object_->getQueryDetails($this->method_, $this->args_))) {
                     // potentially final, so check sorter and filter
                     $this->isFinal_ = true;
-                    $queryPager = ZMLoader::make('QueryPager', $queryDetails);
+                    $queryPager = ZMLoader::make('ZMQueryPager', $queryDetails);
                     $sorters = $this->resultList_->getSorters(true);
                     if (0 < count($sorters)) {
                         if ($sorters[0] instanceof ZMSQLAware) {

@@ -72,7 +72,7 @@ class ZMUpdateSubscriptionsCronJob implements ZMCronJob {
 
             // 4) Create history entry if enabled
             if (ZMLangUtils::asBoolean($plugin->get('orderHistory'))) {
-                $status = ZMBeanUtils::getBean('OrderStatus');
+                $status = ZMBeanUtils::getBean('ZMOrderStatus');
                 $status->setId($plugin->get('orderStatus'));
                 $status->setOrderId($order->getId());
                 $status->setOrderStatusId($order->getOrderStatusId());

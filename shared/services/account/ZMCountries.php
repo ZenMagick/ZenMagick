@@ -23,6 +23,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 
 /**
  * Countries.
@@ -53,7 +54,7 @@ class ZMCountries extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return ZMRuntime::singleton('Countries');
+        return Runtime::getContainer()->getService('ZMCountries');
     }
 
 
@@ -85,7 +86,7 @@ class ZMCountries extends ZMObject {
         $sql = "SELECT *
                 FROM " . TABLE_COUNTRIES . "
                 ORDER BY countries_name";
-        $this->countries_ = ZMRuntime::getDatabase()->query($sql, array(), TABLE_COUNTRIES, 'Country');
+        $this->countries_ = ZMRuntime::getDatabase()->query($sql, array(), TABLE_COUNTRIES, 'ZMCountry');
         return $this->countries_;
     }
 
@@ -124,7 +125,7 @@ class ZMCountries extends ZMObject {
 
     /**
      * Get the zone code for the given country and zone id.
-     * 
+     *
      * @param int countryId The country id.
      * @param int zoneId The zone id.
      * @param string defaultZone Optional default value; default is <code>''</code>.
@@ -155,7 +156,7 @@ class ZMCountries extends ZMObject {
                 FROM " . TABLE_ZONES . "
                 WHERE zone_country_id = :countryId
                 ORDER BY zone_name";
-        $zones = ZMRuntime::getDatabase()->query($sql, array('countryId' => $countryId), TABLE_ZONES, 'Zone');
+        $zones = ZMRuntime::getDatabase()->query($sql, array('countryId' => $countryId), TABLE_ZONES, 'ZMZone');
         return $zones;
     }
 

@@ -27,7 +27,7 @@
  * <dl>
  *  <dt>plugins.cron.jobs.birthday.offset</dt>
  *  <dd>
- *    Date offset in days. Blank for actual birthday, or a signed int; example: <em>-2</em>, <em>+1</em>. Please note that the 
+ *    Date offset in days. Blank for actual birthday, or a signed int; example: <em>-2</em>, <em>+1</em>. Please note that the
  *    sign (+/-) is mandatory.
  *    The default is an empty string.
  *  </dd>
@@ -45,7 +45,7 @@ class ZMBirthdayEmailCronJob implements ZMCronJob {
     private $offset_;
     private $template_;
 
-    
+
     /**
      * Create new instance.
      */
@@ -59,12 +59,12 @@ class ZMBirthdayEmailCronJob implements ZMCronJob {
      */
     public function execute() {
         $sql = "SELECT * FROM " . TABLE_CUSTOMERS . "
-                WHERE MONTH(customers_dob) = MONTH(curdate()) 
+                WHERE MONTH(customers_dob) = MONTH(curdate())
                   AND DAYOFMONTH(customers_dob) = DAYOFMONTH(curdate()) " . $this->offset_;
-        $results = ZMRuntime::getDatabase()->query($sql, array(), TABLE_CUSTOMERS, 'Account');
+        $results = ZMRuntime::getDatabase()->query($sql, array(), TABLE_CUSTOMERS, 'ZMAccount');
         foreach ($results as $account) {
             $context = array('account' => $account);
-            zm_mail(sprintf(_zm("It's your birthday, %s"), $account->getFirstName()), $this->template_, $context, 
+            zm_mail(sprintf(_zm("It's your birthday, %s"), $account->getFirstName()), $this->template_, $context,
                   $account->getEmail(), $account->getFullName());
         }
 

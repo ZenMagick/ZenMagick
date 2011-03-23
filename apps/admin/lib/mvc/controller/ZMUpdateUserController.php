@@ -53,11 +53,11 @@ class ZMUpdateUserController extends ZMController {
 
         // WYSIWYG
         $currentEditor = ZMAdminUserPrefs::instance()->getPrefForName($user->getId(), 'wysiwygEditor');
-        $widgets[] = ZMBeanUtils::getBean('EditorSelectFormWidget#title='._zm('Preferred Editor').'&value='.$currentEditor.'&name=wysiwygEditor');
+        $widgets[] = ZMBeanUtils::getBean('ZMEditorSelectFormWidget#title='._zm('Preferred Editor').'&value='.$currentEditor.'&name=wysiwygEditor');
 
         // uiLocale
         $locales = ZMLocales::instance()->getLocalesList();
-        $uiLocaleWidget = ZMBeanUtils::getBean('SelectFormWidget#name=uiLocale&title='._zm('Admin Language'));
+        $uiLocaleWidget = ZMBeanUtils::getBean('ZMSelectFormWidget#name=uiLocale&title='._zm('Admin Language'));
         foreach ($locales as $locale => $name) {
             $uiLocaleWidget->addOption($name, $locale);
         }

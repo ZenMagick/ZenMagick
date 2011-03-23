@@ -39,18 +39,18 @@ class ZMStoreBlockProvider implements ZMBlockProvider {
         if (ZMTemplateManager::instance()->isLeftColEnabled()) {
             foreach (ZMTemplateManager::instance()->getLeftColBoxNames() as $boxName) {
                 // avoid duplicates by using $box as key
-                $blocks[$boxName] = 'BlockWidget#template=boxes/'.$boxName.'&title='.ucwords(str_replace(array('.php', '_'), array('', ' '), $boxName));
+                $blocks[$boxName] = 'ZMBlockWidget#template=boxes/'.$boxName.'&title='.ucwords(str_replace(array('.php', '_'), array('', ' '), $boxName));
             }
         }
         if (ZMTemplateManager::instance()->isRightColEnabled()) {
             foreach (ZMTemplateManager::instance()->getRightColBoxNames() as $boxName) {
                 // avoid duplicates by using $box as key
-                $blocks[$boxName] = 'BlockWidget#template=boxes/'.$boxName.'&title='.ucwords(str_replace(array('.php', '_'), array('', ' '), $boxName));
+                $blocks[$boxName] = 'ZMBlockWidget#template=boxes/'.$boxName.'&title='.ucwords(str_replace(array('.php', '_'), array('', ' '), $boxName));
             }
         }
 
         // banners
-        $blocks['BannerBlockWidget'] = 'BannerBlockWidget';
+        $blocks['ZMBannerBlockWidget'] = 'ZMBannerBlockWidget';
 
         return $blocks;
     }

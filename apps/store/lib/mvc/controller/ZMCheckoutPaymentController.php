@@ -67,7 +67,7 @@ class ZMCheckoutPaymentController extends ZMController {
      */
     public function processGet($request) {
         $shoppingCart = $request->getShoppingCart();
-        $checkoutHelper = ZMLoader::make('CheckoutHelper', $shoppingCart);
+        $checkoutHelper = ZMLoader::make('ZMCheckoutHelper', $shoppingCart);
 
         if (!$checkoutHelper->verifyHash($request)) {
             return $this->findView('check_cart');
@@ -92,7 +92,7 @@ class ZMCheckoutPaymentController extends ZMController {
      */
     public function processPost($request) {
         $shoppingCart = $request->getShoppingCart();
-        $checkoutHelper = ZMLoader::make('CheckoutHelper', $shoppingCart);
+        $checkoutHelper = ZMLoader::make('ZMCheckoutHelper', $shoppingCart);
 
         if (!$checkoutHelper->verifyHash($request)) {
             return $this->findView('check_cart');

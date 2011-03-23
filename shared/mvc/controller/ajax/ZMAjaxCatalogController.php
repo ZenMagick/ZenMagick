@@ -35,8 +35,8 @@ class ZMAjaxCatalogController extends ZMAjaxController {
     function __construct() {
         parent::__construct('ajaxCatalog');
         $this->set('ajaxProductMap', array(
-            'id', 'name', 'description', 'model', 
-            'attributes' => array('id', 'type', 'name', 
+            'id', 'name', 'description', 'model',
+            'attributes' => array('id', 'type', 'name',
                 'values' => array('id', 'name', 'default')
             )
         ));
@@ -98,8 +98,8 @@ class ZMAjaxCatalogController extends ZMAjaxController {
         } else {
             // use result list to paginate
             $args = array($categoryId, $activeOnly);
-            $resultSource = ZMLoader::make("ObjectResultSource", 'Product', ZMProducts::instance(), "getProductsForCategoryId", $args);
-            $resultList = ZMBeanUtils::getBean("ResultList");
+            $resultSource = ZMLoader::make("ZMObjectResultSource", 'Product', ZMProducts::instance(), "getProductsForCategoryId", $args);
+            $resultList = ZMBeanUtils::getBean("ZMResultList");
             $resultList->setResultSource($resultSource);
             $resultList->setPageNumber($page);
             if (null !== ($pagination = $request->getParameter('pagination'))) {

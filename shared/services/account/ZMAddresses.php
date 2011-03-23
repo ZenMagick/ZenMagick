@@ -23,6 +23,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 
 /**
  * Addresses.
@@ -50,7 +51,7 @@ class ZMAddresses extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return ZMRuntime::singleton('Addresses');
+        return Runtime::getContainer()->getService('ZMAddresses');
     }
 
 
@@ -68,7 +69,7 @@ class ZMAddresses extends ZMObject {
         if (null !== $accountId) {
             $sql .= " AND customers_id = :accountId";
         }
-        $address = ZMRuntime::getDatabase()->querySingle($sql, array('id' => $addressId, 'accountId' => $accountId), TABLE_ADDRESS_BOOK, 'Address');
+        $address = ZMRuntime::getDatabase()->querySingle($sql, array('id' => $addressId, 'accountId' => $accountId), TABLE_ADDRESS_BOOK, 'ZMAddress');
         if (null != $address) {
             $defaultAddressId = $this->getDefaultAddressId($address->getAccountId());
             $address->setPrimary($address->getId() == $defaultAddressId);
@@ -88,7 +89,7 @@ class ZMAddresses extends ZMObject {
         $sql = "SELECT *
                 FROM " . TABLE_ADDRESS_BOOK . "
                 WHERE customers_id = :accountId";
-        $addresses = ZMRuntime::getDatabase()->query($sql, array('accountId' => $accountId), TABLE_ADDRESS_BOOK, 'Address');
+        $addresses = ZMRuntime::getDatabase()->query($sql, array('accountId' => $accountId), TABLE_ADDRESS_BOOK, 'ZMAddress');
 
         $defaultAddressId = $this->getDefaultAddressId($accountId);
         foreach ($addresses as $address) {
@@ -131,7 +132,7 @@ class ZMAddresses extends ZMObject {
      */
     public function deleteAddressForId($addressId) {
         $sql = "DELETE FROM " . TABLE_ADDRESS_BOOK . "
-                WHERE  address_book_id = :id"; 
+                WHERE  address_book_id = :id";
         ZMRuntime::getDatabase()->update($sql, array('id' => $addressId), TABLE_ADDRESS_BOOK);
         return true;
     }

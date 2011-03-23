@@ -155,9 +155,34 @@ class TestShoppingCart extends ZMTestCase {
      */
     public function testProductsSO() {
         //TODO
-        $this->skip('broken');
-        return;
+        $this->skip('broken'); return;
         $this->compareRange(1, 1, 'compareValues_Service_Order');
+    }
+
+    /**
+     * Test change quantity.
+     */
+    public function testChangeQty() {
+        //TODO: does not work with zc underneath
+        $this->skip('later'); return;
+
+        $shoppingCart = new ZMShoppingCart();
+        $shoppingCart->addProduct(12, 3);
+
+        $items = $shoppingCart->getItems();
+        $this->assertEqual(1, count($items));
+
+        $item = array_pop($items);
+        $this->assertEqual(3, $item->getQuantity());
+
+        // add again
+        $shoppingCart->addProduct(12, 1);
+
+        $items = $shoppingCart->getItems();
+        $this->assertEqual(1, count($items));
+
+        $item = array_pop($items);
+        $this->assertEqual(4, $item->getQuantity());
     }
 
 }

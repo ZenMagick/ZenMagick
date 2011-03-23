@@ -23,6 +23,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 
 /**
  * EZ-pages.
@@ -50,7 +51,7 @@ class ZMEZPages extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return ZMRuntime::singleton('EZPages');
+        return Runtime::getContainer()->getService('ZMEZPages');
     }
 
 
@@ -61,7 +62,7 @@ class ZMEZPages extends ZMObject {
      * @return array List of <code>ZMEZPage</code> instances.
      */
     public function getAllPages($languageId) {
-        $sql = "SELECT * 
+        $sql = "SELECT *
                 FROM " . TABLE_EZPAGES;
         if (ZMSettings::get('isEZPagesLangSupport')) {
             $sql .= " WHERE languages_id = :languageId";
@@ -78,7 +79,7 @@ class ZMEZPages extends ZMObject {
      * @return ZMEZPage A new instance or <code>null</code>.
      */
     public function getPageForId($pageId, $languageId) {
-        $sql = "SELECT * 
+        $sql = "SELECT *
                 FROM " . TABLE_EZPAGES . "
                 WHERE pages_id = :id";
         if (ZMSettings::get('isEZPagesLangSupport')) {
@@ -96,7 +97,7 @@ class ZMEZPages extends ZMObject {
      */
     public function getPagesForChapterId($chapterId, $languageId) {
         $sql = "SELECT *
-                FROM " . TABLE_EZPAGES . " 
+                FROM " . TABLE_EZPAGES . "
                 WHERE ((status_toc = 1 AND toc_sort_order <> 0) AND toc_chapter= :tocChapter)
                 AND alt_url_external = '' AND alt_url = ''";
         if (ZMSettings::get('isEZPagesLangSupport')) {
@@ -113,7 +114,7 @@ class ZMEZPages extends ZMObject {
      * @return array List of <code>ZMEZPage</code> instances.
      */
     public function getPagesForHeader($languageId) {
-        $sql = "SELECT * 
+        $sql = "SELECT *
                 FROM " . TABLE_EZPAGES . "
                 WHERE status_header = 1
                   AND header_sort_order > 0";
@@ -131,7 +132,7 @@ class ZMEZPages extends ZMObject {
      * @return array List of <code>ZMEZPage</code> instances.
      */
     public function getPagesForSidebar($languageId) {
-        $sql = "SELECT * 
+        $sql = "SELECT *
                 FROM " . TABLE_EZPAGES . "
                 WHERE status_sidebox = 1
                   AND sidebox_sort_order > 0";
@@ -149,7 +150,7 @@ class ZMEZPages extends ZMObject {
      * @return array List of <code>ZMEZPage</code> instances.
      */
     public function getPagesForFooter($languageId) {
-        $sql = "SELECT * 
+        $sql = "SELECT *
                 FROM " . TABLE_EZPAGES . "
                 WHERE status_footer = 1
                   AND footer_sort_order > 0";

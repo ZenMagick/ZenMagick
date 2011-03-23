@@ -52,7 +52,7 @@ class ZMLogging extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return ZMRuntime::singleton('ZMLogging');
+        return Runtime::getContainer()->getService('ZMLogging');
     }
 
 

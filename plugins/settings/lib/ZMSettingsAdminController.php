@@ -57,7 +57,7 @@ class ZMSettingsAdminController extends ZMPluginAdmin2Controller {
             $type = $request->getParameter('type');
             // special case for generic select where the initial value gets added to the widget definition
             $parValue = '';
-            if (0 === strpos($type, 'SelectFormWidget#')) {
+            if (0 === strpos($type, 'ZMSelectFormWidget#')) {
                 // urlencode to allow to set multiple value=name pairs
                 $parValue = '&options='.urlencode($value);
                 $value = '';

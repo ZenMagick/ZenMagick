@@ -23,6 +23,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 
 /**
  * Category DAO.
@@ -34,7 +35,7 @@
  * @package zenmagick.store.shared.services.catalog
  */
 class ZMCategories extends ZMObject {
-    /** 
+    /**
      * Flat list of <code>ZMCategory</code> instances.
      *
      * <p>This gets loaded on demand, so subclasses have to ensure this is populated before
@@ -68,7 +69,7 @@ class ZMCategories extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return ZMRuntime::singleton('Categories');
+        return Runtime::getContainer()->getService('ZMCategories');
     }
 
 
@@ -119,7 +120,7 @@ class ZMCategories extends ZMObject {
                     AND c.parent_id = 0
                   ORDER BY c.parent_id, sort_order, cd.categories_name";
         $args = array('languageId' => $languageId);
-        foreach (ZMRuntime::getDatabase()->query($sql, $args, array(TABLE_CATEGORIES, TABLE_CATEGORIES_DESCRIPTION), 'Category') as $category) {
+        foreach (ZMRuntime::getDatabase()->query($sql, $args, array(TABLE_CATEGORIES, TABLE_CATEGORIES_DESCRIPTION), 'ZMCategory') as $category) {
             $rootCategories[$category->getId()] = $category;
         }
 
@@ -233,7 +234,7 @@ class ZMCategories extends ZMObject {
         if (0 != $category->getParentId()) {
             if (null == ($parent = $this->getCategoryForId($category->getParentId(), $languageId))) {
                 // invalid parent
-                $category->setParentId(0);        
+                $category->setParentId(0);
             }
         }
         $category = ZMRuntime::getDatabase()->createModel(TABLE_CATEGORIES, $category);
@@ -367,7 +368,7 @@ class ZMCategories extends ZMObject {
         $sql .= " ORDER BY c.parent_id, sort_order, cd.categories_name";
 
         $categories = array();
-        foreach (ZMRuntime::getDatabase()->query($sql, $args, array(TABLE_CATEGORIES, TABLE_CATEGORIES_DESCRIPTION), 'Category') as $category) {
+        foreach (ZMRuntime::getDatabase()->query($sql, $args, array(TABLE_CATEGORIES, TABLE_CATEGORIES_DESCRIPTION), 'ZMCategory') as $category) {
             $categories[$category->getId()] = $category;
         }
 
@@ -394,7 +395,7 @@ class ZMCategories extends ZMObject {
                 WHERE categories_id = :categoryId
                   AND language_id = :languageId";
         $args = array('categoryId' => $categoryId, 'languageId' => $languageId);
-        return ZMRuntime::getDatabase()->querySingle($sql, $args, TABLE_METATAGS_CATEGORIES_DESCRIPTION, 'MetaTagDetails');
+        return ZMRuntime::getDatabase()->querySingle($sql, $args, TABLE_METATAGS_CATEGORIES_DESCRIPTION, 'ZMMetaTagDetails');
     }
 
 }

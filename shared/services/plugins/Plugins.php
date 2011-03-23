@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 
 /**
  * Plugins.
@@ -51,7 +52,7 @@ class Plugins extends ZMPlugins {
      * Get instance.
      */
     public static function instance() {
-        return ZMRuntime::singleton('Plugins');
+        return Runtime::getContainer()->getService('ZMPlugins');
     }
 
 

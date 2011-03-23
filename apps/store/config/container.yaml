@@ -1,0 +1,19 @@
+services:
+  ZMRequest:
+    class: Request
+    scope: container
+  ZMPlugins:
+    class: Plugins
+    scope: container
+  ZMSession:
+    class: Session
+    scope: container
+  ZMSavantView:
+    class: SavantView
+    scope: container
+  ZMMessages:
+    class: Messages
+    scope: container
+  ZMForwardView:
+    class: ForwardView
+    scope: prototype

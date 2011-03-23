@@ -21,6 +21,8 @@
 <?php
 
 use zenmagick\base\Runtime;
+use zenmagick\base\ioc\Container;
+use zenmagick\base\ioc\loader\YamlFileLoader;
 
 /**
  * Basic plugin service.
@@ -74,7 +76,7 @@ class ZMPlugins extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return ZMRuntime::singleton('Plugins');
+        return Runtime::getContainer()->getService('ZMPlugins');
     }
 
 
@@ -100,7 +102,7 @@ class ZMPlugins extends ZMObject {
             $this->pathIdMap_ = array();
             foreach (ZMRuntime::getPluginBasePath() as $basePath) {
                 $this->pathIdMap_[$basePath] = array();
-                if (false !== ($handle = @opendir($basePath))) {
+                if (file_exists($basePath) && is_dir($basePath) && false !== ($handle = @opendir($basePath))) {
                     while (false !== ($file = readdir($handle))) {
                         if (ZMLangUtils::startsWith($file, '.')) {
                             continue;
@@ -324,13 +326,18 @@ class ZMPlugins extends ZMObject {
         // plugins prevail over defaults, *and* themes
         ZMLoader::instance()->setParent($pluginLoader);
 
-        // do *after* the loader is active to allow to use plugin classes in static contents!
-        //$pluginLoader->loadStatic();
-
         // do the actual init only after all plugins have been loaded to allow
         // them to depend on each other
         foreach ($plugins as $id => $plugin) {
             if ($this->needsInit($id)) {
+                $containerConfig = $plugin->getPluginDirectory().DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.'container.yaml';
+                if (!Runtime::getContainer()->isFrozen() && file_exists($containerConfig)) {
+                    $container = new Container();
+                    $containerYamlLoader = new YamlFileLoader($container, dirname($containerConfig));
+                    $containerYamlLoader->load($containerConfig);
+                    Runtime::getContainer()->merge($container);
+                }
+
                 // call init only after everything set up
                 $plugin->init();
                 $this->plugins_[$id] = array('plugin' => $plugin, 'init' => true);

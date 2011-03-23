@@ -50,7 +50,7 @@ class ZMCheckoutGuestController extends ZMController {
     /**
      * {@inheritDoc}
      */
-    public function preProcess($request) { 
+    public function preProcess($request) {
         $request->getToolbox()->crumbtrail->addCrumb($request->getToolbox()->utils->getTitle());
     }
 
@@ -76,7 +76,7 @@ class ZMCheckoutGuestController extends ZMController {
         }
 
         // create anonymous account
-        $account = ZMBeanUtils::getBean("Account");
+        $account = ZMBeanUtils::getBean("ZMAccount");
         $account->setEmail($request->getParameter('email_address'));
         $account->setPassword('');
         $account->setDob(ZMDatabase::NULL_DATETIME);

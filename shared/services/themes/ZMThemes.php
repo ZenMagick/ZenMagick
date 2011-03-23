@@ -56,7 +56,7 @@ class ZMThemes extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return ZMRuntime::singleton('Themes');
+        return Runtime::getContainer()->getService('ZMThemes');
     }
 
 
@@ -79,14 +79,14 @@ class ZMThemes extends ZMObject {
         // load info classes and get instance
         foreach ($themeDirs as $dir) {
             if (file_exists($basePath.$dir.DIRECTORY_SEPARATOR.'theme.yaml')) {
-                $themes[] =  ZMLoader::make("Theme", $dir);
+                $themes[] =  ZMLoader::make("ZMTheme", $dir);
             }
         }
 
         //XXX: try for zc themes
         foreach ($this->getZCThemeDirList() as $dir) {
             if (!in_array($dir, $themeDirs)) {
-                $themes[] =  ZMLoader::make("Theme", $dir);
+                $themes[] =  ZMLoader::make("ZMTheme", $dir);
             }
         }
 
@@ -166,7 +166,7 @@ class ZMThemes extends ZMObject {
             return $theme;
         }
 
-        $theme = ZMLoader::make("Theme", $themeId);
+        $theme = ZMLoader::make("ZMTheme", $themeId);
 
         if (null !== $languageId) {
             $language = ZMLanguages::instance()->getLanguageForId($languageId);

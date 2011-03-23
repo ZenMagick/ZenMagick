@@ -23,6 +23,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 
 /**
  * Image information.
@@ -41,14 +42,30 @@ class ZMImageInfo extends ZMObject {
     /**
      * Create new image info.
      *
-     * @param string image The image name.
-     * @param string alt The alt text.
+     * @param string image The default image name; default is <code>null</code>.
+     * @param string alt The alt text; default is an empty string.
      */
-    function __construct($image, $alt='') {
+    function __construct($image=null, $alt='') {
         parent::__construct();
         $this->altText_ = $alt;
         $this->parameter_ = array();
+        $this->setDefaultImage($image);
+    }
 
+    /**
+     * Destruct instance.
+     */
+    function __destruct() {
+        parent::__destruct();
+    }
+
+
+    /**
+     * Set the default image.
+     *
+     * @param string image The default image.
+     */
+    public function setDefaultImage($image) {
         $comp = ZMImageInfo::splitImageName($image);
         $subdir = $comp[0];
         $ext = $comp[1];
@@ -81,14 +98,6 @@ class ZMImageInfo extends ZMObject {
             $this->imageLarge_ = $toolbox->net->image('large/'.$large);
         }
     }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
-
 
     /**
      * Check if there is an image.
@@ -133,6 +142,13 @@ class ZMImageInfo extends ZMObject {
     public function hasLargeImage() { return $this->imageLarge_ != $this->imageMedium_; }
 
     /**
+     * Set the alt text.
+     *
+     * @param string text The alt text.
+     */
+    public function setAltText($text) { $this->altText_ = $text; }
+
+    /**
      * Get the alt text.
      *
      * @return string The alt text.
@@ -165,7 +181,7 @@ class ZMImageInfo extends ZMObject {
      *
      * @return string HTML formatted parameter.
      */
-    public function getFormattedParameter() { 
+    public function getFormattedParameter() {
         $html = '';
         foreach ($this->parameter_ as $attr => $value) {
             $html .= ' '.$attr.'="'.$value.'"';
@@ -235,7 +251,7 @@ class ZMImageInfo extends ZMObject {
         // create ZMImageInfo list...
         $imageInfoList = array();
         foreach ($imageList as $aimg) {
-            array_push($imageInfoList, ZMLoader::make("ImageInfo", $subdir.$aimg));
+            array_push($imageInfoList, ZMLoader::make("ZMImageInfo", $subdir.$aimg));
         }
 
         return $imageInfoList;

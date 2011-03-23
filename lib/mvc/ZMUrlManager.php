@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 
 /**
  * Central storage of url mappings.
@@ -60,7 +61,7 @@ class ZMUrlManager extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return ZMRuntime::singleton('UrlManager');
+        return Runtime::getContainer()->getService('ZMUrlManager');
     }
 
 
@@ -154,7 +155,7 @@ class ZMUrlManager extends ZMObject {
      *
      * @param string requestId The request id.
      * @param string viewId Optional view id; defaults to <code>null</code> to use defaults.
-     * @param mixed parameter Optional map of name/value pairs (or URL query format string) 
+     * @param mixed parameter Optional map of name/value pairs (or URL query format string)
      *  to further configure the view; default is <code>null</code>.
      * @return array A mapping.
      */
@@ -236,12 +237,12 @@ class ZMUrlManager extends ZMObject {
             // configured
             $definition = $mapping['controller'];
         } else {
-            $definition = ZMLoader::makeClassname($requestId.'Controller');
+            $definition = 'ZM'.ZMLoader::makeClassname($requestId.'Controller');
         }
 
         ZMLogging::instance()->log('controller definition: '.$definition, ZMLogging::TRACE);
         if (null == ($controller = ZMBeanUtils::getBean($definition))) {
-            $controller = ZMBeanUtils::getBean(ZMSettings::get('zenmagick.mvc.controller.default', 'Controller'));
+            $controller = ZMBeanUtils::getBean(ZMSettings::get('zenmagick.mvc.controller.default', 'ZMController'));
         }
 
         return $controller;
@@ -256,7 +257,7 @@ class ZMUrlManager extends ZMObject {
      *
      * @param string requestId The request id.
      * @param string viewId Optional view id; defaults to <code>null</code> to use defaults.
-     * @param mixed parameter Optional map of name/value pairs (or URL query format string) 
+     * @param mixed parameter Optional map of name/value pairs (or URL query format string)
      *  to further configure the view; default is <code>null</code>.
      * @return ZMView A <em>best match</em> view.
      */
@@ -272,7 +273,7 @@ class ZMUrlManager extends ZMObject {
             $mapping['template'] = $requestId;
         }
         // default
-        $view = ZMSettings::get('zenmagick.mvc.view.default', 'SavantView');
+        $view = ZMSettings::get('zenmagick.mvc.view.default', 'ZMSavantView');
         if (array_key_exists('view', $mapping) && null != $mapping['view']) {
             $view = $mapping['view'];
         }
@@ -280,7 +281,7 @@ class ZMUrlManager extends ZMObject {
         if (is_array($parameter)) {
             $parameter = http_build_query($parameter);
         }
-        $layout = ((array_key_exists('layout', $mapping) && null !== $mapping['layout']) 
+        $layout = ((array_key_exists('layout', $mapping) && null !== $mapping['layout'])
               ? $mapping['layout'] : ZMSettings::get('zenmagick.mvc.view.defaultLayout', null));
         $definition = $view.(false === strpos($view, '#') ? '#' : '&').$parameter.'&template='.$mapping['template'].'&layout='.$layout.'&viewId='.$viewId;
         ZMLogging::instance()->log('view definition: '.$definition, ZMLogging::TRACE);

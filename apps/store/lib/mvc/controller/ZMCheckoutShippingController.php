@@ -66,7 +66,7 @@ class ZMCheckoutShippingController extends ZMController {
      */
     public function processGet($request) {
         $shoppingCart = $request->getShoppingCart();
-        $checkoutHelper = ZMLoader::make('CheckoutHelper', $shoppingCart);
+        $checkoutHelper = ZMLoader::make('ZMCheckoutHelper', $shoppingCart);
 
         if (!$checkoutHelper->verifyHash($request)) {
             return $this->findView('check_cart');
@@ -85,7 +85,7 @@ class ZMCheckoutShippingController extends ZMController {
         }
 
         //TODO: preselect shipping
-        // a) something to preselect free shipping as per ot_freeshipper 
+        // a) something to preselect free shipping as per ot_freeshipper
         // b) is a preferred option configured via setting??
         // c) cheapest except storepickup
 
@@ -97,7 +97,7 @@ class ZMCheckoutShippingController extends ZMController {
      */
     public function processPost($request) {
         $shoppingCart = $request->getShoppingCart();
-        $checkoutHelper = ZMLoader::make('CheckoutHelper', $shoppingCart);
+        $checkoutHelper = ZMLoader::make('ZMCheckoutHelper', $shoppingCart);
 
         if (!$checkoutHelper->verifyHash($request)) {
             return $this->findView('check_cart');

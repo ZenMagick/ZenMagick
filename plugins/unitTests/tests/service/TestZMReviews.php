@@ -125,7 +125,7 @@ class TestZMReviews extends ZMTestCase {
         ZMSettings::set('isApproveReviews', false);
         $account = ZMAccounts::instance()->getAccountForId(1);
         if (null != $account) {
-            $review = ZMBeanUtils::getBean('Review');
+            $review = ZMBeanUtils::getBean('ZMReview');
             $review->setProductId(3);
             $review->setRating(4);
             $review->setLanguageId(1);
@@ -159,7 +159,7 @@ class TestZMReviews extends ZMTestCase {
     public function testApproveReview() {
         $account = ZMAccounts::instance()->getAccountForId(1);
         if (null != $account) {
-            $review = ZMBeanUtils::getBean('Review');
+            $review = ZMBeanUtils::getBean('ZMReview');
             $review->setProductId(3);
             $review->setRating(4);
             $review->setLanguageId(1);

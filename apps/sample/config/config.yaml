@@ -11,7 +11,7 @@ zenmagick:
 
   core:
     locales:
-      provider: YamlLocale
+      provider: ZMYamlLocale
 
   base:
     events:

@@ -6,12 +6,12 @@
 ## global mappings
 global:
   success:
-    view: RedirectView
+    view: ZMRedirectView
   error:
     template: error
     layout: 
   success-demo:
-    view: RedirectView#requestId=index
+    view: ZMRedirectView#requestId=index
   store-view:
     view: SavantView
 
@@ -19,38 +19,38 @@ global:
 page:
   login:
     success:
-      view: RedirectView#requestId=index
+      view: ZMRedirectView#requestId=index
     logged-in:
-      view: RedirectView#requestId=index
+      view: ZMRedirectView#requestId=index
   logoff:
     success:
-      view: RedirectView#requestId=login
+      view: ZMRedirectView#requestId=login
   reset_password:
     success:
-      view: RedirectView#requestId=login
+      view: ZMRedirectView#requestId=login
   update_user:
     formId: updateUser
-    form: AdminUserForm
+    form: ZMAdminUserForm
     success:
-      view: RedirectView#requestId=index
+      view: ZMRedirectView#requestId=index
   edit_admin_user:
     formId: adminUser
-    form: AdminUserForm
+    form: ZMAdminUserForm
     success:
-      view: RedirectView#requestId=admin_users
+      view: ZMRedirectView#requestId=admin_users
   cache_admin:
     success:
-      view: RedirectView#requestId=cache_admin
+      view: ZMRedirectView#requestId=cache_admin
   plugins:
     success-install:
-      view: RedirectView#requestId=plugins
+      view: ZMRedirectView#requestId=plugins
     success-uninstall:
-      view: RedirectView#requestId=plugins
+      view: ZMRedirectView#requestId=plugins
     success-upgrade:
-      view: RedirectView#requestId=plugins
+      view: ZMRedirectView#requestId=plugins
     plugin-conf:
       layout: 
       template: plugin_conf
   legacy-config:
     success:
-      view: RedirectView#requestId=legacy-config
+      view: ZMRedirectView#requestId=legacy-config

@@ -46,7 +46,7 @@ class ZMShippingMethod extends ZMObject {
         parent::__construct();
         $this->provider_ = $provider;
         $this->zenMethod_ = $zenMethod;
-        $this->taxRate_ = ZMBeanUtils::getBean("TaxRate"); 
+        $this->taxRate_ = ZMBeanUtils::getBean("ZMTaxRate");
     }
 
     /**

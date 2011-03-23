@@ -23,6 +23,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 
 /**
  * Languages service.
@@ -53,7 +54,7 @@ class ZMLanguages extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return ZMRuntime::singleton('Languages');
+        return Runtime::getContainer()->getService('ZMLanguages');
     }
 
 
@@ -65,7 +66,7 @@ class ZMLanguages extends ZMObject {
                 FROM " . TABLE_LANGUAGES . "
                 ORDER BY sort_order";
         $this->languages = array();
-        foreach (ZMRuntime::getDatabase()->query($sql, array(), TABLE_LANGUAGES, 'Language') as $language) {
+        foreach (ZMRuntime::getDatabase()->query($sql, array(), TABLE_LANGUAGES, 'ZMLanguage') as $language) {
             $this->languages[$language->getCode()] = $language;
         }
     }
@@ -78,7 +79,7 @@ class ZMLanguages extends ZMObject {
     function getLanguages() {
         if (null === $this->languages) {
             $this->_load();
-        } 
+        }
 
         return $this->languages;
     }
@@ -94,7 +95,7 @@ class ZMLanguages extends ZMObject {
             $this->_load();
         }
 
-        return isset($this->languages[$code]) ? $this->languages[$code] : null; 
+        return isset($this->languages[$code]) ? $this->languages[$code] : null;
     }
 
     /**

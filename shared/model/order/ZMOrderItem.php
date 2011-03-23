@@ -106,9 +106,9 @@ class ZMOrderItem extends ZMObject {
      *
      * @return float The tax rate.
      */
-    public function getTaxRate() { 
+    public function getTaxRate() {
         if (null == $this->taxRate_) {
-            $this->taxRate_ = ZMBeanUtils::getBean('TaxRate');
+            $this->taxRate_ = ZMBeanUtils::getBean('ZMTaxRate');
             $this->taxRate_->setRate($this->get('taxValue'));
         }
 
@@ -121,7 +121,7 @@ class ZMOrderItem extends ZMObject {
      * @param boolean tax Set to <code>true</code> to include tax (if applicable); default is <code>true</code>.
      * @return float The calculated price.
      */
-    public function getCalculatedPrice($tax=true) { 
+    public function getCalculatedPrice($tax=true) {
         return $tax ? $this->getTaxRate()->addTax($this->calculatedPrice_) : $this->calculatedPrice_;
     }
 

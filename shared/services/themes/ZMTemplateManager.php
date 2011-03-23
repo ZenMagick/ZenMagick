@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 
 /**
  * Template stuff.
@@ -64,7 +65,7 @@ class ZMTemplateManager extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return ZMRuntime::singleton('TemplateManager');
+        return Runtime::getContainer()->getService('ZMTemplateManager');
     }
 
 
@@ -185,13 +186,13 @@ class ZMTemplateManager extends ZMObject {
         // default
         $template = 'product';
 
-        $sql = "SELECT products_type 
+        $sql = "SELECT products_type
                 FROM " . TABLE_PRODUCTS . "
                 WHERE products_id = :productId";
         $result = ZMRuntime::getDatabase()->querySingle($sql, array('productId' => $productId), TABLE_PRODUCTS);
         if (null !== $result) {
             $typeId = $result['type'];
-            $sql = "SELECT type_handler 
+            $sql = "SELECT type_handler
                     FROM " . TABLE_PRODUCT_TYPES . "
                     WHERE type_id = :id";
             $result = ZMRuntime::getDatabase()->querySingle($sql, array('id' => $typeId), TABLE_PRODUCT_TYPES);

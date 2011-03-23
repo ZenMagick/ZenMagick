@@ -92,13 +92,13 @@ class ZMSearchController extends ZMController {
         $criteria->setSearchAll(false);
 
         if (!ZMLangUtils::isEmpty($criteria->getKeywords()) && $this->autoSearch_) {
-            $resultList = ZMBeanUtils::getBean('ResultList');
+            $resultList = ZMBeanUtils::getBean('ZMResultList');
             //TODO: filter??
             foreach (explode(',', ZMSettings::get('resultListProductSorter')) as $sorter) {
                 $resultList->addSorter(ZMBeanUtils::getBean($sorter));
             }
 
-            $source = ZMLoader::make('SearchResultSource', $criteria);
+            $source = ZMLoader::make('ZMSearchResultSource', $criteria);
             $resultList->setResultSource($source);
             $resultList->setPageNumber($request->getPageIndex());
             $args = array('request' => $request, 'criteria' => $criteria, 'resultList' => $resultList, 'autoSearch' => $this->isAutoSearch());

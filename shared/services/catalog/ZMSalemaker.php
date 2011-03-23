@@ -23,6 +23,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 
 /**
  * Sale maker.
@@ -53,7 +54,7 @@ class ZMSaleMaker extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return ZMRuntime::singleton('SaleMaker');
+        return Runtime::getContainer()->getService('ZMSaleMaker');
     }
 
 
@@ -72,7 +73,7 @@ class ZMSaleMaker extends ZMObject {
         }
 
         if (null === $this->sales_) {
-            $sql = "SELECT * 
+            $sql = "SELECT *
                     FROM " . TABLE_SALEMAKER_SALES . "
                     WHERE sale_status = '1'";
             $this->sales_ = ZMRuntime::getDatabase()->query($sql, array(), TABLE_SALEMAKER_SALES, ZMDatabase::MODEL_RAW);

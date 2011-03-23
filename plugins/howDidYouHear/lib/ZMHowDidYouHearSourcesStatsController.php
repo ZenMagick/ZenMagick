@@ -64,8 +64,8 @@ class ZMHowDidYouHearSourcesStatsController extends ZMController {
         }
 
         $sourceStats = ZMRuntime::getDatabase()->query($sql, array(), array(TABLE_SOURCES), 'ZMObject');
-        $resultSource = ZMLoader::make("ArrayResultSource", 'ZMObject', $sourceStats);
-        $resultList = ZMBeanUtils::getBean("ResultList");
+        $resultSource = ZMLoader::make("ZMArrayResultSource", 'ZMObject', $sourceStats);
+        $resultList = ZMBeanUtils::getBean("ZMResultList");
         $resultList->setResultSource($resultSource);
         $resultList->setPageNumber($request->getParameter('page', 1));
         return array('resultList' => $resultList, 'isOther' => $isOther);

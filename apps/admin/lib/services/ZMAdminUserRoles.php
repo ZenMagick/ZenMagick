@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 
 /**
  * Admin user roles service.
@@ -47,7 +48,7 @@ class ZMAdminUserRoles extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return ZMRuntime::singleton('AdminUserRoles');
+        return Runtime::getContainer()->getService('ZMAdminUserRoles');
     }
 
 

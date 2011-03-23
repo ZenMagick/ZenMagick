@@ -20,6 +20,8 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
+use zenmagick\base\ioc\Container;
 
 /**
  * Bean utility.
@@ -174,7 +176,7 @@ class ZMBeanUtils extends ZMObject {
      * @return mixed An instance of the given class or <code>null</code>.
      */
     public static function map2obj($clazz, $data, $keys=null) {
-        $obj = ZMLoader::make($clazz);
+        $obj = Runtime::getContainer()->get($clazz, Container::NULL_ON_INVALID_REFERENCE);
         if (null !== $obj) {
             self::setAll($obj, $data, $keys);
             return $obj;
@@ -192,6 +194,10 @@ class ZMBeanUtils extends ZMObject {
      * @return mixed An object or <code>null</code>.
      */
     public static function getBean($definition, $useBeanMapping=true) {
+        if (empty($definition)) {
+            return null;
+        }
+
         $isRef = false;
         $isPlugin = false;
         if (0 === strpos($definition, 'bean::')) {
@@ -243,7 +249,7 @@ class ZMBeanUtils extends ZMObject {
             $properties = array();
         }
 
-        if ($isRef && null != ($ref = ZMRuntime::singleton($tokens[0]))) {
+        if ($isRef && null != ($ref = Runtime::getContainer()->getService($tokens[0]))) {
             self::setAll($ref, $properties);
             return $ref;
         }

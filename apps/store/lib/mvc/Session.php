@@ -34,7 +34,7 @@ use zenmagick\base\events\Event;
  * @author DerManoMann
  * @package zenmagick.store.sf.mvc
  */
-class Session extends ZMSession {
+class Session extends ZMObject {
 
     /**
      * Create new instance.
@@ -203,6 +203,16 @@ class Session extends ZMSession {
     }
 
     /**
+     * Check if we have a session yet.
+     *
+     * @return boolean <code>true<code> if the session has been already started.
+     */
+    public function isStarted() {
+        $id = session_id();
+        return !empty($id);
+    }
+
+    /**
      * Clear the session.
      *
      * <p>This will effectively logoff the curent account.
@@ -260,7 +270,7 @@ class Session extends ZMSession {
         $messages = array();
         if (isset($_SESSION['messageToStack']) && is_array($_SESSION['messageToStack'])) {
             foreach ($_SESSION['messageToStack'] as $arr) {
-                array_push($messages, ZMLoader::make("Message", $arr['text'], $arr['type'], $arr['class']));
+                array_push($messages, ZMLoader::make("ZMMessage", $arr['text'], $arr['type'], $arr['class']));
             }
         }
 

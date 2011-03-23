@@ -24,6 +24,7 @@ use zenmagick\base\Beans;
 use zenmagick\base\ClassLoader;
 use zenmagick\base\Toolbox;
 use zenmagick\base\events\Event;
+use zenmagick\base\ioc\loader\YamlFileLoader;
 
     // TODO: remove
     define('ZM_ROOT', basename(dirname(__FILE__)).'/');
@@ -110,6 +111,11 @@ ZMLoader::instance()->addPath(ZM_BASE_PATH.trim($name).DIRECTORY_SEPARATOR);
 
     // load application config
     Runtime::getSettings()->setAll(Toolbox::loadWithEnv(Runtime::getApplicationPath().DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.'config.yaml'));
+    $containerConfig = Runtime::getApplicationPath().DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.'container.yaml';
+    if (file_exists($containerConfig)) {
+        $containerYamlLoader = new YamlFileLoader(Runtime::getContainer(), dirname($containerConfig));
+        $containerYamlLoader->load($containerConfig);
+    }
 
     // hook up default event listeners
     foreach (Runtime::getSettings()->get('zenmagick.base.events.listeners', array()) as $_zm_elc) {
@@ -145,3 +151,6 @@ ZMLoader::instance()->addPath(ZM_BASE_PATH.trim($name).DIRECTORY_SEPARATOR);
         ZMPlugins::instance()->initAllPlugins(Runtime::getSettings()->get('zenmagick.base.plugins.context'));
         Runtime::getEventDispatcher()->notify(new Event(null, 'init_plugins_done'));
     }
+
+    // freeze container
+    Runtime::getContainer()->compile();

@@ -59,7 +59,7 @@ class ZMSearchResultSource extends ZMObject implements ZMResultSource {
     /**
      * {@inheritDoc}
      */
-    public function setResultList($resultList) { 
+    public function setResultList($resultList) {
         $this->resultList_ = $resultList;
     }
 
@@ -68,7 +68,7 @@ class ZMSearchResultSource extends ZMObject implements ZMResultSource {
      */
     public function getResults($reload=false) {
         if ($reload || null === $this->results_) {
-            $finder = ZMBeanUtils::getBean('ProductFinder');
+            $finder = ZMBeanUtils::getBean('ZMProductFinder');
             $finder->setCriteria($this->criteria_);
             if (null !== $this->resultList_) {
                 // try to set the first active sorter
@@ -81,7 +81,7 @@ class ZMSearchResultSource extends ZMObject implements ZMResultSource {
                 }
             }
             $queryDetails = $finder->execute();
-            $queryPager = ZMLoader::make('QueryPager', $queryDetails);
+            $queryPager = ZMLoader::make('ZMQueryPager', $queryDetails);
             $productIds = array();
             foreach ($queryPager->getResults($this->resultList_->getPageNumber(), $this->resultList_->getPagination()) as $result) {
                 $productIds[] = $result['productId'];

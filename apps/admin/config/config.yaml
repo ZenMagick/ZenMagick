@@ -21,7 +21,7 @@ zenmagick:
     ## locales
     locales:
       locale: en_NZ
-      provider: PomoLocale
+      provider: ZMPomoLocale
 
     ## fs
     fs:
@@ -71,7 +71,7 @@ zenmagick:
     request:
       index: index.php
       missingPage: error
-      seoRewriter: DefaultSeoRewriter
+      seoRewriter: ZMDefaultSeoRewriter
 
     ## seo
     seo:
@@ -88,19 +88,19 @@ zenmagick:
 
     ## session
     session:
-      userFactory: AdminUserFactory
+      userFactory: ZMAdminUserFactory
 
     ## toolbox tools
     toolbox:
       tools:
-        - net:ToolboxNet
-        - html:ToolboxHtml
-        - form:ToolboxForm
-        - macro:ToolboxMacro
-        - locale:ToolboxLocale
-        - utils:ToolboxUtils
-        - admin:ToolboxAdmin
-        - admin2:ToolboxAdmin2
+        - net:ZMToolboxNet
+        - html:ZMToolboxHtml
+        - form:ZMToolboxForm
+        - macro:ZMToolboxMacro
+        - locale:ZMToolboxLocale
+        - utils:ZMToolboxUtils
+        - admin:ZMToolboxAdmin
+        - admin2:ZMToolboxAdmin2
 
   http:
     ## request
@@ -123,7 +123,7 @@ apps:
       widgets: ZMOrderStatsDashboardWidget,ZMLatestOrdersDashboardWidget,ZMLatestAccountsDashboardWidget,ZMRecentSearchesDashboardWidget,ZMUpdateCheckerDashboardWidget,ZMPendingDashboardWidget
       default: '{"layout":"col2l","widgets":[["ZMOrderStatsDashboardWidget","ZMLatestAccountsDashboardWidget"],["ZMLatestOrdersDashboardWidget"]]}'
     catalog:
-      controller: CatalogDefaultTabController
+      controller: ZMCatalogDefaultTabController
     themes:
       default: default
 

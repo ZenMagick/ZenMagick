@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 
 /**
  * A banner block widget.
@@ -110,6 +111,9 @@ class ZMBannerBlockWidget extends ZMWidget {
      * {@inheritDoc}
      */
     public function render($request, $view) {
+        if (!Runtime::getSettings()->get('apps.store.banners.enabled', true)) {
+            return '';
+        }
         // try to load banners for the given group
         if (empty($this->group_) || null == ($banners = ZMBanners::instance()->getBannersForGroupName($this->group_, $request->isSecure()))) {
             return '';

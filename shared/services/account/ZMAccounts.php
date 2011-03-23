@@ -23,6 +23,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 
 /**
  * Accounts.
@@ -55,7 +56,7 @@ class ZMAccounts extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return ZMRuntime::singleton('Accounts');
+        return Runtime::getContainer()->getService('ZMAccounts');
     }
 
 
@@ -71,7 +72,7 @@ class ZMAccounts extends ZMObject {
                   LEFT JOIN " . TABLE_CUSTOMERS_INFO . " ci ON (c.customers_id = ci.customers_info_id)
                 WHERE c.customers_id = :accountId";
         $args = array('accountId' => $accountId);
-        if (null != ($account = ZMRuntime::getDatabase()->querySingle($sql, $args, array(TABLE_CUSTOMERS, TABLE_CUSTOMERS_INFO), 'Account'))) {
+        if (null != ($account = ZMRuntime::getDatabase()->querySingle($sql, $args, array(TABLE_CUSTOMERS, TABLE_CUSTOMERS_INFO), 'ZMAccount'))) {
             if (ZMLangUtils::isEmpty($account->getPassword())) {
                 $account->setType(ZMAccount::GUEST);
             }
@@ -92,7 +93,7 @@ class ZMAccounts extends ZMObject {
                 WHERE customers_email_address = :email
                 AND NOT (customers_password = '')";
         $args = array('email' => $emailAddress);
-        if (null != ($account = ZMRuntime::getDatabase()->querySingle($sql, $args, array(TABLE_CUSTOMERS, TABLE_CUSTOMERS_INFO), 'Account'))) {
+        if (null != ($account = ZMRuntime::getDatabase()->querySingle($sql, $args, array(TABLE_CUSTOMERS, TABLE_CUSTOMERS_INFO), 'ZMAccount'))) {
             if (ZMLangUtils::isEmpty($account->getPassword())) {
                 $account->setType(ZMAccount::GUEST);
             }
@@ -113,7 +114,7 @@ class ZMAccounts extends ZMObject {
                 WHERE customers_email_address = :email";
         $args = array('email' => $emailAddress);
         $accounts = array();
-        foreach (ZMRuntime::getDatabase()->query($sql, $args, array(TABLE_CUSTOMERS, TABLE_CUSTOMERS_INFO), 'Account') as $account) {
+        foreach (ZMRuntime::getDatabase()->query($sql, $args, array(TABLE_CUSTOMERS, TABLE_CUSTOMERS_INFO), 'ZMAccount') as $account) {
             if (ZMLangUtils::isEmpty($account->getPassword())) {
                 $account->setType(ZMAccount::GUEST);
             }
@@ -142,9 +143,9 @@ class ZMAccounts extends ZMObject {
         if (0 < $limit) {
             $sql .= " LIMIT ".$limit;
         }
-        
+
         $accounts = array();
-        foreach (ZMRuntime::getDatabase()->query($sql, array(), array(TABLE_CUSTOMERS, TABLE_CUSTOMERS_INFO), 'Account') as $account) {
+        foreach (ZMRuntime::getDatabase()->query($sql, array(), array(TABLE_CUSTOMERS, TABLE_CUSTOMERS_INFO), 'ZMAccount') as $account) {
             if (ZMLangUtils::isEmpty($account->getPassword())) {
                 $account->setType(ZMAccount::GUEST);
             }
@@ -203,7 +204,7 @@ class ZMAccounts extends ZMObject {
      *
      * <p><strong>NOTE:</strong> This will not update product notification
      * changes!</p>
-     * <p>Use <code>setGlobalProductSubscriber(..)</code> and 
+     * <p>Use <code>setGlobalProductSubscriber(..)</code> and
      * <code>setSubscribedProductIds(..)</code> * to update product
      * subscriptions.</p>
      *

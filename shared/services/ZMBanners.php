@@ -23,6 +23,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 
 /**
  * Banner.
@@ -50,7 +51,7 @@ class ZMBanners extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return ZMRuntime::singleton('Banners');
+        return Runtime::getContainer()->getService('ZMBanners');
     }
 
 
@@ -133,7 +134,7 @@ class ZMBanners extends ZMObject {
         }
         $sql .= " ORDER BY banners_sort_order";
 
-        return ZMRuntime::getDatabase()->query($sql, array('ssl' => $secure, 'group' => $groupList), TABLE_BANNERS, 'Banner');
+        return ZMRuntime::getDatabase()->query($sql, array('ssl' => $secure, 'group' => $groupList), TABLE_BANNERS, 'ZMBanner');
     }
 
     /**
@@ -146,7 +147,7 @@ class ZMBanners extends ZMObject {
         $sql = "SELECT *
                 FROM " . TABLE_BANNERS . "
                 WHERE status = 1 AND banners_id = :id";
-        return ZMRuntime::getDatabase()->querySingle($sql, array('id' => $id), TABLE_BANNERS, 'Banner');
+        return ZMRuntime::getDatabase()->querySingle($sql, array('id' => $id), TABLE_BANNERS, 'ZMBanner');
     }
 
     /**

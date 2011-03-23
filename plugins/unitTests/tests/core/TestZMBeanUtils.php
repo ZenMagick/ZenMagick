@@ -147,7 +147,7 @@ class TestZMBeanUtils extends ZMTestCase {
      * Test ref::
      */
     public function testMagicRef() {
-        $ref = ZMBeanUtils::getBean('ref::Products#foo=bar');
+        $ref = ZMBeanUtils::getBean('ref::ZMProducts#foo=bar');
         if ($this->assertNotNull($ref)) {
             $this->assertTrue($ref instanceof ZMProducts);
             // now test that we actually got the singleton
@@ -172,7 +172,7 @@ class TestZMBeanUtils extends ZMTestCase {
      * Test magic value
      */
     public function testMagicValue() {
-        $bean = ZMBeanUtils::getBean('ZMObject#handler='.urlencode('bean::Product#name=foo'));
+        $bean = ZMBeanUtils::getBean('ZMObject#handler='.urlencode('bean::ZMProduct#name=foo'));
         if ($this->assertNotNull($bean)) {
             $handler = $bean->getHandler();
             if ($this->assertNotNull($handler)) {

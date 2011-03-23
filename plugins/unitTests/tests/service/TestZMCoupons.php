@@ -180,7 +180,7 @@ class TestZMCoupons extends ZMTestCase {
         $coupon = ZMCoupons::instance()->createCoupon($couponCode, 5, ZMCoupons::TYPPE_GV);
         $this->createdCouponIds_[] = $coupon->getId();
         $account = ZMAccounts::instance()->getAccountForId($this->getAccountId());
-        $gvReceiver = ZMBeanUtils::getBean('GVReceiver');
+        $gvReceiver = ZMBeanUtils::getBean('ZMGVReceiver');
         $gvReceiver->setEmail('foo@bar.com');
 
         if (null != $account) {

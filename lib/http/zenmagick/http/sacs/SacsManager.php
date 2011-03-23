@@ -65,7 +65,7 @@ class SacsManager {
 
     //TODO: move to DI
     public static function instance() {
-        return Runtime::singleton('zenmagick\http\sacs\SacsManager');
+        return Runtime::getContainer()->getService('zenmagick\http\sacs\SacsManager');
     }
 
     /**
@@ -75,7 +75,7 @@ class SacsManager {
         $this->mappings_ = array('default' => array(), 'mappings' => array());
         $this->handlers_ = array();
         $this->permissionProviders_ = array();
-        foreach (Runtime::getSettings()->get('zenmagick.http.sacs.handler', array()) as $def) {
+        foreach (Runtime::getSettings()->get('zenmagick.http.sacs.handler', array('zenmagick\http\sacs\handler\DefaultSacsHandler')) as $def) {
             if (null != ($handler = Beans::getBean($def))) {
                 $this->handlers_[$handler->getName()] = $handler;
             }

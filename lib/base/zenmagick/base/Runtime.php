@@ -21,6 +21,7 @@
 <?php
 namespace zenmagick\base;
 
+use zenmagick\base\ioc\Container;
 
 /**
  * Central place for runtime stuff.
@@ -29,28 +30,8 @@ namespace zenmagick\base;
  * @package zenmagick.base
  */
 class Runtime {
-    private static $singletons_ = array();
+    private static $container_ = null;
 
-
-    /**
-     * Get a singleton instance of the named class.
-     *
-     * @param string name The class name.
-     * @param string instance If set, register the given object, unless the name is already taken.
-     * @param boolean force Optional flag to force replacement.
-     * @return mixed A singleton object.
-     */
-    public static function singleton($name, $instance=null, $force=false) {
-        if (null != $instance && ($force || !isset(self::$singletons_[$name]))) {
-            self::$singletons_[$name] = $instance;
-        } else if (!array_key_exists($name, self::$singletons_)) {
-            if (null == (self::$singletons_[$name] = Beans::getBean($name))) {
-                self::$singletons_[$name] = \ZMBeanUtils::getBean($name);
-            }
-        }
-
-        return self::$singletons_[$name];
-    }
 
     /**
      * Get the full ZenMagick installation path.
@@ -114,7 +95,7 @@ class Runtime {
      * @return zenmagick\base\logging\Logging A <code>zenmagick\base\logging\Logging</code> instance.
      */
     public static function getLogging($scope=null) {
-        return self::singleton('zenmagick\base\logging\Logging');
+        return self::getContainer()->getService('zenmagick\base\logging\Logging');
     }
 
     /**
@@ -123,7 +104,7 @@ class Runtime {
      * @return zenmagick\base\events\EventDispatcher A <code>zenmagick\base\events\EventDispatcher</code> instance.
      */
     public static function getEventDispatcher() {
-        return self::singleton('zenmagick\base\events\EventDispatcher');
+        return self::getContainer()->getService('zenmagick\base\events\EventDispatcher');
     }
 
     /**
@@ -132,7 +113,7 @@ class Runtime {
      * @return zenmagick\base\settings\Settings A <code>zenmagick\base\settings\Settings</code> instance.
      */
     public static function getSettings() {
-        return self::singleton('zenmagick\base\settings\Settings');
+        return self::getContainer()->getService('zenmagick\base\settings\Settings');
     }
 
     /**
@@ -141,7 +122,7 @@ class Runtime {
      * @return zenmagick\base\plugins\Plugins A <code>zenmagick\base\plugins\Plugins</code> instance.
      */
     public static function getPlugins() {
-        return self::singleton('zenmagick\base\plugins\Plugins');
+        return self::getContainer()->getService('zenmagick\base\plugins\Plugins');
     }
 
     /**
@@ -150,7 +131,11 @@ class Runtime {
      * @return Symfony\Component\DependencyInjection\ContainerInterface A <code>Symfony\Component\DependencyInjection\ContainerInterface</code> instance.
      */
     public static function getContainer() {
-        return null;
+        if (null == self::$container_) {
+            self::$container_ = new Container();
+        }
+
+        return self::$container_;
     }
 
 }

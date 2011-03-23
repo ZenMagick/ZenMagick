@@ -66,7 +66,7 @@ class ZMEmailFixes extends ZMObject {
                     $coupon = ZMCoupons::instance()->getCouponForCode($couponCode, $language->getId());
                     if (null == $coupon) {
                         // coupon gets created only *after* the email is sent!
-                        $coupon = ZMLoader::make('Coupon', 0, $couponCode, ZMCoupons::TYPPE_GV);
+                        $coupon = ZMLoader::make('ZMCoupon', 0, $couponCode, ZMCoupons::TYPPE_GV);
                         $currency = ZMCurrencies::instance()->getCurrencyForCode(ZMSettings::get('defaultCurrency'));
                         $coupon->setAmount($currency->parse($context['GV_AMOUNT']));
                     }

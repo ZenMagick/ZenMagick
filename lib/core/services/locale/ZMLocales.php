@@ -61,7 +61,7 @@ class ZMLocales extends \ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return \ZMRuntime::singleton('Locales');
+        return Runtime::getContainer()->getService('ZMLocales');
     }
 
 
@@ -78,7 +78,7 @@ class ZMLocales extends \ZMObject {
      */
     public function getLocale($reload=false, $locale=null, $path=null) {
         if (null == $this->locale_ || $reload) {
-            $this->locale_ = \ZMBeanUtils::getBean(\ZMSettings::get('zenmagick.core.locales.provider', 'EchoLocale'));
+            $this->locale_ = \ZMBeanUtils::getBean(\ZMSettings::get('zenmagick.core.locales.provider', 'ZMEchoLocale'));
             if (null !== $locale) {
                 $this->locale_->init($locale, $path);
             }

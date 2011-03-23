@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 
 /**
  * Messages to be displayed to the user.
@@ -72,7 +73,7 @@ class ZMMessages extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return ZMRuntime::singleton('Messages');
+        return Runtime::getContainer()->getService('ZMMessages');
     }
 
 
@@ -88,7 +89,7 @@ class ZMMessages extends ZMObject {
             return;
 
         $this->uniqueMsgRef_[$text] = $text;
-        array_push($this->messages_, ZMLoader::make("Message", $text, $type, $ref));
+        array_push($this->messages_, ZMLoader::make("ZMMessage", $text, $type, $ref));
     }
 
     /**

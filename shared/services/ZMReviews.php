@@ -23,6 +23,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 
 /**
  * Reviews.
@@ -50,7 +51,7 @@ class ZMReviews extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return ZMRuntime::singleton('Reviews');
+        return Runtime::getContainer()->getService('ZMReviews');
     }
 
 
@@ -83,7 +84,7 @@ class ZMReviews extends ZMObject {
      */
     public function getRandomReviews($languageId, $productId=null, $max=null) {
         $max = null === $max ? ZMSettings::get('maxRandomReviews') : $max;
-        
+
         $sql = "SELECT r.reviews_id
                 FROM " . TABLE_REVIEWS . " r, " . TABLE_REVIEWS_DESCRIPTION . " rd, "
                        . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd
@@ -127,7 +128,7 @@ class ZMReviews extends ZMObject {
                   AND r.reviews_id in (:reviewId)
                 ORDER BY date_added DESC";
         $args = array('productId' => $productId, 'languageId' => $languageId, 'reviewId' => $reviewIds);
-        return ZMRuntime::getDatabase()->query($sql, $args, array(TABLE_REVIEWS, TABLE_REVIEWS_DESCRIPTION, TABLE_PRODUCTS, TABLE_PRODUCTS_DESCRIPTION), 'Review');
+        return ZMRuntime::getDatabase()->query($sql, $args, array(TABLE_REVIEWS, TABLE_REVIEWS_DESCRIPTION, TABLE_PRODUCTS, TABLE_PRODUCTS_DESCRIPTION), 'ZMReview');
     }
 
     /**
@@ -170,7 +171,7 @@ class ZMReviews extends ZMObject {
                   AND p.products_id = :productId
                 ORDER BY date_added DESC";
         $args = array('productId' => $productId, 'languageId' => $languageId);
-        return ZMRuntime::getDatabase()->query($sql, $args, array(TABLE_REVIEWS, TABLE_REVIEWS_DESCRIPTION, TABLE_PRODUCTS, TABLE_PRODUCTS_DESCRIPTION), 'Review');
+        return ZMRuntime::getDatabase()->query($sql, $args, array(TABLE_REVIEWS, TABLE_REVIEWS_DESCRIPTION, TABLE_PRODUCTS, TABLE_PRODUCTS_DESCRIPTION), 'ZMReview');
     }
 
     /**
@@ -192,7 +193,7 @@ class ZMReviews extends ZMObject {
                   AND r.status = 1
                 ORDER BY date_added DESC";
         $args = array('languageId' => $languageId);
-        return ZMRuntime::getDatabase()->query($sql, $args, array(TABLE_REVIEWS, TABLE_REVIEWS_DESCRIPTION, TABLE_PRODUCTS, TABLE_PRODUCTS_DESCRIPTION), 'Review');
+        return ZMRuntime::getDatabase()->query($sql, $args, array(TABLE_REVIEWS, TABLE_REVIEWS_DESCRIPTION, TABLE_PRODUCTS, TABLE_PRODUCTS_DESCRIPTION), 'ZMReview');
     }
 
     /**
@@ -215,7 +216,7 @@ class ZMReviews extends ZMObject {
                   AND r.status = 1
                   AND r.reviews_id = :reviewId";
         $args = array('reviewId' => $reviewId, 'languageId' => $languageId);
-        return ZMRuntime::getDatabase()->querySingle($sql, $args, array(TABLE_REVIEWS, TABLE_REVIEWS_DESCRIPTION, TABLE_PRODUCTS, TABLE_PRODUCTS_DESCRIPTION), 'Review');
+        return ZMRuntime::getDatabase()->querySingle($sql, $args, array(TABLE_REVIEWS, TABLE_REVIEWS_DESCRIPTION, TABLE_PRODUCTS, TABLE_PRODUCTS_DESCRIPTION), 'ZMReview');
     }
 
     /**

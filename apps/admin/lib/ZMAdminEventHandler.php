@@ -60,14 +60,14 @@ class ZMAdminEventHandler {
     protected function getCurrentEditor($request) {
         $user = $request->getUser();
         if (null == $user || null == ($editor = ZMAdminUserPrefs::instance()->getPrefForName($user->getId(), 'wysiwygEditor'))) {
-            $editor = ZMSettings::get('apps.store.admin.defaultEditor', 'TextAreaFormWidget');
+            $editor = ZMSettings::get('apps.store.admin.defaultEditor', 'ZMTextAreaFormWidget');
         }
 
         if (null != ($obj = ZMBeanUtils::getBean($editor))) {
             return $obj;
         }
 
-        return ZMBeanUtils::getBean('TextAreaFormWidget');
+        return ZMBeanUtils::getBean('ZMTextAreaFormWidget');
     }
 
     /**

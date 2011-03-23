@@ -23,6 +23,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 
 /**
  * General access class for shipping provider.
@@ -53,7 +54,7 @@ class ZMShippingProviders extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return ZMRuntime::singleton('ShippingProviders');
+        return Runtime::getContainer()->getService('ZMShippingProviders');
     }
 
 
@@ -145,7 +146,7 @@ class ZMShippingProviders extends ZMObject {
                 $module = new $moduleInfo['class']();
                 // either all or enabled (installed+enabled as per config option) - (is this different from $module->enabled?)
                 if (!$configured || (0 < $module->check() && $module->enabled)) {
-                    $this->providers_[$configured][] = ZMLoader::make("ShippingProviderWrapper", $module);
+                    $this->providers_[$configured][] = ZMLoader::make("ZMShippingProviderWrapper", $module);
                 }
             }
         }

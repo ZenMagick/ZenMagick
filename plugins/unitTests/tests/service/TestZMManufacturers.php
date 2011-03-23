@@ -76,7 +76,7 @@ class TestZMManufacturers extends ZMTestCase {
      */
     public function testNoInfo() {
         // create new manufacturer without info record
-        $newManufacturer = ZMBeanUtils::getBean('Manufacturer');
+        $newManufacturer = ZMBeanUtils::getBean('ZMManufacturer');
         $newManufacturer->setName('Foo');
         $newManufacturer->setDateAdded(ZMDatabase::NULL_DATETIME);
         $newManufacturer->setLastModified(ZMDatabase::NULL_DATETIME);

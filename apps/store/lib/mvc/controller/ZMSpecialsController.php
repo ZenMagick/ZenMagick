@@ -56,8 +56,8 @@ class ZMSpecialsController extends ZMController {
         $request->getToolbox()->crumbtrail->addManufacturer($request->getManufacturerId());
         $request->getToolbox()->crumbtrail->addCrumb("Specials");
 
-        $resultList = ZMBeanUtils::getBean("ResultList");
-        $resultSource = ZMLoader::make("ObjectResultSource", 'Product', ZMProducts::instance(), "getSpecials", 0);
+        $resultList = ZMBeanUtils::getBean("ZMResultList");
+        $resultSource = ZMLoader::make("ZMObjectResultSource", 'Product', ZMProducts::instance(), "getSpecials", 0);
         $resultList->setResultSource($resultSource);
         foreach (explode(',', ZMSettings::get('resultListProductFilter')) as $filter) {
             $resultList->addFilter(ZMBeanUtils::getBean($filter));

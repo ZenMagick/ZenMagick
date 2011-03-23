@@ -50,7 +50,7 @@ class ZMMasterPasswordPlugin extends Plugin {
     public function install() {
         parent::install();
         $this->addConfigValue('Master Password', 'masterPassword', '', 'The master password (will be encrypted in the database)',
-            'widget@PasswordFormWidget#name=masterPassword&size=12&maxlength=28&hidden=true');
+            'widget@ZMPasswordFormWidget#name=masterPassword&size=12&maxlength=28&hidden=true');
     }
 
     /**
