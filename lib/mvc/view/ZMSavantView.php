@@ -245,7 +245,8 @@ class ZMSavantView extends ZMView {
      */
     public function getViewUtils() {
         if (null == $this->utils_) {
-            $this->utils_ = ZMLoader::make('ZMViewUtils', $this);
+            $this->utils_ = Runtime::getContainer()->get('ZMViewUtils');
+            $this->utils_->setView($this);
         }
         return $this->utils_;
     }

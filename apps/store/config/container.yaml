@@ -14,9 +14,6 @@ services:
   ZMMessages:
     class: Messages
     scope: container
-  ZMViewUtils:
-    class: ViewUtils
-    scope: prototype
   ZMForwardView:
     class: ForwardView
     scope: prototype

@@ -37,21 +37,23 @@ class ZMViewUtils extends ZMObject {
     /**
      * Create new instance.
      *
-     * @param ZMView view The current view.
+     * @param ZMView view The current view; default is <code>null</code>.
      */
-    function __construct($view) {
+    public function __construct($view=null) {
         parent::__construct();
         $this->view_ = $view;
         $this->resources_ = array('css' => array(), 'js' => array());
     }
 
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
 
+    /**
+     * Set the associated view.
+     *
+     * @param ZMView view The view.
+     */
+    public function setView($view) {
+        $this->view_ = $view;
+    }
 
     /**
      * Get the associated view.
