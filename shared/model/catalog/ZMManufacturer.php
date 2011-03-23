@@ -23,6 +23,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 
 /**
  * Manufacturer.
@@ -96,7 +97,12 @@ class ZMManufacturer extends ZMObject {
      *
      * @return ZMImageInfo The image info.
      */
-    public function getImageInfo() { return ZMLoader::make("ZMImageInfo", $this->image_, $this->name_); }
+    public function getImageInfo() {
+        $imageInfo = Runtime::getContainer()->get("ZMImageInfo");
+        $imageInfo->setAltText($this->name_);
+        $imageInfo->setDefaultImage($this->image_);
+        return $imageInfo;
+    }
 
     /**
      * Get the manufacturer url.

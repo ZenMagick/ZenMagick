@@ -23,6 +23,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 
 /**
  * An artist.
@@ -105,7 +106,12 @@ class ZMArtist extends ZMObject {
      *
      * @return ZMImageInfo The image info.
      */
-    public function getImageInfo() { return ZMLoader::make("ZMImageInfo", $this->image_, $this->name_); }
+    public function getImageInfo() {
+        $imageInfo = Runtime::getContainer()->get("ZMImageInfo");
+        $imageInfo->setAltText($this->name_);
+        $imageInfo->setDefaultImage($this->image_);
+        return $imageInfo;
+    }
 
     /**
      * Check if a URL is available.

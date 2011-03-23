@@ -23,6 +23,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 
 /**
  * Image information implementation for ImageHandler2 support.
@@ -39,10 +40,10 @@ class ImageInfo extends ZMImageInfo {
     /**
      * Create new image info.
      *
-     * @param string image The image name.
-     * @param string alt The alt text.
+     * @param string image The image name; default is <code>null</code>.
+     * @param string alt The alt text; default is an empty string.
      */
-    function __construct($image, $alt='') {
+    public function __construct($image=null, $alt='') {
         parent::__construct($image, $alt);
         $this->image_ = $image;
         $this->formattedParameter_ = '';
@@ -50,13 +51,14 @@ class ImageInfo extends ZMImageInfo {
         $this->disableIH2Attributes_ = null !== $plugin && $plugin->get('disableIH2Attributes');
     }
 
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
 
+    /**
+     * {@inheritDoc}
+     */
+    public function setDefaultImage($image) {
+        parent::setDefaultImage($image);
+        $this->image_ = $image;
+    }
 
     /**
      * Get the default image.

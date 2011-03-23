@@ -23,6 +23,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 
 /**
  * A single category
@@ -187,7 +188,14 @@ class ZMCategory extends ZMObject {
      * @return ZMImageInfo The <code>ZMImageInfo</code> for this categorie's image, or <code>null</code>.
      */
     public function getImageInfo() {
-        return !empty($this->image_) ? ZMLoader::make("ZMImageInfo", $this->image_, $this->name_) : null;
+        if (null == $this->image_) {
+            return null;
+        }
+
+        $imageInfo = Runtime::getContainer()->get("ZMImageInfo");
+        $imageInfo->setAltText($this->name_);
+        $imageInfo->setDefaultImage($this->image_);
+        return $imageInfo;
     }
 
     /**

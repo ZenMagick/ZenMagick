@@ -23,6 +23,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 
 /**
  * Image information implementation for ImageHandler2 support.
@@ -40,10 +41,10 @@ class ImageInfo extends ZMImageInfo {
     /**
      * Create new image info.
      *
-     * @param string image The image name.
-     * @param string alt The alt text.
+     * @param string image The image name; default is <code>null</code>.
+     * @param string alt The alt text; default is an empty string.
      */
-    function __construct($image, $alt='') {
+    public function __construct($image=null, $alt='') {
         parent::__construct($image, $alt);
         $this->image_ = $image;
         $this->formattedParameter_ = '';
@@ -58,6 +59,14 @@ class ImageInfo extends ZMImageInfo {
         parent::__destruct();
     }
 
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setDefaultImage($image) {
+        parent::setDefaultImage($image);
+        $this->image_ = $image;
+    }
 
     /**
      * Get the default image.
@@ -159,7 +168,7 @@ class ImageInfo extends ZMImageInfo {
             }
             if (strrpos($src, IMAGE_SUFFIX_MEDIUM) && !is_file(DIR_FS_CATALOG . $src)) {
                 //medium image wanted but not found
-                $image_base = substr($image_base, strlen('/medium'), -strlen(IMAGE_SUFFIX_MEDIUM)); 
+                $image_base = substr($image_base, strlen('/medium'), -strlen(IMAGE_SUFFIX_MEDIUM));
                 $src = DIR_WS_IMAGES . $image_base . $image_ext;
             }
         }

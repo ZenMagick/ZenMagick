@@ -32,7 +32,6 @@ class TestZMImageInfo extends ZMTestCase {
      * Test split image name.
      */
     public function testSplitImagename() {
-        ZMLoader::resolve('ZMImageInfo');
         $info = ZMImageInfo::splitImageName('/foo/bar/image.png');
         if ($this->assertTrue(is_array($info))) {
             if ($this->assertEqual(3, count($info))) {

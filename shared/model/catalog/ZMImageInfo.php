@@ -23,6 +23,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 
 /**
  * Image information.
@@ -41,14 +42,30 @@ class ZMImageInfo extends ZMObject {
     /**
      * Create new image info.
      *
-     * @param string image The image name.
-     * @param string alt The alt text.
+     * @param string image The default image name; default is <code>null</code>.
+     * @param string alt The alt text; default is an empty string.
      */
-    function __construct($image, $alt='') {
+    function __construct($image=null, $alt='') {
         parent::__construct();
         $this->altText_ = $alt;
         $this->parameter_ = array();
+        $this->setDefaultImage($image);
+    }
 
+    /**
+     * Destruct instance.
+     */
+    function __destruct() {
+        parent::__destruct();
+    }
+
+
+    /**
+     * Set the default image.
+     *
+     * @param string image The default image.
+     */
+    public function setDefaultImage($image) {
         $comp = ZMImageInfo::splitImageName($image);
         $subdir = $comp[0];
         $ext = $comp[1];
@@ -81,14 +98,6 @@ class ZMImageInfo extends ZMObject {
             $this->imageLarge_ = $toolbox->net->image('large/'.$large);
         }
     }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
-
 
     /**
      * Check if there is an image.
@@ -131,6 +140,13 @@ class ZMImageInfo extends ZMObject {
      * @return boolean <code>true</code> if there is a large image, <code>false</code> if not.
      */
     public function hasLargeImage() { return $this->imageLarge_ != $this->imageMedium_; }
+
+    /**
+     * Set the alt text.
+     *
+     * @param string text The alt text.
+     */
+    public function setAltText($text) { $this->altText_ = $text; }
 
     /**
      * Get the alt text.
