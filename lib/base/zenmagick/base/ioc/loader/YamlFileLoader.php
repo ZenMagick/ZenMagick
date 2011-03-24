@@ -31,7 +31,7 @@ use zenmagick\base\Toolbox;
  * @author DerManoMann
  * @package zenmagick.base.ioc.loader
  */
-class YamlFileLoader extends \Symfony\Component\DependencyInjection\loader\YamlFileLoader {
+class YamlFileLoader extends \Symfony\Component\DependencyInjection\Loader\YamlFileLoader {
 
     /**
      * {@inheritDoc}
