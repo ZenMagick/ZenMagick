@@ -29,7 +29,11 @@
     <import file="admin.xml" />
 
     <!-- This is used to compare zip files; see http://zipdiff.sourceforge.net/ for details -->
-    <taskdef name="zipdiff" classname="zipdiff.ant.ZipDiffTask"/>
+    <taskdef name="zipdiff" classname="zipdiff.ant.ZipDiffTask">
+        <classpath>
+            <pathelement location="etc/build/zipdiff.jar"/>
+        </classpath>
+    </taskdef>
 
     <!-- Flow control -->
     <typedef resource="net/sf/antcontrib/antcontrib.properties"/>
