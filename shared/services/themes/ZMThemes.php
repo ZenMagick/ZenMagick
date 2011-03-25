@@ -185,6 +185,13 @@ ZMLoader::instance()->setParent($themeLoader);
             // custom theme.yaml settings
             $theme->loadSettings();
 
+            // theme IoC
+            $containerConfig = $theme->getBaseDir().DIRECTORY_SEPARATOR.'container.yaml';
+            if (file_exists($containerConfig)) {
+                $containerYamlLoader = new YamlFileLoader(Runtime::getContainer(), dirname($containerConfig));
+                $containerYamlLoader->load($containerConfig);
+            }
+
             // always add an event listener in the theme's base namespace
             $eventListener = 'zenmagick\\themes\\'.ucwords($themeId).'EventListener';
             if (ClassLoader::classExists($eventListener)) {
@@ -324,9 +331,6 @@ ZMLoader::instance()->setParent($themeLoader);
             $language = ZMLanguages::instance()->getLanguageForCode(ZMSettings::get('defaultLanguageCode'));
         }
         $this->initLanguage_ = $language;
-
-        $themeLoader = new ClassLoader();
-        $themeLoader->register();
 
         // load if not set
         $themeChain = $this->getThemeChain($language->getId());
