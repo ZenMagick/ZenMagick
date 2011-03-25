@@ -52,7 +52,7 @@ class Container extends \Symfony\Component\DependencyInjection\ContainerBuilder 
             return parent::get($id, $invalidBehavior);
         }
 
-        // try to default to the id as class name
+        // try to default to the id as class name (with scope prototype)
         if (ClassLoader::classExists($id) && class_exists($id)) {
             return new $id();
         }
@@ -71,6 +71,9 @@ class Container extends \Symfony\Component\DependencyInjection\ContainerBuilder 
 
     /**
      * Get a singleton service.
+     *
+     * <p>This method keeps its own map of references because instances returned by <code>get(..)</code> might be of
+     * scope <em>prototype</em>.</p>
      *
      * @param string id The service id.
      * @param  int invalidBehavior The behavior when the service does not exist.
