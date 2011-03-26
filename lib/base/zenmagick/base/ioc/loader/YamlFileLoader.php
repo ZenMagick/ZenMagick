@@ -31,13 +31,22 @@ use zenmagick\base\Toolbox;
  * @author DerManoMann
  * @package zenmagick.base.ioc.loader
  */
-class YamlFileLoader extends \Symfony\Component\DependencyInjection\loader\YamlFileLoader {
+class YamlFileLoader extends \Symfony\Component\DependencyInjection\Loader\YamlFileLoader {
 
     /**
      * {@inheritDoc}
      */
     protected function loadFile($file) {
         return $this->validate(Toolbox::loadWithEnv($file), $file);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * <p>Check for <em>.yml</em> <strong>and</strong> <em>.yaml</em> file extension.</p>
+     */
+    public function supports($resource) {
+        return parent::supports($resource) || (is_string($resource) && 'yaml' === pathinfo($resource, PATHINFO_EXTENSION));
     }
 
 }

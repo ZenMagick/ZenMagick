@@ -21,15 +21,18 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 ?><?php
+use zenmagick\base\Runtime;
+use zenmagick\http\sacs\SacsManager;
+
   require_once 'includes/application_top.php';
 
-  ZMLoader::instance()->addPath(ZMFileUtils::mkPath(array(zenmagick\base\Runtime::getInstallationPath(), 'apps', 'admin', 'lib')));
+  ZMLoader::instance()->addPath(ZMFileUtils::mkPath(array(Runtime::getInstallationPath(), 'apps', 'admin', 'lib')));
   //ZMLoader::instance()->loadStatic();
 
   // set some admin specific things...
   ZMUrlManager::instance()->clear();
-  ZMSacsManager::instance()->reset();
-  ZMSacsManager::instance()->load(file_get_contents(ZMFileUtils::mkPath(array(zenmagick\base\Runtime::getInstallationPath(), 'apps/admin/config', 'sacs_mappings.yaml'))), false);
+  SacsManager::instance()->reset();
+  SacsManager::instance()->load(file_get_contents(ZMFileUtils::mkPath(array(Runtime::getInstallationPath(), 'apps/admin/config', 'sacs_mappings.yaml'))), false);
 
   if (ZMLangUtils::isEmpty($request->getRequestId())) {
       $request->setParameter('main_page', 'index');

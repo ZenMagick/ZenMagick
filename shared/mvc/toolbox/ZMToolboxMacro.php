@@ -39,9 +39,9 @@ class ZMToolboxMacro extends ZMToolboxTool {
      * @return string The <code>phpinfo</code> output minus a few formatting things that break validation.
      */
     public function phpinfo($what=1) {
-        ob_start();                                                                                                       
-        phpinfo($what);                                                                                                       
-        $info = ob_get_clean();                                                                                       
+        ob_start();
+        phpinfo($what);
+        $info = ob_get_clean();
         $info = preg_replace('%^.*<body>(.*)</body>.*$%ms', '$1', $info);
         $info = str_replace('width="600"', '', $info);
 
@@ -78,7 +78,7 @@ class ZMToolboxMacro extends ZMToolboxTool {
      */
     public function formatAddress($address, $html=true) {
         if (null == $address) {
-            $out = _zm("N/A");    
+            $out = _zm("N/A");
         } else {
             if (!ZMLangUtils::isEmpty($address->getLastName())) {
                 $firstname = $address->getFirstName();
@@ -175,7 +175,7 @@ class ZMToolboxMacro extends ZMToolboxTool {
 
         return $html;
     }
- 
+
     /**
      * Helper to format a given <code>ZMCrumbtrail</code>.
      *
@@ -223,7 +223,7 @@ class ZMToolboxMacro extends ZMToolboxTool {
      * @return string The given categories as nested unordered list.
      */
     public function categoryTree($categories, $showProductCount=false, $useCategoryPage=false, $activeParent=false, $root=true, $path=null) {
-        if ($root) { 
+        if ($root) {
             ob_start();
             $path = $this->getRequest()->getCategoryPathArray();
         }
@@ -505,7 +505,7 @@ class ZMToolboxMacro extends ZMToolboxTool {
 
     /**
      * Format an attribute value label.
-     * 
+     *
      * @param ZMProduct product The product.
      * @param ZMAttributeValue value The attribute value.
      * @param boolean enableImage Optional flag to enable/disable images; default is <code>true</code>.
@@ -516,7 +516,10 @@ class ZMToolboxMacro extends ZMToolboxTool {
         $slash = ZMSettings::get('zenmagick.mvc.html.xhtml') ? '/' : '';
         $label = '';
         if ($value->hasImage() && $enableImage) {
-            $label = '<img src="' . $toolbox->net->image($value->getImage()) . '" alt="'.$value->getName().'" title="'.$value->getName().'"'.$slash.'>';
+            $path = realpath($this->getRequest()->getDocRoot().$this->getRequest()->getContext().DIRECTORY_SEPARATOR.DIR_WS_IMAGES.$value->getImage());
+            if (file_exists($path)) {
+                $label = '<img src="' . $toolbox->net->image($value->getImage()) . '" alt="'.$value->getName().'" title="'.$value->getName().'"'.$slash.'>';
+            }
         }
         $label .= _zm($value->getName());
 

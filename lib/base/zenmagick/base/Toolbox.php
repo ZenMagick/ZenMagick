@@ -102,7 +102,7 @@ class Toolbox {
                 }
             }
         } catch (\InvalidArgumentException $e) {
-            Runtime::getLogging()->dump(e);
+            Runtime::getLogging()->dump($e);
         }
 
         // check for imports:
