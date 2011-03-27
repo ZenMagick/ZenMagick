@@ -119,8 +119,7 @@ class ZMRuntime {
      * @return array List of <code>Doctrine\ORM\EntityManager</code> instances.
      */
     public static function getEntityManager($conf='default') {
-        $dbal = current(self::$databaseMap_);
-        self::$entityManagerMap_[$conf] = $dbal->getEntityManager(ZMLangUtils::toArray(ZMSettings::get('doctrine.orm')));
+        self::$entityManagerMap_[$conf] = self::getDatabase($conf)->getEntityManager(ZMLangUtils::toArray(ZMSettings::get('doctrine.orm')));
         return self::$entityManagerMap_[$conf];
     }
 
