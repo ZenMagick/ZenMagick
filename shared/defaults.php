@@ -31,7 +31,9 @@
     define('ZM_TABLE_SACS_PERMISSIONS', DB_PREFIX . 'sacs_permissions');
 
     //** others **//
-    define('PRODUCTS_OPTIONS_TYPE_SELECT', 0);
+    if (!defined('PRODUCTS_OPTIONS_TYPE_SELECT')) {
+        define('PRODUCTS_OPTIONS_TYPE_SELECT', 0);
+    }
     if (!defined('ATTRIBUTES_PRICE_FACTOR_FROM_SPECIAL')) {
         define('ATTRIBUTES_PRICE_FACTOR_FROM_SPECIAL', 0);
     }

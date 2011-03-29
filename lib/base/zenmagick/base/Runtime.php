@@ -48,7 +48,7 @@ class Runtime {
      * @return string The application base folder or <code>null</code>.
      */
     public static function getApplicationPath() {
-        return defined('ZM_APP_PATH') ? ZM_BASE_PATH.ZM_APP_PATH : null;
+        return defined('ZM_APP_PATH') ? self::getInstallationPath().ZM_APP_PATH : null;
     }
 
     /**
