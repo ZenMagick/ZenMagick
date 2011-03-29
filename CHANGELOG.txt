@@ -45,6 +45,8 @@ Release 0.9.12
 - add new theme_loaded event that is fired for each loaded theme
 - convert theme local.php to theme event listener
 - add IoC container and replace current singleton, etc code
+- change ZMEZPages::getHTMLText to accept a boolean parameter to decide
+  whether to allow PHP execution or not; changes the pages.php view
 
 Release 0.9.11.1
 - remove debug code

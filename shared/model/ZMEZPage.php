@@ -94,7 +94,23 @@ class ZMEZPage extends ZMObject {
     public function getTitle() { return $this->title_; }
     public function getAltUrl() { return $this->altUrl_; }
     public function getAltUrlExternal() { return $this->altUrlExternal_; }
-    public function getHtmlText() { return $this->htmlText_; }
+
+    /**
+     * Get the actual content.
+     *
+     * @param boolean php Optional flag to allow/disable PHP exection in the contents; default is <code>true</code>.
+     * @return string The page contents.
+     */
+    public function getHtmlText($php=true) {
+        $text = $this->htmlText_;
+        if ($php) {
+            ob_start();
+            eval('?>'.$text);
+            $text = ob_get_clean();
+        }
+        return $text;
+    }
+
     public function isHeader() { return $this->isHeader_; }
     public function isSidebox() { return $this->isSidebox_; }
     public function isFooter() { return $this->isFooter_; }
