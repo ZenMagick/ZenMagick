@@ -168,3 +168,4 @@ doctrine:
           - shared/model/locale
           - shared/model/order
           - shared/model
+          - apps/admin/lib/model
