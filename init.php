@@ -31,9 +31,9 @@ use zenmagick\http\sacs\SacsManager;
   }
 
   // additional libraries
-  define('ZM_LIBS', 'lib/http,shared');
+  if(!defined('ZM_LIBS')) define('ZM_LIBS', 'lib/http,shared');
 
-  include 'bootstrap.php';
+  include_once 'bootstrap.php';
 
   // create the main request instance
   $request = $_zm_request = ZMRequest::instance();
