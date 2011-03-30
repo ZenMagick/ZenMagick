@@ -91,7 +91,7 @@ class ZMToggleThemesPlugin extends Plugin {
         $hasParams = false !== strpos($url, '?');
         $url .= ($hasParams ? '&' : '?') . 'themeToggle='.$toggleValue;
         // special case for requestId == category
-        $idName = Runtime::getSettings()->get('zenmagick.mvc.request.idName');
+        $idName = Runtime::getSettings()->get('zenmagick.http.request.idName');
         if ('category' == $request->getRequestId()) {
             $url = str_replace($idName.'=category', $idName.'=index', $url);
         }

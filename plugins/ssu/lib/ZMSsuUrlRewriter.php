@@ -20,13 +20,15 @@
 ?>
 <?php
 
+use zenmagick\http\request\rewriter\UrlRewriter;
+
 /**
- * USEO3 rewriter.
+ * SSU rewriter.
  *
- * @package org.zenmagick.plugins.useo3
+ * @package org.zenmagick.plugins.ssu
  * @author mano
  */
-class ZMUseo3SeoRewriter implements ZMSeoRewriter {
+class ZMSsuUrlRewriter implements UrlRewriter {
 
     /**
      * {@inheritDoc}
@@ -47,9 +49,9 @@ class ZMUseo3SeoRewriter implements ZMSeoRewriter {
         $useContext = isset($args['useContext']) ? $args['useContext'] : true;
 
         if ($requestId == 'category') { $requestId = 'index'; }
-        if (isset($GLOBALS['SeoUrl']) && (null == ZMSettings::get('plugins.useo3.seoEnabled') || ZMLangUtils::inArray($view, ZMSettings::get('plugins.useo3.seoEnabled')))) {
-            // no $seo parameter
-            return $GLOBALS['SeoUrl']->buildHrefLink($requestId, $params, $secure ? 'SSL' : 'NONSSL', $addSessionId, $isStatic, $useContext);
+        global $ssu;
+        if (isset($ssu) && ($link = $ssu->ssu_link($requestId, $params, $secure ? 'SSL' : 'NONSSL', $addSessionId, false, $isStatic, $useContext)) != false) {
+            return $link;
         }
 
         return null;

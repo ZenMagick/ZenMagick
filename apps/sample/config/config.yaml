@@ -6,8 +6,6 @@ zenmagick:
   mvc:
     templates:
       ext: .tpl
-    seo:
-      type: realpath
 
   core:
     locales:
@@ -18,3 +16,6 @@ zenmagick:
       listeners:
         - zenmagick\http\BootstrapListener
         - ZMSampleEventHandler
+  http:
+    request:
+      urlType: realpath

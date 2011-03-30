@@ -21,6 +21,7 @@
 <?php
 
 use zenmagick\base\Runtime;
+use zenmagick\http\request\rewriter\UrlRewriter;
 
 /**
  * SEO rewriter for pretty link (SEO) support.
@@ -28,7 +29,7 @@ use zenmagick\base\Runtime;
  * @package org.zenmagick.plugins.prettyLinks
  * @author mano
  */
-class ZMPrettyLinksSeoRewriter implements ZMSeoRewriter {
+class ZMPrettyLinksUrlRewriter implements UrlRewriter {
 
     /**
      * {@inheritDoc}
@@ -55,7 +56,7 @@ class ZMPrettyLinksSeoRewriter implements ZMSeoRewriter {
 
         // get default url
         $toolbox = $request->getToolbox();
-        $href = ZMStoreDefaultSeoRewriter::furl($requestId, $params, $secure ? 'SSL' : 'NONSSL', $addSessionId, false, $isStatic, $useContext, $request);
+        $href = ZMStoreDefaultUrlRewriter::furl($requestId, $params, $secure ? 'SSL' : 'NONSSL', $addSessionId, false, $isStatic, $useContext, $request);
 
         $url = parse_url($href);
         $queryString = $toolbox->net->decode($url['query']);
@@ -67,9 +68,9 @@ class ZMPrettyLinksSeoRewriter implements ZMSeoRewriter {
         if (ZMLangUtils::startsWith($path, '\\')) {
             $path = substr($path, 1);
         }
-        $requestId = $query[Runtime::getSettings()->get('zenmagick.mvc.request.idName')];
+        $requestId = $query[Runtime::getSettings()->get('zenmagick.http.request.idName')];
         $translate = true;
-        $removeNames = array(Runtime::getSettings()->get('zenmagick.mvc.request.idName'), 'cPath', 'manufacturers_id', 'cat', 'products_id', 'order_id', 'reviews_id', 'id');
+        $removeNames = array(Runtime::getSettings()->get('zenmagick.http.request.idName'), 'cPath', 'manufacturers_id', 'cat', 'products_id', 'order_id', 'reviews_id', 'id');
         switch ($requestId) {
             case 'index':
             case 'category':

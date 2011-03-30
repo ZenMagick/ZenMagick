@@ -20,6 +20,8 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
+
 /**
  * Plugin for Ultimate SEO 2.x support.
  *
@@ -76,7 +78,7 @@ class ZMUseo2Plugin extends Plugin {
      */
     public function init() {
         parent::init();
-        ZMSettings::append('zenmagick.mvc.request.seoRewriter', 'Useo2SeoRewriter');
+        Runtime::getSettings()->add('zenmagick.http.request.urlRewriter', 'ZMUseo2UrlRewriter');
 
         // TODO: manually load lib for now
         require_once dirname(__FILE__).'/lib/seo.functions.php';

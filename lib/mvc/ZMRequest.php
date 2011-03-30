@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
 use zenmagick\base\events\Event;
 
@@ -37,7 +38,7 @@ class ZMRequest extends \ZMObject {
     /**
      * Default paramter name containing the request id.
      *
-     * <p>Will be used if the 'zenmagick.mvc.request.idName' is not set.</p>
+     * <p>Will be used if the 'zenmagick.http.request.idName' is not set.</p>
      */
     const DEFAULT_REQUEST_ID = 'rid';
 
@@ -46,7 +47,7 @@ class ZMRequest extends \ZMObject {
      */
     const SESSION_TOKEN_NAME = 'stoken';
 
-    private $seoRewriter_;
+    private $urlRewriter_;
     private $controller_;
     private $session_;
     private $toolbox_;
@@ -79,7 +80,7 @@ class ZMRequest extends \ZMObject {
         $this->controller_ = null;
         $this->session_ = null;
         $this->toolbox_ = null;
-        $this->seoRewriter_ = null;
+        $this->urlRewriter_ = null;
         $this->userFactory_ = null;
     }
 
@@ -102,25 +103,25 @@ class ZMRequest extends \ZMObject {
     }
 
     /**
-     * Get a list of <code>ZMSeoRewriter</code> instances for SEO urls.
+     * Get a list of <code>zenmagick\htt\request\rewriter\UrlRewriter</code> instances.
      *
      * <p>The list is build based on the classes registered via the setting
-     * 'zenmagick.mvc.request.seoRewriter'.</p>
+     * 'zenmagick.http.request.urlRewriter'.</p>
      *
-     * @return array List of <code>ZMSeoRewriter</code> instances.
+     * @return array List of <code>zenmagick\htt\request\rewriter\UrlRewriter</code> instances.
      */
-    public function getSeoRewriter() {
-        if (null === $this->seoRewriter_) {
-            $this->seoRewriter_ = array();
-            $rewriters = array_reverse(explode(',', \ZMSettings::get('zenmagick.mvc.request.seoRewriter', 'ZMDefaultSeoRewriter')));
+    public function getUrlRewriter() {
+        if (null === $this->urlRewriter_) {
+            $this->urlRewriter_ = array();
+            $rewriters = array_reverse(Runtime::getSettings()->get('zenmagick.http.request.urlRewriter', array('zenmagick\http\request\rewriter\DefaultUrlRewriter')));
             foreach ($rewriters as $rewriter) {
-                if (null != ($obj = \ZMBeanUtils::getBean($rewriter))) {
-                    $this->seoRewriter_[] = $obj;
+                if (null != ($obj = Beans::getBean($rewriter))) {
+                    $this->urlRewriter_[] = $obj;
                 }
             }
         }
 
-        return $this->seoRewriter_;
+        return $this->urlRewriter_;
     }
 
     /**
@@ -173,7 +174,7 @@ class ZMRequest extends \ZMObject {
 
         // delegate generation to SEO rewriters
         $args = array('requestId' => $requestId, 'params' => $params, 'secure' => $secure);
-        foreach ($this->getSeoRewriter() as $rewriter) {
+        foreach ($this->getUrlRewriter() as $rewriter) {
             if (null != ($rewrittenUrl = $rewriter->rewrite($this, $args))) {
                 return $rewrittenUrl;
             }
@@ -186,8 +187,8 @@ class ZMRequest extends \ZMObject {
     /**
      * Decode a (potentially) rewritten request.
      */
-    public function seoDecode() {
-        foreach ($this->getSeoRewriter() as $rewriter) {
+    public function urlDecode() {
+        foreach ($this->getUrlRewriter() as $rewriter) {
             if ($rewriter->decode($this)) {
                 break;
             }
@@ -343,7 +344,7 @@ class ZMRequest extends \ZMObject {
      * @return string The request id key.
      */
     public function getRequestIdKey() {
-        return \ZMSettings::get('zenmagick.mvc.request.idName', self::DEFAULT_REQUEST_ID);
+        return \ZMSettings::get('zenmagick.http.request.idName', self::DEFAULT_REQUEST_ID);
     }
 
     /**

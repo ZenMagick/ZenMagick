@@ -30,8 +30,8 @@ if (!function_exists('zen_href_link')) {
      * @package zenmagick.store.sf.override
      */
     function zen_href_link($page='', $params='', $transport='NONSSL', $addSessionId=true, $seo=true, $isStatic=false, $useContext=true) {
-        if (class_exists('ZMStoreDefaultSeoRewriter') && (!defined('IS_ADMIN_FLAG') || !IS_ADMIN_FLAG)) {
-            return ZMStoreDefaultSeoRewriter::furl($page, $params, $transport, $addSessionId, $seo, $isStatic, $useContext);
+        if (class_exists('ZMStoreDefaultUrlRewriter') && (!defined('IS_ADMIN_FLAG') || !IS_ADMIN_FLAG)) {
+            return ZMStoreDefaultUrlRewriter::furl($page, $params, $transport, $addSessionId, $seo, $isStatic, $useContext);
         } else if (function_exists('zen_href_link_DISABLED')) {
             // just in case...
             return zen_href_link_DISABLED($page, $params, $transport, $addSessionId, $seo, $isStatic, $useContext);
@@ -59,7 +59,7 @@ if (!function_exists('zen_mail')) {
         if (0 < count($formats)) {
             // call ZenMagick implementation
             // NOTE: zm_mail will eventually call zen_mail_org to actually send the generated email...
-            
+
             // preserve original text
             $block['text_msg'] = $text;
             zm_mail($subject, $module, $block, $toAddress, $toName, $fromAddress, $fromName);
@@ -80,7 +80,7 @@ if (!function_exists('zen_build_html_email_from_template')) {
      * @package zenmagick.store.sf.override
      */
     function zen_build_html_email_from_template($template, $args=array()) {
-        if (!class_exists('ZMEmails')) { 
+        if (!class_exists('ZMEmails')) {
             return zen_build_html_email_from_template_org($template, $args);
         }
         $request = ZMRequest::instance();

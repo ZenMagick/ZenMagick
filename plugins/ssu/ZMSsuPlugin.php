@@ -20,6 +20,8 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
+
 /**
  * Plugin for Simple SEO URL support.
  *
@@ -49,7 +51,7 @@ class ZMSsuPlugin extends Plugin {
      */
     public function init() {
         parent::init();
-        ZMSettings::append('zenmagick.mvc.request.seoRewriter', 'SsuSeoRewriter');
+        Runtime::getSettings()->add('zenmagick.http.request.urlRewriter', 'ZMSsuUrlRewriter');
     }
 
 }

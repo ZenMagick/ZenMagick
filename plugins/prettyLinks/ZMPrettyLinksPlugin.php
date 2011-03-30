@@ -20,6 +20,8 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
+
 /**
  * Plugin for pretty link (SEO) support.
  *
@@ -48,7 +50,7 @@ class ZMPrettyLinksPlugin extends Plugin {
      */
     public function init() {
         parent::init();
-        ZMSettings::append('zenmagick.mvc.request.seoRewriter', 'PrettyLinksSeoRewriter');
+        Runtime::getSettings()->add('zenmagick.http.request.urlRewriter', 'ZMPrettyLinksUrlRewriter');
 
         // TODO: manually load lib for now
         require_once dirname(__FILE__).'/lib/functions.php';

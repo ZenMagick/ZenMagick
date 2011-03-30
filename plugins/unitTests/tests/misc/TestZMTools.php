@@ -50,14 +50,14 @@ class TestZMTools extends ZMTestCase {
      * Test compareStoreUrl current.
      */
     public function testCmpStoreUrlCurrent() {
-        $this->assertTrue(ZMTools::compareStoreUrl('index.php?'.Runtime::getSettings()->get('zenmagick.mvc.request.idName').'=tests&abc=def'));
+        $this->assertTrue(ZMTools::compareStoreUrl('index.php?'.Runtime::getSettings()->get('zenmagick.http.request.idName').'=tests&abc=def'));
     }
 
     /**
      * Test compareStoreUrl two.
      */
     public function testCmpStoreUrlTwo() {
-        $idName = Runtime::getSettings()->get('zenmagick.mvc.request.idName');
+        $idName = Runtime::getSettings()->get('zenmagick.http.request.idName');
         $this->assertTrue(ZMTools::compareStoreUrl('index.php?'.$idName.'=tests&abc=def', 'index.php?'.$idName.'=tests'));
         $this->assertFalse(ZMTools::compareStoreUrl('index.php?'.$idName.'=page&id=1', 'index.php?'.$idName.'=page'));
         $this->assertTrue(ZMTools::compareStoreUrl('index.php?'.$idName.'=static&cat=foo', 'http://localhost/index.php?'.$idName.'=static&cat=foo'));
@@ -67,7 +67,7 @@ class TestZMTools extends ZMTestCase {
      * Test compareStoreUrl incomplete.
      */
     public function testCmpStoreUrlIncomplete() {
-        $idName = Runtime::getSettings()->get('zenmagick.mvc.request.idName');
+        $idName = Runtime::getSettings()->get('zenmagick.http.request.idName');
         $this->assertTrue(ZMTools::compareStoreUrl('index.php', 'index.php?'.$idName.'=index'));
         $this->assertTrue(ZMTools::compareStoreUrl('index.php?'.$idName.'=', 'index.php?'.$idName.'=index'));
     }
@@ -76,7 +76,7 @@ class TestZMTools extends ZMTestCase {
      * Test compareStoreUrl some more.
      */
     public function testCmpStoreUrlSomeMore() {
-        $idName = Runtime::getSettings()->get('zenmagick.mvc.request.idName');
+        $idName = Runtime::getSettings()->get('zenmagick.http.request.idName');
         $this->assertFalse(ZMTools::compareStoreUrl('https://localhost/zen-cart/index.php?'.$idName.'=login', ''));
         $this->assertTrue(ZMTools::compareStoreUrl('https://localhost/zen-cart/index.php?'.$idName.'=login', ''.$idName.'=login'));
         $this->assertFalse(ZMTools::compareStoreUrl('https://localhost/zen-cart/index.php?'.$idName.'=wp', ''.$idName.'=login'));

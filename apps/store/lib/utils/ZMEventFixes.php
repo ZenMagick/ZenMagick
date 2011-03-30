@@ -82,7 +82,7 @@ class ZMEventFixes extends ZMObject {
         if (isset($_GET['conditions']) && 'checkout_confirmation' == $request->getRequestId()) { $_POST['conditions'] = 1; }
 
         // append again to make this the first one called to provide some useful default for zencart args
-        ZMSettings::append('zenmagick.mvc.request.seoRewriter', 'StoreDefaultSeoRewriter');
+        Runtime::getSettings()->add('zenmagick.http.request.urlRewriter', 'ZMStoreDefaultUrlRewriter');
 
         // TODO: do via admin and just load mapping from somewhere
         // sidebox blocks
@@ -279,7 +279,7 @@ class ZMEventFixes extends ZMObject {
     protected function sanitizeRequest($request) {
         $parameter = $request->getParameterMap(false);
 
-        $idName = Runtime::getSettings()->get('zenmagick.mvc.request.idName');
+        $idName = Runtime::getSettings()->get('zenmagick.http.request.idName');
         if (!isset($parameter[$idName]) || empty($parameter[$idName])) {
             $parameter[$idName] = 'index';
         }

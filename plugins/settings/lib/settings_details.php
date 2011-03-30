@@ -304,11 +304,6 @@
                         'desc' => 'Request id of login page.'
                     ),
                     array(
-                        'key' => 'seoRewriter',
-                        'type' => 'string',
-                        'desc' => 'List of SEO rewriter classes to use for SEO url generation.'
-                    ),
-                    array(
                         'key' => 'secure',
                         'type' => 'boolean',
                         'desc' => 'Are secure requests enabled.'
@@ -317,11 +312,6 @@
                         'key' => 'enforceSecure',
                         'type' => 'boolean',
                         'desc' => 'Are secure requests to be enforced. This will create redirects from http:// to https:// if a secure page is loaded via http://'
-                    ),
-                    array(
-                        'key' => 'allSecure',
-                        'type' => 'boolean',
-                        'desc' => 'Enforce all urls to be secure.'
                     )
                 ),
                 'session' => array(
@@ -329,13 +319,6 @@
                         'key' => 'userFactory',
                         'type' => 'string',
                         'desc' => 'Bean definition of a class that can create a session user object.'
-                    )
-                ),
-                'seo' => array(
-                    array(
-                        'key' => 'type',
-                        'type' => 'string',
-                        'desc' => 'Type of (seo) url format; either "default" or "path".'
                     )
                 ),
                 'transactions' => array(
@@ -388,6 +371,30 @@
                         'key' => 'defaultPagination',
                         'type' => 'int',
                         'desc' => 'Default results per page.'
+                    )
+                )
+            ),
+            'zenmagick.http' => array(
+                'request' => array(
+                    array(
+                        'key' => 'handler',
+                        'type' => 'string',
+                        'desc' => 'Name of the request handler (ie index.php).'
+                    ),
+                    array(
+                        'key' => 'urlRewriter',
+                        'type' => 'array',
+                        'desc' => 'List of rewriter classes to use for url generation.'
+                    ),
+                    array(
+                        'key' => 'allSecure',
+                        'type' => 'boolean',
+                        'desc' => 'Enforce all urls to be secure.'
+                    ),
+                    array(
+                        'key' => 'urlType',
+                        'type' => 'string',
+                        'desc' => 'Type of url format; either "default", "path" or "realpath".'
                     )
                 )
             ),

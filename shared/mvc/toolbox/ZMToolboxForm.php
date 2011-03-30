@@ -87,10 +87,10 @@ class ZMToolboxForm extends ZMToolboxTool {
         // parse params
         parse_str($params, $hidden);
         // set best requestId value
-        if (!isset($hidden[Runtime::getSettings()->get('zenmagick.mvc.request.idName')])) {
+        if (!isset($hidden[Runtime::getSettings()->get('zenmagick.http.request.idName')])) {
             $page = null === $page ? $this->getRequest()->getRequestId() : $page;
             if (null !== $page) {
-                $hidden[Runtime::getSettings()->get('zenmagick.mvc.request.idName')] = $page;
+                $hidden[Runtime::getSettings()->get('zenmagick.http.request.idName')] = $page;
             }
         }
 
