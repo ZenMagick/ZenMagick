@@ -43,7 +43,6 @@ class Container extends \Symfony\Component\DependencyInjection\ContainerBuilder 
     public function __construct(ParameterBagInterface $parameterBag=null) {
         parent::__construct($parameterBag);
         $this->services_ = array();
-        self::registerExtension(new ZenMagickExtension());
     }
 
     /**
