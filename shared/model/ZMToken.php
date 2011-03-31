@@ -26,12 +26,43 @@
  *
  * @author DerManoMann
  * @package zenmagick.store.shared.model
+ * @Table(name="token")
+ * @Entity
  */
 class ZMToken extends ZMObject {
-
     /**
-     * Create new instance.
+     * @var integer $hashId
+     *
+     * @Column(name="hash_id", type="integer", nullable=false)
+     * @Id
+     * @GeneratedValue(strategy="IDENTITY")
      */
+    private $hashId;
+    /**
+     * @var blob $hash
+     *
+     * @Column(name="hash", type="blob", nullable=false)
+     */
+    private $hash;
+    /**
+     * @var string $resource
+     *
+     * @Column(name="resource", type="string", length=128, nullable=false)
+     */
+    private $resource;
+    /**
+     * @var datetime $issued
+     *
+     * @Column(name="issued", type="datetime", nullable=false)
+     */
+    private $issued;
+    /**
+     * @var datetime $expires
+     *
+     * @Column(name="expires", type="datetime", nullable=false)
+     */
+    private $expires;
+
     function __construct() {
         parent::__construct();
     }
@@ -43,19 +74,80 @@ class ZMToken extends ZMObject {
         parent::__destruct();
     }
 
-
     /**
      * Get the id.
      *
-     * @return string The id.
+     * @return int $id The id.
      */
-    public function getId() { return $this->get('id'); }
+    public function getId() { return $this->hashId; }
+
+    // @todo deprecated doctrine backwards compatibility
+    public function getHashId() { return $this->getId(); }
+
+    /**
+     * Get hash
+     *
+     * @return string $hash
+     */
+    public function getHash() { return $this->hash; }
+
+    /**
+     * Get resource
+     *
+     * @return string $resource
+     */
+    public function getResource() { return $this->resource; }
+
+    /**
+     * Get issued
+     *
+     * @return datetime $issued
+     */
+    public function getIssued() { return $this->issued; }
+
+    /**
+     * Get expires
+     *
+     * @return datetime $expires
+     */
+    public function getExpires() { return $this->expires; }
 
     /**
      * Set the id.
      *
-     * @param string id The id.
+     * @deprecated 
+     * @param int $id The id.
      */
-    public function setId($id) { $this->set('id', $id); }
+    public function setId($id) { $this->hashId = $id; }
 
+    // @todo deprecated doctrine backwards compatibility
+    public function setHashId($id) { $this->setId($id); }
+
+    /**
+     * Set hash
+     *
+     * @param text $hash
+     */
+    public function setHash($hash) { $this->hash = $hash; }
+
+    /**
+     * Set resource
+     *
+     * @param string $resource
+     */
+    public function setResource($resource) { $this->resource = $resource; }
+
+    /**
+     * Set issued
+     *
+     * @param datetime $issued
+     */
+    public function setIssued($issued) { $this->issued = $issued; }
+
+    /**
+     * Set expires
+     *
+     * @param datetime $expires
+     */
+    public function setExpires($expires) { $this->expires = $expires; }
 }
