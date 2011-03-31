@@ -22,6 +22,7 @@
 namespace zenmagick\base\ioc;
 
 use zenmagick\base\ClassLoader;
+use zenmagick\base\ioc\extension\ZenMagickExtension;
 
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 

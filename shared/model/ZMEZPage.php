@@ -189,7 +189,23 @@ class ZMEZPage extends ZMObject {
     public function getTitle() { return $this->title; }
     public function getAltUrl() { return $this->altUrl; }
     public function getAltUrlExternal() { return $this->altUrlExternal; }
-    public function getHtmlText() { return $this->htmlText; }
+
+    /**
+     * Get the actual content.
+     *
+     * @param boolean php Optional flag to allow/disable PHP exection in the contents; default is <code>true</code>.
+     * @return string The page contents.
+     */
+    public function getHtmlText($php=true) {
+        $text = $this->htmlText;
+        if ($php) {
+            ob_start();
+            eval('?>'.$text);
+            $text = ob_get_clean();
+        }
+        return $text;
+    }
+
     public function isHeader() { return $this->header; }
     public function isSidebox() { return $this->sidebox; }
     public function isFooter() { return $this->footer; }
@@ -219,5 +235,4 @@ class ZMEZPage extends ZMObject {
     public function setNewWin($value) { $this->newWin = ZMLangUtils::asBoolean($value); }
     public function setSSL($value) { $this->ssl = ZMLangUtils::asBoolean($value); }
     public function setTocChapter($chapter) { $this->tocChapter = $chapter; }
-
 }

@@ -23,7 +23,7 @@
 ?>
 
 <?php echo $form->addProduct($currentProduct->getId(), 1) ?>
-  <div>  
+  <div>
     <div id="pinfo">
       <?php echo $html->productImageLink($currentProduct) ?>
       <?php echo $currentProduct->getDescription() ?>
@@ -34,7 +34,7 @@
   </div>
 </form>
 
-<?php echo $form->open(FILENAME_PRODUCT_REVIEWS_WRITE, 'productId=' . $currentProduct->getId(), true, array('id'=>'newReview')) ?>
+<?php echo $form->open(FILENAME_PRODUCT_REVIEWS_WRITE, 'productId=' . $currentProduct->getId().'&languageId='.$currentProduct->getLanguageId(), true, array('id'=>'newReview')) ?>
     <fieldset>
         <legend><?php _vzm("New Review") ?></legend>
         <p><?php _vzm("Choose a ranking for this item. 1 star is the worst and 5 stars is the best.") ?></p>

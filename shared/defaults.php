@@ -63,7 +63,7 @@
             'defaultAccessLevel' => null,
 
             // language support for ez-pages; this is API only, zen-cart does not use this
-            'isEZPagesLangSupport' => false,
+            'isEZPagesLangSupport' => true,
 
             // show products in Catalog Manager tree or not
             'admin.isShowCatalogTreeProducts' => true,

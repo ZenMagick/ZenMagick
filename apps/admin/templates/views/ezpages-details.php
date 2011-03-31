@@ -94,7 +94,7 @@
       $editor->setName('htmlText');
       $editor->setRows(30);
       $editor->setCols(100);
-      $editor->setValue($ezPage->getHtmlText());
+      $editor->setValue($ezPage->getHtmlText(false));
       echo $editor->render($request, $view);
      ?>
   </fieldset>

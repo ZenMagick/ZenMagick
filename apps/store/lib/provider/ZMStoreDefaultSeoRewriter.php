@@ -59,28 +59,14 @@ class ZMStoreDefaultSeoRewriter implements ZMSeoRewriter {
 
         if (null == $request) { $request = ZMRequest::instance(); }
 
-        $isAdmin = false;
-        if (ZMSettings::get('isAdmin')) {
-            // admin links!
-            $isAdmin = true;
-            //TODO: init!
-            if (empty($page)) {
-                if (!isset($PHP_SELF)) $PHP_SELF = $_SERVER['PHP_SELF'];
-                while (false !== strpos($PHP_SELF, '//')) $PHP_SELF = str_replace('//', '/', $PHP_SELF);
-                $page = $PHP_SELF;
-            } else {
-                $page = DIR_WS_ADMIN . $page;
-            }
-            $useContext = false;
-            $isStatic = true;
-        } else if (empty($page)) {
+        if (empty($page)) {
             throw new ZMException('missing page parameter');
         }
 
         // also do process all rewriters as here we have the full context incl. add. zencart parameters
         // if called directly (as done from the override zen_href_link function...)
         $rewriters = $request->getSeoRewriter();
-        if (!$isAdmin && $seo && 0 < count($rewriters)) {
+        if ($seo && 0 < count($rewriters)) {
             $rewrittenUrl = null;
             $args = array(
               'requestId' => $page,

@@ -64,4 +64,4 @@
     </div>
 <?php } ?>
 <h2><?php echo $html->encode($ezPage->getTitle()) ?></h2>
-<?php echo eval('?>'.$ezPage->getHTMLText()) ?>
+<?php echo $ezPage->getHTMLText() ?>
