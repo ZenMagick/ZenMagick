@@ -32,7 +32,7 @@ class ZMAjaxPluginAdminController extends ZMRpcController {
     /**
      * Install plugin.
      */
-    public function installPlugin($request) {
+    public function installPlugin($rpcRequest) {
         $pluginId = $rpcRequest->getData()->pluginId;
 
         $rpcResponse = $rpcRequest->createResponse();
@@ -61,7 +61,7 @@ class ZMAjaxPluginAdminController extends ZMRpcController {
     /**
      * Remove plugin.
      */
-    public function removePlugin($request) {
+    public function removePlugin($rpcRequest) {
         $pluginId = $rpcRequest->getData()->pluginId;
 
         $rpcResponse = $rpcRequest->createResponse();

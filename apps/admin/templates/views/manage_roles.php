@@ -19,41 +19,23 @@
  */
 ?>
 
-<script>
-  // add to roles list
-  function addRoleToList() {
-      var role = $('#newRole').val();
-      $('#manage_roles #mr_roles').append($("<option></option>").attr("value", role).text(ZenMagick.ucwords(role))); 
-  }
-
-  // select all roles!!
-  function fixSelect(form) {
-      $('#mr_roles option').attr('selected', 'selected');
-  }
-
-  // remove selected
-  function removeSelected() {
-    $('#mr_roles option:selected').each(function() {
-        $(this).remove();
-    });
-  }
-</script>
-
 <?php $admin2->title(_zm('Manage Roles')) ?>
-<form action="<?php echo $admin2->url() ?>" method="POST" id="manage_roles">
+<form action="<?php echo $admin2->url() ?>" method="POST" id="manage-roles-form">
   <fieldset>
     <p>
-      <strong><?php _vzm('SELECT ALL TO UPDATE') ?></strong>
-      <label for="mr_roles"><?php _vzm('Roles') ?></label>
-      <select name="roles[]" id="mr_roles" multiple>
+      <label for="roles"><?php _vzm('Roles') ?></label>
+      <select name="roles[]" id="roles" multiple size="5">
       <?php foreach ($roles as $role) { ?>
-        <option value="<?php echo $role ?>"><?php echo ucwords($role) ?></option>
+        <option value="<?php echo $role ?>"><?php echo $role ?></option>
       <?php } ?>
       </select>
-      <input class="<?php echo $buttonClasses ?>" type="submit" value="<?php _vzm("Update Roles (select roles to keep)") ?>">
-      <a class="<?php echo $buttonClasses ?>" href="#" onclick="removeSelected(); return false"><?php _vzm('Remove selected') ?></a>
+      <input class="<?php echo $buttonClasses ?>" type="submit" value="<?php _vzm('Remove selected') ?>">
     </p>
-    <p><label for="newRole"><?php _vzm('Add Role') ?></label> <input type="text" id="newRole" name="newRole" value=""> <input class="<?php echo $buttonClasses ?>" type="submit" value="<?php _vzm("Add Role") ?>" onclick="addRoleToList(); return false;"></p>
+  </fieldset>
+</form>
+<form action="<?php echo $admin2->url() ?>" method="POST" id="add-role-form">
+  <fieldset>
+    <p><label for="roleName"><?php _vzm('Add Role') ?></label> <input type="text" id="roleName" name="roleName" value=""> <input class="<?php echo $buttonClasses ?>" type="submit" value="<?php _vzm("Add Role") ?>"></p>
   </fieldset>
 </form>
 
@@ -61,7 +43,7 @@
   <tr>
     <th><?php _vzm('Request Id') ?></th>
     <?php foreach ($roles as $role) { ?>
-    <th><?php echo ucwords($role) ?></th>
+    <th><?php echo $role ?></th>
     <?php } ?>
   </tr>
   <?php foreach ($mappings as $requestId => $mapping) { if (!is_array($mapping['roles'])) { $mapping = $defaultMapping; } ?>
@@ -73,3 +55,43 @@
     </tr>
   <?php } ?>
 </table>
+
+<script>
+$('#add-role-form').submit(function() {
+  var roleName = $('#roleName').val();
+  var data = '{"roleName":"'+roleName+'"}';
+  ZenMagick.rpc('sacs_admin', 'addRole', data, {
+      success: function(result) {
+          $('#manage-roles-form #roles').append($("<option></option>").attr("value", roleName).text(roleName));
+      },
+      failure: function(error) {
+          for (var ii in error.data.messages.error) {
+            var msg = error.data.messages.error[ii];
+            alert(msg);
+          }
+      }
+  });
+  return false;
+});
+$('#manage-roles-form').submit(function() {
+  var removeRoles = [];
+  $('#roles option:selected').each(function() {
+      removeRoles.push($(this).text());
+  });
+  var data = '{"roles":["'+removeRoles.join('", "')+'"]}';
+  ZenMagick.rpc('sacs_admin', 'removeRoles', data, {
+      success: function(result) {
+        $('#roles option:selected').each(function() {
+            $(this).remove();
+        });
+      },
+      failure: function(error) {
+          for (var ii in error.data.messages.error) {
+            var msg = error.data.messages.error[ii];
+            alert(msg);
+          }
+      }
+  });
+  return false;
+});
+</script>
