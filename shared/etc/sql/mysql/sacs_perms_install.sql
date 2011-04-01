@@ -10,4 +10,4 @@ CREATE TABLE sacs_permissions (
   name varchar(32) NOT NULL,
   PRIMARY KEY (sacs_permission_id),
   UNIQUE(rid, type, name)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;

@@ -11,4 +11,4 @@ CREATE TABLE admin_prefs (
   PRIMARY KEY (admin_pref_id),
   UNIQUE(admin_id, name),
   FOREIGN KEY (admin_id) REFERENCES admin (admin_id) ON DELETE CASCADE
-) TYPE=MyISAM;
+) ENGINE=MyISAM;

@@ -10,4 +10,4 @@ CREATE TABLE token (
   issued datetime NOT NULL,
   expires datetime NOT NULL,
   PRIMARY KEY (hash_id)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
