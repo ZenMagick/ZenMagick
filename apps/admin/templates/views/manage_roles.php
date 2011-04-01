@@ -24,12 +24,13 @@
   <fieldset>
     <p>
       <label for="roles"><?php _vzm('Roles') ?></label>
-      <select name="roles[]" id="roles" multiple size="5">
+      <select name="roles[]" id="roles" multiple size="3">
       <?php foreach ($roles as $role) { ?>
         <option value="<?php echo $role ?>"><?php echo $role ?></option>
       <?php } ?>
       </select>
-      <input class="<?php echo $buttonClasses ?>" type="submit" value="<?php _vzm('Remove selected') ?>">
+      <a id="edit-role" class="<?php echo $buttonClasses ?>" href="#"><?php _vzm('Edit permissions') ?></a>
+      <input id="remove-roles" class="<?php echo $buttonClasses ?>" type="submit" value="<?php _vzm('Remove selected') ?>">
     </p>
   </fieldset>
 </form>
@@ -63,6 +64,7 @@ $('#add-role-form').submit(function() {
   ZenMagick.rpc('sacs_admin', 'addRole', data, {
       success: function(result) {
           $('#manage-roles-form #roles').append($("<option></option>").attr("value", roleName).text(roleName));
+          //TODO: select
       },
       failure: function(error) {
           for (var ii in error.data.messages.error) {
@@ -73,7 +75,7 @@ $('#add-role-form').submit(function() {
   });
   return false;
 });
-$('#manage-roles-form').submit(function() {
+$('#remove-roles').click(function() {
   var removeRoles = [];
   $('#roles option:selected').each(function() {
       removeRoles.push($(this).text());
@@ -92,6 +94,16 @@ $('#manage-roles-form').submit(function() {
           }
       }
   });
+  return false;
+});
+$('#edit-role').click(function() {
+  var roles = [];
+  $('#roles option:selected').each(function() {
+      roles.push($(this).text());
+  });
+  if (0 < roles.length) {
+      window.open('<?php echo $admin2->url() ?>?role='+roles.pop(), '_self');
+  }
   return false;
 });
 </script>
