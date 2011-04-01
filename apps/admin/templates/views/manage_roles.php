@@ -40,23 +40,6 @@
   </fieldset>
 </form>
 
-<table>
-  <tr>
-    <th><?php _vzm('Request Id') ?></th>
-    <?php foreach ($roles as $role) { ?>
-    <th><?php echo $role ?></th>
-    <?php } ?>
-  </tr>
-  <?php foreach ($mappings as $requestId => $mapping) { if (!is_array($mapping['roles'])) { $mapping = $defaultMapping; } ?>
-    <tr>
-      <td><?php echo $requestId ?></td>
-      <?php foreach ($roles as $role) { ?>
-        <td><?php echo (in_array($role, $mapping['roles']) ? _zm('Yup') : _zm('Nope')) ?></td>
-      <?php } ?>
-    </tr>
-  <?php } ?>
-</table>
-
 <script>
 $('#add-role-form').submit(function() {
   var roleName = $('#roleName').val();
@@ -102,7 +85,8 @@ $('#edit-role').click(function() {
       roles.push($(this).text());
   });
   if (0 < roles.length) {
-      window.open('<?php echo $admin2->url() ?>?role='+roles.pop(), '_self');
+      var role = roles.pop();
+      ZenMagick.ajaxFormDialog('<?php echo $admin2->url('edit_role') ?>&role='+role, {title:'<?php echo _zm('Edit role permissions: ') ?>'+role, formId: 'ajax-form'});
   }
   return false;
 });
