@@ -18,15 +18,22 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 ?>
-<?php
 
-if (!function_exists('zen_href_link_stock')) {
-    /**
-     * This is the name of the renamed zen_href_link function in a vanilla USEO3 installation.
-     */
-    function zen_href_link_stock($page='', $params='', $connection='NONSSL', $add_session_id=true, $seo_safe=true, $static=false, $use_dir_ws_catalog=true) {
-        return ZMStoreDefaultUrlRewriter::furl($page, $params, $connection, $add_session_id, false, $static, $use_dir_ws_catalog);
-    }
-}
+<form id="ajax-form" action="<?php echo $admin2->url() ?>" method="POST">
+  <input type="hidden" name="role" value="<?php echo $role ?>">
 
-?>
+  <table class="grid">
+    <tr>
+      <th><?php _vzm('Page') ?></th>
+      <th><?php _vzm('Permission') ?></th>
+    </tr>
+    <?php foreach ($permissions as $requestId => $info) { ?>
+      <tr>
+        <td><?php echo $requestId ?></td>
+        <td><?php if ('*' !== $info['match']) { echo '<input type="checkbox" name="perm[]" value="'.$requestId.'"'.($info['allowed'] ? ' checked':'').'>'; } else { _vzm('always (%s)', $info['type']); } ?></td>
+      </tr>
+    <?php } ?>
+  </table>
+
+  <p><input class="<?php echo $buttonClasses ?>" type="submit" value="<?php _vzm("Update") ?>"></p>
+</form>

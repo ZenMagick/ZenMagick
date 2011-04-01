@@ -74,7 +74,7 @@ class ZMAccountForm extends ZMFormData {
 
         // TODO: see comment in c'tor
         // don't need these
-        foreach (array(Runtime::getSettings()->get('zenmagick.mvc.request.idName'), 'formId', 'action') as $name) {
+        foreach (array(Runtime::getSettings()->get('zenmagick.http.request.idName'), 'formId', 'action') as $name) {
             unset($properties[$name]);
         }
 

@@ -19,15 +19,17 @@
  */
 ?>
 <?php
+namespace zenmagick\http\request\rewriter;
 
+use zenmagick\base\Runtime;
 
 /**
- * Default SEO rewriter.
+ * Default URL rewriter.
  *
  * @author DerManoMann
- * @package org.zenmagick.mvc.seo
+ * @package zenmagick.http.request.rewriter
  */
-class ZMDefaultSeoRewriter implements ZMSeoRewriter {
+class DefaultUrlRewriter implements UrlRewriter {
     private $requestIdKey_;
     private static $methodList_ = array(
         'default' => array('decode' => null, 'rewrite' => 'rewriteDefault'),
@@ -43,10 +45,10 @@ class ZMDefaultSeoRewriter implements ZMSeoRewriter {
      * Create new instance.
      */
     public function __construct() {
-        $this->index_ = ZMSettings::get('zenmagick.mvc.request.index', 'index.php');
+        $this->index_ = Runtime::getSettings()->get('zenmagick.http.request.handler', 'index.php');
         // resolve once only
-        $this->requestIdKey_ = ZMSettings::get('zenmagick.mvc.request.idName', ZMRequest::DEFAULT_REQUEST_ID);
-        $type = ZMSettings::get('zenmagick.mvc.seo.type', 'default');
+        $this->requestIdKey_ = Runtime::getSettings()->get('zenmagick.http.request.idName', \ZMRequest::DEFAULT_REQUEST_ID);
+        $type = Runtime::getSettings()->get('zenmagick.http.request.urlType', 'default');
         if (!array_key_exists($type, self::$methodList_)) {
             $type = 'default';
         }
@@ -83,7 +85,7 @@ class ZMDefaultSeoRewriter implements ZMSeoRewriter {
     public function rewrite($request, $args) {
         $requestId = $args['requestId'];
         $params = $args['params'];
-        $secure = ZMSettings::get('zenmagick.mvc.request.allSecure') ? true : $args['secure'];
+        $secure = Runtime::getSettings()->get('zenmagick.http.request.allSecure') ? true : $args['secure'];
 
         if (null != ($method = $this->methods_['rewrite'])) {
             return $this->$method($request, $requestId, $params, $secure);
@@ -154,9 +156,9 @@ class ZMDefaultSeoRewriter implements ZMSeoRewriter {
     protected function rewritePath($request, $requestId, $params, $secure) {
         $url = $this->pathBase_.$requestId;
         parse_str($params, $parr);
-        
+
         foreach ($parr as $key => $value) {
-            $url .= '/'.ZMNetUtils::encode($key).'/'.ZMNetUtils::encode($value);
+            $url .= '/'.\ZMNetUtils::encode($key).'/'.\ZMNetUtils::encode($value);
         }
 
         return $request->absoluteURL($url, false, $secure);

@@ -80,6 +80,9 @@ class ZMAdminUserRoles extends ZMObject {
 
     /**
      * Delete a role.
+     *
+     * @param string name The role to delete.
+     * @return boolean <code>true</code> on success.
      */
     public function deleteRole($name) {
         $allRolesLookup = array_flip($this->getAllRoles());
@@ -89,6 +92,7 @@ class ZMAdminUserRoles extends ZMObject {
                 WHERE admin_role_id = :admin_role_id";
         ZMRuntime::getDatabase()->update($sql, array('admin_role_id' => $roleId), ZM_TABLE_ADMINS_TO_ROLES);
         ZMRuntime::getDatabase()->removeModel(ZM_TABLE_ADMIN_ROLES, array('admin_role_id' => $roleId));
+        return true;
     }
 
     /**

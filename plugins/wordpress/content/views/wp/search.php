@@ -28,7 +28,7 @@
   <h2 style="text-align:left;">No posts found. Try a different search?</h2>
   <form method="get" id="searchform" action="">
       <div>
-          <input type="hidden" value="<?php echo FILENAME_WP ?>" name="<?php echo zenmagick\base\Runtime::getSettings()->get('zenmagick.mvc.request.idName'); ?>">
+          <input type="hidden" value="<?php echo FILENAME_WP ?>" name="<?php echo zenmagick\base\Runtime::getSettings()->get('zenmagick.http.request.idName'); ?>">
           <input type="text" value="<?php the_search_query(); ?>" name="s" id="s">
           <input type="submit" id="searchsubmit" value="Search">
       </div>

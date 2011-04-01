@@ -61,9 +61,7 @@ zenmagick:
   mvc:
     ## request
     request:
-      idName: main_page
       missingPage: error
-      seoRewriter: ZMStoreDefaultSeoRewriter
 
     ## html
     html:
@@ -96,8 +94,11 @@ zenmagick:
   http:
     ## request
     request:
+      idName: main_page
       invalidSession: cookie_usage
       login: login
+      urlRewriter: 
+        - ZMStoreDefaultUrlRewriter
     ## sacs
     sacs:
       handler:

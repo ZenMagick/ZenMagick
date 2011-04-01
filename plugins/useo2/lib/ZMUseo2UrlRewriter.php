@@ -20,13 +20,15 @@
 ?>
 <?php
 
+use zenmagick\http\request\rewriter\UrlRewriter;
+
 /**
  * USEO2 rewriter.
  *
  * @package org.zenmagick.plugins.useo2
  * @author mano
  */
-class ZMUseo2SeoRewriter implements ZMSeoRewriter {
+class ZMUseo2UrlRewriter implements UrlRewriter {
 
     /**
      * {@inheritDoc}
@@ -51,7 +53,7 @@ class ZMUseo2SeoRewriter implements ZMSeoRewriter {
         if ((SEO_URLS_ONLY_IN != "" && !in_array($requestId, $sefu)) || (null != ZMSettings::get('plugins.useo2.seoEnabled') && !ZMLangUtils::inArray($requestId, ZMSettings::get('plugins.useo2.seoEnabled')))) {
             return null;
         }
-        
+
         if (!isset($GLOBALS['seo_urls']) || !is_object($GLOBALS['seo_urls'])) {
             $GLOBALS['seo_urls'] = new SEO_URL($_SESSION['languages_id']);
         }

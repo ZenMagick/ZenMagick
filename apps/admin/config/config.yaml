@@ -71,11 +71,6 @@ zenmagick:
     request:
       index: index.php
       missingPage: error
-      seoRewriter: ZMDefaultSeoRewriter
-
-    ## seo
-    seo:
-      type: default
 
     ## html
     html:
@@ -107,6 +102,10 @@ zenmagick:
     request:
       invalidSession: login
       login: login
+      urlRewriter: 
+        - zenmagick\http\request\rewriter\DefaultUrlRewriter
+      urlType: default
+
     ## sacs
     sacs:
       handler:

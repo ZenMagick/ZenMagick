@@ -49,8 +49,8 @@ class BootstrapListener {
     public function onInitRequest($event) {
         $request = $event->get('request');
         // adjust front controller parameter
-        if ($request->getFrontController() != Runtime::getSettings()->get('zenmagick.mvc.request.index')) {
-             Runtime::getSettings()->set('zenmagick.mvc.request.index', $request->getFrontController());
+        if ($request->getFrontController() != Runtime::getSettings()->get('zenmagick.http.request.handler')) {
+             Runtime::getSettings()->set('zenmagick.http.request.handler', $request->getFrontController());
         }
 
     }

@@ -19,15 +19,16 @@
  */
 ?>
 <?php
+namespace zenmagick\http\request\rewriter;
 
 
 /**
  * Interface for classes that want to rewrite urls.
  *
  * @author DerManoMann
- * @package org.zenmagick.mvc.seo
+ * @package zenmagick.http.request.rewriter
  */
-interface ZMSeoRewriter {
+interface UrlRewriter {
 
     /**
      * Decode a given request if this rewriter can decode it.

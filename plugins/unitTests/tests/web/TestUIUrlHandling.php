@@ -38,7 +38,7 @@ class TestUIUrlHandling extends ZMTestCase {
         $this->assertEqual($expected, $href);
 
         $href = zen_href_link(FILENAME_DEFAULT);
-        $expected = HTTP_SERVER . DIR_WS_HTTPS_CATALOG . 'index.php?'.zenmagick\base\Runtime::getSettings()->get('zenmagick.mvc.request.idName').'=index';
+        $expected = HTTP_SERVER . DIR_WS_HTTPS_CATALOG . 'index.php?'.zenmagick\base\Runtime::getSettings()->get('zenmagick.http.request.idName').'=index';
         $this->assertEqual($expected, $href);
     }
 
@@ -70,7 +70,7 @@ class TestUIUrlHandling extends ZMTestCase {
      */
     public function testZenCartHref2() {
         $href = zen_href_link(FILENAME_PRODUCT_INFO, '&products_id=1', 'SSL', false, true, false, true);
-        $expected = HTTPS_SERVER . DIR_WS_HTTPS_CATALOG . 'index.php?'.zenmagick\base\Runtime::getSettings()->get('zenmagick.mvc.request.idName').'=product_info&amp;products_id=1';
+        $expected = HTTPS_SERVER . DIR_WS_HTTPS_CATALOG . 'index.php?'.zenmagick\base\Runtime::getSettings()->get('zenmagick.http.request.idName').'=product_info&amp;products_id=1';
         $this->assertEqual($expected, $href);
     }
 

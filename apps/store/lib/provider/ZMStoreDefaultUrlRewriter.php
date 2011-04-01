@@ -24,6 +24,7 @@
 <?php
 
 use zenmagick\base\Runtime;
+use zenmagick\http\request\rewriter\UrlRewriter;
 
 /**
  * Default rewriter implementing the original zencart URL scheme.
@@ -31,7 +32,7 @@ use zenmagick\base\Runtime;
  * @author DerManoMann
  * @package zenmagick.store.sf.provider
  */
-class ZMStoreDefaultSeoRewriter implements ZMSeoRewriter {
+class ZMStoreDefaultUrlRewriter implements UrlRewriter {
 
     /**
      * {@inheritDoc}
@@ -44,8 +45,8 @@ class ZMStoreDefaultSeoRewriter implements ZMSeoRewriter {
      * {@inheritDoc}
      */
     public function rewrite($request, $args) {
-        $secure = ZMSettings::get('zenmagick.mvc.request.allSecure') ? true : $args['secure'];
-        // allow seo here to be able to provide the full set of parameters to SEO plugins
+        $secure = ZMSettings::get('zenmagick.http.request.allSecure') ? true : $args['secure'];
+        // provide the full set of parameters to SEO plugins
         // this means that in practice this will be the only rewriter called...
         return self::furl($args['requestId'], $args['params'], $secure ? 'SSL' : 'NONSSL', true, true, false, true, $request);
     }
@@ -65,7 +66,7 @@ class ZMStoreDefaultSeoRewriter implements ZMSeoRewriter {
 
         // also do process all rewriters as here we have the full context incl. add. zencart parameters
         // if called directly (as done from the override zen_href_link function...)
-        $rewriters = $request->getSeoRewriter();
+        $rewriters = $request->getUrlRewriter();
         if ($seo && 0 < count($rewriters)) {
             $rewrittenUrl = null;
             $args = array(
@@ -77,7 +78,7 @@ class ZMStoreDefaultSeoRewriter implements ZMSeoRewriter {
               'useContext' => $useContext
             );
             foreach ($rewriters as $rewriter) {
-                if ($rewriter instanceof ZMStoreDefaultSeoRewriter) {
+                if ($rewriter instanceof ZMStoreDefaultUrlRewriter) {
                     // ignore self
                     continue;
                 }
@@ -107,7 +108,7 @@ class ZMStoreDefaultSeoRewriter implements ZMSeoRewriter {
             $path .= $page;
         } else {
             $path .= 'index.php';
-            $query .= Runtime::getSettings()->get('zenmagick.mvc.request.idName') . '=' . $page;
+            $query .= Runtime::getSettings()->get('zenmagick.http.request.idName') . '=' . $page;
         }
 
         if (!empty($params)) {

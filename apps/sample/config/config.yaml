@@ -6,8 +6,6 @@ zenmagick:
   mvc:
     templates:
       ext: .tpl
-    seo:
-      type: realpath
 
   core:
     locales:
@@ -18,6 +16,10 @@ zenmagick:
       listeners:
         - zenmagick\http\BootstrapListener
         - ZMSampleEventHandler
+
+  http:
+    request:
+      urlType: realpath
 
 # database configuration settings
 # @todo allow symbolic names for the fully qualified classes mentioned here?

@@ -28,7 +28,7 @@
      * and as second parameter a complete map of query parameters.</p>
      *
      * @package org.zenmagick.plugins.zm_pretty_links
-     * @param string view The view name (ie. the page name as referred to by the parameter <code>Runtime::getSettings()->get('zenmagick.mvc.request.idName')</code>)
+     * @param string view The view name (ie. the page name as referred to by the parameter <code>Runtime::getSettings()->get('zenmagick.http.request.idName')</code>)
      * @param mixed convert Function converting the view name to a pretty link; default is <code>null</code>
      *  which will be interpreted as using the view name.
      * @param array params List of query parameters to append as part of the pretty link.

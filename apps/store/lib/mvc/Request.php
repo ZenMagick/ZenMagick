@@ -72,7 +72,7 @@ class Request extends \ZMRequest {
         if (null == $requestId || null === $params) {
             // if requestId null, keep current and also current params
             $query = $this->getParameterMap();
-            unset($query[\ZMSettings::get('zenmagick.mvc.request.idName', \ZMRequest::DEFAULT_REQUEST_ID)]);
+            unset($query[\ZMSettings::get('zenmagick.http.request.idName', \ZMRequest::DEFAULT_REQUEST_ID)]);
             unset($query[$this->getSession()->getName()]);
             if (null != $params) {
                 parse_str($params, $arr);
@@ -95,9 +95,9 @@ class Request extends \ZMRequest {
         // default to current requestId
         $requestId = $requestId === null ? $this->getRequestId() : $requestId;
 
-        // delegate generation to SEO rewriters
+        // delegate generation to Url rewriters
         $args = array('requestId' => $requestId, 'params' => $params, 'secure' => $secure);
-        foreach ($this->getSeoRewriter() as $rewriter) {
+        foreach ($this->getUrlRewriter() as $rewriter) {
             if (null != ($rewrittenUrl = $rewriter->rewrite($this, $args))) {
                 return $rewrittenUrl;
             }
@@ -111,7 +111,7 @@ class Request extends \ZMRequest {
      * {@inheritDoc}
      */
     public function getRequestId() {
-        return $this->getParameter(Runtime::getSettings()->get('zenmagick.mvc.request.idName'));
+        return $this->getParameter(Runtime::getSettings()->get('zenmagick.http.request.idName'));
     }
 
     /**
@@ -119,7 +119,7 @@ class Request extends \ZMRequest {
      */
     public function setRequestId($requestId) {
         parent::setRequestId($requestId);
-        $this->setParameter(Runtime::getSettings()->get('zenmagick.mvc.request.idName'), $requestId);
+        $this->setParameter(Runtime::getSettings()->get('zenmagick.http.request.idName'), $requestId);
     }
 
     /**

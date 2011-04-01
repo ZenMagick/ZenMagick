@@ -32,7 +32,7 @@ use zenmagick\http\sacs\SacsManager;
     Runtime::getEventDispatcher()->notify(new Event(null, 'init_request',  array('request' => $_zm_request)));
 
     // allow seo rewriters to fiddle with the request
-    $_zm_request->seoDecode();
+    $_zm_request->urlDecode();
 
     // make sure we use the appropriate protocol (HTTPS, for example) if required
     SacsManager::instance()->ensureAccessMethod($_zm_request);

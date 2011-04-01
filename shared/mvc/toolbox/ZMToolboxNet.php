@@ -116,8 +116,8 @@ class ZMToolboxNet extends ZMToolboxTool {
         if (!ZMLangUtils::isEmpty($page->getAltUrl())) {
             $url = parse_url($page->getAltUrl());
             parse_str($url['query'], $query);
-            $view = $query[Runtime::getSettings()->get('zenmagick.mvc.request.idName')];
-            unset($query[Runtime::getSettings()->get('zenmagick.mvc.request.idName')]);
+            $view = $query[Runtime::getSettings()->get('zenmagick.http.request.idName')];
+            unset($query[Runtime::getSettings()->get('zenmagick.http.request.idName')]);
             $params = '';
             foreach ($query as $name => $value) {
                 $params .= "&".$name."=".$value;
