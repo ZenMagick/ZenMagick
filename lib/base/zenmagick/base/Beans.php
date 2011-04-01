@@ -218,7 +218,7 @@ class Beans {
             $properties = array();
         }
 
-        if ($isRef && null != ($ref = Application::singleton($tokens[0]))) {
+        if ($isRef && null != ($ref = Runtime::getContainer()->getService($tokens[0]))) {
             self::setAll($ref, $properties);
             return $ref;
         }
