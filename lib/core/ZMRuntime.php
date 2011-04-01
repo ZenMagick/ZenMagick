@@ -32,24 +32,11 @@ use zenmagick\base\Runtime;
  * @package org.zenmagick.core
  */
 class ZMRuntime {
-    private static $singletons_ = array();
     private static $databaseMap_ = array();
     private static $entityManagerMap_ = array();
     private static $context_ = null;
     private static $yaml_ = null;
 
-
-    /**
-     * Get a singleton instance of the named class.
-     *
-     * @param string name The class name.
-     * @param string instance If set, register the given object, unless the name is already taken.
-     * @param boolean force Optional flag to force replacement.
-     * @return mixed A singleton object.
-     */
-    public static function singleton($name, $instance=null, $force=false) {
-        return Runtime::singleton($name, $instance, $force);
-    }
 
     /**
      * Get the database (provider).
