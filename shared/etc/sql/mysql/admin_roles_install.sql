@@ -8,7 +8,7 @@ CREATE TABLE admin_roles (
   name varchar(32) NOT NULL,
   PRIMARY KEY (admin_role_id),
   UNIQUE (name)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 DROP TABLE IF EXISTS admins_to_roles;
 CREATE TABLE admins_to_roles (
@@ -17,7 +17,7 @@ CREATE TABLE admins_to_roles (
   PRIMARY KEY (admin_id, admin_role_id),
   FOREIGN KEY (admin_role_id) REFERENCES admin_roles (admin_role_id) ON DELETE CASCADE,
   FOREIGN KEY (admin_id) REFERENCES admin (admin_id) ON DELETE CASCADE
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 ## create default mapping for main admin
 INSERT INTO admin_roles VALUES(1, 'admin');

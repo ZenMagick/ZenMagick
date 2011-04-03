@@ -9,7 +9,7 @@ CREATE TABLE block_groups (
   description text,
   PRIMARY KEY (block_group_id),
   UNIQUE(group_name)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 DROP TABLE IF EXISTS blocks_to_groups;
 CREATE TABLE blocks_to_groups (
@@ -21,7 +21,7 @@ CREATE TABLE blocks_to_groups (
   format varchar(64),
   PRIMARY KEY (blocks_to_groups_id),
   FOREIGN KEY (block_group_id) REFERENCES block_groups (block_group_id) ON DELETE CASCADE
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 DROP TABLE IF EXISTS block_config;
 CREATE TABLE block_config (
@@ -31,4 +31,4 @@ CREATE TABLE block_config (
   definition text,
   PRIMARY KEY (block_config_id),
   FOREIGN KEY (blocks_to_groups_id) REFERENCES blocks_to_groups (blocks_to_groups_id) ON DELETE CASCADE
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
