@@ -233,14 +233,15 @@ ZMLoader::instance()->setParent($themeLoader);
      */
     private function getZCThemeDirList() {
         $themes = array();
-        $handle = @opendir(ZMFileUtils::mkPath(DIR_FS_CATALOG, 'includes', 'templates'));
-        while (false !== ($file = readdir($handle))) {
-            if (ZMLangUtils::startsWith($file, '.')) {
-                continue;
+        if (false !== ($handle = @opendir(ZMFileUtils::mkPath(DIR_FS_CATALOG, 'includes', 'templates')))) {
+            while (false !== ($file = readdir($handle))) {
+                if (ZMLangUtils::startsWith($file, '.')) {
+                    continue;
+                }
+                array_push($themes, $file);
             }
-            array_push($themes, $file);
+            @closedir($handle);
         }
-        @closedir($handle);
         return $themes;
     }
 
