@@ -1,4 +1,4 @@
 imports:
     - { resource: config.yaml }
     - { resource: ../../../config/store-config.yaml }
-    - { resource: ../../../config/admin/config_production.yaml, mode: append }
+    - { resource: ../../../config/store/config_production.yaml, mode: append }
