@@ -174,7 +174,6 @@ class Beans {
      */
     public static function map2obj($clazz, $data, $keys=null) {
         if (null != ($obj = Runtime::getContainer()->get($clazz, Container::NULL_ON_INVALID_REFERENCE))) {
-            $obj = new $clazz();
             self::setAll($obj, $data, $keys);
             return $obj;
         }
