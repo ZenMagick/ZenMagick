@@ -20,11 +20,12 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 
 /**
  * <p>A editor select form widget.</p>
  *
- * <p>This widget will append a list of all available editors to the options list. That
+ * <p>This widget will add a list of all available editors to the options list. That
  * means the generic <em>options</em> propert may be used to set custom options that will show
  * up at the top of the list.</p>
  *
@@ -54,8 +55,7 @@ class ZMEditorSelectFormWidget extends ZMSelectFormWidget {
      */
     public static function getEditorMap() {
         $map = array('plain' => 'Plain');
-        $tokens = explode(',', ZMSettings::get('editorList'));
-        foreach ($tokens as $token) {
+        foreach (Runtime::getSettings()->get('editorList') as $token) {
             $nc = explode(':', $token);
             $map[$nc[1]] = $nc[0];
         }
