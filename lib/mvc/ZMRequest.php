@@ -268,7 +268,7 @@ class ZMRequest extends \ZMObject {
      */
     public function getSession() {
         if (!isset($this->session_)) {
-            $this->session_ = \ZMBeanUtils::getBean("ZMSession");
+            $this->session_ = \ZMBeanUtils::getBean("Session");
         }
 
         return $this->session_;
