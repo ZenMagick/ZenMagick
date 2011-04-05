@@ -31,6 +31,9 @@ use zenmagick\http\sacs\SacsManager;
     // tell everyone interested that we have a request
     Runtime::getEventDispatcher()->notify(new Event(null, 'init_request',  array('request' => $_zm_request)));
 
+    // freeze container
+    Runtime::getContainer()->compile();
+
     // allow seo rewriters to fiddle with the request
     $_zm_request->urlDecode();
 
