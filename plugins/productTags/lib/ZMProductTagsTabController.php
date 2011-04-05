@@ -43,7 +43,7 @@ class ZMProductTagsTabController extends ZMCatalogContentController {
     public function getViewData($request) {
         $languageId = $request->getSelectedLanguage()->getId();
         return array(
-            'productTags' => ZMTags::instance()->getTagsForProductId($request->getProductId(), $languageId),
+            'currentProductTags' => ZMTags::instance()->getTagsForProductId($request->getProductId(), $languageId),
             'allTags' => ZMTags::instance()->getAllTags($languageId)
         );
     }
@@ -53,10 +53,10 @@ class ZMProductTagsTabController extends ZMCatalogContentController {
      */
     public function processPost($request) {
         $productId = $request->getProductId();
-        if (0 < $productId && null != ($productTags = $request->getParameter('productTags'))) {
+        if (0 < $productId && null != ($currentProductTags = $request->getParameter('currentProductTags'))) {
             $languageId = $request->getSelectedLanguage()->getId();
             $tags = array();
-            foreach (explode(',', $productTags) as $tag) {
+            foreach (explode(',', $currentProductTags) as $tag) {
                 $tag = trim($tag);
                 if (!empty($tag)) {
                     // avoid duplicates...
