@@ -20,6 +20,8 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
+use zenmagick\base\ioc\loader\YamlLoader;
 
 /**
  * A theme.
@@ -318,6 +320,13 @@ class ZMTheme extends ZMObject {
         if ($themeSettings && is_array($themeSettings)) {
             // merge
             ZMSettings::addAll($themeSettings, true);
+        }
+
+        // add optional container config
+        $containerSettings = $this->getConfig('container');
+        if ($containerSettings && is_array($containerSettings)) {
+            $containerYamlLoader = new YamlLoader(Runtime::getContainer(), dirname($this->getBaseDir()));
+            $containerYamlLoader->load($containerSettings);
         }
     }
 
