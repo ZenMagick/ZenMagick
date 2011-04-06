@@ -30,44 +30,236 @@ use zenmagick\base\Runtime;
  *
  * @author DerManoMann
  * @package zenmagick.store.shared.model.catalog
+ * @Table(name="products")
+ * @Entity
  */
 class ZMProduct extends ZMObject {
-    var $name_;
-    var $description_;
-    var $status_;
-    var $model_;
-    var $image_;
-    var $url_;
-    var $dateAvailable_;
-    var $dateAdded_;
-    var $manufacturerId_;
-    var $weight_;
-    var $quantity_;
-    var $isQtyMixed_;
-    var $qtyBoxStatus_;
-    var $qtyOrderMin_;
-    var $qtyOrderMax_;
-    var $qtyOrderUnits_;
-    var $isFree_;
-    var $isAlwaysFreeShipping_;
-    var $isCall_;
-    var $isVirtual_;
-    var $taxClassId_;
-    var $discountType_;
-    var $discountTypeFrom_;
-    var $priceSorter_;
-    var $pricedByAttributes_;
-    var $masterCategoryId_;
-    var $sortOrder_;
-    private $languageId_;
+    /**
+     * @var integer $productId
+     * @Column(name="products_id", type="integer", nullable=false)
+     * @Id
+     * @GeneratedValue
+     */
+    private $productId;
+    /**
+     * @var integer $type
+     *
+     * @Column(name="products_type", type="integer", nullable=false)
+     */
+    private $type;
+    /**
+     * @var boolean $status
+     *
+     * @Column(name="products_status", type="boolean", nullable=false)
+     */
+    private $status;
+    /**
+     * @var string $model
+     *
+     * @Column(name="products_model", type="string", length=32, nullable=true)
+     */
+    private $model;
+    /**
+     * @var string $image
+     *
+     * @Column(name="products_image", type="string", length=64, nullable=true)
+     */
+    private $image;
+    /**
+     * @var datetime $dateAvailable
+     *
+     * @Column(name="products_date_available", type="datetime", nullable=true)
+     */
+    private $dateAvailable;
+    /**
+     * @var datetime $dateAdded
+     *
+     * @Column(name="products_date_added", type="datetime", nullable=false)
+     */
+    private $dateAdded;
+    /**
+     * @var datetime $lastModified
+     *
+     * @Column(name="products_last_modified", type="datetime", nullable=true)
+     */
+    private $lastModified;
+    /**
+     * @var integer $manufacturerId
+     *
+     * @Column(name="manufacturers_id", type="integer", nullable=true)
+     */
+    private $manufacturerId;
+    /**
+     * @var float $weight
+     *
+     * @Column(name="products_weight", type="float", nullable=false)
+     */
+    private $weight;
+    /**
+     * @var float $quantity
+     *
+     * @Column(name="products_quantity", type="float", nullable=false)
+     */
+    private $quantity;
+    /**
+     * @var int $ordered
+     *
+     * @todo a product shouldn't keep count of how
+     *       many times it has been ordered REMOVE!
+     * @Column(name="products_ordered", type="float", nullable=false)
+     */
+    private $ordered;
+    /**
+     * @var boolean $qtyMixed
+     *
+     * @Column(name="products_quantity_mixed", type="boolean", nullable=false)
+     */
+    private $qtyMixed;
+    /**
+     * @var boolean $qtyBoxStatus
+     *
+     * @Column(name="products_qty_box_status", type="boolean", nullable=false)
+     */
+    private $qtyBoxStatus;
+    /**
+     * @var float $qtyOrderMin
+     *
+     * @Column(name="products_quantity_order_min", type="float", nullable=false)
+     */
+    private $qtyOrderMin;
+    /**
+     * @var float $qtyOrderMax
+     *
+     * @Column(name="products_quantity_order_max", type="float", nullable=false)
+     */
+    private $qtyOrderMax;
+    /**
+     * @var float $qtyOrderUnits
+     *
+     * @Column(name="products_quantity_order_units", type="float", nullable=false)
+     */
+    private $qtyOrderUnits;
+    /**
+     * @var boolean $qtyMixedDiscount
+     *
+     * @Column(name="products_mixed_discount_quantity", type="float", nullable=false)
+     */
+    private $qtyMixedDiscount;
+    /**
+     * @var boolean $free
+     *
+     * @Column(name="product_is_free", type="boolean", nullable=false)
+     */
+    private $free;
+    /**
+     * @var boolean $alwaysFreeShipping
+     *
+     * @Column(name="product_is_always_free_shipping", type="boolean", nullable=false)
+     */
+    private $alwaysFreeShipping;
+    /**
+     * @var boolean $call
+     *
+     * @Column(name="product_is_call", type="boolean", nullable=false)
+     */
+    private $call;
+    /**
+     * @var boolean $virtual
+     *
+     * @Column(name="products_virtual", type="boolean", nullable=false)
+     */
+    private $virtual;
+    /**
+     * @var integer $taxClassId
+     *
+     * @Column(name="products_tax_class_id", type="integer", nullable=false)
+     */
+    private $taxClassId;
+    /**
+     * @var boolean $discountType
+     *
+     * @Column(name="products_discount_type", type="boolean", nullable=false)
+     */
+    private $discountType;
+    /**
+     * @var boolean $discountTypeFrom
+     *
+     * @Column(name="products_discount_type_from", type="boolean", nullable=false)
+     */
+    private $discountTypeFrom;
+    /**
+     * @var decimal $priceSorter
+     *
+     * @Column(name="products_price_sorter", type="decimal", nullable=false)
+     */
+    private $priceSorter;
+    /**
+     * @var boolean $pricedByAttributes
+     *
+     * @Column(name="products_priced_by_attribute", type="boolean", nullable=false)
+     */
+    private $pricedByAttributes;
+    /**
+     * @var integer $masterCategoryId
+     *
+     * @Column(name="master_categories_id", type="integer", nullable=false)
+     */
+    private $masterCategoryId;
+    /**
+     * @var integer $sortOrder
+     *
+     * @Column(name="products_sort_order", type="integer", nullable=false)
+     */
+    private $sortOrder;
+    /**
+     * @var boolean $metatagsTitleStatus
+     *
+     * @Column(name="metatags_title_status", type="boolean", nullable=false)
+     */
+    private $metatagsTitleStatus;
+    /**
+     * @var boolean $metatagsProductsNameStatus
+     *
+     * @Column(name="metatags_products_name_status", type="boolean", nullable=false)
+     */
+    private $metatagsProductsNameStatus;
+    /**
+     * @var boolean $metatagsModelStatus
+     *
+     * @Column(name="metatags_model_status", type="boolean", nullable=false)
+     */
+    private $metatagsModelStatus;
+    /**
+     * @var boolean $metatagsPriceStatus
+     *
+     * @Column(name="metatags_price_status", type="boolean", nullable=false)
+     */
+    private $metatagsPriceStatus;
+    /**
+     * @var boolean $metatagsTitleTaglineStatus
+     *
+     * @Column(name="metatags_title_tagline_status", type="boolean", nullable=false)
+     */
+    private $metatagsTitleTaglineStatus;
+    /**
+     * Raw product price
+     * @var decimal $productPrice
+     *
+     * @Column(name="products_price", type="decimal", nullable=false)
+     */
+    private $productPrice;
 
-    // raw price
-    var $productPrice_;
-    var $specialPrice_;
+    // Info comes from other tables
 
-    // funny bits
-    var $attributes_;
-    var $offers_;
+    private $specialPrice;
+
+    private $languageId;
+    private $name;
+    private $description;
+    private $url;
+
+    private $attributes;
+    private $offers;
 
 
     /**
@@ -80,17 +272,17 @@ class ZMProduct extends ZMObject {
     function __construct($id=0, $name='', $description='') {
         parent::__construct();
         $this->setId($id);
-        $this->name_ = $name;
-        $this->description_ = $description;
-        $this->productPrice_ = 0;
-        $this->specialPrice_ = 0;
-        $this->sortOrder_ = 0;
-        $this->attributes_ = null;
-        $this->offers_ = null;
-        $this->isQtyMixed_ = false;
-        $this->qtyBoxStatus_ = 1;
-        $this->priceSorter_ = 0;
-        $this->languageId_ = 0;
+        $this->name = $name;
+        $this->description = $description;
+        $this->productPrice = 0;
+        $this->specialPrice = 0;
+        $this->sortOrder = 0;
+        $this->attributes = null;
+        $this->offers = null;
+        $this->qtyMixed = false;
+        $this->qtyBoxStatus = 1;
+        $this->priceSorter = 0;
+        $this->languageId = 0;
         $this->setDateAdded(null);
         $this->setLastModified(null);
     }
@@ -108,35 +300,54 @@ class ZMProduct extends ZMObject {
      *
      * @return int The product id.
      */
-    public function getId() { return $this->get('productId'); }
+    public function getId() { return $this->id; }
 
+    // @todo deprecated doctrine backwards compatibility
+    public function getProductId() { return $this->getId(); }
     /**
      * Set the product id.
      *
      * @param int id The product id.
      */
-    public function setId($id) { $this->set('productId', $id); }
+   public function setId($id) { $this->id = $id; }
+
+    // @todo deprecated doctrine backwards compatibility
+    public function setProductId($id) { $this->setId($id); }
+
+    /**
+     * Get the product type.
+     *
+     * @return integer $type
+     */
+    public function getType() { return $this->type; }
+
+    /**
+     * Set the product type.
+     *
+     * @param integer $type
+     */
+    public function setType($type) { $this->type = $type; }
 
     /**
      * Get the product name.
      *
      * @return string The product name.
      */
-    public function getName() { return $this->name_; }
+    public function getName() { return $this->name; }
 
     /**
      * Set the product name.
      *
      * @param string name The product name.
      */
-    public function setName($name) { $this->name_ = $name; }
+    public function setName($name) { $this->name = $name; }
 
     /**
      * Get the description.
      *
      * @return string The product description.
      */
-    public function getDescription() { return $this->description_; }
+    public function getDescription() { return $this->description; }
 
     /**
      * Set the description.
@@ -148,87 +359,115 @@ class ZMProduct extends ZMObject {
     /**
      * Get the product status.
      *
-     * @return boolean The product status.
+     * @return boolean $status The product status.
      */
-    public function getStatus() { return $this->status_; }
+    public function getStatus() { return $this->status; }
 
     /**
      * Set the product status.
      *
-     * @param boolean status The product status.
+     * @param boolean $status The product status.
      */
-    public function setStatus($status) { $this->status_ = $status; }
+    public function setStatus($status) { $this->status = $status; }
 
     /**
      * Get the model.
      *
-     * @return string The model.
+     * @return string $model The model.
      */
-    public function getModel() { return $this->model_; }
+    public function getModel() { return $this->model; }
 
     /**
      * Set the model.
      *
-     * @param string model The model.
+     * @param string $model The model.
      */
-    public function setModel($model) { $this->model_ = $model; }
+    public function setModel($model) { $this->model = $model; }
 
     /**
      * Get the product default image.
      *
-     * @return string The default image.
+     * @return string $image The default image.
      */
     public function getDefaultImage() {
-        return (empty($this->image_) && ZMSettings::get('isShowNoPicture')) ? ZMSettings::get('imgNotFound') : $this->image_;
+        return (empty($this->image) && ZMSettings::get('isShowNoPicture')) ? ZMSettings::get('imgNotFound') : $this->image;
     }
 
     /**
      * Set the product default image.
      *
-     * @param string image The default image.
+     * @param string $image The default image.
      */
-    public function setDefaultImage($image) { $this->image_ = $image; }
+    public function setDefaultImage($image) { $this->image = $image; }
 
     /**
      * Get the product url.
      *
      * @return string The product url.
      */
-    public function getUrl() { return $this->url_; }
+    public function getUrl() { return $this->url; }
 
     /**
      * Set the product url.
      *
      * @param string url The product url.
      */
-    public function setUrl($url) { $this->url_ = $url; }
+    public function setUrl($url) { $this->url = $url; }
     /**
      * Get the available date.
      *
-     * @return string The available date.
+     * @return string $dateAvailable The available date.
      */
-    public function getDateAvailable() { return $this->dateAvailable_; }
+    public function getDateAvailable() { return $this->dateAvailable; }
+
+    /**
+     * Set the date the product is available.
+     *
+     * @param datetime $productsDateAvailable
+     */
+    public function setDateAvailable($dateAvailable) { $this->dateAvailable = $dateAvailable; }
 
     /**
      * Get the date the product was added.
      *
      * @return string The product added date.
      */
-    public function getDateAdded() { return $this->dateAdded_; }
+    public function getDateAdded() { return $this->dateAdded; }
+
+    /**
+     * Set the date the product was added.
+     *
+     * @param datetime $dateAdded
+     */
+    public function setProductsDateAdded($dateAdded) { $this->dateAdded = $dateAdded; }
+
+    /**
+     * Get the date the product was last modified.
+     *
+     * @return datetime $lastModified
+     */
+    public function getLastModified() { return $this->lastModified; }
+
+    /**
+     * Set the date the product was modified.
+     *
+     * @param datetime $lastModified
+     */
+    public function setLastModified($lastModified) { $this->lastModified = $lastModified; }
 
     /**
      * Get the manufacturer id.
      *
      * @return int The manufacturer id.
      */
-    public function getManufacturerId() { return $this->manufacturerId_; }
+    public function getManufacturerId() { return $this->manufacturerId; }
 
     /**
      * Set the manufacturer id.
      *
      * @param int manufacturerId The manufacturer id.
      */
-    public function setManufacturerId($manufacturerId) { $this->manufacturerId_ = $manufacturerId; }
+    public function setManufacturerId($manufacturerId) { $this->manufacturerId = $manufacturerId; }
 
     /**
      * Get the manufacturer.
@@ -244,146 +483,188 @@ class ZMProduct extends ZMObject {
      *
      * @return float The weight.
      */
-    public function getWeight() { return $this->weight_; }
+    public function getWeight() { return $this->weight; }
 
     /**
      * Set the product weight.
      *
      * @param float weight The weight.
      */
-    public function setWeight($weight) { $this->weight_ = $weight; }
+    public function setWeight($weight) { $this->weight = $weight; }
 
     /**
      * Get the quantity.
      *
      * @return int The quantity.
      */
-    public function getQuantity() { return $this->quantity_; }
+    public function getQuantity() { return $this->quantity; }
 
     /**
      * Set the quantity.
      *
      * @param int quantity The quantity.
      */
-    public function setQuantity($quantity) { $this->quantity_ = $quantity; }
+    public function setQuantity($quantity) { $this->quantity = $quantity; }
 
     /**
      * Checks if the product quantity is calculated across product variations or not.
      *
      * @return boolean <code>true</code> if the quantity is calculated across variations, <code>false</code> if not.
      */
-    public function isQtyMixed() { return $this->isQtyMixed_; }
+    public function isQtyMixed() { return $this->qtyMixed; }
+
+    /**
+     * Set the product quantity mixed flag.
+     *
+     * @param int $qtyMixed
+     */
+    public function setQtyMixed($qtyMixed) { $this->qtyMixed = $qtyMixed; }
 
     /**
      * Checks if the product is sold out.
      *
      * @return boolean <code>true</code> if the product is sold out, <code>false</code> if not.
      */
-    public function isSoldOut() { return 0 >= $this->quantity_; }
+    public function isSoldOut() { return 0 >= $this->quantity; }
 
     /**
      * Get the quantity box status.
      *
      * @return int The quantity box status.
      */
-    public function getQtyBoxStatus() { return $this->qtyBoxStatus_; }
+    public function getQtyBoxStatus() { return $this->qtyBoxStatus; }
+
+    /**
+     * Set the quantity box status.
+     *
+     * @param boolean $qtyBoxStatus
+     */
+    public function setQtyBoxStatus($qtyBoxStatus) { $this->qtyBoxStatus = $qtyBoxStatus; }
 
     /**
      * Get the max quantity per order.
      *
      * @return int The max quantity per order.
      */
-    public function getMaxOrderQty() { return $this->qtyOrderMax_; }
+    public function getMaxOrderQty() { return $this->qtyOrderMax; }
 
+    /**
+     * Set the max quantity per order.
+     *
+     * @param float $productsQuantityOrderMax
+     */
+    public function setMaxOrderQty($qtyOrderMax) { $this->qtyOrderMax = $qtyOrderMax; }
     /**
      * Get the min quantity per order.
      *
      * @return int The min quantity per order.
      */
-    public function getMinOrderQty() { return $this->qtyOrderMin_; }
+    public function getMinOrderQty() { return $this->qtyOrderMin; }
+
+    /**
+     * Set the min quantity per order
+     *
+     * @param float $qtyOrderMin
+     */
+    public function setMinOrderQty($qtyOrderMin) { $this->qtyOrderMin = $qtyOrderMin; }
 
     /**
      * Get the quantity units.
      *
      * @return float The quantity units.
      */
-    public function getQtyOrderUnits() { return $this->qtyOrderUnits_; }
+    public function getQtyOrderUnits() { return $this->qtyOrderUnits; }
 
     /**
      * Set the quantity units.
      *
      * @param float value The quantity units value.
      */
-    public function setQtyOrderUnits($value) { $this->qtyOrderUnits_ = $value; }
+    public function setQtyOrderUnits($value) { $this->qtyOrderUnits = $value; }
+
+    /**
+     * Get qtyMixedDiscount
+     *
+     * @return boolean $qtyMixedDiscount
+     */
+    public function getQtyMixedDiscount() { return $this->qtyMixedDiscount; }
+
+
+    /**
+     * Set qtyMixedDiscount
+     *
+     * @param boolean $qtyMixedDiscount
+     */
+    public function setQtyMixedDiscount($qtyMixedDiscount) { $this->qtyMixedDiscount = $qtyMixedDiscount; }
 
     /**
      * Checks if the product is free.
      *
      * @return boolean <code>true</code> if the product is free, <code>false</code> if not.
      */
-    public function isFree() { return $this->isFree_; }
+    public function isFree() { return $this->free; }
 
     /**
      * Set the product is free flag.
      *
      * @param boolean value <code>true</code> if the product is free, <code>false</code> if not.
      */
-    public function setFree($value) { $this->isFree_ = $value; }
+    public function setFree($value) { $this->free = $value; }
 
     /**
      * Checks if the product is virtual.
      *
      * @return boolean <code>true</code> if the product is virtual, <code>false</code> if not.
      */
-    public function isVirtual() { return $this->isVirtual_; }
+    public function isVirtual() { return $this->virtual; }
 
     /**
      * Set the product is virtual flag.
      *
      * @param boolean value <code>true</code> if the product is virtual, <code>false</code> if not.
      */
-    public function setVirtual($value) { $this->isVirtual_ = $value; }
+    public function setVirtual($value) { $this->virtual = $value; }
 
     /**
      * Checks if the product is always free shipping
      *
      * @return boolean <code>true</code> if the product is free shipping, <code>false</code> if not.
      */
-    public function isAlwaysFreeShipping() { return $this->isAlwaysFreeShipping_; }
+    public function isAlwaysFreeShipping() { return $this->alwaysFreeShipping; }
 
     /**
      * Configure if the product is always free shipping
      *
      * @param boolean b <code>true</code> if the product is free shipping, <code>false</code> if not.
      */
-    public function setAlwaysFreeShipping($b) { $this->isAlwaysFreeShipping_ = $b; }
+    public function setAlwaysFreeShipping($b) { $this->alwaysFreeShipping = $b; }
 
     /**
      * Checks if the user needs to call for this product.
      *
      * @return boolean <code>true</code> if the user must call, <code>false</code> if not.
      */
-    public function isCall() { return $this->isCall_; }
+    public function isCall() { return $this->call; }
 
     /**
      * Sets the flag to indicate that the user needs to call for this product.
      *
      * @param boolean value <code>true</code> if the user must call, <code>false</code> if not.
      */
-    public function setCall($value) { $this->isCall_ = $value; }
+    public function setCall($value) { $this->call = $value; }
     /**
      * Get the tax class id.
      *
      * @return int The tax class id.
      */
-    public function getTaxClassId() { return $this->taxClassId_; }
+    public function getTaxClassId() { return $this->taxClassId; }
 
     /**
      * Set the tax class id.
      *
      * @param int taxClassId The tax class id.
      */
-    public function setTaxClassId($taxClassId) { $this->taxClassId_ = $taxClassId; }
+    public function setTaxClassId($taxClassId) { $this->taxClassId = $taxClassId; }
 
     /**
      * Get the discount type.
@@ -398,7 +679,7 @@ class ZMProduct extends ZMObject {
      *
      * @return int The discount type.
      */
-    public function getDiscountType() { return $this->discountType_; }
+    public function getDiscountType() { return $this->discountType; }
 
     /**
      * Get the discount type from.
@@ -411,35 +692,42 @@ class ZMProduct extends ZMObject {
      *
      * @return int The discount type from.
      */
-    public function getDiscountTypeFrom() { return $this->discountTypeFrom_; }
+    public function getDiscountTypeFrom() { return $this->discountTypeFrom; }
 
     /**
      * Get the tax rate.
      *
      * @return ZMTaxRate The tax rate.
      */
-    public function getTaxRate() { return ZMTaxRates::instance()->getTaxRateForClassId($this->taxClassId_); }
+    public function getTaxRate() { return ZMTaxRates::instance()->getTaxRateForClassId($this->taxClassId); }
 
     /**
      * Get the product price sorter.
      *
      * @return float The price sorter.
      */
-    public function getPriceSorter() { return $this->priceSorter_; }
+    public function getPriceSorter() { return $this->priceSorter; }
+
+    /**
+     * Set the product price sorter.
+     *
+     * @param decimal $priceSorter The price sorter.
+     */
+    public function setPriceSorter($priceSorter) { $this->priceSorter = $priceSorter; }
 
     /**
      * Get the master category id.
      *
      * @return int The master category id.
      */
-    public function getMasterCategoryId() { return $this->masterCategoryId_; }
+    public function getMasterCategoryId() { return $this->masterCategoryId; }
 
     /**
      * Set the master category id.
      *
      * @param int categoryId The master category id.
      */
-    public function setMasterCategoryId($categoryId) { $this->masterCategoryId_ = $categoryId; }
+    public function setMasterCategoryId($categoryId) { $this->masterCategoryId = $categoryId; }
 
     /**
      * Get the calculated product price.
@@ -456,14 +744,14 @@ class ZMProduct extends ZMObject {
      *
      * @return float The product price.
      */
-    public function getProductPrice() { return $this->productPrice_; }
+    public function getProductPrice() { return $this->productPrice; }
 
     /**
      * Set the product price.
      *
      * @param float productPrice The product price.
      */
-    public function setProductPrice($productPrice) { $this->productPrice_ = $productPrice; }
+    public function setProductPrice($productPrice) { $this->productPrice = $productPrice; }
 
     /**
      * Get the product special price.
@@ -505,11 +793,11 @@ class ZMProduct extends ZMObject {
      * @return array A list of {@link org.zenmagick.model.catalog.ZMAttribute ZMAttribute} instances.
      */
     public function getAttributes() {
-        if (null === $this->attributes_) {
-            $this->attributes_ = ZMAttributes::instance()->getAttributesForProduct($this);
+        if (null === $this->attributes) {
+            $this->attributes = ZMAttributes::instance()->getAttributesForProduct($this);
         }
 
-        return $this->attributes_;
+        return $this->attributes;
     }
 
     /**
@@ -519,8 +807,8 @@ class ZMProduct extends ZMObject {
      */
     public function getImageInfo() {
         $imageInfo = Runtime::getContainer()->get("ZMImageInfo");
-        $imageInfo->setAltText($this->name_);
-        $imageInfo->setDefaultImage($this->image_);
+        $imageInfo->setAltText($this->name);
+        $imageInfo->setDefaultImage($this->image);
         return $imageInfo;
     }
 
@@ -529,21 +817,21 @@ class ZMProduct extends ZMObject {
      *
      * @param string image The product image.
      */
-    public function setImage($image) { $this->image_ = $image; }
+    public function setImage($image) { $this->image = $image; }
 
     /**
      * Get the product image.
      *
      * @return image The product image.
      */
-    public function getImage() { return $this->image_; }
+    public function getImage() { return $this->image; }
 
     /**
      * Get additional product images.
      *
      * @return array List of optional <code>ZMImageInfo</code> instances.
      */
-    public function getAdditionalImages() { return ZMImageInfo::getAdditionalImages($this->image_); }
+    public function getAdditionalImages() { return ZMImageInfo::getAdditionalImages($this->image); }
 
 
     /**
@@ -570,7 +858,7 @@ class ZMProduct extends ZMObject {
      * @return int The number of reviews.
      */
     public function getReviewCount() {
-        return ZMReviews::instance()->getReviewCount($this->getId(), $this->languageId_);
+        return ZMReviews::instance()->getReviewCount($this->getId(), $this->languageId);
     }
 
     /**
@@ -597,7 +885,7 @@ class ZMProduct extends ZMObject {
     public function getDefaultCategory($languageId=null) {
         $languageId = null !== $languageId ? $languageId : ZMRequest::instance()->getSession()->getLanguageId();
 
-        return null != $this->masterCategoryId_ ? ZMCategories::instance()->getCategoryForId($this->masterCategoryId_, $languageId) :
+        return null != $this->masterCategoryId ? ZMCategories::instance()->getCategoryForId($this->masterCategoryId, $languageId) :
             ZMCategories::instance()->getDefaultCategoryForProductId($this->getId(), $languageId);
     }
 
@@ -613,46 +901,46 @@ class ZMProduct extends ZMObject {
     }
 
     /**
-     * Get the srt order.
+     * Get the sort order.
      *
      * @return int The sort order.
      */
-    public function getSortOrder() { return $this->sortOrder_; }
+    public function getSortOrder() { return $this->sortOrder; }
 
     /**
      * Set the sort order.
      *
      * @param int sortOrder The sort order.
      */
-    public function setSortOrder($sortOrder) { $this->sortOrder_ = $sortOrder; }
+    public function setSortOrder($sortOrder) { $this->sortOrder = $sortOrder; }
 
     /**
      * Set the priced by attributes flag.
      *
      * @param boolean value The new value.
      */
-    public function setPricedByAttributes($value) { $this->pricedByAttributes_ = $value; }
+    public function setPricedByAttributes($value) { $this->pricedByAttributes = $value; }
 
     /**
      * Check if the product is priced by attributes.
      *
      * @return boolean <code>true</code> if priced by attributes.
      */
-    public function isPricedByAttributes() { return $this->pricedByAttributes_; }
+    public function isPricedByAttributes() { return $this->pricedByAttributes; }
 
     /**
      * Set the discount type.
      *
      * @param int type The discount type.
      */
-    public function setDiscountType($type) { $this->discountType_ = $type; }
+    public function setDiscountType($type) { $this->discountType = $type; }
 
     /**
      * Set the discount type from.
      *
      * @param int The discount type from.
      */
-    public function setDiscountTypeFrom($typeFrom) { $this->discountTypeFrom_ = $typeFrom; }
+    public function setDiscountTypeFrom($typeFrom) { $this->discountTypeFrom = $typeFrom; }
 
     /**
      * Get the language id.
@@ -695,4 +983,73 @@ class ZMProduct extends ZMObject {
         return ZMProducts::instance()->getMetaTagDetailsForId($this->getId(), null != $languageId ? $languageId : $this->getLanguageId());
     }
 
+    /**
+     * Get meta tags title status
+     *
+     * @return boolean $metatagsTitleStatus
+     */
+    public function getMetatagsTitleStatus() { return $this->metatagsTitleStatus; }
+
+    /**
+     * Set meta tags title status
+     *
+     * @param boolean $metatagsTitleStatus
+     */
+    public function setMetatagsTitleStatus($metatagsTitleStatus) { $this->metatagsTitleStatus = $metatagsTitleStatus; }
+
+    /**
+     * Get meta tags product name status
+     *
+     * @return boolean $metatagsProductNameStatus
+     */
+    public function getMetatagsProductNameStatus() { return $this->metatagsProductNameStatus; }
+
+    /**
+     * Set meta tags product name status
+     *
+     * @param boolean $metatagsProductNameStatus
+     */
+    public function setMetatagsProductNameStatus($metatagsProductNameStatus) { $this->metatagsProductNameStatus = $metatagsProductNameStatus; }
+
+    /**
+     * Get meta tags model status
+     *
+     * @return boolean $metatagsModelStatus
+     */
+    public function getMetatagsModelStatus() { return $this->metatagsModelStatus; }
+
+    /**
+     * Set meta tags model status
+     *
+     * @param boolean $metatagsModelStatus
+     */
+    public function setMetatagsModelStatus($metatagsModelStatus) { $this->metatagsModelStatus = $metatagsModelStatus; }
+
+    /**
+     * Get meta tags price status.
+     *
+     * @return boolean $metatagsPriceStatus
+     */
+    public function getMetatagsPriceStatus() { return $this->metatagsPriceStatus; }
+
+    /**
+     * Set meta tags price status.
+     *
+     * @param boolean $metatagsPriceStatus
+     */
+    public function setMetatagsPriceStatus($metatagsPriceStatus) { $this->metatagsPriceStatus = $metatagsPriceStatus; }
+
+    /**
+     * Get meta tags title tagline status.
+     *
+     * @return boolean $metatagsTitleTaglineStatus
+     */
+    public function getMetatagsTitleTaglineStatus() { return $this->metatagsTitleTaglineStatus; }
+
+    /**
+     * Set meta tags title tagline status.
+     *
+     * @param boolean $metatagsTitleTaglineStatus
+     */
+    public function setMetatagsTitleTaglineStatus($metatagsTitleTaglineStatus) { $this->metatagsTitleTaglineStatus = $metatagsTitleTaglineStatus; }
 }
