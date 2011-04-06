@@ -102,7 +102,7 @@ abstract class ZMCatalogContentController extends ZMController {
         if ($view->get('catalogRedirect')) {
             // some hacky reuse...
             // set url
-            $admin2 = $view->getVar('admin2');
+            $admin2 = $request->getToolbox()->admin2;
             $view->setUrl($admin2->catalog($this));
         }
         return $view;

@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 
 /**
  * CKEditor plugin.
@@ -50,7 +51,7 @@ class ZMCkEditorPlugin extends Plugin {
      */
     public function init() {
         parent::init();
-        ZMSettings::append('editorList', 'CKEditor:ZMCkEditorFormWidget');
+        Runtime::getSettings()->add('editorList', 'CKEditor:ZMCkEditorFormWidget');
         if (ZMLangUtils::asBoolean($this->get('defaultEditor'))) {
             ZMSettings::set('apps.store.admin.defaultEditor', 'CkEditorFormWidget');
         }

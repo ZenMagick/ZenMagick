@@ -33,7 +33,16 @@
         <td><?php if ('*' !== $info['match']) { echo '<input type="checkbox" name="perm[]" value="'.$requestId.'"'.($info['allowed'] ? ' checked':'').'>'; } else { _vzm('always (%s)', $info['type']); } ?></td>
       </tr>
     <?php } ?>
+    <tr>
+      <td colspan="2"><a id="add-row" class="<?php echo $buttonClasses ?>" href=""><?php _vzm('Add row') ?></a></td>
+    </tr>
   </table>
 
   <p><input class="<?php echo $buttonClasses ?>" type="submit" value="<?php _vzm("Update") ?>"></p>
 </form>
+<script>
+$('#add-row').click(function() {
+  $('#add-row').parent().parent().before('<tr><td><input type="text" name="requestId[]"></td><td><input type="checkbox" name="nperm[]" value="true" checked></td></tr>');
+  return false;
+});
+</script>

@@ -21,7 +21,7 @@
 
 <script>
 function addTag(tag) {
-  var tags = document.getElementById('productTags');
+  var tags = document.getElementById('currentProductTags');
   if ('' != tags.value) {
       tags.value += ', ';
   }
@@ -34,8 +34,8 @@ function addTag(tag) {
     <fieldset>
         <legend>Manage Product Tags</legend>
         <p>
-            <label for="productTags">Current Tags</label>
-            <textarea id="productTags" name="productTags"><?php echo $html->encode(implode(', ', $productTags)) ?></textarea>
+            <label for="currentProductTags">Current Tags</label>
+            <textarea id="currentProductTags" name="currentProductTags"><?php echo $html->encode(implode(', ', $currentProductTags)) ?></textarea>
         </p>
         <p>
             <h3>All Tags</h3>

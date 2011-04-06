@@ -74,9 +74,10 @@ class Toolbox {
      * @param string filename The file to load.
      * @param string environment Optional environment; default is the value of <code>ZM_ENVIRONMENT</code>.
      * @param boolean useEnvFile Optional flag to load the <em>file_[$environemnt].yaml</em> file if available; default is <code>true</code>.
+     * @param boolean clearImports Optional flag to remove imports details from the loaded data before returning; default is <code>true</code>.
      * @return mixed The parsed YAML.
      */
-    public static function loadWithEnv($filename, $environment=ZM_ENVIRONMENT, $useEnvFile=true) {
+    public static function loadWithEnv($filename, $environment=ZM_ENVIRONMENT, $useEnvFile=true, $clearImports=true) {
         $filename = realpath($filename);
         $envFilename = null;
         if ($useEnvFile) {
@@ -129,6 +130,10 @@ class Toolbox {
             $data = self::arrayMergeRecursive($tmp, $data);
             foreach ($append as $import) {
                 $data = self::arrayMergeRecursive($data, self::loadWithEnv($currentDir.$import['resource'], $environment, false));
+            }
+
+            if ($clearImports) {
+                unset($data['imports']);
             }
         }
 

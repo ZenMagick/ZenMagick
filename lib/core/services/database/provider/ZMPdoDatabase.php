@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\Beans;
 
 /**
  * Implementation of the ZenMagick database layer using <em>PDO</em> via <em>Doctrine DBAL</em>.
@@ -141,7 +142,7 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
             $this->config_ = $conf;
         }
     }
- 
+
     /**
      *  Initialize the entity manager
      *
@@ -303,7 +304,7 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
                 $result = $this->translateRow($result, $mapping);
             }
             if (null != $modelClass && ZMDatabase::MODEL_RAW != $modelClass) {
-                $result = ZMBeanUtils::map2obj($modelClass, $result);
+                $result = Beans::map2obj($modelClass, $result);
             }
             $results[] = $result;
         }
@@ -323,7 +324,7 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
 
         // convert to array
         if (is_object($model)) {
-            $modelData = ZMBeanUtils::obj2map($model, array_keys($mapping));
+            $modelData = Beans::obj2map($model, array_keys($mapping));
         } else {
             $modelData = $model;
         }
@@ -359,7 +360,7 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
 
         foreach ($mapping as $property => $field) {
             if ($field['auto']) {
-                $model = ZMBeanUtils::setAll($model, array($property => $newId));
+                $model = Beans::setAll($model, array($property => $newId));
             }
         }
 
@@ -378,7 +379,7 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
 
         // convert to array
         if (is_object($model)) {
-            $modelData = ZMBeanUtils::obj2map($model, array_keys($mapping));
+            $modelData = Beans::obj2map($model, array_keys($mapping));
         } else {
             $modelData = $model;
         }
@@ -424,7 +425,7 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
 
         // convert to array
         if (is_object($model)) {
-            $modelData = ZMBeanUtils::obj2map($model, array_keys($mapping));
+            $modelData = Beans::obj2map($model, array_keys($mapping));
         } else {
             $modelData = $model;
         }
@@ -473,7 +474,7 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
 
         // convert to array
         if (is_object($data)) {
-            $data = ZMBeanUtils::obj2map($data, array_keys($mapping));
+            $data = Beans::obj2map($data, array_keys($mapping));
         }
         try {
             $stmt = $this->prepareStatement($sql, $data, $mapping);
@@ -517,7 +518,7 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
                 $result = $this->translateRow($result, $mapping);
             }
             if (null != $modelClass && ZMDatabase::MODEL_RAW != $modelClass) {
-                $result = ZMBeanUtils::map2obj($modelClass, $result);
+                $result = Beans::map2obj($modelClass, $result);
             }
             $results[] = $result;
         }
@@ -538,7 +539,7 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
 
         // make sure we are working on a map
         if (is_object($args)) {
-            $args = ZMBeanUtils::obj2map($args, array_keys($mapping));
+            $args = Beans::obj2map($args, array_keys($mapping));
         }
 
         // PDO doesn't allow '#' in param names, so use something else

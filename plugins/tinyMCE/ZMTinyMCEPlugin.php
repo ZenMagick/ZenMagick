@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 
 /**
  * TinyMCE plugin.
@@ -50,7 +51,7 @@ class ZMTinyMCEPlugin extends Plugin {
      */
     public function init() {
         parent::init();
-        ZMSettings::append('editorList', 'TinyMCE:ZMTinyMCEFormWidget');
+        Runtime::getSettings()->add('editorList', 'TinyMCE:ZMTinyMCEFormWidget');
         if (ZMLangUtils::asBoolean($this->get('defaultEditor'))) {
             ZMSettings::set('apps.store.admin.defaultEditor', 'TinyMCEFormWidget');
         }

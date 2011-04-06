@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 
 /**
  * Xinha plugin.
@@ -50,7 +51,7 @@ class ZMXinhaPlugin extends Plugin {
      */
     public function init() {
         parent::init();
-        ZMSettings::append('editorList', 'Xinha:ZMXinhaFormWidget');
+        Runtime::getSettings()->add('editorList', 'Xinha:ZMXinhaFormWidget');
         if (ZMLangUtils::asBoolean($this->get('defaultEditor'))) {
             ZMSettings::set('apps.store.admin.defaultEditor', 'ZMXinhaFormWidget');
         }

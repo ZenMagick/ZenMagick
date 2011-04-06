@@ -22,6 +22,7 @@
 
 use zenmagick\base\Runtime;
 use zenmagick\base\ioc\Container;
+use zenmagick\base\Beans;
 
 /**
  * Bean utility.
@@ -60,38 +61,7 @@ class ZMBeanUtils extends ZMObject {
      * @return array A property / method map.
      */
     public static function getPropertyMap($obj, $properties=null) {
-        $clazz = get_class($obj);
-        // key depends on both class and properties
-        $cacheKey = $clazz.serialize($properties);
-        if (!array_key_exists($cacheKey, self::$propertyMap_)) {
-            $propertiesMap = array();
-            if (null === $properties) {
-                foreach (get_class_methods($obj) as $method) {
-                    foreach (self::$GETTER_PREFIX_LIST as $prefix) {
-                        if (0 === strpos($method, $prefix) && $method != $prefix) {
-                            $property = substr($method, strlen($prefix));
-                            $property = strtolower($property[0]) . substr($property, 1);
-                            $propertiesMap[$property] = $method;
-                        }
-                    }
-                }
-            } else {
-                // convert into the expected 'property' => method format
-                $generic = ($obj instanceof ZMObject) ? $obj->getPropertyNames() : array();
-                foreach ($properties as $property) {
-                    foreach (self::$GETTER_PREFIX_LIST as $prefix) {
-                        $method = $prefix.ucfirst($property);
-                        if (method_exists($obj, $method) || in_array($property, $generic)) {
-                            $propertiesMap[$property] = $method;
-                            break;
-                        }
-                    }
-                }
-            }
-            self::$propertyMap_[$cacheKey] = $propertiesMap;
-        }
-
-        return self::$propertyMap_[$cacheKey];
+        return Beans::getPropertyMap($obj, $properties);
     }
 
     /**
@@ -107,34 +77,7 @@ class ZMBeanUtils extends ZMObject {
      * @return array The object data as map.
      */
     public static function obj2map($obj, $properties=null, $addGeneric=true) {
-        if (is_array($obj)) {
-            $map = array();
-            if (null !== $properties) {
-                foreach ($properties as $key) {
-                    if (array_key_exists($key, $obj)) {
-                        $map[$key] = $obj[$key];
-                    }
-                }
-            }
-            return $map;
-        }
-
-        $propertiesMap = self::getPropertyMap($obj, $properties);
-
-        // now run all methods and build the map
-        $map = array();
-        foreach ($propertiesMap as $property => $method) {
-            $map[$property] = $obj->$method();
-        }
-
-        // special case for ZMObject instances
-        if ($addGeneric && $obj instanceof ZMObject) {
-            foreach ($obj->getPropertyNames() as $property) {
-                $map[$property] = $obj->get($property);
-            }
-        }
-
-        return $map;
+        return Beans::obj2map($obj, $properties, $addGeneric);
     }
 
     /**
@@ -148,23 +91,7 @@ class ZMBeanUtils extends ZMObject {
      * @return mixed The (modified) <code>$obj</code>.
      */
     public static function setAll($obj, $data, $keys=null, $setGeneric=true) {
-        $isModel = ($obj instanceof ZMObject);
-        foreach ($data as $property => $value) {
-            if (is_string($value) && (0 === strpos($value, 'ref::') || 0 === strpos($value, 'bean::') || 0 === strpos($value, 'set::'))) {
-                $value = self::getBean($value);
-            }
-            if (null === $keys || in_array($property, $keys)) {
-                $method = self::$SETTER_PREFIX.ucfirst($property);
-                if (method_exists($obj, $method)) {
-                    $obj->$method($value);
-                } else if ($isModel && $setGeneric) {
-                    $obj->set($property, $value);
-                } else if (is_array($obj)) {
-                    $obj[$property] = $value;
-                }
-            }
-        }
-        return $obj;
+        return Beans::setAll($obj, $data, $keys, $setGeneric);
     }
 
     /**
@@ -176,12 +103,7 @@ class ZMBeanUtils extends ZMObject {
      * @return mixed An instance of the given class or <code>null</code>.
      */
     public static function map2obj($clazz, $data, $keys=null) {
-        $obj = Runtime::getContainer()->get($clazz, Container::NULL_ON_INVALID_REFERENCE);
-        if (null !== $obj) {
-            self::setAll($obj, $data, $keys);
-            return $obj;
-        }
-        return null;
+        return Beans::map2obj($class, $data, $keys);
     }
 
     /**
@@ -194,72 +116,7 @@ class ZMBeanUtils extends ZMObject {
      * @return mixed An object or <code>null</code>.
      */
     public static function getBean($definition, $useBeanMapping=true) {
-        if (empty($definition)) {
-            return null;
-        }
-
-        $isRef = false;
-        $isPlugin = false;
-        if (0 === strpos($definition, 'bean::')) {
-            $definition = substr($definition, 6);
-            if ('null' == $definition) {
-                return null;
-            }
-        } else if (0 === strpos($definition, 'plugin::')) {
-            $definition = substr($definition, 8);
-            $isPlugin = true;
-        } else if (0 === strpos($definition, 'ref::')) {
-            $definition = substr($definition, 5);
-            $isRef = true;
-        } else if (0 === strpos($definition, 'set::')) {
-            $stoken = explode('#', substr($definition, 5), 2);
-            $definition = ZMSettings::get($stoken[0]);
-            if (2 == count($stoken)) {
-                // append
-                if (false === strpos($definition, '#')) {
-                    $definition .= '#';
-                }
-                $definition .= '&'.$stoken[1];
-            }
-            ZMLogging::instance()->log('resolving '.$stoken[0].' to: '.$definition, ZMLogging::TRACE);
-        }
-
-        // got a valid definition, so let's look that up in the context, just in case
-        $tokens = explode('#', $definition, 2);
-        if ($useBeanMapping && null != ($mappedDefinition = ZMSettings::get('zenmagick.core.beans.definitions.'.$tokens[0]))) {
-            $mappedTokens = explode('#', $mappedDefinition, 2);
-            // the class to use
-            $definition = $mappedTokens[0].'#';
-            // merge properties
-            if (1 < count($tokens)) {
-                $definition .= $tokens[1];
-            }
-            if (1 < count($mappedTokens)) {
-                $definition .= '&'.$mappedTokens[1];
-            }
-            $tokens = explode('#', $definition, 2);
-        }
-
-        // some cleanup
-        $definition = str_replace('&&', '&', $definition);
-
-        if (1 < count($tokens)) {
-            parse_str($tokens[1], $properties);
-        } else {
-            $properties = array();
-        }
-
-        if ($isRef && null != ($ref = Runtime::getContainer()->getService($tokens[0]))) {
-            self::setAll($ref, $properties);
-            return $ref;
-        }
-
-        if ($isPlugin && null != ($plugin = ZMPlugins::getPluginForId($tokens[0]))) {
-            self::setAll($plugin, $properties);
-            return $plugin;
-        }
-
-        return self::map2obj($tokens[0], $properties);
+        return Beans::getBean($definition);
     }
 
 }

@@ -25,37 +25,40 @@ use zenmagick\base\events\Event;
 use zenmagick\http\sacs\SacsManager;
 
 
-  if (!defined('ZM_APP_PATH')) {
-      // app location relative to zenmagick installation (ZM_BASE_PATH)
-      define('ZM_APP_PATH', 'apps'.DIRECTORY_SEPARATOR.'store'.DIRECTORY_SEPARATOR);
-  }
+    if (!defined('ZM_APP_PATH')) {
+        // app location relative to zenmagick installation (ZM_BASE_PATH)
+        define('ZM_APP_PATH', 'apps'.DIRECTORY_SEPARATOR.'store'.DIRECTORY_SEPARATOR);
+    }
 
-  // additional libraries
-  if(!defined('ZM_LIBS')) define('ZM_LIBS', 'lib/http,shared');
+    // additional libraries
+    if(!defined('ZM_LIBS')) define('ZM_LIBS', 'lib/http,shared');
 
-  include_once 'bootstrap.php';
+    include_once 'bootstrap.php';
 
-  // create the main request instance
-  $request = $_zm_request = ZMRequest::instance();
+    // create the main request instance
+    $request = $_zm_request = ZMRequest::instance();
 
-  // tell everyone interested that we have a request
-  Runtime::getEventDispatcher()->notify(new Event(null, 'init_request',  array('request' => $_zm_request)));
+    // tell everyone interested that we have a request
+    Runtime::getEventDispatcher()->notify(new Event(null, 'init_request',  array('request' => $_zm_request)));
 
-  // allow url rewriters to fiddle with the request
-  $_zm_request->urlDecode();
+    // freeze container
+    Runtime::getContainer()->compile();
 
-  // make sure we use the appropriate protocol (HTTPS, for example) if required
-  SacsManager::instance()->ensureAccessMethod($_zm_request);
+    // allow url rewriters to fiddle with the request
+    $_zm_request->urlDecode();
 
-  // load stuff that really needs to be global!
-  if (Runtime::getSettings()->get('zenmagick.base.plugins.enabled', true)) {
-      foreach (ZMPlugins::instance()->initAllPlugins(ZMSettings::get('zenmagick.base.plugins.context')) as $plugin) {
-          foreach ($plugin->getGlobal($_zm_request) as $_zm_file) {
-              include_once $_zm_file;
-          }
-      }
-  }
+    // make sure we use the appropriate protocol (HTTPS, for example) if required
+    SacsManager::instance()->ensureAccessMethod($_zm_request);
 
-  // restore
-  $request = $_zm_request;
-  Runtime::getEventDispatcher()->notify(new Event(null, 'init_done',  array('request' => $_zm_request)));
+    // load stuff that really needs to be global!
+    if (Runtime::getSettings()->get('zenmagick.base.plugins.enabled', true)) {
+        foreach (ZMPlugins::instance()->initAllPlugins(ZMSettings::get('zenmagick.base.plugins.context')) as $plugin) {
+            foreach ($plugin->getGlobal($_zm_request) as $_zm_file) {
+                include_once $_zm_file;
+            }
+        }
+    }
+
+    // restore
+    $request = $_zm_request;
+    Runtime::getEventDispatcher()->notify(new Event(null, 'init_done',  array('request' => $_zm_request)));

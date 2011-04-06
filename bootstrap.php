@@ -151,6 +151,3 @@ ZMLoader::instance()->addPath(ZM_BASE_PATH.trim($name).DIRECTORY_SEPARATOR);
         ZMPlugins::instance()->initAllPlugins(Runtime::getSettings()->get('zenmagick.base.plugins.context'));
         Runtime::getEventDispatcher()->notify(new Event(null, 'init_plugins_done'));
     }
-
-    // freeze container
-    Runtime::getContainer()->compile();
