@@ -51,7 +51,7 @@ use zenmagick\base\ioc\loader\YamlFileLoader;
     defined('ZM_ENVIRONMENT') || define('ZM_ENVIRONMENT', ($getenv_func('ZM_ENVIRONMENT') ? $getenv_func('ZM_ENVIRONMENT') : 'production'));
 
     // hide as to avoid filenames that contain account names, etc.
-    ini_set('display_errors', false);
+    ini_set('display_errors', true);
     // enable all reporting
     error_reporting(-1);
     // enable logging
