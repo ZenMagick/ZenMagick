@@ -31,7 +31,7 @@
  * @package zenmagick.store.sf.mvc.controller
  */
 class ZMLoginController extends ZMController {
-    private static $KEY_REDIRECT = 'loginRedirect';
+    const KEY_REDIRECT = 'loginRedirect';
 
     /**
      * Create new instance.
@@ -67,7 +67,7 @@ class ZMLoginController extends ZMController {
 
         $redirect = $request->getParameter('redirect');
         if (null != $redirect) {
-            $session->setValue(self::$KEY_REDIRECT, $redirect);
+            $session->setValue(self::KEY_REDIRECT, $redirect);
         }
 
         return parent::processGet($request);
@@ -84,13 +84,13 @@ class ZMLoginController extends ZMController {
         $lastUrl = $request->getLastUrl();
 
         if (!$session->isStarted()) {
-            $session->removeValue(self::$KEY_REDIRECT);
+            $session->removeValue(self::KEY_REDIRECT);
             return $this->findView('cookie_usage');
         }
 
         if ($session->isRegistered()) {
             // already logged in
-            $session->removeValue(self::$KEY_REDIRECT);
+            $session->removeValue(self::KEY_REDIRECT);
             return $this->findView('account');
         }
 
@@ -117,8 +117,8 @@ class ZMLoginController extends ZMController {
 
         $stickyUrl = $request->getFollowUpUrl();
         if (null == $stickyUrl) {
-            $stickyUrl = $session->getValue(self::$KEY_REDIRECT);
-            $session->removeValue(self::$KEY_REDIRECT);
+            $stickyUrl = $session->getValue(self::KEY_REDIRECT);
+            $session->removeValue(self::KEY_REDIRECT);
         }
         if (null == $stickyUrl) {
             $stickyUrl = $lastUrl;

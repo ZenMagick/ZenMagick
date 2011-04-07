@@ -135,7 +135,8 @@ class ZMForwardView extends ZMView {
         $req->setParameter('rootRequestId', $request->getRequestId());
 
         ZMDispatcher::dispatch($req);
-        return null;
+        // can exit here to avoid doing everything from view_start on twice
+        exit;
     }
 
 }

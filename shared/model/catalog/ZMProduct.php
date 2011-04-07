@@ -354,7 +354,7 @@ class ZMProduct extends ZMObject {
      *
      * @param string description The product description.
      */
-    public function setDescription($description) { $this->description_ = $description; }
+    public function setDescription($description) { $this->description = $description; }
 
     /**
      * Get the product status.
@@ -758,14 +758,14 @@ class ZMProduct extends ZMObject {
      *
      * @return float The product special price.
      */
-    public function getSpecialPrice() { return $this->specialPrice_; }
+    public function getSpecialPrice() { return $this->specialPrice; }
 
     /**
      * Set the product special price.
      *
      * @param float specialPrice The product special price.
      */
-    public function setSpecialPrice($specialPrice) { $this->specialPrice_ = $specialPrice; }
+    public function setSpecialPrice($specialPrice) { $this->specialPrice = $specialPrice; }
 
     /**
      * Get the product offers.
@@ -773,10 +773,10 @@ class ZMProduct extends ZMObject {
      * @return ZMOffers The offers (if any), for this product.
      */
     public function getOffers() {
-        if (null == $this->offers_) {
-            $this->offers_ = ZMLoader::make("ZMOffers", $this);
+        if (null == $this->offers) {
+            $this->offers = ZMLoader::make("ZMOffers", $this);
         }
-        return $this->offers_;
+        return $this->offers;
     }
 
     /**
@@ -897,7 +897,7 @@ class ZMProduct extends ZMObject {
      * @return float The average rating.
      */
     public function getAverageRating() {
-        return ZMReviews::instance()->getAverageRatingForProductId($this->getId(), $this->languageId_);
+        return ZMReviews::instance()->getAverageRatingForProductId($this->getId(), $this->languageId);
     }
 
     /**
@@ -947,14 +947,14 @@ class ZMProduct extends ZMObject {
      *
      * @return int The language id.
      */
-    public function getLanguageId() { return $this->languageId_; }
+    public function getLanguageId() { return $this->languageId; }
 
     /**
      * Set the language id.
      *
      * @param int id The language id.
      */
-    public function setLanguageId($id) { $this->languageId_ = $id; }
+    public function setLanguageId($id) { $this->languageId = $id; }
 
     /**
      * Get product associations for the given type and parameter.
