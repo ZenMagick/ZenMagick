@@ -62,8 +62,12 @@ class ZMToolboxForm extends ZMToolboxTool {
      * @return string A HTML form tag plus optional hidden form fields.
      */
     public function open($page=null, $params='', $secure=true, $attr=null) {
-        $defaults = array('method' => 'post', 'onsubmit' => 'return zmFormValidation.validate(this);');
+        $defaults = array('method' => 'post');
         $hasId = isset($attr['id']);
+        $hasValidation = ($hasId && ZMValidator::instance()->hasRuleSet($attr['id']) && ZMSettings::get('isAutoJSValidation'));
+        if ($hasValidation) {
+            $defaults['onsubmit'] = 'return zmFormValidation.validate(this);';
+        }
         $hasOnsubmit = isset($attr['onsubmit']);
         if (null === $attr) {
             $attr = $defaults;
