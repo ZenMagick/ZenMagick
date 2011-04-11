@@ -77,7 +77,7 @@ class ZMEmailPreviewController extends ZMController {
             $emails->setViewViewId('store-view');
 
             $context = $this->getInitialContext($request);
-            $context = Runtime::getEventDispatcher()->filter(new Event($this, 'email_preview', array('template' => $template, 'format' => $format, 'request' => $request), $context);
+            $context = Runtime::getEventDispatcher()->filter(new Event($this, 'email_preview', array('template' => $template, 'format' => $format, 'request' => $request)), $context);
 
             $content = $emails->createContents($template, 'html'==$format, $request, $context);
             if ('text' == $format) {
