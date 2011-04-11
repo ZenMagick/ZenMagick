@@ -20,3 +20,14 @@
 ?>
 <h1><?php _vzm('Oops') ?></h1><div>
 <p><?php _vzm('Something went wrong.') ?></p>
+<?php if (ZM_ENVIRONMENT == 'development') { ?>
+  <pre>
+  <?php 
+     if (isset($exception)) {
+        echo $exception->getTraceAsString();
+    } else { // we don't know what happened! @todo try to figure it out
+        debug_print_backtrace();
+    }
+  ?>
+  </pre>
+<?php } ?>
