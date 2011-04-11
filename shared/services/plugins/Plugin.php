@@ -417,7 +417,7 @@ class Plugin extends \ZMPlugin {
         }
 
         // TODO: fix
-        return \ZMHtmlUtils::encode(DIR_WS_CATALOG.ZM_ROOT.'plugins/' . $this->getId() . '/' . $uri);
+        return \ZMHtmlUtils::encode(DIR_WS_CATALOG.basename(ZM_BASE_PATH).'/plugins/' . $this->getId() . '/' . $uri);
     }
 
     /**

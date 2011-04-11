@@ -26,8 +26,6 @@ use zenmagick\base\Toolbox;
 use zenmagick\base\events\Event;
 use zenmagick\base\ioc\loader\YamlFileLoader;
 
-    // TODO: remove
-    define('ZM_ROOT', basename(dirname(__FILE__)).'/');
 
     /*
      * If 'ZM_APP_PATH' is defined, the following conventions are expected:
@@ -45,7 +43,6 @@ use zenmagick\base\ioc\loader\YamlFileLoader;
     define('ZM_BASE_PATH', dirname(__FILE__).DIRECTORY_SEPARATOR);
     // app name
     define('ZM_APP_NAME', defined('ZM_APP_PATH') ? basename(ZM_APP_PATH) : null);
-
     // set up the environment to run in
     $getenv_func = function_exists('apache_getenv') ? 'apache_getenv' : 'getenv';
     defined('ZM_ENVIRONMENT') || define('ZM_ENVIRONMENT', ($getenv_func('ZM_ENVIRONMENT') ? $getenv_func('ZM_ENVIRONMENT') : 'production'));
