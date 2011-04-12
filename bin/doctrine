@@ -9,8 +9,6 @@ define('ZC_INSTALL_PATH', realpath('../') . DIRECTORY_SEPARATOR);
 
 // @todo allow passing configuration  values instead of relying in configure.php defines
 require_once ZC_INSTALL_PATH . 'includes/configure.php';
-require_once ZC_INSTALL_PATH . 'includes/database_tables.php';
-
 include 'bootstrap.php';
 
 $helpers = array(

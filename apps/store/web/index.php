@@ -32,8 +32,6 @@
   define('IS_ADMIN_FLAG', false);
 
   require_once ZC_INSTALL_PATH.'/includes/configure.php';
-  require_once DIR_FS_CATALOG.DIR_WS_INCLUDES.'filenames.php';
-  require_once DIR_FS_CATALOG.DIR_WS_INCLUDES.'database_tables.php';
 
   require '../../../bootstrap.php';
 

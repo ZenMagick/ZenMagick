@@ -37,8 +37,6 @@
   }
 
   require_once ZC_INSTALL_PATH.ZC_ADMIN_FOLDER.'/includes/configure.php';
-  require_once DIR_FS_CATALOG.DIR_WS_INCLUDES.'filenames.php';
-  require_once DIR_FS_CATALOG.DIR_WS_INCLUDES.'database_tables.php';
 
   require '../../../bootstrap.php';
 
