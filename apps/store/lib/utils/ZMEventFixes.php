@@ -71,20 +71,6 @@ class ZMEventFixes extends ZMObject {
      * Fake theme resolved event if using zen-cart templates and handle persisted messages.
      */
     public function onInitDone($event) {
-        $request = $event->get('request');
-
-        if (!ZMsettings::get('isEnableZMThemes', true)) {
-            // pass on already set args
-            $args = array_merge($event->all(), array('themeId' => ZMThemes::instance()->getActiveThemeId($request->getSession()->getLanguageId())));
-            Runtime::getEventDispatcher()->notify(new zenmagick\base\events\Event($this, 'theme_resolved', $args));
-        }
-
-        // if using ZMCheckoutPaymentController, we need 'conditions' in $POST to make zencarts checkout_confirmation header_php.php happy
-        if (isset($_GET['conditions']) && 'checkout_confirmation' == $request->getRequestId()) { $_POST['conditions'] = 1; }
-
-        // append again to make this the first one called to provide some useful default for zencart args
-        Runtime::getSettings()->add('zenmagick.http.request.urlRewriter', 'ZMStoreDefaultUrlRewriter');
-
         // TODO: do via admin and just load mapping from somewhere
         // sidebox blocks
         $mappings = array();
@@ -183,6 +169,18 @@ class ZMEventFixes extends ZMObject {
      */
     public function onInitRequest($event) {
         $request = $event->get('request');
+
+        if (!ZMsettings::get('isEnableZMThemes', true)) {
+            // pass on already set args
+            $args = array_merge($event->all(), array('themeId' => ZMThemes::instance()->getActiveThemeId($request->getSession()->getLanguageId())));
+            Runtime::getEventDispatcher()->notify(new zenmagick\base\events\Event($this, 'theme_resolved', $args));
+        }
+
+        // if using ZMCheckoutPaymentController, we need 'conditions' in $POST to make zencarts checkout_confirmation header_php.php happy
+        if (isset($_GET['conditions']) && 'checkout_confirmation' == $request->getRequestId()) { $_POST['conditions'] = 1; }
+
+        // append again to make this the first one called to provide some useful default for zencart args
+        Runtime::getSettings()->add('zenmagick.http.request.urlRewriter', 'ZMStoreDefaultUrlRewriter');
 
         // set locale
         if (null != ($language = $request->getSession()->getLanguage())) {
