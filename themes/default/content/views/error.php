@@ -22,4 +22,15 @@
  */
 ?>
 <h3><?php _vzm("Oops - something went wrong!") ?></h3>
-<?php echo $utils->staticPageContent('error') ?>
+<p><?php echo $utils->staticPageContent('error') ?></p>
+<?php if (ZM_ENVIRONMENT == 'development') { ?>
+  <pre>
+  <?php 
+     if (isset($exception)) {
+        echo $exception->getTraceAsString();
+    } else { // we don't know what happened! @todo try to figure it out
+        debug_print_backtrace();
+    }
+  ?>
+  </pre>
+<?php } ?>

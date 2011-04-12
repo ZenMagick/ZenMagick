@@ -36,6 +36,7 @@ class ZMRedirectView extends ZMView {
     protected $parameter_;
     protected $status_;
     protected $requestId_;
+    protected $forceRequestId_;
 
 
     /**
@@ -48,6 +49,7 @@ class ZMRedirectView extends ZMView {
         $this->parameter_ = '';
         $this->status_ = 302;
         $this->requestId_ = null;
+        $this->forceRequestId_ = false;
     }
 
     /**
@@ -119,7 +121,7 @@ class ZMRedirectView extends ZMView {
      */
     public function generate($request) {
         $url = null;
-        if (null != $this->url_) {
+        if (null != $this->url_ && !$this->forceRequestId_) {
             $url = $this->url_;
         } else {
             $url = $request->url($this->getRequestId(), $this->parameter_, $this->secure_);
@@ -188,6 +190,15 @@ class ZMRedirectView extends ZMView {
      */
     public function getRequestId() {
         return $this->requestId_;
+    }
+
+    /**
+     * Set the force request id flag.
+     *
+     * @param mixed forceRequestId If set to <code>true</code>, the requestId will be used as redirect target even if url is set.
+     */
+    public function setForceRequestId($forceRequestId) {
+        $this->forceRequestId_ = ZMLangUtils::asBoolean($forceRequestId);
     }
 
 }
