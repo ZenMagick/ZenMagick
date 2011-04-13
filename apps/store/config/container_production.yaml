@@ -4,4 +4,4 @@ imports:
     ## shared defaults
     - { resource: ../../../config/store-container.yaml }
     ## custom
-    - { resource: ../../../config/store/container-production.yaml, mode: append }
+    - { resource: ../../../config/store/container_production.yaml, mode: append }

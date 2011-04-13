@@ -25,9 +25,9 @@
 <?php echo $form->open(FILENAME_SHOPPING_CART, "action=update_product", true) ?>
     <table cellpadding="0" cellspacing="0" width="100%">
     	<tr class="tableHeading">
-    		<th><?php echo _vzm('Qty.') ?></th>
-    		<th colspan="2"><?php echo _vzm('Item Name') ?></th>
-    		<th style="text-align: left"><?php echo _vzm('Total') ?></th>
+    		<th><?php _vzm('Qty.') ?></th>
+    		<th colspan="2"><?php _vzm('Item Name') ?></th>
+    		<th style="text-align: left"><?php _vzm('Total') ?></th>
     		<th style="width: 50px" align="right">&nbsp;</th>
     	</tr>
         <tbody>
@@ -36,14 +36,14 @@
             	<td class="qty">
                     <input type="text" name="cart_quantity[]" size="4" value="<?php echo $item->getQty() ?>" />
                 </td>
-                
+
                 <td class="img">
                     <?php echo $html->productImageLink($item->getProduct()) ?>
                     <?php echo $form->hiddenCartFields($item) ?>
                 </td>
                 <td class="itm">
                     <?php if (!$item->isStockAvailable() && ZMSettings::get('isEnableStock')) { ?>
-                        <span class="note"><?php echo _vzm('* Out of Stock') ?></span><br/>
+                        <span class="note"><?php _vzm('* Out of Stock') ?></span><br/>
                     <?php } ?>
                     <?php echo $html->encode($item->getProduct()->getName()) ?>
                     <?php if ($item->hasAttributes()) { ?>
@@ -58,16 +58,16 @@
                         <?php } ?>
                     <?php } ?>
                 </td>
-                
+
                 <td class="price">
                     <?php echo $utils->formatMoney($item->getItemTotal()) ?>
                 </td>
-                
+
                 <td class="remove" align="right"><a href="<?php echo $net->url(FILENAME_SHOPPING_CART, 'action=remove_product&product_id='.$item->getId()) ?>"><img src="<?php echo $this->asUrl("images/small_delete.gif") ?>" alt="remove" /></a></td>
             </tr>
         <?php $odd = !$odd; $first = false; } ?>
         <tr class="other">
-            <td colspan="5" class="total" align="right"><?php echo _vzm("Subtotal") ?>: <?php echo $utils->formatMoney($shoppingCart->getTotal()) ?></td>
+            <td colspan="5" class="total" align="right"><?php _vzm("Subtotal") ?>: <?php echo $utils->formatMoney($shoppingCart->getTotal()) ?></td>
         </tr>
         </tbody>
     </table>

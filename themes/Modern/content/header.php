@@ -44,14 +44,14 @@
 			<ul>
 			<?php if (!$request->isAnonymous()) { ?>
 			  <?php if ($request->isRegistered()) { ?>
-				  <li><a href="<?php echo $net->url(FILENAME_ACCOUNT) ?>" title="<?php echo _vzm("MyAccount") ?>"><span class="colorOrangeLink"><?php echo _vzm("MyAccount") ?></span></a></li>
+				  <li><a href="<?php echo $net->url(FILENAME_ACCOUNT) ?>" title="<?php _vzm("MyAccount") ?>"><span class="colorOrangeLink"><?php _vzm("MyAccount") ?></span></a></li>
 				  <li>|</li>
         <?php } ?>
 		    	<li><a href="<?php echo $net->url(FILENAME_LOGOFF) ?>"><span class="colorBlackLink"><?php echo _zm('Log Out') ?></span></a></li>
 			<?php } else { ?>
-					<li><a href="<?php echo $net->url(FILENAME_CREATE_ACCOUNT); ?>"><span class="colorOrangeLink"><?php echo _vzm("Register"); ?></span></a></li>
+					<li><a href="<?php echo $net->url(FILENAME_CREATE_ACCOUNT); ?>"><span class="colorOrangeLink"><?php _vzm("Register"); ?></span></a></li>
 					<li>|</li>
-		    		<li><a href="<?php echo $net->url(FILENAME_LOGIN); ?>"><span class="colorBlackLink"><?php echo _vzm("Login"); ?></span></a></li>
+		    		<li><a href="<?php echo $net->url(FILENAME_LOGIN); ?>"><span class="colorBlackLink"><?php _vzm("Login"); ?></span></a></li>
 			<?php } ?>
 			<?php if (!$request->getShoppingCart()->isEmpty() && !$request->isCheckout()) { ?>
 				<li>|</li>
@@ -75,7 +75,7 @@
 
 <div id="navEZPagesTop" class="unitPng">
 <ul>
-	<li><a href="<?php echo $net->url(FILENAME_DEFAULT) ?>"><span class="navEZCol"><?php echo _vzm("Home"); ?></span></a></li>
+	<li><a href="<?php echo $net->url(FILENAME_DEFAULT) ?>"><span class="navEZCol"><?php _vzm("Home"); ?></span></a></li>
   <?php foreach (ZMEZPages::instance()->getPagesForHeader($session->getLanguageId()) as $page) { ?>
     <?php $text = '<span class="navEZCol">'.$html->encode($page->getTitle()).'</span>'; ?>
     <li><?php echo $html->ezpageLink($page->getId(), $text); ?></li>

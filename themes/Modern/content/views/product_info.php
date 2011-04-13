@@ -32,50 +32,50 @@
 	          <a href="<?php echo $request->absoluteURL($imageInfo->getLargeImage()) ?>" onclick="productPopup(event, this); return false;"><?php echo $html->image($imageInfo, ZMProducts::IMAGE_MEDIUM) ?></a>
 	      <?php } else { ?>
 	          <?php echo $html->image($imageInfo, ZMProducts::IMAGE_MEDIUM) ?>
-	      <?php } ?> 
+	      <?php } ?>
 	  </div>
-	  
+
 	  <div id="productPrices" class="forward">
 		<h1 id="productName"><?php echo $html->encode(null != $manufacturer ? $manufacturer->getName() : '') ?> <?php echo $html->encode($currentProduct->getName()) ?></h1>
 		 <?php if (null != $manufacturer) { ?>
 		 	<div id="productDescriptionDetail" class="biggerText">
 		 		<ul>
-		 			<li><?php echo _vzm("Model") ?>: <?php echo $html->encode($currentProduct->getModel()) ?></li>
-	        		<li><?php echo _vzm("Producer") ?>: <?php echo $html->encode($manufacturer->getName()); ?></li>
+		 			<li><?php _vzm("Model") ?>: <?php echo $html->encode($currentProduct->getModel()) ?></li>
+	        		<li><?php _vzm("Producer") ?>: <?php echo $html->encode($manufacturer->getName()); ?></li>
 	        	</ul>
 	        </div>
 	      <?php } ?>
-			<div class="itemNormalPrice"><?php echo _vzm("Price") ?>: <?php echo $macro->productPrice($currentProduct) ?></div>
-			
+			<div class="itemNormalPrice"><?php _vzm("Price") ?>: <?php echo $macro->productPrice($currentProduct) ?></div>
+
 			<div id="cartInfo">
 				<div id="cartAdd">
           <?php $minMsg = ""; if (1 < $currentProduct->getMinOrderQty()) { $minMsg = _vzm(" (Order minimum: %s)", $currentProduct->getMinOrderQty()); } ?>
-	      			<label for="cart_quantity"><?php echo _vzm("Quantity") ?><?php echo $minMsg; ?></label>
+	      			<label for="cart_quantity"><?php _vzm("Quantity") ?><?php echo $minMsg; ?></label>
 	      			<input type="text" id="cart_quantity" name="cart_quantity" value="1" maxlength="6" size="4" />
-              <input type="image" value="<?php echo _vzm("Add to cart") ?>" src="<?php echo $this->asUrl('images/button_in_cart.gif') ?>" />
+              <input type="image" value="<?php _vzm("Add to cart") ?>" src="<?php echo $this->asUrl('images/button_in_cart.gif') ?>" />
 				</div>
-				
+
 				<div id="tellAFriendInfo">
 					<ul>
 						<?php if ($currentProduct->getTypeSetting('tell_a_friend')) { ?>
-			            	<li id="tellAFriend"><a class="btn" href="<?php echo $net->url(FILENAME_TELL_A_FRIEND, "products_id=".$currentProduct->getId()) ?>"><?php echo _vzm("Tell a friend") ?></a></li>
+			            	<li id="tellAFriend"><a class="btn" href="<?php echo $net->url(FILENAME_TELL_A_FRIEND, "products_id=".$currentProduct->getId()) ?>"><?php _vzm("Tell a friend") ?></a></li>
 			          	<?php } ?>
 						<?php if ($currentProduct->getTypeSetting('reviews')) { ?>
-						  	<li id="writeReview"><a class="btn" href="<?php echo $net->url(FILENAME_PRODUCT_REVIEWS_WRITE, "products_id=".$currentProduct->getId()) ?>"><?php echo _vzm("Write a Review") ?></a></li>
+						  	<li id="writeReview"><a class="btn" href="<?php echo $net->url(FILENAME_PRODUCT_REVIEWS_WRITE, "products_id=".$currentProduct->getId()) ?>"><?php _vzm("Write a Review") ?></a></li>
 						<?php } ?>
 						<?php if ($currentProduct->hasReviews()) { ?>
-							<li id="readReview"><a class="btn" href="<?php echo $net->url(FILENAME_PRODUCT_REVIEWS, "products_id=".$currentProduct->getId()) ?>"><?php echo _vzm("Read Reviews") ?></a></li>
+							<li id="readReview"><a class="btn" href="<?php echo $net->url(FILENAME_PRODUCT_REVIEWS, "products_id=".$currentProduct->getId()) ?>"><?php _vzm("Read Reviews") ?></a></li>
 						<?php } ?>
-			          
+
 					</ul>
 				</div>
 			</div>
 	  </div>
 	  <div class="clearBoth"></div>
   </div>
-  
+
   <div id="productDescription" class="biggerText"><?php echo $currentProduct->getDescription() ?></div>
-  
+
   <?php $attributes = $macro->productAttributes($currentProduct); ?>
   <?php foreach ($attributes as $attribute) { ?>
       <fieldset>
@@ -89,7 +89,7 @@
   <?php $addImgList = $currentProduct->getAdditionalImages(); ?>
   <?php if (0 < count($addImgList)) { ?>
       <fieldset>
-          <legend><?php echo _vzm("Additional Images") ?></legend>
+          <legend><?php _vzm("Additional Images") ?></legend>
           <?php foreach ($addImgList as $addImg) { ?>
               <?php if ($addImg->hasLargeImage()) { ?>
                   <a href="<?php echo $request->absoluteURL($addImg->getLargeImage()) ?>" onclick="productPopup(event, this); return false;"><img src="<?php echo $request->absoluteURL($addImg->getDefaultImage()) ?>" alt="" title="" /></a>

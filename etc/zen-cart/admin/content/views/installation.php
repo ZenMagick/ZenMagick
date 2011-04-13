@@ -144,7 +144,7 @@
 <div id="b_installation">
   <h2><?php _vzm("ZenMagick Installation") ?> <a class="btn" href=""><?php _vzm("Refresh Page") ?></a></h2>
 
-  <h2 style="color:red"><?php echo _vzm('The patch "<em>Disable zen-cart\'s <code>zen_date_raw</code> function in favour of a ZenMagick implementation</em>" must be disabled as it is deprecated and will be removed in the next version.') ?></h2>
+  <h2 style="color:red"><?php _vzm('The patch "<em>Disable zen-cart\'s <code>zen_date_raw</code> function in favour of a ZenMagick implementation</em>" must be disabled as it is deprecated and will be removed in the next version.') ?></h2>
 
   <form action="zmIndex.php?main_page=installation" method="POST" onsubmit="return zm_user_confirm('Update File Patches?');">
     <fieldset class="patches">
