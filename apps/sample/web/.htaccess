@@ -22,7 +22,7 @@
 
 # BEGIN real-path seo rewrite
 <IfModule mod_rewrite.c>
-RewriteEngine on
+  RewriteEngine on
   ## adjust
   #RewriteBase /zenmagick/apps/admin/sample
 

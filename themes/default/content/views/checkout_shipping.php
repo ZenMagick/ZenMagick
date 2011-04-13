@@ -50,7 +50,7 @@
                   <?php if ($utils->isFreeShipping($shoppingCart)) { $id = 'free_free'; ?>
                       <?php $selected = (0 == count($providers) && 0 == count($methods)); ?>
                       <tr class="smethod" onclick="document.getElementById('<?php echo $id ?>').checked = true;">
-                          <td><?php echo _vzm('Free Shipping') ?></td>
+                          <td><?php _vzm('Free Shipping') ?></td>
                           <td class="smcost"><?php echo $utils->formatMoney(0) ?></td>
                           <td class="smbutt"><input type="radio" id="<?php echo $id ?>" name="shipping" value="<?php echo $id ?>"<?php $form->checked(true, $selected) ?> /></td>
                       </tr>

@@ -181,6 +181,9 @@
         <copy tofile="${build.dir}/zenmagick/Readme.txt" file="etc/build/docs/Readme-mod.txt" />
         <copy tofile="${build.dir}/zenmagick/Install.txt" file="etc/build/docs/Install-mod.txt" />
 
+        <!-- copy shared config -->
+        <copy tofile="${build.dir}/zenmagick/config/store-config.yaml" file="etc/build/store-config.yaml" />
+
         <!-- build before deleting stuff -->
         <antcall target="pack-libraries" />
         <antcall target="pack-phars" />

@@ -112,6 +112,9 @@ zenmagick:
         - zenmagick\http\sacs\handler\UserRoleSacsHandler
       mappingProviders:
         - ZMDBSacsPermissionProvider
+  ## bundles
+  bundles:
+    Doctrine: Symfony\Bundle\DoctrineBundle\DoctrineBundle 
 
 
 ## app settings
