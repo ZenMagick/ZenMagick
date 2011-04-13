@@ -113,10 +113,7 @@ ZMLoader::instance()->addPath(ZM_BASE_PATH.trim($name).DIRECTORY_SEPARATOR);
     // NOTE: this is separate from settings!
     
     // bundles; DI only for now - might want to use HttpKernel for loading stuff?
-    // todo: load from setting?
-    $bundles = array('Doctrine'); 
-    foreach ($bundles as $name) {
-        $class = "Symfony\\Bundle\\".$name."Bundle\\".$name."Bundle";
+    foreach (Runtime::getSettings()->get('zenmagick/bundles') as $key => $class) {
         $bundle = new $class();
         $bundle->registerExtensions(Runtime::getContainer());
     }

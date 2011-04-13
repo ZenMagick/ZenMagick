@@ -103,6 +103,9 @@ zenmagick:
     sacs:
       handler:
         - ZMZenCartAccountSacsHandler
+  ## bundles
+  bundles:
+    Doctrine: Symfony\Bundle\DoctrineBundle\DoctrineBundle 
 
 apps:
   store:
