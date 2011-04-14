@@ -114,7 +114,7 @@ zenmagick:
         - ZMDBSacsPermissionProvider
   ## bundles
   bundles:
-    Doctrine: Symfony\Bundle\DoctrineBundle\DoctrineBundle 
+    DoctrineBundle: Symfony\Bundle\DoctrineBundle\DoctrineBundle 
 
 
 ## app settings

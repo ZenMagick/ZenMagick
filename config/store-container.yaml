@@ -4,29 +4,58 @@
 ## NOTE: This file is generated (and may be re-written) automatically - edit at own risk.
 ##
 
+parameters:
+  kernel.bundles:
+    DoctrineBundle: Symfony\Bundle\DoctrineBundle\DoctrineBundle 
+  
+
 doctrine.dbal:
-    logging: true # @todo has to be true for pageStats plugin to work
-    logger_class: Doctrine\DBAL\Logging\DebugStack
-    connections:
-      default:
-        driver: pdo_mysql
-        dbname: zenmagick
-        host: localhost
-        port: null
-        user: root
-        password: null
-        prefix:
-        #charset: null @todo default charset
-        #collation: null @todo mysql collation setting
-        unix_socket: null
-        initQuery: null # @todo what else will people use this for other than charset?
+  logging: true # @todo has to be true for pageStats plugin to work
+  logger_class: Doctrine\DBAL\Logging\DebugStack
+  connections:
+    default:
+      driver: pdo_mysql
+      dbname: zenmagick
+      host: localhost
+      port: null
+      user: root
+      password: null
+      prefix:
+      #charset: null @todo default charset
+      #collation: null @todo mysql collation setting
+      unix_socket: null
+      initQuery: null # @todo what else will people use this for other than charset?
 
 # database configuration settings
 doctrine.dbal:
-    connections:
-      default:
-        host: '<?php echo DB_SERVER ?>'
-        user: '<?php echo DB_SERVER_USERNAME ?>'
-        password: '<?php echo DB_SERVER_PASSWORD ?>'
-        dbname: '<?php echo DB_DATABASE ?>'
-        prefix: '<?php echo DB_PREFIX ?>'
+  connections:
+    default:
+      host: '<?php echo DB_SERVER ?>'
+      user: '<?php echo DB_SERVER_USERNAME ?>'
+      password: '<?php echo DB_SERVER_PASSWORD ?>'
+      dbname: '<?php echo DB_DATABASE ?>'
+      prefix: '<?php echo DB_PREFIX ?>'
+ 
+doctrine.orm:
+  auto_generate_proxy_classes: true
+  proxy_dir: proxies # @todo inside cache dir, should  we specify that here?
+  proxy_namespace: zenmagick\apps\store\proxies
+  metadata_cache_driver: Doctrine\Common\Cache\ArrayCache
+  query_cache_driver: Doctrine\Common\Cache\ArrayCache
+  result_cache_driver: Doctrine\Common\Cache\ArrayCache
+  mappings:
+    zenmagick:
+      type: annotation
+      # @todo will eventually be the namespace zenmagick\apps\store\entities
+      prefix: ZM
+      dir:
+        - shared/model/account
+        - shared/model/catalog
+        - shared/model/checkout/coupons
+        - shared/model/checkout
+        - shared/model/forms
+        - shared/model/layout
+        - shared/model/locale
+        - shared/model/order
+        - shared/model
+        - apps/admin/lib/model
