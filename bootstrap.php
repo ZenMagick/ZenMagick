@@ -111,13 +111,13 @@ ZMLoader::instance()->addPath(ZM_BASE_PATH.trim($name).DIRECTORY_SEPARATOR);
 
     // init IoC
     // NOTE: this is separate from settings!
-    
+
     // bundles; DI only for now - might want to use HttpKernel for loading stuff?
-    foreach (Runtime::getSettings()->get('zenmagick/bundles') as $key => $class) {
+    foreach (Runtime::getSettings()->get('zenmagick/bundles', array()) as $key => $class) {
         $bundle = new $class();
         $bundle->registerExtensions(Runtime::getContainer());
     }
-    
+
     $containerConfig = Runtime::getApplicationPath().DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.'container.yaml';
     if (file_exists($containerConfig)) {
         $containerYamlLoader = new YamlFileLoader(Runtime::getContainer(), dirname($containerConfig));
