@@ -21,7 +21,6 @@
 <?php
 
 use zenmagick\base\Runtime;
-
 /**
  * A validator framework.
  *
@@ -123,15 +122,18 @@ class ZMValidator extends ZMObject {
      * @return ZMRuleSet A <code>ZMRuleSet</code> instance, array or <code>null</code>.
      */
     public function getRuleSet($id, $compile=false) {
-        $id = $this->resolveAlias($id);
+        $baseId = $this->resolveAlias($id);
         $ruleSet = null;
-        if (array_key_exists($id, $this->sets_)) {
-            $ruleSet = $this->sets_[$id];
+        if (array_key_exists($baseId, $this->sets_)) {
+            $ruleSet = $this->sets_[$baseId];
+        }
+        if ($id != $baseId && array_key_exists($id, $this->sets_)) {
+            $ruleSet = array_merge($ruleSet, $this->sets_[$id]);
         }
 
         if ($compile) {
             $rules = $ruleSet;
-            $ruleSet = ZMLoader::make('ZMRuleSet', $id);
+            $ruleSet = ZMLoader::make('RuleSet', $id);
             foreach ($rules as $ruleDef) {
                 if (null == ($rule = ZMLoader::make($ruleDef))) {
                     ZMLogging::instance()->dump($ruleDef, "can't instantiate rule", ZMLogging::WARN);
@@ -150,8 +152,8 @@ class ZMValidator extends ZMObject {
      * @return boolean <code>true</code> if a <code>ZMRuleSet</code> exists, <code>false</code> if not.
      */
     public function hasRuleSet($id) {
-        $id = $this->resolveAlias($id);
-        return array_key_exists($id, $this->sets_);
+        $baseId = $this->resolveAlias($id);
+        return array_key_exists($id, $this->sets_) || array_key_exists($baseId, $this->sets_);
     }
 
     /**
