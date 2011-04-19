@@ -21,61 +21,64 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 ?>
-
-<?php echo $form->open(FILENAME_SHOPPING_CART, "action=update_product", true) ?>
-    <table cellpadding="0" cellspacing="0">
-        <tbody>
-        <?php $odd = true; $first = true; foreach ($shoppingCart->getItems() as $item) { ?>
-            <tr class="<?php echo ($odd?"odd":"even").($first?" first":" other") ?>">
-            <td class="remove"><a href="<?php echo $net->url(FILENAME_SHOPPING_CART, 'action=remove_product&product_id='.$item->getId()) ?>"><img src="<?php echo $this->asUrl("images/small_delete.gif") ?>" alt="remove" /></a></td>
-                <td class="img">
-                    <?php echo $html->productImageLink($item->getProduct()) ?>
-                    <?php echo $form->hiddenCartFields($item) ?>
-                </td>
-                <td class="itm">
-                    <?php if (!$item->isStockAvailable() && ZMSettings::get('isEnableStock')) { ?>
-                        <span class="note"><?php _vzm('* Out of Stock') ?></span><br/>
-                    <?php } ?>
-                    <?php echo $html->encode($item->getProduct()->getName()) ?>
-                    <?php if ($item->hasAttributes()) { ?>
-                        <br/>
-                        <?php foreach ($item->getAttributes() as $attribute) { ?>
-                            <p><span class="attr"><?php echo $html->encode($attribute->getName()) ?>:</span>
-                            <?php $first = true; foreach ($attribute->getValues() as $attributeValue) { ?>
-                                <?php if (!$first) { ?>, <?php } ?>
-                                <span class="atval"><?php echo $html->encode($attributeValue->getName()) ?></span>
-                            <?php $first = false; } ?>
-                            </p>
+<?php if ($shoppingCart->isEmpty()) { ?>
+    <h2><?php _vzm("Your Shopping Cart is empty") ?></h2>
+<?php } else { ?>
+    <?php echo $form->open(FILENAME_SHOPPING_CART, "action=update_product", true) ?>
+        <table cellpadding="0" cellspacing="0">
+            <tbody>
+            <?php $odd = true; $first = true; foreach ($shoppingCart->getItems() as $item) { ?>
+                <tr class="<?php echo ($odd?"odd":"even").($first?" first":" other") ?>">
+                <td class="remove"><a href="<?php echo $net->url(FILENAME_SHOPPING_CART, 'action=remove_product&product_id='.$item->getId()) ?>"><img src="<?php echo $this->asUrl("images/small_delete.gif") ?>" alt="remove" /></a></td>
+                    <td class="img">
+                        <?php echo $html->productImageLink($item->getProduct()) ?>
+                        <?php echo $form->hiddenCartFields($item) ?>
+                    </td>
+                    <td class="itm">
+                        <?php if (!$item->isStockAvailable() && ZMSettings::get('isEnableStock')) { ?>
+                            <span class="note"><?php _vzm('* Out of Stock') ?></span><br/>
                         <?php } ?>
-                    <?php } ?>
-                </td>
-                <td class="qty">
-                    <input type="text" name="cart_quantity[]" size="4" value="<?php echo $item->getQty() ?>" />
-                </td>
-                <td class="price">
-                    <?php echo $utils->formatMoney($item->getItemTotal()) ?>
-                </td>
+                        <?php echo $html->encode($item->getProduct()->getName()) ?>
+                        <?php if ($item->hasAttributes()) { ?>
+                            <br/>
+                            <?php foreach ($item->getAttributes() as $attribute) { ?>
+                                <p><span class="attr"><?php echo $html->encode($attribute->getName()) ?>:</span>
+                                <?php $first = true; foreach ($attribute->getValues() as $attributeValue) { ?>
+                                    <?php if (!$first) { ?>, <?php } ?>
+                                    <span class="atval"><?php echo $html->encode($attributeValue->getName()) ?></span>
+                                <?php $first = false; } ?>
+                                </p>
+                            <?php } ?>
+                        <?php } ?>
+                    </td>
+                    <td class="qty">
+                        <input type="text" name="cart_quantity[]" size="4" value="<?php echo $item->getQty() ?>" />
+                    </td>
+                    <td class="price">
+                        <?php echo $utils->formatMoney($item->getItemTotal()) ?>
+                    </td>
+                </tr>
+            <?php $odd = !$odd; $first = false; } ?>
+            <tr class="other">
+                <td colspan="4" class="total"><?php _vzm("Subtotal") ?></td>
+                <td class="price"><?php echo $utils->formatMoney($shoppingCart->getTotal()) ?></td>
             </tr>
-        <?php $odd = !$odd; $first = false; } ?>
-        <tr class="other">
-            <td colspan="4" class="total"><?php _vzm("Subtotal") ?></td>
-            <td class="price"><?php echo $utils->formatMoney($shoppingCart->getTotal()) ?></td>
-        </tr>
-        </tbody>
-    </table>
-    <div class="btn">
-        <input type="submit" class="btn" value="<?php _vzm("Update Cart") ?>" />
-        <a class="btn" href="<?php echo $net->url(FILENAME_CHECKOUT_SHIPPING, '', true) ?>"><?php _vzm("Checkout") ?></a>
-    </div>
-    <div>
-        <a class="btn" href="<?php echo $net->url(FILENAME_POPUP_SHIPPING_ESTIMATOR, '', true) ?>" onclick="popupWindow(this.href); return false;"><?php _vzm("Shipping Estimator") ?></a>
-    </div>
+            </tbody>
+        </table>
+        <div class="btn">
+            <input type="submit" class="btn" value="<?php _vzm("Update Cart") ?>" />
+            <a class="btn" href="<?php echo $net->url(FILENAME_CHECKOUT_SHIPPING, '', true) ?>"><?php _vzm("Checkout") ?></a>
+        </div>
+        <div>
+            <a class="btn" href="<?php echo $net->url(FILENAME_POPUP_SHIPPING_ESTIMATOR, '', true) ?>" onclick="popupWindow(this.href); return false;"><?php _vzm("Shipping Estimator") ?></a>
+        </div>
 
-    <?php if (defined('MODULE_PAYMENT_PAYPALWPP_STATUS') && MODULE_PAYMENT_PAYPALWPP_STATUS == 'True') {
-        global $order, $db, $currencies;
-        include(DIR_FS_CATALOG . DIR_WS_MODULES .  'payment/paypal/tpl_ec_button.php');
-    } ?>
+        <?php if (defined('MODULE_PAYMENT_PAYPALWPP_STATUS') && MODULE_PAYMENT_PAYPALWPP_STATUS == 'True') {
+            global $order, $db, $currencies;
+            include(DIR_FS_CATALOG . DIR_WS_MODULES .  'payment/paypal/tpl_ec_button.php');
+        } ?>
 
-</form>
+    </form>
+<?php } ?>
 
 <?php echo $html->backLink('Continue Shopping') ?>

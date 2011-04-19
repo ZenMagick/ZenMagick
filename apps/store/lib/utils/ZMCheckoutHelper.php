@@ -93,7 +93,7 @@ class ZMCheckoutHelper extends ZMObject {
      *
      * @return boolean <code>true</code> if only vouchers are in the cart.
      */
-    public function isGVOnly() { 
+    public function isGVOnly() {
         foreach ($this->shoppingCart_->getItems() as $item) {
             $product = $item->getProduct();
             if (!preg_match('/^GIFT/', $product->getModel())) {
@@ -161,7 +161,7 @@ class ZMCheckoutHelper extends ZMObject {
      * <p><strong>NOTE:</strong> In contrast to Zen Cart, we treat the <em>always free shipping</em>
      * product attribute as <code>boolean</code>. That means currently there is no support for
      * the special case where virtual products <strong>do</strong> require a shipping address.</p>
-     * 
+     *
      * @return boolean <code>true</code> if the cart is purely virtual.
      */
     public function isVirtual() {
@@ -170,7 +170,7 @@ class ZMCheckoutHelper extends ZMObject {
 
     /**
      * Get the cart type.
-     * 
+     *
      * @return string The cart type; one of <em>physical</em>, <em>mixed</em>, <em>virtual</em>.
      */
     public function getType() {
@@ -238,7 +238,7 @@ class ZMCheckoutHelper extends ZMObject {
     /**
      * Check whether the cart is ready for checkout or not.
      *
-     * <p><strong>NOTE:</strong> The main difference to the Zen Cart implementation of this method is that 
+     * <p><strong>NOTE:</strong> The main difference to the Zen Cart implementation of this method is that
      * no error messages are generated. This is left to the controller to handle.</p>
      *
      * @return boolean <code>true</code> if the cart is ready or checkout, <code>false</code> if not.
@@ -280,7 +280,7 @@ class ZMCheckoutHelper extends ZMObject {
      */
     public function validateCheckout($request, $showMessages=true) {
         if ($this->shoppingCart_->isEmpty()) {
-            return "empty_cart";
+            return "shopping_cart";
         }
         $session = $request->getSession();
         if (null == ZMAccounts::instance()->getAccountForId($session->getAccountId())) {
@@ -370,7 +370,7 @@ class ZMCheckoutHelper extends ZMObject {
      * Mark cart as free shipping.
      */
     public function markCartFreeShipping() {
-        // TODO: 
+        // TODO:
         $_SESSION['shipping'] = 'free_free';
         // not sure there are other cases where we want to mark the cart, but just in case...
         if ($this->isVirtual()) {

@@ -20,7 +20,7 @@ global:
   login:
     view: ZMRedirectView#requestId=login
   empty_cart:
-    view: ZMRedirectView#requestId=empty_cart
+    view: ZMRedirectView#requestId=shopping_cart
   cart_not_ready:
     view: ZMRedirectView#requestId=shopping_cart
   cart_is_virtual:
@@ -153,7 +153,7 @@ page:
       view: ZMRedirectView#requestId=checkout_payment
   ## avoid redirect loop
   empty_cart:
-    template: empty_cart
+    view: ZMRedirectView#requestId=shopping_cart
   checkout_shipping_address: 
     controller: 'ZMCheckoutAddressController#mode=shipping'
     formId: shippingAddress
