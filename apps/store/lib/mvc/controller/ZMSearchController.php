@@ -102,7 +102,7 @@ class ZMSearchController extends ZMController {
             $resultList->setResultSource($source);
             $resultList->setPageNumber($request->getPageIndex());
             $args = array('request' => $request, 'criteria' => $criteria, 'resultList' => $resultList, 'autoSearch' => $this->isAutoSearch());
-            Runtime::getEventDispatcher()->notify(new Event($this, 'search', $args);
+            Runtime::getEventDispatcher()->dispatch('search', new Event($this, $args);
             return $this->findView('results', array('resultList' => $resultList));
         }
 

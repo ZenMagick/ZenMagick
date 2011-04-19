@@ -64,7 +64,7 @@ class ZMLogoffController extends ZMController {
         if (!$session->isAnonymous()) {
             // logged in
             $session->clear();
-            Runtime::getEventDispatcher()->notify(new Event($this, 'logoff_success', array('request' => $request, 'controller' => $this, 'account' => $account)));
+            Runtime::getEventDispatcher()->dispatch'logoff_success', (new Event($this, array('request' => $request, 'controller' => $this, 'account' => $account)));
             // redisplay to allow update of state
             return $this->findView('success', array(), array('url' => $lastUrl));
         }

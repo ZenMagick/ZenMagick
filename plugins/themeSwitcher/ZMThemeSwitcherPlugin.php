@@ -78,10 +78,11 @@ class ZMThemeSwitcherPlugin extends Plugin {
     /**
      * Inject html.
      */
-    public function onFinaliseContents($event, $contents) {
+    public function onFinaliseContent($event) {
+        $content = $event->get('content');
         $request = $event->get('request');
 
-        if (false !== strpos($contents, _zm('Switch theme: '))) {
+        if (false !== strpos($content, _zm('Switch theme: '))) {
             // already done, do not change
             return null;
         }
@@ -126,10 +127,9 @@ class ZMThemeSwitcherPlugin extends Plugin {
         }
         if (!ZMLangUtils::isEmpty($links)) {
             $switch =  '<div id="style-switcher" style="text-align:right;padding:2px 8px;">' . _zm('Switch theme: ') . $links . '</div>';
-            $contents =  preg_replace('/(<body[^>]*>)/', '\1'.$switch, $contents, 1);
+            $content =  preg_replace('/(<body[^>]*>)/', '\1'.$switch, $content, 1);
+            $event->set('content', $content);
         }
-
-        return $contents;
     }
 
 }

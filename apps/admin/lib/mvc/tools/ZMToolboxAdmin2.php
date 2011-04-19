@@ -162,19 +162,20 @@ class ZMToolboxAdmin2 extends ZMToolboxTool {
     /**
      * Handle tag updates.
      */
-    public function onFinaliseContents($event, $contents) {
+    public function onFinaliseContent($event) {
+        $content = $event->get('content');
         $request = $event->get('request');
 
         // process all tags
         foreach ($this->tags_ as $tag => $value) {
             if (function_exists($value) || is_array($value)) {
-                preg_replace('/<'.$tag.'>(.*)<\/'.$tag.'>/', $contents, $matches);
+                preg_replace('/<'.$tag.'>(.*)<\/'.$tag.'>/', $content, $matches);
                 $value = call_user_func($value, 1 == count($matches) ? $matches[0] : null);
             }
-            $contents = preg_replace('/<'.$tag.'>.*<\/'.$tag.'>/', '<'.$tag.'>'.$value.'</'.$tag.'>', $contents, 1);
+            $content = preg_replace('/<'.$tag.'>.*<\/'.$tag.'>/', '<'.$tag.'>'.$value.'</'.$tag.'>', $content, 1);
         }
 
-        return $contents;
+        $event->set('content', $content);
     }
 
 }

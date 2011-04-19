@@ -78,7 +78,7 @@ class ZMHoverbox3Plugin extends Plugin {
     /**
      * {@inheritDoc}
      */
-    public function onFinaliseContents($event, $contents) {
+    public function onFinaliseContent($event) {
         if (false === strpos($contents, 'hoverbox')) {
             // no tagged images
             return null;
@@ -97,9 +97,10 @@ class ZMHoverbox3Plugin extends Plugin {
             $h3config = ob_get_clean();
             $h3head .= $h3config;
             $h3head .= '<script type="text/javascript" src="' . $view->asUrl($request, 'hover3/ic_hoverbox3.js') . '"></script>';
-            $contents = preg_replace('/<\/head>/', $h3head.'</head>', $contents, 1);
+            $content = $event->get('content');
+            $content = preg_replace('/<\/head>/', $h3head.'</head>', $content, 1);
+            $event->set('content', $content);
         }
-        return $contents;
     }
 
 }

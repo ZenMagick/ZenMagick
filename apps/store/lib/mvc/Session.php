@@ -396,7 +396,7 @@ class Session extends ZMObject {
         }
 
         // info only
-        Runtime::getEventDispatcher()->notify(new Event($this, 'login_success', array('controller' => $this, 'account' => $account, 'request' => $request)));
+        Runtime::getEventDispatcher()->dispatch('login_success', new Event($this, array('controller' => $this, 'account' => $account, 'request' => $request)));
 
         // update session with valid account
         $this->recreate();

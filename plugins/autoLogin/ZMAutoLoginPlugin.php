@@ -171,7 +171,7 @@ class ZMAutoLoginPlugin extends Plugin {
     /**
      * Event handler to update the cookie if required.
      */
-    public function onFinaliseContents($event, $contents) {
+    public function onFinaliseContent($event) {
         $request = $event->get('request');
         $session = $request->getSession();
         if ('GET' == $request->getMethod() && $session->isRegistered()) {

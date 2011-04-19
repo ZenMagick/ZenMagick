@@ -87,16 +87,16 @@ class ZMExamplePluginPlugin extends Plugin {
     }
 
     /**
-     * Handle final contents.
+     * Handle final content.
      */
-    public function onFinaliseContents($event, $contents) {
+    public function onFinaliseContent($event) {
+        $content = $event->get('content');
         $request = $event->get('request');
 
         if ('login' == $request->getRequestId()) {
-            $contents = preg_replace('/<\/h1>/', ' (modified by ' . $this->getName() . ')</h1>', $contents, 1);
+            $content = preg_replace('/<\/h1>/', ' (modified by ' . $this->getName() . ')</h1>', $content, 1);
+            $event->set('content', $content);
         }
-
-        return $contents;
     }
 
 }

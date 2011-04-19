@@ -93,7 +93,7 @@ class ZMUpdateSubscriptionsCronJob implements ZMCronJob {
             }
 
             // event
-            Runtime::getEventDispatcher()->notify(new Event($this, 'create_order', array('orderId' => $order->getId())));
+            Runtime::getEventDispatcher()->dispatch('create_order', new Event($this, array('orderId' => $order->getId())));
         }
 
         return true;

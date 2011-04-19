@@ -132,7 +132,7 @@ class ZMPageCachePlugin extends \Plugin {
             if (false !== ($contents = $this->cache_->lookup($this->getRequestKey($request))) && $this->isCacheable($request)) {
                 \ZMLogging::instance()->log('cache hit for requestId: '.$request->getRequestId(), \ZMLogging::DEBUG);
                 echo $contents;
-                Runtime::getEventDispatcher()->notify(new Event($this, ZM_EVENT_PLUGINS_PAGE_CACHE_CONTENTS_DONE, $args));
+                Runtime::getEventDispatcher()->dispatch(ZM_EVENT_PLUGINS_PAGE_CACHE_CONTENTS_DONE, new Event($this, $args));
                 if ($this->get('loadStats')) {
                     echo '<!-- pageCache stats: page: ' . Runtime::getExecutionTime() . ' sec.; ';
                     echo 'lastModified: ' . $this->cache_->lastModified() . ' -->';

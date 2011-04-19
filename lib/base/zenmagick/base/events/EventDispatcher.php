@@ -21,7 +21,8 @@
 <?php
 namespace zenmagick\base\events;
 
-use \Symfony\Component\EventDispatcher\EventInterface;
+use \Symfony\Component\EventDispatcher\Event;
+use \Symfony\Component\EventDispatcher\EventDispatcher as SymfonyEventDispatcher;
 
 /**
  * The ZenMagick event service.
@@ -29,54 +30,73 @@ use \Symfony\Component\EventDispatcher\EventInterface;
  * <p>Extends the <em>Symfony event dispatcher</em>, adding:</p>
  * <ul>
  *  <li>The option to listen to <strong>all</strong> events. Reflection is used to determine if a corresponding event callback exists.</li>
- *  <li>Logging of all events.</li>
+ *  <li>Support for PHP callable.</li>
  * </ul>
  *
  * @author DerManoMann
  * @package zenmagick.base.events
  */
-class EventDispatcher extends \Symfony\Component\EventDispatcher\EventDispatcher {
+class EventDispatcher extends SymfonyEventDispatcher {
     const LISTEN_ALL = '*';
 
 
     /**
-     * Listen to all events.
+     * Listen to <strong>all</strong> events.
      *
-     * @param mixed $listener A PHP object instance or PHP callable.
-     * @param integer $priority The priority (between -10 and 10 -- defaults to 0).
+     * @param mixed listener A PHP object instance or PHP callable.
+     * @param integer priority The higher this value, the earlier an event listener will be triggered in the chain; default is 0.
      */
     public function listen($listener, $priority=0) {
-        $this->connect(EventDispatcher::LISTEN_ALL, $listener, $priority);
+        $this->addListener(EventDispatcher::LISTEN_ALL, $listener, $priority);
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getListeners($name) {
-        $listeners = parent::getListeners($name);
+    public function dispatch($eventName, Event $event = null) {
+        // use hasListeners rather than looking at the private listeners property
+        if (!$this->hasListeners($eventName)) {
+            return;
+        }
 
-        if (isset($this->listeners[EventDispatcher::LISTEN_ALL])) {
+        if (null === $event) {
+            $event = new Event();
+        }
+
+        foreach ($this->getListeners($eventName) as $listener) {
+            $this->triggerListener($listener, $eventName, $event);
+
+            if ($event->isPropagationStopped()) {
+                break;
+            }
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getListeners($eventName=null) {
+        $plisteners = parent::getListeners($eventName);
+
+        $alisteners = array();
+        if (null !== $eventName && EventDispatcher::LISTEN_ALL != $eventName) {
+            $all = parent::getListeners(EventDispatcher::LISTEN_ALL);
             // universal listener with method name matching
-            $method = self::n2m($name);
-            $all = $this->listeners[EventDispatcher::LISTEN_ALL];
-            krsort($all);
-            foreach ($all as $pl) {
-                $tmp = array();
-                // filter and prepare as PHP callable
-                foreach ($pl as $l) {
-                    if (is_callable($l)) {
-                        $tmp[] = $l;
-                    } else {
-                        $methods = get_class_methods($l);
-                        if (in_array($method, $methods)) {
-                            $tmp[] = array($l, $method);
-                        }
+            $method = self::n2m($eventName);
+            $tmp = array();
+            foreach ($all as $listener) {
+                if (is_callable($listener)) {
+                    $alisteners[] = $listener;
+                } else {
+                    $methods = get_class_methods($listener);
+                    if (in_array($method, $methods)) {
+                        $alisteners[] = array($listener, $method);
                     }
                 }
-                $listeners = array_merge($listeners, $tmp);
             }
         }
 
+        $listeners = array_merge($plisteners, $alisteners);
         return $listeners;
     }
 
@@ -92,17 +112,28 @@ class EventDispatcher extends \Symfony\Component\EventDispatcher\EventDispatcher
      * <p>For example, to handle the event <em>start_view</em>, the method name would be
      * <code>onStartView(..)</code>.</p>
      *
-     * @param string name The event name.
+     * @param string eventName The event name.
      * @return string The method name.
      */
-    public static function n2m($name) {
+    public static function n2m($eventName) {
         // split into words for ucwords
-        $method = str_replace(array('-', '_'), ' ', $name);
+        $method = str_replace(array('-', '_'), ' ', $eventName);
         // capitalise words
         $method = ucwords($method);
         // cuddle together :)
         $method = str_replace(' ', '', $method);
         return 'on'.$method;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    protected function triggerListener($listener, $eventName, Event $event) {
+        if ($listener instanceof \Closure) {
+            $listener->__invoke($event);
+        } else {
+            call_user_func($listener, $event);
+        }
     }
 
 }

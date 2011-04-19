@@ -76,14 +76,15 @@ class ZMToggleThemesPlugin extends Plugin {
     }
 
     /**
-     * Handle contents filter event.
+     * Handle content event.
      */
-    public function onFinaliseContents($event, $contents) {
+    public function onFinaliseContent($event) {
+        $content = $event->get('content');
         $request = $event->get('request');
 
-        if (false !== strpos($contents, _zm('Toggle ZenMagick theme support'))) {
+        if (false !== strpos($content, _zm('Toggle ZenMagick theme support'))) {
             // already done
-            return $contents;
+            return;
         }
 
         $toggleValue = \ZMSettings::get('isEnableZMThemes', true) ? 'false' : 'true';
@@ -98,7 +99,8 @@ class ZMToggleThemesPlugin extends Plugin {
         $link = '<a href="'.$url.'">'._zm('Toggle ZenMagick theme support').'</a>';
         $switch = '<div id="theme-toggle" style="text-align:right;padding:2px 8px;">' . $link . '</div>';
 
-        return  preg_replace('/(<body[^>]*>)/', '\1'.$switch, $contents, 1);
+        $content = preg_replace('/(<body[^>]*>)/', '\1'.$switch, $content, 1);
+        $event->set('content', $content);
     }
 
 }

@@ -106,7 +106,7 @@ class ZMGoogleAnalyticsPlugin extends Plugin {
     /**
      * Event handler.
      */
-    public function onFinaliseContents($event, $contents) {
+    public function onFinaliseContent($event) {
         $request = $event->get('request');
 
         $trackerCode = $this->getTrackerCodeGa($request);
@@ -119,7 +119,9 @@ class ZMGoogleAnalyticsPlugin extends Plugin {
             $code = str_replace('</script>', '/script-->', $code);
         }
 
-        return preg_replace('/<\/body>/', $code . '</body>', $contents, 1);
+        $content = $event->get('content');
+        $content = preg_replace('/<\/body>/', $code . '</body>', $content, 1);
+        $event->set('content', $content);
     }
 
     /**

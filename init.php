@@ -39,7 +39,7 @@ use zenmagick\http\sacs\SacsManager;
     $request = $_zm_request = ZMRequest::instance();
 
     // tell everyone interested that we have a request
-    Runtime::getEventDispatcher()->notify(new Event(null, 'init_request',  array('request' => $_zm_request)));
+    Runtime::getEventDispatcher()->dispatch('init_request', new Event(null, array('request' => $_zm_request)));
 
     // freeze container
     Runtime::getContainer()->compile();
@@ -61,4 +61,4 @@ use zenmagick\http\sacs\SacsManager;
 
     // restore
     $request = $_zm_request;
-    Runtime::getEventDispatcher()->notify(new Event(null, 'init_done',  array('request' => $_zm_request)));
+    Runtime::getEventDispatcher()->dispatch('init_done', new Event(null, array('request' => $_zm_request)));

@@ -75,7 +75,7 @@ class ZMGoogleStoreLocatorPlugin extends Plugin {
     /**
      * Event callback to add required JS.
      */
-    public function onFinaliseContents($event, $contents) {
+    public function onFinaliseContent($event) {
         $request = $event->get('request');
 
         if ('store_locator' == $request->getRequestId()) {
@@ -100,9 +100,10 @@ class ZMGoogleStoreLocatorPlugin extends Plugin {
   google.setOnLoadCallback(load_locator_map);
 </script>
 ';
-            $contents = preg_replace('/<\/body>/', $script.'</body>', $contents, 1);
+            $content = $event->get('content');
+            $content = preg_replace('/<\/body>/', $script.'</body>', $content, 1);
+            $event->set('content', $content);
         }
-        return $contents;
     }
 
 }

@@ -22,6 +22,7 @@
 
 use zenmagick\base\ClassLoader;
 use zenmagick\base\Runtime;
+use zenmagick\base\events\Event;
 
 /**
  * Themes.
@@ -199,7 +200,7 @@ ZMLoader::instance()->setParent($themeLoader);
             }
 
             $args = array('language' => $language, 'theme' => $theme, 'themeId' => $themeId, 'languageId' => $languageId);
-            Runtime::getEventDispatcher()->notify(new zenmagick\base\events\Event($this, 'theme_loaded', $args));
+            Runtime::getEventDispatcher()->dispatch('theme_loaded', new Event($this, $args));
         }
 
         // cache to avoid to init a theme more than once

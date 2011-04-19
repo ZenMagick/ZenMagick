@@ -84,7 +84,7 @@ class ZMAccountPasswordController extends ZMController {
         $newEncrpytedPassword = ZMAuthenticationManager::instance()->encryptPassword($newPassword);
         ZMAccounts::instance()->setAccountPassword($account->getId(), $newEncrpytedPassword);
 
-        Runtime::getEventDispatcher()->notify(new Event($this, 'password_changed', array('controller' => $this, 'account' => $account, 'clearPassword' => $newPassword)));
+        Runtime::getEventDispatcher()->dispatch('password_changed', new Event($this, array('controller' => $this, 'account' => $account, 'clearPassword' => $newPassword)));
 
         ZMMessages::instance()->success(_zm('Your password has been updated.'));
 

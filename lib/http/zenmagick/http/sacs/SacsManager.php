@@ -189,7 +189,7 @@ class SacsManager {
                 return false;
             }
             // fire event
-            Runtime::getEventDispatcher()->notify(new Event($this, 'insufficient_credentials', array('request' => $request, 'credentials' => $credentials)));
+            Runtime::getEventDispatcher()->dispatch('insufficient_credentials', new Event($this, array('request' => $request, 'credentials' => $credentials)));
             // not required level of authentication
             $session = $request->getSession();
             // secure flag: leave to net() to lookup via SacsManager if configured, but leave as default parameter to allow override

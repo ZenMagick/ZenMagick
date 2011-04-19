@@ -74,10 +74,11 @@ class ZMFualSlimboxPlugin extends Plugin {
     /**
      * Event handler.
      */
-    public function onFinaliseContents($event, $contents) {
+    public function onFinaliseContent($event) {
+        $content = $event->get('content');
         if (false === strpos($contents, 'lightbox')) {
             // no tagged images
-            return null;
+            return;
         }
 
         $view = $event->get('view');
@@ -114,10 +115,9 @@ class ZMFualSlimboxPlugin extends Plugin {
                 echo '<script type="text/javascript" src="'.$view->asUrl($request, 'slimbox/javascript/fual_slimbox.compressed.js').'"></script>' . "\n";
             }
 
-            $contents = preg_replace('/<\/head>/', ob_get_clean().'</head>', $contents, 1);
+            $content = preg_replace('/<\/head>/', ob_get_clean().'</head>', $content, 1);
+            $event->set('content', $content);
         }
-
-        return $contents;
     }
 
 }

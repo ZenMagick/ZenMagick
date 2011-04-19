@@ -71,7 +71,7 @@ class ZMXinhaFormWidget extends \ZMTextAreaFormWidget {
     /**
      * Add init code.
      */
-    public function onFinaliseContents($event, $contents) {
+    public function onFinaliseContent($event) {
         if (0 < count(self::$ID_LIST)) {
             $baseUrl = $this->plugin_->pluginURL('xinha-0.96.1/');
             $idList = implode("', '", self::$ID_LIST);
@@ -108,11 +108,12 @@ xinha_init = xinha_init ? xinha_init : function() {
 Xinha._addEvent(window,'load', xinha_init);
 </script>
 EOT;
-            $contents = preg_replace('/<\/body>/', $jsInit . '</body>', $contents, 1);
+            $content = $event->get('content');
+            $content = preg_replace('/<\/body>/', $jsInit . '</body>', $content, 1);
+            $event->set('content', $content);
             // clear to create js only once
             self::$ID_LIST = array();
         }
-        return $contents;
     }
 
 }

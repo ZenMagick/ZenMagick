@@ -68,7 +68,7 @@ class ZMCronPlugin extends Plugin {
     /**
      * Handle event.
      */
-    public function onFinaliseContents($event, $contents) {
+    public function onFinaliseContent($event) {
         $request = $event->get('request');
 
         if ($this->isEnabled() && ZMLangUtils::asBoolean($this->get('image'))) {
@@ -76,11 +76,11 @@ class ZMCronPlugin extends Plugin {
             if (empty($pages) || ZMLangUtils::inArray($request->getRequestId(), $pages)) {
                 $slash = ZMSettings::get('zenmagick.mvc.html.xhtml') ? '/' : '';
                 $img = '<div><img src="'.$request->url('cron_image').'" alt=""'.$slash.'></div>';
-                $contents = preg_replace('/<\/body>/', $img . '</body>', $contents, 1);
+                $content = $event->get('content');
+                $content = preg_replace('/<\/body>/', $img . '</body>', $content, 1);
+                $event->set('content', $content);
             }
         }
-
-        return $contents;
     }
 
     /**

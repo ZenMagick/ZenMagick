@@ -26,6 +26,7 @@ use zenmagick\base\Toolbox;
 use zenmagick\base\events\Event;
 use zenmagick\base\ioc\loader\YamlFileLoader;
 
+use Symfony\Component\Config\FileLocator;
 
     /*
      * If 'ZM_APP_PATH' is defined, the following conventions are expected:
@@ -48,7 +49,7 @@ use zenmagick\base\ioc\loader\YamlFileLoader;
     defined('ZM_ENVIRONMENT') || define('ZM_ENVIRONMENT', ($getenv_func('ZM_ENVIRONMENT') ? $getenv_func('ZM_ENVIRONMENT') : 'production'));
 
     // hide as to avoid filenames that contain account names, etc.
-    ini_set('display_errors', false);
+    ini_set('display_errors', true);
     // enable all reporting
     error_reporting(-1);
     // enable logging
@@ -115,12 +116,12 @@ ZMLoader::instance()->addPath(ZM_BASE_PATH.trim($name).DIRECTORY_SEPARATOR);
     // bundles; DI only for now - might want to use HttpKernel for loading stuff?
     foreach (Runtime::getSettings()->get('zenmagick/bundles', array()) as $key => $class) {
         $bundle = new $class();
-        $bundle->registerExtensions(Runtime::getContainer());
+        $bundle->build(Runtime::getContainer());
     }
 
     $containerConfig = Runtime::getApplicationPath().DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.'container.yaml';
     if (file_exists($containerConfig)) {
-        $containerYamlLoader = new YamlFileLoader(Runtime::getContainer(), dirname($containerConfig));
+        $containerYamlLoader = new YamlFileLoader(Runtime::getContainer(), new FileLocator(dirname($containerConfig)));
         $containerYamlLoader->load($containerConfig);
     }
 
@@ -151,10 +152,10 @@ ZMLoader::instance()->addPath(ZM_BASE_PATH.trim($name).DIRECTORY_SEPARATOR);
     }
 
     Runtime::getLogging()->info('environment is: '.ZM_ENVIRONMENT);
-    Runtime::getEventDispatcher()->notify(new Event(null, 'bootstrap_done'));
+    Runtime::getEventDispatcher()->dispatch('bootstrap_done', new Event());
 
     // upset plugins if required
     if (Runtime::getSettings()->get('zenmagick.base.plugins.enabled', true)) {
         ZMPlugins::instance()->initAllPlugins(Runtime::getSettings()->get('zenmagick.base.plugins.context'));
-        Runtime::getEventDispatcher()->notify(new Event(null, 'init_plugins_done'));
+        Runtime::getEventDispatcher()->dispatch('init_plugins_done', new Event());
     }

@@ -45,7 +45,7 @@ class YamlFileLoader extends \Symfony\Component\DependencyInjection\Loader\YamlF
      *
      * <p>Check for <em>.yml</em> <strong>and</strong> <em>.yaml</em> file extension.</p>
      */
-    public function supports($resource) {
+    public function supports($resource, $type=null) {
         return parent::supports($resource) || (is_string($resource) && 'yaml' === pathinfo($resource, PATHINFO_EXTENSION));
     }
 

@@ -35,27 +35,3 @@ doctrine.dbal:
       password: '<?php echo DB_SERVER_PASSWORD ?>'
       dbname: '<?php echo DB_DATABASE ?>'
       prefix: '<?php echo DB_PREFIX ?>'
- 
-doctrine.orm:
-  auto_generate_proxy_classes: true
-  proxy_dir: proxies # @todo inside cache dir, should  we specify that here?
-  proxy_namespace: zenmagick\apps\store\proxies
-  metadata_cache_driver: Doctrine\Common\Cache\ArrayCache
-  query_cache_driver: Doctrine\Common\Cache\ArrayCache
-  result_cache_driver: Doctrine\Common\Cache\ArrayCache
-  mappings:
-    zenmagick:
-      type: annotation
-      # @todo will eventually be the namespace zenmagick\apps\store\entities
-      prefix: ZM
-      dir:
-        - shared/model/account
-        - shared/model/catalog
-        - shared/model/checkout/coupons
-        - shared/model/checkout
-        - shared/model/forms
-        - shared/model/layout
-        - shared/model/locale
-        - shared/model/order
-        - shared/model
-        - apps/admin/lib/model

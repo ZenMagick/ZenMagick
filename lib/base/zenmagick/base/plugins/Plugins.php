@@ -308,7 +308,7 @@ class Plugins {
                 $this->plugins_[$id] = array('plugin' => $plugin, 'init' => true);
             }
         }
-        Runtime::getEventDispatcher()->notify(new Event($this, 'init_plugin_group_done', array('ids' => $ids, 'plugins' => $plugins)));
+        Runtime::getEventDispatcher()->dispatch('init_plugin_group_done', new Event($this, array('ids' => $ids, 'plugins' => $plugins)));
 
         return $plugins;
     }

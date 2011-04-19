@@ -75,7 +75,7 @@ class ZMTinyMCEFormWidget extends \ZMTextAreaFormWidget {
     /**
      * Add init code.
      */
-    public function onFinaliseContents($event, $contents) {
+    public function onFinaliseContent($event) {
         if (0 < count(self::$ID_LIST)) {
             $idString = implode(',', self::$ID_LIST);
             $jsInit = <<<EOT
@@ -96,11 +96,12 @@ class ZMTinyMCEFormWidget extends \ZMTextAreaFormWidget {
   });
 </script>
 EOT;
-            $contents = preg_replace('/<\/body>/', $jsInit . '</body>', $contents, 1);
+            $content = $event->get('content');
+            $content = preg_replace('/<\/body>/', $jsInit . '</body>', $content, 1);
+            $event->set('content', $content);
             // clear to create js only once
             self::$ID_LIST = array();
         }
-        return $contents;
     }
 
 }

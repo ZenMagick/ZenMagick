@@ -100,7 +100,7 @@ class ZMNoThemeSupportPatch extends ZMFilePatch {
             return true;
         }
 
-        $PATCHLINE = "if (!ZMSettings::get('isEnableZMThemes', true)) { \$request = ZMRequest::instance(); echo zenmagick\\base\\Runtime::getEventDispatcher()->filter(new zenmagick\\base\\events\\Event(null, 'finalise_contents', array('request' => \$request)), ob_get_clean()); \$request->getSession()->clearMessages(); zenmagick\\base\\Runtime::getEventDispatcher()->notify(new zenmagick\\base\\events\\Event(null, 'all_done', array('request' => \$request))); } /* added by ZenMagick installation patcher */";
+        $PATCHLINE = "if (!ZMSettings::get('isEnableZMThemes', true)) { \$request = ZMRequest::instance(); echo zenmagick\\base\\Runtime::getEventDispatcher()->filter(new zenmagick\\base\\events\\Event(null, 'finalise_contents', array('request' => \$request)), ob_get_clean()); \$request->getSession()->clearMessages(); zenmagick\\base\\Runtime::getEventDispatcher()->dispatch('all_done', new zenmagick\\base\\events\\Event(null, array('request' => \$request))); } /* added by ZenMagick installation patcher */";
 
         if (is_writeable(_ZM_ZEN_APP_BOTTOM_PHP)) {
             $patchedLines = array();

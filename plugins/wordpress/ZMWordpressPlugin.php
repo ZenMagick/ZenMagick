@@ -199,19 +199,19 @@ class ZMWordpressPlugin extends Plugin {
     }
 
     /**
-     * Handle final contents.
+     * Handle final content.
      */
-    public function onFinaliseContents($event, $contents) {
+    public function onFinaliseContent($event) {
         $request = $event->get('request');
 
         if (FILENAME_WP == $request->getRequestId()) {
             ob_start();
             wp_head();
             $wp_head = ob_get_clean();
-            $contents = preg_replace('/<\/head>/', $wp_head . '</head>', $contents, 1);
+            $content = $event->get('content');
+            $content = preg_replace('/<\/head>/', $wp_head . '</head>', $content, 1);
+            $event->set('content', $content);
         }
-
-        return $contents;
     }
 
     /**

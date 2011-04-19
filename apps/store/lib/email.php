@@ -23,6 +23,9 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
+use zenmagick\base\events\Event;
+
     /**
      * Send email.
      *
@@ -56,8 +59,10 @@
         $request = ZMRequest::instance();
 
         // event to allow additions to context or view or...
-        $args = array('template' => $template, 'request' => $request);
-        $context = zenmagick\base\Runtime::getEventDispatcher()->filter(new \zenmagick\base\events\Event(null, 'generate_email', $args), $context);
+        $args = array('template' => $template, 'request' => $request, 'context' => $context);
+        $event = new Event(null, $args);
+        Runtime::getEventDispatcher()->dispatch('generate_email', $event);
+        $context = $event->get('context');
         // save context for legacy HTML generation...
         $request->set('ZM_EMAIL_CONTEXT', $context);
 

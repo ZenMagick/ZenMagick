@@ -183,14 +183,16 @@ class ZMPageStatsPlugin extends Plugin {
     }
 
     /**
-     * Handle finalize contents filter event.
+     * Handle finalize content event.
      */
-    public function onFinaliseContents($event, $contents) {
+    public function onFinaliseContent($event) {
+        $content = $event->get('content');
         $request = $event->get('request');
         $view = $event->has('view') ? $event->get('view') : null;
 
         if (ZMLangUtils::asBoolean($this->get('hideStats'))) {
-            return $contents.$this->hiddenStats($request, $view);
+            $event->set('content', $content.$this->hiddenStats($request, $view));
+            return;
         }
 
         ob_start();
@@ -228,8 +230,8 @@ class ZMPageStatsPlugin extends Plugin {
                 echo '<td style="text-align:left;padding:4px;">'.sprintf("%d", $event->getMemory()).'</td>';
                 echo '<td style="text-align:left;padding:4px;">'.EventDispatcher::n2m($event->getName()).'</td>';
                 $eargs = $event->all();
-                if ('finalise_contents' == $event->getName()) {
-                    $eargs['contents'] = '**response**';
+                if (isset($eargs['content'])) {
+                    $eargs['content'] = '**response**';
                 }
                 // handle array eargs
                 foreach ($eargs as $key => $value) {
@@ -277,7 +279,8 @@ class ZMPageStatsPlugin extends Plugin {
 
         $info = ob_get_clean();
 
-        return preg_replace('/<\/body>/', $info . '</body>', $contents, 1);
+        $event->set('content', preg_replace('/<\/body>/', $info . '</body>', $content, 1));
+        return;
     }
 
     /**
