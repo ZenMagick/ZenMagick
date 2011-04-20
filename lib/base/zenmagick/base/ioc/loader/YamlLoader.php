@@ -21,15 +21,27 @@
 <?php
 namespace zenmagick\base\ioc\loader;
 
+use Symfony\Component\Config\FileLocator;
+
 /**
  * Yaml loader for IoC definitions.
  *
  * <p>Based on the <em>symfony2</em> dependency injection component.</p>
  *
+ * <p>This class allows to load YAML strings into the container by <em>abusing</em> the <code>FileLocator</code> and a few other
+ * bits of the symfony DI loader system.</p>
+ *
  * @author DerManoMann
  * @package zenmagick.base.ioc.loader
  */
 class YamlLoader extends YamlFileLoader {
+
+    /**
+     * {@inheritDoc}
+     */
+    public function __construct(ContainerBuilder $container, FileLocator $locator=null) {
+        parent::__construct($container, new EchoFileLocator(dirname(__FILE__)));
+    }
 
     /**
      * {@inheritDoc}
@@ -56,4 +68,14 @@ class YamlLoader extends YamlFileLoader {
         return is_array($resource) && array_key_exists('services', $resource);
     }
 
+}
+
+/**
+ * Fake class to allow loading yaml from strings.
+ */
+class EchoFileLocator extends FileLocator {
+
+    public function locate($name, $currentPath=null, $first=true) {
+        return $name;
+    }
 }

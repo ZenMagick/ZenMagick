@@ -28,3 +28,8 @@ urls:
 settings:
   zenmagick.mvc.resultlist.defaultPagination: 3
   
+container:
+  services:
+    ZMProducts:
+      class: ZMProducts
+      scope: prototype

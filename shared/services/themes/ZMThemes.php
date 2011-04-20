@@ -24,6 +24,8 @@ use zenmagick\base\ClassLoader;
 use zenmagick\base\Runtime;
 use zenmagick\base\events\Event;
 
+use Symfony\Component\Config\FileLocator;
+
 /**
  * Themes.
  *
@@ -189,7 +191,7 @@ ZMLoader::instance()->setParent($themeLoader);
             // theme IoC
             $containerConfig = $theme->getBaseDir().DIRECTORY_SEPARATOR.'container.yaml';
             if (file_exists($containerConfig)) {
-                $containerYamlLoader = new YamlFileLoader(Runtime::getContainer(), dirname($containerConfig));
+                $containerYamlLoader = new YamlFileLoader(Runtime::getContainer(), new FileLocator(dirname($containerConfig)));
                 $containerYamlLoader->load($containerConfig);
             }
 

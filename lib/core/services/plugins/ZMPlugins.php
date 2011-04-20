@@ -24,6 +24,8 @@ use zenmagick\base\Runtime;
 use zenmagick\base\ioc\Container;
 use zenmagick\base\ioc\loader\YamlFileLoader;
 
+use Symfony\Component\Config\FileLocator;
+
 /**
  * Basic plugin service.
  *
@@ -333,7 +335,7 @@ class ZMPlugins extends ZMObject {
                 $containerConfig = $plugin->getPluginDirectory().DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.'container.yaml';
                 if (!Runtime::getContainer()->isFrozen() && file_exists($containerConfig)) {
                     $container = new Container();
-                    $containerYamlLoader = new YamlFileLoader($container, dirname($containerConfig));
+                    $containerYamlLoader = new YamlFileLoader($container, new FileLocator(dirname($containerConfig)));
                     $containerYamlLoader->load($containerConfig);
                     Runtime::getContainer()->merge($container);
                 }

@@ -23,6 +23,8 @@
 use zenmagick\base\Runtime;
 use zenmagick\base\ioc\loader\YamlLoader;
 
+use Symfony\Component\Config\FileLocator;
+
 /**
  * A theme.
  *
@@ -325,7 +327,7 @@ class ZMTheme extends ZMObject {
         // add optional container config
         $containerSettings = $this->getConfig('container');
         if ($containerSettings && is_array($containerSettings)) {
-            $containerYamlLoader = new YamlLoader(Runtime::getContainer(), dirname($this->getBaseDir()));
+            $containerYamlLoader = new YamlLoader(Runtime::getContainer(), new FileLocator(dirname($this->getBaseDir())));
             $containerYamlLoader->load($containerSettings);
         }
     }

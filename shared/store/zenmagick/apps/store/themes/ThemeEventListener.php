@@ -33,7 +33,8 @@ class ThemeEventListener {
      * Handle load theme event.
      */
     public function onThemeLoaded($event) {
-        $class = array_pop(explode('\\', get_class($this)));
+        $token = explode('\\', get_class($this));
+        $class = array_pop($token);
         $myThemeId = strtolower(str_replace('EventListener', '', $class));
         if ($myThemeId == strtolower($event->get('themeId'))) {
             $this->themeLoaded($event);
