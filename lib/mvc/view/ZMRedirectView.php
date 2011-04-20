@@ -120,15 +120,7 @@ class ZMRedirectView extends ZMView {
      * {@inheritDoc}
      */
     public function generate($request) {
-        $url = null;
-        if (null != $this->url_ && !$this->forceRequestId_) {
-            $url = $this->url_;
-        } else {
-            $url = $request->url($this->getRequestId(), $this->parameter_, $this->secure_);
-        }
-
-        // redirect
-        $request->redirect($url, $this->status_);
+        $request->redirect($this->getRedirectUrl(), $this->status_);
         return null;
     }
 
@@ -199,6 +191,15 @@ class ZMRedirectView extends ZMView {
      */
     public function setForceRequestId($forceRequestId) {
         $this->forceRequestId_ = ZMLangUtils::asBoolean($forceRequestId);
+    }
+
+    /**
+     * Get the evaluated redirect url.
+     *
+     * @return string The redirect url.
+     */
+    public function getRedirectUrl() {
+        return ((null != $this->url_ && !$this->forceRequestId_) ? $this->url_ : $request->url($this->getRequestId(), $this->parameter_, $this->secure_));
     }
 
 }
