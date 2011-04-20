@@ -52,7 +52,7 @@ class YamlLoader extends YamlFileLoader {
      *
      * <p>Accept <code>array</code> resources with a '<em>services</em>' key.</p>
      */
-    public function supports($resource) {
+    public function supports($resource, $type=null) {
         return is_array($resource) && array_key_exists('services', $resource);
     }
 
