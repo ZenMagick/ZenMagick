@@ -120,7 +120,7 @@ class ZMRedirectView extends ZMView {
      * {@inheritDoc}
      */
     public function generate($request) {
-        $request->redirect($this->getRedirectUrl(), $this->status_);
+        $request->redirect($this->getRedirectUrl($request), $this->status_);
         return null;
     }
 
@@ -196,9 +196,10 @@ class ZMRedirectView extends ZMView {
     /**
      * Get the evaluated redirect url.
      *
+     * @param ZMRequest request The current request.
      * @return string The redirect url.
      */
-    public function getRedirectUrl() {
+    public function getRedirectUrl($request) {
         return ((null != $this->url_ && !$this->forceRequestId_) ? $this->url_ : $request->url($this->getRequestId(), $this->parameter_, $this->secure_));
     }
 
