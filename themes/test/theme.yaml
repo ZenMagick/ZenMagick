@@ -6,16 +6,23 @@ description: 'test theme for development use only'
 
 ## optional url mappings
 urls:
-  ## show conditions as homepage!
-  index:
-    template: conditions
-  ## change redirect view after sucessful login
-  login:
-    success:
+  alias:
+    foo:
+      requestId: login
+    login:
+      requestId: bar
+      parameter: 'abc=def&x=1'
+  page:
+    ## show conditions as homepage!
+    index:
       template: conditions
-  ## redirect externally
-  privacy:
-    view: RedirectView#url=http://www.dilbert.com/
+    ## change redirect view after sucessful login
+    login:
+      success:
+        template: conditions
+    ## redirect externally
+    privacy:
+      view: RedirectView#url=http://www.dilbert.com/
 
 ## optional settngs
 settings:
