@@ -63,4 +63,28 @@ class TestZMUrlManager extends ZMTestCase {
         $this->assertEqual(array('controller'=>null,'formId'=>null,'form'=>null,'view'=>'ZMRedirectView#requestId=checkout_shipping','template'=>'login', 'layout' => null), $mapping);
     }
 
+    /**
+     * Test resolve alias.
+     */
+    public function testResolveAlias() {
+        $manager = new ZMUrlManager();
+        $manager->setMappings(array('alias' => array(
+            'foo' => array('requestId' => 'bar')
+        )));
+        $this->assertEqual('bar', $manager->resolveAlias('foo'));
+    }
+
+    /**
+     * Test get alias.
+     */
+    public function testGetAlias() {
+        $manager = new ZMUrlManager();
+        $manager->setMappings(array('alias' => array(
+            'foo' => array('requestId' => 'bar'),
+            'xx' => array('parameter' => 'x=1')
+        )));
+        $this->assertEqual(array('requestId' => 'bar', 'parameter' => ''), $manager->getAlias('foo'));
+        $this->assertEqual(array('requestId' => 'xx', 'parameter' => 'x=1'), $manager->getAlias('xx'));
+    }
+
 }

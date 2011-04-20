@@ -38,7 +38,7 @@ use zenmagick\base\Runtime;
  */
 class ZMUrlManager extends ZMObject {
     private static $MAPPING_KEYS = array('controller', 'formId', 'form', 'view', 'template', 'layout');
-    private static $TYPE_KEYS = array('global', 'page');
+    private static $TYPE_KEYS = array('global', 'page', 'alias');
     private $mappings_;
 
 
@@ -69,7 +69,10 @@ class ZMUrlManager extends ZMObject {
      * Clear all mappings.
      */
     public function clear() {
-        $this->mappings_ = array('global' => array(), 'page' => array());
+        $this->mappings_ = array();
+        foreach (self::$TYPE_KEYS as $key) {
+            $this->mappings_[$key] = array();
+        }
     }
 
     /**
@@ -286,6 +289,42 @@ class ZMUrlManager extends ZMObject {
         $definition = $view.(false === strpos($view, '#') ? '#' : '&').$parameter.'&template='.$mapping['template'].'&layout='.$layout.'&viewId='.$viewId;
         ZMLogging::instance()->log('view definition: '.$definition, ZMLogging::TRACE);
         return ZMBeanUtils::getBean($definition);
+    }
+
+    /**
+     * Resolve potential alias for the given request id.
+     *
+     * @param string requestId The given request id.
+     * @param string The eventual request id, taking into account configured alias mappings.
+     */
+    public function resolveAlias($requestId) {
+        if (array_key_exists($requestId, $this->mappings_['alias'])) {
+            return $this->mappings_['alias'][$requestId]['requestId'];
+        }
+
+        return $requestId;
+    }
+
+    /**
+     * Get alias for the given request id.
+     *
+     * @param string requestId The given request id.
+     * @param array The alias mapping or <code>null</code>.
+     */
+    public function getAlias($requestId) {
+        if (array_key_exists($requestId, $this->mappings_['alias'])) {
+            // make sure all keys are there
+            if (!array_key_exists('requestId', $this->mappings_['alias'][$requestId])) {
+                // might happen if there is only aliasing to add parameter
+                $this->mappings_['alias'][$requestId]['requestId'] = $requestId;
+            }
+            if (!array_key_exists('parameter', $this->mappings_['alias'][$requestId])) {
+                $this->mappings_['alias'][$requestId]['parameter'] = '';
+            }
+            return $this->mappings_['alias'][$requestId];
+        }
+
+        return null;
     }
 
 }

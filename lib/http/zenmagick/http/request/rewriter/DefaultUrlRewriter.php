@@ -85,6 +85,14 @@ class DefaultUrlRewriter implements UrlRewriter {
     public function rewrite($request, $args) {
         $requestId = $args['requestId'];
         $params = $args['params'];
+        if (null != ($alias = \ZMUrlManager::instance()->getAlias($requestId))) {
+            $requestId = $alias['requestId'];
+            $params = str_replace('&&', '&', $params.'&'.$alias['parameter']);
+            if ('&' == $params[0]) {
+                $params = substr($params, 1);
+            }
+        }
+
         $secure = Runtime::getSettings()->get('zenmagick.http.request.allSecure') ? true : $args['secure'];
 
         if (null != ($method = $this->methods_['rewrite'])) {
