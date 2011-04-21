@@ -72,17 +72,17 @@ use Symfony\Component\Config\FileLocator;
     // as default disable plugins for CLI calls
     Runtime::getSettings()->set('zenmagick.base.plugins.enabled', !ZM_CLI_CALL);
 
-// XXX: legacy loader
-require_once ZM_BASE_PATH."lib/core/ZMLoader.php";
-spl_autoload_register('ZMLoader::resolve');
-// configure loader
-ZMLoader::instance()->addPath(ZM_BASE_PATH.'lib'.DIRECTORY_SEPARATOR.'core'.DIRECTORY_SEPARATOR);
-ZMLoader::instance()->addPath(ZM_BASE_PATH.'lib'.DIRECTORY_SEPARATOR.'mvc'.DIRECTORY_SEPARATOR);
+    // XXX: legacy loader
+    require_once ZM_BASE_PATH."lib/core/ZMLoader.php";
+    spl_autoload_register('ZMLoader::resolve');
+    // configure loader
+    ZMLoader::instance()->addPath(ZM_BASE_PATH.'lib'.DIRECTORY_SEPARATOR.'core'.DIRECTORY_SEPARATOR);
+    ZMLoader::instance()->addPath(ZM_BASE_PATH.'lib'.DIRECTORY_SEPARATOR.'mvc'.DIRECTORY_SEPARATOR);
 
     // set up application class loader
     if (null != Runtime::getApplicationPath()) {
-// XXX: legacy loader
-ZMLoader::instance()->addPath(Runtime::getApplicationPath().DIRECTORY_SEPARATOR.'lib'.DIRECTORY_SEPARATOR);
+        // XXX: legacy loader
+        ZMLoader::instance()->addPath(Runtime::getApplicationPath().DIRECTORY_SEPARATOR.'lib'.DIRECTORY_SEPARATOR);
         $appLoader = new ClassLoader();
         $appLoader->addConfig(Runtime::getApplicationPath().DIRECTORY_SEPARATOR.'lib');
         $appLoader->register();
@@ -93,8 +93,8 @@ ZMLoader::instance()->addPath(Runtime::getApplicationPath().DIRECTORY_SEPARATOR.
     if (defined('ZM_LIBS')) {
         $libLoader = new ClassLoader();
         foreach (explode(',', ZM_LIBS) as $name) {
-// XXX: legacy loader
-ZMLoader::instance()->addPath(ZM_BASE_PATH.trim($name).DIRECTORY_SEPARATOR);
+            // XXX: legacy loader
+            ZMLoader::instance()->addPath(ZM_BASE_PATH.trim($name).DIRECTORY_SEPARATOR);
             $libLoader->addConfig(ZM_BASE_PATH.trim($name));
         }
         $libLoader->register();
