@@ -1,3 +1,24 @@
+<?php
+/*
+ * ZenMagick - Smart e-commerce
+ * Copyright (C) 2006-2010 zenmagick.org
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+?>
+
 <h1><?php _vzm('Zen Cart Admin') ?></h1>
 <link rel="stylesheet" type="text/css" href="<?php echo DIR_WS_CATALOG.ZC_ADMIN_FOLDER ?>/includes/stylesheet.css">
 <script>
@@ -42,7 +63,6 @@ global $PHP_SELF, $db, $autoLoadConfig, $sniffer, $currencies, $template, $curre
 $PHP_SELF = $zcAdminFolder.$zcPage;
 $code = file_get_contents($zcAdminFolder.$zcPage);
 $code = preg_replace("/<!doctype[^>]*>/s", '', $code);
-//$code = preg_replace("/<html.*<body[^>]*>/s", '', $code);
 $code = preg_replace("/require\(.*header.php'\s*\);/", '', $code);
 $code = preg_replace("/require\(.*footer.php'\s*\);/", '', $code);
 $code = preg_replace("/<\/body>\s*<\/html>/s", '', $code);
@@ -51,6 +71,27 @@ $code = preg_replace("/require\(.*application_bottom.php'\s*\);/", '', $code);
 ob_start();
 eval('?>'.$code);
 $content = ob_get_clean();
+// get all head content and find all script code
+preg_match("/<head\>.*<\/head\>/is", $content, $head);
+if (1 == count($head)) {
+    preg_match_all("/<script?.+<\/script\>/Uis", $head[0], $scripts);
+    foreach ($scripts as $match) {
+        foreach ($match as $script) {
+            $skip = false;
+            foreach (array('includes/menu.js', 'includes/general.js') as $exclude) {
+                if (false !== strpos($script, $exclude)) {
+                    $skip = true;
+                    break;
+                }
+            }
+
+            if (!$skip) {
+                echo $script."\n";
+            }
+        }
+    }
+}
+$content = preg_replace("/<html.*<body[^>]*>/s", '', $content);
 $content = str_replace('id="main"', '', $content);
 $content = str_replace('src="includes', 'src="'.DIR_WS_ADMIN.'includes', $content);
 $content = str_replace('src="images', 'src="'.DIR_WS_ADMIN.'images', $content);
@@ -114,3 +155,8 @@ $content = preg_replace('/(action="[^"]*index.php\?rid=zc_admin&zpid=)([^&"]*)([
 </script>
 <div id="view-container">
   <?php echo $content; ?>
+  <?php if (isset($scripts)) { ?>
+    <div id="navbar"></div>
+    <div id="hoverJS"></div>
+    <script> function cssjsmenu(foo) {}; init(); </script>
+  <?php } ?>
