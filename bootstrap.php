@@ -87,12 +87,6 @@ ZMLoader::instance()->addPath(Runtime::getApplicationPath().DIRECTORY_SEPARATOR.
         $appLoader->addConfig(Runtime::getApplicationPath().DIRECTORY_SEPARATOR.'lib');
         $appLoader->register();
         unset($appLoader);
-
-        // always add an application event listener
-        $eventListener = 'zenmagick\\apps\\'.ZM_APP_NAME.'\\EventListener';
-        if (ClassLoader::classExists($eventListener)) {
-            Runtime::getEventDispatcher()->listen(new $eventListener());
-        }
     }
 
     // set up lib class loader
@@ -123,6 +117,14 @@ ZMLoader::instance()->addPath(ZM_BASE_PATH.trim($name).DIRECTORY_SEPARATOR);
     if (file_exists($containerConfig)) {
         $containerYamlLoader = new YamlFileLoader(Runtime::getContainer(), new FileLocator(dirname($containerConfig)));
         $containerYamlLoader->load($containerConfig);
+    }
+
+    if (null != Runtime::getApplicationPath()) {
+        // always add an application event listener
+        $eventListener = 'zenmagick\\apps\\'.ZM_APP_NAME.'\\EventListener';
+        if (ClassLoader::classExists($eventListener)) {
+            Runtime::getEventDispatcher()->listen(new $eventListener());
+        }
     }
 
     // hook up default event listeners
