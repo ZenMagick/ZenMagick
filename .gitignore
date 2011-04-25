@@ -7,5 +7,6 @@ local.php
 global.yaml
 /build
 /config/store-config.yaml
+/config/store-container.yaml
 /config/admin/config_*.yaml
 /config/store/config_*.yaml
