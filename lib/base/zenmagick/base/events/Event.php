@@ -21,13 +21,15 @@
 <?php
 namespace zenmagick\base\events;
 
+use Symfony\Component\EventDispatcher\Event as SymfonyEvent;
+
 /**
  * A ZenMagick event service event.
  *
  * @author DerManoMann
  * @package zenmagick.base.events
  */
-class Event extends \Symfony\Component\EventDispatcher\Event {
+class Event extends SymfonyEvent {
     protected $source;
     protected $parameters;
     private $timestamp;
