@@ -53,7 +53,7 @@ class ZMDispatcher {
         echo $event->get('content');
 
         // all done
-        Runtime::getEventDispatcher()->dispatch('all_done', new Event(null, array('request' => $request, 'view' => $view, 'content' => $contents)));
+        Runtime::getEventDispatcher()->dispatch('all_done', new Event(null, array('request' => $request, 'view' => $view, 'content' => $event->get('content'))));
     }
 
     /**
