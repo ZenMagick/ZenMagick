@@ -78,21 +78,14 @@ class Toolbox {
      * @return mixed The parsed YAML.
      */
     public static function loadWithEnv($filename, $environment=ZM_ENVIRONMENT, $useEnvFile=true, $clearImports=true) {
-        $filename = realpath($filename);
-        $envFilename = null;
         if ($useEnvFile) {
-            $envFilename = str_replace('.yaml', '_'.$environment.'.yaml', $filename);
-            if (file_exists($envFilename)) {
-                // load that and expect the 'import:' data in the file to pull in whatever is needed.
-                $filename = $envFilename;
-            }
+            $filename = self::resolveWithEnv($filename, $environment);
         }
 
         $data = array();
         if (!file_exists($filename)) {
             return $data;
         }
-        $environment = strtoupper($environment);
         try {
             $yaml = Yaml::load($filename);
             if (is_array($yaml)) {
@@ -172,6 +165,23 @@ class Toolbox {
         }
 
         return in_array(strtolower($value), array('on', 'true', 'yes', '1'));
+    }
+
+    /**
+     * Resolve a filename with respect to the given environment.
+     *
+     * @param string filename The file to load.
+     * @param string environment Optional environment; default is the value of <code>ZM_ENVIRONMENT</code>.
+     * @return string The most specific filename with respect to the given <em>environment</em>.
+     */
+    public static function resolveWithEnv($filename, $environment=ZM_ENVIRONMENT) {
+        $filename = realpath($filename);
+        $envFilename = preg_replace('/(.*)\.(.*)/', '$1_'.$environment.'.$2', $filename);
+        if (file_exists($envFilename)) {
+            // load that and expect the 'import:' data in the file to pull in whatever is needed.
+            $filename = $envFilename;
+        }
+        return $filename;
     }
 
 }
