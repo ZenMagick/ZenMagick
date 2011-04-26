@@ -131,13 +131,6 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
             // alias boolean to boolean so ZMDbTableMapper maps continue to work
             $pdo->getDatabasePlatform()->registerDoctrineTypeMapping('boolean', 'boolean');
 
-            if (null !== $conf['initQuery']) {
-                try {
-                    $pdo->query($conf['initQuery']);
-                } catch (PDOException $pdoe) {
-                    throw new ZMDatabaseException($pdoe->getMessage(), $pdoe->getCode(), $pdoe);
-                }
-            }
             $this->pdo_ = $pdo;
             $this->config_ = $conf;
         }
