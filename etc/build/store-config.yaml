@@ -14,3 +14,4 @@ doctrine:
         password: '<?php echo DB_SERVER_PASSWORD ?>'
         dbname: '<?php echo DB_DATABASE ?>'
         prefix: '<?php echo DB_PREFIX ?>'
+        charset: '<?php echo (defined("DB_CHARSET") ? DB_CHARSET : "latin1") ?>'

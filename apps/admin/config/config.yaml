@@ -144,10 +144,9 @@ doctrine:
         user: root
         password: null
         prefix:
-        #charset: null @todo default charset
-        #collation: null @todo mysql collation setting
+        charset: utf8
+        collation: null
         unix_socket: null
-        initQuery: null # @todo what else will people use this for other than charset?
   orm:
     auto_generate_proxy_classes: true
     proxy_dir: proxies # @todo inside cache dir, should  we specify that here?

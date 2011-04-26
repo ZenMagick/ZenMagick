@@ -116,9 +116,9 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
         if (null == $this->pdo_){
             $conf = null !== $conf ? $this->resolveConf($conf) : $this->config_;
 
+            // this is driver specific, but we'll sure move to the doctrine bundle before being able to switch drivers....
             $pdo = Doctrine\DBAL\DriverManager::getConnection($conf, $this->dbalConfig_, $this->evm_);
-            // @todo charset and collation (note that this is db specific)
-            //$this->evm_->addEventSubscriber(new MysqlSessionInit('UTF8', 'collation?'));
+            $this->evm_->addEventSubscriber(new Doctrine\DBAL\Event\Listeners\MysqlSessionInit($conf['charset'], $conf['collation']));
 
             // @todo ask DBAL if the driver/db type supports nested transactions
             $pdo->setNestTransactionsWithSavepoints($this->isNestedTransactions());
