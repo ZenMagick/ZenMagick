@@ -22,7 +22,7 @@
 
 use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
-use zenmagick\base\events\Event;
+use zenmagick\base\events\VetoableEvent;
 
 
 /**
@@ -463,8 +463,12 @@ class ZMRequest extends \ZMObject {
      */
     public function redirect($url, $status=302) {
         $url = str_replace('&amp;', '&', $url);
-        Runtime::getEventDispatcher()->dispatch('redirect', new Event($this, array('request' => $this, 'url' => $url)));
-        \ZMLogging::instance()->trace('redirect url: ' . $url, \ZMLogging::TRACE);
+        $event = new VetoableEvent($this, array('request' => $this, 'url' => $url));
+        Runtime::getEventDispatcher()->dispatch('redirect', $event);
+        \ZMLogging::instance()->trace(sprintf('redirect url: "%s"; canceled: %s', $url, ($event->isCanceled() ? 'true' : 'false')), \ZMLogging::TRACE);
+        if ($event->isCanceled()) {
+            return;
+        }
         \ZMMessages::instance()->saveMessages($this->getSession());
         $this->closeSession();
         header('Location: ' . $url, true, $status);
