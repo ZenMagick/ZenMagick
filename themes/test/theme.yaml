@@ -31,5 +31,5 @@ settings:
 container:
   services:
     ZMProducts:
-      class: ZMProducts
+      class: XProducts
       scope: prototype
