@@ -23,6 +23,8 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
+use zenmagick\base\events\Event;
 
 /**
  * Request controller for adding an address.
@@ -63,6 +65,10 @@ class ZMAddressBookAddController extends ZMController {
         $address = $this->getFormData($request);
         $address->setAccountId($request->getAccountId());
         $address = ZMAddresses::instance()->createAddress($address);
+
+        $account = $request->getAccount();
+        $args = array('request' => $request, 'controller' => $this, 'account' => $account, 'address' => $address, 'type' => 'addressBook');
+        Runtime::getEventDispatcher()->dispatch('create_address', new Event($this, $args));
 
         // process primary setting
         if ($address->isPrimary() || 1 == count(ZMAddresses::instance()->getAddressesForAccountId($request->getAccountId()))) {

@@ -23,6 +23,8 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
+use zenmagick\base\events\Event;
 
 /**
  * Request controller for checkout address change (shipping/billing).
@@ -59,9 +61,9 @@ class ZMCheckoutAddressController extends ZMController {
      */
     public function setMode($mode) {
         if ('shipping' == $mode) {
-            $this->modeSettings_ = array('url' => 'checkout_shipping', 'method' => 'setShippingAddressId', 'ignoreCheckId' => 'require_shipping');
+            $this->modeSettings_ = array('url' => 'checkout_shipping', 'method' => 'setShippingAddressId', 'ignoreCheckId' => 'require_shipping', 'mode' => $mode);
         } else if ('billing' == $mode) {
-            $this->modeSettings_ = array('url' => 'checkout_payment', 'method' => 'setBillingAddressId', 'ignoreCheckId' => 'require_payment');
+            $this->modeSettings_ = array('url' => 'checkout_payment', 'method' => 'setBillingAddressId', 'ignoreCheckId' => 'require_payment', 'mode' => $mode);
         }
     }
 
@@ -144,9 +146,12 @@ class ZMCheckoutAddressController extends ZMController {
             $address->setAccountId($request->getAccountId());
             $address = ZMAddresses::instance()->createAddress($address);
 
+            $account = $request->getAccount();
+            $args = array('request' => $request, 'controller' => $this, 'account' => $account, 'address' => $address, 'type' => $this->settings_['mode']);
+            Runtime::getEventDispatcher()->dispatch('create_address', new Event($this, $args));
+
             // process primary setting
             if ($address->isPrimary() || 1 == count(ZMAddresses::instance()->getAddressesForAccountId($request->getAccountId()))) {
-                $account = $request->getAccount();
                 $account->setDefaultAddressId($address->getId());
                 ZMAccounts::instance()->updateAccount($account);
                 $address->setPrimary(true);
