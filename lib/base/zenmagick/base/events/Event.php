@@ -46,8 +46,7 @@ class Event extends SymfonyEvent {
         $this->source = $source;
         $this->parameters = $parameters;
 
-        list($u, $s) = explode(' ',microtime());
-        $this->timestamp = bcadd($u, $s, 4);
+        $this->timestamp = microtime(true);
         $this->memory = memory_get_usage(true);
     }
 
