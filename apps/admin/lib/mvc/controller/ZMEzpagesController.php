@@ -53,6 +53,9 @@ class ZMEzpagesController extends ZMController {
             } else {
                 $ezPage = ZMEZPages::instance()->getPageForId($ezPageId, $languageId);
             }
+            if (null == $ezPage) {
+                return $this->findView('error', array('message' => _zm('Invalid page id')));
+            }
             return $this->findView('ezpages-details', array('ezPage' => $ezPage));
         }
 
