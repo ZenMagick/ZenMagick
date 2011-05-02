@@ -30,7 +30,7 @@
         <?php $rtext = sprintf(_zm("%s of 5 stars!"), $review->getRating()); ?>
         <p><img src="<?php echo $this->asUrl('images/stars_'.$review->getRating().'.gif') ?>" alt="<?php echo $rtext ?>" /></p>
         <p class="rtext"><?php echo $html->more($html->strip($review->getText()), 120) ?></p>
-        <p class="rinfo"><?php _vzm("Date added: %s by %s", $review->getDateAdded(), $review->getAuthor()) ?></p>
+        <p class="rinfo"><?php _vzm("Date added: %s by %s", $locale->shortDate($review->getDateAdded()), $review->getAuthor()) ?></p>
     </td>
     <td class="lnks">
         <p><a class="btn" href="<?php echo $net->product($product->getId()) ?>"><?php _vzm("Product Information") ?></a></p>
