@@ -54,6 +54,8 @@ class EventDispatcher extends SymfonyEventDispatcher {
      * {@inheritDoc}
      */
     public function dispatch($eventName, Event $event = null) {
+        $event->setName($eventName);
+
         // use hasListeners rather than looking at the private listeners property
         if (!$this->hasListeners($eventName)) {
             return;
