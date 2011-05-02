@@ -49,11 +49,11 @@ class ZMRedirectController extends ZMController {
 
     /**
      * Process a HTTP GET request.
-     * 
+     *
      * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
      * if the controller generates the contents itself.
      */
-    function processGet($request) {
+    public function processGet($request) {
         $action = $request->getParameter('action');
         $goto = $request->getParameter('goto');
 
@@ -73,7 +73,7 @@ class ZMRedirectController extends ZMController {
             break;
 
         case 'manufacturer':
-            $manufacturerId = $request->getManufacturerId();
+            $manufacturerId = $goto;
             if (0 < $manufacturerId) {
                 $manufacturer = ZMManufacturers::instance()->getManufacturerForId($manufacturerId, $request->getSession()->getLanguageId());
 
@@ -89,11 +89,11 @@ class ZMRedirectController extends ZMController {
                     ZMManufacturers::instance()->updateManufacturerClickCount($manufacturerId, $request->getSession()->getLanguageId());
                     return $this->findView('success', array(), array('url' => $manufacturer->getUrl()));
                 }
-                
+
             }
             break;
         }
-            
+
         return $this->findView('error');
     }
 
