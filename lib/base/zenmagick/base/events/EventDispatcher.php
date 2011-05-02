@@ -47,6 +47,11 @@ class EventDispatcher extends SymfonyEventDispatcher {
      * @param integer priority The higher this value, the earlier an event listener will be triggered in the chain; default is 0.
      */
     public function listen($listener, $priority=0) {
+        if (is_array($listener)) {
+            $tmp = new \stdClass();
+            $tmp->callable = $listener;
+            $listener = $tmp;
+        }
         $this->addListener(EventDispatcher::LISTEN_ALL, $listener, $priority);
     }
 
@@ -89,6 +94,8 @@ class EventDispatcher extends SymfonyEventDispatcher {
             foreach ($all as $listener) {
                 if (is_callable($listener)) {
                     $alisteners[] = $listener;
+                } else if (isset($listener->callable) && is_callable($listener->callable)) {
+                    $alisteners[] = $listener->callable;
                 } else {
                     $methods = get_class_methods($listener);
                     if (in_array($method, $methods)) {
