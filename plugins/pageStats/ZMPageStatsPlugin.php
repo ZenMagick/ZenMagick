@@ -121,7 +121,7 @@ class ZMPageStatsPlugin extends Plugin {
         foreach (ZMRuntime::getDatabases() as $database) {
             $config = $database->getConfig();
             $stats = $database->getStats();
-            echo $config['database'].'('.get_class($database).'): SQL queries: '.$stats['queries'].', duration: '.round($stats['time'], 4).' seconds; ';
+            echo $config['dbname'].'('.get_class($database).'): SQL queries: '.$stats['queries'].', duration: '.round($stats['time'], 4).' seconds; ';
         }
         echo "\n";
 
@@ -154,7 +154,7 @@ class ZMPageStatsPlugin extends Plugin {
                 if (0 != $limit && count($details) > $limit) {
                     $details = array_slice($details, 0, $limit);
                 }
-                echo $config['database'].'('.get_class($database).'):'."\n";
+                echo $config['dbname'].'('.get_class($database).'):'."\n";
                 foreach ($details as $query) {
                     echo $query['time'].': '.$query['sql']."\n";
                 }
@@ -210,7 +210,7 @@ class ZMPageStatsPlugin extends Plugin {
         foreach (ZMRuntime::getDatabases() as $database) {
             $config = $database->getConfig();
             $stats = $database->getStats();
-            echo $config['database'].'('.get_class($database).'): SQL queries: <strong>'.$stats['queries'].'</strong>, duration: <strong>'.round($stats['time'], 4).'</strong> seconds; ';
+            echo $config['dbname'].'('.get_class($database).'): SQL queries: <strong>'.$stats['queries'].'</strong>, duration: <strong>'.round($stats['time'], 4).'</strong> seconds; ';
         }
         echo '<br'.$slash.'>';
         $lstats = ZMLoader::instance()->getStats(true);
@@ -260,7 +260,7 @@ class ZMPageStatsPlugin extends Plugin {
                 if (0 != $limit && count($details) > $limit) {
                     $details = array_slice($details, 0, $limit);
                 }
-                echo '<tr><th colspan="2">'.$config['database'].'('.get_class($database).')</th></tr>'."\n";
+                echo '<tr><th colspan="2">'.$config['dbname'].'('.get_class($database).')</th></tr>'."\n";
                 foreach ($details as $query) {
                     echo '<tr><td>'.$query['time'].'</td><td>'.$query['sql']."</td></tr>";
                 }
