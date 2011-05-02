@@ -26,7 +26,7 @@
 <?php if (0 < count($manufacturers)) { ?>
     <h2><?php _vzm("Manufacturers") ?></h2>
     <div id="sb_manufacturers" class="box">
-        <?php echo $form->open('category', '', false, array('method' => 'get', 'onsubmit'=>null)) ?>
+        <?php echo $form->open('manufacturer', '', false, array('method' => 'get', 'onsubmit'=>null)) ?>
             <div>
                 <?php echo $form->idpSelect('manufacturers_id', array_merge(array(ZMLoader::make("ZMIdNamePair", "", _zm("Please Select"))), $manufacturers), $request->getManufacturerId(), array('size'=>3, 'onchange'=>'this.form.submit()')) ?>
                 <noscript>
