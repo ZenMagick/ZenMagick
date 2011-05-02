@@ -88,7 +88,7 @@ class ZMPageStatsPlugin extends Plugin {
      * @param mixed value Optional value for filter events.
      */
     public function logEvent($event, $value=null) {
-        Runtime::getLogging()->info('event:'.(null!=$event->getSubject()?' ('.get_class($event->getSubject()).')':'').': ' . $event->getName() . '/'.EventDispatcher::n2m($event->getName()));
+        Runtime::getLogging()->info('event:'.(null!=$event->getSource()?' ('.get_class($event->getSource()).')':'').':' . $event->getName() . '/'.EventDispatcher::n2m($event->getName()));
         $this->events_[] = $event;
         return $value;
     }
