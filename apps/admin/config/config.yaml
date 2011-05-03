@@ -128,6 +128,10 @@ apps:
       controller: ZMCatalogDefaultTabController
     themes:
       default: default
+    zencart:
+      skipLayout:
+        - packingslip
+        - invoice
 
 # database configuration settings
 # @todo allow symbolic names for the fully qualified classes mentioned here?

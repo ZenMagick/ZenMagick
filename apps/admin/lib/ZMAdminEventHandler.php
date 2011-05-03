@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 
 /**
  * Custom admin event handler for various things.
@@ -49,6 +50,11 @@ class ZMAdminEventHandler {
         $view->setVar('currentLanguage', $request->getSelectedLanguage());
         $view->setVar('currentEditor', $this->getCurrentEditor($request));
         $view->setVar('buttonClasses', 'ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only');
+
+        // no layout for invoice/packaging slip
+        if ('zc_admin' == $request->getRequestId() && in_array($request->getParameter('zpid'), Runtime::getSettings()->get('apps.store.zencart.skipLayout', array()))) {
+            $view->setLayout(null);
+        }
     }
 
     /**

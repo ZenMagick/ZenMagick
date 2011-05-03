@@ -19,13 +19,8 @@
  */
 ?>
 
-<h1><?php _vzm('Zen Cart Admin') ?></h1>
 <link rel="stylesheet" type="text/css" href="<?php echo DIR_WS_CATALOG.ZC_ADMIN_FOLDER ?>/includes/stylesheet.css">
-<script>
-function check_form() {
-  return true;
-}
-</script>
+
 <?php
 if (!function_exists('zen_href_link')) {
     function zen_href_link($page='', $params='', $transport='NONSSL', $addSessionId=true, $seo=true, $isStatic=false, $useContext=true) {
@@ -100,7 +95,17 @@ $content = str_replace(array('onmouseover="rowOverEffect(this)"', 'onmouseout="r
 $content = preg_replace('/(action="[^"]*index.php\?rid=zc_admin&zpid=)([^&"]*)([^>]*>)/', '$1$2$3<input type="hidden" name="rid" value="zc_admin"><input type="hidden" name="zpid" value="$2">', $content);
 //$content = preg_replace('/(action="[^"]*index.php)\?rid=zc_admin&zpid=[^&"]*([^>]*>)/', '$1$2', $content);
 //echo $content;return;
+
+$skipMenu = in_array($zpid, zenmagick\base\Runtime::getSettings()->get('apps.store.zencart.skipLayout', array()));
+
+if (!$skipMenu) {
 ?>
+<h1><?php _vzm('Zen Cart Admin') ?></h1>
+<script>
+function check_form() {
+  return true;
+}
+</script>
 <div id="sub-menu">
   <div id="sub-common">
     <?php
@@ -153,6 +158,7 @@ $content = preg_replace('/(action="[^"]*index.php\?rid=zc_admin&zpid=)([^&"]*)([
     });
   });
 </script>
+<?php } ?>
 <div id="view-container">
   <?php echo $content; ?>
   <?php if (isset($scripts)) { ?>
