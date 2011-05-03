@@ -6,6 +6,8 @@
 
 parameters:
   kernel.debug: false
+  # admin session timeout in seconds
+  #admin.session_timeout: 1440
   
 
 doctrine:
