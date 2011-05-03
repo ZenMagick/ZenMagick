@@ -1,3 +1,8 @@
+parameters:
+  kernel.debug: false
+  # default admin session timeout
+  admin.session_timeout: 1440
+
 services:
   ZMRequest:
     class: Request
@@ -5,3 +10,9 @@ services:
   ZMPlugins:
     class: Plugins
     scope: container
+  ZMZenCartSessionHandler:
+    class: ZMZenCartSessionHandler
+    scope: container
+    calls:
+      - [setExpiryTime, [%admin.session_timeout%]]
+

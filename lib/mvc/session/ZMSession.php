@@ -313,7 +313,6 @@ class ZMSession extends ZMObject {
     public function registerSessionHandler($handler) {
         if (null !== $handler && is_object($handler) && $handler instanceof ZMSessionHandler) {
             ini_set('session.save_handler', 'user');
-            $handler->setExpiryTime((int)ini_get('session.gc_maxlifetime'));
             session_set_save_handler(array($handler, 'open'), array($handler, 'close'), array($handler, 'read'),
                 array($handler, 'write'), array($handler, 'destroy'), array($handler, 'gc'));
             $this->sessionHandler_ = $handler;
@@ -328,7 +327,7 @@ class ZMSession extends ZMObject {
      * @param boolean renew If <code>true</code> a new token will be generated; default is <code>false</code>.
      * @return string The token.
      */
-    public function getToken($renew=false) { 
+    public function getToken($renew=false) {
         if ($renew || null == $this->getValue(self::SESSION_TOKEN_KEY)) {
             // in this case we really want a session!
             if (!$this->isStarted()) {

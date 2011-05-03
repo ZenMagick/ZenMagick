@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 
 /**
  * Admin request wrapper.
@@ -39,7 +40,7 @@ class Request extends ZMRequest {
         parent::__construct($parameter);
         $this->setSession(ZMLoader::make('ZMSession', null, 'zmAdmin'));
         if ('db' == ZMSettings::get('sessionPersistence')) {
-            $this->getSession()->registerSessionHandler(ZMBeanUtils::getBean('ZMZenCartSessionHandler'));
+            $this->getSession()->registerSessionHandler(Runtime::getContainer()->get('ZMZenCartSessionHandler'));
         }
     }
 
