@@ -72,6 +72,10 @@ class ZMEventFixes extends ZMObject {
      * Fake theme resolved event if using zen-cart templates and handle persisted messages.
      */
     public function onInitDone($event) {
+        // adjust session timeout
+        global $SESS_LIFE;
+        $SESS_LIFE = Runtime::getContainer()->getParameterBag()->get('storefront.session_timeout');
+
         // TODO: do via admin and just load mapping from somewhere
         // sidebox blocks
         $mappings = array();

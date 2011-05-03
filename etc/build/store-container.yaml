@@ -6,6 +6,8 @@
 
 parameters:
   kernel.debug: false
+  # storefront session timeout in seconds
+  #storefront.session_timeout: 1440
   # admin session timeout in seconds
   #admin.session_timeout: 1440
   
