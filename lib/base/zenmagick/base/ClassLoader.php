@@ -1,7 +1,7 @@
 <?php
 /*
  * ZenMagick - Another PHP framework.
- * Copyright (C) 2006-2010 zenmagick.org
+ * Copyright (C) 2006-2011 zenmagick.org
  *
 * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
 * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
