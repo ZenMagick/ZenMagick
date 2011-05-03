@@ -76,6 +76,18 @@
             <param name="insert.substitution" value="                 ,'zenmagick/themes'=>'777 read/write/execute'" />
         </antcall>
 
+        <!-- add vetoable redirect patch -->
+        <antcall target="insert-after">
+          <param name="insert.file" value="${release.full.dir}/includes/functions/functions_general.php" />
+            <param name="insert.regexp" value="function zen_redirect" />
+            <param name="insert.substitution" value="ZMRequest::instance()->redirect($url, $httpResponseCode); return; /* added by ZenMagick installation patcher */" />
+        </antcall>
+        <antcall target="insert-after">
+          <param name="insert.file" value="${release.full.dir}/admin/includes/functions/general.php" />
+            <param name="insert.regexp" value="function zen_redirect" />
+            <param name="insert.substitution" value="ZMRequest::instance()->redirect($url); return; /* added by ZenMagick installation patcher */" />
+        </antcall>
+
         <!-- fix -->
         <replaceregexp match="'admin/backups'=>'777 read\/write'" replace="'admin/backups'=>'777 read/write/execute'" flags="g"><fileset file="${release.full.dir}/zc_install/includes/modules/pages/inspect/header_php.php"></fileset></replaceregexp>
         <!-- TODO: make permission check check for existence?? -->

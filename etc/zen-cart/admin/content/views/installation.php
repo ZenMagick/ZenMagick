@@ -40,6 +40,7 @@
         "rewriteBase" => "Update RewriteBase value in .htaccess (pretty links, SEO)",
 
         "adminFolderName" => "Adjust admin folder name for ZenMagick admin",
+        "redirectPatch" => "Patch zen-cart's <code>zen_redirect</code> function to allow to veto redirects",
 
         "sqlConfig" => "Setup ZenMagick config groups and initial values",
         "sqlToken" => "Create the database table used by the token service",
