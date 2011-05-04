@@ -44,12 +44,13 @@ class ZMEditRoleController extends ZMController {
         parent::__destruct();
     }
 
-
     /**
-     * {@inheritDoc}
+     * Get sacs permission infos.
+     *
+     * @param string role The role.
+     * @return array Map of permissins.
      */
-    public function getViewData($request) {
-        $role = $request->getParameter('role');
+    protected function getSacsPermissionInfo($role) {
         $permissions = array();
         // TODO: use db permissions only, not the merged manager mappings
         foreach (SacsManager::instance()->getMappings() as $requestId => $info) {
@@ -70,6 +71,15 @@ class ZMEditRoleController extends ZMController {
                 $permissions[$requestId] = array('type' => 'role', 'match' => 'name', 'allowed' => false);
             }
         }
+        return $permissions;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getViewData($request) {
+        $role = $request->getParameter('role');
+        $permissions = $this->getSacsPermissionInfo($role);
         ksort($permissions);
         return array('role' => $role, 'permissions' => $permissions);
     }
@@ -85,6 +95,22 @@ class ZMEditRoleController extends ZMController {
      * {@inheritDoc}
      */
     public function processPost($request) {
+        $role = $request->getParameter('role');
+
+        // changed permissions
+        $permissons = $request->getParameter('perm');
+        // new permissions
+        $requestIds = $request->getParameter('requestId', array());
+        $nperms = $request->getParameter('nperm', array());
+        for ($ii=0; $ii<count($requestIds); ++$ii) {
+            if (!empty($requestIds[$ii]) && ZMLangUtils::asBoolean($nperms[$ii])) {
+                $permissons[] = $requestIds[$ii];
+            }
+        }
+
+        // figure out the overlap between the current perms and the submitted ones
+        ZMSacsPermissions::instance()->setPermissionsForRole($role, $permissons);
+
         return $this->findView();
     }
 

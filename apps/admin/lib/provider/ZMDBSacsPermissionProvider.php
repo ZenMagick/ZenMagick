@@ -34,7 +34,7 @@ class ZMDBSacsPermissionProvider implements SacsPermissionProvider {
      * {@inheritDoc}
      */
     public function getMappings() {
-        return ZMRuntime::getDatabase()->query('SELECT * FROM '.ZM_TABLE_SACS_PERMISSIONS);
+        return ZMSacsPermissions::instance()->getAll();
     }
 
 }

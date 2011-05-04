@@ -27,10 +27,10 @@
       <th><?php _vzm('Page') ?></th>
       <th><?php _vzm('Permission') ?></th>
     </tr>
-    <?php foreach ($permissions as $requestId => $info) { ?>
+    <?php foreach ($permissions as $requestId => $info) { $isWildcard = '*' === $info['match']; ?>
       <tr>
         <td><?php echo $requestId ?></td>
-        <td><?php if ('*' !== $info['match']) { echo '<input type="checkbox" name="perm[]" value="'.$requestId.'"'.($info['allowed'] ? ' checked':'').'>'; } else { _vzm('always (%s)', $info['type']); } ?></td>
+        <td><?php if ($isWildcard) { _vzm('always (%s)', $info['type']); } else { echo '<input type="checkbox" name="perm[]" value="'.$requestId.'"'.($info['allowed'] ? ' checked':'').'>'; } ?></td>
       </tr>
     <?php } ?>
     <tr>
