@@ -20,7 +20,7 @@
 ?>
 <?php
 
-use zenmagic\base\Runtime;
+use zenmagick\base\Runtime;
 
 /**
  * A result source based on calling a method on an object.
