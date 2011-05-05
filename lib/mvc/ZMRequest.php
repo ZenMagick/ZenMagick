@@ -471,7 +471,11 @@ class ZMRequest extends \ZMObject {
         }
         \ZMMessages::instance()->saveMessages($this->getSession());
         $this->closeSession();
-        header('Location: ' . $url, true, $status);
+        if (!empty($status)) {
+            header('Location: ' . $url, true, $status);
+        } else {
+            header('Location: ' . $url, true);
+        }
         exit;
     }
 
