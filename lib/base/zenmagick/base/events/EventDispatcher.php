@@ -59,8 +59,6 @@ class EventDispatcher extends SymfonyEventDispatcher {
      * {@inheritDoc}
      */
     public function dispatch($eventName, Event $event = null) {
-        $event->setName($eventName);
-
         // use hasListeners rather than looking at the private listeners property
         if (!$this->hasListeners($eventName)) {
             return;
@@ -69,6 +67,8 @@ class EventDispatcher extends SymfonyEventDispatcher {
         if (null === $event) {
             $event = new Event();
         }
+
+        $event->setName($eventName);
 
         foreach ($this->getListeners($eventName) as $listener) {
             $this->triggerListener($listener, $eventName, $event);
