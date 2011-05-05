@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 
 /**
  * A product search source.
@@ -39,9 +40,9 @@ class ZMSearchResultSource extends ZMObject implements ZMResultSource {
     /**
      * Create a new instance.
      *
-     * @param ZMSearchCriteria criteria The search criteria.
+     * @param ZMSearchCriteria criteria The search criteria; default is <code>null</code>.
      */
-    public function __construct($criteria) {
+    public function __construct($criteria=null) {
         parent::__construct();
         $this->criteria_ = $criteria;
         $this->results_ = null;
@@ -55,6 +56,15 @@ class ZMSearchResultSource extends ZMObject implements ZMResultSource {
         parent::__destruct();
     }
 
+
+    /**
+     * Set the search criteria.
+     *
+     * @param ZMSearchCriteria criteria The search criteria; default is <code>null</code>.
+     */
+    public function setSearchCriteria($criteria) {
+        $this->criteria_ = $criteria;
+    }
 
     /**
      * {@inheritDoc}
@@ -81,7 +91,8 @@ class ZMSearchResultSource extends ZMObject implements ZMResultSource {
                 }
             }
             $queryDetails = $finder->execute();
-            $queryPager = ZMLoader::make('ZMQueryPager', $queryDetails);
+            $queryPager = Runtime::getContainer()->get('ZMQueryPager');
+            $queryPager->setQueryDetails($queryDetails);
             $productIds = array();
             foreach ($queryPager->getResults($this->resultList_->getPageNumber(), $this->resultList_->getPagination()) as $result) {
                 $productIds[] = $result['productId'];

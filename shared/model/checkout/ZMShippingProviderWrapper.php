@@ -38,12 +38,11 @@ class ZMShippingProviderWrapper extends ZMObject implements ZMShippingProvider {
     /**
      * Create a new shipping provider.
      *
-     * @param mixed zenModule A zen-cart shipping module instance.
+     * @param mixed module A zen-cart shipping module; default is <code>null</code>.
      */
-    function __construct($zenModule) {
+    function __construct($module=null) {
         parent::__construct();
-
-        $this->zenModule_ = $zenModule;
+        $this->zenModule_ = $module;
         $this->errors_ = array();
     }
 
@@ -54,6 +53,15 @@ class ZMShippingProviderWrapper extends ZMObject implements ZMShippingProvider {
         parent::__destruct();
     }
 
+
+    /**
+     * Set the zencart module to wrap.
+     *
+     * @param mixed module A zen-cart shipping module.
+     */
+    public function setModule($module) {
+        $this->zenModule_ = $module;
+    }
 
     /**
      * {@inheritDoc}

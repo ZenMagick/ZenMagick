@@ -53,6 +53,23 @@ class ZMSavant extends Savant3 {
      */
     function __construct($config=null) {
         parent::__construct($config);
+        $this->setConfig($config);
+    }
+
+    /**
+     * Destruct instance.
+     */
+    function __destruct() {
+        // no parent destructor!!
+    }
+
+
+    /**
+     * Set the config.
+     *
+     * @param array config The config map.
+     */
+    public function setConfig($config) {
         if (isset($config['cache'])) {
             $this->__config['cache'] = $config['cache'];
         }
@@ -64,14 +81,6 @@ class ZMSavant extends Savant3 {
             $this->__config['compiler'] = $config['compiler'];
         }
     }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        // no parent destructor!!
-    }
-
 
     /**
      * Check if the given template/resource file exists.

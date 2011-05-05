@@ -23,6 +23,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 
 /**
  * Request controller for gv confirmation page.
@@ -61,7 +62,9 @@ class ZMGvSendConfirmController extends ZMController {
     public function processGet($request) {
         $data = array();
         $data['currentAccount'] = $request->getAccount();
-        $data['currentCoupon'] = ZMLoader::make("ZMCoupon", 0, _zm('THE_COUPON_CODE'));
+        $coupon = Runtime::getContainer()->get('ZMCoupon');
+        $coupon->setCode(_zm('THE_COUPON_CODE'));
+        $data['currentCoupon'] = $coupon;
         return $this->findView(null, $data);
     }
 

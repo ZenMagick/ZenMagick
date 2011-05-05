@@ -23,6 +23,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 
 /**
  * Generic utilities.
@@ -88,8 +89,9 @@ class ZMToolboxUtils extends ZMToolboxTool {
      * @return boolean <code>true</code> if this cart qualifies for free shipping.
      */
     public function isFreeShipping($shoppingCart) {
-        $checkouthelper = ZMLoader::make('ZMCheckoutHelper', $shoppingCart);
-        return $checkouthelper->isFreeShipping();
+        $checkoutHelper = Runtime::getContainer()->get('ZMCheckoutHelper');
+        $checkoutHelper->setShoppingCart($shoppingCart);
+        return $checkoutHelper->isFreeShipping();
     }
 
     /**

@@ -20,6 +20,8 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
+
 /**
  * RPC request using JSON.
  *
@@ -34,15 +36,23 @@ class ZMRpcRequestJSON implements ZMRpcRequest {
     /**
      * Create new instance
      *
-     * @param ZMRequest request The current request.
+     * @param ZMRequest request The current request; default is <code>null</code>.
      */
-    function __construct($request) {
+    function __construct($request=null) {
         $this->request_ = $request;
         $this->json_ = json_decode(trim(file_get_contents('php://input')));
 
     }
 
 
+    /**
+     * Set the request.
+     *
+     * @param ZMRequest request The current request.
+     */
+    public function setRequest($request) {
+        $this->request_ = $request;
+    }
     /**
      * {@inheritDoc}
      */
@@ -75,7 +85,9 @@ class ZMRpcRequestJSON implements ZMRpcRequest {
      * {@inheritDoc}
      */
     public function createResponse() {
-        return ZMLoader::make('ZMRpcResponseJSON', $this);
+        $rpcResponse = Runtime::getContainer()->get('ZMRpcResponseJSON');
+        $rpcResponse->setRpcRequest($this);
+        return $rpcResponse;
     }
 
 }

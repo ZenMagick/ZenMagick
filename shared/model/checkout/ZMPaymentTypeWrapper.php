@@ -39,12 +39,11 @@ class ZMPaymentTypeWrapper extends ZMObject implements ZMPaymentType {
     /**
      * Create a new payment type.
      *
-     * @param object module The payment module.
+     * @param object module The payment module; default is <code>null</code>.
      */
-    function __construct($module) {
+    function __construct($module=null) {
         parent::__construct();
-        $this->module_ = $module;
-        $this->selection_ = $module->selection();
+        $this->setModule($module);
         $this->fields_ = null;
     }
 
@@ -55,6 +54,18 @@ class ZMPaymentTypeWrapper extends ZMObject implements ZMPaymentType {
         parent::__destruct();
     }
 
+
+    /**
+     * Set the zencart module to wrap.
+     *
+     * @param mixed module A zen-cart payment module; default is <code>null</code>.
+     */
+    public function setModule($module) {
+        $this->module_ = $module;
+        if (null != $module) {
+            $this->selection_ = $module->selection();
+        }
+    }
 
     /**
      * {@inheritDoc}

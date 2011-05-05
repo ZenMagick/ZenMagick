@@ -50,12 +50,10 @@ class ZMSession extends ZMObject {
      *
      * @param string name Optional session name; default is <code>ZMSession::DEFAULT_NAME</code>.
      * @param boolean secure Indicate whether the session cookie should be secure or not; default is <code>true</code>.
-     * @param boolean autostart Indicate whether the session should be started immediately or on demand.
      */
-    function __construct($domain=null, $name=self::DEFAULT_NAME, $secure=false, $autostart=false) {
+    function __construct($domain=null, $name=self::DEFAULT_NAME, $secure=false) {
         parent::__construct();
-        $name = null !== $name ? $name : self::DEFAULT_NAME;
-        session_name($name);
+        $this->setName(null !== $name ? $name : self::DEFAULT_NAME);
 
         $this->data_ = array();
         $this->cookiePath_ = '/';
@@ -92,10 +90,6 @@ class ZMSession extends ZMObject {
 
             session_set_cookie_params(0, $this->cookiePath_, $this->cookieDomain_);
         }
-
-        if ($autostart && !$this->isNew()) {
-            $this->start();
-        }
     }
 
     /**
@@ -106,6 +100,14 @@ class ZMSession extends ZMObject {
         $this->close();
     }
 
+    /**
+     * Set the session name.
+     *
+     * @param string name The session name.
+     */
+    public function setName($name) {
+        session_name($name);
+    }
 
     /**
      * Check if we have a session yet.

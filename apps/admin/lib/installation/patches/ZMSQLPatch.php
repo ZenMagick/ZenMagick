@@ -23,6 +23,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 
 /**
  * Generic SQL patch.
@@ -86,22 +87,35 @@ class ZMSQLPatch extends ZMInstallationPatch {
     }
 
     /**
+     * Add a message.
+     *
+     * @param string msg The message.
+     * @param string type The type.
+     */
+    private function addMessage($msg, $type) {
+        $message = Runtime::getContainer()->get('ZMMessage');
+        $message->setText($msg);
+        $message->setType($type);
+        $this->messages_[] = $message;
+    }
+
+    /**
      * Process messages.
      */
     function _processSQLMessages($results) {
         if ($results['queries'] > 0 && $results['queries'] != $results['ignored']) {
-            array_push($this->messages_, ZMLoader::make("ZMMessage", $results['queries'].' statements processed.', 'success'));
+            $this->addMessage($results['queries'].' statements processed.', 'success');
         } else {
-            array_push($this->messages_, ZMLoader::make("ZMMessage", 'Failed: '.$results['queries'].'.', 'error'));
+            $this->addMessage('Failed: '.$results['queries'].'.', 'error');
         }
 
         if (!empty($results['errors'])) {
             foreach ($results['errors'] as $value) {
-                array_push($this->messages_, ZMLoader::make("ZMMessage", 'ERROR: '.$value.'.', 'error'));
+                $this->addMessage('ERROR: '.$value.'.', 'error');
             }
         }
         if ($results['ignored'] != 0) {
-            array_push($this->messages_, ZMLoader::make("ZMMessage", 'Note: '.$results['ignored'].' statements ignored. See "upgrade_exceptions" table for additional details.', 'warn'));
+            $this->addMessage('Note: '.$results['ignored'].' statements ignored. See "upgrade_exceptions" table for additional details.', 'warn');
         }
     }
 

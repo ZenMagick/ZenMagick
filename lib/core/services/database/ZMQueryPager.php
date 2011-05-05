@@ -36,13 +36,23 @@ class ZMQueryPager extends ZMObject {
     /**
      * Create new instance for the given query.
      *
-     * @param ZMQueryDetails queryDetails The query details.
+     * @param ZMQueryDetails queryDetails The query details; default is <code>null</code>.
      */
     public function __construct($queryDetails) {
         $this->queryDetails_ = $queryDetails;
         $this->orderBy_ = '';
         $this->totalResultsCount_ = -1;
         $this->filters_ = array();
+    }
+
+
+    /**
+     * Set query details.
+     *
+     * @param ZMQueryDetails queryDetails The query details.
+     */
+    public function setQueryDetails($queryDetails) {
+        $this->queryDetails_ = $queryDetails;
     }
 
     /**

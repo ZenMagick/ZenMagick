@@ -85,7 +85,9 @@ class ZMAjaxUtils {
      */
     public static function createRpcRequest($request) {
         $format = ZMSettings::get('zenmagick.mvc.rpc.format', 'JSON');
-        return ZMLoader::make('ZMRpcRequest'.$format, $request);
+        $rpcRequest = Runtime::getContainer()->get('ZMRpcRequest'.$format);
+        $rpcRequest->setRequest($request);
+        return $rcpRequest;
     }
 
 }

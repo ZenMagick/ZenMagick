@@ -38,7 +38,9 @@ class Request extends ZMRequest {
      */
     function __construct($parameter=null) {
         parent::__construct($parameter);
-        $this->setSession(ZMLoader::make('ZMSession', null, 'zmAdmin'));
+        $session = Runtime::getContainer()->get('ZMSession');
+        $session->setName('zmAdmin');
+        $this->setSession($session);
         if ('db' == ZMSettings::get('sessionPersistence')) {
             $this->getSession()->registerSessionHandler(Runtime::getContainer()->get('ZMZenCartSessionHandler'));
         }

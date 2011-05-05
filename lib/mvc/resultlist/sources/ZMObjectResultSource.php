@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagic\base\Runtime;
 
 /**
  * A result source based on calling a method on an object.
@@ -84,7 +85,8 @@ class ZMObjectResultSource extends ZMObject implements ZMResultSource {
                 if (null != ($queryDetails = $this->object_->getQueryDetails($this->method_, $this->args_))) {
                     // potentially final, so check sorter and filter
                     $this->isFinal_ = true;
-                    $queryPager = ZMLoader::make('ZMQueryPager', $queryDetails);
+                    $queryPager = Runtime::getContainer()->get('ZMQueryPager');
+                    $queryPager->setQueryDetails($queryDetails);
                     $sorters = $this->resultList_->getSorters(true);
                     if (0 < count($sorters)) {
                         if ($sorters[0] instanceof ZMSQLAware) {

@@ -23,6 +23,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 
 /**
  * Fixes and stuff that are (can be) event driven.
@@ -67,7 +68,9 @@ class ZMEmailFixes extends ZMObject {
                     $coupon = ZMCoupons::instance()->getCouponForCode($couponCode, $language->getId());
                     if (null == $coupon) {
                         // coupon gets created only *after* the email is sent!
-                        $coupon = ZMLoader::make('ZMCoupon', 0, $couponCode, ZMCoupons::TYPPE_GV);
+                        $coupon = Runtime::getContainer()->get('ZMCoupon');
+                        $coupon->setCode($couponCode);
+                        $coupon->setType(ZMCoupons::TYPPE_GV);
                         $currency = ZMCurrencies::instance()->getCurrencyForCode(ZMSettings::get('defaultCurrency'));
                         $coupon->setAmount($currency->parse($context['GV_AMOUNT']));
                     }

@@ -23,6 +23,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 
 /**
  * Request controller for shopping cart.
@@ -54,15 +55,15 @@ class ZMShoppingCartController extends ZMController {
         $request->getToolbox()->crumbtrail->addCrumb($request->getToolbox()->utils->getTitle());
         $session = $request->getSession();
         $shoppingCart = $request->getShoppingCart();
-        $helper = ZMLoader::make('ZMCheckoutHelper', $shoppingCart);
+        $checkoutHelper = Runtime::getContainer()->get('ZMCheckoutHelper');
+        $checkoutHelper->setShoppingCart($shoppingCart);
 
         // set cart hash
-        $helper->saveHash($request);
+        $checkoutHelper->saveHash($request);
 
+        $checkoutHelper->checkStock();
 
-        $helper->checkStock();
-
-        $statusMap = $helper->checkCartStatus();
+        $statusMap = $checkoutHelper->checkCartStatus();
         foreach ($statusMap as $status => $items) {
             foreach ($items as $item) {
                 $product = $item->getProduct();

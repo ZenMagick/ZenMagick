@@ -23,6 +23,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 
 /**
  * Crumbtrail.
@@ -118,7 +119,10 @@ class ZMToolboxCrumbtrail extends ZMToolboxTool {
         if (!is_array($this->crumbs_)) {
             $this->reset();
         }
-        array_push($this->crumbs_, ZMLoader::make("ZMCrumb", $name, $url));
+        $crumb = Runtime::getContainer()->get('ZMCrumb');
+        $crumb->setName($name);
+        $crumb->setUrl($url);
+        $this->crumbs_[] = $crumb;
     }
 
     /**

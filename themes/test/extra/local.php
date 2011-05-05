@@ -75,13 +75,13 @@
 
     class SearchLogger {
         public function onSearch($args) {
-            $criteria = $args['criteria'];
-				    if (!isset($_SESSION['search_log_term']) || ($_SESSION['search_log_term'] != $criteria->getKeywords())) {
-					      $_SESSION['search_log_term'] = $criteria->getKeywords();
+            $searchCriteria = $args['searchCriteria'];
+				    if (!isset($_SESSION['search_log_term']) || ($_SESSION['search_log_term'] != $searchCriteria->getKeywords())) {
+					      $_SESSION['search_log_term'] = $searchCriteria->getKeywords();
                 $tableName = DB_PREFIX.'search_log';
                 $resultList = $args['resultList'];
                 $sql = "insert into " . $tableName . " (search_term, search_time, search_results) values (:search_term,now(),:search_results)";
-                $args = array('search_term' => $criteria->getKeywords(), 'search_results' => $resultList->getNumberOfResults());
+                $args = array('search_term' => $searchCriteria->getKeywords(), 'search_results' => $resultList->getNumberOfResults());
                 ZMRuntime::getDatabase()->update($sql, $args, $tableName);
             }
         }

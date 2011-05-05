@@ -39,29 +39,11 @@ class ZMTheme extends ZMObject {
     /**
      * Create new instance.
      *
-     * @params string themeId The theme id/name.
+     * @params string themeId The theme id/name; default is <code>null</code>.
      */
-    function __construct($themeId) {
+    function __construct($themeId=null) {
         parent::__construct();
-        $this->themeId_ = $themeId;
-        $configFile = $this->getBaseDir().'theme.yaml';
-        if (file_exists($configFile)) {
-            $this->config_ = ZMRuntime::yamlParse(file_get_contents($configFile));
-        } else {
-            $this->config_ = array();
-            //XXX: try for zc theme
-            $templatePath = ZMFileUtils::mkPath(DIR_FS_CATALOG, 'includes', 'templates', $themeId);
-            if (is_dir($templatePath) && file_exists($templatePath.'template_info.php')) {
-                include $templatePath.'template_info.php';
-                if (isset($template_name)) {
-                    $this->config_['name'] = $template_name.' (Zen Cart)';
-                    $this->config_['version'] = $template_version;
-                    $this->config_['author'] = $template_author;
-                    $this->config_['description'] = $template_description;
-                    $this->config_['zencart'] = true;
-                }
-            }
-        }
+        $this->setThemeId($themeId);
     }
 
     /**
@@ -71,6 +53,35 @@ class ZMTheme extends ZMObject {
         parent::__destruct();
     }
 
+
+    /**
+     * Set the theme id.
+     *
+     * @param string themeId The theme id.
+     */
+    public function setThemeId($themeId) {
+        if (null != $themeId) {
+            $this->themeId_ = $themeId;
+            $configFile = $this->getBaseDir().'theme.yaml';
+            if (file_exists($configFile)) {
+                $this->config_ = ZMRuntime::yamlParse(file_get_contents($configFile));
+            } else {
+                $this->config_ = array();
+                //XXX: try for zc theme
+                $templatePath = ZMFileUtils::mkPath(DIR_FS_CATALOG, 'includes', 'templates', $themeId);
+                if (is_dir($templatePath) && file_exists($templatePath.'template_info.php')) {
+                    include $templatePath.'template_info.php';
+                    if (isset($template_name)) {
+                        $this->config_['name'] = $template_name.' (Zen Cart)';
+                        $this->config_['version'] = $template_version;
+                        $this->config_['author'] = $template_author;
+                        $this->config_['description'] = $template_description;
+                        $this->config_['zencart'] = true;
+                    }
+                }
+            }
+        }
+    }
 
     /**
      * Get this themes id.

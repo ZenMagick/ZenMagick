@@ -87,22 +87,23 @@ class ZMSearchController extends ZMController {
     public function processGet($request) {
         $request->getToolbox()->crumbtrail->addCrumb($request->getToolbox()->utils->getTitle());
 
-        $criteria = $this->getFormData($request);
+        $searchCriteria = $this->getFormData($request);
         // never search inactive products
-        $criteria->setSearchAll(false);
+        $searchCriteria->setSearchAll(false);
 
-        if (!ZMLangUtils::isEmpty($criteria->getKeywords()) && $this->autoSearch_) {
+        if (!ZMLangUtils::isEmpty($searchCriteria->getKeywords()) && $this->autoSearch_) {
             $resultList = ZMBeanUtils::getBean('ZMResultList');
             //TODO: filter??
             foreach (explode(',', ZMSettings::get('resultListProductSorter')) as $sorter) {
                 $resultList->addSorter(ZMBeanUtils::getBean($sorter));
             }
 
-            $source = ZMLoader::make('ZMSearchResultSource', $criteria);
-            $resultList->setResultSource($source);
+            $resultSource = Runtime::getContainer()->get('ZMSearchResultSource');
+            $resultSource->setSearchCriteria($searchCriteria);
+            $resultList->setResultSource($resultSource);
             $resultList->setPageNumber($request->getPageIndex());
-            $args = array('request' => $request, 'criteria' => $criteria, 'resultList' => $resultList, 'autoSearch' => $this->isAutoSearch());
-            Runtime::getEventDispatcher()->dispatch('search', new Event($this, $args);
+            $args = array('request' => $request, 'searchCriteria' => $searchCriteria, 'resultList' => $resultList, 'autoSearch' => $this->isAutoSearch());
+            Runtime::getEventDispatcher()->dispatch('search', new Event($this, $args));
             return $this->findView('results', array('resultList' => $resultList));
         }
 

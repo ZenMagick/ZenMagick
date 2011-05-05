@@ -20,6 +20,8 @@
 ?>
 <?php
 
+use zenmagick\base\Beans;
+use zenmagick\base\ClassLoader;
 use zenmagick\http\sacs\SacsManager;
 
 /**
@@ -86,8 +88,8 @@ class ZMCatalogController extends ZMController {
             }
         } else {
             // let's see if we have a controller for this...
-            $definition = ZMLoader::makeClassname($catalogRequestId.'Controller');
-            $controller = ZMBeanUtils::getBean($definition);
+            $definition = ClassLoader::className($catalogRequestId.'Controller');
+            $controller = Beans::getBean($definition);
             ZMLogging::instance()->log('delegating to controller : '.get_class($controller), ZMLogging::DEBUG);
 
         }

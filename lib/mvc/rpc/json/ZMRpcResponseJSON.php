@@ -37,9 +37,9 @@ class ZMRpcResponseJSON implements ZMRpcResponse {
     /**
      * Create new instance
      *
-     * @param ZMRpcRequest rpcRequest The current RPC request.
+     * @param ZMRpcRequest rpcRequest The current RPC request; default is <code>null</code>.
      */
-    function __construct($rpcRequest) {
+    function __construct($rpcRequest=null) {
         $this->rpcRequest_ = $rpcRequest;
         $this->status_ = true;
         $this->messages_ = array();
@@ -47,6 +47,14 @@ class ZMRpcResponseJSON implements ZMRpcResponse {
     }
 
 
+    /**
+     * Set the corresponding RPC request.
+     *
+     * @param ZMRpcRequest rpcRequest The current RPC request; default is <code>null</code>.
+     */
+    public function setRpcRequest($rpcRequest) {
+        $this->rpcRequest_ = $rpcRequest;
+    }
 
     /**
      * {@inheritDoc}

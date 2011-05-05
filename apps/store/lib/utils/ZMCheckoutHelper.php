@@ -40,9 +40,9 @@ class ZMCheckoutHelper extends ZMObject {
     /**
      * Create new instance.
      *
-     * @param ZMShoppingCart shoppingCart The cart.
+     * @param ZMShoppingCart shoppingCart The cart; default is <code>null</code>.
      */
-    function __construct($shoppingCart) {
+    function __construct($shoppingCart=null) {
         parent::__construct();
         $this->shoppingCart_ = $shoppingCart;
     }
@@ -54,6 +54,15 @@ class ZMCheckoutHelper extends ZMObject {
         parent::__destruct();
     }
 
+
+    /**
+     * Set the corresponding shopping cart.
+     *
+     * @param ZMShoppingCart shoppingCart The cart; default is <code>null</code>.
+     */
+    public function setShoppingCart($shoppingCart) {
+        $this->shoppingCart_ = $shoppingCart;
+    }
 
     /**
      * Check if the given shopping cart qualifies for free shipping (as per free shipping ot).

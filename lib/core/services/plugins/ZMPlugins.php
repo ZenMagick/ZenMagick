@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\ClassLoader;
 use zenmagick\base\Runtime;
 use zenmagick\base\ioc\Container;
 use zenmagick\base\ioc\loader\YamlFileLoader;
@@ -206,7 +207,7 @@ class ZMPlugins extends ZMObject {
             return $this->plugins_[$id]['plugin'];
         }
 
-        $pluginClassSuffix = ZMLoader::makeClassname($id);
+        $pluginClassSuffix = ClassLoader::className($id);
         $basePath = $this->getBasePathForId($id);
         $pluginDir = $basePath.$id;
         if (is_dir($pluginDir)) {
@@ -237,7 +238,7 @@ class ZMPlugins extends ZMObject {
             require_once($file);
         }
 
-        $plugin = ZMLoader::make($pluginClass);
+        $plugin = Runtime::getContainer()->get($pluginClass);
         $id = substr(preg_replace('/Plugin$/', '', $pluginClass), 2);
         $id[0] = strtolower($id[0]);
         $plugin->setId($id);

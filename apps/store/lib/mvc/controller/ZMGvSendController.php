@@ -23,6 +23,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 
 /**
  * Request controller for gv send page.
@@ -76,7 +77,9 @@ class ZMGvSendController extends ZMController {
         $data = array();
         $data['currentAccount'] = $request->getAccount();
         // to fake the email content display
-        $data['currentCoupon'] = ZMLoader::make("ZMCoupon", 0, _zm('THE_COUPON_CODE'));
+        $coupon = Runtime::getContainer()->get('ZMCoupon');
+        $coupon->setCode( _zm('THE_COUPON_CODE'));
+        $data['currentCoupon'] = $coupon;
 
         return $this->findView('success', $data);
     }

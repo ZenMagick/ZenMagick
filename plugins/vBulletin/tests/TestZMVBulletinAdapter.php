@@ -20,6 +20,8 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
+
 /**
  * ZMVBulletin adapter test class.
  *
@@ -51,7 +53,7 @@ class TestZMVBulletinAdapter extends ZMTestCase {
      */
     protected function getAdapter() {
         if (null == $this->adapter_) {
-            $this->adapter_ = ZMLoader::make('ZMVBulletinAdapter');
+            $this->adapter_ = Runtime::getContainer()->get('ZMVBulletinAdapter');
         }
 
         return $this->adapter_;

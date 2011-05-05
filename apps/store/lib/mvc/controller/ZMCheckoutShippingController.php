@@ -23,6 +23,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 
 /**
  * Request controller for checkout shipping page.
@@ -66,7 +67,8 @@ class ZMCheckoutShippingController extends ZMController {
      */
     public function processGet($request) {
         $shoppingCart = $request->getShoppingCart();
-        $checkoutHelper = ZMLoader::make('ZMCheckoutHelper', $shoppingCart);
+        $checkoutHelper = Runtime::getContainer()->get('ZMCheckoutHelper');
+        $checkoutHelper->setShoppingCart($shoppingCart);
 
         if (!$checkoutHelper->verifyHash($request)) {
             return $this->findView('check_cart');
@@ -97,7 +99,8 @@ class ZMCheckoutShippingController extends ZMController {
      */
     public function processPost($request) {
         $shoppingCart = $request->getShoppingCart();
-        $checkoutHelper = ZMLoader::make('ZMCheckoutHelper', $shoppingCart);
+        $checkoutHelper = Runtime::getContainer()->get('ZMCheckoutHelper');
+        $checkoutHelper->setShoppingCart($shoppingCart);
 
         if (!$checkoutHelper->verifyHash($request)) {
             return $this->findView('check_cart');

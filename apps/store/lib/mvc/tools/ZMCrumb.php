@@ -38,10 +38,10 @@ class ZMCrumb extends ZMObject {
     /**
      * Create a new crumbtrail crumb.
      *
-     * @param string name The name.
+     * @param string name The name; default is <code>null</code>.
      * @param string url Optional url; default is <code>null</code>.
      */
-    function __construct($name, $url=null) {
+    function __construct($name=null, $url=null) {
         parent::__construct();
         $this->name_ = $name;
         $this->url_ = $url;

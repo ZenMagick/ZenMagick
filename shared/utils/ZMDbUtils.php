@@ -23,6 +23,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 
 /**
  * SQL/database utils.
@@ -87,6 +88,20 @@ class ZMDbUtils {
     }
 
     /**
+     * Create a message.
+     *
+     * @param string msg The message.
+     * @param string type The type.
+     * @return ZMMessage The message.
+     */
+    private static function createMessage($msg, $type) {
+        $message = Runtime::getContainer()->get('ZMMessage');
+        $message->setText($msg);
+        $message->setType($type);
+        return $message;
+    }
+
+    /**
      * Process SQL patch messages.
      *
      * @param array The execution results.
@@ -95,18 +110,18 @@ class ZMDbUtils {
     private static function processPatchResults($results) {
         $messages = array();
         if ($results['queries'] > 0 && $results['queries'] != $results['ignored']) {
-            array_push($messages, ZMLoader::make("ZMMessage", $results['queries'].' statements processed.', 'success'));
+            $messages[] = self::createMessage($results['queries'].' statements processed.', 'success');
         } else {
-            array_push($messages, ZMLoader::make("ZMMessage", 'Failed: '.$results['queries'].'.', 'error'));
+            $messages[] = self::createMessage('Failed: '.$results['queries'].'.', 'error');
         }
 
         if (!empty($results['errors'])) {
             foreach ($results['errors'] as $value) {
-                array_push($messages, ZMLoader::make("ZMMessage", 'ERROR: '.$value.'.', 'error'));
+                $messages[] = self::createMessage('ERROR: '.$value.'.', 'error');
             }
         }
         if ($results['ignored'] != 0) {
-            array_push($messages, ZMLoader::make("ZMMessage", 'Note: '.$results['ignored'].' statements ignored. See "upgrade_exceptions" table for additional details.', 'warn'));
+            $messages[] = self::createMessage('Note: '.$results['ignored'].' statements ignored. See "upgrade_exceptions" table for additional details.', 'warn');
         }
 
         return $messages;
