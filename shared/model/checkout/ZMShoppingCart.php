@@ -442,7 +442,7 @@ $this->zenTotals_->pre_confirmation_check();
 return $this->zenTotals_;
      */
 
-        if (null == $this->zenTotals_) {
+        if (null === $this->zenTotals_) {
             if (!isset($GLOBALS['order']) || !is_object($GLOBALS['order']) || 0 == count($order->info)) {
                 ZMTools::resolveZCClass('order');
                 $order = new order();
@@ -468,14 +468,15 @@ return $this->zenTotals_;
      * @return array List of <code>ZMOrderTotal</code> instances.
      */
     public function getTotals() {
-        $zenTotals = $this->_getZenTotals();
         $totals = array();
-        foreach ($zenTotals->modules as $module) {
-            $class = str_replace('.php', '', $module);
-            $output = $GLOBALS[$class]->output;
-            $type = substr($class, 3);
-            foreach ($output as $zenTotal) {
-                $totals[] = ZMLoader::make("ZMOrderTotalLine", $zenTotal['title'], $zenTotal['text'], $zenTotal['value'], $type);
+        if (null != ($zenTotals = $this->_getZenTotals())) {
+            foreach ($zenTotals->modules as $module) {
+                $class = str_replace('.php', '', $module);
+                $output = $GLOBALS[$class]->output;
+                $type = substr($class, 3);
+                foreach ($output as $zenTotal) {
+                    $totals[] = ZMLoader::make("ZMOrderTotalLine", $zenTotal['title'], $zenTotal['text'], $zenTotal['value'], $type);
+                }
             }
         }
         return $totals;
@@ -505,32 +506,33 @@ return $this->zenTotals_;
      */
     function getCreditTypes() {
         // looks suspiciously like getPaymentTypes in ZMPaymentTypes...
-        $zenTotals = $this->_getZenTotals();
-        $zenTypes = $zenTotals->credit_selection();
         $creditTypes = array();
-        foreach ($zenTypes as $zenType) {
-            $creditType = ZMLoader::make("ZMCreditTypeWrapper", $zenType['id'], $zenType['module'], $zenType['redeem_instructions']);
-            if (isset($zenType['credit_class_error'])) {
-                $creditType->error_ = $zenType['credit_class_error'];
-            }
-            if (isset($zenType['fields'])) {
-                foreach ($zenType['fields'] as $zenField) {
-                    //XXX fix HTML
-                    $field = str_replace('textfield', 'text', $zenField['field']);
-                    $creditType->addField(ZMLoader::make("ZMPaymentField", $zenField['title'], $field));
+        if (null != ($zenTotals = $this->_getZenTotals())) {
+            $zenTypes = $zenTotals->credit_selection();
+            foreach ($zenTypes as $zenType) {
+                $creditType = ZMLoader::make("ZMCreditTypeWrapper", $zenType['id'], $zenType['module'], $zenType['redeem_instructions']);
+                if (isset($zenType['credit_class_error'])) {
+                    $creditType->error_ = $zenType['credit_class_error'];
                 }
+                if (isset($zenType['fields'])) {
+                    foreach ($zenType['fields'] as $zenField) {
+                        //XXX fix HTML
+                        $field = str_replace('textfield', 'text', $zenField['field']);
+                        $creditType->addField(ZMLoader::make("ZMPaymentField", $zenField['title'], $field));
+                    }
+                }
+                if (isset($zenType['checkbox'])) {
+                    //XXX fix HTML
+                    $checkbox = str_replace('textfield', 'text', $zenType['checkbox']);
+                    $pos = strpos( $checkbox, '<input');
+                    $title = trim(substr($checkbox, 0, $pos));
+                    $field = trim(substr($checkbox, $pos));
+                    //XXX fix submitFunction functionallity
+                    $field = str_replace('submitFunction()', "submitFunction(this, ".$this->getTotal().")", $field);
+                    $creditType->addField(ZMLoader::make("ZMPaymentField", $title, $field));
+                }
+                array_push($creditTypes, $creditType);
             }
-            if (isset($zenType['checkbox'])) {
-                //XXX fix HTML
-                $checkbox = str_replace('textfield', 'text', $zenType['checkbox']);
-                $pos = strpos( $checkbox, '<input');
-                $title = trim(substr($checkbox, 0, $pos));
-                $field = trim(substr($checkbox, $pos));
-                //XXX fix submitFunction functionallity
-                $field = str_replace('submitFunction()', "submitFunction(this, ".$this->getTotal().")", $field);
-                $creditType->addField(ZMLoader::make("ZMPaymentField", $title, $field));
-            }
-            array_push($creditTypes, $creditType);
         }
 
         return $creditTypes;

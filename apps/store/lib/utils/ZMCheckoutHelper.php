@@ -359,10 +359,27 @@ class ZMCheckoutHelper extends ZMObject {
     /**
      * Save the cart hash as reference against tampering.
      *
+     * <p>A failed hash save typically indicates that either the shopping cart is empty or the session invalid/timed out.</p>
+     *
      * @param ZMRequest request The current request.
+     * @return boolean <code>true</code> if a valid hash was saved, <code>false</code> if not.
      */
     public function saveHash($request) {
-        $request->getSession()->setValue('shoppingCartHash', $this->shoppingCart_->getHash());
+        if ($this->shoppingCart_->isEmpty()) {
+            return false;
+        }
+
+        // TODO: here for zc compatibility
+        if (isset($this->shoppingCart_->cart_->cartID)) {
+            $request->getSession()->setValue('cartID', $this->shoppingCart_->cart_->cartID);
+        }
+
+        if (null != ($hash = $this->shoppingCart_->getHash())) {
+            $request->getSession()->setValue('shoppingCartHash', $hash);
+            return true;
+        }
+
+        return false;
     }
 
     /**

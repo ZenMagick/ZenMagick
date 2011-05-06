@@ -127,6 +127,8 @@ class EventDispatcher extends SymfonyEventDispatcher {
     public static function n2m($eventName) {
         // split into words for ucwords
         $method = str_replace(array('-', '_'), ' ', $eventName);
+        // force camel case
+        $method = strtolower($method);
         // capitalise words
         $method = ucwords($method);
         // cuddle together :)

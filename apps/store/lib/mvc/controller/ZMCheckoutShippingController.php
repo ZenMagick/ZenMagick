@@ -70,7 +70,8 @@ class ZMCheckoutShippingController extends ZMController {
         $checkoutHelper = Runtime::getContainer()->get('ZMCheckoutHelper');
         $checkoutHelper->setShoppingCart($shoppingCart);
 
-        if (!$checkoutHelper->verifyHash($request)) {
+        // set cart hash
+        if (!$checkoutHelper->saveHash($request)) {
             return $this->findView('check_cart');
         }
 

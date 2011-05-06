@@ -58,9 +58,6 @@ class ZMShoppingCartController extends ZMController {
         $checkoutHelper = Runtime::getContainer()->get('ZMCheckoutHelper');
         $checkoutHelper->setShoppingCart($shoppingCart);
 
-        // set cart hash
-        $checkoutHelper->saveHash($request);
-
         $checkoutHelper->checkStock();
 
         $statusMap = $checkoutHelper->checkCartStatus();
