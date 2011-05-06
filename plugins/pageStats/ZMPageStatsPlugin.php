@@ -158,7 +158,7 @@ class ZMPageStatsPlugin extends Plugin {
             echo '<!--'."\n";
             echo '  '.Runtime::getExecutionTime(ZM_START_TIME).' ZM_START_TIME '."\n";
             foreach ($this->eventStats_ as $eventInfo) {
-                echo '  '.Runtime::getExecutionTime($eventInfo['timestamp']).' '.$eventInfo['method'].' / '.$eventInfo['name'].' args: '.implode(', ', $eventInfo['values'])."\n";
+                echo '  '.Runtime::getExecutionTime($eventInfo['timestamp']).' '.$eventInfo['method'].' / '.$eventInfo['name'].' values: '.$eventInfo['values']."\n";
             }
             echo '-->'."\n";
         }
