@@ -24,41 +24,47 @@ use zenmagick\base\Runtime;
 use zenmagick\base\events\Event;
 use zenmagick\http\sacs\SacsManager;
 
+    try {
+        if (!defined('ZM_APP_PATH')) {
+            // app location relative to zenmagick installation (ZM_BASE_PATH)
+            define('ZM_APP_PATH', 'apps'.DIRECTORY_SEPARATOR.'store'.DIRECTORY_SEPARATOR);
+        }
 
-    if (!defined('ZM_APP_PATH')) {
-        // app location relative to zenmagick installation (ZM_BASE_PATH)
-        define('ZM_APP_PATH', 'apps'.DIRECTORY_SEPARATOR.'store'.DIRECTORY_SEPARATOR);
-    }
+        // additional libraries
+        if(!defined('ZM_LIBS')) define('ZM_LIBS', 'lib/http,shared');
 
-    // additional libraries
-    if(!defined('ZM_LIBS')) define('ZM_LIBS', 'lib/http,shared');
+        include_once 'bootstrap.php';
 
-    include_once 'bootstrap.php';
+        // create the main request instance
+        $request = $_zm_request = ZMRequest::instance();
 
-    // create the main request instance
-    $request = $_zm_request = ZMRequest::instance();
+        // tell everyone interested that we have a request
+        Runtime::getEventDispatcher()->dispatch('init_request', new Event(null, array('request' => $_zm_request)));
 
-    // tell everyone interested that we have a request
-    Runtime::getEventDispatcher()->dispatch('init_request', new Event(null, array('request' => $_zm_request)));
+        // freeze container
+        Runtime::getContainer()->compile();
 
-    // freeze container
-    Runtime::getContainer()->compile();
+        // allow url rewriters to fiddle with the request
+        $_zm_request->urlDecode();
 
-    // allow url rewriters to fiddle with the request
-    $_zm_request->urlDecode();
+        // make sure we use the appropriate protocol (HTTPS, for example) if required
+        SacsManager::instance()->ensureAccessMethod($_zm_request);
 
-    // make sure we use the appropriate protocol (HTTPS, for example) if required
-    SacsManager::instance()->ensureAccessMethod($_zm_request);
-
-    // load stuff that really needs to be global!
-    if (Runtime::getSettings()->get('zenmagick.base.plugins.enabled', true)) {
-        foreach (ZMPlugins::instance()->initAllPlugins(ZMSettings::get('zenmagick.base.plugins.context')) as $plugin) {
-            foreach ($plugin->getGlobal($_zm_request) as $_zm_file) {
-                include_once $_zm_file;
+        // load stuff that really needs to be global!
+        if (Runtime::getSettings()->get('zenmagick.base.plugins.enabled', true)) {
+            foreach (ZMPlugins::instance()->initAllPlugins(ZMSettings::get('zenmagick.base.plugins.context')) as $plugin) {
+                foreach ($plugin->getGlobal($_zm_request) as $_zm_file) {
+                    include_once $_zm_file;
+                }
             }
         }
-    }
 
-    // restore
-    $request = $_zm_request;
-    Runtime::getEventDispatcher()->dispatch('init_done', new Event(null, array('request' => $_zm_request)));
+        // restore
+        $request = $_zm_request;
+        Runtime::getEventDispatcher()->dispatch('init_done', new Event(null, array('request' => $_zm_request)));
+    } catch (Exception $e) {
+        echo '<pre>';
+        echo $e->getTraceAsString();
+        echo '</pre>';
+        die(sprintf('init storefront failed: %s', $e->getMessage()));
+    }

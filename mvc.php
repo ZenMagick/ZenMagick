@@ -24,32 +24,38 @@ use zenmagick\base\Runtime;
 use zenmagick\base\events\Event;
 use zenmagick\http\sacs\SacsManager;
 
+    try {
+        // create the main request instance
+        $request = $_zm_request = ZMRequest::instance();
 
-    // create the main request instance
-    $request = $_zm_request = ZMRequest::instance();
+        // tell everyone interested that we have a request
+        Runtime::getEventDispatcher()->dispatch('init_request', new Event(null, array('request' => $_zm_request)));
 
-    // tell everyone interested that we have a request
-    Runtime::getEventDispatcher()->dispatch('init_request', new Event(null, array('request' => $_zm_request)));
+        // freeze container
+        Runtime::getContainer()->compile();
 
-    // freeze container
-    Runtime::getContainer()->compile();
+        // allow seo rewriters to fiddle with the request
+        $_zm_request->urlDecode();
 
-    // allow seo rewriters to fiddle with the request
-    $_zm_request->urlDecode();
+        // make sure we use the appropriate protocol (HTTPS, for example) if required
+        SacsManager::instance()->ensureAccessMethod($_zm_request);
 
-    // make sure we use the appropriate protocol (HTTPS, for example) if required
-    SacsManager::instance()->ensureAccessMethod($_zm_request);
+        // form validation
+        \ZMValidator::instance()->load(file_get_contents(\ZMFileUtils::mkPath(array(Runtime::getApplicationPath(), 'config', 'validation.yaml'))));
 
-    // form validation
-    \ZMValidator::instance()->load(file_get_contents(\ZMFileUtils::mkPath(array(Runtime::getApplicationPath(), 'config', 'validation.yaml'))));
-
-    // load stuff that really needs to be global!
-    if (Runtime::getSettings()->get('zenmagick.base.plugins.enabled', true)) {
-        foreach (ZMPlugins::instance()->initAllPlugins(ZMSettings::get('zenmagick.base.plugins.context')) as $plugin) {
-            foreach ($plugin->getGlobal($_zm_request) as $_zm_file) {
-                include_once $_zm_file;
+        // load stuff that really needs to be global!
+        if (Runtime::getSettings()->get('zenmagick.base.plugins.enabled', true)) {
+            foreach (ZMPlugins::instance()->initAllPlugins(ZMSettings::get('zenmagick.base.plugins.context')) as $plugin) {
+                foreach ($plugin->getGlobal($_zm_request) as $_zm_file) {
+                    include_once $_zm_file;
+                }
             }
         }
+    } catch (Exception $e) {
+        echo '<pre>';
+        echo $e->getTraceAsString();
+        echo '</pre>';
+        die(sprintf('init webapp failed: %s', $e->getMessage()));
     }
 
     // reset as other global code migth fiddle with it...
