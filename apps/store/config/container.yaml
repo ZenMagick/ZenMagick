@@ -1,3 +1,8 @@
+parameters:
+  kernel.debug: false
+  # default session timeout
+  storefront.session_timeout: 1440
+
 services:
   ZMRequest:
     class: Request
