@@ -32,7 +32,7 @@ use zenmagick\base\logging\Logging;
  */
 class ZMPageStatsPlugin extends Plugin {
     private $pageCache_;
-    private $events_;
+    private $eventStats_;
 
 
     /**
@@ -42,7 +42,8 @@ class ZMPageStatsPlugin extends Plugin {
         parent::__construct('Page Stats', 'Show page stats', '${plugin.version}');
         $this->setLoaderPolicy(ZMPlugin::LP_NONE);
         $this->pageCache_ = null;
-        $this->events_ = array();
+        $this->event_ = array();
+        $this->eventStats_ = array();
     }
 
     /**
@@ -89,7 +90,27 @@ class ZMPageStatsPlugin extends Plugin {
      */
     public function logEvent($event, $value=null) {
         Runtime::getLogging()->info('event:'.(null!=$event->getSource()?' ('.get_class($event->getSource()).')':'').':' . $event->getName() . '/'.EventDispatcher::n2m($event->getName()));
-        $this->events_[] = $event;
+        // compress values
+        $values = array();
+        foreach (array_keys($event->all()) as $key) {
+            if ('content' == $key) {
+                $value = '***content***';
+            } else {
+                $value = $event->get($key);
+            }
+            if (is_array($value)) {
+                $value = implode(';', $value);
+            }
+            $values[] = $key.'='.$value;
+        }
+
+        $this->eventStats_[] = array(
+          'name' => $event->getName(),
+          'memory' => $event->getMemory(),
+          'timestamp' => $event->getTimestamp(),
+          'method' => EventDispatcher::n2m($event->getName()),
+          'values' => implode('; ', $values)
+        );
         return $value;
     }
 
@@ -136,8 +157,8 @@ class ZMPageStatsPlugin extends Plugin {
         if (ZMLangUtils::asBoolean($this->get('showEvents'))) {
             echo '<!--'."\n";
             echo '  '.Runtime::getExecutionTime(ZM_START_TIME).' ZM_START_TIME '."\n";
-            foreach ($this->events_ as $event) {
-                echo '  '.Runtime::getExecutionTime($event->getTimestamp()).' '.EventDispatcher::n2m($event->getName()).' / '.$event->getName().' args: '.implode(',', array_keys($event->all()))."\n";
+            foreach ($this->eventStats_ as $eventInfo) {
+                echo '  '.Runtime::getExecutionTime($eventInfo['timestamp']).' '.$eventInfo['method'].' / '.$eventInfo['name'].' args: '.implode(', ', $eventInfo['values'])."\n";
             }
             echo '-->'."\n";
         }
@@ -223,25 +244,14 @@ class ZMPageStatsPlugin extends Plugin {
             echo '<td style="text-align:right;padding:4px;">'.Runtime::getExecutionTime(ZM_START_TIME).'</td>';
             echo '<td colspan="4" style="text-align:left;padding:4px;">ZM_START_TIME</td>';
             echo '</tr>';
-            foreach ($this->events_ as $event) {
+            foreach ($this->eventStats_ as $eventInfo) {
                 echo '<tr>';
-                echo '<td style="text-align:right;padding:4px;">'.Runtime::getExecutionTime($event->getTimestamp()).'</td>';
-                echo '<td style="text-align:left;padding:4px;">'.$event->getName().'</td>';
-                echo '<td style="text-align:left;padding:4px;">'.sprintf("%d", $event->getMemory()).'</td>';
-                echo '<td style="text-align:left;padding:4px;">'.EventDispatcher::n2m($event->getName()).'</td>';
-                $eargs = $event->all();
-                if (isset($eargs['content'])) {
-                    $eargs['content'] = '**response**';
-                }
-                // handle array eargs
-                foreach ($eargs as $key => $value) {
-                    if (is_array($value)) {
-                        $eargs[$key] = implode(',', $value);
-                    }
-                }
-                $argsInfo = implode(',', $eargs);
-                $argsInfo = empty($argsInfo) ? '&nbsp;' : $argsInfo;
-                echo '<td style="text-align:left;padding:4px;">'.$argsInfo.'</td>';
+                echo '<td style="text-align:right;padding:4px;">'.Runtime::getExecutionTime($eventInfo['timestamp']).'</td>';
+                echo '<td style="text-align:left;padding:4px;">'.$eventInfo['name'].'</td>';
+                echo '<td style="text-align:left;padding:4px;">'.sprintf("%d", $eventInfo['memory']).'</td>';
+                echo '<td style="text-align:left;padding:4px;">'.$eventInfo['method'].'</td>';
+                $values = empty($eventInfo['values']) ? '&nbsp;' : $eventInfo['values'];
+                echo '<td style="text-align:left;padding:4px;">'.$values.'</td>';
                 echo '</tr>';
             }
             echo '</table>';
