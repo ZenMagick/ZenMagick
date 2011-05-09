@@ -1,5 +1,4 @@
 parameters:
-  kernel.debug: false
   # default session timeout
   admin.session_timeout: 1440
 
