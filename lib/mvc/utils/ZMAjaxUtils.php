@@ -20,6 +20,8 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
+
 /**
  * Ajax utils.
  *
