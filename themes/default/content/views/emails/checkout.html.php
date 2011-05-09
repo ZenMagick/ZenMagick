@@ -73,7 +73,7 @@
 
 <h3><?php _vzm("Payment Details") ?></h3>
 <?php if (null != ($paymentType = $order->getPaymentType())) { ?>
-<p><?php echo $html->encode($paymentType->getName()) ?></p>
+<p><?php echo $paymentType->getName() ?></p>
 <?php if (!ZMLangUtils::isEmpty($paymentType->getInfo())) { ?>
 <p><?php echo nl2br($paymentType->getInfo()) ?></p>
 <?php } ?>
