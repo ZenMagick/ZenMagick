@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\Beans;
 
 /**
  * Request controller for updating own admin user details.
@@ -53,11 +54,11 @@ class ZMUpdateUserController extends ZMController {
 
         // WYSIWYG
         $currentEditor = ZMAdminUserPrefs::instance()->getPrefForName($user->getId(), 'wysiwygEditor');
-        $widgets[] = ZMBeanUtils::getBean('ZMEditorSelectFormWidget#title='._zm('Preferred Editor').'&value='.$currentEditor.'&name=wysiwygEditor');
+        $widgets[] = Beans::getBean('ZMEditorSelectFormWidget#title='._zm('Preferred Editor').'&value='.$currentEditor.'&name=wysiwygEditor');
 
         // uiLocale
         $locales = ZMLocales::instance()->getLocalesList();
-        $uiLocaleWidget = ZMBeanUtils::getBean('ZMSelectFormWidget#name=uiLocale&title='._zm('Admin Language'));
+        $uiLocaleWidget = Beans::getBean('ZMSelectFormWidget#name=uiLocale&title='._zm('Admin Language'));
         foreach ($locales as $locale => $name) {
             $uiLocaleWidget->addOption($name, $locale);
         }

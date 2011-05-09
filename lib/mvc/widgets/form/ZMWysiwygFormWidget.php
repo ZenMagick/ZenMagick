@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\Beans;
 
 /**
  * A wysiwyg form widget.
@@ -57,11 +58,11 @@ class ZMWysiwygFormWidget extends ZMFormWidget {
             $editor = ZMSettings::get('apps.store.admin.defaultEditor', 'ZMTextAreaFormWidget');
         }
 
-        if (null != ($obj = ZMBeanUtils::getBean($editor))) {
+        if (null != ($obj = Beans::getBean($editor))) {
             return $obj;
         }
 
-        return ZMBeanUtils::getBean('ZMTextAreaFormWidget');
+        return Beans::getBean('ZMTextAreaFormWidget');
     }
 
     /**

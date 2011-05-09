@@ -23,6 +23,7 @@
 ?>
 <?php
 
+use zenmagick\base\Beans;
 
 /**
  * Ajax controller for JSON shopping cart.
@@ -55,7 +56,7 @@ class ZMAjaxShoppingCartController extends ZMAjaxController {
      * @param ZMRequest request The current request.
      */
     public function estimateShippingJSON($request) {
-        $shippingEstimator = ZMBeanUtils::getBean("ZMShippingEstimator");
+        $shippingEstimator = Beans::getBean("ZMShippingEstimator");
         $shippingEstimator->prepare();
         $response = array();
 
@@ -66,7 +67,7 @@ class ZMAjaxShoppingCartController extends ZMAjaxController {
 
         $methods = array();
         if (!$shippingEstimator->isCartEmpty()) {
-            $shipping = ZMBeanUtils::getBean("ZMShipping");
+            $shipping = Beans::getBean("ZMShipping");
             if (!$shipping->isFreeShipping()) {
                 foreach ($shipping->getShippingProvider() as $provider) {
                     if ($provider->hasError())

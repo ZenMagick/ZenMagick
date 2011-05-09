@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
 
 /**
@@ -69,11 +70,11 @@ class ZMAdminEventHandler {
             $editor = ZMSettings::get('apps.store.admin.defaultEditor', 'ZMTextAreaFormWidget');
         }
 
-        if (null != ($obj = ZMBeanUtils::getBean($editor))) {
+        if (null != ($obj = Beans::getBean($editor))) {
             return $obj;
         }
 
-        return ZMBeanUtils::getBean('ZMTextAreaFormWidget');
+        return Beans::getBean('ZMTextAreaFormWidget');
     }
 
     /**

@@ -20,6 +20,8 @@
 ?>
 <?php
 
+use zenmagick\base\Beans;
+
 /**
  * Test query pager.
  *
@@ -45,12 +47,12 @@ class TestZMQueryPager extends ZMTestCase {
             $resultList = new ZMResultList();
             $resultSource = ZMLoader::make('ZMObjectResultSource', 'ZMOrder', ZMOrders::instance(), 'getAllOrders', array(1));
             $resultList->setResultSource($resultSource);
-            $sorter = ZMBeanUtils::getBean('ZMOrderSorter');
+            $sorter = Beans::getBean('ZMOrderSorter');
             $sorter->setSortId('date');
             $sorter->setDescending(true);
             $queryDetails = $sorter->getQueryDetails();
             $resultList->addSorter($sorter);
-            $filter = ZMBeanUtils::getBean('ZMOrderStatusIdFilter');
+            $filter = Beans::getBean('ZMOrderStatusIdFilter');
             $resultList->addFilter($filter);
             $resultList->setPageNumber(3);
             $orders = $resultList->getResults();

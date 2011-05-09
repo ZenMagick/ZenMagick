@@ -23,6 +23,7 @@
 ?>
 <?php
 
+use zenmagick\base\Beans;
 
 /**
  * Request controller for account history page.
@@ -57,7 +58,7 @@ class ZMAccountHistoryController extends ZMController {
         $request->getToolbox()->crumbtrail->addCrumb("Account", $request->url('account', '', true));
         $request->getToolbox()->crumbtrail->addCrumb($request->getToolbox()->utils->getTitle());
 
-        $resultList = ZMBeanUtils::getBean("ZMResultList");
+        $resultList = Beans::getBean("ZMResultList");
         $resultSource = ZMLoader::make("ZMObjectResultSource", 'Order', ZMOrders::instance(), "getOrdersForAccountId", array($request->getAccountId(), $request->getSession()->getLanguageId()));
         $resultList->setResultSource($resultSource);
         $resultList->setPageNumber($request->getPageIndex());

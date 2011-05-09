@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\Beans;
 
 /**
  * Admin controller for a single block group.
@@ -51,7 +52,7 @@ class ZMBlockGroupAdminController extends ZMController {
         $blocks = array();
         foreach (ZMBlockManager::instance()->getProviders() as $provider) {
             foreach ($provider->getBlockList() as $def) {
-                $widget = ZMBeanUtils::getBean($def);
+                $widget = Beans::getBean($def);
                 $blocks[$def] = $widget->getTitle();
             }
         }

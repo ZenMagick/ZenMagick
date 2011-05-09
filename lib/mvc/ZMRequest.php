@@ -234,7 +234,7 @@ class ZMRequest extends \ZMObject {
      */
     public function getUser() {
         if (null == $this->userFactory_) {
-            $this->userFactory_ = \ZMBeanUtils::getBean(\ZMSettings::get('zenmagick.mvc.session.userFactory'));
+            $this->userFactory_ = Beans::getBean(\ZMSettings::get('zenmagick.mvc.session.userFactory'));
         }
         if (null != $this->userFactory_) {
             return $this->userFactory_->getUser($this);
@@ -268,7 +268,7 @@ class ZMRequest extends \ZMObject {
      */
     public function getSession() {
         if (!isset($this->session_)) {
-            $this->session_ = \ZMBeanUtils::getBean("Session");
+            $this->session_ = Beans::getBean("Session");
         }
 
         return $this->session_;

@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\Beans;
 
 /**
  * A cron service.
@@ -187,7 +188,7 @@ class ZMCronJobs extends ZMObject {
     public function runJob($job) {
         try {
             ZMLogging::instance()->log("ZMCronJobs: Running: ".$job['line'], ZMLogging::DEBUG);
-            $obj = ZMBeanUtils::getBean($job['task']);
+            $obj = Beas::getBean($job['task']);
             if ($obj instanceof ZMCronJob) {
                 $status = $obj->execute();
             }

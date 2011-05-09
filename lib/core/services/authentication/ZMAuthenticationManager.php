@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
 
 /**
@@ -79,7 +80,7 @@ class ZMAuthenticationManager extends ZMObject {
         foreach ($keys as $key) {
             $implementation = $this->providers_[$key];
             if (!is_object($implementation)) {
-                $implementation = ZMBeanUtils::getBean($key);
+                $implementation = Beans::getBean($key);
                 if (!($implementation instanceof ZMAuthentication)) {
                     throw new ZMException('invalid auth provider: '. get_class($implementation));
                 }

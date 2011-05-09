@@ -23,6 +23,7 @@
 ?>
 <?php
 
+use zenmagick\base\Beans;
 
 /**
  * Admin controller.
@@ -65,7 +66,7 @@ class ZMQuickEditTabController extends ZMCatalogContentController {
         // while doing that instantiate all widgets
         $fieldMap = array();
         foreach ($fieldList as $ii => $field) {
-            $widget = ZMBeanUtils::getBean($field['widget']);
+            $widget = Beans::getBean($field['widget']);
             $fieldList[$ii]['widget'] = $widget;
             $fieldMap[$field['name']] = isset($field['property']) ? $field['property'] : $field['name'];
         }
@@ -110,7 +111,7 @@ class ZMQuickEditTabController extends ZMCatalogContentController {
             }
             // load product, convert to map and compare with the submitted form data
             $product = ZMProducts::instance()->getProductForId($productId, $languageId);
-            $productData = ZMBeanUtils::obj2map($product, $fieldMap);
+            $productData = Beans::obj2map($product, $fieldMap);
             $isUpdate = false;
             foreach ($formData as $key => $value) {
                 if (array_key_exists($key, $productData) && $value != $productData[$key]) {
@@ -124,7 +125,7 @@ class ZMQuickEditTabController extends ZMCatalogContentController {
                 }
             }
             if ($isUpdate) {
-                $product = ZMBeanUtils::setAll($product, $formData);
+                $product = Beans::setAll($product, $formData);
                 ZMProducts::instance()->updateProduct($product);
                 ZMMessages::instance()->success('All changes saved');
             }

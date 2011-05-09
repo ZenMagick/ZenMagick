@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\Beans;
 
 /**
  * Ajax controller for JSON catalog data.
@@ -99,7 +100,7 @@ class ZMAjaxCatalogController extends ZMAjaxController {
             // use result list to paginate
             $args = array($categoryId, $activeOnly);
             $resultSource = ZMLoader::make("ZMObjectResultSource", 'Product', ZMProducts::instance(), "getProductsForCategoryId", $args);
-            $resultList = ZMBeanUtils::getBean("ZMResultList");
+            $resultList = Beans::getBean("ZMResultList");
             $resultList->setResultSource($resultSource);
             $resultList->setPageNumber($page);
             if (null !== ($pagination = $request->getParameter('pagination'))) {

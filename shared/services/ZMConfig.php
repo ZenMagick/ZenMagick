@@ -23,6 +23,7 @@
 ?>
 <?php
 
+use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
 
 /**
@@ -153,7 +154,7 @@ class ZMConfig extends ZMObject {
                 $widgetDefinition = $value['setFunction'].'&'.$value['useFunction'];
                 // build definition from both function values (just in case)
                 $definition = str_replace('widget@', '', $widgetDefinition);
-                $widget = ZMBeanUtils::getBean($definition);
+                $widget = Beans::getBean($definition);
                 if (null !== $widget) {
                     $widget->setTitle($value['name']);
                     $widget->setDescription($value['description']);
@@ -174,60 +175,60 @@ class ZMConfig extends ZMObject {
                 }
                 switch ($setFunction) {
                 case null:
-                    $widget = ZMBeanUtils::getBean('ZMTextFormWidget');
+                    $widget = Beans::getBean('ZMTextFormWidget');
                     $size = strlen($value['value'])+3;
                     $size = 64 < $size ? 64 : $size;
                     $widget->set('size', $size);
                     break;
                 case 'zen_cfg_textarea':
-                    $widget = ZMBeanUtils::getBean('ZMTextAreaFormWidget');
+                    $widget = Beans::getBean('ZMTextAreaFormWidget');
                     $widget->setRows(5);
                     $widget->setCols(60);
                     break;
                 case 'zen_cfg_textarea_small':
-                    $widget = ZMBeanUtils::getBean('ZMTextAreaFormWidget');
+                    $widget = Beans::getBean('ZMTextAreaFormWidget');
                     $widget->setRows(1);
                     $widget->setCols(35);
                     break;
                 case 'zen_cfg_select_option':
                     // XXX: perhaps make radio group
-                    $widget = ZMBeanUtils::getBean('ZMSelectFormWidget#style=radio');
+                    $widget = Beans::getBean('ZMSelectFormWidget#style=radio');
                     $widget->setOptions($this->splitOptions($value['setFunction']));
                     if (3 < count($widget->getOptions())) {
                         $widget->setStyle('select');
                     }
                     break;
                 case 'zen_cfg_select_drop_down':
-                    $widget = ZMBeanUtils::getBean('ZMSelectFormWidget');
+                    $widget = Beans::getBean('ZMSelectFormWidget');
                     $widget->setOptions($this->splitOptions($value['setFunction']));
                     break;
                 case 'zen_cfg_pull_down_order_statuses':
-                    $widget = ZMBeanUtils::getBean('ZMOrderStatusSelectFormWidget');
+                    $widget = Beans::getBean('ZMOrderStatusSelectFormWidget');
                     break;
                 case 'zen_cfg_pull_down_country_list':
-                    $widget = ZMBeanUtils::getBean('ZMCountrySelectFormWidget');
+                    $widget = Beans::getBean('ZMCountrySelectFormWidget');
                     break;
                 case 'zen_cfg_pull_down_country_list_none':
-                    $widget = ZMBeanUtils::getBean('ZMCountrySelectFormWidget');
+                    $widget = Beans::getBean('ZMCountrySelectFormWidget');
                     $widget->setOptions(array('' => _zm('None')));
                     break;
                 case 'zen_cfg_pull_down_htmleditors':
-                    $widget = ZMBeanUtils::getBean('ZMTextFormWidget');
+                    $widget = Beans::getBean('ZMTextFormWidget');
                     $widget->set('readonly', true);
-                    //$widget = ZMBeanUtils::getBean('ZMEditorSelectFormWidget');
+                    //$widget = Beans::getBean('ZMEditorSelectFormWidget');
                     break;
                 case 'zen_cfg_pull_down_zone_list';
-                    $widget = ZMBeanUtils::getBean('ZMZoneSelectFormWidget');
+                    $widget = Beans::getBean('ZMZoneSelectFormWidget');
                     $widget->setOptions(array('' => _zm('None')));
                     break;
                 case 'zen_cfg_select_coupon_id';
-                    $widget = ZMBeanUtils::getBean('ZMCouponSelectFormWidget');
+                    $widget = Beans::getBean('ZMCouponSelectFormWidget');
                     $widget->setOptions(array('' => _zm('None')));
                     break;
 
                 default:
                     //echo $setFunction.": ".$value['setFunction']."<BR>";
-                    $widget = ZMBeanUtils::map2obj('ConfigValue', $value);
+                    $widget = Beans::map2obj('ConfigValue', $value);
                     break;
                 }
                 if ($widget instanceof ZMWidget) {

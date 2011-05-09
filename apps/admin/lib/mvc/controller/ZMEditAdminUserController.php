@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\Beans;
 
 /**
  * Request controller for editing (other) admin user details.
@@ -83,7 +84,7 @@ class ZMEditAdminUserController extends ZMController {
         if (null != ($editUserId = $request->getParameter('adminUserId'))) {
             $adminUserForm = $this->getFormData($request);
 
-            $user = ZMBeanUtils::getBean('ZMAdminUser');
+            $user = Beans::getBean('ZMAdminUser');
             $user->setId($adminUserForm->getAdminUserId());
             $user->setName($adminUserForm->getName());
             $user->setEmail($adminUserForm->getEmail());

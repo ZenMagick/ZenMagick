@@ -23,6 +23,7 @@
 ?>
 <?php
 
+use zenmagick\base\Beans;
 
 /**
  * Check for either state or zone.
@@ -89,7 +90,7 @@ class ZMStateOrZoneIdRule extends ZMRule {
 
         // check for form bean
         if (array_key_exists('__obj', $data)) {
-            $data['__obj'] = ZMBeanUtils::setAll($data['__obj'], array('state' => $state, 'zoneId' => $zoneId));
+            $data['__obj'] = Beans::setAll($data['__obj'], array('state' => $state, 'zoneId' => $zoneId));
         }
 
         return $valid;

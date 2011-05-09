@@ -23,6 +23,7 @@
 ?>
 <?php
 
+use zenmagick\base\Beans;
 
 /**
  * Request controller for specials.
@@ -56,14 +57,14 @@ class ZMSpecialsController extends ZMController {
         $request->getToolbox()->crumbtrail->addManufacturer($request->getManufacturerId());
         $request->getToolbox()->crumbtrail->addCrumb("Specials");
 
-        $resultList = ZMBeanUtils::getBean("ZMResultList");
+        $resultList = Beans::getBean("ZMResultList");
         $resultSource = ZMLoader::make("ZMObjectResultSource", 'Product', ZMProducts::instance(), "getSpecials", 0);
         $resultList->setResultSource($resultSource);
         foreach (explode(',', ZMSettings::get('resultListProductFilter')) as $filter) {
-            $resultList->addFilter(ZMBeanUtils::getBean($filter));
+            $resultList->addFilter(Beans::getBean($filter));
         }
         foreach (explode(',', ZMSettings::get('resultListProductSorter')) as $sorter) {
-            $resultList->addSorter(ZMBeanUtils::getBean($sorter));
+            $resultList->addSorter(Beans::getBean($sorter));
         }
         $resultList->setPageNumber($request->getPageIndex());
 

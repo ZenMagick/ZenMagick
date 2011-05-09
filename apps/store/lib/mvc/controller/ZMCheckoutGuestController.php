@@ -23,6 +23,7 @@
 ?>
 <?php
 
+use zenmagick\base\Beans;
 
 /**
  * Request controller for guest checkout.
@@ -76,7 +77,7 @@ class ZMCheckoutGuestController extends ZMController {
         }
 
         // create anonymous account
-        $account = ZMBeanUtils::getBean("ZMAccount");
+        $account = Beans::getBean("ZMAccount");
         $account->setEmail($request->getParameter('email_address'));
         $account->setPassword('');
         $account->setDob(ZMDatabase::NULL_DATETIME);

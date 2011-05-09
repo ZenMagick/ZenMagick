@@ -23,6 +23,8 @@
 ?>
 <?php
 
+use zenmagick\base\Beans;
+
 /**
  * ZenMagick order total module to add a payment surcharge totals based on configurable conditions.
  *
@@ -104,7 +106,7 @@ class ZMPaymentSurchargePlugin extends Plugin implements ZMOrderTotal {
                         $amount =  $shoppingCart->getSubtotal() * ($amount/100);
                     }
 
-                    $details = ZMBeanUtils::getBean('ZMOrderTotalLineDetails');
+                    $details = Beans::getBean('ZMOrderTotalLineDetails');
                     $details->setTitle($condition['title']);
                     $details->setAmount($amount);
                     $details->setDisplayValue($amount);

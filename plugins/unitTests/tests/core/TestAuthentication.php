@@ -20,6 +20,8 @@
 ?>
 <?php
 
+use zenmagick\base\Beans;
+
 /**
  * Test authentication.
  *
@@ -84,7 +86,7 @@ class TestAuthentication extends ZMTestCase {
     public function testProviders() {
         $implementations = array('ZMZenCartAuthentication', 'ZMSha1Authentication');
         foreach ($implementations as $class) {
-            $provider = ZMBeanUtils::getBean($class);
+            $provider = Beans::getBean($class);
             if ($this->assertNotNull($provider, '%s: '.$class)) {
                 $plaintext = 'foobar';
                 $encrypted = $provider->encryptPassword($plaintext);

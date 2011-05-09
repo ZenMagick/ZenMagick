@@ -23,6 +23,7 @@
 ?>
 <?php
 
+use zenmagick\base\Beans;
 
 /**
  * A single order.
@@ -134,7 +135,7 @@ class ZMOrder extends ZMObject {
      */
     public function getAccount() {
         if (null === $this->account_) {
-            $this->account_ = ZMBeanUtils::getBean("Account");
+            $this->account_ = Beans::getBean("Account");
             $this->account_->setAccountId($this->accountId_);
             // orders has only name, not first/last...
             $this->account_->setLastName($this->get('customers_name'));
@@ -159,7 +160,7 @@ class ZMOrder extends ZMObject {
      * Create address instance.
      */
     private function mkAddress($prefix) {
-        $address = ZMBeanUtils::getBean("Address");
+        $address = Beans::getBean("Address");
         $address->setAddressId(0);
         // orders has only name, not first/last...
         $address->setLastName($this->get($prefix.'_name'));

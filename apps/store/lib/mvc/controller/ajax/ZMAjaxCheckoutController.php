@@ -23,6 +23,7 @@
 ?>
 <?php
 
+use zenmagick\base\Beans;
 
 /**
  * Ajax controller for JSON checkout.
@@ -77,7 +78,7 @@ class ZMAjaxCheckoutController extends ZMAjaxController {
                 }
             }
             if (0 < count($data)) {
-                $address = ZMBeanUtils::map2obj('Address', $data);
+                $address = Beans::map2obj('Address', $data);
             }
         }
 

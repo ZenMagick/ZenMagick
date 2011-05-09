@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
 
 /**
@@ -44,7 +45,7 @@ class ZMRegistrationForm extends ZMFormData {
      * @return ZMAccount An account.
      */
     public function getAccount() {
-        $account = ZMBeanUtils::getBean('ZMAccount');
+        $account = Beans::getBean('ZMAccount');
         $properties = $this->properties_;
 
         // don't need these
@@ -55,7 +56,7 @@ class ZMRegistrationForm extends ZMFormData {
         // special treatment
         $properties['dob'] = DateTime::createFromFormat(ZMLocales::instance()->getLocale()->getFormat('date', 'short'), $properties['dob']);
 
-        $account = ZMBeanUtils::setAll($account, $properties);
+        $account = Beans::setAll($account, $properties);
         return $account;
     }
 
@@ -65,7 +66,7 @@ class ZMRegistrationForm extends ZMFormData {
      * @return ZMAddress An address.
      */
     public function getAddress() {
-        $address = ZMBeanUtils::getBean('ZMAddress');
+        $address = Beans::getBean('ZMAddress');
         $properties = $this->properties_;
 
         // don't need these
@@ -78,7 +79,7 @@ class ZMRegistrationForm extends ZMFormData {
             $properties['countryId'] = 0;
         }
 
-        $address = ZMBeanUtils::setAll($address, $properties);
+        $address = Beans::setAll($address, $properties);
         return $address;
     }
 

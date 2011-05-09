@@ -20,6 +20,8 @@
 ?>
 <?php
 
+use zenmagick\base\Beans;
+
 /**
  * Test <em>How did you hear about us</em> plugin.
  *
@@ -77,7 +79,7 @@ class TestZMHowDidYouHear extends ZMTestCase {
      * Create test account.
      */
     public function createAccount($data) {
-        $account = ZMBeanUtils::getBean('ZMAccount');
+        $account = Beans::getBean('ZMAccount');
         foreach ($data as $key => $value) {
             $method = 'set'.ucwords($key);
             $account->$method($value);

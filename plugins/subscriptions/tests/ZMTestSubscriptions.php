@@ -20,6 +20,8 @@
 ?>
 <?php
 
+use zenmagick\base\Beans;
+
 /**
  * Test subscriptions.
  *
@@ -82,7 +84,7 @@ class ZMTestSubscriptions extends ZMTestCase {
             return;
         }
 
-        $job = ZMBeanUtils::getBean('ZMUpdateSubscriptionsCronJob');
+        $job = Beans::getBean('ZMUpdateSubscriptionsCronJob');
         $this->assertNotNull($job);
         $status = $job->execute();
         $this->assertTrue($status);

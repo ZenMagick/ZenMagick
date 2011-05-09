@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
 
 /**
@@ -78,7 +79,7 @@ class ZMTokens extends ZMObject {
      * @return ZMToken A token.
      */
     public function getNewToken($resource, $lifetime) {
-        $token = ZMBeanUtils::getBean('ZMToken');
+        $token = Beans::getBean('ZMToken');
         $token->setHash($this->createToken());
         $token->setResource($resource);
         $now = time();

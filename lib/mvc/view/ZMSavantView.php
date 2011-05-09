@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
 
 /**
@@ -113,7 +114,7 @@ class ZMSavantView extends ZMView {
         }
         $list = array();
         foreach (explode(',', $this->filters_) as $class) {
-            if (null != ($filter = ZMBeanUtils::getBean(trim($class)))) {
+            if (null != ($filter = Beans::getBean(trim($class)))) {
                 $list[] = array($filter, 'filter');
             }
         }
@@ -189,7 +190,7 @@ class ZMSavantView extends ZMView {
         $this->config_ = ZMLangUtils::toArray($config);
         foreach ($this->config_ as $key => $value) {
             if (('compiler' == $key || 'cache' == $key) && !is_object($value)) {
-                $this->config_[$key] = ZMBeanUtils::getBean($value);
+                $this->config_[$key] = Beans::getBean($value);
             }
         }
     }

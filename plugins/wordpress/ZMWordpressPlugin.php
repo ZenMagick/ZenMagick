@@ -20,6 +20,9 @@
 ?>
 <?php
 
+use zenmagick\base\Beans;
+
+
 define('FILENAME_WP', 'wp');
 
 /**
@@ -122,7 +125,7 @@ class ZMWordpressPlugin extends Plugin {
      */
     protected function getAdapter() {
         if (null == $this->adapter_) {
-            $this->adapter_ = ZMBeanUtils::getBean('ZMWordpressAdapter');
+            $this->adapter_ = Beans::getBean('ZMWordpressAdapter');
         }
 
         return $this->adapter_;

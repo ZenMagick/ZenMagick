@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
 
 /**
@@ -66,7 +67,7 @@ class ZMBlockManager extends ZMObject {
         if (null == $this->providers_) {
             $this->providers_ = array();
             foreach (explode(',', ZMSettings::get('zenmagick.mvc.blocks.blockProviders')) as $providerId) {
-                $provider = ZMBeanUtils::getBean($providerId);
+                $provider = Beans::getBean($providerId);
                 if (null != $provider && $provider instanceof ZMBlockProvider) {
                     $this->providers_[] = $provider;
                 } else {
@@ -93,12 +94,12 @@ class ZMBlockManager extends ZMObject {
             foreach ($this->mappings_[$groupId] as $block) {
                 $widget = null;
                 if (is_string($block)) {
-                    $widget = ZMBeanUtils::getBean($block);
+                    $widget = Beans::getBean($block);
                 } else if (is_object($block) && $block instanceof ZMBlockWidget) {
                     $widget = $block;
                 }
                 if (null != $widget) {
-                    ZMBeanUtils::setAll($widget, $args);
+                    Beans::setAll($widget, $args);
                     $group[] = $widget;
                 }
             }

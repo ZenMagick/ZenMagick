@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\Beans;
 
 /**
  * Plugin to enable vBulletin support in ZenMagick.
@@ -68,7 +69,7 @@ class ZMVBulletinPlugin extends Plugin {
      */
     protected function getAdapter() {
         if (null == $this->adapter_) {
-            $this->adapter_ = ZMBeanUtils::getBean('ZMVBulletinAdapter');
+            $this->adapter_ = Beans::getBean('ZMVBulletinAdapter');
         }
 
         return $this->adapter_;

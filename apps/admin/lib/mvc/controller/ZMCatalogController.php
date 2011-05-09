@@ -59,7 +59,7 @@ class ZMCatalogController extends ZMController {
         $controllers = array();
         // find first active controller and pick
         foreach (explode(',', ZMSettings::get('apps.store.catalog.controller')) as $bean) {
-            if (null != ($controller = ZMBeanUtils::getBean(trim($bean))) && $controller instanceof ZMCatalogContentController) {
+            if (null != ($controller = Beans::getBean(trim($bean))) && $controller instanceof ZMCatalogContentController) {
                 if ($controller->isActive($request)) {
                     $controllers[] = $controller;
                 }

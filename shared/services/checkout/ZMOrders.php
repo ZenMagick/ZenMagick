@@ -23,6 +23,7 @@
 ?>
 <?php
 
+use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
 
 /**
@@ -243,7 +244,7 @@ class ZMOrders extends ZMObject implements ZMSQLAware {
             $args = array('orderId' => $orderId, 'orderItemId' => $item->getId());
             foreach (ZMRuntime::getDatabase()->query($sql, $args, TABLE_ORDERS_PRODUCTS_ATTRIBUTES, 'ZMAttributeValue') as $value) {
                 if (!array_key_exists($value->getAttributeId(), $attributes)) {
-                    $attribute = ZMBeanUtils::getBean("ZMAttribute");
+                    $attribute = Beans::getBean("ZMAttribute");
                     $attribute->setName($value->getAttributeName());
                     $attributes[$value->getAttributeId()] = $attribute;
                 }

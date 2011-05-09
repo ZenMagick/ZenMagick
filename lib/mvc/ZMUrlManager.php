@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
 
 /**
@@ -244,8 +245,8 @@ class ZMUrlManager extends ZMObject {
         }
 
         ZMLogging::instance()->log('controller definition: '.$definition, ZMLogging::TRACE);
-        if (null == ($controller = ZMBeanUtils::getBean($definition))) {
-            $controller = ZMBeanUtils::getBean(ZMSettings::get('zenmagick.mvc.controller.default', 'ZMController'));
+        if (null == ($controller = Beans::getBean($definition))) {
+            $controller = Beans::getBean(ZMSettings::get('zenmagick.mvc.controller.default', 'ZMController'));
         }
 
         return $controller;
@@ -288,7 +289,7 @@ class ZMUrlManager extends ZMObject {
               ? $mapping['layout'] : ZMSettings::get('zenmagick.mvc.view.defaultLayout', null));
         $definition = $view.(false === strpos($view, '#') ? '#' : '&').$parameter.'&template='.$mapping['template'].'&layout='.$layout.'&viewId='.$viewId;
         ZMLogging::instance()->log('view definition: '.$definition, ZMLogging::TRACE);
-        return ZMBeanUtils::getBean($definition);
+        return Beans::getBean($definition);
     }
 
     /**

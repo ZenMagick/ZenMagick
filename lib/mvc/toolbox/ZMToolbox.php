@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\Beans;
 
 /**
  * Container for template related utilities.
@@ -73,7 +74,7 @@ class ZMToolbox {
         foreach (ZMSettings::get('zenmagick.mvc.toolbox.tools', array()) as $toolInfo) {
             $token = explode(':', $toolInfo);
             if (2 == count($token)) {
-                $tools[$token[0]] = ZMBeanUtils::getBean($token[1]);
+                $tools[$token[0]] = Beans::getBean($token[1]);
             }
         }
 

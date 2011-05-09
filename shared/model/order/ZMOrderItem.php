@@ -23,6 +23,7 @@
 ?>
 <?php
 
+use zenmagick\base\Beans;
 
 /**
  * A single order item
@@ -108,7 +109,7 @@ class ZMOrderItem extends ZMObject {
      */
     public function getTaxRate() {
         if (null == $this->taxRate_) {
-            $this->taxRate_ = ZMBeanUtils::getBean('ZMTaxRate');
+            $this->taxRate_ = Beans::getBean('ZMTaxRate');
             $this->taxRate_->setRate($this->get('taxValue'));
         }
 

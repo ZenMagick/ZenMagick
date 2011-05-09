@@ -40,7 +40,7 @@
             // allow widgets to do custom calculations, etc
             $widget->setProduct($product);
             $fieldName = $field['name'].'_'.$product->getId();
-            $productData = ZMBeanUtils::obj2map($product, $fieldMap);
+            $productData = Beans::obj2map($product, $fieldMap);
             $value = $productData[$fieldMap[$field['name']]];
             $widget->setName($fieldName);
             $widget->setValue($value);

@@ -38,7 +38,7 @@
   <?php for ($ii=0; $ii<ZMDashboard::getColumns($adminId); ++$ii) { $widgets = ZMDashboard::getWidgetsForColumn($adminId, $ii); ?>
     <div id="db-column-<?php echo $ii ?>" class="db-column">
       <?php foreach ($widgets as $widgetDef) { ?>
-        <?php $widget = ZMBeanUtils::getBean($widgetDef); echo $widget->render($request, $view); ?>
+        <?php $widget = Beans::getBean($widgetDef); echo $widget->render($request, $view); ?>
       <?php } ?>
     </div>
   <?php } ?>
@@ -56,16 +56,16 @@
     <div id="widget-box-cols" class="ui-corner-all">
       <?php $widgetList = ZMDashboard::getWidgetList($adminId); ?>
       <div id="widget-box-col-0" class="widget-box-col">
-        <?php for ($ii=0; $ii<count($widgetList); $ii+=2) { 
+        <?php for ($ii=0; $ii<count($widgetList); $ii+=2) {
           $widgetDef = $widgetList[$ii];
-          $widget = ZMBeanUtils::getBean($widgetDef); 
+          $widget = Beans::getBean($widgetDef);
           $widget->setOpen(false); echo $widget->render($request, $view);
         } ?>
       </div>
       <div id="widget-box-col-1" class="widget-box-col">
-        <?php for ($ii=1; $ii<count($widgetList); $ii+=2) { 
+        <?php for ($ii=1; $ii<count($widgetList); $ii+=2) {
           $widgetDef = $widgetList[$ii];
-          $widget = ZMBeanUtils::getBean($widgetDef); 
+          $widget = Beans::getBean($widgetDef);
           $widget->setOpen(false); echo $widget->render($request, $view);
         } ?>
       </div>

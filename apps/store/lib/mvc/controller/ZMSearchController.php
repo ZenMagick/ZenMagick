@@ -23,6 +23,7 @@
 ?>
 <?php
 
+use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
 use zenmagick\base\events\Event;
 
@@ -92,10 +93,10 @@ class ZMSearchController extends ZMController {
         $searchCriteria->setSearchAll(false);
 
         if (!ZMLangUtils::isEmpty($searchCriteria->getKeywords()) && $this->autoSearch_) {
-            $resultList = ZMBeanUtils::getBean('ZMResultList');
+            $resultList = Beans::getBean('ZMResultList');
             //TODO: filter??
             foreach (explode(',', ZMSettings::get('resultListProductSorter')) as $sorter) {
-                $resultList->addSorter(ZMBeanUtils::getBean($sorter));
+                $resultList->addSorter(Beans::getBean($sorter));
             }
 
             $resultSource = Runtime::getContainer()->get('ZMSearchResultSource');

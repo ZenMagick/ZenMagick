@@ -20,8 +20,8 @@
 ?>
 <?php
 
+use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
-
 
 /**
  * Unit testing controller.
@@ -121,7 +121,7 @@ class ZMUnitTestsController extends \ZMController {
         // create instances rather than just class names
         foreach ($allTests as $group => $tests) {
             foreach ($tests as $key => $clazz) {
-                if (null != ($test = \ZMBeanUtils::getBean($clazz))) {
+                if (null != ($test = Beans::getBean($clazz))) {
                     $allTests[$group][$key] = $test;
                 } else {
                     \ZMMessages::instance()->warn('could not create instance of '.$clazz);
@@ -158,7 +158,7 @@ class ZMUnitTestsController extends \ZMController {
             // prepare selected tests
             $suite = new TestSuite('ZenMagick Tests');
             foreach ($testCases as $name) {
-                $testCase = \ZMBeanUtils::getBean($name);
+                $testCase = Beans::getBean($name);
                 if ($testCase instanceof SimpleTestCase) {
                     $suite->add($name);
                 }

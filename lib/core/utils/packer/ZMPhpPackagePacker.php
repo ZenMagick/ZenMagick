@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\Beans;
 
 /**
  * Analyze dependencies of a given PHP package (folder tree), resolve and compress.
@@ -226,7 +227,7 @@ class ZMPhpPackagePacker {
      * @param boolean stripRef If <code>true</code>, strip code that uses references.
      */
     protected function compressFiles($stripCode, $stripRef) {
-        $compressor = ZMBeanUtils::getBean('ZMPhpCompressor');
+        $compressor = Beans::getBean('ZMPhpCompressor');
         $compressor->setRoot($this->outputFilename_.'.prep'.DIRECTORY_SEPARATOR);
         $compressor->setOut($this->outputFilename_);
         $compressor->setTemp($this->tempFolder_);

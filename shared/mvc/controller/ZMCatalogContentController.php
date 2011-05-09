@@ -23,6 +23,7 @@
 ?>
 <?php
 
+use zenmagick\base\Beans;
 
 /**
  * Catalog content controller.
@@ -118,7 +119,7 @@ abstract class ZMCatalogContentController extends ZMController {
     public function findView($id=null, $data=array(), $parameter=null) {
         if ('catalog-redirect' == $id) {
             // the property catalogRedirect tags the view as special redirect view...
-            return ZMBeanUtils::getBean('ZMRedirectView#requestId=catalog&catalogRedirect=true&parameter='.urlencode($parameter).'&catalogRequestId='.$this->getCalogRequestId());
+            return Beans::getBean('ZMRedirectView#requestId=catalog&catalogRedirect=true&parameter='.urlencode($parameter).'&catalogRequestId='.$this->getCalogRequestId());
         }
 
         return parent::findView($id, $data, $parameter);

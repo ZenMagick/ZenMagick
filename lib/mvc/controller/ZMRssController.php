@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\Beans;
 
 /**
  * Request controller for RSS feeds.
@@ -58,7 +59,7 @@ class ZMRssController extends ZMController {
         // try registered RSS sources first...
         $feed = null;
         foreach (explode(',', ZMSettings::get('zenmagick.mvc.rss.sources')) as $def) {
-            if (null != ($source = ZMBeanUtils::getBean(trim($def)))) {
+            if (null != ($source = Beans::getBean(trim($def)))) {
                 if (null != ($feed = $source->getFeed($request, $channel, $key))) {
                     break;
                 }

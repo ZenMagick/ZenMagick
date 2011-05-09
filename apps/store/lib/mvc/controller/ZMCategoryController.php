@@ -23,6 +23,7 @@
 ?>
 <?php
 
+use zenmagick\base\Beans;
 
 /**
  * Request controller for categories.
@@ -88,13 +89,13 @@ class ZMCategoryController extends ZMController {
         $resultList = null;
         if (null !== $method) {
             $resultSource = ZMLoader::make("ZMObjectResultSource", 'Product', ZMProducts::instance(), $method, $args);
-            $resultList = ZMBeanUtils::getBean("ZMResultList");
+            $resultList = Beans::getBean("ZMResultList");
             $resultList->setResultSource($resultSource);
             foreach (explode(',', ZMSettings::get('resultListProductFilter')) as $filter) {
-                $resultList->addFilter(ZMBeanUtils::getBean($filter));
+                $resultList->addFilter(Beans::getBean($filter));
             }
             foreach (explode(',', ZMSettings::get('resultListProductSorter')) as $sorter) {
-                $resultList->addSorter(ZMBeanUtils::getBean($sorter));
+                $resultList->addSorter(Beans::getBean($sorter));
             }
             $resultList->setPageNumber($request->getPageIndex());
             $data['resultList'] = $resultList;

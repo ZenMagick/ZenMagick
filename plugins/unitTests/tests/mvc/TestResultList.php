@@ -20,6 +20,8 @@
 ?>
 <?php
 
+use zenmagick\base\Beans;
+
 /**
  * Test simple result list handling.
  *
@@ -47,7 +49,7 @@ class TestResultList extends ZMTestCase {
     public function getResults($resultClass, $size) {
         $results = array();
         for ($ii=0; $ii<$size; ++$ii) {
-            $result = ZMBeanUtils::getBean($resultClass);
+            $result = Beans::getBean($resultClass);
             // assume products...
             $result->setId($ii+1);
             $result->setName('product-'.($ii+1));

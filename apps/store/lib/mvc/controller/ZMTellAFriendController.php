@@ -23,6 +23,7 @@
 ?>
 <?php
 
+use zenmagick\base\Beans;
 
 /**
  * Request controller for tell a friend form.
@@ -109,7 +110,7 @@ class ZMTellAFriendController extends ZMController {
         }
 
         ZMMessages::instance()->success(_zm("Message send successfully"));
-        $emailMessage = ZMBeanUtils::getBean("ZMEmailMessage");
+        $emailMessage = Beans::getBean("ZMEmailMessage");
 
         $data = array_merge($this->viewData_, array('emailMessage' => $emailMessage));
         return $this->findView('success', $data, array('parameter' => 'products_id='.$this->product_->getId()));

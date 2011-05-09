@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
 
 /**
@@ -93,7 +94,7 @@ class ZMCaches extends ZMObject {
 
         $instance = null;
         if (!isset($this->caches_[$key])) {
-            $instance = ZMBeanUtils::getBean($class);
+            $instance = Beans::getBean($class);
             $instance->init($group, $config);
             $this->caches_[$key] = array('instance' => $instance, 'group' => $group, 'config' => $config, 'type' => $type);
         } else {
@@ -123,7 +124,7 @@ class ZMCaches extends ZMObject {
         $providers = array();
        foreach (explode(',', ZMSettings::get('zenmagick.core.cache.providers')) as $type) {
             $class = 'ZM'.ucwords($type).'Cache';
-            $obj = ZMBeanUtils::getBean($class);
+            $obj = Beans::getBean($class);
             if (null != $obj && $obj->isAvailable()) {
                 $providers[$type] = $obj;
             }

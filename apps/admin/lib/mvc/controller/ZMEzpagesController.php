@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\Beans;
 
 /**
  * EZPages admin controller.
@@ -49,7 +50,7 @@ class ZMEzpagesController extends ZMController {
             $ezPageId = (int)$ezPageId;
             $languageId = $request->getParameter('languageId');
             if (0 == $ezPageId) {
-                $ezPage = ZMBeanUtils::getBean('ZMEZPage');
+                $ezPage = Beans::getBean('ZMEZPage');
             } else {
                 $ezPage = ZMEZPages::instance()->getPageForId($ezPageId, $languageId);
             }
@@ -75,8 +76,8 @@ class ZMEzpagesController extends ZMController {
             $languageId = $request->getParameter('languageId');
             if (0 == $ezPageId) {
                 // create
-                $ezPage = ZMBeanUtils::getBean('ZMEZPage');
-                ZMBeanUtils::setAll($ezPage, $request->getParameterMap(false));
+                $ezPage = Beans::getBean('ZMEZPage');
+                Beans::setAll($ezPage, $request->getParameterMap(false));
                 $ezPage = ZMEZPages::instance()->createPage($ezPage);
                 if (0 < $ezPage->getId()) {
                     ZMMessages::instance()->success('EZPage #'.$ezPage->getId().' saved');
@@ -85,7 +86,7 @@ class ZMEzpagesController extends ZMController {
                 }
             } else if (null != ($ezPage = ZMEZPages::instance()->getPageForId($ezPageId, $languageId))) {
                 // no sanitize!
-                ZMBeanUtils::setAll($ezPage, $request->getParameterMap(false));
+                Beans::setAll($ezPage, $request->getParameterMap(false));
                 ZMEZPages::instance()->updatePage($ezPage);
                 ZMMessages::instance()->success('EZPage #'.$ezPageId.' updated');
             } else {

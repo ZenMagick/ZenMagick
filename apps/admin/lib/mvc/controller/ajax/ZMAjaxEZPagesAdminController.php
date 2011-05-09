@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\Beans;
 
 /**
  * Ajax EZPages admin controller.
@@ -46,7 +47,7 @@ class ZMAjaxEZPagesAdminController extends ZMRpcController {
         $rpcResponse = $rpcRequest->createResponse();
 
         if (null != ($ezPage = ZMEZPages::instance()->getPageForId($pageId, $languageId))) {
-            ZMBeanUtils::setAll($ezPage, array($property => $value));
+            Beans::setAll($ezPage, array($property => $value));
             ZMEZPages::instance()->updatePage($ezPage);
             $rpcResponse->setStatus(true);
         } else {

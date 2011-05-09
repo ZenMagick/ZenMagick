@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\Beans;
 
 /**
  * Basic form data container.
@@ -60,7 +61,7 @@ class ZMFormData extends ZMObject {
      * @param ZMRequest request The request to process.
      */
     public function populate($request) {
-        ZMBeanUtils::setAll($this, $request->getParameterMap(), null);
+        Beans::setAll($this, $request->getParameterMap(), null);
     }
 
 }

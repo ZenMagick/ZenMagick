@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\Beans;
 
 /**
  * Admin controller.
@@ -61,7 +62,7 @@ class ZMSubscriptionAdminController extends ZMPluginAdmin2Controller {
         }
 
         $resultSource = ZMLoader::make('ZMArrayResultSource', 'ZMOrder', $orderIds);
-        $resultList = ZMBeanUtils::getBean('ZMResultList');
+        $resultList = Beans::getBean('ZMResultList');
         $resultList->setResultSource($resultSource);
         $resultList->setPageNumber($request->getPageIndex());
 

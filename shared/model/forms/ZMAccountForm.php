@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
 
 /**
@@ -52,15 +53,15 @@ class ZMAccountForm extends ZMFormData {
     private function loadAccount() {
         // prepopulate with current account
         $account = ZMRequest::instance()->getAccount();
-        // move into ZMBeanUtils to wrap unsets of propertynames, attachedM, etc.
-        $map = ZMBeanUtils::obj2map($account);
+        // move into Beans to wrap unsets of propertynames, attachedM, etc.
+        $map = Beans::obj2map($account);
         // TODO: all this should be in a base class (but not ZMModel) - perhaps FormData in rp?
         // also, it should be possible/required to specify the fields that should be merged, plus
         // table names for custom fields (how could we find that out automatically??)
         unset($map['propertyNames']);
         unset($map['password']);
         unset($map['attachedMethods']);
-        ZMBeanUtils::setAll($this, $map);
+        Beans::setAll($this, $map);
     }
 
     /**
@@ -69,7 +70,7 @@ class ZMAccountForm extends ZMFormData {
      * @return ZMAccount An account.
      */
     public function getAccount() {
-        $account = ZMBeanUtils::getBean('ZMAccount');
+        $account = Beans::getBean('ZMAccount');
         $properties = $this->properties_;
 
         // TODO: see comment in c'tor
@@ -81,7 +82,7 @@ class ZMAccountForm extends ZMFormData {
         // special treatment
         $properties['dob'] = DateTime::createFromFormat(ZMLocales::instance()->getLocale()->getFormat('date', 'short'), $properties['dob']);
 
-        $account = ZMBeanUtils::setAll($account, $properties);
+        $account = Beans::setAll($account, $properties);
         return $account;
     }
 

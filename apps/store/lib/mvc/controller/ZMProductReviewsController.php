@@ -23,6 +23,7 @@
 ?>
 <?php
 
+use zenmagick\base\Beans;
 
 /**
  * Request controller for product reviews pages.
@@ -64,7 +65,7 @@ class ZMProductReviewsController extends ZMController {
         $data = array();
         $data['currentProduct'] = $product;
 
-        $resultList = ZMBeanUtils::getBean("ZMResultList");
+        $resultList = Beans::getBean("ZMResultList");
         $resultSource = ZMLoader::make("ZMObjectResultSource", 'Review', ZMReviews::instance(), "getReviewsForProductId", array($product->getId(), $request->getSession()->getLanguageId()));
         $resultList->setResultSource($resultSource);
         $resultList->setPageNumber($request->getPageIndex());

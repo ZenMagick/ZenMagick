@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\Beans;
 
 /**
  * Subscriptions.
@@ -220,7 +221,7 @@ class ZMSubscriptionsPlugin extends Plugin {
 
             if (ZMLangUtils::asBoolean($this->get('subscriptionComment'))) {
                 if (null != ($order = ZMOrders::instance()->getOrderForId($orderId, $request->getSession()->getLanguageId()))) {
-                    $status = ZMBeanUtils::getBean('ZMOrderStatus');
+                    $status = Beans::getBean('ZMOrderStatus');
                     $status->setOrderStatusId($order->getOrderStatusId());
                     $status->setOrderId($order->getId());
                     $status->setCustomerNotified(false);

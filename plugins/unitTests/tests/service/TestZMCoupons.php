@@ -20,6 +20,8 @@
 ?>
 <?php
 
+use zenmagick\base\Beans;
+
 /**
  * Test coupon service.
  *
@@ -180,7 +182,7 @@ class TestZMCoupons extends ZMTestCase {
         $coupon = ZMCoupons::instance()->createCoupon($couponCode, 5, ZMCoupons::TYPPE_GV);
         $this->createdCouponIds_[] = $coupon->getId();
         $account = ZMAccounts::instance()->getAccountForId($this->getAccountId());
-        $gvReceiver = ZMBeanUtils::getBean('ZMGVReceiver');
+        $gvReceiver = Beans::getBean('ZMGVReceiver');
         $gvReceiver->setEmail('foo@bar.com');
 
         if (null != $account) {

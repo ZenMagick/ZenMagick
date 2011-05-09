@@ -23,6 +23,7 @@
 ?>
 <?php
 
+use zenmagick\base\Beans;
 
 /**
  * Shipping provider wrapper for zen cart shipping modules.
@@ -137,7 +138,7 @@ class ZMShippingProviderWrapper extends ZMObject implements ZMShippingProvider {
         }
 
         // capture tax
-        $taxRate = ZMBeanUtils::getBean("ZMTaxRate");
+        $taxRate = Beans::getBean("ZMTaxRate");
         $taxRate->setRate(isset($quotes['tax']) ? $quotes['tax'] : 0);
 
         $methods = array();

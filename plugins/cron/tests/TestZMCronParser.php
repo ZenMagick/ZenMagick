@@ -20,6 +20,8 @@
 ?>
 <?php
 
+use zenmagick\base\Beans;
+
 /**
  * Test the cron parser.
  *
@@ -41,7 +43,7 @@ class TestZMCronParser extends ZMTestCase {
      * @retun ZMCronParser A parser instance.
      */
     protected function getParser() {
-        $parser = ZMBeanUtils::getBean('ZMCronParser');
+        $parser = Beans::getBean('ZMCronParser');
         $this->assertNotNull($parser);
         return $parser;
     }

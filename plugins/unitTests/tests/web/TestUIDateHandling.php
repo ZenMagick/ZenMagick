@@ -20,6 +20,8 @@
 ?>
 <?php
 
+use zenmagick\base\Beans;
+
 /**
  * Test UI date handling.
  *
@@ -41,8 +43,8 @@ class TestUIDateHandling extends ZMTestCase {
     public function testDates() {
         //XXX: executing tests relies on some values - proving that a singleton request object is **bad**
         $map = array_merge(array('dob' => '09/08/1966'), $this->getRequest()->getParameterMap());
-        $account = ZMBeanUtils::getBean('ZMAccount');
-        $account = ZMBeanUtils::setAll($account, $map);
+        $account = Beans::getBean('ZMAccount');
+        $account = Beans::setAll($account, $map);
         $this->assertEqual('09/08/1966', $this->getRequest()->getToolbox()->locale->shortDate($account->getDob()));
 
     }

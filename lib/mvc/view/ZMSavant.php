@@ -20,6 +20,8 @@
 ?>
 <?php
 
+use zenmagick\base\Beans;
+use zenmagick\base\Runtime;
 
 /**
  * Custom Savant(3).

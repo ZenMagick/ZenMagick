@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
 
 /**
@@ -74,13 +75,13 @@ class ZMProductAssociations extends ZMObject {
      * register the same handler for different types, if required.</p>
      *
      * @param mixed handler This can be either a <code>ZMProductAssociationHandler</code> instance, or a class definition compatible with
-     *  <code>ZMBeanUtils::getBean(..)</code>.
+     *  <code>Beans::getBean(..)</code>.
      * @param mixed type Optional association type or list thereof; default is <code>null</code>.
      */
     public function registerHandler($handler, $type=null) {
     	  if (null === $type) {
             if (!is_object($handler)) {
-                $handler = ZMBeanUtils::getBean($handler);
+                $handler = Beans::getBean($handler);
             }
             $type = $handler->getType();
     	  }
@@ -113,7 +114,7 @@ class ZMProductAssociations extends ZMObject {
         if (array_key_exists($type, $this->handler_)) {
             if (is_string($this->handler_[$type])) {
                 // instantiate on demand only
-                $this->handler_[$type] = ZMBeanUtils::getBean($this->handler_[$type]);
+                $this->handler_[$type] = Beans::getBean($this->handler_[$type]);
             }
             $handler = $this->handler_[$type];
         }

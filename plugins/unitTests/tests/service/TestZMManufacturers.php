@@ -20,6 +20,8 @@
 ?>
 <?php
 
+use zenmagick\base\Beans;
+
 /**
  * Test manufacturres service.
  *
@@ -76,7 +78,7 @@ class TestZMManufacturers extends ZMTestCase {
      */
     public function testNoInfo() {
         // create new manufacturer without info record
-        $newManufacturer = ZMBeanUtils::getBean('ZMManufacturer');
+        $newManufacturer = Beans::getBean('ZMManufacturer');
         $newManufacturer->setName('Foo');
         $newManufacturer->setDateAdded(ZMDatabase::NULL_DATETIME);
         $newManufacturer->setLastModified(ZMDatabase::NULL_DATETIME);

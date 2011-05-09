@@ -20,6 +20,8 @@
 ?>
 <?php
 
+use zenmagick\base\Beans;
+
 /**
  * Test order service.
  *
@@ -79,7 +81,7 @@ class TestZMOrders extends ZMTestCase {
     public function testChangeAddress() {
         $order = ZMOrders::instance()->getOrderForId(1, 1);
         if (null != $order) {
-            $address = ZMBeanUtils::getBean('ZMAddress');
+            $address = Beans::getBean('ZMAddress');
             $address->setFirstName('foo');
             $address->setLastName('bar');
             $address->setCompanyName('dooh inc.');
@@ -150,7 +152,7 @@ class TestZMOrders extends ZMTestCase {
             $this->assertTrue(is_array($orderStatusHistory));
             $oldCount = count($orderStatusHistory);
 
-            $newOrderStatus = ZMBeanUtils::getBean('ZMOrderStatus');
+            $newOrderStatus = Beans::getBean('ZMOrderStatus');
             $newOrderStatus->setOrderId(1);
             $newOrderStatus->setOrderStatusId(2);
             $newOrderStatus = ZMOrders::instance()->createOrderStatusHistory($newOrderStatus);

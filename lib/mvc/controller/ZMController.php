@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
 use zenmagick\base\events\Event;
 use zenmagick\http\sacs\SacsManager;
@@ -315,11 +316,11 @@ class ZMController extends ZMObject {
     public function getFormData($request) {
         if (null == $this->formData_ && null !== ($mapping = ZMUrlManager::instance()->findMapping($this->requestId_))) {
             if (array_key_exists('form', $mapping) && null != $mapping['form']) {
-                $this->formData_ =  ZMBeanUtils::getBean($mapping['form'].(false === strpos($mapping['view'], '#') ? '#' : '&').'formId='.$mapping['formId']);
+                $this->formData_ =  Beans::getBean($mapping['form'].(false === strpos($mapping['view'], '#') ? '#' : '&').'formId='.$mapping['formId']);
                 if ($this->formData_ instanceof ZMFormData) {
                     $this->formData_->populate($request);
                 } else {
-                    $this->formData_ = ZMBeanUtils::setAll($this->formData_, $request->getParameterMap());
+                    $this->formData_ = Beans::setAll($this->formData_, $request->getParameterMap());
                 }
             }
         }

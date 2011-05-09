@@ -20,9 +20,9 @@
 ?>
 <?php
 
+use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
 use zenmagick\base\events\Event;
-
 
 /**
  * ZenMagick MVC request dispatcher.
@@ -71,7 +71,7 @@ class ZMDispatcher {
             $view = $controller->process($request);
         } catch (Exception $e) {
             \ZMLogging::instance()->dump($e, 'controller::process failed', \ZMLogging::ERROR);
-            $controller = \ZMBeanUtils::getBean(\ZMSettings::get('zenmagick.mvc.controller.default', 'ZMController'));
+            $controller = Beans::getBean(\ZMSettings::get('zenmagick.mvc.controller.default', 'ZMController'));
             $view = $controller->findView('error', array('exception' => $e));
             $request->setController($controller);
             $controller->initViewVars($view, $request);

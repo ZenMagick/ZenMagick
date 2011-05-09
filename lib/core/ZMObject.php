@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\Beans;
 
 /**
  * ZenMagick base class.
@@ -114,7 +115,7 @@ class ZMObject {
             return array_keys($this->properties_);
         }
 
-        return array_merge(array_keys($this->properties_), array_keys(ZMBeanUtils::getPropertyMap($this)));
+        return array_merge(array_keys($this->properties_), array_keys(Beans::getPropertyMap($this)));
     }
 
     /**

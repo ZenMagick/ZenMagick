@@ -20,6 +20,8 @@
 ?>
 <?php
 
+use zenmagick\base\Beans;
+
 /**
  * Test shipping provider service.
  *
@@ -33,7 +35,7 @@ class TestZMShippingProviders extends ZMTestCase {
      */
     public function testGetProvider() {
         $providers = ZMShippingProviders::instance()->getShippingProviders(true);
-        $address = ZMBeanUtils::getBean('ZMAddress');
+        $address = Beans::getBean('ZMAddress');
         $address->setCountryId(153);
         foreach ($providers as $provider) {
             echo "provider id: ".$provider->getId().", name: ".$provider->getName()."<BR>";

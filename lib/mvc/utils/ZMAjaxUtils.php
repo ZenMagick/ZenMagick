@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
 
 /**
@@ -68,7 +69,7 @@ class ZMAjaxUtils {
         foreach ($properties as $key => $value) {
             $beanProperties[] = is_array($value) ? $key : $value;
         }
-        $props = ZMBeanUtils::obj2map($obj, $beanProperties, false);
+        $props = Beans::obj2map($obj, $beanProperties, false);
         foreach ($props as $key => $value) {
             if (is_object($value) || is_array($value)) {
                 $sub = is_array($properties[$key]) ? $properties[$key] : null;

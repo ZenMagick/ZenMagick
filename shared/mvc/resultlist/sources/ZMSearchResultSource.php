@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
 
 /**
@@ -78,7 +79,7 @@ class ZMSearchResultSource extends ZMObject implements ZMResultSource {
      */
     public function getResults($reload=false) {
         if ($reload || null === $this->results_) {
-            $finder = ZMBeanUtils::getBean('ZMProductFinder');
+            $finder = Beans::getBean('ZMProductFinder');
             $finder->setCriteria($this->criteria_);
             if (null !== $this->resultList_) {
                 // try to set the first active sorter

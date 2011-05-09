@@ -20,7 +20,9 @@
 ?>
 <?php
 
+use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
+
 /**
  * A validator framework.
  *
@@ -203,7 +205,7 @@ class ZMValidator extends ZMObject {
         }
 
         if (is_object($data)) {
-            $map = ZMBeanUtils::obj2map($data);
+            $map = Beans::obj2map($data);
             $map['__obj'] = $data;
         } else {
             $map = $data;

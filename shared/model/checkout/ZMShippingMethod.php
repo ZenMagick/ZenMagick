@@ -23,6 +23,7 @@
 ?>
 <?php
 
+use zenmagick\base\Beans;
 
 /**
  * Shipping method.
@@ -46,7 +47,7 @@ class ZMShippingMethod extends ZMObject {
         parent::__construct();
         $this->provider_ = $provider;
         $this->zenMethod_ = $zenMethod;
-        $this->taxRate_ = ZMBeanUtils::getBean("ZMTaxRate");
+        $this->taxRate_ = Beans::getBean("ZMTaxRate");
     }
 
     /**

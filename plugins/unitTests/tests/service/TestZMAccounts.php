@@ -20,6 +20,8 @@
 ?>
 <?php
 
+use zenmagick\base\Beans;
+
 /**
  * Test accounts service.
  *
@@ -53,7 +55,7 @@ class TestZMAccounts extends ZMTestCase {
      * Create test account.
      */
     public function createAccount($data) {
-        $account = ZMBeanUtils::getBean('ZMAccount');
+        $account = Beans::getBean('ZMAccount');
         foreach ($data as $key => $value) {
             if ('Dob' == $key) {
                 $value = new DateTime($value);

@@ -23,6 +23,7 @@
 ?>
 <?php
 
+use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
 
 /**
@@ -313,7 +314,7 @@ class ZMCoupons extends ZMObject {
                 WHERE coupon_id = :couponId";
         $results = ZMRuntime::getDatabase()->query($sql, array('couponId' => $couponId), TABLE_COUPON_RESTRICT);
 
-        $restrictions = ZMBeanUtils::getBean("ZMCouponRestrictions");
+        $restrictions = Beans::getBean("ZMCouponRestrictions");
         $products = array();
         $categories = array();
         foreach ($results as $result) {

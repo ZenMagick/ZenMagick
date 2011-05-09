@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\Beans;
 
 /**
  * Admin controller for accounts page.
@@ -49,7 +50,7 @@ class ZMAccountsController extends ZMController {
      */
     public function processGet($request) {
         $resultSource = ZMLoader::make("ZMObjectResultSource", 'Account', ZMAccounts::instance(), "getAllAccounts");
-        $resultList = ZMBeanUtils::getBean("ZMResultList");
+        $resultList = Beans::getBean("ZMResultList");
         $resultList->setResultSource($resultSource);
         $resultList->setPageNumber($request->getParameter('page', 1));
 

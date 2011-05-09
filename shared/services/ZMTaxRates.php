@@ -23,6 +23,7 @@
 ?>
 <?php
 
+use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
 
 /**
@@ -101,7 +102,7 @@ class ZMTaxRates extends ZMObject {
 
         if (self::TAX_BASE_STORE == ZMSettings::get('productTaxBase')) {
             if (ZMSettings::get('storeZone') != $zoneId) {
-                $taxRate = ZMBeanUtils::getBean("ZMTaxRate");
+                $taxRate = Beans::getBean("ZMTaxRate");
                 $taxRate->setId($taxRateId);
                 $taxRate->setClassId($taxClassId);
                 $taxRate->setCountryId($countryId);
@@ -129,7 +130,7 @@ class ZMTaxRates extends ZMObject {
                 $multiplier *= 1.0 + ($result['rate'] / 100);
             }
 
-            $taxRate = ZMBeanUtils::getBean("ZMTaxRate");
+            $taxRate = Beans::getBean("ZMTaxRate");
             $taxRate->setId($taxRateId);
             $taxRate->setClassId($taxClassId);
             $taxRate->setCountryId($countryId);
@@ -139,7 +140,7 @@ class ZMTaxRates extends ZMObject {
             return $taxRate;
         }
 
-        $taxRate = ZMBeanUtils::getBean("ZMTaxRate");
+        $taxRate = Beans::getBean("ZMTaxRate");
         $taxRate->setId($taxRateId);
         $taxRate->setClassId($taxClassId);
         $taxRate->setCountryId($countryId);

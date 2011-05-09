@@ -20,6 +20,8 @@
 ?>
 <?php
 
+use zenmagick\base\Beans;
+
 /**
  * Test the product finder.
  *
@@ -32,14 +34,14 @@ class TestZMProductFinder extends ZMTestCase {
      * Test.
      */
     public function test() {
-        $criteria = ZMBeanUtils::getBean('ZMSearchCriteria');
+        $criteria = Beans::getBean('ZMSearchCriteria');
         //$criteria->setIncludeTax(true);
         $criteria->setCategoryId(3);
         $criteria->setIncludeSubcategories(true);
         $criteria->setPriceFrom(20);
         $criteria->setKeywords('dvd');
 
-        $search = ZMBeanUtils::getBean('ZMProductFinder');
+        $search = Beans::getBean('ZMProductFinder');
 
         // should there be a criteria method to set the currency?
         global $currencies;
