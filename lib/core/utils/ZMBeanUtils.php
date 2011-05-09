@@ -37,9 +37,6 @@ use zenmagick\base\Beans;
  *  <dd>This prefix indicates that the following string is to be taken as bean definition. However, the instance created/obtained
  *   will first be looked up as singleton instance. It is important to remember that by setting properties on references these settings
  *   will be permanent for all subsequent code using that singleton.</dd>
- *  <dt>set::</dt>
- *  <dd>The string following <em>set::</em> is used for a settings lookup (<code>ZMSettings::get()</code>). The configured value (string)
- *   is then used to create the bean instance. This allows to use symbolic names and configure default implementations via settings.</dd>
  * </dl>
  *
  * @author DerManoMann
@@ -103,7 +100,7 @@ class ZMBeanUtils extends ZMObject {
      * @return mixed An instance of the given class or <code>null</code>.
      */
     public static function map2obj($clazz, $data, $keys=null) {
-        return Beans::map2obj($class, $data, $keys);
+        return Beans::map2obj($clazz, $data, $keys);
     }
 
     /**
