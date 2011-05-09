@@ -245,7 +245,6 @@ class ZMReviews extends ZMObject {
         $review->setLastModified(date(ZMDatabase::DATETIME_FORMAT));
         $review->setDateAdded(date(ZMDatabase::DATETIME_FORMAT));
         $review->setActive(ZMSettings::get('isApproveReviews') ? false : true);
-        $review->setLanguageId($languageId);
 
         $review = ZMRuntime::getDatabase()->createModel(TABLE_REVIEWS, $review);
         ZMRuntime::getDatabase()->createModel(TABLE_REVIEWS_DESCRIPTION, $review);

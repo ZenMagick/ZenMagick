@@ -23,6 +23,7 @@
 ?>
 <?php
 
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * A single review.
@@ -34,12 +35,12 @@
  */
 class ZMReview extends ZMObject {
     /**
-     * @var integer $reviewId
+     * @var integer $id
      * @Column(name="reviews_id", type="integer", nullable=false)
      * @Id
      * @GeneratedValue
      */
-    private $reviewId; // @todo replace with id
+    private $id;
     /**
      * @var integer $rating
      *
@@ -97,7 +98,7 @@ class ZMReview extends ZMObject {
      * @Column(name="status", type="boolean", nullable=false)
      */
     private $status;
- 
+
     private $productName;
     private $productImage;
     public $languageId;
@@ -111,12 +112,11 @@ class ZMReview extends ZMObject {
         $this->rating = 0;
         $this->productId = 0;
         $this->author = null;
-        $this->setLanguageId(1); // @todo default language here?
         $this->setActive(true);
         $this->setViewCount(0);
         $this->setDateAdded(null);
-        $this->setLastModified(new DateTime());
-        $this->descriptions = new Doctrine\Common\Collections\ArrayCollection;
+        $this->setLastModified(new \DateTime());
+        $this->descriptions = new ArrayCollection();
     }
 
     /**
@@ -126,13 +126,13 @@ class ZMReview extends ZMObject {
         parent::__destruct();
     }
 
-    public function getReviewId() { return $this->reviewId; }
+    public function getReviewId() { return $this->id; }
     /**
      * Get the review id.
      *
      * @return int The review id.
      */
-    public function getId() { return $this->reviewId; }
+    public function getId() { return $this->id; }
 
     /**
      * Get the rating.
@@ -193,18 +193,21 @@ class ZMReview extends ZMObject {
 
     /**
      * Get the review text.
-
+     *
      * @deprecated
      * @return string The review text.
      */
     public function getText() {
-        echo 'xx'.$this->reviewId.':'.$this->languageId;
-        return $this->descriptions->get($this->languageId)->getText();
+        $description = $this->descriptions->get($this->languageId);
+        return null != $description ? $description->getText() : '';
     }
 
-
-    public function getDescriptions()
-    {
+    /**
+     * Get all available descriptions.
+     *
+     * @return ArrayCollection List of <code>ZMReviewDescription</code> instances.
+     */
+    public function getDescriptions() {
        return $this->descriptions;
     }
 
@@ -235,7 +238,7 @@ class ZMReview extends ZMObject {
      * @deprecated
      * @return int The lanugage id.
      */
-    public function getLanguageId() { return key($this->descriptions) ; }
+    public function getLanguageId() { return $this->languageId; }
 
     /**
      * Set the review id.
@@ -243,7 +246,7 @@ class ZMReview extends ZMObject {
      * @deprecated
      * @param int id The review id.
      */
-    public function setId($id) { $this->reviewId = $id; }
+    public function setId($id) { $this->id = $id; }
 
     // @todo deprecated doctrine backwards compatbility
     public function setReviewId($id) { $this->setId($id); }
@@ -306,10 +309,13 @@ class ZMReview extends ZMObject {
      */
     public function setText($text) { $this->setDescription($text, $this->languageId); }
 
-    public function setDescription($text, $languageId)
-    {
+    public function setDescription($text, $languageId) {
+        // todo: remove
+        $this->languageId = $languageId;
         if (!isset($this->descriptions[$languageId])) {
-         $this->descriptions[$languageId] = new ZMReviewDescriptions($this, $text, $languageId);
+            $this->descriptions[$languageId] = new ZMReviewDescriptions($this, $languageId, $text);
+        } else {
+            $this->descriptions[$languageId]->setText($text);
         }
     }
 
@@ -340,6 +346,7 @@ class ZMReview extends ZMObject {
      */
     public function setLanguageId($languageId) {
         $this->languageId = $languageId;
-        $this->descriptions[$languageId] = $this->setDescription('', $languageId);
+        $this->setDescription('', $languageId);
     }
+
 }

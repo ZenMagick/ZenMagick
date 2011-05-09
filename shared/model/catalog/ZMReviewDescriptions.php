@@ -52,7 +52,7 @@ class ZMReviewDescriptions extends ZMObject {
      */
     private $text;
 
-    public function __construct($review, $text = '', $languageId = 1)
+    public function __construct($review, $languageId, $text = '')
     {
         $this->review = $review;
         $this->setLanguageId($languageId);

@@ -20,6 +20,8 @@
 ?>
 <?php
 
+use zenmagick\base\Beans;
+
 /**
  * Test reviews service.
  *
@@ -125,14 +127,12 @@ class TestZMReviews extends ZMTestCase {
         ZMSettings::set('isApproveReviews', false);
         $account = ZMAccounts::instance()->getAccountForId(1);
         if (null != $account) {
-            $review = ZMBeanUtils::getBean('ZMReview');
+            $review = Beans::getBean('ZMReview');
             $review->setProductId(3);
             $review->setRating(4);
-            $review->setLanguageId(1);
-            $review->setText('some foo');
+            $review->setDescription('some foo', 1);
             $newReview = ZMReviews::instance()->createReview($review, $account, 1);
             $this->assertTrue(0 != $newReview->getId());
-
             // make sure it is available via the service
             $found = false;
             foreach (ZMReviews::instance()->getReviewsForProductId(3, 1) as $review) {
@@ -159,7 +159,7 @@ class TestZMReviews extends ZMTestCase {
     public function testApproveReview() {
         $account = ZMAccounts::instance()->getAccountForId(1);
         if (null != $account) {
-            $review = ZMBeanUtils::getBean('ZMReview');
+            $review = Beans::getBean('ZMReview');
             $review->setProductId(3);
             $review->setRating(4);
             $review->setLanguageId(1);
