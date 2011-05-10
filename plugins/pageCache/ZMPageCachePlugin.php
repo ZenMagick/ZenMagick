@@ -108,10 +108,10 @@ class ZMPageCachePlugin extends \Plugin {
     protected function isCacheable($request) {
         $fkt = \ZMSettings::get('plugins.pageCache.strategy.callback', array($this, 'defaultStrategy'));
         $val = false;
-        if (function_exists($fkt)) {
-            $val = $fkt($request);
-        } else if (is_callable($fkt)) {
+        if (is_callable($fkt)) {
             $val = call_user_func($fkt, $request);
+        } else if (is_string($fkt) && function_exists($fkt)) {
+            $val = $fkt($request);
         }
 
         return $val;
