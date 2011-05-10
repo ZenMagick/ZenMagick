@@ -56,7 +56,7 @@ class ZMToggleThemesPlugin extends Plugin {
      */
     public function init() {
         parent::init();
-        Runtime::getEventDispatcher()->listen($this);
+        Runtime::getEventDispatcher()->listen($this, 4);
     }
 
     /**
