@@ -45,7 +45,6 @@ class ZMThemes extends ZMObject {
         parent::__construct();
         $this->themeChain_ = null;
         $this->initLanguage_ = null;
-        $this->cache_ = ZMCaches::instance()->getCache('services', array(), ZMCache::TRANSIENT);
     }
 
     /**
@@ -62,6 +61,24 @@ class ZMThemes extends ZMObject {
         return Runtime::getContainer()->getService('ZMThemes');
     }
 
+
+    /**
+     * Set the cache.
+     *
+     * @param ZMCache cache The cache.
+     */
+    public function setCache($cache) {
+        $this->cache_ = $cache;
+    }
+
+    /**
+     * Get the cache.
+     *
+     * @return ZMCache The cache.
+     */
+    public function getCache() {
+        return $this->cache_;
+    }
 
     /**
      * Return the directory containing all themes.

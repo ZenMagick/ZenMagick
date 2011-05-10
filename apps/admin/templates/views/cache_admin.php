@@ -27,23 +27,19 @@
       <table class="grid">
         <thead>
           <tr>
-            <th><?php _vzm('Group') ?></th>
-            <th><?php _vzm('Type') ?></th>
+            <th><?php _vzm('Id') ?></th>
             <th><?php _vzm('Config') ?></th>
           </tr>
         </thead>
         <tbody>
-          <?php foreach ($providers as $type => $provider) { $stats = $provider->getStats(); ?>
-            <?php foreach ($stats['system']['groups'] as $group => $config) { $hash = md5($type.$group.implode($config)); ?>
-              <tr>
-                <td>
-                  <input type="checkbox" id="cache_<?php echo $hash ?>" name="cache_<?php echo$hash ?>" value="x">
-                  <label for="cache_<?php echo $hash ?>"><?php echo $group ?></label>
-                </td>
-                <td><?php echo $type ?></td>
-                <td><?php echo var_dump($config) ?></td>
-              </tr>
-            <?php } ?>
+          <?php foreach ($caches as $id => $cache) { $stats = $cache->getStats(); ?>
+            <tr>
+              <td>
+                <input type="checkbox" id="cache_<?php echo $id ?>" name="cache_<?php echo $id ?>" value="x">
+                <label for="cache_<?php echo $id ?>"><?php echo $id ?></label>
+              </td>
+              <td><?php echo var_dump($config) ?></td>
+            </tr>
           <?php } ?>
         </tbody>
       </table>

@@ -19,6 +19,7 @@
  */
 ?>
 <?php
+namespace zenmagick\base\cache;
 
 
 /**
@@ -27,9 +28,9 @@
  * <p>Memory caching using <code>PEAR:Cache_Lite</code>.</p>
  *
  * @author DerManoMann
- * @package org.zenmagick.core.services.cache.provider
+ * @package zenmagick.base.cache
  */
-class ZMMemoryCache extends ZMObject implements ZMCache {
+class MemoryCache implements Cache {
     private $groups_;
     private $group_;
     private $cache_;
@@ -38,16 +39,8 @@ class ZMMemoryCache extends ZMObject implements ZMCache {
     /**
      * Create new instance.
      */
-    function __construct() {
-        parent::__construct();
+    public function __construct() {
         $groups_ = array();
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
     }
 
 
@@ -59,7 +52,7 @@ class ZMMemoryCache extends ZMObject implements ZMCache {
         $config['memoryCaching'] = true;
         $config['onlyMemoryCaching'] = true;
         $this->group_ = $group;
-        $this->cache_ = new Cache_Lite($config);
+        $this->cache_ = new \Cache_Lite($config);
         $this->groups_[$group] = $config;
     }
 
@@ -109,6 +102,12 @@ class ZMMemoryCache extends ZMObject implements ZMCache {
      */
     public function getStats() {
         return array('lastModified' => time(), 'system' => $this->groups_);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setOption($key, $value) {
     }
 
 }

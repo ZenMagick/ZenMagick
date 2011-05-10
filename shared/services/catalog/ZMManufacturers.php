@@ -40,7 +40,6 @@ class ZMManufacturers extends ZMObject {
      */
     function __construct() {
         parent::__construct();
-        $this->cache_ = ZMCaches::instance()->getCache('services', array(), ZMCache::TRANSIENT);
     }
 
     /**
@@ -50,6 +49,24 @@ class ZMManufacturers extends ZMObject {
         return Runtime::getContainer()->getService('ZMManufacturers');
     }
 
+
+    /**
+     * Set the cache.
+     *
+     * @param ZMCache cache The cache.
+     */
+    public function setCache($cache) {
+        $this->cache_ = $cache;
+    }
+
+    /**
+     * Get the cache.
+     *
+     * @return ZMCache The cache.
+     */
+    public function getCache() {
+        return $this->cache_;
+    }
 
     /**
      * Get manufacturer for id.

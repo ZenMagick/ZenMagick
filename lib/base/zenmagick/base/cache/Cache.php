@@ -19,17 +19,16 @@
  */
 ?>
 <?php
+namespace zenmagick\base\cache;
 
 
 /**
  * Generic cache interface.
  *
- * <p>Instances may be obtained by using <code>ZMCaches::instance()->getCache(..)</code>.</p>
- *
  * @author DerManoMann
- * @package org.zenmagick.core.services.cache
+ * @package zenmagick.base.cache
  */
-interface ZMCache {
+interface Cache {
     /** Cache type <em>persistent</em>. */
     const PERSISTENT = 'org.zenmagick.core.services.cache.type.persistent';
     /** Cache type <em>transient</em>. */
@@ -96,4 +95,12 @@ interface ZMCache {
      */
     public function getStats();
 
+    /**
+     * Set a config option.
+     *
+     * @param string key The option key.
+     * @param mixed value The value.
+     */
+    public function setOption($key, $value);
 }
+

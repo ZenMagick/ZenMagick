@@ -19,6 +19,7 @@
  */
 ?>
 <?php
+namespace zenmagick\base\cache;
 
 
 /**
@@ -27,10 +28,10 @@
  * <p>Persistent caching using <code>memcache</code>.</p>
  *
  * @author DerManoMann
- * @package org.zenmagick.core.services.cache.provider
+ * @package zenmagick.base.cache
  */
-class ZMMemcacheCache extends ZMObject implements ZMCache {
-    const SYSTEM_KEY = "org.zenmagick.core.services.cache.provider.memcache";
+class MemcacheCache implements Cache {
+    const SYSTEM_KEY = "zenmagick.base.cache.memcache";
     private $group_;
     private $memcache_;
     private $lifetime_;
@@ -41,19 +42,11 @@ class ZMMemcacheCache extends ZMObject implements ZMCache {
     /**
      * Create new instance.
      */
-    function __construct() {
-        parent::__construct();
+    public function __construct() {
         $this->memcache_ = null;
         $this->lifetime_ = 0;
         $this->lastModified_ = time();
         $this->compress_ = 0;
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
     }
 
 
@@ -157,6 +150,12 @@ class ZMMemcacheCache extends ZMObject implements ZMCache {
      */
     public function getStats() {
         return array('lastModified' => $this->lastModified(), 'system' => $this->getMemcache()->get(self::SYSTEM_KEY));
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setOption($key, $value) {
     }
 
 }

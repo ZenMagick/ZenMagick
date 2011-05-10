@@ -19,6 +19,7 @@
  */
 ?>
 <?php
+namespace zenmagick\base\cache;
 
 
 /**
@@ -27,10 +28,10 @@
  * <p>File caching using <code>PEAR:Cache_Lite</code>.</p>
  *
  * @author DerManoMann
- * @package org.zenmagick.core.services.cache.provider
+ * @package zenmagick.base.cache
  */
-class ZMFileCache extends ZMObject implements ZMCache {
-    const SYSTEM_KEY = "org.zenmagick.core.services.cache.provider.file";
+class FileCache implements Cache {
+    const SYSTEM_KEY = "zenmagick.base.cache.file";
     private $group_;
     private $available_;
     private $cache_;
@@ -40,20 +41,8 @@ class ZMFileCache extends ZMObject implements ZMCache {
     /**
      * Create new instance.
      */
-    function __construct() {
-        parent::__construct();
+    public function __construct() {
         $this->available_ = true;
-        $config['automaticSerialization'] = true;
-        $config['cacheDir'] = ZMSettings::get('zenmagick.core.cache.provider.file.baseDir');
-        $this->ensureCacheDir($config['cacheDir']);
-        $this->metaCache_ = new Cache_Lite($config);
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
     }
 
 
@@ -61,17 +50,20 @@ class ZMFileCache extends ZMObject implements ZMCache {
      * {@inheritDoc}
      */
     public function init($group, $config) {
-        // set these, all others are passed through 'as is'
-        $config['automaticSerialization'] = true;
-        $config['cacheDir'] = ZMSettings::get('zenmagick.core.cache.provider.file.baseDir').$group.DIRECTORY_SEPARATOR;
+        $config = array(
+            'automaticSerialization' => true,
+            'cacheDir' => isset($config['cacheDir']) ? $config['cacheDir'] : \ZMSettings::get('zenmagick.core.cache.provider.file.baseDir')
+        );
+        $this->ensureCacheDir($config['cacheDir']);
+        $this->metaCache_ = new \Cache_Lite($config);
         if (isset($config['cacheTTL'])) {
             $config['lifeTime'] = $config['cacheTTL'];
         }
         $this->group_ = $group;
         $this->available_ = $this->ensureCacheDir($config['cacheDir']);
-        $this->cache_ = new Cache_Lite($config);
+        $this->cache_ = new \Cache_Lite($config);
 
-    
+
         // update system stats
         $system = $this->metaCache_->get(self::SYSTEM_KEY);
         if (!$system) {
@@ -132,7 +124,7 @@ class ZMFileCache extends ZMObject implements ZMCache {
      * @return boolean <code>true</code> if the cache dir is usable, <code>false</code> if not.
      */
     private function ensureCacheDir($dir) {
-        ZMFileUtils::mkdir($dir);
+        \ZMFileUtils::mkdir($dir);
         return file_exists($dir) && is_writeable($dir);
     }
 
@@ -141,6 +133,17 @@ class ZMFileCache extends ZMObject implements ZMCache {
      */
     public function getStats() {
         return array('lastModified' => $this->metaCache_->lastModified(), 'system' => $this->metaCache_->get(self::SYSTEM_KEY));
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setOption($key, $value) {
+        $map = array('cacheTTL' => 'lifeTime');
+        if (isset($map[$key])) {
+            $key = $map[$key];
+        }
+        $this->cache_->setOption($key, $value);
     }
 
 }

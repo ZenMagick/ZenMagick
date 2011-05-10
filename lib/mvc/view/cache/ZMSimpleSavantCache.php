@@ -29,25 +29,8 @@
  * @author DerManoMann
  * @package org.zenmagick.mvc.view.cache
  */
-class ZMSimpleSavantCache extends ZMObject implements ZMSavantCache {
+class ZMSimpleSavantCache implements ZMSavantCache {
     private $cache_;
-
-
-    /**
-     * Create new instance.
-     */
-    function __construct() {
-        parent::__construct();
-        $this->cache_ = ZMCaches::instance()->getCache('templates', array('cacheTTL' => ZMSettings::get('zenmagick.mvc.templates.simpleCache.cacheTTL', 0)), ZMCache::PERSISTENT);
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
-
 
     /**
      * {@inheritDoc}
@@ -63,6 +46,24 @@ class ZMSimpleSavantCache extends ZMObject implements ZMSavantCache {
         if (ZMLangUtils::inArray($tpl, ZMSettings::get('zenmagick.mvc.templates.simpleCache.templates'))) {
             $this->cache_->save($contents, $tpl);
         }
+    }
+
+    /**
+     * Set the cache.
+     *
+     * @param ZMCache cache The cache.
+     */
+    public function setCache($cache) {
+        $this->cache_ = $cache;
+    }
+
+    /**
+     * Get the cache.
+     *
+     * @return ZMCache The cache.
+     */
+    public function getCache() {
+        return $this->cache_;
     }
 
 }

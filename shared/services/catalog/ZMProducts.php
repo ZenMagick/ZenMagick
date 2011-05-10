@@ -46,7 +46,6 @@ class ZMProducts extends ZMObject implements ZMSQLAware {
      */
     function __construct() {
         parent::__construct();
-        $this->cache_ = ZMCaches::instance()->getCache('services', array(), ZMCache::TRANSIENT);
         $this->categoryProductMap_ = null;
     }
 
@@ -64,6 +63,24 @@ class ZMProducts extends ZMObject implements ZMSQLAware {
         return Runtime::getContainer()->getService('ZMProducts');
     }
 
+
+    /**
+     * Set the cache.
+     *
+     * @param ZMCache cache The cache.
+     */
+    public function setCache($cache) {
+        $this->cache_ = $cache;
+    }
+
+    /**
+     * Get the cache.
+     *
+     * @return ZMCache The cache.
+     */
+    public function getCache() {
+        return $this->cache_;
+    }
 
     /**
      * {@inheritDoc}

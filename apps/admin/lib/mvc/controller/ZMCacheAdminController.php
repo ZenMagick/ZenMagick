@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 
 /**
  * Admin controller for cache admin.
@@ -46,10 +47,21 @@ class ZMCacheAdminController extends ZMController {
 
 
     /**
+     * Get all configured caches.
+     */
+    protected function getCaches() {
+        $caches = array();
+        foreach (Runtime::getContainer()->getParameterBag()->get('zenmagick.cacheIds') as $id) {
+            $caches[$id] = Runtime::getContainer()->get($id);
+        }
+        return $caches;
+    }
+
+    /**
      * {@inheritDoc}
      */
     public function getViewData($request) {
-        return array('providers' => ZMCaches::instance()->getProviders());
+        return array('caches' => $this->getCaches());
     }
 
     /**
@@ -67,8 +79,11 @@ class ZMCacheAdminController extends ZMController {
             return $this->findView('success-demo');
         }
 
-        foreach (ZMCaches::instance()->getProviders() as $type => $provider) {
-            $stats = $provider->getStats();
+        ZMMessages::instance()->add(_zm('Clear cache is currently disabled'), 'warning');
+
+        /*
+        foreach ($this->getCaches() as $type => $cache) {
+            $stats = $caches->getStats();
             foreach ($stats['system']['groups'] as $group => $config) {
                 $hash = md5($type.$group.implode($config));
                 if ('x' == $request->getParameter('cache_'.$hash)) {
@@ -79,6 +94,7 @@ class ZMCacheAdminController extends ZMController {
                 }
             }
         }
+         */
 
         return $this->findView('success');
     }

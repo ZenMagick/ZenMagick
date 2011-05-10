@@ -1,17 +1,66 @@
 ##
-## ZenMagick store config
+## shared ZenMagick store container
 ##
 ## NOTE: This file is generated (and may be re-written) automatically - edit at own risk.
 ##
 
 parameters:
   kernel.debug: false
-  # storefront session timeout in seconds
-  #storefront.session_timeout: 1440
-  # admin session timeout in seconds
-  #admin.session_timeout: 1440
-  
+  zenmagick.cacheIds: ['transientCache', 'persistentCache', 'servicesCache', 'templateCache']
+  zenmagick.cacheBaseDir: '<?php echo dirname(zenmagick\base\Runtime::getInstallationPath())."/cache/zenmagick" ?>'
 
+services:
+  ## generic caches
+  transientCache:
+    class: zenmagick\base\cache\MemoryCache
+    scope: prototype
+    calls:
+      - [init, ['global', {}]]
+  persistentCache:
+    class: zenmagick\base\cache\FileCache
+    scope: prototype
+    calls:
+      - [init, ['global', {cacheTTL: 300, cacheDir: '%zenmagick.cacheBaseDir%/files/'}]]
+
+  ## explicit caches
+  servicesCache:
+    class: zenmagick\base\cache\MemoryCache
+    scope: container
+    calls:
+      - [init, ['services', {}]]
+  templateCache:
+    class: zenmagick\base\cache\FileCache
+    scope: container
+    calls:
+      - [init, ['services', {cacheTTL: 300, cacheDir: '%zenmagick.cacheBaseDir%/templates/'}]]
+
+  ZMThemes:
+    class: ZMThemes
+    scope: container
+    calls:
+      - [setCache, [@servicesCache]]
+  ZMManufacturers:
+    class: ZMManufacturers
+    scope: container
+    calls:
+      - [setCache, [@servicesCache]]
+  ZMProducts:
+    class: ZMProducts
+    scope: container
+    calls:
+      - [setCache, [@servicesCache]]
+  ZMCategories:
+    class: ZMCategories
+    scope: container
+    calls:
+      - [setCache, [@servicesCache]]
+  ZMSimpleSavantCache:
+    class: ZMSimpleSavantCache
+    scope: container
+    calls:
+      - [setCache, [@templateCache]]
+
+# database configuration settings
 doctrine:
   dbal:
     connections:

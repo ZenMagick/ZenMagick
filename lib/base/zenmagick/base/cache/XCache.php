@@ -19,18 +19,19 @@
  */
 ?>
 <?php
+namespace zenmagick\base\cache;
 
 
 /**
- * APC caching.
+ * xcache caching.
  *
- * <p>Persistent caching using <code>APC</code>.</p>
+ * <p>Persistent caching using <code>xcache</code>.</p>
  *
  * @author DerManoMann
- * @package org.zenmagick.core.services.cache.provider
+ * @package zenmagick.base.cache
  */
-class ZMApcCache extends ZMObject implements ZMCache {
-    const SYSTEM_KEY = "org.zenmagick.core.services.cache.provider.apc";
+class XCache implements Cache {
+    const SYSTEM_KEY = "org.zenmagick.core.services.cache.provider.xcache";
     private $group_;
     private $lifetime_;
     private $lastModified_;
@@ -39,17 +40,9 @@ class ZMApcCache extends ZMObject implements ZMCache {
     /**
      * Create new instance.
      */
-    function __construct() {
-        parent::__construct();
+    public function __construct() {
         $this->lifetime_ = 0;
         $this->lastModified_ = time();
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
     }
 
 
@@ -60,14 +53,16 @@ class ZMApcCache extends ZMObject implements ZMCache {
         $this->group_ = $group;
         $this->lifetime_ = $config['cacheTTL'];
 
+
         // update system stats
-        $system = apc_fetch(self::SYSTEM_KEY);
-        if (!is_array($system)) {
+        if (!xcache_isset(self::SYSTEM_KEY)) {
             $system = array();
             $system['groups'] = array();
+        } else {
+            $system = xcache_get(self::SYSTEM_KEY);
         }
         $system['groups'][$group] = $config;
-        $ret = apc_store(self::SYSTEM_KEY, $system, 0);
+        xcache_set(self::SYSTEM_KEY, $system, false, 0);
     }
 
 
@@ -75,7 +70,7 @@ class ZMApcCache extends ZMObject implements ZMCache {
      * {@inheritDoc}
      */
     public function isAvailable() {
-        return function_exists('apc_cache_info');
+        return function_exists('xcache_info');
     }
 
     /**
@@ -84,13 +79,16 @@ class ZMApcCache extends ZMObject implements ZMCache {
     public function clear() {
         $this->lastModified_ = time();
 
-        $groupPrefix = $this->group_.'/';
-        $cacheInfo = apc_cache_info('user');
-
         // iterate over all entries and match the group prefix
-        foreach ($cacheInfo['cache_list'] as $entry) {
-            if (0 === strpos($entry['info'], $groupPrefix)) {
-                apc_delete($entry['info']);
+        $groupPrefix = $this->group_.'/';
+        for ($ii = 0, $max = xcache_count(XC_TYPE_VAR); $ii < $max; ++$ii) {
+            $block = xcache_list(XC_TYPE_VAR, $ii);
+            foreach ($block as $entries) {
+                foreach ($entries as $entry) {
+                    if (0 === strpos($entry['name'], $groupPrefix)) {
+                        xcache_unset($entry['name']);
+                    }
+                }
             }
         }
         return true;
@@ -100,7 +98,10 @@ class ZMApcCache extends ZMObject implements ZMCache {
      * {@inheritDoc}
      */
     public function lookup($id) {
-		    return apc_fetch($this->group_.'/'.$id);
+        if (!xcache_isset($this->group_.'/'.$id)) {
+            return false;
+        }
+        return xcache_get($this->group_.'/'.$id);
     }
 
     /**
@@ -108,7 +109,7 @@ class ZMApcCache extends ZMObject implements ZMCache {
      */
     public function remove($id) {
         $this->lastModified_ = time();
-		    return apc_delete($this->group_.'/'.$id);
+        return xcache_unset($this->group_.'/'.$id);
     }
 
     /**
@@ -116,7 +117,7 @@ class ZMApcCache extends ZMObject implements ZMCache {
      */
     public function save($data, $id) {
         $this->lastModified_ = time();
-        return apc_store($this->group_.'/'.$id, $data, $this->lifetime_);
+        return xcache_set($this->group_.'/'.$id, $data, $this->lifetime_);
     }
 
     /**
@@ -130,7 +131,13 @@ class ZMApcCache extends ZMObject implements ZMCache {
      * {@inheritDoc}
      */
     public function getStats() {
-        return array('lastModified' => $this->lastModified(), 'system' => apc_fetch(self::SYSTEM_KEY));
+        return array('lastModified' => $this->lastModified(), 'system' => xcache_get(self::SYSTEM_KEY));
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setOption($key, $value) {
     }
 
 }
