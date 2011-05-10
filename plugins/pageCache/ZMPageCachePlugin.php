@@ -24,6 +24,7 @@ use zenmagick\base\Runtime;
 use zenmagick\base\events\Event;
 
 
+define('ZM_PLUGINS_PAGE_CACHE_ALLOWED_DEFAULT', 'index,category,product_info,page,static,products_new,featured_products,specials,product_reviews');
 define('ZM_EVENT_PLUGINS_PAGE_CACHE_CONTENTS_DONE', 'plugins_page_cache_contents_done');
 
 
@@ -63,7 +64,6 @@ class ZMPageCachePlugin extends \Plugin {
      */
     public function install() {
         parent::install();
-
         $this->addConfigValue('Cache TTL', 'ttl', 300, '(T)ime (T)o (L)ive for cache entries in seconds.');
         $this->addConfigValue('Load stats', 'loadStats', 'false', 'If set to true, add some hidden (HTML comment) page load stats',
             'widget@ZMBooleanFormWidget#name=loadStats&default=false&label=Add hidden page load stats.');
@@ -75,10 +75,8 @@ class ZMPageCachePlugin extends \Plugin {
     public function init() {
         parent::init();
         Runtime::getEventDispatcher()->listen($this);
-        $this->cache_ = \ZMCaches::instance()->getCache('pages', array('cacheTTL' => $this->get('ttl')));
-
-        // TODO: manually load lib for now
-        require_once dirname(__FILE__).'/lib/defaults.php';
+        $this->cache_ = Runtime::getContainer()->get('persistentCache');
+        $this->cache_->setOption('cacheTTL', $this->get('ttl'));
     }
 
 
@@ -108,10 +106,12 @@ class ZMPageCachePlugin extends \Plugin {
      * @return boolean <code>true</code> if the current request is cacheable, <code>false</code> if not.
      */
     protected function isCacheable($request) {
-        $fkt = \ZMSettings::get('plugins.pageCache.strategy.callback', 'zm_page_cache_default_strategy');
+        $fkt = \ZMSettings::get('plugins.pageCache.strategy.callback', array($this, 'defaultStrategy'));
         $val = false;
         if (function_exists($fkt)) {
             $val = $fkt($request);
+        } else if (is_callable($fkt)) {
+            $val = call_user_func($fkt, $request);
         }
 
         return $val;
@@ -132,7 +132,7 @@ class ZMPageCachePlugin extends \Plugin {
             if (false !== ($contents = $this->cache_->lookup($this->getRequestKey($request))) && $this->isCacheable($request)) {
                 \ZMLogging::instance()->log('cache hit for requestId: '.$request->getRequestId(), \ZMLogging::DEBUG);
                 echo $contents;
-                Runtime::getEventDispatcher()->dispatch(ZM_EVENT_PLUGINS_PAGE_CACHE_CONTENTS_DONE, new Event($this, $args));
+                Runtime::getEventDispatcher()->dispatch(ZM_EVENT_PLUGINS_PAGE_CACHE_CONTENTS_DONE, new Event($this, $event->all()));
                 if ($this->get('loadStats')) {
                     echo '<!-- pageCache stats: page: ' . Runtime::getExecutionTime() . ' sec.; ';
                     echo 'lastModified: ' . $this->cache_->lastModified() . ' -->';
@@ -151,13 +151,34 @@ class ZMPageCachePlugin extends \Plugin {
      */
     public function onAllDone($event) {
         $request = $event->get('request');
-        $contents = $event->get('contents');
+        $content = $event->get('content');
 
         if ($this->isEnabled() && $this->isCacheable($request)) {
-            $this->cache_->save($contents, $this->getRequestKey($request));
+            $this->cache_->save($content, $this->getRequestKey($request));
         }
 
         return null;
+    }
+
+    /**
+     * Default caching strategy for page caching.
+     *
+     * <p>The strategy is as follows:</p>
+     * <ol>
+     *  <li>The request is not a <em>POST</em> request</li>
+     *  <li>The shoppingcart is empty</li>
+     *  <li>There are no messages that need to be  displayed</li>
+     *  <li>The request's page name parameter is in the list of configured opt-in pages</li>
+     * </ol>
+     *
+     * @package org.zenmagick.plugins.pageCache
+     * @return boolean <code>true</code> if the current request is cacheable, <code>false</code> if not.
+     */
+    protected function defaultStrategy($request) {
+        return 'POST' != $request->getMethod()
+          && (null == $request->getShoppingCart() || $request->getShoppingCart()->isEmpty())
+          && !ZMMessages::instance()->hasMessages()
+          && ZMLangUtils::inArray($request->getRequestId(), ZMSettings::get('plugins.pageCache.strategy.allowed', ZM_PLUGINS_PAGE_CACHE_ALLOWED_DEFAULT));
     }
 
 }

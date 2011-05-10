@@ -20,9 +20,9 @@ Supported settings
   The time-to-live (in seconds) before a cache entry expires.
 
 * plugins.pageCache.strategy.callback [function name]
-  Default: zm_page_cache_default_strategy
-  The value is taken as function name to determine whether the current request is cacheable or not.
-  The function is expected to accept an instance of ZMRequest as single parameter.
+  Default: defaultStrategy (plugin method_
+  The value is taken as function name / callable to determine whether the current request is cacheable or not.
+  The function / callable is expected to accept an instance of ZMRequest as single parameter.
 
 * plugins.pageCache.strategy.allowed [array|comma separated string]
   Default: ZM_PLUGINS_PAGE_CACHE_ALLOWED_DEFAULT
