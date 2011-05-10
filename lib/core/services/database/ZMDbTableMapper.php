@@ -68,11 +68,7 @@ use zenmagick\base\Runtime;
  * @package org.zenmagick.core.services.database
  */
 class ZMDbTableMapper extends \ZMObject {
-    /** Key used to cache table mappings. */
-    const CACHE_KEY = "ZMDbTableMapper::mappings";
     private $tableMap_;
-    private $cache_;
-    private $isCached_;
 
 
     /**
@@ -83,19 +79,7 @@ class ZMDbTableMapper extends \ZMObject {
     function __construct() {
         parent::__construct();
         $this->tableMap_ = array();
-        $this->isCached_ = false;
-        $this->cache_ = \ZMCaches::instance()->getCache('services', array('cacheTTL' => 300));
-        if (\ZMSettings::get('zenmagick.core.database.mappings.cache.enabled', true)) {
-            if (false !== ($cachedMap = $this->cache_->lookup(self::CACHE_KEY))) {
-                $this->tableMap_ = $cachedMap;
-                $this->isCached_ = true;
-            } else {
-                $this->loadMappingFile();
-            }
-            Runtime::getEventDispatcher()->listen($this);
-        } else {
-            $this->loadMappingFile();
-        }
+        $this->loadMappingFile();
     }
 
     /**
@@ -107,15 +91,6 @@ class ZMDbTableMapper extends \ZMObject {
 
 
     /**
-     * Refresh cache if empty.
-     */
-    public function onInitDone($event) {
-        if (\ZMSettings::get('zenmagick.core.database.mappings.cache.enabled', true) && !$this->isCached()) {
-            $this->updateCache(\ZMRuntime::getDatabase());
-        }
-    }
-
-    /**
      * Load mappings from file.
      */
     protected function loadMappingFile() {
@@ -124,33 +99,6 @@ class ZMDbTableMapper extends \ZMObject {
         foreach ($mappings as $table => $mapping) {
             $this->tableMap_[$table] = $this->parseTable($mapping);
         }
-    }
-
-    /**
-     * Check if cached mappings are used.
-     *
-     * @return boolean <code>true</code> if mappings have been loaded from cache.
-     */
-    public function isCached() {
-        return $this->isCached_;
-    }
-
-    /**
-     * Create/update cache.
-     *
-     * @param ZMDatabase database The database.
-     */
-    public function updateCache($database) {
-        if ($this->isCached_) {
-            $this->cache_->remove(self::CACHE_KEY);
-            $this->isCached_ = false;
-        }
-        $cachedMap = array();
-        foreach (array_keys($this->tableMap_) as $table) {
-            $cachedMap[$table] = $this->getMapping($table, $database);
-        }
-        $this->cache_->save($cachedMap, self::CACHE_KEY);
-        $this->isCached_ = false;
     }
 
     /**
@@ -209,13 +157,8 @@ class ZMDbTableMapper extends \ZMObject {
                 $this->setMappingForTable($table, $rawMapping);
             }
 
-            if ($this->isCached_) {
-                // assume all is good
-                $tableMap = $this->tableMap_[$table];
-            } else {
-                // add the current custom fields at runtime as they might change
-                $tableMap = $this->addCustomFields($this->tableMap_[$table], $table, $database);
-            }
+            // add the current custom fields at runtime as they might change
+            $tableMap = $this->addCustomFields($this->tableMap_[$table], $table, $database);
             $mappings = array_merge($mappings, $tableMap);
         }
 
