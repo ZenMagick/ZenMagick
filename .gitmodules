@@ -10,3 +10,6 @@
 [submodule "lib/vendor/doctrine-utils/migrations"]
 	path = lib/vendor/doctrine-utils/migrations
 	url = git://github.com/doctrine/migrations.git
+[submodule "lib/vendor/symfony2"]
+	path = lib/vendor/symfony2
+	url = git@github.com:ZenMagick/symfony.git
