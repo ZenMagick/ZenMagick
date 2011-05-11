@@ -27,6 +27,7 @@ use zenmagick\base\events\Event;
 use zenmagick\base\ioc\loader\YamlFileLoader;
 
 use Symfony\Component\Config\FileLocator;
+use Symfony\Component\HttpKernel\DependencyInjection\MergeExtensionConfigurationPass;
 
 
     /*
@@ -109,10 +110,18 @@ use Symfony\Component\Config\FileLocator;
         // NOTE: this is separate from settings!
 
         // bundles; DI only for now - might want to use HttpKernel for loading stuff?
+        $extensions = array();
+        $container = Runtime::getContainer();
         foreach (Runtime::getSettings()->get('zenmagick/bundles', array()) as $key => $class) {
             $bundle = new $class();
-            $bundle->build(Runtime::getContainer());
+            $bundle->build($container);
+            if ($extension = $bundle->getContainerExtension()) {
+                $container->registerExtension($extension);
+                $extensions[] = $extension->getAlias();
+            }
         }
+        // ensure these extensions are implicitly loaded
+        $container->getCompilerPassConfig()->setMergePass(new MergeExtensionConfigurationPass($extensions));
 
         $containerConfig = Runtime::getApplicationPath().DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.'container.yaml';
         if (file_exists($containerConfig)) {
