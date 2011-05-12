@@ -159,7 +159,6 @@ class ClassLoader {
                         }
                     }
                 }
-                var_dump($this->defaults);
             }
         }
     }
