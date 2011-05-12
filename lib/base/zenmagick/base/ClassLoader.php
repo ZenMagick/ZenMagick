@@ -85,6 +85,7 @@ namespace zenmagick\base;
 class ClassLoader {
     private $namespaces;
     private $prefixes;
+    private $defaults;
     private $fileExtension;
     private $namespaceSeparator;
 
@@ -97,6 +98,7 @@ class ClassLoader {
     public function __construct(array $namespaces=array()) {
         $this->namespaces = array();
         $this->prefixes = array();
+        $this->defaults = array();
         $this->fileExtension = '.php';
         $this->namespaceSeparator = '\\';
         $this->addNamespaces($namespaces);
@@ -112,6 +114,11 @@ class ClassLoader {
      * <code><pre>
      * [namespaces]
      * Doctrine\ORM = doctrine/lib
+     * [prefixes]
+     * Swift_ = swiftmailer/lib/classes
+     * [default]
+     * a = classes
+     * b = other-classes
      * </pre></code>
      *
      * <p>To map the folder containing the <em>.ini</em> file, leave the path empty.</p>
@@ -140,6 +147,19 @@ class ClassLoader {
                     $pxpath = $usePhar ? 'phar://'.$phar.'/'.$folder : realpath($baseDir.$folder);
                     $this->addPrefix($prefix, $pxpath);
                 }
+            }
+            if (array_key_exists('default', $mappings)) {
+                $ext = '.php';
+                foreach ($mappings['default'] as $folder) {
+                    $pxpath = $usePhar ? 'phar://'.$phar.'/'.$folder : realpath($baseDir.$folder);
+                    // scan and add individual files/classes
+                    foreach (new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($pxpath)) as $filename => $fileInfo) {
+                        if ($fileInfo->isFile() && $ext == substr($fileInfo->getFilename(), -strlen($ext))) {
+                            $this->defaults[str_replace($ext, '', $fileInfo->getFilename())] = $fileInfo->getPathname();
+                        }
+                    }
+                }
+                var_dump($this->defaults);
             }
         }
     }
@@ -361,7 +381,7 @@ class ClassLoader {
      * Resolve the given class/interface name to a file.
      *
      * @param string name The name of the class or interface to load.
-     * return string A name or <code>null</code>.
+     * @return string A filename or <code>null</code>.
      */
     protected function resolveClass($name) {
         if ($this->namespaceSeparator === $name[0]) {
@@ -383,13 +403,20 @@ class ClassLoader {
                 }
             }
         } else {
-            // PEAR-like class name
+            // try PEAR-like class name
             foreach ($this->prefixes as $prefix => $path) {
                 if (0 === strpos($name, $prefix)) {
                     $file = $path.DIRECTORY_SEPARATOR.str_replace('_', DIRECTORY_SEPARATOR, $name).'.php';
                     if (file_exists($file)) {
                         return $file;
                     }
+                }
+            }
+
+            // try default namespace
+            foreach ($this->defaults as $clazz => $file) {
+                if ($clazz == $name) {
+                    return $file;
                 }
             }
         }
