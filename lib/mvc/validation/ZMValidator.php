@@ -21,6 +21,7 @@
 <?php
 
 use zenmagick\base\Beans;
+use zenmagick\base\ClassLoader;
 use zenmagick\base\Runtime;
 
 /**
@@ -117,6 +118,56 @@ class ZMValidator extends ZMObject {
 
 
     /**
+     * Resolve, load and instantiate a new instance of the given class.
+     *
+     * @param string name The class name (without the <em>ZM</em> prefix).
+     * @param var arg Optional constructor arguments.
+     * @return mixed A new instance of the given class.
+     */
+    private function makeClass($name) {
+        if (is_array($name)) {
+            $tmp = $name;
+            $name = array_shift($tmp);
+            $args = $tmp;
+        } else {
+            $args = func_get_args();
+            array_shift($args);
+        }
+        if (ClassLoader::classExists($name)) {
+            $clazz = $name;
+            if (!class_exists($clazz)) {
+                throw new ZMException('class not found ' . $clazz);
+            }
+            $obj = null;
+            switch (count($args)) {
+                case 0:
+                    $obj = new $clazz();
+                    break;
+                case 1:
+                    $obj = new $clazz($args[0]);
+                    break;
+                case 2:
+                    $obj = new $clazz($args[0], $args[1]);
+                    break;
+                case 3:
+                    $obj = new $clazz($args[0], $args[1], $args[2]);
+                    break;
+                case 4:
+                    $obj = new $clazz($args[0], $args[1], $args[2], $args[3]);
+                    break;
+                case 5:
+                    $obj = new $clazz($args[0], $args[1], $args[2], $args[3], $args[4]);
+                    break;
+                default:
+                    throw new ZMException('unsupported number of constructor arguments ' . $clazz);
+            }
+            return $obj;
+
+        }
+        return null;
+    }
+
+    /**
      * Get a <code>ZMRuleSet</code> for the given id/name.
      *
      * @param string id The id/name of the set.
@@ -137,7 +188,8 @@ class ZMValidator extends ZMObject {
             $rules = $ruleSet;
             $ruleSet = new ZMRuleSet($id);
             foreach ($rules as $ruleDef) {
-                if (null == ($rule = ZMLoader::make($ruleDef))) {
+                // XXX ugly fix as rules might have variable length c'tor args
+                if (null == ($rule = $this->makeClass($ruleDef))) {
                     ZMLogging::instance()->dump($ruleDef, "can't instantiate rule", ZMLogging::WARN);
                 }
                 $ruleSet->addRule($rule);
