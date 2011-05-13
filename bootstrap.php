@@ -76,6 +76,7 @@ use Symfony\Component\HttpKernel\DependencyInjection\MergeExtensionConfiguration
         // XXX: legacy loader
         $zmLoader->addConfig(ZM_BASE_PATH.'lib'.DIRECTORY_SEPARATOR.'core');
         $zmLoader->addConfig(ZM_BASE_PATH.'lib'.DIRECTORY_SEPARATOR.'mvc');
+        ZMLoader::instance()->addPath(ZM_BASE_PATH.'lib'.DIRECTORY_SEPARATOR.'mvc'.DIRECTORY_SEPARATOR);
         // XXX still used elsewhere
         spl_autoload_register('ZMLoader::resolve');
 
