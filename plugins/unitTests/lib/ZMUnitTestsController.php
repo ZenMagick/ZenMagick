@@ -21,6 +21,7 @@
 <?php
 
 use zenmagick\base\Beans;
+use zenmagick\base\ClassLoader;
 use zenmagick\base\Runtime;
 
 /**

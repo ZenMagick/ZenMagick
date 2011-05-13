@@ -21,6 +21,7 @@
 <?php
 
 use zenmagick\base\Beans;
+use zenmagick\base\ClassLoader;
 
 /**
  * Test subscriptions.
@@ -79,7 +80,7 @@ class ZMTestSubscriptions extends ZMTestCase {
      * Test regular cron run.
      */
     public function testRegularCronRun() {
-        if (null == ZMLoader::resolve('ZMCronJob')) {
+        if (!ClassLoader::classExists('ZMCronJob')) {
             $this->skipIf(true, 'Cron not available');
             return;
         }

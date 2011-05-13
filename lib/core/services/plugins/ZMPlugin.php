@@ -47,8 +47,6 @@
  *  <dd>Generic code to allow to configure different context values where the plugin allowed; default is <em>0</em>.</dd>
  * </dl>
  *
- * <p>Files affected by the loader policy are all <em>.php</em> files, as documented for <code>ZMLoader</code>.</p>
- *
  * @author DerManoMann
  * @package org.zenmagick.core.services.plugins
  */
@@ -214,8 +212,6 @@ abstract class ZMPlugin extends ZMObject {
     /**
      * Get this plugin's loader policy.
      *
-     * <p>The policy controlls the extend of automatic <code>ZMLoader</code> support this plugin requires.</p>
-     * <p>It also affects the code included in <code>core.php</code>. Valid values are:</p>
      * <dl>
      *   <dt>ZMPlugin::LP_NONE</dt><dd>Not supported.</dd>
      *   <dt>ZMPlugin::LP_FOLDER</dt><dd>Everything in the plugin folder, excluding all subfolder and their contents.</dd>
