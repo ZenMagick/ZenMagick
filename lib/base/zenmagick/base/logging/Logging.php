@@ -315,4 +315,13 @@ class Logging {
         $this->logError('Uncaught exception: '.$e->getMessage(), array('errno' => E_ERROR, 'context' => array('exception' => $e)));
     }
 
+    /**
+     * PHP shutdown handler callback.
+     */
+    public function shutdownHandler() {
+        if (null != ($lastError = error_get_last()) && E_ERROR == $lastError['type']) {
+            $this->errorHandler(E_ERROR, $lastError['message'], $lastError['file'], $lastError['line']);
+        }
+    }
+
 }

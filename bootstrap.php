@@ -159,8 +159,10 @@ use Symfony\Component\HttpKernel\DependencyInjection\MergeExtensionConfiguration
 
         // register custom error handler
         if (Runtime::getSettings()->get('zenmagick.base.logging.handleErrors')) {
-            set_error_handler(array(Runtime::getLogging(), 'errorHandler'));
-            set_exception_handler(array(Runtime::getLogging(), 'exceptionHandler'));
+            $logging = Runtime::getLogging();
+            set_error_handler(array($logging, 'errorHandler'));
+            set_exception_handler(array($logging, 'exceptionHandler'));
+            register_shutdown_function(array($logging, 'shutdownHandler'));
         }
 
         Runtime::getLogging()->info('environment is: '.ZM_ENVIRONMENT);
