@@ -84,7 +84,7 @@ class ZMEventFixes extends ZMObject {
             $mappings['leftColumn'] = array();
             foreach (ZMTemplateManager::instance()->getLeftColBoxNames() as $boxName) {
                 // avoid duplicates by using $box as key
-                $mappings['leftColumn'][$boxName] = 'BlockWidget#template=boxes/'.$boxName.'&sortOrder='.$index++;
+                $mappings['leftColumn'][$boxName] = 'ZMBlockWidget#template=boxes/'.$boxName.'&sortOrder='.$index++;
             }
         }
         if (ZMTemplateManager::instance()->isRightColEnabled()) {
@@ -92,12 +92,12 @@ class ZMEventFixes extends ZMObject {
             $mappings['rightColumn'] = array();
             foreach (ZMTemplateManager::instance()->getRightColBoxNames() as $boxName) {
                 // avoid duplicates by using $box as key
-                $mappings['rightColumn'][$boxName] = 'BlockWidget#template=boxes/'.$boxName.'&sortOrder='.$index++;
+                $mappings['rightColumn'][$boxName] = 'ZMBlockWidget#template=boxes/'.$boxName.'&sortOrder='.$index++;
             }
         }
         // general banners block group - if used, the group needs to be passed into fetchBlockGroup()
         $mappings['banners'] = array();
-        $mappings['banners'][] = 'BannerBlockWidget';
+        $mappings['banners'][] = 'ZMBannerBlockWidget';
 
         // individual banner groups as per current convention
         $defaultBannerGroupNames = array(
@@ -109,7 +109,7 @@ class ZMEventFixes extends ZMObject {
         foreach ($defaultBannerGroupNames as $blockGroupName) {
             // the banner group name is configured as setting..
             $bannerGroup = ZMSettings::get($blockGroupName);
-            $mappings[$blockGroupName] = array('BannerBlockWidget#group='.$bannerGroup);
+            $mappings[$blockGroupName] = array('ZMBannerBlockWidget#group='.$bannerGroup);
         }
 
         ZMBlockManager::instance()->setMappings($mappings);
