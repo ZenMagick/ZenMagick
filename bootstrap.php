@@ -76,14 +76,14 @@ use Symfony\Component\HttpKernel\DependencyInjection\MergeExtensionConfiguration
         // XXX: legacy loader
         $zmLoader->addConfig(ZM_BASE_PATH.'lib'.DIRECTORY_SEPARATOR.'core');
         $zmLoader->addConfig(ZM_BASE_PATH.'lib'.DIRECTORY_SEPARATOR.'mvc');
-        ZMLoader::instance()->addPath(ZM_BASE_PATH.'lib'.DIRECTORY_SEPARATOR.'mvc'.DIRECTORY_SEPARATOR);
+        //ZMLoader::instance()->addPath(ZM_BASE_PATH.'lib'.DIRECTORY_SEPARATOR.'mvc'.DIRECTORY_SEPARATOR);
         // XXX still used elsewhere
         spl_autoload_register('ZMLoader::resolve');
 
         // set up application class loader
         if (null != Runtime::getApplicationPath()) {
             // XXX: legacy loader
-            ZMLoader::instance()->addPath(Runtime::getApplicationPath().DIRECTORY_SEPARATOR.'lib'.DIRECTORY_SEPARATOR);
+            //ZMLoader::instance()->addPath(Runtime::getApplicationPath().DIRECTORY_SEPARATOR.'lib'.DIRECTORY_SEPARATOR);
             $appLoader = new ClassLoader();
             $appLoader->addConfig(Runtime::getApplicationPath().DIRECTORY_SEPARATOR.'lib');
             $appLoader->register();
