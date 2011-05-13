@@ -23,6 +23,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 use zenmagick\base\Beans;
 
 /**
@@ -88,8 +89,8 @@ class ZMCategoryController extends ZMController {
 
         $resultList = null;
         if (null !== $method) {
-            $resultSource = ZMLoader::make("ZMObjectResultSource", 'Product', ZMProducts::instance(), $method, $args);
-            $resultList = Beans::getBean("ZMResultList");
+            $resultSource = new ZMObjectResultSource('ZMProduct', ZMProducts::instance(), $method, $args);
+            $resultList = Runtime::getContainer()->get('ZMResultList');
             $resultList->setResultSource($resultSource);
             foreach (explode(',', ZMSettings::get('resultListProductFilter')) as $filter) {
                 $resultList->addFilter(Beans::getBean($filter));

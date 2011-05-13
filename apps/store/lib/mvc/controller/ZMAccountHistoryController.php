@@ -23,7 +23,7 @@
 ?>
 <?php
 
-use zenmagick\base\Beans;
+use zenmagick\base\Runtime;
 
 /**
  * Request controller for account history page.
@@ -54,12 +54,12 @@ class ZMAccountHistoryController extends ZMController {
      * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
      * if the controller generates the contents itself.
      */
-    function processGet($request) {
+    public function processGet($request) {
         $request->getToolbox()->crumbtrail->addCrumb("Account", $request->url('account', '', true));
         $request->getToolbox()->crumbtrail->addCrumb($request->getToolbox()->utils->getTitle());
 
-        $resultList = Beans::getBean("ZMResultList");
-        $resultSource = ZMLoader::make("ZMObjectResultSource", 'Order', ZMOrders::instance(), "getOrdersForAccountId", array($request->getAccountId(), $request->getSession()->getLanguageId()));
+        $resultSource = new ZMObjectResultSource('ZMOrder', ZMOrders::instance(), "getOrdersForAccountId", array($request->getAccountId(), $request->getSession()->getLanguageId()));
+        $resultList = Runtime::getContainer()->get("ZMResultList");
         $resultList->setResultSource($resultSource);
         $resultList->setPageNumber($request->getPageIndex());
 

@@ -20,7 +20,7 @@
 ?>
 <?php
 
-use zenmagick\base\Beans;
+use zenmagick\base\Runtime;
 
 /**
  * Admin controller for admin user management.
@@ -50,8 +50,8 @@ class ZMAdminUsersController extends ZMController {
      */
     public function processGet($request) {
         $user = $request->getUser();
-        $resultSource = ZMLoader::make("ZMObjectResultSource", 'AdminUser', ZMAdminUsers::instance(), "getAllUsers", !$user->isLive());
-        $resultList = Beans::getBean("ZMResultList");
+        $resultSource = new ZMObjectResultSource('ZMAdminUser', ZMAdminUsers::instance(), "getAllUsers", !$user->isLive());
+        $resultList = Runtime::getContainer()->get('ZMResultList');
         $resultList->setResultSource($resultSource);
         $resultList->setPageNumber($request->getParameter('page', 1));
 

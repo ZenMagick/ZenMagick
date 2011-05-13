@@ -56,18 +56,17 @@ class ZMOffers extends ZMObject {
     /**
      * Create new instance.
      *
-     * @param ZMProduct product The product.
+     * @param ZMProduct product The product; default is <code>null</code>.
      */
-    function __construct($product) {
+    function __construct($product=null) {
         parent::__construct();
-        $this->product_ = $product;
         $this->basePrice_ = null;
         $this->specialPrice_ = null;
         $this->salePrice_ = null;
         $this->taxRate_ = null;
         $this->discountPercent_ = 0;
         $this->discounts_ = null;
-        $this->calculatePrice();
+        $this->setProduct($product);
     }
 
     /**
@@ -100,7 +99,10 @@ class ZMOffers extends ZMObject {
      *
      * @param ZMProduct product The product.
      */
-    public function setProduct($product) { $this->product_ = $product; }
+    public function setProduct($product) {
+        $this->product_ = $product;
+        $this->calculatePrice();
+    }
 
     /**
      * Get the product price.
@@ -273,17 +275,19 @@ class ZMOffers extends ZMObject {
      * Calculate the (best) price.
      */
     protected function calculatePrice() {
-        $basePrice = $this->getBasePrice(false);
-        $specialPrice = $this->getSpecialPrice(false);
-        $salePrice = $this->getSalePrice(false);
+        if (null != $this->product_) {
+            $basePrice = $this->getBasePrice(false);
+            $specialPrice = $this->getSpecialPrice(false);
+            $salePrice = $this->getSalePrice(false);
 
-        // calculate discount
-        $this->discountPercent_ = 0;
-        if ((0 != $specialPrice || 0 != $salePrice) && 0 != $basePrice) {
-            if (0 != $salePrice) {
-                $this->discountPercent_ = number_format(100 - (($salePrice / $basePrice) * 100), ZMSettings::get('discountDecimals'));
-            } else {
-                $this->discountPercent_ = number_format(100 - (($specialPrice / $basePrice) * 100), ZMSettings::get('discountDecimals'));
+            // calculate discount
+            $this->discountPercent_ = 0;
+            if ((0 != $specialPrice || 0 != $salePrice) && 0 != $basePrice) {
+                if (0 != $salePrice) {
+                    $this->discountPercent_ = number_format(100 - (($salePrice / $basePrice) * 100), ZMSettings::get('discountDecimals'));
+                } else {
+                    $this->discountPercent_ = number_format(100 - (($specialPrice / $basePrice) * 100), ZMSettings::get('discountDecimals'));
+                }
             }
         }
     }

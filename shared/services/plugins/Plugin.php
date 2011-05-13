@@ -33,7 +33,7 @@ use zenmagick\base\Runtime;
  * @author DerManoMann
  * @package zenmagick.store.shared.services.plugins
  */
-class Plugin extends \ZMPlugin {
+class Plugin extends ZMPlugin {
     /** internal key constant */
     const KEY_PREFIX = 'PLUGIN_';
     /** internal key constant */
@@ -367,7 +367,7 @@ class Plugin extends \ZMPlugin {
      */
     public function addMenuItem($id, $title, $function, $menuKey=\ZMAdminMenu::MENU_PLUGINS) {
         if (\ZMSettings::get('isAdmin')) {
-            \ZMAdminMenu::addItem(\ZMLoader::make("ZMAdminMenuItem", $menuKey, $id, $title, $function));
+            \ZMAdminMenu::addItem(new \ZMAdminMenuItem($menuKey, $id, $title, $function));
         }
     }
 

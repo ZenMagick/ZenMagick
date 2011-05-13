@@ -23,7 +23,7 @@
 ?>
 <?php
 
-use zenmagick\base\Beans;
+use zenmagick\base\Runtime;
 
 /**
  * Request controller for account page.
@@ -55,8 +55,8 @@ class ZMAccountController extends ZMController {
         $request->getToolbox()->crumbtrail->addCrumb($request->getToolbox()->utils->getTitle());
 
         // orders are sorted desc...
-        $resultSource = ZMLoader::make("ZMObjectResultSource", 'Order', ZMOrders::instance(), "getOrdersForAccountId", array($request->getAccountId(), $request->getSession()->getLanguageId()));
-        $resultList = Beans::getBean("ZMResultList");
+        $resultSource = new ZMObjectResultSource('ZMOrder', ZMOrders::instance(), "getOrdersForAccountId", array($request->getAccountId(), $request->getSession()->getLanguageId()));
+        $resultList = Runtime::getContainer()->get('ZMResultList');
         $resultList->setResultSource($resultSource);
         $resultList->setPageNumber($request->getPageIndex());
 

@@ -68,7 +68,7 @@ class TestResultList extends ZMTestCase {
      */
     protected function getResultListSource($size, $resultClass='ZMProduct') {
         // use this::getResults to lookup results
-        return ZMLoader::make('ZMObjectResultSource', $resultClass, $this, 'getResults', array($resultClass, $size));
+        return new ZMObjectResultSource($resultClass, $this, 'getResults', array($resultClass, $size));
     }
 
     /**

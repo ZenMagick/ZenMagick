@@ -24,6 +24,7 @@
 <?php
 
 use zenmagick\base\Beans;
+use zenmagick\base\Runtime;
 
 /**
  * Request controller for specials.
@@ -57,8 +58,8 @@ class ZMSpecialsController extends ZMController {
         $request->getToolbox()->crumbtrail->addManufacturer($request->getManufacturerId());
         $request->getToolbox()->crumbtrail->addCrumb("Specials");
 
-        $resultList = Beans::getBean("ZMResultList");
-        $resultSource = ZMLoader::make("ZMObjectResultSource", 'Product', ZMProducts::instance(), "getSpecials", 0);
+        $resultSource = new ZMObjectResultSource('ZMProduct', ZMProducts::instance(), "getSpecials", 0);
+        $resultList = Runtime::getContainer()->get('ZMResultList');
         $resultList->setResultSource($resultSource);
         foreach (explode(',', ZMSettings::get('resultListProductFilter')) as $filter) {
             $resultList->addFilter(Beans::getBean($filter));

@@ -158,7 +158,7 @@ class ZMCoupons extends ZMObject {
      * @return ZMCoupon A <code>ZMCoupon</code> instance or <code>null</code>.
      */
     public function createCoupon($couponCode, $amount, $type) {
-        $coupon = ZMLoader::make("ZMCoupon", 0, $couponCode, $type);
+        $coupon = new ZMCoupon(0, $couponCode, $type);
         $coupon->setAmount($amount);
         return ZMRuntime::getDatabase()->createModel(TABLE_COUPONS, $coupon);
     }
@@ -319,15 +319,15 @@ class ZMCoupons extends ZMObject {
         $categories = array();
         foreach ($results as $result) {
             if (0 != $result['categoryId']) {
-                $restriction = ZMLoader::make("ZMCategoryCouponRestriction", $result['restriction'] == 'N', $result['categoryId']);
+                $restriction = new ZMCategoryCouponRestriction($result['restriction'] == 'N', $result['categoryId']);
                 $categories[] = $restriction;
             } else {
-                $restriction = ZMLoader::make("ZMProductCouponRestriction", $result['restriction'] == 'N', $result['productId']);
+                $restriction = new ZMProductCouponRestriction($result['restriction'] == 'N', $result['productId']);
                 $products[] = $restriction;
             }
         }
 
-        return ZMLoader::make("ZMCouponRestrictions", $categories, $products);
+        return new ZMCouponRestrictions($categories, $products);
     }
 
     /**

@@ -23,6 +23,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 
 /**
  * Price range filter for products.
@@ -108,7 +109,10 @@ class PriceRangeFilter extends ZMResultListFilter {
             $start += $diff;
             $name = $toolbox->utils->formatMoney($from) . ' - ' . $toolbox->utils->formatMoney($to);
             $key = $from.'-'.$to;
-            $option = ZMLoader::make("ZMFilterOption", $name, $key, array_key_exists($key, $this->ranges_));
+            $option = Runtime::getContainer()->get('ZMFilterOption');
+            $option->setName($name);
+            $option->setKey($key);
+            $option->setActive(array_key_exists($key, $this->ranges_));
             $options[$option->getId()] = $option;
         }
 

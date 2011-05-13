@@ -36,11 +36,11 @@ class ZMFilterOption extends ZMObject {
     /**
      * Create a new filter option.
      *
-     * @param string name The option name.
-     * @param int id The option id.
-     * @param boolean active Optional active flag if this option is currently active.
+     * @param string name The option name; default is <code>null</code>.
+     * @param int id The option id; default is <code>null</code>.
+     * @param boolean active Optional active flag if this option is currently active; default is <code>false</code>.
      */
-    function __construct($name, $id, $active=false) {
+    function __construct($name=null, $id=null, $active=false) {
         parent::__construct();
         $this->name_ = $name;
         $this->id_ = $id;
@@ -75,5 +75,26 @@ class ZMFilterOption extends ZMObject {
      * @return boolean <code>true</code> if this option is active, <code>false</code>, if not.
      */
     public function isActive() { return $this->active_; }
+
+    /**
+     * Set the option id.
+     *
+     * @param int id The option id.
+     */
+    public function setId($id) { $this->id_ = $id; }
+
+    /**
+     * Set the option name.
+     *
+     * @param string name The option name.
+     */
+    public function setName($name) { $this->name_ = $name; }
+
+    /**
+     * Set the active flag.
+     *
+     * @param boolean value The new value.
+     */
+    public function setActive($value) { $this->active_ = $value; }
 
 }

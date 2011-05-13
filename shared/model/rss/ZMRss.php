@@ -55,11 +55,11 @@ class ZMRss extends ZMObject {
         $rss->cache_time = ZMSettings::get('rssCacheTimeout');
         $rss->CDATA = 'strip';
         $rs = $rss->Get($this->url_);
-        $this->channel_ = ZMLoader::make("ZMRssChannel", $rs);
+        $this->channel_ = new ZMRssChannel($rs);
         $this->items_ = array();
         if (null != $rs) {
             foreach($rs['items'] as $rs_item) {
-                $item = ZMLoader::make("ZMRssItem", $rs_item);
+                $item = new ZMRssItem($rs_item);
                 if (null == $category || $category == $item->getCategory()) {
                     array_push($this->items_, $item);
                 }

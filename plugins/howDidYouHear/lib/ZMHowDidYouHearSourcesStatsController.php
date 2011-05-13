@@ -20,7 +20,7 @@
 ?>
 <?php
 
-use zenmagick\base\Beans;
+use zenmagick\base\Runtime;
 
 /**
  * Display sources stats.
@@ -65,8 +65,8 @@ class ZMHowDidYouHearSourcesStatsController extends ZMController {
         }
 
         $sourceStats = ZMRuntime::getDatabase()->query($sql, array(), array(TABLE_SOURCES), 'ZMObject');
-        $resultSource = ZMLoader::make("ZMArrayResultSource", 'ZMObject', $sourceStats);
-        $resultList = Beans::getBean("ZMResultList");
+        $resultSource = new ZMArrayResultSource('ZMObject', $sourceStats);
+        $resultList = Runtime::getContainer()->get('ZMResultList');
         $resultList->setResultSource($resultSource);
         $resultList->setPageNumber($request->getParameter('page', 1));
         return array('resultList' => $resultList, 'isOther' => $isOther);

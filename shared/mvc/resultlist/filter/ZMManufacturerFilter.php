@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 
 /**
  * Filter products by manufacturer.
@@ -62,7 +63,10 @@ class ZMManufacturerFilter extends ZMResultListFilter implements ZMSQLAware {
         foreach ($this->list_->getAllResults() as $result) {
             $manufacturer = $result->getManufacturer();
             if (null != $manufacturer) {
-                $option = ZMLoader::make("ZMFilterOption", $manufacturer->getName(), $manufacturer->getId(), $manufacturer->getId() == $this->filterValues_[0]);
+                $option = Runtime::getContainer()->get('ZMFilterOption');
+                $option->setName($name);
+                $option->setKey($key);
+                $option->setActive($manufacturer->getId() == $this->filterValues_[0]);
                 $options[$option->getId()] = $option;
             }
         }

@@ -94,7 +94,7 @@
             </tr>
              <tr>
                 <td><?php _vzm("Country") ?><span>*</span></td>
-                <td><?php echo $form->idpSelect('countryId', array_merge(array(ZMLoader::make("ZMIdNamePair", "", _zm("Select Country"))), ZMCountries::instance()->getCountries()), $countryId) ?></td>
+                <td><?php echo $form->idpSelect('countryId', array_merge(array(new ZMIdNamePair("", _zm("Select Country"))), ZMCountries::instance()->getCountries()), $countryId) ?></td>
             </tr>
             <?php if (ZMSettings::get('isAccountState')) { ?>
                 <?php $zones = ZMCountries::instance()->getZonesForCountryId($countryId); ?>

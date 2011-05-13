@@ -774,7 +774,8 @@ class ZMProduct extends ZMObject {
      */
     public function getOffers() {
         if (null == $this->offers) {
-            $this->offers = ZMLoader::make("ZMOffers", $this);
+            $this->offers = Runtime::getContainer()->get('ZMOffers');
+            $this->offers->setProduct($this);
         }
         return $this->offers;
     }

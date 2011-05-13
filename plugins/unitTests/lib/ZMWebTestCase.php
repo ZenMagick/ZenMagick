@@ -53,7 +53,7 @@ class ZMWebTestCase extends WebTestCase {
      */
     public function assertEqual($first, $second, $message = '%s') {
         if (is_array($second)) {
-            return $this->assert(ZMLoader::make('ZMArrayEqualExpectation', $first), $second, $message);
+            return $this->assert(new ZMArrayEqualExpectation($first), $second, $message);
         }
         return parent::assertEqual($first, $second, $message);
     }

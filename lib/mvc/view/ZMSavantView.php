@@ -210,7 +210,7 @@ class ZMSavantView extends ZMView {
             $config['template_path'] = $this->getTemplatePath($request);
             $config['resource_path'] = $this->getResourcePath($request);
             $config = array_merge($config, $this->config_);
-            $this->savant_ = ZMLoader::make('ZMSavant', $config);
+            $this->savant_ = new ZMSavant($config);
             //$this->savant_ = Runtime::getContainer()->get('ZMSavant');
             //$this->savant_->setConfig($config);
             // config doesn't support multiple filter

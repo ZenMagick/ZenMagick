@@ -24,6 +24,7 @@
 <?php
 
 use zenmagick\base\Beans;
+use zenmagick\base\Runtime;
 
 /**
  * Request controller for new products.
@@ -57,8 +58,8 @@ class ZMProductsNewController extends ZMController {
         $request->getToolbox()->crumbtrail->addManufacturer($request->getManufacturerId());
         $request->getToolbox()->crumbtrail->addCrumb("New Products");
 
-        $resultList = Beans::getBean("ZMResultList");
-        $resultSource = ZMLoader::make("ZMObjectResultSource", 'Product', ZMProducts::instance(), "getNewProducts");
+        $resultSource = new ZMObjectResultSource('ZMProduct', ZMProducts::instance(), "getNewProducts");
+        $resultList = Runtime::getContainer()->get('ZMResultList');
         $resultList->setResultSource($resultSource);
         foreach (explode(',', ZMSettings::get('resultListProductFilter')) as $filter) {
             $resultList->addFilter(Beans::getBean($filter));

@@ -23,7 +23,7 @@
 ?>
 <?php
 
-use zenmagick\base\Beans;
+use zenmagick\base\Runtime;
 
 /**
  * Request controller for reviews list.
@@ -58,8 +58,8 @@ class ZMReviewsController extends ZMController {
         $request->getToolbox()->crumbtrail->addProduct($request->getProductId());
         $request->getToolbox()->crumbtrail->addCrumb("Reviews");
 
-        $resultList = Beas::getBean("ZMResultList");
-        $resultSource = ZMLoader::make("ZMObjectResultSource", 'Review', ZMReviews::instance(), "getAllReviews", array($request->getSession()->getLanguageId()));
+        $resultSource = new ZMObjectResultSource('ZMReview', ZMReviews::instance(), "getAllReviews", array($request->getSession()->getLanguageId()));
+        $resultList = Runtime::getContainer()->get('ZMResultList');
         $resultList->setResultSource($resultSource);
         $resultList->setPageNumber($request->getPageIndex());
 

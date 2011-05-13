@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\ClassLoader;
 use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
 
@@ -241,7 +242,7 @@ class ZMUrlManager extends ZMObject {
             // configured
             $definition = $mapping['controller'];
         } else {
-            $definition = 'ZM'.ZMLoader::makeClassname($requestId.'Controller');
+            $definition = 'ZM'.CLassLoader::className($requestId.'Controller');
         }
 
         ZMLogging::instance()->log('controller definition: '.$definition, ZMLogging::TRACE);

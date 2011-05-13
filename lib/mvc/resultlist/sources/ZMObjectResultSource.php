@@ -42,12 +42,12 @@ class ZMObjectResultSource extends ZMObject implements ZMResultSource {
     /**
      * Create a new instance.
      *
-     * @param string resultClass The class of the results.
-     * @param mixed object The object to be used.
-     * @param string method The method to call on the object.
+     * @param string resultClass The class of the results; default is <code>null</code>.
+     * @param mixed object The object to be used; default is <code>null</code>.
+     * @param string method The method to call on the object; default is <code>null</code>.
      * @param mixed args Optional method parameter (single value or array of args); default is an empty array.
      */
-    function __construct($resultClass, $object, $method, $args=array()) {
+    function __construct($resultClass=null, $object=null, $method=null, $args=array()) {
         parent::__construct();
         $this->resultClass_ = $resultClass;
         $this->object_ = $object;
@@ -132,6 +132,24 @@ class ZMObjectResultSource extends ZMObject implements ZMResultSource {
     }
 
     /**
+     * Set the result class name.
+     *
+     * @param string name The class name.
+     */
+    public function setResultClass($name) {
+        $this->resultClass_ = $name;
+    }
+
+    /**
+     * Set the object.
+     *
+     * @param mixed object The object to be used.
+     */
+    public function setObject($object) {
+        $this->object_ = $object;
+    }
+
+    /**
      * Get the method name.
      *
      * @return string The method name.
@@ -141,12 +159,33 @@ class ZMObjectResultSource extends ZMObject implements ZMResultSource {
     }
 
     /**
+     * Set the method name.
+     *
+     * @param string name The method name.
+     */
+    public function setMethod($name) {
+        $this->method_ = $name;
+    }
+
+    /**
      * Get the method parameter.
      *
      * @return array The method parameter.
      */
     public function getArgs() {
         return $this->args_;
+    }
+
+    /**
+     * Set the method parameter.
+     *
+     * @param mixed args The method parameter (single value or array of args).
+     */
+    public function setArgs($args) {
+        $this->args_ = $args;
+        if (!is_array($this->args_)) {
+            $this->args_ = array($this->args_);
+        }
     }
 
     /**

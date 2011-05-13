@@ -22,7 +22,7 @@
  */
 ?>
 
-<?php $rss = ZMLoader::make('ZMRss', 'http://www.alistapart.com/rss.xml'); if ($rss->hasContents()) { $channel = $rss->getChannel(); ?>
+<?php $rss = new ZMRss('http://www.alistapart.com/rss.xml'); if ($rss->hasContents()) { $channel = $rss->getChannel(); ?>
     <h3><a href="<?php echo $channel->getLink() ?>"<?php echo $html->hrefTarget() ?>><?php _vzm("[More]") ?></a><?php echo $html->encode($channel->getTitle()) ?></h3>
     <div id="sb_rss" class="box">
         <dl>

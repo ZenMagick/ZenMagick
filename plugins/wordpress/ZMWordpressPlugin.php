@@ -281,7 +281,7 @@ class ZMWordpressPlugin extends Plugin {
      */
     public function getRequestHandler($request) {
         if (null == $this->requestHandler_) {
-            $this->requestHandler_ = ZMLoader::make('ZMWordpressRequestHandler', $this, $request);
+            $this->requestHandler_ = new ZMWordpressRequestHandler($this, $request);
         }
 
         return $this->requestHandler_;

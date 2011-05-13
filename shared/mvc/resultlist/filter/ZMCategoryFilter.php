@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 
 /**
  * Filter products by a single category.
@@ -78,7 +79,10 @@ class ZMCategoryFilter extends ZMResultListFilter implements ZMSQLAware {
         foreach ($this->list_->getAllResults() as $result) {
             $category = $result->getDefaultCategory(ZMRequest::instance()->getSession()->getLanguageId());
             if (null != $category) {
-                $option = ZMLoader::make("ZMFilterOption", $category->getName(), $category->getId(), $category->getId() == $this->filterValues_[0]);
+                $option = Runtime::getContainer()->get('ZMFilterOption');
+                $option->setName($name);
+                $option->setKey($key);
+                $option->setActive($category->getId() == $this->filterValues_[0]);
                 $options[$option->getId()] = $option;
             }
         }

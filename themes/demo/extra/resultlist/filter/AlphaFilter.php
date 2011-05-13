@@ -23,6 +23,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 
 /**
  * Alpha key filter for products.
@@ -72,7 +73,10 @@ class AlphaFilter extends ZMResultListFilter {
         // buld options list
         $options = array();
         foreach ($keys as $key => $name) {
-            $option = ZMLoader::make("ZMFilterOption", $name, $key, $key == $this->filterValues_[0]);
+            $option = Runtime::getContaine()->get('ZMFilterOption');
+            $option->setName($name);
+            $option->setKey($key);
+            $option->setActive($key == $this->filterValues_[0]);
             $options[$option->getId()] = $option;
         }
 

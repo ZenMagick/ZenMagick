@@ -20,7 +20,7 @@
 ?>
 <?php
 
-use zenmagick\base\Beans;
+use zenmagick\base\Runtime;
 
 /**
  * Sources admin.
@@ -53,8 +53,8 @@ class ZMHowDidYouHearSourcesAdminController extends ZMController {
                 FROM " . TABLE_SOURCES . " s
                 ORDER BY s.sources_name ASC";
         $sourceStats = ZMRuntime::getDatabase()->query($sql, array(), array(TABLE_SOURCES), 'ZMObject');
-        $resultSource = ZMLoader::make("ZMArrayResultSource", 'ZMObject', $sourceStats);
-        $resultList = Beans::getBean("ZMResultList");
+        $resultSource = new ZMArrayResultSource('ZMObject', $sourceStats);
+        $resultList = Runtime::getContainer()->get("ZMResultList");
         $resultList->setResultSource($resultSource);
         $resultList->setPageNumber($request->getParameter('page', 1));
         return array('resultList' => $resultList, 'isOther' => $isOther);

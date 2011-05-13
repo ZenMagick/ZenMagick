@@ -66,36 +66,38 @@ class ZMImageInfo extends ZMObject {
      * @param string image The default image.
      */
     public function setDefaultImage($image) {
-        $comp = ZMImageInfo::splitImageName($image);
-        $subdir = $comp[0];
-        $ext = $comp[1];
-        $imageBase = $comp[2];
+        if (null != $image) {
+            $comp = ZMImageInfo::splitImageName($image);
+            $subdir = $comp[0];
+            $ext = $comp[1];
+            $imageBase = $comp[2];
 
-        $toolbox = ZMRequest::instance()->getToolbox();
+            $toolbox = ZMRequest::instance()->getToolbox();
 
-        // set default image
-        if (empty($image) || !file_exists(DIR_FS_CATALOG.DIR_WS_IMAGES.$image) || !is_file(DIR_FS_CATALOG.DIR_WS_IMAGES.$image)) {
-            $this->imageDefault_ = $toolbox->net->image(ZMSettings::get('imgNotFound'));
-        } else {
-            $this->imageDefault_ = $toolbox->net->image($image);
-        }
+            // set default image
+            if (empty($image) || !file_exists(DIR_FS_CATALOG.DIR_WS_IMAGES.$image) || !is_file(DIR_FS_CATALOG.DIR_WS_IMAGES.$image)) {
+                $this->imageDefault_ = $toolbox->net->image(ZMSettings::get('imgNotFound'));
+            } else {
+                $this->imageDefault_ = $toolbox->net->image($image);
+            }
 
-        // evaluate optional medium image
-        $medium = $imageBase.ZMSettings::get('imgSuffixMedium').$ext;
-        if (!file_exists(DIR_FS_CATALOG.DIR_WS_IMAGES.'medium/'.$medium)) {
-            // default to next smaller version
-            $this->imageMedium_ = $this->imageDefault_;
-        } else {
-            $this->imageMedium_ = $toolbox->net->image('medium/'.$medium);
-        }
+            // evaluate optional medium image
+            $medium = $imageBase.ZMSettings::get('imgSuffixMedium').$ext;
+            if (!file_exists(DIR_FS_CATALOG.DIR_WS_IMAGES.'medium/'.$medium)) {
+                // default to next smaller version
+                $this->imageMedium_ = $this->imageDefault_;
+            } else {
+                $this->imageMedium_ = $toolbox->net->image('medium/'.$medium);
+            }
 
-        // evaluate optional large image
-        $large = $imageBase.ZMSettings::get('imgSuffixLarge').$ext;
-        if (!file_exists(DIR_FS_CATALOG.DIR_WS_IMAGES.'large/'.$large)) {
-            // default to next smaller version
-            $this->imageLarge_ = $this->imageMedium_;
-        } else {
-            $this->imageLarge_ = $toolbox->net->image('large/'.$large);
+            // evaluate optional large image
+            $large = $imageBase.ZMSettings::get('imgSuffixLarge').$ext;
+            if (!file_exists(DIR_FS_CATALOG.DIR_WS_IMAGES.'large/'.$large)) {
+                // default to next smaller version
+                $this->imageLarge_ = $this->imageMedium_;
+            } else {
+                $this->imageLarge_ = $toolbox->net->image('large/'.$large);
+            }
         }
     }
 
@@ -251,7 +253,9 @@ class ZMImageInfo extends ZMObject {
         // create ZMImageInfo list...
         $imageInfoList = array();
         foreach ($imageList as $aimg) {
-            array_push($imageInfoList, ZMLoader::make("ZMImageInfo", $subdir.$aimg));
+            $imageInfo = Runtime::getContainer()->get('ZMImageInfo');
+            $imageInfo->setDefaultImage($subdir.$aimg);
+            $imageInfoList[] = $imageInfo;
         }
 
         return $imageInfoList;

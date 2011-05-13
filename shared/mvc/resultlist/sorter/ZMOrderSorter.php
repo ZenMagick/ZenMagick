@@ -104,7 +104,7 @@ class ZMOrderSorter extends ZMResultListSorter implements ZMSQLAware {
     public function getOptions() {
         $options = array();
         foreach ($this->options_ as $id => $name) {
-            $option = ZMLoader::make("ZMSortOption", $name, $id, $id == $this->sortId_, $this->isDescending());
+            $option = new ZMSortOption($name, $id, $id == $this->sortId_, $this->isDescending());
             $options[] = $option;
         }
 

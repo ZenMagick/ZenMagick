@@ -144,7 +144,7 @@ class ZMShippingProviderWrapper extends ZMObject implements ZMShippingProvider {
         $methods = array();
         if (is_array($quotes) && array_key_exists('methods', $quotes)) {
             foreach ($quotes['methods'] as $method) {
-                $shippingMethod = ZMLoader::make("ZMShippingMethod", $this, $method);
+                $shippingMethod = new ZMShippingMethod($this, $method);
                 $shippingMethod->setProvider($this);
                 $shippingMethod->setTaxRate($taxRate);
                 $methods[$shippingMethod->getId()] = $shippingMethod;
