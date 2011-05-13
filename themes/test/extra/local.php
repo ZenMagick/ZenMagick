@@ -6,9 +6,9 @@
     $validator = ZMValidator::instance();
     /* checkout_refer_a_friend */
     $validator->addRules('checkout_refer_a_friend', array(
-        array('EmailRule' ,'friend1', 'Please enter a valid email address for friend1.'),
-        array('EmailRule' ,'friend2', 'Please enter a valid email address for friend2.'),
-        array('EmailRule' ,'friend3', 'Please enter a valid email address for friend3.')
+        array('ZMEmailRule' ,'friend1', 'Please enter a valid email address for friend1.'),
+        array('ZMEmailRule' ,'friend2', 'Please enter a valid email address for friend2.'),
+        array('ZMEmailRule' ,'friend3', 'Please enter a valid email address for friend3.')
     ));
 
     function split_desc($s, $first=true) {

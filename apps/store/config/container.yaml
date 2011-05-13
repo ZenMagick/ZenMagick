@@ -15,6 +15,9 @@ services:
   ZMSavantView:
     class: SavantView
     scope: container
+  ZMViewUtils:
+    class: ViewUtils
+    scope: prototype
   ZMMessages:
     class: Messages
     scope: container

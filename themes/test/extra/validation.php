@@ -36,21 +36,21 @@
 
     /* create account */
     $validator->addRules('registration', array(
-        array('RequiredRule' ,'firstName', 'Please enter your first name.'),
-        array('MaxFieldLengthRule' ,'firstName', TABLE_CUSTOMERS, 'customers_firstname'),
-        array('RequiredRule' ,'lastName', 'Please enter your last name.'),
-        array('MaxFieldLengthRule' ,'lastName', TABLE_CUSTOMERS, 'customers_lastname'),
-        array('RequiredRule' ,'email', 'Please enter your email address.'),
-        array('EmailRule' ,'email', 'Please enter a valid email address.'),
-        array('MaxFieldLengthRule' ,'email', TABLE_CUSTOMERS, 'customers_email_address'),
-        array('UniqueEmailRule' ,'email', 'The entered email address is already in use.'),
-        array('RequiredRule' ,'password', 'Please enter you password.'),
-        array('MinRule' ,'password', ZMSettings::get('zenmagick.core.authentication.minPasswordLength'), 'Your password must contain a minimum of %2$s characters.'),
-        array('RequiredRule' ,'confirmation', 'Please confirm the password.'),
-        array('FieldMatchRule' ,'password', 'confirmation', 'The password and confirm password must match.'),
+        array('ZMRequiredRule' ,'firstName', 'Please enter your first name.'),
+        array('ZMMaxFieldLengthRule' ,'firstName', TABLE_CUSTOMERS, 'customers_firstname'),
+        array('ZMRequiredRule' ,'lastName', 'Please enter your last name.'),
+        array('ZMMaxFieldLengthRule' ,'lastName', TABLE_CUSTOMERS, 'customers_lastname'),
+        array('ZMRequiredRule' ,'email', 'Please enter your email address.'),
+        array('ZMEmailRule' ,'email', 'Please enter a valid email address.'),
+        array('ZMMaxFieldLengthRule' ,'email', TABLE_CUSTOMERS, 'customers_email_address'),
+        array('ZMUniqueEmailRule' ,'email', 'The entered email address is already in use.'),
+        array('ZMRequiredRule' ,'password', 'Please enter you password.'),
+        array('ZMMinRule' ,'password', ZMSettings::get('zenmagick.core.authentication.minPasswordLength'), 'Your password must contain a minimum of %2$s characters.'),
+        array('ZMRequiredRule' ,'confirmation', 'Please confirm the password.'),
+        array('ZMFieldMatchRule' ,'password', 'confirmation', 'The password and confirm password must match.'),
     ), true);
     if (ZMSettings::get('isPrivacyMessage')) {
-        $validator->addRule('registration', array('RequiredRule' ,'privacy', 'You must agree to the privacy policy.'));
+        $validator->addRule('registration', array('ZMRequiredRule' ,'privacy', 'You must agree to the privacy policy.'));
     }
 
 ?>

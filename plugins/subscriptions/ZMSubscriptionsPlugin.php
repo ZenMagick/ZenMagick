@@ -112,8 +112,8 @@ class ZMSubscriptionsPlugin extends Plugin {
 
         // set up request form validation
         ZMValidator::instance()->addRules('subscription_request', array(
-            array('ListRule', 'type', array_keys($this->getRequestTypes())),
-            array('RequiredRule', 'message', _zm("Please enter a message")),
+            array('ZMListRule', 'type', array_keys($this->getRequestTypes())),
+            array('ZMRequiredRule', 'message', _zm("Please enter a message")),
         ));
 
         // add admin page

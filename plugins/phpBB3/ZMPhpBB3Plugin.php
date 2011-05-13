@@ -113,12 +113,12 @@ class ZMPhpBB3Plugin extends Plugin {
             $phpBB = $this->getAdapter();
             // add custom validation rules
             $rules = array(
-                array("WrapperRule", 'nickName', 'The entered nick name is already taken (phpBB3).', array($phpBB, 'vDuplicateNickname')),
-                array("WrapperRule", 'email', 'The entered email address is already taken (phpBB3).', array($phpBB, 'vDuplicateEmail'))
+                array("ZMWrapperRule", 'nickName', 'The entered nick name is already taken (phpBB3).', array($phpBB, 'vDuplicateNickname')),
+                array("ZMWrapperRule", 'email', 'The entered email address is already taken (phpBB3).', array($phpBB, 'vDuplicateEmail'))
             );
             // optionally, make nick name required
             if (ZMLangUtils::asBoolean($this->get('requireNickname'))) {
-                $rules[] = array('RequiredRule', 'nickName', 'Please enter a nick name.');
+                $rules[] = array('ZMRequiredRule', 'nickName', 'Please enter a nick name.');
             }
             ZMValidator::instance()->addRules('registration', $rules);
         } else if ('account_password' == $this->page_) {
@@ -126,12 +126,12 @@ class ZMPhpBB3Plugin extends Plugin {
         } else if ('account_edit' == $this->page_) {
             $phpBB = $this->getAdapter();
             $rules = array(
-                array("WrapperRule", 'nickName', 'The entered nick name is already taken (phpBB3).', array($phpBB, 'vDuplicateNickname')),
-                array("WrapperRule", 'email', 'The entered email address is already taken (phpBB3).', array($phpBB, 'vDuplicateChangedEmail'))
+                array("ZMWrapperRule", 'nickName', 'The entered nick name is already taken (phpBB3).', array($phpBB, 'vDuplicateNickname')),
+                array("ZMWrapperRule", 'email', 'The entered email address is already taken (phpBB3).', array($phpBB, 'vDuplicateChangedEmail'))
             );
             // optionally, make nick name required
             if (ZMLangUtils::asBoolean($this->get('requireNickname'))) {
-                $rules[] = array('RequiredRule', 'nickName', 'Please enter a nick name.');
+                $rules[] = array('ZMRequiredRule', 'nickName', 'Please enter a nick name.');
             }
             ZMValidator::instance()->addRules('account', $rules);
         }

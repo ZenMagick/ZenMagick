@@ -35,56 +35,56 @@
     $validator = ZMValidator::instance();
     /* edit account */
     $validator->addRules('account', array(
-        array('RequiredRule' ,'firstName', 'Please enter your first name.'),
-        array('MaxFieldLengthRule' ,'firstName', TABLE_CUSTOMERS, 'customers_firstname'),
-        array('RequiredRule' ,'lastName', 'Please enter your last name.'),
-        array('MaxFieldLengthRule' ,'lastName', TABLE_CUSTOMERS, 'customers_lastname'),
-        array('RequiredRule' ,'email', 'Please enter your email address.'),
-        array('MaxFieldLengthRule' ,'email', TABLE_CUSTOMERS, 'customers_email_address'),
-        array('EmailRule' ,'email', 'Please enter a valid email address.'),
-        array('RequiredRule' ,'phone', "Please enter your telephone details."),
-        array('MaxFieldLengthRule' ,'phone', TABLE_CUSTOMERS, 'customers_telephone'),
-        array('MinRule' ,'phone', ENTRY_TELEPHONE_MIN_LENGTH, 'Your Telephone Number must contain a minimum of %2$s characters.')
+        array('ZMRequiredRule' ,'firstName', 'Please enter your first name.'),
+        array('ZMMaxFieldLengthRule' ,'firstName', TABLE_CUSTOMERS, 'customers_firstname'),
+        array('ZMRequiredRule' ,'lastName', 'Please enter your last name.'),
+        array('ZMMaxFieldLengthRule' ,'lastName', TABLE_CUSTOMERS, 'customers_lastname'),
+        array('ZMRequiredRule' ,'email', 'Please enter your email address.'),
+        array('ZMMaxFieldLengthRule' ,'email', TABLE_CUSTOMERS, 'customers_email_address'),
+        array('ZMEmailRule' ,'email', 'Please enter a valid email address.'),
+        array('ZMRequiredRule' ,'phone', "Please enter your telephone details."),
+        array('ZMMaxFieldLengthRule' ,'phone', TABLE_CUSTOMERS, 'customers_telephone'),
+        array('ZMMinRule' ,'phone', ENTRY_TELEPHONE_MIN_LENGTH, 'Your Telephone Number must contain a minimum of %2$s characters.')
     ));
     if (ZMSettings::get('isAccountGender')) {
-        $validator->addRule('account', array('RequiredRule' ,'gender', 'Please choose a gender.'));
+        $validator->addRule('account', array('ZMRequiredRule' ,'gender', 'Please choose a gender.'));
     }
     if (ZMSettings::get('isAccountDOB')) {
-        $validator->addRule('account', array('RequiredRule' ,'dob', 'Please enter your date of birth.'));
-        $validator->addRule('account', array('DateRule' ,'dob', null, 'Please enter a valid date of birth.'));
+        $validator->addRule('account', array('ZMRequiredRule' ,'dob', 'Please enter your date of birth.'));
+        $validator->addRule('account', array('ZMDateRule' ,'dob', null, 'Please enter a valid date of birth.'));
     }
 
 
     /* account password */
     $validator->addRules('account_password', array(
-        array('RequiredRule' ,'password_current', 'Please enter you current password.'),
-        array('RequiredRule' ,'password_new', 'Please enter the new password.'),
-        array('MinRule' ,'password_new', ZMSettings::get('zenmagick.core.authentication.minPasswordLength'), 'Your password must contain a minimum of %2$s characters.'),
-        array('RequiredRule' ,'password_confirmation', 'Please confirm the new password.'),
-        array('FieldMatchRule' ,'password_new', 'password_confirmation', 'The new password and confirm password must match.')
+        array('ZMRequiredRule' ,'password_current', 'Please enter you current password.'),
+        array('ZMRequiredRule' ,'password_new', 'Please enter the new password.'),
+        array('ZMMinRule' ,'password_new', ZMSettings::get('zenmagick.core.authentication.minPasswordLength'), 'Your password must contain a minimum of %2$s characters.'),
+        array('ZMRequiredRule' ,'password_confirmation', 'Please confirm the new password.'),
+        array('ZMFieldMatchRule' ,'password_new', 'password_confirmation', 'The new password and confirm password must match.')
     ));
 
 
     /* address */
     $validator->addRules('address', array(
-        array('RequiredRule' ,'firstName', 'Please enter your first name.'),
-        array('MaxFieldLengthRule' ,'firstName', TABLE_ADDRESS_BOOK, 'entry_firstname'),
-        array('RequiredRule' ,'lastName', 'Please enter your last name.'),
-        array('MaxFieldLengthRule' ,'lastName', TABLE_ADDRESS_BOOK, 'entry_lastname'),
-        array('RequiredRule' ,'addressLine1', 'Please enter your address.'),
-        array('MaxFieldLengthRule' ,'addressLine1', TABLE_ADDRESS_BOOK, 'entry_street_address'),
-        array('RequiredRule' ,'city', 'Please enter a city.'),
-        array('MaxFieldLengthRule' ,'city', TABLE_ADDRESS_BOOK, 'entry_city'),
-        array('RequiredRule' ,'postcode', 'Please enter a postcode.'),
-        array('MaxFieldLengthRule' ,'postcode', TABLE_ADDRESS_BOOK, 'entry_postcode'),
-        array('RequiredRule' ,'countryId', 'Please select a country.')
+        array('ZMRequiredRule' ,'firstName', 'Please enter your first name.'),
+        array('ZMMaxFieldLengthRule' ,'firstName', TABLE_ADDRESS_BOOK, 'entry_firstname'),
+        array('ZMRequiredRule' ,'lastName', 'Please enter your last name.'),
+        array('ZMMaxFieldLengthRule' ,'lastName', TABLE_ADDRESS_BOOK, 'entry_lastname'),
+        array('ZMRequiredRule' ,'addressLine1', 'Please enter your address.'),
+        array('ZMMaxFieldLengthRule' ,'addressLine1', TABLE_ADDRESS_BOOK, 'entry_street_address'),
+        array('ZMRequiredRule' ,'city', 'Please enter a city.'),
+        array('ZMMaxFieldLengthRule' ,'city', TABLE_ADDRESS_BOOK, 'entry_city'),
+        array('ZMRequiredRule' ,'postcode', 'Please enter a postcode.'),
+        array('ZMMaxFieldLengthRule' ,'postcode', TABLE_ADDRESS_BOOK, 'entry_postcode'),
+        array('ZMRequiredRule' ,'countryId', 'Please select a country.')
     ));
     if (ZMSettings::get('isAccountGender')) {
-        $validator->addRule('address', array('RequiredRule' ,'gender', 'Please choose a gender.'));
+        $validator->addRule('address', array('ZMRequiredRule' ,'gender', 'Please choose a gender.'));
     }
     if (ZMSettings::get('isAccountState')) {
-        $validator->addRule('address', array('StateOrZoneIdRule' ,'state,zoneId', 'Please enter a state.'));
-        $validator->addRule('address', array('MaxFieldLengthRule' ,'state', TABLE_ADDRESS_BOOK, 'entry_state'));
+        $validator->addRule('address', array('ZMStateOrZoneIdRule' ,'state,zoneId', 'Please enter a state.'));
+        $validator->addRule('address', array('ZMMaxFieldLengthRule' ,'state', TABLE_ADDRESS_BOOK, 'entry_state'));
     }
 
     /* use alias */
@@ -93,115 +93,115 @@
 
     /* advanced search */
     $validator->addRules('searchCriteria', array(
-        array('RequiredRule' ,'keywords', 'Search cannot be empty.')
+        array('ZMRequiredRule' ,'keywords', 'Search cannot be empty.')
     ));
 
 
     /* contact us */
     $validator->addRules('contactUs', array(
-        array('RequiredRule' ,'name', 'Please enter your name.'),
-        array('RequiredRule' ,'email', 'Please enter your email address.'),
-        array('EmailRule' ,'email', 'Please enter a valid email address.'),
-        array('RequiredRule' ,'message', 'Please enter your message.')
+        array('ZMRequiredRule' ,'name', 'Please enter your name.'),
+        array('ZMRequiredRule' ,'email', 'Please enter your email address.'),
+        array('ZMEmailRule' ,'email', 'Please enter a valid email address.'),
+        array('ZMRequiredRule' ,'message', 'Please enter your message.')
     ));
 
 
     /* create account */
     $validator->addRules('registration', array(
-        array('RequiredRule' ,'firstName', 'Please enter your first name.'),
-        array('MaxFieldLengthRule' ,'firstName', TABLE_CUSTOMERS, 'customers_firstname'),
-        array('RequiredRule' ,'lastName', 'Please enter your last name.'),
-        array('MaxFieldLengthRule' ,'lastName', TABLE_CUSTOMERS, 'customers_lastname'),
-        array('RequiredRule' ,'email', 'Please enter your email address.'),
-        array('EmailRule' ,'email', 'Please enter a valid email address.'),
-        array('MaxFieldLengthRule' ,'email', TABLE_CUSTOMERS, 'customers_email_address'),
-        array('UniqueEmailRule' ,'email', 'The entered email address is already in use.'),
-        array('RequiredRule' ,'password', 'Please enter you password.'),
-        array('MinRule' ,'password', ZMSettings::get('zenmagick.core.authentication.minPasswordLength'), 'Your password must contain a minimum of %2$s characters.'),
-        array('RequiredRule' ,'confirmation', 'Please confirm the password.'),
-        array('FieldMatchRule' ,'password', 'confirmation', 'The password and confirm password must match.'),
-        array('RequiredRule' ,'addressLine1', 'Please enter your address.'),
-        array('MaxFieldLengthRule' ,'addressLine1', TABLE_ADDRESS_BOOK, 'entry_street_address'),
-        array('RequiredRule' ,'city', 'Please enter a city.'),
-        array('MaxFieldLengthRule' ,'city', TABLE_ADDRESS_BOOK, 'entry_city'),
-        array('RequiredRule' ,'postcode', 'Please enter a postcode.'),
-        array('MaxFieldLengthRule' ,'postcode', TABLE_ADDRESS_BOOK, 'entry_postcode'),
-        array('RequiredRule' ,'countryId', 'Please select a country.'),
-        array('RequiredRule' ,'phone', "Please enter your telephone details."),
-        array('MaxFieldLengthRule' ,'phone', TABLE_CUSTOMERS, 'customers_telephone')
+        array('ZMRequiredRule' ,'firstName', 'Please enter your first name.'),
+        array('ZMMaxFieldLengthRule' ,'firstName', TABLE_CUSTOMERS, 'customers_firstname'),
+        array('ZMRequiredRule' ,'lastName', 'Please enter your last name.'),
+        array('ZMMaxFieldLengthRule' ,'lastName', TABLE_CUSTOMERS, 'customers_lastname'),
+        array('ZMRequiredRule' ,'email', 'Please enter your email address.'),
+        array('ZMEmailRule' ,'email', 'Please enter a valid email address.'),
+        array('ZMMaxFieldLengthRule' ,'email', TABLE_CUSTOMERS, 'customers_email_address'),
+        array('ZMUniqueEmailRule' ,'email', 'The entered email address is already in use.'),
+        array('ZMRequiredRule' ,'password', 'Please enter you password.'),
+        array('ZMMinRule' ,'password', ZMSettings::get('zenmagick.core.authentication.minPasswordLength'), 'Your password must contain a minimum of %2$s characters.'),
+        array('ZMRequiredRule' ,'confirmation', 'Please confirm the password.'),
+        array('ZMFieldMatchRule' ,'password', 'confirmation', 'The password and confirm password must match.'),
+        array('ZMRequiredRule' ,'addressLine1', 'Please enter your address.'),
+        array('ZMMaxFieldLengthRule' ,'addressLine1', TABLE_ADDRESS_BOOK, 'entry_street_address'),
+        array('ZMRequiredRule' ,'city', 'Please enter a city.'),
+        array('ZMMaxFieldLengthRule' ,'city', TABLE_ADDRESS_BOOK, 'entry_city'),
+        array('ZMRequiredRule' ,'postcode', 'Please enter a postcode.'),
+        array('ZMMaxFieldLengthRule' ,'postcode', TABLE_ADDRESS_BOOK, 'entry_postcode'),
+        array('ZMRequiredRule' ,'countryId', 'Please select a country.'),
+        array('ZMRequiredRule' ,'phone', "Please enter your telephone details."),
+        array('ZMMaxFieldLengthRule' ,'phone', TABLE_CUSTOMERS, 'customers_telephone')
     ));
     if (ZMSettings::get('isPrivacyMessage')) {
-        $validator->addRule('registration', array('RequiredRule' ,'privacy', 'You must agree to the privacy policy.'));
+        $validator->addRule('registration', array('ZMRequiredRule' ,'privacy', 'You must agree to the privacy policy.'));
     }
     if (ZMSettings::get('isAccountGender')) {
-        $validator->addRule('registration', array('RequiredRule' ,'gender', 'Please choose a gender.'));
+        $validator->addRule('registration', array('ZMRequiredRule' ,'gender', 'Please choose a gender.'));
     }
     if (ZMSettings::get('isAccountDOB')) {
-        $validator->addRule('registration', array('RequiredRule' ,'dob', 'Please enter your date of birth.'));
-        $validator->addRule('registration', array('DateRule' ,'dob', null, 'Please enter a valid date of birth.'));
+        $validator->addRule('registration', array('ZMRequiredRule' ,'dob', 'Please enter your date of birth.'));
+        $validator->addRule('registration', array('ZMDateRule' ,'dob', null, 'Please enter a valid date of birth.'));
     }
     if (ZMSettings::get('isAccountState')) {
-        $validator->addRule('registration', array('StateOrZoneIdRule' ,'state,zoneId', 'Please enter a valid state/province.'));
-        $validator->addRule('registration', array('MaxFieldLengthRule' ,'state', TABLE_ADDRESS_BOOK, 'entry_state'));
+        $validator->addRule('registration', array('ZMStateOrZoneIdRule' ,'state,zoneId', 'Please enter a valid state/province.'));
+        $validator->addRule('registration', array('ZMMaxFieldLengthRule' ,'state', TABLE_ADDRESS_BOOK, 'entry_state'));
     }
 
 
     /* login */
     $validator->addRules('login', array(
-        array('RequiredRule', 'email_address', 'Please enter your email address.'),
-        array('EmailRule', 'email_address', 'Please enter a valid email address.'),
-        array('RequiredRule', 'password', "Please enter your password.")
+        array('ZMRequiredRule', 'email_address', 'Please enter your email address.'),
+        array('ZMEmailRule', 'email_address', 'Please enter a valid email address.'),
+        array('ZMRequiredRule', 'password', "Please enter your password.")
     ));
 
 
     /* checkout_guest */
     $validator->addRules('checkout_guest', array(
-        array('RequiredRule' ,'email_address', 'Please enter your email address.'),
-        array('EmailRule' ,'email_address', 'Please enter a valid email address.')
+        array('ZMRequiredRule' ,'email_address', 'Please enter your email address.'),
+        array('ZMEmailRule' ,'email_address', 'Please enter a valid email address.')
     ));
 
 
     /* review */
     $validator->addRules('newReview', array(
-        array('RequiredRule' ,'rating', 'Please choose a rating.'),
-        array('RequiredRule' ,'text', 'Please enter your review.'),
-        array('MinRule' ,'text', REVIEW_TEXT_MIN_LENGTH, 'A review needs to have at least %2$s characters.')
+        array('ZMRequiredRule' ,'rating', 'Please choose a rating.'),
+        array('ZMRequiredRule' ,'text', 'Please enter your review.'),
+        array('ZMMinRule' ,'text', REVIEW_TEXT_MIN_LENGTH, 'A review needs to have at least %2$s characters.')
     ));
 
 
     /* tell a friend */
     $validator->addRules('tellAFriend', array(
-        array('RequiredRule' ,'fromName', 'Please enter your name.'),
-        array('RequiredRule' ,'fromEmail', 'Please enter your email address.'),
-        array('EmailRule' ,'fromEmail', "Please enter a valid email address."),
-        array('RequiredRule' ,'toName', "Please enter your friend's name."),
-        array('RequiredRule' ,'toEmail', "Please enter your friend's email address."),
-        array('EmailRule' ,'toEmail', "Please enter a valid friend's email address.")
+        array('ZMRequiredRule' ,'fromName', 'Please enter your name.'),
+        array('ZMRequiredRule' ,'fromEmail', 'Please enter your email address.'),
+        array('ZMEmailRule' ,'fromEmail', "Please enter a valid email address."),
+        array('ZMRequiredRule' ,'toName', "Please enter your friend's name."),
+        array('ZMRequiredRule' ,'toEmail', "Please enter your friend's email address."),
+        array('ZMEmailRule' ,'toEmail', "Please enter a valid friend's email address.")
     ));
 
 
     /* guest_history */
     $validator->addRules('guest_history', array(
-        array('RequiredRule' ,'email', 'Please enter your email address.'),
-        array('RequiredRule' ,'orderId', 'Please enter your order number.')
+        array('ZMRequiredRule' ,'email', 'Please enter your email address.'),
+        array('ZMRequiredRule' ,'orderId', 'Please enter your order number.')
     ));
 
 
     /* gvReceiver */
     $validator->addRules('gvReceiver', array(
-        array('RequiredRule' ,'name', 'Please enter a receiver name.'),
-        array('RequiredRule' ,'email', 'Please enter the receivers email address.'),
-        array('MaxFieldLengthRule' ,'email', TABLE_COUPON_EMAIL_TRACK, 'emailed_to'),
-        array('EmailRule' ,'email', "Please enter a valid receiver email address."),
-        array('RequiredRule' ,'amount', 'Please enter the amount.'),
-        array('GVAmountRule' ,'amount')
+        array('ZMRequiredRule' ,'name', 'Please enter a receiver name.'),
+        array('ZMRequiredRule' ,'email', 'Please enter the receivers email address.'),
+        array('ZMMaxFieldLengthRule' ,'email', TABLE_COUPON_EMAIL_TRACK, 'emailed_to'),
+        array('ZMEmailRule' ,'email', "Please enter a valid receiver email address."),
+        array('ZMRequiredRule' ,'amount', 'Please enter the amount.'),
+        array('ZMGVAmountRule' ,'amount')
     ));
 
 
     /* unsubscribe */
     $validator->addRules('unsubscribe', array(
-        array('RequiredRule', 'email_address', 'Please enter your email address.'),
-        array('EmailRule', 'email_address', 'Please enter a valid email address.')
+        array('ZMRequiredRule', 'email_address', 'Please enter your email address.'),
+        array('ZMEmailRule', 'email_address', 'Please enter a valid email address.')
     ));
 
 ?>

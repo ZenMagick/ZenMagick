@@ -104,8 +104,8 @@ class ZMRecaptchaPlugin extends Plugin {
             // active for this page
             $this->captchaEnabled_ = true;
             $rules = array(
-                array('RequiredRule', RECAPTCHA_FIELD, 'Please enter the captcha.'),
-                array("WrapperRule", RECAPTCHA_FIELD, 'The entered captcha is not correct.', array($this, 'vRecaptcha'))
+                array('ZMRequiredRule', RECAPTCHA_FIELD, 'Please enter the captcha.'),
+                array("ZMWrapperRule", RECAPTCHA_FIELD, 'The entered captcha is not correct.', array($this, 'vRecaptcha'))
             );
             ZMValidator::instance()->addRules($form, $rules);
         }

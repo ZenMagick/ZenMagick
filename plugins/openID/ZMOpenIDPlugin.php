@@ -96,7 +96,7 @@ class ZMOpenIDPlugin extends Plugin {
     public function onInitDone($event) {
         // initial rule
         $rules = array(
-            array('RequiredRule', 'openid', 'Please enter your OpenID.')
+            array('ZMRequiredRule', 'openid', 'Please enter your OpenID.')
         );
         $providerList = trim($this->get('openIDProvider'));
         if (!empty($providerList)) {
