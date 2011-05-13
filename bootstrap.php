@@ -74,11 +74,10 @@ use Symfony\Component\HttpKernel\DependencyInjection\MergeExtensionConfiguration
         Runtime::getSettings()->set('zenmagick.base.plugins.enabled', !ZM_CLI_CALL);
 
         // XXX: legacy loader
-$zmLoader->addConfig(ZM_BASE_PATH.'lib'.DIRECTORY_SEPARATOR.'core');
-//$zmLoader->addConfig(ZM_BASE_PATH.'lib'.DIRECTORY_SEPARATOR.'mvc');
-spl_autoload_register('ZMLoader::resolve');
-// configure loader
-ZMLoader::instance()->addPath(ZM_BASE_PATH.'lib'.DIRECTORY_SEPARATOR.'mvc'.DIRECTORY_SEPARATOR);
+        $zmLoader->addConfig(ZM_BASE_PATH.'lib'.DIRECTORY_SEPARATOR.'core');
+        $zmLoader->addConfig(ZM_BASE_PATH.'lib'.DIRECTORY_SEPARATOR.'mvc');
+        // XXX still used elsewhere
+        spl_autoload_register('ZMLoader::resolve');
 
         // set up application class loader
         if (null != Runtime::getApplicationPath()) {
