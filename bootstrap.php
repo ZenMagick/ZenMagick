@@ -64,22 +64,21 @@ use Symfony\Component\HttpKernel\DependencyInjection\MergeExtensionConfiguration
         } else {
             require_once ZM_BASE_PATH.'/lib/base/zenmagick/base/ClassLoader.php';
         }
-        unset($basephar);
-        $baseLoader = new ClassLoader();
-        $baseLoader->addConfig(ZM_BASE_PATH.'lib'.DIRECTORY_SEPARATOR.'base');
-        $baseLoader->addConfig(ZM_BASE_PATH.'lib'.DIRECTORY_SEPARATOR.'vendor');
-        $baseLoader->register();
-        unset($baseLoader);
+        // the main loader
+        $zmLoader = new ClassLoader();
+        $zmLoader->addConfig(ZM_BASE_PATH.'lib'.DIRECTORY_SEPARATOR.'base');
+        $zmLoader->addConfig(ZM_BASE_PATH.'lib'.DIRECTORY_SEPARATOR.'vendor');
+        $zmLoader->register();
 
         // as default disable plugins for CLI calls
         Runtime::getSettings()->set('zenmagick.base.plugins.enabled', !ZM_CLI_CALL);
 
         // XXX: legacy loader
-        require_once ZM_BASE_PATH."lib/core/ZMLoader.php";
-        spl_autoload_register('ZMLoader::resolve');
-        // configure loader
-        ZMLoader::instance()->addPath(ZM_BASE_PATH.'lib'.DIRECTORY_SEPARATOR.'core'.DIRECTORY_SEPARATOR);
-        ZMLoader::instance()->addPath(ZM_BASE_PATH.'lib'.DIRECTORY_SEPARATOR.'mvc'.DIRECTORY_SEPARATOR);
+$zmLoader->addConfig(ZM_BASE_PATH.'lib'.DIRECTORY_SEPARATOR.'core');
+//$zmLoader->addConfig(ZM_BASE_PATH.'lib'.DIRECTORY_SEPARATOR.'mvc');
+spl_autoload_register('ZMLoader::resolve');
+// configure loader
+ZMLoader::instance()->addPath(ZM_BASE_PATH.'lib'.DIRECTORY_SEPARATOR.'mvc'.DIRECTORY_SEPARATOR);
 
         // set up application class loader
         if (null != Runtime::getApplicationPath()) {
@@ -88,7 +87,6 @@ use Symfony\Component\HttpKernel\DependencyInjection\MergeExtensionConfiguration
             $appLoader = new ClassLoader();
             $appLoader->addConfig(Runtime::getApplicationPath().DIRECTORY_SEPARATOR.'lib');
             $appLoader->register();
-            unset($appLoader);
         }
 
         // set up lib class loader
@@ -100,7 +98,6 @@ use Symfony\Component\HttpKernel\DependencyInjection\MergeExtensionConfiguration
                 $libLoader->addConfig(ZM_BASE_PATH.trim($name));
             }
             $libLoader->register();
-            unset($libLoader);
         }
 
         // load application settings
