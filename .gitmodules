@@ -12,4 +12,4 @@
 	url = git://github.com/doctrine/migrations.git
 [submodule "lib/vendor/symfony2"]
 	path = lib/vendor/symfony2
-	url = git://github.com:ZenMagick/symfony.git
+	url = git://github.com/ZenMagick/symfony.git
