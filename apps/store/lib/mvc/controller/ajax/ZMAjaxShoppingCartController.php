@@ -54,6 +54,7 @@ class ZMAjaxShoppingCartController extends ZMAjaxController {
      * Estimate shipping.
      *
      * @param ZMRequest request The current request.
+     * @deprecated Use ZMAjaxCheckoutController instead
      */
     public function estimateShippingJSON($request) {
         $shippingEstimator = Beans::getBean("ZMShippingEstimator");
