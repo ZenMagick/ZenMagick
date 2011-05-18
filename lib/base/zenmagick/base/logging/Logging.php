@@ -320,7 +320,7 @@ class Logging {
      */
     public function shutdownHandler() {
         if (null != ($lastError = error_get_last()) && E_ERROR == $lastError['type']) {
-            $this->errorHandler(E_ERROR, $lastError['message'], $lastError['file'], $lastError['line']);
+            $this->errorHandler(E_ERROR, $lastError['message'], $lastError['file'], $lastError['line'], array());
         }
     }
 
