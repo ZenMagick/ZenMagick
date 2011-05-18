@@ -24,6 +24,7 @@
 ?>
 <?php
 
+  $shoppingCart = $request->getShoppingCart();
   $shippingEstimator = new ZMShippingEstimator();
   $shippingEstimator->prepare();
 
@@ -67,19 +68,17 @@
           <div class="btn"><input type="submit" value="<?php _vzm("Calculate") ?>" /></div>
         </form>
     <?php } ?>
-    <?php $zm_shipping = new ZMShipping(); if ($zm_shipping->isFreeShipping()) { ?>
+    <?php if ($utils->isFreeShipping($shoppingCart)) { ?>
         <p class="inst"><?php _vzm("Shipping is free!") ?></p>
     <?php } else {?>
         <table border="1" cellpadding="2" cellspacing ="2" id="smethods">
-            <thead>
-                <tr>
+            <tr>
                 <th id="smname"><?php _vzm("Shipping Method") ?></th>
                 <th id="smcost"><?php _vzm("Charge") ?></th>
-                </tr>
-            </thead>
-            <tbody>
-            <?php foreach ($zm_shipping->getShippingProvider() as $provider) { ?>
-                <?php if ($provider->hasError()) { continue; } foreach ($provider->getShippingMethods() as $method) { $id = 'ship_'.$method->getId();?>
+            </tr>
+            <?php $providers = $shoppingCart->getShippingProviders(); ?>
+            <?php foreach ($providers as $provider) { ?>
+                <?php if ($provider->hasError()) { continue; } foreach ($provider->getShippingMethods($shoppingCart) as $method) { $id = 'ship_'.$method->getId();?>
                     <?php $selected = false; /* TODO */ ?>
                     <tr class="smethod<?php echo ($selected ? " sel" : "") ?>">
                         <td class="smname"><strong><?php echo $html->encode($provider->getName()) ?></strong> <?php echo $html->encode($method->getName()) ?></td>
@@ -87,7 +86,6 @@
                     </tr>
                 <?php } ?>
             <?php } ?>
-            </tbody>
         </table>
     <?php } ?>
 <?php } ?>
