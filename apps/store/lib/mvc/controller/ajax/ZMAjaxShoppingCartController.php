@@ -57,31 +57,29 @@ class ZMAjaxShoppingCartController extends ZMAjaxController {
      * @deprecated Use ZMAjaxCheckoutController instead
      */
     public function estimateShippingJSON($request) {
+        $shoppingCart = $request->getShoppingCart();
         $shippingEstimator = Beans::getBean("ZMShippingEstimator");
         $shippingEstimator->prepare();
         $response = array();
 
         $address = $shippingEstimator->getAddress();
+        if (null == $address) {
+            $address = $shoppingCart->getShippingAddress();
+        }
         if (null != $address) {
             $response['address'] = ZMAjaxUtils::flattenObject($address, $this->get('ajaxAddressMap'));
         }
 
         $methods = array();
-        if (!$shippingEstimator->isCartEmpty()) {
-            $shipping = Beans::getBean("ZMShipping");
-            if (!$shipping->isFreeShipping()) {
-                foreach ($shipping->getShippingProvider() as $provider) {
-                    if ($provider->hasError())
-                        continue;
-
-                    foreach ($provider->getShippingMethods() as $method) {
-                        $id = 'ship_'.$method->getId();
-                        $ma = array();
-                        $ma['id'] = $id;
-                        $ma['name'] = $provider->getName() . " " . $method->getName();
-                        $ma['cost'] = $request->getToolbox()->utils->formatMoney($method->getCost());
-                        array_push($methods, $ma);
-                    }
+        if (null != $address && !$shoppingCart->isEmpty()) {
+            foreach (ZMShippingProviders::instance()->getShippingProviders(true) as $provider) {
+                foreach ($provider->getShippingMethods($shoppingCart, $address) as $shippingMethod) {
+                    $id = 'ship_'.$shippingMethod->getId();
+                    $ma = array();
+                    $ma['id'] = $id;
+                    $ma['name'] = $provider->getName() . " " . $shippingMethod->getName();
+                    $ma['cost'] = $request->getToolbox()->utils->formatMoney($shippingMethod->getCost());
+                    $methods[] = $ma;
                 }
             }
         }
