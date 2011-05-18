@@ -22,8 +22,9 @@
 namespace zenmagick\base\ioc;
 
 use zenmagick\base\ClassLoader;
-use zenmagick\base\ioc\extension\ZenMagickExtension;
+use zenmagick\base\ioc\parameterBag\SettingsParameterBag;
 
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 /**
@@ -34,14 +35,15 @@ use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
  * @author DerManoMann
  * @package zenmagick.base.ioc
  */
-class Container extends \Symfony\Component\DependencyInjection\ContainerBuilder {
+class Container extends ContainerBuilder {
     private $services_;
+
 
     /**
      * Create new instance.
      */
     public function __construct(ParameterBagInterface $parameterBag=null) {
-        parent::__construct($parameterBag);
+        parent::__construct(null == $parameterBag? new SettingsParameterBag() : new SettingsParameterBag($parameterBag->all()));
         $this->services_ = array();
     }
 
