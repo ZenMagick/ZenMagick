@@ -36,23 +36,23 @@
             Key: <input type="text" name="key">
             Value: <input type="text" name="value">
             Type: <select name="type">
-                <option value="TextFormWidget#">Text</option>
-                <option value="PasswordFormWidget#">Password</option>
-                <option value="TextAreaFormWidget#cols=80&rows=5">Text Area</option>
-                <option value="TextAreaFormWidget#cols=35&rows=2">Text Area (small)</option>
-                <option value="BooleanFormWidget#style=select">Boolean (dropdown)</option>
-                <option value="BooleanFormWidget#style=radio">Boolean (radio)</option>
-                <option value="BooleanFormWidget#style=checkbox">Boolean (checkbox)</option>
-                <option value="SelectFormWidget#">Generic Select (dropdown)</option>
-                <option value="SelectFormWidget#multiple=true&size=3">Generic Select (dropdown, multiple)</option>
-                <option value="ManufacturerSelectFormWidget#">Manufacturer (dropdown)</option>
-                <option value="ManufacturerSelectFormWidget#title=None&options=0= --- ">Manufacturer (dropdown, incl. empty default)</option>
-                <option value="OrderStatusSelectFormWidget#">Order Status (dropdown)</option>
-                <option value="OrderStatusSelectFormWidget#title=None&options=0= --- ">Order Status (dropdown, incl. empty default)</option>
-                <option value="CountrySelectFormWidget#">Country (dropdown)</option>
-                <option value="CountrySelectFormWidget#title=None&options=0= --- ">Country (dropdown, incl. empty default)</option>
-                <option value="EditorSelectFormWidget#">WYSIWYG Editor (dropdown)</option>
-                <option value="WysiwygFormWidget#">WYSIWYG text field</option>
+                <option value="ZMTextFormWidget#">Text</option>
+                <option value="ZMPasswordFormWidget#">Password</option>
+                <option value="ZMTextAreaFormWidget#cols=80&rows=5">Text Area</option>
+                <option value="ZMTextAreaFormWidget#cols=35&rows=2">Text Area (small)</option>
+                <option value="ZMBooleanFormWidget#style=select">Boolean (dropdown)</option>
+                <option value="ZMBooleanFormWidget#style=radio">Boolean (radio)</option>
+                <option value="ZMBooleanFormWidget#style=checkbox">Boolean (checkbox)</option>
+                <option value="ZMSelectFormWidget#">Generic Select (dropdown)</option>
+                <option value="ZMSelectFormWidget#multiple=true&size=3">Generic Select (dropdown, multiple)</option>
+                <option value="ZMManufacturerSelectFormWidget#">Manufacturer (dropdown)</option>
+                <option value="ZMManufacturerSelectFormWidget#title=None&options=0= --- ">Manufacturer (dropdown, incl. empty default)</option>
+                <option value="ZMOrderStatusSelectFormWidget#">Order Status (dropdown)</option>
+                <option value="ZMOrderStatusSelectFormWidget#title=None&options=0= --- ">Order Status (dropdown, incl. empty default)</option>
+                <option value="ZMCountrySelectFormWidget#">Country (dropdown)</option>
+                <option value="ZMCountrySelectFormWidget#title=None&options=0= --- ">Country (dropdown, incl. empty default)</option>
+                <option value="ZMEditorSelectFormWidget#">WYSIWYG Editor (dropdown)</option>
+                <option value="ZMWysiwygFormWidget#">WYSIWYG text field</option>
             </select>
         </p>
         <p>
