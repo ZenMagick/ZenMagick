@@ -23,7 +23,7 @@
   <head>
     <meta http-equiv="content-type" content="text/html; charset=<?php echo ZMSettings::get('zenmagick.mvc.html.charset') ?>">
     <title><?php _vzm('ZenMagick Admin') ?></title>
-    <link rel="shortcut icon" href="<?php echo $this->asUrl('favicon.ico', ZMView::RESOURCE) ?>"> 
+    <link rel="shortcut icon" href="<?php echo $this->asUrl('favicon.ico', ZMView::RESOURCE) ?>">
     <?php $resources->cssFile('style/zenmagick.css') ?>
     <?php $resources->cssFile('style/jquery-ui/jquery-ui-1.8.9.custom.css') ?>
     <?php $resources->cssFile('style/jquery.cluetip.css') ?>
@@ -37,21 +37,7 @@
     <div id="main">
       <?php echo $this->fetch('header.php'); ?>
       <div id="content">
-        <?php if (ZMMessages::instance()->hasMessages()) { ?>
-            <ul id="messages" class="ui-widget">
-            <?php
-              $messageClass = array(
-                  ZMMessages::T_SUCCESS => array('ui-state-default', 'ui-icon ui-icon-check'),
-                  ZMMessages::T_MESSAGE => array('ui-state-default', 'ui-icon ui-icon-info'),
-                  ZMMessages::T_WARN => array('ui-state-highlight', 'ui-icon ui-icon-alert'),
-                  ZMMessages::T_ERROR => array('ui-state-error', 'ui-icon ui-icon-alert')
-              );
-            ?>
-            <?php foreach (ZMMessages::instance()->getMessages() as $message) { ?>
-                <li class="ui-corner-all <?php echo $messageClass[$message->getType()][0] ?>"><span class="<?php echo $messageClass[$message->getType()][1] ?>" style="float:left;margin-right:0.3em;"></span><?php echo $message->getText() ?></li>
-            <?php } ?>
-            </ul>
-        <?php } ?>
+          <?php echo $this->fetch('messages.php'); ?>
           <?php echo $this->fetch($viewTemplate); ?>
           <br clear="left">
         </div><!-- view-container -->
@@ -59,7 +45,7 @@
       <?php echo $this->fetch('footer.php'); ?>
     </div>
   </body>
-    <script> 
+    <script>
       $('.tt[title]').cluetip({clickThrough: true, splitTitle: '|', arrows: true });
       ZenMagick.datepicker();
     </script>

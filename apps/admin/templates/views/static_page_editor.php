@@ -37,9 +37,11 @@
 
   $editContents = $request->getParameter('editContents', null, false);
   if (null != $request->getParameter('save') && null != $editContents) {
-      // save 
+      // save
       $editContents = stripslashes($editContents);
-      $selectedTheme->saveStaticPageContent($selectedFile, $editContents, $selectedLanguageId);
+      if ($selectedTheme->saveStaticPageContent($selectedFile, $editContents, $selectedLanguageId)) {
+          ZMMessages::instance()->error(sprintf(_zm('Could not save %s'), $selectedFile));
+      }
       $editContents = null;
   } else if (null != $selectedFile) {
       $editContents = null;
@@ -59,6 +61,7 @@
 
 ?>
 
+<?php echo $this->fetch('messages.php'); ?>
 <?php $admin2->title(_zm('Edit Define Pages')) ?></h1>
 <form action="<?php echo $admin2->url() ?>" method="GET">
   <input type="hidden" name="rid" value="static_page_editor">
@@ -114,7 +117,7 @@
     <input type="hidden" name="file" value="<?php echo $selectedFile ?>">
     <input type="hidden" name="languageId" value="<?php echo $selectedLanguageId ?>">
 
-    <?php 
+    <?php
       $editor = $currentEditor;
       $editor->setId('editContents');
       $editor->setName('editContents');
