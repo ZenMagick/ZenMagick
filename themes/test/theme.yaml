@@ -30,6 +30,6 @@ settings:
   
 container:
   services:
-    ZMProducts:
+    XProducts:
+      parent: merge:ZMProducts
       class: XProducts
-      scope: prototype

@@ -23,6 +23,7 @@ namespace zenmagick\base\ioc;
 
 use zenmagick\base\ClassLoader;
 use zenmagick\base\ioc\parameterBag\SettingsParameterBag;
+use zenmagick\base\ioc\compiler\ResolveMergeDefinitionsPass;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
@@ -45,6 +46,7 @@ class Container extends ContainerBuilder {
     public function __construct(ParameterBagInterface $parameterBag=null) {
         parent::__construct(null == $parameterBag? new SettingsParameterBag() : new SettingsParameterBag($parameterBag->all()));
         $this->services_ = array();
+        $this->getCompiler()->getPassConfig()->addPass(new ResolveMergeDefinitionsPass());
     }
 
     /**
