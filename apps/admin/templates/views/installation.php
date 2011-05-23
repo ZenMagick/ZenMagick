@@ -46,6 +46,7 @@
         "sqlAdminPrefs" => "Create new admin preferences table",
         "sqlThemeVariation" => "Create additional column for theme variation selection",
         "sacsPermissions" => "Create new table to store custom admin access rules",
+        "blockAdmin" => "Create new tables for block admin",
     );
 
     $installer = new ZMInstallationPatcher();

@@ -21,6 +21,7 @@
 <?php
 
 use zenmagick\base\Beans;
+use zenmagick\base\Runtime;
 
 /**
  * Provides support for all file patching of zen-cart files ZenMagick might need.
@@ -52,6 +53,8 @@ class ZMInstallationPatcher extends ZMObject {
      * Load all patches.
      */
     function _loadPatches() {
+        // force load just in case...
+        ZMLoader::instance()->addPath(Runtime::getApplicationPath().'lib/installation/patches/');
         foreach (ZMLoader::instance()->getClassPath() as $clazz => $file) {
             // ignore namespace classes
             if ('\\' != $clazz[0] && false !== strpos($file, "installation") && false != strpos($file, "patches") && 'patches' != basename(dirname($file))) {
