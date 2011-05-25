@@ -90,7 +90,7 @@ class ZMAjaxUtils {
         $format = ZMSettings::get('zenmagick.mvc.rpc.format', 'JSON');
         $rpcRequest = Runtime::getContainer()->get('ZMRpcRequest'.$format);
         $rpcRequest->setRequest($request);
-        return $rcpRequest;
+        return $rpcRequest;
     }
 
 }
