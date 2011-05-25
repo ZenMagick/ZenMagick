@@ -29,23 +29,6 @@
 class ViewUtils extends ZMViewUtils {
 
     /**
-     * Create new instance.
-     *
-     * @param ZMView view The current view.
-     */
-    function __construct($view) {
-        parent::__construct($view);
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
-
-
-    /**
      * {@inheritDoc}
      */
     public function resolveResource($filename) {
