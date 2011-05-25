@@ -26,7 +26,7 @@
     <?php if (0 == $request->getProductId() && 'specials' != $request->getRequestId()) { ?>
         <?php $products = ZMProducts::instance()->getSpecials(MAX_RANDOM_SELECT_SPECIALS, $session->getLanguageId()); ?>
         <?php if (0 < count($products)) { ?>
-            <h3><a href="<?php echo $net->url(FILENAME_SPECIALS) ?>"><?php _vzm("[More]") ?></a><?php _vzm("Specials") ?></h3>
+            <h3><a href="<?php echo $net->url('specials') ?>"><?php _vzm("[More]") ?></a><?php _vzm("Specials") ?></h3>
             <div id="sb_specials" class="box">
                 <?php if (1 == count($products)) { $product = $products[0]; ?>
                     <p><?php echo $html->productImageLink($product) ?></p>

@@ -26,7 +26,7 @@
 <?php if ($gvRedeem->isRedeemed()) { ?>
   <p><?php _vzm("Congratulations, you have redeemed a Gift Certificate worth %s.", $utils->formatMoney($gvRedeem->getAmount())) ?></p>
 <?php } else { ?>
-  <?php echo $form->open(FILENAME_GV_REDEEM, '', true, array('id'=>'gv_redeem')) ?>
+  <?php echo $form->open('gv_redeem', '', true, array('id'=>'gv_redeem')) ?>
     <fieldset>
       <legend><?php _vzm("Redemption code details") ?></legend>
       <div>
@@ -37,5 +37,5 @@
     <div class="btn"><input type="submit" class="btn" value="<?php _vzm("Redeem") ?>" /></div>
   </form>
 <?php } ?>
-<?php $faqLink = '<a href="'.$net->url(FILENAME_GV_FAQ).'">'._zm("Gift Certificate FAQ").'</a>'; ?>
+<?php $faqLink = '<a href="'.$net->url('gv_faq').'">'._zm("Gift Certificate FAQ").'</a>'; ?>
 <p><?php _vzm("For more information regarding Gift Certificates, please see the %s.", $faqLink) ?></p>

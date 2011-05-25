@@ -37,7 +37,7 @@ class TestUIUrlHandling extends ZMTestCase {
         $expected = HTTPS_SERVER . DIR_WS_HTTPS_CATALOG . 'zpn_main_handler.php';
         $this->assertEqual($expected, $href);
 
-        $href = zen_href_link(FILENAME_DEFAULT);
+        $href = zen_href_link('index');
         $expected = HTTP_SERVER . DIR_WS_HTTPS_CATALOG . 'index.php?'.zenmagick\base\Runtime::getSettings()->get('zenmagick.http.request.idName').'=index';
         $this->assertEqual($expected, $href);
     }
@@ -59,7 +59,7 @@ class TestUIUrlHandling extends ZMTestCase {
      */
     public function testZenCartSEOHref() {
         if (null != ($plugin = ZMPlugins::instance()->getPluginForId('useo2')) && $plugin->isEnabled()) {
-            $href = zen_href_link(FILENAME_PRODUCT_INFO, '&products_id=1', 'SSL', false, true, false, true);
+            $href = zen_href_link('product_info', '&products_id=1', 'SSL', false, true, false, true);
             $expected = HTTPS_SERVER . DIR_WS_HTTPS_CATALOG . 'matrox-g200-mms-p-1.html';
             $this->assertEqual($expected, $href);
         }
@@ -69,7 +69,7 @@ class TestUIUrlHandling extends ZMTestCase {
      * Test zen_href_link #2.
      */
     public function testZenCartHref2() {
-        $href = zen_href_link(FILENAME_PRODUCT_INFO, '&products_id=1', 'SSL', false, true, false, true);
+        $href = zen_href_link('product_info', '&products_id=1', 'SSL', false, true, false, true);
         $expected = HTTPS_SERVER . DIR_WS_HTTPS_CATALOG . 'index.php?'.zenmagick\base\Runtime::getSettings()->get('zenmagick.http.request.idName').'=product_info&amp;products_id=1';
         $this->assertEqual($expected, $href);
     }

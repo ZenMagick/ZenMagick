@@ -57,8 +57,8 @@
   <li>RSS sidebox</li>
   <li>[Experimental] product filter (alpha and price range)</li>
   <li>A customized default controller to illustrate extending controller code; in this example, the crubtrail is modified. This affects
-    all pages handled by the default controller, for example the <a href="<?php echo $net->url(FILENAME_SITE_MAP) ?>">sitemap</a>)</li>
-  <li>Programmatical theme switching - the <a href="<?php echo $net->url(FILENAME_CONTACT_US) ?>">contact us page</a> will always use the default theme</li>
+    all pages handled by the default controller, for example the <a href="<?php echo $net->url('site_map') ?>">sitemap</a>)</li>
+  <li>Programmatical theme switching - the <a href="<?php echo $net->url('contact_us') ?>">contact us page</a> will always use the default theme</li>
   <li>Field specific error messages; Try an invalid email or blank password (using the demo theme!) to see field specific error messages
      being displayed [needs JavaScript disabled]</li>
   <li>Check out the actual used template files (

@@ -25,9 +25,9 @@
 <h3><?php _vzm("Legalese") ?></h3>
 <div id="sb_information" class="box">
   <ul class="sidemenu">
-    <li><a href="<?php echo $net->staticPage(FILENAME_SHIPPING) ?>"><?php _vzm("Shipping &amp; Returns") ?></a></li>
-    <li><a href="<?php echo $net->staticPage(FILENAME_PRIVACY) ?>"><?php _vzm("Our Privacy Policy") ?></a></li>
-    <li><a href="<?php echo $net->staticPage(FILENAME_CONDITIONS) ?>"><?php _vzm("Conditions") ?></a></li>
-    <li><a href="<?php echo $net->url(FILENAME_CONTACT_US) ?>"><?php _vzm("Contact Us") ?></a></li>
+    <li><a href="<?php echo $net->staticPage('shippinginfo') ?>"><?php _vzm("Shipping &amp; Returns") ?></a></li>
+    <li><a href="<?php echo $net->staticPage('privacy') ?>"><?php _vzm("Our Privacy Policy") ?></a></li>
+    <li><a href="<?php echo $net->staticPage('conditions') ?>"><?php _vzm("Conditions") ?></a></li>
+    <li><a href="<?php echo $net->url('contact_us') ?>"><?php _vzm("Contact Us") ?></a></li>
   </ul>
 </div>

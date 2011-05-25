@@ -36,7 +36,7 @@
 
 <ul>
 <?php foreach ($faq_topics as $key => $title) { ?>
-    <li><a href="<?php echo $net->url(FILENAME_GV_FAQ,'topic='.$key) ?>"><?php _vzm($title) ?></a></li>
+    <li><a href="<?php echo $net->url('gv_faq','topic='.$key) ?>"><?php _vzm($title) ?></a></li>
 <?php } ?>
 </ul>
 
@@ -44,7 +44,7 @@
     <?php echo $utils->staticPageContent($topic); ?>
 <?php } ?>
 
-<?php echo $form->open(FILENAME_GV_REDEEM, '', true, array('id'=>'gv_redeem')) ?>
+<?php echo $form->open('gv_redeem', '', true, array('id'=>'gv_redeem')) ?>
   <fieldset>
     <legend><?php _vzm("Redemption code details") ?></legend>
     <div>

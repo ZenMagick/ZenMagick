@@ -25,17 +25,17 @@
 <fieldset>
     <legend><?php _vzm("My Account") ?></legend>
     <ul>
-        <li><a href="<?php echo $net->url(FILENAME_ACCOUNT_EDIT, '', true); ?>"><?php _vzm("Change Account") ?></a></li>
-        <li><a href="<?php echo $net->url(FILENAME_ADDRESS_BOOK, '', true); ?>"><?php _vzm("My Address Book") ?></a></li>
-        <li><a href="<?php echo $net->url(FILENAME_ACCOUNT_PASSWORD, '', true); ?>"><?php _vzm("Change My Password") ?></a></li>
+        <li><a href="<?php echo $net->url('account_edit', '', true); ?>"><?php _vzm("Change Account") ?></a></li>
+        <li><a href="<?php echo $net->url('address_book', '', true); ?>"><?php _vzm("My Address Book") ?></a></li>
+        <li><a href="<?php echo $net->url('account_password', '', true); ?>"><?php _vzm("Change My Password") ?></a></li>
     </ul>
 </fieldset>
 
 <fieldset>
     <legend><?php _vzm("Email Settings") ?></legend>
     <ul>
-        <li><a href="<?php echo $net->url(FILENAME_ACCOUNT_NEWSLETTERS, '', true); ?>"><?php _vzm("Change Newsletter Subscriptions") ?></a></li>
-        <li><a href="<?php echo $net->url(FILENAME_ACCOUNT_NOTIFICATIONS, '', true); ?>"><?php _vzm("Change Product Notifications") ?></a></li>
+        <li><a href="<?php echo $net->url('account_newsletters', '', true); ?>"><?php _vzm("Change Newsletter Subscriptions") ?></a></li>
+        <li><a href="<?php echo $net->url('account_notifications', '', true); ?>"><?php _vzm("Change Product Notifications") ?></a></li>
     </ul>
 </fieldset>
 
@@ -43,7 +43,7 @@
 <?php if (0 < $voucherBalance) { ?>
     <fieldset>
         <legend><?php _vzm("Gift Certificate Account") ?></legend>
-        <div class="btn"><a href="<?php echo $net->url(FILENAME_GV_SEND) ?>" class="btn"><?php _vzm("Send Gift Certificate") ?></a></div>
+        <div class="btn"><a href="<?php echo $net->url('gv_send') ?>" class="btn"><?php _vzm("Send Gift Certificate") ?></a></div>
         <p><?php _vzm("You have funds (%s) in your Gift Certificate Account.", $utils->formatMoney($voucherBalance)) ?></p>
     </fieldset>
 <?php } ?>
@@ -52,7 +52,7 @@
     <?php $resultList->setPagination(3); ?>
     <h3>
         <?php if (3 < $resultList->getNumberOfResults()) { ?>
-            <a href="<?php echo $net->url(FILENAME_ACCOUNT_HISTORY, '', true) ?>"><?php _vzm("(Show All)") ?></a>
+            <a href="<?php echo $net->url('account_history', '', true) ?>"><?php _vzm("(Show All)") ?></a>
         <?php } ?>
         <?php _vzm("Previous Orders") ?>
     </h3>

@@ -57,7 +57,7 @@ class ZMOpenIDController extends ZMController {
      * {@inheritDoc}
      */
     public function preProcess($request) {
-        $this->returnTo_ = str_replace('&amp;', '&', $request->url(FILENAME_OPEN_ID, 'action=finishAuth', true));
+        $this->returnTo_ = str_replace('&amp;', '&', $request->url('', 'action=finishAuth', true));
     }
 
     /**
@@ -143,7 +143,7 @@ class ZMOpenIDController extends ZMController {
         }
 
         //TODO: make configurable
-        //$pape_request->addPolicyURI($request->getToolbox()->net->staticPage(FILENAME_PRIVACY));
+        //$pape_request->addPolicyURI($request->getToolbox()->net->staticPage('privacy'));
 
         // For OpenID 1, send a redirect.  For OpenID 2, use a Javascript
         // form to send a POST request to the server.

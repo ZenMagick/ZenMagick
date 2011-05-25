@@ -24,7 +24,7 @@
 
 <?php echo $utils->staticPageContent("discount_coupon") ?>
 
-<?php echo $form->open(FILENAME_DISCOUNT_COUPON, 'action=lookup', false, array('method' => 'get')) ?>
+<?php echo $form->open('discount_coupon', 'action=lookup', false, array('method' => 'get')) ?>
   <fieldset>
     <legend><?php _vzm("Look-up Discount Coupon ...") ?></legend>
     <label for="lookup_discount_coupon"><?php _vzm("Your Code") ?></label>

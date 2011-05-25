@@ -1268,7 +1268,7 @@ Release 0.9.4
 - update copyright / author note of pure ZenMagick files (not complete)
 - create and use new plugin loader policy constants
 - refactor setting downloadOrderStatusList to downloadOrderStatusRange
-- deprecate ZM_FILENAME_xxx defines
+- deprecate ZM_''xxx defines
 - deprecate ZM_ADMINFN_xxx defines
 - retire ZM_THEME_xxx defines
 - show PayPal Express Checkout button on shopping cart; b:#2415830
@@ -1718,7 +1718,7 @@ Release 0.9.0
 - add support to set the selected (zen-cart) theme id
 - add (default) option in theme builder to automatically create dummy files
   and select a newly created theme
-- added new setting 'invalidSessionPage' (default is FILENAME_COOKIE_USAGE)
+- added new setting 'invalidSessionPage' (default is ''COOKIE_USAGE)
 - fixed bug to show a session/cookie required page if neccessary; #1836136
 - moved tax rate from ZMShippingProvider to ZMShippingMethod
 - add method to ZMShippingProviders that allows to calculate shipping for a
@@ -1794,10 +1794,10 @@ Release 0.9.0
 - add setting 'defaultAccessLevel'; default is null so no change; however,
   setting this to ZM_ACCOUNT_TYPE_REGISTERED would mean *all pages** require
   to be logged in (unless configured differently)
-- introduce ZM_FILENAME_CATEGORY and refactor most of ZMIndexController into
+- introduce ZM_''CATEGORY and refactor most of ZMIndexController into
   ZMCategoryController
 - fix billing address controller
-- patch zm_useo2 to support ZM_FILENAME_CATEGORY
+- patch zm_useo2 to support ZM_''CATEGORY
 - update demo design, add view source (sorry!)
 - add setting 'isEchoHTML' that allows to control the default value of the
   $echo parameter, that most HTML generating methods and functions have

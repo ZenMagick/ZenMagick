@@ -25,7 +25,7 @@
 <?php if (null != $request->getProductId()) { ?>
     <h3><?php _vzm("Tell A Friend") ?></h3>
     <div id="sb_tellafriend" class="box">
-        <?php echo $form->open(FILENAME_TELL_A_FRIEND, '', $request->isSecure(), array('method' => 'get')) ?>
+        <?php echo $form->open('tell_a_friend', '', $request->isSecure(), array('method' => 'get')) ?>
             <div>
               <input type="hidden" name="products_id" value="<?php echo $request->getProductId() ?>" />
               <input type="submit" class="btn" value="<?php _vzm("Email") ?>" />

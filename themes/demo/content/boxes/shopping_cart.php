@@ -50,7 +50,7 @@
 </script>
 
 <?php if (!$request->isCheckout()) { ?>
-<h3><a href="<?php echo $net->url(FILENAME_SHOPPING_CART, '', true) ?>"><?php _vzm("[More]") ?></a><?php _vzm("Shopping Cart") ?></h3>
+<h3><a href="<?php echo $net->url('shopping_cart', '', true) ?>"><?php _vzm("[More]") ?></a><?php _vzm("Shopping Cart") ?></h3>
     <div id="sb_cart" class="box">
         <?php if ($request->getShoppingCart()->isEmpty()) { ?>
             <?php _vzm("Cart is Empty") ?>

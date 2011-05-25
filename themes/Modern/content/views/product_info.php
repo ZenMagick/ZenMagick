@@ -58,13 +58,13 @@
 				<div id="tellAFriendInfo">
 					<ul>
 						<?php if ($currentProduct->getTypeSetting('tell_a_friend')) { ?>
-			            	<li id="tellAFriend"><a class="btn" href="<?php echo $net->url(FILENAME_TELL_A_FRIEND, "products_id=".$currentProduct->getId()) ?>"><?php _vzm("Tell a friend") ?></a></li>
+			            	<li id="tellAFriend"><a class="btn" href="<?php echo $net->url('tell_a_friend', "products_id=".$currentProduct->getId()) ?>"><?php _vzm("Tell a friend") ?></a></li>
 			          	<?php } ?>
 						<?php if ($currentProduct->getTypeSetting('reviews')) { ?>
-						  	<li id="writeReview"><a class="btn" href="<?php echo $net->url(FILENAME_PRODUCT_REVIEWS_WRITE, "products_id=".$currentProduct->getId()) ?>"><?php _vzm("Write a Review") ?></a></li>
+						  	<li id="writeReview"><a class="btn" href="<?php echo $net->url('product_reviews_write', "products_id=".$currentProduct->getId()) ?>"><?php _vzm("Write a Review") ?></a></li>
 						<?php } ?>
 						<?php if ($currentProduct->hasReviews()) { ?>
-							<li id="readReview"><a class="btn" href="<?php echo $net->url(FILENAME_PRODUCT_REVIEWS, "products_id=".$currentProduct->getId()) ?>"><?php _vzm("Read Reviews") ?></a></li>
+							<li id="readReview"><a class="btn" href="<?php echo $net->url('product_reviews', "products_id=".$currentProduct->getId()) ?>"><?php _vzm("Read Reviews") ?></a></li>
 						<?php } ?>
 
 					</ul>

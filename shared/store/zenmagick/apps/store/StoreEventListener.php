@@ -53,7 +53,6 @@ class StoreEventListener {
 
         // include some zencart files we need.
         include_once ZC_INSTALL_PATH . 'includes/database_tables.php';
-        include_once ZC_INSTALL_PATH . 'includes/filenames.php';
 
         //** load all config values if not set **//
         if (!defined('STORE_NAME')) {

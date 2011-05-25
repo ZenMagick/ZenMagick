@@ -21,7 +21,7 @@ description: 'Modern / RI0007'
 # - removed lang folder
 # - in header.php: removed line: <?php ZMLoader::make('ToolboxHtml'); ?> - this doesn't make sense, $html is automatically set up
 #   and the correct one too, just with the custom class somewhere in the extra folder (or subfolder of that)
-# - change use of HTTP_SERVER.DIR_WS_CATALOG to $net->url(FILENAME_DEFAULT)
+# - change use of HTTP_SERVER.DIR_WS_CATALOG to $net->url('index')
 # - remove wrongly placed content/views/options.php
 # - moved content/images/ri_template.jpg to themes/Modern/preview.jpg
 # - add CSS rule for sb_information to make links wrap

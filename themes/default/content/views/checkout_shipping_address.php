@@ -24,7 +24,7 @@
 
 <?php $currentAddress = $shoppingCart->getShippingAddress(); ?>
 <?php if (0 < count($addressList)) { ?>
-    <?php echo $form->open(FILENAME_CHECKOUT_SHIPPING_ADDRESS, 'action=select', true) ?>
+    <?php echo $form->open('checkout_shipping_address', 'action=select', true) ?>
         <h3><?php _vzm("Select an existing address") ?></h3>
         <fieldset>
             <legend><?php _vzm("Address Book") ?></legend>
@@ -45,7 +45,7 @@
     <h3><?php _vzm("... or create a new one") ?></h3>
 <?php } ?>
 
-<?php echo $form->open(FILENAME_CHECKOUT_SHIPPING_ADDRESS, 'action=create', true, array('id'=>'shippingAddress')) ?>
+<?php echo $form->open('checkout_shipping_address', 'action=create', true, array('id'=>'shippingAddress')) ?>
     <?php $this->assign(array('address' => $shippingAddress)); echo $this->fetch('views/address.php') ?>
     <div class="btn"><input type="submit" class="btn" value="<?php _vzm("Continue") ?>" /></div>
 </form>

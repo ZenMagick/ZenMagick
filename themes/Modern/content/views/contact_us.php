@@ -27,7 +27,7 @@
 	<?php echo $utils->staticPageContent("contact_us") ?>
 </div>
 
-<?php echo $form->open(FILENAME_CONTACT_US, 'action=send', false, array('id' => 'contactUs')) ?>
+<?php echo $form->open('contact_us', 'action=send', false, array('id' => 'contactUs')) ?>
     <fieldset>
         <legend><?php _vzm("Contact us") ?></legend>
         <table cellspacing="0" cellpadding="0">

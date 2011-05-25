@@ -22,7 +22,7 @@
  */
 ?>
 
-<?php echo $form->open(FILENAME_SHOPPING_CART, "action=update_product", true) ?>
+<?php echo $form->open('shopping_cart', "action=update_product", true) ?>
     <table cellpadding="0" cellspacing="0" width="100%">
     	<tr class="tableHeading">
     		<th><?php _vzm('Qty.') ?></th>
@@ -63,7 +63,7 @@
                     <?php echo $utils->formatMoney($item->getItemTotal()) ?>
                 </td>
 
-                <td class="remove" align="right"><a href="<?php echo $net->url(FILENAME_SHOPPING_CART, 'action=remove_product&product_id='.$item->getId()) ?>"><img src="<?php echo $this->asUrl("images/small_delete.gif") ?>" alt="remove" /></a></td>
+                <td class="remove" align="right"><a href="<?php echo $net->url('shopping_cart', 'action=remove_product&product_id='.$item->getId()) ?>"><img src="<?php echo $this->asUrl("images/small_delete.gif") ?>" alt="remove" /></a></td>
             </tr>
         <?php $odd = !$odd; $first = false; } ?>
         <tr class="other">
@@ -76,11 +76,11 @@
           <?php echo $html->backLink('<img title="'._zm('Continue Shopping ').'" alt="'._zm('Continue Shopping').'" src="'.$this->asUrl('images/button_continue_shopping.gif').'">') ?>
           <input type="image" title="<?php _vzm(' Change your quantity by highlighting the number in the box, correcting the quantity and clicking this button. ') ?>" alt="<?php _vzm('Change your quantity by highlighting the number in the box, correcting the quantity and clicking this button.') ?>" src="<?php echo $this->asUrl('images/button_update_cart.gif') ?>">
         </div>
-        <div class="forward"><a class="btn" href="<?php echo $net->url(FILENAME_CHECKOUT_SHIPPING, '', true) ?>"><img title="<?php _vzm(' Checkout ') ?>" alt="<?php _vzm('Checkout') ?>" src="<?php echo $this->asUrl('images/button_checkout.gif') ?>"></a></div>
+        <div class="forward"><a class="btn" href="<?php echo $net->url('checkout_shipping', '', true) ?>"><img title="<?php _vzm(' Checkout ') ?>" alt="<?php _vzm('Checkout') ?>" src="<?php echo $this->asUrl('images/button_checkout.gif') ?>"></a></div>
         <div class="clearBoth"></div>
     </div>
     <div>
-        <a class="btn" href="<?php echo $net->url(FILENAME_POPUP_SHIPPING_ESTIMATOR, '', true) ?>" onclick="popupWindow(this.href); return false;"><img title="<?php _vzm(' Shipping Estimator ') ?>" alt="<?php _vzm('Shipping Estimator') ?>" src="<?php echo $this->asUrl('images/button_shipping_estimator.gif') ?>"></a>
+        <a class="btn" href="<?php echo $net->url('popup_shipping_estimator', '', true) ?>" onclick="popupWindow(this.href); return false;"><img title="<?php _vzm(' Shipping Estimator ') ?>" alt="<?php _vzm('Shipping Estimator') ?>" src="<?php echo $this->asUrl('images/button_shipping_estimator.gif') ?>"></a>
     </div>
 
     <?php if (defined('MODULE_PAYMENT_PAYPALWPP_STATUS') && MODULE_PAYMENT_PAYPALWPP_STATUS == 'True') {

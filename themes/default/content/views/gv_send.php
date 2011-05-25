@@ -23,7 +23,7 @@
 ?>
 
 <p><?php _vzm("Current available balance: <strong>%s</strong>", $utils->formatMoney($request->getAccount()->getVoucherBalance())) ?></p>
-<?php echo $form->open(FILENAME_GV_SEND, '', true, array('id'=>'gvreceiverObject')) ?>
+<?php echo $form->open('gv_send', '', true, array('id'=>'gvreceiverObject')) ?>
     <fieldset>
         <legend><?php _vzm("EMail Gift Certificate") ?></legend>
         <label for="name"><?php _vzm("Receiver Name") ?></label><br />

@@ -24,7 +24,7 @@
 
 <div id="headerWrapper">
 	<div id="logoWrapper" class="back">
-    	<div id="logo"><div id="logoContent" class="unitPng"><a href="<?php echo $net->url(FILENAME_DEFAULT) ?>" title="<?php echo _zm('ZenMagick - Smart e-commerce') ?>"><span>&nbsp;</span></a></div></div>
+    	<div id="logo"><div id="logoContent" class="unitPng"><a href="<?php echo $net->url('index') ?>" title="<?php echo _zm('ZenMagick - Smart e-commerce') ?>"><span>&nbsp;</span></a></div></div>
 	</div>
 
 	<!--bof header_content_wrapper-->
@@ -44,21 +44,21 @@
 			<ul>
 			<?php if (!$request->isAnonymous()) { ?>
 			  <?php if ($request->isRegistered()) { ?>
-				  <li><a href="<?php echo $net->url(FILENAME_ACCOUNT) ?>" title="<?php _vzm("MyAccount") ?>"><span class="colorOrangeLink"><?php _vzm("MyAccount") ?></span></a></li>
+				  <li><a href="<?php echo $net->url('account') ?>" title="<?php _vzm("MyAccount") ?>"><span class="colorOrangeLink"><?php _vzm("MyAccount") ?></span></a></li>
 				  <li>|</li>
         <?php } ?>
-		    	<li><a href="<?php echo $net->url(FILENAME_LOGOFF) ?>"><span class="colorBlackLink"><?php echo _zm('Log Out') ?></span></a></li>
+		    	<li><a href="<?php echo $net->url('logoff') ?>"><span class="colorBlackLink"><?php echo _zm('Log Out') ?></span></a></li>
 			<?php } else { ?>
-					<li><a href="<?php echo $net->url(FILENAME_CREATE_ACCOUNT); ?>"><span class="colorOrangeLink"><?php _vzm("Register"); ?></span></a></li>
+					<li><a href="<?php echo $net->url('create_account'); ?>"><span class="colorOrangeLink"><?php _vzm("Register"); ?></span></a></li>
 					<li>|</li>
-		    		<li><a href="<?php echo $net->url(FILENAME_LOGIN); ?>"><span class="colorBlackLink"><?php _vzm("Login"); ?></span></a></li>
+		    		<li><a href="<?php echo $net->url('login'); ?>"><span class="colorBlackLink"><?php _vzm("Login"); ?></span></a></li>
 			<?php } ?>
 			<?php if (!$request->getShoppingCart()->isEmpty() && !$request->isCheckout()) { ?>
 				<li>|</li>
-				<li><a href="<?php echo $net->url(FILENAME_CHECKOUT_SHIPPING); ?>"><span class="colorOrangeLink"><?php echo _zm('Checkout') ?></span></a></li>
+				<li><a href="<?php echo $net->url('checkout_shipping'); ?>"><span class="colorOrangeLink"><?php echo _zm('Checkout') ?></span></a></li>
 				<li>|</li>
 		    	<li class="shoppingCart unitPng">
-					<a href="<?php echo $net->url(FILENAME_SHOPPING_CART); ?>"><span class="colorBlackLink"><?php echo _zm('Shopping Cart') ?></span></a>
+					<a href="<?php echo $net->url('shopping_cart'); ?>"><span class="colorBlackLink"><?php echo _zm('Shopping Cart') ?></span></a>
 					<span class="colorBlack">(<?php echo $request->getShoppingCart()->getSize(); ?>): </span>
 					<span class="price colorOrange"><?php echo $utils->formatMoney($request->getShoppingCart()->getTotal()) ?></span>
 				</li>
@@ -75,7 +75,7 @@
 
 <div id="navEZPagesTop" class="unitPng">
 <ul>
-	<li><a href="<?php echo $net->url(FILENAME_DEFAULT) ?>"><span class="navEZCol"><?php _vzm("Home"); ?></span></a></li>
+	<li><a href="<?php echo $net->url('index') ?>"><span class="navEZCol"><?php _vzm("Home"); ?></span></a></li>
   <?php foreach (ZMEZPages::instance()->getPagesForHeader($session->getLanguageId()) as $page) { ?>
     <?php $text = '<span class="navEZCol">'.$html->encode($page->getTitle()).'</span>'; ?>
     <li><?php echo $html->ezpageLink($page->getId(), $text); ?></li>

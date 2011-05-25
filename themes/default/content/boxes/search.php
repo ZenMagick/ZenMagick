@@ -33,6 +33,6 @@
                 <input type="text" id="keywords" name="keywords" value="<?php echo $html->encode($request->getParameter('keywords', KEYWORD_DEFAULT)) ?>" onfocus="<?php echo $onfocus ?>" />
             </div>
         </form>
-        <a class="clear" href="<?php echo $net->url(FILENAME_ADVANCED_SEARCH) ?>"><?php _vzm("Advanced Search") ?></a>
+        <a class="clear" href="<?php echo $net->url('advanced_search') ?>"><?php _vzm("Advanced Search") ?></a>
     </div>
 <?php } ?>

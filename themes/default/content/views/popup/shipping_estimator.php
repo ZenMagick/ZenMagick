@@ -43,7 +43,7 @@
             <?php echo $macro->formatAddress($address); ?>
         </div>
     <?php } else { ?>
-        <?php echo $form->open(FILENAME_POPUP_SHIPPING_ESTIMATOR, '', true) ?>
+        <?php echo $form->open('popup_shipping_estimator', '', true) ?>
           <table cellspacing="0" cellpadding="0"><tbody>
              <tr>
                 <td><?php _vzm("Country") ?></td>

@@ -25,7 +25,7 @@
 <fieldset>
     <legend><?php _vzm("Billing Address") ?></legend>
     <div class="btn">
-        <a class="btn" href="<?php echo $net->url(FILENAME_CHECKOUT_PAYMENT_ADDRESS, '', true) ?>"><?php _vzm("Change Billing Address") ?></a>
+        <a class="btn" href="<?php echo $net->url('checkout_payment_address', '', true) ?>"><?php _vzm("Change Billing Address") ?></a>
     </div>
     <?php echo $macro->formatAddress($shoppingCart->getBillingAddress()) ?>
 </fieldset>
@@ -33,7 +33,7 @@
 <script type="text/javascript">var submitter = 0;</script>
 <?php echo $shoppingCart->getPaymentFormValidationJS($request) ?>
 
-<?php echo $form->open(FILENAME_CHECKOUT_CONFIRMATION, '', true, array('id'=>'checkout_payment', 'onsubmit' => 'return check_form();')) ?>
+<?php echo $form->open('checkout_confirmation', '', true, array('id'=>'checkout_payment', 'onsubmit' => 'return check_form();')) ?>
   <?php if (ZMSettings::get('isConditionsMessage')) { ?>
       <fieldset>
           <legend><?php _vzm("Terms and Conditions") ?></legend>

@@ -35,6 +35,6 @@
     <td class="lnks">
         <p><a class="btn" href="<?php echo $net->product($product->getId()) ?>"><?php _vzm("Product Information") ?></a></p>
         <?php $params = 'products_id='.$review->getProductId().'&reviews_id='.$review->getId(); ?>
-        <p><a class="btn" href="<?php echo $net->url(FILENAME_PRODUCT_REVIEWS_INFO, $params) ?>"><?php _vzm("Read full review") ?></a></p>
+        <p><a class="btn" href="<?php echo $net->url('product_reviews_info', $params) ?>"><?php _vzm("Read full review") ?></a></p>
     </td>
 </tr>

@@ -58,24 +58,24 @@ var $keep_in_memory = false;
 			$this->data = array();
 
 			$seo_pages = array(
-				FILENAME_DEFAULT,
+				'index',
  'category',
-				FILENAME_PRODUCT_INFO,
-				FILENAME_POPUP_IMAGE,
-				FILENAME_PRODUCT_REVIEWS,
-				FILENAME_PRODUCT_REVIEWS_INFO,
-				FILENAME_EZPAGES,
+				'product_info',
+				'popup_image',
+				'product_reviews',
+				'product_reviews'_INFO,
+				'page',
 			);
 
 			// News & Article Manager SEO support
-			if (defined('FILENAME_NEWS_INDEX')) $seo_pages[] = FILENAME_NEWS_INDEX;
-			if (defined('FILENAME_NEWS_ARTICLE')) $seo_pages[] = FILENAME_NEWS_ARTICLE;
-			if (defined('FILENAME_NEWS_COMMENTS')) $seo_pages[] = FILENAME_NEWS_COMMENTS;
-			if (defined('FILENAME_NEWS_ARCHIVE')) $seo_pages[] = FILENAME_NEWS_ARCHIVE;
-			if (defined('FILENAME_NEWS_RSS')) $seo_pages[] = FILENAME_NEWS_RSS;
+			if (defined('''')) $seo_pages[] = '';
+			if (defined('''')) $seo_pages[] = '';
+			if (defined('''')) $seo_pages[] = '';
+			if (defined('''')) $seo_pages[] = '';
+			if (defined('''')) $seo_pages[] = '';
 
 			// Info Manager (Open Operations)
-			if (defined('FILENAME_INFO_MANAGER')) $seo_pages[] = FILENAME_INFO_MANAGER;
+			if (defined('''')) $seo_pages[] = '';
 
 			$this->attributes = array(
 				'PHP_VERSION' => PHP_VERSION,
@@ -154,8 +154,8 @@ var $keep_in_memory = false;
        return $this->stock_href_link($page, $parameters, $connection, $add_session_id, true, $static, $use_dir_ws_catalog);
       }
 
-			if ((!in_array($page, $this->attributes['SEO_PAGES'])) || (($page == FILENAME_DEFAULT) && (!preg_match('/(cpath|manufacturers_id)/i', $parameters)))) {
-				if ($page == FILENAME_DEFAULT) {
+			if ((!in_array($page, $this->attributes['SEO_PAGES'])) || (($page == 'index') && (!preg_match('/(cpath|manufacturers_id)/i', $parameters)))) {
+				if ($page == 'index') {
 					$page = '';
 				} else {
 					$page = $page . '.html';
@@ -192,14 +192,14 @@ var $keep_in_memory = false;
 				// support SEO pages with no parameters
 				switch ($page) {
 case 'category': $link .= 'index.php?main_page=category'; break;
-					case FILENAME_NEWS_RSS:
-						$link .= $this->make_url($page, FILENAME_NEWS_INDEX, 'news_rss_feed', '', '.xml', $separator);
+					case '':
+						$link .= $this->make_url($page, '', 'news_rss_feed', '', '.xml', $separator);
 						break;
-					case FILENAME_NEWS_ARCHIVE:
-						$link .= $this->make_url($page, FILENAME_NEWS_INDEX, 'news_archive_dates', '', '', $separator);
+					case '':
+						$link .= $this->make_url($page, '', 'news_archive_dates', '', '', $separator);
 						break;
-					case FILENAME_NEWS_INDEX:
-						$link .= $this->make_url($page, FILENAME_NEWS_INDEX, 'news_dates', '', '', $separator);
+					case '':
+						$link .= $this->make_url($page, '', 'news_dates', '', '', $separator);
 						break;
 
 					default:
@@ -357,10 +357,10 @@ case 'category': $link .= 'index.php?main_page=category'; break;
 
 				case 'article_id':
 					switch(true) {
-						case ($page == FILENAME_NEWS_ARTICLE):
+						case ($page == ''):
 							$url = $this->make_url($page, 'news/' . $this->get_news_article_name($p2[1]), 'news_article_id', $p2[1], '.html', $separator);
 							break;
-						case ($page == FILENAME_NEWS_COMMENTS):
+						case ($page == ''):
 							$url = $this->make_url($page, 'news/' . $this->get_news_article_name($p2[1]), 'news_comments_article_id', $p2[1], '-comments.html', $separator);
 							break;
 						default:
@@ -371,11 +371,11 @@ case 'category': $link .= 'index.php?main_page=category'; break;
 
 				case 'date':
 					switch(true) {
-						case ($page == FILENAME_NEWS_ARCHIVE):
-							$url = $this->make_url($page, FILENAME_NEWS_INDEX, 'news_archive_dates', $p2[1], '.html', $separator);
+						case ($page == ''):
+							$url = $this->make_url($page, '', 'news_archive_dates', $p2[1], '.html', $separator);
 							break;
-						case ($page == FILENAME_NEWS_INDEX):
-							$url = $this->make_url($page, FILENAME_NEWS_INDEX, 'news_dates', $p2[1], '.html', $separator);
+						case ($page == ''):
+							$url = $this->make_url($page, '', 'news_dates', $p2[1], '.html', $separator);
 							break;
 						default:
 							$container[$p2[0]] = $p2[1];
@@ -385,7 +385,7 @@ case 'category': $link .= 'index.php?main_page=category'; break;
 
 				case 'pages_id':
 					switch(true) {
-						case ($page == FILENAME_INFO_MANAGER):
+						case ($page == ''):
 							$url = $this->make_url($page, $this->get_info_manager_page_name($p2[1]), 'info_manager_page_id', $p2[1], '.html', $separator);
 							break;
 						default:
@@ -396,14 +396,14 @@ case 'category': $link .= 'index.php?main_page=category'; break;
 
 				case 'products_id':
 					switch(true) {
-//						case ($page == FILENAME_PRODUCT_INFO && !$this->is_attribute_string($params)):
-						case ($page == FILENAME_PRODUCT_INFO):
+//						case ($page == 'product_info' && !$this->is_attribute_string($params)):
+						case ($page == 'product_info'):
 							$url = $this->make_url($page, $this->get_product_name($p2[1]), $p2[0], $p2[1], '.html', $separator);
 							break;
-						case ($page == FILENAME_PRODUCT_REVIEWS):
+						case ($page == 'product_reviews'):
 							$url = $this->make_url($page, $this->get_product_name($p2[1]), 'products_id_review', $p2[1], '.html', $separator);
 							break;
-						case ($page == FILENAME_PRODUCT_REVIEWS_INFO):
+						case ($page == 'product_reviews'_INFO):
 							$url = $this->make_url($page, $this->get_product_name($p2[1]), 'products_id_review_info', $p2[1], '.html', $separator);
 							break;
 						default:
@@ -413,7 +413,7 @@ case 'category': $link .= 'index.php?main_page=category'; break;
 					break;
 				case 'cPath':
 					switch(true){
-						case (($page == FILENAME_DEFAULT || $page == 'category')):
+						case (($page == 'index' || $page == 'category')):
 							$url = $this->make_url($page, $this->get_category_name($p2[1]), $p2[0], $p2[1], '.html', $separator);
 							break;
 						case ($this->is_product_string($params)):
@@ -428,10 +428,10 @@ case 'category': $link .= 'index.php?main_page=category'; break;
 					break;
 				case 'manufacturers_id':
 					switch(true){
-						case (($page == FILENAME_DEFAULT || $page == 'category') && !$this->is_cPath_string($params) && !$this->is_product_string($params)):
+						case (($page == 'index' || $page == 'category') && !$this->is_cPath_string($params) && !$this->is_product_string($params)):
 							$url = $this->make_url($page, $this->get_manufacturer_name($p2[1]), $p2[0], $p2[1], '.html', $separator);
 							break;
-						case ($page == FILENAME_PRODUCT_INFO):
+						case ($page == 'product_info'):
 							break;
 						default:
 							$container[$p2[0]] = $p2[1];
@@ -440,7 +440,7 @@ case 'category': $link .= 'index.php?main_page=category'; break;
 					break;
 				case 'pID':
 					switch(true){
-						case ($page == FILENAME_POPUP_IMAGE):
+						case ($page == 'popup_image'):
 						$url = $this->make_url($page, $this->get_product_name($p2[1]), $p2[0], $p2[1], '.html', $separator);
 						break;
 					default:
@@ -450,7 +450,7 @@ case 'category': $link .= 'index.php?main_page=category'; break;
 					break;
 				case 'id':	// EZ-Pages
 					switch(true){
-						case ($page == FILENAME_EZPAGES):
+						case ($page == 'page'):
 							$url = $this->make_url($page, $this->get_ezpages_name($p2[1]), $p2[0], $p2[1], '.html', $separator);
 							break;
 						default:

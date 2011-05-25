@@ -22,7 +22,7 @@
  */
 ?>
 
-<?php echo $form->open(FILENAME_ACCOUNT_EDIT, '', true, array('id'=>'account')) ?>
+<?php echo $form->open('account_edit', '', true, array('id'=>'account')) ?>
     <fieldset>
         <legend><?php _vzm("My Account") ?></legend>
         <table cellspacing="0" cellpadding="0">

@@ -70,10 +70,10 @@ class ZMUseo2Packer implements ZMLibraryPacker {
 
             // add category
             $contents = str_replace('index, product_info, products_new', 'index, category, product_info, products_new', $contents);
-            $contents = str_replace('FILENAME_DEFAULT,', "FILENAME_DEFAULT,\n 'category',", $contents);
+            $contents = str_replace(''index',', "'index',\n 'category',", $contents);
             $contents = str_replace('switch ($page) {', "switch (\$page) {\ncase 'category': \$link .= 'index.php?main_page=category'; break;", $contents);
-            $contents = str_replace('case ($page == FILENAME_DEFAULT', "case ((\$page == FILENAME_DEFAULT || \$page == 'category')", $contents);
-            $contents = str_replace('case ($page == FILENAME_DEFAULT)', "case (\$page == FILENAME_DEFAULT || \$page == 'category')", $contents);
+            $contents = str_replace('case ($page == 'index'', "case ((\$page == 'index' || \$page == 'category')", $contents);
+            $contents = str_replace('case ($page == 'index')', "case (\$page == 'index' || \$page == 'category')", $contents);
 
             $contents = str_replace('$this->db->Execute($sort_order_query', 'ZMRuntime::getDatabase()->querySingle($sort_order_query', $contents);
             $contents = str_replace('$this->db->Execute("SELECT cache_expires FROM', 'ZMRuntime::getDatabase()->querySingle("SELECT cache_expires FROM', $contents);

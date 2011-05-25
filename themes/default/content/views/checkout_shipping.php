@@ -25,12 +25,12 @@
 <fieldset>
     <legend><?php _vzm("Shipping Address") ?></legend>
     <div class="btn">
-        <a class="btn" href="<?php echo $net->url(FILENAME_CHECKOUT_SHIPPING_ADDRESS, '', true) ?>"><?php _vzm("Change Shipping Address") ?></a>
+        <a class="btn" href="<?php echo $net->url('checkout_shipping_address', '', true) ?>"><?php _vzm("Change Shipping Address") ?></a>
     </div>
     <?php echo $macro->formatAddress($shoppingCart->getShippingAddress()) ?>
 </fieldset>
 
-<?php echo $form->open(FILENAME_CHECKOUT_SHIPPING) ?>
+<?php echo $form->open('checkout_shipping') ?>
     <?php if ($shoppingCart->getShippingProviders()) { ?>
         <fieldset>
             <legend><?php _vzm("Shipping Methods") ?></legend>

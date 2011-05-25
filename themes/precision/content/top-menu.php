@@ -1,19 +1,19 @@
 <ul>
   <?php
     $menu = array();
-    $menu[] = array($net->url(FILENAME_DEFAULT), _zm("Home"));
+    $menu[] = array($net->url('index'), _zm("Home"));
     if ($request->isAnonymous()) {
-        $menu[] = array($net->url(FILENAME_LOGIN, '', true), _zm("Login"));
+        $menu[] = array($net->url('login', '', true), _zm("Login"));
     }
     if ($request->isRegistered()) {
-        $menu[] = array($net->url(FILENAME_ACCOUNT, '', true), _zm("Account"));
+        $menu[] = array($net->url('account', '', true), _zm("Account"));
     }
     if (!$request->isAnonymous()) {
-        $menu[] = array($net->url(FILENAME_LOGOFF, '', true), _zm("Logoff"));
+        $menu[] = array($net->url('logoff', '', true), _zm("Logoff"));
     }
     if (!$request->getShoppingCart()->isEmpty() && !$request->isCheckout()) {
-        $menu[] = array($net->url(FILENAME_SHOPPING_CART, '', true), _zm("Cart"));
-        $menu[] = array($net->url(FILENAME_CHECKOUT_SHIPPING, '', true), _zm("Checkout"));
+        $menu[] = array($net->url('shopping_cart', '', true), _zm("Cart"));
+        $menu[] = array($net->url('checkout_shipping', '', true), _zm("Checkout"));
     }
     /*
      layout does not degrade well if too many items

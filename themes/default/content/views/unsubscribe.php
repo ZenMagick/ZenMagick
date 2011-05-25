@@ -23,7 +23,7 @@
 ?>
 
 <p><?php _vzm('We are sorry to hear that you wish to unsubscribe from our newsletter. If you have concerns about your privacy, 
-please see our <a href="%s">privacy policy</a>.', $net->staticPage(FILENAME_PRIVACY)) ?></p>
+please see our <a href="%s">privacy policy</a>.', $net->staticPage('privacy')) ?></p>
 
 <p><?php _vzm('Subscribers to our newsletter are kept notified of new products, price reductions, and site news.') ?></p>
 
@@ -31,7 +31,7 @@ please see our <a href="%s">privacy policy</a>.', $net->staticPage(FILENAME_PRIV
     <p><?php _vzm('If you still do not wish to receive your newsletter, please click the button below. 
           You will be taken to your account-preferences page, where you may edit your subscriptions. You may be prompted to log in first.') ?></p>
 
-    <?php echo $form->open(FILENAME_UNSUBSCRIBE, "", true, array('id'=>'unsubscribe')) ?>
+    <?php echo $form->open('unsubscribe', "", true, array('id'=>'unsubscribe')) ?>
       <fieldset>
         <legend><?php _vzm("Newsletter Unsubscribe") ?></legend>
         <div>
@@ -42,5 +42,5 @@ please see our <a href="%s">privacy policy</a>.', $net->staticPage(FILENAME_PRIV
       <div class="btn"><input type="submit" class="btn" value="<?php _vzm("Unsubscribe") ?>" /></div>
     </form>
 <?php } else { ?>
-      <div class="btn"><a href="<?php echo $net->url(FILENAME_ACCOUNT_NEWSLETTERS, '', true) ?>" class="btn"><?php _vzm("Unsubscribe") ?></a></div>
+      <div class="btn"><a href="<?php echo $net->url('account_newsletters', '', true) ?>" class="btn"><?php _vzm("Unsubscribe") ?></a></div>
 <?php } ?>

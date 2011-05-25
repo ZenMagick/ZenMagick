@@ -23,7 +23,7 @@
 ?>
 
 <div id="header">
-  <h1><a href="<?php echo $net->url(FILENAME_DEFAULT) ?>">ZenMagick</a></h1>
+  <h1><a href="<?php echo $net->url('index') ?>">ZenMagick</a></h1>
   <h2>As simple as that!</h2>
   <div id="bannerTwo"><?php echo $this->fetchBlockGroup('banners.header2') ?></div>
 </div>

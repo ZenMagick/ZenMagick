@@ -18,7 +18,7 @@ The plugin contains a folder wp that contains example view templates to illustra
 are done. The blog index url is something like ../index.php?main_page=wp.
 In templates it may be generated using the toolbox with:
 
-  $net->url(FILENAME_WP)
+  $net->url('')
 
 
 Views
@@ -41,7 +41,7 @@ Sidebar
 =======
 To only show wp-sidebar.php when in the blog add the following to your theme's local.php:
 
-    if (FILENAME_WP == $request->getRequestId()) {
+    if ('' == $request->getRequestId()) {
         ZMLayout::instance()->setRightColBoxes(array('wp-sidebar.php'));
     }
 

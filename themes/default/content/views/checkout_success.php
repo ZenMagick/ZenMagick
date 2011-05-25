@@ -22,14 +22,14 @@
  */
 ?>
 
-<?php echo $form->open(FILENAME_CHECKOUT_SUCCESS, 'action=update', true, array('onsubmit'=>null)) ?>
+<?php echo $form->open('checkout_success', 'action=update', true, array('onsubmit'=>null)) ?>
     <h2><?php _vzm("Thanks for shopping with us") ?></h2>
     <p><?php _vzm("Your order number is: <strong>%s</strong>", $currentOrder->getId()) ?></p>
     <?php if ($request->getAccount()->isRegistered()) { ?>
-        <?php $account = '<a href="' . $net->url(FILENAME_ACCOUNT) . '">' . _zm("My Account") . '</a>'; ?>
+        <?php $account = '<a href="' . $net->url('account') . '">' . _zm("My Account") . '</a>'; ?>
         <p><?php _vzm("You can view your full order history by going to the %s page and by clicking on view all orders.", $account) ?></p>
     <?php } ?>
-    <?php $customercare = '<a href="' . $net->url(FILENAME_CONTACT_US) . '">' . _zm("Customer Service") . '</a>'; ?>
+    <?php $customercare = '<a href="' . $net->url('contact_us') . '">' . _zm("Customer Service") . '</a>'; ?>
     <p><?php _vzm("Please direct any questions you have to %s.", $customercare) ?></p>
 
     <?php if (!$request->getAccount()->isGlobalProductSubscriber()) { ?>
@@ -77,10 +77,10 @@
             <legend><?php _vzm("Gift Certificate Account") ?></legend>
             <p>
                 <?php _vzm("You have funds (%s) in your Gift Certificate Account.", $utils->formatMoney($voucherBalance)) ?><br />
-                <?php $email = '<a href="' . $net->url(FILENAME_GV_SEND) . '">' . _zm("email") . '</a>'; ?>
+                <?php $email = '<a href="' . $net->url('gv_send') . '">' . _zm("email") . '</a>'; ?>
                 <?php _vzm("If you want to, you can send those funds by %s to someone.", $email) ?>
             </p>
-            <div class="btn"><a href="<?php echo $net->url(FILENAME_GV_SEND) ?>" class="btn"><?php _vzm("Send Gift Certificate") ?></a></div>
+            <div class="btn"><a href="<?php echo $net->url('gv_send') ?>" class="btn"><?php _vzm("Send Gift Certificate") ?></a></div>
         </fieldset>
     <?php } ?>
 

@@ -22,7 +22,7 @@
  */
 ?>
 
-<?php echo $form->open(FILENAME_LOGIN, '', true, array('id'=>'login')) ?>
+<?php echo $form->open('login', '', true, array('id'=>'login')) ?>
   <fieldset>
     <legend><?php _vzm("Login") ?></legend>
     <div>
@@ -38,8 +38,8 @@
 </form>
 
 <p>
-  <a href="<?php echo $net->url(FILENAME_PASSWORD_FORGOTTEN, '', true) ?>"><?php _vzm("Lost your password?") ?></a><br />
-  <a href="<?php echo $net->url(FILENAME_CREATE_ACCOUNT, '', true); ?>"><?php _vzm("Not registered yet?") ?></a>
+  <a href="<?php echo $net->url('password_forgotten', '', true) ?>"><?php _vzm("Lost your password?") ?></a><br />
+  <a href="<?php echo $net->url('create_account', '', true); ?>"><?php _vzm("Not registered yet?") ?></a>
 </p>
 
 <?php if (ZMSettings::get('isGuestCheckout') && !$request->getShoppingCart()->isEmpty() && $request->isAnonymous()) { ?>

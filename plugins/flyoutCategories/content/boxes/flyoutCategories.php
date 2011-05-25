@@ -35,19 +35,19 @@
         if (SHOW_CATEGORIES_BOX_SPECIALS == 'true' || SHOW_CATEGORIES_BOX_PRODUCTS_ALL == 'true') {
           $content .= '';  // insert a blank line/box in the menu
           if (SHOW_CATEGORIES_BOX_SPECIALS == 'true') {
-            $content .= '<ul class="level1"><li><a href="' . $net->url(FILENAME_SPECIALS) . '">' . _zm('Specials...') . '</a></li></ul>';
+            $content .= '<ul class="level1"><li><a href="' . $net->url('specials') . '">' . _zm('Specials...') . '</a></li></ul>';
           }
           if (SHOW_CATEGORIES_BOX_PRODUCTS_NEW == 'true') {
-            $content .= '<ul class="level1"><li><a href="' . $net->url(FILENAME_PRODUCTS_NEW) . '">' . _zm('New Products...') . '</a></li></ul>';
+            $content .= '<ul class="level1"><li><a href="' . $net->url('products_new') . '">' . _zm('New Products...') . '</a></li></ul>';
           }
           if (SHOW_CATEGORIES_BOX_FEATURED_PRODUCTS == 'true') {
               $products = ZMProducts::instance()->getFeaturedProducts(0, 1, false, $session->getLanguageId());
             if (0 < count($products)) {
-              $content .= '<ul class="level1"><li><a href="' . $net->url(FILENAME_FEATURED_PRODUCTS) . '">' . _zm('Featured...') . '</a></li></ul>';
+              $content .= '<ul class="level1"><li><a href="' . $net->url('featured_products') . '">' . _zm('Featured...') . '</a></li></ul>';
             }
           }
           if (SHOW_CATEGORIES_BOX_PRODUCTS_ALL == 'true') {
-            $content .= '<ul class="level1"><li><a href="' . $net->url(FILENAME_PRODUCTS_ALL) . '">' . _zm('All Products...') . '</a></li></ul>';
+            $content .= '<ul class="level1"><li><a href="' . $net->url('products_all') . '">' . _zm('All Products...') . '</a></li></ul>';
           }
         }
 

@@ -51,7 +51,7 @@
     <h4><?php _vzm("The coupon is valid for all categories and products.") ?></h4>
 <?php } ?>
 
-<?php echo $form->open(FILENAME_DISCOUNT_COUPON, 'action=lookup', false, array('method' => 'get')) ?>
+<?php echo $form->open('discount_coupon', 'action=lookup', false, array('method' => 'get')) ?>
   <fieldset>
     <legend><?php _vzm("Look-up another discount coupon ...") ?></legend>
     <label for="lookup_discount_coupon"><?php _vzm("Your Code") ?></label>

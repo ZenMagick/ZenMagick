@@ -20,7 +20,6 @@
 ?>
 <?php
 
-define('FILENAME_OPEN_ID', 'openID');
 define('OPENID_ENABLED', true);
 define('Auth_OpenID_RAND_SOURCE', null);
 
