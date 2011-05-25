@@ -64,17 +64,6 @@ class TestZMUrlManager extends ZMTestCase {
     }
 
     /**
-     * Test resolve alias.
-     */
-    public function testResolveAlias() {
-        $manager = new ZMUrlManager();
-        $manager->setMappings(array('alias' => array(
-            'foo' => array('requestId' => 'bar')
-        )));
-        $this->assertEqual('bar', $manager->resolveAlias('foo'));
-    }
-
-    /**
      * Test get alias.
      */
     public function testGetAlias() {

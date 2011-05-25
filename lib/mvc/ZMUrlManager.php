@@ -294,20 +294,6 @@ class ZMUrlManager extends ZMObject {
     }
 
     /**
-     * Resolve potential alias for the given request id.
-     *
-     * @param string requestId The given request id.
-     * @param string The eventual request id, taking into account configured alias mappings.
-     */
-    public function resolveAlias($requestId) {
-        if (array_key_exists($requestId, $this->mappings_['alias'])) {
-            return $this->mappings_['alias'][$requestId]['requestId'];
-        }
-
-        return $requestId;
-    }
-
-    /**
      * Get alias for the given request id.
      *
      * @param string requestId The given request id.
