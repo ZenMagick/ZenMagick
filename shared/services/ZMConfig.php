@@ -194,7 +194,7 @@ class ZMConfig extends ZMObject {
                     // XXX: perhaps make radio group
                     $widget = Beans::getBean('ZMSelectFormWidget#style=radio');
                     $widget->setOptions($this->splitOptions($value['setFunction']));
-                    if (3 < count($widget->getOptions())) {
+                    if (3 < count($widget->getOptions(null))) {
                         $widget->setStyle('select');
                     }
                     break;
