@@ -89,7 +89,7 @@
     <legend><?php _vzm("Address Information") ?></legend>
     <?php if ($shoppingCart->hasShippingAddress()) { ?>
         <div class="oadr">
-            <div class="btn"><a class="btn" href="<?php echo $net->url('checkout_shipping'_ADDRESS, '', true) ?>"><?php _vzm("Change") ?></a></div>
+            <div class="btn"><a class="btn" href="<?php echo $net->url('checkout_shipping_address', '', true) ?>"><?php _vzm("Change") ?></a></div>
             <h4><?php _vzm("Shipping Address") ?></h4>
             <?php echo $macro->formatAddress($shoppingCart->getShippingAddress()) ?>
         </div>
@@ -100,7 +100,7 @@
         </div>
     <?php } ?>
     <div class="oadr snd">
-        <div class="btn"><a class="btn" href="<?php echo $net->url('checkout_payment'_ADDRESS, '', true) ?>"><?php _vzm("Change") ?></a></div>
+        <div class="btn"><a class="btn" href="<?php echo $net->url('checkout_payment_address', '', true) ?>"><?php _vzm("Change") ?></a></div>
         <h4><?php _vzm("Billing Address") ?></h4>
         <?php echo $macro->formatAddress($shoppingCart->getBillingAddress()) ?>
     </div>

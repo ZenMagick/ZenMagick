@@ -71,7 +71,7 @@
                   <h4><?php echo $collection->getName() ?></h4>
                   <ul>
                       <?php foreach($collection->getItems() as $mediaItem) { ?>
-                      <li><a href="<?php echo $net->mediaUrl($mediaItem->getFilename()) ?>"><?php echo $mediaItem->getFilename() ?></a> 
+                      <li><a href="<?php echo $net->mediaUrl($mediaItem->getFilename()) ?>"><?php echo $mediaItem->getFilename() ?></a>
                           (<?php echo $mediaItem->getType()->getName() ?>)</li>
                       <?php } ?>
                   </ul>
@@ -108,7 +108,7 @@
               <a class="btn" href="<?php echo $net->url('product_reviews', '') ?>"><?php _vzm("Read Reviews") ?></a>
           <?php } ?>
           <?php if ($currentProduct->getTypeSetting('reviews')) { ?>
-              <a class="btn" href="<?php echo $net->url('product_reviews'_WRITE, "products_id=".$currentProduct->getId()) ?>"><?php _vzm("Write a Review") ?></a>
+              <a class="btn" href="<?php echo $net->url('product_reviews_write', "products_id=".$currentProduct->getId()) ?>"><?php _vzm("Write a Review") ?></a>
           <?php } ?>
           <?php if ($currentProduct->getTypeSetting('tell_a_friend')) { ?>
               <a class="btn" href="<?php echo $net->url('tell_a_friend', "products_id=".$currentProduct->getId()) ?>"><?php _vzm("Tell a friend about this product") ?></a>
