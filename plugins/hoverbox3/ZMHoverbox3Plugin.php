@@ -79,7 +79,8 @@ class ZMHoverbox3Plugin extends Plugin {
      * {@inheritDoc}
      */
     public function onFinaliseContent($event) {
-        if (false === strpos($contents, 'hoverbox')) {
+        $content = $event->get('content');
+        if (false === strpos($content, 'hoverbox')) {
             // no tagged images
             return null;
         }
