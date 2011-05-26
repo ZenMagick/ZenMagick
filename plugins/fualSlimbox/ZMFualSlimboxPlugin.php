@@ -75,8 +75,9 @@ class ZMFualSlimboxPlugin extends Plugin {
      * Event handler.
      */
     public function onFinaliseContent($event) {
+        $request = $event->get('request');
         $content = $event->get('content');
-        if (false === strpos($contents, 'lightbox')) {
+        if (false === strpos($content, 'lightbox')) {
             // no tagged images
             return;
         }
@@ -111,7 +112,7 @@ class ZMFualSlimboxPlugin extends Plugin {
 <?php
             echo '<script type="text/javascript" src="'.$view->asUrl($request, 'slimbox/javascript/slimbox_ex.compressed.js').'"></script>' . "\n";
             if (FUAL_SLIMBOX_NERVOUS != 0) {
-                    echo '<script type="text/javascript">var fualNervous = '.FUAL_SLIMBOX_NERVOUS.';</script>';
+                echo '<script type="text/javascript">var fualNervous = '.FUAL_SLIMBOX_NERVOUS.';</script>';
                 echo '<script type="text/javascript" src="'.$view->asUrl($request, 'slimbox/javascript/fual_slimbox.compressed.js').'"></script>' . "\n";
             }
 
