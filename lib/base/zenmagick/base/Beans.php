@@ -42,8 +42,8 @@ use zenmagick\base\ioc\Container;
  * @package zenmagick.base
  */
 class Beans {
-    private static $GETTER_PREFIX_LIST = array('get', 'is', 'has');
-    private static $SETTER_PREFIX = 'set';
+    public static $GETTER_PREFIX_LIST = array('get', 'is', 'has');
+    public static $SETTER_PREFIX = 'set';
     private static $propertyMap_ = array();
 
 
