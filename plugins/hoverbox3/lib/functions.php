@@ -1,5 +1,5 @@
 <?php
- 
+
 if (!function_exists('zen_hoverbox_IH2_url')) {
  /**
   * Test for the use of Image Handler to correctly format the image URL
@@ -9,12 +9,12 @@ if (!function_exists('zen_hoverbox_IH2_url')) {
  function zen_hoverbox_IH2_url($src, $alt = '', $width = '', $height = '', $parameters = '') {
     global $template_dir;
 
-//auto replace with defined missing image
+    //auto replace with defined missing image
     if ($src == DIR_WS_IMAGES and PRODUCTS_IMAGE_NO_IMAGE_STATUS == '1') {
       $src = DIR_WS_IMAGES . PRODUCTS_IMAGE_NO_IMAGE;
     }
 
-if ( (empty($src) || ($src == DIR_WS_IMAGES)) && (IMAGE_REQUIRED == 'false') ) {
+    if ( (empty($src) || ($src == DIR_WS_IMAGES)) && (IMAGE_REQUIRED == 'false') ) {
       return false;
     }
 
@@ -26,7 +26,7 @@ if ( (empty($src) || ($src == DIR_WS_IMAGES)) && (IMAGE_REQUIRED == 'false') ) {
     // hook for handle_image() function such as Image Handler etc
     if (function_exists('handle_image')) {
       $newimg = handle_image($src, $alt, $width, $height, $parameters);
-      list($src, $alt, $width, $height, $parameters) = $newimg; 
+      list($src, $alt, $width, $height, $parameters) = $newimg;
     }
 
     $image = zen_output_string($src);
@@ -63,11 +63,11 @@ if ( (empty($src) || ($src == DIR_WS_IMAGES)) && (IMAGE_REQUIRED == 'false') ) {
         }else{
           $hoverbox_pdesc = '';
         }
-          
+
         if ($showLargerImage) {
-            echo zen_image($imageInfo->getMediumImage(), $product->getName(), MEDIUM_IMAGE_WIDTH, MEDIUM_IMAGE_HEIGHT) . '<div class="lrgarea"><a href="'. zen_hoverbox_IH2_url($imageInfo->getLargeImage(), addslashes($product->getName()), LARGE_IMAGE_WIDTH, LARGE_IMAGE_HEIGHT) .'" class="hoverbox" rel="gallery[group_'.$product->getId().']" title="' . $title . $price . $hoverbox_pdesc . '"><img src="' . $view->asUrl('hover3/images/vlrg-pinfo.jpg') . '" alt="View Larger" class="lrglink" /></a></div>';
+            echo zen_image($imageInfo->getMediumImage(), $product->getName(), MEDIUM_IMAGE_WIDTH, MEDIUM_IMAGE_HEIGHT) . '<div class="lrgarea"><a href="'. zen_hoverbox_IH2_url($imageInfo->getLargeImage(), addslashes($product->getName())) .'" class="hoverbox" rel="gallery[group_'.$product->getId().']" title="' . $title . $price . $hoverbox_pdesc . '"><img src="' . $view->asUrl('hover3/images/vlrg-pinfo.jpg') . '" alt="View Larger" class="lrglink" /></a></div>';
         } else {
-            echo  '<a href="'. zen_hoverbox_IH2_url($imageInfo->getLargeImage(), addslashes($product->getName()), LARGE_IMAGE_WIDTH, LARGE_IMAGE_HEIGHT) .'" class="hoverbox" rel="gallery[group_'.$product->getId().']" title="' . $title . $price . $hoverbox_pdesc . '">'.zen_image($imageInfo->getMediumImage(), $product->getName(), MEDIUM_IMAGE_WIDTH, MEDIUM_IMAGE_HEIGHT).'</a>';
+            echo  '<a href="'. zen_hoverbox_IH2_url($imageInfo->getLargeImage(), addslashes($product->getName())) .'" class="hoverbox" rel="gallery[group_'.$product->getId().']" title="' . $title . $price . $hoverbox_pdesc . '">'.zen_image($imageInfo->getMediumImage(), $product->getName(), MEDIUM_IMAGE_WIDTH, MEDIUM_IMAGE_HEIGHT).'</a>';
         }
       }
   }
