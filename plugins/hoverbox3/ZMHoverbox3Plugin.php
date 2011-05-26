@@ -23,6 +23,8 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
+
 /**
  * Plugin to enable support for Hover Box3 in ZenMagick.
  *
@@ -69,7 +71,7 @@ class ZMHoverbox3Plugin extends Plugin {
      */
     public function init() {
         parent::init();
-        zenmagick\base\Runtime::getEventDispatcher()->listen($this);
+        Runtime::getEventDispatcher()->listen($this);
 
         // TODO: manually load lib for now
         require_once dirname(__FILE__).'/lib/functions.php';
@@ -79,6 +81,7 @@ class ZMHoverbox3Plugin extends Plugin {
      * {@inheritDoc}
      */
     public function onFinaliseContent($event) {
+        $request = $event->get('request');
         $content = $event->get('content');
         if (false === strpos($content, 'hoverbox')) {
             // no tagged images

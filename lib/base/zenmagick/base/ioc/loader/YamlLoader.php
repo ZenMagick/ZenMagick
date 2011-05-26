@@ -21,6 +21,7 @@
 <?php
 namespace zenmagick\base\ioc\loader;
 
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
 
 /**

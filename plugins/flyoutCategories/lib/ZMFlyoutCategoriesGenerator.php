@@ -41,60 +41,58 @@
 
    var $document_types_list = ' (3) ';  // acceptable format example: ' (3, 4, 9, 22, 18) '
 
-   function __construct($request) {
-     $this->data = array();
-     foreach (ZMCategories::instance()->getCategories($request->getSession()->getLanguageId()) as $category) {
-        $this->data[$category->getParentId()][$category->getId()] = array('name' => $category->getName(), 'count' => 0);
-     }
-   }
 
-   function buildBranch($parent_id, $level = 0, $submenu=false, $parent_link='') {
-     $result = sprintf($this->parent_group_start_string, ($submenu==true) ? ' class="level'. ($level+1) . '"' : '' );
-
-     if (($this->data[$parent_id])) {
-       foreach ($this->data[$parent_id] as $category_id => $category) {
-         $category_link = $parent_link . $category_id;
-         if (($this->data[$category_id])) {
-         $result .= sprintf($this->child_start_string, ($submenu==true) ? ' class="submenu"' : '');
-         } else {
-         
-        
-         if (($this->data[$category_id]) && ($submenu==false)) {
-           $result .= sprintf($this->parent_start_string, ($submenu==true) ? ' class="level'.($level+1) . '"' : '');
-		   $result .= sprintf($this->child_start_string, ($submenu==true) ? ' class="submenu"' : '');
-         } else {
-                              $result .= sprintf($this->child_start_string, '');
-                            }
-          }
-         if ($level == 0) {
-           $result .= $this->root_start_string;
-         }
-         $result .= str_repeat($this->spacer_string, $this->spacer_multiplier * 1) . '<a href="' . zen_href_link('category', 'cPath=' . $category_link) . '">';
-         $result .= $category['name'];
-         $result .= '</a>';
-
-         if ($level == 0) {
-           $result .= $this->root_end_string;
-         }
-
-         if (($this->data[$category_id])) {
-           $result .= $this->parent_end_string;
-         }
-
-         if (($this->data[$category_id]) && (($this->max_level == '0') || ($this->max_level > $level+1))) {
-           $result .= $this->buildBranch($category_id, $level+1, $submenu, $category_link . '_');
-         }
-         $result .= $this->child_end_string;
-
+    function __construct($request) {
+       $this->data = array();
+       foreach (ZMCategories::instance()->getCategories($request->getSession()->getLanguageId()) as $category) {
+          $this->data[$category->getParentId()][$category->getId()] = array('name' => $category->getName(), 'count' => 0);
        }
-     }
+    }
 
-     $result .= $this->parent_group_end_string;
+    function buildBranch($parent_id, $level = 0, $submenu=false, $parent_link='') {
+        $result = sprintf($this->parent_group_start_string, ($submenu==true) ? ' class="level'. ($level+1) . '"' : '' );
 
-     return $result;
-   }
+        if (isset($this->data[$parent_id])) {
+            foreach ($this->data[$parent_id] as $category_id => $category) {
+                $category_link = $parent_link . $category_id;
+                if (isset($this->data[$category_id])) {
+                    $result .= sprintf($this->child_start_string, ($submenu==true) ? ' class="submenu"' : '');
+                } else {
+                    if (isset($this->data[$category_id]) && ($submenu==false)) {
+                        $result .= sprintf($this->parent_start_string, ($submenu==true) ? ' class="level'.($level+1) . '"' : '');
+                        $result .= sprintf($this->child_start_string, ($submenu==true) ? ' class="submenu"' : '');
+                    } else {
+                        $result .= sprintf($this->child_start_string, '');
+                    }
+                }
+                if ($level == 0) {
+                    $result .= $this->root_start_string;
+                }
+                $result .= str_repeat($this->spacer_string, $this->spacer_multiplier * 1) . '<a href="' . zen_href_link('category', 'cPath=' . $category_link) . '">';
+                $result .= $category['name'];
+                $result .= '</a>';
 
-   function buildTree($submenu=false) {
-     return $this->buildBranch($this->root_category_id, '', $submenu);
-   }
- }
+                if ($level == 0) {
+                    $result .= $this->root_end_string;
+                }
+
+                if (isset($this->data[$category_id])) {
+                    $result .= $this->parent_end_string;
+                }
+
+                if (isset($this->data[$category_id]) && (($this->max_level == '0') || ($this->max_level > $level+1))) {
+                    $result .= $this->buildBranch($category_id, $level+1, $submenu, $category_link . '_');
+                }
+                $result .= $this->child_end_string;
+            }
+        }
+
+        $result .= $this->parent_group_end_string;
+
+        return $result;
+    }
+
+    function buildTree($submenu=false) {
+      return $this->buildBranch($this->root_category_id, '', $submenu);
+    }
+}
