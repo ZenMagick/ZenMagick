@@ -28,7 +28,7 @@
         <thead>
           <tr>
             <th><?php _vzm('Id') ?></th>
-            <th><?php _vzm('Config') ?></th>
+            <th><?php _vzm('Stats') ?></th>
           </tr>
         </thead>
         <tbody>
@@ -38,7 +38,7 @@
                 <input type="checkbox" id="cache_<?php echo $id ?>" name="cache_<?php echo $id ?>" value="x">
                 <label for="cache_<?php echo $id ?>"><?php echo $id ?></label>
               </td>
-              <td><?php echo var_dump($config) ?></td>
+              <td><?php echo var_dump($stats) ?></td>
             </tr>
           <?php } ?>
         </tbody>

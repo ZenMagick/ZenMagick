@@ -21,6 +21,9 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 ?>
+<?php
+use zenmagick\base\Beans;
+?>
 <?php $lastIndex = count($fieldList)-1; ?>
 <h2><?php _vzm('Quick Edit: <em>%s</em>', $html->encode($category->getName())) ?></h2>
 

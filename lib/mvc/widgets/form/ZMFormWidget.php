@@ -167,7 +167,7 @@ abstract class ZMFormWidget extends ZMWidget {
                 if (in_array($name, self::$NO_VAL_ATTR)) {
                     if (ZMLangUtils::asBoolean($this->get($name))) {
                         // only add if true
-                        if ($isXhmtl) {
+                        if ($isXhtml) {
                             $attr .= ' '.$name.'="'.$name.'"';
                         } else {
                             $attr .= ' '.$name;

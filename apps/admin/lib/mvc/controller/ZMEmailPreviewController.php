@@ -101,6 +101,9 @@ class ZMEmailPreviewController extends ZMController {
     protected function getInitialContext($request) {
         $order = new ZMDemoOrder();
         return array(
+            'office_only_html' => true,
+            'office_only_text' => true,
+            'newOrderStatus' => 'processing',
             'language' => $request->getSelectedLanguage(),
             'password' => 'THE_NEW_PASSWORD',
             'currentAccount' => new ZMDemoAccount(),
@@ -111,6 +114,7 @@ class ZMEmailPreviewController extends ZMController {
             'adminName' => 'SOME_ADMIN_NAME',
             'textMessage' => 'SOME_MESSAGE',
             'htmlMessage' => 'SOME_MESSAGE',
+            'message' => 'THE_MESSAGE',
             'shippingAddress' => $order->getShippingAddress(),
             'billingAddress' => $order->getBillingAddress(),
             'paymentType' => $order->getPaymentType(),

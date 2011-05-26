@@ -36,7 +36,7 @@ class ZMHtmlUtils {
      * @return string The encoded HTML.
      */
     public static function encode($s) {
-        $s = html_entity_decode($s, ENT_QUOTES, ZMSettings::get('zenmagick.mvc.html.charset')); 
+        $s = html_entity_decode($s, ENT_QUOTES, ZMSettings::get('zenmagick.mvc.html.charset'));
         $s = htmlentities($s, ENT_QUOTES, ZMSettings::get('zenmagick.mvc.html.charset'));
         return $s;
     }
@@ -48,7 +48,7 @@ class ZMHtmlUtils {
      * @return string HTML formatted text.
      */
     public static function text2html($s) {
-        $html = str_replace("\r\n", '<br>', $html);
+        $html = str_replace("\r\n", '<br>', $s);
         $html = str_replace("\n", '<br>', $s);
         $html = str_replace("\r", '', $html);
         return $html;

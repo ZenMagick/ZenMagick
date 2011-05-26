@@ -31,8 +31,8 @@
     function _admin_category_tree($request, $categories=null, $start=true) {
         $admin2 = $request->getToolbox()->admin2;
         $path = $request->getCategoryPathArray();
-        if ($start) { 
-            ob_start(); 
+        if ($start) {
+            ob_start();
             if (null === $categories) {
                 $languageId = $request->getSelectedLanguage()->getId();
                 $categories = ZMCategories::instance()->getCategoryTree($languageId);
@@ -41,7 +41,6 @@
         echo '<ul>';
         foreach ($categories as $category) {
             $active = in_array($category->getId(), $path);
-            $cparams = $params.'&'.$category->getPath();
             echo '<li id="ct-'.$category->getId().'">';
             echo '<a href="'.$admin2->url('catalog', $category->getPath()).'">'.ZMHtmlUtils::encode($category->getName()).'</a>';
             if ($category->hasChildren()) {
@@ -51,7 +50,7 @@
         }
         echo '</ul>';
 
-        if ($start) { 
+        if ($start) {
             return ob_get_clean();
         }
 
@@ -74,7 +73,7 @@
 <?php $resources->jsFile('js/jquery.jstree.min.js') ?>
 <script type="text/javascript">
 $(function () {
-	$("#category-tree").jstree({ 
+	$("#category-tree").jstree({
     core: {
       animation: 200,
       initially_open: [<?php echo $initially_open ?>]
