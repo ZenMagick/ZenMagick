@@ -54,7 +54,7 @@ $zcPage = $zpid.'.php';
 chdir($zcAdminFolder);
 
 // prepare globals
-global $PHP_SELF, $db, $autoLoadConfig, $sniffer, $currencies, $template, $current_page_base, $zco_notifier;
+global $PHP_SELF, $db, $autoLoadConfig, $sniffer, $currencies, $template, $current_page_base, $zco_notifier, $zc_products;
 $PHP_SELF = $zcAdminFolder.$zcPage;
 $code = file_get_contents($zcAdminFolder.$zcPage);
 $code = preg_replace("/<!doctype[^>]*>/s", '', $code);
