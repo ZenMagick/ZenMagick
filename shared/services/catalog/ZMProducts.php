@@ -199,11 +199,11 @@ class ZMProducts extends ZMObject implements ZMSQLAware {
      * Get all (active) products for the given category id.
      *
      * @param int categoryId The category id.
-     * @param boolean active If <code>true</code> return only active products; default is <code>true</code>.
+     * @param boolean active If <code>true</code> return only active products.
      * @param int languageId Language id.
      * @return array A list of <code>ZMProduct</code> instances.
      */
-    protected function getProductsForCategoryIdQueryDetails($categoryId, $active=true, $languageId) {
+    protected function getProductsForCategoryIdQueryDetails($categoryId, $active, $languageId) {
         $sql = "SELECT p.*, pd.*, m.*, s.specials_new_products_price
                 FROM " . TABLE_PRODUCTS . " p
                   LEFT JOIN " . TABLE_SPECIALS . " s ON (s.products_id = p.products_id)
