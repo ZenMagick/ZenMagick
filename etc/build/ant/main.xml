@@ -238,11 +238,14 @@
 
 
     <!-- Do release build -->
-    <target name="mod-release" depends="clean,prepare,patch-release,build-release,incr-release" description="Mod release build.">
+    <target name="mod-release" depends="clean,prepare,patch-release,build-release,incr-release,apply-full-release-patches" description="Mod release build.">
         <!-- add diff file -->
         <zip zipfile="${dist.dir}/zenmagick-${zenmagick.version}.zip" update="true">
             <fileset dir="${build.dir}">
-                <include name="$zenmagick.{src.dir}/etc/docs/*.html" />
+                <include name="etc/docs/*.html" />
+            </fileset>
+            <fileset dir="${build.dir}">
+                <include name="zenmagick/etc/zencart-patched-${zenmagick.version}.zip" />
             </fileset>
         </zip>
         <checksum file="${dist.dir}/zenmagick-${zenmagick.version}.zip" fileext=".sha" algorithm="SHA" todir="${dist.dir}/checksum" />

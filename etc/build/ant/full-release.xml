@@ -7,9 +7,7 @@
     <!-- assuming it's here ... -->
     <property name="zencart.base.dir" value="../../zc-base" />
 
-
-    <!-- build full release -->
-    <target name="full-release" depends="mod-release" description="Build full release including zen cart.">
+    <target name="init-full-release" description="Init full release build.">
         <mkdir dir="${release.full.dir}" />
         <!-- overwrite to get a fresh copy -->
         <copy todir="${release.full.dir}" overwrite="true">
@@ -18,11 +16,12 @@
             </fileset>
         </copy>
 
+    </target>
+
+    <!-- build full release -->
+    <target name="full-release" depends="mod-release,init-full-release" description="Build full release including zen cart.">
         <!-- apply-full-release-patches -->
         <antcall target="apply-full-release-patches" />
-
-        <!-- fix $db -->
-        <antcall target="exceptions-for-db" />
 
         <!-- create theme dummy files -->
         <antcall target="create-theme-dummy"><param name="theme.id" value='default' /></antcall>
@@ -76,18 +75,6 @@
             <param name="insert.substitution" value="                 ,'zenmagick/themes'=>'777 read/write/execute'" />
         </antcall>
 
-        <!-- add vetoable redirect patch -->
-        <antcall target="insert-after">
-          <param name="insert.file" value="${release.full.dir}/includes/functions/functions_general.php" />
-            <param name="insert.regexp" value="function zen_redirect" />
-            <param name="insert.substitution" value="ZMRequest::instance()->redirect($url, $httpResponseCode); return; /* added by ZenMagick installation patcher */" />
-        </antcall>
-        <antcall target="insert-after">
-          <param name="insert.file" value="${release.full.dir}/admin/includes/functions/general.php" />
-            <param name="insert.regexp" value="function zen_redirect" />
-            <param name="insert.substitution" value="ZMRequest::instance()->redirect($url); return; /* added by ZenMagick installation patcher */" />
-        </antcall>
-
         <!-- fix -->
         <replaceregexp match="'admin/backups'=>'777 read\/write'" replace="'admin/backups'=>'777 read/write/execute'" flags="g"><fileset file="${release.full.dir}/zc_install/includes/modules/pages/inspect/header_php.php"></fileset></replaceregexp>
         <!-- TODO: make permission check check for existence?? -->
@@ -131,7 +118,7 @@
     </target>
 
     <!-- patch full release -->
-    <target name="apply-full-release-patches" description="Patch full release including zen cart.">
+    <target name="apply-full-release-patches" depends="init-full-release" description="Patch full release including zen cart.">
         <!-- add zenmagick admin -->
         <antcall target="insert-after">
             <param name="insert.file" value="${release.full.dir}/admin/includes/boxes/extras_dhtml.php" />
@@ -215,6 +202,38 @@
             <param name="insert.regexp" value="html_msg\['EMAIL_FIRST_NAME'\] =" />
             <param name="insert.substitution" value='      $html_msg["accountId"] = $mail->fields["customers_id"]; // added by ZenMagick' />
         </antcall>
+
+        <!-- fix $db -->
+        <antcall target="exceptions-for-db" />
+
+        <!-- add vetoable redirect patch -->
+        <antcall target="insert-after">
+          <param name="insert.file" value="${release.full.dir}/includes/functions/functions_general.php" />
+            <param name="insert.regexp" value="function zen_redirect" />
+            <param name="insert.substitution" value="ZMRequest::instance()->redirect($url, $httpResponseCode); return; /* added by ZenMagick installation patcher */" />
+        </antcall>
+        <antcall target="insert-after">
+          <param name="insert.file" value="${release.full.dir}/admin/includes/functions/general.php" />
+            <param name="insert.regexp" value="function zen_redirect" />
+            <param name="insert.substitution" value="ZMRequest::instance()->redirect($url); return; /* added by ZenMagick installation patcher */" />
+        </antcall>
+
+        <!-- create zip with all patched files -->
+        <zip zipfile="${build.dir}/zenmagick/etc/zencart-patched-${zenmagick.version}.zip">
+            <fileset dir="${release.full.dir}">
+                <include name="admin/includes/boxes/extras_dhtml.php" />
+                <include name="includes/classes/class.base.php" />
+                <include name="includes/functions/html_output.php" />
+                <include name="admin/includes/functions/html_output.php" />
+                <include name="includes/functions/functions_email.php" />
+                <include name="admin/customers.php" />
+                <include name="includes/application_bottom.php" />
+                <include name="index.php" />
+                <include name="admin/coupon_admin.php" />
+                <include name="includes/functions/functions_general.php" />
+                <include name="admin/includes/functions/general.php" />
+            </fileset>
+        </zip>
 
     </target>
 
