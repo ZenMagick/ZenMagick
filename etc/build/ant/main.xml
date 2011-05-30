@@ -144,6 +144,7 @@
         <copy todir="${build.dir}/zenmagick">
             <fileset dir="${zenmagick.src.dir}">
                 <exclude name=".git/**" />
+                <exclude name="**/.git/**" />
                 <exclude name="build/**" />
                 <exclude name="plugins/**" />
                 <exclude name="themes/**" />
@@ -205,12 +206,6 @@
             <fileset dir="${build.dir}" includes="**/*swp" />
             <fileset dir="${build.dir}" includes="**/*.log" />
             <fileset dir="${build.dir}" includes="**/*.db" />
-            <fileset dir="${build.dir}/zenmagick/config/store">
-                <exclude name="sample-*.*" />
-            </fileset>
-            <fileset dir="${build.dir}/zenmagick/config/admin">
-                <exclude name="sample-*.*" />
-            </fileset>
             <!-- all vendor -->
             <fileset dir="${build.dir}/zenmagick/lib/vendor">
                 <exclude name="classloader.ini" />
