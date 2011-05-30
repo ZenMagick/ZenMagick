@@ -105,7 +105,7 @@ class ZMEventProxyPatch extends ZMFilePatch {
                 array_push($patchedLines, $line);
                 if (false !== strpos($line, "function notify(")) {
                     // need to insert after the matched line
-                    array_push($patchedLines, '    if(class_exists("zenmagick\\\base\\\Runtime")) { zenmagick\\base\\Runtime::getEventDispatcher()->dispatch(new zenmagick\\base\\events\\Event($this, strtolower($eventID), $paramArray)); } /* added by ZenMagick installation patcher */');
+                    array_push($patchedLines, '    if(class_exists("zenmagick\\\base\\\Runtime")) { zenmagick\\base\\Runtime::getEventDispatcher()->dispatch($eventID, new zenmagick\\base\\events\\Event($this, $paramArray)); } /* added by ZenMagick installation patcher */');
                 }
             }
 
