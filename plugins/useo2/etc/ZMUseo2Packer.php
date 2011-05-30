@@ -35,7 +35,9 @@ class ZMUseo2Packer implements ZMLibraryPacker {
         $targetLibDir = $targetDir.'lib'.DIRECTORY_SEPARATOR;
 
         // htaccess_sample
-        unlink ($targetDir.'htaccess_sample');
+        if (file_exists($targetDir.'htaccess_sample')) {
+            unlink ($targetDir.'htaccess_sample');
+        }
         copy ($sourceDir.'htaccess_sample', $targetDir.'htaccess_sample');
 
         // classes
@@ -56,7 +58,7 @@ class ZMUseo2Packer implements ZMLibraryPacker {
             // fix auto-increment SQL
             $contents = str_replace(
                 'INTO `".TABLE_CONFIGURATION_GROUP."` VALUES (\'\', ',
-                'INTO `".TABLE_CONFIGURATION_GROUP."` (configuration_group_title, configuration_group_description, sort_order, visible) VALUES (', 
+                'INTO `".TABLE_CONFIGURATION_GROUP."` (configuration_group_title, configuration_group_description, sort_order, visible) VALUES (',
                 $contents
             );
 
@@ -70,10 +72,10 @@ class ZMUseo2Packer implements ZMLibraryPacker {
 
             // add category
             $contents = str_replace('index, product_info, products_new', 'index, category, product_info, products_new', $contents);
-            $contents = str_replace(''index',', "'index',\n 'category',", $contents);
+            $contents = str_replace('FILENAME_DEFAULT,', "FILENAME_DEFAULT,\n 'category',", $contents);
             $contents = str_replace('switch ($page) {', "switch (\$page) {\ncase 'category': \$link .= 'index.php?main_page=category'; break;", $contents);
-            $contents = str_replace('case ($page == 'index'', "case ((\$page == 'index' || \$page == 'category')", $contents);
-            $contents = str_replace('case ($page == 'index')', "case (\$page == 'index' || \$page == 'category')", $contents);
+            $contents = str_replace('case ($page == FILENAME_DEFAULT', "case ((\$page == FILENAME_DEFAULT || \$page == 'category')", $contents);
+            $contents = str_replace('case ($page == FILENAME_DEFAULT)', "case (\$page == FILENAME_DEFAULT || \$page == 'category')", $contents);
 
             $contents = str_replace('$this->db->Execute($sort_order_query', 'ZMRuntime::getDatabase()->querySingle($sort_order_query', $contents);
             $contents = str_replace('$this->db->Execute("SELECT cache_expires FROM', 'ZMRuntime::getDatabase()->querySingle("SELECT cache_expires FROM', $contents);
@@ -105,7 +107,7 @@ class ZMUseo2Packer implements ZMLibraryPacker {
             $contents = str_replace("ereg_replace( ' +'", "preg_replace('/ +/'", $contents);
 
             // not_null
-            $notnull = 
+            $notnull =
                 'if (is_array($value)) { if (sizeof($value) > 0) { return true; } else { return false; }'
                 .'} elseif( is_a( $value, \'queryFactoryResult\' ) ) { if (sizeof($value->result) > 0) { return true; } else { return false; }'
                 .'} else { if (($value != \'\') && (strtolower($value) != \'null\') && (strlen(trim($value)) > 0)) { return true; } else { return false; } }';
