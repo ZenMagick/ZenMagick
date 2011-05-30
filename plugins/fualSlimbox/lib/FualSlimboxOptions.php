@@ -23,8 +23,8 @@ class FualSlimboxOptions {
 		} else {
 			echo 'Fx.Transitions.Sine';
 		}
-	} 
-	
+	}
+
 	/* @function fual_get_amplitude
 	 * @brief Set the amplitude of the transition
 	 * @note Defaults to 5 if unset
@@ -35,8 +35,8 @@ class FualSlimboxOptions {
 		} else {
 			echo 5;
 		}
-	} 
-	
+	}
+
 	/* @function fual_get_fps
 	 * @brief Set the frames per secon of the transition
 	 * @note Defaults to 60 if unset
@@ -48,7 +48,7 @@ class FualSlimboxOptions {
 			echo 60;
 		}
 	}
-	
+
 	/* @function fual_get_duration
 	 * @brief Set the duration the transition
 	 * @note Defaults to 800 if unset. Times aer in miliseconds
@@ -60,7 +60,7 @@ class FualSlimboxOptions {
 			echo 800;
 		}
 	}
-	
+
 	/* @function fual_get_ease
 	 * @brief Set the ease the transition
 	 * @note Defaults to In and Out if unset.
@@ -72,7 +72,7 @@ class FualSlimboxOptions {
 			echo 'easeInOut';
 		}
 	}
-	
+
 	/* @function fual_get_width
 	 * @brief Set the starting width of the lightbox
 	 * @note Defaults 400 if unset.
@@ -84,7 +84,7 @@ class FualSlimboxOptions {
 			echo 400;
 		}
 	}
-	
+
 	/* @function fual_get_height
 	 * @brief Set the starting height of the lightbox
 	 * @note Defaults 300 if unset.
@@ -96,7 +96,7 @@ class FualSlimboxOptions {
 			echo 300;
 		}
 	}
-	
+
 	/* @function fual_get_iwidth
 	 * @brief Set the width of the lightbox as an iframe
 	 * @note Defaults 500 if unset.
@@ -108,7 +108,7 @@ class FualSlimboxOptions {
 			echo 500;
 		}
 	}
-	
+
 	/* @function fual_get_iheight
 	 * @brief Set the height of the lightbox as an iframe
 	 * @note Defaults 300 if unset.
@@ -120,7 +120,7 @@ class FualSlimboxOptions {
 			echo 300;
 		}
 	}
-	
+
 	/* @function fual_get_caption
 	 * @brief Set the style of caption display
 	 * @note Defaults true if unset.
@@ -132,20 +132,20 @@ class FualSlimboxOptions {
 			echo 'true';
 		}
 	}
-	
+
 	/* @function fual_get_elhide
 	 * @brief Set the class to hide when the lightbox is displayed
 	 * @note Defaults zenLightboxHideMe if unset.
 	 */
 	function fual_get_elhide() {
 		if( defined( 'FUAL_SLIMBOX_HIDE_ME' ) ) {
-			
+
 			echo '".' . FUAL_SLIMBOX_HIDE_ME . '"';
 		} else {
 			echo '.zenLightboxHideMe';
 		}
 	}
-	
+
 	/* @function fual_get_displayvar
 	 * @brief Chooses whether to display the safe variation
 	 * @note Defaults to the safe variation if unset.
@@ -157,20 +157,20 @@ class FualSlimboxOptions {
 			echo '""';
 		}
 	}
-	
+
 	/* @function fual_get_pageof
 	 * @brief Sets the "Page of" Text
 	 */
 	function fual_get_pageof() {
 		if( defined( 'FUAL_SLIMBOX_PAGEOF' ) ){
-			if ( preg_match( '/^.*#1.*#2*.$/', FUAL_SLIMBOX_PAGEOF ) ){ 
+			if ( preg_match( '/^.*#1.*#2*.$/', FUAL_SLIMBOX_PAGEOF ) ){
 				echo '"' . htmlentities(FUAL_SLIMBOX_PAGEOF,ENT_QUOTES) . '"';
 				return;
 			}
 		}
 		echo '"Page #1 of #2"';
 	}
-	
+
 	/* @function jscript
 	 * @brief Writes the javascript which sets the lightbox options to the page
 	 */
@@ -199,10 +199,7 @@ class FualSlimboxOptions {
 		//--></script>
 		<?php
 			echo '<script type="text/javascript" src="' . DIR_WS_TEMPLATE . 'jscript/slimbox/slimbox_ex.compressed.js"></script>'  . "\n"; // */
-			
-			// Comment the line above and uncomment this for testing
-			/*echo '<script type="text/javascript" src="' . DIR_WS_TEMPLATE . 'jscript/slimbox/uncompressed/slimbox_ex.js"></script>'  . "\n"; // */
-			
+
 			if( FUAL_SLIMBOX_NERVOUS != 0 ) {
 			?>
 		<script type="text/javascript"><!--

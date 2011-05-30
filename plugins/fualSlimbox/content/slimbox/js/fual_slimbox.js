@@ -26,4 +26,4 @@ function fualShowImage() {
 	}
 };
 	
-window.addEvent('domready', fualShowImage );
+window.addEvent('domready', fualShowImage);
