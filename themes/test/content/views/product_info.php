@@ -29,9 +29,9 @@
   <?php $imageInfo = $currentProduct->getImageInfo() ?>
   <div>
       <?php if ($imageInfo->hasLargeImage()) { ?>
-          <a href="<?php echo $request->absoluteURL($imageInfo->getLargeImage()) ?>" rel="lightbox[gallery]"><?php echo $html->image($imageInfo, ZMProducts::IMAGE_MEDIUM) ?></a>
-          <br><a href="<?php echo $request->absoluteURL($imageInfo->getLargeImage()) ?>" rel="lightbox[gallery]">Click to enlarge - FTW!</a>
-          <br><?php if (function_exists('hover3_product_image_link')) { hover3_product_image_link($this, $currentProduct, $imageInfo); } ?>
+          <a href="<?php echo $request->absoluteURL($imageInfo->getLargeImage()) ?>" rel="lightbox[gallery]" title="lightbox[gallery]"><?php echo $html->image($imageInfo, ZMProducts::IMAGE_MEDIUM) ?></a><br>
+          |<a href="<?php echo $request->absoluteURL($imageInfo->getLargeImage()) ?>" rel="lightbox[gallery]">Click to enlarge (lightbox[gallery]) - FTW!</a>|<br>
+          |<?php if (function_exists('hover3_product_image_link')) { hover3_product_image_link($this, $currentProduct, $imageInfo); } ?>|
       <?php } else { ?>
           <?php echo $html->image($imageInfo, ZMProducts::IMAGE_MEDIUM) ?>
       <?php } ?>
