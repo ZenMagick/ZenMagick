@@ -21,7 +21,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 ?>
-<?php if (isset($flyoutCategories)) { ?>
+<?php if (isset($flyoutCategories) && class_exists('ZMFlyoutCategoriesGenerator')) { ?>
 <?php $resources->cssFile('stylesheet_categories_menu.css'); ?>
 <div class="box flyoutCategories" style="overflow:visible;"> <!-- re-enable overflow as disabled in default theme on .box -->
     <div id="nav-cat">

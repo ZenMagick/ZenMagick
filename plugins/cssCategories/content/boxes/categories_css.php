@@ -20,7 +20,7 @@
 // $Id$
 //
 ?>
-<?php if (isset($cssCategories)) {
+<?php if (isset($cssCategories) && class_exists('CategoriesUlGenerator')) {
     $categoriesULGenerator = new CategoriesUlGenerator($request);
     $resources->cssFile('categories_css.css');
     ?>
