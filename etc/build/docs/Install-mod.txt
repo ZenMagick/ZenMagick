@@ -43,6 +43,9 @@ should be under Tools.
 NOTE: If you are installing a full build these patches are already applied to the included
 zen cart files.
 
+As an alternative pre-patched versions of all affected zencart files are included in a zip file
+in the etc folder.
+
 
 3.2 Troubleshooting
 -------------------

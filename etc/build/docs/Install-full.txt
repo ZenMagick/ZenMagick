@@ -50,6 +50,10 @@ specific and require to use local.php.
 Also, keep in mind that you can also create a local.php file in your theme's extra folder
 if you are using multiple themes and need theme specific configuration.
 
+zencart template files
+----------------------
+To avoid confusion, unsued zencart template files are not included as individual files. If, for some
+reason, you need the original zencart template files, you'll find them in zc_install/optional/templates.zip
 
 5. Further information
 ======================
