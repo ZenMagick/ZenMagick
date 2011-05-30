@@ -181,7 +181,9 @@ class ZMPhpCompressor {
         $this->flatFolder_ = $this->tempFolder_.DIRECTORY_SEPARATOR.'flat';
 
         $this->clean();
-        @unlink($this->outputFilename_);
+        if (file_exists($this->outputFilename_)) {
+            @unlink($this->outputFilename_);
+        }
 
         if ($this->stripCode_) {
             foreach ($this->rootFolders_ as $folder) {
@@ -227,7 +229,7 @@ class ZMPhpCompressor {
             } else {
                 // token array
                 list($id, $text) = $token;
-                 
+
                 switch ($id) {
                     case T_COMMENT:
                     case T_ML_COMMENT: // we've defined this
@@ -256,7 +258,7 @@ class ZMPhpCompressor {
         }
         $src = ob_get_clean();
         if ($this->stripRef_) {
-            $src = str_replace(array(',&$', ', &$', '( &$', '(&$', '=&', '&new', '& new', 'function &', ' = &'), 
+            $src = str_replace(array(',&$', ', &$', '( &$', '(&$', '=&', '&new', '& new', 'function &', ' = &'),
                 array(',$', ', $', '( $', '($', '=', 'new', 'new', 'function ', ' = '),
                 $src);
         }
@@ -494,7 +496,7 @@ class ZMPhpCompressor {
                     $source = file_get_contents($infile);
 
                     if ($this->stripRef_) {
-                        $source = str_replace(array(',&$', ', &$', '( &$', '(&$', '=&', '&new', '& new', 'function &', ' = &'), 
+                        $source = str_replace(array(',&$', ', &$', '( &$', '(&$', '=&', '&new', '& new', 'function &', ' = &'),
                             array(',$', ', $', '( $', '($', '=', 'new', 'new', 'function ', ' = '),
                             $source);
                     }
