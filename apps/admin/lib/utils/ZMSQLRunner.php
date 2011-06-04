@@ -12,7 +12,7 @@ class ZMSQLRunner {
 
    if (!isset($db)) {
       include_once DIR_FS_ADMIN.DIR_WS_FUNCTIONS.'general.php';
-      include_once DIR_FS_CATALOG.DIR_WS_CLASSES.'class.base.php';
+      require_once DIR_FS_CATALOG.DIR_WS_CLASSES.'class.base.php';
       include_once DIR_FS_CATALOG.DIR_WS_CLASSES.'db/mysql/query_factory.php';
       $db = new queryFactory();
       $db->connect(DB_SERVER, DB_SERVER_USERNAME, DB_SERVER_PASSWORD, DB_DATABASE);
