@@ -77,7 +77,7 @@ class ViewUtils extends ZMViewUtils {
             if (0 < count($srcList)) {
                 $contens .= '<script type="text/javascript" src="'.$this->getPlugin()->pluginURL('min/f='.implode(',', $srcList)).'"></script>'."\n";
             }
-            $contents .= parent::handleResourceGroup($defaultFiles, $group, $location);
+            $contents .= parent::handleResourceGroup($defaultList, $group, $location);
             return $contents;
         } else if ('css' == $group) {
             // group by same attributes/prefix/suffix
