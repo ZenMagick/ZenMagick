@@ -386,6 +386,13 @@ class ZMTools {
     public static function prepareWrapperEnv($shoppingCart, $address=null) {
     global $order, $shipping_weight, $shipping_quoted, $shipping_num_boxes, $total_count;
 
+        // save originals
+        $_order = $order;
+        $_shipping_weight = $shipping_weight;
+        $_shipping_quoted = $shipping_quoted;
+        $_shipping_num_boxes = $shipping_num_boxes;
+        $_total_count = $total_count;
+
         $order = new stdClass();
         $order->content_type = $shoppingCart->getType();
         $order->delivery = array();
@@ -437,6 +444,14 @@ class ZMTools {
           $shipping_weight = $shipping_weight/$shipping_num_boxes;
         }
         // END: adjust boxes, weight and tare
+
+        // restore originals
+        $order = $_order;
+        $shipping_weight = $_shipping_weight;
+        $shipping_quoted = $_shipping_quoted;
+        $shipping_num_boxes = $_shipping_num_boxes;
+        // this breaks some shipping
+        //$total_count = $_total_count;
     }
 
     /**
