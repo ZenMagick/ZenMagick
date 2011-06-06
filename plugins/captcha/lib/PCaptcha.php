@@ -12,7 +12,7 @@
 define('CAPCHA_USE_OB', 'false');
 define('CAPCHA_NOISE', '30');
 
-class pcaptcha {
+class PCaptcha {
   var $captchaCode = '';
   var $captchaCode_length = 4;
   var $img_width = 240;

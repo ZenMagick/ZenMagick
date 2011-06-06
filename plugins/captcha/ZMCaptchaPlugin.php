@@ -22,6 +22,7 @@
 
 define('CAPTCHA_FIELD', 'captcha');
 
+use zenmagick\base\Runtime;
 
 /**
  * Plugin to enable support for CAPTCHA in ZenMagick.
@@ -69,13 +70,13 @@ class ZMCaptchaPlugin extends Plugin {
      */
     public function init() {
         parent::init();
-        zenmagick\base\Runtime::getEventDispatcher()->listen($this);
+        Runtime::getEventDispatcher()->listen($this);
         // page => (status, form_name)
         $this->pageConfig_ = array(
-            'create_account' => array(CAPTCHA_CREATE_ACCOUNT, 'registration'),
-            'contact_us' => array(CAPTCHA_CONTACT_US, 'contactUs'),
-            'tell_a_friend' => array(CAPTCHA_TELL_A_FRIEND, 'tellAFriend'),
-            'product_reviews_write' => array(CAPTCHA_REVIEWS_WRITE, 'newReview')
+            'create_account' => array('true'==CAPTCHA_CREATE_ACCOUNT, 'registration'),
+            'contact_us' => array('true'==CAPTCHA_CONTACT_US, 'contactUs'),
+            'tell_a_friend' => array('true'==CAPTCHA_TELL_A_FRIEND, 'tellAFriend'),
+            'product_reviews_write' => array('true'==CAPTCHA_REVIEWS_WRITE, 'newReview')
         );
     }
 
@@ -89,12 +90,12 @@ class ZMCaptchaPlugin extends Plugin {
 
 
     /**
-     * Init done callback.
+     * Init request callback.
      *
      * <p>Setup additional validation rules; this is done here to avoid getting in the way of
      * custom global/theme validation rule setups.</p>
      */
-    public function onInitDone($event) {
+    public function onInitRequest($event) {
         $request = $event->get('request');
 
         // check if we need to do anything for this request...
@@ -103,14 +104,14 @@ class ZMCaptchaPlugin extends Plugin {
             return;
         }
 
-        $page = $request->getRequestId();
-        if (array_key_exists($page, $this->pageConfig_)) {
-            $this->captcha_ = new pcaptcha($request);
+        $requestId = $request->getRequestId();
+        if (array_key_exists($requestId, $this->pageConfig_)) {
+            $this->captcha_ = new PCaptcha($request);
             $session = $request->getSession();
             $session->setValue('captcha_field', CAPTCHA_FIELD);
-            $config = $this->pageConfig_[$page];
-            if ('false' != $config[0]) {
-                $form = $this->pageConfig_[$page][1];
+            $config = $this->pageConfig_[$requestId];
+            if ($config[0]) {
+                $form = $this->pageConfig_[$requestId][1];
                 // active for this page
                 $this->captchaEnabled_ = true;
                 $rules = array(
