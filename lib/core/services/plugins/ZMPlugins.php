@@ -112,8 +112,12 @@ class ZMPlugins extends ZMObject {
                         }
 
                         $id = str_replace('.php', '', $file);
+                        // todo: drop
+                        $id = preg_replace('/^ZM/', '', $id);
                         // single file plugin
-                        $id = str_replace(array('Plugin', 'ZM'), '', $id);
+                        if (is_file($basePath.DIRECTORY_SEPARATOR.$file)) {
+                            $id = preg_replace('/Plugin$/', '', $id);
+                        }
                         $id{0} = strtolower($id{0});
                         $this->pathIdMap_[$basePath][] = $id;
                     }
@@ -215,7 +219,7 @@ class ZMPlugins extends ZMObject {
             $pluginClass = 'ZM' . $pluginClassSuffix . 'Plugin';
             $file = $pluginDir . DIRECTORY_SEPARATOR . $pluginClass . '.php';
             if (!file_exists($file)) {
-                ZMLogging::instance()->log("can't find plugin file(dir) for id = '".$id."'; dir = '".$pluginDir."'", ZMLogging::DEBUG);
+                ZMLogging::instance()->warn("can't find plugin file(dir) for id = '".$id."'; dir = '".$pluginDir."'");
                 return null;
             }
         } else {
@@ -226,7 +230,7 @@ class ZMPlugins extends ZMObject {
                 $pluginClass = 'ZM' . $pluginClassSuffix . 'Plugin';
                 $file = $basePath . $pluginClass . '.php';
                 if (!is_file($file)) {
-                    ZMLogging::instance()->log("can't find plugin file for id = '".$id."'; dir = '".$pluginDir."'", ZMLogging::DEBUG);
+                    ZMLogging::instance()->warn("can't find plugin file for id = '".$id."'; dir = '".$pluginDir."'");
                     return null;
                 }
             }
