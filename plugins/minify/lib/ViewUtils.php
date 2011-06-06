@@ -50,9 +50,12 @@ class ViewUtils extends ZMViewUtils {
     /**
      * {@inheritDoc}
      */
-    public function resolveResource($filename) {
+    public function resolveResource($resource) {
+        if ($this->isExternal($resource)) {
+            return $resource;
+        }
         $plugin = $this->getPlugin();
-        return $plugin->pluginURL('min/f='.parent::resolveResource($filename));
+        return $plugin->pluginURL('min/f='.parent::resolveResource($resource));
     }
 
     /**
@@ -61,13 +64,21 @@ class ViewUtils extends ZMViewUtils {
     public function handleResourceGroup($files, $group, $location) {
         if ('js' == $group) {
             $srcList = array();
+            $defaultList = array();
             foreach ($files as $info) {
                 // use parent method to do proper resolve and not minify twice!
-                $srcList[] = parent::resolveResource($info['filename']);
+                if (!$this->isExternal($info['filename'])) {
+                    $srcList[] = parent::resolveResource($info['filename']);
+                } else {
+                    $defaultList[] = $info;
+                }
             }
+            $contents = '';
             if (0 < count($srcList)) {
-                return '<script type="text/javascript" src="'.$this->getPlugin()->pluginURL('min/f='.implode(',', $srcList)).'"></script>'."\n";
+                $contens .= '<script type="text/javascript" src="'.$this->getPlugin()->pluginURL('min/f='.implode(',', $srcList)).'"></script>'."\n";
             }
+            $contents .= parent::handleResourceGroup($defaultFiles, $group, $location);
+            return $contents;
         } else if ('css' == $group) {
             // group by same attributes/prefix/suffix
             $attrGroups = array();
@@ -93,11 +104,13 @@ class ViewUtils extends ZMViewUtils {
                     $attrGroups[$attrGroupKey]['files'][] = $details['filename'];
                 }
             }
+            // todo:  handle external sources
             $css = '';
             foreach ($attrGroups as $attrGroup) {
                 $details = $attrGroup['details'];
                 $files = $attrGroup['files'];
                 $srcList = array();
+                $defaultList = array();
                 foreach ($files as $filename) {
                     // use parent method to do proper resolve and not minify twice!
                     if (null != ($resolved = parent::resolveResource($filename)) && !empty($resolved)) {

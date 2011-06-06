@@ -75,7 +75,12 @@ class ZMViewUtils extends ZMObject {
     public function cssFile($filename, $inline=false, $attr=array()) {
         if (!array_key_exists($filename, $this->resources_['css'])) {
             // avoid duplicates
-            $this->resources_['css'][$filename] = array('filename' => $filename, 'inline' => $inline, 'attr' => $attr);
+            $this->resources_['css'][$filename] = array(
+                'filename' => $filename,
+                'inline' => $inline,
+                'external' => $this->isExternal($filename),
+                'attr' => $attr
+            );
         }
     }
 
@@ -104,7 +109,13 @@ class ZMViewUtils extends ZMObject {
         }
 
         // record details in any case
-        $this->resources_['js'][$filename] = array('filename' => $filename, 'inline' => $inline, 'position' => $position, 'done' => false);
+        $this->resources_['js'][$filename] = array(
+            'filename' => $filename,
+            'inline' => $inline,
+            'position' => $position,
+            'external' => $this->isExternal($filename),
+            'done' => false
+        );
 
         if (self::NOW == $position) {
             $this->resources_['js'][$filename]['done'] = true;
@@ -126,13 +137,26 @@ class ZMViewUtils extends ZMObject {
      *
      * <p>This default implementation does nothing but return the result of: <code>$view->asUrl($request, $filename, ZMView::RESOURCE);</code>.</p>
      *
-     * @param string filename The (relative) path to the resource.
+     * @param string resource The (relative) path to the resource.
      * @param ZMView view The current view.
      * @return string The resolved final URL.
      */
-    public function resolveResource($filename) {
+    public function resolveResource($resource) {
+        if ($this->isExternal($resource)) {
+            return $resource;
+        }
         $request = $this->view_->getVar('request');
-        return $this->view_->asUrl($request, $filename, ZMView::RESOURCE);
+        return $this->view_->asUrl($request, $resource, ZMView::RESOURCE);
+    }
+
+    /**
+     * Check if a given resource is external.
+     *
+     * @param string resource The resource.
+     * @return boolean <code>true</code> if the resource is external.
+     */
+    public function isExternal($resource) {
+        return 0 === strpos($resource, '//');
     }
 
     /**
