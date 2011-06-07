@@ -59,23 +59,23 @@ var $keep_in_memory = false;
 
 			$seo_pages = array(
 				'index',
- 'category',
+        'category',
 				'product_info',
 				'popup_image',
 				'product_reviews',
-				'product_reviews'_INFO,
+				'product_reviews_info',
 				'page',
 			);
 
 			// News & Article Manager SEO support
-			if (defined('''')) $seo_pages[] = '';
-			if (defined('''')) $seo_pages[] = '';
-			if (defined('''')) $seo_pages[] = '';
-			if (defined('''')) $seo_pages[] = '';
-			if (defined('''')) $seo_pages[] = '';
+			if (defined('FILENAME_NEWS_INDEX')) $seo_pages[] = FILENAME_NEWS_INDEX;
+			if (defined('FILENAME_NEWS_ARTICLE')) $seo_pages[] = FILENAME_NEWS_ARTICLE;
+			if (defined('FILENAME_NEWS_COMMENTS')) $seo_pages[] = FILENAME_NEWS_COMMENTS;
+			if (defined('FILENAME_NEWS_ARCHIVE')) $seo_pages[] = FILENAME_NEWS_ARCHIVE;
+			if (defined('FILENAME_NEWS_RSS')) $seo_pages[] = FILENAME_NEWS_RSS;
 
 			// Info Manager (Open Operations)
-			if (defined('''')) $seo_pages[] = '';
+			if (defined('FILENAME_INFO_MANAGER')) $seo_pages[] = FILENAME_INFO_MANAGER;
 
 			$this->attributes = array(
 				'PHP_VERSION' => PHP_VERSION,
@@ -314,6 +314,7 @@ case 'category': $link .= 'index.php?main_page=category'; break;
 		function add_sid($link, $add_session_id, $connection, $separator) {
 			global $request_type, $http_domain, $https_domain;
 
+      $_sid = null;
 			if ( ($add_session_id == true) && ($this->attributes['SESSION_STARTED']) && (SESSION_FORCE_COOKIE_USE == 'False') ) {
 				if ($this->not_null($this->attributes['SID'])) {
 					$_sid = $this->attributes['SID'];
@@ -403,7 +404,7 @@ case 'category': $link .= 'index.php?main_page=category'; break;
 						case ($page == 'product_reviews'):
 							$url = $this->make_url($page, $this->get_product_name($p2[1]), 'products_id_review', $p2[1], '.html', $separator);
 							break;
-						case ($page == 'product_reviews'_INFO):
+						case ($page == 'product_reviews_info'):
 							$url = $this->make_url($page, $this->get_product_name($p2[1]), 'products_id_review_info', $p2[1], '.html', $separator);
 							break;
 						default:
@@ -459,7 +460,9 @@ case 'category': $link .= 'index.php?main_page=category'; break;
 						} # end switch
 					break;
 				default:
-					$container[$p2[0]] = $p2[1];
+          if (1 < count($p2)) {
+					    $container[$p2[0]] = $p2[1];
+          }
 					break;
 			} # end switch
 		} # end foreach $p
@@ -954,8 +957,8 @@ case 'category': $link .= 'index.php?main_page=category'; break;
 				AND md.languages_id='".(int)$this->languages_id."'";
 		$manufacturers = ZMRuntime::getDatabase()->query($sql);
 		$man_cache = '';
-		foreach ($manufacturers as $xxxx) {
-			$define = 'define(\'MANUFACTURER_NAME_' . $manufacturer->fields['id'] . '\', \'' . $this->strip($manufacturer->fields['name']) . '\');';
+		foreach ($manufacturers as $manufacturer) {
+			$define = 'define(\'MANUFACTURER_NAME_' . $manufacturer['id'] . '\', \'' . $this->strip($manufacturer['name']) . '\');';
 			$man_cache .= $define . "\n";
 			eval("$define");
 			//manufacturers->MoveNext();

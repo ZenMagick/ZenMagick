@@ -79,11 +79,6 @@ class ZMUseo2Plugin extends Plugin {
     public function init() {
         parent::init();
         Runtime::getSettings()->add('zenmagick.http.request.urlRewriter', 'ZMUseo2UrlRewriter');
-
-        // TODO: manually load lib for now
-        require_once dirname(__FILE__).'/lib/seo.functions.php';
-        require_once dirname(__FILE__).'/lib/seo.install.php';
-        require_once dirname(__FILE__).'/lib/seo.url.php';
     }
 
     /**
@@ -99,3 +94,22 @@ class ZMUseo2Plugin extends Plugin {
     }
 
 }
+
+  define('TABLE_SEO_CACHE', DB_PREFIX . 'seo_cache');
+?><?php
+// Function to reset SEO URLs database cache entries
+// Ultimate SEO URLs v2.1
+function zen_reset_cache_data_seo_urls($action) {
+	switch ($action){
+		case 'reset':
+			$GLOBALS['db']->Execute("DELETE FROM " . TABLE_SEO_CACHE . " WHERE cache_name LIKE '%seo_urls%'");
+			$GLOBALS['db']->Execute("UPDATE " . TABLE_CONFIGURATION . " SET configuration_value='false' WHERE configuration_key='SEO_URLS_CACHE_RESET'");
+			break;
+		default:
+			break;
+	}
+	# The return value is used to set the value upon viewing
+	# It's NOT returining a false to indicate failure!!
+	return 'false';
+}
+?><?php function reset_seo_cache() { ZMRuntime::getDatabase()->update("DELETE FROM ".TABLE_SEO_CACHE." WHERE cache_name LIKE '%seo_urls%'"); } ?>
