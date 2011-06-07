@@ -129,7 +129,7 @@ class ZMForwardView extends ZMView {
      * {@inheritDoc}
      */
     public function generate($request) {
-        $req = Beas::getBean('ZMRequest');
+        $req = Beans::getBean('ZMRequest');
         $req->setParameterMap($request->getParameterMap(false));
         $req->setRequestId($this->getRequestId());
         // keep reference to original request

@@ -82,6 +82,9 @@ class TestZMHowDidYouHear extends ZMTestCase {
         $account = Beans::getBean('ZMAccount');
         foreach ($data as $key => $value) {
             $method = 'set'.ucwords($key);
+            if ('Dob' == $key) {
+                $value = DateTime::createFromFormat('d/m/y', $value);
+            }
             $account->$method($value);
         }
         return $account;

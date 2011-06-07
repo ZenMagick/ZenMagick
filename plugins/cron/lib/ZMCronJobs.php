@@ -188,7 +188,7 @@ class ZMCronJobs extends ZMObject {
     public function runJob($job) {
         try {
             ZMLogging::instance()->log("ZMCronJobs: Running: ".$job['line'], ZMLogging::DEBUG);
-            $obj = Beas::getBean($job['task']);
+            $obj = Beans::getBean($job['task']);
             if ($obj instanceof ZMCronJob) {
                 $status = $obj->execute();
             }

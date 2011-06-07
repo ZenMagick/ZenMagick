@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\http\sacs\SacsManager;
 
 /**
  * Generic form handler.
@@ -80,7 +81,7 @@ class ZMFormHandlerPlugin extends Plugin {
             if ($secure) {
                 // mark as secure
                 foreach ($pages as $page) {
-                    ZMSacsManager::instance()->setMapping($page, ZMAccount::ANONYMOUS);
+                    SacsManager::instance()->setMapping($page, ZMAccount::ANONYMOUS);
                 }
             }
 
