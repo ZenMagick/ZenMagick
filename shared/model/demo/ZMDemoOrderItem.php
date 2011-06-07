@@ -66,7 +66,7 @@ class ZMDemoOrderItem extends ZMOrderItem {
     /**
      * {@inheritDoc}
      */
-    public function getCalculatedPrice() {
+    public function getCalculatedPrice($tax=true) {
         return $this->index_*19.99;
     }
 
