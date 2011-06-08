@@ -28,7 +28,16 @@ mappings:
   address_book: 
     level: registered
     secure: true
+  address_book_add: 
+    level: registered
+    secure: true
   address_book_process: 
+    level: registered
+    secure: true
+  address_book_delete: 
+    level: registered
+    secure: true
+  address_book_edit: 
     level: registered
     secure: true
   checkout_process: 
