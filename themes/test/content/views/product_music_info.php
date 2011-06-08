@@ -105,7 +105,7 @@
       <fieldset>
           <legend><?php _vzm("Other Options") ?></legend>
           <?php if ($currentProduct->hasReviews()) { ?>
-              <a class="btn" href="<?php echo $net->url('product_reviews', '') ?>"><?php _vzm("Read Reviews") ?></a>
+              <a class="btn" href="<?php echo $net->url('product_reviews') ?>"><?php _vzm("Read Reviews") ?></a>
           <?php } ?>
           <?php if ($currentProduct->getTypeSetting('reviews')) { ?>
               <a class="btn" href="<?php echo $net->url('product_reviews_write', "products_id=".$currentProduct->getId()) ?>"><?php _vzm("Write a Review") ?></a>
