@@ -80,7 +80,7 @@ if (!function_exists('zen_build_html_email_from_template')) {
      * @package zenmagick.store.sf.override
      */
     function zen_build_html_email_from_template($template, $args=array()) {
-        if (!class_exists('ZMEmails')) {
+        if (!class_exists('ZMEmails') || !ZMSettings::get('isEnableZMThemes', true)) {
             return zen_build_html_email_from_template_org($template, $args);
         }
         $request = ZMRequest::instance();
