@@ -31,12 +31,12 @@
       'gv_use' => _zm('Buying with Gift Certificates'),
       'gv_redeem' => _zm('Redeeming Gift Certificates'),
       'gv_trouble' => _zm('When problems occur...')
-    ); 
+    );
 ?>
 
 <ul>
 <?php foreach ($faq_topics as $key => $title) { ?>
-    <li><a href="<?php echo $net->url('gv_faq','topic='.$key) ?>"><?php _vzm($title) ?></a></li>
+    <li><a href="<?php echo $net->url('gv_faq', 'topic='.$key) ?>"><?php _vzm($title) ?></a></li>
 <?php } ?>
 </ul>
 
@@ -49,7 +49,7 @@
     <legend><?php _vzm("Redemption code details") ?></legend>
     <div>
       <label for="gvCode"><?php _vzm("Redemption Code") ?></label>
-      <input type="text" id="gvCode" name="couponCode" value="<?php echo $html->encode($gvRedeem->getCouponCode()) ?>" /> 
+      <input type="text" id="gvCode" name="couponCode" value="<?php echo $html->encode($gvRedeem->getCouponCode()) ?>" />
     </div>
   </fieldset>
   <div class="btn"><input type="submit" class="btn" value="<?php _vzm("Redeem") ?>" /></div>
