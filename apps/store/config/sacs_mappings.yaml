@@ -40,6 +40,9 @@ mappings:
   address_book_edit: 
     level: registered
     secure: true
+  checkout_success: 
+    level: guest
+    secure: true
   checkout_process: 
     level: guest
     secure: true
