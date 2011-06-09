@@ -439,7 +439,7 @@ class ZMProduct extends ZMObject {
      *
      * @param datetime $dateAdded
      */
-    public function setProductsDateAdded($dateAdded) { $this->dateAdded = $dateAdded; }
+    public function setDateAdded($dateAdded) { $this->dateAdded = $dateAdded; }
 
     /**
      * Get the date the product was last modified.
