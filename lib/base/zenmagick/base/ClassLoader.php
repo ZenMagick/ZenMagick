@@ -138,13 +138,13 @@ class ClassLoader {
             $mappings = parse_ini_file($path, true);
             if (array_key_exists('namespaces', $mappings)) {
                 foreach ($mappings['namespaces'] as $namespace => $folder) {
-                    $nspath = $usePhar ? 'phar://'.$phar.'/'.$folder : realpath($baseDir.$folder);
+                    $nspath = $usePhar ? 'phar://'.$phar.'/'.str_replace('\\', '/', $folder) : realpath($baseDir.$folder);
                     $this->addNamespace($namespace, $nspath);
                 }
             }
             if (array_key_exists('prefixes', $mappings)) {
                 foreach ($mappings['prefixes'] as $prefix => $folder) {
-                    $pxpath = $usePhar ? 'phar://'.$phar.'/'.$folder : realpath($baseDir.$folder);
+                    $pxpath = $usePhar ? 'phar://'.$phar.'/'.str_replace('\\', '/', $folder) : realpath($baseDir.$folder);
                     $this->addPrefix($prefix, $pxpath);
                 }
             }
@@ -394,7 +394,8 @@ class ClassLoader {
                 foreach ($arr as $path) {
                     if (0 === strpos($namespace, $ns)) {
                         $name = substr($name, $pos + 1);
-                        $file = $path.DIRECTORY_SEPARATOR.str_replace($this->namespaceSeparator, DIRECTORY_SEPARATOR, $namespace).DIRECTORY_SEPARATOR.str_replace('_', DIRECTORY_SEPARATOR, $name).'.php';
+                        $sep = 0 === strpos($path, 'phar://') ? '/' : DIRECTORY_SEPARATOR;
+                        $file = $path.$sep.str_replace($this->namespaceSeparator, $sep, $namespace).$sep.str_replace('_', $sep, $name).'.php';
                         if (file_exists($file)) {
                             return $file;
                         }
