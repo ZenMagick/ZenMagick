@@ -94,7 +94,7 @@ class ZMController extends ZMObject {
     public function process($request) {
         // ensure a usable id is set
         $this->requestId_ = null != $this->requestId_ ? $this->requestId_ : $request->getRequestId();
-        $this->isAjax_ = $this->isAjax($request);
+        $this->isAjax_ = $request->isAjax();
 
         // check authorization
         SacsManager::instance()->authorize($request, $request->getRequestId(), $request->getUser());
@@ -220,11 +220,10 @@ class ZMController extends ZMObject {
      *
      * @param ZMRequest request The request to process.
      * @return boolean <code>true</code> if this request is considered an Ajax request.
+     * @deprecated use ZMRequest::isAjax() instead.
      */
     public function isAjax($request) {
-        $headers = ZMNetUtils::getAllHeaders();
-        $ajax = ZMLangUtils::asBoolean($request->getParameter('ajax', true));
-        return $ajax && (array_key_exists('X-Requested-With', $headers) && 'XMLHttpRequest' == $headers['X-Requested-With']);
+        return $request->isAjax();
     }
 
     /**

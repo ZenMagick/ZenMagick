@@ -91,7 +91,6 @@ class ZMRequest extends \ZMObject {
         parent::__destruct();
     }
 
-
     /**
      * Get instance.
      *
@@ -100,6 +99,21 @@ class ZMRequest extends \ZMObject {
      */
     public static function instance() {
         return Runtime::getContainer()->getService('ZMRequest');
+    }
+
+
+    /**
+     * Check if this request is an Ajax request.
+     *
+     * <p>This default implementation will check for a 'X-Requested-With' header. Subclasses are free to
+     * extend and override this method for custom Ajax detecting.</p>
+     *
+     * @return boolean <code>true</code> if this request is considered an Ajax request.
+     */
+    public function isAjax() {
+        $headers = ZMNetUtils::getAllHeaders();
+        $ajax = ZMLangUtils::asBoolean($this->getParameter('ajax', true));
+        return $ajax && (array_key_exists('X-Requested-With', $headers) && 'XMLHttpRequest' == $headers['X-Requested-With']);
     }
 
     /**

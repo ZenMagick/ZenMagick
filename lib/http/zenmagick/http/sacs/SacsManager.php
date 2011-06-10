@@ -198,7 +198,9 @@ class SacsManager {
                 $request->redirect($request->url(Runtime::getSettings()->get('zenmagick.http.request.invalidSession')));
                 exit;
             }
-            $request->saveFollowUpUrl();
+            if (!$request->isAjax()) {
+                $request->saveFollowUpUrl();
+            }
             $request->redirect($request->url(Runtime::getSettings()->get('zenmagick.http.request.login', 'login'), '', true));
             exit;
         }

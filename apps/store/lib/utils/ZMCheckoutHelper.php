@@ -294,7 +294,9 @@ class ZMCheckoutHelper extends ZMObject {
         $session = $request->getSession();
         if (null == ZMAccounts::instance()->getAccountForId($session->getAccountId())) {
             $session->clear();
-            $request->saveFollowUpUrl();
+            if (!$request->isAjax()) {
+                $request->saveFollowUpUrl();
+            }
             return "login";
         }
 
