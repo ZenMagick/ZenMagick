@@ -2,7 +2,6 @@
 
     <tstamp />
 
-
     <!-- The ZenMagick source dir -->
     <property name="zenmagick.src.dir" value="./" />
     <!-- The ZenMagick sources that go into zen-cart folder -->
