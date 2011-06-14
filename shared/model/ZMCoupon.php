@@ -45,20 +45,19 @@ class ZMCoupon extends ZMObject {
      * @GeneratedValue(strategy="IDENTITY")
      */
     private $id;
-
-    /**
-     * @var string $code
-     *
-     * @Column(name="coupon_code", type="string", length=32, nullable=false)
-     */
-    private $code;
-    /**
+   /**
      * @var string $type
      *
      * @Column(name="coupon_type", type="string", length=1, nullable=false)
      */
     private $type;
     /**
+     * @var string $code
+     *
+     * @Column(name="coupon_code", type="string", length=32, nullable=false)
+     */
+    private $code;
+     /**
      * @var decimal $amount
      *
      * @Column(name="coupon_amount", type="decimal", nullable=false)
