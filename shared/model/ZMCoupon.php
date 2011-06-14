@@ -38,13 +38,13 @@
  */
 class ZMCoupon extends ZMObject {
     /**
-     * @var integer $couponId
+     * @var integer $id
      *
      * @Column(name="coupon_id", type="integer", nullable=false)
      * @Id
      * @GeneratedValue(strategy="IDENTITY")
      */
-    private $couponId;
+    private $id;
 
     /**
      * @var string $code
@@ -145,7 +145,7 @@ class ZMCoupon extends ZMObject {
      *
      * @return int $couponId The coupon id.
      */
-    public function getId() { return $this->couponId; }
+    public function getId() { return $this->id; }
 
     // @todo deprecated doctrine backwards compatiblity
     public function getCouponId() { return $this->getId(); }
@@ -276,7 +276,7 @@ class ZMCoupon extends ZMObject {
      *
      * @param int $id The coupon id.
      */
-    public function setId($id) { $this->couponId = $id; }
+    public function setId($id) { $this->id = $id; }
 
     // @todo deperecated doctrine backwards compatibility
     public function setCouponId($id) { $this->setId($id); }

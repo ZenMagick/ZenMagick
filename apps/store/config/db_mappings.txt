@@ -526,7 +526,7 @@ array(
         'productId' => 'column=products_prid;type=string'
     ),
     'coupons' => array(
-        'couponId' => 'column=coupon_id;type=integer;key=true;auto=true',
+        'id' => 'column=coupon_id;type=integer;key=true;auto=true',
         'type' => 'column=coupon_type;type=string',
         'code' => 'column=coupon_code;type=string',
         'amount' => 'column=coupon_amount;type=float',
