@@ -112,8 +112,8 @@ class ZMRequest extends \ZMObject {
      */
     public function isAjax() {
         $headers = ZMNetUtils::getAllHeaders();
-        $ajax = ZMLangUtils::asBoolean($this->getParameter('ajax', true));
-        return $ajax && (array_key_exists('X-Requested-With', $headers) && 'XMLHttpRequest' == $headers['X-Requested-With']);
+        $ajax = $this->getParameter('ajax', null);
+        return $ajax != null ? ZMLangUtils::asBoolean($ajax) : (array_key_exists('X-Requested-With', $headers) && 'XMLHttpRequest' == $headers['X-Requested-With']);
     }
 
     /**
