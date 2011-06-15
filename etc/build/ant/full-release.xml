@@ -20,14 +20,6 @@
 
     <!-- build full release -->
     <target name="full-release" depends="mod-release,init-full-release" description="Build full release including zen cart.">
-
-        <!-- create theme dummy files -->
-        <antcall target="create-theme-dummy"><param name="theme.id" value='default' /></antcall>
-        <antcall target="create-theme-dummy"><param name="theme.id" value='demo' /></antcall>
-
-        <!-- create sidebox dummy files -->
-        <antcall target="create-sidebox-dummies"><param name="theme.id" value='default' /></antcall>
-
         <!-- apply-full-release-patches -->
         <antcall target="apply-full-release-patches" />
 
@@ -120,6 +112,13 @@
 
     <!-- patch full release -->
     <target name="apply-full-release-patches" depends="init-full-release" description="Patch full release including zen cart.">
+        <!-- create theme dummy files -->
+        <antcall target="create-theme-dummy"><param name="theme.id" value='default' /></antcall>
+        <antcall target="create-theme-dummy"><param name="theme.id" value='demo' /></antcall>
+
+        <!-- create sidebox dummy files -->
+        <antcallback target="create-sidebox-dummies" return="datetime.sidebox.dummies.cutoff"><param name="theme.id" value='default' /></antcallback>
+
         <!-- add zenmagick admin -->
         <antcall target="insert-after">
             <param name="insert.file" value="${release.full.dir}/admin/includes/boxes/extras_dhtml.php" />
@@ -237,12 +236,11 @@
                 <include name="includes/templates/default/**" />
                 <include name="includes/templates/demo/**" />
             </fileset>
+
             <!-- sidebox (dummies); created since this script started -->
-            <!--
             <fileset dir="${release.full.dir}" includes="includes/modules/sideboxes/*.php">
-                <date pattern="dd/MM/yyyy HH:mm:ss S" datetime="${datetime.sidebox.dummies.start}" when="after"/>
+                <present present="srconly" targetdir="${zencart.base.dir}"/>
             </fileset>
-            -->
         </zip>
     </target>
 
@@ -331,9 +329,6 @@
             <fileset dir="${release.full.dir}/includes/modules/sideboxes/"/>
         </touch>
 
-        <tstamp>
-            <format pattern="dd/MM/yyyy HH:mm:ss S" property="datetime.sidebox.dummies.start" />
-        </tstamp>
         <copy overwrite="false" todir="${release.full.dir}/includes/modules/sideboxes/">
             <fileset dir="${build.dir}/dummies" includes="*.php" />
         </copy>
