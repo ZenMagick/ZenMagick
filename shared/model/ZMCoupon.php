@@ -22,6 +22,7 @@
  */
 ?>
 <?php
+use Doctrine\Common\Collections\ArrayCollection;
 
 
 /**
@@ -63,8 +64,6 @@ class ZMCoupon extends ZMObject {
      * @Column(name="coupon_amount", type="decimal", nullable=false)
      */
     private $amount;
-    private $name;
-    private $description;
     /**
      * @var decimal $minOrderAmount
      *
@@ -113,6 +112,17 @@ class ZMCoupon extends ZMObject {
      * @Column(name="date_modified", type="datetime", nullable=false)
      */
     private $dateModified;
+    /**
+     * @var object $translations
+     * @OneToMany(targetEntity="ZMCouponTranslations", mappedBy="coupon", cascade={"persist", "remove"})
+     */
+    private $translations;
+
+    /**
+     * @deprecated $name and $description must still be supported since ZMDbTableMapper won't hydrate our "sub" objects
+     */
+    private $name;
+    private $description;
 
     /**
      * Create new instance
@@ -130,6 +140,7 @@ class ZMCoupon extends ZMObject {
         $this->minOrderAmount = 0;
         $this->usesPerCoupon = 1;
         $this->usesPerUser = 0;
+        $this->translations = new ArrayCollection();
     }
 
     /**
@@ -183,6 +194,15 @@ class ZMCoupon extends ZMObject {
      * @return string The coupon description.
      */
     public function getDescription() { return $this->description; }
+
+    /**
+     * Get the coupon translations.
+     *
+     * @return object ZMCouponTranslation
+     */
+    public function getTranslation($languageId = 1) {
+        return $this->translations[$languageId];
+    }
 
     /**
      * Get the minimum order amount.
@@ -369,4 +389,14 @@ class ZMCoupon extends ZMObject {
      * @param datetime $dateModified
      */
     public function setDateModified($dateModified) { $this->dateModified = $dateModified; }
+
+    /**
+     * Set the coupon translation.
+     *
+     * @return string The coupon description.
+     */
+    public function setTranslation($name, $description = '', $languageId = 1) {
+        $this->translations[$languageId] = new ZMCouponTranslations($this, $name, $description, $languageId);
+    }
+
 }
