@@ -33,3 +33,6 @@ container:
     XProducts:
       parent: merge:ZMProducts
       class: XProducts
+    MetaTags:
+      parent: merge:ZMToolboxMetaTags
+      class: MetaTags
