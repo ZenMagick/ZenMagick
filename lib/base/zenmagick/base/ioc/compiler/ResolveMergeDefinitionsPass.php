@@ -38,6 +38,10 @@ class ResolveMergeDefinitionsPass implements CompilerPassInterface {
             if (0 === strpos($parent, 'merge:')) {
                 $parent = substr($parent, 6);
                 $definition->setParent($parent);
+                if (!$this->container->hasDefinition($parent)) {
+                    // create parent, assume id = class (best guess and ZM practice)
+                    $this->container->setDefinition($parent, new Definition($parent));
+                }
                 // resolve as parent, not id
                 $this->resolveDefinition($parent, $definition);
                 $this->container->removeDefinition($id);
