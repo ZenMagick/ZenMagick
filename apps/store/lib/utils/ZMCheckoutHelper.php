@@ -352,7 +352,7 @@ class ZMCheckoutHelper extends ZMObject {
                     ZMMessages::instance()->error(_zm('Please provide a billing address'));
                 }
             }
-            return "require_payment_address";
+            return "require_billing_address";
         }
 
         return null;
