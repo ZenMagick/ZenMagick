@@ -31,7 +31,7 @@ class ZMLatestOrdersDashboardWidget extends ZMDashboardWidget {
 
     /**
      * Create new user.
-     * 
+     *
      */
     function __construct() {
         parent::__construct(_zm('Latest Orders'));
@@ -59,8 +59,8 @@ class ZMLatestOrdersDashboardWidget extends ZMDashboardWidget {
             $contents .= '<tr>';
             $actualAccount = ZMAccounts::instance()->getAccountForId($order->getAccountId());
             $name = $actualAccount->getType() == ZMAccount::REGISTERED ? $order->getAccount()->getFullName() : _zm('** Guest **');
-            $contents .= '    <td><a href="'.$admin2->url('order', 'orderId='.$order->getId()).'">'.$order->getId().'</a></td>';
-            $contents .= '    <td><a href="'.$admin2->url('account', 'accountId='.$order->getAccountId()).'">'.$name.'</a></td>';
+            $contents .= '    <td><a href="'.$admin2->url('zc_admin', 'zpid=orders&action=edit&oID='.$order->getId()).'">'.$order->getId().'</a></td>';
+            $contents .= '    <td><a href="'.$admin2->url('zc_admin', 'zpid=customers&action=edit&cID='.$order->getAccountId()).'">'.$name.'</a></td>';
             $contents .= '    <td>'.ZMLocaleUtils::dateShort($order->getOrderDate()).'</td>';
             $contents .= '    <td>'.$utils->formatMoney($order->getTotal()).'</td>';
             $contents .= '  </tr>';
