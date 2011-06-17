@@ -94,8 +94,8 @@ class ZMCoupons extends ZMObject {
         $sql = "SELECT cd.*, c.*
                 FROM " . TABLE_COUPONS . " c
                   LEFT JOIN " . TABLE_COUPONS_DESCRIPTION . " cd ON (c.coupon_id = cd.coupon_id AND cd.language_id = :languageId)
-                WHERE c.coupon_id = :couponId";
-        $args = array('couponId' => $id, 'languageId' => $languageId);
+                WHERE c.coupon_id = :id";
+        $args = array('id' => $id, 'languageId' => $languageId);
         return ZMRuntime::getDatabase()->querySingle($sql, $args, array(TABLE_COUPONS, TABLE_COUPONS_DESCRIPTION), 'ZMCoupon');
     }
 
@@ -226,8 +226,8 @@ class ZMCoupons extends ZMObject {
 
         $sql = "UPDATE " . TABLE_COUPONS . "
                 SET coupon_active = :active
-                WHERE coupon_id = :couponId";
-        $args = array('couponId' => $couponId, 'active' => 'N');
+                WHERE coupon_id = :id";
+        $args = array('id' => $couponId, 'active' => 'N');
         ZMRuntime::getDatabase()->update($sql, $args, TABLE_COUPONS);
     }
 
@@ -240,8 +240,8 @@ class ZMCoupons extends ZMObject {
     public function getCouponQueueEntryForId($queueId) {
         $sql = "SELECT *
                 FROM " . TABLE_COUPON_GV_QUEUE . "
-                WHERE unique_id = :id";
-        return ZMRuntime::getDatabase()->querySingle($sql, array('id' => $queueId), TABLE_COUPON_GV_QUEUE, 'ZMCouponQueue');
+                WHERE unique_id = :couponId";
+        return ZMRuntime::getDatabase()->querySingle($sql, array('couponId' => $queueId), TABLE_COUPON_GV_QUEUE, 'ZMCouponQueue');
     }
 
     /**
@@ -267,8 +267,8 @@ class ZMCoupons extends ZMObject {
         // get coupon value
         $sql = "SELECT coupon_amount
                 FROM " . TABLE_COUPONS . "
-                WHERE coupon_id = :couponId";
-        $result = ZMRuntime::getDatabase()->querySingle($sql, array('couponId' => $couponId), TABLE_COUPONS);
+                WHERE coupon_id = :id";
+        $result = ZMRuntime::getDatabase()->querySingle($sql, array('id' => $couponId), TABLE_COUPONS);
         $this->updateVoucherBalanceForAccountId($accountId, $result['amount'], self::BALANCE_ADD);
     }
 

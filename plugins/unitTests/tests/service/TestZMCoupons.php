@@ -56,10 +56,11 @@ class TestZMCoupons extends ZMTestCase {
         $accountTables = array(TABLE_COUPON_GV_CUSTOMER, TABLE_COUPON_GV_QUEUE);
 
         foreach ($couponTables as $table) {
+            $idName = TABLE_COUPONS == $table ? 'id' : 'couponId';
             $sql = "DELETE FROM " . $table . "
-                    WHERE coupon_id = :couponId";
+                    WHERE coupon_id = :".$idName;
             foreach ($this->createdCouponIds_ as $couponId) {
-                ZMRuntime::getDatabase()->update($sql, array('couponId' => $couponId), $table);
+                ZMRuntime::getDatabase()->update($sql, array($idName => $couponId), $table);
             }
         }
 
