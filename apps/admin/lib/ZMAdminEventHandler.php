@@ -95,7 +95,7 @@ class ZMAdminEventHandler {
      */
     public function onBootstrapDone($event) {
         //** load all config values if not set **//
-        if (!defined('STORE_NAME')) {
+        if (!defined('GLOBAL_SET_TIME_LIMIT')) {
             foreach (ZMConfig::instance()->loadAll() as $key => $value) {
                 define($key, $value);
             }

@@ -55,7 +55,7 @@ class StoreEventListener {
         include_once ZC_INSTALL_PATH . 'includes/database_tables.php';
 
         //** load all config values if not set **//
-        if (!defined('STORE_NAME')) {
+        if (!defined('GLOBAL_SET_TIME_LIMIT')) {
             foreach (\ZMConfig::instance()->loadAll() as $key => $value) {
                 define($key, $value);
             }
