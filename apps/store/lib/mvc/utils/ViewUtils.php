@@ -31,10 +31,14 @@ class ViewUtils extends ZMViewUtils {
     /**
      * {@inheritDoc}
      */
-    public function resolveResource($filename) {
+    public function resolveResource($resource) {
+        if ($this->isExternal($resource)) {
+            return $resource;
+        }
+
         $request = $this->getView()->getVar('request');
         // look in template path, not resource!
-        return $this->getView()->asUrl($request, $filename, ZMView::TEMPLATE);
+        return $this->getView()->asUrl($request, $resource, ZMView::TEMPLATE);
     }
 
 }
