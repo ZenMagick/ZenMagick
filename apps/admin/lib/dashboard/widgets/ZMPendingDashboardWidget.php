@@ -52,7 +52,7 @@ class ZMPendingDashboardWidget extends ZMDashboardWidget {
 
         $result = ZMRuntime::getDatabase()->querySingle("SELECT count(*) AS count FROM " . TABLE_REVIEWS . " WHERE status='0'");
         if (0 < $result['count']) {
-            $contents .= '<a href="'.$request->url('zc_admin', 'zpid=reviews&status=1').'">'._zm('There are %s reviews pending approval', $result['count']).'</a>';
+            $contents .= '<a href="'.$request->url('zc_admin', 'zpid=reviews&status=1').'">'.sprintf(_zm('There are %s reviews pending approval'), $result['count']).'</a>';
         }
 
         if (0 == strlen($contents)) {
