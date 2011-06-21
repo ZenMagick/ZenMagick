@@ -33,6 +33,8 @@
     <?php $resources->cssFile('site.css') ?>
     <?php $resources->cssFile('ie.css', array('prefix' => '<!--[if IE]>', 'suffix' => '<![endif]-->')) ?>
     <?php $resources->jsFile('common.js', ZMViewUtils::FOOTER) ?>
+    <?php $resources->jsFile('common.js', ZMViewUtils::FOOTER) ?>
+    <?php $resources->jsFile('//ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js', ZMViewUtils::HEADER) ?>
     <?php /* give other themes the chance to add to the default CSS without having to copy everything */ ?>
     <?php if ($this->exists("theme.css")) { ?>
         <?php $resources->cssFile('theme.css') ?>

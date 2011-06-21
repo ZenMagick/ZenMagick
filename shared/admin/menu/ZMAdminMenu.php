@@ -31,7 +31,7 @@
  */
 class ZMAdminMenu {
     /** Plugins menu id. */
-    const MENU_PLUGINS = 'plugins-options';
+    const MENU_PLUGINS = 'configuration-plugins';
     /** Menu id for Catalog Manager tabs. */
     const MENU_CATALOG_MANAGER_TAB = 'catalog-manager-tab';
     private static $items_ = array();
@@ -89,7 +89,7 @@ class ZMAdminMenu {
         ob_start();
         $first = true;
         $size = count(self::$items_);
-        for ($ii=0; $ii < $size; ++$ii) { 
+        for ($ii=0; $ii < $size; ++$ii) {
             $item = self::$items_[$ii];
             if (null == $item) {
                 continue;

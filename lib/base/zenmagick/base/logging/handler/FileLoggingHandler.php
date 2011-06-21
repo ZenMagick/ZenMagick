@@ -1,7 +1,7 @@
 <?php
 /*
  * ZenMagick - Another PHP framework.
- * Copyright (C) 2006,2010 zenmagick.org
+ * Copyright (C) 2006-2011 zenmagick.org
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,26 +19,40 @@
  */
 ?>
 <?php
+namespace zenmagick\base\logging\handler;
+
+use zenmagick\base\logging\Logging;
 
 /**
- * View utils.
+ * File logging handler.
  *
  * @author DerManoMann
- * @package zenmagick.store.sf.mvc.utils
+ * @package zenmagick.base.logging.handler
  */
-class ViewUtils extends ZMViewUtils {
+class FileLoggingHandler extends DefaultLoggingHandler {
+    private $filename;
+
+    /**
+     * Set the log filename.
+     *
+     * @param string filename The log filename.
+     */
+    public function setFilename($filename) {
+        $this->filename = $filename;
+    }
 
     /**
      * {@inheritDoc}
      */
-    public function resolveResource($resource) {
-        if ($this->isExternal($resource)) {
-            return $resource;
+    public function log($msg, $level) {
+        if (array_key_exists($level, Logging::$LOG_LEVEL)) {
+            $handle = fopen($this->filename, 'ab');
+            if ($handle) {
+                $line = Logging::$LOG_LEVEL[$level] . ': ' . trim($msg) . "\n";
+                fwrite($handle, $line);
+                fclose($handle);
+            }
         }
-
-        $request = $this->getView()->getVar('request');
-        // look in template path, not resource!
-        return $this->getView()->asUrl($request, $resource, ZMView::TEMPLATE);
     }
 
 }

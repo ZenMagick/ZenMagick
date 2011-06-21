@@ -26,7 +26,6 @@
     ZMAdminMenu::setItem(array('requestId' => 'fulfilment', 'title' => _zm('Fulfilment')));
     ZMAdminMenu::setItem(array('requestId' => 'reports', 'title' => _zm('Reports')));
     ZMAdminMenu::setItem(array('requestId' => 'tools', 'title' => _zm('Tools')));
-    ZMAdminMenu::setItem(array('requestId' => 'plugins', 'title' => _zm('Plugins')));
     ZMAdminMenu::setItem(array('requestId' => 'configuration', 'title' => _zm('Configuration')));
     ZMAdminMenu::setItem(array('requestId' => 'zc_admin', 'title' => _zm('Zen Cart Admin')));
 
@@ -46,16 +45,14 @@
     ZMAdminMenu::setItem(array('parentId' => 'tools-misc', 'requestId' => 'email_preview', 'title' => _zm('Preview Email Templates')));
 
     // configuration
+    ZMAdminMenu::setItem(array('parentId' => 'configuration', 'id' => 'configuration-plugins', 'title' => _zm('Plugins')));
+    ZMAdminMenu::setItem(array('parentId' => 'configuration-plugins', 'requestId' => 'plugins', 'title' => _zm('Plugin Admin')));
     ZMAdminMenu::setItem(array('parentId' => 'configuration', 'id' => 'configuration-installation', 'title' => _zm('Installation')));
     ZMAdminMenu::setItem(array('parentId' => 'configuration-installation', 'requestId' => 'installation', 'title' => _zm('Installation')));
     ZMAdminMenu::setItem(array('parentId' => 'configuration', 'id' => 'configuration-dev', 'title' => _zm('Development')));
     ZMAdminMenu::setItem(array('parentId' => 'configuration-dev', 'requestId' => 'l10n', 'title' => _zm('Translation Helper')));
     ZMAdminMenu::setItem(array('parentId' => 'configuration-dev', 'requestId' => 'theme_builder', 'title' => _zm('Theme Builder')));
     ZMAdminMenu::setItem(array('parentId' => 'configuration-dev', 'requestId' => 'console', 'title' => _zm('Console')));
-
-    // plugins (the generic part)
-    ZMAdminMenu::setItem(array('parentId' => 'plugins', 'id' => 'plugins-options', 'title' => _zm('Plugin Options')));
-    // these are set in Plugin::addMenuItem2
 
     // fulfilment
     ZMAdminMenu::setItem(array('parentId' => 'fulfilment', 'id' => 'fulfilment-accounts', 'title' => _zm('Accounts')));

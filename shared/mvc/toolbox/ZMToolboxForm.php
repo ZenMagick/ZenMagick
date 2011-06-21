@@ -246,6 +246,7 @@ class ZMToolboxForm extends ZMToolboxTool {
      * @param array list A list of options.
      * @param array attr Optional HTML attribute map; default is <code>null</code>.
      * @param string selectedId Value of option to select; default is <code>null</code>.
+     * @param array attr Optional HTML element attributes; default is an empty array.
      * @return string Complete HTML <code>&lt;select&gt;</code> tag.
      */
     public function idpSelect($name, $list, $selectedId=null, $attr=array()) {

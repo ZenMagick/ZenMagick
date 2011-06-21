@@ -48,7 +48,7 @@ class ZMLegacyConfigController extends ZMController {
      * {@inheritDoc}
      */
     public function processGet($request) {
-        $groupId = $request->getParameter('groupId');
+        $groupId = $request->getParameter('groupId', 1);
         $group = ZMConfig::instance()->getConfigGroupForId($groupId);
         $groupValues = ZMConfig::instance()->getValuesForGroupId($groupId);
         return $this->findView(null, array('group' => $group, 'groupValues' => $groupValues));
