@@ -26,8 +26,6 @@ use zenmagick\base\logging\Logging;
 /**
  * File logging handler.
  *
- * <p>If <code>display_errors</code> is enabled, all logging will be <em>echo'ed</em>.</p>
- *
  * @author DerManoMann
  * @package zenmagick.base.logging.handler
  */
