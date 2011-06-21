@@ -379,10 +379,10 @@ class Plugin extends ZMPlugin {
      * @return string The menu key to be used to add items to this group.
      * @todo: fix and allow optional other parameter, etc...
      */
-    public function addMenuGroup($title, $parentId='plugins') {
+    public function addMenuGroup($title, $parentId='configuration') {
         if (\ZMSettings::get('isAdmin')) {
-            $key = 'plugins-'.$this->getId().microtime();
-            \ZMAdminMenu::setItem(array('parentId' => 'plugins', 'id' => $key, 'title' => $title));
+            $key = $parentId.'-'.$this->getId().microtime();
+            \ZMAdminMenu::setItem(array('parentId' => $parentId, 'id' => $key, 'title' => $title));
             return $key;
         }
         return null;
