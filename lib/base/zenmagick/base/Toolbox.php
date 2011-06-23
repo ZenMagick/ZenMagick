@@ -84,6 +84,7 @@ class Toolbox {
 
         $data = array();
         if (!file_exists($filename)) {
+            Runtime::getLogging()->warn("skipping missing yaml file: ".$filename);
             return $data;
         }
         try {
