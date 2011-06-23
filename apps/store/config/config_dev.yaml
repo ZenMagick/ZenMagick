@@ -1,0 +1,15 @@
+imports:
+    - { resource: config.yaml }
+    - { resource: ../../../config/store-config.yaml }
+    - { resource: local-config.yaml, mode: append }
+    - { resource: local-config_dev.yaml, mode: append }
+
+zenmagick:
+  base:
+    logging:
+      level: ALL
+      enabled: true
+      handleErrors: true
+      handlers:
+        - zenmagick\base\logging\handler\DefaultLoggingHandler
+        - zenmagick\base\logging\handler\EchoLoggingHandler#logLevel=WARN
