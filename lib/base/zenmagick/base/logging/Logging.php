@@ -65,7 +65,6 @@ class Logging {
     /** Readable list of log level. */
     public static $LOG_LEVEL = array('NONE', 'ERROR', 'WARN', 'INFO', 'DEBUG', 'TRACE');
 
-    private $globalLogLevel_;
     private $handlerList_;
     private $ERR_MAP = array(
         1 => "Error",
@@ -91,13 +90,22 @@ class Logging {
      */
     public function __construct() {
         $this->handlerList_ = array();
-        $this->globalLogLevel_ = Runtime::getSettings()->get('zenmagick.base.logging.level', 0);
-        // allow string values
-        if (array_key_exists($this->globalLogLevel_, self::$LOG_LEVEL_LOOKUP)) {
-            $this->globalLogLevel_ = self::$LOG_LEVEL_LOOKUP[$this->globalLogLevel_];
-        }
     }
 
+
+    /**
+     * Get current log level.
+     *
+     * @return int The current log level.
+     */
+    public function getLogLevel() {
+        $logLevel = Runtime::getSettings()->get('zenmagick.base.logging.level', Logging::INFO);
+        // allow string values
+        if ($logLevel && array_key_exists($logLevel, self::$LOG_LEVEL_LOOKUP)) {
+            $logLevel = self::$LOG_LEVEL_LOOKUP[$logLevel];
+        }
+        return $logLevel;
+    }
 
     /**
      * Get all handler.
@@ -105,6 +113,7 @@ class Logging {
      * @return array A list of handlers.
      */
     protected function getHandlers() {
+        // TODO: make sane
         // save current
         $tmp = $this->handlerList_;
         $this->handlerList_ = array();
@@ -123,7 +132,6 @@ class Logging {
                 }
             }
         }
-
         return $this->handlerList_;
     }
 
@@ -173,9 +181,10 @@ class Logging {
      * @param int level Optional level; default: <code>INFO</code>.
      */
     public function log($msg, $level=self::INFO) {
-      if (Runtime::getSettings()->get('zenmagick.base.logging.enabled', false)) {
+        if (Runtime::getSettings()->get('zenmagick.base.logging.enabled', true)) {
+            $logLevel = $this->getLogLevel();
             foreach ($this->getHandlers() as $handler) {
-                if ((null === ($customLevel = $handler->getLogLevel()) && $level <= $this->globalLogLevel_) || $level <= $customLevel) {
+                if ((null === ($customLevel = $handler->getLogLevel()) && $level <= $logLevel) || $level <= $customLevel) {
                     $handler->log($msg, $level);
                 }
             }
@@ -190,9 +199,10 @@ class Logging {
      * @param int level Optional level; default: <code>TRACE</code>.
      */
     public function dump($obj, $msg=null, $level=self::TRACE) {
-      if (Runtime::getSettings()->get('zenmagick.base.logging.enabled', false)) {
+        if (Runtime::getSettings()->get('zenmagick.base.logging.enabled', true)) {
+            $logLevel = $this->getLogLevel();
             foreach ($this->getHandlers() as $handler) {
-                if ((null === ($customLevel = $handler->getLogLevel()) && $level <= $this->globalLogLevel_) || $level <= $customLevel) {
+                if ((null === ($customLevel = $handler->getLogLevel()) && $level <= $logLevel) || $level <= $customLevel) {
                     $handler->dump($obj, $msg, $level);
                 }
             }
@@ -206,9 +216,10 @@ class Logging {
      * @param int level Optional level; default: <code>TRACE</code>.
      */
     public function trace($msg=null, $level=self::TRACE) {
-      if (Runtime::getSettings()->get('zenmagick.base.logging.enabled', false)) {
+        if (Runtime::getSettings()->get('zenmagick.base.logging.enabled', true)) {
+            $logLevel = $this->getLogLevel();
             foreach ($this->getHandlers() as $handler) {
-                if ((null === ($customLevel = $handler->getLogLevel()) && $level <= $this->globalLogLevel_) || $level <= $customLevel) {
+                if ((null === ($customLevel = $handler->getLogLevel()) && $level <= $logLevel) || $level <= $customLevel) {
                     $handler->trace($msg, $level);
                 }
             }
@@ -239,21 +250,21 @@ class Logging {
         $time = date("d M Y H:i:s");
         // Get the error names from the error number
         $errTypes = array (
-        1 => "Error",
-        2 => "Warning",
-        4 => "Parsing Error",
-        8 => "Notice",
-        16 => "Core Error",
-        32 => "Core Warning",
-        64 => "Compile Error",
-        128 => "Compile Warning",
-        256 => "User Error",
-        512 => "User Warning",
-        1024 => "User Notice",
-        2048 => "Strict",
-        4096 => "Recoverable Error",
-        8192 => "Deprecated",
-        16384 => "User Deprecated",
+            1 => "Error",
+            2 => "Warning",
+            4 => "Parsing Error",
+            8 => "Notice",
+            16 => "Core Error",
+            32 => "Core Warning",
+            64 => "Compile Error",
+            128 => "Compile Warning",
+            256 => "User Error",
+            512 => "User Warning",
+            1024 => "User Notice",
+            2048 => "Strict",
+            4096 => "Recoverable Error",
+            8192 => "Deprecated",
+            16384 => "User Deprecated",
         );
 
         if (isset($errTypes[$errno])) {
@@ -275,9 +286,10 @@ class Logging {
      * @param array info All available log information.
      */
     public function logError($line, $info) {
-      if (Runtime::getSettings()->get('zenmagick.base.logging.enabled', false)) {
+        if (Runtime::getSettings()->get('zenmagick.base.logging.enabled', true)) {
+            $logLevel = $this->getLogLevel();
             foreach ($this->getHandlers() as $handler) {
-                if ((null === ($customLevel = $handler->getLogLevel()) && self::ERROR <= $this->globalLogLevel_) || self::ERROR <= $customLevel) {
+                if ((null === ($customLevel = $handler->getLogLevel()) && self::ERROR <= $logLevel) || self::ERROR <= $customLevel) {
                     $handler->logError($line, $info);
                 }
             }

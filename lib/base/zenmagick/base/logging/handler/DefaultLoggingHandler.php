@@ -40,9 +40,9 @@ class DefaultLoggingHandler implements LoggingHandler {
     /**
      * Create new instance.
      *
-     * @param int logLevel Optional custom log level; default is <code>null</code>.
+     * @param int logLevel Optional custom log level; default is <code>Logging::INFO</code>.
      */
-    public function __construct($logLevel=null) {
+    public function __construct($logLevel=Logging::INFO) {
         $this->logLevel = $logLevel;
     }
 
