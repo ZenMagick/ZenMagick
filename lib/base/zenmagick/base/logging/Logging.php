@@ -99,7 +99,16 @@ class Logging {
      * @return int The current log level.
      */
     public function getLogLevel() {
-        $logLevel = Runtime::getSettings()->get('zenmagick.base.logging.level', Logging::INFO);
+        return $this->translateLogLevel(Runtime::getSettings()->get('zenmagick.base.logging.level', Logging::INFO));
+    }
+
+    /**
+     * Get translated log level.
+     *
+     * @param mixed The log lelel.
+     * @return int The numeric log level.
+     */
+    protected function translateLogLevel($logLevel) {
         // allow string values
         if ($logLevel && array_key_exists($logLevel, self::$LOG_LEVEL_LOOKUP)) {
             $logLevel = self::$LOG_LEVEL_LOOKUP[$logLevel];
@@ -184,7 +193,7 @@ class Logging {
         if (Runtime::getSettings()->get('zenmagick.base.logging.enabled', true)) {
             $logLevel = $this->getLogLevel();
             foreach ($this->getHandlers() as $handler) {
-                if ((null === ($customLevel = $handler->getLogLevel()) && $level <= $logLevel) || $level <= $customLevel) {
+                if ((null === ($customLevel = $handler->getLogLevel()) && $level <= $logLevel) || $level <= $this->translateLogLevel($customLevel)) {
                     $handler->log($msg, $level);
                 }
             }
@@ -202,7 +211,7 @@ class Logging {
         if (Runtime::getSettings()->get('zenmagick.base.logging.enabled', true)) {
             $logLevel = $this->getLogLevel();
             foreach ($this->getHandlers() as $handler) {
-                if ((null === ($customLevel = $handler->getLogLevel()) && $level <= $logLevel) || $level <= $customLevel) {
+                if ((null === ($customLevel = $handler->getLogLevel()) && $level <= $logLevel) || $level <= $this->translateLogLevel($customLevel)) {
                     $handler->dump($obj, $msg, $level);
                 }
             }
@@ -219,7 +228,7 @@ class Logging {
         if (Runtime::getSettings()->get('zenmagick.base.logging.enabled', true)) {
             $logLevel = $this->getLogLevel();
             foreach ($this->getHandlers() as $handler) {
-                if ((null === ($customLevel = $handler->getLogLevel()) && $level <= $logLevel) || $level <= $customLevel) {
+                if ((null === ($customLevel = $handler->getLogLevel()) && $level <= $logLevel) || $level <= $this->translateLogLevel($customLevel)) {
                     $handler->trace($msg, $level);
                 }
             }
