@@ -5,7 +5,11 @@
 ##
 
 parameters:
+  kernel.root_dir: %zenmagick.cacheBaseDir%/kernel
+  kernel.cache_dir: %zenmagick.cacheBaseDir%
   kernel.debug: false
+  kernel.bundles: %zenmagick.bundles%
+  zenmagick.installationPath: '<?php echo dirname(zenmagick\base\Runtime::getInstallationPath()) ?>'
   zenmagick.cacheIds: ['transientCache', 'persistentCache', 'servicesCache', 'templateCache']
   zenmagick.cacheBaseDir: '<?php echo dirname(zenmagick\base\Runtime::getInstallationPath())."/cache/zenmagick" ?>'
 
@@ -74,3 +78,36 @@ doctrine:
         charset: utf8
         #collation: null @todo mysql collation setting
         unix_socket: null
+  orm:
+    auto_generate_proxy_classes: true
+    proxy_namespace: zenmagick.proxies
+    proxy_dir: %zenmagick.cacheBaseDir%/doctrine/orm/proxies
+    entity_managers:
+      default:
+
+        mappings:
+          zenmagick:
+            is_bundle: false
+            type: xml
+            # @todo will eventually be the namespace zenmagick\apps\store\entities
+            prefix: ZM
+            dir: %zenmagick.installationPath%/zenmagick/shared/model
+
+#swiftmailer:
+#  transport: '<?php echo ("PHP" == EMAIL_TRANSPORT ? "mail" : EMAIL_TRANSPORT) ?>'
+#  username: '<?php echo EMAIL_SMTPAUTH_MAILBOX ?>'
+#  password: '<?php echo EMAIL_SMTPAUTH_PASSWORD ?>'
+#  host: '<?php echo EMAIL_SMTPAUTH_MAIL_SERVER ?>'
+#  port: '<?php echo EMAIL_SMTPAUTH_MAIL_SERVER_PORT ?>'
+#  encryption: ~
+#  auth_mode: ~
+#  spool:
+#    type: file
+#    path: %zenmagick.cacheBaseDir%/swiftmailer/spool
+#  sender_address: ~
+#  antiflood:
+#    threshold: 99
+#    sleep: 0
+#  delivery_address: ~
+#  disable_delivery: ~
+#  logging: true

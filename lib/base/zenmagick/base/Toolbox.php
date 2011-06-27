@@ -88,7 +88,7 @@ class Toolbox {
             return $data;
         }
         try {
-            $yaml = Yaml::load($filename);
+            $yaml = Yaml::parse($filename);
             if (is_array($yaml)) {
                 if (null != $environment && array_key_exists($environment, $yaml)) {
                     $data = self::arrayMergeRecursive($yaml, $yaml[$environment]);
