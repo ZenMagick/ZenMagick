@@ -50,9 +50,12 @@ class FileCache implements Cache {
      * {@inheritDoc}
      */
     public function init($group, $config) {
+        if (!isset($config['cacheDir'])) {
+            throw new \RuntimeException('missing cacheDir');
+        }
         $config = array(
             'automaticSerialization' => true,
-            'cacheDir' => isset($config['cacheDir']) ? $config['cacheDir'] : \ZMSettings::get('zenmagick.core.cache.provider.file.baseDir')
+            'cacheDir' => $config['cacheDir']
         );
         $this->ensureCacheDir($config['cacheDir']);
         $this->metaCache_ = new \Cache_Lite($config);

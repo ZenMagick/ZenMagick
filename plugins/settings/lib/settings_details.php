@@ -42,11 +42,6 @@
                         'desc' => 'List of known cache providers.'
                     ),
                     array(
-                        'key' => 'provider.file.baseDir',
-                        'type' => 'string',
-                        'desc' => 'Base directory for file based caching.'
-                    ),
-                    array(
                         'key' => 'mapping.defaults',
                         'type' => 'array',
                         'desc' => 'Default provider for persistent and transient caching.'

@@ -148,7 +148,7 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
 
         $config = new Doctrine\ORM\Configuration();
 
-        $config->setProxyDir(ZMSettings::get('zenmagick.core.cache.provider.file.baseDir') . $conf['proxy_dir']);
+        $config->setProxyDir($conf['proxy_dir']);
         $config->setProxyNamespace($conf['proxy_namespace']);
         $config->setAutoGenerateProxyClasses($conf['auto_generate_proxy_classes']);
 
