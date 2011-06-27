@@ -143,16 +143,6 @@
 
 
             /**************************************
-             * Ajax
-             **************************************/
-
-            // echo JSON response
-            'zenmagick.mvc.json.echo' => true,
-
-            // default format; this is taken as method suffix to resolve Ajax methods
-            'zenmagick.mvc.ajax.format' => 'JSON',
-
-            /**************************************
              * formatting and other defaults
              **************************************/
 

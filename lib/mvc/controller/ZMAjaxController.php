@@ -73,7 +73,7 @@ class ZMAjaxController extends ZMController {
     public function process($request) {
         $method = $sacsMethod = $request->getParameter('method');
         if (!method_exists($this, $method)) {
-            $method = $method.ZMSettings::get('zenmagick.mvc.ajax.format');
+            $method = $method.'JSON';
         }
 
         // check access on controller level
@@ -101,7 +101,7 @@ class ZMAjaxController extends ZMController {
      */
     public function setJSONHeader($json) {
         $this->setContentType('text/plain');
-        if (ZMSettings::get('zenmagick.mvc.json.echo')) { echo $json; }
+        echo $json;
     }
 
     /**
