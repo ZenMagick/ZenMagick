@@ -60,7 +60,7 @@ class ZMAdminRolesPatch extends \ZMSQLPatch {
      */
     function isOpen() {
 	      $meta = \ZMRuntime::getDatabase()->getMetaData();
-        return !in_array(ZM_TABLE_ADMIN_ROLES, $meta['tables']);
+        return !in_array(DB_PREFIX.'admin_roles', $meta['tables']);
     }
 
     /**
@@ -84,7 +84,7 @@ class ZMAdminRolesPatch extends \ZMSQLPatch {
 
         return true;
     }
-    
+
     /**
      * Revert the patch.
      *
@@ -103,5 +103,5 @@ class ZMAdminRolesPatch extends \ZMSQLPatch {
         }
         return $status;
     }
-    
+
 }

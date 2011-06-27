@@ -58,9 +58,9 @@ class ZMAdminUserRoles extends ZMObject {
      * @return array List of roles with the role id as key.
      */
     public function getAllRoles() {
-        $sql = "SELECT admin_role_id, name from " . ZM_TABLE_ADMIN_ROLES;
+        $sql = "SELECT admin_role_id, name from " . DB_PREFIX.'admin_roles';
         $roles = array();
-        foreach (ZMRuntime::getDatabase()->query($sql, array(), ZM_TABLE_ADMIN_ROLES) as $result) {
+        foreach (ZMRuntime::getDatabase()->query($sql, array(), 'admin_roles') as $result) {
             $roles[$result['admin_role_id']] = $result['name'];
         }
 
@@ -73,8 +73,8 @@ class ZMAdminUserRoles extends ZMObject {
      * @return int The new role id.
      */
     public function addRole($name) {
-        $sql = "INSERT INTO " . ZM_TABLE_ADMIN_ROLES . " (name) VALUES(:name)";
-        $result = ZMRuntime::getDatabase()->createModel(ZM_TABLE_ADMIN_ROLES, array('name' => $name));
+        $sql = "INSERT INTO " . DB_PREFIX.'admin_roles' . " (name) VALUES(:name)";
+        $result = ZMRuntime::getDatabase()->createModel('admin_roles', array('name' => $name));
         return $result['admin_role_id'];
     }
 
@@ -88,10 +88,10 @@ class ZMAdminUserRoles extends ZMObject {
         $allRolesLookup = array_flip($this->getAllRoles());
         $roleId = $allRolesLookup[$name];
         // 1) delete mappings
-        $sql = "DELETE FROM " . ZM_TABLE_ADMINS_TO_ROLES . "
+        $sql = "DELETE FROM " . DB_PREFIX.'admins_to_roles' . "
                 WHERE admin_role_id = :admin_role_id";
-        ZMRuntime::getDatabase()->update($sql, array('admin_role_id' => $roleId), ZM_TABLE_ADMINS_TO_ROLES);
-        ZMRuntime::getDatabase()->removeModel(ZM_TABLE_ADMIN_ROLES, array('admin_role_id' => $roleId));
+        ZMRuntime::getDatabase()->update($sql, array('admin_role_id' => $roleId), 'admins_to_roles');
+        ZMRuntime::getDatabase()->removeModel('admins_to_roles', array('admin_role_id' => $roleId));
         return true;
     }
 
@@ -102,12 +102,12 @@ class ZMAdminUserRoles extends ZMObject {
      * @return array List of roles with the role id as key.
      */
     public function getRolesForId($id) {
-        $sql = "SELECT DISTINCT ar.admin_role_id, ar.name from " . ZM_TABLE_ADMIN_ROLES . " AS ar, " . ZM_TABLE_ADMINS_TO_ROLES . " AS atr
+        $sql = "SELECT DISTINCT ar.admin_role_id, ar.name from " . DB_PREFIX.'admin_roles' . " AS ar, " . DB_PREFIX.'admins_to_roles' . " AS atr
                 WHERE atr.admin_role_id = ar.admin_role_id
                   AND atr.admin_id = :admin_id";
         $roles = array();
         $args = array('admin_id' => $id);
-        foreach (ZMRuntime::getDatabase()->query($sql, $args, array(ZM_TABLE_ADMIN_ROLES, ZM_TABLE_ADMINS_TO_ROLES)) as $result) {
+        foreach (ZMRuntime::getDatabase()->query($sql, $args, array('admin_roles', 'admins_to_roles')) as $result) {
             $roles[$result['admin_role_id']] = $result['name'];
         }
 
@@ -139,17 +139,17 @@ class ZMAdminUserRoles extends ZMObject {
         }
 
         if (0 < count($remove)) {
-            $sql = "DELETE FROM " . ZM_TABLE_ADMINS_TO_ROLES . "
+            $sql = "DELETE FROM " . DB_PREFIX.'admins_to_roles' . "
                     WHERE  admin_id = :admin_id
                       AND admin_role_id in (:admin_role_id)";
-            ZMRuntime::getDatabase()->update($sql, array('admin_id' => $id, 'admin_role_id' => $remove), ZM_TABLE_ADMINS_TO_ROLES);
+            ZMRuntime::getDatabase()->update($sql, array('admin_id' => $id, 'admin_role_id' => $remove), 'admins_to_roles');
         }
 
         if (0 < count($add)) {
-            $sql = "INSERT INTO " . ZM_TABLE_ADMINS_TO_ROLES . "
+            $sql = "INSERT INTO " . DB_PREFIX.'admins_to_roles' . "
                     (admin_id, admin_role_id) VALUES (:admin_id, :admin_role_id)";
             foreach ($add as $addId) {
-                ZMRuntime::getDatabase()->update($sql, array('admin_id' => $id, 'admin_role_id' => $addId), ZM_TABLE_ADMINS_TO_ROLES);
+                ZMRuntime::getDatabase()->update($sql, array('admin_id' => $id, 'admin_role_id' => $addId), 'admins_to_roles');
             }
         }
 

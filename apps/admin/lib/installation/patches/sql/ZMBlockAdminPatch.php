@@ -60,7 +60,7 @@ class ZMBlockAdminPatch extends \ZMSQLPatch {
      */
     function isOpen() {
 	      $meta = \ZMRuntime::getDatabase()->getMetaData();
-        return !in_array(ZM_TABLE_BLOCK_GROUPS, $meta['tables']);
+        return !in_array(DB_PREFIX.'block_groups', $meta['tables']);
     }
 
     /**

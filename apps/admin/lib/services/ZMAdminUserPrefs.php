@@ -61,10 +61,10 @@ class ZMAdminUserPrefs extends ZMObject {
      */
     public function getPrefForName($adminId, $name) {
         $sql = "SELECT value
-                FROM " . ZM_TABLE_ADMIN_PREFS . "
+                FROM " . DB_PREFIX.'admin_prefs' . "
                 WHERE admin_id = :admin_id AND name = :name";
         $args = array('admin_id' => $adminId, 'name' => $name);
-        if (null != ($result = ZMRuntime::getDatabase()->querySingle($sql, $args, ZM_TABLE_ADMIN_PREFS))) {
+        if (null != ($result = ZMRuntime::getDatabase()->querySingle($sql, $args, 'admin_prefs'))) {
             return $result['value'];
         }
         return null;
@@ -82,18 +82,18 @@ class ZMAdminUserPrefs extends ZMObject {
 
         // check for insert/update first
         $sql = "SELECT value
-                FROM " . ZM_TABLE_ADMIN_PREFS . "
+                FROM " . DB_PREFIX.'admin_prefs' . "
                 WHERE admin_id = :admin_id AND name = :name";
-        if (null != ($result = ZMRuntime::getDatabase()->querySingle($sql, $args, ZM_TABLE_ADMIN_PREFS))) {
-            $sql = "UPDATE " . ZM_TABLE_ADMIN_PREFS . "
+        if (null != ($result = ZMRuntime::getDatabase()->querySingle($sql, $args, 'admin_prefs'))) {
+            $sql = "UPDATE " . DB_PREFIX.'admin_prefs' . "
                     SET value = :value
                     WHERE admin_id = :admin_id AND name = :name";
         } else {
-            $sql = "INSERT INTO " . ZM_TABLE_ADMIN_PREFS . "
+            $sql = "INSERT INTO " . DB_PREFIX.'admin_prefs' . "
                     (admin_id, name, value)
                     VALUES (:admin_id, :name, :value)";
         }
-        ZMRuntime::getDatabase()->update($sql, $args, ZM_TABLE_ADMIN_PREFS);
+        ZMRuntime::getDatabase()->update($sql, $args, 'admin_prefs');
     }
 
 }

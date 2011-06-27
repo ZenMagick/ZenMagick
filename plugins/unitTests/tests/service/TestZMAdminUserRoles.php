@@ -33,12 +33,12 @@ class TestZMAdminUserRoles extends ZMTestCase {
      */
     public function setUp() {
         parent::setUp();
-        ZMRuntime::getDatabase()->update('TRUNCATE TABLE ' . ZM_TABLE_ADMIN_ROLES);
-        ZMRuntime::getDatabase()->update('TRUNCATE TABLE ' . ZM_TABLE_ADMINS_TO_ROLES);
+        ZMRuntime::getDatabase()->update('TRUNCATE TABLE ' . DB_PREFIX.'admin_roles');
+        ZMRuntime::getDatabase()->update('TRUNCATE TABLE ' . DB_PREFIX.'admins_to_roles');
         ZMAdminUserRoles::instance()->addRole('admin');
         ZMAdminUserRoles::instance()->addRole('helpdesk');
-        ZMRuntime::getDatabase()->update('INSERT INTO ' . ZM_TABLE_ADMINS_TO_ROLES . ' VALUES(1, 1)');
-        ZMRuntime::getDatabase()->update('INSERT INTO ' . ZM_TABLE_ADMINS_TO_ROLES . ' VALUES(1, 2)');
+        ZMRuntime::getDatabase()->update('INSERT INTO ' . DB_PREFIX.'admins_to_roles' . ' VALUES(1, 1)');
+        ZMRuntime::getDatabase()->update('INSERT INTO ' . DB_PREFIX.'admins_to_roles' . ' VALUES(1, 2)');
     }
 
     /**
@@ -46,11 +46,11 @@ class TestZMAdminUserRoles extends ZMTestCase {
      */
     public function tearDown() {
         parent::tearDown();
-        ZMRuntime::getDatabase()->update('TRUNCATE TABLE ' . ZM_TABLE_ADMIN_ROLES);
-        ZMRuntime::getDatabase()->update('TRUNCATE TABLE ' . ZM_TABLE_ADMINS_TO_ROLES);
+        ZMRuntime::getDatabase()->update('TRUNCATE TABLE ' . DB_PREFIX.'admin_roles');
+        ZMRuntime::getDatabase()->update('TRUNCATE TABLE ' . DB_PREFIX.'admins_to_roles');
         ZMAdminUserRoles::instance()->addRole('admin');
         ZMAdminUserRoles::instance()->addRole('demo');
-        ZMRuntime::getDatabase()->update('INSERT INTO ' . ZM_TABLE_ADMINS_TO_ROLES . ' VALUES(1, 1)');
+        ZMRuntime::getDatabase()->update('INSERT INTO ' . DB_PREFIX.'admins_to_roles' . ' VALUES(1, 1)');
     }
 
     /**

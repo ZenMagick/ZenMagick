@@ -25,8 +25,6 @@
 
 use zenmagick\base\Runtime;
 
-define('ZM_TABLE_PRODUCT_GROUP_PRICING', DB_PREFIX . 'product_group_pricing');
-
 
 /**
  * Service class for product based group pricing
@@ -81,12 +79,12 @@ class ZMProductGroupPricings extends ZMObject {
         if ($active) {
             $dateLimit = ' AND start_date <= now() AND (end_date > now() OR end_date is NULL OR end_date = :endDate) ';
         }
-        $sql = "SELECT * FROM " . ZM_TABLE_PRODUCT_GROUP_PRICING . "
+        $sql = "SELECT * FROM " . DB_PREFIX.'product_group_pricing' . "
                 WHERE products_id = :productId
                 AND group_id = :groupId".$dateLimit;
         $sql .= " ORDER BY start_date ASC";
         $args = array('productId' => $productId, 'groupId' => $groupId, 'endDate' => ZMDatabase::NULL_DATETIME);
-        return ZMRuntime::getDatabase()->query($sql, $args, ZM_TABLE_PRODUCT_GROUP_PRICING, 'ZMProductGroupPricing');
+        return ZMRuntime::getDatabase()->query($sql, $args, 'product_group_pricing', 'ZMProductGroupPricing');
     }
 
     /**
@@ -96,10 +94,10 @@ class ZMProductGroupPricings extends ZMObject {
      * @return ProductGroupPricing A <code>ProductGroupPricing</code> or <code>null</code>.
      */
     public function getProductGroupPricingForId($groupPricingId) {
-        $sql = "SELECT * FROM " . ZM_TABLE_PRODUCT_GROUP_PRICING . "
+        $sql = "SELECT * FROM " . DB_PREFIX.'product_group_pricing' . "
                 WHERE group_pricing_id = :id";
         $args = array('id' => $groupPricingId);
-        return ZMRuntime::getDatabase()->querySingle($sql, $args, ZM_TABLE_PRODUCT_GROUP_PRICING, 'ZMProductGroupPricing');
+        return ZMRuntime::getDatabase()->querySingle($sql, $args, 'product_group_pricing', 'ZMProductGroupPricing');
     }
 
     /**
@@ -109,7 +107,7 @@ class ZMProductGroupPricings extends ZMObject {
      * @return ProductGroupPricing The created product group pricing incl. the id.
      */
     public function createProductGroupPricing($groupPricing) {
-        return ZMRuntime::getDatabase()->createModel(ZM_TABLE_PRODUCT_GROUP_PRICING, $groupPricing);
+        return ZMRuntime::getDatabase()->createModel('product_group_pricing', $groupPricing);
     }
 
     /**
@@ -119,7 +117,7 @@ class ZMProductGroupPricings extends ZMObject {
      * @return ProductGroupPricing The updated product group pricing.
      */
     public function updateProductGroupPricing($groupPricing) {
-        ZMRuntime::getDatabase()->updateModel(ZM_TABLE_PRODUCT_GROUP_PRICING, $groupPricing);
+        ZMRuntime::getDatabase()->updateModel('product_group_pricing', $groupPricing);
         return $groupPricing;
     }
 
@@ -130,7 +128,7 @@ class ZMProductGroupPricings extends ZMObject {
      * @return ProductGroupPricing The created product group pricing incl. the id.
      */
     public function removeProductGroupPricing($groupPricing) {
-        return ZMRuntime::getDatabase()->removeModel(ZM_TABLE_PRODUCT_GROUP_PRICING, $groupPricing);
+        return ZMRuntime::getDatabase()->removeModel('product_group_pricing', $groupPricing);
     }
 
 }

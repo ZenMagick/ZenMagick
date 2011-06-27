@@ -60,7 +60,7 @@ class ZMSacsPermissionsPatch extends \ZMSQLPatch {
      */
     function isOpen() {
 	      $meta = \ZMRuntime::getDatabase()->getMetaData();
-        return !in_array(ZM_TABLE_SACS_PERMISSIONS, $meta['tables']);
+        return !in_array(DB_PREFIX.'sacs_permissions', $meta['tables']);
     }
 
     /**
@@ -84,7 +84,7 @@ class ZMSacsPermissionsPatch extends \ZMSQLPatch {
 
         return true;
     }
-    
+
     /**
      * Revert the patch.
      *
@@ -103,5 +103,5 @@ class ZMSacsPermissionsPatch extends \ZMSQLPatch {
         }
         return $status;
     }
-    
+
 }

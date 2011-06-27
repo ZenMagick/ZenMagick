@@ -23,16 +23,6 @@
 ?>
 <?php
 
-    //** db **//
-    define('ZM_TABLE_TOKEN', DB_PREFIX . 'token');
-    define('ZM_TABLE_ADMIN_ROLES', DB_PREFIX . 'admin_roles');
-    define('ZM_TABLE_ADMINS_TO_ROLES', DB_PREFIX . 'admins_to_roles');
-    define('ZM_TABLE_ADMIN_PREFS', DB_PREFIX . 'admin_prefs');
-    define('ZM_TABLE_SACS_PERMISSIONS', DB_PREFIX . 'sacs_permissions');
-    define('ZM_TABLE_BLOCK_GROUPS', DB_PREFIX . 'block_groups');
-    define('ZM_TABLE_BLOCKS_TO_GROUPS', DB_PREFIX . 'blocks_to_groups');
-    define('ZM_TABLE_BLOCK_CONFIG', DB_PREFIX . 'block_config');
-
     //** others **//
     if (!defined('PRODUCTS_OPTIONS_TYPE_SELECT')) {
         define('PRODUCTS_OPTIONS_TYPE_SELECT', 0);

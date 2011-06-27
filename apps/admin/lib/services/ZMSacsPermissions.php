@@ -44,7 +44,7 @@ class ZMSacsPermissions extends ZMObject {
      * @return array List of permission details.
      */
     public function getAll() {
-        return ZMRuntime::getDatabase()->query('SELECT * FROM '.ZM_TABLE_SACS_PERMISSIONS);
+        return ZMRuntime::getDatabase()->query('SELECT * FROM '.DB_PREFIX.'sacs_permissions');
     }
 
     /**
@@ -54,7 +54,7 @@ class ZMSacsPermissions extends ZMObject {
      * @return array List of permission details.
      */
     public function getPermissionsForRole($role) {
-        return ZMRuntime::getDatabase()->query('SELECT * FROM '.ZM_TABLE_SACS_PERMISSIONS.' where type = "role" AND name = :name', array('name' => $role), ZM_TABLE_SACS_PERMISSIONS);
+        return ZMRuntime::getDatabase()->query('SELECT * FROM '.DB_PREFIX.'sacs_permissions'.' where type = "role" AND name = :name', array('name' => $role), 'sacs_permissions');
     }
 
     /**
@@ -86,17 +86,17 @@ class ZMSacsPermissions extends ZMObject {
         }
 
         if (0 < count($remove)) {
-            $sql = "DELETE FROM " . ZM_TABLE_SACS_PERMISSIONS . "
+            $sql = "DELETE FROM " . DB_PREFIX.'sacs_permissions' . "
                     WHERE  type = 'role' AND name = :name
                       AND rid in (:rid)";
-            ZMRuntime::getDatabase()->update($sql, array('name' => $role, 'rid' => $remove), ZM_TABLE_SACS_PERMISSIONS);
+            ZMRuntime::getDatabase()->update($sql, array('name' => $role, 'rid' => $remove), 'sacs_permissions');
         }
 
         if (0 < count($add)) {
-            $sql = "INSERT INTO " . ZM_TABLE_SACS_PERMISSIONS . "
+            $sql = "INSERT INTO " . DB_PREFIX.'sacs_permissions' . "
                     (rid, type, name) VALUES (:rid, 'role', :name)";
             foreach ($add as $rid) {
-                ZMRuntime::getDatabase()->update($sql, array('rid' => $rid, 'name' => $role), ZM_TABLE_SACS_PERMISSIONS);
+                ZMRuntime::getDatabase()->update($sql, array('rid' => $rid, 'name' => $role), 'sacs_permissions');
             }
         }
     }

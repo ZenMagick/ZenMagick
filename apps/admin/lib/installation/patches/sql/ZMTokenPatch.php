@@ -60,7 +60,7 @@ class ZMTokenPatch extends \ZMSQLPatch {
      */
     function isOpen() {
 	      $meta = \ZMRuntime::getDatabase()->getMetaData();
-        return !in_array(ZM_TABLE_TOKEN, $meta['tables']);
+        return !in_array(DB_PREFIX.'token', $meta['tables']);
     }
 
     /**
@@ -84,7 +84,7 @@ class ZMTokenPatch extends \ZMSQLPatch {
 
         return true;
     }
-    
+
     /**
      * Revert the patch.
      *
@@ -103,5 +103,5 @@ class ZMTokenPatch extends \ZMSQLPatch {
         }
         return $status;
     }
-    
+
 }

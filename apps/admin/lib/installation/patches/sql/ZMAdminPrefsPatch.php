@@ -60,7 +60,7 @@ class ZMAdminPrefsPatch extends \ZMSQLPatch {
      */
     function isOpen() {
 	      $meta = \ZMRuntime::getDatabase()->getMetaData();
-        return !in_array(ZM_TABLE_ADMIN_PREFS, $meta['tables']);
+        return !in_array(DB_PREFIX.'admin_prefs', $meta['tables']);
     }
 
     /**
@@ -84,7 +84,7 @@ class ZMAdminPrefsPatch extends \ZMSQLPatch {
 
         return true;
     }
-    
+
     /**
      * Revert the patch.
      *
@@ -103,5 +103,5 @@ class ZMAdminPrefsPatch extends \ZMSQLPatch {
         }
         return $status;
     }
-    
+
 }
