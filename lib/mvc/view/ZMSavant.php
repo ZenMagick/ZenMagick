@@ -20,6 +20,9 @@
 ?>
 <?php
 
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\DependencyInjection\ContainerAwareInterface;
+
 use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
 
@@ -48,7 +51,8 @@ use zenmagick\base\Runtime;
  * @author DerManoMann
  * @package org.zenmagick.mvc.view
  */
-class ZMSavant extends Savant3 {
+class ZMSavant extends Savant3 implements ContainerAwareInterface {
+    protected $container;
 
     /**
      * Create a new instance.
@@ -65,6 +69,13 @@ class ZMSavant extends Savant3 {
         // no parent destructor!!
     }
 
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setContainer(ContainerInterface $container=null) {
+        $this->container = $container;
+    }
 
     /**
      * Set the config.

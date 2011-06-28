@@ -217,6 +217,7 @@ class ZMSavantView extends ZMView {
             foreach ($this->getFilterList() as $filter) {
                 $this->savant_->addFilters($filter);
             }
+            $this->savant_->setContainer(Runtime::getContainer());
         }
 
         $this->savant_->assign('view', $this);
