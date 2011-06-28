@@ -43,21 +43,25 @@ services:
     scope: container
     calls:
       - [setCache, [@servicesCache]]
+  themeService: @ZMThemes
   ZMManufacturers:
     class: ZMManufacturers
     scope: container
     calls:
       - [setCache, [@servicesCache]]
+  manufacturerService: @ZMManufacturers
   ZMProducts:
     class: ZMProducts
     scope: container
     calls:
       - [setCache, [@servicesCache]]
+  productService: @ZMProducts
   ZMCategories:
     class: ZMCategories
     scope: container
     calls:
       - [setCache, [@servicesCache]]
+  categoryService: @ZMCategories
   ZMSimpleSavantCache:
     class: ZMSimpleSavantCache
     scope: container
@@ -93,21 +97,21 @@ doctrine:
             prefix: ZM
             dir: %zenmagick.installationPath%/zenmagick/shared/model
 
-#swiftmailer:
-#  transport: '<?php echo ("PHP" == EMAIL_TRANSPORT ? "mail" : EMAIL_TRANSPORT) ?>'
-#  username: '<?php echo EMAIL_SMTPAUTH_MAILBOX ?>'
-#  password: '<?php echo EMAIL_SMTPAUTH_PASSWORD ?>'
-#  host: '<?php echo EMAIL_SMTPAUTH_MAIL_SERVER ?>'
-#  port: '<?php echo EMAIL_SMTPAUTH_MAIL_SERVER_PORT ?>'
-#  encryption: ~
-#  auth_mode: ~
-#  spool:
-#    type: file
-#    path: %zenmagick.cacheBaseDir%/swiftmailer/spool
-#  sender_address: ~
-#  antiflood:
-#    threshold: 99
-#    sleep: 0
-#  delivery_address: ~
-#  disable_delivery: ~
-#  logging: true
+swiftmailer:
+  transport: '<?php echo ("PHP" == EMAIL_TRANSPORT ? "mail" : EMAIL_TRANSPORT) ?>'
+  username: '<?php echo EMAIL_SMTPAUTH_MAILBOX ?>'
+  password: '<?php echo EMAIL_SMTPAUTH_PASSWORD ?>'
+  host: '<?php echo EMAIL_SMTPAUTH_MAIL_SERVER ?>'
+  port: '<?php echo EMAIL_SMTPAUTH_MAIL_SERVER_PORT ?>'
+  encryption: ~
+  auth_mode: ~
+  spool:
+    type: file
+    path: %zenmagick.cacheBaseDir%/swiftmailer/spool
+  sender_address: ~
+  antiflood:
+    threshold: 99
+    sleep: 0
+  delivery_address: ~
+  disable_delivery: ~
+  logging: true
