@@ -19,22 +19,24 @@
  */
 ?>
 <?php
+namespace zenmagick\http\rss;
 
+use zenmagick\base\ZMObject;
 
 /**
  * A RSS feed channel.
  *
  * @author DerManoMann
- * @package org.zenmagick.mvc.rss
+ * @package zenmagick.http.rss
  */
-class ZMRssChannel extends ZMObject {
+class RssChannel extends ZMObject {
 
     /**
      * Create new RSS channel.
      *
      * @param array Channel data.
      */
-    function __construct($rs=null) {
+    public function __construct($rs) {
         parent::__construct();
         if (is_array($rs)) {
             foreach ($rs as $key => $value) {
@@ -46,7 +48,7 @@ class ZMRssChannel extends ZMObject {
     /**
      * Destruct instance.
      */
-    function __destruct() {
+    public function __destruct() {
         parent::__destruct();
     }
 
@@ -82,9 +84,9 @@ class ZMRssChannel extends ZMObject {
     /**
      * Get the channels last build date.
      *
-     * @return string The channels last build date.
+     * @return DateTime The channels last build date.
      */
-    public function getLastBuildDate() { return $this->get('lastBuildDate'); }
+    public function getLastBuildDate() { return new \DateTime($this->get('lastBuildDate')); }
 
     /**
      * Get the channels image title.

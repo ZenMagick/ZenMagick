@@ -67,6 +67,12 @@ services:
     scope: container
     calls:
       - [setCache, [@templateCache]]
+  zenmagick\http\rss\RssFeedLoader:
+    class: zenmagick\http\rss\RssFeedLoader
+    scope: container
+    calls:
+      - [init, [{cacheTTL: 300, cacheDir: '%zenmagick.cacheBaseDir%/rss/'}]]
+  rssLoader: @zenmagick\http\rss\RssFeedLoader
 
 # database configuration settings
 doctrine:

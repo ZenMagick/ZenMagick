@@ -2,11 +2,11 @@
 /*
  ======================================================================
  lastRSS 0.9.1
- 
+
  Simple yet powerfull PHP class to parse RSS files.
- 
+
  by Vojtech Semecky, webmaster @ webdot . cz
- 
+
  Latest version, features, manual and examples:
  	http://lastrss.webdot.cz/
 
@@ -26,12 +26,13 @@
  To read the license please visit http://www.gnu.org/copyleft/gpl.html
  ======================================================================
 */
+namespace zenmagick\http\rss;
 
 /**
 * lastRSS
 * Simple yet powerfull PHP class to parse RSS files.
 */
-class lastRSS {
+class LastRSS {
 	// -------------------------------------------------------------------
 	// Public properties
 	// -------------------------------------------------------------------
@@ -45,8 +46,8 @@ class lastRSS {
 	// -------------------------------------------------------------------
 	// Private variables
 	// -------------------------------------------------------------------
-	var $channeltags = array ('title', 'link', 'description', 'language', 'copyright', 'managingEditor', 'webMaster', 'lastBuildDate', 'rating', 'docs');
-	var $itemtags = array('title', 'link', 'description', 'author', 'category', 'comments', 'enclosure', 'guid', 'pubDate', 'source');
+	var $channeltags = array ('title', 'link', 'description', 'language', 'copyright', 'managingEditor', 'webMaster', 'lastBuildDate,dc:date', 'rating', 'docs');
+	var $itemtags = array('title', 'link', 'description', 'author', 'category', 'comments', 'enclosure', 'guid', 'pubDate,dc:date', 'source');
 	var $imagetags = array('title', 'url', 'link', 'width', 'height');
 	var $textinputtags = array('title', 'description', 'name', 'link');
 
@@ -82,7 +83,7 @@ class lastRSS {
 		// return result
 		return $result;
 	}
-	
+
 	// -------------------------------------------------------------------
 	// Modification of preg_match(); return trimed field with index 1
 	// from 'classic' preg_match() array output
@@ -132,7 +133,7 @@ class lastRSS {
 	// -------------------------------------------------------------------
 	function Parse ($rss_url) {
 		// Open and load RSS file
-		if ($f = @fopen($rss_url, 'r')) {
+		if (($f = fopen($rss_url, 'r'))) {
 			$rss_content = '';
 			while (!feof($f)) {
 				$rss_content .= fgets($f, 4096);
@@ -188,8 +189,12 @@ class lastRSS {
 				// If number of items is lower then limit: Parse one item
 				if ($i < $this->items_limit || $this->items_limit == 0) {
 					foreach($this->itemtags as $itemtag) {
-						$temp = $this->my_preg_match("'<$itemtag.*?>(.*?)</$itemtag>'si", $rss_item);
-						if ($temp != '') $result['items'][$i][$itemtag] = $temp; // Set only if not empty
+            $tags = explode(',', $itemtag);
+            foreach ($tags as $tag) {
+              $temp = $this->my_preg_match("'<$tag.*?>(.*?)</$tag>'si", $rss_item);
+              // use first tag as main name
+              if ($temp != '') $result['items'][$i][$tags[0]] = $temp; // Set only if not empty
+            }
 					}
 					// Strip HTML tags and other bullshit from DESCRIPTION
 					if ($this->stripHTML && $result['items'][$i]['description'])

@@ -19,15 +19,17 @@
  */
 ?>
 <?php
+namespace zenmagick\http\rss;
 
+use zenmagick\base\ZMObject;
 
 /**
  * A RSS feed.
  *
  * @author DerManoMann
- * @package org.zenmagick.mvc.rss
+ * @package zenmagick.http.rss
  */
-class ZMRssFeed extends ZMObject {
+class RssFeed extends ZMObject {
     private $channel_;
     private $items_;
 
@@ -35,7 +37,7 @@ class ZMRssFeed extends ZMObject {
     /**
      * Create new RSS feed.
      */
-    function __construct() {
+    public function __construct() {
         parent::__construct();
         $this->channel_ = null;
         $this->items_ = array();
@@ -44,36 +46,44 @@ class ZMRssFeed extends ZMObject {
     /**
      * Destruct instance.
      */
-    function __destruct() {
+    public function __destruct() {
         parent::__destruct();
     }
 
 
     /**
+     * Returns <code>true</code> if contents is available.
+     *
+     * @return boolean <code>true</code> if feed items are available, <code>false</code>, if not.
+     */
+    public function hasContents() {
+        return 0 != count($this->items_);
+    }
+    /**
      * Get the channel.
      *
-     * @return ZMRssChannel The channel.
+     * @return RssChannel The channel.
      */
     public function getChannel() { return $this->channel_; }
 
     /**
      * Get the feed items.
      *
-     * @return array A list of <code>ZMRssItem</code> instances.
+     * @return array A list of <code>RssItem</code> instances.
      */
     public function getItems() { return $this->items_; }
 
     /**
      * Set the channel.
      *
-     * @param ZMRssChannel channel The channel.
+     * @param RssChannel channel The channel.
      */
     public function setChannel($channel) { $this->channel_ = $channel; }
 
     /**
      * Set the feed items.
      *
-     * @param array items A list of <code>ZMRssItem</code> instances.
+     * @param array items A list of <code>RssItem</code> instances.
      */
     public function setItems($items) { $this->items_ = $items; }
 

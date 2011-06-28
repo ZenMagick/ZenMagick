@@ -19,22 +19,24 @@
  */
 ?>
 <?php
+namespace zenmagick\http\rss;
 
+use zenmagick\base\ZMObject;
 
 /**
  * A RSS feed item.
  *
  * @author DerManoMann
- * @package org.zenmagick.mvc.rss
+ * @package zenmagick.http.rss
  */
-class ZMRssItem extends ZMObject {
+class RssItem extends ZMObject {
 
     /**
      * Create new RSS item.
      *
      * @param array Array of item data.
      */
-    function __construct($item=null) {
+    public function __construct($item) {
         parent::__construct();
         if (is_array($item)) {
             foreach ($item as $key => $value) {
@@ -46,7 +48,7 @@ class ZMRssItem extends ZMObject {
     /**
      * Destruct instance.
      */
-    function __destruct() {
+    public function __destruct() {
         parent::__destruct();
     }
 
@@ -82,9 +84,9 @@ class ZMRssItem extends ZMObject {
     /**
      * Get the item publish date.
      *
-     * @return string The item publish date.
+     * @return DateTime The item publish date.
      */
-    public function getPubDate() { return $this->get('pubDate'); }
+    public function getPubDate() { return new \DateTime($this->get('pubDate')); }
 
     /**
      * Get a list of custom tags to be handled.
