@@ -34,8 +34,6 @@ class ZMEzpagesController extends ZMController {
      * {@inheritDoc}
      */
     public function preProcess($request) {
-        ZMSettings::set('isEZPagesLangSupport', true);
-
         ZMUrlManager::instance()->setMapping('ezpages', array(
             'ezpages-overview' => array('template' => 'ezpages-overview'),
             'ezpages-details' => array('template' => 'ezpages-details'),

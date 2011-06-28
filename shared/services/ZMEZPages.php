@@ -64,9 +64,7 @@ class ZMEZPages extends ZMObject {
     public function getAllPages($languageId) {
         $sql = "SELECT *
                 FROM " . TABLE_EZPAGES;
-        if (ZMSettings::get('isEZPagesLangSupport')) {
-            $sql .= " WHERE languages_id = :languageId";
-        }
+        $sql .= " WHERE languages_id = :languageId";
         $sql .= " ORDER BY toc_sort_order, pages_title";
         return ZMRuntime::getDatabase()->query($sql, array('languageId' => $languageId), TABLE_EZPAGES, 'EZPage');
     }
@@ -82,9 +80,7 @@ class ZMEZPages extends ZMObject {
         $sql = "SELECT *
                 FROM " . TABLE_EZPAGES . "
                 WHERE pages_id = :id";
-        if (ZMSettings::get('isEZPagesLangSupport')) {
-            $sql .= " AND languages_id = :languageId";
-        }
+        $sql .= " AND languages_id = :languageId";
         return ZMRuntime::getDatabase()->querySingle($sql, array('id' => $pageId, 'languageId' => $languageId), TABLE_EZPAGES, 'EZPage');
     }
 
@@ -100,9 +96,7 @@ class ZMEZPages extends ZMObject {
                 FROM " . TABLE_EZPAGES . "
                 WHERE ((status_toc = 1 AND toc_sort_order <> 0) AND toc_chapter= :tocChapter)
                 AND alt_url_external = '' AND alt_url = ''";
-        if (ZMSettings::get('isEZPagesLangSupport')) {
-            $sql .= " AND languages_id = :languageId";
-        }
+        $sql .= " AND languages_id = :languageId";
         $sql .= " ORDER BY toc_sort_order, pages_title";
         return ZMRuntime::getDatabase()->query($sql, array('tocChapter' => $chapterId, 'languageId' => $languageId), TABLE_EZPAGES, 'EZPage');
     }
@@ -118,9 +112,7 @@ class ZMEZPages extends ZMObject {
                 FROM " . TABLE_EZPAGES . "
                 WHERE status_header = 1
                   AND header_sort_order > 0";
-        if (ZMSettings::get('isEZPagesLangSupport')) {
-            $sql .= " AND languages_id = :languageId";
-        }
+        $sql .= " AND languages_id = :languageId";
         $sql .= " ORDER BY header_sort_order, pages_title";
         return ZMRuntime::getDatabase()->query($sql, array('languageId' => $languageId), TABLE_EZPAGES, 'EZPage');
     }
@@ -136,9 +128,7 @@ class ZMEZPages extends ZMObject {
                 FROM " . TABLE_EZPAGES . "
                 WHERE status_sidebox = 1
                   AND sidebox_sort_order > 0";
-        if (ZMSettings::get('isEZPagesLangSupport')) {
-            $sql .= " AND languages_id = :languageId";
-        }
+        $sql .= " AND languages_id = :languageId";
         $sql .= " ORDER BY sidebox_sort_order, pages_title";
         return ZMRuntime::getDatabase()->query($sql, array('languageId' => $languageId), TABLE_EZPAGES, 'EZPage');
     }
@@ -154,9 +144,7 @@ class ZMEZPages extends ZMObject {
                 FROM " . TABLE_EZPAGES . "
                 WHERE status_footer = 1
                   AND footer_sort_order > 0";
-        if (ZMSettings::get('isEZPagesLangSupport')) {
-            $sql .= " AND languages_id = :languageId";
-        }
+        $sql .= " AND languages_id = :languageId";
         $sql .= " ORDER BY footer_sort_order, pages_title";
         return ZMRuntime::getDatabase()->query($sql, array('languageId' => $languageId), TABLE_EZPAGES, 'EZPage');
     }

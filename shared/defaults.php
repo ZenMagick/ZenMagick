@@ -23,15 +23,6 @@
 ?>
 <?php
 
-    //** others **//
-    if (!defined('PRODUCTS_OPTIONS_TYPE_SELECT')) {
-        define('PRODUCTS_OPTIONS_TYPE_SELECT', 0);
-    }
-    if (!defined('ATTRIBUTES_PRICE_FACTOR_FROM_SPECIAL')) {
-        define('ATTRIBUTES_PRICE_FACTOR_FROM_SPECIAL', 0);
-    }
-
-
     /**
      * Set up default setting.
      *
@@ -50,10 +41,7 @@
             'isAdmin' => defined('IS_ADMIN_FLAG') && IS_ADMIN_FLAG,
 
             // default access level; same as anonymous
-            'defaultAccessLevel' => null,
-
-            // language support for ez-pages; this is API only, zen-cart does not use this
-            'isEZPagesLangSupport' => true,
+            'zenmagick.apps.store.defaultAccessLevel' => null,
 
             // show products in Catalog Manager tree or not
             'admin.isShowCatalogTreeProducts' => true,

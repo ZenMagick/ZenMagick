@@ -51,6 +51,14 @@ class StoreEventListener {
             Runtime::getInstallationPath().'apps/store/plugins'.DIRECTORY_SEPARATOR
         ));
 
+        // random defines that we might need
+        if (!defined('PRODUCTS_OPTIONS_TYPE_SELECT')) {
+            define('PRODUCTS_OPTIONS_TYPE_SELECT', 0);
+        }
+        if (!defined('ATTRIBUTES_PRICE_FACTOR_FROM_SPECIAL')) {
+            define('ATTRIBUTES_PRICE_FACTOR_FROM_SPECIAL', 0);
+        }
+
         // include some zencart files we need.
         include_once ZC_INSTALL_PATH . 'includes/database_tables.php';
 

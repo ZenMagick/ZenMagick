@@ -62,7 +62,7 @@ class ZMZenCartAccountSacsHandler implements SacsHandler {
      * {@inheritDoc}
      */
     public function evaluate($requestId, $credentials, $manager) {
-        $requiredLevel = $manager->getMappingValue($requestId, 'level', ZMSettings::get('defaultAccessLevel'));
+        $requiredLevel = $manager->getMappingValue($requestId, 'level', ZMSettings::get('zenmagick.apps.store.defaultAccessLevel'));
         if (null == $requiredLevel || ZMAccount::ANONYMOUS == $requiredLevel) {
             return true;
         }
