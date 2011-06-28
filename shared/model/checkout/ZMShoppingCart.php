@@ -611,7 +611,7 @@ return $this->zenTotals_;
      *
      * <p><strong>Doesn't support uploads (yet)</strong>.</p>
      *
-     * <p>If <em>isSanitizeAttributes</em> is set to <code>true</code>, missing
+     * <p>If <em>zenmagick.apps.store.isSanitizeAttributes</em> is set to <code>true</code>, missing
      * attributes will be added automatically and set to defaults.</p>
      *
      * @param int productId The product id.
@@ -767,7 +767,7 @@ return $this->zenTotals_;
      */
     function sanitize_attributes($product, $attributes=array()) {
         //TODO: where should this actually be? attributes, rules, cart, products?
-        if (!ZMSettings::get('isSanitizeAttributes')) {
+        if (!ZMSettings::get('zenmagick.apps.store.isSanitizeAttributes')) {
             return $attributes;
         }
 

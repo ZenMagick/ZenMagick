@@ -43,11 +43,8 @@
             // default access level; same as anonymous
             'zenmagick.apps.store.defaultAccessLevel' => null,
 
-            // show products in Catalog Manager tree or not
-            'admin.isShowCatalogTreeProducts' => true,
-
             // sanitize attributes when handling product submissions (add to cart, etc)
-            'isSanitizeAttributes' => true,
+            'zenmagick.apps.store.isSanitizeAttributes' => true,
 
             // verify category path
             'verifyCategoryPath' => false,
