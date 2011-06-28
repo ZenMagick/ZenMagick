@@ -51,7 +51,7 @@ class ZMAddresses extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return Runtime::getContainer()->getService('ZMAddresses');
+        return Runtime::getContainer()->get('addressService');
     }
 
 

@@ -73,7 +73,7 @@ class ZMMessages extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return Runtime::getContainer()->getService('ZMMessages');
+        return Runtime::getContainer()->get('messageService');
     }
 
 

@@ -59,7 +59,7 @@ class ZMThemes extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return Runtime::getContainer()->getService('ZMThemes');
+        return Runtime::getContainer()->get('themeService');
     }
 
 

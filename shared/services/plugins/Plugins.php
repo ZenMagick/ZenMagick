@@ -52,7 +52,7 @@ class Plugins extends ZMPlugins {
      * Get instance.
      */
     public static function instance() {
-        return Runtime::getContainer()->getService('ZMPlugins');
+        return Runtime::getContainer()->get('pluginService');
     }
 
 

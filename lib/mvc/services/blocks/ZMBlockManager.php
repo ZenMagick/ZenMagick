@@ -55,7 +55,7 @@ class ZMBlockManager extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return Runtime::getContainer()->getService('ZMBlockManager');
+        return Runtime::getContainer()->get('blockManager');
     }
 
     /**

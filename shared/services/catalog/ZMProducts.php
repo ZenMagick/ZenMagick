@@ -60,7 +60,7 @@ class ZMProducts extends ZMObject implements ZMSQLAware {
      * Get instance.
      */
     public static function instance() {
-        return Runtime::getContainer()->getService('ZMProducts');
+        return Runtime::getContainer()->get('productService');
     }
 
 

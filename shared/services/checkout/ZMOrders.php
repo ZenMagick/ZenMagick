@@ -52,7 +52,7 @@ class ZMOrders extends ZMObject implements ZMSQLAware {
      * Get instance.
      */
     public static function instance() {
-        return Runtime::getContainer()->getService('ZMOrders');
+        return Runtime::getContainer()->get('orderService');
     }
 
 

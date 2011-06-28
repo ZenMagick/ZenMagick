@@ -56,7 +56,7 @@ class ZMAccounts extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return Runtime::getContainer()->getService('ZMAccounts');
+        return Runtime::getContainer()->get('accountService');
     }
 
 

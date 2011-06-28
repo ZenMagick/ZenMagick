@@ -61,7 +61,7 @@ class ZMAuthenticationManager extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return Runtime::getContainer()->getService('ZMAuthenticationManager');
+        return Runtime::getContainer()->get('authenticationManager');
     }
 
 

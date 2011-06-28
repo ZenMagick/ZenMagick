@@ -68,7 +68,7 @@ class ZMCategories extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return Runtime::getContainer()->getService('ZMCategories');
+        return Runtime::getContainer()->get('categoryService');
     }
 
 

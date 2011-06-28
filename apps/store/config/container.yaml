@@ -6,21 +6,30 @@ services:
   ZMRequest:
     class: Request
     scope: prototype
+
   ZMPlugins:
     class: Plugins
     scope: container
+  pluginService: @ZMPlugins
+
   ZMSession:
     class: Session
     scope: container
+
   ZMSavantView:
     class: SavantView
     scope: container
+
   ZMViewUtils:
     class: ViewUtils
     scope: prototype
+
   ZMMessages:
     class: Messages
     scope: container
+  messageService: @ZMMessages
+
   ZMForwardView:
     class: ForwardView
     scope: prototype
+  forwardView: @ZMForwardView

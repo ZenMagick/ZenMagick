@@ -38,41 +38,85 @@ services:
     calls:
       - [init, ['services', {cacheTTL: 300, cacheDir: '%zenmagick.cacheBaseDir%/templates/'}]]
 
+  accountService:
+    class: ZMAccounts
+    scope: container
+
+  addressService:
+    class: ZMAddresses
+    scope: container
+
+  countryService:
+    class: ZMCountries
+    scope: container
+
+  orderService:
+    class: ZMOrders
+    scope: container
+
   ZMThemes:
     class: ZMThemes
     scope: container
     calls:
       - [setCache, [@servicesCache]]
   themeService: @ZMThemes
+
   ZMManufacturers:
     class: ZMManufacturers
     scope: container
     calls:
       - [setCache, [@servicesCache]]
   manufacturerService: @ZMManufacturers
+
   ZMProducts:
     class: ZMProducts
     scope: container
     calls:
       - [setCache, [@servicesCache]]
   productService: @ZMProducts
+
   ZMCategories:
     class: ZMCategories
     scope: container
     calls:
       - [setCache, [@servicesCache]]
   categoryService: @ZMCategories
+
   ZMSimpleSavantCache:
     class: ZMSimpleSavantCache
     scope: container
     calls:
       - [setCache, [@templateCache]]
-  zenmagick\http\rss\RssFeedLoader:
+
+  rssLoader:
     class: zenmagick\http\rss\RssFeedLoader
     scope: container
     calls:
       - [init, [{cacheTTL: 300, cacheDir: '%zenmagick.cacheBaseDir%/rss/'}]]
-  rssLoader: @zenmagick\http\rss\RssFeedLoader
+
+  loggingService:
+    class: zenmagick\base\logging\Logging
+    scope: container
+
+  eventDispatcher:
+    class: zenmagick\base\events\EventDispatcher
+    scope: container
+
+  settingsService:
+    class: zenmagick\base\settings\Settings
+    scope: container
+
+  authenticationManager:
+    class: ZMAuthenticationManager
+    scope: container
+
+  sacsManager:
+    class: zenmagick\http\sacs\SacsManager
+    scope: container
+   
+  blockManager:
+    class: ZMBlockManager
+    scope: container
 
 # database configuration settings
 doctrine:
@@ -94,7 +138,6 @@ doctrine:
     proxy_dir: %zenmagick.cacheBaseDir%/doctrine/orm/proxies
     entity_managers:
       default:
-
         mappings:
           zenmagick:
             is_bundle: false

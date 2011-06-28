@@ -54,7 +54,7 @@ class ZMCountries extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return Runtime::getContainer()->getService('ZMCountries');
+        return Runtime::getContainer()->get('countryService');
     }
 
 

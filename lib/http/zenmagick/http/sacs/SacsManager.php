@@ -65,7 +65,7 @@ class SacsManager {
 
     //TODO: move to DI
     public static function instance() {
-        return Runtime::getContainer()->getService('zenmagick\http\sacs\SacsManager');
+        return Runtime::getContainer()->get('sacsManager');
     }
 
     /**

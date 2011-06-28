@@ -46,7 +46,7 @@ class ZMManufacturers extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return Runtime::getContainer()->getService('ZMManufacturers');
+        return Runtime::getContainer()->get('manufacturerService');
     }
 
 

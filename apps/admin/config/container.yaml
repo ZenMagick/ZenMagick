@@ -6,9 +6,16 @@ services:
   ZMRequest:
     class: Request
     scope: container
+
   ZMPlugins:
     class: Plugins
     scope: container
+  pluginService: @ZMPlugins
+
+  messageService:
+    class: ZMMessages
+    scope: container
+
   ZMZenCartSessionHandler:
     class: ZMZenCartSessionHandler
     scope: container

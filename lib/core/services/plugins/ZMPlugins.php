@@ -79,7 +79,7 @@ class ZMPlugins extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return Runtime::getContainer()->getService('ZMPlugins');
+        return Runtime::getContainer()->get('pluginService');
     }
 
 
