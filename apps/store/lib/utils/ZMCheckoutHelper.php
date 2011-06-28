@@ -199,6 +199,9 @@ class ZMCheckoutHelper extends ZMObject {
      * @return array A map of errorCode =&gt; item pairs.
      */
     public function checkCartStatus() {
+        // validate items
+        $this->validateItems($showMessages);
+
         $map = array();
         foreach ($this->shoppingCart_->getItems() as $item) {
             $product = $item->getProduct();
@@ -300,6 +303,9 @@ class ZMCheckoutHelper extends ZMObject {
             return "login";
         }
 
+        // validate items
+        $this->validateItems($showMessages);
+
         if (!$this->readyForCheckout()) {
             if ($showMessages) {
                 ZMMessages::instance()->error(_zm('Please update your order ...'));
@@ -319,6 +325,17 @@ class ZMCheckoutHelper extends ZMObject {
         // or just add message about qualifying and leave it to the user?
 
         return null;
+    }
+
+    /**
+     * Ensure only valid items are in the cart.
+     */
+    public function validateItems() {
+        foreach ($this->shoppingCart_->getItems() as $item) {
+            if (null == $item->getProduct()) {
+                $this->shoppingCart_->removeProduct($item->getId());
+            }
+        }
     }
 
     /**

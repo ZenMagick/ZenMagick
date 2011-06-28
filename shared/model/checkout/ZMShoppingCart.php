@@ -159,10 +159,7 @@ class ZMShoppingCart extends ZMObject {
                 $zenItems = $this->cart_->get_products();
                 foreach ($zenItems as $zenItem) {
                     $item = new ZMShoppingCartItem($zenItem);
-                    if (null != $item->getProduct()) {
-                        // do not add broken items
-                        $this->items_[$item->getId()] = $item;
-                    }
+                    $this->items_[$item->getId()] = $item;
                 }
             }
         }
@@ -650,6 +647,7 @@ return $this->zenTotals_;
         }
 
         $this->cart_->add_cart($productId, $cartQty + $adjustedQty, $attributes, $notify);
+        $this->items_ = null;
 
         return true;
     }
@@ -662,6 +660,7 @@ return $this->zenTotals_;
      */
     public function removeProduct($productId) {
         if (null !== $productId) {
+            $this->items_ = null;
             $this->cart_->remove($productId);
             return true;
         }
@@ -683,7 +682,6 @@ return $this->zenTotals_;
                 return $this->removeProduct($sku);
             }
 
-
             $productId = self::extractBaseProductId($sku);
             $product = ZMProducts::instance()->getProductForId($productId);
 
@@ -694,6 +692,8 @@ return $this->zenTotals_;
                 // TODO: error message/status
                 return false;
             }
+
+            $this->items_ = null;
 
             // adjust quantity if needed
             if (($adjustedQty > $maxOrderQty) && 0 != $maxOrderQty) {
