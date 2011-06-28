@@ -47,7 +47,7 @@
             'zenmagick.apps.store.isSanitizeAttributes' => true,
 
             // verify category path
-            'verifyCategoryPath' => false,
+            'zenmagick.apps.store.verifyCategoryPath' => false,
 
             // template suffix/extension
             'zenmagick.mvc.templates.ext' => '.php',
