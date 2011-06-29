@@ -1,7 +1,9 @@
 imports:
     ## app container
     - { resource: container.yaml }
-    ## shared container
+    ## shared services
+    - { resource: ../../../config/store-services.yaml }
+    ## shared config
     - { resource: ../../../config/store-container.yaml }
     ## shared dev container
     - { resource: ../../../config/store-container_dev.yaml }
