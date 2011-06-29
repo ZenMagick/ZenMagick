@@ -51,7 +51,7 @@ class ZMEZPages extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return Runtime::getContainer()->getService('ZMEZPages');
+        return Runtime::getContainer()->get('ezPageService');
     }
 
 

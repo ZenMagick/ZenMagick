@@ -54,7 +54,7 @@ class ZMSaleMaker extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return Runtime::getContainer()->getService('ZMSaleMaker');
+        return Runtime::getContainer()->get('saleMakerService');
     }
 
 

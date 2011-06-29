@@ -52,7 +52,7 @@ class ZMConfig extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return Runtime::getContainer()->getService('ZMConfig');
+        return Runtime::getContainer()->get('configService');
     }
 
 

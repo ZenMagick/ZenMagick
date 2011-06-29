@@ -62,7 +62,7 @@ class ZMLocales extends \ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return Runtime::getContainer()->getService('ZMLocales');
+        return Runtime::getContainer()->get('localeService');
     }
 
 

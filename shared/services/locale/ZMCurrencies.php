@@ -54,7 +54,7 @@ class ZMCurrencies extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return Runtime::getContainer()->getService('ZMCurrencies');
+        return Runtime::getContainer()->get('currencyService');
     }
 
 

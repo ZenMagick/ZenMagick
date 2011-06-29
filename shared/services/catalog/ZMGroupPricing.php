@@ -51,7 +51,7 @@ class ZMGroupPricing extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return Runtime::getContainer()->getService('ZMGroupPricing');
+        return Runtime::getContainer()->get('groupPricingService');
     }
 
 

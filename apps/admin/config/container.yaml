@@ -12,13 +12,28 @@ services:
     scope: container
   pluginService: @ZMPlugins
 
-  messageService:
-    class: ZMMessages
-    scope: container
-
   ZMZenCartSessionHandler:
     class: ZMZenCartSessionHandler
     scope: container
     calls:
       - [setExpiryTime, [%admin.session_timeout%]]
 
+  messageService:
+    class: ZMMessages
+    scope: container
+
+  adminUserPrefService:
+    class: ZMAdminUserPrefs
+    scope: container
+
+  adminUserRoleService:
+    class: ZMAdminUserRoles
+    scope: container
+
+  adminUserService:
+    class: ZMAdminUsers
+    scope: container
+
+  sacsPermissionService:
+    class: ZMSacsPermissions
+    scope: container

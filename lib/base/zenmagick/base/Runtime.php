@@ -95,6 +95,7 @@ class Runtime {
      * @return zenmagick\base\logging\Logging A <code>zenmagick\base\logging\Logging</code> instance.
      */
     public static function getLogging($scope=null) {
+        // may get used before container initialised
         return self::getContainer()->getService('zenmagick\base\logging\Logging');
     }
 
@@ -104,7 +105,7 @@ class Runtime {
      * @return zenmagick\base\events\EventDispatcher A <code>zenmagick\base\events\EventDispatcher</code> instance.
      */
     public static function getEventDispatcher() {
-        return self::getContainer()->getService('zenmagick\base\events\EventDispatcher');
+        return self::getContainer()->get('eventDispatcher');
     }
 
     /**
@@ -113,6 +114,7 @@ class Runtime {
      * @return zenmagick\base\settings\Settings A <code>zenmagick\base\settings\Settings</code> instance.
      */
     public static function getSettings() {
+        // may get used before container initialised
         return self::getContainer()->getService('zenmagick\base\settings\Settings');
     }
 
@@ -122,7 +124,7 @@ class Runtime {
      * @return zenmagick\base\plugins\Plugins A <code>zenmagick\base\plugins\Plugins</code> instance.
      */
     public static function getPlugins() {
-        return self::getContainer()->getService('zenmagick\base\plugins\Plugins');
+        return self::getContainer()->get('pluginService');
     }
 
     /**

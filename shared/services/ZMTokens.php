@@ -49,7 +49,7 @@ class ZMTokens extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return Runtime::getContainer()->getService('ZMTokens');
+        return Runtime::getContainer()->get('tokenService');
     }
 
 

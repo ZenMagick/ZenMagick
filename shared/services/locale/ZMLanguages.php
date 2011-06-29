@@ -54,7 +54,7 @@ class ZMLanguages extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return Runtime::getContainer()->getService('ZMLanguages');
+        return Runtime::getContainer()->get('languageService');
     }
 
 

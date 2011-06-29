@@ -59,7 +59,7 @@ class ZMShoppingCarts extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return Runtime::getContainer()->getService('ZMShoppingCarts');
+        return Runtime::getContainer()->get('shoppingCartService');
     }
 
 

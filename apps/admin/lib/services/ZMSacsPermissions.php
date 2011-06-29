@@ -34,7 +34,7 @@ class ZMSacsPermissions extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return Runtime::getContainer()->getService('ZMSacsPermissions');
+        return Runtime::getContainer()->get('sacsPermissionService');
     }
 
 

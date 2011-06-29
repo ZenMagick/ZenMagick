@@ -51,7 +51,7 @@ class ZMAttributes extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return Runtime::getContainer()->getService('ZMAttributes');
+        return Runtime::getContainer()->get('attributeService');
     }
 
 

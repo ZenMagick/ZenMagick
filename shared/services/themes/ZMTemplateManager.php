@@ -65,7 +65,7 @@ class ZMTemplateManager extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return Runtime::getContainer()->getService('ZMTemplateManager');
+        return Runtime::getContainer()->get('templateManager');
     }
 
 

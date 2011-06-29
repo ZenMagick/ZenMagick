@@ -48,7 +48,7 @@ class ZMAdminUserRoles extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return Runtime::getContainer()->getService('ZMAdminUserRoles');
+        return Runtime::getContainer()->get('adminUserRoleService');
     }
 
 

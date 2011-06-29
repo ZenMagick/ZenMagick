@@ -51,7 +51,7 @@ class ZMReviews extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return Runtime::getContainer()->getService('ZMReviews');
+        return Runtime::getContainer()->get('reviewService');
     }
 
 

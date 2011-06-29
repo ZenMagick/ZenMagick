@@ -61,7 +61,7 @@ class ZMCoupons extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return Runtime::getContainer()->getService('ZMCoupons');
+        return Runtime::getContainer()->get('couponService');
     }
 
 

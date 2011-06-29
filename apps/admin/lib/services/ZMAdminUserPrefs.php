@@ -48,7 +48,7 @@ class ZMAdminUserPrefs extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return Runtime::getContainer()->getService('ZMAdminUserPrefs');
+        return Runtime::getContainer()->get('adminUserPrefService');
     }
 
 

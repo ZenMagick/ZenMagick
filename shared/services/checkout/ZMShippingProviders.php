@@ -54,7 +54,7 @@ class ZMShippingProviders extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return Runtime::getContainer()->getService('ZMShippingProviders');
+        return Runtime::getContainer()->get('shippingProviderService');
     }
 
 

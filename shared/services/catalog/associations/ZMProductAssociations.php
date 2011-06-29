@@ -62,7 +62,7 @@ class ZMProductAssociations extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return Runtime::getContainer()->getService('ZMProductAssociations');
+        return Runtime::getContainer()->get('productAssociations');
     }
 
 

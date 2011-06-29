@@ -115,3 +115,83 @@ services:
   blockManager:
     class: ZMBlockManager
     scope: container
+
+  productAssociations:
+    class: ZMProductAssociations
+    scope: container
+
+  shoppingCart:
+    class: ZMShoppingCart
+    scope: container
+
+  shoppingCartService:
+    class: ZMShoppingCarts
+    scope: container
+
+  validatorService:
+    class: ZMValidator
+    scope: container
+
+  reviewService:
+    class: ZMReviews
+    scope: container
+
+  taxRateService:
+    class: ZMTaxRates
+    scope: container
+
+  tokenService:
+    class: ZMTokens
+    scope: container
+
+  bannerService:
+    class: ZMBanners
+    scope: container
+
+  couponService:
+    class: ZMCoupons
+    scope: container
+
+  ezPageService:
+    class: ZMEZPages
+    scope: container
+
+  localeService:
+    class: ZMLocales
+    scope: container
+
+  templateManager:
+    class: ZMTemplateManager
+    scope: container
+
+  currencyService:
+    class: ZMCurrencies
+    scope: container
+
+  languageService:
+    class: ZMLanguages
+    scope: container
+
+  payemntTypeService:
+    class: ZMPaymentTypes
+    scope: container
+
+  shippingProviderService:
+    class: ZMShippingProviders
+    scope: container
+
+  saleMakerService:
+    class: ZMSaleMaker
+    scope: container
+
+  attributeService:
+    class: ZMAttributes
+    scope: container
+
+  groupPricingService:
+    class: ZMGroupPricing
+    scope: container
+
+  configService:
+    class: ZMConfig
+    scope: container

@@ -51,7 +51,7 @@ class ZMBanners extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return Runtime::getContainer()->getService('ZMBanners');
+        return Runtime::getContainer()->get('bannerService');
     }
 
 
