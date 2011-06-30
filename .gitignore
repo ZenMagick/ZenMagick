@@ -10,3 +10,5 @@ global.yaml
 /config/store-container.yaml
 /config/admin/config_*.yaml
 /config/store/config_*.yaml
+/lib/vendor/doctrine-utils
+/lib/vendor/symfony
