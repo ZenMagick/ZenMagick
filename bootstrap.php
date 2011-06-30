@@ -51,7 +51,7 @@ use Symfony\Component\HttpKernel\DependencyInjection\MergeExtensionConfiguration
         defined('ZM_ENVIRONMENT') || define('ZM_ENVIRONMENT', ($getenv_func('ZM_ENVIRONMENT') ? $getenv_func('ZM_ENVIRONMENT') : 'production'));
 
         // hide as to avoid filenames that contain account names, etc.
-        ini_set('display_errors', false);
+        ini_set('display_errors', true);
         // enable all reporting
         error_reporting(-1);
         // enable logging
@@ -69,6 +69,15 @@ use Symfony\Component\HttpKernel\DependencyInjection\MergeExtensionConfiguration
         $zmLoader->addConfig(ZM_BASE_PATH.'lib'.DIRECTORY_SEPARATOR.'base');
         $zmLoader->addConfig(ZM_BASE_PATH.'lib'.DIRECTORY_SEPARATOR.'vendor');
         $zmLoader->register();
+
+        try {
+            $rclass = new ReflectionClass('Swift');
+            Swift::$initPath = realpath(dirname($rclass->getFilename()).'/../swift_init.php');
+            // ZenMagick class loader append, so the last one wins
+            spl_autoload_register(array('Swift', 'autoload'), false, true);
+        } catch (Exception $e) {
+            //
+        }
 
         // as default disable plugins for CLI calls
         Runtime::getSettings()->set('zenmagick.base.plugins.enabled', !ZM_CLI_CALL);
