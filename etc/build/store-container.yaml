@@ -3,6 +3,9 @@
 ##
 ## NOTE: This file is generated (and may be re-written) automatically - edit at own risk.
 ##
+#
+parameters:
+  kernel.debug: true
 
 # database configuration settings
 doctrine:
@@ -32,21 +35,17 @@ doctrine:
             prefix: ZM
             dir: %zenmagick.installationPath%/zenmagick/shared/model
 
-swiftmailer:
-  transport: '<?php echo ("PHP" == EMAIL_TRANSPORT ? "mail" : EMAIL_TRANSPORT) ?>'
-  username: '<?php echo EMAIL_SMTPAUTH_MAILBOX ?>'
-  password: '<?php echo EMAIL_SMTPAUTH_PASSWORD ?>'
-  host: '<?php echo EMAIL_SMTPAUTH_MAIL_SERVER ?>'
-  port: '<?php echo EMAIL_SMTPAUTH_MAIL_SERVER_PORT ?>'
-  encryption: ~
-  auth_mode: ~
-  spool:
-    type: file
-    path: %zenmagick.cacheBaseDir%/swiftmailer/spool
-  sender_address: ~
-  antiflood:
-    threshold: 99
-    sleep: 0
-  delivery_address: ~
-  disable_delivery: ~
-  logging: true
+#swiftmailer:
+#  transport: %zenmagick.core.email.transport%
+#  username: %zenmagick.core.email.smtp.user%
+#  password: %zenmagick.core.email.smtp.password%
+#  host: %zenmagick.core.email.smtp.host%
+#  port: %zenmagick.core.email.smtp.port%
+##  spool:
+##    type: file
+##    path: %zenmagick.cacheBaseDir%/swiftmailer/spool
+#  sender_address: %storeEmail%
+#  antiflood:
+#    threshold: 99
+#    sleep: 0
+#  logging: true

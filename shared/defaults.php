@@ -227,7 +227,7 @@
              **************************************/
 
             // transport
-            'zenmagick.core.email.transport' => EMAIL_TRANSPORT,
+            'zenmagick.core.email.transport' => ("PHP" == EMAIL_TRANSPORT ? "mail" : EMAIL_TRANSPORT),
             'zenmagick.core.email.smtp.host' => EMAIL_SMTPAUTH_MAIL_SERVER,
             'zenmagick.core.email.smtp.port' => EMAIL_SMTPAUTH_MAIL_SERVER_PORT,
             'zenmagick.core.email.smtp.user' => EMAIL_SMTPAUTH_MAILBOX,
