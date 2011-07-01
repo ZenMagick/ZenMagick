@@ -88,21 +88,4 @@ class ZMAdminEventHandler {
         }
     }
 
-    /**
-     * Load zen cart style define configs
-     *
-     * @todo: remove and load individual values as required
-     */
-    public function onBootstrapDone($event) {
-        //** load all config values if not set **//
-        if (!defined('GLOBAL_SET_TIME_LIMIT')) {
-            foreach (ZMConfig::instance()->loadAll() as $key => $value) {
-                define($key, $value);
-            }
-            require_once ZMRuntime::getInstallationPath() . '/shared/defaults.php';
-            // set shared defaults again as some settings depend on zencart settings...
-            ZMSettings::addAll(zm_get_default_settings());
-        }
-    }
-
 }

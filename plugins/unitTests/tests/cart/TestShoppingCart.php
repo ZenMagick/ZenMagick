@@ -34,13 +34,6 @@ class TestShoppingCart extends ZMTestCase {
     public function setUp() {
         parent::setUp();
 
-        if (!defined('ATTRIBUTES_PRICE_FACTOR_FROM_SPECIAL')) {
-            define('ATTRIBUTES_PRICE_FACTOR_FROM_SPECIAL', '0');
-        }
-        if (!defined('TEXT_PREFIX')) {
-            define('TEXT_PREFIX', 'TEXT_PREFIX');
-        }
-
         // some vales zencart's order class wants...
         $_SESSION['sendto'] = '1';
         $_SESSION['billto'] = '1';

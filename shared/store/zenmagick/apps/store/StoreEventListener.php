@@ -38,6 +38,34 @@ use zenmagick\base\Toolbox;
 class StoreEventListener {
 
     /**
+     * Get config loaded ASAP.
+     */
+    public function onInitConfigDone($event) {
+        if (defined('ZC_INSTALL_PATH')) {
+            // include some zencart files we need.
+            include_once ZC_INSTALL_PATH . 'includes/database_tables.php';
+        }
+        foreach (\ZMConfig::instance()->loadAll() as $key => $value) {
+            if (!defined($key)) {
+                define($key, $value);
+            }
+        }
+
+        // random defines that we might need
+        if (!defined('PRODUCTS_OPTIONS_TYPE_SELECT')) {
+            define('PRODUCTS_OPTIONS_TYPE_SELECT', 0);
+        }
+        if (!defined('ATTRIBUTES_PRICE_FACTOR_FROM_SPECIAL')) {
+            define('ATTRIBUTES_PRICE_FACTOR_FROM_SPECIAL', 0);
+        }
+
+        $defaults = Runtime::getInstallationPath().'shared/defaults.php';
+        if (file_exists($defaults)) {
+            include $defaults;
+        }
+    }
+
+    /**
      * Keep up support for local.php.
      */
     public function onBootstrapDone($event) {
@@ -51,30 +79,10 @@ class StoreEventListener {
             Runtime::getInstallationPath().'apps/store/plugins'.DIRECTORY_SEPARATOR
         ));
 
-        // random defines that we might need
-        if (!defined('PRODUCTS_OPTIONS_TYPE_SELECT')) {
-            define('PRODUCTS_OPTIONS_TYPE_SELECT', 0);
-        }
-        if (!defined('ATTRIBUTES_PRICE_FACTOR_FROM_SPECIAL')) {
-            define('ATTRIBUTES_PRICE_FACTOR_FROM_SPECIAL', 0);
-        }
-
-        // include some zencart files we need.
-        include_once ZC_INSTALL_PATH . 'includes/database_tables.php';
-
-        //** load all config values if not set **//
-        if (!defined('GLOBAL_SET_TIME_LIMIT')) {
-            foreach (\ZMConfig::instance()->loadAll() as $key => $value) {
-                define($key, $value);
-            }
-        }
-
         // load some static files that we still need
         $statics = array(
-          'shared/defaults.php',
           'lib/core/external/zm-pomo-3.0.packed.php',
           'lib/core/services/locale/_zm.php',
-          'shared/external/lastRSS.php',
           // admin
           'apps/'.ZM_APP_NAME.'/lib/local.php',
           'apps/'.ZM_APP_NAME.'/lib/menu.php',
@@ -89,9 +97,6 @@ class StoreEventListener {
                 require_once $file;
             }
         }
-
-        // set shared defaults again as some settings depend on zencart settings...
-        \ZMSettings::addAll(zm_get_default_settings());
 
         $local = Runtime::getInstallationPath().DIRECTORY_SEPARATOR.'local.php';
         if (file_exists($local)) {

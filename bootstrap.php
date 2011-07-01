@@ -51,7 +51,7 @@ use Symfony\Component\HttpKernel\DependencyInjection\MergeExtensionConfiguration
         defined('ZM_ENVIRONMENT') || define('ZM_ENVIRONMENT', ($getenv_func('ZM_ENVIRONMENT') ? $getenv_func('ZM_ENVIRONMENT') : 'production'));
 
         // hide as to avoid filenames that contain account names, etc.
-        ini_set('display_errors', true);
+        ini_set('display_errors', false);
         // enable all reporting
         error_reporting(-1);
         // enable logging
@@ -152,6 +152,8 @@ use Symfony\Component\HttpKernel\DependencyInjection\MergeExtensionConfiguration
 
         // load global config to allow overriding app settings
         Runtime::getSettings()->setAll(Toolbox::loadWithEnv(Runtime::getInstallationPath().DIRECTORY_SEPARATOR.'global.yaml'));
+
+        Runtime::getEventDispatcher()->dispatch('init_config_done', new Event());
 
         // set up locale
         ZMLocales::instance()->init(Runtime::getSettings()->get('zenmagick.core.locales.locale'));

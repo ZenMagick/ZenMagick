@@ -30,6 +30,9 @@ use zenmagick\http\sacs\SacsManager;
             define('ZM_APP_PATH', 'apps'.DIRECTORY_SEPARATOR.'store'.DIRECTORY_SEPARATOR);
         }
 
+        // required for some nifty stuff
+        define('ZC_INSTALL_PATH', dirname(dirname(__FILE__)).DIRECTORY_SEPARATOR);
+
         // additional libraries
         if(!defined('ZM_LIBS')) define('ZM_LIBS', 'lib/http,shared');
 
