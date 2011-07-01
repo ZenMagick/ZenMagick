@@ -1,0 +1,18 @@
+##
+## Shared ZenMagick email config
+##
+
+swiftmailer:
+  transport: %zenmagick.core.email.transport%
+  username: %zenmagick.core.email.smtp.user%
+  password: %zenmagick.core.email.smtp.password%
+  host: %zenmagick.core.email.smtp.host%
+  port: %zenmagick.core.email.smtp.port%
+#  spool:
+#    type: file
+#    path: %zenmagick.cacheBaseDir%/swiftmailer/spool
+  sender_address: %storeEmail%
+  antiflood:
+    threshold: 99
+    sleep: 0
+  logging: true

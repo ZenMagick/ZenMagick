@@ -24,8 +24,11 @@
 <?php
 namespace zenmagick\apps\store;
 
+use Symfony\Component\Config\FileLocator;
+
 use zenmagick\base\Runtime;
 use zenmagick\base\Toolbox;
+use zenmagick\base\ioc\loader\YamlFileLoader;
 
 /**
  * Shared store event listener.
@@ -58,10 +61,22 @@ class StoreEventListener {
         if (!defined('ATTRIBUTES_PRICE_FACTOR_FROM_SPECIAL')) {
             define('ATTRIBUTES_PRICE_FACTOR_FROM_SPECIAL', 0);
         }
+        if (!defined('TEXT_PREFIX')) {
+            define('TEXT_PREFIX', 'txt_');
+        }
+        if (!defined('UPLOAD_PREFIX')) {
+            define('UPLOAD_PREFIX', 'upload_');
+        }
 
         $defaults = Runtime::getInstallationPath().'shared/defaults.php';
         if (file_exists($defaults)) {
             include $defaults;
+        }
+
+        $emailConfig = Runtime::getInstallationPath().DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.'store-email.yaml';
+        if (file_exists($emailConfig)) {
+            $containerYamlLoader = new YamlFileLoader(Runtime::getContainer(), new FileLocator(dirname($emailConfig)));
+            $containerYamlLoader->load($emailConfig);
         }
     }
 
