@@ -59,7 +59,7 @@ class ZMEmails extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return Runtime::getContainer()->getService('ZMEmails');
+        return Runtime::getContainer()->get('messageBuilder');
     }
 
 
@@ -140,6 +140,19 @@ class ZMEmails extends ZMObject {
 
         // create contents
         return $view->generate($request);
+    }
+
+    /**
+     * Get message.
+     *
+     * @param string subject Optional subject; default is an empty string.
+     * @param string body Optional body text; default is an empty string.
+     * @param string contentType Optional content type; default is <code>null</code>.
+     * @param string charset Optional character set; default is <code>utf-8</code>>
+     * @return mixed A message obect.
+     */
+    public function getMessage($subject='', $body='', $contentType=null, $charset='utf-8') {
+        return Swift_Message::newInstance($subject, $body, $contentType, $charset);
     }
 
 }

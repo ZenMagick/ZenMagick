@@ -195,3 +195,8 @@ services:
   configService:
     class: ZMConfig
     scope: container
+
+  ZMEmails:
+    class: ZMEmails
+    scope: prototype
+  messageBuilder: @ZMEmails
