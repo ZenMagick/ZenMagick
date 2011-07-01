@@ -25,6 +25,7 @@ use zenmagick\base\ClassLoader;
 use zenmagick\base\ioc\parameterBag\SettingsParameterBag;
 use zenmagick\base\ioc\compiler\ResolveMergeDefinitionsPass;
 
+use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
@@ -59,19 +60,31 @@ class Container extends ContainerBuilder {
 
         // try to default to the id as class name (with scope prototype)
         if (ClassLoader::classExists($id) && class_exists($id)) {
-            return new $id();
+            $obj = new $id();
+            if ($obj instanceof ContainerAwareInterface) {
+                $obj->setContainer($this);
+            }
+            return $obj;
         }
 
         //TODO: remove
+        $obj = null;
         if (null != ($realid = \ZMLoader::resolve($id))&& class_exists($realid)) {
-            return new $realid();
+            $obj = new $realid();
         }
         if (null != ($realid = \ZMLoader::resolve('ZM'.$id))&& class_exists($realid)) {
-            return new $realid();
+            $obj = new $realid();
         }
-        if (self::EXCEPTION_ON_INVALID_REFERENCE === $invalidBehavior) {
+
+        if (null == $obj && self::EXCEPTION_ON_INVALID_REFERENCE === $invalidBehavior) {
             throw new \InvalidArgumentException(sprintf('The service "%s" does not exist.', $id));
         }
+
+        if ($obj instanceof ContainerAwareInterface) {
+            $obj->setContainer($this);
+        }
+
+        return $obj;
     }
 
     /**
