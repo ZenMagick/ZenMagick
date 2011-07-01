@@ -86,6 +86,11 @@ class ZMAdminEventHandler {
         if (null != $user && null != ($uiLocale = ZMAdminUserPrefs::instance()->getPrefForName($user->getId(), 'uiLocale'))) {
             ZMLocales::instance()->getLocale(true, $uiLocale);
         }
+
+        $language = $request->getSession()->getLanguage();
+        $theme = ZMThemes::instance()->initThemes($language);
+        $args = array_merge($event->all(), array('theme' => $theme, 'themeId' => $theme->getId()));
+        //Runtime::getEventDispatcher()->dispatch('theme_resolved', new Event($this, $args));
     }
 
 }
