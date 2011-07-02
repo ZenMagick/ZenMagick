@@ -141,15 +141,15 @@ class ZMConfig extends ZMObject {
     }
 
     /**
-     * Load config values for the given sql and args.
+     * Build a collection of ZMWidget and/or ZMConfigValue objects
      *
-     * @param string sql The sql.
-     * @param array args The query args.
+     * @todo most of this should be part of the ZMConfigValue entity
+     * @param array array of config values
      * @return array A list of <code>ZMConfigValue</code> or <code>ZMWidget</code> instances.
      */
-    protected function loadValuesForSql($sql, $args) {
+    protected function buildObjects($configValues) {
         $values = array();
-        foreach (ZMRuntime::getDatabase()->query($sql, $args, TABLE_CONFIGURATION) as $value) {
+        foreach ($configValues as $value) {
             if (0 === strpos($value['setFunction'], 'widget@')) {
                 $widgetDefinition = $value['setFunction'].'&'.$value['useFunction'];
                 // build definition from both function values (just in case)
@@ -274,7 +274,8 @@ class ZMConfig extends ZMObject {
                 WHERE configuration_key like :key
                 ORDER BY sort_order, configuration_id";
         $args = array('key' => $pattern);
-        return $this->loadValuesForSql($sql, $args);
+        $values = ZMRuntime::getDatabase()->query($sql, $args, TABLE_CONFIGURATION);
+        return $this->buildObjects($values);
     }
 
     /**
@@ -289,7 +290,8 @@ class ZMConfig extends ZMObject {
                 WHERE configuration_group_id like :groupId
                 ORDER BY sort_order, configuration_id";
         $args = array('groupId' => $groupId);
-        return $this->loadValuesForSql($sql, $args);
+        $values = ZMRuntime::getDatabase()->query($sql, $args, TABLE_CONFIGURATION);
+        return $this->buildObjects($values);
     }
 
     /**
