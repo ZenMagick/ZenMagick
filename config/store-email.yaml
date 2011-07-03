@@ -2,7 +2,14 @@
 ## Shared ZenMagick email config
 ##
 
+services:
+  zencartTransport:
+    class: ZMZenCartTransport
+    scope: container
+
 swiftmailer:
+## using the legacy transport
+#  transport: zencartTransport
   transport: %zenmagick.core.email.transport%
   username: %zenmagick.core.email.smtp.user%
   password: %zenmagick.core.email.smtp.password%
