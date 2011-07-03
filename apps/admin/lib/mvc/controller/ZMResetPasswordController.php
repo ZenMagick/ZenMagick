@@ -62,17 +62,8 @@ class ZMResetPasswordController extends ZMController {
 
         $messageBuilder = $this->container->get('messageBuilder');
         $body = $messageBuilder->createContents('reset_password', false, $request, array('newPassword' => $newPassword));
-        $message = $messageBuilder->getMessage()->setSubject('New password...')->setTo($email)->setFrom(ZMSettings::get('storeEmail'))->setBody($body);
+        $message = $messageBuilder->getMessage()->setSubject(_zm('New password request'))->setTo($email)->setFrom(ZMSettings::get('storeEmail'))->setBody($body);
         $this->container->get('mailer')->send($message);
-
-/*
-        $content = ZMEmails::instance()->createContents('reset_password', false, $request, array('newPassword' => $newPassword));
-        $message = ZMMailer::instance()->getMessage('New password...', $content);
-        $message->setTo($email);
-        $message->setFrom(ZMSettings::get('storeEmail'));
-        $result = $mailer->send($message);
- */
-
 
         // report success
         ZMMessages::instance()->success(_zm('A new password has been sent to your email address.'));
