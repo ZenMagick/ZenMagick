@@ -157,7 +157,8 @@ class ZMManufacturers extends ZMObject {
     public function getManufacturers($languageId) {
         $sql = "SELECT mi.*, m.*
                 FROM " . TABLE_MANUFACTURERS . " m
-                  LEFT JOIN " . TABLE_MANUFACTURERS_INFO . " mi ON (m.manufacturers_id = mi.manufacturers_id AND mi.languages_id = :languageId)";
+                  LEFT JOIN " . TABLE_MANUFACTURERS_INFO . " mi ON (m.manufacturers_id = mi.manufacturers_id AND mi.languages_id = :languageId)
+                ORDER BY m.manufacturers_name";
         $args = array('languageId' => $languageId);
 
         $cacheKey = ZMLangUtils::mkUnique('manufacturer', $languageId);
