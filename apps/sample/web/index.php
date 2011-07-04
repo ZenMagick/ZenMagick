@@ -26,5 +26,5 @@
   // additional libraries
   define('ZM_LIBS', 'lib/http');
 
-  require '../../../bootstrap.php';
-  require '../../../mvc.php';
+  require realpath(dirname(__FILE__).'/../../../bootstrap.php');
+  require realpath(dirname(__FILE__).'/../../../mvc.php');

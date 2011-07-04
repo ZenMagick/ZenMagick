@@ -33,9 +33,9 @@
 
   require_once ZC_INSTALL_PATH.'/includes/configure.php';
 
-  require '../../../bootstrap.php';
+  require realpath(dirname(__FILE__).'/../../../bootstrap.php');
 
   // more zen-cart config stuff we need
   ZMSettings::set('zenmagick.mvc.request.secure', 'true' == ENABLE_SSL);
 
-  require '../../../mvc.php';
+  require realpath(dirname(__FILE__).'/../../../mvc.php');

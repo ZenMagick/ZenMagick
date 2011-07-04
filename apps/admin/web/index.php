@@ -38,11 +38,11 @@
 
   require_once ZC_INSTALL_PATH.ZC_ADMIN_FOLDER.'/includes/configure.php';
 
-  require '../../../bootstrap.php';
+  require realpath(dirname(__FILE__).'/../../../bootstrap.php');
 
   // more zen-cart config stuff we need
   ZMSettings::set('zenmagick.mvc.request.secure', 'true' == ENABLE_SSL_ADMIN);
   ZMSettings::set('apps.store.baseUrl', HTTP_CATALOG_SERVER . DIR_WS_CATALOG);
   ZMSettings::set('apps.store.oldAdminUrl', HTTP_SERVER . DIR_WS_ADMIN.'index.php');
 
-  require '../../../mvc.php';
+  require realpath(dirname(__FILE__).'/../../../mvc.php');
