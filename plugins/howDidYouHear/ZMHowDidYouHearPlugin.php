@@ -58,6 +58,8 @@ class ZMHowDidYouHearPlugin extends Plugin {
             'widget@ZMBooleanFormWidget#name=displayOther&default=true&label=Allow other&style=checkbox');
         $this->addConfigValue('Require Source', 'requireSource', 'true', 'Require the Referral Source in account creation',
             'widget@ZMBooleanFormWidget#name=requireSource&default=true&label=Require Source&style=checkbox');
+        $this->addConfigValue('Enable on guest checkout', 'enableOnGuestCheckout', 'true', 'Handle referral data during guest checkout',
+            'widget@ZMBooleanFormWidget#name=enableOnGuestCheckout&default=true&label=Enable on guest checkout&style=checkbox');
     }
 
     /**
@@ -84,28 +86,12 @@ class ZMHowDidYouHearPlugin extends Plugin {
     }
 
     /**
-     * Init done callback.
-     *
-     * <p>Setup additional validation rules; this is done here to avoid getting in the way of
-     * custom global/theme validation rule setups.</p>
-     */
-    public function onInitDone($event) {
-        if ($this->isRequired()) {
-            // add validation rules
-            $rules = array(
-                array("ZMRequiredRule", 'sourceId', 'Please select/provide the source where you first heard about us.'),
-                array("ZMSourceOtherRule", 'sourceOther', 'Please provide a description about where you first heard about us.')
-            );
-            ZMValidator::instance()->addRules('registration', $rules);
-        }
-    }
-
-    /**
      * Add custom view data.
      */
     public function onViewStart($event) {
         $request = $event->get('request');
-        if ('create_account' == $request->getRequestId()) {
+        $buildList = in_array($request->getRequestId(), array('create_account', 'checkout_shipping_address'));
+        if ($buildList) {
             // create sources list
             $howDidYouHearSources = array();
             $source = new ZMObject();
@@ -128,9 +114,30 @@ class ZMHowDidYouHearPlugin extends Plugin {
                 $source->setName(_zm('Other - (please specifiy)'));
                 $howDidYouHearSources[] = $source;
             }
-            // add to view context
+
+            // create reliable form reference
             $view = $event->get('view');
-            $view->setVar('howDidYouHearSources', $howDidYouHearSources);
+            $needRules = false;
+            if (null != ($registration = $view->getVar('registration'))) {
+                $view->setVar('howDidYouHearForm', $registration);
+                $needRules = true;
+            } else if (null != ($shippingAddress = $view->getVar('shippingAddress'))) {
+                // if we have an address we should have got the source as well...
+                $addressList = ZMAddresses::instance()->getAddressesForAccountId($request->getAccountId());
+                if ($this->isEnableOnGuestCheckout() && ZMAccount::GUEST == $request->getAccount()->getType() && 0 == count($addressList)) {
+                    $view->setVar('howDidYouHearForm', $shippingAddress);
+                    $needRules = true;
+                }
+            }
+            if ($needRules && $this->isRequired()) {
+                // add validation rules
+                $rules = array(
+                    array("ZMRequiredRule", 'sourceId', 'Please select/provide the source where you first heard about us.'),
+                    array("ZMSourceOtherRule", 'sourceOther', 'Please provide a description about where you first heard about us.')
+                );
+                ZMValidator::instance()->addRules('registration', $rules);
+                ZMValidator::instance()->addRules('shippingAddress', $rules);
+            }
         }
     }
 
@@ -139,7 +146,7 @@ class ZMHowDidYouHearPlugin extends Plugin {
      */
     public function onCreateAccount($event) {
         $account = $event->get('account');
-        if (ID_SOURCE_OTHER == $account->getSourceId()) {
+        if (ID_SOURCE_OTHER == $account->getSourceId() && ZMAccount::GUEST != $account->getType()) {
             // need to store sourceOther
             $sql = "INSERT INTO " . TABLE_SOURCES_OTHER . "
                     VALUES (:customers_id, :sources_other_name)";
@@ -163,6 +170,15 @@ class ZMHowDidYouHearPlugin extends Plugin {
      */
     public function isRequired() {
         return ZMLangUtils::asBoolean($this->get('requireSource'));
+    }
+
+    /**
+     * Check if guest checkout should be handled as well.
+     *
+     * @return boolean <code>true</code> if enabled.
+     */
+    public function isEnableOnGuestCheckout() {
+        return ZMLangUtils::asBoolean($this->get('enableOnGuestCheckout'));
     }
 
 }

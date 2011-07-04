@@ -19,17 +19,19 @@
  */
 ?>
 
-<fieldset>
+<?php if (isset($howDidYouHearForm)) { ?>
+  <fieldset>
   <legend><?php echo _zm('How did you hear about us') ?></legend>
   <p>
     <label for="sourceId" ><?php echo _zm('Please select a source:') ?></label>
-    <?php echo $form->idpSelect('sourceId', $howDidYouHearSources, $registration->getSourceId()) ?>
+      <?php echo $form->idpSelect('sourceId', $howDidYouHearSources, $howDidYouHearForm->getSourceId()) ?>
   </p>
 
   <?php if ($howDidYouHear->isDisplayOther()) { ?>
     <p>
       <label for="sourceOther" ><?php echo _zm('(if "Other" please specify):') ?></label>
-      <input type="text" name="sourceOther" id="sourceOther" value="<?php echo $html->encode($registration->getSourceOther()) ?>">
+        <input type="text" name="sourceOther" id="sourceOther" value="<?php echo $html->encode($howDidYouHearForm->getSourceOther()) ?>">
     </p>
   <?php } ?>
-</fieldset>
+  </fieldset>
+<?php } ?>

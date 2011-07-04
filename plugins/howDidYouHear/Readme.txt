@@ -29,6 +29,10 @@ In your create_account.php, after the last closing fieldset element, add the fol
 
     <?php echo $this->fetch('views/howDidYouHearOptions.php') ?>
 
+In address.php (for guest checkout), add the same line to the end of the template:
+
+    <?php echo $this->fetch('views/howDidYouHearOptions.php') ?>
+
 
 CUSTOMISATION
 =============
