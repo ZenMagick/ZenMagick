@@ -54,13 +54,15 @@ class Container extends ContainerBuilder {
      * {@inheritDoc}
      */
     public function get($id, $invalidBehavior=self::EXCEPTION_ON_INVALID_REFERENCE) {
+        $obj = null;
         if ($this->has($id)) {
-            return parent::get($id, $invalidBehavior);
+            $obj = parent::get($id, $invalidBehavior);
+        } else if (ClassLoader::classExists($id) && class_exists($id)) {
+            // try to default to the id as class name (with scope prototype)
+            $obj = new $id();
         }
 
-        // try to default to the id as class name (with scope prototype)
-        if (ClassLoader::classExists($id) && class_exists($id)) {
-            $obj = new $id();
+        if (null != $obj) {
             if ($obj instanceof ContainerAwareInterface) {
                 $obj->setContainer($this);
             }
