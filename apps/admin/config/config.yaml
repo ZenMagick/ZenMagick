@@ -66,6 +66,8 @@ zenmagick:
     view:
       default: ZMSavantView
       defaultLayout: default_layout
+    controller:
+      default: ZMDefaultController
 
     ## request
     request:
@@ -105,6 +107,7 @@ zenmagick:
       urlRewriter: 
         - zenmagick\http\request\rewriter\DefaultUrlRewriter
       urlType: default
+      enforceSecure: true
 
     ## sacs
     sacs:

@@ -59,6 +59,10 @@ zenmagick:
 
   ## mvc
   mvc:
+    ## templates
+    templates:
+      ext: .php
+
     ## request
     request:
       missingPage: error
@@ -74,6 +78,8 @@ zenmagick:
       #default: SavantView
       default: 'SavantView#config=cache%3DZMSimpleSavantCache&filters=ShortTagFilter'
       defaultLayout: default_layout
+   controller:
+      default: ZMDefaultController
 
     ## toolbox tools
     toolbox:
@@ -99,6 +105,7 @@ zenmagick:
       login: login
       urlRewriter: 
         - StoreDefaultUrlRewriter
+      enforceSecure: true
     ## sacs
     sacs:
       handler:

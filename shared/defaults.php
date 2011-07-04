@@ -49,9 +49,6 @@
             // verify category path
             'zenmagick.apps.store.verifyCategoryPath' => false,
 
-            // template suffix/extension
-            'zenmagick.mvc.templates.ext' => '.php',
-
             // enable gift vouchers
             'isEnabledGV' => MODULE_ORDER_TOTAL_GV_STATUS == 'true',
 
@@ -76,12 +73,6 @@
 
             // enable/disable transaction support in request processing
             'zenmagick.mvc.transactions.enabled' => false,
-
-
-            // default controller and view class
-            'zenmagick.mvc.controller.default' => 'ZMDefaultController',
-            'zenmagick.mvc.view.defaultLayout' => 'default_layout',
-
 
             // default product association handler
             'defaultProductAssociationHandler' => 'ZMSimilarOrderProductAssociationHandler',
@@ -190,12 +181,6 @@
              * RSS settings
              **************************************/
 
-            // cache folder
-            'rssCacheDir' => dirname(zenmagick\base\Runtime::getInstallationPath())."/cache/zenmagick/rss/",
-
-            // cache TTL
-            'rssCacheTimeout' => 1200,
-
             'zenmagick.mvc.rss.sources' => 'ZMDefaultRssFeedSource,ZMCatalogRssFeedSource',
 
 
@@ -205,9 +190,6 @@
 
             // use SSL
             'zenmagick.mvc.request.secure' => (defined('ENABLE_SSL') && ENABLE_SSL == 'true') || (defined('ENABLE_SSL_ADMIN') && ENABLE_SSL_ADMIN == 'true'),
-
-            // force use of SSL
-            'zenmagick.mvc.request.enforceSecure' => 'true',
 
             // cookies only?
             'isForceCookieUse' => SESSION_FORCE_COOKIE_USE == 'True',
