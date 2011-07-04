@@ -114,6 +114,7 @@ class ZMEmails extends ZMObject {
      * @param boolean html Indicate whether to create <em>HTML</em> or <em>text</em> content; default is <code>false</code>.
      * @param array context Optional context parameter; default is an empty array.
      * @return strintg The content.
+     * @deprecated use createMessage(...) instead
      */
     public function createContents($template, $html=false, $request, $context=array()) {
         $formats = $this->getFormatsForTemplate($template, $request);
@@ -140,6 +141,27 @@ class ZMEmails extends ZMObject {
 
         // create contents
         return $view->generate($request);
+    }
+
+    /**
+     * Create a message for the given template and parameters.
+     *
+     * <p>If <em>HTML</em> is requested but not available, <em>text</em> will be returned.</p>
+     *
+     * @param string template The template name.
+     * @request ZMRequest request The current request.
+     * @param boolean html Indicate whether to create <em>HTML</em> or <em>text</em> content; default is <code>false</code>.
+     * @param array context Optional context parameter; default is an empty array.
+     * @return mixed The message.
+     */
+    public function createMessage($template, $html=false, $request, $context=array()) {
+        $body = $this->createContents($template, $html, $request, $context);
+        $message = $this->getMessage('', $body);
+        // TODO: eventually remove: attach some additional things we might need for the legacy code
+        $message->request = $request;
+        $message->template = $template;
+        $message->context = $context;
+        return $message;
     }
 
     /**
