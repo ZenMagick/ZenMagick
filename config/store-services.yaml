@@ -172,7 +172,7 @@ services:
     class: ZMLanguages
     scope: container
 
-  payemntTypeService:
+  paymentTypeService:
     class: ZMPaymentTypes
     scope: container
 
