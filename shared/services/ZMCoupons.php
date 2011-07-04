@@ -240,8 +240,8 @@ class ZMCoupons extends ZMObject {
     public function getCouponQueueEntryForId($queueId) {
         $sql = "SELECT *
                 FROM " . TABLE_COUPON_GV_QUEUE . "
-                WHERE unique_id = :couponId";
-        return ZMRuntime::getDatabase()->querySingle($sql, array('couponId' => $queueId), TABLE_COUPON_GV_QUEUE, 'ZMCouponQueue');
+                WHERE unique_id = :id";
+        return ZMRuntime::getDatabase()->querySingle($sql, array('id' => $queueId), TABLE_COUPON_GV_QUEUE, 'ZMCouponQueue');
     }
 
     /**
