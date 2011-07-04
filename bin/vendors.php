@@ -43,6 +43,9 @@ foreach ($vendorDeps as $vendorDir => $deps) {
         echo "> Installing/Updating $name\n";
 
         $installDir = $vendorDir.'/'.$name;
+        if (is_dir($installDir) && !file_exists($installDir.'/.git')) {
+            die(sprintf('%s exists but is not a valid repository', $installDir));
+        }
         if (!is_dir($installDir)) {
             system(sprintf('git clone %s %s', escapeshellarg($url), escapeshellarg($installDir)));
         }
