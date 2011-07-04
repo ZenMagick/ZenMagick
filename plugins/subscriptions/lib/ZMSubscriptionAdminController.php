@@ -106,9 +106,10 @@ class ZMSubscriptionAdminController extends ZMPluginAdmin2Controller {
         $context = array();
         $context['order'] = $order;
         $context['plugin'] = $this->getPlugin();
-        zm_mail(sprintf(_zm("%s: Order Subscription Canceled"), ZMSettings::get('storeName')), $template, $context,
-            $email, ZMSettings::get('storeEmail'), null);
-        $email = ZMSettings::get('storeEmail');
+
+        $message = $this->container->get('messageBuilder')->createMessage($template, true, $request, $context);
+        $message->setSubject(sprintf(_zm("%s: Order Subscription Canceled"), ZMSettings::get('storeName')))->setTo($email)->setFrom(ZMSettings::get('storeEmail'));
+        $this->container->get('mailer')->send($message);
     }
 
 }

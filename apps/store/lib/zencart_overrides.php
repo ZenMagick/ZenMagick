@@ -22,6 +22,10 @@
  */
 ?>
 <?php
+
+use zenmagick\base\Runtime;
+
+
 if (!function_exists('zen_href_link')) {
 
     /**
@@ -52,17 +56,20 @@ if (!function_exists('zen_mail')) {
      */
     function zen_mail($toName, $toAddress, $subject, $text, $fromName, $fromAddress, $block=array(), $module='default', $attachments_list='') {
         // uncomment to trace mail calls and figure out module names (ie template names)
-        //ZMLogging::instance()->trace('mail: '.$module);
+        //Runtime::getLogging()->trace('mail: '.$module);
+
+        $request = ZMRequest::instance();
+        $container = Runtime::getContainer();
+        $messageBuilder = $container->get('messageBuilder');
 
         // use zen_mail_org as fallback for emails without ZenMagick template
-        $formats = ZMEmails::instance()->getFormatsForTemplate($module, ZMRequest::instance());
+        $formats = $messageBuilder->getFormatsForTemplate($module, $request);
         if (0 < count($formats) && ZMSettings::get('isEnableZMThemes', true)) {
-            // call ZenMagick implementation
-            // NOTE: zm_mail will eventually call zen_mail_org to actually send the generated email...
-
-            // preserve original text
             $block['text_msg'] = $text;
-            zm_mail($subject, $module, $block, $toAddress, $toName, $fromAddress, $fromName);
+            $container = Runtime::getContainer();
+            $message = $container->get('messageBuilder')->createMessage($module, true, $request, $block);
+            $message->setSubject($subject)->setTo($toAddress, $toName)->setFrom($fromAddress, $fromName);
+            $container->get('mailer')->send($message);
         } else {
             // call renamed original function
             zen_mail_org($toName, $toAddress, $subject, $text, $fromName, $fromAddress, $block, $module, $attachments_list);
@@ -80,11 +87,13 @@ if (!function_exists('zen_build_html_email_from_template')) {
      * @package zenmagick.store.sf.override
      */
     function zen_build_html_email_from_template($template, $args=array()) {
-        if (!class_exists('ZMEmails') || !ZMSettings::get('isEnableZMThemes', true)) {
+        $container = Runtime::getContainer();
+        $messageBuilder = $container->get('messageBuilder');
+        if (!ZMSettings::get('isEnableZMThemes', true)) {
             return zen_build_html_email_from_template_org($template, $args);
         }
         $request = ZMRequest::instance();
-        return ZMEmails::instance()->createContents($template, true, $request, $request->get('ZM_EMAIL_CONTEXT'));
+        return $messageBuilder->createContents($template, true, $request, $request->get('ZM_EMAIL_CONTEXT'));
     }
 
 }

@@ -99,8 +99,10 @@ class ZMFormHandlerController extends ZMController {
         if (empty($email)) {
             $email = ZMSettings::get('storeEmail');
         }
-        zm_mail(sprintf(_zm("Form Handler notification: %s"), $this->getId()), $template, array('data' => $data, 'id' => $this->getId()), 
-            $email, ZMSettings::get('storeEmail'), null);
+
+        $message = $this->container->get('messageBuilder')->createMessage($template, true, $request, array('data' => $data, 'id' => $this->getId()));
+        $message->setSubject(sprintf(_zm("Form Handler notification: %s"), $this->getId()))->setTo($email)->setFrom(ZMSettings::get('storeEmail'));
+        $this->container->get('mailer')->send($message);
     }
 
     /**

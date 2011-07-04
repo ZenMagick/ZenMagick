@@ -119,9 +119,10 @@ class ZMCancelSubscriptionController extends ZMController {
     protected function sendCancelEmail($order, $template, $email) {
         $context = array();
         $context['order'] = $order;
-        zm_mail(sprintf(_zm("%s: Order Subscription Canceled"), ZMSettings::get('storeName')), $template, $context, 
-            $email, ZMSettings::get('storeEmail'), null);
-        $email = ZMSettings::get('storeEmail');
+
+        $message = $this->container->get('messageBuilder')->createMessage($template, true, $request, $context);
+        $message->setSubject(sprintf(_zm("%s: Order Subscription Canceled"), ZMSettings::get('storeName')))->setTo($email)->setFrom(ZMSettings::get('storeEmail'));
+        $this->container->get('mailer')->send($message);
     }
 
     /**

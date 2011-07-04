@@ -196,7 +196,6 @@ services:
     class: ZMConfig
     scope: container
 
-  ZMEmails:
-    class: ZMEmails
+  messageBuilder:
+    class: zenmagick\http\utils\MessageBuilder
     scope: prototype
-  messageBuilder: @ZMEmails

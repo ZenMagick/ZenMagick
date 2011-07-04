@@ -58,19 +58,6 @@ class ZMZenCartTransport extends Swift_Transport_NullTransport {
             }
         }
 
-        // call legacy code
-
-        // event to allow additions to context or view or...
-        $request = $message->request;
-        $context = $message->context;
-        $template = $message->template;
-        $args = array('template' => $template, 'request' => $request, 'context' => $context);
-        $event = new Event(null, $args);
-        Runtime::getEventDispatcher()->dispatch('generate_email', $event);
-        $context = $event->get('context');
-        // save context for legacy HTML generation...
-        $request->set('ZM_EMAIL_CONTEXT', $context);
-
         // crude to/from extract
         $from = $message->getFrom();
         $fromEmail = array_pop(array_keys($from));

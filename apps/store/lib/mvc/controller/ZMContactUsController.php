@@ -50,13 +50,13 @@ class ZMContactUsController extends ZMController {
     /**
      * {@inheritDoc}
      */
-    public function preProcess($request) { 
+    public function preProcess($request) {
         $request->getToolbox()->crumbtrail->addCrumb($request->getToolbox()->utils->getTitle());
     }
 
     /**
      * Process a HTTP GET request.
-     * 
+     *
      * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
      * if the controller generates the contents itself.
      */
@@ -73,7 +73,7 @@ class ZMContactUsController extends ZMController {
 
     /**
      * Process a HTTP POST request.
-     * 
+     *
      * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
      * if the controller generates the contents itself.
      */
@@ -81,10 +81,9 @@ class ZMContactUsController extends ZMController {
         $contactInfo = $this->getFormData($request);
 
         // send email
-        $context = array();
-        $context['contactInfo'] = $contactInfo;
-
-        zm_mail(sprintf(_zm("Message from %s"), ZMSettings::get('storeName')), 'contact_us', $context, ZMSettings::get('storeEmail'), null, $contactInfo->getEmail(), $contactInfo->getName());
+        $message = $this->container->get('messageBuilder')->createMessage('contact_us', true, $request, array('contactInfo' => $contactInfo));
+        $message->setSubject(sprintf(_zm("Message from %s"), ZMSettings::get('storeName')))->setTo($contactInfo->getEmail(), $contactInfo->getName())->setFrom(ZMSettings::get('storeEmail'));
+        $this->container->get('mailer')->send($message);
 
         ZMMessages::instance()->success(_zm('Your message has been successfully sent.'));
         // clear message before displaying form again

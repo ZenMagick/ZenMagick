@@ -121,7 +121,11 @@ class ZMGvSendConfirmController extends ZMController {
 
         // create gv_send email
         $context = array('currentAccount' => $account, 'gvReceiver' => $gvReceiver, 'currentCoupon' => $coupon, 'office_only_html' => '', 'office_only_text' => '');
-        zm_mail(sprintf(_zm("A gift from %s"), $account->getFullName()), 'gv_send', $context, $gvReceiver->getEmail());
+
+        $message = $this->container->get('messageBuilder')->createMessage('gv_send', true, $request, $context);
+        $message->setSubject(sprintf(_zm("A gift from %s"), $account->getFullName()))->setTo($gvReceiver->getEmail())->setFrom(ZMSettings::get('storeEmail'));
+        $this->container->get('mailer')->send($message);
+
         if (ZMSettings::get('isEmailAdminGvSend')) {
             // store copy
             $session = $request->getSession();
@@ -129,7 +133,10 @@ class ZMGvSendConfirmController extends ZMController {
             $context['currentAccount'] = $account;
             $context['gvReceiver'] = $gvReceiver;
             $context['currentCoupon'] = $coupon;
-            zm_mail(sprintf(_zm("[GIFT CERTIFICATE] A gift from %s"), $account->getFullName()), 'gv_send', $context, ZMSettings::get('emailAdminGvSend'));
+
+            $message = $this->container->get('messageBuilder')->createMessage('gv_send', false, $request, $context);
+            $message->setSubject(sprintf(_zm("[GIFT CERTIFICATE] A gift from %s"), $account->getFullName()))->setTo(ZMSettings::get('emailAdminGvSend'))->setFrom(ZMSettings::get('storeEmail'));
+            $this->container->get('mailer')->send($message);
         }
 
         ZMMessages::instance()->success(_zm("Gift Certificate successfully send!"));

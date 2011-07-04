@@ -19,11 +19,13 @@
  */
 ?>
 <?php
+namespace zenmagick\http\utils;
 
-use zenmagick\base\Runtime;
+use zenmagick\base\ZMObject;
+use zenmagick\base\events\Event;
 
 /**
- * Useful stuff to create email contents.
+ * Message builder for emails.
  *
  * <p>The code in this service assumes that email templates are located in a separate
  *  <em>emails</em> template folder.<p>
@@ -34,16 +36,16 @@ use zenmagick\base\Runtime;
  * <p>The default view view id is <em>emails</em>.</p>
  *
  * @author DerManoMann
- * @package org.zenmagick.mvc.services.misc
+ * @package zenmagick.http.utils
  */
-class ZMEmails extends ZMObject {
+class MessageBuilder extends ZMObject {
     private $viewViewId_;
 
 
     /**
      * Create new instance.
      */
-    function __construct() {
+    public function __construct() {
         parent::__construct();
         $this->viewViewId_ = 'emails';
     }
@@ -51,15 +53,8 @@ class ZMEmails extends ZMObject {
     /**
      * Destruct instance.
      */
-    function __destruct() {
+    public function __destruct() {
         parent::__destruct();
-    }
-
-    /**
-     * Get instance.
-     */
-    public static function instance() {
-        return Runtime::getContainer()->get('messageBuilder');
     }
 
 
@@ -90,7 +85,7 @@ class ZMEmails extends ZMObject {
      */
     public function getFormatsForTemplate($template, $request) {
         // use configured/default view for viewId 'emails'
-        $view = ZMUrlManager::instance()->findView(null, $this->viewViewId_);
+        $view = \ZMUrlManager::instance()->findView(null, $this->viewViewId_);
         // check for html/text versions
         $templateBase = 'emails'.DIRECTORY_SEPARATOR.$template;
         $formats = array();
@@ -120,7 +115,7 @@ class ZMEmails extends ZMObject {
         $formats = $this->getFormatsForTemplate($template, $request);
         if (0 == count($formats)) {
             // no template found
-            ZMLogging::instance()->log('no template found for email: '.$template, ZMLogging::ERROR);
+            \ZMLogging::instance()->log('no template found for email: '.$template, \ZMLogging::ERROR);
             return '';
         }
 
@@ -131,7 +126,7 @@ class ZMEmails extends ZMObject {
         }
 
         // set up view
-        $view = ZMUrlManager::instance()->findView(null, $this->viewViewId_);
+        $view = \ZMUrlManager::instance()->findView(null, $this->viewViewId_);
         $view->setTemplate('emails'.DIRECTORY_SEPARATOR.$template.'.'.$format);
         // disable layout for now
         $view->setLayout(null);
@@ -155,8 +150,23 @@ class ZMEmails extends ZMObject {
      * @return mixed The message.
      */
     public function createMessage($template, $html=false, $request, $context=array()) {
-        $body = $this->createContents($template, $html, $request, $context);
-        $message = $this->getMessage('', $body);
+        // event to allow additions to context or view or...
+        $args = array('template' => $template, 'request' => $request, 'context' => $context);
+        $event = new Event(null, $args);
+        $this->container->get('eventDispatcher')->dispatch('generate_email', $event);
+        $context = $event->get('context');
+        // save context for legacy HTML generation...
+        $request->set('ZM_EMAIL_CONTEXT', $context);
+
+        $textBody = $this->createContents($template, false, $request, $context);
+        $message = $this->getMessage('', $textBody);
+        if ($html) {
+            $formats = $this->getFormatsForTemplate($template, $request);
+            if (in_array('html', $formats)) {
+                $message->addPart($this->createContents($template, true, $request, $context), 'text/html');
+            }
+        }
+
         // TODO: eventually remove: attach some additional things we might need for the legacy code
         $message->request = $request;
         $message->template = $template;
@@ -174,7 +184,7 @@ class ZMEmails extends ZMObject {
      * @return mixed A message obect.
      */
     public function getMessage($subject='', $body='', $contentType=null, $charset='utf-8') {
-        return Swift_Message::newInstance($subject, $body, $contentType, $charset);
+        return \Swift_Message::newInstance($subject, $body, $contentType, $charset);
     }
 
 }

@@ -119,8 +119,10 @@ class ZMUpdateSubscriptionsCronJob implements ZMCronJob {
         $context['INTRO_ORDER_NUMBER'] = $order->getId();
 
         $account = $order->getAccount();
-        zm_mail(sprintf(_zm("%s: Order Subscription Notification"), ZMSettings::get('storeName')), $template, $context,
-            $account->getEmail(), ZMSettings::get('storeEmail'), null);
+
+        $message = $this->container->get('messageBuilder')->createMessage($template, true, $request, $context);
+        $message->setSubject(sprintf(_zm("%s: Order Subscription Notification"), ZMSettings::get('storeName')))->setTo($account->getEmail())->setFrom(ZMSettings::get('storeEmail'));
+        $this->container->get('mailer')->send($message);
     }
 
     /**

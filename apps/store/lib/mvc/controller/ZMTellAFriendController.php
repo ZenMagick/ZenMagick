@@ -99,14 +99,21 @@ class ZMTellAFriendController extends ZMController {
 
         $context = array('emailMessage' => $emailMessage, 'currentProduct' => $this->product_, 'office_only_html' => '', 'office_only_text' => '');
         $subject = sprintf(_zm("Your friend %s has recommended this great product from %s"), $emailMessage->getFromName(), ZMSettings::get('storeName'));
-        zm_mail($subject, 'tell_a_friend', $context, $emailMessage->getToEmail(), $emailMessage->getToName());
+
+        $message = $this->container->get('messageBuilder')->createMessage('tell_a_friend', true, $request, $context);
+        $message->setSubject($subject)->setTo($emailMessage->getToEmail(), $emailMessage->getToName())->setFrom(ZMSettings::get('storeEmail'));
+        $this->container->get('mailer')->send($message);
+
         if (ZMSettings::get('isEmailAdminTellAFriend')) {
             // store copy
             $session = $request->getSession();
             $context = $request->getToolbox()->macro->officeOnlyEmailFooter($emailMessage->getFromName(), $emailMessage->getFromEmail(), $session);
             $context['emailMessage'] = $emailMessage;
             $context['currentProduct'] = $this->product_;
-            zm_mail("[TELL A FRIEND] ".$subject, 'tell_a_friend', $context, ZMSettings::get('emailAdminTellAFriend'));
+
+            $message = $this->container->get('messageBuilder')->createMessage('tell_a_friend', false, $request, $context);
+            $message->setSubject(sprintf(_zm('[TELL A FRIEND] %s'), $subject))->setTo(ZMSettings::get('emailAdminTellAFriend'))->setFrom(ZMSettings::get('storeEmail'));
+            $this->container->get('mailer')->send($message);
         }
 
         ZMMessages::instance()->success(_zm("Message send successfully"));

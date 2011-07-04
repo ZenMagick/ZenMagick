@@ -94,8 +94,10 @@ class ZMSubscriptionRequestController extends ZMController {
         if (empty($email)) {
             $email = ZMSettings::get('storeEmail');
         }
-        zm_mail(sprintf(_zm("Subscription request notification"), ZMSettings::get('storeName')), $template, $context, 
-            $email, ZMSettings::get('storeEmail'), null);
+
+        $message = $this->container->get('messageBuilder')->createMessage($template, true, $request, $context);
+        $message->setSubject(sprintf(_zm("Subscription request notification"), ZMSettings::get('storeName')))->setTo($email)->setFrom(ZMSettings::get('storeEmail'));
+        $this->container->get('mailer')->send($message);
     }
 
     /**

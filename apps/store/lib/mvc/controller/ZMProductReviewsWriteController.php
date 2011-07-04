@@ -97,7 +97,10 @@ class ZMProductReviewsWriteController extends ZMController {
             $context['currentAccount'] = $account;
             $context['currentReview'] = $review;
             $context['currentProduct'] = $product;
-            zm_mail($subject, 'review', $context, ZMSettings::get('emailAdminReview'));
+
+            $message = $this->container->get('messageBuilder')->createMessage('review', true, $request, $context);
+            $message->setSubject($subject)->setTo(ZMSettings::get('emailAdminReview'))->setFrom(ZMSettings::get('storeEmail'));
+            $this->container->get('mailer')->send($message);
         }
 
         ZMMessages::instance()->success(_zm("Thank you for your submission"));
