@@ -31,31 +31,6 @@ use zenmagick\base\Runtime;
 class Request extends ZMRequest {
 
     /**
-     * Create new instance.
-     *
-     * @param array parameter Optional request parameter; if <code>null</code>,
-     *  <code>$_GET</code> and <code>$_POST</code> will be used.
-     */
-    function __construct($parameter=null) {
-        parent::__construct($parameter);
-        $session = Runtime::getContainer()->get('ZMSession');
-        $session->setName('zmAdmin');
-        $this->setSession($session);
-        if ('db' == ZMSettings::get('sessionPersistence')) {
-            $this->getSession()->registerSessionHandler(Runtime::getContainer()->get('ZMZenCartSessionHandler'));
-        }
-    }
-
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
-
-
-    /**
      * Get the selected language.
      *
      * <p>Determine the currently active language, with respect to potentially selected language from a dropdown in admin UI.</p>

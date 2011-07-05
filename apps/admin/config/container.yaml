@@ -6,13 +6,15 @@ services:
   ZMRequest:
     class: Request
     scope: container
+    calls:
+      - [setSession, [@ZMSession]]
 
   ZMPlugins:
     class: Plugins
     scope: container
   pluginService: @ZMPlugins
 
-  ZMZenCartSessionHandler:
+  sessionHandler:
     class: ZMZenCartSessionHandler
     scope: container
     calls:
@@ -37,3 +39,11 @@ services:
   sacsPermissionService:
     class: ZMSacsPermissions
     scope: container
+
+  ZMSession:
+    class: zenmagick\http\session\Session
+    scope: container
+    calls:
+      - [setName, ['zmAdmin']]
+      - [registerSessionHandler, [@sessionHandler]]
+
