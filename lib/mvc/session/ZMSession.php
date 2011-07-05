@@ -36,11 +36,11 @@ class ZMSession extends ZMObject {
     /** The default namespace prefix for session keys. */
     const DEFAULT_NAMESPACE_PREFIX = '__ZM_NSP__';
 
-    private $data_;
-    private $cookiePath_;
-    private $cookieDomain_;
-    private $secureCookie_;
-    private $sessionHandler_;
+    protected $data_;
+    protected $cookiePath_;
+    protected $cookieDomain_;
+    protected $secureCookie_;
+    protected $sessionHandler_;
 
 
     /**
@@ -327,18 +327,19 @@ class ZMSession extends ZMObject {
      * <p>A new token will be created if none exists.</p>
      *
      * @param boolean renew If <code>true</code> a new token will be generated; default is <code>false</code>.
+     * @param string tokenKey Optional token key; default is <code>SESSION_TOKEN_KEY</code>.
      * @return string The token.
      */
-    public function getToken($renew=false) {
-        if ($renew || null == $this->getValue(self::SESSION_TOKEN_KEY)) {
+    public function getToken($renew=false, $tokenKey=self::SESSION_TOKEN_KEY) {
+        if ($renew || null == $this->getValue($tokenKey)) {
             // in this case we really want a session!
             if (!$this->isStarted()) {
                 $this->start();
             }
-            $this->setValue(self::SESSION_TOKEN_KEY, md5(uniqid(rand(), true)));
+            $this->setValue($tokenKey, md5(uniqid(rand(), true)));
         }
 
-        return $this->getValue(self::SESSION_TOKEN_KEY);
+        return $this->getValue($tokenKey);
     }
 
 }

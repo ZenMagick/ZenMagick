@@ -33,3 +33,9 @@ services:
     class: ForwardView
     scope: prototype
   forwardView: @ZMForwardView
+
+  ZMZenCartSessionHandler:
+    class: ZMZenCartSessionHandler
+    scope: container
+    calls:
+      - [setExpiryTime, [%storefront.session_timeout%]]

@@ -27,80 +27,23 @@ use zenmagick\base\Runtime;
 use zenmagick\base\events\Event;
 
 /**
- * Simple wrapper around <code>$_SESSION</code> to centralise access.
- *
- * <p><strong>PLEASE NOTE THAT THIS CLASS CURRENTLY DOES **NOT** EXTEND FROM <code>ZMSession</code>.</strong></p>
+ * Custom session class that adds a number of convenience methods.
  *
  * @author DerManoMann
  * @package zenmagick.store.sf.mvc
  */
-class Session extends ZMObject {
+class Session extends ZMSession {
 
     /**
-     * Create new instance.
+     * Create a new instance.
      */
-    function __construct() {
-        parent::__construct();
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
-
-
-    /**
-     * Check if the current session is valid and open.
-     *
-     * @return boolean <code>true</code> if a valid session exists, <code>false</code> if not.
-     */
-    public function isValid() {
-    global $session_started;
-
-        // zen-cart / ZenMagick init plugin
-        return $session_started || $_SERVER['session_started'];
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function setValue($name, $value=null, $namespace=null) {
-        if (null === $value) {
-            unset($_SESSION[$name]);
-        } else {
-            $_SESSION[$name] = $value;
+    public function __construct($domain=null, $name=self::DEFAULT_NAME, $secure=false) {
+        parent::__construct($domain, $name, $secure);
+        if (!Runtime::getSettings()->get('zenmagick.apps.store.storefront.sessions', false)) {
+            // fake start to load session data
+            $this->data_ = array_merge($_SESSION, $this->data_);
+            $this->setName('zenid');
         }
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getValue($name, $namespace=null) {
-        if (isset($_SESSION[$name])) {
-            return $_SESSION[$name];
-        }
-
-        return null;
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * <p>Alias for <code>setValue()</code>.</p>
-     */
-    public function set($name, $value) {
-        $this->setValue($name, $value);
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * <p>Alias for <code>getValue()</code>.</p>
-     */
-    public function get($name, $default=null) {
-        return $this->getValue($name);
     }
 
     /**
@@ -109,20 +52,18 @@ class Session extends ZMObject {
      * @param string name The field name.
      */
     public function removeValue($name) {
-        if (isset($_SESSION[$name])) {
-            unset($_SESSION[$name]);
-        }
+        $this->setValue($name, null);
     }
 
     /**
-     * Recreate session.
-     *
-     * @param boolean force If <code>true</code>, force recreation of the session, even if this is disabled.
+     * {@inheritDoc}
      */
-    public function recreate($force=false) {
-        if ($force || ZMSettings::get('isSessionRecreate')) {
+    public function regenerate() {
+        if (Runtime::getSettings()->get('zenmagick.apps.store.storefront.sessions', false)) {
+            parent::regenerate();
+        }
+        if (function_exists('zen_session_recreate')) {
             // yay!
-            //include_once(DIR_WS_FUNCTIONS . 'whos_online.php');
             if (!function_exists('whos_online_session_recreate')) {
                 function whos_online_session_recreate($old_session, $new_session) { }
             }
@@ -131,18 +72,32 @@ class Session extends ZMObject {
     }
 
     /**
+     * {@inheritDoc}
+     */
+    public function getToken($renew=false, $tokenKey=self::SESSION_TOKEN_KEY) {
+        if (Runtime::getSettings()->get('zenmagick.apps.store.storefront.sessions', false)) {
+            return parent::getToken($renew);
+        } else {
+            return parent::getToken($renew, 'securityToken');
+        }
+    }
+
+    /**
      * Get the current shopping cart.
      *
      * @return mixed The current <strong>zen-cart</strong> shopping cart (may be empty).
      */
-    public function getZCShoppingCart() { return isset($_SESSION['cart']) ? $_SESSION['cart'] : null; }
+    public function getZCShoppingCart() { return $this->getValue('cart'); }
 
     /**
      * Get the account id.
      *
      * @return int The account id for the currently logged in user or <code>0</code>.
      */
-    public function getAccountId() { return isset($_SESSION['customer_id']) ? (int)$_SESSION['customer_id'] : 0; }
+    public function getAccountId() {
+        $accountId = $this->getValue('customer_id');
+        return null !== $accountId ? $accountId : 0;
+    }
 
     /**
      * Returns the current session type.
@@ -151,7 +106,10 @@ class Session extends ZMObject {
      *
      * @return char The session type.
      */
-    public function getType() { return array_key_exists('account_type', $_SESSION) ? $_SESSION['account_type'] : ZMAccount ::ANONYMOUS; }
+    public function getType() {
+        $type = $this->getValue('account_type');
+        return null === $type ? ZMAccount::ANONYMOUS : $type;
+    }
 
     /**
      * Returns <code>true</code> if the user is not logged in at all.
@@ -160,7 +118,7 @@ class Session extends ZMObject {
      *
      * @return boolean <code>true</code> if the current user is anonymous, <code>false</code> if not.
      */
-    public function isAnonymous() { return !array_key_exists('account_type', $_SESSION) || ZMAccount::ANONYMOUS == $_SESSION['account_type']; }
+    public function isAnonymous() { return $this->getType() == ZMAccount::ANONYMOUS; }
 
     /**
      * Returns <code>true</code> if the user is a guest user.
@@ -169,7 +127,7 @@ class Session extends ZMObject {
      *
      * @return boolean <code>true</code> if the current user is an guest, <code>false</code> if not.
      */
-    public function isGuest() { return array_key_exists('account_type', $_SESSION) && ZMAccount::GUEST == $_SESSION['account_type']; }
+    public function isGuest() { return $this->getType() == ZMAccount::GUEST; }
 
     /**
      * Returns <code>true</code> if the user is a registered user.
@@ -178,7 +136,7 @@ class Session extends ZMObject {
      *
      * @return boolean <code>true</code> if the current user is registered, <code>false</code> if not.
      */
-    public function isRegistered() { return array_key_exists('account_type', $_SESSION) && ZMAccount::REGISTERED == $_SESSION['account_type']; }
+    public function isRegistered() { return $this->getType() == ZMAccount::REGISTERED; }
 
     /**
      * Set the account for the current session.
@@ -187,17 +145,17 @@ class Session extends ZMObject {
      */
     public function setAccount($account) {
         if (null == $account) {
-            $_SESSION['customer_id'] = '';
+            $this->setValue('customer_id', '');
         } else {
-            $_SESSION['customer_id'] = $account->getId();
-            $_SESSION['customer_default_address_id'] = $account->getDefaultAddressId();
-            $_SESSION['customers_authorization'] = $account->getAuthorization();
-            $_SESSION['customer_first_name'] = $account->getFirstName();
-            $_SESSION['account_type'] = $account->getType();
+            $this->setValue('customer_id', $account->getId());
+            $this->setValue('customer_default_address_id', $account->getDefaultAddressId());
+            $this->setValue('customers_authorization', $account->getAuthorization());
+            $this->setValue('customer_first_name', $account->getFirstName());
+            $this->setValue('account_type', $account->getType());
             $address = ZMAddresses::instance()->getAddressForId($account->getDefaultAddressId());
             if (null != $address) {
-                $_SESSION['customer_country_id'] = $address->getCountryId();
-                $_SESSION['customer_zone_id'] = $address->getZoneId();
+                $this->setValue('customer_country_id', $address->getCountryId());
+                $this->setValue('customer_zone_id', $address->getZoneId());
             }
         }
     }
@@ -213,25 +171,13 @@ class Session extends ZMObject {
     }
 
     /**
-     * Clear the session.
-     *
-     * <p>This will effectively logoff the curent account.
-     */
-    public function clear() {
-        if ($this->isStarted() && isset($_SESSION)) {
-            session_destroy();
-            unset($_SESSION['account_type']);
-            $_SESSION['customers_id'] = '';
-        }
-    }
-
-    /**
      * Restore the shopping cart contents.
      */
     public function restoreCart() {
-        if (isset($_SESSION['cart'])) {
+        $cart = $this->getValue('cart');
+        if (null != $cart) {
             //TODO:
-            $_SESSION['cart']->restore_contents();
+            $cart->restore_contents();
         }
     }
 
@@ -241,24 +187,23 @@ class Session extends ZMObject {
      * @param array messages A list of <code>ZMMessage</code> objects.
      */
     public function setMessages($messages) {
-        if (!is_array($_SESSION['messageToStack'])) {
+        $messageStack = $this->getValue('messageToStack');
+        if (!is_array($messageToStack)) {
             $sessionMessages = array();
-        } else {
-            $sessionMessages = $_SESSION['messageToStack'];
         }
 
         foreach ($messages as $msg) {
             array_push($sessionMessages, array('class' => $msg->getRef(), 'text' => $msg->getText(), 'type' => $msg->getType()));
         }
 
-        $_SESSION['messageToStack'] = $sessionMessages;
+        $this->setValue('messageToStack', $sessionMessages);
     }
 
     /**
      * Clear all session messages.
      */
     public function clearMessages() {
-        $_SESSION['messageToStack'] = '';
+        $this->setValue('messageToStack', '');
     }
 
     /**
@@ -268,8 +213,9 @@ class Session extends ZMObject {
      */
     public function getMessages() {
         $messages = array();
-        if (isset($_SESSION['messageToStack']) && is_array($_SESSION['messageToStack'])) {
-            foreach ($_SESSION['messageToStack'] as $arr) {
+        $messageToStack = $this->getValue('messageToStack');
+        if (is_array($messageToStack)) {
+            foreach ($messageToStack as $arr) {
                 $message = Runtime::getContainer()->get('ZMMessage');
                 $message->setText($arr['text']);
                 $message->setType($arr['type']);
@@ -286,17 +232,8 @@ class Session extends ZMObject {
      *
      * @return string The client IP address or <code>null</code>.
      */
-    public function getClientAddress() {
-        return $_SESSION['REMOTE_ADDR'];
-    }
-
-    /**
-     * Get the client host name.
-     *
-     * @return string The client host name or <code>null</code>.
-     */
     public function getClientHostname() {
-        return isset($_SESSION['customers_host_address']) ? $_SESSION['customers_host_address'] : null;
+        return $this->getValue('customers_host_address');
     }
 
     /**
@@ -305,7 +242,7 @@ class Session extends ZMObject {
      * @return string The session currency code or <code>null</code>.
      */
     public function getCurrencyCode() {
-        return isset($_SESSION['currency']) ? $_SESSION['currency'] : null;
+        return $this->getValue('currency');
     }
 
     /**
@@ -314,27 +251,7 @@ class Session extends ZMObject {
      * @param string currencyCode The session currency code.
      */
     public function setCurrencyCode($currencyCode) {
-        $_SESSION['currency'] = $currencyCode;
-    }
-
-    /**
-     * Check if a proper session has been started yet.
-     *
-     * <p><strong>NOTE:</strong> Since this method calls <code>session_start()</code> internally
-     * as part of its logic, right now it can't be called twice...</p>
-     *
-     * @return boolean </code>true</code> if a session is open, <code>false</code> if not.
-     */
-    public function isOpen() {
-        $_SESSION['_zm_session_test'] = 'check';
-        @session_start();
-
-        if (isset($_SESSION['_zm_session_test'])) {
-            unset($_SESSION['_zm_session_test']);
-            return true;
-        }
-
-        return false;
+        $this->setValue('currency', $currencyCode);
     }
 
     /**
@@ -343,9 +260,9 @@ class Session extends ZMObject {
      * @param ZMLanguage language The language.
      */
     public function setLanguage($language) {
-        $_SESSION['language'] = $language->getDirectory();
-        $_SESSION['languages_id'] = $language->getId();
-        $_SESSION['languages_code'] = $language->getCode();
+        $this->setValue('language', $language->getDirectory());
+        $this->setValue('languages_id', $language->getId());
+        $this->setValue('languages_code', $language->getCode());
     }
 
     /**
@@ -354,11 +271,8 @@ class Session extends ZMObject {
      * @return ZMLanguage The language or <code>null</code>.
      */
     public function getLanguage() {
-        if (!array_key_exists('languages_code', $_SESSION)) {
-            return null;
-        }
-
-        return ZMLanguages::instance()->getLanguageForCode($_SESSION['languages_code']);
+        $languageCode = $this->getValue('languages_code');
+        return null === $languageCode ? null : ZMLanguages::instance()->getLanguageForCode($languagesCode);
     }
 
     /**
@@ -366,21 +280,9 @@ class Session extends ZMObject {
      *
      * @return int The current language id.
      */
-    public function getLanguageId() { return (int)$_SESSION['languages_id']; }
-
-    /**
-     * Get the session security token.
-     *
-     * <p>A new token will be created if none exists.</p>
-     *
-     * @param boolean renew If <code>true</code> a new token will be generated; default is <code>false</code>.
-     * @return string The security token.
-     */
-    public function getToken($renew=false) {
-        if ($renew || !isset($_SESSION['securityToken'])) {
-            $_SESSION['securityToken'] = md5(uniqid(rand(), true));
-        }
-        return $_SESSION['securityToken'];
+    public function getLanguageId() {
+        $languageId = $this->getValue('languages_id');
+        return (null !== $languageId ? (int)$languageId : (int)ZMSettings::get('storeDefaultLanguageId'));
     }
 
     /**
@@ -403,7 +305,6 @@ class Session extends ZMObject {
         Runtime::getEventDispatcher()->dispatch('login_success', new Event($this, array('controller' => $this, 'account' => $account, 'request' => $request)));
 
         // update session with valid account
-        $this->recreate();
         $this->setAccount($account);
 
         // update login stats
@@ -413,15 +314,6 @@ class Session extends ZMObject {
         $this->restoreCart();
 
         return true;
-    }
-
-    /**
-     * Get the session name.
-     *
-     * @return string The session name or <code>null</code>.
-     */
-    public function getName() {
-        return session_name();
     }
 
 }

@@ -85,7 +85,7 @@ class ZMCheckoutGuestController extends ZMController {
         $account = ZMAccounts::instance()->createAccount($account);
 
         // update session with valid account
-        $session->recreate();
+        $session->regenerate();
         $session->setAccount($account);
 
         return $this->findView('success');

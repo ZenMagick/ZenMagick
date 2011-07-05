@@ -93,7 +93,6 @@ class ZMLoginController extends ZMController {
             $session->removeValue(self::KEY_REDIRECT);
             return $this->findView('account');
         }
-
         if (!$this->validate($request, 'login')) {
             return $this->findView();
         }
@@ -114,6 +113,7 @@ class ZMLoginController extends ZMController {
         if (!$session->registerAccount($account, $request, $this)) {
             return $this->findView();
         }
+        $session->regenerate();
 
         $stickyUrl = $request->getFollowUpUrl();
         if (null == $stickyUrl) {
