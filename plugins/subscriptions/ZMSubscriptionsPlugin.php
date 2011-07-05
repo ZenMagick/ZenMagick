@@ -131,11 +131,11 @@ class ZMSubscriptionsPlugin extends Plugin {
             if (ZMLangUtils::asBoolean(ZMRequest::instance()->getParameter('subscription'))) {
                 ZMRequest::instance()->getSession()->setValue('subscription_schedule', ZMRequest::instance()->getParameter('schedule'));
             } else {
-                ZMRequest::instance()->getSession()->removeValue('subscription_schedule');
+                ZMRequest::instance()->getSession()->setValue('subscription_schedule');
             }
         }
         if ('checkout_success' == ZMRequest::instance()->getRequestId()) {
-            ZMRequest::instance()->getSession()->removeValue('subscription_schedule');
+            ZMRequest::instance()->getSession()->setValue('subscription_schedule');
         }
     }
 

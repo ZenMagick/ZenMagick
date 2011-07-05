@@ -20,14 +20,15 @@
 ?>
 <?php
 
+use zenmagick\http\session\SessionHandler;
 
 /**
  * Simple session handler interface.
  *
  * @author DerManoMann
- * @package zenmagick.store.admin.provider
+ * @package zenmagick.store.shared.provider
  */
-class ZMZenCartSessionHandler implements ZMSessionHandler {
+class ZMZenCartSessionHandler implements SessionHandler {
     private $expiryTime_ = 1440;
 
 

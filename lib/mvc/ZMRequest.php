@@ -241,7 +241,7 @@ class ZMRequest extends \ZMObject {
     /**
      * Get the user (if any) for authentication.
      *
-     * <p>Creation of the user object is delegated to the configured <code>ZMUserFactory</code> instance.
+     * <p>Creation of the user object is delegated to the configured <code>zenmagick\http\session\UserFactory</code> instance.
      * The factory may be configured as bean defintion via the setting 'zenmagick.mvc.session.userFactory'.</p>
      *
      * @return mixed A user/credentials object. Default is <code>null</code>.
@@ -282,7 +282,7 @@ class ZMRequest extends \ZMObject {
      */
     public function getSession() {
         if (!isset($this->session_)) {
-            $this->session_ = Beans::getBean("Session");
+            $this->session_ = $this->container->get("ZMSession");
         }
 
         return $this->session_;

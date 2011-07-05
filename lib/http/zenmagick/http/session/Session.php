@@ -22,6 +22,7 @@
 namespace zenmagick\http\session;
 
 use zenmagick\base\ZMObject;
+use zenmagick\base\Runtime;
 
 
 /**
@@ -113,7 +114,8 @@ class Session extends ZMObject {
      */
     public function setName($name) {
         if ($this->isStarted()) {
-            throw new \RuntimeException('session already started');
+            Runtime::getLogging()->warn(sprintf('session already started - ignoring; name: %s', $name));
+            return;
         }
         session_name($name);
     }
@@ -126,7 +128,8 @@ class Session extends ZMObject {
      */
     public function setCookieParams($domain, $path) {
         if ($this->isStarted()) {
-            throw new \RuntimeException('session already started');
+            $this->container->get('logging')->warn(sprintf('session already started - ignoring; domain: %s, path: %s', $domain, $path));
+            return;
         }
         session_set_cookie_params(0, $path, $domain);
     }

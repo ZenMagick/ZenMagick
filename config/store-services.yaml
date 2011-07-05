@@ -199,3 +199,7 @@ services:
   messageBuilder:
     class: zenmagick\http\utils\MessageBuilder
     scope: prototype
+
+  userSession:
+    class: zenmagick\http\utils\UserSession
+    scope: container

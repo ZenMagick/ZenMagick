@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\http\session\UserFactory;
 
 /**
  * User factory for admin users.
@@ -27,7 +28,7 @@
  * @author DerManoMann
  * @package zenmagick.store.admin.provider
  */
-class ZMAdminUserFactory implements ZMUserFactory {
+class ZMAdminUserFactory implements UserFactory {
 
     /**
      * {@inheritDoc}

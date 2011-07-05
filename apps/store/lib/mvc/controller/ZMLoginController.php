@@ -84,13 +84,13 @@ class ZMLoginController extends ZMController {
         $lastUrl = $request->getLastUrl();
 
         if (!$session->isStarted()) {
-            $session->removeValue(self::KEY_REDIRECT);
+            $session->setValue(self::KEY_REDIRECT);
             return $this->findView('cookie_usage');
         }
 
         if ($session->isRegistered()) {
             // already logged in
-            $session->removeValue(self::KEY_REDIRECT);
+            $session->setValue(self::KEY_REDIRECT);
             return $this->findView('account');
         }
         if (!$this->validate($request, 'login')) {
@@ -118,7 +118,7 @@ class ZMLoginController extends ZMController {
         $stickyUrl = $request->getFollowUpUrl();
         if (null == $stickyUrl) {
             $stickyUrl = $session->getValue(self::KEY_REDIRECT);
-            $session->removeValue(self::KEY_REDIRECT);
+            $session->setValue(self::KEY_REDIRECT);
         }
         if (null == $stickyUrl) {
             $stickyUrl = $lastUrl;

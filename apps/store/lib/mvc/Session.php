@@ -32,7 +32,7 @@ use zenmagick\base\events\Event;
  * @author DerManoMann
  * @package zenmagick.store.sf.mvc
  */
-class Session extends ZMSession {
+class Session extends zenmagick\http\session\Session {
 
     /**
      * Create a new instance.
@@ -46,14 +46,6 @@ class Session extends ZMSession {
         }
     }
 
-    /**
-     * Remove a session value.
-     *
-     * @param string name The field name.
-     */
-    public function removeValue($name) {
-        $this->setValue($name, null);
-    }
 
     /**
      * {@inheritDoc}
