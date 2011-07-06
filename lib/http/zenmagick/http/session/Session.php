@@ -252,7 +252,9 @@ class Session extends ZMObject {
      * Close session rather than wait for the end of request handling.
      */
     public function close() {
-        if ($this->isStarted()) {
+        //XXX:TODO: bad hack to avoid zc admin breakage
+        $isAdmin = defined('IS_ADMIN_FLAG') && IS_ADMIN_FLAG;
+        if (!$isAdmin && $this->isStarted()) {
             // sync with internal data
             foreach ($_SESSION as $name => $value) {
                 unset($_SESSION[$name]);
