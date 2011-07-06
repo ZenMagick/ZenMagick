@@ -253,8 +253,8 @@ class Session extends ZMObject {
      */
     public function close() {
         //XXX:TODO: bad hack to avoid zc admin breakage
-        $isAdmin = defined('IS_ADMIN_FLAG') && IS_ADMIN_FLAG;
-        if (!$isAdmin && $this->isStarted()) {
+        $isZCAdmin = defined('IS_ADMIN_FLAG') && IS_ADMIN_FLAG && !defined('ZC_ADMIN_FOLDER');
+        if (!$isZCAdmin && $this->isStarted()) {
             // sync with internal data
             foreach ($_SESSION as $name => $value) {
                 unset($_SESSION[$name]);
