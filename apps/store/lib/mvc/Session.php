@@ -67,6 +67,7 @@ class Session extends zenmagick\http\session\Session {
      * {@inheritDoc}
      */
     public function getToken($renew=false, $tokenKey=self::SESSION_TOKEN_KEY) {
+        // XXX: TODO: remove; hack for zc
         if (Runtime::getSettings()->get('zenmagick.apps.store.storefront.sessions', false)) {
             return parent::getToken($renew);
         } else {

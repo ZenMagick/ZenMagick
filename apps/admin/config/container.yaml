@@ -46,4 +46,5 @@ services:
     calls:
       - [setName, ['zmAdmin']]
       - [registerSessionHandler, [@sessionHandler]]
-
+      # XXX: TODO: remove; for zc admin compatibility
+      - [setSyncSessionData, [false]]

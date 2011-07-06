@@ -62,6 +62,9 @@ $code = preg_replace("/require\(.*footer.php'\s*\);/", '', $code);
 $code = preg_replace("/<\/body>\s*<\/html>/s", '', $code);
 $code = preg_replace("/require\(.*application_bottom.php'\s*\);/", '', $code);
 //echo '<pre>'; echo htmlentities($code); echo '</pre>';
+//file_put_contents(dirname(__FILE__).'/foo.php', $code);
+//include dirname(__FILE__).'/foo.php';die();
+//die();
 ob_start();
 eval('?>'.$code);
 $content = ob_get_clean();
@@ -95,6 +98,7 @@ $content = preg_replace('/(action="[^"]*index.php\?rid=zc_admin&zpid=)([^&"]*)([
 //$content = preg_replace('/(action="[^"]*index.php)\?rid=zc_admin&zpid=[^&"]*([^>]*>)/', '$1$2', $content);
 //echo $content;return;
 
+// printing view
 $skipMenu = in_array($zpid, zenmagick\base\Runtime::getSettings()->get('apps.store.zencart.skipLayout', array()));
 
 if (!$skipMenu) {
@@ -157,7 +161,8 @@ function check_form() {
     });
   });
 </script>
-<?php } ?>
+<?php }       echo '<BR>securityToken:'.$_SESSION ['securityToken'].'<BR>';
+?>
 <div id="view-container">
   <?php echo $content; ?>
   <?php if (isset($scripts)) { ?>
