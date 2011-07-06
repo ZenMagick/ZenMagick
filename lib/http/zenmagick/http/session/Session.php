@@ -40,9 +40,11 @@ class Session extends ZMObject {
     /** The default namespace prefix for session keys. */
     const DEFAULT_NAMESPACE_PREFIX = '__ZM_NSP__';
 
+    protected $internalStart_;
     protected $data_;
     protected $persist_;
     protected $sessionHandler_;
+    protected $syncSessionData_;
 
 
     /**
@@ -58,6 +60,8 @@ class Session extends ZMObject {
         parent::__construct();
         $this->setName(null !== $name ? $name : self::DEFAULT_NAME);
 
+        $this->internalStart_ = false;
+        $this->syncSessionData_ = true;
         $this->data_ = array();
         $this->persist_ = array();
         $this->sessionHandler_ = null;
@@ -147,6 +151,15 @@ class Session extends ZMObject {
     }
 
     /**
+     * Control whether to sync the <code>$_SESSION</code> global with internal data or not.
+     *
+     * @param boolean value The new value.
+     */
+    public function setSyncSessionData($value) {
+        $this->syncSessionData_ = $value;
+    }
+
+    /**
      * Add one or more container ids to persist.
      *
      * @param mixed id Either a single id or an array of container ids.
@@ -163,7 +176,14 @@ class Session extends ZMObject {
      */
     public function isStarted() {
         $id = session_id();
-        return !empty($id);
+        $isStarted = !empty($id);
+
+        if ($isStarted && !$this->internalStart_) {
+            // started elsewhere, so sync data
+            $this->data_ = array_merge($_SESSION, $this->data_);
+        }
+
+        return $isStarted;
     }
 
     /**
@@ -193,6 +213,7 @@ class Session extends ZMObject {
         session_cache_limiter('must-revalidate');
         $id = session_id();
         if (empty($id)) {
+            $this->internalStart_ = true;
             session_start();
             // allow setting / getting data before/without starting session
             $this->data_ = array_merge($_SESSION, $this->data_);
@@ -255,9 +276,11 @@ class Session extends ZMObject {
         //XXX:TODO: bad hack to avoid zc admin breakage
         $isZCAdmin = defined('IS_ADMIN_FLAG') && IS_ADMIN_FLAG && !defined('ZC_ADMIN_FOLDER');
         if (!$isZCAdmin && $this->isStarted()) {
-            // sync with internal data
-            foreach ($_SESSION as $name => $value) {
-                unset($_SESSION[$name]);
+            if ($this->syncSessionData_) {
+                // sync with internal data
+                foreach ($_SESSION as $name => $value) {
+                    unset($_SESSION[$name]);
+                }
             }
             foreach ($this->data_ as $name => $value) {
                 $_SESSION[$name] = $value;
