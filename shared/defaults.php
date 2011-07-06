@@ -53,7 +53,7 @@
             'isEnabledGV' => MODULE_ORDER_TOTAL_GV_STATUS == 'true',
 
             // enable coupons
-            'isEnabledCoupons' => MODULE_ORDER_TOTAL_COUPON_STATUS == 'true',
+            'isEnabledCoupons' => defined('MODULE_ORDER_TOTAL_COUPON_STATUS') && MODULE_ORDER_TOTAL_COUPON_STATUS == 'true',
 
             // allow anonymous tell a friend; good for spamming ;)
             'isTellAFriendAnonymousAllow' => ALLOW_GUEST_TO_TELL_A_FRIEND == 'true',
@@ -256,6 +256,9 @@
 
             // allow unsubscribe without logging in
             'isAllowAnonymousUnsubscribe' => true,
+
+            'zenmagick.apps.store.newAccountDiscountCouponId' => ((NEW_SIGNUP_DISCOUNT_COUPON != '' && NEW_SIGNUP_DISCOUNT_COUPON != '0') ? NEW_SIGNUP_DISCOUNT_COUPON : null),
+            'zenmagick.apps.store.newAccountGVAmount' => NEW_SIGNUP_GIFT_VOUCHER_AMOUNT,
 
             // optional account data
             'isAccountGender' => ACCOUNT_GENDER == 'true',

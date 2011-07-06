@@ -115,8 +115,32 @@ class ZMCreateAccountController extends ZMController {
         $session->setAccount($account);
         $session->restoreCart();
 
+        $discountCoupon = null;
+        if (null != ($newAccountDiscountCouponId = Runtime::getSettings()->get('zenmagick.apps.store.newAccountDiscountCouponId'))) {
+            $discountCoupon = ZMCoupons::instance()->getCouponForId($newAccountDiscountCouponId, $session->getLanguageId());
+        }
+        $newAccountGVAmountCoupon = null;
+        if (null != ($newAccountGVAmount = Runtime::getSettings()->get('zenmagick.apps.store.newAccountGVAmount'))) {
+            // set up coupon
+            $couponCode = ZMCoupons::instance()->createCouponCode($account->getEmail());
+            $coupon = ZMCoupons::instance()->createCoupon($couponCode, $newAccountGVAmount, ZMCoupons::TYPPE_GV);
+            // the receiver of the gv
+            $gvReceiver = $this->container->get('ZMGVReceiver');
+            $gvReceiver->setEmail($account->getEmail());
+            // the sender
+            $senderAccount = $this->container->get('ZMAccount');
+            $senderAccount->setFirstName(Runtime::getSettings('storeName'));
+            ZMCoupons::instance()->createCouponTracker($coupon, $senderAccount, $gvReceiver);
+            $newAccountGVAmountCoupon = $coupon;
+        }
+
         // account email
-        $context = array('currentAccount' => $account, 'office_only_html' => '', 'office_only_text' => '');
+        $context = array(
+            'currentAccount' => $account,
+            'office_only_html' => '', 'office_only_text' => '',
+            'newAccountDiscountCoupon' => $discountCoupon,
+            'newAccountGVAmountCoupon' => $newAccountGVAmountCoupon
+        );
 
         $message = $this->container->get('messageBuilder')->createMessage('welcome', true, $request, $context);
         $message->setSubject(sprintf(_zm("Welcome to %s"), ZMSettings::get('storeName')))->setTo($account->getEmail(), $account->getFullName())->setFrom(ZMSettings::get('storeEmail'));
