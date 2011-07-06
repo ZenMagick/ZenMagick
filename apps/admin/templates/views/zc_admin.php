@@ -161,8 +161,7 @@ function check_form() {
     });
   });
 </script>
-<?php }       echo '<BR>securityToken:'.$_SESSION ['securityToken'].'<BR>';
-?>
+<?php } ?>
 <div id="view-container">
   <?php echo $content; ?>
   <?php if (isset($scripts)) { ?>
