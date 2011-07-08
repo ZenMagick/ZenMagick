@@ -1,6 +1,6 @@
 #!/usr/bin/env php
 <?php
-chdir('../');
+chdir(print(dirname(dirname(__FILE__)));
 
 define('ZM_APP_PATH', 'apps/admin/');
 define('ZM_LIBS', 'shared');
