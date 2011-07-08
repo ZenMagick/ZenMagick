@@ -22,83 +22,83 @@
  */
 ?>
 <?php
-
+use Doctrine\ORM\Mapping AS ORM;
 
 /**
  * Configuration value.
  *
  * @author DerManoMann
  * @package zenmagick.store.shared.model
- * @Table(name="configuration")
- * @Entity
+ * @ORM\Table(name="configuration")
+ * @ORM\Entity
  */
 class ZMConfigValue extends ZMObject {
     /**
      * @var integer $id
      *
-     * @Column(name="configuration_id", type="integer", nullable=false)
-     * @Id
-     * @GeneratedValue(strategy="IDENTITY")
+     * @ORM\Column(name="configuration_id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
     /**
      * @var text $name
      *
-     * @Column(name="configuration_title", type="text", nullable=false)
+     * @ORM\Column(name="configuration_title", type="text", nullable=false)
      */
     private $name;
     /**
      * @var string $key
      *
-     * @Column(name="configuration_key", type="string", length=255, nullable=false)
+     * @ORM\Column(name="configuration_key", type="string", length=255, nullable=false)
      */
     private $key;
     /**
      * @var text $value
      *
-     * @Column(name="configuration_value", type="text", nullable=false)
+     * @ORM\Column(name="configuration_value", type="text", nullable=false)
      */
     private $value;
     /**
      * @var text $description
      *
-     * @Column(name="configuration_description", type="text", nullable=false)
+     * @ORM\Column(name="configuration_description", type="text", nullable=false)
      */
     private $description;
     /**
      * @var integer $groupId
      *
-     * @Column(name="configuration_group_id", type="integer", nullable=false)
+     * @ORM\Column(name="configuration_group_id", type="integer", nullable=false)
      */
     private $groupId;
     /**
      * @var integer $sortOrder
      *
-     * @Column(name="sort_order", type="integer", nullable=true)
+     * @ORM\Column(name="sort_order", type="integer", nullable=true)
      */
     private $sortOrder;
     /**
      * @var datetime $lastModified
      *
-     * @Column(name="last_modified", type="datetime", nullable=true)
+     * @ORM\Column(name="last_modified", type="datetime", nullable=true)
      */
     private $lastModified;
     /**
      * @var datetime $dateAdded
      *
-     * @Column(name="date_added", type="datetime", nullable=false)
+     * @ORM\Column(name="date_added", type="datetime", nullable=false)
      */
     private $dateAdded;
     /**
      * @var text $useFunction
      *
-     * @Column(name="use_function", type="text", nullable=true)
+     * @ORM\Column(name="use_function", type="text", nullable=true)
      */
     private $useFunction;
     /**
      * @var text $setFunction
      *
-     * @Column(name="set_function", type="text", nullable=true)
+     * @ORM\Column(name="set_function", type="text", nullable=true)
      */
     private $setFunction;
 

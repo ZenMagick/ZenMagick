@@ -22,47 +22,47 @@
  */
 ?>
 <?php
-
+use Doctrine\ORM\Mapping AS ORM;
 
 /**
  * A single country.
  *
  * @author DerManoMann
  * @package zenmagick.store.shared.model
- * @Table(name="countries")
- * @Entity
+ * @ORM\Table(name="countries")
+ * @ORM\Entity
  */
 class ZMCountry extends ZMObject {
     /**
      * @var integer $countryId
      *
-     * @Column(name="countries_id", type="integer", nullable=false)
-     * @Id
-     * @GeneratedValue(strategy="IDENTITY")
+     * @ORM\Column(name="countries_id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $countryId;
     /**
      * @var string $name
      *
-     * @Column(name="countries_name", type="string", length=64, nullable=false)
+     * @ORM\Column(name="countries_name", type="string", length=64, nullable=false)
      */
     private $name;
     /**
      * @var string $isoCode2
      *
-     * @Column(name="countries_iso_code_2", type="string", length=2, nullable=false)
+     * @ORM\Column(name="countries_iso_code_2", type="string", length=2, nullable=false)
      */
     private $isoCode2;
     /**
      * @var string $isoCode3
      *
-     * @Column(name="countries_iso_code_3", type="string", length=3, nullable=false)
+     * @ORM\Column(name="countries_iso_code_3", type="string", length=3, nullable=false)
      */
     private $isoCode3;
     /**
      * @var integer $addressFormatId
      *
-     * @Column(name="address_format_id", type="integer", nullable=false)
+     * @ORM\Column(name="address_format_id", type="integer", nullable=false)
      */
     private $addressFormatId;
 

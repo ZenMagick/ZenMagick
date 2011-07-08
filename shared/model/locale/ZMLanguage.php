@@ -22,53 +22,53 @@
  */
 ?>
 <?php
-
+use Doctrine\ORM\Mapping AS ORM;
 
 /**
  * A single language.
  *
  * @author DerManoMann
  * @package zenmagick.store.shared.model
- * @Table(name="languages")
- * @Entity
+ * @ORM\Table(name="languages")
+ * @ORM\Entity
  */
 class ZMLanguage extends ZMObject {
     /**
      * @var integer $languageId
      *
-     * @Column(name="languages_id", type="integer", nullable=false)
-     * @Id
-     * @GeneratedValue(strategy="IDENTITY")
+     * @ORM\Column(name="languages_id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $languageId;
     /**
      * @var string $name
      *
-     * @Column(name="name", type="string", length=32, nullable=false)
+     * @ORM\Column(name="name", type="string", length=32, nullable=false)
      */
     private $name;
     /**
      * @var string $image
      *
-     * @Column(name="image", type="string", length=64, nullable=true)
+     * @ORM\Column(name="image", type="string", length=64, nullable=true)
      */
     private $image;
     /**
      * @var string $code
      *
-     * @Column(name="code", type="string", length=2, nullable=false)
+     * @ORM\Column(name="code", type="string", length=2, nullable=false)
      */
     private $code;
     /**
      * @var string $directory
      *
-     * @Column(name="directory", type="string", length=32, nullable=true)
+     * @ORM\Column(name="directory", type="string", length=32, nullable=true)
      */
     private $directory;
     /**
      * @var integer $sortOrder
      *
-     * @Column(name="sort_order", type="integer", nullable=true)
+     * @ORM\Column(name="sort_order", type="integer", nullable=true)
      */
     private $sortOrder;
 

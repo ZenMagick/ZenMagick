@@ -22,8 +22,8 @@
  */
 ?>
 <?php
-
 use zenmagick\base\Runtime;
+use Doctrine\ORM\Mapping AS ORM;
 
 /**
  * Info for a single tax rate.
@@ -32,62 +32,62 @@ use zenmagick\base\Runtime;
  *
  * @author DerManoMann
  * @package zenmagick.store.shared.model
- * @Table(name="tax_rates")
- * @Entity
+ * @ORM\Table(name="tax_rates")
+ * @ORM\Entity
  */
 class ZMTaxRate extends ZMObject {
     /**
      * @var integer $taxRatesId
      *
-     * @Column(name="tax_rates_id", type="integer", nullable=false)
-     * @Id
-     * @GeneratedValue(strategy="IDENTITY")
+     * @ORM\Column(name="tax_rates_id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
     /**
      * @var integer $classId
      *
-     * @Column(name="tax_class_id", type="integer", nullable=false)
+     * @ORM\Column(name="tax_class_id", type="integer", nullable=false)
      */
     private $classId;
     private $countryId;
     /**
      * @var integer $zoneId
      *
-     * @Column(name="tax_zone_id", type="integer", nullable=false)
+     * @ORM\Column(name="tax_zone_id", type="integer", nullable=false)
      */
     private $zoneId;
 
     /**
      * @var integer $priority
      *
-     * @Column(name="tax_priority", type="integer", nullable=true)
+     * @ORM\Column(name="tax_priority", type="integer", nullable=true)
      */
     private $priority;
 
     /**
      * @var decimal $rate
      *
-     * @Column(name="tax_rate", type="decimal", nullable=false)
+     * @ORM\Column(name="tax_rate", type="decimal", nullable=false)
      */
     private $rate;
     /**
      * @var string $description
      *
-     * @Column(name="tax_description", type="string", length=255, nullable=false)
+     * @ORM\Column(name="tax_description", type="string", length=255, nullable=false)
      */
     private $description;
     /**
      * @var datetime $lastModified
      *
-     * @Column(name="last_modified", type="datetime", nullable=true)
+     * @ORM\Column(name="last_modified", type="datetime", nullable=true)
      */
     private $lastModified;
 
     /**
      * @var datetime $dateAdded
      *
-     * @Column(name="date_added", type="datetime", nullable=false)
+     * @ORM\Column(name="date_added", type="datetime", nullable=false)
      */
     private $dateAdded;
 

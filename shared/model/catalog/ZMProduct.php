@@ -22,83 +22,83 @@
  */
 ?>
 <?php
-
 use zenmagick\base\Runtime;
+use Doctrine\ORM\Mapping AS ORM;
 
 /**
  * A product.
  *
  * @author DerManoMann
  * @package zenmagick.store.shared.model.catalog
- * @Table(name="products")
- * @Entity
+ * @ORM\Table(name="products")
+ * @ORM\Entity
  */
 class ZMProduct extends ZMObject {
     /**
      * @var integer $productId
-     * @Column(name="products_id", type="integer", nullable=false)
-     * @Id
-     * @GeneratedValue
+     * @ORM\Column(name="products_id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue
      */
     private $productId;
     /**
      * @var integer $type
      *
-     * @Column(name="products_type", type="integer", nullable=false)
+     * @ORM\Column(name="products_type", type="integer", nullable=false)
      */
     private $type;
     /**
      * @var boolean $status
      *
-     * @Column(name="products_status", type="boolean", nullable=false)
+     * @ORM\Column(name="products_status", type="boolean", nullable=false)
      */
     private $status;
     /**
      * @var string $model
      *
-     * @Column(name="products_model", type="string", length=32, nullable=true)
+     * @ORM\Column(name="products_model", type="string", length=32, nullable=true)
      */
     private $model;
     /**
      * @var string $image
      *
-     * @Column(name="products_image", type="string", length=64, nullable=true)
+     * @ORM\Column(name="products_image", type="string", length=64, nullable=true)
      */
     private $image;
     /**
      * @var datetime $dateAvailable
      *
-     * @Column(name="products_date_available", type="datetime", nullable=true)
+     * @ORM\Column(name="products_date_available", type="datetime", nullable=true)
      */
     private $dateAvailable;
     /**
      * @var datetime $dateAdded
      *
-     * @Column(name="products_date_added", type="datetime", nullable=false)
+     * @ORM\Column(name="products_date_added", type="datetime", nullable=false)
      */
     private $dateAdded;
     /**
      * @var datetime $lastModified
      *
-     * @Column(name="products_last_modified", type="datetime", nullable=true)
+     * @ORM\Column(name="products_last_modified", type="datetime", nullable=true)
      */
     private $lastModified;
     /**
      * @var integer $manufacturerId
      *
-     * @Column(name="manufacturers_id", type="integer", nullable=true)
+     * @ORM\Column(name="manufacturers_id", type="integer", nullable=true)
      */
     private $manufacturerId;
     /**
      * @var float $weight
      *
-     * @Column(name="products_weight", type="float", nullable=false)
+     * @ORM\Column(name="products_weight", type="float", nullable=false)
      */
     private $weight;
     /**
      * @var float $quantity
      *
-     * @Column(name="products_quantity", type="float", nullable=false)
+     * @ORM\Column(name="products_quantity", type="float", nullable=false)
      */
     private $quantity;
     /**
@@ -106,146 +106,146 @@ class ZMProduct extends ZMObject {
      *
      * @todo a product shouldn't keep count of how
      *       many times it has been ordered REMOVE!
-     * @Column(name="products_ordered", type="float", nullable=false)
+     * @ORM\Column(name="products_ordered", type="float", nullable=false)
      */
     private $ordered;
     /**
      * @var boolean $qtyMixed
      *
-     * @Column(name="products_quantity_mixed", type="boolean", nullable=false)
+     * @ORM\Column(name="products_quantity_mixed", type="boolean", nullable=false)
      */
     private $qtyMixed;
     /**
      * @var boolean $qtyBoxStatus
      *
-     * @Column(name="products_qty_box_status", type="boolean", nullable=false)
+     * @ORM\Column(name="products_qty_box_status", type="boolean", nullable=false)
      */
     private $qtyBoxStatus;
     /**
      * @var float $qtyOrderMin
      *
-     * @Column(name="products_quantity_order_min", type="float", nullable=false)
+     * @ORM\Column(name="products_quantity_order_min", type="float", nullable=false)
      */
     private $qtyOrderMin;
     /**
      * @var float $qtyOrderMax
      *
-     * @Column(name="products_quantity_order_max", type="float", nullable=false)
+     * @ORM\Column(name="products_quantity_order_max", type="float", nullable=false)
      */
     private $qtyOrderMax;
     /**
      * @var float $qtyOrderUnits
      *
-     * @Column(name="products_quantity_order_units", type="float", nullable=false)
+     * @ORM\Column(name="products_quantity_order_units", type="float", nullable=false)
      */
     private $qtyOrderUnits;
     /**
      * @var boolean $qtyMixedDiscount
      *
-     * @Column(name="products_mixed_discount_quantity", type="float", nullable=false)
+     * @ORM\Column(name="products_mixed_discount_quantity", type="float", nullable=false)
      */
     private $qtyMixedDiscount;
     /**
      * @var boolean $free
      *
-     * @Column(name="product_is_free", type="boolean", nullable=false)
+     * @ORM\Column(name="product_is_free", type="boolean", nullable=false)
      */
     private $free;
     /**
      * @var boolean $alwaysFreeShipping
      *
-     * @Column(name="product_is_always_free_shipping", type="boolean", nullable=false)
+     * @ORM\Column(name="product_is_always_free_shipping", type="boolean", nullable=false)
      */
     private $alwaysFreeShipping;
     /**
      * @var boolean $call
      *
-     * @Column(name="product_is_call", type="boolean", nullable=false)
+     * @ORM\Column(name="product_is_call", type="boolean", nullable=false)
      */
     private $call;
     /**
      * @var boolean $virtual
      *
-     * @Column(name="products_virtual", type="boolean", nullable=false)
+     * @ORM\Column(name="products_virtual", type="boolean", nullable=false)
      */
     private $virtual;
     /**
      * @var integer $taxClassId
      *
-     * @Column(name="products_tax_class_id", type="integer", nullable=false)
+     * @ORM\Column(name="products_tax_class_id", type="integer", nullable=false)
      */
     private $taxClassId;
     /**
      * @var boolean $discountType
      *
-     * @Column(name="products_discount_type", type="boolean", nullable=false)
+     * @ORM\Column(name="products_discount_type", type="boolean", nullable=false)
      */
     private $discountType;
     /**
      * @var boolean $discountTypeFrom
      *
-     * @Column(name="products_discount_type_from", type="boolean", nullable=false)
+     * @ORM\Column(name="products_discount_type_from", type="boolean", nullable=false)
      */
     private $discountTypeFrom;
     /**
      * @var decimal $priceSorter
      *
-     * @Column(name="products_price_sorter", type="decimal", nullable=false)
+     * @ORM\Column(name="products_price_sorter", type="decimal", nullable=false)
      */
     private $priceSorter;
     /**
      * @var boolean $pricedByAttributes
      *
-     * @Column(name="products_priced_by_attribute", type="boolean", nullable=false)
+     * @ORM\Column(name="products_priced_by_attribute", type="boolean", nullable=false)
      */
     private $pricedByAttributes;
     /**
      * @var integer $masterCategoryId
      *
-     * @Column(name="master_categories_id", type="integer", nullable=false)
+     * @ORM\Column(name="master_categories_id", type="integer", nullable=false)
      */
     private $masterCategoryId;
     /**
      * @var integer $sortOrder
      *
-     * @Column(name="products_sort_order", type="integer", nullable=false)
+     * @ORM\Column(name="products_sort_order", type="integer", nullable=false)
      */
     private $sortOrder;
     /**
      * @var boolean $metatagsTitleStatus
      *
-     * @Column(name="metatags_title_status", type="boolean", nullable=false)
+     * @ORM\Column(name="metatags_title_status", type="boolean", nullable=false)
      */
     private $metatagsTitleStatus;
     /**
      * @var boolean $metatagsProductsNameStatus
      *
-     * @Column(name="metatags_products_name_status", type="boolean", nullable=false)
+     * @ORM\Column(name="metatags_products_name_status", type="boolean", nullable=false)
      */
     private $metatagsProductsNameStatus;
     /**
      * @var boolean $metatagsModelStatus
      *
-     * @Column(name="metatags_model_status", type="boolean", nullable=false)
+     * @ORM\Column(name="metatags_model_status", type="boolean", nullable=false)
      */
     private $metatagsModelStatus;
     /**
      * @var boolean $metatagsPriceStatus
      *
-     * @Column(name="metatags_price_status", type="boolean", nullable=false)
+     * @ORM\Column(name="metatags_price_status", type="boolean", nullable=false)
      */
     private $metatagsPriceStatus;
     /**
      * @var boolean $metatagsTitleTaglineStatus
      *
-     * @Column(name="metatags_title_tagline_status", type="boolean", nullable=false)
+     * @ORM\Column(name="metatags_title_tagline_status", type="boolean", nullable=false)
      */
     private $metatagsTitleTaglineStatus;
     /**
      * Raw product price
      * @var decimal $productPrice
      *
-     * @Column(name="products_price", type="decimal", nullable=false)
+     * @ORM\Column(name="products_price", type="decimal", nullable=false)
      */
     private $productPrice;
 

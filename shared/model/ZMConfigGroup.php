@@ -22,47 +22,47 @@
  */
 ?>
 <?php
-
+use Doctrine\ORM\Mapping AS ORM;
 
 /**
  * Configuration group.
  *
  * @author DerManoMann
  * @package zenmagick.store.shared.model
- * @Table(name="configuration_group")
- * @Entity
+ * @ORM\Table(name="zen_configuration_group")
+ * @ORM\Entity
  */
 class ZMConfigGroup extends ZMObject {
     /**
      * @var integer $id
      *
-     * @Column(name="configuration_group_id", type="integer", nullable=false)
-     * @Id
-     * @GeneratedValue(strategy="IDENTITY")
+     * @ORM\Column(name="configuration_group_id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
     /**
      * @var string $name
      *
-     * @Column(name="configuration_group_title", type="string", length=64, nullable=false)
+     * @ORM\Column(name="configuration_group_title", type="string", length=64, nullable=false)
      */
     private $name;
     /**
      * @var string $description
      *
-     * @Column(name="configuration_group_description", type="string", length=255, nullable=false)
+     * @ORM\Column(name="configuration_group_description", type="string", length=255, nullable=false)
      */
     private $description;
     /**
      * @var integer $sortOrder
      *
-     * @Column(name="sort_order", type="integer", nullable=true)
+     * @ORM\Column(name="sort_order", type="integer", nullable=true)
      */
     private $sortOrder;
     /**
      * @var boolean $visible
      *
-     * @Column(name="visible", type="boolean", nullable=true)
+     * @ORM\Column(name="visible", type="boolean", nullable=true)
      */
     private $visible;
 

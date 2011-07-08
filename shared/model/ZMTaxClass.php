@@ -22,48 +22,48 @@
  */
 ?>
 <?php
-
+use Doctrine\ORM\Mapping AS ORM;
 
 /**
  * Info for a single tax class.
  *
  * @author DerManoMann
  * @package zenmagick.store.shared.model
- * @Table(name="tax_class")
- * @Entity
+ * @ORM\Table(name="tax_class")
+ * @ORM\Entity
  */
 class ZMTaxClass extends ZMObject {
     /**
      * @var integer $taxClassId
      *
-     * @Column(name="tax_class_id", type="integer", nullable=false)
-     * @Id
-     * @GeneratedValue(strategy="IDENTITY")
+     * @ORM\Column(name="tax_class_id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      * @todo change to private $id
      */
     private $taxClassId;
     /**
      * @var string $title
      *
-     * @Column(name="tax_class_title", type="string", length=32, nullable=false)
+     * @ORM\Column(name="tax_class_title", type="string", length=32, nullable=false)
      */
     private $title;
     /**
      * @var string $description
      *
-     * @Column(name="tax_class_description", type="string", length=255, nullable=false)
+     * @ORM\Column(name="tax_class_description", type="string", length=255, nullable=false)
      */
     private $description;
     /**
      * @var datetime $lastModified
      *
-     * @Column(name="last_modified", type="datetime", nullable=true)
+     * @ORM\Column(name="last_modified", type="datetime", nullable=true)
      */
     private $lastModified;
     /**
      * @var datetime $dateAdded
      *
-     * @Column(name="date_added", type="datetime", nullable=false)
+     * @ORM\Column(name="date_added", type="datetime", nullable=false)
      */
     private $dateAdded;
 

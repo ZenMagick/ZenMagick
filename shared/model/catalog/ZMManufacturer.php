@@ -22,48 +22,48 @@
  */
 ?>
 <?php
-
 use zenmagick\base\Runtime;
+use Doctrine\ORM\Mapping AS ORM;
 
 /**
  * Manufacturer.
  *
  * @author DerManoMann
  * @package zenmagick.store.shared.model.catalog
- * @Table(name="manufacturers")
- * @Entity
+ * @ORM\Table(name="manufacturers")
+ * @ORM\Entity
  */
 class ZMManufacturer extends ZMObject {
     /**
      * @var integer $manufacturerId
      *
-     * @Column(name="manufacturers_id", type="integer", nullable=false)
-     * @Id
-     * @GeneratedValue(strategy="IDENTITY")
+     * @ORM\Column(name="manufacturers_id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $manufacturerId;
     /**
      * @var string $name
      *
-     * @Column(name="manufacturers_name", type="string", length=32, nullable=false)
+     * @ORM\Column(name="manufacturers_name", type="string", length=32, nullable=false)
      */
     private $name;
     /**
      * @var string $image
      *
-     * @Column(name="manufacturers_image", type="string", length=64, nullable=true)
+     * @ORM\Column(name="manufacturers_image", type="string", length=64, nullable=true)
      */
     private $image;
     /**
      * @var datetime $dateAdded
      *
-     * @Column(name="date_added", type="datetime", nullable=true)
+     * @ORM\Column(name="date_added", type="datetime", nullable=true)
      */
     private $dateAdded;
     /**
      * @var datetime $lastModified
      *
-     * @Column(name="last_modified", type="datetime", nullable=true)
+     * @ORM\Column(name="last_modified", type="datetime", nullable=true)
      */
     private $lastModified;
     private $languageId;

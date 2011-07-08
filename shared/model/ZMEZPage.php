@@ -22,128 +22,128 @@
  */
 ?>
 <?php
-
+use Doctrine\ORM\Mapping AS ORM;
 
 /**
  * EZ-page.
  *
  * @author DerManoMann
  * @package zenmagick.store.shared.model
- * @Table(name="ezpages")
- * @Entity
+ * @ORM\Table(name="ezpages")
+ * @ORM\Entity
  */
 class ZMEZPage extends ZMObject {
     /**
      * @var integer $id
      *
-     * @Column(name="pages_id", type="integer", nullable=false)
-     * @Id
-     * @GeneratedValue(strategy="IDENTITY")
+     * @ORM\Column(name="pages_id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
 
     /**
      * @var integer $languageId
      *
-     * @Column(name="languages_id", type="integer", nullable=false)
+     * @ORM\Column(name="languages_id", type="integer", nullable=false)
      */
     private $languageId;
 
     /**
      * @var string $title
      *
-     * @Column(name="pages_title", type="string", length=64, nullable=false)
+     * @ORM\Column(name="pages_title", type="string", length=64, nullable=false)
      */
     private $title;
 
     /**
      * @var string $altUrl
      *
-     * @Column(name="alt_url", type="string", length=255, nullable=false)
+     * @ORM\Column(name="alt_url", type="string", length=255, nullable=false)
      */
     private $altUrl;
 
     /**
      * @var string $altUrlExternal
      *
-     * @Column(name="alt_url_external", type="string", length=255, nullable=false)
+     * @ORM\Column(name="alt_url_external", type="string", length=255, nullable=false)
      */
     private $altUrlExternal;
 
     /**
      * @var text $htmlText
      *
-     * @Column(name="pages_html_text", type="text", nullable=true)
+     * @ORM\Column(name="pages_html_text", type="text", nullable=true)
      */
     private $htmlText;
 
     /**
      * @var boolean $header
      *
-     * @Column(name="status_header", type="integer", nullable=false)
+     * @ORM\Column(name="status_header", type="integer", nullable=false)
      */
     private $header;
     /**
      * @var integer $headerSort
      *
-     * @Column(name="header_sort_order", type="integer", nullable=false)
+     * @ORM\Column(name="header_sort_order", type="integer", nullable=false)
      */
     private $headerSort;
     /**
      * @var integer $sidebox
      *
-     * @Column(name="status_sidebox", type="integer", nullable=false)
+     * @ORM\Column(name="status_sidebox", type="integer", nullable=false)
      */
     private $sidebox;
     /**
      * @var integer $sideboxSort
      *
-     * @Column(name="sidebox_sort_order", type="integer", nullable=false)
+     * @ORM\Column(name="sidebox_sort_order", type="integer", nullable=false)
      */
     private $sideboxSort;
     /**
      * @var boolean $footer
      *
-     * @Column(name="status_footer", type="integer", nullable=false)
+     * @ORM\Column(name="status_footer", type="integer", nullable=false)
      */
     private $footer;
     /**
      * @var integer $footerSort
      *
-     * @Column(name="footer_sort_order", type="integer", nullable=false)
+     * @ORM\Column(name="footer_sort_order", type="integer", nullable=false)
      */
     private $footerSort;
     /**
      * @var boolean $toc
      *
-     * @Column(name="status_toc", type="integer", nullable=false)
+     * @ORM\Column(name="status_toc", type="integer", nullable=false)
      */
     private $toc;
 
     /**
      * @var integer $tocChapter
      *
-     * @Column(name="toc_chapter", type="integer", nullable=false)
+     * @ORM\Column(name="toc_chapter", type="integer", nullable=false)
      */
     private $tocChapter;
     /**
      * @var integer $tocSort
      *
-     * @Column(name="toc_sort_order", type="integer", nullable=false)
+     * @ORM\Column(name="toc_sort_order", type="integer", nullable=false)
      */
     private $tocSort;
 
     /**
      * @var boolean $newWin
      *
-     * @Column(name="page_open_new_window", type="integer", nullable=false)
+     * @ORM\Column(name="page_open_new_window", type="integer", nullable=false)
      */
     private $newWin;
 
     /**
      * @var integer $ssl
      *
-     * @Column(name="page_is_ssl", type="integer", nullable=false)
+     * @ORM\Column(name="page_is_ssl", type="integer", nullable=false)
      */
     private $ssl;
 

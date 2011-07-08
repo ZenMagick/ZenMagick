@@ -19,48 +19,48 @@
  */
 ?>
 <?php
-
 use zenmagick\http\sacs\handler\UserRoleCredentials;
+use Doctrine\ORM\Mapping AS ORM;
 
 /**
  * A admin user.
  *
  * @author DerManoMann
  * @package zenmagick.store.admin.model
- * @Table(name="admin")
- * @Entity
+ * @ORM\Table(name="admin")
+ * @ORM\Entity
  */
 class ZMAdminUser extends ZMObject implements UserRoleCredentials {
     /**
      * @var integer $id
      *
-     * @Column(name="admin_id", type="integer", nullable=false)
-     * @Id
-     * @GeneratedValue(strategy="IDENTITY")
+     * @ORM\Column(name="admin_id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
     /**
      * @var string $name
      *
-     * @Column(name="admin_name", type="string", length=32, nullable=false)
+     * @ORM\Column(name="admin_name", type="string", length=32, nullable=false)
      */
     private $name;
     /**
      * @var string $email
      *
-     * @Column(name="admin_email", type="string", length=96, nullable=false)
+     * @ORM\Column(name="admin_email", type="string", length=96, nullable=false)
      */
     private $email;
     /**
      * @var string $password
      *
-     * @Column(name="admin_pass", type="string", length=40, nullable=false)
+     * @ORM\Column(name="admin_pass", type="string", length=40, nullable=false)
      */
     private $password;
     /**
      * @var boolean $adminLevel
      *
-     * @Column(name="admin_level", type="boolean", nullable=false)
+     * @ORM\Column(name="admin_level", type="boolean", nullable=false)
      */
     private $live;
 

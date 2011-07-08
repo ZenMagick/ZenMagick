@@ -22,86 +22,84 @@
  */
 ?>
 <?php
-
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Mapping AS ORM;
 
 /**
  * A single review.
  *
  * @author DerManoMann
  * @package zenmagick.store.shared.model.catalog
- * @Table(name="reviews")
- * @Entity
+ * @ORM\Table(name="reviews")
+ * @ORM\Entity
  */
 class ZMReview extends ZMObject {
     /**
      * @var integer $id
-     * @Column(name="reviews_id", type="integer", nullable=false)
-     * @Id
-     * @GeneratedValue
+     * @ORM\Column(name="reviews_id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue
      */
     private $id;
     /**
      * @var integer $rating
      *
-     * @Column(name="reviews_rating", type="integer", nullable=true)
+     * @ORM\Column(name="reviews_rating", type="integer", nullable=true)
      */
     private $rating;
     /**
      * @var integer $accountId
      *
-     * @Column(name="customers_id", type="integer", nullable=true)
+     * @ORM\Column(name="customers_id", type="integer", nullable=true)
      */
     private $accountId;
     /**
      * @var object $descriptions
-     * @OneToMany(targetEntity="ZMReviewDescriptions", mappedBy="review", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity="ZMReviewDescriptions", mappedBy="review", cascade={"persist", "remove"})
      */
     private $descriptions;
     /**
      * @var integer $productId
      *
-     * @Column(name="products_id", type="integer", nullable=false)
+     * @ORM\Column(name="products_id", type="integer", nullable=false)
      */
     private $productId;
     /**
      * @var datetime $dateAdded
      *
-     * @Column(name="date_added", type="datetime", nullable=true)
-     * @gedmo:Timestampable(on="create")
+     * @ORM\Column(name="date_added", type="datetime", nullable=true)
      */
     private $dateAdded;
     /**
      * @var datetime $lastModified
      *
-     * @Column(name="last_modified", type="datetime", nullable=true)
-     * @gedmo:Timestampable(on="update")
+     * @ORM\Column(name="last_modified", type="datetime", nullable=true)
      */
     private $lastModified;
 
     /**
      * @var string $author
      * @todo nullable=true?
-     * @Column(name="customers_name", type="string", length=64, nullable=false)
+     * @ORM\Column(name="customers_name", type="string", length=64, nullable=false)
      */
     private $author;
     /**
      * @var integer $viewCount
      *
-     * @Column(name="reviews_read", type="integer", nullable=false)
+     * @ORM\Column(name="reviews_read", type="integer", nullable=false)
      */
     private $viewCount;
 
     /**
      * @var integer $status
      *
-     * @Column(name="status", type="boolean", nullable=false)
+     * @ORM\Column(name="status", type="boolean", nullable=false)
      */
     private $status;
 
     private $productName;
     private $productImage;
-    public $languageId;
+    private $languageId;
 
 
     /**

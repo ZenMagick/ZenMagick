@@ -22,59 +22,59 @@
  */
 ?>
 <?php
-
+use Doctrine\ORM\Mapping AS ORM;
 
 /**
  * A single coupon queue entry.
  *
  * @author DerManoMann
  * @package zenmagick.store.shared.model
- * @Table(name="coupon_gv_queue")
- * @Entity
+ * @ORM\Table(name="coupon_gv_queue")
+ * @ORM\Entity
  */
 class ZMCouponQueue extends ZMObject {
     /**
      * @var integer $id
      *
-     * @Column(name="unique_id", type="integer", nullable=false)
-     * @Id
-     * @GeneratedValue(strategy="IDENTITY")
+     * @ORM\Column(name="unique_id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
     /**
      * @var integer $accountId
      *
-     * @Column(name="customer_id", type="integer", nullable=false)
+     * @ORM\Column(name="customer_id", type="integer", nullable=false)
      */
     private $accountId;
     /**
      * @var integer $orderId
      *
-     * @Column(name="order_id", type="integer", nullable=false)
+     * @ORM\Column(name="order_id", type="integer", nullable=false)
      */
     private $orderId;
     /**
      * @var decimal $amount
      *
-     * @Column(name="amount", type="decimal", nullable=false)
+     * @ORM\Column(name="amount", type="decimal", nullable=false)
      */
     private $amount;
     /**
      * @var datetime $dateCreated
      *
-     * @Column(name="date_created", type="datetime", nullable=false)
+     * @ORM\Column(name="date_created", type="datetime", nullable=false)
      */
     private $dateCreated;
     /**
      * @var string $ipAddr
      *
-     * @Column(name="ipaddr", type="string", length=32, nullable=false)
+     * @ORM\Column(name="ipaddr", type="string", length=32, nullable=false)
      */
     private $ipAddr;
     /**
      * @var string $released
      *
-     * @Column(name="release_flag", type="string", length=1, nullable=false)
+     * @ORM\Column(name="release_flag", type="string", length=1, nullable=false)
      */
     private $released;
 

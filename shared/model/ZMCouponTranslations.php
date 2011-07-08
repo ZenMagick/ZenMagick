@@ -22,39 +22,39 @@
  */
 ?>
 <?php
-
+use Doctrine\ORM\Mapping AS ORM;
 
 /**
  * Coupon Translations
  *
- * @Entity
- * @Table(name="coupons_description")
+ * @ORM\Entity
+ * @ORM\Table(name="coupons_description")
  */
 class ZMCouponTranslations extends ZMObject {
     /**
      * @var object $coupon
-     * @Id
-     * @ManyToOne(targetEntity="ZMCoupon")
-     * @JoinColumn(name="coupon_id", referencedColumnName="coupon_id")
+     * @ORM\Id
+     * @ORM\ManyToOne(targetEntity="ZMCoupon")
+     * @ORM\JoinColumn(name="coupon_id", referencedColumnName="coupon_id")
      */
     private $coupon;
 
     /**
      * @var integer $languageId
-     * @Column(name="language_id", type="integer", nullable=false)
-     * @Id
+     * @ORM\Column(name="language_id", type="integer", nullable=false)
+     * @ORM\Id
      */
     private $languageId;
 
     /**
      * @var string $name
-     * @Column(name="coupon_name", type="string", length=32, nullable=false)
+     * @ORM\Column(name="coupon_name", type="string", length=32, nullable=false)
      */
     private $name;
 
     /**
      * @var text $description
-     * @Column(name="coupon_description", type="text", nullable=true)
+     * @ORM\Column(name="coupon_description", type="text", nullable=true)
      */
     private $description;
 

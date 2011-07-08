@@ -22,108 +22,108 @@
  */
 ?>
 <?php
-
+use Doctrine\ORM\Mapping AS ORM;
 
 /**
  * A single banner.
  *
  * @author DerManoMann
  * @package zenmagick.store.shared.model.layout
- * @Table(name="banners")
- * @Entity
+ * @ORM\Table(name="banners")
+ * @ORM\Entity
  */
 class ZMBanner extends ZMObject {
     /**
      * @var integer $id
      *
-     * @Column(name="banners_id", type="integer", nullable=false)
-     * @Id
-     * @GeneratedValue(strategy="IDENTITY")
+     * @ORM\Column(name="banners_id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
     /**
      * @var string $title
      *
-     * @Column(name="banners_title", type="string", length=64, nullable=false)
+     * @ORM\Column(name="banners_title", type="string", length=64, nullable=false)
      */
     private $title;
     /**
      * @var string $image
      *
-     * @Column(name="banners_image", type="string", length=64, nullable=false)
+     * @ORM\Column(name="banners_image", type="string", length=64, nullable=false)
      */
     private $image;
     /**
      * @var text $text
      *
-     * @Column(name="banners_html_text", type="text", nullable=true)
+     * @ORM\Column(name="banners_html_text", type="text", nullable=true)
      */
     private $text;
     /**
      * @var integer $isNewWin
      *
-     * @Column(name="banners_open_new_windows", type="integer", nullable=false)
+     * @ORM\Column(name="banners_open_new_windows", type="integer", nullable=false)
      */
     private $isNewWin;
     /**
      * @var string $url
      *
-     * @Column(name="banners_url", type="string", length=255, nullable=false)
+     * @ORM\Column(name="banners_url", type="string", length=255, nullable=false)
      */
     private $url;
     /**
      * @var integer $active
      *
-     * @Column(name="status", type="integer", nullable=false)
+     * @ORM\Column(name="status", type="integer", nullable=false)
      */
     private $active;
     /**
      * @var string $group
      *
-     * @Column(name="banners_group", type="string", length=15, nullable=false)
+     * @ORM\Column(name="banners_group", type="string", length=15, nullable=false)
      */
     private $group;
     /**
      * @var integer $expiresImpressions
      *
-     * @Column(name="expires_impressions", type="integer", nullable=true)
+     * @ORM\Column(name="expires_impressions", type="integer", nullable=true)
      */
     private $expiresImpressions;
     /**
      * @var datetime $expiresDate
      *
-     * @Column(name="expires_date", type="datetime", nullable=true)
+     * @ORM\Column(name="expires_date", type="datetime", nullable=true)
      */
     private $expiresDate;
     /**
      * @var datetime $dateScheduled
      *
-     * @Column(name="date_scheduled", type="datetime", nullable=true)
+     * @ORM\Column(name="date_scheduled", type="datetime", nullable=true)
      */
     private $dateScheduled;
     /**
      * @var datetime $dateAdded
      *
-     * @Column(name="date_added", type="datetime", nullable=false)
+     * @ORM\Column(name="date_added", type="datetime", nullable=false)
      */
     private $dateAdded;
     /**
      * @var datetime $lastModified
      *
-     * @Column(name="date_status_change", type="datetime", nullable=true)
+     * @ORM\Column(name="date_status_change", type="datetime", nullable=true)
      */
     private $lastModified;
     /**
      * @var integer $isShowOnSsl
      *
-     * @Column(name="banners_on_ssl", type="integer", nullable=false)
+     * @ORM\Column(name="banners_on_ssl", type="integer", nullable=false)
      */
     private $isShowOnSsl;
 
     /**
      * @var integer $sortOrder
      *
-     * @Column(name="banners_sort_order", type="integer", nullable=false)
+     * @ORM\Column(name="banners_sort_order", type="integer", nullable=false)
      */
     private $sortOrder;
     /**

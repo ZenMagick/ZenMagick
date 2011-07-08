@@ -19,47 +19,47 @@
  */
 ?>
 <?php
-
+use Doctrine\ORM\Mapping AS ORM;
 
 /**
  * Token model class.
  *
  * @author DerManoMann
  * @package zenmagick.store.shared.model
- * @Table(name="token")
- * @Entity
+ * @ORM\Table(name="token")
+ * @ORM\Entity
  */
 class ZMToken extends ZMObject {
     /**
      * @var integer $hashId
      *
-     * @Column(name="hash_id", type="integer", nullable=false)
-     * @Id
-     * @GeneratedValue(strategy="IDENTITY")
+     * @ORM\Column(name="hash_id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $hashId;
     /**
      * @var blob $hash
      *
-     * @Column(name="hash", type="blob", nullable=false)
+     * @ORM\Column(name="hash", type="blob", nullable=false)
      */
     private $hash;
     /**
      * @var string $resource
      *
-     * @Column(name="resource", type="string", length=128, nullable=false)
+     * @ORM\Column(name="resource", type="string", length=128, nullable=false)
      */
     private $resource;
     /**
      * @var datetime $issued
      *
-     * @Column(name="issued", type="datetime", nullable=false)
+     * @ORM\Column(name="issued", type="datetime", nullable=false)
      */
     private $issued;
     /**
      * @var datetime $expires
      *
-     * @Column(name="expires", type="datetime", nullable=false)
+     * @ORM\Column(name="expires", type="datetime", nullable=false)
      */
     private $expires;
 

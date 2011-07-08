@@ -22,43 +22,43 @@
  */
 ?>
 <?php
-
+use Doctrine\ORM\Mapping AS ORM;
 
 /**
  * A quantity discount.
  *
  * @author DerManoMann
  * @package zenmagick.store.shared.model.catalog
- * @Table(name="products_discount_quantity")
- * @Entity
+ * @ORM\Table(name="products_discount_quantity")
+ * @ORM\Entity
  */
 class ZMQuantityDiscount extends ZMObject {
     /**
      * @var integer $productId
      *
-     * @Column(name="products_id", type="integer", nullable=false)
-     * @Id
-     * @GeneratedValue(strategy="NONE")
+     * @ORM\Column(name="products_id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="NONE")
      */
     private $productId;
     /**
      * @var integer $quantityDiscountId
      *
-     * @Column(name="discount_id", type="integer", nullable=false)
-     * @Id
-     * @GeneratedValue(strategy="NONE")
+     * @ORM\Column(name="discount_id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="NONE")
      */
     private $quantityDiscountId;
     /**
      * @var float $quantity
      *
-     * @Column(name="discount_qty", type="float", nullable=false)
+     * @ORM\Column(name="discount_qty", type="float", nullable=false)
      */
     private $quantity;
     /**
      * @var decimal $value
      *
-     * @Column(name="discount_price", type="decimal", nullable=false)
+     * @ORM\Column(name="discount_price", type="decimal", nullable=false)
      */
     private $value;
     private $price;

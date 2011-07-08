@@ -22,42 +22,42 @@
  */
 ?>
 <?php
-
+use Doctrine\ORM\Mapping AS ORM;
 
 /**
  * A address zone.
  *
  * @author DerManoMann
  * @package zenmagick.store.shared.model.account
- * @Table(name="zones")
- * @Entity
+ * @ORM\Table(name="zones")
+ * @ORM\Entity
  */
 class ZMZone extends ZMObject {
     /**
      * @var integer $zoneId
      *
-     * @Column(name="zone_id", type="integer", nullable=false)
-     * @Id
-     * @GeneratedValue(strategy="IDENTITY")
+     * @ORM\Column(name="zone_id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      * @todo rename to private $id;
      */
     private $zoneId;
     /**
      * @var integer $countryId
      *
-     * @Column(name="zone_country_id", type="integer", nullable=false)
+     * @ORM\Column(name="zone_country_id", type="integer", nullable=false)
      */
     private $countryId;
     /**
      * @var string $code
      *
-     * @Column(name="zone_code", type="string", length=32, nullable=false)
+     * @ORM\Column(name="zone_code", type="string", length=32, nullable=false)
      */
     private $code;
     /**
      * @var string $name
      *
-     * @Column(name="zone_name", type="string", length=32, nullable=false)
+     * @ORM\Column(name="zone_name", type="string", length=32, nullable=false)
      */
     private $name;
 

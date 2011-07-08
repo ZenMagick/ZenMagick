@@ -19,42 +19,43 @@
  */
 ?>
 <?php
+use Doctrine\ORM\Mapping AS ORM;
 
 /**
  * ZMTemplateSelect
  *
  * @package zenmagick.store.shared.model.layout
- * @Table(name="template_select")
- * @Entity
+ * @ORM\Table(name="template_select")
+ * @ORM\Entity
  */
 class ZMTemplateSelect extends ZMObject {
     /**
      * @var integer $id
      *
-     * @Column(name="template_id", type="integer", nullable=false)
-     * @Id
-     * @GeneratedValue(strategy="IDENTITY")
+     * @ORM\Column(name="template_id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
 
     /**
      * @var string $themeId
      *
-     * @Column(name="template_dir", type="string", length=64, nullable=false)
+     * @ORM\Column(name="template_dir", type="string", length=64, nullable=false)
      */
     private $themeId;
 
     /**
      * @var string $languageId
      *
-     * @Column(name="template_language", type="string", length=64, nullable=false)
+     * @ORM\Column(name="template_language", type="string", length=64, nullable=false)
      */
     private $languageId;
 
     /**
      * @var string $variationId
      *
-     * @Column(name="variation_dir", type="string", length=64, nullable=true)
+     * @ORM\Column(name="variation_dir", type="string", length=64, nullable=true)
      */
     private $variationId;
 

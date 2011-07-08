@@ -23,7 +23,7 @@
 ?>
 <?php
 use Doctrine\Common\Collections\ArrayCollection;
-
+use Doctrine\ORM\Mapping as ORM;
 
 /**
  * A single coupon.
@@ -34,87 +34,87 @@ use Doctrine\Common\Collections\ArrayCollection;
  *
  * @author DerManoMann
  * @package zenmagick.store.shared.model
- * @Table(name="coupons")
- * @Entity
+ * @ORM\Table(name="coupons")
+ * @ORM\Entity
  */
 class ZMCoupon extends ZMObject {
     /**
      * @var integer $id
      *
-     * @Column(name="coupon_id", type="integer", nullable=false)
-     * @Id
-     * @GeneratedValue(strategy="IDENTITY")
+     * @ORM\Column(name="coupon_id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
    /**
      * @var string $type
      *
-     * @Column(name="coupon_type", type="string", length=1, nullable=false)
+     * @ORM\Column(name="coupon_type", type="string", length=1, nullable=false)
      */
     private $type;
     /**
      * @var string $code
      *
-     * @Column(name="coupon_code", type="string", length=32, nullable=false)
+     * @ORM\Column(name="coupon_code", type="string", length=32, nullable=false)
      */
     private $code;
      /**
      * @var decimal $amount
      *
-     * @Column(name="coupon_amount", type="decimal", nullable=false)
+     * @ORM\Column(name="coupon_amount", type="decimal", nullable=false)
      */
     private $amount;
     /**
      * @var decimal $minOrderAmount
      *
-     * @Column(name="coupon_minimum_order", type="decimal", nullable=false)
+     * @ORM\Column(name="coupon_minimum_order", type="decimal", nullable=false)
      */
     private $minOrderAmount;
     /**
      * @var datetime $startDate
      *
-     * @Column(name="coupon_start_date", type="datetime", nullable=false)
+     * @ORM\Column(name="coupon_start_date", type="datetime", nullable=false)
      */
     private $startDate;
     /**
      * @var datetime $expiryDate
      *
-     * @Column(name="coupon_expire_date", type="datetime", nullable=false)
+     * @ORM\Column(name="coupon_expire_date", type="datetime", nullable=false)
      */
     private $expiryDate;
     /**
      * @var integer $usesPerCoupon
      *
-     * @Column(name="uses_per_coupon", type="integer", nullable=false)
+     * @ORM\Column(name="uses_per_coupon", type="integer", nullable=false)
      */
     private $usesPerCoupon;
     /**
      * @var integer $usesPerUser
      *
-     * @Column(name="uses_per_user", type="integer", nullable=false)
+     * @ORM\Column(name="uses_per_user", type="integer", nullable=false)
      */
     private $usesPerUser;
     /**
      * @var string $active
      *
-     * @Column(name="coupon_active", type="string", length=1, nullable=false)
+     * @ORM\Column(name="coupon_active", type="string", length=1, nullable=false)
      */
     private $active;
     /**
      * @var datetime $dateCreated
      *
-     * @Column(name="date_created", type="datetime", nullable=false)
+     * @ORM\Column(name="date_created", type="datetime", nullable=false)
      */
     private $dateCreated;
     /**
      * @var datetime $dateModified
      *
-     * @Column(name="date_modified", type="datetime", nullable=false)
+     * @ORM\Column(name="date_modified", type="datetime", nullable=false)
      */
     private $dateModified;
     /**
      * @var object $translations
-     * @OneToMany(targetEntity="ZMCouponTranslations", mappedBy="coupon", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity="ZMCouponTranslations", mappedBy="coupon", cascade={"persist", "remove"})
      */
     private $translations;
 

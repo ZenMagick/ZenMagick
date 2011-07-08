@@ -22,77 +22,77 @@
  */
 ?>
 <?php
-
+use Doctrine\ORM\Mapping AS ORM;
 
 /**
  * A single currency.
  *
  * @author DerManoMann
  * @package zenmagick.store.shared.model
- * @Table(name="currencies")
- * @Entity
+ * @ORM\Table(name="currencies")
+ * @ORM\Entity
  */
 class ZMCurrency extends ZMObject {
     /**
      * @var integer $currencyId
      *
-     * @Column(name="currencies_id", type="integer", nullable=false)
-     * @Id
-     * @GeneratedValue(strategy="IDENTITY")
+     * @ORM\Column(name="currencies_id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $currencyId;
     /**
      * @var string $code
      *
-     * @Column(name="code", type="string", length=3, nullable=false)
+     * @ORM\Column(name="code", type="string", length=3, nullable=false)
      */
     private $code;
     /**
      * @var string $name
      *
-     * @Column(name="title", type="string", length=32, nullable=false)
+     * @ORM\Column(name="title", type="string", length=32, nullable=false)
      */
     private $name;
     /**
      * @var string $symbolLeft
      *
-     * @Column(name="symbol_left", type="string", length=24, nullable=true)
+     * @ORM\Column(name="symbol_left", type="string", length=24, nullable=true)
      */
     private $symbolLeft;
     /**
      * @var string $symbolRight
      *
-     * @Column(name="symbol_right", type="string", length=24, nullable=true)
+     * @ORM\Column(name="symbol_right", type="string", length=24, nullable=true)
      */
     private $symbolRight;
     /**
      * @var string $decimalPoint
      *
-     * @Column(name="decimal_point", type="string", length=1, nullable=true)
+     * @ORM\Column(name="decimal_point", type="string", length=1, nullable=true)
      */
     private $decimalPoint;
     /**
      * @var string $thousandsPoint
      *
-     * @Column(name="thousands_point", type="string", length=1, nullable=true)
+     * @ORM\Column(name="thousands_point", type="string", length=1, nullable=true)
      */
     private $thousandsPoint;
     /**
      * @var string $decimalPlaces
      *
-     * @Column(name="decimal_places", type="string", length=1, nullable=true)
+     * @ORM\Column(name="decimal_places", type="string", length=1, nullable=true)
      */
     private $decimalPlaces;
     /**
      * @var float $rate
      *
-     * @Column(name="value", type="float", nullable=true)
+     * @ORM\Column(name="value", type="float", nullable=true)
      */
     private $rate;
     /**
      * @var datetime $lastUpdate
      *
-     * @Column(name="last_updated", type="datetime", nullable=true)
+     * @ORM\Column(name="last_updated", type="datetime", nullable=true)
      */
     private $lastUpdate;
 

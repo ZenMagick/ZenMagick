@@ -22,33 +22,33 @@
  */
 ?>
 <?php
-
+use Doctrine\ORM\Mapping AS ORM;
 
 /**
  * A collection of review descriptions (translations)
  *
- * @Entity
- * @Table(name="reviews_description")
+ * @ORM\Entity
+ * @ORM\Table(name="reviews_description")
  */
 class ZMReviewDescriptions extends ZMObject {
     /**
      * @var object $review
-     * @Id
-     * @ManyToOne(targetEntity="ZMReview")
-     * @JoinColumn(name="reviews_id", referencedColumnName="reviews_id")
+     * @ORM\Id
+     * @ORM\ManyToOne(targetEntity="ZMReview", inversedBy="descriptions")
+     * @ORM\JoinColumn(name="reviews_id", referencedColumnName="reviews_id")
      */
     private $review;
 
     /**
      * @var integer $languageId
-     * @Column(name="languages_id", type="integer", nullable=false)
-     * @Id
+     * @ORM\Column(name="languages_id", type="integer", nullable=false)
+     * @ORM\Id
      */
     private $languageId;
 
     /**
      * @var text $text
-     * @Column(name="reviews_text", type="text")
+     * @ORM\Column(name="reviews_text", type="text")
      */
     private $text;
 
