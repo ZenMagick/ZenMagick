@@ -248,6 +248,13 @@ class ZMSavantView extends ZMView {
     }
 
     /**
+     * Set view utils
+     */
+    public function setViewUtils($viewUtils) {
+        $this->utils_ = $utils;
+    }
+
+    /**
      * {@inheritDoc}
      */
     public function getViewUtils() {
