@@ -52,11 +52,6 @@ class ZMSavantView extends ZMView {
         $this->layout_ = array();
         $this->filters_ = null;
         $this->setViewDir('views/');
-
-        // special view bits
-        $viewUtils = $this->getViewUtils();
-        $this->setVar('resources', $viewUtils);
-
     }
 
     /**
@@ -138,9 +133,16 @@ class ZMSavantView extends ZMView {
     public function getTemplatePath($request) {
         $path = array();
 
-        // add plugins as well
-        foreach (ZMPlugins::instance()->getAllPlugins(Runtime::getSettings()->get('zenmagick.base.plugins.context')) as $plugin) {
-            $path[] = $plugin->getPluginDirectory().'content'.DIRECTORY_SEPARATOR;
+        // available locale
+        $localeCodes = array_reverse(ZMLocales::instance()->getValidLocaleCodes());
+
+        // add plugins as fallback fallback
+        foreach (ZMPlugins::instance()->getAllPlugins(Plugin::CONTEXT_STOREFRONT) as $plugin) {
+            $ppath = $plugin->getPluginDirectory().'content'.DIRECTORY_SEPARATOR;
+            $path[] = $ppath;
+            foreach ($localeCodes as $code) {
+                $path[] = ZMFileUtils::mkpath($ppath, 'locale', $code);
+            }
         }
 
         $path[] = $request->getTemplatePath();
@@ -211,13 +213,14 @@ class ZMSavantView extends ZMView {
             $config['resource_path'] = $this->getResourcePath($request);
             $config = array_merge($config, $this->config_);
             $this->savant_ = new ZMSavant($config);
-            //$this->savant_ = Runtime::getContainer()->get('ZMSavant');
-            //$this->savant_->setConfig($config);
+            //$this->savant_ = $this->container->get('ZMSavant');
+            $this->savant_->setConfig($config);
             // config doesn't support multiple filter
             foreach ($this->getFilterList() as $filter) {
                 $this->savant_->addFilters($filter);
             }
-            $this->savant_->setContainer(Runtime::getContainer());
+            //TODO::XXX remove
+            $this->savant_->setContainer($this->container);
         }
 
         $this->savant_->assign('view', $this);
@@ -249,7 +252,7 @@ class ZMSavantView extends ZMView {
      */
     public function getViewUtils() {
         if (null == $this->utils_) {
-            $this->utils_ = Runtime::getContainer()->get('ZMViewUtils');
+            $this->utils_ = $this->container->get('ZMViewUtils');
             $this->utils_->setView($this);
         }
         return $this->utils_;
@@ -261,7 +264,11 @@ class ZMSavantView extends ZMView {
     public function generate($request) {
         $savant = $this->getSavant($request);
 
+        // special view bits
+        $viewUtils = $this->getViewUtils();
+
         // set a few default things...
+        $this->setVar('resources', $viewUtils);
         $this->setVar('request', $request);
         $this->setVar('session', $request->getSession());
         $toolbox = $request->getToolbox();
@@ -297,12 +304,12 @@ class ZMSavantView extends ZMView {
 
             $template .= ZMSettings::get('zenmagick.mvc.templates.ext', '.php');
             $contents = $savant->fetch($template);
-            $viewUtils = $this->getViewUtils();
             if (null !== ($resources = $viewUtils->getResourceContents())) {
                 // apply resources...
                 $contents = preg_replace('/<\/head>/', $resources['header'] . '</head>', $contents, 1);
                 $contents = preg_replace('/<\/body>/', $resources['footer'] . '</body>', $contents, 1);
             }
+
             return $contents;
         } catch (Exception $e) {
             ZMLogging::instance()->dump($e, 'failed to fetch template: '.$template, ZMLogging::ERROR);

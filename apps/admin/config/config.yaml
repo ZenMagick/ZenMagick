@@ -64,7 +64,6 @@ zenmagick:
 
     ## view
     view:
-      default: ZMSavantView
       defaultLayout: default_layout
     controller:
       default: ZMDefaultController

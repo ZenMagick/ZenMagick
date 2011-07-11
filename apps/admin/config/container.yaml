@@ -20,6 +20,14 @@ services:
     calls:
       - [setExpiryTime, [%admin.session_timeout%]]
 
+  ZMSavantView:
+    class: ZMSavantView
+    scope: prototype
+    calls:
+      - [setConfig, [{ 'cache' => '3DZMSimpleSavantCache' }]]
+      - [setFilters, ['ZMShortTagFilter']]
+  defaultView: @ZMSavantView
+
   messageService:
     class: ZMMessages
     scope: container

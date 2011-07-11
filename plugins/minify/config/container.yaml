@@ -1,3 +1,4 @@
 services:
-  ZMViewUtils:
-    class: ViewUtils
+  MinifyViewUtils:
+    parent: merge:ZMViewUtils
+    class: MinifyViewUtils

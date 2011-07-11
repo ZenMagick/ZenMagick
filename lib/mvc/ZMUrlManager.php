@@ -258,8 +258,6 @@ class ZMUrlManager extends ZMObject {
      *
      * <p>If no mapping is found, some sensible defaults will be used.</p>
      *
-     * <p>The default view (definition) will is taken from the setting <em>'zenmagick.mvc.view.default'</em>.</p>
-     *
      * @param string requestId The request id.
      * @param string viewId Optional view id; defaults to <code>null</code> to use defaults.
      * @param mixed parameter Optional map of name/value pairs (or URL query format string)
@@ -277,10 +275,13 @@ class ZMUrlManager extends ZMObject {
         if (!array_key_exists('template', $mapping) || null == $mapping['template']) {
             $mapping['template'] = $requestId;
         }
-        // default
-        $view = ZMSettings::get('zenmagick.mvc.view.default', 'ZMSavantView');
+        $view = null;
         if (array_key_exists('view', $mapping) && null != $mapping['view']) {
-            $view = $mapping['view'];
+            $view = Beans::getBean($mapping['view']);
+        }
+        if (null == $view) {
+            // default
+            $view = Runtime::getContainer()->get('defaultView');
         }
 
         if (is_array($parameter)) {
@@ -288,9 +289,12 @@ class ZMUrlManager extends ZMObject {
         }
         $layout = ((array_key_exists('layout', $mapping) && null !== $mapping['layout'])
               ? $mapping['layout'] : ZMSettings::get('zenmagick.mvc.view.defaultLayout', null));
-        $definition = $view.(false === strpos($view, '#') ? '#' : '&').$parameter.'&template='.$mapping['template'].'&layout='.$layout.'&viewId='.$viewId;
-        ZMLogging::instance()->log('view definition: '.$definition, ZMLogging::TRACE);
-        return Beans::getBean($definition);
+        $definition = $parameter.'&template='.$mapping['template'].'&layout='.$layout.'&viewId='.$viewId;
+        ZMLogging::instance()->trace('view: '.$definition);
+
+        parse_str($definition, $properties);
+        Beans::setAll($view, $properties);
+        return $view;
     }
 
     /**
