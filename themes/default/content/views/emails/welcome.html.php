@@ -30,11 +30,6 @@
 <div style="font-family:Verdana,Arial,Helvetica,sans-serif;font-size:10pt;">
 <p><?php _vzm("Dear %s %s,", $currentAccount->getFirstName(), $currentAccount->getLastName()) ?></p>
 
-<?php echo $newAccountDiscountCoupon; ?>
-
-
-<?php echo $newAccountGVAmountCoupon; ?>
-
 <p><?php _vzm("We wish to welcome you to %s.", ZMSettings::get('storeName')) ?></p>
 <div><?php echo $utils->staticPageContent('email_welcome') ?></div>
 <p><?php _vzm("Sincerely, %s", ZMSettings::get('storeOwner')) ?></p>

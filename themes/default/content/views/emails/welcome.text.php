@@ -29,13 +29,6 @@
 
 <?php echo strip_tags($utils->staticPageContent('email_welcome')) ?>
 
-<?php echo $newAccountDiscountCoupon; ?>
-
-
-<?php echo $newAccountGVAmountCoupon; ?>
-
-
-
 <?php _vzm("Sincerely, %s", ZMSettings::get('storeOwner')) ?>
 
 
