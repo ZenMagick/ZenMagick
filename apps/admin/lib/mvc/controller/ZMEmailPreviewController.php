@@ -52,8 +52,8 @@ class ZMEmailPreviewController extends ZMController {
     public function getViewData($request) {
         $templateInfo = array();
         // get a store view to lookup all email templates...
-        $view = ZMUrlManager::instance()->findView(null, 'store-view');
-        foreach ($view->find($request, 'views/emails') as $template) {
+        $view = $this->container->get('storeEmailView');
+        foreach ($view->find($request, 'views/emails', null, ZMView::TEMPLATE) as $template) {
             $file = basename($template);
             $tokens = explode('.', $file);
             if (3 == count($tokens)) {

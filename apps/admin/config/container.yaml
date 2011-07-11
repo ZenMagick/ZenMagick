@@ -20,11 +20,25 @@ services:
     calls:
       - [setExpiryTime, [%admin.session_timeout%]]
 
+  storeViewUtils:
+    class: ZMViewUtils
+    scope: prototype
+    calls:
+      - [setResourcesAsTemplates, [true]]
+
+  storeEmailView:
+    class: SavantView
+    scope: prototype
+    calls:
+      - [setConfig, [{ 'cache' => 'ZMSimpleSavantCache' }]]
+      - [setFilters, ['ZMShortTagFilter']]
+      - [setViewUtils, [@storeViewUtils]]
+
   ZMSavantView:
     class: ZMSavantView
     scope: prototype
     calls:
-      - [setConfig, [{ 'cache' => '3DZMSimpleSavantCache' }]]
+      - [setConfig, [{ 'cache' => 'ZMSimpleSavantCache' }]]
       - [setFilters, ['ZMShortTagFilter']]
   defaultView: @ZMSavantView
 
