@@ -32,6 +32,7 @@ class ZMViewUtils extends ZMObject {
     const NOW = 'now';
     private $resources_;
     private $view_;
+    private $resourcesAsTemplates_;
 
 
     /**
@@ -43,8 +44,31 @@ class ZMViewUtils extends ZMObject {
         parent::__construct();
         $this->view_ = $view;
         $this->resources_ = array('css' => array(), 'js' => array());
+        $this->resourcesAsTemplates_ = false;
     }
 
+
+    /**
+     * Set the '<em>resources as templates</em>' flag.
+     *
+     * <p>If set, resources will be looked up in the same location as templates.</p>
+     *
+     * @param boolean value The new value.
+     */
+    public function setResourcesAsTemplates($value) {
+        $this->resourcesAsTemplates_ = $value;
+    }
+
+    /**
+     * Get the '<em>resources as templates</em>' flag.
+     *
+     * <p>If <code>true</code>, resources will be looked up in the same location as templates.</p>
+     *
+     * @return boolean The value.
+     */
+    public function getResourcesAsTemplates() {
+        return $this->resourcesAsTemplates_;
+    }
 
     /**
      * Set the associated view.
@@ -146,7 +170,7 @@ class ZMViewUtils extends ZMObject {
             return $resource;
         }
         $request = $this->view_->getVar('request');
-        return $this->view_->asUrl($request, $resource, ZMView::RESOURCE);
+        return $this->view_->asUrl($request, $resource, $this->resourcesAsTemplates_ ? ZMView::TEMPLATE : ZMView::RESOURCE);
     }
 
     /**

@@ -30,7 +30,7 @@
  * @author DerManoMann
  * @package org.zenmagick.plugins.minify
  */
-class ViewUtils extends ZMViewUtils {
+class MinifyViewUtils extends ZMViewUtils {
     private $plugin_;
 
 

@@ -30,21 +30,6 @@
 class SavantView extends ZMSavantView {
 
     /**
-     * Create new instance.
-     */
-    function __construct() {
-        parent::__construct();
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
-
-
-    /**
      * {@inheritDoc}
      *
      * <p>The template path will contain each active plugin's base directory, the default theme's content
@@ -65,6 +50,9 @@ class SavantView extends ZMSavantView {
             }
         }
 
+        // available locale
+        $localeCodes = array_reverse(ZMLocales::instance()->getValidLocaleCodes());
+
         foreach (ZMThemes::instance()->getThemeChain($request->getSession()->getLanguageId()) as $theme) {
             $path[] = $theme->getContentDir();
             foreach ($localeCodes as $code) {
@@ -73,15 +61,6 @@ class SavantView extends ZMSavantView {
         }
 
         return $path;
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * <p>Same as template path.</p>
-     */
-    public function getResourcePath($request) {
-        return $this->getTemplatePath($request);
     }
 
 }

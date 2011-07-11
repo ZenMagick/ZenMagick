@@ -75,8 +75,6 @@ zenmagick:
  
     ## view
     view:
-      #default: SavantView
-      default: 'SavantView#config=cache%3DZMSimpleSavantCache&filters=ShortTagFilter'
       defaultLayout: default_layout
     controller:
       default: ZMDefaultController

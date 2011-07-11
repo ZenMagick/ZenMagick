@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\ZMObject;
 
 /**
  * Base implementation of the <code>ZMView</code> interface.

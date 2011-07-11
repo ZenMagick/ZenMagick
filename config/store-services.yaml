@@ -80,6 +80,14 @@ services:
       - [setCache, [@servicesCache]]
   categoryService: @ZMCategories
 
+  ZMViewUtils:
+    class: ZMViewUtils
+    scope: prototype
+
+  ZMSavant:
+    class: ZMSavant
+    scope: prototype
+
   ZMSimpleSavantCache:
     class: ZMSimpleSavantCache
     scope: container

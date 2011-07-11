@@ -1,3 +1,4 @@
 services:
-  ZMImageInfo:
+  ImageInfo:
+    parent: merge:ZMImageInfo
     class: ImageInfo
