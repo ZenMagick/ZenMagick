@@ -207,6 +207,9 @@ class ZMRequest extends \ZMObject {
                 break;
             }
         }
+        // XXX: TODO: remove eventually
+        global $current_page_base;
+        $current_page_base = $this->getRequestId();
     }
 
     /**
