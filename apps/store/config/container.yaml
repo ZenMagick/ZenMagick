@@ -16,7 +16,7 @@ services:
     class: Session
     scope: container
 
-  StoreViewUtils:
+  storeViewUtils:
     parent: merge:ZMViewUtils
     calls:
       - [setResourcesAsTemplates, [true]]
@@ -25,7 +25,7 @@ services:
     class: SavantView
     scope: prototype
     calls:
-      - [setConfig, [{ 'cache' => '3DZMSimpleSavantCache' }]]
+      - [setConfig, [{ 'cache' => 'ZMSimpleSavantCache' }]]
       - [setFilters, ['ZMShortTagFilter']]
   defaultView: @ZMSavantView
 
