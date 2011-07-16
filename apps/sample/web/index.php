@@ -23,8 +23,5 @@
   // app location relative to zenmagick installation (ZM_BASE_PATH)
   define('ZM_APP_PATH', 'apps'.DIRECTORY_SEPARATOR.basename(dirname(dirname(__FILE__))).DIRECTORY_SEPARATOR);
 
-  // additional libraries
-  define('ZM_LIBS', 'lib/http');
-
   require realpath(dirname(__FILE__).'/../../../bootstrap.php');
   require realpath(dirname(__FILE__).'/../../../mvc.php');

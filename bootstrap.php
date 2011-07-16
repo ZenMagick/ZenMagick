@@ -98,16 +98,13 @@ use Symfony\Component\HttpKernel\DependencyInjection\MergeExtensionConfiguration
             $appLoader->register();
         }
 
-        // set up lib class loader
-        if (defined('ZM_LIBS')) {
-            $libLoader = new ClassLoader();
-            foreach (explode(',', ZM_LIBS) as $name) {
-                // XXX: legacy loader
-                ZMLoader::instance()->addPath(ZM_BASE_PATH.trim($name).DIRECTORY_SEPARATOR);
-                $libLoader->addConfig(ZM_BASE_PATH.trim($name));
-            }
-            $libLoader->register();
+        // XXX: legacy loader
+        $libLoader = new ClassLoader();
+        foreach (array('lib/http', 'shared') as $name) {
+            ZMLoader::instance()->addPath(ZM_BASE_PATH.trim($name).DIRECTORY_SEPARATOR);
+            $libLoader->addConfig(ZM_BASE_PATH.trim($name));
         }
+        $libLoader->register();
 
         // load application settings
         Runtime::getSettings()->setAll(Toolbox::loadWithEnv(Runtime::getApplicationPath().DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.'config.yaml'));
