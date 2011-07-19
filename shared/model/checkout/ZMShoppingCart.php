@@ -23,6 +23,8 @@
 ?>
 <?php
 
+use zenmagick\base\ZMObject;
+use zenmagick\base\Runtime;
 
 /**
  * Shopping cart.
@@ -34,6 +36,7 @@
  */
 class ZMShoppingCart extends ZMObject {
     public $cart_;
+    private $session;
     private $zenTotals_;
     private $items_;
     private $helper_;
@@ -48,9 +51,12 @@ class ZMShoppingCart extends ZMObject {
     function __construct() {
         parent::__construct();
         $this->cart_ = $_SESSION['cart'];
+        $this->session = Runtime::getContainer()->get("ZMSession");
         // TODO: remove
-        $this->setComments(isset($_SESSION['comments']) ? $_SESSION['comments'] : '');
-        $this->setAccountId(isset($_SESSION['customer_id']) ? $_SESSION['customer_id'] : 0);
+        $comments = $this->session->getValue('comments');
+        $this->setComments(null !== $comments ? $comments : '');
+        $accountId = $this->session->getValue('customers_id');
+        $this->setAccountId(null !== $accountId ? $accountId : 0);
         $this->zenTotals_ = null;
         $this->items_ = null;
         $this->helper_ = new ZMCheckoutHelper($this);
@@ -226,7 +232,7 @@ class ZMShoppingCart extends ZMObject {
     public function setComments($comments) {
         $this->comments_ = $comments;
         //TODO: remove
-        $_SESSION['comments'] = $comments;
+        $this->session->setValue('comments', $comments);
     }
 
     /**
@@ -266,7 +272,10 @@ class ZMShoppingCart extends ZMObject {
      * @return int The shipping method id or <code>null</code>.
      */
     public function getSelectedShippingMethodId() {
-        return (isset($_SESSION['shipping']) && isset($_SESSION['shipping']['id'])) ? $_SESSION['shipping']['id'] : null;
+        if (null !== ($shipping = $this->session->getValue('shipping'))) {
+            return $shipping['id'];
+        }
+        return null;
     }
 
     /**
@@ -295,11 +304,11 @@ class ZMShoppingCart extends ZMObject {
      * @param ZMShippingMethod method The shipping method to use.
      */
     public function setSelectedShippingMethod($method) {
-        $_SESSION['shipping'] = array(
+        $this->session->setValue('shipping', array(
             'id' => $method->getShippingId(),
             'title' => $method->getName(),
             'cost' => $method->getCost()
-        );
+        ));
     }
 
     /**
@@ -317,7 +326,7 @@ class ZMShoppingCart extends ZMObject {
      * @return int The payment type id.
      */
     public function getSelectedPaymentTypeId() {
-        return isset($_SESSION['payment']) ? $_SESSION['payment'] : null;
+        return $this->session->getValue('payment');
     }
 
     /**
@@ -338,7 +347,7 @@ class ZMShoppingCart extends ZMObject {
      * @param ZMPaymentType paymentType The payment type.
      */
     public function setSelectedPaymentType($paymentType) {
-        $_SESSION['payment'] = $paymentType->getId();
+        $this->session->getValue('payment', $paymentType->getId());
     }
 
     /**
@@ -374,14 +383,14 @@ class ZMShoppingCart extends ZMObject {
      *
      * @return boolean <code>true</code> if there is a shipping address, <code>false</code> if not.
      */
-    public function hasShippingAddress() { return !empty($_SESSION['sendto']); }
+    public function hasShippingAddress() { return null !== $this->session->getValue('sendto'); }
 
     /**
      * Checks if the cart has a billing address.
      *
      * @return boolean <code>true</code> if there is a billing address, <code>false</code> if not.
      */
-    public function hasBillingAddress() { return !empty($_SESSION['billto']); }
+    public function hasBillingAddress() { return null !== $this->session->getValue('billto'); }
 
     /**
      * Get the current shipping address.
@@ -389,7 +398,7 @@ class ZMShoppingCart extends ZMObject {
      * @return ZMAddress The shipping address.
      */
     public function getShippingAddress() {
-        return ZMAddresses::instance()->getAddressForId($_SESSION['sendto']);
+        return ZMAddresses::instance()->getAddressForId($this->session->getValue('sendto'));
     }
 
     /**
@@ -398,8 +407,8 @@ class ZMShoppingCart extends ZMObject {
      * @param int addressId The new shipping address id.
      */
     public function setShippingAddressId($addressId) {
-        $_SESSION['sendto'] = $addressId;
-        $_SESSION['shipping'] = '';
+        $this->session->setValue('sendto', $addressId);
+        $this->session->setValue('shipping', '');
     }
 
     /**
@@ -408,7 +417,7 @@ class ZMShoppingCart extends ZMObject {
      * @return ZMAddress The billing address.
      */
     public function getBillingAddress() {
-        return ZMAddresses::instance()->getAddressForId($_SESSION['billto']);
+        return ZMAddresses::instance()->getAddressForId($this->session->getValue('billto'));
     }
 
     /**
@@ -417,10 +426,11 @@ class ZMShoppingCart extends ZMObject {
      * @param int addressId The billing address id.
      */
     public function setBillingAddressId($addressId) {
-        if (isset($_SESSION['billto']) && $_SESSION['billto'] != $addressId) {
-            $_SESSION['payment'] = '';
+        $billto = $this->session->getValue('billto');
+        if (null !== $billto && $billto != $addressId) {
+            $this->session->setValue('payment', '');
         }
-        $_SESSION['billto'] = $addressId;
+        $this->session->setValue('billto', $addressId);
     }
 
     /**
