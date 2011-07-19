@@ -221,7 +221,12 @@ class ZMObject extends ContainerAware {
                     if (!$afirst) {
                         $s .= ', ';
                     }
-                    $s .= $key. '=>'.$val;
+                    $s .= $key. '=>';
+                    if (is_object($val)) {
+                        $s .= '['.get_class($val).']';
+                    } else {
+                        $s .= $val;
+                    }
                     $afirst = false;
                 }
                 $s .= '}';
