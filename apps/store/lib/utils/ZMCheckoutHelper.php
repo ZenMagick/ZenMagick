@@ -368,8 +368,8 @@ class ZMCheckoutHelper extends ZMObject {
                 if ($showMessages) {
                     ZMMessages::instance()->error(_zm('Please provide a billing address'));
                 }
+                return "require_billing_address";
             }
-            return "require_billing_address";
         }
 
         return null;
