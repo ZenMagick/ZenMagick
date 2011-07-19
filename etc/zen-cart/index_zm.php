@@ -23,9 +23,6 @@
   // app location relative to zenmagick installation (ZM_BASE_PATH)
   define('ZM_APP_PATH', 'apps'.DIRECTORY_SEPARATOR.'store'.DIRECTORY_SEPARATOR);
 
-  // additional libraries
-  define('ZM_LIBS', 'lib/http,shared');
-
   // pre-load a couple zen-cart files needed
   define('ZC_INSTALL_PATH', dirname(__FILE__).DIRECTORY_SEPARATOR);
   // make zen-cart happy

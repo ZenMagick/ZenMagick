@@ -33,9 +33,6 @@ use zenmagick\http\sacs\SacsManager;
         // required for some nifty stuff
         if (!defined('ZC_INSTALL_PATH')) define('ZC_INSTALL_PATH', dirname(dirname(__FILE__)).DIRECTORY_SEPARATOR);
 
-        // additional libraries
-        if(!defined('ZM_LIBS')) define('ZM_LIBS', 'lib/http,shared');
-
         include_once 'bootstrap.php';
 
         // create the main request instance
