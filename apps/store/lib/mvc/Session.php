@@ -180,7 +180,7 @@ class Session extends zenmagick\http\session\Session {
      * @param array messages A list of <code>ZMMessage</code> objects.
      */
     public function setMessages($messages) {
-        $messageStack = $this->getValue('messageToStack');
+        $messageToStack = $this->getValue('messageToStack');
         if (!is_array($messageToStack)) {
             $sessionMessages = array();
         }
@@ -265,7 +265,7 @@ class Session extends zenmagick\http\session\Session {
      */
     public function getLanguage() {
         $languageCode = $this->getValue('languages_code');
-        return null === $languageCode ? null : ZMLanguages::instance()->getLanguageForCode($languagesCode);
+        return null === $languageCode ? null : ZMLanguages::instance()->getLanguageForCode($languageCode);
     }
 
     /**

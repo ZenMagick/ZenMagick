@@ -369,6 +369,7 @@ class ZMEventFixes extends ZMObject {
         }
 
         // ** lanugage **
+        $languageCode = 0;
         if (null == ($language = $session->getLanguage()) || 0 != ($languageCode = $request->getLanguageCode())) {
             if (0 != $languageCode) {
                 // URL parameter takes precedence

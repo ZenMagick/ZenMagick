@@ -200,7 +200,7 @@ class ZMCheckoutHelper extends ZMObject {
      */
     public function checkCartStatus() {
         // validate items
-        $this->validateItems($showMessages);
+        $this->validateItems();
 
         $map = array();
         foreach ($this->shoppingCart_->getItems() as $item) {
@@ -304,7 +304,7 @@ class ZMCheckoutHelper extends ZMObject {
         }
 
         // validate items
-        $this->validateItems($showMessages);
+        $this->validateItems();
 
         if (!$this->readyForCheckout()) {
             if ($showMessages) {
