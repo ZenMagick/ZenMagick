@@ -347,7 +347,7 @@ class ZMShoppingCart extends ZMObject {
      * @param ZMPaymentType paymentType The payment type.
      */
     public function setSelectedPaymentType($paymentType) {
-        $this->session->getValue('payment', $paymentType->getId());
+        $this->session->setValue('payment', $paymentType->getId());
     }
 
     /**
