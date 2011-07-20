@@ -137,7 +137,7 @@ class ZMSavantView extends ZMView {
         $localeCodes = array_reverse(ZMLocales::instance()->getValidLocaleCodes());
 
         // add plugins as fallback fallback
-        foreach (ZMPlugins::instance()->getAllPlugins(Plugin::CONTEXT_STOREFRONT) as $plugin) {
+        foreach (ZMPlugins::instance()->getAllPlugins(Runtime::getSettings()->get('zenmagick.base.plugins.context')) as $plugin) {
             $ppath = $plugin->getPluginDirectory().'content'.DIRECTORY_SEPARATOR;
             $path[] = $ppath;
             foreach ($localeCodes as $code) {
