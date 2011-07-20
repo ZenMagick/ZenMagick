@@ -209,7 +209,9 @@ class ZMRequest extends \ZMObject {
         }
         // XXX: TODO: remove eventually
         global $current_page_base;
-        $current_page_base = $this->getRequestId();
+        if (!isset($current_page_base)) { // don't override the one set by zencart
+            $current_page_base = $this->getRequestId();
+        }
     }
 
     /**
