@@ -100,9 +100,9 @@ use Symfony\Component\HttpKernel\DependencyInjection\MergeExtensionConfiguration
 
         // XXX: legacy loader
         $libLoader = new ClassLoader();
-        foreach (array('lib/http', 'shared') as $name) {
-            ZMLoader::instance()->addPath(ZM_BASE_PATH.trim($name).DIRECTORY_SEPARATOR);
-            $libLoader->addConfig(ZM_BASE_PATH.trim($name));
+        foreach (array('lib/http', 'shared') as $legacyPath) {
+            ZMLoader::instance()->addPath(ZM_BASE_PATH.trim($legacyPath).DIRECTORY_SEPARATOR);
+            $libLoader->addConfig(ZM_BASE_PATH.trim($legacyPath));
         }
         $libLoader->register();
 
