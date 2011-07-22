@@ -88,6 +88,9 @@ class ZMAdminEventHandler {
         }
     }
 
+    /**
+     * Load themes.
+     */
     public function onInitRequest($event) {
         $request = $event->get('request');
         $language = $request->getSession()->getLanguage();
