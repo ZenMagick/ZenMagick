@@ -337,7 +337,7 @@ class ZMPlugins extends ZMObject {
         // them to depend on each other
         foreach ($plugins as $id => $plugin) {
             if ($this->needsInit($id)) {
-                $containerConfig = $plugin->getPluginDirectory().DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.'container.yaml';
+                $containerConfig = $plugin->getPluginDirectory().DIRECTORY_SEPARATOR.'plugin.yaml';
                 if (!Runtime::getContainer()->isFrozen() && file_exists($containerConfig)) {
                     $container = new Container();
                     $containerYamlLoader = new YamlFileLoader($container, new FileLocator(dirname($containerConfig)));
