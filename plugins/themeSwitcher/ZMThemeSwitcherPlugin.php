@@ -36,7 +36,7 @@ class ZMThemeSwitcherPlugin extends Plugin {
      */
     function __construct() {
         parent::__construct('Theme Switcher', 'Allow users to select a theme');
-        $this->setContext(Plugin::CONTEXT_STOREFRONT);
+        $this->setContext('storefront');
         $this->setLoaderPolicy(ZMPlugin::LP_NONE);
     }
 

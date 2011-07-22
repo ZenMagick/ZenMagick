@@ -37,6 +37,8 @@ zenmagick:
 
   ## base
   base:
+    context: admin
+
     ## events
     events:
       listeners:
@@ -52,9 +54,6 @@ zenmagick:
       handleErrors: true
       handlers:
         - zenmagick\base\logging\handler\DefaultLoggingHandler
-    ## plugins
-    plugins:
-      context: 2
 
   ## mvc
   mvc:

@@ -42,7 +42,7 @@ class SavantView extends ZMSavantView {
         $localeCodes = array_reverse(ZMLocales::instance()->getValidLocaleCodes());
 
         // add plugins as fallback fallback
-        foreach (ZMPlugins::instance()->getAllPlugins(Plugin::CONTEXT_STOREFRONT) as $plugin) {
+        foreach (ZMPlugins::instance()->getAllPlugins('storefront') as $plugin) {
             $ppath = $plugin->getPluginDirectory().'content'.DIRECTORY_SEPARATOR;
             $path[] = $ppath;
             foreach ($localeCodes as $code) {

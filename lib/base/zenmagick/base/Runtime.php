@@ -34,6 +34,15 @@ class Runtime {
 
 
     /**
+     * Get context.
+     *
+     * @return string The current context or <code>null</code> if not set or supported.
+     */
+    public static function getContext() {
+        return self::getSettings()->get('zenmagick.base.context', null);
+    }
+
+    /**
      * Get the full ZenMagick installation path.
      *
      * @return string The ZenMagick installation folder.

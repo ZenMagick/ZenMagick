@@ -44,7 +44,7 @@
  *  <dt>loaderPolicy</dt>
  *  <dd><code>ZMPlugin::LP_LIB</code>.</dd>
  *  <dt>context</dt>
- *  <dd>Generic code to allow to configure different context values where the plugin allowed; default is <em>0</em>.</dd>
+ *  <dd>Generic code to allow to configure different context values where the plugin allowed; default is <code>null</code>.</dd>
  * </dl>
  *
  * @author DerManoMann
@@ -83,7 +83,7 @@ abstract class ZMPlugin extends ZMObject {
         $this->enabled_ = null;
         $this->pluginDirectory_ = null;
         $this->loaderPolicy_ = self::LP_LIB;
-        $this->context_ = 0;
+        $this->context_ = null;
     }
 
     /**
@@ -236,19 +236,19 @@ abstract class ZMPlugin extends ZMObject {
     /**
      * Get the context flags.
      *
-     * @return int The context flags.
+     * @return string The context string.
      */
     public function getContext() {
         return $this->context_;
     }
 
     /**
-     * Set the context flags.
+     * Set the context string.
      *
-     * @param int context The context flags.
+     * @param string s The context string.
      */
-    public function setContext($context) {
-        $this->context_ = $context;
+    public function setContext($s) {
+        $this->context_ = $s;
     }
 
 }

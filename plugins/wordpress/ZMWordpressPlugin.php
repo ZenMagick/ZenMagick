@@ -40,7 +40,7 @@ class ZMWordpressPlugin extends Plugin {
      */
     function __construct() {
         parent::__construct('Wordpress', 'Allows to display Wordpress content in ZenMagick', '${plugin.version}');
-        $this->setContext(Plugin::CONTEXT_STOREFRONT);
+        $this->setContext('storefront');
         $this->requestId_ = '';
         $this->requestHandler_ = null;
         $this->adapter_ = null;

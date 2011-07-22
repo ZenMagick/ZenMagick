@@ -22,6 +22,7 @@
 
 use zenmagick\base\ClassLoader;
 use zenmagick\base\Runtime;
+use zenmagick\base\Toolbox;
 use zenmagick\base\ioc\Container;
 use zenmagick\base\ioc\loader\YamlFileLoader;
 
@@ -132,17 +133,17 @@ class ZMPlugins extends ZMObject {
     /**
      * Get all plugins for a given context.
      *
-     * @param int context Optional context flag; default is <em>0</em> for all.
+     * @param string context Optional context; default is <code>null</code> for all.
      * @param boolean enabled If <code>true</code>, return only enabled plugins: default is <code>true</code>.
      * @return array A list of <code>ZMPlugin</code> instances.
      */
-    public function getAllPlugins($context=0, $enabled=true) {
+    public function getAllPlugins($context=null, $enabled=true) {
         $pathIdMap = array();
         // populate list of plugin ids to load
         if ($enabled) {
             // use plugin status to select plugins
             foreach ($this->pluginStatus_ as $id => $status) {
-                if ($status['enabled'] && (0 == $context || ($context&$status['context']))) {
+                if ($status['enabled'] && (null == $context || Toolbox::isContextMatch($status['context'], $context))) {
                     $basePath = array_key_exists('basePath', $status) ? $status['basePath'] : $this->getBasePathForId($id);
                     if (!array_key_exists($basePath, $pathIdMap)) {
                         $pathIdMap[$basePath] = array();
@@ -158,7 +159,7 @@ class ZMPlugins extends ZMObject {
                 foreach ($idList as $id) {
                     if (!array_key_exists($id, $this->pluginStatus_)) {
                         $this->pluginStatus_[$id] = array(
-                          'context' => 0,
+                          'context' => null,
                           'basePath' => $basePath,
                           'enabled' => false
                         );
@@ -257,11 +258,11 @@ class ZMPlugins extends ZMObject {
     /**
      * Init all plugins.
      *
-     * @param int context Optional context flag; default is <em>0</em> for all.
+     * @param int context Optional context flag; default is <code>null</code> for all.
      * @param boolean enabled If <code>true</code>, return only enabled plugins: default is <code>true</code>.
      * @return array List of initialized plugins.
      */
-    public function initAllPlugins($context=0, $enabled=true) {
+    public function initAllPlugins($context=null, $enabled=true) {
         $ids = array();
         foreach ($this->getAllPlugins($context, $enabled) as $plugin) {
             $ids[] = $plugin->getId();

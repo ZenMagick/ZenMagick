@@ -34,7 +34,7 @@ class ZMFlyoutCategoriesPlugin extends Plugin {
      */
     function __construct() {
         parent::__construct('Flyout Categories', 'Flyout Categories menu.', '${plugin.version}');
-        $this->setContext(Plugin::CONTEXT_STOREFRONT);
+        $this->setContext('storefront');
     }
 
     /**

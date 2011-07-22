@@ -83,7 +83,7 @@ class ZMPluginsController extends ZMController {
      */
     protected function refreshPluginStatus() {
         $pluginStatus = array();
-        foreach (ZMPlugins::instance()->getAllPlugins(0, false) as $plugin) {
+        foreach (ZMPlugins::instance()->getAllPlugins(null, false) as $plugin) {
             $pluginStatus[$plugin->getId()] = array(
                 'type' => $this->getPluginType($plugin),
                 'scope' => $plugin->getScope(),

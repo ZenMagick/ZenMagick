@@ -34,7 +34,7 @@ class ZMMethodControllerPlugin extends Plugin {
      */
     function __construct() {
         parent::__construct('Method controller', 'Custom method controller example.', '${plugin.version}');
-        $this->setContext(Plugin::CONTEXT_STOREFRONT);
+        $this->setContext('storefront');
     }
 
     /**

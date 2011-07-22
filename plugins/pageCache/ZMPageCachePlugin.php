@@ -46,7 +46,7 @@ class ZMPageCachePlugin extends \Plugin {
      */
     function __construct() {
         parent::__construct('Page Cache', 'ZenMagick page caching', '${plugin.version}');
-        $this->setContext(Plugin::CONTEXT_STOREFRONT|Plugin::CONTEXT_ADMIN);
+        $this->setContext('admin,storefront');
         $this->setPreferredSortOrder(9999);
         $this->cache_ = null;
     }

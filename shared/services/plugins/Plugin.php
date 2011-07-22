@@ -41,11 +41,6 @@ class Plugin extends ZMPlugin {
     /** internal key constant */
     const KEY_SORT_ORDER = 'SORT_ORDER';
 
-    /** Store context. */
-    const CONTEXT_STOREFRONT = 1;
-    /** Admin context. */
-    const CONTEXT_ADMIN = 2;
-
     private $configPrefix_;
     private $configValues_;
     private $enabledKey_;
@@ -70,7 +65,7 @@ class Plugin extends ZMPlugin {
         $this->preferredSortOrder_ = 0;
         $this->configValues_ = null;
         // both
-        $this->setContext(self::CONTEXT_STOREFRONT|self::CONTEXT_ADMIN);
+        $this->setContext(null);
     }
 
     /**

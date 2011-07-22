@@ -35,7 +35,7 @@ class ZMAutoresponderPlugin extends Plugin {
      */
     function __construct() {
         parent::__construct('Autoresponder', 'Auto emails based on account events.', '${plugin.version}');
-        $this->setContext(Plugin::CONTEXT_STOREFRONT);
+        $this->setContext('storefront');
     }
 
     /**

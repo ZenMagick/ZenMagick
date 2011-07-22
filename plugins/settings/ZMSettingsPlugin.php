@@ -33,7 +33,7 @@ class ZMSettingsPlugin extends Plugin {
      */
     function __construct() {
         parent::__construct('Settings', 'Manage (custom) settings');
-        $this->setContext(Plugin::CONTEXT_ADMIN);
+        $this->setContext('admin');
     }
 
     /**
