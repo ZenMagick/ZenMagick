@@ -19,35 +19,35 @@
  */
 ?>
 <?php
-
+use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Block group model class.
  *
  * @author DerManoMann
  * @package zenmagick.store.shared.model.blocks
- * @Table(name="block_groups")
- * @Entity
+ * @ORM\Table(name="block_groups")
+ * @ORM\Entity
  */
 class ZMBlockGroup extends ZMObject {
     /**
      * @var integer $blockGroupId
      *
-     * @Column(name="block_group_id", type="integer", nullable=false)
-     * @Id
-     * @GeneratedValue(strategy="IDENTITY")
+     * @ORM\Column(name="block_group_id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $blockGroupId;
     /**
      * @var string $name
      *
-     * @Column(name="group_name", type="string", length=32, nullable=false)
+     * @ORM\Column(name="group_name", type="string", length=32, nullable=false)
      */
     private $name;
     /**
      * @var string $description
      *
-     * @Column(name="description", type="text")
+     * @ORM\Column(name="description", type="text")
      */
     private $description;
 
