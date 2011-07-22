@@ -276,6 +276,7 @@ class ZMUrlManager extends ZMObject {
             $mapping = array();
         }
         if (!array_key_exists('template', $mapping) || null == $mapping['template']) {
+            // default template name to requestId
             $mapping['template'] = $requestId;
         }
         $view = null;
@@ -283,7 +284,7 @@ class ZMUrlManager extends ZMObject {
             $view = Beans::getBean($mapping['view']);
         }
         if (null == $view) {
-            // default
+            // default view
             $view = Runtime::getContainer()->get('defaultView');
         }
 
