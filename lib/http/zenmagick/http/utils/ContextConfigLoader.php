@@ -47,7 +47,7 @@ class ContextConfigLoader extends BaseContextConfigLoader {
         // router
         if (array_key_exists('router', $config) && is_array($config['router'])) {
             // merge
-            ZMUrlManager::instance()->setMappings($config['router'], false);
+            \ZMUrlManager::instance()->setMappings($config['router'], false);
         }
     }
 

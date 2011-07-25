@@ -5,8 +5,8 @@ meta:
   description: 'test theme for development use only'
 
 storefront:
-  ## optional url mappings
-  urls:
+  ## router mappings
+  router:
     alias:
       foo:
         requestId: login
@@ -25,7 +25,7 @@ storefront:
       privacy:
         view: RedirectView#url=http://www.dilbert.com/
 
-  ## optional settngs
+  ## settings
   settings:
     zenmagick/mvc/resultlist/defaultPagination: 3
   container:

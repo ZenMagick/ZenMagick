@@ -316,7 +316,7 @@ class ZMTheme extends ZMObject {
      * Load additional theme config settins from <em>theme.yaml</em>.
      */
     public function loadSettings() {
-        $configLoader = new ContextConfigLoader($configFile);
+        $configLoader = new ContextConfigLoader();
         $configLoader->apply($this->config_);
 
         if (null !== ($localeSettings = $this->getConfig('locale'))) {

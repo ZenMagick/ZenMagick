@@ -44,7 +44,7 @@ class ContextConfigLoader extends ZMObject {
      *
      * @param mixed config Either a filename or array (already loaded YAML); default is <code>null</code>.
      */
-    public function __construct($config) {
+    public function __construct($config=null) {
         parent::__construct();
         $this->setConfig($config);
     }
