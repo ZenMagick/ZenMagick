@@ -45,6 +45,7 @@ class ContextConfigLoader extends ZMObject {
      * @param mixed config Either a filename or array (already loaded YAML); default is <code>null</code>.
      */
     public function __construct($config) {
+        parent::__construct();
         $this->setConfig($config);
     }
 
@@ -119,7 +120,7 @@ class ContextConfigLoader extends ZMObject {
 
         // container
         if (array_key_exists('container', $config) && is_array($config['container'])) {
-            $containerYamlLoader = new YamlLoader(Runtime::getContainer(), new FileLocator(dirname($this->getBaseDir())));
+            $containerYamlLoader = new YamlLoader(Runtime::getContainer(), new FileLocator(dirname(__FILE__)));
             $containerYamlLoader->load($config['container']);
         }
     }
