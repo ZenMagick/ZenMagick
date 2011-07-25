@@ -318,15 +318,6 @@ class ZMTheme extends ZMObject {
     public function loadSettings() {
         $configLoader = new ContextConfigLoader();
         $configLoader->apply($this->config_);
-
-        if (null !== ($localeSettings = $this->getConfig('locale'))) {
-            $locale = ZMLocales::instance()->getLocale();
-            foreach (ZMLocales::instance()->getValidLocaleCodes() as $code) {
-                if (array_key_exists($code, $localeSettings)) {
-                    $locale->setFormats($localeSettings[$code]);
-                }
-            }
-        }
     }
 
 }
