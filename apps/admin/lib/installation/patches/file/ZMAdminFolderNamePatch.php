@@ -87,6 +87,15 @@ class ZMAdminFolderNamePatch extends \ZMFilePatch {
         return $this->isReady() ? "" : "Need permission to write " . _ZM_ADMIN_INDEX_PHP;
     }
 
+   /**
+     * Check if this patch supports undo.
+     *
+     * @return boolean <code>true</code> if undo is supported, <code>false</code> if not.
+     */
+    function canUndo() {
+        return false;
+    }
+
     /**
      * Execute this patch.
      *
