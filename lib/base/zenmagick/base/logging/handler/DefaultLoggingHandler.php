@@ -22,6 +22,7 @@
 namespace zenmagick\base\logging\handler;
 
 use zenmagick\base\Runtime;
+use zenmagick\base\ZMObject;
 use zenmagick\base\logging\Logging;
 use zenmagick\base\logging\LoggingHandler;
 
@@ -34,17 +35,20 @@ use zenmagick\base\logging\LoggingHandler;
  * @author DerManoMann
  * @package zenmagick.base.logging.handler
  */
-class DefaultLoggingHandler implements LoggingHandler {
+class DefaultLoggingHandler extends ZMObject implements LoggingHandler {
     private $logLevel;
+
 
     /**
      * Create new instance.
      *
-     * @param int logLevel Optional custom log level; default is <code>Logging::INFO</code>.
+     * @param int logLevel Optional custom log level; default is <code>null</code> for none.
      */
-    public function __construct($logLevel=Logging::INFO) {
+    public function __construct($logLevel=null) {
+        parent::__construct();
         $this->logLevel = $logLevel;
     }
+
 
     /**
      * Do the actual logging.
