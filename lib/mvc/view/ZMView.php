@@ -128,7 +128,7 @@ abstract class ZMView extends ZMObject {
         $view->setVars($toolbox->getTools());
 
         // set all plugins
-        foreach (ZMPlugins::instance()->getAllPlugins(Runtime::getSettings()->get('zenmagick.base.plugins.context')) as $plugin) {
+        foreach (ZMPlugins::instance()->getAllPlugins(Runtime::getSettings()->get('zenmagick.base.context')) as $plugin) {
             $this->setVar($plugin->getId(), $plugin);
         }
 

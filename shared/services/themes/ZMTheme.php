@@ -22,6 +22,7 @@
 
 use zenmagick\base\Runtime;
 use zenmagick\base\ioc\loader\YamlLoader;
+use zenmagick\apps\store\utils\ContextConfigLoader;
 
 use Symfony\Component\Config\FileLocator;
 
@@ -64,7 +65,9 @@ class ZMTheme extends ZMObject {
             $this->themeId_ = $themeId;
             $configFile = $this->getBaseDir().'theme.yaml';
             if (file_exists($configFile)) {
-                $this->config_ = ZMRuntime::yamlParse(file_get_contents($configFile));
+                $configLoader = new ContextConfigLoader($configFile);
+                // load config for the current context
+                $this->config_ = $configLoader->resolve();
             } else {
                 $this->config_ = array();
                 //XXX: try for zc theme
@@ -72,11 +75,12 @@ class ZMTheme extends ZMObject {
                 if (is_dir($templatePath) && file_exists($templatePath.'template_info.php')) {
                     include $templatePath.'template_info.php';
                     if (isset($template_name)) {
-                        $this->config_['name'] = $template_name.' (Zen Cart)';
-                        $this->config_['version'] = $template_version;
-                        $this->config_['author'] = $template_author;
-                        $this->config_['description'] = $template_description;
-                        $this->config_['zencart'] = true;
+                        $this->config_['meta'] = array();
+                        $this->config_['meta']['name'] = $template_name.' (Zen Cart)';
+                        $this->config_['meta']['version'] = $template_version;
+                        $this->config_['meta']['author'] = $template_author;
+                        $this->config_['meta']['description'] = $template_description;
+                        $this->config_['meta']['zencart'] = true;
                     }
                 }
             }
@@ -125,7 +129,7 @@ class ZMTheme extends ZMObject {
      * @return string The name.
      */
     public function getName() {
-        return array_key_exists('name', $this->config_) ? $this->config_['name'] : '??';
+        return array_key_exists('name', $this->config_['meta']) ? $this->config_['meta']['name'] : '??';
     }
 
     /**
@@ -312,6 +316,9 @@ class ZMTheme extends ZMObject {
      * Load additional theme config settins from <em>theme.yaml</em>.
      */
     public function loadSettings() {
+        $configLoader = new ContextConfigLoader($configFile);
+        $configLoader->apply($this->config_);
+
         if (null !== ($localeSettings = $this->getConfig('locale'))) {
             $locale = ZMLocales::instance()->getLocale();
             foreach (ZMLocales::instance()->getValidLocaleCodes() as $code) {
@@ -319,27 +326,6 @@ class ZMTheme extends ZMObject {
                     $locale->setFormats($localeSettings[$code]);
                 }
             }
-        }
-
-        // add optional url mappings
-        $urls = $this->getConfig('urls');
-        if ($urls && is_array($urls)) {
-            // merge
-            ZMUrlManager::instance()->setMappings($urls, false);
-        }
-
-        // add optional settings
-        $themeSettings = $this->getConfig('settings');
-        if ($themeSettings && is_array($themeSettings)) {
-            // merge
-            ZMSettings::addAll($themeSettings, true);
-        }
-
-        // add optional container config
-        $containerSettings = $this->getConfig('container');
-        if ($containerSettings && is_array($containerSettings)) {
-            $containerYamlLoader = new YamlLoader(Runtime::getContainer(), new FileLocator(dirname($this->getBaseDir())));
-            $containerYamlLoader->load($containerSettings);
         }
     }
 

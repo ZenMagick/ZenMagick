@@ -137,7 +137,7 @@ class ZMSavantView extends ZMView {
         $localeCodes = array_reverse(ZMLocales::instance()->getValidLocaleCodes());
 
         // add plugins as fallback fallback
-        foreach (ZMPlugins::instance()->getAllPlugins(Runtime::getSettings()->get('zenmagick.base.plugins.context')) as $plugin) {
+        foreach (ZMPlugins::instance()->getAllPlugins(Runtime::getSettings()->get('zenmagick.base.context')) as $plugin) {
             $ppath = $plugin->getPluginDirectory().'content'.DIRECTORY_SEPARATOR;
             $path[] = $ppath;
             foreach ($localeCodes as $code) {
@@ -165,7 +165,7 @@ class ZMSavantView extends ZMView {
         $localeCodes = array_reverse(ZMLocales::instance()->getValidLocaleCodes());
 
         // add plugins as well
-        foreach (ZMPlugins::instance()->getAllPlugins(Runtime::getSettings()->get('zenmagick.base.plugins.context')) as $plugin) {
+        foreach (ZMPlugins::instance()->getAllPlugins(Runtime::getSettings()->get('zenmagick.base.context')) as $plugin) {
             $ppath = $plugin->getPluginDirectory().'content'.DIRECTORY_SEPARATOR;
             $path[] = $ppath;
             foreach ($localeCodes as $code) {
@@ -290,7 +290,7 @@ class ZMSavantView extends ZMView {
         }
 
         // set all plugins
-        foreach (ZMPlugins::instance()->getAllPlugins(Runtime::getSettings()->get('zenmagick.base.plugins.context')) as $plugin) {
+        foreach (ZMPlugins::instance()->getAllPlugins(Runtime::getSettings()->get('zenmagick.base.context')) as $plugin) {
             $this->setVar($plugin->getId(), $plugin);
         }
 

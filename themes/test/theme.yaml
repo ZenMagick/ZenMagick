@@ -1,38 +1,44 @@
-##
-name: 'test'
-version: '${zenmagick.version}'
-author: 'zenmagick.org'
-description: 'test theme for development use only'
+meta:
+  name: 'test'
+  version: '${zenmagick.version}'
+  author: 'zenmagick.org'
+  description: 'test theme for development use only'
 
-## optional url mappings
-urls:
-  alias:
-    foo:
-      requestId: login
-    login:
-      requestId: bar
-      parameter: 'abc=def&x=1'
-  page:
-    ## show conditions as homepage!
-    index:
-      template: conditions
-    ## change redirect view after sucessful login
-    login:
-      success:
+storefront:
+  ## optional url mappings
+  urls:
+    alias:
+      foo:
+        requestId: login
+      login:
+        requestId: bar
+        parameter: 'abc=def&x=1'
+    page:
+      ## show conditions as homepage!
+      index:
         template: conditions
-    ## redirect externally
-    privacy:
-      view: RedirectView#url=http://www.dilbert.com/
+      ## change redirect view after sucessful login
+      login:
+        success:
+          template: conditions
+      ## redirect externally
+      privacy:
+        view: RedirectView#url=http://www.dilbert.com/
 
-## optional settngs
-settings:
-  zenmagick.mvc.resultlist.defaultPagination: 3
+  ## optional settngs
+  settings:
+    zenmagick/mvc/resultlist/defaultPagination: 3
+  container:
+    services:
+      foo:
+        class: Bar
   
-container:
-  services:
-    XProducts:
-      parent: merge:ZMProducts
-      class: XProducts
-    MetaTags:
-      parent: merge:ZMToolboxMetaTags
-      class: MetaTags
+admin,storefront:
+  container:
+    services:
+      XProducts:
+        parent: merge:ZMProducts
+        class: XProducts
+      MetaTags:
+        parent: merge:ZMToolboxMetaTags
+        class: MetaTags

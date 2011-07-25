@@ -45,7 +45,7 @@ use zenmagick\http\sacs\SacsManager;
 
         // load stuff that really needs to be global!
         if (Runtime::getSettings()->get('zenmagick.base.plugins.enabled', true)) {
-            foreach (ZMPlugins::instance()->initAllPlugins(ZMSettings::get('zenmagick.base.plugins.context')) as $plugin) {
+            foreach (ZMPlugins::instance()->initAllPlugins(ZMSettings::get('zenmagick.base.context')) as $plugin) {
                 foreach ($plugin->getGlobal($_zm_request) as $_zm_file) {
                     include_once $_zm_file;
                 }

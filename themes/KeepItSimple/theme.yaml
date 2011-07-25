@@ -1,5 +1,5 @@
-##
-name: 'Keep It Simple'
-version: '${zenmagick.version}'
-author: 'zenmagick.org'
-description: 'Keep It Simple; based on the KeepItSimple template at styleshout.com'
+meta:
+  name: 'Keep It Simple'
+  version: '${zenmagick.version}'
+  author: 'zenmagick.org'
+  description: 'Keep It Simple; based on the KeepItSimple template at styleshout.com'

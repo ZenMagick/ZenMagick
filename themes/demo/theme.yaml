@@ -1,36 +1,36 @@
-##
-name: 'ZenMagick Demo Theme'
-version: '${zenmagick.version}'
-author: 'zenmagick.org'
-description: 'ZenMagick demo theme including additional product pages and extra code'
+meta:
+  name: 'ZenMagick Demo Theme'
+  version: '${zenmagick.version}'
+  author: 'zenmagick.org'
+  description: 'ZenMagick demo theme including additional product pages and extra code'
 
-locale:
-  en:
-    date: 
-      'short': 'd/m/Y'
-      'short-ui-format': 'dd/mm/yy'
-      'short-ui-example': '09/08/66'
-      'long': 'd/m/Y'
-    time:
-      'short': 'H:i:s'
-      'long': 'H:i:s u'
-    
+storefront:
+  locale:
+    en:
+      date: 
+        'short': 'd/m/Y'
+        'short-ui-format': 'dd/mm/yy'
+        'short-ui-example': '09/08/66'
+        'long': 'd/m/Y'
+      time:
+        'short': 'H:i:s'
+        'long': 'H:i:s u'
+      
 
-## optional url mappings
-urls:
-  ## no layout for shopping cart
-  shopping_cart:
+  ## optional url mappings
+  urls:
+    ## no layout for shopping cart
     shopping_cart:
-      layout:
-  ## for ajax login success
-  login:
-    ajax_success: 
-      template: ajax/login_success
-  ## re-use category-list
-  products_new:
-    template: category_list
+      shopping_cart:
+        layout:
+    ## for ajax login success
+    login:
+      ajax_success: 
+        template: ajax/login_success
+    ## re-use category-list
+    products_new:
+      template: category_list
 
-## optional settngs
-settings:
-  zenmagick.mvc.resultlist.defaultPagination: 5
-
+  ## optional settngs
+  settings:
+    zenmagick.mvc.resultlist.defaultPagination: 5

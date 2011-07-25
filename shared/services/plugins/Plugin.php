@@ -65,7 +65,7 @@ class Plugin extends ZMPlugin {
         $this->preferredSortOrder_ = 0;
         $this->configValues_ = null;
         // both
-        $this->setContext(null);
+        $this->setContext('admin,storefront');
     }
 
     /**
