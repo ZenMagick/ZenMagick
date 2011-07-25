@@ -14,7 +14,7 @@ admin,storefront:
         logging:
           # enable logging
           enabled: true
-          # log level; one of: ERROR, WARN, INFO, DEBUG, TRACE
+          # log level; one of: ERROR, WARN, INFO, DEBUG, TRACE or ALL
           level: ALL
           # register ZenMagick log system to handle errors/exceptions
           handleErrors: true
