@@ -23,10 +23,8 @@
 use zenmagick\base\ClassLoader;
 use zenmagick\base\Runtime;
 use zenmagick\base\Toolbox;
-use zenmagick\base\ioc\Container;
-use zenmagick\base\ioc\loader\YamlFileLoader;
 
-use Symfony\Component\Config\FileLocator;
+use zenmagick\apps\store\utils\ContextConfigLoader;
 
 /**
  * Basic plugin service.
@@ -338,12 +336,10 @@ class ZMPlugins extends ZMObject {
         // them to depend on each other
         foreach ($plugins as $id => $plugin) {
             if ($this->needsInit($id)) {
-                $containerConfig = $plugin->getPluginDirectory().DIRECTORY_SEPARATOR.'plugin.yaml';
-                if (!Runtime::getContainer()->isFrozen() && file_exists($containerConfig)) {
-                    $container = new Container();
-                    $containerYamlLoader = new YamlFileLoader($container, new FileLocator(dirname($containerConfig)));
-                    $containerYamlLoader->load($containerConfig);
-                    Runtime::getContainer()->merge($container);
+                $pluginConfig = $plugin->getPluginDirectory().DIRECTORY_SEPARATOR.'plugin.yaml';
+                if (file_exists($pluginConfig)) {
+                    $configLoader = new ContextConfigLoader($pluginConfig);
+                    $configLoader->process();
                 }
 
                 // call init only after everything set up

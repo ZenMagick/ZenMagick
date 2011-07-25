@@ -1,4 +1,6 @@
-services:
-  ImageInfo:
-    parent: merge:ZMImageInfo
-    class: ImageInfo
+admin,storefront:
+  container:
+    services:
+      ImageInfo:
+        parent: merge:ZMImageInfo
+        class: ImageInfo

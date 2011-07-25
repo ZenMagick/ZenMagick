@@ -1,4 +1,6 @@
-services:
-  MinifyViewUtils:
-    parent: merge:ZMViewUtils
-    class: MinifyViewUtils
+admin,storefront:
+  container:
+    services:
+      MinifyViewUtils:
+        parent: merge:ZMViewUtils
+        class: MinifyViewUtils
