@@ -27,7 +27,7 @@ use zenmagick\http\sacs\SacsManager;
     try {
         if (!defined('ZM_APP_PATH')) {
             // app location relative to zenmagick installation (ZM_BASE_PATH)
-            define('ZM_APP_PATH', 'apps'.DIRECTORY_SEPARATOR.'store'.DIRECTORY_SEPARATOR);
+            define('ZM_APP_PATH', 'apps'.DIRECTORY_SEPARATOR.'storefront'.DIRECTORY_SEPARATOR);
         }
 
         // required for some nifty stuff
