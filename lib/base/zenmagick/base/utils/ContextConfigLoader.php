@@ -119,9 +119,14 @@ class ContextConfigLoader extends ZMObject {
         }
 
         // container
+        $container = Runtime::getContainer();
         if (array_key_exists('container', $config) && is_array($config['container'])) {
-            $containerYamlLoader = new YamlLoader(Runtime::getContainer(), new FileLocator(dirname(__FILE__)));
-            $containerYamlLoader->load($config['container']);
+            if (!$container->isFrozen()) {
+                $containerYamlLoader = new YamlLoader($container, new FileLocator(dirname(__FILE__)));
+                $containerYamlLoader->load($config['container']);
+            } else {
+                Runtime::getLogging()->warn('skipping container config - container is frozen');
+            }
         }
     }
 
