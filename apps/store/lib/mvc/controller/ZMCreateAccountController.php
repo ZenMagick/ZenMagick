@@ -142,7 +142,7 @@ class ZMCreateAccountController extends ZMController {
             'newAccountGVAmountCoupon' => $newAccountGVAmountCoupon
         );
 
-        $message = $this->container->get('messageBuilder')->createMessage('welcome', true, $request, $context);
+        $message = $this->container->get('messageBuilder')->createMessage('welcome', $account->isHtmlEmail(), $request, $context);
         $message->setSubject(sprintf(_zm("Welcome to %s"), ZMSettings::get('storeName')))->setTo($account->getEmail(), $account->getFullName())->setFrom(ZMSettings::get('storeEmail'));
         $this->container->get('mailer')->send($message);
 
@@ -151,7 +151,7 @@ class ZMCreateAccountController extends ZMController {
             $context = $request->getToolbox()->macro->officeOnlyEmailFooter($account->getFullName(), $account->getEmail(), $session);
             $context['currentAccount'] = $account;
 
-            $message = $this->container->get('messageBuilder')->createMessage('welcome', true, $request, $context);
+            $message = $this->container->get('messageBuilder')->createMessage('welcome', ZMSettings::get('isEmailAdminExtraHtml', false), $request, $context);
             $message->setSubject(sprintf(_zm("[CREATE ACCOUNT] Welcome to %s"), ZMSettings::get('storeName')))->setTo(ZMSettings::get('emailAdminCreateAccount'))->setFrom(ZMSettings::get('storeEmail'));
             $this->container->get('mailer')->send($message);
         }
