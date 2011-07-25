@@ -50,7 +50,7 @@
             'zenmagick.apps.store.verifyCategoryPath' => false,
 
             // enable gift vouchers
-            'isEnabledGV' => MODULE_ORDER_TOTAL_GV_STATUS == 'true',
+            'isEnabledGV' => defined('MODULE_ORDER_TOTAL_GV_STATUS') && MODULE_ORDER_TOTAL_GV_STATUS == 'true',
 
             // enable coupons
             'isEnabledCoupons' => defined('MODULE_ORDER_TOTAL_COUPON_STATUS') && MODULE_ORDER_TOTAL_COUPON_STATUS == 'true',
