@@ -113,6 +113,7 @@ use Symfony\Component\HttpKernel\DependencyInjection\MergeExtensionConfiguration
         // NOTE: this is separate from settings!
 
         // bundles; DI only for now - might want to use HttpKernel for loading stuff?
+        $bundles = array();
         $extensions = array();
         $container = Runtime::getContainer();
         foreach (Runtime::getSettings()->get('zenmagick/bundles', array()) as $key => $class) {
@@ -122,7 +123,11 @@ use Symfony\Component\HttpKernel\DependencyInjection\MergeExtensionConfiguration
                 $container->registerExtension($extension);
                 $extensions[] = $extension->getAlias();
             }
+            $bundle->setContainer($container);
+            $bundle->boot();
+            $bundles[] = $bundle;
         }
+
         // ensure these extensions are implicitly loaded
         $container->getCompilerPassConfig()->setMergePass(new MergeExtensionConfigurationPass($extensions));
 
