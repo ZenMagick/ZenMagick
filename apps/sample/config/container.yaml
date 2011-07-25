@@ -1,0 +1,60 @@
+parameters:
+  kernel.root_dir: %zenmagick.cacheBaseDir%/kernel
+  kernel.cache_dir: %zenmagick.cacheBaseDir%
+  kernel.debug: false
+  kernel.bundles: %zenmagick.bundles%
+  zenmagick.installationPath: '<?php echo dirname(zenmagick\base\Runtime::getInstallationPath()) ?>'
+  zenmagick.cacheBaseDir: '<?php echo dirname(zenmagick\base\Runtime::getInstallationPath())."/cache/zenmagick" ?>'
+
+services:
+  loggingService:
+    class: zenmagick\base\logging\Logging
+    scope: container
+
+  eventDispatcher:
+    class: zenmagick\base\events\EventDispatcher
+    scope: container
+
+  settingsService:
+    class: zenmagick\base\settings\Settings
+    scope: container
+
+  authenticationManager:
+    class: ZMAuthenticationManager
+    scope: container
+
+  sacsManager:
+    class: zenmagick\http\sacs\SacsManager
+    scope: container
+
+  contextConfigLoader:
+    class: zenmagick\apps\store\utils\ContextConfigLoader
+    scope: prototype
+
+  localeService:
+    class: ZMLocales
+    scope: container
+
+  pluginService:
+    class: ZMPlugins
+    scope: container
+
+  validatorService:
+    class: ZMValidator
+    scope: container
+
+  messageService:
+    class: ZMMessages
+    scope: container
+
+  ZMSession:
+    class: zenmagick\http\session\Session
+    scope: container
+
+  defaultView:
+    class: ZMSavantView
+    scope: prototype
+    calls:
+      - [setConfig, [{ 'cache' => 'ZMSimpleSavantCache' }]]
+      - [setFilters, ['ZMShortTagFilter']]
+

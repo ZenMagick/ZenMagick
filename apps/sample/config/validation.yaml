@@ -4,9 +4,9 @@
 
 mynameForm:
   myname:
-    RequiredRule:
+    ZMRequiredRule:
       - Please enter your name.
-    MinMaxRule:
+    ZMMinMaxRule:
       - 5
       - 0
       - Your name must contain a minimum of %2$s characters.

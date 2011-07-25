@@ -3,6 +3,8 @@
 #
 
 zenmagick:
+  bundles: {}
+
   mvc:
     templates:
       ext: .tpl
