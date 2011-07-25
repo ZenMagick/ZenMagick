@@ -6,33 +6,36 @@
 ## To use, please rename to global.yaml
 ##
 
-zenmagick:
-  base:
-    logging:
-      # enable logging
-      enabled: true
-      # log level; one of: ERROR, WARN, INFO, DEBUG, TRACE
-      level: ALL
-      # register ZenMagick log system to handle errors/exceptions
-      handleErrors: true
-    pugins:
-      # enable plugins
-      enabled: true
+## shared settings that apply to both admin and storefront
+admin,storefront:
+  settings:
+    zenmagick:
+      base:
+        logging:
+          # enable logging
+          enabled: true
+          # log level; one of: ERROR, WARN, INFO, DEBUG, TRACE
+          level: ALL
+          # register ZenMagick log system to handle errors/exceptions
+          handleErrors: true
+        pugins:
+          # enable plugins
+          enabled: true
 
 
-#############################
-## old style store settings - these names will be changed in a future version
+    #############################
+    ## old style store settings - these names will be changed in a future version
 
-# disable ZenMagick themes
-isEnableZMThemes: false
+    # disable ZenMagick themes
+    isEnableZMThemes: false
 
-# allow tell a friend for anonymous users
-isTellAFriendAnonymousAllow: false
+    # allow tell a friend for anonymous users
+    isTellAFriendAnonymousAllow: false
 
-# enable guest checkout
-isGuestCheckout: true
-# logoff guests after checkout
-isLogoffGuestAfterOrder: false
+    # enable guest checkout
+    isGuestCheckout: true
+    # logoff guests after checkout
+    isLogoffGuestAfterOrder: false
 
-# disable view counts for product and review pages
-isLogPageStats: false
+    # disable view counts for product and review pages
+    isLogPageStats: false

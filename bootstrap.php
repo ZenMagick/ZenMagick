@@ -147,8 +147,12 @@ use Symfony\Component\HttpKernel\DependencyInjection\MergeExtensionConfiguration
             }
         }
 
-        // load global config to allow overriding app settings
-        Runtime::getSettings()->setAll(Toolbox::loadWithEnv(Runtime::getInstallationPath().DIRECTORY_SEPARATOR.'global.yaml'));
+        // load global config
+        $globalFilename = realpath(Runtime::getInstallationPath().DIRECTORY_SEPARATOR.'global.yaml');
+        if (file_exists($globalFilename) && null != ($contextConfigLoader = Runtime::getContainer()->get('contextConfigLoader'))) {
+            $contextConfigLoader->setConfig(Toolbox::loadWithEnv($globalFilename));
+            $contextConfigLoader->process();
+        }
 
         Runtime::getEventDispatcher()->dispatch('init_config_done', new Event());
 
