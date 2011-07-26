@@ -339,7 +339,7 @@ class ZMAccount extends ZMObject {
      *
      * @return boolean <code>true</code> if the user is subscribed, <code>false</code> if not.
      */
-    public function isGlobalProductSubscriber() { 
+    public function isGlobalProductSubscriber() {
         return $this->globalSubscriber_;
     }
 
@@ -356,7 +356,7 @@ class ZMAccount extends ZMObject {
      * @return boolean <code>true</code> if the user has product subscriptions, <code>false</code> if not.
      */
     public function hasProductSubscriptions() {
-        return 0 != count($this->getSubscribedProducts()); 
+        return 0 != count($this->getSubscribedProducts());
     }
 
     /**
