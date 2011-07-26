@@ -41,7 +41,6 @@ class ZMToggleThemesPlugin extends Plugin {
     function __construct() {
         parent::__construct('Toggle themes', 'Allow users to toggle theme support');
         $this->setContext('storefront');
-        $this->setLoaderPolicy(ZMPlugin::LP_NONE);
     }
 
     /**

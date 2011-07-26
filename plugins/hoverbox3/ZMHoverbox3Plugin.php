@@ -38,7 +38,6 @@ class ZMHoverbox3Plugin extends Plugin {
      */
     function __construct() {
         parent::__construct('HoverBox3', 'HoverBox3 support for ZenMagick', '${plugin.version}');
-        $this->setLoaderPolicy(ZMPlugin::LP_ALL);
         $this->setContext('storefront');
     }
 

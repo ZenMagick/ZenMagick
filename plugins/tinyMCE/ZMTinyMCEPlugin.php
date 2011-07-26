@@ -35,7 +35,6 @@ class ZMTinyMCEPlugin extends Plugin {
      */
     function __construct() {
         parent::__construct('TinyMCE', 'TinyMCE WYSIWYG editor.');
-        $this->setLoaderPolicy(ZMPlugin::LP_FOLDER);
     }
 
     /**

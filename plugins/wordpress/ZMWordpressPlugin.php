@@ -107,8 +107,8 @@ class ZMWordpressPlugin extends Plugin {
             ZMSettings::set('isAccountNickname', true);
         }
 
-        ZMUrlManager::instance()->setMapping('', array(
-            'controller' => 'WordpressController',
+        ZMUrlManager::instance()->setMapping('wp', array(
+            'controller' => 'ZMWordpressController',
             'wp_index' => array('template' => 'wp/index'),
             'wp_single' => array('template' => 'wp/single'),
             'wp_page' => array('template' => 'wp/page'),

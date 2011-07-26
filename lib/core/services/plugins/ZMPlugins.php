@@ -311,26 +311,25 @@ class ZMPlugins extends ZMObject {
         }
 
         // plugins get their own loader
-        $pluginLoader = new ZMLoader('plugins');
+        $classLoader = new ClassLoader();
 
         $plugins = array();
         foreach ($ids as $id) {
             // get list
             $plugin = $this->getPluginForId($id);
             if (null != $plugin && ($plugin && $plugin->isEnabled() || !$enabled)) {
-                if (ZMPlugin::LP_LIB == $plugin->getLoaderPolicy()) {
-                    $pluginLoader->addPath($plugin->getPluginDirectory().'lib'.DIRECTORY_SEPARATOR);
-                } else if (ZMPlugin::LP_ALL == $plugin->getLoaderPolicy()) {
-                    $pluginLoader->addPath($plugin->getPluginDirectory());
-                } else if (ZMPlugin::LP_FOLDER == $plugin->getLoaderPolicy()) {
-                    $pluginLoader->addPath($plugin->getPluginDirectory(), '', false);
+                $libPath = $plugin->getPluginDirectory().'lib';
+                if (file_exists($libPath)) {
+                    $classLoader->addConfig($libPath);
+                    // TODO: XXX: legacy loading - remove
+                    $classLoader->addPath($libPath);
                 }
                 $plugins[$id] = $plugin;
             }
         }
 
         // plugins prevail over defaults, *and* themes
-        ZMLoader::instance()->setParent($pluginLoader);
+        $classLoader->register();
 
         // do the actual init only after all plugins have been loaded to allow
         // them to depend on each other

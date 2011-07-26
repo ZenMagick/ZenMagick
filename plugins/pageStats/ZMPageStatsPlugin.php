@@ -40,7 +40,6 @@ class ZMPageStatsPlugin extends Plugin {
      */
     function __construct() {
         parent::__construct('Page Stats', 'Show page stats', '${plugin.version}');
-        $this->setLoaderPolicy(ZMPlugin::LP_NONE);
         $this->pageCache_ = null;
         $this->event_ = array();
         $this->eventStats_ = array();

@@ -35,7 +35,6 @@ class ZMJscrollerSideboxesPlugin extends Plugin {
     function __construct() {
         parent::__construct('jscroller sideboxes', 'jscroller product sideboxes.', '${plugin.version}');
         $this->setContext('storefront');
-        $this->setLoaderPolicy(ZMPlugin::LP_NONE);
     }
 
     /**

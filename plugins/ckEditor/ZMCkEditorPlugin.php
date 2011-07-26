@@ -35,7 +35,6 @@ class ZMCkEditorPlugin extends Plugin {
      */
     function __construct() {
         parent::__construct('CKEditor', 'CKEditor WYSIWYG editor.');
-        $this->setLoaderPolicy(ZMPlugin::LP_FOLDER);
     }
 
     /**

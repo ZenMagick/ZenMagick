@@ -41,8 +41,6 @@
  *   <em>zenmagick.base.plugins.[id].enabled</em> will be checked instead.</dd>
  *  <dt>pluginDirectory</dt>
  *  <dd>Location of the plugin class file.</dd>
- *  <dt>loaderPolicy</dt>
- *  <dd><code>ZMPlugin::LP_LIB</code>.</dd>
  *  <dt>context</dt>
  *  <dd>Generic code to allow to configure different context values where the plugin allowed; default is <code>null</code>.</dd>
  * </dl>
@@ -219,6 +217,7 @@ abstract class ZMPlugin extends ZMObject {
      * </dl>
      *
      * @return string The loader policy.
+     * @deprecated this is no longer supported
      */
     public function getLoaderPolicy() {
         return $this->loaderPolicy_;
@@ -228,6 +227,7 @@ abstract class ZMPlugin extends ZMObject {
      * Set the loader policy for this plugin.
      *
      * @param string loaderPolicy The loader policy.
+     * @deprecated this is no longer supported
      */
     public function setLoaderPolicy($loaderPolicy) {
         $this->loaderPolicy_ = $loaderPolicy;

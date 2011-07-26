@@ -35,7 +35,6 @@ class ZMXinhaPlugin extends Plugin {
      */
     function __construct() {
         parent::__construct('Xinha', 'Xinha WYSIWYG editor.');
-        $this->setLoaderPolicy(ZMPlugin::LP_FOLDER);
     }
 
     /**
