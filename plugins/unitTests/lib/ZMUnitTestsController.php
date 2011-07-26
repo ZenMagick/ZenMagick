@@ -59,16 +59,19 @@ class ZMUnitTestsController extends \ZMController {
     public function processGet($request) {
 
         // XXX: for adminusers testcase...
-        \ZMLoader::instance()->addPath(\ZMFileUtils::mkPath(array(Runtime::getInstallationPath(), 'apps', 'admin', 'lib', 'services')));
-        \ZMLoader::instance()->addPath(\ZMFileUtils::mkPath(array(Runtime::getInstallationPath(), 'apps', 'admin', 'lib', 'model')));
+        $classLoader = new ClassLoader();
+        $classLoader->register();
+        $classLoader->addPath(Runtime::getInstallationPath().'apps/admin/lib/services');
+        $classLoader->addPath(Runtime::getInstallationPath().'apps/admin/lib/model');
+        $classLoader->addPath($this->plugin_->getPluginDirectory().'tests');
 
         // add tests folder to class path
-        $testsLoader = new \ZMLoader();
+        $testsLoader = new ZMLoader();
         $testBaseDir = $this->plugin_->getPluginDirectory().'tests';
         $testsLoader->addPath($testBaseDir);
-        // test data  is lower case
+        // test data is lower case
         $testsLoader->loadStatic();
-        \ZMLoader::instance()->setParent($testsLoader);
+        ZMLoader::instance()->setParent($testsLoader);
 
         $tests = array();
         foreach ($testsLoader->getClassPath() as $class => $file) {
@@ -95,12 +98,13 @@ class ZMUnitTestsController extends \ZMController {
         }
 
         // add plugins/tests folder of all available plugins to loader
-        $pluginLoader = new \ZMLoader();
+        $pluginLoader = new ZMLoader();
         foreach (\ZMPlugins::instance()->getAllPlugins() as $plugin) {
             if ($plugin instanceof \ZMUnitTestsPlugin) {
                 continue;
             }
             $ptests = $plugin->getPluginDirectory().'tests' . DIRECTORY_SEPARATOR;
+            $classLoader->addPath($ptests);
             if (is_dir($ptests)) {
                 $pluginLoader->addPath($ptests);
                 // scan for tests
@@ -113,7 +117,7 @@ class ZMUnitTestsController extends \ZMController {
                 }
             }
         }
-        \ZMLoader::instance()->setParent($pluginLoader);
+        ZMLoader::instance()->setParent($pluginLoader);
 
         // merge in all custom registered tests
         $allTests = array_merge($allTests, $this->plugin_->getTests());

@@ -233,8 +233,7 @@ class ZMPageStatsPlugin extends Plugin {
             echo $config['dbname'].'('.get_class($database).'): SQL queries: <strong>'.$stats['queries'].'</strong>, duration: <strong>'.round($stats['time'], 4).'</strong> seconds; ';
         }
         echo '<br'.$slash.'>';
-        $lstats = ZMLoader::instance()->getStats(true);
-        echo 'ZMLoader: '.$lstats['static'].' static and '.$lstats['class'].' class files loaded [of '.count(get_included_files()).'], '.$lstats['instances'].' objects instantiated.<br'.$slash.'>';
+        echo '[includes: '.count(get_included_files()).']<br'.$slash.'>';
         echo '</div>';
         if (ZMLangUtils::asBoolean($this->get('showEvents'))) {
             echo '<div id="event-log">';

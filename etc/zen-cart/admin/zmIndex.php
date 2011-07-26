@@ -21,14 +21,16 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 ?><?php
+use zenmagick\base\ClassLoader;
 use zenmagick\base\Runtime;
 use zenmagick\base\events\Event;
 use zenmagick\http\sacs\SacsManager;
 
   require_once 'includes/application_top.php';
 
-  ZMLoader::instance()->addPath(ZMFileUtils::mkPath(array(Runtime::getInstallationPath(), 'apps', 'admin', 'lib')));
-  //ZMLoader::instance()->loadStatic();
+  $classLoader = new ClassLoader();
+  $classLoader->addPath(Runtime::getInstallationPath().'/apps/admin/lib');
+  $classLoader->register();
 
   // set some admin specific things...
   ZMUrlManager::instance()->clear();

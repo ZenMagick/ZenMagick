@@ -62,28 +62,12 @@ class Container extends ContainerBuilder {
             $obj = new $id();
         }
 
-        if (null != $obj) {
-            if ($obj instanceof ContainerAwareInterface) {
-                $obj->setContainer($this);
-            }
-            return $obj;
-        }
-
-        //TODO: remove
-        $obj = null;
-        if (null != ($realid = \ZMLoader::resolve($id))&& class_exists($realid)) {
-            $obj = new $realid();
-        }
-        if (null != ($realid = \ZMLoader::resolve('ZM'.$id))&& class_exists($realid)) {
-            $obj = new $realid();
+        if (null != $obj && $obj instanceof ContainerAwareInterface) {
+            $obj->setContainer($this);
         }
 
         if (null == $obj && self::EXCEPTION_ON_INVALID_REFERENCE === $invalidBehavior) {
             throw new \InvalidArgumentException(sprintf('The service "%s" does not exist.', $id));
-        }
-
-        if ($obj instanceof ContainerAwareInterface) {
-            $obj->setContainer($this);
         }
 
         return $obj;

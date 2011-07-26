@@ -199,12 +199,9 @@ class ZMThemes extends ZMObject {
 
             $themeLoader = new ClassLoader();
             $themeLoader->addConfig($theme->getBaseDir().DIRECTORY_SEPARATOR.'lib');
+            // XXX: TODO: remove
+            $themeLoader->addPath($theme->getBaseDir().DIRECTORY_SEPARATOR.'lib');
             $themeLoader->register();
-
-// TODO: remove
-$themeLoader = new ZMLoader();
-$themeLoader->addPath($theme->getExtraDir());
-ZMLoader::instance()->setParent($themeLoader);
 
             // init l10n/i18n
             $theme->loadLocale($language);

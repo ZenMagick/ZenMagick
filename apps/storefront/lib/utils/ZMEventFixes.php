@@ -23,6 +23,7 @@
 ?>
 <?php
 
+use zenmagick\base\ClassLoader;
 use zenmagick\base\Runtime;
 use zenmagick\base\events\Event;
 
@@ -199,7 +200,9 @@ class ZMEventFixes extends ZMObject {
 
         // START: zc_fixes
         // custom class mappings
-        ZMLoader::instance()->registerClass('httpClient', DIR_FS_CATALOG . DIR_WS_CLASSES . 'http_client.php');
+        $classLoader = new ClassLoader();
+        $classLoader->addPath(DIR_FS_CATALOG . DIR_WS_CLASSES . 'http_client.php', 'httpClient');
+        $classLoader->register();
 
         // skip more zc request handling
         if (!$this->needsZC($request) && ZMSettings::get('isEnableZMThemes', true)) {

@@ -65,7 +65,7 @@ sure that the etc folder is writeable by your webserver.
 
 Creating new jobs
 =================
-A cron job as defined by this plugin is the name of a class (accessible via ZMLoader) that implements the included
+A cron job as defined by this plugin is the name of a class (accessible via class loader) that implements the included
 interface ZMCronJob.
 There is a sample class included in the jobs folder to illustrate this.
 
@@ -80,7 +80,7 @@ crontab.
 You can also execute cron jobs manually on the command line:
 [path-to-php]/php [path-to-zen-cart]/zenmagick/plugins/request/cron/cron.cli
 
-NOTE: The PHP CLI file does *not* have a .php extension to hide it from the loader (ZMLoader).
+NOTE: The PHP CLI file does *not* have a .php extension to hide it from the class loader.
 
 There should be only one cron job required that triggers the plugin once every minute.
 

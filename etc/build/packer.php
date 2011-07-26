@@ -20,6 +20,9 @@
 ?>
 <?php
 
+use zenmagick\base\ClassLoader;
+
+
     /**
      * Simple command line packer script.
      */
@@ -28,7 +31,9 @@
     $baseDir = $installDir;
     chdir($installDir);
     include 'bootstrap.php';
-    ZMLoader::instance()->addPath($installDir.DIRECTORY_SEPARATOR.'lib'.DIRECTORY_SEPARATOR.'build'.DIRECTORY_SEPARATOR);
+    $classLoader = new ClassLoader();
+    $classLoader->addPath($installDir.'/lib/build');
+    $classLoader->register();
 
     if (6 > $argc) {
         echo PHP_EOL."  usage: php packer.php [ZMLibraryPacker implementation] [source dir] [target dir] [version] [true|false] [target base directory] [classpath]".PHP_EOL;
@@ -43,7 +48,7 @@
     $strip = ZMLangUtils::asBoolean($argv[6]);
     if (7 < $argc) {
         foreach (explode(';', $argv[7]) as $path) {
-            ZMLoader::instance()->addPath($path);
+            $classLoader->addPath($path);
         }
     }
 
