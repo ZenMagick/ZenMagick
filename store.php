@@ -22,6 +22,11 @@
 
     // main request processor
     if (ZMSettings::get('isEnableZMThemes', true)) {
+        // pick up session data changed by zencart code
+        $_zm_session = $_zm_request->getSession();
+        foreach ($_SESSION as $key => $value) {
+            $_zm_session->setValue($key, $value);
+        }
         ZMDispatcher::dispatch($_zm_request);
         $_zm_request->closeSession();
         exit;
