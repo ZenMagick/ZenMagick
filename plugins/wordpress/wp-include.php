@@ -18,23 +18,22 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 ?>
-<?php 
-    
+<?php
+
   /**
    * Load WP API.
    *
-   * @version $Id$
    * @see http://www.ardamis.com/2006/07/10/wordpress-googlebot-404-error/
    */
   // use API
   define('WP_USE_THEMES', false);
 
-  if (null != ($plugin = ZMPlugins::instance()->getPluginForId('wordpress'))) { 
-    if (file_exists($plugin->get('wordpressDir').'wp-config.php')) { // @todo error message
-      require_once $plugin->get('wordpressDir').'wp-config.php';
-      $wp->init();
-      $wp->parse_request();
-      $wp->query_posts();
-      $wp->register_globals();
-   }
+  if (null != ($plugin = ZMPlugins::instance()->getPluginForId('wordpress'))) {
+      if (file_exists($plugin->get('wordpressDir').'wp-config.php')) { // @todo error message
+          require_once $plugin->get('wordpressDir').'wp-config.php';
+          $wp->init();
+          $wp->parse_request();
+          $wp->query_posts();
+          $wp->register_globals();
+      }
   }
