@@ -149,15 +149,27 @@ class ClassLoader {
                 }
             }
             if (array_key_exists('default', $mappings)) {
-                $ext = '.php';
                 foreach ($mappings['default'] as $folder) {
                     $pxpath = $usePhar ? 'phar://'.$phar.'/'.$folder : realpath($baseDir.$folder);
-                    // scan and add individual files/classes
-                    foreach (new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($pxpath)) as $filename => $fileInfo) {
-                        if ($fileInfo->isFile() && $ext == substr($fileInfo->getFilename(), -strlen($ext))) {
-                            $this->defaults[str_replace($ext, '', $fileInfo->getFilename())] = $fileInfo->getPathname();
-                        }
-                    }
+                    $this->addPath($pxpath);
+                }
+            }
+        }
+    }
+
+    /**
+     * Add a path to scan for default namespace classes.
+     *
+     * @param string path The path.
+     */
+    public function addPath($path) {
+        $extList = array('.class.php', '.php');
+        // scan and add individual files/classes
+        foreach (new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($path)) as $filename => $fileInfo) {
+            foreach ($extList as $ext) {
+                if ($fileInfo->isFile() && $ext == substr($fileInfo->getFilename(), -strlen($ext))) {
+                    $this->defaults[str_replace($ext, '', $fileInfo->getFilename())] = $fileInfo->getPathname();
+                    break;
                 }
             }
         }
