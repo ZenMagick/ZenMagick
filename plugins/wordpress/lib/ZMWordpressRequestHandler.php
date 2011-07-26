@@ -61,7 +61,7 @@ class ZMWordpressRequestHandler extends ZMController {
     /**
      * Do the WP specific request processing and figure out a view name if the current
      * request is wp.
-     * 
+     *
      * @return string A view name.
      */
     public function preProcess($request) {
@@ -138,7 +138,7 @@ class ZMWordpressRequestHandler extends ZMController {
                 //$_SERVER['REQUEST_URI'] = str_replace($this->request_->getContext().$this->plugin_->get('permaPrefix').'/', '', $_SERVER['REQUEST_URI']);
             }
         } else {
-            return $this->request_->url('', $urlToken['query']);
+            return $this->request_->url('wp', $urlToken['query']);
         }
     }
 
@@ -146,7 +146,7 @@ class ZMWordpressRequestHandler extends ZMController {
      * WP filter to adjust comments include.
      */
     public function comments_template_filter($arg) {
-        return $this->view_->path('views/wp/comments.php');
+        return $this->view_->path($this->request_, 'views/wp/comments.php');
     }
 
 }
