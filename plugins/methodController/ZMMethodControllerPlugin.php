@@ -52,15 +52,15 @@ class ZMMethodControllerPlugin extends Plugin {
         parent::init();
         // plural, so we need a map of mappings!
         ZMUrlManager::instance()->setMappings(array('page' => array(
-                'foo' => array('controller' => 'MethodController#method=foo'),
+                'foo' => array('controller' => 'ZMMethodController#method=foo'),
                 'bar' => array(
                     // empty = none, null = default layout
                     'layout' => '',
-                    'controller' => 'MethodController#method=bar'
+                    'controller' => 'ZMMethodController#method=bar'
                 ),
                 // proper view incl. layout as default, plus custom success view
                 'xform' => array(
-                    'controller' => 'MethodController#method=xform',
+                    'controller' => 'ZMMethodController#method=xform',
                     'success' => array(
                         //'view' => 'RedirectView',
                         'template' => 'xform_success'

@@ -65,7 +65,7 @@ class ZMMultiQuantityPlugin extends Plugin {
             unset($_GET['action']);
 
             // create mapping for lookup
-            ZMUrlManager::instance()->setMapping('product_info', array('controller' => 'MultiQuantityProductInfoController'));
+            ZMUrlManager::instance()->setMapping('product_info', array('controller' => 'ZMMultiQuantityProductInfoController'));
 
             // add own mapping
             if (ZMSettings::get('isShowCartAfterAddProduct', true)) {
