@@ -23,6 +23,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 
 /**
  * Request controller for checkout success page.
@@ -55,7 +56,7 @@ class ZMCheckoutSuccessController extends ZMController {
         $request->getToolbox()->crumbtrail->addCrumb($request->getToolbox()->utils->getTitle());
 
         // see: onViewDone()
-        zenmagick\base\Runtime::getEventDispatcher()->listen($this);
+        Runtime::getEventDispatcher()->listen($this);
 
         $orders = ZMOrders::instance()->getOrdersForAccountId($request->getAccountId(), $request->getSession()->getLanguageId(), 1);
         $data = array('currentOrder' => $orders[0], 'currentAccount' => $request->getAccount());
