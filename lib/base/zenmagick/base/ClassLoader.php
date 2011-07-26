@@ -161,16 +161,23 @@ class ClassLoader {
      * Add a path to scan for default namespace classes.
      *
      * @param string path The path.
+     * @param string name Optional name to register a single class for name; default is <code>null</code>.
      */
-    public function addPath($path) {
-        $extList = array('.class.php', '.php');
-        // scan and add individual files/classes
-        foreach (new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($path)) as $filename => $fileInfo) {
-            foreach ($extList as $ext) {
-                if ($fileInfo->isFile() && $ext == substr($fileInfo->getFilename(), -strlen($ext))) {
-                    $this->defaults[str_replace($ext, '', $fileInfo->getFilename())] = $fileInfo->getPathname();
-                    break;
+    public function addPath($path, $name=null) {
+      if (file_exists($path)) {
+            if (is_dir($path)) {
+                $extList = array('.class.php', '.php');
+                // scan and add individual files/classes
+                foreach (new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($path)) as $filename => $fileInfo) {
+                    foreach ($extList as $ext) {
+                        if ($fileInfo->isFile() && $ext == substr($fileInfo->getFilename(), -strlen($ext))) {
+                            $this->defaults[str_replace($ext, '', $fileInfo->getFilename())] = $fileInfo->getPathname();
+                            break;
+                        }
+                    }
                 }
+            } else if (null != $name) {
+                $this->defaults[$name] = $path;
             }
         }
     }
