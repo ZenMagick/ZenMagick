@@ -62,7 +62,7 @@ class ZMUnitTestsPlugin extends Plugin {
         ZMUrlManager::instance()->setMapping('tests', array(
             'layout' => '',
             'template' => 'tests',
-            'controller' => 'UnitTestsController'
+            'controller' => 'ZMUnitTestsController'
         ));
 
         // TODO: manually load lib for now
