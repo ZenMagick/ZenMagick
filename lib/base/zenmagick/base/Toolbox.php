@@ -87,6 +87,9 @@ class Toolbox {
             Runtime::getLogging()->warn("skipping missing yaml file: ".$filename);
             return $data;
         }
+
+        $filename = realpath($filename);
+
         try {
             $yaml = Yaml::parse($filename);
             if (is_array($yaml)) {
