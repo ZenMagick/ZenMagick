@@ -20,6 +20,8 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
+
     // locale
     $patchLabel = array(
         "adminMenu" => "Install ZenMagick admin menu",
@@ -49,7 +51,7 @@
         "blockAdmin" => "Create new tables for block admin",
     );
 
-    $installer = new ZMInstallationPatcher();
+    $installer = $this->container->get('ZMInstallationPatcher');
     $needRefresh = false;
 
     // install
@@ -99,7 +101,7 @@
      * Show patch group.
      */
     function _zm_patch_group($groupId, $patchLabel, $buttonClasses, $checkall=true) {
-        $installer = new ZMInstallationPatcher();
+        $installer = Runtime::getContainer()->get('ZMInstallationPatcher');
         foreach ($installer->getPatches($groupId) as $id => $patch) {
             if ('sqlFulltext' == $patch->getId()) {
                 continue;

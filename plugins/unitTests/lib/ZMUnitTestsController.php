@@ -51,6 +51,26 @@ class ZMUnitTestsController extends \ZMController {
 
 
     /**
+     * Find tests in the given path.
+     *
+     * @param string path The path.
+     * @return array List of test classes.
+     */
+    protected function findTests($path) {
+        $tests = array();
+        $ext = '.php';
+        foreach (new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($path)) as $filename => $fileInfo) {
+            if ($fileInfo->isFile() && $ext == substr($fileInfo->getFilename(), -strlen($ext))) {
+                $className = substr($fileInfo->getFilename(), 0, strlen($fileInfo->getFilename())-strlen($ext));
+                if (ZMLangUtils::startsWith($className, 'Test')) {
+                    $tests[$className] = $fileInfo->getPathname();
+                }
+            }
+        }
+        return $tests;
+    }
+
+    /**
      * Process a HTTP GET request.
      *
      * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
@@ -67,15 +87,7 @@ class ZMUnitTestsController extends \ZMController {
 
         // add tests folder to class path
         $testBaseDir = $this->plugin_->getPluginDirectory().'tests';
-        $testsLoader = new ZMLoader();
-        $testsLoader->addPath($testBaseDir);
-
-        $tests = array();
-        foreach ($testsLoader->getClassPath() as $class => $file) {
-            if (\ZMLangUtils::startsWith($class, 'Test')) {
-                $tests[$class] = $file;
-            }
-        }
+        $tests = $this->findTests($testBaseDir);
 
         // group tests
         $allTests = array();
@@ -95,7 +107,6 @@ class ZMUnitTestsController extends \ZMController {
         }
 
         // add plugins/tests folder of all available plugins to loader
-        $pluginLoader = new ZMLoader();
         foreach (\ZMPlugins::instance()->getAllPlugins() as $plugin) {
             if ($plugin instanceof \ZMUnitTestsPlugin) {
                 continue;
@@ -103,14 +114,8 @@ class ZMUnitTestsController extends \ZMController {
             $ptests = $plugin->getPluginDirectory().'tests' . DIRECTORY_SEPARATOR;
             $classLoader->addPath($ptests);
             if (is_dir($ptests)) {
-                $pluginLoader->addPath($ptests);
-                // scan for tests
-                foreach (\ZMFileUtils::findIncludes($ptests) as $file) {
-                    $name = basename($file);
-                    if (\ZMLangUtils::startsWith($name, 'Test')) {
-                        $name = str_replace('.php', '', $name);
-                        $this->plugin_->addTest($name);
-                    }
+                foreach ($this->findTests($ptests) as $className => $file) {
+                    $this->plugin_->addTest($className);
                 }
             }
         }

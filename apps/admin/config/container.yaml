@@ -62,6 +62,10 @@ services:
     class: ZMSacsPermissions
     scope: container
 
+  ZMInstallationPatcher:
+    class: ZMInstallationPatcher
+    scope: container
+
   ZMSession:
     class: zenmagick\http\session\Session
     scope: container

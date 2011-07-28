@@ -30,7 +30,7 @@ use zenmagick\base\Runtime;
  * @package zenmagick.store.admin.installation
  */
 class ZMInstallationPatcher extends ZMObject {
-    var $patches_;
+    private $patches_;
 
 
     /**
@@ -53,13 +53,17 @@ class ZMInstallationPatcher extends ZMObject {
      * Load all patches.
      */
     function _loadPatches() {
-        // force load just in case...
-        ZMLoader::instance()->addPath(Runtime::getInstallationPath().'apps/admin/lib/installation/patches/');
-        foreach (ZMLoader::instance()->getClassPath() as $clazz => $file) {
-            // ignore namespace classes
-            if ('\\' != $clazz[0] && false !== strpos($file, "installation") && false != strpos($file, "patches") && 'patches' != basename(dirname($file))) {
-                $patch = Beans::getBean($clazz);
-                $this->patches_[$patch->getId()] = $patch;
+        $path = Runtime::getInstallationPath().'apps/admin/lib/installation/patches';
+        $ext = '.php';
+        $this->patches_ = array();
+        foreach (new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($path)) as $filename => $fileInfo) {
+            if ($fileInfo->isFile() && $ext == substr($fileInfo->getFilename(), -strlen($ext))) {
+                $filename = $fileInfo->getPathname();
+                if (false !== strpos($filename, "installation") && false != strpos($filename, "patches") && 'patches' != basename(dirname($filename))) {
+                    $className = substr($fileInfo->getFilename(), 0, strlen($fileInfo->getFilename())-strlen($ext));
+                    $patch = Beans::getBean($className);
+                    $this->patches_[$patch->getId()] = $patch;
+                }
             }
         }
     }
