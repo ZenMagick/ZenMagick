@@ -18,18 +18,21 @@ storefront:
       
 
   ## optional url mappings
-  urls:
-    ## no layout for shopping cart
-    shopping_cart:
+  router:
+    page:
+      ## no layout for shopping cart
       shopping_cart:
-        layout:
-    ## for ajax login success
-    login:
-      ajax_success: 
-        template: ajax/login_success
-    ## re-use category-list
-    products_new:
-      template: category_list
+        shopping_cart:
+          layout:
+      ## for ajax login success
+      login:
+        ajax_success: 
+          template: ajax/login_success
+        ajax_account: 
+          template: ajax/login_success
+      ## re-use category-list
+      products_new:
+        template: category_list
 
   ## optional settngs
   settings:
