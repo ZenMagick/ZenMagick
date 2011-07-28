@@ -66,12 +66,9 @@ class ZMUnitTestsController extends \ZMController {
         $classLoader->addPath($this->plugin_->getPluginDirectory().'tests');
 
         // add tests folder to class path
-        $testsLoader = new ZMLoader();
         $testBaseDir = $this->plugin_->getPluginDirectory().'tests';
+        $testsLoader = new ZMLoader();
         $testsLoader->addPath($testBaseDir);
-        // test data is lower case
-        $testsLoader->loadStatic();
-        ZMLoader::instance()->setParent($testsLoader);
 
         $tests = array();
         foreach ($testsLoader->getClassPath() as $class => $file) {
@@ -117,7 +114,6 @@ class ZMUnitTestsController extends \ZMController {
                 }
             }
         }
-        ZMLoader::instance()->setParent($pluginLoader);
 
         // merge in all custom registered tests
         $allTests = array_merge($allTests, $this->plugin_->getTests());
