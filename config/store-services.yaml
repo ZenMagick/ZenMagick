@@ -3,6 +3,7 @@
 ##
 
 parameters:
+  kernel.environment: '<?php echo ZM_ENFIRONMENT ?>'
   kernel.root_dir: %zenmagick.cacheBaseDir%/kernel
   kernel.cache_dir: %zenmagick.cacheBaseDir%
   kernel.debug: false
