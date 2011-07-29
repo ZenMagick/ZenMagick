@@ -26,6 +26,7 @@ use zenmagick\base\Toolbox;
 use zenmagick\base\events\Event;
 use zenmagick\base\ioc\loader\YamlFileLoader;
 
+use Doctrine\Common\Annotations\AnnotationRegistry;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\HttpKernel\DependencyInjection\MergeExtensionConfigurationPass;
 
@@ -78,6 +79,17 @@ use Symfony\Component\HttpKernel\DependencyInjection\MergeExtensionConfiguration
         } catch (Exception $e) {
             //
         }
+
+        /**
+         * @link http://www.doctrine-project.org/docs/common/2.1/en/reference/annotations.html Doctrine Annotations
+         * Notes: Annotations requires a silent autoloader.
+         * We must manually register the Doctrine ORM specific annotations.
+         */
+        AnnotationRegistry::registerLoader(function($class) use ($zmLoader) {
+            $zmLoader->loadClass($class);
+            return class_exists($class, false);
+        });
+        AnnotationRegistry::registerFile(ZM_BASE_PATH . '/lib/vendor/symfony/vendor/doctrine/lib/Doctrine/ORM/Mapping/Driver/DoctrineAnnotations.php');
 
         // as default disable plugins for CLI calls
         Runtime::getSettings()->set('zenmagick.base.plugins.enabled', !ZM_CLI_CALL);
