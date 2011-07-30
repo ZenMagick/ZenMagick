@@ -10,5 +10,6 @@ global.yaml
 /config/store-container.yaml
 /config/admin/config_*.yaml
 /config/store/config_*.yaml
-/vendor/doctrine-utils
-/vendor/symfony
+/vendor/*
+!/vendor/classloader.ini
+!/vendor/Savant3-3.0.1
