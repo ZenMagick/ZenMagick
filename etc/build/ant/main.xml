@@ -206,7 +206,7 @@
             <fileset dir="${build.dir}" includes="**/*.log" />
             <fileset dir="${build.dir}" includes="**/*.db" />
             <!-- all vendor -->
-            <fileset dir="${build.dir}/zenmagick/lib/vendor">
+            <fileset dir="${build.dir}/zenmagick/vendor">
                 <exclude name="classloader.ini" />
                 <exclude name="*.phar" />
             </fileset>

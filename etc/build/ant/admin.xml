@@ -37,7 +37,7 @@
             <fileset dir="${release.admin.dir}" includes="**/*.log" />
             <fileset dir="${release.admin.dir}" includes="**/*.db" />
             <!-- all vendor -->
-            <fileset dir="${release.admin.dir}/zenmagick/lib/vendor">
+            <fileset dir="${release.admin.dir}/zenmagick/vendor">
                 <exclude name="classloader.ini" />
                 <exclude name="*.phar" />
             </fileset>

@@ -68,7 +68,7 @@ use Symfony\Component\HttpKernel\DependencyInjection\MergeExtensionConfiguration
         // the main loader
         $zmLoader = new ClassLoader();
         $zmLoader->addConfig(ZM_BASE_PATH.'lib'.DIRECTORY_SEPARATOR.'base');
-        $zmLoader->addConfig(ZM_BASE_PATH.'lib'.DIRECTORY_SEPARATOR.'vendor');
+        $zmLoader->addConfig(ZM_BASE_PATH.'vendor');
         $zmLoader->register();
 
         try {
@@ -89,7 +89,7 @@ use Symfony\Component\HttpKernel\DependencyInjection\MergeExtensionConfiguration
             $zmLoader->loadClass($class);
             return class_exists($class, false);
         });
-        AnnotationRegistry::registerFile(ZM_BASE_PATH . '/lib/vendor/symfony/vendor/doctrine/lib/Doctrine/ORM/Mapping/Driver/DoctrineAnnotations.php');
+        AnnotationRegistry::registerFile(ZM_BASE_PATH . '/vendor/symfony/vendor/doctrine/lib/Doctrine/ORM/Mapping/Driver/DoctrineAnnotations.php');
 
         // as default disable plugins for CLI calls
         Runtime::getSettings()->set('zenmagick.base.plugins.enabled', !ZM_CLI_CALL);

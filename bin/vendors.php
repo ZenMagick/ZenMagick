@@ -10,7 +10,7 @@
  * file that was distributed with this source code.
  */
 
-$baseDir = dirname(dirname(__FILE__)).'/lib/vendor';
+$baseDir = dirname(dirname(__FILE__)).'/vendor';
 $vendorDeps = array(
     // symfony
     $baseDir => array(
