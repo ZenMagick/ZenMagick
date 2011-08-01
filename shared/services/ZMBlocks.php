@@ -50,7 +50,7 @@ class ZMBlocks extends ZMObject {
         $sql = "SELECT DISTINCT group_name FROM " . DB_PREFIX.'block_groups';
         $ids = array();
         foreach (ZMRuntime::getDatabase()->query($sql, array(), TABLE_BANNERS) as $result) {
-            $ids[] = $result['group_names'];
+            $ids[] = $result['group_name'];
         }
         return $ids;
     }

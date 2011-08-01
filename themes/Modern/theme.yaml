@@ -20,7 +20,7 @@ meta:
 # - removed lang/english/l10n.php - looks like copy from demo theme
 # - removed empty lang/english/images folder
 # - removed lang folder
-# - in header.php: removed line: <?php ZMLoader::make('ToolboxHtml'); ?> - this doesn't make sense, $html is automatically set up
+# - in header.php: removed line: ZMLoader::make('ToolboxHtml'); - this doesn't make sense, $html is automatically set up
 #   and the correct one too, just with the custom class somewhere in the extra folder (or subfolder of that)
 # - change use of HTTP_SERVER.DIR_WS_CATALOG to $net->url('index')
 # - remove wrongly placed content/views/options.php
