@@ -216,3 +216,19 @@ services:
   contextConfigLoader:
     class: zenmagick\apps\store\utils\ContextConfigLoader
     scope: prototype
+
+  dbTableMapper:
+    class: ZMDbTableMapper
+    scope: container
+
+  tagService:
+    class: ZMTags
+    scope: container
+
+  productGroupPricingService:
+    class: ZMProductGroupPricings
+    scope: container
+
+  urlManager:
+    class: ZMUrlManager
+    scope: container

@@ -62,7 +62,7 @@ class ZMProductGroupPricings extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return Runtime::getContainer()->getService('ZMProductGroupPricings');
+        return Runtime::getContainer()->get('productGroupPricingService');
     }
 
 

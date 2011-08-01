@@ -121,7 +121,7 @@ class ZMMusicManager extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return Runtime::getContainer()->getService('ZMMusicManager');
+        return Runtime::getContainer()->get('musicManager');
     }
 
 

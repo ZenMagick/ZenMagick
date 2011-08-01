@@ -1,0 +1,6 @@
+admin,storefront:
+  container:
+    services:
+      musicManager:
+        class: ZMMusicManager
+        scope: container

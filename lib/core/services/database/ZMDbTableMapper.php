@@ -86,7 +86,7 @@ class ZMDbTableMapper extends \ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return Runtime::getContainer()->getService('ZMDbTableMapper');
+        return Runtime::getContainer()->get('dbTableMapper');
     }
 
 

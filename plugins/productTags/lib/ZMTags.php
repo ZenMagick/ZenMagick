@@ -51,7 +51,7 @@ class ZMTags extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return Runtime::getContainer()->getService('ZMTags');
+        return Runtime::getContainer()->get('tagService');
     }
 
 
