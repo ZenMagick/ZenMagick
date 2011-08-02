@@ -115,17 +115,22 @@ class ZMCategories extends ZMObject {
     /**
      * Get all root categories.
      *
+     * <p>This method got added for performance reasons and using the default parameters will only load
+     * the categories itself, but no child categories.</p>
+     *
      * @param int languageId Language id.
+     * @param boolean includeChildren Optional flag to also populate child categories; default is <code>false</code>.
      * @return array A list of <code>ZMCategory</code> instances.
      */
-    public function getRootCategories($languageId) {
-        if (array_key_exists($languageId, $this->rootCategories_)) {
-            return $this->rootCategories_[$languageId];
+    public function getRootCategories($languageId, $includeChildren=false) {
+        $rootCategoriesKey = $languageId.'-'.($includeChildren ? 'true' : 'false');
+        if (array_key_exists($rootCategoriesKey, $this->rootCategories_)) {
+            return $this->rootCategories_[$rootCategoriesKey];
         }
 
         // first check cache
-        if (false !== ($rootCategories = $this->cache_->lookup(ZMLangUtils::mkUnique('categories', 'rootCategories', $languageId)))) {
-            $this->rootCategories_[$languageId] = $rootCategories;
+        if (false !== ($rootCategories = $this->cache_->lookup(ZMLangUtils::mkUnique('categories', 'rootCategories', $languageId, $includeChildren)))) {
+            $this->rootCategories_[$rootCategoriesKey] = $rootCategories;
             return $rootCategories;
         }
 
@@ -141,9 +146,22 @@ class ZMCategories extends ZMObject {
             $rootCategories[$category->getId()] = $category;
         }
 
+        if ($includeChildren) {
+            $sql = "SELECT c.*, cd.*
+                    FROM " . TABLE_CATEGORIES . " c
+                      LEFT JOIN " . TABLE_CATEGORIES_DESCRIPTION . " cd ON c.categories_id = cd.categories_id
+                      WHERE cd.language_id = :languageId
+                        AND c.parent_id IN (:categoryId)
+                      ORDER BY c.parent_id, sort_order, cd.categories_name";
+            $args = array('categoryId' => array_keys($rootCategories), 'languageId' => $languageId);
+            foreach (ZMRuntime::getDatabase()->query($sql, $args, array(TABLE_CATEGORIES, TABLE_CATEGORIES_DESCRIPTION), 'ZMCategory') as $category) {
+                $rootCategories[$category->getParentId()]->addChild($category);
+            }
+        }
+
         // save for later
-        $this->cache_->save($rootCategories, ZMLangUtils::mkUnique('categories', 'rootCategories', $languageId));
-        $this->rootCategories_[$languageId] = $rootCategories;
+        $this->cache_->save($rootCategories, ZMLangUtils::mkUnique('categories', 'rootCategories', $languageId, $includeChildren));
+        $this->rootCategories_[$rootCategoriesKey] = $rootCategories;
 
         return $rootCategories;
     }
@@ -263,6 +281,11 @@ class ZMCategories extends ZMObject {
             $child->setParentId($category->getId());
             ZMRuntime::getDatabase()->updateModel(TABLE_CATEGORIES, $child);
             $this->invalidateCache($languageId, $child);
+        }
+
+        if (null != $parent) {
+            $parent->addChild($category);
+            $this->invalidateCache($category->getLanguageId(), $parent);
         }
 
         $this->invalidateCache($category->getLanguageId(), $category);
