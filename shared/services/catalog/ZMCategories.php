@@ -129,7 +129,7 @@ class ZMCategories extends ZMObject {
         }
 
         // first check cache
-        if (false !== ($rootCategories = $this->cache_->lookup(ZMLangUtils::mkUnique('categories', 'rootCategories', $languageId, $includeChildren)))) {
+        if (false !== ($rootCategories = $this->cache_->lookup(ZMLangUtils::mkUnique('categories', 'rootCategories', $rootCategoriesKey)))) {
             $this->rootCategories_[$rootCategoriesKey] = $rootCategories;
             return $rootCategories;
         }
@@ -160,7 +160,7 @@ class ZMCategories extends ZMObject {
         }
 
         // save for later
-        $this->cache_->save($rootCategories, ZMLangUtils::mkUnique('categories', 'rootCategories', $languageId, $includeChildren));
+        $this->cache_->save($rootCategories, ZMLangUtils::mkUnique('categories', 'rootCategories', $rootCategoriesKey));
         $this->rootCategories_[$rootCategoriesKey] = $rootCategories;
 
         return $rootCategories;
@@ -284,8 +284,15 @@ class ZMCategories extends ZMObject {
         }
 
         if (null != $parent) {
+            // update parent
             $parent->addChild($category);
             $this->invalidateCache($category->getLanguageId(), $parent);
+        } else {
+            // update internal root categories cache
+            $rootCategoriesKey = $languageId.'-true';
+            if (array_key_exists($rootCategoriesKey, $this->rootCategories_)) {
+                $this->rootCategories_[$rootCategoriesKey][$category->getId()] = $category;
+            }
         }
 
         $this->invalidateCache($category->getLanguageId(), $category);
