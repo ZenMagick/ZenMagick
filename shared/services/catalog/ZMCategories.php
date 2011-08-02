@@ -140,19 +140,19 @@ class ZMCategories extends ZMObject {
                   LEFT JOIN " . TABLE_CATEGORIES_DESCRIPTION . " cd ON c.categories_id = cd.categories_id
                   WHERE cd.language_id = :languageId
                     AND c.parent_id = 0
-                  ORDER BY c.parent_id, sort_order, cd.categories_name";
+                  ORDER BY c.parent_id, c.sort_order, cd.categories_name";
         $args = array('languageId' => $languageId);
         foreach (ZMRuntime::getDatabase()->query($sql, $args, array(TABLE_CATEGORIES, TABLE_CATEGORIES_DESCRIPTION), 'ZMCategory') as $category) {
             $rootCategories[$category->getId()] = $category;
         }
 
-        if ($includeChildren) {
+        if ($includeChildren && !empty($rootCategories)) {
             $sql = "SELECT c.*, cd.*
                     FROM " . TABLE_CATEGORIES . " c
                       LEFT JOIN " . TABLE_CATEGORIES_DESCRIPTION . " cd ON c.categories_id = cd.categories_id
                       WHERE cd.language_id = :languageId
                         AND c.parent_id IN (:categoryId)
-                      ORDER BY c.parent_id, sort_order, cd.categories_name";
+                      ORDER BY c.parent_id, c.sort_order, cd.categories_name";
             $args = array('categoryId' => array_keys($rootCategories), 'languageId' => $languageId);
             foreach (ZMRuntime::getDatabase()->query($sql, $args, array(TABLE_CATEGORIES, TABLE_CATEGORIES_DESCRIPTION), 'ZMCategory') as $category) {
                 $rootCategories[$category->getParentId()]->addChild($category);
@@ -405,7 +405,7 @@ class ZMCategories extends ZMObject {
                 FROM " . TABLE_CATEGORIES . " c
                   LEFT JOIN " . TABLE_CATEGORIES_DESCRIPTION . " cd ON c.categories_id = cd.categories_id
                   WHERE cd.language_id = :languageId";
-        $sql .= " ORDER BY c.parent_id, sort_order, cd.categories_name";
+        $sql .= " ORDER BY c.parent_id, c.sort_order, cd.categories_name";
 
         $categories = array();
         foreach (ZMRuntime::getDatabase()->query($sql, $args, array(TABLE_CATEGORIES, TABLE_CATEGORIES_DESCRIPTION), 'ZMCategory') as $category) {
