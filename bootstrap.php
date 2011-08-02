@@ -159,7 +159,8 @@ use Symfony\Component\HttpKernel\DependencyInjection\MergeExtensionConfiguration
 
         // load global config
         $globalFilename = realpath(Runtime::getInstallationPath().DIRECTORY_SEPARATOR.'global.yaml');
-        if (file_exists($globalFilename) && null != ($contextConfigLoader = Runtime::getContainer()->get('contextConfigLoader'))) {
+        if (file_exists($globalFilename) && Runtime::getContainer()->has('contextConfigLoader')) {
+            $contextConfigLoader = Runtime::getContainer()->get('contextConfigLoader');
             $contextConfigLoader->setConfig(Toolbox::loadWithEnv($globalFilename));
             $contextConfigLoader->process();
         }
@@ -167,7 +168,10 @@ use Symfony\Component\HttpKernel\DependencyInjection\MergeExtensionConfiguration
         Runtime::getEventDispatcher()->dispatch('init_config_done', new Event());
 
         // set up locale
-        ZMLocales::instance()->init(Runtime::getSettings()->get('zenmagick.core.locales.locale'));
+        if (Runtime::getContainer()->has('localeService')) {
+            $localeService = Runtime::getContainer()->get('localeService');
+            $localeService->init(Runtime::getSettings()->get('zenmagick.core.locales.locale'));
+        }
 
         // set a default timezone; NOTE: warnings are suppressed for date_default_timezone_get() in case there isn't a default at all
         date_default_timezone_set(Runtime::getSettings()->get('zenmagick.core.date.timezone', @date_default_timezone_get()));

@@ -21,6 +21,7 @@
 <?php
 namespace zenmagick\base;
 
+use zenmagick\base\events\EventDispatcher;
 use zenmagick\base\ioc\Container;
 
 /**
@@ -114,7 +115,10 @@ class Runtime {
      * @return zenmagick\base\events\EventDispatcher A <code>zenmagick\base\events\EventDispatcher</code> instance.
      */
     public static function getEventDispatcher() {
-        return self::getContainer()->get('eventDispatcher');
+        if (self::getContainer()->has('eventDispatcher')) {
+            return self::getContainer()->get('eventDispatcher');
+        }
+        return new EventDispatcher();
     }
 
     /**
