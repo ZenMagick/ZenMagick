@@ -123,7 +123,7 @@
     <target name="prepare" depends="clean,init,ask-versions" description="Prepare build files.">
         <!-- fail if admin/store database mappings are different -->
         <checksum file="apps/admin/config/db_mappings.txt" property="admin.db.checksum" />
-        <checksum file="apps/store/config/db_mappings.txt" property="store.db.checksum" />
+        <checksum file="apps/storefront/config/db_mappings.txt" property="store.db.checksum" />
         <fail message="Database mappings differ!">
             <condition>
                 <not>
@@ -206,6 +206,10 @@
             <fileset dir="${build.dir}" includes="**/*.log" />
             <fileset dir="${build.dir}" includes="**/*.db" />
             <!-- all vendor -->
+            <fileset dir="${build.dir}/vendor">
+                <exclude name="classloader.ini" />
+                <exclude name="*.phar" />
+            </fileset>
             <fileset dir="${build.dir}/zenmagick/vendor">
                 <exclude name="classloader.ini" />
                 <exclude name="*.phar" />
