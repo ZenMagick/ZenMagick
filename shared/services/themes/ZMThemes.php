@@ -200,7 +200,6 @@ class ZMThemes extends ZMObject {
             $themeLoader = new ClassLoader();
             $themeLoader->addConfig($theme->getBaseDir().DIRECTORY_SEPARATOR.'lib');
             // XXX: TODO: remove
-            echo $theme;
             $themeLoader->addPath($theme->getBaseDir().DIRECTORY_SEPARATOR.'extra');
             $themeLoader->register();
 
