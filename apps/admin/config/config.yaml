@@ -117,6 +117,7 @@ zenmagick:
   bundles:
     DoctrineBundle: Symfony\Bundle\DoctrineBundle\DoctrineBundle 
     SwiftmailerBundle: Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle 
+    DoctrineMigrationsBundle: Symfony\Bundle\DoctrineMigrationsBundle\DoctrineMigrationsBundle
 
 
 ## app settings

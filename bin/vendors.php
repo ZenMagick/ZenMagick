@@ -23,6 +23,9 @@ $vendorDeps = array(
         array('symfony', 'git://github.com/ZenMagick/symfony.git', 'origin/HEAD', false),
         //array('twig', 'http://github.com/fabpot/Twig.git', 'origin/HEAD', false),
     ),
+    $baseDir .'/bundles/Symfony/Bundle' => array(
+            array('DoctrineMigrationsBundle', 'git://github.com/symfony/DoctrineMigrationsBundle.git', 'origin/HEAD', false),
+    ),
 );
 
 foreach ($vendorDeps as $vendorDir => $deps) {
