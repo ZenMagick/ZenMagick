@@ -73,6 +73,12 @@ class ZMEventFixes extends ZMObject {
      * Fake theme resolved event if using zen-cart templates and handle persisted messages.
      */
     public function onInitDone($event) {
+        $request = $event->get('request');
+
+        $this->fixCategoryPath($request);
+        $this->checkAuthorization($request);
+        $this->configureLocale($request);
+
         // adjust session timeout
         global $SESS_LIFE;
         $SESS_LIFE = Runtime::getContainer()->getParameterBag()->get('storefront.session_timeout');
@@ -248,10 +254,6 @@ class ZMEventFixes extends ZMObject {
                 exit;
             }
         }
-
-        $this->fixCategoryPath($request);
-        $this->checkAuthorization($request);
-        $this->configureLocale($request);
     }
 
     /**
