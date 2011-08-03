@@ -56,7 +56,7 @@ class ZMBlockGroupsController extends ZMController {
             $blockGroups = explode(',', $configValue->getValue());
         }
 
-        return array('blockGroups' => $blockGroups);
+        return array('blockGroups' => ZMBlocks::instance()->getBlockGroups());
     }
 
     /**
@@ -66,27 +66,19 @@ class ZMBlockGroupsController extends ZMController {
         $action = $request->getParameter('action');
         switch ($action) {
         case 'addGroup':
-            $groupId = $request->getParameter('groupId');
-            if (!empty($groupId)) {
-                $configValue = ZMConfig::instance()->getConfigValue('ZENMAGICK_BLOCK_GROUPS');
-                $values = explode(',', $configValue->getValue());
-                $values[] = $groupId;
-                ZMConfig::instance()->updateConfigValue('ZENMAGICK_BLOCK_GROUPS', implode(',', $values));
-                ZMMessages::instance()->success(sprintf(_zm('Block group %s added.'), $groupId));
+            $groupName = $request->getParameter('groupName');
+            if (!empty($groupName)) {
+                $blockGroup = new ZMBlockGroup();
+                $blockGroup->setName($groupName);
+                ZMBlocks::instance()->createBlockGroup($blockGroup);
+                ZMMessages::instance()->success(sprintf(_zm('Block group %s added.'), $groupName));
             }
             break;
         case 'removeGroup':
-            $groupId = $request->getParameter('groupId');
-            if (!empty($groupId)) {
-                $configValue = ZMConfig::instance()->getConfigValue('ZENMAGICK_BLOCK_GROUPS');
-                $tmp = array();
-                foreach (explode(',', $configValue->getValue()) as $value) {
-                    if (!empty($value) && $value!= $groupId) {
-                        $tmp[] = $value;
-                    }
-                }
-                ZMConfig::instance()->updateConfigValue('ZENMAGICK_BLOCK_GROUPS', implode(',', $tmp));
-                ZMMessages::instance()->success(sprintf(_zm('Block group %s removed.'), $groupId));
+            $groupName = $request->getParameter('groupName');
+            if (!empty($groupName)) {
+                ZMBlocks::instance()->deleteGroupForName($groupName);
+                ZMMessages::instance()->success(sprintf(_zm('Block group %s removed.'), $groupName));
             }
             break;
         }

@@ -59,35 +59,28 @@ class ZMBlocks extends ZMObject {
      * Create a new block group.
      *
      * @param ZMBlockGroup blockGroup The block group.
+     * @return ZMBlockGroup The updated block group (incl. id).
      */
     public function createBlockGroup(ZMBlockGroup $blockGroup) {
-        return ZMRuntime::getDatabase()->createModel('block_groups', $blockGroup);
-    }
-
-    /**
-     * Create a new block group.
-     *
-     * @param string name The group name.
-     * @param string description Optional description; default is <code>''</code>.
-     */
-    public function createGroup($name, $description='') {
         $sql = 'INSERT INTO ' . DB_PREFIX.'block_groups' . '(group_name, description) VALUES (:group_name, :description)';
-        $group = ZMRuntime::getDatabase()->update($sql, array('group_name' => $name, 'description' => $description), 'block_groups');
-        unset($group['rows']);
-        $group['group_name'] = $name;
-        $group['description'] = $description;
-        $group['block_group_id'] = $group['lastInsertId'];
-        unset($group['lastInsertId']);
-        return $group;
+        $args = array('group_name' => $blockGroup->getName(), 'description' => $blockGroup->getDescription());
+        $group = ZMRuntime::getDatabase()->update($sql, $args, 'block_groups');
+        $blockGroup->setId($group['lastInsertId']);
+        return $blockGroup;
+        //return ZMRuntime::getDatabase()->createModel('block_groups', $blockGroup);
     }
 
     /**
      * Delete block group.
      *
-     * @param string name The group name.
+     * @param string groupName The group name.
      */
-    public function deleteGroupForName($name) {
-        return ZMRuntime::getDatabase()->removeModel('block_groups', array('group_name' => $name));
+    public function deleteGroupForName($groupName) {
+        $sql = 'DELETE FROM ' . DB_PREFIX.'block_groups' . ' WHERE group_name = :group_name';
+        $args = array('group_name' => $groupName);
+        ZMRuntime::getDatabase()->update($sql, $args, 'block_groups');
+        //TODO: delete group blocks
+        //return ZMRuntime::getDatabase()->removeModel('block_groups', array('group_name' => $groupName));
     }
 
 }
