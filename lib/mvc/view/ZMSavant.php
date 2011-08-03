@@ -196,6 +196,7 @@ class ZMSavant extends Savant3 implements ContainerAwareInterface {
     public function fetchBlockGroup($groupId, $args=array()) {
         $contents = '';
         foreach (ZMBlockManager::instance()->getBlocksForId($this->request, $groupId, $args) as $block) {
+            Runtime::getLogging()->debug(sprintf('render block, template: %s', $block->getTemplate()));
             $contents .= $block->render($this->request, $this->view);
         }
         return $contents;
