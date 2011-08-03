@@ -58,7 +58,10 @@ class ZMLatestOrdersDashboardWidget extends ZMDashboardWidget {
         foreach (ZMOrders::instance()->getAllOrders($language->getId(), 5) as $order) {
             $contents .= '<tr>';
             $actualAccount = ZMAccounts::instance()->getAccountForId($order->getAccountId());
-            $name = $actualAccount->getType() == ZMAccount::REGISTERED ? $order->getAccount()->getFullName() : _zm('** Guest **');
+            $name = '???';
+            if (null != ($actualAccount = ZMAccounts::instance()->getAccountForId($order->getAccountId()))) {
+                $name = $actualAccount->getType() == ZMAccount::REGISTERED ? $order->getAccount()->getFullName() : _zm('** Guest **');
+            }
             $contents .= '    <td><a href="'.$admin2->url('zc_admin', 'zpid=orders&action=edit&oID='.$order->getId()).'">'.$order->getId().'</a></td>';
             $contents .= '    <td><a href="'.$admin2->url('zc_admin', 'zpid=customers&action=edit&cID='.$order->getAccountId()).'">'.$name.'</a></td>';
             $contents .= '    <td>'.ZMLocaleUtils::dateShort($order->getOrderDate()).'</td>';
