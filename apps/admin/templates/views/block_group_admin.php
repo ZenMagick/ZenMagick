@@ -25,7 +25,7 @@
   <h2>Blocks</h2>
   <ul id="blockList" class="ui-sortable">
     <?php foreach ($blocks as $def => $title) { ?>
-      <li><span class="clean <?php echo $def ?>"><?php echo $title ?></span></li>
+      <li><span class="clean <?php echo $def ?>"><?php echo $title ?></span><div class="icons"></div></li>
     <?php } ?>
   </ul>
 </div>
@@ -39,16 +39,20 @@
 <script>
 $(function() {
 		$("#groupBlockList").sortable({
-      receive: function(event, ui) { 
-        //TODO show spanner
+      receive: function(event, ui) {
+        var span = $('#groupBlockList span.clean');
+        var iconContainer = $('#groupBlockList span.clean + div.icons');
+
+        var throbber = '<span class="throbber"></span>';
+        iconContainer.html(throbber);
+        span.removeClass('clean');
 
         // pretend this is a ajax success callback for creating a new group/block mapping
         window.setTimeout(function() {
             // grab from the receiving list
-            var span = $('#groupBlockList span.clean');
-            var icons = '<div class="icons"><span class="ui-icon ui-icon-wrench"></span><span class="ui-icon ui-icon-circle-close"></span></div>';
-            $(icons).insertAfter(span);
-            span.removeClass('clean');
+            var icons = '<span class="ui-icon ui-icon-wrench"></span><span class="ui-icon ui-icon-circle-close"></span>';
+            iconContainer.html(icons);
+
             // TODO: once complete, add edit icon
             $('span.ui-icon-wrench', span.parentNode).click(function() {
               alert('configure...');
@@ -60,7 +64,7 @@ $(function() {
               $(this.parentNode.parentNode).remove();
               // TODO: ajax call to remove block from group
             });
-        }, 1000);
+        }, 1300);
       }
 		});
 		$("#blockList li").draggable({

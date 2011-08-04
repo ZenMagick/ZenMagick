@@ -133,3 +133,6 @@ fieldset p {margin:7px 0;}
 select option {padding:0 4px;}
 /* XXX: convert */
 tr.odd {background-color:#e0e0e0;}
+
+/* throbber */
+.throbber {background-image:url(../images/throbber.gif);width:16px;height:16px;display:inline-block;}
