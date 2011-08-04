@@ -56,7 +56,12 @@ class ZMBlockGroupAdminController extends ZMController {
                 $blocks[$def] = $widget->getTitle();
             }
         }
-        return array('blocks' => $blocks, 'groupId' => $request->getParameter('groupId'));
+        $groupName = $request->getParameter('groupName');
+        return array(
+            'allBlocks' => $blocks,
+            'blocks' => ZMBlocks::instance()->getBlocksForGroupName($groupName),
+            'groupName' => $groupName
+        );
     }
 
     /**

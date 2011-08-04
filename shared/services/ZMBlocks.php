@@ -47,9 +47,9 @@ class ZMBlocks extends ZMObject {
      * @return array List of block group names.
      */
     public function getBlockGroups() {
-        $sql = "SELECT DISTINCT group_name FROM " . DB_PREFIX.'block_groups';
+        $sql = 'SELECT DISTINCT group_name FROM '.DB_PREFIX.'block_groups';
         $ids = array();
-        foreach (ZMRuntime::getDatabase()->query($sql, array(), TABLE_BANNERS) as $result) {
+        foreach (ZMRuntime::getDatabase()->query($sql, array(), 'block_groups') as $result) {
             $ids[] = $result['group_name'];
         }
         return $ids;
@@ -62,7 +62,7 @@ class ZMBlocks extends ZMObject {
      * @return ZMBlockGroup The updated block group (incl. id).
      */
     public function createBlockGroup(ZMBlockGroup $blockGroup) {
-        $sql = 'INSERT INTO ' . DB_PREFIX.'block_groups' . '(group_name, description) VALUES (:group_name, :description)';
+        $sql = 'INSERT INTO '.DB_PREFIX.'block_groups' . '(group_name, description) VALUES (:group_name, :description)';
         $args = array('group_name' => $blockGroup->getName(), 'description' => $blockGroup->getDescription());
         $group = ZMRuntime::getDatabase()->update($sql, $args, 'block_groups');
         $blockGroup->setId($group['lastInsertId']);
@@ -76,11 +76,26 @@ class ZMBlocks extends ZMObject {
      * @param string groupName The group name.
      */
     public function deleteGroupForName($groupName) {
-        $sql = 'DELETE FROM ' . DB_PREFIX.'block_groups' . ' WHERE group_name = :group_name';
+        $sql = 'DELETE FROM '.DB_PREFIX.'block_groups' . ' WHERE group_name = :group_name';
         $args = array('group_name' => $groupName);
         ZMRuntime::getDatabase()->update($sql, $args, 'block_groups');
         //TODO: delete group blocks
         //return ZMRuntime::getDatabase()->removeModel('block_groups', array('group_name' => $groupName));
+    }
+
+    /**
+     * Get blocks for block group.
+     *
+     * @param string groupName The group name.
+     * @return array List of <code>ZMBlock</code> instances.
+     */
+    public function getBlocksForGroupName($groupName) {
+        // TODO: cache loading all groups when first accessed
+        $sql = 'SELECT block_group_id FROM '.DB_PREFIX.'block_groups WHERE group_name = :group_name';
+        $result = ZMRuntime::getDatabase()->querySingle($sql, array('group_name' => $groupName), 'block_groups');
+
+        $sql = "SELECT * FROM ".DB_PREFIX.'blocks_to_groups WHERE block_group_id = :block_group_id ORDER BY sort_order';
+        return ZMRuntime::getDatabase()->query($sql, array('block_group_id' => $result['block_group_id']), 'blocks_to_groups', 'ZMBlock');
     }
 
 }

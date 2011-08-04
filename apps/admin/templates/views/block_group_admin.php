@@ -24,55 +24,66 @@
 <div class="col3">
   <h2>Blocks</h2>
   <ul id="blockList" class="ui-sortable">
-    <?php foreach ($blocks as $def => $title) { ?>
-      <li><span class="clean <?php echo $def ?>"><?php echo $title ?></span><div class="icons"></div></li>
+    <?php foreach ($allBlocks as $def => $title) { ?>
+      <li data-block-def="<?php echo $def ?>"><span class="clean <?php echo $def ?>"><?php echo $title ?></span><div class="icons"></div></li>
     <?php } ?>
   </ul>
 </div>
 
 <div class="col3">
-  <h2>Block Group Setup: <?php echo $groupId ?></h2>
+  <h2>Block Group Setup: <?php echo $groupName ?></h2>
   <ul id="groupBlockList" class="sortable">
+    <?php foreach ($blocks as $block) { $def = $block->getDefinition(); ?>
+      <!-- TODO: icons -->
+      <li data-block-def="<?php echo $def ?>"><span class="<?php echo $def ?>"><?php echo $block->getName() ?></span><div class="icons"></div></li>
+    <?php } ?>
   </ul>
 </div>
 
 <script>
 $(function() {
-		$("#groupBlockList").sortable({
-      receive: function(event, ui) {
-        var span = $('#groupBlockList span.clean');
-        var iconContainer = $('#groupBlockList span.clean + div.icons');
+  $("#groupBlockList").sortable({
+    receive: function(event, ui) {
+      var span = $('#groupBlockList span.clean');
+      var iconContainer = $('#groupBlockList span.clean + div.icons');
 
-        var throbber = '<span class="throbber"></span>';
-        iconContainer.html(throbber);
-        span.removeClass('clean');
+      var throbber = '<span class="throbber"></span>';
+      iconContainer.html(throbber);
+      span.removeClass('clean');
 
-        // pretend this is a ajax success callback for creating a new group/block mapping
-        window.setTimeout(function() {
-            // grab from the receiving list
-            var icons = '<span class="ui-icon ui-icon-wrench"></span><span class="ui-icon ui-icon-circle-close"></span>';
-            iconContainer.html(icons);
+      // get def
+      var def = ui.item[0].getAttribute('data-block-def');
 
-            // TODO: once complete, add edit icon
-            $('span.ui-icon-wrench', span.parentNode).click(function() {
-              alert('configure...');
-              // TODO: do something
-            });
-            // add close handler
-            $('span.ui-icon-circle-close', span.parentNode).click(function() {
-              // remove again
-              $(this.parentNode.parentNode).remove();
-              // TODO: ajax call to remove block from group
-            });
-        }, 1300);
-      }
-		});
-		$("#blockList li").draggable({
-			connectToSortable: "#groupBlockList",
-			helper: "clone",
-      cursor: "move",
-      snap: true,
-			revert: "invalid"
-		});
-	});
+      // TODO
+      var groupName = '<?php echo $groupName ?>';
+      var data = '{"groupName":"'+groupName+'", "def":"'+def+'"}';
+      ZenMagick.rpc('block_group_admin', 'addBlockToGroup', data, {
+        success: function(result) {
+          // grab from the receiving list
+          var icons = '<span class="ui-icon ui-icon-wrench"></span><span class="ui-icon ui-icon-circle-close"></span>';
+          iconContainer.html(icons);
+
+          // TODO: once complete, add edit icon
+          $('span.ui-icon-wrench', span.parentNode).click(function() {
+            alert('configure...');
+            // TODO: do something
+          });
+          // add close handler
+          $('span.ui-icon-circle-close', span.parentNode).click(function() {
+            // remove again
+            $(this.parentNode.parentNode).remove();
+            // TODO: ajax call to remove block from group
+          });
+        }
+      });
+    }
+  });
+  $("#blockList li").draggable({
+    connectToSortable: "#groupBlockList",
+    helper: "clone",
+    cursor: "move",
+    snap: true,
+    revert: "invalid"
+  });
+});
 </script>

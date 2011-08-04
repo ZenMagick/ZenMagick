@@ -36,7 +36,6 @@ class ZMAjaxBlockGroupAdminController extends ZMRpcController {
      */
     public function addBlockToGroup($rpcRequest) {
         $blockInfo = json_encode($rpcRequest->getData());
-
         $rpcResponse = $rpcRequest->createResponse();
 
         // TODO: process blockInfo
