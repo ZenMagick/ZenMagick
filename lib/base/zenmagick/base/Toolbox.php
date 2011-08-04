@@ -84,7 +84,7 @@ class Toolbox {
 
         $data = array();
         if (!file_exists($filename)) {
-            Runtime::getLogging()->warn("skipping missing yaml file: ".$filename);
+            Runtime::getLogging()->warn("skipping missing file: ".$filename);
             return $data;
         }
 
@@ -105,22 +105,29 @@ class Toolbox {
 
         // check for imports:
         if (array_key_exists('imports', $data)) {
+            $currentDir = dirname($filename).DIRECTORY_SEPARATOR;
+
+            $imports = $data['imports'];
             // split into prepend/append mode
             $prepend = array();
             $append = array();
-            foreach ($data['imports'] as $import) {
+            foreach ($imports as $ii => $import) {
                 if (!array_key_exists('mode', $import)) {
                     $import['mode'] = 'prepend';
                 }
                 if ('append' == $import['mode']) {
                     $append[] = $import;
-                } else {
+                } else if ('prepend' == $import['mode']) {
                     $prepend[] = $import;
+                } else if ('ignore' == $import['mode']) {
+                    // ignore
+                } else {
+                    throw new \InvalidArgumentException(sprintf('unknown mode: %s', $import['mode']));
                 }
             }
+            unset($data['imports']);
 
             $tmp = array();
-            $currentDir = dirname($filename).DIRECTORY_SEPARATOR;
             foreach ($prepend as $import) {
                 $tmp = self::arrayMergeRecursive($tmp, self::loadWithEnv($currentDir.$import['resource'], $environment, false));
             }
@@ -130,7 +137,14 @@ class Toolbox {
             }
 
             if ($clearImports) {
-                unset($data['imports']);
+                foreach ($imports as $ii => $import) {
+                    if (!array_key_exists('mode', $import) || 'ignore' != $import['mode']) {
+                        unset($imports[$ii]);
+                    }
+                }
+                if (0 != count($imports)) {
+                    $data['imports'] = $imports;
+                }
             }
         }
 

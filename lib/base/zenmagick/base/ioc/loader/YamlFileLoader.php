@@ -23,6 +23,11 @@ namespace zenmagick\base\ioc\loader;
 
 use zenmagick\base\Toolbox;
 
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+use \Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
+use Symfony\Component\Config\Loader\LoaderResolver;
+use Symfony\Component\Config\FileLocator;
+
 /**
  * Yaml file loader for IoC definitions.
  *
@@ -36,8 +41,19 @@ class YamlFileLoader extends \Symfony\Component\DependencyInjection\Loader\YamlF
     /**
      * {@inheritDoc}
      */
+    public function __construct(ContainerBuilder $container, FileLocator $locator) {
+        parent::__construct($container, $locator);
+        // allow XML
+        $this->setResolver(new LoaderResolver(array(new XmlFileLoader($container, $locator))));
+    }
+
+
+    /**
+     * {@inheritDoc}
+     */
     protected function loadFile($file) {
-        return $this->validate(Toolbox::loadWithEnv($file), $file);
+        $c = $this->validate(Toolbox::loadWithEnv($file), $file);
+        return $c;
     }
 
     /**
