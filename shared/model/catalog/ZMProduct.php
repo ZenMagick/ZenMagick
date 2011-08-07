@@ -300,7 +300,7 @@ class ZMProduct extends ZMObject {
      *
      * @return int The product id.
      */
-    public function getId() { return $this->id; }
+    public function getId() { return $this->productId; }
 
     // @todo deprecated doctrine backwards compatibility
     public function getProductId() { return $this->getId(); }
@@ -309,7 +309,7 @@ class ZMProduct extends ZMObject {
      *
      * @param int id The product id.
      */
-   public function setId($id) { $this->id = $id; }
+   public function setId($id) { $this->productId = $id; }
 
     // @todo deprecated doctrine backwards compatibility
     public function setProductId($id) { $this->setId($id); }
