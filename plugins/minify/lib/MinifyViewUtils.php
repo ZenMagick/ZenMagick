@@ -59,23 +59,53 @@ class MinifyViewUtils extends ZMViewUtils {
     }
 
     /**
+     * Ensure the given URIs concatenated together to no exceed the limit.
+     *
+     * @param array uriList List of URIs.
+     * @param int limit The limit.
+     * @return array One or more lists of URIs where each will be below the url limit.
+     */
+    protected function ensureLimit($uriList, $limit) {
+        $s = implode(',', $uriList);
+        $cnt = count($uriList);
+        if (strlen($s) > $limit && 1 < $cnt) {
+            // split
+            return array_merge(
+                $this->ensureLimit(array_slice($uriList, 0, $cnt / 2), $limit),
+                $this->ensureLimit(array_slice($uriList, $cnt / 2), $limit)
+            );
+        }
+
+        return array($uriList);
+    }
+
+    /**
      * {@inheritDoc}
      */
     public function handleResourceGroup($files, $group, $location) {
+        $plugin = $this->getPlugin();
+        $baseFUrl = $plugin->pluginURL('min/f=');
+        $urlLimit = $plugin->get('urlLimit');
+        $limit = $urlLimit - strlen($baseFUrl);
         if ('js' == $group) {
             $srcList = array();
             $defaultList = array();
             foreach ($files as $info) {
                 // use parent method to do proper resolve and not minify twice!
                 if (!$this->isExternal($info['filename'])) {
-                    $srcList[] = parent::resolveResource($info['filename']);
+                    if (null != ($resolved = parent::resolveResource($info['filename'])) && !empty($resolved)) {
+                        $srcList[] = $resolved;
+                    }
                 } else {
                     $defaultList[] = $info;
                 }
             }
             $contents = '';
-            if (0 < count($srcList)) {
-                $contents .= '<script type="text/javascript" src="'.$this->getPlugin()->pluginURL('min/f='.implode(',', $srcList)).'"></script>'."\n";
+            $listList = $this->ensureLimit($srcList, $limit);
+            foreach ($listList as $list) {
+                if (0 < count($list)) {
+                    $contents .= '<script type="text/javascript" src="'.$baseFUrl.implode(',', $list).'"></script>'."\n";
+                }
             }
             $contents .= parent::handleResourceGroup($defaultList, $group, $location);
             return $contents;
@@ -117,11 +147,14 @@ class MinifyViewUtils extends ZMViewUtils {
                         $srcList[] = $resolved;
                     }
                 }
-                if (0 < count($srcList)) {
-                    $slash = ZMSettings::get('zenmagick.mvc.html.xhtml') ? '/' : '';
-                    $css .= $details['attr']['prefix'];
-                    $css .= '<link'.$details['attrstr'].' href="'.$this->getPlugin()->pluginURL('min/f='.implode(',', $srcList)).'"'.$slash.'>';
-                    $css .= $details['attr']['suffix']."\n";
+                $listList = $this->ensureLimit($srcList, $limit);
+                foreach ($listList as $list) {
+                    if (0 < count($list)) {
+                        $slash = ZMSettings::get('zenmagick.mvc.html.xhtml') ? '/' : '';
+                        $css .= $details['attr']['prefix'];
+                        $css .= '<link'.$details['attrstr'].' href="'.$this->getPlugin()->pluginURL('min/f='.implode(',', $srcList)).'"'.$slash.'>';
+                        $css .= $details['attr']['suffix']."\n";
+                    }
                 }
             }
             return $css;

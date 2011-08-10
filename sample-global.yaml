@@ -18,6 +18,9 @@ admin,storefront:
           level: ALL
           # register ZenMagick log system to handle errors/exceptions
           handleErrors: true
+          handlers:
+            ## display messages in browser
+            - zenmagick\base\logging\handler\EchoLoggingHandler#logLevel=WARN
         pugins:
           # enable plugins
           enabled: true
