@@ -127,17 +127,19 @@ class Logging {
         $tmp = $this->handlerList_;
         $this->handlerList_ = array();
         foreach (Runtime::getSettings()->get('zenmagick.base.logging.handlers', array('zenmagick\base\logging\handler\DefaultLoggingHandler')) as $def) {
-            $needInstance = true;
-            foreach ($tmp as $handler) {
-                if ($handler instanceof $def) {
-                    $this->handlerList_[$def] = $handler;
-                    $needInstance = false;
-                    break;
+            if (!empty($def)) {
+                $needInstance = true;
+                foreach ($tmp as $handler) {
+                    if ($handler instanceof $def) {
+                        $this->handlerList_[$def] = $handler;
+                        $needInstance = false;
+                        break;
+                    }
                 }
-            }
-            if ($needInstance) {
-                if (null != ($handler = Beans::getBean($def))) {
-                    $this->handlerList_[$def] = $handler;
+                if ($needInstance) {
+                    if (null != ($handler = Beans::getBean($def))) {
+                        $this->handlerList_[$def] = $handler;
+                    }
                 }
             }
         }
