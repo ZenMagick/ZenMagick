@@ -52,7 +52,7 @@ class ZMMinifyPlugin extends Plugin {
     public function install() {
         parent::install();
 
-        $this->addConfigValue('URL Limit', 'urlLimit', '2000', 'Length limit for minify URLs.');
+        $this->addConfigValue('URL Limit', 'urlLimit', '900', 'Length limit for minify URLs.');
 
         // create minify cache dir
         \ZMFileUtils::mkdir(dirname(Runtime::getInstallationPath()).DIRECTORY_SEPARATOR.'cache'.DIRECTORY_SEPARATOR.'zenmagick'.DIRECTORY_SEPARATOR.'minify');

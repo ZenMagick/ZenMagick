@@ -152,7 +152,7 @@ class MinifyViewUtils extends ZMViewUtils {
                     if (0 < count($list)) {
                         $slash = ZMSettings::get('zenmagick.mvc.html.xhtml') ? '/' : '';
                         $css .= $details['attr']['prefix'];
-                        $css .= '<link'.$details['attrstr'].' href="'.$this->getPlugin()->pluginURL('min/f='.implode(',', $srcList)).'"'.$slash.'>';
+                        $css .= '<link'.$details['attrstr'].' href="'.$this->getPlugin()->pluginURL('min/f='.implode(',', $list)).'"'.$slash.'>';
                         $css .= $details['attr']['suffix']."\n";
                     }
                 }
