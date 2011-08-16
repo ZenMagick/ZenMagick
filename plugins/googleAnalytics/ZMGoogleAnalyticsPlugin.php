@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 
 /**
  * Plugin providing functionallity to add Goggle Analytics code to the store.
@@ -72,8 +73,8 @@ class ZMGoogleAnalyticsPlugin extends Plugin {
         $this->addConfigValue('Product identifier', 'identifier', 'productId', 'Select whether to use productId or model to identify products',
             'widget@ZMSelectFormWidget#name=identifier&options='.urlencode('productId=Product Id&model=Model'));
 
-        $this->addConfigValue('Track pagenames', 'usePagename', 'true', 'Select whether to use pagenames to track individual URLs',
-            'widget@ZMBooleanFormWidget#name=usePagename&default=true&label=Use pagename&style=checkbox');
+        $this->addConfigValue('Page name format', 'pagenameFormat', 'pagename', 'Select the formt to use to track individual URLs',
+            'widget@ZMSelectFormWidget#name=pagenameFormat&options='.urlencode('pagename=Pagename&uri=Uri&none=None'));
 
         $this->addConfigValue('Transaction Address', 'address', 'shipping', 'Select which address to use for transaction (order) logging',
             'widget@ZMSelectFormWidget#name=address&options='.urlencode('shipping=Shipping&billing=Billing'));
@@ -87,7 +88,7 @@ class ZMGoogleAnalyticsPlugin extends Plugin {
      */
     public function init() {
         parent::init();
-        zenmagick\base\Runtime::getEventDispatcher()->listen($this);
+        Runtime::getEventDispatcher()->listen($this);
     }
 
     /**
@@ -151,7 +152,8 @@ class ZMGoogleAnalyticsPlugin extends Plugin {
      */
     protected function getPageview($request) {
         $view = '';
-        if (ZMLangUtils::asBoolean($this->get('usePagename'))) {
+        switch ($this->get('pagenameFormat')) {
+        case 'pagename':
             $args = array('reviews_id', 'manufacturers_id', 'cPath', 'id', 'cat', 'products_id');
             $view = $request->getRequestId();
             foreach ($args as $name) {
@@ -167,6 +169,10 @@ class ZMGoogleAnalyticsPlugin extends Plugin {
             if ('[]' != $attr) {
                 $view .= $attr;
             }
+        case 'uri':
+            $view = $request->getUri();
+        case 'none':
+            // nothing
         }
         return $view;
     }
