@@ -543,10 +543,6 @@ class ZMRequest extends \ZMObject {
      */
     public function getUri() {
         $uri = $_SERVER['REQUEST_URI'];
-        // In IIS REQUEST_URI includes the trailing 'index.ph' instead of just being the path
-        if (false !== strpos($uri, '.php') || $_SERVER['REQUEST_URI'] == $_SERVER['SCRIPT_NAME']) {
-            $uri = dirname($uri).'/';
-        }
         return $uri;
     }
 
