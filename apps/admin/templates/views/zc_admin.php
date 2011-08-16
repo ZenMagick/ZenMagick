@@ -38,7 +38,7 @@ if (!function_exists('zen_href_link')) {
 }
 
 // load ZM email wrapper and replacement functions
-require_once zenmagick\base\Runtime::getInstallationPath().'apps/store/lib/zencart_overrides.php';
+require_once zenmagick\base\Runtime::getInstallationPath().'apps/storefront/lib/zencart_overrides.php';
 // map emails view; here we want a store view; merge
 ZMUrlManager::instance()->setMapping(null, array('emails' => array('view' => 'SavantView')), false);
 
