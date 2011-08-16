@@ -45,7 +45,7 @@ class DefaultUrlRewriter implements UrlRewriter {
      * Create new instance.
      */
     public function __construct() {
-        $this->index_ = Runtime::getSettings()->get('zenmagick.http.request.handler', 'index.php');
+        $this->index_ = Runtime::getSettings()->get('zenmagick.http.request.index', 'index.php');
         // resolve once only
         $this->requestIdKey_ = Runtime::getSettings()->get('zenmagick.http.request.idName', \ZMRequest::DEFAULT_REQUEST_ID);
         $type = Runtime::getSettings()->get('zenmagick.http.request.urlType', 'default');
@@ -127,7 +127,7 @@ class DefaultUrlRewriter implements UrlRewriter {
      * @return boolean <code>true</code> if decoded, <code>false</code> if not.
      */
     protected function decodePath($request) {
-        // if requestid key already in request, do nothing
+        // if requestId key already in request, do nothing
         if (null != $request->getParameter($request->getRequestIdKey())) {
             return true;
         }
