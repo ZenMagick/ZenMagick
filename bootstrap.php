@@ -48,8 +48,7 @@ use Symfony\Component\HttpKernel\DependencyInjection\MergeExtensionConfiguration
         // app name
         define('ZM_APP_NAME', defined('ZM_APP_PATH') ? basename(ZM_APP_PATH) : null);
         // set up the environment to run in
-        $getenv_func = function_exists('apache_getenv') ? 'apache_getenv' : 'getenv';
-        defined('ZM_ENVIRONMENT') || define('ZM_ENVIRONMENT', ($getenv_func('ZM_ENVIRONMENT') ? $getenv_func('ZM_ENVIRONMENT') : 'production'));
+        defined('ZM_ENVIRONMENT') || define('ZM_ENVIRONMENT', isset($_SERVER['ZM_ENVIRONMENT']) ? $_SERVER['ZM_ENVIRONMENT'] : 'production');
 
         // hide as to avoid filenames that contain account names, etc.
         ini_set('display_errors', false);
