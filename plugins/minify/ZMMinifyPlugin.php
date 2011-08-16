@@ -54,6 +54,9 @@ class ZMMinifyPlugin extends Plugin {
 
         $this->addConfigValue('URL Limit', 'urlLimit', '900', 'Length limit for minify URLs.');
 
+        $this->addConfigValue('Short Urls', "shortUrls", 'true', 'Generate short ursl that rely on URL rewriting.',
+            'widget@ZMBooleanFormWidget#name=shortUrls&default=true&label=Use short URLs&style=checkbox');
+
         // create minify cache dir
         \ZMFileUtils::mkdir(dirname(Runtime::getInstallationPath()).DIRECTORY_SEPARATOR.'cache'.DIRECTORY_SEPARATOR.'zenmagick'.DIRECTORY_SEPARATOR.'minify');
     }

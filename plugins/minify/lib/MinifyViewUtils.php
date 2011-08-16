@@ -32,6 +32,7 @@
  */
 class MinifyViewUtils extends ZMViewUtils {
     private $plugin_;
+    private $min_;
 
 
     /**
@@ -42,6 +43,11 @@ class MinifyViewUtils extends ZMViewUtils {
     public function getPlugin() {
         if (null == $this->plugin_) {
             $this->plugin_ = ZMPlugins::instance()->getPluginForId('minify');
+        }
+        if (ZMLangUtils::asBoolean($this->plugin_->get('shortUrls'))) {
+            $this->min_ = 'min/';
+        } else {
+            $this->min_ = 'min/index.php?';
         }
 
         return $this->plugin_;
@@ -55,7 +61,7 @@ class MinifyViewUtils extends ZMViewUtils {
             return $resource;
         }
         $plugin = $this->getPlugin();
-        return $plugin->pluginURL('min/f='.parent::resolveResource($resource));
+        return $plugin->pluginURL($this->min_.'f='.parent::resolveResource($resource));
     }
 
     /**
@@ -84,7 +90,7 @@ class MinifyViewUtils extends ZMViewUtils {
      */
     public function handleResourceGroup($files, $group, $location) {
         $plugin = $this->getPlugin();
-        $baseFUrl = $plugin->pluginURL('min/f=');
+        $baseFUrl = $plugin->pluginURL($this->min_.'f=');
         $urlLimit = $plugin->get('urlLimit');
         $limit = $urlLimit - strlen($baseFUrl);
         if ('js' == $group) {
@@ -152,7 +158,7 @@ class MinifyViewUtils extends ZMViewUtils {
                     if (0 < count($list)) {
                         $slash = ZMSettings::get('zenmagick.mvc.html.xhtml') ? '/' : '';
                         $css .= $details['attr']['prefix'];
-                        $css .= '<link'.$details['attrstr'].' href="'.$this->getPlugin()->pluginURL('min/f='.implode(',', $list)).'"'.$slash.'>';
+                        $css .= '<link'.$details['attrstr'].' href="'.$this->getPlugin()->pluginURL($this->min_.'f='.implode(',', $list)).'"'.$slash.'>';
                         $css .= $details['attr']['suffix']."\n";
                     }
                 }
