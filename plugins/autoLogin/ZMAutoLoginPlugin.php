@@ -26,7 +26,7 @@ define('AUTO_LOGIN_OPT_IN', 'autoLogin');
 
 
 /**
- * Plugin to automtically login returning customers.
+ * Plugin to automatically login returning customers.
  *
  * @package org.zenmagick.plugins.autoLogin
  * @author DerManoMann
