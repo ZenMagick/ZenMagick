@@ -60,7 +60,7 @@ class ZMOrders extends ZMObject implements ZMSQLAware {
      * {@inheritDoc}
      */
     public function getQueryDetails($method=null, $args=array()) {
-        $methods = array('getOrdersForAccountId', 'getOrdersForStatusId', 'getAllOrders');
+        $methods = array('getOrdersForAccountId', 'getOrdersForStatusId', 'getAllOrders', 'findOrdersForDateTimeRange');
         if (in_array($method, $methods)) {
             return call_user_func_array(array($this, $method.'QueryDetails'), $args);
         }
@@ -342,6 +342,42 @@ class ZMOrders extends ZMObject implements ZMSQLAware {
                 ZMProducts::instance()->updateProduct($product);
             }
         }
+    }
+
+    /**
+     * Find orders for the given date/time range.
+     *
+     * @param DateTime from The from date/time (included).
+     * @param DateTime to The to date/time (excluded).
+     * @param int languageId Language id.
+     * @return array A list of matching orders.
+     */
+    protected function findOrdersForDateTimeRangeQueryDetails($from, $to, $languageId) {
+        $sql = "SELECT o.*, s.orders_status_name, ots.value as shippingValue
+                FROM " . TABLE_ORDERS . " o, " . TABLE_ORDERS_TOTAL . "  ot, " . TABLE_ORDERS_STATUS . " s, " . TABLE_ORDERS_TOTAL . "  ots
+                WHERE date_purchased >= :1#orderDate AND date_purchased <= :2#orderDate
+                  AND o.orders_id = ot.orders_id
+                  AND ot.class = 'ot_total'
+                  AND o.orders_id = ots.orders_id
+                  AND ots.class = 'ot_shipping'
+                  AND o.orders_status = s.orders_status_id
+                  AND s.language_id = :languageId
+                ORDER BY orders_id DESC";
+        $args = array('languageId' => $languageId, '1#orderDate' => $from, '2#orderDate' => $to);
+        return new ZMQueryDetails(ZMRuntime::getDatabase(), $sql, $args, array(TABLE_ORDERS, TABLE_ORDERS_TOTAL, TABLE_ORDERS_STATUS), 'ZMOrder', 'o.orders_id');
+    }
+
+    /**
+     * Find orders for the given date/time range.
+     *
+     * @param DateTime from The from date/time (included).
+     * @param DateTime to The to date/time (excluded).
+     * @param int languageId Language id.
+     * @return array A list of matching orders.
+     */
+    public function findOrdersForDateTimeRange($from, $to, $languageId) {
+        $details = $this->findOrdersForDateTimeRangeQueryDetails($from, $to, $languageId);
+        return $details->query();
     }
 
 }
