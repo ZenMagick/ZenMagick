@@ -85,8 +85,16 @@ class ZMOrderItem extends ZMObject {
      * Get the quantity.
      *
      * @return int The quantity for this item.
+     * @deprecated use getQuantity()
      */
     public function getQty() { return $this->qty_; }
+
+    /**
+     * Get the quantity.
+     *
+     * @return int The quantity for this item.
+     */
+    public function getQuantity() { return $this->qty_; }
 
     /**
      * Get the item name.
