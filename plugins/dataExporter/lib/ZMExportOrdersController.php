@@ -98,6 +98,7 @@ class ZMExportOrdersController extends ZMController {
                 'Discount Amount',
                 'Discount Coupon',
                 'Gift Voucher Amount',
+                'Payment Type',
                 'Order Tax',
                 'Order Total'
             );
@@ -160,9 +161,11 @@ class ZMExportOrdersController extends ZMController {
                         $row[] = $couponAmount;
                         $row[] = $order->get('coupon_code');
                         $row[] = $gvAmount;
+                        $row[] = $order->get('payment_method');
                         $row[] = $order->get('order_tax');
                         $row[] = $order->getTotal();
                     } else {
+                        $row[] = '';
                         $row[] = '';
                         $row[] = '';
                         $row[] = '';
