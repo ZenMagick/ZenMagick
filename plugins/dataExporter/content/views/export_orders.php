@@ -49,14 +49,14 @@
   </form>
 </div>
 
-<?php if (isset($header) && isset($data)) { ?>
+<?php if (isset($header) && isset($rows)) { ?>
   <table class="grid">
     <tr>
       <?php foreach ($header as $column) { ?>
         <th><?php echo $column ?></th>
       <?php } ?>
     </tr>
-    <?php foreach ($data as $row) { ?>
+    <?php foreach ($rows as $row) { ?>
       <tr>
         <?php foreach ($row as $column) { ?>
           <td><?php echo $column ?></td>

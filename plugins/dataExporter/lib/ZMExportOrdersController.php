@@ -90,7 +90,10 @@ class ZMExportOrdersController extends ZMController {
                 'Customer Name',
                 'Shipping Country',
                 'Products Ordered',
-                'Products Net Price',
+                'Quantity',
+                'Unit Products Net Price',
+                'Products Line Net Total',
+                'Products Net Total',
                 'Shipping Cost',
                 'Discount Amount',
                 'Discount Coupon',
@@ -99,7 +102,7 @@ class ZMExportOrdersController extends ZMController {
                 'Order Total'
             );
 
-            $data = array();
+            $rows = array();
             foreach ($results as $order) {
                 $orderTotalLines = $order->getOrderTotalLines();
                 $shippingAmount = 0;
@@ -118,31 +121,62 @@ class ZMExportOrdersController extends ZMController {
                 if (null != ($shippingAddress = $order->getShippingAddress())) {
                     $shippingCountry = $shippingAddress->getCountry();
                 }
-                $products = array();
-                $productPrices = array();
-                foreach ($order->getOrderItems() as $orderItem) {
-                    $products[] = $orderItem->getProductId().':'.$orderItem->getName();
-                    $productPrices[] = $orderItem->getCalculatedPrice(false); // no tax
+
+                // each line has a product,
+                // first line also the general details,
+                // last line the totals
+                $firstRow = true;
+                $lastRow = false;
+                $productsTotal = 0;
+                $orderItems = $order->getOrderItems();
+                for ($ii = 0; $ii < count($orderItems); ++$ii) {
+                    $orderItem = $orderItems[$ii];
+                    $lastRow = $ii == count($orderItems)-1;
+                    $row = array();
+                    if ($firstRow) {
+                        $row[] = ZMLocaleUtils::dateShort($order->getOrderDate());
+                        $row[] = $order->getId();
+                        $row[] = trim($order->getAccount()->getFullName());
+                        $row[] = (null != $shippingCountry ? $shippingCountry->getName() : '');
+                    } else {
+                        $row[] = '';
+                        $row[] = '';
+                        $row[] = '';
+                        $row[] = '';
+                    }
+                    $firstRow = false;
+
+                    $quantity = $orderItem->getQty();
+                    $lineTotal = $orderItem->getCalculatedPrice(false); // no tax
+                    $productsTotal += $lineTotal;
+                    $row[] = $products[] = $orderItem->getProductId().':'.$orderItem->getName();
+                    $row[] = $quantity;
+                    $row[] = $lineTotal/$quantity;
+                    $row[] = $lineTotal;
+
+                    if ($lastRow) {
+                        $row[] = $productsTotal;
+                        $row[] = $shippingAmount;
+                        $row[] = $couponAmount;
+                        $row[] = $order->get('coupon_code');
+                        $row[] = $gvAmount;
+                        $row[] = $order->get('order_tax');
+                        $row[] = $order->getTotal();
+                    } else {
+                        $row[] = '';
+                        $row[] = '';
+                        $row[] = '';
+                        $row[] = '';
+                        $row[] = '';
+                        $row[] = '';
+                        $row[] = '';
+                    }
+                    $rows[] = $row;
                 }
-                $row = array(
-                    ZMLocaleUtils::dateShort($order->getOrderDate()),
-                    $order->getId(),
-                    trim($order->getAccount()->getFullName()),
-                    (null != $shippingCountry ? $shippingCountry->getName() : ''),
-                    implode(', ', $products),
-                    implode(', ', $productPrices),
-                    $shippingAmount,
-                    $couponAmount,
-                    $order->get('coupon_code'),
-                    $gvAmount,
-                    $order->get('order_tax'),
-                    $order->getTotal()
-                );
-                $data[] = $row;
             }
 
             // additional view data
-            $viewData = array('header' => $header, 'data' => $data, 'toDate' => $toDate);
+            $viewData = array('header' => $header, 'rows' => $rows, 'toDate' => $toDate);
 
             if ('csv' == $exportFormat) {
                 header("Content-type: application/csv");
@@ -150,7 +184,7 @@ class ZMExportOrdersController extends ZMController {
                 ob_start();
                 $fp = fopen('php://output', 'w');
                 fputcsv($fp, $header);
-                foreach ($data as $row) {
+                foreach ($rows as $row) {
                     fputcsv($fp, $row);
                 }
                 fclose($fp);
