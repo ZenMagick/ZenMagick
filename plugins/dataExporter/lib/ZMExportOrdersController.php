@@ -54,105 +54,108 @@ class ZMExportOrdersController extends ZMController {
     /**
      * {@inheritDoc}
      */
-    public function processPost($request) {
+    public function processGet($request) {
         $fromDate = $request->getParameter('fromDate');
         $toDate = $request->getParameter('toDate');
         $exportFormat = $request->getParameter('exportFormat');
-        if (null == $fromDate) {
-            ZMMessages::instance()->error(_zm('Need at least the from date'));
-            return $this->findView();
-        }
-        $orderDateFrom = DateTime::createFromFormat($this->dateFormat_.' H:i:s', $fromDate.' 00:00:00');
-        if (!empty($toDate)) {
-            $orderDateTo = DateTime::createFromFormat($this->dateFormat_.' H:i:s', $toDate.' 00:00:00');
-        } else {
-            $orderDateTo = new DateTime();
-            $toDate = $orderDateTo->format($this->dateFormat_);
-        }
 
-        // TODO: use new ZMOrders method
-        $sql = "SELECT o.*, s.orders_status_name, ots.value as shippingValue
-                FROM " . TABLE_ORDERS . " o, " . TABLE_ORDERS_TOTAL . "  ot, " . TABLE_ORDERS_STATUS . " s, " . TABLE_ORDERS_TOTAL . "  ots
-                WHERE date_purchased >= :1#orderDate AND date_purchased < :2#orderDate
-                  AND o.orders_id = ot.orders_id
-                  AND ot.class = 'ot_total'
-                  AND o.orders_id = ots.orders_id
-                  AND ots.class = 'ot_shipping'
-                  AND o.orders_status = s.orders_status_id
-                  AND s.language_id = :languageId
-                ORDER BY orders_id DESC";
-        $args = array('languageId' => 1, '1#orderDate' => $orderDateFrom, '2#orderDate' => $orderDateTo);
-        $results = ZMRuntime::getDatabase()->query($sql, $args, array(TABLE_ORDERS, TABLE_ORDERS_TOTAL, TABLE_ORDERS_STATUS), 'ZMOrder');
+        $viewData = array();
+        if (null != $fromDate) {
+            $orderDateFrom = DateTime::createFromFormat($this->dateFormat_.' H:i:s', $fromDate.' 00:00:00');
+            if (!empty($toDate)) {
+                $orderDateTo = DateTime::createFromFormat($this->dateFormat_.' H:i:s', $toDate.' 00:00:00');
+            } else {
+                $orderDateTo = new DateTime();
+                $toDate = $orderDateTo->format($this->dateFormat_);
+            }
 
-        // prepare data
-        $header = array(
-            'Date',
-            'Order Id',
-            'Customer Name',
-            'Shipping Country',
-            'Products Ordered',
-            'Products Net Price',
-            'Shipping Cost',
-            'Discount Amount',
-            'Discount Coupon',
-            'Gift Voucher Amount',
-            'Order Tax',
-            'Order Total'
-        );
+            // TODO: use new ZMOrders method
+            $sql = "SELECT o.*, s.orders_status_name, ots.value as shippingValue
+                    FROM " . TABLE_ORDERS . " o, " . TABLE_ORDERS_TOTAL . "  ot, " . TABLE_ORDERS_STATUS . " s, " . TABLE_ORDERS_TOTAL . "  ots
+                    WHERE date_purchased >= :1#orderDate AND date_purchased < :2#orderDate
+                      AND o.orders_id = ot.orders_id
+                      AND ot.class = 'ot_total'
+                      AND o.orders_id = ots.orders_id
+                      AND ots.class = 'ot_shipping'
+                      AND o.orders_status = s.orders_status_id
+                      AND s.language_id = :languageId
+                    ORDER BY orders_id DESC";
+            $args = array('languageId' => 1, '1#orderDate' => $orderDateFrom, '2#orderDate' => $orderDateTo);
+            $results = ZMRuntime::getDatabase()->query($sql, $args, array(TABLE_ORDERS, TABLE_ORDERS_TOTAL, TABLE_ORDERS_STATUS), 'ZMOrder');
 
-        $data = array();
-        foreach ($results as $order) {
-            $orderTotalLines = $order->getOrderTotalLines();
-            $shippingAmount = 0;
-            $couponAmount = 0;
-            $gvAmount = 0;
-            foreach ($orderTotalLines as $orderTotalLine) {
-                if ('ot_shipping' == $orderTotalLine->getType()) {
-                    $shippingAmount = $orderTotalLine->getAmount();
-                } else if ('ot_coupon' == $orderTotalLine->getType()) {
-                    $couponAmount = $orderTotalLine->getAmount();
-                } else if ('ot_gv' == $orderTotalLine->getType()) {
-                    $gvAmount = $orderTotalLine->getAmount();
-                }
-            }
-            $shippingCountry = null;
-            if (null != ($shippingAddress = $order->getShippingAddress())) {
-                $shippingCountry = $shippingAddress->getCountry();
-            }
-            $productIds = array();
-            $productPrices = array();
-            foreach ($order->getOrderItems() as $orderItem) {
-                $productIds[] = $orderItem->getProductId();
-                $productPrices[] = $orderItem->getCalculatedPrice(false); // no tax
-            }
-            $row = array(
-                ZMLocaleUtils::dateShort($order->getOrderDate()),
-                $order->getId(),
-                trim($order->getAccount()->getFullName()),
-                (null != $shippingCountry ? $shippingCountry->getName() : ''),
-                implode(',', $productIds),
-                implode(',', $productPrices),
-                $shippingAmount,
-                $couponAmount,
-                $order->get('coupon_code'),
-                $gvAmount,
-                $order->get('order_tax'),
-                $order->getTotal()
+            // prepare data
+            $header = array(
+                'Date',
+                'Order Id',
+                'Customer Name',
+                'Shipping Country',
+                'Products Ordered',
+                'Products Net Price',
+                'Shipping Cost',
+                'Discount Amount',
+                'Discount Coupon',
+                'Gift Voucher Amount',
+                'Order Tax',
+                'Order Total'
             );
-            $data[] = $row;
-        }
 
-        if ('csv' == $exportFormat) {
-            header("Content-type: application/csv");
-            header("Content-Disposition: inline; filename=orders.csv");
-            echo '"'.implode('", "', $header).'"'."\n";
-            foreach ($data as $row) {
-                echo '"'.implode('", "', $row).'"'."\n";
+            $data = array();
+            foreach ($results as $order) {
+                $orderTotalLines = $order->getOrderTotalLines();
+                $shippingAmount = 0;
+                $couponAmount = 0;
+                $gvAmount = 0;
+                foreach ($orderTotalLines as $orderTotalLine) {
+                    if ('ot_shipping' == $orderTotalLine->getType()) {
+                        $shippingAmount = $orderTotalLine->getAmount();
+                    } else if ('ot_coupon' == $orderTotalLine->getType()) {
+                        $couponAmount = $orderTotalLine->getAmount();
+                    } else if ('ot_gv' == $orderTotalLine->getType()) {
+                        $gvAmount = $orderTotalLine->getAmount();
+                    }
+                }
+                $shippingCountry = null;
+                if (null != ($shippingAddress = $order->getShippingAddress())) {
+                    $shippingCountry = $shippingAddress->getCountry();
+                }
+                $productIds = array();
+                $productPrices = array();
+                foreach ($order->getOrderItems() as $orderItem) {
+                    $productIds[] = $orderItem->getProductId();
+                    $productPrices[] = $orderItem->getCalculatedPrice(false); // no tax
+                }
+                $row = array(
+                    ZMLocaleUtils::dateShort($order->getOrderDate()),
+                    $order->getId(),
+                    trim($order->getAccount()->getFullName()),
+                    (null != $shippingCountry ? $shippingCountry->getName() : ''),
+                    implode(',', $productIds),
+                    implode(',', $productPrices),
+                    $shippingAmount,
+                    $couponAmount,
+                    $order->get('coupon_code'),
+                    $gvAmount,
+                    $order->get('order_tax'),
+                    $order->getTotal()
+                );
+                $data[] = $row;
             }
-            return null;
+
+            // additional view data
+            $viewData = array('header' => $header, 'data' => $data, 'toDate' => $toDate);
+
+            if ('csv' == $exportFormat) {
+                header("Content-type: application/csv");
+                header("Content-Disposition: inline; filename=orders.csv");
+                echo '"'.implode('", "', $header).'"'."\n";
+                foreach ($data as $row) {
+                    echo '"'.implode('", "', $row).'"'."\n";
+                }
+                return null;
+            }
         }
 
-        return $this->findView(null, array('header' => $header, 'data' => $data, 'toDate' => $toDate));
+        return $this->findView(null, $viewData);
     }
 
 }
