@@ -118,10 +118,10 @@ class ZMExportOrdersController extends ZMController {
                 if (null != ($shippingAddress = $order->getShippingAddress())) {
                     $shippingCountry = $shippingAddress->getCountry();
                 }
-                $productIds = array();
+                $products = array();
                 $productPrices = array();
                 foreach ($order->getOrderItems() as $orderItem) {
-                    $productIds[] = $orderItem->getProductId();
+                    $products[] = $orderItem->getProductId().':'.$orderItem->getName();
                     $productPrices[] = $orderItem->getCalculatedPrice(false); // no tax
                 }
                 $row = array(
@@ -129,8 +129,8 @@ class ZMExportOrdersController extends ZMController {
                     $order->getId(),
                     trim($order->getAccount()->getFullName()),
                     (null != $shippingCountry ? $shippingCountry->getName() : ''),
-                    implode(',', $productIds),
-                    implode(',', $productPrices),
+                    implode(', ', $products),
+                    implode(', ', $productPrices),
                     $shippingAmount,
                     $couponAmount,
                     $order->get('coupon_code'),
@@ -147,10 +147,15 @@ class ZMExportOrdersController extends ZMController {
             if ('csv' == $exportFormat) {
                 header("Content-type: application/csv");
                 header("Content-Disposition: inline; filename=orders.csv");
-                echo '"'.implode('", "', $header).'"'."\n";
+                ob_start();
+                $fp = fopen('php://output', 'w');
+                fputcsv($fp, $header);
                 foreach ($data as $row) {
-                    echo '"'.implode('", "', $row).'"'."\n";
+                    fputcsv($fp, $row);
                 }
+                fclose($fp);
+                $csv = ob_get_clean();
+                echo $csv;
                 return null;
             }
         }
