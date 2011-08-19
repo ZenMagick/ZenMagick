@@ -66,7 +66,7 @@ class ZMRpcController extends ZMController {
         } else {
             $rpcResponse = $rpcRequest->createResponse();
             $rpcResponse->setStatus(false);
-            ZMLogging::instance()->trace("Invalid request - method '".$request->getParameter('method')."' not found!", ZMLogging::ERROR);
+            ZMLogging::instance()->error("Invalid request - method '".$request->getParameter('method')."' not found!");
         }
 
         // set content type

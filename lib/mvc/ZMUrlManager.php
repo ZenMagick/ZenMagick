@@ -294,7 +294,7 @@ class ZMUrlManager extends ZMObject {
         $layout = ((array_key_exists('layout', $mapping) && null !== $mapping['layout'])
               ? $mapping['layout'] : ZMSettings::get('zenmagick.mvc.view.defaultLayout', null));
         $definition = $parameter.'&template='.$mapping['template'].'&layout='.$layout.'&viewId='.$viewId;
-        ZMLogging::instance()->trace('view: '.$definition);
+        ZMLogging::instance()->debug('view: '.$definition);
 
         parse_str($definition, $properties);
         Beans::setAll($view, $properties);
