@@ -70,7 +70,7 @@
   <?php echo _admin_category_tree($request); ?>
 </div>
 
-<?php $resources->jsFile('js/jquery.jstree.min.js') ?>
+<?php $resources->jsFile('js/jquery.jstree.js') ?>
 <script type="text/javascript">
 $(function () {
 	$("#category-tree").jstree({
@@ -114,9 +114,8 @@ $(function () {
         }
       }
     }
-	});
-	$("#category-tree a").click(function(elem) {
-      window.location = this.href;
-	});
-});
+  })
+})
+.delegate('a', 'click', function (event, data) { window.location = this; })
+;
 </script>

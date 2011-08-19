@@ -57,7 +57,7 @@
   </h2>
 </form>
 
-<table class="grid"> 
+<table class="grid">
   <tr>
     <th><?php _vzm("Id") ?></th>
     <th><?php _vzm("Title") ?></th>
@@ -98,7 +98,7 @@
       </td>
       <td>
         <form action="<?php echo $admin2->url() ?>" method="POST">
-          <input type="hidden" name="main_page" value="ezpages">
+          <input type="hidden" name="rid" value="ezpages">
           <input type="hidden" name="languageId" value="<?php echo $selectedLanguageId ?>">
           <input type="hidden" name="deleteId" value="<?php echo $ezPage->getId() ?>">
           <input class="<?php echo $buttonClasses ?>" type="submit" value="Delete">
