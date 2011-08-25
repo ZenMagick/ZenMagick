@@ -32,7 +32,6 @@
  */
 class MinifyViewUtils extends ZMViewUtils {
     private $plugin_;
-    private $min_;
 
 
     /**
@@ -43,11 +42,6 @@ class MinifyViewUtils extends ZMViewUtils {
     public function getPlugin() {
         if (null == $this->plugin_) {
             $this->plugin_ = ZMPlugins::instance()->getPluginForId('minify');
-        }
-        if (ZMLangUtils::asBoolean($this->plugin_->get('shortUrls'))) {
-            $this->min_ = 'min/';
-        } else {
-            $this->min_ = 'min/index.php?';
         }
 
         return $this->plugin_;
@@ -61,7 +55,7 @@ class MinifyViewUtils extends ZMViewUtils {
             return $resource;
         }
         $plugin = $this->getPlugin();
-        return $plugin->pluginURL($this->min_.'f='.parent::resolveResource($resource));
+        return $plugin->pluginURL('min/f='.parent::resolveResource($resource));
     }
 
     /**
@@ -90,30 +84,87 @@ class MinifyViewUtils extends ZMViewUtils {
      */
     public function handleResourceGroup($files, $group, $location) {
         $plugin = $this->getPlugin();
-        $baseFUrl = $plugin->pluginURL($this->min_.'f=');
+        $baseFUrl = $plugin->pluginURL('min/f=');
         $urlLimit = $plugin->get('urlLimit');
         $limit = $urlLimit - strlen($baseFUrl);
         if ('js' == $group) {
+            // master list with groups of local/default
+            $masterList = array();
+            // local, can minify
             $srcList = array();
+            // default, ignore
             $defaultList = array();
-            foreach ($files as $info) {
+
+            // keep track of local/default change
+            $currentType = null;
+            $filesCount = count($files);
+            foreach ($files as $ii => $info) {
+                $swap = false;
+
                 // use parent method to do proper resolve and not minify twice!
                 if (!$this->isExternal($info['filename'])) {
                     if (null != ($resolved = parent::resolveResource($info['filename'])) && !empty($resolved)) {
                         $srcList[] = $resolved;
+                        if (null == $currentType) {
+                            $currentType = 'local';
+                        } else if ('local' != $currentType) {
+                            $swap = true;
+                        }
                     }
                 } else {
                     $defaultList[] = $info;
+                    if (null == $currentType) {
+                        $currentType = 'default';
+                    } else if ('default' != $currentType) {
+                        $swap = true;
+                    }
+                }
+
+                if ($swap) {
+                    // prepare lookahead
+                    $nextType = null;
+                    if (($ii-1) < $filesCount) {
+                        $nextType = $this->isExternal($files[$ii+1]['filename']) ? 'default' : 'local';
+                    }
+
+                    // process the current first
+                    if ('local' == $currentType) {
+                        $masterList[] = array('type' => 'local', 'list' => $srcList);
+                        $srcList = array();
+                        if ($nextType == $currentType) {
+                            $masterList[] = array('type' => 'default', 'list' => $defaultList);
+                            $defaultList = array();
+                        }
+                    } else {
+                        $masterList[] = array('type' => 'default', 'list' => $defaultList);
+                        $defaultList = array();
+                        if ($nextType == $currentType) {
+                            $masterList[] = array('type' => 'local', 'list' => $srcList);
+                            $srcList = array();
+                        }
+                    }
+                    // start again
+                    $currentType = null;
                 }
             }
+            // clean up; empty lists are ok
+            $masterList[] = array('type' => 'local', 'list' => $srcList);
+            $masterList[] = array('type' => 'default', 'list' => $defaultList);
+
+
             $contents = '';
-            $listList = $this->ensureLimit($srcList, $limit);
-            foreach ($listList as $list) {
-                if (0 < count($list)) {
-                    $contents .= '<script type="text/javascript" src="'.$baseFUrl.implode(',', $list).'"></script>'."\n";
+            foreach ($masterList as $list) {
+                if ('local' == $list['type']) {
+                    $listList = $this->ensureLimit($list['list'], $limit);
+                    foreach ($listList as $list) {
+                        if (0 < count($list)) {
+                            $contents .= '<script type="text/javascript" src="'.$baseFUrl.implode(',', $list).'"></script>'."\n";
+                        }
+                    }
+                } else {
+                    $contents .= parent::handleResourceGroup($list['list'], $group, $location);
                 }
             }
-            $contents .= parent::handleResourceGroup($defaultList, $group, $location);
             return $contents;
         } else if ('css' == $group) {
             // group by same attributes/prefix/suffix
@@ -158,7 +209,7 @@ class MinifyViewUtils extends ZMViewUtils {
                     if (0 < count($list)) {
                         $slash = ZMSettings::get('zenmagick.mvc.html.xhtml') ? '/' : '';
                         $css .= $details['attr']['prefix'];
-                        $css .= '<link'.$details['attrstr'].' href="'.$this->getPlugin()->pluginURL($this->min_.'f='.implode(',', $list)).'"'.$slash.'>';
+                        $css .= '<link'.$details['attrstr'].' href="'.$this->getPlugin()->pluginURL('min/f='.implode(',', $list)).'"'.$slash.'>';
                         $css .= $details['attr']['suffix']."\n";
                     }
                 }
