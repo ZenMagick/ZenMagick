@@ -80,14 +80,143 @@ class MinifyViewUtils extends ZMViewUtils {
     }
 
     /**
-     * {@inheritDoc}
+     * Handle JS resource group.
+     *
+     * @param array files The files.
+     * @param string group The group name.
+     * @param string location The location.
+     * @return The content.
      */
-    public function handleResourceGroup($files, $group, $location) {
+    protected function handleJSResourceGroup($files, $group, $location) {
         $plugin = $this->getPlugin();
         $baseFUrl = $plugin->pluginURL('min/f=');
         $urlLimit = $plugin->get('urlLimit');
         $limit = $urlLimit - strlen($baseFUrl);
-        if ('js' == $group) {
+
+        // master list with groups of local/default
+        $masterList = array();
+        // local, can minify
+        $srcList = array();
+        // default, ignore
+        $defaultList = array();
+
+        // keep track of local/default change
+        $currentType = null;
+        $filesCount = count($files);
+        foreach ($files as $ii => $info) {
+            $swap = false;
+
+            // use parent method to do proper resolve and not minify twice!
+            if (!$this->isExternal($info['filename'])) {
+                if (null != ($resolved = parent::resolveResource($info['filename'])) && !empty($resolved)) {
+                    $srcList[] = $resolved;
+                    if (null == $currentType) {
+                        $currentType = 'local';
+                    } else if ('local' != $currentType) {
+                        $swap = true;
+                    }
+                }
+            } else {
+                $defaultList[] = $info;
+                if (null == $currentType) {
+                    $currentType = 'default';
+                } else if ('default' != $currentType) {
+                    $swap = true;
+                }
+            }
+
+            if ($swap) {
+                // prepare lookahead
+                $nextType = null;
+                if (($ii-1) < $filesCount) {
+                    $nextType = $this->isExternal($files[$ii+1]['filename']) ? 'default' : 'local';
+                }
+
+                // process the current first
+                if ('local' == $currentType) {
+                    $masterList[] = array('type' => 'local', 'list' => $srcList);
+                    $srcList = array();
+                    if ($nextType == $currentType) {
+                        $masterList[] = array('type' => 'default', 'list' => $defaultList);
+                        $defaultList = array();
+                    }
+                } else {
+                    $masterList[] = array('type' => 'default', 'list' => $defaultList);
+                    $defaultList = array();
+                    if ($nextType == $currentType) {
+                        $masterList[] = array('type' => 'local', 'list' => $srcList);
+                        $srcList = array();
+                    }
+                }
+                // start again
+                $currentType = null;
+            }
+        }
+        // clean up; empty lists are ok
+        $masterList[] = array('type' => 'local', 'list' => $srcList);
+        $masterList[] = array('type' => 'default', 'list' => $defaultList);
+
+
+        $contents = '';
+        foreach ($masterList as $list) {
+            if ('local' == $list['type']) {
+                $listList = $this->ensureLimit($list['list'], $limit);
+                foreach ($listList as $list) {
+                    if (0 < count($list)) {
+                        $contents .= '<script type="text/javascript" src="'.$baseFUrl.implode(',', $list).'"></script>'."\n";
+                    }
+                }
+            } else {
+                $contents .= parent::handleResourceGroup($list['list'], $group, $location);
+            }
+        }
+        return $contents;
+    }
+
+    /**
+     * Handle CSS resource group.
+     *
+     * @param array files The files.
+     * @param string group The group name.
+     * @param string location The location.
+     * @return The content.
+     */
+    protected function handleCSSResourceGroup($files, $group, $location) {
+        $plugin = $this->getPlugin();
+        $baseFUrl = $plugin->pluginURL('min/f=');
+        $urlLimit = $plugin->get('urlLimit');
+        $limit = $urlLimit - strlen($baseFUrl);
+
+        // group by same attributes/prefix/suffix
+        $attrGroups = array();
+//echo '<br>===files<pre>'; var_dump($files); echo '</pre>';
+        foreach ($files as $details) {
+            $attr = '';
+            // merge in defaults
+            $details['attr'] = array_merge(array('rel' => 'stylesheet', 'type' => 'text/css', 'prefix' => '', 'suffix' => ''), $details['attr']);
+            foreach ($details['attr'] as $name => $value) {
+                // sort to make comparable
+                ksort($details['attr']);
+                if (null !== $value && !in_array($name, array('prefix', 'suffix'))) {
+                    $attr .= ' '.$name.'="'.$value.'"';
+                }
+            }
+            // keep already computed attr string
+            $details['attrstr'] = $attr;
+            $attrGroupKey = $attr.$details['attr']['prefix'].$details['attr']['suffix'];
+            if (!array_key_exists($attrGroupKey, $attrGroups)) {
+                // keep details of first file
+                $attrGroups[$attrGroupKey] = array('details' => $details, 'files' => array($details['filename']));
+            } else {
+                // details are the same, so just add filename
+                $attrGroups[$attrGroupKey]['files'][] = $details['filename'];
+            }
+        }
+//echo '<br>===attrGroups<pre>'; var_dump($attrGroups); echo '</pre>';
+
+        // handle local/default (external) for each attrGroup!!
+        foreach ($attrGroups as $attrGroupKey => $attrGroup) {
+//echo '<br>===attrGroup<pre>'; var_dump($attrGroup); echo '</pre>';
             // master list with groups of local/default
             $masterList = array();
             // local, can minify
@@ -97,13 +226,14 @@ class MinifyViewUtils extends ZMViewUtils {
 
             // keep track of local/default change
             $currentType = null;
-            $filesCount = count($files);
-            foreach ($files as $ii => $info) {
+            $filesCount = count($attrGroup['files']);
+            foreach ($attrGroup['files'] as $ii => $filename) {
+//echo $filename."<BR>";
                 $swap = false;
 
                 // use parent method to do proper resolve and not minify twice!
-                if (!$this->isExternal($info['filename'])) {
-                    if (null != ($resolved = parent::resolveResource($info['filename'])) && !empty($resolved)) {
+                if (!$this->isExternal($filename)) {
+                    if (null != ($resolved = parent::resolveResource($filename)) && !empty($resolved)) {
                         $srcList[] = $resolved;
                         if (null == $currentType) {
                             $currentType = 'local';
@@ -112,7 +242,7 @@ class MinifyViewUtils extends ZMViewUtils {
                         }
                     }
                 } else {
-                    $defaultList[] = $info;
+                    $defaultList[] = $filename;
                     if (null == $currentType) {
                         $currentType = 'default';
                     } else if ('default' != $currentType) {
@@ -121,10 +251,12 @@ class MinifyViewUtils extends ZMViewUtils {
                 }
 
                 if ($swap) {
+//echo '<br>===srcList<pre>'; var_dump($srcList); echo '</pre>';
+//echo '<br>===defaultList<pre>'; var_dump($defaultList); echo '</pre>';
                     // prepare lookahead
                     $nextType = null;
                     if (($ii-1) < $filesCount) {
-                        $nextType = $this->isExternal($files[$ii+1]['filename']) ? 'default' : 'local';
+                        $nextType = $this->isExternal($attrGroup['files'][$ii+1]) ? 'default' : 'local';
                     }
 
                     // process the current first
@@ -148,75 +280,56 @@ class MinifyViewUtils extends ZMViewUtils {
                 }
             }
             // clean up; empty lists are ok
+//echo '<br>===srcList<pre>'; var_dump($srcList); echo '</pre>';
+//echo '<br>===defaultList<pre>'; var_dump($defaultList); echo '</pre>';
             $masterList[] = array('type' => 'local', 'list' => $srcList);
             $masterList[] = array('type' => 'default', 'list' => $defaultList);
+//echo '<br>===masterList<pre>'; var_dump($masterList); echo '</pre>';
+            $attrGroups[$attrGroupKey]['files'] = $masterList;
+        }
+//echo '<br>===attrGroups<pre>'; var_dump($attrGroups); echo '</pre>';
 
-
-            $contents = '';
-            foreach ($masterList as $list) {
+        $slash = ZMSettings::get('zenmagick.mvc.html.xhtml') ? '/' : '';
+        $contents = '';
+        foreach ($attrGroups as $attrGroupKey => $attrGroup) {
+            $details = $attrGroup['details'];
+            $attrGroupContent = '';
+            foreach ($attrGroup['files'] as $list) {
                 if ('local' == $list['type']) {
+//echo '<br>===list[list]<pre>'; var_dump($list['list']); echo '</pre>';
                     $listList = $this->ensureLimit($list['list'], $limit);
+//echo '<br>===listList<pre>'; var_dump($listList); echo '</pre>';
                     foreach ($listList as $list) {
                         if (0 < count($list)) {
-                            $contents .= '<script type="text/javascript" src="'.$baseFUrl.implode(',', $list).'"></script>'."\n";
+                            $attrGroupContent .= '<link'.$details['attrstr'].' href="'.$baseFUrl.implode(',', $list).'"'.$slash.'>'."\n";
                         }
                     }
                 } else {
-                    $contents .= parent::handleResourceGroup($list['list'], $group, $location);
-                }
-            }
-            return $contents;
-        } else if ('css' == $group) {
-            // group by same attributes/prefix/suffix
-            $attrGroups = array();
-            foreach ($files as $details) {
-                $attr = '';
-                // merge in defaults
-                $details['attr'] = array_merge(array('rel' => 'stylesheet', 'type' => 'text/css', 'prefix' => '', 'suffix' => ''), $details['attr']);
-                foreach ($details['attr'] as $name => $value) {
-                    // sort to make comparable
-                    ksort($details['attr']);
-                    if (null !== $value && !in_array($name, array('prefix', 'suffix'))) {
-                        $attr .= ' '.$name.'="'.$value.'"';
-                    }
-                }
-                // keep already computed attr string
-                $details['attrstr'] = $attr;
-                $attrGroupKey = $attr.$details['attr']['prefix'].$details['attr']['suffix'];
-                if (!array_key_exists($attrGroupKey, $attrGroups)) {
-                    // keep details of first file
-                    $attrGroups[$attrGroupKey] = array('details' => $details, 'files' => array($details['filename']));
-                } else {
-                    // details are the same, so just add filename
-                    $attrGroups[$attrGroupKey]['files'][] = $details['filename'];
-                }
-            }
-            // todo:  handle external sources
-            $css = '';
-            foreach ($attrGroups as $attrGroup) {
-                $details = $attrGroup['details'];
-                $files = $attrGroup['files'];
-                $srcList = array();
-                $defaultList = array();
-                foreach ($files as $filename) {
-                    // use parent method to do proper resolve and not minify twice!
-                    if (null != ($resolved = parent::resolveResource($filename)) && !empty($resolved)) {
-                        $srcList[] = $resolved;
-                    }
-                }
-                $listList = $this->ensureLimit($srcList, $limit);
-                foreach ($listList as $list) {
-                    if (0 < count($list)) {
-                        $slash = ZMSettings::get('zenmagick.mvc.html.xhtml') ? '/' : '';
-                        $css .= $details['attr']['prefix'];
-                        $css .= '<link'.$details['attrstr'].' href="'.$this->getPlugin()->pluginURL('min/f='.implode(',', $list)).'"'.$slash.'>';
-                        $css .= $details['attr']['suffix']."\n";
+                    foreach ($list['list'] as $resource) {
+                        $attrGroupContent .= '<link'.$details['attrstr'].' href="'.$resource.'"'.$slash.'>'."\n";
                     }
                 }
             }
-            return $css;
+
+            if (!empty($attrGroupContent)) {
+                $attrGroupContent = $details['attr']['prefix']."\n".$attrGroupContent.$details['attr']['suffix']."\n";
+            }
+            $contents .= $attrGroupContent;
         }
 
+        return $contents;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function handleResourceGroup($files, $group, $location) {
+        switch ($group) {
+        case 'js':
+            return $this->handleJSResourceGroup($files, $group, $location);
+        case 'css':
+            return $this->handleCSSResourceGroup($files, $group, $location);
+        }
         return null;
     }
 

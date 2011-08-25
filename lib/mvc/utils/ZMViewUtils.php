@@ -180,7 +180,7 @@ class ZMViewUtils extends ZMObject {
      * @return boolean <code>true</code> if the resource is external.
      */
     public function isExternal($resource) {
-        return 0 === strpos($resource, '//');
+        return 0 === strpos($resource, '//') || false !==  strpos($resource, '://');
     }
 
     /**

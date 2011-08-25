@@ -34,6 +34,10 @@ class TestMinifyViewUtils extends ZMTestCase {
     const JQUERY_JS = '/zmdev/zenmagick/plugins/unitTests/content/js/jquery-1.2.1.pack.js';
     const EXT_JQUERY_JS = '//ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js';
     const EXT_JQUERY_VAL_JS = '//ajax.aspnetcdn.com/ajax/jquery.validate/1.8.1/jquery.validate.min.js';
+    const SITE_CSS = '/zmdev/zenmagick/themes/default/content/site.css';
+    const POPUP_CSS = '/zmdev/zenmagick/themes/default/content/popup.css';
+    const EXT_JQUERY_CSS1 = '//ajax.aspnetcdn.com/ajax/jquery.ui/1.8.9/themes/blitzer/jquery-ui.css';
+    const EXT_JQUERY_CSS2 = 'http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.9/themes/ui-lightness/jquery-ui.css';
 
     /**
      * Get a ready-to-use instance.
@@ -214,6 +218,129 @@ class TestMinifyViewUtils extends ZMTestCase {
           '<script type="text/javascript" src="'.self::MIN_BASE.self::COMMON_JS.'"></script>'."\n".
           '<script type="text/javascript" src="'.self::EXT_JQUERY_VAL_JS.'"></script>'."\n".
           '<script type="text/javascript" src="'.self::MIN_BASE.self::JQUERY_JS.'"></script>'."\n",
+          'footer' => ''), $resources);
+    }
+
+    /**
+     * Test single local.
+     */
+    public function testSingleLocalCSS() {
+        $viewUtils = $this->getViewUtils();
+        $viewUtils->cssFile('site.css');
+
+        $resources = $viewUtils->getResourceContents();
+        $this->assertNotNull($resources);
+        $this->assertEqual(array('header' =>
+          "\n".
+          '<link rel="stylesheet" type="text/css" href="'.self::MIN_BASE.self::SITE_CSS.'"/>'."\n".
+          "\n",
+          'footer' => ''), $resources);
+    }
+
+    /**
+     * Test duplicate local.
+     */
+    public function testDuplicateLocalCSS() {
+        $viewUtils = $this->getViewUtils();
+        $viewUtils->cssFile('site.css');
+        $viewUtils->cssFile('site.css');
+
+        $resources = $viewUtils->getResourceContents();
+        $this->assertNotNull($resources);
+        $this->assertEqual(array('header' =>
+          "\n".
+          '<link rel="stylesheet" type="text/css" href="'.self::MIN_BASE.self::SITE_CSS.'"/>'."\n".
+          "\n",
+          'footer' => ''), $resources);
+    }
+
+    /**
+     * Test multiple local.
+     */
+    public function testMultipleLocalCSS() {
+        $viewUtils = $this->getViewUtils();
+        $viewUtils->cssFile('site.css');
+        $viewUtils->cssFile('popup.css');
+
+        $resources = $viewUtils->getResourceContents();
+        $this->assertNotNull($resources);
+        $this->assertEqual(array('header' =>
+          "\n".
+          '<link rel="stylesheet" type="text/css" href="'.self::MIN_BASE.self::SITE_CSS.','.self::POPUP_CSS.'"/>'."\n".
+          "\n",
+          'footer' => ''), $resources);
+    }
+
+    /**
+     * Test single external.
+     */
+    public function testSingleExternalCSS() {
+        $viewUtils = $this->getViewUtils();
+        $viewUtils->cssFile(self::EXT_JQUERY_CSS1);
+
+        $resources = $viewUtils->getResourceContents();
+        $this->assertNotNull($resources);
+        $this->assertEqual(array('header' =>
+          "\n".
+          '<link rel="stylesheet" type="text/css" href="'.self::EXT_JQUERY_CSS1.'"/>'."\n".
+          "\n",
+          'footer' => ''), $resources);
+    }
+
+    /**
+     * Test duplicate single external.
+     */
+    public function testDuplicateExternalCSS() {
+        $viewUtils = $this->getViewUtils();
+        $viewUtils->cssFile(self::EXT_JQUERY_CSS1);
+        $viewUtils->cssFile(self::EXT_JQUERY_CSS1);
+
+        $resources = $viewUtils->getResourceContents();
+        $this->assertNotNull($resources);
+        $this->assertEqual(array('header' =>
+          "\n".
+          '<link rel="stylesheet" type="text/css" href="'.self::EXT_JQUERY_CSS1.'"/>'."\n".
+          "\n",
+          'footer' => ''), $resources);
+    }
+
+    /**
+     * Test multiple external.
+     */
+    public function testMultipleExternalCSS() {
+        $viewUtils = $this->getViewUtils();
+        $viewUtils->cssFile(self::EXT_JQUERY_CSS1);
+        $viewUtils->cssFile(self::EXT_JQUERY_CSS2);
+
+        $resources = $viewUtils->getResourceContents();
+        $this->assertNotNull($resources);
+        $this->assertEqual(array('header' =>
+          "\n".
+          '<link rel="stylesheet" type="text/css" href="'.self::EXT_JQUERY_CSS1.'"/>'."\n".
+          '<link rel="stylesheet" type="text/css" href="'.self::EXT_JQUERY_CSS2.'"/>'."\n".
+          "\n",
+          'footer' => ''), $resources);
+    }
+
+    /**
+     * Test mixed #1.
+     */
+    public function testMixed1CSS() {
+        // mixed #1
+        $viewUtils = $this->getViewUtils();
+        $viewUtils->cssFile(self::EXT_JQUERY_CSS1);
+        $viewUtils->cssFile('site.css');
+        $viewUtils->cssFile('popup.css');
+        $viewUtils->cssFile(self::EXT_JQUERY_CSS2);
+
+        $resources = $viewUtils->getResourceContents();
+        $this->assertNotNull($resources);
+        $this->assertEqual(array('header' =>
+          "\n".
+          '<link rel="stylesheet" type="text/css" href="'.self::EXT_JQUERY_CSS1.'"/>'."\n".
+          '<link rel="stylesheet" type="text/css" href="'.self::MIN_BASE.self::SITE_CSS.','.self::POPUP_CSS.'"/>'."\n".
+          '<link rel="stylesheet" type="text/css" href="'.self::EXT_JQUERY_CSS2.'"/>'."\n".
+          "\n",
           'footer' => ''), $resources);
     }
 
