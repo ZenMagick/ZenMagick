@@ -29,7 +29,6 @@ use zenmagick\base\Runtime;
         "noThemeSupport" => "Patch zen-cart to use ZenMagick <strong>without</strong> ZenMagick themes",
         "themeDummies" => "Create admin dummy files for all installed ZenMagick themes",
         "sideboxDummies" => "Create dummy files for all (side)boxes of <strong>all</strong> ZenMagick themes and <strong>installed</strong> plugins",
-        "i18nSupport" => "Disable zen-cart's <code>zen_date_raw</code> function in favour of a ZenMagick implementation",
         "linkGeneration" => "Disable zen-cart's <code>zen_href_link</code> function in favour of a ZenMagick implementation",
         "email" => "Disable zen-cart's <code>zen_mail</code> function in favour of a ZenMagick implementation",
         "eventProxy" => "Patch zen-cart to activate the ZenMagick event proxy service (required for some emails and guest checkout!)",
@@ -158,8 +157,6 @@ use zenmagick\base\Runtime;
 <?php $admin2->title() ?>
 <div id="b_installation">
   <h2><?php _vzm("ZenMagick Installation") ?> <a class="btn" href="<?php echo $admin2->url() ?>"><?php _vzm("Refresh Page") ?></a></h2>
-
-  <h2 style="color:red"><?php _vzm('The patch "<em>Disable zen-cart\'s <code>zen_date_raw</code> function in favour of a ZenMagick implementation</em>" must be disabled as it is deprecated and will be removed in the next version.') ?></h2>
 
   <form action="<?php echo $admin2->url() ?>" method="POST" onsubmit="return ZenMagick.confirm('Update File Patches?', this);">
     <fieldset class="patches">
