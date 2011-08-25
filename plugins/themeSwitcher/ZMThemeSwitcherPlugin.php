@@ -79,12 +79,20 @@ class ZMThemeSwitcherPlugin extends Plugin {
      */
     public function onFinaliseContent($event) {
         $content = $event->get('content');
-        $request = $event->get('request');
 
-        if (false !== strpos($content, _zm('Switch theme: '))) {
+        // id on main div
+        if (false !== strpos($content, 'theme-switcher')) {
             // already done, do not change
-            return null;
+            return;
         }
+
+        if (!$event->has('view')) {
+            // zc template active?
+            return;
+        }
+
+        $request = $event->get('request');
+        $view = $event->get('view');
 
         $defaultConfig = null;
         if (!ZMSettings::exists('plugins.themeSwitcher.themes')) {
@@ -96,8 +104,11 @@ class ZMThemeSwitcherPlugin extends Plugin {
                 }
             }
         }
+
         $themes = explode(',', ZMSettings::get('plugins.themeSwitcher.themes', $defaultConfig));
-        $links = '';
+
+        // prepare theme details list
+        $themeList = array();
         foreach ($themes as $themeConfig) {
             if (!ZMLangUtils::isEmpty(trim($themeConfig))) {
                 // themeId:name
@@ -106,27 +117,24 @@ class ZMThemeSwitcherPlugin extends Plugin {
                     // default
                     $details[1] = $details[0];
                 }
-                if (!empty($links)) {
-                    $links .= '&nbsp;|&nbsp;';
-                }
 
                 // create url
                 $url = $request->url(null, null, $request->isSecure());
                 $hasParams = false !== strpos($url, '?');
                 $url .= ($hasParams ? '&' : '?') . 'themeId='.$details[0];
 
-                $link = '<a href="'.$url.'">'.$details[1].'</a>';
                 $themeChain = ZMThemes::instance()->getThemeChain($request->getSession()->getLanguageId());
                 $currentTheme = array_pop($themeChain);
-                if ($details[0] == $currentTheme->getThemeId()) {
-                    $link = '<strong style="text-decoration:underline">'.$link.'</strong>';
-                }
-                $links .= $link;
+                $active = $details[0] == $currentTheme->getThemeId();
+
+                $themeList[] = array('url' => $url, 'name' => $details[1], 'active' => $active);
             }
         }
-        if (!ZMLangUtils::isEmpty($links)) {
-            $switch =  '<div id="style-switcher" style="text-align:right;padding:2px 8px;">' . _zm('Switch theme: ') . $links . '</div>';
-            $content =  preg_replace('/(<body[^>]*>)/', '\1'.$switch, $content, 1);
+
+        $view->setVar('themeList', $themeList);
+        $switcherMarkup = $view->fetch($request, 'theme-switcher.php');
+        if (!empty($switcherMarkup)) {
+            $content =  preg_replace('/(<body[^>]*>)/', '\1'.$switcherMarkup, $content, 1);
             $event->set('content', $content);
         }
     }
