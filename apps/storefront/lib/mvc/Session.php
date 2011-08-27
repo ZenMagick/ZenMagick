@@ -272,7 +272,11 @@ class Session extends zenmagick\http\session\Session {
      */
     public function getLanguage() {
         $languageCode = $this->getValue('languages_code');
-        return null === $languageCode ? null : ZMLanguages::instance()->getLanguageForCode($languageCode);
+        if (null == ($language = ZMLanguages::instance()->getLanguageForCode($languageCode))) {
+            // fallback
+            $language = ZMLanguages::instance()->getLanguageForId($this->getLanguageId());
+        }
+        return $language;
     }
 
     /**
@@ -283,6 +287,18 @@ class Session extends zenmagick\http\session\Session {
     public function getLanguageId() {
         $languageId = $this->getValue('languages_id');
         return (null !== $languageId ? (int)$languageId : (int)ZMSettings::get('storeDefaultLanguageId'));
+    }
+
+    /**
+     * Get the current language code.
+     *
+     * @return string The language code or <code>null</code>.
+     */
+    public function getLanguageCode() {
+        if (null != ($language = $this->getLanguage())) {
+            return $language->getCode();
+        }
+        return null;
     }
 
     /**
