@@ -4,8 +4,8 @@ imports:
     ## shared config
     - { resource: ../../../config/store-config.yaml }
     ## shared production container
-    - { resource: ../../../config/store-config_production.yaml }
+    - { resource: ../../../config/store-config_prod.yaml }
     ## custom shared config
     - { resource: local-config.yaml, mode: append }
     ## custom production config
-    - { resource: local-config_production.yaml, mode: append }
+    - { resource: local-config_prod.yaml, mode: append }

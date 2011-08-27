@@ -2,4 +2,4 @@ imports:
     - { resource: config.yaml }
     - { resource: ../../../config/store-config.yaml }
     - { resource: local-config.yaml, mode: append }
-    - { resource: local-config_production.yaml, mode: append }
+    - { resource: local-config_prod.yaml, mode: append }
