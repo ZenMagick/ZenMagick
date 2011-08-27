@@ -106,10 +106,8 @@
             <option value="install"><?php _vzm('Install') ?></option>
             <option value="uninstall"><?php _vzm('Uninstall') ?></option>
             <option value="upgrade"><?php _vzm('Upgrade') ?></option>
-          <?php /*
             <option value="enable"><?php _vzm('Enable') ?></option>
             <option value="disable"><?php _vzm('Disable') ?></option>
-          */ ?>
           </select>
           <input type="submit" class="<?php echo $buttonClasses ?>" value="<?php _vzm('Go') ?>">
         </form>

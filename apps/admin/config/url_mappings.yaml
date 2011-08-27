@@ -48,6 +48,10 @@ page:
       view: ZMRedirectView#requestId=plugins
     success-upgrade:
       view: ZMRedirectView#requestId=plugins
+    success-enable:
+      view: ZMRedirectView#requestId=plugins
+    success-disable:
+      view: ZMRedirectView#requestId=plugins
     plugin-conf:
       layout: 
       template: plugin_conf

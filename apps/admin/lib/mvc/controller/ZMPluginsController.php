@@ -187,6 +187,22 @@ class ZMPluginsController extends ZMController {
                         }
                     }
                 }
+            } else if ('enable' == $action) {
+                if (null != ($plugin = ZMPlugins::instance()->initPluginForId($pluginId, false)) && $plugin->isInstalled()) {
+                    ZMLogging::instance()->log('enable plugin: '.$plugin->getId(), ZMLogging::TRACE);
+                    $plugin->setEnabled(true);
+                    ZMMessages::instance()->success(sprintf(_zm('Plugin %s enabled successfully'), $plugin->getName()));
+                    ZMMessages::instance()->addAll($plugin->getMessages());
+                    $viewId = 'success-enable';
+                }
+            } else if ('disable' == $action) {
+                if (null != ($plugin = ZMPlugins::instance()->initPluginForId($pluginId, true)) && $plugin->isInstalled()) {
+                    ZMLogging::instance()->log('disable plugin: '.$plugin->getId(), ZMLogging::TRACE);
+                    $plugin->setEnabled(false);
+                    ZMMessages::instance()->success(sprintf(_zm('Plugin %s disabled successfully'), $plugin->getName()));
+                    ZMMessages::instance()->addAll($plugin->getMessages());
+                    $viewId = 'success-disable';
+                }
             }
         }
 
