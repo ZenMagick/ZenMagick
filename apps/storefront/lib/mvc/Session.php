@@ -125,11 +125,18 @@ class Session extends zenmagick\http\session\Session {
     /**
      * Returns <code>true</code> if the user is a registered user.
      *
-     * <p>This si the highest status level.</p>
+     * <p>This is the highest status level.</p>
      *
      * @return boolean <code>true</code> if the current user is registered, <code>false</code> if not.
      */
     public function isRegistered() { return $this->getType() == ZMAccount::REGISTERED; }
+
+    /**
+     * Returns <code>true</code> if the user is logged in.
+     *
+     * @return boolean <code>true</code> if the current user is logged in, <code>false</code> if not.
+     */
+    public function isLoggedIn() { return $this->getType() != ZMAccount::ANONYMOUS; }
 
     /**
      * Set the account for the current session.

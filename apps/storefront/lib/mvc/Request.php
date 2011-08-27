@@ -333,6 +333,13 @@ class Request extends \ZMRequest {
     public function isGuest() { return $this->getSession()->isGuest(); }
 
     /**
+     * Returns <code>true</code> if the user is logged in.
+     *
+     * @return boolean <code>true</code> if the current user is logged in, <code>false</code> if not.
+     */
+    public function isLoggedIn() { return $this->getSession()->isLoggedIn(); }
+
+    /**
      * Get the page base url.
      *
      * @return string A base URL for the current request.

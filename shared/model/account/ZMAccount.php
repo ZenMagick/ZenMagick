@@ -399,6 +399,17 @@ class ZMAccount extends ZMObject {
     }
 
     /**
+     * Check if this account is currently logged in (guest/registered).
+     *
+     * <p>Effectively, this is the same as doing: <code>$account->getType() != ZMAccount::ANONYMOUS</code>.</p>
+     *
+     * @return boolean <code>true</code> if, and only if this account is not anonymous.
+     */
+    public function isLoggedIn() {
+        return self::ANONYMOUS != $this->type_;
+    }
+
+    /**
      * Set the price group id.
      *
      * @param int priceGroupId The price group id.
