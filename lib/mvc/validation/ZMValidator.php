@@ -230,10 +230,12 @@ class ZMValidator extends ZMObject {
      *  default is <code>true</code> to override.
      */
     public function load($yaml, $override=true) {
-        foreach (Yaml::parse($yaml) as $id => $fieldRules) {
-            foreach ($fieldRules as $field => $rules) {
-                foreach ($rules as $rule => $params) {
-                    $this->addRule($id, array_merge(array($rule, $field), $params));
+        if (null != ($rules = Yaml::parse($yaml)) && is_array($rules)) {
+            foreach ($rules as $id => $fieldRules) {
+                foreach ($fieldRules as $field => $rules) {
+                    foreach ($rules as $rule => $params) {
+                        $this->addRule($id, array_merge(array($rule, $field), $params));
+                    }
                 }
             }
         }
