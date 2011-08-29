@@ -24,6 +24,8 @@ use zenmagick\base\Beans;
 use zenmagick\base\ClassLoader;
 use zenmagick\base\Runtime;
 
+use Symfony\Component\Yaml\Yaml;
+
 /**
  * A validator framework.
  *
@@ -228,7 +230,7 @@ class ZMValidator extends ZMObject {
      *  default is <code>true</code> to override.
      */
     public function load($yaml, $override=true) {
-        foreach (ZMRuntime::yamlParse($yaml) as $id => $fieldRules) {
+        foreach (Yaml::parse($yaml) as $id => $fieldRules) {
             foreach ($fieldRules as $field => $rules) {
                 foreach ($rules as $rule => $params) {
                     $this->addRule($id, array_merge(array($rule, $field), $params));

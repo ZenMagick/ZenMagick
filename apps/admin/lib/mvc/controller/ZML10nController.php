@@ -22,6 +22,8 @@
 
 use zenmagick\base\Runtime;
 
+use Symfony\Component\Yaml\Yaml;
+
 
 /**
  * Admin controller for l10n page.
@@ -76,7 +78,7 @@ class ZML10nController extends \ZMController {
               'downloadParamsYaml' => $downloadParamsYaml,
               'downloadParamsPo' => $downloadParamsPo,
               'downloadParamsPot' => $downloadParamsPot
-            ), 
+            ),
             $options);
     }
 
@@ -98,7 +100,7 @@ class ZML10nController extends \ZMController {
             $language = \ZMLanguages::instance()->getLanguageForId($vd['languageId']);
             $l10nPath = \ZMFileUtils::mkPath(array($theme->getBaseDir(), 'lang', $language->getDirectory(), 'locale.yaml'));
             if (file_exists($l10nPath)) {
-                $existingMap = array('locale.yaml' => \ZMRuntime::yamlParse(file_get_contents($l10nPath)));
+                $existingMap = array('locale.yaml' => Yaml::parse($l10nPath));
             }
         }
 
@@ -109,7 +111,7 @@ class ZML10nController extends \ZMController {
 
         $pluginsMap = array();
         if ($vd['scanPlugins']) {
-            foreach (\ZMRuntime::getPluginBasePath() as $path) {
+            foreach (Runtime::getPluginBasePath() as $path) {
                 $pluginsMap = array_merge($pluginsMap, \ZMLocaleUtils::buildL10nMap($path));
             }
         }

@@ -20,6 +20,9 @@
 ?>
 <?php
 
+
+use Symfony\Component\Yaml\Yaml;
+
 /**
  * Test ZMLocaleUtils.
  *
@@ -82,7 +85,7 @@ EOT;
             "Yooo" => "Yooo",
             "Foo %s Deng" => "Foo %s Deng"
         );
-        $parsedYaml = ZMRuntime::yamlParse($yaml);
+        $parsedYaml = Yaml::parse($yaml);
         $this->assertEqual($expectMap, $parsedYaml);
     }
 

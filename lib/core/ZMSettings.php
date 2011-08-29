@@ -22,6 +22,8 @@
 
 use zenmagick\base\Runtime;
 
+use Symfony\Component\Yaml\Yaml;
+
 /**
  * Settings (ZenMagick's configuration).
  *
@@ -113,7 +115,7 @@ class ZMSettings {
      *  default is <code>true</code> to override.
      */
     public static function load($yaml, $override=true) {
-        self::addAll(\ZMRuntime::yamlParse($yaml), $override);
+        self::addAll(Yaml::parse($yaml), $override);
     }
 
 }

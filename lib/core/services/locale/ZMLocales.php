@@ -25,6 +25,8 @@ require_once dirname(__FILE__).DIRECTORY_SEPARATOR.'_zm.php';
 use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
 
+use Symfony\Component\Yaml\Yaml;
+
 
 /**
  * Locale service.
@@ -127,7 +129,7 @@ class ZMLocales extends \ZMObject {
             while (false !== ($file = readdir($handle))) {
                 $yamlFile = $path.$file.DIRECTORY_SEPARATOR.'locale.yaml';
                 if (is_dir($path.$file) && file_exists($yamlFile)) {
-                    $yaml = \ZMRuntime::yamlParse(@file_get_contents($yamlFile));
+                    $yaml = Yaml::parse($yamlFile);
                     if (is_array($yaml)) {
                         $name = array_key_exists('name', $yaml) ? $yaml['name'] : $file;
                         $this->locales_[$file] = $name;

@@ -102,7 +102,7 @@ class ZMPlugins extends ZMObject {
     protected function getPluginBasePathMap() {
         if (null === $this->pathIdMap_) {
             $this->pathIdMap_ = array();
-            foreach (ZMRuntime::getPluginBasePath() as $basePath) {
+            foreach (Runtime::getPluginBasePath() as $basePath) {
                 $this->pathIdMap_[$basePath] = array();
                 if (file_exists($basePath) && is_dir($basePath) && false !== ($handle = @opendir($basePath))) {
                     while (false !== ($file = readdir($handle))) {

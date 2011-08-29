@@ -21,6 +21,7 @@
 <?php
 
 use zenmagick\base\Beans;
+use zenmagick\base\Runtime;
 
 /**
  * Implementation of the ZenMagick database layer using <em>PDO</em> via <em>Doctrine DBAL</em>.
@@ -160,7 +161,7 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
 
         $mapping = $conf['mappings']['zenmagick'];
         foreach ((array)$mapping['dir'] as $dir) {
-            $paths[] = ZMRuntime::getInstallationPath() . $dir;
+            $paths[] = Runtime::getInstallationPath() . $dir;
         }
         $driverImpl = $config->newDefaultAnnotationDriver($paths);
         $chainDriverImpl->addDriver($driverImpl, $mapping['prefix']);

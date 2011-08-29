@@ -22,6 +22,7 @@
 
 use zenmagick\base\Runtime;
 
+use Symfony\Component\Yaml\Yaml;
 
 /**
  * Abstract base class for <code>Locale</code> implementations.
@@ -46,7 +47,7 @@ abstract class ZMAbstractLocale extends \ZMObject implements \ZMLocale {
             'date' => array(
                 'short' => 'd/m/Y',
                 'long' => 'D, d M Y'
-            ), 
+            ),
             'time' => array(
                 'short' => 'H:i:s',
                 'long' => 'H:i:s u'
@@ -99,7 +100,7 @@ abstract class ZMAbstractLocale extends \ZMObject implements \ZMLocale {
         $yaml = array();
         $filename = \ZMFileUtils::mkPath($path, 'locale.yaml');
         if (file_exists($filename)) {
-            $yaml = \ZMRuntime::yamlParse(@file_get_contents(\ZMFileUtils::mkPath($path, 'locale.yaml')));
+            $yaml = Yaml::parse(\ZMFileUtils::mkPath($path, 'locale.yaml'));
             if (is_array($yaml)) {
                 if (array_key_exists('name', $yaml)) {
                     $this->name_ = $yaml['name'];
@@ -119,9 +120,9 @@ abstract class ZMAbstractLocale extends \ZMObject implements \ZMLocale {
     public function getFormat($group, $type=null) {
         if (array_key_exists($group, $this->formats_)) {
             if (null == $type) {
-                return $this->formats_[$group];        
+                return $this->formats_[$group];
             } else if (array_key_exists($type, $this->formats_[$group])) {
-                return $this->formats_[$group][$type];        
+                return $this->formats_[$group][$type];
             }
         }
         return null;
