@@ -34,8 +34,6 @@ use zenmagick\base\Runtime;
 class ZMRuntime {
     private static $databaseMap_ = array();
     private static $entityManagerMap_ = array();
-    private static $context_ = null;
-    private static $yaml_ = null;
 
 
     /**
@@ -120,45 +118,6 @@ class ZMRuntime {
     }
 
     /**
-     * Get the full ZenMagick installation path.
-     *
-     * @return string The ZenMagick installation folder.
-     */
-    public static function getInstallationPath() {
-        return Runtime::getInstallationPath();
-    }
-
-    /**
-     * Get the full application path (if set).
-     *
-     * @return string The application base folder or <code>null</code>.
-     */
-    public static function getApplicationPath() {
-        return Runtime::getApplicationPath();
-    }
-
-    /**
-     * Return the plugin base directory.
-     *
-     * <p>May be configured via the setting <em></em>. Default is <em>../lib/plugins</em>.</p>
-     *
-     * @return array List of base directories for plugins.
-     */
-    public static function getPluginBasePath() {
-        return Runtime::getPluginBasePath();
-    }
-
-    /**
-     * Get the currently elapsed page execution time.
-     *
-     * @param string time Optional execution timestamp to be used instead of the current time.
-     * @return long The execution time in milliseconds.
-     */
-    public static function getExecutionTime($time=null) {
-        return Runtime::getExecutionTime($time);
-    }
-
-    /**
      * Load mappings from a YAML style string.
      *
      * @param string yaml The yaml style mappings.
@@ -174,16 +133,6 @@ class ZMRuntime {
         } else {
             return ZMLangUtils::arrayMergeRecursive($defaults, Spyc::YAMLLoadString($yaml));
         }
-        /*
-        if (null == self::$yaml_) {
-            self::$yaml_ = new sfYamlParser();
-        }
-        if ($override) {
-            return self::$yaml_->parse($yaml);
-        } else {
-            return ZMLangUtils::arrayMergeRecursive($defaults, self::$yaml_->parse($yaml));
-        }
-        */
     }
 
 }
