@@ -119,6 +119,10 @@ class ZMEventFixes extends ZMObject {
             $mappings[$blockGroupName] = array('ZMBannerBlockWidget#group='.$bannerGroup);
         }
 
+        // shopping cart options
+        $mappings['shoppingCart.options'] = array();
+        $mappings['shoppingCart.options'][] = 'ZMPayPalECButtonBlockWidget';
+
         ZMBlockManager::instance()->setMappings($mappings);
     }
 
