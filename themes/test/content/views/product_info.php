@@ -113,3 +113,8 @@
       </fieldset>
   <?php } ?>
 </form>
+
+<?php ?>
+<?php if ($this->exists('views/lift-suggestions.php')) { ?>
+  <?php echo $this->fetch('views/lift-suggestions.php') ?>
+<?php } ?>
