@@ -310,12 +310,16 @@ class ZMController extends ZMObject {
      * Get the form data object (if any) for this request.
      *
      * @param ZMRequest request The request to process.
+     * @param string formDef Optional form container definition; default is <code>null</code> to use the global mapping.
+     * @param string formId Optional form id; default is <code>null</code> to use the global mapping.
      * @return ZMObject An object instance or <code>null</code>
      */
-    public function getFormData($request) {
+    public function getFormData($request, $formDef=null, $formId=null) {
         if (null == $this->formData_ && null !== ($mapping = ZMUrlManager::instance()->findMapping($this->requestId_))) {
-            if (array_key_exists('form', $mapping) && null != $mapping['form']) {
-                $this->formData_ =  Beans::getBean($mapping['form'].(false === strpos($mapping['view'], '#') ? '#' : '&').'formId='.$mapping['formId']);
+            $formDef = null != $formDef ? $formDef : (array_key_exists('form', $mapping) ? $mapping['form'] : null);
+            $formId = null != $formId ? $formId : (array_key_exists('formId', $mapping) ? $mapping['formId'] : null);
+            if (null != $formDef && null != $formId) {
+                $this->formData_ =  Beans::getBean($formDef.(false === strpos($mapping['view'], '#') ? '#' : '&').'formId='.$formId);
                 if ($this->formData_ instanceof ZMFormData) {
                     $this->formData_->populate($request);
                 } else {
