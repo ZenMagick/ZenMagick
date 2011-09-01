@@ -45,6 +45,7 @@ class Session extends ZMObject {
     protected $persist_;
     protected $sessionHandler_;
     protected $syncSessionData_;
+    private $closed_;
 
 
     /**
@@ -65,6 +66,7 @@ class Session extends ZMObject {
         $this->data_ = array();
         $this->persist_ = array();
         $this->sessionHandler_ = null;
+        $this->closed_ = false;
 
         if (!$this->isStarted()) {
             // disable transparent sid support
@@ -275,7 +277,7 @@ class Session extends ZMObject {
     public function close() {
         //XXX:TODO: bad hack to avoid zc admin breakage
         $isZCAdmin = defined('IS_ADMIN_FLAG') && IS_ADMIN_FLAG && !defined('ZC_ADMIN_FOLDER');
-        if (!$isZCAdmin && $this->isStarted()) {
+        if (!$isZCAdmin && $this->isStarted() && !$this->closed_) {
             if ($this->syncSessionData_) {
                 // sync with internal data
                 foreach ($_SESSION as $name => $value) {
@@ -290,6 +292,7 @@ class Session extends ZMObject {
                 $this->getToken(true);
             }
             session_write_close();
+            $this->closed_ = true;
         }
     }
 
