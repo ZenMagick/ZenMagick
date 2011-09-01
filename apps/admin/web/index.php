@@ -27,6 +27,7 @@
   define('ZC_INSTALL_PATH', dirname(dirname(dirname(dirname(dirname(__FILE__))))).DIRECTORY_SEPARATOR);
   // make zen-cart happy
   define('IS_ADMIN_FLAG', true);
+  define('GZIP_LEVEL', false);
 
   // name of Zen Cart admin folder
   if (!defined('ZC_ADMIN_FOLDER')) {
