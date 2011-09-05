@@ -25,7 +25,7 @@
   <h2>Blocks</h2>
   <ul id="blockList" class="ui-sortable">
     <?php foreach ($allBlocks as $def => $title) { ?>
-      <li data-block-def="<?php echo $def ?>"><span class="clean <?php echo $def ?>"><?php echo $title ?></span><div class="icons"></div></li>
+      <li data-block-def="<?php echo $def ?>"><span class="clean"><?php echo $title ?></span><div class="icons"></div></li>
     <?php } ?>
   </ul>
 </div>
@@ -33,9 +33,14 @@
 <div class="col3">
   <h2>Block Group Setup: <?php echo $groupName ?></h2>
   <ul id="groupBlockList" class="sortable">
-    <?php foreach ($blocks as $block) { $def = $block->getDefinition(); ?>
-      <!-- TODO: icons -->
-      <li data-block-def="<?php echo $def ?>"><span class="<?php echo $def ?>"><?php echo $block->getName() ?></span><div class="icons"></div></li>
+    <?php foreach ($blocks as $block) { ?>
+      <li data-block-def="<?php echo $block->getBlockId().'@'.$block->getDefinition() ?>">
+        <span><?php echo $block->getName() ?></span>
+        <div class="icons">
+          <!-- TODO: icons -->
+          <span class="ui-icon ui-icon-circle-close"></span>
+        </div>
+      </li>
     <?php } ?>
   </ul>
 </div>
@@ -43,7 +48,7 @@
 <script>
 $(function() {
   $("#groupBlockList").sortable({
-    receive: function(event, ui) {
+    receive: function(evt, ui) {
       var span = $('#groupBlockList span.clean');
       var iconContainer = $('#groupBlockList span.clean + div.icons');
 
@@ -56,11 +61,22 @@ $(function() {
 
       // TODO
       var groupName = '<?php echo $groupName ?>';
-      var data = '{"groupName":"'+groupName+'", "def":"'+def+'"}';
+      //var data = '{"groupName":"'+groupName+'", "def":"'+def+'"}';
+
+      var blocks = new Array();
+      $('#groupBlockList li').each(function(index) {
+        blocks.push($(this).attr('data-block-def'));
+      });
+      var groupBlockList = '["'+blocks.join('","')+'"]';
+
+      var data = '{"groupName":"'+groupName+'", "groupBlockList":'+groupBlockList+'}';
       ZenMagick.rpc('block_group_admin', 'addBlockToGroup', data, {
         success: function(result) {
           // grab from the receiving list
-          var icons = '<span class="ui-icon ui-icon-wrench"></span><span class="ui-icon ui-icon-circle-close"></span>';
+          var icons = '';
+          // TODO: if has options
+          icons += '<span class="ui-icon ui-icon-wrench"></span>';
+          icons += '<span class="ui-icon ui-icon-circle-close"></span>';
           iconContainer.html(icons);
 
           // TODO: once complete, add edit icon

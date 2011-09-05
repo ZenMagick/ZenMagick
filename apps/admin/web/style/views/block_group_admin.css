@@ -7,4 +7,5 @@ ul#groupBlockList {min-height:25em;min-width:25em;border:1px solid gray;padding:
 #groupBlockList div.icons {float:right;}
 #groupBlockList div.icons .ui-icon {display:inline-block;}
 
-#blockList li:hover {cursor:move;}
+#blockList li:hover, #groupBlockList li:hover {cursor:move;}
+#groupBlockList li div:hover {cursor:pointer;}

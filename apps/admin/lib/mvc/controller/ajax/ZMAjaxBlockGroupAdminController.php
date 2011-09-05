@@ -35,13 +35,19 @@ class ZMAjaxBlockGroupAdminController extends ZMRpcController {
      * @param ZMRpcRequest rpcRequest The RPC request.
      */
     public function addBlockToGroup($rpcRequest) {
-        $blockInfo = json_encode($rpcRequest->getData());
+        $groupBlockDetails = json_encode($rpcRequest->getData());
         $rpcResponse = $rpcRequest->createResponse();
 
-        // TODO: process blockInfo
+        // process
+        $groupName = $groupBlockDetails['groupName'];
+        $groupBlockList = $groupBlockDetails['groupBlockList'];
+        $currentBlocks = ZMBlocks::instance()->getBlocksForGroupName($groupName);
+
+        // iterate and compare
+        foreach ($groupBlockList as $blockInfo) {
+        }
 
         $rpcResponse->setStatus(true);
-
         return $rpcResponse;
     }
 
