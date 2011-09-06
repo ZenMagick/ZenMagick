@@ -31,6 +31,14 @@ use zenmagick\base\Runtime;
 class ZMPayPalECButtonBlockWidget extends ZMWidget {
 
     /**
+     * Create new instance.
+     */
+    function __construct() {
+        parent::__construct();
+        $this->setTitle('PayPal EC Button');
+    }
+
+    /**
      * {@inheritDoc}
      */
     public function render($request, $view) {
