@@ -98,4 +98,52 @@ class ZMBlocks extends ZMObject {
         return ZMRuntime::getDatabase()->query($sql, array('block_group_id' => $result['block_group_id']), 'blocks_to_groups', 'ZMBlock');
     }
 
+    /**
+     * Add blocks to block group.
+     *
+     * @param string groupName The group name.
+     * @param ZMBlock block The new block.
+     * @return ZMBlock The block (incl. id).
+     */
+    public function addBlockToBlockGroup($groupName, $block) {
+        // TODO: cache loading all groups when first accessed
+        $sql = 'SELECT block_group_id FROM '.DB_PREFIX.'block_groups WHERE group_name = :group_name';
+        $result = ZMRuntime::getDatabase()->querySingle($sql, array('group_name' => $groupName), 'block_groups');
+
+        $data = array(
+            'block_group_id' => $result['block_group_id'],
+            'block_name' => $block->getName(),
+            'definition' => $block->getDefinition(),
+            'sort_order' => $block->getSortOrder()
+        );
+        $data = ZMRuntime::getDatabase()->createModel('blocks_to_groups', $data);
+        $block->setBlockId($data['blocks_to_groups_id']);
+        return $block;
+    }
+
+    /**
+     * Update the given block.
+     *
+     * @param ZMBlock block The block to update.
+     */
+    public function updateBlock($block) {
+        $data = array(
+            'blocks_to_groups_id' => $block->getBlockId(),
+            'block_group_id' => $block->getGroupId(),
+            'block_name' => $block->getName(),
+            'definition' => $block->getDefinition(),
+            'sort_order' => $block->getSortOrder()
+        );
+        return ZMRuntime::getDatabase()->updateModel('blocks_to_groups', $data);
+    }
+
+    /**
+     * Delete block for the given id.
+     *
+     * @param int blockId The block id.
+     */
+    public function deleteBlockForId($blockId) {
+        return ZMRuntime::getDatabase()->removeModel('blocks_to_groups', array('blocks_to_groups_id' => $blockId));
+    }
+
 }

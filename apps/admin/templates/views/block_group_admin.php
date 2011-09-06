@@ -48,6 +48,24 @@
 <script>
 $(function() {
   $("#groupBlockList").sortable({
+    // TODO: do not sort when receive
+    xupdate: function(evt, ui) {
+      // data
+      var groupName = '<?php echo $groupName ?>';
+      var blocks = new Array();
+      $('#groupBlockList li').each(function(index) {
+        blocks.push($(this).attr('data-block-def'));
+      });
+      var groupBlockList = '["'+blocks.join('","')+'"]';
+
+      // TODO: flag progress
+      var data = '{"groupName":"'+groupName+'", "groupBlockList":'+groupBlockList+'}';
+      ZenMagick.rpc('block_group_admin', 'reorderBlockGroup', data, {
+        success: function(result) {
+          // TODO: flag saved
+        }
+      });
+    },
     receive: function(evt, ui) {
       var span = $('#groupBlockList span.clean');
       var iconContainer = $('#groupBlockList span.clean + div.icons');
@@ -56,13 +74,8 @@ $(function() {
       iconContainer.html(throbber);
       span.removeClass('clean');
 
-      // get def
-      var def = ui.item[0].getAttribute('data-block-def');
-
-      // TODO
+      // data
       var groupName = '<?php echo $groupName ?>';
-      //var data = '{"groupName":"'+groupName+'", "def":"'+def+'"}';
-
       var blocks = new Array();
       $('#groupBlockList li').each(function(index) {
         blocks.push($(this).attr('data-block-def'));
@@ -73,23 +86,27 @@ $(function() {
       ZenMagick.rpc('block_group_admin', 'addBlockToGroup', data, {
         success: function(result) {
           // grab from the receiving list
+          var blockId = result.data['blockId'];
+          var hasOptions = result.data['options'];
+
+          // update id
+          var def = $(span).parent().attr('data-block-def');
+          $(span).parent().attr('data-block-def', blockId+'@'+def);
+
           var icons = '';
-          // TODO: if has options
-          icons += '<span class="ui-icon ui-icon-wrench"></span>';
+          if (hasOptions) {
+            icons += '<span class="ui-icon ui-icon-wrench"></span>';
+          }
           icons += '<span class="ui-icon ui-icon-circle-close"></span>';
           iconContainer.html(icons);
 
-          // TODO: once complete, add edit icon
           $('span.ui-icon-wrench', span.parentNode).click(function() {
-            alert('configure...');
-            // TODO: do something
+            // TODO: do something useful
+            alert('configure not implemented yet...');
           });
+
           // add close handler
-          $('span.ui-icon-circle-close', span.parentNode).click(function() {
-            // remove again
-            $(this.parentNode.parentNode).remove();
-            // TODO: ajax call to remove block from group
-          });
+          $('span.ui-icon-circle-close', span.parentNode).click(remove_block);
         }
       });
     }
@@ -102,4 +119,24 @@ $(function() {
     revert: "invalid"
   });
 });
+
+// remove block
+function remove_block() {
+  var li = $(this).parent().parent();
+  var block = li.attr('data-block-def');
+  var data = '{"groupName":"<?php echo $groupName ?>", "block":"'+block+'"}';
+  var iconContainer = $('div.icons', li);
+  var throbber = '<span class="throbber"></span>';
+  iconContainer.html(throbber);
+
+  ZenMagick.rpc('block_group_admin', 'removeBlockFromGroup', data, {
+    success: function(result) {
+      li.remove();
+    }
+  });
+}
+
+// add close handler
+$('span.ui-icon-circle-close').click(remove_block);
+
 </script>
