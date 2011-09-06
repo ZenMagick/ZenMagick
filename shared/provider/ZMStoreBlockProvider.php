@@ -52,6 +52,9 @@ class ZMStoreBlockProvider implements ZMBlockProvider {
         // banners
         $blocks['ZMBannerBlockWidget'] = 'ZMBannerBlockWidget';
 
+        // paypal ec button
+        $blocks['ZMPayPalECButtonBlockWidget'] = 'ZMPayPalECButtonBlockWidget';
+
         return $blocks;
     }
 
