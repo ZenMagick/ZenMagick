@@ -1,7 +1,7 @@
 <?php
 /*
  * ZenMagick - Smart e-commerce
- * Copyright (C) 2006-2009 ZenMagick
+ * Copyright (C) 2006-2011 ZenMagick
  *
  * Portions Copyright (c) 2003 The zen-cart developers
  * Portions Copyright (c) 2003 osCommerce
@@ -66,11 +66,11 @@ class ProductFinder extends ZMProductFinder {
                     $weight .= str_replace('@@@', $token, $weightTemplate);
             }
         }
-        $where .= " AND p.products_id = pd.products_Id ";
+        $where .= " AND p.products_id = pd.products_Id AND p.products_status = 1 ";
 
         $sql = $select . $weight . ' AS weight'. $from . $where . $sort;
         $tables = array(TABLE_PRODUCTS_DESCRIPTION);
-        return new ZMQueryDetails(ZMRuntime::getDatabase(), $sql, $args, $tables, null, 'pd.products_id');
+        return new ZMQueryDetails(ZMRuntime::getDatabase(), $sql, array(), $tables, null, 'pd.products_id');
     }
 
 }
