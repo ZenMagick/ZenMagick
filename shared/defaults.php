@@ -116,6 +116,7 @@
             // guest checkout
             'isGuestCheckout' => false,
             'isLogoffGuestAfterOrder' => false,
+            'isGuestCheckoutAskAddress' => true,
 
 
             /**************************************

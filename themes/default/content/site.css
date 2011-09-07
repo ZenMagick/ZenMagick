@@ -228,6 +228,7 @@ div.btn {float:right;}
 #content table#newaddress #label {width:12em;}
 #content table#newaddress td {padding:2px;}
 #content #newaddress span {padding-left:2px;color:#f02025;font-size:80%;}
+body #content #newaddress label {display:inline;}
 #checkout_shipping_address .btn, #checkout_payment_address .btn {margin-left:20px;}
 
 /* shipping */

@@ -107,8 +107,7 @@ class ZMAddresses extends ZMObject {
      * @return ZMAddress The updated address.
      */
     public function updateAddress($address) {
-        ZMRuntime::getDatabase()->updateModel(TABLE_ADDRESS_BOOK, $address);
-        return $address;
+        return ZMRuntime::getDatabase()->updateModel(TABLE_ADDRESS_BOOK, $address);
     }
 
 
@@ -119,8 +118,7 @@ class ZMAddresses extends ZMObject {
      * @return ZMAddress The created address incl. the new address id.
      */
     public function createAddress($address) {
-        ZMRuntime::getDatabase()->createModel(TABLE_ADDRESS_BOOK, $address);
-        return $address;
+        return ZMRuntime::getDatabase()->createModel(TABLE_ADDRESS_BOOK, $address);
     }
 
 

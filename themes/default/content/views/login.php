@@ -27,11 +27,11 @@
     <legend><?php _vzm("Login") ?></legend>
     <div>
       <label for="email_address"><?php _vzm("E-Mail Address") ?></label>
-      <input type="text" id="email_address" name="email_address" <?php echo $form->fieldLength(TABLE_CUSTOMERS, 'customers_email_address') ?> /> 
+      <input type="text" id="email_address" name="email_address" <?php echo $form->fieldLength(TABLE_CUSTOMERS, 'customers_email_address') ?> />
     </div>
     <div>
       <label for="password"><?php _vzm("Password") ?></label>
-      <input type="password" id="password" name="password" <?php echo $form->fieldLength(TABLE_CUSTOMERS, 'customers_password') ?> /> 
+      <input type="password" id="password" name="password" <?php echo $form->fieldLength(TABLE_CUSTOMERS, 'customers_password') ?> />
     </div>
   </fieldset>
   <div class="btn"><input type="submit" class="btn" value="<?php _vzm("Submit") ?>" /></div>
@@ -45,13 +45,24 @@
 <?php if (ZMSettings::get('isGuestCheckout') && !$request->getShoppingCart()->isEmpty() && $request->isAnonymous()) { ?>
   <h3><?php _vzm("Don't need an account?") ?></h3>
   <?php echo $form->open('checkout_guest', '', true, array('id'=>'checkout_guest')) ?>
-    <fieldset>
-      <legend><?php _vzm("Checkout without registering") ?></legend>
-      <div>
+    <p><?php _vzm("Checkout without registering") ?></p>
+    <div>
+      <?php if (ZMSettings::get('isGuestCheckoutAskAddress')) { ?>
+        <?php
+          $this->assign(array('address' => $guestCheckoutAddress));
+          $this->assign(array('customFields' => array(
+            array(
+              'label'=>_zm("E-Mail Address").'<span>*</span>',
+              'field'=>'<input type="text" id="email_address_guest" name="email_address" '.$form->fieldLength(TABLE_CUSTOMERS, 'customers_email_address').'/>'
+            )
+          )));
+          echo $this->fetch('views/address.php');
+        ?>
+      <?php } else { ?>
         <label for="email_address_guest"><?php _vzm("E-Mail Address") ?></label>
-        <input type="text" id="email_address_guest" name="email_address" <?php echo $form->fieldLength(TABLE_CUSTOMERS, 'customers_email_address') ?> /> 
-        <input type="submit" class="btn" value="<?php _vzm("Checkout") ?>" />
-      </div>
-    </fieldset>
+        <input type="text" id="email_address_guest" name="email_address" <?php echo $form->fieldLength(TABLE_CUSTOMERS, 'customers_email_address') ?> />
+      <?php } ?>
+    </div>
+    <div class="btn"><input type="submit" class="btn" value="<?php _vzm("Checkout") ?>" /></div>
   </form>
 <?php } ?>

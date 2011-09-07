@@ -127,14 +127,21 @@ class ZMEventFixes extends ZMObject {
     }
 
     /**
-     * Handle 'showAll' parameter for result lists.
+     * Handle 'showAll' parameter for result lists and provide empty address for guest checkout if needed.
      */
     public function onViewStart($event) {
         $request = $event->get('request');
+        $view = $event->get('view');
         if (null !== $request->getParameter('showAll')) {
-            $view = $event->get('view');
             if (null != ($resultList = $view->getVar('resultList'))) {
                 $resultList->setPagination(0);
+            }
+        }
+        if ('login' == $request->getRequestId() && Runtime::getSettings()->get('isGuestCheckoutAskAddress')) {
+            if (null == $view->getVar('guestCheckoutAddress')) {
+                $address = $this->container->get('ZMAddress');
+                $address->setPrimary(true);
+                $view->setVar('guestCheckoutAddress', $address);
             }
         }
     }

@@ -159,6 +159,9 @@
         array('ZMRequiredRule' ,'email_address', 'Please enter your email address.'),
         array('ZMEmailRule' ,'email_address', 'Please enter a valid email address.')
     ));
+    if (ZMSettings::get('isGuestCheckoutAskAddress')) {
+        $validator->addRules('checkout_guest', $validator->getRuleSet('address', false));
+    }
 
 
     /* review */

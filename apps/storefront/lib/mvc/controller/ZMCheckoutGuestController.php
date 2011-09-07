@@ -23,7 +23,7 @@
 ?>
 <?php
 
-use zenmagick\base\Beans;
+use zenmagick\base\Runtime;
 
 /**
  * Request controller for guest checkout.
@@ -72,12 +72,14 @@ class ZMCheckoutGuestController extends ZMController {
             return $this->findView('success');
         }
 
+        $address = $this->getFormData($request,'ZMAddress', 'checkout_guest');
+        $address->setPrimary(true);
         if (!$this->validate($request, 'checkout_guest')) {
-            return $this->findView();
+            return $this->findView(null, array('guestCheckoutAddress' => $address));
         }
 
         // create anonymous account
-        $account = Beans::getBean("ZMAccount");
+        $account = Runtime::getContainer()->get("ZMAccount");
         $account->setEmail($request->getParameter('email_address'));
         $account->setPassword('');
         $account->setDob(ZMDatabase::NULL_DATETIME);
@@ -87,6 +89,21 @@ class ZMCheckoutGuestController extends ZMController {
         // update session with valid account
         $session->regenerate();
         $session->setAccount($account);
+
+        if (Runtime::getSettings()->get('isGuestCheckoutAskAddress')) {
+            // double check
+            $lastName = $address->getLastName();
+            if (!empty($lastName)) {
+                $address->setAccountId($account->getAccountId());
+                $address = ZMAddresses::instance()->createAddress($address);
+                $account->setDefaultAddressId($address->getId());
+                ZMAccounts::instance()->updateAccount($account);
+                // use as shipping/billing address
+                $shoppingCart = $request->getShoppingCart();
+                $shoppingCart->setShippingAddressId($address->getId());
+                $shoppingCart->setBillingAddressId($address->getId());
+            }
+        }
 
         return $this->findView('success');
     }

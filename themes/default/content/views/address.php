@@ -51,6 +51,14 @@
             </tr>
         </thead>
         <tbody>
+            <?php if (isset($customFields)) { ?>
+                <?php foreach ($customFields as $fieldInfo) { ?>
+                    <tr>
+                        <td><?php echo $fieldInfo['label'] ?></td>
+                        <td><?php echo $fieldInfo['field'] ?></td>
+                    </tr>
+                <?php } ?>
+            <?php } ?>
             <?php if (ZMSettings::get('isAccountGender')) { ?>
                 <tr>
                     <td><?php _vzm("Title") ?><span>*</span></td>
@@ -104,7 +112,7 @@
                         <?php if (0 < count($zones)) { ?>
                             <?php echo $form->idpSelect('zoneId', $zones, $address->getZoneId()) ?>
                         <?php } else { ?>
-                            <input type="text" name="state" value="<?php echo $html->encode($address->getState()) ?>" />
+                            <input type="text" id="state" name="state" value="<?php echo $html->encode($address->getState()) ?>" />
                         <?php } ?>
                     </td>
                 </tr>
