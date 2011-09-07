@@ -69,7 +69,7 @@ class ZMAddress extends ZMObject {
         $this->postcode_ = null;
         $this->city_ = null;
         $this->state_ = null;
-        $this->zoneId_ = null;
+        $this->zoneId_ = 0;
         $this->country_ = null;
         $this->countryId_ = 0;
         $this->isPrimary_ = false;
