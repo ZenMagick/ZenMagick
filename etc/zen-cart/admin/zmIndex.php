@@ -95,6 +95,13 @@ use zenmagick\http\sacs\SacsManager;
     }
   }
 
+  // clear messages
+  //$session = Runtime::getContainer()->get('session');
+  //$session->setValue('messages', null, 'zenmagick.mvc');
+  //$session->setValue('messageToStack', '');
+  unset($_SESSION['messageToSTack']);
+  unset($_SESSION['__ZM_NSP__zenmagick.mvc']);
+
   // allow plugins and event subscribers to filter/modify the final contents; corresponds with ob_start() in init.php
   $event = new Event(null, array('request' => $request, 'view' => $view, 'contents' => ob_get_clean()));
   Runtime::getEventDispatcher()->dispatch('finalise_contents', $event);
