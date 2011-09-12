@@ -36,7 +36,7 @@ class ZMCategoryFilter extends ZMResultListFilter implements ZMSQLAware {
      * Create new instance.
      */
     function __construct() {
-        parent::__construct('cfilter', _zm('Category'), ZMRequest::instance()->getParameter('cfilter'));
+        parent::__construct('cfilter', _zm('Category'), Runtime::getContainer()->get('request')->getParameter('cfilter'));
         $this->productIds_ = null;
     }
 
@@ -51,7 +51,7 @@ class ZMCategoryFilter extends ZMResultListFilter implements ZMSQLAware {
     // lazy load all included productIds
     protected function getProductIds() {
         if (null === $this->productIds_) {
-            $languageId = ZMRequest::instance()->getSession()->getLanguageId();
+            $languageId = $this->container->get('session')->getLanguageId();
             $this->productIds_ = ZMProducts::instance()->getProductIdsForCategoryId($this->filterValues_[0], $languageId);
         }
         return $this->productIds_;
@@ -77,7 +77,7 @@ class ZMCategoryFilter extends ZMResultListFilter implements ZMSQLAware {
     public function getOptions() {
         $options = array();
         foreach ($this->list_->getAllResults() as $result) {
-            $category = $result->getDefaultCategory(ZMRequest::instance()->getSession()->getLanguageId());
+            $category = $result->getDefaultCategory($this->container->get('session')->getLanguageId());
             if (null != $category) {
                 $option = Runtime::getContainer()->get('ZMFilterOption');
                 $option->setName($name);

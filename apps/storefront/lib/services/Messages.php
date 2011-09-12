@@ -23,6 +23,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 
 /**
  * Messages to be displayed to the user.
@@ -42,7 +43,7 @@ class Messages extends ZMMessages {
     function __construct() {
         parent::__construct();
         // needed to pick up zencart session messages
-        $this->loadMessages(ZMRequest::instance()->getSession());
+        $this->loadMessages(Runtime::getContainer()->get('session'));
     }
 
 
@@ -73,7 +74,7 @@ class Messages extends ZMMessages {
         $this->addAll($session->getMessages());
 
         // also check for other messages in the request...
-        $request = ZMRequest::instance();
+        $request = Runtime::getContainer()->get('request');
         if (null != ($error = $request->getParameter('error_message'))) {
             $this->error($error);
         }

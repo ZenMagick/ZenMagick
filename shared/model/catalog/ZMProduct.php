@@ -884,7 +884,7 @@ class ZMProduct extends ZMObject {
      * @return ZMCategory The default category.
      */
     public function getDefaultCategory($languageId=null) {
-        $languageId = null !== $languageId ? $languageId : ZMRequest::instance()->getSession()->getLanguageId();
+        $languageId = null !== $languageId ? $languageId : $this->container->get('session')->getLanguageId();
 
         return null != $this->masterCategoryId ? ZMCategories::instance()->getCategoryForId($this->masterCategoryId, $languageId) :
             ZMCategories::instance()->getDefaultCategoryForProductId($this->getId(), $languageId);

@@ -204,7 +204,7 @@ class ZMMessages extends ZMObject {
     /**
      * Save messages in session.
      *
-     * @param ZMSession session The current session.
+     * @param zenmagick\http\session\Session session The current session.
      */
     public function saveMessages($session) {
         $data = array();
@@ -219,7 +219,7 @@ class ZMMessages extends ZMObject {
     /**
      * Load messages from session.
      *
-     * @param ZMSession session The current session.
+     * @param zenmagick\http\session\Session session The current session.
      */
     public function loadMessages($session) {
         if (null !== ($data = $session->getValue('messages', 'zenmagick.mvc'))) {

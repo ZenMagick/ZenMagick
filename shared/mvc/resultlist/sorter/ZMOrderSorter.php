@@ -20,7 +20,7 @@
 ?>
 <?php
 
-
+use zenmagick\base\Runtime;
 
 /**
  * Order sorter.
@@ -51,7 +51,7 @@ class ZMOrderSorter extends ZMResultListSorter implements ZMSQLAware {
      * Create new instance.
      */
     function __construct() {
-        parent::__construct('osort', '', ZMRequest::instance()->getSortId());
+        parent::__construct('osort', '', Runtime::getContainer()->get('request')->getSortId());
     }
 
     /**

@@ -127,15 +127,16 @@ class ZMSubscriptionsPlugin extends Plugin {
      * Event handler to pick up subscription checkout options.
      */
     public function onInitDone($event) {
-        if ('checkout_shipping' == ZMRequest::instance()->getRequestId() && 'POST' == ZMRequest::instance()->getMethod()) {
-            if (ZMLangUtils::asBoolean(ZMRequest::instance()->getParameter('subscription'))) {
-                ZMRequest::instance()->getSession()->setValue('subscription_schedule', ZMRequest::instance()->getParameter('schedule'));
+        $request = $event->get('request');
+        if ('checkout_shipping' == $request->getRequestId() && 'POST' == $request->getMethod()) {
+            if (ZMLangUtils::asBoolean($request->getParameter('subscription'))) {
+                $request->getSession()->setValue('subscription_schedule', $request->getParameter('schedule'));
             } else {
-                ZMRequest::instance()->getSession()->setValue('subscription_schedule');
+                $request->getSession()->setValue('subscription_schedule');
             }
         }
-        if ('checkout_success' == ZMRequest::instance()->getRequestId()) {
-            ZMRequest::instance()->getSession()->setValue('subscription_schedule');
+        if ('checkout_success' == $request->getRequestId()) {
+            $request->getSession()->setValue('subscription_schedule');
         }
     }
 
@@ -164,7 +165,7 @@ class ZMSubscriptionsPlugin extends Plugin {
      * @return string The subscription schedule key or <code>null</code>.
      */
     public function getSelectedSchedule() {
-        $schedule = ZMRequest::instance()->getSession()->getValue('subscription_schedule');
+        $schedule = $this->container->get('session')->getValue('subscription_schedule');
         return empty($schedule) ? null : $schedule;
     }
 
@@ -278,7 +279,7 @@ class ZMSubscriptionsPlugin extends Plugin {
      * @return string The date or <code>null</code> (if not canceled).
      */
     public function getMinLastOrderDate($orderId) {
-        $order = ZMOrders::instance()->getOrderForId($orderId, ZMRequest::instance()->getSession()->getLanguageId());
+        $order = ZMOrders::instance()->getOrderForId($orderId, $this->container->get('session')->getLanguageId());
 
         // let's find out how many more orders need to be shipped to pass the minOrders restriction
         $scheduledOrderIds = $this->getScheduledOrderIdsForSubscriptionOrderId($orderId);

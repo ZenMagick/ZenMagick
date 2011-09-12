@@ -397,6 +397,15 @@ class Session extends ZMObject {
     }
 
     /**
+     * Get the current session handler.
+     *
+     * @return SessionHandler A session handler or <code>null</code>.
+     */
+    public function getSessionHandler() {
+        return $this->sessionHandler_;
+    }
+
+    /**
      * Get the session token.
      *
      * <p>A new token will be created if none exists.</p>

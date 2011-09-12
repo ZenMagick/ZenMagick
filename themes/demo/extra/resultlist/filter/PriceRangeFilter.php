@@ -102,7 +102,7 @@ class PriceRangeFilter extends ZMResultListFilter {
         // buld options list
         $options = array();
         $start = 0;
-        $toolbox = ZMRequest::instance()->getToolbox();
+        $toolbox = $this->container->get('request')->getToolbox();
         for ($ii=0; $ii < 8; $ii++ ) {
             $from = $start;
             $to = $start + $diff;

@@ -100,7 +100,7 @@ class ot_zenmagick {
     public function process() {
     global $order;
 
-        $request = ZMRequest::instance();
+        $request = $this->container->get('request');
         $shoppingCart = $request->getShoppingCart();
         $detailsList = array();
         foreach ($this->plugins_ as $plugin) {

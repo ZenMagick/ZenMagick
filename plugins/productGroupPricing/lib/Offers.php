@@ -78,7 +78,7 @@ class Offers extends ZMOffers {
     private function getProductGroupPricing() {
         if (!$this->lookupDone_) {
             $this->lookupDone_ = true;
-            $account = ZMRequest::instance()->getAccount();
+            $account = $this->container->get('request')->getAccount();
             if (null == $account) {
                 // no account, no price group
                 $this->productGroupPricing_ = null;

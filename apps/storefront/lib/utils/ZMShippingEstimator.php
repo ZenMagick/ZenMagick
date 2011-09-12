@@ -53,7 +53,7 @@ class ZMShippingEstimator extends ZMObject {
      *
      * @return string The postcode for the current calculations.
      */
-    function getPostcode() { 
+    function getPostcode() {
         $zip_code = (isset($_SESSION['cart_zip_code'])) ? $_SESSION['cart_zip_code'] : '';
         $zip_code = (isset($_POST['zip_code'])) ? strip_tags(addslashes($_POST['zip_code'])) : $zip_code;
         return $zip_code;
@@ -158,8 +158,8 @@ class ZMShippingEstimator extends ZMObject {
     global $db, $order;
 
         // Only do when something is in the cart
-        if (!ZMRequest::instance()->getShoppingCart()->isEmpty()) {
-          if (ZMRequest::instance()->isRegistered()) {
+        if (!$this->container->get('request')->getShoppingCart()->isEmpty()) {
+          if ($this->container->get('request')->isRegistered()) {
               $sendto = $this->_getAddressId();
               $_SESSION['sendto'] = $sendto;
               // set session now
@@ -187,7 +187,7 @@ class ZMShippingEstimator extends ZMObject {
     /**
      * Returns <code>true</code> if anything to calculate.
      */
-    function isCartEmpty() { return ZMRequest::instance()->getShoppingCart()->isEmpty(); }
+    function isCartEmpty() { return $this->container->get('request')->getShoppingCart()->isEmpty(); }
 
     /**
      * Get current address (if any)

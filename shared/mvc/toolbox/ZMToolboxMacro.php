@@ -271,7 +271,7 @@ class ZMToolboxMacro extends ZMToolboxTool {
      *
      * @param string name The sender name.
      * @param string email The sender email.
-     * @param ZMSession session The current session.
+     * @param zenmagick\http\session\Session session The current session.
      * @return array Hash of extra information.
      */
     public function officeOnlyEmailFooter($name, $email, $session) {

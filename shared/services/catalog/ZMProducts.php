@@ -493,7 +493,7 @@ class ZMProducts extends ZMObject implements ZMSQLAware {
      */
     public function getProductForId($productId, $languageId=null) {
         if (null === $languageId) {
-            $session = ZMRequest::instance()->getSession();
+            $session = $this->container->get('session');
             $languageId = $session->getLanguageId();
         }
 
@@ -527,7 +527,7 @@ class ZMProducts extends ZMObject implements ZMSQLAware {
      */
     public function getProductsForIds($productIds, $preserveOrder=false, $languageId=null) {
         if (null === $languageId) {
-            $session = ZMRequest::instance()->getSession();
+            $session = $this->container->get('session');
             $languageId = $session->getLanguageId();
         }
 

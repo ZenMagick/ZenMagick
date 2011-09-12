@@ -83,7 +83,7 @@ class ZMBanners extends ZMObject {
      * @deprecated
      */
     public function getBannerForSet($name) {
-        $list = $this->getBannersForGroupName(ZMSettings::get('banners.'.$name), ZMRequest::instance()->isSecure());
+        $list = $this->getBannersForGroupName(ZMSettings::get('banners.'.$name), $this->container->get('request')->isSecure());
         shuffle($list);
         return 0 < count($list) ? $list[0] : null;
     }

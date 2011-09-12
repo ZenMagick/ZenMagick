@@ -3,11 +3,9 @@ parameters:
   admin.session_timeout: 1440
 
 services:
-  ZMRequest:
+  request:
     class: Request
     scope: container
-    calls:
-      - [setSession, [@ZMSession]]
 
   ZMPlugins:
     class: Plugins
@@ -66,7 +64,7 @@ services:
     class: ZMInstallationPatcher
     scope: container
 
-  ZMSession:
+  session:
     class: zenmagick\http\session\Session
     scope: container
     calls:

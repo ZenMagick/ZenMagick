@@ -58,7 +58,7 @@ class ZMStoreDefaultUrlRewriter implements UrlRewriter {
     //TODO:
     global $session_started, $http_domain, $https_domain;
 
-        if (null == $request) { $request = ZMRequest::instance(); }
+        if (null == $request) { $request = Runtime::getContainer()->get('request'); }
 
         if (empty($page)) {
             throw new ZMException('missing page parameter');

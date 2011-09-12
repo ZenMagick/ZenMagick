@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 
 /**
  * Filter orders by status id.
@@ -33,7 +34,7 @@ class ZMOrderStatusIdFilter extends ZMResultListFilter implements ZMSQLAware {
      * Create new instance.
      */
     function __construct() {
-        parent::__construct('ofilter', _zm('Order Status'), ZMRequest::instance()->getParameter('ofilter'));
+        parent::__construct('ofilter', _zm('Order Status'), Runtime::getContainer()->get('request')->getParameter('ofilter'));
     }
 
     /**

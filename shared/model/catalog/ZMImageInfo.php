@@ -72,7 +72,7 @@ class ZMImageInfo extends ZMObject {
             $ext = $comp[1];
             $imageBase = $comp[2];
 
-            $toolbox = ZMRequest::instance()->getToolbox();
+            $toolbox = $this->container->get('request')->getToolbox();
 
             // set default image
             if (empty($image) || !file_exists(DIR_FS_CATALOG.DIR_WS_IMAGES.$image) || !is_file(DIR_FS_CATALOG.DIR_WS_IMAGES.$image)) {

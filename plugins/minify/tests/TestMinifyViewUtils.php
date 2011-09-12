@@ -46,7 +46,7 @@ class TestMinifyViewUtils extends ZMTestCase {
      */
     protected function getViewUtils() {
         $view = new SavantView();
-        $view->setVar('request', ZMRequest::instance());
+        $view->setVar('request', $this->getRequest());
         $viewUtils = new MinifyViewUtils($view);
         $viewUtils->setResourcesAsTemplates(true);
         return $viewUtils;

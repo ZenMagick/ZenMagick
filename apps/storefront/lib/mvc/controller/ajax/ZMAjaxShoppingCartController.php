@@ -24,6 +24,7 @@
 <?php
 
 use zenmagick\base\Beans;
+use zenmagick\base\Runtime;
 
 /**
  * Ajax controller for JSON shopping cart.
@@ -99,7 +100,7 @@ class ZMAjaxShoppingCartController extends ZMAjaxController {
         $shoppingCart = $request->getShoppingCart();
         $cartDetails  = array();
         $items = array();
-        $formatter = create_function('$obj,$name,$value', 'return $name=="itemTotal" ? ZMRequest::instance()->getToolbox()->utils->formatMoney($value) : $value;');
+        $formatter = create_function('$obj,$name,$value', 'return $name=="itemTotal" ? zenmagick\base\Runtime::getContainer()->get(\'request\')->getToolbox()->utils->formatMoney($value) : $value;');
         foreach ($shoppingCart->getItems() as $item) {
             array_push($items, ZMAjaxUtils::flattenObject($item, $this->get('ajaxCartItemMap'), $formatter));
         }

@@ -61,7 +61,7 @@ class ZMRedirectFixPatch extends ZMFilePatch {
 
             // look for ZenMagick code...
             foreach ($lines as $line) {
-                if (false !== strpos($line, 'ZMRequest::instance')) {
+                if (false !== strpos($line, "ZMRequest::instance") || false !== strpos($line, 'Runtime::getContainer()->get(\'request\')')) {
                     ++$found;
                     break;
                 }
@@ -109,11 +109,11 @@ class ZMRedirectFixPatch extends ZMFilePatch {
                 $insertNow = false;
                 $lines = $this->getFileLines($file);
                 foreach ($lines as $line) {
-                    if ($insertNow && false === strpos($line, "ZMRequest::instance")) {
+                    if ($insertNow && false === strpos($line, "ZMRequest::instance") && false === strpos($line, 'Runtime::getContainer()->get(\'request\')')) {
                         if ($file == _ZM_ZEN_GENERAL_FILE) {
-                            $patchLine = 'ZMRequest::instance()->redirect($url, $httpResponseCode); return; /* added by ZenMagick installation patcher */';
+                            $patchLine = 'zenmagick\\base\\Runtime::getContainer()->get(\'request\')->redirect($url, $httpResponseCode); return; /* added by ZenMagick installation patcher */';
                         } else {
-                            $patchLine = 'ZMRequest::instance()->redirect($url); return; /* added by ZenMagick installation patcher */';
+                            $patchLine = 'zenmagick\\base\\Runtime::getContainer()->get(\'request\')->redirect($url); return; /* added by ZenMagick installation patcher */';
                         }
                         array_push($patchedLines, $patchLine);
                     }
@@ -147,7 +147,7 @@ class ZMRedirectFixPatch extends ZMFilePatch {
                 $unpatchedLines = array();
                 $lines = $this->getFileLines($file);
                 foreach ($lines as $line) {
-                    if (false !== strpos($line, 'ZMRequest::instance')) {
+                    if (false !== strpos($line, "ZMRequest::instance") || false !== strpos($line, 'Runtime::getContainer()->get(\'request\')')) {
                         continue;
                     }
                     array_push($unpatchedLines, $line);

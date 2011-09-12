@@ -26,7 +26,7 @@ use zenmagick\http\sacs\SacsManager;
 
     try {
         // create the main request instance
-        $request = $_zm_request = ZMRequest::instance();
+        $request = $_zm_request = Runtime::getContainer()->get('request');
 
         // tell everyone interested that we have a request
         Runtime::getEventDispatcher()->dispatch('init_request', new Event(null, array('request' => $_zm_request)));

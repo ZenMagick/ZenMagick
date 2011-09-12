@@ -22,10 +22,13 @@
 <link rel="stylesheet" type="text/css" href="<?php echo DIR_WS_CATALOG.ZC_ADMIN_FOLDER ?>/includes/stylesheet.css">
 
 <?php
+
+use zenmagick\base\Runtime;
+
 if (!function_exists('zen_href_link')) {
     function zen_href_link($page='', $params='', $transport='NONSSL', $addSessionId=true, $seo=true, $isStatic=false, $useContext=true) {
         if (defined('ZC_INSTALL_PATH')) {
-            $request = ZMRequest::instance();
+            $request = Runtime::getContainer()->get('request');
             // strip rid,zpid frm params
             parse_str($params, $tmp);
             unset($tmp['rid']);
@@ -38,7 +41,7 @@ if (!function_exists('zen_href_link')) {
 }
 
 // load ZM email wrapper and replacement functions
-require_once zenmagick\base\Runtime::getInstallationPath().'apps/storefront/lib/zencart_overrides.php';
+require_once Runtime::getInstallationPath().'apps/storefront/lib/zencart_overrides.php';
 // map emails view; here we want a store view; merge
 ZMUrlManager::instance()->setMapping(null, array('emails' => array('view' => 'SavantView')), false);
 

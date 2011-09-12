@@ -3,7 +3,7 @@ parameters:
   storefront.session_timeout: 1440
 
 services:
-  ZMRequest:
+  request:
     class: Request
     scope: prototype
 
@@ -12,9 +12,12 @@ services:
     scope: container
   pluginService: @ZMPlugins
 
-  ZMSession:
+  session:
     class: Session
     scope: container
+    calls:
+      - [setName, ['zenid']]
+      #- [registerSessionHandler, [@sessionHandler]]
 
   storeViewUtils:
     parent: merge:ZMViewUtils

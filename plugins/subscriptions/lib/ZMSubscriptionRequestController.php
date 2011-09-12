@@ -51,9 +51,9 @@ class ZMSubscriptionRequestController extends ZMController {
      */
     protected function createModel() {
         $request = new ZMObject();
-        $request->set('type', ZMRequest::instance()->getParameter('type'));
-        $request->set('orderId', ZMRequest::instance()->getParameter('orderId'));
-        $request->set('message', ZMRequest::instance()->getParameter('message'));
+        $request->set('type', $this->container->get('request')->getParameter('type'));
+        $request->set('orderId', $this->container->get('request')->getParameter('orderId'));
+        $request->set('message', $this->container->get('request')->getParameter('message'));
         $request->set('types', $this->getPlugin()->getRequestTypes());
 
         return $request;

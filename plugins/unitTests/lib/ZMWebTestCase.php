@@ -20,6 +20,8 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
+
 /**
  * WebTestCase base class.
  *
@@ -34,7 +36,7 @@ class ZMWebTestCase extends WebTestCase {
      * @return ZMRequest The current request.
      */
     public function getRequest() {
-        return ZMRequest::instance();
+        return Runtime::getContainer()->get('request');
     }
 
     /**

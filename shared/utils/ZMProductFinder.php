@@ -23,19 +23,18 @@
 ?>
 <?php
 
-
 /**
  * Product search.
  *
  * <p>Sorting and filtering is based on the corresponding result list support classes.</p>
  *
- * <p>The setting '<em>apps.store.search.fulltext</em>' may be set to true to make the search SQL 
+ * <p>The setting '<em>apps.store.search.fulltext</em>' may be set to true to make the search SQL
  * use MySQL fulltext rather than simple <em>LIKE</em> queries.</p>
  *
  * @author DerManoMann
  * @package zenmagick.store.shared.utils
  */
-class ZMProductFinder {
+class ZMProductFinder extends ZMObject {
     protected $criteria_;
     protected $sortId_;
     protected $descending_;
@@ -47,6 +46,7 @@ class ZMProductFinder {
      * @param ZMSearchCriteria criteria Optional search criteria; default is <code>null</code>.
      */
     function __construct($criteria=null) {
+        parent::__construct();
         $this->criteria_ = $criteria;
         $this->sortId_ = null;
         $this->descending_ = false;
@@ -107,12 +107,12 @@ class ZMProductFinder {
 
         $needsP2c =  0 != $criteria->getCategoryId();
 
-        $from = " FROM (" . TABLE_PRODUCTS . " p 
+        $from = " FROM (" . TABLE_PRODUCTS . " p
                  LEFT JOIN " . TABLE_MANUFACTURERS . " m USING(manufacturers_id), " .
-                 TABLE_PRODUCTS_DESCRIPTION . " pd " .  
+                 TABLE_PRODUCTS_DESCRIPTION . " pd " .
                  ($needsP2c ? (', '
-                    . TABLE_CATEGORIES . ' c, ' 
-                    . TABLE_PRODUCTS_TO_CATEGORIES . ' p2c') : '') . 
+                    . TABLE_CATEGORIES . ' c, '
+                    . TABLE_PRODUCTS_TO_CATEGORIES . ' p2c') : '') .
                  ") LEFT JOIN " . TABLE_META_TAGS_PRODUCTS_DESCRIPTION . " mtpd ON mtpd.products_id= p.products_id AND mtpd.language_id = :languageId";
 
         $args['languageId'] = $criteria->getLanguageId();
@@ -138,7 +138,7 @@ class ZMProductFinder {
                 $where .= " AND p2c.products_id = p.products_id
                             AND p2c.products_id = pd.products_id
                             AND p2c.categories_id in (:categoryId)";
-                $category = ZMCategories::instance()->getCategoryForId($criteria->getCategoryId(), ZMRequest::instance()->getSession()->getLanguageId());
+                $category = ZMCategories::instance()->getCategoryForId($criteria->getCategoryId(), $this->container->get('session')->getLanguageId());
                 $args['categoryId'] = $category->getDecendantIds();
             } else {
                 $where .= " AND p2c.products_id = p.products_id
@@ -173,22 +173,22 @@ class ZMProductFinder {
                         $args[$name] = '%'.$token.'%';
 
                         if ($useFulltext) {
-                            $where .= "(match(pd.products_name) against (:" .$name.") 
-                                OR match(p.products_model) against (:".$name.") 
+                            $where .= "(match(pd.products_name) against (:" .$name.")
+                                OR match(p.products_model) against (:".$name.")
                                 OR m.manufacturers_name LIKE :".$name."";
 
                             $fulltext_match_order[] = "match(pd.products_name) against (:" .$name.")+1";
                             $fulltext_match_order[] = "match(p.products_model) against (:" .$name.")+1";
                         } else {
-                            $where .= "(pd.products_name LIKE :".$name." 
-                                OR p.products_model LIKE :".$name." 
+                            $where .= "(pd.products_name LIKE :".$name."
+                                OR p.products_model LIKE :".$name."
                                 OR m.manufacturers_name LIKE :".$name."";
                         }
 
                         // search meta tags
-                        $where .= " OR (mtpd.metatags_keywords LIKE :".$name." 
+                        $where .= " OR (mtpd.metatags_keywords LIKE :".$name."
 									          AND mtpd.metatags_keywords !='')";
-                        $where .= " OR (mtpd.metatags_description LIKE :".$name." 
+                        $where .= " OR (mtpd.metatags_description LIKE :".$name."
 									          AND mtpd.metatags_description !='')";
                         if ($criteria->isIncludeDescription()) {
                             if ($useFulltext) {

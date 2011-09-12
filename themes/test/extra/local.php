@@ -1,4 +1,5 @@
 <?php
+use zenmagick\base\Runtime;
 
     ZMSettings::set('resultListProductFilter', null);
     //ZMSettings::set('resultListProductSorter', null);
@@ -50,9 +51,10 @@
             }
         }
     }
-    zenmagick\base\Runtime::getEventDispatcher()->listen(new RestrictCategory());
+    Runtime::getEventDispatcher()->listen(new RestrictCategory());
 
-    if ('haml_product' == ZMRequest::instance()->getRequestId()) {
+    $request =
+    if ('haml_product' == Runtime::getContainer()->get('request')->getRequestId()) {
         ZMUrlManager::instance()->setMapping('haml_product', array(
           'controller' => 'ProductInfoController',
           'product_info' => array(
@@ -63,7 +65,7 @@
         ZMSettings::set('zenmagick.mvc.templates.ext', '.haml');
     }
 
-    if ('twig_product' == ZMRequest::instance()->getRequestId()) {
+    if ('twig_product' == Runtime::getContainer()->get('request')->getRequestId()) {
         ZMUrlManager::instance()->setMapping('twig_product', array(
           'controller' => 'ProductInfoController',
           'product_info' => array(

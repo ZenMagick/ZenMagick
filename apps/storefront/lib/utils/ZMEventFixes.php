@@ -59,11 +59,11 @@ class ZMEventFixes extends ZMObject {
         if (!ZMsettings::get('isEnableZMThemes', true)) {
             if (0 === strpos($eventId, 'NOTIFY_HEADER_START_')) {
                 $controllerId = str_replace('NOTIFY_HEADER_START_', '', $eventId);
-                $args = array_merge($args, array('controllerId' => $controllerId, 'request' => ZMRequest::instance()));
+                $args = array_merge($args, array('controllerId' => $controllerId, 'request' => $this->container->get('request')));
                 Runtime::getEventDispatcher()->dispatch('controller_process_start', new Event($this, $args));
             } else if (0 === strpos($eventId, 'NOTIFY_HEADER_END_')) {
                 $controllerId = str_replace('NOTIFY_HEADER_END_', '', $eventId);
-                $args = array_merge($args, array('controllerId' => $controllerId, 'request' => ZMRequest::instance()));
+                $args = array_merge($args, array('controllerId' => $controllerId, 'request' => $this->container->get('request')));
                 Runtime::getEventDispatcher()->dispatch('controller_process_end', new Event($this, $args));
             }
         }
@@ -287,7 +287,7 @@ class ZMEventFixes extends ZMObject {
      * Create ZenMagick order created event that contains the order id.
      */
     public function onNotifyCheckoutProcessAfterOrderCreateAddProducts($event) {
-        $args = array_merge($event->all(), array('request' => ZMRequest::instance(), 'orderId' => $_SESSION['order_number_created']));
+        $args = array_merge($event->all(), array('request' => $this->container->get('request'), 'orderId' => $_SESSION['order_number_created']));
         Runtime::getEventDispatcher()->dispatch('create_order', new Event($this, $args));
     }
 

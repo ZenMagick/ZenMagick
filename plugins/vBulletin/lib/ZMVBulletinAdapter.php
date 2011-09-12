@@ -24,7 +24,7 @@
 /**
  * Adapter class for vBulletin data.
  *
- * <p>Methods prefixed with <em>v</em> are validation rules that are wrapped in a 
+ * <p>Methods prefixed with <em>v</em> are validation rules that are wrapped in a
  * <copde>ZMWrapperRule</code>.</p>
  *
  * @package org.zenmagick.plugins.vbulletin
@@ -110,7 +110,7 @@ class ZMVBulletinAdapter extends ZMObject {
      */
     public function vDuplicateChangedEmail($request, $data) {
         // the current account
-        $account = ZMRequest::instance()->getAccount();
+        $account = $this->container->get('request')->getAccount();
         if ($account->getEmail() != $data['email']) {
             // changed
             return $this->vDuplicateEmail($request, $data);
@@ -127,7 +127,7 @@ class ZMVBulletinAdapter extends ZMObject {
      */
     public function vDuplicateChangedNickname($request, $data) {
         // the current account
-        $account = ZMRequest::instance()->getAccount();
+        $account = $this->container->get('request')->getAccount();
         if ($account->getNickName() != $data['nickName']) {
             // changed
             return $this->vDuplicateNickname($request, $data);

@@ -49,7 +49,6 @@ class ZMRequest extends \ZMObject {
 
     private $urlRewriter_;
     private $controller_;
-    private $session_;
     private $toolbox_;
     private $parameter_;
     private $method_;
@@ -78,7 +77,6 @@ class ZMRequest extends \ZMObject {
 
         $this->setMethod($_SERVER['REQUEST_METHOD']);
         $this->controller_ = null;
-        $this->session_ = null;
         $this->toolbox_ = null;
         $this->urlRewriter_ = null;
         $this->userFactory_ = null;
@@ -98,7 +96,7 @@ class ZMRequest extends \ZMObject {
      * available.</p>
      */
     public static function instance() {
-        return Runtime::getContainer()->getService('ZMRequest');
+        return Runtime::getContainer()->getService('request');
     }
 
 
@@ -283,23 +281,10 @@ class ZMRequest extends \ZMObject {
     /**
      * Get the current session.
      *
-     * @return ZMSession The session.
+     * @return zenmagick\http\session\Session The session.
      */
     public function getSession() {
-        if (!isset($this->session_)) {
-            $this->session_ = $this->container->get("ZMSession");
-        }
-
-        return $this->session_;
-    }
-
-    /**
-     * Set the current session instance.
-     *
-     * @param ZMSession session The session.
-     */
-    public function setSession($session) {
-        $this->session_ = $session;
+        return $this->container->get("session");
     }
 
     /**

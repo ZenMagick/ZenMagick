@@ -29,7 +29,7 @@
  * @author DerManoMann
  * @package zenmagick.store.shared.admin.menu
  */
-class ZMAdminMenu {
+class ZMAdminMenu extends ZMObject {
     /** Plugins menu id. */
     const MENU_PLUGINS = 'configuration-plugins';
     /** Menu id for Catalog Manager tabs. */
@@ -110,7 +110,7 @@ class ZMAdminMenu {
                 } else {
                     $url = $item->getURL();
                     if (ZMLangUtils::startsWith($url, 'fkt:')) {
-                        $url = ZMRequest::instance()->getToolbox()->admin->url('plugin_page', 'fkt='.substr($url, 4), true, false);
+                        $url = $this->container->get('request')->getToolbox()->admin->url('plugin_page', 'fkt='.substr($url, 4), true, false);
                     }
                     echo '<a href="'.$url.'">'.$item->getTitle().'</a>';
                 }

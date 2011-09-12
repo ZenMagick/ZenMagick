@@ -58,7 +58,7 @@ if (!function_exists('zen_mail')) {
         // uncomment to trace mail calls and figure out module names (ie template names)
         //Runtime::getLogging()->trace('mail: '.$module);
 
-        $request = ZMRequest::instance();
+        $request = Runtime::getContainer()->get('request');
         $container = Runtime::getContainer();
         $messageBuilder = $container->get('messageBuilder');
 
@@ -92,7 +92,7 @@ if (!function_exists('zen_build_html_email_from_template')) {
         if (!ZMSettings::get('isEnableZMThemes', true)) {
             return zen_build_html_email_from_template_org($template, $args);
         }
-        $request = ZMRequest::instance();
+        $request = Runtime::getContainer()->get('request');
         return $messageBuilder->createContents($template, true, $request, $request->get('ZM_EMAIL_CONTEXT'));
     }
 

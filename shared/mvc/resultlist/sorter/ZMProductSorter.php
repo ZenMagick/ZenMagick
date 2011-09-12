@@ -20,7 +20,7 @@
 ?>
 <?php
 
-
+use zenmagick\base\Runtime;
 
 /**
  * Product sorter.
@@ -59,7 +59,7 @@ class ZMProductSorter extends ZMResultListSorter implements ZMSQLAware {
      * Create new instance.
      */
     function __construct() {
-        parent::__construct('psort', '', ZMRequest::instance()->getSortId());
+        parent::__construct('psort', '', Runtime::getContainer()->get('request')->getSortId());
     }
 
     /**

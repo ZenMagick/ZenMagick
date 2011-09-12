@@ -1,4 +1,5 @@
 <?php
+use zenmagick\base\Runtime;
 
 if (!function_exists('zen_hoverbox_IH2_url')) {
  /**
@@ -51,9 +52,9 @@ if (!function_exists('zen_hoverbox_IH2_url')) {
         if(HOVERBOX_DISPLAY_PRICE == 'true'){
           $offers = $product->getOffers();
           if($offers->isSpecial()){
-            $price = ' - ' . (($offers->isAttributePrice() && 1 == $product->getTypeSetting('starting_at')) ? TEXT_BASE_PRICE : '') . ZMRequest::instance()->getToolbox()->utils->formatMoney($offers->getSpecialPrice(), false);
+            $price = ' - ' . (($offers->isAttributePrice() && 1 == $product->getTypeSetting('starting_at')) ? TEXT_BASE_PRICE : '') . Runtime::getContainer()->get('request')->getToolbox()->utils->formatMoney($offers->getSpecialPrice(), false);
           }else{
-            $price = ' - ' . (($offers->isAttributePrice() && 1 == $product->getTypeSetting('starting_at')) ? TEXT_BASE_PRICE : '') . ZMRequest::instance()->getToolbox()->utils->formatMoney($offers->getCalculatedPrice(), false);
+            $price = ' - ' . (($offers->isAttributePrice() && 1 == $product->getTypeSetting('starting_at')) ? TEXT_BASE_PRICE : '') . Runtime::getContainer()->get('request')->getToolbox()->utils->formatMoney($offers->getCalculatedPrice(), false);
           }
         }else{
           $price='';

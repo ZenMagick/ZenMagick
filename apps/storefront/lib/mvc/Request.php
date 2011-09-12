@@ -49,18 +49,7 @@ class Request extends \ZMRequest {
      */
     function __construct($parameter=null) {
         parent::__construct($parameter);
-
-        if (Runtime::getSettings()->get('zenmagick.apps.store.storefront.sessions', false)) {
-            $session = Runtime::getContainer()->get('ZMSession');
-            $session->setName('zenid');
-            $this->setSession($session);
-            if ('db' == ZMSettings::get('sessionPersistence')) {
-                $this->getSession()->registerSessionHandler(Runtime::getContainer()->get('ZMZenCartSessionHandler'));
-            }
-        }
-
         $this->categoryPathArray_ = null;
-        $this->shoppingCart_ = null;
         $this->shoppingCart_ = null;
         $this->metaTags_ = null;
     }

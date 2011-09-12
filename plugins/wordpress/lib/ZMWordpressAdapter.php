@@ -24,7 +24,7 @@
 /**
  * Wordpress adapter.
  *
- * <p>Methods prefixed with <em>v</em> are validation rules that are wrapped in a 
+ * <p>Methods prefixed with <em>v</em> are validation rules that are wrapped in a
  * <copde>ZMWrapperRule</code>.</p>
  *
  * @package org.zenmagick.plugins.zm_wordpress
@@ -78,7 +78,7 @@ class ZMWordpressAdapter extends ZMObject {
      */
     public function vDuplicateChangedEmail($request, $data) {
         // the current account
-        $account = ZMRequest::instance()->getAccount();
+        $account = $this->container->get('request')->getAccount();
         if ($account->getEmail() != $data['email']) {
             // changed
             return $this->vDuplicateEmail($request, $data);
@@ -97,13 +97,13 @@ class ZMWordpressAdapter extends ZMObject {
         $email = $account->getEmail();
 		    $userId = username_exists($email);
         if (!$userId) {
-            $userId = email_exists($email); 
+            $userId = email_exists($email);
         }
         if (!$userId) {
             $userId = wp_create_user($email, $password, $email);
             update_usermeta($userId, $account->getFirstName());
             update_usermeta($userId, $account->getLastName());
-            
+
             // and login
             $user = wp_authenticate($email, $password);
             wp_set_auth_cookie($user->ID, true);
