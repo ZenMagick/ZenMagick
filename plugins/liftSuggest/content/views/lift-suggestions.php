@@ -32,7 +32,7 @@ if (isset($liftSuggest)) {
         }
         $productId = implode(',', $productIdList);
     }
-$productId = 894;
+
     $recommendations = $liftSuggest->getProductRecommendations($productId);
     ?>
     <div class="lift-recommend">
