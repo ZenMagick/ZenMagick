@@ -92,7 +92,6 @@ class ZMThemeSwitcherPlugin extends Plugin {
         }
 
         $request = $event->get('request');
-        $view = $event->get('view');
 
         $defaultConfig = null;
         if (!ZMSettings::exists('plugins.themeSwitcher.themes')) {
@@ -131,11 +130,13 @@ class ZMThemeSwitcherPlugin extends Plugin {
             }
         }
 
-        $view->setVar('themeList', $themeList);
-        $switcherMarkup = $view->fetch($request, 'theme-switcher.php');
-        if (!empty($switcherMarkup)) {
-            $content =  preg_replace('/(<body[^>]*>)/', '\1'.$switcherMarkup, $content, 1);
-            $event->set('content', $content);
+        if (null != ($view = $event->get('view'))) {
+            $view->setVar('themeList', $themeList);
+            $switcherMarkup = $view->fetch($request, 'theme-switcher.php');
+            if (!empty($switcherMarkup)) {
+                $content =  preg_replace('/(<body[^>]*>)/', '\1'.$switcherMarkup, $content, 1);
+                $event->set('content', $content);
+            }
         }
     }
 
