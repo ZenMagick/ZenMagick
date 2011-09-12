@@ -7,6 +7,7 @@ CREATE TABLE block_groups (
   block_group_id int(11) NOT NULL auto_increment,
   group_name varchar(32) NOT NULL,
   description text,
+  theme_id varchar(64) NOT NULL,
   PRIMARY KEY (block_group_id),
   UNIQUE(group_name)
 ) ENGINE=MyISAM;
