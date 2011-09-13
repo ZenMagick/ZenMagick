@@ -56,12 +56,14 @@
         <th><?php echo $column ?></th>
       <?php } ?>
     </tr>
-    <?php foreach ($rows as $row) { ?>
-      <tr>
-        <?php foreach ($row as $column) { ?>
-          <td><?php echo $column ?></td>
-        <?php } ?>
-      </tr>
+    <?php foreach ($rows as $orderRows) { ?>
+      <?php foreach ($orderRows as $row) { ?>
+        <tr>
+          <?php foreach ($row as $column) { ?>
+            <td><?php echo $column ?></td>
+          <?php } ?>
+        </tr>
+      <?php } ?>
     <?php } ?>
   </table>
 <?php } ?>
