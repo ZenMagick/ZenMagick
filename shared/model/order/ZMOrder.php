@@ -48,10 +48,8 @@ class ZMOrder extends ZMObject {
     function __construct() {
         parent::__construct();
         $this->setId(0);
-        $this->account_ = null;
         $this->accountId_ = 0;
-        $this->shippingAddress_ = null;
-        $this->billingAddress_ = null;
+        $this->reset();
     }
 
     /**
@@ -61,6 +59,17 @@ class ZMOrder extends ZMObject {
         parent::__destruct();
     }
 
+
+    /**
+     * Reset.
+     *
+     * <p>This method may be called to reuse an existing instance.
+     */
+    public function reset() {
+        $this->account_ = null;
+        $this->shippingAddress_ = null;
+        $this->billingAddress_ = null;
+    }
 
     /**
      * Get the order id.
