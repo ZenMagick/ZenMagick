@@ -56,6 +56,8 @@ class ZML10nController extends \ZMController {
           'themeId' => 's', 'languageId' => 's:1',
           'includeDefaults' => 'b', 'mergeExisting' => 'b', 'scanShared' => 'b', 'scanPlugins' => 'b', 'scanAdmin' => 'b', 'scanMvc' => 'b'
         );
+        $sources = array('storefront' => 'Storefront', 'admin' => 'Admin');
+        $source = $request->getParameter('source');
         $options = array();
         foreach ($params as $name => $type) {
             $def = null;
@@ -73,13 +75,33 @@ class ZML10nController extends \ZMController {
         $downloadParamsYaml = http_build_query(array_merge(array('download' => 'yaml'), $options));
         $downloadParamsPo = http_build_query(array_merge(array('download' => 'po'), $options));
         $downloadParamsPot = http_build_query(array_merge(array('download' => 'pot'), $options));
-        return array_merge(array(
+
+        $vd = array_merge(array(
               'themes' => \ZMThemes::instance()->getAvailableThemes(),
+              'source' => $source,
+              'sources' => $sources,
               'downloadParamsYaml' => $downloadParamsYaml,
               'downloadParamsPo' => $downloadParamsPo,
               'downloadParamsPot' => $downloadParamsPot
             ),
             $options);
+
+        switch ($vd['source']) {
+        case 'admin':
+            $vd['includeDefaults'] = $vd['mergeExisting'] = false;
+            $vd['scanShared'] = $vd['scanPlugins'] = $vd['scanAdmin'] = $vd['scanMvc'] = true;
+            $vd['themeId'] = null;
+            break;
+        case 'storefront':
+            $vd['scanAdmin'] = false;
+            $vd['includeDefaults'] = $vd['mergeExisting'] = $vd['scanShared'] = $vd['scanPlugins'] = $vd['scanMvc'] = true;
+            if (null == $vd['themeId']) {
+                $vd['themeId'] = 'default';
+            }
+            break;
+        }
+
+        return $vd;
     }
 
     /**
@@ -90,7 +112,7 @@ class ZML10nController extends \ZMController {
 
         $defaultMap = array();
         if ($vd['includeDefaults']) {
-            $themesDir = \ZMThemes::instance()->getActiveThemeId();
+            $themesDir = \ZMThemes::getThemesDir();
             $defaultMap = \ZMLocaleUtils::buildL10nMap($themesDir.\ZMSettings::get('apps.store.themes.default'));
         }
 
