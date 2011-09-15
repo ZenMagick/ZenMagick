@@ -187,15 +187,16 @@ EOT;
      * Get recommendations for the given product (id).
      *
      * @param mixed productIds Either a single productId or a list of product Ids.
+     * @param int limit Optional limit to override the globally configured limit; default is <code>null</code> to use the global limit.
      * @return array List of maps with product recommendation details or <code>null</code> on failure.
      */
-    public function getProductRecommendations($productId) {
+    public function getProductRecommendations($productId, $limit=null) {
         $lsr = new ZMLiftSuggestLookup($this);
         if (null === $this->recommendationsLoadedFor) {
             // grab first
             $this->recommendationsLoadedFor = $productId;
         }
-        return $lsr->getProductRecommendations($productId);
+        return $lsr->getProductRecommendations($productId, $limit);
     }
 
 }
