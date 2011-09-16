@@ -51,7 +51,7 @@ class ZMZoneSelectFormWidget extends ZMSelectFormWidget {
         // try to find a useful countryId, defaulting to store country Id
         $countryId = ZMSettings::get('storeCountry');
         //XXX: where else to look ??
-        foreach (ZMCountries::instance()->getZonesForCountryId($countryId) as $zone) {
+        foreach ($this->container->get('countryService')->getZonesForCountryId($countryId) as $zone) {
             $options[$zone->getId()] = $zone->getName();
         }
         return $options;

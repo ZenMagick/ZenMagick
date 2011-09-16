@@ -24,7 +24,7 @@
 
 <div id="footer">
     <p id="fpages">
-        <?php foreach (ZMEZPages::instance()->getPagesForFooter($session->getLanguageId()) as $page) { ?>
+        <?php foreach ($this->container->get('ezPageService')->getPagesForFooter($session->getLanguageId()) as $page) { ?>
             <?php echo $html->ezpageLink($page->getId()) ?>
         <?php } ?>
     </p>
@@ -36,7 +36,7 @@
         <a href="<?php echo $net->url('source_view', 'view_name='.$request->getRequestId()) ?>">View: '<?php echo basename($request->getRequestId()) ?>'</a>
     </p>
     <p>Powered by <a href="http://www.zen-cart.com">zen-cart</a> and <a href="http://www.zenmagick.org">ZenMagick</a></p>
-    <p>&copy; 2006-2010  <a href="http://www.zenmagick.org">ZenMagick</a> | 
-      Design based on <a href="http://www.freecsstemplates.org/preview/convergence">Convergence</a> by 
+    <p>&copy; 2006-2010  <a href="http://www.zenmagick.org">ZenMagick</a> |
+      Design based on <a href="http://www.freecsstemplates.org/preview/convergence">Convergence</a> by
       <a href="http://www.freecsstemplates.org/">Free CSS Templates</a></p>
 </div>

@@ -69,7 +69,7 @@ class ZMAjaxCatalogController extends ZMAjaxController {
     public function getProductForIdJSON($request) {
         $productId = $request->getProductId();
 
-        $flatObj = ZMAjaxUtils::flattenObject(ZMProducts::instance()->getProductForId($productId, $request->getSession()->getLanguageId()), $this->get('ajaxProductMap'));
+        $flatObj = ZMAjaxUtils::flattenObject($this->container->get('productService')->getProductForId($productId, $request->getSession()->getLanguageId()), $this->get('ajaxProductMap'));
         $json = $this->toJSON($flatObj);
         $this->setJSONHeader($json);
     }
@@ -95,11 +95,11 @@ class ZMAjaxCatalogController extends ZMAjaxController {
 
         if (null === ($page = $request->getParameter('page'))) {
             // return all
-            $flatObj = ZMAjaxUtils::flattenObject(ZMProducts::instance()->getProductsForCategoryId($categoryId, $activeOnly), $this->get('ajaxProductMap'));
+            $flatObj = ZMAjaxUtils::flattenObject($this->container->get('productService')->getProductsForCategoryId($categoryId, $activeOnly), $this->get('ajaxProductMap'));
         } else {
             // use result list to paginate
             $args = array($categoryId, $activeOnly);
-            $resultSource = new ZMObjectResultSource('ZMProduct', ZMProducts::instance(), "getProductsForCategoryId", $args);
+            $resultSource = new ZMObjectResultSource('ZMProduct', 'productService', "getProductsForCategoryId", $args);
             $resultList = Runtime::getContainer()->get('ZMResultList');
             $resultList->setResultSource($resultSource);
             $resultList->setPageNumber($page);

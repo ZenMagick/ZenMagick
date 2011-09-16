@@ -23,7 +23,7 @@
 ?>
 
 <?php $sbchapter = isset($sbchapter) ? $sbchapter : $request->getParameter("sbchapter", null); ?>
-<?php $pages = null != $sbchapter ? ZMEZPages::instance()->getPagesForChapterId($sbchapter, $session->getLanguageId()) : ZMEZPages::instance()->getPagesForSidebar($session->getLanguageId()); ?>
+<?php $pages = null != $sbchapter ? $this->container->get('ezPageService')->getPagesForChapterId($sbchapter, $session->getLanguageId()) : $this->container->get('ezPageService')->getPagesForSidebar($session->getLanguageId()); ?>
 <?php if (0 < count($pages)) { ?>
   <h1><?php _vzm("Important Links") ?></h1>
   <ul class="sidemenu">

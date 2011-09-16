@@ -34,7 +34,7 @@ class TestAttributePricing extends ZMTestCase {
      * Test attribute price.
      */
     public function testValuePrice() {
-        foreach (ZMProducts::instance()->getAllProducts(false, 1) as $product) {
+        foreach ($this->container->get('productService')->getAllProducts(false, 1) as $product) {
             foreach ($product->getAttributes() as $attribute) {
                 foreach ($attribute->getValues() as $value) {
                     if ($value->isDiscounted()) {
@@ -56,7 +56,7 @@ class TestAttributePricing extends ZMTestCase {
      * Test one time price.
      */
     public function testValueOneTimePrice() {
-        foreach (ZMProducts::instance()->getAllProducts(false, 1) as $product) {
+        foreach ($this->container->get('productService')->getAllProducts(false, 1) as $product) {
             foreach ($product->getAttributes() as $attribute) {
                 foreach ($attribute->getValues() as $value) {
                     $er = error_reporting(0);

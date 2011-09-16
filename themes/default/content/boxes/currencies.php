@@ -22,7 +22,7 @@
  */
 ?>
 
-<?php $currencyList = ZMCurrencies::instance()->getCurrencies(); ?>
+<?php $currencyList = $this->container->get('currencyService')->getCurrencies(); ?>
 <?php if (0 < count($currencyList) && !ZMLangUtils::startsWith($request->getRequestId(), 'checkout')) { ?>
     <h3><?php _vzm("Currencies") ?></h3>
     <div id="sb_currencies" class="box">

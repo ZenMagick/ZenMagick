@@ -283,7 +283,7 @@ class Request extends \ZMRequest {
             return null;
         }
 
-        return \ZMAccounts::instance()->getAccountForId($accountId);
+        return $this->container->get('accountService')->getAccountForId($accountId);
     }
 
     /**

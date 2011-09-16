@@ -41,7 +41,7 @@
             $content .= '<ul class="level1"><li><a href="' . $net->url('products_new') . '">' . _zm('New Products...') . '</a></li></ul>';
           }
           if (SHOW_CATEGORIES_BOX_FEATURED_PRODUCTS == 'true') {
-              $products = ZMProducts::instance()->getFeaturedProducts(0, 1, false, $session->getLanguageId());
+              $products = $this->container->get('productService')->getFeaturedProducts(0, 1, false, $session->getLanguageId());
             if (0 < count($products)) {
               $content .= '<ul class="level1"><li><a href="' . $net->url('featured_products') . '">' . _zm('Featured...') . '</a></li></ul>';
             }

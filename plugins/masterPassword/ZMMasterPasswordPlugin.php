@@ -63,7 +63,7 @@ class ZMMasterPasswordPlugin extends Plugin {
         $this->addMenuItem2(_zm('Master Password'), 'masterPasswordAdmin');
 
         // add authentication handler that will validate the master password
-        ZMAuthenticationManager::instance()->addProvider('ZMMasterPasswordAuthentication');
+        $this->container->get('authenticationManager')->addProvider('ZMMasterPasswordAuthentication');
     }
 
     /**

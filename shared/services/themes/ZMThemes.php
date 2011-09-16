@@ -218,7 +218,9 @@ class ZMThemes extends ZMObject {
             // always add an event listener in the theme's base namespace
             $eventListener = 'zenmagick\\themes\\'.ucwords($themeId).'EventListener';
             if (ClassLoader::classExists($eventListener)) {
-                Runtime::getEventDispatcher()->listen(new $eventListener());
+                $listener = new $eventListener();
+                $listener->setContainer($this->container);
+                Runtime::getEventDispatcher()->listen($listener);
             }
 
             $args = array('language' => $language, 'theme' => $theme, 'themeId' => $themeId, 'languageId' => $languageId);

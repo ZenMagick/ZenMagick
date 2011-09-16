@@ -52,11 +52,11 @@ class ZMMasterPasswordAdminController extends ZMPluginAdmin2Controller {
 
         // encrypt only if not empty to allow to reset to blank
         if (!empty($masterPassword)) {
-            $masterPassword = ZMAuthenticationManager::instance()->getDefaultProvider()->encryptPassword($masterPassword);
+            $masterPassword = $this->container->get('authenticationManager')->getDefaultProvider()->encryptPassword($masterPassword);
         }
         // update
         $this->getPlugin()->set('masterPassword', $masterPassword);
-        ZMMessages::instance()->success('Master password updated'.(empty($masterPassword)?' [reset]':'').'.');
+        $this->messageService->success('Master password updated'.(empty($masterPassword)?' [reset]':'').'.');
 
         return $this->findView('success');
     }

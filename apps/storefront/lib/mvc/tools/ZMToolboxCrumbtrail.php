@@ -136,7 +136,7 @@ class ZMToolboxCrumbtrail extends ZMToolboxTool {
 
         // categories
         foreach ($path as $catId) {
-            $category = ZMCategories::instance()->getCategoryForId($catId, $this->getRequest()->getSession()->getLanguageId());
+            $category = $this->container->get('categoryService')->getCategoryForId($catId, $this->getRequest()->getSession()->getLanguageId());
             if (null == $category) {
                 return;
             }
@@ -153,7 +153,7 @@ class ZMToolboxCrumbtrail extends ZMToolboxTool {
         if (null == $manufacturerId)
             return;
 
-        $manufacturer = ZMManufacturers::instance()->getManufacturerForId($manufacturerId, $this->getRequest()->getSession()->getLanguageId());
+        $manufacturer = $this->container->get('manufacturerService')->getManufacturerForId($manufacturerId, $this->getRequest()->getSession()->getLanguageId());
         if (null != $manufacturer) {
             $this->addCrumb($manufacturer->getName(), $this->getRequest()->url('category', 'manufacturers_id=' . $manufacturerId));
         }
@@ -168,7 +168,7 @@ class ZMToolboxCrumbtrail extends ZMToolboxTool {
         if (null == $productId)
             return;
 
-        $product = ZMProducts::instance()->getProductForId($productId, $this->getRequest()->getSession()->getLanguageId());
+        $product = $this->container->get('productService')->getProductForId($productId, $this->getRequest()->getSession()->getLanguageId());
         if (null != $product) {
             $this->addCrumb($product->getName(), $this->getToolbox()->net->product($productId, null));
         }

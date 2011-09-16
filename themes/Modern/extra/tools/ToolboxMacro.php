@@ -57,26 +57,26 @@ class ToolboxMacro extends ZMToolboxMacro {
         $toolbox = $this->getToolbox();
         $languageId = $this->getRequest()->getSession()->getLanguageId();
         $css_root = '';
-        if ($root) { 
+        if ($root) {
             ob_start();
             $path = $this->getRequest()->getCategoryPathArray();
             $css_root = ' class="root"';
         }
-       
+
         echo '<ul' . ($activeParent ? ' class="act"' : '') . '>';
         foreach ($categories as $category) {
             if (!$category->isActive()) {
                 continue;
             }
-            
+
             /*if ($root) {
         		echo '<div class="parentCate catFirst"><a href="' .
-                        $this->getRequest()->url('category', '&'.$category->getPath()).'">'.$toolbox->html->encode($category->getName()).'</a></div>';	
+                        $this->getRequest()->url('category', '&'.$category->getPath()).'">'.$toolbox->html->encode($category->getName()).'</a></div>';
         		continue;
         	}*/
-            
+
             $active = in_array($category->getId(), $path);
-            $noOfProductsInCat = $showProductCount ? count(ZMProducts::instance()->getProductIdsForCategoryId($category->getId(), $languageId, true, false)) : 0;
+            $noOfProductsInCat = $showProductCount ? count($this->container->get('productService')->getProductIdsForCategoryId($category->getId(), $languageId, true, false)) : 0;
             $isEmpty = 0 == $noOfProductsInCat;
             echo '<li'.$css_root.'>';
             $class = '';
@@ -89,7 +89,7 @@ class ToolboxMacro extends ZMToolboxMacro {
                         $this->getRequest()->url('category', '&'.$category->getPath()) .
                         '">'.$toolbox->html->encode($category->getName()).'</a>';
             /*if ($showProductCount) {
-                if (0 < ($noOfProductsInTree = count(ZMProducts::instance()->getProductIdsForCategoryId($category->getId(), $languageId, true, true)))) {
+                if (0 < ($noOfProductsInTree = count($this->container->get('productService')->getProductIdsForCategoryId($category->getId(), $languageId, true, true)))) {
                     echo '('.$noOfProductsInTree.')';
                 }
             }

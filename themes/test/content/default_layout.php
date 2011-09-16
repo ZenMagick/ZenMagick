@@ -78,9 +78,9 @@
 
         <div id="bannerThree"><?php echo $this->fetchBlockGroup('banners.header3') ?></div>
 
-        <?php if (ZMMessages::instance()->hasMessages()) { ?>
+        <?php if ($this->container->get('messageService')->hasMessages()) { ?>
             <ul id="messages">
-            <?php foreach (ZMMessages::instance()->getMessages() as $message) { ?>
+            <?php foreach ($this->container->get('messageService')->getMessages() as $message) { ?>
                 <li class="<?php echo $message->getType() ?>"><?php echo $message->getText() ?></li>
             <?php } ?>
             </ul>

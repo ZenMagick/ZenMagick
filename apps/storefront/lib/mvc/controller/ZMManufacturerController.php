@@ -74,14 +74,14 @@ class ZMManufacturerController extends ZMController {
             $method = "getProductsForManufacturerId";
             $args = array($request->getManufacturerId(), true, $languageId);
             $viewName = 'manufacturer';
-            if (null == ($manufacturer = ZMManufacturers::instance()->getManufacturerForId($request->getManufacturerId(), $languageId))) {
+            if (null == ($manufacturer = $this->container->get('manufacturerService')->getManufacturerForId($request->getManufacturerId(), $languageId))) {
                 return $this->findView('manufacturer_not_found');
             }
         }
 
         $resultList = null;
         if (null !== $method) {
-            $resultSource = new ZMObjectResultSource('ZMProduct', ZMProducts::instance(), $method, $args);
+            $resultSource = new ZMObjectResultSource('ZMProduct', 'productService', $method, $args);
             $resultList = Runtime::getContainer()->get('ZMResultList');
             $resultList->setResultSource($resultSource);
             foreach (explode(',', ZMSettings::get('resultListProductFilter')) as $filter) {

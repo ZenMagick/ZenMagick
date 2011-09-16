@@ -69,7 +69,7 @@ class ZMAjaxCheckoutController extends ZMAjaxController {
         // try to set up an address using request information
         $address = null;
         if (null !== ($addressId = $request->getParameter('addressId'))) {
-            $address = ZMAddresses::instance()->getAddressForId($addressId, $request->getAccountId());
+            $address = $this->container->get('addressService')->getAddressForId($addressId, $request->getAccountId());
         } else {
             $data = array();
             foreach (array('countryId', 'zoneId', 'state', 'suburb', 'postcode', 'city') as $property) {

@@ -39,7 +39,7 @@
                 <tr>
                    <th id="label"></th>
                    <th></th>
-				  
+
                 </tr>
             </thead>
             <tbody>
@@ -105,8 +105,8 @@
                     <td><?php _vzm("City") ?><span>*</span></td>
                     <td><input type="text" name="city" value="<?php echo $html->encode($registration->getCity()) ?>" <?php echo $form->fieldLength(TABLE_ADDRESS_BOOK, 'entry_city') ?> /></td>
                 </tr>
-                <?php 
-                    $countryId = $registration->getCountryId(); 
+                <?php
+                    $countryId = $registration->getCountryId();
                     $countryId = 0 != $countryId ? $countryId : ZMSettings::get('storeCountry');
                 ?>
                 <tr>
@@ -115,10 +115,10 @@
                 </tr>
                  <tr>
                     <td><?php _vzm("Country") ?><span>*</span></td>
-                    <td><?php echo $form->idpSelect('countryId', ZMCountries::instance()->getCountries(), $countryId) ?></td>
+                    <td><?php echo $form->idpSelect('countryId', $this->container->get('countryService')->getCountries(), $countryId) ?></td>
                 </tr>
                 <?php if (ZMSettings::get('isAccountState')) { ?>
-                    <?php $zones = ZMCountries::instance()->getZonesForCountryId($countryId); ?>
+                    <?php $zones = $this->container->get('countryService')->getZonesForCountryId($countryId); ?>
                     <tr>
                         <td><?php _vzm("State/Province") ?><span>*</span></td>
                         <td>
@@ -139,7 +139,7 @@
                     <td><?php _vzm("Fax Number") ?></td>
                     <td><input type="text" name="fax" value="<?php echo $html->encode($registration->getFax()) ?>" /></td>
                 </tr> -->
-                <tr><td>&nbsp;</td></tr> 
+                <tr><td>&nbsp;</td></tr>
                 <tr><td>&nbsp;</td></tr>
                  <tr>
                     <td><?php _vzm("E-Mail Format") ?><span>*</span></td>
@@ -163,12 +163,12 @@
                         <td><input type="text" name="referral" value="" /></td>
                     </tr>
                 <?php } ?>
-                <tr><td>&nbsp;</td></tr>  
+                <tr><td>&nbsp;</td></tr>
                 <tr><td>&nbsp;</td></tr>
                 <tr class="legend">
                     <td colspan="2"><?php _vzm("<span>*</span> Mandatory fields") ?></td>
                 </tr>
-                <tr><td>&nbsp;</td></tr>  
+                <tr><td>&nbsp;</td></tr>
                 <tr><td>&nbsp;</td></tr>
             </tbody>
         </table>

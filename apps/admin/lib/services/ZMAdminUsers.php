@@ -64,7 +64,7 @@ class ZMAdminUsers extends ZMObject {
         }
 
         // set roles
-        foreach (ZMAdminUserRoles::instance()->getRolesForId($user->getId()) as $role) {
+        foreach ($this->container->get('adminUserRoleService')->getRolesForId($user->getId()) as $role) {
             $user->addRole($role);
         }
 
@@ -141,7 +141,7 @@ class ZMAdminUsers extends ZMObject {
      */
     public function createUser($user) {
         $user = ZMRuntime::getDatabase()->createModel(TABLE_ADMIN, $user);
-        ZMAdminUserRoles::instance()->setRolesForId($user->getId(), $user->getRoles());
+        $this->container->get('adminUserRoleService')->setRolesForId($user->getId(), $user->getRoles());
         return true;
     }
 
@@ -153,7 +153,7 @@ class ZMAdminUsers extends ZMObject {
      */
     public function updateUser($user) {
         ZMRuntime::getDatabase()->updateModel(TABLE_ADMIN, $user);
-        ZMAdminUserRoles::instance()->setRolesForId($user->getId(), $user->getRoles());
+        $this->container->get('adminUserRoleService')->setRolesForId($user->getId(), $user->getRoles());
         return true;
     }
 
@@ -163,9 +163,10 @@ class ZMAdminUsers extends ZMObject {
      * @param int id The user id.
      */
     public function deleteUserForId($id) {
+        $adminUserRoleService = $this->container->get('adminUserRoleService');
         // remove roles
-        $roles = ZMAdminUserRoles::instance()->getRolesForId($id);
-        ZMAdminUserRoles::instance()->setRolesForId($id, $roles);
+        $roles = $adminUserRoleService->getRolesForId($id);
+        $adminUserRoleService->setRolesForId($id, $roles);
         $sql = "DELETE FROM " . TABLE_ADMIN . "
                 WHERE admin_id = :id";
         // delete user

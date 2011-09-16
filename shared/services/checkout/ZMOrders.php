@@ -336,10 +336,11 @@ class ZMOrders extends ZMObject implements ZMSQLAware {
      * @param int orderId The order to re-stock.
      */
     public function restockFromOrder($orderId) {
+        $productService = $this->container->get('productService');
         foreach ($this->getOrderItems($orderId) as $item) {
-            if (null != ($product = ZMProducts::instance()->getProductForId($item->getProductId()))) {
+            if (null != ($product = $productService->getProductForId($item->getProductId()))) {
                 $product->setQuantity($product->getQuantity() + $item->getQty());
-                ZMProducts::instance()->updateProduct($product);
+                $productService->updateProduct($product);
             }
         }
     }

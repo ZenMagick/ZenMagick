@@ -86,18 +86,19 @@ class ZMCreateAccountController extends ZMController {
 
         $clearPassword = $registration->getPassword();
         $account = $registration->getAccount();
-        $account->setPassword(ZMAuthenticationManager::instance()->encryptPassword($clearPassword));
-        $account = ZMAccounts::instance()->createAccount($account);
+        $account->setPassword($this->container->get('authenticationManager')->encryptPassword($clearPassword));
+        $account = $this->container->get('accountService')->createAccount($account);
 
         $address = null;
+        $addressService = $this->container->get('addressService');
         if ($this->createDefaultAddress_) {
             // account and address refer to each other...
             $address = $registration->getAddress();
             $address->setPrimary(true);
             $address->setAccountId($account->getId());
-            $address = ZMAddresses::instance()->createAddress($address);
+            $address = $addressService->createAddress($address);
             $account->setDefaultAddressId($address->getId());
-            ZMAccounts::instance()->updateAccount($account);
+            $this->container->get('accountService')->updateAccount($account);
         }
 
         // here we have a proper account, so time to let other know about it
@@ -105,9 +106,9 @@ class ZMCreateAccountController extends ZMController {
         Runtime::getEventDispatcher()->dispatch('create_account', new Event($this, $args));
 
         // in case it got changed
-        ZMAccounts::instance()->updateAccount($account);
+        $this->container->get('accountService')->updateAccount($account);
         if (null != $address) {
-            ZMAddresses::instance()->updateAddress($address);
+            $addressService->updateAddress($address);
         }
 
         $session = $request->getSession();
@@ -156,7 +157,7 @@ class ZMCreateAccountController extends ZMController {
             $this->container->get('mailer')->send($message);
         }
 
-        ZMMessages::instance()->success(_zm("Thank you for signing up"));
+        $this->messageService->success(_zm("Thank you for signing up"));
 
         $stickyUrl = $request->getFollowUpUrl();
         return $this->findView('success', array('currentAccount' => $account), array('url' => $stickyUrl));

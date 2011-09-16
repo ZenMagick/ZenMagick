@@ -58,14 +58,14 @@ class ZMProductReviewsController extends ZMController {
         $request->getToolbox()->crumbtrail->addProduct($request->getProductId());
         $request->getToolbox()->crumbtrail->addCrumb("Reviews");
 
-        $product = ZMProducts::instance()->getProductForId($request->getProductId(), $request->getSession()->getLanguageId());
+        $product = $this->container->get('productService')->getProductForId($request->getProductId(), $request->getSession()->getLanguageId());
         if (null == $product) {
             return $this->findView('product_not_found');
         }
         $data = array();
         $data['currentProduct'] = $product;
 
-        $resultSource = new ZMObjectResultSource('ZMReview', ZMReviews::instance(), "getReviewsForProductId", array($product->getId(), $request->getSession()->getLanguageId()));
+        $resultSource = new ZMObjectResultSource('ZMReview', 'reviewService', "getReviewsForProductId", array($product->getId(), $request->getSession()->getLanguageId()));
         $resultList = Runtime::getContainer()->get("ZMResultList");
         $resultList->setResultSource($resultSource);
         $resultList->setPageNumber($request->getPageIndex());

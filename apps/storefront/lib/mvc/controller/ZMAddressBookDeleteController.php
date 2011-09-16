@@ -60,7 +60,7 @@ class ZMAddressBookDeleteController extends ZMController {
      * {@inheritDoc}
      */
     public function processGet($request) {
-        $address = ZMAddresses::instance()->getAddressForId($request->getParameter('id'));
+        $address = $this->container->get('addressService')->getAddressForId($request->getParameter('id'));
         return $this->findView(null, array('address' => $address));
     }
 
@@ -71,8 +71,8 @@ class ZMAddressBookDeleteController extends ZMController {
         $account = $request->getAccount();
         $addressId = $request->getParameter('id', 0);
         if (0 < $addressId) {
-            ZMAddresses::instance()->deleteAddressForId($addressId);
-            ZMMessages::instance()->success(_zm('The selected address has been successfully removed from your address book.'));
+            $this->container->get('addressService')->deleteAddressForId($addressId);
+            $this->messageService->success(_zm('The selected address has been successfully removed from your address book.'));
         }
         return $this->findView('success');
     }

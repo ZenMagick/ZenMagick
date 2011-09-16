@@ -77,7 +77,7 @@ class ZMCheckoutAddressController extends ZMController {
         $shoppingCart = $request->getShoppingCart();
         $this->viewData_['shoppingCart'] = $shoppingCart;
 
-        $addressList = ZMAddresses::instance()->getAddressesForAccountId($request->getAccountId());
+        $addressList = $this->container->get('addressService')->getAddressesForAccountId($request->getAccountId());
         $this->viewData_['addressList'] = $addressList;
         if (null != ($address = $this->getFormData($request))) {
             $address->setPrimary(0 == count($addressList));
@@ -135,8 +135,10 @@ class ZMCheckoutAddressController extends ZMController {
         }
 
         $shoppingCart = $request->getShoppingCart();
+        $addressService = $this->container->get('addressService');
         // which addres do we update?
         $method = $this->modeSettings_['method'];
+
 
         // if address field in request, it's a select; otherwise a new address
         $addressId = $request->getParameter('addressId', null);
@@ -145,18 +147,18 @@ class ZMCheckoutAddressController extends ZMController {
         } else {
             $address = $this->getFormData($request);
             $address->setAccountId($request->getAccountId());
-            $address = ZMAddresses::instance()->createAddress($address);
+            $address = $addressService->createAddress($address);
 
             $account = $request->getAccount();
             $args = array('request' => $request, 'controller' => $this, 'account' => $account, 'address' => $address, 'type' => $this->settings_['mode']);
             Runtime::getEventDispatcher()->dispatch('create_address', new Event($this, $args));
 
             // process primary setting
-            if ($address->isPrimary() || 1 == count(ZMAddresses::instance()->getAddressesForAccountId($request->getAccountId()))) {
+            if ($address->isPrimary() || 1 == count($addressService->getAddressesForAccountId($request->getAccountId()))) {
                 $account->setDefaultAddressId($address->getId());
-                ZMAccounts::instance()->updateAccount($account);
+                $this->container->get('accountService')->updateAccount($account);
                 $address->setPrimary(true);
-                $address = ZMAddresses::instance()->updateAddress($address);
+                $address = $addressService->updateAddress($address);
 
                 $session = $request->getSession();
                 $session->setAccount($account);

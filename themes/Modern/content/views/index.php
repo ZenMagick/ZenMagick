@@ -30,7 +30,7 @@
 
 <?php $colInRow = 4;//Number column in a row ?>
 
-<?php $whats_new = ZMProducts::instance()->getNewProducts(null, 4, false, $session->getLanguageId()); ?>
+<?php $whats_new = $this->container->get('productService')->getNewProducts(null, 4, false, $session->getLanguageId()); ?>
 <div class="bgContent">
 	<h2 class="index">New Products</h2>
 	<div id="whatsNew">
@@ -66,7 +66,7 @@
 	</div>
 </div>
 
-<?php $featured = ZMProducts::instance()->getFeaturedProducts(null, 4, false, $session->getLanguageId()); ?>
+<?php $featured = $this->container->get('productService')->getFeaturedProducts(null, 4, false, $session->getLanguageId()); ?>
 <div class="bgContent">
 	<h2 class="index">Featured Products</h2>
 	<div id="featured">

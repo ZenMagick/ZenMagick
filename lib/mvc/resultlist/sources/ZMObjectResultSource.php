@@ -43,7 +43,7 @@ class ZMObjectResultSource extends ZMObject implements ZMResultSource {
      * Create a new instance.
      *
      * @param string resultClass The class of the results; default is <code>null</code>.
-     * @param mixed object The object to be used; default is <code>null</code>.
+     * @param mixed object The object to be used or a (string) service id; default is <code>null</code>.
      * @param string method The method to call on the object; default is <code>null</code>.
      * @param mixed args Optional method parameter (single value or array of args); default is an empty array.
      */
@@ -51,6 +51,9 @@ class ZMObjectResultSource extends ZMObject implements ZMResultSource {
         parent::__construct();
         $this->resultClass_ = $resultClass;
         $this->object_ = $object;
+        if (is_string($object)) {
+            $this->object_ = Runtime::getContainer()->get($object);
+        }
         $this->method_ = $method;
         $this->args_ = $args;
         if (!is_array($this->args_)) {

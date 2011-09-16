@@ -142,7 +142,7 @@ class ZMAddresses extends ZMObject {
      * @param int accountId The account id.
      */
     private function getDefaultAddressId($accountId) {
-        $account = ZMAccounts::instance()->getAccountForId($accountId);
+        $account = $this->container->get('accountService')->getAccountForId($accountId);
         return null != $account ? $account->getDefaultAddressId() : 0;
     }
 

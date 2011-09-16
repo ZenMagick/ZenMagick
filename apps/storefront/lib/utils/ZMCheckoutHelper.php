@@ -269,12 +269,12 @@ class ZMCheckoutHelper extends ZMObject {
         if (ZMSettings::get('isEnableStock') && $this->shoppingCart_->hasOutOfStockItems()) {
             if (ZMSettings::get('isAllowLowStockCheckout')) {
                 if ($messages) {
-                    ZMMessages::instance()->warn('Products marked as "Out Of Stock" will be placed on backorder.');
+                    $this->container->get('messageService')->warn('Products marked as "Out Of Stock" will be placed on backorder.');
                 }
                 return true;
             } else {
                 if ($messages) {
-                    ZMMessages::instance()->error('The shopping cart contains products currently out of stock. To checkout you may either lower the quantity or remove those products from the cart.');
+                    $this->container->get('messageService')->error('The shopping cart contains products currently out of stock. To checkout you may either lower the quantity or remove those products from the cart.');
                 }
                 return false;
             }
@@ -295,7 +295,7 @@ class ZMCheckoutHelper extends ZMObject {
             return "shopping_cart";
         }
         $session = $request->getSession();
-        if (null == ZMAccounts::instance()->getAccountForId($session->getAccountId())) {
+        if (null == $this->container->get('accountService')->getAccountForId($session->getAccountId())) {
             $session->clear();
             if (!$request->isAjax()) {
                 $request->saveFollowUpUrl();
@@ -308,7 +308,7 @@ class ZMCheckoutHelper extends ZMObject {
 
         if (!$this->readyForCheckout()) {
             if ($showMessages) {
-                ZMMessages::instance()->error(_zm('Please update your order ...'));
+                $this->container->get('messageService')->error(_zm('Please update your order ...'));
             }
             return "cart_not_ready";
         }
@@ -356,7 +356,7 @@ class ZMCheckoutHelper extends ZMObject {
                 // TODO: reset selected shipping method as address changed (if addressId set in session is invalid)
             } else {
                 if ($showMessages) {
-                    ZMMessages::instance()->error(_zm('Please provide a shipping address'));
+                    $this->container->get('messageService')->error(_zm('Please provide a shipping address'));
                 }
                 return "require_shipping_address";
             }
@@ -366,7 +366,7 @@ class ZMCheckoutHelper extends ZMObject {
                 $this->shoppingCart_->setBillingAddressId($account->getDefaultAddressId());
             } else {
                 if ($showMessages) {
-                    ZMMessages::instance()->error(_zm('Please provide a billing address'));
+                    $this->container->get('messageService')->error(_zm('Please provide a billing address'));
                 }
                 return "require_billing_address";
             }
@@ -438,12 +438,13 @@ class ZMCheckoutHelper extends ZMObject {
         //TODO: fix
         $shippingCost = $_SESSION['shipping']['cost'];
 
+        $paymentTypeService = $this->container->get('paymentTypeService');
         if (defined('MODULE_PAYMENT_FREECHARGER_STATUS') && MODULE_PAYMENT_FREECHARGER_STATUS && 0 == $cartTotal && 0 == $shippingCost) {
-            return array(ZMPaymentTypes::instance()->getPaymentTypeForId('freecharger'));
+            return array($paymentTypeService->getPaymentTypeForId('freecharger'));
         }
 
         // all available except freecharger
-        $paymentTypes = ZMPaymentTypes::instance()->getPaymentTypes();
+        $paymentTypes = $paymentTypeService->getPaymentTypes();
         if (array_key_exists('freecharger', $paymentTypes)) {
             unset($paymentTypes['freecharger']);
         }

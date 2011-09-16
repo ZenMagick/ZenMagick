@@ -75,18 +75,19 @@ class ZMAccountPasswordController extends ZMController {
         $newPassword = $request->getParameter('password_new');
         $confirmPassword = $request->getParameter('password_confirmation');
 
-        if (!ZMAuthenticationManager::instance()->validatePassword($oldPassword, $account->getPassword())) {
-            ZMMessages::instance()->error(_zm('Your current password did not match the password in our records. Please try again.'));
+        $authenticationManager = $this->container->get('authenticationManager');
+        if (!$authenticationManager->validatePassword($oldPassword, $account->getPassword())) {
+            $this->messageService->error(_zm('Your current password did not match the password in our records. Please try again.'));
             return $this->findView();
         }
 
         // update password
-        $newEncrpytedPassword = ZMAuthenticationManager::instance()->encryptPassword($newPassword);
-        ZMAccounts::instance()->setAccountPassword($account->getId(), $newEncrpytedPassword);
+        $newEncrpytedPassword = $authenticationManager->encryptPassword($newPassword);
+        $this->container->get('accountService')->setAccountPassword($account->getId(), $newEncrpytedPassword);
 
         Runtime::getEventDispatcher()->dispatch('password_changed', new Event($this, array('controller' => $this, 'account' => $account, 'clearPassword' => $newPassword)));
 
-        ZMMessages::instance()->success(_zm('Your password has been updated.'));
+        $this->messageService->success(_zm('Your password has been updated.'));
 
         return $this->findView('success');
     }

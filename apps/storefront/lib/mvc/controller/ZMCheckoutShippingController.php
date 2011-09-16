@@ -131,7 +131,7 @@ class ZMCheckoutShippingController extends ZMController {
         }
 
         if (null == $shippingProvider || null == $shippingMethod) {
-            ZMMessages::instance()->error(_zm('Please select a shipping method.'));
+            $this->messageService->error(_zm('Please select a shipping method.'));
             return $this->findView();
         }
 

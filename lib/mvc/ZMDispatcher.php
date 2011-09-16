@@ -41,7 +41,7 @@ class ZMDispatcher {
         ob_start();
 
         // load saved messages
-        \ZMMessages::instance()->loadMessages($request->getSession());
+        Runtime::getContainer()->get('messageService')->loadMessages($request->getSession());
 
         Runtime::getEventDispatcher()->dispatch('dispatch_start', new Event(null, array('request' => $request)));
         $view = self::handleRequest($request);

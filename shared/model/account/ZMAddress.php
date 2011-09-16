@@ -175,7 +175,7 @@ class ZMAddress extends ZMObject {
      */
     public function getCountry() {
         if (null == $this->country_) {
-            $this->country_ = ZMCountries::instance()->getCountryForId($this->countryId_);
+            $this->country_ = $this->container->get('countryService')->getCountryForId($this->countryId_);
         }
         return $this->country_;
     }
@@ -237,7 +237,7 @@ class ZMAddress extends ZMObject {
      * @return string The address format id.
      */
     public function getAddressFormat() {
-        return ZMAddresses::instance()->getAddressFormatForId($this->getCountry()->getAddressFormatId());
+        return $this->container->get('addressService')->getAddressFormatForId($this->getCountry()->getAddressFormatId());
     }
 
     /**

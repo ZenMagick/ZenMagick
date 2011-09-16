@@ -44,14 +44,15 @@ class ZMTestSubscriptions extends ZMTestCase {
      * Test update order.
      */
     public function testUpdateOrder() {
-        $order = ZMOrders::instance()->getOrderForId(1, 1);
+        $orderService = $this->container->get('orderService');
+        $order = $orderService->getOrderForId(1, 1);
         $this->assertNotNull($order);
         if (null != $order) {
             $order->set('subscription', true);
             $order->set('nextOrder', date(ZMDatabase::DATETIME_FORMAT));
             $order->set('schedule', '1m');
-            ZMOrders::instance()->updateOrder($order);
-            $updated = ZMOrders::instance()->getOrderForId(1, 1);
+            $orderService->updateOrder($order);
+            $updated = $orderService->getOrderForId(1, 1);
             $this->assertNotNull($updated);
 
             $properties = array('status', 'subscription', 'nextOrder', 'schedule');

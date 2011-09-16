@@ -120,9 +120,10 @@ class TestZMHowDidYouHear extends ZMTestCase {
      */
     public function testCreateAccount() {
         $account = $this->createAccount($this->accountData1);
-        $account = ZMAccounts::instance()->createAccount($account);
+        $accountService = $this->container->get('accountService');
+        $account = $accountService->createAccount($account);
         $this->assertNotEqual(0, $account->getId());
-        $reloaded = ZMAccounts::instance()->getAccountForId($account->getId());
+        $reloaded = $accountService->getAccountForId($account->getId());
         foreach (array_keys($this->accountData1) as $key) {
             $getter = 'get'.ucwords($key);
             $this->assertEqual($account->$getter(), $reloaded->$getter(), '%s getter='.$getter);
@@ -134,9 +135,10 @@ class TestZMHowDidYouHear extends ZMTestCase {
      */
     public function testCreateAccountOther() {
         $account = $this->createAccount($this->accountData1);
-        $account = ZMAccounts::instance()->createAccount($account);
+        $accountService = $this->container->get('accountService');
+        $account = $accountService->createAccount($account);
         $this->assertNotEqual(0, $account->getId());
-        $reloaded = ZMAccounts::instance()->getAccountForId($account->getId());
+        $reloaded = $accountService->getAccountForId($account->getId());
         foreach (array_keys($this->accountData2) as $key) {
             $getter = 'get'.ucwords($key);
             $this->assertEqual($account->$getter(), $reloaded->$getter(), '%s getter='.$getter);
@@ -148,11 +150,12 @@ class TestZMHowDidYouHear extends ZMTestCase {
      */
     public function testUpdateAccount() {
         $account = $this->createAccount($this->accountData1);
-        $account = ZMAccounts::instance()->createAccount($account);
+        $accountService = $this->container->get('accountService');
+        $account = $accountService->createAccount($account);
         $this->assertNotEqual(0, $account->getId());
         $account->setFirstName('foo');
-        ZMAccounts::instance()->updateAccount($account);
-        $reloaded = ZMAccounts::instance()->getAccountForId($account->getId());
+        $accountService->updateAccount($account);
+        $reloaded = $accountService->getAccountForId($account->getId());
         foreach (array_keys($this->accountData1) as $key) {
             $getter = 'get'.ucwords($key);
             $this->assertEqual($account->$getter(), $reloaded->$getter(), '%s getter='.$getter);
@@ -164,12 +167,13 @@ class TestZMHowDidYouHear extends ZMTestCase {
      */
     public function testUpdateAccountOther() {
         $account = $this->createAccount($this->accountData1);
-        $account = ZMAccounts::instance()->createAccount($account);
+        $accountService = $this->container->get('accountService');
+        $account = $accountService->createAccount($account);
         $this->assertNotEqual(0, $account->getId());
         $account->setSourceId(9999);
         //XXX: can't test this: $account->setSourceOther('other');
-        ZMAccounts::instance()->updateAccount($account);
-        $reloaded = ZMAccounts::instance()->getAccountForId($account->getId());
+        $accountService->updateAccount($account);
+        $reloaded = $accountService->getAccountForId($account->getId());
         foreach (array_keys($this->accountData2) as $key) {
             $getter = 'get'.ucwords($key);
             $this->assertEqual($account->$getter(), $reloaded->$getter(), '%s getter='.$getter);

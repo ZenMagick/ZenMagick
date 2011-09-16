@@ -83,7 +83,7 @@ class ZMFormHandlerController extends ZMController {
             $emailTemplate = $this->getId();
         }
         $this->sendNotificationEmail($request->getParameterMap(), $emailTemplate, $plugin->get('adminEmail'));
-        ZMMessages::instance()->success(_zm("Request submitted!"));
+        $this->messageService->success(_zm("Request submitted!"));
 
         return $this->findView('success', $data);
     }

@@ -98,15 +98,15 @@ class ZMLoginController extends ZMController {
         }
 
         $emailAddress = $request->getParameter('email_address');
-        $account = ZMAccounts::instance()->getAccountForEmailAddress($emailAddress);
+        $account = $this->container->get('accountService')->getAccountForEmailAddress($emailAddress);
         if (null === $account) {
-            ZMMessages::instance()->error(_zm('Sorry, there is no match for that email address and/or password.'));
+            $this->messageService->error(_zm('Sorry, there is no match for that email address and/or password.'));
             return $this->findView();
         }
 
         $password = $request->getParameter('password');
-        if (!ZMAuthenticationManager::instance()->validatePassword($password, $account->getPassword())) {
-            ZMMessages::instance()->error(_zm('Sorry, there is no match for that email address and/or password.'));
+        if (!$this->container->get('authenticationManager')->validatePassword($password, $account->getPassword())) {
+            $this->messageService->error(_zm('Sorry, there is no match for that email address and/or password.'));
             return $this->findView();
         }
 

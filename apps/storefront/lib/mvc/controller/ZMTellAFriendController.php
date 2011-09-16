@@ -58,10 +58,11 @@ class ZMTellAFriendController extends ZMController {
      */
     public function preProcess($request) {
         $languageId = $request->getSession()->getLanguageId();
+        $productService = $this->container->get('productService');
         if ($request->getProductId()) {
-            $this->product_ = ZMProducts::instance()->getProductForId($request->getProductId(), $languageId);
+            $this->product_ = $productService->getProductForId($request->getProductId(), $languageId);
         } else if ($request->getModel()) {
-            $this->product_ = ZMProducts::instance()->getProductForModel($request->getModel(), $languageId);
+            $this->product_ = $productService->getProductForModel($request->getModel(), $languageId);
         }
         if (null != $this->product_) {
             $this->viewData_['currentProduct'] = $this->product_;
@@ -116,7 +117,7 @@ class ZMTellAFriendController extends ZMController {
             $this->container->get('mailer')->send($message);
         }
 
-        ZMMessages::instance()->success(_zm("Message send successfully"));
+        $this->messageService->success(_zm("Message send successfully"));
         $emailMessage = Beans::getBean("ZMEmailMessage");
 
         $data = array_merge($this->viewData_, array('emailMessage' => $emailMessage));

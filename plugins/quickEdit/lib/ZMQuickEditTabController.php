@@ -77,7 +77,7 @@ class ZMQuickEditTabController extends ZMCatalogContentController {
         $categoryId = $request->getCategoryId();
         $data['categoryId'] = $categoryId;
         $data['category'] = ZMCategories::instance()->getCategoryForId($categoryId, $request->getSelectedLanguage()->getId());
-        $productList = ZMProducts::instance()->getProductsForCategoryId($categoryId, false, $request->getSelectedLanguage()->getId());
+        $productList = $this->container->get('productService')->getProductsForCategoryId($categoryId, false, $request->getSelectedLanguage()->getId());
         $data['productList'] = $productList;
 
         return $data;
@@ -92,7 +92,7 @@ class ZMQuickEditTabController extends ZMCatalogContentController {
         $fieldList = $data['fieldList'];
         $fieldMap = $data['fieldMap'];
 
-        $productIdList = ZMProducts::instance()->getProductIdsForCategoryId($request->getCategoryId(), $languageId, false, false);
+        $productIdList = $this->container->get('productService')->getProductIdsForCategoryId($request->getCategoryId(), $languageId, false, false);
         foreach ($productIdList as $productId) {
             // build a data map for each submitted product
             $formData = array();
@@ -110,7 +110,7 @@ class ZMQuickEditTabController extends ZMCatalogContentController {
                 }
             }
             // load product, convert to map and compare with the submitted form data
-            $product = ZMProducts::instance()->getProductForId($productId, $languageId);
+            $product = $this->container->get('productService')->getProductForId($productId, $languageId);
             $productData = Beans::obj2map($product, $fieldMap);
             $isUpdate = false;
             foreach ($formData as $key => $value) {
@@ -119,15 +119,15 @@ class ZMQuickEditTabController extends ZMCatalogContentController {
                         $isUpdate = true;
                     } else {
                         $isUpdate = false;
-                        ZMMessages::instance()->warn('Found stale data ('.$key.') for productId '.$productId. ' - skipping update');
+                        $this->messageService->warn('Found stale data ('.$key.') for productId '.$productId. ' - skipping update');
                     }
                     break;
                 }
             }
             if ($isUpdate) {
                 $product = Beans::setAll($product, $formData);
-                ZMProducts::instance()->updateProduct($product);
-                ZMMessages::instance()->success('All changes saved');
+                $this->container->get('productService')->updateProduct($product);
+                $this->messageService->success('All changes saved');
             }
         }
 

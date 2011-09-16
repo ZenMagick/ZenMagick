@@ -179,7 +179,7 @@ class ZMOrder extends ZMObject {
         $address->setPostcode($this->get($prefix.'_postcode'));
         $address->setCity($this->get($prefix.'_city'));
         $address->setState($this->get($prefix.'_state'));
-        $address->setCountry(ZMCountries::instance()->getCountryForName($this->get($prefix.'_country')));
+        $address->setCountry($this->container->get('countryService')->getCountryForName($this->get($prefix.'_country')));
         $address->setFormat($this->get($prefix.'_address_format_id'));
         return $address;
     }
@@ -264,7 +264,7 @@ class ZMOrder extends ZMObject {
      * @return array A list of <code>ZMOrderItem<code> instances.
      */
     public function getOrderItems() {
-        return ZMOrders::instance()->getOrderItems($this->getId());
+        return $this->container->get('orderService')->getOrderItems($this->getId());
     }
 
     /**
@@ -273,7 +273,9 @@ class ZMOrder extends ZMObject {
      * @param int languageId The language id.
      * @return array A list of previous order stati.
      */
-    public function getOrderStatusHistory($languageId) { return ZMOrders::instance()->getOrderStatusHistoryForId($this->getId(), $languageId); }
+    public function getOrderStatusHistory($languageId) {
+        return $this->container->get('orderService')->getOrderStatusHistoryForId($this->getId(), $languageId);
+    }
 
     /**
      * Get the order total.
@@ -294,7 +296,7 @@ class ZMOrder extends ZMObject {
      *
      * @return array A list of <code>ZMOrderTotalLine</code> instances.
      */
-    public function getOrderTotalLines() { return ZMOrders::instance()->getOrderTotalLines($this->getId()); }
+    public function getOrderTotalLines() { return $this->container->get('orderService')->getOrderTotalLines($this->getId()); }
 
     /**
      * Get order total lines for the given type.
@@ -366,7 +368,7 @@ class ZMOrder extends ZMObject {
      * @return array List of <code>ZMDownload</code> instances.
      */
     public function getDownloads() {
-        return ZMOrders::instance()->getDownloadsForOrderId($this->getId());
+        return $this->container->get('orderService')->getDownloadsForOrderId($this->getId());
     }
 
 }

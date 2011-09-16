@@ -30,7 +30,16 @@ use zenmagick\base\Runtime;
  */
 class ZMTestCase extends UnitTestCase {
     private $defaultDb_;
+    public $container;
 
+
+    /**
+     * Create new instance.
+     */
+    public function __construct() {
+        parent::__construct();
+        $this->container = Runtime::getContainer();
+    }
 
     /**
      * Get the current request.
@@ -54,6 +63,7 @@ class ZMTestCase extends UnitTestCase {
         }
 
         $this->getRequest()->getSession()->setAccount(null);
+        //TODO: allow to set/have custom test container
     }
 
     /**

@@ -44,7 +44,7 @@ class TestZMPhpBB3Adapter extends ZMTestCase {
         $account->setNickName('DerManoMann');
         $account->setPhone('03 333 3333');
         $account->setPassword('secret');
-        ZMAccounts::instance()->createAccount($account);
+        $this->container->get('accountService')->createAccount($account);
     }
 
     /**
@@ -53,7 +53,7 @@ class TestZMPhpBB3Adapter extends ZMTestCase {
     public function tearDown() {
         parent::tearDown();
         $this->getAdapter()->removeAccount('martin@mixedmatter.co.nz');
-        $account = ZMAccounts::instance()->getAccountForEmailAddress('martin@mixedmatter.co.nz');
+        $account = $this->container->get('accountService')->getAccountForEmailAddress('martin@mixedmatter.co.nz');
         ZMRuntime::getDatabase()->removeModel(TABLE_CUSTOMERS, $account);
     }
 
@@ -89,7 +89,7 @@ class TestZMPhpBB3Adapter extends ZMTestCase {
      * Test create account.
      */
     public function testCreateAccount() {
-        $account = ZMAccounts::instance()->getAccountForEmailAddress('martin@mixedmatter.co.nz');
+        $account = $this->container->get('accountService')->getAccountForEmailAddress('martin@mixedmatter.co.nz');
         $result = $this->getAdapter()->createAccount($account, 'foob123', 'martin@mixedmatter.co.nz');
         $this->assertTrue($result);
     }

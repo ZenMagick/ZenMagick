@@ -104,10 +104,10 @@ class ZMOpenIDController extends ZMController {
                 $session->setValue('openid', $openid);
                 return $this->initAuthentication($request, $openid);
             } else {
-                ZMMessages::instance()->error(_zm('The provided OpenID does not seem to be valid'));
+                $this->messageService->error(_zm('The provided OpenID does not seem to be valid'));
             }
         } else {
-            ZMMessages::instance()->error(_zm('The provided OpenID does not seem to be valid'));
+            $this->messageService->error(_zm('The provided OpenID does not seem to be valid'));
         }
 
         return $this->findView('login');
@@ -126,7 +126,7 @@ class ZMOpenIDController extends ZMController {
         $auth_request = $consumer->begin($openid);
 
         if (!$auth_request) {
-            ZMMessages::instance()->error(_zm('The provided OpenID does not seem to be valid'));
+            $this->messageService->error(_zm('The provided OpenID does not seem to be valid'));
             return $this->findView('login');
         }
 
@@ -153,7 +153,7 @@ class ZMOpenIDController extends ZMController {
 
             // If the redirect URL can't be built, display an error message.
             if (Auth_OpenID::isFailure($redirect_url)) {
-                ZMMessages::instance()->error(sprintf(_zm('Could not redirect to server: %s'), $redirect_url->message));
+                $this->messageService->error(sprintf(_zm('Could not redirect to server: %s'), $redirect_url->message));
                 return $this->findView('login');
             } else {
                 // send redirect.
@@ -165,7 +165,7 @@ class ZMOpenIDController extends ZMController {
             $form_html = $auth_request->htmlMarkup($realm, $this->returnTo_, false, array('id' => $form_id));
 
             if (Auth_OpenID::isFailure($form_html)) {
-                ZMMessages::instance()->error(sprintf(_zm('Could not redirect to server: %s'), $form_html->message));
+                $this->messageService->error(sprintf(_zm('Could not redirect to server: %s'), $form_html->message));
                 return $this->findView('login');
             } else {
                 // render the HTML form
@@ -197,11 +197,11 @@ class ZMOpenIDController extends ZMController {
                 $sreg['xri'] = $response->endpoint->canonicalID;
             }
 
-            return $sreg;            
+            return $sreg;
         } else if ($response->status == Auth_OpenID_CANCEL) {
-            ZMMessages::instance()->msg('Verification cancelled.');
+            $this->messageService->msg('Verification cancelled.');
         } else if ($response->status == Auth_OpenID_FAILURE) {
-            ZMMessages::instance()->msg('OpenID authentication failed: ' . $response->message);
+            $this->messageService->msg('OpenID authentication failed: ' . $response->message);
             $sreg_resp = Auth_OpenID_SRegResponse::fromSuccessResponse($response);
             $sreg = $sreg_resp->contents();
 

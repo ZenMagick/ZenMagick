@@ -69,7 +69,7 @@ class ZMStateOrZoneIdRule extends ZMRule {
         //todo: this should not be here, but in the corresponding controller classes - BEFORE the validation is done
         $state = $data['state'];
         $zoneId = $data['zoneId'];
-        $zones = ZMCountries::instance()->getZonesForCountryId($data['countryId']);
+        $zones = $this->container->get('countryService')->getZonesForCountryId($data['countryId']);
         $valid = false;
         if (0 < count ($zones)) {
             // need $state to match either an id or name

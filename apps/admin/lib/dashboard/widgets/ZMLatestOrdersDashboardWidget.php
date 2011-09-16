@@ -55,11 +55,12 @@ class ZMLatestOrdersDashboardWidget extends ZMDashboardWidget {
         $contents = '';
         $contents .= '<table class="grid" cellspacing="0">';
         $contents .= '<tr><th>'._zm('Order').'</th><th>'._zm('Account').'</th><th>'._zm('Placed').'</th><th>'._zm('Total').'</th></tr>';
-        foreach (ZMOrders::instance()->getAllOrders($language->getId(), 5) as $order) {
+        $accountService = $this->container->get('accountService');
+        foreach ($this->container->get('orderService')->getAllOrders($language->getId(), 5) as $order) {
             $contents .= '<tr>';
-            $actualAccount = ZMAccounts::instance()->getAccountForId($order->getAccountId());
+            $actualAccount =$accountService->getAccountForId($order->getAccountId());
             $name = '???';
-            if (null != ($actualAccount = ZMAccounts::instance()->getAccountForId($order->getAccountId()))) {
+            if (null != ($actualAccount = $accountService->getAccountForId($order->getAccountId()))) {
                 $name = $actualAccount->getType() == ZMAccount::REGISTERED ? $order->getAccount()->getFullName() : _zm('** Guest **');
             }
             $contents .= '    <td><a href="'.$admin2->url('zc_admin', 'zpid=orders&action=edit&oID='.$order->getId()).'">'.$order->getId().'</a></td>';

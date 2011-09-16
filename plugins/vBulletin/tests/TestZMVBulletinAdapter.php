@@ -80,7 +80,7 @@ class TestZMVBulletinAdapter extends ZMTestCase {
      * Test create account.
      */
     public function testCreateAccount() {
-        $result = $this->getAdapter()->createAccount(ZMAccounts::instance()->getAccountForId(1), 'foobardeng');
+        $result = $this->getAdapter()->createAccount($this->container->get('accountService')->getAccountForId(1), 'foobardeng');
         $this->assertTrue($result);
     }
 

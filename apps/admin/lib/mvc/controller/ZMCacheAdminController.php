@@ -79,7 +79,7 @@ class ZMCacheAdminController extends ZMController {
             return $this->findView('success-demo');
         }
 
-        ZMMessages::instance()->warn(_zm('Clear cache is currently disabled'));
+        $this->messageService->warn(_zm('Clear cache is currently disabled'));
 
         /*
         foreach ($this->getCaches() as $type => $cache) {
@@ -90,7 +90,7 @@ class ZMCacheAdminController extends ZMController {
                     $cache = ZMCaches::instance()->getCache($group, $config, $type);
                     $result = $cache->clear();
                     $msg = 'Clear cache \'%s\' ' . ($result ? 'successful' : 'failed');
-                    ZMMessages::instance()->add(sprintf(_zm($msg), $type.'/'.$group), ($result ? 'success' : 'error'));
+                    $this->messageService->add(sprintf(_zm($msg), $type.'/'.$group), ($result ? 'success' : 'error'));
                 }
             }
         }

@@ -34,7 +34,7 @@ class TestZMShoppingCarts extends ZMTestCase {
     public function skip() {
         $account = $this->getRequest()->getAccount();
         if (null == $account) {
-            $account = ZMAccounts::instance()->getAccountForId(1);
+            $account = $this->container->get('accountService')->getAccountForId(1);
             $this->getRequest()->getSession()->setAccount($account);
         }
         $this->skipIf(null == $account || ZMAccount::REGISTERED != $account->getType(), 'Need to be logged in for this test');

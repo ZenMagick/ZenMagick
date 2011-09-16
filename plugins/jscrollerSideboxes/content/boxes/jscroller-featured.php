@@ -23,7 +23,7 @@
 ?>
 
 <?php if (isset($jscrollerSideboxes)) { ?>
-    <?php $products = ZMProducts::instance()->getFeaturedProducts($request->getCategoryId(), 
+    <?php $products = $this->container->get('productService')->getFeaturedProducts($request->getCategoryId(),
               MAX_RANDOM_SELECT_FEATURED_PRODUCTS, false, $session->getLanguageId()); ?>
     <?php if (0 < count($products)) { ?>
         <h3><a href="<?php echo $net->url('featured_products') ?>"><?php _vzm("[More]") ?></a><?php _vzm("Featured") ?></h3>

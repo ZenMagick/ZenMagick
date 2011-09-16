@@ -111,8 +111,8 @@ class ZMPluginsController extends ZMController {
             if (null != ($plugin = ZMPlugins::instance()->initPluginForId($pluginId, false)) && $plugin->isInstalled()) {
                 ZMLogging::instance()->log('upgrade plugin: '.$plugin->getId(), ZMLogging::TRACE);
                 $plugin->upgrade();
-                ZMMessages::instance()->success(sprintf(_zm('Plugin %s upgraded successfully'), $plugin->getName()));
-                ZMMessages::instance()->addAll($plugin->getMessages());
+                $this->messageService->success(sprintf(_zm('Plugin %s upgraded successfully'), $plugin->getName()));
+                $this->messageService->addAll($plugin->getMessages());
                 $viewId = 'success-upgrade';
             }
         } else if ('edit' == $action) {
@@ -153,8 +153,8 @@ class ZMPluginsController extends ZMController {
                 if (null != ($plugin = ZMPlugins::instance()->initPluginForId($pluginId, false)) && !$plugin->isInstalled()) {
                     ZMLogging::instance()->log('install plugin: '.$plugin->getId(), ZMLogging::TRACE);
                     $plugin->install();
-                    ZMMessages::instance()->success(sprintf(_zm('Plugin %s installed successfully'), $plugin->getName()));
-                    ZMMessages::instance()->addAll($plugin->getMessages());
+                    $this->messageService->success(sprintf(_zm('Plugin %s installed successfully'), $plugin->getName()));
+                    $this->messageService->addAll($plugin->getMessages());
                     $viewId = 'success-install';
                 } else {
                 }
@@ -163,16 +163,16 @@ class ZMPluginsController extends ZMController {
                 if (null != ($plugin = ZMPlugins::instance()->initPluginForId($pluginId, true)) && $plugin->isInstalled()) {
                     ZMLogging::instance()->log('un-install plugin: '.$plugin->getId() . '; keepSettings: '.($keepSettings?'true':'false'), ZMLogging::TRACE);
                     $plugin->remove($keepSettings);
-                    ZMMessages::instance()->success(sprintf(_zm('Plugin %s un-installed successfully'), $plugin->getName()));
-                    ZMMessages::instance()->addAll($plugin->getMessages());
+                    $this->messageService->success(sprintf(_zm('Plugin %s un-installed successfully'), $plugin->getName()));
+                    $this->messageService->addAll($plugin->getMessages());
                     $viewId = 'success-uninstall';
                 }
             } else if ('upgrade' == $action) {
                 if (null != ($plugin = ZMPlugins::instance()->initPluginForId($pluginId, true)) && $plugin->isInstalled()) {
                     ZMLogging::instance()->log('upgrade plugin: '.$plugin->getId(), ZMLogging::TRACE);
                     $plugin->upgrade();
-                    ZMMessages::instance()->success(sprintf(_zm('Plugin %s upgraded successfully'), $plugin->getName()));
-                    ZMMessages::instance()->addAll($plugin->getMessages());
+                    $this->messageService->success(sprintf(_zm('Plugin %s upgraded successfully'), $plugin->getName()));
+                    $this->messageService->addAll($plugin->getMessages());
                     $viewId = 'success-upgrade';
                 }
             } else if ('update' == $action) {
@@ -191,16 +191,16 @@ class ZMPluginsController extends ZMController {
                 if (null != ($plugin = ZMPlugins::instance()->initPluginForId($pluginId, false)) && $plugin->isInstalled()) {
                     ZMLogging::instance()->log('enable plugin: '.$plugin->getId(), ZMLogging::TRACE);
                     $plugin->setEnabled(true);
-                    ZMMessages::instance()->success(sprintf(_zm('Plugin %s enabled successfully'), $plugin->getName()));
-                    ZMMessages::instance()->addAll($plugin->getMessages());
+                    $this->messageService->success(sprintf(_zm('Plugin %s enabled successfully'), $plugin->getName()));
+                    $this->messageService->addAll($plugin->getMessages());
                     $viewId = 'success-enable';
                 }
             } else if ('disable' == $action) {
                 if (null != ($plugin = ZMPlugins::instance()->initPluginForId($pluginId, true)) && $plugin->isInstalled()) {
                     ZMLogging::instance()->log('disable plugin: '.$plugin->getId(), ZMLogging::TRACE);
                     $plugin->setEnabled(false);
-                    ZMMessages::instance()->success(sprintf(_zm('Plugin %s disabled successfully'), $plugin->getName()));
-                    ZMMessages::instance()->addAll($plugin->getMessages());
+                    $this->messageService->success(sprintf(_zm('Plugin %s disabled successfully'), $plugin->getName()));
+                    $this->messageService->addAll($plugin->getMessages());
                     $viewId = 'success-disable';
                 }
             }

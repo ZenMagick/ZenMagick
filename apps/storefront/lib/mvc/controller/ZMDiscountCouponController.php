@@ -50,7 +50,7 @@ class ZMDiscountCouponController extends ZMController {
     /**
      * {@inheritDoc}
      */
-    public function preProcess($request) { 
+    public function preProcess($request) {
         $request->getToolbox()->crumbtrail->addCrumb($request->getToolbox()->utils->getTitle());
     }
 
@@ -62,11 +62,11 @@ class ZMDiscountCouponController extends ZMController {
         $viewName = null;
         $code = $request->getParameter('lookup_discount_coupon');
         if (null == $code) {
-            ZMMessages::instance()->warn(_zm("Please enter a coupon code."));
+            $this->messageService->warn(_zm("Please enter a coupon code."));
         } else {
             $coupon = ZMCoupons::instance()->getCouponForCode($code, $request->getSession()->getLanguageId());
             if (null == $coupon) {
-                ZMMessages::instance()->error(sprintf(_zm("'%s' does not appear to be a valid Coupon Redemption Code."), $code));
+                $this->messageService->error(sprintf(_zm("'%s' does not appear to be a valid Coupon Redemption Code."), $code));
                 $data['currentCouponCode'] = $code;
             } else {
                 $data['currentCoupon'] = $coupon;

@@ -60,7 +60,7 @@ class ZMCheckoutGuestController extends ZMController {
      */
     public function processPost($request) {
         if (!ZMSettings::get('isGuestCheckout')) {
-            ZMMessages::instance()->warn(_zm('Guest checkout not allowed at this time'));
+            $this->messageService->warn(_zm('Guest checkout not allowed at this time'));
             return $this->findView('guest_checkout_disabled');
         }
 
@@ -84,7 +84,7 @@ class ZMCheckoutGuestController extends ZMController {
         $account->setPassword('');
         $account->setDob(ZMDatabase::NULL_DATETIME);
         $account->setType(ZMAccount::GUEST);
-        $account = ZMAccounts::instance()->createAccount($account);
+        $account = $this->container->get('accountService')->createAccount($account);
 
         // update session with valid account
         $session->regenerate();
@@ -95,9 +95,9 @@ class ZMCheckoutGuestController extends ZMController {
             $lastName = $address->getLastName();
             if (!empty($lastName)) {
                 $address->setAccountId($account->getAccountId());
-                $address = ZMAddresses::instance()->createAddress($address);
+                $address = $this->container->get('addressService')->createAddress($address);
                 $account->setDefaultAddressId($address->getId());
-                ZMAccounts::instance()->updateAccount($account);
+                $this->container->get('accountService')->updateAccount($account);
                 // use as shipping/billing address
                 $shoppingCart = $request->getShoppingCart();
                 $shoppingCart->setShippingAddressId($address->getId());

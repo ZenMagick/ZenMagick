@@ -54,7 +54,7 @@ class ZMUseo2Plugin extends Plugin {
         $patch = new ZMUseo2SupportPatch();
         if (null != $patch && $patch->isOpen()) {
             $status = $patch->patch(true);
-            ZMMessages::instance()->addAll($patch->getMessages());
+            $this->container->get('messageService')->addAll($patch->getMessages());
         }
 
         parent::install();
@@ -69,7 +69,7 @@ class ZMUseo2Plugin extends Plugin {
         $patch = new ZMUseo2SupportPatch();
         if (!$patch->isOpen() && $patch->canUndo()) {
             $status = $patch->undo();
-            ZMMessages::instance()->addAll($patch->getMessages());
+            $this->container->get('messageService')->addAll($patch->getMessages());
         }
     }
 

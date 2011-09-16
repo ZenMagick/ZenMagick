@@ -192,7 +192,7 @@ class ZMVBulletinPlugin extends Plugin {
         if ('POST' == $request->getMethod()) {
             $view = $event->get('view');
             if ('account_edit' == $this->page_ && 'success' == $view->getMappingId()) {
-                $account = ZMAccounts::instance()->getAccountForId($request->getAccountId());
+                $account = $this->container->get('accountService')->getAccountForId($request->getAccountId());
                 $vbAccount = $this->getAdapter()->getAccountForNickName($account->getNickName());
                 if (null != $account && !ZMLangUtils::isEmpty($account->getNickName())) {
                     if (null != $vbAccount) {

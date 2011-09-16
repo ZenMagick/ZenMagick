@@ -114,8 +114,10 @@ class ZMBannerBlockWidget extends ZMWidget {
         if (!Runtime::getSettings()->get('apps.store.banners.enabled', true)) {
             return '';
         }
+
+        $bannerService = $this->container->get('bannerService');
         // try to load banners for the given group
-        if (empty($this->group_) || null == ($banners = ZMBanners::instance()->getBannersForGroupName($this->group_, $request->isSecure()))) {
+        if (empty($this->group_) || null == ($banners = $bannerService->getBannersForGroupName($this->group_, $request->isSecure()))) {
             return '';
         }
 
@@ -148,7 +150,7 @@ class ZMBannerBlockWidget extends ZMWidget {
             }
 
             if ($this->isTrackDisplay()) {
-                ZMBanners::instance()->updateBannerDisplayCount($banner->getId());
+                $bannerService->updateBannerDisplayCount($banner->getId());
             }
             if (!ZMLangUtils::isEmpty($this->getFormat()) && !empty($content)) {
                 $content = sprintf($this->getFormat(), $content);

@@ -50,7 +50,7 @@ class ZMGuestHistoryController extends ZMController {
     /**
      * {@inheritDoc}
      */
-    public function preProcess($request) { 
+    public function preProcess($request) {
         $request->getToolbox()->crumbtrail->addCrumb('Guest Order');
     }
 
@@ -67,13 +67,13 @@ class ZMGuestHistoryController extends ZMController {
 
         // default
         $account = null;
-        // find order first 
-        $order = ZMOrders::instance()->getOrderForId($orderId, $request->getSession()->getLanguageId());
+        // find order first
+        $order = $this->container->get('orderService')->getOrderForId($orderId, $request->getSession()->getLanguageId());
 
         if (null != $order) {
             $accountId = $order->getAccountId();
             if (null != $accountId) {
-                $account = ZMAccounts::instance()->getAccountForId($accountId);
+                $account = $this->container->get('accountService')->getAccountForId($accountId);
             }
         }
 
@@ -81,7 +81,7 @@ class ZMGuestHistoryController extends ZMController {
             $request->getToolbox()->crumbtrail->addCrumb("Order # ".$order->getId());
             return $this->findView('success', array('currentOrder' => $order));
         } else {
-            ZMMessages::instance()->warn(_zm('No order information found'));
+            $this->messageService->warn(_zm('No order information found'));
             return $this->findView();
         }
     }

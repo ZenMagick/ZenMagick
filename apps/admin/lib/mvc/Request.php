@@ -57,7 +57,7 @@ class Request extends ZMRequest {
      */
     public function handleDemo() {
         if (!$this->getUser()->isLive()) {
-            ZMMessages::instance()->warn(_zm('Sorry, the action you tried to excute is not available to demo users'));
+            $this->container->get('messageService')->warn(_zm('Sorry, the action you tried to excute is not available to demo users'));
             return true;
         }
 

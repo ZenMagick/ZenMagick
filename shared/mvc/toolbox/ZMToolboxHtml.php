@@ -80,7 +80,7 @@ class ZMToolboxHtml extends ZMToolboxTool {
      * Creates a HTML <code>&lt;img&gt;</code> tag for the given <code>ZMImageInfo</code>.
      *
      * @param ZMImageInfo imageInfo The image info.
-     * @param string format Can be either of <code>ZMProducts::IMAGE_SMALL</code>, <code>ZMProducts::IMAGE_MEDIUM</code> 
+     * @param string format Can be either of <code>ZMProducts::IMAGE_SMALL</code>, <code>ZMProducts::IMAGE_MEDIUM</code>
      *  or <code>ZMProducts::IMAGE_LARGE</code>; default is <code>>ZMProducts::IMAGE_SMALL</code>.
      * @param mixed parameter Additional parameter for the <code>&lt;mg&gt;</code> tag; can be either
      *  a query string style list of name/value pairs or a map.
@@ -209,7 +209,7 @@ class ZMToolboxHtml extends ZMToolboxTool {
      * @param ZMProduct product A product.
      * @param int categoryId Optional category id.
      * @param array attr Optional HTML attribute map; default is <code>null</code>.
-     * @param string format Can be either of <code>ZMProducts::IMAGE_SMALL</code>, <code>ZMProducts::IMAGE_MEDIUM</code> 
+     * @param string format Can be either of <code>ZMProducts::IMAGE_SMALL</code>, <code>ZMProducts::IMAGE_MEDIUM</code>
      *  or <code>ZMProducts::IMAGE_LARGE</code>; default is <code>ZMProducts::IMAGE_SMALL</code>.
      * @return string A fully formated HTML <code>&lt;a&gt;</code> tag.
      */
@@ -262,12 +262,12 @@ class ZMToolboxHtml extends ZMToolboxTool {
      * @return string HTML unordered list of messages or <code>null</code>.
      */
     public function fieldMessages($name) {
-        if (!ZMMessages::instance()->hasMessages($name)) {
+        if (!$this->container->get('messageService')->hasMessages($name)) {
             return null;
         }
 
         $html = '<ul id="'.$name.'Info" class="fieldMsg">';
-        foreach (ZMMessages::instance()->getMessages($name) as $msg) {
+        foreach ($this->container->get('messageService')->getMessages($name) as $msg) {
             $html .= '<li class="'.$msg->getType().'">'.$this->encode($msg->getText()).'</li>';
         }
         $html .= '</ul>';

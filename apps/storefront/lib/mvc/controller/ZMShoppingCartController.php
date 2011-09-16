@@ -66,13 +66,13 @@ class ZMShoppingCartController extends ZMController {
                 $product = $item->getProduct();
                 switch ($status) {
                 case ZMCheckoutHelper::CART_PRODUCT_STATUS:
-                    ZMMessages::instance()->warn(sprintf('%s: We are sorry but this product has been removed from our inventory at this time.', $product->getName()));
+                    $this->messageService->warn(sprintf('%s: We are sorry but this product has been removed from our inventory at this time.', $product->getName()));
                     break;
                 case ZMCheckoutHelper::CART_PRODUCT_QUANTITY:
-                    ZMMessages::instance()->warn(sprintf('%s: has a minimum quantity restriction; minimum order quantity is: %s', $product->getName(), $product->getMinOrderQty()));
+                    $this->messageService->warn(sprintf('%s: has a minimum quantity restriction; minimum order quantity is: %s', $product->getName(), $product->getMinOrderQty()));
                     break;
                 case ZMCheckoutHelper::CART_PRODUCT_UNITS:
-                    ZMMessages::instance()->warn(sprintf('%s: has a quantity units restriction; minimum order units: %s', $product->getName(), $product->getQtyOrderUnits()));
+                    $this->messageService->warn(sprintf('%s: has a quantity units restriction; minimum order units: %s', $product->getName(), $product->getQtyOrderUnits()));
                     break;
                 }
             }

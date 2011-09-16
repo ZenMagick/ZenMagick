@@ -92,14 +92,15 @@ class ZMToolboxMacro extends ZMToolboxTool {
             $suburb = $address->getSuburb();
             $city = $address->getCity();
             $state = $address->getState();
+            $countryService = $this->container->get('countryService');
             if (0 != $address->getCountryId()) {
                 $zmcountry = $address->getCountry();
                 $country = $zmcountry->getName();
                 if (0 != $address->getZoneId()) {
-                    $state = ZMCountries::instance()->getZoneCode($zmcountry->getId(), $address->getZoneId(), $state);
+                    $state = $countryService->getZoneCode($zmcountry->getId(), $address->getZoneId(), $state);
                 }
             } else {
-                $zmcountry = ZMCountries::instance()->getCountryForId(ZMSettings::get('storeCountry'));
+                $zmcountry = $countryService->getCountryForId(ZMSettings::get('storeCountry'));
                 $country = '';
                 $state = '';
             }
@@ -127,7 +128,7 @@ class ZMToolboxMacro extends ZMToolboxTool {
             if ($suburb != '') $streets = $street . $cr . $suburb;
             if ($state != '') $statecomma = $state . ', ';
 
-            $format = ZMAddresses::instance()->getAddressFormatForId($zmcountry->getAddressFormatId());
+            $format = $this->container->get('addressService')->getAddressFormatForId($zmcountry->getAddressFormatId());
             // $format is using all the local variables...
             eval("\$out = \"$format\";");
 
@@ -169,7 +170,7 @@ class ZMToolboxMacro extends ZMToolboxTool {
             }
 
             if ($updateStats) {
-                ZMBanners::instance()->updateBannerDisplayCount($banner->getId());
+                $this->container->get('bannerService')->updateBannerDisplayCount($banner->getId());
             }
         }
 
@@ -234,7 +235,7 @@ class ZMToolboxMacro extends ZMToolboxTool {
                 continue;
             }
             $active = in_array($category->getId(), $path);
-            $noOfProductsInCat = $showProductCount ? count(ZMProducts::instance()->getProductIdsForCategoryId($category->getId(), $languageId, true, false)) : 0;
+            $noOfProductsInCat = $showProductCount ? count($this->container->get('productService')->getProductIdsForCategoryId($category->getId(), $languageId, true, false)) : 0;
             $isEmpty = 0 == $noOfProductsInCat;
             echo '<li>';
             $class = '';
@@ -247,7 +248,7 @@ class ZMToolboxMacro extends ZMToolboxTool {
                         $this->getRequest()->url('category', '&'.$category->getPath()) .
                         '">'.ZMHtmlUtils::encode($category->getName()).'</a>';
             if ($showProductCount) {
-                if (0 < ($noOfProductsInTree = count(ZMProducts::instance()->getProductIdsForCategoryId($category->getId(), $languageId, true, true)))) {
+                if (0 < ($noOfProductsInTree = count($this->container->get('productService')->getProductIdsForCategoryId($category->getId(), $languageId, true, true)))) {
                     echo '('.$noOfProductsInTree.')';
                 }
             }

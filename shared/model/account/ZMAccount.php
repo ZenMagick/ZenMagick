@@ -366,7 +366,7 @@ class ZMAccount extends ZMObject {
      */
     public function getSubscribedProducts() {
         if (null === $this->subscribedProducts_) {
-            $this->subscribedProducts_ = ZMAccounts::instance()->getSubscribedProductIds($this->getId());
+            $this->subscribedProducts_ = $this->container->get('accountService')->getSubscribedProductIds($this->getId());
         }
         return $this->subscribedProducts_;
     }
@@ -432,7 +432,7 @@ class ZMAccount extends ZMObject {
      * @return ZMPriceGroup The group or <code>null</code>.
      */
     public function getPriceGroup() {
-        return ZMGroupPricing::instance()->getPriceGroupForId($this->priceGroupId_);
+        return $this->container->get('groupPricingService')->getPriceGroupForId($this->priceGroupId_);
     }
 
 }

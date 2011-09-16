@@ -48,7 +48,7 @@ class ZMAccountController extends ZMController {
      * {@inheritDoc}
      */
     public function getViewData($request) {
-        $priceGroups = ZMGroupPricing::instance()->getPriceGroups();
+        $priceGroups = $this->container->get('groupPricingService')->getPriceGroups();
         return array('priceGroups' => array_merge(array(new ZMIdNamePair(0, _zm('-- none --'))), $priceGroups));
     }
 
@@ -57,8 +57,8 @@ class ZMAccountController extends ZMController {
      */
     public function processGet($request) {
         $accountId = $request->getParameter('accountId');
-        if (null == ($account = ZMAccounts::instance()->getAccountForId($accountId))) {
-            ZMMessages::instance()->error(sprintf(_zm('Account for account id %s not found'), $accountId));
+        if (null == ($account = $this->container->get('accountService')->getAccountForId($accountId))) {
+            $this->messageService->error(sprintf(_zm('Account for account id %s not found'), $accountId));
             return $this->findView(null, array('accountId' => $accountId));
         }
 

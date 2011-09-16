@@ -222,14 +222,14 @@ class ZMSubscriptionsPlugin extends Plugin {
             ZMRuntime::getDatabase()->update($sql, $args, TABLE_ORDERS);
 
             if (ZMLangUtils::asBoolean($this->get('subscriptionComment'))) {
-                if (null != ($order = ZMOrders::instance()->getOrderForId($orderId, $request->getSession()->getLanguageId()))) {
+                if (null != ($order = $this->container->get('orderService')->getOrderForId($orderId, $request->getSession()->getLanguageId()))) {
                     $status = Beans::getBean('ZMOrderStatus');
                     $status->setOrderStatusId($order->getOrderStatusId());
                     $status->setOrderId($order->getId());
                     $status->setCustomerNotified(false);
                     $schedules = $this->getSchedules();
                     $status->setComment(sprintf(_zm('Subscription: %s'), $schedules[$schedule]['name']));
-                    ZMOrders::instance()->createOrderStatusHistory($status);
+                    $this->container->get('orderService')->createOrderStatusHistory($status);
                 }
             }
         }
@@ -279,7 +279,7 @@ class ZMSubscriptionsPlugin extends Plugin {
      * @return string The date or <code>null</code> (if not canceled).
      */
     public function getMinLastOrderDate($orderId) {
-        $order = ZMOrders::instance()->getOrderForId($orderId, $this->container->get('session')->getLanguageId());
+        $order = $this->container->get('orderService')->getOrderForId($orderId, $this->container->get('session')->getLanguageId());
 
         // let's find out how many more orders need to be shipped to pass the minOrders restriction
         $scheduledOrderIds = $this->getScheduledOrderIdsForSubscriptionOrderId($orderId);

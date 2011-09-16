@@ -66,7 +66,7 @@ class ZMManageRolesController extends ZMController {
             foreach ($updatedRoles as $role) {
                 if (!in_array($role, $currentRoles)) {
                     if (null == ($newId = ZMAdminUserRoles::instance()->addRole($role))) {
-                        ZMMessages::instance()->error('Adding role failed');
+                        $this->messageService->error('Adding role failed');
                     }
                 }
             }
@@ -76,13 +76,13 @@ class ZMManageRolesController extends ZMController {
                         continue;
                     }
                     if (null == ($newId = ZMAdminUserRoles::instance()->deleteRole($role))) {
-                        ZMMessages::instance()->error('Deleting role failed');
+                        $this->messageService->error('Deleting role failed');
                     }
                 }
             }
         } else {
             if (null == ($newId = ZMAdminUserRoles::instance()->addRole($newRole))) {
-                ZMMessages::instance()->error('Adding role failed');
+                $this->messageService->error('Adding role failed');
             }
         }
 

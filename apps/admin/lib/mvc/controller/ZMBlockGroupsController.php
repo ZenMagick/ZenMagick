@@ -71,14 +71,14 @@ class ZMBlockGroupsController extends ZMController {
                 $blockGroup = new ZMBlockGroup();
                 $blockGroup->setName($groupName);
                 ZMBlocks::instance()->createBlockGroup($blockGroup);
-                ZMMessages::instance()->success(sprintf(_zm('Block group %s added.'), $groupName));
+                $this->messageService->success(sprintf(_zm('Block group %s added.'), $groupName));
             }
             break;
         case 'removeGroup':
             $groupName = $request->getParameter('groupName');
             if (!empty($groupName)) {
                 ZMBlocks::instance()->deleteGroupForName($groupName);
-                ZMMessages::instance()->success(sprintf(_zm('Block group %s removed.'), $groupName));
+                $this->messageService->success(sprintf(_zm('Block group %s removed.'), $groupName));
             }
             break;
         }

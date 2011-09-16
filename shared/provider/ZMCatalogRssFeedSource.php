@@ -98,7 +98,7 @@ class ZMCatalogRssFeedSource implements ZMRssSource {
     protected function getProductsFeed($request, $isCatalog=false) {
         $lastPubDate = null;
         $items = array();
-        foreach (ZMProducts::instance()->getAllProducts(true, $request->getSession()->getLanguageId()) as $product) {
+        foreach ($this->container->get('productService')->getAllProducts(true, $request->getSession()->getLanguageId()) as $product) {
             $item = Beans::getBean("ZMRssItem");
             $item->setTitle($product->getName());
             $item->setLink($request->getToolbox()->net->product($product->getId(), null, false));

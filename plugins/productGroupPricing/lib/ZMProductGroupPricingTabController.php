@@ -45,7 +45,7 @@ class ZMProductGroupPricingTabController extends ZMCatalogContentController {
      * {@inheritDoc}
      */
     public function getViewData($request) {
-        $priceGroups = ZMGroupPricing::instance()->getPriceGroups();
+        $priceGroups = $this->container->get('groupPricingService')->getPriceGroups();
         $groupId = $request->getParameter('groupId', $priceGroups[0]->getId());
         $productGroupPricings = ZMProductGroupPricings::instance()->getProductGroupPricings($request->getProductId(), $groupId, false);
         $productGroupPricing = Beans::getBean("ZMProductGroupPricing");

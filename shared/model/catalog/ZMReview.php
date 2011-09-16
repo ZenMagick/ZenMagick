@@ -187,7 +187,9 @@ class ZMReview extends ZMObject {
      *
      * @return ZMProductInfo The product image info.
      */
-    public function getProductImageInfo() { return ZMProducts::instance()->getProductForId($this->productId, $this->languageId)->getImageInfo(); }
+    public function getProductImageInfo() {
+        return $this->container->get('productService')->getProductForId($this->productId, $this->languageId)->getImageInfo();
+    }
 
     /**
      * Get the review text.

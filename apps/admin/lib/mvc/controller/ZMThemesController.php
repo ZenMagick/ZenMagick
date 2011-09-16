@@ -118,13 +118,13 @@ class ZMThemesController extends ZMController {
                 $config->setThemeId($themeId[$languageId]);
                 $config->setVariationId($variationId[$languageId]);
                 ZMThemes::instance()->updateThemeConfig($config);
-                ZMMessages::instance()->success(_zm('Theme mapping updated.'));
+                $this->messageService->success(_zm('Theme mapping updated.'));
             }
             break;
         case  'delete':
             if (null != ($config = $this->getConfigForLanguageId($languageId))) {
                 ZMThemes::instance()->deleteThemeConfig($config);
-                ZMMessages::instance()->success(_zm('Theme mapping deleted.'));
+                $this->messageService->success(_zm('Theme mapping deleted.'));
             }
             break;
         case  'create':
@@ -133,7 +133,7 @@ class ZMThemesController extends ZMController {
             $languageId = $request->getParameter('newLanguageId', 0);
             $config = new ZMObject(array('themeId' => $themeId, 'variationId' => $variationId, 'languageId' => $languageId));
             ZMThemes::instance()->createThemeConfig($config);
-            ZMMessages::instance()->success(_zm('Theme mapping created.'));
+            $this->messageService->success(_zm('Theme mapping created.'));
             break;
         }
 

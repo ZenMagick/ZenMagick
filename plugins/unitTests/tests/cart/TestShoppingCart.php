@@ -44,7 +44,7 @@ class TestShoppingCart extends ZMTestCase {
         $GLOBALS['moneyorder']->code = 'moneyorder';
 
         // cart checks for user...
-        $account = ZMAccounts::instance()->getAccountForId(1);
+        $account = $this->container->get('accountService')->getAccountForId(1);
         $this->getRequest()->getSession()->setAccount($account);
 
         // clear session and database

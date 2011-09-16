@@ -10,10 +10,10 @@ Tag groups
 ==========
 It is possible to find related products by doing the following:
 
-    $product = ZMProducts::instance()->getProductForId(3, $session->getLanguageId());
+    $product = $this->container->get('productService')->getProductForId(3, $session->getLanguageId());
     $similarTaggedProducts = $product->getProductAssociationsForType('productTags');
     foreach ($similarOrder as $assoc) { 
-        $aproduct = ZMProducts::instance()->getProductForId($assoc->getProductId(), $session->getLanguageId());
+        $aproduct = $this->container->get('productService')->getProductForId($assoc->getProductId(), $session->getLanguageId());
         ?><p><?php echo $aproduct->getName() ?></p><?php
     }
 
@@ -23,5 +23,5 @@ Tag Cloud
 To implement a tag cloud, the following code may be used to get details about how often
 a each available tag is used:
 
-  $tagStats = ZMTags::instance()->getStats($languageId);
+  $tagStats = $this->container->get('tagService')->getStats($languageId);
 

@@ -32,7 +32,7 @@
         <?php if (SHOW_CATEGORIES_BOX_PRODUCTS_NEW == 'true') { ?>
             <li><a href="<?php echo $net->url('products_new') ?>"><?php _vzm('New Products') ?></a></li>
         <?php } ?>
-        <?php if (SHOW_CATEGORIES_BOX_FEATURED_PRODUCTS == 'true') { $featured = ZMProducts::instance()->getFeaturedProducts(null, 1); ?>
+        <?php if (SHOW_CATEGORIES_BOX_FEATURED_PRODUCTS == 'true') { $featured = $this->container->get('productService')->getFeaturedProducts(null, 1); ?>
             <?php if (0 < count($featured)) { ?>
               <li><a href="<?php echo $net->url('featured_products') ?>"><?php _vzm('Featured Products') ?></a></li>
             <?php } ?>

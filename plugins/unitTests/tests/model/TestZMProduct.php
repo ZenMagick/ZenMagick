@@ -32,7 +32,7 @@ class TestZMProduct extends ZMTestCase {
      * Test existing manufacturer.
      */
     public function testExistingManufacturer() {
-        $product = ZMProducts::instance()->getProductForId(36, 1);
+        $product = $this->container->get('productService')->getProductForId(36, 1);
         if ($this->assertNotNull($product)) {
             $manufacturer = $product->getManufacturer();
             if ($this->assertNotNull($manufacturer)) {
@@ -45,7 +45,7 @@ class TestZMProduct extends ZMTestCase {
      * Test missing manufacturer.
      */
     public function testMissingManufacturer() {
-        $product = ZMProducts::instance()->getProductForId(31, 1);
+        $product = $this->container->get('productService')->getProductForId(31, 1);
         if ($this->assertNotNull($product)) {
             $manufacturer = $product->getManufacturer();
             $this->assertNull($manufacturer);
@@ -56,7 +56,7 @@ class TestZMProduct extends ZMTestCase {
      * Test null manufacturer.
      */
     public function testNULLManufacturer() {
-        $product = ZMProducts::instance()->getProductForId(169, 1);
+        $product = $this->container->get('productService')->getProductForId(169, 1);
         if ($this->assertNotNull($product)) {
             $manufacturer = $product->getManufacturer();
             $this->assertNull($manufacturer);

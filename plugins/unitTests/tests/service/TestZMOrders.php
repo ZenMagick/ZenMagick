@@ -35,16 +35,17 @@ class TestZMOrders extends ZMTestCase {
      * Test create product.
      */
     public function testUpdateOrderStatus() {
-        $order = ZMOrders::instance()->getOrderForId(1, 1);
+        $orderService = $this->container->get('orderService');
+        $order = $orderService->getOrderForId(1, 1);
         if (null != $order) {
             $order->setOrderStatusId(4);
-            ZMOrders::instance()->updateOrder($order);
-            $order = ZMOrders::instance()->getOrderForId(1, 1);
+            $orderService->updateOrder($order);
+            $order = $orderService->getOrderForId(1, 1);
             $this->assertEqual(4, $order->getOrderStatusId());
             $this->assertEqual('Update', $order->getStatusName());
             $order->setOrderStatusId(2);
-            ZMOrders::instance()->updateOrder($order);
-            $order = ZMOrders::instance()->getOrderForId(1, 1);
+            $orderService->updateOrder($order);
+            $order = $orderService->getOrderForId(1, 1);
             $this->assertEqual(2, $order->getOrderStatusId());
             $this->assertEqual('Processing', $order->getStatusName());
         } else {
@@ -56,7 +57,7 @@ class TestZMOrders extends ZMTestCase {
      * Test get orders for status.
      */
     public function testGetOrdersForStatusId() {
-        $orders = ZMOrders::instance()->getOrdersForStatusId(2, 1);
+        $orders = $this->container->get('orderService')->getOrdersForStatusId(2, 1);
         $this->assertNotNull($orders);
     }
 
@@ -64,7 +65,7 @@ class TestZMOrders extends ZMTestCase {
      * Test order account.
      */
     public function testGetAccount() {
-        $order = ZMOrders::instance()->getOrderForId(1, 1);
+        $order = $this->container->get('orderService')->getOrderForId(1, 1);
         if (null != $order) {
             $account = $order->getAccount();
             $this->assertNotNull($account);
@@ -79,7 +80,7 @@ class TestZMOrders extends ZMTestCase {
      * Test change address.
      */
     public function testChangeAddress() {
-        $order = ZMOrders::instance()->getOrderForId(1, 1);
+        $order = $this->container->get('orderService')->getOrderForId(1, 1);
         if (null != $order) {
             $address = Beans::getBean('ZMAddress');
             $address->setFirstName('foo');
@@ -105,7 +106,7 @@ class TestZMOrders extends ZMTestCase {
      * Test downloads.
      */
     public function testDownloads() {
-        $downloads = ZMOrders::instance()->getDownloadsForOrderId(12);
+        $downloads = $this->container->get('orderService')->getDownloadsForOrderId(12);
         foreach ($downloads as $dl) {
             $this->assertTrue($dl->getorderDate() instanceof DateTime);
             echo 'id: '.$dl->getId()."<BR>";
@@ -122,7 +123,7 @@ class TestZMOrders extends ZMTestCase {
      * Test get order status history.
      */
     public function testGetOrderStatusHistory() {
-        $order = ZMOrders::instance()->getOrderForId(1, 1);
+        $order = $this->container->get('orderService')->getOrderForId(1, 1);
         if (null != $order) {
             $orderStatusHistory = $order->getOrderStatusHistory(1);
             $this->assertNotNull($orderStatusHistory);
@@ -145,7 +146,8 @@ class TestZMOrders extends ZMTestCase {
      * Test create order status history.
      */
     public function testCreateOrderStatusHistory() {
-        $order = ZMOrders::instance()->getOrderForId(1, 1);
+        $orderService = $this->container->get('orderService');
+        $order = $orderService->getOrderForId(1, 1);
         if (null != $order) {
             $orderStatusHistory = $order->getOrderStatusHistory(1);
             $this->assertNotNull($orderStatusHistory);
@@ -155,7 +157,7 @@ class TestZMOrders extends ZMTestCase {
             $newOrderStatus = Beans::getBean('ZMOrderStatus');
             $newOrderStatus->setOrderId(1);
             $newOrderStatus->setOrderStatusId(2);
-            $newOrderStatus = ZMOrders::instance()->createOrderStatusHistory($newOrderStatus);
+            $newOrderStatus = $orderService->createOrderStatusHistory($newOrderStatus);
             // check for new primary key
             $this->assertTrue(0 != $newOrderStatus->getId());
 
@@ -181,7 +183,7 @@ class TestZMOrders extends ZMTestCase {
      * Test get order total lines.
      */
     public function testGetOrderTotalLines() {
-        $order = ZMOrders::instance()->getOrderForId(1, 1);
+        $order = $this->container->get('orderService')->getOrderForId(1, 1);
         if (null != $order) {
             $orderTotalLines = $order->getOrderTotalLines();
             $this->assertNotNull($orderTotalLines);
@@ -212,7 +214,7 @@ class TestZMOrders extends ZMTestCase {
      * Test order items.
      */
     public function testOrderItems() {
-        $order = ZMOrders::instance()->getOrderForId(1, 1);
+        $order = $this->container->get('orderService')->getOrderForId(1, 1);
         if (null != $order) {
             $items = $order->getOrderItems();
             if ($this->assertTrue(0 < count($items))) {
@@ -235,7 +237,7 @@ class TestZMOrders extends ZMTestCase {
      * Test order item attributes.
      */
     public function testOrderItemAttributes() {
-        $order = ZMOrders::instance()->getOrderForId(1, 1);
+        $order = $this->container->get('orderService')->getOrderForId(1, 1);
         if (null != $order) {
             $items = $order->getOrderItems();
             if ($this->assertTrue(0 < count($items))) {
@@ -268,7 +270,7 @@ class TestZMOrders extends ZMTestCase {
      * Test order status list.
      */
     public function testOrderStatusList() {
-        $list = ZMOrders::instance()->getOrderStatusList(1);
+        $list = $this->container->get('orderService')->getOrderStatusList(1);
         if ($this->assertNotNull($list)) {
             $this->assertTrue(0 < count($list));
         }

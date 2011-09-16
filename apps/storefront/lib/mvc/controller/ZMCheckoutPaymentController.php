@@ -113,19 +113,19 @@ class ZMCheckoutPaymentController extends ZMController {
         }
 
         if (ZMSettings::get('isConditionsMessage') && !ZMLangUtils::asBoolean($request->getParameter('conditions'))) {
-            ZMMessages::instance()->error(_zm('Please confirm the terms and conditions bound to this order by ticking the box below.'));
+            $this->messageService->error(_zm('Please confirm the terms and conditions bound to this order by ticking the box below.'));
             return $this->findView();
         }
 
         // TODO: check if credit/gv covers total (currently in order_total::pre_confirmation_check)
 
         if (null == ($paymentTypeId = $request->getParameter('payment'))) {
-            ZMMessages::instance()->error(_zm('Please select a payment type.'));
+            $this->messageService->error(_zm('Please select a payment type.'));
             return $this->findView();
         }
 
         if (null == ($paymentType = ZMPaymentTypes::instance()->getPaymentTypeForId($paymentTypeId))) {
-            ZMMessages::instance()->error(_zm('Please select a valid payment type.'));
+            $this->messageService->error(_zm('Please select a valid payment type.'));
             return $this->findView();
         }
 

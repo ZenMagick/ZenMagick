@@ -49,7 +49,7 @@ class ZMAccountHistoryInfoController extends ZMController {
 
     /**
      * Process a HTTP GET request.
-     * 
+     *
      * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
      * if the controller generates the contents itself.
      */
@@ -58,7 +58,7 @@ class ZMAccountHistoryInfoController extends ZMController {
         $request->getToolbox()->crumbtrail->addCrumb($request->getToolbox()->utils->getTitle(), $request->url('account_history', '', true));
         $request->getToolbox()->crumbtrail->addCrumb("Order # ".$request->getOrderId());
 
-        $order = ZMOrders::instance()->getOrderForId($request->getOrderId(), $request->getSession()->getLanguageId());
+        $order = $this->container->get('orderService')->getOrderForId($request->getOrderId(), $request->getSession()->getLanguageId());
 
         return $this->findView(null, array('currentOrder' => $order));
     }

@@ -1,5 +1,5 @@
 <?php require '../../external.php'; ?>
-<?php 
+<?php
   // set up tools just like a regular view...
   foreach ($request->getToolbox()->getTools() as $name => $tool) {
       $$name = $tool;
@@ -9,11 +9,11 @@
   <head>
     <title>External</title>
   </head>
-  <body> 
+  <body>
     <h2>Product</h2>
     <p>
       <?php
-        $product = ZMProducts::instance()->getProductForId(1, 1);
+        $product = $this->container->get('productService')->getProductForId(1, 1);
         echo $product->getName();
       ?>
     </p>

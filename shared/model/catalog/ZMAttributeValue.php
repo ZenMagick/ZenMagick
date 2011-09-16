@@ -97,7 +97,7 @@ class ZMAttributeValue extends ZMObject {
      * @param boolean tax Set to <code>true</code> to include tax (if applicable); default is <code>true</code>.
      * @return double The price.
      */
-    public function getValuePrice($tax=true) { 
+    public function getValuePrice($tax=true) {
         return $tax ? $this->taxRate_->addTax($this->price_) : $this->price_;
     }
 
@@ -161,7 +161,7 @@ class ZMAttributeValue extends ZMObject {
         $price += $this->getQtyPrice($this->getQtyPrices(), $quantity);
 
         // price factor
-        $product = ZMProducts::instance()->getProductForId($this->attribute_->getProductId());
+        $product = $this->container->get('productService')->getProductForId($this->attribute_->getProductId());
         $offers = $product->getOffers();
         $discountPrice = $offers->isSale() ? $offers->getSalePrice(false) : $offers->getSpecialPrice(false);
 
@@ -177,14 +177,14 @@ class ZMAttributeValue extends ZMObject {
      * @param int quantity Optional quantity; default is <em>1</em>.
      * @return double The price.
      */
-    public function getPrice($tax=true, $quantity=1) { 
+    public function getPrice($tax=true, $quantity=1) {
         $price = $this->price_;
         if ($this->isDiscounted_) {
             //TODO: cache value
             $price = $this->getFinalPriceForQty($quantity);
             // no need to discount free attributes
             if (0 != $price) {
-                $product = ZMProducts::instance()->getProductForId($this->attribute_->getProductId());
+                $product = $this->container->get('productService')->getProductForId($this->attribute_->getProductId());
                 $price = $product->getOffers()->calculateDiscount($price);
             }
         }
@@ -205,11 +205,11 @@ class ZMAttributeValue extends ZMObject {
         $price += $this->getQtyPrice($this->getQtyPricesOneTime(), $quantity);
 
         // price factor
-        $product = ZMProducts::instance()->getProductForId($this->attribute_->getProductId());
+        $product = $this->container->get('productService')->getProductForId($this->attribute_->getProductId());
         $offers = $product->getOffers();
         $discountPrice = $offers->isSale() ? $offers->getSalePrice(false) : $offers->getSpecialPrice(false);
 
-        $price += $this->getPriceFactorCharge($offers->getCalculatedPrice(false), $discountPrice, 
+        $price += $this->getPriceFactorCharge($offers->getCalculatedPrice(false), $discountPrice,
                                                 $this->getPriceFactorOneTime(), $this->getPriceFactorOneTimeOffset());
 
         return $price;
@@ -221,7 +221,7 @@ class ZMAttributeValue extends ZMObject {
      * @param boolean tax Set to <code>true</code> to include tax (if applicable); default is <code>true</code>.
      * @return double The attributes one time price.
      */
-    public function getOneTimePrice($tax=true) { 
+    public function getOneTimePrice($tax=true) {
         $price = $this->oneTimePrice_;
         if (0 != $price || $this->isPriceFactorOneTime_) {
             //TODO: cache
@@ -341,7 +341,7 @@ class ZMAttributeValue extends ZMObject {
      *
      * @param double price The price.
      */
-    public function setValuePrice($price) { 
+    public function setValuePrice($price) {
         $this->price_ = $price;
     }
 

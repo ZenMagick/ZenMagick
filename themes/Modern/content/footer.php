@@ -30,10 +30,10 @@
 	<div id="navSupp" class="back">
 		<h3>About Us</h3>
 		<div id="navSuppContent">
-			<?php 
+			<?php
 				$i = 1;
-				$sizeOf = count(ZMEZPages::instance()->getPagesForFooter($session->getLanguageId())); 
-				foreach (ZMEZPages::instance()->getPagesForFooter($session->getLanguageId()) as $page) { ?>
+				$sizeOf = count($this->container->get('ezPageService')->getPagesForFooter($session->getLanguageId()));
+				foreach ($this->container->get('ezPageService')->getPagesForFooter($session->getLanguageId()) as $page) { ?>
 				<?php if(1 == $i){ ?><div class="navSuppLeft back"><ul><?php } ?>
  					<li><?php echo $html->ezpageLink($page->getId()) ?></li>
 				<?php if(3 == $i){ ?> </ul></div><div class="navSuppLeft forward"><ul> <?php } ?>

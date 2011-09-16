@@ -59,17 +59,18 @@ class ZMProductReviewsInfoController extends ZMController {
 
         $data = array();
         $languageId = $request->getSession()->getLanguageId();
-        $product = ZMProducts::instance()->getProductForId($request->getProductId(), $languageId);
+        $product = $this->container->get('productService')->getProductForId($request->getProductId(), $languageId);
         $data['currentProduct'] = $product;
 
-        if (null == ($review = ZMReviews::instance()->getReviewForId($request->getReviewId(), $languageId))) {
+        $reviewService = $this->container->get('reviewService');
+        if (null == ($review = $reviewService->getReviewForId($request->getReviewId(), $languageId))) {
             return $this->findView('error');
         }
 
         $data['currentReview'] = $review;
 
         if (ZMSettings::get('isLogPageStats')) {
-            ZMReviews::instance()->updateViewCount($request->getReviewId());
+            $reviewService->updateViewCount($request->getReviewId());
         }
 
         return $this->findView(null, $data);

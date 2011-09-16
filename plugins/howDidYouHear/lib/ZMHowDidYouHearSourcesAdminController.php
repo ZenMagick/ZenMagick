@@ -69,7 +69,7 @@ class ZMHowDidYouHearSourcesAdminController extends ZMController {
             $name = $request->getParameter('source');
             if (!empty($name)) {
                 ZMRuntime::getDatabase()->createModel(TABLE_SOURCES, array('sources_name' => $name));
-                ZMMessages::instance()->success('Source "'.$name.'" created.');
+                $this->messageService->success('Source "'.$name.'" created.');
             }
         } else if ('delete' == $action) {
             $sourceId = $request->getParameter('sourceId');
@@ -77,7 +77,7 @@ class ZMHowDidYouHearSourcesAdminController extends ZMController {
                 $model = ZMRuntime::getDatabase()->loadModel(TABLE_SOURCES, array('sources_id' => $sourceId));
                 if (null !== $model) {
                     ZMRuntime::getDatabase()->removeModel(TABLE_SOURCES, array('sources_id' => $sourceId));
-                    ZMMessages::instance()->success('Source "'.$model['sources_name'].'" deleted.');
+                    $this->messageService->success('Source "'.$model['sources_name'].'" deleted.');
                 }
             }
         }

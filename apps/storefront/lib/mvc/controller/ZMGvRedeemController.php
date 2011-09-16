@@ -73,7 +73,7 @@ class ZMGvRedeemController extends ZMController {
                 ZMCoupons::instance()->redeemCoupon($coupon->getId(), $request->getAccountId());
             } else {
                 // not redeemable
-                ZMMessages::instance()->error(_zm('The provided gift voucher code seems to be invalid!'));
+                $this->messageService->error(_zm('The provided gift voucher code seems to be invalid!'));
             }
         }
 

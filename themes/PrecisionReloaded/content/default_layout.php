@@ -53,9 +53,9 @@ Released   : 20090515
               <?php echo $macro->buildCrumbtrail($crumbtrail, " &gt; "); ?>
           <?php } ?>
 
-          <?php if (ZMMessages::instance()->hasMessages()) { ?>
+          <?php if ($this->container->get('messageService')->hasMessages()) { ?>
               <ul id="messages">
-              <?php foreach (ZMMessages::instance()->getMessages() as $message) { ?>
+              <?php foreach ($this->container->get('messageService')->getMessages() as $message) { ?>
                   <li class="<?php echo $message->getType() ?>"><?php echo $message->getText() ?></li>
               <?php } ?>
               </ul>

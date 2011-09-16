@@ -58,7 +58,7 @@ class ZMManufacturerSelectFormWidget extends ZMSelectFormWidget {
      */
     public function getOptions($request) {
         $options = parent::getOptions($request);
-        foreach (ZMManufacturers::instance()->getManufacturers($request->getSelectedLanguage()->getId()) as $manufacturer) {
+        foreach ($this->container->get('manufacturerService')->getManufacturers($request->getSelectedLanguage()->getId()) as $manufacturer) {
             $options[$manufacturer->getId()] = $manufacturer->getName();
         }
         return $options;

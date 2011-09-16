@@ -50,8 +50,8 @@ class ZMOrderController extends ZMController {
     public function processGet($request) {
         $orderId = $request->getParameter('orderId');
         // TODO: language
-        if (null == ($order = ZMOrders::instance()->getOrderForId($orderId, 1))) {
-            ZMMessages::instance()->error(sprintf(_zm('Order for orderId id %s not found'), $orderId));
+        if (null == ($order = $this->container->get('orderService')->getOrderForId($orderId, 1))) {
+            $this->messageService->error(sprintf(_zm('Order for orderId id %s not found'), $orderId));
             return $this->findView(null, array('orderId' => $orderId));
         }
 

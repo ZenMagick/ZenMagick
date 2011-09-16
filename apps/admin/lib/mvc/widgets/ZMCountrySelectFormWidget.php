@@ -48,7 +48,7 @@ class ZMCountrySelectFormWidget extends ZMSelectFormWidget {
      */
     public function getOptions($request) {
         $options = parent::getOptions($request);
-        foreach (ZMCountries::instance()->getCountries() as $country) {
+        foreach ($this->container->get('countryService')->getCountries() as $country) {
             $options[$country->getId()] = $country->getName();
         }
         return $options;

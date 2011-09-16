@@ -50,7 +50,7 @@ class ZMAccountNotificationsController extends ZMController {
     /**
      * {@inheritDoc}
      */
-    public function preProcess($request) { 
+    public function preProcess($request) {
         $request->getToolbox()->crumbtrail->addCrumb("Account", $request->url('account', '', true));
         $request->getToolbox()->crumbtrail->addCrumb('Product Notifications');
     }
@@ -72,7 +72,7 @@ class ZMAccountNotificationsController extends ZMController {
         $isGlobalUpdate = false;
         if ($globalProductSubscriber != $account->isGlobalProductSubscriber()) {
             $account->setGlobalProductSubscriber($globalProductSubscriber);
-            ZMAccounts::instance()->setGlobalProductSubscriber($account->getId(), $globalProductSubscriber);
+            $this->container->get('accountService')->setGlobalProductSubscriber($account->getId(), $globalProductSubscriber);
             $isGlobalUpdate = true;
         }
 
@@ -80,10 +80,10 @@ class ZMAccountNotificationsController extends ZMController {
             // if global update is on, products are not listed in the form,
             // therefore, they would all be removed if updated!
             $subscribedProducts = $request->getParameter('notify', array());
-            $account = ZMAccounts::instance()->setSubscribedProductIds($account, $subscribedProducts);
+            $account = $this->container->get('accountService')->setSubscribedProductIds($account, $subscribedProducts);
         }
 
-        ZMMessages::instance()->success(_zm('Your product subscriptions have been updated.'));
+        $this->messageService->success(_zm('Your product subscriptions have been updated.'));
         return $this->findView('success', array('currentAccount' => $request->getAccount()));
     }
 

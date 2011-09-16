@@ -32,7 +32,7 @@ class TestZMTags extends ZMTestCase {
      * Test getTagsForProductId.
      */
     public function testGetTagsForProductId() {
-        $tags = ZMTags::instance()->getTagsForProductId(12, 1);
+        $tags = $this->container->get('tagService')->getTagsForProductId(12, 1);
         // test values only
         $this->assertEqual(array('bar', 'foo'), array_values($tags));
     }
@@ -41,7 +41,7 @@ class TestZMTags extends ZMTestCase {
      * Test getProductIdsForTags.
      */
     public function testGetProductIdsForTags() {
-        $ids = ZMTags::instance()->getProductIdsForTags(array('foo', 'bar'), 1);
+        $ids = $this->container->get('tagService')->getProductIdsForTags(array('foo', 'bar'), 1);
         sort($ids);
         $this->assertEqual(array(11, 12, 13), $ids);
     }
@@ -50,7 +50,7 @@ class TestZMTags extends ZMTestCase {
      * Test getAllTags.
      */
     public function testGetAllTags() {
-        $tags = ZMTags::instance()->getAllTags(1);
+        $tags = $this->container->get('tagService')->getAllTags(1);
         // test values only
         $this->assertEqual(array('bar', 'doh', 'foo'), array_values($tags));
     }
@@ -59,20 +59,21 @@ class TestZMTags extends ZMTestCase {
      * Test setTagsForProductId.
      */
     public function testSetTagsForProductId() {
-        $tags = ZMTags::instance()->setTagsForProductId(12, 1, array('a', 'bar', 'c'));
-        $tags = ZMTags::instance()->getTagsForProductId(12, 1);
+        $tagService = $this->container->get('tagService');
+        $tags = $tagService->setTagsForProductId(12, 1, array('a', 'bar', 'c'));
+        $tags = $tagService->getTagsForProductId(12, 1);
         // test values only
         $this->assertEqual(array('a', 'bar', 'c'), array_values($tags));
         // revert
-        $tags = ZMTags::instance()->setTagsForProductId(12, 1, array('foo', 'bar'));
-        ZMTags::instance()->cleanupTags();
+        $tags = $tagService->setTagsForProductId(12, 1, array('foo', 'bar'));
+        $tagService->cleanupTags();
     }
 
     /**
      * Test getStats.
      */
     public function testGetStats() {
-        $stats = ZMTags::instance()->getStats(1);
+        $stats = $this->container->get('tagService')->getStats(1);
         var_dump($stats);
         echo "<BR>";
     }

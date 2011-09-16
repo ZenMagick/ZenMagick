@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 
 /**
  * Demo address.
@@ -42,7 +43,7 @@ class ZMDemoAddress extends ZMAddress {
         $this->setPostcode('1234');
         $this->setCity('The City');
         $this->setState('Some State');
-        $this->setCountry(ZMCountries::instance()->getCountryForId('NZ'));
+        $this->setCountry(Runtime::getContainer()->get('countryService')->getCountryForId('NZ'));
     }
 
     /**

@@ -80,7 +80,7 @@ class ZMTaxRates extends ZMObject {
         if (0 == $countryId && 0 == $zoneId) {
             $account = $this->container->get('request')->getAccount();
             if (null != $account && ZMAccount::REGISTERED == $account->getType()) {
-                $defaultAddress = ZMAddresses::instance()->getAddressForId($account->getDefaultAddressId());
+                $defaultAddress = $this->container->get('addressService')->getAddressForId($account->getDefaultAddressId());
                 if (null != $defaultAddress) {
                     $zoneId = $defaultAddress->getZoneId();
                     $countryId = $defaultAddress->getCountryId();

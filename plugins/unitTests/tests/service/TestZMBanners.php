@@ -32,7 +32,7 @@ class TestZMBanners extends ZMTestCase {
      * Test get banner group ids.
      */
     public function testGetBannerGroupIds() {
-        $groupIds = ZMBanners::instance()->getBannerGroupIds();
+        $groupIds = $this->container->get('bannerService')->getBannerGroupIds();
         $this->assertEqual(array('BannersAll', 'SideBox-Banners', 'Wide-Banners'), $groupIds);
     }
 
@@ -40,10 +40,10 @@ class TestZMBanners extends ZMTestCase {
      * Test get banners for group name.
      */
     public function testGetBannersForGroupName() {
-        $banners = ZMBanners::instance()->getBannersForGroupName(null);
+        $banners = $this->container->get('bannerService')->getBannersForGroupName(null);
         $this->assertEqual(array(), $banners);
 
-        $banners = ZMBanners::instance()->getBannersForGroupName('BannersAll', null, true);
+        $banners = $this->container->get('bannerService')->getBannersForGroupName('BannersAll', null, true);
         $this->assertEqual(2, count($banners));
         // check ids
         $bannerIds = array();

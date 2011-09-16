@@ -473,7 +473,7 @@ class ZMRequest extends \ZMObject {
         if ($event->isCanceled()) {
             return;
         }
-        \ZMMessages::instance()->saveMessages($this->getSession());
+        $this->container->get('messageService')->saveMessages($this->getSession());
         $this->closeSession();
         if (!empty($status)) {
             header('Location: ' . $url, true, $status);

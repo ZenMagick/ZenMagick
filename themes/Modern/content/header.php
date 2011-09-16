@@ -76,7 +76,7 @@
 <div id="navEZPagesTop" class="unitPng">
 <ul>
 	<li><a href="<?php echo $net->url('index') ?>"><span class="navEZCol"><?php _vzm("Home"); ?></span></a></li>
-  <?php foreach (ZMEZPages::instance()->getPagesForHeader($session->getLanguageId()) as $page) { ?>
+  <?php foreach ($this->container->get('ezPageService')->getPagesForHeader($session->getLanguageId()) as $page) { ?>
     <?php $text = '<span class="navEZCol">'.$html->encode($page->getTitle()).'</span>'; ?>
     <li><?php echo $html->ezpageLink($page->getId(), $text); ?></li>
   <?php } ?>

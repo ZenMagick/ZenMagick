@@ -177,7 +177,7 @@ class ZMPageCachePlugin extends \Plugin {
     protected function defaultStrategy($request) {
         return 'POST' != $request->getMethod()
           && (null == $request->getShoppingCart() || $request->getShoppingCart()->isEmpty())
-          && !ZMMessages::instance()->hasMessages()
+          && !$this->container->get('messageService')->hasMessages()
           && ZMLangUtils::inArray($request->getRequestId(), ZMSettings::get('plugins.pageCache.strategy.allowed', ZM_PLUGINS_PAGE_CACHE_ALLOWED_DEFAULT));
     }
 

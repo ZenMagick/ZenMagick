@@ -40,7 +40,7 @@
       // save
       $editContents = stripslashes($editContents);
       if ($selectedTheme->saveStaticPageContent($selectedFile, $editContents, $selectedLanguageId)) {
-          ZMMessages::instance()->error(sprintf(_zm('Could not save %s'), $selectedFile));
+          $this->container->get('messageService')->error(sprintf(_zm('Could not save %s'), $selectedFile));
       }
       $editContents = null;
   } else if (null != $selectedFile) {

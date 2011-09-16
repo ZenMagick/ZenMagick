@@ -104,7 +104,7 @@ class ZMToolboxMetaTags extends ZMToolboxTool {
         } else if ('manufacturer' == $requestId) {
             $title = $this->category_;
         } else if ('category' == $requestId || 'category_list' == $requestId) {
-            if (null != ($category = ZMCategories::instance()->getCategoryForId($this->getRequest()->getCategoryId(), $this->getRequest()->getSession()->getLanguageId()))) {
+            if (null != ($category = $this->container->get('categoryService')->getCategoryForId($this->getRequest()->getCategoryId(), $this->getRequest()->getSession()->getLanguageId()))) {
                 $languageId = $this->getRequest()->getSession()->getLanguageId();
                 if (null != ($details = $category->getMetaTagDetails($languageId))) {
                     $title = ZMHtmlUtils::encode($details->getTitle());
@@ -151,7 +151,7 @@ class ZMToolboxMetaTags extends ZMToolboxTool {
             }
             $value .= $this->productName_;
         } else if (0 != $this->getRequest()->getCategoryId()) {
-            if (null != ($category = ZMCategories::instance()->getCategoryForId($this->getRequest()->getCategoryId(), $this->getRequest()->getSession()->getLanguageId()))) {
+            if (null != ($category = $this->container->get('categoryService')->getCategoryForId($this->getRequest()->getCategoryId(), $this->getRequest()->getSession()->getLanguageId()))) {
                 $languageId = $this->getRequest()->getSession()->getLanguageId();
                 if (null != ($details = $category->getMetaTagDetails($languageId))) {
                     $value = $details->getKeywords();
@@ -196,7 +196,7 @@ class ZMToolboxMetaTags extends ZMToolboxTool {
                 $value .= $this->topCategories_;
             }
         } else if (0 != $this->getRequest()->getCategoryId()) {
-            if (null != ($category = ZMCategories::instance()->getCategoryForId($this->getRequest()->getCategoryId(), $this->getRequest()->getSession()->getLanguageId()))) {
+            if (null != ($category = $this->container->get('categoryService')->getCategoryForId($this->getRequest()->getCategoryId(), $this->getRequest()->getSession()->getLanguageId()))) {
                 $languageId = $this->getRequest()->getSession()->getLanguageId();
                 if (null != ($details = $category->getMetaTagDetails($languageId))) {
                     $value = $details->getDescription();
@@ -228,12 +228,12 @@ class ZMToolboxMetaTags extends ZMToolboxTool {
         if (null != $this->topCategories_)
             return;
 
-        $topCategories = ZMCategories::instance()->getRootCategories($this->getRequest()->getSession()->getLanguageId());
+        $topCategories = $this->container->get('categoryService')->getRootCategories($this->getRequest()->getSession()->getLanguageId());
 
         $first = true;
         foreach ($topCategories as $category) {
             if (!$first) $this->topCategories_ .= $this->keywordDelimiter_;
-            $first = false; 
+            $first = false;
             $this->topCategories_ .= $category->getName();
         }
     }
@@ -283,7 +283,7 @@ class ZMToolboxMetaTags extends ZMToolboxTool {
         if (null == $this->getRequest()->getProductId() || null != $this->productName_)
             return;
 
-        if (null != ($this->product_ = ZMProducts::instance()->getProductForId($this->getRequest()->getProductId(), $this->getRequest()->getSession()->getLanguageId()))) {
+        if (null != ($this->product_ = $this->container->get('productService')->getProductForId($this->getRequest()->getProductId(), $this->getRequest()->getSession()->getLanguageId()))) {
             $this->productName_ = $this->product_->getName();
             if (!ZMLangUtils::isEmpty($this->product_->getModel())) {
                 $this->productName_ .= ' [' . $this->product_->getModel() . ']';
@@ -296,11 +296,11 @@ class ZMToolboxMetaTags extends ZMToolboxTool {
      */
     protected function loadCategory() {
         if (null != $this->getRequest()->getCategoryPath()) {
-            if (null != ($category = ZMCategories::instance()->getCategoryForId($this->getRequest()->getCategoryId(), $this->getRequest()->getSession()->getLanguageId()))) {
+            if (null != ($category = $this->container->get('categoryService')->getCategoryForId($this->getRequest()->getCategoryId(), $this->getRequest()->getSession()->getLanguageId()))) {
                 $this->category_ = $category->getName();
             }
         } else if (null != $this->getRequest()->getManufacturerId()) {
-            if (null != ($manufacturer = ZMManufacturers::instance()->getManufacturerForId($this->getRequest()->getManufacturerId(), $this->getRequest()->getSession()->getLanguageId()))) {
+            if (null != ($manufacturer = $this->container->get('manufacturerService')->getManufacturerForId($this->getRequest()->getManufacturerId(), $this->getRequest()->getSession()->getLanguageId()))) {
                 $this->category_ = $manufacturer->getName();
             }
         }

@@ -42,9 +42,10 @@ class ZMProductTagsTabController extends ZMCatalogContentController {
      */
     public function getViewData($request) {
         $languageId = $request->getSelectedLanguage()->getId();
+        $tagService = $this->container->get('tagService');
         return array(
-            'currentProductTags' => ZMTags::instance()->getTagsForProductId($request->getProductId(), $languageId),
-            'allTags' => ZMTags::instance()->getAllTags($languageId)
+            'currentProductTags' => $tagService->getTagsForProductId($request->getProductId(), $languageId),
+            'allTags' => $tagService->getAllTags($languageId)
         );
     }
 
@@ -63,8 +64,8 @@ class ZMProductTagsTabController extends ZMCatalogContentController {
                     $tags[$tag] = $tag;
                 }
             }
-            ZMTags::instance()->setTagsForProductId($productId, $languageId, $tags);
-            ZMMessages::instance()->success(_zm('Tags updated'));
+            $this->container->get('tagService')->setTagsForProductId($productId, $languageId, $tags);
+            $this->messageService->success(_zm('Tags updated'));
         }
 
         return $this->findView('catalog-redirect');

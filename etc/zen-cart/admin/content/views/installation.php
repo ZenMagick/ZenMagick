@@ -63,22 +63,22 @@
                 // open and selected
                 $needRefresh = true;
                 $status = $patch->patch(true);
-                ZMMessages::instance()->addAll($patch->getMessages());
+                $this->container->get('messageService')->addAll($patch->getMessages());
                 if ($status) {
-                    ZMMessages::instance()->success("'".$patchLabel[$patch->getId()]."' installed successfully");
+                    $this->container->get('messageService')->success("'".$patchLabel[$patch->getId()]."' installed successfully");
                 } else {
-                    ZMMessages::instance()->error("Could not install '".$patchLabel[$patch->getId()]."'");
+                    $this->container->get('messageService')->error("Could not install '".$patchLabel[$patch->getId()]."'");
                 }
             } else if (!$patch->isOpen() && null == $request->getParameter($formId)) {
                 // installed and not selected
                 if ($patch->canUndo()) {
                     $needRefresh = true;
                     $status = $patch->undo();
-                    ZMMessages::instance()->addAll($patch->getMessages());
+                    $this->container->get('messageService')->addAll($patch->getMessages());
                     if ($status) {
-                        ZMMessages::instance()->success("Uninstalled '".$patchLabel[$patch->getId()]."' successfully");
+                        $this->container->get('messageService')->success("Uninstalled '".$patchLabel[$patch->getId()]."' successfully");
                     } else {
-                        ZMMessages::instance()->error("Could not uninstall '".$patchLabel[$patch->getId()]."'");
+                        $this->container->get('messageService')->error("Could not uninstall '".$patchLabel[$patch->getId()]."'");
                     }
                 }
             }

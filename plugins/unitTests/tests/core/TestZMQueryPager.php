@@ -43,7 +43,7 @@ class TestZMQueryPager extends ZMTestCase {
      */
     public function testSQLAware() {
             $resultList = new ZMResultList();
-            $resultSource = new ZMObjectResultSource('ZMOrder', ZMOrders::instance(), 'getAllOrders', array(1));
+            $resultSource = new ZMObjectResultSource('ZMOrder', 'orderService', 'getAllOrders', array(1));
             $resultList->setResultSource($resultSource);
             $sorter = new ZMOrderSorter();
             $sorter->setSortId('date');

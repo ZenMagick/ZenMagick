@@ -62,21 +62,22 @@ class ZMAddressBookAddController extends ZMController {
      *{@inheritDoc}
      */
     public function processPost($request) {
+        $addressService = $this->container->get('addressService');
         $address = $this->getFormData($request);
         $address->setAccountId($request->getAccountId());
-        $address = ZMAddresses::instance()->createAddress($address);
+        $address = $addressService->createAddress($address);
 
         $account = $request->getAccount();
         $args = array('request' => $request, 'controller' => $this, 'account' => $account, 'address' => $address, 'type' => 'addressBook');
         Runtime::getEventDispatcher()->dispatch('create_address', new Event($this, $args));
 
         // process primary setting
-        if ($address->isPrimary() || 1 == count(ZMAddresses::instance()->getAddressesForAccountId($request->getAccountId()))) {
+        if ($address->isPrimary() || 1 == count($addressService->getAddressesForAccountId($request->getAccountId()))) {
             $account = $request->getAccount();
             $account->setDefaultAddressId($address->getId());
-            ZMAccounts::instance()->updateAccount($account);
+            $this->container->get('accountService')->updateAccount($account);
             $address->setPrimary(true);
-            $address = ZMAddresses::instance()->updateAddress($address);
+            $address = $addressService->updateAddress($address);
 
             $session = $request->getSession();
             $session->setAccount($account);
@@ -84,7 +85,7 @@ class ZMAddressBookAddController extends ZMController {
 
         // if guest, there is no address book!
         if ($request->isRegistered()) {
-            ZMMessages::instance()->success(_zm('Address added to your address book.'));
+            $this->messageService->success(_zm('Address added to your address book.'));
         }
 
         return $this->findView('success');

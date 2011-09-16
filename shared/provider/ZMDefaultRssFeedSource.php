@@ -59,12 +59,13 @@ class ZMDefaultRssFeedSource implements ZMRssSource {
      */
     protected function getReviewsFeed($request, $key=null) {
         $product = null;
+        $reviewService = $this->container->get('reviewService');
         $languageId = $request->getSession()->getLanguageId();
         if (null != $key)  {
-            $reviews = array_reverse(ZMReviews::instance()->getReviewsForProductId($key, $languageId));
-            $product = ZMProducts::instance()->getProductForId($key, $languageId);
+            $reviews = array_reverse($reviewService->getReviewsForProductId($key, $languageId));
+            $product = $this->container->get('productService')->getProductForId($key, $languageId);
         } else {
-            $reviews = array_reverse(ZMReviews::instance()->getAllReviews($languageId));
+            $reviews = array_reverse($reviewService->getAllReviews($languageId));
         }
         if (null != $key && null == $product) {
             return null;
@@ -74,7 +75,7 @@ class ZMDefaultRssFeedSource implements ZMRssSource {
         $lastPubDate = null;
         foreach ($reviews as $review) {
             if (null == $key) {
-                $product = ZMProducts::instance()->getProductForId($review->getProductId());
+                $product = $this->container->get('productService')->getProductForId($review->getProductId());
             }
             $item = Beans::getBean("ZMRssItem");
             $item->setTitle(sprintf(_zm("Review: %s"), $product->getName()));
@@ -152,7 +153,7 @@ class ZMDefaultRssFeedSource implements ZMRssSource {
 
         $lastPubDate = null;
         $items = array();
-        $products = array_slice(array_reverse(ZMProducts::instance()->getNewProducts()), 0, 20);
+        $products = array_slice(array_reverse($this->container->get('productService')->getNewProducts()), 0, 20);
         foreach ($products as $product) {
             $item = Beans::getBean("ZMRssItem");
             $item->setTitle($product->getName());

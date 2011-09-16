@@ -149,7 +149,7 @@ class ZMHowDidYouHearPlugin extends Plugin {
                 $view->setVar('howDidYouHearForm', $registration);
             } else if (null != ($shippingAddress = $view->getVar('shippingAddress'))) {
                 // if we have an address we should have got the source as well...
-                $addressList = ZMAddresses::instance()->getAddressesForAccountId($request->getAccountId());
+                $addressList = $this->container->get('addressService')->getAddressesForAccountId($request->getAccountId());
                 if ($this->isEnableOnGuestCheckout() && ZMAccount::GUEST == $request->getAccount()->getType() && 0 == count($addressList)) {
                     $view->setVar('howDidYouHearForm', $shippingAddress);
                 }

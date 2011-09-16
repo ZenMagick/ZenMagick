@@ -32,6 +32,7 @@ use zenmagick\http\sacs\SacsManager;
  * @package org.zenmagick.mvc.controller
  */
 class ZMController extends ZMObject {
+    private $messageService;
     private $requestId_;
     private $isAjax_;
     private $method_;
@@ -50,6 +51,8 @@ class ZMController extends ZMObject {
         $this->view_ = null;
         $this->method_ = null;
         $this->formData_ = null;
+        // a little bit of convenience
+        $this->messageService = Runtime::getContainer()->get('messageService');
     }
 
     /**
@@ -382,7 +385,7 @@ class ZMController extends ZMObject {
         if (!$valid) {
             foreach (ZMValidator::instance()->getMessages() as $field => $fieldMessages) {
                 foreach ($fieldMessages as $msg) {
-                    ZMMessages::instance()->error($msg, $field);
+                    $this->messageService->error($msg, $field);
                 }
             }
         }

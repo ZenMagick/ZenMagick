@@ -32,7 +32,8 @@ class TestZMTaxRates extends ZMTestCase {
      * Test get tax rate for class id.
      */
     public function testGetRateForClassId() {
-        $taxRate = ZMTaxRates::instance()->getTaxRateForClassId(1, 223, 18);
+        $taxRateService = $this->container->get('taxRateService');
+        $taxRate = $taxRateService->getTaxRateForClassId(1, 223, 18);
         $this->assertTrue($taxRate instanceof ZMTaxRate);
         if ($this->assertNotNull($taxRate)) {
             $this->assertEqual('1_223_18', $taxRate->getId());
@@ -46,7 +47,7 @@ class TestZMTaxRates extends ZMTestCase {
         }
 
         // test non existing
-        $taxRate = ZMTaxRates::instance()->getTaxRateForClassId(2);
+        $taxRate = $taxRateService->getTaxRateForClassId(2);
         $this->assertTrue($taxRate instanceof ZMTaxRate);
         if ($this->assertNotNull($taxRate)) {
             $this->assertEqual(2, $taxRate->getClassId());
@@ -63,23 +64,25 @@ class TestZMTaxRates extends ZMTestCase {
      * Test get description.
      */
     public function testTaxDescription() {
-        $this->assertEqual('FL TAX 7.0%', ZMTaxRates::instance()->getTaxDescription(1, 223, 18));
-        $this->assertNull(ZMTaxRates::instance()->getTaxDescription(1, 1, 8));
+        $taxRateService = $this->container->get('taxRateService');
+        $this->assertEqual('FL TAX 7.0%', $taxRateService->getTaxDescription(1, 223, 18));
+        $this->assertNull($taxRateService->getTaxDescription(1, 1, 8));
     }
 
     /**
      * Test rate for description.
      */
     public function testGetTaxForDescription() {
-        $this->assertEqual(7.0, ZMTaxRates::instance()->getTaxRateForDescription('FL TAX 7.0%'));
-        $this->assertEqual(0, ZMTaxRates::instance()->getTaxRateForDescription('foo bar'));
+        $taxRateService = $this->container->get('taxRateService');
+        $this->assertEqual(7.0, $taxRateService->getTaxRateForDescription('FL TAX 7.0%'));
+        $this->assertEqual(0, $taxRateService->getTaxRateForDescription('foo bar'));
     }
 
     /**
      * Test get tax class
      */
     public function testGetTaxClassForId() {
-        $taxClass = ZMTaxRates::instance()->getTaxClassForId(1);
+        $taxClass = $this->container->get('taxRateService')->getTaxClassForId(1);
         $this->assertNotNull($taxClass);
         $this->assertEqual('Taxable Goods', $taxClass->getTitle());
     }

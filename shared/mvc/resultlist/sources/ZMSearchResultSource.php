@@ -98,7 +98,7 @@ class ZMSearchResultSource extends ZMObject implements ZMResultSource {
             foreach ($queryPager->getResults($this->resultList_->getPageNumber(), $this->resultList_->getPagination()) as $result) {
                 $productIds[] = $result['productId'];
             }
-            $this->results_ = ZMProducts::instance()->getProductsForIds($productIds, true, $this->criteria_->getLanguageId());
+            $this->results_ = $this->container->get('productService')->getProductsForIds($productIds, true, $this->criteria_->getLanguageId());
             $this->totalNumberOfResults_ = $queryPager->getTotalNumberOfResults();
         }
         return $this->results_;

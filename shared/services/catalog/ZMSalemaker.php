@@ -66,7 +66,7 @@ class ZMSaleMaker extends ZMObject {
      * @return array Discount type info.
      */
     public function getSaleDiscountTypeInfo($productId, $categoryId=null) {
-        $product = ZMProducts::instance()->getProductForId($productId);
+        $product = $this->container->get('productService')->getProductForId($productId);
 
         if (null === $categoryId) {
             $categoryId = $product->getDefaultCategory(null)->getId();

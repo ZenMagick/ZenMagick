@@ -51,16 +51,16 @@ class ZMCancelSubscriptionController extends ZMController {
      */
     public function processGet($request) {
         if (!ZMLangUtils::asBoolean($this->getPlugin()->get('customerCancel'))) {
-            ZMMessages::instance()->error(_zm("Insufficient permission"));
+            $this->messageService->error(_zm("Insufficient permission"));
             return $this->findView();
         }
         $orderId = $request->getOrderId();
-        $order = ZMOrders::instance()->getOrderForId($orderId, $request->getSession()->getLanguageId());
+        $order = $this->container->get('orderService')->getOrderForId($orderId, $request->getSession()->getLanguageId());
         $account = $order->getAccount();
 
         // make sure this is an allowed order
         if ($order->getAccountId() != $order->getAccountId()) {
-            ZMMessages::instance()->error(_zm("Invalid order selected"));
+            $this->messageService->error(_zm("Invalid order selected"));
             return $this->findView();
         }
 
@@ -72,7 +72,7 @@ class ZMCancelSubscriptionController extends ZMController {
         $results = ZMRuntime::getDatabase()->querySingle($sql, array('subscriptionOrderId' => $orderId), TABLE_ORDERS, ZMDatabase::MODEL_RAW);
 
         if ($results['total'] < $plugin->get('minOrders')) {
-            ZMMessages::instance()->error(sprintf(_zm("This subscription can only be canceled after a minimum of %s orders"), $plugin->get('minOrders')));
+            $this->messageService->error(sprintf(_zm("This subscription can only be canceled after a minimum of %s orders"), $plugin->get('minOrders')));
             return $this->findView();
         }
 
@@ -85,7 +85,7 @@ class ZMCancelSubscriptionController extends ZMController {
                       AND DATE_SUB(subscription_next_order, INTERVAL " . $cancelDeadline . " DAY) >= CURDATE()";
             $result = ZMRuntime::getDatabase()->querySingle($sql, array('orderId' => $orderId), TABLE_ORDERS, ZMDatabase::MODEL_RAW);
             if (null == $result) {
-                ZMMessages::instance()->error(sprintf(_zm("Can't cancel less than %s days before next subscription"), $cancelDeadline));
+                $this->messageService->error(sprintf(_zm("Can't cancel less than %s days before next subscription"), $cancelDeadline));
                 return $this->findView();
             }
         }
@@ -94,7 +94,7 @@ class ZMCancelSubscriptionController extends ZMController {
                 SET is_subscription_canceled = :subscriptionCanceled
                 WHERE orders_id = :orderId";
         ZMRuntime::getDatabase()->update($sql, array('orderId' => $orderId, 'subscriptionCanceled' => true), TABLE_ORDERS);
-        ZMMessages::instance()->success(_zm("Subscription canceled!"));
+        $this->messageService->success(_zm("Subscription canceled!"));
 
         $emailTemplate = ZMSettings::get('plugins.subscriptions.email.templates.cancel', 'subscription_cancel');
         $this->sendCancelEmail($order, $emailTemplate, $account->getEmail());

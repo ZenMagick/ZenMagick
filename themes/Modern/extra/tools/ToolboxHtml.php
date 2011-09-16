@@ -31,7 +31,7 @@
  * @package org.zenmagick.store.mvc.toolbox.defaults
  */
 class ToolboxHtml extends ZMToolboxHtml {
-	
+
 	/**
      * Create a full HTML &lt;a&gt; tag pointig to an ezpage.
      *
@@ -44,7 +44,7 @@ class ToolboxHtml extends ZMToolboxHtml {
      */
     public function ezpageLink($id, $text=null, $attr=array()) {
         $toolbox = $this->getToolbox();
-        $page = ZMEZPages::instance()->getPageForId($id, $this->getRequest()->getSession()->getLanguageId());
+        $page = $this->container->get('ezPageService')->getPageForId($id, $this->getRequest()->getSession()->getLanguageId());
         $link = '<a href="' . $toolbox->net->ezPage($page) . '"' . $this->hrefTarget($page->isNewWin());
         foreach ($attr as $name => $value) {
             if (null !== $value) {
@@ -55,6 +55,6 @@ class ToolboxHtml extends ZMToolboxHtml {
 
         return $link;
     }
-	
-	
+
+
 }

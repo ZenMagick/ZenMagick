@@ -39,11 +39,12 @@ class TestZMProducts extends ZMTestCase {
      * Test update product.
      */
     public function testUpdateProduct() {
-        $product = ZMProducts::instance()->getProductForId(2, 1);
+        $productService = $this->container->get('productService');
+        $product = $productService->getProductForId(2, 1);
         $this->assertNotNull($product);
         $product->setName($product->getName().'@@@');
-        ZMProducts::instance()->updateProduct($product);
-        $reloaded = ZMProducts::instance()->getProductForId($product->getId(), 1);
+        $productService->updateProduct($product);
+        $reloaded = $productService->getProductForId($product->getId(), 1);
         foreach (array_keys(ZMDbTableMapper::instance()->getMapping(array(TABLE_PRODUCTS, TABLE_PRODUCTS_DESCRIPTION), ZMRuntime::getDatabase())) as $key) {
             $prefixList = array('get', 'is', 'has');
             $done = false;
@@ -61,7 +62,7 @@ class TestZMProducts extends ZMTestCase {
         }
         // revert name change
         $product->setName(str_replace('@@@', '', $product->getName()));
-        ZMProducts::instance()->updateProduct($product);
+        $productService->updateProduct($product);
     }
 
     /**
@@ -73,7 +74,7 @@ class TestZMProducts extends ZMTestCase {
             'reviews' => true,
             'tell_a_friend' => true
         );
-        $product = ZMProducts::instance()->getProductForId(2, 1);
+        $product = $this->container->get('productService')->getProductForId(2, 1);
         foreach ($fieldData as $field => $value) {
             $this->assertEqual($value, $product->getTypeSetting($field), '%s field='.$field);
         }
@@ -84,7 +85,7 @@ class TestZMProducts extends ZMTestCase {
      */
     public function testFeaturedProductsHome() {
         $featuredIds = array(34, 40, 12, 27, 26, 168, 169, 171, 172);
-        $products = ZMProducts::instance()->getFeaturedProducts();
+        $products = $this->container->get('productService')->getFeaturedProducts();
         $this->assertEqual(9, count($products));
         foreach ($products as $product) {
             $this->assertTrue(in_array($product->getId(), $featuredIds));
@@ -96,7 +97,7 @@ class TestZMProducts extends ZMTestCase {
      */
     public function testFeaturedProductsCategory() {
         $featuredIds = array(12);
-        $products = ZMProducts::instance()->getFeaturedProducts(3, 4, true);
+        $products = $this->container->get('productService')->getFeaturedProducts(3, 4, true);
         $this->assertEqual(1, count($products));
         foreach ($products as $product) {
             $this->assertTrue(in_array($product->getId(), $featuredIds));
@@ -110,7 +111,7 @@ class TestZMProducts extends ZMTestCase {
         $sql = "UPDATE " . TABLE_PRODUCTS . " SET products_date_added = :dateAdded";
         ZMRuntime::getDatabase()->update($sql, array('dateAdded' => date(ZMDatabase::DATETIME_FORMAT)), TABLE_PRODUCTS);
 
-        $products = ZMProducts::instance()->getNewProducts();
+        $products = $this->container->get('productService')->getNewProducts();
         $this->assertEqual(50, count($products));
 
         ZMRuntime::getDatabase()->update($sql, array('dateAdded' => '2003-11-03 12:32:17'), TABLE_PRODUCTS);
@@ -121,7 +122,7 @@ class TestZMProducts extends ZMTestCase {
      */
     public function testNewProductsCategory() {
         $featuredIds = array(1, 2);
-        $products = ZMProducts::instance()->getNewProducts(4, 0, '0');
+        $products = $this->container->get('productService')->getNewProducts(4, 0, '0');
         $this->assertEqual(2, count($products));
         foreach ($products as $product) {
             $this->assertTrue(in_array($product->getId(), $featuredIds));
@@ -132,7 +133,7 @@ class TestZMProducts extends ZMTestCase {
      * Test bestseller products on home page.
      */
     public function testBestsellerProductsHome() {
-        $products = ZMProducts::instance()->getBestSellers(null, 999);
+        $products = $this->container->get('productService')->getBestSellers(null, 999);
         $this->assertEqual(51, count($products));
     }
 
@@ -141,7 +142,7 @@ class TestZMProducts extends ZMTestCase {
      */
     public function testBestsellerProductsCategory() {
         $featuredIds = array(1, 2);
-        $products = ZMProducts::instance()->getBestSellers(4, 999);
+        $products = $this->container->get('productService')->getBestSellers(4, 999);
         $this->assertEqual(2, count($products));
         foreach ($products as $product) {
             $this->assertTrue(in_array($product->getId(), $featuredIds));
@@ -152,7 +153,7 @@ class TestZMProducts extends ZMTestCase {
      * Test getProductForModel.
      */
     public function testGetProductForModel() {
-        $product = ZMProducts::instance()->getProductForModel('MG200MMS', 1);
+        $product = $this->container->get('productService')->getProductForModel('MG200MMS', 1);
         if ($this->assertNotNull($product)) {
             $this->assertTrue($product instanceof ZMProduct);
             $this->assertEqual(1, $product->getId());
@@ -163,7 +164,7 @@ class TestZMProducts extends ZMTestCase {
      * Test getProductIdsForCategoryId.
      */
     public function testGetProductIdsForCategoryId() {
-        $productIdList = ZMProducts::instance()->getProductIdsForCategoryId(10, 1, true, false);
+        $productIdList = $this->container->get('productService')->getProductIdsForCategoryId(10, 1, true, false);
         $this->assertNotNull($productIdList);
         $expect = array(12, 11, 13, 18, 17, 6, 4, 10, 9);
         $this->assertEqual($expect, $productIdList);
@@ -173,7 +174,7 @@ class TestZMProducts extends ZMTestCase {
      * Test getProductsForCategoryId.
      */
     public function testGetProductsForCategoryId() {
-        $productList = ZMProducts::instance()->getProductsForCategoryId(10, true, 1);
+        $productList = $this->container->get('productService')->getProductsForCategoryId(10, true, 1);
         $this->assertNotNull($productList);
         $this->assertEqual(9, count($productList));
     }

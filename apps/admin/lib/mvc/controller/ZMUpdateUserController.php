@@ -112,21 +112,22 @@ class ZMUpdateUserController extends ZMController {
             return $this->findView('success');
         }
 
+        $authenticationManager = $this->container->get('authenticationManager');
         // validate password
-        if (!ZMAuthenticationManager::instance()->validatePassword($updateUser->getCurrentPassword(), $user->getPassword())) {
-            ZMMessages::instance()->error(_zm('Sorry, the entered password is not valid.'));
+        if (!$authenticationManager->validatePassword($updateUser->getCurrentPassword(), $user->getPassword())) {
+            $this->messageService->error(_zm('Sorry, the entered password is not valid.'));
             return $this->findView();
         }
         $user->setName($updateUser->getName());
         $user->setEmail($updateUser->getEmail());
         $newPassword = $updateUser->getNewPassword();
         if (!empty($newPassword)) {
-            $user->setPassword(ZMAuthenticationManager::instance()->encryptPassword($newPassword));
+            $user->setPassword($authenticationManager->encryptPassword($newPassword));
         }
         ZMAdminUsers::instance()->updateUser($user);
 
         // report success
-        ZMMessages::instance()->success(_zm('Details updated.'));
+        $this->messageService->success(_zm('Details updated.'));
 
         return $this->findView('success');
     }

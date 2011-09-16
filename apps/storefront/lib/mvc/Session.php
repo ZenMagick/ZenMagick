@@ -156,7 +156,7 @@ class Session extends zenmagick\http\session\Session {
             $this->setValue('customers_authorization', $account->getAuthorization());
             $this->setValue('customer_first_name', $account->getFirstName());
             $this->setValue('account_type', $account->getType());
-            $address = ZMAddresses::instance()->getAddressForId($account->getDefaultAddressId());
+            $address = $this->container->get('addressService')->getAddressForId($account->getDefaultAddressId());
             if (null != $address) {
                 $this->setValue('customer_country_id', $address->getCountryId());
                 $this->setValue('customer_zone_id', $address->getZoneId());
@@ -317,7 +317,7 @@ class Session extends zenmagick\http\session\Session {
      */
     public function registerAccount($account, $request, $source=null) {
         if (ZMAccounts::AUTHORIZATION_BLOCKED == $account->getAuthorization()) {
-            ZMMessages::instance()->error(_zm('Access denied.'));
+            $this->container->get('messageService')->error(_zm('Access denied.'));
             return false;
         }
 
@@ -328,7 +328,7 @@ class Session extends zenmagick\http\session\Session {
         $this->setAccount($account);
 
         // update login stats
-        ZMAccounts::instance()->updateAccountLoginStats($account->getId());
+        $this->container->get('accountService')->updateAccountLoginStats($account->getId());
 
         // restore cart contents
         $this->restoreCart();

@@ -79,7 +79,7 @@ class ZMMethodController extends ZMController {
         }
 
         // rid independant error page (mapped under null:)
-        ZMMessages::instance()->error(_zm('Invalid request method'));
+        $this->messageService->error(_zm('Invalid request method'));
         return $this->findView('error');
     }
 
@@ -87,7 +87,7 @@ class ZMMethodController extends ZMController {
      * Process xform GET.
      */
     protected function xform_get($request) {
-        // display default 
+        // display default
         return $this->findView();
     }
 
@@ -98,9 +98,9 @@ class ZMMethodController extends ZMController {
         $name = $request->getParameter('name');
         $viewId = null;
         if (empty($name)) {
-            ZMMessages::instance()->error(_zm('Please enter a name'));
+            $this->messageService->error(_zm('Please enter a name'));
         } else {
-            ZMMessages::instance()->success(_zm('The name entered was: '.$name));
+            $this->messageService->success(_zm('The name entered was: '.$name));
             $viewId = 'success';
         }
 

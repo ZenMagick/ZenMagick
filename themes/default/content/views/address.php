@@ -25,8 +25,8 @@
 <script type="text/javascript">
     var all_zones = new Array();
     <?php
-        foreach (ZMCountries::instance()->getCountries() as $country) {
-            $zones = ZMCountries::instance()->getZonesForCountryId($country->getId());
+        foreach ($this->container->get('countryService')->getCountries() as $country) {
+            $zones = $this->container->get('countryService')->getZonesForCountryId($country->getId());
             if (0 < count($zones)) {
                 echo 'all_zones['.$country->getId() . '] = new Array();';
                 foreach ($zones as $zone) {
@@ -102,10 +102,10 @@
             </tr>
              <tr>
                 <td><?php _vzm("Country") ?><span>*</span></td>
-                <td><?php echo $form->idpSelect('countryId', array_merge(array(new ZMIdNamePair("", _zm("Select Country"))), ZMCountries::instance()->getCountries()), $countryId) ?></td>
+                <td><?php echo $form->idpSelect('countryId', array_merge(array(new ZMIdNamePair("", _zm("Select Country"))), $this->container->get('countryService')->getCountries()), $countryId) ?></td>
             </tr>
             <?php if (ZMSettings::get('isAccountState')) { ?>
-                <?php $zones = ZMCountries::instance()->getZonesForCountryId($countryId); ?>
+                <?php $zones = $this->container->get('countryService')->getZonesForCountryId($countryId); ?>
                 <tr>
                     <td><?php _vzm("State/Province") ?><span>*</span></td>
                     <td>

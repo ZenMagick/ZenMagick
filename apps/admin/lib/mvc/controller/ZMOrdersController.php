@@ -54,7 +54,7 @@ class ZMOrdersController extends ZMController {
         $languageId = 1;
 
         // get the corresponding orderStatus
-        $orderStatusList = ZMOrders::instance()->getOrderStatusList($languageId);
+        $orderStatusList = $this->container->get('orderService')->getOrderStatusList($languageId);
         $orderStatus = null;
         foreach ($orderStatusList as $tmp) {
             if ($tmp->getOrderStatusId() == $orderStatusId) {
@@ -64,9 +64,9 @@ class ZMOrdersController extends ZMController {
         }
 
         if (null != $orderStatus) {
-            $resultSource = new ZMObjectResultSource('ZMOrder', ZMOrders::instance(), "getOrdersForStatusId", array($orderStatusId, $languageId));
+            $resultSource = new ZMObjectResultSource('ZMOrder', 'orderService', "getOrdersForStatusId", array($orderStatusId, $languageId));
         } else {
-            $resultSource = new ZMObjectResultSource('ZMOrder', ZMOrders::instance(), "getAllOrders", array($languageId));
+            $resultSource = new ZMObjectResultSource('ZMOrder', 'orderService', "getAllOrders", array($languageId));
         }
         $resultList = Runtime::getContainer()->get('ZMResultList');
         $resultList->setResultSource($resultSource);

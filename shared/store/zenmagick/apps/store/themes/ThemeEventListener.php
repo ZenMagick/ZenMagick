@@ -21,13 +21,15 @@
 <?php
 namespace zenmagick\apps\store\themes;
 
+use zenmagick\base\ZMObject;
+
 /**
  * Base theme event listener.
  *
  * @author DerManoMann
  * @package zenmagick.themes
  */
-class ThemeEventListener {
+class ThemeEventListener extends ZMObject {
 
     /**
      * Handle load theme event.

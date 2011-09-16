@@ -31,7 +31,7 @@ class ZMLatestAccountsDashboardWidget extends ZMDashboardWidget {
 
     /**
      * Create new user.
-     * 
+     *
      */
     function __construct() {
         parent::__construct(_zm('Latest Accounts'));
@@ -53,7 +53,7 @@ class ZMLatestAccountsDashboardWidget extends ZMDashboardWidget {
         $contents = '';
         $contents .= '<table class="grid" cellspacing="0">';
         $contents .= '<tr><th>'._zm('Name').'</th><th>'._zm('Registered').'</th></tr>';
-        foreach (ZMAccounts::instance()->getAllAccounts(null, 5) as $account) {
+        foreach ($this->container->get('accountService')->getAllAccounts(null, 5) as $account) {
             $contents .= '<tr>';
             $name = $account->getType() == ZMAccount::REGISTERED ? $account->getFullName() : _zm('** Guest **');
             $contents .= '<td><a href="'.$admin2->url('account', 'accountId='.$account->getId()).'">'.$name.'</a></td>';

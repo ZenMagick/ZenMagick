@@ -85,7 +85,7 @@ class ZMContactUsController extends ZMController {
         $message->setSubject(sprintf(_zm("Message from %s"), ZMSettings::get('storeName')))->setTo($contactInfo->getEmail(), $contactInfo->getName())->setFrom(ZMSettings::get('storeEmail'));
         $this->container->get('mailer')->send($message);
 
-        ZMMessages::instance()->success(_zm('Your message has been successfully sent.'));
+        $this->messageService->success(_zm('Your message has been successfully sent.'));
         // clear message before displaying form again
         $contactInfo->setMessage('');
 

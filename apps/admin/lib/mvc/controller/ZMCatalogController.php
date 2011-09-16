@@ -21,6 +21,7 @@
 <?php
 
 use zenmagick\base\Beans;
+use zenmagick\base\Runtime;
 use zenmagick\base\ClassLoader;
 use zenmagick\http\sacs\SacsManager;
 
@@ -84,18 +85,18 @@ class ZMCatalogController extends ZMController {
             if (0 < count($controllers)) {
                 $controller = $controllers[0];
                 $catalogRequestId = $controller->getCatalogRequestId();
-                ZMLogging::instance()->log('defaulting to controller : '.get_class($controller), ZMLogging::DEBUG);
+                Runtime::getLogging()->log('defaulting to controller : '.get_class($controller), ZMLogging::DEBUG);
             }
         } else {
             // let's see if we have a controller for this...
             $definition = ClassLoader::className($catalogRequestId.'Controller');
             $controller = Beans::getBean($definition);
-            ZMLogging::instance()->log('delegating to controller : '.get_class($controller), ZMLogging::DEBUG);
+            Runtime::getLogging()->log('delegating to controller : '.get_class($controller), ZMLogging::DEBUG);
 
         }
 
         // check authorization as we'll need the follwo up redirect point to the catalog URL, not a tab url
-        $authorized = SacsManager::instance()->authorize($request, $request->getRequestId(), $request->getUser(), false);
+        $authorized = $this->container->get('sacsManager')->authorize($request, $request->getRequestId(), $request->getUser(), false);
 
         if (null == $controller || !$authorized) {
             // no controller found
@@ -113,7 +114,7 @@ class ZMCatalogController extends ZMController {
             $catalogContentView->setLayout(null);
             $catalogViewContent = $catalogContentView->generate($request);
         } catch (Exception $e) {
-            ZMLogging::instance()->dump($e, 'view::generate failed', ZMLogging::ERROR);
+            Runtime::getLogging()->dump($e, 'view::generate failed', ZMLogging::ERROR);
             $catalogViewContent = null;
         }
 

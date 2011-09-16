@@ -130,7 +130,7 @@ class ZMUnitTestsController extends \ZMController {
                 if (null != ($test = Beans::getBean($clazz))) {
                     $allTests[$group][$key] = $test;
                 } else {
-                    \ZMMessages::instance()->warn('could not create instance of '.$clazz);
+                    $this->messageService->warn('could not create instance of '.$clazz);
                     unset($allTests[$group][$key]);
                 }
             }

@@ -58,7 +58,7 @@ class ZMProductsNewController extends ZMController {
         $request->getToolbox()->crumbtrail->addManufacturer($request->getManufacturerId());
         $request->getToolbox()->crumbtrail->addCrumb("New Products");
 
-        $resultSource = new ZMObjectResultSource('ZMProduct', ZMProducts::instance(), "getNewProducts");
+        $resultSource = new ZMObjectResultSource('ZMProduct', 'productService', "getNewProducts");
         $resultList = Runtime::getContainer()->get('ZMResultList');
         $resultList->setResultSource($resultSource);
         foreach (explode(',', ZMSettings::get('resultListProductFilter')) as $filter) {

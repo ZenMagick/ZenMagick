@@ -56,12 +56,13 @@ class ZMRedirectController extends ZMController {
     public function processGet($request) {
         $action = $request->getParameter('action');
         $goto = $request->getParameter('goto');
+        $bannerService = $this->container->get('bannerService');
 
         switch ($action) {
         case 'banner':
-            $banner = ZMBanners::instance()->getBannerForId($goto);
+            $banner = $bannerService->getBannerForId($goto);
             if (null != $banner) {
-                ZMBanners::instance()->updateBannerClickCount($goto);
+                $bannerService->updateBannerClickCount($goto);
                 return $this->findView('success', array(), array('url' => $banner->getUrl()));
             }
             break;
@@ -75,18 +76,19 @@ class ZMRedirectController extends ZMController {
         case 'manufacturer':
             $manufacturerId = $goto;
             if (0 < $manufacturerId) {
-                $manufacturer = ZMManufacturers::instance()->getManufacturerForId($manufacturerId, $request->getSession()->getLanguageId());
+                $manufacturerService = $this->container->get('manufacturerService');
+                $manufacturer = $manufacturerService->getManufacturerForId($manufacturerId, $request->getSession()->getLanguageId());
 
                 if (null == $manufacturer || null == $manufacturer->getUrl()) {
                     // try default language if different from session language
                     if (ZMSettings::get('defaultLanguageCode') != $request->getSession()->getLanguageCode()) {
                         $defaultLanguage = ZMLanguages::instance()->getLanguageForCode(ZMSettings::get('defaultLanguageCode'));
-                        $manufacturer = ZMManufacturers::instance()->getManufacturerForId($manufacturerId, $defaultLanguage->getId());
+                        $manufacturer = $manufacturerService->getManufacturerForId($manufacturerId, $defaultLanguage->getId());
                     }
                 }
 
                 if (null != $manufacturer && null != $manufacturer->getUrl()) {
-                    ZMManufacturers::instance()->updateManufacturerClickCount($manufacturerId, $request->getSession()->getLanguageId());
+                    $manufacturerService->updateManufacturerClickCount($manufacturerId, $request->getSession()->getLanguageId());
                     return $this->findView('success', array(), array('url' => $manufacturer->getUrl()));
                 }
 

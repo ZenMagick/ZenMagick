@@ -26,7 +26,7 @@
 <?php if ($currentCategory->hasChildren()) { ?>
   <div class="subcats">
       <h3><?php _vzm("Available Sub-categories") ?></h3>
-      <?php foreach ($currentCategory->getChildren() as $category) { 
+      <?php foreach ($currentCategory->getChildren() as $category) {
           $encName = $html->encode($category->getName());
           $catImage = $category->getImageInfo();
           $linkText = null == $catImage ? $encName : '<img src="'.$catImage->getDefaultImage().'" alt="'.$encName.'" title="'.$encName.'">';
@@ -36,7 +36,7 @@
   </div>
 <?php } ?>
 
-<?php $featured = ZMProducts::instance()->getFeaturedProducts($currentCategory->getId(), 4, true, $session->getLanguageId()); ?>
+<?php $featured = $this->container->get('productService')->getFeaturedProducts($currentCategory->getId(), 4, true, $session->getLanguageId()); ?>
 
 <?php if (0 < count($featured)) { ?>
     <h3>Featured Products</h3>

@@ -81,7 +81,7 @@ class TestZMCoupons extends ZMTestCase {
      * @return int An account id.
      */
     protected function getAccountId() {
-        $account = ZMAccounts::instance()->getAccountForEmailAddress('root@localhost');
+        $account = $this->container->get('accountService')->getAccountForEmailAddress('root@localhost');
         return null != $account ? $account->getId() : 1;
     }
 
@@ -182,7 +182,7 @@ class TestZMCoupons extends ZMTestCase {
         $couponCode = ZMCoupons::instance()->createCouponCode('foo@bar.com');
         $coupon = ZMCoupons::instance()->createCoupon($couponCode, 5, ZMCoupons::TYPPE_GV);
         $this->createdCouponIds_[] = $coupon->getId();
-        $account = ZMAccounts::instance()->getAccountForId($this->getAccountId());
+        $account = $this->container->get('accountService')->getAccountForId($this->getAccountId());
         $gvReceiver = Beans::getBean('ZMGVReceiver');
         $gvReceiver->setEmail('foo@bar.com');
 

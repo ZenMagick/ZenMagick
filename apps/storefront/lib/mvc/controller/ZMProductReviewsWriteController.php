@@ -86,9 +86,9 @@ class ZMProductReviewsWriteController extends ZMController {
 
         $review = $this->getFormData($request);
         $account = $request->getAccount();
-        ZMReviews::instance()->createReview($review, $account, $review->getLanguageId());
+        $this->container->get('reviewService')->createReview($review, $account, $review->getLanguageId());
 
-        $product = ZMProducts::instance()->getProductForId($review->getProductId(), $review->getLanguageId());
+        $product = $this->container->get('productService')->getProductForId($review->getProductId(), $review->getLanguageId());
 
         // account email
         if (ZMSettings::get('isApproveReviews') && ZMSettings::get('isEmailAdminReview')) {
@@ -103,7 +103,7 @@ class ZMProductReviewsWriteController extends ZMController {
             $this->container->get('mailer')->send($message);
         }
 
-        ZMMessages::instance()->success(_zm("Thank you for your submission"));
+        $this->messageService->success(_zm("Thank you for your submission"));
         return $this->findView('success', array(), array('parameter' => 'products_id='.$product->getId()));
     }
 
@@ -115,11 +115,12 @@ class ZMProductReviewsWriteController extends ZMController {
      */
     protected function getProduct($request) {
         $product = null;
+        $productService = $this->container->get('productService');
         $languageId = $request->getSession()->getLanguageId();
         if ($request->getProductId()) {
-            $product = ZMProducts::instance()->getProductForId($request->getProductId(), $languageId);
+            $product = $productService->getProductForId($request->getProductId(), $languageId);
         } else if ($request->getModel()) {
-            $product = ZMProducts::instance()->getProductForModel($request->getModel(), $languageId);
+            $product = $productService->getProductForModel($request->getModel(), $languageId);
         }
         return $product;
     }

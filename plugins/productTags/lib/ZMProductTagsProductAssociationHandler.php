@@ -48,13 +48,14 @@ class ZMProductTagsProductAssociationHandler implements ZMProductAssociationHand
             throw new ZMException('missing languageId');
         }
 
-        $tags = ZMTags::instance()->getTagsForProductId($productId, $languageId);
+        $tagService = $this->container->get('tagService');
+        $tags = $tagService->getTagsForProductId($productId, $languageId);
 
         $assoc = array();
-        foreach (ZMTags::instance()->getProductIdsForTags($tags, $languageId) as $pid) {
+        foreach ($tagService->getProductIdsForTags($tags, $languageId) as $pid) {
             $assoc[] = new ZMProductAssociation($pid);
         }
-        
+
         return $assoc;
     }
 

@@ -58,7 +58,7 @@ class ZMFeaturedProductsController extends ZMController {
         $request->getToolbox()->crumbtrail->addManufacturer($request->getManufacturerId());
         $request->getToolbox()->crumbtrail->addCrumb("Featured Products");
 
-        $resultSource = new ZMObjectResultSource('ZMProduct', ZMProducts::instance(), "getFeaturedProducts", array($request->getCategoryId(), 0));
+        $resultSource = new ZMObjectResultSource('ZMProduct', 'productService', "getFeaturedProducts", array($request->getCategoryId(), 0));
         $resultList = Runtime::getContainer()->get("ZMResultList");
         $resultList->setResultSource($resultSource);
         foreach (explode(',', ZMSettings::get('resultListProductFilter')) as $filter) {

@@ -161,7 +161,7 @@ class ZMSettingsShowController extends ZMPluginAdmin2Controller {
                         }
                     }
                     if (!$found) {
-                        ZMMessages::instance()->warn('No details found for key: "'.$key.'"');
+                        $this->messageService->warn('No details found for key: "'.$key.'"');
                     }
                 }
             }

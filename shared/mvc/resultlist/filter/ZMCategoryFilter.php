@@ -52,7 +52,7 @@ class ZMCategoryFilter extends ZMResultListFilter implements ZMSQLAware {
     protected function getProductIds() {
         if (null === $this->productIds_) {
             $languageId = $this->container->get('session')->getLanguageId();
-            $this->productIds_ = ZMProducts::instance()->getProductIdsForCategoryId($this->filterValues_[0], $languageId);
+            $this->productIds_ = $this->container->get('productService')->getProductIdsForCategoryId($this->filterValues_[0], $languageId);
         }
         return $this->productIds_;
     }

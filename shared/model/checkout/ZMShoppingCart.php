@@ -60,6 +60,7 @@ class ZMShoppingCart extends ZMObject {
         $this->zenTotals_ = null;
         $this->items_ = null;
         $this->helper_ = new ZMCheckoutHelper($this);
+        $this->helper_->setContainer(Runtime::getContainer());
         $this->selectedPaymentType_;
     }
 
@@ -165,6 +166,7 @@ class ZMShoppingCart extends ZMObject {
                 $zenItems = $this->cart_->get_products();
                 foreach ($zenItems as $zenItem) {
                     $item = new ZMShoppingCartItem($zenItem);
+                    $item->setContainer($this->container);
                     $this->items_[$item->getId()] = $item;
                 }
             }
@@ -398,7 +400,7 @@ class ZMShoppingCart extends ZMObject {
      * @return ZMAddress The shipping address.
      */
     public function getShippingAddress() {
-        return ZMAddresses::instance()->getAddressForId($this->session->getValue('sendto'));
+        return $this->container->get('addressService')->getAddressForId($this->session->getValue('sendto'));
     }
 
     /**
@@ -417,7 +419,7 @@ class ZMShoppingCart extends ZMObject {
      * @return ZMAddress The billing address.
      */
     public function getBillingAddress() {
-        return ZMAddresses::instance()->getAddressForId($this->session->getValue('billto'));
+        return $this->container->get('addressService')->getAddressForId($this->session->getValue('billto'));
     }
 
     /**
@@ -629,7 +631,7 @@ return $this->zenTotals_;
      * @return boolean <code>true</code> if the product was added, <code>false</code> if not.
      */
     public function addProduct($productId, $quantity=1, $attributes=array(), $notify=true) {
-        $product = ZMProducts::instance()->getProductForId($productId);
+        $product = $this->container->get('productService')->getProductForId($productId);
         if (null == $product) {
             ZMLogging::instance()->log('failed to add product to cart; productId='.$productId, ZMLogging::ERROR);
             return false;
@@ -693,7 +695,7 @@ return $this->zenTotals_;
             }
 
             $productId = self::extractBaseProductId($sku);
-            $product = ZMProducts::instance()->getProductForId($productId);
+            $product = $this->container->get('productService')->getProductForId($productId);
 
             $maxOrderQty = $product->getMaxOrderQty();
             $adjustedQty = $this->adjustQty($quantity);

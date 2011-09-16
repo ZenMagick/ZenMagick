@@ -77,7 +77,7 @@ class ZMIndexController extends ZMController {
         $data = array();
         $viewId = null;
         if (empty($name)) {
-            ZMMessages::instance()->error('Don\'t be shy!');
+            $this->messageService->error('Don\'t be shy!');
         } else {
             $request->getSession()->setValue('name', $name);
             $data['name'] = $name;

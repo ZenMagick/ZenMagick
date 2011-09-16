@@ -40,7 +40,7 @@ class TestZMOffers extends ZMTestCase {
      * Test quantity discounts
      */
     public function testQtyDiscounts() {
-        $product = ZMProducts::instance()->getProductForId(176, 1);
+        $product = $this->container->get('productService')->getProductForId(176, 1);
         if ($this->assertNotNull($product)) {
             $offers = $product->getOffers();
             if ($this->assertNotNull($offers)) {
@@ -122,7 +122,7 @@ class TestZMOffers extends ZMTestCase {
         );
 
         foreach ($tests as $productId => $expected) {
-            $product = ZMProducts::instance()->getProductForId($productId, 1);
+            $product = $this->container->get('productService')->getProductForId($productId, 1);
             $details = $this->getRequest()->getToolbox()->macro->buildQuantityDiscounts($product, false);
             if (!$this->assertEqual($expected, $details, '%s: productId: '.$productId))
                 var_dump($details);

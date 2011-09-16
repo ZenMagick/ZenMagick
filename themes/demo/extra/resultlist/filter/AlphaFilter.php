@@ -73,7 +73,7 @@ class AlphaFilter extends ZMResultListFilter {
         // buld options list
         $options = array();
         foreach ($keys as $key => $name) {
-            $option = Runtime::getContaine()->get('ZMFilterOption');
+            $option = Runtime::getContainer()->get('ZMFilterOption');
             $option->setName($name);
             $option->setKey($key);
             $option->setActive($key == $this->filterValues_[0]);

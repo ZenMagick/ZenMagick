@@ -70,7 +70,7 @@ class ZMLiftSuggestLookup extends LiftSuggestLookup {
         $products = array();
 		    foreach ($raw['products'] as $details) {
             if (array_key_exists('sku', $details)) {
-                $product = ZMProducts::instance()->getProductForId($details['sku'], Runtime::getSettings()->get('storeDefaultLanguageId'));
+                $product = $this->container->get('productService')->getProductForId($details['sku'], Runtime::getSettings()->get('storeDefaultLanguageId'));
                 if (null != $product && $product->getStatus()) {
                     $info = array('product' => null, 'info' => array());
                     foreach ($details as $key => $value) {

@@ -60,6 +60,8 @@ class ZMEmailFixes extends ZMObject {
         $language = $request->getSelectedLanguage();
         $context['language'] = $language;
 
+        $orderService = $this->container->get('orderService');
+
         if (ZMSettings::get('isAdmin') && 'send_email_to_user' == $request->getParameter('action')) {
             // gv mail
             if ($context['GV_REDEEM']) {
@@ -83,7 +85,7 @@ class ZMEmailFixes extends ZMObject {
         }
 
         if ('checkout' == $template) {
-            $order = ZMOrders::instance()->getOrderForId($context['INTRO_ORDER_NUMBER'], $language->getId());
+            $order = $orderService->getOrderForId($context['INTRO_ORDER_NUMBER'], $language->getId());
             $shippingAddress = $order->getShippingAddress();
             $billingAddress = $order->getBillingAddress();
             $paymentType = $order->getPaymentType();
@@ -105,9 +107,9 @@ class ZMEmailFixes extends ZMObject {
             // from zc_fixes
             if (null !== $request->getParameter("oID") && 'update_order' == $request->getParameter("action")) {
                 $orderId = $request->getParameter("oID");
-                $order = ZMOrders::instance()->getOrderForId($orderId, $language->getId());
+                $order = $orderService->getOrderForId($orderId, $language->getId());
                 $context['currentOrder'] = $order;
-                $account = ZMAccounts::instance()->getAccountForId($order->getAccountId());
+                $account = $this->container->get('accountService')->getAccountForId($order->getAccountId());
                 $context['currentAccount'] = $account;
             }
         }
@@ -116,9 +118,9 @@ class ZMEmailFixes extends ZMObject {
             $queueId = $request->getParameter('gid');
             $couponQueue = ZMCoupons::instance()->getCouponQueueEntryForId($queueId);
             $context['couponQueue'] = $couponQueue;
-            $account = ZMAccounts::instance()->getAccountForId($couponQueue->getAccountId());
+            $account = $this->container->get('accountService')->getAccountForId($couponQueue->getAccountId());
             $context['currentAccount'] = $account;
-            $order = ZMOrders::instance()->getOrderForId($couponQueue->getOrderId(), $language->getId());
+            $order = $orderService->getOrderForId($couponQueue->getOrderId(), $language->getId());
             $context['currentOrder'] = $order;
         }
 
@@ -126,7 +128,7 @@ class ZMEmailFixes extends ZMObject {
             $couponId = $request->getParameter('cid');
             $coupon = ZMCoupons::instance()->getCouponForId($couponId, $language->getId());
             $context['currentCoupon'] = $coupon;
-            $account = ZMAccounts::instance()->getAccountForId($context['accountId']);
+            $account = $this->container->get('accountService')->getAccountForId($context['accountId']);
             $context['currentAccount'] = $account;
         }
 

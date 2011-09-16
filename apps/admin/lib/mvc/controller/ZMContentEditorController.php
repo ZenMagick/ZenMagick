@@ -85,26 +85,26 @@ class ZMContentEditorController extends ZMController {
                 Beans::setAll($ezPage, $request->getParameterMap(false));
                 $ezPage = ZMEZPages::instance()->createPage($ezPage);
                 if (0 < $ezPage->getId()) {
-                    ZMMessages::instance()->success('Page #'.$ezPage->getId().' saved');
+                    $this->messageService->success('Page #'.$ezPage->getId().' saved');
                 } else {
-                    ZMMessages::instance()->error('Could not save page');
+                    $this->messageService->error('Could not save page');
                 }
             } else if (null != ($ezPage = ZMEZPages::instance()->getPageForId($ezPageId, $languageId))) {
                 // no sanitize!
                 Beans::setAll($ezPage, $request->getParameterMap(false));
                 ZMEZPages::instance()->updatePage($ezPage);
-                ZMMessages::instance()->success('Page #'.$ezPageId.' updated');
+                $this->messageService->success('Page #'.$ezPageId.' updated');
             } else {
-                ZMMessages::instance()->error('Could not save page - invalid request data');
+                $this->messageService->error('Could not save page - invalid request data');
             }
         } else if (null !== ($ezPageId = $request->getParameter('deleteId'))) {
             $ezPageId = (int)$ezPageId;
             if (null != ($ezPage = ZMEZPages::instance()->getPageForId($ezPageId, $languageId))) {
                 ZMEZPages::instance()->removePage($ezPage);
-                ZMMessages::instance()->success('Page #'.$ezPage->getId().' deleted');
+                $this->messageService->success('Page #'.$ezPage->getId().' deleted');
                 $viewId = 'success';
             } else {
-                ZMMessages::instance()->error('Could not find Page to delete: #'.$ezPageId);
+                $this->messageService->error('Could not find Page to delete: #'.$ezPageId);
             }
         }
 

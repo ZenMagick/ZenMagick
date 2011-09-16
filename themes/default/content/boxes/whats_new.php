@@ -22,7 +22,7 @@
  */
 ?>
 
-<?php $products = ZMProducts::instance()->getNewProducts(null, 1, null, $session->getLanguageId()); ?>
+<?php $products = $this->container->get('productService')->getNewProducts(null, 1, null, $session->getLanguageId()); ?>
 <?php if (1 == count($products)) {
     $product = $products[0];
     ?>

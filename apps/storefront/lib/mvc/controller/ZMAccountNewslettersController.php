@@ -50,7 +50,7 @@ class ZMAccountNewslettersController extends ZMController {
     /**
      * {@inheritDoc}
      */
-    public function preProcess($request) { 
+    public function preProcess($request) {
         $request->getToolbox()->crumbtrail->addCrumb("Account", $request->url('account', '', true));
         $request->getToolbox()->crumbtrail->addCrumb("Newsletter");
     }
@@ -71,10 +71,10 @@ class ZMAccountNewslettersController extends ZMController {
         $account = $request->getAccount();
         if ($newsletterSubscriber != $account->isNewsletterSubscriber()) {
             $account->setNewsletterSubscriber($newsletterSubscriber);
-            ZMAccounts::instance()->updateAccount($account);
+            $this->container->get('accountService')->updateAccount($account);
         }
 
-        ZMMessages::instance()->success(_zm('Your newsletter subscription has been updated.'));
+        $this->messageService->success(_zm('Your newsletter subscription has been updated.'));
         return $this->findView('success', array('currentAccount' => $request->getAccount()));
     }
 

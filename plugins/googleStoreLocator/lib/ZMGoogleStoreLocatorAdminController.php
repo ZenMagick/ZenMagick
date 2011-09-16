@@ -67,7 +67,7 @@ class ZMGoogleStoreLocatorAdminController extends ZMPluginAdmin2Controller {
             }
         }
 
-        ZMMessages::instance()->success('Plugin settings updated!');
+        $this->messageService->success('Plugin settings updated!');
 
         return $this->findView('success');
     }

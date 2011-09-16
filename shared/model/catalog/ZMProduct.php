@@ -475,7 +475,7 @@ class ZMProduct extends ZMObject {
      * @return ZMManufacturer The manufacturer.
      */
     public function getManufacturer() {
-        return ZMManufacturers::instance()->getManufacturerForProduct($this);
+        return $this->container->get('manufacturerService')->getManufacturerForProduct($this);
     }
 
     /**
@@ -699,7 +699,7 @@ class ZMProduct extends ZMObject {
      *
      * @return ZMTaxRate The tax rate.
      */
-    public function getTaxRate() { return ZMTaxRates::instance()->getTaxRateForClassId($this->taxClassId); }
+    public function getTaxRate() { return $this->container->get('taxRateService')->getTaxRateForClassId($this->taxClassId); }
 
     /**
      * Get the product price sorter.
@@ -795,7 +795,7 @@ class ZMProduct extends ZMObject {
      */
     public function getAttributes() {
         if (null === $this->attributes) {
-            $this->attributes = ZMAttributes::instance()->getAttributesForProduct($this);
+            $this->attributes = $this->container->get('attributeService')->getAttributesForProduct($this);
         }
 
         return $this->attributes;
@@ -859,7 +859,7 @@ class ZMProduct extends ZMObject {
      * @return int The number of reviews.
      */
     public function getReviewCount() {
-        return ZMReviews::instance()->getReviewCount($this->getId(), $this->languageId);
+        return $this->container->get('reviewService')->getReviewCount($this->getId(), $this->languageId);
     }
 
     /**
@@ -871,7 +871,7 @@ class ZMProduct extends ZMObject {
      * @return mixed The setting value.
      */
     public function getTypeSetting($field) {
-        return ZMProducts::instance()->getProductTypeSetting($this->getId(), $field);
+        return $this->container->get('productService')->getProductTypeSetting($this->getId(), $field);
     }
 
     /**
@@ -886,19 +886,20 @@ class ZMProduct extends ZMObject {
     public function getDefaultCategory($languageId=null) {
         $languageId = null !== $languageId ? $languageId : $this->container->get('session')->getLanguageId();
 
-        return null != $this->masterCategoryId ? ZMCategories::instance()->getCategoryForId($this->masterCategoryId, $languageId) :
-            ZMCategories::instance()->getDefaultCategoryForProductId($this->getId(), $languageId);
+        $categoryService = $this->container->get('categoryService');
+        return null != $this->masterCategoryId ? $categoryService->getCategoryForId($this->masterCategoryId, $languageId) :
+            $categoryService->getDefaultCategoryForProductId($this->getId(), $languageId);
     }
 
     /**
      * Get the average rating.
      *
-     * <p>Convenience method for <code>ZMReviews::instance()->getAverageRatingForProductId($product->getId(), $product->getLanguageId())</code>.</p>
+     * <p>Convenience method for <code>getAverageRatingForProductId($product->getId(), $product->getLanguageId())</code>.</p>
      *
      * @return float The average rating.
      */
     public function getAverageRating() {
-        return ZMReviews::instance()->getAverageRatingForProductId($this->getId(), $this->languageId);
+        return $this->container->get('reviewService')->getAverageRatingForProductId($this->getId(), $this->languageId);
     }
 
     /**
@@ -981,7 +982,7 @@ class ZMProduct extends ZMObject {
      * @return ZMMetaTagDetails The details or <code>null</code>.
      */
     public function getMetaTagDetails($languageId=null) {
-        return ZMProducts::instance()->getMetaTagDetailsForId($this->getId(), null != $languageId ? $languageId : $this->getLanguageId());
+        return $this->container->get('productService')->getMetaTagDetailsForId($this->getId(), null != $languageId ? $languageId : $this->getLanguageId());
     }
 
     /**

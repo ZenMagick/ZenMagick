@@ -33,8 +33,8 @@
     <?php if (!$currentAccount->isGlobalProductSubscriber() && $currentAccount->hasProductSubscriptions()) { ?>
         <fieldset>
             <legend><?php _vzm("Product Notifications") ?></legend>
-            <?php $ii=0; 
-            foreach ($currentAccount->getSubscribedProducts() as $productId) { $product = ZMProducts::instance()->getProductForId($productId, $session->getLanguageId()); ?>
+            <?php $ii=0;
+            foreach ($currentAccount->getSubscribedProducts() as $productId) { $product = $this->container->get('productService')->getProductForId($productId, $session->getLanguageId()); ?>
                 <p><input type="checkbox" id="products_<?php echo $ii ?>" name="notify[<?php echo $ii ?>]" value="<?php echo $productId ?>" checked="checked" /><label for="products_<?php echo $ii ?>"><?php echo null != $product ? $html->encode($product->getName()) : '???' ?></label></p>
             <?php ++$ii; } ?>
         </fieldset>

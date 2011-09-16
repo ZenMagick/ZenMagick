@@ -79,7 +79,7 @@ class ZMLegacyConfigController extends ZMController {
             }
         }
         if (0 < count($updated)) {
-            ZMMessages::instance()->success(sprintf(_zm('Sucessfully updated: %s.'), "'".implode("', '", $updated)."'"));
+            $this->messageService->success(sprintf(_zm('Sucessfully updated: %s.'), "'".implode("', '", $updated)."'"));
         }
 
         // 'parameter' is a property on the view class...

@@ -48,7 +48,7 @@ class CustomGoogleAnalytics extends ZMObject {
         }
         if ('product_info' == $request->getRequestId()) {
             // product
-            $product = ZMProducts::instance()->getProductForId($request->getProductId());
+            $product = $this->container->get('productService')->getProductForId($request->getProductId());
             $path[] = $product->getName();
         }
 

@@ -139,7 +139,7 @@ class ZMGvSendConfirmController extends ZMController {
             $this->container->get('mailer')->send($message);
         }
 
-        ZMMessages::instance()->success(_zm("Gift Certificate successfully send!"));
+        $this->messageService->success(_zm("Gift Certificate successfully send!"));
 
         return $this->findView('success');
     }

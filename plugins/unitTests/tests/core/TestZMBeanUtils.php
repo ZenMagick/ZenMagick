@@ -151,7 +151,7 @@ class TestZMBeanUtils extends ZMTestCase {
         if ($this->assertNotNull($ref)) {
             $this->assertTrue($ref instanceof ZMProducts);
             // now test that we actually got the singleton
-            $foo = ZMProducts::instance()->getFoo();
+            $foo = $this->container->get('productService')->getFoo();
             $this->assertEqual('bar', $foo);
         }
     }

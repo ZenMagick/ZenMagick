@@ -96,19 +96,19 @@ class ZMEditAdminUserController extends ZMController {
                 // keep
                 $encrypedPassword = $current->getPassword();
             } else {
-                $encrypedPassword = ZMAuthenticationManager::instance()->encryptPassword($clearPassword);
+                $encrypedPassword = $this->container->get('authenticationManager')->encryptPassword($clearPassword);
             }
             $user->setPassword($encrypedPassword);
             if (0 < $user->getId()) {
                 ZMAdminUsers::instance()->updateUser($user);
-                ZMMessages::instance()->success(_zm('Details updated.'));
+                $this->messageService->success(_zm('Details updated.'));
             } else {
                 ZMAdminUsers::instance()->createUser($user);
-                ZMMessages::instance()->success(_zm('User created.'));
+                $this->messageService->success(_zm('User created.'));
             }
         } else if (null != ($deleteUserId = $request->getParameter('deleteUserId'))) {
             ZMAdminUsers::instance()->deleteUserForId($deleteUserId);
-            ZMMessages::instance()->success(_zm('User deleted.'));
+            $this->messageService->success(_zm('User deleted.'));
         }
 
         return $this->findView('success');

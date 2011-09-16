@@ -297,7 +297,7 @@ class ZMWordpressPlugin extends Plugin {
             if (!ZMLangUtils::isEmpty($account->getNickName())) {
                 $password = $event->get('clearPassword');
                 if (!$this->getAdapter()->createAccount($account, $password)) {
-                    ZMMessages::instance()->info(_zm('Could not create wordpress account - please contact the store administrator.'));
+                    $this->container->get('messageService')->info(_zm('Could not create wordpress account - please contact the store administrator.'));
                 }
             }
         }
@@ -332,7 +332,7 @@ class ZMWordpressPlugin extends Plugin {
             if ('POST' == $request->getMethod()) {
                 $view = $event->get('view');
                 if ('account_edit' == $this->requestId_ && 'success' == $view->getMappingId()) {
-                    $account = ZMAccounts::instance()->getAccountForId($request->getAccountId());
+                    $account = $this->container->get('accountService')->getAccountForId($request->getAccountId());
                     if (null != $account && !ZMLangUtils::isEmpty($account->getNickName())) {
                         $this->getAdapter()->updateAccount($account->getNickName(), null, $account->getEmail());
                     }

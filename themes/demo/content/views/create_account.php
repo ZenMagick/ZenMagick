@@ -108,8 +108,8 @@
                     <td><?php _vzm("City") ?><span>*</span></td>
                     <td><input type="text" name="city" value="<?php echo $html->encode($registration->getCity()) ?>" <?php echo $form->fieldLength(TABLE_ADDRESS_BOOK, 'entry_city') ?> /></td>
                 </tr>
-                <?php 
-                    $countryId = $registration->getCountryId(); 
+                <?php
+                    $countryId = $registration->getCountryId();
                     $countryId = 0 != $countryId ? $countryId : ZMSettings::get('storeCountry');
                 ?>
                 <tr>
@@ -118,10 +118,10 @@
                 </tr>
                  <tr>
                     <td><?php _vzm("Country") ?><span>*</span></td>
-                    <td><?php echo $form->idpSelect('countryId', ZMCountries::instance()->getCountries(), $countryId) ?></td>
+                    <td><?php echo $form->idpSelect('countryId', $this->container->get('countryService')->getCountries(), $countryId) ?></td>
                 </tr>
                 <?php if (ZMSettings::get('isAccountState')) { ?>
-                    <?php $zones = ZMCountries::instance()->getZonesForCountryId($countryId); ?>
+                    <?php $zones = $this->container->get('countryService')->getZonesForCountryId($countryId); ?>
                     <tr>
                         <td><?php _vzm("State/Province") ?><span>*</span></td>
                         <td>

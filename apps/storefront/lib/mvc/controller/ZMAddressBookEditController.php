@@ -61,7 +61,7 @@ class ZMAddressBookEditController extends ZMController {
      */
     public function processGet($request) {
         // populate with original data
-        $address = ZMAddresses::instance()->getAddressForId($request->getParameter('id'));
+        $address = $this->container->get('addressService')->getAddressForId($request->getParameter('id'));
         return $this->findView(null, array('address' => $address));
     }
 
@@ -70,27 +70,28 @@ class ZMAddressBookEditController extends ZMController {
      */
     public function processPost($request) {
         $address = $this->getFormData($request);
+        $addressService = $this->container->get('addressService');
 
-        if (1 == count(ZMAddresses::instance()->getAddressesForAccountId($request->getAccountId()))) {
+        if (1 == count($addressService->getAddressesForAccountId($request->getAccountId()))) {
             $address->setPrimary(true);
         }
 
         $address->setAccountId($request->getAccountId());
-        $address = ZMAddresses::instance()->updateAddress($address);
+        $address = $addressService->updateAddress($address);
 
         // process primary setting
         if ($address->isPrimary()) {
             $account = $request->getAccount();
             if ($account->getDefaultAddressId() != $address->getId()) {
                 $account->setDefaultAddressId($address->getId());
-                ZMAccounts::instance()->updateAccount($account);
+                $this->container->get('accountService')->updateAccount($account);
 
                 $session = $request->getSession();
                 $session->setAccount($account);
             }
         }
 
-        ZMMessages::instance()->success(_zm('The selected address has been successfully updated.'));
+        $this->messageService->success(_zm('The selected address has been successfully updated.'));
         return $this->findView('success');
     }
 

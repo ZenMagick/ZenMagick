@@ -108,7 +108,7 @@ class ZMLiftSuggestPlugin extends Plugin {
             $productId = $this->recomendationsLoadedFor;
         }
         $session = $request->getSession();
-        $product = ZMProducts::instance()->getProductForId($productId, $session->getLanguageId());
+        $product = $this->container->get('productService')->getProductForId($productId, $session->getLanguageId());
         if (null != $product) {
             // prepare vars
             $trackingType = $this->get('trackingType');

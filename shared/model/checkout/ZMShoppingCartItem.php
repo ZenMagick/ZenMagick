@@ -23,6 +23,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 
 /**
  * A single shopping cart item.
@@ -53,6 +54,7 @@ class ZMShoppingCartItem extends ZMObject {
         $this->quantity_ = 0;
         $this->itemPrice_ = 0;
         $this->oneTimeCharge_ = 0;
+        $this->setContainer(Runtime::getContainer());
         if (null !== $zenItem) {
             $this->setId($zenItem['id']);
             $this->setQuantity($zenItem['quantity']);
@@ -147,7 +149,8 @@ class ZMShoppingCartItem extends ZMObject {
      * @return ZMTaxRate The tax rate or <code>null</code>.
      */
     public function getTaxRate($address=null) {
-        return ZMTaxRates::instance()->getTaxRateForClassId($this->getProduct()->getTaxClassId(), null != $address ? $address->getCountryId() : 0);
+        $countryId = null != $address ? $address->getCountryId() : 0;
+        return $this->container->get('taxRateService')->getTaxRateForClassId($this->getProduct()->getTaxClassId(), $countryId);
     }
 
     /**
@@ -207,7 +210,7 @@ class ZMShoppingCartItem extends ZMObject {
      * @return ZMProduct The product.
      */
     public function getProduct() {
-        return ZMProducts::instance()->getProductForId($this->getProductId());
+        return $this->container->get('productService')->getProductForId($this->getProductId());
     }
 
     /**
@@ -237,7 +240,7 @@ class ZMShoppingCartItem extends ZMObject {
      * @return boolean <code>true</code> if sufficient stock is available, <code>false</code> if not.
      */
     public function isStockAvailable() {
-        return ZMProducts::instance()->isQuantityAvailable($this->getId(), $this->getQty());
+        return $this->container->get('productService')->isQuantityAvailable($this->getId(), $this->getQty());
     }
 
     /**

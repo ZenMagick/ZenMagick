@@ -315,7 +315,7 @@ class ZMEventFixes extends ZMObject {
         if (0 != ($productId = $request->getProductId())) {
             if (null == $request->getCategoryPath()) {
                 // set default based on product default category
-                if (null != ($product = ZMProducts::instance()->getProductForId($productId, $languageId))) {
+                if (null != ($product = $this->container->get('productService')->getProductForId($productId, $languageId))) {
                     $defaultCategory = $product->getDefaultCategory($languageId);
                     if (null != $defaultCategory) {
                         $request->setCategoryPathArray($defaultCategory->getPathArray());

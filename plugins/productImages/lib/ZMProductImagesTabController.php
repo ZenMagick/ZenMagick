@@ -46,7 +46,7 @@ class ZMProductImagesTabController extends ZMCatalogContentController {
     public function processGet($request) {
         $productId = $request->getProductId();
         $languageId = $request->getSelectedLanguage()->getId();
-        $product = ZMProducts::instance()->getProductForId($productId, $languageId);
+        $product = $this->container->get('productService')->getProductForId($productId, $languageId);
 
         return $this->findView(null, array('product' => $product));
     }

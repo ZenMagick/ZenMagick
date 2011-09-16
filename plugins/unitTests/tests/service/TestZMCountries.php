@@ -32,7 +32,7 @@ class TestZMCountries extends ZMTestCase {
      * Test load country.
      */
     public function testLoadCountry() {
-        $country = ZMCountries::instance()->getCountryForId(14);
+        $country = $this->container->get('countryService')->getCountryForId(14);
         $this->assertNotNull($country);
         $this->assertEqual(14, $country->getId());
         $this->assertEqual('Austria', $country->getName());
@@ -42,7 +42,7 @@ class TestZMCountries extends ZMTestCase {
      * Test get zones.
      */
     public function testGetZones() {
-        $zones = ZMCountries::instance()->getZonesForCountryId(14);
+        $zones = $this->container->get('countryService')->getZonesForCountryId(14);
         $this->assertNotNull($zones);
         $this->assertEqual(9, count($zones));
     }
@@ -51,7 +51,7 @@ class TestZMCountries extends ZMTestCase {
      * Test get zone.
      */
     public function testGetZoneCode() {
-        $this->assertEqual('BL', ZMCountries::instance()->getZoneCode(14, 102));
+        $this->assertEqual('BL', $this->container->get('countryService')->getZoneCode(14, 102));
     }
 
 }

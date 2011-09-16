@@ -38,7 +38,7 @@ class ZMAdminEventHandler {
         $request = $event->get('request');
         if (null != $request->getUser()) {
             // only if we still have a valid session
-            ZMMessages::instance()->warn(sprintf(_zm('You are not allowed to access the page with id: <em>%s</em>'), $request->getRequestId()));
+            $this->container->get('messageService')->warn(sprintf(_zm('You are not allowed to access the page with id: <em>%s</em>'), $request->getRequestId()));
         }
     }
 

@@ -56,7 +56,7 @@ class ZMSubscriptionAdminController extends ZMPluginAdmin2Controller {
         $results = ZMRuntime::getDatabase()->query($sql, array('subscription' => true), TABLE_ORDERS);
         $orderIds = array();
         foreach ($results as $result) {
-            if (null != ($order = ZMOrders::instance()->getOrderForId($result['orderId'], $request->getSession()->getLanguageId()))) {
+            if (null != ($order = $this->container->get('orderService')->getOrderForId($result['orderId'], $request->getSession()->getLanguageId()))) {
                 $orderIds[] = $order;
             }
         }
@@ -82,10 +82,10 @@ class ZMSubscriptionAdminController extends ZMPluginAdmin2Controller {
                     SET is_subscription_canceled = :subscriptionCanceled, is_subscription = :subscription
                     WHERE orders_id = :orderId";
             ZMRuntime::getDatabase()->update($sql, array('orderId' => $orderId, 'subscriptionCanceled' => true, 'subscription' => !$hard), TABLE_ORDERS);
-            ZMMessages::instance()->success(_zm("Subscription canceled!"));
+            $this->messageService->success(_zm("Subscription canceled!"));
         }
 
-        $order = ZMOrders::instance()->getOrderForId($orderId, $request->getSession()->getLanguageId());
+        $order = $this->container->get('orderService')->getOrderForId($orderId, $request->getSession()->getLanguageId());
         $emailTemplate = ZMSettings::get('plugins.subscriptions.email.templates.cancel', 'subscription_cancel');
         $email = $order->getAccount()->getEmail();
         if (!ZMLangUtils::isEmpty($email)) {

@@ -31,7 +31,7 @@ class ZMOrderStatsDashboardWidget extends ZMDashboardWidget {
 
     /**
      * Create new user.
-     * 
+     *
      */
     function __construct() {
         parent::__construct(_zm('Order Stats'));
@@ -55,7 +55,7 @@ class ZMOrderStatsDashboardWidget extends ZMDashboardWidget {
         $language = $request->getSelectedLanguage();
         $sql = "SELECT count(*) AS count FROM " . TABLE_ORDERS . "
                 WHERE orders_status = :orderStatusId";
-        foreach (ZMOrders::instance()->getOrderStatusList($language->getId()) as $status) {
+        foreach ($this->container->get('orderService')->getOrderStatusList($language->getId()) as $status) {
             $args = array('orderStatusId' => $status->getOrderStatusId());
             $result = ZMRuntime::getDatabase()->querySingle($sql, $args, TABLE_ORDERS);
             $contents .= '<tr>';

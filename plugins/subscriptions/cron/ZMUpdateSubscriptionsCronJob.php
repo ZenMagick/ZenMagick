@@ -42,11 +42,12 @@ class ZMUpdateSubscriptionsCronJob implements ZMCronJob {
         $plugin = $this->getPlugin();
         $scheduledOrders = self::findScheduledOrders();
         $scheduleEmailTemplate = ZMSettings::get('plugins.subscriptions.email.templates.schedule', 'checkout');
+        $orderService = $this->container->get('orderService');
         foreach ($scheduledOrders as $scheduledOrderId) {
             // 1) copy
             $newOrder = self::copyOrder($scheduledOrderId);
             // load the new order as proper ZMOrder instance for further use
-            $order = ZMOrders::instance()->getOrderForId($newOrder->getOrderId(), $this->container->get('session')->getLanguageId());
+            $order = $orderService->getOrderForId($newOrder->getOrderId(), $this->container->get('session')->getLanguageId());
             if (null === $order) {
                 ZMLogging::instance()->log('copy order failed for scheduled order: '.$scheduledOrderId, ZMLogging::ERROR);
                 continue;
@@ -60,16 +61,16 @@ class ZMUpdateSubscriptionsCronJob implements ZMCronJob {
                     continue;
                 }
                 $defaultAddressId = $account->getDefaultAddressId();
-                $defaultAddress = ZMAddresses::instance()->getAddressForId($defaultAddressId);
+                $defaultAddress = $this->container->get('addressService')->getAddressForId($defaultAddressId);
                 $order->setShippingAddress($defaultAddress);
-                ZMOrders::instance()->updateOrder($order);
+                $orderService->updateOrder($order);
             }
 
             // 3) update subscription specific data
             $order->set('subscriptionOrderId', $scheduledOrderId);
             $order->set('subscription', false);
             $order->setStatus($plugin->get('orderStatus'));
-            ZMOrders::instance()->updateOrder($order);
+            $orderService->updateOrder($order);
 
             // 4) Create history entry if enabled
             if (ZMLangUtils::asBoolean($plugin->get('orderHistory'))) {
@@ -79,7 +80,7 @@ class ZMUpdateSubscriptionsCronJob implements ZMCronJob {
                 $status->setOrderStatusId($order->getOrderStatusId());
                 $status->setCustomerNotified(!ZMLangUtils::isEmpty($scheduleEmailTemplate));
                 $status->setComment(sprintf(_zm('Scheduled order for subscription #%s'), $scheduledOrderId));
-                ZMOrders::instance()->createOrderStatusHistory($status);
+                $orderService->createOrderStatusHistory($status);
             }
 
             // 5) Update subscription order with next schedule date

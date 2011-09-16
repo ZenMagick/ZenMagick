@@ -56,7 +56,7 @@ class ZMExamplePluginAdminController extends ZMController {
             }
         }
 
-        ZMMessages::instance()->success('Plugin settings updated!');
+        $this->messageService->success('Plugin settings updated!');
 
         return $this->getRedirectView($request);
     }

@@ -61,17 +61,18 @@ class ZMPasswordForgottenController extends ZMController {
      */
     public function processPost($request) {
         $emailAddress = $request->getParameter('email_address');
-        $account = ZMAccounts::instance()->getAccountForEmailAddress($emailAddress);
+        $account = $this->container->get('accountService')->getAccountForEmailAddress($emailAddress);
         if (null === $account || ZMAccount::REGISTERED != $account->getType()) {
-            ZMMessages::instance()->error(sprintf(_zm("Sorry, there is no account with the email address '%s'."), $emailAddress));
+            $this->messageService->error(sprintf(_zm("Sorry, there is no account with the email address '%s'."), $emailAddress));
             return $this->findView();
         }
 
-        $newPassword = ZMAuthenticationManager::instance()->mkPassword();
-        $newEncrpytedPassword = ZMAuthenticationManager::instance()->encryptPassword($newPassword);
+        $authenticationManager = $this->container->get('authenticationManager');
+        $newPassword = $authenticationManager->mkPassword();
+        $newEncrpytedPassword = $authenticationManager->encryptPassword($newPassword);
 
         // update account password (encrypted)
-        ZMAccounts::instance()->setAccountPassword($account->getId(), $newEncrpytedPassword);
+        $this->container->get('accountService')->setAccountPassword($account->getId(), $newEncrpytedPassword);
 
         // send email (clear text)
         $message = $this->container->get('messageBuilder')->createMessage('password_forgotten', true, $request, array('password' => $newPassword));
@@ -81,7 +82,7 @@ class ZMPasswordForgottenController extends ZMController {
         Runtime::getEventDispatcher()->dispatch('password_changed', new Event($this, array('controller' => $this, 'account' => $account, 'clearPassword' => $newPassword)));
 
         // report success
-        ZMMessages::instance()->success(_zm('A new password has been sent to your email address.'));
+        $this->messageService->success(_zm('A new password has been sent to your email address.'));
 
         return $this->findView('success');
     }
