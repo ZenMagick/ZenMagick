@@ -31,7 +31,7 @@ use zenmagick\base\Runtime;
  * @author DerManoMann
  * @package zenmagick.store.shared.services
  */
-class ZMEZPages extends ZMObject {
+class ZMEZPages extends ZMObject implements ZMSQLAware {
 
     /**
      * Create new instance.
@@ -56,13 +56,24 @@ class ZMEZPages extends ZMObject {
 
 
     /**
+     * {@inheritDoc}
+     */
+    public function getQueryDetails($method=null, $args=array()) {
+        $methods = array('getAllPages');
+        if (in_array($method, $methods)) {
+            return call_user_func_array(array($this, $method.'QueryDetails'), $args);
+        }
+        return null;
+    }
+
+    /**
      * Get all pages for the given language.
      *
      * @param int languageId The languageId.
      * @param string mode Optional mode to define what to load - <em>all</em>, <em>pages</em> or <em>static</em>; default is <em>pages</em>.
      * @return array List of <code>ZMEZPage</code> instances.
      */
-    public function getAllPages($languageId, $mode='pages') {
+    protected function getAllPagesQueryDetails($languageId, $mode='pages') {
         $sql = "SELECT *
                 FROM " . TABLE_EZPAGES;
         $sql .= " WHERE languages_id = :languageId";
@@ -78,7 +89,20 @@ class ZMEZPages extends ZMObject {
             break;
         }
         $sql .= " ORDER BY toc_sort_order, pages_title";
-        return ZMRuntime::getDatabase()->query($sql, array('languageId' => $languageId), TABLE_EZPAGES, 'ZMEZPage');
+        $args = array('languageId' => $languageId);
+        return new ZMQueryDetails(ZMRuntime::getDatabase(), $sql, $args, array(TABLE_EZPAGES), 'ZMEZPage', 'pages_id');
+    }
+
+    /**
+     * Get all pages for the given language.
+     *
+     * @param int languageId The languageId.
+     * @param string mode Optional mode to define what to load - <em>all</em>, <em>pages</em> or <em>static</em>; default is <em>pages</em>.
+     * @return array List of <code>ZMEZPage</code> instances.
+     */
+    public function getAllPages($languageId, $mode='pages') {
+        $details = $this->getAllPagesQueryDetails($languageId, $mode);
+        return $details->query();
     }
 
     /**

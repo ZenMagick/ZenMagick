@@ -70,7 +70,7 @@
     <th><?php _vzm("TOC") ?></th>
     <th><?php _vzm("Action") ?></th>
   </tr>
-  <?php foreach (ZMEZPages::instance()->getAllPages($selectedLanguageId) as $ezPage) { ?>
+  <?php foreach ($resultList->getResults() as $ezPage) { ?>
     <tr>
       <td><?php echo $ezPage->getId() ?></td>
       <td><a href="<?php echo $admin2->url(null, 'editId='.$ezPage->getId().'&languageId='.$selectedLanguageId) ?>"><?php echo $html->encode($ezPage->getTitle()) ?></a><td>
@@ -108,4 +108,4 @@
     </tr>
   <?php } ?>
 </table>
-
+<?php echo $this->fetch('pagination.php'); ?>
