@@ -209,7 +209,8 @@ class ZMEZPage extends ZMObject {
     public function isHeader() { return $this->header; }
     public function isSidebox() { return $this->sidebox; }
     public function isFooter() { return $this->footer; }
-    public function isToc() { return $this->toc; }
+    public function isToc() { return 1 == $this->toc; }
+    public function isStatic() { return 2 == $this->toc; }
     public function getHeaderSort() { return $this->headerSort; }
     public function getSideboxSort() { return $this->sideboxSort; }
     public function getFooterSort() { return $this->footerSort; }
@@ -227,7 +228,7 @@ class ZMEZPage extends ZMObject {
     public function setHeader($value) { $this->header = ZMLangUtils::asBoolean($value); }
     public function setSidebox($value) { $this->sidebox = ZMLangUtils::asBoolean($value); }
     public function setFooter($value) { $this->footer = ZMLangUtils::asBoolean($value); }
-    public function setToc($value) { $this->toc = ZMLangUtils::asBoolean($value); }
+    public function setToc($value) { $this->toc = $value; }
     public function setHeaderSort($sortOrder) { $this->headerSort = $sortOrder; }
     public function setSideboxSort($sortOrder) { $this->sideboxSort = $sortOrder; }
     public function setFooterSort($sortOrder) { $this->footerSort = $sortOrder; }

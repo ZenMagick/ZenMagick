@@ -25,6 +25,10 @@ admin,storefront:
           # enable plugins
           enabled: true
 
+      apps:
+        store:
+          # use new static content rather than static pages
+          staticContent: true
 
     #############################
     ## old style store settings - these names will be changed in a future version

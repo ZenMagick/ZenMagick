@@ -281,6 +281,12 @@ class ZMTheme extends ZMObject {
      * @return string The content or <code>null</code>.
      */
     public function staticPageContent($page, $languageId) {
+        if (Runtime::getSettings()->get('zenmagick.apps.store.staticContent', false)) {
+            if (null != ($ezPage = ZMEZPages::instance()->getPageForName($page, $languageId))) {
+                return $ezPage->getHtmlText();
+            }
+            return null;
+        }
         $language = ZMLanguages::instance()->getLanguageForId($languageId);
         $languageDir = $language->getDirectory();
         $path = $this->getLangDir().$languageDir.DIRECTORY_SEPARATOR.'static'.DIRECTORY_SEPARATOR;

@@ -22,11 +22,11 @@ use zenmagick\base\Beans;
 ?>
 <?php $selectedLanguageId = $currentLanguage->getId(); ?>
 
-<?php $admin2->title(_zm('Edit EZPage')) ?>
+<?php $admin2->title(_zm('Edit Content')) ?>
 <form action="<?php echo $admin2->url() ?>" method="POST">
   <input type="hidden" name="languageId" value="<?php echo $selectedLanguageId ?>">
   <input type="hidden" name="updateId" value="<?php echo $ezPage->getId() ?>">
-
+<?php if (!$ezPage->isStatic()) { ?>
   <fieldset>
   <legend><?php _vzm('Page') ?></legend>
     <p>
@@ -87,7 +87,7 @@ use zenmagick\base\Beans;
       <input type="text" id="altUrlExternal" name="altUrlExternal" value="<?php echo $ezPage->getALtUrlExternal() ?>" size="50">
     </p>
   </fieldset>
-
+<?php } ?>
   <fieldset>
     <legend><?php _vzm('Contents') ?></legend>
     <?php

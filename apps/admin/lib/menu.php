@@ -32,8 +32,9 @@
 
     // tools
     ZMAdminMenu::setItem(array('parentId' => 'tools', 'id' => 'tools-cms','title' => _zm('Manage Content')));
-    ZMAdminMenu::setItem(array('parentId' => 'tools-cms', 'requestId' => 'static_page_editor', 'title' => _zm('Static Page Editor')));
-    ZMAdminMenu::setItem(array('parentId' => 'tools-cms', 'requestId' => 'ezpages', 'title' => _zm('EZPages Editor')));
+    ZMAdminMenu::setItem(array('parentId' => 'tools-cms', 'requestId' => 'content_editor', 'title' => _zm('Static Content')));
+    ZMAdminMenu::setItem(array('parentId' => 'tools-cms', 'requestId' => 'ezpages', 'title' => _zm('EZPages')));
+    ZMAdminMenu::setItem(array('parentId' => 'tools-cms', 'requestId' => 'static_page_editor', 'title' => _zm('Static Pages (deprecated)')));
 
     ZMAdminMenu::setItem(array('parentId' => 'tools', 'id' => 'tools-admin', 'title' => _zm('Admin')));
     ZMAdminMenu::setItem(array('parentId' => 'tools-admin', 'requestId' => 'themes', 'title' => _zm('Themes')));
