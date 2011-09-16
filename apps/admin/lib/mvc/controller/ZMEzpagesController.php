@@ -69,9 +69,10 @@ class ZMEzpagesController extends ZMController {
             return $this->findView('success-demo');
         }
 
+        $languageId = $request->getParameter('languageId');
+
+        $viewId = 'ezpages-overview';
         if (null !== ($ezPageId = $request->getParameter('updateId'))) {
-            $ezPageId = (int)$ezPageId;
-            $languageId = $request->getParameter('languageId');
             if (0 == $ezPageId) {
                 // create
                 $ezPage = Beans::getBean('ZMEZPage');
@@ -95,12 +96,13 @@ class ZMEzpagesController extends ZMController {
             if (null != ($ezPage = ZMEZPages::instance()->getPageForId($ezPageId, $languageId))) {
                 ZMEZPages::instance()->removePage($ezPage);
                 ZMMessages::instance()->success('EZPage #'.$ezPage->getId().' deleted');
+                $viewId = 'success';
             } else {
-                ZMMessages::instance()->success('Could not find EZPage to delete: #'.$ezPage->getId());
+                ZMMessages::instance()->error('Could not find EZPage to delete: #'.$ezPageId);
             }
         }
 
-        return $this->findView('ezpages-overview');
+        return $this->findView($viewId);
     }
 
 }
