@@ -59,12 +59,24 @@ class ZMEZPages extends ZMObject {
      * Get all pages for the given language.
      *
      * @param int languageId The languageId.
+     * @param string mode Optional mode to define what to load - <em>all</em>, <em>pages</em> or <em>static</em>; default is <em>pages</em>.
      * @return array List of <code>ZMEZPage</code> instances.
      */
-    public function getAllPages($languageId) {
+    public function getAllPages($languageId, $mode='pages') {
         $sql = "SELECT *
                 FROM " . TABLE_EZPAGES;
         $sql .= " WHERE languages_id = :languageId";
+        switch ($mode) {
+        case 'all':
+            break;
+        case 'static':
+            $sql .= " AND status_toc = 2";
+            break;
+        case 'pages':
+        default:
+            $sql .= " AND status_toc < 2";
+            break;
+        }
         $sql .= " ORDER BY toc_sort_order, pages_title";
         return ZMRuntime::getDatabase()->query($sql, array('languageId' => $languageId), TABLE_EZPAGES, 'ZMEZPage');
     }
@@ -82,6 +94,21 @@ class ZMEZPages extends ZMObject {
                 WHERE pages_id = :id";
         $sql .= " AND languages_id = :languageId";
         return ZMRuntime::getDatabase()->querySingle($sql, array('id' => $pageId, 'languageId' => $languageId), TABLE_EZPAGES, 'ZMEZPage');
+    }
+
+    /**
+     * Get page for name.
+     *
+     * @param string name The page name.
+     * @param int languageId The languageId.
+     * @return ZMEZPage A new instance or <code>null</code>.
+     */
+    public function getPageForName($name, $languageId) {
+        $sql = "SELECT *
+                FROM " . TABLE_EZPAGES . "
+                WHERE pages_title = :title";
+        $sql .= " AND languages_id = :languageId";
+        return ZMRuntime::getDatabase()->querySingle($sql, array('title' => $name, 'languageId' => $languageId), TABLE_EZPAGES, 'ZMEZPage');
     }
 
     /**
