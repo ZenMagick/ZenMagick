@@ -20,9 +20,14 @@
 ?>
 <?php
 
+use Symfony\Component\Routing\Router;
+use Symfony\Component\Routing\RequestContext;
+
 use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
+use zenmagick\base\logging\Logging;
 use zenmagick\base\events\VetoableEvent;
+use zenmagick\http\routing\loader\YamlLoader;
 
 
 /**
@@ -53,6 +58,7 @@ class ZMRequest extends \ZMObject {
     private $parameter_;
     private $method_;
     private $userFactory_;
+    private $router_;
 
 
     /**
@@ -61,7 +67,7 @@ class ZMRequest extends \ZMObject {
      * @param array parameter Optional request parameter; if <code>null</code>,
      *  <code>$_GET</code> and <code>$_POST</code> will be used.
      */
-    function __construct($parameter=null) {
+    public function __construct($parameter=null) {
         parent::__construct();
 
         if (null != $parameter) {
@@ -80,6 +86,7 @@ class ZMRequest extends \ZMObject {
         $this->toolbox_ = null;
         $this->urlRewriter_ = null;
         $this->userFactory_ = null;
+        $this->router_ = new Router(new YamlLoader(), '', array(), new RequestContext($this->getContext()));
     }
 
     /**
@@ -99,6 +106,36 @@ class ZMRequest extends \ZMObject {
         return Runtime::getContainer()->getService('request');
     }
 
+
+    /**
+     * Get the router.
+     *
+     * @return Router The router.
+     */
+    public function getRouter() {
+        return $this->router_;
+    }
+
+    /**
+     * Get router match for this request.
+     *
+     * @return array The match or <code>null</code>.
+     */
+    protected function getRouterMatch() {
+        if (!Runtime::getSettings()->get('zenmagick.http.routing.enabled', false)) {
+            return null;
+        }
+        // try router first
+        $routerMatch = null;
+        try {
+            // XXX: should this be handled by the router??
+            $uri = preg_replace('#^'.$this->getContext().'#', '', $this->getUri());
+            $routerMatch = $this->router_->match($uri);
+        } catch (Exception $e) {
+            Runtime::getLogging()->dump($e, 'no route found', Logging::TRACE);
+        }
+        return $routerMatch;
+    }
 
     /**
      * Check if this request is an Ajax request.
@@ -192,7 +229,7 @@ class ZMRequest extends \ZMObject {
             }
         }
 
-        \ZMLogging::instance()->trace('unresolved URL: '.$requestId);
+        Runtime::getLogging()->trace('unresolved URL: '.$requestId);
         return null;
     }
 
@@ -200,6 +237,20 @@ class ZMRequest extends \ZMObject {
      * Decode a (potentially) rewritten request.
      */
     public function urlDecode() {
+        // try router first
+        $routerMatch = $this->getRouterMatch();
+
+        if (null != $routerMatch) {
+            $this->setRequestId($routerMatch['_route']);
+            // grab things not set
+            foreach ($routerMatch as $key => $value) {
+                if (!array_key_exists($key, $this->parameter_)) {
+                    $this->setParameter($key, $value);
+                }
+            }
+        }
+
+        // traditional ZenMagick routing
         foreach ($this->getUrlRewriter() as $rewriter) {
             if ($rewriter->decode($this)) {
                 break;
@@ -427,7 +478,25 @@ class ZMRequest extends \ZMObject {
      */
     public function getController() {
         if (null === $this->controller_) {
-            $this->controller_ = \ZMUrlManager::instance()->findController($this->getRequestId());
+            // try router first
+            $routerMatch = $this->getRouterMatch();
+            if (null !== $routerMatch) {
+                // class:method ?
+                $token = explode(':', $routerMatch['_controller']);
+                if (1 == count($token)) {
+                    // expect a ZMController instance with traditional processing
+                    $this->controller_ = Beans::getBean($routerMatch['_controller']);
+                } else {
+                    // wrap to allow custom method with variable parameters
+                    if (!array_key_exists('request', $routerMatch)) {
+                        // allow $request as mappable parameter too
+                        $routerMatch['request'] = $this;
+                    }
+                    $this->controller_ = new ZMRoutingController(Beans::getBean($token[0]), $token[1], $routerMatch);
+                }
+            } else {
+                $this->controller_ = \ZMUrlManager::instance()->findController($this->getRequestId());
+            }
         }
 
         return $this->controller_;
@@ -469,7 +538,7 @@ class ZMRequest extends \ZMObject {
         $url = str_replace('&amp;', '&', $url);
         $event = new VetoableEvent($this, array('request' => $this, 'url' => $url));
         Runtime::getEventDispatcher()->dispatch('redirect', $event);
-        \ZMLogging::instance()->trace(sprintf('redirect url: "%s"; canceled: %s', $url, ($event->isCanceled() ? 'true' : 'false')), \ZMLogging::TRACE);
+        Runtime::getLogging()->trace(sprintf('redirect url: "%s"; canceled: %s', $url, ($event->isCanceled() ? 'true' : 'false')), Logging::TRACE);
         if ($event->isCanceled()) {
             return;
         }

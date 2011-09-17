@@ -25,6 +25,11 @@ admin,storefront:
           # enable plugins
           enabled: true
 
+      http:
+        routing:
+          # enable symfony routing
+          enabled: true
+
       apps:
         store:
           # use new static content rather than static pages

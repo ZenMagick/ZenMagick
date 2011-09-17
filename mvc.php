@@ -20,6 +20,8 @@
 ?>
 <?php
 
+use Symfony\Component\Routing\Route;
+
 use zenmagick\base\Runtime;
 use zenmagick\base\events\Event;
 use zenmagick\http\sacs\SacsManager;
@@ -27,6 +29,14 @@ use zenmagick\http\sacs\SacsManager;
     try {
         // create the main request instance
         $request = $_zm_request = Runtime::getContainer()->get('request');
+
+        // load application routing
+        $appRoutingFile = Runtime::getApplicationPath().DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.'routing.yaml';
+        if (file_exists($appRoutingFile)) {
+            $appRoutingLoader = new SymfonyYamlFileLoader(new FileLocator());
+            $appRouterCollection = $appRoutingLoader->load($appRoutingFile);
+            $request->getRouter()->getRouteCollection()->addCollection($appRouterCollection);
+        }
 
         // tell everyone interested that we have a request
         Runtime::getEventDispatcher()->dispatch('init_request', new Event(null, array('request' => $_zm_request)));

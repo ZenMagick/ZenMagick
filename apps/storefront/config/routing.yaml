@@ -1,0 +1,4 @@
+# the route key will be set as requestId
+login:
+  pattern: /login
+  defaults: { _controller: ZMLoginController:process }
