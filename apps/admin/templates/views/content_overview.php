@@ -21,7 +21,8 @@
 <?php $selectedLanguageId = $currentLanguage->getId(); ?>
 
 <?php $admin2->title() ?>
-<form action="<?php echo $admin2->url() ?>" method="POST">
+<form action="<?php echo $admin2->url() ?>" method="GET">
+  <input type="hidden" name="rid" value="content_editor">
   <h2><?php _vzm('Content Manager') ?> (
           <select id="languageId" name="languageId" onchange="this.form.submit();">
             <?php foreach (ZMLanguages::instance()->getLanguages() as $lang) { ?>
@@ -48,7 +49,7 @@
       <td><?php echo $ezPage->isStatic() ? _zm('Static') : _zm('EZPage') ?></td>
       <td>
         <form action="<?php echo $admin2->url() ?>" method="POST" onsubmit="return ZenMagick.confirm('<?php _vzm('Delete page id:#%s?', $ezPage->getId()) ?>', this);">
-          <input type="hidden" name="rid" value="ezpages">
+          <input type="hidden" name="rid" value="content_editor">
           <input type="hidden" name="languageId" value="<?php echo $selectedLanguageId ?>">
           <input type="hidden" name="deleteId" value="<?php echo $ezPage->getId() ?>">
           <input class="<?php echo $buttonClasses ?>" type="submit" value="Delete">
