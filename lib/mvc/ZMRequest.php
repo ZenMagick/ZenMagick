@@ -488,6 +488,7 @@ class ZMRequest extends \ZMObject {
                     $this->controller_ = Beans::getBean($routerMatch['_controller']);
                 } else {
                     // wrap to allow custom method with variable parameters
+                    // TODO: remove once all controller use ype hints for $request
                     if (!array_key_exists('request', $routerMatch)) {
                         // allow $request as mappable parameter too
                         $routerMatch['request'] = $this;
