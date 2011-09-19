@@ -276,6 +276,7 @@ class Request extends \ZMRequest {
      * Get the account.
      *
      * @return ZMAccount The account or <code>null</code>.
+     * @deprecated use getUser() instead
      */
     public function getAccount() {
         $accountId = $this->getAccountId();
