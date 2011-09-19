@@ -40,9 +40,9 @@ class RoutingUrlRewriter implements UrlRewriter {
 
         if (null != $routerMatch) {
             $request->setRequestId($routerMatch['_route']);
-            // grab things not set
+            // grab things not set and not prefixed with '_'
             foreach ($routerMatch as $key => $value) {
-                if (!array_key_exists($key, $this->parameter_)) {
+                if ('_' != $key[0] && !array_key_exists($key, $this->parameter_)) {
                     $request->setParameter($key, $value);
                 }
             }
@@ -61,9 +61,9 @@ class RoutingUrlRewriter implements UrlRewriter {
             $router = $request->getRouter();
             if (null != ($route = $router->getRouteCollection()->get($requestId))) {
                 $requirements = array('_scheme' => $args['secure'] ? 'https' : 'http');
-                parse_str($args['params'], $paramters);
+                parse_str($args['params'], $parameters);
                 // use generator directly to avoid having to customize that as well
-                return $router->getGenerator()->generate($requestId, $paramters, false, $requirements);
+                return $router->getGenerator()->generate($requestId, $parameters, false, $requirements);
             }
         }
 
