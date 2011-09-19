@@ -63,7 +63,6 @@ class BootstrapListener extends ZMObject {
         if ($contextConfigLoader instanceof HttpContextConfigLoader) {
             $router = $request->getRouter();
             foreach ($contextConfigLoader->getRouting() as $routing) {
-              var_dump($routing);
                 $routingLoader = new YamlLoader();
                 $routerCollection = $routingLoader->load($routing);
                 $router->getRouteCollection()->addCollection($routerCollection);
