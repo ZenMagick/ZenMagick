@@ -23,9 +23,9 @@
 ?>
 <h3><?php _vzm("Oops - something went wrong!") ?></h3>
 <p><?php echo $utils->staticPageContent('error') ?></p>
-<?php if (ZM_ENVIRONMENT == 'development') { ?>
+<?php if (ZM_ENVIRONMENT == 'dev') { ?>
   <pre>
-  <?php 
+  <?php
      if (isset($exception)) {
         echo $exception->getTraceAsString();
     } else { // we don't know what happened! @todo try to figure it out
