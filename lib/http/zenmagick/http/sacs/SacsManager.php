@@ -217,10 +217,16 @@ class SacsManager {
      * @param string requestId The request id.
      */
     public function ensureAccessMethod($request) {
-        $secure = Toolbox::asBoolean($this->getMappingValue($request->getRequestId(), 'secure', false));
+        $requestId = $request->getRequestId();
+        $secure = Toolbox::asBoolean($this->getMappingValue($requestId, 'secure', false));
+        // check router too
+        if (Runtime::getSettings()->get('zenmagick.http.routing.enabled', false) && null != ($route = $request->getRouter()->getRouteCollection()->get($requestId))) {
+            $requirements = $route->getRequirements();
+            $secure |= (array_key_exists('_scheme', $requirements) && 'https' == $requirements['_scheme']);
+        }
         $settings = Runtime::getSettings();
-        if ($secure && !$request->isSecure() && $settings->get('zenmagick.http.request.secure') && $settings->get('zenmagick.http.request.enforceSecure')) {
-            Runtime::getLogging()->log('redirecting to enforce secure access: '.$request->getRequestId(), Logging::TRACE);
+        if ($secure && !$request->isSecure() && $settings->get('zenmagick.http.request.secure', true) && $settings->get('zenmagick.http.request.enforceSecure')) {
+            Runtime::getLogging()->log('redirecting to enforce secure access: '.$requestId, Logging::TRACE);
             $request->redirect($request->url(null, null, true));
         }
     }
