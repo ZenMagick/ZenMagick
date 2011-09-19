@@ -87,9 +87,10 @@ class ZMRequest extends \ZMObject {
         $this->urlRewriter_ = null;
         $this->userFactory_ = null;
         $scheme = $this->isSecure() ? 'https' : 'http';
-        $requestContext = new RequestContext($this->getContext(), $this->getMethod(), $this->getHostname(), $scheme, $this->getPort());
         // empty router
-        $this->router_ = new Router(new YamlLoader(), '', array(), $requestContext);
+        $requestContext = new RequestContext($this->getContext(), $this->getMethod(), $this->getHostname(), $scheme, $this->getPort());
+        $options = array('generator_class' => 'zenmagick\\http\\routing\\generator\\UrlGenerator');
+        $this->router_ = new Router(new YamlLoader(), '', $options, $requestContext);
     }
 
     /**
@@ -223,6 +224,8 @@ class ZMRequest extends \ZMObject {
 
         // drop secure if disabled
         $secure = $secure & \ZMSettings::get('zenmagick.mvc.request.secure');
+        // check if always secure
+        $secure = Runtime::getSettings()->get('zenmagick.http.request.allSecure') ? true : $args['secure'];
 
         // delegate generation to SEO rewriters
         $args = array('requestId' => $requestId, 'params' => $params, 'secure' => $secure);

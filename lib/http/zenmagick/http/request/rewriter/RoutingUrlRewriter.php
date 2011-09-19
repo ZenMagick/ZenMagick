@@ -60,8 +60,10 @@ class RoutingUrlRewriter implements UrlRewriter {
             $requestId = $args['requestId'];
             $router = $request->getRouter();
             if (null != ($route = $router->getRouteCollection()->get($requestId))) {
+                $requirements = array('_scheme' => $args['secure'] ? 'https' : 'http');
                 parse_str($args['params'], $paramters);
-                return $router->generate($requestId, $paramters);
+                // use generator directly to avoid having to customize that as well
+                return $router->getGenerator()->generate($requestId, $paramters, false, $requirements);
             }
         }
 
