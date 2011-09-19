@@ -63,11 +63,13 @@ class ZMRoutingController extends ZMController {
                 // check for known types
                 $hintClass = $rp->getClass();
                 if ($hintClass) {
-                    // intersect supported interfaces with class interfaces
-                    // if match, switch for action to instantiate and set $value
+                    // check for special classes/interfaces
+                    // TODO: this is expected to grow a bit, so make the code look nicer
                     if ('ZMFormData' == $hintClass->name || $hintClass->isSubclassOf('ZMFormData')) {
                         $value = Beans::getBean($hintClass->name);
                         $value->populate($request);
+                    } else if ('ZMRequest' == $hintClass->name || $hintClass->isSubclassOf('ZMRequest')) {
+                        $value = $request;
                     } else {
                         // last choice - assume a model class that does not extend/implement FormData
                         $value = Beans::getBean($hintClass->name);

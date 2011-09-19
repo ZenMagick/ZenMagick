@@ -94,7 +94,7 @@ class ZMController extends ZMObject {
      * @param ZMRequest request The request to process.
      * @return ZMView A <code>ZMView</code> instance or <code>null</code>.
      */
-    public function process($request) {
+    public function process(ZMRequest $request) {
         // ensure a usable id is set
         $this->requestId_ = null != $this->requestId_ ? $this->requestId_ : $request->getRequestId();
         $this->isAjax_ = $request->isAjax();
