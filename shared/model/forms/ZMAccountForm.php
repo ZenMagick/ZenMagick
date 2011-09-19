@@ -35,8 +35,8 @@ class ZMAccountForm extends ZMFormData {
      * {@inheritDoc}
      */
     public function populate($request) {
-        parent::populate($request);
         $this->loadAccount();
+        parent::populate($request);
     }
 
     /**
