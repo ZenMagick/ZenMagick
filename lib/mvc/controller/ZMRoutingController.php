@@ -21,6 +21,8 @@
 <?php
 
 use zenmagick\base\Beans;
+use zenmagick\base\Runtime;
+use zenmagick\base\events\Event;
 
 /**
  * Controller wrapper for method mapping of routing controllers.
@@ -70,6 +72,8 @@ class ZMRoutingController extends ZMController {
                         $value->populate($request);
                     } else if ('ZMRequest' == $hintClass->name || $hintClass->isSubclassOf('ZMRequest')) {
                         $value = $request;
+                    } else if ('ZMMessages' == $hintClass->name || $hintClass->isSubclassOf('ZMMessages')) {
+                        $value = $this->container->get('messageService');
                     } else {
                         // last choice - assume a model class that does not extend/implement FormData
                         $value = Beans::getBean($hintClass->name);
@@ -80,11 +84,26 @@ class ZMRoutingController extends ZMController {
             $parameters[] = $value;
         }
 
+        // check authorization
+        $sacsManager = $this->container->get('sacsManager');
+        $sacsManager->authorize($request, $request->getRequestId(), $request->getUser());
+
+        // check method level too
+        $methodRequestId = $request->getRequestId().'#'.$this->method;
+        if ($sacsManager->hasMappingForRequestId($methodRequestId)) {
+            $sacsManager->authorize($request, $methodRequestId, $request->getUser());
+        }
+
+        Runtime::getEventDispatcher()->dispatch('controller_process_start', new Event($this, array('request' => $request, 'controller' => $this->controller)));
         $view = call_user_func_array(array($this->controller, $this->method), $parameters);
+
         if (is_string($view)) {
             // just the viewId
             $view = $this->findView($view);
         }
+
+        Runtime::getEventDispatcher()->dispatch('controller_process_end', new Event($this, array('request' => $request, 'controller' => $this->controller, 'view' => $view)));
+
         return $view;
     }
 
