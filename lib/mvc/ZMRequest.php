@@ -86,7 +86,10 @@ class ZMRequest extends \ZMObject {
         $this->toolbox_ = null;
         $this->urlRewriter_ = null;
         $this->userFactory_ = null;
-        $this->router_ = new Router(new YamlLoader(), '', array(), new RequestContext($this->getContext()));
+        $scheme = $this->isSecure() ? 'https' : 'http';
+        $requestContext = new RequestContext($this->getContext(), $this->getMethod(), $this->getHostname(), $scheme, $this->getPort());
+        // empty router
+        $this->router_ = new Router(new YamlLoader(), '', array(), $requestContext);
     }
 
     /**
@@ -121,7 +124,7 @@ class ZMRequest extends \ZMObject {
      *
      * @return array The match or <code>null</code>.
      */
-    protected function getRouterMatch() {
+    public function getRouterMatch() {
         if (!Runtime::getSettings()->get('zenmagick.http.routing.enabled', false)) {
             return null;
         }
@@ -192,8 +195,6 @@ class ZMRequest extends \ZMObject {
      * @return string A full URL.
      */
     public function url($requestId=null, $params='', $secure=false) {
-        // drop secure if disabled
-        $secure = $secure & \ZMSettings::get('zenmagick.mvc.request.secure');
         // custom params handling
         if (null === $params) {
             // if requestId null, keep current and also current params
@@ -217,9 +218,11 @@ class ZMRequest extends \ZMObject {
             }
             $params = implode('&', $params);
         }
-
         // default to current requestId
         $requestId = $requestId === null ? $this->getRequestId() : $requestId;
+
+        // drop secure if disabled
+        $secure = $secure & \ZMSettings::get('zenmagick.mvc.request.secure');
 
         // delegate generation to SEO rewriters
         $args = array('requestId' => $requestId, 'params' => $params, 'secure' => $secure);
@@ -237,19 +240,6 @@ class ZMRequest extends \ZMObject {
      * Decode a (potentially) rewritten request.
      */
     public function urlDecode() {
-        // try router first
-        $routerMatch = $this->getRouterMatch();
-
-        if (null != $routerMatch) {
-            $this->setRequestId($routerMatch['_route']);
-            // grab things not set
-            foreach ($routerMatch as $key => $value) {
-                if (!array_key_exists($key, $this->parameter_)) {
-                    $this->setParameter($key, $value);
-                }
-            }
-        }
-
         // traditional ZenMagick routing
         foreach ($this->getUrlRewriter() as $rewriter) {
             if ($rewriter->decode($this)) {

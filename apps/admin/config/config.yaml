@@ -104,6 +104,7 @@ zenmagick:
       login: login
       urlRewriter: 
         - zenmagick\http\request\rewriter\DefaultUrlRewriter
+        - zenmagick\http\request\rewriter\RoutingUrlRewriter
       urlType: default
       enforceSecure: true
 
