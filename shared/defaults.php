@@ -190,7 +190,7 @@
              **************************************/
 
             // use SSL
-            'zenmagick.mvc.request.secure' => (defined('ENABLE_SSL') && ENABLE_SSL == 'true') || (defined('ENABLE_SSL_ADMIN') && ENABLE_SSL_ADMIN == 'true'),
+            'zenmagick.http.request.secure' => (defined('ENABLE_SSL') && ENABLE_SSL == 'true') || (defined('ENABLE_SSL_ADMIN') && ENABLE_SSL_ADMIN == 'true'),
 
             // cookies only?
             'isForceCookieUse' => SESSION_FORCE_COOKIE_USE == 'True',
