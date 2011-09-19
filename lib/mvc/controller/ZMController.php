@@ -32,7 +32,7 @@ use zenmagick\http\sacs\SacsManager;
  * @package org.zenmagick.mvc.controller
  */
 class ZMController extends ZMObject {
-    private $messageService;
+    protected $messageService;
     private $requestId_;
     private $isAjax_;
     private $method_;
