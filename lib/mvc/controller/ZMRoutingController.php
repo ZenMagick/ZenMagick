@@ -20,6 +20,8 @@
 ?>
 <?php
 
+use zenmagick\base\Beans;
+
 /**
  * Controller wrapper for method mapping of routing controllers.
  *
@@ -57,11 +59,31 @@ class ZMRoutingController extends ZMController {
             $value = null;
             if (array_key_exists($rp->name, $this->args)) {
                 $value = $this->args[$rp->name];
+            } else {
+                // check for known types
+                $hintClass = $rp->getClass();
+                if ($hintClass) {
+                    // intersect supported interfaces with class interfaces
+                    // if match, switch for action to instantiate and set $value
+                    if ('ZMFormData' == $hintClass->name || $hintClass->isSubclassOf('ZMFormData')) {
+                        $value = Beans::getBean($hintClass->name);
+                        $value->populate($request);
+                    } else {
+                        // last choice - assume a model class that does not extend/implement FormData
+                        $value = Beans::getBean($hintClass->name);
+                        Beans::setAll($value, $request->getParameterMap(), null);
+                    }
+                }
             }
             $parameters[] = $value;
         }
 
-        return call_user_func_array(array($this->controller, $this->method), $parameters);
+        $view = call_user_func_array(array($this->controller, $this->method), $parameters);
+        if (is_string($view)) {
+            // just the viewId
+            $view = $this->findView($view);
+        }
+        return $view;
     }
 
 }
