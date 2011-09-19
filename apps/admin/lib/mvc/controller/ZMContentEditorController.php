@@ -49,7 +49,9 @@ class ZMContentEditorController extends ZMController {
         if (null !== ($ezPageId = $request->getParameter('editId'))) {
             $ezPageId = (int)$ezPageId;
             if (0 == $ezPageId) {
+                // new
                 $ezPage = Beans::getBean('ZMEZPage');
+                $ezPage->setStatic(true);
             } else {
                 $ezPage = ZMEZPages::instance()->getPageForId($ezPageId, $languageId);
             }
@@ -83,17 +85,21 @@ class ZMContentEditorController extends ZMController {
                 // create
                 $ezPage = Beans::getBean('ZMEZPage');
                 Beans::setAll($ezPage, $request->getParameterMap(false));
+                $ezPage->setStatic(true);
                 $ezPage = ZMEZPages::instance()->createPage($ezPage);
                 if (0 < $ezPage->getId()) {
                     $this->messageService->success('Page #'.$ezPage->getId().' saved');
+                    $viewId = 'success';
                 } else {
                     $this->messageService->error('Could not save page');
                 }
             } else if (null != ($ezPage = ZMEZPages::instance()->getPageForId($ezPageId, $languageId))) {
                 // no sanitize!
                 Beans::setAll($ezPage, $request->getParameterMap(false));
+                $ezPage->setStatic(true);
                 ZMEZPages::instance()->updatePage($ezPage);
                 $this->messageService->success('Page #'.$ezPageId.' updated');
+                $viewId = 'success';
             } else {
                 $this->messageService->error('Could not save page - invalid request data');
             }

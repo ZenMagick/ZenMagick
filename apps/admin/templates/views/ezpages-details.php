@@ -26,7 +26,7 @@ use zenmagick\base\Beans;
 <form action="<?php echo $admin2->url() ?>" method="POST">
   <input type="hidden" name="languageId" value="<?php echo $selectedLanguageId ?>">
   <input type="hidden" name="updateId" value="<?php echo $ezPage->getId() ?>">
-<?php if (!$ezPage->isStatic()) { ?>
+
   <fieldset>
   <legend><?php _vzm('Page') ?></legend>
     <p>
@@ -35,6 +35,7 @@ use zenmagick\base\Beans;
     </p>
   </fieldset>
 
+<?php if (!$ezPage->isStatic()) { ?>
   <fieldset>
   <legend><?php _vzm('Navigation') ?></legend>
     <p>
