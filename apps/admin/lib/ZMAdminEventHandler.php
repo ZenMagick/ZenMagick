@@ -22,6 +22,7 @@
 
 use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
+use zenmagick\base\ZMObject;
 
 /**
  * Custom admin event handler for various things.
@@ -29,7 +30,7 @@ use zenmagick\base\Runtime;
  * @author DerManoMann
  * @package zenmagick.store.admin
  */
-class ZMAdminEventHandler {
+class ZMAdminEventHandler extends ZMObject {
 
     /**
      * Display message about invalid/insufficient credentional
