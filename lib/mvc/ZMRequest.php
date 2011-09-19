@@ -225,7 +225,7 @@ class ZMRequest extends \ZMObject {
         // drop secure if disabled
         $secure = $secure & \ZMSettings::get('zenmagick.mvc.request.secure');
         // check if always secure
-        $secure = Runtime::getSettings()->get('zenmagick.http.request.allSecure') ? true : $args['secure'];
+        $secure = Runtime::getSettings()->get('zenmagick.http.request.allSecure') ? true : $secure;
 
         // delegate generation to SEO rewriters
         $args = array('requestId' => $requestId, 'params' => $params, 'secure' => $secure);
@@ -487,6 +487,7 @@ class ZMRequest extends \ZMObject {
                         $routerMatch['request'] = $this;
                     }
                     $this->controller_ = new ZMRoutingController(Beans::getBean($token[0]), $token[1], $routerMatch);
+                    $this->controller_->setContainer($this->container);
                 }
             } else {
                 $this->controller_ = \ZMUrlManager::instance()->findController($this->getRequestId());
