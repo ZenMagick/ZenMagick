@@ -88,7 +88,7 @@ class ZMRequest extends \ZMObject {
         $this->userFactory_ = null;
         $scheme = $this->isSecure() ? 'https' : 'http';
         // empty router
-        $requestContext = new RequestContext($this->getContext(), $this->getMethod(), $this->getHostname(), $scheme, $this->getPort());
+        $requestContext = new RequestContext($this->getContext(), $this->getMethod(), $this->getHostname(), $scheme);
         $options = array('generator_class' => 'zenmagick\\http\\routing\\generator\\UrlGenerator');
         $this->router_ = new Router(new YamlLoader(), '', $options, $requestContext);
     }
