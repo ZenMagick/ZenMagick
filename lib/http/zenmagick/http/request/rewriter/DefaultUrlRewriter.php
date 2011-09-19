@@ -93,8 +93,6 @@ class DefaultUrlRewriter implements UrlRewriter {
             }
         }
 
-        $secure = Runtime::getSettings()->get('zenmagick.http.request.allSecure') ? true : $args['secure'];
-
         if (null != ($method = $this->methods_['rewrite'])) {
             return $this->$method($request, $requestId, $params, $secure);
         }
