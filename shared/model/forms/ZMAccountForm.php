@@ -32,20 +32,12 @@ use zenmagick\base\Runtime;
 class ZMAccountForm extends ZMFormData {
 
     /**
-     * Create new instance.
+     * {@inheritDoc}
      */
-    function __construct() {
-        parent::__construct();
+    public function populate($request) {
+        parent::populate($request);
         $this->loadAccount();
     }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
-
 
     /**
      * Init with current account settings.

@@ -32,14 +32,6 @@ use zenmagick\base\Runtime;
 class ZMRegistrationForm extends ZMFormData {
 
     /**
-     * Create new instance.
-     */
-    function __construct() {
-        parent::__construct();
-    }
-
-
-    /**
      * Get a populated <code>ZMAccount</code> instance.
      *
      * @return ZMAccount An account.
