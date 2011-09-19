@@ -22,7 +22,11 @@
 namespace zenmagick\http;
 
 use zenmagick\base\Runtime;
+use zenmagick\base\ZMObject;
 use zenmagick\http\sacs\SacsManager;
+use zenmagick\http\routing\loader\YamlLoader;
+use zenmagick\http\utils\ContextConfigLoader as HttpContextConfigLoader;
+
 
 /**
  * HTTP bootstrap listener.
@@ -30,7 +34,7 @@ use zenmagick\http\sacs\SacsManager;
  * @author DerManoMann
  * @package zenmagick.http
  */
-class BootstrapListener {
+class BootstrapListener extends ZMObject {
 
     /**
      * Listen to bootstrap.
@@ -48,11 +52,23 @@ class BootstrapListener {
      */
     public function onInitRequest($event) {
         $request = $event->get('request');
+
         // adjust front controller parameter
         if ($request->getFrontController() != Runtime::getSettings()->get('zenmagick.http.request.handler')) {
              Runtime::getSettings()->set('zenmagick.http.request.handler', $request->getFrontController());
         }
 
+        // load additional routing
+        $contextConfigLoader = $this->container->get('contextConfigLoader');
+        if ($contextConfigLoader instanceof HttpContextConfigLoader) {
+            $router = $request->getRouter();
+            foreach ($contextConfigLoader->getRouting() as $routing) {
+              var_dump($routing);
+                $routingLoader = new YamlLoader();
+                $routerCollection = $routingLoader->load($routing);
+                $router->getRouteCollection()->addCollection($routerCollection);
+            }
+        }
     }
 
 }

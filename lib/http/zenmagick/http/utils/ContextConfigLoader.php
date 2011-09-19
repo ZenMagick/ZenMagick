@@ -37,6 +37,8 @@ use Symfony\Component\Yaml\Yaml;
  * @package zenmagick.base.utils
  */
 class ContextConfigLoader extends BaseContextConfigLoader {
+    // collect all loaded routings to be processed later
+    private static $routing = array();
 
     /**
      * {@inheritDoc}
@@ -44,11 +46,24 @@ class ContextConfigLoader extends BaseContextConfigLoader {
     public function apply($config) {
         parent::apply($config);
 
-        // router
+        // traditional router
         if (array_key_exists('router', $config) && is_array($config['router'])) {
             // merge
             \ZMUrlManager::instance()->setMappings($config['router'], false);
         }
+        if (array_key_exists('routing', $config) && is_array($config['routing'])) {
+            // keep for later
+            self::$routing[] = $config['routing'];
+        }
+    }
+
+    /**
+     * Get additional routing maps.
+     *
+     * @return array List of routing maps.
+     */
+    public function getRouting() {
+        return self::$routing;
     }
 
 }
