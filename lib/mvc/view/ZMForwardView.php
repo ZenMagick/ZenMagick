@@ -129,13 +129,14 @@ class ZMForwardView extends ZMView {
      * {@inheritDoc}
      */
     public function generate($request) {
-        $req = Beans::getBean('ZMRequest');
-        $req->setParameterMap($request->getParameterMap(false));
-        $req->setRequestId($this->getRequestId());
         // keep reference to original request
-        $req->setParameter('rootRequestId', $request->getRequestId());
+        $request->setParameter('rootRequestId', $request->getRequestId());
+        // set forward id
+        $request->setRequestId($this->getRequestId());
+        // reset
+        $request->setController(null);
 
-        ZMDispatcher::dispatch($req);
+        ZMDispatcher::dispatch($request);
         // can exit here to avoid doing everything from view_start on twice
         exit;
     }

@@ -5,7 +5,7 @@ parameters:
 services:
   request:
     class: Request
-    scope: prototype
+    scope: container
 
   ZMPlugins:
     class: Plugins
