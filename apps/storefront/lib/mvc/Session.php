@@ -53,6 +53,28 @@ class Session extends zenmagick\http\session\Session {
 
     /**
      * {@inheritDoc}
+     * @todo: drop
+     */
+    public function setValue($name, $value=null, $namespace=null) {
+        parent::setValue($name, $value, $namespace);
+        $_SESSION[$name] = $value;
+    }
+    /**
+     * {@inheritDoc}
+     * @todo: drop
+     */
+    public function getValue($name, $namespace=null) {
+        if (null != ($value = parent::getValue($name, $namespace))) {
+            return $value;
+        }
+        if (array_key_exists($name, $_SESSION)) {
+            return $_SESSION[$name];
+        }
+        return null;
+    }
+
+    /**
+     * {@inheritDoc}
      */
     public function regenerate() {
         if (Runtime::getSettings()->get('zenmagick.apps.store.storefront.sessions', false)) {
