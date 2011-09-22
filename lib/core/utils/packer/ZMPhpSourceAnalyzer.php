@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 
 /**
  * Analyze dependencies of a given (PHP) source.
@@ -87,17 +88,17 @@ class ZMPhpSourceAnalyzer {
      *
      * @param string source The file source.
      * @return array Two element map with the keys <em>contains</em> and <em<depends</em>. Each value is also a two
-     *  element map with the keys <em>classes</em> and <em>interfaces</em>. Values are arrays containing class and 
+     *  element map with the keys <em>classes</em> and <em>interfaces</em>. Values are arrays containing class and
      *  interface names.
      */
     public static function getDependencies($source) {
         $deps = array(
             'contains' => array(
-                'classes' => array(), 
+                'classes' => array(),
                 'interfaces' => array()
-            ), 
+            ),
             'depends' => array(
-                'classes' => array(), 
+                'classes' => array(),
                 'interfaces' => array()
             )
         );
@@ -197,7 +198,7 @@ class ZMPhpSourceAnalyzer {
 
         // the final level list
         $tree = array();
-        // lookup for already resolved files 
+        // lookup for already resolved files
         $resolvedFiles = array();
         // current level
         $level = 0;
@@ -222,7 +223,7 @@ class ZMPhpSourceAnalyzer {
                         }
                     }
                 }
-                
+
                 // check for interface dependencies against other files
                 foreach ($details['deps']['depends']['interfaces'] as $interface) {
                     if (!in_array($class, $resolvedDeps) && !in_array($fileForInterface[$interface], $resolvedFiles)) {
@@ -245,7 +246,7 @@ class ZMPhpSourceAnalyzer {
             // sanity check
             if (0 == count($tree[$level])) {
                 // nothing else to do
-                ZMLogging::instance()->log('empty level: '.$level.' ending...', ZMLogging::DEBUG);
+                Runtime::getLogging()->log('empty level: '.$level.' ending...', ZMLogging::DEBUG);
                 break;
             }
 
@@ -264,7 +265,7 @@ class ZMPhpSourceAnalyzer {
                 }
             }
             if (!$found) {
-                ZMLogging::instance()->log('unresolved: '.$filename, ZMLogging::WARN);
+                Runtime::getLogging()->log('unresolved: '.$filename, ZMLogging::WARN);
 
                 $tmp = array();
                 $deps = $fileDetails[$filename]['deps'];
@@ -273,7 +274,7 @@ class ZMPhpSourceAnalyzer {
                         $tmp[] = $class;
                     }
                 }
-                ZMLogging::instance()->log('referenced classes: '.implode(',', $tmp), ZMLogging::DEBUG);
+                Runtime::getLogging()->log('referenced classes: '.implode(',', $tmp), ZMLogging::DEBUG);
 
                 $tmp = array();
                 $deps = $fileDetails[$filename]['deps'];
@@ -282,7 +283,7 @@ class ZMPhpSourceAnalyzer {
                         $tmp[] = $interface;
                     }
                 }
-                ZMLogging::instance()->log('referenced interfaces: '.implode(',', $tmp), ZMLogging::DEBUG);
+                Runtime::getLogging()->log('referenced interfaces: '.implode(',', $tmp), ZMLogging::DEBUG);
             }
         }
 

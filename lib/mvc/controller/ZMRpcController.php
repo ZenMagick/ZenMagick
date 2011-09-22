@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 use zenmagick\http\sacs\SacsManager;
 
 /**
@@ -51,22 +52,23 @@ class ZMRpcController extends ZMController {
         $rpcRequest = ZMAjaxUtils::createRpcRequest($request);
         $method = $sacsMethod = $rpcRequest->getMethod();
 
+        $sacsManager = $this->container->get('sacsManager');
         // check access on controller level
-        SacsManager::instance()->authorize($request, $request->getRequestId(), $request->getUser());
+        $sacsManager->authorize($request, $request->getRequestId(), $request->getUser());
 
         // (re-)check on method level if mapping exists
         $methodRequestId = $request->getRequestId().'#'.$sacsMethod;
-        if (SacsManager::instance()->hasMappingForRequestId($methodRequestId)) {
-            SacsManager::instance()->authorize($request, $methodRequestId, $request->getUser());
+        if ($sacsManager->hasMappingForRequestId($methodRequestId)) {
+            $sacsManager->authorize($request, $methodRequestId, $request->getUser());
         }
 
         if (method_exists($this, $method) || in_array($method, $this->getAttachedMethods())) {
-            ZMLogging::instance()->log('calling method: '.$method, ZMLogging::TRACE);
+            Runtime::getLogging()->log('calling method: '.$method, ZMLogging::TRACE);
             $rpcResponse = $this->$method($rpcRequest);
         } else {
             $rpcResponse = $rpcRequest->createResponse();
             $rpcResponse->setStatus(false);
-            ZMLogging::instance()->error("Invalid request - method '".$request->getParameter('method')."' not found!");
+            Runtime::getLogging()->error("Invalid request - method '".$request->getParameter('method')."' not found!");
         }
 
         // set content type

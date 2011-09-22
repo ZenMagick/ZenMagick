@@ -21,6 +21,7 @@
 <?php
 
 use zenmagick\base\Beans;
+use zenmagick\base\Runtime;
 
 /**
  * Analyze dependencies of a given PHP package (folder tree), resolve and compress.
@@ -238,7 +239,7 @@ class ZMPhpPackagePacker {
             $compressor->clean();
         }
         foreach ($compressor->getErrors() as $error) {
-            ZMLogging::instance()->log($error, ZMLogging::DEBUG);
+            Runtime::getLogging()->log($error, ZMLogging::DEBUG);
         }
     }
 

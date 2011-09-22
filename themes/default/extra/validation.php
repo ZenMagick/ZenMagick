@@ -32,7 +32,7 @@
      */
 
 
-    $validator = ZMValidator::instance();
+    $validator = $this->container->get('validator');
     /* edit account */
     $validator->addRules('account', array(
         array('ZMRequiredRule' ,'firstName', 'Please enter your first name.'),

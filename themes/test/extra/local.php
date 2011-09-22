@@ -4,7 +4,7 @@ use zenmagick\base\Runtime;
     ZMSettings::set('resultListProductFilter', null);
     //ZMSettings::set('resultListProductSorter', null);
 
-    $validator = ZMValidator::instance();
+    $validator = $this->container->get('validator');
     /* checkout_refer_a_friend */
     $validator->addRules('checkout_refer_a_friend', array(
         array('ZMEmailRule' ,'friend1', 'Please enter a valid email address for friend1.'),

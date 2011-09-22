@@ -152,12 +152,12 @@ class ZMSavant extends Savant3 implements ContainerAwareInterface {
         if (null != ($path = $this->findFile($type, $filename))) {
             if (null != ($uri= $this->file2uri($path))) {
                 $url = $this->request->absoluteURL($uri);
-                ZMLogging::instance()->log('resolve filename '.$filename.' (type='.$type.') as url: '.$url.'; path='.$path, ZMLogging::TRACE);
+                Runtime::getLogging()->log('resolve filename '.$filename.' (type='.$type.') as url: '.$url.'; path='.$path, ZMLogging::TRACE);
                 return $url;
             }
         }
 
-        ZMLogging::instance()->log('can\'t resolve filename '.$filename.' (type='.$type.') '.$filename.' to url', ZMLogging::WARN);
+        Runtime::getLogging()->log('can\'t resolve filename '.$filename.' (type='.$type.') '.$filename.' to url', ZMLogging::WARN);
         return '';
     }
 
@@ -195,7 +195,7 @@ class ZMSavant extends Savant3 implements ContainerAwareInterface {
      */
     public function fetchBlockGroup($groupId, $args=array()) {
         $contents = '';
-        foreach (ZMBlockManager::instance()->getBlocksForId($this->request, $groupId, $args) as $block) {
+        foreach ($this->container->get('blockManager')->getBlocksForId($this->request, $groupId, $args) as $block) {
             Runtime::getLogging()->debug(sprintf('render block, template: %s', $block->getTemplate()));
             $contents .= $block->render($this->request, $this->view);
         }
@@ -217,7 +217,7 @@ class ZMSavant extends Savant3 implements ContainerAwareInterface {
             $wObj = ZMBeanUtils::getBean($widget);
         }
         if (!($wObj instanceof ZMWidget)) {
-            ZMLogging::instance()->debug('invalid widget: '.$widget, ZMLogging::DEBUG);
+            Runtime::getLogging()->debug('invalid widget: '.$widget, ZMLogging::DEBUG);
             return '';
         }
         if (null !== $name) {

@@ -168,7 +168,7 @@ class ZMUrlManager extends ZMObject {
      * @return array A mapping.
      */
     public function findMapping($requestId, $viewId=null, $parameter=null) {
-        ZMLogging::instance()->log('find mapping: requestId='.$requestId.', viewId='.$viewId.', parameter='.$parameter, ZMLogging::TRACE);
+        Runtime::getLogging()->log('find mapping: requestId='.$requestId.', viewId='.$viewId.', parameter='.$parameter, ZMLogging::TRACE);
         if (null == $requestId && null == $viewId) {
             throw new ZMException('invalid arguments');
         }
@@ -239,7 +239,7 @@ class ZMUrlManager extends ZMObject {
      * @return ZMController A controller instance to handle the request.
      */
     public function findController($requestId) {
-        ZMLogging::instance()->log('find controller: requestId='.$requestId, ZMLogging::TRACE);
+        Runtime::getLogging()->log('find controller: requestId='.$requestId, ZMLogging::TRACE);
         $mapping = $this->findMapping($requestId);
         if (null != $mapping['controller']) {
             // configured
@@ -248,7 +248,7 @@ class ZMUrlManager extends ZMObject {
             $definition = 'ZM'.CLassLoader::className($requestId.'Controller');
         }
 
-        ZMLogging::instance()->log('controller definition: '.$definition, ZMLogging::TRACE);
+        Runtime::getLogging()->log('controller definition: '.$definition, ZMLogging::TRACE);
         if (null == ($controller = Beans::getBean($definition))) {
             $controller = Beans::getBean(ZMSettings::get('zenmagick.mvc.controller.default', 'ZMController'));
         }
@@ -268,11 +268,11 @@ class ZMUrlManager extends ZMObject {
      * @return ZMView A <em>best match</em> view.
      */
     public function findView($requestId, $viewId=null, $parameter=null) {
-        ZMLogging::instance()->log('find view: requestId='.$requestId.', viewId='.$viewId.', parameter='.$parameter, ZMLogging::TRACE);
+        Runtime::getLogging()->log('find view: requestId='.$requestId.', viewId='.$viewId.', parameter='.$parameter, ZMLogging::TRACE);
         $mapping = $this->findMapping($requestId, $viewId, $parameter);
 
         if (null === $mapping) {
-            ZMLogging::instance()->log('no view found for: requestId='.$requestId.', viewId='.$viewId.', parameter='.$parameter, ZMLogging::TRACE);
+            Runtime::getLogging()->log('no view found for: requestId='.$requestId.', viewId='.$viewId.', parameter='.$parameter, ZMLogging::TRACE);
             $mapping = array();
         }
         if (!array_key_exists('template', $mapping) || null == $mapping['template']) {
@@ -294,7 +294,7 @@ class ZMUrlManager extends ZMObject {
         $layout = ((array_key_exists('layout', $mapping) && null !== $mapping['layout'])
               ? $mapping['layout'] : ZMSettings::get('zenmagick.mvc.view.defaultLayout', null));
         $definition = $parameter.'&template='.$mapping['template'].'&layout='.$layout.'&viewId='.$viewId;
-        ZMLogging::instance()->debug('view: '.$definition);
+        Runtime::getLogging()->debug('view: '.$definition);
 
         parse_str($definition, $properties);
         Beans::setAll($view, $properties);

@@ -42,7 +42,7 @@ class CustomGoogleAnalytics extends ZMObject {
         if (in_array($request->getRequestId(), array('product_info', 'category', 'category_list'))) {
             // category path
             foreach ($request->getCategoryPathArray() as $categoryId) {
-                $category = ZMCategories::instance()->getCategoryForId($categoryId, $languageId);
+                $category = $this->container->get('categoryService')->getCategoryForId($categoryId, $languageId);
                 $path[] = $category->getName();
             }
         }

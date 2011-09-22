@@ -70,7 +70,7 @@ class ZMDispatcher {
             // execute controller
             $view = $controller->process($request);
         } catch (Exception $e) {
-            \ZMLogging::instance()->dump($e, 'controller::process failed', \ZMLogging::ERROR);
+            Runtime::getLogging()->dump($e, 'controller::process failed', \ZMLogging::ERROR);
             $controller = Beans::getBean(\ZMSettings::get('zenmagick.mvc.controller.default', 'ZMController'));
             $view = $controller->findView('error', array('exception' => $e));
             $request->setController($controller);
@@ -92,12 +92,12 @@ class ZMDispatcher {
                 // generate response
                 echo $view->generate($request);
             } catch (Exception $e) {
-                \ZMLogging::instance()->dump($e, 'view::generate failed', \ZMLogging::ERROR);
+                Runtime::getLogging()->dump($e, 'view::generate failed', \ZMLogging::ERROR);
                 //TODO: what to do?
             }
             Runtime::getEventDispatcher()->dispatch('view_done', new Event(null, array('request' => $request, 'view' => $view)));
         } else {
-            \ZMLogging::instance()->log('null view, skipping $view->generate()', \ZMLogging::DEBUG);
+            Runtime::getLogging()->log('null view, skipping $view->generate()', \ZMLogging::DEBUG);
         }
 
         return $view;

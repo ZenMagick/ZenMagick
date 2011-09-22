@@ -137,7 +137,7 @@ services:
     class: ZMShoppingCarts
     scope: container
 
-  validatorService:
+  validator:
     class: ZMValidator
     scope: container
 

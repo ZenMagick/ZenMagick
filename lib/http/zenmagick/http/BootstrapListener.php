@@ -43,8 +43,8 @@ class BootstrapListener extends ZMObject {
         // mvc mappings
         \ZMUrlManager::instance()->load(file_get_contents(\ZMFileUtils::mkPath(Runtime::getApplicationPath(), 'config', 'url_mappings.yaml')), false);
         // sacs mappings
-        SacsManager::instance()->load(\ZMFileUtils::mkPath(Runtime::getApplicationPath(), 'config', 'sacs_mappings.yaml'), false);
-        SacsManager::instance()->loadProviderMappings(Runtime::getSettings()->get('zenmagick.http.sacs.mappingProviders', array()));
+        $this->container->get('sacsManager')->load(\ZMFileUtils::mkPath(Runtime::getApplicationPath(), 'config', 'sacs_mappings.yaml'), false);
+        $this->container->get('sacsManager')->loadProviderMappings(Runtime::getSettings()->get('zenmagick.http.sacs.mappingProviders', array()));
     }
 
     /**

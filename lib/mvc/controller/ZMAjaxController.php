@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 use zenmagick\http\sacs\SacsManager;
 
 /**
@@ -53,7 +54,7 @@ class ZMAjaxController extends ZMController {
      * <p>Just return <code>null</code>.</p>
      */
     public function processGet($request) {
-        ZMLogging::instance()->error("Invalid Ajax request - method '".$request->getParameter('method')."' not found!");
+        Runtime::getLogging()->error("Invalid Ajax request - method '".$request->getParameter('method')."' not found!");
         return null;
     }
 
@@ -76,13 +77,14 @@ class ZMAjaxController extends ZMController {
             $method = $method.'JSON';
         }
 
+        $sacsManager = $this->container->get('sacsManager');
         // check access on controller level
-        SacsManager::instance()->authorize($request, $request->getRequestId(), $request->getUser());
+        $sacsManager->authorize($request, $request->getRequestId(), $request->getUser());
 
         // (re-)check on method level if mapping exists
         $methodRequestId = $request->getRequestId().'#'.$sacsMethod;
-        if (SacsManager::instance()->hasMappingForRequestId($methodRequestId)) {
-            SacsManager::instance()->authorize($request, $methodRequestId, $request->getUser());
+        if ($sacsManager->hasMappingForRequestId($methodRequestId)) {
+            $sacsManager->authorize($request, $methodRequestId, $request->getUser());
         }
 
         if (method_exists($this, $method) || in_array($method, $this->getAttachedMethods())) {

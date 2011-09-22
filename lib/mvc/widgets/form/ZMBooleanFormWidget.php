@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 
 /**
  * A widget to make a boolean selection (true/false).
@@ -162,7 +163,7 @@ class ZMBooleanFormWidget extends ZMFormWidget {
     public function render($request, $view) {
         switch ($this->get('style')) {
             default:
-                ZMLogging::instance()->log('invalid style "'.$this->get('style').'" - using default', ZMLogging::DEBUG);
+                Runtime::getLogging()->log('invalid style "'.$this->get('style').'" - using default', ZMLogging::DEBUG);
             case 'checkbox':
                 return $this->renderCheckbox($request);
             case 'radio':

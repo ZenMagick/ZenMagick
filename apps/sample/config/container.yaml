@@ -1,4 +1,4 @@
-parameters:
+$this->container->get('templateManager')parameters:
   kernel.root_dir: %zenmagick.cacheBaseDir%/kernel
   kernel.cache_dir: %zenmagick.cacheBaseDir%
   kernel.debug: false
@@ -39,7 +39,7 @@ services:
     class: ZMPlugins
     scope: container
 
-  validatorService:
+  validator:
     class: ZMValidator
     scope: container
 

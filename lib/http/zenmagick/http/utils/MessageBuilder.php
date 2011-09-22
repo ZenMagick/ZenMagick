@@ -21,6 +21,7 @@
 <?php
 namespace zenmagick\http\utils;
 
+use zenmagick\base\Runtime;
 use zenmagick\base\ZMObject;
 use zenmagick\base\events\Event;
 
@@ -115,7 +116,7 @@ class MessageBuilder extends ZMObject {
         $formats = $this->getFormatsForTemplate($template, $request);
         if (0 == count($formats)) {
             // no template found
-            \ZMLogging::instance()->log('no template found for email: '.$template, \ZMLogging::ERROR);
+            Runtime::getLogging()->log('no template found for email: '.$template, \ZMLogging::ERROR);
             return '';
         }
 

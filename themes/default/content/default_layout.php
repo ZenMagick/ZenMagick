@@ -42,12 +42,12 @@
     <?php if ($this->exists($pageCSS)) { ?>
         <?php $resources->cssFile($pageCSS) ?>
     <?php } ?>
-    <?php if (!ZMTemplateManager::instance()->isLeftColEnabled() || !ZMTemplateManager::instance()->isRightColEnabled()) { ?>
+    <?php if (!$this->templateManager->isLeftColEnabled() || !$this->templateManager->isRightColEnabled()) { ?>
       <style type="text/css" media="screen,projection">
-        <?php if (!ZMTemplateManager::instance()->isLeftColEnabled()) { ?>
+        <?php if (!$this->templateManager->isLeftColEnabled()) { ?>
           #content {margin-left:10px;}
         <?php } ?>
-        <?php if (!ZMTemplateManager::instance()->isRightColEnabled()) { ?>
+        <?php if (!$this->templateManager->isRightColEnabled()) { ?>
           body div#content {margin-right:20px;}
         <?php } ?>
       </style>

@@ -35,8 +35,9 @@ class PrecisionEventListener extends ThemeEventListener {
      * {@inheritDoc}
      */
     public function themeLoaded($event) {
-        \ZMTemplateManager::instance()->setLeftColBoxes(array('categories.php', 'featured.php', 'information.php'));
-        \ZMTemplateManager::instance()->setRightColBoxes(array('search.php', 'manufacturers.php', 'ezpages.php'));
+        $templateManager = $this->container->get('templateManager');
+        $templateManager->setLeftColBoxes(array('categories.php', 'featured.php', 'information.php'));
+        $templateManager->setRightColBoxes(array('search.php', 'manufacturers.php', 'ezpages.php'));
 
         \ZMSettings::set('isUseCategoryPage', false);
         \ZMSettings::set('resultListProductFilter', '');

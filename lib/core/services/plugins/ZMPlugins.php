@@ -218,7 +218,7 @@ class ZMPlugins extends ZMObject {
             $pluginClass = 'ZM' . $pluginClassSuffix . 'Plugin';
             $file = $pluginDir . DIRECTORY_SEPARATOR . $pluginClass . '.php';
             if (!file_exists($file)) {
-                ZMLogging::instance()->warn("can't find plugin file(dir) for id = '".$id."'; dir = '".$pluginDir."'");
+                Runtime::getLogging()->warn("can't find plugin file(dir) for id = '".$id."'; dir = '".$pluginDir."'");
                 return null;
             }
         } else {
@@ -229,7 +229,7 @@ class ZMPlugins extends ZMObject {
                 $pluginClass = 'ZM' . $pluginClassSuffix . 'Plugin';
                 $file = $basePath . $pluginClass . '.php';
                 if (!is_file($file)) {
-                    ZMLogging::instance()->warn("can't find plugin file for id = '".$id."'; dir = '".$pluginDir."'");
+                    Runtime::getLogging()->warn("can't find plugin file for id = '".$id."'; dir = '".$pluginDir."'");
                     return null;
                 }
             }

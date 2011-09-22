@@ -59,7 +59,7 @@ class ZMValidator extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return Runtime::getContainer()->get('validatorService');
+        return Runtime::getContainer()->get('validator');
     }
 
 
@@ -192,7 +192,7 @@ class ZMValidator extends ZMObject {
             foreach ($rules as $ruleDef) {
                 // XXX ugly fix as rules might have variable length c'tor args
                 if (null == ($rule = $this->makeClass($ruleDef))) {
-                    ZMLogging::instance()->dump($ruleDef, "can't instantiate rule", ZMLogging::WARN);
+                    Runtime::getLogging()->dump($ruleDef, "can't instantiate rule", ZMLogging::WARN);
                 }
                 $ruleSet->addRule($rule);
             }

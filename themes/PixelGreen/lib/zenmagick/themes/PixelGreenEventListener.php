@@ -35,7 +35,7 @@ class PixelGreenEventListener extends ThemeEventListener {
      * {@inheritDoc}
      */
     public function themeLoaded($event) {
-        \ZMTemplateManager::instance()->setRightColBoxes(array('search.php', 'categories.php', 'information.php'));
+        $this->container->get('templateManager')->setRightColBoxes(array('search.php', 'categories.php', 'information.php'));
         \ZMSettings::set('isUseCategoryPage', false);
         \ZMSettings::set('resultListProductFilter', '');
     }

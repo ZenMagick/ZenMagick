@@ -35,13 +35,14 @@ class KeepItSimpleEventListener extends ThemeEventListener {
      * {@inheritDoc}
      */
     public function themeLoaded($event) {
-        \ZMTemplateManager::instance()->setRightColBoxes(array('categories.php', 'manufacturers.php', 'information.php', 'banner_box.php'));
+        $templateManager = $this->container->get('templateManager');
+        $templateManager->setRightColBoxes(array('categories.php', 'manufacturers.php', 'information.php', 'banner_box.php'));
         if ('index' == $this->container->get('request')->getRequestId()) {
-            \ZMTemplateManager::instance()->setLeftColBoxes(array('featured.php', 'reviews.php'));
+            $templateManager->setLeftColBoxes(array('featured.php', 'reviews.php'));
         } else {
-            \ZMTemplateManager::instance()->setLeftColEnabled(false);
+            $templateManager->setLeftColEnabled(false);
             if ($this->container->get('request')->isCheckout(false)) {
-                \ZMTemplateManager::instance()->setRightColBoxes(array('information.php'));
+                $templateManager->setRightColBoxes(array('information.php'));
             }
         }
 

@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 
 /**
  * Locale using <em>pomo</em>.
@@ -90,7 +91,7 @@ class ZMPomoLocale extends ZMAbstractLocale {
         $filename = null == $filename ? $domain.'.mo' : $filename;
         $path = ZMFileUtils::mkPath($basedir, 'LC_MESSAGES', $filename);
         if (null == ($path = ZMLocaleUtils::resolvePath($path, $locale))) {
-            ZMLogging::instance()->log('unable to resolve locale path for locale = "'.$locale.'"', ZMLogging::DEBUG);
+            Runtime::getLogging()->log('unable to resolve locale path for locale = "'.$locale.'"', ZMLogging::DEBUG);
             return;
         }
         $this->registerMO($path, $domain);

@@ -71,7 +71,7 @@ class ZMBlockManager extends ZMObject {
                 if (null != $provider && $provider instanceof ZMBlockProvider) {
                     $this->providers_[] = $provider;
                 } else {
-                    ZMLogging::instance()->log('invalid block contents provider: '.$providerId, ZMLogging::WARN);
+                    Runtime::getLogging()->log('invalid block contents provider: '.$providerId, ZMLogging::WARN);
                 }
             }
         }

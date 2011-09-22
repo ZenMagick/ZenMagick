@@ -20,6 +20,8 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
+
 /**
  * View utils.
  *
@@ -120,12 +122,12 @@ class ZMViewUtils extends ZMObject {
         if (array_key_exists($filename, $this->resources_['js'])) {
             // check if we need to do anything else or update the position
             if ($this->resources_['js'][$filename]['done']) {
-                ZMLogging::instance()->log('skipping '.$filename.' as already done', ZMLogging::TRACE);
+                Runtime::getLogging()->log('skipping '.$filename.' as already done', ZMLogging::TRACE);
                 return;
             }
             if (self::FOOTER == $this->resources_['js'][$filename]['position']) {
                 if (self::HEADER == $position) {
-                    ZMLogging::instance()->log('upgrading '.$filename.' to HEADER', ZMLogging::TRACE);
+                    Runtime::getLogging()->log('upgrading '.$filename.' to HEADER', ZMLogging::TRACE);
                     return;
                 }
             }

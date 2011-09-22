@@ -32,7 +32,7 @@
      */
 
 
-    $validator = ZMValidator::instance();
+    $validator = $this->container->get('validator');
 
     /* create account */
     $validator->addRules('registration', array(

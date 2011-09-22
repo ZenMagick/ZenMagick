@@ -99,8 +99,9 @@ class ZMController extends ZMObject {
         $this->requestId_ = null != $this->requestId_ ? $this->requestId_ : $request->getRequestId();
         $this->isAjax_ = $request->isAjax();
 
+        $sacsManager = $this->container->get('sacsManager');
         // check authorization
-        SacsManager::instance()->authorize($request, $request->getRequestId(), $request->getUser());
+        $sacsManager->authorize($request, $request->getRequestId(), $request->getUser());
 
         $enableTransactions = ZMSettings::get('zenmagick.mvc.transactions.enabled', false);
 
@@ -118,7 +119,7 @@ class ZMController extends ZMObject {
 
         // session validation
         if ($this->isFormSubmit($request) && null != ($view = $this->validateSession($request))) {
-            ZMLogging::instance()->log('session validation failed returning: '.$view, ZMLogging::TRACE);
+            Runtime::getLogging()->log('session validation failed returning: '.$view, ZMLogging::TRACE);
         }
 
         // form validation (only if not already error view from session validation...)
@@ -126,7 +127,7 @@ class ZMController extends ZMObject {
         if (null == $view && null != $formData && $this->isFormSubmit($request)) {
             // move to function
             if (null != ($view = $this->validateFormData($request, $formData))) {
-                ZMLogging::instance()->log('validation failed for : '.$formData. '; returning: '.$view, ZMLogging::TRACE);
+                Runtime::getLogging()->log('validation failed for : '.$formData. '; returning: '.$view, ZMLogging::TRACE);
             }
         }
 
@@ -148,8 +149,8 @@ class ZMController extends ZMObject {
                         if (method_exists($this, $method) || in_array($method, $this->getAttachedMethods())) {
                             // (re-)check on method level if mapping exists
                             $methodRequestId = $request->getRequestId().'#'.$method;
-                            if (SacsManager::instance()->hasMappingForRequestId($methodRequestId)) {
-                                SacsManager::instance()->authorize($request, $methodRequestId, $request->getUser());
+                            if ($sacsManager->hasMappingForRequestId($methodRequestId)) {
+                                $sacsManager->authorize($request, $methodRequestId, $request->getUser());
                             }
                             $view = $this->$method($request);
                             break;
@@ -168,7 +169,7 @@ class ZMController extends ZMObject {
         if (null != $view) {
             $this->initViewVars($view, $request, $formData);
             if (!$view->isValid($request)) {
-                ZMLogging::instance()->log('invalid view: '.$view->getTemplate().', expected: '.$view->getViewFilename(), ZMLogging::WARN);
+                Runtime::getLogging()->log('invalid view: '.$view->getTemplate().', expected: '.$view->getViewFilename(), ZMLogging::WARN);
                 $view = $this->findView(ZMSettings::get('zenmagick.mvc.request.missingPage'));
                 $this->initViewVars($view, $request, $formData);
             }
@@ -299,7 +300,7 @@ class ZMController extends ZMObject {
         $view = ZMUrlManager::instance()->findView($this->requestId_, $id, $parameter);
 
         // ensure secure option is set if required
-        if (SacsManager::instance()->requiresSecurity($this->requestId_)) {
+        if ($this->container->get('sacsManager')->requiresSecurity($this->requestId_)) {
             $view->setSecure(true);
         }
 
@@ -377,13 +378,14 @@ class ZMController extends ZMObject {
             $formData = $request->getParameterMap();
         }
 
-        if (!ZMValidator::instance()->hasRuleSet($formId)) {
+        $validator = $this->container->get('validator');
+        if (!$validator->hasRuleSet($formId)) {
             return true;
         }
 
-        $valid = ZMValidator::instance()->validate($request, $formData, $formId);
+        $valid = $validator->validate($request, $formData, $formId);
         if (!$valid) {
-            foreach (ZMValidator::instance()->getMessages() as $field => $fieldMessages) {
+            foreach ($validator->getMessages() as $field => $fieldMessages) {
                 foreach ($fieldMessages as $msg) {
                     $this->messageService->error($msg, $field);
                 }

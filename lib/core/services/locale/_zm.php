@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 
 /**
  * Translate the given text.
@@ -31,7 +32,7 @@
  * @package org.zenmagick.core.services.locale
  */
 function _zm($text, $context=null, $domain=ZMLocale::DEFAULT_DOMAIN) {
-    return ZMLocales::instance()->getLocale()->translate($text, $context, $domain);
+    return Runtime::getContainer()->get('localeService')->getLocale()->translate($text, $context, $domain);
 }
 
 
@@ -47,7 +48,7 @@ function _zm($text, $context=null, $domain=ZMLocale::DEFAULT_DOMAIN) {
  * @package org.zenmagick.core.services.locale
  */
 function _zmn($single, $number, $plural=null, $context=null, $domain=ZMLocale::DEFAULT_DOMAIN) {
-    return ZMLocales::instance()->getLocale()->translatePlural($single, $number, $plural, $context, $domain);
+    return Runtime::getContainer()->get('localeService')->getLocale()->translatePlural($single, $number, $plural, $context, $domain);
 }
 
 /**
@@ -65,7 +66,7 @@ function _vzm($text) {
     $args = func_get_args();
     array_shift($args);
     // get translation using default context/domain
-    $translated = ZMLocales::instance()->getLocale()->translate($text, null, ZMLocale::DEFAULT_DOMAIN);
+    $translated = Runtime::getContainer()->get('localeService')->getLocale()->translate($text, null, ZMLocale::DEFAULT_DOMAIN);
     echo null != $args ? vsprintf($translated, $args) : $translated;
 }
 
@@ -82,10 +83,10 @@ function _vzm($text) {
  * String to translate: <em>Click &lt;strong>here&lt;/strong> to open a new window.</em>.<br>
  * The same with special block markers: <em>Click &lt;strong>%bhere%%&lt;/strong> to open a new window.</em>.</p>
  *
- * <p>A block marker starts with <em>%b</em> or <em>%nb</em>, with <em>n</em> being a positonal integer; example: <em>%2b</em>. The 
+ * <p>A block marker starts with <em>%b</em> or <em>%nb</em>, with <em>n</em> being a positonal integer; example: <em>%2b</em>. The
  * block content end is marked by a double '%': <em>%%</em>.</p>
  *
- * <p>Now, to update the word <em>here</em> from the example with a link (and link text being <em>here</em>), this code 
+ * <p>Now, to update the word <em>here</em> from the example with a link (and link text being <em>here</em>), this code
  * can be used:</p>
  *
  * <p><code>_zmsprintf(_zm('Click &lt;strong>%bhere%%&lt;/strong> to open a new window.'), '&lt;a href="">%%block%%&lt;/a>');</code></p>

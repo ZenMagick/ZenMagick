@@ -35,8 +35,9 @@ class BrightsideoflifeEventListener extends ThemeEventListener {
      * {@inheritDoc}
      */
     public function themeLoaded($event) {
-        \ZMTemplateManager::instance()->setLeftColBoxes(array('categories.php', 'information.php'));
-        \ZMTemplateManager::instance()->setRightColBoxes(array('search.php', 'manufacturers.php', 'banner_box.php'));
+        $templateManager = $this->container->get('templateManager');
+        $templateManager->setLeftColBoxes(array('categories.php', 'information.php'));
+        $templateManager->setRightColBoxes(array('search.php', 'manufacturers.php', 'banner_box.php'));
 
         \ZMSettings::set('isUseCategoryPage', false);
         \ZMSettings::set('resultListProductFilter', '');

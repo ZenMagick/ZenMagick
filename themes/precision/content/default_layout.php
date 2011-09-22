@@ -33,7 +33,7 @@ Released   : 20081126
     <!-- start page -->
     <div id="page">
 
-      <?php if (ZMTemplateManager::instance()->isLeftColEnabled()) { ?>
+      <?php if ($this->templateManager->isLeftColEnabled()) { ?>
         <!-- start sidebar1 -->
         <div id="sidebar1" class="sidebar">
           <ul>
@@ -61,7 +61,7 @@ Released   : 20081126
       </div>
       <!-- end content -->
 
-      <?php if (ZMTemplateManager::instance()->isRightColEnabled()) { ?>
+      <?php if ($this->templateManager->isRightColEnabled()) { ?>
         <!-- start sidebar2 -->
         <div id="sidebar2" class="sidebar">
           <ul>

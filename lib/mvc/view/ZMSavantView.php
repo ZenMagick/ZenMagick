@@ -134,10 +134,10 @@ class ZMSavantView extends ZMView {
         $path = array();
 
         // available locale
-        $localeCodes = array_reverse(ZMLocales::instance()->getValidLocaleCodes());
+        $localeCodes = array_reverse($this->container->get('localeService')->getValidLocaleCodes());
 
         // add plugins as fallback fallback
-        foreach (ZMPlugins::instance()->getAllPlugins(Runtime::getSettings()->get('zenmagick.base.context')) as $plugin) {
+        foreach ($this->container->get('pluginService')->getAllPlugins(Runtime::getSettings()->get('zenmagick.base.context')) as $plugin) {
             $ppath = $plugin->getPluginDirectory().'content'.DIRECTORY_SEPARATOR;
             $path[] = $ppath;
             foreach ($localeCodes as $code) {
@@ -162,10 +162,10 @@ class ZMSavantView extends ZMView {
         $path = array();
 
         // available locale
-        $localeCodes = array_reverse(ZMLocales::instance()->getValidLocaleCodes());
+        $localeCodes = array_reverse($this->container->get('localeService')->getValidLocaleCodes());
 
         // add plugins as well
-        foreach (ZMPlugins::instance()->getAllPlugins(Runtime::getSettings()->get('zenmagick.base.context')) as $plugin) {
+        foreach ($this->container->get('pluginService')->getAllPlugins(Runtime::getSettings()->get('zenmagick.base.context')) as $plugin) {
             $ppath = $plugin->getPluginDirectory().'content'.DIRECTORY_SEPARATOR;
             $path[] = $ppath;
             foreach ($localeCodes as $code) {
@@ -276,6 +276,7 @@ class ZMSavantView extends ZMView {
 
         // set a few default things...
         $this->setVar('resources', $viewUtils);
+        $this->setVar('templateManager', $this->container->get('templateManager'));
         $this->setVar('request', $request);
         $this->setVar('session', $request->getSession());
         $toolbox = $request->getToolbox();
@@ -290,7 +291,7 @@ class ZMSavantView extends ZMView {
         }
 
         // set all plugins
-        foreach (ZMPlugins::instance()->getAllPlugins(Runtime::getSettings()->get('zenmagick.base.context')) as $plugin) {
+        foreach ($this->container->get('pluginService')->getAllPlugins(Runtime::getSettings()->get('zenmagick.base.context')) as $plugin) {
             $this->setVar($plugin->getId(), $plugin);
         }
 
@@ -319,7 +320,7 @@ class ZMSavantView extends ZMView {
 
             return $contents;
         } catch (Exception $e) {
-            ZMLogging::instance()->dump($e, 'failed to fetch template: '.$template, ZMLogging::ERROR);
+            Runtime::getLogging()->dump($e, 'failed to fetch template: '.$template, ZMLogging::ERROR);
             throw new ZMException('failed to fetch template: '.$template, 0, $e);
         }
     }
@@ -339,7 +340,7 @@ class ZMSavantView extends ZMView {
         try {
             return $savant->fetch($template);
         } catch (Exception $e) {
-            ZMLogging::instance()->dump($e, 'failed to fetch template: '.$template, ZMLogging::ERROR);
+            Runtime::getLogging()->dump($e, 'failed to fetch template: '.$template, ZMLogging::ERROR);
             throw new ZMException('failed to fetch template: '.$template, 0, $e);
         }
     }
