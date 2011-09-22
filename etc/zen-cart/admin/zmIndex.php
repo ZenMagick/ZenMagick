@@ -28,6 +28,8 @@ use zenmagick\http\sacs\SacsManager;
 
   require_once 'includes/application_top.php';
 
+  $container = Runtime::getContainer();
+
   $classLoader = new ClassLoader();
   $classLoader->addPath(Runtime::getInstallationPath().'/apps/admin/lib');
   $classLoader->register();
@@ -66,9 +68,9 @@ use zenmagick\http\sacs\SacsManager;
 
     <?php require DIR_WS_INCLUDES . 'header.php'; ?>
 
-    <?php if ($this->container->get('messageService')->hasMessages()) { ?>
+    <?php if ($container->get('messageService')->hasMessages()) { ?>
         <ul id="messages">
-        <?php foreach ($this->container->get('messageService')->getMessages() as $message) { ?>
+        <?php foreach ($container->get('messageService')->getMessages() as $message) { ?>
             <li class="<?php echo $message->getType() ?>"><?php echo $message->getText() ?></li>
         <?php } ?>
         </ul>
