@@ -47,6 +47,12 @@ class ZMReviewDescriptions extends ZMObject {
     private $languageId;
 
     /**
+     * @var string $title
+     * @ORM\Column(name="title", type="string")
+     */
+    private $title;
+
+    /**
      * @var text $text
      * @ORM\Column(name="reviews_text", type="text")
      */
@@ -82,6 +88,26 @@ class ZMReviewDescriptions extends ZMObject {
     public function getLanguageId()
     {
         return $this->languageId;
+    }
+
+    /**
+     * Set title
+     *
+     * @param string $title
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+    }
+
+    /**
+     * Get title
+     *
+     * @return string $title
+     */
+    public function getTitle()
+    {
+        return $this->title;
     }
 
     /**

@@ -35,6 +35,7 @@
         "eventProxy" => "Patch zen-cart to activate the ZenMagick event proxy service (required for some emails and guest checkout!)",
         "customerEdit" => "Patch zen-cart to allow editing customers where email also exists as guest account",
         "couponAdminMail" => "Patch zen-cart to allow use of ZenMagick email templates for coupon admin mail",
+        "reviewTitle" => "Add column to store review title",
 
         "rewriteBase" => "Update RewriteBase value in .htaccess (pretty links, SEO)",
 
@@ -63,22 +64,22 @@
                 // open and selected
                 $needRefresh = true;
                 $status = $patch->patch(true);
-                $this->container->get('messageService')->addAll($patch->getMessages());
+                $container->get('messageService')->addAll($patch->getMessages());
                 if ($status) {
-                    $this->container->get('messageService')->success("'".$patchLabel[$patch->getId()]."' installed successfully");
+                    $container->get('messageService')->success("'".$patchLabel[$patch->getId()]."' installed successfully");
                 } else {
-                    $this->container->get('messageService')->error("Could not install '".$patchLabel[$patch->getId()]."'");
+                    $container->get('messageService')->error("Could not install '".$patchLabel[$patch->getId()]."'");
                 }
             } else if (!$patch->isOpen() && null == $request->getParameter($formId)) {
                 // installed and not selected
                 if ($patch->canUndo()) {
                     $needRefresh = true;
                     $status = $patch->undo();
-                    $this->container->get('messageService')->addAll($patch->getMessages());
+                    $container->get('messageService')->addAll($patch->getMessages());
                     if ($status) {
-                        $this->container->get('messageService')->success("Uninstalled '".$patchLabel[$patch->getId()]."' successfully");
+                        $container->get('messageService')->success("Uninstalled '".$patchLabel[$patch->getId()]."' successfully");
                     } else {
-                        $this->container->get('messageService')->error("Could not uninstall '".$patchLabel[$patch->getId()]."'");
+                        $container->get('messageService')->error("Could not uninstall '".$patchLabel[$patch->getId()]."'");
                     }
                 }
             }

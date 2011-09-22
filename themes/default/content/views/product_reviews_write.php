@@ -46,6 +46,10 @@
             <?php } ?>
         </div>
 
+        <div id="rtitle">
+            <label for="title"><?php _vzm('Title') ?></label> <input type="text" id="title" name="title" value=""/>
+        </div>
+
         <label for="text"><?php _vzm("Please tell us what you think and share your opinions with others. Be sure to focus your comments on the product.") ?></label>
         <textarea id="text" name="text" cols="60" rows="5"><?php echo $html->encode($newReview->getText()) ?></textarea>
         <div class="btn"><input type="submit" class="btn" value="<?php _vzm("Send") ?>" /></div>

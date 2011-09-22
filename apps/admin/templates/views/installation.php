@@ -34,6 +34,7 @@ use zenmagick\base\Runtime;
         "eventProxy" => "Patch zen-cart to activate the ZenMagick event proxy service (required for some emails and guest checkout!)",
         "customerEdit" => "Patch zen-cart to allow editing customers where email also exists as guest account",
         "couponAdminMail" => "Patch zen-cart to allow use of ZenMagick email templates for coupon admin mail",
+        "reviewTitle" => "Add column to store review title",
 
         "rewriteBase" => "Update RewriteBase value in .htaccess (pretty links, SEO)",
 

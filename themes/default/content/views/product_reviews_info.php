@@ -23,7 +23,7 @@
 ?>
 
 <?php echo $form->addProduct($currentProduct->getId(), 1) ?>
-  <div>  
+  <div>
     <div id="pinfo">
       <?php $imageInfo = $currentProduct->getImageInfo() ?>
       <a href="<?php echo $net->product($currentProduct->getId()) ?>"><?php echo $html->productImageLink($currentProduct) ?></a>
@@ -41,6 +41,7 @@
       </span>
     </p>
     <div id="rlongtext">
+        <h3 class="rtitle"><?php echo $html->strip($currentReview->getTitle()) ?></h3>
         <?php echo $html->encode($currentReview->getText()) ?>
     </div>
   </div>

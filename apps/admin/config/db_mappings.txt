@@ -608,6 +608,7 @@ array(
     'reviews_description' => array(
         'reviewId' => 'column=reviews_id;type=integer;key=true',
         'languageId' => 'column=languages_id;type=integer;key=true',
+        'title' => 'column=title;type=text',
         'text' => 'column=reviews_text;type=text'
     ),
     'tax_rates' => array(
