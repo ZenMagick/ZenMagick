@@ -45,7 +45,7 @@ class Request extends ZMRequest {
             }
         }
 
-        return ZMLanguages::instance()->getLanguageForId($selectedLanguageId);
+        return $this->container->get('languageService')->getLanguageForId($selectedLanguageId);
     }
 
     /**
