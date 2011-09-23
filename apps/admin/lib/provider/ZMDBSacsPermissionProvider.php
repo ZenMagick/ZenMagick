@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\ZMObject;
 use zenmagick\http\sacs\SacsPermissionProvider;
 
 /**
@@ -28,13 +29,13 @@ use zenmagick\http\sacs\SacsPermissionProvider;
  * @author DerManoMann
  * @package zenmagick.store.shared.provider
  */
-class ZMDBSacsPermissionProvider implements SacsPermissionProvider {
+class ZMDBSacsPermissionProvider extends ZMObject implements SacsPermissionProvider {
 
     /**
      * {@inheritDoc}
      */
     public function getMappings() {
-        return ZMSacsPermissions::instance()->getAll();
+        return $this->container->get('sacsPermissionService')->getAll();
     }
 
 }

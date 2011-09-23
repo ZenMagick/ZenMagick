@@ -52,9 +52,9 @@
               <?php echo $macro->buildCrumbtrail($crumbtrail, " &gt; "); ?>
           <?php } ?>
 
-          <?php if ($this->container->get('messageService')->hasMessages()) { ?>
+          <?php if ($container->get('messageService')->hasMessages()) { ?>
               <ul id="messages">
-              <?php foreach ($this->container->get('messageService')->getMessages() as $message) { ?>
+              <?php foreach ($container->get('messageService')->getMessages() as $message) { ?>
                   <li class="<?php echo $message->getType() ?>"><?php echo $message->getText() ?></li>
               <?php } ?>
               </ul>
@@ -96,7 +96,7 @@
         </p>
 
         <p class="bottom-right">
-            <?php $first = true; foreach ($this->container->get('ezPageService')->getPagesForFooter($session->getLanguageId()) as $page) { ?>
+            <?php $first = true; foreach ($container->get('ezPageService')->getPagesForFooter($session->getLanguageId()) as $page) { ?>
                 <?php if (!$first) { ?>| <?php } $first = false; ?><?php echo $html->ezpageLink($page->getId()) ?>
             <?php } ?>
         </p>

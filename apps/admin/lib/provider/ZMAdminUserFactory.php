@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\ZMObject;
 use zenmagick\http\session\UserFactory;
 
 /**
@@ -28,7 +29,7 @@ use zenmagick\http\session\UserFactory;
  * @author DerManoMann
  * @package zenmagick.store.admin.provider
  */
-class ZMAdminUserFactory implements UserFactory {
+class ZMAdminUserFactory extends ZMObject implements UserFactory {
 
     /**
      * {@inheritDoc}
@@ -36,7 +37,7 @@ class ZMAdminUserFactory implements UserFactory {
     public function getUser($request) {
         $session = $request->getSession();
         if (null != ($adminId = $session->getValue('admin_id'))) {
-            return ZMAdminUsers::instance()->getUserForId($adminId);
+            return $this->container->get('adminUserService')->getUserForId($adminId);
         }
 
         return null;

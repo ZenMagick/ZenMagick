@@ -22,7 +22,7 @@
 <form action="<?php echo $admin2->url() ?>" method="POST">
   <h2>ZenMagick Language Tool (
           <select id="languageId" name="languageId">
-            <?php foreach (ZMLanguages::instance()->getLanguages() as $lang) { ?>
+            <?php foreach ($this->container->get('languageService')->getLanguages() as $lang) { ?>
               <?php $selected = $currentLanguage->getId() == $lang->getId() ? ' selected="selected"' : ''; ?>
               <option value="<?php echo $lang->getId() ?>"<?php echo $selected ?>><?php echo $lang->getName() ?></option>
             <?php } ?>

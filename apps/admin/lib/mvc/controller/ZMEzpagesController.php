@@ -51,7 +51,7 @@ class ZMEzpagesController extends ZMController {
             if (0 == $ezPageId) {
                 $ezPage = Beans::getBean('ZMEZPage');
             } else {
-                $ezPage = ZMEZPages::instance()->getPageForId($ezPageId, $languageId);
+                $ezPage = $this->container->get('ezPageService')->getPageForId($ezPageId, $languageId);
             }
             if (null == $ezPage) {
                 return $this->findView('error', array('message' => _zm('Invalid page id')));
@@ -59,7 +59,7 @@ class ZMEzpagesController extends ZMController {
             return $this->findView('ezpages-details', array('ezPage' => $ezPage));
         }
 
-        $resultSource = new ZMObjectResultSource('ZMEZPage', ZMEZPages::instance(), "getAllPages", array($languageId));
+        $resultSource = new ZMObjectResultSource('ZMEZPage', 'ezPageService', "getAllPages", array($languageId));
         $resultList = $this->container->get("ZMResultList");
         $resultList->setResultSource($resultSource);
         $resultList->setPageNumber($request->getParameter('page', 1));
@@ -76,6 +76,7 @@ class ZMEzpagesController extends ZMController {
         }
 
         $languageId = $request->getParameter('languageId');
+        $ezPageService = $this->container->get('ezPageService');
 
         $viewId = 'ezpages-overview';
         if (null !== ($ezPageId = $request->getParameter('updateId'))) {
@@ -83,24 +84,24 @@ class ZMEzpagesController extends ZMController {
                 // create
                 $ezPage = Beans::getBean('ZMEZPage');
                 Beans::setAll($ezPage, $request->getParameterMap(false));
-                $ezPage = ZMEZPages::instance()->createPage($ezPage);
+                $ezPage = $ezPageService->createPage($ezPage);
                 if (0 < $ezPage->getId()) {
                     $this->messageService->success('EZPage #'.$ezPage->getId().' saved');
                 } else {
                     $this->messageService)->error('Could not save page');
                 }
-            } else if (null != ($ezPage = ZMEZPages::instance()->getPageForId($ezPageId, $languageId))) {
+            } else if (null != ($ezPage = $ezPageService->getPageForId($ezPageId, $languageId))) {
                 // no sanitize!
                 Beans::setAll($ezPage, $request->getParameterMap(false));
-                ZMEZPages::instance()->updatePage($ezPage);
+                $ezPageService->updatePage($ezPage);
                 $this->messageService->success('EZPage #'.$ezPageId.' updated');
             } else {
                 $this->messageService->error('Could not save page - invalid request data');
             }
         } else if (null !== ($ezPageId = $request->getParameter('deleteId'))) {
             $ezPageId = (int)$ezPageId;
-            if (null != ($ezPage = ZMEZPages::instance()->getPageForId($ezPageId, $languageId))) {
-                ZMEZPages::instance()->removePage($ezPage);
+            if (null != ($ezPage = $ezPageService->getPageForId($ezPageId, $languageId))) {
+                $ezPageService->removePage($ezPage);
                 $this->messageService->success('EZPage #'.$ezPage->getId().' deleted');
                 $viewId = 'success';
             } else {

@@ -37,7 +37,7 @@ class ZMBlocks extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return Runtime::getContainer()->get('ZMBlocks');
+        return Runtime::getContainer()->get('blockService');
     }
 
 

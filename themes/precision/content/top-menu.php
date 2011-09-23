@@ -17,7 +17,7 @@
     }
     /*
      layout does not degrade well if too many items
-    foreach ($this->container->get('ezPageService')->getPagesForHeader($session->getLanguageId()) as $page) {
+    foreach ($container->get('ezPageService')->getPagesForHeader($session->getLanguageId()) as $page) {
         $menu[] = array($net->ezPage($page), $page, false);
     }
      */

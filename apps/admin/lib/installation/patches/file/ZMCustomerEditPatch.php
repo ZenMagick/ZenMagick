@@ -113,7 +113,7 @@ class ZMCustomerEditPatch extends ZMFilePatch {
 
             return $this->putFileLines(_ZM_ZEN_CUSTOMERS_PHP, $patchedLines);
         } else {
-            ZMLogging::instance()->log("** ZenMagick: no permission to patch edit fix into customers.php", ZMLogging::ERROR);
+            Runtime::getLogging()->error("** ZenMagick: no permission to patch edit fix into customers.php");
             return false;
         }
 
@@ -142,7 +142,7 @@ class ZMCustomerEditPatch extends ZMFilePatch {
 
             return $this->putFileLines(_ZM_ZEN_CUSTOMERS_PHP, $unpatchedLines);
         } else {
-            ZMLogging::instance()->log("** ZenMagick: no permission to patch customers.php for uninstall", ZMLogging::ERROR);
+            Runtime::getLogging()->error("** ZenMagick: no permission to patch customers.php for uninstall");
             return false;
         }
 

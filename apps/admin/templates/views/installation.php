@@ -52,7 +52,7 @@ use zenmagick\base\Runtime;
         "blockAdmin" => "Create new tables for block admin",
     );
 
-    $installer = $this->container->get('ZMInstallationPatcher');
+    $installer = $container->get('ZMInstallationPatcher');
     $needRefresh = false;
 
     // install
@@ -64,22 +64,22 @@ use zenmagick\base\Runtime;
                 // open and selected
                 $needRefresh = true;
                 $status = $patch->patch(true);
-                $this->container->get('messageService')->addAll($patch->getMessages());
+                $container->get('messageService')->addAll($patch->getMessages());
                 if ($status) {
-                    $this->container->get('messageService')->success("'".$patchLabel[$patch->getId()]."' installed successfully");
+                    $container->get('messageService')->success("'".$patchLabel[$patch->getId()]."' installed successfully");
                 } else {
-                    $this->container->get('messageService')->error("Could not install '".$patchLabel[$patch->getId()]."'");
+                    $container->get('messageService')->error("Could not install '".$patchLabel[$patch->getId()]."'");
                 }
             } else if (!$patch->isOpen() && null == $request->getParameter($formId)) {
                 // installed and not selected
                 if ($patch->canUndo()) {
                     $needRefresh = true;
                     $status = $patch->undo();
-                    $this->container->get('messageService')->addAll($patch->getMessages());
+                    $container->get('messageService')->addAll($patch->getMessages());
                     if ($status) {
-                        $this->container->get('messageService')->success("Uninstalled '".$patchLabel[$patch->getId()]."' successfully");
+                        $container->get('messageService')->success("Uninstalled '".$patchLabel[$patch->getId()]."' successfully");
                     } else {
-                        $this->container->get('messageService')->error("Could not uninstall '".$patchLabel[$patch->getId()]."'");
+                        $container->get('messageService')->error("Could not uninstall '".$patchLabel[$patch->getId()]."'");
                     }
                 }
             }
@@ -93,11 +93,11 @@ use zenmagick\base\Runtime;
         $tmp = $settings->get('zenmagick.apps.store.staticContent', false);
         $settings->set('zenmagick.apps.store.staticContent', false);
 
-        $ezPageService = $this->container->get('ezPageService');
-        $languageService = $this->container->get('languageService');
+        $ezPageService = $container->get('ezPageService');
+        $languageService = $container->get('languageService');
         foreach ($languageService->getLanguages() as $language) {
             $languageId = $language->getId();
-            $themeChain = ZMThemes::instance()->getThemeChain($languageId);
+            $themeChain = $container->get('themeService')->getThemeChain($languageId);
             foreach ($themeChain as $theme) {
                 foreach ($languageService->getLanguages() as $subLang) {
                     $subLangId = $subLang->getId();
@@ -126,7 +126,7 @@ use zenmagick\base\Runtime;
 
         // cleanup
         $settings->set('zenmagick.apps.store.staticContent', $tmp);
-        $this->container->get('messageService')->success("Import successful!");
+        $container->get('messageService')->success("Import successful!");
         $needRefresh = true;
     }
 
@@ -138,7 +138,7 @@ use zenmagick\base\Runtime;
             $sql = str_replace('[table]', $table, "LOCK TABLES [table] READ; CHECK TABLE [table]; UNLOCK TABLES; OPTIMIZE TABLE [table];");
             $database->update($sql);
         }
-        $this->container->get('messageService')->success("All tables optimized");
+        $container->get('messageService')->success("All tables optimized");
         $needRefresh = true;
     }
 

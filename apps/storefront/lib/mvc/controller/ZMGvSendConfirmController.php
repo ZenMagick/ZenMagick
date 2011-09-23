@@ -103,21 +103,21 @@ class ZMGvSendConfirmController extends ZMController {
         $currentCurrencyCode = $request->getCurrencyCode();
         if (ZMSettings::get('defaultCurrency') != $currentCurrencyCode) {
             // need to convert amount to default currency as GV values are in default currency
-            $currency = ZMCurrencies::instance()->getCurrencyForCode($currentCurrencyCode);
+            $currency = $this->container->get('currencyService')->getCurrencyForCode($currentCurrencyCode);
             $amount = $currency->convertFrom($amount);
         }
 
         // update balance
         $newBalance = $balance - $amount;
-        $coupons = ZMCoupons::instance();
-        $coupons->setVoucherBalanceForAccountId($account->getId(), $newBalance);
+        $couponService = $this->container->get('couponService');
+        $couponService->setVoucherBalanceForAccountId($account->getId(), $newBalance);
 
         // create the new voucher
-        $couponCode = $coupons->createCouponCode($account->getEmail());
-        $coupon = $coupons->createCoupon($couponCode, $amount, ZMCoupons::TYPPE_GV);
+        $couponCode = $couponService->createCouponCode($account->getEmail());
+        $coupon = $couponService->createCoupon($couponCode, $amount, ZMCoupons::TYPPE_GV);
 
         // create coupon tracker
-        $coupons->createCouponTracker($coupon, $account, $gvReceiver);
+        $couponService->createCouponTracker($coupon, $account, $gvReceiver);
 
         // create gv_send email
         $context = array('currentAccount' => $account, 'gvReceiver' => $gvReceiver, 'currentCoupon' => $coupon, 'office_only_html' => '', 'office_only_text' => '');

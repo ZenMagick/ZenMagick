@@ -77,7 +77,7 @@ class ZML10nController extends \ZMController {
         $downloadParamsPot = http_build_query(array_merge(array('download' => 'pot'), $options));
 
         $vd = array_merge(array(
-              'themes' => \ZMThemes::instance()->getAvailableThemes(),
+              'themes' => $this->container->get('themeService')->getAvailableThemes(),
               'source' => $source,
               'sources' => $sources,
               'downloadParamsYaml' => $downloadParamsYaml,
@@ -118,8 +118,8 @@ class ZML10nController extends \ZMController {
 
         $existingMap = array();
         if ($vd['mergeExisting']) {
-            $theme = \ZMThemes::instance()->getThemeForId($vd['themeId']);
-            $language = \ZMLanguages::instance()->getLanguageForId($vd['languageId']);
+            $theme = $this->container->get('themeService')->getThemeForId($vd['themeId']);
+            $language = $this->container->get('languageService')->getLanguageForId($vd['languageId']);
             $l10nPath = \ZMFileUtils::mkPath(array($theme->getBaseDir(), 'lang', $language->getDirectory(), 'locale.yaml'));
             if (file_exists($l10nPath)) {
                 $existingMap = array('locale.yaml' => Yaml::parse($l10nPath));
@@ -152,7 +152,7 @@ class ZML10nController extends \ZMController {
 
         $fileMap = array();
         if (null != $vd['themeId']) {
-            $theme = \ZMThemes::instance()->getThemeForId($vd['themeId']);
+            $theme = $this->container->get('themeService')->getThemeForId($vd['themeId']);
             $themeMap = \ZMLocaleUtils::buildL10nMap($theme->getBaseDir());
             $storeMap = \ZMLocaleUtils::buildL10nMap(Runtime::getInstallationPath().'apps/store');
             $fileMap = array_merge($themeMap, $storeMap);

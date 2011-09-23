@@ -49,7 +49,7 @@ class ZMCouponSelectFormWidget extends ZMSelectFormWidget {
     public function getOptions($request) {
         $options = parent::getOptions($request);
 
-        foreach (ZMCoupons::instance()->getCoupons($request->getSelectedLanguage()->getId()) as $coupon) {
+        foreach ($this->container->get('couponService')->getCoupons($request->getSelectedLanguage()->getId()) as $coupon) {
             $options[$coupon->getId()] = $coupon->getName();
         }
         return $options;

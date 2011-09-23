@@ -49,7 +49,7 @@
             <?php } ?>
           </select>
         </td>
-        <?php if (0 != $config->getLanguageId()) { $languageName = ZMLanguages::instance()->getLanguageForId($config->getLanguageId())->getName(); } else { $languageName = _zm('Default (All)'); } ?>
+        <?php if (0 != $config->getLanguageId()) { $languageName = $this->container->get('languageService')->getLanguageForId($config->getLanguageId())->getName(); } else { $languageName = _zm('Default (All)'); } ?>
         <td><?php echo  $languageName ?></td>
         <td>
           <?php if (1 < count($themeConfig)) { ?>

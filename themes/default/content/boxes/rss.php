@@ -25,7 +25,7 @@
   $feedUrl = 'http://www.radebatz.net/mano/feed/';
   $category = 'ZenMagick'; // set to null for all
 ?>
-<?php $rssFeed = $this->container->get('rssLoader')->getFeed($feedUrl, $category); if ($rssFeed->hasContents()) { $channel = $rssFeed->getChannel(); ?>
+<?php $rssFeed = $container->get('rssLoader')->getFeed($feedUrl, $category); if ($rssFeed->hasContents()) { $channel = $rssFeed->getChannel(); ?>
     <h3><a href="<?php echo $channel->getLink() ?>"<?php echo $html->hrefTarget() ?>><?php _vzm("[More]") ?></a><?php echo $html->encode($channel->getTitle()) ?></h3>
     <div id="sb_rss" class="box">
         <dl>

@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 
 /**
  * Generic file patch.
@@ -187,8 +188,8 @@ class ZMFilePatch extends ZMInstallationPatch {
             foreach ($fktCfgs as $fktCfg) {
                 // for each function mapping
                 foreach ($lines as $ii => $line) {
-                    if (false !== strpos($line, "function ") 
-                        && false !== strpos($line, $fktCfg[0]."(") 
+                    if (false !== strpos($line, "function ")
+                        && false !== strpos($line, $fktCfg[0]."(")
                         && false === strpos($line, $fktCfg[1])
                         && ZMLangUtils::endsWith(trim($line), "{")) {
                         // modify
@@ -204,7 +205,7 @@ class ZMFilePatch extends ZMInstallationPatch {
                 if (is_writeable($file)) {
                     $this->putFileLines($file, $lines);
                 } else {
-                    ZMLogging::instance()->log("** ZenMagick: no permission to patch ".basename($file), ZMLogging::ERROR);
+                    Runtime::getLogging()->log("** ZenMagick: no permission to patch ".basename($file), ZMLogging::ERROR);
                     $patchOk = false;
                 }
             }
@@ -242,7 +243,7 @@ class ZMFilePatch extends ZMInstallationPatch {
                 if (is_writeable($file)) {
                     $this->putFileLines($file, $lines);
                 } else {
-                    ZMLogging::instance()->log("** ZenMagick: no permission to patch ".basename($file)." for uninstall", ZMLogging::ERROR);
+                    Runtime::getLogging()->log("** ZenMagick: no permission to patch ".basename($file)." for uninstall", ZMLogging::ERROR);
                     $undoOk = false;
                 }
             }

@@ -58,7 +58,7 @@
                   <th><?php _vzm('Remaining') ?></th>
                   <th></th>
               </tr>
-              <?php foreach ($downloads as $download) { $downloadProduct = $this->container->get('productService')->getProductForId($download->getProductId(), $session->getLanguageId()); ?>
+              <?php foreach ($downloads as $download) { $downloadProduct = $container->get('productService')->getProductForId($download->getProductId(), $session->getLanguageId()); ?>
                   <tr>
                       <th><?php echo $html->encode($downloadProduct->getName()) ?></th>
                       <th><?php echo $html->encode($download->getFilename()) ?></th>

@@ -279,6 +279,7 @@ class ZMSavantView extends ZMView {
         $this->setVar('templateManager', $this->container->get('templateManager'));
         $this->setVar('request', $request);
         $this->setVar('session', $request->getSession());
+        $this->setVar('container', $this->container);
         $toolbox = $request->getToolbox();
         $this->setVar('toolbox', $toolbox);
 

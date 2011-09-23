@@ -118,10 +118,10 @@
                 </tr>
                  <tr>
                     <td><?php _vzm("Country") ?><span>*</span></td>
-                    <td><?php echo $form->idpSelect('countryId', $this->container->get('countryService')->getCountries(), $countryId) ?></td>
+                    <td><?php echo $form->idpSelect('countryId', $container->get('countryService')->getCountries(), $countryId) ?></td>
                 </tr>
                 <?php if (ZMSettings::get('isAccountState')) { ?>
-                    <?php $zones = $this->container->get('countryService')->getZonesForCountryId($countryId); ?>
+                    <?php $zones = $container->get('countryService')->getZonesForCountryId($countryId); ?>
                     <tr>
                         <td><?php _vzm("State/Province") ?><span>*</span></td>
                         <td>

@@ -20,6 +20,9 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
+
+
 define('_ZM_ZEN_APP_BOTTOM_PHP', DIR_FS_CATALOG.DIR_WS_INCLUDES."application_bottom.php");
 
 /**
@@ -112,7 +115,7 @@ class ZMNoThemeSupportPatch extends ZMFilePatch {
             }
             return $this->putFileLines(_ZM_ZEN_APP_BOTTOM_PHP, $patchedLines);
         } else {
-            ZMLogging::instance()->log("** ZenMagick: no permission to patch no theme support into application_bottpm.php", ZMLogging::ERROR);
+            Runtime::getLogging()->log("** ZenMagick: no permission to patch no theme support into application_bottpm.php", ZMLogging::ERROR);
             return false;
         }
     }
@@ -139,7 +142,7 @@ class ZMNoThemeSupportPatch extends ZMFilePatch {
 
             return $this->putFileLines(_ZM_ZEN_APP_BOTTOM_PHP, $unpatchedLines);
         } else {
-            ZMLogging::instance()->log("** ZenMagick: no permission to patch application_bottpm.php for uninstall", ZMLogging::ERROR);
+            Runtime::getLogging()->log("** ZenMagick: no permission to patch application_bottpm.php for uninstall", ZMLogging::ERROR);
             return false;
         }
 

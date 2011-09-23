@@ -55,7 +55,7 @@ class ZMThemeDummyPatch extends \ZMFilePatch {
      * @return boolean <code>true</code> if this patch can still be applied.
      */
     function isOpen() {
-        foreach (\ZMThemes::instance()->getAvailableThemes() as $theme) {
+        foreach ($this->container->get('themeService')->getAvailableThemes() as $theme) {
             if (\ZMSettings::get('apps.store.themes.default') == $theme->getThemeId() && !$this->includeDefault_) {
                 continue;
             }
@@ -104,7 +104,7 @@ class ZMThemeDummyPatch extends \ZMFilePatch {
      * @return boolean <code>true</code> if patching was successful, <code>false</code> if not.
      */
     function patch($force=false) {
-        foreach (\ZMThemes::instance()->getAvailableThemes() as $theme) {
+        foreach ($this->container->get('themeService')->getAvailableThemes() as $theme) {
             if (\ZMSettings::get('apps.store.themes.default') == $theme->getThemeId() && !$this->includeDefault_) {
                 continue;
             }
@@ -118,7 +118,7 @@ class ZMThemeDummyPatch extends \ZMFilePatch {
                     if (!array_key_exists('preview', $themeConfig)) {
                         $imageName = 'preview.jpg';
                     }
-                    $theme = \ZMThemes::instance()->getThemeForId($themeId);
+                    $theme = $this->container->get('themeService')->getThemeForId($themeId);
                     if (file_exists($theme->getBaseDir().'preview.jpg')) {
                         copy($theme->getBaseDir().'preview.jpg', $templateDir.'images'.DIRECTORY_SEPARATOR.$imageName);
                     } else {
@@ -137,7 +137,7 @@ class ZMThemeDummyPatch extends \ZMFilePatch {
                     \ZMFileUtils::setFilePerms($templateDir."images");
                     \ZMFileUtils::setFilePerms($templateDir."images".DIRECTORY_SEPARATOR.$imageName);
                 } else {
-                    \ZMLogging::instance()->log("** ZenMagick: no permission to create theme dummy ".$themeId, \ZMLogging::ERROR);
+                    Runtime::getLogging()->log("** ZenMagick: no permission to create theme dummy ".$themeId, \ZMLogging::ERROR);
                     return false;
                 }
             }

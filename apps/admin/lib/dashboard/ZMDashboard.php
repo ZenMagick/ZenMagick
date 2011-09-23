@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 
 /**
  * The dashboard.
@@ -95,7 +96,7 @@ class ZMDashboard {
      * @param string state The state as JSON.
      */
     public static function setState($adminId, $state) {
-        ZMAdminUserPrefs::instance()->setPrefForName($adminId, 'dashboard', $state);
+        Runtime::getContainer()->get('adminUserPrefService')->setPrefForName($adminId, 'dashboard', $state);
     }
 
     /**
@@ -106,7 +107,7 @@ class ZMDashboard {
      */
     public static function getConfig($adminId) {
         $config = array();
-        $dashboard = ZMAdminUserPrefs::instance()->getPrefForName($adminId, 'dashboard');
+        $dashboard = Runtime::getContainer()->get('adminUserPrefService')->getPrefForName($adminId, 'dashboard');
         if (empty($dashboard)) {
             $dashboard = ZMSettings::get('apps.store.dashboad.default');
         }

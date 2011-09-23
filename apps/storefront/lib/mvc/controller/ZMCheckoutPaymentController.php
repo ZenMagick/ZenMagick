@@ -124,7 +124,7 @@ class ZMCheckoutPaymentController extends ZMController {
             return $this->findView();
         }
 
-        if (null == ($paymentType = ZMPaymentTypes::instance()->getPaymentTypeForId($paymentTypeId))) {
+        if (null == ($paymentType = $this->container->get('paymentTypeService')->getPaymentTypeForId($paymentTypeId))) {
             $this->messageService->error(_zm('Please select a valid payment type.'));
             return $this->findView();
         }

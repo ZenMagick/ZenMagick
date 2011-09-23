@@ -33,7 +33,7 @@
   <?php foreach ($resultList->getResults() as $order) { ?>
     <tr>
       <td><a href="<?php echo $admin2->url('order', 'orderId='.$order->getId()) ?>"><?php echo $order->getId() ?></a></td>
-      <?php $actualAccount = $this->container->get('accountService')->getAccountForId($order->getAccountId()); ?>
+      <?php $actualAccount = $container->get('accountService')->getAccountForId($order->getAccountId()); ?>
       <?php $name = $actualAccount->getType() == ZMAccount::REGISTERED ? $order->getAccount()->getFullName() : _zm('** Guest **'); ?>
       <td><a href="<?php echo $admin2->url('account', 'accountId='.$order->getAccountId()) ?>"><?php echo $name ?></a></td>
       <td><?php echo $order->getOrderDate() ?></td>

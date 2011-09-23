@@ -26,7 +26,7 @@
       $toolbox->utils->setCurrentEditor($editor);
   }
 
-  $selectedThemeId = $request->getParameter('themeId', ZMThemes::instance()->getActiveThemeId());
+  $selectedThemeId = $request->getParameter('themeId', $container->get('themeService')->getActiveThemeId());
   $selectedTheme = new ZMTheme($selectedThemeId);
   if (null === ($file = $request->getParameter('file')) || empty($file)) {
       $selectedFile = $request->getParameter('newfile');
@@ -40,7 +40,7 @@
       // save
       $editContents = stripslashes($editContents);
       if ($selectedTheme->saveStaticPageContent($selectedFile, $editContents, $selectedLanguageId)) {
-          $this->container->get('messageService')->error(sprintf(_zm('Could not save %s'), $selectedFile));
+          $container->get('messageService')->error(sprintf(_zm('Could not save %s'), $selectedFile));
       }
       $editContents = null;
   } else if (null != $selectedFile) {
@@ -67,7 +67,7 @@
   <input type="hidden" name="rid" value="static_page_editor">
   <h2>ZenMagick Static Page Editor (
           <select id="languageId" name="languageId" onchange="this.form.submit();">
-            <?php foreach (ZMLanguages::instance()->getLanguages() as $lang) { ?>
+            <?php foreach ($container->get('languageService')->getLanguages() as $lang) { ?>
               <?php $selected = $selectedLanguageId == $lang->getId() ? ' selected="selected"' : ''; ?>
               <option value="<?php echo $lang->getId() ?>"<?php echo $selected ?>><?php echo $lang->getName() ?></option>
             <?php } ?>
@@ -80,7 +80,7 @@
       <label for="themeId">Theme:</label>
       <select id="themeId" name="themeId" onchange="this.form.submit();">
         <option value="">Select Theme</option>
-        <?php foreach (ZMThemes::instance()->getAvailableThemes() as $theme) { ?>
+        <?php foreach ($container->get('themeService')->getAvailableThemes() as $theme) { ?>
           <?php $selected = $selectedThemeId == $theme->getThemeId() ? ' selected="selected"' : ''; ?>
           <option value="<?php echo $theme->getThemeId(); ?>"<?php echo $selected ?>><?php echo $theme->getName(); ?></option>
         <?php } ?>

@@ -76,7 +76,7 @@ class ToolboxMacro extends ZMToolboxMacro {
         	}*/
 
             $active = in_array($category->getId(), $path);
-            $noOfProductsInCat = $showProductCount ? count($this->container->get('productService')->getProductIdsForCategoryId($category->getId(), $languageId, true, false)) : 0;
+            $noOfProductsInCat = $showProductCount ? count($container->get('productService')->getProductIdsForCategoryId($category->getId(), $languageId, true, false)) : 0;
             $isEmpty = 0 == $noOfProductsInCat;
             echo '<li'.$css_root.'>';
             $class = '';
@@ -89,7 +89,7 @@ class ToolboxMacro extends ZMToolboxMacro {
                         $this->getRequest()->url('category', '&'.$category->getPath()) .
                         '">'.$toolbox->html->encode($category->getName()).'</a>';
             /*if ($showProductCount) {
-                if (0 < ($noOfProductsInTree = count($this->container->get('productService')->getProductIdsForCategoryId($category->getId(), $languageId, true, true)))) {
+                if (0 < ($noOfProductsInTree = count($container->get('productService')->getProductIdsForCategoryId($category->getId(), $languageId, true, true)))) {
                     echo '('.$noOfProductsInTree.')';
                 }
             }

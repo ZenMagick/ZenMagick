@@ -20,8 +20,10 @@
 ?>
 <?php
 
-define('_ZM_ZEN_DIR_FS_BOXES', DIR_FS_CATALOG . DIR_WS_MODULES . "sideboxes/");
+use zenmagick\base\Runtime;
 
+
+define('_ZM_ZEN_DIR_FS_BOXES', DIR_FS_CATALOG . DIR_WS_MODULES . "sideboxes/");
 
 /**
  * Patch to create dummy sidebox files for zen-cart.
@@ -104,7 +106,7 @@ class ZMSideboxDummyPatch extends ZMFilePatch {
                         ZMFileUtils::setFilePerms($_ZM_ZEN_DIR_FS_BOXES.$box);
                     }
                 } else {
-                    ZMLogging::instance()->log("** ZenMagick: no permission to create dummy sidebox " . $box, ZMLogging::ERROR);
+                    Runtime::getLogging()->log("** ZenMagick: no permission to create dummy sidebox " . $box, ZMLogging::ERROR);
                     return false;
                 }
             }
@@ -160,12 +162,12 @@ class ZMSideboxDummyPatch extends ZMFilePatch {
         $boxPathList = array();
 
         // 1) themes
-        foreach (ZMThemes::instance()->getAvailableThemes() as $theme) {
+        foreach ($this->container->get('themeService')->getAvailableThemes() as $theme) {
             $boxPathList[] = $theme->getBoxesDir();
         }
 
         // 2) plugins
-        foreach (ZMPlugins::instance()->getAllPlugins() as $plugin) {
+        foreach ($this->container->get('pluginService')->getAllPlugins() as $plugin) {
             $dir = ZMFileUtils::mkPath(array($plugin->getPluginDirectory(), 'content', 'boxes'));
             $boxPathList[] = $dir;
         }

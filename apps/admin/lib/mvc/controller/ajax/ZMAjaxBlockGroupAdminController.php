@@ -41,7 +41,7 @@ class ZMAjaxBlockGroupAdminController extends ZMRpcController {
 
         $token = explode('@', $data->block);
         if (2 == count($token)) {
-            ZMBlocks::instance()->deleteBlockForId($token[0]);
+            $this->container->get('blockService')->deleteBlockForId($token[0]);
             $rpcResponse->setStatus(true);
         }
 
@@ -93,7 +93,8 @@ class ZMAjaxBlockGroupAdminController extends ZMRpcController {
      * @return array List of newly created blocks;
      */
     protected function updateGroupBlockList($groupName, $groupBlockList) {
-        $currentBlocks = ZMBlocks::instance()->getBlocksForGroupName($groupName);
+        $blockService = $this->container->get('blockService');
+        $currentBlocks = $blockService->getBlocksForGroupName($groupName);
 
         // iterate, compare and re-sort
         $index = 0;
@@ -121,12 +122,12 @@ class ZMAjaxBlockGroupAdminController extends ZMRpcController {
                 $block->setName($blockWidget->getTitle());
                 $block->setDefinition($token[0]);
                 $block->setSortOrder($index);
-                $newBlocks[] = ZMBlocks::instance()->addBlockToBlockGroup($groupName, $block);
+                $newBlocks[] = $blockService->addBlockToBlockGroup($groupName, $block);
             }
             ++$index;
         }
         foreach ($updateBlocks as $block) {
-            ZMBlocks::instance()->updateBlock($block);
+            $blockService->updateBlock($block);
         }
 
         return $newBlocks;

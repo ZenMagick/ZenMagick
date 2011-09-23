@@ -53,16 +53,16 @@ class ZMUpdateUserController extends ZMController {
         $widgets = array();
 
         // WYSIWYG
-        $currentEditor = ZMAdminUserPrefs::instance()->getPrefForName($user->getId(), 'wysiwygEditor');
+        $currentEditor = $this->container->get('adminUserPrefService')->getPrefForName($user->getId(), 'wysiwygEditor');
         $widgets[] = Beans::getBean('ZMEditorSelectFormWidget#title='._zm('Preferred Editor').'&value='.$currentEditor.'&name=wysiwygEditor');
 
         // uiLocale
-        $locales = ZMLocales::instance()->getLocalesList();
+        $locales = $this->container->get('localeService')->getLocalesList();
         $uiLocaleWidget = Beans::getBean('ZMSelectFormWidget#name=uiLocale&title='._zm('Admin Language'));
         foreach ($locales as $locale => $name) {
             $uiLocaleWidget->addOption($name, $locale);
         }
-        $uiLocaleWidget->setValue(ZMAdminUserPrefs::instance()->getPrefForName($user->getId(), 'uiLocale'));
+        $uiLocaleWidget->setValue($this->container->get('adminUserPrefService')->getPrefForName($user->getId(), 'uiLocale'));
         $widgets[] = $uiLocaleWidget;
 
         return array('widgets' => $widgets);
@@ -79,7 +79,7 @@ class ZMUpdateUserController extends ZMController {
         $widgets = $viewData['widgets'];
         foreach ($widgets as $widget) {
             $name = $widget->getName();
-            ZMAdminUserPrefs::instance()->setPrefForName($user->getId(), $name, $request->getParameter($name));
+            $this->container->get('adminUserPrefService')->setPrefForName($user->getId(), $name, $request->getParameter($name));
         }
     }
 
@@ -124,7 +124,7 @@ class ZMUpdateUserController extends ZMController {
         if (!empty($newPassword)) {
             $user->setPassword($authenticationManager->encryptPassword($newPassword));
         }
-        ZMAdminUsers::instance()->updateUser($user);
+        $this->container->get('adminUserService')->updateUser($user);
 
         // report success
         $this->messageService->success(_zm('Details updated.'));

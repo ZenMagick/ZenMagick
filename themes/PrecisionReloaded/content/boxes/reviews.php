@@ -25,11 +25,11 @@
 <?php
 
     // get review for product (if on product page)
-    $reviews = $this->container->get('reviewService')->getRandomReviews($session->getLanguageId(), $request->getProductId(), 1);
+    $reviews = $container->get('reviewService')->getRandomReviews($session->getLanguageId(), $request->getProductId(), 1);
 
     if (0 == count($reviews) && 0 == $request->getProductId()) {
         // default to any random on non product pages
-        $reviews = $this->container->get('reviewService')->getRandomReviews($session->getLanguageId(), null, 1);
+        $reviews = $container->get('reviewService')->getRandomReviews($session->getLanguageId(), null, 1);
     }
 ?>
 <?php if (1 == count($reviews)) {

@@ -67,7 +67,7 @@ class ZMCreateAccountController extends ZMController {
     public function setCreateDefaultAddress($value) {
         // make sure we convert to boolean; typically this would be set via a bean definition
         $this->createDefaultAddress_ = ZMLangUtils::asBoolean($value);
-        ZMLogging::instance()->log('createDefaultAddress set to: '.$this->createDefaultAddress_, ZMLogging::TRACE);
+        Runtime::getLogging()->log('createDefaultAddress set to: '.$this->createDefaultAddress_, ZMLogging::TRACE);
     }
 
     /**
@@ -116,22 +116,23 @@ class ZMCreateAccountController extends ZMController {
         $session->setAccount($account);
         $session->restoreCart();
 
+        $couponService = $this->container->get('couponService');
         $discountCoupon = null;
         if (null != ($newAccountDiscountCouponId = Runtime::getSettings()->get('zenmagick.apps.store.newAccountDiscountCouponId'))) {
-            $discountCoupon = ZMCoupons::instance()->getCouponForId($newAccountDiscountCouponId, $session->getLanguageId());
+            $discountCoupon = $couponService->getCouponForId($newAccountDiscountCouponId, $session->getLanguageId());
         }
         $newAccountGVAmountCoupon = null;
         if (null != ($newAccountGVAmount = Runtime::getSettings()->get('zenmagick.apps.store.newAccountGVAmount'))) {
             // set up coupon
-            $couponCode = ZMCoupons::instance()->createCouponCode($account->getEmail());
-            $coupon = ZMCoupons::instance()->createCoupon($couponCode, $newAccountGVAmount, ZMCoupons::TYPPE_GV);
+            $couponCode = $couponService->createCouponCode($account->getEmail());
+            $coupon = $couponService->createCoupon($couponCode, $newAccountGVAmount, ZMCoupons::TYPPE_GV);
             // the receiver of the gv
             $gvReceiver = $this->container->get('ZMGVReceiver');
             $gvReceiver->setEmail($account->getEmail());
             // the sender
             $senderAccount = $this->container->get('ZMAccount');
             $senderAccount->setFirstName(Runtime::getSettings('storeName'));
-            ZMCoupons::instance()->createCouponTracker($coupon, $senderAccount, $gvReceiver);
+            $couponService->createCouponTracker($coupon, $senderAccount, $gvReceiver);
             $newAccountGVAmountCoupon = $coupon;
         }
 

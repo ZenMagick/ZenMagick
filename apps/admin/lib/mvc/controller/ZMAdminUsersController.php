@@ -50,7 +50,7 @@ class ZMAdminUsersController extends ZMController {
      */
     public function processGet($request) {
         $user = $request->getUser();
-        $resultSource = new ZMObjectResultSource('ZMAdminUser', ZMAdminUsers::instance(), "getAllUsers", !$user->isLive());
+        $resultSource = new ZMObjectResultSource('ZMAdminUser', 'adminUserService', "getAllUsers", !$user->isLive());
         $resultList = Runtime::getContainer()->get('ZMResultList');
         $resultList->setResultSource($resultSource);
         $resultList->setPageNumber($request->getParameter('page', 1));

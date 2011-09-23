@@ -66,9 +66,9 @@
             <?php echo $macro->buildCrumbtrail($crumbtrail, " :: "); ?>
        	 <?php //} ?>
 
-       	 <?php if ($this->container->get('messageService')->hasMessages()) { ?>
+       	 <?php if ($container->get('messageService')->hasMessages()) { ?>
             <ul id="messages">
-           		<?php foreach ($this->container->get('messageService')->getMessages() as $message) { ?>
+           		<?php foreach ($container->get('messageService')->getMessages() as $message) { ?>
                 	<li class="<?php echo $message->getType() ?>"><?php echo $message->getText() ?></li>
             	<?php } ?>
             </ul>

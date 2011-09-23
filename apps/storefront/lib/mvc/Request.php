@@ -102,7 +102,7 @@ class Request extends \ZMRequest {
             }
         }
 
-        \ZMLogging::instance()->trace('unresolved URL: '.$requestId);
+        Runtime::getLogging()->trace('unresolved URL: '.$requestId);
         return null;
     }
 
@@ -132,7 +132,7 @@ class Request extends \ZMRequest {
         	if ($this->isAnonymous() || true) {
               $this->shoppingCart_ = Runtime::getContainer()->get('shoppingCart');
         	} else {
-        		  $this->shoppingCart_ = \ZMShoppingCarts::instance()->loadCartForAccountId($this->getAccountId());
+        		  $this->shoppingCart_ = $this->container->get('shoppingCartService')->loadCartForAccountId($this->getAccountId());
         	}
         }
 
@@ -247,7 +247,7 @@ class Request extends \ZMRequest {
             $this->setParameter('cPath', implode('_', $cPath));
             $this->setParameter('cPath', implode('_', $cPath));
         } else {
-            \ZMLogging::instance()->log('invalid cPath: ' . $cPath, \ZMLogging::ERROR);
+            Runtime::getLogging()->log('invalid cPath: ' . $cPath, \ZMLogging::ERROR);
         }
     }
 
@@ -408,15 +408,16 @@ class Request extends \ZMRequest {
         $session = $this->getSession();
         $language = null;
         if (null != ($code = $session->getValue('languages_code'))) {
+            $languageService = $this->container->get('languageService');
             // try session language code
-            if (null == ($language = \ZMLanguages::instance()->getLanguageForId($code))) {
+            if (null == ($language = $languageService->getLanguageForId($code))) {
                 // try store default
-                $language = \ZMLanguages::instance()->getLanguageForId(\ZMSettings::get('storeDefaultLanguageId'));
+                $language = $languageService->getLanguageForId(\ZMSettings::get('storeDefaultLanguageId'));
             }
         }
 
         if (null == $language) {
-            \ZMLogging::instance()->log('no default language found - using en as fallback', \ZMLogging::WARN);
+            Runtime::getLogging()->log('no default language found - using en as fallback', \ZMLogging::WARN);
             $language = Beans::getBean("ZMLanguage");
             $language->setId(1);
             $language->setDirectory('english');

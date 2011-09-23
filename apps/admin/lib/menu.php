@@ -20,6 +20,8 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
+
     // top level
     ZMAdminMenu::setItem(array('requestId' => 'index', 'title' => _zm('Dashboard')));
     ZMAdminMenu::setItem(array('requestId' => 'catalog', 'title' => _zm('Catalog')));
@@ -64,7 +66,7 @@
 
     // legacy options
     ZMAdminMenu::setItem(array('parentId' => 'configuration', 'id' => 'configuration-legacy', 'title' => _zm('Zen-Cart Config')));
-    $configGroups = ZMConfig::instance()->getConfigGroups();
+    $configGroups = Runtime::getContainer()->get('configService')->getConfigGroups();
     foreach ($configGroups as $group) {
         if ($group->isVisible()) {
             $id = strtolower($group->getName());

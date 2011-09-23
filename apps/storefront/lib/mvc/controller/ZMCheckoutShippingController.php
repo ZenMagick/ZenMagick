@@ -126,7 +126,7 @@ class ZMCheckoutShippingController extends ZMController {
         // process selected shipping method
         $shipping = $request->getParameter('shipping');
         list($providerName, $methodName) = explode('_', $shipping);
-        if (null != ($shippingProvider = ZMShippingProviders::instance()->getShippingProviderForId($providerName))) {
+        if (null != ($shippingProvider = $this->container->get('shippingProviderService')->getShippingProviderForId($providerName))) {
             $shippingMethod = $shippingProvider->getShippingMethodForId($methodName, $shoppingCart, $shoppingCart->getShippingAddress());
         }
 

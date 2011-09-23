@@ -23,7 +23,7 @@
 ?>
 
 <?php if (0 == $request->getProductId() && 'specials' != $request->getRequestId()) { ?>
-    <?php $products = $this->container->get('productService')->getSpecials(1, $session->getLanguageId()); ?>
+    <?php $products = $container->get('productService')->getSpecials(1, $session->getLanguageId()); ?>
     <?php if (0 != count($products)) { $product = $products[0]; ?>
         <h3><a href="<?php echo $net->url('specials') ?>"><?php _vzm("[More]") ?></a><?php _vzm("Specials") ?></h3>
         <div id="sb_specials" class="box">

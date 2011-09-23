@@ -38,7 +38,7 @@ class ZMAjaxSacsAdminController extends ZMRpcController {
         $rpcResponse = $rpcRequest->createResponse();
 
         try {
-            $newId = ZMAdminUserRoles::instance()->addRole($roleName);
+            $newId = $this->container->get('adminUserRoleService')->addRole($roleName);
         } catch (Exception $e) {
             $newId = null;
         }
@@ -64,7 +64,7 @@ class ZMAjaxSacsAdminController extends ZMRpcController {
 
         $failed = array();
         // figure out difference
-        $currentRoles = ZMAdminUserRoles::instance()->getAllRoles();
+        $currentRoles = $this->container->get('adminUserRoleService')->getAllRoles();
         foreach ($currentRoles as $role) {
             if (in_array($role, $removeRoles)) {
                 if ('admin' == $role) {
@@ -72,7 +72,7 @@ class ZMAjaxSacsAdminController extends ZMRpcController {
                     // TODO: message
                     continue;
                 }
-                if (!ZMAdminUserRoles::instance()->deleteRole($role)) {
+                if (!$this->container->get('adminUserRoleService')->deleteRole($role)) {
                     $failed[] = $role;
                 }
             }

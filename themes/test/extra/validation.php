@@ -32,7 +32,7 @@
      */
 
 
-    $validator = $this->container->get('validator');
+    $validator = $container->get('validator');
 
     /* create account */
     $validator->addRules('registration', array(

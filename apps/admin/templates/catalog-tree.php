@@ -17,9 +17,10 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-?>
+?><?php
 
-<?php
+use zenmagick\base\Runtime;
+
     /**
      * Build category tree as simple unordered list.
      *
@@ -35,7 +36,7 @@
             ob_start();
             if (null === $categories) {
                 $languageId = $request->getSelectedLanguage()->getId();
-                $categories = ZMCategories::instance()->getCategoryTree($languageId);
+                $categories = Runtime::getContainer()->get('categoryService')->getCategoryTree($languageId);
             }
         }
         echo '<ul>';

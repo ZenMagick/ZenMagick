@@ -44,7 +44,7 @@ class ToolboxHtml extends ZMToolboxHtml {
      */
     public function ezpageLink($id, $text=null, $attr=array()) {
         $toolbox = $this->getToolbox();
-        $page = $this->container->get('ezPageService')->getPageForId($id, $this->getRequest()->getSession()->getLanguageId());
+        $page = $container->get('ezPageService')->getPageForId($id, $this->getRequest()->getSession()->getLanguageId());
         $link = '<a href="' . $toolbox->net->ezPage($page) . '"' . $this->hrefTarget($page->isNewWin());
         foreach ($attr as $name => $value) {
             if (null !== $value) {

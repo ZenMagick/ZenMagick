@@ -37,10 +37,10 @@ class ZMSampleEventHandler {
     public function onInitDone($event) {
         $request = $event->get('request');
         if (null != ($locale = $request->getParameter('locale'))) {
-            ZMLocales::instance()->getLocale(true, $locale);
+            $this->container->get('localeService')->getLocale(true, $locale);
             $request->getSession()->setValue('locale', $locale);
         } else if (null != ($locale = $request->getSession()->getValue('locale'))) {
-            ZMLocales::instance()->getLocale(true, $locale);
+            $this->container->get('localeService')->getLocale(true, $locale);
         }
     }
 

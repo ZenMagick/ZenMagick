@@ -23,7 +23,7 @@
 ?>
 
 <?php if (null != $request->getProductId()) { ?>
-    <?php $product = $this->container->get('productService')->getProductForId($request->getProductId(), $session->getLanguageId()); ?>
+    <?php $product = $container->get('productService')->getProductForId($request->getProductId(), $session->getLanguageId()); ?>
     <?php if (null != $product) { ?>
         <?php $manufacturer = $product->getManufacturer(); ?>
         <?php if (null != $manufacturer) { ?>

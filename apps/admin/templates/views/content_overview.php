@@ -25,7 +25,7 @@
   <input type="hidden" name="rid" value="content_editor">
   <h2><?php _vzm('Content Manager') ?> (
           <select id="languageId" name="languageId" onchange="this.form.submit();">
-            <?php foreach (ZMLanguages::instance()->getLanguages() as $lang) { ?>
+            <?php foreach ($this->container->get('languageService')->getLanguages() as $lang) { ?>
               <?php $selected = $selectedLanguageId == $lang->getId() ? ' selected="selected"' : ''; ?>
               <option value="<?php echo $lang->getId() ?>"<?php echo $selected ?>><?php echo $lang->getName() ?></option>
             <?php } ?>

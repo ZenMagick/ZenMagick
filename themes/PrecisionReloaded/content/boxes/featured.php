@@ -22,7 +22,7 @@
  */
 ?>
 
-<?php $products = $this->container->get('productService')->getFeaturedProducts($request->getCategoryId(), 1, false, $session->getLanguageId()); ?>
+<?php $products = $container->get('productService')->getFeaturedProducts($request->getCategoryId(), 1, false, $session->getLanguageId()); ?>
 <?php if (1 == count($products)) { $product = $products[0]; ?>
     <h2><?php _vzm("Featured") ?> <a href="<?php echo $net->url('featured_products') ?>"><?php _vzm("") ?></a></h2>
     <div id="sb_featured" class="box">

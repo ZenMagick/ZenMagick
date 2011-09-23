@@ -20,6 +20,9 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
+
+
 define('_ZM_ZEN_GENERAL_FILE', DIR_FS_CATALOG . DIR_WS_FUNCTIONS . 'functions_general.php');
 define('_ZM_ZEN_ADMIN_GENERAL_FILE', DIR_FS_ADMIN . DIR_WS_FUNCTIONS . 'general.php');
 
@@ -125,7 +128,7 @@ class ZMRedirectFixPatch extends ZMFilePatch {
                 }
                 $this->putFileLines($file, $patchedLines);
             } else {
-                ZMLogging::instance()->log("** ZenMagick: no permission to patch redirect fix support into ".basename($file), ZMLogging::ERROR);
+                Runtime::getLogging()->log("** ZenMagick: no permission to patch redirect fix support into ".basename($file), ZMLogging::ERROR);
                 return false;
             }
         }
@@ -154,7 +157,7 @@ class ZMRedirectFixPatch extends ZMFilePatch {
                 }
                 $this->putFileLines($file, $unpatchedLines);
             } else {
-                ZMLogging::instance()->log("** ZenMagick: no permission to patch ".basename($file)." for uninstall", ZMLogging::ERROR);
+                Runtime::getLogging()->log("** ZenMagick: no permission to patch ".basename($file)." for uninstall", ZMLogging::ERROR);
                 return false;
             }
         }

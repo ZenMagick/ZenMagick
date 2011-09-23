@@ -53,7 +53,7 @@ class ZMEditRoleController extends ZMController {
     protected function getSacsPermissionInfo($role) {
         $permissions = array();
         // TODO: use db permissions only, not the merged manager mappings
-        foreach (SacsManager::instance()->getMappings() as $requestId => $info) {
+        foreach ($this->container->get('sacsManager')->getMappings() as $requestId => $info) {
             if (array_key_exists('roles', $info)) {
                 if (in_array($role, $info['roles'])) {
                     $permissions[$requestId] = array('type' => 'role', 'match' => 'name', 'allowed' => true);
@@ -109,7 +109,7 @@ class ZMEditRoleController extends ZMController {
         }
 
         // figure out the overlap between the current perms and the submitted ones
-        ZMSacsPermissions::instance()->setPermissionsForRole($role, $permissons);
+        $this->container->get('sacsPermissionService')->setPermissionsForRole($role, $permissons);
 
         return $this->findView();
     }

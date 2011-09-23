@@ -15,7 +15,7 @@
         $menu[] = array($net->url('shopping_cart', '', true), _zm("Cart"));
         $menu[] = array($net->url('checkout_shipping', '', true), _zm("Checkout"));
     }
-    foreach ($this->container->get('ezPageService')->getPagesForHeader($session->getLanguageId()) as $page) {
+    foreach ($container->get('ezPageService')->getPagesForHeader($session->getLanguageId()) as $page) {
         $menu[] = array($net->ezPage($page), $page, false);
     }
     foreach ($menu as $item) {

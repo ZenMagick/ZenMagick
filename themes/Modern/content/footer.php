@@ -32,8 +32,8 @@
 		<div id="navSuppContent">
 			<?php
 				$i = 1;
-				$sizeOf = count($this->container->get('ezPageService')->getPagesForFooter($session->getLanguageId()));
-				foreach ($this->container->get('ezPageService')->getPagesForFooter($session->getLanguageId()) as $page) { ?>
+				$sizeOf = count($container->get('ezPageService')->getPagesForFooter($session->getLanguageId()));
+				foreach ($container->get('ezPageService')->getPagesForFooter($session->getLanguageId()) as $page) { ?>
 				<?php if(1 == $i){ ?><div class="navSuppLeft back"><ul><?php } ?>
  					<li><?php echo $html->ezpageLink($page->getId()) ?></li>
 				<?php if(3 == $i){ ?> </ul></div><div class="navSuppLeft forward"><ul> <?php } ?>

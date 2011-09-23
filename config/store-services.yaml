@@ -121,6 +121,10 @@ services:
     class: zenmagick\http\sacs\SacsManager
     scope: container
    
+  blockService:
+    class: ZMBlocks
+    scope: container
+
   blockManager:
     class: ZMBlockManager
     scope: container

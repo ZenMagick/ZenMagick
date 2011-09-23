@@ -42,13 +42,13 @@ class CustomGoogleAnalytics extends ZMObject {
         if (in_array($request->getRequestId(), array('product_info', 'category', 'category_list'))) {
             // category path
             foreach ($request->getCategoryPathArray() as $categoryId) {
-                $category = $this->container->get('categoryService')->getCategoryForId($categoryId, $languageId);
+                $category = $container->get('categoryService')->getCategoryForId($categoryId, $languageId);
                 $path[] = $category->getName();
             }
         }
         if ('product_info' == $request->getRequestId()) {
             // product
-            $product = $this->container->get('productService')->getProductForId($request->getProductId());
+            $product = $container->get('productService')->getProductForId($request->getProductId());
             $path[] = $product->getName();
         }
 

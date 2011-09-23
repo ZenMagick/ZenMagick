@@ -120,7 +120,7 @@ class ZMAdminFolderNamePatch extends \ZMFilePatch {
 
             return $this->putFileLines(_ZM_ADMIN_INDEX_PHP, $patchedLines);
         } else {
-            \ZMLogging::instance()->log("** ZenMagick: no permission to patch admin folder name", \ZMLogging::ERROR);
+            Runtime::getLogging()->log("** ZenMagick: no permission to patch admin folder name", \ZMLogging::ERROR);
             return false;
         }
 
@@ -149,7 +149,7 @@ class ZMAdminFolderNamePatch extends \ZMFilePatch {
 
             return $this->putFileLines(_ZM_ADMIN_INDEX_PHP, $unpatchedLines);
         } else {
-            \ZMLogging::instance()->log("** ZenMagick: no permission to patch admin index.php for uninstall", \ZMLogging::ERROR);
+            Runtime::getLogging()->log("** ZenMagick: no permission to patch admin index.php for uninstall", \ZMLogging::ERROR);
             return false;
         }
 

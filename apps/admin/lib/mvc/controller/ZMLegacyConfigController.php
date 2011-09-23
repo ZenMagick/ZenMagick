@@ -49,8 +49,9 @@ class ZMLegacyConfigController extends ZMController {
      */
     public function processGet($request) {
         $groupId = $request->getParameter('groupId', 1);
-        $group = ZMConfig::instance()->getConfigGroupForId($groupId);
-        $groupValues = ZMConfig::instance()->getValuesForGroupId($groupId);
+        $configService = $this->container->get('configService');
+        $group = $configService->getConfigGroupForId($groupId);
+        $groupValues = $configService->getValuesForGroupId($groupId);
         return $this->findView(null, array('group' => $group, 'groupValues' => $groupValues));
     }
 
@@ -64,8 +65,9 @@ class ZMLegacyConfigController extends ZMController {
             return $this->findView('success-demo', array(), array('parameter' => 'groupId='.$groupId));
         }
 
-        $group = ZMConfig::instance()->getConfigGroupForId($groupId);
-        $groupValues = ZMConfig::instance()->getValuesForGroupId($groupId);
+        $configService = $this->container->get('configService');
+        $group = $configService->getConfigGroupForId($groupId);
+        $groupValues = $configService->getValuesForGroupId($groupId);
 
         // update changed
         $updated = array();
@@ -74,7 +76,7 @@ class ZMLegacyConfigController extends ZMController {
             $oldValue = $widget->getValue();
             if (null !== ($newValue = $request->getParameter($name)) && $newValue != $oldValue) {
                 // update
-                ZMConfig::instance()->updateConfigValue($name, $newValue);
+                $configService->updateConfigValue($name, $newValue);
                 $updated[] = $widget->getTitle();
             }
         }

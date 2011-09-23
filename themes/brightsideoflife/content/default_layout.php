@@ -40,7 +40,7 @@
               $menu[] = array($net->url('shopping_cart', '', true), _zm("Cart"));
               $menu[] = array($net->url('checkout_shipping', '', true), _zm("Checkout"));
           }
-          foreach ($this->container->get('ezPageService')->getPagesForHeader($session->getLanguageId()) as $page) {
+          foreach ($container->get('ezPageService')->getPagesForHeader($session->getLanguageId()) as $page) {
               $menu[] = array($html->ezpageLink($page->getId(), '<span>'.$html->encode($page->getTitle()).'</span>', array()));
           }
           foreach ($menu as $item) {
@@ -75,9 +75,9 @@
             <?php echo $macro->buildCrumbtrail($crumbtrail, " &gt; "); ?>
         <?php } ?>
 
-        <?php if ($this->container->get('messageService')->hasMessages()) { ?>
+        <?php if ($container->get('messageService')->hasMessages()) { ?>
             <ul id="messages">
-            <?php foreach ($this->container->get('messageService')->getMessages() as $message) { ?>
+            <?php foreach ($container->get('messageService')->getMessages() as $message) { ?>
                 <li class="<?php echo $message->getType() ?>"><?php echo $message->getText() ?></li>
             <?php } ?>
             </ul>
@@ -109,7 +109,7 @@
 
     <div class="footer-right">
       <p class="align-right">
-        <?php $first = true; foreach ($this->container->get('ezPageService')->getPagesForFooter($session->getLanguageId()) as $page) { ?>
+        <?php $first = true; foreach ($container->get('ezPageService')->getPagesForFooter($session->getLanguageId()) as $page) { ?>
             <?php if (!$first) { echo '&nbsp;|&nbsp;'; } $first = false; ?>
             <?php echo $html->ezpageLink($page->getId()) ?>
         <?php } ?>

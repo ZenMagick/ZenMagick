@@ -22,7 +22,7 @@
  */
 ?>
 
-<?php $tree = $this->container->get('categoryService')->getCategoryTree($session->getLanguageId()); ?>
+<?php $tree = $container->get('categoryService')->getCategoryTree($session->getLanguageId()); ?>
 <h3><?php _vzm("Categories") ?></h3>
 <div id="sb_categories" class="box">
     <?php echo $macro->categoryTree($tree, ZMSettings::get('isShowCategoryCount', false), ZMSettings::get('isUseCategoryPage', false)) ?>

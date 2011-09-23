@@ -188,7 +188,7 @@ class ZMAdminUser extends ZMObject implements UserRoleCredentials {
      * @return string The value or <code>null</code>.
      */
     public function getPref($name) {
-        return ZMAdminUserPrefs::instance()->getPrefForName($this->getId(), $name);
+        return $this->container->get('adminUserPrefService')->getPrefForName($this->getId(), $name);
     }
 
     /**
@@ -198,7 +198,7 @@ class ZMAdminUser extends ZMObject implements UserRoleCredentials {
      * @param string value The value.
      */
     public function setPref($name, $value) {
-        ZMAdminUserPrefs::instance()->setPrefForName($this->getId(), $name, $value);
+        $this->container->get('adminUserPrefService')->setPrefForName($this->getId(), $name, $value);
     }
 
 }

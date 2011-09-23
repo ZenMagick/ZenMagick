@@ -50,7 +50,8 @@ class ZMBlockGroupAdminController extends ZMController {
      */
     public function getViewData($request) {
         $blocks = array();
-        foreach (ZMBlockManager::instance()->getProviders() as $provider) {
+        $blockManager = $this->container->get('blockManager');
+        foreach ($blockManager->getProviders() as $provider) {
             foreach ($provider->getBlockList() as $def) {
                 $widget = Beans::getBean($def);
                 $blocks[$def] = $widget->getTitle();
@@ -59,7 +60,7 @@ class ZMBlockGroupAdminController extends ZMController {
         $groupName = $request->getParameter('groupName');
         return array(
             'allBlocks' => $blocks,
-            'blocks' => ZMBlocks::instance()->getBlocksForGroupName($groupName),
+            'blocks' => $blockManager->getBlocksForGroupName($groupName),
             'groupName' => $groupName
         );
     }

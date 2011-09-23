@@ -49,7 +49,8 @@ class ZMResetPasswordController extends ZMController {
      */
     public function processPost($request) {
         $email = $request->getParameter('email');
-        $user = ZMAdminUsers::instance()->getUserForEmail($email);
+        $adminUserService = $this->container->get('adminUserService');
+        $user = $adminUserService->getUserForEmail($email);
         if (null === $user) {
             $this->messageService->error(sprintf(_zm("Sorry, there is no account with the email address '%s'."), $email));
             return $this->findView();
@@ -59,7 +60,7 @@ class ZMResetPasswordController extends ZMController {
         $newPassword = $authenticationManager->mkPassword();
         $newEncrpytedPassword = $authenticationManager->encryptPassword($newPassword);
         $user->setPassword($newEncrpytedPassword);
-        ZMAdminUsers::instance()->updateUser($user);
+        $adminUserService->updateUser($user);
 
         $message = $this->container->get('messageBuilder')->createMessage('reset_password', false, $request, array('newPassword' => $newPassword));
         $message->setSubject(_zm('New password request'))->setTo($email)->setFrom(ZMSettings::get('storeEmail'));

@@ -45,6 +45,7 @@ class ZMContentEditorController extends ZMController {
      */
     public function processGet($request) {
         $language = $request->getSelectedLanguage();
+        $ezPageService = $this->container->get('ezPageService');
         $languageId = $request->getParameter('languageId', $language->getId());
         if (null !== ($ezPageId = $request->getParameter('editId'))) {
             $ezPageId = (int)$ezPageId;
@@ -53,7 +54,7 @@ class ZMContentEditorController extends ZMController {
                 $ezPage = Beans::getBean('ZMEZPage');
                 $ezPage->setStatic(true);
             } else {
-                $ezPage = ZMEZPages::instance()->getPageForId($ezPageId, $languageId);
+                $ezPage = $ezPageService->getPageForId($ezPageId, $languageId);
             }
             if (null == $ezPage) {
                 return $this->findView('error', array('message' => _zm('Invalid id')));
@@ -61,7 +62,7 @@ class ZMContentEditorController extends ZMController {
             return $this->findView('details', array('ezPage' => $ezPage));
         }
 
-        $resultSource = new ZMObjectResultSource('ZMEZPage', ZMEZPages::instance(), "getAllPages", array($languageId, 'static'));
+        $resultSource = new ZMObjectResultSource('ZMEZPage', $ezPageService, "getAllPages", array($languageId, 'static'));
         $resultList = $this->container->get("ZMResultList");
         $resultList->setResultSource($resultSource);
         $resultList->setPageNumber($request->getParameter('page', 1));
@@ -77,6 +78,7 @@ class ZMContentEditorController extends ZMController {
             return $this->findView('success-demo');
         }
 
+        $ezPageService = $this->container->get('ezPageService');
         $languageId = $request->getParameter('languageId');
 
         $viewId = 'overview';
@@ -86,18 +88,18 @@ class ZMContentEditorController extends ZMController {
                 $ezPage = Beans::getBean('ZMEZPage');
                 Beans::setAll($ezPage, $request->getParameterMap(false));
                 $ezPage->setStatic(true);
-                $ezPage = ZMEZPages::instance()->createPage($ezPage);
+                $ezPage = $ezPageService->createPage($ezPage);
                 if (0 < $ezPage->getId()) {
                     $this->messageService->success('Page #'.$ezPage->getId().' saved');
                     $viewId = 'success';
                 } else {
                     $this->messageService->error('Could not save page');
                 }
-            } else if (null != ($ezPage = ZMEZPages::instance()->getPageForId($ezPageId, $languageId))) {
+            } else if (null != ($ezPage = $ezPageService->getPageForId($ezPageId, $languageId))) {
                 // no sanitize!
                 Beans::setAll($ezPage, $request->getParameterMap(false));
                 $ezPage->setStatic(true);
-                ZMEZPages::instance()->updatePage($ezPage);
+                $ezPageService->updatePage($ezPage);
                 $this->messageService->success('Page #'.$ezPageId.' updated');
                 $viewId = 'success';
             } else {
@@ -105,8 +107,8 @@ class ZMContentEditorController extends ZMController {
             }
         } else if (null !== ($ezPageId = $request->getParameter('deleteId'))) {
             $ezPageId = (int)$ezPageId;
-            if (null != ($ezPage = ZMEZPages::instance()->getPageForId($ezPageId, $languageId))) {
-                ZMEZPages::instance()->removePage($ezPage);
+            if (null != ($ezPage = $ezPageService->getPageForId($ezPageId, $languageId))) {
+                $ezPageService->removePage($ezPage);
                 $this->messageService->success('Page #'.$ezPage->getId().' deleted');
                 $viewId = 'success';
             } else {

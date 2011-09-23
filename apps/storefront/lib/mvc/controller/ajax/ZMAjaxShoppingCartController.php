@@ -73,7 +73,7 @@ class ZMAjaxShoppingCartController extends ZMAjaxController {
 
         $methods = array();
         if (null != $address && !$shoppingCart->isEmpty()) {
-            foreach (ZMShippingProviders::instance()->getShippingProviders(true) as $provider) {
+            foreach ($this->container->get('shippingProviderService')->getShippingProviders(true) as $provider) {
                 foreach ($provider->getShippingMethods($shoppingCart, $address) as $shippingMethod) {
                     $id = 'ship_'.$shippingMethod->getId();
                     $ma = array();

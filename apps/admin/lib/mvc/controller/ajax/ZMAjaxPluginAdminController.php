@@ -37,7 +37,7 @@ class ZMAjaxPluginAdminController extends ZMRpcController {
 
         $rpcResponse = $rpcRequest->createResponse();
 
-        if (null != ($plugin = ZMPlugins::instance()->initPluginForId($pluginId, false))) {
+        if (null != ($plugin = $this->container->get('pluginService')->initPluginForId($pluginId, false))) {
             if (!$plugin->isInstalled()) {
                 $plugin->install();
                 foreach ($plugin->getMessages() as $msg) {
@@ -66,13 +66,14 @@ class ZMAjaxPluginAdminController extends ZMRpcController {
 
         $rpcResponse = $rpcRequest->createResponse();
 
-        if (null != ($plugin = ZMPlugins::instance()->initPluginForId($remove, true)) && $plugin->isInstalled()) {
+        $pluginService = $this->container->get('pluginService');
+        if (null != ($plugin = $pluginService->initPluginForId($remove, true)) && $plugin->isInstalled()) {
             $plugin->remove();
             foreach ($plugin->getMessages() as $msg) {
                 $rpcResponse->addMessage($msg, 'info');
             }
         }
-        if (null != ($plugin = ZMPlugins::instance()->initPluginForId($pluginId, false))) {
+        if (null != ($plugin = $pluginService->initPluginForId($pluginId, false))) {
             if ($plugin->isInstalled()) {
                 $plugin->remove();
                 $rpcResponse->setStatus(true);
@@ -102,7 +103,7 @@ class ZMAjaxPluginAdminController extends ZMRpcController {
 
         $rpcResponse = $rpcRequest->createResponse();
 
-        if (null == ($plugin = ZMPlugins::instance()->initPluginForId($pluginId, false))) {
+        if (null == ($plugin = $this->container->get('pluginService')->initPluginForId($pluginId, false))) {
             $rpcResponse->setStatus(false);
             $rpcResponse->addMessage(_zm('Invalid plugin id'), 'error');
         } else {

@@ -63,14 +63,15 @@ class ZMGvRedeemController extends ZMController {
         }
 
         if (!ZMLangUtils::isEmpty($gvRedeem->getCouponCode())) {
+            $couponService = $this->container->get('couponService');
             // only try to redeem if code given - people might browse the page without code parameter...
-            $coupon = ZMCoupons::instance()->getCouponForCode($gvRedeem->getCouponCode(), $request->getSession()->getLanguageId());
-            if (null != $coupon && ZMCoupons::TYPPE_GV == $coupon->getType() && ZMCoupons::instance()->isCouponRedeemable($coupon->getId())) {
+            $coupon = $couponService->getCouponForCode($gvRedeem->getCouponCode(), $request->getSession()->getLanguageId());
+            if (null != $coupon && ZMCoupons::TYPPE_GV == $coupon->getType() && $couponService->isCouponRedeemable($coupon->getId())) {
                 // all good, set amount
                 $gvRedeem->setAmount($coupon->getAmount());
                 $gvRedeem->setRedeemed(true);
                 // TODO: remote address
-                ZMCoupons::instance()->redeemCoupon($coupon->getId(), $request->getAccountId());
+                $couponService->redeemCoupon($coupon->getId(), $request->getAccountId());
             } else {
                 // not redeemable
                 $this->messageService->error(_zm('The provided gift voucher code seems to be invalid!'));

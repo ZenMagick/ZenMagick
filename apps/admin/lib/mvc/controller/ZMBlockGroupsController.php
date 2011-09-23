@@ -49,20 +49,22 @@ class ZMBlockGroupsController extends ZMController {
      */
     public function getViewData($request) {
         $blockGroups = array();
-        if (null == ($configValue = ZMConfig::instance()->getConfigValue('ZENMAGICK_BLOCK_GROUPS'))) {
+        $configService = $this->container->get('configService');
+        if (null == ($configValue = $configService->getConfigValue('ZENMAGICK_BLOCK_GROUPS'))) {
             // create if not exist
-            ZMConfig::instance()->createConfigValue('Block Groups', 'ZENMAGICK_BLOCK_GROUPS', '', ZENMAGICK_CONFIG_GROUP_ID);
+            $configService->createConfigValue('Block Groups', 'ZENMAGICK_BLOCK_GROUPS', '', ZENMAGICK_CONFIG_GROUP_ID);
         } else {
             $blockGroups = explode(',', $configValue->getValue());
         }
 
-        return array('blockGroups' => ZMBlocks::instance()->getBlockGroups());
+        return array('blockGroups' => $this->container->get('blockService')->getBlockGroups());
     }
 
     /**
      * {@inheritDoc}
      */
     public function processPost($request) {
+        $blockService = $this->container->get('blockService');
         $action = $request->getParameter('action');
         switch ($action) {
         case 'addGroup':
@@ -70,14 +72,14 @@ class ZMBlockGroupsController extends ZMController {
             if (!empty($groupName)) {
                 $blockGroup = new ZMBlockGroup();
                 $blockGroup->setName($groupName);
-                ZMBlocks::instance()->createBlockGroup($blockGroup);
+                $blockService->createBlockGroup($blockGroup);
                 $this->messageService->success(sprintf(_zm('Block group %s added.'), $groupName));
             }
             break;
         case 'removeGroup':
             $groupName = $request->getParameter('groupName');
             if (!empty($groupName)) {
-                ZMBlocks::instance()->deleteGroupForName($groupName);
+                $blockService->deleteGroupForName($groupName);
                 $this->messageService->success(sprintf(_zm('Block group %s removed.'), $groupName));
             }
             break;

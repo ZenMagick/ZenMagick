@@ -83,21 +83,22 @@ class ZMEventFixes extends ZMObject {
         global $SESS_LIFE;
         $SESS_LIFE = Runtime::getContainer()->getParameterBag()->get('storefront.session_timeout');
 
+        $templateManager = $this->container->get('templateManager');
         // TODO: do via admin and just load mapping from somewhere
         // sidebox blocks
         $mappings = array();
-        if (ZMTemplateManager::instance()->isLeftColEnabled()) {
+        if ($templateManager->isLeftColEnabled()) {
             $index = 1;
             $mappings['leftColumn'] = array();
-            foreach (ZMTemplateManager::instance()->getLeftColBoxNames() as $boxName) {
+            foreach ($templateManager->getLeftColBoxNames() as $boxName) {
                 // avoid duplicates by using $box as key
                 $mappings['leftColumn'][$boxName] = 'ZMBlockWidget#template=boxes/'.$boxName.'&sortOrder='.$index++;
             }
         }
-        if (ZMTemplateManager::instance()->isRightColEnabled()) {
+        if ($templateManager->isRightColEnabled()) {
             $index = 1;
             $mappings['rightColumn'] = array();
-            foreach (ZMTemplateManager::instance()->getRightColBoxNames() as $boxName) {
+            foreach ($templateManager->getRightColBoxNames() as $boxName) {
                 // avoid duplicates by using $box as key
                 $mappings['rightColumn'][$boxName] = 'ZMBlockWidget#template=boxes/'.$boxName.'&sortOrder='.$index++;
             }
@@ -123,7 +124,7 @@ class ZMEventFixes extends ZMObject {
         $mappings['shoppingCart.options'] = array();
         $mappings['shoppingCart.options'][] = 'ZMPayPalECButtonBlockWidget';
 
-        ZMBlockManager::instance()->setMappings($mappings);
+        $this->container->get('blockManager')->setMappings($mappings);
     }
 
     /**
@@ -169,7 +170,7 @@ class ZMEventFixes extends ZMObject {
     private function needsZC($request) {
         $requestId = $request->getRequestId();
         if (ZMLangUtils::inArray($requestId, ZMSettings::get('apps.store.request.enableZCRequestHandling'))) {
-            ZMLogging::instance()->log('enable zencart request processing for requestId='.$requestId, ZMLogging::DEBUG);
+            Runtime::getLogging()->log('enable zencart request processing for requestId='.$requestId, ZMLogging::DEBUG);
             return true;
         }
         if (false === strpos($requestId, 'checkout_') && 'download' != $requestId) {
@@ -182,7 +183,7 @@ class ZMEventFixes extends ZMObject {
 
         $needs = !in_array($requestId, $supportedCheckoutPages);
         if ($needs) {
-            ZMLogging::instance()->log('enable zencart request processing for requestId='.$requestId, ZMLogging::DEBUG);
+            Runtime::getLogging()->log('enable zencart request processing for requestId='.$requestId, ZMLogging::DEBUG);
         }
         return $needs;
     }
@@ -195,7 +196,7 @@ class ZMEventFixes extends ZMObject {
 
         if (!ZMsettings::get('isEnableZMThemes', true)) {
             // pass on already set args
-            $args = array_merge($event->all(), array('themeId' => ZMThemes::instance()->getActiveThemeId($request->getSession()->getLanguageId())));
+            $args = array_merge($event->all(), array('themeId' => $this->container->get('themeService')->getActiveThemeId($request->getSession()->getLanguageId())));
             Runtime::getEventDispatcher()->dispatch('theme_resolved', new Event($this, $args));
         }
 
@@ -254,7 +255,7 @@ class ZMEventFixes extends ZMObject {
 
         if (!ZM_CLI_CALL) {
             $language = $request->getSession()->getLanguage();
-            $theme = ZMThemes::instance()->initThemes($language);
+            $theme = $this->container->get('themeService')->initThemes($language);
             $args = array_merge($event->all(), array('theme' => $theme, 'themeId' => $theme->getId()));
             Runtime::getEventDispatcher()->dispatch('theme_resolved', new Event($this, $args));
 
@@ -278,7 +279,7 @@ class ZMEventFixes extends ZMObject {
         }
 
         if ('checkout_confirmation' == $request->getRequestId() && 'free_free' == $_SESSION['shipping']) {
-            ZMLogging::instance()->log('fixing free_free shipping method info', ZMLogging::WARN);
+            Runtime::getLogging()->log('fixing free_free shipping method info', ZMLogging::WARN);
             $_SESSION['shipping'] = array('title' => _zm('Free Shipping'), 'cost' => 0, 'id' => 'free_free');
         }
     }
@@ -330,7 +331,7 @@ class ZMEventFixes extends ZMObject {
                 $last = count($path) - 1;
                 $valid = true;
                 foreach ($path as $ii => $categoryId) {
-                    $category = ZMCategories::instance()->getCategoryForId($categoryId, $languageId);
+                    $category = $this->container->get('categoryService')->getCategoryForId($categoryId, $languageId);
                     if ($ii < $last) {
                         if (null == ($parent = $category->getParent())) {
                             // can't have top level category in the middle
@@ -348,7 +349,7 @@ class ZMEventFixes extends ZMObject {
                     }
                 }
                 if (!$valid) {
-                    $category = ZMCategories::instance()->getCategoryForId(array_pop($request->getCategoryPathArray(), $languageId));
+                    $category = $this->container->get('categoryService')->getCategoryForId(array_pop($request->getCategoryPathArray(), $languageId));
                     $request->setCategoryPathArray($category->getPathArray());
                 }
             }
@@ -375,7 +376,7 @@ class ZMEventFixes extends ZMObject {
         $session = $request->getSession();
         if (null == ($currencyCode = $session->getCurrencyCode()) || null != ($currencyCode = $request->getCurrencyCode())) {
             if (null != $currencyCode) {
-                if (null == ZMCurrencies::instance()->getCurrencyForCode($currencyCode)) {
+                if (null == $this->container->get('currencyService')->getCurrencyForCode($currencyCode)) {
                     $currencyCode = ZMSettings::get('defaultCurrency');
                 }
             } else {
@@ -389,17 +390,17 @@ class ZMEventFixes extends ZMObject {
         if (null == ($language = $session->getLanguage()) || 0 != ($languageCode = $request->getLanguageCode())) {
             if (0 != $languageCode) {
                 // URL parameter takes precedence
-                $language = ZMLanguages::instance()->getLanguageForCode($languageCode);
+                $language = $this->container->get('languageService')->getLanguageForCode($languageCode);
             } else {
                 if (ZMSettings::get('isUseBrowserLanguage')) {
                     $language = $this->getClientLanguage();
                 } else {
-                    $language = ZMLanguages::instance()->getLanguageForCode(ZMSettings::get('defaultLanguageCode'));
+                    $language = $this->container->get('languageService')->getLanguageForCode(ZMSettings::get('defaultLanguageCode'));
                 }
             }
             if (null == $language) {
                 $language = ZMLanguages::getDefaultLanguage();
-                ZMLogging::instance()->log('invalid or missing language - using default language', ZMLogging::WARN);
+                Runtime::getLogging()->log('invalid or missing language - using default language', ZMLogging::WARN);
             }
 
             $session->setLanguage($language);
@@ -446,13 +447,13 @@ class ZMEventFixes extends ZMObject {
                     $code = '';
                 }
 
-                if (null != ($language = (ZMLanguages::instance()->getLanguageForCode($code)))) {
+                if (null != ($language = ($this->container->get('languageService')->getLanguageForCode($code)))) {
                     // found!
                     return $language;
                 } elseif (isset($language_substitutions[$code])) {
                     // try fallback to substitue
                     $code = $language_substitutions[$code];
-                    if (null != ($language = (ZMLanguages::instance()->getLanguageForCode($code)))) {
+                    if (null != ($language = ($this->container->get('languageService')->getLanguageForCode($code)))) {
                         // found!
                         return $language;
                     }

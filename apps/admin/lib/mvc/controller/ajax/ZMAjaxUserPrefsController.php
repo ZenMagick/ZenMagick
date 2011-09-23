@@ -38,7 +38,7 @@ class ZMAjaxUserPrefsController extends ZMRpcController {
         $name = $data->name;
         $value = $data->value;
 
-        ZMAdminUserPrefs::instance()->setPrefForName($adminId, $name, $value);
+        $this->container->get('adminUserPrefService')->setPrefForName($adminId, $name, $value);
         $rpcResponse = $rpcRequest->createResponse();
         $rpcResponse->setStatus(true);
 
@@ -53,7 +53,7 @@ class ZMAjaxUserPrefsController extends ZMRpcController {
         $adminId = $data->adminId;
         $name = $data->name;
 
-        $value = ZMAdminUserPrefs::instance()->getPrefForName($adminId, $name);
+        $value = $this->container->get('adminUserPrefService')->getPrefForName($adminId, $name);
 
         $rpcResponse = $rpcRequest->createResponse();
         $rpcResponse->setData(array('value' => $value));

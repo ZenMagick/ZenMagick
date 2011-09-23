@@ -49,9 +49,10 @@ class ZMManageRolesController extends ZMController {
      * {@inheritDoc}
      */
     public function getViewData($request) {
-        $roles = ZMAdminUserRoles::instance()->getAllRoles();
-        $mappings = SacsManager::instance()->getMappings();
-        $defaultMapping = SacsManager::instance()->getDefaultMapping();
+        $roles = $this->container->get('adminUserRoleService')->getAllRoles();
+        $sacsManager = $this->container->get('sacsManager');
+        $mappings = $sacsManager->getMappings();
+        $defaultMapping = $sacsManager->getDefaultMapping();
         return array('roles' => $roles, 'mappings' => $mappings, 'defaultMapping' => $defaultMapping);
     }
 
@@ -59,13 +60,14 @@ class ZMManageRolesController extends ZMController {
      * {@inheritDoc}
      */
     public function processPost($request) {
+        $adminUserRoleService = $this->container->get('adminUserRoleService');
         if (null == ($newRole = $request->getParameter('newRole'))) {
             // check for changes
             $updatedRoles = $request->getParameter('roles');
-            $currentRoles = ZMAdminUserRoles::instance()->getAllRoles();
+            $currentRoles = $adminUserRoleService->getAllRoles();
             foreach ($updatedRoles as $role) {
                 if (!in_array($role, $currentRoles)) {
-                    if (null == ($newId = ZMAdminUserRoles::instance()->addRole($role))) {
+                    if (null == ($newId = $adminUserRoleService->addRole($role))) {
                         $this->messageService->error('Adding role failed');
                     }
                 }
@@ -75,13 +77,13 @@ class ZMManageRolesController extends ZMController {
                     if ('admin' == $role) {
                         continue;
                     }
-                    if (null == ($newId = ZMAdminUserRoles::instance()->deleteRole($role))) {
+                    if (null == ($newId = $adminUserRoleService->deleteRole($role))) {
                         $this->messageService->error('Deleting role failed');
                     }
                 }
             }
         } else {
-            if (null == ($newId = ZMAdminUserRoles::instance()->addRole($newRole))) {
+            if (null == ($newId = $adminUserRoleService->addRole($newRole))) {
                 $this->messageService->error('Adding role failed');
             }
         }

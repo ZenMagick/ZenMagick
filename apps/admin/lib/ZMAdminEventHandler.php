@@ -67,7 +67,7 @@ class ZMAdminEventHandler extends ZMObject {
      */
     protected function getCurrentEditor($request) {
         $user = $request->getUser();
-        if (null == $user || null == ($editor = ZMAdminUserPrefs::instance()->getPrefForName($user->getId(), 'wysiwygEditor'))) {
+        if (null == $user || null == ($editor = $this->container->get('adminUserPrefService')->getPrefForName($user->getId(), 'wysiwygEditor'))) {
             $editor = ZMSettings::get('apps.store.admin.defaultEditor', 'ZMTextAreaFormWidget');
         }
 
@@ -84,8 +84,8 @@ class ZMAdminEventHandler extends ZMObject {
     public function onInitDone($event) {
         $request = $event->get('request');
         $user = $request->getUser();
-        if (null != $user && null != ($uiLocale = ZMAdminUserPrefs::instance()->getPrefForName($user->getId(), 'uiLocale'))) {
-            ZMLocales::instance()->getLocale(true, $uiLocale);
+        if (null != $user && null != ($uiLocale = $this->container->get('adminUserPrefService')->getPrefForName($user->getId(), 'uiLocale'))) {
+            $this->container->get('localeService')->getLocale(true, $uiLocale);
         }
     }
 
@@ -95,7 +95,7 @@ class ZMAdminEventHandler extends ZMObject {
     public function onInitRequest($event) {
         $request = $event->get('request');
         $language = $request->getSession()->getLanguage();
-        $theme = ZMThemes::instance()->initThemes($language);
+        $theme = $this->container->get('themeService')->initThemes($language);
         $args = array_merge($event->all(), array('theme' => $theme, 'themeId' => $theme->getId()));
         //Runtime::getEventDispatcher()->dispatch('theme_resolved', new Event($this, $args));
     }

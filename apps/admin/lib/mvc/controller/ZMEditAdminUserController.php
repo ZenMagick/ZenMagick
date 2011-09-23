@@ -53,7 +53,7 @@ class ZMEditAdminUserController extends ZMController {
         if (!$this->isFormSubmit($request)) {
             if (0 < ($adminUserId = $request->getParameter('adminUserId'))) {
                 // prepopulate with data
-                $user = ZMAdminUsers::instance()->getUserForId($adminUserId);
+                $user = $this->container->get('adminUserService')->getUserForId($adminUserId);
                 if (null != $user) {
                     $adminUser->setAdminUserId($user->getId());
                     $adminUser->setName($user->getName());
@@ -70,7 +70,7 @@ class ZMEditAdminUserController extends ZMController {
      * {@inheritDoc}
      */
     public function getViewData($request) {
-        return array('roles' => ZMAdminUserRoles::instance()->getAllRoles());
+        return array('roles' => $this->container->get('adminUserService')->getAllRoles());
     }
 
     /**
@@ -80,6 +80,8 @@ class ZMEditAdminUserController extends ZMController {
         if ($request->handleDemo()) {
             return $this->findView('success');
         }
+
+        $adminUserService = $this->container->get('adminUserService');
 
         if (null != ($editUserId = $request->getParameter('adminUserId'))) {
             $adminUserForm = $this->getFormData($request);
@@ -91,7 +93,7 @@ class ZMEditAdminUserController extends ZMController {
             $user->setRoles($adminUserForm->getRoles());
             $user->setLive(ZMLangUtils::asBoolean($adminUserForm->getLive()));
             $clearPassword = $adminUserForm->getPassword();
-            $current = ZMAdminUsers::instance()->getUserForId($user->getId());
+            $current = $adminUserService->getUserForId($user->getId());
             if (empty($clearPassword) && null != $current) {
                 // keep
                 $encrypedPassword = $current->getPassword();
@@ -100,14 +102,14 @@ class ZMEditAdminUserController extends ZMController {
             }
             $user->setPassword($encrypedPassword);
             if (0 < $user->getId()) {
-                ZMAdminUsers::instance()->updateUser($user);
+                $adminUserService->updateUser($user);
                 $this->messageService->success(_zm('Details updated.'));
             } else {
-                ZMAdminUsers::instance()->createUser($user);
+                $adminUserService->createUser($user);
                 $this->messageService->success(_zm('User created.'));
             }
         } else if (null != ($deleteUserId = $request->getParameter('deleteUserId'))) {
-            ZMAdminUsers::instance()->deleteUserForId($deleteUserId);
+            $adminUserService->deleteUserForId($deleteUserId);
             $this->messageService->success(_zm('User deleted.'));
         }
 

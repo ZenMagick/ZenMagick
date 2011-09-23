@@ -24,7 +24,7 @@
 
 <?php $contact = '<a href="'.$net->url('contact_us') .'">'._zm("let us know").'</a>'; ?>
 <p><?php _vzm("If you are having difficulty in locating something on our site, please %s!", $contact) ?></p>
-<?php echo $macro->categoryTree($this->container->get('categoryService')->getCategoryTree($session->getLanguageId()), "catalog"); ?>
+<?php echo $macro->categoryTree($container->get('categoryService')->getCategoryTree($session->getLanguageId()), "catalog"); ?>
 <ul>
     <?php if ($request->isRegistered()) { ?>
       <li><a href="<?php echo $net->url('account', '', true) ?>"><?php _vzm("My Account") ?></a>

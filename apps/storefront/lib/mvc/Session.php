@@ -298,9 +298,10 @@ class Session extends zenmagick\http\session\Session {
      */
     public function getLanguage() {
         $languageCode = $this->getValue('languages_code');
-        if (null == ($language = ZMLanguages::instance()->getLanguageForCode($languageCode))) {
+        $languageService = $this->container->get('languageService');
+        if (null == ($language = $languageService->getLanguageForCode($languageCode))) {
             // fallback
-            $language = ZMLanguages::instance()->getLanguageForId($this->getLanguageId());
+            $language = $languageService->getLanguageForId($this->getLanguageId());
         }
         return $language;
     }

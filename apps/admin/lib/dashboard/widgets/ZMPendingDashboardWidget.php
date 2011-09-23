@@ -44,7 +44,7 @@ class ZMPendingDashboardWidget extends ZMDashboardWidget {
     public function getContents($request) {
         // TODO: convert into ajax pull
         $contents = '';
-        $gvApprovalQueue = ZMCoupons::instance()->getCouponsForFlag('N');
+        $gvApprovalQueue = $this->container->get('couponService')->getCouponsForFlag('N');
         if (0 < count($gvApprovalQueue)) {
             $a = '<a href="'.$request->getToolbox()->admin2->url('zc_admin', 'zpid=gv_queue').'">'._zm('approval').'</a>';
             $contents .= sprintf(_zm('There are %s gift cards waiting for %s.'), count($gvApprovalQueue), $a);

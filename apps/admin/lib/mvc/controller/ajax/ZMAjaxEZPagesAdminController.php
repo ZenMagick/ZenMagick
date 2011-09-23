@@ -46,9 +46,10 @@ class ZMAjaxEZPagesAdminController extends ZMRpcController {
 
         $rpcResponse = $rpcRequest->createResponse();
 
-        if (null != ($ezPage = ZMEZPages::instance()->getPageForId($pageId, $languageId))) {
+        $ezPageService = $this->container->get('ezPageService');
+        if (null != ($ezPage = $ezPageService->getPageForId($pageId, $languageId))) {
             Beans::setAll($ezPage, array($property => $value));
-            ZMEZPages::instance()->updatePage($ezPage);
+            $ezPageService->updatePage($ezPage);
             $rpcResponse->setStatus(true);
         } else {
             $rpcResponse->setStatus(false);

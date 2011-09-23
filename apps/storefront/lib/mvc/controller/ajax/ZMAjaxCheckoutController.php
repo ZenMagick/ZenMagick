@@ -89,7 +89,7 @@ class ZMAjaxCheckoutController extends ZMAjaxController {
 
         $shippingMethods = array();
         if (null != $address && !$shoppingCart->isEmpty()) {
-            foreach (ZMShippingProviders::instance()->getShippingProviders(true) as $provider) {
+            foreach ($this->container->get('shippingProviderService')->getShippingProviders(true) as $provider) {
                 foreach ($provider->getShippingMethods($shoppingCart, $address) as $shippingMethod) {
                     $shippingMethods[] = $shippingMethod;
                 }

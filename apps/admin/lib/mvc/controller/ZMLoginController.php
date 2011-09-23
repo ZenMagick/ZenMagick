@@ -61,7 +61,7 @@ class ZMLoginController extends ZMController {
     public function processPost($request) {
         $name = $request->getParameter('name');
 
-        if (null == ($user = ZMAdminUsers::instance()->getUserForName($name))) {
+        if (null == ($user = $this->container->get('adminUserService')->getUserForName($name))) {
             $this->messageService->error(_zm('Sorry, there is no match for that email address and/or password.'));
             return $this->findView();
         }

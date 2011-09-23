@@ -82,7 +82,7 @@ class ZMRedirectController extends ZMController {
                 if (null == $manufacturer || null == $manufacturer->getUrl()) {
                     // try default language if different from session language
                     if (ZMSettings::get('defaultLanguageCode') != $request->getSession()->getLanguageCode()) {
-                        $defaultLanguage = ZMLanguages::instance()->getLanguageForCode(ZMSettings::get('defaultLanguageCode'));
+                        $defaultLanguage = $this->container->get('languageService')->getLanguageForCode(ZMSettings::get('defaultLanguageCode'));
                         $manufacturer = $manufacturerService->getManufacturerForId($manufacturerId, $defaultLanguage->getId());
                     }
                 }
