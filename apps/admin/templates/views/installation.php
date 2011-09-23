@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
 
     // locale
@@ -83,6 +84,50 @@ use zenmagick\base\Runtime;
                 }
             }
         }
+    }
+
+    // import static pages
+    if (null != $request->getParameter('importSp')) {
+        // disable
+        $settings = Runtime::getSettings();
+        $tmp = $settings->get('zenmagick.apps.store.staticContent', false);
+        $settings->set('zenmagick.apps.store.staticContent', false);
+
+        $ezPageService = $this->container->get('ezPageService');
+        $languageService = $this->container->get('languageService');
+        foreach ($languageService->getLanguages() as $language) {
+            $languageId = $language->getId();
+            $themeChain = ZMThemes::instance()->getThemeChain($languageId);
+            foreach ($themeChain as $theme) {
+                foreach ($languageService->getLanguages() as $subLang) {
+                    $subLangId = $subLang->getId();
+                    $staticPages = $theme->getStaticPageList(false, $subLangId);
+                    foreach ($staticPages as $staticPage) {
+//echo $subLangId.'/'.$theme->getName().'/'.$staticPage.'<br>';
+                        $contents = $theme->staticPageContent($staticPage, $subLangId);
+                        $contents = utf8_encode($contents);
+                        // check if already exists
+                        if (null != ($ezPage = $ezPageService->getPageForName($staticPage, $subLangId))) {
+                            $ezPage->setHtmlText($contents);
+                            $ezPage->setStatic(true);
+                            $ezPage = $ezPageService->updatePage($ezPage);
+                        } else {
+                            $ezPage = Beans::getBean('ZMEZPage');
+                            $ezPage->setStatic(true);
+                            $ezPage->setTitle($staticPage);
+                            $ezPage->setHtmlText($contents);
+                            $ezPage->setLanguageId($subLangId);
+                            $ezPageService->createPage($ezPage);
+                        }
+                    }
+                }
+            }
+        }
+
+        // cleanup
+        $settings->set('zenmagick.apps.store.staticContent', $tmp);
+        $this->container->get('messageService')->success("Import successful!");
+        $needRefresh = true;
     }
 
     // optimize database tables
@@ -175,6 +220,18 @@ use zenmagick\base\Runtime;
       <div class="submit">
         <strong>NOTE:</strong> It is <strong>strongly</strong> recommended to backup your database before appying/reverting SQL patches.
       </div>
+    </fieldset>
+  </form>
+
+  <form action="<?php echo $admin2->url() ?>" method="POST" onsubmit="return ZenMagick.confirm('Load static page content as EZPage?\n(This will override EZPages if an EZPage with a matching title already exists)', this);">
+    <fieldset id="static-import">
+    <legend><?php _vzm("Import Static Page Contents as EZPages") ?></legend>
+        <p>
+          <input type="checkbox" id="importSp" name="importSp" value="x">
+          <label for="importSp"><?php _vzm("Import static pages"); ?></label>
+        </p>
+
+        <div class="submit"><input class="<?php echo $buttonClasses ?>" type="submit" value="<?php _vzm("Import") ?>"></div>
     </fieldset>
   </form>
 
