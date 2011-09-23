@@ -85,6 +85,7 @@ class DefaultUrlRewriter implements UrlRewriter {
     public function rewrite($request, $args) {
         $requestId = $args['requestId'];
         $params = $args['params'];
+        $secure = $args['secure'];
         if (null != ($alias = \ZMUrlManager::instance()->getAlias($requestId))) {
             $requestId = $alias['requestId'];
             $params = str_replace('&&', '&', $params.'&'.$alias['parameter']);
