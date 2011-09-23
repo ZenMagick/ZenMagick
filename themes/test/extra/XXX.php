@@ -31,6 +31,5 @@ use zenmagick\base\Runtime;
 class XXX extends ZMBannerBlockWidget {
     function __construct() {
         parent::__construct();
-        echo 'dddd';
     }
 }
