@@ -54,7 +54,7 @@ class ZMPluginAdmin2Controller extends ZMController {
      *
      * @param mixed plugin A <code>ZMPlugin</code> instance or plugin id.
      */
-    public function setPlugin($plugin) { 
+    public function setPlugin($plugin) {
         $this->plugin_ = $plugin;
     }
 
@@ -65,7 +65,7 @@ class ZMPluginAdmin2Controller extends ZMController {
      */
     public function getPlugin() {
         if (!is_object($this->plugin_)) {
-            $this->plugin_ = ZMPlugins::instance()->getPluginForId($this->plugin_);
+            $this->plugin_ = $this->container->get('pluginService')->getPluginForId($this->plugin_);
         }
 
         return $this->plugin_;

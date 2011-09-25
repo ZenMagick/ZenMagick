@@ -359,7 +359,7 @@ class ZMOrder extends ZMObject {
      * @return ZMPaymentType A payment type or <code>null</code> if N/A.
      */
     public function getPaymentType() {
-        return ZMPaymentTypes::instance()->getPaymentTypeForId($this->get('payment_module_code'));
+        return $this->container->get('paymentTypeService')->getPaymentTypeForId($this->get('payment_module_code'));
     }
 
     /**

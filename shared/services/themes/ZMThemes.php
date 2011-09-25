@@ -195,7 +195,7 @@ class ZMThemes extends ZMObject {
         $theme->setThemeId($themeId);
 
         if (null !== $languageId) {
-            $language = ZMLanguages::instance()->getLanguageForId($languageId);
+            $language = $this->container->get('languageService')->getLanguageForId($languageId);
 
             $themeLoader = new ClassLoader();
             $themeLoader->addConfig($theme->getBaseDir().DIRECTORY_SEPARATOR.'lib');
@@ -354,7 +354,7 @@ class ZMThemes extends ZMObject {
     public function initThemes($language) {
         if (null == $language) {
             // default language
-            $language = ZMLanguages::instance()->getLanguageForCode(ZMSettings::get('defaultLanguageCode'));
+            $language = $this->container->get('languageService')->getLanguageForCode(ZMSettings::get('defaultLanguageCode'));
         }
         $this->initLanguage_ = $language;
 

@@ -208,7 +208,7 @@ class ZMTheme extends ZMObject {
      * @return array List of available static page names.
      */
     public function getStaticPageList($includeDefaults=false, $languageId) {
-        $language = ZMLanguages::instance()->getLanguageForId($languageId);
+        $language = $this->container->get('languageService')->getLanguageForId($languageId);
         $languageDir = $language->getDirectory();
         $path = $this->getLangDir().$languageDir."/".'static/';
 
@@ -251,7 +251,7 @@ class ZMTheme extends ZMObject {
      * @return boolean The status.
      */
     public function saveStaticPageContent($page, $contents, $languageId) {
-        $language = ZMLanguages::instance()->getLanguageForId($languageId);
+        $language = $this->container->get('languageService')->getLanguageForId($languageId);
         $languageDir = $language->getDirectory();
         $path = $this->getLangDir().$languageDir."/".'static/';
         if (!file_exists($path)) {
@@ -282,12 +282,12 @@ class ZMTheme extends ZMObject {
      */
     public function staticPageContent($page, $languageId) {
         if (Runtime::getSettings()->get('zenmagick.apps.store.staticContent', false)) {
-            if (null != ($ezPage = ZMEZPages::instance()->getPageForName($page, $languageId))) {
+            if (null != ($ezPage = $this->container->get('ezPageService')->getPageForName($page, $languageId))) {
                 return $ezPage->getHtmlText();
             }
             return null;
         }
-        $language = ZMLanguages::instance()->getLanguageForId($languageId);
+        $language = $this->container->get('languageService')->getLanguageForId($languageId);
         $languageDir = $language->getDirectory();
         $path = $this->getLangDir().$languageDir.DIRECTORY_SEPARATOR.'static'.DIRECTORY_SEPARATOR;
 
@@ -316,14 +316,14 @@ class ZMTheme extends ZMObject {
         }
         $path = $this->getLangDir().$language->getDirectory().DIRECTORY_SEPARATOR;
         // re-init with next file
-        ZMLocales::instance()->getLocale()->init(ZMSettings::get('zenmagick.core.locales.locale'), $path);
+        $this->container->get('localeService')->getLocale()->init(ZMSettings::get('zenmagick.core.locales.locale'), $path);
     }
 
     /**
      * Load additional theme config settins from <em>theme.yaml</em>.
      */
     public function loadSettings() {
-        $configLoader = new ContextConfigLoader();
+        $configLoader = $this->container->get('contextConfigLoader');
         $configLoader->apply($this->config_);
     }
 

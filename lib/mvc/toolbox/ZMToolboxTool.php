@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\ZMObject;
 
 /**
  * Toolbx tool base class.
@@ -32,22 +33,7 @@ class ZMToolboxTool extends ZMObject {
     protected $toolbox_;
     protected $view_;
 
-
-    /**
-     * Create new instance.
-     */
-    function __construct() {
-        parent::__construct();
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
-
-
+function getContainer(){ return $this->container;}
     /**
      * Set the request.
      *

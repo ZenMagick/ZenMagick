@@ -62,9 +62,10 @@ class ZMToolboxForm extends ZMToolboxTool {
      * @return string A HTML form tag plus optional hidden form fields.
      */
     public function open($page=null, $params='', $secure=true, $attr=null) {
+        $validator = $this->container->get('validator');
         $defaults = array('method' => 'post');
         $hasId = isset($attr['id']);
-        $hasValidation = ($hasId && ZMValidator::instance()->hasRuleSet($attr['id']) && ZMSettings::get('isAutoJSValidation'));
+        $hasValidation = ($hasId && $validator->hasRuleSet($attr['id']) && ZMSettings::get('isAutoJSValidation'));
         if ($hasValidation) {
             $defaults['onsubmit'] = 'return zmFormValidation.validate(this);';
         }
@@ -106,8 +107,8 @@ class ZMToolboxForm extends ZMToolboxTool {
         ob_start();
 
         // create JS validation code if all go
-        if ($hasId && ZMValidator::instance()->hasRuleSet($attr['id']) && ZMSettings::get('isAutoJSValidation')) {
-            echo ZMValidator::instance()->toJSString($attr['id']);
+        if ($hasId && $validator->hasRuleSet($attr['id']) && ZMSettings::get('isAutoJSValidation')) {
+            echo $validator->toJSString($attr['id']);
 
             // inline JS to allow PHP
             if (null != ($view = $this->getView())) {
@@ -193,7 +194,7 @@ class ZMToolboxForm extends ZMToolboxTool {
      */
     public function fieldLength($table, $col, $max=40) {
         //TODO: convert from col to form field/model property
-        $length = ZMTemplateManager::instance()->getFieldLength($table, $col);
+        $length = $this->container->get('templateManager')->getFieldLength($table, $col);
         $html = '';
         switch (true) {
             case ($length > $max):

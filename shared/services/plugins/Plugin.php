@@ -151,7 +151,7 @@ class Plugin extends ZMPlugin {
     function __set($name, $value) {
         $dname = strtoupper($this->configPrefix_ . $name);
         if (defined($dname)) {
-            \ZMConfig::instance()->updateConfigValue($dname, $value);
+            $this->container->get('configService')->updateConfigValue($dname, $value);
         } else {
             // regular dynamic property
             parent::__set($name, $value);
@@ -199,14 +199,14 @@ class Plugin extends ZMPlugin {
      * @param boolean keepSettings If set to <code>true</code>, the settings will not be removed; default is <code>false</code>.
      */
     public function remove($keepSettings=false) {
-        $config = \ZMConfig::instance();
+        $configService = $this->container->get('configService');
 
         // always remove these keys
-        $config->removeConfigValue($this->enabledKey_);
-        //$config->removeConfigValue($this->orderKey_);
+        $configService->removeConfigValue($this->enabledKey_);
+        //$configService->removeConfigValue($this->orderKey_);
 
         if (!$keepSettings) {
-            $config->removeConfigValues($this->configPrefix_.'%');
+            $configService->removeConfigValues($this->configPrefix_.'%');
         }
     }
 
@@ -318,11 +318,11 @@ class Plugin extends ZMPlugin {
         // keys are always upper case
         $key = strtoupper($key);
 
-        $tmp = \ZMConfig::instance()->getConfigValues($key);
+        $tmp = $this->container->get('configService')->getConfigValues($key);
         // check if value exists
         if (0 == count($tmp)) {
             // ZENMAGICK_PLUGIN_GROUP_ID is created via config.sql SQL
-            \ZMConfig::instance()->createConfigValue($title, $key, $value, ZENMAGICK_PLUGIN_GROUP_ID, $description, $sortOrder, $widget);
+            $this->container->get('configService')->createConfigValue($title, $key, $value, ZENMAGICK_PLUGIN_GROUP_ID, $description, $sortOrder, $widget);
         }
     }
 
@@ -334,7 +334,7 @@ class Plugin extends ZMPlugin {
     public function getConfigValues() {
         if (null === $this->configValues_) {
             $this->configValues_ = array();
-            foreach (\ZMConfig::instance()->getConfigValues($this->configPrefix_.'%') as $configValue) {
+            foreach ($this->container->get('configService')->getConfigValues($this->configPrefix_.'%') as $configValue) {
                 $this->configValues_[$configValue->getName()] = $configValue;
             }
         }

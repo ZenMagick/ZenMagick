@@ -279,12 +279,13 @@ class ZMTaxRate extends ZMObject {
      * @return ZMCurrency A currency.
      */
     protected function getCurrency() {
+        $currencyService = $this->container->get('currencyService');
         //TODO: decouple price calculations from product, etc into a place where language/currency/etc are provided in a sane way!
         $session = Runtime::getContainer()->getService('session');
-        $currency = ZMCurrencies::instance()->getCurrencyForCode($session->getCurrencyCode());
+        $currency = $currencyService->getCurrencyForCode($session->getCurrencyCode());
         if (null == $currency) {
-            ZMLogging::instance()->log('no currency found - using default currency', ZMLogging::WARN);
-            $currency = ZMCurrencies::instance()->getCurrencyForCode(ZMSettings::get('defaultCurrency'));
+            Runtime::getLogging()->log('no currency found - using default currency', ZMLogging::WARN);
+            $currency = $currencyService->getCurrencyForCode(ZMSettings::get('defaultCurrency'));
         }
 
         return $currency;

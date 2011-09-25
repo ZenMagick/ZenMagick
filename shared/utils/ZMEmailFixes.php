@@ -67,13 +67,13 @@ class ZMEmailFixes extends ZMObject {
             if ($context['GV_REDEEM']) {
                 if (1 == preg_match('/.*strong>(.*)<\/strong.*/', $context['GV_REDEEM'], $matches)) {
                     $couponCode = trim($matches[1]);
-                    $coupon = ZMCoupons::instance()->getCouponForCode($couponCode, $language->getId());
+                    $coupon = $this->container->get('couponService')->getCouponForCode($couponCode, $language->getId());
                     if (null == $coupon) {
                         // coupon gets created only *after* the email is sent!
                         $coupon = Runtime::getContainer()->get('ZMCoupon');
                         $coupon->setCode($couponCode);
                         $coupon->setType(ZMCoupons::TYPPE_GV);
-                        $currency = ZMCurrencies::instance()->getCurrencyForCode(ZMSettings::get('defaultCurrency'));
+                        $currency = $this->container->get('currencyService')->getCurrencyForCode(ZMSettings::get('defaultCurrency'));
                         $coupon->setAmount($currency->parse($context['GV_AMOUNT']));
                     }
                     $context['currentCoupon'] = $coupon;
@@ -116,7 +116,7 @@ class ZMEmailFixes extends ZMObject {
 
         if ('gv_queue' == $template) {
             $queueId = $request->getParameter('gid');
-            $couponQueue = ZMCoupons::instance()->getCouponQueueEntryForId($queueId);
+            $couponQueue = $this->container->get('couponService')->getCouponQueueEntryForId($queueId);
             $context['couponQueue'] = $couponQueue;
             $account = $this->container->get('accountService')->getAccountForId($couponQueue->getAccountId());
             $context['currentAccount'] = $account;
@@ -126,7 +126,7 @@ class ZMEmailFixes extends ZMObject {
 
         if ('coupon' == $template) {
             $couponId = $request->getParameter('cid');
-            $coupon = ZMCoupons::instance()->getCouponForId($couponId, $language->getId());
+            $coupon = $this->container->get('couponService')->getCouponForId($couponId, $language->getId());
             $context['currentCoupon'] = $coupon;
             $account = $this->container->get('accountService')->getAccountForId($context['accountId']);
             $context['currentAccount'] = $account;

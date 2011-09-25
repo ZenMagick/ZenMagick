@@ -39,10 +39,10 @@ class SavantView extends ZMSavantView {
         $path = array();
 
         // available locale
-        $localeCodes = array_reverse(ZMLocales::instance()->getValidLocaleCodes());
+        $localeCodes = array_reverse($this->container->get('localeService')->getValidLocaleCodes());
 
         // add plugins as fallback fallback
-        foreach (ZMPlugins::instance()->getAllPlugins('storefront') as $plugin) {
+        foreach ($this->container->get('pluginService')->getAllPlugins('storefront') as $plugin) {
             $ppath = $plugin->getPluginDirectory().'content'.DIRECTORY_SEPARATOR;
             $path[] = $ppath;
             foreach ($localeCodes as $code) {
@@ -51,9 +51,9 @@ class SavantView extends ZMSavantView {
         }
 
         // available locale
-        $localeCodes = array_reverse(ZMLocales::instance()->getValidLocaleCodes());
+        $localeCodes = array_reverse($this->container->get('localeService')->getValidLocaleCodes());
 
-        foreach (ZMThemes::instance()->getThemeChain($request->getSession()->getLanguageId()) as $theme) {
+        foreach ($this->container->get('themeService')->getThemeChain($request->getSession()->getLanguageId()) as $theme) {
             $path[] = $theme->getContentDir();
             foreach ($localeCodes as $code) {
                 $path[] = ZMFileUtils::mkpath($theme->getContentDir(), 'locale', $code);

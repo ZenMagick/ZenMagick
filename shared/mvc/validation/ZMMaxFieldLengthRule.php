@@ -74,7 +74,7 @@ class ZMMaxFieldLengthRule extends ZMRule {
      */
     protected function getMaxFieldLength() {
         if (0 > $this->max) {
-            $this->max = ZMTemplateManager::instance()->getFieldLength($this->table, $this->column);
+            $this->max = $this->container->get('templateManager')->getFieldLength($this->table, $this->column);
         }
 
         return $this->max;

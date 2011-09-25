@@ -127,7 +127,7 @@ class ZMTemplateManager extends ZMObject {
                   AND layout_template = :themeId
                 ORDER BY layout_box_sort_order";
         $boxes = array();
-        foreach (ZMRuntime::getDatabase()->query($sql, array('themeId' => ZMThemes::instance()->getActiveTheme()->getThemeId()), TABLE_LAYOUT_BOXES) as $boxInfo) {
+        foreach (ZMRuntime::getDatabase()->query($sql, array('themeId' => $this->container->get('themeService')->getActiveTheme()->getThemeId()), TABLE_LAYOUT_BOXES) as $boxInfo) {
             // boxes use .php
             $box = str_replace('.php', ZMSettings::get('zenmagick.mvc.templates.ext'), $boxInfo['name']);
             $boxes[] = $box;
@@ -152,7 +152,7 @@ class ZMTemplateManager extends ZMObject {
                   AND layout_template = :themeId
                 ORDER BY layout_box_sort_order";
         $boxes = array();
-        foreach (ZMRuntime::getDatabase()->query($sql, array('themeId' => ZMThemes::instance()->getActiveTheme()->getThemeId()), TABLE_LAYOUT_BOXES) as $boxInfo) {
+        foreach (ZMRuntime::getDatabase()->query($sql, array('themeId' => $this->container->get('themeService')->getActiveTheme()->getThemeId()), TABLE_LAYOUT_BOXES) as $boxInfo) {
             // boxes use .php
             $box = str_replace('.php', ZMSettings::get('zenmagick.mvc.templates.ext'), $boxInfo['name']);
             $boxes[] = $box;

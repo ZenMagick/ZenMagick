@@ -324,7 +324,7 @@ class ZMAccount extends ZMObject {
      * @return float The voucher balance.
      */
     public function getVoucherBalance() {
-        return ZMCoupons::instance()->getVoucherBalanceForAccountId($this->getId());
+        return $this->container->get('couponService')->getVoucherBalanceForAccountId($this->getId());
     }
 
     /**

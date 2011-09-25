@@ -79,7 +79,7 @@ class ZMCategory extends ZMObject {
      * @return ZMCategory The parent category or <code>null</code>.
      */
     public function getParent() {
-        return 0 != $this->parentId_ ? ZMCategories::instance()->getCategoryForId($this->parentId_, $this->languageId_) : null;
+        return 0 != $this->parentId_ ? $this->container->get('categoryService')->getCategoryForId($this->parentId_, $this->languageId_) : null;
     }
 
     /**
@@ -130,7 +130,7 @@ class ZMCategory extends ZMObject {
      * @return array A list of <code>ZMCategory</code> instances.
      */
     public function getChildren() {
-        return ZMCategories::instance()->getCategories($this->languageId_, $this->childrenIds_);
+        return $this->container->get('categoryService')->getCategories($this->languageId_, $this->childrenIds_);
     }
 
     /**
@@ -311,7 +311,7 @@ class ZMCategory extends ZMObject {
      * @return array List of allowed product type ids (might be empty).
      */
     public function getProductTypeIds() {
-        return ZMCategories::instance()->getProductTypeIds($this->getId());
+        return $this->container->get('categoryService')->getProductTypeIds($this->getId());
     }
 
     /**
@@ -321,7 +321,7 @@ class ZMCategory extends ZMObject {
      * @return ZMMetaTagDetails The details or <code>null</code>.
      */
     public function getMetaTagDetails($languageId) {
-        return ZMCategories::instance()->getMetaTagDetailsForId($this->getId(), $languageId);
+        return $this->container->get('categoryService')->getMetaTagDetailsForId($this->getId(), $languageId);
     }
 
 }

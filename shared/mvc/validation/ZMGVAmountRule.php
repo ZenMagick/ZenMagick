@@ -70,7 +70,7 @@ class ZMGVAmountRule extends ZMRule {
         $currentCurrencyCode = $request->getCurrencyCode();
         if (ZMSettings::get('defaultCurrency') != $currentCurrencyCode) {
             // need to convert amount to default currency as GV values are in default currency
-            $currency = ZMCurrencies::instance()->getCurrencyForCode($currentCurrencyCode);
+            $currency = $this->container->get('currencyService')->getCurrencyForCode($currentCurrencyCode);
             $amount = $currency->convertFrom($amount);
         }
 

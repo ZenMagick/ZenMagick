@@ -84,7 +84,7 @@ class ZMTools {
      * @return float The amount.
      */
     public static function parseMoney($money, $currencyCode) {
-        $currency = ZMCurrencies::instance()->getCurrencyForCode($currencyCode);
+        $currency = $this->container->get('currencyService')->getCurrencyForCode($currencyCode);
         $amount = $currency->parse($money, false);
         return $amount;
     }

@@ -554,7 +554,8 @@ class ZMRequest extends \ZMObject {
      */
     public function getToolbox() {
         if (null == $this->toolbox_) {
-            $this->toolbox_ = new \ZMToolbox($this);
+            $this->toolbox_ = $this->container->get('ZMToolbox');
+            $this->toolbox_->setRequest($this);
         }
 
         return $this->toolbox_;

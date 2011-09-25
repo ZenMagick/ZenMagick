@@ -46,8 +46,9 @@ class ContextConfigLoader extends HttpContextConfigLoader {
 
         // locale
         if (array_key_exists('locale', $config) && is_array($config['locale'])) {
-            $locale = \ZMLocales::instance()->getLocale();
-            foreach (\ZMLocales::instance()->getValidLocaleCodes() as $code) {
+            $localeService = $this->container->get('localeService');
+            $locale = $localeService->getLocale();
+            foreach ($localeService->getValidLocaleCodes() as $code) {
                 if (array_key_exists($code, $config['locale'])) {
                     $locale->setFormats($config['locale'][$code]);
                 }

@@ -243,7 +243,7 @@ class ZMShoppingCart extends ZMObject {
      * @return array List of <code>ZMShippingProvider</code> instances.
      */
     public function getShippingProviders() {
-        return ZMShippingProviders::instance()->getShippingProviders();
+        return $this->container->get('shippingProviderService')->getShippingProviders();
     }
 
     /**
@@ -294,7 +294,7 @@ class ZMShoppingCart extends ZMObject {
         if (2 != count($token)) {
             return null;
         }
-        if (null == ($shippingProvider = ZMShippingProviders::instance()->getShippingProviderForId($token[0], true))) {
+        if (null == ($shippingProvider = $this->container->get('shippingProviderService')->getShippingProviderForId($token[0], true))) {
             return null;
         }
         return $shippingProvider->getShippingMethodForId($token[1], $this);
@@ -338,7 +338,7 @@ class ZMShoppingCart extends ZMObject {
      */
     public function getSelectedPaymentType() {
         if (null == $this->selectedPaymentType_) {
-            $this->selectedPaymentType_ = ZMPaymentTypes::instance()->getPaymentTypeForId($this->getSelectedPaymentTypeId());
+            $this->selectedPaymentType_ = $this->container->get('paymentTypeService')->getPaymentTypeForId($this->getSelectedPaymentTypeId());
         }
         return $this->selectedPaymentType_;
     }
@@ -504,7 +504,7 @@ return $this->zenTotals_;
      */
     public function getPaymentFormValidationJS($request) {
         //TODO: move here...
-        return ZMPaymentTypes::instance()->getPaymentFormValidationJS($request);
+        return $this->container->get('paymentTypeService')->getPaymentFormValidationJS($request);
     }
 
     /**
@@ -633,7 +633,7 @@ return $this->zenTotals_;
     public function addProduct($productId, $quantity=1, $attributes=array(), $notify=true) {
         $product = $this->container->get('productService')->getProductForId($productId);
         if (null == $product) {
-            ZMLogging::instance()->log('failed to add product to cart; productId='.$productId, ZMLogging::ERROR);
+            Runtime::getLogging()->log('failed to add product to cart; productId='.$productId, ZMLogging::ERROR);
             return false;
         }
         $attributes = $this->sanitize_attributes($product, $attributes);
@@ -740,7 +740,7 @@ return $this->zenTotals_;
                 return $address;
         }
 
-        ZMLogging::instance()->log('invalid productTaxBase!', ZMLogging::ERROR);
+        Runtime::getLogging()->log('invalid productTaxBase!', ZMLogging::ERROR);
         return null;
     }
 

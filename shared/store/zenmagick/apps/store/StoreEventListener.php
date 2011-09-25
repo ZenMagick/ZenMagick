@@ -29,6 +29,7 @@ use Symfony\Component\Config\FileLocator;
 use zenmagick\base\Runtime;
 use zenmagick\base\Toolbox;
 use zenmagick\base\ioc\loader\YamlFileLoader;
+use zenmagick\base\ZMObject;
 
 /**
  * Shared store event listener.
@@ -38,7 +39,7 @@ use zenmagick\base\ioc\loader\YamlFileLoader;
  * @author DerManoMann
  * @package zenmagick.apps.store
  */
-class StoreEventListener {
+class StoreEventListener extends ZMObject {
 
     /**
      * Get config loaded ASAP.
@@ -48,7 +49,7 @@ class StoreEventListener {
             // include some zencart files we need.
             include_once ZC_INSTALL_PATH . 'includes/database_tables.php';
         }
-        foreach (\ZMConfig::instance()->loadAll() as $key => $value) {
+        foreach ($this->container->get('configService')->loadAll() as $key => $value) {
             if (!defined($key)) {
                 define($key, $value);
             }

@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 use zenmagick\http\sacs\SacsHandler;
 
 /**
@@ -77,7 +78,7 @@ class ZMZenCartAccountSacsHandler implements SacsHandler {
         }
 
         if (!in_array($level, $this->levelMap_[$requiredLevel])) {
-            ZMLogging::instance()->log('missing authorization for '.$requestId.'; current='.$level.', required='.$requiredLevel, ZMLogging::DEBUG);
+            Runtime::getLogging()->log('missing authorization for '.$requestId.'; current='.$level.', required='.$requiredLevel, ZMLogging::DEBUG);
             return false;
         }
 

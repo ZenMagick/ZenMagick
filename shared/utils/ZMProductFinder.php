@@ -23,6 +23,8 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
+
 /**
  * Product search.
  *
@@ -138,7 +140,7 @@ class ZMProductFinder extends ZMObject {
                 $where .= " AND p2c.products_id = p.products_id
                             AND p2c.products_id = pd.products_id
                             AND p2c.categories_id in (:categoryId)";
-                $category = ZMCategories::instance()->getCategoryForId($criteria->getCategoryId(), $this->container->get('session')->getLanguageId());
+                $category = $this->container->get('categoryService')->getCategoryForId($criteria->getCategoryId(), $this->container->get('session')->getLanguageId());
                 $args['categoryId'] = $category->getDecendantIds();
             } else {
                 $where .= " AND p2c.products_id = p.products_id
@@ -206,7 +208,7 @@ class ZMProductFinder extends ZMObject {
         }
         $where .= ')';
 
-        $dateFormat = ZMLocales::instance()->getLocale()->getFormat('date', 'short');
+        $dateFormat = $this->container->get('localeService')->getLocale()->getFormat('date', 'short');
         if (!ZMLangUtils::isEmpty($criteria->getDateFrom())) {
             $where .= " AND p.products_date_added >= :1#dateAdded";
             $args['1#dateAdded'] = DateTime::createFromFormat($dateFormat, $criteria->getDateFrom());
@@ -260,7 +262,7 @@ class ZMProductFinder extends ZMObject {
                 $sort .= " p.products_weight " . ($this->descending_ ? "DESC" : "") . ", pd.products_name";
                 break;
             default:
-                ZMLogging::instance()->log('invalid sort id: ' . $this->sortId_, ZMLogging::WARN);
+                Runtime::getLogging()->log('invalid sort id: ' . $this->sortId_, ZMLogging::WARN);
                $sort .= " p.products_sort_order,  pd.products_name";
                break;
             }

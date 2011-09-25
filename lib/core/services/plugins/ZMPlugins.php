@@ -337,7 +337,8 @@ class ZMPlugins extends ZMObject {
             if ($this->needsInit($id)) {
                 $pluginConfig = $plugin->getPluginDirectory().DIRECTORY_SEPARATOR.'plugin.yaml';
                 if (file_exists($pluginConfig)) {
-                    $configLoader = new ContextConfigLoader($pluginConfig);
+                    $configLoader = $this->container->get('contextConfigLoader');
+                    $configLoader->setConfig(Toolbox::loadWithEnv($pluginConfig));
                     $configLoader->process();
                 }
 

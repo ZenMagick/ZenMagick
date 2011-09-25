@@ -72,13 +72,13 @@ class ZMToolboxUtils extends ZMToolboxTool {
      * @return string The formatted amount.
      */
     public function formatMoney($amount, $convert=true) {
-        $currency = ZMCurrencies::instance()->getCurrencyForCode($this->getRequest()->getCurrencyCode());
+        $currencyService = $this->container->get('currencyService');
+        $currency = $currencyService->getCurrencyForCode($this->getRequest()->getCurrencyCode());
         if (null == $currency) {
-            ZMLogging::instance()->log('no currency found - using default currency', ZMLogging::WARN);
-            $currency = ZMCurrencies::instance()->getCurrencyForCode(ZMSettings::get('defaultCurrency'));
+            Runtime::getLogging()->log('no currency found - using default currency', ZMLogging::WARN);
+            $currency = $currencyService->getCurrencyForCode(ZMSettings::get('defaultCurrency'));
         }
         $money = $currency->format($amount, $convert);
-
         return $money;
     }
 
@@ -104,10 +104,10 @@ class ZMToolboxUtils extends ZMToolboxTool {
         $languageId = $this->getRequest()->getSession()->getLanguageId();
         if (empty($languageId)) {
             // XXX: when called in admin
-            $languageId = ZMLanguages::instance()->getLanguageForCode(ZMSettings::get('defaultLanguageCode'))->getLanguageId();
+            $languageId = $this->container->get('languageService')->getLanguageForCode(ZMSettings::get('defaultLanguageCode'))->getLanguageId();
         }
         // most specific first
-        $themeChain = array_reverse(ZMThemes::instance()->getThemeChain($languageId));
+        $themeChain = array_reverse($this->container->get('themeService')->getThemeChain($languageId));
         foreach ($themeChain as $theme) {
             if (null != ($content = $theme->staticPageContent($pageName, $languageId))) {
                 return $content;

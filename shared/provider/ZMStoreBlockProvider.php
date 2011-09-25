@@ -35,15 +35,16 @@ class ZMStoreBlockProvider implements ZMBlockProvider {
     public function getBlockList($args=array()) {
         $blocks = array();
 
+        $templateManager = $this->container->get('templateManager');
         // sideboxes
-        if (ZMTemplateManager::instance()->isLeftColEnabled()) {
-            foreach (ZMTemplateManager::instance()->getLeftColBoxNames() as $boxName) {
+        if ($templateManager->isLeftColEnabled()) {
+            foreach ($templateManager->getLeftColBoxNames() as $boxName) {
                 // avoid duplicates by using $box as key
                 $blocks[$boxName] = 'ZMBlockWidget#template=boxes/'.$boxName.'&title='.ucwords(str_replace(array('.php', '_'), array('', ' '), $boxName));
             }
         }
-        if (ZMTemplateManager::instance()->isRightColEnabled()) {
-            foreach (ZMTemplateManager::instance()->getRightColBoxNames() as $boxName) {
+        if ($templateManager->isRightColEnabled()) {
+            foreach ($templateManager->getRightColBoxNames() as $boxName) {
                 // avoid duplicates by using $box as key
                 $blocks[$boxName] = 'ZMBlockWidget#template=boxes/'.$boxName.'&title='.ucwords(str_replace(array('.php', '_'), array('', ' '), $boxName));
             }

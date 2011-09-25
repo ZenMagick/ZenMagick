@@ -21,6 +21,9 @@
 <?php
 
 use zenmagick\base\Beans;
+use zenmagick\base\Runtime;
+
+use Symfony\Component\DependencyInjection\ContainerAware;
 
 /**
  * Container for template related utilities.
@@ -38,18 +41,21 @@ class ZMToolbox {
     /**
      * Create new instance.
      *
-     * @param ZMRequest request The current request.
+     * @param ZMRequest request The current request; default is <code>null</code>.
      */
-    function __construct($request) {
+    public function __construct($request=null) {
         $this->tools_ = $this->initTools($request);
     }
 
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-    }
 
+    /**
+     * Set the request.
+     *
+     * @param ZMRequest request The current request.
+     */
+    public function setRequest($request) {
+        $this->tools_ = $this->initTools($request);
+    }
 
     /**
      * Get a map of all tools.
@@ -67,6 +73,10 @@ class ZMToolbox {
      * @return array Map of all tools.
      */
     protected function initTools($request) {
+        if (null == $request) {
+            return;
+        }
+
         // default tools
         $tools = array();
 
@@ -84,6 +94,7 @@ class ZMToolbox {
                 $tool->setToolbox($this);
                 $tool->setRequest($request);
             }
+
             // set member
             $this->$name = $tool;
         }

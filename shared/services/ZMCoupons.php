@@ -299,7 +299,7 @@ class ZMCoupons extends ZMObject {
                 return $code;
             }
         }
-        ZMLogging::instance()->log('could not create coupon code', ZMLogging::ERROR);
+        Runtime::getLogging()->log('could not create coupon code', ZMLogging::ERROR);
         return null;
     }
 

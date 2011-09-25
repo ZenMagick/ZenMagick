@@ -40,6 +40,7 @@ class ContextConfigLoader extends BaseContextConfigLoader {
     // collect all loaded routings to be processed later
     private static $routing = array();
 
+
     /**
      * {@inheritDoc}
      */

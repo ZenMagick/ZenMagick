@@ -287,7 +287,7 @@ class ZMCoupon extends ZMObject {
      * @return array An array of <code>ZMCouponRestriction</code> instances.
      */
     public function getRestrictions() {
-        return ZMCoupons::instance()->getRestrictionsForCouponId($this->couponId);
+        return $this->container->get('couponService')->getRestrictionsForCouponId($this->couponId);
     }
 
     /**

@@ -774,7 +774,7 @@ class ZMProduct extends ZMObject {
      */
     public function getOffers() {
         if (null == $this->offers) {
-            $this->offers = Runtime::getContainer()->get('ZMOffers');
+            $this->offers = $this->container->get('ZMOffers');
             $this->offers->setProduct($this);
         }
         return $this->offers;
@@ -971,7 +971,7 @@ class ZMProduct extends ZMObject {
         if (!array_key_exists('languageId', $args)) {
             $args['languageId'] = $this->getLanguageId();
         }
-        return ZMProductAssociations::instance()->getProductAssociationsForProductId($this->getId(), $type, $args, $all);
+        return $this->container->get('productAssociations')->getProductAssociationsForProductId($this->getId(), $type, $args, $all);
     }
 
 

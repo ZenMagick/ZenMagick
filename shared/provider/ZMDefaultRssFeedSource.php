@@ -117,7 +117,7 @@ class ZMDefaultRssFeedSource implements ZMRssSource {
      */
     protected function getChapterFeed($request, $key=null) {
         $items = array();
-        $toc = ZMEZPages::instance()->getPagesForChapterId($key, $request->getSession()->getLanguageId());
+        $toc = $this->container->get('ezPageService')->getPagesForChapterId($key, $request->getSession()->getLanguageId());
         foreach ($toc as $page) {
             $item = Beans::getBean("ZMRssItem");
             $item->setTitle($page->getTitle());
