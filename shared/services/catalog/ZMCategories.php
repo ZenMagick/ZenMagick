@@ -422,8 +422,9 @@ class ZMCategories extends ZMObject {
         // init tree
         foreach ($categories as $id => $category) {
             if (0 != $category->getParentId()) {
-                $parent = $categories[$category->getParentId()];
-                $parent->addChild($id);
+                if (array_key_exists($category->getParentId(), $categories) && null != ($parent = $categories[$category->getParentId()])) {
+                    $parent->addChild($id);
+                }
             }
         }
 

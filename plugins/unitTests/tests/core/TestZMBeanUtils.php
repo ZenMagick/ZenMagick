@@ -134,7 +134,7 @@ class TestZMBeanUtils extends ZMTestCase {
         $this->assertEqual(null, ZMBeanUtils::getBean('bean::null'));
 
         // test property bean
-        $bean = ZMBeanUtils::getBean('ZMObject#someBean=bean::Address');
+        $bean = ZMBeanUtils::getBean('ZMObject#someBean=bean::ZMAddress');
         if ($this->assertNotNull($bean) && $this->assertTrue($bean instanceof ZMObject)) {
             $someBean = $bean->getSomeBean();
             if ($this->assertNotNull($someBean)) {

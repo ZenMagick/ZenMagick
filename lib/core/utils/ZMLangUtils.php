@@ -201,4 +201,13 @@ class ZMLangUtils {
         return $val;
     }
 
+    /**
+     * Simple stack trace.
+     */
+    public static function dumpStack() {
+        foreach (debug_backtrace() as $level) {
+            echo $level['line'].':'.$level['file'].'<br>';
+        }
+    }
+
 }

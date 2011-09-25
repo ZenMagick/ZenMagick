@@ -50,7 +50,7 @@ class TestZMCategories extends ZMTestCase {
      * Test create/delete.
      */
     public function testCreateDelete() {
-        $newCategory = new ZMCategory();
+        $newCategory = $this->container->get('ZMCategory');
         $newCategory->setLanguageId(1);
         $newCategory->setName('Foo');
         $newCategory->setDescription('A foo category');

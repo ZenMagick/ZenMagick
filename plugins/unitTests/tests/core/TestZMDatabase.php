@@ -128,7 +128,7 @@ class TestZMDatabase extends ZMTestCase {
     public function testModelMethods() {
         // loadModel
         foreach (self::getProviders() as $provider => $database) {
-            $result = $database->loadModel(TABLE_COUNTRIES, 153, 'Country');
+            $result = $database->loadModel(TABLE_COUNTRIES, 153, 'ZMCountry');
             if ($this->assertTrue($result instanceof ZMCountry, '%s: '.$provider)) {
                 $this->assertEqual('NZ', $result->getIsoCode2(), '%s: '.$provider);
             }
@@ -154,12 +154,12 @@ class TestZMDatabase extends ZMTestCase {
         // updateModel
         $reset = "UPDATE " . TABLE_COUNTRIES . " SET countries_iso_code_3 = :isoCode3 WHERE countries_id = :countryId";
         foreach (self::getProviders() as $provider => $database) {
-            $country = $database->loadModel(TABLE_COUNTRIES, 153, 'Country');
+            $country = $database->loadModel(TABLE_COUNTRIES, 153, 'ZMCountry');
             if ($this->assertNotNull($country, '%s: '.$provider)) {
                 $isCode3 = $country->getIsoCode3();
                 $country->setIsoCode3('###');
                 $database->updateModel(TABLE_COUNTRIES, $country);
-                $updated = $database->loadModel(TABLE_COUNTRIES, 153, 'Country');
+                $updated = $database->loadModel(TABLE_COUNTRIES, 153, 'ZMCountry');
                 if ($this->assertNotNull($updated, '%s: '.$provider)) {
                     $this->assertEqual('###', $updated->getIsoCode3(), '%s: '.$provider);
                 }
@@ -180,7 +180,7 @@ class TestZMDatabase extends ZMTestCase {
             $result = $database->createModel(TABLE_COUNTRIES, $model);
             if ($this->assertNotNull($result, '%s: '.$provider)) {
                 $database->removeModel(TABLE_COUNTRIES, $result);
-                $this->assertNull($database->querySingle($findTestModelSql, array('isoCode3' => '%%%'), TABLE_COUNTRIES, 'Country'), '%s: '.$provider);
+                $this->assertNull($database->querySingle($findTestModelSql, array('isoCode3' => '%%%'), TABLE_COUNTRIES, 'ZMCountry'), '%s: '.$provider);
             }
 
             // clean up
