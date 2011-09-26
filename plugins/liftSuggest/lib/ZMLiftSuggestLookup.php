@@ -36,13 +36,6 @@ class ZMLiftSuggestLookup extends LiftSuggestLookup implements ContainerAwareInt
     private $container;
 
     /**
-     * {@inheritDoc}
-     */
-    public function setContainer(ContainerInterface $container=null) {
-        $this->container = $container;
-    }
-
-    /**
      * Create new instance.
      *
      * @param ZMPlugin plugin The related plugin or <code>null</code>.
@@ -50,6 +43,13 @@ class ZMLiftSuggestLookup extends LiftSuggestLookup implements ContainerAwareInt
 	  public function __construct($plugin=null) {
         $this->plugin_ = null != $plugin ? $plugin : ZMPlugins::instance()->getPluginForId('liftSuggest');
         parent::__construct($this->plugin_->getLiftSuggestConfig());
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setContainer(ContainerInterface $container=null) {
+        $this->container = $container;
     }
 
     /**
