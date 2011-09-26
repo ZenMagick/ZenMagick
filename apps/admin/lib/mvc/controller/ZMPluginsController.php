@@ -54,7 +54,7 @@ class ZMPluginsController extends ZMController {
      */
     public function getViewData($request) {
         // TODO: make flat list
-        $pluginList['general'] = $this->container->get('puginService')->getAllPlugins(0, false);
+        $pluginList['general'] = $this->container->get('pluginService')->getAllPlugins(0, false);
         return array('pluginList' => $pluginList);
     }
 
