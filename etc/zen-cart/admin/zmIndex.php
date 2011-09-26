@@ -26,6 +26,7 @@ use zenmagick\base\Runtime;
 use zenmagick\base\events\Event;
 use zenmagick\http\sacs\SacsManager;
 
+  $view = null;
   require_once 'includes/application_top.php';
 
   $container = Runtime::getContainer();
