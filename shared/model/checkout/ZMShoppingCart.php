@@ -51,11 +51,11 @@ class ZMShoppingCart extends ZMObject {
     function __construct() {
         parent::__construct();
         $this->cart_ = $_SESSION['cart'];
-        $this->session = Runtime::getContainer()->get("session");
+        $this->session = Runtime::getContainer()->get('session');
         // TODO: remove
         $comments = $this->session->getValue('comments');
         $this->setComments(null !== $comments ? $comments : '');
-        $accountId = $this->session->getValue('customers_id');
+        $accountId = $this->session->getValue('customer_id');
         $this->setAccountId(null !== $accountId ? $accountId : 0);
         $this->zenTotals_ = null;
         $this->items_ = null;
