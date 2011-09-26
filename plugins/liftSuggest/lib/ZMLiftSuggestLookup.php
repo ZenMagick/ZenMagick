@@ -22,14 +22,24 @@
 
 use zenmagick\base\Runtime;
 
+use Symfony\Component\DependencyInjection\ContainerAware;
+
 /**
  * ZenMagick Lift Suggest Recommendation implementation.
  *
  * @author mano
  * @package org.zenmagick.plugins.liftSuggest
  */
-class ZMLiftSuggestLookup extends LiftSuggestLookup {
+class ZMLiftSuggestLookup extends LiftSuggestLookup implements ContainerAwareInterface {
     private $plugin_;
+    private $container;
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setContainer(ContainerInterface $container=null) {
+        $this->container = $container;
+    }
 
     /**
      * Create new instance.
