@@ -222,10 +222,15 @@ class ZMRequest extends \ZMObject {
         // default to current requestId
         $requestId = $requestId === null ? $this->getRequestId() : $requestId;
 
-        // drop secure if disabled
-        $secure = $secure & \ZMSettings::get('zenmagick.mvc.request.secure');
-        // check if always secure
-        $secure = Runtime::getSettings()->get('zenmagick.http.request.allSecure') ? true : $secure;
+        $settingService = Runtime::getSettings();
+        // adjust according to settings
+        if ($settingService->get('zenmagick.http.request.secure')) {
+            // check if always secure
+            $secure = $settingService->get('zenmagick.http.request.allSecure', false) || $secure;
+        } else {
+            // disabled
+            $secure = false;
+        }
 
         // delegate generation to SEO rewriters
         $args = array('requestId' => $requestId, 'params' => $params, 'secure' => $secure);

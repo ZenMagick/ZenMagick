@@ -26,6 +26,11 @@ admin,storefront:
           enabled: true
 
       http:
+        request:
+          # enable secure links
+          secure: true
+          # force all links to be secure
+          allSecure: false
         routing:
           # enable symfony routing
           enabled: true

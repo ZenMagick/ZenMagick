@@ -67,11 +67,12 @@ class Request extends \ZMRequest {
      * {@inheritDoc}
      */
     public function url($requestId=null, $params='', $secure=false) {
+        $settingService = Runtime::getSettings();
         // custom params handling
         if (null == $requestId || null === $params) {
             // if requestId null, keep current and also current params
             $query = $this->getParameterMap();
-            unset($query[\ZMSettings::get('zenmagick.http.request.idName', \ZMRequest::DEFAULT_REQUEST_ID)]);
+            unset($query[$settingService->get('zenmagick.http.request.idName', \ZMRequest::DEFAULT_REQUEST_ID)]);
             unset($query[$this->getSession()->getName()]);
             if (null != $params) {
                 parse_str($params, $arr);
@@ -93,6 +94,15 @@ class Request extends \ZMRequest {
 
         // default to current requestId
         $requestId = $requestId === null ? $this->getRequestId() : $requestId;
+
+        // adjust according to settings
+        if ($settingService->get('zenmagick.http.request.secure')) {
+            // check if always secure
+            $secure = $settingService->get('zenmagick.http.request.allSecure', false) || $secure;
+        } else {
+            // disabled
+            $secure = false;
+        }
 
         // delegate generation to Url rewriters
         $args = array('requestId' => $requestId, 'params' => $params, 'secure' => $secure);

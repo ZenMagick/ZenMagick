@@ -45,7 +45,7 @@ class ZMStoreDefaultUrlRewriter implements UrlRewriter {
      * {@inheritDoc}
      */
     public function rewrite($request, $args) {
-        $secure = ZMSettings::get('zenmagick.http.request.allSecure') ? true : $args['secure'];
+        $secure = $args['secure'];
         // provide the full set of parameters to SEO plugins
         // this means that in practice this will be the only rewriter called...
         return self::furl($args['requestId'], $args['params'], $secure ? 'SSL' : 'NONSSL', true, true, false, true, $request);
