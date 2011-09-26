@@ -33,17 +33,18 @@ if (isset($liftSuggest)) {
         $productId = implode(',', $productIdList);
     }
 
-    $recommendations = $liftSuggest->getProductRecommendations($productId);
-    ?>
-    <div class="lift-recommend">
-        <h2><?php echo _zm(sprintf('%s%% of the customers who bought above product(s) also bought these:', (int)$recommendations->getPopularity())) ?></h2>
-        <?php foreach ($recommendations->getProductDetails() as $productDetails) { $product = $productDetails['product']; ?>
-            <div class="lift-product">
-                <p><?php echo $html->productImageLink($product) ?></p>
-                <p><a href="<?php echo $net->product($product->getId()) ?>"><?php echo $html->encode($product->getName()) ?></a></p>
-                <?php $offers = $product->getOffers(); ?>
-                <p class="price"><?php echo $utils->formatMoney($offers->getCalculatedPrice()) ?></p>
-            </div>
-        <?php } ?>
-    </div>
+    if (null != ($recommendations = $liftSuggest->getProductRecommendations($productId))) {
+      ?>
+      <div class="lift-recommend">
+          <h2><?php echo _zm(sprintf('%s%% of the customers who bought above product(s) also bought these:', (int)$recommendations->getPopularity())) ?></h2>
+          <?php foreach ($recommendations->getProductDetails() as $productDetails) { $product = $productDetails['product']; ?>
+              <div class="lift-product">
+                  <p><?php echo $html->productImageLink($product) ?></p>
+                  <p><a href="<?php echo $net->product($product->getId()) ?>"><?php echo $html->encode($product->getName()) ?></a></p>
+                  <?php $offers = $product->getOffers(); ?>
+                  <p class="price"><?php echo $utils->formatMoney($offers->getCalculatedPrice()) ?></p>
+              </div>
+          <?php } ?>
+      </div>
+    <?php } ?>
 <?php } ?>

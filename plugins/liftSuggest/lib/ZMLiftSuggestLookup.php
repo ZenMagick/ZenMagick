@@ -22,7 +22,8 @@
 
 use zenmagick\base\Runtime;
 
-use Symfony\Component\DependencyInjection\ContainerAware;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 
 /**
  * ZenMagick Lift Suggest Recommendation implementation.
