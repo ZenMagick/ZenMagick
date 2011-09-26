@@ -378,13 +378,14 @@ class ZMTools {
     }
 
     /**
-     * Prepare face zc globals to make wrapper work.
+     * Prepare fake zc globals to make wrapper work.
      *
      * @param ZMShoppingCart shoppingCart The current shopping cart.
-     * @param ZMAddress address Optional address; default is <code>null</code>.
+     * @param ZMAddress address Optional delivery address; default is <code>null</code>.
      */
-    public static function prepareWrapperEnv($shoppingCart, $address=null) {
+    public static function prepareWrapperEnv($shoppingCart, $deliveryAddress=null) {
     global $order, $shipping_weight, $shipping_quoted, $shipping_num_boxes, $total_count;
+    global $_order, $_shipping_weight, $_shipping_quoted, $_shipping_num_boxes, $_total_count;
 
         // save originals
         $_order = $order;
@@ -393,16 +394,10 @@ class ZMTools {
         $_shipping_num_boxes = $shipping_num_boxes;
         $_total_count = $total_count;
 
-        $order = new stdClass();
-        $order->content_type = $shoppingCart->getType();
-        $order->delivery = array();
-        $order->delivery['country'] = array();
-
-        if (null != $address) {
-            $order->delivery['country']['id'] = $address->getCountryId();
-            $order->delivery['country']['iso_code_2'] = $address->getCountry()->getIsoCode2();
-            $order->delivery['zone_id'] = $address->getZoneId();
-            $order->delivery['postcode'] = $address->getPostcode();
+        $order = Runtime::getContainer()->get('ZenCartCheckoutOrder');
+        $order->setShoppingCart($shoppingCart);
+        if (null != $deliveryAddress) {
+            $order->setDeliveryAddress($deliveryAddress);
         }
 
         if (!isset($_SESSION['cart'])) {
@@ -444,14 +439,6 @@ class ZMTools {
           $shipping_weight = $shipping_weight/$shipping_num_boxes;
         }
         // END: adjust boxes, weight and tare
-
-        // restore originals
-        $order = $_order;
-        $shipping_weight = $_shipping_weight;
-        $shipping_quoted = $_shipping_quoted;
-        $shipping_num_boxes = $_shipping_num_boxes;
-        // this breaks some shipping
-        //$total_count = $_total_count;
     }
 
     /**
@@ -460,7 +447,14 @@ class ZMTools {
      */
     public static function cleanupWrapperEnv() {
     global $order, $shipping_weight, $shipping_quoted, $shipping_num_boxes, $total_count;
-        unset($order); unset($shipping_weight); unset($shipping_quoted); unset($shipping_num_boxes); unset($total_count);
+    global $_order, $_shipping_weight, $_shipping_quoted, $_shipping_num_boxes, $_total_count;
+
+        // restore originals
+        $order = $_order;
+        $shipping_weight = $_shipping_weight;
+        $shipping_quoted = $_shipping_quoted;
+        $shipping_num_boxes = $_shipping_num_boxes;
+        $total_count = $_total_count;
     }
 
 }

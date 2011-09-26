@@ -138,8 +138,11 @@ class ZMPaymentTypeWrapper extends ZMObject implements ZMPaymentType {
      */
     public function getOrderFormContent($request) {
         // TODO: move into controller
+        ZMTools::prepareWrapperEnv($request->getShoppingCart());
         $this->module_->confirmation();
-        return $this->module_->process_button();
+        $button =  $this->module_->process_button();
+        ZMTools::cleanupWrapperEnv();
+        return $button;
     }
 
     /**
