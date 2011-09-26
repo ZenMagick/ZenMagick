@@ -24,6 +24,7 @@ use zenmagick\base\Beans;
 use zenmagick\base\ClassLoader;
 use zenmagick\base\Runtime;
 
+use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\Yaml\Yaml;
 
 /**
@@ -163,6 +164,11 @@ class ZMValidator extends ZMObject {
                 default:
                     throw new ZMException('unsupported number of constructor arguments ' . $clazz);
             }
+
+            if (null != $obj && $obj instanceof ContainerAwareInterface) {
+                $obj->setContainer($this->container);
+            }
+
             return $obj;
 
         }
