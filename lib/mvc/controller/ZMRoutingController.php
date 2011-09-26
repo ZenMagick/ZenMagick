@@ -52,7 +52,7 @@ class ZMRoutingController extends ZMController {
     /**
      * {@inheritDoc}
      */
-    public function process($request) {
+    public function process(ZMRequest $request) {
         // figure out parameters
         $rc = new ReflectionClass($this->controller);
         $method = $rc->getMethod($this->method);

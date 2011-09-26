@@ -71,7 +71,7 @@ class ZMAjaxController extends ZMController {
      *
      * @return ZMView A <code>ZMView</code> instance or <code>null</code>.
      */
-    public function process($request) {
+    public function process(ZMRequest $request) {
         $method = $sacsMethod = $request->getParameter('method');
         if (!method_exists($this, $method)) {
             $method = $method.'JSON';

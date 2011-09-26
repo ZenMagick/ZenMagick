@@ -274,7 +274,7 @@ class ZMShoppingCart extends ZMObject {
      * @return int The shipping method id or <code>null</code>.
      */
     public function getSelectedShippingMethodId() {
-        if (null !== ($shipping = $this->session->getValue('shipping'))) {
+        if (null !== ($shipping = $this->session->getValue('shipping')) && is_array($shipping)) {
             return $shipping['id'];
         }
         return null;

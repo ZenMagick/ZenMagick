@@ -48,7 +48,7 @@ class ZMRpcController extends ZMController {
     /**
      * {@inheritDoc}
      */
-    public function process($request) {
+    public function process(ZMRequest $request) {
         $rpcRequest = ZMAjaxUtils::createRpcRequest($request);
         $method = $sacsMethod = $rpcRequest->getMethod();
 
