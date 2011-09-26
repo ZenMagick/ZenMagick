@@ -74,7 +74,7 @@ class Beans {
                 }
             } else {
                 // convert into the expected 'property' => method format
-                $generic = ($obj instanceof \ZMObject) ? $obj->getPropertyNames() : array();
+                $generic = ($obj instanceof ZMObject) ? $obj->getPropertyNames() : array();
                 foreach ($properties as $property) {
                     foreach (self::$GETTER_PREFIX_LIST as $prefix) {
                         $method = $prefix.ucfirst($property);
@@ -125,7 +125,7 @@ class Beans {
         }
 
         // special case for ZMObject instances
-        if ($addGeneric && $obj instanceof \ZMObject) {
+        if ($addGeneric && $obj instanceof ZMObject) {
             foreach ($obj->getPropertyNames() as $property) {
                 $map[$property] = $obj->get($property);
             }
@@ -145,7 +145,7 @@ class Beans {
      * @return mixed The (modified) <code>$obj</code>.
      */
     public static function setAll($obj, $data, $keys=null, $setGeneric=true) {
-        $isGeneric = ($obj instanceof \ZMObject);
+        $isGeneric = ($obj instanceof ZMObject);
         foreach ($data as $property => $value) {
             if (is_string($value) && (0 === strpos($value, 'ref::') || 0 === strpos($value, 'bean::'))) {
                 $value = self::getBean($value);
@@ -227,7 +227,6 @@ class Beans {
             return $plugin;
         }
 
-        // XXX: add injection code
         return self::map2obj($tokens[0], $properties);
     }
 
