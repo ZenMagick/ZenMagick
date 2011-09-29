@@ -26,7 +26,7 @@
  * @author DerManoMann
  * @package org.zenmagick.core.utils
  */
-class ZMlocaleUtils {
+class ZMLocaleUtils {
     /** Locale patterns. */
     const LOCALE_PATTERNS = '_zmn,_zm,_vzm';
 
