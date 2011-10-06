@@ -58,8 +58,9 @@ class ZenCartCheckoutOrder extends ZMObject {
         $this->content_type = $shoppingCart->getType();
 
         // general stuff
-        $this->info = array();
-        $this->info['total'] = $shoppingCart->getTotal();
+        $this->info = array(
+            'total' => $shoppingCart->getTotal()
+        );
 
         // account
         $account = $this->container->get('accountService')->getAccountForId($shoppingCart->getAccountId());
