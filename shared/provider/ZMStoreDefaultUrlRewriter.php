@@ -95,7 +95,7 @@ class ZMStoreDefaultUrlRewriter implements UrlRewriter {
 
         // default to non ssl
         $server = HTTP_SERVER;
-        if ($transport == 'SSL' && ZMSettings::get('zenmagick.mvc.request.secure')) {
+        if ($transport == 'SSL' && ZMSettings::get('zenmagick.http.request.secure', true)) {
             $server = HTTPS_SERVER;
         }
 
