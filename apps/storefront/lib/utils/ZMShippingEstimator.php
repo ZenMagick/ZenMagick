@@ -167,8 +167,6 @@ class ZMShippingEstimator extends ZMObject {
               // set shipping to null ! multipickup changes address to store address...
               global $shipping;
               $shipping='';
-              // include the order class (uses the sendto !)
-              ZMTools::resolveZCClass('order');
               $order = new order;
           } else {
               $order->delivery = $this->getZCAddress();

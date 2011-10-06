@@ -352,19 +352,6 @@ class ZMTools {
     }
 
     /**
-     * Resolve the given zen-cart class.
-     *
-     * <p>This function ensures that the given class is loaded.</p>
-     *
-     * @param string clazz The class name.
-     */
-    public static function resolveZCClass($clazz) {
-        if (!class_exists($clazz)) {
-            require_once DIR_FS_CATALOG . DIR_WS_CLASSES . $clazz. '.php';
-        }
-    }
-
-    /**
      * fmod variant that can handle values < 1.
      */
     public static function fmod_round($x, $y) {

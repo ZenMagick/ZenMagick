@@ -184,7 +184,6 @@ class ZMShoppingCart extends ZMObject {
     global $order;
 
         if (!isset($GLOBALS['order']) || !is_object($GLOBALS['order'])) {
-            ZMTools::resolveZCClass('order');
             $order = new order();
         }
         return $order->info['subtotal'];
@@ -442,12 +441,9 @@ class ZMShoppingCart extends ZMObject {
     global $order, $order_total_modules, $shipping_modules;
 
     /*
-ZMTools::resolveZCClass('order');
 $order = new order();
 // Load the selected shipping module(needed to calculate tax correctly)
-ZMTools::resolveZCClass('shipping');
 $shipping_modules = new shipping($_SESSION['shipping']);
-ZMTools::resolveZCClass('order_total');
 $this->zenTotals_ = new order_total();
 $this->zenTotals_->collect_posts();
 $this->zenTotals_->pre_confirmation_check();
@@ -456,13 +452,11 @@ return $this->zenTotals_;
 
         if (null === $this->zenTotals_) {
             if (!isset($GLOBALS['order']) || !is_object($GLOBALS['order']) || 0 == count($order->info)) {
-                ZMTools::resolveZCClass('order');
                 $order = new order();
             }
 
             $this->zenTotals_ = $order_total_modules;
             if (!isset($order_total_modules)) {
-                ZMTools::resolveZCClass('order_total');
                 $this->zenTotals_ = new order_total();
                 $this->zenTotals_->collect_posts();
                 $this->zenTotals_->pre_confirmation_check();

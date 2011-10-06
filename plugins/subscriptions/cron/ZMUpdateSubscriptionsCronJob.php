@@ -162,8 +162,6 @@ class ZMUpdateSubscriptionsCronJob implements ZMCronJob {
 
         // do products by using zen-cart's order class to include all stock taking, etc
         // some requirements first..
-        ZMTools::resolveZCClass('order');
-        ZMTools::resolveZCClass('order_total');
         global $order_total_modules;
         $order_total_modules = new order_total();
 

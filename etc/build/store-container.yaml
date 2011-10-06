@@ -19,7 +19,7 @@ doctrine:
     connections:
       default:
         driver: pdo_mysql
-        dbname: %zenmagick.apps.store.database.dbname%
+        dbname: '<?php echo DB_DATABASE ?>'
         host: '<?php echo DB_SERVER ?>'
         port: null
         user: '<?php echo DB_SERVER_USERNAME ?>'
@@ -40,19 +40,3 @@ doctrine:
             # @todo will eventually be the namespace zenmagick\apps\store\entities
             prefix: ZM
             dir: %zenmagick.installationPath%/zenmagick/shared/model
-
-#swiftmailer:
-#  transport: %zenmagick.core.email.transport%
-#  username: %zenmagick.core.email.smtp.user%
-#  password: %zenmagick.core.email.smtp.password%
-#  host: %zenmagick.core.email.smtp.host%
-#  port: %zenmagick.core.email.smtp.port%
-##  spool:
-##    type: file
-##    path: %zenmagick.cacheBaseDir%/swiftmailer/spool
-#  sender_address: %storeEmail%
-#  antiflood:
-#    threshold: 99
-#    sleep: 0
-#  logging: true
-
