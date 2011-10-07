@@ -4,14 +4,19 @@
 ## NOTE: This file is generated (and may be re-written) automatically - edit at own risk.
 ##
 
-# database configuration settings
-doctrine:
-  dbal:
-    connections:
-      default:
-        host: '<?php echo DB_SERVER ?>'
-        user: '<?php echo DB_SERVER_USERNAME ?>'
-        password: '<?php echo DB_SERVER_PASSWORD ?>'
-        dbname: '<?php echo DB_DATABASE ?>'
-        prefix: '<?php echo DB_PREFIX ?>'
-        charset: '<?php echo (defined("DB_CHARSET") ? DB_CHARSET : "utf8") ?>'
+zenmagick:
+  apps:
+    store:
+      database:
+        default:
+          driver: pdo_mysql
+          #host: localhost
+          port: null
+          #user: dbuser
+          #password: secret
+          #dbname: store
+          prefix:
+          charset: utf8
+          ## @todo mysql collation setting for ZMPdoDatabase
+          collation: null
+          socket: null

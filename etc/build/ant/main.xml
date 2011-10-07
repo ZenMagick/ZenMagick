@@ -183,7 +183,6 @@
 
         <!-- copy shared config -->
         <copy tofile="${build.dir}/zenmagick/config/store-config.yaml" file="etc/build/store-config.yaml" />
-        <!--copy tofile="${build.dir}/zenmagick/config/store-container.yaml" file="etc/build/store-container.yaml" /-->
 
         <!-- build before deleting stuff -->
         <antcall target="pack-libraries" />

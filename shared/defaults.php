@@ -68,7 +68,7 @@
             'isLogPageStats' => true,
 
             // download base folder
-            'downloadBaseDir' => DIR_FS_DOWNLOAD,
+            'downloadBaseDir' => ZM_DIR_FS_DOWNLOAD,
 
 
             // enable/disable transaction support in request processing
@@ -190,7 +190,7 @@
              **************************************/
 
             // use SSL
-            'zenmagick.http.request.secure' => (defined('ENABLE_SSL') && ENABLE_SSL == 'true') || (defined('ENABLE_SSL_ADMIN') && ENABLE_SSL_ADMIN == 'true'),
+            'zenmagick.http.request.secure' => (defined('ENABLE_SSL') && ZM_ENABLE_SSL == 'true') || (defined('ENABLE_SSL_ADMIN') && ZM_ENABLE_SSL_ADMIN == 'true'),
 
             // cookies only?
             'isForceCookieUse' => SESSION_FORCE_COOKIE_USE == 'True',
@@ -198,7 +198,7 @@
             // recreate sessions?
             'isSessionRecreate' => SESSION_RECREATE == 'True',
 
-            'sessionPersistence' => STORE_SESSIONS,
+            'sessionPersistence' => ZM_STORE_SESSIONS,
 
 
             'isResolveClientIP' => SESSION_IP_TO_HOST_ADDRESS == 'true',
