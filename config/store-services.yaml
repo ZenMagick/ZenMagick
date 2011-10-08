@@ -2,6 +2,7 @@
 ## Shared ZenMagick services
 ##
 
+
 parameters:
   kernel.environment: '<?php echo ZM_ENVIRONMENT ?>'
   kernel.root_dir: %zenmagick.cacheBaseDir%/kernel
@@ -12,6 +13,37 @@ parameters:
   zenmagick.cacheIds: ['transientCache', 'persistentCache', 'servicesCache', 'templateCache']
   zenmagick.cacheBaseDir: '<?php echo dirname(zenmagick\base\Runtime::getInstallationPath())."/cache/zenmagick" ?>'
 
+
+# database configuration settings
+doctrine:
+  dbal:
+    connections:
+      default:
+        driver: %zenmagick.apps.store.database.default.driver%
+        dbname: %zenmagick.apps.store.database.default.dbname%
+        host: %zenmagick.apps.store.database.default.host%
+        port: %zenmagick.apps.store.database.default.port%
+        user: %zenmagick.apps.store.database.default.user%
+        password: %zenmagick.apps.store.database.default.password%
+        charset: %zenmagick.apps.store.database.default.charset%
+        #collation: null @todo mysql collation setting
+        unix_socket: %zenmagick.apps.store.database.default.socket%
+  orm:
+    auto_generate_proxy_classes: true
+    proxy_namespace: zenmagick.proxies
+    proxy_dir: %zenmagick.cacheBaseDir%/doctrine/orm/proxies
+    entity_managers:
+      default:
+        mappings:
+          zenmagick:
+            is_bundle: false
+            type: xml
+            # @todo will eventually be the namespace zenmagick\apps\store\entities
+            prefix: ZM
+            dir: %zenmagick.installationPath%/zenmagick/shared/model
+
+
+# regular services and prototypes
 services:
   ## generic caches
   transientCache:

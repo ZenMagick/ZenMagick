@@ -72,9 +72,9 @@ class ZMRuntime {
      */
     public static function getDatabase($conf='default') {
         if (is_string($conf)) {
-            $dbconf = ZMLangUtils::toArray(ZMSettings::get('doctrine.dbal.connections.'.$conf));
+            $dbconf = ZMLangUtils::toArray(ZMSettings::get('zenmagick.apps.store.database.'.$conf));
         } else {
-            $default = ZMLangUtils::toArray(ZMSettings::get('doctrine.dbal.connections.default'));
+            $default = ZMLangUtils::toArray(ZMSettings::get('zenmagick.apps.store.database.default'));
             $dbconf = array_merge($default, $conf);
         }
 

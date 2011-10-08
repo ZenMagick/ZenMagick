@@ -54,7 +54,7 @@ class Toolbox {
                     $base[$key] = $append[$key];
                     continue;
                 }
-                if (is_array($value) || is_array($base[$key])) {
+                if (is_array($value) || (isset($base[$key]) && is_array($base[$key]))) {
                     $base[$key] = self::arrayMergeRecursive($base[$key], $append[$key]);
                 /* this would make it drop duplicate values (not keys)
                 } else if(is_numeric($key)) {

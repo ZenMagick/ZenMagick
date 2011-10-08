@@ -106,7 +106,6 @@ class TestShoppingCart extends ZMTestCase {
         $itemMap = $serviceShoppingCart->getItems();
 
         // get product data from order
-        ZMTools::resolveZCClass('order');
         $er = error_reporting(0);
         $order = new order();
         foreach ($order->products as $product) {

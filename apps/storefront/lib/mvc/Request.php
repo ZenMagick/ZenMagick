@@ -96,7 +96,7 @@ class Request extends \ZMRequest {
         $requestId = $requestId === null ? $this->getRequestId() : $requestId;
 
         // adjust according to settings
-        if ($settingService->get('zenmagick.http.request.secure')) {
+        if ($settingService->get('zenmagick.http.request.secure', true)) {
             // check if always secure
             $secure = $settingService->get('zenmagick.http.request.allSecure', false) || $secure;
         } else {

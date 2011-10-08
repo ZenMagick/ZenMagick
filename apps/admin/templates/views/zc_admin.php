@@ -19,7 +19,7 @@
  */
 ?>
 
-<link rel="stylesheet" type="text/css" href="<?php echo DIR_WS_CATALOG.ZC_ADMIN_FOLDER ?>/includes/stylesheet.css">
+<link rel="stylesheet" type="text/css" href="<?php echo ZM_DIR_WS_CATALOG.ZC_ADMIN_FOLDER ?>/includes/stylesheet.css">
 
 <?php
 
@@ -93,8 +93,8 @@ if (1 == count($head)) {
 }
 $content = preg_replace("/<html.*<body[^>]*>/s", '', $content);
 $content = str_replace('id="main"', '', $content);
-$content = str_replace('src="includes', 'src="'.DIR_WS_ADMIN.'includes', $content);
-$content = str_replace('src="images', 'src="'.DIR_WS_ADMIN.'images', $content);
+$content = str_replace('src="includes', 'src="'.ZM_DIR_WS_ADMIN.'includes', $content);
+$content = str_replace('src="images', 'src="'.ZM_DIR_WS_ADMIN.'images', $content);
 $content = str_replace(array('onmouseover="rowOverEffect(this)"', 'onmouseout="rowOutEffect(this)"'), '', $content);
 //action="/zmdev/zenmagick/apps/admin/web/index.php?rid=zc_admin&zpid=categories&" method="get">
 $content = preg_replace('/(action="[^"]*index.php\?rid=zc_admin&zpid=)([^&"]*)([^>]*>)/', '$1$2$3<input type="hidden" name="rid" value="zc_admin"><input type="hidden" name="zpid" value="$2">', $content);
@@ -119,7 +119,7 @@ function check_form() {
       $zc_menus = array('catalog', 'modules', 'customers', 'taxes', 'localization', 'reports', 'tools', 'gv_admin', 'extras');
       $menu = array();
       foreach ($zc_menus as $zm_menu) {
-          require(DIR_WS_BOXES . $zm_menu . '_dhtml.php');
+          require(ZM_DIR_WS_BOXES . $zm_menu . '_dhtml.php');
           $header = split_slash($za_heading['text']);
           $menu[$header] = array();
           $skipList = array('zmIndex', 'template_select', 'server_info', 'sqlpatch', 'zpid=admin','ezpages', 'define_page_editor',

@@ -109,6 +109,7 @@ zenmagick:
         - ZMZenCartAccountSacsHandler
   ## bundles
   bundles:
+    ZenCartBundle: zenmagick\apps\store\bundles\ZenCartBundle\ZenCartBundle
     DoctrineBundle: Symfony\Bundle\DoctrineBundle\DoctrineBundle 
     SwiftmailerBundle: Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle 
 
