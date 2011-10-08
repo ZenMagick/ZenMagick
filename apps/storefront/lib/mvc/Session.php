@@ -41,7 +41,7 @@ class Session extends zenmagick\http\session\Session {
         parent::__construct($domain, $name, $secure);
         if (Runtime::getSettings()->get('zenmagick.apps.store.storefront.sessions', false)) {
             if ('db' == ZMSettings::get('sessionPersistence')) {
-                $this->registerSessionHandler(Runtime::getContainer()->get('ZMZenCartSessionHandler'));
+                $this->registerSessionHandler(Runtime::getContainer()->get('sessionHandler'));
             }
         } else {
             // fake start to load session data
