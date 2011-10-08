@@ -26,18 +26,27 @@ doctrine:
         user: %zenmagick.apps.store.database.default.user%
         password: %zenmagick.apps.store.database.default.password%
         charset: %zenmagick.apps.store.database.default.charset%
-        #collation: null @todo mysql collation setting
-        unix_socket: %zenmagick.apps.store.database.default.socket%
+        #collation: %zenmagick.apps.store.database.default.collation%
+        unix_socket: %zenmagick.apps.store.database.default.unix_socket%
+        logging: true # required for pageStats plugin
+        mapping_types:
+          blob: blob
+          boolean: boolean # required for ZMDbTableMapper
+          enum: string
+          mediumblob: mediumblob
+    types:
+      blob: zenmagick\base\database\doctrine\types\Blob
+      mediumblob: zenmagick\base\database\doctrine\types\MediumBlob
   orm:
     auto_generate_proxy_classes: true
-    proxy_namespace: zenmagick.proxies
+    proxy_namespace: zenmagick\base\database\doctrine\proxies
     proxy_dir: %zenmagick.cacheBaseDir%/doctrine/orm/proxies
     entity_managers:
       default:
         mappings:
           zenmagick:
             is_bundle: false
-            type: xml
+            type: annotation
             # @todo will eventually be the namespace zenmagick\apps\store\entities
             prefix: ZM
             dir: %zenmagick.installationPath%/zenmagick/shared/model
@@ -268,3 +277,16 @@ services:
   urlManager:
     class: ZMUrlManager
     scope: container
+
+  annotation_reader:
+    class: Doctrine\Common\Annotations\AnnotationReader
+    scope: container
+
+#  table_prefix:
+#      class: zenmagick\base\database\doctrine\TablePrefix
+#      scope: container
+#      arguments: [%zenmagick.apps.store.database.default.prefix%]
+#      tags:
+#        - { name: doctrine.event_listener, event: loadClassMetadata }
+
+
