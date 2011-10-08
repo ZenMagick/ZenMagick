@@ -454,7 +454,7 @@ class ZMOffers extends ZMObject {
         2*100 + 2*10 = New Price apply to Special = 220 or 2209
         ====================*/
 
-        $typeInfo = $this->container->get('saleMakerService')->getSaleDiscountTypeInfo($this->product_->getId());
+        $typeInfo = $this->container->get('salemakerService')->getSaleDiscountTypeInfo($this->product_->getId());
         $discountTypeId = $typeInfo['type'];
 
         if (0 != $basePrice) {

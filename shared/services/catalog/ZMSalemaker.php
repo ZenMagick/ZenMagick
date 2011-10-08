@@ -24,6 +24,7 @@
 <?php
 
 use zenmagick\base\Runtime;
+use zenmagick\base\ZMObject;
 
 /**
  * Sale maker.
@@ -31,7 +32,7 @@ use zenmagick\base\Runtime;
  * @author DerManoMann
  * @package zenmagick.store.shared.services.catalog
  */
-class ZMSaleMaker extends ZMObject {
+class ZMSalemaker extends ZMObject {
     private $sales_;
 
 
@@ -54,7 +55,7 @@ class ZMSaleMaker extends ZMObject {
      * Get instance.
      */
     public static function instance() {
-        return Runtime::getContainer()->get('saleMakerService');
+        return Runtime::getContainer()->get('salemakerService');
     }
 
 
@@ -67,7 +68,6 @@ class ZMSaleMaker extends ZMObject {
      */
     public function getSaleDiscountTypeInfo($productId, $categoryId=null) {
         $product = $this->container->get('productService')->getProductForId($productId);
-
         if (null === $categoryId) {
             $categoryId = $product->getDefaultCategory(null)->getId();
         }

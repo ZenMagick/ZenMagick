@@ -225,8 +225,8 @@ services:
     class: ZMShippingProviders
     scope: container
 
-  saleMakerService:
-    class: ZMSaleMaker
+  salemakerService:
+    class: ZMSalemaker
     scope: container
 
   attributeService:
