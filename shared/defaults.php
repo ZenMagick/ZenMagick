@@ -198,7 +198,7 @@
             // recreate sessions?
             'isSessionRecreate' => SESSION_RECREATE == 'True',
 
-            'sessionPersistence' => ZM_STORE_SESSIONS,
+            'sessionPersistence' => 'db',
 
 
             'isResolveClientIP' => SESSION_IP_TO_HOST_ADDRESS == 'true',
