@@ -40,9 +40,10 @@ class RoutingUrlRewriter implements UrlRewriter {
 
         if (null != $routerMatch) {
             $request->setRequestId($routerMatch['_route']);
+            $parameterMap = $request->getParameterMap();
             // grab things not set and not prefixed with '_'
             foreach ($routerMatch as $key => $value) {
-                if ('_' != $key[0] && !array_key_exists($key, $this->parameter_)) {
+                if ('_' != $key[0] && !array_key_exists($key, $parameterMap)) {
                     $request->setParameter($key, $value);
                 }
             }
