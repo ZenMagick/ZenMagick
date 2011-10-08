@@ -10,7 +10,7 @@ zenmagick:
       database:
         default:
           driver: pdo_mysql
-          #host: localhost
+          host: localhost
           port: null
           #user: dbuser
           #password: secret
@@ -19,4 +19,4 @@ zenmagick:
           charset: utf8
           ## @todo mysql collation setting for ZMPdoDatabase
           collation: null
-          socket: null
+          unix_socket: null
