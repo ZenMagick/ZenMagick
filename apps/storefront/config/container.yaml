@@ -17,7 +17,7 @@ services:
     scope: container
     calls:
       - [setName, ['zenid']]
-      #- [registerSessionHandler, [@sessionHandler]]
+      - [registerSessionHandler, [@sessionHandler]]
 
   storeViewUtils:
     parent: merge:ZMViewUtils
