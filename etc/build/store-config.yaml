@@ -10,7 +10,7 @@ zenmagick:
       database:
         default:
           driver: pdo_mysql
-          host: localhost
+          #host: localhost
           port: null
           #user: dbuser
           #password: secret
