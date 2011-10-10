@@ -14,7 +14,7 @@ class TestWhoIsOnline extends ZMTestCase {
      * @return ZMPlugin The plugin.
      */
     protected function getPlugin() {
-        return ZMPlugins::instance()->getPluginForId('whoIsOnline');
+        return $this->container->get('pluginService')->getPluginForId('whoIsOnline');
     }
 
     /**
@@ -65,7 +65,7 @@ class TestWhoIsOnline extends ZMTestCase {
 
             array('anonymous' => 1, 'registered' => 1, 'total' => 2, 'expected' => 'There are currently one guest and one registered user online.'),
             array('anonymous' => 1, 'registered' => 3, 'total' => 4, 'expected' => 'There are currently one guest and 3 registered users online.')
-        ); 
+        );
 
         $sample1 = file_get_contents($this->getPlugin()->getPluginDirectory().'content/boxes/who_is_online_full.php');
         $sample1 = str_replace('$stats = $whoIsOnline->getStats();', '//$stats = $whoIsOnline->getStats();', $sample1);
@@ -92,7 +92,7 @@ class TestWhoIsOnline extends ZMTestCase {
             array('anonymous' => 5, 'registered' => 3, 'total' => 8, 'expected' => 'There are currently 5 guests and 3 registered users online.'),
             array('anonymous' => 1, 'registered' => 1, 'total' => 2, 'expected' => 'There are currently 1 guests and 1 registered users online.'),
             array('anonymous' => 1, 'registered' => 3, 'total' => 4, 'expected' => 'There are currently 1 guests and 3 registered users online.')
-        ); 
+        );
 
         $sample2 = file_get_contents($this->getPlugin()->getPluginDirectory().'content/boxes/who_is_online_simple.php');
         $sample2 = str_replace('$stats = $whoIsOnline->getStats();', '//$stats = $whoIsOnline->getStats();', $sample2);

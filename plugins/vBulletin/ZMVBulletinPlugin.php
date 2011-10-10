@@ -120,7 +120,7 @@ class ZMVBulletinPlugin extends Plugin {
             if (ZMLangUtils::asBoolean($this->get('requireNickname'))) {
                 $rules[] = array('ZMRequiredRule', 'nickName', 'Please enter a nick name.');
             }
-            ZMValidator::instance()->addRules('registration', $rules);
+            $this->container->get('validator')->addRules('registration', $rules);
         } else if ('account_password' == $this->page_) {
             // ??
         } else if ('account_edit' == $this->page_) {
@@ -133,7 +133,7 @@ class ZMVBulletinPlugin extends Plugin {
             if (ZMLangUtils::asBoolean($this->get('requireNickname'))) {
                 $rules[] = array('ZMRequiredRule', 'nickName', 'Please enter a nick name.');
             }
-            ZMValidator::instance()->addRules('account', $rules);
+            $this->container->get('validator')->addRules('account', $rules);
         }
     }
 

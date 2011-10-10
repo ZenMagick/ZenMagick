@@ -28,15 +28,12 @@
  * @package org.zenmagick.plugins.wordpress
  */
 class ZMWordpressController extends ZMController {
-    private $plugin_;
-
 
     /**
      * Create new instance.
      */
     function __construct() {
         parent::__construct();
-        $this->plugin_ = ZMPlugins::instance()->getPluginForId('wordpress');
     }
 
     /**
@@ -51,7 +48,8 @@ class ZMWordpressController extends ZMController {
      * {@inheritDoc}
      */
     public function processGet($request) {
-        $viewName = $this->plugin_->getRequestHandler($request)->preProcess($request);
+        $plugin = $this->container->get('pluginService')->get('wordpress');
+        $viewName = $plugin->getRequestHandler($request)->preProcess($request);
         return $this->findView($viewName);
     }
 

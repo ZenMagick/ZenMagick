@@ -49,15 +49,15 @@ class ZMUpdateSubscriptionsCronJob implements ZMCronJob {
             // load the new order as proper ZMOrder instance for further use
             $order = $orderService->getOrderForId($newOrder->getOrderId(), $this->container->get('session')->getLanguageId());
             if (null === $order) {
-                ZMLogging::instance()->log('copy order failed for scheduled order: '.$scheduledOrderId, ZMLogging::ERROR);
+                Runtime::getLogging()->error('copy order failed for scheduled order: '.$scheduledOrderId);
                 continue;
             }
 
             // 2) update shipping/billing from account to avoid stale addresses
             if ('account' == $plugin->get('addressPolicy')) {
-                $account = ZMAccounts::instance()->getAccountForId($order->getAccountId());
+                $account = $this->container->get('accountService')->getAccountForId($order->getAccountId());
                 if (null === $account) {
-                    ZMLogging::instance()->log('invalid accountId on order: '.$order->getId(), ZMLogging::ERROR);
+                    Runtime::getLogging()->warn('invalid accountId on order: '.$order->getId());
                     continue;
                 }
                 $defaultAddressId = $account->getDefaultAddressId();
@@ -132,7 +132,7 @@ class ZMUpdateSubscriptionsCronJob implements ZMCronJob {
      * @return ZMPlugin The plugin.
      */
     protected function getPlugin() {
-        return ZMPlugins::instance()->getPluginForId('subscriptions');
+        return $this->container->get('pluginService')->getPluginForId('subscriptions');
     }
 
     /**

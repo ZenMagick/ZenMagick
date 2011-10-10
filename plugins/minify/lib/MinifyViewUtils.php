@@ -41,7 +41,7 @@ class MinifyViewUtils extends ZMViewUtils {
      */
     public function getPlugin() {
         if (null == $this->plugin_) {
-            $this->plugin_ = ZMPlugins::instance()->getPluginForId('minify');
+            $this->plugin_ = $this->container->get('pluginService')->getPluginForId('minify');
         }
 
         return $this->plugin_;
