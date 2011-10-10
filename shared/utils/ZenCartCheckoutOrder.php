@@ -59,6 +59,9 @@ class ZenCartCheckoutOrder extends ZMObject {
 
         // general stuff
         $this->info = array(
+            //'currency' => 'TODO',
+            //'shipping_method' => 'TODO',
+            //'shipping_cost' => 'TODO',
             'total' => $shoppingCart->getTotal()
         );
 
@@ -72,6 +75,8 @@ class ZenCartCheckoutOrder extends ZMObject {
 
         // fill with something to have the correct count
         $this->products = $shoppingCart->getItems();
+        // id, final_price, tax, model, name, attributes, onetime_charges, qty
+        // attributes: option, value
     }
 
     /**
