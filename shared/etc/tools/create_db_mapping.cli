@@ -22,7 +22,6 @@
 
     // load ZenMagick core
     $zcDir = dirname(dirname(dirname(dirname(dirname(dirname(__FILE__)))))).DIRECTORY_SEPARATOR;
-    require $zcDir.'includes/configure.php';
     $installDir = $zcDir.'zenmagick'.DIRECTORY_SEPARATOR;
     define('ZM_BASE_PATH', $installDir);
     require $installDir.'lib/core/ZMLoader.php';
