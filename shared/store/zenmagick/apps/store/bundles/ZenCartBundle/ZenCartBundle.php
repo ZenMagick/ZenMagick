@@ -51,6 +51,15 @@ class ZenCartBundle extends Bundle {
         $this->prepareConfig();
 
         define('ZC_INSTALL_PATH', dirname(Runtime::getInstallationPath()).DIRECTORY_SEPARATOR);
+
+        // include some zencart files we need.
+        include_once ZC_INSTALL_PATH . 'includes/database_tables.php';
+
+        // random defines that we might need
+        if (!defined('PRODUCTS_OPTIONS_TYPE_SELECT')) { define('PRODUCTS_OPTIONS_TYPE_SELECT', 0); }
+        if (!defined('ATTRIBUTES_PRICE_FACTOR_FROM_SPECIAL')) { define('ATTRIBUTES_PRICE_FACTOR_FROM_SPECIAL', 0); }
+        if (!defined('TEXT_PREFIX')) { define('TEXT_PREFIX', 'txt_'); }
+        if (!defined('UPLOAD_PREFIX')) { define('UPLOAD_PREFIX', 'upload_'); }
     }
 
     /**
