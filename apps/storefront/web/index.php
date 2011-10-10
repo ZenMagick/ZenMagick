@@ -28,8 +28,6 @@
   // make zen-cart happy
   define('IS_ADMIN_FLAG', false);
 
-  require_once ZC_INSTALL_PATH.'/includes/configure.php';
-
   require realpath(dirname(__FILE__).'/../../../bootstrap.php');
 
   // more zen-cart config stuff we need

@@ -6,8 +6,6 @@ define('ZM_APP_PATH', 'apps/admin/');
 // pre-load a couple zen-cart files needed
 define('ZC_INSTALL_PATH', realpath('../') . DIRECTORY_SEPARATOR);
 
-// @todo allow passing configuration  values instead of relying in configure.php defines
-require_once ZC_INSTALL_PATH . 'includes/configure.php';
 include 'bootstrap.php';
 
 $helpers = array(
