@@ -142,18 +142,6 @@ services:
     calls:
       - [init, [{cacheTTL: 300, cacheDir: '%zenmagick.cacheBaseDir%/rss/'}]]
 
-  loggingService:
-    class: zenmagick\base\logging\Logging
-    scope: container
-
-  eventDispatcher:
-    class: zenmagick\base\events\EventDispatcher
-    scope: container
-
-  settingsService:
-    class: zenmagick\base\settings\Settings
-    scope: container
-
   authenticationManager:
     class: ZMAuthenticationManager
     scope: container

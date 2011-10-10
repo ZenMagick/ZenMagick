@@ -1,0 +1,10 @@
+##
+## http services
+##
+
+
+services:
+  contextConfigLoader:
+    class: zenmagick\http\utils\ContextConfigLoader
+    scope: prototype
+

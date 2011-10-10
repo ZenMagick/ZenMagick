@@ -69,6 +69,12 @@ use Symfony\Component\HttpKernel\DependencyInjection\MergeExtensionConfiguration
         $zmLoader->addConfig(ZM_BASE_PATH.'lib'.DIRECTORY_SEPARATOR.'base');
         $zmLoader->addConfig(ZM_BASE_PATH.'vendor');
         $zmLoader->register();
+        // packages may have their own *system* services
+        $packageConfig = ZM_BASE_PATH.'lib'.DIRECTORY_SEPARATOR.'base'.DIRECTORY_SEPARATOR.'container.yaml';
+        if (file_exists($packageConfig)) {
+            $packageYamlLoader = new YamlFileLoader(Runtime::getContainer(), new FileLocator(dirname($packageConfig)));
+            $packageYamlLoader->load($packageConfig);
+        }
 
         try {
             $rclass = new ReflectionClass('Swift');
@@ -105,10 +111,18 @@ use Symfony\Component\HttpKernel\DependencyInjection\MergeExtensionConfiguration
         }
 
         $libLoader = new ClassLoader();
+        // register first, so classes are available when loading container settings
+        $libLoader->register();
         foreach (array('lib/http', 'shared') as $libPath) {
             $libLoader->addConfig(ZM_BASE_PATH.trim($libPath));
+
+            // packages may have their own *system* services
+            $packageConfig = ZM_BASE_PATH.trim($libPath).DIRECTORY_SEPARATOR.'container.yaml';
+            if (file_exists($packageConfig)) {
+                $packageYamlLoader = new YamlFileLoader(Runtime::getContainer(), new FileLocator(dirname($packageConfig)));
+                $packageYamlLoader->load($packageConfig);
+            }
         }
-        $libLoader->register();
 
         // load application settings
         Runtime::getSettings()->setAll(Toolbox::loadWithEnv(Runtime::getApplicationPath().DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.'config.yaml'));

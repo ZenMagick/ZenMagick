@@ -1,0 +1,25 @@
+##
+## base services
+##
+
+
+parameters:
+  kernel.debug: false
+
+services:
+  loggingService:
+    class: zenmagick\base\logging\Logging
+    scope: container
+
+  eventDispatcher:
+    class: zenmagick\base\events\EventDispatcher
+    scope: container
+
+  settingsService:
+    class: zenmagick\base\settings\Settings
+    scope: container
+
+  contextConfigLoader:
+    class: zenmagick\base\utils\ContextConfigLoader
+    scope: prototype
+
