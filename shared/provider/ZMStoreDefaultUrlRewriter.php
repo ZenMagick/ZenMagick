@@ -94,14 +94,18 @@ class ZMStoreDefaultUrlRewriter implements UrlRewriter {
         }
 
         // default to non ssl
-        $server = ZM_HTTP_SERVER;
+        $hostname = $request->getHostname();
+        $httpServer = 'http://'.$hostname;
+        $httpsServer = 'https://'.$hostname;
+
+        $server = $httpServer;
         if ($transport == 'SSL' && ZMSettings::get('zenmagick.http.request.secure', true)) {
-            $server = ZM_HTTPS_SERVER;
+            $server = $httpsServer;
         }
 
         $path = '';
         if ($useContext) {
-            $path = ZM_HTTPS_SERVER == $server ? ZM_DIR_WS_HTTPS_CATALOG : $request->getContext().'/';
+            $path = $request->getContext().'/';
         }
 
         // trim '?' and '&' from params
@@ -133,7 +137,7 @@ class ZMStoreDefaultUrlRewriter implements UrlRewriter {
             if (defined('SID') && !ZMLangUtils::isEmpty(SID)) {
                 // defined, so use it
                 $sid = SID;
-            } elseif (($transport == 'NONSSL' && ZM_HTTPS_SERVER == $server) || ($transport == 'SSL' && ZM_HTTP_SERVER == $server)) {
+            } elseif (($transport == 'NONSSL' && $httpsServer == $server) || ($transport == 'SSL' && $httpServer == $server)) {
                 // switch from http to https or vice versa
                 if ($http_domain != $https_domain) {
                     $sid = zen_session_name() . '=' . zen_session_id();

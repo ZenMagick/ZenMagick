@@ -19,7 +19,7 @@
  */
 ?>
 
-<link rel="stylesheet" type="text/css" href="<?php echo ZM_DIR_WS_CATALOG.ZC_ADMIN_FOLDER ?>/includes/stylesheet.css">
+<link rel="stylesheet" type="text/css" href="<?php echo str_replace('zenmagick/apps/admin/web', '', $request->getContext()).ZC_ADMIN_FOLDER ?>/includes/stylesheet.css">
 
 <?php
 

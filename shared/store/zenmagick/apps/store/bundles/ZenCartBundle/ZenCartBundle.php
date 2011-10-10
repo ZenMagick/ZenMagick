@@ -45,6 +45,7 @@ class ZenCartBundle extends Bundle {
      * {@inheritDoc}
      */
     public function boot() {
+        Runtime::getEventDispatcher()->addListener('init_request', array($this, 'onInitRequest'));
         $zcClassLoader = new ZenCartClassLoader();
         $zcClassLoader->register();
         $this->prepareConfig();
@@ -60,6 +61,14 @@ class ZenCartBundle extends Bundle {
         if (!file_exists($configure)) {
             throw new \Exception('could not find zencart configure.php');
         }
+
+        // check for existing defines
+        foreach (array('DB_SERVER', 'DB_SERVER_USERNAME', 'DB_SERVER_PASSWORD', 'DB_DATABASE', 'DB_PREFIX', 'ENABLE_SSL', 'ENABLE_SSL_ADMIN', 'DIR_FS_DOWNLOAD', 'DIR_WS_CATALOG', 'ENABLE_SSL', 'ENABLE_SSL_ADMIN') as $key) {
+            if (defined($key)) {
+                define('ZM_'.$key, constant($key));
+            }
+        }
+
         // pick the lines we need
         $lines = file($configure);
         $defines = array();
@@ -86,12 +95,23 @@ class ZenCartBundle extends Bundle {
         // merge with current settings
         $current = $settingsService->get('zenmagick/apps/store/database/default', array());
         $settingsService->set('zenmagick/apps/store/database/default', array_merge($defaults, $current));
-
-        // non db settings (mostly admin)
         if (defined('ZM_ENABLE_SSL_ADMIN')) {
             $settingsService->set('zenmagick.mvc.request.secure', 'true' == ZM_ENABLE_SSL_ADMIN);
-            $settingsService->set('apps.store.baseUrl', ZM_HTTP_CATALOG_SERVER . ZM_DIR_WS_CATALOG);
-            $settingsService->set('apps.store.oldAdminUrl', ZM_HTTP_SERVER . ZM_DIR_WS_ADMIN.'index.php');
+        } else {
+            $settingsService->set('zenmagick.mvc.request.secure', 'true' == ZM_ENABLE_SSL);
+        }
+    }
+
+    /**
+     * Handle things that require a request.
+     */
+    public function onInitRequest($event) {
+        if (defined('ZM_ENABLE_SSL_ADMIN')) {
+            // non db settings (admin)
+            $request = $event->get('request');
+            $settingsService = Runtime::getSettings();
+            $settingsService->set('apps.store.baseUrl', 'http://'.$request->getHostname().str_replace('zenmagick/apps/admin/web', '', $request->getContext()));
+            $settingsService->set('apps.store.oldAdminUrl', $settingsService->get('apps.store.baseUrl').ZC_ADMIN_FOLDER.'/index.php');
         }
     }
 
