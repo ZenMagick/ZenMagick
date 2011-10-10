@@ -23,16 +23,13 @@
   // app location relative to zenmagick installation (ZM_BASE_PATH)
   define('ZM_APP_PATH', 'apps'.DIRECTORY_SEPARATOR.basename(dirname(dirname(__FILE__))).DIRECTORY_SEPARATOR);
 
-  // pre-load a couple zen-cart files needed
-  define('ZC_INSTALL_PATH', dirname(dirname(dirname(dirname(dirname(__FILE__))))).DIRECTORY_SEPARATOR);
   // make zen-cart happy
   define('IS_ADMIN_FLAG', false);
-
-  require_once ZC_INSTALL_PATH.'/includes/configure.php';
 
   require realpath(dirname(__FILE__).'/../../../bootstrap.php');
 
   // more zen-cart config stuff we need
   ZMSettings::set('zenmagick.mvc.request.secure', 'true' == ENABLE_SSL);
+  ZMSettings::set('zenmagick.apps.store.storefront.sessions', true);
 
   require realpath(dirname(__FILE__).'/../../../mvc.php');

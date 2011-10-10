@@ -34,9 +34,6 @@ use zenmagick\http\sacs\SacsManager;
             define('ZM_APP_PATH', 'apps'.DIRECTORY_SEPARATOR.'storefront'.DIRECTORY_SEPARATOR);
         }
 
-        // required for some nifty stuff
-        if (!defined('ZC_INSTALL_PATH')) define('ZC_INSTALL_PATH', dirname(dirname(__FILE__)).DIRECTORY_SEPARATOR);
-
         include_once 'bootstrap.php';
 
         // create the main request instance

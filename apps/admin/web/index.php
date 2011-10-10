@@ -23,8 +23,6 @@
   // app location relative to zenmagick installation (ZM_BASE_PATH)
   define('ZM_APP_PATH', 'apps'.DIRECTORY_SEPARATOR.basename(dirname(dirname(__FILE__))).DIRECTORY_SEPARATOR);
 
-  // pre-load a couple zen-cart files needed
-  define('ZC_INSTALL_PATH', dirname(dirname(dirname(dirname(dirname(__FILE__))))).DIRECTORY_SEPARATOR);
   // make zen-cart happy
   define('IS_ADMIN_FLAG', true);
   define('GZIP_LEVEL', false);

@@ -49,6 +49,8 @@ class ZenCartBundle extends Bundle {
         $zcClassLoader = new ZenCartClassLoader();
         $zcClassLoader->register();
         $this->prepareConfig();
+
+        define('ZC_INSTALL_PATH', dirname(Runtime::getInstallationPath()).DIRECTORY_SEPARATOR);
     }
 
     /**
