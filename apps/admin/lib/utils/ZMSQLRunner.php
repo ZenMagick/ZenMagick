@@ -6,13 +6,15 @@
  * @license http://www.zen-cart.com/license/2_0.txt GNU Public License V2.0
  * @version $Id$
  */
+use zenmamagick\base\Runtime;
 class ZMSQLRunner {
  static function get_db() {
  global $db;
 
    if (!isset($db)) {
       $db = new queryFactory();
-      $db->connect(DB_SERVER, DB_SERVER_USERNAME, DB_SERVER_PASSWORD, DB_DATABASE);
+      $conf = Runtime::getSettings()->get('zenmagick.apps.store.database.default');
+      $db->connect($conf['host'], $conf['user'], $conf['password'], $conf['dbname']);
    }
 
    return $db;
@@ -284,7 +286,6 @@ if ($_GET['debug']=='ON') echo $line . '<br />';
     // bypass until future version
     return true;
     // end bypass
-    global $zdb_server, $zdb_user, $zdb_name;
     if (isset($_GET['nogrants'])) return true; // bypass if flag set
     if (isset($_POST['nogrants'])) return true; // bypass if flag set
     //Display permissions, or check for suitable permissions to carry out a particular task
@@ -297,11 +298,8 @@ if ($_GET['debug']=='ON') echo $line . '<br />';
     global $db_test;
     $granted_privs_list='';
     if (ZC_UPG_DEBUG3==true) echo '<br />Checking for priv: ['.(!ZMLangUtils::isEmpty($priv) ? $priv : 'none specified').']<br />';
-    if (!defined('DB_SERVER'))          define('DB_SERVER',$zdb_server);
-    if (!defined('DB_SERVER_USERNAME')) define('DB_SERVER_USERNAME',$zdb_user);
-    if (!defined('DB_DATABASE'))        define('DB_DATABASE',$zdb_name);
-    $user = DB_SERVER_USERNAME."@".DB_SERVER;
-    if ($user == 'DB_SERVER_USERNAME@DB_SERVER' || DB_DATABASE=='DB_DATABASE') return true; // bypass if constants not set properly
+    $conf = Runtime::getSettings()->get('zenmagick.apps.store.database.default');
+    $user = $conf['user'].'@'.$conf['host'];
     $sql = "show grants for ".$user;
     if (ZC_UPG_DEBUG3==true) echo $sql.'<br />';
     $result = $db->Execute($sql);
@@ -313,7 +311,7 @@ if ($_GET['debug']=='ON') echo $line . '<br />';
       $granted_db = str_replace(array('`','\\'),'',substr($granted_privs,strpos($granted_privs,' ON ')+4) ); //remove backquote and find "ON" string
       if (ZC_UPG_DEBUG3==true) echo 'privs_list = '.$granted_privs.'<br />';
       if (ZC_UPG_DEBUG3==true) echo 'granted_db = '.$granted_db.'<br />';
-      $db_priv_ok += ($granted_db == '*.*' || $granted_db==DB_DATABASE.'.*' || $granted_db==DB_DATABASE.'.'.$table) ? true : false;
+      $db_priv_ok += ($granted_db == '*.*' || $granted_db==$conf['dbname'].'.*' || $granted_db==$conf['dbname'].'.'.$table) ? true : false;
       if (ZC_UPG_DEBUG3==true) echo 'db-priv-ok='.$db_priv_ok.'<br />';
 
       if ($db_priv_ok) {  // if the privs list pertains to the current database, or is *.*, carry on
