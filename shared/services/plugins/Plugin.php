@@ -412,7 +412,11 @@ class Plugin extends ZMPlugin {
         }
 
         // TODO: fix
-        return \ZMHtmlUtils::encode(ZM_DIR_WS_CATALOG.basename(ZM_BASE_PATH).'/plugins/' . $this->getId() . '/' . $uri);
+        $context = $this->container->get('request')->getContext();
+        // always want the 'storefront' context
+        $context = str_replace('/zenmagick/apps/storefront/web', '', $context);
+        $context = str_replace('/zenmagick/apps/admin/web', '', $context);
+        return \ZMHtmlUtils::encode($context.'/'.basename(ZM_BASE_PATH).'/plugins/' . $this->getId() . '/' . $uri);
     }
 
     /**
