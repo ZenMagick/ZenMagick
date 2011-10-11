@@ -23,7 +23,7 @@
 use zenmagick\base\Runtime;
 
 
-define('_ZM_ZEN_DIR_FS_BOXES', DIR_FS_CATALOG . DIR_WS_MODULES . "sideboxes/");
+define('_ZM_ZEN_DIR_FS_BOXES', ZC_INSTALL_PATH . "includes/modules/sideboxes/");
 
 /**
  * Patch to create dummy sidebox files for zen-cart.

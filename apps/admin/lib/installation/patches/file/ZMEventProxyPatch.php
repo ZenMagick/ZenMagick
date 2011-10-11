@@ -23,7 +23,7 @@
 use zenmagick\base\Runtime;
 
 
-define('_ZM_ZEN_BASE_PHP', DIR_FS_CATALOG.DIR_WS_CLASSES."class.base.php");
+define('_ZM_ZEN_BASE_PHP', ZC_INSTALL_PATH."includes/classes/class.base.php");
 
 /**
  * Patch to hook up ZenMagick as glboal zencart event listener.

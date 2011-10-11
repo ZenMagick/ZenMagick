@@ -75,7 +75,7 @@ class ZMImageInfo extends ZMObject {
             $toolbox = $this->container->get('request')->getToolbox();
 
             // set default image
-            if (empty($image) || !file_exists(DIR_FS_CATALOG.DIR_WS_IMAGES.$image) || !is_file(DIR_FS_CATALOG.DIR_WS_IMAGES.$image)) {
+            if (empty($image) || !file_exists(ZC_INSTALL_PATH.'images/'.$image) || !is_file(ZC_INSTALL_PATH.'images/'.$image)) {
                 $this->imageDefault_ = $toolbox->net->image(ZMSettings::get('imgNotFound'));
             } else {
                 $this->imageDefault_ = $toolbox->net->image($image);
@@ -83,7 +83,7 @@ class ZMImageInfo extends ZMObject {
 
             // evaluate optional medium image
             $medium = $imageBase.ZMSettings::get('imgSuffixMedium').$ext;
-            if (!file_exists(DIR_FS_CATALOG.DIR_WS_IMAGES.'medium/'.$medium)) {
+            if (!file_exists(ZC_INSTALL_PATH.'images/'.'medium/'.$medium)) {
                 // default to next smaller version
                 $this->imageMedium_ = $this->imageDefault_;
             } else {
@@ -92,7 +92,7 @@ class ZMImageInfo extends ZMObject {
 
             // evaluate optional large image
             $large = $imageBase.ZMSettings::get('imgSuffixLarge').$ext;
-            if (!file_exists(DIR_FS_CATALOG.DIR_WS_IMAGES.'large/'.$large)) {
+            if (!file_exists(ZC_INSTALL_PATH.'images/'.'large/'.$large)) {
                 // default to next smaller version
                 $this->imageLarge_ = $this->imageMedium_;
             } else {
@@ -229,7 +229,7 @@ class ZMImageInfo extends ZMObject {
         $realImageBase = basename($comp[2]);
 
         // directory to scan
-        $dirname = DIR_FS_CATALOG.DIR_WS_IMAGES.$subdir;
+        $dirname = ZC_INSTALL_PATH.'images/'.$subdir;
 
         $imageList = array();
         if ($dir = @dir($dirname)) {

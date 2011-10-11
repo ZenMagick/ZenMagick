@@ -79,7 +79,7 @@ class ImageInfo extends ZMImageInfo {
         $ext = $comp[1];
         $imageBase = $comp[2];
 
-        $newimg = $this->handle_image(DIR_WS_IMAGES.$this->image_, $this->altText_, SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT, '');
+        $newimg = $this->handle_image('images/'.$this->image_, $this->altText_, SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT, '');
         if ($this->zoomSmallImages_) {
             $this->formattedParameter_ = $newimg[4];
         }
@@ -105,7 +105,7 @@ class ImageInfo extends ZMImageInfo {
         $imageBase = $comp[2];
 
         $medium = $imageBase.ZMSettings::get('imgSuffixMedium').$ext;
-        $newimg = $this->handle_image(DIR_WS_IMAGES.$medium, $this->altText_, MEDIUM_IMAGE_WIDTH, MEDIUM_IMAGE_HEIGHT, '');
+        $newimg = $this->handle_image('images/'.$medium, $this->altText_, MEDIUM_IMAGE_WIDTH, MEDIUM_IMAGE_HEIGHT, '');
         if ($this->zoomSmallImages_) {
             $this->formattedParameter_ = $newimg[4];
         }
@@ -124,7 +124,7 @@ class ImageInfo extends ZMImageInfo {
         $imageBase = $comp[2];
 
         $large = $imageBase.ZMSettings::get('imgSuffixLarge').$ext;
-        $newimg = $this->handle_image(DIR_WS_IMAGES.$large, $this->altText_, '', '', '');
+        $newimg = $this->handle_image('images/'.$large, $this->altText_, '', '', '');
         if ($this->zoomSmallImages_) {
             $this->formattedParameter_ = $newimg[4];
         }
@@ -160,16 +160,16 @@ class ImageInfo extends ZMImageInfo {
         } else {
             // default to standard Zen-Cart fallback behavior for large -> medium -> small images
             $image_ext = substr($src, strrpos($src, '.'));
-            $image_base = substr($src, strlen(DIR_WS_IMAGES), -strlen($image_ext));
-            if (strrpos($src, IMAGE_SUFFIX_LARGE) && !is_file(DIR_FS_CATALOG . $src)) {
+            $image_base = substr($src, strlen('images/'), -strlen($image_ext));
+            if (strrpos($src, IMAGE_SUFFIX_LARGE) && !is_file(ZC_INSTALL_PATH . $src)) {
                 //large image wanted but not found
                 $image_base = '/medium' . substr($image_base, strlen('/large'), -strlen(IMAGE_SUFFIX_LARGE)) . IMAGE_SUFFIX_MEDIUM;
-                $src = DIR_WS_IMAGES . $image_base . $image_ext;
+                $src = 'images/' . $image_base . $image_ext;
             }
-            if (strrpos($src, IMAGE_SUFFIX_MEDIUM) && !is_file(DIR_FS_CATALOG . $src)) {
+            if (strrpos($src, IMAGE_SUFFIX_MEDIUM) && !is_file(ZC_INSTALL_PATH . $src)) {
                 //medium image wanted but not found
                 $image_base = substr($image_base, strlen('/medium'), -strlen(IMAGE_SUFFIX_MEDIUM));
-                $src = DIR_WS_IMAGES . $image_base . $image_ext;
+                $src = 'images/' . $image_base . $image_ext;
             }
         }
         return array($src, $alt, intval($width), intval($height), $parameters);

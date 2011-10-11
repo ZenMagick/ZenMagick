@@ -20,7 +20,7 @@
 ?>
 <?php
 
-define('_ZM_HTACCESS', DIR_FS_CATALOG.".htaccess");
+define('_ZM_HTACCESS', ZC_INSTALL_PATH.".htaccess");
 
 
 /**

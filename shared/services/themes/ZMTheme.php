@@ -71,7 +71,7 @@ class ZMTheme extends ZMObject {
             } else {
                 $this->config_ = array();
                 //XXX: try for zc theme
-                $templatePath = ZMFileUtils::mkPath(DIR_FS_CATALOG, 'includes', 'templates', $themeId);
+                $templatePath = ZMFileUtils::mkPath(ZC_INSTALL_PATH, 'includes', 'templates', $themeId);
                 if (is_dir($templatePath) && file_exists($templatePath.'template_info.php')) {
                     include $templatePath.'template_info.php';
                     if (isset($template_name)) {

@@ -107,7 +107,7 @@ class ZMShippingProviders extends ZMObject {
                 }
             }
         } else {
-            $module_directory = DIR_FS_CATALOG . DIR_WS_MODULES . 'shipping/';
+            $module_directory = ZC_INSTALL_PATH . 'includes/modules/shipping/';
             if ($dir = @dir($module_directory)) {
                 while ($file = $dir->read()) {
                     if (!is_dir($module_directory . $file) && substr($file, strrpos($file, '.')) == '.php') {
@@ -132,11 +132,11 @@ class ZMShippingProviders extends ZMObject {
         }
 
         foreach ($moduleInfos as $moduleInfo) {
-            $lang_file = DIR_FS_CATALOG . zen_get_file_directory(DIR_WS_LANGUAGES . $_SESSION['language'] . '/modules/shipping/', $moduleInfo['file'], 'false');
+            $lang_file = ZC_INSTALL_PATH . zen_get_file_directory(ZC_INSTALL_PATH . 'includes/modules/languages/' . $_SESSION['language'] . '/modules/shipping/', $moduleInfo['file'], 'false');
             if (@file_exists($lang_file)) {
                 include_once $lang_file;
             }
-            include_once DIR_FS_CATALOG . DIR_WS_MODULES . 'shipping/' . $moduleInfo['file'];
+            include_once ZC_INSTALL_PATH . 'includes/modules/shipping/' . $moduleInfo['file'];
             if (class_exists($moduleInfo['class'])) {
                 // create instance
                 $module = new $moduleInfo['class']();

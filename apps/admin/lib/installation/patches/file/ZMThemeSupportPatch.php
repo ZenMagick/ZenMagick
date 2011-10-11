@@ -23,7 +23,7 @@
 use zenmagick\base\Runtime;
 
 
-define('_ZM_ZEN_INDEX_PHP', DIR_FS_CATALOG."index.php");
+define('_ZM_ZEN_INDEX_PHP', ZC_INSTALL_PATH."index.php");
 
 /**
  * Patch to enable ZenMagick themes.

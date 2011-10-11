@@ -6,10 +6,10 @@
  * @copyright Copyright 2005-2006
  * @license http://www.gnu.org/licenses/gpl.txt GNU General Public License V2.0
  * @version $Id: bmz_image_handler_conf.php,v 2.0 Rev 8 2010-05-31 23:46:5 DerManoMann Exp $
- * Last modified by DerManoMann 2010-05-31 23:46:50 
+ * Last modified by DerManoMann 2010-05-31 23:46:50
  */
 
-ZMSettings::set('plugins.imageHandler2.cachedir', DIR_FS_CATALOG.'bmz_cache');
+ZMSettings::set('plugins.imageHandler2.cachedir', ZC_INSTALL_PATH.'bmz_cache');
 // files which contain this string will not be resized
 ZMSettings::set('plugins.imageHandler2.noresize_key', 'noresize');
 // images in directories with these names within the images directory will not be resized.
@@ -28,8 +28,8 @@ ZMSettings::set('plugins.imageHandler2.defaults.quality', 85);
 
 global $ihConf;
 
-$ihConf['dir']['docroot']       = DIR_FS_CATALOG;
-$ihConf['dir']['images']        = DIR_WS_IMAGES;
+$ihConf['dir']['docroot']       = ZC_INSTALL_PATH;
+$ihConf['dir']['images']        = 'images/';
 
 $ihConf['resize']               = defined('IH_RESIZE') ? (IH_RESIZE == 'yes') : false;
 

@@ -71,7 +71,7 @@ class ImageInfo extends ZMImageInfo {
         $ext = $comp[1];
         $imageBase = $comp[2];
 
-        $newimg = handle_image(DIR_WS_IMAGES.$this->image_, $this->altText_, SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT, '');
+        $newimg = handle_image('images/'.$this->image_, $this->altText_, SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT, '');
         if (!$this->disableIH2Attributes_) {
             $this->formattedParameter_ = $newimg[4];
         }
@@ -97,7 +97,7 @@ class ImageInfo extends ZMImageInfo {
         $imageBase = $comp[2];
 
         $medium = $imageBase.ZMSettings::get('imgSuffixMedium').$ext;
-        $newimg = handle_image(DIR_WS_IMAGES.$medium, $this->altText_, MEDIUM_IMAGE_WIDTH, MEDIUM_IMAGE_HEIGHT, '');
+        $newimg = handle_image('images/'.$medium, $this->altText_, MEDIUM_IMAGE_WIDTH, MEDIUM_IMAGE_HEIGHT, '');
         if (!$this->disableIH2Attributes_) {
             $this->formattedParameter_ = $newimg[4];
         }
@@ -116,7 +116,7 @@ class ImageInfo extends ZMImageInfo {
         $imageBase = $comp[2];
 
         $large = $imageBase.ZMSettings::get('imgSuffixLarge').$ext;
-        $newimg = handle_image(DIR_WS_IMAGES.$large, $this->altText_, '', '', '');
+        $newimg = handle_image('images/'.$large, $this->altText_, '', '', '');
         if (!$this->disableIH2Attributes_) {
             $this->formattedParameter_ = $newimg[4];
         }

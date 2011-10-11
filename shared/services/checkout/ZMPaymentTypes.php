@@ -70,7 +70,7 @@ class ZMPaymentTypes extends ZMObject {
                 // get a list of modules and stuff
                 $moduleInfos = array();
                 foreach (explode(';', MODULE_PAYMENT_INSTALLED) as $filename) {
-                    $path = DIR_FS_CATALOG.DIR_WS_MODULES.'/payment/'.$filename;
+                    $path = ZC_INSTALL_PATH.'includes/modules/payment/'.$filename;
                     if (file_exists($path)) {
                         $class = substr($filename, 0, strrpos($filename, '.'));
                         $moduleInfos[] = array('class' => $class, 'filename' => $filename, 'path' => $path);
@@ -89,7 +89,7 @@ class ZMPaymentTypes extends ZMObject {
                         continue;
                     }
 
-                    $lang_file = DIR_WS_LANGUAGES.$_SESSION['language'].'/modules/payment/'.$info['filename'];
+                    $lang_file = ZC_INSTALL_PATH.'includes/languages/'.$_SESSION['language'].'/modules/payment/'.$info['filename'];
                     if (@file_exists($lang_file)) {
                         include_once $lang_file;
                     }

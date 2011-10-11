@@ -517,7 +517,8 @@ class ZMToolboxMacro extends ZMToolboxTool {
         $slash = ZMSettings::get('zenmagick.mvc.html.xhtml') ? '/' : '';
         $label = '';
         if ($value->hasImage() && $enableImage) {
-            $path = realpath($this->getRequest()->getDocRoot().$this->getRequest()->getContext().DIRECTORY_SEPARATOR.DIR_WS_IMAGES.$value->getImage());
+            // TODO: where are images coming from in the future??
+            $path = realpath($this->getRequest()->getDocRoot().$this->getRequest()->getContext().DIRECTORY_SEPARATOR.'images/'.$value->getImage());
             if (file_exists($path)) {
                 $label = '<img src="' . $toolbox->net->image($value->getImage()) . '" alt="'.$value->getName().'" title="'.$value->getName().'"'.$slash.'>';
             }

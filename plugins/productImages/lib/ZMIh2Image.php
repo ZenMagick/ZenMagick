@@ -37,15 +37,15 @@ class ZMIh2Image {
         $this->width = $width;
         $this->height = $height;
         $this->zoom = array();
-        
+
         $this->determine_image_sizetype();
-        
+
         if (($this->sizetype == 'large' || $this->sizetype == 'medium') && !$this->file_exists()) {
             // large or medium image specified but not found. strip superflous suffix.
             // now we can actually access the default image referenced in the database.
             $this->src = $this->strip_sizetype_suffix($this->src);
         }
-        $this->filename = DIR_FS_CATALOG . $this->src;
+        $this->filename = ZC_INSTALL_PATH . $this->src;
         $this->extension = substr($this->src, strrpos($this->src, '.'));
 
         list($newwidth, $newheight, $resize) = $this->calculate_size($this->width, $this->height);
@@ -67,14 +67,14 @@ class ZMIh2Image {
     protected function file_exists() {
         // try to find file by using different file extensions if initial
         // source doesn't succeed
-        if (is_file(DIR_FS_CATALOG . $this->src)) {
+        if (is_file(ZC_INSTALL_PATH . $this->src)) {
             return true;
         } else {
             // do a quick search for files with common extensions
             $extensions = array('.png', '.PNG', '.jpg', '.JPG', '.jpeg', '.JPEG', '.gif', '.GIF');
             $base = substr($this->src, 0, strrpos($this->src, '.'));
             for ($i=0; $i<count($extensions); $i++) {
-                if (is_file(DIR_FS_CATALOG . $base . $extensions[$i])) {
+                if (is_file(ZC_INSTALL_PATH . $base . $extensions[$i])) {
                     $this->src = $base . $extensions[$i];
                     return true;
                 }
@@ -83,10 +83,10 @@ class ZMIh2Image {
 
         return false;
     }
-  
+
 	function determine_image_sizetype() {
 		global $ihConf;
-		
+
 		if (strstr($this->src, $ihConf['large']['suffix'])) {
 			$this->sizetype = 'large';
 		} elseif (strstr($this->src, $ihConf['medium']['suffix'])) {
@@ -105,22 +105,22 @@ class ZMIh2Image {
 		$src = str_replace($ihConf['large']['prefix'] . '/', '/', $src);
     return $src;
 	}
-	
+
 	function initialize_overlays($sizetype) {
 		global $ihConf;
-		
+
 		switch ($sizetype) {
 			case 'large':
-				$this->watermark['file'] = ($ihConf['large']['watermark']) ? DIR_FS_CATALOG . $ihConf['dir']['images'] . 'large/watermark' . $ihConf['large']['suffix'] . '.png' : '';
-				$this->zoom['file'] = (isset($ihConf['large']['zoom'])&&$ihConf['large']['zoom']) ? DIR_FS_CATALOG . $ihConf['dir']['images'] . 'large/zoom' . $ihConf['large']['suffix'] . '.png' : '';
+				$this->watermark['file'] = ($ihConf['large']['watermark']) ? ZC_INSTALL_PATH . $ihConf['dir']['images'] . 'large/watermark' . $ihConf['large']['suffix'] . '.png' : '';
+				$this->zoom['file'] = (isset($ihConf['large']['zoom'])&&$ihConf['large']['zoom']) ? ZC_INSTALL_PATH . $ihConf['dir']['images'] . 'large/zoom' . $ihConf['large']['suffix'] . '.png' : '';
 				break;
 			case 'medium':
-				$this->watermark['file'] = ($ihConf['medium']['watermark']) ? DIR_FS_CATALOG . $ihConf['dir']['images'] . 'medium/watermark' . $ihConf['medium']['suffix'] . '.png': '';
-				$this->zoom['file'] = (isset($ihConf['large']['zoom'])&&$ihConf['medium']['zoom']) ? DIR_FS_CATALOG . $ihConf['dir']['images'] . 'medium/zoom' . $ihConf['medium']['suffix'] . '.png' : '';
+				$this->watermark['file'] = ($ihConf['medium']['watermark']) ? ZC_INSTALL_PATH . $ihConf['dir']['images'] . 'medium/watermark' . $ihConf['medium']['suffix'] . '.png': '';
+				$this->zoom['file'] = (isset($ihConf['large']['zoom'])&&$ihConf['medium']['zoom']) ? ZC_INSTALL_PATH . $ihConf['dir']['images'] . 'medium/zoom' . $ihConf['medium']['suffix'] . '.png' : '';
 				break;
 			case 'small':
-				$this->watermark['file'] = ($ihConf['small']['watermark']) ? DIR_FS_CATALOG . $ihConf['dir']['images'] . 'watermark.png' : '';
-				$this->zoom['file'] = (isset($ihConf['large']['zoom'])&&$ihConf['small']['zoom']) ? DIR_FS_CATALOG . $ihConf['dir']['images'] . 'zoom.png' : '';
+				$this->watermark['file'] = ($ihConf['small']['watermark']) ? ZC_INSTALL_PATH . $ihConf['dir']['images'] . 'watermark.png' : '';
+				$this->zoom['file'] = (isset($ihConf['large']['zoom'])&&$ihConf['small']['zoom']) ? ZC_INSTALL_PATH . $ihConf['dir']['images'] . 'zoom.png' : '';
 				break;
 			default:
 				$this->watermark['file'] = '';
@@ -136,7 +136,7 @@ class ZMIh2Image {
 		} else {
 			$this->watermark['file'] = '';
 		}
-		
+
 		if (($this->zoom['file'] != '') && is_file($this->zoom['file'])) {
 		// set zoom parameters
 			list($this->zoom['width'], $this->zoom['height']) = @getimagesize($this->zoom['file']);
@@ -146,7 +146,7 @@ class ZMIh2Image {
 			$this->zoom['file'] = '';
 		}
 	}
-	
+
 	function get_local() {
 		if ($this->local) return $this->local;
 		// check if image handler is available and if we should resize at all
@@ -164,9 +164,9 @@ class ZMIh2Image {
     // don't resize template images so test for the configured images directory.
     // if $ihConf['noresize_key'] is found within the string, don't resize either.
     $allowed = false;
-    if ($ihConf['resize'] && 
-        ((strpos($this->src, $ihConf['dir']['images']) === 0) || 
-         ((strpos($this->src, substr(ZMSettings::get('plugins.imageHandler2.cachedir'), strlen(DIR_FS_CATALOG))) === 0))) &&
+    if ($ihConf['resize'] &&
+        ((strpos($this->src, $ihConf['dir']['images']) === 0) ||
+         ((strpos($this->src, substr(ZMSettings::get('plugins.imageHandler2.cachedir'), strlen(ZC_INSTALL_PATH))) === 0))) &&
         (strpos($this->src, ZMSettings::get('plugins.imageHandler2.noresize_key')) === false)) {
       $allowed = true;
       foreach (ZMSettings::get('plugins.imageHandler2.noresize_dirs') as $dir) {
@@ -210,27 +210,27 @@ class ZMIh2Image {
 			$this->canvas['width'] = $newwidth;
 			$this->canvas['height'] = $newheight;
 		}
-		
+
 		$this->initialize_overlays($sizetype);
-		
+
 		// override filetype?
 		$file_extension = ($filetype == '') ? $file_extension : $filetype;
-		
+
 		// Do we need to resize, watermark, zoom or convert to another filetype?
 		if ($resize || ($this->watermark['file'] != '') || ($this->zoom['file'] != '') || ($file_extension != $this->extension)){
 			$local = ZMProductImagesPlugin::getCacheName($this->src . $this->watermark['file'] . $this->zoom['file'] . $quality . $background . $ihConf['watermark']['gravity'] . $ihConf['zoom']['gravity'], '.image.' . $newwidth . 'x' . $newheight . $file_extension);
-			//echo $local . '<br />';	
+			//echo $local . '<br />';
 			$mtime = @filemtime($local); // 0 if not exists
 			if ( (($mtime > @filemtime($this->filename)) && ($mtime > @filemtime($this->watermark['file'])) && ($mtime > @filemtime($this->zoom['file'])) ) ||
 				$this->resize_imageIM($file_extension, $local, $background, $quality) ||
 				$this->resize_imageGD($file_extension, $local, $background, $quality) ) {
-				return str_replace(DIR_FS_CATALOG, '', $local);
+				return str_replace(ZC_INSTALL_PATH, '', $local);
 			}
 			//still here? resizing failed
 		}
 		return $this->src;
 	}
-	
+
 	/**
 	 * Calculate desired image size as set in admin->configuration->images.
 	 */
@@ -255,7 +255,7 @@ class ZMIh2Image {
 				$newwidth = floor($width * $hscale);
 				$newheight = floor($height * $vscale);
 			} else {
-				$this->force_canvas = (strrpos($pref_width . $pref_height, '!') !== false); 
+				$this->force_canvas = (strrpos($pref_width . $pref_height, '!') !== false);
 				// failsafe for old zen-cart configuration one image dimension set to 0
 				$pref_width = ($pref_width == '' || intval($pref_width) == 0) ? 0 : intval($pref_width);
 				$pref_height = ($pref_height == '' || intval($pref_height) == 0) ? 0 : intval($pref_height);
@@ -271,7 +271,7 @@ class ZMIh2Image {
 						$pref_height = 0;
 					}
 				}
-				
+
 				// now deal with the calculated preferred sizes
 				if (($pref_width == 0) && ($pref_height > 0)) {
 					// image dimensions are calculated to fit the preferred height
@@ -280,7 +280,7 @@ class ZMIh2Image {
 					// image dimensions are calculated to fit the preferred width
 					$pref_height = floor($height * ($pref_width / $width));
 				}
-        if ((($pref_width > 0) && ($pref_height > 0)) 
+        if ((($pref_width > 0) && ($pref_height > 0))
           && (($pref_width < $width ) || ($pref_height < $height))) {
 					// only calculate new dimensions if we have sane values
 					$newwidth = $pref_width;
@@ -291,7 +291,7 @@ class ZMIh2Image {
 		$resize = (($newwidth != $width) || ($newheight != $height));
 		return array($newwidth, $newheight, $resize);
 	}
-	
+
 	function resize_imageIM($file_ext, $dest_name, $bg, $quality = 85) {
     global $ihConf;
     global $messageStack;
@@ -304,7 +304,7 @@ class ZMIh2Image {
     $bg = trim($bg);
     $bg = ($bg == '') ? ZMSettings::get('plugins.imageHandler2.defaults.bg') : $bg;
     $transparent = (strpos($bg, 'transparent') !== false);
-    $transparent &= preg_match('/(\.gif)|(\.png)/i', $file_ext); 
+    $transparent &= preg_match('/(\.gif)|(\.png)/i', $file_ext);
     $color = $this->get_background_rgb($bg);
     if ($color) {
       $bg = 'rgb(' . $color['r'] . ',' .  $color['g'] . ',' . $color['b'] . ')';
@@ -320,14 +320,14 @@ class ZMIh2Image {
     } else {
       $bg = (strpos($bg, 'transparent') === false) ? $bg : 'transparent';
     }
-    
+
     // still no background? default to transparent
 		$bg = ($bg != '') ? $bg : 'transparent';
     $command  = ZMSettings::get('plugins.imageHandler2.im_convert') . " -size $size ";
     $command .= "xc:none -fill " . ($gif_treatment ? "transparent" : "\"$bg\"") . " -draw 'color 0,0 reset'";
     $size .= $this->force_canvas ? '' : '!';
     $command .= ' "' . $this->filename . '" -compose Over -gravity Center -geometry ' . $size . ' -composite';
-    $command .= ($this->watermark['file'] != '') ? ' "' . $this->watermark['file'] . '" -compose Over -gravity ' . $ihConf['watermark']['gravity'] . " -composite" : ''; 
+    $command .= ($this->watermark['file'] != '') ? ' "' . $this->watermark['file'] . '" -compose Over -gravity ' . $ihConf['watermark']['gravity'] . " -composite" : '';
     $command .= ($this->zoom['file'] != '') ? ' "' . $this->zoom['file'] . '" -compose Over -gravity ' . $ihConf['zoom']['gravity'] . " -composite " : ' ';
     $command .= $gif_treatment ? $temp_name : (preg_match("/\.jp(e)?g/i", $file_ext) ? "-quality $quality " : '') . "\"$dest_name\"";
     @exec($command . ' 2>&1', $message, $retval);
@@ -367,11 +367,11 @@ class ZMIh2Image {
     $overlay_weight = 127 - $overlay['alpha'];
     $background_weight = (127 - $background['alpha']) * $overlay['alpha'] / 127;
     $total_weight = $overlay_weight + $background_weight;
-    
+
     $red = (($overlay['red'] * $overlay_weight) + ($background['red'] * $background_weight)) / $total_weight;
     $green = (($overlay['green'] * $overlay_weight) + ($background['green'] * $background_weight)) / $total_weight;
     $blue = (($overlay['blue'] * $overlay_weight) + ($background['blue'] * $background_weight)) / $total_weight;
-    
+
     return array('alpha'=>$alpha, 'red'=>$red, 'green'=>$green, 'blue'=>$blue);
   }
 
@@ -380,9 +380,9 @@ class ZMIh2Image {
     if (ZMSettings::get('plugins.imageHandler2.gdlib')>1){
       imagealphablending($background, false);
     }
-    
+
     $threshold = ($threshold != '') ? intval(127 * intval($threshold) / 100) : -1;
-    
+
     for($x=0; $x<$newwidth; $x++) {
       for($y=0; $y<$newheight; $y++) {
         $c = imagecolorat($background, $x + $startwidth, $y + $startheight);
@@ -410,7 +410,7 @@ class ZMIh2Image {
 
   function resize_imageGD($file_ext, $dest_name, $bg, $quality = 85) {
     global $messageStack;
-  
+
     if(ZMSettings::get('plugins.imageHandler2.gdlib') < 1) return false; //no GDlib available or wanted
     $srcimage = $this->load_imageGD($this->filename);
     if (!$srcimage) return false; // couldn't load image
@@ -437,7 +437,7 @@ class ZMIh2Image {
     }
     if(!$tmpimg) $tmpimg = @imagecreate($newwidth, $newheight);
     if(!$tmpimg) return false;
-    
+
     //keep alpha channel if possible
     if (ZMSettings::get('plugins.imageHandler2.gdlib')>1 && function_exists('imagesavealpha')){
       imagealphablending($tmpimg, false);
@@ -450,26 +450,26 @@ class ZMIh2Image {
     } else {
       imagecopyresized($tmpimg, $srcimage, 0, 0, 0, 0, $newwidth, $newheight, $srcwidth, $srcheight);
     }
-    
+
     imagedestroy($srcimage);
-    
+
     // initialize FIRST background image (transparent canvas)
     if((ZMSettings::get('plugins.imageHandler2.gdlib')>1) && function_exists("imagecreatetruecolor")){
       $newimg = @imagecreatetruecolor ($this->canvas['width'], $this->canvas['height']);
     }
     if(!$newimg) $newimg = @imagecreate($this->canvas['width'], $this->canvas['height']);
     if(!$newimg) return false;
-    
+
     if (ZMSettings::get('plugins.imageHandler2.gdlib')>1 && function_exists('imagesavealpha')){
       imagealphablending($newimg, false);
     }
     $background_color = imagecolorallocatealpha($newimg, 255, 255, 255, 127);
     imagefilledrectangle($newimg, 0, 0, $this->canvas['width'] - 1, $this->canvas['height'] - 1, $background_color);
-  
+
     //$newimg = $this->imagemergealpha($newimg, $tmpimg, $startwidth, $startheight, $newwidth, $newheight);
     imagecopy($newimg, $tmpimg, $startwidth, $startheight, 0, 0, $newwidth, $newheight);
     imagedestroy($tmpimg);
-    $tmpimg = $newimg; 
+    $tmpimg = $newimg;
 
 
     if (ZMSettings::get('plugins.imageHandler2.gdlib')>1 && function_exists('imagesavealpha')){
@@ -480,7 +480,7 @@ class ZMIh2Image {
       $this->watermark['image'] = $this->load_imageGD($this->watermark['file']);
       imagecopy($tmpimg, $this->watermark['image'], $this->watermark['startx'], $this->watermark['starty'], 0, 0, $this->watermark['width'], $this->watermark['height']);
       //$tmpimg = $this->imagemergealpha($tmpimg, $this->watermark['image'], $this->watermark['startx'], $this->watermark['starty'], $this->watermark['width'], $this->watermark['height']);
-      imagedestroy($this->watermark['image']); 
+      imagedestroy($this->watermark['image']);
     }
 
     // we need to zoom our images
@@ -488,7 +488,7 @@ class ZMIh2Image {
       $this->zoom['image'] = $this->load_imageGD($this->zoom['file']);
       //imagecopy($tmpimg, $this->zoom['image'], $this->zoom['startx'], $this->zoom['starty'], 0, 0, $this->zoom['width'], $this->zoom['height']);
       $tmpimg = $this->imagemergealpha($tmpimg, $this->zoom['image'], $this->zoom['startx'], $this->zoom['starty'], $this->zoom['width'], $this->zoom['height']);
-      imagedestroy($this->zoom['image']); 
+      imagedestroy($this->zoom['image']);
     }
 
     // initialize REAL background image (filled canvas)
@@ -497,7 +497,7 @@ class ZMIh2Image {
     }
     if(!$newimg) $newimg = @imagecreate($this->canvas['width'], $this->canvas['height']);
     if(!$newimg) return false;
-    
+
     if (ZMSettings::get('plugins.imageHandler2.gdlib')>1 && function_exists('imagesavealpha')){
       imagealphablending($newimg, false);
     }
@@ -512,8 +512,8 @@ class ZMIh2Image {
     } else {
       $transparent = (strpos($bg, 'transparent') !== false);
     }
-    $transparent &= preg_match('/(\.gif)|(\.png)/i', $file_ext); 
-    
+    $transparent &= preg_match('/(\.gif)|(\.png)/i', $file_ext);
+
     $alpha = $transparent ? 127 : 0;
     if ($color) {
       $background_color = imagecolorallocatealpha($newimg, intval($color['r']), intval($color['g']), intval($color['b']), $alpha);
@@ -540,7 +540,7 @@ class ZMIh2Image {
         imagecopy($newimg, $tmpimg, 0, 0, 0, 0, $this->canvas['width'], $this->canvas['height']);
       }
     }
-    imagedestroy($tmpimg); 
+    imagedestroy($tmpimg);
 
     if (ZMSettings::get('plugins.imageHandler2.gdlib')>1 && function_exists('imagesavealpha')){
       imagesavealpha($newimg, true);
@@ -571,7 +571,7 @@ class ZMIh2Image {
 	      }
 	      return array($startwidth, $startheight);
 	}
-	
+
 	function load_imageGD($src_name) {
 		// create an image of the given filetype
 		$file_ext = substr($src_name, strrpos($src_name, '.'));
@@ -592,7 +592,7 @@ class ZMIh2Image {
 		}
 		return $image;
 	}
-	
+
 	function save_imageGD($file_ext, $image, $dest_name, $quality = 75) {
 		switch (strtolower($file_ext)) {
 			case '.gif':
@@ -612,10 +612,10 @@ class ZMIh2Image {
 			default: $ok = false;
 		}
 		imagedestroy($image);
-	
+
 		return $ok;
 	}
-	
+
 	function get_background_rgb($bg) {
 		$bg = trim(str_replace('transparent', '', $bg));
 		list($red, $green, $blue)= preg_split('/[, :]/', $bg);
@@ -626,10 +626,10 @@ class ZMIh2Image {
 			$color = array('r'=>$red, 'g'=>$green, 'b'=>$blue);
 			return $color;
 		} else {
-			return false; 
+			return false;
 		}
 	}
-		
+
 	function get_additional_parameters($alt, $width, $height, $parameters) {
 		global $ihConf;
     if ($this->sizetype == 'small') {
@@ -654,7 +654,7 @@ class ZMIh2Image {
         $products_image_zoom = $ihConf['dir']['images'] . $zoom_sizetype . '/' . $products_image_directory . $products_image_filename . $ihConf[$zoom_sizetype]['suffix'] . $this->extension;
         $ih_zoom_image = new ZMIh2Image($products_image_zoom, $ihConf[$zoom_sizetype]['width'], $ihConf[$zoom_sizetype]['height']);
         $products_image_zoom = $ih_zoom_image->get_local();
-        list($zoomwidth, $zoomheight) = @getimagesize(DIR_FS_CATALOG . $products_image_zoom);
+        list($zoomwidth, $zoomheight) = @getimagesize(ZC_INSTALL_PATH . $products_image_zoom);
         // we should parse old parameters here and possibly merge some inc case they're duplicate
         $parameters .= ($parameters != '') ? ' ' : '';
         return $parameters . 'style="position:relative" onmouseover="showtrail(' . "'$products_image_zoom','$alt',$width,$height,$zoomwidth,$zoomheight,this," . $this->zoom['startx'].','.$this->zoom['starty'].','.$this->zoom['width'].','.$this->zoom['height'].');" onmouseout="hidetrail();" ';
@@ -662,5 +662,5 @@ class ZMIh2Image {
        return $parameters;
     }
     return $parameters;
-    }  
+    }
 }

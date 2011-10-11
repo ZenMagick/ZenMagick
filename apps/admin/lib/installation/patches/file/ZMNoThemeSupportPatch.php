@@ -23,7 +23,7 @@
 use zenmagick\base\Runtime;
 
 
-define('_ZM_ZEN_APP_BOTTOM_PHP', DIR_FS_CATALOG.DIR_WS_INCLUDES."application_bottom.php");
+define('_ZM_ZEN_APP_BOTTOM_PHP', ZC_INSTALL_PATH."includes/application_bottom.php");
 
 /**
  * Patch to enable ZenMagick without themes.

@@ -137,7 +137,8 @@ class ZMToolboxNet extends ZMToolboxTool {
      * @return string The image URI.
      */
     public function image($src) {
-        $href = $this->getRequest()->getContext().'/'.DIR_WS_IMAGES . $src;
+        // TODO: where are images coming from in the future??
+        $href = $this->getRequest()->getContext().'/images/'.$src;
 
         return $href;
     }
