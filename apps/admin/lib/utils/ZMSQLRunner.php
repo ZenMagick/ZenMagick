@@ -6,7 +6,7 @@
  * @license http://www.zen-cart.com/license/2_0.txt GNU Public License V2.0
  * @version $Id$
  */
-use zenmamagick\base\Runtime;
+use zenmagick\base\Runtime;
 class ZMSQLRunner {
  static function get_db() {
  global $db;
