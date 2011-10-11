@@ -74,7 +74,7 @@ class ZenCartBundle extends Bundle {
         }
 
         // check for existing defines
-        foreach (array('DB_SERVER', 'DB_SERVER_USERNAME', 'DB_SERVER_PASSWORD', 'DB_DATABASE', 'DB_PREFIX', 'ENABLE_SSL', 'ENABLE_SSL_ADMIN', 'DIR_FS_DOWNLOAD', 'DIR_WS_CATALOG', 'ENABLE_SSL', 'ENABLE_SSL_ADMIN') as $key) {
+        foreach (array('DB_SERVER', 'DB_SERVER_USERNAME', 'DB_SERVER_PASSWORD', 'DB_DATABASE', 'DB_PREFIX', 'DIR_FS_DOWNLOAD', 'DIR_WS_CATALOG') as $key) {
             if (defined($key)) {
                 define('ZM_'.$key, constant($key));
             }
@@ -106,18 +106,16 @@ class ZenCartBundle extends Bundle {
         // merge with current settings
         $current = $settingsService->get('zenmagick/apps/store/database/default', array());
         $settingsService->set('zenmagick/apps/store/database/default', array_merge($defaults, $current));
-        if (defined('ZM_ENABLE_SSL_ADMIN')) {
-            $settingsService->set('zenmagick.mvc.request.secure', 'true' == ZM_ENABLE_SSL_ADMIN);
-        } else {
-            $settingsService->set('zenmagick.mvc.request.secure', 'true' == ZM_ENABLE_SSL);
-        }
+
+        if (defined('ENABLE_SSL_ADMIN')) $settingsService->set('zenmagick.mvc.request.secure', 'true' == ENABLE_SSL_ADMIN);
+        if (defined('ENABLE_SSL')) $settingsService->set('zenmagick.mvc.request.secure', 'true' == ENABLE_SSL);
     }
 
     /**
      * Handle things that require a request.
      */
     public function onInitRequest($event) {
-        if (defined('ZM_ENABLE_SSL_ADMIN')) {
+        if (IS_ADMIN_FLAG) { // todo context or app name, or isAdmin setting?
             // non db settings (admin)
             $request = $event->get('request');
             $settingsService = Runtime::getSettings();
