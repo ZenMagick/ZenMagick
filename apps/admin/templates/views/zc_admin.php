@@ -27,16 +27,13 @@ use zenmagick\base\Runtime;
 
 if (!function_exists('zen_href_link')) {
     function zen_href_link($page='', $params='', $transport='NONSSL', $addSessionId=true, $seo=true, $isStatic=false, $useContext=true) {
-        if (defined('ZC_INSTALL_PATH')) {
-            $request = Runtime::getContainer()->get('request');
-            // strip rid,zpid frm params
-            parse_str($params, $tmp);
-            unset($tmp['rid']);
-            unset($tmp['zpid']);
-            $params = http_build_query($tmp);
-            return $request->url('zc_admin', 'zpid='.str_replace('.php', '', $page).'&'.$params);
-        }
-        return zen_href_link_DISABLED($page, $params, $transport, $addSessionId, $seo, $isStatic, $useContext);
+        $request = Runtime::getContainer()->get('request');
+        // strip rid,zpid frm params
+        parse_str($params, $tmp);
+        unset($tmp['rid']);
+        unset($tmp['zpid']);
+        $params = http_build_query($tmp);
+        return $request->url('zc_admin', 'zpid='.str_replace('.php', '', $page).'&'.$params);
     }
 }
 
