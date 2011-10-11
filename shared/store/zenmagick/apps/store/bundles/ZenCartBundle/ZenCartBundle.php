@@ -74,7 +74,7 @@ class ZenCartBundle extends Bundle {
         }
 
         // check for existing defines
-        foreach (array('DB_SERVER', 'DB_SERVER_USERNAME', 'DB_SERVER_PASSWORD', 'DB_DATABASE', 'DB_PREFIX', 'DIR_FS_DOWNLOAD', 'DIR_WS_CATALOG') as $key) {
+        foreach (array('DB_SERVER', 'DB_SERVER_USERNAME', 'DB_SERVER_PASSWORD', 'DB_DATABASE', 'DB_PREFIX', 'DIR_WS_CATALOG') as $key) {
             if (defined($key)) {
                 define('ZM_'.$key, constant($key));
             }
@@ -109,6 +109,10 @@ class ZenCartBundle extends Bundle {
 
         if (defined('ENABLE_SSL_ADMIN')) $settingsService->set('zenmagick.mvc.request.secure', 'true' == ENABLE_SSL_ADMIN);
         if (defined('ENABLE_SSL')) $settingsService->set('zenmagick.mvc.request.secure', 'true' == ENABLE_SSL);
+
+        // download base folder
+        $downloadBaseDir = !defined('DIR_FS_DOWNLOAD') ? ZC_INSTALL_PATH . 'download/' : DIR_FS_DOWNLOAD;
+        $settingsService->set('downloadBaseDir', $downloadBaseDir);
     }
 
     /**

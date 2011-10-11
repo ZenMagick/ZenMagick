@@ -67,10 +67,6 @@
             // enable/disable web stats; this does not include login counts, etc, but product views and such
             'isLogPageStats' => true,
 
-            // download base folder
-            'downloadBaseDir' => ZM_DIR_FS_DOWNLOAD,
-
-
             // enable/disable transaction support in request processing
             'zenmagick.mvc.transactions.enabled' => false,
 
@@ -188,9 +184,6 @@
             /**************************************
              * Security and session
              **************************************/
-
-            // use SSL
-            'zenmagick.http.request.secure' => (defined('ENABLE_SSL') && ZM_ENABLE_SSL == 'true') || (defined('ENABLE_SSL_ADMIN') && ZM_ENABLE_SSL_ADMIN == 'true'),
 
             // cookies only?
             'isForceCookieUse' => SESSION_FORCE_COOKIE_USE == 'True',
