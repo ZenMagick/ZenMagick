@@ -11,9 +11,6 @@ class ZMSQLRunner {
  global $db;
 
    if (!isset($db)) {
-      include_once ZC_INSTALL_PATH.ZC_ADMIN_FOLDER.'includes/functions/general.php';
-      require_once ZC_INSTALL_PATH.'includes/classes/class.base.php';
-      include_once ZC_INSTALL_PATH.'includes/classes/db/mysql/query_factory.php';
       $db = new queryFactory();
       $db->connect(DB_SERVER, DB_SERVER_USERNAME, DB_SERVER_PASSWORD, DB_DATABASE);
    }
