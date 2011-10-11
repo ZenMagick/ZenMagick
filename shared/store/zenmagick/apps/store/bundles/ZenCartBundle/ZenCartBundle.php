@@ -45,12 +45,12 @@ class ZenCartBundle extends Bundle {
      * {@inheritDoc}
      */
     public function boot() {
+        define('ZC_INSTALL_PATH', dirname(Runtime::getInstallationPath()).DIRECTORY_SEPARATOR);
+
         Runtime::getEventDispatcher()->addListener('init_request', array($this, 'onInitRequest'));
         $zcClassLoader = new ZenCartClassLoader();
         $zcClassLoader->register();
         $this->prepareConfig();
-
-        define('ZC_INSTALL_PATH', dirname(Runtime::getInstallationPath()).DIRECTORY_SEPARATOR);
 
         // include some zencart files we need.
         include_once ZC_INSTALL_PATH . 'includes/database_tables.php';
