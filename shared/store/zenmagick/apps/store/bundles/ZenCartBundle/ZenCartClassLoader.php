@@ -47,7 +47,8 @@ class ZenCartClassLoader extends ClassLoader {
             'navigationHistory' => 'navigation_history',
             'shoppingCart' => 'shopping_cart',
             'base' => 'class.base',
-            'notifier' => 'class.notifier'
+            'notifier' => 'class.notifier',
+            'queryFactory' => 'db/mysql/query_factory'
         );
     }
 
