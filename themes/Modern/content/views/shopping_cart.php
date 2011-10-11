@@ -83,10 +83,6 @@
         <a class="btn" href="<?php echo $net->url('popup_shipping_estimator', '', true) ?>" onclick="popupWindow(this.href); return false;"><img title="<?php _vzm(' Shipping Estimator ') ?>" alt="<?php _vzm('Shipping Estimator') ?>" src="<?php echo $this->asUrl('images/button_shipping_estimator.gif') ?>"></a>
     </div>
 
-    <?php if (defined('MODULE_PAYMENT_PAYPALWPP_STATUS') && MODULE_PAYMENT_PAYPALWPP_STATUS == 'True') {
-        global $order, $db, $currencies;
-        include(DIR_FS_CATALOG . DIR_WS_MODULES .  'payment/paypal/tpl_ec_button.php');
-    } ?>
-
+    <?php echo $this->fetchBlockGroup('shoppingCart.options') ?>
 </form>
 
