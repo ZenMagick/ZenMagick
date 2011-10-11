@@ -3,8 +3,6 @@
 chdir(dirname(dirname(__FILE__)));
 
 define('ZM_APP_PATH', 'apps/admin/');
-// pre-load a couple zen-cart files needed
-define('ZC_INSTALL_PATH', realpath('../') . DIRECTORY_SEPARATOR);
 
 include 'bootstrap.php';
 
