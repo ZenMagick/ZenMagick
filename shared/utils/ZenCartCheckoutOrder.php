@@ -40,7 +40,7 @@ class ZenCartCheckoutOrder extends ZMObject {
     public $shipping;
     public $delivery;
     // TODO: make obsolete :)
-    private $validate = false;
+    private $validate = true;
 
 
     /**
@@ -100,11 +100,12 @@ class ZenCartCheckoutOrder extends ZMObject {
 if ($this->validate) {
   $order = new order();
   foreach ($order->info as $key => $value) {
+      if (in_array($key, array('rowClass', 'ip_address'))) { continue; }
       if (array_key_exists($key, $this->info)) {
         if ('tax_groups' == $key) {
           $mytg = $this->info[$key];
           if (count($value) != count($mytg)) {
-            echo 'tax group length diff! order: ';var_dump($value);echo 'my: ';var_dump($mytg);echo '<br>';
+            echo 'tax groups length diff! order: ';var_dump($value);echo 'my: ';var_dump($mytg);echo '<br>';
           }
             continue;
         }
@@ -142,7 +143,7 @@ if ($this->validate) {
                 //'tax_description' => zen_get_tax_description($products[$i]['tax_class_id'], $tax_address->fields['entry_country_id'], $tax_address->fields['entry_zone_id']),
                 'price' => $itemProduct->getProductPrice(),
                 'final_price' => $offers->getCalculatedPrice(),
-                //'onetime_charges' => $_SESSION['cart']->attributes_price_onetime_charges($products[$i]['id'], $products[$i]['quantity']),
+                'onetime_charges' => 0, //TODO: $_SESSION['cart']->attributes_price_onetime_charges($products[$i]['id'], $products[$i]['quantity']),
                 'weight' => $itemProduct->getWeight(),
                 'products_priced_by_attribute' => $itemProduct->isPricedByAttributes(),
                 'product_is_free' => $itemProduct->isFree(),
@@ -154,7 +155,15 @@ if ($this->validate) {
 if ($this->validate) {
   $order = new order();
   foreach ($order->products[0] as $key => $value) {
+      if (in_array($key, array('rowClass'))) { continue; }
       if (array_key_exists($key, $this->products[0])) {
+        if ('tax_groups' == $key) {
+          $mytg = $this->products[0][$key];
+          if (count($value) != count($mytg)) {
+            echo 'tax groups length diff! order: ';var_dump($value);echo 'my: ';var_dump($mytg);echo '<br>';
+          }
+            continue;
+        }
         if ($value != $this->products[0][$key]) {
             echo 'product value mismatch for '.$key.': value='.$value.', got: '.$this->products[0][$key]."<BR>";
         }

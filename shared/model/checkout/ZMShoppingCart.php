@@ -181,8 +181,11 @@ class ZMShoppingCart extends ZMObject {
      * @return float The cart subtotal.
      */
     public function getSubTotal() {
-        $order = new order();
-        return $order->info['subtotal'];
+        $subtotal = 0;
+        foreach ($this->getItems() as $item) {
+            $subtotal += $item->getItemTotal();
+        }
+        return $subtotal;
     }
 
     /**
@@ -191,7 +194,12 @@ class ZMShoppingCart extends ZMObject {
      * @return float The cart total.
      */
     public function getTotal() {
-        return $this->cart_->show_total();
+        foreach ($this->getTotals() as $orderTotal) {
+            if ('total' == $orderTotal->getType()) {
+                return $orderTotal->getAmount();
+            }
+        }
+        return 0;
     }
 
     /**
@@ -434,21 +442,14 @@ class ZMShoppingCart extends ZMObject {
      * Get zen-cart order totals.
      */
     protected function _getZenTotals() {
-    global $order_total_modules;
-
-    /*
-$order = new order();
-// Load the selected shipping module(needed to calculate tax correctly)
-$shipping_modules = new shipping($_SESSION['shipping']);
-$this->zenTotals_ = new order_total();
-$this->zenTotals_->collect_posts();
-$this->zenTotals_->pre_confirmation_check();
-return $this->zenTotals_;
-     */
+    global $order, $order_total_modules, $shipping_modules;
 
         if (null === $this->zenTotals_) {
             $order = new order();
 
+            if (!isset($shipping_modules)) {
+                $shipping_modules = new shipping($_SESSION['shipping']);
+            }
             $this->zenTotals_ = $order_total_modules;
             if (!isset($order_total_modules)) {
                 $this->zenTotals_ = new order_total();
@@ -901,5 +902,254 @@ return zen_get_uprid($productId, $attributes);
 
         return $fullProductId;
     }
+
+
+
+  function calculate() {
+    global $db;
+    $this->total = 0;
+    $this->weight = 0;
+
+    // shipping adjustment
+    $this->free_shipping_item = 0;
+    $this->free_shipping_price = 0;
+    $this->free_shipping_weight = 0;
+
+    if (!is_array($this->contents)) return 0;
+
+    reset($this->contents);
+    while (list($products_id, ) = each($this->contents)) {
+      $qty = $this->contents[$products_id]['qty'];
+
+      // products price
+      $product_query = "select products_id, products_price, products_tax_class_id, products_weight,
+                          products_priced_by_attribute, product_is_always_free_shipping, products_discount_type, products_discount_type_from,
+                          products_virtual, products_model
+                          from " . TABLE_PRODUCTS . "
+                          where products_id = '" . (int)$products_id . "'";
+
+      if ($product = $db->Execute($product_query)) {
+        $prid = $product->fields['products_id'];
+        $products_tax = zen_get_tax_rate($product->fields['products_tax_class_id']);
+        $products_price = $product->fields['products_price'];
+
+        // adjusted count for free shipping
+        if ($product->fields['product_is_always_free_shipping'] != 1 and $product->fields['products_virtual'] != 1) {
+          $products_weight = $product->fields['products_weight'];
+        } else {
+          $products_weight = 0;
+        }
+
+        $special_price = zen_get_products_special_price($prid);
+        if ($special_price and $product->fields['products_priced_by_attribute'] == 0) {
+          $products_price = $special_price;
+        } else {
+          $special_price = 0;
+        }
+
+        if (zen_get_products_price_is_free($product->fields['products_id'])) {
+          // no charge
+          $products_price = 0;
+        }
+
+        // adjust price for discounts when priced by attribute
+        if ($product->fields['products_priced_by_attribute'] == '1' and zen_has_product_attributes($product->fields['products_id'], 'false')) {
+          // reset for priced by attributes
+          //            $products_price = $products->fields['products_price'];
+          if ($special_price) {
+            $products_price = $special_price;
+          } else {
+            $products_price = $product->fields['products_price'];
+          }
+        } else {
+          // discount qty pricing
+          if ($product->fields['products_discount_type'] != '0') {
+            $products_price = zen_get_products_discount_price_qty($product->fields['products_id'], $qty);
+          }
+        }
+
+        // shipping adjustments for Product
+        if (($product->fields['product_is_always_free_shipping'] == 1) or ($product->fields['products_virtual'] == 1) or (preg_match('/^GIFT/', addslashes($product->fields['products_model'])))) {
+          $this->free_shipping_item += $qty;
+          $this->free_shipping_price += zen_add_tax($products_price, $products_tax) * $qty;
+          $this->free_shipping_weight += ($qty * $product->fields['products_weight']);
+        }
+
+        $this->total += zen_add_tax($products_price, $products_tax) * $qty;
+        $this->weight += ($qty * $products_weight);
+      }
+
+      $adjust_downloads = 0;
+      // attributes price
+      if (isset($this->contents[$products_id]['attributes'])) {
+        reset($this->contents[$products_id]['attributes']);
+        while (list($option, $value) = each($this->contents[$products_id]['attributes'])) {
+          $adjust_downloads ++;
+          /*
+          products_attributes_id, options_values_price, price_prefix,
+          attributes_display_only, product_attribute_is_free,
+          attributes_discounted
+          */
+
+          $attribute_price_query = "select *
+                                      from " . TABLE_PRODUCTS_ATTRIBUTES . "
+                                      where products_id = '" . (int)$prid . "'
+                                      and options_id = '" . (int)$option . "'
+                                      and options_values_id = '" . (int)$value . "'";
+
+          $attribute_price = $db->Execute($attribute_price_query);
+
+          $new_attributes_price = 0;
+          $discount_type_id = '';
+          $sale_maker_discount = '';
+
+          // bottom total
+          //            if ($attribute_price->fields['product_attribute_is_free']) {
+          if ($attribute_price->fields['product_attribute_is_free'] == '1' and zen_get_products_price_is_free((int)$prid)) {
+            // no charge for attribute
+          } else {
+            // + or blank adds
+            if ($attribute_price->fields['price_prefix'] == '-') {
+// appears to confuse products priced by attributes
+                if ($product->fields['product_is_always_free_shipping'] == '1' or $product->fields['products_virtual'] == '1') {
+                  $shipping_attributes_price = zen_get_discount_calc($product->fields['products_id'], $attribute_price->fields['products_attributes_id'], $attribute_price->fields['options_values_price'], $qty);
+                  $this->free_shipping_price -= $qty * zen_add_tax( ($shipping_attributes_price), $products_tax);
+                }
+              if ($attribute_price->fields['attributes_discounted'] == '1') {
+                // calculate proper discount for attributes
+                $new_attributes_price = zen_get_discount_calc($product->fields['products_id'], $attribute_price->fields['products_attributes_id'], $attribute_price->fields['options_values_price'], $qty);
+                $this->total -= $qty * zen_add_tax( ($new_attributes_price), $products_tax);
+              } else {
+                $this->total -= $qty * zen_add_tax($attribute_price->fields['options_values_price'], $products_tax);
+              }
+            } else {
+// appears to confuse products priced by attributes
+                if ($product->fields['product_is_always_free_shipping'] == '1' or $product->fields['products_virtual'] == '1') {
+                  $shipping_attributes_price = zen_get_discount_calc($product->fields['products_id'], $attribute_price->fields['products_attributes_id'], $attribute_price->fields['options_values_price'], $qty);
+                  $this->free_shipping_price += $qty * zen_add_tax( ($shipping_attributes_price), $products_tax);
+                }
+              if ($attribute_price->fields['attributes_discounted'] == '1') {
+                // calculate proper discount for attributes
+                $new_attributes_price = zen_get_discount_calc($product->fields['products_id'], $attribute_price->fields['products_attributes_id'], $attribute_price->fields['options_values_price'], $qty);
+                $this->total += $qty * zen_add_tax( ($new_attributes_price), $products_tax);
+              } else {
+                $this->total += $qty * zen_add_tax($attribute_price->fields['options_values_price'], $products_tax);
+              }
+            } // eof: attribute price
+// adjust for downloads
+// adjust products price
+  $check_attribute = $attribute_price->fields['products_attributes_id'];
+  $sql = "select *
+                    from " . TABLE_PRODUCTS_ATTRIBUTES_DOWNLOAD . "
+                    where products_attributes_id = '" . $check_attribute . "'";
+  $check_download = $db->Execute($sql);
+  if ($check_download->RecordCount()) {
+// do not count download as free when set to product/download combo
+    if ($adjust_downloads == 1 and $product->fields['product_is_always_free_shipping'] != 2) {
+      $this->free_shipping_price += zen_add_tax($products_price, $products_tax) * $qty;
+      $this->free_shipping_item += $qty;
+    }
+// adjust for attributes price
+    $this->free_shipping_price += $qty * zen_add_tax( ($new_attributes_price), $products_tax);
+//die('I SEE B ' . $this->free_shipping_price);
+  }
+//  echo 'I SEE ' . $this->total . ' vs ' . $this->free_shipping_price . ' items: ' . $this->free_shipping_item. '<br>';
+
+            ////////////////////////////////////////////////
+            // calculate additional attribute charges
+            $chk_price = zen_get_products_base_price($products_id);
+            $chk_special = zen_get_products_special_price($products_id, false);
+            // products_options_value_text
+            if (zen_get_attributes_type($attribute_price->fields['products_attributes_id']) == PRODUCTS_OPTIONS_TYPE_TEXT) {
+              $text_words = zen_get_word_count_price($this->contents[$products_id]['attributes_values'][$attribute_price->fields['options_id']], $attribute_price->fields['attributes_price_words_free'], $attribute_price->fields['attributes_price_words']);
+              $text_letters = zen_get_letters_count_price($this->contents[$products_id]['attributes_values'][$attribute_price->fields['options_id']], $attribute_price->fields['attributes_price_letters_free'], $attribute_price->fields['attributes_price_letters']);
+
+              $this->total += $qty * zen_add_tax($text_letters, $products_tax);
+              $this->total += $qty * zen_add_tax($text_words, $products_tax);
+            }
+
+            // attributes_price_factor
+            $added_charge = 0;
+            if ($attribute_price->fields['attributes_price_factor'] > 0) {
+              $added_charge = zen_get_attributes_price_factor($chk_price, $chk_special, $attribute_price->fields['attributes_price_factor'], $attribute_price->fields['attributes_price_factor_offset']);
+
+              $this->total += $qty * zen_add_tax($added_charge, $products_tax);
+            }
+            // attributes_qty_prices
+            $added_charge = 0;
+            if ($attribute_price->fields['attributes_qty_prices'] != '') {
+              $added_charge = zen_get_attributes_qty_prices_onetime($attribute_price->fields['attributes_qty_prices'], $qty);
+
+              $this->total += $qty * zen_add_tax($added_charge, $products_tax);
+            }
+
+            //// one time charges
+            // attributes_price_onetime
+            if ($attribute_price->fields['attributes_price_onetime'] > 0) {
+              $this->total += zen_add_tax($attribute_price->fields['attributes_price_onetime'], $products_tax);
+            }
+            // attributes_price_factor_onetime
+            $added_charge = 0;
+            if ($attribute_price->fields['attributes_price_factor_onetime'] > 0) {
+              $chk_price = zen_get_products_base_price($products_id);
+              $chk_special = zen_get_products_special_price($products_id, false);
+              $added_charge = zen_get_attributes_price_factor($chk_price, $chk_special, $attribute_price->fields['attributes_price_factor_onetime'], $attribute_price->fields['attributes_price_factor_onetime_offset']);
+
+              $this->total += zen_add_tax($added_charge, $products_tax);
+            }
+            // attributes_qty_prices_onetime
+            $added_charge = 0;
+            if ($attribute_price->fields['attributes_qty_prices_onetime'] != '') {
+              $chk_price = zen_get_products_base_price($products_id);
+              $chk_special = zen_get_products_special_price($products_id, false);
+              $added_charge = zen_get_attributes_qty_prices_onetime($attribute_price->fields['attributes_qty_prices_onetime'], $qty);
+              $this->total += zen_add_tax($added_charge, $products_tax);
+            }
+            ////////////////////////////////////////////////
+          }
+        }
+      } // attributes price
+
+      // attributes weight
+      if (isset($this->contents[$products_id]['attributes'])) {
+        reset($this->contents[$products_id]['attributes']);
+        while (list($option, $value) = each($this->contents[$products_id]['attributes'])) {
+          $attribute_weight_query = "select products_attributes_weight, products_attributes_weight_prefix
+                                       from " . TABLE_PRODUCTS_ATTRIBUTES . "
+                                       where products_id = '" . (int)$prid . "'
+                                       and options_id = '" . (int)$option . "'
+                                       and options_values_id = '" . (int)$value . "'";
+
+          $attribute_weight = $db->Execute($attribute_weight_query);
+
+          // adjusted count for free shipping
+          if ($product->fields['product_is_always_free_shipping'] != 1) {
+            $new_attributes_weight = $attribute_weight->fields['products_attributes_weight'];
+          } else {
+            $new_attributes_weight = 0;
+          }
+
+          // shipping adjustments for Attributes
+          if (($product->fields['product_is_always_free_shipping'] == 1) or ($product->fields['products_virtual'] == 1) or (preg_match('/^GIFT/', addslashes($product->fields['products_model'])))) {
+            if ($attribute_weight->fields['products_attributes_weight_prefix'] == '-') {
+              $this->free_shipping_weight -= ($qty * $attribute_weight->fields['products_attributes_weight']);
+            } else {
+              $this->free_shipping_weight += ($qty * $attribute_weight->fields['products_attributes_weight']);
+            }
+          }
+
+          // + or blank adds
+          if ($attribute_weight->fields['products_attributes_weight_prefix'] == '-') {
+            $this->weight -= $qty * $new_attributes_weight;
+          } else {
+            $this->weight += $qty * $new_attributes_weight;
+          }
+        }
+      } // attributes weight
+
+    }
+  }
+
+
 
 }
