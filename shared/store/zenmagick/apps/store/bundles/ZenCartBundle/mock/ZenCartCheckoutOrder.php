@@ -22,6 +22,7 @@
  */
 ?>
 <?php
+namespace zenmagick\apps\store\bundles\ZenCartBundle\Mock;
 
 use zenmagick\base\Runtime;
 use zenmagick\base\ZMObject;
@@ -39,8 +40,6 @@ class ZenCartCheckoutOrder extends ZMObject {
     public $customer;
     public $shipping;
     public $delivery;
-    // TODO: make obsolete :)
-    private $validate = true;
 
 
     /**
@@ -97,8 +96,8 @@ class ZenCartCheckoutOrder extends ZMObject {
             'tax_groups' => array(),
             'comments' => $shoppingCart->getComments()
         );
-if ($this->validate) {
-  $order = new order();
+if ($this->container->get('settingsService')->get('zenmagick.apps.store.assertZencart', false)) {
+  $order = new \order();
   foreach ($order->info as $key => $value) {
       if (in_array($key, array('rowClass', 'ip_address'))) { continue; }
       if (array_key_exists($key, $this->info)) {
@@ -152,8 +151,8 @@ if ($this->validate) {
             );
             $this->products[] = $product;
         }
-if ($this->validate) {
-  $order = new order();
+if ($this->container->get('settingsService')->get('zenmagick.apps.store.assertZencart', false)) {
+  $order = new \order();
   foreach ($order->products[0] as $key => $value) {
       if (in_array($key, array('rowClass'))) { continue; }
       if (array_key_exists($key, $this->products[0])) {

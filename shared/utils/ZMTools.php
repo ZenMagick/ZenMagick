@@ -24,6 +24,7 @@
 <?php
 
 use zenmagick\base\Runtime;
+use zenmagick\apps\store\bundles\ZenCartBundle\mock\ZenCartCheckoutOrder;
 
 /**
  * (System) Tools.
@@ -368,9 +369,9 @@ class ZMTools {
      * Prepare fake zc globals to make wrapper work.
      *
      * @param ZMShoppingCart shoppingCart The current shopping cart.
-     * @param ZMAddress address Optional delivery address; default is <code>null</code>.
+     * @param ZMAddress shippingAddress Optional shipping address; default is <code>null</code>.
      */
-    public static function prepareWrapperEnv($shoppingCart, $deliveryAddress=null) {
+    public static function prepareWrapperEnv($shoppingCart, $shippingAddress=null) {
     global $order, $shipping_weight, $shipping_quoted, $shipping_num_boxes, $total_count;
     global $_order, $_shipping_weight, $_shipping_quoted, $_shipping_num_boxes, $_total_count;
 
@@ -382,11 +383,13 @@ class ZMTools {
         $_total_count = $total_count;
 
         if (null == $order || !($order instanceof ZenCartCheckoutOrder)) {
-            $order = Runtime::getContainer()->get('ZenCartCheckoutOrder');
-            $order->setShoppingCart($shoppingCart);
-            if (null != $deliveryAddress) {
-                $order->setDeliveryAddress($deliveryAddress);
+            $mockOrder = new ZenCartCheckoutOrder();
+            $mockOrder->setContainer(Runtime::getContainer());
+            $mockOrder->setShoppingCart($shoppingCart);
+            if (null != $shippingAddress) {
+                $mockOrder->setShippingAddress($shippingAddress);
             }
+            $order = $mockOrder;
         }
 
         if (!isset($_SESSION['cart'])) {
