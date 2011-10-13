@@ -181,11 +181,7 @@ class ZMShoppingCart extends ZMObject {
      * @return float The cart subtotal.
      */
     public function getSubTotal() {
-    global $order;
-
-        if (!isset($GLOBALS['order']) || !is_object($GLOBALS['order'])) {
-            $order = new order();
-        }
+        $order = new order();
         return $order->info['subtotal'];
     }
 
@@ -438,7 +434,7 @@ class ZMShoppingCart extends ZMObject {
      * Get zen-cart order totals.
      */
     protected function _getZenTotals() {
-    global $order, $order_total_modules, $shipping_modules;
+    global $order_total_modules;
 
     /*
 $order = new order();
@@ -451,9 +447,7 @@ return $this->zenTotals_;
      */
 
         if (null === $this->zenTotals_) {
-            if (!isset($GLOBALS['order']) || !is_object($GLOBALS['order']) || 0 == count($order->info)) {
-                $order = new order();
-            }
+            $order = new order();
 
             $this->zenTotals_ = $order_total_modules;
             if (!isset($order_total_modules)) {

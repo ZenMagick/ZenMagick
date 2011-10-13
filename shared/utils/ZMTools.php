@@ -381,10 +381,12 @@ class ZMTools {
         $_shipping_num_boxes = $shipping_num_boxes;
         $_total_count = $total_count;
 
-        $order = Runtime::getContainer()->get('ZenCartCheckoutOrder');
-        $order->setShoppingCart($shoppingCart);
-        if (null != $deliveryAddress) {
-            $order->setDeliveryAddress($deliveryAddress);
+        if (null == $order || !($order instanceof ZenCartCheckoutOrder)) {
+            $order = Runtime::getContainer()->get('ZenCartCheckoutOrder');
+            $order->setShoppingCart($shoppingCart);
+            if (null != $deliveryAddress) {
+                $order->setDeliveryAddress($deliveryAddress);
+            }
         }
 
         if (!isset($_SESSION['cart'])) {

@@ -39,6 +39,8 @@ class ZenCartCheckoutOrder extends ZMObject {
     public $customer;
     public $shipping;
     public $delivery;
+    // TODO: make obsolete :)
+    private $validate = false;
 
 
     /**
@@ -76,24 +78,44 @@ class ZenCartCheckoutOrder extends ZMObject {
                 $couponCode = $coupon->getCode();
             }
         }
-        $shippingMethod = null; //TODO: $shoppingCart->getSelectedShippingMethod();
+        $shippingMethod = $shoppingCart->getSelectedShippingMethod();
         $paymentType = $shoppingCart->getSelectedPaymentType();
         $this->info = array(
+            'order_status' => DEFAULT_ORDERS_STATUS_ID,
             'currency' => $currencyCode,
             'currency_value' => $this->container->get('currencyService')->getCurrencyForCode($currencyCode)->getRate(),
             'payment_method' => null != $paymentType ? $paymentType->getName() : '',
             'payment_module_code' => null != $paymentType ? $paymentType->getId() : '',
             'coupon_code' => $couponCode,
             'shipping_method' => null != $shippingMethod ? $shippingMethod->getName() : '',
-            'shipping_module_code' => null != $shippingMethod ? $shippingMethod->getId() : '',
+            'shipping_module_code' => null != $shippingMethod ? $shippingMethod->getShippingId() : '',
             'shipping_cost' => null != $shippingMethod ? $shippingMethod->getCost() : '',
-            'subtotal' => 0, //TODO?
+            'subtotal' => $shoppingCart->getSubTotal(),
             'shipping_tax' => 0, //TODO?
             'tax' => 0, //TODO?
             'total' => $shoppingCart->getTotal(),
             'tax_groups' => array(),
             'comments' => $shoppingCart->getComments()
         );
+if ($this->validate) {
+  $order = new order();
+  foreach ($order->info as $key => $value) {
+      if (array_key_exists($key, $this->info)) {
+        if ('tax_groups' == $key) {
+          $mytg = $this->info[$key];
+          if (count($value) != count($mytg)) {
+            echo 'tax group length diff! order: ';var_dump($value);echo 'my: ';var_dump($mytg);echo '<br>';
+          }
+            continue;
+        }
+        if ($value != $this->info[$key]) {
+            echo 'info value mismatch for '.$key.': value='.$value.', got: '.$this->info[$key]."<BR>";
+        }
+      } else {
+        echo 'info missing key: '.$key.', value is: '.$value."<BR>";
+      }
+  }
+}
 
         // account
         $account = $this->container->get('accountService')->getAccountForId($shoppingCart->getAccountId());
@@ -129,18 +151,19 @@ class ZenCartCheckoutOrder extends ZMObject {
             );
             $this->products[] = $product;
         }
-/*
-$order = new order();
-foreach ($order->products[0] as $key => $value) {
-    if (array_key_exists($key, $this->products[0])) {
-      if ($value != $this->products[0][$key]) {
-          echo 'value mismatch: value='.$value.', got: '.$this->products[0][$key]."<BR>";
+if ($this->validate) {
+  $order = new order();
+  foreach ($order->products[0] as $key => $value) {
+      if (array_key_exists($key, $this->products[0])) {
+        if ($value != $this->products[0][$key]) {
+            echo 'product value mismatch for '.$key.': value='.$value.', got: '.$this->products[0][$key]."<BR>";
+        }
+      } else {
+        echo 'product missing key: '.$key.', value is: '.$value."<BR>";
       }
-    } else {
-      echo 'missing key: '.$key.', value is: '.$value."<BR>";
-    }
+  }
 }
-*/
+
     }
 
     /**
