@@ -160,19 +160,24 @@ EOT;
      */
     public function onFinaliseContent($event) {
         $request = $event->get('request');
+        $trackingType = $this->get('trackingType');
 
-        if ('product_info' == $request->getRequestId() && null !== $this->recommendationsLoadedFor) {
+        if (in_array($request->getRequestId(), array('product_info', 'shopping_cart')) && null !== $this->recommendationsLoadedFor) {
             // TODO: won't work with minify
-            $code1 = '<script type="text/javascript" src="'.$this->view->asUrl($request, 'js/jscript_lift.js', ZMView::RESOURCE).'"></script>';
+            $scriptFile = ('ga' == $trackingType ? 'liftsuggest.js' : 'liftsuggest_traditional.js');
+            $protocol = $request->isSecure() ? 'https://' : 'http://';
+
+            $code1 = sprintf('<script type="text/javascript" src="%swww.liftsuggest.com/js/%s?cache=%s"></script>', $protocol, $scriptFile, ZMSecurityUtils::random(10, ZMSecurityUtils::RANDOM_DIGITS));
 
             $code2 = $this->getTrackerCode($request);
             if (ZMLangUtils::asBoolean($this->get('debug'))) {
+                $code1 = str_replace('<script', '<!--script', $code1);
+                $code1 = str_replace('</script>', '/script-->', $code1);
                 $code2 = str_replace('<script', '<!--script', $code2);
                 $code2 = str_replace('</script>', '/script-->', $code2);
             }
 
             $content = $event->get('content');
-            $trackingType = $this->get('trackingType');
             if ('ga' == $trackingType) {
                 $content = preg_replace('/<\/head>/', $code1 . '</head>', $content, 1);
                 $content = preg_replace('/pageTracker._trackPageview\(/', $code2 . 'pageTracker._trackPageview(', $content, 1);

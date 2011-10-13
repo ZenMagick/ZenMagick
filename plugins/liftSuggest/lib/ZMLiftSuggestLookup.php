@@ -32,6 +32,7 @@ use Symfony\Component\DependencyInjection\ContainerAwareInterface;
  * @package org.zenmagick.plugins.liftSuggest
  */
 class ZMLiftSuggestLookup extends LiftSuggestLookup implements ContainerAwareInterface {
+    const SESSION_NAMESPACE = null;
     private $plugin_;
     private $container;
 
@@ -63,7 +64,16 @@ class ZMLiftSuggestLookup extends LiftSuggestLookup implements ContainerAwareInt
      * {@inheritDoc}
      */
     public function storeInSession($key, $value) {
-        $_SESSION[$key] = $value;
+        $session = $this->container->get('session');
+        $session->setValue($key, $value, self::SESSION_NAMESPACE);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getFromSession($key, $default=null) {
+        $session = $this->container->get('session');
+        $session->getValue($key, self::SESSION_NAMESPACE, $default);
     }
 
     /**
@@ -71,11 +81,7 @@ class ZMLiftSuggestLookup extends LiftSuggestLookup implements ContainerAwareInt
      */
     public function populate($raw) {
         $recommendations = new ZMLiftSuggestRecommendations();
-        if (array_key_exists('reco_prods', $_SESSION)) {
-            $recommended = $_SESSION['reco_prods'];
-        } else {
-            $recommended = array();
-        }
+        $recommended = $this->getFromSession('reco_prods', array());
 
         // process product infos
         $products = array();
@@ -87,7 +93,7 @@ class ZMLiftSuggestLookup extends LiftSuggestLookup implements ContainerAwareInt
                     foreach ($details as $key => $value) {
                         if ('sku' == $key) {
                             $info['product'] = $product;
-                            $recommened[] = $product->getId();
+                            $recommended[] = $product->getId();
                         } else {
                             // other details
                             $info['info'][$key] = $value;
@@ -109,7 +115,7 @@ class ZMLiftSuggestLookup extends LiftSuggestLookup implements ContainerAwareInt
             }
         }
 
-        $_SESSION['reco_prods'] = $recommended;
+        $this->storeInSession('reco_prods', $recommended);
         return $recommendations;
     }
 

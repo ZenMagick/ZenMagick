@@ -77,6 +77,19 @@ class LiftSuggestLookup {
     }
 
     /**
+     * Get a value from session.
+     *
+     * @param string key The key.
+     * @param mixed default A default value; default is <code>null</code>.
+     */
+    public function getFromSession($key, $default=null) {
+        if (array_key_exists($key, $_SESSION)) {
+            return $_SESSION[$key];
+        }
+        return $default;
+    }
+
+    /**
      * Populate the raw recommendation data.
      *
      * <p>The data returned by this method is the data eventually returned by the
