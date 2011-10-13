@@ -55,6 +55,8 @@
 </table>
 
 <h3><?php _vzm("Payment Details") ?></h3>
+<table cellpadding="0" cellspacing="0">
+    <tbody><tr><td>
 <?php if (null != ($paymentType = $currentOrder->getPaymentType())) { ?>
     <p><?php echo $paymentType->getName() ?></p>
     <?php if (!ZMLangUtils::isEmpty($paymentType->getInfo())) { ?>
@@ -63,6 +65,8 @@
 <?php } else { ?>
     <p><?php _vzm('N/A') ?></p>
 <?php } ?>
+    </td></tr></tbody>
+</table>
 
 <h3><?php _vzm("Order History") ?></h3>
 <table cellpadding="0" cellspacing="0">
