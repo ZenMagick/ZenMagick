@@ -132,7 +132,7 @@ class ZMShippingProviders extends ZMObject {
         }
 
         foreach ($moduleInfos as $moduleInfo) {
-            $lang_file = ZC_INSTALL_PATH . zen_get_file_directory(ZC_INSTALL_PATH . 'includes/modules/languages/' . $_SESSION['language'] . '/modules/shipping/', $moduleInfo['file'], 'false');
+            $lang_file = zen_get_file_directory(ZC_INSTALL_PATH . 'includes/languages/' . $_SESSION['language'] . '/modules/shipping/', $moduleInfo['file'], 'false');
             if (@file_exists($lang_file)) {
                 include_once $lang_file;
             }
