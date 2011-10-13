@@ -363,21 +363,22 @@ class Session extends ZMObject {
      *
      * @param string name The name.
      * @param string namespace Optional namespace; default is <code>null</code> for none.
-     * @return mixed The value or <code>null</code>.
+     * @param mixed default Optional default value if <code>$name</code> doesn't exist; default is <code>null</code>.
+     * @return mixed The value or <code>$default</code>.
      */
-    public function getValue($name, $namespace=null) {
+    public function getValue($name, $namespace=null, $default=null) {
         if (!$this->isStarted() && !$this->isNew()) {
             // start only if not a new session
             $this->start();
         }
         if (null === $namespace) {
-            return isset($this->data_[$name]) ? $this->data_[$name] : null;
+            return isset($this->data_[$name]) ? $this->data_[$name] : $default;
         } else {
             $namespace = self::DEFAULT_NAMESPACE_PREFIX.$namespace;
             if (isset($this->data_[$namespace])) {
-                return isset($this->data_[$namespace][$name]) ? $this->data_[$namespace][$name] : null;
+                return isset($this->data_[$namespace][$name]) ? $this->data_[$namespace][$name] : $default;
             } else {
-                return null;
+                return $default;
             }
         }
     }

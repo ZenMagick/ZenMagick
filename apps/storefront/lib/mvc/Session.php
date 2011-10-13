@@ -59,7 +59,7 @@ class Session extends zenmagick\http\session\Session {
      * {@inheritDoc}
      * @todo: drop
      */
-    public function getValue($name, $namespace=null) {
+    public function getValue($name, $namespace=null, $default=null) {
         if (null != ($value = parent::getValue($name, $namespace))) {
             return $value;
         }
