@@ -33,6 +33,13 @@ use zenmagick\base\ZMObject;
  * @package zenmagick.store.shared.utils
  */
 class ZenCartCheckoutOrder extends ZMObject {
+    public $content_type;
+    public $info;
+    public $products;
+    public $customer;
+    public $shipping;
+    public $delivery;
+
 
     /**
      * Create new instance for the given shopping cart.
@@ -58,11 +65,34 @@ class ZenCartCheckoutOrder extends ZMObject {
         $this->content_type = $shoppingCart->getType();
 
         // general stuff
+        // TODO: where from/to??
+        $languageId = $this->container->get('settingsService')->get('storeDefaultLanguageId');
+        // TODO: move all cart/session values into ZMShoppingCart
+        $currencyCode = $this->container->get('session')->getCurrencyCode();
+        $couponCode = null;
+        if (null != ($couponCodeId = $this->container->get('session')->getValue('cc_id'))) {
+            $coupon = $this->container->get('couponService')->getCouponForId($couponCodeId, $languageId);
+            if (null != $coupon) {
+                $couponCode = $coupon->getCode();
+            }
+        }
+        $shippingMethod = null; //TODO: $shoppingCart->getSelectedShippingMethod();
+        $paymentType = $shoppingCart->getSelectedPaymentType();
         $this->info = array(
-            //'currency' => 'TODO',
-            //'shipping_method' => 'TODO',
-            //'shipping_cost' => 'TODO',
-            'total' => $shoppingCart->getTotal()
+            'currency' => $currencyCode,
+            'currency_value' => $this->container->get('currencyService')->getCurrencyForCode($currencyCode)->getRate(),
+            'payment_method' => null != $paymentType ? $paymentType->getName() : '',
+            'payment_module_code' => null != $paymentType ? $paymentType->getId() : '',
+            'coupon_code' => $couponCode,
+            'shipping_method' => null != $shippingMethod ? $shippingMethod->getName() : '',
+            'shipping_module_code' => null != $shippingMethod ? $shippingMethod->getId() : '',
+            'shipping_cost' => null != $shippingMethod ? $shippingMethod->getCost() : '',
+            'subtotal' => 0, //TODO?
+            'shipping_tax' => 0, //TODO?
+            'tax' => 0, //TODO?
+            'total' => $shoppingCart->getTotal(),
+            'tax_groups' => array(),
+            'comments' => $shoppingCart->getComments()
         );
 
         // account
@@ -73,10 +103,44 @@ class ZenCartCheckoutOrder extends ZMObject {
         $this->setShippingAddress($shoppingCart->getShippingAddress());
         $this->setBillingAddress($shoppingCart->getBillingAddress());
 
-        // fill with something to have the correct count
-        $this->products = $shoppingCart->getItems();
-        // id, final_price, tax, model, name, attributes, onetime_charges, qty
-        // attributes: option, value
+        // TODO: fill with something to have the correct count
+        $taxAddress = $shoppingCart->getTaxAddress();
+        $this->products = array();
+        foreach ($shoppingCart->getItems() as $item) {
+            $itemProduct = $item->getProduct();
+            $offers = $itemProduct->getOffers();
+            $taxRate = $itemProduct->getTaxRate();
+            $product = array(
+                'id' => $itemProduct->getId(),
+                'qty' => $item->getQuantity(),
+                'name' => $itemProduct->getName(),
+                'model' => $itemProduct->getModel(),
+                //'tax' => zen_get_tax_rate($products[$i]['tax_class_id'], $tax_address->fields['entry_country_id'], $tax_address->fields['entry_zone_id']),
+                //'tax_groups'=>$taxRates,
+                //'tax_description' => zen_get_tax_description($products[$i]['tax_class_id'], $tax_address->fields['entry_country_id'], $tax_address->fields['entry_zone_id']),
+                'price' => $itemProduct->getProductPrice(),
+                'final_price' => $offers->getCalculatedPrice(),
+                //'onetime_charges' => $_SESSION['cart']->attributes_price_onetime_charges($products[$i]['id'], $products[$i]['quantity']),
+                'weight' => $itemProduct->getWeight(),
+                'products_priced_by_attribute' => $itemProduct->isPricedByAttributes(),
+                'product_is_free' => $itemProduct->isFree(),
+                'products_discount_type' => $itemProduct->getDiscountType(),
+                'products_discount_type_from' => $itemProduct->getDiscountTypeFrom()
+            );
+            $this->products[] = $product;
+        }
+/*
+$order = new order();
+foreach ($order->products[0] as $key => $value) {
+    if (array_key_exists($key, $this->products[0])) {
+      if ($value != $this->products[0][$key]) {
+          echo 'value mismatch: value='.$value.', got: '.$this->products[0][$key]."<BR>";
+      }
+    } else {
+      echo 'missing key: '.$key.', value is: '.$value."<BR>";
+    }
+}
+*/
     }
 
     /**
