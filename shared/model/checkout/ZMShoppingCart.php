@@ -723,18 +723,19 @@ return $this->zenTotals_;
     public function getTaxAddress() {
         switch (ZMSettings::get('productTaxBase')) {
             case ZMTaxRates::TAX_BASE_SHIPPING:
-                return $this->getShippingAddress();
+                return $this->isVirtual() ? $this->getBillingAddress() : $this->getShippingAddress();
             case ZMTaxRates::TAX_BASE_BILLING:
                 return $this->getBillingAddress();
             case ZMTaxRates::TAX_BASE_STORE:
-                $address = $this->getBillingAddress();
-                if ($address->getZoneId() != ZMSettings::get('storeZone')) {
-                    return $this->getShippingAddress();
+                if ($address->getZoneId() == ZMSettings::get('storeZone')) {
+                    $address = $this->getBillingAddress();
+                } else {
+                    $address = $this->isVirtual() ? $this->getBillingAddress() : $this->getShippingAddress();
                 }
                 return $address;
         }
 
-        Runtime::getLogging()->log('invalid productTaxBase!', ZMLogging::ERROR);
+        Runtime::getLogging()->error('invalid productTaxBase!');
         return null;
     }
 
