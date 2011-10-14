@@ -98,7 +98,7 @@ abstract class ZMCatalogContentController extends ZMController {
     /**
      * {@inheritDoc}
      */
-    public function process($request) {
+    public function process(ZMRequest $request) {
         $view = parent::process($request);
         if ($view->get('catalogRedirect')) {
             // some hacky reuse...
