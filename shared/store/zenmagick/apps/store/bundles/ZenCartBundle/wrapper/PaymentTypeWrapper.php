@@ -26,7 +26,7 @@ namespace zenmagick\apps\store\bundles\ZenCartBundle\wrapper;
 
 use zenmagick\base\ZMObject;
 
-use zenmagick\apps\store\bundles\ZenCartBundle\Mock\ZenCartMock;
+use zenmagick\apps\store\bundles\ZenCartBundle\mock\ZenCartMock;
 
 /**
  * A payment type wrapper for Zen Cart payment modules.

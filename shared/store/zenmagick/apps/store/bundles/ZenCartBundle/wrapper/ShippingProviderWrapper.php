@@ -27,7 +27,8 @@ namespace zenmagick\apps\store\bundles\ZenCartBundle\wrapper;
 use zenmagick\base\Beans;
 use zenmagick\base\ZMObject;
 
-use zenmagick\apps\store\bundles\ZenCartBundle\Mock\ZenCartMock;
+use zenmagick\apps\store\bundles\ZenCartBundle\mock\ZenCartMock;
+use zenmagick\apps\store\bundles\ZenCartBundle\wrapper\ShippingMethodWrapper;
 
 /**
  * Shipping provider wrapper for zen cart shipping modules.
@@ -148,7 +149,7 @@ class ShippingProviderWrapper extends ZMObject implements \ZMShippingProvider {
         $methods = array();
         if (is_array($quotes) && array_key_exists('methods', $quotes)) {
             foreach ($quotes['methods'] as $method) {
-                $shippingMethod = new \ZMShippingMethod($this, $method);
+                $shippingMethod = new ShippingMethodWrapper($this, $method);
                 $shippingMethod->setProvider($this);
                 $shippingMethod->setTaxRate($taxRate);
                 $methods[$shippingMethod->getId()] = $shippingMethod;

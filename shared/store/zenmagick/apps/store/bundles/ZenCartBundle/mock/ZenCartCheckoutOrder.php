@@ -83,7 +83,7 @@ class ZenCartCheckoutOrder extends ZMObject {
             'order_status' => DEFAULT_ORDERS_STATUS_ID,
             'currency' => $currencyCode,
             'currency_value' => $this->container->get('currencyService')->getCurrencyForCode($currencyCode)->getRate(),
-            'payment_method' => null != $paymentType ? $paymentType->getName() : '',
+            'payment_method' => null != $paymentType ? $paymentType->getTitle() : '',
             'payment_module_code' => null != $paymentType ? $paymentType->getId() : '',
             'coupon_code' => $couponCode,
             'shipping_method' => null != $shippingMethod ? $shippingMethod->getName() : '',

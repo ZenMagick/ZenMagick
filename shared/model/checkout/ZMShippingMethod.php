@@ -23,98 +23,47 @@
 ?>
 <?php
 
-use zenmagick\base\Beans;
-
 /**
  * Shipping method.
  *
  * @author DerManoMann
  * @package zenmagick.store.shared.model.checkout
  */
-class ZMShippingMethod extends ZMObject {
-    private $provider_;
-    private $taxRate_;
-    private $zenMethod_;
-
-
-    /**
-     * Create new shipping method.
-     *
-     * @param ZMShippingProvider provider The shipping provider for this method.
-     * @param array zenMethod The zen-cart method infos.
-     */
-    function __construct($provider, $zenMethod) {
-        parent::__construct();
-        $this->provider_ = $provider;
-        $this->zenMethod_ = $zenMethod;
-        $this->taxRate_ = Beans::getBean("ZMTaxRate");
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
-
+interface ZMShippingMethod {
 
     /**
      * Get the shipping method id.
      *
      * @return int The shipping method id.
      */
-    public function getId() { return $this->zenMethod_['id']; }
-
-    /**
-     * Set the shipping method id.
-     *
-     * @param int id The shipping method id.
-     */
-    public function setId($id) {  }
+    public function getId();
 
     /**
      * Get the shipping method name.
      *
      * @return string The shipping method name.
      */
-    public function getName() { return $this->zenMethod_['title']; }
+    public function getName();
 
     /**
      * Get the shipping cost.
      *
      * @return float The shipping cost.
      */
-    public function getCost() { return $this->taxRate_->addTax($this->zenMethod_['cost']); }
+    public function getCost();
 
     /**
      * Get the shipping provider.
      *
      * @return ZMShippingProvider The shipping provider.
      */
-    public function getProvider() { return $this->provider_; }
-
-    /**
-     * Set the shipping provider.
-     *
-     * @param ZMShippingProvider provider The shipping provider.
-     */
-    public function setProvider($provider) { $this->provider_ = $provider; }
-
-    /**
-     * Set the tax rate.
-     *
-     * @param ZMTaxRate taxRate The tax rate.
-     */
-    public function setTaxRate($taxRate) { $this->taxRate_ = $taxRate; }
+    public function getProvider();
 
     /**
      * Get the shipping id.
      *
      * @return string The shipping id as used by the shopping cart.
      */
-    public function getShippingId() {
-        $id = $this->provider_->getId() . '_' . $this->getId();
-        return $id;
-    }
+    public function getShippingId();
 
 }
