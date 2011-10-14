@@ -142,7 +142,7 @@ class ZMShippingProviders extends ZMObject {
                 $module = new $moduleInfo['class']();
                 // either all or enabled (installed+enabled as per config option) - (is this different from $module->enabled?)
                 if (!$configured || (0 < $module->check() && $module->enabled)) {
-                    $wrapper = Runtime::getContainer()->get('ZMShippingProviderWrapper');
+                    $wrapper = Runtime::getContainer()->get('zenmagick\apps\store\bundles\ZenCartBundle\wrapper\ShippingProviderWrapper');
                     $wrapper->setModule($module);
                     $this->providers_[$configured][] = $wrapper;
                 }

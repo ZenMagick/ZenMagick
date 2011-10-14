@@ -22,6 +22,9 @@
  */
 ?>
 <?php
+namespace zenmagick\apps\store\bundles\ZenCartBundle\wrapper;
+
+use zenmagick\base\ZMObject;
 
 use zenmagick\apps\store\bundles\ZenCartBundle\Mock\ZenCartMock;
 
@@ -29,9 +32,9 @@ use zenmagick\apps\store\bundles\ZenCartBundle\Mock\ZenCartMock;
  * A payment type wrapper for Zen Cart payment modules.
  *
  * @author DerManoMann
- * @package zenmagick.store.shared.model.checkout
+ * @package zenmagick.apps.store.bundles.ZenCartBundle.wrapper
  */
-class ZMPaymentTypeWrapper extends ZMObject implements ZMPaymentType {
+class PaymentTypeWrapper extends ZMObject implements \ZMPaymentType {
     private $module_;
     private $selection_;
     private $fields_;
@@ -108,7 +111,7 @@ class ZMPaymentTypeWrapper extends ZMObject implements ZMPaymentType {
         if (null === $this->fields_) {
             if (array_key_exists('fields', $this->selection_)) {
                 foreach ($this->selection_['fields'] as $field) {
-                    $this->fields_[] = new ZMPaymentField($field['title'], $field['field']);
+                    $this->fields_[] = new \ZMPaymentField($field['title'], $field['field']);
                 }
             }
         }
@@ -120,7 +123,7 @@ class ZMPaymentTypeWrapper extends ZMObject implements ZMPaymentType {
      * {@inheritDoc}
      */
     public function getInfo() {
-        if (isset($this->module_->email_footer) && !ZMLangUtils::isEmpty($this->module_->email_footer)) {
+        if (isset($this->module_->email_footer) && !\ZMLangUtils::isEmpty($this->module_->email_footer)) {
             return $this->module_->email_footer;
         }
 

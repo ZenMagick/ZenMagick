@@ -28,9 +28,10 @@
  * A payment type.
  *
  * @author DerManoMann
- * @package zenmagick.store.shared.services.plugins.types
+ * @package zenmagick.store.shared.model.checkout
  */
 interface ZMPaymentType {
+
     /**
      * Get the payment type id.
      *
