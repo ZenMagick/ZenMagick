@@ -62,16 +62,6 @@ class ZenCartMock {
         $_shipping_num_boxes = $shipping_num_boxes;
         $_total_count = $total_count;
 
-        if (null == $order || !($order instanceof ZenCartCheckoutOrder)) {
-            $mockOrder = new ZenCartCheckoutOrder();
-            $mockOrder->setContainer(Runtime::getContainer());
-            $mockOrder->setShoppingCart($shoppingCart);
-            if (null != $shippingAddress) {
-                $mockOrder->setShippingAddress($shippingAddress);
-            }
-            $order = $mockOrder;
-        }
-
         if (!isset($_SESSION['cart'])) {
             $_SESSION['cart'] = new shoppingCart();
         }
@@ -80,6 +70,16 @@ class ZenCartMock {
         $total_count = 0;
         foreach ($shoppingCart->getItems() as $item) {
             $total_count += $item->getQuantity();
+        }
+
+        if (null == $order || !($order instanceof ZenCartCheckoutOrder)) {
+            $mockOrder = new ZenCartCheckoutOrder();
+            $mockOrder->setContainer(Runtime::getContainer());
+            $mockOrder->setShoppingCart($shoppingCart);
+            if (null != $shippingAddress) {
+                $mockOrder->setShippingAddress($shippingAddress);
+            }
+            $order = $mockOrder;
         }
 
         // START: adjust boxes, weight and tare
