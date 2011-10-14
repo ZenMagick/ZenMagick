@@ -203,11 +203,15 @@ class ZMLangUtils {
 
     /**
      * Simple stack trace.
+     *
+     * @param string msg Optional message; default is <code>null</code>.
      */
-    public static function dumpStack() {
+    public static function dumpStack($msg=null) {
+        if ($msg) { echo '<h2>'.$msg.'</h2>'; }
         foreach (debug_backtrace() as $level) {
             echo $level['line'].':'.$level['file'].'<br>';
         }
+        echo '<br>';
     }
 
 }
