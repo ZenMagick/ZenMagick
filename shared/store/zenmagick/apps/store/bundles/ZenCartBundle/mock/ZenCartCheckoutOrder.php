@@ -31,7 +31,7 @@ use zenmagick\base\ZMObject;
  * A zencart order based on the shopping cart.
  *
  * @author DerManoMann
- * @package zenmagick.store.shared.utils
+ * @package zenmagick.apps.store.bundles.ZenCartBundle.Mock
  */
 class ZenCartCheckoutOrder extends ZMObject {
     public $content_type;

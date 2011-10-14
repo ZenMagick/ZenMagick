@@ -42,6 +42,9 @@ class ZMTools {
     private static $fileOwner = null;
     private static $fileGroup = null;
 
+    // keep track of mock
+    private static $mock = false;
+
 
     /**
      * Convert a numeric range definition into an array of single values.
@@ -126,82 +129,6 @@ class ZMTools {
         // Nothing has changed since their last request - serve a 304 and exit
         header('HTTP/1.0 304 Not Modified');
         return false;
-    }
-
-    /**
-     * Convert a (UI) date from one format to another.
-     *
-     * @param string s The date as received via the UI.
-     * @param string from The current format of the date string.
-     * @param string to The target format.
-     * @return string The formatted date string or <code>''</code> (if <code>$s</code> is empty).
-     */
-    public static function translateDateString($s, $from, $to) {
-        if (empty($s)) {
-            return null;
-        }
-        $st = $to;
-        foreach (self::parseDateString($s, $from) as $token => $value) {
-            $st = str_replace($token, $value, $st);
-        }
-        return $st;
-    }
-
-    /**
-     * Parse a date according to the given format.
-     *
-     * <p>This function supports the following format token:</p>
-     * <ul>
-     *  <li><code>hh</code> - hours</li>
-     *  <li><code>ii</code> - minutes</li>
-     *  <li><code>ss</code> - seconds</li>
-     *  <li><code>dd</code> - day</li>
-     *  <li><code>mm</code> - month</li>
-     *  <li><code>cc</code> - century</li>
-     *  <li><code>yy</code> - year</li>
-     *  <li><code>yyyy</code> - full year (if found both <em>cc</em> and <em>yy</em> will be populated accordingly</li>
-     * </ul>
-     *
-     * @param string s A date; usually either provided by the user or a database date.
-     * @param string format The date format
-     * @param array defaults Optional defaults for components; default is <code>null</code> for none.
-     * @return array The individual date components as map using the token as keys.
-     */
-    public static function parseDateString($s, $format, $defaults=null) {
-        $components = array(
-              'hh' => '00', 'ii' => '00', 'ss' => '00',
-              'dd' => '01', 'mm' => '01', 'cc' => '00', 'yy' => '00'
-        );
-        if (null !== $defaults) {
-            $components = array_merge($components, $defaults);
-        }
-
-        foreach ($components as $token => $value) {
-            $tpos = strpos($format, $token);
-            if (false !== $tpos) {
-                $components[$token] = substr($s, $tpos, 2);
-            }
-        }
-
-        // special case for YYYY
-        $cypos = strpos($format, 'yyyy');
-        if (false !== $cypos) {
-            $components['cc'] = substr($s, $cypos, 2);
-            $components['yy'] = substr($s, $cypos+2, 2);
-        }
-
-        $components['yyyy'] = $components['cc'].$components['yy'];
-
-        // ensure all components are digits only
-        foreach ($components as $key => $component) {
-            if (!ctype_digit($component)) {
-                $format = '%0'.strlen($component).'s';
-                $components[$key] = sprintf($format, '0');
-            }
-        }
-
-        // make yyy first to avoid wrong replacements later on
-        return array_reverse($components);
     }
 
     /**
@@ -363,90 +290,6 @@ class ZMTools {
         $multiplier = $zc_round_ceil * $y;
         $results = abs(round($x - $multiplier, 6));
         return $results;
-    }
-
-    /**
-     * Prepare fake zc globals to make wrapper work.
-     *
-     * @param ZMShoppingCart shoppingCart The current shopping cart.
-     * @param ZMAddress shippingAddress Optional shipping address; default is <code>null</code>.
-     */
-    public static function prepareWrapperEnv($shoppingCart, $shippingAddress=null) {
-    global $order, $shipping_weight, $shipping_quoted, $shipping_num_boxes, $total_count;
-    global $_order, $_shipping_weight, $_shipping_quoted, $_shipping_num_boxes, $_total_count;
-
-        // save originals
-        $_order = $order;
-        $_shipping_weight = $shipping_weight;
-        $_shipping_quoted = $shipping_quoted;
-        $_shipping_num_boxes = $shipping_num_boxes;
-        $_total_count = $total_count;
-
-        if (null == $order || !($order instanceof ZenCartCheckoutOrder)) {
-            $mockOrder = new ZenCartCheckoutOrder();
-            $mockOrder->setContainer(Runtime::getContainer());
-            $mockOrder->setShoppingCart($shoppingCart);
-            if (null != $shippingAddress) {
-                $mockOrder->setShippingAddress($shippingAddress);
-            }
-            $order = $mockOrder;
-        }
-
-        if (!isset($_SESSION['cart'])) {
-            $_SESSION['cart'] = new shoppingCart();
-        }
-
-        // get total number of products, not line items...
-        $total_count = 0;
-        foreach ($shoppingCart->getItems() as $item) {
-            $total_count += $item->getQuantity();
-        }
-
-        // START: adjust boxes, weight and tare
-        $shipping_quoted = '';
-        $shipping_num_boxes = 1;
-        $shipping_weight = $shoppingCart->getWeight();
-
-        $za_tare_array = preg_split("/[:,]/" , SHIPPING_BOX_WEIGHT);
-        $zc_tare_percent= $za_tare_array[0];
-        $zc_tare_weight= $za_tare_array[1];
-
-        $za_large_array = preg_split("/[:,]/" , SHIPPING_BOX_PADDING);
-        $zc_large_percent= $za_large_array[0];
-        $zc_large_weight= $za_large_array[1];
-
-        switch (true) {
-          // large box add padding
-          case(SHIPPING_MAX_WEIGHT <= $shipping_weight):
-            $shipping_weight = $shipping_weight + ($shipping_weight*($zc_large_percent/100)) + $zc_large_weight;
-            break;
-          default:
-          // add tare weight < large
-            $shipping_weight = $shipping_weight + ($shipping_weight*($zc_tare_percent/100)) + $zc_tare_weight;
-            break;
-        }
-
-        if ($shipping_weight > SHIPPING_MAX_WEIGHT) { // Split into many boxes
-          $shipping_num_boxes = ceil($shipping_weight/SHIPPING_MAX_WEIGHT);
-          $shipping_weight = $shipping_weight/$shipping_num_boxes;
-        }
-        // END: adjust boxes, weight and tare
-    }
-
-    /**
-     * Cleanup fake zc globals to make wrapper work.
-     *
-     */
-    public static function cleanupWrapperEnv() {
-    global $order, $shipping_weight, $shipping_quoted, $shipping_num_boxes, $total_count;
-    global $_order, $_shipping_weight, $_shipping_quoted, $_shipping_num_boxes, $_total_count;
-
-        // restore originals
-        $order = $_order;
-        $shipping_weight = $_shipping_weight;
-        $shipping_quoted = $_shipping_quoted;
-        $shipping_num_boxes = $_shipping_num_boxes;
-        $total_count = $_total_count;
     }
 
 }

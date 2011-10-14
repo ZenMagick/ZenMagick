@@ -23,6 +23,7 @@
 ?>
 <?php
 
+use zenmagick\apps\store\bundles\ZenCartBundle\Mock\ZenCartMock;
 
 /**
  * A payment type wrapper for Zen Cart payment modules.
@@ -138,10 +139,10 @@ class ZMPaymentTypeWrapper extends ZMObject implements ZMPaymentType {
      */
     public function getOrderFormContent($request) {
         // TODO: move into controller
-        ZMTools::prepareWrapperEnv($request->getShoppingCart());
+        ZenCartMock::startMock($request->getShoppingCart());
         $this->module_->confirmation();
         $button =  $this->module_->process_button();
-        ZMTools::cleanupWrapperEnv();
+        ZenCartMock::cleanupMock();
         return $button;
     }
 

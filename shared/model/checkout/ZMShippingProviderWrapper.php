@@ -24,6 +24,7 @@
 <?php
 
 use zenmagick\base\Beans;
+use zenmagick\apps\store\bundles\ZenCartBundle\Mock\ZenCartMock;
 
 /**
  * Shipping provider wrapper for zen cart shipping modules.
@@ -118,7 +119,7 @@ class ZMShippingProviderWrapper extends ZMObject implements ZMShippingProvider {
 
         $this->errors_ = array();
 
-        ZMTools::prepareWrapperEnv($shoppingCart, $address);
+        ZenCartMock::startMock($shoppingCart, $address);
 
         // create new instance for each quote!
         // this is required as most modules do stuff in the c'tor (for example zone checks)
@@ -151,7 +152,7 @@ class ZMShippingProviderWrapper extends ZMObject implements ZMShippingProvider {
             }
         }
 
-        ZMTools::cleanupWrapperEnv();
+        ZenCartMock::cleanupMock();
 
         return $methods;
     }

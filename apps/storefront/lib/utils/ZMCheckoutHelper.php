@@ -23,6 +23,7 @@
 ?>
 <?php
 
+use zenmagick\apps\store\bundles\ZenCartBundle\Mock\ZenCartMock;
 
 /**
  * Checkout helper.
@@ -433,7 +434,7 @@ class ZMCheckoutHelper extends ZMObject {
     public function getPaymentTypes() {
         $cartTotal = $this->shoppingCart_->getTotal();
 
-        ZMTools::prepareWrapperEnv($this->shoppingCart_, $this->shoppingCart_->getBillingAddress());
+        ZenCartMock::startMock($this->shoppingCart_, $this->shoppingCart_->getBillingAddress());
 
         //TODO: fix
         $shippingCost = $_SESSION['shipping']['cost'];
@@ -449,7 +450,7 @@ class ZMCheckoutHelper extends ZMObject {
             unset($paymentTypes['freecharger']);
         }
 
-        ZMTools::cleanupWrapperEnv();
+        ZenCartMock::cleanupMock();
 
         return $paymentTypes;
     }
