@@ -88,7 +88,7 @@ class ZMEzpagesController extends ZMController {
                 if (0 < $ezPage->getId()) {
                     $this->messageService->success('EZPage #'.$ezPage->getId().' saved');
                 } else {
-                    $this->messageService)->error('Could not save page');
+                    $this->messageService->error('Could not save page');
                 }
             } else if (null != ($ezPage = $ezPageService->getPageForId($ezPageId, $languageId))) {
                 // no sanitize!
