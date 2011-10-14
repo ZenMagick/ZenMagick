@@ -46,7 +46,7 @@ class Event extends SymfonyEvent {
     public function __construct($source=null, $parameters=array()) {
         $this->name = '';
         $this->source = $source;
-        $this->parameters = $parameters;
+        $this->parameters = (array)$parameters;
 
         $this->timestamp = microtime(true);
         $this->memory = memory_get_usage(true);
