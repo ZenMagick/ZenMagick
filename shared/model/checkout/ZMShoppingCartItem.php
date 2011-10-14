@@ -150,7 +150,8 @@ class ZMShoppingCartItem extends ZMObject {
      */
     public function getTaxRate($address=null) {
         $countryId = null != $address ? $address->getCountryId() : 0;
-        return $this->container->get('taxRateService')->getTaxRateForClassId($this->getProduct()->getTaxClassId(), $countryId);
+        $zoneId = null != $address ? $address->getZoneId() : 0;
+        return $this->container->get('taxRateService')->getTaxRateForClassId($this->getProduct()->getTaxClassId(), $countryId, $zoneId);
     }
 
     /**
