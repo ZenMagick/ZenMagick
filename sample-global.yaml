@@ -37,6 +37,8 @@ admin,storefront:
 
       apps:
         store:
+          # validate ZenMagick code against zencart code
+          assertZencart: false
           # use new static content rather than static pages
           staticContent: true
 
