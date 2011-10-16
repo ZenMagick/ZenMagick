@@ -107,8 +107,8 @@ class ZenCartBundle extends Bundle {
         $current = $settingsService->get('zenmagick/apps/store/database/default', array());
         $settingsService->set('zenmagick/apps/store/database/default', array_merge($defaults, $current));
 
-        if (defined('ENABLE_SSL_ADMIN')) $settingsService->set('zenmagick.mvc.request.secure', 'true' == ENABLE_SSL_ADMIN);
-        if (defined('ENABLE_SSL')) $settingsService->set('zenmagick.mvc.request.secure', 'true' == ENABLE_SSL);
+        if (defined('ENABLE_SSL_ADMIN')) $settingsService->set('zenmagick.http.request.secure', 'true' == ENABLE_SSL_ADMIN);
+        if (defined('ENABLE_SSL')) $settingsService->set('zenmagick.http.request.secure', 'true' == ENABLE_SSL);
 
         // download base folder
         $downloadBaseDir = !defined('DIR_FS_DOWNLOAD') ? ZC_INSTALL_PATH . 'download/' : DIR_FS_DOWNLOAD;
