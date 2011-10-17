@@ -48,8 +48,8 @@ class ZMEditAdminUserController extends ZMController {
     /**
      * {@inheritDoc}
      */
-    public function getFormData($request) {
-        $adminUser = parent::getFormData($request);
+    public function getFormData($request, $formDef=null, $formId=null) {
+        $adminUser = parent::getFormData($request, $formDef, $formId);
         if (!$this->isFormSubmit($request)) {
             if (0 < ($adminUserId = $request->getParameter('adminUserId'))) {
                 // prepopulate with data
