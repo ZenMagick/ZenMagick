@@ -29,6 +29,6 @@
             <?php echo $item->getQty(); ?> x <a href="<?php echo $net->product($item->getId()) ?>"><?php echo $html->encode($item->getProduct()->getName()) ?></a><br />
         <?php } ?>
         <hr/>
-        <p class="price"><?php echo $utils->formatMoney($request->getShoppingCart()->getTotal()) ?></p>
+        <p class="price"><?php echo $utils->formatMoney($request->getShoppingCart()->getSubtotal()) ?></p>
     </div>
 <?php } ?>

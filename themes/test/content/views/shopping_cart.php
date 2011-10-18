@@ -61,7 +61,7 @@
             <?php $odd = !$odd; $first = false; } ?>
             <tr class="other">
                 <td colspan="4" class="total"><?php _vzm("Subtotal") ?></td>
-                <td class="price"><?php echo $utils->formatMoney($shoppingCart->getTotal()) ?></td>
+                <td class="price"><?php echo $utils->formatMoney($shoppingCart->getSubtotal()) ?></td>
             </tr>
             </tbody>
         </table>
