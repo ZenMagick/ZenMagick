@@ -188,7 +188,7 @@ class ZMExportOrdersController extends ZMController {
             }
             $firstRow = false;
 
-            $quantity = $orderItem->getQty();
+            $quantity = $orderItem->getQuantity();
             $itemTotal = $orderItem->getCalculatedPrice(false); // no tax
             $lineTotal = $itemTotal * $quantity;
             $productsTotal += $lineTotal;

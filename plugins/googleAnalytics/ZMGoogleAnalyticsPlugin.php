@@ -277,7 +277,7 @@ EOT;
             $name = $orderItem->getName();
             $categoryName = $this->container->get('categoryService')->getDefaultCategoryForProductId($orderItem->getProductId(), $request->getSession()->getLanguageId())->getName();
             $price = number_format($orderItem->getCalculatedPrice(), 2, '.', '');
-            $qty = $orderItem->getQty();
+            $qty = $orderItem->getQuantity();
             $code .= <<<EOT
 pageTracker._addItem(
 "${orderId}", // order ID - required

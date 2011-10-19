@@ -339,7 +339,7 @@ class ZMOrders extends ZMObject implements ZMSQLAware {
         $productService = $this->container->get('productService');
         foreach ($this->getOrderItems($orderId) as $item) {
             if (null != ($product = $productService->getProductForId($item->getProductId()))) {
-                $product->setQuantity($product->getQuantity() + $item->getQty());
+                $product->setQuantity($product->getQuantity() + $item->getQuantity());
                 $productService->updateProduct($product);
             }
         }

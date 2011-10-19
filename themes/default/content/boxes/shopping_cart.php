@@ -26,7 +26,7 @@
     <h3><?php _vzm("Shopping Cart") ?></h3>
     <div id="sb_cart" class="box">
         <?php foreach ($request->getShoppingCart()->getItems() as $item) { ?>
-            <?php echo $item->getQty(); ?> x <a href="<?php echo $net->product($item->getId()) ?>"><?php echo $html->encode($item->getProduct()->getName()) ?></a><br />
+            <?php echo $item->getQuantity(); ?> x <a href="<?php echo $net->product($item->getId()) ?>"><?php echo $html->encode($item->getProduct()->getName()) ?></a><br />
         <?php } ?>
         <hr/>
         <p class="price"><?php echo $utils->formatMoney($request->getShoppingCart()->getSubtotal()) ?></p>

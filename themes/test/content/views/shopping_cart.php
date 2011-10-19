@@ -52,7 +52,7 @@
                         <?php } ?>
                     </td>
                     <td class="qty">
-                        <input type="text" name="cart_quantity[]" size="4" value="<?php echo $item->getQty() ?>" />
+                        <input type="text" name="cart_quantity[]" size="4" value="<?php echo $item->getQuantity() ?>" />
                     </td>
                     <td class="price">
                         <?php echo $utils->formatMoney($item->getItemTotal()) ?>

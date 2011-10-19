@@ -40,7 +40,7 @@
 <table cellpadding="3" cellspacing="2">
 <?php foreach ($order->getOrderItems() as $orderItem) { ?>
 <tr>
-<td><?php echo $orderItem->getQty() ?> x </td>
+<td><?php echo $orderItem->getQuantity() ?> x </td>
 <td><?php echo $html->encode($orderItem->getName()) ?></td>
 <td><?php echo $utils->formatMoney($orderItem->getCalculatedPrice()) ?></td>
 </tr>

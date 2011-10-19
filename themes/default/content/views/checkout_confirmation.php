@@ -29,7 +29,7 @@
         <?php foreach ($shoppingCart->getItems() as $item) { ?>
             <tr>
                 <td class="itm">
-                    <?php echo $item->getQty() ?> x <?php echo $html->encode($item->getProduct()->getName()) ?>
+                    <?php echo $item->getQuantity() ?> x <?php echo $html->encode($item->getProduct()->getName()) ?>
                     <?php if ($item->hasAttributes()) { ?>
                         <br/>
                         <?php foreach ($item->getAttributes() as $attribute) { ?>

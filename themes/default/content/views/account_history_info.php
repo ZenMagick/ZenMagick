@@ -27,7 +27,7 @@
     <tbody>
     <?php foreach ($currentOrder->getOrderItems() as $orderItem) { ?>
         <tr>
-            <td class="qty"><?php echo $orderItem->getQty() ?> x </td>
+            <td class="qty"><?php echo $orderItem->getQuantity() ?> x </td>
             <td class="itm">
                 <?php echo $html->encode($orderItem->getName()) ?>
                 <?php if ($orderItem->hasAttributes()) { ?>

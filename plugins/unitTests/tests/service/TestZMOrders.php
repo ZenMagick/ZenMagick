@@ -222,7 +222,7 @@ class TestZMOrders extends ZMTestCase {
                 $this->assertNotNull($item);
                 /*
                 $this->assertEqual(12, $item->getProductId());
-                $this->assertEqual(1, $item->getQty());
+                $this->assertEqual(1, $item->getQuantity());
                 $this->assertNotNull($item->getTaxRate());
                 $this->assertEqual(0, $item->getTaxRate()->getRate());
                 $this->assertEqual(0, count($item->getAttributes()));

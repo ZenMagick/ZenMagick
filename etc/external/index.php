@@ -21,7 +21,7 @@
       <?php $shoppingCart = $request->getShoppingCart(); ?>
       <?php foreach ($shoppingCart->getItems() as $item) { ?>
         <p>
-          <?php echo $item->getQty(); ?> x <a href="<?php echo $net->product($item->getId()) ?>"><?php echo $html->encode($item->getProduct()->getName()) ?></a>
+          <?php echo $item->getQuantity(); ?> x <a href="<?php echo $net->product($item->getId()) ?>"><?php echo $html->encode($item->getProduct()->getName()) ?></a>
           <span class="price"><?php echo $utils->formatMoney($request->getShoppingCart()->getTotal()) ?></span>
         </p>
       <?php } ?>

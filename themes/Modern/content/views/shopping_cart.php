@@ -34,7 +34,7 @@
         <?php $odd = true; $first = true; foreach ($shoppingCart->getItems() as $item) { ?>
             <tr class="<?php echo ($odd?"odd":"rowEven").($first?" first":" other") ?>">
             	<td class="qty">
-                    <input type="text" name="cart_quantity[]" size="4" value="<?php echo $item->getQty() ?>" />
+                    <input type="text" name="cart_quantity[]" size="4" value="<?php echo $item->getQuantity() ?>" />
                 </td>
 
                 <td class="img">
