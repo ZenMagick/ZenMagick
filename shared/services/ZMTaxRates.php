@@ -79,7 +79,7 @@ class ZMTaxRates extends ZMObject {
     public function getTaxRateForClassId($taxClassId, $countryId=0, $zoneId=0) {
         if (0 == $countryId && 0 == $zoneId) {
             $account = $this->container->get('request')->getAccount();
-            if (null != $account && ZMAccount::REGISTERED == $account->getType()) {
+            if (null != $account && ZMAccount::ANONYMOUS == $account->getType()) {
                 $defaultAddress = $this->container->get('addressService')->getAddressForId($account->getDefaultAddressId());
                 if (null != $defaultAddress) {
                     $zoneId = $defaultAddress->getZoneId();
@@ -121,7 +121,7 @@ class ZMTaxRates extends ZMObject {
                   AND (za.zone_id IS NULL OR za.zone_id = 0 OR za.zone_id = :zoneId)
                   AND tr.tax_class_id = :taxClassId
                 GROUP BY tr.tax_priority";
-        $args = array('taxClassId' =>$taxClassId, 'countryId' => $countryId, 'zoneId' => $zoneId);
+        $args = array('taxClassId' => $taxClassId, 'countryId' => $countryId, 'zoneId' => $zoneId);
         $results = ZMRuntime::getDatabase()->query($sql, $args, array(TABLE_TAX_RATES, TABLE_ZONES_TO_GEO_ZONES, TABLE_GEO_ZONES));
 
         if (0 < count($results)) {
@@ -167,7 +167,7 @@ class ZMTaxRates extends ZMObject {
                   AND (za.zone_id IS NULL OR za.zone_id = 0 OR za.zone_id = :zoneId)
                   AND tr.tax_class_id = :taxClassId
                 ORDER BY tr.tax_priority";
-        $args = array('taxClassId' =>$taxClassId, 'countryId' => $countryId, 'zoneId' => $zoneId);
+        $args = array('taxClassId' => $taxClassId, 'countryId' => $countryId, 'zoneId' => $zoneId);
         $description = null;
         foreach (ZMRuntime::getDatabase()->query($sql, $args, array(TABLE_TAX_RATES, TABLE_ZONES_TO_GEO_ZONES, TABLE_GEO_ZONES)) as $result) {
             if (null !== $description) { $description .= _zm(ZMSettings::get('tax.delim', ' + ')); }
@@ -209,6 +209,79 @@ class ZMTaxRates extends ZMObject {
         $sql = "SELECT * FROM " . TABLE_TAX_CLASS . "
                 WHERE tax_class_id = :taxClassId";
         return ZMRuntime::getDatabase()->querySingle($sql, array('taxClassId' => $id), TABLE_TAX_CLASS, "ZMTaxClass");
+    }
+
+    /**
+     * Get all tax for the given parameter.
+     *
+     * <p>If neither <code>countryId</code> nor <code>zoneId</code> are specified, the customers default address
+     * details will be used, or, if not available, the store defaults.</p>
+     *
+     * @param int taxClassId The tax class id.
+     * @param int countryId Optional country id; default is <em>0</em>.
+     * @param int zoneId Optional zoneId; default is <em>0</em>.
+     * @return array List of <code>ZMTaxRate</code> instances.
+     */
+    public function getTaxRatesForClassId($taxClassId, $countryId=0, $zoneId=0) {
+        if (0 == $countryId && 0 == $zoneId) {
+            $account = $this->container->get('request')->getAccount();
+            if (null != $account && ZMAccount::ANONYMOUS == $account->getType()) {
+                $defaultAddress = $this->container->get('addressService')->getAddressForId($account->getDefaultAddressId());
+                if (null != $defaultAddress) {
+                    $zoneId = $defaultAddress->getZoneId();
+                    $countryId = $defaultAddress->getCountryId();
+                } else {
+                    $zoneId = ZMSettings::get('storeZone');
+                    $countryId = ZMSettings::get('storeCountry');
+                }
+            } else {
+                $zoneId = ZMSettings::get('storeZone');
+                $countryId = ZMSettings::get('storeCountry');
+            }
+        }
+
+        $sql = "SELECT tax_description, tax_rate, tax_priority
+                  FROM (" . TABLE_TAX_RATES . " tr
+                  LEFT JOIN " . TABLE_ZONES_TO_GEO_ZONES . " za ON (tr.tax_zone_id = za.geo_zone_id)
+                  LEFT JOIN " . TABLE_GEO_ZONES . " tz ON (tz.geo_zone_id = tr.tax_zone_id) )
+                  WHERE (za.zone_country_id IS NULL OR za.zone_country_id = 0
+                    OR za.zone_country_id = :countryId)
+                  AND (za.zone_id is null
+                    OR za.zone_id = 0
+                    OR za.zone_id = :zoneId)
+                  AND tr.tax_class_id = :taxClassId
+                  ORDER BY tr.tax_priority";
+        $args = array('taxClassId' => $taxClassId, 'countryId' => $countryId, 'zoneId' => $zoneId);
+        $results = ZMRuntime::getDatabase()->query($sql, $args, array(TABLE_TAX_RATES, TABLE_ZONES_TO_GEO_ZONES, TABLE_GEO_ZONES));
+
+        // calculate appropriate tax rates respecting priorities and compounding
+        $taxRates = array();
+        $aggregateRate = 1;
+        $rateFactor = 1;
+        $priorRate = 1;
+        $priority = 0;
+        foreach ($results as $ii => $result) {
+            $result['priority'] = (int)$result['priority'];
+            if ($result['priority'] > $tax_priority) {
+                $priority = $result['priority'];
+                $priorRate = $aggregateRate;
+                $rateFactor = 1 + ($result['rate'] / 100);
+                $rateFactor *= $aggregateRate;
+                $aggregateRate = 1;
+            } else {
+                $rateFactor = $priorRate * ( 1 + ($result['rate'] / 100));
+            }
+
+            $taxRate = Beans::getBean("ZMTaxRate");
+            $taxRate->setDescription($result['description']);
+            $taxRate->setRate(100 * ($rateFactor - $priorRate));
+
+            $taxRates[] = $taxRate;
+
+            $aggregateRate += $rateFactor - 1;
+        }
+
+        return $taxRates;
     }
 
 }

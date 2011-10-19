@@ -113,4 +113,11 @@ interface ZMPaymentType {
      */
     public function getOrderFormUrl($request);
 
+    /**
+     * Get the default order status for orders using this payment type.
+     *
+     * @return int A custom order status value or <code>null</code> to use the default.
+     */
+    public function getOrderStatus();
+
 }

@@ -152,6 +152,9 @@ class ZMShoppingCart extends ZMObject {
      */
     public function setItems($items) {
         $this->items_ = $items;
+        foreach ($this->items as $item) {
+            $item->setShoppingCart($this);
+        }
     }
 
     /**
@@ -165,7 +168,7 @@ class ZMShoppingCart extends ZMObject {
             if (null != $this->cart_) {
                 $zenItems = $this->cart_->get_products();
                 foreach ($zenItems as $zenItem) {
-                    $item = new ZMShoppingCartItem($zenItem);
+                    $item = new ZMShoppingCartItem($this, $zenItem);
                     $item->setContainer($this->container);
                     $this->items_[$item->getId()] = $item;
                 }

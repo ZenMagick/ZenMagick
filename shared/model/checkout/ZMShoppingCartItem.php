@@ -36,6 +36,7 @@ use zenmagick\base\Runtime;
  * @todo remove deprecated code and zenItem references
  */
 class ZMShoppingCartItem extends ZMObject {
+    private $shoppingCart;
     private $id_;
     private $quantity_;
     private $itemPrice_;
@@ -46,10 +47,12 @@ class ZMShoppingCartItem extends ZMObject {
     /**
      * Create new shopping cart item
      *
+     * @param ZMShoppingCart shoppingCart The cart this item belongs to.
      * @param array zenItem The zen-cart shopping item infos.
      */
-    function __construct($zenItem=null) {
+    function __construct(ZMShoppingCart $shoppingCart, $zenItem=null) {
         parent::__construct();
+        $this->shoppingCart = $shoppingCart;
         $this->id_ = null;
         $this->quantity_ = 0;
         $this->itemPrice_ = 0;
@@ -71,6 +74,15 @@ class ZMShoppingCartItem extends ZMObject {
         parent::__destruct();
     }
 
+
+    /**
+     * Set the shopping cart this items belongs to.
+     *
+     * @param ZMShoppingCart shoppingCart The cart this item belongs to.
+     */
+    public function setShoppingCart(ZMShoppingCart $shoppingCart) {
+        $this->shoppingCart = $shoppingCart;
+    }
 
     // @deprecated
     function getName() { return $this->getProduct()->getName(); }
@@ -145,13 +157,27 @@ class ZMShoppingCartItem extends ZMObject {
     /**
      * Get the tax rate for this item.
      *
-     * @param ZMAddress address Optional shipping address; default is <code>null</code> to use the store address.
+     * @param ZMAddress address Optional tax address; default is <code>null</code> to default to the shopping cart tax address.
      * @return ZMTaxRate The tax rate or <code>null</code>.
      */
     public function getTaxRate($address=null) {
+        $address = null != $address ? $address : $this->shoppingCart->getTaxAddress();
         $countryId = null != $address ? $address->getCountryId() : 0;
         $zoneId = null != $address ? $address->getZoneId() : 0;
         return $this->container->get('taxRateService')->getTaxRateForClassId($this->getProduct()->getTaxClassId(), $countryId, $zoneId);
+    }
+
+    /**
+     * Get all tax rates for this item.
+     *
+     * @param ZMAddress address Optional tax address; default is <code>null</code> to default to the shopping cart tax address.
+     * @return array List of <code>ZMTaxRate</code> instances.
+     */
+    public function getTaxRates($address=null) {
+        $address = null != $address ? $address : $this->shoppingCart->getTaxAddress();
+        $countryId = null != $address ? $address->getCountryId() : 0;
+        $zoneId = null != $address ? $address->getZoneId() : 0;
+        return $this->container->get('taxRateService')->getTaxRatesForClassId($this->getProduct()->getTaxClassId(), $countryId, $zoneId);
     }
 
     /**

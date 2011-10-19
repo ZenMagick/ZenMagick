@@ -79,8 +79,12 @@ class ZenCartCheckoutOrder extends ZMObject {
         }
         $shippingMethod = $shoppingCart->getSelectedShippingMethod();
         $paymentType = $shoppingCart->getSelectedPaymentType();
+        $orderStatus = DEFAULT_ORDERS_STATUS_ID;
+        if (null != $paymentType && null !== ($pos = $paymentType->getOrderStatus())) {
+            $orderStatus = $pos;
+        }
         $this->info = array(
-            'order_status' => DEFAULT_ORDERS_STATUS_ID,
+            'order_status' => $orderStatus,
             'currency' => $currencyCode,
             'currency_value' => $this->container->get('currencyService')->getCurrencyForCode($currencyCode)->getRate(),
             'payment_method' => null != $paymentType ? $paymentType->getTitle() : '',
@@ -92,7 +96,7 @@ class ZenCartCheckoutOrder extends ZMObject {
             'subtotal' => $shoppingCart->getSubTotal(),
             'shipping_tax' => 0, //TODO?
             'tax' => 0, //TODO?
-            'total' => $shoppingCart->getTotal(),
+            'total' => $shoppingCart->getTotal(), //TODO: drop tax
             'tax_groups' => array(),
             'comments' => $shoppingCart->getComments()
         );
@@ -102,6 +106,8 @@ if ($this->container->get('settingsService')->get('zenmagick.apps.store.assertZe
       if (in_array($key, array('rowClass', 'ip_address'))) { continue; }
       if (array_key_exists($key, $this->info)) {
         if ('tax_groups' == $key) {
+          // drop [0] as that is the default for none in zc
+          if (isset($value[0])) { unset($value[0]); }
           $mytg = $this->info[$key];
           if (count($value) != count($mytg)) {
             echo 'tax groups length diff! order: ';var_dump($value);echo 'my: ';var_dump($mytg);echo '<br>';
@@ -109,12 +115,13 @@ if ($this->container->get('settingsService')->get('zenmagick.apps.store.assertZe
             continue;
         }
         if ($value != $this->info[$key]) {
-            echo 'info value mismatch for '.$key.': value='.$value.', got: '.$this->info[$key]."<BR>";
+            echo 'info value mismatch for '.$key.': value='.$value.', ZM got: '.$this->info[$key]."<BR>";
         }
       } else {
         echo 'info missing key: '.$key.', value is: '.$value."<BR>";
       }
   }
+  echo '<br>';
 }
 
         // account
@@ -131,17 +138,21 @@ if ($this->container->get('settingsService')->get('zenmagick.apps.store.assertZe
         foreach ($shoppingCart->getItems() as $item) {
             $itemProduct = $item->getProduct();
             $offers = $itemProduct->getOffers();
-            $taxRate = $itemProduct->getTaxRate();
+            $productTaxRate = $item->getTaxRate();
+            $taxRates = array();
+            foreach ($item->getTaxRates() as $taxRate) {
+                $taxRates[$taxRate->getDescription()] = $taxRate->getRate();
+            }
             $product = array(
                 'id' => $itemProduct->getId(),
                 'qty' => $item->getQuantity(),
                 'name' => $itemProduct->getName(),
                 'model' => $itemProduct->getModel(),
-                //'tax' => zen_get_tax_rate($products[$i]['tax_class_id'], $tax_address->fields['entry_country_id'], $tax_address->fields['entry_zone_id']),
-                //'tax_groups'=>$taxRates,
-                //'tax_description' => zen_get_tax_description($products[$i]['tax_class_id'], $tax_address->fields['entry_country_id'], $tax_address->fields['entry_zone_id']),
+                'tax' => $productTaxRate->getRate(),
+                'tax_groups' => $taxRates,
+                'tax_description' => $productTaxRate->getDescription(),
                 'price' => $itemProduct->getProductPrice(),
-                'final_price' => $offers->getCalculatedPrice(),
+                'final_price' => $offers->getCalculatedPrice(false),
                 'onetime_charges' => 0, //TODO: $_SESSION['cart']->attributes_price_onetime_charges($products[$i]['id'], $products[$i]['quantity']),
                 'weight' => $itemProduct->getWeight(),
                 'products_priced_by_attribute' => $itemProduct->isPricedByAttributes(),
@@ -159,15 +170,15 @@ if ($this->container->get('settingsService')->get('zenmagick.apps.store.assertZe
         if ('tax_groups' == $key) {
           $mytg = $this->products[0][$key];
           if (count($value) != count($mytg)) {
-            echo 'tax groups length diff! order: ';var_dump($value);echo 'my: ';var_dump($mytg);echo '<br>';
+            echo 'PRODUCT: tax groups length diff! order: ';var_dump($value);echo 'my: ';var_dump($mytg);echo '<br>';
           }
             continue;
         }
         if ($value != $this->products[0][$key]) {
-            echo 'product value mismatch for '.$key.': value='.$value.', got: '.$this->products[0][$key]."<BR>";
+            echo 'PRODUCT: value mismatch for '.$key.': value='.$value.', ZM got: '.$this->products[0][$key]."<BR>";
         }
       } else {
-        echo 'product missing key: '.$key.', value is: '.$value."<BR>";
+        echo 'PRODUCT: missing key: '.$key.', value is: '.$value."<BR>";
       }
   }
 }

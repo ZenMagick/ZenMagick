@@ -40,7 +40,7 @@ class ZenCartClassLoader extends ClassLoader {
      */
     public function __construct(array $namespaces=array()) {
         parent::__construct($namespaces);
-        $this->baseDirectories = array(dirname(__FILE__).'/zencart', dirname(Runtime::getInstallationPath()).'/includes/classes');
+        $this->baseDirectories = array(dirname(__FILE__).'/bridge/includes/classes', dirname(Runtime::getInstallationPath()).'/includes/classes');
         $this->classFileMap = array(
             'httpClient' => 'http_client',
             'messageStack' => 'message_stack',

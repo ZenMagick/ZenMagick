@@ -156,4 +156,11 @@ class PaymentTypeWrapper extends ZMObject implements \ZMPaymentType {
         return isset($this->module_->form_action_url) ? $this->module_->form_action_url : $request->url('checkout_process', '', true);
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    public function getOrderStatus() {
+        return isset($this->module_->order_status) && is_numeric($this->module_->order_status) && ($this->module_->order_status > 0) ? $this->module_->order_status : null;
+    }
+
 }
