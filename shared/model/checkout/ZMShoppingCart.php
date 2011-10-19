@@ -186,7 +186,8 @@ class ZMShoppingCart extends ZMObject {
     public function getSubTotal() {
         $subtotal = 0;
         foreach ($this->getItems() as $item) {
-            $subtotal += $item->getItemTotal();
+            $itemTotal = $item->getItemTotal(false) + $item->getOneTimeCharge(false);
+            $subtotal += $item->getTaxRate()->addTax($itemTotal);
         }
         return $subtotal;
     }
