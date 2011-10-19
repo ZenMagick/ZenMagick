@@ -56,6 +56,9 @@
                     </td>
                     <td class="price">
                         <?php echo $utils->formatMoney($item->getItemTotal()) ?>
+                        <?php if (0 != ($oneTimeCharge = $item->getOneTimeCharge())) { ?>
+                            <br><?php _vzm('One time: %s', $utils->formatMoney($oneTimeCharge)) ?>
+                        <?php } ?>
                     </td>
                 </tr>
             <?php $odd = !$odd; $first = false; } ?>
