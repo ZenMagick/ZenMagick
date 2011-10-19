@@ -65,6 +65,113 @@ class ZenCartCheckoutOrder extends ZMObject {
         // type
         $this->content_type = $shoppingCart->getType();
 
+        // products
+        $this->populateProducts($shoppingCart);
+
+        // populate info - ATTENTION: this depends on populateProducts!!
+        $this->populateInfo($shoppingCart);
+
+        // account
+        $account = $this->container->get('accountService')->getAccountForId($shoppingCart->getAccountId());
+        $this->setAccount($account);
+
+        // addresses
+        $this->setShippingAddress($shoppingCart->getShippingAddress());
+        $this->setBillingAddress($shoppingCart->getBillingAddress());
+    }
+
+    /**
+     * Address to array.
+     *
+     * @param ZMAddress address The address.
+     * @return array Address array.
+     */
+    protected function address2array($address) {
+        $aa = array();
+        $aa['country'] = array();
+        if (null != $address) {
+            $aa['firstname'] = $address->getFirstName();
+            $aa['lastname'] = $address->getLastName();
+            $aa['street_address'] = $address->getAddressLine1();
+            $aa['city'] = $address->getCity();
+            $aa['suburb'] = $address->getSuburb();
+            $aa['zone_id'] = $address->getZoneId();
+            $aa['state'] = $address->getState();
+            $aa['postcode'] = $address->getPostcode();
+            if (null != ($country = $address->getCountry())) {
+                $aa['country']['id'] = $country->getId();
+                $aa['country']['title'] = $country->getName();
+                $aa['country']['iso_code_2'] = $country->getIsoCode2();
+            }
+        }
+        return $aa;
+    }
+
+    /**
+     * Populate products.
+     *
+     * @param ZMShoppingCart shoppingCart The shopping cart.
+     */
+    protected function populateProducts($shoppingCart) {
+        $taxAddress = $shoppingCart->getTaxAddress();
+        $this->products = array();
+        foreach ($shoppingCart->getItems() as $item) {
+            $itemProduct = $item->getProduct();
+            $offers = $itemProduct->getOffers();
+            $productTaxRate = $item->getTaxRate();
+            $taxRates = array();
+            foreach ($item->getTaxRates() as $taxRate) {
+                $taxRates[$taxRate->getDescription()] = $taxRate->getRate();
+            }
+            $product = array(
+                'id' => $itemProduct->getId(),
+                'qty' => $item->getQuantity(),
+                'name' => $itemProduct->getName(),
+                'model' => $itemProduct->getModel(),
+                'tax' => $productTaxRate->getRate(),
+                'tax_groups' => $taxRates,
+                'tax_description' => $productTaxRate->getDescription(),
+                'price' => $itemProduct->getProductPrice(),
+                'final_price' => $offers->getCalculatedPrice(false),
+                'onetime_charges' => 0, //TODO: $_SESSION['cart']->attributes_price_onetime_charges($products[$i]['id'], $products[$i]['quantity']),
+                'weight' => $itemProduct->getWeight(),
+                'products_priced_by_attribute' => $itemProduct->isPricedByAttributes(),
+                'product_is_free' => $itemProduct->isFree() ? '1' : '0',
+                'products_discount_type' => $itemProduct->getDiscountType(),
+                'products_discount_type_from' => $itemProduct->getDiscountTypeFrom()
+            );
+            $this->products[] = $product;
+        }
+
+        if ($this->container->get('settingsService')->get('zenmagick.apps.store.assertZencart', false)) {
+            $order = new \order();
+            foreach ($order->products[0] as $key => $value) {
+                if (in_array($key, array('rowClass'))) { continue; }
+                if (array_key_exists($key, $this->products[0])) {
+                    if ('tax_groups' == $key) {
+                        $mytg = $this->products[0][$key];
+                        if (count($value) != count($mytg)) {
+                            echo 'PRODUCT: tax groups length diff! order: ';var_dump($value);echo 'my: ';var_dump($mytg);echo '<br>';
+                        }
+                        continue;
+                    }
+                    if ((string)$value != (string)$this->products[0][$key]) {
+                        echo 'PRODUCT: value mismatch for '.$key.': value=';var_dump($value); echo ', ZM got: ';var_dump($this->info[$key]); echo "<BR>";
+                    }
+                } else {
+                    echo 'PRODUCT: missing key: '.$key.', value is: '.$value."<BR>";
+                }
+            }
+            echo '<br>';
+        }
+    }
+
+    /**
+     * Populate info.
+     *
+     * @param ZMShoppingCart shoppingCart The shopping cart.
+     */
+    protected function populateInfo($shoppingCart) {
         // general stuff
         // TODO: where from/to??
         $languageId = $this->container->get('settingsService')->get('storeDefaultLanguageId');
@@ -100,117 +207,32 @@ class ZenCartCheckoutOrder extends ZMObject {
             'tax_groups' => array(),
             'comments' => $shoppingCart->getComments()
         );
-if ($this->container->get('settingsService')->get('zenmagick.apps.store.assertZencart', false)) {
-  $order = new \order();
-  foreach ($order->info as $key => $value) {
-      if (in_array($key, array('rowClass', 'ip_address'))) { continue; }
-      if (array_key_exists($key, $this->info)) {
-        if ('tax_groups' == $key) {
-          // drop [0] as that is the default for none in zc
-          if (isset($value[0])) { unset($value[0]); }
-          $mytg = $this->info[$key];
-          if (count($value) != count($mytg)) {
-            echo 'tax groups length diff! order: ';var_dump($value);echo 'my: ';var_dump($mytg);echo '<br>';
-          }
-            continue;
-        }
-        if ($value != $this->info[$key]) {
-            echo 'info value mismatch for '.$key.': value='.$value.', ZM got: '.$this->info[$key]."<BR>";
-        }
-      } else {
-        echo 'info missing key: '.$key.', value is: '.$value."<BR>";
-      }
-  }
-  echo '<br>';
-}
 
-        // account
-        $account = $this->container->get('accountService')->getAccountForId($shoppingCart->getAccountId());
-        $this->setAccount($account);
-
-        // addresses
-        $this->setShippingAddress($shoppingCart->getShippingAddress());
-        $this->setBillingAddress($shoppingCart->getBillingAddress());
-
-        // TODO: fill with something to have the correct count
-        $taxAddress = $shoppingCart->getTaxAddress();
-        $this->products = array();
-        foreach ($shoppingCart->getItems() as $item) {
-            $itemProduct = $item->getProduct();
-            $offers = $itemProduct->getOffers();
-            $productTaxRate = $item->getTaxRate();
-            $taxRates = array();
-            foreach ($item->getTaxRates() as $taxRate) {
-                $taxRates[$taxRate->getDescription()] = $taxRate->getRate();
+        if ($this->container->get('settingsService')->get('zenmagick.apps.store.assertZencart', false)) {
+            $order = new \order();
+            foreach ($order->info as $key => $value) {
+                if (in_array($key, array('rowClass', 'ip_address'))) { continue; }
+                if (array_key_exists($key, $this->info)) {
+                    if ('tax_groups' == $key) {
+                        // drop [0] as that is the default for none in zc
+                        if (isset($value[0])) { unset($value[0]); }
+                        $mytg = $this->info[$key];
+                        if (count($value) != count($mytg)) {
+                          echo 'info: tax groups length diff! order: ';var_dump($value);echo 'my: ';var_dump($mytg);echo '<br>';
+                        }
+                        continue;
+                    }
+                    if ((string)$value != (string)$this->info[$key]) {
+                        echo 'info: value mismatch for '.$key.': value=';var_dump($value); echo ', ZM got: ';var_dump($this->info[$key]); echo "<BR>";
+                    }
+                } else {
+                    echo 'info: missing key: '.$key.', value is: '.$value."<BR>";
+                }
             }
-            $product = array(
-                'id' => $itemProduct->getId(),
-                'qty' => $item->getQuantity(),
-                'name' => $itemProduct->getName(),
-                'model' => $itemProduct->getModel(),
-                'tax' => $productTaxRate->getRate(),
-                'tax_groups' => $taxRates,
-                'tax_description' => $productTaxRate->getDescription(),
-                'price' => $itemProduct->getProductPrice(),
-                'final_price' => $offers->getCalculatedPrice(false),
-                'onetime_charges' => 0, //TODO: $_SESSION['cart']->attributes_price_onetime_charges($products[$i]['id'], $products[$i]['quantity']),
-                'weight' => $itemProduct->getWeight(),
-                'products_priced_by_attribute' => $itemProduct->isPricedByAttributes(),
-                'product_is_free' => $itemProduct->isFree(),
-                'products_discount_type' => $itemProduct->getDiscountType(),
-                'products_discount_type_from' => $itemProduct->getDiscountTypeFrom()
-            );
-            $this->products[] = $product;
+            echo '<br>';
         }
-if ($this->container->get('settingsService')->get('zenmagick.apps.store.assertZencart', false)) {
-  $order = new \order();
-  foreach ($order->products[0] as $key => $value) {
-      if (in_array($key, array('rowClass'))) { continue; }
-      if (array_key_exists($key, $this->products[0])) {
-        if ('tax_groups' == $key) {
-          $mytg = $this->products[0][$key];
-          if (count($value) != count($mytg)) {
-            echo 'PRODUCT: tax groups length diff! order: ';var_dump($value);echo 'my: ';var_dump($mytg);echo '<br>';
-          }
-            continue;
-        }
-        if ($value != $this->products[0][$key]) {
-            echo 'PRODUCT: value mismatch for '.$key.': value='.$value.', ZM got: '.$this->products[0][$key]."<BR>";
-        }
-      } else {
-        echo 'PRODUCT: missing key: '.$key.', value is: '.$value."<BR>";
-      }
-  }
-}
-
     }
 
-    /**
-     * Address to array.
-     *
-     * @param ZMAddress address The address.
-     * @return array Address array.
-     */
-    protected function address2array($address) {
-        $aa = array();
-        $aa['country'] = array();
-        if (null != $address) {
-            $aa['firstname'] = $address->getFirstName();
-            $aa['lastname'] = $address->getLastName();
-            $aa['street_address'] = $address->getAddressLine1();
-            $aa['city'] = $address->getCity();
-            $aa['suburb'] = $address->getSuburb();
-            $aa['zone_id'] = $address->getZoneId();
-            $aa['state'] = $address->getState();
-            $aa['postcode'] = $address->getPostcode();
-            if (null != ($country = $address->getCountry())) {
-                $aa['country']['id'] = $country->getId();
-                $aa['country']['title'] = $country->getName();
-                $aa['country']['iso_code_2'] = $country->getIsoCode2();
-            }
-        }
-        return $aa;
-    }
 
     /**
      * Set the account.
