@@ -67,10 +67,11 @@ class ZMThemeSwitcherPlugin extends Plugin {
 
         $languageId = $session->getLanguageId();
         if (null != ($themeId = $session->getValue(self::SESS_THEME_KEY))) {
+            $themeService = $this->container->get('themeService');
             $themeChain = array();
-            $themeChain[] = ZMThemes::instance()->getThemeForId(ZMSettings::get('apps.store.themes.default'), true);
-            $themeChain[] = ZMThemes::instance()->getThemeForId($themeId, $languageId);
-            ZMThemes::instance()->setThemeChain($languageId, $themeChain);
+            $themeChain[] = $themeService->getThemeForId(ZMSettings::get('apps.store.themes.default'), true);
+            $themeChain[] = $themeService->getThemeForId($themeId, $languageId);
+            $themeService->setThemeChain($languageId, $themeChain);
         }
     }
 
@@ -92,12 +93,13 @@ class ZMThemeSwitcherPlugin extends Plugin {
         }
 
         $request = $event->get('request');
+        $themeService = $this->container->get('themeService');
 
         $defaultConfig = null;
         if (!ZMSettings::exists('plugins.themeSwitcher.themes')) {
             // iterate over all themes and build default config
             $defaultConfig = '';
-            foreach (ZMThemes::instance()->getAvailableThemes() as $theme) {
+            foreach ($themeService->getAvailableThemes() as $theme) {
                 if (!$theme->getConfig('zencart')) {
                     $defaultConfig .= $theme->getThemeId().':'.$theme->getName().',';
                 }
@@ -122,7 +124,7 @@ class ZMThemeSwitcherPlugin extends Plugin {
                 $hasParams = false !== strpos($url, '?');
                 $url .= ($hasParams ? '&' : '?') . 'themeId='.$details[0];
 
-                $themeChain = ZMThemes::instance()->getThemeChain($request->getSession()->getLanguageId());
+                $themeChain = $themeService->getThemeChain($request->getSession()->getLanguageId());
                 $currentTheme = array_pop($themeChain);
                 $active = $details[0] == $currentTheme->getThemeId();
 

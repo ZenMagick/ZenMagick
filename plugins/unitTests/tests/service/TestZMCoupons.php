@@ -38,12 +38,14 @@ class TestZMCoupons extends ZMTestCase {
      */
     public function setUp() {
         parent::setUp();
+
+        $couponService = $this->container->get('couponService');
         $this->createdCouponIds_ = array();
         $this->accountIds_ = array($this->getAccountId());
         // create one basic test coupon
-        $couponCode = ZMCoupons::instance()->createCouponCode('foo@bar.com');
+        $couponCode = $couponService->createCouponCode('foo@bar.com');
         $this->assertNotNull($couponCode);
-        $coupon = ZMCoupons::instance()->createCoupon($couponCode, 5, ZMCoupons::TYPPE_GV);
+        $coupon = $couponService->createCoupon($couponCode, 5, ZMCoupons::TYPPE_GV);
         $this->createdCouponIds_[] = $coupon->getId();
         $this->testCouponId_ = $coupon->getId();
     }
@@ -89,7 +91,7 @@ class TestZMCoupons extends ZMTestCase {
      * Test create coupon code.
      */
     public function testCreateCouponCode() {
-        $couponCode = ZMCoupons::instance()->createCouponCode('foo@bar.com');
+        $couponCode = $this->container->get('couponService')->createCouponCode('foo@bar.com');
         $this->assertNotNull($couponCode);
     }
 
@@ -97,9 +99,11 @@ class TestZMCoupons extends ZMTestCase {
      * Test create coupon.
      */
     public function testCreateCoupon() {
-        $couponCode = ZMCoupons::instance()->createCouponCode('foo@bar.com');
+        $couponService = $this->container->get('couponService');
+
+        $couponCode = $couponService->createCouponCode('foo@bar.com');
         $this->assertNotNull($couponCode);
-        $coupon = ZMCoupons::instance()->createCoupon($couponCode, 5, ZMCoupons::TYPPE_GV);
+        $coupon = $couponService->createCoupon($couponCode, 5, ZMCoupons::TYPPE_GV);
         $this->createdCouponIds_[] = $coupon->getId();
         $this->assertNotNull($coupon);
         $this->assertEqual($couponCode, $coupon->getCode());
@@ -110,11 +114,13 @@ class TestZMCoupons extends ZMTestCase {
      * Test get coupon for code.
      */
     public function testGetCouponForCode() {
-        $couponCode = ZMCoupons::instance()->createCouponCode('foo@bar.com');
+        $couponService = $this->container->get('couponService');
+
+        $couponCode = $couponService->createCouponCode('foo@bar.com');
         $this->assertNotNull($couponCode);
-        $coupon = ZMCoupons::instance()->createCoupon($couponCode, 5, ZMCoupons::TYPPE_GV);
+        $coupon = $couponService->createCoupon($couponCode, 5, ZMCoupons::TYPPE_GV);
         $this->createdCouponIds_[] = $coupon->getId();
-        $loaded = ZMCoupons::instance()->getCouponForCode($couponCode, 1);
+        $loaded = $couponService->getCouponForCode($couponCode, 1);
         $this->assertEqual($coupon->getId(), $loaded->getId());
         $this->assertEqual($coupon->getCode(), $loaded->getCode());
         $this->assertEqual($coupon->getAmount(), $loaded->getAmount());
@@ -124,11 +130,13 @@ class TestZMCoupons extends ZMTestCase {
      * Test get coupon for id.
      */
     public function testGetCouponForId() {
-        $couponCode = ZMCoupons::instance()->createCouponCode('foo@bar.com');
+        $couponService = $this->container->get('couponService');
+
+        $couponCode = $couponService->createCouponCode('foo@bar.com');
         $this->assertNotNull($couponCode);
-        $coupon = ZMCoupons::instance()->createCoupon($couponCode, 5, ZMCoupons::TYPPE_GV);
+        $coupon = $couponService->createCoupon($couponCode, 5, ZMCoupons::TYPPE_GV);
         $this->createdCouponIds_[] = $coupon->getId();
-        $loaded = ZMCoupons::instance()->getCouponForId($coupon->getId(), 1);
+        $loaded = $couponService->getCouponForId($coupon->getId(), 1);
         $this->assertEqual($coupon->getId(), $loaded->getId());
         $this->assertEqual($coupon->getCode(), $loaded->getCode());
         $this->assertEqual($coupon->getAmount(), $loaded->getAmount());
@@ -138,8 +146,10 @@ class TestZMCoupons extends ZMTestCase {
      * Test get voucher balance for id.
      */
     public function testGetVoucherBalance() {
-        ZMCoupons::instance()->setVoucherBalanceForAccountId($this->getAccountId(), 141);
-        $balance = ZMCoupons::instance()->getVoucherBalanceForAccountId($this->getAccountId());
+        $couponService = $this->container->get('couponService');
+
+        $couponService->setVoucherBalanceForAccountId($this->getAccountId(), 141);
+        $balance = $couponService->getVoucherBalanceForAccountId($this->getAccountId());
         $this->assertEqual(141, $balance);
     }
 
@@ -147,8 +157,10 @@ class TestZMCoupons extends ZMTestCase {
      * Test set voucher balance for id.
      */
     public function testSetVoucherBalance() {
-        ZMCoupons::instance()->setVoucherBalanceForAccountId($this->getAccountId(), 39);
-        $balance = ZMCoupons::instance()->getVoucherBalanceForAccountId($this->getAccountId());
+        $couponService = $this->container->get('couponService');
+
+        $couponService->setVoucherBalanceForAccountId($this->getAccountId(), 39);
+        $balance = $couponService->getVoucherBalanceForAccountId($this->getAccountId());
         $this->assertEqual(39, $balance);
     }
 
@@ -156,11 +168,13 @@ class TestZMCoupons extends ZMTestCase {
      * Test restrictions.
      */
     public function testRestrictions() {
-        $coupon = ZMCoupons::instance()->getCouponForId($this->testCouponId_, 1);
+        $couponService = $this->container->get('couponService');
+
+        $coupon = $couponService->getCouponForId($this->testCouponId_, 1);
         if (null != $coupon) {
             $restrictions = $coupon->getRestrictions();
             $this->assertNotNull($restrictions);
-            $direct = ZMCoupons::instance()->getRestrictionsForCouponId(9);
+            $direct = $couponService->getRestrictionsForCouponId(9);
             $this->assertNotNull($direct);
         } else {
             $this->skip('test coupon not found');
@@ -171,23 +185,27 @@ class TestZMCoupons extends ZMTestCase {
      * Test is redeemable.
      */
     public function testIsCouponRedeemable() {
-        $this->assertTrue(ZMCoupons::instance()->isCouponRedeemable($this->testCouponId_));
-        $this->assertTrue(ZMCoupons::instance()->isCouponRedeemable(99999));
+        $couponService = $this->container->get('couponService');
+
+        $this->assertTrue($couponService->isCouponRedeemable($this->testCouponId_));
+        $this->assertTrue($couponService->isCouponRedeemable(99999));
     }
 
     /**
      * Test coupon tracker.
      */
     public function testCouponTracker() {
-        $couponCode = ZMCoupons::instance()->createCouponCode('foo@bar.com');
-        $coupon = ZMCoupons::instance()->createCoupon($couponCode, 5, ZMCoupons::TYPPE_GV);
+        $couponService = $this->container->get('couponService');
+
+        $couponCode = $couponService->createCouponCode('foo@bar.com');
+        $coupon = $couponService->createCoupon($couponCode, 5, ZMCoupons::TYPPE_GV);
         $this->createdCouponIds_[] = $coupon->getId();
         $account = $this->container->get('accountService')->getAccountForId($this->getAccountId());
         $gvReceiver = Beans::getBean('ZMGVReceiver');
         $gvReceiver->setEmail('foo@bar.com');
 
         if (null != $account) {
-            ZMCoupons::instance()->createCouponTracker($coupon, $account, $gvReceiver);
+            $couponService->createCouponTracker($coupon, $account, $gvReceiver);
 
             // manually check database
             $sql = "SELECT * FROM " . TABLE_COUPON_EMAIL_TRACK . "
@@ -204,10 +222,12 @@ class TestZMCoupons extends ZMTestCase {
      * Test finalise coupon.
      */
     public function testFinaliseCoupon() {
-        $couponCode = ZMCoupons::instance()->createCouponCode('foo@bar.com');
-        $coupon = ZMCoupons::instance()->createCoupon($couponCode, 5, ZMCoupons::TYPPE_GV);
+        $couponService = $this->container->get('couponService');
+
+        $couponCode = $couponService->createCouponCode('foo@bar.com');
+        $coupon = $couponService->createCoupon($couponCode, 5, ZMCoupons::TYPPE_GV);
         $this->createdCouponIds_[] = $coupon->getId();
-        ZMCoupons::instance()->finaliseCoupon($coupon->getId(), $this->getAccountId(), '127.0.0.1');
+        $couponService->finaliseCoupon($coupon->getId(), $this->getAccountId(), '127.0.0.1');
 
         // manually check database
         $sql = "SELECT * FROM " . TABLE_COUPON_REDEEM_TRACK . "
@@ -217,7 +237,7 @@ class TestZMCoupons extends ZMTestCase {
         $this->assertEqual('127.0.0.1', $result->getRedeemIp());
 
         // check active flag
-        $coupon = ZMCoupons::instance()->getCouponForCode($couponCode, 1);
+        $coupon = $couponService->getCouponForCode($couponCode, 1);
         $this->assertNotNull($coupon);
         $this->assertFalse($coupon->isActive());
     }
@@ -226,13 +246,15 @@ class TestZMCoupons extends ZMTestCase {
      * Test credit coupon.
      */
     public function testCreditCoupon() {
+        $couponService = $this->container->get('couponService');
+
         // new coupon worth $5
-        $couponCode = ZMCoupons::instance()->createCouponCode('foo@bar.com');
-        $coupon = ZMCoupons::instance()->createCoupon($couponCode, 5, ZMCoupons::TYPPE_GV);
+        $couponCode = $couponService->createCouponCode('foo@bar.com');
+        $coupon = $couponService->createCoupon($couponCode, 5, ZMCoupons::TYPPE_GV);
         $this->createdCouponIds_[] = $coupon->getId();
 
-        ZMCoupons::instance()->creditCoupon($coupon->getId(), $this->getAccountId());
-        $this->assertEqual(5, ZMCoupons::instance()->getVoucherBalanceForAccountId(1));
+        $couponService->creditCoupon($coupon->getId(), $this->getAccountId());
+        $this->assertEqual(5, $couponService->getVoucherBalanceForAccountId(1));
 
         // delete balance record to test create
         $sql = "DELETE FROM " . TABLE_COUPON_GV_CUSTOMER . "
@@ -240,11 +262,11 @@ class TestZMCoupons extends ZMTestCase {
         ZMRuntime::getDatabase()->update($sql, array('accountId' => $this->getAccountId()), TABLE_COUPON_GV_CUSTOMER);
 
         // new coupon worth $5
-        $couponCode = ZMCoupons::instance()->createCouponCode('foo@bar.com');
-        $coupon = ZMCoupons::instance()->createCoupon($couponCode, 5, ZMCoupons::TYPPE_GV);
+        $couponCode = $couponService->createCouponCode('foo@bar.com');
+        $coupon = $couponService->createCoupon($couponCode, 5, ZMCoupons::TYPPE_GV);
         $this->createdCouponIds_[] = $coupon->getId();
 
-        ZMCoupons::instance()->creditCoupon($coupon->getId(), 1);
-        $this->assertEqual(5, ZMCoupons::instance()->getVoucherBalanceForAccountId($this->getAccountId()));
+        $couponService->creditCoupon($coupon->getId(), 1);
+        $this->assertEqual(5, $couponService->getVoucherBalanceForAccountId($this->getAccountId()));
     }
 }

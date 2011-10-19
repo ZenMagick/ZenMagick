@@ -33,15 +33,12 @@ use zenmagick\base\Runtime;
  */
 class ZMTinyMCEFormWidget extends \ZMTextAreaFormWidget {
     private static $ID_LIST = array();
-    private $plugin_;
-
 
     /**
      * Create new instance.
      */
     function __construct() {
         parent::__construct();
-        $this->plugin_ = \ZMPlugins::instance()->getPluginForId('tinyMCE');
     }
 
     /**
@@ -56,7 +53,7 @@ class ZMTinyMCEFormWidget extends \ZMTextAreaFormWidget {
      * {@inheritDoc}
      */
     public function render($request, $view) {
-        if (!$this->plugin_) {
+        if (null == $this->container->get('pluginService')->getPluginForId('tinyMCE')) {
             // fallback
             return parent::render($request, $view);
         }

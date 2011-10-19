@@ -34,7 +34,7 @@ class TestZMSalemaker extends ZMTestCase {
     public function testGetSaleDiscountTypeInfo() {
         foreach ($this->container->get('productService')->getAllProducts(false, 1) as $product) {
             $productId = $product->getId();
-            $info = ZMSalemaker::instance()->getSaleDiscountTypeInfo($productId);
+            $info = $this->container->get('salemakerService')->getSaleDiscountTypeInfo($productId);
             $er = error_reporting(0);
             $type = zen_get_products_sale_discount_type($productId);
             $amount = zen_get_products_sale_discount_type($productId, false, 'amount');

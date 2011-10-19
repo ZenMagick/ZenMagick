@@ -31,15 +31,12 @@ use zenmagick\base\Runtime;
  * @package org.zenmagick.plugins.unitTests
  */
 class ZMUnitTestsController extends \ZMController {
-    private $plugin_;
-
 
     /**
      * Create new instance.
      */
     function __construct() {
         parent::__construct();
-        $this->plugin_ = \ZMPlugins::instance()->getPluginForId('unitTests');
     }
 
     /**
@@ -83,10 +80,10 @@ class ZMUnitTestsController extends \ZMController {
         $classLoader->register();
         $classLoader->addPath(Runtime::getInstallationPath().'apps/admin/lib/services');
         $classLoader->addPath(Runtime::getInstallationPath().'apps/admin/lib/model');
-        $classLoader->addPath($this->plugin_->getPluginDirectory().'tests');
+        $classLoader->addPath($this->getTestPlugin()->getPluginDirectory().'tests');
 
         // add tests folder to class path
-        $testBaseDir = $this->plugin_->getPluginDirectory().'tests';
+        $testBaseDir = $this->getTestPlugin()->getPluginDirectory().'tests';
         $tests = $this->findTests($testBaseDir);
 
         // group tests
@@ -115,13 +112,13 @@ class ZMUnitTestsController extends \ZMController {
             $classLoader->addPath($ptests);
             if (is_dir($ptests)) {
                 foreach ($this->findTests($ptests) as $className => $file) {
-                    $this->plugin_->addTest($className);
+                    $this->getTestPlugin()->addTest($className);
                 }
             }
         }
 
         // merge in all custom registered tests
-        $allTests = array_merge($allTests, $this->plugin_->getTests());
+        $allTests = array_merge($allTests, $this->getTestPlugin()->getTests());
         ksort($allTests);
 
         // create instances rather than just class names
@@ -192,6 +189,15 @@ class ZMUnitTestsController extends \ZMController {
         $context['html_report'] = $report;
 
         return $this->findView(null, $context);
+    }
+
+    /**
+     * Get the test plugin.
+     *
+     * @return ZMPlugin The plugin.
+     */
+    public function getTestPlugin() {
+        return $this->container->get('pluginService')->getPluginForId('unitTests');
     }
 
 }

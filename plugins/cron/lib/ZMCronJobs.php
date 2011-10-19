@@ -21,6 +21,7 @@
 <?php
 
 use zenmagick\base\Beans;
+use zenmagick\base\Runtime;
 
 /**
  * A cron service.
@@ -145,7 +146,7 @@ class ZMCronJobs extends ZMObject {
             $lines = file($this->cronfile);
             $jobs = $this->parser->parseCrontab($lines);
         } else {
-            ZMLogging::instance()->log('crontab not found: '.$this->crontab, ZMLogging::ERROR);
+            Runtime::getLogging()->error('crontab not found: '.$this->crontab);
             return array();
         }
 
@@ -187,16 +188,16 @@ class ZMCronJobs extends ZMObject {
      */
     public function runJob($job) {
         try {
-            ZMLogging::instance()->log("ZMCronJobs: Running: ".$job['line'], ZMLogging::DEBUG);
+            Runtime::getLogging()->debug("ZMCronJobs: Running: ".$job['line']);
             $obj = Beans::getBean($job['task']);
             if ($obj instanceof ZMCronJob) {
                 $status = $obj->execute();
             }
             $this->saveLastRunTime($job);
-            ZMLogging::instance()->log("ZMCronJobs: Completed ".$job['line']." with status: ".($status?"OK":"FAILED"));
+            Runtime::getLogging()->log("ZMCronJobs: Completed ".$job['line']." with status: ".($status?"OK":"FAILED"));
             return true;
         } catch (Exception $e) {
-            ZMLogging::instance()->log("ZMCronJobs: Failed ".$job['line']." with exception: ".$e);
+            Runtime::getLogging()->log("ZMCronJobs: Failed ".$job['line']." with exception: ".$e);
             return false;
         }
     }

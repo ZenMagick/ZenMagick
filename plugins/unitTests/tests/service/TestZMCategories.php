@@ -39,7 +39,7 @@ class TestZMCategories extends ZMTestCase {
         );
 
         foreach ($tests as $test) {
-            $ids = ZMCategories::instance()->getProductTypeIds($test['categoryId']);
+            $ids = $this->container->get('categoryService')->getProductTypeIds($test['categoryId']);
             if ($this->assertTrue(is_array($ids), '%s; categoryId '.$test['categoryId'])) {
                 $this->assertEqual($test['expected'], $ids);
             }
@@ -50,19 +50,21 @@ class TestZMCategories extends ZMTestCase {
      * Test create/delete.
      */
     public function testCreateDelete() {
+        $categoryService = $this->container->get('categoryService');
+
         $newCategory = $this->container->get('ZMCategory');
         $newCategory->setLanguageId(1);
         $newCategory->setName('Foo');
         $newCategory->setDescription('A foo category');
         $newCategory->addChild(2);
-        $newCategory = ZMCategories::instance()->createCategory($newCategory);
+        $newCategory = $categoryService->createCategory($newCategory);
         $this->assertTrue(0 != $newCategory->getId());
-        $reloadedCategory = ZMCategories::instance()->getCategoryForId($newCategory->getId(), 1);
+        $reloadedCategory = $categoryService->getCategoryForId($newCategory->getId(), 1);
         $this->assertNotNull($reloadedCategory);
         $this->assertEqual($newCategory, $reloadedCategory);
         // delete again
-        ZMCategories::instance()->deleteCategory($newCategory);
-        $invalidCategory = ZMCategories::instance()->getCategoryForId($newCategory->getId(), 1);
+        $categoryService->deleteCategory($newCategory);
+        $invalidCategory = $categoryService->getCategoryForId($newCategory->getId(), 1);
         $this->assertNull($invalidCategory);
     }
 
@@ -70,15 +72,17 @@ class TestZMCategories extends ZMTestCase {
      * Test update
      */
     public function testUpdate() {
-        $category = ZMCategories::instance()->getCategoryForId(35, 1);
+        $categoryService = $this->container->get('categoryService');
+
+        $category = $categoryService->getCategoryForId(35, 1);
         $category->addChild(2);
-        ZMCategories::instance()->updateCategory($category);
-        $reloadedCategory = ZMCategories::instance()->getCategoryForId($category->getId(), 1);
+        $categoryService->updateCategory($category);
+        $reloadedCategory = $categoryService->getCategoryForId($category->getId(), 1);
         $this->assertNotNull($reloadedCategory);
         $this->assertEqual($category, $reloadedCategory);
         $category->removeChild(2);
-        ZMCategories::instance()->updateCategory($category);
-        $reloadedCategory = ZMCategories::instance()->getCategoryForId($category->getId(), 1);
+        $categoryService->updateCategory($category);
+        $reloadedCategory = $categoryService->getCategoryForId($category->getId(), 1);
         $this->assertNotNull($reloadedCategory);
         $this->assertEqual($category, $reloadedCategory);
     }

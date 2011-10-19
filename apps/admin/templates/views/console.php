@@ -25,8 +25,8 @@
     if ('' != $code) {
         ob_start();
         eval($code);
-        $zm_result = ob_get_contents();                                                                                       
-        ob_end_clean();                                                                                                   
+        $zm_result = ob_get_contents();
+        ob_end_clean();
     }
     if ('' == $code) {
         $code = "\$product = ZMProducts::instance()->getProductForId(8, 1);\n"

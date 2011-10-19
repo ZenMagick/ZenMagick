@@ -33,15 +33,12 @@ use zenmagick\base\Runtime;
  */
 class ZMXinhaFormWidget extends \ZMTextAreaFormWidget {
     private static $ID_LIST = array();
-    private $plugin_;
-
 
     /**
      * Create new instance.
      */
     function __construct() {
         parent::__construct();
-        $this->plugin_ = \ZMPlugins::instance()->getPluginForId('xinha');
     }
 
     /**
@@ -56,7 +53,7 @@ class ZMXinhaFormWidget extends \ZMTextAreaFormWidget {
      * {@inheritDoc}
      */
     public function render($request, $view) {
-        if (!$this->plugin_) {
+        if (null == $this->container->get('pluginService')->getPluginForId('xinha')) {
             // fallback
             return parent::render($request, $view);
         }
@@ -73,7 +70,7 @@ class ZMXinhaFormWidget extends \ZMTextAreaFormWidget {
      */
     public function onFinaliseContent($event) {
         if (0 < count(self::$ID_LIST)) {
-            $baseUrl = $this->plugin_->pluginURL('xinha-0.96.1/');
+            $baseUrl = $this->container->get('pluginService')->getPluginForId('xinha')->pluginURL('xinha-0.96.1/');
             $idList = implode("', '", self::$ID_LIST);
             $jsInit = <<<EOT
 <script type="text/javascript">

@@ -52,7 +52,7 @@ class ZMLiftSuggestPlugin extends Plugin {
         // see if we can get some defaults
         $uacct = '';
         $trackingType = 'as';
-        if (null != ($googleAnalytics = ZMPlugins::instance()->getPluginForId('googleAnalytics'))) {
+        if (null != ($googleAnalytics = $this->container->get('pluginService')->getPluginForId('googleAnalytics'))) {
             $uacct = $googleAnalytics->get('uacct');
             $trackingType = 'ga';
         }

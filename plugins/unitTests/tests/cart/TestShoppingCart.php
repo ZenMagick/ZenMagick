@@ -74,7 +74,7 @@ class TestShoppingCart extends ZMTestCase {
             $qty = 5 == $qty ? 3: 5;
         }
         // load again from DB
-        $serviceShoppingCart = ZMShoppingCarts::instance()->loadCartForAccountId($this->getRequest()->getSession()->getAccountId());
+        $serviceShoppingCart = $this->container->get('shoppingCartService')->loadCartForAccountId($this->getRequest()->getSession()->getAccountId());
         $itemMap = $serviceShoppingCart->getItems();
 
         foreach ($referenceCart->getItems() as $item) {
@@ -102,7 +102,7 @@ class TestShoppingCart extends ZMTestCase {
         }
 
         // load again from DB
-        $serviceShoppingCart = ZMShoppingCarts::instance()->loadCartForAccountId($this->getRequest()->getSession()->getAccountId());
+        $serviceShoppingCart = $this->container->get('shoppingCartService')->loadCartForAccountId($this->getRequest()->getSession()->getAccountId());
         $itemMap = $serviceShoppingCart->getItems();
 
         // get product data from order

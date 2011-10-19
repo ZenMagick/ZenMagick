@@ -35,18 +35,19 @@ class TestZMTokens extends ZMTestCase {
         $resource = 'abc';
         $lifetime = 24*60*60; // 1 day
 
+        $tokenService = $this->container->get('tokenService');
         // create token
-        $token = ZMTokens::instance()->getNewToken($resource, $lifetime);
+        $token = $tokenService->getNewToken($resource, $lifetime);
         $this->assertNotNull($token);
 
         // make sure it is valid (do not expire)
-        $this->assertNotNull(ZMTokens::instance()->validateHash($resource, $token->getHash(), false));
+        $this->assertNotNull($tokenService->validateHash($resource, $token->getHash(), false));
 
         // make sure it is still valid
-        $this->assertNotNull(ZMTokens::instance()->validateHash($resource, $token->getHash(), true));
+        $this->assertNotNull($tokenService->validateHash($resource, $token->getHash(), true));
 
         // check that is it not valid any more
-        $this->assertNull(ZMTokens::instance()->validateHash($resource, $token->getHash(), true));
+        $this->assertNull($tokenService->validateHash($resource, $token->getHash(), true));
     }
 
     /**
@@ -56,25 +57,26 @@ class TestZMTokens extends ZMTestCase {
         $resource = 'abc';
         $lifetime = 2; // 2 seconds
 
+        $tokenService = $this->container->get('tokenService');
         // create token
-        $token = ZMTokens::instance()->getNewToken($resource, $lifetime);
+        $token = $tokenService->getNewToken($resource, $lifetime);
         $this->assertNotNull($token);
 
         // make sure it is valid (do not expire)
-        $this->assertNotNull(ZMTokens::instance()->validateHash($resource, $token->getHash(), false));
+        $this->assertNotNull($tokenService->validateHash($resource, $token->getHash(), false));
 
         // wait a bit
         sleep($lifetime+1);
 
         // check that is it not valid any more
-        $this->assertNull(ZMTokens::instance()->validateHash($resource, $token->getHash(), true));
+        $this->assertNull($tokenService->validateHash($resource, $token->getHash(), true));
     }
 
     /**
      * Test clear expired.
      */
     public function testClearExpired() {
-        ZMTokens::instance()->clear(false);
+        $this->container->get('tokenService')->clear(false);
     }
 
     /**
@@ -84,17 +86,18 @@ class TestZMTokens extends ZMTestCase {
         $resource = 'abc';
         $lifetime = 24*60*60; // 1 day
 
+        $tokenService = $this->container->get('tokenService');
         // create token
-        $token = ZMTokens::instance()->getNewToken($resource, $lifetime);
+        $token = $tokenService->getNewToken($resource, $lifetime);
         $this->assertNotNull($token);
 
         // make sure it is valid (do not expire)
-        $this->assertNotNull(ZMTokens::instance()->validateHash($resource, $token->getHash(), false));
+        $this->assertNotNull($tokenService->validateHash($resource, $token->getHash(), false));
 
         // copy as update will update $token
         $tokenExpiry = $token->getExpires();
-        ZMTokens::instance()->updateToken($token, 7*$lifetime);
-        $update = ZMTokens::instance()->validateHash($resource, $token->getHash(), false);
+        $tokenService->updateToken($token, 7*$lifetime);
+        $update = $tokenService->validateHash($resource, $token->getHash(), false);
         $this->assertNotNull($update);
         $this->assertEqual($update->getHash(), $token->getHash());
         $this->assertEqual($update->getResource(), $token->getResource());
@@ -106,42 +109,46 @@ class TestZMTokens extends ZMTestCase {
      * Test get token for resource.
      */
     public function testgetTokenForResource() {
-        ZMTokens::instance()->clear(true);
+        $tokenService = $this->container->get('tokenService');
+
+        $tokenService->clear(true);
 
         $resource = 'abc';
         $lifetime = 24*60*60; // 1 day
 
-        // create single 
-        $token = ZMTokens::instance()->getNewToken($resource, $lifetime);
+        // create single
+        $token = $tokenService->getNewToken($resource, $lifetime);
         $this->assertNotNull($token);
 
-        $this->assertEqual(1, count(ZMTokens::instance()->getTokenForResource($resource)));
+        $this->assertEqual(1, count($tokenService->getTokenForResource($resource)));
 
-        // create second 
-        $token = ZMTokens::instance()->getNewToken($resource, $lifetime);
+        // create second
+        $token = $tokenService->getNewToken($resource, $lifetime);
         $this->assertNotNull($token);
 
-        $this->assertEqual(2, count(ZMTokens::instance()->getTokenForResource($resource)));
+        $this->assertEqual(2, count($tokenService->getTokenForResource($resource)));
     }
 
     /**
      * Test get token for hash.
      */
     public function testgetTokenForHash() {
-        ZMTokens::instance()->clear(true);
+        $tokenService = $this->container->get('tokenService');
+
+        $tokenService->clear(true);
 
         $resource = 'abc';
         $lifetime = 24*60*60; // 1 day
 
-        // create single 
-        $token = ZMTokens::instance()->getNewToken($resource, $lifetime);
+        // create single
+        $token = $tokenService->getNewToken($resource, $lifetime);
         $this->assertNotNull($token);
 
-        $this->assertNotNull(ZMTokens::instance()->getTokenForHash($token->getHash()));
+        $this->assertNotNull($tokenService->getTokenForHash($token->getHash()));
 
         // clear all
-        ZMTokens::instance()->clear(true);
-        $this->assertNull(ZMTokens::instance()->getTokenForHash($token->getHash()));
+        $tokenService->clear(true);
+        $this->assertNull($tokenService->getTokenForHash($token->getHash()));
     }
 
 }

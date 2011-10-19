@@ -218,12 +218,14 @@ if ($this->container->get('settingsService')->get('zenmagick.apps.store.assertZe
      * @param ZMAccount account The account.
      */
     public function setAccount($account) {
-        $primaryAddress = $this->container->get('addressService')->getAddressForId($account->getDefaultAddressId());
-        $customer = $this->address2array($primaryAddress);
-        $customer['firstname'] = $account->getFirstName();
-        $customer['lastname'] = $account->getLastName();
-        $customer['email_address'] = $account->getEmail();
-        $this->customer = $customer;
+        if (null != $account) {
+            $primaryAddress = $this->container->get('addressService')->getAddressForId($account->getDefaultAddressId());
+            $customer = $this->address2array($primaryAddress);
+            $customer['firstname'] = $account->getFirstName();
+            $customer['lastname'] = $account->getLastName();
+            $customer['email_address'] = $account->getEmail();
+            $this->customer = $customer;
+        }
     }
 
     /**

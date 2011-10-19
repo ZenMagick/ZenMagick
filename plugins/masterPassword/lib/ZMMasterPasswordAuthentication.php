@@ -40,7 +40,7 @@ class ZMMasterPasswordAuthentication implements ZMAuthentication {
      * {@inheritDoc}
      */
     public function validatePassword($plaintext, $encrypted) {
-        $masterPassword = ZMPlugins::instance()->getPluginForId('masterPassword')->get('masterPassword');
+        $masterPassword = $this->container->get('pluginService')->getPluginForId('masterPassword')->get('masterPassword');
         return !empty($masterPassword) && $this->container->get('authenticationManager')->getDefaultProvider()->validatePassword($plaintext, $masterPassword);
     }
 

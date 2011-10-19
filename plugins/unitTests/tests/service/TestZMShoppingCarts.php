@@ -78,7 +78,7 @@ class TestZMShoppingCarts extends ZMTestCase {
      * Test load cart.
      */
     public function testLoadCart() {
-        $shoppingCart = ZMShoppingCarts::instance()->loadCartForAccountId($this->getAccountId());
+        $shoppingCart = $this->container->get('shoppingCartService')->loadCartForAccountId($this->getAccountId());
         $cartDump = $this->dumpCart($shoppingCart);
         $_SESSION['cart']->reset(false);
         $_SESSION['cart']->restore_contents();

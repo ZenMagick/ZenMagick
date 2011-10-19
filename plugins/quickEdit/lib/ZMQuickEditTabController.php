@@ -76,7 +76,7 @@ class ZMQuickEditTabController extends ZMCatalogContentController {
 
         $categoryId = $request->getCategoryId();
         $data['categoryId'] = $categoryId;
-        $data['category'] = ZMCategories::instance()->getCategoryForId($categoryId, $request->getSelectedLanguage()->getId());
+        $data['category'] = $this->container->get('categoryService')->getCategoryForId($categoryId, $request->getSelectedLanguage()->getId());
         $productList = $this->container->get('productService')->getProductsForCategoryId($categoryId, false, $request->getSelectedLanguage()->getId());
         $data['productList'] = $productList;
 

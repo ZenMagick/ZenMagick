@@ -33,20 +33,22 @@ class TestZMProductAssociations extends ZMTestCase {
      */
     public function setUp() {
         parent::setUp();
-        ZMProductAssociations::instance()->registerHandler(new SimpleProductAssociationHandler());
+        $this->container->get('productAssociations')->registerHandler(new SimpleProductAssociationHandler());
     }
 
     /**
      * Test simple handler.
      */
     public function testSimpleHandler() {
-        $assoc = ZMProductAssociations::instance()->getProductAssociationsForProductId(12, 'simple');
+        $productAssociations = $this->container->get('productAssociations');
+
+        $assoc = $productAssociations->getProductAssociationsForProductId(12, 'simple');
         $this->assertEqual(array(), $assoc);
 
-        $assoc = ZMProductAssociations::instance()->getProductAssociationsForProductId(13, 'foo');
+        $assoc = $productAssociations->getProductAssociationsForProductId(13, 'foo');
         $this->assertEqual(array(), $assoc);
 
-        $assoc = ZMProductAssociations::instance()->getProductAssociationsForProductId(13, 'simple');
+        $assoc = $productAssociations->getProductAssociationsForProductId(13, 'simple');
         $this->assertEqual(1, count($assoc));
     }
 

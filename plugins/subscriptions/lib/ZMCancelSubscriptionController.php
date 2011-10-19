@@ -131,7 +131,7 @@ class ZMCancelSubscriptionController extends ZMController {
      * @return ZMPlugin The plugin.
      */
     protected function getPlugin() {
-        return ZMPlugins::instance()->getPluginForId('subscriptions');
+        return $this->container->get('pluginService')->getPluginForId('subscriptions');
     }
 
 }

@@ -45,19 +45,6 @@ Plugins:
 Plugins are expected to have their test cases in a subfolder named 'tests'. Following that convention and
 the prefix 'Test' for actual test classes is all that plugins need to do to register their custom tests.
 
-Other:
-Custom test cases can be registered in two ways. For both, the test case class needs to be in the class path:
-
-1. Using the addTest method on the plugin:
-
-  if (null != ($unitTests = ZMPlugins::instance()->getPluginForId('unitTests'))) {
-      $unitTests->addTest('TestZMVBulletin');
-  }
-
-2. Adding the test case class name to the setting: 'plugins.unitTests.tests.custom':
-
-  ZMSettings::append('plugins.unitTests.tests.custom', 'TestZMCronParser');
-
 
 Disclaimer
 ==========

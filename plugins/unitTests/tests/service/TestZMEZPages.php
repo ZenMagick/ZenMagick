@@ -32,7 +32,7 @@ class TestZMEZPages extends ZMTestCase {
      * Test load.
      */
     public function testLoad() {
-        $page = ZMEZPages::instance()->getPageForId(8, 1);
+        $page = $this->container->get('ezPageService')->getPageForId(8, 1);
         if ($this->assertNotNull($page)) {
             $this->assertEqual(8, $page->getId());
             $this->assertTrue($page->isSidebox());
@@ -44,22 +44,24 @@ class TestZMEZPages extends ZMTestCase {
      * Test update.
      */
     public function testUpdate() {
-        $page = ZMEZPages::instance()->getPageForId(8, 1);
+        $ezPageService = $this->container->get('ezPageService');
+
+        $page = $ezPageService->getPageForId(8, 1);
         if ($this->assertNotNull($page)) {
             $page->setHeaderSort(33);
-            $status = ZMEZPages::instance()->updatePage($page);
+            $status = $ezPageService->updatePage($page);
             $this->assertTrue($status);
             $this->assertEqual(33, $page->getHeaderSort());
 
             // load from scratch
-            $page = ZMEZPages::instance()->getPageForId(8, 1);
+            $page = $ezPageService->getPageForId(8, 1);
             if ($this->assertNotNull($page)) {
                 $this->assertEqual(33, $page->getHeaderSort());
             }
 
             // revert change
             $page->setHeaderSort(0);
-            ZMEZPages::instance()->updatePage($page);
+            $ezPageService->updatePage($page);
         }
     }
 
@@ -67,12 +69,14 @@ class TestZMEZPages extends ZMTestCase {
      * Test create.
      */
     public function testCreate() {
+        $ezPageService = $this->container->get('ezPageService');
+
         // make copy
-        $page = ZMEZPages::instance()->getPageForId(8, 1);
-        $newPage = ZMEZPages::instance()->createPage($page);
+        $page = $ezPageService->getPageForId(8, 1);
+        $newPage = $ezPageService->createPage($page);
         if ($this->assertNotNull($newPage)) {
             $this->assertNotEqual(8, $newPage->getId());
-            ZMEZPages::instance()->removePage($newPage);
+            $ezPageService->removePage($newPage);
         }
     }
 

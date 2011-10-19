@@ -113,18 +113,20 @@ class ZMAutoLoginPlugin extends Plugin {
      * @return ZMToken A token or <code>null</code>.
      */
     protected function getRequestToken($request) {
+        $tokenService = $this->container->get('tokenService');
+
         // try cookie first
         if (isset($_COOKIE[AUTO_LOGIN_COOKIE])) {
             // prepare cookie data
             $cookie = explode('~~~', $_COOKIE[AUTO_LOGIN_COOKIE]);
-            return ZMTokens::instance()->getTokenForHash($cookie[0]);
+            return $tokenService->getTokenForHash($cookie[0]);
         }
 
         // check for url parameter if enabled
         if ($this->get('urlToken') && null != ($hash = $request->getParameter($this->get('urlTokenName')))) {
-            if (null != ($token = ZMTokens::instance()->getTokenForHash($hash)) && $this->get('expireUrlToken')) {
+            if (null != ($token = $tokenService->getTokenForHash($hash)) && $this->get('expireUrlToken')) {
                 // expire after first use (set lifetime to 0)
-                ZMTokens::instance()->updateToken($token, 0);
+                $tokenService->updateToken($token, 0);
             }
             return $token;
         }
@@ -150,12 +152,14 @@ class ZMAutoLoginPlugin extends Plugin {
      * @param string optIn The users optIn preference.
      */
     protected function onOptIn($account, $optIn) {
+        $tokenService = $this->container->get('tokenService');
+
         if (!ZMLangUtils::asBoolean($this->get('optIn')) || ZMLangUtils::asBoolean($optIn)) {
             // cookie contains token hash only
             $resource = $this->getResource($account);
-            $tokens = ZMTokens::instance()->getTokenForResource($resource);
+            $tokens = $tokenService->getTokenForResource($resource);
             if (0 == count($tokens)) {
-                $token = ZMTokens::instance()->getNewToken($resource, 60*60*24*$this->get('lifetime'));
+                $token = $tokenService->getNewToken($resource, 60*60*24*$this->get('lifetime'));
             } else {
                 $token = $tokens[0];
             }

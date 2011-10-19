@@ -109,7 +109,7 @@ class ZMTestCase extends UnitTestCase {
      * @return ZMPlugin The plugin.
      */
     public function getTestPlugin() {
-        return ZMPlugins::instance()->getPluginForId('unitTests');
+        return $this->container->get('pluginService')->getPluginForId('unitTests');
     }
 
     /**

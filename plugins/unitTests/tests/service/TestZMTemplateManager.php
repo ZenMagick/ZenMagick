@@ -39,7 +39,7 @@ class TestZMTemplateManager extends ZMTestCase {
         );
 
         foreach ($fields as $field) {
-            $this->assertEqual($field['expected'], ZMTemplateManager::instance()->getFieldLength($field['table'], $field['column']));
+            $this->assertEqual($field['expected'], $this->container->get('templateManager')->getFieldLength($field['table'], $field['column']));
         }
     }
 

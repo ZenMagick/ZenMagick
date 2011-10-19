@@ -227,7 +227,7 @@ EOT;
             return '';
         }
         if (null == $this->order_) {
-            ZMLogging::instance()->log('no order to process', ZMLogging::WARN);
+            Runtime::getLogging()->warn('no order to process');
             return;
         }
 
@@ -275,7 +275,7 @@ EOT;
         foreach ($this->order_->getOrderItems() as $orderItem) {
             $identifier = 'model' == $this->get('identifier') ? $orderItem->getModel() : $orderItem->getProductId();
             $name = $orderItem->getName();
-            $categoryName = ZMCategories::instance()->getDefaultCategoryForProductId($orderItem->getProductId(), $request->getSession()->getLanguageId())->getName();
+            $categoryName = $this->container->get('categoryService')->getDefaultCategoryForProductId($orderItem->getProductId(), $request->getSession()->getLanguageId())->getName();
             $price = number_format($orderItem->getCalculatedPrice(), 2, '.', '');
             $qty = $orderItem->getQty();
             $code .= <<<EOT
@@ -308,7 +308,7 @@ EOT;
         $code = '';
         if ('checkout_success' == $request->getRequestId()) {
             if (null == $this->order_) {
-                ZMLogging::instance()->log('no order to process', ZMLogging::WARN);
+                Runtime::getLogging()->warn('no order to process');
                 return;
             }
 

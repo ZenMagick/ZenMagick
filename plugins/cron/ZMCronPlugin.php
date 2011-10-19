@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 
 /**
  * Plugin to allow cron like execution of <code>ZMCronJob</code> classes.
@@ -100,7 +101,7 @@ class ZMCronPlugin extends Plugin {
                 $cron->runJob($job);
             }
         }
-        ZMLogging::instance()->log('ZMCron: '.ob_get_clean(), ZMLogging::DEBUG);
+        Runtime::getLogging()->debug('ZMCron: '.ob_get_clean());
     }
 
 }

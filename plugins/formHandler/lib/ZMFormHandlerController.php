@@ -111,7 +111,7 @@ class ZMFormHandlerController extends ZMController {
      * @return ZMPlugin The plugin.
      */
     protected function getPlugin() {
-        return ZMPlugins::instance()->getPluginForId('formHandler');
+        return $this->container->get('pluginService')->getPluginForId('formHandler');
     }
 
 }

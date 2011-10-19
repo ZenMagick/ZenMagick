@@ -172,7 +172,7 @@ class ZMHtmlReporter extends \HtmlReporter {
         }
 
         // log just in case
-        \ZMLogging::instance()->dump($exception, null, \ZMLogging::WARN);
+        Runtime::getLogging()->dump($exception, null, \ZMLogging::WARN);
 
         // just need to run this to get the stats right...
         ob_start(); parent::paintException($exception); $html = ob_get_clean();

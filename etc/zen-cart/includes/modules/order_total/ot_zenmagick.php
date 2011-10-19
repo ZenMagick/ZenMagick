@@ -23,6 +23,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 
 /**
  * A proxy module to allow ZenMagick plugins to act as order total.
@@ -63,7 +64,7 @@ class ot_zenmagick {
 
         // find all order total plugins
         $this->plugins_ = array();
-        foreach (ZMPlugins::instance()->getAllPlugins() as $plugin) {
+        foreach (Runtime::getContainer()->get('pluginService')->getAllPlugins() as $plugin) {
             if ($plugin instanceof ZMOrderTotal) {
                 $this->plugins_[$plugin->getId()] = $plugin;
             }
@@ -159,8 +160,9 @@ class ot_zenmagick {
      * Install module.
      */
     public function install() {
-        ZMConfig::instance()->createConfigValue('Plugin Status', 'MODULE_ORDER_TOTAL_ZENMAGICK_STATUS', true, ZENMAGICK_PLUGIN_GROUP_ID, 'Enable/disable this plugin.', 0, "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'Enabled'), array('id'=>'0', 'text'=>'Disabled')), ");
-        ZMConfig::instance()->createConfigValue('Plugin sort order', 'MODULE_ORDER_TOTAL_ZENMAGICK_SORT_ORDER', 110, ZENMAGICK_PLUGIN_GROUP_ID, 'Controls the execution order of plugins.', 1);
+        $configService = Runtime::getContainer()->get('configService');
+        $configService->createConfigValue('Plugin Status', 'MODULE_ORDER_TOTAL_ZENMAGICK_STATUS', true, ZENMAGICK_PLUGIN_GROUP_ID, 'Enable/disable this plugin.', 0, "zen_cfg_select_drop_down(array(array('id'=>'1', 'text'=>'Enabled'), array('id'=>'0', 'text'=>'Disabled')), ");
+        $configService->createConfigValue('Plugin sort order', 'MODULE_ORDER_TOTAL_ZENMAGICK_SORT_ORDER', 110, ZENMAGICK_PLUGIN_GROUP_ID, 'Controls the execution order of plugins.', 1);
         return;
     }
 
@@ -168,8 +170,9 @@ class ot_zenmagick {
      * Remove module.
      */
     public function remove() {
-        ZMConfig::instance()->removeConfigValue('MODULE_ORDER_TOTAL_ZENMAGICK_STATUS');
-        ZMConfig::instance()->removeConfigValue('MODULE_ORDER_TOTAL_ZENMAGICK_SORT_ORDER');
+        $configService = Runtime::getContainer()->get('configService');
+        $configService->removeConfigValue('MODULE_ORDER_TOTAL_ZENMAGICK_STATUS');
+        $configService->removeConfigValue('MODULE_ORDER_TOTAL_ZENMAGICK_SORT_ORDER');
     }
 
 }
