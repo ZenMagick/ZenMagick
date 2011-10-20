@@ -45,7 +45,10 @@ class Session extends ZMObject {
     protected $persist_;
     protected $sessionHandler_;
     protected $syncSessionData_;
+    private $cookiePath_;
     private $closed_;
+    private $domain_;
+    private $useFqdn_;
 
 
     /**
@@ -59,14 +62,17 @@ class Session extends ZMObject {
      */
     public function __construct($domain=null, $name=self::DEFAULT_NAME, $secure=false) {
         parent::__construct();
+        $this->domain_ = $domain;
         $this->setName(null !== $name ? $name : self::DEFAULT_NAME);
 
         $this->internalStart_ = false;
         $this->syncSessionData_ = true;
+        $this->useFqdn_ = true;
         $this->data_ = array();
         $this->persist_ = array();
         $this->sessionHandler_ = null;
         $this->closed_ = false;
+        $this->cookiePath_ = '/';
 
         if (!$this->isStarted()) {
             // disable transparent sid support
@@ -82,9 +88,6 @@ class Session extends ZMObject {
             ini_set('session.gc_probability', 1);
             ini_set('session.gc_divisor', 2);
 
-            // just in case
-            ini_set('session.cookie_path', $this->cookiePath_);
-
             // session cookie
             ini_set('session.cookie_lifetime', 0);
 
@@ -94,8 +97,6 @@ class Session extends ZMObject {
             // general protection
             $this->setSecureCookie($secure);
             ini_set("session.use_only_cookies", true);
-
-            $this->setCookieParams($domain, '/');
         }
     }
 
@@ -112,6 +113,31 @@ class Session extends ZMObject {
         $this->close();
     }
 
+
+    /**
+     * Adjust domain with respect to <em>useFqdn</em> flag.
+     *
+     * @param string domain The domain.
+     * @return string The adjusted domain.
+     */
+    protected function adjustDomain($domain) {
+        if (null == $domain) {
+            return null;
+        }
+
+        $domainToken = explode('.', $domain);
+        if (2 > count($domainToken) || $this->useFqdn_) {
+            return $domain;
+        } else {
+            $tld = '';
+            foreach ($domainToken as $dt) {
+                if ('www' != $dt) {
+                    $tld .= '.' . $dt;
+                }
+            }
+            return substr($tld, 1);
+        }
+    }
 
     /**
      * Set the session name.
@@ -133,11 +159,13 @@ class Session extends ZMObject {
      * @param string path The cookie path.
      */
     public function setCookieParams($domain, $path) {
+        ini_set('session.cookie_path', $path);
         if ($this->isStarted()) {
             $this->container->get('logging')->warn(sprintf('session already started - ignoring; domain: %s, path: %s', $domain, $path));
             return;
         }
         session_set_cookie_params(0, $path, $domain);
+        $this->cookiePath_ = $path;
     }
 
     /**
@@ -150,6 +178,15 @@ class Session extends ZMObject {
             throw new \RuntimeException('session already started');
         }
         ini_set("session.cookie_secure", $value);
+    }
+
+    /**
+     * Set the use <em>fqdn</em> flag.
+     *
+     * @param boolean value The new value.
+     */
+    public function setUseFqdn($value) {
+        $this->useFqdn_ = $value;
     }
 
     /**
@@ -215,6 +252,7 @@ class Session extends ZMObject {
         session_cache_limiter('must-revalidate');
         $id = session_id();
         if (empty($id)) {
+            $this->setCookieParams($this->adjustDomain($this->domain_), '/');
             $this->internalStart_ = true;
             session_start();
             // allow setting / getting data before/without starting session

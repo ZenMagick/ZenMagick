@@ -53,7 +53,9 @@ class Session extends zenmagick\http\session\Session {
      */
     public function setValue($name, $value=null, $namespace=null) {
         parent::setValue($name, $value, $namespace);
-        $_SESSION[$name] = $value;
+        if (isset($_SESSION)) {
+            $_SESSION[$name] = $value;
+        }
     }
     /**
      * {@inheritDoc}
@@ -63,7 +65,7 @@ class Session extends zenmagick\http\session\Session {
         if (null != ($value = parent::getValue($name, $namespace))) {
             return $value;
         }
-        if (array_key_exists($name, $_SESSION)) {
+        if (isset($_SESSION) && array_key_exists($name, $_SESSION)) {
             return $_SESSION[$name];
         }
         return null;

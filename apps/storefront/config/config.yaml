@@ -115,6 +115,8 @@ zenmagick:
 
 apps:
   store:
+    storefront:
+      domain: null
     themes:
       default: default
 

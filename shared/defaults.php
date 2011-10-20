@@ -187,6 +187,7 @@
 
             // cookies only?
             'isForceCookieUse' => SESSION_FORCE_COOKIE_USE == 'True',
+            'zenmagick.http.session.useFqdn' => SESSION_USE_FQDN == 'True',
 
             // recreate sessions?
             'isSessionRecreate' => SESSION_RECREATE == 'True',

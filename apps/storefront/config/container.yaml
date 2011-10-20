@@ -14,9 +14,10 @@ services:
 
   session:
     class: Session
+    arguments: [%apps.store.storefront.domain%]
     scope: container
     calls:
-      - [setName, ['zenid']]
+      - [setName, ['zmsid']]
       - [registerSessionHandler, [@sessionHandler]]
 
   storeViewUtils:
