@@ -61,6 +61,9 @@
 
                 <td class="price">
                     <?php echo $utils->formatMoney($item->getItemTotal()) ?>
+                    <?php if (0 != ($oneTimeCharge = $item->getOneTimeCharge())) { ?>
+                        <br><?php _vzm('One time: %s', $utils->formatMoney($oneTimeCharge)) ?>
+                    <?php } ?>
                 </td>
 
                 <td class="remove" align="right"><a href="<?php echo $net->url('shopping_cart', 'action=remove_product&product_id='.$item->getId()) ?>"><img src="<?php echo $this->asUrl("images/small_delete.gif") ?>" alt="remove" /></a></td>
