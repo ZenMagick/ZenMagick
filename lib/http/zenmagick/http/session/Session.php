@@ -252,7 +252,7 @@ class Session extends ZMObject {
         session_cache_limiter('must-revalidate');
         $id = session_id();
         if (empty($id)) {
-            $this->setCookieParams($this->adjustDomain($this->domain_), '/');
+            $this->setCookieParams($this->adjustDomain($this->domain_), $this->cookiePath_);
             $this->internalStart_ = true;
             session_start();
             // allow setting / getting data before/without starting session
