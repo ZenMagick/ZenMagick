@@ -65,6 +65,8 @@ class ZenCartCheckoutOrder extends ZMObject {
         // type
         $this->content_type = $shoppingCart->getType();
 
+        $this->info = array();
+
         // products
         $this->populateProducts($shoppingCart);
 
@@ -124,7 +126,7 @@ class ZenCartCheckoutOrder extends ZMObject {
                 $taxRates[$taxRate->getDescription()] = $taxRate->getRate();
             }
             $product = array(
-                'id' => $itemProduct->getId(),
+                'id' => $item->getId(),
                 'qty' => $item->getQuantity(),
                 'name' => $itemProduct->getName(),
                 'model' => $itemProduct->getModel(),
@@ -132,34 +134,65 @@ class ZenCartCheckoutOrder extends ZMObject {
                 'tax_groups' => $taxRates,
                 'tax_description' => $productTaxRate->getDescription(),
                 'price' => $itemProduct->getProductPrice(),
-                'final_price' => $offers->getCalculatedPrice(false),
-                'onetime_charges' => 0, //TODO: $_SESSION['cart']->attributes_price_onetime_charges($products[$i]['id'], $products[$i]['quantity']),
+                'final_price' => $item->getItemPrice(false),
+                'onetime_charges' => $item->getOneTimeCharge(false),
                 'weight' => $itemProduct->getWeight(),
                 'products_priced_by_attribute' => $itemProduct->isPricedByAttributes(),
                 'product_is_free' => $itemProduct->isFree() ? '1' : '0',
                 'products_discount_type' => $itemProduct->getDiscountType(),
                 'products_discount_type_from' => $itemProduct->getDiscountTypeFrom()
             );
+            $attributes = array();
+            foreach ($item->getAttributes() as $attribute) {
+                $arr = array('option' => $attribute->getName(), 'option_id' => $attribute->getId());
+                // TODO: what about multiple values??
+                foreach ($attribute->getValues() as $value) {
+                    $arr['value_id'] = $value->getId();
+                    $arr['value'] = $value->getName();
+                    $arr['prefix'] = $value->getPricePrefix();
+                    // TODO: prices are wrong!
+                    $arr['price'] = $value->getPrice(true, $item->getQuantity());
+                }
+                $attributes[] = $arr;
+            }
+            if (0 < count($attributes)) {
+                $product['attributes'] = $attributes;
+            }
             $this->products[] = $product;
         }
 
         if ($this->container->get('settingsService')->get('zenmagick.apps.store.assertZencart', false)) {
             $order = new \order();
-            foreach ($order->products[0] as $key => $value) {
-                if (in_array($key, array('rowClass'))) { continue; }
-                if (array_key_exists($key, $this->products[0])) {
-                    if ('tax_groups' == $key) {
-                        $mytg = $this->products[0][$key];
-                        if (count($value) != count($mytg)) {
-                            echo 'PRODUCT: tax groups length diff! order: ';var_dump($value);echo 'my: ';var_dump($mytg);echo '<br>';
+            foreach (array_keys($this->products) as $ii) {
+                echo '<h3>'.$this->products[$ii]['id'].'</h3>';
+                foreach ($order->products[$ii] as $key => $value) {
+                    if (in_array($key, array('rowClass'))) { continue; }
+                    if (array_key_exists($key, $this->products[$ii])) {
+                        if (in_array($key, array('tax_groups', 'attributes'))) {
+                            $mytg = $this->products[$ii][$key];
+                            if (count($value) != count($mytg)) {
+                                echo 'PRODUCT: '.$key.' diff! order: ';var_dump($value);echo 'my: ';var_dump($mytg);echo '<br>';
+                            }
+                            foreach (array_keys($value) as $ak) {
+                                if (!array_key_exists($ak, $mytg)) {
+                                    echo 'PRODUCT: '.$key.' diff! missing elem: '.$ak.' => '.$value[$ak];echo '<br>';
+                                }
+                            }
+                            foreach (array_keys($mytg) as $ak) {
+                                if (!array_key_exists($ak, $value)) {
+                                    echo 'PRODUCT: '.$key.' diff! additional elem: '.$ak .' => '.$mytg[$ak];echo '<br>';
+                                }
+                            }
+                            // todo recursive check...
+                            continue;
                         }
-                        continue;
+                        if ((string)$value != (string)$this->products[$ii][$key]) {
+                            echo 'PRODUCT: value mismatch for '.$key.': value=';var_dump($value); echo ', ZM got: ';var_dump($this->info[$key]); echo "<BR>";
+                        }
+                    } else {
+                        echo 'PRODUCT: missing key: '.$key.', value is: '.$value."<BR>";
+                        if (is_array($value)) { var_dump($value);echo '<br>'; }
                     }
-                    if ((string)$value != (string)$this->products[0][$key]) {
-                        echo 'PRODUCT: value mismatch for '.$key.': value=';var_dump($value); echo ', ZM got: ';var_dump($this->info[$key]); echo "<BR>";
-                    }
-                } else {
-                    echo 'PRODUCT: missing key: '.$key.', value is: '.$value."<BR>";
                 }
             }
             echo '<br>';
@@ -190,7 +223,7 @@ class ZenCartCheckoutOrder extends ZMObject {
         if (null != $paymentType && null !== ($pos = $paymentType->getOrderStatus())) {
             $orderStatus = $pos;
         }
-        $this->info = array(
+        $info = array(
             'order_status' => $orderStatus,
             'currency' => $currencyCode,
             'currency_value' => $this->container->get('currencyService')->getCurrencyForCode($currencyCode)->getRate(),
@@ -212,18 +245,18 @@ class ZenCartCheckoutOrder extends ZMObject {
             $order = new \order();
             foreach ($order->info as $key => $value) {
                 if (in_array($key, array('rowClass', 'ip_address'))) { continue; }
-                if (array_key_exists($key, $this->info)) {
+                if (array_key_exists($key, $info)) {
                     if ('tax_groups' == $key) {
                         // drop [0] as that is the default for none in zc
                         if (isset($value[0])) { unset($value[0]); }
-                        $mytg = $this->info[$key];
+                        $mytg = $info[$key];
                         if (count($value) != count($mytg)) {
                           echo 'info: tax groups length diff! order: ';var_dump($value);echo 'my: ';var_dump($mytg);echo '<br>';
                         }
                         continue;
                     }
-                    if ((string)$value != (string)$this->info[$key]) {
-                        echo 'info: value mismatch for '.$key.': value=';var_dump($value); echo ', ZM got: ';var_dump($this->info[$key]); echo "<BR>";
+                    if ((string)$value != (string)$info[$key]) {
+                        echo 'info: value mismatch for '.$key.': value=';var_dump($value); echo ', ZM got: ';var_dump($info[$key]); echo "<BR>";
                     }
                 } else {
                     echo 'info: missing key: '.$key.', value is: '.$value."<BR>";
@@ -231,6 +264,8 @@ class ZenCartCheckoutOrder extends ZMObject {
             }
             echo '<br>';
         }
+
+        $this->info = array_merge($this->info, $info);
     }
 
 
