@@ -22,7 +22,7 @@
  */
 ?>
 <?php
-namespace zenmagick\apps\store\bundles\ZenCartBundle\Mock;
+namespace apps\store\bundles\ZenCartBundle\Mock;
 
 use zenmagick\base\Runtime;
 use zenmagick\base\ZMObject;
@@ -31,7 +31,7 @@ use zenmagick\base\ZMObject;
  * A zencart order based on the shopping cart.
  *
  * @author DerManoMann
- * @package zenmagick.apps.store.bundles.ZenCartBundle.Mock
+ * @package apps.store.bundles.ZenCartBundle.Mock
  */
 class ZenCartCheckoutOrder extends ZMObject {
     public $content_type;
@@ -161,7 +161,7 @@ class ZenCartCheckoutOrder extends ZMObject {
             $this->products[] = $product;
         }
 
-        if ($this->container->get('settingsService')->get('zenmagick.apps.store.assertZencart', false)) {
+        if ($this->container->get('settingsService')->get('apps.store.assertZencart', false)) {
             $order = new \order();
             foreach (array_keys($this->products) as $ii) {
                 echo '<h3>'.$this->products[$ii]['id'].'</h3>';
@@ -241,7 +241,7 @@ class ZenCartCheckoutOrder extends ZMObject {
             'comments' => $shoppingCart->getComments()
         );
 
-        if ($this->container->get('settingsService')->get('zenmagick.apps.store.assertZencart', false)) {
+        if ($this->container->get('settingsService')->get('apps.store.assertZencart', false)) {
             $order = new \order();
             foreach ($order->info as $key => $value) {
                 if (in_array($key, array('rowClass', 'ip_address'))) { continue; }

@@ -43,7 +43,7 @@ zenmagick:
     events:
       listeners:
         ## TODO: these should be swapped
-        - zenmagick\apps\store\StoreEventListener
+        - apps\store\StoreEventListener
         - zenmagick\http\BootstrapListener
         - ZMAdminEventHandler
         - ZMEmailFixes
@@ -119,7 +119,7 @@ zenmagick:
         - ZMDBSacsPermissionProvider
   ## bundles
   bundles:
-    ZenCartBundle: zenmagick\apps\store\bundles\ZenCartBundle\ZenCartBundle
+    ZenCartBundle: apps\store\bundles\ZenCartBundle\ZenCartBundle
     DoctrineBundle: Symfony\Bundle\DoctrineBundle\DoctrineBundle 
     SwiftmailerBundle: Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle 
     DoctrineMigrationsBundle: Symfony\Bundle\DoctrineMigrationsBundle\DoctrineMigrationsBundle
@@ -164,14 +164,14 @@ doctrine:
   orm:
     auto_generate_proxy_classes: true
     proxy_dir: proxies # @todo inside cache dir, should  we specify that here?
-    proxy_namespace: zenmagick\apps\store\proxies
+    proxy_namespace: apps\store\proxies
     metadata_cache_driver: Doctrine\Common\Cache\ArrayCache
     query_cache_driver: Doctrine\Common\Cache\ArrayCache
     result_cache_driver: Doctrine\Common\Cache\ArrayCache
     mappings:
       zenmagick:
         type: annotation
-        # @todo will eventually be the namespace zenmagick\apps\store\entities
+        # @todo will eventually be the namespace apps\store\entities
         prefix: ZM
         dir:
           - shared/model/account

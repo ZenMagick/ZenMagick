@@ -39,7 +39,7 @@ class Session extends zenmagick\http\session\Session {
      */
     public function __construct($domain=null, $name=self::DEFAULT_NAME, $secure=false) {
         parent::__construct($domain, $name, $secure);
-        if (!Runtime::getSettings()->get('zenmagick.apps.store.storefront.sessions', false)) {
+        if (!Runtime::getSettings()->get('apps.store.storefront.sessions', false)) {
             // fake start to load session data
             $this->data_ = array_merge($_SESSION, $this->data_);
             $this->setName('zenid');
@@ -75,7 +75,7 @@ class Session extends zenmagick\http\session\Session {
      * {@inheritDoc}
      */
     public function regenerate() {
-        if (Runtime::getSettings()->get('zenmagick.apps.store.storefront.sessions', false)) {
+        if (Runtime::getSettings()->get('apps.store.storefront.sessions', false)) {
             parent::regenerate();
         }
         if (function_exists('zen_session_recreate')) {
@@ -92,7 +92,7 @@ class Session extends zenmagick\http\session\Session {
      */
     public function getToken($renew=false, $tokenKey=self::SESSION_TOKEN_KEY) {
         // XXX: TODO: remove; hack for zc
-        if (Runtime::getSettings()->get('zenmagick.apps.store.storefront.sessions', false)) {
+        if (Runtime::getSettings()->get('apps.store.storefront.sessions', false)) {
             return parent::getToken($renew);
         } else {
             return parent::getToken($renew, 'securityToken');

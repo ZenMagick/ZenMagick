@@ -13,7 +13,7 @@ class ZMSQLRunner {
 
    if (!isset($db)) {
       $db = new queryFactory();
-      $conf = Runtime::getSettings()->get('zenmagick.apps.store.database.default');
+      $conf = Runtime::getSettings()->get('apps.store.database.default');
       $db->connect($conf['host'], $conf['user'], $conf['password'], $conf['dbname']);
    }
 
@@ -298,7 +298,7 @@ if ($_GET['debug']=='ON') echo $line . '<br />';
     global $db_test;
     $granted_privs_list='';
     if (ZC_UPG_DEBUG3==true) echo '<br />Checking for priv: ['.(!ZMLangUtils::isEmpty($priv) ? $priv : 'none specified').']<br />';
-    $conf = Runtime::getSettings()->get('zenmagick.apps.store.database.default');
+    $conf = Runtime::getSettings()->get('apps.store.database.default');
     $user = $conf['user'].'@'.$conf['host'];
     $sql = "show grants for ".$user;
     if (ZC_UPG_DEBUG3==true) echo $sql.'<br />';

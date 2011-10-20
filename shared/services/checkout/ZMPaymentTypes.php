@@ -82,7 +82,7 @@ class ZMPaymentTypes extends ZMObject {
                     if (isset($GLOBALS[$info['class']])) {
                         $module = $GLOBALS[$info['class']];
                         if ($all || $module->enabled) {
-                            $wrapper = Runtime::getContainer()->get('zenmagick\apps\store\bundles\ZenCartBundle\wrapper\PaymentTypeWrapper');
+                            $wrapper = Runtime::getContainer()->get('apps\store\bundles\ZenCartBundle\wrapper\PaymentTypeWrapper');
                             $wrapper->setModule($module);
                             $this->paymentTypes_[$module->code] = $wrapper;
                         }
@@ -96,7 +96,7 @@ class ZMPaymentTypes extends ZMObject {
                     include_once $info['path'];
                     $module = new $info['class'];
                     if ($all || $module->enabled) {
-                        $wrapper = Runtime::getContainer()->get('zenmagick\apps\store\bundles\ZenCartBundle\wrapper\PaymentTypeWrapper');
+                        $wrapper = Runtime::getContainer()->get('apps\store\bundles\ZenCartBundle\wrapper\PaymentTypeWrapper');
                         $wrapper->setModule($module);
                         $this->paymentTypes_[$module->code] = $wrapper;
                     }

@@ -118,11 +118,11 @@ class ZMCreateAccountController extends ZMController {
 
         $couponService = $this->container->get('couponService');
         $discountCoupon = null;
-        if (null != ($newAccountDiscountCouponId = Runtime::getSettings()->get('zenmagick.apps.store.newAccountDiscountCouponId'))) {
+        if (null != ($newAccountDiscountCouponId = Runtime::getSettings()->get('apps.store.newAccountDiscountCouponId'))) {
             $discountCoupon = $couponService->getCouponForId($newAccountDiscountCouponId, $session->getLanguageId());
         }
         $newAccountGVAmountCoupon = null;
-        if (null != ($newAccountGVAmount = Runtime::getSettings()->get('zenmagick.apps.store.newAccountGVAmount'))) {
+        if (null != ($newAccountGVAmount = Runtime::getSettings()->get('apps.store.newAccountGVAmount'))) {
             // set up coupon
             $couponCode = $couponService->createCouponCode($account->getEmail());
             $coupon = $couponService->createCoupon($couponCode, $newAccountGVAmount, ZMCoupons::TYPPE_GV);

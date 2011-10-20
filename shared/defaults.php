@@ -41,13 +41,13 @@
             'isAdmin' => defined('IS_ADMIN_FLAG') && IS_ADMIN_FLAG,
 
             // default access level; same as anonymous
-            'zenmagick.apps.store.defaultAccessLevel' => null,
+            'apps.store.defaultAccessLevel' => null,
 
             // sanitize attributes when handling product submissions (add to cart, etc)
-            'zenmagick.apps.store.isSanitizeAttributes' => true,
+            'apps.store.isSanitizeAttributes' => true,
 
             // verify category path
-            'zenmagick.apps.store.verifyCategoryPath' => false,
+            'apps.store.verifyCategoryPath' => false,
 
             // enable gift vouchers
             'isEnabledGV' => defined('MODULE_ORDER_TOTAL_GV_STATUS') && MODULE_ORDER_TOTAL_GV_STATUS == 'true',
@@ -249,8 +249,8 @@
             // allow unsubscribe without logging in
             'isAllowAnonymousUnsubscribe' => true,
 
-            'zenmagick.apps.store.newAccountDiscountCouponId' => ((NEW_SIGNUP_DISCOUNT_COUPON != '' && NEW_SIGNUP_DISCOUNT_COUPON != '0') ? NEW_SIGNUP_DISCOUNT_COUPON : null),
-            'zenmagick.apps.store.newAccountGVAmount' => NEW_SIGNUP_GIFT_VOUCHER_AMOUNT,
+            'apps.store.newAccountDiscountCouponId' => ((NEW_SIGNUP_DISCOUNT_COUPON != '' && NEW_SIGNUP_DISCOUNT_COUPON != '0') ? NEW_SIGNUP_DISCOUNT_COUPON : null),
+            'apps.store.newAccountGVAmount' => NEW_SIGNUP_GIFT_VOUCHER_AMOUNT,
 
             // optional account data
             'isAccountGender' => ACCOUNT_GENDER == 'true',

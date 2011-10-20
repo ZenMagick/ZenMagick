@@ -19,7 +19,7 @@
  */
 ?>
 <?php
-namespace zenmagick\apps\store\bundles\ZenCartBundle;
+namespace apps\store\bundles\ZenCartBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -30,7 +30,7 @@ use zenmagick\base\Runtime;
  * Zencart support bundle.
  *
  * @author DerManoMann
- * @package zenmagick.apps.store.bundles.ZenCartBundle
+ * @package apps.store.bundles.ZenCartBundle
  */
 class ZenCartBundle extends Bundle {
 
@@ -104,8 +104,8 @@ class ZenCartBundle extends Bundle {
 
         $settingsService = Runtime::getSettings();
         // merge with current settings
-        $current = $settingsService->get('zenmagick/apps/store/database/default', array());
-        $settingsService->set('zenmagick/apps/store/database/default', array_merge($defaults, $current));
+        $current = $settingsService->get('apps/store/database/default', array());
+        $settingsService->set('apps/store/database/default', array_merge($defaults, $current));
 
         if (defined('ENABLE_SSL_ADMIN')) $settingsService->set('zenmagick.http.request.secure', 'true' == ENABLE_SSL_ADMIN);
         if (defined('ENABLE_SSL')) $settingsService->set('zenmagick.http.request.secure', 'true' == ENABLE_SSL);
@@ -123,7 +123,7 @@ class ZenCartBundle extends Bundle {
             // non db settings (admin)
             $request = $event->get('request');
             $settingsService = Runtime::getSettings();
-            $settingsService->set('apps.store.baseUrl', 'http://'.$request->getHostname().str_replace('zenmagick/apps/admin/web', '', $request->getContext()));
+            $settingsService->set('apps.store.baseUrl', 'http://'.$request->getHostname().str_replace('apps/admin/web', '', $request->getContext()));
             $settingsService->set('apps.store.oldAdminUrl', $settingsService->get('apps.store.baseUrl').ZC_ADMIN_FOLDER.'/index.php');
         }
     }

@@ -4,19 +4,18 @@
 ## NOTE: This file is generated (and may be re-written) automatically - edit at own risk.
 ##
 
-zenmagick:
-  apps:
-    store:
-      database:
-        default:
-          driver: pdo_mysql
-          #host: localhost
-          port: null
-          #user: dbuser
-          #password: secret
-          #dbname: store
-          prefix:
-          charset: utf8
-          ## @todo mysql collation setting for ZMPdoDatabase
-          collation: null
-          unix_socket: null
+apps:
+  store:
+    database:
+      default:
+        driver: pdo_mysql
+        #host: localhost
+        port: null
+        #user: dbuser
+        #password: secret
+        #dbname: store
+        prefix:
+        charset: utf8
+        ## @todo mysql collation setting for ZMPdoDatabase
+        collation: null
+        unix_socket: null

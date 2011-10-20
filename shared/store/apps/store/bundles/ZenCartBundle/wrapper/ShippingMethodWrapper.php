@@ -22,7 +22,7 @@
  */
 ?>
 <?php
-namespace zenmagick\apps\store\bundles\ZenCartBundle\wrapper;
+namespace apps\store\bundles\ZenCartBundle\wrapper;
 
 use zenmagick\base\ZMObject;
 use zenmagick\base\Beans;
@@ -31,7 +31,7 @@ use zenmagick\base\Beans;
  * Shipping method wrapper for zencart shipping.
  *
  * @author DerManoMann
- * @package zenmagick.apps.store.bundles.ZenCartBundle.wrapper
+ * @package apps.store.bundles.ZenCartBundle.wrapper
  */
 class ShippingMethodWrapper extends ZMObject implements \ZMShippingMethod {
     private $provider_;

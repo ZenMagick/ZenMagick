@@ -19,15 +19,15 @@ doctrine:
   dbal:
     connections:
       default:
-        driver: %zenmagick.apps.store.database.default.driver%
-        dbname: %zenmagick.apps.store.database.default.dbname%
-        host: %zenmagick.apps.store.database.default.host%
-        port: %zenmagick.apps.store.database.default.port%
-        user: %zenmagick.apps.store.database.default.user%
-        password: %zenmagick.apps.store.database.default.password%
-        charset: %zenmagick.apps.store.database.default.charset%
-        #collation: %zenmagick.apps.store.database.default.collation%
-        unix_socket: %zenmagick.apps.store.database.default.unix_socket%
+        driver: %apps.store.database.default.driver%
+        dbname: %apps.store.database.default.dbname%
+        host: %apps.store.database.default.host%
+        port: %apps.store.database.default.port%
+        user: %apps.store.database.default.user%
+        password: %apps.store.database.default.password%
+        charset: %apps.store.database.default.charset%
+        #collation: %apps.store.database.default.collation%
+        unix_socket: %apps.store.database.default.unix_socket%
         logging: true # required for pageStats plugin
         mapping_types:
           blob: blob
@@ -47,7 +47,7 @@ doctrine:
           zenmagick:
             is_bundle: false
             type: annotation
-            # @todo will eventually be the namespace zenmagick\apps\store\entities
+            # @todo will eventually be the namespace apps\store\entities
             prefix: ZM
             dir: %zenmagick.installationPath%/zenmagick/shared/model
 
@@ -247,7 +247,7 @@ services:
     scope: container
 
   contextConfigLoader:
-    class: zenmagick\apps\store\utils\ContextConfigLoader
+    class: apps\store\utils\ContextConfigLoader
     scope: prototype
 
   dbTableMapper:
@@ -273,7 +273,7 @@ services:
 #  table_prefix:
 #      class: zenmagick\base\database\doctrine\TablePrefix
 #      scope: container
-#      arguments: [%zenmagick.apps.store.database.default.prefix%]
+#      arguments: [%apps.store.database.default.prefix%]
 #      tags:
 #        - { name: doctrine.event_listener, event: loadClassMetadata }
 

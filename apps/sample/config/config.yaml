@@ -45,7 +45,7 @@ doctrine:
   orm:
     auto_generate_proxy_classes: true
     proxy_dir: proxies # @todo inside cache dir, should  we specify that here?
-    proxy_namespace: zenmagick\apps\sample\proxies
+    proxy_namespace: apps\sample\proxies
     metadata_cache_driver: Doctrine\Common\Cache\ArrayCache
     query_cache_driver: Doctrine\Common\Cache\ArrayCache
     result_cache_driver: Doctrine\Common\Cache\ArrayCache

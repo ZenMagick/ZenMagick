@@ -1,6 +1,6 @@
 <?php
 
-namespace zenmagick\apps\store\entities;
+namespace apps\store\entities;
 
 class Review {
     public function __construct() {

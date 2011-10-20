@@ -23,7 +23,7 @@
 ?>
 <?php
 
-use zenmagick\apps\store\bundles\ZenCartBundle\Mock\ZenCartMock;
+use apps\store\bundles\ZenCartBundle\Mock\ZenCartMock;
 
 /**
  * Checkout helper.

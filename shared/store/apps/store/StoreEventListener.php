@@ -22,7 +22,7 @@
  */
 ?>
 <?php
-namespace zenmagick\apps\store;
+namespace apps\store;
 
 use Symfony\Component\Config\FileLocator;
 
@@ -37,7 +37,7 @@ use zenmagick\base\ZMObject;
  * <p>This is the ZenMagick store bootstrapper.</p>
  *
  * @author DerManoMann
- * @package zenmagick.apps.store
+ * @package apps.store
  */
 class StoreEventListener extends ZMObject {
 

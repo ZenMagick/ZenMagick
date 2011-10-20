@@ -19,7 +19,7 @@
  */
 ?>
 <?php
-namespace zenmagick\apps\store\utils;
+namespace apps\store\utils;
 
 use zenmagick\base\ZMObject;
 use zenmagick\base\Runtime;
@@ -34,7 +34,7 @@ use Symfony\Component\Yaml\Yaml;
  * Store loader for multi-content config files.
  *
  * @author DerManoMann
- * @package zenmagick.apps.store.utils
+ * @package apps.store.utils
  */
 class ContextConfigLoader extends HttpContextConfigLoader {
 

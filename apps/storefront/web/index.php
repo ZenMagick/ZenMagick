@@ -30,6 +30,6 @@ use zenmagick\base\Runtime;
   require realpath(dirname(__FILE__).'/../../../bootstrap.php');
 
   // more zen-cart config stuff we need
-  Runtime::getSettings()->set('zenmagick.apps.store.storefront.sessions', true);
+  Runtime::getSettings()->set('apps.store.storefront.sessions', true);
 
   require realpath(dirname(__FILE__).'/../../../mvc.php');

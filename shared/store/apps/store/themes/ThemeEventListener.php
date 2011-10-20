@@ -19,7 +19,7 @@
  */
 ?>
 <?php
-namespace zenmagick\apps\store\themes;
+namespace apps\store\themes;
 
 use zenmagick\base\ZMObject;
 

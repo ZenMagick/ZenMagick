@@ -174,7 +174,7 @@ class ZMShoppingCart extends ZMObject {
                 }
             }
 
-            if ($this->container->get('settingsService')->get('zenmagick.apps.store.assertZencart', false)) {
+            if ($this->container->get('settingsService')->get('.apps.store.assertZencart', false)) {
                 foreach ($this->items_ as $item) {
                     $itemId = $item->getId();
                     if ($this->cart_->get_quantity($itemId) != $this->getItemQuantityFor($itemId, false)) {
@@ -629,7 +629,7 @@ class ZMShoppingCart extends ZMObject {
      *
      * <p><strong>Doesn't support uploads (yet)</strong>.</p>
      *
-     * <p>If <em>zenmagick.apps.store.isSanitizeAttributes</em> is set to <code>true</code>, missing
+     * <p>If <em>apps.store.isSanitizeAttributes</em> is set to <code>true</code>, missing
      * attributes will be added automatically and set to defaults.</p>
      *
      * @param int productId The product id.
@@ -789,7 +789,7 @@ class ZMShoppingCart extends ZMObject {
      */
     protected function sanitizeAttributes($product, $attributes=array()) {
         //TODO: where should this actually be? attributes, rules, cart, products?
-        if (!ZMSettings::get('zenmagick.apps.store.isSanitizeAttributes', false)) {
+        if (!ZMSettings::get('apps.store.isSanitizeAttributes', false)) {
             return $attributes;
         }
 

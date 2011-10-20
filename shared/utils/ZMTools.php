@@ -24,7 +24,7 @@
 <?php
 
 use zenmagick\base\Runtime;
-use zenmagick\apps\store\bundles\ZenCartBundle\mock\ZenCartCheckoutOrder;
+use apps\store\bundles\ZenCartBundle\mock\ZenCartCheckoutOrder;
 
 /**
  * (System) Tools.

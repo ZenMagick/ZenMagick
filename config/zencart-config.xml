@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <parameters>
-        <parameter key="zenmagick.apps.store.database.host" type="constant">DB_SERVER</parameter>
-        <parameter key="zenmagick.apps.store.database.user" type="constant">DB_SERVER_USERNAME</parameter>
-        <parameter key="zenmagick.apps.store.database.password" type="constant">DB_SERVER_PASSWORD</parameter>
-        <parameter key="zenmagick.apps.store.database.dbname" type="constant">DB_DATABASE</parameter>
-        <parameter key="zenmagick.apps.store.database.prefix" type="constant">DB_PREFIX</parameter>
+        <parameter key="apps.store.database.host" type="constant">DB_SERVER</parameter>
+        <parameter key="apps.store.database.user" type="constant">DB_SERVER_USERNAME</parameter>
+        <parameter key="apps.store.database.password" type="constant">DB_SERVER_PASSWORD</parameter>
+        <parameter key="apps.store.database.dbname" type="constant">DB_DATABASE</parameter>
+        <parameter key="apps.store.database.prefix" type="constant">DB_PREFIX</parameter>
     </parameters>
 </container>

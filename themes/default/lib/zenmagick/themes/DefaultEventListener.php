@@ -21,7 +21,7 @@
 <?php
 namespace zenmagick\themes;
 
-use zenmagick\apps\store\themes\ThemeEventListener;
+use apps\store\themes\ThemeEventListener;
 
 /**
  * Default theme event listener.

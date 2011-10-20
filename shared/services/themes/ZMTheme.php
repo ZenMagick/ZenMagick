@@ -22,7 +22,7 @@
 
 use zenmagick\base\Runtime;
 use zenmagick\base\ioc\loader\YamlLoader;
-use zenmagick\apps\store\utils\ContextConfigLoader;
+use apps\store\utils\ContextConfigLoader;
 
 use Symfony\Component\Config\FileLocator;
 
@@ -281,7 +281,7 @@ class ZMTheme extends ZMObject {
      * @return string The content or <code>null</code>.
      */
     public function staticPageContent($page, $languageId) {
-        if (Runtime::getSettings()->get('zenmagick.apps.store.staticContent', false)) {
+        if (Runtime::getSettings()->get('apps.store.staticContent', false)) {
             if (null != ($ezPage = $this->container->get('ezPageService')->getPageForName($page, $languageId))) {
                 return $ezPage->getHtmlText();
             }

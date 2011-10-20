@@ -19,7 +19,7 @@
  */
 ?>
 <?php
-namespace zenmagick\apps\store\bundles\ZenCartBundle;
+namespace apps\store\bundles\ZenCartBundle;
 
 use zenmagick\base\ClassLoader;
 use zenmagick\base\Runtime;
@@ -28,7 +28,7 @@ use zenmagick\base\Runtime;
  * Zencart class loader.
  *
  * @author DerManoMann
- * @package zenmagick.apps.store.bundles.ZenCartBundle
+ * @package apps.store.bundles.ZenCartBundle
  */
 class ZenCartClassLoader extends ClassLoader {
     private $baseDirectories;

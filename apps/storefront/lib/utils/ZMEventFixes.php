@@ -319,7 +319,7 @@ class ZMEventFixes extends ZMObject {
             }
         }
 
-        if (ZMSettings::get('zenmagick.apps.store.verifyCategoryPath')) {
+        if (ZMSettings::get('apps.store.verifyCategoryPath')) {
             if (null != $request->getCategoryPath()) {
                 $path = array_reverse($request->getCategoryPathArray());
                 $last = count($path) - 1;

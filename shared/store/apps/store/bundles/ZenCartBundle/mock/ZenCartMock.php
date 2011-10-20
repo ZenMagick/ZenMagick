@@ -22,16 +22,17 @@
  */
 ?>
 <?php
-namespace zenmagick\apps\store\bundles\ZenCartBundle\Mock;
+namespace apps\store\bundles\ZenCartBundle\Mock;
 
 use zenmagick\base\Runtime;
-use zenmagick\apps\store\bundles\ZenCartBundle\mock\ZenCartCheckoutOrder;
+use apps\store\bundles\ZenCartBundle\mock\ZenCartCheckoutOrder;
+use apps\store\bundles\ZenCartBundle\mock\ZenCartOrderTotal;
 
 /**
  * ZenCart mock tools.
  *
  * @author DerManoMann
- * @package zenmagick.apps.store.bundles.ZenCartBundle.Mock
+ * @package apps.store.bundles.ZenCartBundle.Mock
  */
 class ZenCartMock {
     // keep track of mock
@@ -45,8 +46,8 @@ class ZenCartMock {
      * @param ZMAddress shippingAddress Optional shipping address; default is <code>null</code>.
      */
     public static function startMock($shoppingCart, $shippingAddress=null) {
-    global $order, $shipping_weight, $shipping_quoted, $shipping_num_boxes, $total_count;
-    global $_order, $_shipping_weight, $_shipping_quoted, $_shipping_num_boxes, $_total_count;
+    global $order, $shipping_weight, $shipping_quoted, $shipping_num_boxes, $total_count, $order_total_modules;
+    global $_order, $_shipping_weight, $_shipping_quoted, $_shipping_num_boxes, $_total_count, $_order_total_modules;
 
         if (self::$mock) {
             // already mocking
@@ -61,6 +62,7 @@ class ZenCartMock {
         $_shipping_quoted = $shipping_quoted;
         $_shipping_num_boxes = $shipping_num_boxes;
         $_total_count = $total_count;
+        $_order_total_modules = $order_total_modules;
 
         if (!isset($_SESSION['cart'])) {
             $_SESSION['cart'] = new shoppingCart();
@@ -71,6 +73,8 @@ class ZenCartMock {
         foreach ($shoppingCart->getItems() as $item) {
             $total_count += $item->getQuantity();
         }
+
+        //$order_total_modules = new ZenCartOrderTotal();
 
         if (null == $order || !($order instanceof ZenCartCheckoutOrder)) {
             $mockOrder = new ZenCartCheckoutOrder();
@@ -118,8 +122,8 @@ class ZenCartMock {
      *
      */
     public static function cleanupMock() {
-    global $order, $shipping_weight, $shipping_quoted, $shipping_num_boxes, $total_count;
-    global $_order, $_shipping_weight, $_shipping_quoted, $_shipping_num_boxes, $_total_count;
+    global $order, $shipping_weight, $shipping_quoted, $shipping_num_boxes, $total_count, $order_total_modules;
+    global $_order, $_shipping_weight, $_shipping_quoted, $_shipping_num_boxes, $_total_count, $_order_total_modules;
 
         --self::$mock;
 
@@ -133,6 +137,7 @@ class ZenCartMock {
         $shipping_quoted = $_shipping_quoted;
         $shipping_num_boxes = $_shipping_num_boxes;
         $total_count = $_total_count;
+        $order_total_modules = $_order_total_modules;
     }
 
 }

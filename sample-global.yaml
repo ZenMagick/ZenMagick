@@ -35,12 +35,12 @@ admin,storefront:
           # enable symfony routing
           enabled: true
 
-      apps:
-        store:
-          # validate ZenMagick code against zencart code
-          assertZencart: false
-          # use new static content rather than static pages
-          staticContent: true
+    apps:
+      store:
+        # validate ZenMagick code against zencart code
+        assertZencart: false
+        # use new static content rather than static pages
+        staticContent: true
 
     #############################
     ## old style store settings - these names will be changed in a future version

@@ -28,7 +28,7 @@ services:
     scope: container
 
   contextConfigLoader:
-    class: zenmagick\apps\store\utils\ContextConfigLoader
+    class: apps\store\utils\ContextConfigLoader
     scope: prototype
 
   localeService:

@@ -22,17 +22,17 @@
  */
 ?>
 <?php
-namespace zenmagick\apps\store\bundles\ZenCartBundle\wrapper;
+namespace apps\store\bundles\ZenCartBundle\wrapper;
 
 use zenmagick\base\ZMObject;
 
-use zenmagick\apps\store\bundles\ZenCartBundle\mock\ZenCartMock;
+use apps\store\bundles\ZenCartBundle\mock\ZenCartMock;
 
 /**
  * A payment type wrapper for Zen Cart payment modules.
  *
  * @author DerManoMann
- * @package zenmagick.apps.store.bundles.ZenCartBundle.wrapper
+ * @package apps.store.bundles.ZenCartBundle.wrapper
  */
 class PaymentTypeWrapper extends ZMObject implements \ZMPaymentType {
     private $module_;
