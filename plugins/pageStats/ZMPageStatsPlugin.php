@@ -100,6 +100,9 @@ class ZMPageStatsPlugin extends Plugin {
             if (is_array($value)) {
                 $value = implode(';', $value);
             }
+            if (is_object($value) && !($value instanceof ZMObject)) {
+                $value = get_class($value);
+            }
             $values[] = $key.'='.$value;
         }
 
