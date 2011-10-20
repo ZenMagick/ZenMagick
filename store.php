@@ -28,7 +28,6 @@
             $_zm_session->setValue($key, $value);
         }
         ZMDispatcher::dispatch($_zm_request);
-        $_zm_request->closeSession();
         exit;
     } else {
         // do ob_start() to allow plugins to do their magic with zen cart templates too

@@ -50,6 +50,8 @@ class ZMDispatcher {
         // allow plugins and event subscribers to filter/modify the final contents; corresponds with ob_start() in init.php
         $event = new Event(null, array('request' => $request, 'view' => $view, 'content' => ob_get_clean()));
         Runtime::getEventDispatcher()->dispatch('finalise_content', $event);
+
+        $request->closeSession();
         echo $event->get('content');
 
         // all done

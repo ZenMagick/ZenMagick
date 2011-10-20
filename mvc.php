@@ -75,5 +75,4 @@ use zenmagick\http\sacs\SacsManager;
     Runtime::getEventDispatcher()->dispatch('init_done', new Event(null, array('request' => $_zm_request)));
 
     \ZMDispatcher::dispatch($_zm_request);
-    $_zm_request->closeSession();
     exit;
