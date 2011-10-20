@@ -173,6 +173,18 @@ class ZMShoppingCart extends ZMObject {
                     $this->items_[$item->getId()] = $item;
                 }
             }
+
+            if ($this->container->get('settingsService')->get('zenmagick.apps.store.assertZencart', false)) {
+                foreach ($this->items_ as $item) {
+                    $itemId = $item->getId();
+                    if ($this->cart_->get_quantity($itemId) != $this->getItemQuantityFor($itemId, false)) {
+                        echo 'cart: get_quantity diff! order: ';var_dump($this->cart_->get_quantity($itemId));echo 'my: ';var_dump($this->getItemQuantityFor($itemId, false));echo '<br>';
+                    }
+                    if ($this->cart_->in_cart_mixed($itemId) != $this->getItemQuantityFor($itemId, true)) {
+                        echo 'cart: in_cart_mixed diff! order: ';var_dump($this->cart_->in_cart_mixed($itemId));echo 'my: ';var_dump($this->getItemQuantityFor($itemId, true));echo '<br>';
+                    }
+                }
+            }
         }
 
         return $this->items_;
@@ -577,35 +589,39 @@ class ZMShoppingCart extends ZMObject {
     }
 
     /**
-     * Get the cart quantity for the given product.
+     * Get the cart quantity for the given product id/sku.
      *
      * @param string itemId The cart item/sku id.
      * @param boolean qtyMixed Indicates whether to return just the specified product variation quantity, or
      *  the quantity across all variations; default is <code>false</code>.
      * @return int The number of products in the cart.
      */
-    function getQty($itemId, $isQtyMixed=false) {
-        $contents = $this->cart_->contents;
-
-        if (!is_array($contents)) {
+    public function getItemQuantityFor($itemId, $isQtyMixed=false) {
+        if ($this->isEmpty()) {
             return 0;
         }
 
-        if (!$isQtyMixed) {
-            return $this->cart_->get_quantity($itemId);
-        }
-
-        $baseProductId = self::extractBaseProductId($itemId);
-
-        $qty = 0;
-        foreach (array_keys($contents) as $pid) {
-            $bpid = self::extractBaseProductId($pid);
-            if ($bpid == $baseProductId) {
-                $qty += $contents[$pid]['qty'];
+        // if mixed attributes is disabled, do not mix
+        $baseItemId = self::getBaseProductIdFor($itemId);
+        if ($isQtyMixed) {
+            $product = $this->container->get('productService')->getProductForId($baseItemId);
+            if (null != $product && !$product->isQtyMixed()) {
+                $isQtyMixed = false;
             }
         }
 
-        return $qty;
+        // method to get id from item
+        $method = $isQtyMixed ? 'getProductId' : 'getId';
+        $itemId = $isQtyMixed ? $baseItemId : $itemId;
+
+        $quantity = 0;
+        foreach ($this->getItems() as $item) {
+            if ($item->$method() == $itemId) {
+                $quantity += $item->getQuantity();
+            }
+        }
+
+        return $quantity;
     }
 
     /**
@@ -629,7 +645,7 @@ class ZMShoppingCart extends ZMObject {
             Runtime::getLogging()->log('failed to add product to cart; productId='.$productId, ZMLogging::ERROR);
             return false;
         }
-        $attributes = $this->sanitize_attributes($product, $attributes);
+        $attributes = $this->sanitizeAttributes($product, $attributes);
         $attributes = $this->prepare_uploads($product, $attributes);
 
         //TODO: zc: comp
@@ -637,7 +653,7 @@ class ZMShoppingCart extends ZMObject {
         $sku = self::mkItemId($productId, $attributes);
 
         $maxOrderQty = $product->getMaxOrderQty();
-        $cartQty = $this->getQty($sku, $product->isQtyMixed());
+        $cartQty = $this->getItemQuantityFor($sku, $product->isQtyMixed());
         $adjustedQty = $this->adjustQty($quantity);
 
         if (0 != $maxOrderQty && $cartQty >= $maxOrderQty) {
@@ -687,7 +703,7 @@ class ZMShoppingCart extends ZMObject {
                 return $this->removeProduct($sku);
             }
 
-            $productId = self::extractBaseProductId($sku);
+            $productId = self::getBaseProductIdFor($sku);
             $product = $this->container->get('productService')->getProductForId($productId);
 
             $maxOrderQty = $product->getMaxOrderQty();
@@ -771,9 +787,9 @@ class ZMShoppingCart extends ZMObject {
      * @return array A set of valid attribute values for the given product.
      * @todo return note of changes made
      */
-    function sanitize_attributes($product, $attributes=array()) {
+    protected function sanitizeAttributes($product, $attributes=array()) {
         //TODO: where should this actually be? attributes, rules, cart, products?
-        if (!ZMSettings::get('zenmagick.apps.store.isSanitizeAttributes')) {
+        if (!ZMSettings::get('zenmagick.apps.store.isSanitizeAttributes', false)) {
             return $attributes;
         }
 
@@ -861,12 +877,12 @@ class ZMShoppingCart extends ZMObject {
     }
 
     /**
-     * Extract the base product id from a given cart item id.
+     * Get the base product id from a given cart item id.
      *
      * @param string itemId The full shopping cart item id incl. attribute suffix.
      * @return int The product id.
      */
-    public static function extractBaseProductId($productId) {
+    public static function getBaseProductIdFor($productId) {
         $arr = explode(':', $productId);
         return (int) $arr[0];
     }
@@ -875,7 +891,7 @@ class ZMShoppingCart extends ZMObject {
     /**
      * Create unique cart item/sku id, based on the base product id and attribute information.
      *
-     * <p>This is the reverse of <code>extractBaseProductId</code>.</p>
+     * <p>This is the reverse of <code>getBaseProductIdFor</code>.</p>
      *
      * <p>Attributes are sorted using <code>krsort(..)</code> so to be compatible
      * for different attribute orders.</p>

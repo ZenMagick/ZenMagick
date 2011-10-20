@@ -210,7 +210,7 @@ class ZMShoppingCartItem extends ZMObject {
      * @return int The product id.
      */
     public function getProductId() {
-        return ZMShoppingCart::extractBaseProductId($this->getId());
+        return ZMShoppingCart::getBaseProductIdFor($this->getId());
     }
 
     /**
