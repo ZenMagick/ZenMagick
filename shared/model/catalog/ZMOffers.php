@@ -364,6 +364,25 @@ class ZMOffers extends ZMObject {
     }
 
     /**
+     * Get quantity discount for the given quantity.
+     *
+     * @param int quantity The quantity.
+     * @param boolean tax Set to <code>true</code> to include tax (if applicable); default is <code>true</code>.
+     * @return ZMQuantityDiscount A discount or <code>null</code>.
+     */
+    public function getQuantityDiscountFor($quantity, $tax=true) {
+        $quantityDiscount = null;
+        foreach ($this->getQuantityDiscounts($tax) as $discount) {
+            if ($discount->getQuantity() <= $quantity) {
+                $quantityDiscount = $discount;
+            } else {
+                break;
+            }
+        }
+        return $quantityDiscount;
+    }
+
+    /**
      * Get quantity discounts, if any.
      *
      * @param boolean tax Set to <code>true</code> to include tax (if applicable); default is <code>true</code>.
@@ -384,8 +403,8 @@ class ZMOffers extends ZMObject {
 
         if (0 < count($this->discounts_)) {
             $product = $this->product_;
-            $basePrice = $this->getBasePrice($tax);
-            if (self::DISCOUNT_FROM_SPECIAL_PRICE == $product->getDiscountTypeFrom() && 0 != ($specialPrice = $this->getSpecialPrice($tax))) {
+            $basePrice = $this->getBasePrice(false);
+            if (self::DISCOUNT_FROM_SPECIAL_PRICE == $product->getDiscountTypeFrom() && 0 != ($specialPrice = $this->getSpecialPrice(false))) {
                 $basePrice = $specialPrice;
             }
 
@@ -412,7 +431,7 @@ class ZMOffers extends ZMObject {
             }
         }
 
-        return $this->discounts_;
+        return $tax ? $this->getTaxRate()->addTax($this->discounts_) : $this->discounts_;
     }
 
     /**

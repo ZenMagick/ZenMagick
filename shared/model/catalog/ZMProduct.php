@@ -732,7 +732,7 @@ class ZMProduct extends ZMObject {
     /**
      * Get the calculated product price.
      *
-     * <p>This is the same as <code>getOffers->getCalculatedPrice()</code>. This also means this
+     * <p>This is the same as <code>getOffers->getCalculatedPrice(true)</code>. This also means this
      * method will always include TAX.</p>
      *
      * @return float The product price.

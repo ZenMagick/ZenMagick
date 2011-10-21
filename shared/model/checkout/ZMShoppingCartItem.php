@@ -241,6 +241,23 @@ class ZMShoppingCartItem extends ZMObject {
     }
 
     /**
+     * Get the weight for this item.
+     *
+     * @return float The full weight.
+     */
+    public function getWeight() {
+        $weight = (float)$this->getProduct()->getWeight();
+        foreach ($this->getAttributes() as $attribute) {
+            foreach ($attribute->getValues() as $value) {
+                $multi = '-' == $value->getWeightPrefix() ? -1 : 1;
+                $weight += $multi * $value->getWeight();
+            }
+        }
+
+        return $weight;
+    }
+
+    /**
      * Check if this cart item has attributes or not.
      *
      * @return boolean <code>true</code> if there are attributes (values) available,

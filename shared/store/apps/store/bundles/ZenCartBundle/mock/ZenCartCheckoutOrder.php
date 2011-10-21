@@ -119,12 +119,19 @@ class ZenCartCheckoutOrder extends ZMObject {
         $this->products = array();
         foreach ($shoppingCart->getItems() as $item) {
             $itemProduct = $item->getProduct();
-            $offers = $itemProduct->getOffers();
+
             $productTaxRate = $item->getTaxRate();
             $taxRates = array();
             foreach ($item->getTaxRates() as $taxRate) {
                 $taxRates[$taxRate->getDescription()] = $taxRate->getRate();
             }
+
+            $offers = $itemProduct->getOffers();
+            $price = $itemProduct->getProductPrice();
+            if (null != ($quantityDiscount = $offers->getQuantityDiscountFor($item->getQuantity(), false))) {
+                $price = $quantityDiscount->getPrice();
+            }
+
             $product = array(
                 'id' => $item->getId(),
                 'qty' => $item->getQuantity(),
@@ -133,10 +140,10 @@ class ZenCartCheckoutOrder extends ZMObject {
                 'tax' => $productTaxRate->getRate(),
                 'tax_groups' => $taxRates,
                 'tax_description' => $productTaxRate->getDescription(),
-                'price' => $itemProduct->getProductPrice(),
+                'price' => $price,
                 'final_price' => $item->getItemPrice(false),
                 'onetime_charges' => $item->getOneTimeCharge(false),
-                'weight' => $itemProduct->getWeight(),
+                'weight' => $item->getWeight(),
                 'products_priced_by_attribute' => $itemProduct->isPricedByAttributes(),
                 'product_is_free' => $itemProduct->isFree() ? '1' : '0',
                 'products_discount_type' => $itemProduct->getDiscountType(),
@@ -164,14 +171,14 @@ class ZenCartCheckoutOrder extends ZMObject {
         if ($this->container->get('settingsService')->get('apps.store.assertZencart', false)) {
             $order = new \order();
             foreach (array_keys($this->products) as $ii) {
-                echo '<h3>'.$this->products[$ii]['id'].'</h3>';
+                echo '<h3>'.$this->products[$ii]['id'].':'.$this->products[$ii]['name'].'</h3>';
                 foreach ($order->products[$ii] as $key => $value) {
                     if (in_array($key, array('rowClass'))) { continue; }
                     if (array_key_exists($key, $this->products[$ii])) {
                         if (in_array($key, array('tax_groups', 'attributes'))) {
                             $mytg = $this->products[$ii][$key];
                             if (count($value) != count($mytg)) {
-                                echo 'PRODUCT: '.$key.' diff! order: ';var_dump($value);echo 'my: ';var_dump($mytg);echo '<br>';
+                                echo 'PRODUCT: '.$key.' diff! order: ';var_dump($value);echo 'ZM got: ';var_dump($mytg);echo '<br>';
                             }
                             foreach (array_keys($value) as $ak) {
                                 if (!array_key_exists($ak, $mytg)) {
@@ -187,7 +194,7 @@ class ZenCartCheckoutOrder extends ZMObject {
                             continue;
                         }
                         if ((string)$value != (string)$this->products[$ii][$key]) {
-                            echo 'PRODUCT: value mismatch for '.$key.': value=';var_dump($value); echo ', ZM got: ';var_dump($this->info[$key]); echo "<BR>";
+                            echo 'PRODUCT: value mismatch for '.$key.': value=';var_dump($value); echo ', ZM got: ';var_dump($this->products[$ii][$key]); echo "<BR>";
                         }
                     } else {
                         echo 'PRODUCT: missing key: '.$key.', value is: '.$value."<BR>";
@@ -251,7 +258,7 @@ class ZenCartCheckoutOrder extends ZMObject {
                         if (isset($value[0])) { unset($value[0]); }
                         $mytg = $info[$key];
                         if (count($value) != count($mytg)) {
-                          echo 'info: tax groups length diff! order: ';var_dump($value);echo 'my: ';var_dump($mytg);echo '<br>';
+                          echo 'info: tax groups length diff! order: ';var_dump($value);echo 'ZM got: ';var_dump($mytg);echo '<br>';
                         }
                         continue;
                     }
