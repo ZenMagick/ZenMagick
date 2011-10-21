@@ -275,7 +275,8 @@ class ZMShoppingCartItem extends ZMObject {
      * @todo include onetime charge
      */
     public function getItemTotal($tax=true) {
-        return $this->getItemPrice($tax) * $this->getQuantity();
+        $total = $this->getItemPrice(false) * $this->getQuantity();
+        return $tax ? $this->getTaxRate()->addTax($total) : $total;
     }
 
     /**
