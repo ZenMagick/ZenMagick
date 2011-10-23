@@ -115,7 +115,6 @@ class ZenCartCheckoutOrder extends ZMObject {
      * @param ZMShoppingCart shoppingCart The shopping cart.
      */
     protected function populateProducts($shoppingCart) {
-        $taxAddress = $shoppingCart->getTaxAddress();
         $this->products = array();
         foreach ($shoppingCart->getItems() as $item) {
             $itemProduct = $item->getProduct();
@@ -124,6 +123,9 @@ class ZenCartCheckoutOrder extends ZMObject {
             $taxRates = array();
             foreach ($item->getTaxRates() as $taxRate) {
                 $taxRates[$taxRate->getDescription()] = $taxRate->getRate();
+            }
+            if (0 == count($taxRates)) {
+                $taxRates[0] = TEXT_UNKNOWN_TAX_RATE;
             }
 
             $offers = $itemProduct->getOffers();
@@ -175,6 +177,8 @@ class ZenCartCheckoutOrder extends ZMObject {
                 foreach ($order->products[$ii] as $key => $value) {
                     if (in_array($key, array('rowClass'))) { continue; }
                     if (array_key_exists($key, $this->products[$ii])) {
+                        // TODO: ?? this is the default for no tax
+                        //if ('tax_groups' == $key && 1 == count($value) && !array_key_exists('tax_rate', $value)) { continue; }
                         if (in_array($key, array('tax_groups', 'attributes'))) {
                             $mytg = $this->products[$ii][$key];
                             if (count($value) != count($mytg)) {
@@ -217,11 +221,13 @@ class ZenCartCheckoutOrder extends ZMObject {
         $languageId = $this->container->get('settingsService')->get('storeDefaultLanguageId');
         // TODO: move all cart/session values into ZMShoppingCart
         $currencyCode = $this->container->get('session')->getCurrencyCode();
+        $couponAmount = 0;
         $couponCode = null;
         if (null != ($couponCodeId = $this->container->get('session')->getValue('cc_id'))) {
             $coupon = $this->container->get('couponService')->getCouponForId($couponCodeId, $languageId);
             if (null != $coupon) {
                 $couponCode = $coupon->getCode();
+                $couponAmount = $coupon->getAmount();
             }
         }
         $shippingMethod = $shoppingCart->getSelectedShippingMethod();
@@ -230,6 +236,22 @@ class ZenCartCheckoutOrder extends ZMObject {
         if (null != $paymentType && null !== ($pos = $paymentType->getOrderStatus())) {
             $orderStatus = $pos;
         }
+
+        $tax = 0;
+        $taxGroups = array();
+        foreach ($shoppingCart->getItems() as $item) {
+            $itemTotal = $item->getItemTotal(false) + $item->getOneTimeCharge(false);
+            $itemTotalPlusTax = $item->getItemTotal(true) + $item->getOneTimeCharge(true);
+            $itemTax = $itemTotalPlusTax - $itemTotal;
+            $productTaxRate = $item->getTaxRate();
+            $description = $productTaxRate->getDescription();
+            if (!array_key_exists($description, $taxGroups)) {
+                $taxGroups[$description] = 0;
+            }
+            $taxGroups[$description] += $itemTax;
+            $tax += $itemTax;
+        }
+
         $info = array(
             'order_status' => $orderStatus,
             'currency' => $currencyCode,
@@ -242,9 +264,9 @@ class ZenCartCheckoutOrder extends ZMObject {
             'shipping_cost' => null != $shippingMethod ? $shippingMethod->getCost() : '',
             'subtotal' => $shoppingCart->getSubTotal(),
             'shipping_tax' => 0, //TODO?
-            'tax' => 0, //TODO?
-            'total' => $shoppingCart->getTotal(), //TODO: drop tax
-            'tax_groups' => array(),
+            'tax' => $tax,
+            'total' => $shoppingCart->getTotal() + $couponAmount, // not sure why this is...
+            'tax_groups' => $taxGroups,
             'comments' => $shoppingCart->getComments()
         );
 
@@ -261,6 +283,10 @@ class ZenCartCheckoutOrder extends ZMObject {
                           echo 'info: tax groups length diff! order: ';var_dump($value);echo 'ZM got: ';var_dump($mytg);echo '<br>';
                         }
                         continue;
+                    }
+                    if (in_array($key, array('total', 'subtotal', 'tax'))) {
+                        $value = round($value, 3);
+                        $info[$key] = round($info[$key], 3);
                     }
                     if ((string)$value != (string)$info[$key]) {
                         echo 'info: value mismatch for '.$key.': value=';var_dump($value); echo ', ZM got: ';var_dump($info[$key]); echo "<BR>";
