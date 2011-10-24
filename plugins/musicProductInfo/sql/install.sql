@@ -13,7 +13,7 @@ CREATE TABLE media_clips (
   PRIMARY KEY  (clip_id),
   KEY idx_media_id_zen (media_id),
   KEY idx_clip_type_zen (clip_type)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 # --------------------------------------------------------
 
@@ -29,7 +29,7 @@ CREATE TABLE media_manager (
   date_added datetime NOT NULL default '0001-01-01 00:00:00',
   PRIMARY KEY  (media_id),
   KEY idx_media_name_zen (media_name)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 # --------------------------------------------------------
 
@@ -42,7 +42,7 @@ CREATE TABLE media_to_products (
   media_id int(11) NOT NULL default '0',
   product_id int(11) NOT NULL default '0',
   KEY idx_media_product_zen (media_id,product_id)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 # --------------------------------------------------------
 
@@ -57,7 +57,7 @@ CREATE TABLE media_types (
   type_ext varchar(8) NOT NULL default '',
   PRIMARY KEY  (type_id),
   KEY idx_type_name_zen (type_name)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 # --------------------------------------------------------
 
@@ -73,7 +73,7 @@ CREATE TABLE music_genre (
   last_modified datetime default NULL,
   PRIMARY KEY  (music_genre_id),
   KEY idx_music_genre_name_zen (music_genre_name)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 # --------------------------------------------------------
 
@@ -91,7 +91,7 @@ CREATE TABLE product_music_extra (
   KEY idx_music_genre_id_zen (music_genre_id),
   KEY idx_artists_id_zen (artists_id),
   KEY idx_record_company_id_zen (record_company_id)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 # --------------------------------------------------------
 
@@ -108,7 +108,7 @@ CREATE TABLE record_artists (
   last_modified datetime default NULL,
   PRIMARY KEY  (artists_id),
   KEY idx_rec_artists_name_zen (artists_name)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 # --------------------------------------------------------
 
@@ -124,7 +124,7 @@ CREATE TABLE record_artists_info (
   url_clicked int(5) NOT NULL default '0',
   date_last_click datetime default NULL,
   PRIMARY KEY  (artists_id,languages_id)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 # --------------------------------------------------------
 
@@ -141,7 +141,7 @@ CREATE TABLE record_company (
   last_modified datetime default NULL,
   PRIMARY KEY  (record_company_id),
   KEY idx_rec_company_name_zen (record_company_name)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 # --------------------------------------------------------
 
@@ -157,7 +157,7 @@ CREATE TABLE record_company_info (
   url_clicked int(5) NOT NULL default '0',
   date_last_click datetime default NULL,
   PRIMARY KEY  (record_company_id,languages_id)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 # --------------------------------------------------------
 

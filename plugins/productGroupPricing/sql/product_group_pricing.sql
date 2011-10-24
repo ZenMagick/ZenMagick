@@ -20,4 +20,4 @@ CREATE TABLE product_group_pricing (
   PRIMARY KEY (group_pricing_id),
   FOREIGN KEY (products_id) REFERENCES products (products_id) ON DELETE CASCADE,
   FOREIGN KEY (group_id) REFERENCES group_pricing (group_id) ON DELETE CASCADE
-) TYPE=MyISAM;
+) ENGINE=MyISAM;

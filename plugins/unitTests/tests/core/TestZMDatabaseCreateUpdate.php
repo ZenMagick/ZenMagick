@@ -46,7 +46,7 @@ class TestZMDatabaseCreateUpdate extends ZMTestCase {
                   method_name varchar(128) NOT NULL,
                   parameter_list varchar(511) NOT NULL DEFAULT '',
                   PRIMARY KEY (row_id)
-                ) TYPE=InnoDB;";
+                ) ENGINE=InnoDB;";
         ZMRuntime::getDatabase()->update($sql, array());
     }
 

@@ -13,7 +13,7 @@ CREATE TABLE tags (
   name varchar(64) NOT NULL,
   language_id int(11) NOT NULL default '1',
   PRIMARY KEY (tag_id)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 #
 # Table structure for table product_tags
@@ -26,4 +26,4 @@ CREATE TABLE product_tags (
   PRIMARY KEY (product_tag_id),
   KEY idx_product_id_tag_id_zm (product_id, tag_id),
   FOREIGN KEY (product_id) REFERENCES products (products_id) ON DELETE CASCADE
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
