@@ -130,8 +130,12 @@ class ZenCartCheckoutOrder extends ZMObject {
 
             $offers = $itemProduct->getOffers();
             $price = $itemProduct->getProductPrice();
-            if (null != ($quantityDiscount = $offers->getQuantityDiscountFor($item->getQuantity(), false))) {
-                $price = $quantityDiscount->getPrice();
+            if ($offers->hasQuantityDiscounts()) {
+                if (null != ($quantityDiscount = $offers->getQuantityDiscountFor($item->getQuantity(), false))) {
+                    $price = $quantityDiscount->getPrice();
+                } else {
+                    $price = $offers->getCalculatedPrice(false);
+                }
             }
 
             $product = array(
@@ -153,16 +157,14 @@ class ZenCartCheckoutOrder extends ZMObject {
             );
             $attributes = array();
             foreach ($item->getAttributes() as $attribute) {
-                $arr = array('option' => $attribute->getName(), 'option_id' => $attribute->getId());
-                // TODO: what about multiple values??
                 foreach ($attribute->getValues() as $value) {
+                    $arr = array('option' => $attribute->getName(), 'option_id' => $attribute->getId());
                     $arr['value_id'] = $value->getId();
                     $arr['value'] = $value->getName();
                     $arr['prefix'] = $value->getPricePrefix();
-                    // TODO: prices are wrong!
                     $arr['price'] = $value->getPrice(true, $item->getQuantity());
+                    $attributes[] = $arr;
                 }
-                $attributes[] = $arr;
             }
             if (0 < count($attributes)) {
                 $product['attributes'] = $attributes;
