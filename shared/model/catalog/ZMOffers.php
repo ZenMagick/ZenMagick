@@ -65,7 +65,7 @@ class ZMOffers extends ZMObject {
         $this->salePrice_ = null;
         $this->taxRate_ = null;
         $this->discountPercent_ = 0;
-        $this->discounts_ = null;
+        $this->discounts_ = array(true => null, false => null);
         $this->setProduct($product);
     }
 
@@ -364,6 +364,15 @@ class ZMOffers extends ZMObject {
     }
 
     /**
+     * Check if there are any quantity discounts.
+     *
+     * @return boolean <code>true</code> if, and only if there are any discounts.
+     */
+    public function hasQuantityDiscounts() {
+        return 0 < count($this->getQuantityDiscounts(false));
+    }
+
+    /**
      * Get quantity discount for the given quantity.
      *
      * @param int quantity The quantity.
@@ -389,8 +398,8 @@ class ZMOffers extends ZMObject {
      * @return array A list of <code>ZMQuantityDiscount</code> instances.
      */
     public function getQuantityDiscounts($tax=true) {
-        if (null !== $this->discounts_) {
-            return $this->discounts_;
+        if (null !== $this->discounts_[$tax]) {
+            return $this->discounts_[$tax];
         }
 
         $sql = "SELECT * FROM " . TABLE_PRODUCTS_DISCOUNT_QUANTITY . "
@@ -399,20 +408,20 @@ class ZMOffers extends ZMObject {
                 ORDER BY discount_qty";
 
         $args = array('productId' => $this->product_->getId());
-        $this->discounts_ = ZMRuntime::getDatabase()->query($sql, $args, TABLE_PRODUCTS_DISCOUNT_QUANTITY, 'ZMQuantityDiscount');
+        $discounts = ZMRuntime::getDatabase()->query($sql, $args, TABLE_PRODUCTS_DISCOUNT_QUANTITY, 'ZMQuantityDiscount');
 
-        if (0 < count($this->discounts_)) {
+        if (0 < count($discounts)) {
             $product = $this->product_;
             $basePrice = $this->getBasePrice(false);
             if (self::DISCOUNT_FROM_SPECIAL_PRICE == $product->getDiscountTypeFrom() && 0 != ($specialPrice = $this->getSpecialPrice(false))) {
                 $basePrice = $specialPrice;
             }
 
-            foreach ($this->discounts_ as $discount) {
+            foreach ($discounts as $discount) {
                 $price = 0;
                 switch ($product->getDiscountType()) {
                     case self::DISCOUNT_TYPE_NONE:
-                        $price = 0; // WTF???
+                        $price = $this->getCalculatedPrice($tax);
                         break;
                     case self::DISCOUNT_TYPE_PERCENT:
                         $price = $basePrice - ($basePrice * ($discount->getValue() / 100));
@@ -427,11 +436,13 @@ class ZMOffers extends ZMObject {
                         throw new ZMException('invalid discount type: '.$product->getDiscountType());
                         break;
                 }
+                $price = $tax ? $this->getTaxRate()->addTax($price) : $price;
                 $discount->setPrice($price);
             }
         }
 
-        return $tax ? $this->getTaxRate()->addTax($this->discounts_) : $this->discounts_;
+        $this->discounts_[$tax] = $discounts;
+        return $this->discounts_[$tax];
     }
 
     /**
