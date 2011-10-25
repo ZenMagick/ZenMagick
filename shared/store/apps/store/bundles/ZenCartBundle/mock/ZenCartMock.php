@@ -49,12 +49,10 @@ class ZenCartMock {
     global $order, $shipping_weight, $shipping_quoted, $shipping_num_boxes, $total_count, $order_total_modules;
     global $_order, $_shipping_weight, $_shipping_quoted, $_shipping_num_boxes, $_total_count, $_order_total_modules;
 
-        if (self::$mock) {
+        if (self::$mock++) {
             // already mocking
             return;
         }
-
-        ++self::$mock;
 
         // save originals
         $_order = $order;
@@ -125,12 +123,11 @@ class ZenCartMock {
     global $order, $shipping_weight, $shipping_quoted, $shipping_num_boxes, $total_count, $order_total_modules;
     global $_order, $_shipping_weight, $_shipping_quoted, $_shipping_num_boxes, $_total_count, $_order_total_modules;
 
-        --self::$mock;
-
-        if (self::$mock) {
+        if (--self::$mock) {
             // still mocking somewhere
             return;
         }
+
         // restore originals
         $order = $_order;
         $shipping_weight = $_shipping_weight;
