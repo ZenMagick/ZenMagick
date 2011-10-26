@@ -89,7 +89,7 @@ class ZMUnitTestsPlugin extends Plugin {
      */
     public function getTests() {
         if (!$this->customDone_) {
-            foreach (explode(',', ZMSettings::get('plugins.unitTests.tests.custom')) as $custom) {
+            foreach (ZMSettings::get('plugins.unitTests.tests.custom') as $custom) {
                 if (!empty($custom)) {
                     $this->addTest($custom);
                 }
