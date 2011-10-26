@@ -187,6 +187,7 @@
 
             // cookies only?
             'isForceCookieUse' => SESSION_FORCE_COOKIE_USE == 'True',
+            'apps.store.storefront.domain' => (zenmagick\base\Runtime::getContainer()->get('request')->isSecure() && defined('HTTP_COOKIE_DOMAIN') ? HTTP_COOKIE_DOMAIN : (!zenmagick\base\Runtime::getContainer()->get('request')->isSecure() && defined('HTTPS_COOKIE_DOMAIN') ? HTTPS_COOKIE_DOMAIN : null)),
             'zenmagick.http.session.useFqdn' => SESSION_USE_FQDN == 'True',
 
             // recreate sessions?
