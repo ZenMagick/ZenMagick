@@ -19,6 +19,7 @@ services:
     calls:
       - [setName, ['zmsid']]
       - [registerSessionHandler, [@sessionHandler]]
+      - [setUseFqdn, [%zenmagick.http.session.useFqdn%]]
 
   storeViewUtils:
     parent: merge:ZMViewUtils
