@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 
 /**
  * PHP Rules for ZenMagick.
@@ -41,6 +42,19 @@ class ZMRulesPlugin extends Plugin {
      */
     function __destruct() {
         parent::__destruct();
+    }
+
+
+    /**
+     * {@inheritDoc}
+     */
+    public function init() {
+        parent::init();
+        // register phpunit tests
+        $settingsService = Runtime::getSettings();
+        foreach (array('TestDateVariable', 'TestFileLoaderStrategy', 'TestProposition', 'TestRule', 'TestVariable') as $test) {
+            $settingsService->add('plugins.unitTests.tests.custom', $test);
+        }
     }
 
 }
