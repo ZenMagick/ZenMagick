@@ -1,13 +1,13 @@
 <?php
 
-use phprules\Rule;
+use phprules\SingleRule;
 use phprules\RuleContext;
-use phprules\RuleSet;
+use phprules\CompositeRule;
 
 class TestRules extends ZMTestCase {
 
     public function testRule() {
-        $rule = new Rule( 'passengerSuitableForUpgrade' );
+        $rule = new SingleRule( 'passengerSuitableForUpgrade' );
         $ruleContext = new RuleContext( 'passengerIsSuitableForUpgrade' );
         // load the rule
 
@@ -44,7 +44,7 @@ class TestRules extends ZMTestCase {
 
     public function testRuleSet() {
         // class stuff
-        $classRule = new Rule( 'classRule' );
+        $classRule = new SingleRule( 'classRule' );
         $classRule->addProposition( 'passengerIsGoldCardHolder', true );
         $classRule->addProposition( 'passengerIsSilverCardHolder', true );
         $classRule->addOperator( "OR" );
@@ -57,7 +57,7 @@ class TestRules extends ZMTestCase {
         $classRuleContext->addProposition( 'passengerIsSilverCardHolder', true );
 
         // baggage stuff
-        $baggageRule = new Rule( 'baggageRule' );
+        $baggageRule = new SingleRule( 'baggageRule' );
         $baggageRule->addVariable( 'passengerCarryOnBaggageAllowance', 15.0 );
         $baggageRule->addVariable( 'passengerCarryOnBaggageWeight', 0.0 );
         $baggageRule->addOperator( "LESSTHANOREQUALTO" );
@@ -67,7 +67,7 @@ class TestRules extends ZMTestCase {
         $baggageRuleContext->addVariable( 'passengerCarryOnBaggageWeight', 10.0 );
 
         // merge
-        $ruleSet = new RuleSet ( 'passengerSuitableForUpgrade' );
+        $ruleSet = new CompositeRule ( 'passengerSuitableForUpgrade' );
         $ruleSet->addRule( $classRule );
         $ruleSet->addRule( $baggageRule );
 
@@ -83,13 +83,13 @@ class TestRules extends ZMTestCase {
 
     public function testIn() {
         // rule with default null brand
-        $brandRule = new Rule( 'brandRule' );
+        $brandRule = new SingleRule( 'brandRule' );
         $brandRule->addVariable( 'brandList', array() );
         $brandRule->addVariable( 'brand', null );
         $brandRule->addOperator( "IN" );
 
         // there might be other rules, etc to add...
-        $finalRuleSet = new RuleSet ( 'finalRuleSet' );
+        $finalRuleSet = new CompositeRule ( 'finalRuleSet' );
         $finalRuleSet->addRule( $brandRule );
 
 
