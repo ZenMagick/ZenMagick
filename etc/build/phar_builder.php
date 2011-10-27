@@ -31,6 +31,7 @@ use zenmagick\base\utils\ClassLoaderPharBuilder;
     $installDir = dirname(dirname(dirname(__FILE__)));
     $baseDir = $installDir;
     chdir($installDir);
+    define('ZM_APP_PATH', 'apps/admin/');
     include 'bootstrap.php';
 
     if (2 > $argc) {
