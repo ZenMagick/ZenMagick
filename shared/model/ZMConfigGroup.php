@@ -29,7 +29,7 @@ use Doctrine\ORM\Mapping AS ORM;
  *
  * @author DerManoMann
  * @package zenmagick.store.shared.model
- * @ORM\Table(name="zen_configuration_group")
+ * @ORM\Table(name="configuration_group")
  * @ORM\Entity
  */
 class ZMConfigGroup extends ZMObject {
