@@ -38,7 +38,7 @@ class ZenCartOrderTotal extends ZMObject {
     /**
      * New instance.
      */
-    public __construct() {
+    public function __construct() {
 
     }
 
@@ -70,10 +70,12 @@ class ZenCartOrderTotal extends ZMObject {
         if (!isset($GLOBALS[$class])) continue;
         $GLOBALS[$class]->process();
         for ($i=0, $n=sizeof($GLOBALS[$class]->output); $i<$n; $i++) {
-          if (zen_not_null($GLOBALS[$class]->output[$i]['title']) && zen_not_null($GLOBALS[$class]->output[$i]['text'])) {
+          $title = trim($GLOBALS[$class]->output[$i]['title']);
+          $text = trim($GLOBALS[$class]->output[$i]['text']);
+          if (!empty($title) && !empty($text)) {
             $order_total_array[] = array('code' => $GLOBALS[$class]->code,
-                                         'title' => $GLOBALS[$class]->output[$i]['title'],
-                                         'text' => $GLOBALS[$class]->output[$i]['text'],
+                                         'title' => $title,
+                                         'text' => $text,
                                          'value' => $GLOBALS[$class]->output[$i]['value'],
                                          'sort_order' => $GLOBALS[$class]->sort_order);
           }
