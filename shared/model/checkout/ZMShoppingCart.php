@@ -151,6 +151,9 @@ class ZMShoppingCart extends ZMObject {
      * @param array items List of <code>ZMShoppingCartItem</code>s.
      */
     public function setItems($items) {
+        // invalidate totals
+        $this->zenTotals_ = null;
+
         $this->items_ = $items;
         foreach ($this->items as $item) {
             $item->setShoppingCart($this);
