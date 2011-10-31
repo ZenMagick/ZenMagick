@@ -64,8 +64,8 @@ class ZMManufacturerFilter extends ZMResultListFilter implements ZMSQLAware {
             $manufacturer = $result->getManufacturer();
             if (null != $manufacturer) {
                 $option = Runtime::getContainer()->get('ZMFilterOption');
-                $option->setName($name);
-                $option->setKey($key);
+                $option->setId($manufacturer->getId());
+                $option->setName($manufacturer->getName());
                 $option->setActive($manufacturer->getId() == $this->filterValues_[0]);
                 $options[$option->getId()] = $option;
             }

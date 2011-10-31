@@ -80,8 +80,8 @@ class ZMCategoryFilter extends ZMResultListFilter implements ZMSQLAware {
             $category = $result->getDefaultCategory($this->container->get('session')->getLanguageId());
             if (null != $category) {
                 $option = Runtime::getContainer()->get('ZMFilterOption');
-                $option->setName($name);
-                $option->setKey($key);
+                $option->setId($category->getId());
+                $option->setName($category->getName());
                 $option->setActive($category->getId() == $this->filterValues_[0]);
                 $options[$option->getId()] = $option;
             }
