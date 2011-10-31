@@ -520,7 +520,7 @@ class ZMRequest extends \ZMObject {
         return (isset($_SERVER['SERVER_PORT']) && 443 == $_SERVER['SERVER_PORT']) ||
                (isset($_SERVER['HTTPS']) && \ZMLangUtils::asBoolean($_SERVER['HTTPS'])) ||
                (isset($_SERVER['HTTP_X_FORWARDED_BY']) && strpos(strtoupper($_SERVER['HTTP_X_FORWARDED_BY']), 'SSL') !== false) ||
-               (isset($_SERVER['HTTP_X_FORWARDED_HOST']) && (strpos(strtoupper($_SERVER['HTTP_X_FORWARDED_HOST']), 'SSL') !== false || strpos(strtoupper($_SERVER['HTTP_X_FORWARDED_HOST']), str_replace('https://', '', HTTPS_SERVER)) !== false)) ||
+               (isset($_SERVER['HTTP_X_FORWARDED_HOST']) && (strpos(strtoupper($_SERVER['HTTP_X_FORWARDED_HOST']), 'SSL') !== false || strpos(strtolower($_SERVER['HTTP_X_FORWARDED_HOST']), $this->getHostname()) !== false)) ||
                (isset($_SERVER['SCRIPT_URI']) && strtolower(substr($_SERVER['SCRIPT_URI'], 0, 6)) == 'https:') ||
                (isset($_SERVER['HTTP_X_FORWARDED_SSL']) && (\ZMLangUtils::asBoolean($_SERVER['HTTP_X_FORWARDED_SSL']))) ||
                (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && (strtolower($_SERVER['HTTP_X_FORWARDED_PROTO']) == 'ssl' || strtolower($_SERVER['HTTP_X_FORWARDED_PROTO']) == 'https')) ||
