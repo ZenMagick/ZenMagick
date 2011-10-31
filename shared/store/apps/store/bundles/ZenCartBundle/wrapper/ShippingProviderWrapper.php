@@ -130,10 +130,6 @@ class ShippingProviderWrapper extends ZMObject implements \ZMShippingProvider {
         $clazzName = get_class($this->zenModule_);
         $module = new $clazzName();
 
-        if (!$module->enabled) {
-            return array();
-        }
-
         $quotes = $module->quote();
 
         // capture error(s)

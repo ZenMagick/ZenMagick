@@ -325,6 +325,9 @@ class ZMShoppingCart extends ZMObject {
      * @param ZMShippingMethod method The shipping method to use.
      */
     public function setSelectedShippingMethod($method) {
+        // invalidate totals
+        $this->zenTotals_ = null;
+
         $this->session->setValue('shipping', array(
             'id' => $method->getShippingId(),
             'title' => $method->getName(),
@@ -368,6 +371,9 @@ class ZMShoppingCart extends ZMObject {
      * @param ZMPaymentType paymentType The payment type.
      */
     public function setSelectedPaymentType($paymentType) {
+        // invalidate totals
+        $this->zenTotals_ = null;
+
         $this->session->setValue('payment', $paymentType->getId());
     }
 
@@ -428,6 +434,9 @@ class ZMShoppingCart extends ZMObject {
      * @param int addressId The new shipping address id.
      */
     public function setShippingAddressId($addressId) {
+        // invalidate totals
+        $this->zenTotals_ = null;
+
         $this->session->setValue('sendto', $addressId);
         $this->session->setValue('shipping', '');
     }
