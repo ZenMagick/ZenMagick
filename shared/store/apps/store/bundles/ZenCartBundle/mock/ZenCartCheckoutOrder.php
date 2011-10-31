@@ -173,7 +173,18 @@ class ZenCartCheckoutOrder extends ZMObject {
         }
 
         if ($this->container->get('settingsService')->get('apps.store.assertZencart', false)) {
+        global $order;
             $order = new \order();
+            if (false) {
+                if (!isset($shipping_modules)) {
+                    $shipping_modules = new \shipping($_SESSION['shipping']);
+                }
+                $order_total_modules = new \order_total();
+                $order_total_modules->collect_posts();
+                $order_total_modules->pre_confirmation_check();
+                $order_total_modules->process();
+            }
+
             foreach (array_keys($this->products) as $ii) {
                 echo '<h3>'.$this->products[$ii]['id'].':'.$this->products[$ii]['name'].'</h3>';
                 foreach ($order->products[$ii] as $key => $value) {
@@ -273,7 +284,18 @@ class ZenCartCheckoutOrder extends ZMObject {
         );
 
         if ($this->container->get('settingsService')->get('apps.store.assertZencart', false)) {
+        global $order;
             $order = new \order();
+            if (false) {
+                if (!isset($shipping_modules)) {
+                    $shipping_modules = new \shipping($_SESSION['shipping']);
+                }
+                $order_total_modules = new \order_total();
+                $order_total_modules->collect_posts();
+                $order_total_modules->pre_confirmation_check();
+                $order_total_modules->process();
+            }
+
             foreach ($order->info as $key => $value) {
                 if (in_array($key, array('rowClass', 'ip_address'))) { continue; }
                 if (array_key_exists($key, $info)) {
