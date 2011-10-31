@@ -278,7 +278,7 @@ class ZenCartCheckoutOrder extends ZMObject {
             'subtotal' => $shoppingCart->getSubTotal(),
             'shipping_tax' => 0, //TODO?
             'tax' => $tax,
-            'total' => $shoppingCart->getTotal() + $couponAmount, // not sure why this is...
+            'total' => $shoppingCart->getTotal(), // TODO: this is subtraced lated by ot: + $couponAmount, // not sure why this is...
             'tax_groups' => $taxGroups,
             'comments' => $shoppingCart->getComments()
         );
