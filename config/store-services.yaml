@@ -222,6 +222,10 @@ services:
     class: ZMShippingProviders
     scope: container
 
+  orderTotalService:
+    class: ZMOrderTotals
+    scope: container
+
   salemakerService:
     class: ZMSalemaker
     scope: container
