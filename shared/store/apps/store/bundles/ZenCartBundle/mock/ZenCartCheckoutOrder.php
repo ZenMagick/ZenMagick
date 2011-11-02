@@ -56,8 +56,9 @@ class ZenCartCheckoutOrder extends ZMObject {
      * Set the shopping cart.
      *
      * @param ZMShoppingCart shoppingCart The shopping cart.
+     * @param boolean applyTotals Optional flag to apply/skip totals; default is <code>true</code>.
      */
-    public function setShoppingCart($shoppingCart) {
+    public function setShoppingCart($shoppingCart, $applyTotals=true) {
         if (null == $shoppingCart) {
             return;
         }
@@ -72,6 +73,11 @@ class ZenCartCheckoutOrder extends ZMObject {
 
         // populate info - ATTENTION: this depends on populateProducts!!
         $this->populateInfo($shoppingCart);
+
+        if ($applyTotals) {
+            // apply totals
+            $this->applyTotals($shoppingCart);
+        }
 
         // account
         $account = $this->container->get('accountService')->getAccountForId($shoppingCart->getAccountId());
@@ -175,16 +181,6 @@ class ZenCartCheckoutOrder extends ZMObject {
         if ($this->container->get('settingsService')->get('apps.store.assertZencart', false)) {
         global $order;
             $order = new \order();
-            if (false) {
-                if (!isset($shipping_modules)) {
-                    $shipping_modules = new \shipping($_SESSION['shipping']);
-                }
-                $order_total_modules = new \order_total();
-                $order_total_modules->collect_posts();
-                $order_total_modules->pre_confirmation_check();
-                $order_total_modules->process();
-            }
-
             foreach (array_keys($this->products) as $ii) {
                 echo '<h3>'.$this->products[$ii]['id'].':'.$this->products[$ii]['name'].'</h3>';
                 foreach ($order->products[$ii] as $key => $value) {
@@ -278,53 +274,85 @@ class ZenCartCheckoutOrder extends ZMObject {
             'subtotal' => $shoppingCart->getSubTotal(),
             'shipping_tax' => 0, //TODO?
             'tax' => $tax,
-            'total' => $shoppingCart->getTotal(), // TODO: this is subtraced lated by ot: + $couponAmount, // not sure why this is...
+            'total' => $shoppingCart->getTotal() + $couponAmount, // deducted by ot_coupon
             'tax_groups' => $taxGroups,
             'comments' => $shoppingCart->getComments()
         );
 
-        if ($this->container->get('settingsService')->get('apps.store.assertZencart', false)) {
-        global $order;
-            $order = new \order();
-            if (false) {
-                if (!isset($shipping_modules)) {
-                    $shipping_modules = new \shipping($_SESSION['shipping']);
-                }
-                $order_total_modules = new \order_total();
-                $order_total_modules->collect_posts();
-                $order_total_modules->pre_confirmation_check();
-                $order_total_modules->process();
-            }
-
-            foreach ($order->info as $key => $value) {
-                if (in_array($key, array('rowClass', 'ip_address'))) { continue; }
-                if (array_key_exists($key, $info)) {
-                    if ('tax_groups' == $key) {
-                        // drop [0] as that is the default for none in zc
-                        if (isset($value[0])) { unset($value[0]); }
-                        $mytg = $info[$key];
-                        if (count($value) != count($mytg)) {
-                          echo 'info: tax groups length diff! order: ';var_dump($value);echo 'ZM got: ';var_dump($mytg);echo '<br>';
-                        }
-                        continue;
-                    }
-                    if (in_array($key, array('total', 'subtotal', 'tax'))) {
-                        $value = round($value, 3);
-                        $info[$key] = round($info[$key], 3);
-                    }
-                    if ((string)$value != (string)$info[$key]) {
-                        echo 'info: value mismatch for '.$key.': value=';var_dump($value); echo ', ZM got: ';var_dump($info[$key]); echo "<BR>";
-                    }
-                } else {
-                    echo 'info: missing key: '.$key.', value is: '.$value."<BR>";
-                }
-            }
-            echo '<br>';
-        }
-
         $this->info = array_merge($this->info, $info);
+
+        if ($this->container->get('settingsService')->get('apps.store.assertZencart', false)) {
+            $this->assertInfo(false);
+        }
     }
 
+    /**
+     * Apply totals.
+     *
+     * @param ZMShoppingCart shoppingCart The shopping cart.
+     * @todo Do not use zencart code to do this!
+     */
+    protected function applyTotals($shoppingCart) {
+    global $order;
+
+        $order = $this;
+        if (!isset($shipping_modules)) {
+            $shipping_modules = new \shipping($_SESSION['shipping']);
+        }
+        $order_total_modules = new \order_total();
+        $order_total_modules->collect_posts();
+        $order_total_modules->pre_confirmation_check();
+        $order_total_modules->process();
+
+
+        if ($this->container->get('settingsService')->get('apps.store.assertZencart', false)) {
+            $this->assertInfo(true);
+        }
+    }
+
+    /**
+     * Assert info.
+     *
+     * @param boolean withTotals Flag to include/apply totals or not.
+     */
+    private function assertInfo($withTotals) {
+    global $order;
+        $order = new \order();
+        if ($withTotals) {
+            if (!isset($shipping_modules)) {
+                $shipping_modules = new \shipping($_SESSION['shipping']);
+            }
+            $order_total_modules = new \order_total();
+            $order_total_modules->collect_posts();
+            $order_total_modules->pre_confirmation_check();
+            $order_total_modules->process();
+        }
+
+        foreach ($order->info as $key => $value) {
+            if (in_array($key, array('rowClass', 'ip_address'))) { continue; }
+            if (array_key_exists($key, $this->info)) {
+                if ('tax_groups' == $key) {
+                    // drop [0] as that is the default for none in zc
+                    if (isset($value[0])) { unset($value[0]); }
+                    $mytg = $this->info[$key];
+                    if (count($value) != count($mytg)) {
+                      echo 'info('.($withTotals?'with':'without').' ot): tax groups length diff! order: ';var_dump($value);echo 'ZM got: ';var_dump($mytg);echo '<br>';
+                    }
+                    continue;
+                }
+                if (in_array($key, array('total', 'subtotal', 'tax'))) {
+                    $value = round($value, 3);
+                    $this->info[$key] = round($this->info[$key], 3);
+                }
+                if ((string)$value != (string)$this->info[$key]) {
+                    echo 'info('.($withTotals?'with':'without').' ot): value mismatch for '.$key.': value=';var_dump($value); echo ', ZM got: ';var_dump($this->info[$key]); echo "<BR>";
+                }
+            } else {
+                echo 'info('.($withTotals?'with':'without').' ot): missing key: '.$key.', value is: '.$value."<BR>";
+            }
+        }
+        echo '<br>';
+    }
 
     /**
      * Set the account.
