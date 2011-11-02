@@ -1,6 +1,0 @@
-SET @hoverboxremove=0;
-SELECT (@hoverboxremove:=configuration_group_id) as hoverboxremove 
-FROM configuration_group
-WHERE configuration_group_title= 'HoverBox 3';
-DELETE FROM configuration WHERE configuration_group_id = @hoverboxremove;
-DELETE FROM configuration_group WHERE configuration_group_id = @hoverboxremove;
