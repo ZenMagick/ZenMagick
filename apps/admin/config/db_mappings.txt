@@ -693,5 +693,10 @@ array(
         'resource' => 'column=resource;type=string',
         'issued' => 'column=issued;type=datetime',
         'expires' => 'column=expires;type=datetime'
-    )
+    ),
+    'sessions' => array(
+        'sesskey' => 'column=sesskey;type=string;key=true',
+        'expiry' => 'column=expiry;type=integer',
+        'value' => 'column=value;type=text'
+    ),
 );
