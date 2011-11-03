@@ -340,15 +340,6 @@ class Request extends \ZMRequest {
     public function isLoggedIn() { return $this->getSession()->isLoggedIn(); }
 
     /**
-     * Get the page base url.
-     *
-     * @return string A base URL for the current request.
-     */
-    public function getPageBase() {
-        return $this->absoluteUrl('', true);
-    }
-
-    /**
      * Checks, if the current page is a checkout page.
      *
      * @package org.zenmagick.misc
