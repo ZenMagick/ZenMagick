@@ -673,6 +673,20 @@ array(
         'password' => 'column=admin_pass;type=string',
         'live' => 'column=admin_level;type=boolean'
     ),
+    'admin_prefs' => array(
+        'admin_pref_id' => 'column=admin_pref_id;type=integer;key=true;auto=true',
+        'admin_id' => 'column=admin_id;type=integer',
+        'name' => 'column=name;type=string',
+        'value' => 'column=value;type=text'
+    ),
+    'admin_roles' => array(
+        'admin_role_id' => 'column=admin_role_id;type=integer;key=true;auto=true',
+        'name' => 'column=name;type=string'
+    ),
+    'admins_to_roles' => array(
+        'admin_id' => 'column=admin_id;type=integer;key=true',
+        'admin_role_id' => 'column=admin_role_id;type=integer;key=true'
+    ),
     'token' => array(
         'hashId' => 'column=hash_id;type=integer;key=true;auto=true',
         'hash' => 'column=hash;type=blob',
