@@ -85,7 +85,7 @@ class ZMTokens extends ZMObject {
         $now = time();
         $token->setIssued(date(ZMDatabase::DATETIME_FORMAT, $now));
         $token->setExpires(date(ZMDatabase::DATETIME_FORMAT, $now+$lifetime));
-        return ZMRuntime::getDatabase()->createModel('token', $token);
+        return ZMRuntime::getDatabase()->createModel(DB_PREFIX.'token', $token);
     }
 
     /**
@@ -97,7 +97,7 @@ class ZMTokens extends ZMObject {
     public function updateToken($token, $lifetime) {
         $now = time();
         $token->setExpires(date(ZMDatabase::DATETIME_FORMAT, $now+$lifetime));
-        ZMRuntime::getDatabase()->updateModel('token', $token);
+        ZMRuntime::getDatabase()->updateModel(DB_PREFIX.'token', $token);
     }
 
     /**
@@ -111,11 +111,11 @@ class ZMTokens extends ZMObject {
     public function validateHash($resource, $hash, $expire=true) {
         $sql = "SELECT * FROM " . DB_PREFIX.'token' . "
                 WHERE hash = :hash AND resource = :resource AND expires >= now()";
-        $token = ZMRuntime::getDatabase()->querySingle($sql, array('hash' => $hash, 'resource' => $resource), 'token', 'ZMToken');
+        $token = ZMRuntime::getDatabase()->querySingle($sql, array('hash' => $hash, 'resource' => $resource), DB_PREFIX.'token', 'ZMToken');
         if ($expire && null !== $token) {
             $sql = "DELETE FROM " . DB_PREFIX.'token' . "
                     WHERE hash = :hash AND resource = :resource";
-            ZMRuntime::getDatabase()->update($sql, array('hash' => $hash, 'resource' => $resource), 'token');
+            ZMRuntime::getDatabase()->update($sql, array('hash' => $hash, 'resource' => $resource), DB_PREFIX.'token');
         }
         return $token;
     }
@@ -129,7 +129,7 @@ class ZMTokens extends ZMObject {
     public function getTokenForResource($resource) {
         $sql = "SELECT * FROM " . DB_PREFIX.'token' . "
                 WHERE resource = :resource AND expires >= now()";
-        return ZMRuntime::getDatabase()->query($sql, array('resource' => $resource), 'token', 'ZMToken');
+        return ZMRuntime::getDatabase()->query($sql, array('resource' => $resource), DB_PREFIX.'token', 'ZMToken');
     }
 
     /**
@@ -141,7 +141,7 @@ class ZMTokens extends ZMObject {
     public function getTokenForHash($hash) {
         $sql = "SELECT * FROM " . DB_PREFIX.'token' . "
                 WHERE hash = :hash AND expires >= now()";
-        $results = ZMRuntime::getDatabase()->query($sql, array('hash' => $hash), 'token', 'ZMToken');
+        $results = ZMRuntime::getDatabase()->query($sql, array('hash' => $hash), DB_PREFIX.'token', 'ZMToken');
         if (1 < count($results)) {
             Runtime::getLogging()->log('duplicate token for hash: '.$hash, ZMLogging::WARN);
             // expire all

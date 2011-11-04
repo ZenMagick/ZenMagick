@@ -54,7 +54,7 @@ class ZMSacsPermissions extends ZMObject {
      * @return array List of permission details.
      */
     public function getPermissionsForRole($role) {
-        return ZMRuntime::getDatabase()->query('SELECT * FROM '.DB_PREFIX.'sacs_permissions'.' where type = "role" AND name = :name', array('name' => $role), 'sacs_permissions');
+        return ZMRuntime::getDatabase()->query('SELECT * FROM '.DB_PREFIX.'sacs_permissions'.' where type = "role" AND name = :name', array('name' => $role), DB_PREFIX.'sacs_permissions');
     }
 
     /**
@@ -89,14 +89,14 @@ class ZMSacsPermissions extends ZMObject {
             $sql = "DELETE FROM " . DB_PREFIX.'sacs_permissions' . "
                     WHERE  type = 'role' AND name = :name
                       AND rid in (:rid)";
-            ZMRuntime::getDatabase()->update($sql, array('name' => $role, 'rid' => $remove), 'sacs_permissions');
+            ZMRuntime::getDatabase()->update($sql, array('name' => $role, 'rid' => $remove), DB_PREFIX.'sacs_permissions');
         }
 
         if (0 < count($add)) {
             $sql = "INSERT INTO " . DB_PREFIX.'sacs_permissions' . "
                     (rid, type, name) VALUES (:rid, 'role', :name)";
             foreach ($add as $rid) {
-                ZMRuntime::getDatabase()->update($sql, array('rid' => $rid, 'name' => $role), 'sacs_permissions');
+                ZMRuntime::getDatabase()->update($sql, array('rid' => $rid, 'name' => $role), DB_PREFIX.'sacs_permissions');
             }
         }
     }

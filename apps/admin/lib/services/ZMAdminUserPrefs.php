@@ -64,7 +64,7 @@ class ZMAdminUserPrefs extends ZMObject {
                 FROM " . DB_PREFIX.'admin_prefs' . "
                 WHERE admin_id = :admin_id AND name = :name";
         $args = array('admin_id' => $adminId, 'name' => $name);
-        if (null != ($result = ZMRuntime::getDatabase()->querySingle($sql, $args, 'admin_prefs'))) {
+        if (null != ($result = ZMRuntime::getDatabase()->querySingle($sql, $args, DB_PREFIX.'admin_prefs'))) {
             return $result['value'];
         }
         return null;
@@ -84,7 +84,7 @@ class ZMAdminUserPrefs extends ZMObject {
         $sql = "SELECT value
                 FROM " . DB_PREFIX.'admin_prefs' . "
                 WHERE admin_id = :admin_id AND name = :name";
-        if (null != ($result = ZMRuntime::getDatabase()->querySingle($sql, $args, 'admin_prefs'))) {
+        if (null != ($result = ZMRuntime::getDatabase()->querySingle($sql, $args, DB_PREFIX.'admin_prefs'))) {
             $sql = "UPDATE " . DB_PREFIX.'admin_prefs' . "
                     SET value = :value
                     WHERE admin_id = :admin_id AND name = :name";
@@ -93,7 +93,7 @@ class ZMAdminUserPrefs extends ZMObject {
                     (admin_id, name, value)
                     VALUES (:admin_id, :name, :value)";
         }
-        ZMRuntime::getDatabase()->update($sql, $args, 'admin_prefs');
+        ZMRuntime::getDatabase()->update($sql, $args, DB_PREFIX.'admin_prefs');
     }
 
 }
