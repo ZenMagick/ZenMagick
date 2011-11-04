@@ -36,9 +36,6 @@ class ZMAdminMenu extends ZMObject {
     const MENU_CATALOG_MANAGER_TAB = 'catalog-manager-tab';
     private static $items_ = array();
 
-    // new
-    private static $items2_ = array();
-
 
     /**
      * Configure a admin menu item.
@@ -66,7 +63,7 @@ class ZMAdminMenu extends ZMObject {
         if (!array_key_exists('id', $item)) {
           $item['id'] = $item['requestId'];
         }
-        self::$items2_[] = $item;
+        self::$items_[] = $item;
     }
 
     /**
@@ -75,7 +72,7 @@ class ZMAdminMenu extends ZMObject {
      * @return array List of item details.
      */
     public static function getAllItems() {
-        return self::$items2_;
+        return self::$items_;
     }
 
     /**
@@ -86,7 +83,7 @@ class ZMAdminMenu extends ZMObject {
      */
     public static function getItemsForParent($parentId) {
         $items = array();
-        foreach (self::$items2_ as $item) {
+        foreach (self::$items_ as $item) {
             if ($item['parentId'] == $parentId) {
                 $items[] = $item;
             }
@@ -102,7 +99,7 @@ class ZMAdminMenu extends ZMObject {
      * @return array The item or <code>null</code>.
      */
     public static function getItemForId($id) {
-        foreach (self::$items2_ as $item) {
+        foreach (self::$items_ as $item) {
             if ($item['id'] == $id) {
                 return $item;
             }
@@ -120,7 +117,7 @@ class ZMAdminMenu extends ZMObject {
     public static function getRootItemForRequestId($requestId) {
         // first find the item for requestId
         $item = null;
-        foreach (self::$items2_ as $tmp) {
+        foreach (self::$items_ as $tmp) {
             if ($tmp['requestId'] == $requestId) {
                 $item = $tmp;
                 break;
