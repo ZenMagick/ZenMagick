@@ -87,6 +87,7 @@ class ZMEzpagesController extends ZMController {
                 $ezPage = $ezPageService->createPage($ezPage);
                 if (0 < $ezPage->getId()) {
                     $this->messageService->success('EZPage #'.$ezPage->getId().' saved');
+                    $viewId = 'success';
                 } else {
                     $this->messageService->error('Could not save page');
                 }
@@ -95,6 +96,7 @@ class ZMEzpagesController extends ZMController {
                 Beans::setAll($ezPage, $request->getParameterMap(false));
                 $ezPageService->updatePage($ezPage);
                 $this->messageService->success('EZPage #'.$ezPageId.' updated');
+                $viewId = 'success';
             } else {
                 $this->messageService->error('Could not save page - invalid request data');
             }
