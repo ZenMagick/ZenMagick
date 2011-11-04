@@ -4,5 +4,5 @@ login:
   ## new routing using the traditional, single-method ZenMagick controller
   defaults: { _controller: ZMLoginController:process }
   requirements:
-    _scheme:  https
+    _scheme: https
 
