@@ -41,16 +41,6 @@ class ZMAdminMenu extends ZMObject {
 
 
     /**
-     * Add a admin menu item.
-     *
-     * @param ZMAdminMenuItem item The new item.
-     * @deprecated
-     */
-    public static function addItem($item) {
-        self::$items_[] = $item;
-    }
-
-    /**
      * Configure a admin menu item.
      *
      * <p>Possible item data keys:</p>
@@ -80,81 +70,12 @@ class ZMAdminMenu extends ZMObject {
     }
 
     /**
-     * Display the admin menu.
-     *
-     * @param string parent Parent menu id (used for recursive calls, do not set).
-     * @deprecated
-     */
-    public static function buildMenu($parent=null) {
-        ob_start();
-        $first = true;
-        $size = count(self::$items_);
-        for ($ii=0; $ii < $size; ++$ii) {
-            $item = self::$items_[$ii];
-            if (null == $item) {
-                continue;
-            }
-            if ($parent == $item->getParent()) {
-                if ($first) {
-                    echo "<ul";
-                    if (null == $parent) {
-                        echo ' class="submenu"';
-                    }
-                    echo '>';
-                }
-                echo '<li'.($first ? ' class="first"' : '').'>';
-                $first = false;
-                if (null == $parent) {
-                    // menu only
-                    echo $item->getTitle();
-                } else {
-                    $url = $item->getURL();
-                    if (ZMLangUtils::startsWith($url, 'fkt:')) {
-                        $url = $this->container->get('request')->getToolbox()->admin->url('plugin_page', 'fkt='.substr($url, 4), true, false);
-                    }
-                    echo '<a href="'.$url.'">'.$item->getTitle().'</a>';
-                }
-                self::buildMenu($item->getId());
-                echo "</li>";
-            }
-        }
-
-        if (!$first) {
-            echo "</ul>";
-        }
-
-        if (null === $parent) {
-            return ob_get_clean();
-        }
-
-        return "";
-    }
-
-    /**
      * Get all items.
      *
      * @return array List of item details.
      */
     public static function getAllItems() {
         return self::$items2_;
-    }
-
-    /**
-     * Get all child items for the given id.
-     *
-     * @param string parentId The parent id.
-     * @return array A list of <code>ZMAdminMenuItem</code> instances.
-     * @deprecated
-     */
-    public static function getItemsForParentId($parentId) {
-        $items = array();
-        foreach (self::$items_ as $item) {
-            if (null !== $item && $item->getParent() == $parentId) {
-                $items[] = $item;
-            }
-        }
-
-        return $items;
     }
 
     /**
