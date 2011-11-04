@@ -84,7 +84,7 @@ class ZMProductGroupPricings extends ZMObject {
                 AND group_id = :groupId".$dateLimit;
         $sql .= " ORDER BY start_date ASC";
         $args = array('productId' => $productId, 'groupId' => $groupId, 'endDate' => ZMDatabase::NULL_DATETIME);
-        return ZMRuntime::getDatabase()->query($sql, $args, 'product_group_pricing', 'ZMProductGroupPricing');
+        return ZMRuntime::getDatabase()->query($sql, $args, DB_PREFIX.'product_group_pricing', 'ZMProductGroupPricing');
     }
 
     /**
@@ -97,7 +97,7 @@ class ZMProductGroupPricings extends ZMObject {
         $sql = "SELECT * FROM " . DB_PREFIX.'product_group_pricing' . "
                 WHERE group_pricing_id = :id";
         $args = array('id' => $groupPricingId);
-        return ZMRuntime::getDatabase()->querySingle($sql, $args, 'product_group_pricing', 'ZMProductGroupPricing');
+        return ZMRuntime::getDatabase()->querySingle($sql, $args, DB_PREFIX.'product_group_pricing', 'ZMProductGroupPricing');
     }
 
     /**
@@ -107,7 +107,7 @@ class ZMProductGroupPricings extends ZMObject {
      * @return ProductGroupPricing The created product group pricing incl. the id.
      */
     public function createProductGroupPricing($groupPricing) {
-        return ZMRuntime::getDatabase()->createModel('product_group_pricing', $groupPricing);
+        return ZMRuntime::getDatabase()->createModel(DB_PREFIX.'product_group_pricing', $groupPricing);
     }
 
     /**
@@ -117,7 +117,7 @@ class ZMProductGroupPricings extends ZMObject {
      * @return ProductGroupPricing The updated product group pricing.
      */
     public function updateProductGroupPricing($groupPricing) {
-        ZMRuntime::getDatabase()->updateModel('product_group_pricing', $groupPricing);
+        ZMRuntime::getDatabase()->updateModel(DB_PREFIX.'product_group_pricing', $groupPricing);
         return $groupPricing;
     }
 
@@ -128,7 +128,7 @@ class ZMProductGroupPricings extends ZMObject {
      * @return ProductGroupPricing The created product group pricing incl. the id.
      */
     public function removeProductGroupPricing($groupPricing) {
-        return ZMRuntime::getDatabase()->removeModel('product_group_pricing', $groupPricing);
+        return ZMRuntime::getDatabase()->removeModel(DB_PREFIX.'product_group_pricing', $groupPricing);
     }
 
 }
