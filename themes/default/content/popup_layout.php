@@ -25,7 +25,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
   <head>
     <title><?php echo $metaTags->getTitle()?></title>
-    <base href="<?php echo $request->getPageBase() ?>" />
+    <base href="<?php echo $request->getBaseUrl() ?>" />
     <meta http-equiv="content-type" content="text/html; charset=<?php echo ZMSettings::get('zenmagick.mvc.html.charset') ?>" />
     <?php $resources->cssFile('popup.css') ?>
     <?php /* give other themes the chance to add to the default CSS without having to copy everything */ ?>

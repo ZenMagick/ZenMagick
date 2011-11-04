@@ -122,7 +122,7 @@ class ZMWordpressRequestHandler extends ZMController {
         $urlToken = parse_url($arg);
         if ($this->plugin_->isPermalinksEnabled()) {
             // make sure we stay on the same server
-            $selfUrlToken = parse_url($this->request_->getPageBase());
+            $selfUrlToken = parse_url($this->request_->getBaseUrl());
             if ($urlToken['host'] != $selfUrlToken['host']) {
                 $arg =  str_replace($urlToken['host'], $selfUrlToken['host'], $arg);
             }
