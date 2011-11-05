@@ -4,56 +4,11 @@ meta:
   author: 'RubikIntegration'
   description: 'Modern / RI0007'
 
-# changes:
-#
-# - change name, author and description
-# - remove demo about us controller
-# - change bullet_cat.gif position to align better with multi level catalogs: .4em left
-# - fix invalid " in shopping_cart.php: style="text-align: left""
-# - fix CSS: #productMainImage contains width: without value
-# - changed header to not use zen_xxx() functions
-# - removed the STORE_STATUS check in header.php - none of the themes doe this and this is not officially supported
-# - removed demo and demo_request views
-# - removed about_us view (empty except for h1)
-# - removed stativ view (no difference in function to default)
-# - removed custom static/define page content files: about_us.php, contact_us.php
-# - removed lang/english/l10n.php - looks like copy from demo theme
-# - removed empty lang/english/images folder
-# - removed lang folder
-# - in header.php: removed line: ZMLoader::make('ToolboxHtml'); - this doesn't make sense, $html is automatically set up
-#   and the correct one too, just with the custom class somewhere in the extra folder (or subfolder of that)
-# - change use of HTTP_SERVER.DIR_WS_CATALOG to $net->url('index')
-# - remove wrongly placed content/views/options.php
-# - moved content/images/ri_template.jpg to themes/Modern/preview.jpg
-# - add CSS rule for sb_information to make links wrap
-# - removed code to generate RHS column
-# - add custom theme.css with rules to make other sideboxes look better
-# - also add code to default_layout.php to add the footer div to not customized boxes
-# - explicitely set the leftBoxContainer width to 220px to avoid the centre column wrapping
-# - !added price class to default theme sidebox prices
-# - removed featured.php box as default works
-# - !change manufacturers drop-down size to 1 in default theme
-# - removed manufacturers.php box as default works
-# - removed .leftBoxesStyle from all #sb_categories CSS rules in style.css
-# - removed categories.php box as default works
-# - make sidebox prices same color as centre homepage
-# - fix copyright links to not use language defines
-# - change product_info to make the add-to-cart input element type="image" and use locale dependant image
-# - moved locale images
-# - CSS: make add-to-cart form on product_info bottom aligned
-# - upgrade cart with new locale dependant button images
-# - .itemTitle: set min-height:3.4em to align price/add-to-cart button
-# - make all btn links on checkout_confirmation float right
-# - add navEZCol class span around all ezpage links in header.php
-# - make BUTTON the same as INPUT, TEXTAREA in site.css #565 
-
-
 # Notes:
 # - I think with all those classes and ids, there is almost no justification for inline styles as used in a few places
 # - style: element names in CSS rules should be lower case
 # - only three sideboxes adapted; using default sideboxes causes wrapping of centre column underneath the left column
 # - rihgt hand side column could be disabled via theme code - admin r/l hand side column options are not theme specific
-# - header uses zen_xxx code for the search box: not good
 # - ZenMagick does not use the advanced_search_results url any more; there is a search and advanced_search
 # - header also uses zen-cart style defines for translatable text
 # - header also uses if (STORE_STATUS == '0') { - instead the corresponding ZenMagick setting should be used
