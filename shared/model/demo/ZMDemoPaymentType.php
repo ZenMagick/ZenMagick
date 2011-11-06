@@ -114,4 +114,11 @@ class ZMDemoPaymentType extends ZMObject implements ZMPaymentType {
         return null;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    public function getOrderStatus() {
+        return 1;
+    }
+
 }
