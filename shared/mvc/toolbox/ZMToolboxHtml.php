@@ -156,6 +156,7 @@ class ZMToolboxHtml extends ZMToolboxTool {
     /**
      * Create a full back link.
      *
+     * <p><strong>NOTE: This has been changed to point to the store homepage.</strong></p>
      * <p>Return a full HTML <code>&lt;a&gt;</code> tag.</p>
      *
      * <p>Since the link text may be HTML, no HTML escaping is done in this method.</p>
@@ -163,9 +164,11 @@ class ZMToolboxHtml extends ZMToolboxTool {
      * @param string text The link text (can be plain text or HTML).
      * @param array attr Optional HTML attribute map; default is an empty array().
      * @return string A fully formated HTML <code>&lt;a&gt;</code> tag.
+     * @deprecated
      */
     public function backLink($text, $attr=array()) {
-        $link = substr(zen_back_link(), 0, -1);
+        $link = '<a href="'.$this->getRequest()->url('index', '', false).'"';
+
         foreach ($attr as $name => $value) {
             if (null !== $value) {
                 $link .= ' '.$name.'="'.$value.'"';
