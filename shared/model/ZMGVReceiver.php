@@ -112,7 +112,12 @@ class ZMGVReceiver extends ZMObject {
      *
      * @param string amount The (formatted) amount.
      */
-    public function setAmount($amount) { $this->amount_ = ZMTools::parseMoney($amount, $this->container->get('request')->getCurrencyCode()); }
+    public function setAmount($amount) {
+        // TODO: this should be passed into the method
+        $currencyCode = $this->container->get('request')->getCurrencyCode();
+        $currency = $this->container->get('currencyService')->getCurrencyForCode($currencyCode);
+        $this->amount_ = $currency->parse($amount, false);
+    }
 
     /**
      * Set the message.

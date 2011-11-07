@@ -86,6 +86,7 @@ class ZMTools {
      * @param string amount The amount.
      * @param string currencyCode The currency.
      * @return float The amount.
+     * @deprecated
      */
     public static function parseMoney($money, $currencyCode) {
         $currency = $this->container->get('currencyService')->getCurrencyForCode($currencyCode);
@@ -100,6 +101,7 @@ class ZMTools {
      * @param string timestamp The last change date of whatever resource this is about.
      * @param boolean <code>true<code> <strong>if</strong> a body should be returned,
      *  <code>false</code> if the resource changed.
+     * @deprecated
      */
     public static function ifModifiedSince($timestamp) {
         // A PHP implementation of conditional get, see
@@ -136,6 +138,7 @@ class ZMTools {
      *
      * @param string date The date.
      * @return array An array with 3 elements in the order [day] [month] [year].
+     * @deprecated use ZMRssUtils instead
      */
     public static function parseRssDate($date) {
         preg_match("/[a-zA-Z]+, ([0-3]?[0-9]) ([a-zA-Z]+) ([0-9]{2,4}) .*/", $date, $regs);
@@ -232,6 +235,7 @@ class ZMTools {
      * @param boolean recursive Optional flag to recursively process all files/folders in a given directory; default is <code>false</code>.
      * @param array perms Optional file permissions; defaults are taken from the settings <em>fs.permissions.defaults.folder</em> for folder,
      *  <em>fs.permissions.defaults.file</em> for files.
+     * @deprecated use ZMFileUtils instead
      */
     public static function setFilePerms($files, $recursive=false, $perms=array()) {
         if (!ZMSettings::get('fs.permissions.fix')) {
