@@ -23,6 +23,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 
 /**
  * Shipping estimator.
@@ -111,6 +112,7 @@ class ZMShippingEstimator extends ZMObject {
     function getZCAddress() {
     global $order, $country_info;
         $address = null;
+        $countryService = Runtime::getContainer()->get('countryService');
         if (isset($_POST['country_id'])){
             // country is selected
             $country_info = $_SESSION['country_info'];
@@ -120,7 +122,7 @@ class ZMShippingEstimator extends ZMObject {
                 'country_id' => $_POST['country_id'],
                 //add state zone_id
                 'zone_id' => $this->getStateId(),
-                'format_id' => zen_get_address_format_id($_POST['country_id']));
+                'format_id' => $countryService->getCountryForId($_POST['country_id'])->getAddressFormatId());
             $_SESSION['cart_country_id'] = $_POST['country_id'];
             //add state zone_id
             $_SESSION['cart_zone'] = $this->getStateId();
@@ -133,7 +135,7 @@ class ZMShippingEstimator extends ZMObject {
                 'country' => array('id' => $_SESSION['cart_country_id'], 'title' => $country_info['countries_name'],
                 'iso_code_2' => $country_info['countries_iso_code_2'], 'iso_code_3' =>  $country_info['countries_iso_code_3']),
                 'country_id' => $_SESSION['cart_country_id'],
-                'format_id' => zen_get_address_format_id($_SESSION['cart_country_id']));
+                'format_id' => $countryService->getCountryForId($_SESSION['cart_country_id'])->getAddressFormatId());
         } else {
             // first timer
             $_SESSION['cart_country_id'] = ZMSettings::get('storeCountry');
@@ -142,7 +144,7 @@ class ZMShippingEstimator extends ZMObject {
                 'country' => array('id' => ZMSettings::get('storeCountry'), 'title' => $country_info['countries_name'],
                 'iso_code_2' => $country_info['countries_iso_code_2'], 'iso_code_3' =>  $country_info['countries_iso_code_3']),
                 'country_id' => ZMSettings::get('storeCountry'),
-                'format_id' => zen_get_address_format_id($_POST['country_id']));
+                'format_id' => $countryService->getCountryForId($_SESSION['cart_country_id'])->getAddressFormatId());
         }
 
         return $address;
@@ -158,8 +160,8 @@ class ZMShippingEstimator extends ZMObject {
     global $db, $order;
 
         // Only do when something is in the cart
-        if (!$this->container->get('request')->getShoppingCart()->isEmpty()) {
-          if ($this->container->get('request')->isRegistered()) {
+        if (!Runtime::getContainer()->get('request')->getShoppingCart()->isEmpty()) {
+          if (Runtime::getContainer()->get('request')->isRegistered()) {
               $sendto = $this->_getAddressId();
               $_SESSION['sendto'] = $sendto;
               // set session now
@@ -185,7 +187,7 @@ class ZMShippingEstimator extends ZMObject {
     /**
      * Returns <code>true</code> if anything to calculate.
      */
-    function isCartEmpty() { return $this->container->get('request')->getShoppingCart()->isEmpty(); }
+    function isCartEmpty() { return Runtime::getContainer()->get('request')->getShoppingCart()->isEmpty(); }
 
     /**
      * Get current address (if any)
@@ -193,7 +195,7 @@ class ZMShippingEstimator extends ZMObject {
      * @return ZMAddress The curretn address or <code>null</code>.
      */
     function getAddress() {
-        return $this->container->get('addressService')->getAddressForId($this->_getAddressId());
+        return Runtime::getContainer()->get('addressService')->getAddressForId($this->_getAddressId());
     }
 
 }
