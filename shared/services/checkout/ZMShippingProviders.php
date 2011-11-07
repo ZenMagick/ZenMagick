@@ -131,10 +131,19 @@ class ZMShippingProviders extends ZMObject {
             $template = new template_func();
         }
 
+        $settingsService = $this->container->get('settingsService');
+        $activeTheme = $this->container->get('themeService')->getActiveTheme();
+        $defaultLanguage = $this->container->get('languageService')->getLanguageForId($settingsService->get('storeDefaultLanguageId'));
         foreach ($moduleInfos as $moduleInfo) {
-            $lang_file = zen_get_file_directory(ZC_INSTALL_PATH . 'includes/languages/' . $_SESSION['language'] . '/modules/shipping/', $moduleInfo['file'], 'false');
-            if (@file_exists($lang_file)) {
-                include_once $lang_file;
+            $lang_files = array(
+                ZC_INSTALL_PATH.'includes/languages/'.$defaultLanguage->getDirectory().'/modules/shipping/'.$activeTheme->getThemeId().'/'.$moduleInfo['file'],
+                ZC_INSTALL_PATH.'includes/languages/'.$defaultLanguage->getDirectory().'/modules/shipping/'.$moduleInfo['file']
+            );
+            foreach ($lang_files as $lf) {
+                if (@file_exists($lf)) {
+                    include_once $lf;
+                    break;
+                }
             }
             include_once ZC_INSTALL_PATH . 'includes/modules/shipping/' . $moduleInfo['file'];
             if (class_exists($moduleInfo['class'])) {
