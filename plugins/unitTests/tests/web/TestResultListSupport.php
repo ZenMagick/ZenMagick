@@ -20,6 +20,8 @@
 ?>
 <?php
 
+use zenmagick\base\Beans;
+
 /**
  * Test result list related code.
  *
@@ -41,14 +43,15 @@ class TestResultListSupport extends ZMTestCase {
      * Test search source.
      */
     public function testSearchSourceOnly() {
-        $criteria = new ZMSearchCriteria();
+        $criteria = Beans::getBean('ZMSearchCriteria');
         $criteria->setCategoryId(3);
         $criteria->setIncludeSubcategories(true);
         $criteria->setPriceFrom(20);
         $criteria->setKeywords('dvd');
 
-        $source = new ZMSearchResultSource($criteria);
-        $source->setResultList(new ZMResultList());
+        $source = Beans::getBean('ZMSearchResultSource');
+        $source->setSearchCriteria($criteria);
+        $source->setResultList(Beans::getBean('ZMResultList'));
         $results = $source->getResults();
         $this->assertNotNull($results);
 
@@ -67,14 +70,15 @@ class TestResultListSupport extends ZMTestCase {
      * Test search source with result list.
      */
     public function testSourceWithList() {
-        $criteria = new ZMSearchCriteria();
+        $criteria = Beans::getBean('ZMSearchCriteria');
         $criteria->setCategoryId(3);
         $criteria->setIncludeSubcategories(true);
         $criteria->setPriceFrom(20);
         $criteria->setKeywords('dvd');
 
-        $resultList = new ZMResultList();
-        $source = new ZMSearchResultSource($criteria);
+        $resultList = Beans::getBean('ZMResultList');
+        $source = Beans::getBean('ZMSearchResultSource');
+        $source->setSearchCriteria($criteria);
         $source->setResultList($resultList);
         $results = $source->getResults();
         $this->assertNotNull($results);
@@ -94,18 +98,19 @@ class TestResultListSupport extends ZMTestCase {
      * Test search source with result list and sorter.
      */
     public function testSourceWithListAndSorter() {
-        $criteria = new ZMSearchCriteria();
+        $criteria = Beans::getBean('ZMSearchCriteria');
         $criteria->setCategoryId(3);
         $criteria->setIncludeSubcategories(true);
         $criteria->setPriceFrom(20);
         $criteria->setKeywords('dvd');
 
-        $resultList = new ZMResultList();
-        $sorter = new ZMProductSorter();
+        $resultList = Beans::getBean('ZMResultList');
+        $sorter = Beans::getBean('ZMProductSorter');
         $sorter->setSortId('name');
         $sorter->setDescending(true);
         $resultList->addSorter($sorter);
-        $source = new ZMSearchResultSource($criteria);
+        $source = Beans::getBean('ZMSearchResultSource');
+        $source->setSearchCriteria($criteria);
         $source->setResultList($resultList);
         $results = $source->getResults();
         $this->assertNotNull($results);
