@@ -24,6 +24,7 @@ namespace apps\store\bundles\ZenCartBundle;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
+use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
 
 /**
@@ -48,6 +49,7 @@ class ZenCartBundle extends Bundle {
         define('ZC_INSTALL_PATH', dirname(Runtime::getInstallationPath()).DIRECTORY_SEPARATOR);
 
         Runtime::getEventDispatcher()->addListener('init_request', array($this, 'onInitRequest'));
+        Runtime::getEventDispatcher()->addListener('generate_email', array(Beans::getBean('apps\store\bundles\ZenCartBundle\utils\EmailEventHandler'), 'onGenerateEmail'));
         $zcClassLoader = new ZenCartClassLoader();
         $zcClassLoader->register();
         $this->prepareConfig();

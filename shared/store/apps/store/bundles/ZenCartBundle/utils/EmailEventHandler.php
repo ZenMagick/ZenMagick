@@ -22,31 +22,18 @@
  */
 ?>
 <?php
+namespace apps\store\bundles\ZenCartBundle\utils;
 
 use zenmagick\base\Runtime;
+use zenmagick\base\ZMObject;
 
 /**
- * Fixes and stuff that are (can be) event driven.
+ * Fix email context.
  *
  * @author DerManoMann
- * @package zenmagick.store.shared.utils
+ * @package apps.store.bundles.ZenCartBundle.utils
  */
-class ZMEmailFixes extends ZMObject {
-
-    /**
-     * Create new instance.
-     */
-    function __construct() {
-        parent::__construct();
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
-
+class EmailEventHandler extends ZMObject {
 
     /**
      * Fix email context for various emails.
@@ -56,13 +43,14 @@ class ZMEmailFixes extends ZMObject {
         $template = $event->get('template');
         $request =  $event->get('request');
 
+        $settingsService = $this->container->get('settingsService');
         // set for all
         $language = $request->getSelectedLanguage();
         $context['language'] = $language;
 
         $orderService = $this->container->get('orderService');
 
-        if (ZMSettings::get('isAdmin') && 'send_email_to_user' == $request->getParameter('action')) {
+        if ($settingsService->get('isAdmin') && 'send_email_to_user' == $request->getParameter('action')) {
             // gv mail
             if ($context['GV_REDEEM']) {
                 if (1 == preg_match('/.*strong>(.*)<\/strong.*/', $context['GV_REDEEM'], $matches)) {
@@ -72,8 +60,8 @@ class ZMEmailFixes extends ZMObject {
                         // coupon gets created only *after* the email is sent!
                         $coupon = Runtime::getContainer()->get('ZMCoupon');
                         $coupon->setCode($couponCode);
-                        $coupon->setType(ZMCoupons::TYPPE_GV);
-                        $currency = $this->container->get('currencyService')->getCurrencyForCode(ZMSettings::get('defaultCurrency'));
+                        $coupon->setType(\ZMCoupons::TYPPE_GV);
+                        $currency = $this->container->get('currencyService')->getCurrencyForCode($settingsService->get('defaultCurrency'));
                         $coupon->setAmount($currency->parse($context['GV_AMOUNT']));
                     }
                     $context['currentCoupon'] = $coupon;
@@ -139,7 +127,7 @@ class ZMEmailFixes extends ZMObject {
         }
 
         if ('product_notification' == $template) {
-            $account = new ZMAccount();
+            $account = new \ZMAccount();
             $account->setFirstName($context['EMAIL_FIRST_NAME']);
             $account->setLastName($context['EMAIL_LAST_NAME']);
             $context['currentAccount'] = $account;
