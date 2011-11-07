@@ -140,7 +140,7 @@ class ZMStoreDefaultUrlRewriter implements UrlRewriter {
             } elseif (($transport == 'NONSSL' && $httpsServer == $server) || ($transport == 'SSL' && $httpServer == $server)) {
                 // switch from http to https or vice versa
                 if ($http_domain != $https_domain) {
-                    $sid = zen_session_name() . '=' . zen_session_id();
+                    $sid = session_name() . '=' . session_id();
                 }
             }
         }

@@ -9,7 +9,7 @@
  * @version $Id$
  */
 
-define('CAPCHA_USE_OB', 'false');
+define('CAPCHA_USE_OB', 'true');
 define('CAPCHA_NOISE', '30');
 
 class PCaptcha {
@@ -56,7 +56,7 @@ class PCaptcha {
     if(defined('CAPTCHA_CHARS_MAX_SIZE')) $this->chars_max_size = CAPTCHA_CHARS_MAX_SIZE;
     if(defined('CAPTCHA_CHARS_ROTATION')) $this->chars_rotation = CAPTCHA_CHARS_ROTATION;
     if(defined('CAPCHA_NOISE')) $this->noise = (int)CAPCHA_NOISE;
-		$this->dir_fs_fonts = $plugin->getConfigPath('fonts/');
+		$this->dir_fs_fonts = $plugin->getPluginDirectory().'fonts/';
     if(defined('CAPTCHA_MAX_TRY')) $this->max_try = CAPTCHA_MAX_TRY;
     if(defined('CAPTCHA_FAILURE_PROC')) $this->failure_proc = CAPTCHA_FAILURE_PROC;
 
@@ -67,7 +67,11 @@ class PCaptcha {
     if(!$session_started) die(ERROR_CAPTCHA_SESSION);
 
     $this->ttf_list = $this->_getFileList($this->dir_fs_fonts, 'ttf');
-		$this->img_href = $request->url('captcha_img', zen_session_name() . '=' . zen_session_id(), true);
+		$this->img_href = $request->url('captcha_img', session_name() . '=' . session_id(), true);
+    if ($this->debug) {
+        ini_set('display_errors', true);
+        error_reporting(-1);
+    }
   }
 
 /**
@@ -89,24 +93,12 @@ class PCaptcha {
   }
 
 /**
- * Generate the HTML output code for the Redraw Captcha image button
- */
-  function redraw_button($image, $alt = '', $parameters = '', $sec_class = '') {
-    $redraw = ' onclick="document.getElementById(\'captcha-img\').src=\'' . $this->img_href . '&rand=\'+Math.random();return false;"';
-    $redraw_button = zen_image_button($image, $alt, $redraw . ' ' . $parameters, $sec_class );
-    if (strtolower(IMAGE_USE_CSS_BUTTONS) == 'yes' && strpos($redraw_button, $redraw) === false) {
-    	$redraw_button = str_replace('<span ', '<span ' . $redraw, $redraw_button);
-    }
-    return $redraw_button;
-  }
-
-/**
  * Generate the HTML output code for the Captcha input field
  */
   function input_field($name = 'captcha_code', $parameters = '') {
     $name = htmlspecialchars(trim($name));
     $field = '<input type="text" name="' . $name . '"';
-    if (zen_not_null($parameters)) $field .= ' ' . $parameters;
+    if (null !== $parameters && !empty($parameters)) $field .= ' ' . $parameters;
     $field .= ' />';
     $_SESSION['captcha_field'] = $name;
     return $field;
