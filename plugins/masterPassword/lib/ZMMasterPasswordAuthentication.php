@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\ZMObject;
 
 /**
  * Master password authentication provider.
@@ -27,7 +28,7 @@
  * @author DerManoMann
  * @package org.zenmagick.plugins.masterPassword
  */
-class ZMMasterPasswordAuthentication implements ZMAuthentication {
+class ZMMasterPasswordAuthentication extends ZMObject implements ZMAuthentication {
 
     /**
      * {@inheritDoc}

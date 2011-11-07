@@ -40,7 +40,7 @@ class ZMDateRule extends ZMRule {
      */
     function __construct($name, $format=null, $msg=null) {
         parent::__construct($name, "Please enter a valid date (%s).", $msg);
-        $this->format_ = null != $format ? $format : $this->container->get('localeService')->getLocale()->getFormat('date', 'short');
+        $this->format_ = $format;
     }
 
     /**
@@ -55,7 +55,7 @@ class ZMDateRule extends ZMRule {
      * Get the format string.
      */
     public function getFormat() {
-        return $this->format_;
+        return null != $this->format_ ? $this->format_ : $this->container->get('localeService')->getLocale()->getFormat('date', 'short');
     }
 
     /**
