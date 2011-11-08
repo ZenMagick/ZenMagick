@@ -22,6 +22,7 @@
  */
 ?>
 
+<?php echo get_class($container->get('productService')) ?>
 <?php echo $utils->staticPageContent("main_page") ?>
 <?php $featured = $container->get('productService')->getFeaturedProducts(null, 4, false, $session->getLanguageId()); ?>
 <h3>Featured Products</h3>

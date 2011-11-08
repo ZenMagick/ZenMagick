@@ -22,6 +22,7 @@
  */
 ?>
 
+<?php echo get_class($container->get('productService')) ?>
 <?php $manufacturer = $currentProduct->getManufacturer() ?>
 <h2><?php echo $html->encode(null != $manufacturer ? $manufacturer->getName() : '') ?> <?php echo $html->encode($currentProduct->getName()) ?></h2>
 
