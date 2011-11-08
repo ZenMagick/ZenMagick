@@ -77,7 +77,7 @@ class ZMAddressBookEditController extends ZMController {
         }
 
         $address->setAccountId($request->getAccountId());
-        $address = $addressService->updateAddress($address);
+        $addressService->updateAddress($address);
 
         // process primary setting
         if ($address->isPrimary()) {

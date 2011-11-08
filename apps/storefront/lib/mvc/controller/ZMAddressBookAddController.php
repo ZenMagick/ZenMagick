@@ -77,7 +77,7 @@ class ZMAddressBookAddController extends ZMController {
             $account->setDefaultAddressId($address->getId());
             $this->container->get('accountService')->updateAccount($account);
             $address->setPrimary(true);
-            $address = $addressService->updateAddress($address);
+            $addressService->updateAddress($address);
 
             $session = $request->getSession();
             $session->setAccount($account);
