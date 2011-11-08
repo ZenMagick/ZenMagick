@@ -41,6 +41,13 @@ class SavantView extends ZMSavantView {
         // available locale
         $localeCodes = array_reverse($this->container->get('localeService')->getValidLocaleCodes());
 
+        // bundles
+        foreach ($this->container->getParameterBag()->get('kernel.bundles') as $bundleName => $bundleClass) {
+            $rclass = new ReflectionClass($bundleClass);
+            $bundlePath = dirname($rclass->getFilename());
+            $path[] = $bundlePath.'/Resources';
+        }
+
         // add plugins as fallback fallback
         foreach ($this->container->get('pluginService')->getAllPlugins('storefront') as $plugin) {
             $ppath = $plugin->getPluginDirectory().'content'.DIRECTORY_SEPARATOR;
