@@ -376,6 +376,8 @@ class ZMShoppingCart extends ZMObject {
     public function setSelectedPaymentType($paymentType) {
         // invalidate totals
         $this->zenTotals_ = null;
+        // invalidate payment type
+        $this->selectedPaymentType_ = null;
 
         $this->session->setValue('payment', $paymentType->getId());
     }
