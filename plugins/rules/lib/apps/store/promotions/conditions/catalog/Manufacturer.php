@@ -21,25 +21,25 @@
 <?php
 namespace apps\store\promotions\conditions\cart;
 
-use apps\store\promotions\CartPromotionElement;
+use apps\store\promotions\CatalogPromotionElement;
 use phprules\Operator;
 use phprules\SingleRule;
 use phprules\RuleContext;
 
 /**
- * Manufacturer in shopping cart promotion condition.
+ * Manufacturer catalog promotion condition.
  *
- * @package apps.store.promotions.conditions.cart
+ * @package apps.store.promotions.conditions.catalog
  * @author DerManoMann
  */
-class ManufacturerInCart extends CartPromotionElement {
+class Manufacturer extends CatalogPromotionElement {
 
     /**
      * {@inheritDoc}
      */
     public function getParameterConfig() {
         return array(
-            _zm('Produt of [manufacturer] in cart') => array(
+            _zm('Manufacturer is [manufacturer]') => array(
                 'ZMManufacturerSelectFormWidget#name=manufacturer'
             )
         );
@@ -49,10 +49,10 @@ class ManufacturerInCart extends CartPromotionElement {
      * {@inheritDoc}
      */
     public function getRules() {
-        $rule = new SingleRule('manufacturerInCartRule');
-        $rule->addVariable('manufacturerList');
+        $rule = new SingleRule('manufacturerRule');
+        $rule->addVariable('productManufacturer');
         $rule->addVariable('manufacturer');
-        $rule->addOperator(Operator::IN);
+        $rule->addOperator(Operator::EQUAL_TO);
         return array($rule);
     }
 
@@ -60,16 +60,10 @@ class ManufacturerInCart extends CartPromotionElement {
      * {@inheritDoc}
      */
     public function getRuleContexts($parameter) {
-        $manufacturerList = array();
-        foreach ($this->getShoppingCart()->getItems() as $item) {
-            if (null != ($item->getProduct()->getManufacturer())) {
-                $manufacturerList[$manufacturer->getName()] = true;
-            }
-        }
-
-        $ruleContext = new RuleContext('manufacturerInCartRuleContext');
+        $manufacturer = $this->getProduct()->getManufacturer();
+        $ruleContext = new RuleContext('manufacturerRuleContext');
+        $ruleContext->addVariable('productManufacturer', null != $manufacturer ? $manufacturer->getId() : null);
         $ruleContext->addVariable('manufacturer', $parameter['manufacturer']);
-        $ruleContext->addVariable('manufacturerList', $manufacturerList);
 
         return array($ruleContext);
     }
