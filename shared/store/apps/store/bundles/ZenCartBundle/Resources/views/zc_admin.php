@@ -18,7 +18,6 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 ?>
-
 <link rel="stylesheet" type="text/css" href="<?php echo str_replace('zenmagick/apps/admin/web', '', $request->getContext()).ZC_ADMIN_FOLDER ?>/includes/stylesheet.css">
 
 <?php
