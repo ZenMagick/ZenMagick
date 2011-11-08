@@ -75,7 +75,7 @@ class StoreEventListener extends ZMObject {
           // admin
           'apps/'.ZM_APP_NAME.'/lib/menu.php',
           // store
-          'apps/'.ZM_APP_NAME.'/lib/zencart_overrides.php',
+          'shared/store/apps/store/bundles/ZenCartBundle/utils/zencart_overrides.php'
         );
         foreach ($statics as $static) {
             $file = Runtime::getInstallationPath().$static;

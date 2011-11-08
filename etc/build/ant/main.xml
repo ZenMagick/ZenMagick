@@ -264,9 +264,6 @@
         <!-- files duplicated in admin area -->
         <copy todir="${zencart.target.dir}/${zencart.admin.dir}" overwrite="true">
             <fileset dir="${zencart.src.dir}/admin" />
-            <fileset dir="${zencart.src.dir}">
-                <include name="includes/functions/extra_functions/zenmagick_zencart_overrides.php" />
-            </fileset>
         </copy>
     </target>
 
