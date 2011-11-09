@@ -48,8 +48,12 @@ class ZenCartBundle extends Bundle {
     public function boot() {
         define('ZC_INSTALL_PATH', dirname(Runtime::getInstallationPath()).DIRECTORY_SEPARATOR);
 
-        Runtime::getEventDispatcher()->addListener('init_request', array($this, 'onInitRequest'));
-        Runtime::getEventDispatcher()->addListener('generate_email', array(Beans::getBean('apps\store\bundles\ZenCartBundle\utils\EmailEventHandler'), 'onGenerateEmail'));
+        $eventDispatcher = Runtime::getEventDispatcher();
+        $eventDispatcher->addListener('init_request', array($this, 'onInitRequest'));
+        $eventDispatcher->addListener('generate_email', array(Beans::getBean('apps\store\bundles\ZenCartBundle\utils\EmailEventHandler'), 'onGenerateEmail'));
+        $eventDispatcher->addListener('create_account', array($this, 'onCreateAccount'));
+        $eventDispatcher->addListener('login_success', array($this, 'onLoginSuccess'));
+
         $zcClassLoader = new ZenCartClassLoader();
         $zcClassLoader->register();
         $this->prepareConfig();
@@ -128,6 +132,33 @@ class ZenCartBundle extends Bundle {
             $settingsService->set('apps.store.baseUrl', 'http://'.$request->getHostname().str_replace('apps/admin/web', '', $request->getContext()));
             $settingsService->set('apps.store.oldAdminUrl', $settingsService->get('apps.store.baseUrl').ZC_ADMIN_FOLDER.'/index.php');
         }
+    }
+
+    /**
+     * Periodic stuff zencart needs to do.
+     */
+    private function zenSessionStuff() {
+        if (function_exists('zen_session_recreate')) {
+            // yay!
+            if (!function_exists('whos_online_session_recreate')) {
+                function whos_online_session_recreate($old_session, $new_session) { }
+            }
+            zen_session_recreate();
+        }
+    }
+
+    /**
+     * Login event handler.
+     */
+    public function onLoginSuccess($event) {
+        $this->zenSessionStuff();
+    }
+
+    /**
+     * Create account event handler.
+     */
+    public function onCreateAccount($event) {
+        $this->zenSessionStuff();
     }
 
 }
