@@ -49,4 +49,3 @@ services:
     scope: container
     calls:
       - [setExpiryTime, [%storefront.session_timeout%]]
-      #- [setSyncSessionData, [false]]

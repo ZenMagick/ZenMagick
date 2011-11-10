@@ -44,7 +44,6 @@ class Session extends ZMObject {
     protected $data_;
     protected $persist_;
     protected $sessionHandler_;
-    protected $syncSessionData_;
     private $cookiePath_;
     private $closed_;
     private $domain_;
@@ -66,7 +65,6 @@ class Session extends ZMObject {
         $this->setName(null !== $name ? $name : self::DEFAULT_NAME);
 
         $this->internalStart_ = false;
-        $this->syncSessionData_ = true;
         $this->useFqdn_ = true;
         $this->data_ = array();
         $this->persist_ = array();
@@ -190,15 +188,6 @@ class Session extends ZMObject {
     }
 
     /**
-     * Control whether to sync the <code>$_SESSION</code> global with internal data or not.
-     *
-     * @param boolean value The new value.
-     */
-    public function setSyncSessionData($value) {
-        $this->syncSessionData_ = $value;
-    }
-
-    /**
      * Add one or more container ids to persist.
      *
      * @param mixed id Either a single id or an array of container ids.
@@ -316,12 +305,6 @@ class Session extends ZMObject {
         //XXX:TODO: bad hack to avoid zc admin breakage
         $isZCAdmin = defined('IS_ADMIN_FLAG') && IS_ADMIN_FLAG && !defined('ZC_ADMIN_FOLDER');
         if (!$isZCAdmin && $this->isStarted() && !$this->closed_) {
-            if ($this->syncSessionData_) {
-                // sync with internal data
-                foreach ($_SESSION as $name => $value) {
-                    unset($_SESSION[$name]);
-                }
-            }
             foreach ($this->data_ as $name => $value) {
                 $_SESSION[$name] = $value;
             }
