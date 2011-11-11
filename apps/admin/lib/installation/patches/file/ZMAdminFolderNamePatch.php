@@ -24,7 +24,7 @@ use zenmagick\base\Runtime;
 
 
 define('_ZM_ADMIN_INDEX_PHP', Runtime::getInstallationPath() . "apps/admin/web/index.php");
-
+if (!defined('DIR_WS_ADMIN')) define('DIR_WS_ADMIN', '/admin/'); 
 /**
  * Patch to update the admin folder name in apps/admin/web/index.php.
  *

@@ -20,7 +20,7 @@
 ?>
 <?php
 
-define('_ZM_ZEN_CUSTOMERS_PHP', DIR_FS_ADMIN . 'customers.php');
+define('_ZM_ZEN_CUSTOMERS_PHP', ZC_INSTALL_PATH.ZC_ADMIN_FOLDER.'/customers.php');
 
 /**
  * Patch to enable editing customers if the same email exists as guest checkout.

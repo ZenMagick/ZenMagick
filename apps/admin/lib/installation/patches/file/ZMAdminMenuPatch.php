@@ -23,7 +23,7 @@
 use zenmagick\base\Runtime;
 
 
-define('_ZM_ZEN_ADMIN_FILE', DIR_FS_ADMIN . DIR_WS_BOXES . "extras_dhtml.php");
+define('_ZM_ZEN_ADMIN_FILE', ZC_INSTALL_PATH.ZC_ADMIN_FOLDER.'/includes/boxes/extras_dhtml.php');
 
 /**
  * Admin menu patch.
@@ -89,7 +89,7 @@ class ZMAdminMenuPatch extends ZMFilePatch {
         if ($this->isOpen() && $this->isReady()) {
             Runtime::getLogging()->log("** ZenMagick: patching zen-cart admin to auto-enable ZenMagick admin menu", ZMLogging::INFO);
             $handle = fopen(_ZM_ZEN_ADMIN_FILE, "ab");
-            fwrite($handle, "\n<?php require(DIR_WS_BOXES.'zenmagick_dhtml.php'); /* added by ZenMagick installation patcher */ ?>\n");
+            fwrite($handle, "\n<?php require('includes/boxes/zenmagick_dhtml.php'); /* added by ZenMagick installation patcher */ ?>\n");
             fclose($handle);
             ZMFileUtils::setFilePerms(_ZM_ZEN_ADMIN_FILE);
             return true;
@@ -112,8 +112,8 @@ class ZMAdminMenuPatch extends ZMFilePatch {
         }
 
         $contents = $this->readFile(_ZM_ZEN_ADMIN_FILE);
-        $contents = str_replace("\n<?php require(DIR_WS_BOXES . 'zenmagick_dhtml.php'); /* added by ZenMagick installation patcher */ ?>", "", $contents);
-        $contents = str_replace("\n<?php require(DIR_WS_BOXES.'zenmagick_dhtml.php'); /* added by ZenMagick installation patcher */ ?>", "", $contents);
+        $contents = str_replace("\n<?php require('includes/boxes/zenmagick_dhtml.php'); /* added by ZenMagick installation patcher */ ?>", "", $contents);
+        $contents = str_replace("\n<?php require('includes/boxes/zenmagick_dhtml.php'); /* added by ZenMagick installation patcher */ ?>", "", $contents);
 
         return $this->writeFile(_ZM_ZEN_ADMIN_FILE, $contents);
     }
