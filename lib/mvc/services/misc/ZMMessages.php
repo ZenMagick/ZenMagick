@@ -85,10 +85,13 @@ class ZMMessages extends ZMObject {
      * @param string ref The referencing resource; default is <code>ZMMessages::REF_GLOBAL</code>.
      */
     public function add($text, $type=self::T_MESSAGE, $ref=self::REF_GLOBAL) {
-        if (array_key_exists($text, $this->uniqueMsgRef_))
+        //$key = $type.':'.trim($text);
+        $key = trim($text);
+        if (array_key_exists($key, $this->uniqueMsgRef_)) {
             return;
+        }
 
-        $this->uniqueMsgRef_[$text] = $text;
+        $this->uniqueMsgRef_[$key] = $text;
         $message = Runtime::getContainer()->get('ZMMessage');
         $message->setText($text);
         $message->setType($type);
