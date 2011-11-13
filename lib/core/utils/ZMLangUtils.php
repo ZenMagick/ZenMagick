@@ -209,7 +209,7 @@ class ZMLangUtils {
     public static function dumpStack($msg=null) {
         if ($msg) { echo '<h2>'.$msg.'</h2>'; }
         foreach (debug_backtrace() as $level) {
-            echo $level['line'].':'.$level['file'].'<br>';
+            echo $level['line'].':'.$level['function'].':'.$level['file']."<br>\n";
         }
         echo '<br>';
     }
