@@ -91,7 +91,7 @@
         if ($single) {
           ?><p><input type="hidden" id="<?php echo $sptid ?>" name="payment" value="<?php echo $type->getId() ?>" /><?php
         } else {
-          ?><p class="paytype" onclick="document.getElementById('<?php echo $sptid ?>').checked = true;"><input type="radio" id="<?php echo $sptid ?>" name="payment" value="<?php echo $type->getId() ?>"<?php $form->checked($shoppingCart->getPaymentTypeId(), $type->getId()) ?> /><?php
+          ?><p class="paytype" onclick="document.getElementById('<?php echo $sptid ?>').checked = true;"><input type="radio" id="<?php echo $sptid ?>" name="payment" value="<?php echo $type->getId() ?>"<?php $form->checked($shoppingCart->getSelectedPaymentTypeId(), $type->getId()) ?> /><?php
         }
         ?><label for="<?php echo $sptid ?>"><?php echo $type->getName() ?></label></p><?php
         $fields = $type->getFields();
