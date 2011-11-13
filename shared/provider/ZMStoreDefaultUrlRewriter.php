@@ -55,9 +55,6 @@ class ZMStoreDefaultUrlRewriter implements UrlRewriter {
      * ZenMagick implementation of zen-cart's zen_href_link function.
      */
     public static function furl($page=null, $params='', $transport='NONSSL', $addSessionId=true, $seo=true, $isStatic=false, $useContext=true, $request=null) {
-    //TODO:
-    global $session_started, $http_domain, $https_domain;
-
         if (null == $request) { $request = Runtime::getContainer()->get('request'); }
 
         if (empty($page)) {
@@ -132,15 +129,18 @@ class ZMStoreDefaultUrlRewriter implements UrlRewriter {
 
         // Add the session ID when moving from different HTTP and HTTPS servers, or when SID is defined
         $sid = null;
-        //TODO:$session = $request->getSession();
-        if ($addSessionId && ($session_started/* || $session->isStarted()*/) && !ZMSettings::get('isForceCookieUse')) {
+        $session = $request->getSession();
+        if ($addSessionId && ($session->isStarted()) && !ZMSettings::get('isForceCookieUse')) {
             if (defined('SID') && !ZMLangUtils::isEmpty(SID)) {
                 // defined, so use it
                 $sid = SID;
             } elseif (($transport == 'NONSSL' && $httpsServer == $server) || ($transport == 'SSL' && $httpServer == $server)) {
                 // switch from http to https or vice versa
+                // @todo revisit this if we really want to support shared certificates
+                $http_domain = isset($GLOBALS['http_domain']) ? $GLOBALS['http_domain'] : $hostname;
+                $https_domain = isset($GLOBALS['https_domain']) ? $GLOBALS['https_domain'] : $hostname;
                 if ($http_domain != $https_domain) {
-                    $sid = session_name() . '=' . session_id();
+                    $sid = $session->getName() . '=' . $session->getId();
                 }
             }
         }

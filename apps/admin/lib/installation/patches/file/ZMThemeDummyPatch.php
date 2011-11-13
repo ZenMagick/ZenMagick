@@ -19,7 +19,9 @@
  */
 ?>
 <?php
-
+if (!defined('DIR_FS_CATALOG_TEMPLATES')) {
+    define('DIR_FS_CATALOG_TEMPLATES', ZC_INSTALL_PATH . 'includes/templates');
+}
 use zenmagick\base\Runtime;
 
 

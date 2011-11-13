@@ -21,7 +21,7 @@
 <?php
 
 define('_ZM_HTACCESS', ZC_INSTALL_PATH.".htaccess");
-
+if (!defined('DIR_WS_CATALOG')) define('DIR_WS_CATALOG', '/');
 
 /**
  * Patch to update the <code>.htaccess</code> <code>RewriteBase</code>.
@@ -57,7 +57,7 @@ class ZMRewriteBasePatch extends ZMFilePatch {
             foreach ($lines as $line) {
                 $words = explode(' ', $line);
                 if (2 == count($words) && 'RewriteBase' == trim($words[0])) {
-                    return ZM_DIR_WS_CATALOG != $words[1];
+                    return DIR_WS_CATALOG != $words[1];
                 }
             }
             return false;
@@ -129,9 +129,9 @@ class ZMRewriteBasePatch extends ZMFilePatch {
         foreach ($lines as $ii => $line) {
             $words = explode(' ', $line);
             if (2 == count($words) && 'RewriteBase' == trim($words[0])) {
-                if (ZM_DIR_WS_CATALOG != $words[1]) {
+                if (DIR_WS_CATALOG != $words[1]) {
                     // fix (might not get written, though
-                    $lines[$ii] = 'RewriteBase ' . ZM_DIR_WS_CATALOG;
+                    $lines[$ii] = 'RewriteBase ' . DIR_WS_CATALOG;
                 }
                 break;
             }

@@ -78,13 +78,6 @@ class Session extends zenmagick\http\session\Session {
         if (Runtime::getSettings()->get('apps.store.storefront.sessions', false)) {
             parent::regenerate();
         }
-        if (function_exists('zen_session_recreate')) {
-            // yay!
-            if (!function_exists('whos_online_session_recreate')) {
-                function whos_online_session_recreate($old_session, $new_session) { }
-            }
-            zen_session_recreate();
-        }
     }
 
     /**
