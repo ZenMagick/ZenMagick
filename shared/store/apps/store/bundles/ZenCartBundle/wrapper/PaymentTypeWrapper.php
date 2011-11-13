@@ -38,6 +38,7 @@ class PaymentTypeWrapper extends ZMObject implements \ZMPaymentType {
     private $module_;
     private $selection_;
     private $fields_;
+    private $prepared_;
 
 
     /**
@@ -49,6 +50,7 @@ class PaymentTypeWrapper extends ZMObject implements \ZMPaymentType {
         parent::__construct();
         $this->setModule($module);
         $this->fields_ = null;
+        $this->prepared_ = false;
     }
 
     /**
@@ -138,12 +140,23 @@ class PaymentTypeWrapper extends ZMObject implements \ZMPaymentType {
     }
 
     /**
+     * Prepare.
+     */
+    private function prepare() {
+        if (!$this->prepared_) {
+            $this->module_->pre_confirmation_check();
+            $this->module_->confirmation();
+            $this->prepared_ = true;
+        }
+    }
+
+    /**
      * {@inheritDoc}
      */
     public function getOrderFormContent($request) {
         // TODO: move into controller
         ZenCartMock::startMock($request->getShoppingCart());
-        $this->module_->confirmation();
+        $this->prepare();
         $button =  $this->module_->process_button();
         ZenCartMock::cleanupMock();
         return $button;
@@ -153,6 +166,7 @@ class PaymentTypeWrapper extends ZMObject implements \ZMPaymentType {
      * {@inheritDoc}
      */
     public function getOrderFormUrl($request) {
+        $this->prepare();
         return isset($this->module_->form_action_url) ? $this->module_->form_action_url : $request->url('checkout_process', '', true);
     }
 

@@ -78,7 +78,6 @@ class ZMPaymentTypes extends ZMObject {
                 }
 
                 foreach ($moduleInfos as $info) {
-                    // TODO: fix: try to use global instances set up by zc
                     if (isset($GLOBALS[$info['class']])) {
                         $module = $GLOBALS[$info['class']];
                         if ($all || $module->enabled) {
@@ -95,6 +94,7 @@ class ZMPaymentTypes extends ZMObject {
                     }
                     include_once $info['path'];
                     $module = new $info['class'];
+                    $module->update_status();
                     if ($all || $module->enabled) {
                         $wrapper = Runtime::getContainer()->get('apps\store\bundles\ZenCartBundle\wrapper\PaymentTypeWrapper');
                         $wrapper->setModule($module);
