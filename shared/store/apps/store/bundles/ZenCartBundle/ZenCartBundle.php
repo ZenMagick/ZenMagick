@@ -129,7 +129,7 @@ class ZenCartBundle extends Bundle {
             // non db settings (admin)
             $request = $event->get('request');
             $settingsService = Runtime::getSettings();
-            $settingsService->set('apps.store.baseUrl', 'http://'.$request->getHostname().str_replace('apps/admin/web', '', $request->getContext()));
+            $settingsService->set('apps.store.baseUrl', 'http://'.$request->getHostname().str_replace('zenmagick/apps/admin/web', '', $request->getContext()));
             $settingsService->set('apps.store.oldAdminUrl', $settingsService->get('apps.store.baseUrl').ZC_ADMIN_FOLDER.'/index.php');
         }
     }
