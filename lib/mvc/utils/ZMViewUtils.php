@@ -171,8 +171,14 @@ class ZMViewUtils extends ZMObject {
         if ($this->isExternal($resource)) {
             return $resource;
         }
-        $request = $this->view_->getVar('request');
-        return $this->view_->asUrl($request, $resource, $this->resourcesAsTemplates_ ? ZMView::TEMPLATE : ZMView::RESOURCE);
+
+        if ('/' == $resource[0]) {
+            // absolute path
+            return $resource;
+        } else {
+            $request = $this->view_->getVar('request');
+            return $this->view_->asUrl($request, $resource, $this->resourcesAsTemplates_ ? ZMView::TEMPLATE : ZMView::RESOURCE);
+        }
     }
 
     /**
