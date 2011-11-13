@@ -74,6 +74,12 @@ class ZMEventFixes extends ZMObject {
     public function onInitDone($event) {
         $request = $event->get('request');
 
+        // skip more zc request handling
+        if (!$this->needsZC($request) && ZMSettings::get('isEnableZMThemes', true)) {
+        global $code_page_directory;
+            $code_page_directory = 'zenmagick';
+        }
+
         $this->fixCategoryPath($request);
         $this->checkAuthorization($request);
         $this->configureLocale($request);
@@ -216,12 +222,6 @@ class ZMEventFixes extends ZMObject {
         }
 
         // START: zc_fixes
-        // skip more zc request handling
-        if (!$this->needsZC($request) && ZMSettings::get('isEnableZMThemes', true)) {
-        global $code_page_directory;
-            $code_page_directory = 'zenmagick';
-        }
-
         // simulate the number of uploads parameter for add to cart
         if ('add_product' == $request->getParameter('action')) {
             $uploads = 0;
