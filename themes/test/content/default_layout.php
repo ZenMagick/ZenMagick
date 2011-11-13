@@ -30,7 +30,7 @@
     <meta name="generator" content="ZenMagick <?php echo ZMSettings::get('zenmagick.version') ?>" />
     <meta name="keywords" content="<?php echo $metaTags->getKeywords()?>" />
     <meta name="description" content="<?php echo $metaTags->getDescription()?>" />
-    <?php $resources->cssFile('site.css') ?>
+    <?php $resources->cssFile($request->getContext().'/zenmagick/themes/default/content/site.css') ?>
     <?php $resources->cssFile('ie.css', array('prefix' => '<!--[if IE]>', 'suffix' => '<![endif]-->')) ?>
     <?php $resources->jsFile('common.js', ZMViewUtils::FOOTER) ?>
     <?php $resources->jsFile('common.js', ZMViewUtils::FOOTER) ?>
