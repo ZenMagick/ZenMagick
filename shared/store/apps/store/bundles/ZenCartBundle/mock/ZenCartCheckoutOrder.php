@@ -59,12 +59,27 @@ class ZenCartCheckoutOrder extends ZMObject {
      * @param boolean applyTotals Optional flag to apply/skip totals; default is <code>true</code>.
      */
     public function setShoppingCart($shoppingCart, $applyTotals=true) {
+    global $order;
+
         if (null == $shoppingCart) {
             return;
         }
 
+        if (!$order) {
+            $order = $this;
+        }
+
         // type
         $this->content_type = $shoppingCart->getType();
+
+
+        // account
+        $account = $this->container->get('accountService')->getAccountForId($shoppingCart->getAccountId());
+        $this->setAccount($account);
+
+        // addresses
+        $this->setShippingAddress($shoppingCart->getShippingAddress());
+        $this->setBillingAddress($shoppingCart->getBillingAddress());
 
         $this->info = array();
 
@@ -78,14 +93,6 @@ class ZenCartCheckoutOrder extends ZMObject {
             // apply totals
             $this->applyTotals($shoppingCart);
         }
-
-        // account
-        $account = $this->container->get('accountService')->getAccountForId($shoppingCart->getAccountId());
-        $this->setAccount($account);
-
-        // addresses
-        $this->setShippingAddress($shoppingCart->getShippingAddress());
-        $this->setBillingAddress($shoppingCart->getBillingAddress());
     }
 
     /**
