@@ -52,23 +52,31 @@ class ZMRpcController extends ZMController {
         $rpcRequest = ZMAjaxUtils::createRpcRequest($request);
         $method = $sacsMethod = $rpcRequest->getMethod();
 
+        $rpcResponse = null;
+
         $sacsManager = $this->container->get('sacsManager');
         // check access on controller level
-        $sacsManager->authorize($request, $request->getRequestId(), $request->getUser());
+        if (!$sacsManager->authorize($request, $request->getRequestId(), $request->getUser(), false)) {
+            $rpcResponse = $this->invalidCredentials($rpcRequest);
+        }
 
         // (re-)check on method level if mapping exists
         $methodRequestId = $request->getRequestId().'#'.$sacsMethod;
         if ($sacsManager->hasMappingForRequestId($methodRequestId)) {
-            $sacsManager->authorize($request, $methodRequestId, $request->getUser());
+            if (!$sacsManager->authorize($request, $methodRequestId, $request->getUser(), false)) {
+                $rpcResponse = $this->invalidCredentials($rpcRequest);
+            }
         }
 
-        if (method_exists($this, $method) || in_array($method, $this->getAttachedMethods())) {
-            Runtime::getLogging()->log('calling method: '.$method, ZMLogging::TRACE);
-            $rpcResponse = $this->$method($rpcRequest);
-        } else {
-            $rpcResponse = $rpcRequest->createResponse();
-            $rpcResponse->setStatus(false);
-            Runtime::getLogging()->error("Invalid request - method '".$request->getParameter('method')."' not found!");
+        if (!$rpcResponse) {
+            if (method_exists($this, $method) || in_array($method, $this->getAttachedMethods())) {
+                Runtime::getLogging()->log('calling method: '.$method, ZMLogging::TRACE);
+                $rpcResponse = $this->$method($rpcRequest);
+            } else {
+                $rpcResponse = $rpcRequest->createResponse();
+                $rpcResponse->setStatus(false);
+                Runtime::getLogging()->error("Invalid request - method '".$request->getParameter('method')."' not found!");
+            }
         }
 
         // set content type
@@ -76,6 +84,26 @@ class ZMRpcController extends ZMController {
         // the response
         echo $rpcResponse;
         return null;
+    }
+
+    /**
+     * Build invalid credentials response.
+     *
+     * @param ZMRpcRequest rpcRequest The request.
+     * @return ZMRpcResponse A response.
+     */
+    public function invalidCredentials($rpcRequest) {
+        $request = $rpcRequest->getRequest();
+        $rpcResponse = $rpcRequest->createResponse();
+        if (null === $request->getUser()) {
+            $rpcResponse->setStatus(false, ZMRpcResponse::RC_NO_CREDENTIALS);
+            $rpcResponse->addMessage(_zm('No credentials'), 'error');
+            $rpcResponse->setData(array('location' => $request->url(Runtime::getSettings()->get('zenmagick.http.request.login', 'login'), '', true)));
+        } else {
+            $rpcResponse->setStatus(false, ZMRpcResponse::RC_INVALID_CREDENTIALS);
+            $rpcResponse->addMessage(_zm('Invalid credentials'), 'error');
+        }
+        return $rpcResponse;
     }
 
 }

@@ -18,7 +18,7 @@
  */
 var ZenMagick = {
     // base url for jsonRCP calls
-    _jsonRPCBaseUrl: 'index.php?rid=ajax_',
+    _jsonRPCBaseUri: 'index.php?rid=ajax_',
     // unique request id for jsonRPC calls
     _jsonRPCRequestId: 1,
 
@@ -80,7 +80,22 @@ var ZenMagick = {
      * @param mixed error Error object.
      */
     failure: function(error) {
-        alert('error: ' + error);
+        switch (error.code) {
+        case 5:
+            // invalid credentials
+            break;
+        case 6:
+            // no credentials
+            window.location.replace(error.data.data.location);
+            return;
+        }
+        var text = '';
+        for (var type in error.data.messages) {
+            for (var msg in error.data.messages[type]) {
+                text += type + ': ' + error.data.messages[type][msg] + '\n';
+            }
+        }
+        alert(text);
     },
 
     /**
@@ -96,7 +111,7 @@ var ZenMagick = {
         $.ajax({
             type: "POST",
             contentType: 'application/json',
-            url: this._jsonRPCBaseUrl+controller,
+            url: this._jsonRPCBaseUri+controller,
             data: '{"id":'+requestId+',"method":"'+method+'","params":'+params+',"jsonrpc":"2.0"}',
             success: function(response) { 
                 // parse to figure out if success really means success

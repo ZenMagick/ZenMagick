@@ -30,6 +30,9 @@
  * @package org.zenmagick.mvc.rpc
  */
 interface ZMRpcResponse {
+    const RC_INVALID_CREDENTIALS = 5;
+    const RC_NO_CREDENTIALS = 6;
+
 
     /**
      * Add a message for the given type.
@@ -43,8 +46,9 @@ interface ZMRpcResponse {
      * Set the status.
      *
      * @param boolean status The status.
+     * @param integer code Optional return code; default is <code>0</code>.
      */
-    public function setStatus($status);
+    public function setStatus($status, $code=0);
 
     /**
      * Get the status.
@@ -52,6 +56,13 @@ interface ZMRpcResponse {
      * @return boolean The status.
      */
     public function getStatus();
+
+    /**
+     * Get the return code.
+     *
+     * @return integer The return code.
+     */
+    public function getReturnCode();
 
     /**
      * Set response data.

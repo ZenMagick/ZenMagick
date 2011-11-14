@@ -32,6 +32,7 @@ class ZMRpcResponseJSON implements ZMRpcResponse {
     private $status_;
     private $messages_;
     private $data_;
+    private $returnCode_;
 
 
     /**
@@ -44,6 +45,7 @@ class ZMRpcResponseJSON implements ZMRpcResponse {
         $this->status_ = true;
         $this->messages_ = array();
         $this->data_ = null;
+        $this->returnCode_ = 0;
     }
 
 
@@ -69,8 +71,9 @@ class ZMRpcResponseJSON implements ZMRpcResponse {
     /**
      * {@inheritDoc}
      */
-    public function setStatus($status) {
+    public function setStatus($status, $code=0) {
         $this->status_ = $status;
+        $this->returnCode_ = $code;
     }
 
     /**
@@ -78,6 +81,13 @@ class ZMRpcResponseJSON implements ZMRpcResponse {
      */
     public function getStatus() {
         return $this->status_;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getReturnCode() {
+        return $this->returnCode_;
     }
 
     /**
@@ -109,7 +119,7 @@ class ZMRpcResponseJSON implements ZMRpcResponse {
         } else {
             // error: create default message, put actual messages into data
             $response->error = new stdClass();
-            $response->error->code = 0;
+            $response->error->code = $this->returnCode_;
             $response->error->message = "failed";
             $response->error->data = new stdClass();
             // possible data
