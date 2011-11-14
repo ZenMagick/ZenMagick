@@ -300,17 +300,14 @@ class ZenCartCheckoutOrder extends ZMObject {
      * @todo Do not use zencart code to do this!
      */
     protected function applyTotals($shoppingCart) {
-    global $order;
+    global $order, $shipping_modules;
 
         $order = $this;
-        if (!isset($shipping_modules)) {
-            $shipping_modules = new \shipping($_SESSION['shipping']);
-        }
+        $shipping_modules = new \shipping($_SESSION['shipping']);
         $order_total_modules = new \order_total();
         $order_total_modules->collect_posts();
         $order_total_modules->pre_confirmation_check();
         $order_total_modules->process();
-
 
         if ($this->container->get('settingsService')->get('apps.store.assertZencart', false)) {
             $this->assertInfo(true);
