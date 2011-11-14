@@ -70,17 +70,18 @@ class StoreEventListener extends ZMObject {
     public function onBootstrapDone($event) {
         // load some static files that we still need
         $statics = array(
-          'lib/core/external/zm-pomo-3.0.packed.php',
-          'lib/core/services/locale/_zm.php',
-          // admin
-          'apps/'.ZM_APP_NAME.'/lib/menu.php',
-          // store
-          'shared/store/apps/store/bundles/ZenCartBundle/utils/zencart_overrides.php'
+            'admin,storefront' => array('lib/core/external/zm-pomo-3.0.packed.php', 'lib/core/services/locale/_zm.php'),
+            'admin' => array('apps/'.ZM_APP_NAME.'/lib/menu.php'),
+            'storefront' => array('shared/store/apps/store/bundles/ZenCartBundle/utils/zencart_overrides.php')
         );
-        foreach ($statics as $static) {
-            $file = Runtime::getInstallationPath().$static;
-            if (file_exists($file)) {
-                require_once $file;
+        foreach ($statics as $context => $files) {
+            if (Toolbox::isContextMatch($context)) {
+                foreach ($files as $static) {
+                    $file = Runtime::getInstallationPath().$static;
+                    if (file_exists($file)) {
+                        require_once $file;
+                    }
+                }
             }
         }
 
