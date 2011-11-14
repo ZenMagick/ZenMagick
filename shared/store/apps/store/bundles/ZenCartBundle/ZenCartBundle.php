@@ -26,6 +26,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
+use zenmagick\base\Toolbox;
 
 /**
  * Zencart support bundle.
@@ -125,12 +126,16 @@ class ZenCartBundle extends Bundle {
      * Handle things that require a request.
      */
     public function onInitRequest($event) {
-        if (IS_ADMIN_FLAG) { // todo context or app name, or isAdmin setting?
-            // non db settings (admin)
-            $request = $event->get('request');
+        $request = $event->get('request');
+        if (Toolbox::isContextMatch('admin')) {
             $settingsService = Runtime::getSettings();
             $settingsService->set('apps.store.baseUrl', 'http://'.$request->getHostname().str_replace('zenmagick/apps/admin/web', '', $request->getContext()));
             $settingsService->set('apps.store.oldAdminUrl', $settingsService->get('apps.store.baseUrl').ZC_ADMIN_FOLDER.'/index.php');
+        }
+
+        if (defined('IS_ADMIN_FLAG') && IS_ADMIN_FLAG && null == $request->getRequestId()) {
+            // old zc admin?
+            $request->setRequestId(str_replace('.php', '', $request->getFrontController()));
         }
     }
 
