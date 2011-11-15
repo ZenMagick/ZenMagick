@@ -681,7 +681,8 @@ class ZMShoppingCart extends ZMObject {
             $adjustedQty = $maxOrderQty - $cartQty;
         }
 
-        $this->cart_->add_cart($productId, $cartQty + $adjustedQty, $attributes, $notify);
+        // use adjusted qty on explicit sku qty
+        $this->cart_->add_cart($productId, $this->getItemQuantityFor($sku, false) + $adjustedQty, $attributes, $notify);
         $this->items_ = null;
 
         return true;

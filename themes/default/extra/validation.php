@@ -21,7 +21,6 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 ?><?php
-
     /*
      * The central place for all form validation. The validations configured here
      * will be used by both the client (JavaScript) and the server (controller).
@@ -33,6 +32,8 @@
 
 
     $validator = $this->container->get('validator');
+
+if (ZMSettings::get('isEnableZMThemes')) {
     /* edit account */
     $validator->addRules('account', array(
         array('ZMRequiredRule' ,'firstName', 'Please enter your first name.'),
@@ -206,5 +207,5 @@
         array('ZMRequiredRule', 'email_address', 'Please enter your email address.'),
         array('ZMEmailRule', 'email_address', 'Please enter a valid email address.')
     ));
-
+}
 ?>
