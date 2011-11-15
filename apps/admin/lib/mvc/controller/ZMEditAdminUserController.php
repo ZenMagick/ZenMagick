@@ -70,7 +70,7 @@ class ZMEditAdminUserController extends ZMController {
      * {@inheritDoc}
      */
     public function getViewData($request) {
-        return array('roles' => $this->container->get('adminUserService')->getAllRoles());
+        return array('roles' => $this->container->get('adminUserRoleService')->getAllRoles());
     }
 
     /**
