@@ -229,7 +229,7 @@ class ZMEZPage extends ZMObject {
     public function setHeader($value) { $this->header = ZMLangUtils::asBoolean($value); }
     public function setSidebox($value) { $this->sidebox = ZMLangUtils::asBoolean($value); }
     public function setFooter($value) { $this->footer = ZMLangUtils::asBoolean($value); }
-    public function setToc($value) { $this->toc = $value; }
+    public function setToc($value) { $this->toc = (int)$value; }
     public function setStatic($value) { $this->toc = $value ? 2: 0; }
     public function setHeaderSort($sortOrder) { $this->headerSort = $sortOrder; }
     public function setSideboxSort($sortOrder) { $this->sideboxSort = $sortOrder; }
