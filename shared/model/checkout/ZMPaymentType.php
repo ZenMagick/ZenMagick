@@ -120,4 +120,11 @@ interface ZMPaymentType {
      */
     public function getOrderStatus();
 
+    /**
+     * Prepare payment module.
+     *
+     * <p>This is called as part of the life-cycle once a payment type is assigned to the cart.</p>
+     */
+    public function prepare();
+
 }

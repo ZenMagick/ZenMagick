@@ -364,6 +364,9 @@ class ZMShoppingCart extends ZMObject {
     public function getSelectedPaymentType() {
         if (null == $this->selectedPaymentType_) {
             $this->selectedPaymentType_ = $this->container->get('paymentTypeService')->getPaymentTypeForId($this->getSelectedPaymentTypeId());
+            if (null != $this->selectedPaymentType_) {
+                $this->selectedPaymentType_->prepare();
+            }
         }
         return $this->selectedPaymentType_;
     }
@@ -376,9 +379,9 @@ class ZMShoppingCart extends ZMObject {
     public function setSelectedPaymentType($paymentType) {
         // invalidate totals
         $this->zenTotals_ = null;
-        // invalidate payment type
-        $this->selectedPaymentType_ = null;
 
+        $this->selectedPaymentType_ = $paymentType;
+        $this->selectedPaymentType_->prepare();
         $this->session->setValue('payment', $paymentType->getId());
     }
 

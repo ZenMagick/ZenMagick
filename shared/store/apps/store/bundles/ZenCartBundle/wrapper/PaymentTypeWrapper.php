@@ -140,9 +140,9 @@ class PaymentTypeWrapper extends ZMObject implements \ZMPaymentType {
     }
 
     /**
-     * Prepare.
+     * {@inheritDoc}
      */
-    private function prepare() {
+    public function prepare() {
         if (!$this->prepared_) {
             $this->module_->pre_confirmation_check();
             $this->module_->confirmation();
