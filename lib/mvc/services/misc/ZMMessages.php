@@ -225,7 +225,7 @@ class ZMMessages extends ZMObject {
      * @param zenmagick\http\session\Session session The current session.
      */
     public function loadMessages($session) {
-        if (null !== ($data = $session->getValue('messages', 'zenmagick.mvc'))) {
+        if (null !== ($data = $session->getValue('messages', 'zenmagick.mvc')) && is_array($data)) {
             foreach ($data as $msg) {
                 $this->add($msg['text'], $msg['type'], $msg['ref']);
             }
