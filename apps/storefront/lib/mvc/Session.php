@@ -221,6 +221,9 @@ class Session extends zenmagick\http\session\Session {
      */
     public function clearMessages() {
         $this->setValue('messageToStack', '');
+        // just in case
+        $this->setValue('messages', '');
+        $this->setValue('messages', '', 'zenmagick.mvc');
     }
 
     /**
