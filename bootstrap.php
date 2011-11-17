@@ -26,7 +26,6 @@ use zenmagick\base\Toolbox;
 use zenmagick\base\events\Event;
 use zenmagick\base\ioc\loader\YamlFileLoader;
 
-use Doctrine\Common\Annotations\AnnotationRegistry;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\HttpKernel\DependencyInjection\MergeExtensionConfigurationPass;
 
@@ -64,71 +63,42 @@ use Symfony\Component\HttpKernel\DependencyInjection\MergeExtensionConfiguration
         } else {
             require_once ZM_BASE_PATH.'/lib/base/zenmagick/base/ClassLoader.php';
         }
-        // the main loader
+
+        // load main packages
+        $packages = array('vendor', 'lib/base', 'lib/core', 'lib/http', 'lib/mvc', 'shared');
         $zmLoader = new ClassLoader();
-        $zmLoader->addConfig(ZM_BASE_PATH.'lib/base');
-        $zmLoader->addConfig(ZM_BASE_PATH.'vendor');
         $zmLoader->register();
-        // packages may have their own *system* services
-        $packageConfig = ZM_BASE_PATH.'lib/base/container.yaml';
-        if (file_exists($packageConfig)) {
-            $packageYamlLoader = new YamlFileLoader(Runtime::getContainer(), new FileLocator(dirname($packageConfig)));
-            $packageYamlLoader->load($packageConfig);
-        }
-
-        try {
-            $rclass = new ReflectionClass('Swift');
-            Swift::$initPath = realpath(dirname($rclass->getFilename()).'/../swift_init.php');
-            // ZenMagick class loader append, so the last one wins
-            spl_autoload_register(array('Swift', 'autoload'), false, true);
-        } catch (Exception $e) {
-            //
-        }
-
-        /**
-         * @link http://www.doctrine-project.org/docs/common/2.1/en/reference/annotations.html Doctrine Annotations
-         * Notes: Annotations requires a silent autoloader.
-         * We must manually register the Doctrine ORM specific annotations.
-         */
-        AnnotationRegistry::registerLoader(function($class) use ($zmLoader) {
-            $zmLoader->loadClass($class);
-            return class_exists($class, false);
-        });
-        AnnotationRegistry::registerFile(ZM_BASE_PATH . '/vendor/doctrine/lib/Doctrine/ORM/Mapping/Driver/DoctrineAnnotations.php');
-
-        // as default disable plugins for CLI calls
-        Runtime::getSettings()->set('zenmagick.base.plugins.enabled', !ZM_CLI_CALL);
-
-        // XXX: legacy loader
-        $zmLoader->addConfig(ZM_BASE_PATH.'lib/core');
-        $zmLoader->addConfig(ZM_BASE_PATH.'lib/mvc');
-
-        // set up application class loader
-        if (null != Runtime::getApplicationPath()) {
-            $appLoader = new ClassLoader();
-            $appLoader->addConfig(Runtime::getApplicationPath().'/lib');
-            $appLoader->register();
-        }
-
-        $libLoader = new ClassLoader();
-        // register first, so classes are available when loading container settings
-        $libLoader->register();
-        foreach (array('lib/http', 'shared') as $libPath) {
-            $libLoader->addConfig(ZM_BASE_PATH.trim($libPath));
-
+        foreach ($packages as $path) {
+            $path = ZM_BASE_PATH.$path;
+            $zmLoader->addConfig($path);
             // packages may have their own *system* services
-            $packageConfig = ZM_BASE_PATH.trim($libPath).'/container.yaml';
+            $packageConfig = $path.'/container.yaml';
             if (file_exists($packageConfig)) {
                 $packageYamlLoader = new YamlFileLoader(Runtime::getContainer(), new FileLocator(dirname($packageConfig)));
                 $packageYamlLoader->load($packageConfig);
             }
         }
 
-        // load application settings
+        // load app in separate loader
+        if (null != Runtime::getApplicationPath()) {
+            $appLoader = new ClassLoader();
+            $appLoader->register();
+            $appLoader->addConfig(Runtime::getApplicationPath().'/lib');
+        }
+
+        // as default disable plugins for CLI calls
+        Runtime::getSettings()->set('zenmagick.base.plugins.enabled', !ZM_CLI_CALL);
+
+        // load application config
         Runtime::getSettings()->setAll(Toolbox::loadWithEnv(Runtime::getApplicationPath().'/config/config.yaml'));
 
-        // init IoC
-        // NOTE: this is separate from settings!
+        // load global config
+        $globalFilename = realpath(Runtime::getInstallationPath().'/global.yaml');
+        if (file_exists($globalFilename) && Runtime::getContainer()->has('contextConfigLoader')) {
+            $contextConfigLoader = Runtime::getContainer()->get('contextConfigLoader');
+            $contextConfigLoader->setConfig(Toolbox::loadWithEnv($globalFilename));
+            $contextConfigLoader->process();
+        }
 
         // bundles; DI only for now - might want to use HttpKernel for loading stuff?
         $bundles = array();
@@ -149,22 +119,15 @@ use Symfony\Component\HttpKernel\DependencyInjection\MergeExtensionConfiguration
         // ensure these extensions are implicitly loaded
         $container->getCompilerPassConfig()->setMergePass(new MergeExtensionConfigurationPass($extensions));
 
+        // load application container config
         $containerConfig = Runtime::getApplicationPath().'/config/container.yaml';
         if (file_exists($containerConfig)) {
             $containerYamlLoader = new YamlFileLoader(Runtime::getContainer(), new FileLocator(dirname($containerConfig)));
             $containerYamlLoader->load($containerConfig);
         }
 
-        // load global config
-        $globalFilename = realpath(Runtime::getInstallationPath().'/global.yaml');
-        if (file_exists($globalFilename) && Runtime::getContainer()->has('contextConfigLoader')) {
-            $contextConfigLoader = Runtime::getContainer()->get('contextConfigLoader');
-            $contextConfigLoader->setConfig(Toolbox::loadWithEnv($globalFilename));
-            $contextConfigLoader->process();
-        }
-
         if (null != Runtime::getApplicationPath()) {
-            // always add an application event listener
+            // always add an application event listener - if available
             $eventListener = 'zenmagick\\apps\\'.ZM_APP_NAME.'\\EventListener';
             if (ClassLoader::classExists($eventListener)) {
                 Runtime::getEventDispatcher()->listen(new $eventListener());
