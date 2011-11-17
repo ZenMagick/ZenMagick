@@ -154,6 +154,15 @@ class ClassLoader {
                     $this->addPath($pxpath);
                 }
             }
+            if (array_key_exists('static', $mappings)) {
+                foreach ($mappings['static'] as $class => $methods) {
+                    if (class_exists($class)) {
+                        foreach (explode(',', $methods) as $method) {
+                            $class::$method();
+                        }
+                    }
+                }
+            }
         }
     }
 
