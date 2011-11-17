@@ -37,24 +37,4 @@ class ZMRulesPlugin extends Plugin {
         parent::__construct('PHP Rules', 'PHP Rules for ZenMagick', '${plugin.version}');
     }
 
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
-
-
-    /**
-     * {@inheritDoc}
-     */
-    public function init() {
-        parent::init();
-        // register phpunit tests
-        $settingsService = Runtime::getSettings();
-        foreach (array('TestDateVariable', 'TestFileLoaderStrategy', 'TestProposition', 'TestSingleRule', 'TestVariable', 'TestRuleContext', 'TestCompositeRule') as $test) {
-            $settingsService->add('plugins.unitTests.tests.custom', $test);
-        }
-    }
-
 }

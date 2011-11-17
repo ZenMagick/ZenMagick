@@ -89,10 +89,17 @@ class ZMUnitTestsPlugin extends Plugin {
      */
     public function getTests() {
         if (!$this->customDone_) {
-            foreach (ZMSettings::get('plugins.unitTests.tests.custom') as $custom) {
-                if (!empty($custom)) {
-                    $this->addTest($custom);
+            foreach ($this->container->findTaggedServiceIds('plugins.unitTests.test') as $id => $args) {
+                $group = UNIT_TESTS_GROUP_OTHER;
+                foreach ($args as $elem) {
+                    foreach ($elem as $key => $value) {
+                        if ('group' == $key) {
+                            $group = '@'.$value;
+                            break;
+                        }
+                    }
                 }
+                $this->addTest('service#'.$id, $group);
             }
             $this->customDone_ = true;
         }

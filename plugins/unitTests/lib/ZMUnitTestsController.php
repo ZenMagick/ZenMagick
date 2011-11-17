@@ -124,7 +124,10 @@ class ZMUnitTestsController extends \ZMController {
         // create instances rather than just class names
         foreach ($allTests as $group => $tests) {
             foreach ($tests as $key => $clazz) {
-                if (null != ($test = Beans::getBean($clazz))) {
+                if (0 === strpos($clazz, 'service#')) {
+                    $id = str_replace('service#', '', $clazz);
+                    $allTests[$group][$key] = $this->container->get($id);
+                } else if (null != ($test = Beans::getBean($clazz))) {
                     $allTests[$group][$key] = $test;
                 } else {
                     $this->messageService->warn('could not create instance of '.$clazz);
