@@ -122,28 +122,12 @@ class Logging {
      * @return array A list of handlers.
      */
     protected function getHandlers() {
-        // TODO: make sane
-        // save current
-        $tmp = $this->handlerList_;
-        $this->handlerList_ = array();
-        foreach (Runtime::getSettings()->get('zenmagick.base.logging.handlers', array('zenmagick\base\logging\handler\DefaultLoggingHandler')) as $def) {
-            if (!empty($def)) {
-                $needInstance = true;
-                foreach ($tmp as $handler) {
-                    if ($handler instanceof $def) {
-                        $this->handlerList_[$def] = $handler;
-                        $needInstance = false;
-                        break;
-                    }
-                }
-                if ($needInstance) {
-                    if (null != ($handler = Beans::getBean($def))) {
-                        $this->handlerList_[$def] = $handler;
-                    }
-                }
-            }
+        $container = Runtime::getContainer();
+        $handlers = array();
+        foreach ($container->findTaggedServiceIds('zenmagick.base.logging.handler') as $id => $args) {
+            $handlers[] = $container->get($id);
         }
-        return $this->handlerList_;
+        return $handlers;
     }
 
     /**

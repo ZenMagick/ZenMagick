@@ -1,0 +1,15 @@
+##
+## Set up FirePHP logging handler
+##
+
+## shared settings that apply to both admin and storefront
+admin,storefront:
+  container:
+    services:
+      firePHPLoggingHandler:
+        class: FirePHPLoggingHandler
+        scope: container
+        calls:
+          - [setLogLevel, ['INFO']]
+        tags:
+          - { name: zenmagick.base.logging.handler }

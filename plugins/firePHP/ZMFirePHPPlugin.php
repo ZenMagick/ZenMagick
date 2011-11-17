@@ -83,10 +83,7 @@ class ZMFirePHPPlugin extends Plugin {
                 // enable logging
                 $settings->set('zenmagick.base.logging.enabled', true);
                 $settings->set('zenmagick.base.logging.level', (int)$this->get('onDemandLogLevel'));
-                $settings->add('zenmagick.base.logging.handlers', 'FirePHPLoggingHandler');
             }
-        } else {
-            $settings->add('zenmagick.base.logging.handlers', 'FirePHPLoggingHandler');
         }
     }
 

@@ -23,3 +23,9 @@ services:
     class: zenmagick\base\utils\ContextConfigLoader
     scope: prototype
 
+  defaultLoggingHandler:
+    class: zenmagick\base\logging\handler\DefaultLoggingHandler
+    scope: container
+    tags:
+      -  { name: zenmagick.base.logging.handler }
+
