@@ -51,8 +51,6 @@ zenmagick:
       level: INFO
       enabled: false
       handleErrors: true
-      handlers:
-        - zenmagick\base\logging\handler\DefaultLoggingHandler
 
   ## mvc
   mvc:
