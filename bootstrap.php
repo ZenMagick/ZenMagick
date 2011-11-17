@@ -44,7 +44,7 @@ use Symfony\Component\HttpKernel\DependencyInjection\MergeExtensionConfiguration
         // detect CLI calls
         define('ZM_CLI_CALL', defined('STDIN'));
         // base installation directory
-        define('ZM_BASE_PATH', dirname(__FILE__).DIRECTORY_SEPARATOR);
+        define('ZM_BASE_PATH', dirname(__FILE__).'/');
         // app name
         define('ZM_APP_NAME', defined('ZM_APP_PATH') ? basename(ZM_APP_PATH) : null);
         // set up the environment to run in
@@ -66,11 +66,11 @@ use Symfony\Component\HttpKernel\DependencyInjection\MergeExtensionConfiguration
         }
         // the main loader
         $zmLoader = new ClassLoader();
-        $zmLoader->addConfig(ZM_BASE_PATH.'lib'.DIRECTORY_SEPARATOR.'base');
+        $zmLoader->addConfig(ZM_BASE_PATH.'lib/base');
         $zmLoader->addConfig(ZM_BASE_PATH.'vendor');
         $zmLoader->register();
         // packages may have their own *system* services
-        $packageConfig = ZM_BASE_PATH.'lib'.DIRECTORY_SEPARATOR.'base'.DIRECTORY_SEPARATOR.'container.yaml';
+        $packageConfig = ZM_BASE_PATH.'lib/base/container.yaml';
         if (file_exists($packageConfig)) {
             $packageYamlLoader = new YamlFileLoader(Runtime::getContainer(), new FileLocator(dirname($packageConfig)));
             $packageYamlLoader->load($packageConfig);
@@ -100,13 +100,13 @@ use Symfony\Component\HttpKernel\DependencyInjection\MergeExtensionConfiguration
         Runtime::getSettings()->set('zenmagick.base.plugins.enabled', !ZM_CLI_CALL);
 
         // XXX: legacy loader
-        $zmLoader->addConfig(ZM_BASE_PATH.'lib'.DIRECTORY_SEPARATOR.'core');
-        $zmLoader->addConfig(ZM_BASE_PATH.'lib'.DIRECTORY_SEPARATOR.'mvc');
+        $zmLoader->addConfig(ZM_BASE_PATH.'lib/core');
+        $zmLoader->addConfig(ZM_BASE_PATH.'lib/mvc');
 
         // set up application class loader
         if (null != Runtime::getApplicationPath()) {
             $appLoader = new ClassLoader();
-            $appLoader->addConfig(Runtime::getApplicationPath().DIRECTORY_SEPARATOR.'lib');
+            $appLoader->addConfig(Runtime::getApplicationPath().'/lib');
             $appLoader->register();
         }
 
@@ -117,7 +117,7 @@ use Symfony\Component\HttpKernel\DependencyInjection\MergeExtensionConfiguration
             $libLoader->addConfig(ZM_BASE_PATH.trim($libPath));
 
             // packages may have their own *system* services
-            $packageConfig = ZM_BASE_PATH.trim($libPath).DIRECTORY_SEPARATOR.'container.yaml';
+            $packageConfig = ZM_BASE_PATH.trim($libPath).'/container.yaml';
             if (file_exists($packageConfig)) {
                 $packageYamlLoader = new YamlFileLoader(Runtime::getContainer(), new FileLocator(dirname($packageConfig)));
                 $packageYamlLoader->load($packageConfig);
@@ -125,7 +125,7 @@ use Symfony\Component\HttpKernel\DependencyInjection\MergeExtensionConfiguration
         }
 
         // load application settings
-        Runtime::getSettings()->setAll(Toolbox::loadWithEnv(Runtime::getApplicationPath().DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.'config.yaml'));
+        Runtime::getSettings()->setAll(Toolbox::loadWithEnv(Runtime::getApplicationPath().'/config/config.yaml'));
 
         // init IoC
         // NOTE: this is separate from settings!
@@ -149,10 +149,18 @@ use Symfony\Component\HttpKernel\DependencyInjection\MergeExtensionConfiguration
         // ensure these extensions are implicitly loaded
         $container->getCompilerPassConfig()->setMergePass(new MergeExtensionConfigurationPass($extensions));
 
-        $containerConfig = Runtime::getApplicationPath().DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.'container.yaml';
+        $containerConfig = Runtime::getApplicationPath().'/config/container.yaml';
         if (file_exists($containerConfig)) {
             $containerYamlLoader = new YamlFileLoader(Runtime::getContainer(), new FileLocator(dirname($containerConfig)));
             $containerYamlLoader->load($containerConfig);
+        }
+
+        // load global config
+        $globalFilename = realpath(Runtime::getInstallationPath().'/global.yaml');
+        if (file_exists($globalFilename) && Runtime::getContainer()->has('contextConfigLoader')) {
+            $contextConfigLoader = Runtime::getContainer()->get('contextConfigLoader');
+            $contextConfigLoader->setConfig(Toolbox::loadWithEnv($globalFilename));
+            $contextConfigLoader->process();
         }
 
         if (null != Runtime::getApplicationPath()) {
@@ -168,14 +176,6 @@ use Symfony\Component\HttpKernel\DependencyInjection\MergeExtensionConfiguration
             if (null != ($_zm_el = Beans::getBean(trim($_zm_elc)))) {
                 Runtime::getEventDispatcher()->listen($_zm_el);
             }
-        }
-
-        // load global config
-        $globalFilename = realpath(Runtime::getInstallationPath().DIRECTORY_SEPARATOR.'global.yaml');
-        if (file_exists($globalFilename) && Runtime::getContainer()->has('contextConfigLoader')) {
-            $contextConfigLoader = Runtime::getContainer()->get('contextConfigLoader');
-            $contextConfigLoader->setConfig(Toolbox::loadWithEnv($globalFilename));
-            $contextConfigLoader->process();
         }
 
         Runtime::getEventDispatcher()->dispatch('init_config_done', new Event());
