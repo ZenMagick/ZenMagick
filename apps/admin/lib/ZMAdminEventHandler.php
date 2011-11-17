@@ -68,14 +68,15 @@ class ZMAdminEventHandler extends ZMObject {
     protected function getCurrentEditor($request) {
         $user = $request->getUser();
         if (null == $user || null == ($editor = $this->container->get('adminUserPrefService')->getPrefForName($user->getId(), 'wysiwygEditor'))) {
-            $editor = ZMSettings::get('apps.store.admin.defaultEditor', 'ZMTextAreaFormWidget');
+            $editor = ZMSettings::get('apps.store.admin.defaultEditor', 'plainEditorWidget');
         }
 
-        if (null != ($obj = Beans::getBean($editor))) {
+        return $this->container->get($editor);
+        if (null != ($obj = $this->container->get($editor))) {
             return $obj;
         }
 
-        return Beans::getBean('ZMTextAreaFormWidget');
+        return $this->container->get('plainEditorWidget');
     }
 
     /**

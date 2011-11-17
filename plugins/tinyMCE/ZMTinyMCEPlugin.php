@@ -50,9 +50,8 @@ class ZMTinyMCEPlugin extends Plugin {
      */
     public function init() {
         parent::init();
-        Runtime::getSettings()->add('editorList', 'TinyMCE:ZMTinyMCEFormWidget');
         if (ZMLangUtils::asBoolean($this->get('defaultEditor'))) {
-            ZMSettings::set('apps.store.admin.defaultEditor', 'TinyMCEFormWidget');
+            ZMSettings::set('apps.store.admin.defaultEditor', 'tinyMCEEditorWidget');
         }
     }
 

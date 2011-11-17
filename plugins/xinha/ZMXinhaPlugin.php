@@ -50,9 +50,8 @@ class ZMXinhaPlugin extends Plugin {
      */
     public function init() {
         parent::init();
-        Runtime::getSettings()->add('editorList', 'Xinha:ZMXinhaFormWidget');
         if (ZMLangUtils::asBoolean($this->get('defaultEditor'))) {
-            ZMSettings::set('apps.store.admin.defaultEditor', 'ZMXinhaFormWidget');
+            ZMSettings::set('apps.store.admin.defaultEditor', 'xinhaEditorWidget');
         }
     }
 

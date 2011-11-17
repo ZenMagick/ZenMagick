@@ -1,0 +1,9 @@
+storefront,admin:
+  container:
+    services:
+      xinhaEditorWidget:
+        class: ZMXinhaFormWidget
+        scope: container
+        tags:
+          -  { name: zenmagick.apps.store.editor, label: Xinha }
+

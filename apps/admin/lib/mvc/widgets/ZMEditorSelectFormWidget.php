@@ -54,13 +54,22 @@ class ZMEditorSelectFormWidget extends ZMSelectFormWidget {
      * @return array A class/name map of editors.
      */
     public static function getEditorMap() {
-        $map = array('plain' => 'Plain');
-        foreach (Runtime::getSettings()->get('editorList') as $token) {
-            $nc = explode(':', $token);
-            $map[$nc[1]] = $nc[0];
+        $container = Runtime::getContainer();
+        $editorMap = array();
+        foreach ($container->findTaggedServiceIds('zenmagick.apps.store.editor') as $id => $args) {
+            $label = $id;
+            foreach ($args as $elem) {
+                foreach ($elem as $key => $value) {
+                    if ('label' == $key) {
+                        $label = $value;
+                        break;
+                    }
+                }
+            }
+            $editorMap[$id] = $label;
         }
 
-        return $map;
+        return $editorMap;
     }
 
     /**

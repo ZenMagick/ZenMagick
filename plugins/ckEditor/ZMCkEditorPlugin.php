@@ -50,9 +50,8 @@ class ZMCkEditorPlugin extends Plugin {
      */
     public function init() {
         parent::init();
-        Runtime::getSettings()->add('editorList', 'CKEditor:ZMCkEditorFormWidget');
         if (ZMLangUtils::asBoolean($this->get('defaultEditor'))) {
-            ZMSettings::set('apps.store.admin.defaultEditor', 'CkEditorFormWidget');
+            ZMSettings::set('apps.store.admin.defaultEditor', 'ckEditorEditorWidget');
         }
     }
 

@@ -1,0 +1,9 @@
+storefront,admin:
+  container:
+    services:
+      tinyMCEEditorWidget:
+        class: ZMTinyMCEFormWidget
+        scope: container
+        tags:
+          -  { name: zenmagick.apps.store.editor, label: TinyMCE }
+
