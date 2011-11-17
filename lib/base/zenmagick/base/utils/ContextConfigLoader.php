@@ -113,6 +113,27 @@ class ContextConfigLoader extends ZMObject {
      * @param array config The configuration to process.
      */
     public function apply($config) {
+        // php
+        if (array_key_exists('php', $config) && is_array($config['php'])) {
+            $phpConfig = $config['php'];
+            if (array_key_exists('ini', $phpConfig) && is_array($phpConfig['ini'])) {
+                foreach ($phpConfig['ini'] as $key => $value) {
+                    if (null === $value) {
+                        ini_restore($key);
+                    } else {
+                        ini_set($key, $value);
+                    }
+                }
+            }
+            if (array_key_exists('define', $phpConfig) && is_array($phpConfig['define'])) {
+                foreach ($phpConfig['define'] as $name => $value) {
+                    if (!defined($name)) {
+                        define($name, $value);
+                    }
+                }
+            }
+        }
+
         // settings
         if (array_key_exists('settings', $config) && is_array($config['settings'])) {
             Runtime::getSettings()->setAll($config['settings']);
