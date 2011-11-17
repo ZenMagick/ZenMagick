@@ -38,20 +38,4 @@ class ZMSsuPlugin extends Plugin {
         $this->setContext('storefront');
     }
 
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
-
-
-    /**
-     * {@inheritDoc}
-     */
-    public function init() {
-        parent::init();
-        Runtime::getSettings()->add('zenmagick.http.request.urlRewriter', 'ZMSsuUrlRewriter');
-    }
-
 }

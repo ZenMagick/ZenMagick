@@ -208,9 +208,6 @@ class ZMEventFixes extends ZMObject {
         // if using ZMCheckoutPaymentController, we need 'conditions' in $POST to make zencarts checkout_confirmation header_php.php happy
         if (isset($_GET['conditions']) && 'checkout_confirmation' == $request->getRequestId()) { $_POST['conditions'] = 1; }
 
-        // append again to make this the first one called to provide some useful default for zencart args
-        Runtime::getSettings()->add('zenmagick.http.request.urlRewriter', 'ZMStoreDefaultUrlRewriter');
-
         // set locale
         if (null != ($language = $request->getSession()->getLanguage())) {
             ZMSettings::set('zenmagick.core.locales.locale', $language->getCode());

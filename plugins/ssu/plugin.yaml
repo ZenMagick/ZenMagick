@@ -1,0 +1,10 @@
+
+storefront:
+  container:
+    services:
+      ssuUrlRewriter:
+        class: ZMSsuUrlRewriter
+        scope: container
+        tags:
+          -  { name: zenmagick.http.request.rewriter }
+

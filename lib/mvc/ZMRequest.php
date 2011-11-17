@@ -52,7 +52,6 @@ class ZMRequest extends \ZMObject {
      */
     const SESSION_TOKEN_NAME = 'stoken';
 
-    private $urlRewriter_;
     private $controller_;
     private $toolbox_;
     private $parameter_;
@@ -84,7 +83,6 @@ class ZMRequest extends \ZMObject {
         $this->setMethod($_SERVER['REQUEST_METHOD']);
         $this->controller_ = null;
         $this->toolbox_ = null;
-        $this->urlRewriter_ = null;
         $this->userFactory_ = null;
         $scheme = $this->isSecure() ? 'https' : 'http';
         // empty router
@@ -158,23 +156,17 @@ class ZMRequest extends \ZMObject {
     /**
      * Get a list of <code>zenmagick\htt\request\rewriter\UrlRewriter</code> instances.
      *
-     * <p>The list is build based on the classes registered via the setting
-     * 'zenmagick.http.request.urlRewriter'.</p>
+     * <p>Instances are looked up in the container with a tag of <em>zenmagick.http.request.rewriter</em>.</p>
      *
      * @return array List of <code>zenmagick\htt\request\rewriter\UrlRewriter</code> instances.
      */
     public function getUrlRewriter() {
-        if (null === $this->urlRewriter_) {
-            $this->urlRewriter_ = array();
-            $rewriters = array_reverse(Runtime::getSettings()->get('zenmagick.http.request.urlRewriter', array('zenmagick\http\request\rewriter\DefaultUrlRewriter')));
-            foreach ($rewriters as $rewriter) {
-                if (null != ($obj = Beans::getBean($rewriter))) {
-                    $this->urlRewriter_[] = $obj;
-                }
-            }
+        $urlRewriter = array();
+        foreach ($this->container->findTaggedServiceIds('zenmagick.http.request.rewriter') as $id => $args) {
+            $urlRewriter[] = $this->container->get($id);
         }
 
-        return $this->urlRewriter_;
+        return array_reverse($urlRewriter);
     }
 
     /**

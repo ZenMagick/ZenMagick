@@ -96,9 +96,6 @@ zenmagick:
       idName: main_page
       invalidSession: cookie_usage
       login: login
-      urlRewriter: 
-        - zenmagick\http\request\rewriter\RoutingUrlRewriter
-        - StoreDefaultUrlRewriter
       enforceSecure: true
     ## sacs
     sacs:

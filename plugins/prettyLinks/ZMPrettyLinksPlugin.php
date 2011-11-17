@@ -50,7 +50,6 @@ class ZMPrettyLinksPlugin extends Plugin {
      */
     public function init() {
         parent::init();
-        Runtime::getSettings()->add('zenmagick.http.request.urlRewriter', 'ZMPrettyLinksUrlRewriter');
 
         // TODO: manually load lib for now
         require_once dirname(__FILE__).'/lib/functions.php';

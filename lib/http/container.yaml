@@ -8,3 +8,14 @@ services:
     class: zenmagick\http\utils\ContextConfigLoader
     scope: prototype
 
+  defaultUrlRewriter:
+    class: zenmagick\http\request\rewriter\DefaultUrlRewriter
+    scope: container
+    tags:
+      -  { name: zenmagick.http.request.rewriter }
+
+  routingUrlRewriter:
+    class: zenmagick\http\request\rewriter\RoutingUrlRewriter
+    scope: container
+    tags:
+      -  { name: zenmagick.http.request.rewriter }
