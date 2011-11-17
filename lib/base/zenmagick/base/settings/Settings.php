@@ -118,7 +118,6 @@ class Settings {
      * @return mixed The old value or <code>null</code>.
      */
     public function append($path, $value, $delim=',') {
-      echo 'append: '.$path.'<br>';
         if (null !== ($lookup = $this->lookup($path))) {
             $lookup[2][$lookup[1]] .= $delim.$value;
             return $lookup[0];
@@ -137,7 +136,6 @@ class Settings {
      * @return mixed The old value or <code>null</code>.
      */
     public function add($path, $value) {
-      echo 'add: '.$path.'<br>';
         if (null !== ($lookup = $this->lookup($path))) {
             if (!is_array($lookup[2][$lookup[1]])) {
                 $lookup[2][$lookup[1]] = array($lookup[2][$lookup[1]]);
