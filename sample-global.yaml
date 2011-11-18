@@ -8,6 +8,11 @@
 
 ## shared settings that apply to both admin and storefront
 admin,storefront:
+  php:
+    ini:
+      # display errors in browser
+      display_errors: true
+
   settings:
     zenmagick:
       base:
