@@ -113,7 +113,7 @@ class PaymentTypeWrapper extends ZMObject implements \ZMPaymentType {
         if (null === $this->fields_) {
             if (array_key_exists('fields', $this->selection_)) {
                 foreach ($this->selection_['fields'] as $field) {
-                    $this->fields_[] = new \ZMPaymentField($field['title'], $field['field']);
+                    $this->fields_[] = new \ZMPaymentField($field['title'], htmlspecialchars_decode(htmlentities($field['field'])));
                 }
             }
         }
