@@ -81,7 +81,7 @@ class ZMToolboxForm extends ZMToolboxTool {
         }
 
         // set action attr
-        if (null !== $page && false !== strpos($page, '://')) {
+        if (null !== $page && (false !== strpos($page, '://') || '/' == $page[0])) {
             $attr['action'] = $page;
         } else {
             //TODO: remove; keep params to make useo2 happy!!
