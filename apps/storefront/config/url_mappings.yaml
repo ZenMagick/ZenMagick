@@ -57,6 +57,9 @@ page:
     layout: popup_layout
     template: popup/coupon_help
 
+  account_history_info:
+    error: 
+      view: ZMRedirectView#requestId=account
   address_book_edit: 
     formId: address
     form: ZMAddress
