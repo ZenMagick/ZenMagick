@@ -53,7 +53,7 @@ class ZMQuickEditPlugin extends Plugin {
      */
     public function init() {
         parent::init();
-        ZMSettings::append('apps.store.catalog.controller', 'QuickEditTabController');
+        ZMSettings::append('apps.store.catalog.controller', 'ZMQuickEditTabController');
     }
 
 }
