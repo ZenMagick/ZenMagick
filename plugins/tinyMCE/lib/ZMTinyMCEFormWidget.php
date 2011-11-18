@@ -60,9 +60,13 @@ class ZMTinyMCEFormWidget extends ZMTextAreaFormWidget implements WysiwygEditor 
     /**
      * {@inheritDoc}
      */
-    public function apply($idList, $request, $view) {
+    public function apply($request, $view, $idList=null) {
         $this->initEditor($view);
-        $this->idList = array_merge($this->idList, $idList);
+        if (null === $idList) {
+            $this->idList = null;
+        } else {
+            $this->idList = array_merge($this->idList, $idList);
+        }
         return '';
     }
 
@@ -86,14 +90,20 @@ class ZMTinyMCEFormWidget extends ZMTextAreaFormWidget implements WysiwygEditor 
      * Add init code.
      */
     public function onFinaliseContent($event) {
-        if (0 < count($this->idList)) {
-            $idString = implode(',', $this->idList);
+        if (0 < count($this->idList) || null === $this->idList) {
+            if (null === $this->idList) {
+                $elements = '';
+                $mode = 'textareas';
+            } else {
+                $elements = 'elements : "' . implode(',', $this->idList) . '",';
+                $mode = 'exact';
+            }
             $jsInit = <<<EOT
 <script>
   tinyMCE.init({
     theme : "advanced",
-    mode: "exact",
-    elements : "$idString",
+    mode : "$mode",
+    $elements
     plugins : "paste, save",
     theme_advanced_toolbar_location : "top",
     theme_advanced_toolbar_align:"left",

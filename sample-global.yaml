@@ -23,7 +23,7 @@ admin,storefront:
           level: ALL
           # register ZenMagick log system to handle errors/exceptions
           handleErrors: true
-        pugins:
+        plugins:
           # enable plugins
           enabled: true
 

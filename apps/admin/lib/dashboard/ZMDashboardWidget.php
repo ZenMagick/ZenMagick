@@ -28,11 +28,16 @@
  * @package zenmagick.store.admin.dashbord
  */
 abstract class ZMDashboardWidget extends ZMWidget {
+    const STATUS_DEFAULT = '';
+    const STATUS_INFO = '';
+    const STATUS_NOTICE = 'ui-state-highlight';
+    const STATUS_WARN = 'ui-state-error';
     private $id_;
     private $minimize_;
     private $maximize_;
     private $options_;
     private $open_;
+    private $status_;
 
 
     /**
@@ -49,6 +54,7 @@ abstract class ZMDashboardWidget extends ZMWidget {
         $this->maximize_ = false;
         $this->options_ = null;
         $this->open_ = true;
+        $this->status_ = self::STATUS_DEFAULT;
     }
 
 
@@ -144,14 +150,30 @@ abstract class ZMDashboardWidget extends ZMWidget {
     public function setOpen($open) { $this->open_ = ZMLangUtils::asBoolean($open); }
 
     /**
+     * Get the status.
+     *
+     * @return string The status.
+     */
+    public function getStatus() { return $this->status_; }
+
+    /**
+     * Set the status.
+     *
+     * @param string id The status.
+     */
+    public function setStatus($status) { $this->status_ = $status; }
+
+    /**
      * {@inheritDoc}
      */
     public function render($request, $view) {
+        // request first, as this might trigger a status change
+        $contents = $this->getContents($request);
         $lines = array(
             '<div class="portlet'.($this->hasOptions() ? ' gear' : '').'" id="portlet-'.$this->getId().'">',
-            '  <div class="portlet-header'.($this->isOpen() ? ' open' : ' closed"').'">'.$this->getTitle().'</div>',
+            '  <div class="portlet-header'.($this->isOpen() ? ' open' : ' closed"').' '.$this->getStatus().'">'.$this->getTitle().'</div>',
             '  <div class="portlet-content"'.($this->isOpen() ? '' : ' style="display:none;"').'>',
-            '    '.$this->getContents($request),
+            '    '.$contents,
             '  </div>',
             '</div>'
         );

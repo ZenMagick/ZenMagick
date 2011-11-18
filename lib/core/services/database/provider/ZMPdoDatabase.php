@@ -94,11 +94,12 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
         if (isset($conf['driver']) && (false !== strpos('pdo_', $conf['driver']))) {
             $conf['driver'] = 'pdo_' . str_replace('mysqli', 'mysql', $conf['driver']);
         }
+
+        if (!isset($conf['host']) || empty($conf['host'])) $conf['host'] = 'localhost';
         if (false !== ($colon = strpos($conf['host'], ':'))) {
             $conf['port'] = substr($conf['host'], $colon+1);
             $conf['host'] = substr($conf['host'], 0, $colon);
         }
-        if (!isset($conf['host']) || empty($conf['host'])) $conf['host'] = 'localhost';
 
         if (!isset($conf['prefix']) || is_null($conf['prefix'])) $conf['prefix'] = '';
 
@@ -654,19 +655,23 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
     public function getMetaData($table=null) {
         $this->ensureResource();
         $sm = $this->pdo_->getSchemaManager();
-
         if (null !== $table) {
             if (!empty($this->config_['prefix']) && 0 !== strpos($table, $this->config_['prefix'])) {
                 $table = $this->config_['prefix'].$table;
             }
 
 			$meta = array();
+
             try {
                 $tableDetails = $sm->listTableDetails($table);
             } catch(Doctrine\DBAL\Schema\SchemaException $pdoe) {
                 throw new ZMDatabaseException($pdoe->getMessage(), $pdoe->getCode(), $pdoe);
             }
-			$keys = $tableDetails->getPrimaryKey()->getColumns();
+
+            // TODO: yes we have a table without a primary key :(
+            $primaryKey = $tableDetails->getPrimaryKey();
+            $keys = is_object($primaryKey) ? $primaryKey->getColumns() : array();
+
 			foreach($tableDetails->getColumns() as $column) {
                 $meta[$column->getName()] = array(
                     'type' => $column->getType()->getName(),

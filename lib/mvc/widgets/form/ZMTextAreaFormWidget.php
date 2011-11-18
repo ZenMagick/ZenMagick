@@ -27,12 +27,12 @@
  * @author DerManoMann
  * @package org.zenmagick.mvc.widgets.form
  */
-class ZMTextAreaFormWidget extends ZMFormWidget {
+class ZMTextAreaFormWidget extends ZMFormWidget implements WysiwygEditor {
 
     /**
      * Create new instance.
      */
-    function __construct() {
+    public function __construct() {
         parent::__construct();
         $this->setAttributeNames(array('id', 'name', 'class', 'cols', 'rows', 'wrap', 'title'));
         // some defaults
@@ -40,13 +40,14 @@ class ZMTextAreaFormWidget extends ZMFormWidget {
         $this->setCols(60);
     }
 
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
 
+    /**
+     * {@inheritDoc}
+     */
+    public function apply($request, $view, $idList=null) {
+        // nothing
+        return '';
+    }
 
     /**
      * {@inheritDoc}

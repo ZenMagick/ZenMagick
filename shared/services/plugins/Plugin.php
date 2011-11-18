@@ -374,7 +374,7 @@ class Plugin extends ZMPlugin {
      * @param string menuKey Optional key determining where the menu item should appear; default is <em>'configuration-plugins'</em>.
      */
     public function addMenuItem2($title, $requestId, $menuKey='configuration-plugins') {
-        if (\ZMSettings::get('isAdmin')) {
+        if (\ZMSettings::get('isAdmin') && $this->container->has('adminMenu')) {
             $adminMenu = $this->container->get('adminMenu');
             if (null != ($parent = $adminMenu->getElement($menuKey))) {
                 $item = new MenuElement($menuKey.'-'.$requestId, $title);

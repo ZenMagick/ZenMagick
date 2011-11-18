@@ -35,6 +35,7 @@ use zenmagick\base\Toolbox;
  * @package apps.store.bundles.ZenCartBundle
  */
 class ZenCartBundle extends Bundle {
+    const ZENCART_ADMIN_FOLDER = 'ZENCART_ADMIN_FOLDER';
 
     /**
      * {@inheritDoc}
@@ -122,12 +123,46 @@ class ZenCartBundle extends Bundle {
         $current = $settingsService->get('apps/store/database/default', array());
         $settingsService->set('apps/store/database/default', array_merge($defaults, $current));
 
+        if (!defined('DB_PREFIX')) define('DB_PREFIX', $current['prefix']);
+
         if (defined('ENABLE_SSL_ADMIN')) $settingsService->set('zenmagick.http.request.secure', 'true' == ENABLE_SSL_ADMIN);
         if (defined('ENABLE_SSL')) $settingsService->set('zenmagick.http.request.secure', 'true' == ENABLE_SSL);
 
         // download base folder
         $downloadBaseDir = !defined('DIR_FS_DOWNLOAD') ? ZC_INSTALL_PATH . 'download/' : DIR_FS_DOWNLOAD;
         $settingsService->set('downloadBaseDir', $downloadBaseDir);
+    }
+
+    /**
+     * Guess zc admin folder.
+     *
+     * @return The dir name.
+     */
+    protected function guessAdminFolder() {
+        $configService = $this->container->get('configService');
+        if (null != ($value = $configService->getConfigValue(self::ZENCART_ADMIN_FOLDER))) {
+            return $value->getValue();
+        }
+
+        $basePath = dirname(Runtime::getInstallationPath());
+        $folder = null;
+        if (false !== ($handle = opendir($basePath))) {
+            while (false !== ($file = readdir($handle))) {
+                if (is_dir($basePath.'/'.$file) && !in_array($file, array('.', '..'))) {
+                    if (file_exists(realpath($basePath.'/'.$file.'/includes/configure.php')) && file_exists(realpath($basePath.'/'.$file.'/featured.php'))) {
+                        $folder = $file;
+                        break;
+                    }
+                }
+            }
+            closedir($handle);
+        }
+
+        // save
+        if (null != $folder) {
+            $configService->createConfigValue('zencart admin folder', self::ZENCART_ADMIN_FOLDER, $folder, ZENMAGICK_CONFIG_GROUP_ID);
+        }
+        return $folder;
     }
 
     /**
@@ -145,6 +180,11 @@ class ZenCartBundle extends Bundle {
             // old zc admin?
             $request->setRequestId(str_replace('.php', '', $request->getFrontController()));
         }
+
+        if (null == ($folder = $this->guessAdminFolder())) {
+            // TODO: throw exception??
+        }
+        Runtime::getSettings()->set('apps.store.zencart.admindir', $folder);
     }
 
     /**

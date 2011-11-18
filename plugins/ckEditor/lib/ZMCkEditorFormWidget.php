@@ -68,14 +68,20 @@ class ZMCkEditorFormWidget extends ZMTextAreaFormWidget implements WysiwygEditor
     /**
      * {@inheritDoc}
      */
-    public function apply($idList, $request, $view) {
+    public function apply($request, $view, $idList=null) {
         if (!$this->plugin_ || null == ($ckEditor = $this->getCKEditor())) {
             return null;
         }
 
         $out = '';
-        foreach ($idList as $id) {
-            $out .= $ckEditor->replace($id, $this->editorConfig);
+        if (null === $idList) {
+            //TODO: check if this is fixed in future versions
+            $ckEditor->config = array_merge($ckEditor->config, $this->editorConfig);
+            $out .= $ckEditor->replaceAll();
+        } else {
+            foreach ($idList as $id) {
+                $out .= $ckEditor->replace($id, $this->editorConfig);
+            }
         }
         return $out;
     }
