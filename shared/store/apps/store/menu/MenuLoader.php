@@ -55,17 +55,32 @@ class MenuLoader {
         }
     }
 
-    public function load($filename) {
-        $menu = new Menu();
+    /**
+     * Load menu structure from the given file.
+     *
+     * @param string filename The file to load.
+     * @param Menu menu Optional menu to load/update into; default is <code>null</code>.
+     * @return Menu The loaded/updated menu.
+     */
+    public function load($filename, $menu=null) {
+        $menu = null != $menu ? $menu: new Menu();
 
         $items = Yaml::parse($filename);
         foreach ($items as $id => $item) {
             $element = new MenuElement($id);
             $parent = null;
+            $before = null;
+            $after = null;
             foreach (array_keys($item) as $key) {
                 switch ($key) {
                 case 'parent':
                     $parent = $item[$key];
+                    break;
+                case 'before':
+                    $before = $item[$key];
+                    break;
+                case 'after':
+                    $after = $item[$key];
                     break;
                   default:
                     $m = 'set'.ucwords($key);
@@ -73,24 +88,25 @@ class MenuLoader {
                 }
             }
             if ($parent) {
-                $menu->getElement($parent)->addChild($element);
+                $parent = $menu->getElement($parent);
+                if ($before) {
+                    $parent->addChild($element, $before, MenuElement::INSERT_BEFORE);
+                } else if ($after) {
+                    $parent->addChild($element, $after, MenuElement::INSERT_AFTER);
+                } else {
+                    $parent->addChild($element);
+                }
             } else {
-                $menu->getRoot()->addChild($element);
+                if ($before) {
+                    $menu->insertBefore($before, $element);
+                } else if ($after) {
+                    $menu->insertAfter($after, $element);
+                } else {
+                    $menu->getRoot()->addChild($element);
+                }
             }
         }
-        $this->dump($menu->getRoot());
-    }
-
-    public function dump($elem, $l=1) {
-        $indent = '&nbsp;';
-        for ($ii=0; $ii < $l; ++$ii) {
-            $indent .= '&nbsp;&nbsp;';
-        }
-        echo $indent.' * '.$elem->getName()."<br>";
-        foreach ($elem->getChildren() as $child) {
-            $this->dump($child, $l+1);
-        }
-
+        return $menu;
     }
 
 }

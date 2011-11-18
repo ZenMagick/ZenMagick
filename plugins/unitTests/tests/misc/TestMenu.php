@@ -133,8 +133,21 @@ class TestMenu extends ZMTestCase {
 
     public function testLoader() {
         $menuLoader = new MenuLoader();
-        $menuLoader->load($this->getTestsBaseDirectory().'/misc/config/menu.yaml');
-        $menuLoader->load($this->getTestsBaseDirectory().'/misc/config/menu2.yaml');
+        //$menuLoader->load($this->getTestsBaseDirectory().'/misc/config/menu.yaml');
+        $menu = $menuLoader->load($this->getTestsBaseDirectory().'/misc/config/menu2.yaml');
+        $menu = $menuLoader->load($this->getTestsBaseDirectory().'/misc/config/menu3.yaml', $menu);
+        $this->dumpMenu($menu->getRoot());
+    }
+
+    protected function dumpMenu($elem, $l=1) {
+        $indent = '&nbsp;';
+        for ($ii=0; $ii < $l; ++$ii) {
+            $indent .= '&nbsp;&nbsp;';
+        }
+        echo $indent.' * '.$elem->getName().'/'.$elem->getRequestId()."<br>";
+        foreach ($elem->getChildren() as $child) {
+            $this->dumpMenu($child, $l+1);
+        }
     }
 
 }
