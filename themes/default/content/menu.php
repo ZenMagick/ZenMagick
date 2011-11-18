@@ -40,6 +40,5 @@
     <?php foreach ($container->get('ezPageService')->getPagesForHeader($session->getLanguageId()) as $page) { ?>
         <li><?php echo $html->ezpageLink($page->getId()) ?></li>
     <?php } ?>
-    <?php echo $this->fetchBlockGroup('mainMenu') ?>
   </ul>
 </div>
