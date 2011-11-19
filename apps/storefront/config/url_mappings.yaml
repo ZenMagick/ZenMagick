@@ -65,6 +65,8 @@ page:
     form: ZMAddress
     success: 
       view: ZMRedirectView#requestId=account
+    error: 
+      view: ZMRedirectView#requestId=account
   address_book_add: 
     formId: address
     form: ZMAddress

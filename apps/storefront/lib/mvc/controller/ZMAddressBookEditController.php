@@ -33,21 +33,6 @@
 class ZMAddressBookEditController extends ZMController {
 
     /**
-     * Create new instance.
-     */
-    function __construct() {
-        parent::__construct();
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
-
-
-    /**
      * {@inheritDoc}
      */
     public function preProcess($request) {
@@ -62,6 +47,13 @@ class ZMAddressBookEditController extends ZMController {
     public function processGet($request) {
         // populate with original data
         $address = $this->container->get('addressService')->getAddressForId($request->getParameter('id'));
+        $account = $request->getAccount();
+
+        if ($account->getAccountId() != $address->getAccountId()) {
+            $this->messageService->error(_zm('Address not found'));
+            return $this->findView('error');
+        }
+
         return $this->findView(null, array('address' => $address));
     }
 
