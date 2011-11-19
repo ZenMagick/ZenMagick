@@ -21,7 +21,7 @@
 <?php
 namespace zenmagick\base\utils;
 
-use zenmagick\base\ClassLoader;
+use zenmagick\base\classloader\ClassLoader;
 use zenmagick\base\Runtime;
 
 use Doctrine\Common\Annotations\AnnotationRegistry;

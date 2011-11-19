@@ -22,7 +22,7 @@
 namespace zenmagick\base\plugins;
 
 use zenmagick\base\Runtime;
-use zenmagick\base\ClassLoader;
+use zenmagick\base\classloader\ClassLoader;
 use zenmagick\base\events\Event;
 
 /**

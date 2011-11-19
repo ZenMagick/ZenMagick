@@ -20,7 +20,7 @@
 ?>
 <?php
 
-use zenmagick\base\ClassLoader;
+use zenmagick\base\classloader\ClassLoader;
 
 
     /**

@@ -22,7 +22,7 @@
 
 use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
-use zenmagick\base\ClassLoader;
+use zenmagick\base\classloader\ClassLoader;
 use zenmagick\base\logging\Logging;
 use zenmagick\http\sacs\SacsManager;
 
