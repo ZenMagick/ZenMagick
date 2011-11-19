@@ -380,7 +380,7 @@ class ZenCartCheckoutOrder extends ZMObject {
      * @param ZMAddress address The shipping address.
      */
     public function setShippingAddress($address) {
-        $this->shipping = $this->address2array($address);
+        $this->delivery = $this->address2array($address);
     }
 
     /**
@@ -389,7 +389,7 @@ class ZenCartCheckoutOrder extends ZMObject {
      * @param ZMAddress address The billing address.
      */
     public function setBillingAddress($address) {
-        $this->delivery = $this->address2array($address);
+        $this->billing = $this->address2array($address);
     }
 
 }
