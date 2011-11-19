@@ -101,7 +101,7 @@ class ZMGvSendConfirmController extends ZMController {
         $amount = $gvReceiver->getAmount();
 
         $currentCurrencyCode = $request->getCurrencyCode();
-        if (ZMSettings::get('defaultCurrency') != $currentCurrencyCode) {
+        if (Runtime::getSettings()->get('defaultCurrency') != $currentCurrencyCode) {
             // need to convert amount to default currency as GV values are in default currency
             $currency = $this->container->get('currencyService')->getCurrencyForCode($currentCurrencyCode);
             $amount = $currency->convertFrom($amount);
@@ -123,10 +123,10 @@ class ZMGvSendConfirmController extends ZMController {
         $context = array('currentAccount' => $account, 'gvReceiver' => $gvReceiver, 'currentCoupon' => $coupon, 'office_only_html' => '', 'office_only_text' => '');
 
         $message = $this->container->get('messageBuilder')->createMessage('gv_send', true, $request, $context);
-        $message->setSubject(sprintf(_zm("A gift from %s"), $account->getFullName()))->setTo($gvReceiver->getEmail())->setFrom(ZMSettings::get('storeEmail'));
+        $message->setSubject(sprintf(_zm("A gift from %s"), $account->getFullName()))->setTo($gvReceiver->getEmail())->setFrom(Runtime::getSettings()->get('storeEmail'));
         $this->container->get('mailer')->send($message);
 
-        if (ZMSettings::get('isEmailAdminGvSend')) {
+        if (Runtime::getSettings()->get('isEmailAdminGvSend')) {
             // store copy
             $session = $request->getSession();
             $context = $request->getToolbox()->macro->officeOnlyEmailFooter($account->getFullName(), $account->getEmail(), $session);
@@ -135,7 +135,7 @@ class ZMGvSendConfirmController extends ZMController {
             $context['currentCoupon'] = $coupon;
 
             $message = $this->container->get('messageBuilder')->createMessage('gv_send', false, $request, $context);
-            $message->setSubject(sprintf(_zm("[GIFT CERTIFICATE] A gift from %s"), $account->getFullName()))->setTo(ZMSettings::get('emailAdminGvSend'))->setFrom(ZMSettings::get('storeEmail'));
+            $message->setSubject(sprintf(_zm("[GIFT CERTIFICATE] A gift from %s"), $account->getFullName()))->setTo(Runtime::getSettings()->get('emailAdminGvSend'))->setFrom(Runtime::getSettings()->get('storeEmail'));
             $this->container->get('mailer')->send($message);
         }
 

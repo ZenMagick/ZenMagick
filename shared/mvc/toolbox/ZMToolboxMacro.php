@@ -23,6 +23,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 use zenmagick\base\ZMException;
 
 /**
@@ -101,7 +102,7 @@ class ZMToolboxMacro extends ZMToolboxTool {
                     $state = $countryService->getZoneCode($zmcountry->getId(), $address->getZoneId(), $state);
                 }
             } else {
-                $zmcountry = $countryService->getCountryForId(ZMSettings::get('storeCountry'));
+                $zmcountry = $countryService->getCountryForId(Runtime::getSettings()->get('storeCountry'));
                 $country = '';
                 $state = '';
             }
@@ -134,7 +135,7 @@ class ZMToolboxMacro extends ZMToolboxTool {
             eval("\$out = \"$format\";");
 
             $company = $address->getCompanyName();
-            if (ZMSettings::get('isAccountCompany') && !empty($company) ) {
+            if (Runtime::getSettings()->get('isAccountCompany') && !empty($company) ) {
                 $out = $company . $cr . $out;
             }
         }
@@ -158,7 +159,7 @@ class ZMToolboxMacro extends ZMToolboxTool {
                 // use text if not empty
                 $html = $banner->getText();
             } else {
-                $slash = ZMSettings::get('zenmagick.mvc.html.xhtml') ? '/' : '';
+                $slash = Runtime::getSettings()->get('zenmagick.mvc.html.xhtml') ? '/' : '';
                 $img = '<img src="'.$toolbox->net->image($banner->getImage()).'" alt="'.
                           ZMHtmlUtils::encode($banner->getTitle()).'"'.$slash.'>';
                 if (ZMLangUtils::isEmpty($banner->getUrl())) {
@@ -282,7 +283,7 @@ class ZMToolboxMacro extends ZMToolboxTool {
         // try hostname
         $hostname = $session->getClientHostname();
         if (null == $hostname) {
-            if (ZMSettings::get('isResolveClientIP')) {
+            if (Runtime::getSettings()->get('isResolveClientIP')) {
                 $hostname = gethostbyaddr($session->getClientAddress());
             } else {
                 $hostname = _zm("Disabled");
@@ -367,7 +368,7 @@ class ZMToolboxMacro extends ZMToolboxTool {
         $element['type'] = 'radio';
         $elements = array();
         $index = 1;
-        $slash = ZMSettings::get('zenmagick.mvc.html.xhtml') ? '/' : '';
+        $slash = Runtime::getSettings()->get('zenmagick.mvc.html.xhtml') ? '/' : '';
         foreach ($attribute->getValues() as $value) {
             $id = 'id_'.$attribute->getId().'_'.$index++;
             $name = 'id['.$attribute->getId().']';
@@ -394,7 +395,7 @@ class ZMToolboxMacro extends ZMToolboxTool {
         $element['type'] = 'checkbox';
         $elements = array();
         $index = 1;
-        $slash = ZMSettings::get('zenmagick.mvc.html.xhtml') ? '/' : '';
+        $slash = Runtime::getSettings()->get('zenmagick.mvc.html.xhtml') ? '/' : '';
         foreach ($attribute->getValues() as $value) {
             $id = 'id_'.$attribute->getId().'_'.$index++;
             $name = 'id['.$attribute->getId().']['.$value->getId().']';
@@ -421,10 +422,10 @@ class ZMToolboxMacro extends ZMToolboxTool {
         $element['type'] = 'text';
         $elements = array();
         $index = 1;
-        $slash = ZMSettings::get('zenmagick.mvc.html.xhtml') ? '/' : '';
+        $slash = Runtime::getSettings()->get('zenmagick.mvc.html.xhtml') ? '/' : '';
         foreach ($attribute->getValues() as $value) {
             $id = 'id_'.$attribute->getId().'_'.$index++;
-            $name = 'id['.ZMSettings::get('textOptionPrefix').$attribute->getId().']';
+            $name = 'id['.Runtime::getSettings()->get('textOptionPrefix').$attribute->getId().']';
             $text = '<label for="'.$id.'">'.$this->buildAttributeValueLabel($product, $value).'</label>';
             $text .= '<input type="text" id="'.$id.'" name="'.$name.'" value=""'.$slash.'>';
             array_push($elements, $text);
@@ -447,14 +448,14 @@ class ZMToolboxMacro extends ZMToolboxTool {
         $element['type'] = 'upload';
         $elements = array();
         $index = 1;
-        $slash = ZMSettings::get('zenmagick.mvc.html.xhtml') ? '/' : '';
+        $slash = Runtime::getSettings()->get('zenmagick.mvc.html.xhtml') ? '/' : '';
         foreach ($attribute->getValues() as $value) {
             $id = 'id_'.$attribute->getId().'_'.$index;
-            $name = 'id['.ZMSettings::get('textOptionPrefix').$attribute->getId().']';
+            $name = 'id['.Runtime::getSettings()->get('textOptionPrefix').$attribute->getId().']';
             $text = '<label for="'.$id.'">'.$this->buildAttributeValueLabel($product, $value).'</label>';
             $text .= '<input type="file" id="'.$id.'" name="'.$name.'" value=""'.$slash.'>';
-            $text .= '<input type="hidden" name="'.ZMSettings::get('uploadOptionPrefix').$uploadIndex.'" value="'.$attribute->getId().'"'.$slash.'>';
-            $text .= '<input type="hidden" name="'.ZMSettings::get('textOptionPrefix').ZMSettings::get('uploadOptionPrefix').$uploadIndex.'" value=""'.$slash.'>';
+            $text .= '<input type="hidden" name="'.Runtime::getSettings()->get('uploadOptionPrefix').$uploadIndex.'" value="'.$attribute->getId().'"'.$slash.'>';
+            $text .= '<input type="hidden" name="'.Runtime::getSettings()->get('textOptionPrefix').Runtime::getSettings()->get('uploadOptionPrefix').$uploadIndex.'" value=""'.$slash.'>';
             array_push($elements, $text);
         }
         $element['html'] = $elements;
@@ -515,7 +516,7 @@ class ZMToolboxMacro extends ZMToolboxTool {
      */
     protected function buildAttributeValueLabel($product, $value, $enableImage=true) {
         $toolbox = $this->getToolbox();
-        $slash = ZMSettings::get('zenmagick.mvc.html.xhtml') ? '/' : '';
+        $slash = Runtime::getSettings()->get('zenmagick.mvc.html.xhtml') ? '/' : '';
         $label = '';
         if ($value->hasImage() && $enableImage) {
             // TODO: where are images coming from in the future??

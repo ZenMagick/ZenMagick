@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 
 /**
  * Show settings controlller.
@@ -52,7 +53,7 @@ class ZMSettingsShowController extends ZMPluginAdmin2Controller {
      * @return string The value as string.
      */
     protected function getStringValue($key, $type) {
-        if (null === ($value = ZMSettings::get($key))) {
+        if (null === ($value = Runtime::getSettings()->get($key))) {
             return '-- NOT SET --';
         }
 
@@ -125,7 +126,7 @@ class ZMSettingsShowController extends ZMPluginAdmin2Controller {
                         $bits = explode($dynVar, $key);
                         $prefix = $bits[0];
                         $suffix = $bits[1];
-                        foreach (ZMSettings::getAll() as $akey => $avalue) {
+                        foreach (Runtime::getSettings()->getAll() as $akey => $avalue) {
                             if (ZMLangUtils::startsWith($akey, $prefix) && ZMLangUtils::endsWith($akey, $suffix)) {
                                 // potential match
                                 $dynVal = substr($akey, strlen($prefix), -strlen($suffix));
@@ -148,7 +149,7 @@ class ZMSettingsShowController extends ZMPluginAdmin2Controller {
         }
 
         // check for settings without details
-        foreach (ZMSettings::getAll() as $key => $value) {
+        foreach (Runtime::getSettings()->getAll() as $key => $value) {
             foreach ($settingDetails as $group => $groupDetails) {
                 if (ZMLangUtils::startsWith($key, $group.'.')) {
                     $found = false;

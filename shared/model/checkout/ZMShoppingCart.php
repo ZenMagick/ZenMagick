@@ -585,7 +585,7 @@ class ZMShoppingCart extends ZMObject {
      * @todo move to helper?
      */
     function adjustQty($quantity) {
-        $digits = ZMSettings::get('qtyDecimals');
+        $digits = Runtime::getSettings()->get('qtyDecimals');
         if (0 != $digits) {
             if (strstr($quantity, '.')) {
                 // remove leading '0'
@@ -749,13 +749,13 @@ class ZMShoppingCart extends ZMObject {
      * @return ZMAddress The tax address.
      */
     public function getTaxAddress() {
-        switch (ZMSettings::get('productTaxBase')) {
+        switch (Runtime::getSettings()->get('productTaxBase')) {
             case ZMTaxRates::TAX_BASE_SHIPPING:
                 return $this->isVirtual() ? $this->getBillingAddress() : $this->getShippingAddress();
             case ZMTaxRates::TAX_BASE_BILLING:
                 return $this->getBillingAddress();
             case ZMTaxRates::TAX_BASE_STORE:
-                if ($address->getZoneId() == ZMSettings::get('storeZone')) {
+                if ($address->getZoneId() == Runtime::getSettings()->get('storeZone')) {
                     $address = $this->getBillingAddress();
                 } else {
                     $address = $this->isVirtual() ? $this->getBillingAddress() : $this->getShippingAddress();
@@ -780,7 +780,7 @@ class ZMShoppingCart extends ZMObject {
     function prepare_uploads($product, $attributes=array()) {
         $uploads = 0;
         foreach ($attributes as $name => $value) {
-            if (ZMLangUtils::startsWith($name, ZMSettings::get('uploadOptionPrefix'))) {
+            if (ZMLangUtils::startsWith($name, Runtime::getSettings()->get('uploadOptionPrefix'))) {
                 ++$uploads;
             }
         }
@@ -802,7 +802,7 @@ class ZMShoppingCart extends ZMObject {
      */
     protected function sanitizeAttributes($product, $attributes=array()) {
         //TODO: where should this actually be? attributes, rules, cart, products?
-        if (!ZMSettings::get('apps.store.isSanitizeAttributes', false)) {
+        if (!Runtime::getSettings()->get('apps.store.isSanitizeAttributes', false)) {
             return $attributes;
         }
 
@@ -817,7 +817,7 @@ class ZMShoppingCart extends ZMObject {
         foreach ($defaultAttributes as $attribute) {
             $attributeId = $attribute->getId();
             if (ZMLangUtils::inArray($attribute->getType(), array(PRODUCTS_OPTIONS_TYPE_TEXT, PRODUCTS_OPTIONS_TYPE_FILE))) {
-                $attributeId = ZMSettings::get('textOptionPrefix') . $attributeId;
+                $attributeId = Runtime::getSettings()->get('textOptionPrefix') . $attributeId;
             }
             $validAttributeIds[$attributeId] = $attributeId;
             if (!array_key_exists($attributeId, $attributes)) {

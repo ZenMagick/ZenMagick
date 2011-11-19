@@ -413,7 +413,7 @@ class Request extends \ZMRequest {
             // try session language code
             if (null == ($language = $languageService->getLanguageForId($code))) {
                 // try store default
-                $language = $languageService->getLanguageForId(\ZMSettings::get('storeDefaultLanguageId'));
+                $language = $languageService->getLanguageForId(Runtime::getSettings()->get('storeDefaultLanguageId'));
             }
         }
 

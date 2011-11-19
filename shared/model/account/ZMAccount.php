@@ -23,6 +23,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 use zenmagick\base\ZMObject;
 
 /**
@@ -78,7 +79,7 @@ class ZMAccount extends ZMObject {
         $this->referral_ = '';
         $this->defaultAddressId_ = 0;
         $this->password_ = null;
-        $this->authorization_ = ZMSettings::get('defaultCustomerApproval');
+        $this->authorization_ = Runtime::getSettings()->get('defaultCustomerApproval');
         $this->newsletter_ = false;
         $this->globalSubscriber_ = false;
         $this->subscribedProducts_ = null;

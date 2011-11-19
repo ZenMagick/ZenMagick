@@ -21,6 +21,7 @@
 <?php
 
 use zenmagick\base\Beans;
+use zenmagick\base\Runtime;
 
 /**
  * A wysiwyg form widget.
@@ -55,7 +56,7 @@ class ZMWysiwygFormWidget extends ZMFormWidget {
     protected function getCurrentEditor($request) {
         $user = $request->getUser();
         if (null == $user || null == ($editor = ZMAdminUserPrefs::instance()->getPrefForName($user->getId(), 'wysiwygEditor'))) {
-            $editor = ZMSettings::get('apps.store.admin.defaultEditor', 'ZMTextAreaFormWidget');
+            $editor = Runtime::getSettings()->get('apps.store.admin.defaultEditor', 'ZMTextAreaFormWidget');
         }
 
         if (null != ($obj = Beans::getBean($editor))) {

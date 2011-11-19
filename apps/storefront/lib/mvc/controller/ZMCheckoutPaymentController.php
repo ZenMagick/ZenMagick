@@ -112,7 +112,7 @@ class ZMCheckoutPaymentController extends ZMController {
             $shoppingCart->setComments($comments);
         }
 
-        if (ZMSettings::get('isConditionsMessage') && !ZMLangUtils::asBoolean($request->getParameter('conditions'))) {
+        if (Runtime::getSettings()->get('isConditionsMessage') && !ZMLangUtils::asBoolean($request->getParameter('conditions'))) {
             $this->messageService->error(_zm('Please confirm the terms and conditions bound to this order by ticking the box below.'));
             return $this->findView();
         }

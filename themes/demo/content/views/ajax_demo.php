@@ -104,7 +104,7 @@ Depending on your server configuration you might be better of using something di
         <p>
             <label for="productId">ProductId</label>
             <input type="text" id="productId" name="productId" value="34" size="6" />
-            <label for="quantity">Qty</label><input type="text" id="quantity" name="quantity" value="1" size="4" /> 
+            <label for="quantity">Qty</label><input type="text" id="quantity" name="quantity" value="1" size="4" />
               <input type="button" value="Load product details" onclick="loadProduct();" />
               <input type="button" value="Clear product details" onclick="clearProduct();" />
             <br />
@@ -186,7 +186,7 @@ Depending on your server configuration you might be better of using something di
                 for (var jj=0; jj < attribute.values.length; ++jj) {
                     var value = attribute.values[jj];
                     var id = 'id_'+attribute.id+'_'+jj;
-                    var name = 'id[<?php echo ZMSettings::get('textOptionPrefix') ?>'+attribute.id+']';
+                    var name = 'id[<?php echo $settings->get('textOptionPrefix') ?>'+attribute.id+']';
                     html += '<label for="'+id+'">'+value.name+'</label>';
                     html += '<input type="text" id="'+id+'" name="'+name+'" value=""/>';
                 }
@@ -239,7 +239,7 @@ Depending on your server configuration you might be better of using something di
 
     function sc_add() {
         var productId = productIdElem.value;
-        var queryString = $('#productForm').formSerialize(); 
+        var queryString = $('#productForm').formSerialize();
 
         msgboxElem.innerHTML = "Adding product " + productId + " ... ";
         cartElem.innerHTML = '';

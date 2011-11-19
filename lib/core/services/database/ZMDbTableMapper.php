@@ -97,7 +97,7 @@ class ZMDbTableMapper extends ZMObject {
      */
     protected function loadMappingFile() {
         // load from file
-        eval('$mappings = '.file_get_contents(Runtime::getApplicationPath().\ZMSettings::get('zenmagick.core.database.mappings.file', 'config/db_mappings.txt')));
+        eval('$mappings = '.file_get_contents(Runtime::getApplicationPath().Runtime::getSettings()->get('zenmagick.core.database.mappings.file', 'config/db_mappings.txt')));
         foreach ($mappings as $table => $mapping) {
             $this->tableMap_[$table] = $this->parseTable($mapping);
         }
@@ -153,7 +153,7 @@ class ZMDbTableMapper extends ZMObject {
             if (empty($table)) {
                 continue;
             }
-            if (!array_key_exists($table, $this->tableMap_) && \ZMSettings::get('zenmagick.core.database.mappings.autoMap.enabled', true)) {
+            if (!array_key_exists($table, $this->tableMap_) && Runtime::getSettings()->get('zenmagick.core.database.mappings.autoMap.enabled', true)) {
                 Runtime::getLogging()->debug('creating dynamic mapping for table name: '.$table);
                 $rawMapping = self::buildTableMapping($table, $database);
                 $this->setMappingForTable($table, $rawMapping);
@@ -248,7 +248,7 @@ class ZMDbTableMapper extends ZMObject {
             // table name
             $table = $mapping;
             $mapping = $this->getMapping($table, $database);
-            if (null === $mapping && \ZMSettings::get('zenmagick.core.database.mappings.autoMap.enabled', true)) {
+            if (null === $mapping && Runtime::getSettings()->get('zenmagick.core.database.mappings.autoMap.enabled', true)) {
                 Runtime::getLogging()->debug('creating dynamic mapping for table name: '.$table);
                 $rawMapping = self::buildTableMapping($table, $database);
                 $this->setMappingForTable(str_replace($config['prefix'], '', $table), $rawMapping);
@@ -284,7 +284,7 @@ class ZMDbTableMapper extends ZMObject {
     public function getCustomFieldInfo($table, $database) {
         $config = $database->getConfig();
         $customFieldKey = 'zenmagick.core.database.sql.'.str_replace($config['prefix'], '', $table).'.customFields';
-        $setting = \ZMSettings::get($customFieldKey);
+        $setting = Runtime::getSettings()->get($customFieldKey);
         if (empty($setting)) {
             return array();
         }

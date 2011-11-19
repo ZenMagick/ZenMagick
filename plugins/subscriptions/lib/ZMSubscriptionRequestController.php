@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 use zenmagick\base\ZMObject;
 
 /**
@@ -77,7 +78,7 @@ class ZMSubscriptionRequestController extends ZMController {
         }
 
         $plugin = $this->getPlugin();
-        $emailTemplate = ZMSettings::get('plugins.subscriptions.email.templates.request', 'subscription_request');
+        $emailTemplate = Runtime::getSettings()->get('plugins.subscriptions.email.templates.request', 'subscription_request');
         $this->sendNotificationEmail($request->getParameterMap(), $emailTemplate, $plugin->get('adminEmail'));
 
         $this->messageService->success(_zm("Request submitted!"));
@@ -93,11 +94,11 @@ class ZMSubscriptionRequestController extends ZMController {
      */
     protected function sendNotificationEmail($context, $template, $email) {
         if (empty($email)) {
-            $email = ZMSettings::get('storeEmail');
+            $email = Runtime::getSettings()->get('storeEmail');
         }
 
         $message = $this->container->get('messageBuilder')->createMessage($template, true, $request, $context);
-        $message->setSubject(sprintf(_zm("Subscription request notification"), ZMSettings::get('storeName')))->setTo($email)->setFrom(ZMSettings::get('storeEmail'));
+        $message->setSubject(sprintf(_zm("Subscription request notification"), Runtime::getSettings()->get('storeName')))->setTo($email)->setFrom(Runtime::getSettings()->get('storeEmail'));
         $this->container->get('mailer')->send($message);
     }
 

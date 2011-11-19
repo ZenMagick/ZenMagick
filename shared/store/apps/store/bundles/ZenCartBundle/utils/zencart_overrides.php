@@ -65,7 +65,7 @@ if (!function_exists('zen_mail')) {
 
         // use zen_mail_org as fallback for emails without ZenMagick template
         $formats = $messageBuilder->getFormatsForTemplate($module, $request);
-        if (0 < count($formats) && ZMSettings::get('isEnableZMThemes', true)) {
+        if (0 < count($formats) && Runtime::getSettings()->get('isEnableZMThemes', true)) {
             $block['text_msg'] = $text;
             $container = Runtime::getContainer();
             $message = $container->get('messageBuilder')->createMessage($module, true, $request, $block);
@@ -90,7 +90,7 @@ if (!function_exists('zen_build_html_email_from_template')) {
     function zen_build_html_email_from_template($template, $args=array()) {
         $container = Runtime::getContainer();
         $messageBuilder = $container->get('messageBuilder');
-        if (!ZMSettings::get('isEnableZMThemes', true)) {
+        if (!Runtime::getSettings()->get('isEnableZMThemes', true)) {
             return zen_build_html_email_from_template_org($template, $args);
         }
         $request = Runtime::getContainer()->get('request');

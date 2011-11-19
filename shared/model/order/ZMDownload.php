@@ -23,6 +23,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 use zenmagick\base\ZMObject;
 
 /**
@@ -214,7 +215,7 @@ class ZMDownload extends ZMObject {
      * @return boolean <code>true</code> if this download is (still) available for download.
      */
     public function isDownloadable() {
-        return file_exists(ZMSettings::get('downloadBaseDir').$this->filename)
+        return file_exists(Runtime::getSettings()->get('downloadBaseDir').$this->filename)
             && (!$this->isLimited() || (0 < $this->downloadCount && !$this->isExpired()));
     }
 
@@ -233,7 +234,7 @@ class ZMDownload extends ZMObject {
      * @return long The filesize.
      */
     public function getFileSize() {
-        return filesize(ZMSettings::get('downloadBaseDir').$this->filename);
+        return filesize(Runtime::getSettings()->get('downloadBaseDir').$this->filename);
     }
 
 }

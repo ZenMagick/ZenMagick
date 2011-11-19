@@ -41,7 +41,7 @@ class ZMUpdateSubscriptionsCronJob implements ZMCronJob {
         }
         $plugin = $this->getPlugin();
         $scheduledOrders = self::findScheduledOrders();
-        $scheduleEmailTemplate = ZMSettings::get('plugins.subscriptions.email.templates.schedule', 'checkout');
+        $scheduleEmailTemplate = Runtime::getSettings()->get('plugins.subscriptions.email.templates.schedule', 'checkout');
         $orderService = $this->container->get('orderService');
         foreach ($scheduledOrders as $scheduledOrderId) {
             // 1) copy
@@ -122,7 +122,7 @@ class ZMUpdateSubscriptionsCronJob implements ZMCronJob {
         $account = $order->getAccount();
 
         $message = $this->container->get('messageBuilder')->createMessage($template, true, $request, $context);
-        $message->setSubject(sprintf(_zm("%s: Order Subscription Notification"), ZMSettings::get('storeName')))->setTo($account->getEmail())->setFrom(ZMSettings::get('storeEmail'));
+        $message->setSubject(sprintf(_zm("%s: Order Subscription Notification"), Runtime::getSettings()->get('storeName')))->setTo($account->getEmail())->setFrom(Runtime::getSettings()->get('storeEmail'));
         $this->container->get('mailer')->send($message);
     }
 

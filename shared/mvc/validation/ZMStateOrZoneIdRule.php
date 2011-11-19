@@ -24,6 +24,7 @@
 <?php
 
 use zenmagick\base\Beans;
+use zenmagick\base\Runtime;
 
 /**
  * Check for either state or zone.
@@ -62,7 +63,7 @@ class ZMStateOrZoneIdRule extends ZMRule {
      * @return boolean <code>true</code> if the value for <code>$name</code> is valid, <code>false</code> if not.
      */
     public function validate($request, $data) {
-        if (!ZMSettings::get('isAccountState')) {
+        if (!Runtime::getSettings()->get('isAccountState')) {
             return true;
         }
 

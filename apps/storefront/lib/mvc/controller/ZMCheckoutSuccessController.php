@@ -69,7 +69,7 @@ class ZMCheckoutSuccessController extends ZMController {
      */
     public function onViewDone($event) {
         $request = $event->get('request');
-        if (ZMSettings::get('isLogoffGuestAfterOrder') && $request->isGuest()) {
+        if (Runtime::getSettings()->get('isLogoffGuestAfterOrder') && $request->isGuest()) {
             $session = $request->getSession();
             $session->clear();
         }

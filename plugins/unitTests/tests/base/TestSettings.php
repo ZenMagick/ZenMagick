@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 use zenmagick\base\settings\Settings;
 use zenmagick\base\Toolbox;
 

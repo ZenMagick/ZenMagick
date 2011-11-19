@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 
 /**
  * Request controller to cancel a subscription.
@@ -96,11 +97,11 @@ class ZMCancelSubscriptionController extends ZMController {
         ZMRuntime::getDatabase()->update($sql, array('orderId' => $orderId, 'subscriptionCanceled' => true), TABLE_ORDERS);
         $this->messageService->success(_zm("Subscription canceled!"));
 
-        $emailTemplate = ZMSettings::get('plugins.subscriptions.email.templates.cancel', 'subscription_cancel');
+        $emailTemplate = Runtime::getSettings()->get('plugins.subscriptions.email.templates.cancel', 'subscription_cancel');
         $this->sendCancelEmail($order, $emailTemplate, $account->getEmail());
         $adminEmail = $plugin->get('adminEmail');
         if (empty($adminEmail)) {
-            $adminEmail = ZMSettings::get('storeEmail');
+            $adminEmail = Runtime::getSettings()->get('storeEmail');
         }
         if (!ZMLangUtils::isEmpty($adminEmail)) {
             $this->sendCancelEmail($order, $cancelEmailTemplate, $adminEmail);
@@ -121,7 +122,7 @@ class ZMCancelSubscriptionController extends ZMController {
         $context['order'] = $order;
 
         $message = $this->container->get('messageBuilder')->createMessage($template, true, $request, $context);
-        $message->setSubject(sprintf(_zm("%s: Order Subscription Canceled"), ZMSettings::get('storeName')))->setTo($email)->setFrom(ZMSettings::get('storeEmail'));
+        $message->setSubject(sprintf(_zm("%s: Order Subscription Canceled"), Runtime::getSettings()->get('storeName')))->setTo($email)->setFrom(Runtime::getSettings()->get('storeEmail'));
         $this->container->get('mailer')->send($message);
     }
 

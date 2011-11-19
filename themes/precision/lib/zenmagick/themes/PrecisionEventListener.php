@@ -21,6 +21,7 @@
 <?php
 namespace zenmagick\themes;
 
+use zenmagick\base\Runtime;
 use apps\store\themes\ThemeEventListener;
 
 /**
@@ -39,7 +40,7 @@ class PrecisionEventListener extends ThemeEventListener {
         $templateManager->setLeftColBoxes(array('categories.php', 'featured.php', 'information.php'));
         $templateManager->setRightColBoxes(array('search.php', 'manufacturers.php', 'ezpages.php'));
 
-        \ZMSettings::set('isUseCategoryPage', false);
-        \ZMSettings::set('resultListProductFilter', '');
+        Runtime::getSettings()->set('isUseCategoryPage', false);
+        Runtime::getSettings()->set('resultListProductFilter', '');
     }
 }

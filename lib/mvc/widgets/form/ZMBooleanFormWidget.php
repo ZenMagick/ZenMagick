@@ -88,8 +88,8 @@ class ZMBooleanFormWidget extends ZMFormWidget {
      * @return The rendered HTML.
      */
     protected function renderCheckbox($request) {
-        $slash = ZMSettings::get('zenmagick.mvc.html.xhtml') ? '/' : '';
-        $checked = ZMSettings::get('zenmagick.mvc.html.xhtml') ? ' checked="checked"' : ' checked';
+        $slash = Runtime::getSettings()->get('zenmagick.mvc.html.xhtml') ? '/' : '';
+        $checked = Runtime::getSettings()->get('zenmagick.mvc.html.xhtml') ? ' checked="checked"' : ' checked';
         $idBase = ZMHtmlUtils::encode($this->get('id'));
         $name = $this->getName();
         if (empty($idBase)) {
@@ -118,8 +118,8 @@ class ZMBooleanFormWidget extends ZMFormWidget {
      * @return The rendered HTML.
      */
     protected function renderRadio($request) {
-        $slash = ZMSettings::get('zenmagick.mvc.html.xhtml') ? '/' : '';
-        $checked = ZMSettings::get('zenmagick.mvc.html.xhtml') ? ' checked="checked"' : ' checked';
+        $slash = Runtime::getSettings()->get('zenmagick.mvc.html.xhtml') ? '/' : '';
+        $checked = Runtime::getSettings()->get('zenmagick.mvc.html.xhtml') ? ' checked="checked"' : ' checked';
         $idBase = ZMHtmlUtils::encode($this->get('id'));
         $name = $this->getName();
         if (empty($idBase)) {
@@ -143,8 +143,8 @@ class ZMBooleanFormWidget extends ZMFormWidget {
      * @return The rendered HTML.
      */
     protected function renderSelect($request) {
-        $slash = ZMSettings::get('zenmagick.mvc.html.xhtml') ? '/' : '';
-        $selected = ZMSettings::get('zenmagick.mvc.html.xhtml') ? ' selected="selected"' : ' selected';
+        $slash = Runtime::getSettings()->get('zenmagick.mvc.html.xhtml') ? '/' : '';
+        $selected = Runtime::getSettings()->get('zenmagick.mvc.html.xhtml') ? ' selected="selected"' : ' selected';
         $id = ZMHtmlUtils::encode($this->get('id'));
         $name = $this->getName();
         $value = $this->getValue();

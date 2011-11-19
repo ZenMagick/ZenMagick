@@ -76,7 +76,7 @@ class ZMEventFixes extends ZMObject {
         $request = $event->get('request');
 
         // skip more zc request handling
-        if (!$this->needsZC($request) && ZMSettings::get('isEnableZMThemes', false)) {
+        if (!$this->needsZC($request) && Runtime::getSettings()->get('isEnableZMThemes', false)) {
         global $code_page_directory;
             $code_page_directory = 'zenmagick';
         }
@@ -122,7 +122,7 @@ class ZMEventFixes extends ZMObject {
         );
         foreach ($defaultBannerGroupNames as $blockGroupName) {
             // the banner group name is configured as setting..
-            $bannerGroup = ZMSettings::get($blockGroupName);
+            $bannerGroup = Runtime::getSettings()->get($blockGroupName);
             $mappings[$blockGroupName] = array('ZMBannerBlockWidget#group='.$bannerGroup);
         }
 
@@ -177,7 +177,7 @@ class ZMEventFixes extends ZMObject {
      */
     private function needsZC($request) {
         $requestId = $request->getRequestId();
-        if (ZMLangUtils::inArray($requestId, ZMSettings::get('apps.store.request.enableZCRequestHandling'))) {
+        if (ZMLangUtils::inArray($requestId, Runtime::getSettings()->get('apps.store.request.enableZCRequestHandling'))) {
             Runtime::getLogging()->debug('enable zencart request processing for requestId='.$requestId);
             return true;
         }
@@ -213,7 +213,7 @@ class ZMEventFixes extends ZMObject {
 
         // set locale
         if (null != ($language = $request->getSession()->getLanguage())) {
-            ZMSettings::set('zenmagick.core.locales.locale', $language->getCode());
+            Runtime::getSettings()->set('zenmagick.core.locales.locale', $language->getCode());
         }
 
         // TODO: remove once new admin is go
@@ -226,7 +226,7 @@ class ZMEventFixes extends ZMObject {
         if ('add_product' == $request->getParameter('action')) {
             $uploads = 0;
             foreach ($request->getParameterMap() as $name => $value) {
-                if (ZMLangUtils::startsWith($name, ZMSettings::get('uploadOptionPrefix'))) {
+                if (ZMLangUtils::startsWith($name, Runtime::getSettings()->get('uploadOptionPrefix'))) {
                     ++$uploads;
                 }
             }
@@ -254,9 +254,9 @@ class ZMEventFixes extends ZMObject {
             Runtime::getEventDispatcher()->dispatch('theme_resolved', new Event($this, $args));
 
             // now we can check for a static homepage
-            if (!ZMLangUtils::isEmpty(ZMSettings::get('staticHome')) && 'index' == $request->getRequestId()
+            if (!ZMLangUtils::isEmpty(Runtime::getSettings()->get('staticHome')) && 'index' == $request->getRequestId()
                 && (0 == $request->getCategoryId() && 0 == $request->getManufacturerId())) {
-                require ZMSettings::get('staticHome');
+                require Runtime::getSettings()->get('staticHome');
                 exit;
             }
         }
@@ -319,7 +319,7 @@ class ZMEventFixes extends ZMObject {
             }
         }
 
-        if (ZMSettings::get('apps.store.verifyCategoryPath')) {
+        if (Runtime::getSettings()->get('apps.store.verifyCategoryPath')) {
             if (null != $request->getCategoryPath()) {
                 $path = array_reverse($request->getCategoryPathArray());
                 $last = count($path) - 1;
@@ -371,10 +371,10 @@ class ZMEventFixes extends ZMObject {
         if (null == ($currencyCode = $session->getCurrencyCode()) || null != ($currencyCode = $request->getCurrencyCode())) {
             if (null != $currencyCode) {
                 if (null == $this->container->get('currencyService')->getCurrencyForCode($currencyCode)) {
-                    $currencyCode = ZMSettings::get('defaultCurrency');
+                    $currencyCode = Runtime::getSettings()->get('defaultCurrency');
                 }
             } else {
-                $currencyCode = ZMSettings::get('defaultCurrency');
+                $currencyCode = Runtime::getSettings()->get('defaultCurrency');
             }
             $session->setCurrencyCode($currencyCode);
         }
@@ -386,10 +386,10 @@ class ZMEventFixes extends ZMObject {
                 // URL parameter takes precedence
                 $language = $this->container->get('languageService')->getLanguageForCode($languageCode);
             } else {
-                if (ZMSettings::get('isUseBrowserLanguage')) {
+                if (Runtime::getSettings()->get('isUseBrowserLanguage')) {
                     $language = $this->getClientLanguage();
                 } else {
-                    $language = $this->container->get('languageService')->getLanguageForCode(ZMSettings::get('defaultLanguageCode'));
+                    $language = $this->container->get('languageService')->getLanguageForCode(Runtime::getSettings()->get('defaultLanguageCode'));
                 }
             }
             if (null == $language) {

@@ -23,6 +23,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 use zenmagick\base\ZMException;
 use zenmagick\base\ZMObject;
 
@@ -244,7 +245,7 @@ class ZMOffers extends ZMObject {
                 return $bestSpecialPrice;
         }
 
-        $calculationDecimals = ZMSettings::get('calculationDecimals');
+        $calculationDecimals = Runtime::getSettings()->get('calculationDecimals');
 
         // sanitize
         $saleBasePrice = $saleBasePrice < 0 ? 0 : $saleBasePrice;
@@ -286,9 +287,9 @@ class ZMOffers extends ZMObject {
             $this->discountPercent_ = 0;
             if ((0 != $specialPrice || 0 != $salePrice) && 0 != $basePrice) {
                 if (0 != $salePrice) {
-                    $this->discountPercent_ = number_format(100 - (($salePrice / $basePrice) * 100), ZMSettings::get('discountDecimals'));
+                    $this->discountPercent_ = number_format(100 - (($salePrice / $basePrice) * 100), Runtime::getSettings()->get('discountDecimals'));
                 } else {
-                    $this->discountPercent_ = number_format(100 - (($specialPrice / $basePrice) * 100), ZMSettings::get('discountDecimals'));
+                    $this->discountPercent_ = number_format(100 - (($specialPrice / $basePrice) * 100), Runtime::getSettings()->get('discountDecimals'));
                 }
             }
         }

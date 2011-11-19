@@ -307,7 +307,7 @@ class Session extends zenmagick\http\session\Session {
      */
     public function getLanguageId() {
         $languageId = $this->getValue('languages_id');
-        return (null !== $languageId ? (int)$languageId : (int)ZMSettings::get('storeDefaultLanguageId'));
+        return (null !== $languageId ? (int)$languageId : (int)Runtime::getSettings()->get('storeDefaultLanguageId'));
     }
 
     /**

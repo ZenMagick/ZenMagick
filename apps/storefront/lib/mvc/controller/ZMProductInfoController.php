@@ -23,6 +23,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 
 /**
  * Request controller for product details.
@@ -65,7 +66,7 @@ class ZMProductInfoController extends ZMController {
             return $this->findView('product_not_found', $data);
         }
 
-        if (ZMSettings::get('isLogPageStats')) {
+        if (Runtime::getSettings()->get('isLogPageStats')) {
             $productService->updateViewCount($product->getId(), $languageId);
         }
 

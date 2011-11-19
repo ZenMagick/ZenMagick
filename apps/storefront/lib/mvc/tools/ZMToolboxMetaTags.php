@@ -23,6 +23,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 
 /**
  * Page meta tag data generator.
@@ -54,7 +55,7 @@ class ZMToolboxMetaTags extends ZMToolboxTool {
      */
     function __construct($delimiter=null) {
         parent::__construct();
-        $this->keywordDelimiter_ = null != $delimiter ? $delimiter : ZMSettings::get('metaTagKeywordDelimiter');
+        $this->keywordDelimiter_ = null != $delimiter ? $delimiter : Runtime::getSettings()->get('metaTagKeywordDelimiter');
     }
 
     /**
@@ -80,7 +81,7 @@ class ZMToolboxMetaTags extends ZMToolboxTool {
 
         // lookup localized page title
         $requestId = $this->getRequest()->getRequestId();
-        $pageTitleKey = ZMSettings::get('metaTitlePrefix').$requestId;
+        $pageTitleKey = Runtime::getSettings()->get('metaTitlePrefix').$requestId;
         if ($pageTitleKey != _zm($pageTitleKey)) {
             $title = _zm($pageTitleKey);
         }
@@ -88,7 +89,7 @@ class ZMToolboxMetaTags extends ZMToolboxTool {
         // special handling for categories, manufacturers
         $controller = $this->getRequest()->getController();
         if ('index' == $requestId) {
-            $title = ZMSettings::get('storeName');
+            $title = Runtime::getSettings()->get('storeName');
         } else if (ZMLangUtils::startsWith($requestId, 'product_')) {
             if (null != $this->product_) {
                 $languageId = $this->getRequest()->getSession()->getLanguageId();
@@ -122,9 +123,9 @@ class ZMToolboxMetaTags extends ZMToolboxTool {
             }
         }
 
-        if (ZMSettings::get('isStoreNameInTitle') && 'index' != $requestId) {
-            if (0 < strlen($title)) $title .= ZMSettings::get('metaTitleDelimiter');
-            $title .= ZMSettings::get('storeName');
+        if (Runtime::getSettings()->get('isStoreNameInTitle') && 'index' != $requestId) {
+            if (0 < strlen($title)) $title .= Runtime::getSettings()->get('metaTitleDelimiter');
+            $title .= Runtime::getSettings()->get('storeName');
         }
 
         $title = ZMHtmlUtils::encode($title);
@@ -179,9 +180,9 @@ class ZMToolboxMetaTags extends ZMToolboxTool {
      */
     public function getDescription() {
         $this->initMetaTags();
-        $value = ZMSettings::get('storeName');
+        $value = Runtime::getSettings()->get('storeName');
         if (0 < strlen($this->formatCrumbtrail())) {
-            $value .= ZMSettings::get('metaTagCrumbtrailDelimiter');
+            $value .= Runtime::getSettings()->get('metaTagCrumbtrailDelimiter');
             $value .= $this->formatCrumbtrail();
         }
 
@@ -192,7 +193,7 @@ class ZMToolboxMetaTags extends ZMToolboxTool {
                 // got meta tags
                 $value = $details->getDescription();
             } else {
-                $value .= ZMSettings::get('metaTagCrumbtrailDelimiter');
+                $value .= Runtime::getSettings()->get('metaTagCrumbtrailDelimiter');
                 $value .= $this->topCategories_;
             }
         } else if (0 != $this->getRequest()->getCategoryId()) {
@@ -267,7 +268,7 @@ class ZMToolboxMetaTags extends ZMToolboxTool {
         $first = true;
         $value = '';
         foreach ($crumbs as $crumb) {
-            if (!$first) $value .= ZMSettings::get('metaTagCrumbtrailDelimiter');
+            if (!$first) $value .= Runtime::getSettings()->get('metaTagCrumbtrailDelimiter');
             $first = false;
             $value .= $crumb->getName();
         }

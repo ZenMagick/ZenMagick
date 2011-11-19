@@ -21,6 +21,7 @@
 <?php
 namespace zenmagick\themes;
 
+use zenmagick\base\Runtime;
 use apps\store\themes\ThemeEventListener;
 
 /**
@@ -35,7 +36,7 @@ class PrecisionReloadedEventListener extends ThemeEventListener {
      * {@inheritDoc}
      */
     public function themeLoaded($event) {
-        \ZMSettings::set('isUseCategoryPage', false);
-        \ZMSettings::set('resultListProductFilter', '');
+        Runtime::getSettings()->set('isUseCategoryPage', false);
+        Runtime::getSettings()->set('resultListProductFilter', '');
     }
 }

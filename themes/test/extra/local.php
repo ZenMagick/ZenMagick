@@ -1,8 +1,8 @@
 <?php
 use zenmagick\base\Runtime;
 
-    ZMSettings::set('resultListProductFilter', null);
-    //ZMSettings::set('resultListProductSorter', null);
+    Runtime::getSettings()->set('resultListProductFilter', null);
+    //Runtime::getSettings()->set('resultListProductSorter', null);
 
     $validator = $this->container->get('validator');
     /* checkout_refer_a_friend */
@@ -62,7 +62,7 @@ use zenmagick\base\Runtime;
             'view' => 'set::zenmagick.mvc.view.default#layout=bean::null&config='.urlencode('compiler=bean::SavantHamlCompiler')
           )
         ));
-        ZMSettings::set('zenmagick.mvc.templates.ext', '.haml');
+        Runtime::getSettings()->set('zenmagick.mvc.templates.ext', '.haml');
     }
 
     if ('twig_product' == Runtime::getContainer()->get('request')->getRequestId()) {
@@ -72,7 +72,7 @@ use zenmagick\base\Runtime;
             'template' => 'twig_product'
           )
         ));
-        ZMSettings::set('zenmagick.mvc.templates.ext', '.twig');
+        Runtime::getSettings()->set('zenmagick.mvc.templates.ext', '.twig');
     }
 
     class SearchLogger {

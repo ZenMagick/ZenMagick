@@ -21,6 +21,7 @@
 <?php
 
 use zenmagick\base\Beans;
+use zenmagick\base\Runtime;
 
 /**
  * Test reviews service.
@@ -127,7 +128,7 @@ class TestZMReviews extends ZMTestCase {
      */
     public function testCreateReview() {
         $reviewService = $this->container->get('reviewService');
-        ZMSettings::set('isApproveReviews', false);
+        Runtime::getSettings()->set('isApproveReviews', false);
         $account = $this->container->get('accountService')->getAccountForId(1);
         if (null != $account) {
             $review = Beans::getBean('ZMReview');
@@ -168,7 +169,7 @@ class TestZMReviews extends ZMTestCase {
             $review->setRating(4);
             $review->setLanguageId(1);
             $review->setText('some foo');
-            ZMSettings::set('isApproveReviews', true);
+            Runtime::getSettings()->set('isApproveReviews', true);
             $newReview = $reviewService->createReview($review, $account, 1);
             $this->assertTrue(0 != $newReview->getId());
 

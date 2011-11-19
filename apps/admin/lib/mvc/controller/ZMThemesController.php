@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 use zenmagick\base\ZMObject;
 
 /**
@@ -53,7 +54,7 @@ class ZMThemesController extends ZMController {
         // strip default theme
         $themes = array();
         foreach ($themeService->getAvailableThemes() as $theme) {
-            if (ZMSettings::get('apps.store.themes.default') != $theme->getThemeId()) {
+            if (Runtime::getSettings()->get('apps.store.themes.default') != $theme->getThemeId()) {
                 $themes[] = $theme;
             }
         }

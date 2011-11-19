@@ -32,7 +32,7 @@
     var msgboxElem = document.getElementById('msgbox');
 
     function ajax_login(id) {
-        var queryString = $('#'+id).formSerialize(); 
+        var queryString = $('#'+id).formSerialize();
 
         msgboxElem.innerHTML = "Logging in... ";
 
@@ -46,7 +46,7 @@
                 msgboxElem.innerHTML += ('success' == info) ? 'success' : 'failed';
                 msgboxElem.innerHTML += " - done!";
             },
-            error: function(msg) { 
+            error: function(msg) {
                 msgboxElem.innerHTML += "failed!";
             }
         });
@@ -58,12 +58,12 @@
     <legend><?php _vzm("Login") ?></legend>
     <div>
       <label for="email_address"><?php _vzm("E-Mail Address") ?></label>
-      <input type="text" id="email_address" name="email_address" <?php echo $form->fieldLength(TABLE_CUSTOMERS, 'customers_email_address') ?> /> 
+      <input type="text" id="email_address" name="email_address" <?php echo $form->fieldLength(TABLE_CUSTOMERS, 'customers_email_address') ?> />
       <?php echo $html->fieldMessages('email_address') ?>
     </div>
     <div>
       <label for="password"><?php _vzm("Password") ?></label>
-      <input type="password" id="password" name="password" <?php echo $form->fieldLength(TABLE_CUSTOMERS, 'customers_password') ?> /> 
+      <input type="password" id="password" name="password" <?php echo $form->fieldLength(TABLE_CUSTOMERS, 'customers_password') ?> />
       <?php echo $html->fieldMessages('password') ?>
     </div>
   </fieldset>
@@ -76,14 +76,14 @@
   <a href="<?php echo $net->url('create_account', '', true); ?>"><?php _vzm("Not registered yet?") ?></a>
 </p>
 
-<?php if (ZMSettings::get('isGuestCheckout') && !$request->getShoppingCart()->isEmpty()) { ?>
+<?php if ($settings->get('isGuestCheckout') && !$request->getShoppingCart()->isEmpty()) { ?>
   <h3><?php _vzm("Don't need an account?") ?></h3>
   <?php echo $form->open('checkout_guest', '', true, array('id' => 'checkout_guest', 'method' => 'post', 'onsubmit' => 'return zmFormValidation.validate(this);')) ?>
     <fieldset>
       <legend><?php _vzm("Checkout without registering") ?></legend>
       <div>
         <label for="email_address_guest"><?php _vzm("E-Mail Address") ?></label>
-        <input type="text" id="email_address_guest" name="email_address" <?php echo $form->fieldLength(TABLE_CUSTOMERS, 'customers_email_address') ?> /> 
+        <input type="text" id="email_address_guest" name="email_address" <?php echo $form->fieldLength(TABLE_CUSTOMERS, 'customers_email_address') ?> />
         <?php echo $html->fieldMessages('email_address') ?>
         <input type="submit" class="btn" value="<?php _vzm("Checkout") ?>" />
       </div>

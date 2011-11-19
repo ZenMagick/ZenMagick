@@ -23,6 +23,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 
 /**
  * Redirect controller.
@@ -81,8 +82,8 @@ class ZMRedirectController extends ZMController {
 
                 if (null == $manufacturer || null == $manufacturer->getUrl()) {
                     // try default language if different from session language
-                    if (ZMSettings::get('defaultLanguageCode') != $request->getSession()->getLanguageCode()) {
-                        $defaultLanguage = $this->container->get('languageService')->getLanguageForCode(ZMSettings::get('defaultLanguageCode'));
+                    if (Runtime::getSettings()->get('defaultLanguageCode') != $request->getSession()->getLanguageCode()) {
+                        $defaultLanguage = $this->container->get('languageService')->getLanguageForCode(Runtime::getSettings()->get('defaultLanguageCode'));
                         $manufacturer = $manufacturerService->getManufacturerForId($manufacturerId, $defaultLanguage->getId());
                     }
                 }

@@ -61,10 +61,10 @@ class ZMFeaturedProductsController extends ZMController {
         $resultSource = new ZMObjectResultSource('ZMProduct', 'productService', "getFeaturedProducts", array($request->getCategoryId(), 0));
         $resultList = Runtime::getContainer()->get("ZMResultList");
         $resultList->setResultSource($resultSource);
-        foreach (explode(',', ZMSettings::get('resultListProductFilter')) as $filter) {
+        foreach (explode(',', Runtime::getSettings()->get('resultListProductFilter')) as $filter) {
             $resultList->addFilter(Beans::getBean($filter));
         }
-        foreach (explode(',', ZMSettings::get('resultListProductSorter')) as $sorter) {
+        foreach (explode(',', Runtime::getSettings()->get('resultListProductSorter')) as $sorter) {
             $resultList->addSorter(Beans::getBean($sorter));
         }
         $resultList->setPageNumber($request->getPageIndex());

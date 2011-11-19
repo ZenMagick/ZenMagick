@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 
 /**
  * A single line text input form widget.
@@ -49,7 +50,7 @@ class ZMTextFormWidget extends ZMFormWidget {
      * {@inheritDoc}
      */
     public function render($request, $view) {
-        $slash = ZMSettings::get('zenmagick.mvc.html.xhtml') ? '/' : '';
+        $slash = Runtime::getSettings()->get('zenmagick.mvc.html.xhtml') ? '/' : '';
         return '<input type="text"'.$this->getAttributeString($request).$slash.'>';
     }
 

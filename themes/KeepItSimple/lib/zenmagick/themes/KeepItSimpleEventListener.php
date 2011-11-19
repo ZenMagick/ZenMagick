@@ -21,6 +21,7 @@
 <?php
 namespace zenmagick\themes;
 
+use zenmagick\base\Runtime;
 use apps\store\themes\ThemeEventListener;
 
 /**
@@ -46,8 +47,8 @@ class KeepItSimpleEventListener extends ThemeEventListener {
             }
         }
 
-        \ZMSettings::set('isUseCategoryPage', false);
-        \ZMSettings::set('resultListProductFilter', '');
-        \ZMSettings::set('zenmagick.mvc.resultlist.defaultPagination', 6);
+        Runtime::getSettings()->set('isUseCategoryPage', false);
+        Runtime::getSettings()->set('resultListProductFilter', '');
+        Runtime::getSettings()->set('zenmagick.mvc.resultlist.defaultPagination', 6);
     }
 }

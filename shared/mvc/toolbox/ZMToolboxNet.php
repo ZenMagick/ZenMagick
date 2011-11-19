@@ -168,7 +168,7 @@ class ZMToolboxNet extends ZMToolboxTool {
      * @return string A complete Ajax URL.
      */
     public function ajax($controller, $method, $params='') {
-        if (ZMSettings::get('isAdmin')) {
+        if (Runtime::getSettings()->get('isAdmin')) {
             $params .= '&controller=ajax_'.$controller;
             $controller = 'zmAjaxHandler.php';
         } else {

@@ -146,16 +146,16 @@ class ZMCreateAccountController extends ZMController {
         );
 
         $message = $this->container->get('messageBuilder')->createMessage('welcome', $account->isHtmlEmail(), $request, $context);
-        $message->setSubject(sprintf(_zm("Welcome to %s"), ZMSettings::get('storeName')))->setTo($account->getEmail(), $account->getFullName())->setFrom(ZMSettings::get('storeEmail'));
+        $message->setSubject(sprintf(_zm("Welcome to %s"), Runtime::getSettings()->get('storeName')))->setTo($account->getEmail(), $account->getFullName())->setFrom(Runtime::getSettings()->get('storeEmail'));
         $this->container->get('mailer')->send($message);
 
-        if (ZMSettings::get('isEmailAdminCreateAccount')) {
+        if (Runtime::getSettings()->get('isEmailAdminCreateAccount')) {
             // store copy
             $context = $request->getToolbox()->macro->officeOnlyEmailFooter($account->getFullName(), $account->getEmail(), $session);
             $context['currentAccount'] = $account;
 
-            $message = $this->container->get('messageBuilder')->createMessage('welcome', ZMSettings::get('isEmailAdminExtraHtml', false), $request, $context);
-            $message->setSubject(sprintf(_zm("[CREATE ACCOUNT] Welcome to %s"), ZMSettings::get('storeName')))->setTo(ZMSettings::get('emailAdminCreateAccount'))->setFrom(ZMSettings::get('storeEmail'));
+            $message = $this->container->get('messageBuilder')->createMessage('welcome', Runtime::getSettings()->get('isEmailAdminExtraHtml', false), $request, $context);
+            $message->setSubject(sprintf(_zm("[CREATE ACCOUNT] Welcome to %s"), Runtime::getSettings()->get('storeName')))->setTo(Runtime::getSettings()->get('emailAdminCreateAccount'))->setFrom(Runtime::getSettings()->get('storeEmail'));
             $this->container->get('mailer')->send($message);
         }
 

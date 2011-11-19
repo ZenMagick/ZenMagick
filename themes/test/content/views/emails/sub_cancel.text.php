@@ -1,4 +1,4 @@
-<?php _vzm("%s Order Cancel...\n", ZMSettings::get('storeName')) ?>
+<?php _vzm("%s Order Cancel...\n", $settings->get('storeName')) ?>
 
 <?php _vzm("Order Details\n") ?>
 -----------------------------------------------

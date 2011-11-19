@@ -23,6 +23,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 
 /**
  * Request controller for product review pages.
@@ -69,7 +70,7 @@ class ZMProductReviewsInfoController extends ZMController {
 
         $data['currentReview'] = $review;
 
-        if (ZMSettings::get('isLogPageStats')) {
+        if (Runtime::getSettings()->get('isLogPageStats')) {
             $reviewService->updateViewCount($request->getReviewId());
         }
 

@@ -78,7 +78,7 @@ class ZMShippingEstimator extends ZMObject {
      * @return int The country id for the current address.
      */
     function getCountryId() {
-        $countryId = ZMSettings::get('storeCountry');
+        $countryId = Runtime::getSettings()->get('storeCountry');
         if (isset($_POST['country_id'])){
             $countryId = $_POST['country_id'];
         } else if ($_SESSION['cart_country_id']) {
@@ -139,12 +139,12 @@ class ZMShippingEstimator extends ZMObject {
                 'format_id' => $countryService->getCountryForId($_SESSION['cart_country_id'])->getAddressFormatId());
         } else {
             // first timer
-            $_SESSION['cart_country_id'] = ZMSettings::get('storeCountry');
+            $_SESSION['cart_country_id'] = Runtime::getSettings()->get('storeCountry');
             $country_info = $_SESSION['country_info'];
             $address = array(//'postcode' => '',
-                'country' => array('id' => ZMSettings::get('storeCountry'), 'title' => $country_info['countries_name'],
+                'country' => array('id' => Runtime::getSettings()->get('storeCountry'), 'title' => $country_info['countries_name'],
                 'iso_code_2' => $country_info['countries_iso_code_2'], 'iso_code_3' =>  $country_info['countries_iso_code_3']),
-                'country_id' => ZMSettings::get('storeCountry'),
+                'country_id' => Runtime::getSettings()->get('storeCountry'),
                 'format_id' => $countryService->getCountryForId($_SESSION['cart_country_id'])->getAddressFormatId());
         }
 

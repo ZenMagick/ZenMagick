@@ -82,7 +82,7 @@ class ZMLocales extends \ZMObject {
      */
     public function getLocale($reload=false, $locale=null, $path=null) {
         if (null == $this->locale_ || $reload) {
-            $this->locale_ = Beans::getBean(\ZMSettings::get('zenmagick.core.locales.provider', 'ZMEchoLocale'));
+            $this->locale_ = Beans::getBean(Runtime::getSettings()->get('zenmagick.core.locales.provider', 'ZMEchoLocale'));
             if (null !== $locale) {
                 $this->locale_->init($locale, $path);
             }

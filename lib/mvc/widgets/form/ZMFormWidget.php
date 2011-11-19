@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 
 /**
  * Form widget base class.
@@ -155,7 +156,7 @@ abstract class ZMFormWidget extends ZMWidget {
      * @return string All set (and allowed) attributes as formatted HTML string.
      */
     public function getAttributeString($request, $addValue=true, $addName=true) {
-        $isXhtml = ZMSettings::get('zenmagick.mvc.html.xhtml');
+        $isXhtml = Runtime::getSettings()->get('zenmagick.mvc.html.xhtml');
 
         $attr = '';
         if ($addName) {
