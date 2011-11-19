@@ -255,7 +255,7 @@ class MinifyViewUtils extends ZMViewUtils {
 //echo '<br>===defaultList<pre>'; var_dump($defaultList); echo '</pre>';
                     // prepare lookahead
                     $nextType = null;
-                    if (($ii-1) < $filesCount) {
+                    if (($ii+1) < $filesCount) {
                         $nextType = $this->isExternal($attrGroup['files'][$ii+1]) ? 'default' : 'local';
                     }
 
