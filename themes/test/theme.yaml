@@ -24,6 +24,9 @@ storefront:
       ## redirect externally
       privacy:
         view: RedirectView#url=http://www.dilbert.com/
+    global:
+      page_not_found:
+        template: index
 
   ## settings
   settings:

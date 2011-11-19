@@ -22,6 +22,7 @@
 
 use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
+use zenmagick\base\ZMObject;
 
 /**
  * Implementation of the ZenMagick database layer using <em>PDO</em> via <em>Doctrine DBAL</em>.

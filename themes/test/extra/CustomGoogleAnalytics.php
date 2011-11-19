@@ -23,6 +23,8 @@
 ?>
 <?php
 
+use zenmagick\base\ZMObject;
+
 /**
  * Custom google analytics.
  *

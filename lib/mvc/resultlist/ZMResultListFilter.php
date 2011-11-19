@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\ZMObject;
 
 /**
  * Base result list filter.
@@ -75,7 +76,7 @@ class ZMResultListFilter extends ZMObject {
      * @param array list The list to filter.
      * @return array The filtered list.
      */
-    function filter($list) { 
+    function filter($list) {
         $remaining = array();
         foreach ($list as $obj) {
             if (!$this->exclude($obj)) {

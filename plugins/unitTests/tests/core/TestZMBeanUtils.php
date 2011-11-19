@@ -20,6 +20,8 @@
 ?>
 <?php
 
+use zenmagick\base\ZMObject;
+
 /**
  * Test ZMBeanUtils.
  *

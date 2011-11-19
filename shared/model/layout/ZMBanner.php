@@ -22,6 +22,9 @@
  */
 ?>
 <?php
+
+use zenmagick\base\ZMObject;
+
 use Doctrine\ORM\Mapping AS ORM;
 
 /**
@@ -260,7 +263,7 @@ class ZMBanner extends ZMObject {
      * @param string $id The id.
      */
     public function setId($id) { $this->id = $id; }
-    
+
     /**
      * Set the banner title.
      *

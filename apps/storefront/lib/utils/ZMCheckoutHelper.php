@@ -23,6 +23,7 @@
 ?>
 <?php
 
+use zenmagick\base\ZMObject;
 use apps\store\bundles\ZenCartBundle\Mock\ZenCartMock;
 
 /**

@@ -19,6 +19,9 @@
  */
 ?>
 <?php
+
+use zenmagick\base\ZMObject;
+
 use Doctrine\ORM\Mapping AS ORM;
 
 /**

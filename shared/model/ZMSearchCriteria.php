@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\ZMObject;
 
 /**
  * Search criteria.
@@ -111,7 +112,7 @@ class ZMSearchCriteria extends ZMObject {
      *
      * @param string date The from date.
      */
-    public function setDateFrom($date) { 
+    public function setDateFrom($date) {
         if (ZMLocaleUtils::getFormat('date', 'short-ui-format') == $date) {
             $date = '';
         }

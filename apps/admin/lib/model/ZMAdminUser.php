@@ -19,7 +19,10 @@
  */
 ?>
 <?php
+
+use zenmagick\base\ZMObject;
 use zenmagick\http\sacs\handler\UserRoleCredentials;
+
 use Doctrine\ORM\Mapping AS ORM;
 
 /**

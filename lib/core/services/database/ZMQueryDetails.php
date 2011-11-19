@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\ZMObject;
 
 /**
  * Query details as returned by the <code>ZMSQLAware</code> interface method.

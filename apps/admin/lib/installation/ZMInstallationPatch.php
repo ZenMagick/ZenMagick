@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\ZMObject;
 
 /**
  * Single installation patch.
@@ -124,7 +125,7 @@ class ZMInstallationPatch extends ZMObject {
     function patch($force=false) {
         return true;
     }
-    
+
     /**
      * Check if this patch supports undo.
      *
@@ -133,7 +134,7 @@ class ZMInstallationPatch extends ZMObject {
     function canUndo() {
         return true;
     }
-    
+
     /**
      * Revert the patch.
      *
@@ -142,5 +143,5 @@ class ZMInstallationPatch extends ZMObject {
     function undo() {
         return true;
     }
-    
+
 }

@@ -21,6 +21,8 @@
 <?php
 namespace zenmagick\base;
 
+use zenmagick\base\ZMObject;
+
 use zenmagick\base\ioc\Container;
 
 /**

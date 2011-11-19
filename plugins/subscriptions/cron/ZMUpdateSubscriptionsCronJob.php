@@ -139,7 +139,7 @@ class ZMUpdateSubscriptionsCronJob implements ZMCronJob {
      * Copy order.
      *
      * @param int orderId The order to copy.
-     * @param ZMObject The new order.
+     * @param zenmagick\base\ZMObject The new order.
      */
     public static function copyOrder($orderId) {
         $tables = array(
@@ -152,7 +152,7 @@ class ZMUpdateSubscriptionsCronJob implements ZMCronJob {
         $orderData = array();
         foreach ($tables as $table) {
             $sql = "SELECT * from ".$table." WHERE orders_id = :orderId";
-            $orderData[$table] = ZMRuntime::getDatabase()->query($sql, array('orderId' => $orderId), $table, 'ZMObject');
+            $orderData[$table] = ZMRuntime::getDatabase()->query($sql, array('orderId' => $orderId), $table, 'zenmagick\base\ZMObject');
         }
 
         $orderData[TABLE_ORDERS][0]->setOrderDate(date(ZMDatabase::DATETIME_FORMAT));

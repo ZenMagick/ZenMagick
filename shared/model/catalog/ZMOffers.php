@@ -24,6 +24,7 @@
 <?php
 
 use zenmagick\base\ZMException;
+use zenmagick\base\ZMObject;
 
 /**
  * All stuff related to product prices and offers.

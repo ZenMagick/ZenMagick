@@ -22,7 +22,10 @@
  */
 ?>
 <?php
+
 use zenmagick\base\Runtime;
+use zenmagick\base\ZMObject;
+
 use Doctrine\ORM\Mapping AS ORM;
 
 /**

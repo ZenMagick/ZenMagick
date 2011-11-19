@@ -21,6 +21,7 @@
 <?php
 
 use zenmagick\base\Runtime;
+use zenmagick\base\ZMObject;
 
 use Symfony\Component\Yaml\Yaml;
 
@@ -30,7 +31,7 @@ use Symfony\Component\Yaml\Yaml;
  * @author DerManoMann
  * @package org.zenmagick.core.services.locale
  */
-abstract class ZMAbstractLocale extends \ZMObject implements \ZMLocale {
+abstract class ZMAbstractLocale extends ZMObject implements \ZMLocale {
     private $locale_;
     private $name_;
     private $formats_;

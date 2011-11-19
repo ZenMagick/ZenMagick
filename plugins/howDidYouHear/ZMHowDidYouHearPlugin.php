@@ -20,6 +20,8 @@
 ?>
 <?php
 
+use zenmagick\base\ZMObject;
+
 define('ID_SOURCE_OTHER', 9999);
 define('TABLE_SOURCES', DB_PREFIX . 'sources');
 define('TABLE_SOURCES_OTHER', DB_PREFIX . 'sources_other');

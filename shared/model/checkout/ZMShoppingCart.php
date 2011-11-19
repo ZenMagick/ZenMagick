@@ -23,8 +23,8 @@
 ?>
 <?php
 
-use zenmagick\base\ZMObject;
 use zenmagick\base\Runtime;
+use zenmagick\base\ZMObject;
 
 /**
  * Shopping cart.

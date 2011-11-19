@@ -22,6 +22,7 @@
 
 define('TABLE_CREATE_UPDATE_TESTS', DB_PREFIX . 'create_update_tests');
 
+use zenmagick\base\ZMObject;
 
 /**
  * Test create / update methods.

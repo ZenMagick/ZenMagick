@@ -24,6 +24,7 @@ require_once dirname(__FILE__).DIRECTORY_SEPARATOR.'_zm.php';
 
 use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
+use zenmagick\base\ZMObject;
 
 use Symfony\Component\Yaml\Yaml;
 

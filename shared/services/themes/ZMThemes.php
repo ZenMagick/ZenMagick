@@ -22,6 +22,7 @@
 
 use zenmagick\base\ClassLoader;
 use zenmagick\base\Runtime;
+use zenmagick\base\ZMObject;
 use zenmagick\base\events\Event;
 use zenmagick\base\ioc\loader\YamlFileLoader;
 

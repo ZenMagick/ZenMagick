@@ -23,6 +23,7 @@
 use zenmagick\base\ClassLoader;
 use zenmagick\base\Runtime;
 use zenmagick\base\Toolbox;
+use zenmagick\base\ZMObject;
 
 use zenmagick\apps\store\utils\ContextConfigLoader;
 

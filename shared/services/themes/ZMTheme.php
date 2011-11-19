@@ -21,6 +21,7 @@
 <?php
 
 use zenmagick\base\Runtime;
+use zenmagick\base\ZMObject;
 use zenmagick\base\ioc\loader\YamlLoader;
 use apps\store\utils\ContextConfigLoader;
 

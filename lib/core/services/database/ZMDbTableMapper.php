@@ -21,6 +21,7 @@
 <?php
 
 use zenmagick\base\Runtime;
+use zenmagick\base\ZMObject;
 use zenmagick\base\logging\Logging;
 
 
@@ -68,7 +69,7 @@ use zenmagick\base\logging\Logging;
  * @author DerManoMann
  * @package org.zenmagick.core.services.database
  */
-class ZMDbTableMapper extends \ZMObject {
+class ZMDbTableMapper extends ZMObject {
     private $tableMap_;
 
 
