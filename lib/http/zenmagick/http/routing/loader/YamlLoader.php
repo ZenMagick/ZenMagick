@@ -22,6 +22,7 @@
 namespace zenmagick\http\routing\loader;
 
 use Symfony\Component\Config\FileLocatorInterface;
+use Symfony\Component\Routing\RouteCollection;
 
 use zenmagick\base\config\EchoFileLocator;
 use zenmagick\base\Toolbox;
@@ -48,7 +49,20 @@ class YamlLoader extends \Symfony\Component\Routing\Loader\YamlFileLoader {
      * {@inheritDoc}
      */
     public function load($file, $type=null) {
+        if (empty($file)) {
+            return new RouteCollection();
+        }
         return parent::load($file, $type);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    protected function loadYaml($path) {
+        if (is_array($path)) {
+            return $path;
+        }
+        return parent::loadYaml($path);
     }
 
 }
