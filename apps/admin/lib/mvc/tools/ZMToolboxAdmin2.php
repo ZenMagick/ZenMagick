@@ -131,8 +131,8 @@ class ZMToolboxAdmin2 extends ZMToolboxTool {
      * @param string title Optional fixed (sub-)title; default is <code>null</code> for none.
      */
     public function title($title=null) {
-        $root = ZMAdminMenu::getRootItemForRequestId($this->getRequest()->getRequestId());
-        $pref = (null != $root) ? $root['title'] : null;
+        $root = $this->container->get('adminMenu')->getRootItemForRequestId($this->getRequest()->getRequestId());
+        $pref = (null != $root) ? $root->getName() : null;
         if (null == $title) {
             $title = $pref;
         } else if (null != $pref) {

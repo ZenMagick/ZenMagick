@@ -43,9 +43,9 @@
   <?php } ?>
   <ul id="main-menu">
     <?php if ($request->getUser()) { ?>
-      <?php $root = ZMAdminMenu::getRootItemForRequestId($request->getRequestId()); ?>
-      <?php foreach (ZMAdminMenu::getItemsForParent(null) as $item) { ?>
-        <li<?php if (null != $root && $root['id'] == $item['id']) { echo ' class="active"'; } ?>><a href="<?php echo $admin2->url($item['requestId']) ?>"><?php echo $item['title'] ?></a></li>
+      <?php $root = $adminMenu->getRootItemForRequestId($request->getRequestId()); ?>
+      <?php foreach ($adminMenu->getRoot()->getChildren() as $item) { ?>
+        <li<?php if (null != $root && $root->getId() == $item->getId()) { echo ' class="active"'; } ?>><a href="<?php echo $admin2->url($item->getRequestId()) ?>"><?php echo $item->getName() ?></a></li>
       <?php } ?>
     <?php } ?>
   </ul>

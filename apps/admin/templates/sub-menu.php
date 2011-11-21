@@ -20,32 +20,32 @@
 ?>
 <div id="sub-menu">
   <div id="sub-common">
-    <?php $root = ZMAdminMenu::getRootItemForRequestId($request->getRequestId()); ?>
+    <?php $root = $adminMenu->getRootItemForRequestId($request->getRequestId()); ?>
     <?php if (null != $root) { ?>
-      <?php foreach (ZMAdminMenu::getItemsForParent($root['id']) as $sub) { ?>
-        <h3><a href="#"><?php echo $sub['title'] ?></a></h3>
+      <?php foreach ($root->getChildren() as $sub) { ?>
+        <h3><a href="#"><?php echo $sub->getName() ?></a></h3>
         <div>
           <ul>
-          <?php foreach (ZMAdminMenu::getItemsForParent($sub['id']) as $subItem) { ?>
-            <li><a href="<?php echo $admin2->url($subItem['requestId'], $subItem['params']) ?>"><?php echo $subItem['title'] ?></a></li>
+          <?php foreach ($sub->getChildren() as $subItem) { ?>
+            <li><a href="<?php echo $admin2->url($subItem->getRequestId(), $subItem->getParams()) ?>"><?php echo $subItem->getName() ?></a></li>
           <?php } ?>
           </ul>
         </div>
       <?php } ?>
     <?php } ?>
   </div>
-  <?php if ($root['id'] == 'catalog') {
+  <?php if ($root->getId() == 'catalog') {
     echo $this->fetch('catalog-tree.php');
   } ?>
 </div>
 <script type="text/javascript">
   // hint for navigation matching
   var treatAs = null;
-  <?php 
-    foreach (ZMAdminMenu::getAllItems() as $item) {
-      foreach ($item['other'] as $other) {
-        if ($request->getRequestId() == $other) {
-          echo "treatAs = '".$admin2->url($item['requestId'], $item['params'])."'";
+  <?php
+    if (null != ($current = $adminMenu->getItemForRequestId($request->getRequestId()))) {
+      foreach ($current->getAlias() as $a) {
+        if ($request->getRequestId() == $a) {
+          echo "treatAs = '".$admin2->url($current->getRequestId(), $current->getParams())."'";
         }
       }
     }

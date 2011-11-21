@@ -41,6 +41,9 @@ class MenuLoader {
             if (array_key_exists('id', $item)) {
                 $id = $item['id'];
             }
+            if (array_key_exists('params', $item) && '' != $item['params']) {
+                $id = $id.'-'.$item['params'];
+            }
             echo str_replace('_', '-', $id).':'." {";
             if (array_key_exists('parentId', $item) && '' != $item['parentId']) {
                 echo ' parent: '.$item['parentId'];$c = true;
@@ -49,6 +52,9 @@ class MenuLoader {
                 if ($c) {echo ',';} echo ' requestId: '.$item['requestId'];$c = true;
             }
             if ($c) {echo ',';}echo ' name: '.$item['title'];
+            if (array_key_exists('params', $item) && '' != $item['params']) {
+                if ($c) {echo ',';} echo ' params: '.$item['params'];$c = true;
+            }
             if (array_key_exists('other', $item) && 0 < count($item['other'])) {
                 if ($c) {echo ',';}echo ' alias: ['.implode(',', $item['other'])."]";$c = true;
             }

@@ -28,6 +28,7 @@
  *
  * @author DerManoMann
  * @package zenmagick.store.shared.admin.menu
+ * @deprecated
  */
 class ZMAdminMenuItem extends ZMObject {
     private $parent_;

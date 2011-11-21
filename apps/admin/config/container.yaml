@@ -79,3 +79,6 @@ services:
     tags:
       -  { name: zenmagick.apps.store.editor, label: Plain }
 
+  adminMenu:
+    class: apps\store\menu\Menu
+    scope: container

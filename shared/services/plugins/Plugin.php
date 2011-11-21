@@ -22,6 +22,7 @@
 
 use zenmagick\base\Runtime;
 
+use apps\store\menu\MenuElement;
 
 /**
  * Store plugin base class.
@@ -358,9 +359,10 @@ class Plugin extends ZMPlugin {
      * @param string id The page id.
      * @param string title The page title.
      * @param string function The function to render the contents.
-     * @param string menuKey Optional key determining where the menu item should appear; default is <em>ZMAdminMenu::MENU_PLUGINS</em>.
+     * @param string menuKey Optional key determining where the menu item should appear; default is <em>configuration-plugins</em>.
+     * @deprecated
      */
-    public function addMenuItem($id, $title, $function, $menuKey=\ZMAdminMenu::MENU_PLUGINS) {
+    public function addMenuItem($id, $title, $function, $menuKey='configuration-plugins') {
         if (\ZMSettings::get('isAdmin')) {
             \ZMAdminMenu::addItem(new \ZMAdminMenuItem($menuKey, $id, $title, $function));
         }
@@ -376,9 +378,13 @@ class Plugin extends ZMPlugin {
      */
     public function addMenuGroup($title, $parentId='configuration') {
         if (\ZMSettings::get('isAdmin')) {
-            $key = $parentId.'-'.$this->getId().microtime();
-            \ZMAdminMenu::setItem(array('parentId' => $parentId, 'id' => $key, 'title' => $title));
-            return $key;
+            $adminMenu = $this->container->get('adminMenu');
+            if (null != ($parent = $adminMenu->getElement($parentId))) {
+                $id = $parentId.'-'.$this->getId().microtime();
+                $item = new MenuElement($id, $title);
+                $parent->addChild($item);
+                return $id;
+            }
         }
         return null;
     }
@@ -394,7 +400,12 @@ class Plugin extends ZMPlugin {
      */
     public function addMenuItem2($title, $requestId, $menuKey=\ZMAdminMenu::MENU_PLUGINS) {
         if (\ZMSettings::get('isAdmin')) {
-            \ZMAdminMenu::setItem(array('parentId' => $menuKey, 'requestId' => $requestId, 'title' => $title));
+            $adminMenu = $this->container->get('adminMenu');
+            if (null != ($parent = $adminMenu->getElement($menuKey))) {
+                $item = new MenuElement($menuKey.'-'.$requestId, $title);
+                $item->setRequestId($requestId);
+                $parent->addChild($item);
+            }
         }
     }
 

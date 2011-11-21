@@ -21,6 +21,7 @@
 <?php
 
 use zenmagick\base\Runtime;
+use apps\store\menu\MenuLoader;
 
     // top level
     ZMAdminMenu::setItem(array('requestId' => 'index', 'title' => _zm('Dashboard')));
@@ -75,3 +76,11 @@ use zenmagick\base\Runtime;
             ZMAdminMenu::setItem(array('parentId' => 'configuration-legacy', 'requestId' => 'legacy-config', 'params' => 'groupId='.$group->getId(), 'title' => _zm($group->getName())));
         }
     }
+
+    // export and reload into new menu system - doh!
+    $adminMenu = Runtime::getContainer()->get('adminMenu');
+    $menuLoader = new MenuLoader();
+    $yaml = $menuLoader->exportOld();
+    //echo $yaml;
+    $menuLoader->load($yaml, $adminMenu);
+

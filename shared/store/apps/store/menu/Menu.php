@@ -21,13 +21,16 @@
 <?php
 namespace apps\store\menu;
 
+use zenmagick\base\ZMObject;
+
+
 /**
  * A menu.
  *
  * @param author DerManoMann
  * @package apps.store.menu
  */
-class Menu {
+class Menu extends ZMObject {
     private $root;
 
 
@@ -35,6 +38,7 @@ class Menu {
      * Create new instance.
      */
     public function __construct() {
+        parent::__construct();
         $this->root = new MenuElement();
     }
 
@@ -115,6 +119,54 @@ class Menu {
      */
     public function getRoot() {
         return $this->root;
+    }
+
+    /**
+     * Get the item for the given request id.
+     *
+     * @param string requestId The request id.
+     * @return MenuElement The item or <code>null</code>.
+     */
+    public function getItemForRequestId($requestId) {
+        // no closure yet...
+        global $_menu_tmp;
+
+        $_menu_tmp = $requestId;
+        // find current node
+        $nodes = $this->root->findNodes(function ($node) {
+            global $_menu_tmp;
+            if ($_menu_tmp == $node->getRequestId()) {
+                return true;
+            }
+            if (null !== ($alias = $node->getAlias())) {
+                if (in_array($_menu_tmp, $alias)) {
+                    return true;
+                }
+            }
+            return false;
+        });
+        unset($_menu_tmp);
+
+        if (0 < count($nodes)) {
+            return $nodes[0];
+        }
+
+        return null;
+    }
+
+    /**
+     * Get root item for the given request id.
+     *
+     * @param string requestId The request id.
+     * @return MenuElement The root item or <code>null</code>.
+     */
+    public function getRootItemForRequestId($requestId) {
+        if (null != ($node = $this->getItemForRequestId($requestId))) {
+            $path = $node->getPath();
+            return $this->root->getNodeForId($path[0]);
+        }
+
+        return null;
     }
 
 }
