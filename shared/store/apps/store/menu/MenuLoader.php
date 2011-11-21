@@ -31,7 +31,8 @@ use Symfony\Component\Yaml\Yaml;
  */
 class MenuLoader {
     public function exportOld() {
-        foreach (ZMAdminMenu::getAllItems() as $item) {
+        ob_start();
+        foreach (\ZMAdminMenu::getAllItems() as $item) {
             $id = null;
             $c = false;
             if (array_key_exists('requestId', $item)) {
@@ -53,21 +54,26 @@ class MenuLoader {
             }
             echo " }\n";
         }
+        return ob_get_clean();
     }
 
     /**
      * Load menu structure from the given file.
      *
-     * @param string filename The file to load.
+     * @param string source The file/yaml to load.
      * @param Menu menu Optional menu to load/update into; default is <code>null</code>.
      * @return Menu The loaded/updated menu.
      */
-    public function load($filename, $menu=null) {
+    public function load($source, $menu=null) {
         $menu = null != $menu ? $menu: new Menu();
 
-        $items = Yaml::parse($filename);
+        $items = Yaml::parse($source);
         foreach ($items as $id => $item) {
-            $element = new MenuElement($id);
+            if (array_key_exists('type', $item) && 'sep' == $item['type']) {
+                $element = new MenuSeparator($id);
+            } else {
+                $element = new MenuElement($id);
+            }
             $parent = null;
             $before = null;
             $after = null;

@@ -46,7 +46,7 @@ class Menu {
      * @return MenuElement An element or <code>null</code>.
      */
     public function getElement($id) {
-        return $this->root->getElementForId($id);
+        return $this->root->getNodeForId($id);
     }
 
     /**
@@ -79,7 +79,7 @@ class Menu {
      * @return boolean <code>true</code> on success, <code>false</code> otherwise.
      */
     public function addChild($id, $element) {
-        if (null != ($parent = $this->root->getElementForId($id))) {
+        if (null != ($parent = $this->root->getNodeForId($id))) {
             $parent->addChild($element);
             return true;
         }
@@ -96,7 +96,7 @@ class Menu {
      * @return boolean <code>true</code> on success, <code>false</code> otherwise.
      */
     protected function insert($id, $element, $mode) {
-        if (null != ($sibling = $this->root->getElementForId($id))) {
+        if (null != ($sibling = $this->root->getNodeForId($id))) {
             if (null != ($parent = $sibling->getParent())) {
                 $parent->addChild($element, $id, $mode);
                 return true;

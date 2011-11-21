@@ -1,3 +1,4 @@
+sep1: { after: plugins, type: sep, name: '-----' }
 mystuff: { parent: tools-cms, before: ezpages, requestId: mystuff, name: My Stuff (before) }
 myotherstuff: { parent: tools-cms, after: static-page-editor, requestId: myotherstuff, name: My Other Stuff (after) }
 yetmorestuff: { after: plugins, requestId: yetmorestuff, name: Yet More Stuff (after) }
