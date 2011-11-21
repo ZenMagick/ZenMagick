@@ -24,8 +24,11 @@ use zenmagick\base\Runtime;
 use apps\store\menu\Menu;
 use apps\store\menu\MenuLoader;
 use apps\store\menu\MenuElement;
+use apps\store\menu\MenuSeparator;
 
 use Symfony\Component\Yaml\Yaml;
+
+
 /**
  * Test Menu.
  *
@@ -34,36 +37,17 @@ use Symfony\Component\Yaml\Yaml;
  */
 class TestMenu extends ZMTestCase {
 
-    public function testChildren() {
-        $menu = new Menu();
-        $root = $menu->getRoot();
-        $this->assertNotNull($root);
-        $this->assertEqual(array(), $root->getChildren());
-        $children = array(new MenuElement());
-        $root->addChild($children[0]);
-        $this->assertEqual($children, $root->getChildren());
-    }
-
-    public function testGetElementForId() {
+    public function testGetElement() {
         $menu = new Menu();
         $root = $menu->getRoot();
         $root->addChild(new MenuElement('r1'));
         $root->addChild(new MenuElement('r2'));
         $root->addChild(new MenuElement('r3'));
 
-        // check for child
-        $r2 = $root->getElementForId('r2');
-        if ($this->assertNotNull($r2)) {
-            $this->assertEqual('r2', $r2->getId());
-        }
-        $r2 = $menu->getElement('r2');
-        if ($this->assertNotNull($r2)) {
-            $this->assertEqual('r2', $r2->getId());
-        }
-
         // check grandchild
+        $r2 = $menu->getElement('r2');
         $r2->addChild(new MenuElement('r2-1', 'foo'));
-        $r21 = $root->getElementForId('r2-1');
+        $r21 = $root->getNodeForId('r2-1');
         if ($this->assertNotNull($r21)) {
             $this->assertEqual('foo', $r21->getName());
         }
@@ -122,20 +106,17 @@ class TestMenu extends ZMTestCase {
         $this->assertEqual(array('r2', 'r2-c'), $r2cc->getPath(false));
     }
 
-    public function testHasChildren() {
-        $menu = new Menu();
-        $root = $menu->getRoot();
-        $root->addChild(new MenuElement('r1'));
-        $root->addChild(new MenuElement('r2'));
-        $root->addChild(new MenuElement('r3'));
-        $this->assertTrue($root->hasChildren());
-    }
-
-    public function testLoader() {
+    public function testLoadFile() {
         $menuLoader = new MenuLoader();
         //$menuLoader->load($this->getTestsBaseDirectory().'/misc/config/menu.yaml');
         $menu = $menuLoader->load($this->getTestsBaseDirectory().'/misc/config/menu2.yaml');
         $menu = $menuLoader->load($this->getTestsBaseDirectory().'/misc/config/menu3.yaml', $menu);
+        $this->dumpMenu($menu->getRoot());
+    }
+
+    public function testLoadString() {
+        $menuLoader = new MenuLoader();
+        $menu = $menuLoader->load(file_get_contents($this->getTestsBaseDirectory().'/misc/config/menu.yaml'));
         $this->dumpMenu($menu->getRoot());
     }
 
@@ -144,7 +125,14 @@ class TestMenu extends ZMTestCase {
         for ($ii=0; $ii < $l; ++$ii) {
             $indent .= '&nbsp;&nbsp;';
         }
-        echo $indent.' * '.$elem->getName().'/'.$elem->getRequestId()."<br>";
+        echo $indent.' * '.$elem->getName();
+        if (!($elem instanceof MenuSeparator)) {
+            echo '/'.$elem->getRequestId();
+            if (null !== ($alias = $elem->getAlias())) {
+                echo '/alias=';var_dump($alias);
+            }
+        }
+        echo '<br>';
         foreach ($elem->getChildren() as $child) {
             $this->dumpMenu($child, $l+1);
         }

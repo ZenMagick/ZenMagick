@@ -146,6 +146,25 @@ class Node extends ZMObject {
     }
 
     /**
+     * Remove a child.
+     *
+     * @param mixed child Either a <code>Node</code> instance or id.
+     */
+    public function removeChild($child) {
+        $id = ($child instanceof Node)  ? $child->getId() : $child;
+        $removeIndex = null;
+        foreach ($this->children as $ii => $tc) {
+            if ($tc->getId() == $id) {
+                $removeIndex = $ii;
+                break;
+            }
+        }
+        if (null !== $removeIndex) {
+            array_splice($this->children, $removeIndex, 1);
+        }
+    }
+
+    /**
      * Get children.
      *
      * @return array List of <code>Node</code> instances.
@@ -162,7 +181,7 @@ class Node extends ZMObject {
      * @param string id The id of the node.
      * @return Node The node for the given id or <code>null</code>.
      */
-    public function getElementForId($id) {
+    public function getNodeForId($id) {
         // try all children first
         foreach ($this->children as $child) {
             if ($child->getId() == $id) {
@@ -172,7 +191,7 @@ class Node extends ZMObject {
 
         // try deeper decendants
         foreach ($this->children as $child) {
-            if (null != ($node = $child->getElementForId($id))) {
+            if (null != ($node = $child->getNodeForId($id))) {
                 return $node;
             }
         }
@@ -205,6 +224,30 @@ class Node extends ZMObject {
         }
 
         return array_reverse($path);
+    }
+
+    /**
+     * Find nodes.
+     *
+     * @param callback filter The filter.
+     * @return array A list of <code>Node</code>s that pass the filter.
+     */
+    public function findNodes($filter) {
+        $nodes = array();
+
+        // try all children first
+        foreach ($this->children as $child) {
+            if ($filter($child)) {
+                $nodes[] = $child;
+            }
+        }
+
+        // try deeper decendants
+        foreach ($this->children as $child) {
+            $nodes = array_merge($nodes, $child->findNodes($filter));
+        }
+
+        return $nodes;
     }
 
 }
