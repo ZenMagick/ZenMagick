@@ -34,9 +34,7 @@
       <?php } ?>
     <?php } ?>
   </div>
-  <?php if ($root->getId() == 'catalog') {
-    echo $this->fetch('catalog-tree.php');
-  } ?>
+  <?php if (null != $root && $root->getId() == 'catalog') { echo $this->fetch('catalog-tree.php'); } ?>
 </div>
 <script type="text/javascript">
   // hint for navigation matching

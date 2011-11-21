@@ -24,6 +24,10 @@ use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
 use zenmagick\base\ZMObject;
 
+use apps\store\menu\MenuElement;
+use apps\store\menu\MenuLoader;
+
+
 /**
  * Custom admin event handler for various things.
  *
@@ -78,6 +82,30 @@ class ZMAdminEventHandler extends ZMObject {
         }
 
         return $this->container->get('plainEditorWidget');
+    }
+
+    /**
+     * Init menu.
+     */
+    public function onBootstrapDone($event) {
+        $adminMenu = $this->container->get('adminMenu');
+
+        $menuLoader = new MenuLoader();
+        $menuLoader->load(Runtime::getApplicationPath().'config/menu.yaml', $adminMenu);
+
+        $legacyConfig = $adminMenu->getElement('configuration-legacy');
+        $configGroups = $this->container->get('configService')->getConfigGroups();
+        foreach ($configGroups as $group) {
+            if ($group->isVisible()) {
+                $id = strtolower($group->getName());
+                $id = str_replace(' ', '', $id);
+                $id = str_replace('/', '-', $id);
+                $element = new MenuElement($id, $group->getName());
+                $element->setRequestId('legacy-config');
+                $element->setParams('groupId='.$group->getId());
+                $legacyConfig->addChild($element);
+            }
+        }
     }
 
     /**

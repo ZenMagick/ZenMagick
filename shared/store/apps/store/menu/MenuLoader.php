@@ -30,38 +30,6 @@ use Symfony\Component\Yaml\Yaml;
  * @package apps.store.menu
  */
 class MenuLoader {
-    public function exportOld() {
-        ob_start();
-        foreach (\ZMAdminMenu::getAllItems() as $item) {
-            $id = null;
-            $c = false;
-            if (array_key_exists('requestId', $item)) {
-                $id = $item['requestId'];
-            }
-            if (array_key_exists('id', $item)) {
-                $id = $item['id'];
-            }
-            if (array_key_exists('params', $item) && '' != $item['params']) {
-                $id = $id.'-'.$item['params'];
-            }
-            echo str_replace('_', '-', $id).':'." {";
-            if (array_key_exists('parentId', $item) && '' != $item['parentId']) {
-                echo ' parent: '.$item['parentId'];$c = true;
-            }
-            if (array_key_exists('requestId', $item) && '' != $item['requestId']) {
-                if ($c) {echo ',';} echo ' requestId: '.$item['requestId'];$c = true;
-            }
-            if ($c) {echo ',';}echo ' name: '.$item['title'];
-            if (array_key_exists('params', $item) && '' != $item['params']) {
-                if ($c) {echo ',';} echo ' params: '.$item['params'];$c = true;
-            }
-            if (array_key_exists('other', $item) && 0 < count($item['other'])) {
-                if ($c) {echo ',';}echo ' alias: ['.implode(',', $item['other'])."]";$c = true;
-            }
-            echo " }\n";
-        }
-        return ob_get_clean();
-    }
 
     /**
      * Load menu structure from the given file.

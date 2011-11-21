@@ -343,32 +343,6 @@ class Plugin extends ZMPlugin {
     }
 
     /**
-     * Add plugin maintenance screen to navigation.
-     *
-     * <p>The provided function is free to implement content generation in one of two different
-     * ways:</p>
-     * <ol>
-     *   <li>BASIC:<br>
-     *     The page contents is generated as-is. No output buffering or similar. Expected return value
-     *     is <code>null</code>.</li>
-     *   <lI>ADVANCED:<br>
-     *     Content is not generated directly, but included as part of the returned <code>ZMPluginPage</code>
-     *     instance.</li>
-     * </ol>
-     *
-     * @param string id The page id.
-     * @param string title The page title.
-     * @param string function The function to render the contents.
-     * @param string menuKey Optional key determining where the menu item should appear; default is <em>configuration-plugins</em>.
-     * @deprecated
-     */
-    public function addMenuItem($id, $title, $function, $menuKey='configuration-plugins') {
-        if (\ZMSettings::get('isAdmin')) {
-            \ZMAdminMenu::addItem(new \ZMAdminMenuItem($menuKey, $id, $title, $function));
-        }
-    }
-
-    /**
      * Add new plugin menu group.
      *
      * @param string title The page title.
@@ -396,9 +370,9 @@ class Plugin extends ZMPlugin {
      *
      * @param string title The page title.
      * @param string requestId The corresponding requestId.
-     * @param string menuKey Optional key determining where the menu item should appear; default is <em>ZMAdminMenu::MENU_PLUGINS</em>.
+     * @param string menuKey Optional key determining where the menu item should appear; default is <em>'configuration-plugins'</em>.
      */
-    public function addMenuItem2($title, $requestId, $menuKey=\ZMAdminMenu::MENU_PLUGINS) {
+    public function addMenuItem2($title, $requestId, $menuKey='configuration-plugins') {
         if (\ZMSettings::get('isAdmin')) {
             $adminMenu = $this->container->get('adminMenu');
             if (null != ($parent = $adminMenu->getElement($menuKey))) {
@@ -443,19 +417,6 @@ class Plugin extends ZMPlugin {
             }
         }
         return 2 < $count;
-    }
-
-    /**
-     * Get admin menu.
-     *
-     * @return ZMAdminMenu An admin menu instance or <code>null</code> if not available.
-     */
-    public function getAdminMenu() {
-        if (\ZMSettings::get('isAdmin')) {
-            return \ZMAdminMenu::instance();
-        }
-
-        return null;
     }
 
     /**
