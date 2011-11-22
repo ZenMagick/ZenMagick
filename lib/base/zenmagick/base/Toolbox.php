@@ -84,7 +84,8 @@ class Toolbox {
 
         $data = array();
         if (!file_exists($filename)) {
-            Runtime::getLogging()->warn("skipping missing file: ".$filename);
+            // @todo If this is meant to be a warning it should be moved the the caller, otherwise it might be better as trace()
+            //Runtime::getLogging()->warn("skipping missing file: ".$filename);
             return $data;
         }
 
