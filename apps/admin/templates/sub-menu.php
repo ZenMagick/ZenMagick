@@ -38,12 +38,12 @@
 </div>
 <script type="text/javascript">
   // hint for navigation matching
-  var treatAs = null;
+  var alias = null;
   <?php
     if (null != ($current = $adminMenu->getItemForRequestId($request->getRequestId()))) {
-      foreach ($current->getAlias() as $a) {
-        if ($request->getRequestId() == $a) {
-          echo "treatAs = '".$admin2->url($current->getRequestId(), $current->getParams())."'";
+      foreach ($current->getAlias() as $alias) {
+        if ($request->getRequestId() == $alias) {
+          echo "alias = '".$admin2->url($current->getRequestId(), true?'':$current->getParams())."'";
         }
       }
     }
@@ -55,8 +55,8 @@
       collapsible: true,
       navigation: true,
       navigationFilter: function() {
-        if (treatAs) {
-          return -1 < this.href.indexOf(treatAs);
+        if (alias) {
+          return -1 < this.href.indexOf(alias);
         }
         return this.href == location.href;
       }
