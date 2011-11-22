@@ -43,6 +43,19 @@ class ZMEzpagesController extends ZMController {
     /**
      * {@inheritDoc}
      */
+    public function getViewData($request) {
+        $language = $request->getSelectedLanguage();
+        $languageId = $request->getParameter('languageId', $language->getId());
+        $resultSource = new ZMObjectResultSource('ZMEZPage', 'ezPageService', "getAllPages", array($languageId));
+        $resultList = $this->container->get("ZMResultList");
+        $resultList->setResultSource($resultSource);
+        $resultList->setPageNumber($request->getParameter('page', 1));
+        return array('resultList' => $resultList);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function processGet($request) {
         $language = $request->getSelectedLanguage();
         $languageId = $request->getParameter('languageId', $language->getId());
@@ -59,12 +72,7 @@ class ZMEzpagesController extends ZMController {
             return $this->findView('ezpages-details', array('ezPage' => $ezPage));
         }
 
-        $resultSource = new ZMObjectResultSource('ZMEZPage', 'ezPageService', "getAllPages", array($languageId));
-        $resultList = $this->container->get("ZMResultList");
-        $resultList->setResultSource($resultSource);
-        $resultList->setPageNumber($request->getParameter('page', 1));
-
-        return $this->findView('ezpages-overview', array('resultList' => $resultList));
+        return $this->findView('ezpages-overview');
     }
 
     /**
