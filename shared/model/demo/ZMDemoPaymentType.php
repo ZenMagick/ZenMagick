@@ -121,4 +121,10 @@ class ZMDemoPaymentType extends ZMObject implements ZMPaymentType {
         return 1;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    public function prepare() {
+    }
+
 }

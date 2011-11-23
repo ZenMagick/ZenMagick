@@ -49,6 +49,6 @@ class ZMDemoGVReceiver extends ZMGVReceiver {
     /**
      * {@inheritDoc}
      */
-    public function getAmount($amount) { return 15.00; }
+    public function getAmount() { return 15.00; }
 
 }
