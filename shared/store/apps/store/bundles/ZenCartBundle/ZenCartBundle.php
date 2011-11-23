@@ -100,14 +100,22 @@ class ZenCartBundle extends Bundle {
             }
         }
         eval(implode("\n", $defines));
-        $defaults = array(
-            'host' => ZM_DB_SERVER,
-            'user' => ZM_DB_SERVER_USERNAME,
-            'password' => ZM_DB_SERVER_PASSWORD,
-            'dbname' => ZM_DB_DATABASE,
-            'prefix' => ZM_DB_PREFIX,
-            'charset' => (defined("ZM_DB_CHARSET") ? ZM_DB_CHARSET : "utf8")
+        $defaults = array();
+        $defaultsMap = array(
+            'host' => 'ZM_DB_SERVER',
+            'user' => 'ZM_DB_SERVER_USERNAME',
+            'password' => 'ZM_DB_SERVER_PASSWORD',
+            'dbname' => 'ZM_DB_DATABASE',
+            'prefix' => 'ZM_DB_PREFIX',
+            'charset' => 'ZM_DB_CHARSET'
         );
+        foreach ($defaultsMap as $key => $def) {
+            if (defined($def)) {
+                $defaults[$key] = constant($def);
+            } else if ('charset' == $key) {
+                $defaults[$key] = 'utf8';
+            }
+        }
 
         $settingsService = Runtime::getSettings();
         // merge with current settings

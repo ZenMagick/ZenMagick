@@ -80,7 +80,7 @@ class ZMRequest extends \ZMObject {
             $this->setRequestId(null);
         }
 
-        $this->setMethod($_SERVER['REQUEST_METHOD']);
+        $this->setMethod(array_key_exists('REQUEST_METHOD', $_SERVER) ? $_SERVER['REQUEST_METHOD'] : 'GET');
         $this->controller_ = null;
         $this->toolbox_ = null;
         $this->userFactory_ = null;
@@ -331,19 +331,19 @@ class ZMRequest extends \ZMObject {
     /**
      * Get the hostname for this request.
      *
-     * @return string The hostname.
+     * @return string The hostname or <code>null</code> for <em>CL</code> calls.
      */
     public function getHostname() {
-        return $_SERVER['HTTP_HOST'];
+        return array_key_exists('HTTP_HOST', $_SERVER) ? $_SERVER['HTTP_HOST'] : null;
     }
 
     /**
      * Get the port for this request.
      *
-     * @return string The port.
+     * @return string The port or <code>null</code> for <em>CL</code> calls.
      */
     public function getPort() {
-        return $_SERVER['SERVER_PORT'];
+        return array_key_exists('SERVER_PORT', $_SERVER) ? $_SERVER['SERVER_PORT'] : null;
     }
 
     /**
@@ -352,7 +352,7 @@ class ZMRequest extends \ZMObject {
      * @return string The full query string for this request.
      */
     public function getQueryString() {
-        return $_SERVER['QUERY_STRING'];
+        return array_key_exists('QUERY_STRING', $_SERVER) ? $_SERVER['QUERY_STRING'] : '';
     }
 
     /**
