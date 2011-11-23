@@ -128,24 +128,18 @@ class Menu extends ZMObject {
      * @return MenuElement The item or <code>null</code>.
      */
     public function getItemForRequestId($requestId) {
-        // no closure yet...
-        global $_menu_tmp;
-
-        $_menu_tmp = $requestId;
         // find current node
-        $nodes = $this->root->findNodes(function ($node) {
-            global $_menu_tmp;
-            if ($_menu_tmp == $node->getRequestId()) {
+        $nodes = $this->root->findNodes(function ($node) use ($requestId) {
+            if ($requestId == $node->getRequestId()) {
                 return true;
             }
             if (null !== ($alias = $node->getAlias())) {
-                if (in_array($_menu_tmp, $alias)) {
+                if (in_array($requestId, $alias)) {
                     return true;
                 }
             }
             return false;
         });
-        unset($_menu_tmp);
 
         if (0 < count($nodes)) {
             return $nodes[0];
