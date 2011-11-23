@@ -21,6 +21,7 @@
 <?php
 namespace zenmagick\base\utils;
 
+use zenmagick\base\ClassLoader;
 use zenmagick\base\Runtime;
 
 use Doctrine\Common\Annotations\AnnotationRegistry;
@@ -56,8 +57,8 @@ class StaticInit {
          * Notes: Annotations requires a silent autoloader.
          * We must manually register the Doctrine ORM specific annotations.
          */
-        AnnotationRegistry::registerLoader(function($class) use ($zmLoader) {
-            $zmLoader->loadClass($class);
+        AnnotationRegistry::registerLoader(function($class) {
+            ClassLoader::classExists($class);
             return class_exists($class, false);
         });
         AnnotationRegistry::registerFile(ZM_BASE_PATH . '/vendor/doctrine/lib/Doctrine/ORM/Mapping/Driver/DoctrineAnnotations.php');
