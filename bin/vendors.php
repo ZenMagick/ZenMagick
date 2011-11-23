@@ -15,7 +15,7 @@ $vendorDeps = array(
     $baseDir => array(
         array('doctrine', 'git://github.com/doctrine/doctrine2.git', 'origin/2.1.x', false),
         array('doctrine-dbal', 'git://github.com/doctrine/dbal.git', 'origin/2.1.x', false),
-        array('doctrine-common', 'git://github.com/doctrine/common.git', 'origin/3.0.x', false),
+        array('doctrine-common', 'git://github.com/doctrine/common.git', 'origin/2.1.x', false),
         array('doctrine-migrations', 'git://github.com/doctrine/migrations.git', 'origin/HEAD', false),
         array('gedmo-doctrine-extensions', 'git://github.com/l3pp4rd/DoctrineExtensions.git', 'origin/master', false),
         //array('monolog', 'http://github.com/Seldaek/monolog.git', 'origin/HEAD', false),

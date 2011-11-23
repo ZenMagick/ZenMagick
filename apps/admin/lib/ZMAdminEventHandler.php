@@ -35,6 +35,7 @@ use apps\store\menu\MenuLoader;
  * @package zenmagick.store.admin
  */
 class ZMAdminEventHandler extends ZMObject {
+    const DEFAULT_EDITOR_SERVICE_ID = 'plainEditorWidget';
 
     /**
      * Display message about invalid/insufficient credentional
@@ -72,16 +73,15 @@ class ZMAdminEventHandler extends ZMObject {
      */
     protected function getCurrentEditor($request) {
         $user = $request->getUser();
-        if (null == $user || null == ($editor = $this->container->get('adminUserPrefService')->getPrefForName($user->getId(), 'wysiwygEditor'))) {
-            $editor = ZMSettings::get('apps.store.admin.defaultEditor', 'plainEditorWidget');
+        if (null == $user || null == ($editorId = $this->container->get('adminUserPrefService')->getPrefForName($user->getId(), 'wysiwygEditor'))) {
+            $editorId = ZMSettings::get('apps.store.admin.defaultEditor', self::DEFAULT_EDITOR_SERVICE_ID);
         }
 
-        return $this->container->get($editor);
-        if (null != ($obj = $this->container->get($editor))) {
-            return $obj;
+        if (!$this->container->has($editorId)) {
+            $editorId = self::DEFAULT_EDITOR_SERVICE_ID;
         }
 
-        return $this->container->get('plainEditorWidget');
+        return $this->container->get($editorId);
     }
 
     /**
