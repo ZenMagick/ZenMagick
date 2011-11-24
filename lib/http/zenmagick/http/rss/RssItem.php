@@ -21,6 +21,7 @@
 <?php
 namespace zenmagick\http\rss;
 
+use DateTime;
 use zenmagick\base\ZMObject;
 
 /**
@@ -86,7 +87,15 @@ class RssItem extends ZMObject {
      *
      * @return DateTime The item publish date.
      */
-    public function getPubDate() { return new \DateTime($this->get('pubDate')); }
+    public function getPubDate() {
+        $pubDate = $this->get('pubDate');
+        if ($pubDate instanceof DateTime) {
+          return $pubDate;
+        }
+
+        return new DateTime($pubDate);
+    }
+
 
     /**
      * Get a list of custom tags to be handled.

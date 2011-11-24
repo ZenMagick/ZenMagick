@@ -56,3 +56,15 @@ services:
     tags:
       -  { name: zenmagick.http.request.rewriter }
 
+  defaultRssFeedSource:
+    class: ZMDefaultRssFeedSource
+    scope: container
+    tags:
+      -  { name: zenmagick.http.rss.source }
+
+  catalogRssFeedSource:
+    class: ZMCatalogRssFeedSource
+    scope: container
+    tags:
+      -  { name: zenmagick.http.rss.source }
+

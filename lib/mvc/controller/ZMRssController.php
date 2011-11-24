@@ -21,13 +21,15 @@
 <?php
 
 use zenmagick\base\Beans;
+use zenmagick\http\rss\RssSource;
+use zenmagick\http\rss\RssFeedGenerator;
 
 /**
  * Request controller for RSS feeds.
  *
- * <p>Feed content is taken from the first of the configured <code>ZMRssSource</code> instances that returns data.</p>
+ * <p>Feed content is taken from the first of the configured <code>RssSource</code> instances that returns data.</p>
  *
- * <p>Sources are configured by appending the implementation class name to '<em>zenmagick.mvc.rss.sources</em>'.</p>
+ * <p>Sources are registered via the container tag '<em>zenmagick.http.rss.source</em>'.</p>
  *
  * @author DerManoMann
  * @package org.zenmagick.mvc.controller
@@ -35,34 +37,18 @@ use zenmagick\base\Beans;
 class ZMRssController extends ZMController {
 
     /**
-     * Create new instance.
-     */
-    function __construct() {
-        parent::__construct();
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
-
-
-    /**
      * {@inheritDoc}
      */
     public function processGet($request) {
         $channel = $request->getParameter('channel');
-        $key = $request->getParameter('key');
+        $feedArgs = array('key' => $request->getParameter('key', null));
 
-        // try registered RSS sources first...
+        // find source
         $feed = null;
-        foreach (explode(',', ZMSettings::get('zenmagick.mvc.rss.sources')) as $def) {
-            if (null != ($source = Beans::getBean(trim($def)))) {
-                if (null != ($feed = $source->getFeed($request, $channel, $key))) {
-                    break;
-                }
+        foreach ($this->container->findTaggedServiceIds('zenmagick.http.rss.source') as $id => $args) {
+            $source = $this->container->get($id);
+            if (null != ($feed = $source->getFeed($request, $channel, $feedArgs))) {
+                break;
             }
         }
 
@@ -71,120 +57,11 @@ class ZMRssController extends ZMController {
         }
 
         // create content
-        ob_start();
         $this->setContentType('application/xhtml+xml');
-        $this->rssHeader($request, $feed->getChannel());
-        foreach ($feed->getItems() as $item) {
-            $this->rssItem($request, $item);
-        }
-        $this->rssFooter();
-        echo ob_get_clean();
+        $feedGenerator = new RssFeedGenerator();
+        echo $feedGenerator->generate($request, $feed);
 
         return null;
-    }
-
-
-    /**
-     * Write RSS header.
-     *
-     * <p>Required data are:</p>
-     * <ul>
-     *  <li>title</li>
-     *  <li>link</li>
-     *  <li>description</li>
-     *  <li>lastBuildDate</li>
-     * <ul>
-     *
-     * @param ZMRequest request The current request.
-     * @param ZMRssChannel channel The channel data.
-     */
-    protected function rssHeader($request, $channel) {
-        $lines = array(
-          '<?xml version="1.0" encoding="UTF-8"?>',
-          '<!-- generator="ZenMagick '.ZMSettings::get('zenmagick.version').'" -->',
-          '<rss version="2.0" xmlns:zm="http://www.zenmagick.org/">',
-          ' <channel>',
-          '  <title><![CDATA['.ZMXmlUtils::encodeXML($channel->getTitle()).']]></title>',
-          '  <link><![CDATA['.$channel->getLink().']]></link>',
-          '  <description><![CDATA['.ZMXmlUtils::encodeXML($channel->getDescription()).']]></description>',
-          '  <lastBuildDate>'.ZMRssUtils::mkRssDate($channel->getLastBuildDate()).'</lastBuildDate>'
-          );
-
-        $this->customTags($channel, '  ');
-
-        foreach ($lines as $line) {
-            echo $line . "\n";
-        }
-    }
-
-    /**
-     * Process custom tags.
-     *
-     * @param mixed obj The object.
-     * @param string indent The leading whitespace.
-     */
-    protected function customTags($obj, $indent) {
-        foreach ($obj->getTags() as $tag) {
-            $value = $obj->get($tag);
-            echo $indent."<zm:".$tag.">";
-            if (is_array($value)) {
-                echo "\n";
-                foreach ($value as $stag => $svalues) {
-                    foreach ($svalues as $sval) {
-                        echo $indent." <zm:".$stag.">";
-                        echo ZMXmlUtils::encodeXML($sval);
-                        echo "</zm:".$stag.">\n";
-                    }
-                }
-                echo $indent;
-            } else {
-                // treat as string
-                echo ZMXmlUtils::encodeXML($obj->get($tag));
-            }
-            echo "</zm:".$tag.">\n";
-        }
-    }
-
-    /**
-     * Generate RSS item.
-     *
-     * <p>Required data are:</p>
-     * <ul>
-     *  <li>title</li>
-     *  <li>link</li>
-     *  <li>description</li>
-     * <ul>
-     *
-     * @param ZMRequest request The current request.
-     * @param ZMRssItem item The item to render.
-     */
-    protected function rssItem($request, $item) {
-        echo "  <item>\n";
-        echo "   <title>".ZMXmlUtils::encodeXML($item->getTitle())."</title>\n";
-        echo "   <link>".$item->getLink()."</link>\n";
-        echo "   <description>".ZMXmlUtils::encodeXML($item->getDescription())."</description>\n";
-        echo "   <guid>".$item->getLink()."</guid>\n";
-        if (null !== $item->getPubDate()) {
-            echo "   <pubDate>".ZMRssUtils::mkRssDate($item->getPubDate())."</pubDate>\n";
-        }
-
-        $this->customTags($item, '   ');
-
-        echo "  </item>\n";
-    }
-
-    /**
-     * Write RSS footer.
-     */
-    protected function rssFooter() {
-        $lines = array(
-          ' </channel>',
-          '</rss>'
-        );
-
-        foreach ($lines as $line) {
-            echo $line . "\n";
-        }
     }
 
 }

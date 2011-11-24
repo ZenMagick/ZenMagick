@@ -20,7 +20,11 @@
 ?>
 <?php
 
-use zenmagick\base\Beans;
+use zenmagick\base\ZMObject;
+use zenmagick\http\rss\RssChannel;
+use zenmagick\http\rss\RssFeed;
+use zenmagick\http\rss\RssItem;
+use zenmagick\http\rss\RssSource;
 
 /**
  * RSS source for default feeds.
@@ -28,19 +32,19 @@ use zenmagick\base\Beans;
  * @author DerManoMann
  * @package zenmagick.store.shared.provider
  */
-class ZMDefaultRssFeedSource implements ZMRssSource {
+class ZMDefaultRssFeedSource extends ZMObject implements RssSource {
 
     /**
      * {@inheritDoc}
      */
-    public function getFeed($request, $channel, $key=null) {
+    public function getFeed($request, $channel, $args=array()) {
         // delegate items to channel method
         $method = "get".ucwords($channel)."Feed";
         if (!method_exists($this, $method)) {
             return null;
         }
 
-
+        $key = array_key_exists('key', $args) ? $args['key'] : null;
         // get feed data
         $feed = call_user_func(array($this, $method), $request, $key);
         if (null == $feed) {
@@ -55,7 +59,7 @@ class ZMDefaultRssFeedSource implements ZMRssSource {
      *
      * @param ZMRequest request The current request.
      * @param string key Optional product id.
-     * @return ZMRssFeed The feed data.
+     * @return RssFeed The feed.
      */
     protected function getReviewsFeed($request, $key=null) {
         $product = null;
@@ -77,31 +81,31 @@ class ZMDefaultRssFeedSource implements ZMRssSource {
             if (null == $key) {
                 $product = $this->container->get('productService')->getProductForId($review->getProductId());
             }
-            $item = Beans::getBean("ZMRssItem");
+            $item = new RssItem();
             $item->setTitle(sprintf(_zm("Review: %s"), $product->getName()));
 
             $params = 'products_id='.$review->getProductId().'&reviews_id='.$review->getId();
             $item->setLink($request->url('product_reviews_info', $params));
             $item->setDescription(ZMHtmlUtils::more($review->getText(), 60));
-            $item->setPubDate(ZMRssUtils::mkRssDate($review->getDateAdded()));
-            array_push($items, $item);
+            $item->setPubDate($review->getDateAdded());
+            $items[] = $item;
 
             if (null === $lastPubDate) {
                 $lastPubDate = $review->getDateAdded();
             }
         }
 
-        $channel = Beans::getBean("ZMRssChannel");
+        $channel = new RssChannel();
         $channel->setTitle(_zm("Product Reviews"));
-        $channel->setLink($request->url('index'));
+        $channel->setLink($request->url('reviews'));
         if (null != $key)  {
             $channel->setDescription(sprintf(_zm("Product Reviews for %s at %s"), $product->getName(), ZMSettings::get('storeName')));
         } else {
             $channel->setDescription(sprintf(_zm("Product Reviews at %s"), ZMSettings::get('storeName')));
         }
-        $channel->setLastBuildDate(ZMRssUtils::mkRssDate($lastPubDate));
+        $channel->setLastBuildDate($lastPubDate);
 
-        $feed = Beans::getBean("ZMRssFeed");
+        $feed = new RssFeed();
         $feed->setChannel($channel);
         $feed->setItems($items);
 
@@ -113,26 +117,26 @@ class ZMDefaultRssFeedSource implements ZMRssSource {
      *
      * @param ZMRequest request The current request.
      * @param string key EZPages chapter.
-     * @return ZMRssFeed The feed data.
+     * @return RssFeed The feed data.
      */
     protected function getChapterFeed($request, $key=null) {
         $items = array();
         $toc = $this->container->get('ezPageService')->getPagesForChapterId($key, $request->getSession()->getLanguageId());
         foreach ($toc as $page) {
-            $item = Beans::getBean("ZMRssItem");
+            $item = new RssItem();
             $item->setTitle($page->getTitle());
             $item->setLink($request->getToolbox()->net->ezPage($page));
             $item->setDescription($page->getTitle());
-            array_push($items, $item);
+            $items[] = $item;
         }
 
-        $channel = Beans::getBean("ZMRssChannel");
+        $channel = new RssChannel();
         $channel->setTitle(sprintf(_zm("Chapter %s"), $key));
-        $channel->setLink($request->url('index'));
+        $channel->setLink($request->url('page', 'id='.'todo'.'chapter='.$key));
         $channel->setDescription(sprintf(_zm("All pages of Chapter %s"), $key));
-        $channel->setLastBuildDate(ZMRssUtils::mkRssDate());
+        $channel->setLastBuildDate(new DateTime());
 
-        $feed = Beans::getBean("ZMRssFeed");
+        $feed = new RssFeed();
         $feed->setChannel($channel);
         $feed->setItems($items);
 
@@ -155,25 +159,25 @@ class ZMDefaultRssFeedSource implements ZMRssSource {
         $items = array();
         $products = array_slice(array_reverse($this->container->get('productService')->getNewProducts()), 0, 20);
         foreach ($products as $product) {
-            $item = Beans::getBean("ZMRssItem");
+            $item = new RssItem();
             $item->setTitle($product->getName());
             $item->setLink($request->getToolbox()->net->product($product->getId(), null, false));
             $item->setDescription(ZMHtmlUtils::more(ZMHtmlUtils::strip($product->getDescription()), 60));
-            $item->setPubDate(ZMRssUtils::mkRssDate($product->getDateAdded()));
-            array_push($items, $item);
+            $item->setPubDate($product->getDateAdded());
+            $items[] = $item;
 
             if (null === $lastPubDate) {
                 $lastPubDate = $product->getDateAdded();
             }
         }
 
-        $channel = Beans::getBean("ZMRssChannel");
+        $channel = new RssChannel();
         $channel->setTitle(sprintf(_zm("New Products at %s"), ZMSettings::get('storeName')));
         $channel->setLink($request->url('index'));
         $channel->setDescription(sprintf(_zm("The latest updates to %s's product list"), ZMSettings::get('storeName')));
         $channel->setLastBuildDate($lastPubDate);
 
-        $feed = Beans::getBean("ZMRssFeed");
+        $feed = new RssFeed();
         $feed->setChannel($channel);
         $feed->setItems($items);
 
