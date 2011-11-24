@@ -262,6 +262,12 @@ services:
     class: ZMTags
     scope: container
 
+  defaultStoreBlockProvider:
+    class: ZMStoreBlockProvider
+    scope: container
+    tags:
+      - { name: zenmagick.http.blocks.provider }
+
   productGroupPricingService:
     class: ZMProductGroupPricings
     scope: container

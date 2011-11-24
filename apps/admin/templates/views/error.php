@@ -25,6 +25,7 @@
   <pre>
   <?php
      if (isset($exception)) {
+        echo '<h2>'.$exception->getMessage()."</h2>\n";
         if ($exception instanceof ZMException) {
             echo $exception;
         } else {

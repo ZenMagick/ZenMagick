@@ -73,9 +73,6 @@
             // default product association handler
             'defaultProductAssociationHandler' => 'ZMSimilarOrderProductAssociationHandler',
 
-            // sidebox block provider
-            'zenmagick.mvc.blocks.blockProviders' => 'ZMStoreBlockProvider',
-
 
             /**************************************
              * Stock handling

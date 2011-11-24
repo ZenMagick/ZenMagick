@@ -20,6 +20,8 @@
 ?>
 <?php
 
+use zenmagick\base\ZMObject;
+
 
 /**
  * Store block provider.
@@ -27,7 +29,7 @@
  * @author DerManoMann
  * @package zenmagick.store.shared.provider
  */
-class ZMStoreBlockProvider implements ZMBlockProvider {
+class ZMStoreBlockProvider extends ZMObject implements ZMBlockProvider {
 
     /**
      * {@inheritDoc}

@@ -22,6 +22,7 @@
 
 use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
+use zenmagick\base\ZMObject;
 
 /**
  * Manage template blocks.
@@ -30,33 +31,17 @@ use zenmagick\base\Runtime;
  * @package org.zenmagick.mvc.services.blocks
  */
 class ZMBlockManager extends ZMObject {
-    private $providers_;
     private $mappings_;
 
 
     /**
      * Create new instance.
      */
-    function __construct() {
+    public function __construct() {
         parent::__construct();
-        $this->providers_ = null;
         $this->mappings_ = array();
     }
 
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
-
-
-    /**
-     * Get instance.
-     */
-    public static function instance() {
-        return Runtime::getContainer()->get('blockManager');
-    }
 
     /**
      * Get a list of all registered providers.
@@ -64,19 +49,11 @@ class ZMBlockManager extends ZMObject {
      * @return array A list of <code>ZMBlockContentsProvider</code> instances.
      */
     public function getProviders() {
-        if (null == $this->providers_) {
-            $this->providers_ = array();
-            foreach (explode(',', ZMSettings::get('zenmagick.mvc.blocks.blockProviders')) as $providerId) {
-                $provider = Beans::getBean($providerId);
-                if (null != $provider && $provider instanceof ZMBlockProvider) {
-                    $this->providers_[] = $provider;
-                } else {
-                    Runtime::getLogging()->log('invalid block contents provider: '.$providerId, ZMLogging::WARN);
-                }
-            }
+        $providers = array();
+        foreach ($this->container->findTaggedServiceIds('zenmagick.http.blocks.provider') as $id => $args) {
+            $providers[] = $this->container->get($id);
         }
-
-        return $this->providers_;
+        return $providers;
     }
 
     /**

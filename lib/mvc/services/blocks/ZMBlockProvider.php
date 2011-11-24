@@ -24,8 +24,8 @@
 /**
  * Interface for block provider.
  *
- * <p>Classes that manage blocks must implement this interface and then
- * register themselfs via the setting 'zenmagick.mvc.blocks.blockProviders'.</p>
+ * <p>Classes that manage blocks must implement this interface and tag
+ * themselfs in the container as 'zenmagick.http.blocks.provider'.</p>
  *
  * @author DerManoMann
  * @package org.zenmagick.mvc.services.blocks
