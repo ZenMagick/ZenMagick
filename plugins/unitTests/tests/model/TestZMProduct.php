@@ -32,11 +32,11 @@ class TestZMProduct extends ZMTestCase {
      * Test existing manufacturer.
      */
     public function testExistingManufacturer() {
-        $product = $this->container->get('productService')->getProductForId(36, 1);
+        $product = $this->container->get('productService')->getProductForId(19, 1);
         if ($this->assertNotNull($product)) {
             $manufacturer = $product->getManufacturer();
             if ($this->assertNotNull($manufacturer)) {
-                $this->assertEqual(9, $manufacturer->getId());
+                $this->assertEqual(4, $manufacturer->getId());
             }
         }
     }
