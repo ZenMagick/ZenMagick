@@ -6,3 +6,9 @@ admin:
         scope: container
         tags:
           - { name: apps.store.admin.tabcontroller }
+
+      productTagsProductAssociationHandler:
+        class: ZMProductTagsProductAssociationHandler
+        scope: container
+        tags:
+          - { name: apps.store.associations.handler }

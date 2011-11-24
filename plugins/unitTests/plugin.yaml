@@ -1,0 +1,3 @@
+imports:
+    ## app container
+    - { resource: tests/service/container.yaml }

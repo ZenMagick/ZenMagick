@@ -1,0 +1,8 @@
+admin,storefront:
+  container:
+    services:
+      simpleProductAssociationHandler:
+        class: SimpleProductAssociationHandler
+        scope: container
+        tags:
+          - { name: apps.store.associations.handler }

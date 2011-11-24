@@ -70,10 +70,6 @@
             // enable/disable transaction support in request processing
             'zenmagick.mvc.transactions.enabled' => false,
 
-            // default product association handler
-            'defaultProductAssociationHandler' => 'ZMSimilarOrderProductAssociationHandler',
-
-
             /**************************************
              * Stock handling
              **************************************/

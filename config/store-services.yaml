@@ -268,6 +268,12 @@ services:
     tags:
       - { name: zenmagick.http.blocks.provider }
 
+  similarOrderProductAssociationHandler:
+    class: ZMSimilarOrderProductAssociationHandler
+    scope: container
+    tags:
+      - { name: apps.store.associations.handler }
+
   productGroupPricingService:
     class: ZMProductGroupPricings
     scope: container

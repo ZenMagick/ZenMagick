@@ -26,72 +26,25 @@ use zenmagick\base\Runtime;
 /**
  * Manage pluggable product associations.
  *
- * <p>Handler can be explicitely registered using the <code>registerHandler(..)</code> method, or, preferrably
- * via the setting '<em>defaultProductAssociationHandler</em>' - as comma separated list of class names.</p>
+ * <p>Handler are looked up in the container with a tag of '<em>apps.store.associations.handler</em>'.</p>
  *
  * @author DerManoMann
  * @package zenmagick.store.shared.services.catalog.associations
  */
 class ZMProductAssociations extends ZMObject {
-    private $handler_;
-
 
     /**
-     * Create new instance.
-     */
-    function __construct() {
-        parent::__construct();
-        $this->handler_ = array();
-        $defaultHandler = ZMSettings::get('defaultProductAssociationHandler');
-        if (is_string($defaultHandler)) {
-            $defaultHandler = explode(',', $defaultHandler);
-        }
-        foreach ($defaultHandler as $handler) {
-            $this->registerHandler($handler);
-        }
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
-
-    /**
-     * Get instance.
-     */
-    public static function instance() {
-        return Runtime::getContainer()->get('productAssociations');
-    }
-
-
-    /**
-     * Register an association handler.
+     * Get all handler.
      *
-     * <p>The optional <code>$type</code> parameter allows to register a
-     * handler as string. If omitted, an instance of the handler will be
-     * created immediately in order to query the type. This also allows to
-     * register the same handler for different types, if required.</p>
-     *
-     * @param mixed handler This can be either a <code>ZMProductAssociationHandler</code> instance, or a class definition compatible with
-     *  <code>Beans::getBean(..)</code>.
-     * @param mixed type Optional association type or list thereof; default is <code>null</code>.
+     * @return array List of all handlers.
      */
-    public function registerHandler($handler, $type=null) {
-    	  if (null === $type) {
-            if (!is_object($handler)) {
-                $handler = Beans::getBean($handler);
-            }
-            $type = $handler->getType();
-    	  }
-
-        if (!is_array($type)) {
-            $type = array($type);
+    public function getHandler() {
+        $handlers = array();
+        foreach ($this->container->findTaggedServiceIds('apps.store.associations.handler') as $id => $args) {
+            $handler = $this->container->get($id);
+            $handlers[$handler->getType()] = $handler;
         }
-        foreach ($type as $t) {
-            $this->handler_[$t] = $handler;
-        }
+        return $handlers;
     }
 
     /**
@@ -100,7 +53,7 @@ class ZMProductAssociations extends ZMObject {
      * @return array A list of all registered handler types.
      */
     public function getHandlerTypes() {
-        return array_keys($this->handler_);
+        return array_keys($this->getHandler());
     }
 
     /**
@@ -110,16 +63,11 @@ class ZMProductAssociations extends ZMObject {
      * @return ZMProductAssociationHandler A handler instance or <code>null</code>.
      */
     public function getHandlerForType($type) {
-        $handler = null;
-        if (array_key_exists($type, $this->handler_)) {
-            if (is_string($this->handler_[$type])) {
-                // instantiate on demand only
-                $this->handler_[$type] = Beans::getBean($this->handler_[$type]);
-            }
-            $handler = $this->handler_[$type];
+        $handlers = $this->getHandler();
+        if (array_key_exists($type, $handlers)) {
+            return $handlers[$type];
         }
-
-        return $handler;
+        return null;
     }
 
     /**
