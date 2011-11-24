@@ -10,6 +10,6 @@ admin,storefront:
         class: FirePHPLoggingHandler
         scope: container
         calls:
-          - [setLogLevel, ['ALL']]
+          - [setLogLevel, ['NONE']]
         tags:
           - { name: zenmagick.base.logging.handler }

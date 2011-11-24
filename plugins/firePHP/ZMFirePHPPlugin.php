@@ -21,6 +21,7 @@
 <?php
 
 use zenmagick\base\Runtime;
+use zenmagick\base\logging\Logging;
 
 /**
  * FirePHP support for ZenMagick.
@@ -52,15 +53,16 @@ class ZMFirePHPPlugin extends Plugin {
         parent::install();
 
         $this->addConfigValue('Enable on demand only', 'isOnDemand', 'false', 'If set, the plugin will be inactive unless the configured query parameter is set',
-            'widget@ZMBooleanFormWidget#name=isOnDemand&default=false&label=Enable on demand only&style=radio');
+            'widget@ZMBooleanFormWidget#name=isOnDemand&default=false&label=Enable on demand only&style=checkbox');
         $this->addConfigValue('On demand query parameter name', 'onDemandName', 'firephp', 'The name of the query parameter to enable FirePHP.');
-        $this->addConfigValue('On demand log level', 'onDemandLogLevel', ZMLogging::TRACE, 'The log level to be used for on deman logging.',
-            'widget@ZMSelectFormWidget#name=onDemandLogLevel&default='.ZMLogging::TRACE.'false&options='.urlencode(
-                ZMLOGGING::ERROR.'=Error&'.
-                ZMLOGGING::WARN.'=Warn&'.
-                ZMLOGGING::INFO.'=Info&'.
-                ZMLOGGING::DEBUG.'=Debug&'.
-                ZMLOGGING::TRACE.'=Trace'
+        $this->addConfigValue('Log level', 'logLevel', Logging::TRACE, 'The log level to be used.',
+            'widget@ZMSelectFormWidget#name=logLevel&default='.Logging::TRACE.'false&options='.urlencode(
+                LOGGING::ERROR.'=Error&'.
+                LOGGING::WARN.'=Warn&'.
+                LOGGING::INFO.'=Info&'.
+                LOGGING::DEBUG.'=Debug&'.
+                LOGGING::TRACE.'=Trace&'.
+                LOGGING::ALL.'=All'
             ));
     }
 
@@ -73,17 +75,18 @@ class ZMFirePHPPlugin extends Plugin {
     }
 
     /**
-     * Handle init request.
+     * Set log level.
      */
-    public function onInitRequest($event) {
+    public function onContainerReady($event) {
         $request = $event->get('request');
-        $settings = Runtime::getSettings();
         if (ZMLangUtils::asBoolean($this->get('isOnDemand'))) {
             if (null != $request->getParameter($this->get('onDemandName'))) {
-                // enable logging
-                $settings->set('zenmagick.base.logging.enabled', true);
-                $settings->set('zenmagick.base.logging.level', (int)$this->get('onDemandLogLevel'));
+                // make sure logging is enabled
+                Runtime::getSettings()->set('zenmagick.base.logging.enabled', true);
+                $this->container->get('firePHPLoggingHandler')->setLogLevel($this->get('logLevel'));
             }
+        } else {
+            $this->container->get('firePHPLoggingHandler')->setLogLevel($this->get('logLevel'));
         }
     }
 
