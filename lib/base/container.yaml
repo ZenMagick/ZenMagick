@@ -26,6 +26,8 @@ services:
   defaultLoggingHandler:
     class: zenmagick\base\logging\handler\DefaultLoggingHandler
     scope: container
+    calls:
+      - [setLogLevel, ['INFO']]
     tags:
       -  { name: zenmagick.base.logging.handler }
 
