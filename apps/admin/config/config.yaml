@@ -128,8 +128,6 @@ apps:
     dashboad:
       widgets: ZMOrderStatsDashboardWidget,ZMLatestOrdersDashboardWidget,ZMLatestAccountsDashboardWidget,ZMRecentSearchesDashboardWidget,ZMUpdateCheckerDashboardWidget,ZMPendingDashboardWidget,ZMCounterHistoryDashboardWidget,ZMBasicStatsDashboardWidget
       default: '{"layout":"col2l","widgets":[["ZMOrderStatsDashboardWidget","ZMLatestAccountsDashboardWidget"],["ZMLatestOrdersDashboardWidget"]]}'
-    catalog:
-      controller: ZMCatalogDefaultTabController
     themes:
       default: default
     zencart:

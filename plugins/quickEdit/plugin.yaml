@@ -1,0 +1,8 @@
+admin:
+  container:
+    services:
+      quickEditTabController:
+        class: ZMQuickEditTabController
+        scope: container
+        tags:
+          - { name: apps.store.admin.tabcontroller }

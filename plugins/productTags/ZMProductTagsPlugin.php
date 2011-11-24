@@ -48,14 +48,6 @@ class ZMProductTagsPlugin extends Plugin {
     /**
      * {@inheritDoc}
      */
-    public function init() {
-        parent::init();
-        ZMSettings::append('apps.store.catalog.controller', 'ProductTagsTabController');
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public function install() {
         parent::install();
         ZMDbUtils::executePatch(file(ZMDbUtils::resolveSQLFilename($this->getPluginDirectory()."sql/install.sql")), $this->messages_);

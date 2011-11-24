@@ -40,20 +40,4 @@ class ZMQuickEditPlugin extends Plugin {
         $this->setContext('admin');
     }
 
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
-
-
-    /**
-     * {@inheritDoc}
-     */
-    public function init() {
-        parent::init();
-        ZMSettings::append('apps.store.catalog.controller', 'ZMQuickEditTabController');
-    }
-
 }

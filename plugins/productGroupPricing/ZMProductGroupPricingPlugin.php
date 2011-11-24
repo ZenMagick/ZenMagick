@@ -50,14 +50,6 @@ class ZMProductGroupPricingPlugin extends Plugin {
 
     /**
      * {@inheritDoc}
-     */
-    public function init() {
-        parent::init();
-        ZMSettings::append('apps.store.catalog.controller', 'ProductGroupPricingTabController');
-    }
-
-    /**
-     * {@inheritDoc}
      *
      */
     public function install() {

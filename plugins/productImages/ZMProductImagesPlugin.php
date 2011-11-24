@@ -91,7 +91,6 @@ class ZMProductImagesPlugin extends Plugin {
     public function init() {
         parent::init();
         zenmagick\base\Runtime::getEventDispatcher()->listen($this);
-        ZMSettings::append('apps.store.catalog.controller', 'ZMProductImagesTabController');
     }
 
     /**

@@ -82,3 +82,10 @@ services:
   adminMenu:
     class: apps\store\menu\Menu
     scope: container
+
+  catalogDefaultTabController:
+    class: ZMCatalogDefaultTabController
+    scope: container
+    tags:
+      - { name: apps.store.admin.tabcontroller }
+

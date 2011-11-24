@@ -36,21 +36,6 @@ use zenmagick\http\sacs\SacsManager;
 class ZMCatalogController extends ZMController {
 
     /**
-     * Create new instance.
-     */
-    function __construct() {
-        parent::__construct();
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
-
-
-    /**
      * Create list of all active catalog content controllers.
      *
      * @param ZMRequest request The current request.
@@ -58,12 +43,10 @@ class ZMCatalogController extends ZMController {
      */
     protected function getCatalogContentControllers($request) {
         $controllers = array();
-        // find first active controller and pick
-        foreach (explode(',', ZMSettings::get('apps.store.catalog.controller')) as $bean) {
-            if (null != ($controller = Beans::getBean(trim($bean))) && $controller instanceof ZMCatalogContentController) {
-                if ($controller->isActive($request)) {
-                    $controllers[] = $controller;
-                }
+        foreach ($this->container->findTaggedServiceIds('apps.store.admin.tabcontroller') as $id => $args) {
+            $controller = $this->container->get($id);
+            if ($controller->isActive($request)) {
+                $controllers[] = $controller;
             }
         }
 
