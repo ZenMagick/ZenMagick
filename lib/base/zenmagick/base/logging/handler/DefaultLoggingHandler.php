@@ -91,10 +91,17 @@ class DefaultLoggingHandler extends ZMObject implements LoggingHandler {
     public function dump($obj, $msg, $level) {
         ob_start();
         if (null !== $msg) {
+            if (array_key_exists($level, Logging::$LOG_LEVEL)) {
+                $msg = Logging::$LOG_LEVEL[$level] . ': ' . $msg;
+            }
             echo '<h3>'.$msg.":</h3>\n";
         }
         echo "<pre>";
-        var_dump($obj);
+        if ($obj instanceof ZMObject || $obj instanceof \ZMException) {
+            echo $obj;
+        } else {
+            echo get_class($obj);
+        }
         echo "</pre>";
         $info = ob_get_clean();
         $this->doLog($info);
@@ -111,6 +118,9 @@ class DefaultLoggingHandler extends ZMObject implements LoggingHandler {
                 print_r($msg);
                 echo "</pre>";
             } else {
+                if (array_key_exists($level, Logging::$LOG_LEVEL)) {
+                    $msg = Logging::$LOG_LEVEL[$level] . ': ' . $msg;
+                }
                 echo '<h3>'.$msg.":</h3>\n";
             }
         }

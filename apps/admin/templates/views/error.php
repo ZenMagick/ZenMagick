@@ -25,7 +25,11 @@
   <pre>
   <?php
      if (isset($exception)) {
-        echo $exception->getTraceAsString();
+        if ($exception instanceof ZMException) {
+            echo $exception;
+        } else {
+            echo $exception->getTraceAsString();
+        }
     } else { // we don't know what happened! @todo try to figure it out
         debug_print_backtrace();
     }

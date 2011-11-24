@@ -194,6 +194,7 @@ class Logging {
      * @param int level Optional level; default: <code>TRACE</code>.
      */
     public function dump($obj, $msg=null, $level=self::TRACE) {
+//echo '*******dump: '.$msg."<BR>"; return;
         if (Runtime::getSettings()->get('zenmagick.base.logging.enabled', true)) {
             $logLevel = $this->getLogLevel();
             foreach ($this->getHandlers() as $handler) {

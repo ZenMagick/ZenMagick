@@ -44,14 +44,12 @@ class FileLoggingHandler extends DefaultLoggingHandler {
     /**
      * {@inheritDoc}
      */
-    public function log($msg, $level) {
-        if (array_key_exists($level, Logging::$LOG_LEVEL)) {
-            $handle = fopen($this->filename, 'ab');
-            if ($handle) {
-                $line = Logging::$LOG_LEVEL[$level] . ': ' . trim($msg) . "\n";
-                fwrite($handle, $line);
-                fclose($handle);
-            }
+    protected function doLog($msg) {
+        $handle = fopen($this->filename, 'ab');
+        if ($handle) {
+            $msg = strip_tags(str_replace('<br>', "\n", $msg));
+            fwrite($handle, $msg);
+            fclose($handle);
         }
     }
 

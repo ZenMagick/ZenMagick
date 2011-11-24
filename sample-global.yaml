@@ -34,11 +34,21 @@ admin,storefront:
 
   container:
     services:
+      # display logging in the browser; requires 'display_errors' to be set to true
       echoLoggingHandler:
         class: zenmagick\base\logging\handler\EchoLoggingHandler
         scope: container
         calls:
           - [setLogLevel, ['INFO']]
+        tags:
+          - { name: zenmagick.base.logging.handler }
+      # log into configured file
+      fileLoggingHandler:
+        class: zenmagick\base\logging\handler\FileLoggingHandler
+        scope: container
+        calls:
+          - [setLogLevel, ['ALL']]
+          - [setFilename, ['%zenmagick.installationPath%/zenmagick/zenmagick.log']]
         tags:
           - { name: zenmagick.base.logging.handler }
     apps:

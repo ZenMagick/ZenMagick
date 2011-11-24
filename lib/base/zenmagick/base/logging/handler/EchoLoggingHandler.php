@@ -36,12 +36,9 @@ class EchoLoggingHandler extends DefaultLoggingHandler {
     /**
      * {@inheritDoc}
      */
-    public function log($msg, $level) {
+    protected function doLog($msg) {
         if (@ini_get('display_errors')) {
-            if (array_key_exists($level, Logging::$LOG_LEVEL)) {
-                $msg = Logging::$LOG_LEVEL[$level] . ': ' . $msg;
-            }
-            echo $msg.'<br>';
+            echo $msg;
         }
     }
 
