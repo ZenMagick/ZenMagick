@@ -33,6 +33,7 @@ use zenmagick\base\Runtime;
  *
  * @author DerManoMann
  * @package zenmagick.http.rss
+ * @todo add support for caching and move into container
  */
 class RssFeedGenerator extends ZMObject {
 
