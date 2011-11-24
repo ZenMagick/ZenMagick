@@ -68,7 +68,7 @@ class ZMCatalogRssFeedSource extends ZMObject implements RssSource {
      * Generate RSS feed for the whole catalog (categories plus products).
      *
      * @param ZMRequest request The current request.
-     * @return ZMRssFeed The feed.
+     * @return RssFeed The feed.
      */
     protected function getCatalogFeed($request) {
         $categoriesFeed = $this->getCategoriesFeed($request, true);
@@ -99,7 +99,8 @@ class ZMCatalogRssFeedSource extends ZMObject implements RssSource {
      *
      * @param ZMRequest request The current request.
      * @param boolean isCatalog Indicates whether the call is part of the catalog feed or not; default is <code>false</code>.
-     * @return ZMRssFeed The feed.
+     * @return RssFeed The feed.
+     * @todo add support for attributes
      */
     protected function getProductsFeed($request, $isCatalog=false) {
         $lastPubDate = null;
@@ -154,7 +155,7 @@ class ZMCatalogRssFeedSource extends ZMObject implements RssSource {
      *
      * @param ZMRequest request The current request.
      * @param boolean isCatalog Indicates whether the call is part of the catalog feed or not; default is <code>false</code>.
-     * @return ZMRssFeed The feed.
+     * @return RssFeed The feed.
      */
     protected function getCategoriesFeed($request, $isCatalog) {
         $lastPubDate = null;
