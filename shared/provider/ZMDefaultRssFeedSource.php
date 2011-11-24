@@ -132,7 +132,7 @@ class ZMDefaultRssFeedSource extends ZMObject implements RssSource {
 
         $channel = new RssChannel();
         $channel->setTitle(sprintf(_zm("Chapter %s"), $key));
-        $channel->setLink($request->url('page', 'id='.'todo'.'chapter='.$key));
+        $channel->setLink($request->url('page', 'chapter='.$key));
         $channel->setDescription(sprintf(_zm("All pages of Chapter %s"), $key));
         $channel->setLastBuildDate(new DateTime());
 
