@@ -82,6 +82,7 @@ class Container extends ContainerBuilder {
      * @param string id The service id.
      * @param  int invalidBehavior The behavior when the service does not exist.
      * @return mixed The service instance.
+     * @deprecated
      */
     public function getService($id, $invalidBehavior=self::EXCEPTION_ON_INVALID_REFERENCE) {
         if (!array_key_exists($id, $this->services_)) {
