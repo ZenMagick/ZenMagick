@@ -23,7 +23,6 @@
 ?>
 <?php
 
-
 /**
  * Request controller for ez-pages.
  *
@@ -33,27 +32,24 @@
 class ZMPageController extends ZMController {
 
     /**
-     * Create new instance.
-     */
-    function __construct() {
-        parent::__construct();
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
-
-
-    /**
      * {@inheritDoc}
      */
     public function processGet($request) {
+        $languageId = $request->getSession()->getLanguageId();
         // prepare page name for crumbtrail
-        $page = $this->container->get('ezPageService')->getPageForId($request->getParameter("id"), $request->getSession()->getLanguageId());
+        $page = $this->container->get('ezPageService')->getPageForId($request->getParameter("id"), $languageId);
         if (null == $page) {
+            // do we have a chapter
+            if (null != ($chapter = $request->getParameter('chapter'))) {
+                $toc = $this->container->get('ezPageService')->getPagesForChapterId($chapter, $languageId);
+                if (0 < count($toc)) {
+                    $page = $toc[0];
+                }
+            }
+        }
+
+        if (null == $page) {
+            // still nothing!
             return $this->findView('page_not_found');
         }
 
