@@ -53,6 +53,9 @@ use zenmagick\http\sacs\SacsManager;
         // freeze container
         Runtime::getContainer()->compile();
 
+        // tell everyone interested that we have a container
+        Runtime::getEventDispatcher()->dispatch('container_ready', new Event(null, array('request' => $_zm_request)));
+
         // allow url rewriters to fiddle with the request
         $_zm_request->urlDecode();
 
