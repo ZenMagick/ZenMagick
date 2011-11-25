@@ -168,13 +168,6 @@
 
 
             /**************************************
-             * RSS settings
-             **************************************/
-
-            'zenmagick.mvc.rss.sources' => 'ZMDefaultRssFeedSource,ZMCatalogRssFeedSource',
-
-
-            /**************************************
              * Security and session
              **************************************/
 
