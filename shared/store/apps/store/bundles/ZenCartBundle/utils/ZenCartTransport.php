@@ -19,17 +19,25 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
+namespace apps\store\bundles\ZenCartBundle\utils;
 
 use zenmagick\base\Runtime;
 use zenmagick\base\events\Event;
+use ZMSettings;
+
+use Swift_Transport_NullTransport;
+use Swift_DependencyContainer;
+use Swift_Mime_Message;
+use Swift_Events_SendEvent;
+
 
 /**
  * Swift mailer transport using the legacy zencart code.
  *
- * @package zenmagick.store.shared.provider
  * @author DerManoMann
+ * @package apps.store.bundles.ZenCartBundle.utils
  */
-class ZMZenCartTransport extends Swift_Transport_NullTransport {
+class ZenCartTransport extends Swift_Transport_NullTransport {
     private $_eventDispatcher;
 
     /**

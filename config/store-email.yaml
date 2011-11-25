@@ -4,7 +4,7 @@
 
 services:
   zencartTransport:
-    class: ZMZenCartTransport
+    class: apps\store\bundles\ZenCartBundle\utils\ZenCartTransport
     scope: container
 
 swiftmailer:
