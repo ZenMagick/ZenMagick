@@ -1,0 +1,8 @@
+storefront:
+  container:
+    services:
+      masterPasswordAuthenticationProvider:
+        class: ZMMasterPasswordAuthenticationProvider
+        scope: container
+        tags:
+          -  { name: zenmagick.base.security.authentication.provider }

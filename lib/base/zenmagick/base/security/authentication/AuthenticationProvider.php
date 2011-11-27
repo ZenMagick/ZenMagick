@@ -19,15 +19,16 @@
  */
 ?>
 <?php
+namespace zenmagick\base\security\authentication;
 
 
 /**
  * Provider of authentication service.
  *
  * @author DerManoMann
- * @package org.zenmagick.core.services.authentication
+ * @package zenmagick.base.security.authentication
  */
-interface ZMAuthentication {
+interface AuthenticationProvider {
 
     /**
      * Encrypt a given password.

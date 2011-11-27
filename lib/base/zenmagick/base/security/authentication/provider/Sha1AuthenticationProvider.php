@@ -19,15 +19,17 @@
  */
 ?>
 <?php
+namespace zenmagick\base\security\authentication\provider;
 
+use zenmagick\base\security\authentication\AuthenticationProvider;
 
 /**
  * Sha1 authentication provider.
  *
  * @author DerManoMann
- * @package org.zenmagick.core.services.authentication.provider
+ * @package zenmagick.base.security.authentication.provider
  */
-class ZMSha1Authentication implements ZMAuthentication {
+class Sha1AuthenticationProvider implements AuthenticationProvider {
     /** Number of characters taken from the given salt to encrypt the password. */
     const SALT_LENGTH = 9;
 

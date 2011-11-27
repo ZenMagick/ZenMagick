@@ -31,3 +31,14 @@ services:
     tags:
       -  { name: zenmagick.base.logging.handler }
 
+  sha1AuthenticationProvider:
+    class: zenmagick\base\security\authentication\provider\Sha1AuthenticationProvider
+    scope: container
+    tags:
+      -  { name: zenmagick.base.security.authentication.provider }
+
+  phPassAuthenticationProvider:
+    class: zenmagick\base\security\authentication\provider\PhPassAuthenticationProvider
+    scope: container
+    tags:
+      -  { name: zenmagick.base.security.authentication.provider }

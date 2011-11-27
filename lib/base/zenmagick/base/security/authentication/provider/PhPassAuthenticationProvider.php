@@ -1,6 +1,6 @@
 <?php
 /*
- * ZenMagick - Smart e-commerce
+ * ZenMagick - Another PHP framework.
  * Copyright (C) 2006-2011 zenmagick.org
  *
  * This program is free software; you can redistribute it and/or modify
@@ -19,30 +19,43 @@
  */
 ?>
 <?php
+namespace zenmagick\base\security\authentication\provider;
 
-use zenmagick\base\ZMObject;
+use zenmagick\base\security\authentication\AuthenticationProvider;
+
 
 /**
- * Master password authentication provider.
+ * PhPass authentication provider.
+ *
+ * <p>Uses <a href="http://www.openwall.com/phpass/">PHPass</a>.</p>
  *
  * @author DerManoMann
- * @package org.zenmagick.plugins.masterPassword
+ * @package zenmagick.base.security.authentication.provider
  */
-class ZMMasterPasswordAuthentication extends ZMObject implements ZMAuthentication {
+class PhPassAuthenticationProvider implements AuthenticationProvider {
+    private $passwordHash_;
+
+
+    /**
+     * Create instance.
+     */
+    function __construct() {
+        $this->passwordHash_ = new \PasswordHash(8, false);
+    }
 
     /**
      * {@inheritDoc}
      */
     public function encryptPassword($plaintext, $salt=null) {
-        throw new ZMException('not supported');
+        return $this->passwordHash_->HashPassword($plaintext);
     }
 
     /**
      * {@inheritDoc}
      */
     public function validatePassword($plaintext, $encrypted) {
-        $masterPassword = $this->container->get('pluginService')->getPluginForId('masterPassword')->get('masterPassword');
-        return !empty($masterPassword) && $this->container->get('authenticationManager')->getDefaultProvider()->validatePassword($plaintext, $masterPassword);
+        return $this->passwordHash_->HashPassword($plaintext);
+        return phpbb_check_hash($plaintext, $encrypted);
     }
 
 }

@@ -143,7 +143,7 @@ services:
       - [init, [{cacheTTL: 300, cacheDir: '%zenmagick.cacheBaseDir%/rss/'}]]
 
   authenticationManager:
-    class: ZMAuthenticationManager
+    class: zenmagick\base\security\authentication\AuthenticationManager
     scope: container
 
   sacsManager:
@@ -281,6 +281,12 @@ services:
   urlManager:
     class: ZMUrlManager
     scope: container
+
+  zenCartAuthenticationProvider:
+    class: apps\store\bundles\ZenCartBundle\utils\ZenCartAuthenticationProvider
+    scope: container
+    tags:
+      -  { name: zenmagick.base.security.authentication.provider, default: true }
 
   annotation_reader:
     class: Doctrine\Common\Annotations\AnnotationReader

@@ -20,7 +20,7 @@ services:
     scope: container
 
   authenticationManager:
-    class: ZMAuthenticationManager
+    class: zenmagick\base\security\authentication\AuthenticationManager
     scope: container
 
   sacsManager:

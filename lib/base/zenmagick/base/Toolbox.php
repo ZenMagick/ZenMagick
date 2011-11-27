@@ -30,6 +30,48 @@ use Symfony\Component\Yaml\Yaml;
  * @package zenmagick.base
  */
 class Toolbox {
+    /** Random type digits only. */
+    const RANDOM_DIGITS = 'digits';
+    /** Random type characters only. */
+    const RANDOM_CHARS = 'chars';
+    /** Random type mixed (digits and characters). */
+    const RANDOM_MIXED = 'mixed';
+    /** Random type hexadecimal. */
+    const RANDOM_HEX = 'hex';
+
+    private static $seedDone_;
+
+
+    /**
+     * Generate a random value.
+     *
+     * @param int length The length of the random value.
+     * @param string type Optional type; predefined values are: <em>mixed</em>, <em>chars</em>, <em>digits</em> or <em>hex</em>; default is <em>mixed</em>.
+     *  Any other value will be used as the valid character range.
+     * @return string The random string.
+     */
+    public static function random($length, $type='mixed') {
+        static $types	=	array(
+        self::RANDOM_DIGITS => '0123456789',
+        self::RANDOM_CHARS => 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ',
+        self::RANDOM_MIXED => '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789',
+        self::RANDOM_HEX => '0123456789abcdef',
+        );
+
+        if (!self::$seedDone_) {
+            mt_srand((double)microtime() * 1000200);
+            self::$seedDone_ = true;
+        }
+
+        $chars = array_key_exists($type, $types) ? $types[$type] : $type;
+        $max=	strlen($chars) - 1;
+        $token = '';
+        for ($ii=0; $ii < $length; ++$ii) {
+            $token .=	$chars[(rand(0, $max))];
+        }
+
+        return $token;
+    }
 
     /**
      * Simple, recursive array merge.

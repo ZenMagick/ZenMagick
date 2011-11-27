@@ -19,15 +19,18 @@
  */
 ?>
 <?php
+namespace apps\store\bundles\ZenCartBundle\utils;
 
+use zenmagick\base\Toolbox;
+use zenmagick\base\security\authentication\AuthenticationProvider;
 
 /**
  * Authentication provider compatible with zencart generated passwords.
  *
  * @author DerManoMann
- * @package zenmagick.store.shared.provider
+ * @package apps.store.bundles.ZenCartBundle.utils
  */
-class ZMZenCartAuthentication implements ZMAuthentication {
+class ZenCartAuthenticationProvider implements AuthenticationProvider {
 
     /**
      * {@inheritDoc}
@@ -35,7 +38,7 @@ class ZMZenCartAuthentication implements ZMAuthentication {
     public function encryptPassword($plaintext, $salt=null) {
         $password = '';
         for ($i=0; $i<10; $i++) {
-            $password .= ZMSecurityUtils::random(ZMSecurityUtils::RANDOM_MIXED);
+            $password .= Toolbox::random(Toolbox::RANDOM_MIXED);
         }
 
         $salt = substr(md5($password), 0, 2);
