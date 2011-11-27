@@ -89,3 +89,7 @@ services:
     tags:
       - { name: apps.store.admin.tabcontroller }
 
+  userFactory:
+    class: ZMAdminUserFactory
+    scope: container
+    

@@ -78,10 +78,6 @@ zenmagick:
     rpc:
       format: JSON
 
-    ## session
-    session:
-      userFactory: ZMAdminUserFactory
-
     ## toolbox tools
     toolbox:
       tools:

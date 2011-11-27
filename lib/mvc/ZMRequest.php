@@ -56,7 +56,6 @@ class ZMRequest extends \ZMObject {
     private $toolbox_;
     private $parameter_;
     private $method_;
-    private $userFactory_;
     private $router_;
 
 
@@ -83,7 +82,6 @@ class ZMRequest extends \ZMObject {
         $this->setMethod(array_key_exists('REQUEST_METHOD', $_SERVER) ? $_SERVER['REQUEST_METHOD'] : 'GET');
         $this->controller_ = null;
         $this->toolbox_ = null;
-        $this->userFactory_ = null;
         $scheme = $this->isSecure() ? 'https' : 'http';
         // empty router
         $requestContext = new RequestContext($this->getContext(), $this->getMethod(), $this->getHostname(), $scheme);
@@ -291,11 +289,8 @@ class ZMRequest extends \ZMObject {
      * @return mixed A user/credentials object. Default is <code>null</code>.
      */
     public function getUser() {
-        if (null == $this->userFactory_) {
-            $this->userFactory_ = Beans::getBean(\ZMSettings::get('zenmagick.mvc.session.userFactory'));
-        }
-        if (null != $this->userFactory_) {
-            return $this->userFactory_->getUser($this);
+        if (null != ($userFactory = $this->container->get('userFactory'))) {
+            return $userFactory->getUser($this);
         }
 
         return null;

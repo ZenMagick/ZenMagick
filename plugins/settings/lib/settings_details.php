@@ -309,13 +309,6 @@
                         'desc' => 'Are secure requests to be enforced. This will create redirects from http:// to https:// if a secure page is loaded via http://'
                     )
                 ),
-                'session' => array(
-                    array(
-                        'key' => 'userFactory',
-                        'type' => 'string',
-                        'desc' => 'Bean definition of a class that can create a session user object.'
-                    )
-                ),
                 'transactions' => array(
                     array(
                         'key' => 'enabled',
