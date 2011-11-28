@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\ZMException;
 
 /**
  * Adapter class for vBulletin data.

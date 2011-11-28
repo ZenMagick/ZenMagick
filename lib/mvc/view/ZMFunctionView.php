@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\ZMException;
 
 /**
  * A view using a function to generate content.

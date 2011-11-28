@@ -21,6 +21,7 @@
 <?php
 
 use zenmagick\base\Runtime;
+use zenmagick\base\ZMException;
 
 use apps\store\menu\MenuElement;
 
@@ -393,7 +394,7 @@ class Plugin extends ZMPlugin {
      */
     public function pluginURL($uri) {
         if (null == $this->getPluginDirectory()) {
-            throw new \ZMException('pluginDirectory missing');
+            throw new ZMException('pluginDirectory missing');
         }
 
         // TODO: fix

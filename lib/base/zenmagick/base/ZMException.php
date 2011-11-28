@@ -19,16 +19,21 @@
  */
 ?>
 <?php
+namespace zenmagick\base;
 
-use zenmagick\base\ZMException;
+use Exception;
+use zenmagick\base\Runtime;
+use zenmagick\base\logging\Logging;
 
 /**
- * Database exception.
+ * Exception base class.
  *
  * @author DerManoMann
- * @package org.zenmagick.core.services.database
+ * @package zenmagick.base
  */
-class ZMDatabaseException extends ZMException {
+class ZMException extends Exception {
+    protected $previous_;
+
 
     /**
      * Create new instance.
@@ -37,8 +42,23 @@ class ZMDatabaseException extends ZMException {
      * @param int code The exception code; default is <em>0</em>.
      * @param Exception previous The original exception (if any) for chaining; default is <code>null</code>.
      */
-    function __construct($message=null, $code=0, $previous=null) {
-        parent::__construct($message, $code, $previous);
+    public function __construct($message=null, $code=0, $previous=null) {
+        parent::__construct((string)$message, (int)$code); //, $previous);
+        $this->previous_ = $previous;
+        Runtime::getLogging()->trace($message, Logging::TRACE);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function __toString() {
+        $s =  '['.get_class($this);
+        $s .= ' message='.$this->getMessage();
+        $s .= ', file='.\ZMFileUtils::mkRelativePath($this->getFile());
+        $s .= ', line='.$this->getLine();
+        $s .= ', previous='.$this->previous_;
+        $s .= ']';
+        return $s;
     }
 
 }

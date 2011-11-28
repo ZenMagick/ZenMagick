@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\ZMException;
 
 /**
  * Product association handler for <em>tags</em>.

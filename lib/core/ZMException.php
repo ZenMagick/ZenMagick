@@ -27,35 +27,8 @@ use zenmagick\base\Runtime;
  *
  * @author DerManoMann
  * @package org.zenmagick.core
+ * @deprecated use zenmagick\base\ZMException instead
  */
-class ZMException extends Exception {
-    protected $previous_;
-
-
-    /**
-     * Create new instance.
-     *
-     * @param string message The message; default is <code>null</code>.
-     * @param int code The exception code; default is <em>0</em>.
-     * @param Exception previous The original exception (if any) for chaining; default is <code>null</code>.
-     */
-    function __construct($message=null, $code=0, $previous=null) {
-        parent::__construct((string)$message, (int)$code); //, $previous);
-        $this->previous_ = $previous;
-        Runtime::getLogging()->trace($message, ZMLogging::TRACE);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function __toString() {
-        $s =  '['.get_class($this);
-        $s .= ' message='.$this->getMessage();
-        $s .= ', file='.ZMFileUtils::mkRelativePath($this->getFile());
-        $s .= ', line='.$this->getLine();
-        $s .= ', previous='.$this->previous_;
-        $s .= ']';
-        return $s;
-    }
+class ZMException extends zenmagick\base\ZMException {
 
 }

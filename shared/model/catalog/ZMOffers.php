@@ -23,6 +23,7 @@
 ?>
 <?php
 
+use zenmagick\base\ZMException;
 
 /**
  * All stuff related to product prices and offers.

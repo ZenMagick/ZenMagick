@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\ZMException;
 use zenmagick\base\ZMObject;
 use zenmagick\base\security\authentication\AuthenticationProvider;
 

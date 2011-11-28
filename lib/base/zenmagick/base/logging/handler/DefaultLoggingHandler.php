@@ -22,6 +22,7 @@
 namespace zenmagick\base\logging\handler;
 
 use zenmagick\base\Runtime;
+use zenmagick\base\ZMException;
 use zenmagick\base\ZMObject;
 use zenmagick\base\logging\Logging;
 use zenmagick\base\logging\LoggingHandler;
@@ -97,7 +98,7 @@ class DefaultLoggingHandler extends ZMObject implements LoggingHandler {
             echo '<h3>'.$msg.":</h3>\n";
         }
         echo "<pre>";
-        if ($obj instanceof ZMObject || $obj instanceof \ZMException) {
+        if ($obj instanceof ZMObject || $obj instanceof ZMException) {
             echo $obj;
         } else {
             echo get_class($obj);

@@ -23,6 +23,7 @@
 ?>
 <?php
 
+use zenmagick\base\ZMException;
 
 /**
  * HTML utilities.

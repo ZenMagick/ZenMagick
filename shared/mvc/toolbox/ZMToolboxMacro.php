@@ -23,6 +23,7 @@
 ?>
 <?php
 
+use zenmagick\base\ZMException;
 
 /**
  * Macro utilities.

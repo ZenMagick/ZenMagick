@@ -24,6 +24,7 @@
 <?php
 
 use zenmagick\base\Runtime;
+use zenmagick\base\ZMException;
 
 
 if (!function_exists('zen_href_link')) {
