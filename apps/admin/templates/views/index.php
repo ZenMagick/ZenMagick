@@ -17,8 +17,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
-use zenmagick\base\Beans;
 ?>
 <?php $resources->cssFile('style/dashboard.css'); ?>
 <?php $resources->jsFile('js/dashboard.js'); ?>
@@ -36,11 +34,11 @@ use zenmagick\base\Beans;
 <?php $adminId = $request->getUser()->getId(); ?>
 <h1><?php _vzm('Dashboard') ?><a href="" title="<?php _vzm('Customize Dashboard') ?>" onclick="return _db_open_options();"><span class="ui-icon ui-corner-all ui-icon-wrench"></span></a></h1>
 <div><!--view-container-->
-<div id="dashboard" class="<?php echo (ZMDashboard::getLayout($adminId)) ?>">
-  <?php for ($ii=0; $ii<ZMDashboard::getColumns($adminId); ++$ii) { $widgets = ZMDashboard::getWidgetsForColumn($adminId, $ii); ?>
+<div id="dashboard" class="<?php echo ($container->get('dashboard')->getLayout($adminId)) ?>">
+  <?php for ($ii=0; $ii<$container->get('dashboard')->getColumns($adminId); ++$ii) { $widgets = $container->get('dashboard')->getWidgetsForColumn($adminId, $ii); ?>
     <div id="db-column-<?php echo $ii ?>" class="db-column">
-      <?php foreach ($widgets as $widgetDef) { ?>
-        <?php $widget = Beans::getBean($widgetDef); echo $widget->render($request, $view); ?>
+      <?php foreach ($widgets as $widget) { ?>
+        <?php echo $widget->render($request, $view); ?>
       <?php } ?>
     </div>
   <?php } ?>
@@ -56,18 +54,16 @@ use zenmagick\base\Beans;
 
   <div id="widget-list" class="ui-corner-all">
     <div id="widget-box-cols" class="ui-corner-all">
-      <?php $widgetList = ZMDashboard::getWidgetList($adminId); ?>
+      <?php $widgetList = $container->get('dashboard')->getWidgetList($adminId); ?>
       <div id="widget-box-col-0" class="widget-box-col">
         <?php for ($ii=0; $ii<count($widgetList); $ii+=2) {
-          $widgetDef = $widgetList[$ii];
-          $widget = Beans::getBean($widgetDef);
+          $widget = $widgetList[$ii];
           $widget->setOpen(false); echo $widget->render($request, $view);
         } ?>
       </div>
       <div id="widget-box-col-1" class="widget-box-col">
         <?php for ($ii=1; $ii<count($widgetList); $ii+=2) {
-          $widgetDef = $widgetList[$ii];
-          $widget = Beans::getBean($widgetDef);
+          $widget = $widgetList[$ii];
           $widget->setOpen(false); echo $widget->render($request, $view);
         } ?>
       </div>

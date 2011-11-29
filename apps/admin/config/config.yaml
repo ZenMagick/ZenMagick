@@ -116,14 +116,12 @@ zenmagick:
 
 
 ## app settings
-## all available dashboard widgets
 apps:
   store:
     admin:
       domain: null
     dashboad:
-      widgets: ZMOrderStatsDashboardWidget,ZMLatestOrdersDashboardWidget,ZMLatestAccountsDashboardWidget,ZMRecentSearchesDashboardWidget,ZMUpdateCheckerDashboardWidget,ZMPendingDashboardWidget,ZMCounterHistoryDashboardWidget,ZMBasicStatsDashboardWidget
-      default: '{"layout":"col2l","widgets":[["ZMOrderStatsDashboardWidget","ZMLatestAccountsDashboardWidget"],["ZMLatestOrdersDashboardWidget"]]}'
+      default: '{"layout":"col2l","widgets":[["ref::orderStatsDashboardWidget","ref::latestAccountsDashboardWidget"],["ref::latestOrdersDashboardWidget"]]}'
     themes:
       default: default
     zencart:

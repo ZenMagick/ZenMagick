@@ -40,21 +40,15 @@ abstract class ZMDashboardWidget extends ZMWidget {
      *
      * @param string title The title; default is <code>null</code> to use the id.
      */
-    function __construct($title=null) {
+    public function __construct($title=null) {
         parent::__construct();
+        // default
         $this->id_ = get_class($this);
         $this->setTitle(null != $title ? $title : $this->id_);
         $this->minimize_ = true;
         $this->maximize_ = false;
         $this->options_ = null;
         $this->open_ = true;
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
     }
 
 

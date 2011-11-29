@@ -93,3 +93,55 @@ services:
     class: ZMAdminUserFactory
     scope: container
     
+  dashboard:
+    class: ZMDashboard
+    scope: container
+
+  orderStatsDashboardWidget:
+    class: ZMOrderStatsDashboardWidget
+    scope: prototype
+    tags:
+      - { name: apps.store.admin.dashboard.widget }
+
+  latestOrdersDashboardWidget:
+    class: ZMLatestOrdersDashboardWidget
+    scope: prototype
+    tags:
+      - { name: apps.store.admin.dashboard.widget }
+
+  latestAccountsDashboardWidget:
+    class: ZMLatestAccountsDashboardWidget
+    scope: prototype
+    tags:
+      - { name: apps.store.admin.dashboard.widget }
+
+  recentSearchesDashboardWidget:
+    class: ZMRecentSearchesDashboardWidget
+    scope: prototype
+    tags:
+      - { name: apps.store.admin.dashboard.widget }
+
+  updateCheckerDashboardWidget:
+    class: ZMUpdateCheckerDashboardWidget
+    scope: prototype
+    tags:
+      - { name: apps.store.admin.dashboard.widget }
+
+  pendingDashboardWidget:
+    class: ZMPendingDashboardWidget
+    scope: prototype
+    tags:
+      - { name: apps.store.admin.dashboard.widget }
+
+  counterHistoryDashboardWidget:
+    class: ZMCounterHistoryDashboardWidget
+    scope: prototype
+    tags:
+      - { name: apps.store.admin.dashboard.widget }
+
+  basicStatsDashboardWidget:
+    class: ZMBasicStatsDashboardWidget
+    scope: prototype
+    tags:
+      - { name: apps.store.admin.dashboard.widget }
+

@@ -128,6 +128,8 @@ class ZMEventFixes extends ZMObject {
         // shopping cart options
         $mappings['shoppingCart.options'] = array();
         $mappings['shoppingCart.options'][] = 'ZMPayPalECButtonBlockWidget';
+        $mappings['mainMenu'] = array();
+        $mappings['mainMenu'][] = 'ref::browserIDLogin';
 
         $this->container->get('blockManager')->setMappings($mappings);
     }

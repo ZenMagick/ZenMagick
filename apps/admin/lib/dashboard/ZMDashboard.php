@@ -20,7 +20,9 @@
 ?>
 <?php
 
+use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
+use zenmagick\base\ZMObject;
 
 /**
  * The dashboard.
@@ -28,7 +30,7 @@ use zenmagick\base\Runtime;
  * @author DerManoMann
  * @package zenmagick.store.admin.dashbord
  */
-class ZMDashboard {
+class ZMDashboard extends ZMObject {
 
     /**
      * Get the dashboard layout.
@@ -36,8 +38,8 @@ class ZMDashboard {
      * @param int adminId The admin id.
      * @return string The layout.
      */
-    public static function getLayout($adminId) {
-        $config = self::getConfig($adminId);
+    public function getLayout($adminId) {
+        $config = $this->getConfig($adminId);
         return $config['layout'];
     }
 
@@ -47,8 +49,8 @@ class ZMDashboard {
      * @param int adminId The admin id.
      * @return int The number of columns.
      */
-    public static function getColumns($adminId) {
-        $config = self::getConfig($adminId);
+    public function getColumns($adminId) {
+        $config = $this->getConfig($adminId);
         return preg_replace('/[^\d]/', '', $config['layout']);
     }
 
@@ -57,11 +59,19 @@ class ZMDashboard {
      *
      * @param int adminId The admin id.
      * @param int column The column.
-     * @return array List of widget definitions.
+     * @return array List of widgets.
      */
-    public static function getWidgetsForColumn($adminId, $column) {
-        $config = self::getConfig($adminId);
-        return $config['widgets'][$column];
+    public function getWidgetsForColumn($adminId, $column) {
+        $config = $this->getConfig($adminId);
+        $widgets = array();
+        foreach ($config['widgets'][$column] as $def) {
+            $widget = Beans::getBean($def);
+            // adjust id
+            $token = explode('#', $def);
+            $widget->setId($token[0]);
+            $widgets[] = $widget;
+        }
+        return $widgets;
     }
 
     /**
@@ -70,9 +80,9 @@ class ZMDashboard {
      * @param int adminId The admin id.
      * @return array List of all available widgets.
      */
-    public static function getWidgetList($adminId) {
+    public function getWidgetList($adminId) {
         // first collect **class** info for all used widgets
-        $config = self::getConfig($adminId);
+        $config = $this->getConfig($adminId);
         $inUse = array();
         foreach ($config['widgets'] as $column => $widgets) {
             foreach ($widgets as $def) {
@@ -82,10 +92,18 @@ class ZMDashboard {
         }
 
         // get list of all widgets
-        $allWidgets = explode(',', ZMSettings::get('apps.store.dashboad.widgets'));
+        $allWidgets = array();
+        foreach ($this->container->findTaggedServiceIds('apps.store.admin.dashboard.widget') as $id => $args) {
+            $allWidgets[] = $id;
+        }
 
         // figure out the difference
-        $available = array_values(array_diff($allWidgets, $inUse));
+        $available = array();
+        foreach (array_values(array_diff($allWidgets, $inUse)) as $id) {
+            $widget = $this->container->get($id);
+            $widget->setId($id);
+            $available[] = $widget;
+        }
         return $available;
     }
 
@@ -95,7 +113,7 @@ class ZMDashboard {
      * @param int adminId The admin id.
      * @param string state The state as JSON.
      */
-    public static function setState($adminId, $state) {
+    public function setState($adminId, $state) {
         Runtime::getContainer()->get('adminUserPrefService')->setPrefForName($adminId, 'dashboard', $state);
     }
 
@@ -105,7 +123,7 @@ class ZMDashboard {
      * @param int adminId The admin id.
      * @return array config map.
      */
-    public static function getConfig($adminId) {
+    public function getConfig($adminId) {
         $config = array();
         $dashboard = Runtime::getContainer()->get('adminUserPrefService')->getPrefForName($adminId, 'dashboard');
         if (empty($dashboard)) {

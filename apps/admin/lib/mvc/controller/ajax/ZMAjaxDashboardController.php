@@ -38,7 +38,7 @@ class ZMAjaxDashboardController extends ZMRpcController {
         $state = json_encode($rpcRequest->getData());
 
         $rpcResponse = $rpcRequest->createResponse();
-        ZMDashboard::setState($rpcRequest->getRequest()->getUser()->getId(), $state);
+        $this->container->get('dashboard')->setState($rpcRequest->getRequest()->getUser()->getId(), $state);
         $rpcResponse->setStatus(true);
 
         return $rpcResponse;
