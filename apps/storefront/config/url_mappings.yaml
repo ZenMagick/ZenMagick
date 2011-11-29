@@ -7,16 +7,19 @@
 global:
   error:
     template: error
+
   category_not_found:
     template: page_not_found
   manufacturer_not_found:
     template: page_not_found
-  product_not_found:
-    template: product_not_found
   page_not_found:
     template: page_not_found
+  product_not_found:
+    template: product_not_found
+
   index:
     template: index
+
   login:
     view: ZMRedirectView#requestId=login
   empty_cart:

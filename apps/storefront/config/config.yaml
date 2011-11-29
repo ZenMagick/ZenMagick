@@ -60,7 +60,7 @@ zenmagick:
 
     ## request
     request:
-      missingPage: error
+      missingPage: page_not_found
 
     ## html
     html:
