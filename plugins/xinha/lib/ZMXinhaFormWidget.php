@@ -31,23 +31,34 @@ use zenmagick\base\Runtime;
  * @package org.zenmagick.plugins.xinha
  * @author DerManoMann
  */
-class ZMXinhaFormWidget extends \ZMTextAreaFormWidget {
-    private static $ID_LIST = array();
+class ZMXinhaFormWidget extends ZMTextAreaFormWidget {
+    private $idList;
 
     /**
      * Create new instance.
      */
-    function __construct() {
+    public function __construct() {
         parent::__construct();
+        $this->idList = array();
+    }
+
+
+    /**
+     * Init editor.
+     */
+    private function initEditor() {
+        // create init script code at the end once we know all the ids
+        Runtime::getEventDispatcher()->listen($this);
     }
 
     /**
-     * Destruct instance.
+     * {@inheritDoc}
      */
-    function __destruct() {
-        parent::__destruct();
+    public function apply($idList, $request, $view) {
+        $this->initEditor();
+        $this->idList = array_merge($this->idList, $idList);
+        return '';
     }
-
 
     /**
      * {@inheritDoc}
@@ -58,7 +69,7 @@ class ZMXinhaFormWidget extends \ZMTextAreaFormWidget {
             return parent::render($request, $view);
         }
 
-        self::$ID_LIST[] = $this->getId();
+        $this->idList[] = $this->getId();
 
         // create init script code at the end once we know all the ids
         Runtime::getEventDispatcher()->listen($this);
@@ -69,9 +80,9 @@ class ZMXinhaFormWidget extends \ZMTextAreaFormWidget {
      * Add init code.
      */
     public function onFinaliseContent($event) {
-        if (0 < count(self::$ID_LIST)) {
+        if (0 < count($this->idList)) {
             $baseUrl = $this->container->get('pluginService')->getPluginForId('xinha')->pluginURL('xinha-0.96.1/');
-            $idList = implode("', '", self::$ID_LIST);
+            $idList = implode("', '", $this->idList);
             $jsInit = <<<EOT
 <script type="text/javascript">
 _editor_url  = "$baseUrl"; _editor_lang = "en";
@@ -109,7 +120,7 @@ EOT;
             $content = preg_replace('/<\/body>/', $jsInit . '</body>', $content, 1);
             $event->set('content', $content);
             // clear to create js only once
-            self::$ID_LIST = array();
+            $this->idList = array();
         }
     }
 

@@ -27,44 +27,69 @@
  * @package org.zenmagick.plugins.ckEditor
  * @author DerManoMann
  */
-class ZMCkEditorFormWidget extends ZMTextAreaFormWidget {
+class ZMCkEditorFormWidget extends ZMTextAreaFormWidget implements WysiwygEditor {
     private $plugin_;
+    private $editorConfig;
 
 
     /**
      * Create new instance.
      */
-    function __construct() {
+    public function __construct() {
         parent::__construct();
         $this->plugin_ = ZMPlugins::instance()->getPluginForId('ckEditor');
+        $this->editorConfig = array();
+
+        //TODO: allow for predefined 'basic', 'standard' and 'advanced' presettings in abstract ZMWysiwygEditorFormWidget base class
+        $this->editorConfig['toolbar'] = array(
+            array('Source', '-', 'Bold', 'Italic', 'Underline', 'Strike'),
+            array('Image', 'Link', 'Unlink', 'Anchor')
+        );
+
+    }
+
+
+    /**
+     * Get a CK editor instance.
+     *
+     * @return CKEditor An editor instance or <code>null</code>.
+     */
+    private function getCKEditor() {
+        include_once ZMFileUtils::mkPath($this->plugin_->getPluginDirectory(), 'ckeditor-3.4', 'ckeditor_php5.php');
+        if (!class_exists('CKEditor')) {
+            return null;
+        }
+
+        $ckEditor = new CKEditor();
+        $ckEditor->returnOutput = true;
+        return $ckEditor;
     }
 
     /**
-     * Destruct instance.
+     * {@inheritDoc}
      */
-    function __destruct() {
-        parent::__destruct();
-    }
+    public function apply($idList, $request, $view) {
+        if (!$this->plugin_ || null == ($ckEditor = $this->getCKEditor())) {
+            return null;
+        }
 
+        $out = '';
+        foreach ($idList as $id) {
+            $out .= $ckEditor->replace($id, $this->editorConfig);
+        }
+        return $out;
+    }
 
     /**
      * {@inheritDoc}
      */
     public function render($request, $view) {
-        if (!$this->plugin_) {
+        if (!$this->plugin_ || null == ($ckEditor = $this->getCKEditor())) {
             // fallback
             return parent::render($request, $view);
         }
 
-        include_once ZMFileUtils::mkPath($this->plugin_->getPluginDirectory(), 'ckeditor-3.4', 'ckeditor_php5.php');
-        if (!class_exists('CKEditor')) {
-            // fallback
-            return parent::render($request, $view);
-        }
-
-        $CKEditor = new CKEditor();
-        $CKEditor->returnOutput = true;
-        $CKEditor->textareaAttributes = array(
+        $ckEditor->textareaAttributes = array(
             'id' => $this->getId(),
             'rows' => $this->getRows(),
             'cols' => $this->getCols(),
@@ -72,15 +97,7 @@ class ZMCkEditorFormWidget extends ZMTextAreaFormWidget {
             'wrap' => $this->getWrap()
         );
 
-        $config = array();
-
-        //TODO: allow for predefined 'basic', 'standard' and 'advanced' presettings in abstract ZMWysiwygEditorFormWidget base class
-        $config['toolbar'] = array(
-            array('Source', '-', 'Bold', 'Italic', 'Underline', 'Strike'),
-            array('Image', 'Link', 'Unlink', 'Anchor')
-        );
-
-        return $CKEditor->editor($this->getId(), $this->getValue(), $config);
+        return $ckEditor->editor($this->getId(), $this->getValue(), $this->editorConfig);
     }
 
 }

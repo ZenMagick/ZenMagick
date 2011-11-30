@@ -31,23 +31,40 @@ use zenmagick\base\Runtime;
  * @package org.zenmagick.plugins.tinyMCE
  * @author DerManoMann
  */
-class ZMTinyMCEFormWidget extends \ZMTextAreaFormWidget {
-    private static $ID_LIST = array();
+class ZMTinyMCEFormWidget extends ZMTextAreaFormWidget implements WysiwygEditor {
+    private $idList;
+
 
     /**
      * Create new instance.
      */
-    function __construct() {
+    public function __construct() {
         parent::__construct();
+        $this->idList = array();
+    }
+
+
+    /**
+     * Init editor.
+     *
+     * @param ZMView view The view.
+     */
+    private function initEditor($view) {
+        // add required js
+        $resources = $view->getVar('resources');
+        $resources->jsFile('tinymce-3.3.8/jscripts/tiny_mce/tiny_mce.js', $resources::HEADER);
+        // create init script code at the end once we know all the ids
+        Runtime::getEventDispatcher()->listen($this);
     }
 
     /**
-     * Destruct instance.
+     * {@inheritDoc}
      */
-    function __destruct() {
-        parent::__destruct();
+    public function apply($idList, $request, $view) {
+        $this->initEditor($view);
+        $this->idList = array_merge($this->idList, $idList);
+        return '';
     }
-
 
     /**
      * {@inheritDoc}
@@ -58,14 +75,10 @@ class ZMTinyMCEFormWidget extends \ZMTextAreaFormWidget {
             return parent::render($request, $view);
         }
 
-        // add required js
-        $resources = $view->getVar('resources');
-        $resources->jsFile('tinymce-3.3.8/jscripts/tiny_mce/tiny_mce.js', \ZMViewUtils::HEADER);
+        $this->initEditor($view);
 
-        self::$ID_LIST[] = $this->getId();
+        $this->idList[] = $this->getId();
 
-        // create init script code at the end once we know all the ids
-        Runtime::getEventDispatcher()->listen($this);
         return parent::render($request, $view);
     }
 
@@ -73,8 +86,8 @@ class ZMTinyMCEFormWidget extends \ZMTextAreaFormWidget {
      * Add init code.
      */
     public function onFinaliseContent($event) {
-        if (0 < count(self::$ID_LIST)) {
-            $idString = implode(',', self::$ID_LIST);
+        if (0 < count($this->idList)) {
+            $idString = implode(',', $this->idList);
             $jsInit = <<<EOT
 <script>
   tinyMCE.init({
@@ -97,7 +110,7 @@ EOT;
             $content = preg_replace('/<\/body>/', $jsInit . '</body>', $content, 1);
             $event->set('content', $content);
             // clear to create js only once
-            self::$ID_LIST = array();
+            $this->idList = array();
         }
     }
 
