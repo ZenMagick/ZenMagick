@@ -127,6 +127,8 @@ class ZenCartBundle extends Bundle {
         $current = $settingsService->get('apps/store/database/default', array());
         $settingsService->set('apps/store/database/default', array_merge($defaults, $current));
 
+        if (!defined('DB_PREFIX')) define('DB_PREFIX', $current['prefix']);
+
         if (defined('ENABLE_SSL_ADMIN')) $settingsService->set('zenmagick.http.request.secure', 'true' == ENABLE_SSL_ADMIN);
         if (defined('ENABLE_SSL')) $settingsService->set('zenmagick.http.request.secure', 'true' == ENABLE_SSL);
 
