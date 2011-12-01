@@ -59,6 +59,10 @@ class ZMPendingDashboardWidget extends ZMDashboardWidget {
             $contents = _zm('No pending tasks found.');
         }
 
+        if (!empty($contents)) {
+            $this->setStatus(self::STATUS_NOTICE);
+        }
+
         $contents = '<p id="pending">'.$contents.'</p>';
         return $contents;
     }
