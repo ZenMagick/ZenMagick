@@ -19,3 +19,10 @@
  */
 ?>
 <?php $admin2->title() ?>
+
+<form>
+<textarea id="tx1">Foo</textarea><br>
+<textarea id="tx2">Bar</textarea><br>
+</form>
+
+<?php echo $currentEditor->apply($request, $view);//, array('tx1')); ?>

@@ -31,7 +31,7 @@ use zenmagick\base\Runtime;
  * @package org.zenmagick.plugins.xinha
  * @author DerManoMann
  */
-class ZMXinhaFormWidget extends ZMTextAreaFormWidget {
+class ZMXinhaFormWidget extends ZMTextAreaFormWidget implements WysiwygEditor {
     private $idList;
 
     /**
@@ -54,9 +54,13 @@ class ZMXinhaFormWidget extends ZMTextAreaFormWidget {
     /**
      * {@inheritDoc}
      */
-    public function apply($idList, $request, $view) {
+    public function apply($request, $view, $idList=null) {
         $this->initEditor();
-        $this->idList = array_merge($this->idList, $idList);
+        if (null === $idList) {
+            $this->idList = null;
+        } else {
+            $this->idList = array_merge($this->idList, $idList);
+        }
         return '';
     }
 
@@ -80,9 +84,14 @@ class ZMXinhaFormWidget extends ZMTextAreaFormWidget {
      * Add init code.
      */
     public function onFinaliseContent($event) {
-        if (0 < count($this->idList)) {
+        if (0 < count($this->idList) || null === $this->idList) {
             $baseUrl = $this->container->get('pluginService')->getPluginForId('xinha')->pluginURL('xinha-0.96.1/');
-            $idList = implode("', '", $this->idList);
+            if (null === $this->idList) {
+                $editors = "document.getElementsByTagName('textarea')";
+            } else {
+                $editors = "[ '" . implode("', '", $this->idList) . "' ]";
+            }
+
             $jsInit = <<<EOT
 <script type="text/javascript">
 _editor_url  = "$baseUrl"; _editor_lang = "en";
@@ -92,7 +101,7 @@ xinha_editors = null; xinha_init = null; xinha_config = null; xinha_plugins = nu
 <script type="text/javascript">
 // This contains the names of textareas we will make into Xinha editors
 xinha_init = xinha_init ? xinha_init : function() {
-  xinha_editors = xinha_editors ? xinha_editors : [ '$idList' ];
+  xinha_editors = xinha_editors ? xinha_editors : $editors;
   xinha_plugins = xinha_plugins ? xinha_plugins : [ 'CharacterMap', 'ContextMenu', 'ListType', 'Stylist', 'Linker', 'TableOperations' ];
   if(!Xinha.loadPlugins(xinha_plugins, xinha_init)) return;
   xinha_config = new Xinha.Config();
@@ -113,7 +122,7 @@ xinha_init = xinha_init ? xinha_init : function() {
   xinha_editors = Xinha.makeEditors(xinha_editors, xinha_config, xinha_plugins);
   Xinha.startEditors(xinha_editors);
 }
-Xinha._addEvent(window,'load', xinha_init);
+Xinha._addEvent(window, 'load', xinha_init);
 </script>
 EOT;
             $content = $event->get('content');
