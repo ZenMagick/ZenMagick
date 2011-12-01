@@ -28,7 +28,8 @@
  * @package zenmagick.store.admin.dashbord
  */
 abstract class ZMDashboardWidget extends ZMWidget {
-    const STATUS_NORMAL = '';
+    const STATUS_DEFAULT = '';
+    const STATUS_INFO = '';
     const STATUS_NOTICE = 'ui-state-highlight';
     const STATUS_WARN = 'ui-state-error';
     private $id_;
@@ -53,7 +54,7 @@ abstract class ZMDashboardWidget extends ZMWidget {
         $this->maximize_ = false;
         $this->options_ = null;
         $this->open_ = true;
-        $this->status_ = self::STATUS_NORMAL;
+        $this->status_ = self::STATUS_DEFAULT;
     }
 
 
@@ -166,6 +167,7 @@ abstract class ZMDashboardWidget extends ZMWidget {
      * {@inheritDoc}
      */
     public function render($request, $view) {
+        // request first, as this might trigger a status change
         $contents = $this->getContents($request);
         $lines = array(
             '<div class="portlet'.($this->hasOptions() ? ' gear' : '').'" id="portlet-'.$this->getId().'">',

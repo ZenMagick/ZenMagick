@@ -145,3 +145,9 @@ services:
     tags:
       - { name: apps.store.admin.dashboard.widget }
 
+  storeStatusDashboardWidget:
+    class: ZMStoreStatusDashboardWidget
+    scope: prototype
+    tags:
+      - { name: apps.store.admin.dashboard.widget }
+

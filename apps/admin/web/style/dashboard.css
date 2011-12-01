@@ -54,3 +54,7 @@ h1 .ui-icon {position:absolute;top:7px;right:8px;background-color:white;}
 #widget-box {width:500px;display:none;background-color:#eee;padding:.4em;}
 /*.ui-dialog {overflow:visible;} - makes the portlets visible when dragging out of widget box */
 .widget-box-col {width:49%;float:left;padding:3px 0;}
+/* status messages */
+ul.ui-widget {list-style:none;padding:0;margin:0;}
+ul.ui-widget li {padding:2px;margin:1px 2px;}
+ul.ui-widget .ui-icon {float:left;}
