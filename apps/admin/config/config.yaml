@@ -121,7 +121,7 @@ apps:
     admin:
       domain: null
     dashboad:
-      default: '{"layout":"col2l","widgets":[["ref::storeStatusDashboardWidget", "ref::orderStatsDashboardWidget","ref::latestAccountsDashboardWidget"],["ref::latestOrdersDashboardWidget"]]}'
+      default: '{"layout":"col2r","widgets":[["ref::storeStatusDashboardWidget", "ref::latestOrdersDashboardWidget" ], ["ref::orderStatsDashboardWidget","ref::latestAccountsDashboardWidget"]]}'
     themes:
       default: default
     zencart:
