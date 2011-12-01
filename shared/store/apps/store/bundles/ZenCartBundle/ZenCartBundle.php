@@ -67,6 +67,11 @@ class ZenCartBundle extends Bundle {
         if (!defined('ATTRIBUTES_PRICE_FACTOR_FROM_SPECIAL')) { define('ATTRIBUTES_PRICE_FACTOR_FROM_SPECIAL', 0); }
         if (!defined('TEXT_PREFIX')) { define('TEXT_PREFIX', 'txt_'); }
         if (!defined('UPLOAD_PREFIX')) { define('UPLOAD_PREFIX', 'upload_'); }
+
+        if (null == ($folder = $this->guessAdminFolder())) {
+            // TODO: throw exception??
+        }
+        Runtime::getSettings()->set('apps.store.zencart.admindir', $folder);
     }
 
     /**
@@ -128,6 +133,29 @@ class ZenCartBundle extends Bundle {
         // download base folder
         $downloadBaseDir = !defined('DIR_FS_DOWNLOAD') ? ZC_INSTALL_PATH . 'download/' : DIR_FS_DOWNLOAD;
         $settingsService->set('downloadBaseDir', $downloadBaseDir);
+    }
+
+    /**
+     * Guess zc admin folder.
+     *
+     * @return The dir name.
+     */
+    protected function guessAdminFolder() {
+        $basePath = dirname(Runtime::getInstallationPath());
+        $folder = null;
+        if (false !== ($handle = opendir($basePath))) {
+            while (false !== ($file = readdir($handle))) {
+                if (is_dir($basePath.'/'.$file) && !in_array($file, array('.', '..'))) {
+                    if (file_exists(realpath($basePath.'/'.$file.'/includes/configure.php'))) {
+                        $folder = $file;
+                        break;
+                    }
+                }
+            }
+            closedir($handle);
+        }
+
+        return $folder;
     }
 
     /**
