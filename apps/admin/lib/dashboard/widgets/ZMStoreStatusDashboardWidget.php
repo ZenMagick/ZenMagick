@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 
 /**
  * Store status widget.
@@ -46,9 +47,36 @@ class ZMStoreStatusDashboardWidget extends ZMDashboardWidget {
         $messages = array();
 
         // build status list
+        $installDir = realpath(dirname(Runtime::getInstallationPath()).'/zc_install');
+        if (is_dir($installDir)) { $messages[] = array(self::STATUS_NOTICE, sprintf(_zm('Installation directory exists at: %s. Please remove this directory for security reasons.'), $installDir)); }
+
+        $configure = realpath(dirname(Runtime::getInstallationPath()).'/includes/configure.php');
+        if (file_exists($configure) && is_writeable($configure)) {
+            $messages[] = array(self::STATUS_WARN, sprintf(_zm('Store configuration file: %s should be read-only.'), $configure));
+        }
+        $configure = realpath(dirname(Runtime::getInstallationPath()).'/'.Runtime::getSettings()->get('apps.store.zencart.admindir').'/includes/configure.php');
+        if (file_exists($configure) && is_writeable($configure)) {
+            $messages[] = array(self::STATUS_WARN, sprintf(_zm('Admin configuration file: %s should be read-only.'), $configure));
+        }
+
+        // payment module test modes
+        if (defined('MODULE_PAYMENT_PAYPAL_IPN_DEBUG') && (MODULE_PAYMENT_PAYPAL_IPN_DEBUG == 'true' || MODULE_PAYMENT_PAYPAL_TESTING == 'Test')) {
+            $messages[] = array(self::STATUS_NOTICE, _zm('PayPal is in testing mode.'));
+        }
+        if ((defined('MODULE_PAYMENT_AUTHORIZENET_AIM_STATUS') && MODULE_PAYMENT_AUTHORIZENET_AIM_STATUS == 'True'
+          && defined('MODULE_PAYMENT_AUTHORIZENET_AIM_TESTMODE') && MODULE_PAYMENT_AUTHORIZENET_AIM_TESTMODE == 'Test')
+          || (defined('MODULE_PAYMENT_AUTHORIZENET_STATUS') && MODULE_PAYMENT_AUTHORIZENET_STATUS == 'True'
+              && defined('MODULE_PAYMENT_AUTHORIZENET_TESTMODE') && MODULE_PAYMENT_AUTHORIZENET_TESTMODE =='Test' ) ) {
+            $messages[] = array(self::STATUS_NOTICE, _zm('AuthorizeNet is in testing mode.'));
+        }
+        if (defined('MODULE_SHIPPING_USPS_SERVER') && MODULE_SHIPPING_USPS_SERVER == 'test' ) {
+            $messages[] = array(self::STATUS_NOTICE, _zm('USPS is in testing mode.'));
+        }
+
         if (!defined('DEFAULT_CURRENCY')) { $messages[] = array(self::STATUS_WARN, _zm('Please set a default currency.')); }
         if (!defined('DEFAULT_LANGUAGE') || DEFAULT_LANGUAGE=='') { $messages[] = array(self::STATUS_NOTICE, _zm('Please set a default language.')); }
         if (DOWN_FOR_MAINTENANCE == 'true') { $messages[] = array(self::STATUS_WARN, _zm('Your site is currently down for Maintenance.')); }
+
 
         // figure out the status and generate contents
         $status = self::STATUS_DEFAULT;
