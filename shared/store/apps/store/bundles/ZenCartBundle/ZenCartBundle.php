@@ -140,8 +140,7 @@ class ZenCartBundle extends Bundle {
      */
     protected function guessAdminFolder() {
         $configService = $this->container->get('configService');
-        if (null != ($values = $configService->getConfigValues(self::ZENCART_ADMIN_FOLDER)) && 1 == count($values)) {
-            $value = $values[0];
+        if (null != ($value = $configService->getConfigValue(self::ZENCART_ADMIN_FOLDER))) {
             return $value->getValue();
         }
 
