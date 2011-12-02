@@ -35,6 +35,7 @@ use zenmagick\base\Toolbox;
  * @package apps.store.bundles.ZenCartBundle
  */
 class ZenCartBundle extends Bundle {
+    const ZENCART_ADMIN_FOLDER = 'ZENCART_ADMIN_FOLDER';
 
     /**
      * {@inheritDoc}
@@ -67,11 +68,6 @@ class ZenCartBundle extends Bundle {
         if (!defined('ATTRIBUTES_PRICE_FACTOR_FROM_SPECIAL')) { define('ATTRIBUTES_PRICE_FACTOR_FROM_SPECIAL', 0); }
         if (!defined('TEXT_PREFIX')) { define('TEXT_PREFIX', 'txt_'); }
         if (!defined('UPLOAD_PREFIX')) { define('UPLOAD_PREFIX', 'upload_'); }
-
-        if (null == ($folder = $this->guessAdminFolder())) {
-            // TODO: throw exception??
-        }
-        Runtime::getSettings()->set('apps.store.zencart.admindir', $folder);
     }
 
     /**
@@ -143,12 +139,18 @@ class ZenCartBundle extends Bundle {
      * @return The dir name.
      */
     protected function guessAdminFolder() {
+        $configService = $this->container->get('configService');
+        if (null != ($values = $configService->getConfigValues(self::ZENCART_ADMIN_FOLDER)) && 1 == count($values)) {
+            $value = $values[0];
+            return $value->getValue();
+        }
+
         $basePath = dirname(Runtime::getInstallationPath());
         $folder = null;
         if (false !== ($handle = opendir($basePath))) {
             while (false !== ($file = readdir($handle))) {
                 if (is_dir($basePath.'/'.$file) && !in_array($file, array('.', '..'))) {
-                    if (file_exists(realpath($basePath.'/'.$file.'/includes/configure.php'))) {
+                    if (file_exists(realpath($basePath.'/'.$file.'/includes/configure.php')) && file_exists(realpath($basePath.'/'.$file.'/featured.php'))) {
                         $folder = $file;
                         break;
                     }
@@ -157,6 +159,10 @@ class ZenCartBundle extends Bundle {
             closedir($handle);
         }
 
+        // save
+        if (null != $folder) {
+            $configService->createConfigValue('zencart admin folder', self::ZENCART_ADMIN_FOLDER, $folder, ZENMAGICK_CONFIG_GROUP_ID);
+        }
         return $folder;
     }
 
@@ -175,6 +181,11 @@ class ZenCartBundle extends Bundle {
             // old zc admin?
             $request->setRequestId(str_replace('.php', '', $request->getFrontController()));
         }
+
+        if (null == ($folder = $this->guessAdminFolder())) {
+            // TODO: throw exception??
+        }
+        Runtime::getSettings()->set('apps.store.zencart.admindir', $folder);
     }
 
     /**
