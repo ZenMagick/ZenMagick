@@ -29,6 +29,9 @@ use zenmagick\base\Runtime;
  * @package zenmagick.store.admin.dashbord.widgets
  */
 class ZMStoreStatusDashboardWidget extends ZMDashboardWidget {
+    const ACTIVITY_LOG_RECORD_THRESHOLD = 50000;
+    const ACTIVITY_LOG_DATE_THRESHOLD = 60;
+    const NEW_SIGNUP_GV_EXPIRY_THRESHOLD = 21;
 
     /**
      * Create new user.
@@ -46,6 +49,9 @@ class ZMStoreStatusDashboardWidget extends ZMDashboardWidget {
         $contents = _zm('Nothing to report.');
         $messages = array();
 
+        $languageId = Runtime::getSettings()->get('storeDefaultLanguageId');
+        $configService = $this->container->get('configService');
+
         // build status list
         $installDir = realpath(dirname(Runtime::getInstallationPath()).'/zc_install');
         if (is_dir($installDir)) { $messages[] = array(self::STATUS_NOTICE, sprintf(_zm('Installation directory exists at: %s. Please remove this directory for security reasons.'), $installDir)); }
@@ -58,6 +64,52 @@ class ZMStoreStatusDashboardWidget extends ZMDashboardWidget {
         if (file_exists($configure) && is_writeable($configure)) {
             $messages[] = array(self::STATUS_WARN, sprintf(_zm('Admin configuration file: %s should be read-only.'), $configure));
         }
+
+        if (null != ($value = $configService->getConfigValue('MODULE_PAYMENT_INSTALLED'))) {
+            $value = $value->getValue();
+            if (empty($value)) {
+                $messages[] = array(self::STATUS_NOTICE, _zm('You have no payment modules activated. Please go to Configuration->Modules->Payment to configure.'));
+            }
+        }
+        if (null != ($value = $configService->getConfigValue('MODULE_SHIPPING_INSTALLED'))) {
+            $value = $value->getValue();
+            if (empty($value)) {
+                $messages[] = array(self::STATUS_NOTICE, _zm('You have no shipping modules activated. Please go to Configuration->Modules->Shipping to configure.'));
+            }
+        }
+
+        $result = ZMRuntime::getDatabase()->querySingle('SELECT COUNT(log_id) AS counter from '. DB_PREFIX . 'admin_activity_log', array(), 'admin_activity_log');
+        if (0 < $result['counter']) {
+            $reset = null;
+            if (self::ACTIVITY_LOG_RECORD_THRESHOLD < $result['counter']) {
+                $reset = sprintf(_zm('The Admin Activity Log table has over %s records and should be cleaned ... '), self::ACTIVITY_LOG_RECORD_THRESHOLD);
+            } else {
+                $sql = 'SELECT MIN(access_date) AS access_date FROM ' . DB_PREFIX . ' admin_activity_log WHERE access_date < DATE_SUB(CURDATE(), INTERVAL '.self::ACTIVITY_LOG_DATE_THRESHOLD.' DAY)';
+                $result = ZMRuntime::getDatabase()->querySingle($sql);
+                if ($result && null != $result['access_date']) {
+                    $reset = sprintf(_zm('The Admin Activity Log table has records more than %s days old and should be cleaned ... '), self::ACTIVITY_LOG_DATE_THRESHOLD);
+                }
+            }
+            if ($reset) {
+                $messages[] = array(self::STATUS_NOTICE, $reset);
+            }
+        }
+
+        if (null != ($value = $configService->getConfigValue('NEW_SIGNUP_DISCOUNT_COUPON'))) {
+            $value = $value->getValue();
+            if (!empty($value)) {
+              if (null != ($coupon = $this->container->get('couponService')->getCouponForId($value, $languageId))) {
+                  $expiryDate = $coupon->getExpiryDate();
+                  $diff = $expiryDate->diff(new DateTime(), true);
+                  $interval = (int)$diff->format('%r%a');
+                  if ($interval > 0 && $interval < self::NEW_SIGNUP_GV_EXPIRY_THRESHOLD) {
+                      $messages[] = array(self::STATUS_NOTICE, sprintf(_zm('Welcome Email Discount Coupon expires in %s days.'), $interval));
+                  }
+              }
+            }
+        }
+
+    //Any non released gift vouchers
 
         // payment module test modes
         if (defined('MODULE_PAYMENT_PAYPAL_IPN_DEBUG') && (MODULE_PAYMENT_PAYPAL_IPN_DEBUG == 'true' || MODULE_PAYMENT_PAYPAL_TESTING == 'Test')) {
