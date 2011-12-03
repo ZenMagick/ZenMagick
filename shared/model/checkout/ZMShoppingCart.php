@@ -177,7 +177,7 @@ class ZMShoppingCart extends ZMObject {
                 }
             }
 
-            if ($this->container->get('settingsService')->get('.apps.store.assertZencart', false)) {
+            if ($this->container->get('settingsService')->get('apps.store.assertZencart', false)) {
                 foreach ($this->items_ as $item) {
                     $itemId = $item->getId();
                     if ($this->cart_->get_quantity($itemId) != $this->getItemQuantityFor($itemId, false)) {
