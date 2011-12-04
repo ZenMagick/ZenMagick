@@ -31,7 +31,6 @@ class ZMPendingDashboardWidget extends ZMDashboardWidget {
 
     /**
      * Create new user.
-     *
      */
     public function __construct() {
         parent::__construct(_zm('Pending'));
@@ -57,9 +56,7 @@ class ZMPendingDashboardWidget extends ZMDashboardWidget {
 
         if (0 == strlen($contents)) {
             $contents = _zm('No pending tasks found.');
-        }
-
-        if (!empty($contents)) {
+        } else {
             $this->setStatus(self::STATUS_NOTICE);
         }
 

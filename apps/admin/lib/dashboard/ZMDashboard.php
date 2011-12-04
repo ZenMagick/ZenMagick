@@ -87,7 +87,8 @@ class ZMDashboard extends ZMObject {
         foreach ($config['widgets'] as $column => $widgets) {
             foreach ($widgets as $def) {
                 $tmp = explode('#', $def);
-                $inUse[] = $tmp[0];
+                $widget = strtolower(str_replace('ref::', '', $tmp[0]));
+                $inUse[$widget] = $widget;
             }
         }
 

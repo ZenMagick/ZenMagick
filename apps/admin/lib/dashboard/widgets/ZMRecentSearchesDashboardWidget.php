@@ -31,17 +31,9 @@ class ZMRecentSearchesDashboardWidget extends ZMDashboardWidget {
 
     /**
      * Create new user.
-     * 
      */
-    function __construct() {
+    public function __construct() {
         parent::__construct(_zm('Recent Searches'));
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
     }
 
 

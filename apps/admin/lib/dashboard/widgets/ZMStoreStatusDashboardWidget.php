@@ -35,7 +35,6 @@ class ZMStoreStatusDashboardWidget extends ZMDashboardWidget {
 
     /**
      * Create new user.
-     *
      */
     public function __construct() {
         parent::__construct(_zm('Store Status'));
@@ -55,7 +54,7 @@ class ZMStoreStatusDashboardWidget extends ZMDashboardWidget {
         // build status list
         $installDir = realpath(dirname(Runtime::getInstallationPath()).'/zc_install');
         if (is_dir($installDir)) { $messages[] = array(self::STATUS_NOTICE, sprintf(_zm('Installation directory exists at: %s. Please remove this directory for security reasons.'), $installDir)); }
-
+/*
         $configure = realpath(dirname(Runtime::getInstallationPath()).'/includes/configure.php');
         if (file_exists($configure) && is_writeable($configure)) {
             $messages[] = array(self::STATUS_WARN, sprintf(_zm('Store configuration file: %s should be read-only.'), $configure));
@@ -78,13 +77,14 @@ class ZMStoreStatusDashboardWidget extends ZMDashboardWidget {
             }
         }
 
+ */
         $result = ZMRuntime::getDatabase()->querySingle('SELECT COUNT(log_id) AS counter from '. DB_PREFIX . 'admin_activity_log', array(), 'admin_activity_log');
         if (0 < $result['counter']) {
             $reset = null;
             if (self::ACTIVITY_LOG_RECORD_THRESHOLD < $result['counter']) {
                 $reset = sprintf(_zm('The Admin Activity Log table has over %s records and should be cleaned ... '), self::ACTIVITY_LOG_RECORD_THRESHOLD);
             } else {
-                $sql = 'SELECT MIN(access_date) AS access_date FROM ' . DB_PREFIX . ' admin_activity_log WHERE access_date < DATE_SUB(CURDATE(), INTERVAL '.self::ACTIVITY_LOG_DATE_THRESHOLD.' DAY)';
+                $sql = 'SELECT MIN(access_date) AS access_date FROM ' . DB_PREFIX . 'admin_activity_log WHERE access_date < DATE_SUB(CURDATE(), INTERVAL '.self::ACTIVITY_LOG_DATE_THRESHOLD.' DAY)';
                 $result = ZMRuntime::getDatabase()->querySingle($sql);
                 if ($result && null != $result['access_date']) {
                     $reset = sprintf(_zm('The Admin Activity Log table has records more than %s days old and should be cleaned ... '), self::ACTIVITY_LOG_DATE_THRESHOLD);
@@ -109,8 +109,6 @@ class ZMStoreStatusDashboardWidget extends ZMDashboardWidget {
             }
         }
 
-    //Any non released gift vouchers
-
         // payment module test modes
         if (defined('MODULE_PAYMENT_PAYPAL_IPN_DEBUG') && defined('MODULE_PAYMENT_PAYPAL_TESTING') && (MODULE_PAYMENT_PAYPAL_IPN_DEBUG == 'true' || MODULE_PAYMENT_PAYPAL_TESTING == 'Test')) {
             $messages[] = array(self::STATUS_NOTICE, _zm('PayPal is in testing mode.'));
@@ -124,7 +122,6 @@ class ZMStoreStatusDashboardWidget extends ZMDashboardWidget {
         if (defined('MODULE_SHIPPING_USPS_SERVER') && MODULE_SHIPPING_USPS_SERVER == 'test' ) {
             $messages[] = array(self::STATUS_NOTICE, _zm('USPS is in testing mode.'));
         }
-
         if (!defined('DEFAULT_CURRENCY')) { $messages[] = array(self::STATUS_WARN, _zm('Please set a default currency.')); }
         if (!defined('DEFAULT_LANGUAGE') || DEFAULT_LANGUAGE=='') { $messages[] = array(self::STATUS_NOTICE, _zm('Please set a default language.')); }
         if (DOWN_FOR_MAINTENANCE == 'true') { $messages[] = array(self::STATUS_WARN, _zm('Your site is currently down for Maintenance.')); }

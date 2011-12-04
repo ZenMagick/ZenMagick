@@ -31,17 +31,9 @@ class ZMOrderStatsDashboardWidget extends ZMDashboardWidget {
 
     /**
      * Create new user.
-     *
      */
-    function __construct() {
+    public function __construct() {
         parent::__construct(_zm('Order Stats'));
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
     }
 
 
@@ -57,7 +49,7 @@ class ZMOrderStatsDashboardWidget extends ZMDashboardWidget {
                 WHERE orders_status = :orderStatusId";
         foreach ($this->container->get('orderService')->getOrderStatusList($language->getId()) as $status) {
             $args = array('orderStatusId' => $status->getOrderStatusId());
-            $result = ZMRuntime::getDatabase()->querySingle($sql, $args, TABLE_ORDERS);
+            $result = ZMRuntime::getDatabase()->querySingle($sql, $args, 'orders');
             $contents .= '<tr>';
             $contents .= '<td><a href="'.$admin2->url('orders', 'orderStatusId='.$status->getOrderStatusId()).'">'._zm($status->getName()).'</a></td>';
             $contents .= '<td>'.$result['count'].'</td>';

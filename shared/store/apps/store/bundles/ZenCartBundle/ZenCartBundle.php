@@ -121,7 +121,13 @@ class ZenCartBundle extends Bundle {
         $settingsService = Runtime::getSettings();
         // merge with current settings
         $current = $settingsService->get('apps/store/database/default', array());
+        foreach ($current as $key => $value) {
+            if (null === $value && array_key_exists($key, $defaults)) {
+                unset($current[$key]);
+            }
+        }
         $settingsService->set('apps/store/database/default', array_merge($defaults, $current));
+        $current = $settingsService->get('apps/store/database/default', array());
 
         if (!defined('DB_PREFIX')) define('DB_PREFIX', $current['prefix']);
 
@@ -159,7 +165,7 @@ class ZenCartBundle extends Bundle {
         }
 
         // save
-        if (null != $folder) {
+        if (null != $folder && defined('ZENMAGICK_CONFIG_GROUP_ID')) {
             $configService->createConfigValue('zencart admin folder', self::ZENCART_ADMIN_FOLDER, $folder, ZENMAGICK_CONFIG_GROUP_ID);
         }
         return $folder;

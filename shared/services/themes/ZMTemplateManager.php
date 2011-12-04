@@ -127,7 +127,7 @@ class ZMTemplateManager extends ZMObject {
                   AND layout_template = :themeId
                 ORDER BY layout_box_sort_order";
         $boxes = array();
-        foreach (ZMRuntime::getDatabase()->query($sql, array('themeId' => $this->container->get('themeService')->getActiveTheme()->getThemeId()), TABLE_LAYOUT_BOXES) as $boxInfo) {
+        foreach (ZMRuntime::getDatabase()->query($sql, array('themeId' => $this->container->get('themeService')->getActiveTheme()->getThemeId()), 'layout_boxes') as $boxInfo) {
             // boxes use .php
             $box = str_replace('.php', ZMSettings::get('zenmagick.mvc.templates.ext'), $boxInfo['name']);
             $boxes[] = $box;
@@ -152,7 +152,7 @@ class ZMTemplateManager extends ZMObject {
                   AND layout_template = :themeId
                 ORDER BY layout_box_sort_order";
         $boxes = array();
-        foreach (ZMRuntime::getDatabase()->query($sql, array('themeId' => $this->container->get('themeService')->getActiveTheme()->getThemeId()), TABLE_LAYOUT_BOXES) as $boxInfo) {
+        foreach (ZMRuntime::getDatabase()->query($sql, array('themeId' => $this->container->get('themeService')->getActiveTheme()->getThemeId()), 'layout_boxes') as $boxInfo) {
             // boxes use .php
             $box = str_replace('.php', ZMSettings::get('zenmagick.mvc.templates.ext'), $boxInfo['name']);
             $boxes[] = $box;
@@ -189,13 +189,13 @@ class ZMTemplateManager extends ZMObject {
         $sql = "SELECT products_type
                 FROM " . TABLE_PRODUCTS . "
                 WHERE products_id = :productId";
-        $result = ZMRuntime::getDatabase()->querySingle($sql, array('productId' => $productId), TABLE_PRODUCTS);
+        $result = ZMRuntime::getDatabase()->querySingle($sql, array('productId' => $productId), 'products');
         if (null !== $result) {
             $typeId = $result['type'];
             $sql = "SELECT type_handler
                     FROM " . TABLE_PRODUCT_TYPES . "
                     WHERE type_id = :id";
-            $result = ZMRuntime::getDatabase()->querySingle($sql, array('id' => $typeId), TABLE_PRODUCT_TYPES);
+            $result = ZMRuntime::getDatabase()->querySingle($sql, array('id' => $typeId), 'product_types');
             if (null !== $result) {
                 $template = $result['handler'];
             }

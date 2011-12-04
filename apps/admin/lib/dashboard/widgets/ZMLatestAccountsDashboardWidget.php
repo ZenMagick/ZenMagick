@@ -31,17 +31,9 @@ class ZMLatestAccountsDashboardWidget extends ZMDashboardWidget {
 
     /**
      * Create new user.
-     *
      */
-    function __construct() {
+    public function __construct() {
         parent::__construct(_zm('Latest Accounts'));
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
     }
 
 

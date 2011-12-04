@@ -31,17 +31,9 @@ class ZMUpdateCheckerDashboardWidget extends ZMDashboardWidget {
 
     /**
      * Create new user.
-     * 
      */
-    function __construct() {
+    public function __construct() {
         parent::__construct(_zm('Update Checker'));
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
     }
 
 
@@ -74,7 +66,7 @@ class ZMUpdateCheckerDashboardWidget extends ZMDashboardWidget {
                   $('#update-checker').html('You are using the latest version. Current version is: '+current);
               }
           },
-          failure: function() { 
+          failure: function() {
               $('#update-checker').html('Could not connect to update server.');
           }
       });

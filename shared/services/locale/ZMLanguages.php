@@ -36,21 +36,6 @@ class ZMLanguages extends ZMObject {
 
 
     /**
-     * Create new instance.
-     */
-    function __construct() {
-        parent::__construct();
-        $this->languages = null;
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
-
-    /**
      * Get instance.
      */
     public static function instance() {
@@ -61,12 +46,12 @@ class ZMLanguages extends ZMObject {
     /**
      * Load languages.
      */
-    function _load() {
+    protected function load() {
         $sql = "SELECT *
                 FROM " . TABLE_LANGUAGES . "
                 ORDER BY sort_order";
         $this->languages = array();
-        foreach (ZMRuntime::getDatabase()->query($sql, array(), TABLE_LANGUAGES, 'ZMLanguage') as $language) {
+        foreach (ZMRuntime::getDatabase()->query($sql, array(), 'languages', 'ZMLanguage') as $language) {
             $this->languages[$language->getCode()] = $language;
         }
     }
@@ -76,9 +61,9 @@ class ZMLanguages extends ZMObject {
      *
      * @return array List of <code>ZMLanguage</code> instances.
      */
-    function getLanguages() {
+    public function getLanguages() {
         if (null === $this->languages) {
-            $this->_load();
+            $this->load();
         }
 
         return $this->languages;
@@ -90,9 +75,9 @@ class ZMLanguages extends ZMObject {
      * @param string code The language code.
      * @return ZMLanguage A language or <code>null</code>.
      */
-    function getLanguageForCode($code) {
+    public function getLanguageForCode($code) {
         if (null === $this->languages) {
-            $this->_load();
+            $this->load();
         }
 
         return isset($this->languages[$code]) ? $this->languages[$code] : null;
@@ -104,9 +89,9 @@ class ZMLanguages extends ZMObject {
      * @param int id The language id.
      * @return ZMLanguage A language or <code>null</code>.
      */
-    function getLanguageForId($id) {
+    public function getLanguageForId($id) {
         if (null === $this->languages) {
-            $this->_load();
+            $this->load();
         }
 
         foreach ($this->languages as $language) {
@@ -124,7 +109,7 @@ class ZMLanguages extends ZMObject {
      * @return ZMLanguage The default language for this store.
      */
     public static function getDefaultLanguage() {
-        $this->container->get('languageService')->getLanguageForId(ZMSettings::get('storeDefaultLanguageId'));
+        return Runtime::getContainer()->get('languageService')->getLanguageForId(Runtime::getSettings()->get('storeDefaultLanguageId'));
     }
 
 }

@@ -89,7 +89,7 @@ class ZMConfig extends ZMObject {
             "useFunction" => $useFunction,
             "setFunction" => $setFunction
         );
-        ZMRuntime::getDatabase()->update($sql, $args, TABLE_CONFIGURATION);
+        ZMRuntime::getDatabase()->update($sql, $args, 'configuration');
     }
 
     /**
@@ -103,7 +103,7 @@ class ZMConfig extends ZMObject {
                 SET configuration_value = :value
                 WHERE configuration_key = :key";
         $args = array("key" => $key, "value" => $value);
-        ZMRuntime::getDatabase()->update($sql, $args, TABLE_CONFIGURATION);
+        ZMRuntime::getDatabase()->update($sql, $args, 'configuration');
     }
 
     /**
@@ -274,7 +274,7 @@ class ZMConfig extends ZMObject {
                 WHERE configuration_key like :key
                 ORDER BY sort_order, configuration_id";
         $args = array('key' => $pattern);
-        $values = ZMRuntime::getDatabase()->query($sql, $args, TABLE_CONFIGURATION);
+        $values = ZMRuntime::getDatabase()->query($sql, $args, 'configuration');
         return $this->buildObjects($values);
     }
 
@@ -290,7 +290,7 @@ class ZMConfig extends ZMObject {
                 WHERE configuration_group_id like :groupId
                 ORDER BY sort_order, configuration_id";
         $args = array('groupId' => $groupId);
-        $values = ZMRuntime::getDatabase()->query($sql, $args, TABLE_CONFIGURATION);
+        $values = ZMRuntime::getDatabase()->query($sql, $args, 'configuration');
         return $this->buildObjects($values);
     }
 
@@ -302,7 +302,7 @@ class ZMConfig extends ZMObject {
     public function removeConfigValue($key) {
         $sql = "DELETE FROM " . TABLE_CONFIGURATION . "
                 WHERE configuration_key = :key";
-        ZMRuntime::getDatabase()->update($sql, array('key' => $key), TABLE_CONFIGURATION);
+        ZMRuntime::getDatabase()->update($sql, array('key' => $key), 'configuration');
     }
 
     /**
@@ -313,7 +313,7 @@ class ZMConfig extends ZMObject {
     public function removeConfigValues($pattern) {
         $sql = "DELETE FROM " . TABLE_CONFIGURATION . "
                 WHERE configuration_key like :key";
-        ZMRuntime::getDatabase()->update($sql, array('key' => $pattern), TABLE_CONFIGURATION);
+        ZMRuntime::getDatabase()->update($sql, array('key' => $pattern), 'configuration');
     }
 
     /**
@@ -326,7 +326,7 @@ class ZMConfig extends ZMObject {
         $sql = "SELECT *
                 FROM " . TABLE_CONFIGURATION_GROUP . "
                 WHERE configuration_group_id = :id";
-        return ZMRuntime::getDatabase()->querySingle($sql, array('id' => $groupId), TABLE_CONFIGURATION_GROUP, 'ZMConfigGroup');
+        return ZMRuntime::getDatabase()->querySingle($sql, array('id' => $groupId), 'configuration_group', 'ZMConfigGroup');
     }
 
     /**
@@ -338,7 +338,7 @@ class ZMConfig extends ZMObject {
         $sql = "SELECT *
                 FROM " . TABLE_CONFIGURATION_GROUP . "
                 ORDER BY sort_order";
-        return ZMRuntime::getDatabase()->query($sql, array(), TABLE_CONFIGURATION_GROUP, 'ZMConfigGroup');
+        return ZMRuntime::getDatabase()->query($sql, array(), 'configuration_group', 'ZMConfigGroup');
     }
 
     /**

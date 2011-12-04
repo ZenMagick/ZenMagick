@@ -157,12 +157,12 @@ class ZMThemes extends ZMObject {
             $sql = "SELECT *
                     FROM " . TABLE_TEMPLATE_SELECT . "
                     WHERE template_language = :languageId";
-            $result = ZMRuntime::getDatabase()->querySingle($sql, array('languageId' => $languageId), TABLE_TEMPLATE_SELECT);
+            $result = ZMRuntime::getDatabase()->querySingle($sql, array('languageId' => $languageId), 'template_select');
             if (null === $result) {
                 $sql = "SELECT *
                         FROM " . TABLE_TEMPLATE_SELECT . "
                         WHERE template_language = 0";
-                $result = ZMRuntime::getDatabase()->querySingle($sql, array('languageId' => $languageId), TABLE_TEMPLATE_SELECT);
+                $result = ZMRuntime::getDatabase()->querySingle($sql, array('languageId' => $languageId), 'template_select');
             }
 
             // fill the chain
@@ -280,14 +280,14 @@ class ZMThemes extends ZMObject {
         $sql = "SELECT *
                 FROM " . TABLE_TEMPLATE_SELECT . "
                 WHERE template_language = :languageId";
-        $result = ZMRuntime::getDatabase()->querySingle($sql, array('languageId' => $languageId), TABLE_TEMPLATE_SELECT);
+        $result = ZMRuntime::getDatabase()->querySingle($sql, array('languageId' => $languageId), 'template_select');
         if (null !== $result) {
             $themeId = $result['themeId'];
         } else {
             $sql = "SELECT *
                     FROM " . TABLE_TEMPLATE_SELECT . "
                     WHERE template_language = 0";
-            $result = ZMRuntime::getDatabase()->querySingle($sql, array('languageId' => $languageId), TABLE_TEMPLATE_SELECT);
+            $result = ZMRuntime::getDatabase()->querySingle($sql, array('languageId' => $languageId), 'template_select');
             $themeId = $result['themeId'];
         }
 
@@ -303,7 +303,7 @@ class ZMThemes extends ZMObject {
     public function getThemeConfigList() {
         $sql = "SELECT *
                 FROM " . TABLE_TEMPLATE_SELECT;
-        return ZMRuntime::getDatabase()->query($sql, array(), TABLE_TEMPLATE_SELECT, 'ZMObject');
+        return ZMRuntime::getDatabase()->query($sql, array(), 'template_select', 'ZMObject');
     }
 
     /**

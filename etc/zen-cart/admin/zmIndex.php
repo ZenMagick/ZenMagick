@@ -60,7 +60,7 @@ use zenmagick\http\sacs\SacsManager;
 <html <?php echo HTML_PARAMS; ?>>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=<?php echo CHARSET; ?>">
-    <title>ZenMagick Admin :: <?php echo $request->getToolbox()->metaTags->getTitle() ?></title>
+    <title>ZenMagick Admin :: Installation</title>
     <link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
     <link rel="stylesheet" type="text/css" href="content/zenmagick.css">
     <link rel="stylesheet" type="text/css" href="content/jquery/jquery.treeview.css">
