@@ -112,7 +112,7 @@ class ZMStoreStatusDashboardWidget extends ZMDashboardWidget {
     //Any non released gift vouchers
 
         // payment module test modes
-        if (defined('MODULE_PAYMENT_PAYPAL_IPN_DEBUG') && (MODULE_PAYMENT_PAYPAL_IPN_DEBUG == 'true' || MODULE_PAYMENT_PAYPAL_TESTING == 'Test')) {
+        if (defined('MODULE_PAYMENT_PAYPAL_IPN_DEBUG') && defined('MODULE_PAYMENT_PAYPAL_TESTING') && (MODULE_PAYMENT_PAYPAL_IPN_DEBUG == 'true' || MODULE_PAYMENT_PAYPAL_TESTING == 'Test')) {
             $messages[] = array(self::STATUS_NOTICE, _zm('PayPal is in testing mode.'));
         }
         if ((defined('MODULE_PAYMENT_AUTHORIZENET_AIM_STATUS') && MODULE_PAYMENT_AUTHORIZENET_AIM_STATUS == 'True'
