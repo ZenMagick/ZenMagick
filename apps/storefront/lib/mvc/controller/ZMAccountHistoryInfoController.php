@@ -59,6 +59,11 @@ class ZMAccountHistoryInfoController extends ZMController {
         $request->getToolbox()->crumbtrail->addCrumb("Order # ".$request->getOrderId());
 
         $order = $this->container->get('orderService')->getOrderForId($request->getOrderId(), $request->getSession()->getLanguageId());
+        $account = $request->getAccount();
+        if ($account->getId() != $order->getAccountId()) {
+            $this->messageService->error(_zm('Order not found'));
+            return $this->findView('error');
+        }
 
         return $this->findView(null, array('currentOrder' => $order));
     }

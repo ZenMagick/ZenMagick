@@ -50,8 +50,10 @@ class ZMShoppingCart extends ZMObject {
      */
     function __construct() {
         parent::__construct();
-        $this->cart_ = $_SESSION['cart'];
         $this->session = Runtime::getContainer()->get('session');
+        $cart = $this->session->getValue('cart');
+        // TODO: quick fix using 'new' until we drop zencart's shopping cart class altogether
+        $this->cart_ = (null != $cart) ? $cart : new shoppingCart;
         // TODO: remove
         $comments = $this->session->getValue('comments');
         $this->setComments(null !== $comments ? $comments : '');
@@ -177,7 +179,7 @@ class ZMShoppingCart extends ZMObject {
                 }
             }
 
-            if ($this->container->get('settingsService')->get('.apps.store.assertZencart', false)) {
+            if ($this->container->get('settingsService')->get('apps.store.assertZencart', false)) {
                 foreach ($this->items_ as $item) {
                     $itemId = $item->getId();
                     if ($this->cart_->get_quantity($itemId) != $this->getItemQuantityFor($itemId, false)) {

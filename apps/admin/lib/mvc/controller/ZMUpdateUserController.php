@@ -86,8 +86,8 @@ class ZMUpdateUserController extends ZMController {
     /**
      * {@inheritDoc}
      */
-    public function getFormData($request) {
-        $updateUser = parent::getFormData($request);
+    public function getFormData($request, $formDef=null, $formId=null) {
+        $updateUser = parent::getFormData($request, $formDef, $formId);
         if (!$this->isFormSubmit($request)) {
             // prepopulate with current data
             $user = $request->getUser();
