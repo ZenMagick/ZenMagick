@@ -34,6 +34,7 @@ class TestZMShippingProviders extends ZMTestCase {
      * Test get provider.
      */
     public function testGetProvider() {
+        $el = error_reporting(0);
         $providers = $this->container->get('shippingProviderService')->getShippingProviders(true);
         $address = Beans::getBean('ZMAddress');
         $address->setCountryId(153);
@@ -47,6 +48,7 @@ class TestZMShippingProviders extends ZMTestCase {
                 echo "&nbsp; taxRate: ".$shippingMethod->getTaxRate(). ", cost: ".$shippingMethod->getCost()."<BR>";
             }
         }
+        error_reporting($el);
     }
 
 }

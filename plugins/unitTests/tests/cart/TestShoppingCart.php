@@ -68,6 +68,7 @@ class TestShoppingCart extends ZMTestCase {
      */
     protected function compareValues_Wrapper_Service($ids) {
         $referenceCart = new ZMShoppingCart();
+        $referenceCart->setContainer($this->container);
         $qty = 5;
         foreach ($ids as $id) {
             $referenceCart->addProduct($id, $qty);
@@ -95,6 +96,7 @@ class TestShoppingCart extends ZMTestCase {
     protected function compareValues_Service_Order($ids) {
         // use to add products
         $referenceCart = new ZMShoppingCart();
+        $referenceCart->setContainer($this->container);
         $qty = 5;
         foreach ($ids as $id) {
             $referenceCart->addProduct($id, $qty);
@@ -138,27 +140,65 @@ class TestShoppingCart extends ZMTestCase {
     /**
      * Test products comparing wrapper and service data.
      */
-    public function testProductsWS() {
-        $this->compareRange(1, 200, 'compareValues_Wrapper_Service');
+    public function testProductsWS1() {
+        $this->compareRange(1, 50, 'compareValues_Wrapper_Service');
+    }
+
+    /**
+     * Test products comparing wrapper and service data.
+     */
+    public function testProductsWS2() {
+        $this->compareRange(51, 100, 'compareValues_Wrapper_Service');
+    }
+
+    /**
+     * Test products comparing wrapper and service data.
+     */
+    public function testProductsWS3() {
+        $this->compareRange(101, 150, 'compareValues_Wrapper_Service');
+    }
+
+    /**
+     * Test products comparing wrapper and service data.
+     */
+    public function testProductsWS4() {
+        $this->compareRange(151, 200, 'compareValues_Wrapper_Service');
     }
 
     /**
      * Test products comparing service and order data.
      */
-    public function testProductsSO() {
-        //TODO
-        $this->skip('broken'); return;
-        $this->compareRange(1, 1, 'compareValues_Service_Order');
+    public function testProductsSO1() {
+        $this->compareRange(1, 50, 'compareValues_Service_Order');
+    }
+
+    /**
+     * Test products comparing service and order data.
+     */
+    public function testProductsSO2() {
+        $this->compareRange(51, 100, 'compareValues_Service_Order');
+    }
+
+    /**
+     * Test products comparing service and order data.
+     */
+    public function testProductsSO3() {
+        $this->compareRange(101, 150, 'compareValues_Service_Order');
+    }
+
+    /**
+     * Test products comparing service and order data.
+     */
+    public function testProductsSO4() {
+        $this->compareRange(151, 200, 'compareValues_Service_Order');
     }
 
     /**
      * Test change quantity.
      */
     public function testChangeQty() {
-        //TODO: does not work with zc underneath
-        $this->skip('later'); return;
-
         $shoppingCart = new ZMShoppingCart();
+        $shoppingCart->setContainer($this->container);
         $shoppingCart->addProduct(12, 3);
 
         $items = $shoppingCart->getItems();

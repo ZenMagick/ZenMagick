@@ -25,6 +25,7 @@
 
 use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
+use zenmagick\base\ZMObject;
 
 /**
  * Shopping cart service.
@@ -40,20 +41,6 @@ use zenmagick\base\Runtime;
  * @package zenmagick.store.shared.services.checkout
  */
 class ZMShoppingCarts extends ZMObject {
-
-    /**
-     * Create new instance.
-     */
-    function __construct() {
-        parent::__construct();
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
 
     /**
      * Get instance.
@@ -145,6 +132,7 @@ class ZMShoppingCarts extends ZMObject {
         }
 
         $shoppingCart = Beans::getBean('ZMShoppingCart');
+        $shoppingCart->setContainer($this->container);
         $items = array();
 
         $sql = "SELECT * FROM " . TABLE_CUSTOMERS_BASKET . "

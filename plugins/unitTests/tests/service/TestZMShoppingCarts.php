@@ -82,7 +82,7 @@ class TestZMShoppingCarts extends ZMTestCase {
         $cartDump = $this->dumpCart($shoppingCart);
         $_SESSION['cart']->reset(false);
         $_SESSION['cart']->restore_contents();
-        $loadedCartDump = $this->dumpCart(new ZMShoppingCart());
+        $loadedCartDump = $this->dumpCart($shoppingCart);
         $this->assertEqual($cartDump, $loadedCartDump);
     }
 

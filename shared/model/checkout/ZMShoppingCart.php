@@ -48,7 +48,7 @@ class ZMShoppingCart extends ZMObject {
     /**
      * Create new instance.
      */
-    function __construct() {
+    public function __construct() {
         parent::__construct();
         $this->session = Runtime::getContainer()->get('session');
         $cart = $this->session->getValue('cart');
@@ -64,13 +64,6 @@ class ZMShoppingCart extends ZMObject {
         $this->helper_ = new ZMCheckoutHelper($this);
         $this->helper_->setContainer(Runtime::getContainer());
         $this->selectedPaymentType_ = null;
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
     }
 
 
@@ -157,7 +150,7 @@ class ZMShoppingCart extends ZMObject {
         $this->zenTotals_ = null;
 
         $this->items_ = $items;
-        foreach ($this->items as $item) {
+        foreach ($this->items_ as $item) {
             $item->setShoppingCart($this);
         }
     }

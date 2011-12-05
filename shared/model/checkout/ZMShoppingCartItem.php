@@ -50,7 +50,7 @@ class ZMShoppingCartItem extends ZMObject {
      * @param ZMShoppingCart shoppingCart The cart this item belongs to.
      * @param array zenItem The zen-cart shopping item infos.
      */
-    function __construct(ZMShoppingCart $shoppingCart, $zenItem=null) {
+    public function __construct(ZMShoppingCart $shoppingCart=null, $zenItem=null) {
         parent::__construct();
         $this->shoppingCart = $shoppingCart;
         $this->id_ = null;
@@ -65,13 +65,6 @@ class ZMShoppingCartItem extends ZMObject {
             $this->setOneTimeCharge($zenItem['onetime_charges']);
             $this->populateAttributes($zenItem);
         }
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
     }
 
 
