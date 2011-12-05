@@ -6,3 +6,15 @@ admin,storefront:
         scope: container
         tags:
           - { name: apps.store.associations.handler }
+
+      adminUserPrefService:
+        class: ZMAdminUserPrefs
+        scope: container
+
+      adminUserRoleService:
+        class: ZMAdminUserRoles
+        scope: container
+
+      adminUserService:
+        class: ZMAdminUsers
+        scope: container
