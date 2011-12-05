@@ -46,6 +46,13 @@ class YamlLoader extends YamlFileLoader {
 
     /**
      * {@inheritDoc}
+     */
+    protected function addResource($path) {
+        // nothing
+    }
+
+    /**
+     * {@inheritDoc}
      *
      * <p>Just return the given yaml.</p>
      */
