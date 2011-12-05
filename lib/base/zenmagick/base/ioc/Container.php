@@ -47,9 +47,7 @@ class Container extends ContainerBuilder {
     public function __construct(ParameterBagInterface $parameterBag=null) {
         parent::__construct(null == $parameterBag? new SettingsParameterBag() : new SettingsParameterBag($parameterBag->all()));
         $this->services_ = array();
-        //$this->getCompilerPassConfig()->addPass(new ResolveMergeDefinitionsPass());
-        //XXX: quck hack to make things work with the updated doctrine code - ORM will not work with this!
-        $this->getCompilerPassConfig()->setMergePass(new ResolveMergeDefinitionsPass());
+        $this->getCompilerPassConfig()->addPass(new ResolveMergeDefinitionsPass());
     }
 
     /**
