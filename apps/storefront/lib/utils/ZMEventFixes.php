@@ -75,7 +75,7 @@ class ZMEventFixes extends ZMObject {
         $request = $event->get('request');
 
         // skip more zc request handling
-        if (!$this->needsZC($request) && ZMSettings::get('isEnableZMThemes', true)) {
+        if (!$this->needsZC($request) && ZMSettings::get('isEnableZMThemes', false)) {
         global $code_page_directory;
             $code_page_directory = 'zenmagick';
         }
