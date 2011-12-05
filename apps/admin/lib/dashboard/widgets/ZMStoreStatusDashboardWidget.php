@@ -54,7 +54,7 @@ class ZMStoreStatusDashboardWidget extends ZMDashboardWidget {
         // build status list
         $installDir = realpath(dirname(Runtime::getInstallationPath()).'/zc_install');
         if (is_dir($installDir)) { $messages[] = array(self::STATUS_NOTICE, sprintf(_zm('Installation directory exists at: %s. Please remove this directory for security reasons.'), $installDir)); }
-/*
+
         $configure = realpath(dirname(Runtime::getInstallationPath()).'/includes/configure.php');
         if (file_exists($configure) && is_writeable($configure)) {
             $messages[] = array(self::STATUS_WARN, sprintf(_zm('Store configuration file: %s should be read-only.'), $configure));
@@ -77,7 +77,6 @@ class ZMStoreStatusDashboardWidget extends ZMDashboardWidget {
             }
         }
 
- */
         $result = ZMRuntime::getDatabase()->querySingle('SELECT COUNT(log_id) AS counter from '. DB_PREFIX . 'admin_activity_log', array(), 'admin_activity_log');
         if (0 < $result['counter']) {
             $reset = null;
@@ -107,6 +106,11 @@ class ZMStoreStatusDashboardWidget extends ZMDashboardWidget {
                   }
               }
             }
+        }
+
+        if (null != ($results = ZMRuntime::getDatabase()->query('SELECT * FROM ' . TABLE_COUPON_GV_QUEUE . ' where release_flag = "N"')) && 0 < count($results)) {
+            $url = '<a href="'.$request->url('zc_admin', 'zpid=gv_queue').'">'._zm('gift queue').'</a>';
+            $messages[] = array(self::STATUS_NOTICE, sprintf(_zm('%s item(s) in %s waiting for approval.'), count($results), $url));
         }
 
         // payment module test modes
