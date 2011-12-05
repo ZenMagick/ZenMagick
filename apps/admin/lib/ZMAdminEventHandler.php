@@ -106,6 +106,10 @@ class ZMAdminEventHandler extends ZMObject {
                 $legacyConfig->addChild($element);
             }
         }
+
+        if (null != ($timeLimit = $this->container->get('configService')->getConfigValue('GLOBAL_SET_TIME_LIMIT'))) {
+            set_time_limit($timeLimit->getValue());
+        }
     }
 
     /**
