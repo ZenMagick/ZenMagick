@@ -20,6 +20,9 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
+
+
 define('_ZM_ZEN_CUSTOMERS_PHP', ZC_INSTALL_PATH.ZC_ADMIN_FOLDER.'/customers.php');
 
 /**
@@ -33,15 +36,8 @@ class ZMCustomerEditPatch extends ZMFilePatch {
     /**
      * Create new instance.
      */
-    function __construct() {
+    public function __construct() {
         parent::__construct('customerEdit');
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
     }
 
 
