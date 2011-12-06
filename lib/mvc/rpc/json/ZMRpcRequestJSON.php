@@ -25,7 +25,7 @@ use zenmagick\base\Runtime;
 /**
  * RPC request using JSON.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.mvc.rpc.json
  */
 class ZMRpcRequestJSON implements ZMRpcRequest {

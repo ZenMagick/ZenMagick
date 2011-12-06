@@ -27,7 +27,7 @@ use zenmagick\base\logging\Logging;
  * FirePHP support for ZenMagick.
  *
  * @package org.zenmagick.plugins.firePHP
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  */
 class ZMFirePHPPlugin extends Plugin {
 

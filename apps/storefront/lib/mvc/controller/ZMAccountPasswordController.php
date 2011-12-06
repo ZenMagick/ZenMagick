@@ -29,7 +29,7 @@ use zenmagick\base\events\Event;
 /**
  * Request controller for account password page.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.store.sf.mvc.controller
  */
 class ZMAccountPasswordController extends ZMController {

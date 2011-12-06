@@ -29,7 +29,7 @@ define('UNIT_TESTS_GROUP_OTHER', '@other');
  * Unit testing.
  *
  * @package org.zenmagick.plugins.unitTests
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  */
 class ZMUnitTestsPlugin extends Plugin {
     private $tests_;

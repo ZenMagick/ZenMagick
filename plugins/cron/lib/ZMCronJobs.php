@@ -26,7 +26,7 @@ use zenmagick\base\Runtime;
 /**
  * A cron service.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.plugins.cron
  */
 class ZMCronJobs extends ZMObject {

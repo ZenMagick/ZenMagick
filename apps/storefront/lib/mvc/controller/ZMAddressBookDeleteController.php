@@ -27,7 +27,7 @@
 /**
  * Request controller to delete addressbook entry (address).
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.store.sf.mvc.controller
  */
 class ZMAddressBookDeleteController extends ZMController {

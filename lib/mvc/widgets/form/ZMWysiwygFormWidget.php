@@ -26,7 +26,7 @@ use zenmagick\base\Beans;
  * A wysiwyg form widget.
  *
  * <p>Will act like the configured default wysiwyg widget.</p>
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.mvc.widgets.form
  */
 class ZMWysiwygFormWidget extends ZMFormWidget {

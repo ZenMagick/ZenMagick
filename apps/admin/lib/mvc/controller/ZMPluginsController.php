@@ -26,7 +26,7 @@ use zenmagick\base\logging\Logging;
 /**
  * Admin controller for plugins.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.store.admin.mvc.controller
  */
 class ZMPluginsController extends ZMController {

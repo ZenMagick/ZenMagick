@@ -28,7 +28,7 @@ define('Auth_OpenID_RAND_SOURCE', null);
  * Support for OpenID.
  *
  * @package org.zenmagick.plugins.openID
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  */
 class ZMOpenIDPlugin extends Plugin {
 

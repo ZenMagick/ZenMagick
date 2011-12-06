@@ -29,7 +29,7 @@ use zenmagick\base\Runtime;
  * means the generic <em>options</em> propert may be used to set custom options that will show
  * up at the top of the list.</p>
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.store.admin.mvc.widgets
  */
 class ZMEditorSelectFormWidget extends ZMSelectFormWidget {

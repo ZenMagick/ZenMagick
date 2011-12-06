@@ -24,7 +24,7 @@
  * A UI plugin to manage (custom) settings.
  *
  * @package org.zenmagick.plugins.settings
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  */
 class ZMSettingsPlugin extends Plugin {
 

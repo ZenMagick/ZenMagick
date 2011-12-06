@@ -26,7 +26,7 @@ use zenmagick\http\sacs\SacsManager;
  * Test SACS manager
  *
  * @package org.zenmagick.plugins.unitTests.tests
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  */
 class TestSacsManager extends ZMTestCase {
 

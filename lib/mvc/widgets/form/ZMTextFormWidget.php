@@ -24,7 +24,7 @@
 /**
  * A single line text input form widget.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.mvc.widgets.form
  */
 class ZMTextFormWidget extends ZMFormWidget {

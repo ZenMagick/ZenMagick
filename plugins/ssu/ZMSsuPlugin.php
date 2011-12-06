@@ -26,7 +26,7 @@ use zenmagick\base\Runtime;
  * Plugin for Simple SEO URL support.
  *
  * @package org.zenmagick.plugins.zm_ssu
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  */
 class ZMSsuPlugin extends Plugin {
 

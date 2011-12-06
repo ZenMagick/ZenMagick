@@ -27,7 +27,7 @@ use zenmagick\base\events\Event;
 /**
  * A cron job to create new subscription orders.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.plugins.subscriptions
  */
 class ZMUpdateSubscriptionsCronJob implements ZMCronJob {

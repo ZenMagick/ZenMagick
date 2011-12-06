@@ -25,7 +25,7 @@
  * CKEditor textarea form widget.
  *
  * @package org.zenmagick.plugins.ckEditor
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  */
 class ZMCkEditorFormWidget extends ZMTextAreaFormWidget implements WysiwygEditor {
     private $plugin_;

@@ -26,7 +26,7 @@
  *
  * <p>Right now, result lists may be sorted with a single sorter only.</p>
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.mvc.resultlist
  */
 class ZMResultListSorter extends ZMObject {

@@ -26,7 +26,7 @@ use zenmagick\base\Beans;
  * Test order service.
  *
  * @package org.zenmagick.plugins.unitTests.tests
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @todo create custom order and add specific asserts to test explicit data
  */
 class TestZMOrders extends ZMTestCase {

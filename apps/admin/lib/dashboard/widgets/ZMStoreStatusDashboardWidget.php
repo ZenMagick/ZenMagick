@@ -25,7 +25,7 @@ use zenmagick\base\Runtime;
 /**
  * Store status widget.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.store.admin.dashbord.widgets
  */
 class ZMStoreStatusDashboardWidget extends ZMDashboardWidget {

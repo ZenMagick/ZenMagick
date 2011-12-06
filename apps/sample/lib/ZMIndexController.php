@@ -24,7 +24,7 @@
 /**
  * Empty default controller.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.mvc.sample
  */
 class ZMIndexController extends ZMController {

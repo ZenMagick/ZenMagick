@@ -33,7 +33,7 @@ use \Symfony\Component\EventDispatcher\EventDispatcher as SymfonyEventDispatcher
  *  <li>Support for PHP callable.</li>
  * </ul>
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.base.events
  */
 class EventDispatcher extends SymfonyEventDispatcher {

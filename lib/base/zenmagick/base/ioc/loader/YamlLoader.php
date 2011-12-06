@@ -32,7 +32,7 @@ use Symfony\Component\Config\FileLocator;
  * <p>This class allows to load YAML strings into the container by <em>abusing</em> the <code>FileLocator</code> and a few other
  * bits of the symfony DI loader system.</p>
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.base.ioc.loader
  */
 class YamlLoader extends YamlFileLoader {

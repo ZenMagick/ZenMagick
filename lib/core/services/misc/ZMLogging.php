@@ -28,7 +28,7 @@ use zenmagick\base\logging\Logging;
  *
  * <p>Degraded to a compatibility/convenience wrapper around<code>\zenmagick\base\logging\Logging</code>.</p>
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org> <mano@zenmagick.org>
  * @package org.zenmagick.core.services.misc
  */
 class ZMLogging extends ZMObject {

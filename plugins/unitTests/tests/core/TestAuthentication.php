@@ -26,7 +26,7 @@ use zenmagick\base\Beans;
  * Test authentication.
  *
  * @package org.zenmagick.plugins.unitTests.tests
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  */
 class TestAuthentication extends ZMTestCase {
 

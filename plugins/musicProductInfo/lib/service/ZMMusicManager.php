@@ -29,7 +29,7 @@ use zenmagick\base\Runtime;
 /**
  * Music manager.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.plugins.zm_product_music_info.service
  */
 class ZMMusicManager extends ZMObject {

@@ -26,7 +26,7 @@ use zenmagick\http\session\UserFactory;
 /**
  * User factory for admin users.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.store.admin.provider
  */
 class ZMAdminUserFactory extends ZMObject implements UserFactory {

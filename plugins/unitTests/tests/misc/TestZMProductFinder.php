@@ -26,7 +26,7 @@ use zenmagick\base\Beans;
  * Test the product finder.
  *
  * @package org.zenmagick.plugins.unitTests.tests.misc
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  */
 class TestZMProductFinder extends ZMTestCase {
 

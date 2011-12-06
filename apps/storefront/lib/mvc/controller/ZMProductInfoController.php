@@ -27,7 +27,7 @@
 /**
  * Request controller for product details.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.store.sf.mvc.controller
  */
 class ZMProductInfoController extends ZMController {

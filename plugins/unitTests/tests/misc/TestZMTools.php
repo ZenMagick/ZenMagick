@@ -26,7 +26,7 @@ use zenmagick\base\Runtime;
  * Test ZMTools.
  *
  * @package org.zenmagick.plugins.unitTests.tests
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  */
 class TestZMTools extends ZMTestCase {
 

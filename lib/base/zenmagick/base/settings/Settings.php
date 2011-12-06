@@ -27,7 +27,7 @@ use zenmagick\base\Toolbox;
 /**
  * A hierarchical settings repository.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.base
  */
 class Settings {

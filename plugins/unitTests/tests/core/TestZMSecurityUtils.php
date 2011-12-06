@@ -24,7 +24,7 @@
  * Test ZMSecurityTools.
  *
  * @package org.zenmagick.plugins.unitTests.tests
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  */
 class TestZMSecurityUtils extends ZMTestCase {
 

@@ -28,7 +28,7 @@ use zenmagick\base\Runtime;
 /**
  * Patch to create zen-cart theme dummy files for all ZenMagick themes.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.store.admin.installation.patches.file
  */
 class ZMThemeDummyPatch extends \ZMFilePatch {

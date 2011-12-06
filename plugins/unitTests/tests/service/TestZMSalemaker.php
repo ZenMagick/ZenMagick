@@ -24,7 +24,7 @@
  * Test salemaker service.
  *
  * @package org.zenmagick.plugins.unitTests.tests
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  */
 class TestZMSalemaker extends ZMTestCase {
 

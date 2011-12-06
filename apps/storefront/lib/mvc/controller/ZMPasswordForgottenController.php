@@ -29,7 +29,7 @@ use zenmagick\base\events\Event;
 /**
  * Request controller for forgotten passwords.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.store.sf.mvc.controller
  */
 class ZMPasswordForgottenController extends ZMController {

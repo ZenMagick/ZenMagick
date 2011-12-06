@@ -30,7 +30,7 @@ use zenmagick\http\sacs\SacsManager;
 /**
  * Request controller base class.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.mvc.controller
  */
 class ZMController extends ZMObject {

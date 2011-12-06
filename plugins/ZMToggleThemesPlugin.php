@@ -29,7 +29,7 @@ use zenmagick\base\Runtime;
  * Allow users to toggle ZenMagick themes support.
  *
  * @package org.zenmagick.plugins
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  */
 class ZMToggleThemesPlugin extends Plugin {
     const SESS_THEME_TOGGLE_KEY = 'themeToggle';

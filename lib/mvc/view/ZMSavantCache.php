@@ -26,7 +26,7 @@
  *
  * <p>Implementations are free to cache individual Savant templates and their output.</p>
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.mvc.view
  */
 interface ZMSavantCache {

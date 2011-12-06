@@ -24,7 +24,7 @@
 /**
  * A password input form widget.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.mvc.widgets.form
  */
 class ZMPasswordFormWidget extends ZMTextFormWidget {

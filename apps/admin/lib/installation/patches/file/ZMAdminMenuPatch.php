@@ -28,7 +28,7 @@ define('_ZM_ZEN_ADMIN_FILE', ZC_INSTALL_PATH.ZC_ADMIN_FOLDER.'/includes/boxes/ex
 /**
  * Admin menu patch.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.store.admin.installation.patches.file
  */
 class ZMAdminMenuPatch extends ZMFilePatch {

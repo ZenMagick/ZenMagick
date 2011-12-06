@@ -24,7 +24,7 @@
 /**
  * Base result list filter.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.mvc.resultlist
  */
 class ZMResultListFilter extends ZMObject {

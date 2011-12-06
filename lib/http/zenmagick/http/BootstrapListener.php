@@ -31,7 +31,7 @@ use zenmagick\http\utils\ContextConfigLoader as HttpContextConfigLoader;
 /**
  * HTTP bootstrap listener.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.http
  */
 class BootstrapListener extends ZMObject {

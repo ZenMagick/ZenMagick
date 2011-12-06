@@ -26,7 +26,7 @@
  *
  * <p>This is mostly to match new and confirm password.</p>
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.mvc.validation.rules
  */
 class ZMFieldMatchRule extends ZMRule {

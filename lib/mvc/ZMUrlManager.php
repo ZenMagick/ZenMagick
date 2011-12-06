@@ -36,7 +36,7 @@ use zenmagick\base\logging\Logging;
  * <p>Mappings may be set explicitely via the <code>setMapping()</code> method. However, the
  * preferred way is to load mappings from a configuration (YAML) file.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.mvc
  */
 class ZMUrlManager extends ZMObject {

@@ -24,7 +24,7 @@
 /**
  * Recent searches dashboard widget.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.store.admin.dashbord.widgets
  */
 class ZMRecentSearchesDashboardWidget extends ZMDashboardWidget {

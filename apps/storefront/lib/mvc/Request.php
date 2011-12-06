@@ -32,7 +32,7 @@ use zenmagick\base\Runtime;
  * <p><strong>NOTE:</strong</strong> For the time of transition between static and instance
  * usage of request methods this will have a temp. name of <code>ZMRequest</code>.</p>
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.store.sf.mvc
  */
 class Request extends \ZMRequest {

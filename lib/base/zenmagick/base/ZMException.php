@@ -28,7 +28,7 @@ use zenmagick\base\logging\Logging;
 /**
  * Exception base class.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.base
  */
 class ZMException extends Exception {

@@ -45,7 +45,7 @@
  *  <dd>Generic code to allow to configure different context values where the plugin allowed; default is <code>null</code>.</dd>
  * </dl>
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org> <mano@zenmagick.org>
  * @package org.zenmagick.core.services.plugins
  */
 abstract class ZMPlugin extends ZMObject {

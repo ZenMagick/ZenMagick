@@ -28,7 +28,7 @@ use zenmagick\base\Runtime;
 /**
  * A basic, cookies only, session class.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.http.session
  * @todo allow to expire session after a given time (will need cookie update for each request)
  */

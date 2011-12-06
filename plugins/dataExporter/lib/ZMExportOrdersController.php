@@ -25,7 +25,7 @@ use zenmagick\base\Beans;
 /**
  * Export orders controller.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.plugins.dataExporter
  */
 class ZMExportOrdersController extends ZMController {

@@ -31,7 +31,7 @@ use zenmagick\http\rss\RssFeedGenerator;
  *
  * <p>Sources are registered via the container tag '<em>zenmagick.http.rss.source</em>'.</p>
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.mvc.controller
  */
 class ZMRssController extends ZMController {

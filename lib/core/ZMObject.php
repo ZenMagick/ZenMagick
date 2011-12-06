@@ -29,7 +29,7 @@
  * <p>Included is generic support for properties via <code>get($name)</code>, <code>set($name, $value)</code>
  * and, via the corresponding methods <code>__get($name)</code> and <code>__set($name,$value)</code>.</p>
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org> <mano@zenmagick.org>
  * @package org.zenmagick.core
  */
 class ZMObject extends zenmagick\base\ZMObject {

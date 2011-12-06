@@ -25,7 +25,7 @@ namespace zenmagick\base\cache;
 /**
  * Generic cache interface.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.base.cache
  */
 interface Cache {

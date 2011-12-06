@@ -25,7 +25,7 @@ namespace zenmagick\base\utils;
 /**
  * <code>Phar</code> builder for directories controlled by a <em>classloader.ini</em> file.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.base.utils
  */
 class ClassLoaderPharBuilder {

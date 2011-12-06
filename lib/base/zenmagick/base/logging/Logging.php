@@ -32,7 +32,7 @@ use zenmagick\base\Beans;
  *
  * <p>Logging calls will be dispatched to all <code>LoggingHandler</code> classes registered via the setting <em>'zenmagick.base.logging.handler'</em>.</p>
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.base.logging
  */
 class Logging {

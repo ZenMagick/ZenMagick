@@ -23,7 +23,7 @@
 /**
  * Paginate a query.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org> <mano@zenmagick.org>
  * @package org.zenmagick.core.services.database
  */
 class ZMQueryPager extends ZMObject {

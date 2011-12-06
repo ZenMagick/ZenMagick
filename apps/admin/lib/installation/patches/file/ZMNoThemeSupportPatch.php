@@ -28,7 +28,7 @@ define('_ZM_ZEN_APP_BOTTOM_PHP', ZC_INSTALL_PATH."includes/application_bottom.ph
 /**
  * Patch to enable ZenMagick without themes.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.store.admin.installation.patches.file
  */
 class ZMNoThemeSupportPatch extends ZMFilePatch {

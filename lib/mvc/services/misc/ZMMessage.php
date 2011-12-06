@@ -29,7 +29,7 @@
  *
  * <p><strong>Note:</strong> The message text is expected to be already localised.</p>
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.mvc.services.misc
  */
 class ZMMessage extends ZMObject {

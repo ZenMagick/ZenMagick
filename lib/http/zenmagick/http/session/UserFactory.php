@@ -25,7 +25,7 @@ namespace zenmagick\http\session;
 /**
  * Interface for factory classes that create session user objects for authentication.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.http.session
  */
 interface UserFactory {

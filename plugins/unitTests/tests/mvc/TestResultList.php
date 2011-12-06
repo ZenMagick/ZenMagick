@@ -26,7 +26,7 @@ use zenmagick\base\Beans;
  * Test simple result list handling.
  *
  * @package org.zenmagick.plugins.unitTests.tests.misc
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  */
 class TestResultList extends ZMTestCase {
 

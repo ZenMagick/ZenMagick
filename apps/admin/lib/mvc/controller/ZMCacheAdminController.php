@@ -25,7 +25,7 @@ use zenmagick\base\Runtime;
 /**
  * Admin controller for cache admin.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.store.admin.mvc.controller
  * @todo move hash calculation into controller
  */

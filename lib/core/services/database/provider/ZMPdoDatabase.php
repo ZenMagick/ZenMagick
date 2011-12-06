@@ -26,7 +26,7 @@ use zenmagick\base\Runtime;
 /**
  * Implementation of the ZenMagick database layer using <em>PDO</em> via <em>Doctrine DBAL</em>.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org> <mano@zenmagick.org>
  * @author Johnny Robeson <johnny@localmomentum.net>
  * @package org.zenmagick.core.services.database.provider
  */

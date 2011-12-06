@@ -26,7 +26,7 @@ use zenmagick\base\Beans;
  * Test <em>How did you hear about us</em> plugin.
  *
  * @package org.zenmagick.plugins.howDidYouHear
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  */
 class TestZMHowDidYouHear extends ZMTestCase {
     // test account data

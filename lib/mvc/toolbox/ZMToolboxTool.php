@@ -25,7 +25,7 @@ use zenmagick\base\ZMObject;
 /**
  * Toolbx tool base class.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.mvc.toolbox
  */
 class ZMToolboxTool extends ZMObject {

@@ -30,7 +30,7 @@ use phprules\RuleContext;
  * Manufacturer in shopping cart promotion condition.
  *
  * @package apps.store.promotions.conditions.cart
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  */
 class ManufacturerInCart extends CartPromotionElement {
 

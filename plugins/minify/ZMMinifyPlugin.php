@@ -27,7 +27,7 @@ use zenmagick\base\Runtime;
  * Plugin to use minify.
  *
  * @package org.zenmagick.plugins.minify
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  */
 class ZMMinifyPlugin extends Plugin {
 

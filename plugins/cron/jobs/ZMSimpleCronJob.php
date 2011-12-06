@@ -23,7 +23,7 @@
 /**
  * A simple cron job interface.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.plugins.cron
  */
 class ZMSimpleCronJob implements ZMCronJob {

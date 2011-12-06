@@ -27,7 +27,7 @@ use zenmagick\base\ZMObject;
 /**
  * A RSS feed channel.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.http.rss
  */
 class RssChannel extends ZMObject {

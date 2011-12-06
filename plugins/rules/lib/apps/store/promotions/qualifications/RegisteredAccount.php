@@ -29,7 +29,7 @@ use phprules\RuleContext;
  * Registered account promotion qualification.
  *
  * @package apps.store.promotions.qualifications
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  */
 class RegisteredAccount extends AbstractPromotionElement {
 

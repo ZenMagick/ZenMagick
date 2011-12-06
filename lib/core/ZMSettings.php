@@ -27,7 +27,7 @@ use Symfony\Component\Yaml\Yaml;
 /**
  * Settings (ZenMagick's configuration).
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org> <mano@zenmagick.org>
  * @package org.zenmagick.core
  */
 class ZMSettings {

@@ -28,7 +28,7 @@ use zenmagick\http\sacs\handler\UserRoleCredentials;
  * Test SACS manager
  *
  * @package org.zenmagick.plugins.unitTests.tests
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  */
 class TestZMZenCartAccountSacsHandler extends ZMTestCase {
 

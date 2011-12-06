@@ -28,7 +28,7 @@ use zenmagick\base\Runtime;
 /**
  * Request controller for product reviews pages.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.store.sf.mvc.controller
  */
 class ZMProductReviewsController extends ZMController {

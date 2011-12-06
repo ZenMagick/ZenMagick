@@ -24,7 +24,7 @@
 /**
  * Generic form handler controller.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.plugins.formHandler
  */
 class ZMFormHandlerController extends ZMController {

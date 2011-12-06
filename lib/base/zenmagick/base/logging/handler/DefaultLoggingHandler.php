@@ -33,7 +33,7 @@ use zenmagick\base\logging\LoggingHandler;
  *
  * <p>Simple logger writing to the <em>SAPI logging handler</em>.</p>
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.base.logging.handler
  */
 class DefaultLoggingHandler extends ZMObject implements LoggingHandler {

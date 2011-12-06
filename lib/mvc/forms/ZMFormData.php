@@ -33,7 +33,7 @@ use zenmagick\base\Beans;
  * with all request data. Custom implementations are free to override/extend <code>populate($request)</code> to hook
  * up their own population code.</p>
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.mvc.forms
  */
 class ZMFormData extends ZMObject {

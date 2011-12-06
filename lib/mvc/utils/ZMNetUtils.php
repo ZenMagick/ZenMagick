@@ -23,7 +23,7 @@
 /**
  * Networking utils.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.mvc.utils
  */
 class ZMNetUtils {

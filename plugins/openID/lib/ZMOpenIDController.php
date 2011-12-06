@@ -24,7 +24,7 @@
 /**
  * OpenID authentication controller.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.plugins.openID
  */
 class ZMOpenIDController extends ZMController {

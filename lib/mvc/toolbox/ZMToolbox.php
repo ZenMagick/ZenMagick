@@ -30,7 +30,7 @@ use Symfony\Component\DependencyInjection\ContainerAware;
  *
  * <p>Note that this class doesn't extend from ZMObject as it depends on dynamically created class properties.</p>
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.mvc.utils
  */
 class ZMToolbox {

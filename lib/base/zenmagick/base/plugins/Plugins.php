@@ -39,7 +39,7 @@ use zenmagick\base\events\Event;
  *  expected to be the same as the filename (without the <code>.php</code> extension).
  * <dl>
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.base.plugins
  */
 class Plugins {

@@ -25,7 +25,7 @@
  * Plugin to automtically generate emails based on account events.
  *
  * @package org.zenmagick.plugins.autoresponder
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  */
 class ZMAutoresponderPlugin extends Plugin {
     private $cookieUpdated;

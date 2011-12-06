@@ -29,7 +29,7 @@
  * by setting the current product for each row. That, in turn, is then used to
  * calculate the reserved quantity for the given product.</p>
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.store.admin.mvc.widgets
  */
 class ZMReservedQtyWidget extends ZMWidget {

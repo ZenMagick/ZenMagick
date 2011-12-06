@@ -36,7 +36,7 @@ use Symfony\Component\Yaml\Yaml;
  * <p>The implementation used can be configured via the setting 'zenmagick.core.locales.provider'. If none is
  *  configured, a default echo implementation will be used.</p>
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org> <mano@zenmagick.org>
  * @package org.zenmagick.core.services.locale
  */
 class ZMLocales extends \ZMObject {

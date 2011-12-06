@@ -25,7 +25,7 @@ namespace apps\store\promotions;
  * A promotion.
  *
  * @package apps.store.promotions
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  */
 class Promotion {
     private $name;

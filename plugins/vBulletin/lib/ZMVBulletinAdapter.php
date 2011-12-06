@@ -29,7 +29,7 @@ use zenmagick\base\ZMException;
  * <copde>ZMWrapperRule</code>.</p>
  *
  * @package org.zenmagick.plugins.vbulletin
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  */
 class ZMVBulletinAdapter extends ZMObject {
     private $database_;

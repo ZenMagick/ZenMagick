@@ -24,7 +24,7 @@
 /**
  * Admin controller for logoff page.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.store.admin.mvc.controller
  */
 class ZMLogoffController extends ZMController {

@@ -26,7 +26,7 @@ use zenmagick\base\Runtime;
 /**
  * Patch to create the theme variation column.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.store.admin.installation.patches.sql
  */
 class ZMThemeVariationPatch extends \ZMSQLPatch {

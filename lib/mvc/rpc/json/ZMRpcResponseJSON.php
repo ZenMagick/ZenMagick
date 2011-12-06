@@ -24,7 +24,7 @@
  * JSON RPC response.
  *
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.mvc.rpc.json
  */
 class ZMRpcResponseJSON implements ZMRpcResponse {

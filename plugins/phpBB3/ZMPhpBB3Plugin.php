@@ -25,7 +25,7 @@
  * Plugin to enable phpBB3 support in ZenMagick.
  *
  * @package org.zenmagick.plugins.phpbb3
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  */
 class ZMPhpBB3Plugin extends Plugin {
     private $page_;

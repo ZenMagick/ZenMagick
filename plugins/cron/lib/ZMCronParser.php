@@ -33,7 +33,7 @@
  *  <li><em>wday</em> and <em>mday</em> are always both applied (merged)</li>
  * </ul>
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.plugins.cron
  */
 class ZMCronParser {

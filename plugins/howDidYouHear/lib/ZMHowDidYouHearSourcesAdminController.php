@@ -25,7 +25,7 @@ use zenmagick\base\Runtime;
 /**
  * Sources admin.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.plugins.howDidYouHear
  */
 class ZMHowDidYouHearSourcesAdminController extends ZMController {

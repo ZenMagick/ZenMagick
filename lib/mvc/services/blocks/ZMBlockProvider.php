@@ -27,7 +27,7 @@
  * <p>Classes that manage blocks must implement this interface and tag
  * themselfs in the container as 'zenmagick.http.blocks.provider'.</p>
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.mvc.services.blocks
  */
 interface ZMBlockProvider {

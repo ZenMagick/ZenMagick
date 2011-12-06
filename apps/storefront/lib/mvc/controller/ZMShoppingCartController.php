@@ -28,7 +28,7 @@ use zenmagick\base\Runtime;
 /**
  * Request controller for shopping cart.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.store.sf.mvc.controller
  */
 class ZMShoppingCartController extends ZMController {

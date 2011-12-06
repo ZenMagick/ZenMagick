@@ -35,7 +35,7 @@ define('ZM_EVENT_PLUGINS_PAGE_CACHE_CONTENTS_DONE', 'plugins_page_cache_contents
  * Therefore it is essential that this plugin is configured to be the last to run.</p>
  *
  * @package org.zenmagick.plugins.pageCache
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  */
 class ZMPageCachePlugin extends \Plugin {
     private $cache_;

@@ -27,7 +27,7 @@
 /**
  * Empty default controller.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.store.sf.mvc.controller
  */
 class ZMDefaultController extends ZMController {

@@ -23,7 +23,7 @@
 /**
  * Packer for the <em>minify</em> library.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.mvc
  */
 class ZMMinifyPacker extends ZMPhpPackagePacker implements ZMLibraryPacker {

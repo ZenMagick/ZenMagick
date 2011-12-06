@@ -27,7 +27,7 @@ use Symfony\Component\Yaml\Yaml;
 /**
  * Abstract base class for <code>Locale</code> implementations.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org> <mano@zenmagick.org>
  * @package org.zenmagick.core.services.locale
  */
 abstract class ZMAbstractLocale extends \ZMObject implements \ZMLocale {

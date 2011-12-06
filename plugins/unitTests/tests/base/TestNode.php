@@ -30,7 +30,7 @@ use Symfony\Component\Yaml\Yaml;
  * Test Node.
  *
  * @package org.zenmagick.plugins.unitTests.tests
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  */
 class TestNode extends ZMTestCase {
 

@@ -25,7 +25,7 @@ use zenmagick\base\ZMObject;
 /**
  * Base implementation of the <code>ZMView</code> interface.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.mvc.view
  */
 abstract class ZMView extends ZMObject {

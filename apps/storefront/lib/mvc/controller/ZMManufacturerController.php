@@ -29,7 +29,7 @@ use zenmagick\base\Runtime;
 /**
  * Request controller for manufacturer.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.store.sf.mvc.controller
  */
 class ZMManufacturerController extends ZMController {

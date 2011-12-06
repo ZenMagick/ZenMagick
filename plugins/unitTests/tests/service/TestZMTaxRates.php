@@ -24,7 +24,7 @@
  * Test layout service.
  *
  * @package org.zenmagick.plugins.unitTests.tests
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  */
 class TestZMTaxRates extends ZMTestCase {
 

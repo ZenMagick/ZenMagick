@@ -27,7 +27,7 @@
 /**
  * Request controller for gv faq.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.store.sf.mvc.controller
  */
 class ZMGvFaqController extends ZMController {

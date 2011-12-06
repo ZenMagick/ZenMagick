@@ -24,7 +24,7 @@
 /**
  * Show settings controlller.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.plugins.settings
  */
 class ZMSettingsShowController extends ZMPluginAdmin2Controller {

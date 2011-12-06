@@ -11,7 +11,7 @@ use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
  * This processes all DefinitionDecorator instances that merge.
  *
  * @author Johannes M. Schmitt <schmittjoh@gmail.com>
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.base.ioc.compiler
  */
 class ResolveMergeDefinitionsPass implements CompilerPassInterface {

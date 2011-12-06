@@ -28,7 +28,7 @@ use zenmagick\base\logging\Logging;
 /**
  * ZenMagick MVC request dispatcher.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.mvc
  */
 class ZMDispatcher {

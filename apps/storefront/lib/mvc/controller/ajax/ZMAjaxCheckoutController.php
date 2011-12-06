@@ -28,7 +28,7 @@ use zenmagick\base\Beans;
 /**
  * Ajax controller for JSON checkout.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.store.sf.mvc.controller.ajax
  * @todo implement!
  */

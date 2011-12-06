@@ -49,7 +49,7 @@ use zenmagick\base\logging\Logging;
  * <p>It should be noted that it is the reponsibility of the cache class to decide whether a given
  * template can be cached or not.</p>
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.mvc.view
  */
 class ZMSavant extends Savant3 implements ContainerAwareInterface {

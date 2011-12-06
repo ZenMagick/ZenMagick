@@ -28,7 +28,7 @@ use zenmagick\base\logging\Logging;
  * Custom simpletest <code>HtmlReporter</code> implementation.
  *
  * @package org.zenmagick.plugins.unitTests
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  */
 class ZMHtmlReporter extends \HtmlReporter {
     private $currentCase_;

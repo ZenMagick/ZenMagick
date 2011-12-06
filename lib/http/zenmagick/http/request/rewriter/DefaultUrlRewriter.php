@@ -26,7 +26,7 @@ use zenmagick\base\Runtime;
 /**
  * Default URL rewriter.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.http.request.rewriter
  */
 class DefaultUrlRewriter implements UrlRewriter {

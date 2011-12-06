@@ -32,7 +32,7 @@ use zenmagick\base\Runtime;
  *
  * <p>All known zen cart query message types stored are supported.</p>
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.store.sf.services
  */
 class Messages extends ZMMessages {

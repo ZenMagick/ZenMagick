@@ -24,7 +24,7 @@
 /**
  * A source of result list results.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.mvc.resultlist
  */
 interface ZMResultSource {

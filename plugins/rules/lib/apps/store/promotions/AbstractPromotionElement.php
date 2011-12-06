@@ -25,7 +25,7 @@ namespace apps\store\promotions;
  * Base class for promotional elements.
  *
  * @package apps.store.promotions
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  */
 abstract class AbstractPromotionElement implements PromotionElement {
     private $product;

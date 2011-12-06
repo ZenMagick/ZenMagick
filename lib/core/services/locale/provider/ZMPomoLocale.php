@@ -28,7 +28,7 @@ use zenmagick\base\Runtime;
  * <p>The domain and .mo filename (without the trailing .mo) are <strong>not</strong> synonymous. This allows to
  * load (and merge) multiple files for a single domain and locale.</p>
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org> <mano@zenmagick.org>
  * @package org.zenmagick.core.services.locale.provider
  */
 class ZMPomoLocale extends ZMAbstractLocale {

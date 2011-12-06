@@ -26,7 +26,7 @@ use zenmagick\base\Runtime;
  * Plugin to allow cron like execution of <code>ZMCronJob</code> classes.
  *
  * @package org.zenmagick.plugins.cron
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  */
 class ZMCronPlugin extends Plugin {
 

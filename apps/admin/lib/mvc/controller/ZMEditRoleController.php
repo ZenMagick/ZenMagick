@@ -25,7 +25,7 @@ use zenmagick\http\sacs\SacsManager;
 /**
  * Admin controller to edit role permissions.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.store.admin.mvc.controller
  */
 class ZMEditRoleController extends ZMController {

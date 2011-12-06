@@ -29,7 +29,7 @@ use zenmagick\base\Runtime;
 /**
  * Ajax controller for JSON shopping cart.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.store.sf.mvc.controller.ajax
  */
 class ZMAjaxShoppingCartController extends ZMAjaxController {

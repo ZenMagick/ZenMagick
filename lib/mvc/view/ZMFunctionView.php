@@ -25,7 +25,7 @@ use zenmagick\base\ZMException;
 /**
  * A view using a function to generate content.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.mvc.view
  */
 class ZMFunctionView extends ZMView {

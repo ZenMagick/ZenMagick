@@ -29,7 +29,7 @@ define('_ZM_ZEN_ADMIN_GENERAL_FILE', ZC_INSTALL_PATH . ZC_ADMIN_FOLDER . '/inclu
 /**
  * Patch to enable vetoable redirects in zencart.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.store.admin.installation.patches.file
  */
 class ZMRedirectFixPatch extends ZMFilePatch {

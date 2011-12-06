@@ -27,7 +27,7 @@ use zenmagick\base\ZMObject;
 /**
  * The dashboard.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.store.admin.dashbord
  */
 class ZMDashboard extends ZMObject {

@@ -26,7 +26,7 @@ use zenmagick\http\sacs\SacsManager;
  * Generic form handler.
  *
  * @package org.zenmagick.plugins.formHandler
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  */
 class ZMFormHandlerPlugin extends Plugin {
 

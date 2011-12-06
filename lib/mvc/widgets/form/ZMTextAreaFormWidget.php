@@ -24,7 +24,7 @@
 /**
  * A text area form widget.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.mvc.widgets.form
  */
 class ZMTextAreaFormWidget extends ZMFormWidget implements WysiwygEditor {

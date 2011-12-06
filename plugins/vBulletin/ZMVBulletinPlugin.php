@@ -26,7 +26,7 @@ use zenmagick\base\Beans;
  * Plugin to enable vBulletin support in ZenMagick.
  *
  * @package org.zenmagick.plugins.vbulletin
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  */
 class ZMVBulletinPlugin extends Plugin {
     private $page_;

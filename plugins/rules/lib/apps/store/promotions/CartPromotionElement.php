@@ -25,7 +25,7 @@ namespace apps\store\promotions;
  * Base shopping cart promotion element.
  *
  * @package apps.store.promotions
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  */
 abstract class CartPromotionElement extends AbstractPromotionElement {
 

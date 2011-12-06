@@ -27,7 +27,7 @@ use zenmagick\base\ZMException;
  *
  * <p>Supports <em>languageId</em> parameter in the <code>$args</code> map.</p>
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.plugins.productTags
  */
 class ZMProductTagsProductAssociationHandler implements ZMProductAssociationHandler {

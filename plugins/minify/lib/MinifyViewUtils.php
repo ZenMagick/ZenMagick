@@ -27,7 +27,7 @@
 /**
  * Minify view utils implementation.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.plugins.minify
  */
 class MinifyViewUtils extends ZMViewUtils {

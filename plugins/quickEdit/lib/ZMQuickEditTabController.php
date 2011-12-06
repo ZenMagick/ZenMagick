@@ -28,7 +28,7 @@ use zenmagick\base\Beans;
 /**
  * Admin controller.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.plugins.quickEdit
  */
 class ZMQuickEditTabController extends ZMCatalogContentController {

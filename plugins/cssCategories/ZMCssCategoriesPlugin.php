@@ -25,7 +25,7 @@
  * CSS categories sidebox.
  *
  * @package org.zenmagick.plugins.cssCategories
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  */
 class ZMCssCategoriesPlugin extends Plugin {
 

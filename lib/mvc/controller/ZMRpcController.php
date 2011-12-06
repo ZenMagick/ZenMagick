@@ -27,7 +27,7 @@ use zenmagick\http\sacs\SacsManager;
 /**
  * RPC controller.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.mvc.controller
  */
 class ZMRpcController extends ZMController {

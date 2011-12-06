@@ -26,7 +26,7 @@ use zenmagick\base\Runtime;
 /**
  * Patch to add review title.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.store.admin.installation.patches.sql
  */
 class ZMReviewTitlePatch extends \ZMSQLPatch {

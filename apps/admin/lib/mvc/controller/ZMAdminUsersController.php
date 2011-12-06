@@ -25,7 +25,7 @@ use zenmagick\base\Runtime;
 /**
  * Admin controller for admin user management.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.store.admin.mvc.controller
  */
 class ZMAdminUsersController extends ZMController {

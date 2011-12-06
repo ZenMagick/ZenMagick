@@ -27,7 +27,7 @@ use zenmagick\base\ZMObject;
 /**
  * Manage template blocks.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.mvc.services.blocks
  */
 class ZMBlockManager extends ZMObject {

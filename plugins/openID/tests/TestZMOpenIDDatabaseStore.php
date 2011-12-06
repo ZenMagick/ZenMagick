@@ -24,7 +24,7 @@
  * Test OpenID store implementation.
  *
  * @package org.zenmagick.plugins.openID
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  */
 class TestZMOpenIDDatabaseStore extends ZMTestCase {
 

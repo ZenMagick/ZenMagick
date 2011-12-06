@@ -29,7 +29,7 @@ use zenmagick\base\logging\handler\DefaultLoggingHandler;
  * <p>Since FirePHP does only know four level of logging, <em>DEBUG</em> <strong>and</strong> <em>TRACE</em>
  * are mapped to FirePHP's <em>LOG</em> level.</p>
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.plugins.firePHP
  */
 class FirePHPLoggingHandler extends DefaultLoggingHandler {

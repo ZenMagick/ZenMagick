@@ -25,7 +25,7 @@ use zenmagick\base\Beans;
 /**
  * Ajax block group admin controller.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.store.admin.mvc.controller.ajax
  */
 class ZMAjaxBlockGroupAdminController extends ZMRpcController {

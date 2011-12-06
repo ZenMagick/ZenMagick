@@ -28,7 +28,7 @@
  * Provide information about current site users.
  *
  * @package org.zenmagick.plugins.whoIsOnline
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  */
 class ZMWhoIsOnlinePlugin extends Plugin {
 

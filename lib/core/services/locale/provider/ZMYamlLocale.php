@@ -27,7 +27,7 @@
  * <p>Expects the same format <em>locale.yaml</em> as <code>ZMPomoLocale</code>. In addition, translations are expected to
  * be under the key <em>messages</em> in the same <em>locale.yaml</em> file.</p>
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org> <mano@zenmagick.org>
  * @package org.zenmagick.core.services.locale.provider
  */
 class ZMYamlLocale extends ZMAbstractLocale {

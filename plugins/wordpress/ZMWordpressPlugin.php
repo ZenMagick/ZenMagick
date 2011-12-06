@@ -27,7 +27,7 @@ use zenmagick\base\Beans;
  * Allow Wordpress content to be displayed in ZenMagick.
  *
  * @package org.zenmagick.plugins.wordpress
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  */
 class ZMWordpressPlugin extends Plugin {
     private $requestId_;

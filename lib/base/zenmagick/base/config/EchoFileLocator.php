@@ -26,7 +26,7 @@ use Symfony\Component\Config\FileLocatorInterface;
 /**
  * <code>FileLocatorInterface</code> implementation that <em>echo'es</em> <code>$file</code> back as the path.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.base.config
  */
 class EchoFileLocator implements  FileLocatorInterface {

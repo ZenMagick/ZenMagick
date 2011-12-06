@@ -27,7 +27,7 @@
  * <p>Simple interface to be implemented for all library packer that want to be
  * available via the build script.</p>
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.core.build
  */
 interface ZMLibraryPacker {

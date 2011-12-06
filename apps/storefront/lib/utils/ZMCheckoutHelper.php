@@ -28,7 +28,7 @@ use apps\store\bundles\ZenCartBundle\Mock\ZenCartMock;
 /**
  * Checkout helper.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.store.sf.utils
  */
 class ZMCheckoutHelper extends ZMObject {

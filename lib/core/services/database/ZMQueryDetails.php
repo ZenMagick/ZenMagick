@@ -24,7 +24,7 @@
 /**
  * Query details as returned by the <code>ZMSQLAware</code> interface method.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org> <mano@zenmagick.org>
  * @package org.zenmagick.core.services.database
  */
 class ZMQueryDetails extends ZMObject {

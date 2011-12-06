@@ -28,7 +28,7 @@ use zenmagick\base\Runtime;
  *
  * <p>This is kind of the <em>application context</em>.</p>
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org> <mano@zenmagick.org>
  * @package org.zenmagick.core
  */
 class ZMRuntime {

@@ -31,7 +31,7 @@ use zenmagick\base\Runtime;
 /**
  * A RSS feed generator.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.http.rss
  * @todo add support for caching and move into container
  */

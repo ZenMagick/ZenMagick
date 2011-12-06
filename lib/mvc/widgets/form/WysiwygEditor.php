@@ -23,7 +23,7 @@
 /**
  * A wysiwyg editor.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.mvc.widgets.form
  */
 interface WysiwygEditor {

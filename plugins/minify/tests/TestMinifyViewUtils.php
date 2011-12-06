@@ -26,7 +26,7 @@ use zenmagick\base\Runtime;
  * Test MinifyViewUtils implementation.
  *
  * @package org.zenmagick.plugins.minify
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  */
 class TestMinifyViewUtils extends ZMTestCase {
     const MIN_BASE = '/zmdev/zenmagick/plugins/minify/min/f=';

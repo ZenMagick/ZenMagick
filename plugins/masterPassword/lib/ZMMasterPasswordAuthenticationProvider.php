@@ -27,7 +27,7 @@ use zenmagick\base\security\authentication\AuthenticationProvider;
 /**
  * Master password authentication provider.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.plugins.masterPassword
  */
 class ZMMasterPasswordAuthenticationProvider extends ZMObject implements AuthenticationProvider {

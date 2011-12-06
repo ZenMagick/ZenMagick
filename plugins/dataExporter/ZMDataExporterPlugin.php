@@ -25,7 +25,7 @@
  * Plugin to export data.
  *
  * @package org.zenmagick.plugins.autoLogin
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  */
 class ZMDataExporterPlugin extends Plugin {
 

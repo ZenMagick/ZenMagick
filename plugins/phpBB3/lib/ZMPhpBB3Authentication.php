@@ -24,7 +24,7 @@
 /**
  * phpBB3 authentication provider.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.plugins.phpbb3
  */
 class ZMPhpBB3Authentication implements ZMAuthentication {

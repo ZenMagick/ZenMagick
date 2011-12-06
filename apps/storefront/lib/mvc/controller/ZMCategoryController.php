@@ -29,7 +29,7 @@ use zenmagick\base\Beans;
 /**
  * Request controller for categories.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.store.sf.mvc.controller
  */
 class ZMCategoryController extends ZMController {

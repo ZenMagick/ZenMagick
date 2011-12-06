@@ -27,7 +27,7 @@
 /**
  * Request controller for static pages.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.store.sf.mvc.controller
  */
 class ZMStaticController extends ZMController {

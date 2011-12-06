@@ -30,7 +30,7 @@ use phprules\RuleContext;
  * Manufacturer catalog promotion condition.
  *
  * @package apps.store.promotions.conditions.catalog
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  */
 class Manufacturer extends CatalogPromotionElement {
 

@@ -27,7 +27,7 @@ use zenmagick\base\ioc\Container;
 /**
  * Central place for runtime stuff.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.base
  */
 class Runtime {

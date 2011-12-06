@@ -28,7 +28,7 @@
  * <copde>ZMWrapperRule</code>.</p>
  *
  * @package org.zenmagick.plugins.phpbb3
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  */
 class ZMPhpBB3Adapter extends ZMObject {
     private $database_;

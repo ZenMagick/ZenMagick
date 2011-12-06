@@ -29,7 +29,7 @@ use zenmagick\base\events\Event;
 /**
  * Request controller for checkout address change (shipping/billing).
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.store.sf.mvc.controller
  */
 class ZMCheckoutAddressController extends ZMController {

@@ -26,7 +26,7 @@
  *
  * <p>This will forward the request to the given controller without a redirect.</p>
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.store.sf.mvc.views
  */
 class ForwardView extends ZMForwardView {

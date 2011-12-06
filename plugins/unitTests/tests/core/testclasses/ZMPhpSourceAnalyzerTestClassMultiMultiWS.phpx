@@ -4,7 +4,7 @@
  * A test class.
  *
  * @package org.zenmagick.plugins.zm_tests.tests
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @version $Id$
  */
 class ZMBasicClass

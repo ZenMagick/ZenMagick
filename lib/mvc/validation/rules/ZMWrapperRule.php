@@ -24,7 +24,7 @@
 /**
  * Empty validation rules that can be used to wrap custom logic.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.mvc.validation.rules
  */
 class ZMWrapperRule extends ZMRule {

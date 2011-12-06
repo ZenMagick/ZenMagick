@@ -31,7 +31,7 @@ namespace zenmagick\http\sacs;
  * <p>The result of the first handler to return either <code>true</code> or <code>false</code> will be taken as
  * the final result by the <code>SacsManager</code>.</p>
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.http.sacs
  */
 interface SacsHandler {

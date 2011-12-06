@@ -32,7 +32,7 @@ use zenmagick\base\logging\Logging;
  *
  * <p>The default <code>viewDir</code> value is <em>views/</em>.</p>
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.mvc.view
  */
 class ZMSavantView extends ZMView {

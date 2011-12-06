@@ -32,7 +32,7 @@ use zenmagick\base\events\Event;
  *
  * <p>The default for <em>autoSearch</em> is <code>true</code>.</p>
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.store.sf.mvc.controller
  */
 class ZMSearchController extends ZMController {

@@ -24,7 +24,7 @@
 /**
  * Base class for validation rules.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.mvc.validation
  */
 abstract class ZMRule extends ZMObject {

@@ -29,7 +29,7 @@ use zenmagick\base\Runtime;
  * TinyMCE textarea form widget.
  *
  * @package org.zenmagick.plugins.tinyMCE
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  */
 class ZMTinyMCEFormWidget extends ZMTextAreaFormWidget implements WysiwygEditor {
     private $idList;

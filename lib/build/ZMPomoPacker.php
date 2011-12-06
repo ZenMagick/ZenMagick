@@ -23,7 +23,7 @@
 /**
  * Packer for the <em>pomo</em> tools as included in Wordpress and glotpress.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.core.build
  */
 class ZMPomoPacker extends ZMPhpPackagePacker implements ZMLibraryPacker {

@@ -27,7 +27,7 @@
 /**
  * Request controller for account newsletter subscription page.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.store.sf.mvc.controller
  */
 class ZMAccountNotificationsController extends ZMController {

@@ -24,7 +24,7 @@
  * Test category service.
  *
  * @package org.zenmagick.plugins.unitTests.tests
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  */
 class TestZMCategories extends ZMTestCase {
 

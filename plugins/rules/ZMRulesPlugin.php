@@ -26,7 +26,7 @@ use zenmagick\base\Runtime;
  * PHP Rules for ZenMagick.
  *
  * @package org.zenmagick.plugins.rules
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  */
 class ZMRulesPlugin extends Plugin {
 

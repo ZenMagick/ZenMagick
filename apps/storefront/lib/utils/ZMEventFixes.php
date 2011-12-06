@@ -29,7 +29,7 @@ use zenmagick\base\events\Event;
 /**
  * Fixes and stuff that are (can be) event driven.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.store.sf.utils
  */
 class ZMEventFixes extends ZMObject {

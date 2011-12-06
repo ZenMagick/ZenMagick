@@ -27,7 +27,7 @@ namespace zenmagick\base\cache;
  *
  * <p>File caching using <code>PEAR:Cache_Lite</code>.</p>
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.base.cache
  */
 class FileCache implements Cache {

@@ -26,7 +26,7 @@ use zenmagick\base\Runtime;
  * CKEditor plugin.
  *
  * @package org.zenmagick.plugins.ckEditor
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  */
 class ZMCkEditorPlugin extends Plugin {
 

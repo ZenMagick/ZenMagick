@@ -24,7 +24,7 @@
 /**
  * A set of validation rules.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.mvc.validation
  */
 class ZMRuleSet extends ZMObject {

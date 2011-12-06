@@ -27,7 +27,7 @@ use zenmagick\base\events\Event;
 /**
  * Controller wrapper for method mapping of routing controllers.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.mvc.controller
  */
 class ZMRoutingController extends ZMController {

@@ -54,7 +54,7 @@
  * <code>:3#categoryId</code>) is optional and only required if multiple values of a column are used in a single SQL
  * statement.</p>
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org> <mano@zenmagick.org>
  * @package org.zenmagick.core.services.database
  */
 interface ZMDatabase {

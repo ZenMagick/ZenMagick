@@ -28,7 +28,7 @@ define('_ZM_ZEN_BASE_PHP', ZC_INSTALL_PATH."includes/classes/class.base.php");
 /**
  * Patch to hook up ZenMagick as glboal zencart event listener.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.store.admin.installation.patches.file
  */
 class ZMEventProxyPatch extends ZMFilePatch {

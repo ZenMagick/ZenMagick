@@ -26,7 +26,7 @@ use Symfony\Component\Yaml\Yaml;
 /**
  * Shared tools.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.base
  */
 class Toolbox {

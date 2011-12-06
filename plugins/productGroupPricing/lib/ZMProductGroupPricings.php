@@ -29,7 +29,7 @@ use zenmagick\base\Runtime;
 /**
  * Service class for product based group pricing
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.plugins.productGroupPricing
  */
 class ZMProductGroupPricings extends ZMObject {

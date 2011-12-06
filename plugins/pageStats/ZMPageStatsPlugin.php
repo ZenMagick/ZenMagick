@@ -28,7 +28,7 @@ use zenmagick\base\logging\Logging;
  * Plugin to show page stats.
  *
  * @package org.zenmagick.plugins.pageStats
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  */
 class ZMPageStatsPlugin extends Plugin {
     private $pageCache_;

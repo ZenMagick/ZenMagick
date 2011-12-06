@@ -24,7 +24,7 @@
  * Simple <code>ZMProductAssociationHandler</code> implementation.
  *
  * @package org.zenmagick.plugins.unitTests.tests
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  */
 class SimpleProductAssociationHandler extends ZMTestCase implements ZMProductAssociationHandler {
 

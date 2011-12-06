@@ -26,7 +26,7 @@ use zenmagick\base\Runtime;
 /**
  * Provides support for all file patching of zen-cart files ZenMagick might need.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.store.admin.installation
  */
 class ZMInstallationPatcher extends ZMObject {

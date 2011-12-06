@@ -28,7 +28,7 @@ use zenmagick\base\Beans;
 /**
  * Request controller for tell a friend form.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.store.sf.mvc.controller
  */
 class ZMTellAFriendController extends ZMController {

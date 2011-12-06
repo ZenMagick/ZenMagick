@@ -28,7 +28,7 @@ use zenmagick\base\ZMException;
  * <p>The redirect URL may be set by explicitely setting a url or a request Id.
  * If a request Id is set, a full URL will be created.</p>
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.mvc.view
  */
 class ZMRedirectView extends ZMView {

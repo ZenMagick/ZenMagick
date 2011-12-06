@@ -24,7 +24,7 @@
 /**
  * Build the skelton of a new theme.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.store.admin.utils
  */
 class ZMThemeBuilder extends ZMObject {

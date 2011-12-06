@@ -26,7 +26,7 @@ use zenmagick\base\Runtime;
  * Xinha plugin.
  *
  * @package org.zenmagick.plugins.xinha
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  */
 class ZMXinhaPlugin extends Plugin {
 

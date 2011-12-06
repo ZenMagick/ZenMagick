@@ -28,7 +28,7 @@ use zenmagick\base\ZMException;
  *
  * <p>This will forward the request to the given controller without a redirect.</p>
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.mvc.view
  */
 class ZMForwardView extends ZMView {

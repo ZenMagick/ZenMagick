@@ -26,7 +26,7 @@
  *
  * <p>Form widgets are widgets that represent various HTML form input elements.</p>
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.mvc.widgets.form
  */
 abstract class ZMFormWidget extends ZMWidget {

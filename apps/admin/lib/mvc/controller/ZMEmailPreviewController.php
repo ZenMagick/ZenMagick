@@ -26,7 +26,7 @@ use zenmagick\base\events\Event;
 /**
  * Admin controller for email previews.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.store.admin.mvc.controller
  */
 class ZMEmailPreviewController extends ZMController {

@@ -27,7 +27,7 @@ namespace apps\store\promotions;
  * <p>Container for <code>Rule</code> and <code>RuleContext</code> for a specific promotion element.</p>
  *
  * @package apps.store.promotions
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  */
 interface PromotionElement {
 

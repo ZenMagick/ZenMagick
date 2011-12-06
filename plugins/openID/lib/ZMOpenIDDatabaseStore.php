@@ -23,7 +23,7 @@
  *
  * @package org.zenmagick.plugins.openID
  * @author S. Alexandre Lemaire, saeven.net consulting inc. saeven@saeven.net
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  */
 class ZMOpenIDDatabaseStore extends Auth_OpenID_OpenIDStore {
     private $nonceLifetime;

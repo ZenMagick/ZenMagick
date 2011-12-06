@@ -30,7 +30,7 @@ use zenmagick\base\Runtime;
  * ZenMagick order total module to add a payment surcharge totals based on configurable conditions.
  *
  * @package org.zenmagick.plugins.paymentSurcharge
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  */
 class ZMPaymentSurchargePlugin extends Plugin implements ZMOrderTotal {
 

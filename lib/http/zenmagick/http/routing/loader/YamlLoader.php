@@ -31,7 +31,7 @@ use zenmagick\base\Toolbox;
  *
  * <p>Assume <code>$file</code> to be the actual content.</p>
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.http.routing.loader
  */
 class YamlLoader extends \Symfony\Component\Routing\Loader\YamlFileLoader {

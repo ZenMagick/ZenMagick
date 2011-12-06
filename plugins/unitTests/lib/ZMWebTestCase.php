@@ -26,7 +26,7 @@ use zenmagick\base\Runtime;
  * WebTestCase base class.
  *
  * @package org.zenmagick.plugins.unitTests
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  */
 class ZMWebTestCase extends WebTestCase {
 

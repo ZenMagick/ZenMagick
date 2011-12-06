@@ -27,7 +27,7 @@
 /**
  * Request controller for unsubscribe page.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.store.sf.mvc.controller
  */
 class ZMUnsubscribeController extends ZMController {

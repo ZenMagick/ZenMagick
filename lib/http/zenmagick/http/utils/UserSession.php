@@ -34,7 +34,7 @@ use zenmagick\base\ZMObject;
  *   <li>Automatically saved before a session is closed</li>
  * </ul>
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.http.utils
  */
 class UserSession extends \ZMObject implements \Serializable {

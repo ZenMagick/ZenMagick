@@ -27,7 +27,7 @@ define('TABLE_CREATE_UPDATE_TESTS', DB_PREFIX . 'create_update_tests');
  * Test create / update methods.
  *
  * @package org.zenmagick.plugins.unitTests.tests
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  */
 class TestZMDatabaseCreateUpdate extends ZMTestCase {
 

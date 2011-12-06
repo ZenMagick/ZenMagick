@@ -28,7 +28,7 @@ use zenmagick\base\Runtime;
 /**
  * Generic SQL patch.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.store.admin.installation.patches
  */
 class ZMSQLPatch extends ZMInstallationPatch {

@@ -28,7 +28,7 @@ use zenmagick\http\sacs\SacsManager;
  *
  * <p>Uses native PHP function <code>json_encode</code>.</p>
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.mvc.controller
  * @deprecated use ZMRpcController instead
  */

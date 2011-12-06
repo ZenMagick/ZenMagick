@@ -26,7 +26,7 @@ use zenmagick\base\Runtime;
  * TinyMCE plugin.
  *
  * @package org.zenmagick.plugins.tinyMCE
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  */
 class ZMTinyMCEPlugin extends Plugin {
 

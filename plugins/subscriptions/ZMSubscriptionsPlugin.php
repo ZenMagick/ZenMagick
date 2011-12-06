@@ -27,7 +27,7 @@ use zenmagick\http\sacs\SacsManager;
  * Subscriptions.
  *
  * @package org.zenmagick.plugins.subscriptions
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  */
 class ZMSubscriptionsPlugin extends Plugin {
 

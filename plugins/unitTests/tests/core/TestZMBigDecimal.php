@@ -24,7 +24,7 @@
  * Test ZMBigDecimal.
  *
  * @package org.zenmagick.plugins.unitTests.tests
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  */
 class TestZMBigDecimal extends ZMTestCase {
 

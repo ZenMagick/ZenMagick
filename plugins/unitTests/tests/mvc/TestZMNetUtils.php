@@ -24,7 +24,7 @@
  * Test ZMNetUtils manager.
  *
  * @package org.zenmagick.plugins.unitTests.tests
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  */
 class TestZMNetUtils extends ZMTestCase {
 

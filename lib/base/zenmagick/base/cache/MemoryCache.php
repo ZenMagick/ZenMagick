@@ -27,7 +27,7 @@ namespace zenmagick\base\cache;
  *
  * <p>Memory caching using <code>PEAR:Cache_Lite</code>.</p>
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.base.cache
  */
 class MemoryCache implements Cache {

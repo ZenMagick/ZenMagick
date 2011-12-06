@@ -24,7 +24,7 @@
 /**
  * Single installation patch.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.store.admin.installation
  */
 class ZMInstallationPatch extends ZMObject {

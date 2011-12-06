@@ -25,7 +25,7 @@ use zenmagick\base\Runtime;
 /**
  * Admin user roles service.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.store.admin.services
  */
 class ZMAdminUserRoles extends ZMObject {

@@ -27,7 +27,7 @@ use zenmagick\base\ClassLoader;
  * Test subscriptions.
  *
  * @package org.zenmagick.plugins.subscriptions
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  */
 class ZMTestSubscriptions extends ZMTestCase {
 

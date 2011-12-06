@@ -28,7 +28,7 @@ use zenmagick\base\Runtime;
 /**
  * Request controller for checkout shipping page.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.store.sf.mvc.controller
  */
 class ZMCheckoutPaymentController extends ZMController {

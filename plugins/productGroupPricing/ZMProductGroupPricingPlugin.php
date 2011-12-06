@@ -28,7 +28,7 @@
  * Plugin adding group based pricing.
  *
  * @package org.zenmagick.plugins.productGroupPricing
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  */
 class ZMProductGroupPricingPlugin extends Plugin {
 

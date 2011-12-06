@@ -29,7 +29,7 @@ use zenmagick\base\Runtime;
 /**
  * Request controller for featured products.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.store.sf.mvc.controller
  */
 class ZMFeaturedProductsController extends ZMController {

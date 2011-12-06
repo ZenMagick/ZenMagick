@@ -24,7 +24,7 @@
 /**
  * Request controller to cancel a subscription.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.plugins.subscriptions
  */
 class ZMCancelSubscriptionController extends ZMController {

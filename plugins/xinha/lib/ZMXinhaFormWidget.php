@@ -29,7 +29,7 @@ use zenmagick\base\Runtime;
  * Xinha textarea form widget.
  *
  * @package org.zenmagick.plugins.xinha
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  */
 class ZMXinhaFormWidget extends ZMTextAreaFormWidget implements WysiwygEditor {
     private $idList;

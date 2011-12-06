@@ -31,7 +31,7 @@
  * query to the latest possible moment. Methods may trigger the query if they depend
  * on results; a good example for that is, for example, <code>getNumberOfResults()</code>.</p>
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.mvc.resultlist
  */
 class ZMResultList extends ZMObject {

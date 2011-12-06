@@ -26,7 +26,7 @@
  *
  * <p>Validate against a list of allowed values.</p>
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.mvc.validation.rules
  */
 class ZMListRule extends ZMRule {

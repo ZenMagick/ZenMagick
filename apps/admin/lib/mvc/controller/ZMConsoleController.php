@@ -24,7 +24,7 @@
 /**
  * Admin controller for the PHP console.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.store.admin.mvc.controller
  */
 class ZMConsoleController extends ZMController {

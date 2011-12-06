@@ -26,7 +26,7 @@ use zenmagick\base\Runtime;
 /**
  * Patch to create the sacs permission tables.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.store.admin.installation.patches.sql
  */
 class ZMSacsPermissionsPatch extends \ZMSQLPatch {

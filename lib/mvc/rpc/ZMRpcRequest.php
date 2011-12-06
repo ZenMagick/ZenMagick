@@ -28,7 +28,7 @@
  * <p>Implementations are expected to accept an instance of <code>ZMRequest</code> as single constructor
  * argument.</p>
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.mvc.rpc
  */
 interface ZMRpcRequest {

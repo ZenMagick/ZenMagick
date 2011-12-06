@@ -27,7 +27,7 @@ use zenmagick\base\Runtime;
 /**
  * Unit testing controller.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.plugins.unitTests
  */
 class ZMUnitTestsController extends \ZMController {

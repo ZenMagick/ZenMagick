@@ -27,7 +27,7 @@
 /**
  * A product price group.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.plugins.productGroupPricing
  */
 class ZMProductGroupPricing extends ZMObject {

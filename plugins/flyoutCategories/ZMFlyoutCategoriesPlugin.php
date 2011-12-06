@@ -25,7 +25,7 @@
  * Flyout categories sidebox.
  *
  * @package org.zenmagick.plugins.flyoutCategories
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  */
 class ZMFlyoutCategoriesPlugin extends Plugin {
 

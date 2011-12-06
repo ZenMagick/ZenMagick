@@ -25,7 +25,7 @@ use zenmagick\base\Runtime;
 /**
  * Admin controller for orders page.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.store.admin.mvc.controller
  */
 class ZMOrdersController extends ZMController {

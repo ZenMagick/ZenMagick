@@ -24,7 +24,7 @@
  * Test <code>ZMProductAssociations</code>.
  *
  * @package org.zenmagick.plugins.zm_token.tests
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  */
 class TestZMProductAssociations extends ZMTestCase {
 

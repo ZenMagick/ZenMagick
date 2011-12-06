@@ -27,7 +27,7 @@
 /**
  * Request controller for account edit page.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.store.sf.mvc.controller
  */
 class ZMAccountEditController extends ZMController {

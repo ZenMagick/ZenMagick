@@ -65,7 +65,7 @@ use zenmagick\base\logging\Logging;
  *  <dd>A default value to be used if either the value given is <code>null</code>, or the corresponding field is not present at all.</dd>
  * </dl>
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org> <mano@zenmagick.org>
  * @package org.zenmagick.core.services.database
  */
 class ZMDbTableMapper extends \ZMObject {

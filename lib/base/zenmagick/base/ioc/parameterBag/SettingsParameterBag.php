@@ -28,7 +28,7 @@ use Symfony\Component\DependencyInjection\ParameterBag\ParameterBag;
 /**
  * Parameter bag that can also resolve against settings.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.base.ioc.parameterBag
  */
 class SettingsParameterBag extends ParameterBag {

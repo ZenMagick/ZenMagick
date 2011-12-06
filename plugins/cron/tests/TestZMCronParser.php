@@ -26,7 +26,7 @@ use zenmagick\base\Beans;
  * Test the cron parser.
  *
  * @package org.zenmagick.plugins.cron.tests
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  */
 class TestZMCronParser extends ZMTestCase {
     protected static $TEXT_CRONTAB = array(

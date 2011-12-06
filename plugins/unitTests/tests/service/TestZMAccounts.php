@@ -26,7 +26,7 @@ use zenmagick\base\Beans;
  * Test accounts service.
  *
  * @package org.zenmagick.plugins.unitTests.tests
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  */
 class TestZMAccounts extends ZMTestCase {
     // test account data

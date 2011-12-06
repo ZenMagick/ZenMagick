@@ -26,7 +26,7 @@ use zenmagick\http\sacs\SacsPermissionProvider;
 /**
  * Database based permission provider.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.store.shared.provider
  */
 class ZMDBSacsPermissionProvider extends ZMObject implements SacsPermissionProvider {

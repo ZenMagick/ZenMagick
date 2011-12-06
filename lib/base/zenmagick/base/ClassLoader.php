@@ -79,7 +79,7 @@ namespace zenmagick\base;
  * found before giving up.</p>
  *
  * @author Fabien Potencier <fabien.potencier@symfony-project.org>
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.base
  */
 class ClassLoader {

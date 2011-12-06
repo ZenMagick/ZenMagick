@@ -38,7 +38,7 @@
  *  </dd>
  * </dl>
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.plugins.cron
  */
 class ZMBirthdayEmailCronJob implements ZMCronJob {

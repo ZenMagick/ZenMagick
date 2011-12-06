@@ -25,7 +25,7 @@ use zenmagick\base\Beans;
 /**
  * Request controller for updating own admin user details.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.store.admin.mvc.controller
  */
 class ZMUpdateUserController extends ZMController {

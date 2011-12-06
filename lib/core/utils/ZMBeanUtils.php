@@ -39,7 +39,7 @@ use zenmagick\base\Beans;
  *   will be permanent for all subsequent code using that singleton.</dd>
  * </dl>
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org> <mano@zenmagick.org>
  * @package org.zenmagick.core.utils
  */
 class ZMBeanUtils extends ZMObject {

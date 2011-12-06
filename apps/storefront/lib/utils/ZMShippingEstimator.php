@@ -28,7 +28,7 @@ use zenmagick\base\Runtime;
 /**
  * Shipping estimator.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.store.sf.utils
  * @deprecated use ZMShippingProviders::getShippingProvidersForAddress instead
  */

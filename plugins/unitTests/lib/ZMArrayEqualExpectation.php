@@ -24,7 +24,7 @@
  * Simple expectation class to compare arrays.
  *
  * @package org.zenmagick.plugins.unitTests
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  */
 class ZMArrayEqualExpectation extends EqualExpectation {
 

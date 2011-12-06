@@ -27,7 +27,7 @@
 /**
  * Advanced search controller.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.store.sf.mvc.controller
  */
 class ZMAdvancedSearchController extends ZMController {

@@ -28,7 +28,7 @@ use zenmagick\base\Runtime;
 /**
  * Crumbtrail.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.store.sf.mvc.tools
  */
 class ZMToolboxCrumbtrail extends ZMToolboxTool {

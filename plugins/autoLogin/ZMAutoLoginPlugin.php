@@ -29,7 +29,7 @@ define('AUTO_LOGIN_OPT_IN', 'autoLogin');
  * Plugin to automatically login returning customers.
  *
  * @package org.zenmagick.plugins.autoLogin
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  */
 class ZMAutoLoginPlugin extends Plugin {
     private $cookieUpdated;

@@ -24,7 +24,7 @@
 /**
  * Update checker widget.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.store.admin.dashbord.widgets
  */
 class ZMUpdateCheckerDashboardWidget extends ZMDashboardWidget {

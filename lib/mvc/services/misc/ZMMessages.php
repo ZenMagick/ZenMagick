@@ -35,7 +35,7 @@ use zenmagick\base\Runtime;
  *  <li><code>T_MESSAGE</code> (this is the default if no type specified)</li>
  * </ul>
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.mvc.services.misc
  */
 class ZMMessages extends ZMObject {

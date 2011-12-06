@@ -27,7 +27,7 @@
  * A quick way to edit certain product properties per category.
  *
  * @package org.zenmagick.plugins.quickEdit
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  */
 class ZMQuickEditPlugin extends Plugin {
 

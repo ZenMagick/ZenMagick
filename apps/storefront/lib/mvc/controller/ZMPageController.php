@@ -26,7 +26,7 @@
 /**
  * Request controller for ez-pages.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.store.sf.mvc.controller
  */
 class ZMPageController extends ZMController {

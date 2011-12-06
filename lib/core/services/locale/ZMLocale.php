@@ -24,7 +24,7 @@
 /**
  * Locale resolver.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org> <mano@zenmagick.org>
  * @package org.zenmagick.core.services.locale
  */
 interface ZMLocale {

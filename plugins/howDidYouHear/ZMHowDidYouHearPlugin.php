@@ -29,7 +29,7 @@ define('TABLE_SOURCES_OTHER', DB_PREFIX . 'sources_other');
  * Plugin to add and handle a <em>How did you hear about us</em> drop down in the create account page.
  *
  * @package org.zenmagick.plugins.howDidYouHear
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  */
 class ZMHowDidYouHearPlugin extends Plugin {
 

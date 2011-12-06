@@ -26,7 +26,7 @@
  * <p>This test requires a vanilla demo store database setup.</p>
  *
  * @package org.zenmagick.plugins.unitTests.tests
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  */
 class TestAttributePricing extends ZMTestCase {
 

@@ -28,7 +28,7 @@ use Symfony\Component\Yaml\Yaml;
 /**
  * Admin controller for l10n page.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.store.admin.mvc.controller
  */
 class ZML10nController extends \ZMController {

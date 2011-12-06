@@ -25,7 +25,7 @@ use zenmagick\base\Runtime;
 /**
  * Display sources stats.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.plugins.howDidYouHear
  */
 class ZMHowDidYouHearSourcesStatsController extends ZMController {

@@ -29,7 +29,7 @@ use zenmagick\base\Runtime;
  * <p>This class is build on top of <code>ZMPhpCompressor</code>. It adds the ability to resolve
  * <em>include</em> and <em>require</em> directives. It also takes care of missing PHP close tags <em>?&gt;</em>.</p>
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org> <mano@zenmagick.org>
  * @package org.zenmagick.core.utils.packer
  */
 class ZMPhpPackagePacker {

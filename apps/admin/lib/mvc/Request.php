@@ -25,7 +25,7 @@ use zenmagick\base\Runtime;
 /**
  * Admin request wrapper.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.store.admin.mvc
  */
 class Request extends ZMRequest {

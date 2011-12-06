@@ -25,7 +25,7 @@ use zenmagick\base\Runtime;
 /**
  * Admin controller.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.plugins.subscriptions
  */
 class ZMSubscriptionAdminController extends ZMPluginAdmin2Controller {

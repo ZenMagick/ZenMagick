@@ -24,7 +24,7 @@ namespace zenmagick\base\events;
 /**
  * A veto-able event.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.base.events
  */
 class VetoableEvent extends Event {

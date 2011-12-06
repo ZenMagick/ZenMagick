@@ -25,7 +25,7 @@ use Doctrine\ORM\Mapping AS ORM;
 /**
  * A admin user.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.store.admin.model
  * @ORM\Table(name="admin")
  * @ORM\Entity

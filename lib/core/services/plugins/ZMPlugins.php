@@ -42,7 +42,7 @@ use zenmagick\apps\store\utils\ContextConfigLoader;
  *  order to expose all required code/classes to the loader..</dd>
  * <dl>
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org> <mano@zenmagick.org>
  * @package org.zenmagick.core.services.plugins
  */
 class ZMPlugins extends ZMObject {

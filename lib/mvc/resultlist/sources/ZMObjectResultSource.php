@@ -25,7 +25,7 @@ use zenmagick\base\Runtime;
 /**
  * A result source based on calling a method on an object.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.mvc.resultlist.sources
  */
 class ZMObjectResultSource extends ZMObject implements ZMResultSource {

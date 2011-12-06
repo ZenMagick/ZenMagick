@@ -26,7 +26,7 @@ use zenmagick\base\Runtime;
  * TestCase base class.
  *
  * @package org.zenmagick.plugins.unitTests
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  */
 class ZMTestCase extends UnitTestCase {
     private $defaultDb_;

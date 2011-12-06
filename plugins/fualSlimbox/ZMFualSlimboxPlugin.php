@@ -27,7 +27,7 @@
  * Plugin to enable support for fual_slimbox in ZenMagick.
  *
  * @package org.zenmagick.plugins.fualSlimbox
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  */
 class ZMFualSlimboxPlugin extends Plugin {
 

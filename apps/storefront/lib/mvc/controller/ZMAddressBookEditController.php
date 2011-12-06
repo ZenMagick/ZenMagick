@@ -27,7 +27,7 @@
 /**
  * Request controller for addressbook editing.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.store.sf.mvc.controller
  */
 class ZMAddressBookEditController extends ZMController {

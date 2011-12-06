@@ -24,7 +24,7 @@
  * Test PHP source analyzer.
  *
  * @package org.zenmagick.plugins.unitTests.tests
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  */
 class TestZMPhpSourceAnalyzer extends ZMTestCase {
 

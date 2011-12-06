@@ -24,7 +24,7 @@
  * Test TestZMPhpBB3 adapter class.
  *
  * @package org.zenmagick.plugins.phpbb3
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  */
 class TestZMPhpBB3Adapter extends ZMTestCase {
     private $adapter_ = null;

@@ -35,7 +35,7 @@ use zenmagick\base\ZMObject;
  *
  * <p>Authentication provider are registered by tagging them as <em>zenmagick.base.security.authentication.provider</em> in the container.</p>
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.base.security.authentication
  */
 class AuthenticationManager extends ZMObject {

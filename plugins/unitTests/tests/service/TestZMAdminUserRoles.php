@@ -24,7 +24,7 @@
  * Test <code>ZMAdminUserRoles</code>.
  *
  * @package org.zenmagick.plugins.unitTests.tests
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  */
 class TestZMAdminUserRoles extends ZMTestCase {
 

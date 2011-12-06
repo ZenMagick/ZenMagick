@@ -27,7 +27,7 @@
 /**
  * Add logic to transparently apply discounts.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.plugins.productGroupPricing
  */
 class Offers extends ZMOffers {

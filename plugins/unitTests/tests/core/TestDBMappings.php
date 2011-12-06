@@ -24,7 +24,7 @@
  * Test database mappings.
  *
  * @package org.zenmagick.plugins.unitTests.tests
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  */
 class TestDBMappings extends ZMTestCase {
 

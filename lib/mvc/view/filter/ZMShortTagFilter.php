@@ -26,7 +26,7 @@
  *
  * <p>Will replace all <code>&lt;%=</code> with <code>&lt;?php echo </code>.</p>
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.mvc.view.filter
  */
 class ZMShortTagFilter {

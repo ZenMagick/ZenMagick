@@ -25,7 +25,7 @@
  * Redirect handler plugin for (missing) products and categories.
  *
  * @package org.zenmagick.plugins.redirector
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  */
 class ZMRedirectorPlugin extends Plugin {
 

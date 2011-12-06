@@ -23,7 +23,7 @@
 /**
  * Packer for the <em>openID</em> library.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.mvc
  */
 class ZMOpenIDPacker extends ZMPhpPackagePacker implements ZMLibraryPacker {

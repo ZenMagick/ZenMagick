@@ -26,7 +26,7 @@
  *
  * <p>This controller will generate the actual captcha image.</p>
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.plugins.captcha
  */
 class ZMCaptchaImgController extends ZMController {

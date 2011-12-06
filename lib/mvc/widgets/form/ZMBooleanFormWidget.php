@@ -33,7 +33,7 @@ use zenmagick\base\Runtime;
  * <p>Radiobox and select label for <code>true</code> and <code>false</code> may be set via <em>label_true</em> and
  * <em>label_false</em>, respectively.</p>
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.mvc.widgets.form
  */
 class ZMBooleanFormWidget extends ZMFormWidget {

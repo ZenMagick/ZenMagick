@@ -31,7 +31,7 @@ use apps\store\menu\MenuLoader;
 /**
  * Custom admin event handler for various things.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.store.admin
  */
 class ZMAdminEventHandler extends ZMObject {

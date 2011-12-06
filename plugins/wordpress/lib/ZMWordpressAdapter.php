@@ -28,7 +28,7 @@
  * <copde>ZMWrapperRule</code>.</p>
  *
  * @package org.zenmagick.plugins.zm_wordpress
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  */
 class ZMWordpressAdapter extends ZMObject {
 

@@ -28,7 +28,7 @@ if (!defined('DIR_WS_ADMIN')) define('DIR_WS_ADMIN', '/admin/');
 /**
  * Patch to update the admin folder name in apps/admin/web/index.php.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.store.admin.installation.patches.file
  */
 class ZMAdminFolderNamePatch extends \ZMFilePatch {

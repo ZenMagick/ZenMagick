@@ -27,7 +27,7 @@
 /**
  * Admin controller.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.plugins.productImages
  */
 class ZMProductImagesTabController extends ZMCatalogContentController {

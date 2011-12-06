@@ -25,7 +25,7 @@ use zenmagick\base\Runtime;
 /**
  * Sacs permissions service.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.store.admin.services
  */
 class ZMSacsPermissions extends ZMObject {

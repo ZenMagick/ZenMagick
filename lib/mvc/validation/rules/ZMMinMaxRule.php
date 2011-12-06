@@ -24,7 +24,7 @@
 /**
  * Min/max length validation rule.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.mvc.validation.rules
  */
 class ZMMinMaxRule extends ZMRule {

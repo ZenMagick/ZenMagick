@@ -31,7 +31,7 @@ use zenmagick\base\Runtime;
  *
  * <p>ZenMagick wrapper around <code>lastRSS</code>.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.http.rss
  */
 class RssFeedLoader extends ZMObject {

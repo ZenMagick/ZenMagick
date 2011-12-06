@@ -24,7 +24,7 @@
  * Test ZMTags store implementation.
  *
  * @package org.zenmagick.plugins.productTags
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  */
 class TestZMTags extends ZMTestCase {
 

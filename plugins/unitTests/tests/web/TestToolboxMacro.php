@@ -24,7 +24,7 @@
  * Test the toolbox macros.
  *
  * @package org.zenmagick.plugins.unitTests.tests.web
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  */
 class TestToolboxMacro extends ZMTestCase {
 

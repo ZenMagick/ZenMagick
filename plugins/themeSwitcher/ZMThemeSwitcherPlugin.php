@@ -24,7 +24,7 @@
  * Allow users to switch between themes.
  *
  * @package org.zenmagick.plugins.themeSwitcher
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  */
 class ZMThemeSwitcherPlugin extends Plugin {
     /** query param key for new theme id. */

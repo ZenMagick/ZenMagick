@@ -47,7 +47,7 @@ use zenmagick\base\logging\Logging;
  * <p><strong>NOTE: The only predefined mapping key is <em>secure</em>. It is a boolean flag indicating whether the resource requires
  * a secure access method (ie. SSL/HTTPS) or not.</p>
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.http.sacs
  */
 class SacsManager {

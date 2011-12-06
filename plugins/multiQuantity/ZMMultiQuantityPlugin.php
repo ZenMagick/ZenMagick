@@ -28,7 +28,7 @@ define('MULTI_QUANTITY_ID', 'multi_qty_id');
  * Plugin implementing multi quantity product add for attributed products.
  *
  * @package org.zenmagick.plugins.multiQuantity
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  */
 class ZMMultiQuantityPlugin extends Plugin {
 

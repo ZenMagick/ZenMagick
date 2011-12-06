@@ -24,7 +24,7 @@
 /**
  * A result source wrapper for an array of results.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.mvc.resultlist.sources
  */
 class ZMArrayResultSource extends ZMObject implements ZMResultSource {

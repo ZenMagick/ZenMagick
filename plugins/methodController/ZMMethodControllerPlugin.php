@@ -25,7 +25,7 @@
  * Plugin to illustrate using custom controller methods.
  *
  * @package org.zenmagick.plugins.methodController
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  */
 class ZMMethodControllerPlugin extends Plugin {
 

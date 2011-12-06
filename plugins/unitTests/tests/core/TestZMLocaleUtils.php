@@ -27,7 +27,7 @@ use Symfony\Component\Yaml\Yaml;
  * Test ZMLocaleUtils.
  *
  * @package org.zenmagick.plugins.unitTests.tests
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  */
 class TestZMLocaleUtils extends ZMTestCase {
     protected static $DATA_DIR;

@@ -38,7 +38,7 @@ use zenmagick\base\Runtime;
  * <p>Disabling this module will disable <strong>*all*</strong> ZenMagick order total plugins.
  * To disable individual order total plugins the Plugin Manager should be used.</p>
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick
  */
 class ot_zenmagick {

@@ -26,7 +26,7 @@ use zenmagick\base\Runtime;
 /**
  * Patch to create fulltext indexes for product search.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.store.admin.installation.patches.sql
  */
 class ZMFulltextPatch extends \ZMSQLPatch {

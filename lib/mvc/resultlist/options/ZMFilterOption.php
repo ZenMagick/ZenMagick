@@ -24,7 +24,7 @@
 /**
  * A single filter option.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.mvc.resultlist.options
  */
 class ZMFilterOption extends ZMObject {

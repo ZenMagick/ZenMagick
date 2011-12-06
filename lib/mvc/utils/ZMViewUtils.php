@@ -27,7 +27,7 @@ use zenmagick\base\logging\Logging;
 /**
  * View utils.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.mvc.utils
  */
 class ZMViewUtils extends ZMObject {

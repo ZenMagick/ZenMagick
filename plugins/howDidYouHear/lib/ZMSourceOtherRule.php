@@ -27,7 +27,7 @@
 /**
  * Make other text field required if Other selected in drop down.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.plugins.howDidYouHear
  */
 class ZMSourceOtherRule extends ZMRequiredRule {

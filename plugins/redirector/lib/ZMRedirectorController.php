@@ -24,7 +24,7 @@
 /**
  * Request controller of the redirector plugin.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.plugins.redirector
  */
 class ZMRedirectorController extends ZMController {

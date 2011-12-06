@@ -27,7 +27,7 @@
  * Plugin to add product image support similar to Zen Cart's IH2.
  *
  * @package org.zenmagick.plugins.productImages
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  */
 class ZMProductImagesPlugin extends Plugin {
 

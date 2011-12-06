@@ -47,7 +47,7 @@ if (!defined('T_ML_COMMENT')) {
  *
  * <p>If no temp folder is configured, the location of this file will be used to store temporary files and folders.</p>
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org> <mano@zenmagick.org>
  * @package org.zenmagick.core.utils.packer
  */
 class ZMPhpCompressor {

@@ -28,7 +28,7 @@ use zenmagick\base\logging\Logging;
  *
  * <p>Style can be: <em>select</em> (default) or <em>radio</em>.</p>
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.mvc.widgets.form
  */
 class ZMSelectFormWidget extends ZMFormWidget {

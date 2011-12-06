@@ -24,7 +24,7 @@
 /**
  * Example plugin admin controller.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.plugins.examplePlugin
  */
 class ZMExamplePluginAdminController extends ZMController {

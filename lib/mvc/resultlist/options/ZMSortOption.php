@@ -27,7 +27,7 @@
  * <p>The returned id will automatically reflect the current status, the id the sort
  * order.</p>
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.mvc.resultlist.options
  */
 class ZMSortOption extends ZMObject {

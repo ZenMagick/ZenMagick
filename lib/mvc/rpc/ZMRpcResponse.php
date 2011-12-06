@@ -26,7 +26,7 @@
  * <p>implementations typically would expect the corresponding request instance as only
  * constructor argument.</p>
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.mvc.rpc
  */
 interface ZMRpcResponse {

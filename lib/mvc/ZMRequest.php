@@ -36,7 +36,7 @@ use zenmagick\http\routing\loader\YamlLoader;
  * <p><strong>NOTE:</strong</strong> For the time of transition between static and instance
  * usage of request methods this will have a temp. name of <code>ZMRequest</code>.</p>
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.mvc
  */
 class ZMRequest extends \ZMObject {

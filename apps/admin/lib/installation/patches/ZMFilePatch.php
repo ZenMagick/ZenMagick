@@ -25,7 +25,7 @@ use zenmagick\base\Runtime;
 /**
  * Generic file patch.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.store.admin.installation.patches
  */
 class ZMFilePatch extends ZMInstallationPatch {

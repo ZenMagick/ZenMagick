@@ -28,7 +28,7 @@ use zenmagick\base\Runtime;
  * Plugin to enable support for CAPTCHA in ZenMagick.
  *
  * @package org.zenmagick.plugins.captcha
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  */
 class ZMCaptchaPlugin extends Plugin {
     private $captcha_;

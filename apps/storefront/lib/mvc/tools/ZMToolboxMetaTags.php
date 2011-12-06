@@ -35,7 +35,7 @@
  * <p>All other pages will get served default values base on the store configuration.
  * Only exception is the homepage where the keywords will include the top categories.</p>
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.store.sf.mvc.tools
  */
 class ZMToolboxMetaTags extends ZMToolboxTool {

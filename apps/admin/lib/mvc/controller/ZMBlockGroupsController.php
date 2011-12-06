@@ -24,7 +24,7 @@
 /**
  * Admin controller for block groups.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.store.admin.mvc.controller
  */
 class ZMBlockGroupsController extends ZMController {

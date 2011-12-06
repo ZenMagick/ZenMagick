@@ -25,7 +25,7 @@
  * Allow to add tags to products.
  *
  * @package org.zenmagick.plugins.productTags
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  */
 class ZMProductTagsPlugin extends Plugin {
 

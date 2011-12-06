@@ -26,7 +26,7 @@ use zenmagick\base\Beans;
  * Test result list related code.
  *
  * @package org.zenmagick.plugins.unitTests.tests
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  */
 class TestResultListSupport extends ZMTestCase {
 

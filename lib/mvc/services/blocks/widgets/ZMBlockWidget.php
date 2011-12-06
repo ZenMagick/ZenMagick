@@ -32,7 +32,7 @@
  * <p>This makes is rather simple to wrap the template output in something like a &lt;li&gt; tag or similar. For more
  * complex formatting nested blocks should be considered.</p>
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.mvc.services.blocks.widgets
  */
 class ZMBlockWidget extends ZMWidget {

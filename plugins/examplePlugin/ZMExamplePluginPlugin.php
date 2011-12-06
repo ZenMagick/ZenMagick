@@ -26,7 +26,7 @@ use zenmagick\base\Runtime;
  * Example plugin to illustrate a few key points of the ZenMagick plugin architecture.
  *
  * @package org.zenmagick.plugins.examplePlugin
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  */
 class ZMExamplePluginPlugin extends Plugin {
 

@@ -27,7 +27,7 @@
  * <p>This would typically be implemented by service classes that want to support SQL based
  * result list handling.</p>
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org> <mano@zenmagick.org>
  * @package org.zenmagick.core.services.database
  */
 interface ZMSQLAware {

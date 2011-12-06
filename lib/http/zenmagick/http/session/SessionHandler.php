@@ -25,7 +25,7 @@ namespace zenmagick\http\session;
 /**
  * Simple session handler interface.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.http.session
  */
 interface SessionHandler {

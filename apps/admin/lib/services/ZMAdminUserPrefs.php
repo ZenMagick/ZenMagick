@@ -25,7 +25,7 @@ use zenmagick\base\Runtime;
 /**
  * Admin user prefs service.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.store.admin.services
  */
 class ZMAdminUserPrefs extends ZMObject {

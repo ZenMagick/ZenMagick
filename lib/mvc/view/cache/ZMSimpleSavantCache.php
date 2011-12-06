@@ -26,7 +26,7 @@
  *
  * <p>Template names to be cached are configured as comma separated list using the setting: <em>'zenmagick.mvc.templates.simpleCache'</em>.</p>
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.mvc.view.cache
  */
 class ZMSimpleSavantCache implements ZMSavantCache {

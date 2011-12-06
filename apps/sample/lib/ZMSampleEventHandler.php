@@ -26,7 +26,7 @@
  *
  * <p>Hooked up automatically via configs.yaml.</p>
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.mvc.sample
  */
 class ZMSampleEventHandler {

@@ -26,7 +26,7 @@ use zenmagick\base\Beans;
  * Test coupon service.
  *
  * @package org.zenmagick.plugins.unitTests.tests
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  */
 class TestZMCoupons extends ZMTestCase {
     private $createdCouponIds_;

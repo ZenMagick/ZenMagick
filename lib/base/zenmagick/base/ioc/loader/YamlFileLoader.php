@@ -33,7 +33,7 @@ use Symfony\Component\Config\FileLocator;
  *
  * <p>Based on the <em>symfony2</em> dependency injection component.</p>
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.base.ioc.loader
  */
 class YamlFileLoader extends \Symfony\Component\DependencyInjection\Loader\YamlFileLoader {

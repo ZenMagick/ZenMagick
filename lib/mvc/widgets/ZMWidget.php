@@ -33,7 +33,7 @@
  * <p>Since widgets are typically used in the context of an HTML page, the <code>render($request,$view)</code> method is expected
  * to return valid HTML that will display the widget.</p>
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.mvc.widgets
  */
 abstract class ZMWidget extends ZMObject {

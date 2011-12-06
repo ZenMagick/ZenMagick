@@ -34,7 +34,7 @@ use zenmagick\http\sacs\handler\UserRoleCredentials;
  *
  * <p>Credentials are expected to implement the <code>zenmagick\http\sacs\handler\UserRoleCredentials</code> interface.</p>
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.http.sacs.handler
  */
 class UserRoleSacsHandler implements SacsHandler {

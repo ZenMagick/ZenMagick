@@ -26,7 +26,7 @@ use zenmagick\base\Runtime;
 /**
  * File utilities.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org> <mano@zenmagick.org>
  * @package org.zenmagick.core.utils
  */
 class ZMFileUtils {

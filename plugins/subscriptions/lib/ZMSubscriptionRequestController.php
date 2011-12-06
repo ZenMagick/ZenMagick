@@ -24,7 +24,7 @@
 /**
  * Request controller for customer requests.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.plugins.subscriptions
  */
 class ZMSubscriptionRequestController extends ZMController {

@@ -24,7 +24,7 @@
 /**
  * Admin controller.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.plugins.googleStoreLocator
  */
 class ZMGoogleStoreLocatorAdminController extends ZMPluginAdmin2Controller {

@@ -26,7 +26,7 @@ if (!defined('DIR_WS_CATALOG')) define('DIR_WS_CATALOG', '/');
 /**
  * Patch to update the <code>.htaccess</code> <code>RewriteBase</code>.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.store.admin.installation.patches.file
  */
 class ZMRewriteBasePatch extends ZMFilePatch {

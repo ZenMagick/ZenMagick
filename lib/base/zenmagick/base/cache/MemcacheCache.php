@@ -27,7 +27,7 @@ namespace zenmagick\base\cache;
  *
  * <p>Persistent caching using <code>memcache</code>.</p>
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.base.cache
  */
 class MemcacheCache implements Cache {

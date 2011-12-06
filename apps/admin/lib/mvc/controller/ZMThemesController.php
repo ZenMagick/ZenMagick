@@ -24,7 +24,7 @@
 /**
  * Admin controller for themes page.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.store.admin.mvc.controller
  */
 class ZMThemesController extends ZMController {

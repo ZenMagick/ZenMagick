@@ -26,7 +26,7 @@ use zenmagick\base\security\authentication\AuthenticationProvider;
 /**
  * Sha1 authentication provider.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.base.security.authentication.provider
  */
 class Sha1AuthenticationProvider implements AuthenticationProvider {

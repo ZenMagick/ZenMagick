@@ -32,7 +32,7 @@ use Symfony\Component\Yaml\Yaml;
 /**
  * A validator framework.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.mvc.validation
  */
 class ZMValidator extends ZMObject {

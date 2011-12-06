@@ -24,7 +24,7 @@
 /**
  * Admin user form data.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.store.admin.model.form
  */
 class ZMAdminUserForm extends ZMObject {

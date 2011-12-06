@@ -24,7 +24,7 @@
 /**
  * A dashboard widget.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.store.admin.dashbord
  */
 abstract class ZMDashboardWidget extends ZMWidget {

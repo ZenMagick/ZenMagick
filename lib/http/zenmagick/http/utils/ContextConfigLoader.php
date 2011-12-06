@@ -33,7 +33,7 @@ use Symfony\Component\Yaml\Yaml;
 /**
  * Loader for multi-content config files.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.base.utils
  */
 class ContextConfigLoader extends BaseContextConfigLoader {

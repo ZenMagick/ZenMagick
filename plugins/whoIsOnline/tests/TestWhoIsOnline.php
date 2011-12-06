@@ -4,7 +4,7 @@
  * Test who's online.
  *
  * @package org.zenmagick.plugins.whoIsOnline
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  */
 class TestWhoIsOnline extends ZMTestCase {
 

@@ -24,7 +24,7 @@
 /**
  * Latest orders dashboard widget.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.store.admin.dashbord.widgets
  */
 class ZMLatestOrdersDashboardWidget extends ZMDashboardWidget {

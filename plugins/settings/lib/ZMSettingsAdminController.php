@@ -24,7 +24,7 @@
 /**
  * Admin controller.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.plugins.settings
  */
 class ZMSettingsAdminController extends ZMPluginAdmin2Controller {

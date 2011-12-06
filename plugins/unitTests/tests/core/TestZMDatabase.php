@@ -26,7 +26,7 @@ use zenmagick\base\Beans;
  * Test database implementations.
  *
  * @package org.zenmagick.plugins.unitTests.tests
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  */
 class TestZMDatabase extends ZMTestCase {
     static $PROVIDERS = array('ZMPdoDatabase');

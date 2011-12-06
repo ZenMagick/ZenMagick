@@ -25,7 +25,7 @@ namespace apps\store\promotions;
  * Base catalog promotion element.
  *
  * @package apps.store.promotions
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  */
 abstract class CatalogPromotionElement extends AbstractPromotionElement {
 

@@ -27,7 +27,7 @@
 /**
  * Request controller for checkout shipping page.
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.store.sf.mvc.controller
  */
 class ZMCheckoutConfirmationController extends ZMController {

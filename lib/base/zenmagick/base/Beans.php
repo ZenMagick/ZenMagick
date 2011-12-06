@@ -38,7 +38,7 @@ use zenmagick\base\ioc\Container;
  *   will be permanent for all subsequent code using that singleton.</dd>
  * </dl>
  *
- * @author DerManoMann
+ * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.base
  */
 class Beans {
