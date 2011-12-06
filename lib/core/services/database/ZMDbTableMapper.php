@@ -172,11 +172,9 @@ class ZMDbTableMapper extends ZMObject {
      *
      * @param string table The table name.
      * @param ZMDatabase database The database.
-     * @param boolean print Optional flag to also print the mapping in a form that can be used
-     *  to cut&paste into a mapping file; default is <code>false</code>.
      * @return array The mapping.
      */
-    public function buildTableMapping($table, $database, $print=false) {
+    public function buildTableMapping($table, $database) {
         // check for prefix
         $tableMetaData = null;
         try {
@@ -203,9 +201,6 @@ class ZMDbTableMapper extends ZMObject {
         }
 
         $mapping = array();
-        ob_start();
-        echo "'".str_replace($config['prefix'], '', $table)."' => array(\n";
-        $first = true;
         foreach ($tableMetaData as $column) {
             $line = 'column=' . $column['name'] . ';type=' . $column['type'];
             if ($column['key']) {
@@ -215,18 +210,6 @@ class ZMDbTableMapper extends ZMObject {
                 $line .= ';auto=true';
             }
             $mapping[$column['name']] = $line;
-            if (!$first) {
-                echo ",\n";
-            }
-            echo "    '" . $column['name'] . "' => '" . $line . "'";
-            $first = false;
-        }
-        echo "\n),\n";
-
-        $text = ob_get_clean();
-
-        if ($print) {
-            echo $text;
         }
 
         return $mapping;

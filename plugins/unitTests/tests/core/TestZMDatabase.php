@@ -70,20 +70,16 @@ class TestZMDatabase extends ZMTestCase {
             'name' => 'column=name;type=string',
             'other' => 'column=other;type=string'
         );
-        $expectedOutput = "'db_test' => array(\n    'id' => 'column=id;type=integer;key=true;auto=true',\n    'name' => 'column=name;type=string',\n    'other' => 'column=other;type=string'\n),\n";
 
         foreach (self::getProviders() as $provider => $database) {
             // create test tabe
             $database->update($drop_table);
             $database->update($create_table);
 
-            ob_start();
             $mapping = ZMDbTableMapper::instance()->buildTableMapping('db_test', $database, true);
-            $output = ob_get_clean();
             if ($this->assertTrue(is_array($mapping), '%s: '.$provider)) {
                 $this->assertEqual($expectedMapping, $mapping, '%s: '.$provider);
             }
-            $this->assertEqual($expectedOutput, $output, '%s: '.$provider);
 
             // drop again
             $database->update($drop_table);
