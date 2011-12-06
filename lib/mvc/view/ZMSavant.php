@@ -25,6 +25,7 @@ use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 
 use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
+use zenmagick\base\logging\Logging;
 
 /**
  * Custom Savant(3).
@@ -152,12 +153,12 @@ class ZMSavant extends Savant3 implements ContainerAwareInterface {
         if (null != ($path = $this->findFile($type, $filename))) {
             if (null != ($uri= $this->file2uri($path))) {
                 $url = $this->request->absoluteURL($uri);
-                Runtime::getLogging()->log('resolve filename '.$filename.' (type='.$type.') as url: '.$url.'; path='.$path, ZMLogging::TRACE);
+                Runtime::getLogging()->log('resolve filename '.$filename.' (type='.$type.') as url: '.$url.'; path='.$path, Logging::TRACE);
                 return $url;
             }
         }
 
-        Runtime::getLogging()->log('can\'t resolve filename '.$filename.' (type='.$type.') '.$filename.' to url', ZMLogging::WARN);
+        Runtime::getLogging()->warn('can\'t resolve filename '.$filename.' (type='.$type.') '.$filename.' to url');
         return '';
     }
 
@@ -217,7 +218,7 @@ class ZMSavant extends Savant3 implements ContainerAwareInterface {
             $wObj = ZMBeanUtils::getBean($widget);
         }
         if (!($wObj instanceof ZMWidget)) {
-            Runtime::getLogging()->debug('invalid widget: '.$widget, ZMLogging::DEBUG);
+            Runtime::getLogging()->debug('invalid widget: '.$widget);
             return '';
         }
         if (null !== $name) {

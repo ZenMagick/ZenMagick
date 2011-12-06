@@ -24,6 +24,7 @@ use zenmagick\base\Beans;
 use zenmagick\base\ClassLoader;
 use zenmagick\base\Runtime;
 use zenmagick\base\ZMException;
+use zenmagick\base\logging\Logging;
 
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\Yaml\Yaml;
@@ -199,7 +200,7 @@ class ZMValidator extends ZMObject {
             foreach ($rules as $ruleDef) {
                 // XXX ugly fix as rules might have variable length c'tor args
                 if (null == ($rule = $this->makeClass($ruleDef))) {
-                    Runtime::getLogging()->dump($ruleDef, "can't instantiate rule", ZMLogging::WARN);
+                    Runtime::getLogging()->dump($ruleDef, "can't instantiate rule", Logging::WARN);
                 }
                 $ruleSet->addRule($rule);
             }

@@ -23,6 +23,7 @@
 use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
 use zenmagick\base\ZMException;
+use zenmagick\base\logging\Logging;
 
 /**
  * A Savant(3) view.
@@ -329,7 +330,7 @@ class ZMSavantView extends ZMView {
 
             return $contents;
         } catch (Exception $e) {
-            Runtime::getLogging()->dump($e, 'failed to fetch template: '.$template, ZMLogging::ERROR);
+            Runtime::getLogging()->dump($e, 'failed to fetch template: '.$template, Logging::ERROR);
             throw new ZMException('failed to fetch template: '.$template, 0, $e);
         }
     }
@@ -349,7 +350,7 @@ class ZMSavantView extends ZMView {
         try {
             return $savant->fetch($template);
         } catch (Exception $e) {
-            Runtime::getLogging()->dump($e, 'failed to fetch template: '.$template, ZMLogging::ERROR);
+            Runtime::getLogging()->dump($e, 'failed to fetch template: '.$template, Logging::ERROR);
             throw new ZMException('failed to fetch template: '.$template, 0, $e);
         }
     }

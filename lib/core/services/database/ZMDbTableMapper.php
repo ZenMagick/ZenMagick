@@ -21,6 +21,7 @@
 <?php
 
 use zenmagick\base\Runtime;
+use zenmagick\base\logging\Logging;
 
 
 /**
@@ -152,7 +153,7 @@ class ZMDbTableMapper extends \ZMObject {
                 continue;
             }
             if (!array_key_exists($table, $this->tableMap_) && \ZMSettings::get('zenmagick.core.database.mappings.autoMap.enabled', true)) {
-                Runtime::getLogging()->log('creating dynamic mapping for table name: '.$table, \ZMLogging::DEBUG);
+                Runtime::getLogging()->debug('creating dynamic mapping for table name: '.$table);
                 $rawMapping = self::buildTableMapping($table, $database);
                 $this->setMappingForTable($table, $rawMapping);
             }
@@ -181,7 +182,7 @@ class ZMDbTableMapper extends \ZMObject {
             $tableMetaData = $database->getMetaData($table);
         } catch (\ZMDatabaseException $dbe) {
             // non prefixed?
-            Runtime::getLogging()->dump($dbe, 'missing table (non prefixed)', \ZMLogging::TRACE);
+            Runtime::getLogging()->dump($dbe, 'missing table (non prefixed)', Logging::TRACE);
         }
 
         $config = $database->getConfig();
@@ -247,7 +248,7 @@ class ZMDbTableMapper extends \ZMObject {
             $table = $mapping;
             $mapping = $this->getMapping($table, $database);
             if (null === $mapping && \ZMSettings::get('zenmagick.core.database.mappings.autoMap.enabled', true)) {
-                Runtime::getLogging()->log('creating dynamic mapping for table name: '.$table, \ZMLogging::DEBUG);
+                Runtime::getLogging()->debug('creating dynamic mapping for table name: '.$table);
                 $rawMapping = self::buildTableMapping($table, $database);
                 $this->setMappingForTable(str_replace($config['prefix'], '', $table), $rawMapping);
                 $mapping = $this->getMapping($table, $database);

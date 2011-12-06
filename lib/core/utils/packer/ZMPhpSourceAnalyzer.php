@@ -246,7 +246,7 @@ class ZMPhpSourceAnalyzer {
             // sanity check
             if (0 == count($tree[$level])) {
                 // nothing else to do
-                Runtime::getLogging()->log('empty level: '.$level.' ending...', ZMLogging::DEBUG);
+                Runtime::getLogging()->debug('empty level: '.$level.' ending...');
                 break;
             }
 
@@ -265,7 +265,7 @@ class ZMPhpSourceAnalyzer {
                 }
             }
             if (!$found) {
-                Runtime::getLogging()->log('unresolved: '.$filename, ZMLogging::WARN);
+                Runtime::getLogging()->warn('unresolved: '.$filename);
 
                 $tmp = array();
                 $deps = $fileDetails[$filename]['deps'];
@@ -274,7 +274,7 @@ class ZMPhpSourceAnalyzer {
                         $tmp[] = $class;
                     }
                 }
-                Runtime::getLogging()->log('referenced classes: '.implode(',', $tmp), ZMLogging::DEBUG);
+                Runtime::getLogging()->debug('referenced classes: '.implode(',', $tmp));
 
                 $tmp = array();
                 $deps = $fileDetails[$filename]['deps'];
@@ -283,7 +283,7 @@ class ZMPhpSourceAnalyzer {
                         $tmp[] = $interface;
                     }
                 }
-                Runtime::getLogging()->log('referenced interfaces: '.implode(',', $tmp), ZMLogging::DEBUG);
+                Runtime::getLogging()->debug('referenced interfaces: '.implode(',', $tmp));
             }
         }
 

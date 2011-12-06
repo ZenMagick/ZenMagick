@@ -255,7 +255,7 @@ class ZMPrettyLinksUrlRewriter implements UrlRewriter {
                     } else {
                         $translate = false;
                         if (!empty($requestId)) {
-                            ZMLogging::instance()->log("no pretty link mapping for: ".$requestId);
+                          Runtime::getLogging()->info("no pretty link mapping for: ".$requestId);
                         }
                     }
                 }

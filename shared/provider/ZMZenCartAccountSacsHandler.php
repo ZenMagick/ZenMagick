@@ -78,7 +78,7 @@ class ZMZenCartAccountSacsHandler implements SacsHandler {
         }
 
         if (!in_array($level, $this->levelMap_[$requiredLevel])) {
-            Runtime::getLogging()->log('missing authorization for '.$requestId.'; current='.$level.', required='.$requiredLevel, ZMLogging::DEBUG);
+            Runtime::getLogging()->debug('missing authorization for '.$requestId.'; current='.$level.', required='.$requiredLevel);
             return false;
         }
 

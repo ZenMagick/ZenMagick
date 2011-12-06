@@ -24,7 +24,7 @@ use zenmagick\base\Runtime;
 
 
 define('_ZM_ADMIN_INDEX_PHP', Runtime::getInstallationPath() . "apps/admin/web/index.php");
-if (!defined('DIR_WS_ADMIN')) define('DIR_WS_ADMIN', '/admin/'); 
+if (!defined('DIR_WS_ADMIN')) define('DIR_WS_ADMIN', '/admin/');
 /**
  * Patch to update the admin folder name in apps/admin/web/index.php.
  *
@@ -120,7 +120,7 @@ class ZMAdminFolderNamePatch extends \ZMFilePatch {
 
             return $this->putFileLines(_ZM_ADMIN_INDEX_PHP, $patchedLines);
         } else {
-            Runtime::getLogging()->log("** ZenMagick: no permission to patch admin folder name", \ZMLogging::ERROR);
+            Runtime::getLogging()->error("** ZenMagick: no permission to patch admin folder name");
             return false;
         }
 
@@ -149,7 +149,7 @@ class ZMAdminFolderNamePatch extends \ZMFilePatch {
 
             return $this->putFileLines(_ZM_ADMIN_INDEX_PHP, $unpatchedLines);
         } else {
-            Runtime::getLogging()->log("** ZenMagick: no permission to patch admin index.php for uninstall", \ZMLogging::ERROR);
+            Runtime::getLogging()->error("** ZenMagick: no permission to patch admin index.php for uninstall");
             return false;
         }
 

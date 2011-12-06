@@ -21,6 +21,7 @@
 <?php
 
 use zenmagick\base\Runtime;
+use zenmagick\base\logging\Logging;
 
 
 /**
@@ -172,7 +173,7 @@ class ZMHtmlReporter extends \HtmlReporter {
         }
 
         // log just in case
-        Runtime::getLogging()->dump($exception, null, \ZMLogging::WARN);
+        Runtime::getLogging()->dump($exception, null, Logging::WARN);
 
         // just need to run this to get the stats right...
         ob_start(); parent::paintException($exception); $html = ob_get_clean();

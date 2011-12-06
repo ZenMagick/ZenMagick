@@ -21,6 +21,7 @@
 <?php
 
 use zenmagick\base\Runtime;
+use zenmagick\base\logging\Logging;
 use zenmagick\http\sacs\SacsManager;
 
 /**
@@ -70,7 +71,7 @@ class ZMRpcController extends ZMController {
 
         if (!$rpcResponse) {
             if (method_exists($this, $method) || in_array($method, $this->getAttachedMethods())) {
-                Runtime::getLogging()->log('calling method: '.$method, ZMLogging::TRACE);
+                Runtime::getLogging()->log('calling method: '.$method, Logging::TRACE);
                 $rpcResponse = $this->$method($rpcRequest);
             } else {
                 $rpcResponse = $rpcRequest->createResponse();

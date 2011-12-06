@@ -92,7 +92,7 @@ abstract class ZMAbstractLocale extends \ZMObject implements \ZMLocale {
         if (null == $path) {
             $path = \ZMFileUtils::mkPath(Runtime::getApplicationPath(), 'locale', $locale);
             if (null == ($path = \ZMLocaleUtils::resolvePath($path, $locale))) {
-                Runtime::getLogging()->log('unable to resolve path for locale = "'.$locale.'"', \ZMLogging::DEBUG);
+                Runtime::getLogging()->debug('unable to resolve path for locale = "'.$locale.'"');
                 return null;
             }
         }

@@ -21,6 +21,7 @@
 <?php
 
 use zenmagick\base\Runtime;
+use zenmagick\base\logging\Logging;
 
 /**
  * A select form widget.
@@ -129,12 +130,12 @@ class ZMSelectFormWidget extends ZMFormWidget {
      */
     public function render($request, $view = null) {
         if ($this->isMultiValue()) {
-            Runtime::getLogging()->log('multi-value: defaulting style to select', ZMLogging::TRACE);
+            Runtime::getLogging()->log('multi-value: defaulting style to select', Logging::TRACE);
             $this->set('style', 'select');
         }
         switch ($this->get('style')) {
             default:
-                Runtime::getLogging()->log('invalid style "'.$this->get('style').'" - using default', ZMLogging::DEBUG);
+                Runtime::getLogging()->debug('invalid style "'.$this->get('style').'" - using default');
             case 'select':
                 return $this->renderSelect($request);
             case 'radio':

@@ -75,7 +75,7 @@ class ZMToolboxUtils extends ZMToolboxTool {
         $currencyService = $this->container->get('currencyService');
         $currency = $currencyService->getCurrencyForCode($this->getRequest()->getCurrencyCode());
         if (null == $currency) {
-            Runtime::getLogging()->log('no currency found - using default currency', ZMLogging::WARN);
+            Runtime::getLogging()->warn('no currency found - using default currency');
             $currency = $currencyService->getCurrencyForCode(ZMSettings::get('defaultCurrency'));
         }
         $money = $currency->format($amount, $convert);

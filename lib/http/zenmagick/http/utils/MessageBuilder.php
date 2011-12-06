@@ -116,7 +116,7 @@ class MessageBuilder extends ZMObject {
         $formats = $this->getFormatsForTemplate($template, $request);
         if (0 == count($formats)) {
             // no template found
-            Runtime::getLogging()->log('no template found for email: '.$template, \ZMLogging::ERROR);
+            Runtime::getLogging()->error('no template found for email: '.$template);
             return '';
         }
 

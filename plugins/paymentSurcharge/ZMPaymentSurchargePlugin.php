@@ -24,6 +24,7 @@
 <?php
 
 use zenmagick\base\Beans;
+use zenmagick\base\Runtime;
 
 /**
  * ZenMagick order total module to add a payment surcharge totals based on configurable conditions.
@@ -86,7 +87,7 @@ class ZMPaymentSurchargePlugin extends Plugin implements ZMOrderTotal {
                         }
                         break;
                     default:
-                        ZMLogging::instance()->log('invalid condition value type: ' . $cvalueType, ZMLogging::ERROR);
+                        Runtime::getLogging()->error('invalid condition value type: ' . $cvalueType);
                         return null;
                     }
                 }

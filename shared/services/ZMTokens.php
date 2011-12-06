@@ -143,7 +143,7 @@ class ZMTokens extends ZMObject {
                 WHERE hash = :hash AND expires >= now()";
         $results = ZMRuntime::getDatabase()->query($sql, array('hash' => $hash), DB_PREFIX.'token', 'ZMToken');
         if (1 < count($results)) {
-            Runtime::getLogging()->log('duplicate token for hash: '.$hash, ZMLogging::WARN);
+            Runtime::getLogging()->warn('duplicate token for hash: '.$hash);
             // expire all
             foreach ($results as $token) {
                 $this->updateToken($token, 0);

@@ -163,7 +163,7 @@ class ZMConfig extends ZMObject {
                     $widget->set('configurationKey', $value['key']);
                     $values[] = $widget;
                 } else {
-                    Runtime::getLogging()->log('failed to create widget: '.$widgetDefinition, ZMLogging::WARN);
+                    Runtime::getLogging()->warn('failed to create widget: '.$widgetDefinition);
                 }
             } else {
                 // try to convert into widget...

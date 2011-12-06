@@ -23,6 +23,7 @@
 use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
 use zenmagick\base\ClassLoader;
+use zenmagick\base\logging\Logging;
 use zenmagick\http\sacs\SacsManager;
 
 /**
@@ -68,13 +69,13 @@ class ZMCatalogController extends ZMController {
             if (0 < count($controllers)) {
                 $controller = $controllers[0];
                 $catalogRequestId = $controller->getCatalogRequestId();
-                Runtime::getLogging()->log('defaulting to controller : '.get_class($controller), ZMLogging::DEBUG);
+                Runtime::getLogging()->debug('defaulting to controller : '.get_class($controller));
             }
         } else {
             // let's see if we have a controller for this...
             $definition = ClassLoader::className($catalogRequestId.'Controller');
             $controller = Beans::getBean($definition);
-            Runtime::getLogging()->log('delegating to controller : '.get_class($controller), ZMLogging::DEBUG);
+            Runtime::getLogging()->debug('delegating to controller : '.get_class($controller));
 
         }
 
@@ -97,7 +98,7 @@ class ZMCatalogController extends ZMController {
             $catalogContentView->setLayout(null);
             $catalogViewContent = $catalogContentView->generate($request);
         } catch (Exception $e) {
-            Runtime::getLogging()->dump($e, 'view::generate failed', ZMLogging::ERROR);
+            Runtime::getLogging()->dump($e, 'view::generate failed', Logging::ERROR);
             $catalogViewContent = null;
         }
 

@@ -139,7 +139,7 @@ class ZMThemeDummyPatch extends \ZMFilePatch {
                     \ZMFileUtils::setFilePerms($templateDir."images");
                     \ZMFileUtils::setFilePerms($templateDir."images".DIRECTORY_SEPARATOR.$imageName);
                 } else {
-                    Runtime::getLogging()->log("** ZenMagick: no permission to create theme dummy ".$themeId, \ZMLogging::ERROR);
+                    Runtime::getLogging()->error("** ZenMagick: no permission to create theme dummy ".$themeId);
                     return false;
                 }
             }

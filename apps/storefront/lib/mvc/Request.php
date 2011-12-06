@@ -257,7 +257,7 @@ class Request extends \ZMRequest {
             $this->setParameter('cPath', implode('_', $cPath));
             $this->setParameter('cPath', implode('_', $cPath));
         } else {
-            Runtime::getLogging()->log('invalid cPath: ' . $cPath, \ZMLogging::ERROR);
+            Runtime::getLogging()->error('invalid cPath: ' . $cPath);
         }
     }
 
@@ -418,7 +418,7 @@ class Request extends \ZMRequest {
         }
 
         if (null == $language) {
-            Runtime::getLogging()->log('no default language found - using en as fallback', \ZMLogging::WARN);
+            Runtime::getLogging()->warn('no default language found - using en as fallback');
             $language = Beans::getBean("ZMLanguage");
             $language->setId(1);
             $language->setDirectory('english');

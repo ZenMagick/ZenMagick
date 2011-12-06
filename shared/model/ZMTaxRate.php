@@ -284,7 +284,7 @@ class ZMTaxRate extends ZMObject {
         $session = Runtime::getContainer()->getService('session');
         $currency = $currencyService->getCurrencyForCode($session->getCurrencyCode());
         if (null == $currency) {
-            Runtime::getLogging()->log('no currency found - using default currency', ZMLogging::WARN);
+            Runtime::getLogging()->warn('no currency found - using default currency');
             $currency = $currencyService->getCurrencyForCode(ZMSettings::get('defaultCurrency'));
         }
 

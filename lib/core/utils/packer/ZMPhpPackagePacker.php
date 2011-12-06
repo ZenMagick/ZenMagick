@@ -239,7 +239,7 @@ class ZMPhpPackagePacker {
             $compressor->clean();
         }
         foreach ($compressor->getErrors() as $error) {
-            Runtime::getLogging()->log($error, ZMLogging::DEBUG);
+            Runtime::getLogging()->debug($error);
         }
     }
 

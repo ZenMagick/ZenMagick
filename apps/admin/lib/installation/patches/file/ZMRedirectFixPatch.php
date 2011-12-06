@@ -128,7 +128,7 @@ class ZMRedirectFixPatch extends ZMFilePatch {
                 }
                 $this->putFileLines($file, $patchedLines);
             } else {
-                Runtime::getLogging()->log("** ZenMagick: no permission to patch redirect fix support into ".basename($file), ZMLogging::ERROR);
+                Runtime::getLogging()->error("** ZenMagick: no permission to patch redirect fix support into ".basename($file));
                 return false;
             }
         }
@@ -157,7 +157,7 @@ class ZMRedirectFixPatch extends ZMFilePatch {
                 }
                 $this->putFileLines($file, $unpatchedLines);
             } else {
-                Runtime::getLogging()->log("** ZenMagick: no permission to patch ".basename($file)." for uninstall", ZMLogging::ERROR);
+                Runtime::getLogging()->error("** ZenMagick: no permission to patch ".basename($file)." for uninstall");
                 return false;
             }
         }

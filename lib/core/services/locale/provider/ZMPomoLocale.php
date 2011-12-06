@@ -91,7 +91,7 @@ class ZMPomoLocale extends ZMAbstractLocale {
         $filename = null == $filename ? $domain.'.mo' : $filename;
         $path = ZMFileUtils::mkPath($basedir, 'LC_MESSAGES', $filename);
         if (null == ($path = ZMLocaleUtils::resolvePath($path, $locale))) {
-            Runtime::getLogging()->log('unable to resolve locale path for locale = "'.$locale.'"', ZMLogging::DEBUG);
+            Runtime::getLogging()->debug('unable to resolve locale path for locale = "'.$locale.'"');
             return;
         }
         $this->registerMO($path, $domain);

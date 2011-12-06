@@ -106,7 +106,7 @@ class ZMSideboxDummyPatch extends ZMFilePatch {
                         ZMFileUtils::setFilePerms($_ZM_ZEN_DIR_FS_BOXES.$box);
                     }
                 } else {
-                    Runtime::getLogging()->log("** ZenMagick: no permission to create dummy sidebox " . $box, ZMLogging::ERROR);
+                    Runtime::getLogging()->error("** ZenMagick: no permission to create dummy sidebox " . $box);
                     return false;
                 }
             }

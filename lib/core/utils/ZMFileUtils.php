@@ -99,7 +99,7 @@ class ZMFileUtils {
         self::setFilePerms($dir, $recursive, array('folder' => $perms));
 
         if (!$result) {
-            Runtime::getLogging()->log("insufficient permission to create directory: '".$dir.'"', \ZMLogging::WARN);
+            Runtime::getLogging()->warn("insufficient permission to create directory: '".$dir.'"');
         }
 
         return $result;
@@ -399,7 +399,7 @@ class ZMFileUtils {
         for ($ii=$keyOffset; $ii < ($rowCount+$keyOffset); ++$ii) {
             $line = self::csvString2Array($csvLines[$ii]);
             if (count($line) != $keyCount) {
-                Runtime::getLogging()->log( 'invalid line count; skipping line'.$ii . '; expected='.$keyCount.', actual='.count($line), \ZMLogging::WARN);
+                Runtime::getLogging()->warn( 'invalid line count; skipping line'.$ii . '; expected='.$keyCount.', actual='.count($line));
                 continue;
             }
             $row = array();

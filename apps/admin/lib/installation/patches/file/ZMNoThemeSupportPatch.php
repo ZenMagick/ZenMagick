@@ -115,7 +115,7 @@ class ZMNoThemeSupportPatch extends ZMFilePatch {
             }
             return $this->putFileLines(_ZM_ZEN_APP_BOTTOM_PHP, $patchedLines);
         } else {
-            Runtime::getLogging()->log("** ZenMagick: no permission to patch no theme support into application_bottpm.php", ZMLogging::ERROR);
+            Runtime::getLogging()->error("** ZenMagick: no permission to patch no theme support into application_bottpm.php");
             return false;
         }
     }
@@ -142,7 +142,7 @@ class ZMNoThemeSupportPatch extends ZMFilePatch {
 
             return $this->putFileLines(_ZM_ZEN_APP_BOTTOM_PHP, $unpatchedLines);
         } else {
-            Runtime::getLogging()->log("** ZenMagick: no permission to patch application_bottpm.php for uninstall", ZMLogging::ERROR);
+            Runtime::getLogging()->error("** ZenMagick: no permission to patch application_bottpm.php for uninstall");
             return false;
         }
 

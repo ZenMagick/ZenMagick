@@ -654,7 +654,7 @@ class ZMShoppingCart extends ZMObject {
     public function addProduct($productId, $quantity=1, $attributes=array(), $notify=true) {
         $product = $this->container->get('productService')->getProductForId($productId);
         if (null == $product) {
-            Runtime::getLogging()->log('failed to add product to cart; productId='.$productId, ZMLogging::ERROR);
+            Runtime::getLogging()->error('failed to add product to cart; productId='.$productId);
             return false;
         }
         $attributes = $this->sanitizeAttributes($product, $attributes);

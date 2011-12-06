@@ -177,7 +177,7 @@ class ZMEventFixes extends ZMObject {
     private function needsZC($request) {
         $requestId = $request->getRequestId();
         if (ZMLangUtils::inArray($requestId, ZMSettings::get('apps.store.request.enableZCRequestHandling'))) {
-            Runtime::getLogging()->log('enable zencart request processing for requestId='.$requestId, ZMLogging::DEBUG);
+            Runtime::getLogging()->debug('enable zencart request processing for requestId='.$requestId);
             return true;
         }
         if (false === strpos($requestId, 'checkout_') && 'download' != $requestId) {
@@ -190,7 +190,7 @@ class ZMEventFixes extends ZMObject {
 
         $needs = !in_array($requestId, $supportedCheckoutPages);
         if ($needs) {
-            Runtime::getLogging()->log('enable zencart request processing for requestId='.$requestId, ZMLogging::DEBUG);
+            Runtime::getLogging()->debug('enable zencart request processing for requestId='.$requestId);
         }
         return $needs;
     }
@@ -272,7 +272,7 @@ class ZMEventFixes extends ZMObject {
         }
 
         if ('checkout_confirmation' == $request->getRequestId() && 'free_free' == $_SESSION['shipping']) {
-            Runtime::getLogging()->log('fixing free_free shipping method info', ZMLogging::WARN);
+            Runtime::getLogging()->warn('fixing free_free shipping method info');
             $_SESSION['shipping'] = array('title' => _zm('Free Shipping'), 'cost' => 0, 'id' => 'free_free');
         }
     }
@@ -393,7 +393,7 @@ class ZMEventFixes extends ZMObject {
             }
             if (null == $language) {
                 $language = ZMLanguages::getDefaultLanguage();
-                Runtime::getLogging()->log('invalid or missing language - using default language', ZMLogging::WARN);
+                Runtime::getLogging()->warn('invalid or missing language - using default language');
             }
 
             $session->setLanguage($language);

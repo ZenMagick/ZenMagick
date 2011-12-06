@@ -24,6 +24,7 @@ use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
 use zenmagick\base\ZMException;
 use zenmagick\base\events\Event;
+use zenmagick\base\logging\Logging;
 use zenmagick\http\sacs\SacsManager;
 
 /**
@@ -120,7 +121,7 @@ class ZMController extends ZMObject {
 
         // session validation
         if ($this->isFormSubmit($request) && null != ($view = $this->validateSession($request))) {
-            Runtime::getLogging()->log('session validation failed returning: '.$view, ZMLogging::TRACE);
+            Runtime::getLogging()->log('session validation failed returning: '.$view, Logging::TRACE);
         }
 
         // form validation (only if not already error view from session validation...)
@@ -128,7 +129,7 @@ class ZMController extends ZMObject {
         if (null == $view && null != $formData && $this->isFormSubmit($request)) {
             // move to function
             if (null != ($view = $this->validateFormData($request, $formData))) {
-                Runtime::getLogging()->log('validation failed for : '.$formData. '; returning: '.$view, ZMLogging::TRACE);
+                Runtime::getLogging()->log('validation failed for : '.$formData. '; returning: '.$view, Logging::TRACE);
             }
         }
 
@@ -170,7 +171,7 @@ class ZMController extends ZMObject {
         if (null != $view) {
             $this->initViewVars($view, $request, $formData);
             if (!$view->isValid($request)) {
-                Runtime::getLogging()->log('invalid view: '.$view->getTemplate().', expected: '.$view->getViewFilename(), ZMLogging::WARN);
+                Runtime::getLogging()->warn('invalid view: '.$view->getTemplate().', expected: '.$view->getViewFilename());
                 $view = $this->findView(ZMSettings::get('zenmagick.mvc.request.missingPage'));
                 $this->initViewVars($view, $request, $formData);
             }
