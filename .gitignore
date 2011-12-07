@@ -1,5 +1,6 @@
 *~
 *.swp
+*.cache
 Thumbs.db
 local.properties
 local.xml
