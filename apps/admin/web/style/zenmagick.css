@@ -63,6 +63,7 @@ label span {color:#D4A84B;margin:0 3px;font-weight:bold;}
 #sub-menu a {text-decoration:none;}
 #sub-menu li a:hover {text-decoration:underline;}
 #sub-menu li {padding:2px 0;}
+#sub-menu li.sep {border-bottom:1px solid rgba(17,17,17,0.2);}
 #view-container {margin-left:13em;padding:5px 8px;}
 
 /* view content excl. header */

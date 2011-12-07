@@ -13,6 +13,7 @@ static-page-editor: { parent: tools-cms, requestId: static_page_editor, name: St
 tools-admin: { parent: tools, name: Admin }
 themes: { parent: tools-admin, requestId: themes, name: Themes }
 block-groups: { parent: tools-admin, requestId: block_groups, name: Blocks, alias: [block_group_admin] }
+tools-admin-sep1: { parent: tools-admin, type: sep }
 admin-users: { parent: tools-admin, requestId: admin_users, name: Manage Users, alias: [edit_admin_user] }
 manage-roles: { parent: tools-admin, requestId: manage_roles, name: Manage Roles }
 cache-admin: { parent: tools-admin, requestId: cache_admin, name: Manage Caches }

@@ -27,7 +27,11 @@
         <div>
           <ul>
           <?php foreach ($sub->getChildren() as $subItem) { ?>
-            <li><a href="<?php echo $admin2->url($subItem->getRequestId(), $subItem->getParams()) ?>"><?php echo $subItem->getName() ?></a></li>
+            <?php if ('sep' == $subItem->getType()) { ?>
+              <li class="sep"></li>
+            <?php } else { ?>
+              <li><a href="<?php echo $admin2->url($subItem->getRequestId(), $subItem->getParams()) ?>"><?php echo $subItem->getName() ?></a></li>
+            <?php } ?>
           <?php } ?>
           </ul>
         </div>
