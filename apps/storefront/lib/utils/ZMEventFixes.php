@@ -88,51 +88,6 @@ class ZMEventFixes extends ZMObject {
         // adjust session timeout
         global $SESS_LIFE;
         $SESS_LIFE = Runtime::getContainer()->getParameterBag()->get('storefront.session_timeout');
-
-        $templateManager = $this->container->get('templateManager');
-        // TODO: do via admin and just load mapping from somewhere
-        // sidebox blocks
-        $mappings = array();
-        if ($templateManager->isLeftColEnabled()) {
-            $index = 1;
-            $mappings['leftColumn'] = array();
-            foreach ($templateManager->getLeftColBoxNames() as $boxName) {
-                // avoid duplicates by using $box as key
-                $mappings['leftColumn'][$boxName] = 'ZMBlockWidget#template=boxes/'.$boxName.'&sortOrder='.$index++;
-            }
-        }
-        if ($templateManager->isRightColEnabled()) {
-            $index = 1;
-            $mappings['rightColumn'] = array();
-            foreach ($templateManager->getRightColBoxNames() as $boxName) {
-                // avoid duplicates by using $box as key
-                $mappings['rightColumn'][$boxName] = 'ZMBlockWidget#template=boxes/'.$boxName.'&sortOrder='.$index++;
-            }
-        }
-        // general banners block group - if used, the group needs to be passed into fetchBlockGroup()
-        $mappings['banners'] = array();
-        $mappings['banners'][] = 'ZMBannerBlockWidget';
-
-        // individual banner groups as per current convention
-        $defaultBannerGroupNames = array(
-            'banners.header1', 'banners.header2', 'banners.header3',
-            'banners.footer1', 'banners.footer2', 'banners.footer3',
-            'banners.box1', 'banners.box2',
-            'banners.all'
-        );
-        foreach ($defaultBannerGroupNames as $blockGroupName) {
-            // the banner group name is configured as setting..
-            $bannerGroup = Runtime::getSettings()->get($blockGroupName);
-            $mappings[$blockGroupName] = array('ZMBannerBlockWidget#group='.$bannerGroup);
-        }
-
-        // shopping cart options
-        $mappings['shoppingCart.options'] = array();
-        $mappings['shoppingCart.options'][] = 'ZMPayPalECButtonBlockWidget';
-        $mappings['mainMenu'] = array();
-        $mappings['mainMenu'][] = 'ref::browserIDLogin';
-
-        $this->container->get('blockManager')->setMappings($mappings);
     }
 
     /**
