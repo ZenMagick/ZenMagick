@@ -21,6 +21,7 @@
 <?php
 
 use zenmagick\base\ZMException;
+use zenmagick\base\ZMObject;
 
 /**
  * Adapter class for vBulletin data.

@@ -22,6 +22,7 @@
 
 use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
+use zenmagick\base\ZMObject;
 
 /**
  * Implementation of the ZenMagick database layer using <em>PDO</em> via <em>Doctrine DBAL</em>.
@@ -270,7 +271,7 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
     public function loadModel($table, $key, $modelClass, $mapping=null) {
         $mapping = $this->mapper_->ensureMapping(null !== $mapping ? $mapping : $table, $this);
 
-        $keyName = ZMSettings::get('zenmagick.core.database.model.keyName');
+        $keyName = Runtime::getSettings()->get('zenmagick.core.database.model.keyName');
         if (null == $keyName) {
             // determine by looking at key and auto settings
             foreach ($mapping as $property => $field) {

@@ -21,6 +21,7 @@
 <?php
 
 use zenmagick\base\Runtime;
+use zenmagick\base\ZMObject;
 use zenmagick\base\logging\Logging;
 
 /**

@@ -25,8 +25,8 @@ namespace zenmagick\http\rss;
 
 use DateTime;
 
-use zenmagick\base\ZMObject;
 use zenmagick\base\Runtime;
+use zenmagick\base\ZMObject;
 
 /**
  * A RSS feed generator.

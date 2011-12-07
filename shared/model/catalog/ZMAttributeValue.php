@@ -23,6 +23,8 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
+use zenmagick\base\ZMObject;
 
 /**
  * A single attribute value.
@@ -138,7 +140,7 @@ class ZMAttributeValue extends ZMObject {
      * @return float The price factor price.
      */
     protected function getPriceFactorCharge($price, $discountPrice, $priceFactor, $priceFactorOffset) {
-        if (ZMSettings::get('isDiscountAttributePriceFactor') && 0 != $discountPrice) {
+        if (Runtime::getSettings()->get('isDiscountAttributePriceFactor') && 0 != $discountPrice) {
             return $discountPrice * ($priceFactor - $priceFactorOffset);
         } else {
             return $price * ($priceFactor - $priceFactorOffset);

@@ -23,6 +23,7 @@
 ?>
 <?php
 
+use zenmagick\base\ZMObject;
 
 /**
  * Plugin for <em>product_music_info</em> product template.

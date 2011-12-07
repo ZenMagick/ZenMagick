@@ -24,6 +24,7 @@ require_once dirname(__FILE__).DIRECTORY_SEPARATOR.'_zm.php';
 
 use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
+use zenmagick\base\ZMObject;
 
 use Symfony\Component\Yaml\Yaml;
 
@@ -81,7 +82,7 @@ class ZMLocales extends \ZMObject {
      */
     public function getLocale($reload=false, $locale=null, $path=null) {
         if (null == $this->locale_ || $reload) {
-            $this->locale_ = Beans::getBean(\ZMSettings::get('zenmagick.core.locales.provider', 'ZMEchoLocale'));
+            $this->locale_ = Beans::getBean(Runtime::getSettings()->get('zenmagick.core.locales.provider', 'ZMEchoLocale'));
             if (null !== $locale) {
                 $this->locale_->init($locale, $path);
             }

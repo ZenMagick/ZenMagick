@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 
 /**
  * Request controller for forgotten passwords.
@@ -63,7 +64,7 @@ class ZMResetPasswordController extends ZMController {
         $adminUserService->updateUser($user);
 
         $message = $this->container->get('messageBuilder')->createMessage('reset_password', false, $request, array('newPassword' => $newPassword));
-        $message->setSubject(_zm('New password request'))->setTo($email)->setFrom(ZMSettings::get('storeEmail'));
+        $message->setSubject(_zm('New password request'))->setTo($email)->setFrom(Runtime::getSettings()->get('storeEmail'));
         $this->container->get('mailer')->send($message);
 
         // report success

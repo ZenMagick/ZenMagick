@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\ZMObject;
 
 /**
  * Base result list sorter.

@@ -23,6 +23,7 @@
 ?>
 <?php
 
+use zenmagick\base\ZMObject;
 
 /**
  * A price group.

@@ -21,6 +21,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 ?><?php
+use zenmagick\base\Runtime;
 
     /*
      * The central place for all form validation. The validations configured here
@@ -45,11 +46,11 @@
         array('ZMMaxFieldLengthRule' ,'email', TABLE_CUSTOMERS, 'customers_email_address'),
         array('ZMUniqueEmailRule' ,'email', 'The entered email address is already in use.'),
         array('ZMRequiredRule' ,'password', 'Please enter you password.'),
-        array('ZMMinRule' ,'password', ZMSettings::get('zenmagick.core.authentication.minPasswordLength'), 'Your password must contain a minimum of %2$s characters.'),
+        array('ZMMinRule' ,'password', Runtime::getSettings()->get('zenmagick.core.authentication.minPasswordLength'), 'Your password must contain a minimum of %2$s characters.'),
         array('ZMRequiredRule' ,'confirmation', 'Please confirm the password.'),
         array('ZMFieldMatchRule' ,'password', 'confirmation', 'The password and confirm password must match.'),
     ), true);
-    if (ZMSettings::get('isPrivacyMessage')) {
+    if (Runtime::getSettings()->get('isPrivacyMessage')) {
         $validator->addRule('registration', array('ZMRequiredRule' ,'privacy', 'You must agree to the privacy policy.'));
     }
 

@@ -25,6 +25,7 @@ use Symfony\Component\Routing\RequestContext;
 
 use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
+use zenmagick\base\ZMObject;
 use zenmagick\base\logging\Logging;
 use zenmagick\base\events\VetoableEvent;
 use zenmagick\http\routing\loader\YamlLoader;
@@ -39,7 +40,7 @@ use zenmagick\http\routing\loader\YamlLoader;
  * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.mvc
  */
-class ZMRequest extends \ZMObject {
+class ZMRequest extends ZMObject {
     /**
      * Default paramter name containing the request id.
      *

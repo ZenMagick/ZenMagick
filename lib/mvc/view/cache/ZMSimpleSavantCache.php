@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 
 /**
  * Simple caching.
@@ -43,7 +44,7 @@ class ZMSimpleSavantCache implements ZMSavantCache {
      * {@inheritDoc}
      */
     public function save($tpl, $contents) {
-        if (ZMLangUtils::inArray($tpl, ZMSettings::get('zenmagick.mvc.templates.simpleCache.templates'))) {
+        if (ZMLangUtils::inArray($tpl, Runtime::getSettings()->get('zenmagick.mvc.templates.simpleCache.templates'))) {
             $this->cache_->save($contents, $tpl);
         }
     }

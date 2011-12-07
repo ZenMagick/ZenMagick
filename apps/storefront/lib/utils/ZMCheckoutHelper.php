@@ -23,6 +23,8 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
+use zenmagick\base\ZMObject;
 use apps\store\bundles\ZenCartBundle\Mock\ZenCartMock;
 
 /**
@@ -71,17 +73,17 @@ class ZMCheckoutHelper extends ZMObject {
      * @return boolean <code>true</code> if the cart qualifies for free shipping.
      */
     public function isFreeShipping() {
-        if (ZMSettings::get('isOrderTotalFreeShipping')) {
+        if (Runtime::getSettings()->get('isOrderTotalFreeShipping')) {
             $pass = false;
             $shippingAddress = $this->shoppingCart_->getShippingAddress();
-            switch (ZMSettings::get('freeShippingDestination')) {
+            switch (Runtime::getSettings()->get('freeShippingDestination')) {
             case 'national':
-                if ($shippingAddress->getCountryId() == ZMSettings::get('storeCountry')) {
+                if ($shippingAddress->getCountryId() == Runtime::getSettings()->get('storeCountry')) {
                     $pass = true;
                 }
                 break;
             case 'international':
-                if ($shippingAddress->getCountryId() != ZMSettings::get('storeCountry')) {
+                if ($shippingAddress->getCountryId() != Runtime::getSettings()->get('storeCountry')) {
                     $pass = true;
                 }
                 break;
@@ -90,7 +92,7 @@ class ZMCheckoutHelper extends ZMObject {
                 break;
             }
 
-            if (($pass == true) && ($this->shoppingCart_->getTotal() >= ZMSettings::get('freeShippingOrderThreshold'))) {
+            if (($pass == true) && ($this->shoppingCart_->getTotal() >= Runtime::getSettings()->get('freeShippingOrderThreshold'))) {
                 return true;
             }
         }
@@ -267,8 +269,8 @@ class ZMCheckoutHelper extends ZMObject {
      * @return boolean <code>true</code> if the stock check was sucessful (or disabled).
      */
     public function checkStock($messages=true) {
-        if (ZMSettings::get('isEnableStock') && $this->shoppingCart_->hasOutOfStockItems()) {
-            if (ZMSettings::get('isAllowLowStockCheckout')) {
+        if (Runtime::getSettings()->get('isEnableStock') && $this->shoppingCart_->hasOutOfStockItems()) {
+            if (Runtime::getSettings()->get('isAllowLowStockCheckout')) {
                 if ($messages) {
                     $this->container->get('messageService')->warn('Products marked as "Out Of Stock" will be placed on backorder.');
                 }

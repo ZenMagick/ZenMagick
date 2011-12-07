@@ -21,6 +21,7 @@
 <?php
 
 use zenmagick\base\Runtime;
+use zenmagick\base\ZMObject;
 use zenmagick\base\ioc\loader\YamlLoader;
 use apps\store\utils\ContextConfigLoader;
 
@@ -226,7 +227,7 @@ class ZMTheme extends ZMObject {
         }
 
         if ($includeDefaults) {
-            $path = ZMThemes::getThemesDir().ZMSettings::get('apps.store.themes.default').DIRECTORY_SEPARATOR.'lang'.DIRECTORY_SEPARATOR.$languageDir.DIRECTORY_SEPARATOR.'static'.DIRECTORY_SEPARATOR;
+            $path = ZMThemes::getThemesDir().Runtime::getSettings()->get('apps.store.themes.default').DIRECTORY_SEPARATOR.'lang'.DIRECTORY_SEPARATOR.$languageDir.DIRECTORY_SEPARATOR.'static'.DIRECTORY_SEPARATOR;
             if (is_dir($path)) {
                 $handle = @opendir($path);
                 while (false !== ($file = readdir($handle))) {
@@ -316,7 +317,7 @@ class ZMTheme extends ZMObject {
         }
         $path = $this->getLangDir().$language->getDirectory().DIRECTORY_SEPARATOR;
         // re-init with next file
-        $this->container->get('localeService')->getLocale()->init(ZMSettings::get('zenmagick.core.locales.locale'), $path);
+        $this->container->get('localeService')->getLocale()->init(Runtime::getSettings()->get('zenmagick.core.locales.locale'), $path);
     }
 
     /**

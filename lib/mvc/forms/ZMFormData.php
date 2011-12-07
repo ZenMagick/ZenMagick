@@ -21,6 +21,7 @@
 <?php
 
 use zenmagick\base\Beans;
+use zenmagick\base\ZMObject;
 
 /**
  * Basic form data container.

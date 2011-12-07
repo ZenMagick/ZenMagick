@@ -55,11 +55,11 @@ class ZMTestCase extends UnitTestCase {
      */
     public function setUp() {
         // use test connection by temp. re-configuring the default connection
-        $this->defaultDb_ = ZMSettings::get('doctrine.dbal.connections.default');
-        if (ZMSettings::exists('plugins.unitTests.database.test')) {
-            $testConnection = ZMLangUtils::toArray(ZMSettings::get('plugins.unitTests.database.test'));
+        $this->defaultDb_ = Runtime::getSettings()->get('doctrine.dbal.connections.default');
+        if (Runtime::getSettings()->exists('plugins.unitTests.database.test')) {
+            $testConnection = ZMLangUtils::toArray(Runtime::getSettings()->get('plugins.unitTests.database.test'));
             $merged = array_merge(ZMLangUtils::toArray($this->defaultDb_), $testConnection);
-            ZMSettings::set('doctrine.dbal.connections.default', $merged);
+            Runtime::getSettings()->set('doctrine.dbal.connections.default', $merged);
         }
 
         $this->getRequest()->getSession()->setAccount(null);
@@ -71,7 +71,7 @@ class ZMTestCase extends UnitTestCase {
      */
     public function tearDown() {
         // restore
-        ZMSettings::set('doctrine.dbal.connections.default', $this->defaultDb_);
+        Runtime::getSettings()->set('doctrine.dbal.connections.default', $this->defaultDb_);
         $this->getRequest()->getSession()->setAccount(null);
     }
 

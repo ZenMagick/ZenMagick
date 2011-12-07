@@ -22,6 +22,7 @@
 
 use zenmagick\base\classloader\ClassLoader;
 use zenmagick\base\Runtime;
+use zenmagick\base\ZMObject;
 use zenmagick\base\events\Event;
 use zenmagick\base\ioc\loader\YamlFileLoader;
 
@@ -166,7 +167,7 @@ class ZMThemes extends ZMObject {
             }
 
             // fill the chain
-            $this->themeChain_[$languageId][] = $this->getThemeForId(ZMSettings::get('apps.store.themes.default'), $languageId);
+            $this->themeChain_[$languageId][] = $this->getThemeForId(Runtime::getSettings()->get('apps.store.themes.default'), $languageId);
             if (!empty($result['themeId']) && null != ($theme = $this->getThemeForId($result['themeId'], $languageId))) {
                 $this->themeChain_[$languageId][] = $theme;
             }
@@ -291,7 +292,7 @@ class ZMThemes extends ZMObject {
             $themeId = $result['themeId'];
         }
 
-        $themeId = empty($themeId) ? ZMSettings::get('apps.store.themes.default') : $themeId;
+        $themeId = empty($themeId) ? Runtime::getSettings()->get('apps.store.themes.default') : $themeId;
         return $themeId;
     }
 
@@ -354,7 +355,7 @@ class ZMThemes extends ZMObject {
     public function initThemes($language) {
         if (null == $language) {
             // default language
-            $language = $this->container->get('languageService')->getLanguageForCode(ZMSettings::get('defaultLanguageCode'));
+            $language = $this->container->get('languageService')->getLanguageForCode(Runtime::getSettings()->get('defaultLanguageCode'));
         }
         $this->initLanguage_ = $language;
 

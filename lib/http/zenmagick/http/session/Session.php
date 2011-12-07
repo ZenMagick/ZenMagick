@@ -21,8 +21,8 @@
 <?php
 namespace zenmagick\http\session;
 
-use zenmagick\base\ZMObject;
 use zenmagick\base\Runtime;
+use zenmagick\base\ZMObject;
 
 
 /**

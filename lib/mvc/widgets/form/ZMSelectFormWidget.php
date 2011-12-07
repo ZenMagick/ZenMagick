@@ -157,7 +157,7 @@ class ZMSelectFormWidget extends ZMFormWidget {
         foreach ($this->getOptions($request) as $oval => $name) {
             $selected = '';
             if (in_array($oval, $values)) {
-                if (ZMSettings::get('zenmagick.mvc.html.xhtml')) {
+                if (Runtime::getSettings()->get('zenmagick.mvc.html.xhtml')) {
                     $selected = ' selected="selected"';
                 } else {
                     $selected = ' selected';
@@ -175,8 +175,8 @@ class ZMSelectFormWidget extends ZMFormWidget {
      * @param ZMRequest request The current request.
      */
     public function renderRadio($request) {
-        $slash = ZMSettings::get('zenmagick.mvc.html.xhtml') ? '/' : '';
-        $checked = ZMSettings::get('zenmagick.mvc.html.xhtml') ? ' checked="checked"' : ' checked';
+        $slash = Runtime::getSettings()->get('zenmagick.mvc.html.xhtml') ? '/' : '';
+        $checked = Runtime::getSettings()->get('zenmagick.mvc.html.xhtml') ? ' checked="checked"' : ' checked';
 
         $values = $this->getValue();
         if (!is_array($values)) {

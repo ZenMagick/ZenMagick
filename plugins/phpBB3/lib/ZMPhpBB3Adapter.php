@@ -20,11 +20,12 @@
 ?>
 <?php
 
+use zenmagick\base\ZMObject;
 
 /**
  * Access class for phpBB3 data.
  *
- * <p>Methods prefixed with <em>v</em> are validation rules that are wrapped in a 
+ * <p>Methods prefixed with <em>v</em> are validation rules that are wrapped in a
  * <copde>ZMWrapperRule</code>.</p>
  *
  * @package org.zenmagick.plugins.phpbb3

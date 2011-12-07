@@ -20,6 +20,8 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
+
 /**
  * Test layout service.
  *
@@ -51,8 +53,8 @@ class TestZMTaxRates extends ZMTestCase {
         $this->assertTrue($taxRate instanceof ZMTaxRate);
         if ($this->assertNotNull($taxRate)) {
             $this->assertEqual(2, $taxRate->getClassId());
-            $this->assertEqual(ZMSettings::get('storeCountry'), $taxRate->getCountryId());
-            $this->assertEqual(ZMSettings::get('storeZone'), $taxRate->getZoneId());
+            $this->assertEqual(Runtime::getSettings()->get('storeCountry'), $taxRate->getCountryId());
+            $this->assertEqual(Runtime::getSettings()->get('storeZone'), $taxRate->getZoneId());
             // check for 6 decimal digits
             $this->assertEqual(0, $taxRate->getRate());
         } else {

@@ -21,6 +21,7 @@
 <?php
 namespace zenmagick\themes;
 
+use zenmagick\base\Runtime;
 use apps\store\themes\ThemeEventListener;
 
 /**
@@ -36,7 +37,7 @@ class PixelGreenEventListener extends ThemeEventListener {
      */
     public function themeLoaded($event) {
         $this->container->get('templateManager')->setRightColBoxes(array('search.php', 'categories.php', 'information.php'));
-        \ZMSettings::set('isUseCategoryPage', false);
-        \ZMSettings::set('resultListProductFilter', '');
+        Runtime::getSettings()->set('isUseCategoryPage', false);
+        Runtime::getSettings()->set('resultListProductFilter', '');
     }
 }

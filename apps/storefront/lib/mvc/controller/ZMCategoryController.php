@@ -92,10 +92,10 @@ class ZMCategoryController extends ZMController {
             $resultSource = new ZMObjectResultSource('ZMProduct', 'productService', $method, $args);
             $resultList = Runtime::getContainer()->get('ZMResultList');
             $resultList->setResultSource($resultSource);
-            foreach (explode(',', ZMSettings::get('resultListProductFilter')) as $filter) {
+            foreach (explode(',', Runtime::getSettings()->get('resultListProductFilter')) as $filter) {
                 $resultList->addFilter(Beans::getBean($filter));
             }
-            foreach (explode(',', ZMSettings::get('resultListProductSorter')) as $sorter) {
+            foreach (explode(',', Runtime::getSettings()->get('resultListProductSorter')) as $sorter) {
                 $resultList->addSorter(Beans::getBean($sorter));
             }
             $resultList->setPageNumber($request->getPageIndex());
@@ -105,7 +105,7 @@ class ZMCategoryController extends ZMController {
 
         if ($viewName == "category_list"
             && ((null == $resultList || !$resultList->hasResults() || (null != $category && $category->hasChildren()))
-                && ZMSettings::get('isUseCategoryPage'))) {
+                && Runtime::getSettings()->get('isUseCategoryPage'))) {
             $viewName = 'category';
         }
 
@@ -113,7 +113,7 @@ class ZMCategoryController extends ZMController {
             $data['currentCategory'] = $category;
         }
 
-        if (null != $resultList && 1 == $resultList->getNumberOfResults() && ZMSettings::get('isSkipSingleProductCategory')) {
+        if (null != $resultList && 1 == $resultList->getNumberOfResults() && Runtime::getSettings()->get('isSkipSingleProductCategory')) {
             $results = $resultList->getResults();
             $product = array_pop($results);
             $request->setParameter('products_id', $product->getId());

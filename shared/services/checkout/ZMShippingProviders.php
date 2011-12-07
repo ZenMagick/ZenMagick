@@ -24,6 +24,7 @@
 <?php
 
 use zenmagick\base\Runtime;
+use zenmagick\base\ZMObject;
 
 /**
  * General access class for shipping provider.

@@ -20,6 +20,8 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
+use zenmagick\base\ZMObject;
 
 /**
  * Abstract base class for plugins.
@@ -188,7 +190,7 @@ abstract class ZMPlugin extends ZMObject {
      * @return boolean <code>true</code> if the plugin is enabled, <code>false</code> if not.
      */
     public function isEnabled() {
-        return null !== $this->enabled_ ? $this->enabled_ : ZMSettings::get('zenmagick.core.plugins.'.$this->getId().'.enabled', false);
+        return null !== $this->enabled_ ? $this->enabled_ : Runtime::getSettings()->get('zenmagick.core.plugins.'.$this->getId().'.enabled', false);
     }
 
     /**

@@ -31,7 +31,7 @@ use zenmagick\base\ZMObject;
  * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.http.utils
  */
-class TaggedBlocksBlockProvider extends \ZMObject implements \ZMBlockProvider {
+class TaggedBlocksBlockProvider extends ZMObject implements \ZMBlockProvider {
 
     /**
      * {@inheritDoc}

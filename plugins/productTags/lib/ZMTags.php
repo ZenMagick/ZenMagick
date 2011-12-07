@@ -21,6 +21,7 @@
 <?php
 
 use zenmagick\base\Runtime;
+use zenmagick\base\ZMObject;
 
 define('TABLE_TAGS', DB_PREFIX . 'tags');
 define('TABLE_PRODUCT_TAGS', DB_PREFIX . 'product_tags');

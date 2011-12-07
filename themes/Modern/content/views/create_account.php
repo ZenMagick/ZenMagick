@@ -22,7 +22,7 @@
  */
 ?>
 <?php echo $form->open('create_account', '', true, array('id'=>'registration')) ?>
-    <?php if (ZMSettings::get('isPrivacyMessage')) { ?>
+    <?php if ($settings->get('isPrivacyMessage')) { ?>
         <fieldset>
             <legend><?php _vzm("About Privacy") ?></legend>
             <p>
@@ -35,7 +35,7 @@
     <fieldset>
         <legend><?php _vzm("Create Account") ?></legend>
         <table cellspacing="0" cellpadding="0">
-            <?php if (ZMSettings::get('isAccountGender')) { ?>
+            <?php if ($settings->get('isAccountGender')) { ?>
                 <tr>
                     <td class="label"><?php _vzm("Title") ?><span>*</span></td>
                     <td>
@@ -54,7 +54,7 @@
                 <td><?php _vzm("Last Name") ?><span>*</span></td>
                 <td><input type="text" name="lastName" value="<?php echo $html->encode($registration->getLastName()) ?>" /></td>
             </tr>
-            <?php if (ZMSettings::get('isAccountDOB')) { ?>
+            <?php if ($settings->get('isAccountDOB')) { ?>
                 <tr>
                     <td><?php _vzm("Date of Birth") ?><span>*</span></td>
                     <td><input type="text" name="dob" value="<?php echo $html->encode($registration->getDob()) ?>" /> <?php echo sprintf(_zm("Format: %s;&nbsp;(e.g: %s)"), $locale->getFormat('date', 'short-ui-format'), $locale->getFormat('date', 'short-ui-example')) ?></td>
@@ -64,7 +64,7 @@
                 <td><?php _vzm("E-Mail Address") ?><span>*</span></td>
                 <td><input type="text" name="email" value="<?php echo $html->encode($registration->getEmail()) ?>" /></td>
             </tr>
-            <?php if (ZMSettings::get('isAccountNickname')) { ?>
+            <?php if ($settings->get('isAccountNickname')) { ?>
                 <tr>
                     <td><?php _vzm("Nickname") ?></td>
                     <td><input type="text" name="nickName" value="<?php echo $html->encode($registration->getNickName()) ?>" /></td>
@@ -78,7 +78,7 @@
                 <td><?php _vzm("Confirm Password") ?><span>*</span></td>
                 <td><input type="password" name="confirmation" value="" /></td>
             </tr>
-            <?php if (ZMSettings::get('isAccountCompany')) { ?>
+            <?php if ($settings->get('isAccountCompany')) { ?>
                 <tr>
                     <td><?php _vzm("Company Name") ?></td>
                     <td><input type="text" name="companyName" value="<?php echo $html->encode($registration->getCompanyName()) ?>" /></td>
@@ -99,7 +99,7 @@
             </tr>
             <?php
                 $countryId = $registration->getCountryId();
-                $countryId = 0 != $countryId ? $countryId : ZMSettings::get('storeCountry');
+                $countryId = 0 != $countryId ? $countryId : $settings->get('storeCountry');
             ?>
             <tr>
                 <td><?php _vzm("Post Code") ?><span>*</span></td>
@@ -109,7 +109,7 @@
                 <td><?php _vzm("Country") ?><span>*</span></td>
                 <td><?php echo $form->idpSelect('countryId', $container->get('countryService')->getCountries(), $countryId) ?></td>
             </tr>
-            <?php if (ZMSettings::get('isAccountState')) { ?>
+            <?php if ($settings->get('isAccountState')) { ?>
                 <?php $zones = $container->get('countryService')->getZonesForCountryId($countryId); ?>
                 <tr>
                     <td><?php _vzm("State/Province") ?><span>*</span></td>
@@ -141,14 +141,14 @@
                     <label for="text"><?php _vzm("Text") ?></label>
                 </td>
             </tr>
-            <?php if (ZMSettings::get('isAccountNewsletter')) { ?>
+            <?php if ($settings->get('isAccountNewsletter')) { ?>
                 <tr>
                     <td></td>
                     <td><input type="checkbox" id="newsletterSubscriber" name="newsletterSubscriber" value="1"<?php $form->checked($registration->isNewsletterSubscriber()) ?> /><label for="newsletterSubscriber"><?php _vzm("Receive Store Newsletter") ?></label></td>
                 </tr>
             <?php } ?>
 
-            <?php if (ZMSettings::get('isAccountReferral')) { ?>
+            <?php if ($settings->get('isAccountReferral')) { ?>
                 <tr>
                     <td><?php _vzm("Referral Code") ?><span>*</span></td>
                     <td><input type="text" name="referral" value="" /></td>

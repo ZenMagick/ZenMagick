@@ -23,6 +23,7 @@
 ?>
 <?php
 
+use zenmagick\base\ZMObject;
 
 /**
  * Order total line details as returned by a plugin implementing the <code>ZMOrderTotal</code>

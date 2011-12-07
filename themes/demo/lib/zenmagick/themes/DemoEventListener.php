@@ -21,6 +21,7 @@
 <?php
 namespace zenmagick\themes;
 
+use zenmagick\base\Runtime;
 use apps\store\themes\ThemeEventListener;
 
 /**
@@ -36,6 +37,6 @@ class DemoEventListener extends ThemeEventListener {
      */
     public function themeLoaded($event) {
         // add custom filter
-        \ZMSettings::append('resultListProductFilter', 'AlphaFilter,PriceRangeFilter');
+        Runtime::getSettings()->append('resultListProductFilter', 'AlphaFilter,PriceRangeFilter');
     }
 }

@@ -23,7 +23,7 @@
 ?><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html lang="<?php echo $language->getCode() ?>">
 <head>
-<title><?php _vzm("A Gift Certificate from %s", ZMSettings::get('storeName')) ?></title>
+<title><?php _vzm("A Gift Certificate from %s", $settings->get('storeName')) ?></title>
 </head>
 <body>
 <body>
@@ -36,7 +36,7 @@
 
 <p><?php _vzm('You have been sent a Gift Certificate worth %s.', $utils->formatMoney($currentCoupon->getAmount(), false)) ?></p>
 <p><?php _vzm("The code to redeem your Gift Certificate is: %s.", $currentCoupon->getCode()) ?></p>
-<?php $href = '<a href="'.$net->url('gv_redeem', 'couponCode='.$currentCoupon->getCode(), true).'">'.ZMSettings::get('storeName').'</a>'; ?>
+<?php $href = '<a href="'.$net->url('gv_redeem', 'couponCode='.$currentCoupon->getCode(), true).'">'.$settings->get('storeName').'</a>'; ?>
 <p><?php _vzm("To redeem your gift, visit %s.", $href) ?></p>
 
 <?php if (!isset($isSupressDisclaimer)) { echo $utils->staticPageContent('email_advisory'); } ?>

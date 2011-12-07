@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 
 /**
  * <p>A zone select form widget.</p>
@@ -49,7 +50,7 @@ class ZMZoneSelectFormWidget extends ZMSelectFormWidget {
     public function getOptions($request) {
         $options = parent::getOptions($request);
         // try to find a useful countryId, defaulting to store country Id
-        $countryId = ZMSettings::get('storeCountry');
+        $countryId = Runtime::getSettings()->get('storeCountry');
         //XXX: where else to look ??
         foreach ($this->container->get('countryService')->getZonesForCountryId($countryId) as $zone) {
             $options[$zone->getId()] = $zone->getName();

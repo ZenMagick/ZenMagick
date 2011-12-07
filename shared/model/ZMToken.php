@@ -19,6 +19,9 @@
  */
 ?>
 <?php
+
+use zenmagick\base\ZMObject;
+
 use Doctrine\ORM\Mapping AS ORM;
 
 /**
@@ -115,7 +118,7 @@ class ZMToken extends ZMObject {
     /**
      * Set the id.
      *
-     * @deprecated 
+     * @deprecated
      * @param int $id The id.
      */
     public function setId($id) { $this->hashId = $id; }

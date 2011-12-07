@@ -31,6 +31,7 @@
  *
  * @author DerManoMann <mano@zenmagick.org> <mano@zenmagick.org>
  * @package org.zenmagick.core
+ * @deprecated use zenmagick\base\ZMObject instead
  */
 class ZMObject extends zenmagick\base\ZMObject {
 }

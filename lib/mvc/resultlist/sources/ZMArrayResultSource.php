@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\ZMObject;
 
 /**
  * A result source wrapper for an array of results.
@@ -52,7 +53,7 @@ class ZMArrayResultSource extends ZMObject implements ZMResultSource {
     }
 
 
- 
+
     /**
      * {@inheritDoc}
      */

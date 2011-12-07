@@ -21,6 +21,7 @@
 <?php
 
 use zenmagick\base\Beans;
+use zenmagick\base\Runtime;
 
 /**
  * Test result list related code.
@@ -36,7 +37,7 @@ class TestResultListSupport extends ZMTestCase {
     public function setUp() {
         parent::setUp();
         // all tests assume this
-        ZMSettings::set('zenmagick.mvc.resultlist.defaultPagination', 10);
+        Runtime::getSettings()->set('zenmagick.mvc.resultlist.defaultPagination', 10);
     }
 
     /**

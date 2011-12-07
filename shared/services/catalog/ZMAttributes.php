@@ -24,6 +24,7 @@
 <?php
 
 use zenmagick\base\Runtime;
+use zenmagick\base\ZMObject;
 
 /**
  * Attribute service.
@@ -64,7 +65,7 @@ class ZMAttributes extends ZMObject {
     public function getAttributesForProduct($product) {
         // set up sort order SQL
         $attributesOrderBy = '';
-        if (ZMSettings::get('isSortAttributesByName')) {
+        if (Runtime::getSettings()->get('isSortAttributesByName')) {
             $attributesOrderBy= ' ORDER BY po.products_options_name';
         } else {
             $attributesOrderBy= ' ORDER BY LPAD(po.products_options_sort_order, 11, "0")';
@@ -97,7 +98,7 @@ class ZMAttributes extends ZMObject {
                   AND pa.options_values_id = pov.products_options_values_id
                   AND pov.language_id = :languageId ";
         // set up sort order SQL
-        if (ZMSettings::get('isSortAttributeValuesByPrice')) {
+        if (Runtime::getSettings()->get('isSortAttributeValuesByPrice')) {
             $sql .= ' ORDER BY pa.options_id, LPAD(pa.products_options_sort_order, 11, "0"), pa.options_values_price';
         } else {
             $sql .= ' ORDER BY pa.options_id, LPAD(pa.products_options_sort_order, 11, "0"), pov.products_options_values_name';

@@ -16,7 +16,7 @@ page:
     ## name of the validation rules in validation.yaml
     formId: mynameForm
     ## form data container
-    form: ZMObject
+    form: zenmagick\base\ZMObject
     success:
       view: ZMRedirectView
       template: index

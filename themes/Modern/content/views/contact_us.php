@@ -22,7 +22,7 @@
  */
 ?>
 
-<address><?php echo nl2br(ZMSettings::get('storeNameAddress')); ?></address>
+<address><?php echo nl2br($settings->get('storeNameAddress')); ?></address>
 <div id="contactUsNoticeContent" class="content">
 	<?php echo $utils->staticPageContent("contact_us") ?>
 </div>

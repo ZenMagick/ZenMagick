@@ -21,6 +21,7 @@
 <?php
 
 use zenmagick\base\Runtime;
+use zenmagick\base\ZMObject;
 use zenmagick\base\logging\Logging;
 
 
@@ -68,7 +69,7 @@ use zenmagick\base\logging\Logging;
  * @author DerManoMann <mano@zenmagick.org> <mano@zenmagick.org>
  * @package org.zenmagick.core.services.database
  */
-class ZMDbTableMapper extends \ZMObject {
+class ZMDbTableMapper extends ZMObject {
     private $tableMap_;
 
 
@@ -96,7 +97,7 @@ class ZMDbTableMapper extends \ZMObject {
      */
     protected function loadMappingFile() {
         // load from file
-        eval('$mappings = '.file_get_contents(Runtime::getApplicationPath().\ZMSettings::get('zenmagick.core.database.mappings.file', 'config/db_mappings.txt')));
+        eval('$mappings = '.file_get_contents(Runtime::getApplicationPath().Runtime::getSettings()->get('zenmagick.core.database.mappings.file', 'config/db_mappings.txt')));
         foreach ($mappings as $table => $mapping) {
             $this->tableMap_[$table] = $this->parseTable($mapping);
         }
@@ -152,7 +153,7 @@ class ZMDbTableMapper extends \ZMObject {
             if (empty($table)) {
                 continue;
             }
-            if (!array_key_exists($table, $this->tableMap_) && \ZMSettings::get('zenmagick.core.database.mappings.autoMap.enabled', true)) {
+            if (!array_key_exists($table, $this->tableMap_) && Runtime::getSettings()->get('zenmagick.core.database.mappings.autoMap.enabled', true)) {
                 Runtime::getLogging()->debug('creating dynamic mapping for table name: '.$table);
                 $rawMapping = self::buildTableMapping($table, $database);
                 $this->setMappingForTable($table, $rawMapping);
@@ -171,11 +172,9 @@ class ZMDbTableMapper extends \ZMObject {
      *
      * @param string table The table name.
      * @param ZMDatabase database The database.
-     * @param boolean print Optional flag to also print the mapping in a form that can be used
-     *  to cut&paste into a mapping file; default is <code>false</code>.
      * @return array The mapping.
      */
-    public function buildTableMapping($table, $database, $print=false) {
+    public function buildTableMapping($table, $database) {
         // check for prefix
         $tableMetaData = null;
         try {
@@ -202,9 +201,6 @@ class ZMDbTableMapper extends \ZMObject {
         }
 
         $mapping = array();
-        ob_start();
-        echo "'".str_replace($config['prefix'], '', $table)."' => array(\n";
-        $first = true;
         foreach ($tableMetaData as $column) {
             $line = 'column=' . $column['name'] . ';type=' . $column['type'];
             if ($column['key']) {
@@ -214,18 +210,6 @@ class ZMDbTableMapper extends \ZMObject {
                 $line .= ';auto=true';
             }
             $mapping[$column['name']] = $line;
-            if (!$first) {
-                echo ",\n";
-            }
-            echo "    '" . $column['name'] . "' => '" . $line . "'";
-            $first = false;
-        }
-        echo "\n),\n";
-
-        $text = ob_get_clean();
-
-        if ($print) {
-            echo $text;
         }
 
         return $mapping;
@@ -247,7 +231,7 @@ class ZMDbTableMapper extends \ZMObject {
             // table name
             $table = $mapping;
             $mapping = $this->getMapping($table, $database);
-            if (null === $mapping && \ZMSettings::get('zenmagick.core.database.mappings.autoMap.enabled', true)) {
+            if (null === $mapping && Runtime::getSettings()->get('zenmagick.core.database.mappings.autoMap.enabled', true)) {
                 Runtime::getLogging()->debug('creating dynamic mapping for table name: '.$table);
                 $rawMapping = self::buildTableMapping($table, $database);
                 $this->setMappingForTable(str_replace($config['prefix'], '', $table), $rawMapping);
@@ -283,7 +267,7 @@ class ZMDbTableMapper extends \ZMObject {
     public function getCustomFieldInfo($table, $database) {
         $config = $database->getConfig();
         $customFieldKey = 'zenmagick.core.database.sql.'.str_replace($config['prefix'], '', $table).'.customFields';
-        $setting = \ZMSettings::get($customFieldKey);
+        $setting = Runtime::getSettings()->get($customFieldKey);
         if (empty($setting)) {
             return array();
         }

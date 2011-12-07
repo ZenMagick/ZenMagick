@@ -23,6 +23,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 
 /**
  * Request controller for write review page.
@@ -91,7 +92,7 @@ class ZMProductReviewsWriteController extends ZMController {
         $product = $this->container->get('productService')->getProductForId($review->getProductId(), $review->getLanguageId());
 
         // account email
-        if (ZMSettings::get('isApproveReviews') && ZMSettings::get('isEmailAdminReview')) {
+        if (Runtime::getSettings()->get('isApproveReviews') && Runtime::getSettings()->get('isEmailAdminReview')) {
             $subject = sprintf(_zm("Product Review Pending Approval: %s"), $product->getName());
             $context = $request->getToolbox()->macro->officeOnlyEmailFooter($account->getFullName(), $account->getEmail(), $request->getSession());
             $context['currentAccount'] = $account;
@@ -99,7 +100,7 @@ class ZMProductReviewsWriteController extends ZMController {
             $context['currentProduct'] = $product;
 
             $message = $this->container->get('messageBuilder')->createMessage('review', true, $request, $context);
-            $message->setSubject($subject)->setTo(ZMSettings::get('emailAdminReview'))->setFrom(ZMSettings::get('storeEmail'));
+            $message->setSubject($subject)->setTo(Runtime::getSettings()->get('emailAdminReview'))->setFrom(Runtime::getSettings()->get('storeEmail'));
             $this->container->get('mailer')->send($message);
         }
 

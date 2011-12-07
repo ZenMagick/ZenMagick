@@ -23,8 +23,8 @@
 <?php
 namespace zenmagick\http\rss;
 
-use zenmagick\base\ZMObject;
 use zenmagick\base\Runtime;
+use zenmagick\base\ZMObject;
 
 /**
  * A RSS feed loader.

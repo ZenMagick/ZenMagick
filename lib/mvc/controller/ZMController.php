@@ -23,6 +23,7 @@
 use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
 use zenmagick\base\ZMException;
+use zenmagick\base\ZMObject;
 use zenmagick\base\events\Event;
 use zenmagick\base\logging\Logging;
 use zenmagick\http\sacs\SacsManager;

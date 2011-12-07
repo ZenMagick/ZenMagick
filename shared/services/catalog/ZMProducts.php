@@ -24,6 +24,7 @@
 <?php
 
 use zenmagick\base\Runtime;
+use zenmagick\base\ZMObject;
 
 /**
  * Product access.
@@ -352,7 +353,7 @@ class ZMProducts extends ZMObject implements ZMSQLAware {
      * @return array A list of <code>ZMProduct</code> instances.
      */
     public function getNewProducts($categoryId=null, $max=0, $timeLimit=null, $languageId=null) {
-        $timeLimit = null === $timeLimit ? ZMSettings::get('maxNewProducts') : $timeLimit;
+        $timeLimit = null === $timeLimit ? Runtime::getSettings()->get('maxNewProducts') : $timeLimit;
 
         $queryLimit = '';
         $orderBy = ' ORDER BY products_date_added DESC';
@@ -408,7 +409,7 @@ class ZMProducts extends ZMObject implements ZMSQLAware {
      * @return array A list of <code>ZMProduct</code> instances.
      */
     public function getBestSellers($categoryId=null, $max=null, $languageId=null) {
-        $max = null === $max ? ZMSettings::get('maxBestSellers') : $max;
+        $max = null === $max ? Runtime::getSettings()->get('maxBestSellers') : $max;
 
         $sql = null;
         if (null !== $categoryId) {
@@ -446,7 +447,7 @@ class ZMProducts extends ZMObject implements ZMSQLAware {
      * @return array A list of <code>ZMProduct</code> instances.
      */
     public function getSpecials($max=null, $languageId=null) {
-        $max = null === $max ? ZMSettings::get('maxSpecialProducts') : $max;
+        $max = null === $max ? Runtime::getSettings()->get('maxSpecialProducts') : $max;
 
         $sql = "select distinct p.products_id
                 from " . TABLE_PRODUCTS . " p, " . TABLE_SPECIALS . " s

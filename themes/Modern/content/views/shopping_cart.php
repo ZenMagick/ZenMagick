@@ -42,7 +42,7 @@
                     <?php echo $form->hiddenCartFields($item) ?>
                 </td>
                 <td class="itm">
-                    <?php if (!$item->isStockAvailable() && ZMSettings::get('isEnableStock')) { ?>
+                    <?php if (!$item->isStockAvailable() && $settings->get('isEnableStock')) { ?>
                         <span class="note"><?php _vzm('* Out of Stock') ?></span><br/>
                     <?php } ?>
                     <?php echo $html->encode($item->getProduct()->getName()) ?>

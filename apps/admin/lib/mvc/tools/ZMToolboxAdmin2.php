@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 
 /**
  * Admin related functions.
@@ -140,7 +141,7 @@ class ZMToolboxAdmin2 extends ZMToolboxTool {
         }
         ?><h1><?php echo $title ?></h1><?php
         echo $this->getView()->fetch($this->getRequest(), 'sub-menu.php'); echo '<div id="view-container">';
-        $this->tag('title', sprintf(_zm("%1s :: %2s :: ZenMagick Admin"), ZMSettings::get('storeName'), $title));
+        $this->tag('title', sprintf(_zm("%1s :: %2s :: ZenMagick Admin"), Runtime::getSettings()->get('storeName'), $title));
         return $title;
     }
 

@@ -22,7 +22,10 @@
  */
 ?>
 <?php
+
 use zenmagick\base\Runtime;
+use zenmagick\base\ZMObject;
+
 use Doctrine\ORM\Mapping AS ORM;
 
 /**
@@ -165,7 +168,7 @@ class ZMManufacturer extends ZMObject {
      */
     public function setId($id) { $this->manufacturerId = $id; }
 
-    // @todo deprecated doctrine backwards compatbility 
+    // @todo deprecated doctrine backwards compatbility
     public function setManufacturerId($id) { $this->setId($id); }
 
     /**

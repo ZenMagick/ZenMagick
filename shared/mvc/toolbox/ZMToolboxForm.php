@@ -65,7 +65,7 @@ class ZMToolboxForm extends ZMToolboxTool {
         $validator = $this->container->get('validator');
         $defaults = array('method' => 'post');
         $hasId = isset($attr['id']);
-        $hasValidation = ($hasId && $validator->hasRuleSet($attr['id']) && ZMSettings::get('isAutoJSValidation'));
+        $hasValidation = ($hasId && $validator->hasRuleSet($attr['id']) && Runtime::getSettings()->get('isAutoJSValidation'));
         if ($hasValidation) {
             $defaults['onsubmit'] = 'return zmFormValidation.validate(this);';
         }
@@ -100,14 +100,14 @@ class ZMToolboxForm extends ZMToolboxTool {
         }
 
         // add session token if configured
-        if ($hasId && 'post' == strtolower($attr['method']) && ZMLangUtils::inArray($attr['id'], ZMSettings::get('zenmagick.mvc.html.tokenSecuredForms'))) {
+        if ($hasId && 'post' == strtolower($attr['method']) && ZMLangUtils::inArray($attr['id'], Runtime::getSettings()->get('zenmagick.mvc.html.tokenSecuredForms'))) {
             $hidden[ZMRequest::SESSION_TOKEN_NAME] = $this->getRequest()->getSession()->getToken();
         }
 
         ob_start();
 
         // create JS validation code if all go
-        if ($hasId && $validator->hasRuleSet($attr['id']) && ZMSettings::get('isAutoJSValidation')) {
+        if ($hasId && $validator->hasRuleSet($attr['id']) && Runtime::getSettings()->get('isAutoJSValidation')) {
             echo $validator->toJSString($attr['id']);
 
             // inline JS to allow PHP
@@ -127,7 +127,7 @@ class ZMToolboxForm extends ZMToolboxTool {
         echo '>';
 
         // add hidden form fields if any params set
-        $slash = ZMSettings::get('zenmagick.mvc.html.xhtml') ? '/' : '';
+        $slash = Runtime::getSettings()->get('zenmagick.mvc.html.xhtml') ? '/' : '';
         if (0 < count($hidden)) {
             echo '<div>';
             foreach ($hidden as $name => $value) {
@@ -170,7 +170,7 @@ class ZMToolboxForm extends ZMToolboxTool {
      * @return string HTML form to add a given productId to the shopping cart.
      */
     public function hiddenCartFields($item) {
-        $slash = ZMSettings::get('zenmagick.mvc.html.xhtml') ? '/' : '';
+        $slash = Runtime::getSettings()->get('zenmagick.mvc.html.xhtml') ? '/' : '';
         $html = '<input type="hidden" name="products_id[]" value="' . $item->getId() . '"'.$slash.'>';
         if ($item->hasAttributes()) {
             foreach ($item->getAttributes() as $attribute) {
@@ -220,7 +220,7 @@ class ZMToolboxForm extends ZMToolboxTool {
      */
     public function checked($setting, $value=true, $default=false) {
         if ($setting === $value || ($default && !isset($setting))) {
-            echo ZMSettings::get('zenmagick.mvc.html.xhtml') ? ' checked="checked"' : ' checked';
+            echo Runtime::getSettings()->get('zenmagick.mvc.html.xhtml') ? ' checked="checked"' : ' checked';
         }
     }
 
@@ -271,7 +271,7 @@ class ZMToolboxForm extends ZMToolboxTool {
             $selected = $item->$oValue() === $selectedId;
             $html .= '<option value="' . $item->$oValue() . '"';
             if ($selected) {
-                if (ZMSettings::get('zenmagick.mvc.html.xhtml')) {
+                if (Runtime::getSettings()->get('zenmagick.mvc.html.xhtml')) {
                     $selected = ' selected="selected"';
                 } else {
                     $selected = ' selected';
@@ -293,7 +293,7 @@ class ZMToolboxForm extends ZMToolboxTool {
      * @return string HTML formatted input fields of type <em>hidden</em>.
      */
     public function hiddenList($name, $values) {
-        $slash = ZMSettings::get('zenmagick.mvc.html.xhtml') ? '/' : '';
+        $slash = Runtime::getSettings()->get('zenmagick.mvc.html.xhtml') ? '/' : '';
         $html = '';
         foreach ($values as $value) {
             $html .= '<input type="hidden" name="' . $name . '" value="' . $value . '"'.$slash.'>';
@@ -313,7 +313,7 @@ class ZMToolboxForm extends ZMToolboxTool {
             $data = $tmp;
         }
         // add hidden form fields if any params set
-        $slash = ZMSettings::get('zenmagick.mvc.html.xhtml') ? '/' : '';
+        $slash = Runtime::getSettings()->get('zenmagick.mvc.html.xhtml') ? '/' : '';
         if (0 < count($data)) {
             echo '<div>';
             foreach ($data as $name => $value) {

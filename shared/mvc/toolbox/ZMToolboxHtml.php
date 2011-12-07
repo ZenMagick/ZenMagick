@@ -23,6 +23,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 use zenmagick\base\ZMException;
 
 /**
@@ -74,7 +75,7 @@ class ZMToolboxHtml extends ZMToolboxTool {
      */
     public function getDir() {
         $dir = $this->container->get('localeService')->getLocale()->getFormat('dir');
-        return null != $dir ? $dir : ZMSettings::get('zenmagick.mvc.html.dir', 'ltr');
+        return null != $dir ? $dir : Runtime::getSettings()->get('zenmagick.mvc.html.dir', 'ltr');
     }
 
     /**
@@ -110,7 +111,7 @@ class ZMToolboxHtml extends ZMToolboxTool {
         if (!ZMLangUtils::startsWith($imgSrc, '/')) {
             $imgSrc = $this->getRequest()->getContext() . '/' . $imgSrc;
         }
-        $slash = ZMSettings::get('zenmagick.mvc.html.xhtml') ? '/' : '';
+        $slash = Runtime::getSettings()->get('zenmagick.mvc.html.xhtml') ? '/' : '';
         $html = '<img src="'.$imgSrc.'" alt="'.$this->encode($imageInfo->getAltText()).'" ';
         $html .= $imageInfo->getFormattedParameter();
         $html .= $slash.'>';
@@ -247,7 +248,7 @@ class ZMToolboxHtml extends ZMToolboxTool {
      * @return string A preformatted attribute in the form ' name="value"'
      */
     public function hrefTarget($newWin=true) {
-        $text = $newWin ? (ZMSettings::get('isJSTarget') ? ' onclick="newWin(this); return false;"' : ' target="_blank"') : '';
+        $text = $newWin ? (Runtime::getSettings()->get('isJSTarget') ? ' onclick="newWin(this); return false;"' : ' target="_blank"') : '';
 
         return $text;
     }

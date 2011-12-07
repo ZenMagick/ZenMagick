@@ -23,6 +23,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 
 /**
  * Request controller for unsubscribe page.
@@ -58,7 +59,7 @@ class ZMUnsubscribeController extends ZMController {
      * {@inheritDoc}
      */
     function processPost($request) {
-        if (!ZMSettings::get('isAllowAnonymousUnsubscribe')) {
+        if (!Runtime::getSettings()->get('isAllowAnonymousUnsubscribe')) {
             $this->messageService->error(_zm('In order to unsubscribe you need to login first.'));
             return $this->findView();
         }

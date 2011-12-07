@@ -23,7 +23,7 @@
 ?>
 <?php
     $bmurl = urlencode($net->url(null, null));
-    $bmtitle = sprintf(_zm("%s at %s"), $metaTags->getTitle(), ZMSettings::get('storeName'));
+    $bmtitle = sprintf(_zm("%s at %s"), $metaTags->getTitle(), $settings->get('storeName'));
 ?>
 <h3><a href="http://ekstreme.com/socializer/?url=<?php echo $bmurl ?>&amp;title=<?php echo $bmtitle ?>"<?php echo $html->hrefTarget()?>><?php _vzm("[More]") ?></a><?php _vzm("Bookmark this") ?></h3>
 <div id="sb_bookmarks" class="box">

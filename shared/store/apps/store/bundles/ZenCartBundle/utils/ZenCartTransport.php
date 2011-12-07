@@ -23,7 +23,6 @@ namespace apps\store\bundles\ZenCartBundle\utils;
 
 use zenmagick\base\Runtime;
 use zenmagick\base\events\Event;
-use ZMSettings;
 
 use Swift_Transport_NullTransport;
 use Swift_DependencyContainer;
@@ -70,7 +69,7 @@ class ZenCartTransport extends Swift_Transport_NullTransport {
         $from = $message->getFrom();
         $fromEmail = array_pop(array_keys($from));
         $fromName = $from[$fromEmail];
-        $fromName = null != $fromName ? $fromName : ZMSettings::get('storeEmailFrom');
+        $fromName = null != $fromName ? $fromName : Runtime::getSettings()->get('storeEmailFrom');
         $to = $message->getTo();
         $toEmail = array_pop(array_keys($to));
         $toName = $to[$toEmail];

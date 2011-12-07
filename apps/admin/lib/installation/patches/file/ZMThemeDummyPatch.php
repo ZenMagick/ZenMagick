@@ -19,9 +19,11 @@
  */
 ?>
 <?php
+
 if (!defined('DIR_FS_CATALOG_TEMPLATES')) {
     define('DIR_FS_CATALOG_TEMPLATES', ZC_INSTALL_PATH . 'includes/templates');
 }
+
 use zenmagick\base\Runtime;
 
 
@@ -58,7 +60,7 @@ class ZMThemeDummyPatch extends \ZMFilePatch {
      */
     function isOpen() {
         foreach ($this->container->get('themeService')->getAvailableThemes() as $theme) {
-            if (\ZMSettings::get('apps.store.themes.default') == $theme->getThemeId() && !$this->includeDefault_) {
+            if (Runtime::getSettings()->get('apps.store.themes.default') == $theme->getThemeId() && !$this->includeDefault_) {
                 continue;
             }
             if (!file_exists(DIR_FS_CATALOG_TEMPLATES.$theme->getThemeId())) {
@@ -107,7 +109,7 @@ class ZMThemeDummyPatch extends \ZMFilePatch {
      */
     function patch($force=false) {
         foreach ($this->container->get('themeService')->getAvailableThemes() as $theme) {
-            if (\ZMSettings::get('apps.store.themes.default') == $theme->getThemeId() && !$this->includeDefault_) {
+            if (Runtime::getSettings()->get('apps.store.themes.default') == $theme->getThemeId() && !$this->includeDefault_) {
                 continue;
             }
             $themeId = $theme->getThemeId();

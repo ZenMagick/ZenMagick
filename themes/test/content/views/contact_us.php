@@ -23,7 +23,7 @@
 ?>
 
 <h3><?php _vzm("Store Contact Details") ?></h3>
-<p><address><?php echo nl2br(ZMSettings::get('storeNameAddress')); ?></address></p>
+<p><address><?php echo nl2br($settings->get('storeNameAddress')); ?></address></p>
 <br/>
 
 <?php echo $utils->staticPageContent("contact_us") ?>

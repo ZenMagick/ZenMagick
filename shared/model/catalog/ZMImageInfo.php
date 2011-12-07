@@ -24,6 +24,7 @@
 <?php
 
 use zenmagick\base\Runtime;
+use zenmagick\base\ZMObject;
 
 /**
  * Image information.
@@ -76,13 +77,13 @@ class ZMImageInfo extends ZMObject {
 
             // set default image
             if (empty($image) || !file_exists(ZC_INSTALL_PATH.'images/'.$image) || !is_file(ZC_INSTALL_PATH.'images/'.$image)) {
-                $this->imageDefault_ = $toolbox->net->image(ZMSettings::get('imgNotFound'));
+                $this->imageDefault_ = $toolbox->net->image(Runtime::getSettings()->get('imgNotFound'));
             } else {
                 $this->imageDefault_ = $toolbox->net->image($image);
             }
 
             // evaluate optional medium image
-            $medium = $imageBase.ZMSettings::get('imgSuffixMedium').$ext;
+            $medium = $imageBase.Runtime::getSettings()->get('imgSuffixMedium').$ext;
             if (!file_exists(ZC_INSTALL_PATH.'images/'.'medium/'.$medium)) {
                 // default to next smaller version
                 $this->imageMedium_ = $this->imageDefault_;
@@ -91,7 +92,7 @@ class ZMImageInfo extends ZMObject {
             }
 
             // evaluate optional large image
-            $large = $imageBase.ZMSettings::get('imgSuffixLarge').$ext;
+            $large = $imageBase.Runtime::getSettings()->get('imgSuffixLarge').$ext;
             if (!file_exists(ZC_INSTALL_PATH.'images/'.'large/'.$large)) {
                 // default to next smaller version
                 $this->imageLarge_ = $this->imageMedium_;

@@ -22,7 +22,10 @@
  */
 ?>
 <?php
+
 use zenmagick\base\Runtime;
+use zenmagick\base\ZMObject;
+
 use Doctrine\ORM\Mapping AS ORM;
 
 /**
@@ -390,7 +393,7 @@ class ZMProduct extends ZMObject {
      * @return string $image The default image.
      */
     public function getDefaultImage() {
-        return (empty($this->image) && ZMSettings::get('isShowNoPicture')) ? ZMSettings::get('imgNotFound') : $this->image;
+        return (empty($this->image) && Runtime::getSettings()->get('isShowNoPicture')) ? Runtime::getSettings()->get('imgNotFound') : $this->image;
     }
 
     /**

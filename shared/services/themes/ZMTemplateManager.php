@@ -21,6 +21,7 @@
 <?php
 
 use zenmagick\base\Runtime;
+use zenmagick\base\ZMObject;
 
 /**
  * Template stuff.
@@ -129,7 +130,7 @@ class ZMTemplateManager extends ZMObject {
         $boxes = array();
         foreach (ZMRuntime::getDatabase()->query($sql, array('themeId' => $this->container->get('themeService')->getActiveTheme()->getThemeId()), 'layout_boxes') as $boxInfo) {
             // boxes use .php
-            $box = str_replace('.php', ZMSettings::get('zenmagick.mvc.templates.ext'), $boxInfo['name']);
+            $box = str_replace('.php', Runtime::getSettings()->get('zenmagick.mvc.templates.ext'), $boxInfo['name']);
             $boxes[] = $box;
         }
 
@@ -154,7 +155,7 @@ class ZMTemplateManager extends ZMObject {
         $boxes = array();
         foreach (ZMRuntime::getDatabase()->query($sql, array('themeId' => $this->container->get('themeService')->getActiveTheme()->getThemeId()), 'layout_boxes') as $boxInfo) {
             // boxes use .php
-            $box = str_replace('.php', ZMSettings::get('zenmagick.mvc.templates.ext'), $boxInfo['name']);
+            $box = str_replace('.php', Runtime::getSettings()->get('zenmagick.mvc.templates.ext'), $boxInfo['name']);
             $boxes[] = $box;
         }
 

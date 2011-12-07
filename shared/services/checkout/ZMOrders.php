@@ -25,6 +25,7 @@
 
 use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
+use zenmagick\base\ZMObject;
 
 /**
  * Orders.
@@ -299,7 +300,7 @@ class ZMOrders extends ZMObject implements ZMSQLAware {
     public function getDownloadsForOrderId($orderId, $orderStatusList=null) {
         if (null === $orderStatusList) {
             // build default list
-            $orderStatusList = ZMTools::parseRange(ZMSettings::get('downloadOrderStatusRange'));
+            $orderStatusList = ZMTools::parseRange(Runtime::getSettings()->get('downloadOrderStatusRange'));
         }
         $sql = "SELECT o.date_purchased, o.orders_status, opd.*
                 FROM " . TABLE_ORDERS . " o, " . TABLE_ORDERS_PRODUCTS . " op, " . TABLE_ORDERS_PRODUCTS_DOWNLOAD . " opd

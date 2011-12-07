@@ -41,7 +41,7 @@ class Request extends ZMRequest {
         if (null == ($selectedLanguageId = $this->getParameter('languageId'))) {
             // fallback to session
             if (null == ($selectedLanguageId = $this->getSession()->getValue('languages_id'))) {
-                $selectedLanguageId = ZMSettings::get('storeDefaultLanguageId');
+                $selectedLanguageId = Runtime::getSettings()->get('storeDefaultLanguageId');
             }
         }
 

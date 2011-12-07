@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 
 /**
  * Update checker widget.
@@ -41,7 +42,7 @@ class ZMUpdateCheckerDashboardWidget extends ZMDashboardWidget {
      * {@inheritDoc}
      */
     public function getContents($request) {
-        $current = ZMSettings::get('zenmagick.version');
+        $current = Runtime::getSettings()->get('zenmagick.version');
         $contents = '<p id="update-checker">'._zm('Checking...').'</p>';
         $contents .= <<<EOT
 <script>

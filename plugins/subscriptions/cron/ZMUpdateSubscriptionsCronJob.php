@@ -41,7 +41,7 @@ class ZMUpdateSubscriptionsCronJob implements ZMCronJob {
         }
         $plugin = $this->getPlugin();
         $scheduledOrders = self::findScheduledOrders();
-        $scheduleEmailTemplate = ZMSettings::get('plugins.subscriptions.email.templates.schedule', 'checkout');
+        $scheduleEmailTemplate = Runtime::getSettings()->get('plugins.subscriptions.email.templates.schedule', 'checkout');
         $orderService = $this->container->get('orderService');
         foreach ($scheduledOrders as $scheduledOrderId) {
             // 1) copy
@@ -122,7 +122,7 @@ class ZMUpdateSubscriptionsCronJob implements ZMCronJob {
         $account = $order->getAccount();
 
         $message = $this->container->get('messageBuilder')->createMessage($template, true, $request, $context);
-        $message->setSubject(sprintf(_zm("%s: Order Subscription Notification"), ZMSettings::get('storeName')))->setTo($account->getEmail())->setFrom(ZMSettings::get('storeEmail'));
+        $message->setSubject(sprintf(_zm("%s: Order Subscription Notification"), Runtime::getSettings()->get('storeName')))->setTo($account->getEmail())->setFrom(Runtime::getSettings()->get('storeEmail'));
         $this->container->get('mailer')->send($message);
     }
 
@@ -139,7 +139,7 @@ class ZMUpdateSubscriptionsCronJob implements ZMCronJob {
      * Copy order.
      *
      * @param int orderId The order to copy.
-     * @param ZMObject The new order.
+     * @param zenmagick\base\ZMObject The new order.
      */
     public static function copyOrder($orderId) {
         $tables = array(
@@ -152,7 +152,7 @@ class ZMUpdateSubscriptionsCronJob implements ZMCronJob {
         $orderData = array();
         foreach ($tables as $table) {
             $sql = "SELECT * from ".$table." WHERE orders_id = :orderId";
-            $orderData[$table] = ZMRuntime::getDatabase()->query($sql, array('orderId' => $orderId), $table, 'ZMObject');
+            $orderData[$table] = ZMRuntime::getDatabase()->query($sql, array('orderId' => $orderId), $table, 'zenmagick\base\ZMObject');
         }
 
         $orderData[TABLE_ORDERS][0]->setOrderDate(date(ZMDatabase::DATETIME_FORMAT));

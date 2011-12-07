@@ -42,6 +42,6 @@
 <?php } ?>
 
 
-<?php _vzm("Regards, %s", ZMSettings::get('storeName')) ?>
+<?php _vzm("Regards, %s", $settings->get('storeName')) ?>
 
 <?php echo strip_tags($utils->staticPageContent('email_advisory')) ?>

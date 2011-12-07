@@ -76,7 +76,7 @@ class ZMPasswordForgottenController extends ZMController {
 
         // send email (clear text)
         $message = $this->container->get('messageBuilder')->createMessage('password_forgotten', true, $request, array('password' => $newPassword));
-        $message->setSubject(sprintf(_zm("Forgotten Password - %s"), ZMSettings::get('storeName')))->setTo($emailAddress, $account->getFullName())->setFrom(ZMSettings::get('storeEmail'));
+        $message->setSubject(sprintf(_zm("Forgotten Password - %s"), Runtime::getSettings()->get('storeName')))->setTo($emailAddress, $account->getFullName())->setFrom(Runtime::getSettings()->get('storeEmail'));
         $this->container->get('mailer')->send($message);
 
         Runtime::getEventDispatcher()->dispatch('password_changed', new Event($this, array('controller' => $this, 'account' => $account, 'clearPassword' => $newPassword)));

@@ -86,7 +86,7 @@ class ZMSubscriptionAdminController extends ZMPluginAdmin2Controller {
         }
 
         $order = $this->container->get('orderService')->getOrderForId($orderId, $request->getSession()->getLanguageId());
-        $emailTemplate = ZMSettings::get('plugins.subscriptions.email.templates.cancel', 'subscription_cancel');
+        $emailTemplate = Runtime::getSettings()->get('plugins.subscriptions.email.templates.cancel', 'subscription_cancel');
         $email = $order->getAccount()->getEmail();
         if (!ZMLangUtils::isEmpty($email)) {
             $this->sendCancelEmail($order, $emailTemplate, $email);
@@ -108,7 +108,7 @@ class ZMSubscriptionAdminController extends ZMPluginAdmin2Controller {
         $context['plugin'] = $this->getPlugin();
 
         $message = $this->container->get('messageBuilder')->createMessage($template, true, $request, $context);
-        $message->setSubject(sprintf(_zm("%s: Order Subscription Canceled"), ZMSettings::get('storeName')))->setTo($email)->setFrom(ZMSettings::get('storeEmail'));
+        $message->setSubject(sprintf(_zm("%s: Order Subscription Canceled"), Runtime::getSettings()->get('storeName')))->setTo($email)->setFrom(Runtime::getSettings()->get('storeEmail'));
         $this->container->get('mailer')->send($message);
     }
 
