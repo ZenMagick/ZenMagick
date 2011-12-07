@@ -42,21 +42,21 @@ class ZMStoreBlockProvider extends ZMObject implements ZMBlockProvider {
         if ($templateManager->isLeftColEnabled()) {
             foreach ($templateManager->getLeftColBoxNames() as $boxName) {
                 // avoid duplicates by using $box as key
-                $blocks[$boxName] = 'ZMBlockWidget#template=boxes/'.$boxName.'&title='.ucwords(str_replace(array('.php', '_'), array('', ' '), $boxName));
+                $blocks[] = 'ZMBlockWidget#template=boxes/'.$boxName.'&title='.ucwords(str_replace(array('.php', '_'), array('', ' '), $boxName));
             }
         }
         if ($templateManager->isRightColEnabled()) {
             foreach ($templateManager->getRightColBoxNames() as $boxName) {
                 // avoid duplicates by using $box as key
-                $blocks[$boxName] = 'ZMBlockWidget#template=boxes/'.$boxName.'&title='.ucwords(str_replace(array('.php', '_'), array('', ' '), $boxName));
+                $blocks[] = 'ZMBlockWidget#template=boxes/'.$boxName.'&title='.ucwords(str_replace(array('.php', '_'), array('', ' '), $boxName));
             }
         }
 
         // banners
-        $blocks['ZMBannerBlockWidget'] = 'ZMBannerBlockWidget';
+        $blocks[] = 'ZMBannerBlockWidget#title=Banner';
 
         // paypal ec button
-        $blocks['ZMPayPalECButtonBlockWidget'] = 'ZMPayPalECButtonBlockWidget';
+        $blocks[] = 'ZMPayPalECButtonBlockWidget#title=PayPal EC Button';
 
         return $blocks;
     }

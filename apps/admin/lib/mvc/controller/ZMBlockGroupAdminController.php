@@ -31,35 +31,13 @@ use zenmagick\base\Beans;
 class ZMBlockGroupAdminController extends ZMController {
 
     /**
-     * Create new instance.
-     */
-    function __construct() {
-        parent::__construct();
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
-
-
-    /**
      * {@inheritDoc}
      */
     public function getViewData($request) {
-        $blocks = array();
         $blockManager = $this->container->get('blockManager');
-        foreach ($blockManager->getProviders() as $provider) {
-            foreach ($provider->getBlockList() as $def) {
-                $widget = Beans::getBean($def);
-                $blocks[$def] = $widget->getTitle();
-            }
-        }
         $groupName = $request->getParameter('groupName');
         return array(
-            'allBlocks' => $blocks,
+            'allBlocks' => $blockManager->getBlockList(),
             'blocks' => $blockManager->getBlocksForId($request, $groupName),
             'groupName' => $groupName
         );

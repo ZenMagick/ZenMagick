@@ -35,7 +35,7 @@
   <ul id="groupBlockList" class="sortable">
     <?php foreach ($blocks as $block) { ?>
       <li data-block-def="<?php echo $block->getBlockId().'@'.$block->getDefinition() ?>">
-        <span><?php echo $block->getName() ?></span>
+        <span><?php echo $block->getTitle() ?></span>
         <div class="icons">
           <!-- TODO: icons -->
           <span class="ui-icon ui-icon-circle-close"></span>

@@ -44,18 +44,11 @@ class ZMBlockWidget extends ZMWidget {
     /**
      * Create new instance.
      */
-    function __construct() {
+    public function __construct() {
         parent::__construct();
         $this->sortOrder_ = 0;
         $this->template_ = null;
         $this->format_ = null;
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
     }
 
 

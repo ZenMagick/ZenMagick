@@ -36,7 +36,7 @@ interface ZMBlockProvider {
      * Return list of blocks availabe from this provider.
      *
      * @param array args Optional parameter; default is an empty array.
-     * @return array List of block objects or bean definitions.
+     * @return array List of bean definitions.
      */
     public function getBlockList($args=array());
 

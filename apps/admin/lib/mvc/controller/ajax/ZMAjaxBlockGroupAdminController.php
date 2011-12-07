@@ -96,6 +96,8 @@ class ZMAjaxBlockGroupAdminController extends ZMRpcController {
         $blockService = $this->container->get('blockService');
         $currentBlocks = $blockService->getBlocksForGroupName($groupName);
 
+echo 'new: '.count($groupBlockList)."\n";
+echo 'current: '.count($currentBlocks)."\n";
         // iterate, compare and re-sort
         $index = 0;
         $newBlocks = array();
@@ -126,6 +128,7 @@ class ZMAjaxBlockGroupAdminController extends ZMRpcController {
             }
             ++$index;
         }
+echo 'update: '.count($updateBlocks)."\n";
         foreach ($updateBlocks as $block) {
             $blockService->updateBlock($block);
         }

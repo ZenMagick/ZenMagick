@@ -44,6 +44,23 @@ class ZMBlockManager extends ZMObject {
 
 
     /**
+     * Get a (unique) list of all available blocks.
+     *
+     * @param array args Optional parameter; default is an empty array.
+     * @return array List of bean prototypes for all available blocks.
+     */
+    public function getBlockList($args=array()) {
+        $blocks = array();
+        foreach ($this->getProviders() as $provider) {
+            foreach ($provider->getBlockList($args) as $def) {
+                $widget = Beans::getBean($def);
+                $blocks[$def] = $widget->getTitle();
+            }
+        }
+        return $blocks;
+    }
+
+    /**
      * Get a list of all registered providers.
      *
      * @return array A list of <code>ZMBlockContentsProvider</code> instances.
@@ -72,16 +89,14 @@ class ZMBlockManager extends ZMObject {
                 $widget = null;
                 if (is_string($block)) {
                     $widget = Beans::getBean($block);
-                } else if (is_object($block) && $block instanceof ZMBlockWidget) {
-                    $widget = $block;
+                    $widget->setDefinition($block);
                 }
                 if (null != $widget) {
                     Beans::setAll($widget, $args);
                     $group[] = $widget;
                 }
             }
-            $this->mappings_[$groupId] = $group;
-            return $this->mappings_[$groupId];
+            return $group;
         }
 
         return array();
