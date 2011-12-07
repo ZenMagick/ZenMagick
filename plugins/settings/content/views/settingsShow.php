@@ -19,7 +19,7 @@
  */
 ?>
 <?php $admin2->title() ?>
-<?php foreach ($settingDetails as $group => $groupDetails) { 
+<?php foreach ($settingDetails as $group => $groupDetails) {
     echo '<h2>',$group,'</h2>';
     foreach ($groupDetails as $sub => $subDetails) {
         echo '<h3>',$sub,'</h3>';

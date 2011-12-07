@@ -37,11 +37,11 @@
       <input type="hidden" name="groupPricingId" value="<?php echo $productGroupPricing->getId() ?>">
     </div>
     <p>
-      <label for="discount">Discount</label> 
+      <label for="discount">Discount</label>
       <input type="text" id="discount" name="discount" value="<?php echo $productGroupPricing->getDiscount() ?>">
 
       <?php $type = $productGroupPricing->getType(); ?>
-      <label for="type">Type</label> 
+      <label for="type">Type</label>
       <select id="type" name="type">
         <option value="#"<?php if ('#' == $type) { echo ' selected'; } ?>>Fixed Price</option>
         <option value="%"<?php if ('%' == $type) { echo ' selected'; } ?>>Percent</option>
@@ -53,9 +53,9 @@
       <label for="allowSaleSpecial">Allow discount on sale/special</label>
     </p>
     <p>
-      <label for="startDate">Start Date</label> 
+      <label for="startDate">Start Date</label>
       <input type="text" class="datepicker" id="startDate" name="startDate" value="<?php echo $locale->shortDate($productGroupPricing->getStartDate()) ?>">
-      <label for="endDate">End Date</label> 
+      <label for="endDate">End Date</label>
       <input type="text" class="datepicker" id="endDate" name="endDate" value="<?php echo $locale->shortDate($productGroupPricing->getEndDate()) ?>">
       <?php echo sprintf(_zm("Format: %s;&nbsp;(e.g: %s)"), _zm('date-short-ui-format'), _zm('date-short-ui-example')) ?>
     </p>

@@ -22,7 +22,7 @@
  */
 ?>
 
-<p>This is the second demo page illustrating checkout Ajax options in <em>ZenMagick</em>. For more details about Ajax in ZenMagick 
+<p>This is the second demo page illustrating checkout Ajax options in <em>ZenMagick</em>. For more details about Ajax in ZenMagick
 check out the <a href="<?php echo $net->url('ajax_demo') ?>">main Ajax demo</a>.</p>
 
 <?php $resources->jsFile('jquery.js', ZMViewUtils::NOW) ?>
@@ -44,7 +44,7 @@ check out the <a href="<?php echo $net->url('ajax_demo') ?>">main Ajax demo</a>.
             </select>
             <input type="button" value="Load Countries" onclick="loadCountries();" />
         </p>
-        
+
         <div id="methodList" style="margin:6px 2px;border-top:1px solid gray;border-bottom:1px solid gray;padding:2px;">
         </div>
         <div id="address" style="margin:4px 0;">

@@ -70,7 +70,7 @@ interface ZMCreditClass {
     /**
      * Check if the cart is compeletely covered by credits and skip payments if so.
      *
-     * @todo this is to be implemented in ot_zenmagic only! 
+     * @todo this is to be implemented in ot_zenmagic only!
      */
     public function cartIsCovered();
 

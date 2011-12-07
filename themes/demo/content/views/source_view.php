@@ -33,9 +33,9 @@
   }
 
   if (null != $source) {
-      ?><h2>Source for <?php echo $source ?></h2><pre id="source"><?php 
+      ?><h2>Source for <?php echo $source ?></h2><pre id="source"><?php
       echo $html->encode(file_get_contents($this->path($source)));
-      ?></pre><?php 
+      ?></pre><?php
       return;
   }
 ?>

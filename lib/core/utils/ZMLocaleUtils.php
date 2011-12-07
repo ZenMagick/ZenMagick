@@ -248,7 +248,7 @@ class ZMLocaleUtils {
      *
      * <p>The path given is assumed to contain the full locale as specified in the <code>$locale</code> parameter.</p>
      * <p>The function will validate the path and if not valid will default to using just the language.</p>
-     *  
+     *
      * @param string path The full path.
      * @param string locale The locale.
      * @return string A valid path or <code>null</code>.

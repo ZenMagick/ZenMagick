@@ -23,7 +23,7 @@
 ?>
 
 <?php echo $form->addProduct($currentProduct->getId(), 1) ?>
-  <div>  
+  <div>
     <div id="pinfo">
       <?php echo $html->productImageLink($currentProduct) ?>
       <?php echo $currentProduct->getDescription(); ?>

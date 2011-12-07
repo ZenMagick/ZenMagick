@@ -27,15 +27,15 @@
     <legend><?php _vzm("Foo") ?></legend>
     <div>
       <label for="foo"><?php _vzm("Foo") ?></label>
-      <input type="text" id="foo" name="foo" value="<?php echo $formData->getFoo() ?>" /> 
+      <input type="text" id="foo" name="foo" value="<?php echo $formData->getFoo() ?>" />
     </div>
     <div>
       <label for="bar"><?php _vzm("Bar") ?></label>
-      <input type="text" id="bar" name="bar" value="<?php echo $formData->getBar() ?>"  /> 
+      <input type="text" id="bar" name="bar" value="<?php echo $formData->getBar() ?>"  />
     </div>
     <div>
       <label for="doh"><?php _vzm("Bar") ?></label>
-      <select id="doh" name="doh[]" size="3" multiple style="width:4em;"> 
+      <select id="doh" name="doh[]" size="3" multiple style="width:4em;">
         <option value="do">do</option>
         <option value="re">re</option>
         <option value="mi">mi</option>

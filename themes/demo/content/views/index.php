@@ -27,17 +27,17 @@
 <p>Running on top of a standard <a href="http://www.zen-cart.com">zen-cart</a> installation,
   <a href="http://www.zenmagick.org">ZenMagick</a> provides access to most of zen-cart's data via an object oriented
     <a href="http://wiki.zenmagick.org/index.php/ZenMagick_API">API</a>.</p>
-  <p>Also included is a replacement of the zen-cart storefront templating system 
+  <p>Also included is a replacement of the zen-cart storefront templating system
     (<a href="http://en.wikipedia.org/wiki/Model-view-controller">MVC</a>),
     build on top of that API.</p>
- 
+
 <p><strong>In addition to the default ZenMagick features, the following non default options and plugins are installed:</strong></p>
 
 <h2>Ajax</h2>
 <ul>
   <li>The <a href="<?php echo $net->url('ajax_demo') ?>">Ajax demo page</a> shows a few Ajax things possible with ZenMagick.</li>
   <li>The <a href="<?php echo $net->url('ajax_demo2') ?>">New Shipping Estimator demo page</a> shows an Ajax based estimator using new shipping code.</li>
-  <li>Drag/Drop Ajax cart demo in <a href="<?php echo $net->url('category', 'cPath=22') ?>">category list pages</a> 
+  <li>Drag/Drop Ajax cart demo in <a href="<?php echo $net->url('category', 'cPath=22') ?>">category list pages</a>
     (drag the product image onto the shopping cart on ther right...)</li>
 </ul>
 

@@ -33,19 +33,19 @@ class ZMRssUtils {
 
     /**
      * Parse RSS date.
-     * 
+     *
      * @param string date The date.
      * @return array An array with 3 elements in the order [day] [month] [year].
      */
     public static function parseRssDate($date) {
         preg_match("/[a-zA-Z]+, ([0-3]?[0-9]) ([a-zA-Z]+) ([0-9]{2,4}) .*/", $date, $regs);
         return $regs[1].'/'.$regs[2].'/'.$regs[3];
-    } 
+    }
 
 
     /**
      * Convert date to RSS date format.
-     * 
+     *
      * @package org.zenmagick.misc
      * @param mixed date The date string, timestamp (long) or <code>null</code> to use the current date.
      * @return string A date string formatted according to RSS date rules.
@@ -60,6 +60,6 @@ class ZMRssUtils {
         }
 
         return date(DATE_RSS, $date);
-    } 
+    }
 
 }

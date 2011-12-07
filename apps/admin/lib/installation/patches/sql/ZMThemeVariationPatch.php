@@ -84,7 +84,7 @@ class ZMThemeVariationPatch extends \ZMSQLPatch {
 
         return true;
     }
-    
+
     /**
      * Revert the patch.
      *
@@ -103,5 +103,5 @@ class ZMThemeVariationPatch extends \ZMSQLPatch {
         }
         return $status;
     }
-    
+
 }

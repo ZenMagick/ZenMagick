@@ -56,21 +56,21 @@ class ZMDemoOrder extends ZMOrder {
     /**
      * {@inheritDoc}
      */
-    public function getShippingAddress() { 
+    public function getShippingAddress() {
         return new ZMDemoAddress();
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getBillingAddress() { 
+    public function getBillingAddress() {
         return new ZMDemoAddress();
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getOrderItems() { 
+    public function getOrderItems() {
         return array(new ZMDemoOrderItem(1), new ZMDemoOrderItem(2));
     }
 

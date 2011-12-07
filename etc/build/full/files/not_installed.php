@@ -32,7 +32,7 @@ $instPath = (file_exists('zc_install/index.php')) ? 'zc_install/index.php' : (fi
 <h2>You are seeing this page for one or more reasons:</h2>
 <ol>
 <li>This is your <strong>first time using ZenMagick</strong> and you haven't yet completed the normal Installation procedure.<br />
-If this is the case for you, 
+If this is the case for you,
 <?php if ($instPath) { ?>
 <a href="<?php echo $instPath; ?>">Click here</a> to begin installation.
 <?php } else { ?>
@@ -45,7 +45,7 @@ If you recently edited your configure.php files for any reason, or maybe moved y
 See the <a href="http://forum.zenmagick.org/" target="_blank">forum</a> and/or <a href="http://wiki.zenmagick.org/" target="_blank">documentation</a> on the ZenMagick website for assistance.</li>
 </ol>
 <br />
-<h2>To begin installation ...</h2> 
+<h2>To begin installation ...</h2>
 <ol>
 <?php if ($instPath) { ?>
 <li>Run <a href="<?php echo $instPath; ?>">zc_install/index.php</a> via your browser.</li>

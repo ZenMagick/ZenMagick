@@ -47,7 +47,7 @@ class ZMEmailRule extends ZMRule {
     }
 
 
-    /** 
+    /**
      * Build email regexp.
      * see: http://php.inspire.net.nz/manual/en/function.eregi.php
      *

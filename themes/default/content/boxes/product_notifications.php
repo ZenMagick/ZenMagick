@@ -23,7 +23,7 @@
 ?>
 
 <?php if (0 != $request->getProductId() && isset($currentProduct)) { ?>
-     <?php 
+     <?php
       $isSubscribed = false;
       if ($request->isRegistered()) {
           $account = $request->getAccount();

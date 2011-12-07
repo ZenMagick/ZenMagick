@@ -83,7 +83,7 @@ class ZMConfigPatch extends \ZMSQLPatch {
 
         return true;
     }
-    
+
     /**
      * Revert the patch.
      *
@@ -102,5 +102,5 @@ class ZMConfigPatch extends \ZMSQLPatch {
         }
         return $status;
     }
-    
+
 }

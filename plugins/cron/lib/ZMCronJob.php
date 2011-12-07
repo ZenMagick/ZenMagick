@@ -27,7 +27,7 @@
  * @package org.zenmagick.plugins.cron
  */
 interface ZMCronJob {
-    
+
     /**
      * Execute the job.
      *

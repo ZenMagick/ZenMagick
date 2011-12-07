@@ -27,7 +27,7 @@
  * @package org.zenmagick.plugins.cron
  */
 class ZMSimpleCronJob implements ZMCronJob {
-    
+
     /**
      * {@inheritDoc}
      */

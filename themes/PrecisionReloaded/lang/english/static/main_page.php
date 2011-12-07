@@ -2,7 +2,7 @@
 <div id="mainpagemain">
 <h3>Welcome to your new ZenMagick powered online store!</h3>
 
-<p>This is the sample welcome text included in the default theme. The HTML is stored in 
+<p>This is the sample welcome text included in the default theme. The HTML is stored in
 <code>zenmagick/themes/default/lang/english/static/main_page.php</code>.</p>
 
 <p>You can quickly edit this content via Admin-&gt;ZenMagick-&gt;Static Page Editor by selecting <code>main_page</code> from the file pulldown.</p>

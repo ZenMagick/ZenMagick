@@ -27,7 +27,7 @@
   <fieldset>
     <legend><?php _vzm("Request new password") ?></legend>
     <label for="email_address"><?php _vzm("E-Mail Address") ?></label>
-    <input type="text" id="email_address" name="email_address" <?php echo $form->fieldLength(TABLE_CUSTOMERS, 'customers_email_address') ?> /> 
+    <input type="text" id="email_address" name="email_address" <?php echo $form->fieldLength(TABLE_CUSTOMERS, 'customers_email_address') ?> />
   </fieldset>
   <div class="btn"><button type="submit" class="btn submit"><span><?php _vzm("Submit") ?></span></button></div>
 </form>

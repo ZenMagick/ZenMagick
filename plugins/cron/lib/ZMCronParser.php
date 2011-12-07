@@ -46,7 +46,7 @@ class ZMCronParser {
      *
      * <p>In this context, a field consists of a single date/time field as defined by the Unix crontab file</p>
      *
-     * <p><strong>NOTE:</strong> This will initialize elements with key <em>0</em> even if the first valid 
+     * <p><strong>NOTE:</strong> This will initialize elements with key <em>0</em> even if the first valid
      * corresponding date value starts with <em>1</em>. Examples are <em>mday</em> and <em>mon</em>.</p>
      *
      * @param string field The date/time field.
@@ -102,7 +102,7 @@ class ZMCronParser {
      *
      * <p>Crontab lines are following the UNIX crontrab file format with the single exception of missing
      * the user column.</p>
-     * 
+     *
      * @param mixed crontab Either a single crontab line or an array of lines.
      * @return array A list of parsed cron jobs.
      */
@@ -158,7 +158,7 @@ class ZMCronParser {
             $date = getdate($date);
         }
 
-        return $schedule['mon'][$date['mon']] 
+        return $schedule['mon'][$date['mon']]
             && ($schedule['mday'][$date['mday']] || $schedule['mday'][$date['mday']])
             && $schedule['hours'][$date['hours']]
             && $schedule['minutes'][$date['minutes']];

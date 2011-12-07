@@ -43,8 +43,8 @@ class ZMOpenIDPacker extends ZMPhpPackagePacker implements ZMLibraryPacker {
      * {@inheritDoc}
      */
     public function ignoreFile($file) {
-      return in_array(basename($file), 
+      return in_array(basename($file),
           array('Server.php', 'ServerRequest.php', 'DumbStore.php', 'FileStore.php', 'PostgreSQLStore.php', 'SQLiteStore.php', 'SQLStore.php'));
     }
- 
+
 }

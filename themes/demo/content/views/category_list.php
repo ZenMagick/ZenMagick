@@ -30,8 +30,8 @@
     $(document).ready(function() {
         $('a.product').Draggable({revert:true, fx:300, ghosting:true, opacity:0.4});
         $('#sb_cart').Droppable({
-            accept: 'product', 
-            activeclass: 'activeCart', 
+            accept: 'product',
+            activeclass: 'activeCart',
             hoverclass: 'hoverCart',
             tolerance: 'intersect',
             onActivate: function(dragged) {

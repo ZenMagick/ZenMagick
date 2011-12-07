@@ -11,7 +11,7 @@
                 <?php foreach ($subscriptions->getSchedules() as $key => $schedule) { if (!$schedule['active']) { continue; } ?>
                     <option value="<?php echo $key ?>"><?php _vzm($schedule['name']) ?></option>
                 <?php } ?>
-              </select> 
+              </select>
             </p>
         </fieldset>
     <?php } ?>

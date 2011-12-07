@@ -94,7 +94,7 @@ class FirePHPLoggingHandler extends DefaultLoggingHandler {
             4096 => FirePHP::ERROR,
             8192 => FirePHP::LOG,
             16384 => FirePHP::LOG,
-        ); 
+        );
 
         if (!headers_sent()) {
             if (array_key_exists('exception', $info)) {

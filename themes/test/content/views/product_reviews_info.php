@@ -25,7 +25,7 @@
 ?>
 
 <?php echo $form->addProduct($currentProduct->getId(), 1) ?>
-  <div>  
+  <div>
     <div id="pinfo">
       <?php $imageInfo = $currentProduct->getImageInfo() ?>
       <a href="<?php echo $net->product($currentProduct->getId()) ?>"><?php echo $html->productImageLink($currentProduct) ?></a>

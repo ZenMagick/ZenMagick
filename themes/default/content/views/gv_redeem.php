@@ -31,7 +31,7 @@
       <legend><?php _vzm("Redemption code details") ?></legend>
       <div>
         <label for="gvCode"><?php _vzm("Redemption Code") ?></label>
-        <input type="text" id="gvCode" name="couponCode" value="<?php echo $html->encode($gvRedeem->getCouponCode()) ?>" /> 
+        <input type="text" id="gvCode" name="couponCode" value="<?php echo $html->encode($gvRedeem->getCouponCode()) ?>" />
       </div>
     </fieldset>
     <div class="btn"><input type="submit" class="btn" value="<?php _vzm("Redeem") ?>" /></div>

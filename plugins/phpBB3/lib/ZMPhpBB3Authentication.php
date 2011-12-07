@@ -41,14 +41,14 @@ class ZMPhpBB3Authentication implements ZMAuthentication {
     /**
      * {@inheritDoc}
      */
-    public function encryptPassword($plaintext, $salt=null) { 
+    public function encryptPassword($plaintext, $salt=null) {
         return $this->passwordHash_->HashPassword($plaintext);
     }
 
     /**
      * {@inheritDoc}
      */
-    public function validatePassword($plaintext, $encrypted) { 
+    public function validatePassword($plaintext, $encrypted) {
         return $this->passwordHash_->HashPassword($plaintext);
     }
 

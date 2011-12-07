@@ -22,7 +22,7 @@
 
 <div id="catalog-tabs">
 	<ul>
-    <?php $tabIndex = 0; 
+    <?php $tabIndex = 0;
     $index = 0;
     foreach ($controllers as $controller) {
       if ($catalogRequestId == $controller->getCatalogRequestId()) {

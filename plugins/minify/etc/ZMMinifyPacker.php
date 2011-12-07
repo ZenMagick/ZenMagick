@@ -44,10 +44,10 @@ class ZMMinifyPacker extends ZMPhpPackagePacker implements ZMLibraryPacker {
      */
     public function patchFile($filename, $lines) {
         if ('Minify.php' == basename($filename)) {
-            /* modify Minify::serve(..): 
+            /* modify Minify::serve(..):
             * remove:
-            *          require_once "Minify/Controller/" 
-            *              . str_replace('_', '/', $controller) . ".php";    
+            *          require_once "Minify/Controller/"
+            *              . str_replace('_', '/', $controller) . ".php";
             */
             foreach ($lines as $ii => $line) {
                 if (false !== strpos($line, 'require_once "Minify/Controller/"')) {
