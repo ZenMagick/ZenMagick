@@ -7,6 +7,10 @@ parameters:
   kernel.debug: false
 
 services:
+  classLoader:
+    class: zenmagick\base\classloader\ClassLoader
+    scope: prototype
+
   loggingService:
     class: zenmagick\base\logging\Logging
     scope: container

@@ -21,7 +21,7 @@
 <?php
 namespace apps\store\bundles\ZenCartBundle;
 
-use zenmagick\base\ClassLoader;
+use zenmagick\base\classloader\ClassLoader;
 use zenmagick\base\Runtime;
 
 /**

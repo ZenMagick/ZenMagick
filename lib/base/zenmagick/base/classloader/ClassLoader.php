@@ -21,7 +21,7 @@
 */
 ?>
 <?php
-namespace zenmagick\base;
+namespace zenmagick\base\classloader;
 
 /**
  * A PHP5.3 class loader.
@@ -80,7 +80,7 @@ namespace zenmagick\base;
  *
  * @author Fabien Potencier <fabien.potencier@symfony-project.org>
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.base
+ * @package zenmagick.base.classloader
  */
 class ClassLoader {
     private $namespaces;
@@ -225,6 +225,34 @@ class ClassLoader {
      */
     public function getNamespaces() {
         return $this->namespaces;
+    }
+
+    /**
+     * Get all configured default namespace classes.
+     *
+     * @return array A map of class =&gt; path pairs.
+     */
+    public function getDefaults() {
+        return $this->defaults;
+    }
+
+    /**
+     * Add a list of non namespaced classes.
+     *
+     * @param array defaults A map of class =&gt; path pairs.
+     */
+    public function addDefaults($defaults) {
+        $this->defaults = array_merge($this->defaults, $defaults);
+    }
+
+    /**
+     * Add a single non namespaced class.
+     *
+     * @param string class The class name.
+     * @param string path The path.
+     */
+    public function addDefault($class, $path) {
+        $this->defaults[$class] = $path;
     }
 
     /**

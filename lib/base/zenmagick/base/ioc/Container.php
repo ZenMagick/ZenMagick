@@ -21,7 +21,7 @@
 <?php
 namespace zenmagick\base\ioc;
 
-use zenmagick\base\ClassLoader;
+use zenmagick\base\classloader\ClassLoader;
 use zenmagick\base\ioc\parameterBag\SettingsParameterBag;
 use zenmagick\base\ioc\compiler\ResolveMergeDefinitionsPass;
 

@@ -20,7 +20,7 @@
 ?>
 <?php
 
-use zenmagick\base\ClassLoader;
+use zenmagick\base\classloader\ClassLoader;
 use zenmagick\base\Runtime;
 use zenmagick\base\events\Event;
 use zenmagick\base\ioc\loader\YamlFileLoader;
@@ -197,7 +197,7 @@ class ZMThemes extends ZMObject {
         if (null !== $languageId) {
             $language = $this->container->get('languageService')->getLanguageForId($languageId);
 
-            $themeLoader = new ClassLoader();
+            $themeLoader = $this->container->get('classLoader');
             $themeLoader->addConfig($theme->getBaseDir().DIRECTORY_SEPARATOR.'lib');
             // XXX: TODO: remove
             $themeLoader->addPath($theme->getBaseDir().DIRECTORY_SEPARATOR.'extra');

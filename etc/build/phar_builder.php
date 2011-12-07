@@ -21,7 +21,7 @@
 ?>
 <?php
 
-use zenmagick\base\utils\ClassLoaderPharBuilder;
+use zenmagick\base\classloader\PharBuilder;
 
 
     /**
@@ -47,7 +47,7 @@ use zenmagick\base\utils\ClassLoaderPharBuilder;
     $path = $baseDir.DIRECTORY_SEPARATOR.$pharPath;
     echo 'Run builder with path: '.$path.PHP_EOL;
     $path = realpath($path);
-    $pharBuilder = new ClassLoaderPharBuilder($path);
+    $pharBuilder = new PharBuilder($path);
     $pharBuilder->create();
 
     exit;

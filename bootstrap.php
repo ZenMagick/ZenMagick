@@ -21,13 +21,15 @@
 <?php
 use zenmagick\base\Runtime;
 use zenmagick\base\Beans;
-use zenmagick\base\ClassLoader;
+use zenmagick\base\classloader\ClassLoader;
 use zenmagick\base\Toolbox;
 use zenmagick\base\events\Event;
 use zenmagick\base\ioc\loader\YamlFileLoader;
 
 use Symfony\Component\Config\FileLocator;
 
+    // XXX: remove once caching is not needed any more
+    $CLASSLOADER = 'zenmagick\base\classloader\CachingClassLoader';
 
     /*
      * If 'ZM_APP_PATH' is defined, the following conventions are expected:
@@ -58,14 +60,16 @@ use Symfony\Component\Config\FileLocator;
         // set up base class loader
         $basephar = 'phar://'.ZM_BASE_PATH.'/lib/base/base.phar';
         if (file_exists($basephar)) {
-            require_once $basephar.'/zenmagick/base/ClassLoader.php';
+            require_once $basephar.'/zenmagick/base/classloader/ClassLoader.php';
+            require_once $basephar.'/zenmagick/base/classloader/CachingClassLoader.php';
         } else {
-            require_once ZM_BASE_PATH.'/lib/base/zenmagick/base/ClassLoader.php';
+            require_once ZM_BASE_PATH.'/lib/base/zenmagick/base/classloader/ClassLoader.php';
+            require_once ZM_BASE_PATH.'/lib/base/zenmagick/base/classloader/CachingClassLoader.php';
         }
 
         // load main packages
         $packages = array('vendor', 'lib/base', 'lib/core', 'lib/http', 'lib/mvc', 'shared');
-        $zmLoader = new ClassLoader();
+        $zmLoader = new $CLASSLOADER();
         $zmLoader->register();
         foreach ($packages as $path) {
             $path = ZM_BASE_PATH.$path;
@@ -80,7 +84,7 @@ use Symfony\Component\Config\FileLocator;
 
         // load app in separate loader
         if (null != Runtime::getApplicationPath()) {
-            $appLoader = new ClassLoader();
+            $appLoader = new $CLASSLOADER();
             $appLoader->register();
             $appLoader->addConfig(Runtime::getApplicationPath().'/lib');
         }

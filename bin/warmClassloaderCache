@@ -1,0 +1,18 @@
+#!/usr/bin/env php
+<?php
+use zenmagick\base\classloader\CachingClassLoader;
+
+chdir(dirname(dirname(__FILE__)));
+
+define('ZM_APP_PATH', 'apps/admin/');
+
+include 'bootstrap.php';
+
+$packages = array('lib/core', 'lib/mvc', 'shared');
+
+foreach ($packages as $package) {
+    $path = ZM_BASE_PATH.$package;
+    $classLoader = new CachingClassLoader();
+    $classLoader->addConfig($path);
+    $classLoader->exportToPath($path);
+}

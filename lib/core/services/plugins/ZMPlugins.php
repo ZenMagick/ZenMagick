@@ -20,7 +20,7 @@
 ?>
 <?php
 
-use zenmagick\base\ClassLoader;
+use zenmagick\base\classloader\ClassLoader;
 use zenmagick\base\Runtime;
 use zenmagick\base\Toolbox;
 
@@ -311,7 +311,7 @@ class ZMPlugins extends ZMObject {
         }
 
         // plugins get their own loader
-        $classLoader = new ClassLoader();
+        $classLoader = $this->container->get('classLoader');
 
         $plugins = array();
         foreach ($ids as $id) {

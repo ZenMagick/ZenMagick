@@ -19,16 +19,21 @@
  */
 ?>
 <?php
-namespace zenmagick\base\utils;
+namespace zenmagick\base\classloader;
 
+use FilesystemIterator;
+use RecursiveDirectoryIterator;
+use RecursiveIteratorIterator;
+
+use zenmagick\base\utils\FolderWhitelistFilterIterator;
 
 /**
  * <code>Phar</code> builder for directories controlled by a <em>classloader.ini</em> file.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.base.utils
+ * @package zenmagick.base.classloader
  */
-class ClassLoaderPharBuilder {
+class PharBuilder {
     private $path;
 
 
@@ -76,9 +81,9 @@ class ClassLoaderPharBuilder {
      * Create the <code>phar</code>.
      */
     public function create() {
-        $iterator = new \RecursiveDirectoryIterator($this->path, \FilesystemIterator::SKIP_DOTS | \FilesystemIterator::FOLLOW_SYMLINKS);
+        $iterator = new RecursiveDirectoryIterator($this->path, FilesystemIterator::SKIP_DOTS | FilesystemIterator::FOLLOW_SYMLINKS);
         // real recursive iterator
-        $iterator = new \RecursiveIteratorIterator($iterator, \RecursiveIteratorIterator::SELF_FIRST);
+        $iterator = new RecursiveIteratorIterator($iterator, RecursiveIteratorIterator::SELF_FIRST);
         // filter based on the folder list take from the classloader.ini
         $iterator = new FolderWhitelistFilterIterator($iterator, $this->getIncludes());
 
