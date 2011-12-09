@@ -55,7 +55,9 @@ class ZMDispatcher {
         echo $event->get('content');
 
         // if we get to here all messages have been displayed
-        Runtime::getContainer()->get('messageService')->clear();
+        $messageService = Runtime::getContainer()->get('messageService');
+        $messageService->clear();
+        $messageService->saveMessages($request->getSession());
 
         // all done
         Runtime::getEventDispatcher()->dispatch('all_done', new Event(null, array('request' => $request, 'view' => $view, 'content' => $event->get('content'))));

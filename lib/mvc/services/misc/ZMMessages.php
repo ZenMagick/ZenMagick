@@ -213,11 +213,9 @@ class ZMMessages extends ZMObject {
     public function saveMessages($session) {
         $data = array();
         foreach ($this->getMessages() as $msg) {
-            array_push($data, array('text' => $msg->getText(), 'type' => $msg->getType(), 'ref' => $msg->getRef()));
+            $data[] = array('text' => $msg->getText(), 'type' => $msg->getType(), 'ref' => $msg->getRef());
         }
-        if (0 < count($data)) {
-            $session->setValue('messages', $data, 'zenmagick.mvc');
-        }
+        $session->setValue('messages', $data, 'zenmagick.mvc');
     }
 
     /**
