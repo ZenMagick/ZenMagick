@@ -67,7 +67,7 @@ class ZMDateRule extends ZMRule {
      */
     public function validate($request, $data) {
         $value = $data[$this->getName()];
-        return empty($value) || null != DateTime::createFromFormat($this->format_, $value);
+        return empty($value) || null != DateTime::createFromFormat($this->getFormat(), $value);
     }
 
 
