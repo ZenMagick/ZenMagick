@@ -616,7 +616,7 @@ class ZMRequest extends ZMObject {
      * @return string The name of the main <em>.php</em> file.
      */
     public function getFrontController() {
-        if (false !== ($components = parse_url($_SERVER['REQUEST_URI']))) {
+        if (false !== ($components = parse_url($_SERVER['SCRIPT_NAME']))) {
             return basename($components['path']);
         }
         return 'index.php';
