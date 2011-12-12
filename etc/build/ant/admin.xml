@@ -20,6 +20,12 @@
                 <exclude name=".git*" />
             </fileset>
         </copy>
+        <copy todir="${release.admin.dir}/zenmagick/vendor">
+            <fileset dir="${zenmagick.src.dir}/vendor">
+                <include name="classloader.ini" />
+                <include name="*.phar" />
+            </fileset>
+        </copy>
         <!-- TODO: taken from main.xml - make separate target or macro -->
         <delete includeemptydirs="true">
             <!-- source control files -->
@@ -36,11 +42,6 @@
             <fileset dir="${release.admin.dir}" includes="**/*swp" />
             <fileset dir="${release.admin.dir}" includes="**/*.log" />
             <fileset dir="${release.admin.dir}" includes="**/*.db" />
-            <!-- all vendor -->
-            <fileset dir="${release.admin.dir}/zenmagick/vendor">
-                <exclude name="classloader.ini" />
-                <exclude name="*.phar" />
-            </fileset>
         </delete>
 
         <!-- copy integration files -->
