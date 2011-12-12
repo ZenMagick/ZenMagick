@@ -33,6 +33,7 @@
         <copy file="${zenmagick.src.dir}/shared/etc/sql/mysql/admin_prefs_install.sql" tofile="${release.full.dir}/zc_install/sql/plugins/mysql_admin_prefs_install.sql" />
         <copy file="${zenmagick.src.dir}/shared/etc/sql/mysql/sacs_perms_install.sql" tofile="${release.full.dir}/zc_install/sql/plugins/mysql_sacs_perms_install.sql" />
         <copy file="${zenmagick.src.dir}/shared/etc/sql/mysql/theme_chaining_install.sql" tofile="${release.full.dir}/zc_install/sql/plugins/mysql_theme_chaining_install.sql" />
+        <copy file="${zenmagick.src.dir}/shared/etc/sql/mysql/review_title_install.sql" tofile="${release.full.dir}/zc_install/sql/plugins/mysql_theme_chaining_install.sql" />
         <copy file="${basedir}/etc/build/full/sql/mysql_default_sideboxes.sql" todir="${release.full.dir}/zc_install/sql/plugins/" />
         <copy file="${basedir}/etc/build/full/sql/mysql_other.sql" todir="${release.full.dir}/zc_install/sql/plugins/" />
 
