@@ -19,7 +19,7 @@ $vendorDeps = array(
         array('doctrine-migrations', 'git://github.com/doctrine/migrations.git', 'origin/HEAD', false),
         array('gedmo-doctrine-extensions', 'git://github.com/l3pp4rd/DoctrineExtensions.git', 'origin/master', false),
         //array('monolog', 'http://github.com/Seldaek/monolog.git', 'origin/HEAD', false),
-        array('swiftmailer', 'git://github.com/swiftmailer/swiftmailer.git', 'origin/4.1', false),
+        array('swiftmailer', 'git://github.com/swiftmailer/swiftmailer.git', 'origin/HEAD', false),
         array('symfony', 'git://github.com/ZenMagick/symfony.git', 'origin/HEAD', false),
         //array('twig', 'http://github.com/fabpot/Twig.git', 'origin/HEAD', false),
     ),
