@@ -298,6 +298,7 @@ class ZMTheme extends ZMObject {
         }
 
         $request = $this->container->get('request');
+        $settings = $this->container->get('settingsService');
         $contents = @file_get_contents($filename);
         // allow PHP
         ob_start();
