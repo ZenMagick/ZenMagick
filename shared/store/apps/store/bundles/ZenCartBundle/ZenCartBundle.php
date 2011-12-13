@@ -203,6 +203,9 @@ class ZenCartBundle extends Bundle {
             $settingsService = Runtime::getSettings();
             $settingsService->set('apps.store.baseUrl', 'http://'.$request->getHostname().str_replace('zenmagick/apps/admin/web', '', $request->getContext()));
             $settingsService->set('apps.store.oldAdminUrl', $settingsService->get('apps.store.baseUrl').ZC_ADMIN_FOLDER.'/index.php');
+
+            // guess again, because we might not have had a db connection before
+            $this->guessAdminFolder();
         }
 
         if (defined('IS_ADMIN_FLAG') && IS_ADMIN_FLAG && null == $request->getRequestId()) {
