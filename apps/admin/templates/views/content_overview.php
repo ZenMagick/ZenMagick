@@ -51,7 +51,7 @@
         <form action="<?php echo $admin2->url() ?>" method="POST" onsubmit="return ZenMagick.confirm('<?php _vzm('Delete page id:#%s?', $ezPage->getId()) ?>', this);">
           <input type="hidden" name="rid" value="content_editor">
           <input type="hidden" name="languageId" value="<?php echo $selectedLanguageId ?>">
-          <input type="hidden" name="deleteId" value="<?php echo $ezPage->getTitle() ?>">
+          <input type="hidden" name="deleteId" value="<?php echo $ezPage->getId() ?>">
           <input class="<?php echo $buttonClasses ?>" type="submit" value="Delete">
           <a class="<?php echo $buttonClasses ?>" href="<?php echo $admin2->url(null, 'editId='.$ezPage->getId().'&languageId='.$selectedLanguageId) ?>">Edit</a>
         </form>

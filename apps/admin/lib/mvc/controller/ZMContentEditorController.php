@@ -43,9 +43,21 @@ class ZMContentEditorController extends ZMController {
     /**
      * {@inheritDoc}
      */
+    public function getViewData($request) {
+        $language = $request->getSelectedLanguage();
+        $languageId = $request->getParameter('languageId', $language->getId());
+        $resultSource = new ZMObjectResultSource('ZMEZPage', 'ezPageService', "getAllPages", array($languageId, 'static'));
+        $resultList = $this->container->get("ZMResultList");
+        $resultList->setResultSource($resultSource);
+        $resultList->setPageNumber($request->getParameter('page', 1));
+        return array('resultList' => $resultList);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function processGet($request) {
         $language = $request->getSelectedLanguage();
-        $ezPageService = $this->container->get('ezPageService');
         $languageId = $request->getParameter('languageId', $language->getId());
         if (null !== ($ezPageId = $request->getParameter('editId'))) {
             $ezPageId = (int)$ezPageId;
@@ -54,7 +66,7 @@ class ZMContentEditorController extends ZMController {
                 $ezPage = Beans::getBean('ZMEZPage');
                 $ezPage->setStatic(true);
             } else {
-                $ezPage = $ezPageService->getPageForId($ezPageId, $languageId);
+                $ezPage = $this->container->get('ezPageService')->getPageForId($ezPageId, $languageId);
             }
             if (null == $ezPage) {
                 return $this->findView('error', array('message' => _zm('Invalid id')));
@@ -62,12 +74,7 @@ class ZMContentEditorController extends ZMController {
             return $this->findView('details', array('ezPage' => $ezPage));
         }
 
-        $resultSource = new ZMObjectResultSource('ZMEZPage', $ezPageService, "getAllPages", array($languageId, 'static'));
-        $resultList = $this->container->get("ZMResultList");
-        $resultList->setResultSource($resultSource);
-        $resultList->setPageNumber($request->getParameter('page', 1));
-
-        return $this->findView('overview', array('resultList' => $resultList));
+        return $this->findView('overview');
     }
 
     /**
