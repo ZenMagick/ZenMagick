@@ -28,6 +28,7 @@
 
   $selectedThemeId = $request->getParameter('themeId', $container->get('themeService')->getActiveThemeId());
   $selectedTheme = new ZMTheme($selectedThemeId);
+  $selectedTheme->setContainer($container);
   if (null === ($file = $request->getParameter('file')) || empty($file)) {
       $selectedFile = $request->getParameter('newfile');
   } else {
