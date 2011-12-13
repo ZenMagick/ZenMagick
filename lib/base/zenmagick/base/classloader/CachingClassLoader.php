@@ -34,13 +34,38 @@ class CachingClassLoader extends ClassLoader {
     /**
      * Export
      *
+     * @param string path The path.
      * @return mixed All relevant data.
      */
-    public function export() {
-        return array(
+    public function export($path) {
+        // just in case
+        $path = realpath($path);
+
+        $data = array(
             'namespaces' => $this->getNamespaces(),
             'prefixes' => $this->getPrefixes(),
             'defaults' => $this->getDefaults()
+        );
+
+        $relativeData = array();
+        foreach (array('namespaces', 'prefixes', 'defaults') as $key) {
+            $relativeData[$key] = array();
+            foreach ($data[$key] as $name => $value) {
+                if (is_array($value)) {
+                    $relativeData[$key][$name] = array();
+                    foreach ($value as $file) {
+                        $relativeData[$key][$name][] = str_replace($path.DIRECTORY_SEPARATOR, '', $file);
+                    }
+                } else {
+                    $relativeData[$key][$name] = str_replace($path.DIRECTORY_SEPARATOR, '', $value);
+                }
+            }
+        }
+
+        return array(
+            'namespaces' => $relativeData['namespaces'],
+            'prefixes' => $relativeData['prefixes'],
+            'defaults' => $relativeData['defaults']
         );
     }
 
@@ -48,11 +73,30 @@ class CachingClassLoader extends ClassLoader {
      * Import
      *
      * @param mixed data The data to import.
+     * @param string path The path.
      */
-    public function import(array $data) {
-        $this->addNamespaces($data['namespaces']);
-        $this->addPrefixes($data['prefixes']);
-        $this->addDefaults($data['defaults']);
+    public function import(array $data, $path) {
+        // just in case
+        $path = realpath($path);
+
+        $absoluteData = array();
+        foreach (array('namespaces', 'prefixes', 'defaults') as $key) {
+            $absoluteData[$key] = array();
+            foreach ($data[$key] as $name => $value) {
+                if (is_array($value)) {
+                    $absoluteData[$key][$name] = array();
+                    foreach ($value as $file) {
+                        $absoluteData[$key][$name][] = realpath($path.'/'.$file);
+                    }
+                } else {
+                    $absoluteData[$key][$name] = realpath($path.'/'.$value);
+                }
+            }
+        }
+
+        $this->addNamespaces($absoluteData['namespaces']);
+        $this->addPrefixes($absoluteData['prefixes']);
+        $this->addDefaults($absoluteData['defaults']);
     }
 
     /**
@@ -84,7 +128,7 @@ class CachingClassLoader extends ClassLoader {
      * @param string path The path.
      */
     public function exportToPath($path) {
-        $data = $this->export();
+        $data = $this->export($path);
         file_put_contents($path.'/classloader.cache', serialize($data));
     }
 
@@ -97,7 +141,7 @@ class CachingClassLoader extends ClassLoader {
             return;
         }
 
-        $this->import($cache);
+        $this->import($cache, $path);
     }
 
 }
