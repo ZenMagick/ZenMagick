@@ -27,6 +27,7 @@
  * @package org.zenmagick.core.build
  */
 class ZMPomoPacker extends ZMPhpPackagePacker implements ZMLibraryPacker {
+    private $nsAdded = false;
 
     /**
      * {@inheritDoc}
@@ -43,25 +44,10 @@ class ZMPomoPacker extends ZMPhpPackagePacker implements ZMLibraryPacker {
      * {@inheritDoc}
      */
     public function patchFile($filename, $lines) {
-        // prefix all classes!
-        $toPrefix = array(
-            'POMO_Reader', 'POMO_FileReader', 'POMO_StringReader', 'POMO_CachedFileReader', 'POMO_CachedIntFileReader',
-            'Gettext_Translations', 'NOOP_Translations', 'Translations', 'Translation_Entry',
-            'MO', 'PO'
-        );
-        foreach ($toPrefix as $str) {
-            foreach ($lines as $ii => $line) {
-                $line = str_replace("'".$str."'", "'ZM".$str."'", $line);
-                $line = str_replace('class '.$str, 'class ZM'.$str, $line);
-                $line = str_replace('function '.$str, 'function ZM'.$str, $line);
-                $line = str_replace('extends '.$str, 'extends ZM'.$str, $line);
-                $line = str_replace('new '.$str, 'new ZM'.$str, $line);
-                $line = str_replace('parent::'.$str, 'parent::ZM'.$str, $line);
-                $line = str_replace(' '.$str.'::', ' ZM'.$str.'::', $line);
-                $lines[$ii] = $line;
-            }
+        if (!$this->nsAdded) {
+            $this->nsAdded = true;
+            return array_merge(array("<?php namespace pomo; ?>"), $lines);
         }
-
         return $lines;
     }
 

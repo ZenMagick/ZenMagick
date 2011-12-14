@@ -21,6 +21,8 @@
 <?php
 
 use zenmagick\base\Runtime;
+use pomo\Translations;
+use pomo\MO;
 
 /**
  * Locale using <em>pomo</em>.
@@ -45,13 +47,6 @@ class ZMPomoLocale extends ZMAbstractLocale {
         $this->translations_ = array();
     }
 
-    /**
-     * Destruct instance.
-     */
-    public function __destruct() {
-        parent::__destruct();
-    }
-
 
     /**
      * {@inheritDoc}
@@ -72,7 +67,7 @@ class ZMPomoLocale extends ZMAbstractLocale {
             return $this->translations_[$domain];
         } else {
             if (null == self::$EMPTY_) {
-                self::$EMPTY_ = new ZMTranslations();
+                self::$EMPTY_ = new Translations();
             }
             return self::$EMPTY_;
         }
@@ -105,7 +100,7 @@ class ZMPomoLocale extends ZMAbstractLocale {
      * @return boolean <code>true</code> on success.
      */
     public function registerMO($filename, $domain=self::DEFAULT_DOMAIN) {
-        $mo = new ZMMO();
+        $mo = new MO();
         if (!$mo->import_from_file($filename)) {
             return false;
         }
