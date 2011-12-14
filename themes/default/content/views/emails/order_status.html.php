@@ -32,9 +32,9 @@
 
 <p><?php _vzm("This is to inform you that your order #%s has been updated.", $currentOrder->getId()) ?></p>
 <?php if (ZMAccount::REGISTERED == $currentAccount->getType()) {
-    $href = '<a href="'.$net->url('account_history_info', 'order_id='.$currentOrder->getId(), false).'">'.sprintf(_zm("order #%s"), $currentOrder->getId()).'</a>';
+    $href = '<a href="'.$request->absoluteUrl($net->url('account_history_info', 'order_id='.$currentOrder->getId(), true), true, true).'">'.sprintf(_zm("order #%s"), $currentOrder->getId()).'</a>';
 } else {
-    $href = '<a href="'.$net->url('guest_history').'">'.sprintf(_zm("order #%s"), $currentOrder->getId()).'</a>';
+    $href = '<a href="'.$request->absoluteUrl($net->url('guest_history', '', true), true, true).'">'.sprintf(_zm("order #%s"), $currentOrder->getId()).'</a>';
 } ?>
 <p><?php _vzm("More details can be found at the following URL: %s", $href) ?></p>
 

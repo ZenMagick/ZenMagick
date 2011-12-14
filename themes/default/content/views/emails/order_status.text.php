@@ -26,9 +26,9 @@
 <?php _vzm("This is to inform you that your order #%s has been updated.", $currentOrder->getId()) ?>
 
 <?php if (ZMAccount::REGISTERED == $currentAccount->getType()) { ?>
-<?php _vzm("More details can be found at the following URL: %s", $net->url('account_history_info', 'order_id='.$currentOrder->getId())) ?>
+<?php _vzm("More details can be found at the following URL: %s", $request->absoluteUrl($net->url('account_history_info', 'order_id='.$currentOrder->getId()), true), true, true) ?>
 <?php } else { ?>
-<?php _vzm("You can check the status of your order at: %s.", $net->url('guest_history')) ?>
+<?php _vzm("You can check the status of your order at: %s.", $request->absoluteUrl($net->url('guest_history', '', true), true, true)) ?>
 <?php } ?>
 
 <?php if ($newOrderStatus != $currentOrder->getStatusName()) { ?>

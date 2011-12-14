@@ -35,7 +35,7 @@
 
 <?php } ?>
 
-<?php _vzm("To redeem your gift, visit %s", $net->url('gv_redeem', 'couponCode='.$currentCoupon->getCode(), true)) ?>
+<?php _vzm("To redeem your gift, visit %s", $request->absoluteUrl($net->url('gv_redeem', 'couponCode='.$currentCoupon->getCode(), true), true, true)) ?>
 
 
 <?php echo strip_tags($utils->staticPageContent('email_advisory')) ?>
