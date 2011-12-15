@@ -30,23 +30,9 @@
 class DefaultController extends ZMController {
 
     /**
-     * Create new instance.
-     */
-    function __construct() {
-        parent::__construct();
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-    }
-
-
-    /**
      * Process a GET request.
      */
-    function processGet($request) {
+    public function processGet($request) {
         // normal processing
         $view = parent::processGet($request);
 
@@ -57,5 +43,3 @@ class DefaultController extends ZMController {
     }
 
 }
-
-?>

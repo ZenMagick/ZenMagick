@@ -35,14 +35,8 @@ class AlphaFilter extends ZMResultListFilter {
     /**
      * Create new instance.
      */
-    function __construct() {
+    public function __construct() {
         parent::__construct('afilter', _zm('First character of Name'));
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
     }
 
 

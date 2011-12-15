@@ -29,7 +29,4 @@ use zenmagick\base\Runtime;
  * @package zenmagick.store.shared.mvc.widgets
  */
 class XXX extends ZMBannerBlockWidget {
-    function __construct() {
-        parent::__construct();
-    }
 }
