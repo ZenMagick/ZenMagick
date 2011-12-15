@@ -54,10 +54,10 @@ class CachingClassLoader extends ClassLoader {
                 if (is_array($value)) {
                     $relativeData[$key][$name] = array();
                     foreach ($value as $file) {
-                        $relativeData[$key][$name][] = str_replace($path.DIRECTORY_SEPARATOR, '', $file);
+                        $relativeData[$key][$name][] = str_replace(DIRECTORY_SEPARATOR, '/', str_replace($path.DIRECTORY_SEPARATOR, '', $file));
                     }
                 } else {
-                    $relativeData[$key][$name] = str_replace($path.DIRECTORY_SEPARATOR, '', $value);
+                    $relativeData[$key][$name] = str_replace(DIRECTORY_SEPARATOR, '/', str_replace($path.DIRECTORY_SEPARATOR, '', $value));
                 }
             }
         }
