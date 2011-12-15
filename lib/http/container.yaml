@@ -25,3 +25,7 @@ services:
     scope: container
     tags:
       -  { name: zenmagick.http.blocks.provider }
+
+  messageService:
+    class: zenmagick\http\messages\Messages
+    scope: container

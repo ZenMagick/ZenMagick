@@ -40,10 +40,6 @@ services:
       - [setFilters, ['ZMShortTagFilter']]
   defaultView: @ZMSavantView
 
-  messageService:
-    class: ZMMessages
-    scope: container
-
   adminUserPrefService:
     class: ZMAdminUserPrefs
     scope: container

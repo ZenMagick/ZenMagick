@@ -37,7 +37,10 @@ services:
   ZMMessages:
     class: Messages
     scope: container
-  messageService: @ZMMessages
+
+  storeMessageService:
+    parent: merge:messageService
+    class: Messages
 
   ZMForwardView:
     class: ForwardView
