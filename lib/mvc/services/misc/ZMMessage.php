@@ -20,8 +20,6 @@
 ?>
 <?php
 
-use zenmagick\base\ZMObject;
-
 /**
  * A single message.
  *
@@ -32,75 +30,7 @@ use zenmagick\base\ZMObject;
  *
  * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.mvc.services.misc
+ * @deprecated use zenmagick\http\messages\Message instead
  */
-class ZMMessage extends ZMObject {
-    private $text_;
-    private $type_;
-    private $ref_;
-
-
-    /**
-     * Create new message.
-     *
-     * @param string text The message text; default is an empty string <code>''</code>.
-     * @param string type The message type; default is <em>msg</em>.
-     * @param string ref The referencing resource; default is <code>ZMMessages::REF_GLOBAL</code>.
-     */
-    function __construct($text='', $type='msg', $ref=ZMMessages::REF_GLOBAL) {
-        parent::__construct();
-        $this->text_ = $text;
-        $this->type_ = $type;
-        $this->ref_ = $ref;
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
-
-
-    /**
-     * Get the message text.
-     *
-     * @return string The message text.
-     */
-    public function getText() { return $this->text_; }
-
-    /**
-     * Get the message type.
-     *
-     * @return string The message type.
-     */
-    public function getType() { return $this->type_; }
-
-    /**
-     * Get the message reference.
-     *
-     * @return string The message reference.
-     */
-    public function getRef() { return $this->ref_; }
-
-    /**
-     * Set the message text.
-     *
-     * @param string text The message text.
-     */
-    public function setText($text) { $this->text_ = $text; }
-
-    /**
-     * Set the message type.
-     *
-     * @param string type The message type.
-     */
-    public function setType($type) { $this->type_ = $type; }
-
-    /**
-     * Set the message reference.
-     *
-     * @param string ref The message reference.
-     */
-    public function setRef($ref) { $this->ref_ = $ref; }
-
+class ZMMessage extends zenmagick\http\messages\Message {
 }
