@@ -45,18 +45,11 @@ class ShippingMethodWrapper extends ZMObject implements \ZMShippingMethod {
      * @param ZMShippingProvider provider The shipping provider for this method.
      * @param array zenMethod The zen-cart method infos.
      */
-    function __construct($provider, $zenMethod) {
+    public function __construct($provider, $zenMethod) {
         parent::__construct();
         $this->provider_ = $provider;
         $this->zenMethod_ = $zenMethod;
         $this->taxRate_ = Beans::getBean("ZMTaxRate");
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
     }
 
 

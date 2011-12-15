@@ -43,13 +43,6 @@ class RssFeed extends ZMObject {
         $this->items_ = array();
     }
 
-    /**
-     * Destruct instance.
-     */
-    public function __destruct() {
-        parent::__destruct();
-    }
-
 
     /**
      * Returns <code>true</code> if contents is available.

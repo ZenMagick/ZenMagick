@@ -35,28 +35,6 @@ use zenmagick\base\Runtime;
 class Plugins extends ZMPlugins {
 
     /**
-     * Create new instance.
-     */
-    function __construct() {
-        parent::__construct();
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
-
-    /**
-     * Get instance.
-     */
-    public static function instance() {
-        return Runtime::getContainer()->get('pluginService');
-    }
-
-
-    /**
      * {@inheritDoc}
      */
     protected function loadStatus() {

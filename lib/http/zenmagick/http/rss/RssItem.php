@@ -46,13 +46,6 @@ class RssItem extends ZMObject {
         }
     }
 
-    /**
-     * Destruct instance.
-     */
-    public function __destruct() {
-        parent::__destruct();
-    }
-
 
     /**
      * Get the item title.

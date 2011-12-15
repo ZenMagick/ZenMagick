@@ -22,6 +22,7 @@
 namespace zenmagick\http\request\rewriter;
 
 use zenmagick\base\Runtime;
+use zenmagick\base\ZMObject;
 
 /**
  * Default URL rewriter.
@@ -29,7 +30,7 @@ use zenmagick\base\Runtime;
  * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.http.request.rewriter
  */
-class DefaultUrlRewriter implements UrlRewriter {
+class DefaultUrlRewriter extends ZMObject implements UrlRewriter {
     private $requestIdKey_;
     private static $methodList_ = array(
         'default' => array('decode' => null, 'rewrite' => 'rewriteDefault'),
@@ -45,6 +46,7 @@ class DefaultUrlRewriter implements UrlRewriter {
      * Create new instance.
      */
     public function __construct() {
+        parent::__construct();
         $this->index_ = Runtime::getSettings()->get('zenmagick.http.request.handler', 'index.php');
         // resolve once only
         $this->requestIdKey_ = Runtime::getSettings()->get('zenmagick.http.request.idName', \ZMRequest::DEFAULT_REQUEST_ID);
@@ -58,13 +60,6 @@ class DefaultUrlRewriter implements UrlRewriter {
         } else if ('realpath' == $type) {
             $this->pathBase_ = '';
         }
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        //parent::__destruct();
     }
 
 

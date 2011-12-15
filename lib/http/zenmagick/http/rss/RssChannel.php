@@ -46,13 +46,6 @@ class RssChannel extends ZMObject {
         }
     }
 
-    /**
-     * Destruct instance.
-     */
-    public function __destruct() {
-        parent::__destruct();
-    }
-
 
     /**
      * Get the channel title.

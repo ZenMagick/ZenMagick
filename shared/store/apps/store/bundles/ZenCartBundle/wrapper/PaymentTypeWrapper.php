@@ -46,18 +46,11 @@ class PaymentTypeWrapper extends ZMObject implements \ZMPaymentType {
      *
      * @param object module The payment module; default is <code>null</code>.
      */
-    function __construct($module=null) {
+    public function __construct($module=null) {
         parent::__construct();
         $this->setModule($module);
         $this->fields_ = null;
         $this->prepared_ = false;
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
     }
 
 

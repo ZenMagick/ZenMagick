@@ -46,13 +46,6 @@ class RssFeedLoader extends ZMObject {
         $this->rss_ = new lastRSS();
     }
 
-    /**
-     * Destruct instance.
-     */
-    public function __destruct() {
-        parent::__destruct();
-    }
-
 
     /**
      * Initialize.

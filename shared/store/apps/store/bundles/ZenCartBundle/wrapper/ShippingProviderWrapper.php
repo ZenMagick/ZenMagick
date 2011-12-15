@@ -46,17 +46,10 @@ class ShippingProviderWrapper extends ZMObject implements \ZMShippingProvider {
      *
      * @param mixed module A zen-cart shipping module; default is <code>null</code>.
      */
-    function __construct($module=null) {
+    public function __construct($module=null) {
         parent::__construct();
         $this->zenModule_ = $module;
         $this->errors_ = array();
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
     }
 
 
