@@ -31,6 +31,7 @@ use zenmagick\base\logging\Logging;
  *
  * @author DerManoMann <mano@zenmagick.org> <mano@zenmagick.org>
  * @package org.zenmagick.core.services.misc
+ * @deprecated use zenmagick\base\logging\Logging instead
  */
 class ZMLogging extends ZMObject {
     /** Log level: Disabled. */
