@@ -149,7 +149,7 @@ class TestZMBeanUtils extends ZMTestCase {
      * Test ref::
      */
     public function testMagicRef() {
-        $ref = ZMBeanUtils::getBean('ref::ZMProducts#foo=bar');
+        $ref = ZMBeanUtils::getBean('ref::productService#foo=bar');
         if ($this->assertNotNull($ref)) {
             $this->assertTrue($ref instanceof ZMProducts);
             // now test that we actually got the singleton

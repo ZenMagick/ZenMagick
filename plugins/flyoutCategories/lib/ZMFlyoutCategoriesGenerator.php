@@ -21,7 +21,10 @@
 // Fix for line 48 provided by Paulm, uploaded by Kelvyn
 // Adapted for ZenMagick by DerManoMann <mano@zenmagick.org>
 
- class ZMFlyoutCategoriesGenerator {
+use zenmagick\base\Runtime;
+
+
+class ZMFlyoutCategoriesGenerator {
    var $root_category_id = 0,
        $max_level = 6,
        $data = array(),
@@ -44,7 +47,7 @@
 
     function __construct($request) {
        $this->data = array();
-       foreach (ZMCategories::instance()->getCategories($request->getSession()->getLanguageId()) as $category) {
+       foreach (Runtime::getContainer()->get('categoryService')->getCategories($request->getSession()->getLanguageId()) as $category) {
           $this->data[$category->getParentId()][$category->getId()] = array('name' => $category->getName(), 'count' => 0);
        }
     }
