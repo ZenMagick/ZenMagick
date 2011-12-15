@@ -47,20 +47,13 @@ class ZMCreditTypeWrapper extends ZMObject {
      * @param string name The name.
      * @param string instructions Optional instructions.
      */
-    function __construct($id, $name, $instructions='') {
+    public function __construct($id, $name, $instructions='') {
         parent::__construct();
         $this->id_ = $id;
         $this->name_ = $name;
         $this->instructions_ = $instructions;
         $this->error_ = null;
         $this->fields_ = array();
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
     }
 
 

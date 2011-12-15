@@ -33,7 +33,7 @@ class ZMSearchCriteria extends ZMObject {
     /**
      * Create new instance.
      */
-    function __construct() {
+    public function __construct() {
         parent::__construct();
 
         $this->set('includeTax', ZMSettings::get('showPricesTaxIncluded'));
@@ -41,13 +41,6 @@ class ZMSearchCriteria extends ZMObject {
         $this->set('zoneId', ZMSettings::get('storeCountry'));
         $this->set('languageId', ZMSettings::get('storeDefaultLanguageId'));
         $this->set('searchAll', false);
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
     }
 
 

@@ -41,18 +41,11 @@ class ZMMaxFieldLengthRule extends ZMRule {
      * @param string column The table column.
      * @param string msg Optional message.
      */
-    function __construct($name, $table, $column, $msg=null) {
+    public function __construct($name, $table, $column, $msg=null) {
         parent::__construct($name, "%s must not be longer than %s characters.", $msg);
         $this->table = $table;
         $this->column = $column;
         $this->max = -1;
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
     }
 
 

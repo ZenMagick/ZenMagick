@@ -46,7 +46,7 @@ class ZMCategory extends ZMObject {
     /**
      * Create new instance.
      */
-    function __construct() {
+    public function __construct() {
         parent::__construct();
         $this->setId(0);
         $this->parentId_ = 0;
@@ -57,13 +57,6 @@ class ZMCategory extends ZMObject {
         $this->languageId_ = 0;
         $this->setDateAdded(null);
         $this->setLastModified(null);
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
     }
 
 

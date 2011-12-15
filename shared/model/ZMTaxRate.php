@@ -94,10 +94,11 @@ class ZMTaxRate extends ZMObject {
      */
     private $dateAdded;
 
+
     /**
      * Create new instance.
      */
-    function __construct() {
+    public function __construct() {
         parent::__construct();
         $this->id = null;
         $this->rate = 0.00;
@@ -110,12 +111,6 @@ class ZMTaxRate extends ZMObject {
         $this->setLastModified(null);
     }
 
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
 
     /**
      * Get the tax rate idendtifier

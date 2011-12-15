@@ -42,7 +42,7 @@ class ZMPriceGroup extends ZMObject {
     /**
      * Create new instance.
      */
-    function __construct() {
+    public function __construct() {
         parent::__construct();
 
         $this->id_ = 0;
@@ -55,7 +55,7 @@ class ZMPriceGroup extends ZMObject {
     /**
      * Destruct instance.
      */
-    function __destruct() {
+    public function __destruct() {
         parent::__destruct();
     }
 

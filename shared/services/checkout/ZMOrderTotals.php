@@ -44,12 +44,6 @@ class ZMOrderTotals extends ZMObject {
         $this->orderTotals = null;
     }
 
-    /**
-     * Destruct instance.
-     */
-    public function __destruct() {
-        parent::__destruct();
-    }
 
     /**
      * Get zen-cart order totals.

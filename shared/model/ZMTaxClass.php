@@ -70,10 +70,11 @@ class ZMTaxClass extends ZMObject {
      */
     private $dateAdded;
 
+
     /**
      * Create new instance.
      */
-    function __construct() {
+    public function __construct() {
         parent::__construct();
         $this->taxClassId_ = 0;
         $this->title = '';
@@ -82,12 +83,6 @@ class ZMTaxClass extends ZMObject {
         $this->dateAdded = null;
     }
 
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
 
     /**
      * Set the id.

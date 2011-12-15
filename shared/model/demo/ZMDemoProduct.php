@@ -32,17 +32,10 @@ class ZMDemoProduct extends ZMProduct {
     /**
      * Create new instance.
      */
-    function __construct() {
+    public function __construct() {
         parent::__construct();
         $this->setName('Product A');
         $this->setDescription('This is product A.');
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
     }
 
 }

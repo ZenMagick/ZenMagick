@@ -45,21 +45,6 @@ class ZMDownload extends ZMObject {
 
 
     /**
-     * Create new total.
-     */
-    function __construct() {
-        parent::__construct();
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
-
-
-    /**
      * Get the download id.
      *
      * @return int The download id.

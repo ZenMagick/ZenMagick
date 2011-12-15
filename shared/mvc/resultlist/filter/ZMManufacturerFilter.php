@@ -33,15 +33,8 @@ class ZMManufacturerFilter extends ZMResultListFilter implements ZMSQLAware {
     /**
      * Create new instance.
      */
-    function __construct() {
+    public function __construct() {
         parent::__construct('mfilter', _zm('Manufacturer'), Runtime::getContainer()->get('request')->getParameter('mfilter'));
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
     }
 
 

@@ -61,7 +61,7 @@ class ZMOffers extends ZMObject {
      *
      * @param ZMProduct product The product; default is <code>null</code>.
      */
-    function __construct($product=null) {
+    public function __construct($product=null) {
         parent::__construct();
         $this->basePrice_ = null;
         $this->specialPrice_ = null;
@@ -70,13 +70,6 @@ class ZMOffers extends ZMObject {
         $this->discountPercent_ = 0;
         $this->discounts_ = array(true => null, false => null);
         $this->setProduct($product);
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
     }
 
 

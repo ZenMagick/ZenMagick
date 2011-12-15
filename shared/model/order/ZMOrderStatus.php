@@ -42,7 +42,7 @@ class ZMOrderStatus extends ZMObject {
     /**
      * Create new status.
      */
-    function __construct() {
+    public function __construct() {
         parent::__construct();
         $this->setId(0);
         $this->orderId_ = 0;
@@ -51,13 +51,6 @@ class ZMOrderStatus extends ZMObject {
         $this->comment_ = null;
         $this->setDateAdded(null);
         $this->setLastModified(null);
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
     }
 
 

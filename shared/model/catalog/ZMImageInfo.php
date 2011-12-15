@@ -46,18 +46,11 @@ class ZMImageInfo extends ZMObject {
      * @param string image The default image name; default is <code>null</code>.
      * @param string alt The alt text; default is an empty string.
      */
-    function __construct($image=null, $alt='') {
+    public function __construct($image=null, $alt='') {
         parent::__construct();
         $this->altText_ = $alt;
         $this->parameter_ = array();
         $this->setDefaultImage($image);
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
     }
 
 

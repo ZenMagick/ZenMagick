@@ -37,19 +37,12 @@ class ZMBannerBlockWidget extends ZMWidget {
     /**
      * Create new instance.
      */
-    function __construct() {
+    public function __construct() {
         parent::__construct();
         $this->group_ = null;
         $this->trackDisplay_ = true;
         $this->showAll_ = false;
         $this->setTitle('Banner Block');
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
     }
 
 

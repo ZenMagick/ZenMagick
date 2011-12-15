@@ -74,10 +74,11 @@ class ZMManufacturer extends ZMObject {
     private $clickCount;
     private $lastClick;
 
+
     /**
      * Create new instance
      */
-    function __construct() {
+    public function __construct() {
         parent::__construct();
         $this->setId(0);
         $this->name = null;
@@ -90,12 +91,6 @@ class ZMManufacturer extends ZMObject {
         $this->setLastModified(null);
     }
 
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
 
     /**
      * Get the manufacturer id.

@@ -39,16 +39,10 @@ class ZMPaymentTypes extends ZMObject {
     /**
      * Create new instance.
      */
-    function __construct() {
+    public function __construct() {
         $this->paymentTypes_ = null;
     }
 
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
 
     /**
      * Get instance.

@@ -39,17 +39,11 @@ class ZMCurrencies extends ZMObject {
     /**
      * Create new instance.
      */
-    function __construct() {
+    public function __construct() {
         parent::__construct();
         $this->load();
     }
 
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
 
     /**
      * Get instance.

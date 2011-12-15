@@ -42,20 +42,13 @@ class ZMEmailMessage extends ZMObject {
     /**
      * Create new instance.
      */
-    function __construct() {
+    public function __construct() {
         parent::__construct();
         $this->fromEmail_ = null;
         $this->fromName_ = '';
         $this->toEmail_ = null;
         $this->toName_ = '';
         $this->message_ = '';
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
     }
 
 

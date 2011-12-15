@@ -120,12 +120,6 @@ class ZMReview extends ZMObject {
         $this->descriptions = new ArrayCollection();
     }
 
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
 
     public function getReviewId() { return $this->id; }
     /**

@@ -129,10 +129,12 @@ class ZMBanner extends ZMObject {
      * @ORM\Column(name="banners_sort_order", type="integer", nullable=false)
      */
     private $sortOrder;
+
+
     /**
      * Create new instance.
      */
-    function __construct() {
+    public function __construct() {
         parent::__construct();
         $this->title = null;
         $this->image = null;
@@ -142,13 +144,6 @@ class ZMBanner extends ZMObject {
         $this->active = true;
         $this->setDateAdded(null);
         $this->setLastModified(null);
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
     }
 
 

@@ -81,10 +81,11 @@ class ZMCouponQueue extends ZMObject {
      */
     private $released;
 
+
     /**
      * Create new instance
      */
-    function __construct() {
+    public function __construct() {
         parent::__construct();
         $this->id = 0;
         $this->accountId = 0;
@@ -93,12 +94,6 @@ class ZMCouponQueue extends ZMObject {
         $this->released = 'N';
     }
 
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
 
     /**
      * Get the coupon queue id.

@@ -56,7 +56,7 @@ class ZMAddress extends ZMObject {
     /**
      * Create new instance.
      */
-    function __construct() {
+    public function __construct() {
         parent::__construct();
 
         $this->addressId_ = 0;
@@ -75,13 +75,6 @@ class ZMAddress extends ZMObject {
         $this->countryId_ = 0;
         $this->isPrimary_ = false;
         $this->format_ = 0;
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
     }
 
 

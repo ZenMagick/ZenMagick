@@ -36,16 +36,9 @@ class ZMPluginAdmin2Controller extends ZMController {
      *
      * @param mixed plugin The parent plugin.
      */
-    function __construct($plugin) {
+    public function __construct($plugin) {
         parent::__construct();
         $this->plugin_ = $plugin;
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
     }
 
 

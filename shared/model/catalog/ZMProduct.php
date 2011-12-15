@@ -272,7 +272,7 @@ class ZMProduct extends ZMObject {
      * @param string name The product name.
      * @param string description The product description.
      */
-    function __construct($id=0, $name='', $description='') {
+    public function __construct($id=0, $name='', $description='') {
         parent::__construct();
         $this->setId($id);
         $this->name = $name;
@@ -288,13 +288,6 @@ class ZMProduct extends ZMObject {
         $this->languageId = 0;
         $this->setDateAdded(null);
         $this->setLastModified(null);
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
     }
 
 

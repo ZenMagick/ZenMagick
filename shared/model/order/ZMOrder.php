@@ -46,18 +46,11 @@ class ZMOrder extends ZMObject {
     /**
      * Create order.
      */
-    function __construct() {
+    public function __construct() {
         parent::__construct();
         $this->setId(0);
         $this->accountId_ = 0;
         $this->reset();
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
     }
 
 

@@ -33,7 +33,7 @@ class ZMDemoAddress extends ZMAddress {
     /**
      * Create new instance.
      */
-    function __construct() {
+    public function __construct() {
         parent::__construct();
         $this->setFirstName('foo');
         $this->setLastName('bar');
@@ -44,13 +44,6 @@ class ZMDemoAddress extends ZMAddress {
         $this->setCity('The City');
         $this->setState('Some State');
         $this->setCountry(Runtime::getContainer()->get('countryService')->getCountryForId('NZ'));
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
     }
 
 }

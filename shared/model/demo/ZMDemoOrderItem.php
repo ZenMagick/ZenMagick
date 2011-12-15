@@ -36,16 +36,9 @@ class ZMDemoOrderItem extends ZMOrderItem {
      *
      * @param int index Optional index.
      */
-    function __construct($index=1) {
+    public function __construct($index=1) {
         parent::__construct();
         $this->index_ = $index;
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
     }
 
 

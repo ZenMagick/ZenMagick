@@ -32,18 +32,11 @@ class ZMDemoCoupon extends ZMCoupon {
     /**
      * Create new instance.
      */
-    function __construct() {
+    public function __construct() {
         parent::__construct(123, 'abc123');
         $this->setStartDate(time());
         $this->setExpiryDate(time());
         $this->setAmount(20.00);
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
     }
 
 }

@@ -39,15 +39,9 @@ class ZMManufacturers extends ZMObject {
     /**
      * Create new instance.
      */
-    function __construct() {
+    public function __construct() {
         parent::__construct();
-    }
-
-    /**
-     * Get instance.
-     */
-    public static function instance() {
-        return Runtime::getContainer()->get('manufacturerService');
+        $this->cache_ = null;
     }
 
 

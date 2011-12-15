@@ -38,16 +38,9 @@ class ZMDateRule extends ZMRule {
      * @param string format The date format (eg: DD/MM/YYYY); if not set, the date/long format of the current locale will be used.
      * @param string msg Optional message.
      */
-    function __construct($name, $format=null, $msg=null) {
+    public function __construct($name, $format=null, $msg=null) {
         parent::__construct($name, "Please enter a valid date (%s).", $msg);
         $this->format_ = $format;
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
     }
 
 

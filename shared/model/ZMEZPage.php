@@ -157,7 +157,7 @@ class ZMEZPage extends ZMObject {
      * @param int id The page id; default is <em>0</em>.
      * @param string title The page title; default is <em>null</em>.
      */
-    function __construct($id=0, $title=null) {
+    public function __construct($id=0, $title=null) {
         parent::__construct();
 
         $this->id = $id;
@@ -177,13 +177,6 @@ class ZMEZPage extends ZMObject {
         $this->ssl = false;
         $this->tocChapter = 0;
         $this->tocSort = 0;
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
     }
 
 

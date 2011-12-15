@@ -45,19 +45,12 @@ class ZMContactInfo extends ZMObject {
      * @param string email The contacts email address.
      * @param string message An optional message.
      */
-    function __construct($name=null, $email=null, $message=null) {
+    public function __construct($name=null, $email=null, $message=null) {
         parent::__construct();
         $this->name_ = $name;
         $this->email_ = $email;
         $this->recipient_ = null;
         $this->message_ = $message;
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
     }
 
 

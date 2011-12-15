@@ -32,18 +32,11 @@ class ZMDemoCouponQueue extends ZMCouponQueue {
     /**
      * Create new instance.
      */
-    function __construct() {
+    public function __construct() {
         parent::__construct();
         $this->setAccountId(3);
         $this->setOrderId(5);
         $this->setAmount(20.00);
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
     }
 
 }

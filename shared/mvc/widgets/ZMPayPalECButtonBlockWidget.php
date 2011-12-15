@@ -33,7 +33,7 @@ class ZMPayPalECButtonBlockWidget extends ZMWidget {
     /**
      * Create new instance.
      */
-    function __construct() {
+    public function __construct() {
         parent::__construct();
         $this->setTitle('PayPal EC Button');
     }

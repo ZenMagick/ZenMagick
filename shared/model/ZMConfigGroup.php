@@ -73,19 +73,12 @@ class ZMConfigGroup extends ZMObject {
     /**
      * Create new config group.
      */
-    function __construct() {
+    public function __construct() {
         parent::__construct();
         $this->name = null;
         $this->description = null;
         $this->sortOrder = 0;
         $this->visible = false;
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
     }
 
 

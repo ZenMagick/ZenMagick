@@ -32,17 +32,10 @@ class ZMDemoOrder extends ZMOrder {
     /**
      * Create new instance.
      */
-    function __construct() {
+    public function __construct() {
         parent::__construct();
         $this->setId(3);
         $this->setOrderDate(time());
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
     }
 
 

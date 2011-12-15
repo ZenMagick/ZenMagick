@@ -61,20 +61,20 @@ class ZMCouponTranslations extends ZMObject {
      */
     private $description;
 
-    public function __construct($coupon, $name = '', $description = '', $languageId = 1)
-    {
+
+    /**
+     * Create new instance
+     *
+     * @todo: languageId default???
+     */
+    public function __construct($coupon, $name='', $description='', $languageId=1) {
+        parent::__construct();
         $this->coupon = $coupon;
         $this->setLanguageId($languageId);
         $this->setName($name);
         $this->setDescription($description);
     }
 
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
 
     /**
      * Get couponId

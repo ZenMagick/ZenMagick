@@ -40,18 +40,11 @@ class ZMGVRedeem extends ZMObject {
     /**
      * Create new instance.
      */
-    function __construct() {
+    public function __construct() {
         parent::__construct();
         $this->couponCode_ = null;
         $this->amount_ = 0;
         $this->redeemed_ = false;
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
     }
 
 

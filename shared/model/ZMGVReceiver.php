@@ -43,19 +43,12 @@ class ZMGVReceiver extends ZMObject {
     /**
      * Create new instance.
      */
-    function __construct() {
+    public function __construct() {
         parent::__construct();
         $this->name_ = null;
         $this->email_ = null;
         $this->amount_ = 0;
         $this->message_ = null;
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
     }
 
 

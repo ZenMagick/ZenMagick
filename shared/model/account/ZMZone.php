@@ -64,10 +64,11 @@ class ZMZone extends ZMObject {
      */
     private $name;
 
+
     /**
      * Create new zone.
      */
-    function __construct() {
+    public function __construct() {
         parent::__construct();
         $this->setId(0);
         $this->countryId = 0;
@@ -75,12 +76,6 @@ class ZMZone extends ZMObject {
         $this->name = null;
     }
 
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
 
     /**
      * Get the id.

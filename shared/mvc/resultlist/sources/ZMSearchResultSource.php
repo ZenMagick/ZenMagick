@@ -51,13 +51,6 @@ class ZMSearchResultSource extends ZMObject implements ZMResultSource {
         $this->totalNumberOfResults_ = null;
     }
 
-    /**
-     * Destruct instance.
-     */
-    public function __destruct() {
-        parent::__destruct();
-    }
-
 
     /**
      * Set the search criteria.

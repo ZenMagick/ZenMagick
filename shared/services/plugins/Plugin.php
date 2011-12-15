@@ -58,7 +58,7 @@ class Plugin extends ZMPlugin {
      * @param string description The description.
      * @param string version The version.
      */
-    function __construct($title='', $description='', $version='0.0') {
+    public function __construct($title='', $description='', $version='0.0') {
         parent::__construct();
         $this->setName($title);
         $this->setDescription($description);
@@ -68,13 +68,6 @@ class Plugin extends ZMPlugin {
         $this->configValues_ = null;
         // both
         $this->setContext('admin,storefront');
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
     }
 
 

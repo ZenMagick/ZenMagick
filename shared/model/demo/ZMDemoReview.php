@@ -32,17 +32,10 @@ class ZMDemoReview extends ZMReview {
     /**
      * Create new instance.
      */
-    function __construct() {
+    public function __construct() {
         parent::__construct();
         $this->setAuthor('foo bar');
         $this->setText('Some review bla bla...');
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
     }
 
 }

@@ -48,7 +48,7 @@ class ZMProductFinder extends ZMObject {
      *
      * @param ZMSearchCriteria criteria Optional search criteria; default is <code>null</code>.
      */
-    function __construct($criteria=null) {
+    public function __construct($criteria=null) {
         parent::__construct();
         $this->criteria_ = $criteria;
         $this->sortId_ = null;

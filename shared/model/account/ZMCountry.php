@@ -69,10 +69,11 @@ class ZMCountry extends ZMObject {
      */
     private $addressFormatId;
 
+
     /**
      * Create new instance.
      */
-    function __construct() {
+    public function __construct() {
         parent::__construct();
 
         $this->setId(0);
@@ -82,12 +83,6 @@ class ZMCountry extends ZMObject {
         $this->addressFormatId = 0;
     }
 
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
 
     /**
      * Get the country id.

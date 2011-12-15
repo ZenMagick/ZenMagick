@@ -109,19 +109,12 @@ class ZMConfigValue extends ZMObject {
     /**
      * Create new config value.
      */
-    function __construct() {
+    public function __construct() {
         parent::__construct();
 		    $this->name = null;
 		    $this->description = null;
 		    $this->key = null;
 		    $this->value = null;
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
     }
 
 

@@ -127,6 +127,7 @@ class ZMCoupon extends ZMObject {
     private $name;
     private $description;
 
+
     /**
      * Create new instance
      *
@@ -134,7 +135,7 @@ class ZMCoupon extends ZMObject {
      * @param string code The coupon code; default is <em>''</em>.
      * @param string type The coupon type; default is <em>''</em>.
      */
-    function __construct($id=0, $code='', $type='') {
+    public function __construct($id=0, $code='', $type='') {
         parent::__construct();
         $this->setId($id);
         $this->code = $code;
@@ -146,12 +147,6 @@ class ZMCoupon extends ZMObject {
         $this->translations = new ArrayCollection();
     }
 
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
 
     /**
      * Get the coupon id.

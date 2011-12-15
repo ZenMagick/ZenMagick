@@ -52,19 +52,12 @@ class ZMOrderTotalLineDetails extends ZMObject {
     /**
      * Create new instance.
      */
-    function __construct() {
+    public function __construct() {
         parent::__construct();
         $this->title_ = '';
         $this->amount_ = 0;
         $this->value_ = 0;
         $this->taxClassId_ = 0;
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
     }
 
 

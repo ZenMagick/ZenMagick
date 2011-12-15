@@ -46,20 +46,13 @@ class ZMOrderTotalLine extends ZMObject {
      * @param float amount The total amount.
      * @param string type The total type.
      */
-    function __construct($name=null, $value=null, $amount=0, $type=null) {
+    public function __construct($name=null, $value=null, $amount=0, $type=null) {
         parent::__construct();
         $this->setId(0);
         $this->name_ = $name;
         $this->value_ = $value;
         $this->amount_ = $amount;
         $this->type_ = $type;
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
     }
 
 

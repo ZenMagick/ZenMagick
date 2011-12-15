@@ -43,16 +43,9 @@ class ZMTheme extends ZMObject {
      *
      * @params string themeId The theme id/name; default is <code>null</code>.
      */
-    function __construct($themeId=null) {
+    public function __construct($themeId=null) {
         parent::__construct();
         $this->setThemeId($themeId);
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
     }
 
 

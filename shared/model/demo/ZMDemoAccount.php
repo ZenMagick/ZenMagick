@@ -32,17 +32,10 @@ class ZMDemoAccount extends ZMAccount {
     /**
      * Create new instance.
      */
-    function __construct() {
+    public function __construct() {
         parent::__construct();
         $this->setFirstName('foo');
         $this->setLastName('bar');
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
     }
 
 }

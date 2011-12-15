@@ -49,12 +49,6 @@ class ZMThemes extends ZMObject {
         $this->initLanguage_ = null;
     }
 
-    /**
-     * Destruct instance.
-     */
-    public function __destruct() {
-        parent::__destruct();
-    }
 
     /**
      * Get instance.

@@ -36,19 +36,11 @@ class ZMDemoOrderTotalLineDetails extends ZMOrderTotalLineDetails {
      * @param flaot amount The amount.
      * @param string displayValue The display value.
      */
-    function __construct($title, $amount, $displayValue) {
+    public function __construct($title, $amount, $displayValue) {
         parent::__construct();
         $this->setTitle($title);
         $this->setAmount($amount);
         $this->setDisplayValue($displayValue);
     }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
-
 
 }

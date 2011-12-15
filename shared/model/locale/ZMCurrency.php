@@ -102,7 +102,7 @@ class ZMCurrency extends ZMObject {
     /**
      * Create new instance.
      */
-    function __construct() {
+    public function __construct() {
         parent::__construct();
 
         $this->setId(0);
@@ -113,12 +113,6 @@ class ZMCurrency extends ZMObject {
         $this->rate = 1;
     }
 
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
 
     /**
      * Get the currency id.

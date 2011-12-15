@@ -75,19 +75,6 @@ class ZMLanguage extends ZMObject {
      */
     private $sortOrder;
 
-    /**
-     * Create new instance.
-     */
-    function __construct() {
-        parent::__construct();
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
 
     // @todo deprecated, but needed until we change the property name
     public function getLanguageId() { return $this->getId(); }

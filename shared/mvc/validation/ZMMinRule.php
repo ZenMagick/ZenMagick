@@ -38,16 +38,9 @@ class ZMMinRule extends ZMRule {
      * @param int min The minimun length.
      * @param string msg Optional message.
      */
-    function __construct($name, $min, $msg=null) {
+    public function __construct($name, $min, $msg=null) {
         parent::__construct($name, "%s must be at least %s characters long.", $msg);
         $this->min_ = $min;
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
     }
 
 

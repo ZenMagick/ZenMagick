@@ -39,17 +39,10 @@ class ZMCouponRestrictions extends ZMObject {
     /**
      * Create new instance.
      */
-    function __construct($categories=array(), $products=array()) {
+    public function __construct($categories=array(), $products=array()) {
         parent::__construct();
         $this->categories_ = $categories;
         $this->products_ = $products;
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
     }
 
 

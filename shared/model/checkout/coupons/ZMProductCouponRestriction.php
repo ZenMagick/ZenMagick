@@ -42,17 +42,10 @@ class ZMProductCouponRestriction extends ZMObject {
      * @param boolean allowed The allowed flag.
      * @param int productId The product id this restriction applies to.
      */
-    function __construct($allowed, $productId) {
+    public function __construct($allowed, $productId) {
         parent::__construct();
         $this->allowed_ = $allowed;
         $this->productId_ = $productId;
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
     }
 
 

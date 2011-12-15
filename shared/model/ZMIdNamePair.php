@@ -39,17 +39,10 @@ class ZMIdNamePair extends ZMObject {
      * @param int id The id.
      * @param string name The name.
      */
-    function __construct($id, $name) {
+    public function __construct($id, $name) {
         parent::__construct();
         $this->id_ = $id;
         $this->name_ = $name;
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
     }
 
 

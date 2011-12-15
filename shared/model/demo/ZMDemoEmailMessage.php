@@ -32,19 +32,12 @@ class ZMDemoEmailMessage extends ZMEmailMessage {
     /**
      * Create new instance.
      */
-    function __construct() {
+    public function __construct() {
         parent::__construct();
         $this->setFromEmail('from@foo.com');
         $this->setToEmail('to@foo.com');
         $this->setFromName('Foo From');
         $this->setToName('Bar To');
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
     }
 
 }

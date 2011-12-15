@@ -36,20 +36,6 @@ use zenmagick\base\ZMObject;
 class ZMOrders extends ZMObject implements ZMSQLAware {
 
     /**
-     * Create new instance.
-     */
-    function __construct() {
-        parent::__construct();
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
-
-    /**
      * Get instance.
      */
     public static function instance() {

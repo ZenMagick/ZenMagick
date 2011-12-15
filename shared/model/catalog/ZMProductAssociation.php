@@ -39,16 +39,9 @@ class ZMProductAssociation extends ZMObject {
      *
      * @param int productId Optional product id; default is <code>null</code>.
      */
-    function __construct($productId=null) {
+    public function __construct($productId=null) {
         parent::__construct();
         $this->productId_ = $productId;
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
     }
 
 

@@ -63,7 +63,7 @@ class ZMAccount extends ZMObject {
     /**
      * Create new instance.
      */
-    function __construct() {
+    public function __construct() {
         parent::__construct();
 
         $this->setId(0);
@@ -86,13 +86,6 @@ class ZMAccount extends ZMObject {
         $this->type_ = self::REGISTERED;
         $this->priceGroupId_ = 0;
         $this->authorization_ = ZMAccounts::AUTHORIZATION_ENABLED;
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
     }
 
 

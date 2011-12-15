@@ -33,20 +33,6 @@ use zenmagick\base\ZMObject;
 class ZMTokens extends ZMObject {
 
     /**
-     * Create new instance.
-     */
-    function __construct() {
-        parent::__construct();
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
-
-    /**
      * Get instance.
      */
     public static function instance() {

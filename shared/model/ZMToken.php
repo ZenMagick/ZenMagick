@@ -66,16 +66,14 @@ class ZMToken extends ZMObject {
      */
     private $expires;
 
-    function __construct() {
+
+    /**
+     * Create new instance.
+     */
+    public function __construct() {
         parent::__construct();
     }
 
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
 
     /**
      * Get the id.

@@ -33,7 +33,7 @@ class ZMAjaxCatalogController extends ZMAjaxController {
     /**
      * Create new instance.
      */
-    function __construct() {
+    public function __construct() {
         parent::__construct('ajaxCatalog');
         $this->set('ajaxProductMap', array(
             'id', 'name', 'description', 'model',
@@ -45,13 +45,6 @@ class ZMAjaxCatalogController extends ZMAjaxController {
             'pageNumber', 'numberOfResults', 'pagination', 'numberOfPages', 'previousPage', 'nextPage', 'previousPageNumber', 'nextPageNumber',
             'results' => $this->get('ajaxProductMap')
         ));
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
     }
 
 

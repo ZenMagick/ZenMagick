@@ -66,10 +66,11 @@ class ZMQuantityDiscount extends ZMObject {
     private $value;
     private $price;
 
+
     /**
      * Create new instance.
      */
-    function __construct() {
+    public function __construct() {
         parent::__construct();
         $this->setId(0);
         $this->productId = 0;
@@ -78,12 +79,6 @@ class ZMQuantityDiscount extends ZMObject {
         $this->price = 0;
     }
 
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
 
     /**
      * Get the discount id.

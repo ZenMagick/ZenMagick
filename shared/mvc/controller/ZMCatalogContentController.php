@@ -49,7 +49,7 @@ abstract class ZMCatalogContentController extends ZMController {
      * @param string name The name.
      * @param int active Active flag; example: <code>ACTIVE_CATEGORY|ACTIVE_PRODUCT</code>; default is <code>0</code>.
      */
-    function __construct($catalogRequestId, $name, $active=0) {
+    public function __construct($catalogRequestId, $name, $active=0) {
         parent::__construct($catalogRequestId);
         $this->catalogRequestId_ = $catalogRequestId;
         $this->name_ = $name;

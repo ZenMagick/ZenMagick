@@ -32,19 +32,13 @@ class ZMDemoGVReceiver extends ZMGVReceiver {
     /**
      * Create new instance.
      */
-    function __construct() {
+    public function __construct() {
         parent::__construct();
         $this->setName('foo');
         $this->setEmail('foo@bar.com');
         $this->setMessage('THE_MESSAGE');
     }
 
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
 
     /**
      * {@inheritDoc}

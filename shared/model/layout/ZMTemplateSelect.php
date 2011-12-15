@@ -62,12 +62,6 @@ class ZMTemplateSelect extends ZMObject {
      */
     private $variationId;
 
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
 
     public function getId() { return $this->id; }
     public function getThemeId() { return $this->themeId; }
@@ -78,4 +72,5 @@ class ZMTemplateSelect extends ZMObject {
     public function setThemeId($themeId) { $this->themeId = $themeId; }
     public function setLanguageId($languageId) { $this->languageId = $languageId; }
     public function setVariationId($variationId) { $this->variationId = $variationId; }
+
 }

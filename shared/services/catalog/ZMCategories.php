@@ -58,12 +58,6 @@ class ZMCategories extends ZMObject {
         $this->productTypeIdMap_ = null;
     }
 
-    /**
-     * Destruct instance.
-     */
-    public function __destruct() {
-        parent::__destruct();
-    }
 
     /**
      * Get instance.
