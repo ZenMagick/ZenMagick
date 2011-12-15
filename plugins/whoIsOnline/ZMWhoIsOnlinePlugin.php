@@ -35,16 +35,10 @@ class ZMWhoIsOnlinePlugin extends Plugin {
     /**
      * Create new instance.
      */
-    function __construct() {
+    public function __construct() {
         parent::__construct('Who\'s online', 'Provide inormation about current site users', '${plugin.version}');
     }
 
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
 
     /**
      * Init this plugin.

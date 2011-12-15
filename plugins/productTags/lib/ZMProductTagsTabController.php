@@ -32,7 +32,7 @@ class ZMProductTagsTabController extends ZMCatalogContentController {
     /**
      * Create new instance.
      */
-    function __construct() {
+    public function __construct() {
         parent::__construct('product_tags_tab', _zm('Tags'), self::ACTIVE_PRODUCT);
     }
 

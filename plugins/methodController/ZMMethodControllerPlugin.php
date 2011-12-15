@@ -32,16 +32,9 @@ class ZMMethodControllerPlugin extends Plugin {
     /**
      * Create new instance.
      */
-    function __construct() {
+    public function __construct() {
         parent::__construct('Method controller', 'Custom method controller example.', '${plugin.version}');
         $this->setContext('storefront');
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
     }
 
 

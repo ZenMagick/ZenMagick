@@ -41,7 +41,7 @@ class ZMVBulletinAdapter extends ZMObject {
     /**
      * Create new instance.
      */
-    function __construct() {
+    public function __construct() {
         parent::__construct();
         require ZM_VBULLETIN_ROOT.'includes'.DIRECTORY_SEPARATOR.'config.php';
 
@@ -61,12 +61,6 @@ class ZMVBulletinAdapter extends ZMObject {
         $this->userTable_ = $config['Database']['tableprefix'] . 'user';
     }
 
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
 
     /**
      * Get database.

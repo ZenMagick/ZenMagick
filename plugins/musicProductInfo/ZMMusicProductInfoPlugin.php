@@ -41,15 +41,8 @@ class ZMMusicProductInfoPlugin extends Plugin {
     /**
      * Create new instance.
      */
-    function __construct() {
+    public function __construct() {
         parent::__construct('Music Product Extras', 'Code for product_music_info product template.', '${plugin.version}');
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
     }
 
 

@@ -38,15 +38,8 @@ class ZMSourceOtherRule extends ZMRequiredRule {
      * @param string name The field name.
      * @param string msg Optional message.
      */
-    function __construct($name, $msg=null) {
+    public function __construct($name, $msg=null) {
         parent::__construct($name, "Please enter the source where you first heard about us.");
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
     }
 
 

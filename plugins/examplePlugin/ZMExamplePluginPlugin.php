@@ -33,16 +33,10 @@ class ZMExamplePluginPlugin extends Plugin {
     /**
      * Create new instance.
      */
-    function __construct() {
+    public function __construct() {
         parent::__construct('ZenMagick Example Plugin', 'This is the ZenMagick Example Plugin');
     }
 
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
 
     /**
      * {@inheritDoc}

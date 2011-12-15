@@ -40,18 +40,11 @@ class ZMMediaCollection extends ZMObject {
     /**
      * Create new instance.
      */
-    function __construct() {
+    public function __construct() {
         parent::__construct();
         $this->collectionId_ = 0;
         $this->name_ = '';
         $this->items_ = array();
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
     }
 
 

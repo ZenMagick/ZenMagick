@@ -32,16 +32,9 @@ class ZMFlyoutCategoriesPlugin extends Plugin {
     /**
      * Create new instance.
      */
-    function __construct() {
+    public function __construct() {
         parent::__construct('Flyout Categories', 'Flyout Categories menu.', '${plugin.version}');
         $this->setContext('storefront');
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
     }
 
 }

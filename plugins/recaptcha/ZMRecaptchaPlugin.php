@@ -44,17 +44,10 @@ class ZMRecaptchaPlugin extends Plugin {
     /**
      * Create new instance.
      */
-    function __construct() {
+    public function __construct() {
         parent::__construct('ReCAPTCHA Plugin', 'ReCAPTCHA for ZenMagick');
         $this->captchaEnabled_ = false;
         $this->error_ = null;
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
     }
 
 

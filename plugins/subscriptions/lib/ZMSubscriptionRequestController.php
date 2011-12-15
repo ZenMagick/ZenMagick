@@ -32,21 +32,6 @@ use zenmagick\base\ZMObject;
 class ZMSubscriptionRequestController extends ZMController {
 
     /**
-     * Create new instance.
-     */
-    function __construct() {
-        parent::__construct();
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
-
-
-    /**
      * Create the model from the current request.
      *
      * @return ZMObject The model.

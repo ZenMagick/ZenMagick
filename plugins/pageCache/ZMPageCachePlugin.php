@@ -44,18 +44,11 @@ class ZMPageCachePlugin extends \Plugin {
     /**
      * Create new instance.
      */
-    function __construct() {
+    public function __construct() {
         parent::__construct('Page Cache', 'ZenMagick page caching', '${plugin.version}');
         $this->setContext('admin,storefront');
         $this->setPreferredSortOrder(9999);
         $this->cache_ = null;
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
     }
 
 

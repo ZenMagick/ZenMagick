@@ -49,13 +49,6 @@ class ZMGoogleAnalyticsPlugin extends Plugin {
         $this->order_ = null;
     }
 
-    /**
-     * Destruct instance.
-     */
-    public function __destruct() {
-        parent::__destruct();
-    }
-
 
     /**
      * Install this plugin.

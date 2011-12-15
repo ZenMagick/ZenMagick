@@ -31,21 +31,6 @@ use zenmagick\base\Runtime;
 class ZMCancelSubscriptionController extends ZMController {
 
     /**
-     * Create new instance.
-     */
-    function __construct() {
-        parent::__construct();
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
-
-
-    /**
      * {@inheritDoc}
      *
      * @todo allow cancel at any time

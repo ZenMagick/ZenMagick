@@ -40,17 +40,10 @@ class Offers extends ZMOffers {
      *
      * @param ZMProduct product The product.
      */
-    function __construct($product) {
+    public function __construct($product) {
         parent::__construct($product);
         $this->productGroupPricing_ = null;
         $this->lookupDone_ = false;
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
     }
 
 

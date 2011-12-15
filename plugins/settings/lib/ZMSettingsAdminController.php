@@ -32,17 +32,9 @@ class ZMSettingsAdminController extends ZMPluginAdmin2Controller {
     /**
      * Create new instance.
      */
-    function __construct() {
+    public function __construct() {
         parent::__construct('settings');
     }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
-
 
     /**
      * {@inheritDoc}

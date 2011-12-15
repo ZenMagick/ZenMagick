@@ -41,19 +41,12 @@ class ZMRecordCompany extends ZMObject {
     /**
      * Create new instance.
      */
-    function __construct() {
+    public function __construct() {
         parent::__construct();
         $this->recordCompanyId_ = 0;
         $this->name_ = '';
         $this->image_ = null;
         $this->url_ = null;
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
     }
 
 

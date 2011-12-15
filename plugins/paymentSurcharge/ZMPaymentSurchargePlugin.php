@@ -37,15 +37,8 @@ class ZMPaymentSurchargePlugin extends Plugin implements ZMOrderTotal {
     /**
      * Create new instance.
      */
-    function __construct() {
+    public function __construct() {
         parent::__construct('Payment Surcharge', 'Conditional payment surcharge/discount', '${plugin.version}');
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
     }
 
 

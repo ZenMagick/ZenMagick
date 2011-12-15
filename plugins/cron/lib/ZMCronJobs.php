@@ -60,13 +60,6 @@ class ZMCronJobs extends ZMObject {
         $this->parser = new ZMCronParser();
     }
 
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
-
 
     /**
      * Check if it is time to run.

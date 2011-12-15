@@ -43,7 +43,7 @@ class ZMMediaItem extends ZMObject {
     /**
      * Create new instance.
      */
-    function __construct() {
+    public function __construct() {
         parent::__construct();
         $this->mediaItemId_ = 0;
         $this->mediaId_ = 0;
@@ -51,13 +51,6 @@ class ZMMediaItem extends ZMObject {
         $this->filename_ = null;
         $this->dateAdded_ = null;
         $this->mediaType_ = null;
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
     }
 
 

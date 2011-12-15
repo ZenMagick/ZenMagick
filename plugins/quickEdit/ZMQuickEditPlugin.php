@@ -34,7 +34,7 @@ class ZMQuickEditPlugin extends Plugin {
     /**
      * Create new instance.
      */
-    function __construct() {
+    public function __construct() {
         parent::__construct('Quick Edit', 'Quickly edit product properties', '${plugin.version}');
         $this->setPreferredSortOrder(35);
         $this->setContext('admin');

@@ -35,15 +35,8 @@ class ZMUniqueOpenIDRule extends ZMRule {
      * @param string name The field name.
      * @param string msg Optional message.
      */
-    function __construct($name, $msg=null) {
+    public function __construct($name, $msg=null) {
         parent::__construct($name, "OpenID already in use.", $msg);
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
     }
 
 

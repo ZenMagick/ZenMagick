@@ -32,16 +32,9 @@ class ZMCssCategoriesPlugin extends Plugin {
     /**
      * Create new instance.
      */
-    function __construct() {
+    public function __construct() {
         parent::__construct('CSS Categories', 'CSS Categories menu.', '${plugin.version}');
         $this->setContext('storefront');
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
     }
 
 }

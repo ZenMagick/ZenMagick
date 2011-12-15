@@ -34,17 +34,11 @@ class ZMThemeSwitcherPlugin extends Plugin {
     /**
      * Create new instance.
      */
-    function __construct() {
+    public function __construct() {
         parent::__construct('Theme Switcher', 'Allow users to select a theme');
         $this->setContext('storefront');
     }
 
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
 
     /**
      * {@inheritDoc}

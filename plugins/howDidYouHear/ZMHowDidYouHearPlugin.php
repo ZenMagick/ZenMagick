@@ -38,16 +38,10 @@ class ZMHowDidYouHearPlugin extends Plugin {
     /**
      * Create new instance.
      */
-    function __construct() {
+    public function __construct() {
         parent::__construct('How did you hear about us', 'Adds a drop down to the register page asking: "How did you hear about us"', '${plugin.version}');
     }
 
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
 
     /**
      * {@inheritDoc}

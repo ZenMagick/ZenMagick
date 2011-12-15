@@ -37,21 +37,6 @@
 class ZMMethodController extends ZMController {
 
     /**
-     * Create new instance.
-     */
-    function __construct() {
-        parent::__construct();
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
-
-
-    /**
      * Custom request processing <em>foo</em>.
      */
     public function foo($request) {

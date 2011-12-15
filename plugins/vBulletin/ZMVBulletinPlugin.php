@@ -37,19 +37,13 @@ class ZMVBulletinPlugin extends Plugin {
     /**
      * Create new instance.
      */
-    function __construct() {
+    public function __construct() {
         parent::__construct('vBulletin', 'vBulletin for ZenMagick');
         $this->page_ = '';
         $this->prePostAccount_ = null;
         $this->adapter_ = null;
     }
 
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
 
     /**
      * {@inheritDoc}

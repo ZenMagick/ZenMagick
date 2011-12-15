@@ -38,17 +38,11 @@ class ZMToggleThemesPlugin extends Plugin {
     /**
      * Create new instance.
      */
-    function __construct() {
+    public function __construct() {
         parent::__construct('Toggle themes', 'Allow users to toggle theme support');
         $this->setContext('storefront');
     }
 
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
 
     /**
      * {@inheritDoc}

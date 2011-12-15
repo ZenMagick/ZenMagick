@@ -46,7 +46,7 @@ class ZMProductGroupPricing extends ZMObject {
     /**
      * Create new instance.
      */
-    function __construct() {
+    public function __construct() {
         parent::__construct();
 
         $this->id_ = 0;
@@ -58,13 +58,6 @@ class ZMProductGroupPricing extends ZMObject {
         $this->startDate_ = null;
         $this->endDate_ = null;
         $this->beforeTax_ = true;
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
     }
 
 

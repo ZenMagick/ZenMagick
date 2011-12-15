@@ -52,13 +52,6 @@ class ImageInfo extends ZMImageInfo {
         $this->zoomSmallImages_ = null !== $this->plugin_ && $this->plugin_->get('zoomSmallImages');
     }
 
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
-
 
     /**
      * {@inheritDoc}

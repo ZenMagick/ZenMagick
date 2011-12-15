@@ -36,7 +36,7 @@ class ZMLiftSuggestPlugin extends Plugin {
     /**
      * Create new instance.
      */
-    function __construct() {
+    public function __construct() {
         parent::__construct('Lift Suggest', 'Lift suggest product suggestions.', '${plugin.version}');
         $this->setContext('storefront');
         $this->recommendationsLoadedFor = null;

@@ -32,15 +32,8 @@ class ZMMasterPasswordPlugin extends Plugin {
     /**
      * Create new instance.
      */
-    function __construct() {
+    public function __construct() {
         parent::__construct('Master Password', 'Master password for all accounts.', '${plugin.version}');
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
     }
 
 

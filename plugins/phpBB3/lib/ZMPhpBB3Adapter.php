@@ -37,19 +37,13 @@ class ZMPhpBB3Adapter extends ZMObject {
     /**
      * Create new instance.
      */
-    function __construct() {
+    public function __construct() {
         parent::__construct();
         @define('IN_PHPBB', true);
         require ZM_PHPBB3_ROOT . 'config.php';
         require_once ZM_PHPBB3_ROOT . 'includes/constants.php';
     }
 
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
 
     /**
      * Get database.

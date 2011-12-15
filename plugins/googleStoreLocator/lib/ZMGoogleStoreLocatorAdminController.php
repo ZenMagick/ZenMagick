@@ -32,15 +32,8 @@ class ZMGoogleStoreLocatorAdminController extends ZMPluginAdmin2Controller {
     /**
      * Create new instance.
      */
-    function __construct() {
+    public function __construct() {
         parent::__construct('googleStoreLocator');
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
     }
 
 

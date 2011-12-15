@@ -36,19 +36,13 @@ class ZMPhpBB3Plugin extends Plugin {
     /**
      * Create new instance.
      */
-    function __construct() {
+    public function __construct() {
         parent::__construct('phpBB3', 'phpBB3 for ZenMagick', '${plugin.version}');
         $this->page_ = '';
         $this->prePostAccount_ = null;
         $this->adapter_ = null;
     }
 
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
 
     /**
      * Install this plugin.

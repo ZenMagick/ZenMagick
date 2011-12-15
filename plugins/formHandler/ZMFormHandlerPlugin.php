@@ -33,16 +33,10 @@ class ZMFormHandlerPlugin extends Plugin {
     /**
      * Create new instance.
      */
-    function __construct() {
+    public function __construct() {
         parent::__construct('Form Handler', 'Generic form handler with email notification', '${plugin.version}');
     }
 
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
 
     /**
      * Install this plugin.

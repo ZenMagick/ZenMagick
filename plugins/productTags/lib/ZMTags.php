@@ -35,20 +35,6 @@ define('TABLE_PRODUCT_TAGS', DB_PREFIX . 'product_tags');
 class ZMTags extends ZMObject {
 
     /**
-     * Create new instance.
-     */
-    function __construct() {
-        parent::__construct();
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
-
-    /**
      * Get instance.
      */
     public static function instance() {

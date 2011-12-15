@@ -34,15 +34,8 @@ class ZMMinifyPlugin extends Plugin {
     /**
      * Create new instance.
      */
-    function __construct() {
+    public function __construct() {
         parent::__construct('Minify', 'Minify for ZenMagick', '${plugin.version}');
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
     }
 
 

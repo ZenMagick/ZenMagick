@@ -32,15 +32,8 @@ class ZMGoogleStoreLocatorPlugin extends Plugin {
     /**
      * Create new instance.
      */
-    function __construct() {
+    public function __construct() {
         parent::__construct('Google Store Locator', 'Google Maps Store Locator.', '${plugin.version}');
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
     }
 
 

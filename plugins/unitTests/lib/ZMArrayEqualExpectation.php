@@ -31,7 +31,7 @@ class ZMArrayEqualExpectation extends EqualExpectation {
     /**
      * {@inheritDoc}
      */
-    function __construct($value, $message='%s') {
+    public function __construct($value, $message='%s') {
         parent::__construct($value, $message);
     }
 

@@ -41,20 +41,13 @@ class ZMWordpressRequestHandler extends ZMController {
      * @param ZMPlugin plugin The parent plugin reference.
      * @param ZMRequest request The current request.
      */
-    function __construct($plugin, $request) {
+    public function __construct($plugin, $request) {
         parent::__construct();
         $this->wp_filter_id = get_class($this);
         $this->plugin_ = $plugin;
         $this->request_ = $request;
         $this->viewName_ = null;
         $this->view_ = null;
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
     }
 
 

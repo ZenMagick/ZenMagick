@@ -38,7 +38,7 @@ class ZMQuickEditTabController extends ZMCatalogContentController {
     /**
      * Create new instance.
      */
-    function __construct() {
+    public function __construct() {
         parent::__construct('quick_edit_tab', _zm('Quick Edit'), self::ACTIVE_CATEGORY);
     }
 

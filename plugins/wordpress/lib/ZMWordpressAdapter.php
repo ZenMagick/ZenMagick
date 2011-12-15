@@ -36,18 +36,13 @@ class ZMWordpressAdapter extends ZMObject {
     /**
      * Create new instance.
      */
-    function __construct() {
+    public function __construct() {
         parent::__construct();
         // use WP registration functions
         require ZM_WORDPRESS_ROOT . 'wp-includes/registration.php';
     }
 
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
+
     /**
      * Check for duplicate nickname.
      *

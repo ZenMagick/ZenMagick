@@ -43,7 +43,7 @@ class ZMHtmlReporter extends \HtmlReporter {
      *
      * @param boolean hideErrors Optional flag to disable display of errors/exceptions; default is <code>false</code> to show exception.
      */
-    function __construct($hideErrors=false) {
+    public function __construct($hideErrors=false) {
         parent::__construct('ISO-8859-1');
         $this->currentCase_ = null;
         $this->currentTest_ = null;

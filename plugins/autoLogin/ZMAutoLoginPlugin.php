@@ -37,18 +37,12 @@ class ZMAutoLoginPlugin extends Plugin {
     /**
      * Create new instance.
      */
-    function __construct() {
+    public function __construct() {
         parent::__construct('Auto Login', 'Automatically login returning customers.', '${plugin.version}');
         $this->setContext('storefront');
         $this->cookieUpdated = false;
     }
 
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
 
     /**
      * {@inheritDoc}

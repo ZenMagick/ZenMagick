@@ -33,7 +33,7 @@ class ZMSsuPlugin extends Plugin {
     /**
      * Create new instance.
      */
-    function __construct() {
+    public function __construct() {
         parent::__construct('Simple SEO URL', 'Simple SEO URL for ZenMagick', '${plugin.version}');
         $this->setContext('storefront');
     }

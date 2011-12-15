@@ -31,21 +31,6 @@ use zenmagick\base\ZMObject;
 class ZMFormHandlerController extends ZMController {
 
     /**
-     * Create new instance.
-     */
-    function __construct() {
-        parent::__construct();
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
-
-
-    /**
      * Create the form data object.
      *
      * @param ZMRequest request The current request.

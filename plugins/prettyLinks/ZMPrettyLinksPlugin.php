@@ -33,15 +33,8 @@ class ZMPrettyLinksPlugin extends Plugin {
     /**
      * Create new instance.
      */
-    function __construct() {
+    public function __construct() {
         parent::__construct('Pretty Links', 'Pretty Links (SEO) for ZenMagick', '${plugin.version}');
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
     }
 
 

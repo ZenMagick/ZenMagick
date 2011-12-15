@@ -38,7 +38,7 @@ class ZMWordpressPlugin extends Plugin {
     /**
      * Create new instance.
      */
-    function __construct() {
+    public function __construct() {
         parent::__construct('Wordpress', 'Allows to display Wordpress content in ZenMagick', '${plugin.version}');
         $this->setContext('storefront');
         $this->requestId_ = '';
@@ -46,12 +46,6 @@ class ZMWordpressPlugin extends Plugin {
         $this->adapter_ = null;
     }
 
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
 
     /**
      * {@inheritDoc}

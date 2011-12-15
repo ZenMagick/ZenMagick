@@ -36,7 +36,7 @@ class ZMProductGroupPricingTabController extends ZMCatalogContentController {
     /**
      * Create new instance.
      */
-    function __construct() {
+    public function __construct() {
         parent::__construct('product_group_pricing_tab', _zm('Group Pricing'), self::ACTIVE_PRODUCT);
     }
 

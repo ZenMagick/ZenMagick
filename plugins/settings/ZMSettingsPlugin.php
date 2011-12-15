@@ -31,16 +31,9 @@ class ZMSettingsPlugin extends Plugin {
     /**
      * Create new instance.
      */
-    function __construct() {
+    public function __construct() {
         parent::__construct('Settings', 'Manage (custom) settings');
         $this->setContext('admin');
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
     }
 
 

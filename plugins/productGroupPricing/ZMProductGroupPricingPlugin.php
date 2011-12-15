@@ -35,16 +35,9 @@ class ZMProductGroupPricingPlugin extends Plugin {
     /**
      * Create new instance.
      */
-    function __construct() {
+    public function __construct() {
         parent::__construct('Product Group Pricing', 'Product Group Pricing', '${zenmagick.version}');
         $this->setPreferredSortOrder(15);
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
     }
 
 

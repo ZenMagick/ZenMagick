@@ -39,17 +39,10 @@ class ZMUnitTestsPlugin extends Plugin {
     /**
      * Create new instance.
      */
-    function __construct() {
+    public function __construct() {
         parent::__construct('Unit Testing', 'Run unit tests using SimpleTest.');
         $this->tests_ = array();
         $this->customDone_ = false;
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
     }
 
 

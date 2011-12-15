@@ -38,7 +38,7 @@ class ZMProductGroupPricings extends ZMObject {
     /**
      * Create new instance.
      */
-    function __construct() {
+    public function __construct() {
         parent::__construct();
         ZMDbTableMapper::instance()->setMappingForTable('product_group_pricing', array(
             'id' => 'column=group_pricing_id;type=integer;key=true;auto=true',
@@ -52,12 +52,6 @@ class ZMProductGroupPricings extends ZMObject {
         ));
     }
 
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
 
     /**
      * Get instance.

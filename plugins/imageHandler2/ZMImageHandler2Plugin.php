@@ -34,17 +34,11 @@ class ZMImageHandler2Plugin extends Plugin {
     /**
      * Create new instance.
      */
-    function __construct() {
+    public function __construct() {
         parent::__construct('ImageHandler2', 'ImageHandler2 support for ZenMagick', '0.3.4');
         $this->setContext('storefront');
     }
 
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
 
     /**
      * {@inheritDoc}

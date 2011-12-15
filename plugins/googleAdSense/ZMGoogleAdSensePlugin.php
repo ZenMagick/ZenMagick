@@ -39,16 +39,9 @@ class ZMGoogleAdSensePlugin extends Plugin {
     /**
      * Create new instance.
      */
-    function __construct() {
+    public function __construct() {
         parent::__construct('Google AdSense', 'Plugin to manage Google AdSense JS (including four sideboxes).', '${plugin.version}');
         $this->totalAds_ = ZMSettings::get('plugins.googleAdSense.totalAds', 6);
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
     }
 
 

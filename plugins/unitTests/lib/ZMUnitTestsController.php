@@ -33,21 +33,6 @@ use zenmagick\base\Runtime;
 class ZMUnitTestsController extends \ZMController {
 
     /**
-     * Create new instance.
-     */
-    function __construct() {
-        parent::__construct();
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
-
-
-    /**
      * Find tests in the given path.
      *
      * @param string path The path.

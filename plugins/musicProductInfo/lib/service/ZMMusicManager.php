@@ -111,12 +111,6 @@ class ZMMusicManager extends ZMObject {
         }
     }
 
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
 
     /**
      * Get instance.

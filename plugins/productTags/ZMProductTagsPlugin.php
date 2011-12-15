@@ -32,16 +32,9 @@ class ZMProductTagsPlugin extends Plugin {
     /**
      * Create new instance.
      */
-    function __construct() {
+    public function __construct() {
         parent::__construct('Product Tags', 'Tag all your products', '${zenmagick.version}');
         $this->setPreferredSortOrder(22);
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
     }
 
 

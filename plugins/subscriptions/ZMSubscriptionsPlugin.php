@@ -34,7 +34,7 @@ class ZMSubscriptionsPlugin extends Plugin {
     /**
      * Create new instance.
      */
-    function __construct() {
+    public function __construct() {
         parent::__construct('Subscriptions', 'Allow users to subscribe products/orders', '${plugin.version}');
 
         // the new prices and customer flag
@@ -52,13 +52,6 @@ class ZMSubscriptionsPlugin extends Plugin {
                 ZMSettings::append('zenmagick.core.database.sql.'.$table.'.customFields', $field);
             }
         }
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
     }
 
 
