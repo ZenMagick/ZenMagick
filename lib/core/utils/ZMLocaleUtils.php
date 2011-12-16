@@ -92,7 +92,7 @@ class ZMLocaleUtils {
                             if (2 < count($parameters)) {
                                 $plural = substr($parameters[1][1], 1, -1);
                                 $context = substr($parameters[2][1], 1, -1);
-                            } else  if (1 < count($parameters)) {
+                            } else if (1 < count($parameters)) {
                                 $plural = substr($parameters[1][1], 1, -1);
                             }
                         }
@@ -153,6 +153,47 @@ class ZMLocaleUtils {
         }
 
         return implode("\n", $lines);
+    }
+
+    /**
+     * Convert yaml back to map.
+     *
+     * <p>NOTE: This is temporary to allow conversions for when yaml support is dropped.</p>
+     *
+     * @param string filename The filename.
+     * @return array A translation map.
+     */
+    public static function yaml2map($filename) {
+        $map = array();
+        $file = null;
+        foreach (file($filename) as $line) {
+            $line = trim($line);
+            if ('#' == $line[0]) {
+                if (':' == $line[1]) {
+                    // file
+                    $nextfile = trim(str_replace('#: ', '', $line));
+                    if ($file != $nextfile) {
+                        $file = $nextfile;
+                        $map[$file] = array();
+                    }
+                } else if ('.' == $line[1]) {
+                    // comment
+                }
+                continue;
+            } else {
+                if (false === ($pos = strpos($line, '": "'))) {
+                    $pos = strpos($line, "': '");
+                }
+                if (false !== $pos) {
+                    // strip quotes
+                    $key = trim(substr($line, 1, $pos-1));
+                    $text = trim(substr($line, $pos+3, strlen($line)-1));
+                    // mapping
+                    $map[$file][$key] = array('msg' => $text, 'plural' => null, 'context' => null, 'filename' => $file, 'line' => 0);
+                }
+            }
+        }
+        return $map;
     }
 
     /**
@@ -234,7 +275,7 @@ class ZMLocaleUtils {
                     $lines[] = 'msgstr[1] ""';
                 }
             } else {
-                $lines[] = $pot ? 'msgstr ""' : 'msgstr '.$string;
+                $lines[] = $pot ? 'msgstr ""' : 'msgstr '.$info['msg'];
             }
 
             $lines[] = '';
