@@ -21,6 +21,9 @@
 <?php
 
 use zenmagick\base\Beans;
+use zenmagick\base\security\authentication\AuthenticationProvider;
+use zenmagick\base\security\authentication\provider\Sha1AuthenticationProvider;
+use apps\store\bundles\ZenCartBundle\utils\ZenCartAuthenticationProvider;
 
 /**
  * Test authentication.
@@ -34,20 +37,18 @@ class TestAuthentication extends ZMTestCase {
      * Test manager single provider.
      */
     public function testManagerSingle() {
-        $manager = new ZMAuthenticationManager();
-        //$this->assertTrue($manager->getDefaultProvider() instanceof ZMSha1Authentication);
-        $manager->addProvider('ZMZenCartAuthentication', true);
-        $this->assertNotNull($manager->getDefaultProvider());
+        $authenticationManager = $this->container->get('authenticationManager');
+        $this->assertNotNull($authenticationManager->getDefaultProvider());
 
         // check zc encryypted password
-        $zcProvider = new ZMZenCartAuthentication();
+        $zcProvider = new ZenCartAuthenticationProvider();
         $zcpwd = 'foobar';
         $zcenc = $zcProvider->encryptPassword($zcpwd);
-        $this->assertTrue($manager->validatePassword($zcpwd, $zcenc));
+        $this->assertTrue($authenticationManager->validatePassword($zcpwd, $zcenc));
 
         // check that manager uses proper default provider to encrypt
         $manpwd = 'dohbar';
-        $manenc = $manager->encryptPassword($manpwd);
+        $manenc = $authenticationManager->encryptPassword($manpwd);
         $this->assertTrue($zcProvider->validatePassword($manpwd, $manenc));
     }
 
@@ -55,44 +56,43 @@ class TestAuthentication extends ZMTestCase {
      * Test manager multi provider.
      */
     public function testManagerMulti() {
-        $manager = new ZMAuthenticationManager();
-        //$this->assertTrue($manager->getDefaultProvider() instanceof ZMSha1Authentication);
-        $manager->addProvider('ZMZenCartAuthentication');
-        $this->assertNotNull($manager->getDefaultProvider());
-        $manager->addProvider('ZMSha1Authentication', true);
-        $this->assertTrue($manager->getDefaultProvider() instanceof ZMSha1Authentication);
+        $authenticationManager = $this->container->get('authenticationManager');
+        $this->assertNotNull($authenticationManager->getDefaultProvider());
 
         // check zc encryypted password
-        $zcProvider = new ZMZenCartAuthentication();
+        $zcProvider = new ZenCartAuthenticationProvider();
         $zcpwd = 'foobar';
         $zcenc = $zcProvider->encryptPassword($zcpwd);
-        $this->assertTrue($manager->validatePassword($zcpwd, $zcenc));
+        $this->assertTrue($authenticationManager->validatePassword($zcpwd, $zcenc));
 
         // check sha1 encryypted password
-        $sha1Provider = new ZMSha1Authentication();
+        $sha1Provider = new Sha1AuthenticationProvider();
         $sha1pwd = 'boofar';
         $sha1enc = $sha1Provider->encryptPassword($sha1pwd);
-        $this->assertTrue($manager->validatePassword($sha1pwd, $sha1enc));
+        $this->assertTrue($authenticationManager->validatePassword($sha1pwd, $sha1enc));
 
-        // check that manager uses proper default provider to encrypt
+        // check that authenticationManager uses proper default provider to encrypt
         $manpwd = 'dohbar';
-        $manenc = $manager->encryptPassword($manpwd);
-        $this->assertTrue($sha1Provider->validatePassword($manpwd, $manenc));
+        $manenc = $authenticationManager->encryptPassword($manpwd);
+        $this->assertTrue($zcProvider->validatePassword($manpwd, $manenc));
     }
 
     /**
      * Test providers.
      */
     public function testProviders() {
-        $implementations = array('ZMZenCartAuthentication', 'ZMSha1Authentication');
-        foreach ($implementations as $class) {
-            $provider = Beans::getBean($class);
-            if ($this->assertNotNull($provider, '%s: '.$class)) {
+        $authenticationManager = $this->container->get('authenticationManager');
+        foreach ($authenticationManager->getProviders() as $provider) {
+            if ($this->assertTrue($provider instanceof AuthenticationProvider)) {
                 $plaintext = 'foobar';
-                $encrypted = $provider->encryptPassword($plaintext);
-                $this->assertTrue($plaintext != $encrypted);
-                $this->assertNotNull($encrypted);
-                $this->assertTrue($provider->validatePassword($plaintext, $encrypted));
+                try {
+                    $encrypted = $provider->encryptPassword($plaintext);
+                    $this->assertTrue($plaintext != $encrypted);
+                    $this->assertNotNull($encrypted);
+                    $this->assertTrue($provider->validatePassword($plaintext, $encrypted));
+                } catch (Exception $e) {
+                    // not all support encrypting
+                }
             }
         }
     }
