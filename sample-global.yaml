@@ -34,8 +34,8 @@ admin,storefront:
           # force all links to be secure
           allSecure: false
         routing:
-          # enable symfony routing
-          enabled: true
+          # disable symfony routing
+          enabled: false
 
   container:
     services:
