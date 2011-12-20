@@ -22,7 +22,7 @@
 
 use zenmagick\base\Runtime;
 use zenmagick\base\ZMObject;
-use zenmagick\base\ioc\Container;
+use zenmagick\base\dependencyInjection\Container;
 use zenmagick\base\Beans;
 
 /**

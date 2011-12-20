@@ -24,7 +24,7 @@ use zenmagick\base\classloader\ClassLoader;
 use zenmagick\base\Runtime;
 use zenmagick\base\ZMObject;
 use zenmagick\base\events\Event;
-use zenmagick\base\ioc\loader\YamlFileLoader;
+use zenmagick\base\dependencyInjection\loader\YamlFileLoader;
 
 use Symfony\Component\Config\FileLocator;
 
@@ -203,7 +203,7 @@ class ZMThemes extends ZMObject {
             // custom theme.yaml settings
             $theme->loadSettings();
 
-            // theme IoC
+            // theme container
             $containerConfig = $theme->getBaseDir().DIRECTORY_SEPARATOR.'container.yaml';
             if (file_exists($containerConfig)) {
                 $containerYamlLoader = new YamlFileLoader(Runtime::getContainer(), new FileLocator(dirname($containerConfig)));

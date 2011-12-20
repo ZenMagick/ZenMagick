@@ -24,7 +24,7 @@ use zenmagick\base\Beans;
 use zenmagick\base\classloader\ClassLoader;
 use zenmagick\base\Toolbox;
 use zenmagick\base\events\Event;
-use zenmagick\base\ioc\loader\YamlFileLoader;
+use zenmagick\base\dependencyInjection\loader\YamlFileLoader;
 
 use Symfony\Component\Config\FileLocator;
 

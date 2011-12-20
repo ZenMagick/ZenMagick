@@ -23,7 +23,7 @@ namespace zenmagick\base;
 
 use zenmagick\base\ZMObject;
 
-use zenmagick\base\ioc\Container;
+use zenmagick\base\dependencyInjection\Container;
 
 /**
  * ZenMagick beans.

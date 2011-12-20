@@ -24,7 +24,7 @@ namespace apps\store\utils;
 use zenmagick\base\ZMObject;
 use zenmagick\base\Runtime;
 use zenmagick\base\Toolbox;
-use zenmagick\base\ioc\loader\YamlLoader;
+use zenmagick\base\dependencyInjection\loader\YamlLoader;
 use zenmagick\http\utils\ContextConfigLoader as HttpContextConfigLoader;
 
 use Symfony\Component\Config\FileLocator;

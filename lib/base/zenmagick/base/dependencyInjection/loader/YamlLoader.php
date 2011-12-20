@@ -19,13 +19,13 @@
  */
 ?>
 <?php
-namespace zenmagick\base\ioc\loader;
+namespace zenmagick\base\dependencyInjection\loader;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
 
 /**
- * Yaml loader for IoC definitions.
+ * Yaml loader for dependency injection container definitions.
  *
  * <p>Based on the <em>symfony2</em> dependency injection component.</p>
  *
@@ -33,7 +33,7 @@ use Symfony\Component\Config\FileLocator;
  * bits of the symfony DI loader system.</p>
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.base.ioc.loader
+ * @package zenmagick.base.dependencyInjection.loader
  */
 class YamlLoader extends YamlFileLoader {
 

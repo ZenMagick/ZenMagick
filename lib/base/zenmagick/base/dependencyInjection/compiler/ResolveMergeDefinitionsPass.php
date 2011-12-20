@@ -1,6 +1,6 @@
 <?php
 
-namespace zenmagick\base\ioc\compiler;
+namespace zenmagick\base\dependencyInjection\compiler;
 
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\DefinitionDecorator;
@@ -12,7 +12,7 @@ use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
  *
  * @author Johannes M. Schmitt <schmittjoh@gmail.com>
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.base.ioc.compiler
+ * @package zenmagick.base.dependencyInjection.compiler
  */
 class ResolveMergeDefinitionsPass implements CompilerPassInterface {
     private $container;

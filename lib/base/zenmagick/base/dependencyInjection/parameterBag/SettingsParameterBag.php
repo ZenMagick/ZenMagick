@@ -19,7 +19,7 @@
  */
 ?>
 <?php
-namespace zenmagick\base\ioc\parameterBag;
+namespace zenmagick\base\dependencyInjection\parameterBag;
 
 use zenmagick\base\Runtime;
 
@@ -29,7 +29,7 @@ use Symfony\Component\DependencyInjection\ParameterBag\ParameterBag;
  * Parameter bag that can also resolve against settings.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.base.ioc.parameterBag
+ * @package zenmagick.base.dependencyInjection.parameterBag
  */
 class SettingsParameterBag extends ParameterBag {
 

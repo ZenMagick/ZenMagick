@@ -22,7 +22,7 @@
 namespace zenmagick\base;
 
 use zenmagick\base\events\EventDispatcher;
-use zenmagick\base\ioc\Container;
+use zenmagick\base\dependencyInjection\Container;
 
 /**
  * Central place for runtime stuff.
