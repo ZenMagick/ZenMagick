@@ -68,15 +68,10 @@ class EventDispatcher extends SymfonyEventDispatcher {
             $event = new Event();
         }
 
+        $event->setDispatcher($this);
         $event->setName($eventName);
 
-        foreach ($this->getListeners($eventName) as $listener) {
-            $this->triggerListener($listener, $eventName, $event);
-
-            if ($event->isPropagationStopped()) {
-                break;
-            }
-        }
+        $this->doDispatch($this->getListeners($eventName), $eventName, $event);
     }
 
     /**
@@ -134,17 +129,6 @@ class EventDispatcher extends SymfonyEventDispatcher {
         // cuddle together :)
         $method = str_replace(' ', '', $method);
         return 'on'.$method;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    protected function triggerListener($listener, $eventName, Event $event) {
-        if ($listener instanceof \Closure) {
-            $listener->__invoke($event);
-        } else {
-            call_user_func($listener, $event);
-        }
     }
 
 }
