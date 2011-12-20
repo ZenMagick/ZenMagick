@@ -53,6 +53,16 @@ class TestZMLocaleUtils extends ZMTestCase {
     }
 
     /**
+     * Test other
+     */
+    public function testOther() {
+        $map = ZMLocaleUtils::buildL10nMap(self::$DATA_DIR.'l10n-other', '.txt');
+        if ($this->assertEqual(1, count($map))) {
+            $this->assertEqual(array('+ view size chart' => array('msg' => '+ view size chart', 'plural' => null, 'context' => null, 'filename' => 'l10n-other\l10n-other.txt', 'line' => 1)), array_pop($map));
+        }
+    }
+
+    /**
      * Test mixed
      */
     public function testMixed() {
