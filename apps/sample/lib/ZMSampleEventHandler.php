@@ -35,9 +35,11 @@ class ZMSampleEventHandler {
      * Init done callback.
      */
     public function onInitDone($event) {
+        // TODO: fix this
+        return;
         $request = $event->get('request');
         if (null != ($locale = $request->getParameter('locale'))) {
-            $this->container->get('localeService')->getLocale(true, $locale);
+            //$this->container->get('localeService')->getLocale(true, $locale);
             $request->getSession()->setValue('locale', $locale);
         } else if (null != ($locale = $request->getSession()->getValue('locale'))) {
             $this->container->get('localeService')->getLocale(true, $locale);

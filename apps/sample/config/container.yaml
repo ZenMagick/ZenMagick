@@ -24,6 +24,15 @@ services:
     class: ZMRequest
     scope: container
 
+  session:
+    class: zenmagick\http\session\Session
+    arguments: ['sample.lasse.net']
+    scope: container
+
+  templateManager:
+    class: ZMTemplateManager
+    scope: container
+
   defaultView:
     class: ZMSavantView
     scope: prototype

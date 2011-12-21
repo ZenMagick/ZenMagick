@@ -30,25 +30,10 @@
 class ZMIndexController extends ZMController {
 
     /**
-     * Create new instance.
-     */
-    function __construct() {
-        parent::__construct();
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
-
-
-    /**
      * {@inheritDoc}
      */
     public function getViewData($request) {
-        return array('currentLocale' => $this->container->get('localService')->getLocale()->getCode(), 'languages' => array('en' => 'English', 'de_DE' => 'Deutsch'));
+        return array('currentLocale' => $this->container->get('localeService')->getLocale()->getCode(), 'languages' => array('en' => 'English', 'de_DE' => 'Deutsch'));
     }
 
     /**

@@ -9,4 +9,4 @@
     <!-- load view -->
     <?php echo $this->fetch($viewTemplate) ?>
   </body>
-</html
+</html>
