@@ -2,5 +2,3 @@ imports:
     - { resource: container.yaml }
     - { resource: ../../../config/store-services.yaml }
     - { resource: ../../../config/store-container.yaml }
-    - { resource: local-container.yaml, mode: append }
-    - { resource: local-container_prod.yaml, mode: append }

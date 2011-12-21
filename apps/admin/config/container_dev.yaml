@@ -8,6 +8,6 @@ imports:
     ## shared dev container
     - { resource: ../../../config/store-container_dev.yaml }
     ## custom local container
-    - { resource: local-container.yaml, mode: append }
+    - { resource: local-container.yaml }
     ## custom local dev container
-    - { resource: local-container_dev.yaml, mode: append }
+    - { resource: local-container_dev.yaml }

@@ -1,13 +1,4 @@
 imports:
-    ## app container
     - { resource: container.yaml }
-    ## shared services
     - { resource: ../../../config/store-services.yaml }
-    ## shared config
     - { resource: ../../../config/store-container.yaml }
-    ## shared production container
-    - { resource: ../../../config/store-container_prod.yaml }
-    ## custom shared container
-    - { resource: local-container.yaml, mode: append }
-    ## custom production container
-    - { resource: local-container_prod.yaml, mode: append }

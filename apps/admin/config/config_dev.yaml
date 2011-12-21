@@ -1,14 +1,6 @@
 imports:
-    ## app config
     - { resource: config.yaml }
-    ## shared config
     - { resource: ../../../config/store-config.yaml }
-    ## shared dev config
-    - { resource: ../../../config/store-config_dev.yaml }
-    ## custom local config
-    - { resource: local-config.yaml, mode: append }
-    ## custom local dev config
-    - { resource: local-config_dev.yaml, mode: append }
 
 zenmagick:
   base:
