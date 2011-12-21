@@ -1,4 +1,4 @@
-$this->container->get('templateManager')parameters:
+parameters:
   kernel.root_dir: %zenmagick.cacheBaseDir%/kernel
   kernel.cache_dir: %zenmagick.cacheBaseDir%
   kernel.debug: false
@@ -7,33 +7,6 @@ $this->container->get('templateManager')parameters:
   zenmagick.cacheBaseDir: '<?php echo dirname(zenmagick\base\Runtime::getInstallationPath())."/cache/zenmagick" ?>'
 
 services:
-  loggingService:
-    class: zenmagick\base\logging\Logging
-    scope: container
-
-  eventDispatcher:
-    class: zenmagick\base\events\EventDispatcher
-    scope: container
-
-  settingsService:
-    class: zenmagick\base\settings\Settings
-    scope: container
-
-  authenticationManager:
-    class: zenmagick\base\security\authentication\AuthenticationManager
-    scope: container
-
-  sacsManager:
-    class: zenmagick\http\sacs\SacsManager
-    scope: container
-
-  contextConfigLoader:
-    class: apps\store\utils\ContextConfigLoader
-    scope: prototype
-
-  localeService:
-    class: ZMLocales
-    scope: container
 
   pluginService:
     class: ZMPlugins
@@ -43,12 +16,12 @@ services:
     class: ZMValidator
     scope: container
 
-  messageService:
-    class: ZMMessages
+  urlManager:
+    class: ZMUrlManager
     scope: container
 
-  ZMSession:
-    class: zenmagick\http\session\Session
+  request:
+    class: ZMRequest
     scope: container
 
   defaultView:
