@@ -27,6 +27,8 @@ use zenmagick\base\events\Event;
 use zenmagick\base\dependencyInjection\loader\YamlFileLoader;
 
 use Symfony\Component\Config\FileLocator;
+use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
+
 
     // XXX: remove once caching is not needed any more
     $CLASSLOADER = 'zenmagick\base\classloader\CachingClassLoader';
@@ -79,6 +81,11 @@ use Symfony\Component\Config\FileLocator;
             if (file_exists($packageConfig)) {
                 $packageYamlLoader = new YamlFileLoader(Runtime::getContainer(), new FileLocator(dirname($packageConfig)));
                 $packageYamlLoader->load($packageConfig);
+            }
+            $packageConfig = $path.'/container.xml';
+            if (file_exists($packageConfig)) {
+                $packageXmlLoader = new XmlFileLoader(Runtime::getContainer(), new FileLocator(dirname($packageConfig)));
+                $packageXmlLoader->load($packageConfig);
             }
         }
 
