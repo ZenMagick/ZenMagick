@@ -32,7 +32,7 @@ class ZMToolboxLocale extends ZMToolboxTool {
      * Format and display a date using the locales date/short.
      *
      * @param string date The date.
-     * @param string format Optional format string to override the format provided by the active <code>ZMLocale</code>; default is <code>null</code>.
+     * @param string format Optional format string to override the format provided by the active <code>Locale</code>; default is <code>null</code>.
      * @return string The formatted date.
      */
     public function shortDate($date, $format=null) {
@@ -43,7 +43,7 @@ class ZMToolboxLocale extends ZMToolboxTool {
      * Format and display a date using the locales date/long.
      *
      * @param string date The date.
-     * @param string format Optional format string to override the format provided by the active <code>ZMLocale</code>; default is <code>null</code>.
+     * @param string format Optional format string to override the format provided by the active <code>Locale</code>; default is <code>null</code>.
      * @return string The formatted date.
      */
     public function longDate($date, $format=null) {
@@ -56,7 +56,7 @@ class ZMToolboxLocale extends ZMToolboxTool {
      * @param string group The group.
      * @param string type Optional type.
      * @return string The format or <code>null</code>
-     * @see ZMLocale::getFormat(string,string)
+     * @see Locale::getFormat(string,string)
      */
     public function getFormat($group, $type=null) {
         return ZMLocaleUtils::getFormat($group, $type);

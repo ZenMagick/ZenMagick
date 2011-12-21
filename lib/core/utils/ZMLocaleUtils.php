@@ -320,7 +320,7 @@ class ZMLocaleUtils {
      * Format a date as short.
      *
      * @param Date date A date.
-     * @param string format Optional format string to override the format provided by the active <code>ZMLocale</code>; default is <code>null</code>.
+     * @param string format Optional format string to override the format provided by the active <code>Locale</code>; default is <code>null</code>.
      * @return string A short version.
      */
     public static function dateShort($date, $format=null) {
@@ -336,7 +336,7 @@ class ZMLocaleUtils {
      * Format a date as long.
      *
      * @param Date date A date.
-     * @param string format Optional format string to override the format provided by the active <code>ZMLocale</code>; default is <code>null</code>.
+     * @param string format Optional format string to override the format provided by the active <code>Locale</code>; default is <code>null</code>.
      * @return string A long version.
      */
     public static function dateLong($date, $format=null) {
@@ -354,7 +354,7 @@ class ZMLocaleUtils {
      * @param string group The group.
      * @param string type Optional type.
      * @return string The format or <code>null</code>
-     * @see ZMLocale::getFormat(string,string)
+     * @see Locale::getFormat(string,string)
      */
     public static function getFormat($group, $type=null) {
         return Runtime::getContainer()->get('localeService')->getLocale()->getFormat($group, $type);
