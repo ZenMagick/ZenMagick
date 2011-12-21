@@ -48,7 +48,7 @@ class CategoriesUlGenerator {
   function __construct($request) {
     $this->data = array();
     foreach (Runtime::getContainer()->get('categoryService')->getCategories($request->getSession()->getLanguageId()) as $category) {
-      $products_in_category = SHOW_COUNTS == 'true' ? count(Runtime::getContainer()->get('productService')::instance()->getProductIdsForCategoryId($category->getId(), $request->getSession()->getLanguageId())) : 0;
+      $products_in_category = SHOW_COUNTS == 'true' ? count(Runtime::getContainer()->get('productService')->getProductIdsForCategoryId($category->getId(), $request->getSession()->getLanguageId())) : 0;
       $this->data[$category->getParentId()][$category->getId()] = array('name' => $category->getName(), 'count' => $products_in_category);
     }
   }
