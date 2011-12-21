@@ -26,7 +26,6 @@ use Symfony\Component\Routing\loader\YamlFileLoader as SymfonyYamlFileLoader;
 
 use zenmagick\base\Runtime;
 use zenmagick\base\events\Event;
-use zenmagick\http\sacs\SacsManager;
 
     try {
         if (!defined('ZM_APP_PATH')) {
@@ -60,7 +59,7 @@ use zenmagick\http\sacs\SacsManager;
         $_zm_request->urlDecode();
 
         // make sure we use the appropriate protocol (HTTPS, for example) if required
-        SacsManager::instance()->ensureAccessMethod($_zm_request);
+        Runtime::getContainer()->get('sacsManager')->ensureAccessMethod($_zm_request);
 
         // load stuff that really needs to be global!
         if (Runtime::getSettings()->get('zenmagick.base.plugins.enabled', true)) {

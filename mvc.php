@@ -26,7 +26,6 @@ use Symfony\Component\Routing\loader\YamlFileLoader as SymfonyYamlFileLoader;
 
 use zenmagick\base\Runtime;
 use zenmagick\base\events\Event;
-use zenmagick\http\sacs\SacsManager;
 
     try {
         // create the main request instance
@@ -53,7 +52,7 @@ use zenmagick\http\sacs\SacsManager;
         $_zm_request->urlDecode();
 
         // make sure we use the appropriate protocol (HTTPS, for example) if required
-        SacsManager::instance()->ensureAccessMethod($_zm_request);
+        Runtime::getContainer()->get('sacsManager')->ensureAccessMethod($_zm_request);
 
         // form validation
         ZMValidator::instance()->load(file_get_contents(\ZMFileUtils::mkPath(array(Runtime::getApplicationPath(), 'config', 'validation.yaml'))));
@@ -77,5 +76,5 @@ use zenmagick\http\sacs\SacsManager;
     $request = $_zm_request;
     Runtime::getEventDispatcher()->dispatch('init_done', new Event(null, array('request' => $_zm_request)));
 
-    \ZMDispatcher::dispatch($_zm_request);
+    ZMDispatcher::dispatch($_zm_request);
     exit;
