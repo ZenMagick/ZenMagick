@@ -290,7 +290,7 @@ class ZMRequest extends ZMObject {
      * @return mixed A user/credentials object. Default is <code>null</code>.
      */
     public function getUser() {
-        if (null != ($userFactory = $this->container->get('userFactory'))) {
+        if ($this->container->has('userFactory') && null != ($userFactory = $this->container->get('userFactory'))) {
             return $userFactory->getUser($this);
         }
 
