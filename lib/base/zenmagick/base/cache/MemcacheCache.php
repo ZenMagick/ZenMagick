@@ -21,6 +21,7 @@
 <?php
 namespace zenmagick\base\cache;
 
+use Memcache;
 
 /**
  * Memcache caching.
