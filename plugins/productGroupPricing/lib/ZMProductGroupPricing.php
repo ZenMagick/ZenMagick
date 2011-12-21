@@ -66,7 +66,7 @@ class ZMProductGroupPricing extends ZMObject {
      *
      * @param ZMRequest request The current request.
      */
-    function populate($request) {
+    public function populate($request) {
         $this->id_ = $request->getParameter('groupPricingId', '0');
         $this->productId_ = $request->getProductId();
         $this->groupId_ = $request->getParameter('groupId', '0');
@@ -78,8 +78,9 @@ class ZMProductGroupPricing extends ZMObject {
             // default to current date
             $startDate = new DateTime();
         }
-        $this->startDate_ = DateTime::createFromFormat(ZMLocales::instance()->getLocale()->getFormat('date', 'short'), $startDate);
-        $this->endDate_ = DateTime::createFromFormat(ZMLocales::instance()->getLocale()->getFormat('date', 'short'), $request->getParameter('endDate'));
+        $localeService = $this->container->get('localeSercice');
+        $this->startDate_ = DateTime::createFromFormat($localeService->getLocale()->getFormat('date', 'short'), $startDate);
+        $this->endDate_ = DateTime::createFromFormat($localeService->getLocale()->getFormat('date', 'short'), $request->getParameter('endDate'));
     }
 
 

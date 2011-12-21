@@ -310,8 +310,10 @@ class ZMTheme extends ZMObject {
             $language = ZMLanguages::getDefaultLanguage();
         }
         $path = $this->getLangDir().$language->getDirectory().DIRECTORY_SEPARATOR;
+        $path = $this->getBaseDir().'locale/'.Runtime::getSettings()->get('zenmagick.base.locales.locale');
+
         // re-init with next file
-        $this->container->get('localeService')->getLocale()->init(Runtime::getSettings()->get('zenmagick.core.locales.locale'), $path);
+        $this->container->get('localeService')->getLocale()->init(Runtime::getSettings()->get('zenmagick.base.locales.locale'), $path);
     }
 
     /**

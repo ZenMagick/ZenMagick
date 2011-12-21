@@ -18,11 +18,6 @@ zenmagick:
         autoMap:
           enabled: true
 
-    ## locales
-    locales:
-      locale: en_NZ
-      provider: ZMPomoLocale
-
     ## fs
     fs:
       permissions:
@@ -38,6 +33,11 @@ zenmagick:
   ## base
   base:
     context: admin
+
+    ## locales
+    locales:
+      locale: en_NZ
+      handler: zenmagick\base\locales\handler\PomoLocale
 
     ## events
     events:

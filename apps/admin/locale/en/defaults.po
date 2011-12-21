@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: ${zenmagick.version}\n"
 "POT-Creation-Date: \n"
 "PO-Revision-Date: \n"
-"Last-Translator: \n"
+"Last-Translator: DerManoMann <mano@zenmagick.org>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -25,7 +25,8 @@ msgstr "Manufacturer"
 msgid "Order Status"
 msgstr "Order Status"
 
-#: shared\mvc\toolbox\ZMToolboxMacro.php:80 templates\views\order.php:72
+#: shared\mvc\toolbox\ZMToolboxMacro.php:80
+#: templates\views\order.php:72
 msgid "N/A"
 msgstr "N/A"
 
@@ -145,7 +146,13 @@ msgstr "None"
 msgid "Latest Accounts"
 msgstr "Latest Accounts"
 
-#: lib\dashboard\widgets\ZMLatestAccountsDashboardWidget.php:54 templates\views\accounts.php:25 templates\views\admin_users.php:25 templates\views\edit_admin_user.php:26 templates\views\plugins.php:29 templates\views\theme_builder.php:56 templates\views\update_user.php:24
+#: lib\dashboard\widgets\ZMLatestAccountsDashboardWidget.php:54
+#: templates\views\accounts.php:25
+#: templates\views\admin_users.php:25
+#: templates\views\edit_admin_user.php:26
+#: templates\views\plugins.php:29
+#: templates\views\theme_builder.php:56
+#: templates\views\update_user.php:24
 msgid "Name"
 msgstr "Name"
 
@@ -153,7 +160,10 @@ msgstr "Name"
 msgid "Registered"
 msgstr "Registered"
 
-#: lib\dashboard\widgets\ZMLatestAccountsDashboardWidget.php:57 lib\dashboard\widgets\ZMLatestOrdersDashboardWidget.php:60 templates\views\accounts.php:32 templates\views\orders.php:36
+#: lib\dashboard\widgets\ZMLatestAccountsDashboardWidget.php:57
+#: lib\dashboard\widgets\ZMLatestOrdersDashboardWidget.php:60
+#: templates\views\accounts.php:32
+#: templates\views\orders.php:36
 msgid "** Guest **"
 msgstr "** Guest **"
 
@@ -165,7 +175,9 @@ msgstr "Latest Orders"
 msgid "Order"
 msgstr "Order"
 
-#: lib\dashboard\widgets\ZMLatestOrdersDashboardWidget.php:56 templates\views\orders.php:25 templates\views\update_user.php:23
+#: lib\dashboard\widgets\ZMLatestOrdersDashboardWidget.php:56
+#: templates\views\orders.php:25
+#: templates\views\update_user.php:23
 msgid "Account"
 msgstr "Account"
 
@@ -173,7 +185,8 @@ msgstr "Account"
 msgid "Placed"
 msgstr "Placed"
 
-#: lib\dashboard\widgets\ZMLatestOrdersDashboardWidget.php:56 templates\views\orders.php:30
+#: lib\dashboard\widgets\ZMLatestOrdersDashboardWidget.php:56
+#: templates\views\orders.php:30
 msgid "Total"
 msgstr "Total"
 
@@ -181,7 +194,10 @@ msgstr "Total"
 msgid "Order Stats"
 msgstr "Order Stats"
 
-#: lib\dashboard\widgets\ZMOrderStatsDashboardWidget.php:53 templates\views\admin_users.php:27 templates\views\orders.php:29 templates\views\plugins.php:31
+#: lib\dashboard\widgets\ZMOrderStatsDashboardWidget.php:53
+#: templates\views\admin_users.php:27
+#: templates\views\orders.php:29
+#: templates\views\plugins.php:31
 msgid "Status"
 msgstr "Status"
 
@@ -189,7 +205,8 @@ msgstr "Status"
 msgid "Number of Orders"
 msgstr "Number of Orders"
 
-#: lib\dashboard\widgets\ZMPendingDashboardWidget.php:36 templates\views\accounts.php:35
+#: lib\dashboard\widgets\ZMPendingDashboardWidget.php:36
+#: templates\views\accounts.php:35
 msgid "Pending"
 msgstr "Pending"
 
@@ -221,7 +238,8 @@ msgstr "Update Checker"
 msgid "Checking..."
 msgstr "Checking..."
 
-#: lib\menu.php:23 templates\views\index.php:34
+#: lib\menu.php:23
+#: templates\views\index.php:34
 msgid "Dashboard"
 msgstr "Dashboard"
 
@@ -269,7 +287,8 @@ msgstr "Admin"
 msgid "Manage Users"
 msgstr "Manage Users"
 
-#: lib\menu.php:39 templates\views\manage_roles.php:41
+#: lib\menu.php:39
+#: templates\views\manage_roles.php:41
 msgid "Manage Roles"
 msgstr "Manage Roles"
 
@@ -277,11 +296,13 @@ msgstr "Manage Roles"
 msgid "Development"
 msgstr "Development"
 
-#: lib\menu.php:42 templates\views\l10n.php:20
+#: lib\menu.php:42
+#: templates\views\l10n.php:20
 msgid "Translation Helper"
 msgstr "Translation Helper"
 
-#: lib\menu.php:43 templates\views\theme_builder.php:50
+#: lib\menu.php:43
+#: templates\views\theme_builder.php:50
 msgid "Theme Builder"
 msgstr "Theme Builder"
 
@@ -297,7 +318,8 @@ msgstr "Patches"
 msgid "Cache"
 msgstr "Cache"
 
-#: lib\menu.php:50 templates\views\cache_admin.php:32
+#: lib\menu.php:50
+#: templates\views\cache_admin.php:32
 msgid "Cache Admin"
 msgstr "Cache Admin"
 
@@ -353,7 +375,8 @@ msgstr "Account for account id %s not found"
 msgid "Catalog Manager"
 msgstr "Catalog Manager"
 
-#: lib\mvc\controller\ZMEditAdminUserController.php:102 lib\mvc\controller\ZMUpdateUserController.php:127
+#: lib\mvc\controller\ZMEditAdminUserController.php:102
+#: lib\mvc\controller\ZMUpdateUserController.php:127
 msgid "Details updated."
 msgstr "Details updated."
 
@@ -497,7 +520,9 @@ msgstr "For the full PHP info see zen-cart's <a href=\"server_info.php\">server 
 msgid "Account: %s"
 msgstr "Account: %s"
 
-#: templates\views\account.php:27 templates\views\ezpages-details.php:30 templates\views\ezpages-overview.php:62
+#: templates\views\account.php:27
+#: templates\views\ezpages-details.php:30
+#: templates\views\ezpages-overview.php:62
 msgid "Title"
 msgstr "Title"
 
@@ -553,7 +578,9 @@ msgstr "HTML"
 msgid "Text"
 msgstr "Text"
 
-#: templates\views\accounts.php:24 templates\views\admin_users.php:24 templates\views\orders.php:24
+#: templates\views\accounts.php:24
+#: templates\views\admin_users.php:24
+#: templates\views\orders.php:24
 msgid "ID"
 msgstr "ID"
 
@@ -573,11 +600,15 @@ msgstr "Approved"
 msgid "Admin Users"
 msgstr "Admin Users"
 
-#: templates\views\admin_users.php:26 templates\views\edit_admin_user.php:29 templates\views\reset_password.php:28 templates\views\update_user.php:25
+#: templates\views\admin_users.php:26
+#: templates\views\edit_admin_user.php:29
+#: templates\views\reset_password.php:28
+#: templates\views\update_user.php:25
 msgid "Email"
 msgstr "Email"
 
-#: templates\views\admin_users.php:28 templates\views\plugins.php:32
+#: templates\views\admin_users.php:28
+#: templates\views\plugins.php:32
 msgid "Options"
 msgstr "Options"
 
@@ -641,7 +672,8 @@ msgstr "Execute"
 msgid "Edit User Details"
 msgstr "Edit User Details"
 
-#: templates\views\edit_admin_user.php:32 templates\views\manage_roles.php:46
+#: templates\views\edit_admin_user.php:32
+#: templates\views\manage_roles.php:46
 msgid "Roles"
 msgstr "Roles"
 
@@ -653,15 +685,18 @@ msgstr "Live Flag"
 msgid "Live User"
 msgstr "Live User"
 
-#: templates\views\edit_admin_user.php:47 templates\views\login.php:31
+#: templates\views\edit_admin_user.php:47
+#: templates\views\login.php:31
 msgid "Password"
 msgstr "Password"
 
-#: templates\views\edit_admin_user.php:50 templates\views\update_user.php:28
+#: templates\views\edit_admin_user.php:50
+#: templates\views\update_user.php:28
 msgid "Confirm password"
 msgstr "Confirm password"
 
-#: templates\views\edit_admin_user.php:55 templates\views\ezpages-details.php:103
+#: templates\views\edit_admin_user.php:55
+#: templates\views\ezpages-details.php:103
 msgid "Cancel"
 msgstr "Cancel"
 
@@ -681,7 +716,8 @@ msgstr "Edit EZPage"
 msgid "Same Window"
 msgstr "Same Window"
 
-#: templates\views\ezpages-details.php:73 templates\views\ezpages-overview.php:63
+#: templates\views\ezpages-details.php:73
+#: templates\views\ezpages-overview.php:63
 msgid "New Window"
 msgstr "New Window"
 
@@ -697,7 +733,8 @@ msgstr "Page"
 msgid "Navigation"
 msgstr "Navigation"
 
-#: templates\views\ezpages-details.php:39 templates\views\ezpages-overview.php:65
+#: templates\views\ezpages-details.php:39
+#: templates\views\ezpages-overview.php:65
 msgid "Header"
 msgstr "Header"
 
@@ -709,7 +746,8 @@ msgstr "Sort"
 msgid "Sidebox"
 msgstr "Sidebox"
 
-#: templates\views\ezpages-details.php:51 templates\views\ezpages-overview.php:67
+#: templates\views\ezpages-details.php:51
+#: templates\views\ezpages-overview.php:67
 msgid "Footer"
 msgstr "Footer"
 
@@ -721,7 +759,8 @@ msgstr "Table Of Contents"
 msgid "TOC Sort"
 msgstr "TOC Sort"
 
-#: templates\views\ezpages-details.php:60 templates\views\ezpages-overview.php:68
+#: templates\views\ezpages-details.php:60
+#: templates\views\ezpages-overview.php:68
 msgid "Chapter"
 msgstr "Chapter"
 
@@ -797,7 +836,9 @@ msgstr "three column"
 msgid "Select/Unselect All"
 msgstr "Select/Unselect All"
 
-#: templates\views\installation.php:218 templates\views\legacy-config.php:45 templates\views\update_user.php:36
+#: templates\views\installation.php:218
+#: templates\views\legacy-config.php:45
+#: templates\views\update_user.php:36
 msgid "Update"
 msgstr "Update"
 
@@ -830,18 +871,8 @@ msgid "Regenerate core.php"
 msgstr "Regenerate core.php"
 
 #: templates\views\installation.php:214
-msgid ""
-"This option will compress all files under lib and all <strong>installed</strong> plugins into a single"
-"file <code>core.php</code>."
-"If you install/uninstall plugins or make any other changes to the lib directory you'll need to regenerate <code>core.php</code> in"
-"order to make these changes become active."
-
-msgstr ""
-"This option will compress all files under lib and all <strong>installed</strong> plugins into a single"
-"file <code>core.php</code>."
-"If you install/uninstall plugins or make any other changes to the lib directory you'll need to regenerate <code>core.php</code> in"
-"order to make these changes become active."
-
+msgid "This option will compress all files under lib and all <strong>installed</strong> plugins into a singlefile <code>core.php</code>.If you install/uninstall plugins or make any other changes to the lib directory you'll need to regenerate <code>core.php</code> inorder to make these changes become active."
+msgstr "This option will compress all files under lib and all <strong>installed</strong> plugins into a singlefile <code>core.php</code>.If you install/uninstall plugins or make any other changes to the lib directory you'll need to regenerate <code>core.php</code> inorder to make these changes become active."
 
 #: templates\views\legacy-config.php:24
 msgid "Config: %s"
@@ -859,7 +890,8 @@ msgstr "Login"
 msgid "User Name"
 msgstr "User Name"
 
-#: templates\views\login.php:35 templates\views\reset_password.php:20
+#: templates\views\login.php:35
+#: templates\views\reset_password.php:20
 msgid "Reset Password"
 msgstr "Reset Password"
 
@@ -980,14 +1012,8 @@ msgid "installation"
 msgstr "installation"
 
 #: templates\views\theme_builder.php:75
-msgid ""
-"Once you have created the new theme, make sure to (re-)generate the required dummy theme files for zen-cart"
-"using the %s screen."
-
-msgstr ""
-"Once you have created the new theme, make sure to (re-)generate the required dummy theme files for zen-cart"
-"using the %s screen."
-
+msgid "Once you have created the new theme, make sure to (re-)generate the required dummy theme files for zen-cartusing the %s screen."
+msgstr "Once you have created the new theme, make sure to (re-)generate the required dummy theme files for zen-cartusing the %s screen."
 
 #: templates\views\theme_builder.php:52
 msgid "Create theme?"
@@ -1036,3 +1062,4 @@ msgstr "New password"
 #: templates\views\update_user.php:31
 msgid "Preferences"
 msgstr "Preferences"
+

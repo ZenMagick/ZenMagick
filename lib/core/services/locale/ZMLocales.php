@@ -19,8 +19,10 @@
  */
 ?>
 <?php
-//TODO: can we just move them in here?
-require_once dirname(__FILE__).DIRECTORY_SEPARATOR.'_zm.php';
+if (!function_exists('_zm')) {
+    //TODO: can we just move them in here?
+    require_once dirname(__FILE__).DIRECTORY_SEPARATOR.'_zm.php';
+}
 
 use zenmagick\base\Beans;
 use zenmagick\base\Runtime;

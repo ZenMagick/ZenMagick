@@ -29,3 +29,8 @@ services:
   messageService:
     class: zenmagick\http\messages\Messages
     scope: container
+
+  sacsManager:
+    class: zenmagick\http\sacs\SacsManager
+    scope: container
+   

@@ -69,4 +69,11 @@ class StaticInit {
         //AnnotationRegistry::registerFile(ZM_BASE_PATH . '/vendor/doctrine/lib/Doctrine/ORM/Mapping/Driver/DoctrineAnnotations.php');
     }
 
+    /**
+     * Preload Locales class to make translation functions available.
+     */
+    public static function initLocales() {
+        class_exists('zenmagick\base\locales\Locales');
+    }
+
 }

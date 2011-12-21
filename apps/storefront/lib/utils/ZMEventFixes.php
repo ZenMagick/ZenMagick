@@ -168,7 +168,7 @@ class ZMEventFixes extends ZMObject {
 
         // set locale
         if (null != ($language = $request->getSession()->getLanguage())) {
-            Runtime::getSettings()->set('zenmagick.core.locales.locale', $language->getCode());
+            Runtime::getSettings()->set('zenmagick.base.locales.locale', $language->getCode());
         }
 
         // TODO: remove once new admin is go

@@ -20,6 +20,8 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
+
 /**
  * Locale utils.
  *
@@ -323,7 +325,7 @@ class ZMLocaleUtils {
      */
     public static function dateShort($date, $format=null) {
         if ($date instanceof DateTime) {
-            $format = null != $format ? $format : ZMLocales::instance()->getLocale()->getFormat('date', 'short');
+            $format = null != $format ? $format : Runtime::getContainer()->get('localeService')->getLocale()->getFormat('date', 'short');
             return $date->format($format);
         }
 
@@ -339,7 +341,7 @@ class ZMLocaleUtils {
      */
     public static function dateLong($date, $format=null) {
         if ($date instanceof DateTime) {
-            $format = null != $format ? $format : ZMLocales::instance()->getLocale()->getFormat('date', 'long');
+            $format = null != $format ? $format : Runtime::getContainer()->get('localeService')->getLocale()->getFormat('date', 'long');
             return $date->format($format);
         }
 
@@ -355,7 +357,7 @@ class ZMLocaleUtils {
      * @see ZMLocale::getFormat(string,string)
      */
     public static function getFormat($group, $type=null) {
-        return ZMLocales::instance()->getLocale()->getFormat($group, $type);
+        return Runtime::getContainer()->get('localeService')->getLocale()->getFormat($group, $type);
     }
 
 }

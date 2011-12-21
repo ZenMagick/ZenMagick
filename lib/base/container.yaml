@@ -19,6 +19,10 @@ services:
     class: zenmagick\base\events\EventDispatcher
     scope: container
 
+  localeService:
+    class: zenmagick\base\locales\Locales
+    scope: container
+
   settingsService:
     class: zenmagick\base\settings\Settings
     scope: container

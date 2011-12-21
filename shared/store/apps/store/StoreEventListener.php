@@ -62,15 +62,10 @@ class StoreEventListener extends ZMObject {
             $containerYamlLoader = new YamlFileLoader(Runtime::getContainer(), new FileLocator(dirname($emailConfig)));
             $containerYamlLoader->load($emailConfig);
         }
-    }
 
-    /**
-     * Keep up support for local.php.
-     */
-    public function onBootstrapDone($event) {
         // load some static files that we still need
         $statics = array(
-            'admin,storefront' => array('lib/core/external/zm-pomo-3.3.packed.php', 'lib/core/services/locale/_zm.php'),
+            'admin,storefront' => array('lib/core/external/zm-pomo-3.3.packed.php'),
             'storefront' => array('shared/store/apps/store/bundles/ZenCartBundle/utils/zencart_overrides.php')
         );
         foreach ($statics as $context => $files) {
@@ -83,7 +78,12 @@ class StoreEventListener extends ZMObject {
                 }
             }
         }
+    }
 
+    /**
+     * Keep up support for local.php.
+     */
+    public function onBootstrapDone($event) {
         $local = Runtime::getInstallationPath().DIRECTORY_SEPARATOR.'local.php';
         if (file_exists($local)) {
             include $local;

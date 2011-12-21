@@ -332,6 +332,8 @@ class ZMPlugins extends ZMObject {
         // plugins prevail over defaults, *and* themes
         $classLoader->register();
 
+        $localeService = $this->container->get('localeService');
+
         // do the actual init only after all plugins have been loaded to allow
         // them to depend on each other
         foreach ($plugins as $id => $plugin) {
@@ -347,6 +349,10 @@ class ZMPlugins extends ZMObject {
                 $plugin->init();
                 $this->plugins_[$id] = array('plugin' => $plugin, 'init' => true);
             }
+
+            // plugins can only contribute translations
+            $path = $plugin->getPluginDirectory().'locale/'.Runtime::getSettings()->get('zenmagick.base.locales.locale');
+            $localeService->getLocale()->addResource($path);
         }
 
         return $plugins;

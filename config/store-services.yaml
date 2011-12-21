@@ -146,10 +146,6 @@ services:
     class: zenmagick\base\security\authentication\AuthenticationManager
     scope: container
 
-  sacsManager:
-    class: zenmagick\http\sacs\SacsManager
-    scope: container
-   
   blockService:
     class: ZMBlocks
     scope: container
@@ -196,10 +192,6 @@ services:
 
   ezPageService:
     class: ZMEZPages
-    scope: container
-
-  localeService:
-    class: ZMLocales
     scope: container
 
   templateManager:

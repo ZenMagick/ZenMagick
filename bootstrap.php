@@ -144,10 +144,7 @@ use Symfony\Component\Config\FileLocator;
         Runtime::getEventDispatcher()->dispatch('init_config_done', new Event());
 
         // set up locale
-        if (Runtime::getContainer()->has('localeService')) {
-            $localeService = Runtime::getContainer()->get('localeService');
-            $localeService->init(Runtime::getSettings()->get('zenmagick.core.locales.locale'));
-        }
+        Runtime::getContainer()->get('localeService')->init(Runtime::getSettings()->get('zenmagick.base.locales.locale', 'en'));
 
         // set a default timezone; NOTE: warnings are suppressed for date_default_timezone_get() in case there isn't a default at all
         date_default_timezone_set(Runtime::getSettings()->get('zenmagick.core.date.timezone', @date_default_timezone_get()));

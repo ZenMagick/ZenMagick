@@ -29,16 +29,13 @@ use zenmagick\base\Beans;
  * @package org.zenmagick.plugins.dataExporter
  */
 class ZMExportOrdersController extends ZMController {
-    private $dateFormat_;
 
     /**
-     * Create instance.
+     * Get the date format.
      */
-    public function __construct() {
-        parent::__construct();
-        $this->dateFormat_ = ZMLocales::instance()->getLocale()->getFormat('date', 'short');
+    protected function getDateFormat() {
+        return $this->container->get('localeService')->getLocale()->getFormat('date', 'short');
     }
-
 
     /**
      * {@inheritDoc}
@@ -48,7 +45,7 @@ class ZMExportOrdersController extends ZMController {
         $toDate = $request->getParameter('toDate');
         $exportFormat = $request->getParameter('exportFormat');
         // datepicker uses double chars
-        $dateFormat = str_replace(array('d', 'm', 'y', 'Y'), array('dd', 'mm', 'yy', 'yy'), $this->dateFormat_);
+        $dateFormat = str_replace(array('d', 'm', 'y', 'Y'), array('dd', 'mm', 'yy', 'yy'), $this->getDateFormat());
         return array('fromDate' => $fromDate, 'toDate' => $toDate, 'dateFormat' => $dateFormat);
     }
 
@@ -62,12 +59,13 @@ class ZMExportOrdersController extends ZMController {
 
         $viewData = array();
         if (null != $fromDate) {
-            $orderDateFrom = DateTime::createFromFormat($this->dateFormat_.' H:i:s', $fromDate.' 00:00:00');
+            $dateFormat = $this->getDateFormat();
+            $orderDateFrom = DateTime::createFromFormat($dateFormat.' H:i:s', $fromDate.' 00:00:00');
             if (!empty($toDate)) {
-                $orderDateTo = DateTime::createFromFormat($this->dateFormat_.' H:i:s', $toDate.' 00:00:00');
+                $orderDateTo = DateTime::createFromFormat($dateFormat.' H:i:s', $toDate.' 00:00:00');
             } else {
                 $orderDateTo = new DateTime();
-                $toDate = $orderDateTo->format($this->dateFormat_);
+                $toDate = $orderDateTo->format($dateFormat);
             }
 
             // TODO: use new ZMOrders method
