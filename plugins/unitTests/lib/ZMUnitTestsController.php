@@ -111,7 +111,12 @@ class ZMUnitTestsController extends \ZMController {
             foreach ($tests as $key => $clazz) {
                 if (0 === strpos($clazz, 'service#')) {
                     $id = str_replace('service#', '', $clazz);
-                    $allTests[$group][$key] = $this->container->get($id);
+                    try {
+                        $allTests[$group][$key] = $this->container->get($id);
+                    } catch (Exception $e) {
+                        $this->messageService->warn('could not get service with id: '.$id);
+                        unset($allTests[$group][$key]);
+                    }
                 } else if (null != ($test = Beans::getBean($clazz))) {
                     $allTests[$group][$key] = $test;
                 } else {
