@@ -32,7 +32,7 @@ use zenmagick\base\Runtime;
  * @author DerManoMann
  * @package zenmagick.store.shared.service
  */
-class Plugins extends ZMPlugins {
+class Plugins extends zenmagick\base\plugins\Plugins {
 
     /**
      * {@inheritDoc}

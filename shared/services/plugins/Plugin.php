@@ -35,7 +35,7 @@ use apps\store\menu\MenuElement;
  * @author DerManoMann
  * @package zenmagick.store.shared.services.plugins
  */
-class Plugin extends ZMPlugin {
+class Plugin extends zenmagick\base\plugins\Plugin {
     /** internal key constant */
     const KEY_PREFIX = 'PLUGIN_';
     /** internal key constant */

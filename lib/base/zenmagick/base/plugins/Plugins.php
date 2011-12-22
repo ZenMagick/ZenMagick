@@ -21,9 +21,12 @@
 <?php
 namespace zenmagick\base\plugins;
 
-use zenmagick\base\Runtime;
 use zenmagick\base\classloader\ClassLoader;
-use zenmagick\base\events\Event;
+use zenmagick\base\Runtime;
+use zenmagick\base\Toolbox;
+use zenmagick\base\ZMObject;
+
+use zenmagick\apps\store\utils\ContextConfigLoader;
 
 /**
  * Basic plugin service.
@@ -32,17 +35,19 @@ use zenmagick\base\events\Event;
  * <dl>
  *  <dt>a single file</dt>
  *  <dd>In this case the filename is expected to reflect the classname and the class, in
- *  turn, to extend from <code>\zenmagick\base\pluginsPlugin</code>.</dd>
+ *  turn, to extend from <code>Plugin</code>.</dd>
  *  <dt>a directory containing multiple files</dt>
  *  <dd>In this case the convention require a <code>.php</code> with the same name as the
- *  directory, containing the main plugin class. Again, the classname is
+ *  directory in the directory, containing the main plugin class. Again, the classname is
  *  expected to be the same as the filename (without the <code>.php</code> extension).
+ *  It is the plugins responsibility to set use the appropricate <em>loader policy</em in
+ *  order to expose all required code/classes to the loader..</dd>
  * <dl>
  *
- * @author DerManoMann <mano@zenmagick.org>
+ * @author DerManoMann <mano@zenmagick.org> <mano@zenmagick.org>
  * @package zenmagick.base.plugins
  */
-class Plugins {
+class Plugins extends ZMObject {
     // internal plugin cache with some details
     protected $plugins_;
     // plugin status details
@@ -55,20 +60,13 @@ class Plugins {
      * Create new instance.
      */
     public function __construct() {
+        parent::__construct();
         $this->plugins_ = array();
         $this->pluginStatus_ = $this->loadStatus();
         if (!is_array($this->pluginStatus_)) {
             $this->pluginStatus_ = array();
         }
         $this->pathIdMap_ = null;
-    }
-
-
-    /**
-     * Get instance.
-     */
-    public static function instance() {
-        return Runtime::getContainer()->get('pluginService');
     }
 
 
@@ -94,13 +92,23 @@ class Plugins {
             $this->pathIdMap_ = array();
             foreach (Runtime::getPluginBasePath() as $basePath) {
                 $this->pathIdMap_[$basePath] = array();
-                foreach (new \DirectoryIterator($basePath) as $fileInfo) {
-                    if ($fileInfo->isDot()) {
-                        continue;
+                if (file_exists($basePath) && is_dir($basePath) && false !== ($handle = @opendir($basePath))) {
+                    while (false !== ($file = readdir($handle))) {
+                        if ('.' == $file[0]) {
+                            continue;
+                        }
+
+                        $id = str_replace('.php', '', $file);
+                        // todo: drop
+                        $id = preg_replace('/^ZM/', '', $id);
+                        // single file plugin
+                        if (is_file($basePath.DIRECTORY_SEPARATOR.$file)) {
+                            $id = preg_replace('/Plugin$/', '', $id);
+                        }
+                        $id{0} = strtolower($id{0});
+                        $this->pathIdMap_[$basePath][] = $id;
                     }
-                    $id = str_replace(array('Plugin', '.php'), '', $fileInfo->getFilename());
-                    $id{0} = strtolower($id{0});
-                    $this->pathIdMap_[$basePath][] = $id;
+                    @closedir($handle);
                 }
             }
         }
@@ -111,17 +119,17 @@ class Plugins {
     /**
      * Get all plugins for a given context.
      *
-     * @param int context Optional context flag; default is <em>0</em> for all.
+     * @param string context Optional context; default is <code>null</code> for all.
      * @param boolean enabled If <code>true</code>, return only enabled plugins: default is <code>true</code>.
      * @return array A list of <code>Plugin</code> instances.
      */
-    public function getAllPlugins($context=0, $enabled=true) {
+    public function getAllPlugins($context=null, $enabled=true) {
         $pathIdMap = array();
         // populate list of plugin ids to load
         if ($enabled) {
             // use plugin status to select plugins
             foreach ($this->pluginStatus_ as $id => $status) {
-                if ($status['enabled'] && (0 == $context || ($context&$status['context']))) {
+                if ($status['enabled'] && (null === $context || Toolbox::isContextMatch($status['context'], $context))) {
                     $basePath = array_key_exists('basePath', $status) ? $status['basePath'] : $this->getBasePathForId($id);
                     if (!array_key_exists($basePath, $pathIdMap)) {
                         $pathIdMap[$basePath] = array();
@@ -137,7 +145,7 @@ class Plugins {
                 foreach ($idList as $id) {
                     if (!array_key_exists($id, $this->pluginStatus_)) {
                         $this->pluginStatus_[$id] = array(
-                          'context' => 0,
+                          'context' => null,
                           'basePath' => $basePath,
                           'enabled' => false
                         );
@@ -157,6 +165,7 @@ class Plugins {
         }
 
         if (!$enabled) {
+            // sort
             ksort($plugins);
         }
 
@@ -193,11 +202,12 @@ class Plugins {
         $basePath = $this->getBasePathForId($id);
         $pluginDir = $basePath.$id;
         if (is_dir($pluginDir)) {
-            // expect plugin file in the directory as '[CamelCaseId]Plugin.php' extension
-            $pluginClass = $pluginClassSuffix . 'Plugin';
+            // todo: drop ZM stuff
+            // expect plugin file in the directory as 'ZM[CamelCaseId]Plugin.php.php' extension
+            $pluginClass = 'ZM' . $pluginClassSuffix . 'Plugin';
             $file = $pluginDir . DIRECTORY_SEPARATOR . $pluginClass . '.php';
             if (!file_exists($file)) {
-                Runtime::getLogging($this)->debug("can't find plugin file(dir) for id = '".$id."'; dir = '".$pluginDir."'");
+                Runtime::getLogging()->warn("can't find plugin file(dir) for id = '".$id."'; dir = '".$pluginDir."'");
                 return null;
             }
         } else {
@@ -205,10 +215,11 @@ class Plugins {
             $pluginClass = $pluginClassSuffix;
             $file = $basePath . $pluginClass . '.php';
             if (!is_file($file)) {
-                $pluginClass = $pluginClassSuffix . 'Plugin';
+                // todo: drop ZM stuff
+                $pluginClass = 'ZM' . $pluginClassSuffix . 'Plugin';
                 $file = $basePath . $pluginClass . '.php';
                 if (!is_file($file)) {
-                    Runtime::getLogging($this)->debug("can't find plugin file for id = '".$id."'; dir = '".$pluginDir."'");
+                    Runtime::getLogging()->warn("can't find plugin file for id = '".$id."'; dir = '".$pluginDir."'");
                     return null;
                 }
             }
@@ -220,8 +231,11 @@ class Plugins {
             require_once($file);
         }
 
-        $plugin = new $pluginClass();
-        $plugin->setId(lcfirst(substr(preg_replace('/Plugin$/', '', $pluginClass), 2)));
+        $plugin = Runtime::getContainer()->get($pluginClass);
+        $id = substr(preg_replace('/Plugin$/', '', $pluginClass), 2);
+        $id[0] = strtolower($id[0]);
+        $plugin->setId($id);
+        //PHP5.3 only: $plugin->setId(lcfirst(substr(preg_replace('/Plugin$/', '', $pluginClass), 2)));
         $pluginDir = dirname($file) . DIRECTORY_SEPARATOR;
         $plugin->setPluginDirectory($pluginDir == $basePath ? $basePath : $pluginDir);
 
@@ -232,11 +246,11 @@ class Plugins {
     /**
      * Init all plugins.
      *
-     * @param int context Optional context flag; default is <em>0</em> for all.
+     * @param int context Optional context flag; default is <code>null</code> for all.
      * @param boolean enabled If <code>true</code>, return only enabled plugins: default is <code>true</code>.
      * @return array List of initialized plugins.
      */
-    public function initAllPlugins($context=0, $enabled=true) {
+    public function initAllPlugins($context=null, $enabled=true) {
         $ids = array();
         foreach ($this->getAllPlugins($context, $enabled) as $plugin) {
             $ids[] = $plugin->getId();
@@ -287,28 +301,46 @@ class Plugins {
         }
 
         // plugins get their own loader
-        $pluginClassLoader = new ClassLoader();
+        $classLoader = $this->container->get('classLoader');
 
         $plugins = array();
         foreach ($ids as $id) {
             // get list
             $plugin = $this->getPluginForId($id);
             if (null != $plugin && ($plugin && $plugin->isEnabled() || !$enabled)) {
-                $pluginClassLoader->addConfig($plugin->getPluginDirectory());
+                $libPath = $plugin->getPluginDirectory().'lib';
+                $classLoader->addNamespace('plugins\\'.$id, $libPath);
+                // allow custom class loading config
+                $classLoader->addConfig($libPath);
                 $plugins[$id] = $plugin;
             }
         }
+
+        // plugins prevail over defaults, *and* themes
+        $classLoader->register();
+
+        $localeService = $this->container->get('localeService');
 
         // do the actual init only after all plugins have been loaded to allow
         // them to depend on each other
         foreach ($plugins as $id => $plugin) {
             if ($this->needsInit($id)) {
+                $pluginConfig = $plugin->getPluginDirectory().DIRECTORY_SEPARATOR.'plugin.yaml';
+                if (file_exists($pluginConfig)) {
+                    $configLoader = $this->container->get('contextConfigLoader');
+                    $configLoader->setConfig(Toolbox::loadWithEnv($pluginConfig));
+                    $configLoader->process();
+                }
+
                 // call init only after everything set up
                 $plugin->init();
                 $this->plugins_[$id] = array('plugin' => $plugin, 'init' => true);
             }
+
+            // plugins can only contribute translations
+            $path = $plugin->getPluginDirectory().'locale/'.Runtime::getSettings()->get('zenmagick.base.locales.locale');
+            $localeService->getLocale()->addResource($path);
         }
-        Runtime::getEventDispatcher()->dispatch('init_plugin_group_done', new Event($this, array('ids' => $ids, 'plugins' => $plugins)));
 
         return $plugins;
     }

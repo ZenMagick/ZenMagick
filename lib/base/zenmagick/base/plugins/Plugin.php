@@ -19,12 +19,13 @@
  */
 ?>
 <?php
+namespace zenmagick\base\plugins;
 
 use zenmagick\base\Runtime;
 use zenmagick\base\ZMObject;
 
 /**
- * Abstract base class for plugins.
+ * Base class for plugins.
  *
  * <p>Plugins are a simple way to add custom code to ZenMagick.</p>
  *
@@ -48,32 +49,22 @@ use zenmagick\base\ZMObject;
  * </dl>
  *
  * @author DerManoMann <mano@zenmagick.org> <mano@zenmagick.org>
- * @package org.zenmagick.core.services.plugins
+ * @package zenmagick.base.plugins
  */
-abstract class ZMPlugin extends ZMObject {
-    /** Do not load any plugin files (except, of course, the plugin itself). */
-    const LP_NONE = 'NONE';
-    /** Load files from the plugin folder, but ignore subfolder. */
-    const LP_FOLDER = 'FOLDER';
-    /** Load all files from a lib subfolder, including subfolder. */
-    const LP_LIB = 'LIB';
-    /** Load all files including subfolder. */
-    const LP_ALL = 'ALL';
-
+class Plugin extends ZMObject {
     private $id_;
     private $name_;
     private $description_;
     private $version_;
     private $enabled_;
     private $pluginDirectory_;
-    private $loaderPolicy_;
     private $context_;
 
 
     /**
      * Create new plugin with some defaults.
      */
-    function __construct() {
+    public function __construct() {
         parent::__construct();
         // default
         $this->id_ = get_class($this);
@@ -82,15 +73,7 @@ abstract class ZMPlugin extends ZMObject {
         $this->version_ = '0.0';
         $this->enabled_ = null;
         $this->pluginDirectory_ = null;
-        $this->loaderPolicy_ = self::LP_LIB;
         $this->context_ = null;
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
     }
 
 
@@ -190,7 +173,7 @@ abstract class ZMPlugin extends ZMObject {
      * @return boolean <code>true</code> if the plugin is enabled, <code>false</code> if not.
      */
     public function isEnabled() {
-        return null !== $this->enabled_ ? $this->enabled_ : Runtime::getSettings()->get('zenmagick.core.plugins.'.$this->getId().'.enabled', false);
+        return null !== $this->enabled_ ? $this->enabled_ : Runtime::getSettings()->get('zenmagick.base.plugins.'.$this->getId().'.enabled', false);
     }
 
     /**
@@ -207,33 +190,7 @@ abstract class ZMPlugin extends ZMObject {
      *
      * <p>Code to set up internal resources, etc. should be called here, rather than in the * constructor.</p>
      */
-    public abstract function init();
-
-    /**
-     * Get this plugin's loader policy.
-     *
-     * <dl>
-     *   <dt>ZMPlugin::LP_NONE</dt><dd>Not supported.</dd>
-     *   <dt>ZMPlugin::LP_FOLDER</dt><dd>Everything in the plugin folder, excluding all subfolder and their contents.</dd>
-     *   <dt>ZMPlugin::LP_ALL</dt><dd>All (<code>.php</code>) files can be added to <code>core.php</code>.</dd>
-     * </dl>
-     *
-     * @return string The loader policy.
-     * @deprecated this is no longer supported
-     */
-    public function getLoaderPolicy() {
-        return $this->loaderPolicy_;
-    }
-
-    /**
-     * Set the loader policy for this plugin.
-     *
-     * @param string loaderPolicy The loader policy.
-     * @deprecated this is no longer supported
-     */
-    public function setLoaderPolicy($loaderPolicy) {
-        $this->loaderPolicy_ = $loaderPolicy;
-    }
+    public function init() {}
 
     /**
      * Get the context flags.

@@ -22,6 +22,8 @@
 
         <service id="contextConfigLoader" class="zenmagick\base\utils\ContextConfigLoader" scope="prototype" />
 
+        <service id="pluginService" class="zenmagick\base\plugins\Plugins" scope="container" />
+
         <service id="defaultLoggingHandler" class="zenmagick\base\logging\handler\DefaultLoggingHandler" scope="container">
             <call method="setLogLevel">
                 <argument>INFO</argument>
