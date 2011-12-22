@@ -4,14 +4,13 @@
 
 
 parameters:
-  kernel.environment: '<?php echo ZM_ENVIRONMENT ?>'
+  kernel.environment: %zenmagick.environment%
   kernel.root_dir: %zenmagick.cacheBaseDir%/kernel
   kernel.cache_dir: %zenmagick.cacheBaseDir%
   kernel.debug: false
   kernel.bundles: %zenmagick.bundles%
-  zenmagick.installationPath: '<?php echo dirname(zenmagick\base\Runtime::getInstallationPath()) ?>'
   zenmagick.cacheIds: ['transientCache', 'persistentCache', 'servicesCache', 'templateCache']
-  zenmagick.cacheBaseDir: '<?php echo dirname(zenmagick\base\Runtime::getInstallationPath())."/cache/zenmagick" ?>'
+  zenmagick.cacheBaseDir: %zenmagick.installationPath%/cache/zenmagick
 
 
 # database configuration settings
@@ -49,7 +48,7 @@ doctrine:
             type: annotation
             # @todo will eventually be the namespace apps\store\entities
             prefix: ZM
-            dir: %zenmagick.installationPath%/zenmagick/shared/model
+            dir: %zenmagick.installationPath%/shared/model
 
 
 # regular services and prototypes
