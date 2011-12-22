@@ -314,6 +314,8 @@ class ZMPlugins extends ZMObject {
             $plugin = $this->getPluginForId($id);
             if (null != $plugin && ($plugin && $plugin->isEnabled() || !$enabled)) {
                 $libPath = $plugin->getPluginDirectory().'lib';
+                $classLoader->addNamespace('plugins\\'.$id, $libPath);
+                // allow custom class loading config
                 $classLoader->addConfig($libPath);
                 $plugins[$id] = $plugin;
             }
