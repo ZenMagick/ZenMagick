@@ -20,17 +20,17 @@
  */
 ?>
 <?php
-
+namespace zenmagick\base\utils;
 
 /**
  * Rational number math.
  *
  * @author dickmunroe
  * @author DerManoMann <mano@zenmagick.org> <mano@zenmagick.org>
- * @package org.zenmagick.core.utils
+ * @package zenmagick.base.utils
  * @see http://www.phpclasses.org/browse/file/12724.html
  */
-class ZMBigDecimal {
+class BigDecimal {
     private $n;
     private $d;
 
@@ -41,11 +41,11 @@ class ZMBigDecimal {
      * @param mixed n if a numerator/denominator pair is provided or an integer or a floating point number.
      * @param integer d Optional denominator of a rational number; default is <code>null</code>.
      */
-    function __construct($n, $d=null) {
+    public function __construct($n, $d=null) {
         if (null !== $d) {
             $this->n = $n;
             $this->d = $d;
-        } else if (is_object($n) && $n instanceof ZMBigDecimal) {
+        } else if (is_object($n) && $n instanceof BigDecimal) {
             $this->n = $n->n;
             $this->d = $n->d;
         } else if (is_numeric($n) && ($n == floor($n))) {
@@ -65,11 +65,11 @@ class ZMBigDecimal {
      * Add two rational numbers.
      *
      * @param mixed r The number to be added.
-     * @return ZMBigDecimal The result.
+     * @return BigDecimal The result.
      */
     public function add($r) {
         if (!is_object($r)) {
-            $r = new ZMBigDecimal($r);
+            $r = new BigDecimal($r);
         }
 
         if ($this->d != $r->d) {
@@ -80,18 +80,18 @@ class ZMBigDecimal {
             $d = $this->d;
         }
 
-        return new ZMBigDecimal($n, $d);
+        return new BigDecimal($n, $d);
     }
 
     /**
      * Divide two rational numbers.
      *
      * @param mixed r The number to be divided by.
-     * @return ZMBigDecimal The result.
+     * @return BigDecimal The result.
      */
     public function divide($r) {
         // create new instance as we are inverting the value
-        $xxx = new ZMBigDecimal($r);
+        $xxx = new BigDecimal($r);
         $xxx->invert();
         return $this->multiply($xxx);
     }
@@ -100,25 +100,25 @@ class ZMBigDecimal {
      * Multiply two rational numbers.
      *
      * @param mixed r The number to be mutplied by.
-     * @return ZMBigDecimal The result.
+     * @return BigDecimal The result.
      */
     public function multiply($r) {
         if (!is_object($r)) {
-            $r = new ZMBigDecimal($r);
+            $r = new BigDecimal($r);
         }
 
-        return new ZMBigDecimal($this->n * $r->n, $this->d * $r->d);
+        return new BigDecimal($this->n * $r->n, $this->d * $r->d);
     }
 
     /**
      * Subtract two rational numbers.
      *
      * @param mixed r The number to be subtracted.
-     * @return ZMBigDecimal The result.
+     * @return BigDecimal The result.
      */
     public function subtract($r) {
         if (!is_object($r)) {
-            $r = new ZMBigDecimal($r);
+            $r = new BigDecimal($r);
         }
 
         if ($this->d != $r->d) {
@@ -129,13 +129,13 @@ class ZMBigDecimal {
             $d = $this->d;
         }
 
-        return new ZMBigDecimal($n, $d);
+        return new BigDecimal($n, $d);
     }
 
     /**
      * Invert the value of this instance.
      *
-     * @return ZMBigDecimal This instance.
+     * @return BigDecimal This instance.
      */
     public function invert() {
         $xxx = $this->n;
@@ -147,7 +147,7 @@ class ZMBigDecimal {
     /**
      * Convert this rational number to the simplest form.
      *
-     * @return ZMBigDecimal This instance.
+     * @return BigDecimal This instance.
      */
     public function simplify() {
         if ($this->n < $this->d) {
@@ -196,7 +196,7 @@ class ZMBigDecimal {
      * @return string The string.
      */
     public function __toString() {
-        return "[ZMBigDecimal n=".$this->n.", d=".$this->d."]";
+        return "[BigDecimal n=".$this->n.", d=".$this->d."]";
     }
 
     /*

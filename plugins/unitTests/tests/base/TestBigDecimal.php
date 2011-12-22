@@ -20,19 +20,21 @@
 ?>
 <?php
 
+use zenmagick\base\utils\BigDecimal;
+
 /**
- * Test ZMBigDecimal.
+ * Test BigDecimal.
  *
  * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestZMBigDecimal extends ZMTestCase {
+class TestBigDecimal extends ZMTestCase {
 
     /**
      * Test add.
      */
     public function testAdd() {
-        $d1 = new ZMBigDecimal(123.33);
+        $d1 = new BigDecimal(123.33);
         $this->assertEqual(133.33, $d1->add(10)->asFloat());
         $this->assertEqual(246.66, $d1->add($d1)->asFloat());
     }
@@ -41,7 +43,7 @@ class TestZMBigDecimal extends ZMTestCase {
      * Test subtract.
      */
     public function testSubtract() {
-        $d1 = new ZMBigDecimal(98.66);
+        $d1 = new BigDecimal(98.66);
         $this->assertEqual(88.66, $d1->subtract(10)->asFloat());
         $this->assertEqual(0, $d1->subtract($d1)->asFloat(6));
     }
@@ -50,7 +52,7 @@ class TestZMBigDecimal extends ZMTestCase {
      * Test multiply.
      */
     public function testMultiply() {
-        $d1 = new ZMBigDecimal(3.33);
+        $d1 = new BigDecimal(3.33);
         $result = $d1->multiply(3);
         $this->assertEqual(9.99, $result->asFloat(12));
         $this->assertEqual(array(2997, 300), $result->getNDPair());
@@ -60,7 +62,7 @@ class TestZMBigDecimal extends ZMTestCase {
      * Test divide.
      */
     public function testDivide() {
-        $d1 = new ZMBigDecimal(3.33);
+        $d1 = new BigDecimal(3.33);
         $result = $d1->divide(3);
         $this->assertEqual(1.11, $result->asFloat(12));
         $this->assertEqual(array(999, 900), $result->getNDPair());
