@@ -106,7 +106,7 @@ class Locales extends ZMObject {
     public function getLocalesList() {
         if (null === $this->locales_) {
             $this->locales_ = array();
-            $path = Runtime::getApplicationPath().'/locale';
+            $path = realpath(Runtime::getApplicationPath()).'/locale/';
             $handle = opendir($path);
             while (false !== ($file = readdir($handle))) {
                 $yamlFile = $path.$file.'/locale.yaml';
