@@ -42,7 +42,7 @@ class ZMLiftSuggestLookup extends LiftSuggestLookup implements ContainerAwareInt
      * @param ZMPlugin plugin The related plugin or <code>null</code>.
      */
 	  public function __construct($plugin=null) {
-        $this->plugin_ = null != $plugin ? $plugin : ZMPlugins::instance()->getPluginForId('liftSuggest');
+        $this->plugin_ = null != $plugin ? $plugin : Runtime::getContainer()->get('pluginService')->getPluginForId('liftSuggest');
         parent::__construct($this->plugin_->getLiftSuggestConfig());
     }
 

@@ -63,7 +63,7 @@ use zenmagick\base\events\Event;
 
         // load stuff that really needs to be global!
         if (Runtime::getSettings()->get('zenmagick.base.plugins.enabled', true)) {
-            foreach (ZMPlugins::instance()->getAllPlugins(ZMSettings::get('zenmagick.base.context')) as $plugin) {
+            foreach (Runtime::getContainer()->get('pluginService')->getAllPlugins(ZMSettings::get('zenmagick.base.context')) as $plugin) {
                 foreach ($plugin->getGlobal($_zm_request) as $_zm_file) {
                     include_once $_zm_file;
                 }

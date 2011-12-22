@@ -21,6 +21,7 @@
 <?php
 namespace zenmagick\base;
 
+use zenmagick\base\Runtime;
 use zenmagick\base\ZMObject;
 
 use zenmagick\base\dependencyInjection\Container;
@@ -224,7 +225,7 @@ class Beans {
             return $ref;
         }
 
-        if ($isPlugin && null != ($plugin = \ZMPlugins::getPluginForId($tokens[0]))) {
+        if ($isPlugin && null != ($plugin = Runtime::getContainer()->get('pluginService')->getPluginForId($tokens[0]))) {
             self::setAll($plugin, $properties);
             return $plugin;
         }

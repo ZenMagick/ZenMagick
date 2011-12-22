@@ -48,7 +48,7 @@ class ImageInfo extends ZMImageInfo {
         parent::__construct($image, $alt);
         $this->image_ = $image;
         $this->formattedParameter_ = '';
-        $this->plugin_ = ZMPlugins::instance()->getPluginForId('productImages');
+        $this->plugin_ = Runtime::getContainer()->get('pluginService')->getPluginForId('productImages');
         $this->zoomSmallImages_ = null !== $this->plugin_ && $this->plugin_->get('zoomSmallImages');
     }
 

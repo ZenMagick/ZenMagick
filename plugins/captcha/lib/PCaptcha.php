@@ -9,6 +9,8 @@
  * @version $Id$
  */
 
+use zenmagick\base\Runtime;
+
 define('CAPCHA_USE_OB', 'true');
 define('CAPCHA_NOISE', '30');
 
@@ -45,7 +47,7 @@ class PCaptcha {
   function __construct($request) {
     global $session_started;
 
-    $plugin = ZMPlugins::instance()->getPluginForId('captcha');
+    $plugin = Runtime::getContainer()->get('pluginService')->getPluginForId('captcha');
 
     if(defined('CAPTCHA_CODE_LENGTH')) $this->captchaCode_length = CAPTCHA_CODE_LENGTH;
     if(defined('CAPTCHA_IMG_WIDTH')) $this->img_width = CAPTCHA_IMG_WIDTH;

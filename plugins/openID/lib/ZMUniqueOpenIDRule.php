@@ -44,7 +44,7 @@ class ZMUniqueOpenIDRule extends ZMRule {
      * {@inheritDoc}
      */
     public function validate($request, $data) {
-        $plugin = ZMPlugins::instance()->getPluginForId('openID');
+        $plugin = $this->container->get('pluginService')->getPluginForId('openID');
         $openid = $data[$this->getName()];
         $idExists = null != $plugin->getAccountForOpenID($openid);
         // empty or doesn't exist or exists but same as current account (account update)

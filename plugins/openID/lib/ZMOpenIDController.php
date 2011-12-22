@@ -39,7 +39,7 @@ class ZMOpenIDController extends ZMController {
      */
     public function __construct() {
         parent::__construct();
-        $this->plugin_ = ZMPlugins::instance()->getPluginForId('openID');
+        $this->plugin_ = Runtime::getContainer()->get('pluginService')->getPluginForId('openID');
         $this->returnTo_ = null;
         $this->sRegRequired_ = array('email');
         $this->sRegOptional_ = array('fullname', 'nickname');

@@ -32,7 +32,7 @@ class ZMIh2Image {
      * @param string height The image height.
      */
     function __construct($src, $width, $height) {
-        $this->plugin_ = ZMPlugins::instance()->getPluginForId('productImages');
+        $this->plugin_ = Runtime::getContainer()->get('pluginService')->getPluginForId('productImages');
         $this->src = $src;
         $this->width = $width;
         $this->height = $height;

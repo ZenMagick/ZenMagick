@@ -47,7 +47,7 @@ class ImageInfo extends ZMImageInfo {
         parent::__construct($image, $alt);
         $this->image_ = $image;
         $this->formattedParameter_ = '';
-        $plugin = ZMPlugins::instance()->getPluginForId('imageHandler2');
+        $plugin = Runtime::getContainer()->get('pluginService')->getPluginForId('imageHandler2');
         $this->disableIH2Attributes_ = null !== $plugin && $plugin->get('disableIH2Attributes');
     }
 

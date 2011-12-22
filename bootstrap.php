@@ -179,7 +179,7 @@ use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
     try {
         // upset plugins if required
         if (Runtime::getSettings()->get('zenmagick.base.plugins.enabled', true)) {
-            ZMPlugins::instance()->initAllPlugins(Runtime::getSettings()->get('zenmagick.base.context'));
+            Runtime::getContainer()->get('pluginService')->initAllPlugins(Runtime::getSettings()->get('zenmagick.base.context'));
             Runtime::getEventDispatcher()->dispatch('init_plugins_done', new Event());
         }
     } catch (Exception $e) {

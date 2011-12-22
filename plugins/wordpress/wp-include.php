@@ -20,6 +20,9 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
+
+
   /**
    * Load WP API.
    *
@@ -28,7 +31,7 @@
   // use API
   define('WP_USE_THEMES', false);
 
-  if (null != ($plugin = ZMPlugins::instance()->getPluginForId('wordpress'))) {
+  if (null != ($plugin = Runtime::getContainer()->get('pluginService')->getPluginForId('wordpress'))) {
       if (file_exists($plugin->get('wordpressDir').'wp-config.php')) { // @todo error message
           require_once $plugin->get('wordpressDir').'wp-config.php';
           $wp->init();
