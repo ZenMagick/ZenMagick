@@ -24,9 +24,9 @@ use zenmagick\base\Beans;
 use zenmagick\base\classloader\ClassLoader;
 use zenmagick\base\Toolbox;
 use zenmagick\base\events\Event;
-use zenmagick\base\dependencyInjection\loader\YamlFileLoader;
 
 use Symfony\Component\Config\FileLocator;
+use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 
 
@@ -122,10 +122,10 @@ use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
         }
 
         // load application container config
-        $containerConfig = Runtime::getApplicationPath().'/config/container.yaml';
+        $containerConfig = Toolbox::resolveWithEnv(Runtime::getApplicationPath().'/config/container.yaml');
         if (file_exists($containerConfig)) {
             $containerYamlLoader = new YamlFileLoader(Runtime::getContainer(), new FileLocator(dirname($containerConfig)));
-            $containerYamlLoader->load($containerConfig);
+            $containerYamlLoader->load(basename($containerConfig));
         }
 
         if (null != Runtime::getApplicationPath()) {

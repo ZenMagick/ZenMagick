@@ -28,7 +28,7 @@ use Symfony\Component\Config\FileLocator;
 
 use zenmagick\base\Runtime;
 use zenmagick\base\Toolbox;
-use zenmagick\base\dependencyInjection\loader\YamlFileLoader;
+use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use zenmagick\base\ZMObject;
 
 /**

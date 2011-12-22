@@ -35,7 +35,7 @@ use Symfony\Component\Config\FileLocator;
  * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.base.dependencyInjection.loader
  */
-class YamlLoader extends YamlFileLoader {
+class YamlLoader extends \Symfony\Component\DependencyInjection\Loader\YamlFileLoader {
 
     /**
      * {@inheritDoc}

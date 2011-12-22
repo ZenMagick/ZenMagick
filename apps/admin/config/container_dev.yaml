@@ -1,13 +1,4 @@
 imports:
-    ## app container
     - { resource: container.yaml }
-    ## shared services
     - { resource: ../../../config/store-services.yaml }
-    ## shared config
-    - { resource: ../../../config/store-container.yaml }
-    ## shared dev container
-    - { resource: ../../../config/store-container_dev.yaml }
-    ## custom local container
-    - { resource: local-container.yaml }
-    ## custom local dev container
-    - { resource: local-container_dev.yaml }
+    - { resource: ../../../config/store-container.yaml, ignore_errors: true }
