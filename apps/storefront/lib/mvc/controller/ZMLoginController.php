@@ -33,20 +33,6 @@
 class ZMLoginController extends ZMController {
     const KEY_REDIRECT = 'loginRedirect';
 
-    /**
-     * Create new instance.
-     */
-    function __construct() {
-        parent::__construct();
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
-
 
     /**
      * {@inheritDoc}

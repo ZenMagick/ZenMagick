@@ -34,31 +34,16 @@ use zenmagick\base\Runtime;
 class ZMUnsubscribeController extends ZMController {
 
     /**
-     * Create new instance.
-     */
-    function __construct() {
-        parent::__construct();
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
-
-
-    /**
      * {@inheritDoc}
      */
-    function processGet($request) {
+    public function processGet($request) {
         return $this->findView();
     }
 
     /**
      * {@inheritDoc}
      */
-    function processPost($request) {
+    public function processPost($request) {
         if (!Runtime::getSettings()->get('isAllowAnonymousUnsubscribe')) {
             $this->messageService->error(_zm('In order to unsubscribe you need to login first.'));
             return $this->findView();

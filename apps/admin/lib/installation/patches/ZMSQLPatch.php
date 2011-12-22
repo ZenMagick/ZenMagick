@@ -38,15 +38,8 @@ class ZMSQLPatch extends ZMInstallationPatch {
      *
      * @param string id Id of the patch.
      */
-    function __construct($id) {
+    public function __construct($id) {
         parent::__construct($id);
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
     }
 
 

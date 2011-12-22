@@ -41,15 +41,8 @@ class ZMSacsPermissionsPatch extends \ZMSQLPatch {
     /**
      * Create new instance.
      */
-    function __construct() {
+    public function __construct() {
         parent::__construct('sacsPermissions');
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
     }
 
 

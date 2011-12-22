@@ -40,19 +40,13 @@ class ZMCheckoutAddressController extends ZMController {
     /**
      * Create new instance.
      */
-    function __construct() {
+    public function __construct() {
         parent::__construct();
         $this->modeSettings_ = array();
         $this->viewData_ = array();
         $this->setMode('shipping');
     }
 
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
 
     /**
      * Set mode.

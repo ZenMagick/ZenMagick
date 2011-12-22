@@ -31,20 +31,6 @@ use zenmagick\http\sacs\SacsManager;
 class ZMEditRoleController extends ZMController {
 
     /**
-     * Create new instance.
-     */
-    function __construct() {
-        parent::__construct();
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
-
-    /**
      * Get sacs permission infos.
      *
      * @param string role The role.

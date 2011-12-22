@@ -35,20 +35,6 @@ use zenmagick\base\Runtime;
 class ZMEditorSelectFormWidget extends ZMSelectFormWidget {
 
     /**
-     * Create new instance.
-     */
-    function __construct() {
-        parent::__construct();
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
-
-    /**
      * Get a list of all available editors.
      *
      * @return array A class/name map of editors.

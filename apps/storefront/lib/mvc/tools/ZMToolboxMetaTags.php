@@ -53,16 +53,9 @@ class ZMToolboxMetaTags extends ZMToolboxTool {
      *
      * @param string delimiter Optional keyword delimiter.
      */
-    function __construct($delimiter=null) {
+    public function __construct($delimiter=null) {
         parent::__construct();
         $this->keywordDelimiter_ = null != $delimiter ? $delimiter : Runtime::getSettings()->get('metaTagKeywordDelimiter');
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
     }
 
 

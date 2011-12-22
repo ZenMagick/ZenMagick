@@ -41,15 +41,8 @@ class ZMFulltextPatch extends \ZMSQLPatch {
     /**
      * Create new instance.
      */
-    function __construct() {
+    public function __construct() {
         parent::__construct('sqlFulltext');
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
     }
 
 

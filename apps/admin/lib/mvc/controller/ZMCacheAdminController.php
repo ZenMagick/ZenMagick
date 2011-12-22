@@ -32,21 +32,6 @@ use zenmagick\base\Runtime;
 class ZMCacheAdminController extends ZMController {
 
     /**
-     * Create new instance.
-     */
-    function __construct() {
-        parent::__construct();
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
-
-
-    /**
      * Get all configured caches.
      */
     protected function getCaches() {

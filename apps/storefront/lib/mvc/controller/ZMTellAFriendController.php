@@ -38,23 +38,6 @@ class ZMTellAFriendController extends ZMController {
 
 
     /**
-     * Create new instance.
-     */
-    function __construct() {
-        parent::__construct();
-        $this->product_ = null;
-        $this->viewData_ = array();
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
-
-
-    /**
      * {@inheritDoc}
      */
     public function preProcess($request) {

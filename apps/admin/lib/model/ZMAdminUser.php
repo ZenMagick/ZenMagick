@@ -73,7 +73,7 @@ class ZMAdminUser extends ZMObject implements UserRoleCredentials {
     /**
      * Create new user.
      */
-    function __construct() {
+    public function __construct() {
         parent::__construct();
         $this->id = 0;
         $this->name = '';
@@ -81,13 +81,6 @@ class ZMAdminUser extends ZMObject implements UserRoleCredentials {
         $this->password = null;
         $this->live = false;
         $this->roles = array();
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
     }
 
     /**

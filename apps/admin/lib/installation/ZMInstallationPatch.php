@@ -38,17 +38,10 @@ class ZMInstallationPatch extends ZMObject {
      *
      * @param string id Id of the patch.
      */
-    function __construct($id) {
+    public function __construct($id) {
         parent::__construct();
         $this->id_ = $id;
         $this->messages_ = array();
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
     }
 
 

@@ -41,15 +41,8 @@ class ZMAdminPrefsPatch extends \ZMSQLPatch {
     /**
      * Create new instance.
      */
-    function __construct() {
+    public function __construct() {
         parent::__construct('sqlAdminPrefs');
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
     }
 
 

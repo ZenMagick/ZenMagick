@@ -45,16 +45,9 @@ class ZMCheckoutHelper extends ZMObject {
      *
      * @param ZMShoppingCart shoppingCart The cart; default is <code>null</code>.
      */
-    function __construct($shoppingCart=null) {
+    public function __construct($shoppingCart=null) {
         parent::__construct();
         $this->shoppingCart_ = $shoppingCart;
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
     }
 
 

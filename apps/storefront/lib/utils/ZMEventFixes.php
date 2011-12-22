@@ -36,21 +36,6 @@ use zenmagick\base\events\Event;
 class ZMEventFixes extends ZMObject {
 
     /**
-     * Create new instance.
-     */
-    function __construct() {
-        parent::__construct();
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
-
-
-    /**
      * Generic zen-cart event observer.
      *
      * <p>Implemented to generate some ZenMagick events triggered by zen-cart events.</p>

@@ -41,15 +41,8 @@ class ZMAdminRolesPatch extends \ZMSQLPatch {
     /**
      * Create new instance.
      */
-    function __construct() {
+    public function __construct() {
         parent::__construct('sqlAdminRoles');
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
     }
 
 

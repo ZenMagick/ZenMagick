@@ -35,7 +35,7 @@ class ZMCatalogDefaultTabController extends ZMCatalogContentController {
     /**
      * Create new instance.
      */
-    function __construct() {
+    public function __construct() {
         parent::__construct('catalog_default_tab', _zm('Catalog Manager'));
     }
 

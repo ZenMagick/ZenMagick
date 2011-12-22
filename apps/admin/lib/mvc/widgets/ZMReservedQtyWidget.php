@@ -37,21 +37,6 @@ class ZMReservedQtyWidget extends ZMWidget {
 
 
     /**
-     * Create new instance.
-     */
-    function __construct() {
-        parent::__construct();
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
-
-
-    /**
      * Get stats.
      *
      * @return array Details about reserved quantities.

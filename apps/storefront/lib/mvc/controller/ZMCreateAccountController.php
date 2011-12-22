@@ -48,17 +48,11 @@ class ZMCreateAccountController extends ZMController {
     /**
      * Create new instance.
      */
-    function __construct() {
+    public function __construct() {
         parent::__construct();
         $this->createDefaultAddress_ = true;
     }
 
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
 
     /**
      * Set create default address flag.

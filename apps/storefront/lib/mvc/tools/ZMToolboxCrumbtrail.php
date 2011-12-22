@@ -38,16 +38,9 @@ class ZMToolboxCrumbtrail extends ZMToolboxTool {
     /**
      * Create new instance.
      */
-    function __construct() {
+    public function __construct() {
         parent::__construct();
-        zenmagick\base\Runtime::getEventDispatcher()->listen($this);
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
+        Runtime::getEventDispatcher()->listen($this);
     }
 
 

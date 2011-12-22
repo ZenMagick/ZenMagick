@@ -40,17 +40,11 @@ class ZMorderStatusSelectFormWidget extends ZMSelectFormWidget {
     /**
      * Create new instance.
      */
-    function __construct() {
+    public function __construct() {
         parent::__construct();
         $this->showKey_ = true;
     }
 
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
 
     /**
      * Show/hide the numeric key.

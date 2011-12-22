@@ -35,21 +35,6 @@ use zenmagick\base\Runtime;
 class ZMFeaturedProductsController extends ZMController {
 
     /**
-     * Destruct instance.
-     */
-    function __construct() {
-        parent::__construct();
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
-
-
-    /**
      * {@inheritDoc}
      */
     public function processGet($request) {

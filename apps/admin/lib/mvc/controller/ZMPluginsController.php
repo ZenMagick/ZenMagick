@@ -35,20 +35,6 @@ class ZMPluginsController extends ZMController {
         'payment' => 'ZMPaymentType'
     );
 
-    /**
-     * Create new instance.
-     */
-    function __construct() {
-        parent::__construct();
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
-
 
     /**
      * {@inheritDoc}

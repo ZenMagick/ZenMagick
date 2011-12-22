@@ -37,20 +37,13 @@ class ZMAjaxCheckoutController extends ZMAjaxController {
     /**
      * Create new instance.
      */
-    function __construct() {
+    public function __construct() {
         parent::__construct('ajaxCheckout');
         $this->set('ajaxShippingMethodMap', array(
             'id', 'name', 'cost', 'provider' => array(
                 'name', 'errors'
             )
         ));
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
     }
 
 

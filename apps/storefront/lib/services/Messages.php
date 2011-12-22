@@ -40,7 +40,7 @@ class Messages extends ZMMessages {
     /**
      * Create new instance.
      */
-    function __construct() {
+    public function __construct() {
         parent::__construct();
         // needed to pick up zencart session messages
         $this->loadMessages(Runtime::getContainer()->get('session'));

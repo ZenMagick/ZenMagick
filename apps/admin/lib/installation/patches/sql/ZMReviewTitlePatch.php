@@ -41,15 +41,8 @@ class ZMReviewTitlePatch extends \ZMSQLPatch {
     /**
      * Create new instance.
      */
-    function __construct() {
+    public function __construct() {
         parent::__construct('reviewTitle');
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
     }
 
 

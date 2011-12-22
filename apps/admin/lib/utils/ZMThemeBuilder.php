@@ -37,19 +37,12 @@ class ZMThemeBuilder extends ZMObject {
     /**
      * Create new instance.
      */
-    function __construct() {
+    public function __construct() {
         parent::__construct();
 
         $this->name_ = '';
         $this->messages_ = array();
         $this->fsLog_ = array();
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
     }
 
 

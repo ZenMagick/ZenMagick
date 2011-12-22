@@ -47,19 +47,11 @@ class Request extends \ZMRequest {
      * @param array parameter Optional request parameter; if <code>null</code>,
      *  <code>$_GET</code> and <code>$_POST</code> will be used.
      */
-    function __construct($parameter=null) {
+    public function __construct($parameter=null) {
         parent::__construct($parameter);
         $this->categoryPathArray_ = null;
         $this->shoppingCart_ = null;
         $this->metaTags_ = null;
-    }
-
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
     }
 
 

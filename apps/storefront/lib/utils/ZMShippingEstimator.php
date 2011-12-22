@@ -36,21 +36,6 @@ use zenmagick\base\ZMObject;
 class ZMShippingEstimator extends ZMObject {
 
     /**
-     * Create new instance.
-     */
-    function __construct() {
-        parent::__construct();
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
-
-
-    /**
      * Get the postcode.
      *
      * @return string The postcode for the current calculations.
