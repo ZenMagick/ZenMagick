@@ -88,7 +88,7 @@ class ZMSavant extends Savant3 implements ContainerAwareInterface {
             $this->__config['cache'] = $config['cache'];
         }
         if (isset($this->__config['cache']) && !is_object($this->__config['cache'])) {
-            $this->__config['cache'] = ZMBeanUtils::getBean($this->__config['cache']);
+            $this->__config['cache'] = Beans::getBean($this->__config['cache']);
         }
         // why isn't that set in Savant3???
         if (isset($config['compiler'])) {
@@ -215,7 +215,7 @@ class ZMSavant extends Savant3 implements ContainerAwareInterface {
     public function widget($widget, $name=null, $value=null, $args=null) {
         $wObj = $widget;
         if (is_string($widget)) {
-            $wObj = ZMBeanUtils::getBean($widget);
+            $wObj = Beans::getBean($widget);
         }
         if (!($wObj instanceof ZMWidget)) {
             Runtime::getLogging()->debug('invalid widget: '.$widget);
@@ -232,7 +232,7 @@ class ZMSavant extends Savant3 implements ContainerAwareInterface {
             $wObj->setValue($value);
         }
         if (null !== $args) {
-            ZMBeanUtils::setAll($wObj, $args);
+            Beans::setAll($wObj, $args);
         }
         return $wObj->render($this->request, $this->view);
     }
