@@ -22,16 +22,17 @@
  */
 ?>
 <?php
+namespace plugins\tinyMCE;
 
 use zenmagick\base\Runtime;
 
 /**
  * TinyMCE textarea form widget.
  *
- * @package org.zenmagick.plugins.tinyMCE
  * @author DerManoMann <mano@zenmagick.org>
+ * @package plugins.tinyMCE
  */
-class ZMTinyMCEFormWidget extends ZMTextAreaFormWidget implements WysiwygEditor {
+class TinyMCEFormWidget extends \ZMTextAreaFormWidget implements \WysiwygEditor {
     private $idList;
 
 

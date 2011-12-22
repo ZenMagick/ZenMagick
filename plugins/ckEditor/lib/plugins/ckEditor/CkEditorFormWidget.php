@@ -26,8 +26,8 @@ use zenmagick\base\Runtime;
 /**
  * CKEditor textarea form widget.
  *
- * @package org.zenmagick.plugins.ckEditor
  * @author DerManoMann <mano@zenmagick.org>
+ * @package plugins.ckEditor
  */
 class CkEditorFormWidget extends \ZMTextAreaFormWidget implements \WysiwygEditor {
     private $plugin_;

@@ -19,6 +19,7 @@
  */
 ?>
 <?php
+namespace plugins\firePHP;
 
 use zenmagick\base\logging\Logging;
 use zenmagick\base\logging\handler\DefaultLoggingHandler;
@@ -30,7 +31,7 @@ use zenmagick\base\logging\handler\DefaultLoggingHandler;
  * are mapped to FirePHP's <em>LOG</em> level.</p>
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package org.zenmagick.plugins.firePHP
+ * @package plugins.firePHP
  */
 class FirePHPLoggingHandler extends DefaultLoggingHandler {
     private static $LEVEL_MAP = array(

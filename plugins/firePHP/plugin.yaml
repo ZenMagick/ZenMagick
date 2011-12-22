@@ -7,7 +7,7 @@ admin,storefront:
   container:
     services:
       firePHPLoggingHandler:
-        class: FirePHPLoggingHandler
+        class: plugins\firePHP\FirePHPLoggingHandler
         scope: container
         calls:
           - [setLogLevel, ['NONE']]

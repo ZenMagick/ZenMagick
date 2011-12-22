@@ -22,16 +22,17 @@
  */
 ?>
 <?php
+namespace plugins\xinha;
 
 use zenmagick\base\Runtime;
 
 /**
  * Xinha textarea form widget.
  *
- * @package org.zenmagick.plugins.xinha
  * @author DerManoMann <mano@zenmagick.org>
+ * @package plugins.xinha
  */
-class ZMXinhaFormWidget extends ZMTextAreaFormWidget implements WysiwygEditor {
+class XinhaFormWidget extends \ZMTextAreaFormWidget implements \WysiwygEditor {
     private $idList;
 
     /**
