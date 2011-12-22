@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\Toolbox;
 use zenmagick\base\ZMException;
 
 /**
@@ -43,7 +44,7 @@ class ZMRedirectView extends ZMView {
     /**
      * Create a new redirect view.
      */
-    function __construct() {
+    public function __construct() {
         parent::__construct();
         $this->secure_ = false;
         $this->url_ = null;
@@ -51,13 +52,6 @@ class ZMRedirectView extends ZMView {
         $this->status_ = 302;
         $this->requestId_ = null;
         $this->forceRequestId_ = false;
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
     }
 
 
@@ -140,7 +134,7 @@ class ZMRedirectView extends ZMView {
      * @param boolean secure <code>true</code> to create a secure redirect.
      */
     public function setSecure($secure) {
-        $this->secure_ = ZMLangUtils::asBoolean($secure);
+        $this->secure_ = Toolbox::asBoolean($secure);
     }
 
     /**
@@ -191,7 +185,7 @@ class ZMRedirectView extends ZMView {
      * @param mixed forceRequestId If set to <code>true</code>, the requestId will be used as redirect target even if url is set.
      */
     public function setForceRequestId($forceRequestId) {
-        $this->forceRequestId_ = ZMLangUtils::asBoolean($forceRequestId);
+        $this->forceRequestId_ = Toolbox::asBoolean($forceRequestId);
     }
 
     /**

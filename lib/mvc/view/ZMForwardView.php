@@ -38,16 +38,9 @@ class ZMForwardView extends ZMView {
     /**
      * Create a new forward view.
      */
-    function __construct() {
+    public function __construct() {
         parent::__construct();
         $this->requestId_ = null;
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
     }
 
     /**
@@ -116,7 +109,8 @@ class ZMForwardView extends ZMView {
      * {@inheritDoc}
      */
     public function isValid($request) {
-        return !ZMLangUtils::isEmpty($this->getRequestId());
+        $requestId = $this->getRequestId();
+        return !empty($requestId);
     }
 
     /**

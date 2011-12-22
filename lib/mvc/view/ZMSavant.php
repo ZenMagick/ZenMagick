@@ -55,19 +55,13 @@ use zenmagick\base\logging\Logging;
 class ZMSavant extends Savant3 implements ContainerAwareInterface {
     protected $container;
 
+
     /**
      * Create a new instance.
      */
-    function __construct($config=null) {
+    public function __construct($config=null) {
         parent::__construct($config);
         $this->setConfig($config);
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        // no parent destructor!!
     }
 
 
@@ -84,15 +78,17 @@ class ZMSavant extends Savant3 implements ContainerAwareInterface {
      * @param array config The config map.
      */
     public function setConfig($config) {
-        if (isset($config['cache'])) {
-            $this->__config['cache'] = $config['cache'];
-        }
-        if (isset($this->__config['cache']) && !is_object($this->__config['cache'])) {
-            $this->__config['cache'] = Beans::getBean($this->__config['cache']);
-        }
-        // why isn't that set in Savant3???
-        if (isset($config['compiler'])) {
-            $this->__config['compiler'] = $config['compiler'];
+        if (null != $config) {
+            if (isset($config['cache'])) {
+                $this->__config['cache'] = $config['cache'];
+            }
+            if (isset($this->__config['cache']) && !is_object($this->__config['cache'])) {
+                $this->__config['cache'] = Beans::getBean($this->__config['cache']);
+            }
+            // why isn't that set in Savant3???
+            if (isset($config['compiler'])) {
+                $this->__config['compiler'] = $config['compiler'];
+            }
         }
     }
 
@@ -105,7 +101,8 @@ class ZMSavant extends Savant3 implements ContainerAwareInterface {
      * @return boolean <code>true</code> if the file exists, <code>false</code> if not.
      */
     public function exists($filename, $type=ZMView::TEMPLATE) {
-        return !ZMLangUtils::isEmpty($this->findFile($type, $filename));
+        $file = $this->findFile($type, $filename);
+        return !empty($file);
     }
 
     /**
@@ -118,7 +115,7 @@ class ZMSavant extends Savant3 implements ContainerAwareInterface {
      */
     public function path($filename, $type=ZMView::TEMPLATE) {
         $path = $this->findFile($type, $filename);
-        return ZMLangUtils::isEmpty($path) ? null : $path;
+        return empty($path) ? null : $path;
     }
 
     /**

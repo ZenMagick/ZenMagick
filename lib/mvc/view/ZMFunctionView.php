@@ -31,21 +31,6 @@ use zenmagick\base\ZMException;
 class ZMFunctionView extends ZMView {
 
     /**
-     * Create new instance.
-     */
-    function __construct() {
-        parent::__construct();
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
-
-
-    /**
      * {@inheritDoc}
      */
     public function fetch($request, $template, $vars=array()) {

@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 use zenmagick\base\ZMObject;
 
 /**
@@ -39,18 +40,11 @@ abstract class ZMView extends ZMObject {
     /**
      * Create new instance.
      */
-    function __construct() {
+    public function __construct() {
         parent::__construct();
         $this->vars_ = array();
         $this->viewId_ = null;
         $this->template_ = null;
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
     }
 
 
@@ -105,7 +99,7 @@ abstract class ZMView extends ZMObject {
      * @return boolean <code>true</code> if the view is valid.
      */
     public function isValid($request) {
-        $filename = $this->getTemplate().ZMSettings::get('zenmagick.mvc.templates.ext', '.php');
+        $filename = $this->getTemplate().Runtime::getSettings()->get('zenmagick.mvc.templates.ext', '.php');
         return $this->exists($request, $filename);
     }
 
@@ -128,11 +122,12 @@ abstract class ZMView extends ZMObject {
         $view->setVars($toolbox->getTools());
 
         // set all plugins
-        foreach ($this->container->get('pluginService')->getAllPlugins(Runtime::getSettings()->get('zenmagick.base.context')) as $plugin) {
+        $settingsService = Runtime::getSettings();
+        foreach ($this->container->get('pluginService')->getAllPlugins($settingsService->get('zenmagick.base.context')) as $plugin) {
             $this->setVar($plugin->getId(), $plugin);
         }
 
-        return $this->fetch($request, $this->getTemplate().ZMSettings::get('zenmagick.mvc.templates.ext', '.php'));
+        return $this->fetch($request, $this->getTemplate().$settingsService->get('zenmagick.mvc.templates.ext', '.php'));
     }
 
     /**
@@ -179,7 +174,7 @@ abstract class ZMView extends ZMObject {
      * @return string The content type or <code>null</code>.
      */
     public function getContentType() {
-        return ZMSettings::get('zenmagick.mvc.html.contentType', 'text/html');
+        return Runtime::getSettings()->get('zenmagick.mvc.html.contentType', 'text/html');
     }
 
     /**
@@ -190,7 +185,7 @@ abstract class ZMView extends ZMObject {
      * @return string The content encoding.
      */
     public function getEncoding() {
-        return ZMSettings::get('zenmagick.mvc.html.charset', 'UTF-8');
+        return Runtime::getSettings()->get('zenmagick.mvc.html.charset', 'UTF-8');
     }
 
     /**

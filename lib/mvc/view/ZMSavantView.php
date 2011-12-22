@@ -47,20 +47,13 @@ class ZMSavantView extends ZMView {
     /**
      * Create new instance.
      */
-    function __construct() {
+    public function __construct() {
         parent::__construct();
         $this->savant_ = null;
         $this->config_ = array();
         $this->layout_ = array();
         $this->filters_ = null;
         $this->setViewDir('views/');
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
     }
 
 
@@ -222,7 +215,7 @@ class ZMSavantView extends ZMView {
             $config['resource_path'] = $this->getResourcePath($request);
             $config = array_merge($config, $this->config_);
             $this->savant_ = new ZMSavant($config);
-            //$this->savant_ = $this->container->get('ZMSavant');
+            //$this->savant_ = $this->container->get('savant');
             $this->savant_->setConfig($config);
             // config doesn't support multiple filter
             foreach ($this->getFilterList() as $filter) {
