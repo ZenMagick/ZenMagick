@@ -77,11 +77,6 @@ use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
             $path = ZM_BASE_PATH.$path;
             $zmLoader->addConfig($path);
             // packages may have their own *system* services
-            $packageConfig = $path.'/container.yaml';
-            if (file_exists($packageConfig)) {
-                $packageYamlLoader = new YamlFileLoader(Runtime::getContainer(), new FileLocator(dirname($packageConfig)));
-                $packageYamlLoader->load($packageConfig);
-            }
             $packageConfig = $path.'/container.xml';
             if (file_exists($packageConfig)) {
                 $packageXmlLoader = new XmlFileLoader(Runtime::getContainer(), new FileLocator(dirname($packageConfig)));

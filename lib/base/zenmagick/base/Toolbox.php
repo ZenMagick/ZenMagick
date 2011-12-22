@@ -111,12 +111,12 @@ class Toolbox {
     }
 
     /**
-     * Load a <em>YAML</em> file and automatically merge any <code>environment</code> settings contained.
+     * Load a <em>YAML</em> file, respecting the environment setting.
      *
      * @param string filename The file to load.
      * @param string environment Optional environment; default is the value of <code>ZM_ENVIRONMENT</code>.
      * @param boolean useEnvFile Optional flag to load the <em>file_[$environemnt].yaml</em> file if available; default is <code>true</code>.
-     * @return mixed The parsed YAML.
+     * @return mixed The parsed data.
      */
     public static function loadWithEnv($filename, $environment=ZM_ENVIRONMENT, $useEnvFile=true) {
         if ($useEnvFile) {
