@@ -19,7 +19,9 @@
  */
 ?>
 <?php
+namespace plugins\ckEditor;
 
+use zenmagick\base\Runtime;
 
 /**
  * CKEditor textarea form widget.
@@ -27,7 +29,7 @@
  * @package org.zenmagick.plugins.ckEditor
  * @author DerManoMann <mano@zenmagick.org>
  */
-class ZMCkEditorFormWidget extends ZMTextAreaFormWidget implements WysiwygEditor {
+class CkEditorFormWidget extends \ZMTextAreaFormWidget implements \WysiwygEditor {
     private $plugin_;
     private $editorConfig;
 
@@ -37,7 +39,7 @@ class ZMCkEditorFormWidget extends ZMTextAreaFormWidget implements WysiwygEditor
      */
     public function __construct() {
         parent::__construct();
-        $this->plugin_ = ZMPlugins::instance()->getPluginForId('ckEditor');
+        $this->plugin_ = Runtime::getContainer()->get('pluginService')->getPluginForId('ckEditor');
         $this->editorConfig = array();
 
         //TODO: allow for predefined 'basic', 'standard' and 'advanced' presettings in abstract ZMWysiwygEditorFormWidget base class
@@ -55,12 +57,12 @@ class ZMCkEditorFormWidget extends ZMTextAreaFormWidget implements WysiwygEditor
      * @return CKEditor An editor instance or <code>null</code>.
      */
     private function getCKEditor() {
-        include_once ZMFileUtils::mkPath($this->plugin_->getPluginDirectory(), 'ckeditor-3.4', 'ckeditor_php5.php');
+        include_once \ZMFileUtils::mkPath($this->plugin_->getPluginDirectory(), 'ckeditor-3.4', 'ckeditor_php5.php');
         if (!class_exists('CKEditor')) {
             return null;
         }
 
-        $ckEditor = new CKEditor();
+        $ckEditor = new \CKEditor();
         $ckEditor->returnOutput = true;
         return $ckEditor;
     }
