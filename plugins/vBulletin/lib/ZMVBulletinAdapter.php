@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\Toolbox;
 use zenmagick\base\ZMException;
 use zenmagick\base\ZMObject;
 
@@ -163,7 +164,7 @@ class ZMVBulletinAdapter extends ZMObject {
      * @param string password The clear text password.
      */
     public function createAccount($account, $password) {
-        $salt = ZMSecurityUtils::random(3);
+        $salt = Toolbox::random(3);
         $data = array(
             'customers_id' => $account->getId(),
             'username' => $account->getNickName(),

@@ -21,6 +21,7 @@
 <?php
 
 use zenmagick\base\Runtime;
+use zenmagick\base\Toolbox;
 
 /**
  * Plugin adding support for liftsuggest product suggestions.
@@ -167,7 +168,7 @@ EOT;
             $scriptFile = ('ga' == $trackingType ? 'liftsuggest.js' : 'liftsuggest_traditional.js');
             $protocol = $request->isSecure() ? 'https://' : 'http://';
 
-            $code1 = sprintf('<script type="text/javascript" src="%swww.liftsuggest.com/js/%s?cache=%s"></script>', $protocol, $scriptFile, ZMSecurityUtils::random(10, ZMSecurityUtils::RANDOM_DIGITS));
+            $code1 = sprintf('<script type="text/javascript" src="%swww.liftsuggest.com/js/%s?cache=%s"></script>', $protocol, $scriptFile, Toolbox::random(10, Toolbox::RANDOM_DIGITS));
 
             $code2 = $this->getTrackerCode($request);
             if (ZMLangUtils::asBoolean($this->get('debug'))) {
