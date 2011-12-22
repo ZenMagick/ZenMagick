@@ -22,17 +22,19 @@
  */
 ?>
 <?php
+namespace apps\store\services\locale;
 
+use ZMRuntime;
 use zenmagick\base\Runtime;
 use zenmagick\base\ZMObject;
 
 /**
- * Currencies.
+ * Currency service.
  *
  * @author DerManoMann
- * @package zenmagick.store.shared.services.locale
+ * @package apps.store.services.locale
  */
-class ZMCurrencies extends ZMObject {
+class CurrencyService extends ZMObject {
     private $currencies;
 
 
@@ -46,20 +48,12 @@ class ZMCurrencies extends ZMObject {
 
 
     /**
-     * Get instance.
-     */
-    public static function instance() {
-        return Runtime::getContainer()->get('currencyService');
-    }
-
-
-    /**
      * Load all currencies.
      */
     private function load() {
         $sql = "SELECT * FROM " . TABLE_CURRENCIES;
         $this->currencies = array();
-        foreach (ZMRuntime::getDatabase()->query($sql, array(), TABLE_CURRENCIES, 'ZMCurrency') as $currency) {
+        foreach (ZMRuntime::getDatabase()->query($sql, array(), TABLE_CURRENCIES, 'apps\store\entities\locale\Currency') as $currency) {
             $this->currencies[$currency->getCode()] = $currency;
         }
     }

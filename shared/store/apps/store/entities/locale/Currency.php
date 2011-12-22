@@ -22,6 +22,7 @@
  */
 ?>
 <?php
+namespace apps\store\entities\locale;
 
 use zenmagick\base\ZMObject;
 
@@ -31,11 +32,11 @@ use Doctrine\ORM\Mapping AS ORM;
  * A single currency.
  *
  * @author DerManoMann
- * @package zenmagick.store.shared.model
+ * @package apps.store.entities.locale
  * @ORM\Table(name="currencies")
  * @ORM\Entity
  */
-class ZMCurrency extends ZMObject {
+class Currency extends ZMObject {
     /**
      * @var integer $currencyId
      *

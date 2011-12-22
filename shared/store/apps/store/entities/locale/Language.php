@@ -22,6 +22,7 @@
  */
 ?>
 <?php
+namespace apps\store\entities\locale;
 
 use zenmagick\base\ZMObject;
 
@@ -31,11 +32,11 @@ use Doctrine\ORM\Mapping AS ORM;
  * A single language.
  *
  * @author DerManoMann
- * @package zenmagick.store.shared.model
+ * @package apps.store.entities.locale
  * @ORM\Table(name="languages")
  * @ORM\Entity
  */
-class ZMLanguage extends ZMObject {
+class Language extends ZMObject {
     /**
      * @var integer $languageId
      *

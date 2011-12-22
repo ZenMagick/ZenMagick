@@ -22,7 +22,9 @@
  */
 ?>
 <?php
+namespace apps\store\services\locale;
 
+use ZMRuntime;
 use zenmagick\base\Runtime;
 use zenmagick\base\ZMObject;
 
@@ -30,18 +32,10 @@ use zenmagick\base\ZMObject;
  * Languages service.
  *
  * @author DerManoMann
- * @package zenmagick.store.shared.services.locale
+ * @package apps.store.services.locale
  */
-class ZMLanguages extends ZMObject {
+class LanguageService extends ZMObject {
     private $languages;
-
-
-    /**
-     * Get instance.
-     */
-    public static function instance() {
-        return Runtime::getContainer()->get('languageService');
-    }
 
 
     /**
@@ -52,7 +46,7 @@ class ZMLanguages extends ZMObject {
                 FROM " . TABLE_LANGUAGES . "
                 ORDER BY sort_order";
         $this->languages = array();
-        foreach (ZMRuntime::getDatabase()->query($sql, array(), 'languages', 'ZMLanguage') as $language) {
+        foreach (ZMRuntime::getDatabase()->query($sql, array(), 'languages', 'apps\store\entities\locale\Language') as $language) {
             $this->languages[$language->getCode()] = $language;
         }
     }
@@ -60,7 +54,7 @@ class ZMLanguages extends ZMObject {
     /**
      * Get all languages.
      *
-     * @return array List of <code>ZMLanguage</code> instances.
+     * @return array List of <code>Language</code> instances.
      */
     public function getLanguages() {
         if (null === $this->languages) {
