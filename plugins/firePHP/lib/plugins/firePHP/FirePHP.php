@@ -43,6 +43,11 @@
  */
 namespace plugins\firePHP;
 
+use Error;
+use Exception;
+use ErrorException;
+use ReflectionClass;
+
 /**
  * @see http://code.google.com/p/firephp/issues/detail?id=112
  */
