@@ -84,6 +84,10 @@ use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
             }
         }
 
+        // some base settings
+        Runtime::getSettings()->set('zenmagick.environment', ZM_ENVIRONMENT);
+        Runtime::getSettings()->set('zenmagick.installationPath', Runtime::getInstallationPath());
+
         // load app in separate loader
         if (null != Runtime::getApplicationPath()) {
             $appLoader = new $CLASSLOADER();
