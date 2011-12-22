@@ -81,71 +81,6 @@ class ZMTools {
     }
 
     /**
-     * Parse a money amount.
-     *
-     * @param string amount The amount.
-     * @param string currencyCode The currency.
-     * @return float The amount.
-     * @deprecated
-     */
-    public static function parseMoney($money, $currencyCode) {
-        $currency = $this->container->get('currencyService')->getCurrencyForCode($currencyCode);
-        $amount = $currency->parse($money, false);
-        return $amount;
-    }
-
-    /**
-     * Helper for conditional get support.
-     *
-     * @package org.zenmagick.misc
-     * @param string timestamp The last change date of whatever resource this is about.
-     * @param boolean <code>true<code> <strong>if</strong> a body should be returned,
-     *  <code>false</code> if the resource changed.
-     * @deprecated
-     */
-    public static function ifModifiedSince($timestamp) {
-        // A PHP implementation of conditional get, see
-        // http://fishbowl.pastiche.org/archives/001132.html
-        $last_modified = substr(date('r', $timestamp), 0, -5).'GMT';
-        $etag = '"'.md5($last_modified).'"';
-        // Send the headers
-        header("Last-Modified: $last_modified");
-        header("ETag: $etag");
-        // See if the client has provided the required headers
-        $if_modified_since = isset($_SERVER['HTTP_IF_MODIFIED_SINCE']) ?
-            stripslashes($_SERVER['HTTP_IF_MODIFIED_SINCE']) :
-            true;
-        $if_none_match = isset($_SERVER['HTTP_IF_NONE_MATCH']) ?
-            stripslashes($_SERVER['HTTP_IF_NONE_MATCH']) :
-            true;
-        if (!$if_modified_since && !$if_none_match) {
-            return true;
-        }
-        // At least one of the headers is there - check them
-        if ($if_none_match && $if_none_match != $etag) {
-            return true; // etag is there but doesn't match
-        }
-        if ($if_modified_since && $if_modified_since != $last_modified) {
-            return true; // if-modified-since is there but doesn't match
-        }
-        // Nothing has changed since their last request - serve a 304 and exit
-        header('HTTP/1.0 304 Not Modified');
-        return false;
-    }
-
-    /**
-     * Parse RSS date.
-     *
-     * @param string date The date.
-     * @return array An array with 3 elements in the order [day] [month] [year].
-     * @deprecated use ZMRssUtils instead
-     */
-    public static function parseRssDate($date) {
-        preg_match("/[a-zA-Z]+, ([0-3]?[0-9]) ([a-zA-Z]+) ([0-9]{2,4}) .*/", $date, $regs);
-        return $regs[1].'/'.$regs[2].'/'.$regs[3];
-    }
-
-    /**
      * Compare URLs.
      *
      * <p>This is defined only for URLs within the store.</p>
@@ -222,65 +157,6 @@ class ZMTools {
         }
 
         return $equal;
-    }
-
-    /**
-     * Apply user/group settings to file(s) that should allow ftp users to modify/delete them.
-     *
-     * <p>The file group attribute is only going to be changed if the <code>$perms</code> parameter is not empty.</p>
-     *
-     * <p>This method may be disabled by setting <em>fs.permissions.fix</em> to <code>false</code>.</p>
-     *
-     * @param mixed files Either a single filename or list of files.
-     * @param boolean recursive Optional flag to recursively process all files/folders in a given directory; default is <code>false</code>.
-     * @param array perms Optional file permissions; defaults are taken from the settings <em>fs.permissions.defaults.folder</em> for folder,
-     *  <em>fs.permissions.defaults.file</em> for files.
-     * @deprecated use ZMFileUtils instead
-     */
-    public static function setFilePerms($files, $recursive=false, $perms=array()) {
-        if (!ZMSettings::get('fs.permissions.fix')) {
-            return;
-        }
-        if (null == self::$fileOwner || null == self::$fileGroup) {
-            clearstatcache();
-            self::$fileOwner = fileowner(__FILE__);
-            self::$fileGroup = filegroup(__FILE__);
-            if (0 == self::$fileOwner && 0 == self::$fileGroup) {
-                return;
-            }
-        }
-
-        if (!is_array($files)) {
-            $files = array($files);
-        }
-
-        $filePerms = array_merge(array('file' => ZMSettings::get('fs.permissions.defaults.file'), 'folder' => ZMSettings::get('fs.permissions.defaults.folder')), $perms);
-
-        foreach ($files as $file) {
-            if (0 < count($perms)) {
-                @chgrp($file, self::$fileGroup);
-            }
-            @chown($file, self::$fileOwner);
-            $mod = $filePerms[(is_dir($file) ? 'folder' : 'file')];
-            @chmod($file, $mod);
-
-            if (is_dir($file) && $recursive) {
-                $dir = $file;
-                if (!self::endsWith($dir, DI)) {
-                    $dir .= '/';
-                }
-                $subfiles = array();
-                $handle = @opendir($dir);
-                while (false !== ($file = readdir($handle))) {
-                    if ("." == $file || ".." == $file) {
-                        continue;
-                    }
-                    $subfiles[] = $dir.$file;
-                }
-                @closedir($handle);
-                self::setFilePerms($subfiles, $recursive, $perms);
-            }
-        }
     }
 
     /**

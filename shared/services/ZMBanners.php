@@ -57,37 +57,6 @@ class ZMBanners extends ZMObject {
     }
 
     /**
-     * Get a <strong>random, single</strong> banner for the given symbolic banner group set (yes!) name.
-     *
-     * <p>A banner set is either a single banner group or a list of banner groups.</p>
-     *
-     * <p>Banner sets can be configured by creating a setting with the format: <em>banners.[NAME]</em>,
-     * with <em>banners.</em> being a fixed prefix and <em>[NAME]</em> the name of the set.</p>
-     * <p>Example: <code>ZMSettings::set('banners.mygroup', 'Wide-Banners');</code></p>
-     *
-     * @param string name A banner group set name.
-     * @return mixed A <code>ZMBanner</code> instance or <code>null</code>.
-     * @deprecated
-     */
-    public function getBannerForSet($name) {
-        $list = $this->getBannersForGroupName(ZMSettings::get('banners.'.$name), $this->container->get('request')->isSecure());
-        shuffle($list);
-        return 0 < count($list) ? $list[0] : null;
-    }
-
-    /**
-     * Get all banner according to zen-cart configuration.
-     *
-     * <p>this will return all banner as configured using the zen-cart define <code>SHOW_BANNERS_GROUP_SET_ALL</code>.
-     *
-     * @return array A list of <code>ZMBanner</code> instances.
-     * @deprecated
-     */
-    public function getAllBanners() {
-        return $this->getBannersForGroupName(ZMSettings::get('banners.all', 'bannerGroupAll'));
-    }
-
-    /**
      * Get one (random) or more banner based on the given banner group(s).
      *
      * <p>If <code>$all</code> is set to <code>true</code>, all matching banners will be returned.</p>

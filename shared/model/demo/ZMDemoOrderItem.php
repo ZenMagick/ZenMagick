@@ -45,7 +45,7 @@ class ZMDemoOrderItem extends ZMOrderItem {
     /**
      * {@inheritDoc}
      */
-    public function getQty() {
+    public function getQuantity() {
         return $this->index_*2;
     }
 

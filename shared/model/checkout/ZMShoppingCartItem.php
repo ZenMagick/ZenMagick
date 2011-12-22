@@ -85,8 +85,6 @@ class ZMShoppingCartItem extends ZMObject {
     // @deprecated
     function getImageInfo() { return $this->getProduct()->getImageInfo(); }
     // @deprecated
-    function getQty() { return $this->getQuantity(); }
-    // @deprecated
     function getTaxClassId() { return $this->getProduct()->getTaxClassId(); }
     /**
      * Get selected attributes for this cart item.
