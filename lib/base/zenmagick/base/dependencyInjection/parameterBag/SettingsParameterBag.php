@@ -37,16 +37,50 @@ class SettingsParameterBag extends ParameterBag {
      * {@inheritDoc}
      */
     public function resolveString($value, array $resolving=array()) {
-        // we do this to deal with non string values (Boolean, integer, ...)
-        // as the preg_replace_callback throw an exception when trying
-        // a non-string in a parameter value
         if (preg_match('/^%([^%]+)%$/', $value, $match)) {
             $key = strtolower($match[1]);
-            if (Runtime::getSettings()->exists($match[1])) {
-                return Runtime::getSettings()->get($match[1]);
+
+            // case sensitive lookup
+            $settingsService = Runtime::getSettings();
+            if ($settingsService->exists($match[1])) {
+                return $settingsService->get($match[1]);
             }
+
+            if (isset($resolving[$key])) {
+                throw new ParameterCircularReferenceException(array_keys($resolving));
+            }
+
+            $resolving[$key] = true;
+
+            return $this->resolved ? $this->get($key) : $this->resolveValue($this->get($key), $resolving);
         }
-        return parent::resolveString($value, $resolving);
+
+        $self = $this;
+
+        return preg_replace_callback('/(?<!%)%([^%]+)%/', function ($match) use ($self, $resolving, $value) {
+            $key = strtolower($match[1]);
+
+            // case sensitive lookup
+            $settingsService = Runtime::getSettings();
+            if ($settingsService->exists($match[1])) {
+                return $settingsService->get($match[1]);
+            }
+
+            if (isset($resolving[$key])) {
+                throw new ParameterCircularReferenceException(array_keys($resolving));
+            }
+
+            $resolved = $self->get($key);
+
+            if (!is_string($resolved) && !is_numeric($resolved)) {
+                throw new RuntimeException(sprintf('A string value must be composed of strings and/or numbers, but found parameter "%s" of type %s inside string value "%s".', $key, gettype($resolved), $value));
+            }
+
+            $resolved = (string) $resolved;
+            $resolving[$key] = true;
+
+            return $self->isResolved() ? $resolved : $self->resolveString($resolved, $resolving);
+        }, $value);
     }
 
 }
