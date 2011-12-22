@@ -5,12 +5,12 @@
 
 parameters:
   kernel.environment: %zenmagick.environment%
-  kernel.root_dir: %zenmagick.cacheBaseDir%/kernel
-  kernel.cache_dir: %zenmagick.cacheBaseDir%
+  kernel.root_dir: %zenmagick.cacheBasePath%/kernel
+  kernel.cache_dir: %zenmagick.cacheBasePath%
   kernel.debug: false
   kernel.bundles: %zenmagick.bundles%
   zenmagick.cacheIds: ['transientCache', 'persistentCache', 'servicesCache', 'templateCache']
-  zenmagick.cacheBaseDir: %zenmagick.installationPath%/cache/zenmagick
+  zenmagick.cacheBasePath: %zenmagick.installationPath%/../cache/zenmagick
 
 
 # database configuration settings
@@ -39,7 +39,7 @@ doctrine:
   orm:
     auto_generate_proxy_classes: true
     proxy_namespace: zenmagick\base\database\doctrine\proxies
-    proxy_dir: %zenmagick.cacheBaseDir%/doctrine/orm/proxies
+    proxy_dir: %zenmagick.cacheBasePath%/doctrine/orm/proxies
     entity_managers:
       default:
         mappings:
@@ -63,7 +63,7 @@ services:
     class: zenmagick\base\cache\FileCache
     scope: prototype
     calls:
-      - [init, ['global', {cacheTTL: 300, cacheDir: '%zenmagick.cacheBaseDir%/files/'}]]
+      - [init, ['global', {cacheTTL: 300, cacheDir: '%zenmagick.cacheBasePath%/files/'}]]
 
   ## explicit caches
   servicesCache:
@@ -75,7 +75,7 @@ services:
     class: zenmagick\base\cache\FileCache
     scope: container
     calls:
-      - [init, ['services', {cacheTTL: 300, cacheDir: '%zenmagick.cacheBaseDir%/templates/'}]]
+      - [init, ['services', {cacheTTL: 300, cacheDir: '%zenmagick.cacheBasePath%/templates/'}]]
 
   accountService:
     class: ZMAccounts
@@ -139,7 +139,7 @@ services:
     class: zenmagick\http\rss\RssFeedLoader
     scope: container
     calls:
-      - [init, [{cacheTTL: 300, cacheDir: '%zenmagick.cacheBaseDir%/rss/'}]]
+      - [init, [{cacheTTL: 300, cacheDir: '%zenmagick.cacheBasePath%/rss/'}]]
 
   authenticationManager:
     class: zenmagick\base\security\authentication\AuthenticationManager
