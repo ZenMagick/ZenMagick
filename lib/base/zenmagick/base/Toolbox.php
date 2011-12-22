@@ -116,79 +116,37 @@ class Toolbox {
      * @param string filename The file to load.
      * @param string environment Optional environment; default is the value of <code>ZM_ENVIRONMENT</code>.
      * @param boolean useEnvFile Optional flag to load the <em>file_[$environemnt].yaml</em> file if available; default is <code>true</code>.
-     * @param boolean clearImports Optional flag to remove imports details from the loaded data before returning; default is <code>true</code>.
      * @return mixed The parsed YAML.
      */
-    public static function loadWithEnv($filename, $environment=ZM_ENVIRONMENT, $useEnvFile=true, $clearImports=true) {
+    public static function loadWithEnv($filename, $environment=ZM_ENVIRONMENT, $useEnvFile=true) {
         if ($useEnvFile) {
             $filename = self::resolveWithEnv($filename, $environment);
         }
 
         $data = array();
         if (!file_exists($filename)) {
-            // @todo If this is meant to be a warning it should be moved the the caller, otherwise it might be better as trace()
-            //Runtime::getLogging()->warn("skipping missing file: ".$filename);
+            Runtime::getLogging()->trace("skipping missing file: ".$filename);
             return $data;
         }
 
         $filename = realpath($filename);
 
         try {
-            $yaml = Yaml::parse($filename);
-            if (is_array($yaml)) {
-                if (null != $environment && array_key_exists($environment, $yaml)) {
-                    $data = self::arrayMergeRecursive($yaml, $yaml[$environment]);
-                } else {
-                    $data = $yaml;
-                }
-            }
+            $data = Yaml::parse($filename);
         } catch (\InvalidArgumentException $e) {
             Runtime::getLogging()->dump($e);
         }
 
         // check for imports:
         if (array_key_exists('imports', $data)) {
-            $currentDir = dirname($filename).DIRECTORY_SEPARATOR;
+            $currentDir = dirname($filename).'/';
 
             $imports = $data['imports'];
             // split into prepend/append mode
-            $prepend = array();
-            $append = array();
-            foreach ($imports as $ii => $import) {
-                if (!array_key_exists('mode', $import)) {
-                    $import['mode'] = 'prepend';
-                }
-                if ('append' == $import['mode']) {
-                    $append[] = $import;
-                } else if ('prepend' == $import['mode']) {
-                    $prepend[] = $import;
-                } else if ('ignore' == $import['mode']) {
-                    // ignore
-                } else {
-                    throw new \InvalidArgumentException(sprintf('unknown mode: %s', $import['mode']));
-                }
-            }
-            unset($data['imports']);
-
-            $tmp = array();
-            foreach ($prepend as $import) {
-                $tmp = self::arrayMergeRecursive($tmp, self::loadWithEnv($currentDir.$import['resource'], $environment, false));
-            }
-            $data = self::arrayMergeRecursive($tmp, $data);
-            foreach ($append as $import) {
+            foreach ($imports as $import) {
                 $data = self::arrayMergeRecursive($data, self::loadWithEnv($currentDir.$import['resource'], $environment, false));
             }
-
-            if ($clearImports) {
-                foreach ($imports as $ii => $import) {
-                    if (!array_key_exists('mode', $import) || 'ignore' != $import['mode']) {
-                        unset($imports[$ii]);
-                    }
-                }
-                if (0 != count($imports)) {
-                    $data['imports'] = $imports;
-                }
-            }
+            unset($data['imports']);
         }
 
         return $data;
@@ -239,7 +197,6 @@ class Toolbox {
         $filename = realpath($filename);
         $envFilename = preg_replace('/(.*)\.(.*)/', '$1_'.$environment.'.$2', $filename);
         if (file_exists($envFilename)) {
-            // load that and expect the 'import:' data in the file to pull in whatever is needed.
             $filename = $envFilename;
         }
         return $filename;
