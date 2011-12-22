@@ -58,7 +58,7 @@ class ZMPlugins extends ZMObject {
     /**
      * Create new instance.
      */
-    function __construct() {
+    public function __construct() {
         parent::__construct();
         $this->plugins_ = array();
         $this->pluginStatus_ = $this->loadStatus();
@@ -68,12 +68,6 @@ class ZMPlugins extends ZMObject {
         $this->pathIdMap_ = null;
     }
 
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
 
     /**
      * Get instance.
@@ -320,11 +314,7 @@ class ZMPlugins extends ZMObject {
             $plugin = $this->getPluginForId($id);
             if (null != $plugin && ($plugin && $plugin->isEnabled() || !$enabled)) {
                 $libPath = $plugin->getPluginDirectory().'lib';
-                if (file_exists($libPath)) {
-                    $classLoader->addConfig($libPath);
-                    // TODO: XXX: legacy loading - remove
-                    $classLoader->addPath($libPath);
-                }
+                $classLoader->addConfig($libPath);
                 $plugins[$id] = $plugin;
             }
         }
