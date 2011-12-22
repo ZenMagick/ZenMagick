@@ -1,0 +1,71 @@
+<?xml version="1.0" ?>
+
+<!-- http container -->
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="storefront.session_timeout">1440</parameter>
+    </parameters>
+
+    <services>
+        <service id="request" class="Request" scope="container" />
+
+        <service id="pluginService" class="Plugins" scope="container" />
+
+        <service id="session" class="Session" scope="container">
+            <argument>%apps.store.storefront.domain%</argument>
+            <call method="setName">
+                <argument>zmsid</argument>
+            </call>
+            <call method="registerSessionHandler">
+                <argument type="service" id="sessionHandler" />
+            </call>
+            <call method="setUseFqdn">
+                <argument>%zenmagick.http.session.useFqdn%</argument>
+            </call>
+        </service>
+
+        <service id="viewUtils" class="ZMViewUtils" scope="prototype">
+            <call method="setResourcesAsTemplates">
+                <argument>true</argument>
+            </call>
+        </service>
+
+        <service id="defaultView" class="SavantView" scope="prototype">
+            <call method="setConfig">
+                <argument type="collection">
+                    <argument name="cache">ZMSimpleSavantCache</argument>
+                </argument>
+            </call>
+            <call method="setFilters">
+                <argument>ZMShortTagFilter</argument>
+            </call>
+        </service>
+
+        <service id="messageService" class="Messages" scope="container" />
+
+        <service id="ZMForwardView" class="ForwardView" scope="prototype" />
+        <service id="ZMForwardView" alias="forwardView" />
+
+        <service id="sessionHandler" class="ZMZenCartSessionHandler" scope="container">
+            <call method="setExpiryTime">
+                <argument>%storefront.session_timeout%</argument>
+            </call>
+        </service>
+
+        <service id="storeDefaultUrlRewriter" class="ZMStoreDefaultUrlRewriter" scope="container">
+            <tag name="zenmagick.http.request.rewriter" />
+        </service>
+
+        <service id="defaultRssFeedSource" class="ZMStoreDefaultUrlRewriter" scope="container">
+            <tag name="zenmagick.http.rss.source" />
+        </service>
+
+        <service id="catalogRssFeedSource" class="ZMCatalogRssFeedSource" scope="container">
+            <tag name="zenmagick.http.rss.source" />
+        </service>
+
+    </services>
+</container>
