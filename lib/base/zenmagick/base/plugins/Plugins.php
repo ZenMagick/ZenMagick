@@ -102,7 +102,7 @@ class Plugins extends ZMObject {
                         // todo: drop
                         $id = preg_replace('/^ZM/', '', $id);
                         // single file plugin
-                        if (is_file($basePath.DIRECTORY_SEPARATOR.$file)) {
+                        if (is_file($basePath.'/'.$file)) {
                             $id = preg_replace('/Plugin$/', '', $id);
                         }
                         $id{0} = strtolower($id{0});
@@ -205,7 +205,7 @@ class Plugins extends ZMObject {
             // todo: drop ZM stuff
             // expect plugin file in the directory as 'ZM[CamelCaseId]Plugin.php.php' extension
             $pluginClass = 'ZM' . $pluginClassSuffix . 'Plugin';
-            $file = $pluginDir . DIRECTORY_SEPARATOR . $pluginClass . '.php';
+            $file = $pluginDir . '/' . $pluginClass . '.php';
             if (!file_exists($file)) {
                 Runtime::getLogging()->warn("can't find plugin file(dir) for id = '".$id."'; dir = '".$pluginDir."'");
                 return null;
@@ -236,7 +236,7 @@ class Plugins extends ZMObject {
         $id[0] = strtolower($id[0]);
         $plugin->setId($id);
         //PHP5.3 only: $plugin->setId(lcfirst(substr(preg_replace('/Plugin$/', '', $pluginClass), 2)));
-        $pluginDir = dirname($file) . DIRECTORY_SEPARATOR;
+        $pluginDir = dirname($file) . '/';
         $plugin->setPluginDirectory($pluginDir == $basePath ? $basePath : $pluginDir);
 
         $this->plugins_[$id] = array('plugin' => $plugin, 'init' => false);
@@ -325,7 +325,7 @@ class Plugins extends ZMObject {
         // them to depend on each other
         foreach ($plugins as $id => $plugin) {
             if ($this->needsInit($id)) {
-                $pluginConfig = $plugin->getPluginDirectory().DIRECTORY_SEPARATOR.'plugin.yaml';
+                $pluginConfig = $plugin->getPluginDirectory().'/plugin.yaml';
                 if (file_exists($pluginConfig)) {
                     $configLoader = $this->container->get('contextConfigLoader');
                     $configLoader->setConfig(Toolbox::loadWithEnv($pluginConfig));

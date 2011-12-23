@@ -49,7 +49,7 @@ class Runtime {
      * @return string The ZenMagick installation folder.
      */
     public static function getInstallationPath() {
-        return defined('ZM_BASE_PATH') ? constant('ZM_BASE_PATH') : dirname(dirname(__FILE__)).DIRECTORY_SEPARATOR;
+        return defined('ZM_BASE_PATH') ? constant('ZM_BASE_PATH') : dirname(dirname(__FILE__)).'/';
     }
 
     /**
@@ -73,8 +73,8 @@ class Runtime {
         if (null === $settings->get('zenmagick.base.plugins.dirs')) {
             // set default
             $settings->set('zenmagick.base.plugins.dirs', array(
-                self::getInstallationPath().'plugins'.DIRECTORY_SEPARATOR,
-                self::getApplicationPath().'plugins'.DIRECTORY_SEPARATOR
+                self::getInstallationPath().'plugins/',
+                self::getApplicationPath().'plugins/'
             ));
         }
 

@@ -628,7 +628,7 @@ class ZMRequest extends ZMObject {
      * @return string The path.
      */
     public function getTemplatePath() {
-        return Runtime::getApplicationPath().'templates'.DIRECTORY_SEPARATOR;
+        return Runtime::getApplicationPath().'templates/';
     }
 
     /**
@@ -637,7 +637,7 @@ class ZMRequest extends ZMObject {
      * @return string The path.
      */
     public function getWebPath() {
-        return Runtime::getApplicationPath().'web'.DIRECTORY_SEPARATOR;
+        return Runtime::getApplicationPath().'web/';
     }
 
     /**

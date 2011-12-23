@@ -32,5 +32,7 @@
             <tag name="zenmagick.http.request.rewriter" />
         </service>
 
+        <service id="resourceResolver" class="zenmagick\http\view\ResourceResolver" scope="container" />
+
     </services>
 </container>
