@@ -57,8 +57,12 @@ class ZMLoginController extends ZMController {
             return $this->findView();
         }
 
-        $request->getSession()->setValue('admin_id', $user->getId());
-        $request->getSession()->regenerate();
+        $session = $request->getSession();
+        $session->setValue('admin_id', $user->getId());
+        if (null != ($uiLocale = $this->container->get('adminUserPrefService')->getPrefForName($user->getId(), 'uiLocale'))) {
+            $session->setValue('uiLocale', $uiLocale);
+        }
+        $session->regenerate();
 
         return $this->findView('success', array(), array('url' => $request->getFollowUpUrl()));
     }

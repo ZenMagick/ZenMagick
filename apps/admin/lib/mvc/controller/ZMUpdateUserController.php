@@ -111,6 +111,10 @@ class ZMUpdateUserController extends ZMController {
         }
         $this->container->get('adminUserService')->updateUser($user);
 
+        if (null != ($uiLocale = $this->container->get('adminUserPrefService')->getPrefForName($user->getId(), 'uiLocale'))) {
+            $request->getSession()->setValue('uiLocale', $uiLocale);
+        }
+
         // report success
         $this->messageService->success(_zm('Details updated.'));
 
