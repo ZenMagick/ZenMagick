@@ -21,6 +21,7 @@
 <?php
 namespace zenmagick\base;
 
+use Serializable;
 use Symfony\Component\DependencyInjection\ContainerAware;
 
 /**
@@ -35,7 +36,7 @@ use Symfony\Component\DependencyInjection\ContainerAware;
  * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.core
  */
-class ZMObject extends ContainerAware {
+class ZMObject extends ContainerAware implements Serializable {
     private static $methods_ = array();
     protected $properties_;
 
@@ -197,6 +198,41 @@ class ZMObject extends ContainerAware {
             }
         }
         throw new \RuntimeException('invalid method on: '.get_class($this).': '.$method);
+    }
+
+    /**
+     * Serialize this instance.
+     */
+    public function serialize() {
+        $sprops = array();
+        foreach ($this->getProperties() as $name => $obj) {
+            $sprops[$name] = serialize($obj);
+        }
+
+        $serialized = serialize($sprops);
+
+        if (function_exists('gzcompress')) {
+            $serialized =  base64_encode(gzcompress($serialized));
+        }
+
+        return $serialized;
+    }
+
+    /**
+     * Unserialize.
+     *
+     * @param string serialized The serialized data.
+     */
+    public function unserialize($serialized) {
+        if (function_exists('gzcompress')) {
+            $serialized = base64_decode(gzuncompress($serialized));
+        }
+
+        $sprops = base64_decode(unserialize($serialized));
+
+        foreach ($sprops as $name => $sprop) {
+            $this->set($name, unserialize($sprop));
+        }
     }
 
     /**
