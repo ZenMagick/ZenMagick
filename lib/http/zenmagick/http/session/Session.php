@@ -21,6 +21,7 @@
 <?php
 namespace zenmagick\http\session;
 
+use Serializable;
 use zenmagick\base\Runtime;
 use zenmagick\base\ZMObject;
 
@@ -42,7 +43,6 @@ class Session extends ZMObject {
 
     protected $internalStart_;
     protected $data_;
-    protected $persist_;
     protected $sessionHandler_;
     private $cookiePath_;
     private $closed_;
@@ -67,7 +67,6 @@ class Session extends ZMObject {
         $this->internalStart_ = false;
         $this->useFqdn_ = true;
         $this->data_ = array();
-        $this->persist_ = array();
         $this->sessionHandler_ = null;
         $this->closed_ = false;
         $this->cookiePath_ = '/';
@@ -103,9 +102,10 @@ class Session extends ZMObject {
      */
     public function __destruct() {
         parent::__destruct();
-        foreach ($this->persist_ as $id) {
-            if ($this->container->has($id)) {
-                $this->setValue($id, serialize($this->container->get($id)));
+        foreach (Runtime::getContainer()->findTaggedServiceIds('zenmagick.http.session.persist') as $id => $args) {
+            $service = $container->get($id);
+            if ($service instanceof Serializable) {
+                $this->setValue($id, serialize($service));
             }
         }
         $this->close();
@@ -185,16 +185,6 @@ class Session extends ZMObject {
      */
     public function setUseFqdn($value) {
         $this->useFqdn_ = $value;
-    }
-
-    /**
-     * Add one or more container ids to persist.
-     *
-     * @param mixed id Either a single id or an array of container ids.
-     */
-    public function addPersistId($id) {
-        $id = is_array($id) ? $id : array($id);
-        $this->persist_ = array_merge($this->persist_, $id);
     }
 
     /**
@@ -446,6 +436,18 @@ class Session extends ZMObject {
         }
 
         return $this->getValue($tokenKey);
+    }
+
+
+    /**
+     * Get user session.
+     *
+     * <p>Get a custmizable object wrapping user session values.</p>.
+     *
+     * @return UserSession The user session object or <code>null</code>.
+     */
+    public function getUserSession() {
+        return $this->container->has('userSession') ? $this->container->get('userSession') : null;
     }
 
 }

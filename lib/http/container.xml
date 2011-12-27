@@ -34,5 +34,11 @@
 
         <service id="resourceResolver" class="zenmagick\http\view\ResourceResolver" scope="container" />
 
+        <service id="userSession" class="zenmagick\http\session\UserSession" scope="container">
+            <call method="setSession">
+                <argument type="service" id="session" />
+            </call>
+        </service>
+
     </services>
 </container>

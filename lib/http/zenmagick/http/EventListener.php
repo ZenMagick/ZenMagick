@@ -29,12 +29,12 @@ use zenmagick\http\utils\ContextConfigLoader as HttpContextConfigLoader;
 
 
 /**
- * HTTP bootstrap listener.
+ * HTTP event listener.
  *
  * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.http
  */
-class BootstrapListener extends ZMObject {
+class EventListener extends ZMObject {
 
     /**
      * Listen to bootstrap.
@@ -52,6 +52,7 @@ class BootstrapListener extends ZMObject {
      */
     public function onInitRequest($event) {
         $request = $event->get('request');
+        $session = $request->getSession();
 
         // adjust front controller parameter
         if ($request->getFrontController() != Runtime::getSettings()->get('zenmagick.http.request.handler')) {
@@ -66,6 +67,14 @@ class BootstrapListener extends ZMObject {
                 $routingLoader = new YamlLoader();
                 $routerCollection = $routingLoader->load($routing);
                 $router->getRouteCollection()->addCollection($routerCollection);
+            }
+        }
+
+        if (null != ($userSession = $session->getUserSession())) {
+            if (null != ($locale = $userSession->getLocaleCode())) {
+                // init with user locale
+                $localeService = $this->container->get('localeService');
+                $localeService->init($locale, null, true);
             }
         }
     }

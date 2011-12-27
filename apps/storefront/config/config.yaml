@@ -44,7 +44,7 @@ zenmagick:
       listeners:
         ## TODO: these should be swapped
         - apps\store\StoreEventListener
-        - zenmagick\http\BootstrapListener
+        - zenmagick\http\EventListener
         - ZMEventFixes
     ## logging
     logging:

@@ -237,10 +237,6 @@ services:
     class: zenmagick\http\utils\MessageBuilder
     scope: prototype
 
-  userSession:
-    class: zenmagick\http\utils\UserSession
-    scope: container
-
   contextConfigLoader:
     class: apps\store\utils\ContextConfigLoader
     scope: prototype

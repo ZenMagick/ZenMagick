@@ -22,6 +22,7 @@
 namespace zenmagick\base\locales\handler;
 
 use zenmagick\base\Runtime;
+use zenmagick\base\logging\Logging;
 use zenmagick\base\locales\Locale;
 use pomo\Translations;
 use pomo\MO;
@@ -106,8 +107,10 @@ class PomoLocale extends Locale {
      * @return boolean <code>true</code> on success.
      */
     public function registerMO($filename, $domain=Locale::DEFAULT_DOMAIN) {
+        Runtime::getLogging()->debug(sprintf('registering MO: %s', $filename));
         $mo = new MO();
         if (!$mo->import_from_file($filename)) {
+            Runtime::getLogging()->warn(sprintf('import from MO: %s failed!', $filename));
             return false;
         }
 
