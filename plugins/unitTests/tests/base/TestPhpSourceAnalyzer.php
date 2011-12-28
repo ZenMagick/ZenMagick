@@ -20,13 +20,16 @@
 ?>
 <?php
 
+use zenmagick\base\utils\packer\PhpSourceAnalyzer;
+
+
 /**
  * Test PHP source analyzer.
  *
  * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestZMPhpSourceAnalyzer extends ZMTestCase {
+class TestPhpSourceAnalyzer extends ZMTestCase {
 
     /**
      * Get an (empty) dependency map.
@@ -52,7 +55,7 @@ class TestZMPhpSourceAnalyzer extends ZMTestCase {
      * @param string filename The file name.
      */
     protected function getSourceFor($filename) {
-        $path = ZMFileUtils::mkPath(array($this->getTestPlugin()->getPluginDirectory(), 'tests', 'core', 'testclasses'));
+        $path = ZMFileUtils::mkPath(array($this->getTestPlugin()->getPluginDirectory(), 'tests', 'base', 'testclasses'));
         $lines = ZMFileUtils::getFileLines($path.$filename);
         return implode("\n", $lines);
     }
@@ -64,7 +67,7 @@ class TestZMPhpSourceAnalyzer extends ZMTestCase {
         $expected = $this->getDepsMap();
         $expected['contains']['classes'][] = 'ZMBasicClass';
         $source = $this->getSourceFor('ZMPhpSourceAnalyzerTestClassSimple.phpx');
-        $deps = ZMPhpSourceAnalyzer::getDependencies($source);
+        $deps = PhpSourceAnalyzer::getDependencies($source);
         $this->assertEqual($expected, $deps);
     }
 
@@ -76,7 +79,7 @@ class TestZMPhpSourceAnalyzer extends ZMTestCase {
         $expected['contains']['classes'][] = 'ZMBasicClass';
         $expected['depends']['classes'][] = 'ZMParentClass';
         $source = $this->getSourceFor('ZMPhpSourceAnalyzerTestClassExtends.phpx');
-        $deps = ZMPhpSourceAnalyzer::getDependencies($source);
+        $deps = PhpSourceAnalyzer::getDependencies($source);
         $this->assertEqual($expected, $deps);
     }
 
@@ -88,7 +91,7 @@ class TestZMPhpSourceAnalyzer extends ZMTestCase {
         $expected['contains']['classes'][] = 'ZMBasicClass';
         $expected['depends']['interfaces'][] = 'ZMSomeInterface';
         $source = $this->getSourceFor('ZMPhpSourceAnalyzerTestClassImplements.phpx');
-        $deps = ZMPhpSourceAnalyzer::getDependencies($source);
+        $deps = PhpSourceAnalyzer::getDependencies($source);
         $this->assertEqual($expected, $deps);
     }
 
@@ -101,7 +104,7 @@ class TestZMPhpSourceAnalyzer extends ZMTestCase {
         $expected['depends']['classes'][] = 'ZMParentClass';
         $expected['depends']['interfaces'][] = 'ZMSomeInterface';
         $source = $this->getSourceFor('ZMPhpSourceAnalyzerTestClassMixed.phpx');
-        $deps = ZMPhpSourceAnalyzer::getDependencies($source);
+        $deps = PhpSourceAnalyzer::getDependencies($source);
         $this->assertEqual($expected, $deps);
     }
 
@@ -115,7 +118,7 @@ class TestZMPhpSourceAnalyzer extends ZMTestCase {
         $expected['depends']['classes'] = array('ZMParentClass');
         $expected['depends']['interfaces'] = array('ZMSomeInterface', 'Bar');
         $source = $this->getSourceFor('ZMPhpSourceAnalyzerTestClassMulti.phpx');
-        $deps = ZMPhpSourceAnalyzer::getDependencies($source);
+        $deps = PhpSourceAnalyzer::getDependencies($source);
         $this->assertEqual($expected, $deps);
     }
 
@@ -129,7 +132,7 @@ class TestZMPhpSourceAnalyzer extends ZMTestCase {
         $expected['depends']['classes'] = array('ZMParentClass');
         $expected['depends']['interfaces'] = array('ZMSomeInterface', 'ZMSomeOtherInterface', 'Feng', 'Shui', 'Bar', 'Doh');
         $source = $this->getSourceFor('ZMPhpSourceAnalyzerTestClassMultiMulti.phpx');
-        $deps = ZMPhpSourceAnalyzer::getDependencies($source);
+        $deps = PhpSourceAnalyzer::getDependencies($source);
         $this->assertEqual($expected, $deps);
     }
 
@@ -143,7 +146,7 @@ class TestZMPhpSourceAnalyzer extends ZMTestCase {
         $expected['depends']['classes'] = array('ZMParentClass');
         $expected['depends']['interfaces'] = array('ZMSomeInterface', 'ZMSomeOtherInterface', 'Feng', 'Shui', 'Bar', 'Doh');
         $source = $this->getSourceFor('ZMPhpSourceAnalyzerTestClassMultiMultiWS.phpx');
-        $deps = ZMPhpSourceAnalyzer::getDependencies($source);
+        $deps = PhpSourceAnalyzer::getDependencies($source);
         $this->assertEqual($expected, $deps);
     }
 
@@ -157,8 +160,8 @@ class TestZMPhpSourceAnalyzer extends ZMTestCase {
             array('ClassG.phpx')
         );
 
-        $path = ZMFileUtils::mkPath(array($this->getTestPlugin()->getPluginDirectory(), 'tests', 'core', 'testclasses', 'deps'));
-        $tree = ZMPhpSourceAnalyzer::buildDepdencyTree(ZMFileUtils::findIncludes($path, '.phpx', true), array('SystemClass'));
+        $path = ZMFileUtils::mkPath(array($this->getTestPlugin()->getPluginDirectory(), 'tests', 'base', 'testclasses', 'deps'));
+        $tree = PhpSourceAnalyzer::buildDepdencyTree(ZMFileUtils::findIncludes($path, '.phpx', true), array('SystemClass'));
         // strip path to make comparable and also just look at keys here
         foreach ($tree as $level => $files) {
             $tmp = array();
