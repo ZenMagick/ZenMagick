@@ -38,15 +38,12 @@ use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
  * @package zenmagick.base.dependencyInjection
  */
 class Container extends ContainerBuilder {
-    private $services_;
-
 
     /**
      * Create new instance.
      */
     public function __construct(ParameterBagInterface $parameterBag=null) {
         parent::__construct(null == $parameterBag? new SettingsParameterBag() : new SettingsParameterBag($parameterBag->all()));
-        $this->services_ = array();
         $this->getCompilerPassConfig()->addPass(new ResolveMergeDefinitionsPass());
     }
 
@@ -59,6 +56,7 @@ class Container extends ContainerBuilder {
             $obj = parent::get($id, $invalidBehavior);
         } else if (ClassLoader::classExists($id) && class_exists($id)) {
             // try to default to the id as class name (with scope prototype)
+//echo sprintf('defaulting to id = classname: %s', $id)."<BR>";
             $obj = new $id();
         }
 
@@ -85,15 +83,7 @@ class Container extends ContainerBuilder {
      * @deprecated
      */
     public function getService($id, $invalidBehavior=self::EXCEPTION_ON_INVALID_REFERENCE) {
-        if (!array_key_exists($id, $this->services_)) {
-            $this->services_[$id] = $this->get($id, $invalidBehavior);
-        }
-
-        if (array_key_exists($id, $this->services_)) {
-            return $this->services_[$id];
-        }
-
-        return null;
+        throw new ZMException('method not supported any more');
     }
 
 }
