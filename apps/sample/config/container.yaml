@@ -8,10 +8,6 @@ parameters:
 
 services:
 
-  pluginService:
-    class: ZMPlugins
-    scope: container
-
   validator:
     class: ZMValidator
     scope: container
