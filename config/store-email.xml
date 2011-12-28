@@ -1,24 +1,11 @@
-!-- app/config/config.xml -->
-
-<!--
--->
-
-<swiftmailer:config
-    transport="smtp"
-    encryption="ssl"
-    auth-mode="login"
-    host="smtp.gmail.com"
-    username="your_username"
-    password="your_password" />
-
 <?xml version="1.0" ?>
 
 <!-- http container -->
 <container xmlns="http://symfony.com/schema/dic/services"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:swiftmailer="http://symfony.com/schema/dic/swiftmailer"
-    xsi:schemaLocation="http://symfony.com/schema/dic/swiftmailer http://symfony.com/schema/dic/swiftmailer/swiftmailer-1.0.xsd"
-    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd
+                        http://symfony.com/schema/dic/swiftmailer http://symfony.com/schema/dic/swiftmailer/swiftmailer-1.0.xsd">
 
     <services>
         <service id="zencartTransport" class="apps\store\bundles\ZenCartBundle\utils\ZenCartTransport" scope="container" />
@@ -31,7 +18,6 @@
         password="your_password"
         host="%zenmagick.core.email.smtp.host%"
         port="%zenmagick.core.email.smtp.port%"
-        sender_address="%storeEmail%"
         logging="true"
     >
         <!--

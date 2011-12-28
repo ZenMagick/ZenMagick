@@ -25,10 +25,10 @@
 namespace apps\store;
 
 use Symfony\Component\Config\FileLocator;
+use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 
 use zenmagick\base\Runtime;
 use zenmagick\base\Toolbox;
-use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use zenmagick\base\ZMObject;
 
 /**
@@ -57,10 +57,10 @@ class StoreEventListener extends ZMObject {
         }
 
         // load email container config once all settings/config is loaded
-        $emailConfig = Runtime::getInstallationPath().DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.'store-email.yaml';
+        $emailConfig = Runtime::getInstallationPath().DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.'store-email.xml';
         if (file_exists($emailConfig)) {
-            $containerYamlLoader = new YamlFileLoader(Runtime::getContainer(), new FileLocator(dirname($emailConfig)));
-            $containerYamlLoader->load($emailConfig);
+            $containerlLoader = new XmlFileLoader(Runtime::getContainer(), new FileLocator(dirname($emailConfig)));
+            $containerlLoader->load($emailConfig);
         }
 
         // load some static files that we still need
