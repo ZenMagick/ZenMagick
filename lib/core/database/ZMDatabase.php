@@ -1,4 +1,4 @@
-org.<?php
+<?php
 /*
  * ZenMagick - Another PHP framework.
  * Copyright (C) 2006-2011 zenmagick.org
