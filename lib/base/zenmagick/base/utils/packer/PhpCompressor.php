@@ -19,6 +19,8 @@
  */
 ?>
 <?php
+namespace zenmagick\base\utils\packer;
+
 /*
  * T_ML_COMMENT does not exist in PHP 5.
  * The following three lines define it in order to
@@ -48,9 +50,9 @@ if (!defined('T_ML_COMMENT')) {
  * <p>If no temp folder is configured, the location of this file will be used to store temporary files and folders.</p>
  *
  * @author DerManoMann <mano@zenmagick.org> <mano@zenmagick.org>
- * @package org.zenmagick.core.utils.packer
+ * @package zenmagick.base.utils.packer
  */
-class ZMPhpCompressor {
+class PhpCompressor {
     protected $rootFolders_;
     protected $outputFilename_;
     protected $tempFolder_;
@@ -72,7 +74,7 @@ class ZMPhpCompressor {
      * @param string out The [full] output filename; default is <code>null</code>.
      * @param string temp A temp folder for transient files and folders; default is <code>null</code>.
      */
-    function __construct($root=null, $out=null, $temp=null) {
+    public function __construct($root=null, $out=null, $temp=null) {
         $this->setRoot($root);
         $this->setOut($out);
         $this->setTemp($temp);
@@ -167,8 +169,8 @@ class ZMPhpCompressor {
      * Clean up all temp. files.
      */
     public function clean() {
-        ZMFileUtils::rmdir($this->strippedFolder_);
-        ZMFileUtils::rmdir($this->flatFolder_);
+        \ZMFileUtils::rmdir($this->strippedFolder_);
+        \ZMFileUtils::rmdir($this->flatFolder_);
     }
 
     /**
@@ -289,7 +291,7 @@ class ZMPhpCompressor {
             }
 
             fclose($handle);
-            ZMFileUtils::setFilePerms($out);
+            \ZMFileUtils::setFilePerms($out);
         } else {
             echo $source;
         }
@@ -350,8 +352,8 @@ class ZMPhpCompressor {
      */
     protected function stripPhpDir($in, $out=null, $recursive=true) {
         //echo "** stripping " . $in . " into " . $out . "\n";
-        if (!ZMLangUtils::endsWith($in, DIRECTORY_SEPARATOR)) $in .= DIRECTORY_SEPARATOR;
-        if (!ZMLangUtils::endsWith($out, DIRECTORY_SEPARATOR)) $out .= DIRECTORY_SEPARATOR;
+        if (!\ZMLangUtils::endsWith($in, DIRECTORY_SEPARATOR)) $in .= DIRECTORY_SEPARATOR;
+        if (!\ZMLangUtils::endsWith($out, DIRECTORY_SEPARATOR)) $out .= DIRECTORY_SEPARATOR;
 
         $files = $this->findIncludes($in, '.php', $recursive);
 
@@ -359,18 +361,18 @@ class ZMPhpCompressor {
             $name = basename($infile);
             $dirbase = substr(dirname($infile), strlen($in));
             $outdir = $out.$dirbase;
-            if (!ZMLangUtils::endsWith($outdir, DIRECTORY_SEPARATOR)) $outdir .= DIRECTORY_SEPARATOR;
+            if (!\ZMLangUtils::endsWith($outdir, DIRECTORY_SEPARATOR)) $outdir .= DIRECTORY_SEPARATOR;
             $outfile = $outdir.$name;
             //echo $outfile."<BR>";
             if (!file_exists($outdir)) {
                 if (!file_exists(dirname($outdir))) {
-                    ZMFileUtils::mkdir(dirname($outdir));
+                    \ZMFileUtils::mkdir(dirname($outdir));
                     if (!file_exists(dirname($outdir))) {
                         array_push($this->errors_, 'could not create directory ' . dirname($outdir));
                         return;
                     }
                 }
-                ZMFileUtils::mkdir($outdir);
+                \ZMFileUtils::mkdir($outdir);
                 if (!file_exists($outdir)) {
                     array_push($this->errors_, 'could not create directory ' . $outdir);
                     return;
@@ -392,7 +394,7 @@ class ZMPhpCompressor {
         $files = $this->findIncludes($in.DIRECTORY_SEPARATOR, '.php', true);
 
         if (!file_exists($out)) {
-            ZMFileUtils::mkdir($out);
+            \ZMFileUtils::mkdir($out);
         }
 
         $inpath = explode(DIRECTORY_SEPARATOR, $in);
@@ -405,13 +407,13 @@ class ZMPhpCompressor {
             }
             if (!file_exists($outdir)) {
                 if (!file_exists(dirname($outdir))) {
-                    ZMFileUtils::mkdir(dirname($outdir));
+                    \ZMFileUtils::mkdir(dirname($outdir));
                     if (!file_exists(dirname($outdir))) {
                         array_push($this->errors_, 'could not create directory ' . dirname($outdir));
                         return;
                     }
                 }
-                ZMFileUtils::mkdir($outdir);
+                \ZMFileUtils::mkdir($outdir);
                 if (!file_exists($outdir)) {
                     array_push($this->errors_, 'could not create directory ' . $outdir);
                     return;
@@ -444,7 +446,7 @@ class ZMPhpCompressor {
             }
 
             fclose($handle);
-            ZMFileUtils::setFilePerms($outfile);
+            \ZMFileUtils::setFilePerms($outfile);
         }
     }
 
@@ -527,7 +529,7 @@ class ZMPhpCompressor {
         }
 
         fclose($handle);
-        ZMFileUtils::setFilePerms($outfile);
+        \ZMFileUtils::setFilePerms($outfile);
     }
 
 }

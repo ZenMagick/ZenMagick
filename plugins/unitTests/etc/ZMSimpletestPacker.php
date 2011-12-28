@@ -20,13 +20,16 @@
 ?>
 <?php
 
+use zenmagick\base\utils\packer\PhpPackagePacker;
+
+
 /**
  * Packer for the <em>simpletest</em> library.
  *
  * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.mvc
  */
-class ZMSimpletestPacker extends ZMPhpPackagePacker implements ZMLibraryPacker {
+class ZMSimpletestPacker extends PhpPackagePacker implements ZMLibraryPacker {
 
     /**
      * {@inheritDoc}

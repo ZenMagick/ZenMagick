@@ -20,13 +20,16 @@
 ?>
 <?php
 
+use zenmagick\base\utils\packer\PhpPackagePacker;
+
+
 /**
  * Packer for the <em>pomo</em> tools as included in Wordpress and glotpress.
  *
  * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.core.build
  */
-class ZMPomoPacker extends ZMPhpPackagePacker implements ZMLibraryPacker {
+class ZMPomoPacker extends PhpPackagePacker implements ZMLibraryPacker {
     private $nsAdded = false;
 
     /**

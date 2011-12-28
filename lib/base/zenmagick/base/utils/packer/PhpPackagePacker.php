@@ -19,6 +19,7 @@
  */
 ?>
 <?php
+namespace zenmagick\base\utils\packer;
 
 use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
@@ -26,13 +27,13 @@ use zenmagick\base\Runtime;
 /**
  * Analyze dependencies of a given PHP package (folder tree), resolve and compress.
  *
- * <p>This class is build on top of <code>ZMPhpCompressor</code>. It adds the ability to resolve
+ * <p>This class is build on top of <code>PhpCompressor</code>. It adds the ability to resolve
  * <em>include</em> and <em>require</em> directives. It also takes care of missing PHP close tags <em>?&gt;</em>.</p>
  *
  * @author DerManoMann <mano@zenmagick.org> <mano@zenmagick.org>
- * @package org.zenmagick.core.utils.packer
+ * @package zenmagick.base.utils.packer
  */
-class ZMPhpPackagePacker {
+class PhpPackagePacker {
     protected $rootFolder_;
     protected $outputFilename_;
     protected $tempFolder_;
@@ -48,7 +49,7 @@ class ZMPhpPackagePacker {
      * @param string out The [full] output filename; default is <code>null</code>.
      * @param string temp A temp folder for transient files and folders; default is <code>null</code>.
      */
-    function __construct($root=null, $out=null, $temp=null) {
+    public function __construct($root=null, $out=null, $temp=null) {
         $this->rootFolder_ = $root;
         $this->outputFilename_ = $out;
         $this->setTemp($temp);
@@ -140,8 +141,8 @@ class ZMPhpPackagePacker {
      * Clean up temp stuff.
      */
     public function clean() {
-        ZMFileUtils::rmdir($this->tempFolder_);
-        ZMFileUtils::rmdir($this->outputFilename_.'.prep'.DIRECTORY_SEPARATOR);
+        \ZMFileUtils::rmdir($this->tempFolder_);
+        \ZMFileUtils::rmdir($this->outputFilename_.'.prep'.DIRECTORY_SEPARATOR);
     }
 
     /**
@@ -150,7 +151,7 @@ class ZMPhpPackagePacker {
      * @return array A list of file names.
      */
     protected function getFileList() {
-        return ZMFileUtils::findIncludes($this->rootFolder_, '.php', true);
+        return \ZMFileUtils::findIncludes($this->rootFolder_, '.php', true);
     }
 
     /**
@@ -175,11 +176,11 @@ class ZMPhpPackagePacker {
     }
 
     /**
-     * Prepare the original files to be processed by <code>ZMPhpCompressor</code>.
+     * Prepare the original files to be processed by <code>PhpCompressor</code>.
      */
     protected function prepareFiles() {
         $files = $this->getFileList();
-        $tree = ZMPhpSourceAnalyzer::buildDepdencyTree($files, $this->getPreResolved());
+        $tree = PhpSourceAnalyzer::buildDepdencyTree($files, $this->getPreResolved());
 
         $currentDir = $this->outputFilename_.'.prep'.DIRECTORY_SEPARATOR;
         foreach ($tree as $level => $files) {
@@ -187,13 +188,13 @@ class ZMPhpPackagePacker {
                 $currentDir .= $level.DIRECTORY_SEPARATOR;
             }
 
-            ZMFileUtils::mkdir($currentDir);
+            \ZMFileUtils::mkdir($currentDir);
 
             foreach ($files as $filename => $details) {
                 if ($this->ignoreFile($filename)) {
                     continue;
                 }
-                $lines = ZMFileUtils::getFileLines($filename);
+                $lines = \ZMFileUtils::getFileLines($filename);
                 foreach ($lines as $ii => $line) {
                     // match all statements, regardless whether they match the PEAR style expected above or not
                     if (preg_match('/^\s*\s*(require_once|require|include_once|include).*$/', $line, $matches)) {
@@ -216,7 +217,7 @@ class ZMPhpPackagePacker {
                 if (null != ($patchedLines = $this->patchFile($filename, $lines))) {
                     $lines = $patchedLines;
                 }
-                ZMFileUtils::putFileLines($extFile, $lines);
+                \ZMFileUtils::putFileLines($extFile, $lines);
             }
         }
     }
@@ -228,7 +229,7 @@ class ZMPhpPackagePacker {
      * @param boolean stripRef If <code>true</code>, strip code that uses references.
      */
     protected function compressFiles($stripCode, $stripRef) {
-        $compressor = Beans::getBean('ZMPhpCompressor');
+        $compressor = new PhpCompressor();
         $compressor->setRoot($this->outputFilename_.'.prep'.DIRECTORY_SEPARATOR);
         $compressor->setOut($this->outputFilename_);
         $compressor->setTemp($this->tempFolder_);

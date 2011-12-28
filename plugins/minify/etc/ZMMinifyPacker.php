@@ -20,13 +20,16 @@
 ?>
 <?php
 
+use zenmagick\base\utils\packer\PhpPackagePacker;
+
+
 /**
  * Packer for the <em>minify</em> library.
  *
  * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.mvc
  */
-class ZMMinifyPacker extends ZMPhpPackagePacker implements ZMLibraryPacker {
+class ZMMinifyPacker extends PhpPackagePacker implements ZMLibraryPacker {
 
     /**
      * {@inheritDoc}

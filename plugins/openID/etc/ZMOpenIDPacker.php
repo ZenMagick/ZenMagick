@@ -20,13 +20,16 @@
 ?>
 <?php
 
+use zenmagick\base\utils\packer\PhpPackagePacker;
+
+
 /**
  * Packer for the <em>openID</em> library.
  *
  * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.mvc
  */
-class ZMOpenIDPacker extends ZMPhpPackagePacker implements ZMLibraryPacker {
+class ZMOpenIDPacker extends PhpPackagePacker implements ZMLibraryPacker {
 
     /**
      * {@inheritDoc}

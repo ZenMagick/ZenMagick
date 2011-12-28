@@ -19,6 +19,7 @@
  */
 ?>
 <?php
+namespace zenmagick\base\utils\packer;
 
 use zenmagick\base\Runtime;
 
@@ -26,9 +27,9 @@ use zenmagick\base\Runtime;
  * Analyze dependencies of a given (PHP) source.
  *
  * @author DerManoMann <mano@zenmagick.org> <mano@zenmagick.org>
- * @package org.zenmagick.core.utils.packer
+ * @package zenmagick.base.utils.packer
  */
-class ZMPhpSourceAnalyzer {
+class PhpSourceAnalyzer {
 
     /**
      * Get next token of a certain type.
@@ -177,9 +178,9 @@ class ZMPhpSourceAnalyzer {
         // 1) start by collecting lines and class/interface for each file
         $fileDetails = array();
         foreach ($files as $filename) {
-            $lines = ZMFileUtils::getFileLines($filename);
+            $lines = \ZMFileUtils::getFileLines($filename);
             //$fileDetails[$filename] = array('lines' => $lines);
-            $fileDetails[$filename]['deps'] = ZMPhpSourceAnalyzer::getDependencies(implode("\n", $lines));
+            $fileDetails[$filename]['deps'] = PhpSourceAnalyzer::getDependencies(implode("\n", $lines));
         }
 
         // 2) now create some lookup tables to make life easier;
