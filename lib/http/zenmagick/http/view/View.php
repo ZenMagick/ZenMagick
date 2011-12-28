@@ -19,6 +19,7 @@
  */
 ?>
 <?php
+namespace zenmagick\http\view;
 
 use zenmagick\base\Runtime;
 use zenmagick\base\ZMObject;
@@ -31,8 +32,8 @@ use zenmagick\base\ZMObject;
  */
 class View extends ZMObject {
     private $resourceResolver;
+    private $resourceManager;
     private $variables;
-    private $viewId_;
     private $template_;
 
 
@@ -42,7 +43,6 @@ class View extends ZMObject {
     public function __construct() {
         parent::__construct();
         $this->variables = array();
-        $this->viewId_ = null;
         $this->template_ = null;
     }
 
@@ -63,6 +63,24 @@ class View extends ZMObject {
      */
     public function getResourceResolver() {
         return $this->resourceResolver;
+    }
+
+    /**
+     * Set the resource manager.
+     *
+     * @param ResourceManager resourceManager The resource manager.
+     */
+    public function setResourceManager(ResourceManager $resourceManager) {
+        $this->resourceManager = $resourceManager;
+    }
+
+    /**
+     * Get the resource manager.
+     *
+     * @return ResourceResolver The resource manager.
+     */
+    public function getResourceManager() {
+        return $this->resourceManager;
     }
 
     /**
@@ -108,61 +126,6 @@ class View extends ZMObject {
     }
 
     /**
-     * Check if this view is valid.
-     *
-     * @return boolean <code>true</code> if the view is valid.
-     */
-    public function isValid() {
-        $filename = $this->getTemplate().Runtime::getSettings()->get('zenmagick.http.templates.ext', '.php');
-        return $this->resourceResolver->exists($filename);
-    }
-
-    /**
-     * Shortcut to generate the contents for the currenty set template.
-     *
-     * <p>The template extension is taken from the <em>'zenmagick.mvc.templates.ext'</em setting.</p>
-     *
-     * @param ZMRequest request The current request.
-     * @return string The contents.
-     */
-    public function generate($request) {
-        // set a few default things...
-        $view->setVar('request', $request);
-        $view->setVar('session', $request->getSession());
-        $toolbox = $request->getToolbox();
-        $view->setVar('toolbox', $toolbox);
-
-        // also set individual tools
-        $view->setVars($toolbox->getTools());
-
-        // set all plugins
-        $settingsService = Runtime::getSettings();
-        foreach ($this->container->get('pluginService')->getAllPlugins($settingsService->get('zenmagick.base.context')) as $plugin) {
-            $this->setVar($plugin->getId(), $plugin);
-        }
-
-        return $this->fetch($request, $this->getTemplate().$settingsService->get('zenmagick.mvc.templates.ext', '.php'));
-    }
-
-    /**
-     * Get the view id.
-     *
-     * @return string The view id.
-     */
-    public function getViewId() {
-        return $this->viewId_;
-    }
-
-    /**
-     * Set the view id.
-     *
-     * @param string viewId The new view id.
-     */
-    public function setViewId($viewId) {
-        $this->viewId_ = $viewId;
-    }
-
-    /**
      * Get the template name.
      *
      * @return string The template name.
@@ -181,114 +144,72 @@ class View extends ZMObject {
     }
 
     /**
-     * Get the content type for this view.
+     * Check if this view is valid.
      *
-     * <p>Return the value of the setting <em>zenmagick.mvc.html.contentType</em> or <em>text/html</em> as default.</p>
-     *
-     * @return string The content type or <code>null</code>.
+     * @return boolean <code>true</code> if the view is valid.
      */
-    public function getContentType() {
-        return Runtime::getSettings()->get('zenmagick.mvc.html.contentType', 'text/html');
+    public function isValid() {
+        $filename = $this->getTemplate().Runtime::getSettings()->get('zenmagick.http.templates.ext', '.php');
+        return $this->resourceResolver->exists($filename);
     }
 
     /**
-     * Get the content encoding.
+     * Shortcut to generate the contents for the currenty set template.
      *
-     * <p>Return the value of the setting <em>zenmagick.mvc.html.charset</em> or <em>UTF-8</em> as default.</p>
+     * <p>The template extension is taken from the <em>'zenmagick.mvc.templates.ext'</em setting.</p>
      *
-     * @return string The content encoding.
-     */
-    public function getEncoding() {
-        return Runtime::getSettings()->get('zenmagick.mvc.html.charset', 'UTF-8');
-    }
-
-    /**
-     * Fetch/generate the contents of the given template.
-     *
-     * @param request The current request.
-     * @param string template The template name.
-     * @param array variables Additional template variables; default is an empty array.
+     * @param ZMRequest request The current request.
+     * @param string template Optional template override; default is <code>null</code>.
+     * @param array variables Optional additional template variables; default is an empty array.
      * @return string The contents.
      */
-    public abstract function fetch($request, $template, $variables=array());
+    public function generate($request, $template=null, $variables=array()) {
+        // todo: use tag to mark things to go into view scope
+        // set a few default things...
+        $this->setVar('request', $request);
+        $this->setVar('session', $request->getSession());
+        $toolbox = $request->getToolbox();
+        $this->setVar('toolbox', $toolbox);
+
+        // also set individual tools
+        $this->setVars($toolbox->getTools());
+
+        $this->setVar('container', $this->container);
+        $this->setVar('resources', $this->getResourceManager());
+
+        // set all plugins
+        $settingsService = Runtime::getSettings();
+        foreach ($this->container->get('pluginService')->getAllPlugins($settingsService->get('zenmagick.base.context')) as $plugin) {
+            $this->setVar($plugin->getId(), $plugin);
+        }
+
+        $template = null != $template ? $template : $this->getTemplate().Runtime::getSettings()->get('zenmagick.http.templates.ext', '.php');
+        return $this->fetch($template, $variables);
+    }
 
     /**
-     * Check if the given templates file exists.
+     * Fetch/evaluate the given template.
      *
-     * @param request The current request.
-     * @param string filename The filename, relative to the template path.
-     * @param string type The lookup type; valid values are <code>ZMView::TEMPLATE</code> and <code>ZMView::RESOURCE</code>;
-     *  default is <code>ZMVIew::TEMPLATE</code>.
-     * @return boolean <code>true</code> if the file exists, <code>false</code> if not.
+     * @param string template The template.
+     * @param array variables Optional additional template variables; default is an empty array.
+     * @return string The template output.
      */
-    public abstract function exists($request, $filename, $type=ZMView::TEMPLATE);
+    protected function fetch($template, $variables=array()) {
+        $this->setVars($variables);
 
-    /**
-     * Resolve the given (relative) templates filename into a url.
-     *
-     * @param request The current request.
-     * @param string filename The filename, relative to the template path.
-     * @param string type The lookup type; valid values are <code>ZMView::TEMPLATE</code> and <code>ZMView::RESOURCE</code>;
-     *  default is <code>ZMVIew::TEMPLATE</code>.
-     * @return string A url.
-     */
-    public abstract function asUrl($request, $filename, $type=ZMView::TEMPLATE);
+        // resolve template
+        if (null == ($file = $this->resourceResolver->findResource($template, ResourceResolver::TEMPLATE))) {
+            throw new ZMException(sprintf('template not found: %s', $template));
+        }
 
-    /**
-     * Resolve the given templates filename to a fully qualified filename.
-     *
-     * @param request The current request.
-     * @param string filename The filename, relative to the template path.
-     * @param string type The lookup type; valid values are <code>ZMView::TEMPLATE</code> and <code>ZMView::RESOURCE</code>;
-     *  default is <code>ZMVIew::TEMPLATE</code>.
-     * @return string A fully qualified filename or <code>null</code>.
-     */
-    public abstract function path($request, $filename, $type=ZMView::TEMPLATE);
+        $file = $this->compile($file);
 
-    /**
-     * Convert a full file system path to uri.
-     *
-     * @param request The current request.
-     * @param string filename The full filename.
-     * @return string The uri or <code>null</code> if the filename is invalid.
-     */
-    public abstract function file2uri($request, $filename);
+        // prepare env
+				extract($this->getVars(), EXTR_REFS);
 
-    /**
-     * Get view utils.
-     *
-     * @return ZMViewUtils An instance of <code>ZMViewUtils</code> or <code>null</code>.
-     */
-    public abstract function getViewUtils();
-
-    /**
-     * Find templates/resources for the given path.
-     *
-     * <p><strong>Example:</strong></p>
-     *
-     * <p>Find all styles in a particular folder (<em>style</em>).</p>
-     * <code><pre>
-     *   $styles = $this->find('style', '/css/');
-     *   foreach ($styles as $name => $url) {
-     *    echo '<link rel="stylesheet" type="text/css" href="'.$url.'"/>';
-     *   }
-     * </pre></code>
-     *
-     * <p>Alternatively, using the build in $resource helper, it would look like this:</p>
-     * <code><pre>
-     *   $styles = $this->find('style', '/css/');
-     *   foreach ($styles as $name => $url) {
-     *    $resource->cssFile($name);
-     *   }
-     * </pre></code>
-     *
-     * @param request The current request.
-     * @param string path The base path, relative to the template/resource path.
-     * @param string regexp Optional filter expression; default is <code>null</code> for none.
-     * @param string type The lookup type; valid values are <code>ZMView::TEMPLATE</code> and <code>ZMView::RESOURCE</code>;
-     *  default is <code>ZMView::RESOURCE</code>.
-     * @return array A map of matching filename/relative url pairs.
-     */
-    public abstract function find($request, $path, $regexp=null, $type=ZMView::RESOURCE);
+        ob_start();
+        require $file;
+        return $this->applyFilters(ob_get_clean());
+    }
 
 }

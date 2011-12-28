@@ -32,6 +32,8 @@
             <tag name="zenmagick.http.request.rewriter" />
         </service>
 
+        <service id="resourceManager" class="zenmagick\http\view\ResourceManager" scope="prototype" />
+
         <service id="resourceResolver" class="zenmagick\http\view\ResourceResolver" scope="container" />
 
         <service id="userSession" class="zenmagick\http\session\UserSession" scope="container">
