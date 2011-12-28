@@ -105,7 +105,7 @@ class Runtime {
      * @return zenmagick\base\logging\Logging A <code>zenmagick\base\logging\Logging</code> instance.
      */
     public static function getLogging($scope=null) {
-        return self::getContainer()->getService('loggingService');
+        return self::getContainer()->get('loggingService');
     }
 
     /**
@@ -123,7 +123,7 @@ class Runtime {
      * @return zenmagick\base\settings\Settings A <code>zenmagick\base\settings\Settings</code> instance.
      */
     public static function getSettings() {
-        return self::getContainer()->getService('settingsService');
+        return self::getContainer()->get('settingsService');
     }
 
     /**
