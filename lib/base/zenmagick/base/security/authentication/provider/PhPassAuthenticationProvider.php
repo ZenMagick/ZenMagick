@@ -21,6 +21,7 @@
 <?php
 namespace zenmagick\base\security\authentication\provider;
 
+use openwall\phpass\PasswordHash;
 use zenmagick\base\security\authentication\AuthenticationProvider;
 
 
@@ -40,7 +41,7 @@ class PhPassAuthenticationProvider implements AuthenticationProvider {
      * Create instance.
      */
     function __construct() {
-        $this->passwordHash_ = new \PasswordHash(8, false);
+        $this->passwordHash_ = new PasswordHash(8, false);
     }
 
     /**

@@ -21,6 +21,7 @@
 <?php
 namespace zenmagick\base\cache;
 
+use pear\cache\CacheLite;
 
 /**
  * File caching.
@@ -58,13 +59,13 @@ class FileCache implements Cache {
             'cacheDir' => $config['cacheDir']
         );
         $this->ensureCacheDir($config['cacheDir']);
-        $this->metaCache_ = new \Cache_Lite($config);
+        $this->metaCache_ = new CacheLite($config);
         if (isset($config['cacheTTL'])) {
             $config['lifeTime'] = $config['cacheTTL'];
         }
         $this->group_ = $group;
         $this->available_ = $this->ensureCacheDir($config['cacheDir']);
-        $this->cache_ = new \Cache_Lite($config);
+        $this->cache_ = new CacheLite($config);
 
 
         // update system stats
