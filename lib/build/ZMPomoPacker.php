@@ -44,6 +44,18 @@ class ZMPomoPacker extends ZMPhpPackagePacker implements ZMLibraryPacker {
      * {@inheritDoc}
      */
     public function patchFile($filename, $lines) {
+        // TODO: fix ctors:
+
+        foreach ($lines as $ii => $line) {
+            foreach (array('POMO_Reader', 'POMO_FileReader', 'POMO_StringReader', 'POMO_CachedFileReader', 'POMO_CachedIntFileReader', 'Translation_Entry') as $name) {
+                if (false !== strpos($line, $name)) {
+                    $line = str_replace('function '.$name.'(', 'function __construct(', $line);
+                    $line = str_replace('parent::'.$name, 'parent::__construct', $line);
+                    $lines[$ii] = $line;
+                }
+            }
+        }
+
         if (!$this->nsAdded) {
             $this->nsAdded = true;
             return array_merge(array("<?php namespace pomo; ?>"), $lines);

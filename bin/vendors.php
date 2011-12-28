@@ -18,6 +18,7 @@ $vendorDeps = array(
         array('doctrine-common', 'git://github.com/doctrine/common.git', 'origin/2.1.x', false),
         array('doctrine-migrations', 'git://github.com/doctrine/migrations.git', 'origin/HEAD', false),
         array('gedmo-doctrine-extensions', 'git://github.com/l3pp4rd/DoctrineExtensions.git', 'origin/master', false),
+        array('glotpress', 'git://github.com/buddypress/glotpress.git', 'origin/HEAD', false),
         //array('monolog', 'http://github.com/Seldaek/monolog.git', 'origin/HEAD', false),
         array('swiftmailer', 'git://github.com/swiftmailer/swiftmailer.git', 'origin/HEAD', false),
         array('symfony', 'git://github.com/ZenMagick/symfony.git', 'origin/HEAD', false),
