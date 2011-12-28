@@ -3,415 +3,240 @@
 <!-- http container -->
 <container xmlns="http://symfony.com/schema/dic/services"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:doctrine="http://symfony.com/schema/dic/doctrine"
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <parameters>
-        <parameter key="admin.session_timeout">1440</parameter>
+        <parameter key="kernel.debug">false</parameter>
+        <parameter key="kernel.environment">%zenmagick.environment%</parameter>
+        <parameter key="kernel.bundles">%zenmagick.bundles%</parameter>
+        <parameter key="kernel.root_dir">%zenmagick.cacheBasePath%/kernel</parameter>
+        <parameter key="kernel.cache_dir">%zenmagick.cacheBasePath%</parameter>
+        <parameter key="zenmagick.cacheBasePath">%zenmagick.installationPath%/../cache/zenmagick</parameter>
+        <parameter key="zenmagick.cacheIds" type="collection">%zenmagick.installationPath%/../cache/zenmagick
+            <parameter>transientCache</parameter>
+            <parameter>persistentCache</parameter>
+            <parameter>servicesCache</parameter>
+            <parameter>templateCache</parameter>
+        </parameter>
     </parameters>
 
     <services>
-        <service id="request" class="Request" scope="container" />
-
-        <service id="pluginService" class="Plugins" scope="container" />
-
-        <service id="sessionHandler" class="ZMZenCartSessionHandler" scope="container">
-            <call method="setExpiryTime">
-                <argument>%admin.session_timeout%</argument>
+        <service id="transientCache" class="zenmagick\base\cache\MemoryCache" scope="container">
+            <call method="init">
+                <argument>global</argument>
+                <argument type="collection" />
             </call>
         </service>
 
-        <service id="storeViewUtils" class="ZMViewUtils" scope="prototype">
-            <call method="setResourcesAsTemplates">
-                <argument>false</argument>
-            </call>
-        </service>
-
-        <service id="storeEmailView" class="SavantView" scope="prototype">
-            <call method="setConfig">
-                <argument type="collection">true
-                    <argument name="cache">ZMSimpleSavantCache</argument>
-                </argument>
-            </call>
-            <call method="setFilters">
-                <argument>ZMShortTagFilter</argument>
-            </call>
-            <call method="setViewUtils">
-                <argument type="service" id="storeViewUtils" />
-            </call>
-        </service>
-
-        <service id="defaultView" class="ZMSavantView" scope="prototype">
-            <call method="setConfig">
+        <service id="persistentCache" class="zenmagick\base\cache\FileCache" scope="container">
+            <call method="init">
+                <argument>global</argument>
                 <argument type="collection">
-                    <argument name="cache">ZMSimpleSavantCache</argument>
+                    <argument key="cacheTTL">300</argument>
+                    <argument key="cacheDir">%zenmagick.cacheBasePath%/files/</argument>
                 </argument>
             </call>
-            <call method="setFilters">
-                <argument>ZMShortTagFilter</argument>
+        </service>
+
+        <service id="servicesCache" class="zenmagick\base\cache\MemoryCache" scope="container">
+            <call method="init">
+                <argument>services</argument>
+                <argument type="collection" />
             </call>
         </service>
 
-        <service id="adminUserPrefService" class="ZMAdminUserPrefs" scope="container" />
-
-        <service id="adminUserRoleService" class="ZMAdminUserRoles" scope="container" />
-
-        <service id="adminUserService" class="ZMAdminUsers" scope="container" />
-
-        <service id="sacsPermissionService" class="ZMSacsPermissions" scope="container" />
-
-        <service id="ZMInstallationPatcher" class="ZMInstallationPatcher" scope="container" />
-
-        <service id="session" class="zenmagick\http\session\Session" scope="container">
-            <argument>%apps.store.admin.domain%</argument>
-            <call method="setName">
-                <argument>zmAdmin</argument>
-            </call>
-            <call method="registerSessionHandler">
-                <argument type="service" id="sessionHandler" />
-            </call>
-            <call method="setUseFqdn">
-                <argument>%zenmagick.http.session.useFqdn%</argument>
+        <service id="templateCache" class="zenmagick\base\cache\FileCache" scope="container">
+            <call method="init">
+                <argument>services</argument>
+                <argument type="collection">
+                    <argument key="cacheTTL">300</argument>
+                    <argument key="cacheDir">%zenmagick.cacheBasePath%/templates/</argument>
+                </argument>
             </call>
         </service>
 
-        <service id="plainEditorWidget" class="ZMTextAreaFormWidget" scope="prototype">
-            <tag name="zenmagick.apps.store.editor" label="Plain" />
+        <service id="accountService" class="ZMAccounts" scope="container" />
+
+        <service id="addressService" class="ZMAddresses" scope="container" />
+
+        <service id="countryService" class="ZMCountries" scope="container" />
+
+        <service id="orderService" class="ZMOrders" scope="container" />
+
+        <service id="themeService" class="ZMThemes" scope="container">
+            <call method="setCache">
+                <argument type="service" id="servicesCache" />
+            </call>
         </service>
 
-        <service id="adminMenu" class="apps\store\menu\Menu" scope="container" />
-
-        <service id="catalogDefaultTabController" class="ZMCatalogDefaultTabController" scope="container">
-            <tag name="apps.store.admin.tabcontroller" />
+        <service id="manufacturerService" class="ZMManufacturers" scope="container">
+            <call method="setCache">
+                <argument type="service" id="servicesCache" />
+            </call>
         </service>
 
-        <service id="userFactory" class="ZMAdminUserFactory" scope="container" />
-
-        <service id="dashboard" class="ZMDashboard" scope="container" />
-
-        <service id="orderStatsDashboardWidget" class="ZMOrderStatsDashboardWidget" scope="prototype">
-            <tag name="apps.store.admin.tabcontroller" />
+        <service id="productService" class="ZMProducts" scope="container">
+            <call method="setCache">
+                <argument type="service" id="servicesCache" />
+            </call>
         </service>
 
-        <service id="latestOrdersDashboardWidget" class="ZMLatestOrdersDashboardWidget" scope="prototype">
-            <tag name="apps.store.admin.tabcontroller" />
+        <service id="categoryService" class="ZMCategories" scope="container">
+            <call method="setCache">
+                <argument type="service" id="servicesCache" />
+            </call>
         </service>
 
-        <service id="latestAccountsDashboardWidget" class="ZMLatestAccountsDashboardWidget" scope="prototype">
-            <tag name="apps.store.admin.tabcontroller" />
+        <service id="ZMViewUtils" class="ZMViewUtils" scope="prototype" />
+
+        <service id="ZMSavant" class="ZMSavant" scope="prototype" />
+
+        <service id="ZMSimpleSavantCache" class="ZMSimpleSavantCache" scope="container">
+            <call method="setCache">
+                <argument type="service" id="templateCache" />
+            </call>
         </service>
 
-        <service id="recentSearchesDashboardWidget" class="ZMRecentSearchesDashboardWidget" scope="prototype">
-            <tag name="apps.store.admin.tabcontroller" />
+        <service id="rssLoader" class="zenmagick\http\rss\RssFeedLoader" scope="container">
+            <call method="init">
+                <argument type="collection">
+                    <argument key="cacheTTL">300</argument>
+                    <argument key="cacheDir">%zenmagick.cacheBasePath%/rss/</argument>
+                </argument>
+            </call>
         </service>
 
-        <service id="updateCheckerDashboardWidget" class="ZMUpdateCheckerDashboardWidget" scope="prototype">
-            <tag name="apps.store.admin.tabcontroller" />
+        <service id="authenticationManager" class="zenmagick\base\security\authentication\AuthenticationManager" scope="container" />
+
+        <service id="blockService" class="ZMBlocks" scope="container" />
+
+        <service id="blockManager" class="ZMBlockManager" scope="container" />
+
+        <service id="productAssociations" class="ZMProductAssociations" scope="container" />
+
+        <service id="shoppingCart" class="ZMShoppingCart" scope="container" />
+
+        <service id="shoppingCartService" class="ZMShoppingCarts" scope="container" />
+
+        <service id="validator" class="ZMValidator" scope="container" />
+
+        <service id="reviewService" class="ZMReviews" scope="protcontainerotype" />
+
+        <service id="taxRateService" class="ZMTaxRates" scope="container" />
+
+        <service id="tokenService" class="ZMTokens" scope="container" />
+
+        <service id="bannerService" class="ZMBanners" scope="container" />
+
+        <service id="couponService" class="ZMCoupons" scope="container" />
+
+        <service id="ezPageService" class="ZMEZPages" scope="container" />
+
+        <service id="templateManager" class="ZMTemplateManager" scope="container" />
+
+        <service id="currencyService" class="apps\store\services\locale\CurrencyService" scope="container" />
+
+        <service id="languageService" class="apps\store\services\locale\LanguageService" scope="container" />
+
+        <service id="paymentTypeService" class="ZMPaymentTypes" scope="container" />
+
+        <service id="shippingProviderService" class="ZMShippingProviders" scope="container" />
+
+        <service id="orderTotalService" class="ZMOrderTotals" scope="container" />
+
+        <service id="salemakerService" class="ZMSalemaker" scope="container" />
+
+        <service id="attributeService" class="ZMAttributes" scope="container" />
+
+        <service id="groupPricingService" class="ZMGroupPricing" scope="container" />
+
+        <service id="configService" class="ZMConfig" scope="container" />
+
+        <service id="messageBuilder" class="zenmagick\http\utils\MessageBuilder" scope="prototype" />
+
+        <service id="contextConfigLoader" class="apps\store\utils\ContextConfigLoader" scope="prototype" />
+
+        <service id="dbTableMapper" class="ZMDbTableMapper" scope="container" />
+
+        <service id="tagService" class="ZMTags" scope="container" />
+
+        <service id="defaultStoreBlockProvider" class="ZMStoreBlockProvider" scope="container">
+            <tag name="zenmagick.http.blocks.provider" />
         </service>
 
-        <service id="pendingDashboardWidget" class="ZMPendingDashboardWidget" scope="prototype">
-            <tag name="apps.store.admin.tabcontroller" />
+        <service id="similarOrderProductAssociationHandler" class="ZMSimilarOrderProductAssociationHandler" scope="container">
+            <tag name="apps.store.associations.handler" />
         </service>
 
-        <service id="counterHistoryDashboardWidget" class="ZMCounterHistoryDashboardWidget" scope="prototype">
-            <tag name="apps.store.admin.tabcontroller" />
+        <service id="productGroupPricingService" class="ZMProductGroupPricings" scope="container" />
+
+        <service id="urlManager" class="ZMUrlManager" scope="container" />
+
+        <service id="zenCartAuthenticationProvider" class="apps\store\bundles\ZenCartBundle\utils\ZenCartAuthenticationProvider" scope="container">
+            <tag name="zenmagick.base.security.authentication.provider" default="true" />
         </service>
 
-        <service id="basicStatsDashboardWidget" class="ZMBasicStatsDashboardWidget" scope="prototype">
-            <tag name="apps.store.admin.tabcontroller" />
-        </service>
+        <service id="annotation_reader" class="Doctrine\Common\Annotations\AnnotationReader" scope="container" />
 
-        <service id="storeStatusDashboardWidget" class="ZMStoreStatusDashboardWidget" scope="prototype">
-            <tag name="apps.store.admin.tabcontroller" />
+        <!--
+        <service id="table_prefix" class="zenmagick\base\database\doctrine\TablePrefix" scope="container">
+          <argument>%apps.store.database.default.prefix%</argument>
+            <tag name="doctrine.event_listener" event="loadClassMetadata" />
         </service>
+        -->
 
     </services>
+
+    <doctrine:config>
+        <!--
+          * logging is enabled for the page stats plugin
+          * boolean mapping-type required for ZMDbTableMapper
+            collation="%apps.store.database.default.collation%"
+        -->
+        <doctrine:dbal
+            driver="%apps.store.database.default.driver%"
+            dbname="%apps.store.database.default.dbname%"
+            host="%apps.store.database.default.host%"
+            port="%apps.store.database.default.port%"
+            user="%apps.store.database.default.user%"
+            password="%apps.store.database.default.password%"
+            charset="%apps.store.database.default.charset%"
+            unix_socket="%apps.store.database.default.unix_socket%"
+            logging="true"
+        >
+           <!--
+           <doctrine:connection>
+                <doctrine:mapping-type name="blob">blob</doctrine:mapping-type>
+                <doctrine:mapping-type name="boolean">boolean</doctrine:mapping-type>
+                <doctrine:mapping-type name="enum">string</doctrine:mapping-type>
+                <doctrine:mapping-type name="mediumblob">mediumblob</doctrine:mapping-type>
+            </doctrine:connection>
+            <doctrine:type name="blob" class="zenmagick\base\database\doctrine\types\Blob" />
+            <doctrine:type name="mediumblob" class="zenmagick\base\database\doctrine\types\MediumBlob" />
+            -->
+        </doctrine:dbal>
+
+        <doctrine:orm
+            auto-generate-proxy-classes="true"
+            proxy-namespace="apps\store\proxies"
+            default-entity-manager="default"
+            proxy-dir="%zenmagick.cacheBasePath%/doctrine/orm/proxies"
+        >
+            <doctrine:entity-manager
+                name="default"
+                query-cache-driver="array"
+                result-cache-driver="array"
+                connection="default"
+            >
+                <doctrine:mapping
+                    name="zenmagick"
+                    type="annotation"
+                    prefix="ZM"
+                    dir="%zenmagick.installationPath%/shared/model"
+                    is_bundle="false"
+                />
+            </doctrine:entity-manager>
+        </doctrine:orm>
+    </doctrine:config>
 </container>
-##
-## Shared ZenMagick services
-##
-
-
-parameters:
-  kernel.environment: %zenmagick.environment%
-  kernel.root_dir: %zenmagick.cacheBaseDir%/kernel
-  kernel.cache_dir: %zenmagick.cacheBaseDir%
-  kernel.debug: false
-  kernel.bundles: %zenmagick.bundles%
-  zenmagick.cacheIds: ['transientCache', 'persistentCache', 'servicesCache', 'templateCache']
-  zenmagick.cacheBaseDir: %zenmagick.installationPath%/cache/zenmagick
-
-
-# database configuration settings
-doctrine:
-  dbal:
-    connections:
-      default:
-        driver: %apps.store.database.default.driver%
-        dbname: %apps.store.database.default.dbname%
-        host: %apps.store.database.default.host%
-        port: %apps.store.database.default.port%
-        user: %apps.store.database.default.user%
-        password: %apps.store.database.default.password%
-        charset: %apps.store.database.default.charset%
-        #collation: %apps.store.database.default.collation%
-        unix_socket: %apps.store.database.default.unix_socket%
-        logging: true # required for pageStats plugin
-        mapping_types:
-          blob: blob
-          boolean: boolean # required for ZMDbTableMapper
-          enum: string
-          mediumblob: mediumblob
-    types:
-      blob: zenmagick\base\database\doctrine\types\Blob
-      mediumblob: zenmagick\base\database\doctrine\types\MediumBlob
-  orm:
-    auto_generate_proxy_classes: true
-    proxy_namespace: zenmagick\base\database\doctrine\proxies
-    proxy_dir: %zenmagick.cacheBaseDir%/doctrine/orm/proxies
-    entity_managers:
-      default:
-        mappings:
-          zenmagick:
-            is_bundle: false
-            type: annotation
-            # @todo will eventually be the namespace apps\store\entities
-            prefix: ZM
-            dir: %zenmagick.installationPath%/zenmagick/shared/model
-
-
-# regular services and prototypes
-services:
-  ## generic caches
-  transientCache:
-    class: zenmagick\base\cache\MemoryCache
-    scope: prototype
-    calls:
-      - [init, ['global', {}]]
-  persistentCache:
-    class: zenmagick\base\cache\FileCache
-    scope: prototype
-    calls:
-      - [init, ['global', {cacheTTL: 300, cacheDir: '%zenmagick.cacheBaseDir%/files/'}]]
-
-  ## explicit caches
-  servicesCache:
-    class: zenmagick\base\cache\MemoryCache
-    scope: container
-    calls:
-      - [init, ['services', {}]]
-  templateCache:
-    class: zenmagick\base\cache\FileCache
-    scope: container
-    calls:
-      - [init, ['services', {cacheTTL: 300, cacheDir: '%zenmagick.cacheBaseDir%/templates/'}]]
-
-  accountService:
-    class: ZMAccounts
-    scope: container
-
-  addressService:
-    class: ZMAddresses
-    scope: container
-
-  countryService:
-    class: ZMCountries
-    scope: container
-
-  orderService:
-    class: ZMOrders
-    scope: container
-
-  ZMThemes:
-    class: ZMThemes
-    scope: container
-    calls:
-      - [setCache, [@servicesCache]]
-  themeService: @ZMThemes
-
-  ZMManufacturers:
-    class: ZMManufacturers
-    scope: container
-    calls:
-      - [setCache, [@servicesCache]]
-  manufacturerService: @ZMManufacturers
-
-  ZMProducts:
-    class: ZMProducts
-    scope: container
-    calls:
-      - [setCache, [@servicesCache]]
-  productService: @ZMProducts
-
-  ZMCategories:
-    class: ZMCategories
-    scope: container
-    calls:
-      - [setCache, [@servicesCache]]
-  categoryService: @ZMCategories
-
-  ZMViewUtils:
-    class: ZMViewUtils
-    scope: prototype
-
-  ZMSavant:
-    class: ZMSavant
-    scope: prototype
-
-  ZMSimpleSavantCache:
-    class: ZMSimpleSavantCache
-    scope: container
-    calls:
-      - [setCache, [@templateCache]]
-
-  rssLoader:
-    class: zenmagick\http\rss\RssFeedLoader
-    scope: container
-    calls:
-      - [init, [{cacheTTL: 300, cacheDir: '%zenmagick.cacheBaseDir%/rss/'}]]
-
-  authenticationManager:
-    class: zenmagick\base\security\authentication\AuthenticationManager
-    scope: container
-
-  blockService:
-    class: ZMBlocks
-    scope: container
-
-  blockManager:
-    class: ZMBlockManager
-    scope: container
-
-  productAssociations:
-    class: ZMProductAssociations
-    scope: container
-
-  shoppingCart:
-    class: ZMShoppingCart
-    scope: container
-
-  shoppingCartService:
-    class: ZMShoppingCarts
-    scope: container
-
-  validator:
-    class: ZMValidator
-    scope: container
-
-  reviewService:
-    class: ZMReviews
-    scope: container
-
-  taxRateService:
-    class: ZMTaxRates
-    scope: container
-
-  tokenService:
-    class: ZMTokens
-    scope: container
-
-  bannerService:
-    class: ZMBanners
-    scope: container
-
-  couponService:
-    class: ZMCoupons
-    scope: container
-
-  ezPageService:
-    class: ZMEZPages
-    scope: container
-
-  templateManager:
-    class: ZMTemplateManager
-    scope: container
-
-  currencyService:
-    class: ZMCurrencies
-    scope: container
-
-  languageService:
-    class: ZMLanguages
-    scope: container
-
-  paymentTypeService:
-    class: ZMPaymentTypes
-    scope: container
-
-  shippingProviderService:
-    class: ZMShippingProviders
-    scope: container
-
-  orderTotalService:
-    class: ZMOrderTotals
-    scope: container
-
-  salemakerService:
-    class: ZMSalemaker
-    scope: container
-
-  attributeService:
-    class: ZMAttributes
-    scope: container
-
-  groupPricingService:
-    class: ZMGroupPricing
-    scope: container
-
-  configService:
-    class: ZMConfig
-    scope: container
-
-  messageBuilder:
-    class: zenmagick\http\utils\MessageBuilder
-    scope: prototype
-
-  contextConfigLoader:
-    class: apps\store\utils\ContextConfigLoader
-    scope: prototype
-
-  dbTableMapper:
-    class: ZMDbTableMapper
-    scope: container
-
-  tagService:
-    class: ZMTags
-    scope: container
-
-  defaultStoreBlockProvider:
-    class: ZMStoreBlockProvider
-    scope: container
-    tags:
-      - { name: zenmagick.http.blocks.provider }
-
-  similarOrderProductAssociationHandler:
-    class: ZMSimilarOrderProductAssociationHandler
-    scope: container
-    tags:
-      - { name: apps.store.associations.handler }
-
-  productGroupPricingService:
-    class: ZMProductGroupPricings
-    scope: container
-
-  urlManager:
-    class: ZMUrlManager
-    scope: container
-
-  zenCartAuthenticationProvider:
-    class: apps\store\bundles\ZenCartBundle\utils\ZenCartAuthenticationProvider
-    scope: container
-    tags:
-      -  { name: zenmagick.base.security.authentication.provider, default: true }
-
-  annotation_reader:
-    class: Doctrine\Common\Annotations\AnnotationReader
-    scope: container
-
-#  table_prefix:
-#      class: zenmagick\base\database\doctrine\TablePrefix
-#      scope: container
-#      arguments: [%apps.store.database.default.prefix%]
-#      tags:
-#        - { name: doctrine.event_listener, event: loadClassMetadata }
-
-

@@ -79,8 +79,8 @@ use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
             // packages may have their own *system* services
             $packageConfig = $path.'/container.xml';
             if (file_exists($packageConfig)) {
-                $packageXmlLoader = new XmlFileLoader(Runtime::getContainer(), new FileLocator(dirname($packageConfig)));
-                $packageXmlLoader->load($packageConfig);
+                $packageLoader = new XmlFileLoader(Runtime::getContainer(), new FileLocator(dirname($packageConfig)));
+                $packageLoader->load($packageConfig);
             }
         }
 
@@ -126,10 +126,12 @@ use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
         }
 
         // load application container config
+        //$containerConfig = Toolbox::resolveWithEnv(Runtime::getApplicationPath().'/config/container.xml');
         $containerConfig = Toolbox::resolveWithEnv(Runtime::getApplicationPath().'/config/container.yaml');
         if (file_exists($containerConfig)) {
-            $containerYamlLoader = new YamlFileLoader(Runtime::getContainer(), new FileLocator(dirname($containerConfig)));
-            $containerYamlLoader->load(basename($containerConfig));
+            //$containerLoader = new XmlFileLoader(Runtime::getContainer(), new FileLocator(dirname($containerConfig)));
+            $containerLoader = new YamlFileLoader(Runtime::getContainer(), new FileLocator(dirname($containerConfig)));
+            $containerLoader->load(basename($containerConfig));
         }
 
         if (null != Runtime::getApplicationPath()) {

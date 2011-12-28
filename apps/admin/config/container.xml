@@ -29,7 +29,7 @@
         <service id="storeEmailView" class="SavantView" scope="prototype">
             <call method="setConfig">
                 <argument type="collection">true
-                    <argument name="cache">ZMSimpleSavantCache</argument>
+                    <argument key="cache">ZMSimpleSavantCache</argument>
                 </argument>
             </call>
             <call method="setFilters">
@@ -43,7 +43,7 @@
         <service id="defaultView" class="ZMSavantView" scope="prototype">
             <call method="setConfig">
                 <argument type="collection">
-                    <argument name="cache">ZMSimpleSavantCache</argument>
+                    <argument key="cache">ZMSimpleSavantCache</argument>
                 </argument>
             </call>
             <call method="setFilters">
