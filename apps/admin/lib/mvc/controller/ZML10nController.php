@@ -23,6 +23,7 @@
 use zenmagick\base\Runtime;
 
 use Symfony\Component\Yaml\Yaml;
+use zenmagick\base\locales\LocaleScanner;
 
 
 /**
@@ -95,10 +96,12 @@ class ZML10nController extends \ZMController {
     protected function processInternal($request) {
         $vd = $this->getViewData($request);
 
+        $scanner = new LocaleScanner();
+
         $defaultMap = array();
         if ($vd['includeDefaults']) {
             $themesDir = \ZMThemes::getThemesDir();
-            $defaultMap = \ZMLocaleUtils::buildL10nMap($themesDir.Runtime::getSettings()->get('apps.store.themes.default'));
+            $defaultMap = $scanner->buildL10nMap($themesDir.Runtime::getSettings()->get('apps.store.themes.default'));
         }
 
         $existingMap = array();
@@ -113,33 +116,33 @@ class ZML10nController extends \ZMController {
 
         $sharedMap = array();
         if ($vd['scanShared']) {
-            $sharedMap = \ZMLocaleUtils::buildL10nMap(Runtime::getInstallationPath().'shared');
+            $sharedMap = $scanner->buildL10nMap(Runtime::getInstallationPath().'shared');
         }
 
         $pluginsMap = array();
         if ($vd['scanPlugins']) {
             foreach (Runtime::getPluginBasePath() as $path) {
-                $pluginsMap = array_merge($pluginsMap, \ZMLocaleUtils::buildL10nMap($path));
+                $pluginsMap = array_merge($pluginsMap, $scanner->buildL10nMap($path));
             }
         }
 
         $adminMap = array();
         if ($vd['scanAdmin']) {
-            $adminLibMap = \ZMLocaleUtils::buildL10nMap(Runtime::getApplicationPath().'lib');
-            $adminTemplatesMap = \ZMLocaleUtils::buildL10nMap(Runtime::getApplicationPath().'templates');
+            $adminLibMap = $scanner->buildL10nMap(Runtime::getApplicationPath().'lib');
+            $adminTemplatesMap = $scanner->buildL10nMap(Runtime::getApplicationPath().'templates');
             $adminMap = array_merge($adminLibMap, $adminTemplatesMap);
         }
 
         $mvcMap = array();
         if ($vd['scanMvc']) {
-            $mvcMap = \ZMLocaleUtils::buildL10nMap(Runtime::getInstallationPath().'lib');
+            $mvcMap = $scanner->buildL10nMap(Runtime::getInstallationPath().'lib');
         }
 
         $fileMap = array();
         if (null != $vd['themeId']) {
             $theme = $this->container->get('themeService')->getThemeForId($vd['themeId']);
-            $themeMap = \ZMLocaleUtils::buildL10nMap($theme->getBaseDir());
-            $storeMap = \ZMLocaleUtils::buildL10nMap(Runtime::getInstallationPath().'apps/store');
+            $themeMap = $scanner->buildL10nMap($theme->getBaseDir());
+            $storeMap = $scanner->buildL10nMap(Runtime::getInstallationPath().'apps/store');
             $fileMap = array_merge($themeMap, $storeMap);
         }
 
@@ -155,20 +158,21 @@ class ZML10nController extends \ZMController {
      */
     public function processGet($request) {
         $data = $this->processInternal($request);
+        $scanner = new LocaleScanner();
         if ('yaml' == $request->getParameter('download')) {
             header('Content-Type: text/YAML');
             header('Content-Disposition: attachment; filename=locale.yaml;');
-            echo \ZMLocaleUtils::map2yaml($data['translations']);
+            echo $scanner->map2yaml($data['translations']);
             return null;
         } else if ('po' == $request->getParameter('download')) {
             header('Content-Type: text/plain');
             header('Content-Disposition: attachment; filename=messages.po;');
-            echo \ZMLocaleUtils::map2po($data['translations']);
+            echo $scanner->map2po($data['translations']);
             return null;
         } else if ('pot' == $request->getParameter('download')) {
             header('Content-Type: text/plain');
             header('Content-Disposition: attachment; filename=messages.pot;');
-            echo \ZMLocaleUtils::map2po($data['translations'], true);
+            echo $scanner->map2po($data['translations'], true);
             return null;
         }
 
