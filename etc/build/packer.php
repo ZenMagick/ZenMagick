@@ -41,7 +41,7 @@ use zenmagick\base\classloader\ClassLoader;
     }
 
     $class = $argv[1];
-    $source = $argv[2];
+    $source = $installDir.'/'.$argv[2];
     $targetBaseDir = $argv[3];
     $target = $argv[4];
     $version = $argv[5];

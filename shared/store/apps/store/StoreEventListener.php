@@ -65,7 +65,6 @@ class StoreEventListener extends ZMObject {
 
         // load some static files that we still need
         $statics = array(
-            'admin,storefront' => array('lib/core/external/zm-pomo-3.3.packed.php'),
             'storefront' => array('shared/store/apps/store/bundles/ZenCartBundle/utils/zencart_overrides.php')
         );
         foreach ($statics as $context => $files) {

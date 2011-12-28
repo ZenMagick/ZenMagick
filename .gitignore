@@ -16,3 +16,4 @@ global.yaml
 !/vendor/Savant3-3.0.1
 !/vendor/openwall
 !/vendor/pear
+!/vendor/pomo

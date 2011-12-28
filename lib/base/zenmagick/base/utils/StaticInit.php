@@ -74,6 +74,7 @@ class StaticInit {
      */
     public static function initLocales() {
         class_exists('zenmagick\base\locales\Locales');
+        class_exists('pomo\POMO');
     }
 
 }

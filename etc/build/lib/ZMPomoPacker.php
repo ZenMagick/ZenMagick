@@ -34,10 +34,18 @@ class ZMPomoPacker extends ZMPhpPackagePacker implements ZMLibraryPacker {
      */
     public function process($sourceDir, $targetDir, $version, $strip) {
         $this->rootFolder_ = $sourceDir;
-        $this->outputFilename_ = $targetDir.'zm-pomo-'.$version.'.packed.php';
+        $this->outputFilename_ = $targetDir.'/POMO.php';
 
         // run the parent package packer; strip/leave references
         $this->packFiles($strip, false);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    protected function getFileList() {
+        // no recursive find
+        return ZMFileUtils::findIncludes($this->rootFolder_, '.php', false);
     }
 
     /**
@@ -58,7 +66,7 @@ class ZMPomoPacker extends ZMPhpPackagePacker implements ZMLibraryPacker {
 
         if (!$this->nsAdded) {
             $this->nsAdded = true;
-            return array_merge(array("<?php namespace pomo; ?>"), $lines);
+            return array_merge(array("<?php namespace pomo; class POMO {} ?>"), $lines);
         }
         return $lines;
     }
