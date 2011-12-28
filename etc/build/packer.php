@@ -32,7 +32,7 @@ use zenmagick\base\classloader\ClassLoader;
     chdir($installDir);
     include 'bootstrap.php';
     $classLoader = new ClassLoader();
-    $classLoader->addPath($installDir.'/lib/build');
+    $classLoader->addPath(dirname(__FILE__).'/lib');
     $classLoader->register();
 
     if (6 > $argc) {
