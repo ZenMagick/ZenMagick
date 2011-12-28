@@ -71,7 +71,12 @@ class ImageInfo extends ZMImageInfo {
         $ext = $comp[1];
         $imageBase = $comp[2];
 
-        $newimg = handle_image('images/'.$this->image_, $this->altText_, SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT, '');
+        if (function_exists('handle_image')) {
+            $newimg = handle_image('images/'.$this->image_, $this->altText_, SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT, '');
+        } else {
+            $newimg = array('images/'.$this->image_, $this->altText_, SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT, '');
+        }
+
         if (!$this->disableIH2Attributes_) {
             $this->formattedParameter_ = $newimg[4];
         }
@@ -97,7 +102,13 @@ class ImageInfo extends ZMImageInfo {
         $imageBase = $comp[2];
 
         $medium = $imageBase.ZMSettings::get('imgSuffixMedium').$ext;
-        $newimg = handle_image('images/'.$medium, $this->altText_, MEDIUM_IMAGE_WIDTH, MEDIUM_IMAGE_HEIGHT, '');
+
+        if (function_exists('handle_image')) {
+            $newimg = handle_image('images/'.$medium, $this->altText_, MEDIUM_IMAGE_WIDTH, MEDIUM_IMAGE_HEIGHT, '');
+        } else {
+            $newimg = array('images/'.$medium, $this->altText_, MEDIUM_IMAGE_WIDTH, MEDIUM_IMAGE_HEIGHT, '');
+        }
+
         if (!$this->disableIH2Attributes_) {
             $this->formattedParameter_ = $newimg[4];
         }
