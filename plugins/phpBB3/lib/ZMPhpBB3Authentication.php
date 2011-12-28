@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use openwall\phpass;
 
 /**
  * phpBB3 authentication provider.

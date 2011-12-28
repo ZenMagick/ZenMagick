@@ -14,3 +14,5 @@ global.yaml
 /vendor/*
 !/vendor/classloader.ini
 !/vendor/Savant3-3.0.1
+!/vendor/openwall
+!/vendor/pear

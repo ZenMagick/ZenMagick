@@ -21,6 +21,7 @@
 <?php
 namespace zenmagick\base\cache;
 
+use pear\cache\CacheLite;
 
 /**
  * Memory caching.
@@ -52,7 +53,7 @@ class MemoryCache implements Cache {
         $config['memoryCaching'] = true;
         $config['onlyMemoryCaching'] = true;
         $this->group_ = $group;
-        $this->cache_ = new \Cache_Lite($config);
+        $this->cache_ = new CacheLite($config);
         $this->groups_[$group] = $config;
     }
 

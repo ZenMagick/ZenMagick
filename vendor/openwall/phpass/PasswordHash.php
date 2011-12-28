@@ -24,8 +24,12 @@
 # Obviously, since this code is in the public domain, the above are not
 # requirements (there can be none), but merely suggestions.
 #
-# THIRD CONSTRUCTOR ARGUMENT ADDED TO ALLOW TO CHANGE THE HASH IDENTIFIER
+# DerManoMann:
+# - THIRD CONSTRUCTOR ARGUMENT ADDED TO ALLOW TO CHANGE THE HASH IDENTIFIER
+# - change ctor to __construct(...)
 #
+namespace openwall\phpass;
+
 class PasswordHash {
 	var $itoa64;
 	var $iteration_count_log2;
@@ -33,7 +37,7 @@ class PasswordHash {
 	var $random_state;
 	var $hash_ident;
 
-    function PasswordHash($iteration_count_log2, $portable_hashes, $hash_ident='$P$')
+    function __construct($iteration_count_log2, $portable_hashes, $hash_ident='$P$')
 	{
 		$this->itoa64 = './0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
 
