@@ -20,26 +20,25 @@
 ?>
 <?php
 
+use zenmagick\base\ZMException;
 
 /**
- * Add support for querying the SQL parameters for a particular method on an object.
- *
- * <p>This would typically be implemented by service classes that want to support SQL based
- * result list handling.</p>
+ * Database exception.
  *
  * @author DerManoMann <mano@zenmagick.org> <mano@zenmagick.org>
- * @package org.zenmagick.core.services.database
+ * @package org.zenmagick.core.database
  */
-interface ZMSQLAware {
+class ZMDatabaseException extends ZMException {
 
     /**
-     * Get query details.
+     * Create new instance.
      *
-     * @param string method The method name to query; default is <code>null</code> for none.
-     * @param array args Parameter for the method; default is an empty array <code>array()</code>.
-     * @return ZMQueryDetails Details about the query that would be used or <code>null</code for
-     * unsupported methods.
+     * @param string message The message; default is <code>null</code>.
+     * @param int code The exception code; default is <em>0</em>.
+     * @param Exception previous The original exception (if any) for chaining; default is <code>null</code>.
      */
-    public function getQueryDetails($method=null, $args=array());
+    function __construct($message=null, $code=0, $previous=null) {
+        parent::__construct($message, $code, $previous);
+    }
 
 }

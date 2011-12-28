@@ -1,4 +1,4 @@
-<?php
+org.<?php
 /*
  * ZenMagick - Another PHP framework.
  * Copyright (C) 2006-2011 zenmagick.org
@@ -55,7 +55,7 @@
  * statement.</p>
  *
  * @author DerManoMann <mano@zenmagick.org> <mano@zenmagick.org>
- * @package org.zenmagick.core.services.database
+ * @package org.zenmagick.core.database
  */
 interface ZMDatabase {
     /** If used as modelClass parameter, the raw SQL data will be returned (no mapping, etc). */

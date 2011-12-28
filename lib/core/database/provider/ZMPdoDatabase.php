@@ -29,7 +29,7 @@ use zenmagick\base\ZMObject;
  *
  * @author DerManoMann <mano@zenmagick.org> <mano@zenmagick.org>
  * @author Johnny Robeson <johnny@localmomentum.net>
- * @package org.zenmagick.core.services.database.provider
+ * @package org.zenmagick.core.database.provider
  */
 class ZMPdoDatabase extends ZMObject implements ZMDatabase {
     protected $pdo_;

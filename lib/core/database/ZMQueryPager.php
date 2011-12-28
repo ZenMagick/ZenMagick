@@ -26,7 +26,7 @@ use zenmagick\base\ZMObject;
  * Paginate a query.
  *
  * @author DerManoMann <mano@zenmagick.org> <mano@zenmagick.org>
- * @package org.zenmagick.core.services.database
+ * @package org.zenmagick.core.database
  */
 class ZMQueryPager extends ZMObject {
     private $queryDetails_;

@@ -67,7 +67,7 @@ use zenmagick\base\logging\Logging;
  * </dl>
  *
  * @author DerManoMann <mano@zenmagick.org> <mano@zenmagick.org>
- * @package org.zenmagick.core.services.database
+ * @package org.zenmagick.core.database
  */
 class ZMDbTableMapper extends ZMObject {
     private $tableMap_;

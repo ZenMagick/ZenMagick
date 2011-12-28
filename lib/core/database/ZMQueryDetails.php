@@ -26,7 +26,7 @@ use zenmagick\base\ZMObject;
  * Query details as returned by the <code>ZMSQLAware</code> interface method.
  *
  * @author DerManoMann <mano@zenmagick.org> <mano@zenmagick.org>
- * @package org.zenmagick.core.services.database
+ * @package org.zenmagick.core.database
  */
 class ZMQueryDetails extends ZMObject {
     private $database_;
