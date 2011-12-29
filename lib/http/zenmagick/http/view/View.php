@@ -75,7 +75,7 @@ class View extends ZMObject {
      *
      * @param ZMRequest request The request.
      */
-    public function setRequest(ZMRequest $request) {
+    public function setRequest(\ZMRequest $request) {
         $this->request = $request;
     }
 
@@ -95,6 +95,8 @@ class View extends ZMObject {
      */
     public function setResourceManager(ResourceManager $resourceManager) {
         $this->resourceManager = $resourceManager;
+        // associate with this view
+        $this->resourceManager->setView($this);
     }
 
     /**
@@ -139,7 +141,7 @@ class View extends ZMObject {
      * @param array variables A map of name/value pairs.
      */
     public function setVariables($variables) {
-        $this->variables = array_merge($this->variables, $variables);
+        $this->variables = array_merge($this->variables, (array)$variables);
     }
 
     /**
@@ -228,15 +230,10 @@ class View extends ZMObject {
             $this->setVariable($key, $this->container->get($id));
         }
 
-        // todo: use tag to mark things to go into view scope
-        // set a few default things...
         $toolbox = $request->getToolbox();
         $this->setVariable('toolbox', $toolbox);
-
         // also set individual tools
-        $this->setVarsiable($toolbox->getTools());
-
-        $this->setVariable('settings', Runtime::getSettings());
+        $this->setVariables($toolbox->getTools());
 
 
         // set all plugins
@@ -262,8 +259,8 @@ class View extends ZMObject {
             $output = $this->fetch($template, $variables);
             if (null !== ($resources = $this->resourceManager->getResourceContents())) {
                 // apply resources...
-                $output = preg_replace('/<\/head>/', $resources['header'] . '</head>', $contents, 1);
-                $output = preg_replace('/<\/body>/', $resources['footer'] . '</body>', $contents, 1);
+                $output = preg_replace('/<\/head>/', $resources['header'] . '</head>', $output, 1);
+                $output = preg_replace('/<\/body>/', $resources['footer'] . '</body>', $output, 1);
             }
 
             return $output;
@@ -321,6 +318,22 @@ class View extends ZMObject {
     }
 
     /**
+     * Fetch/generate the contents for a given block group id.
+     *
+     * @param string group The group id.
+     * @param array args Optional parameter; default is an empty array.
+     * @return string The contents.
+     */
+    public function fetchBlockGroup($groupId, $args=array()) {
+        $contents = '';
+        foreach ($this->container->get('blockManager')->getBlocksForId($this->request, $groupId, $args) as $block) {
+            Runtime::getLogging()->debug(sprintf('render block, template: %s', $block->getTemplate()));
+            $contents .= $block->render($this->request, $this);
+        }
+        return $contents;
+    }
+
+    /**
      * Resolve the given (relative) templates filename into a url.
      *
      * @param string file The file, relative to the template path.
@@ -328,15 +341,15 @@ class View extends ZMObject {
      * @return string A url or empty string.
      */
     public function asUrl($file, $type=ResourceResolver::TEMPLATE) {
-        if (null == ($path = $this->resourceResolver->findResource($file, ResourceResolver::TEMPLATE))) {
+        if (null == ($path = $this->resourceResolver->findResource($file, $type))) {
             if (null != ($uri= $this->file2uri($path))) {
                 $url = $this->request->absoluteURL($uri);
-                Runtime::getLogging()->log('resolve file '.$file.' (type='.$type.') as url: '.$url.'; path='.$path, Logging::TRACE);
+                Runtime::getLogging()->log(sprintf('resolved file "%s" (type=%s) as url: %s; path=%s', $file, $type, $url, $path), Logging::TRACE);
                 return $url;
             }
         }
 
-        Runtime::getLogging()->warn('can\'t resolve file '.$file.' (type='.$type.') to url');
+        Runtime::getLogging()->warn(sprintf('cannot resolve file "%s" (type=%s) to url', $file, $type));
         return '';
     }
 
@@ -358,6 +371,18 @@ class View extends ZMObject {
         }
 
         return str_replace(DIRECTORY_SEPARATOR, '/', substr($filename, strlen($docRoot)));
+    }
+
+    /**
+     * Check if the given template/resource file exists.
+     *
+     * @param string filen The file, relative to the template path.
+     * @param string type The resource type; default is <code>ResourceResolver::TEMPLATE</code>.
+     * @return boolean <code>true</code> if the file exists, <code>false</code> if not.
+     */
+    public function exists($file, $type=ResourceResolver::TEMPLATE) {
+        $path = $this->resourceResolver->findResource($file, $type);
+        return !empty($path);
     }
 
 }

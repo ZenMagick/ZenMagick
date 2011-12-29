@@ -20,6 +20,8 @@ zenmagick:
         - ZMSampleEventHandler
 
   http:
+    templates:
+      ext: .tpl
     request:
       urlType: realpath
 

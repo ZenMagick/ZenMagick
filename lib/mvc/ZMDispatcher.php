@@ -22,6 +22,7 @@
 
 use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
+use zenmagick\base\ZMException;
 use zenmagick\base\events\Event;
 use zenmagick\base\logging\Logging;
 
@@ -99,8 +100,10 @@ class ZMDispatcher {
             try {
                 // generate response
                 echo $view->generate($request);
+            } catch (ZMException $e) {
+                Runtime::getLogging()->dump($e, sprintf('view::generate failed: %s', $e), Logging::ERROR);
             } catch (Exception $e) {
-                Runtime::getLogging()->dump($e, 'view::generate failed', Logging::ERROR);
+                Runtime::getLogging()->dump($e, sprintf('view::generate failed: %s', $e->getMessage()), Logging::ERROR);
                 //TODO: what to do?
             }
             Runtime::getEventDispatcher()->dispatch('view_done', new Event(null, array('request' => $request, 'view' => $view)));

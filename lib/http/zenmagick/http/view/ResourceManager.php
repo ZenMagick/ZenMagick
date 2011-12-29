@@ -40,6 +40,7 @@ class ResourceManager extends ZMObject {
     const NOW = 'now';
     private $resources_;
     private $resourcesAsTemplates_;
+    private $view;
 
 
     /**
@@ -49,8 +50,29 @@ class ResourceManager extends ZMObject {
         parent::__construct();
         $this->resources_ = array('css' => array(), 'js' => array());
         $this->resourcesAsTemplates_ = false;
+        $this->view = null;
     }
 
+
+    /**
+     * Set the view.
+     *
+     * <p>The view this instance is associated with.</p>
+     *
+     * @param View view The view.
+     */
+    public function setView(View $view) {
+        $this->view = $view;
+    }
+
+    /**
+     * Get the view.
+     *
+     * @return View The view.
+     */
+    public function getView() {
+        return $this->view;
+    }
 
     /**
      * Set the '<em>resources as templates</em>' flag.
@@ -64,13 +86,11 @@ class ResourceManager extends ZMObject {
     }
 
     /**
-     * Get the '<em>resources as templates</em>' flag.
+     * Check if the <em>resources as templates</em>' flag is set.
      *
-     * <p>If <code>true</code>, resources will be looked up in the same location as templates.</p>
-     *
-     * @return boolean The value.
+     * @return boolean <code>true</code> if, and only if, resources are looked up as templates.
      */
-    public function getResourcesAsTemplates() {
+    public function isResourcesAsTemplates() {
         return $this->resourcesAsTemplates_;
     }
 
@@ -131,7 +151,7 @@ class ResourceManager extends ZMObject {
             $this->resources_['js'][$filename]['done'] = true;
             if ($this->resources_['js'][$filename]['inline']) {
                 echo '<script type="text/javascript">',"\n";
-                $this->view_->fetch($filename);
+                $this->view->fetch($filename);
                 echo '</script>',"\n";
             } else {
                 // avoid empty src
@@ -159,8 +179,7 @@ class ResourceManager extends ZMObject {
             // absolute path
             return $resource;
         } else {
-            $request = $this->view_->getVar('request');
-            return $this->view_->asUrl($request, $resource, $this->resourcesAsTemplates_ ? ResourceResolver::TEMPLATE : ResourceResolver::RESOURCE);
+            return $this->view->asUrl($resource, $this->resourcesAsTemplates_ ? ResourceResolver::TEMPLATE : ResourceResolver::RESOURCE);
         }
     }
 
