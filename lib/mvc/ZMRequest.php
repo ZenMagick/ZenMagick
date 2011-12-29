@@ -91,20 +91,13 @@ class ZMRequest extends ZMObject {
     }
 
     /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
-    }
-
-    /**
      * Get instance.
      *
      * <p>A final straw to get the shared request instance if nothing else is
      * available.</p>
      */
     public static function instance() {
-        return Runtime::getContainer()->getService('request');
+        return Runtime::getContainer()->get('request');
     }
 
 
