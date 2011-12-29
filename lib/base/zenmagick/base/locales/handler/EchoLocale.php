@@ -34,21 +34,21 @@ class EchoLocale extends Locale {
     /**
      * {@inheritDoc}
      */
-    public function addResource($resource, $locale=null, $domain=Locale::DEFAULT_DOMAIN) {
+    public function addResource($resource, $locale=null, $domain=null) {
         // nothing
     }
 
     /**
      * {@inheritDoc}
      */
-    public function translate($text, $context=null, $domain=Locale::DEFAULT_DOMAIN) {
+    public function translate($text, $context=null, $domain=null) {
         return $text;
     }
 
     /**
      * {@inheritDoc}
      */
-    public function translatePlural($single, $number, $plural=null, $context=null, $domain=Locale::DEFAULT_DOMAIN) {
+    public function translatePlural($single, $number, $plural=null, $context=null, $domain=null) {
         return (1 < $number && null != $plural) ? $plural : $single;
     }
 

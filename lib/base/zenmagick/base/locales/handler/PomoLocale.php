@@ -37,6 +37,8 @@ use pomo\MO;
  * @package zenmagick.base.locales.handler
  */
 class PomoLocale extends Locale {
+    const DEFAULT_MO_NAME = 'messages';
+
     // loaded translations per domain and for the current locale
     private $translations_;
 
@@ -53,17 +55,17 @@ class PomoLocale extends Locale {
     /**
      * {@inheritDoc}
      */
-    public function init($locale, $path=null) {
+    public function init($locale, $path=null, $domain=null) {
         list($path, $yaml) = parent::init($locale, $path);
-        $this->registerMOForLocale($path, $locale);
+        $this->registerMOForLocale($path, $locale, self::DEFAULT_MO_NAME, $domain);
     }
 
     /**
      * {@inheritDoc}
      */
-    public function addResource($resource, $locale=null, $domain=Locale::DEFAULT_DOMAIN) {
+    public function addResource($resource, $locale=null, $domain=null) {
         $locale = null != $locale ? $locale : Runtime::getSettings()->get('zenmagick.base.locales.locale', 'en');
-        $this->registerMOForLocale($resource, $locale);
+        $this->registerMOForLocale($resource, $locale, self::DEFAULT_MO_NAME, $domain);
     }
 
     /**
@@ -73,6 +75,7 @@ class PomoLocale extends Locale {
      * @return Translations A <code>Translations</code> instance.
      */
     protected function getTranslationsForDomain($domain) {
+        $domain = null != $domain ? $domain : Runtime::getContext();
         if (!array_key_exists($domain, $this->translations_)) {
             $this->translations_[$domain] = new Translations();
         }
@@ -85,12 +88,13 @@ class PomoLocale extends Locale {
      *
      * @param string basedir The locale base path.
      * @param string locale The locale.
-     * @param string filename The actual filename without any path; default is <code>null</code> to match the domain.
-     * @param string domain The translation domain; default is <code>Locale::DEFAULT_DOMAIN</code>.
+     * @param string filename The actual filename without any path; default is <code>DEFAULT_MO_NAME</code>.
+     * @param string domain The translation domain; default is <code>null</code>.
      * @return boolean <code>true</code> on success.
      */
-    public function registerMOForLocale($basedir, $locale, $filename=null, $domain=Locale::DEFAULT_DOMAIN) {
-        $filename = null == $filename ? $domain.'.mo' : $filename;
+    protected function registerMOForLocale($basedir, $locale, $filename=self::DEFAULT_MO_NAME, $domain=null) {
+        $domain = null != $domain ? $domain : Runtime::getContext();
+        $filename = (null == $filename ? $domain : $filename).'.mo';
         $path = realpath($basedir).'/'.$filename;
         if (!file_exists($basedir) || null == ($path = Locale::resolvePath($path, $locale))) {
             Runtime::getLogging()->debug('unable to resolve locale path for locale="'.$locale.'"; basedir='.$basedir);
@@ -103,10 +107,11 @@ class PomoLocale extends Locale {
      * Register a .mo file.
      *
      * @param string filename The .mo filename.
-     * @param string domain The translation domain; default is <code>Locale::DEFAULT_DOMAIN</code>.
+     * @param string domain The translation domain; default is <code>null</code>.
      * @return boolean <code>true</code> on success.
      */
-    public function registerMO($filename, $domain=Locale::DEFAULT_DOMAIN) {
+    public function registerMO($filename, $domain=null) {
+        $domain = null != $domain ? $domain : Runtime::getContext();
         Runtime::getLogging()->debug(sprintf('registering MO: %s', $filename));
         $mo = new MO();
         if (!$mo->import_from_file($filename)) {
@@ -125,7 +130,7 @@ class PomoLocale extends Locale {
     /**
      * {@inheritDoc}
      */
-    public function translate($text, $context=null, $domain=Locale::DEFAULT_DOMAIN) {
+    public function translate($text, $context=null, $domain=null) {
         $translations = $this->getTranslationsForDomain($domain);
         return $translations->translate($text, $context);
     }
@@ -133,7 +138,7 @@ class PomoLocale extends Locale {
     /**
      * {@inheritDoc}
      */
-    public function translatePlural($single, $number, $plural=null, $context=null, $domain=Locale::DEFAULT_DOMAIN) {
+    public function translatePlural($single, $number, $plural=null, $context=null, $domain=null) {
         $plural = null == $plural ? $single : $plural;
         $translations = $this->getTranslationsForDomain($domain);
         return $translations->translate_plural($single, $plural, $number, $context);

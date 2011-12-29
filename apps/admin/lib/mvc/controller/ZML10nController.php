@@ -166,12 +166,12 @@ class ZML10nController extends \ZMController {
             return null;
         } else if ('po' == $request->getParameter('download')) {
             header('Content-Type: text/plain');
-            header('Content-Disposition: attachment; filename=defaults.po;');
+            header('Content-Disposition: attachment; filename=messages.po;');
             echo $scanner->map2po($data['translations']);
             return null;
         } else if ('pot' == $request->getParameter('download')) {
             header('Content-Type: text/plain');
-            header('Content-Disposition: attachment; filename=defaults.pot;');
+            header('Content-Disposition: attachment; filename=messages.pot;');
             echo $scanner->map2po($data['translations'], true);
             return null;
         }

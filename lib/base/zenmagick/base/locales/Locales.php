@@ -37,7 +37,7 @@ use Symfony\Component\Yaml\Yaml;
  */
 class Locales extends ZMObject {
     private $locale_;
-    private $locales_;
+    private $localesList;
 
 
     /**
@@ -46,7 +46,7 @@ class Locales extends ZMObject {
     public function __construct() {
         parent::__construct();
         $this->locale_ = null;
-        $this->locales_ = null;
+        $this->localesList = null;
     }
 
 
@@ -62,7 +62,7 @@ class Locales extends ZMObject {
      * @return Locale The locale.
      */
     public function getLocale($reload=false, $locale=null, $path=null) {
-        if (null == $this->locale_ || $reload) {
+        if (null === $this->locale_ || $reload) {
             $this->locale_ = Beans::getBean(Runtime::getSettings()->get('zenmagick.base.locales.handler', 'zenmagick\base\locales\handler\EchoLocale'));
             if (null !== $locale) {
                 $this->locale_->init($locale, $path);
@@ -104,8 +104,8 @@ class Locales extends ZMObject {
      * @return array Map of all available locales with the locale as key and the name as value.
      */
     public function getLocalesList() {
-        if (null === $this->locales_) {
-            $this->locales_ = array();
+        if (null === $this->localesList) {
+            $this->localesList = array();
             $path = realpath(Runtime::getApplicationPath()).'/locale/';
             $handle = opendir($path);
             while (false !== ($file = readdir($handle))) {
@@ -114,14 +114,14 @@ class Locales extends ZMObject {
                     $yaml = Yaml::parse($yamlFile);
                     if (is_array($yaml)) {
                         $name = array_key_exists('name', $yaml) ? $yaml['name'] : $file;
-                        $this->locales_[$file] = $name;
+                        $this->localesList[$file] = $name;
                     }
                 }
             }
             closedir($handle);
         }
 
-        return $this->locales_;
+        return $this->localesList;
     }
 
 }
@@ -130,18 +130,17 @@ class Locales extends ZMObject {
 namespace {
 
 use zenmagick\base\Runtime;
-use zenmagick\base\locales\Locale;
 
 /**
  * Translate the given text.
  *
  * @param string text The text to translate.
  * @param mixed context Optional translation context; default is <code>null</code>.
- * @param string domain The translation domain; default is <code>Locale::DEFAULT_DOMAIN</code>.
+ * @param string domain The translation domain; default is <code>null</code>.
  * @return string The translated text or, if no translation found, the original text.
  * @package org.zenmagick.core.services.locale
  */
-function _zm($text, $context=null, $domain=Locale::DEFAULT_DOMAIN) {
+function _zm($text, $context=null, $domain=null) {
     return Runtime::getContainer()->get('localeService')->getLocale()->translate($text, $context, $domain);
 }
 
@@ -153,11 +152,11 @@ function _zm($text, $context=null, $domain=Locale::DEFAULT_DOMAIN) {
  * @param int number The number.
  * @param string plural The text to translate for plural case; default is <code>null</code> to default to the single case.
  * @param mixed context Optional translation context; default is <code>null</code>.
- * @param string domain The translation domain; default is <code>Locale::DEFAULT_DOMAIN</code>.
+ * @param string domain The translation domain; default is <code>null</code>.
  * @return string The translated text or, if no translation found, the original text.
  * @package org.zenmagick.core.services.locale
  */
-function _zmn($single, $number, $plural=null, $context=null, $domain=Locale::DEFAULT_DOMAIN) {
+function _zmn($single, $number, $plural=null, $context=null, $domain=null) {
     return Runtime::getContainer()->get('localeService')->getLocale()->translatePlural($single, $number, $plural, $context, $domain);
 }
 
@@ -176,7 +175,7 @@ function _vzm($text) {
     $args = func_get_args();
     array_shift($args);
     // get translation using default context/domain
-    $translated = Runtime::getContainer()->get('localeService')->getLocale()->translate($text, null, Locale::DEFAULT_DOMAIN);
+    $translated = Runtime::getContainer()->get('localeService')->getLocale()->translate($text, null, null);
     echo null != $args ? vsprintf($translated, $args) : $translated;
 }
 

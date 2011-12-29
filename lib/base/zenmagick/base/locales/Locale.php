@@ -34,8 +34,6 @@ use Symfony\Component\Yaml\Yaml;
  * @package zenmagick.base.locales
  */
 abstract class Locale extends ZMObject {
-    const DEFAULT_DOMAIN = 'defaults';
-
     private $locale_;
     private $name_;
     private $formats_;
@@ -115,9 +113,9 @@ abstract class Locale extends ZMObject {
      * @param mixed resource The resource to add.
      * @param string locale The locale to be used in the form: <code>[language code]_[country code]</code> or just <code>[language code]</code>;
      *  for exampe <em>de_DE</em>, <em>en_NZ</em> or <em>es</code>; default is <code>null</code> to use the current locale.
-     * @param string domain The translation domain; default is <code>Locale::DEFAULT_DOMAIN</code>.
+     * @param string domain The translation domain; default is <code>null</code>.
      */
-    public abstract function addResource($resource, $locale=null, $domain=Locale::DEFAULT_DOMAIN);
+    public abstract function addResource($resource, $locale=null, $domain=null);
 
     /**
      * Init locale.
@@ -131,9 +129,10 @@ abstract class Locale extends ZMObject {
      * @param string locale The locale to be used in the form: <code>[language code]_[country code]</code> or just <code>[language code]</code>;
      *  for exampe <em>de_DE</em>, <em>en_NZ</em> or <em>es</code>.
      * @param string path Optional path to override the default path generation based on the locale name; default is <code>null</code>.
+     * @param string domain The translation domain; default is <code>null</code>.
      * @return array Two element array with path and 'locale.yaml' content (as yaml) as data.
      */
-    public function init($locale, $path=null) {
+    public function init($locale, $path=null, $domain=null) {
         $token = explode('_', $locale);
         if (false == setlocale(LC_ALL, $locale)) {
             // try first token
@@ -173,10 +172,10 @@ abstract class Locale extends ZMObject {
      *
      * @param string text The text to translate.
      * @param mixed context Optional translation context; default is <code>null</code>.
-     * @param string domain The translation domain; default is <code>Locale::DEFAULT_DOMAIN</code>.
+     * @param string domain The translation domain; default is <code>null</code>.
      * @return string The translated text.
      */
-    public abstract function translate($text, $context=null, $domain=Locale::DEFAULT_DOMAIN);
+    public abstract function translate($text, $context=null, $domain=null);
 
     /**
      * Translate the given text with plural option.
@@ -185,10 +184,10 @@ abstract class Locale extends ZMObject {
      * @param int number The number.
      * @param string plural The text to translate for plural case; default is <code>null</code> to default to the single case.
      * @param mixed context Optional translation context; default is <code>null</code>.
-     * @param string domain The translation domain; default is <code>Locale::DEFAULT_DOMAIN</code>.
+     * @param string domain The translation domain; default is <code>null</code>.
      * @return string The translated text or, if no translation found, the original text.
      */
-    public abstract function translatePlural($single, $number, $plural=null, $context=null, $domain=Locale::DEFAULT_DOMAIN);
+    public abstract function translatePlural($single, $number, $plural=null, $context=null, $domain=null);
 
     /**
      * Get a format.
