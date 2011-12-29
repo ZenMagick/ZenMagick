@@ -29,7 +29,7 @@
     <tr>
       <td><?php echo $groupName ?></td>
       <td>
-      <form class="button-form" action="<?php echo $admin2->url() ?>" method="POST" onsubmit="return ZenMagick.confirm('<?php _vzm('Remove group \\\'%s\\\'', $groupName) ?>', this);">
+      <form class="button-form" action="<?php echo $admin2->url() ?>" method="POST" onsubmit="return ZenMagick.confirm('<?php _vzm("Remove group '%s'", $groupName) ?>', this);">
           <input type="hidden" name="groupName" value="<?php echo $groupName ?>">
           <input type="hidden" name="action" value="removeGroup">
           <input type="submit" class="<?php echo $buttonClasses ?>" value="Remove">

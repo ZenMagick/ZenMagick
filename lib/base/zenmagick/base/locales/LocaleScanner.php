@@ -225,18 +225,17 @@ class LocaleScanner {
         }
 
         // build a unique list of strings
-
         $globalMap = array();
-        foreach ($map as $filename => $strings) {
-            if (null === $strings) {
+        foreach ($map as $filename => $infos) {
+            if (null === $infos) {
                 continue;
             }
 
-            foreach ($strings as $key => $info) {
+            foreach ($infos as $info) {
+                $key = trim($info['msg']);
                 if (!array_key_exists($key, $globalMap)) {
                     $globalMap[$key] = array();
                 }
-                $info['filename'] = $filename;
                 $globalMap[$key][] = $info;
             }
         }
