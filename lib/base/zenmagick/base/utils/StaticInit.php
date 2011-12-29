@@ -23,6 +23,7 @@ namespace zenmagick\base\utils;
 
 use zenmagick\base\classloader\ClassLoader;
 use zenmagick\base\Runtime;
+use zenmagick\base\ZMException;
 
 use Doctrine\Common\Annotations\AnnotationRegistry;
 
@@ -73,8 +74,10 @@ class StaticInit {
      * Preload Locales class to make translation functions available.
      */
     public static function initLocales() {
+        if (!class_exists('pomo\POMO')) {
+            throw new ZMException('pomo not found');
+        }
         class_exists('zenmagick\base\locales\Locales');
-        class_exists('pomo\POMO');
     }
 
 }
