@@ -66,7 +66,7 @@ Released   : 20090515
       <!-- end content center column-->
 
 				<!-- start leftcol here -->
-				<?php if ($this->templateManager->isLeftColEnabled()) { ?>
+				<?php if ($templateManager->isLeftColEnabled()) { ?>
 
 				<div id="sidebar1" class="sidebar">
 				<ul>
@@ -78,7 +78,7 @@ Released   : 20090515
 
 
 		<!-- begin RightCol material  -->
-      <?php if ($this->templateManager->isRightColEnabled()) { ?>
+      <?php if ($templateManager->isRightColEnabled()) { ?>
         <!-- start sidebar2 -->
         <div id="sidebar2" class="sidebar">
           <ul>

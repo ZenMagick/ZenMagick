@@ -33,7 +33,7 @@ Released   : 20081126
     <!-- start page -->
     <div id="page">
 
-      <?php if ($this->templateManager->isLeftColEnabled()) { ?>
+      <?php if ($templateManager->isLeftColEnabled()) { ?>
         <!-- start sidebar1 -->
         <div id="sidebar1" class="sidebar">
           <ul>
@@ -61,7 +61,7 @@ Released   : 20081126
       </div>
       <!-- end content -->
 
-      <?php if ($this->templateManager->isRightColEnabled()) { ?>
+      <?php if ($templateManager->isRightColEnabled()) { ?>
         <!-- start sidebar2 -->
         <div id="sidebar2" class="sidebar">
           <ul>

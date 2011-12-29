@@ -42,12 +42,12 @@
     <?php if ($this->exists($pageCSS)) { ?>
         <?php $resources->cssFile($pageCSS) ?>
     <?php } ?>
-    <?php if (!$this->templateManager->isLeftColEnabled() || !$this->templateManager->isRightColEnabled()) { ?>
+    <?php if (!$templateManager->isLeftColEnabled() || !$templateManager->isRightColEnabled()) { ?>
       <style type="text/css" media="screen,projection">
-        <?php if (!$this->templateManager->isLeftColEnabled()) { ?>
+        <?php if (!$templateManager->isLeftColEnabled()) { ?>
           #content {margin-left:10px;}
         <?php } ?>
-        <?php if (!$this->templateManager->isRightColEnabled()) { ?>
+        <?php if (!$templateManager->isRightColEnabled()) { ?>
           body div#content {margin-right:20px;}
         <?php } ?>
       </style>
@@ -75,7 +75,7 @@
 		      <?php } ?>
 
        	 <div id="contentWrapper">
-		      <?php if ($this->templateManager->isLeftColEnabled()) { ?>
+		      <?php if ($templateManager->isLeftColEnabled()) { ?>
 		        <div id="navColumnOne" class="columnLeft back">
 			        <?php echo $this->fetchBlockGroup('leftColumn', array('format' => '<div class="leftBoxContainer">%s<div class="sbFooter"></div></div>')) ?>
 		        </div>
