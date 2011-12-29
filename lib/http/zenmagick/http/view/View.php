@@ -177,7 +177,8 @@ class View extends ZMObject {
      * @return string The template name.
      */
     public function getTemplate() {
-        return $this->template;
+        // todo: backwards comp. remove
+        return 'views/'.$this->template;
     }
 
     /**
@@ -230,10 +231,16 @@ class View extends ZMObject {
             $this->setVariable($key, $this->container->get($id));
         }
 
+        // todo: drop somehow
         $toolbox = $request->getToolbox();
         $this->setVariable('toolbox', $toolbox);
         // also set individual tools
-        $this->setVariables($toolbox->getTools());
+        foreach ($toolbox->getTools() as $name => $tool) {
+            if ($tool instanceof \ZMToolboxTool) {
+                $tool->setView($this);
+            }
+            $this->setVar($name, $tool);
+        }
 
 
         // set all plugins
@@ -251,8 +258,7 @@ class View extends ZMObject {
                 $viewTemplate = $this->getTemplate().$settingsService->get('zenmagick.http.templates.ext', '.php');
                 $this->setVariable('viewTemplate', $viewTemplate);
             } else {
-                //todo: backwards comp: remove views/ prefix
-                $template = 'views/'.$this->getTemplate();
+                $template = $this->getTemplate();
             }
 
             $template .= $settingsService->get('zenmagick.http.templates.ext', '.php');
@@ -299,7 +305,18 @@ class View extends ZMObject {
      * @param array variables Optional additional template variables; default is an empty array.
      * @return string The template output.
      */
-    protected function fetch($template, $variables=array()) {
+    public function fetch($template, $variables=array()) {
+        // todo: backwards comp. remove
+        if ($template instanceof \ZMRequest) {
+            // old style
+            $args = func_get_args();
+            array_shift($args);
+            $template = $args[0];
+            if (1 < count($args)) {
+                $variables = $args[1];
+            }
+        }
+
         $this->setVariables($variables);
 
         // resolve template
