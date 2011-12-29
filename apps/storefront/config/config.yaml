@@ -32,8 +32,6 @@ zenmagick:
 
   ## base
   base:
-    context: storefront
-
     ## locales
     locales:
       locale: en_NZ

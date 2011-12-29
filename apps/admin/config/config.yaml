@@ -32,8 +32,6 @@ zenmagick:
 
   ## base
   base:
-    context: admin
-
     ## locales
     locales:
       locale: en_NZ
