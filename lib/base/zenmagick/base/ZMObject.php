@@ -197,7 +197,7 @@ class ZMObject extends ContainerAware implements Serializable {
                 return $this->set($property, $args[0]);
             }
         }
-        throw new \RuntimeException('invalid method on: '.get_class($this).': '.$method);
+        throw new ZMException(sprintf('invalid method on: %s: method: "%s"', get_class($this), $method));
     }
 
     /**
