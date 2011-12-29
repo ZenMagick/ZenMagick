@@ -133,7 +133,9 @@
 
         <service id="ezPageService" class="ZMEZPages" scope="container" />
 
-        <service id="templateManager" class="ZMTemplateManager" scope="container" />
+        <service id="templateManager" class="ZMTemplateManager" scope="container">
+            <tag name="zenmagick.http.view.variable" key="templateManager" />
+        </service>
 
         <service id="currencyService" class="apps\store\services\locale\CurrencyService" scope="container" />
 
@@ -178,6 +180,8 @@
         </service>
 
         <service id="annotation_reader" class="Doctrine\Common\Annotations\AnnotationReader" scope="container" />
+
+        <service id="themeResourceResolver" class="apps\store\view\ThemeResourceResolver" scope="container" />
 
         <!--
         <service id="table_prefix" class="zenmagick\base\database\doctrine\TablePrefix" scope="container">

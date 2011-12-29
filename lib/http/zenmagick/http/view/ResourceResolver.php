@@ -19,6 +19,7 @@
  */
 ?>
 <?php
+namespace zenmagick\http\view;
 
 use ReflectionClass;
 use RegexIterator;
@@ -37,7 +38,7 @@ use zenmagick\base\ZMObject;
 class ResourceResolver extends ZMObject {
     const TEMPLATE = 'template';
     const RESOURCE = 'resource';
-    private $locations;
+    protected $locations;
 
 
     /**
@@ -95,11 +96,20 @@ class ResourceResolver extends ZMObject {
                 }
             }
 
-            $path[] = $this->getApplicationTemplatePath();
+            $path = array_merge($path, $this->getApplicationTemplateLocations());
             $this->locations[self::TEMPLATE] = $this->validateLocations($path);
         }
 
         return $this->locations[self::TEMPLATE];
+    }
+
+    /**
+     * Get a list of application template locations.
+     *
+     * @return array List of template locations.
+     */
+    protected function getApplicationTemplateLocations() {
+        return array($this->getApplicationTemplatePath());
     }
 
     /**
@@ -131,12 +141,24 @@ class ResourceResolver extends ZMObject {
             foreach ($localeCodes as $code) {
                 $path[] = $docroot.'/locale/'.$code;
             }
-            $path[] = $this->getApplicationTemplatePath();
+
+            $path = array_merge($path, $this->getApplicationResourceLocations());
             $this->locations[self::RESOURCE] = $this->validateLocations($path);
         }
 
         return $this->locations[self::RESOURCE];
     }
+
+    /**
+     * Get a list of application resource locations.
+     *
+     * @return array List of resource locations.
+     */
+    protected function getApplicationResourceLocations() {
+        return array($this->getApplicationDocRoot());
+    }
+
+    /**
 
     /**
      * Get the application template path.
@@ -202,7 +224,7 @@ class ResourceResolver extends ZMObject {
     public function find($path, $regexp=null, $type=ResourceResolver::RESOURCE) {
         $locations = $this->getLocationsFor($type);
 
-        // iterate in ascending priority, so the more important win
+        // iterate in ascending priority, so the more important come first
         $files = array();
         foreach ($locations as $location) {
             $base = $location.$path;
@@ -244,14 +266,13 @@ class ResourceResolver extends ZMObject {
         $locations = $this->getLocationsFor($type);
         foreach ($locations as $location) {
             $path = $location.'/'.$resource;
-
             // is the path based on a stream?
             if (false === strpos($path, '://')) {
                 $path = realpath($path);
             }
 
             if (!empty($path) && file_exists($path) && is_readable($path) && substr($path, 0, strlen($location)) == $location) {
-                return $fullname;
+                return $path;
             }
         }
         return false;

@@ -145,10 +145,9 @@ class ResourceManager extends ZMObject {
     /**
      * Resolve resource path.
      *
-     * <p>This default implementation does nothing but return the result of: <code>$view->asUrl($request, $filename, ZMView::RESOURCE);</code>.</p>
+     * <p>This default implementation does nothing but return the result of: <code>$view->asUrl($request, $filename, ResourceResolver::RESOURCE);</code>.</p>
      *
      * @param string resource The (relative) path to the resource.
-     * @param ZMView view The current view.
      * @return string The resolved final URL.
      */
     public function resolveResource($resource) {
@@ -161,7 +160,7 @@ class ResourceManager extends ZMObject {
             return $resource;
         } else {
             $request = $this->view_->getVar('request');
-            return $this->view_->asUrl($request, $resource, $this->resourcesAsTemplates_ ? ZMView::TEMPLATE : ZMView::RESOURCE);
+            return $this->view_->asUrl($request, $resource, $this->resourcesAsTemplates_ ? ResourceResolver::TEMPLATE : ResourceResolver::RESOURCE);
         }
     }
 
@@ -180,7 +179,7 @@ class ResourceManager extends ZMObject {
      *
      * @param array Resource details.
      * @param string group The group; either <code>css</code> or <code>js</code>.
-     * @param string location The location; either <code>ZMViewUtils::HEADER</code> or <code>ZMViewUtils::FOOTER</code>.
+     * @param string location The location; either <code>ResourceManager::HEADER</code> or <code>ResourceManager::FOOTER</code>.
      * @return string The final content ready to be injected into the final contents.
      */
     public function handleResourceGroup($files, $group, $location) {
@@ -194,7 +193,7 @@ class ResourceManager extends ZMObject {
                 }
             }
         } else if ('css' == $group) {
-            $slash = ZMSettings::get('zenmagick.mvc.html.xhtml') ? '/' : '';
+            $slash = \ZMSettings::get('zenmagick.mvc.html.xhtml') ? '/' : '';
             $css = '';
             foreach ($files as $details) {
                 if (null != ($href = $this->resolveResource($details['filename'])) && !empty($href)) {

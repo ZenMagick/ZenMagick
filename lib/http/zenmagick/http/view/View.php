@@ -22,6 +22,7 @@
 namespace zenmagick\http\view;
 
 use zenmagick\base\Runtime;
+use zenmagick\base\ZMException;
 use zenmagick\base\ZMObject;
 
 /**
@@ -34,7 +35,9 @@ class View extends ZMObject {
     private $resourceResolver;
     private $resourceManager;
     private $variables;
-    private $template_;
+    private $layout;
+    private $template;
+    private $request;
 
 
     /**
@@ -43,7 +46,9 @@ class View extends ZMObject {
     public function __construct() {
         parent::__construct();
         $this->variables = array();
-        $this->template_ = null;
+        $this->layout = null;
+        $this->template = null;
+        $this->request = null;
     }
 
 
@@ -63,6 +68,24 @@ class View extends ZMObject {
      */
     public function getResourceResolver() {
         return $this->resourceResolver;
+    }
+
+    /**
+     * Set the request.
+     *
+     * @param ZMRequest request The request.
+     */
+    public function setRequest(ZMRequest $request) {
+        $this->request = $request;
+    }
+
+    /**
+     * Get the request.
+     *
+     * @return ZMRequest The request.
+     */
+    public function getRequest() {
+        return $this->request;
     }
 
     /**
@@ -126,12 +149,30 @@ class View extends ZMObject {
     }
 
     /**
+     * Set the layout name.
+     *
+     * @param string layout The layout name.
+     */
+    public function setLayout($layout) {
+        $this->layout = $layout;
+    }
+
+    /**
+     * Get the layout name.
+     *
+     * @return string The layout name.
+     */
+    public function getLayout() {
+        return $this->layout;
+    }
+
+    /**
      * Get the template name.
      *
      * @return string The template name.
      */
     public function getTemplate() {
-        return $this->template_;
+        return $this->template;
     }
 
     /**
@@ -140,7 +181,7 @@ class View extends ZMObject {
      * @param string template The new template name.
      */
     public function setTemplate($template) {
-        $this->template_ = $template;
+        $this->template = $template;
     }
 
     /**
@@ -164,27 +205,90 @@ class View extends ZMObject {
      * @return string The contents.
      */
     public function generate($request, $template=null, $variables=array()) {
+        // set some standard things
+        $this->setVariable('container', $this->container);
+        $this->setVariable('resources', $this->getResourceManager());
+        $this->setVariable('view', $this);
+        $this->setVariable('request', $request);
+        $this->setVariable('session', $request->getSession());
+
+        foreach ($this->container->findTaggedServiceIds('zenmagick.http.view.variable') as $id => $args) {
+            $key = null;
+            foreach ($args as $elem) {
+                foreach ($elem as $key => $value) {
+                    if ('key' == $key && $value) {
+                        $key = $value;
+                        break;
+                    }
+                }
+            }
+            $this->setVariable($key, $this->container->get($id));
+        }
+
         // todo: use tag to mark things to go into view scope
         // set a few default things...
-        $this->setVar('request', $request);
-        $this->setVar('session', $request->getSession());
         $toolbox = $request->getToolbox();
-        $this->setVar('toolbox', $toolbox);
+        $this->setVariable('toolbox', $toolbox);
 
         // also set individual tools
-        $this->setVars($toolbox->getTools());
+        $this->setVarsiable($toolbox->getTools());
 
-        $this->setVar('container', $this->container);
-        $this->setVar('resources', $this->getResourceManager());
+        $this->setVariable('settings', Runtime::getSettings());
+
 
         // set all plugins
         $settingsService = Runtime::getSettings();
         foreach ($this->container->get('pluginService')->getAllPlugins($settingsService->get('zenmagick.base.context')) as $plugin) {
-            $this->setVar($plugin->getId(), $plugin);
+            $this->setVariable($plugin->getId(), $plugin);
         }
 
-        $template = null != $template ? $template : $this->getTemplate().Runtime::getSettings()->get('zenmagick.http.templates.ext', '.php');
-        return $this->fetch($template, $variables);
+        // sort out the actual template and, if a layout is used, the viewTemplate
+        $template = null;
+        $layout = $this->getLayout();
+        try {
+            if (!empty($layout)) {
+                $template = $layout;
+                $viewTemplate = $this->getTemplate().$settingsService->get('zenmagick.http.templates.ext', '.php');
+                $this->setVariable('viewTemplate', $viewTemplate);
+            } else {
+                $template = $this->getTemplate();
+            }
+
+            $template .= $settingsService->get('zenmagick.http.templates.ext', '.php');
+            $output = $this->fetch($template, $variables);
+            if (null !== ($resources = $this->resourceManager->getResourceContents())) {
+                // apply resources...
+                $output = preg_replace('/<\/head>/', $resources['header'] . '</head>', $contents, 1);
+                $output = preg_replace('/<\/body>/', $resources['footer'] . '</body>', $contents, 1);
+            }
+
+            return $output;
+        } catch (Exception $e) {
+            Runtime::getLogging()->dump($e, 'failed to fetch template: '.$template, Logging::ERROR);
+            throw new ZMException('failed to fetch template: '.$template, 0, $e);
+        }
+    }
+
+    /**
+     * Compile the given file.
+     *
+     * @param string file The file to compile.
+     * @return string Path to the compiled file.
+     * @todo: implement
+     */
+    public function compile($file) {
+        return $file;
+    }
+
+    /**
+     * Apply configured filters to the given string.
+     *
+     * @param string s The string.
+     * @return string The filter result.
+     * @todo: implement
+     */
+    public function applyFilters($s) {
+        return $s;
     }
 
     /**
@@ -195,7 +299,7 @@ class View extends ZMObject {
      * @return string The template output.
      */
     protected function fetch($template, $variables=array()) {
-        $this->setVars($variables);
+        $this->setVariables($variables);
 
         // resolve template
         if (null == ($file = $this->resourceResolver->findResource($template, ResourceResolver::TEMPLATE))) {
@@ -210,6 +314,46 @@ class View extends ZMObject {
         ob_start();
         require $file;
         return $this->applyFilters(ob_get_clean());
+    }
+
+    /**
+     * Resolve the given (relative) templates filename into a url.
+     *
+     * @param string file The file, relative to the template path.
+     * @param string type The resource type; default is <code>ResourceResolver::TEMPLATE</code>.
+     * @return string A url or empty string.
+     */
+    public function asUrl($file, $type=ResourceResolver::TEMPLATE) {
+        if (null == ($path = $this->resourceResolver->findResource($file, ResourceResolver::TEMPLATE))) {
+            if (null != ($uri= $this->file2uri($path))) {
+                $url = $this->request->absoluteURL($uri);
+                Runtime::getLogging()->log('resolve file '.$file.' (type='.$type.') as url: '.$url.'; path='.$path, Logging::TRACE);
+                return $url;
+            }
+        }
+
+        Runtime::getLogging()->warn('can\'t resolve file '.$file.' (type='.$type.') to url');
+        return '';
+    }
+
+    /**
+     * Convert a full fs path to uri.
+     *
+     * @param string filename The full filename.
+     * @return string The uri or <code>null</code> if the filename is invalid.
+     */
+    public function file2uri($filename) {
+        $filename = realpath($filename);
+        $docRoot = realpath($this->request->getDocRoot());
+        if (empty($filename) || empty($docRoot)) {
+            return null;
+        }
+        if (0 !== strpos($filename, $docRoot)) {
+            // outside docroot
+            return null;
+        }
+
+        return str_replace(DIRECTORY_SEPARATOR, '/', substr($filename, strlen($docRoot)));
     }
 
 }

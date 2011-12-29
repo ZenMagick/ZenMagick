@@ -42,5 +42,21 @@
             </call>
         </service>
 
+        <service id="view" class="zenmagick\http\view\View" scope="prototype">
+            <call method="setResourceManager">
+                <argument type="service" id="resourceManager" />
+            </call>
+            <call method="setResourceResolver">
+                <argument type="service" id="resourceResolver" />
+            </call>
+            <call method="setRequest">
+                <argument type="service" id="request" />
+            </call>
+        </service>
+
+        <service id="httpSettingsService" class="zenmagick\base\settings\Settings" parent="merge:settingsService">
+            <tag name="zenmagick.http.view.variable" key="settings" />
+        </service>
+
     </services>
 </container>
