@@ -121,7 +121,7 @@
 
         <service id="validator" class="ZMValidator" scope="container" />
 
-        <service id="reviewService" class="ZMReviews" scope="protcontainerotype" />
+        <service id="reviewService" class="ZMReviews" scope="container" />
 
         <service id="taxRateService" class="ZMTaxRates" scope="container" />
 

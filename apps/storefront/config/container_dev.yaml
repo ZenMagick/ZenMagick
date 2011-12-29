@@ -1,4 +1,0 @@
-imports:
-    - { resource: container.yaml }
-    - { resource: ../../../config/store-services.yaml }
-    - { resource: ../../../config/store-container.yaml, ignore_errors: true }

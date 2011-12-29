@@ -27,7 +27,7 @@
             </call>
         </service>
 
-        <service id="viewUtils" class="ZMViewUtils" scope="prototype">
+        <service id="storeViewUtils" parent="merge:ZMViewUtils">
             <call method="setResourcesAsTemplates">
                 <argument>true</argument>
             </call>
@@ -44,7 +44,7 @@
             </call>
         </service>
 
-        <service id="messageService" class="Messages" scope="container" />
+        <service id="storeMessageService" class="Messages" parent="merge:messageService" />
 
         <service id="ZMForwardView" class="ForwardView" scope="prototype" />
         <service id="forwardView" alias="ZMForwardView" />
