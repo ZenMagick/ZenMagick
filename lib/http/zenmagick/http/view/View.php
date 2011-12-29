@@ -115,6 +115,9 @@ class View extends ZMObject {
     public function setVariable($name, $value) {
         $this->variables[$name] = $value;
     }
+    // TODO: backw comp: remove
+    public function setVar($name, $value) { $this->setVariable($name, $value); }
+    public function setVars($values) { $this->setVariables($values); }
 
     /**
      * Get a variable.
@@ -251,7 +254,8 @@ class View extends ZMObject {
                 $viewTemplate = $this->getTemplate().$settingsService->get('zenmagick.http.templates.ext', '.php');
                 $this->setVariable('viewTemplate', $viewTemplate);
             } else {
-                $template = $this->getTemplate();
+                //todo: backwards comp: remove views/ prefix
+                $template = 'views/'.$this->getTemplate();
             }
 
             $template .= $settingsService->get('zenmagick.http.templates.ext', '.php');
@@ -309,9 +313,9 @@ class View extends ZMObject {
         $file = $this->compile($file);
 
         // prepare env
-				extract($this->getVars(), EXTR_REFS);
+				extract($this->getVariables(), EXTR_REFS);
 
-        ob_start();
+        //ob_start();
         require $file;
         return $this->applyFilters(ob_get_clean());
     }

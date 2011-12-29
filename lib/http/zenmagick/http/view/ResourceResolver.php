@@ -266,6 +266,7 @@ class ResourceResolver extends ZMObject {
         $locations = $this->getLocationsFor($type);
         foreach ($locations as $location) {
             $path = $location.'/'.$resource;
+
             // is the path based on a stream?
             if (false === strpos($path, '://')) {
                 $path = realpath($path);
