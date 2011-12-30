@@ -40,16 +40,8 @@
             </call>
         </service>
 
-        <service id="defaultView" class="ZMSavantView" scope="prototype">
-            <call method="setConfig">
-                <argument type="collection">
-                    <argument key="cache">ZMSimpleSavantCache</argument>
-                </argument>
-            </call>
-            <call method="setFilters">
-                <argument>ZMShortTagFilter</argument>
-            </call>
-        </service>
+        <!-- TODO: drop when moving to using view instead of defaultView -->
+        <service id="defaultView" alias="view" />
 
         <service id="adminUserPrefService" class="ZMAdminUserPrefs" scope="container" />
 

@@ -24,6 +24,7 @@ namespace zenmagick\http\view;
 use zenmagick\base\Runtime;
 use zenmagick\base\ZMException;
 use zenmagick\base\ZMObject;
+use zenmagick\base\logging\Logging;
 
 /**
  * A view.
@@ -329,7 +330,7 @@ class View extends ZMObject {
         // prepare env
 				extract($this->getVariables(), EXTR_REFS);
 
-        //ob_start();
+        ob_start();
         require $file;
         return $this->applyFilters(ob_get_clean());
     }
@@ -358,7 +359,7 @@ class View extends ZMObject {
      * @return string A url or empty string.
      */
     public function asUrl($file, $type=ResourceResolver::TEMPLATE) {
-        if (null == ($path = $this->resourceResolver->findResource($file, $type))) {
+        if (null != ($path = $this->resourceResolver->findResource($file, $type))) {
             if (null != ($uri= $this->file2uri($path))) {
                 $url = $this->request->absoluteURL($uri);
                 Runtime::getLogging()->log(sprintf('resolved file "%s" (type=%s) as url: %s; path=%s', $file, $type, $url, $path), Logging::TRACE);
