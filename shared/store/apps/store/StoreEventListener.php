@@ -95,26 +95,29 @@ class StoreEventListener extends ZMObject {
     public function onInitDone($event) {
         $request = $event->get('request');
 
-        $templateManager = $this->container->get('templateManager');
-        // TODO: do via admin and just load mapping from somewhere
-        // sidebox blocks
-        $mappings = array();
-        if ($templateManager->isLeftColEnabled()) {
-            $index = 1;
-            $mappings['leftColumn'] = array();
-            foreach ($templateManager->getLeftColBoxNames() as $boxName) {
-                // avoid duplicates by using $box as key
-                $mappings['leftColumn'][$boxName] = 'ZMBlockWidget#template=boxes/'.$boxName.'&sortOrder='.$index++;
+        if (Toolbox::isContextMatch('storefront')) {
+            $templateManager = $this->container->get('templateManager');
+            // TODO: do via admin and just load mapping from somewhere
+            // sidebox blocks
+            $mappings = array();
+            if ($templateManager->isLeftColEnabled()) {
+                $index = 1;
+                $mappings['leftColumn'] = array();
+                foreach ($templateManager->getLeftColBoxNames() as $boxName) {
+                    // avoid duplicates by using $box as key
+                    $mappings['leftColumn'][$boxName] = 'ZMBlockWidget#template=boxes/'.$boxName.'&sortOrder='.$index++;
+                }
+            }
+            if ($templateManager->isRightColEnabled()) {
+                $index = 1;
+                $mappings['rightColumn'] = array();
+                foreach ($templateManager->getRightColBoxNames() as $boxName) {
+                    // avoid duplicates by using $box as key
+                    $mappings['rightColumn'][$boxName] = 'ZMBlockWidget#template=boxes/'.$boxName.'&sortOrder='.$index++;
+                }
             }
         }
-        if ($templateManager->isRightColEnabled()) {
-            $index = 1;
-            $mappings['rightColumn'] = array();
-            foreach ($templateManager->getRightColBoxNames() as $boxName) {
-                // avoid duplicates by using $box as key
-                $mappings['rightColumn'][$boxName] = 'ZMBlockWidget#template=boxes/'.$boxName.'&sortOrder='.$index++;
-            }
-        }
+
         // general banners block group - if used, the group needs to be passed into fetchBlockGroup()
         $mappings['banners'] = array();
         $mappings['banners'][] = 'ZMBannerBlockWidget';

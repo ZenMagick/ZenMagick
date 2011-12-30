@@ -22,6 +22,7 @@
 
 use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
+use zenmagick\base\Toolbox;
 use zenmagick\base\ZMObject;
 
 use apps\store\menu\MenuElement;
@@ -129,9 +130,12 @@ class ZMAdminEventHandler extends ZMObject {
     public function onInitRequest($event) {
         $request = $event->get('request');
         $language = $request->getSession()->getLanguage();
-        $theme = $this->container->get('themeService')->initThemes($language);
-        $args = array_merge($event->all(), array('theme' => $theme, 'themeId' => $theme->getId()));
-        //Runtime::getEventDispatcher()->dispatch('theme_resolved', new Event($this, $args));
+        $themes = $request->getParameter('themes');
+        if (Toolbox::asBoolean($themes)) {
+            $theme = $this->container->get('themeService')->initThemes($language);
+            $args = array_merge($event->all(), array('theme' => $theme, 'themeId' => $theme->getId()));
+            //Runtime::getEventDispatcher()->dispatch('theme_resolved', new Event($this, $args));
+        }
     }
 
 }

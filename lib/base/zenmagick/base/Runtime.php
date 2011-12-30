@@ -31,7 +31,8 @@ use zenmagick\base\dependencyInjection\Container;
  * @package zenmagick.base
  */
 class Runtime {
-    private static $container_ = null;
+    private static $container = null;
+    private static $context = null;
 
 
     /**
@@ -40,7 +41,16 @@ class Runtime {
      * @return string The current context or <code>null</code> if not set or supported.
      */
     public static function getContext() {
-        return self::getSettings()->get('zenmagick.base.context', null);
+        return null != self::$context ? self::context : self::getSettings()->get('zenmagick.base.context', null);
+    }
+
+    /**
+     * Set context.
+     *
+     * @param string context The new context.
+     */
+    public static function setContext($context) {
+        self::$context = $context;
     }
 
     /**
@@ -141,11 +151,11 @@ class Runtime {
      * @return Symfony\Component\DependencyInjection\ContainerInterface A <code>Symfony\Component\DependencyInjection\ContainerInterface</code> instance.
      */
     public static function getContainer() {
-        if (null == self::$container_) {
-            self::$container_ = new Container();
+        if (null == self::$container) {
+            self::$container = new Container();
         }
 
-        return self::$container_;
+        return self::$container;
     }
 
 }
