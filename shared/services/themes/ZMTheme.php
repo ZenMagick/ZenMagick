@@ -313,7 +313,7 @@ class ZMTheme extends ZMObject {
         $path = $this->getBaseDir().'locale/'.Runtime::getSettings()->get('zenmagick.base.locales.locale');
 
         // re-init with next file
-        $this->container->get('localeService')->getLocale()->init(Runtime::getSettings()->get('zenmagick.base.locales.locale'), $path);
+        $this->container->get('localeService')->getLocale()->init(Runtime::getSettings()->get('zenmagick.base.locales.locale'), $path, 'storefront');
     }
 
     /**
