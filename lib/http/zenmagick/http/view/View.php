@@ -394,11 +394,23 @@ class View extends ZMObject {
     /**
      * Check if the given template/resource file exists.
      *
-     * @param string filen The file, relative to the template path.
+     * @param string file The file, relative to the template path.
      * @param string type The resource type; default is <code>ResourceResolver::TEMPLATE</code>.
      * @return boolean <code>true</code> if the file exists, <code>false</code> if not.
      */
     public function exists($file, $type=ResourceResolver::TEMPLATE) {
+        // todo: backwards comp. remove
+        if ($file instanceof \ZMRequest) {
+            // old style
+            $args = func_get_args();
+            array_shift($args);
+            $file = $args[0];
+            if (1 < count($args)) {
+                $type = $args[1];
+            } else {
+                $type = ResourceResolver::TEMPLATE;
+            }
+        }
         $path = $this->resourceResolver->findResource($file, $type);
         return !empty($path);
     }
