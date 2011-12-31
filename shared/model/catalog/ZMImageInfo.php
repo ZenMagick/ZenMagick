@@ -226,7 +226,7 @@ class ZMImageInfo extends ZMObject {
         $dirname = ZC_INSTALL_PATH.'images/'.$subdir;
 
         $imageList = array();
-        if ($dir = @dir($dirname)) {
+        if (is_dir($dirname) && ($dir = dir($dirname))) {
             while ($file = $dir->read()) {
                 if (!is_dir($dirname . $file)) {
                     if (ZMLangUtils::endsWith($file, $ext)) {
