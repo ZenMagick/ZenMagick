@@ -33,6 +33,20 @@
             </call>
         </service>
 
+        <service id="storeResourceManager" parent="merge:resourceManager">
+            <call method="setResourcesAsTemplates">
+                <argument>true</argument>
+            </call>
+        </service>
+
+        <service id="storeView" parent="merge:view">
+            <call method="setResourceResolver">
+                <argument type="service" id="themeResourceResolver" />
+            </call>
+        </service>
+
+        <!-- TODO: drop when moving to using view instead of defaultView -->
+        <!--service id="defaultView" alias="view" /-->
         <service id="defaultView" class="SavantView" scope="prototype">
             <call method="setConfig">
                 <argument type="collection">
