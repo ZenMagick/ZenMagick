@@ -13,6 +13,26 @@ admin,storefront:
       # display errors in browser
       display_errors: true
 
+  container:
+    services:
+      # display logging in the browser; requires 'display_errors' to be set to true
+      echoLoggingHandler:
+        class: zenmagick\base\logging\handler\EchoLoggingHandler
+        scope: container
+        calls:
+          - [setLogLevel, ['INFO']]
+        tags:
+          - { name: zenmagick.base.logging.handler }
+      # log into configured file
+      fileLoggingHandler:
+        class: zenmagick\base\logging\handler\FileLoggingHandler
+        scope: container
+        calls:
+          - [setLogLevel, ['ALL']]
+          - [setFilename, ['%zenmagick.installationPath%/zenmagick/zenmagick.log']]
+        tags:
+          - { name: zenmagick.base.logging.handler }
+
   settings:
     zenmagick:
       base:
@@ -37,25 +57,6 @@ admin,storefront:
           # disable symfony routing
           enabled: false
 
-  container:
-    services:
-      # display logging in the browser; requires 'display_errors' to be set to true
-      echoLoggingHandler:
-        class: zenmagick\base\logging\handler\EchoLoggingHandler
-        scope: container
-        calls:
-          - [setLogLevel, ['INFO']]
-        tags:
-          - { name: zenmagick.base.logging.handler }
-      # log into configured file
-      fileLoggingHandler:
-        class: zenmagick\base\logging\handler\FileLoggingHandler
-        scope: container
-        calls:
-          - [setLogLevel, ['ALL']]
-          - [setFilename, ['%zenmagick.installationPath%/zenmagick/zenmagick.log']]
-        tags:
-          - { name: zenmagick.base.logging.handler }
     apps:
       store:
         # validate ZenMagick code against zencart code
