@@ -119,6 +119,7 @@ class View extends ZMObject {
         $this->variables[$name] = $value;
     }
     // TODO: backw comp: remove
+    public function getVar($name) { if ('resources' == $name) { return $this->getResourceManager(); } $this->getVariable($name); }
     public function setVar($name, $value) { $this->setVariable($name, $value); }
     public function setVars($values) { $this->setVariables($values); }
 
@@ -128,7 +129,7 @@ class View extends ZMObject {
      * @param string name The variable name.
      * @return mixed The value or <code>null</code>
      */
-    public function getVarable($name) {
+    public function getVariable($name) {
         if (array_key_exists($name, $this->variables)) {
             return $this->variables[$name];
         }
