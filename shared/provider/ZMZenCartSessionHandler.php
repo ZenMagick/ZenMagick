@@ -44,10 +44,10 @@ class ZMZenCartSessionHandler implements SessionHandler {
      */
     public function read($id) {
         $sql = "SELECT value
-                FROM " . TABLE_SESSIONS . "
+                FROM " . DB_PREFIX . "sessions
                 WHERE sesskey = :sesskey
                 AND expiry > :expiry";
-        if (null !== ($result = ZMRuntime::getDatabase()->querySingle($sql, array('sesskey' => $id, 'expiry' => time()), TABLE_SESSIONS))) {
+        if (null !== ($result = ZMRuntime::getDatabase()->querySingle($sql, array('sesskey' => $id, 'expiry' => time()), DB_PREFIX.'sessions'))) {
             return $result['value'];
         }
 
@@ -60,37 +60,37 @@ class ZMZenCartSessionHandler implements SessionHandler {
     public function write($id, $data) {
         // check for existing row
         $sql = "SELECT value
-                FROM " . TABLE_SESSIONS . "
+                FROM " . DB_PREFIX . "sessions
                 WHERE sesskey = :sesskey";
-        if (null !== ($result = ZMRuntime::getDatabase()->querySingle($sql, array('sesskey' => $id), TABLE_SESSIONS))) {
+        if (null !== ($result = ZMRuntime::getDatabase()->querySingle($sql, array('sesskey' => $id), DB_PREFIX.'sessions'))) {
             // update
-            $sql = "UPDATE " . TABLE_SESSIONS . "
+            $sql = "UPDATE " . DB_PREFIX . "sessions
                     SET expiry = :expiry, value = :value
                     WHERE sesskey = :sesskey";
         } else {
             // create
-            $sql = "INSERT INTO " . TABLE_SESSIONS . "
+            $sql = "INSERT INTO " . DB_PREFIX . "sessions
                     VALUES (:sesskey, :expiry, :value)";
         }
 
         $args = array('sesskey' => $id, 'value' => $data, 'expiry' => time() + $this->expiryTime_);
-        return ZMRuntime::getDatabase()->update($sql, $args, TABLE_SESSIONS);
+        return ZMRuntime::getDatabase()->update($sql, $args, DB_PREFIX.'sessions');
     }
 
     /**
      * {@inheritDoc}
      */
     public function destroy($id) {
-        $sql = "DELETE FROM " . TABLE_SESSIONS . " WHERE sesskey = :sesskey";
-        return ZMRuntime::getDatabase()->update($sql, array('sesskey' => $id), TABLE_SESSIONS);
+        $sql = "DELETE FROM " . DB_PREFIX . "sessions WHERE sesskey = :sesskey";
+        return ZMRuntime::getDatabase()->update($sql, array('sesskey' => $id), DB_PREFIX.'sessions');
     }
 
     /**
      * {@inheritDoc}
      */
     public function gc($lifetime) {
-        $sql = "DELETE FROM " . TABLE_SESSIONS . " where expiry < :expiry";
-        return ZMRuntime::getDatabase()->update($sql, array('expiry' => time()), TABLE_SESSIONS);
+        $sql = "DELETE FROM " . DB_PREFIX . "sessions where expiry < :expiry";
+        return ZMRuntime::getDatabase()->update($sql, array('expiry' => time()), DB_PREFIX.'sessions');
     }
 
     /**
