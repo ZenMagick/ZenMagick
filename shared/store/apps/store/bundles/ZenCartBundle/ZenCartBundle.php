@@ -210,7 +210,7 @@ class ZenCartBundle extends Bundle {
             }
         }
 
-        if (defined('IS_ADMIN_FLAG') && IS_ADMIN_FLAG && null == $request->getRequestId()) {
+        if (Runtime::getSettings()->get('isAdmin') && defined('EMAIL_ENCODING_METHOD') && null == $request->getRequestId()) {
             // old zc admin?
             $request->setRequestId(str_replace('.php', '', $request->getFrontController()));
         }

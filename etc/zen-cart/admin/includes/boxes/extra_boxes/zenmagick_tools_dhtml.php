@@ -23,10 +23,6 @@
 ?>
 <?php
 
-if (!defined('IS_ADMIN_FLAG')) {
-  die('Illegal Access');
-}
-
   $za_contents[] = array('text' => _zm("ZenMagick Installation"), 'link' => 'zmIndex.php?main_page=installation');
 
 ?>

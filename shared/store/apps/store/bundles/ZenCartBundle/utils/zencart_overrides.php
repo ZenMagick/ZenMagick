@@ -35,7 +35,7 @@ if (!function_exists('zen_href_link')) {
      * @package zenmagick.store.sf.override
      */
     function zen_href_link($page='', $params='', $transport='NONSSL', $addSessionId=true, $seo=true, $isStatic=false, $useContext=true) {
-        if (class_exists('ZMStoreDefaultUrlRewriter') && (!defined('IS_ADMIN_FLAG') || !IS_ADMIN_FLAG)) {
+        if (class_exists('ZMStoreDefaultUrlRewriter') && !Runtime::getSettings()->get('isAdmin')) {
             return ZMStoreDefaultUrlRewriter::furl($page, $params, $transport, $addSessionId, $seo, $isStatic, $useContext);
         } else if (function_exists('zen_href_link_DISABLED')) {
             // just in case...

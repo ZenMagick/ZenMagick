@@ -157,7 +157,7 @@ class ZMEventFixes extends ZMObject {
         }
 
         // TODO: remove once new admin is go
-        if (!defined('IS_ADMIN_FLAG') || !IS_ADMIN_FLAG) {
+        if (!Runtime::getSettings()->get('isAdmin')) {
             $this->sanitizeRequest($request);
         }
 

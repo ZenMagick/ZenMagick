@@ -8,9 +8,6 @@
  *
  * @license http://www.zen-cart.com/license/2_0.txt GNU Public License V2.0
  */
-if (!defined('IS_ADMIN_FLAG')) {
-  die('Illegal Access');
-}
 
     $toolbox = $request->getToolbox();
     $zm_heading = array();
