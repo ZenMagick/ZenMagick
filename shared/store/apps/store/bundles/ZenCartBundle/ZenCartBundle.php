@@ -73,7 +73,8 @@ class ZenCartBundle extends Bundle {
      * @todo This will eventually be deprecated once we have an installer to write store-config.yaml
      */
     protected function prepareConfig() {
-        $admindir = Runtime::getSettings()->get('apps.store.zencart.admindir');
+        $settingsService = $this->container->get('settingsService');
+        $admindir = $settingsService->get('apps.store.zencart.admindir');
         $configure = dirname(Runtime::getInstallationPath()).($admindir ? '/'.$admindir : '').'/includes/configure.php';
         if (!file_exists($configure)) {
             throw new \Exception('could not find zencart configure.php');
@@ -116,7 +117,6 @@ class ZenCartBundle extends Bundle {
             }
         }
 
-        $settingsService = Runtime::getSettings();
         // merge with current settings
         $current = $settingsService->get('apps/store/database/default', array());
         foreach ($current as $key => $value) {
@@ -184,7 +184,7 @@ class ZenCartBundle extends Bundle {
     public function onInitConfigDone($event) {
         if (Toolbox::isContextMatch('admin')) {
             if (null != ($folder = $this->guessAdminFolder())) {
-                Runtime::getSettings()->set('apps.store.zencart.admindir', $folder);
+                $this->container->get('settingsService')->set('apps.store.zencart.admindir', $folder);
             }
         }
 
@@ -200,11 +200,11 @@ class ZenCartBundle extends Bundle {
     public function onInitRequest($event) {
         $request = $event->get('request');
         if (Toolbox::isContextMatch('admin')) {
-            $settingsService = Runtime::getSettings();
+            $settingsService = $this->container->get('settingsService');
             $settingsService->set('apps.store.baseUrl', 'http://'.$request->getHostname().str_replace('zenmagick/apps/admin/web', '', $request->getContext()));
             $settingsService->set('apps.store.oldAdminUrl', $settingsService->get('apps.store.baseUrl').ZC_ADMIN_FOLDER.'/index.php');
 
-            if (!Runtime::getSettings()->get('apps.store.zencart.admindir')) {
+            if ($settingsService->get('apps.store.zencart.admindir')) {
                 // guess again, because we might not have had a db connection before
                 $this->guessAdminFolder();
             }

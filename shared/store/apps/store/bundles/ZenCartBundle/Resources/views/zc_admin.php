@@ -98,7 +98,7 @@ $content = preg_replace('/(action="[^"]*index.php\?rid=zc_admin&zpid=)([^&"]*)([
 //echo $content;return;
 
 // printing view
-$skipMenu = in_array($zpid, zenmagick\base\Runtime::getSettings()->get('apps.store.zencart.skipLayout', array()));
+$skipMenu = in_array($zpid, $settings->get('apps.store.zencart.skipLayout', array()));
 
 if (!$skipMenu) {
 ?>
