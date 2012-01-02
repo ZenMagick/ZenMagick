@@ -46,6 +46,6 @@
 <?php } ?>
 
 <?php echo $form->open('checkout_shipping_address', 'action=create', true, array('id'=>'shippingAddress')) ?>
-    <?php $this->assign(array('address' => $shippingAddress)); echo $this->fetch('views/address.php') ?>
+    <?php echo $this->fetch('views/address.php', array('address' => $shippingAddress)) ?>
     <div class="btn"><input type="submit" class="btn" value="<?php _vzm("Continue") ?>" /></div>
 </form>

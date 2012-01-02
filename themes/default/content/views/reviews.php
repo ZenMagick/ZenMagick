@@ -29,8 +29,8 @@
 
     <div class="rlist">
         <table cellspacing="0" cellpadding="0"><tbody>
-            <?php $first = true; $odd = true; foreach ($resultList->getResults() as $review) { $this->assign(array('review' => $review, 'first' => $first, 'odd' => $odd)); ?>
-              <?php echo $this->fetch('views/resultlist/review.php') ?>
+            <?php $first = true; $odd = true; foreach ($resultList->getResults() as $review) { ?>
+              <?php echo $this->fetch('views/resultlist/review.php', array('review' => $review, 'first' => $first, 'odd' => $odd)) ?>
             <?php $first = false; $odd = !$odd; } ?>
         </tbody></table>
     </div>

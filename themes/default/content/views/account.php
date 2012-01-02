@@ -58,8 +58,8 @@
     </h3>
     <div class="rlist">
         <table cellspacing="0" cellpadding="0"><tbody>
-            <?php $first = true; $odd = true; foreach ($resultList->getResults() as $order) { $this->assign(array('order' => $order, 'first' => $first, 'odd' => $odd)); ?>
-              <?php echo $this->fetch('views/resultlist/order.php') ?>
+            <?php $first = true; $odd = true; foreach ($resultList->getResults() as $order) { ?>
+              <?php echo $this->fetch('views/resultlist/order.php', array('order' => $order, 'first' => $first, 'odd' => $odd)) ?>
             <?php $first = false; $odd = !$odd; } ?>
         </tbody></table>
     </div>

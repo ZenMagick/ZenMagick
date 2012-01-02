@@ -122,6 +122,7 @@ class View extends ZMObject {
     public function getVar($name) { if ('resources' == $name) { return $this->getResourceManager(); } $this->getVariable($name); }
     public function setVar($name, $value) { $this->setVariable($name, $value); }
     public function setVars($values) { $this->setVariables($values); }
+    public function assign($values) { $this->setVariables($values); }
 
     /**
      * Get a variable.
@@ -319,8 +320,6 @@ class View extends ZMObject {
             }
         }
 
-        $this->setVariables($variables);
-
         // resolve template
         if (null == ($file = $this->resourceResolver->findResource($template, ResourceResolver::TEMPLATE))) {
             throw new ZMException(sprintf('template not found: %s', $template));
@@ -330,6 +329,8 @@ class View extends ZMObject {
 
         // prepare env
 				extract($this->getVariables(), EXTR_REFS);
+        // these are transient
+				extract($variables, EXTR_REFS);
 
         ob_start();
         require $file;

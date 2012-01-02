@@ -88,13 +88,23 @@
             </call>
         </service>
 
-        <service id="ZMViewUtils" class="ZMViewUtils" scope="prototype" />
+        <service id="storeResourceManager" class="zenmagick\http\view\ResourceManager">
+            <call method="setResourcesAsTemplates">
+                <argument>true</argument>
+            </call>
+        </service>
 
-        <service id="ZMSavant" class="ZMSavant" scope="prototype" />
+        <service id="themeResourceResolver" class="apps\store\view\ThemeResourceResolver" scope="container" />
 
-        <service id="ZMSimpleSavantCache" class="ZMSimpleSavantCache" scope="container">
-            <call method="setCache">
-                <argument type="service" id="templateCache" />
+        <service id="storeView" class="zenmagick\http\view\View" scope="prototype">
+            <call method="setResourceManager">
+                <argument type="service" id="storeResourceManager" />
+            </call>
+            <call method="setResourceResolver">
+                <argument type="service" id="themeResourceResolver" />
+            </call>
+            <call method="setRequest">
+                <argument type="service" id="request" />
             </call>
         </service>
 
@@ -180,8 +190,6 @@
         </service>
 
         <service id="annotation_reader" class="Doctrine\Common\Annotations\AnnotationReader" scope="container" />
-
-        <service id="themeResourceResolver" class="apps\store\view\ThemeResourceResolver" scope="container" />
 
         <!--
         <service id="table_prefix" class="zenmagick\base\database\doctrine\TablePrefix" scope="container">

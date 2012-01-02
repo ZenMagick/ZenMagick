@@ -26,19 +26,7 @@
             </call>
         </service>
 
-        <service id="storeEmailView" class="SavantView" scope="prototype">
-            <call method="setConfig">
-                <argument type="collection">true
-                    <argument key="cache">ZMSimpleSavantCache</argument>
-                </argument>
-            </call>
-            <call method="setFilters">
-                <argument>ZMShortTagFilter</argument>
-            </call>
-            <call method="setViewUtils">
-                <argument type="service" id="storeViewUtils" />
-            </call>
-        </service>
+        <service id="storeEmailView" alias="storeView" />
 
         <!-- TODO: drop when moving to using view instead of defaultView -->
         <service id="defaultView" alias="view" />

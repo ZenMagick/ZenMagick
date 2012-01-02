@@ -49,14 +49,12 @@
     <div>
       <?php if ($settings->get('isGuestCheckoutAskAddress')) { ?>
         <?php
-          $this->assign(array('address' => $guestCheckoutAddress));
-          $this->assign(array('customFields' => array(
-            array(
+          $guestAddressInfo = array(
+              'address' => $guestCheckoutAddress,
               'label'=>_zm("E-Mail Address").'<span>*</span>',
               'field'=>'<input type="text" id="email_address_guest" name="email_address" '.$form->fieldLength(TABLE_CUSTOMERS, 'customers_email_address').'/>'
-            )
-          )));
-          echo $this->fetch('views/address.php');
+          );
+          echo $this->fetch('views/address.php', $guestAddressInfo);
         ?>
       <?php } else { ?>
         <label for="email_address_guest"><?php _vzm("E-Mail Address") ?></label>
