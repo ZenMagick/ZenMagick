@@ -24,7 +24,7 @@ use zenmagick\base\Runtime;
 
 
 define('_ZM_ZEN_GENERAL_FILE', ZC_INSTALL_PATH . 'includes/functions/functions_general.php');
-define('_ZM_ZEN_ADMIN_GENERAL_FILE', ZC_INSTALL_PATH . ZC_ADMIN_FOLDER . '/includes/functions/general.php');
+define('_ZM_ZEN_ADMIN_GENERAL_FILE', ZC_INSTALL_PATH . ZENCART_ADMIN_FOLDER . '/includes/functions/general.php');
 
 /**
  * Patch to enable vetoable redirects in zencart.

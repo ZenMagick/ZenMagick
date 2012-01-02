@@ -14,11 +14,6 @@ the existing Zen Cart store and admin applications.
 The only requirement is that the listed SQL patches (Tools -> ZenMagick Installation) are installed.
 The corresponding SQL scripts can be found under zmadmin/shared/etc/sql/mysql.
 
-NOTE: If you have renamed your Zen Cart admin folder you will also need to do the following:
-a) Create a new file zmadmin/local.php
-b) Edit and insert the following (rename 'admin' with the name of your admin folder):
-<?php define('ZC_ADMIN_FOLDER', 'admin'); ?>
-
 
 3. Additional information
 =========================

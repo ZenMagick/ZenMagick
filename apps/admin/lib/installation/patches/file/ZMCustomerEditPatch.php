@@ -23,7 +23,7 @@
 use zenmagick\base\Runtime;
 
 
-define('_ZM_ZEN_CUSTOMERS_PHP', ZC_INSTALL_PATH.ZC_ADMIN_FOLDER.'/customers.php');
+define('_ZM_ZEN_CUSTOMERS_PHP', ZC_INSTALL_PATH.ZENCART_ADMIN_FOLDER.'/customers.php');
 
 /**
  * Patch to enable editing customers if the same email exists as guest checkout.

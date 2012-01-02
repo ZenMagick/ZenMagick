@@ -344,16 +344,6 @@ class Request extends \ZMRequest {
     }
 
     /**
-     * Check if we are running as admin.
-     *
-     * @return boolean <code>true</code> if code execution is in the context of an admin page,
-     *  <code>false</code> if not.
-     */
-    public function isAdmin() {
-        return defined('IS_ADMIN_FLAG') && constant('IS_ADMIN_FLAG');
-    }
-
-    /**
      * {@inheritDoc}
      */
     public function getTemplatePath() {

@@ -18,7 +18,7 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 ?>
-<link rel="stylesheet" type="text/css" href="<?php echo str_replace('zenmagick/apps/admin/web', '', $request->getContext()).ZC_ADMIN_FOLDER ?>/includes/stylesheet.css">
+<link rel="stylesheet" type="text/css" href="<?php echo str_replace('zenmagick/apps/admin/web', '', $request->getContext()).ZENCART_ADMIN_FOLDER ?>/includes/stylesheet.css">
 
 <?php
 
@@ -46,7 +46,7 @@ function split_slash($s) {
   return preg_replace('#/(\S)#', '/ $1', $s);
 }
 
-$zcAdminFolder = ZC_INSTALL_PATH.ZC_ADMIN_FOLDER.DIRECTORY_SEPARATOR;
+$zcAdminFolder = ZC_INSTALL_PATH.ZENCART_ADMIN_FOLDER.DIRECTORY_SEPARATOR;
 $zpid = str_replace('.php', '', $request->getParameter('zpid', 'index'));
 $zcPage = $zpid.'.php';
 chdir($zcAdminFolder);
@@ -89,8 +89,8 @@ if (1 == count($head)) {
 }
 $content = preg_replace("/<html.*<body[^>]*>/s", '', $content);
 $content = str_replace('id="main"', '', $content);
-$content = str_replace('src="includes', 'src="/'.ZC_ADMIN_FOLDER.'/includes', $content);
-$content = str_replace('src="images', 'src="/'.ZC_ADMIN_FOLDER.'/images', $content);
+$content = str_replace('src="includes', 'src="/'.ZENCART_ADMIN_FOLDER.'/includes', $content);
+$content = str_replace('src="images', 'src="/'.ZENCART_ADMIN_FOLDER.'/images', $content);
 $content = str_replace(array('onmouseover="rowOverEffect(this)"', 'onmouseout="rowOutEffect(this)"'), '', $content);
 //action="/zmdev/zenmagick/apps/admin/web/index.php?rid=zc_admin&zpid=categories&" method="get">
 $content = preg_replace('/(action="[^"]*index.php\?rid=zc_admin&zpid=)([^&"]*)([^>]*>)/', '$1$2$3<input type="hidden" name="rid" value="zc_admin"><input type="hidden" name="zpid" value="$2">', $content);

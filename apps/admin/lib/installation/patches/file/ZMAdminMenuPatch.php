@@ -23,7 +23,7 @@
 use zenmagick\base\Runtime;
 
 
-define('_ZM_ZEN_ADMIN_FILE', ZC_INSTALL_PATH.ZC_ADMIN_FOLDER.'/includes/boxes/extras_dhtml.php');
+define('_ZM_ZEN_ADMIN_FILE', ZC_INSTALL_PATH.ZENCART_ADMIN_FOLDER.'/includes/boxes/extras_dhtml.php');
 
 /**
  * Admin menu patch.

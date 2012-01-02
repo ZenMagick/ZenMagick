@@ -27,10 +27,5 @@
   define('IS_ADMIN_FLAG', true);
   define('GZIP_LEVEL', false);
 
-  // name of Zen Cart admin folder
-  if (!defined('ZC_ADMIN_FOLDER')) {
-     define('ZC_ADMIN_FOLDER', 'admin');
-  }
-
   require realpath(dirname(__FILE__).'/../../../bootstrap.php');
   require realpath(dirname(__FILE__).'/../../../mvc.php');

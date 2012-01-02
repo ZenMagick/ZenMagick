@@ -59,7 +59,7 @@ class ZMConfig extends ZMObject {
         // keys are always upper case
         $key = strtoupper($key);
 
-        $sql = "INSERT INTO " . TABLE_CONFIGURATION . " (
+        $sql = "INSERT INTO " . DB_PREFIX . "configuration (
                   configuration_title, configuration_key, configuration_value, configuration_group_id,
                   configuration_description, sort_order,
                   date_added, use_function, set_function)
@@ -86,7 +86,7 @@ class ZMConfig extends ZMObject {
      * @param string value The new value.
      */
     public function updateConfigValue($key, $value) {
-        $sql = "UPDATE " . TABLE_CONFIGURATION . "
+        $sql = "UPDATE " . DB_PREFIX . "configuration
                 SET configuration_value = :value
                 WHERE configuration_key = :key";
         $args = array("key" => $key, "value" => $value);
@@ -257,7 +257,7 @@ class ZMConfig extends ZMObject {
      */
     public function getConfigValues($pattern) {
         $sql = "SELECT *
-                FROM " . TABLE_CONFIGURATION . "
+                FROM " . DB_PREFIX . "configuration
                 WHERE configuration_key like :key
                 ORDER BY sort_order, configuration_id";
         $args = array('key' => $pattern);
@@ -273,7 +273,7 @@ class ZMConfig extends ZMObject {
      */
     public function getValuesForGroupId($groupId) {
         $sql = "SELECT *
-                FROM " . TABLE_CONFIGURATION . "
+                FROM " . DB_PREFIX . "configuration
                 WHERE configuration_group_id like :groupId
                 ORDER BY sort_order, configuration_id";
         $args = array('groupId' => $groupId);
@@ -287,7 +287,7 @@ class ZMConfig extends ZMObject {
      * @param string key The config key.
      */
     public function removeConfigValue($key) {
-        $sql = "DELETE FROM " . TABLE_CONFIGURATION . "
+        $sql = "DELETE FROM " . DB_PREFIX . "configuration
                 WHERE configuration_key = :key";
         ZMRuntime::getDatabase()->update($sql, array('key' => $key), 'configuration');
     }
@@ -298,7 +298,7 @@ class ZMConfig extends ZMObject {
      * @param string pattern The key pattern; for example 'foo_%'.
      */
     public function removeConfigValues($pattern) {
-        $sql = "DELETE FROM " . TABLE_CONFIGURATION . "
+        $sql = "DELETE FROM " . DB_PREFIX . "configuration
                 WHERE configuration_key like :key";
         ZMRuntime::getDatabase()->update($sql, array('key' => $pattern), 'configuration');
     }
@@ -311,7 +311,7 @@ class ZMConfig extends ZMObject {
      */
     public function getConfigGroupForId($groupId) {
         $sql = "SELECT *
-                FROM " . TABLE_CONFIGURATION_GROUP . "
+                FROM " . DB_PREFIX . "configuration_group
                 WHERE configuration_group_id = :id";
         return ZMRuntime::getDatabase()->querySingle($sql, array('id' => $groupId), 'configuration_group', 'ZMConfigGroup');
     }
@@ -323,7 +323,7 @@ class ZMConfig extends ZMObject {
      */
     public function getConfigGroups() {
         $sql = "SELECT *
-                FROM " . TABLE_CONFIGURATION_GROUP . "
+                FROM " . DB_PREFIX . "configuration_group
                 ORDER BY sort_order";
         return ZMRuntime::getDatabase()->query($sql, array(), 'configuration_group', 'ZMConfigGroup');
     }
@@ -335,7 +335,7 @@ class ZMConfig extends ZMObject {
      */
     public function loadAll() {
         $map = array();
-        $sql = "SELECT configuration_key, configuration_value FROM " . TABLE_CONFIGURATION;
+        $sql = "SELECT configuration_key, configuration_value FROM " . DB_PREFIX . "configuration";
         foreach (ZMRuntime::getDatabase()->query($sql) as $result) {
             $map[$result['configuration_key']] = $result['configuration_value'];
         }
