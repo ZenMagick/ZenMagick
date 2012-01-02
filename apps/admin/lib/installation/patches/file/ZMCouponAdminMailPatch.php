@@ -22,7 +22,7 @@
 
 use zenmagick\base\Runtime;
 
-define('_ZM_ZEN_COUPON_ADMIN_PHP', ZC_INSTALL_PATH.ZC_ADMIN_FOLDER.'/coupon_admin.php');
+define('_ZM_ZEN_COUPON_ADMIN_PHP', ZC_INSTALL_PATH.ZENCART_ADMIN_FOLDER.'/coupon_admin.php');
 
 /**
  * Patch to enable ZenMagick templates for coupon admin emails.

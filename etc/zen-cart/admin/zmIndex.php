@@ -26,11 +26,6 @@ use zenmagick\base\Runtime;
 use zenmagick\base\events\Event;
 use zenmagick\http\sacs\SacsManager;
 
-  // name of Zen Cart admin folder
-  if (!defined('ZC_ADMIN_FOLDER')) {
-     define('ZC_ADMIN_FOLDER', basename(dirname(__FILE__)));
-  }
-
   $view = null;
   require_once 'includes/application_top.php';
 

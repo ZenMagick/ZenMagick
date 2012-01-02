@@ -293,7 +293,7 @@ class Session extends ZMObject {
      */
     public function close() {
         //XXX:TODO: bad hack to avoid zc admin breakage
-        $isZCAdmin = defined('IS_ADMIN_FLAG') && IS_ADMIN_FLAG && !defined('ZC_ADMIN_FOLDER');
+        $isZCAdmin = defined('IS_ADMIN_FLAG') && IS_ADMIN_FLAG && defined('EMAIL_ENCODING_METHOD');
         if (!$isZCAdmin && $this->isStarted() && !$this->closed_) {
             foreach ($this->data_ as $name => $value) {
                 $_SESSION[$name] = $value;

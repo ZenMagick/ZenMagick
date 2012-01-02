@@ -202,7 +202,7 @@ class ZenCartBundle extends Bundle {
         if (Toolbox::isContextMatch('admin')) {
             $settingsService = Runtime::getSettings();
             $settingsService->set('apps.store.baseUrl', 'http://'.$request->getHostname().str_replace('zenmagick/apps/admin/web', '', $request->getContext()));
-            $settingsService->set('apps.store.oldAdminUrl', $settingsService->get('apps.store.baseUrl').ZC_ADMIN_FOLDER.'/index.php');
+            $settingsService->set('apps.store.oldAdminUrl', $settingsService->get('apps.store.baseUrl').ZENCART_ADMIN_FOLDER.'/index.php');
 
             if (!Runtime::getSettings()->get('apps.store.zencart.admindir')) {
                 // guess again, because we might not have had a db connection before
