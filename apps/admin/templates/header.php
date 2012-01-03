@@ -20,7 +20,7 @@
 ?>
 <div id="header">
   <div id="logo">
-    <a href="<?php echo $admin2->url('index') ?>"><img src="<?php echo $this->asUrl('images/logo.png', ResourceResolver::RESOURCE) ?>" alt="ZenMagick" title="ZenMagick"></a>
+    <a href="<?php echo $admin2->url('index') ?>"><img src="<?php echo $this->asUrl('images/logo.png', ZMView::RESOURCE) ?>" alt="ZenMagick" title="ZenMagick"></a>
   </div>
   <?php if ($request->getUser()) { ?>
     <div id="header-box">

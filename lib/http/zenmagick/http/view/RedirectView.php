@@ -66,14 +66,14 @@ class RedirectView extends View {
     /**
      * {@inheritDoc}
      */
-    public function exists($file, $type=ResourceResolver::TEMPLATE) {
+    public function exists($file, $type=ResourceManager::TEMPLATE) {
         throw new ZMException('not supported');
     }
 
     /**
      * {@inheritDoc}
      */
-    public function asUrl($file, $type=ResourceResolver::TEMPLATE) {
+    public function asUrl($file, $type=ResourceManager::TEMPLATE) {
         throw new ZMException('not supported');
     }
 

@@ -69,7 +69,7 @@ class ZMAjaxController extends ZMController {
      * configured <em>ajaxFormat</em> string. So, if, for example, the method is <code>getCountries</code> and <em>ajaxFormat</em> is
      * <code>JSON</code>, the controller will first look for <code>getCountries</code> and then for <code>getCountriesJSON</code>.</p>
      *
-     * @return ZMView A <code>ZMView</code> instance or <code>null</code>.
+     * @return View A <code>View</code> instance or <code>null</code>.
      */
     public function process(ZMRequest $request) {
         $method = $sacsMethod = $request->getParameter('method');

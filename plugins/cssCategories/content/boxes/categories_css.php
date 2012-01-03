@@ -42,7 +42,7 @@
         <?php } ?>
     </ul>
 
-    <?php $resources->jsFile('categories_css.js', ZMViewUtils::NOW); ?>
+    <?php $resources->jsFile('categories_css.js', $resources::NOW); ?>
     <script type="text/javascript">
       // Preload menu images when page loads (won't affect IE, which never caches CSS images)
       var mp = '<?php echo $this->asUrl('images/menu/').'/' ?>';

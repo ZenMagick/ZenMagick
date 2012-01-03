@@ -94,7 +94,7 @@ class ZMWordpressRequestHandler extends ZMController {
     /**
      * Register all necessary filter to manipulate WP content to fit into ZenMagick.
      *
-     * @param ZMView view The current view.
+     * @param View view The current view.
      */
     public function registerFilter($view) {
         $this->view_ = $view;

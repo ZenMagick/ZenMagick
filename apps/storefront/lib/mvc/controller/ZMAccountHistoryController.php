@@ -34,10 +34,7 @@ use zenmagick\base\Runtime;
 class ZMAccountHistoryController extends ZMController {
 
     /**
-     * Process a HTTP GET request.
-     *
-     * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
-     * if the controller generates the contents itself.
+     * {@inheritDoc}
      */
     public function processGet($request) {
         $request->getToolbox()->crumbtrail->addCrumb("Account", $request->url('account', '', true));

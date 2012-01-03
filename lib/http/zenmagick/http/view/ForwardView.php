@@ -74,14 +74,14 @@ class ForwardView extends View {
     /**
      * {@inheritDoc}
      */
-    public function exists($file, $type=ResourceResolver::TEMPLATE) {
+    public function exists($file, $type=ResourceManager::TEMPLATE) {
         throw new ZMException('not supported');
     }
 
     /**
      * {@inheritDoc}
      */
-    public function asUrl($file, $ResourceResolver=ZMView::TEMPLATE) {
+    public function asUrl($file, $type=ResourceManager::TEMPLATE) {
         throw new ZMException('not supported');
     }
 

@@ -73,7 +73,7 @@ function getContainer(){ return $this->container;}
     /**
      * Set the current view.
      *
-     * @param ZMView view The view.
+     * @param View view The view.
      */
     public function setView($view) {
         $this->view_ = $view;
@@ -82,7 +82,7 @@ function getContainer(){ return $this->container;}
     /**
      * Get the view (if any).
      *
-     * @return ZMView The view.
+     * @return View The view.
      */
     public function getView() {
         return $this->view_;

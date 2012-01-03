@@ -41,10 +41,7 @@ class ZMContactUsController extends ZMController {
     }
 
     /**
-     * Process a HTTP GET request.
-     *
-     * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
-     * if the controller generates the contents itself.
+     * {@inheritDoc}
      */
     public function processGet($request) {
         $contactInfo = $this->getFormData($request);
@@ -58,10 +55,7 @@ class ZMContactUsController extends ZMController {
     }
 
     /**
-     * Process a HTTP POST request.
-     *
-     * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
-     * if the controller generates the contents itself.
+     * {@inheritDoc}
      */
     public function processPost($request) {
         $contactInfo = $this->getFormData($request);

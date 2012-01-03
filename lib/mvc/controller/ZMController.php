@@ -68,7 +68,7 @@ class ZMController extends ZMObject {
     /**
      * Init view vars.
      *
-     * @param ZMView view The view to init.
+     * @param View view The view to init.
      * @param ZMRequest request The current request.
      * @param mixed formData Optional form data; default is <code>null</code>.
      */
@@ -95,7 +95,7 @@ class ZMController extends ZMObject {
      * <p><strong>This method should not be overridded!</strong>.</p>
      *
      * @param ZMRequest request The request to process.
-     * @return ZMView A <code>ZMView</code> instance or <code>null</code>.
+     * @return View A <code>View</code> instance or <code>null</code>.
      */
     public function process(ZMRequest $request) {
         // ensure a usable id is set
@@ -249,7 +249,7 @@ class ZMController extends ZMObject {
      * Process a HTTP HEAD request.
      *
      * @param ZMRequest request The request to process.
-     * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
+     * @return View A <code>View</code> that handles presentation or <code>null</code>
      * if the controller generates the contents itself.
      */
     public function processHead($request) {
@@ -260,7 +260,7 @@ class ZMController extends ZMObject {
      * Process a HTTP GET request.
      *
      * @param ZMRequest request The request to process.
-     * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
+     * @return View A <code>View</code> that handles presentation or <code>null</code>
      * if the controller generates the contents itself.
      */
     public function processGet($request) {
@@ -272,7 +272,7 @@ class ZMController extends ZMObject {
      * Process a HTTP POST request.
      *
      * @param ZMRequest request The request to process.
-     * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
+     * @return View A <code>View</code> that handles presentation or <code>null</code>
      * if the controller generates the contents itself.
      */
     public function processPost($request) { return $this->processGet($request); }
@@ -294,7 +294,7 @@ class ZMController extends ZMObject {
      * @param string id The controller id or <code>null</code> to return to the current page.
      * @param array data Optional model data; default is an empty array.
      * @param array parameter Optional map of name/value pairs to further configure the view; default is <code>null</code>.
-     * @return ZMView The actual view to be used to render the response.
+     * @return View The actual view to be used to render the response.
      */
     public function findView($id=null, $data=array(), $parameter=null) {
         if ($this->isAjax_) {
@@ -342,7 +342,7 @@ class ZMController extends ZMObject {
      * Validate session token.
      *
      * @param ZMRequest request The request to process.
-     * @return ZMView Either the error view (in case of validation errors), or <code>null</code> for success.
+     * @return View Either the error view (in case of validation errors), or <code>null</code> for success.
      */
     protected function validateSession($request) {
         return $request->validateSessionToken() ? null : $this->findView();
@@ -353,7 +353,7 @@ class ZMController extends ZMObject {
      *
      * @param ZMRequest request The request to process.
      * @param mixed formData An object.
-     * @return ZMView Either the error view (in case of validation errors), or <code>null</code> for success.
+     * @return View Either the error view (in case of validation errors), or <code>null</code> for success.
      */
     protected function validateFormData($request, $formData) {
         if (!$this->validate($request, $formData->getFormId(), $formData)) {
@@ -401,7 +401,7 @@ class ZMController extends ZMObject {
     /**
      * Get the current view.
      *
-     * @return ZMView The view or <code>null</code>.
+     * @return View The view or <code>null</code>.
      * @deprecated Not used at all
      */
     public function getView() {
@@ -411,7 +411,7 @@ class ZMController extends ZMObject {
     /**
      * Set the current view.
      *
-     * @param ZMView view The view or <code>null</code>.
+     * @param View view The view or <code>null</code>.
      * @deprecated Not used at all
      */
     public function setView($view) {

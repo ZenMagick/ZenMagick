@@ -23,6 +23,8 @@
 ?>
 <?php
 
+use zenmagick\http\view\ResourceManager;
+
 /**
  * Plugin to enable support for ImageHandler2 in ZenMagick.
  *
@@ -64,7 +66,7 @@ class ZMImageHandler2Plugin extends Plugin {
         if (!ZMLangUtils::asBoolean($this->get('disableIH2Attributes'))) {
             if (null != ($viewUtils = $event->get('view')->getViewUtils())) {
                 $viewUtils->cssFile('ih2/style_imagehover.css');
-                $viewUtils->jsFile('ih2/jscript_imagehover.js', ZMViewUtils::HEADER);
+                $viewUtils->jsFile('ih2/jscript_imagehover.js', ResourceManager::HEADER);
             }
         }
     }

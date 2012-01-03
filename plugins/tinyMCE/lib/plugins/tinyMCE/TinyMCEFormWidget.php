@@ -51,7 +51,7 @@ class TinyMCEFormWidget extends TextAreaFormWidget implements WysiwygEditor {
     /**
      * Init editor.
      *
-     * @param ZMView view The view.
+     * @param View view The view.
      */
     private function initEditor($view) {
         // add required js

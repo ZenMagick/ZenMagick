@@ -53,10 +53,7 @@ class ZMUnitTestsController extends \ZMController {
     }
 
     /**
-     * Process a HTTP GET request.
-     *
-     * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
-     * if the controller generates the contents itself.
+     * {@inheritDDoc}
      */
     public function processGet($request) {
 

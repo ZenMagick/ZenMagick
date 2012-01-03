@@ -121,7 +121,7 @@ class ZMPageStatsPlugin extends Plugin {
      * Generate hidden stats.
      *
      * @param ZMRequest request The current request.
-     * @param ZMView view The current view.
+     * @param View view The current view.
      */
     private function hiddenStats($request, $view) {
         ob_start();

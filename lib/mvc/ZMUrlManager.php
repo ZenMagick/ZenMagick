@@ -267,7 +267,7 @@ class ZMUrlManager extends ZMObject {
      * @param string viewId Optional view id; defaults to <code>null</code> to use defaults.
      * @param mixed parameter Optional map of name/value pairs (or URL query format string)
      *  to further configure the view; default is <code>null</code>.
-     * @return ZMView A <em>best match</em> view.
+     * @return View A <em>best match</em> view.
      */
     public function findView($requestId, $viewId=null, $parameter=null) {
         Runtime::getLogging()->log('find view: requestId='.$requestId.', viewId='.$viewId.', parameter='.$parameter, Logging::TRACE);

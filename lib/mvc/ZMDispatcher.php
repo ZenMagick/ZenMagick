@@ -69,7 +69,7 @@ class ZMDispatcher {
      * Handle a request.
      *
      * @param ZMRequest request The request to dispatch.
-     * @return ZMView The view or <code>null</code>.
+     * @return View The view or <code>null</code>.
      */
     public static function handleRequest($request) {
         $controller = $request->getController();

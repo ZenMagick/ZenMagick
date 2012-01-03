@@ -23,6 +23,8 @@
 ?>
 <?php
 
+use zenmagick\http\view\ResourceManager;
+
 /**
  * Plugin to add product image support similar to Zen Cart's IH2.
  *
@@ -94,7 +96,7 @@ class ZMProductImagesPlugin extends Plugin {
             if (null != ($resources = $event->get('view')->getVar('resources'))) {
                 // might be null in case of redirect/forward/etc
                 $resources->cssFile('ih2/style_imagehover.css');
-                $resources->jsFile('ih2/jscript_imagehover.js', ZMViewUtils::FOOTER);
+                $resources->jsFile('ih2/jscript_imagehover.js', ResourceManager::FOOTER);
             }
         }
     }

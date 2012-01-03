@@ -35,7 +35,7 @@
         }
     ?>
 </script>
-<?php $resources->jsFile('jquery.js', ZMViewUtils::NOW) ?>
+<?php $resources->jsFile('jquery.js', $resources::NOW) ?>
 <?php /*=== include to allow PHP execution in ZM context ==*/ ?>
 <script type="text/javascript"><?php echo $this->fetch("dynamicState.js") ?></script>
 <?php echo $form->open('create_account', '', true, array('id'=>'registration')) ?>

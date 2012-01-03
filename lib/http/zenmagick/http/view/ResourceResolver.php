@@ -65,7 +65,7 @@ class ResourceResolver extends ZMObject {
         case self::RESOURCE:
             return $this->getResourceLocations();
         }
-        throw new ZMException(sprintf('invalid resource type :"%s"', $type));
+        throw new ZMException(sprintf('invalid resource type: "%s"', $type));
     }
 
     /**

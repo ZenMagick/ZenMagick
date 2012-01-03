@@ -52,7 +52,7 @@ class ZMRedirectorController extends ZMController {
      * Handle product not found.
      *
      * @param ZMRequest request The current request.
-     * @return ZMView A response view or <code>null</code> if no useful response possible.
+     * @return View A response view or <code>null</code> if no useful response possible.
      */
     protected function processMissingProduct($request) {
         $product = null;
@@ -83,7 +83,7 @@ class ZMRedirectorController extends ZMController {
      * Handle category not found.
      *
      * @param ZMRequest request The current request.
-     * @return ZMView A response view or <code>null</code> if no useful response possible.
+     * @return View A response view or <code>null</code> if no useful response possible.
      */
     protected function processMissingCategory($request) {
         $categoryService = $this->container->get('categoryService');

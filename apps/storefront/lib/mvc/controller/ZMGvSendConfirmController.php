@@ -66,10 +66,7 @@ class ZMGvSendConfirmController extends ZMController {
     }
 
     /**
-     * Process a HTTP POST request.
-     *
-     * @return ZMView A <code>ZMView</code> that handles presentation or <code>null</code>
-     * if the controller generates the contents itself.
+     * {@inheritDoc}
      */
     public function processPost($request) {
         if (null != $request->getParameter('edit')) {
