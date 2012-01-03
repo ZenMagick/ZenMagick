@@ -88,25 +88,24 @@ class ZMDispatcher {
 
         // generate response
         if (null != $view) {
-            if (null !== $view->getContentType()) {
-                $s = 'Content-Type: '.$view->getContentType();
-                if (null !== $view->getEncoding()) {
-                    $s .= '; charset='.$view->getEncoding();
-                }
-                header($s);
-            }
-
-            Runtime::getEventDispatcher()->dispatch('view_start', new Event(null, array('request' => $request, 'view' => $view)));
             try {
+                if (null !== $view->getContentType()) {
+                    $s = 'Content-Type: '.$view->getContentType();
+                    if (null !== $view->getEncoding()) {
+                        $s .= '; charset='.$view->getEncoding();
+                    }
+                    header($s);
+                }
+                Runtime::getEventDispatcher()->dispatch('view_start', new Event(null, array('request' => $request, 'view' => $view)));
                 // generate response
                 echo $view->generate($request);
+                Runtime::getEventDispatcher()->dispatch('view_done', new Event(null, array('request' => $request, 'view' => $view)));
             } catch (ZMException $e) {
                 Runtime::getLogging()->dump($e, sprintf('view::generate failed: %s', $e), Logging::ERROR);
             } catch (Exception $e) {
                 Runtime::getLogging()->dump($e, sprintf('view::generate failed: %s', $e->getMessage()), Logging::ERROR);
                 //TODO: what to do?
             }
-            Runtime::getEventDispatcher()->dispatch('view_done', new Event(null, array('request' => $request, 'view' => $view)));
         } else {
             Runtime::getLogging()->debug('null view, skipping $view->generate()');
         }
