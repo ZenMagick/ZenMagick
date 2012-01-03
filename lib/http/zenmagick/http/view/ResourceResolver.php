@@ -53,6 +53,8 @@ class ResourceResolver extends ZMObject {
     /**
      * Get all valid locations for for the given type.
      *
+     * <p>List of locations for the given type in order of decending priority.</p>
+     *
      * @param string type The resource type.
      * @return array List of template locations.
      * @see TEMPLATE
@@ -70,6 +72,8 @@ class ResourceResolver extends ZMObject {
 
     /**
      * Get all valid locations for templates.
+     *
+     * <p>List of locations for templates in order of decending priority.</p>
      *
      * @return array List of template locations.
      */
@@ -97,7 +101,7 @@ class ResourceResolver extends ZMObject {
             }
 
             $path = array_merge($path, $this->getApplicationTemplateLocations());
-            $this->locations[self::TEMPLATE] = $this->validateLocations($path);
+            $this->locations[self::TEMPLATE] = array_reverse($this->validateLocations($path));
         }
 
         return $this->locations[self::TEMPLATE];
@@ -114,6 +118,8 @@ class ResourceResolver extends ZMObject {
 
     /**
      * Get all valid locations for resources.
+     *
+     * <p>List of locations for resources in order of decending priority.</p>
      *
      * @return array List of resource locations.
      */
@@ -143,7 +149,7 @@ class ResourceResolver extends ZMObject {
             }
 
             $path = array_merge($path, $this->getApplicationResourceLocations());
-            $this->locations[self::RESOURCE] = $this->validateLocations($path);
+            $this->locations[self::RESOURCE] = array_reverse($this->validateLocations($path));
         }
 
         return $this->locations[self::RESOURCE];
