@@ -21,6 +21,7 @@
 <?php
 namespace zenmagick\http\view;
 
+use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
 use zenmagick\base\ZMException;
 use zenmagick\base\ZMObject;
@@ -351,6 +352,40 @@ class View extends ZMObject {
             $contents .= $block->render($this->request, $this);
         }
         return $contents;
+    }
+
+    /**
+     * Render a widget.
+     *
+     * @param mixed widget Either a <code>ZMWidget</code> instance or a widget bean definition.
+     * @param string name Optional name; default is <code>null</code> for none.
+     * @param string value Optional value; default is <code>null</code> for none.
+     * @param mixed args Optional parameter; a map of widget properties;  default is <code>null</code>.
+     * @return string The widget contents.
+     */
+    public function widget($widget, $name=null, $value=null, $args=null) {
+        $wObj = $widget;
+        if (is_string($widget)) {
+            $wObj = Beans::getBean($widget);
+        }
+        if (!($wObj instanceof \ZMWidget)) {
+            Runtime::getLogging()->debug('invalid widget: '.$widget);
+            return '';
+        }
+        if (null !== $name) {
+            $wObj->setName($name);
+            if (null === $args || !array_key_exists('id', $args)) {
+                // no id set, so default to name
+                $wObj->setId($name);
+            }
+        }
+        if (null !== $value) {
+            $wObj->setValue($value);
+        }
+        if (null !== $args) {
+            Beans::setAll($wObj, $args);
+        }
+        return $wObj->render($this->request, $this);
     }
 
     /**
