@@ -42,12 +42,12 @@
   <a href="<?php echo $net->url('create_account', '', true); ?>"><?php _vzm("Not registered yet?") ?></a>
 </p>
 
-<?php if ($settings->get('isGuestCheckout') && !$request->getShoppingCart()->isEmpty() && $request->isAnonymous()) { ?>
+<?php if ($settingsService->get('isGuestCheckout') && !$request->getShoppingCart()->isEmpty() && $request->isAnonymous()) { ?>
   <h3><?php _vzm("Don't need an account?") ?></h3>
   <?php echo $form->open('checkout_guest', '', true, array('id'=>'checkout_guest')) ?>
     <p><?php _vzm("Checkout without registering") ?></p>
     <div>
-      <?php if ($settings->get('isGuestCheckoutAskAddress')) { ?>
+      <?php if ($settingsService->get('isGuestCheckoutAskAddress')) { ?>
         <?php
           $guestAddressInfo = array(
               'address' => $guestCheckoutAddress,

@@ -47,7 +47,7 @@
 <p><?php echo $html->text2html($comment) ?></p>
 <?php } ?>
 
-<p><?php _vzm("Regards, %s", $settings->get('storeName')) ?></p>
+<p><?php _vzm("Regards, %s", $settingsService->get('storeName')) ?></p>
 
 <?php echo $utils->staticPageContent('email_advisory') ?>
 </div>

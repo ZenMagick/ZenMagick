@@ -216,12 +216,15 @@ class View extends ZMObject {
      * @return string The contents.
      */
     public function generate($request, $template=null, $variables=array()) {
+        $settingsService = Runtime::getSettings();
+
         // set some standard things
         $this->setVariable('container', $this->container);
         $this->setVariable('resources', $this->getResourceManager());
         $this->setVariable('view', $this);
         $this->setVariable('request', $request);
         $this->setVariable('session', $request->getSession());
+        $this->setVariable('settingsService', $settingsService);
 
         foreach ($this->container->findTaggedServiceIds('zenmagick.http.view.variable') as $id => $args) {
             $key = null;
@@ -249,7 +252,6 @@ class View extends ZMObject {
 
 
         // set all plugins
-        $settingsService = Runtime::getSettings();
         foreach ($this->container->get('pluginService')->getAllPlugins($settingsService->get('zenmagick.base.context')) as $plugin) {
             $this->setVariable($plugin->getId(), $plugin);
         }

@@ -22,10 +22,10 @@
  */
 ?><?php _vzm("New Password Request\n") ?>
 
-<?php _vzm("This is in response to a request for a new password for your account at %s.\n", $settings->get('storeName')) ?>
+<?php _vzm("This is in response to a request for a new password for your account at %s.\n", $settingsService->get('storeName')) ?>
 <?php _vzm("Your new password is: %s\n\n", $password) ?>
 <?php _vzm("For security reasons please remember to change your password next time you logon.\n") ?>
 
-<?php _vzm("Regards, %s\n", $settings->get('storeName')) ?>
+<?php _vzm("Regards, %s\n", $settingsService->get('storeName')) ?>
 
 <?php echo strip_tags($utils->staticPageContent('email_advisory')) ?>

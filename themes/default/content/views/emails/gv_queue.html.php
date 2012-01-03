@@ -30,14 +30,14 @@
 <div style="font-family:Verdana,Arial,Helvetica,sans-serif;font-size:10pt;">
 <p><?php _vzm("Dear %s %s,", $currentAccount->getFirstName(), $currentAccount->getLastName()) ?></p>
 
-<p><?php _vzm('You recently purchased a Gift Certificate from our online store at %s', $settings->get('storeName')) ?></p>
+<p><?php _vzm('You recently purchased a Gift Certificate from our online store at %s', $settingsService->get('storeName')) ?></p>
 
 <p><?php _vzm('For security reasons this was not made immediately available to you. However, this amount has now been released. You may now visit our store and send the value of the Gift Certificate via email to someone else, or use it yourself.') ?></p>
 
 <p><?php _vzm('The Gift Certificate(s) you purchased are worth %s', $utils->formatMoney($couponQueue->getAmount(), false)) ?></p>
 
 <p><?php _vzm('Thank you for shopping with us!') ?></p>
-<p><?php _vzm("Sincerely, %s", $settings->get('storeOwner')) ?></p>
+<p><?php _vzm("Sincerely, %s", $settingsService->get('storeOwner')) ?></p>
 
 <?php if (!isset($isSupressDisclaimer)) { echo $utils->staticPageContent('email_advisory'); } ?>
 <?php echo $office_only_html; ?>

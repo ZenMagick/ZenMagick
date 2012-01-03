@@ -52,10 +52,10 @@
           <li><a href="<?php echo $net->url('conditions'); ?>"><?php _vzm("Terms &amp; Conditions") ?></a></li>
           <li><a href="<?php echo $net->url('contact_us'); ?>"><?php _vzm("Contact Us") ?></a></li>
 
-      <?php if ($settings->get('isEnabledGV')) { ?>
+      <?php if ($settingsService->get('isEnabledGV')) { ?>
           <li><a href="<?php echo $net->url('gv_faq'); ?>"><?php _vzm("Giftvoucher FAQ") ?></a></li>
       <?php } ?>
-      <?php if ($settings->get('isEnabledCoupons')) { ?>
+      <?php if ($settingsService->get('isEnabledCoupons')) { ?>
           <li><a href="<?php echo $net->url('discount_coupon'); ?>"><?php _vzm("Coupon Lookup") ?></a></li>
       <?php } ?>
       <li><a href="<?php echo $net->url('unsubscribe'); ?>"><?php _vzm("Newsletter Unsubscribe") ?></a></li>

@@ -24,7 +24,7 @@
 <?php _vzm("Dear %s %s,", $currentAccount->getFirstName(), $currentAccount->getLastName()) ?>
 
 
-<?php _vzm('You recently purchased a Gift Certificate from our online store at %s', $settings->get('storeName')) ?>
+<?php _vzm('You recently purchased a Gift Certificate from our online store at %s', $settingsService->get('storeName')) ?>
 
 
 <?php _vzm('For security reasons this was not made immediately available to you. However, this amount has now been released. You may now visit our store and send the value of the Gift Certificate via email to someone else, or use it yourself.') ?>
@@ -35,7 +35,7 @@
 
 <?php _vzm('Thank you for shopping with us!') ?>
 
-<?php _vzm("Sincerely, %s", $settings->get('storeOwner')) ?>
+<?php _vzm("Sincerely, %s", $settingsService->get('storeOwner')) ?>
 
 
 <?php echo strip_tags($utils->staticPageContent('email_advisory')) ?>

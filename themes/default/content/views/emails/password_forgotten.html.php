@@ -23,16 +23,16 @@
 ?><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html lang="<?php echo $language->getCode() ?>">
 <head>
-<title><?php _vzm("New Password Request - %s", $settings->get('storeName')) ?></title>
+<title><?php _vzm("New Password Request - %s", $settingsService->get('storeName')) ?></title>
 </head>
 <body>
 <body>
 <div style="font-family:Verdana,Arial,Helvetica,sans-serif;font-size:10pt;">
 <p><?php _vzm("New Password Request") ?></p>
-<p><?php _vzm("This is in response to a request for a new password for your account at %s.", $settings->get('storeName')) ?></p>
+<p><?php _vzm("This is in response to a request for a new password for your account at %s.", $settingsService->get('storeName')) ?></p>
 <p><?php _vzm("Your new password is: %s", $password) ?></p>
 <p><?php _vzm("For security reasons please remember to change your password next time you logon.") ?></p>
-<p><?php _vzm("Regards, %s", $settings->get('storeName')) ?></p>
+<p><?php _vzm("Regards, %s", $settingsService->get('storeName')) ?></p>
 
 <?php echo $utils->staticPageContent('email_advisory') ?>
 </div>

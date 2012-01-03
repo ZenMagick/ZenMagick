@@ -23,14 +23,14 @@
 ?><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html lang="<?php echo $language->getCode() ?>">
 <head>
-<title><?php _vzm("A coupon from %s", $settings->get('storeName')) ?></title>
+<title><?php _vzm("A coupon from %s", $settingsService->get('storeName')) ?></title>
 </head>
 <body>
 <body>
 <div style="font-family:Verdana,Arial,Helvetica,sans-serif;font-size:10pt;">
 <p><?php _vzm("Dear %s %s,", $currentAccount->getFirstName(), $currentAccount->getLastName()) ?></p>
 
-<p><?php _vzm('We\'re pleased to offer you a Store Coupon for our online store at %s', $settings->get('storeName')) ?></p>
+<p><?php _vzm('We\'re pleased to offer you a Store Coupon for our online store at %s', $settingsService->get('storeName')) ?></p>
 <p><?php _vzm('You can redeem this coupon during checkout. Just enter the code provided, and click on the redeem button.') ?></p>
 
 <p><?php _vzm('The coupon code is <strong>%s</strong>.', $currentCoupon->getCode()) ?></p>
@@ -40,7 +40,7 @@
 <p><?php _vzm('Don\'t lose the coupon code, make sure to keep the code safe so you can benefit from this special offer.') ?></p>
 
 <p><?php _vzm('Thank you for shopping with us!') ?></p>
-<p><?php _vzm("Sincerely, %s", $settings->get('storeOwner')) ?></p>
+<p><?php _vzm("Sincerely, %s", $settingsService->get('storeOwner')) ?></p>
 
 <?php if (!isset($isSupressDisclaimer)) { echo $utils->staticPageContent('email_advisory'); } ?>
 <?php echo $office_only_html; ?>

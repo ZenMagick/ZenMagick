@@ -24,7 +24,7 @@
 <?php _vzm("Dear %s %s,", $currentAccount->getFirstName(), $currentAccount->getLastName()) ?>
 
 
-<?php _vzm("We wish to welcome you to %s.", $settings->get('storeName')) ?>
+<?php _vzm("We wish to welcome you to %s.", $settingsService->get('storeName')) ?>
 
 
 <?php echo strip_tags($utils->staticPageContent('email_welcome')) ?>
@@ -51,7 +51,7 @@
 
 <?php } ?>
 
-<?php _vzm("Sincerely, %s", $settings->get('storeOwner')) ?>
+<?php _vzm("Sincerely, %s", $settingsService->get('storeOwner')) ?>
 
 
 <?php echo strip_tags($utils->staticPageContent('email_advisory')) ?>

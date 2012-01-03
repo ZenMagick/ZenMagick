@@ -34,7 +34,7 @@
 <?php echo $shoppingCart->getPaymentFormValidationJS($request) ?>
 
 <?php echo $form->open('checkout_confirmation', '', true, array('id'=>'checkout_payment', 'onsubmit' => 'return check_form();')) ?>
-  <?php if ($settings->get('isConditionsMessage')) { ?>
+  <?php if ($settingsService->get('isConditionsMessage')) { ?>
       <fieldset>
           <legend><?php _vzm("Terms and Conditions") ?></legend>
           <p>

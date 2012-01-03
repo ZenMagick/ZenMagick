@@ -24,7 +24,7 @@
 <?php _vzm("Hi %s,", $emailMessage->getToName()) ?>
 
 
-<?php _vzm("Your friend, %s, thought that you would be interested in %s from %s.", $emailMessage->getFromName(), $currentProduct->getName(), $settings->get('storeName')) ?>
+<?php _vzm("Your friend, %s, thought that you would be interested in %s from %s.", $emailMessage->getFromName(), $currentProduct->getName(), $settingsService->get('storeName')) ?>
 
 <?php if ($emailMessage->hasMessage()) { ?>
 
@@ -37,7 +37,7 @@
 <?php _vzm("To view the product, click on the following link or copy and paste the link into your web browser: %s", $net->product($currentProduct->getId(), null)) ?>
 
 
-<?php _vzm("Regards, %s", $settings->get('storeOwner')) ?>
+<?php _vzm("Regards, %s", $settingsService->get('storeOwner')) ?>
 
 
 

@@ -23,14 +23,14 @@
 ?><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html lang="<?php echo $language->getCode() ?>">
 <head>
-<title><?php _vzm("Welcome to %s", $settings->get('storeName')) ?></title>
+<title><?php _vzm("Welcome to %s", $settingsService->get('storeName')) ?></title>
 </head>
 <body>
 <body>
 <div style="font-family:Verdana,Arial,Helvetica,sans-serif;font-size:10pt;">
 <p><?php _vzm("Dear %s %s,", $currentAccount->getFirstName(), $currentAccount->getLastName()) ?></p>
 
-<p><?php _vzm("We wish to welcome you to %s.", $settings->get('storeName')) ?></p>
+<p><?php _vzm("We wish to welcome you to %s.", $settingsService->get('storeName')) ?></p>
 <div><?php echo $utils->staticPageContent('email_welcome') ?></div>
 
 <?php if ($newAccountDiscountCoupon) { ?>
@@ -47,7 +47,7 @@
   <p><?php echo _zm('Once you have added the Gift Certificate to your account, you may use the Gift Certificate for yourself, or send it to a friend!') ?></p>
 </div>
 <?php } ?>
-<p><?php _vzm("Sincerely, %s", $settings->get('storeOwner')) ?></p>
+<p><?php _vzm("Sincerely, %s", $settingsService->get('storeOwner')) ?></p>
 
 <?php echo $utils->staticPageContent('email_advisory') ?>
 <?php echo $office_only_html; ?>

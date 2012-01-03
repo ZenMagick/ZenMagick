@@ -1,8 +1,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
   <head>
-    <meta http-equiv="content-type" content="text/html; charset=<?php echo $settings->get('zenmagick.mvc.html.charset') ?>" />
-    <meta name="generator" content="ZenMagick <?php echo $settings->get('zenmagick.version') ?>" />
+    <meta http-equiv="content-type" content="text/html; charset=<?php echo $settingsService->get('zenmagick.mvc.html.charset') ?>" />
+    <meta name="generator" content="ZenMagick <?php echo $settingsService->get('zenmagick.version') ?>" />
     <meta name="keywords" content="<?php echo $metaTags->getKeywords()?>" />
     <meta name="description" content="<?php echo $metaTags->getDescription()?>" />
     <?php $resources->cssFile('site.css') ?>

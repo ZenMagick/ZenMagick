@@ -40,7 +40,7 @@
 <?php /*=== include to allow PHP execution in ZM context ==*/ ?>
 <script type="text/javascript"><?php echo $this->fetch("dynamicState.js") ?></script>
 
-<?php $countryId = 0 != $address->getCountryId() ? $address->getCountryId() : $settings->get('storeCountry'); ?>
+<?php $countryId = 0 != $address->getCountryId() ? $address->getCountryId() : $settingsService->get('storeCountry'); ?>
 <fieldset>
     <legend><?php _vzm("Address") ?></legend>
     <table cellspacing="0" cellpadding="0" id="newaddress">
@@ -59,7 +59,7 @@
                     </tr>
                 <?php } ?>
             <?php } ?>
-            <?php if ($settings->get('isAccountGender')) { ?>
+            <?php if ($settingsService->get('isAccountGender')) { ?>
                 <tr>
                     <td><?php _vzm("Title") ?><span>*</span></td>
                     <td>
@@ -78,7 +78,7 @@
                 <td><?php _vzm("Last Name") ?><span>*</span></td>
                 <td><input type="text" id="lastName" name="lastName" value="<?php echo $html->encode($address->getLastName()) ?>" /></td>
             </tr>
-            <?php if ($settings->get('isAccountCompany')) { ?>
+            <?php if ($settingsService->get('isAccountCompany')) { ?>
                 <tr>
                     <td><?php _vzm("Company Name") ?></td>
                     <td><input type="text" id="companyName" name="companyName" value="<?php echo $html->encode($address->getCompanyName()) ?>" /></td>
@@ -104,7 +104,7 @@
                 <td><?php _vzm("Country") ?><span>*</span></td>
                 <td><?php echo $form->idpSelect('countryId', array_merge(array(new ZMIdNamePair("", _zm("Select Country"))), $container->get('countryService')->getCountries()), $countryId) ?></td>
             </tr>
-            <?php if ($settings->get('isAccountState')) { ?>
+            <?php if ($settingsService->get('isAccountState')) { ?>
                 <?php $zones = $container->get('countryService')->getZonesForCountryId($countryId); ?>
                 <tr>
                     <td><?php _vzm("State/Province") ?><span>*</span></td>

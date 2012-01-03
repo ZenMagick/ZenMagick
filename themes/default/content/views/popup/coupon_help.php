@@ -29,7 +29,7 @@
   if (ZMCoupons::TYPPE_FIXED == $coupon->getType()) {
       $discount = sprintf($fixed, $utils->formatMoney($coupon->getAmount()));
   } else if (ZMCoupons::TYPPE_PERCENT == $coupon->getType()) {
-      $discount = sprintf($fixed, number_format($coupon->getAmount(), $settings->get('discountDecimals')).'%');
+      $discount = sprintf($fixed, number_format($coupon->getAmount(), $settingsService->get('discountDecimals')).'%');
   } else {
       $discount = _zm('This coupon gives you free shipping on your order');
   }

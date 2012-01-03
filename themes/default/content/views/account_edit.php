@@ -33,7 +33,7 @@
                 </tr>
             </thead>
             <tbody>
-                <?php if ($settings->get('isAccountGender')) { ?>
+                <?php if ($settingsService->get('isAccountGender')) { ?>
                     <tr>
                         <td><?php _vzm("Title") ?><span>*</span></td>
                         <td>
@@ -52,7 +52,7 @@
                     <td><?php _vzm("Last Name") ?><span>*</span></td>
                     <td><input type="text" name="lastName" value="<?php echo $html->encode($account->getLastName()) ?>" /></td>
                 </tr>
-                <?php if ($settings->get('isAccountDOB')) { ?>
+                <?php if ($settingsService->get('isAccountDOB')) { ?>
                     <tr>
                         <td><?php _vzm("Date of Birth") ?><span>*</span></td>
                         <td><input type="text" name="dob" value="<?php echo $locale->shortDate($account->getDob()) ?>" /> <?php echo sprintf(_zm("Format: %s;&nbsp;(e.g: %s)"), $locale->getFormat('date', 'short-ui-format'), $locale->getFormat('date', 'short-ui-example')) ?></td>
@@ -62,7 +62,7 @@
                     <td><?php _vzm("E-Mail Address") ?><span>*</span></td>
                     <td><input type="text" name="email" value="<?php echo $html->encode($account->getEmail()) ?>" /></td>
                 </tr>
-                <?php if ($settings->get('isAccountNickname')) { ?>
+                <?php if ($settingsService->get('isAccountNickname')) { ?>
                     <tr>
                         <td><?php _vzm("Nickname") ?></td>
                         <td><input type="text" name="nickName" value="<?php echo $html->encode($account->getNickName()) ?>" /></td>

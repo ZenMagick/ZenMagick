@@ -20,9 +20,9 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-?><?php _vzm("%s Order Confirmation\n", $settings->get('storeName')) ?>
+?><?php _vzm("%s Order Confirmation\n", $settingsService->get('storeName')) ?>
 
-<?php _vzm("Thanks for shopping at %s,\n", $settings->get('storeName')) ?>
+<?php _vzm("Thanks for shopping at %s,\n", $settingsService->get('storeName')) ?>
 <?php _vzm("The following is a summary of your order.\n") ?>
 
 <?php _vzm("Order Details\n") ?>

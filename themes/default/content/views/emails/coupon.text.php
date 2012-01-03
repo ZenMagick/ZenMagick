@@ -23,7 +23,7 @@
 ?><?php _vzm("Dear %s %s,", $currentAccount->getFirstName(), $currentAccount->getLastName()) ?>
 
 
-<?php _vzm('We\'re pleased to offer you a Store Coupon for our online store at %s', $settings->get('storeName')) ?>
+<?php _vzm('We\'re pleased to offer you a Store Coupon for our online store at %s', $settingsService->get('storeName')) ?>
 
 
 <?php _vzm('You can redeem this coupon during checkout. Just enter the code provided, and click on the redeem button.') ?>
@@ -40,7 +40,7 @@
 
 <?php _vzm('Thank you for shopping with us!') ?>
 
-<?php _vzm("Sincerely, %s", $settings->get('storeOwner')) ?>
+<?php _vzm("Sincerely, %s", $settingsService->get('storeOwner')) ?>
 
 
 <?php echo strip_tags($utils->staticPageContent('email_advisory')) ?>

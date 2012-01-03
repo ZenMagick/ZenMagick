@@ -89,9 +89,9 @@ use zenmagick\base\Runtime;
     // import static pages
     if (null != $request->getParameter('importSp')) {
         // disable
-        $settings = Runtime::getSettings();
-        $tmp = $settings->get('apps.store.staticContent', false);
-        $settings->set('apps.store.staticContent', false);
+        $settingsService = Runtime::getSettings();
+        $tmp = $settingsService->get('apps.store.staticContent', false);
+        $settingsService->set('apps.store.staticContent', false);
 
         $ezPageService = $container->get('ezPageService');
         $languageService = $container->get('languageService');
@@ -125,7 +125,7 @@ use zenmagick\base\Runtime;
         }
 
         // cleanup
-        $settings->set('apps.store.staticContent', $tmp);
+        $settingsService->set('apps.store.staticContent', $tmp);
         $container->get('messageService')->success("Import successful!");
         $needRefresh = true;
     }

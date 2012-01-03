@@ -55,7 +55,7 @@
         <div class="btn"><input type="submit" class="btn" value="<?php _vzm("Send") ?>" /></div>
         <div>
             <strong><?php _vzm("NOTE:") ?> </strong><?php _vzm("HTML tags are not allowed.") ?><br />
-            <?php if ($settings->get('isApproveReviews')) { ?>
+            <?php if ($settingsService->get('isApproveReviews')) { ?>
                <strong><?php _vzm("NOTE:") ?> </strong><?php _vzm("Reviews require prior approval before they will be displayed.") ?>
             <?php } ?>
         </div>

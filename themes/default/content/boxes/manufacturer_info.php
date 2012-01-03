@@ -35,7 +35,7 @@
                     $target = '';
                     if (!ZMLangUtils::isEmpty($manufacturer->getUrl())) {
                         $url = $net->trackLink('manufacturer', $manufacturer->getId());
-                        $target = $settings->get('isJSTarget') ? ' onclick="newWin(this); return false;"' : ' target="_blank"';
+                        $target = $settingsService->get('isJSTarget') ? ' onclick="newWin(this); return false;"' : ' target="_blank"';
                     }
                     ?><a href="<?php echo $url ?>"<?php echo $target ?>><?php echo $html->image($manufacturer->getImageInfo()) ?></a><?php
                     if (!ZMLangUtils::isEmpty($manufacturer->getUrl())) {
@@ -48,7 +48,7 @@
                     $text = _zm("Other Products");
                     if (!ZMLangUtils::isEmpty($manufacturer->getUrl())) {
                         $url = $net->trackLink('manufacturer', $manufacturer->getId());
-                        $target = $settings->get('isJSTarget') ? ' onclick="newWin(this); return false;"' : ' target="_blank"';
+                        $target = $settingsService->get('isJSTarget') ? ' onclick="newWin(this); return false;"' : ' target="_blank"';
                         $text = _zm("Manufacturer Homepage");
                     }
                     ?><a href="<?php echo $url ?>"<?php echo $target ?>><?php echo $text ?></a><?php
