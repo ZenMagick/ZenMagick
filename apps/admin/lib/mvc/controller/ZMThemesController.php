@@ -45,14 +45,14 @@ class ZMThemesController extends ZMController {
         }
 
         // all themes
-        $themeConfig = $themeService->getThemeConfigList();
+        $themeConfigList = $themeService->getThemeConfigList();
 
         // strip already mapped languages
         $unmappedLanguages = array();
         $defaultLanguageMapped = false;
         foreach ($this->container->get('languageService')->getLanguages() as $language) {
             $used = false;
-            foreach ($themeConfig as $config) {
+            foreach ($themeConfigList as $config) {
                 if ($config->getLanguageId() == 0) {
                     $defaultLanguageMapped = true;
                 }
@@ -70,7 +70,7 @@ class ZMThemesController extends ZMController {
             $unmappedLanguages = array_merge(array(new ZMObject(array('id' => 0, 'name' => _zm('Default (All)')))), $unmappedLanguages);
         }
 
-        return $this->findView(null, array('themes' => $themes, 'themeConfig' => $themeConfig, 'unmappedLanguages' => $unmappedLanguages));
+        return $this->findView(null, array('themes' => $themes, 'themeConfigList' => $themeConfigList, 'unmappedLanguages' => $unmappedLanguages));
     }
 
     /**

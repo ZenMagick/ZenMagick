@@ -29,7 +29,7 @@
       <th><?php _vzm('Language') ?></th>
       <th><?php _vzm('Options') ?></th>
     </tr>
-    <?php foreach ($themeConfig as $config) { ?>
+    <?php foreach ($themeConfigList as $config) { ?>
       <tr>
         <td>
           <select name="themeId[<?php echo $config->getLanguageId() ?>]">
@@ -52,7 +52,7 @@
         <?php if (0 != $config->getLanguageId()) { $languageName = $this->container->get('languageService')->getLanguageForId($config->getLanguageId())->getName(); } else { $languageName = _zm('Default (All)'); } ?>
         <td><?php echo  $languageName ?></td>
         <td>
-          <?php if (1 < count($themeConfig)) { ?>
+          <?php if (1 < count($themeConfigList)) { ?>
             <input type="submit" class="<?php echo $buttonClasses ?>" name="delete[<?php echo $config->getLanguageId() ?>]" value="<?php _vzm('Delete') ?>">
           <?php } ?>
           <input type="submit" class="<?php echo $buttonClasses ?>" name="update[<?php echo $config->getLanguageId() ?>]" value="<?php _vzm('Update') ?>">
