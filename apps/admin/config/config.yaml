@@ -89,6 +89,9 @@ zenmagick:
         - admin2:ZMToolboxAdmin2
 
   http:
+    ## html
+    html:
+      xhtml: false
     ## session
     session:
       useFqdn: false

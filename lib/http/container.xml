@@ -54,8 +54,40 @@
             </call>
         </service>
 
+        <service id="forward" class="zenmagick\http\view\ForwardView" scope="prototype">
+            <call method="setRequest">
+                <argument type="service" id="request" />
+            </call>
+        </service>
+
+        <service id="redirect" class="zenmagick\http\view\RedirectView" scope="prototype">
+            <call method="setRequest">
+                <argument type="service" id="request" />
+            </call>
+        </service>
+
         <service id="httpSettingsService" class="zenmagick\base\settings\Settings" parent="merge:settingsService">
             <tag name="zenmagick.http.view.variable" key="settings" />
+        </service>
+
+        <service id="booleanFormWidget" class="zenmagick\http\widgets\form\BooleanFormWidget" scope="prototype">
+            <tag name="zenmagick.http.widgets.widget" />
+        </service>
+
+        <service id="passwordFormWidget" class="zenmagick\http\widgets\form\PasswordFormWidget" scope="prototype">
+            <tag name="zenmagick.http.widgets.widget" />
+        </service>
+
+        <service id="selectFormWidget" class="zenmagick\http\widgets\form\SelectFormWidget" scope="prototype">
+            <tag name="zenmagick.http.widgets.widget" />
+        </service>
+
+        <service id="textFormWidget" class="zenmagick\http\widgets\form\TextFormWidget" scope="prototype">
+            <tag name="zenmagick.http.widgets.widget" />
+        </service>
+
+        <service id="textAreaFormWidget" class="zenmagick\http\widgets\form\TextAreaFormWidget" scope="prototype">
+            <tag name="zenmagick.http.widgets.widget" />
         </service>
 
     </services>

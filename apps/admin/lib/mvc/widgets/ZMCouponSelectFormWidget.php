@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\http\widgets\form\SelectFormWidget;
 
 /**
  * <p>A coupon select form widget.</p>
@@ -27,7 +28,7 @@
  * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.store.admin.mvc.widgets
  */
-class ZMCouponSelectFormWidget extends ZMSelectFormWidget {
+class ZMCouponSelectFormWidget extends SelectFormWidget {
 
     /**
      * {@inheritDoc}

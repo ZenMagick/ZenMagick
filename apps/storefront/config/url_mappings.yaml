@@ -21,25 +21,25 @@ global:
     template: index
 
   login:
-    view: ZMRedirectView#requestId=login
+    view: redirect#requestId=login
   empty_cart:
-    view: ZMRedirectView#requestId=shopping_cart
+    view: redirect#requestId=shopping_cart
   cart_not_ready:
-    view: ZMRedirectView#requestId=shopping_cart
+    view: redirect#requestId=shopping_cart
   cart_is_virtual:
-    view: ZMRedirectView#requestId=checkout_payment
+    view: redirect#requestId=checkout_payment
   check_cart:
-    view: ZMRedirectView#requestId=shopping_cart
+    view: redirect#requestId=shopping_cart
   low_stock:
-    view: ZMRedirectView#requestId=shopping_cart
+    view: redirect#requestId=shopping_cart
   require_shipping:
-    view: ZMRedirectView#requestId=checkout_shipping
+    view: redirect#requestId=checkout_shipping
   require_shipping_address:
-    view: ZMRedirectView#requestId=checkout_shipping_address
+    view: redirect#requestId=checkout_shipping_address
   require_billing:
-    view: ZMRedirectView#requestId=checkout_payment
+    view: redirect#requestId=checkout_payment
   require_billing_address:
-    view: ZMRedirectView#requestId=checkout_payment_address
+    view: redirect#requestId=checkout_payment_address
 
 ## page mappings    
 page:
@@ -59,26 +59,26 @@ page:
 
   account_history_info:
     error: 
-      view: ZMRedirectView#requestId=account
+      view: redirect#requestId=account
   address_book_edit: 
     formId: address
     form: ZMAddress
     success: 
-      view: ZMRedirectView#requestId=account
+      view: redirect#requestId=account
     error: 
-      view: ZMRedirectView#requestId=account
+      view: redirect#requestId=account
   address_book_add: 
     formId: address
     form: ZMAddress
     template: address_book_create
     success: 
-      view: ZMRedirectView#requestId=account
+      view: redirect#requestId=account
   address_book_delete: 
     success: 
-      view: ZMRedirectView#requestId=account
+      view: redirect#requestId=account
   index: 
     category: 
-      view: ZMForwardView#requestId=category
+      view: forward#requestId=category
   discount_coupon: 
     info: 
       template: discount_coupon_info
@@ -88,24 +88,24 @@ page:
     manufacturer: 
       template: manufacturer
     product_info: 
-      view: ZMForwardView#requestId=product_info
+      view: forward#requestId=product_info
   login: 
     success: 
-      view: ZMRedirectView#requestId=account
+      view: redirect#requestId=account
     account: 
-      view: ZMRedirectView#requestId=account
+      view: redirect#requestId=account
   logoff: 
     success: 
-      view: ZMRedirectView#requestId=logoff
+      view: redirect#requestId=logoff
   password_forgotten: 
     success: 
-      view: ZMRedirectView#requestId=login
+      view: redirect#requestId=login
   checkout_guest: 
     template: login
     guest_checkout_disabled: 
       template: login
     success: 
-      view: ZMRedirectView#requestId=checkout_shipping
+      view: redirect#requestId=checkout_shipping
   guest_history: 
     success: 
       template: account_history_info
@@ -124,79 +124,79 @@ page:
     formId: gvReceiver
     form: ZMGVReceiver
     edit: 
-      view: ZMForwardView#requestId=gv_send
+      view: forward#requestId=gv_send
     success: 
-      view: ZMRedirectView#requestId=account
+      view: redirect#requestId=account
   create_account: 
     formId: registration
     form: ZMRegistrationForm
     success: 
-      view: ZMRedirectView#requestId=create_account_success
+      view: redirect#requestId=create_account_success
   account_edit: 
     formId: account
     form: ZMAccountForm
     success: 
-      view: ZMRedirectView#requestId=account
+      view: redirect#requestId=account
   account_password: 
     success: 
-      view: ZMRedirectView#requestId=account
+      view: redirect#requestId=account
   account_newsletters: 
     success: 
-      view: ZMRedirectView#requestId=account
+      view: redirect#requestId=account
   account_notifications: 
     success: 
-      view: ZMRedirectView#requestId=account
+      view: redirect#requestId=account
   checkout_shipping: 
     skip_shipping: 
-      view: ZMRedirectView#requestId=checkout_payment
+      view: redirect#requestId=checkout_payment
     success: 
-      view: ZMRedirectView#requestId=checkout_payment
+      view: redirect#requestId=checkout_payment
   ## alias to have a neutral point to start the checkout process
   checkout: 
     template: checkout_shipping
     controller: ZMCheckoutShippingController
     skip_shipping: 
-      view: ZMRedirectView#requestId=checkout_payment
+      view: redirect#requestId=checkout_payment
     success: 
-      view: ZMRedirectView#requestId=checkout_payment
+      view: redirect#requestId=checkout_payment
   ## avoid redirect loop
   empty_cart:
-    view: ZMRedirectView#requestId=shopping_cart
+    view: redirect#requestId=shopping_cart
   checkout_shipping_address: 
     controller: 'ZMCheckoutAddressController#mode=shipping'
     formId: shippingAddress
     form: ZMAddress
     success: 
-      view: ZMRedirectView#requestId=checkout_shipping
+      view: redirect#requestId=checkout_shipping
   checkout_payment: 
     success: 
-      view: ZMRedirectView#requestId=checkout_confirmation
+      view: redirect#requestId=checkout_confirmation
   checkout_payment_address: 
     controller: 'ZMCheckoutAddressController#mode=billing'
     formId: billingAddress
     form: ZMAddress
     success: 
-      view: ZMRedirectView#requestId=checkout_payment
+      view: redirect#requestId=checkout_payment
   redirect: 
     success: 
-      view: ZMRedirectView#requestId=index
+      view: redirect#requestId=index
     error: 
-      view: ZMForwardView#requestId=index
+      view: forward#requestId=index
   product_reviews_write: 
     formId: newReview
     form: ZMReview
     success: 
-      view: ZMRedirectView#requestId=product_reviews
+      view: redirect#requestId=product_reviews
   contact_us: 
     formId: contactUs
     form: ZMContactInfo
     success: 
-      view: ZMRedirectView#requestId=contact_us
+      view: redirect#requestId=contact_us
   tell_a_friend: 
     formId: tellAFriend
     form: ZMEmailMessage
     success: 
-      view: ZMRedirectView#requestId=product_info
+      view: redirect#requestId=product_info
   search: 
     formId: searchCriteria
     form: ZMSearchCriteria

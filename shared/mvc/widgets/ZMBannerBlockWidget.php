@@ -21,6 +21,7 @@
 <?php
 
 use zenmagick\base\Runtime;
+use zenmagick\http\widgets\Widget;
 
 /**
  * A banner block widget.
@@ -28,7 +29,7 @@ use zenmagick\base\Runtime;
  * @author DerManoMann
  * @package zenmagick.store.shared.mvc.widgets
  */
-class ZMBannerBlockWidget extends ZMWidget {
+class ZMBannerBlockWidget extends Widget {
     private $group_;
     private $trackDisplay_;
     private $showAll_;

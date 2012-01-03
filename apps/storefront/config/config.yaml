@@ -89,6 +89,9 @@ zenmagick:
       defaultPagination: 10
 
   http:
+    #html
+    html:
+      xhtml: true
     ## request
     request:
       idName: main_page

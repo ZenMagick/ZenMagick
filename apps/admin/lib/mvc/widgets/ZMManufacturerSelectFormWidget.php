@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\http\widgets\form\SelectFormWidget;
 
 /**
  * <p>A manufacturer select form widget.</p>
@@ -37,7 +38,7 @@
  * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.store.admin.mvc.widgets
  */
-class ZMManufacturerSelectFormWidget extends ZMSelectFormWidget {
+class ZMManufacturerSelectFormWidget extends SelectFormWidget {
 
     /**
      * {@inheritDoc}

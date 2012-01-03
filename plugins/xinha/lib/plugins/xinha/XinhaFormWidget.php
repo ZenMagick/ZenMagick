@@ -25,6 +25,9 @@
 namespace plugins\xinha;
 
 use zenmagick\base\Runtime;
+use zenmagick\http\widgets\form\TextAreaFormWidget;
+use zenmagick\http\widgets\form\WysiwygEditor;
+use zenmagick\http\view\View;
 
 /**
  * Xinha textarea form widget.
@@ -32,7 +35,7 @@ use zenmagick\base\Runtime;
  * @author DerManoMann <mano@zenmagick.org>
  * @package plugins.xinha
  */
-class XinhaFormWidget extends \ZMTextAreaFormWidget implements \WysiwygEditor {
+class XinhaFormWidget extends TextAreaFormWidget implements WysiwygEditor {
     private $idList;
 
     /**
@@ -55,7 +58,7 @@ class XinhaFormWidget extends \ZMTextAreaFormWidget implements \WysiwygEditor {
     /**
      * {@inheritDoc}
      */
-    public function apply($request, $view, $idList=null) {
+    public function apply($request, View $view, $idList=null) {
         $this->initEditor();
         if (null === $idList) {
             $this->idList = null;

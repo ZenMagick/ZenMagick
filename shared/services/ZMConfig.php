@@ -26,6 +26,7 @@
 use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
 use zenmagick\base\ZMObject;
+use zenmagick\http\widgets\Widget;
 
 /**
  * Configuration.
@@ -128,11 +129,11 @@ class ZMConfig extends ZMObject {
     }
 
     /**
-     * Build a collection of ZMWidget and/or ZMConfigValue objects
+     * Build a collection of Widget and/or ZMConfigValue objects
      *
      * @todo most of this should be part of the ZMConfigValue entity
      * @param array array of config values
-     * @return array A list of <code>ZMConfigValue</code> or <code>ZMWidget</code> instances.
+     * @return array A list of <code>ZMConfigValue</code> or <code>Widget</code> instances.
      */
     protected function buildObjects($configValues) {
         $values = array();
@@ -218,7 +219,7 @@ class ZMConfig extends ZMObject {
                     $widget = Beans::map2obj('ConfigValue', $value);
                     break;
                 }
-                if ($widget instanceof ZMWidget) {
+                if ($widget instanceof Widget) {
                     // common stuff
                     $widget->setName($value['key']);
                     $widget->setTitle($value['name']);
@@ -239,7 +240,7 @@ class ZMConfig extends ZMObject {
      * Get a single config value for the given key pattern.
      *
      * @param string pattern The key pattern; for example 'foo_%'.
-     * @return mixed A single <code>ZMConfigValue</code> instance, <code>ZMWidget</code> instance or <code>null</code>.
+     * @return mixed A single <code>ZMConfigValue</code> instance, <code>Widget</code> instance or <code>null</code>.
      */
     public function getConfigValue($pattern) {
         $values = $this->getConfigValues($pattern);
@@ -253,7 +254,7 @@ class ZMConfig extends ZMObject {
      * Get all config values for a given key pattern.
      *
      * @param string pattern The key pattern; for example 'foo_%'.
-     * @return array A list of <code>ZMConfigValue</code> or <code>ZMWidget</code> instances.
+     * @return array A list of <code>ZMConfigValue</code> or <code>Widget</code> instances.
      */
     public function getConfigValues($pattern) {
         $sql = "SELECT *
@@ -269,7 +270,7 @@ class ZMConfig extends ZMObject {
      * Get all config values for a given group id.
      *
      * @param int groupId The group id.
-     * @return array A list of <code>ZMConfigValue</code> or <code>ZMWidget</code> instances.
+     * @return array A list of <code>ZMConfigValue</code> or <code>Widget</code> instances.
      */
     public function getValuesForGroupId($groupId) {
         $sql = "SELECT *

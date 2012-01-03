@@ -19,30 +19,26 @@
  */
 ?>
 <?php
+namespace zenmagick\http\widgets\form;
 
-use zenmagick\base\Runtime;
-use zenmagick\http\widgets\form\SelectFormWidget;
+use zenmagick\http\view\View;
 
 /**
- * <p>A zone select form widget.</p>
+ * A wysiwyg editor.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.store.admin.mvc.widgets
+ * @package zenmagick.http.widgets.form
  */
-class ZMZoneSelectFormWidget extends SelectFormWidget {
+interface WysiwygEditor {
 
     /**
-     * {@inheritDoc}
+     * Apply editor to the given element ids.
+     *
+     * @param ZMRequest request The current request.
+     * @param View view The current view.
+     * @param array idList List of element ids to convert as Wysiwyg editor; default is <code>null</code> for all on the page.
+     * @return string Generated code or <code>null</code>.
      */
-    public function getOptions($request) {
-        $options = parent::getOptions($request);
-        // try to find a useful countryId, defaulting to store country Id
-        $countryId = Runtime::getSettings()->get('storeCountry');
-        //XXX: where else to look ??
-        foreach ($this->container->get('countryService')->getZonesForCountryId($countryId) as $zone) {
-            $options[$zone->getId()] = $zone->getName();
-        }
-        return $options;
-    }
+    public function apply($request, View $view, $idList=null);
 
 }

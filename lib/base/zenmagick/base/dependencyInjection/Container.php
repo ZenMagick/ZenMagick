@@ -58,6 +58,12 @@ class Container extends ContainerBuilder {
             // try to default to the id as class name (with scope prototype)
 //echo sprintf('defaulting to id = classname: %s', $id)."<BR>";
             $obj = new $id();
+        } else if ('Z' == $id[0] && 'M' == $id[1]) {
+            // possibly old class name that now exists as serivce id without the prefix
+            $npid = substr($id, 2);
+            if ($this->has($npid)) {
+                $obj = parent::get($npid, $invalidBehavior);
+            }
         }
 
         if (null != $obj && $obj instanceof ContainerAwareInterface) {

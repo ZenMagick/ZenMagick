@@ -21,6 +21,7 @@
 <?php
 
 use zenmagick\base\Runtime;
+use zenmagick\http\widgets\Widget;
 
 /**
  * PayPal express checkout block widget.
@@ -28,7 +29,7 @@ use zenmagick\base\Runtime;
  * @author DerManoMann
  * @package zenmagick.store.shared.mvc.widgets
  */
-class ZMPayPalECButtonBlockWidget extends ZMWidget {
+class ZMPayPalECButtonBlockWidget extends Widget {
 
     /**
      * Create new instance.

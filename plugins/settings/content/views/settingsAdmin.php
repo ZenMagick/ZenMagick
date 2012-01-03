@@ -36,15 +36,15 @@
             Key: <input type="text" name="key">
             Value: <input type="text" name="value">
             Type: <select name="type">
-                <option value="ZMTextFormWidget#">Text</option>
-                <option value="ZMPasswordFormWidget#">Password</option>
-                <option value="ZMTextAreaFormWidget#cols=80&rows=5">Text Area</option>
-                <option value="ZMTextAreaFormWidget#cols=35&rows=2">Text Area (small)</option>
-                <option value="ZMBooleanFormWidget#style=select">Boolean (dropdown)</option>
-                <option value="ZMBooleanFormWidget#style=radio">Boolean (radio)</option>
-                <option value="ZMBooleanFormWidget#style=checkbox">Boolean (checkbox)</option>
-                <option value="ZMSelectFormWidget#">Generic Select (dropdown)</option>
-                <option value="ZMSelectFormWidget#multiple=true&size=3">Generic Select (dropdown, multiple)</option>
+                <option value="textFormWidget#">Text</option>
+                <option value="passwordFormWidget#">Password</option>
+                <option value="textAreaFormWidget#cols=80&rows=5">Text Area</option>
+                <option value="textAreaFormWidget#cols=35&rows=2">Text Area (small)</option>
+                <option value="booleanFormWidget#style=select">Boolean (dropdown)</option>
+                <option value="booleanFormWidget#style=radio">Boolean (radio)</option>
+                <option value="booleanFormWidget#style=checkbox">Boolean (checkbox)</option>
+                <option value="selectFormWidget#">Generic Select (dropdown)</option>
+                <option value="selectFormWidget#multiple=true&size=3">Generic Select (dropdown, multiple)</option>
                 <option value="ZMManufacturerSelectFormWidget#">Manufacturer (dropdown)</option>
                 <option value="ZMManufacturerSelectFormWidget#title=None&options=0= --- ">Manufacturer (dropdown, incl. empty default)</option>
                 <option value="ZMOrderStatusSelectFormWidget#">Order Status (dropdown)</option>
@@ -52,7 +52,6 @@
                 <option value="ZMCountrySelectFormWidget#">Country (dropdown)</option>
                 <option value="ZMCountrySelectFormWidget#title=None&options=0= --- ">Country (dropdown, incl. empty default)</option>
                 <option value="ZMEditorSelectFormWidget#">WYSIWYG Editor (dropdown)</option>
-                <option value="ZMWysiwygFormWidget#">WYSIWYG text field</option>
             </select>
         </p>
         <p>
@@ -76,7 +75,7 @@
                 <?php foreach ($plugin->getConfigValues() as $value) { ?>
                     <?php if (ZMLangUtils::endsWith($value->getKey(), Plugin::KEY_ENABLED) || ZMLangUtils::endsWith($value->getKey(), Plugin::KEY_SORT_ORDER)) { continue; } ?>
 
-                    <?php if ($value instanceof ZMWidget) { ?>
+                    <?php if ($value instanceof zenmagick\http\widgets\Widget) { ?>
                         <?php if (ZMLangUtils::endsWith($value->getName(), Plugin::KEY_ENABLED) || ZMLangUtils::endsWith($value->getName(), Plugin::KEY_SORT_ORDER)) { continue; } ?>
                         <tr>
                             <td><?php echo $value->getTitle() ?></td>

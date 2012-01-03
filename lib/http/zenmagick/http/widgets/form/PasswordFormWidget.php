@@ -1,6 +1,6 @@
 <?php
 /*
- * ZenMagick - Smart e-commerce
+ * ZenMagick - Another PHP framework.
  * Copyright (C) 2006-2011 zenmagick.org
  *
  * This program is free software; you can redistribute it and/or modify
@@ -19,45 +19,33 @@
  */
 ?>
 <?php
+namespace zenmagick\http\widgets\form;
 
-use zenmagick\http\widgets\Widget;
+use zenmagick\base\Runtime;
 
 /**
- * A UI plugin to manage (custom) settings.
+ * A password input form widget.
  *
- * @package org.zenmagick.plugins.settings
  * @author DerManoMann <mano@zenmagick.org>
+ * @package zenmagick.http.widgets.form
  */
-class ZMSettingsPlugin extends Plugin {
+class PasswordFormWidget extends TextFormWidget {
 
     /**
      * Create new instance.
      */
     public function __construct() {
-        parent::__construct('Settings', 'Manage (custom) settings');
-        $this->setContext('admin');
+        parent::__construct();
+        $this->set('autocomplete','off');
     }
 
 
     /**
      * {@inheritDoc}
      */
-    public function init() {
-        parent::init();
-        // add admin pages
-        $menuKey = $this->addMenuGroup(_zm('Settings'));
-        $this->addMenuItem2(_zm('Manage Settings'), 'settingsAdmin', $menuKey);
-        $this->addMenuItem2(_zm('Show Settings'), 'settingsShow', $menuKey);
-
-        // make all config values proper settings
-        foreach ($this->getConfigValues() as $value) {
-            if ($value instanceof Widget) {
-                ZMSettings::set($value->getName(), $value->getStringValue());
-            }
-        }
-
-        // TODO: manually load lib for now
-        require_once dirname(__FILE__).'/lib/settings_details.php';
+    public function render($request, $view) {
+        $slash = Runtime::getSettings()->get('zenmagick.http.html.xhtml') ? '/' : '';
+        return '<input type="password"'.$this->getAttributeString($request, false).$slash.'>';
     }
 
 }

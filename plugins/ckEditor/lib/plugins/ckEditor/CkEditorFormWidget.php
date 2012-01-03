@@ -22,6 +22,9 @@
 namespace plugins\ckEditor;
 
 use zenmagick\base\Runtime;
+use zenmagick\http\widgets\form\TextAreaFormWidget;
+use zenmagick\http\widgets\form\WysiwygEditor;
+use zenmagick\http\view\View;
 
 /**
  * CKEditor textarea form widget.
@@ -29,7 +32,7 @@ use zenmagick\base\Runtime;
  * @author DerManoMann <mano@zenmagick.org>
  * @package plugins.ckEditor
  */
-class CkEditorFormWidget extends \ZMTextAreaFormWidget implements \WysiwygEditor {
+class CkEditorFormWidget extends TextAreaFormWidget implements WysiwygEditor {
     private $plugin_;
     private $editorConfig;
 
@@ -70,7 +73,7 @@ class CkEditorFormWidget extends \ZMTextAreaFormWidget implements \WysiwygEditor
     /**
      * {@inheritDoc}
      */
-    public function apply($request, $view, $idList=null) {
+    public function apply($request, View $view, $idList=null) {
         if (!$this->plugin_ || null == ($ckEditor = $this->getCKEditor())) {
             return null;
         }

@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\http\widgets\form\SelectFormWidget;
 
 /**
  * <p>A order status select form widget.</p>
@@ -33,7 +34,7 @@
  * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.store.admin.mvc.widgets
  */
-class ZMorderStatusSelectFormWidget extends ZMSelectFormWidget {
+class ZMorderStatusSelectFormWidget extends SelectFormWidget {
     private $showKey_;
 
 

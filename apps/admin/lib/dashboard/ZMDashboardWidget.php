@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\http\widgets\Widget;
 
 /**
  * A dashboard widget.
@@ -27,7 +28,7 @@
  * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.store.admin.dashbord
  */
-abstract class ZMDashboardWidget extends ZMWidget {
+abstract class ZMDashboardWidget extends Widget {
     const STATUS_DEFAULT = '';
     const STATUS_INFO = '';
     const STATUS_NOTICE = 'ui-state-highlight';

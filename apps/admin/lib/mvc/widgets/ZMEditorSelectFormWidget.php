@@ -21,6 +21,7 @@
 <?php
 
 use zenmagick\base\Runtime;
+use zenmagick\http\widgets\form\SelectFormWidget;
 
 /**
  * <p>A editor select form widget.</p>
@@ -32,7 +33,7 @@ use zenmagick\base\Runtime;
  * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.store.admin.mvc.widgets
  */
-class ZMEditorSelectFormWidget extends ZMSelectFormWidget {
+class ZMEditorSelectFormWidget extends SelectFormWidget {
 
     /**
      * Get a list of all available editors.

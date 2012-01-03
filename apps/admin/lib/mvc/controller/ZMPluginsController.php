@@ -22,6 +22,7 @@
 
 use zenmagick\base\Runtime;
 use zenmagick\base\logging\Logging;
+use zenmagick\http\widgets\form\FormWidget;
 
 /**
  * Admin controller for plugins.
@@ -166,7 +167,7 @@ class ZMPluginsController extends ZMController {
             } else if ('update' == $action) {
                 if (null != ($plugin = $this->container->get('pluginService')->initPluginForId($pluginId, false)) && $plugin->isInstalled()) {
                     foreach ($plugin->getConfigValues() as $widget) {
-                        if ($widget instanceof ZMFormWidget && null !== ($value = $request->getParameter($widget->getName()))) {
+                        if ($widget instanceof FormWidget && null !== ($value = $request->getParameter($widget->getName()))) {
                             if (!$widget->compare($value)) {
                                 // value changed, use widget to (optionally) format value
                                 $widget->setValue($value);

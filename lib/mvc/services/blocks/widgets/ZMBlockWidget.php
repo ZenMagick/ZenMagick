@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\http\widgets\Widget;
 
 /**
  * A block widget.
@@ -35,7 +36,7 @@
  * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.mvc.services.blocks.widgets
  */
-class ZMBlockWidget extends ZMWidget {
+class ZMBlockWidget extends Widget {
     private $sortOrder_;
     private $template_;
     private $format_;

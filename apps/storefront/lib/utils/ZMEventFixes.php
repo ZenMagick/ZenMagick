@@ -76,6 +76,14 @@ class ZMEventFixes extends ZMObject {
     }
 
     /**
+     * Reset crumbtrail.
+     */
+    public function onControllerStart($event) {
+        $request = $event->get('request');
+        $request->getToolbox()->crumbtrail->reset();
+    }
+
+    /**
      * Handle 'showAll' parameter for result lists and provide empty address for guest checkout if needed.
      */
     public function onViewStart($event) {

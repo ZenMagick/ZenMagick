@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\http\widgets\Widget;
 
 /**
  * <p>Display reserved qty.</p>
@@ -32,7 +33,7 @@
  * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.store.admin.mvc.widgets
  */
-class ZMReservedQtyWidget extends ZMWidget {
+class ZMReservedQtyWidget extends Widget {
     private static $qtyMap_ = null;
 
 

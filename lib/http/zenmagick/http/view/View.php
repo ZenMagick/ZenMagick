@@ -26,6 +26,7 @@ use zenmagick\base\Runtime;
 use zenmagick\base\ZMException;
 use zenmagick\base\ZMObject;
 use zenmagick\base\logging\Logging;
+use zenmagick\http\widgets\Widget;
 
 /**
  * A view.
@@ -357,7 +358,7 @@ class View extends ZMObject {
     /**
      * Render a widget.
      *
-     * @param mixed widget Either a <code>ZMWidget</code> instance or a widget bean definition.
+     * @param mixed widget Either a <code>Widget</code> instance or a widget bean definition.
      * @param string name Optional name; default is <code>null</code> for none.
      * @param string value Optional value; default is <code>null</code> for none.
      * @param mixed args Optional parameter; a map of widget properties;  default is <code>null</code>.
@@ -368,7 +369,7 @@ class View extends ZMObject {
         if (is_string($widget)) {
             $wObj = Beans::getBean($widget);
         }
-        if (!($wObj instanceof \ZMWidget)) {
+        if (!($wObj instanceof Widget)) {
             Runtime::getLogging()->debug('invalid widget: '.$widget);
             return '';
         }
