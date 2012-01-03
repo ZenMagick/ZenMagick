@@ -54,7 +54,7 @@
             </call>
         </service>
 
-        <service id="plainEditorWidget" class="ZMTextAreaFormWidget" scope="prototype">
+        <service id="plainEditorWidget" class="zenmagick\http\widgets\form\TextAreaFormWidget" scope="prototype">
             <tag name="zenmagick.apps.store.editor" label="Plain" />
         </service>
 

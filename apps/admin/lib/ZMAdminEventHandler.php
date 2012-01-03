@@ -70,7 +70,7 @@ class ZMAdminEventHandler extends ZMObject {
      * Get instance of the current editor.
      *
      * @param ZMRequest request The current request.
-     * @return ZMTextAreaFormWidget A text editor widget.
+     * @return TextAreaFormWidget A text editor widget.
      */
     protected function getCurrentEditor($request) {
         $user = $request->getUser();

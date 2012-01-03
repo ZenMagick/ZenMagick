@@ -43,7 +43,7 @@ class ZMUpdateUserController extends ZMController {
 
         // uiLocale
         $locales = $this->container->get('localeService')->getLocalesList();
-        $uiLocaleWidget = Beans::getBean('ZMSelectFormWidget#name=uiLocale&title='._zm('Admin Language'));
+        $uiLocaleWidget = Beans::getBean('selectFormWidget#name=uiLocale&title='._zm('Admin Language'));
         foreach ($locales as $locale => $name) {
             $uiLocaleWidget->addOption($name, $locale);
         }

@@ -43,19 +43,19 @@ use zenmagick\base\Beans;
       <legend><?php _vzm('Header') ?></legend>
       <label for="headerSort"><?php _vzm('Sort') ?></label>
           <input type="text" id="headerSort" name="headerSort" value="<?php echo $ezPage->getHeaderSort() ?>" size="4">
-          <?php echo Beans::getBean('ZMBooleanFormWidget#id=header&name=header&title=Header&value='.$ezPage->isHeader())->render($request, $view) ?>
+          <?php echo Beans::getBean('booleanFormWidget#id=header&name=header&title=Header&value='.$ezPage->isHeader())->render($request, $view) ?>
       </fieldset>
       <fieldset style="float:left;width:15%;border:1px solid #aaa;padding:4px;margin:0 8px 0 0;">
       <legend><?php _vzm('Sidebox') ?></legend>
       <label for="sideboxSort"><?php _vzm('Sort') ?></label>
           <input type="text" id="sideboxSort" name="sideboxSort" value="<?php echo $ezPage->getSideboxSort() ?>" size="4">
-          <?php echo Beans::getBean('ZMBooleanFormWidget#id=sidebox&name=sidebox&title=Sidebox&value='.$ezPage->isSidebox())->render($request, $view) ?>
+          <?php echo Beans::getBean('booleanFormWidget#id=sidebox&name=sidebox&title=Sidebox&value='.$ezPage->isSidebox())->render($request, $view) ?>
       </fieldset>
       <fieldset style="float:left;width:15%;border:1px solid #aaa;padding:4px;margin:0 8px 0 0;">
       <legend><?php _vzm('Footer') ?></legend>
       <label for="footerSort"><?php _vzm('Sort') ?></label>
           <input type="text" id="footerSort" name="footerSort" value="<?php echo $ezPage->getFooterSort() ?>" size="4">
-          <?php echo Beans::getBean('ZMBooleanFormWidget#id=footer&name=footer&title=Footer&value='.$ezPage->isFooter())->render($request, $view) ?>
+          <?php echo Beans::getBean('booleanFormWidget#id=footer&name=footer&title=Footer&value='.$ezPage->isFooter())->render($request, $view) ?>
       </fieldset>
       <fieldset style="float:left;min-width:35%;border:1px solid #aaa;padding:4px;margin:0 8px 0 0;">
       <legend><?php _vzm('Table Of Contents') ?></legend>
@@ -63,7 +63,7 @@ use zenmagick\base\Beans;
           <input type="text" id="tocSort" name="tocSort" value="<?php echo $ezPage->getTocSort() ?>" size="4">
           <label for="tocChapter"><?php _vzm('Chapter') ?></label>
           <input type="text" id="tocChapter" name="tocChapter" value="<?php echo $ezPage->getTocChapter() ?>" size="4">
-          <?php echo Beans::getBean('ZMBooleanFormWidget#id=toc&name=toc&title=TOC&value='.$ezPage->isToc())->render($request, $view) ?>
+          <?php echo Beans::getBean('booleanFormWidget#id=toc&name=toc&title=TOC&value='.$ezPage->isToc())->render($request, $view) ?>
       </fieldset>
     </p>
   </fieldset>
@@ -73,11 +73,11 @@ use zenmagick\base\Beans;
     <p>
     <label for="newWin"><?php _vzm('Link Target') ?></label>
       <?php
-          $select = Beans::getBean('ZMSelectFormWidget#id=newWin&name=newWin&value='.$ezPage->isNewWin());
+          $select = Beans::getBean('selectFormWidget#id=newWin&name=newWin&value='.$ezPage->isNewWin());
           $select->setOptions(array(false => _zm('Same Window'), true => _zm('New Window')));
           echo $select->render($request, $view);
       ?>
-      <?php echo Beans::getBean('ZMBooleanFormWidget#id=SSL&name=SSL&title='._zm('Secure Link').'&value='.$ezPage->isSSL())->render($request, $view) ?>
+      <?php echo Beans::getBean('booleanFormWidget#id=SSL&name=SSL&title='._zm('Secure Link').'&value='.$ezPage->isSSL())->render($request, $view) ?>
     </p>
     <p>
       <label for="altUrl"><?php _vzm('Internal URL') ?></label>
