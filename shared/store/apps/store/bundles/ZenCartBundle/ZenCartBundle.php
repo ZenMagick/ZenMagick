@@ -202,12 +202,14 @@ class ZenCartBundle extends Bundle {
         if (Toolbox::isContextMatch('admin')) {
             $settingsService = $this->container->get('settingsService');
             $settingsService->set('apps.store.baseUrl', 'http://'.$request->getHostname().str_replace('zenmagick/apps/admin/web', '', $request->getContext()));
-            $settingsService->set('apps.store.oldAdminUrl', $settingsService->get('apps.store.baseUrl').ZENCART_ADMIN_FOLDER.'/index.php');
 
+            $folder = $settingsService->get('apps.store.zencart.admindir');
             if ($settingsService->get('apps.store.zencart.admindir')) {
                 // guess again, because we might not have had a db connection before
-                $this->guessAdminFolder();
+                $folder = $this->guessAdminFolder();
             }
+
+            $settingsService->set('apps.store.oldAdminUrl', $settingsService->get('apps.store.baseUrl').$folder.'/index.php');
         }
 
         if (Runtime::getSettings()->get('isAdmin') && defined('EMAIL_ENCODING_METHOD') && null == $request->getRequestId()) {
