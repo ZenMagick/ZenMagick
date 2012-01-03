@@ -21,6 +21,7 @@
 <?php
 
 use zenmagick\base\Runtime;
+use apps\store\view\ThemeResourceResolver;
 use plugins\minify\view\MinifyResourceManager;
 
 /**
@@ -51,6 +52,9 @@ class TestMinifyResourceManager extends ZMTestCase {
         $resourceManager->setContainer($this->container);
         $resourceManager->setResourcesAsTemplates(true);
         $view->setResourceManager($resourceManager);
+        $themeResourceResolver = new ThemeResourceResolver();
+        $themeResourceResolver->setContainer($this->container);
+        $view->setResourceResolver($themeResourceResolver);
         return $resourceManager;
     }
 
