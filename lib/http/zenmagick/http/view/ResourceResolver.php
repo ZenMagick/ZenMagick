@@ -21,6 +21,8 @@
 <?php
 namespace zenmagick\http\view;
 
+use RecursiveDirectoryIterator;
+use RecursiveIteratorIterator;
 use ReflectionClass;
 use RegexIterator;
 use zenmagick\base\Runtime;
@@ -233,7 +235,7 @@ class ResourceResolver extends ZMObject {
         // iterate in ascending priority, so the more important come first
         $files = array();
         foreach ($locations as $location) {
-            $base = $location.$path;
+            $base = $location.'/'.$path;
             if (file_exists($base) && is_dir($base)) {
                 $it = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($base));
                 if (null != $regexp) {
