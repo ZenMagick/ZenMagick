@@ -1,6 +1,6 @@
 admin,storefront:
   container:
     services:
-      MinifyViewUtils:
-        parent: merge:ZMViewUtils
-        class: MinifyViewUtils
+      MinifyResourceManager:
+        parent: merge:resourceManager
+        class: plugins\minify\view\MinifyResourceManager

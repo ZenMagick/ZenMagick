@@ -21,14 +21,15 @@
 <?php
 
 use zenmagick\base\Runtime;
+use plugins\minify\view\MinifyResourceManager;
 
 /**
- * Test MinifyViewUtils implementation.
+ * Test MinifyResourceManager implementation.
  *
- * @package org.zenmagick.plugins.minify
  * @author DerManoMann <mano@zenmagick.org>
+ * @package plugins.minify
  */
-class TestMinifyViewUtils extends ZMTestCase {
+class TestMinifyResourceManager extends ZMTestCase {
     const MIN_BASE = '/zmdev/zenmagick/plugins/minify/min/f=';
     const COMMON_JS = '/zmdev/zenmagick/themes/default/content/common.js';
     const JQUERY_JS = '/zmdev/zenmagick/plugins/unitTests/content/js/jquery-1.2.1.pack.js';
@@ -44,22 +45,21 @@ class TestMinifyViewUtils extends ZMTestCase {
      *
      * @return MinifyViewUtils
      */
-    protected function getViewUtils() {
-        $view = new SavantView();
-        $view->setContainer($this->container);
-        $view->setVar('request', $this->getRequest());
-        $viewUtils = new MinifyViewUtils($view);
-        $viewUtils->setContainer($this->container);
-        $viewUtils->setResourcesAsTemplates(true);
-        return $viewUtils;
+    protected function getMinifyResourceManager() {
+        $view = $this->container->get('view');
+        $resourceManager = new MinifyResourceManager();
+        $resourceManager->setContainer($this->container);
+        $resourceManager->setResourcesAsTemplates(true);
+        $view->setResourceManager($resourceManager);
+        return $resourceManager;
     }
 
     /**
      * Test empty.
      */
     public function testEmpty() {
-        $viewUtils = $this->getViewUtils();
-        $resources = $viewUtils->getResourceContents();
+        $resourceManager = $this->getMinifyResourceManager();
+        $resources = $resourceManager->getResourceContents();
         $this->assertNull($resources);
     }
 
@@ -67,10 +67,10 @@ class TestMinifyViewUtils extends ZMTestCase {
      * Test invalid.
      */
     public function testInvalid() {
-        $viewUtils = $this->getViewUtils();
-        $viewUtils->jsFile('foo');
+        $resourceManager = $this->getMinifyResourceManager();
+        $resourceManager->jsFile('foo');
 
-        $resources = $viewUtils->getResourceContents();
+        $resources = $resourceManager->getResourceContents();
         $this->assertNotNull($resources);
         $this->assertEqual(array('header' => '', 'footer' => ''), $resources);
     }
@@ -79,10 +79,10 @@ class TestMinifyViewUtils extends ZMTestCase {
      * Test single local.
      */
     public function testSingleLocalJS() {
-        $viewUtils = $this->getViewUtils();
-        $viewUtils->jsFile('common.js');
+        $resourceManager = $this->getMinifyResourceManager();
+        $resourceManager->jsFile('common.js');
 
-        $resources = $viewUtils->getResourceContents();
+        $resources = $resourceManager->getResourceContents();
         $this->assertNotNull($resources);
         $this->assertEqual(array('header' =>
           '<script type="text/javascript" src="'.self::MIN_BASE.self::COMMON_JS.'"></script>'."\n",
@@ -93,11 +93,11 @@ class TestMinifyViewUtils extends ZMTestCase {
      * Test duplicate local.
      */
     public function testDuplicateLocalJS() {
-        $viewUtils = $this->getViewUtils();
-        $viewUtils->jsFile('common.js');
-        $viewUtils->jsFile('common.js');
+        $resourceManager = $this->getMinifyResourceManager();
+        $resourceManager->jsFile('common.js');
+        $resourceManager->jsFile('common.js');
 
-        $resources = $viewUtils->getResourceContents();
+        $resources = $resourceManager->getResourceContents();
         $this->assertNotNull($resources);
         $this->assertEqual(array('header' =>
           '<script type="text/javascript" src="'.self::MIN_BASE.self::COMMON_JS.'"></script>'."\n",
@@ -108,11 +108,11 @@ class TestMinifyViewUtils extends ZMTestCase {
      * Test multiple local.
      */
     public function testMultipleLocalJS() {
-        $viewUtils = $this->getViewUtils();
-        $viewUtils->jsFile('common.js');
-        $viewUtils->jsFile('js/jquery-1.2.1.pack.js');
+        $resourceManager = $this->getMinifyResourceManager();
+        $resourceManager->jsFile('common.js');
+        $resourceManager->jsFile('js/jquery-1.2.1.pack.js');
 
-        $resources = $viewUtils->getResourceContents();
+        $resources = $resourceManager->getResourceContents();
         $this->assertNotNull($resources);
         $this->assertEqual(array('header' =>
           '<script type="text/javascript" src="'.self::MIN_BASE.self::COMMON_JS.','.self::JQUERY_JS.'"></script>'."\n",
@@ -123,10 +123,10 @@ class TestMinifyViewUtils extends ZMTestCase {
      * Test single external.
      */
     public function testSingleExternalJS() {
-        $viewUtils = $this->getViewUtils();
-        $viewUtils->jsFile(self::EXT_JQUERY_JS);
+        $resourceManager = $this->getMinifyResourceManager();
+        $resourceManager->jsFile(self::EXT_JQUERY_JS);
 
-        $resources = $viewUtils->getResourceContents();
+        $resources = $resourceManager->getResourceContents();
         $this->assertNotNull($resources);
         $this->assertEqual(array('header' =>
           '<script type="text/javascript" src="'.self::EXT_JQUERY_JS.'"></script>'."\n",
@@ -137,11 +137,11 @@ class TestMinifyViewUtils extends ZMTestCase {
      * Test duplicate single external.
      */
     public function testDuplicateExternalJS() {
-        $viewUtils = $this->getViewUtils();
-        $viewUtils->jsFile(self::EXT_JQUERY_JS);
-        $viewUtils->jsFile(self::EXT_JQUERY_JS);
+        $resourceManager = $this->getMinifyResourceManager();
+        $resourceManager->jsFile(self::EXT_JQUERY_JS);
+        $resourceManager->jsFile(self::EXT_JQUERY_JS);
 
-        $resources = $viewUtils->getResourceContents();
+        $resources = $resourceManager->getResourceContents();
         $this->assertNotNull($resources);
         $this->assertEqual(array('header' =>
           '<script type="text/javascript" src="'.self::EXT_JQUERY_JS.'"></script>'."\n",
@@ -152,11 +152,11 @@ class TestMinifyViewUtils extends ZMTestCase {
      * Test multiple external.
      */
     public function testMultipleExternalJS() {
-        $viewUtils = $this->getViewUtils();
-        $viewUtils->jsFile(self::EXT_JQUERY_JS);
-        $viewUtils->jsFile(self::EXT_JQUERY_VAL_JS);
+        $resourceManager = $this->getMinifyResourceManager();
+        $resourceManager->jsFile(self::EXT_JQUERY_JS);
+        $resourceManager->jsFile(self::EXT_JQUERY_VAL_JS);
 
-        $resources = $viewUtils->getResourceContents();
+        $resources = $resourceManager->getResourceContents();
         $this->assertNotNull($resources);
         $this->assertEqual(array('header' =>
           '<script type="text/javascript" src="'.self::EXT_JQUERY_JS.'"></script>'."\n".
@@ -169,13 +169,13 @@ class TestMinifyViewUtils extends ZMTestCase {
      */
     public function testMixed1JS() {
         // mixed #1
-        $viewUtils = $this->getViewUtils();
-        $viewUtils->jsFile(self::EXT_JQUERY_JS);
-        $viewUtils->jsFile('common.js');
-        $viewUtils->jsFile('js/jquery-1.2.1.pack.js');
-        $viewUtils->jsFile(self::EXT_JQUERY_VAL_JS);
+        $resourceManager = $this->getMinifyResourceManager();
+        $resourceManager->jsFile(self::EXT_JQUERY_JS);
+        $resourceManager->jsFile('common.js');
+        $resourceManager->jsFile('js/jquery-1.2.1.pack.js');
+        $resourceManager->jsFile(self::EXT_JQUERY_VAL_JS);
 
-        $resources = $viewUtils->getResourceContents();
+        $resources = $resourceManager->getResourceContents();
         $this->assertNotNull($resources);
         $this->assertEqual(array('header' =>
           '<script type="text/javascript" src="'.self::EXT_JQUERY_JS.'"></script>'."\n".
@@ -188,13 +188,13 @@ class TestMinifyViewUtils extends ZMTestCase {
      * Test mixed #2.
      */
     public function testMixed2JS() {
-        $viewUtils = $this->getViewUtils();
-        $viewUtils->jsFile(self::EXT_JQUERY_JS);
-        $viewUtils->jsFile(self::EXT_JQUERY_VAL_JS);
-        $viewUtils->jsFile('common.js');
-        $viewUtils->jsFile('js/jquery-1.2.1.pack.js');
+        $resourceManager = $this->getMinifyResourceManager();
+        $resourceManager->jsFile(self::EXT_JQUERY_JS);
+        $resourceManager->jsFile(self::EXT_JQUERY_VAL_JS);
+        $resourceManager->jsFile('common.js');
+        $resourceManager->jsFile('js/jquery-1.2.1.pack.js');
 
-        $resources = $viewUtils->getResourceContents();
+        $resources = $resourceManager->getResourceContents();
         $this->assertNotNull($resources);
         $this->assertEqual(array('header' =>
           '<script type="text/javascript" src="'.self::EXT_JQUERY_JS.'"></script>'."\n".
@@ -207,13 +207,13 @@ class TestMinifyViewUtils extends ZMTestCase {
      * Test mixed #3.
      */
     public function testMixed3JS() {
-        $viewUtils = $this->getViewUtils();
-        $viewUtils->jsFile(self::EXT_JQUERY_JS);
-        $viewUtils->jsFile('common.js');
-        $viewUtils->jsFile(self::EXT_JQUERY_VAL_JS);
-        $viewUtils->jsFile('js/jquery-1.2.1.pack.js');
+        $resourceManager = $this->getMinifyResourceManager();
+        $resourceManager->jsFile(self::EXT_JQUERY_JS);
+        $resourceManager->jsFile('common.js');
+        $resourceManager->jsFile(self::EXT_JQUERY_VAL_JS);
+        $resourceManager->jsFile('js/jquery-1.2.1.pack.js');
 
-        $resources = $viewUtils->getResourceContents();
+        $resources = $resourceManager->getResourceContents();
         $this->assertNotNull($resources);
         $this->assertEqual(array('header' =>
           '<script type="text/javascript" src="'.self::EXT_JQUERY_JS.'"></script>'."\n".
@@ -227,10 +227,10 @@ class TestMinifyViewUtils extends ZMTestCase {
      * Test single local.
      */
     public function testSingleLocalCSS() {
-        $viewUtils = $this->getViewUtils();
-        $viewUtils->cssFile('site.css');
+        $resourceManager = $this->getMinifyResourceManager();
+        $resourceManager->cssFile('site.css');
 
-        $resources = $viewUtils->getResourceContents();
+        $resources = $resourceManager->getResourceContents();
         $this->assertNotNull($resources);
         $this->assertEqual(array('header' =>
           "\n".
@@ -243,11 +243,11 @@ class TestMinifyViewUtils extends ZMTestCase {
      * Test duplicate local.
      */
     public function testDuplicateLocalCSS() {
-        $viewUtils = $this->getViewUtils();
-        $viewUtils->cssFile('site.css');
-        $viewUtils->cssFile('site.css');
+        $resourceManager = $this->getMinifyResourceManager();
+        $resourceManager->cssFile('site.css');
+        $resourceManager->cssFile('site.css');
 
-        $resources = $viewUtils->getResourceContents();
+        $resources = $resourceManager->getResourceContents();
         $this->assertNotNull($resources);
         $this->assertEqual(array('header' =>
           "\n".
@@ -260,11 +260,11 @@ class TestMinifyViewUtils extends ZMTestCase {
      * Test multiple local.
      */
     public function testMultipleLocalCSS() {
-        $viewUtils = $this->getViewUtils();
-        $viewUtils->cssFile('site.css');
-        $viewUtils->cssFile('popup.css');
+        $resourceManager = $this->getMinifyResourceManager();
+        $resourceManager->cssFile('site.css');
+        $resourceManager->cssFile('popup.css');
 
-        $resources = $viewUtils->getResourceContents();
+        $resources = $resourceManager->getResourceContents();
         $this->assertNotNull($resources);
         $this->assertEqual(array('header' =>
           "\n".
@@ -277,10 +277,10 @@ class TestMinifyViewUtils extends ZMTestCase {
      * Test single external.
      */
     public function testSingleExternalCSS() {
-        $viewUtils = $this->getViewUtils();
-        $viewUtils->cssFile(self::EXT_JQUERY_CSS1);
+        $resourceManager = $this->getMinifyResourceManager();
+        $resourceManager->cssFile(self::EXT_JQUERY_CSS1);
 
-        $resources = $viewUtils->getResourceContents();
+        $resources = $resourceManager->getResourceContents();
         $this->assertNotNull($resources);
         $this->assertEqual(array('header' =>
           "\n".
@@ -293,11 +293,11 @@ class TestMinifyViewUtils extends ZMTestCase {
      * Test duplicate single external.
      */
     public function testDuplicateExternalCSS() {
-        $viewUtils = $this->getViewUtils();
-        $viewUtils->cssFile(self::EXT_JQUERY_CSS1);
-        $viewUtils->cssFile(self::EXT_JQUERY_CSS1);
+        $resourceManager = $this->getMinifyResourceManager();
+        $resourceManager->cssFile(self::EXT_JQUERY_CSS1);
+        $resourceManager->cssFile(self::EXT_JQUERY_CSS1);
 
-        $resources = $viewUtils->getResourceContents();
+        $resources = $resourceManager->getResourceContents();
         $this->assertNotNull($resources);
         $this->assertEqual(array('header' =>
           "\n".
@@ -310,11 +310,11 @@ class TestMinifyViewUtils extends ZMTestCase {
      * Test multiple external.
      */
     public function testMultipleExternalCSS() {
-        $viewUtils = $this->getViewUtils();
-        $viewUtils->cssFile(self::EXT_JQUERY_CSS1);
-        $viewUtils->cssFile(self::EXT_JQUERY_CSS2);
+        $resourceManager = $this->getMinifyResourceManager();
+        $resourceManager->cssFile(self::EXT_JQUERY_CSS1);
+        $resourceManager->cssFile(self::EXT_JQUERY_CSS2);
 
-        $resources = $viewUtils->getResourceContents();
+        $resources = $resourceManager->getResourceContents();
         $this->assertNotNull($resources);
         $this->assertEqual(array('header' =>
           "\n".
@@ -329,13 +329,13 @@ class TestMinifyViewUtils extends ZMTestCase {
      */
     public function testMixed1CSS() {
         // mixed #1
-        $viewUtils = $this->getViewUtils();
-        $viewUtils->cssFile(self::EXT_JQUERY_CSS1);
-        $viewUtils->cssFile('site.css');
-        $viewUtils->cssFile('popup.css');
-        $viewUtils->cssFile(self::EXT_JQUERY_CSS2);
+        $resourceManager = $this->getMinifyResourceManager();
+        $resourceManager->cssFile(self::EXT_JQUERY_CSS1);
+        $resourceManager->cssFile('site.css');
+        $resourceManager->cssFile('popup.css');
+        $resourceManager->cssFile(self::EXT_JQUERY_CSS2);
 
-        $resources = $viewUtils->getResourceContents();
+        $resources = $resourceManager->getResourceContents();
         $this->assertNotNull($resources);
         $this->assertEqual(array('header' =>
           "\n".

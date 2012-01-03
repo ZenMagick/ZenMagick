@@ -22,15 +22,17 @@
  */
 ?>
 <?php
+namespace plugins\minify\view;
 
+use zenmagick\http\view\ResourceManager;
 
 /**
- * Minify view utils implementation.
+ * Minify resource manager.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package org.zenmagick.plugins.minify
+ * @package plugins.minify.view
  */
-class MinifyViewUtils extends ZMViewUtils {
+class MinifyResourceManager extends ResourceManager {
     private $plugin_;
 
 
@@ -289,7 +291,7 @@ class MinifyViewUtils extends ZMViewUtils {
         }
 //echo '<br>===attrGroups<pre>'; var_dump($attrGroups); echo '</pre>';
 
-        $slash = ZMSettings::get('zenmagick.mvc.html.xhtml') ? '/' : '';
+        $slash = $this->container->get('settingsService')->get('zenmagick.http.html.xhtml') ? '/' : '';
         $contents = '';
         foreach ($attrGroups as $attrGroupKey => $attrGroup) {
             $details = $attrGroup['details'];
