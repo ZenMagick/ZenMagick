@@ -69,39 +69,39 @@
         <service id="dashboard" class="ZMDashboard" scope="container" />
 
         <service id="orderStatsDashboardWidget" class="ZMOrderStatsDashboardWidget" scope="prototype">
-            <tag name="apps.store.admin.tabcontroller" />
+            <tag name="apps.store.admin.dashboard.widget" />
         </service>
 
         <service id="latestOrdersDashboardWidget" class="ZMLatestOrdersDashboardWidget" scope="prototype">
-            <tag name="apps.store.admin.tabcontroller" />
+            <tag name="apps.store.admin.dashboard.widget" />
         </service>
 
         <service id="latestAccountsDashboardWidget" class="ZMLatestAccountsDashboardWidget" scope="prototype">
-            <tag name="apps.store.admin.tabcontroller" />
+            <tag name="apps.store.admin.dashboard.widget" />
         </service>
 
         <service id="recentSearchesDashboardWidget" class="ZMRecentSearchesDashboardWidget" scope="prototype">
-            <tag name="apps.store.admin.tabcontroller" />
+            <tag name="apps.store.admin.dashboard.widget" />
         </service>
 
         <service id="updateCheckerDashboardWidget" class="ZMUpdateCheckerDashboardWidget" scope="prototype">
-            <tag name="apps.store.admin.tabcontroller" />
+            <tag name="apps.store.admin.dashboard.widget" />
         </service>
 
         <service id="pendingDashboardWidget" class="ZMPendingDashboardWidget" scope="prototype">
-            <tag name="apps.store.admin.tabcontroller" />
+            <tag name="apps.store.admin.dashboard.widget" />
         </service>
 
         <service id="counterHistoryDashboardWidget" class="ZMCounterHistoryDashboardWidget" scope="prototype">
-            <tag name="apps.store.admin.tabcontroller" />
+            <tag name="apps.store.admin.dashboard.widget" />
         </service>
 
         <service id="basicStatsDashboardWidget" class="ZMBasicStatsDashboardWidget" scope="prototype">
-            <tag name="apps.store.admin.tabcontroller" />
+            <tag name="apps.store.admin.dashboard.widget" />
         </service>
 
         <service id="storeStatusDashboardWidget" class="ZMStoreStatusDashboardWidget" scope="prototype">
-            <tag name="apps.store.admin.tabcontroller" />
+            <tag name="apps.store.admin.dashboard.widget" />
         </service>
 
     </services>
