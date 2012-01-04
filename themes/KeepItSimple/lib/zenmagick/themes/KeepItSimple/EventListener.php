@@ -19,7 +19,7 @@
  */
 ?>
 <?php
-namespace zenmagick\themes;
+namespace zenmagick\themes\KeepItSimple;
 
 use zenmagick\base\Runtime;
 use apps\store\themes\ThemeEventListener;
@@ -28,9 +28,9 @@ use apps\store\themes\ThemeEventListener;
  * Theme event listener.
  *
  * @author DerManoMann
- * @package zenmagick.themes
+ * @package zenmagick.themes.KeepItSimple
  */
-class KeepItSimpleEventListener extends ThemeEventListener {
+class EventListener extends ThemeEventListener {
 
     /**
      * {@inheritDoc}

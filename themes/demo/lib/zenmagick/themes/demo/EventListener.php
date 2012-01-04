@@ -19,25 +19,24 @@
  */
 ?>
 <?php
-namespace zenmagick\themes;
+namespace zenmagick\themes\demo;
 
 use zenmagick\base\Runtime;
 use apps\store\themes\ThemeEventListener;
 
 /**
- * Theme event listener.
+ * Demo theme event listener.
  *
  * @author DerManoMann
- * @package zenmagick.themes
+ * @package zenmagick.themes.demo
  */
-class PixelGreenEventListener extends ThemeEventListener {
+class EventListener extends ThemeEventListener {
 
     /**
      * {@inheritDoc}
      */
     public function themeLoaded($event) {
-        $this->container->get('templateManager')->setRightColBoxes(array('search.php', 'categories.php', 'information.php'));
-        Runtime::getSettings()->set('isUseCategoryPage', false);
-        Runtime::getSettings()->set('resultListProductFilter', '');
+        // add custom filter
+        Runtime::getSettings()->append('resultListProductFilter', 'AlphaFilter,PriceRangeFilter');
     }
 }

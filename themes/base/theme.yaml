@@ -1,8 +1,8 @@
 meta:
-  name: 'ZenMagick Default'
+  name: 'ZenMagick Base'
   version: '${zenmagick.version}'
   author: 'zenmagick.org'
-  description: 'ZenMagick default theme; based on andreas08 from http://andreasviklund.com/templates/'
+  description: 'ZenMagick base/default theme; based on andreas08 from http://andreasviklund.com/templates/'
 
 storefront:
   locale:

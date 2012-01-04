@@ -19,7 +19,7 @@
  */
 ?>
 <?php
-namespace zenmagick\themes;
+namespace zenmagick\themes\PixelGreen;
 
 use zenmagick\base\Runtime;
 use apps\store\themes\ThemeEventListener;
@@ -28,18 +28,15 @@ use apps\store\themes\ThemeEventListener;
  * Theme event listener.
  *
  * @author DerManoMann
- * @package zenmagick.themes
+ * @package zenmagick.themes.PixelGreen
  */
-class BrightsideoflifeEventListener extends ThemeEventListener {
+class EventListener extends ThemeEventListener {
 
     /**
      * {@inheritDoc}
      */
     public function themeLoaded($event) {
-        $templateManager = $this->container->get('templateManager');
-        $templateManager->setLeftColBoxes(array('categories.php', 'information.php'));
-        $templateManager->setRightColBoxes(array('search.php', 'manufacturers.php', 'banner_box.php'));
-
+        $this->container->get('templateManager')->setRightColBoxes(array('search.php', 'categories.php', 'information.php'));
         Runtime::getSettings()->set('isUseCategoryPage', false);
         Runtime::getSettings()->set('resultListProductFilter', '');
     }

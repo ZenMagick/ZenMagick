@@ -113,7 +113,7 @@ apps:
     storefront:
       domain: null
     themes:
-      default: default
+      default: base
 
 # database configuration settings
 # @todo allow symbolic names for the fully qualified classes mentioned here?

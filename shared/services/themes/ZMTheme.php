@@ -96,7 +96,7 @@ class ZMTheme extends ZMObject {
      * @return string The theme base directory.
      */
     public function getBaseDir() {
-        return ZMThemes::getThemesDir() . $this->themeId_ . DIRECTORY_SEPARATOR;
+        return ZMThemes::getThemesDir() . $this->themeId_ . '/';
     }
 
     /**
@@ -153,9 +153,10 @@ class ZMTheme extends ZMObject {
      * Return the path of the extra directory.
      *
      * @return string A full filename denoting the themes extra directory.
+     * @deprecated
      */
     public function getExtraDir() {
-        return $this->getBaseDir() . 'extra'.DIRECTORY_SEPARATOR;
+        return $this->getBaseDir() . '/extra/';
     }
 
     /**
@@ -164,7 +165,7 @@ class ZMTheme extends ZMObject {
      * @return string A full filename denoting the themes boxes directory.
      */
     public function getBoxesDir() {
-        return $this->getBaseDir() . 'content'.DIRECTORY_SEPARATOR.'boxes'.DIRECTORY_SEPARATOR;
+        return $this->getBaseDir() . '/content/boxes/';
     }
 
     /**
@@ -173,7 +174,7 @@ class ZMTheme extends ZMObject {
      * @return string A full filename denoting the themes content directory.
      */
     public function getContentDir() {
-        return $this->getBaseDir() . 'content'.DIRECTORY_SEPARATOR;
+        return $this->getBaseDir() . '/content/';
     }
 
     /**
@@ -182,16 +183,17 @@ class ZMTheme extends ZMObject {
      * @return string A full filename denoting the themes views directory.
      */
     public function getViewsDir() {
-        return $this->getBaseDir() . 'content'.DIRECTORY_SEPARATOR.'views'.DIRECTORY_SEPARATOR;
+        return $this->getBaseDir() . '/content/views/';
     }
 
     /**
      * Return the path of the lang directory.
      *
      * @return string A full filename denoting the themes lang directory.
+     * @deprecated
      */
     public function getLangDir() {
-        return $this->getBaseDir() . 'lang'.DIRECTORY_SEPARATOR;
+        return $this->getBaseDir() . '/lang/';
     }
 
     /**
@@ -220,7 +222,8 @@ class ZMTheme extends ZMObject {
         }
 
         if ($includeDefaults) {
-            $path = ZMThemes::getThemesDir().Runtime::getSettings()->get('apps.store.themes.default').DIRECTORY_SEPARATOR.'lang'.DIRECTORY_SEPARATOR.$languageDir.DIRECTORY_SEPARATOR.'static'.DIRECTORY_SEPARATOR;
+            // TODO: deprecated
+            $path = ZMThemes::getThemesDir().Runtime::getSettings()->get('apps.store.themes.default').'/lang/'.$languageDir.'/static/';
             if (is_dir($path)) {
                 $handle = @opendir($path);
                 while (false !== ($file = readdir($handle))) {
@@ -247,7 +250,7 @@ class ZMTheme extends ZMObject {
     public function saveStaticPageContent($page, $contents, $languageId) {
         $language = $this->container->get('languageService')->getLanguageForId($languageId);
         $languageDir = $language->getDirectory();
-        $path = $this->getLangDir().$languageDir."/".'static/';
+        $path = $this->getLangDir().$languageDir.'/static/';
         if (!file_exists($path)) {
             ZMFileUtils::mkdir($path);
         }
@@ -283,7 +286,7 @@ class ZMTheme extends ZMObject {
         }
         $language = $this->container->get('languageService')->getLanguageForId($languageId);
         $languageDir = $language->getDirectory();
-        $path = $this->getLangDir().$languageDir.DIRECTORY_SEPARATOR.'static'.DIRECTORY_SEPARATOR;
+        $path = $this->getLangDir().$languageDir.'/static/';
 
         $filename = $path.$page.'.php';
         if (!file_exists($filename)) {
@@ -309,7 +312,7 @@ class ZMTheme extends ZMObject {
             // this may happen if the i18n patch hasn't been updated
             $language = ZMLanguages::getDefaultLanguage();
         }
-        $path = $this->getLangDir().$language->getDirectory().DIRECTORY_SEPARATOR;
+        $path = $this->getLangDir().$language->getDirectory().'/';
         $path = $this->getBaseDir().'locale/'.Runtime::getSettings()->get('zenmagick.base.locales.locale');
 
         // re-init with next file

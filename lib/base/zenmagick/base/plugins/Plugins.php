@@ -308,7 +308,7 @@ class Plugins extends ZMObject {
             // get list
             $plugin = $this->getPluginForId($id);
             if (null != $plugin && ($plugin && $plugin->isEnabled() || !$enabled)) {
-                $libPath = $plugin->getPluginDirectory().'lib';
+                $libPath = $plugin->getPluginDirectory().'/lib';
                 $classLoader->addNamespace('zenmagick\\plugins\\'.$id, $libPath);
                 // allow custom class loading config
                 $classLoader->addConfig($libPath);

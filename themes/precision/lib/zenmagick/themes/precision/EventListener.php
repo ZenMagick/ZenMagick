@@ -19,27 +19,28 @@
  */
 ?>
 <?php
-namespace zenmagick\themes;
+namespace zenmagick\themes\precision;
 
+use zenmagick\base\Runtime;
 use apps\store\themes\ThemeEventListener;
 
 /**
- * Default theme event listener.
+ * Theme event listener.
  *
  * @author DerManoMann
- * @package zenmagick.themes
+ * @package zenmagick.themes.precision
  */
-class DefaultEventListener extends ThemeEventListener {
+class EventListener extends ThemeEventListener {
 
     /**
      * {@inheritDoc}
      */
     public function themeLoaded($event) {
-        //TODO: change validation
-        $theme = $event->get('theme');
-        $validation = $theme->getExtraDir().'validation.php';
-        if (file_exists($validation)) {
-            require $validation;
-        }
+        $templateManager = $this->container->get('templateManager');
+        $templateManager->setLeftColBoxes(array('categories.php', 'featured.php', 'information.php'));
+        $templateManager->setRightColBoxes(array('search.php', 'manufacturers.php', 'ezpages.php'));
+
+        Runtime::getSettings()->set('isUseCategoryPage', false);
+        Runtime::getSettings()->set('resultListProductFilter', '');
     }
 }

@@ -36,9 +36,9 @@ class ThemeEventListener extends ZMObject {
      */
     public function onThemeLoaded($event) {
         $token = explode('\\', get_class($this));
-        $class = array_pop($token);
-        $myThemeId = strtolower(str_replace('EventListener', '', $class));
-        if ($myThemeId == strtolower($event->get('themeId'))) {
+        array_pop($token); // class
+        $themeId = array_pop($token);
+        if ($themeId == $event->get('themeId')) {
             $this->themeLoaded($event);
         }
     }

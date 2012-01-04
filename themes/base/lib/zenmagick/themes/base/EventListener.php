@@ -19,24 +19,27 @@
  */
 ?>
 <?php
-namespace zenmagick\themes;
+namespace zenmagick\themes\base;
 
-use zenmagick\base\Runtime;
 use apps\store\themes\ThemeEventListener;
 
 /**
- * Demo theme event listener.
+ * Default theme event listener.
  *
  * @author DerManoMann
- * @package zenmagick.themes
+ * @package zenmagick.themes.base
  */
-class DemoEventListener extends ThemeEventListener {
+class EventListener extends ThemeEventListener {
 
     /**
      * {@inheritDoc}
      */
     public function themeLoaded($event) {
-        // add custom filter
-        Runtime::getSettings()->append('resultListProductFilter', 'AlphaFilter,PriceRangeFilter');
+        //TODO: change validation
+        $theme = $event->get('theme');
+        $validation = $theme->getBaseDir().'/lib/extra/validation.php';
+        if (file_exists($validation)) {
+            require $validation;
+        }
     }
 }

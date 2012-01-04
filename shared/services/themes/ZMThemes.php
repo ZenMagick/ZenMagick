@@ -81,7 +81,7 @@ class ZMThemes extends ZMObject {
      *
      * @return string The base directory for themes.
      */
-    public static function getThemesDir() { return ZM_BASE_PATH.'themes'.DIRECTORY_SEPARATOR; }
+    public static function getThemesDir() { return ZM_BASE_PATH.'themes/'; }
 
     /**
      * Get a list of all available themes.
@@ -94,7 +94,7 @@ class ZMThemes extends ZMObject {
         $themeDirs = $this->getThemeDirList();
         // load info classes and get instance
         foreach ($themeDirs as $dir) {
-            if (file_exists($basePath.$dir.DIRECTORY_SEPARATOR.'theme.yaml')) {
+            if (file_exists($basePath.$dir.'/theme.yaml')) {
                 $theme = Runtime::getContainer()->get('ZMTheme');
                 $theme->setThemeId($dir);
                 $themes[] = $theme;
@@ -192,11 +192,12 @@ class ZMThemes extends ZMObject {
         if (null !== $languageId) {
             $language = $this->container->get('languageService')->getLanguageForId($languageId);
 
-            $themeLoader = $this->container->get('classLoader');
-            $themeLoader->addConfig($theme->getBaseDir().DIRECTORY_SEPARATOR.'lib');
-            // XXX: TODO: remove
-            $themeLoader->addPath($theme->getBaseDir().DIRECTORY_SEPARATOR.'extra');
-            $themeLoader->register();
+            $libPath = $theme->getBaseDir().'/lib';
+            $classLoader = $this->container->get('classLoader');
+            $classLoader->addNamespace('zenmagick\\themes\\'.$id, $libPath);
+            // allow custom class loading config
+            $classLoader->addConfig($libPath);
+            $classLoader->register();
 
             // init l10n/i18n
             $theme->loadLocale($language);
@@ -204,14 +205,14 @@ class ZMThemes extends ZMObject {
             $theme->loadSettings();
 
             // theme container
-            $containerConfig = $theme->getBaseDir().DIRECTORY_SEPARATOR.'container.yaml';
+            $containerConfig = $theme->getBaseDir().'/container.yaml';
             if (file_exists($containerConfig)) {
                 $containerYamlLoader = new YamlFileLoader(Runtime::getContainer(), new FileLocator(dirname($containerConfig)));
                 $containerYamlLoader->load($containerConfig);
             }
 
             // always add an event listener in the theme's base namespace
-            $eventListener = 'zenmagick\\themes\\'.ucwords($themeId).'EventListener';
+            $eventListener = 'zenmagick\\themes\\'.$themeId.'\\EventListener';
             if (ClassLoader::classExists($eventListener)) {
                 $listener = new $eventListener();
                 $listener->setContainer($this->container);

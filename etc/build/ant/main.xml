@@ -159,7 +159,7 @@
             <!-- copy default and demo theme -->
             <fileset dir="${zenmagick.src.dir}">
                 <include name="themes/.htaccess" />
-                <include name="themes/default/**" />
+                <include name="themes/base/**" />
                 <include name="themes/demo/**" />
                 <include name="plugins/.htaccess" />
             </fileset>
