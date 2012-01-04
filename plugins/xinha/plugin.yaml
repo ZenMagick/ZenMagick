@@ -2,7 +2,7 @@ storefront,admin:
   container:
     services:
       xinhaEditorWidget:
-        class: plugins\xinha\XinhaFormWidget
+        class: zenmagick\plugins\xinha\XinhaFormWidget
         scope: container
         tags:
           -  { name: zenmagick.apps.store.editor, label: Xinha }

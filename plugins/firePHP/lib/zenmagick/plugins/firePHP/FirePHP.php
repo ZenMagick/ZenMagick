@@ -41,7 +41,7 @@
  * @license         http://www.opensource.org/licenses/bsd-license.php
  * @package         FirePHPCore
  */
-namespace plugins\firePHP;
+namespace zenmagick\plugins\firePHP;
 
 use Error;
 use Exception;
@@ -74,7 +74,6 @@ if (!defined('E_USER_DEPRECATED')) {
  * @copyright       Copyright (C) 2007-2009 Christoph Dorn
  * @author          Christoph Dorn <christoph@christophdorn.com>
  * @license         http://www.opensource.org/licenses/bsd-license.php
- * @package         FirePHPCore
  */
 class FirePHP {
 

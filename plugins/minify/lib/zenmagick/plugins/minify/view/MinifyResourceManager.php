@@ -22,7 +22,7 @@
  */
 ?>
 <?php
-namespace plugins\minify\view;
+namespace zenmagick\plugins\minify\view;
 
 use zenmagick\http\view\ResourceManager;
 
@@ -30,7 +30,7 @@ use zenmagick\http\view\ResourceManager;
  * Minify resource manager.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package plugins.minify.view
+ * @package zenmagick.plugins.minify.view
  */
 class MinifyResourceManager extends ResourceManager {
     private $plugin_;

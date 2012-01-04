@@ -2,7 +2,7 @@ storefront,admin:
   container:
     services:
       tinyMCEEditorWidget:
-        class: plugins\tinyMCE\TinyMCEFormWidget
+        class: zenmagick\plugins\tinyMCE\TinyMCEFormWidget
         scope: container
         tags:
           -  { name: zenmagick.apps.store.editor, label: TinyMCE }

@@ -2,7 +2,7 @@ storefront,admin:
   container:
     services:
       ckEditorEditorWidget:
-        class: plugins\ckEditor\CkEditorFormWidget
+        class: zenmagick\plugins\ckEditor\CkEditorFormWidget
         scope: container
         tags:
           -  { name: zenmagick.apps.store.editor, label: CKEditor }

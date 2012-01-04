@@ -19,7 +19,7 @@
  */
 ?>
 <?php
-namespace plugins\ckEditor;
+namespace zenmagick\plugins\ckEditor;
 
 use zenmagick\base\Runtime;
 use zenmagick\http\widgets\form\TextAreaFormWidget;
@@ -30,7 +30,7 @@ use zenmagick\http\view\View;
  * CKEditor textarea form widget.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package plugins.ckEditor
+ * @package zenmagick.plugins.ckEditor
  */
 class CkEditorFormWidget extends TextAreaFormWidget implements WysiwygEditor {
     private $plugin_;

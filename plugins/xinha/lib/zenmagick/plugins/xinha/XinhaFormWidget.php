@@ -22,7 +22,7 @@
  */
 ?>
 <?php
-namespace plugins\tinyMCE;
+namespace zenmagick\plugins\xinha;
 
 use zenmagick\base\Runtime;
 use zenmagick\http\widgets\form\TextAreaFormWidget;
@@ -30,14 +30,13 @@ use zenmagick\http\widgets\form\WysiwygEditor;
 use zenmagick\http\view\View;
 
 /**
- * TinyMCE textarea form widget.
+ * Xinha textarea form widget.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package plugins.tinyMCE
+ * @package zenmagick.plugins.xinha
  */
-class TinyMCEFormWidget extends TextAreaFormWidget implements WysiwygEditor {
+class XinhaFormWidget extends TextAreaFormWidget implements WysiwygEditor {
     private $idList;
-
 
     /**
      * Create new instance.
@@ -50,13 +49,8 @@ class TinyMCEFormWidget extends TextAreaFormWidget implements WysiwygEditor {
 
     /**
      * Init editor.
-     *
-     * @param View view The view.
      */
-    private function initEditor($view) {
-        // add required js
-        $resourceManager = $view->getVariable('resourceManager');
-        $resourceManager->jsFile('tinymce-3.3.8/jscripts/tiny_mce/tiny_mce.js', $resourceManager::HEADER);
+    private function initEditor() {
         // create init script code at the end once we know all the ids
         Runtime::getEventDispatcher()->listen($this);
     }
@@ -65,7 +59,7 @@ class TinyMCEFormWidget extends TextAreaFormWidget implements WysiwygEditor {
      * {@inheritDoc}
      */
     public function apply($request, View $view, $idList=null) {
-        $this->initEditor($view);
+        $this->initEditor();
         if (null === $idList) {
             $this->idList = null;
         } else {
@@ -78,15 +72,15 @@ class TinyMCEFormWidget extends TextAreaFormWidget implements WysiwygEditor {
      * {@inheritDoc}
      */
     public function render($request, $view) {
-        if (null == $this->container->get('pluginService')->getPluginForId('tinyMCE')) {
+        if (null == $this->container->get('pluginService')->getPluginForId('xinha')) {
             // fallback
             return parent::render($request, $view);
         }
 
-        $this->initEditor($view);
-
         $this->idList[] = $this->getId();
 
+        // create init script code at the end once we know all the ids
+        Runtime::getEventDispatcher()->listen($this);
         return parent::render($request, $view);
     }
 
@@ -95,29 +89,44 @@ class TinyMCEFormWidget extends TextAreaFormWidget implements WysiwygEditor {
      */
     public function onFinaliseContent($event) {
         if (0 < count($this->idList) || null === $this->idList) {
+            $baseUrl = $this->container->get('pluginService')->getPluginForId('xinha')->pluginURL('xinha-0.96.1/');
             if (null === $this->idList) {
-                $elements = '';
-                $mode = 'textareas';
+                $editors = "document.getElementsByTagName('textarea')";
             } else {
-                $elements = 'elements : "' . implode(',', $this->idList) . '",';
-                $mode = 'exact';
+                $editors = "[ '" . implode("', '", $this->idList) . "' ]";
             }
+
             $jsInit = <<<EOT
-<script>
-  tinyMCE.init({
-    theme : "advanced",
-    mode : "$mode",
-    $elements
-    plugins : "paste, save",
-    theme_advanced_toolbar_location : "top",
-    theme_advanced_toolbar_align:"left",
-    theme_advanced_buttons1 : "bold,italic,underline,strikethrough,separator,"
-    + "justifyleft,justifycenter,justifyright,justifyfull,formatselect,"
-    + "bullist,numlist,outdent,indent",
-    theme_advanced_buttons2 : "link,unlink,anchor,image,separator,"
-    +"undo,redo,cleanup,separator,sub,sup,charmap",
-    theme_advanced_buttons3 : ""
-  });
+<script type="text/javascript">
+_editor_url  = "$baseUrl"; _editor_lang = "en";
+xinha_editors = null; xinha_init = null; xinha_config = null; xinha_plugins = null;
+</script>
+<script type="text/javascript" src="${baseUrl}XinhaCore.js"></script>
+<script type="text/javascript">
+// This contains the names of textareas we will make into Xinha editors
+xinha_init = xinha_init ? xinha_init : function() {
+  xinha_editors = xinha_editors ? xinha_editors : $editors;
+  xinha_plugins = xinha_plugins ? xinha_plugins : [ 'CharacterMap', 'ContextMenu', 'ListType', 'Stylist', 'Linker', 'TableOperations' ];
+  if(!Xinha.loadPlugins(xinha_plugins, xinha_init)) return;
+  xinha_config = new Xinha.Config();
+  xinha_config.toolbar =
+  [
+    ["popupeditor"],
+    ["separator","formatblock","fontname","fontsize","bold","italic","underline","strikethrough"],
+    ["separator","forecolor","hilitecolor","textindicator"],
+    ["separator","subscript","superscript"],
+    ["linebreak","separator","justifyleft","justifycenter","justifyright","justifyfull"],
+    ["separator","insertorderedlist","insertunorderedlist","outdent","indent"],
+    ["separator","inserthorizontalrule","createlink","insertimage","inserttable"],
+    ["linebreak","separator","undo","redo","selectall","print"], (Xinha.is_gecko ? [] : ["cut","copy","paste","overwrite","saveas"]),
+    ["separator","killword","clearfonts","removeformat","toggleborders","splitblock","lefttoright", "righttoleft"],
+    ["separator","htmlmode","showhelp","about"]
+  ];
+  //xinha_config.pageStyleSheets = [ _editor_url + "examples/full_example.css" ];
+  xinha_editors = Xinha.makeEditors(xinha_editors, xinha_config, xinha_plugins);
+  Xinha.startEditors(xinha_editors);
+}
+Xinha._addEvent(window, 'load', xinha_init);
 </script>
 EOT;
             $content = $event->get('content');

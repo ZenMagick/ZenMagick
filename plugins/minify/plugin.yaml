@@ -3,4 +3,4 @@ admin,storefront:
     services:
       MinifyResourceManager:
         parent: merge:resourceManager
-        class: plugins\minify\view\MinifyResourceManager
+        class: zenmagick\plugins\minify\view\MinifyResourceManager
