@@ -74,18 +74,18 @@ class ZMController extends ZMObject {
      */
     public function initViewVars($view, $request, $formData=null) {
         // safe data set via findView() in the controller to avoid losing that to getViewData()
-        $initialVars = $view->getVars();
+        $initialVars = $view->getVariables();
 
         // custom view data
-        $view->setVars($this->getViewData($request));
+        $view->setVariables($this->getViewData($request));
 
-        if (null != $formData && !array_key_exists($formData->getFormId(), $view->getVars())) {
+        if (null != $formData && !array_key_exists($formData->getFormId(), $view->getVariables())) {
             // avoid overriding default data set by the controller
-            $view->setVar($formData->getFormId(), $formData);
+            $view->setVariable($formData->getFormId(), $formData);
         }
 
         // make sure these prevail
-        $view->setVars($initialVars);
+        $view->setVariables($initialVars);
     }
 
     /**
@@ -307,7 +307,7 @@ class ZMController extends ZMObject {
             $view->setSecure(true);
         }
 
-        $view->setVars($data);
+        $view->setVariables($data);
         $view->setController($this);
         $this->view_ = $view;
         return $view;
@@ -360,7 +360,7 @@ class ZMController extends ZMObject {
             // back to same form
             $view = $this->findView();
             // put form bean in context
-            $view->setVar($formData->getFormId(), $formData);
+            $view->setVariable($formData->getFormId(), $formData);
             return $view;
         }
 

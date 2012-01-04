@@ -143,7 +143,7 @@ class ZMPageStatsPlugin extends Plugin {
         echo "\n";
 
         if (null != $view) {
-            $vars = $view->getVars();
+            $vars = $view->getVariables();
             if (isset($vars['exception']) && null !== ($exception = $vars['exception'])) {
                 echo "\n".$exception."\n\n";
             }
@@ -274,7 +274,7 @@ class ZMPageStatsPlugin extends Plugin {
         }
 
         if (null != $view) {
-            $vars = $view->getVars();
+            $vars = $view->getVariables();
             if (isset($vars['exception']) && null !== ($exception = $vars['exception'])) {
                 echo '<pre>';
                 echo $exception;

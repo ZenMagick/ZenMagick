@@ -109,9 +109,9 @@ class ZMCatalogController extends ZMController {
         $view = parent::process($request);
 
         // add catalog content view to be used in catalog view template
-        $view->setVar('catalogRequestId', $catalogRequestId);
-        $view->setVar('catalogViewContent', $catalogViewContent);
-        $view->setVar('controllers', $controllers);
+        $view->setVariable('catalogRequestId', $catalogRequestId);
+        $view->setVariable('catalogViewContent', $catalogViewContent);
+        $view->setVariable('controllers', $controllers);
 
         return $view;
     }

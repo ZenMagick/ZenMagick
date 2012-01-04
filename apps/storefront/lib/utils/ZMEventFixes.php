@@ -90,15 +90,15 @@ class ZMEventFixes extends ZMObject {
         $request = $event->get('request');
         $view = $event->get('view');
         if (null !== $request->getParameter('showAll')) {
-            if (null != ($resultList = $view->getVar('resultList'))) {
+            if (null != ($resultList = $view->getVariable('resultList'))) {
                 $resultList->setPagination(0);
             }
         }
         if ('login' == $request->getRequestId() && Runtime::getSettings()->get('isGuestCheckoutAskAddress')) {
-            if (null == $view->getVar('guestCheckoutAddress')) {
+            if (null == $view->getVariable('guestCheckoutAddress')) {
                 $address = $this->container->get('ZMAddress');
                 $address->setPrimary(true);
-                $view->setVar('guestCheckoutAddress', $address);
+                $view->setVariable('guestCheckoutAddress', $address);
             }
         }
     }

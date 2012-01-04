@@ -110,7 +110,7 @@ class ZMToolboxMetaTags extends ZMToolboxTool {
             }
         } else if ('page' == $requestId) {
             if (null != ($view = $this->getView())) {
-                if (null != ($ezpage = $view->getVar('ezPage'))) {
+                if (null != ($ezpage = $view->getVariable('ezPage'))) {
                     $title = $ezpage->getTitle();
                 }
             }

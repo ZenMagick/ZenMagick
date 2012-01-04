@@ -140,14 +140,14 @@ class ZMHowDidYouHearPlugin extends Plugin {
 
             // create reliable form reference
             $view = $event->get('view');
-            $view->setVar('howDidYouHearSources', $howDidYouHearSources);
-            if (null != ($registration = $view->getVar('registration'))) {
-                $view->setVar('howDidYouHearForm', $registration);
-            } else if (null != ($shippingAddress = $view->getVar('shippingAddress'))) {
+            $view->setVariable('howDidYouHearSources', $howDidYouHearSources);
+            if (null != ($registration = $view->getVariable('registration'))) {
+                $view->setVariable('howDidYouHearForm', $registration);
+            } else if (null != ($shippingAddress = $view->getVariable('shippingAddress'))) {
                 // if we have an address we should have got the source as well...
                 $addressList = $this->container->get('addressService')->getAddressesForAccountId($request->getAccountId());
                 if ($this->isEnableOnGuestCheckout() && ZMAccount::GUEST == $request->getAccount()->getType() && 0 == count($addressList)) {
-                    $view->setVar('howDidYouHearForm', $shippingAddress);
+                    $view->setVariable('howDidYouHearForm', $shippingAddress);
                 }
             }
         }

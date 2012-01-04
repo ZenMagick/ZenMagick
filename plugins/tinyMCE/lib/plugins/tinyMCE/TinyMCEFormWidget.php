@@ -55,8 +55,8 @@ class TinyMCEFormWidget extends TextAreaFormWidget implements WysiwygEditor {
      */
     private function initEditor($view) {
         // add required js
-        $resources = $view->getVar('resources');
-        $resources->jsFile('tinymce-3.3.8/jscripts/tiny_mce/tiny_mce.js', $resources::HEADER);
+        $resourceManager = $view->getVariable('resourceManager');
+        $resourceManager->jsFile('tinymce-3.3.8/jscripts/tiny_mce/tiny_mce.js', $resourceManager::HEADER);
         // create init script code at the end once we know all the ids
         Runtime::getEventDispatcher()->listen($this);
     }

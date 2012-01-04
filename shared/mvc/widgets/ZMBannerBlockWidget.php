@@ -131,14 +131,14 @@ class ZMBannerBlockWidget extends Widget {
                 // use text if not empty
                 $html = $banner->getText();
             } else {
-                $net = $view->getVar('net');
+                $net = $view->getVariable('net');
                 $slash = Runtime::getSettings()->get('zenmagick.mvc.html.xhtml') ? '/' : '';
                 $img = '<img src="'.$net->image($banner->getImage()).'" alt="'.ZMHtmlUtils::encode($banner->getTitle()).'"'.$slash.'>';
                 if (ZMLangUtils::isEmpty($banner->getUrl())) {
                     // if we do not have a url try our luck with the image...
                     $content .= $img;
                 } else {
-                    $html = $view->getVar('html');
+                    $html = $view->getVariable('html');
                     $content .= '<a href="'.$net->trackLink('banner', $banner->getId()).'"'.$html->hrefTarget($banner->isNewWin()).'>'.$img.'</a>';
                 }
             }

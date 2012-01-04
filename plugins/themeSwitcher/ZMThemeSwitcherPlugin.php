@@ -127,7 +127,7 @@ class ZMThemeSwitcherPlugin extends Plugin {
         }
 
         if (null != ($view = $event->get('view'))) {
-            $view->setVar('themeList', $themeList);
+            $view->setVariable('themeList', $themeList);
             $switcherMarkup = $view->fetch($request, 'theme-switcher.php');
             if (!empty($switcherMarkup)) {
                 $content =  preg_replace('/(<body[^>]*>)/', '\1'.$switcherMarkup, $content, 1);

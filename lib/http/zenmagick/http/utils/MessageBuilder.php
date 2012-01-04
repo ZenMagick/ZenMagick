@@ -133,7 +133,7 @@ class MessageBuilder extends ZMObject {
         $view->setLayout(null);
 
         // make sure these prevail
-        $view->setVarables($context);
+        $view->setVariables($context);
 
         // create contents
         return $view->generate($request);
