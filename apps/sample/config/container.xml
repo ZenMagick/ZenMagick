@@ -21,11 +21,7 @@
             <argument>sample.com</argument>
         </service>
 
-        <service id="defaultView" class="ZMSavantView" scope="prototype">
-            <call method="setFilters">
-                <argument>ZMShortTagFilter</argument>
-            </call>
-        </service>
+        <service id="defaultView" alias="view" />
 
         <service id="templateManager" class="ZMTemplateManager" scope="container" />
 

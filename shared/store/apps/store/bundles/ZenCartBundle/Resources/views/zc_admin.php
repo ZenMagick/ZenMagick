@@ -39,7 +39,7 @@ if (!function_exists('zen_href_link')) {
 // load ZM email wrapper and replacement functions
 require_once Runtime::getInstallationPath().'shared/store/apps/store/bundles/ZenCartBundle/utils/zencart_overrides.php';
 // map emails view; here we want a store view; merge
-ZMUrlManager::instance()->setMapping(null, array('emails' => array('view' => 'SavantView')), false);
+ZMUrlManager::instance()->setMapping(null, array('emails' => array('view' => 'storeEmailView')), false);
 
 function split_slash($s) {
   $s = preg_replace('#(\S)/#', '$1 /', $s);

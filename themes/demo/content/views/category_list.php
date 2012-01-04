@@ -22,8 +22,8 @@
  */
 ?>
 
-<?php $resources->jsFile('jquery.js', $resources::NOW) ?>
-<?php $resources->jsFile('interface.js', $resources::FOOTER) ?>
+<?php $resourceManager->jsFile('jquery.js', $resourceManager::NOW) ?>
+<?php $resourceManager->jsFile('interface.js', $resourceManager::FOOTER) ?>
 
 <script type="text/javascript">
     // set up drag/drop

@@ -75,8 +75,7 @@ class ZMFualSlimboxPlugin extends Plugin {
             return;
         }
 
-        $view = $event->get('view');
-        if ($view instanceof ZMSavantView) {
+        if (null != ($view = $event->get('view'))) {
             $request = $event->get('request');
             $fualSO = new FualSlimboxOptions();
             ob_start();

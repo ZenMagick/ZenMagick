@@ -25,9 +25,9 @@
 <p>This is the second demo page illustrating checkout Ajax options in <em>ZenMagick</em>. For more details about Ajax in ZenMagick
 check out the <a href="<?php echo $net->url('ajax_demo') ?>">main Ajax demo</a>.</p>
 
-<?php $resources->jsFile('jquery.js', $resources::NOW) ?>
-<?php $resources->jsFile('jquery.form.js', $resources::NOW) ?>
-<?php $resources->jsFile('json2.js', $resources::NOW) ?>
+<?php $resourceManager->jsFile('jquery.js', $resourceManager::NOW) ?>
+<?php $resourceManager->jsFile('jquery.form.js', $resourceManager::NOW) ?>
+<?php $resourceManager->jsFile('json2.js', $resourceManager::NOW) ?>
 
 <label for="msgbox"><strong>Messages</strong></label>
 <div id="msgbox" style="height:1.8em;border:1px solid gray;margin:5px 0 12px;padding:3px;color:red"></div>

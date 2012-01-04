@@ -21,9 +21,9 @@
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
 ?>
-<?php $resources->jsFile('lightbox/prototype.js', $resources::FOOTER) ?>
-<?php $resources->jsFile('lightbox/scriptaculous.js?load=effects', $resources::FOOTER) ?>
-<?php $resources->jsFile('lightbox/lightbox.js', $resources::FOOTER) ?>
+<?php $resourceManager->jsFile('lightbox/prototype.js', $resourceManager::FOOTER) ?>
+<?php $resourceManager->jsFile('lightbox/scriptaculous.js?load=effects', $resourceManager::FOOTER) ?>
+<?php $resourceManager->jsFile('lightbox/lightbox.js', $resourceManager::FOOTER) ?>
 
 <?php $manufacturer = $currentProduct->getManufacturer() ?>
 <h2><?php echo $html->encode(null != $manufacturer ? $manufacturer->getName() : '') ?> <?php echo $html->encode($currentProduct->getName()) ?></h2>

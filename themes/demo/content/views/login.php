@@ -22,9 +22,9 @@
  */
 ?>
 
-<?php $resources->jsFile('jquery.js', $resources::NOW) ?>
-<?php $resources->jsFile('jquery.form.js', $resources::NOW) ?>
-<?php $resources->jsFile('json2.js', $resources::NOW) ?>
+<?php $resourceManager->jsFile('jquery.js', $resourceManager::NOW) ?>
+<?php $resourceManager->jsFile('jquery.form.js', $resourceManager::NOW) ?>
+<?php $resourceManager->jsFile('json2.js', $resourceManager::NOW) ?>
 
 <div id="msgbox" style="height:1.8em;border:1px solid gray;margin:5px 0 12px;padding:3px;color:red"></div>
 

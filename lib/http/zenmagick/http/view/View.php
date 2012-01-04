@@ -35,12 +35,16 @@ use zenmagick\http\widgets\Widget;
  * @package zenmagick.http.view
  */
 class View extends ZMObject {
+    const TEMPLATE = 'template';
+    const RESOURCE = 'resource';
     private $resourceResolver;
     private $resourceManager;
     private $variables;
     private $layout;
     private $template;
     private $request;
+    private $filters;
+    private $cache;
 
 
     /**
@@ -52,6 +56,8 @@ class View extends ZMObject {
         $this->layout = null;
         $this->template = null;
         $this->request = null;
+        $this->filters = array();
+        $this->cache = null;
     }
 
 
@@ -71,6 +77,33 @@ class View extends ZMObject {
      */
     public function getResourceResolver() {
         return $this->resourceResolver;
+    }
+
+    /**
+     * Add a filter.
+     *
+     * @param ViewFilter filter The filter.
+     */
+    public function addFilter(ViewFilter $filter) {
+        $this->filters[] = $filter;
+    }
+
+    /**
+     * Set the cache.
+     *
+     * @param ViewCache cache The cache.
+     */
+    public function setCache(ViewCache $cache) {
+        $this->cache = $cache;
+    }
+
+    /**
+     * Get the cache.
+     *
+     * @return ViewCache The cache.
+     */
+    public function getCache() {
+        return $this->cache;
     }
 
     /**
@@ -221,6 +254,7 @@ class View extends ZMObject {
         // set some standard things
         $this->setVariable('container', $this->container);
         $this->setVariable('resources', $this->getResourceManager());
+        $this->setVariable('resourceManager', $this->getResourceManager());
         $this->setVariable('view', $this);
         $this->setVariable('request', $request);
         $this->setVariable('session', $request->getSession());
@@ -286,9 +320,10 @@ class View extends ZMObject {
     /**
      * Compile the given file.
      *
+     * <p>Default implementation that just returns the given file name.</p>
+     *
      * @param string file The file to compile.
      * @return string Path to the compiled file.
-     * @todo: implement
      */
     public function compile($file) {
         return $file;
@@ -298,10 +333,13 @@ class View extends ZMObject {
      * Apply configured filters to the given string.
      *
      * @param string s The string.
-     * @return string The filter result.
+     * @return string The filtered result.
      * @todo: implement
      */
     public function applyFilters($s) {
+        foreach ($this->filters as $filter) {
+            $s = $filter->apply($s);
+        }
         return $s;
     }
 
@@ -325,8 +363,16 @@ class View extends ZMObject {
         }
 
         // resolve template
-        if (null == ($file = $this->resourceResolver->findResource($template, ResourceResolver::TEMPLATE))) {
+        if (null == ($file = $this->resourceResolver->findResource($template, View::TEMPLATE))) {
             throw new ZMException(sprintf('template not found: %s', $template));
+        }
+
+        // check if caching enabled
+        if (null != $this->cache) {
+            // check for cache hit
+            if (null != ($result = $this->cache->lookup($template))) {
+                return $result;
+            }
         }
 
         $file = $this->compile($file);
@@ -338,7 +384,14 @@ class View extends ZMObject {
 
         ob_start();
         require $file;
-        return $this->applyFilters(ob_get_clean());
+        $result = $this->applyFilters(ob_get_clean());
+
+        // if we have a cache, keep it
+        if (null != $this->cache && $this->cache->eligible($template)) {
+            $this->cache->store($template, $result);
+        }
+
+        return $result;
     }
 
     /**
@@ -395,10 +448,10 @@ class View extends ZMObject {
      * Resolve the given (relative) templates filename into a url.
      *
      * @param string file The file, relative to the template path.
-     * @param string type The resource type; default is <code>ResourceResolver::TEMPLATE</code>.
+     * @param string type The resource type; default is <code>View::TEMPLATE</code>.
      * @return string A url or empty string.
      */
-    public function asUrl($file, $type=ResourceResolver::TEMPLATE) {
+    public function asUrl($file, $type=View::TEMPLATE) {
         if (null != ($path = $this->resourceResolver->findResource($file, $type))) {
             if (null != ($uri= $this->file2uri($path))) {
                 $url = $this->request->absoluteURL($uri);
@@ -435,10 +488,10 @@ class View extends ZMObject {
      * Check if the given template/resource file exists.
      *
      * @param string file The file, relative to the template path.
-     * @param string type The resource type; default is <code>ResourceResolver::TEMPLATE</code>.
+     * @param string type The resource type; default is <code>View::TEMPLATE</code>.
      * @return boolean <code>true</code> if the file exists, <code>false</code> if not.
      */
-    public function exists($file, $type=ResourceResolver::TEMPLATE) {
+    public function exists($file, $type=View::TEMPLATE) {
         // todo: backwards comp. remove
         if ($file instanceof \ZMRequest) {
             // old style
@@ -448,7 +501,7 @@ class View extends ZMObject {
             if (1 < count($args)) {
                 $type = $args[1];
             } else {
-                $type = ResourceResolver::TEMPLATE;
+                $type = View::TEMPLATE;
             }
         }
         $path = $this->resourceResolver->findResource($file, $type);

@@ -44,7 +44,7 @@ class TestMinifyResourceManager extends ZMTestCase {
     /**
      * Get a ready-to-use instance.
      *
-     * @return MinifyViewUtils
+     * @return MinifyResourceManager
      */
     protected function getMinifyResourceManager() {
         $view = $this->container->get('view');

@@ -8,9 +8,9 @@
     <meta name="Distribution" content="Global" />
     <meta name="Author" content="Erwin Aligam - ealigam@gmail.com" />
     <meta name="Robots" content="index,follow" />
-    <?php $resources->cssFile('PixelGreen.css', array('media' => 'screen')) ?>
-    <?php $resources->cssFile('theme.css', array('media' => 'screen')) ?>
-    <?php $resources->jsFile('common.js', ZMViewUtils::FOOTER) ?>
+    <?php $resourceManager->cssFile('PixelGreen.css', array('media' => 'screen')) ?>
+    <?php $resourceManager->cssFile('theme.css', array('media' => 'screen')) ?>
+    <?php $resourceManager->jsFile('common.js', $resourceManager->FOOTER) ?>
     <title>Pixel Green</title>
   </head>
 

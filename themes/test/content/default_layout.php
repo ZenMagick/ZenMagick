@@ -30,19 +30,19 @@
     <meta name="generator" content="ZenMagick <?php echo $settingsService->get('zenmagick.version') ?>" />
     <meta name="keywords" content="<?php echo $metaTags->getKeywords()?>" />
     <meta name="description" content="<?php echo $metaTags->getDescription()?>" />
-    <?php $resources->cssFile($request->getContext().'/zenmagick/themes/default/content/site.css') ?>
-    <?php $resources->cssFile('ie.css', array('prefix' => '<!--[if IE]>', 'suffix' => '<![endif]-->')) ?>
-    <?php $resources->jsFile('common.js', ZMViewUtils::FOOTER) ?>
-    <?php $resources->jsFile('common.js', ZMViewUtils::FOOTER) ?>
-    <?php $resources->jsFile('//ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js', ZMViewUtils::HEADER) ?>
+    <?php $resourceManager->cssFile($request->getContext().'/zenmagick/themes/default/content/site.css') ?>
+    <?php $resourceManager->cssFile('ie.css', array('prefix' => '<!--[if IE]>', 'suffix' => '<![endif]-->')) ?>
+    <?php $resourceManager->jsFile('common.js', $resourceManager::FOOTER) ?>
+    <?php $resourceManager->jsFile('common.js', $resourceManager::FOOTER) ?>
+    <?php $resourceManager->jsFile('//ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js', $resourceManager::HEADER) ?>
     <?php /* give other themes the chance to add to the default CSS without having to copy everything */ ?>
     <?php if ($this->exists("theme.css")) { ?>
-        <?php $resources->cssFile('theme.css') ?>
+        <?php $resourceManager->cssFile('theme.css') ?>
     <?php } ?>
     <?php $pageCSS = "css/".$request->getRequestId().".css"; ?>
     <?php /* page specific CSS */ ?>
     <?php if ($this->exists($pageCSS)) { ?>
-        <?php $resources->cssFile($pageCSS) ?>
+        <?php $resourceManager->cssFile($pageCSS) ?>
     <?php } ?>
     <?php if (!$templateManager->isLeftColEnabled() || !$templateManager->isRightColEnabled()) { ?>
       <style type="text/css" media="screen,projection">

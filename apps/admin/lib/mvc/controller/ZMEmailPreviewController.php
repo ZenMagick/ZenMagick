@@ -22,7 +22,7 @@
 
 use zenmagick\base\Runtime;
 use zenmagick\base\events\Event;
-use zenmagick\http\view\ResourceResolver;
+use zenmagick\http\view\View;
 
 /**
  * Admin controller for email previews.
@@ -39,7 +39,7 @@ class ZMEmailPreviewController extends ZMController {
         $templateInfo = array();
         // get a store view to lookup all email templates...
         $view = $this->container->get('storeEmailView');
-        foreach ($view->getResourceResolver()->find('views/emails', null, ResourceResolver::TEMPLATE) as $template) {
+        foreach ($view->getResourceResolver()->find('views/emails', null, View::TEMPLATE) as $template) {
             $file = basename($template);
             $tokens = explode('.', $file);
             if (3 == count($tokens)) {

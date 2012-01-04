@@ -165,7 +165,7 @@ class ResourceManager extends ZMObject {
     /**
      * Resolve resource path.
      *
-     * <p>This default implementation does nothing but return the result of: <code>$view->asUrl($request, $filename, ResourceResolver::RESOURCE);</code>.</p>
+     * <p>This default implementation does nothing but return the result of: <code>$view->asUrl($request, $filename, View::RESOURCE);</code>.</p>
      *
      * @param string resource The (relative) path to the resource.
      * @return string The resolved final URL.
@@ -179,7 +179,7 @@ class ResourceManager extends ZMObject {
             // absolute path
             return $resource;
         } else {
-            return $this->view->asUrl($resource, $this->resourcesAsTemplates_ ? ResourceResolver::TEMPLATE : ResourceResolver::RESOURCE);
+            return $this->view->asUrl($resource, $this->resourcesAsTemplates_ ? View::TEMPLATE : View::RESOURCE);
         }
     }
 

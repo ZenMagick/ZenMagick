@@ -8,12 +8,12 @@
     <meta name="keywords" content="keywords, here" />
     <meta name="robots" content="index, follow, noarchive" />
     <meta name="googlebot" content="noarchive" />
-    <?php $resources->cssFile('css/screen.css', array('media' => 'screen')) ?>
-    <?php $resources->cssFile('css/theme.css', array('media' => 'screen')) ?>
+    <?php $resourceManager->cssFile('css/screen.css', array('media' => 'screen')) ?>
+    <?php $resourceManager->cssFile('css/theme.css', array('media' => 'screen')) ?>
     <?php $pageCSS = "css/".$request->getRequestId().".css"; ?>
     <?php /* page specific CSS */ ?>
     <?php if ($this->exists($pageCSS)) { ?>
-        <?php $resources->cssFile($pageCSS, array('media' => 'screen')) ?>
+        <?php $resourceManager->cssFile($pageCSS, array('media' => 'screen')) ?>
     <?php } ?>
   </head>
   <body>

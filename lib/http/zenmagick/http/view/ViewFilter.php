@@ -19,32 +19,23 @@
  */
 ?>
 <?php
+namespace zenmagick\http\view;
 
 
 /**
- * Savant cache interface.
- *
- * <p>Implementations are free to cache individual Savant templates and their output.</p>
+ * View filter interface.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package org.zenmagick.mvc.view
+ * @package zenmagick.http.view
  */
-interface ZMSavantCache {
+interface ViewFilter {
 
     /**
-     * Get cached template.
+     * Apply this filter to the given string.
      *
-     * @param string tpl The template name.
-     * @return string The cache contents or <code>null</code>.
+     * @param string s The string to filter.
+     * @return string The result.
      */
-    public function lookup($tpl);
-
-    /**
-     * Save template contents.
-     *
-     * @param string tpl The template name.
-     * @param string contents The evaluated contents.
-     */
-    public function save($tpl, $contents);
+    public function apply($s);
 
 }

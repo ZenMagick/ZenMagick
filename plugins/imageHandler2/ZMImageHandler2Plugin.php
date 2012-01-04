@@ -64,9 +64,9 @@ class ZMImageHandler2Plugin extends Plugin {
      */
     public function onViewStart($event) {
         if (!ZMLangUtils::asBoolean($this->get('disableIH2Attributes'))) {
-            if (null != ($viewUtils = $event->get('view')->getViewUtils())) {
-                $viewUtils->cssFile('ih2/style_imagehover.css');
-                $viewUtils->jsFile('ih2/jscript_imagehover.js', ResourceManager::HEADER);
+            if (null != ($resources = $event->get('view')->getResourceManager())) {
+                $resources->cssFile('ih2/style_imagehover.css');
+                $resources->jsFile('ih2/jscript_imagehover.js', ResourceManager::HEADER);
             }
         }
     }

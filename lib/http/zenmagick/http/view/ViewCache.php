@@ -19,23 +19,41 @@
  */
 ?>
 <?php
+namespace zenmagick\http\view;
 
 
 /**
- * Savant filter to allow PHP short tags.
+ * View cache interface.
  *
- * <p>Will replace all <code>&lt;%=</code> with <code>&lt;?php echo </code>.</p>
+ * <p>Implementations are free to cache individual templates (fetch calls) and their output.</p>
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package org.zenmagick.mvc.view.filter
+ * @package zenmagick.http.view
  */
-class ZMShortTagFilter {
+interface ViewCache {
 
     /**
-     * {@inheritDoc}
+     * Check if the given template can be cached.
+     *
+     * @param string template The template name.
+     * @return boolean <code>true</code> if the template can be cached, <code>false</code> if not.
      */
-    public function filter($text) {
-        return str_replace(array('<%=', '<?='), '<?php echo ', $text);
-    }
+    public function eligible($template);
+
+    /**
+     * Get cached template.
+     *
+     * @param string template The template name.
+     * @return string The cached content or <code>null</code>.
+     */
+    public function lookup($template);
+
+    /**
+     * Save template content.
+     *
+     * @param string template The template name.
+     * @param string content The content.
+     */
+    public function save($template, $content);
 
 }

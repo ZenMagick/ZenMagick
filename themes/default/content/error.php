@@ -27,7 +27,7 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
     <title><?php echo $utils->getTitle() ?> :: ZenMagick</title>
-    <?php $resources->cssFile('site.css') ?>
+    <?php $resourceManager->cssFile('site.css') ?>
 	</head>
   <body>
     <h2><?php echo $utils->getTitle() ?></h2>

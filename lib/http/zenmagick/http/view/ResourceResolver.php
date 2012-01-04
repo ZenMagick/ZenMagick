@@ -38,8 +38,6 @@ use zenmagick\base\ZMObject;
  * @package zenmagick.http.view
  */
 class ResourceResolver extends ZMObject {
-    const TEMPLATE = 'template';
-    const RESOURCE = 'resource';
     protected $locations;
 
 
@@ -48,7 +46,7 @@ class ResourceResolver extends ZMObject {
      */
     public function __construct() {
         parent::__construct();
-        $this->locations = array(self::TEMPLATE => null, self::RESOURCE => null);
+        $this->locations = array(View::TEMPLATE => null, View::RESOURCE => null);
     }
 
 
@@ -64,9 +62,9 @@ class ResourceResolver extends ZMObject {
      */
     public function getLocationsFor($type) {
         switch ($type) {
-        case self::TEMPLATE:
+        case View::TEMPLATE:
             return $this->getTemplateLocations();
-        case self::RESOURCE:
+        case View::RESOURCE:
             return $this->getResourceLocations();
         }
         throw new ZMException(sprintf('invalid resource type: "%s"', $type));
@@ -80,7 +78,7 @@ class ResourceResolver extends ZMObject {
      * @return array List of template locations.
      */
     public function getTemplateLocations() {
-        if (null === $this->locations[self::TEMPLATE]) {
+        if (null === $this->locations[View::TEMPLATE]) {
             $path = array();
 
             // available locale
@@ -103,10 +101,10 @@ class ResourceResolver extends ZMObject {
             }
 
             $path = array_merge($path, $this->getApplicationTemplateLocations());
-            $this->locations[self::TEMPLATE] = array_reverse($this->validateLocations($path));
+            $this->locations[View::TEMPLATE] = array_reverse($this->validateLocations($path));
         }
 
-        return $this->locations[self::TEMPLATE];
+        return $this->locations[View::TEMPLATE];
     }
 
     /**
@@ -126,7 +124,7 @@ class ResourceResolver extends ZMObject {
      * @return array List of resource locations.
      */
     public function getResourceLocations() {
-        if (null === $this->locations[self::RESOURCE]) {
+        if (null === $this->locations[View::RESOURCE]) {
             $path = array();
 
             // available locale
@@ -151,10 +149,10 @@ class ResourceResolver extends ZMObject {
             }
 
             $path = array_merge($path, $this->getApplicationResourceLocations());
-            $this->locations[self::RESOURCE] = array_reverse($this->validateLocations($path));
+            $this->locations[View::RESOURCE] = array_reverse($this->validateLocations($path));
         }
 
-        return $this->locations[self::RESOURCE];
+        return $this->locations[View::RESOURCE];
     }
 
     /**
@@ -226,10 +224,10 @@ class ResourceResolver extends ZMObject {
      *
      * @param string path The base path, relative to the template/resource path.
      * @param string regexp Optional filter expression; default is <code>null</code> for none.
-     * @param string type The resource type; default is <code>ResourceResolver::RESOURCE</code>.
+     * @param string type The resource type; default is <code>View::RESOURCE</code>.
      * @return array A map of matching filenames.
      */
-    public function find($path, $regexp=null, $type=ResourceResolver::RESOURCE) {
+    public function find($path, $regexp=null, $type=View::RESOURCE) {
         $locations = $this->getLocationsFor($type);
 
         // iterate in ascending priority, so the more important come first
@@ -255,10 +253,10 @@ class ResourceResolver extends ZMObject {
      * Check if the given resource exists.
      *
      * @param string resource A relative path to the resource.
-     * @param string type The resource type; default is <code>ResourceResolver::TEMPLATE</code>.
+     * @param string type The resource type; default is <code>View::TEMPLATE</code>.
      * @return boolean <code>true</code> if the file exists, <code>false</code> if not.
      */
-    public function exists($resource, $type=ResourceResolver::TEMPLATE) {
+    public function exists($resource, $type=View::TEMPLATE) {
         $file = $this->findResource($resource, $type);
         return !empty($file);
     }

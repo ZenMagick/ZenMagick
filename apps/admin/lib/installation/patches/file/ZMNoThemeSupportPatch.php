@@ -96,7 +96,7 @@ class ZMNoThemeSupportPatch extends ZMFilePatch {
             return true;
         }
 
-        $PATCHLINE = "if (!ZMSettings::get('isEnableZMThemes', true)) { \$request = zenmagick\\base\\Runtime::getContainer()->get('request'); \$event = new zenmagick\\base\\events\\Event(null, array('request' => \$request, 'content' => ob_get_clean(), 'view' => new SavantView(\$request))); \$event->get('view')->setContainer(zenmagick\\base\\Runtime::getContainer()); zenmagick\\base\\Runtime::getEventDispatcher()->dispatch('finalise_content', \$event); echo \$event->get('content'); \$request->getSession()->clearMessages(); zenmagick\\base\\Runtime::getEventDispatcher()->dispatch('all_done', new zenmagick\\base\\events\\Event(null, array('request' => \$request))); } /* added by ZenMagick installation patcher */";
+        $PATCHLINE = "if (!ZMSettings::get('isEnableZMThemes', true)) { \$request = zenmagick\\base\\Runtime::getContainer()->get('request'); \$event = new zenmagick\\base\\events\\Event(null, array('request' => \$request, 'content' => ob_get_clean(), 'view' => new zenmagick\\http\\view\\View())); \$event->get('view')->setContainer(zenmagick\\base\\Runtime::getContainer()); zenmagick\\base\\Runtime::getEventDispatcher()->dispatch('finalise_content', \$event); echo \$event->get('content'); \$request->getSession()->clearMessages(); zenmagick\\base\\Runtime::getEventDispatcher()->dispatch('all_done', new zenmagick\\base\\events\\Event(null, array('request' => \$request))); } /* added by ZenMagick installation patcher */";
 
         if (is_writeable(_ZM_ZEN_APP_BOTTOM_PHP)) {
             $patchedLines = array();

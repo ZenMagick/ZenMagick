@@ -23,7 +23,7 @@
   <head>
     <meta http-equiv="content-type" content="text/html; charset=<?php echo $settingsService->get('zenmagick.mvc.html.charset') ?>">
     <title><?php _vzm('ZenMagick Admin') ?></title>
-    <link rel="shortcut icon" href="<?php echo $this->asUrl('favicon.ico', ZMView::RESOURCE) ?>">
+    <link rel="shortcut icon" href="<?php echo $this->asUrl('favicon.ico', $view::RESOURCE) ?>">
     <?php $resources->cssFile('style/zenmagick.css') ?>
     <?php $resources->cssFile('style/jquery-ui/jquery-ui-1.8.15.custom.css') ?>
     <?php $resources->cssFile('style/jquery.cluetip.css') ?>

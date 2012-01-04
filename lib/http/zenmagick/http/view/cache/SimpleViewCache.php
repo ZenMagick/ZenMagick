@@ -19,34 +19,43 @@
  */
 ?>
 <?php
+namespace zenmagick\http\view\cache;
 
 use zenmagick\base\Runtime;
+use zenmagick\base\ZMObject;
+use zenmagick\http\view\ViewCache;
 
 /**
  * Simple caching.
  *
- * <p>Template names to be cached are configured as comma separated list using the setting: <em>'zenmagick.mvc.templates.simpleCache'</em>.</p>
+ * <p>Template names to be cached are configured as list using the setting: <em>'zenmagick.http.view.cache.simple'</em>.</p>
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package org.zenmagick.mvc.view.cache
+ * @package zenmagick.http.view.cache
  */
-class ZMSimpleSavantCache implements ZMSavantCache {
+class SimpleViewCache implements ViewCache {
     private $cache_;
+
 
     /**
      * {@inheritDoc}
      */
-    public function lookup($tpl) {
-        return $this->cache_->lookup($tpl);
+    public function eligible($template) {
+        return in_array($template, $this->container->get('settingsService')->get('zenmagick.http.view.cache.simple'));
     }
 
     /**
      * {@inheritDoc}
      */
-    public function save($tpl, $contents) {
-        if (ZMLangUtils::inArray($tpl, Runtime::getSettings()->get('zenmagick.mvc.templates.simpleCache.templates'))) {
-            $this->cache_->save($contents, $tpl);
-        }
+    public function lookup($template) {
+        return $this->cache_->lookup($template);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function store($template, $content) {
+        $this->cache_->save($content, $template);
     }
 
     /**
