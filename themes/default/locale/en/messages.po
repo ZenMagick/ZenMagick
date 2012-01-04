@@ -1,0 +1,1988 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: ${zenmagick.version}\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: DerManoMann <mano@zenmagick.org>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: shared\mvc\resultlist\filter\ZMCategoryFilter.php:39
+#: default\content\views\advanced_search.php:43
+msgid "Category"
+msgstr "Category"
+
+#: shared\mvc\resultlist\filter\ZMManufacturerFilter.php:37
+#: default\content\views\advanced_search.php:52
+msgid "Manufacturer"
+msgstr "Manufacturer"
+
+#: shared\mvc\resultlist\filter\ZMOrderStatusIdFilter.php:37
+msgid "Order Status"
+msgstr "Order Status"
+
+#: shared\mvc\toolbox\ZMToolboxMacro.php:83
+#: default\content\views\account_history_info.php:112
+#: default\content\views\checkout_confirmation.php:102
+#: default\content\views\emails\checkout.html.php:62
+#: default\content\views\emails\checkout.text.php:61
+msgid "N/A"
+msgstr "N/A"
+
+#: shared\mvc\toolbox\ZMToolboxMacro.php:289
+msgid "Disabled"
+msgstr "Disabled"
+
+#: shared\mvc\toolbox\ZMToolboxMacro.php:294
+msgid "Office Use Only:"
+msgstr "Office Use Only:"
+
+#: shared\mvc\toolbox\ZMToolboxMacro.php:295
+msgid "From:"
+msgstr "From: "
+
+#: shared\mvc\toolbox\ZMToolboxMacro.php:296
+msgid "Email:"
+msgstr "Email: "
+
+#: shared\mvc\toolbox\ZMToolboxMacro.php:297
+msgid "Remote:"
+msgstr "Remote: "
+
+#: shared\mvc\toolbox\ZMToolboxMacro.php:298
+msgid "Date:"
+msgstr "Date: "
+
+#: shared\mvc\toolbox\ZMToolboxMacro.php:531
+msgid "[FREE! (was: %s%s)]"
+msgstr " [FREE! (was: %s%s)]"
+
+#: shared\mvc\toolbox\ZMToolboxMacro.php:533
+msgid "(%s%s)"
+msgstr " (%s%s)"
+
+#: shared\mvc\toolbox\ZMToolboxMacro.php:553
+msgid "Starting at:"
+msgstr "Starting at: "
+
+#: shared\mvc\toolbox\ZMToolboxMacro.php:612
+msgid "%s-%s"
+msgstr "%s-%s"
+
+#: shared\mvc\toolbox\ZMToolboxMacro.php:607
+msgid "%s+"
+msgstr "%s+"
+
+#: shared\mvc\toolbox\ZMToolboxNet.php:106
+msgid "ezpage not found"
+msgstr "ezpage not found"
+
+#: shared\provider\ZMCatalogRssFeedSource.php:83
+msgid "%s Catalog"
+msgstr "%s Catalog"
+
+#: shared\provider\ZMCatalogRssFeedSource.php:85
+msgid "All categories and products at %s"
+msgstr "All categories and products at %s"
+
+#: shared\provider\ZMCatalogRssFeedSource.php:141
+msgid "Products at %s"
+msgstr "Products at %s"
+
+#: shared\provider\ZMCatalogRssFeedSource.php:143
+msgid "All products at %s"
+msgstr "All products at %s"
+
+#: shared\provider\ZMCatalogRssFeedSource.php:195
+msgid "Categories at %s"
+msgstr "Categories at %s"
+
+#: shared\provider\ZMCatalogRssFeedSource.php:197
+msgid "All categories at %s"
+msgstr "All categories at %s"
+
+#: shared\provider\ZMDefaultRssFeedSource.php:85
+msgid "Review: %s"
+msgstr "Review: %s"
+
+#: shared\provider\ZMDefaultRssFeedSource.php:99
+#: default\content\boxes\feeds.php:27
+msgid "Product Reviews"
+msgstr "Product Reviews"
+
+#: shared\provider\ZMDefaultRssFeedSource.php:102
+msgid "Product Reviews for %s at %s"
+msgstr "Product Reviews for %s at %s"
+
+#: shared\provider\ZMDefaultRssFeedSource.php:104
+msgid "Product Reviews at %s"
+msgstr "Product Reviews at %s"
+
+#: shared\provider\ZMDefaultRssFeedSource.php:134
+msgid "Chapter %s"
+msgstr "Chapter %s"
+
+#: shared\provider\ZMDefaultRssFeedSource.php:136
+msgid "All pages of Chapter %s"
+msgstr "All pages of Chapter %s"
+
+#: shared\provider\ZMDefaultRssFeedSource.php:175
+msgid "New Products at %s"
+msgstr "New Products at %s"
+
+#: shared\provider\ZMDefaultRssFeedSource.php:177
+msgid "The latest updates to %s's product list"
+msgstr "The latest updates to %s's product list"
+
+#: shared\services\checkout\ZMPaymentTypes.php:133
+msgid "Errors have occurred during the processing of your form.%1$s%1$sPlease make the following corrections:%1$s%1$s"
+msgstr "Errors have occurred during the processing of your form.%1$s%1$sPlease make the following corrections:%1$s%1$s"
+
+#: shared\services\checkout\ZMPaymentTypes.php:154
+msgid "* Please select a payment method for your order."
+msgstr "* Please select a payment method for your order."
+
+#: shared\services\ZMConfig.php:214
+msgid "None"
+msgstr "None"
+
+#: shared\services\ZMTaxRates.php:182
+msgid "tax.delim"
+msgstr "tax.delim"
+
+#: shared\store\apps\store\bundles\ZenCartBundle\Resources\views\zc_admin.php:105
+msgid "Zen Cart Admin"
+msgstr "Zen Cart Admin"
+
+#: lib\http\zenmagick\http\widgets\form\BooleanFormWidget.php:149
+msgid "label_true"
+msgstr "label_true"
+
+#: lib\http\zenmagick\http\widgets\form\BooleanFormWidget.php:150
+msgid "label_false"
+msgstr "label_false"
+
+#: lib\mvc\controller\ZMRpcController.php:101
+msgid "No credentials"
+msgstr "No credentials"
+
+#: lib\mvc\controller\ZMRpcController.php:105
+msgid "Invalid credentials"
+msgstr "Invalid credentials"
+
+#: default\content\boxes\banner_box.php:26
+#: default\content\boxes\banner_box_all.php:26
+msgid "Sponsors"
+msgstr "Sponsors"
+
+#: default\content\boxes\banner_box2.php:26
+msgid "Have you seen ..."
+msgstr "Have you seen ..."
+
+#: default\content\boxes\best_sellers.php:27
+msgid "Best Sellers"
+msgstr "Best Sellers"
+
+#: default\content\boxes\categories.php:26
+msgid "Categories"
+msgstr "Categories"
+
+#: default\content\boxes\currencies.php:27
+msgid "Currencies"
+msgstr "Currencies"
+
+#: default\content\boxes\currencies.php:33
+#: default\content\boxes\manufacturers.php:33
+#: default\content\boxes\search.php:30
+msgid "Go"
+msgstr "Go"
+
+#: default\content\boxes\ezpages.php:28
+msgid "Important Links"
+msgstr "Important Links"
+
+#: default\content\boxes\featured.php:29
+#: default\content\boxes\reviews.php:42
+#: default\content\boxes\rss.php:29
+#: default\content\boxes\specials.php:28
+#: default\content\boxes\whats_new.php:29
+msgid "[More]"
+msgstr "[More]"
+
+#: default\content\boxes\featured.php:29
+msgid "Featured"
+msgstr "Featured"
+
+#: default\content\boxes\feeds.php:25
+msgid "RSS Feeds"
+msgstr "RSS Feeds"
+
+#: default\content\boxes\feeds.php:29
+msgid "RSS"
+msgstr "RSS"
+
+#: default\content\boxes\feeds.php:28
+#: default\content\boxes\whats_new.php:29
+#: default\content\views\site_map.php:45
+msgid "New Products"
+msgstr "New Products"
+
+#: default\content\boxes\feeds.php:29
+msgid "Chapter 10"
+msgstr "Chapter 10"
+
+#: default\content\boxes\information.php:25
+msgid "Legalese"
+msgstr "Legalese"
+
+#: default\content\boxes\information.php:27
+msgid "Shipping &amp; Returns"
+msgstr "Shipping &amp; Returns"
+
+#: default\content\boxes\information.php:28
+msgid "Our Privacy Policy"
+msgstr "Our Privacy Policy"
+
+#: default\content\boxes\information.php:29
+msgid "Conditions"
+msgstr "Conditions"
+
+#: default\content\boxes\information.php:30
+#: default\content\views\site_map.php:53
+msgid "Contact Us"
+msgstr "Contact Us"
+
+#: default\content\boxes\languages.php:25
+msgid "Languages"
+msgstr "Languages"
+
+#: default\content\boxes\login.php:35
+#: default\content\views\login.php:27
+msgid "Login"
+msgstr "Login"
+
+#: default\content\boxes\login.php:30
+#: default\content\views\account_edit.php:62
+#: default\content\views\create_account.php:89
+#: default\content\views\guest_history.php:29
+#: default\content\views\login.php:60
+#: default\content\views\password_forgotten.php:29
+#: default\content\views\unsubscribe.php:38
+msgid "E-Mail Address"
+msgstr "E-Mail Address"
+
+#: default\content\boxes\login.php:34
+#: default\content\views\create_account.php:99
+#: default\content\views\login.php:33
+msgid "Password"
+msgstr "Password"
+
+#: default\content\boxes\login.php:40
+#: default\content\views\login.php:41
+msgid "Lost your password?"
+msgstr "Lost your password?"
+
+#: default\content\boxes\login.php:41
+#: default\content\views\login.php:42
+msgid "Not registered yet?"
+msgstr "Not registered yet?"
+
+#: default\content\boxes\manufacturers.php:27
+msgid "Manufacturers"
+msgstr "Manufacturers"
+
+#: default\content\boxes\manufacturers.php:31
+msgid "Please Select"
+msgstr "Please Select"
+
+#: default\content\boxes\manufacturer_info.php:30
+msgid "Manufacturer Info"
+msgstr "Manufacturer Info"
+
+#: default\content\boxes\manufacturer_info.php:57
+msgid "Other Products"
+msgstr "Other Products"
+
+#: default\content\boxes\manufacturer_info.php:52
+msgid "Manufacturer Homepage"
+msgstr "Manufacturer Homepage"
+
+#: default\content\boxes\order_history.php:30
+msgid "Previous Purchases"
+msgstr "Previous Purchases"
+
+#: default\content\boxes\product_notifications.php:42
+msgid "Notifications"
+msgstr "Notifications"
+
+#: default\content\boxes\product_notifications.php:39
+msgid "Notify me of updates to this product"
+msgstr "Notify me of updates to this product"
+
+#: default\content\boxes\product_notifications.php:39
+msgid "Notify me of updates to <strong>%s</strong>"
+msgstr "Notify me of updates to <strong>%s</strong>"
+
+#: default\content\boxes\product_notifications.php:44
+msgid "Remove product notification"
+msgstr "Remove product notification"
+
+#: default\content\boxes\product_notifications.php:44
+msgid "Do not notify me of updates to <strong>%s</strong>"
+msgstr "Do not notify me of updates to <strong>%s</strong>"
+
+#: default\content\boxes\reviews.php:39
+#: default\content\views\product_reviews_info.php:37
+#: default\content\views\resultlist\review.php:30
+msgid "%s of 5 stars!"
+msgstr "%s of 5 stars!"
+
+#: default\content\boxes\reviews.php:42
+#: default\content\views\site_map.php:47
+msgid "Reviews"
+msgstr "Reviews"
+
+#: default\content\boxes\search.php:26
+msgid "Quick Search"
+msgstr "Quick Search"
+
+#: default\content\boxes\search.php:31
+#: default\content\views\advanced_search.php:25
+#: default\content\views\search.php:30
+msgid "enter search"
+msgstr "enter search"
+
+#: default\content\boxes\search.php:36
+#: default\content\views\search.php:35
+#: default\content\views\site_map.php:44
+msgid "Advanced Search"
+msgstr "Advanced Search"
+
+#: default\content\boxes\shopping_cart.php:26
+msgid "Shopping Cart"
+msgstr "Shopping Cart"
+
+#: default\content\boxes\specials.php:28
+#: default\content\views\site_map.php:46
+msgid "Specials"
+msgstr "Specials"
+
+#: default\content\boxes\tell_a_friend.php:26
+msgid "Tell A Friend"
+msgstr "Tell A Friend"
+
+#: default\content\boxes\tell_a_friend.php:31
+msgid "Email"
+msgstr "Email"
+
+#: default\content\boxes\tell_a_friend.php:33
+msgid "enter email"
+msgstr "enter email"
+
+#: default\content\boxes\tell_a_friend.php:36
+msgid "Tell someone you know about this product."
+msgstr "Tell someone you know about this product."
+
+#: default\content\menu.php:26
+msgid "HOME"
+msgstr "HOME"
+
+#: default\content\menu.php:28
+msgid "LOGIN"
+msgstr "LOGIN"
+
+#: default\content\menu.php:31
+msgid "ACCOUNT"
+msgstr "ACCOUNT"
+
+#: default\content\menu.php:34
+msgid "LOGOFF"
+msgstr "LOGOFF"
+
+#: default\content\menu.php:37
+msgid "SHOPPING CART"
+msgstr "SHOPPING CART"
+
+#: default\content\menu.php:38
+msgid "CHECKOUT"
+msgstr "CHECKOUT"
+
+#: default\content\views\account.php:26
+#: default\content\views\account_edit.php:27
+#: default\content\views\checkout_success.php:29
+#: default\content\views\site_map.php:30
+msgid "My Account"
+msgstr "My Account"
+
+#: default\content\views\account.php:28
+#: default\content\views\site_map.php:32
+msgid "Change Account"
+msgstr "Change Account"
+
+#: default\content\views\account.php:29
+#: default\content\views\site_map.php:33
+msgid "My Address Book"
+msgstr "My Address Book"
+
+#: default\content\views\account.php:30
+#: default\content\views\site_map.php:34
+msgid "Change My Password"
+msgstr "Change My Password"
+
+#: default\content\views\account.php:35
+msgid "Email Settings"
+msgstr "Email Settings"
+
+#: default\content\views\account.php:37
+#: default\content\views\site_map.php:36
+msgid "Change Newsletter Subscriptions"
+msgstr "Change Newsletter Subscriptions"
+
+#: default\content\views\account.php:38
+#: default\content\views\site_map.php:37
+msgid "Change Product Notifications"
+msgstr "Change Product Notifications"
+
+#: default\content\views\account.php:45
+#: default\content\views\checkout_success.php:77
+msgid "Gift Certificate Account"
+msgstr "Gift Certificate Account"
+
+#: default\content\views\account.php:46
+#: default\content\views\checkout_success.php:83
+#: default\content\views\gv_send.php:40
+#: default\content\views\gv_send_confirm.php:47
+msgid "Send Gift Certificate"
+msgstr "Send Gift Certificate"
+
+#: default\content\views\account.php:47
+#: default\content\views\checkout_success.php:79
+msgid "You have funds (%s) in your Gift Certificate Account."
+msgstr "You have funds (%s) in your Gift Certificate Account."
+
+#: default\content\views\account.php:55
+msgid "(Show All)"
+msgstr "(Show All)"
+
+#: default\content\views\account.php:57
+msgid "Previous Orders"
+msgstr "Previous Orders"
+
+#: default\content\views\account_edit.php:38
+#: default\content\views\address.php:64
+#: default\content\views\create_account.php:65
+#: default\content\views\product_reviews_write.php:50
+msgid "Title"
+msgstr "Title"
+
+#: default\content\views\account_edit.php:41
+#: default\content\views\address.php:67
+#: default\content\views\create_account.php:68
+msgid "Mr."
+msgstr "Mr."
+
+#: default\content\views\account_edit.php:43
+#: default\content\views\address.php:69
+#: default\content\views\create_account.php:70
+msgid "Ms."
+msgstr "Ms."
+
+#: default\content\views\account_edit.php:48
+#: default\content\views\address.php:74
+#: default\content\views\create_account.php:75
+msgid "First Name"
+msgstr "First Name"
+
+#: default\content\views\account_edit.php:52
+#: default\content\views\address.php:78
+#: default\content\views\create_account.php:79
+msgid "Last Name"
+msgstr "Last Name"
+
+#: default\content\views\account_edit.php:57
+#: default\content\views\create_account.php:84
+msgid "Date of Birth"
+msgstr "Date of Birth"
+
+#: default\content\views\account_edit.php:58
+#: default\content\views\create_account.php:85
+msgid "Format: %s;&nbsp;(e.g: %s)"
+msgstr "Format: %s;&nbsp;(e.g: %s)"
+
+#: default\content\views\account_edit.php:67
+#: default\content\views\create_account.php:94
+msgid "Nickname"
+msgstr "Nickname"
+
+#: default\content\views\account_edit.php:72
+#: default\content\views\create_account.php:152
+msgid "Telephone Number"
+msgstr "Telephone Number"
+
+#: default\content\views\account_edit.php:76
+#: default\content\views\create_account.php:156
+msgid "Fax Number"
+msgstr "Fax Number"
+
+#: default\content\views\account_edit.php:80
+#: default\content\views\create_account.php:161
+msgid "E-Mail Format"
+msgstr "E-Mail Format"
+
+#: default\content\views\account_edit.php:83
+#: default\content\views\create_account.php:164
+msgid "HTML"
+msgstr "HTML"
+
+#: default\content\views\account_edit.php:85
+#: default\content\views\create_account.php:166
+msgid "Text"
+msgstr "Text"
+
+#: default\content\views\account_edit.php:89
+#: default\content\views\address.php:133
+#: default\content\views\contact_us.php:42
+#: default\content\views\create_account.php:184
+#: default\content\views\gv_send.php:38
+#: default\content\views\tell_a_friend.php:43
+msgid "<span>*</span> Mandatory fields"
+msgstr "<span>*</span> Mandatory fields"
+
+#: default\content\views\account_edit.php:94
+#: default\content\views\account_newsletters.php:30
+#: default\content\views\account_notifications.php:42
+#: default\content\views\address_book_edit.php:27
+#: default\content\views\checkout_success.php:45
+msgid "Update"
+msgstr "Update"
+
+#: default\content\views\account_history.php:41
+msgid "No orders found"
+msgstr "No orders found"
+
+#: default\content\views\account_history_info.php:25
+msgid "Item Details"
+msgstr "Item Details"
+
+#: default\content\views\account_history_info.php:57
+#: default\content\views\emails\checkout.html.php:74
+#: default\content\views\emails\checkout.text.php:72
+msgid "Payment Details"
+msgstr "Payment Details"
+
+#: default\content\views\account_history_info.php:71
+#: default\content\views\site_map.php:35
+msgid "Order History"
+msgstr "Order History"
+
+#: default\content\views\account_history_info.php:85
+#: default\content\views\checkout_success.php:51
+msgid "Downloads"
+msgstr "Downloads"
+
+#: default\content\views\account_history_info.php:86
+#: default\content\views\checkout_success.php:52
+msgid "To download your files click the download button and choose \"Save to Disk\" from the popup menu."
+msgstr "To download your files click the download button and choose \"Save to Disk\" from the popup menu."
+
+#: default\content\views\account_history_info.php:89
+#: default\content\views\checkout_success.php:55
+msgid "Item"
+msgstr "Item"
+
+#: default\content\views\account_history_info.php:90
+#: default\content\views\checkout_success.php:56
+msgid "Filename"
+msgstr "Filename"
+
+#: default\content\views\account_history_info.php:91
+#: default\content\views\checkout_success.php:57
+msgid "Size"
+msgstr "Size"
+
+#: default\content\views\account_history_info.php:92
+#: default\content\views\checkout_success.php:58
+msgid "Remaining"
+msgstr "Remaining"
+
+#: default\content\views\account_history_info.php:101
+#: default\content\views\checkout_success.php:67
+msgid "Download"
+msgstr "Download"
+
+#: default\content\views\account_history_info.php:107
+#: default\content\views\emails\checkout.html.php:56
+#: default\content\views\emails\checkout.text.php:55
+msgid "Address Details"
+msgstr "Address Details"
+
+#: default\content\views\account_history_info.php:110
+#: default\content\views\checkout_confirmation.php:101
+#: default\content\views\checkout_shipping.php:26
+#: default\content\views\emails\checkout.html.php:60
+#: default\content\views\emails\checkout.text.php:59
+msgid "Shipping Address"
+msgstr "Shipping Address"
+
+#: default\content\views\account_history_info.php:118
+#: default\content\views\checkout_confirmation.php:107
+#: default\content\views\checkout_payment.php:26
+#: default\content\views\emails\checkout.html.php:68
+#: default\content\views\emails\checkout.text.php:67
+msgid "Billing Address"
+msgstr "Billing Address"
+
+#: default\content\views\account_newsletters.php:24
+msgid "Including store news, new products, special offers, and other promotional announcements."
+msgstr "Including store news, new products, special offers, and other promotional announcements."
+
+#: default\content\views\account_newsletters.php:27
+msgid "Store Newsletter"
+msgstr "Store Newsletter"
+
+#: default\content\views\account_newsletters.php:28
+#: default\content\views\create_account.php:172
+msgid "Receive Store Newsletter"
+msgstr "Receive Store Newsletter"
+
+#: default\content\views\account_notifications.php:25
+msgid "The product notification list allows you to stay up to date on products you find of interest."
+msgstr "The product notification list allows you to stay up to date on products you find of interest."
+
+#: default\content\views\account_notifications.php:26
+msgid "To be up to date on all product changes, select <strong>Global Product Notifications</strong>."
+msgstr "To be up to date on all product changes, select <strong>Global Product Notifications</strong>."
+
+#: default\content\views\account_notifications.php:29
+msgid "Global Product Notifications"
+msgstr "Global Product Notifications"
+
+#: default\content\views\account_notifications.php:30
+msgid "Global Product Notification"
+msgstr "Global Product Notification"
+
+#: default\content\views\account_notifications.php:35
+#: default\content\views\checkout_success.php:37
+msgid "Product Notifications"
+msgstr "Product Notifications"
+
+#: default\content\views\account_password.php:27
+msgid "Change Password"
+msgstr "Change Password"
+
+#: default\content\views\account_password.php:29
+msgid "Current Password"
+msgstr "Current Password"
+
+#: default\content\views\account_password.php:33
+msgid "New Password"
+msgstr "New Password"
+
+#: default\content\views\account_password.php:37
+#: default\content\views\create_account.php:103
+msgid "Confirm Password"
+msgstr "Confirm Password"
+
+#: default\content\views\account_password.php:41
+#: default\content\views\address_book_create.php:27
+#: default\content\views\guest_history.php:37
+#: default\content\views\login.php:37
+#: default\content\views\password_forgotten.php:32
+msgid "Submit"
+msgstr "Submit"
+
+#: default\content\views\address.php:45
+msgid "Address"
+msgstr "Address"
+
+#: default\content\views\address.php:83
+#: default\content\views\create_account.php:108
+msgid "Company Name"
+msgstr "Company Name"
+
+#: default\content\views\address.php:88
+#: default\content\views\create_account.php:114
+msgid "Street Address"
+msgstr "Street Address"
+
+#: default\content\views\address.php:92
+#: default\content\views\create_account.php:118
+msgid "Suburb"
+msgstr "Suburb"
+
+#: default\content\views\address.php:96
+#: default\content\views\create_account.php:122
+msgid "City"
+msgstr "City"
+
+#: default\content\views\address.php:100
+#: default\content\views\create_account.php:130
+#: default\content\views\popup\shipping_estimator.php:64
+msgid "Post Code"
+msgstr "Post Code"
+
+#: default\content\views\address.php:104
+#: default\content\views\create_account.php:134
+#: default\content\views\popup\shipping_estimator.php:49
+msgid "Country"
+msgstr "Country"
+
+#: default\content\views\address.php:105
+#: default\content\views\popup\shipping_estimator.php:50
+msgid "Select Country"
+msgstr "Select Country"
+
+#: default\content\views\address.php:110
+#: default\content\views\create_account.php:140
+#: default\content\views\popup\shipping_estimator.php:53
+msgid "State/Province"
+msgstr "State/Province"
+
+#: default\content\views\address.php:126
+msgid "Use as primary address"
+msgstr "Use as primary address"
+
+#: default\content\views\address_book.php:28
+msgid "(primary)"
+msgstr "(primary)"
+
+#: default\content\views\address_book.php:31
+#: default\content\views\address_book_delete.php:31
+msgid "Delete"
+msgstr "Delete"
+
+#: default\content\views\address_book.php:33
+#: default\content\views\gv_send_confirm.php:48
+msgid "Edit"
+msgstr "Edit"
+
+#: default\content\views\address_book.php:38
+msgid "Add Address"
+msgstr "Add Address"
+
+#: default\content\views\address_book_delete.php:25
+msgid "Are you sure you would like to delete the selected address from your address book?"
+msgstr "Are you sure you would like to delete the selected address from your address book?"
+
+#: default\content\views\address_book_delete.php:28
+msgid "Selected Address"
+msgstr "Selected Address"
+
+#: default\content\views\advanced_search.php:28
+msgid "Search For..."
+msgstr "Search For..."
+
+#: default\content\views\advanced_search.php:30
+msgid "Search Help [?]"
+msgstr "Search Help [?]"
+
+#: default\content\views\advanced_search.php:36
+msgid "Search in product descriptions"
+msgstr "Search in product descriptions"
+
+#: default\content\views\advanced_search.php:41
+msgid "Restrict Search By..."
+msgstr "Restrict Search By..."
+
+#: default\content\views\advanced_search.php:45
+msgid "All Categories"
+msgstr "All Categories"
+
+#: default\content\views\advanced_search.php:48
+msgid "Include subcategories"
+msgstr "Include subcategories"
+
+#: default\content\views\advanced_search.php:54
+msgid "All Manufacturers"
+msgstr "All Manufacturers"
+
+#: default\content\views\advanced_search.php:58
+msgid "Price Range"
+msgstr "Price Range"
+
+#: default\content\views\advanced_search.php:64
+msgid "Date"
+msgstr "Date"
+
+#: default\content\views\advanced_search.php:72
+#: default\content\views\search.php:34
+msgid "Search"
+msgstr "Search"
+
+#: default\content\views\category.php:28
+#: default\content\views\category_list.php:43
+msgid "Available Sub-categories"
+msgstr "Available Sub-categories"
+
+#: default\content\views\category_list.php:54
+msgid "There are no products in this category"
+msgstr "There are no products in this category"
+
+#: default\content\views\checkout_confirmation.php:26
+msgid "Shopping Cart Contents"
+msgstr "Shopping Cart Contents"
+
+#: default\content\views\checkout_confirmation.php:48
+#: default\content\views\shopping_cart.php:60
+msgid "One time: %s"
+msgstr "One time: %s"
+
+#: default\content\views\checkout_confirmation.php:69
+msgid "Payment Method"
+msgstr "Payment Method"
+
+#: default\content\views\checkout_confirmation.php:114
+msgid "Change"
+msgstr "Change"
+
+#: default\content\views\checkout_confirmation.php:82
+msgid "Shipping"
+msgstr "Shipping"
+
+#: default\content\views\checkout_confirmation.php:92
+msgid "Address Information"
+msgstr "Address Information"
+
+#: default\content\views\checkout_confirmation.php:113
+msgid "Special instructions or comments"
+msgstr "Special instructions or comments"
+
+#: default\content\views\checkout_confirmation.php:121
+msgid "Confirm to order"
+msgstr "Confirm to order"
+
+#: default\content\views\checkout_payment.php:28
+msgid "Change Billing Address"
+msgstr "Change Billing Address"
+
+#: default\content\views\checkout_payment.php:39
+msgid "Terms and Conditions"
+msgstr "Terms and Conditions"
+
+#: default\content\views\checkout_payment.php:41
+msgid "Please acknowledge the terms and conditions bound to this order by ticking the following box."
+msgstr "Please acknowledge the terms and conditions bound to this order by ticking the following box."
+
+#: default\content\views\checkout_payment.php:42
+#: default\content\views\create_account.php:48
+msgid "here"
+msgstr "here"
+
+#: default\content\views\checkout_payment.php:43
+msgid "The terms and conditions can be read %s."
+msgstr "The terms and conditions can be read %s."
+
+#: default\content\views\checkout_payment.php:44
+msgid "I have read and agreed to the terms and conditions bound to this order."
+msgstr "I have read and agreed to the terms and conditions bound to this order."
+
+#: default\content\views\checkout_payment.php:48
+msgid "Order Totals"
+msgstr "Order Totals"
+
+#: default\content\views\checkout_payment.php:71
+msgid "Credit Options"
+msgstr "Credit Options"
+
+#: default\content\views\checkout_payment.php:85
+msgid "Payment Options"
+msgstr "Payment Options"
+
+#: default\content\views\checkout_payment.php:110
+#: default\content\views\checkout_shipping.php:84
+msgid "Comments"
+msgstr "Comments"
+
+#: default\content\views\checkout_payment.php:111
+#: default\content\views\checkout_shipping.php:85
+msgid "Special instructions or comments about your order."
+msgstr "Special instructions or comments about your order."
+
+#: default\content\views\checkout_payment.php:116
+#: default\content\views\checkout_payment_address.php:49
+#: default\content\views\checkout_shipping.php:90
+#: default\content\views\checkout_shipping_address.php:50
+msgid "Continue"
+msgstr "Continue"
+
+#: default\content\views\checkout_payment_address.php:28
+#: default\content\views\checkout_shipping_address.php:28
+msgid "Select an existing address"
+msgstr "Select an existing address"
+
+#: default\content\views\checkout_payment_address.php:30
+#: default\content\views\checkout_shipping_address.php:30
+msgid "Address Book"
+msgstr "Address Book"
+
+#: default\content\views\checkout_payment_address.php:45
+#: default\content\views\checkout_shipping_address.php:45
+msgid "... or create a new one"
+msgstr "... or create a new one"
+
+#: default\content\views\checkout_shipping.php:28
+msgid "Change Shipping Address"
+msgstr "Change Shipping Address"
+
+#: default\content\views\checkout_shipping.php:36
+msgid "Shipping Methods"
+msgstr "Shipping Methods"
+
+#: default\content\views\checkout_shipping.php:37
+msgid "Please select the preferred shipping method to use on this order."
+msgstr "Please select the preferred shipping method to use on this order."
+
+#: default\content\views\checkout_shipping.php:53
+msgid "Free Shipping"
+msgstr "Free Shipping"
+
+#: default\content\views\checkout_shipping.php:65
+msgid "(%s)"
+msgstr "(%s)"
+
+#: default\content\views\checkout_success.php:26
+msgid "Thanks for shopping with us"
+msgstr "Thanks for shopping with us"
+
+#: default\content\views\checkout_success.php:27
+msgid "Your order number is: <strong>%s</strong>"
+msgstr "Your order number is: <strong>%s</strong>"
+
+#: default\content\views\checkout_success.php:30
+msgid "You can view your full order history by going to the %s page and by clicking on view all orders."
+msgstr "You can view your full order history by going to the %s page and by clicking on view all orders."
+
+#: default\content\views\checkout_success.php:32
+msgid "Customer Service"
+msgstr "Customer Service"
+
+#: default\content\views\checkout_success.php:33
+msgid "Please direct any questions you have to %s."
+msgstr "Please direct any questions you have to %s."
+
+#: default\content\views\checkout_success.php:38
+msgid "Please notify me of updates to the products I have selected below:"
+msgstr "Please notify me of updates to the products I have selected below:"
+
+#: default\content\views\checkout_success.php:80
+msgid "email"
+msgstr "email"
+
+#: default\content\views\checkout_success.php:81
+msgid "If you want to, you can send those funds by %s to someone."
+msgstr "If you want to, you can send those funds by %s to someone."
+
+#: default\content\views\checkout_success.php:89
+msgid "Order Status Check"
+msgstr "Order Status Check"
+
+#: default\content\views\checkout_success.php:91
+msgid "order status check"
+msgstr "order status check"
+
+#: default\content\views\checkout_success.php:92
+msgid "You can check the status of your order using the %s."
+msgstr "You can check the status of your order using the %s."
+
+#: default\content\views\contact_us.php:25
+msgid "Store Contact Details"
+msgstr "Store Contact Details"
+
+#: default\content\views\contact_us.php:33
+msgid "Contact us"
+msgstr "Contact us"
+
+#: default\content\views\contact_us.php:34
+msgid "Full Name"
+msgstr "Full Name"
+
+#: default\content\views\contact_us.php:37
+msgid "Email Address"
+msgstr "Email Address"
+
+#: default\content\views\contact_us.php:40
+#: default\content\views\tell_a_friend.php:41
+msgid "Message"
+msgstr "Message"
+
+#: default\content\views\contact_us.php:44
+#: default\content\views\discount_coupon.php:33
+#: default\content\views\discount_coupon_info.php:60
+#: default\content\views\product_reviews_write.php:55
+#: default\content\views\tell_a_friend.php:45
+msgid "Send"
+msgstr "Send"
+
+#: default\content\views\cookie_usage.php:25
+msgid "You need to enable Cookies in order to use the requested feature"
+msgstr "You need to enable Cookies in order to use the requested feature"
+
+#: default\content\views\create_account.php:45
+msgid "About Privacy"
+msgstr "About Privacy"
+
+#: default\content\views\create_account.php:47
+msgid "Please acknowledge you agree with our privacy statement by ticking the following box."
+msgstr "Please acknowledge you agree with our privacy statement by ticking the following box."
+
+#: default\content\views\create_account.php:49
+msgid "The privacy statement can be read %s."
+msgstr "The privacy statement can be read %s."
+
+#: default\content\views\create_account.php:50
+msgid "I have read and agreed to your privacy statement."
+msgstr "I have read and agreed to your privacy statement."
+
+#: default\content\views\create_account.php:189
+msgid "Create Account"
+msgstr "Create Account"
+
+#: default\content\views\create_account.php:178
+msgid "Referral Code"
+msgstr "Referral Code"
+
+#: default\content\views\create_account_success.php:25
+msgid "store owner"
+msgstr "store owner"
+
+#: default\content\views\create_account_success.php:26
+msgid "contact us"
+msgstr "contact us"
+
+#: default\content\views\create_account_success.php:27
+msgid "Congratulations!"
+msgstr "Congratulations!"
+
+#: default\content\views\create_account_success.php:28
+msgid "Your new account has been successfully created! You can now take advantage of member privileges to enhance your online shopping experience with us."
+msgstr "Your new account has been successfully created! You can now take advantage of member privileges to enhance your online shopping experience with us."
+
+#: default\content\views\create_account_success.php:29
+msgid "If you have <small><strong>ANY</strong></small> questions about the operation of this online shop, please email the %s."
+msgstr "If you have <small><strong>ANY</strong></small> questions about the operation of this online shop, please email the %s."
+
+#: default\content\views\create_account_success.php:30
+msgid "A confirmation has been sent to the provided email address. If you have not received it within the hour, please %s."
+msgstr "A confirmation has been sent to the provided email address. If you have not received it within the hour, please %s."
+
+#: default\content\views\customers_authorization.php:25
+msgid "Customer Authorization Pending ..."
+msgstr "Customer Authorization Pending ..."
+
+#: default\content\views\customers_authorization.php:26
+msgid "We will contact you as soon as possible. To re-check your Authorization status ..."
+msgstr "We will contact you as soon as possible. To re-check your Authorization status ..."
+
+#: default\content\views\customers_authorization.php:27
+msgid "Click here"
+msgstr "Click here"
+
+#: default\content\views\discount_coupon.php:29
+msgid "Look-up Discount Coupon ..."
+msgstr "Look-up Discount Coupon ..."
+
+#: default\content\views\discount_coupon.php:30
+#: default\content\views\discount_coupon_info.php:57
+msgid "Your Code"
+msgstr "Your Code"
+
+#: default\content\views\discount_coupon_info.php:26
+msgid "The Discount Coupon Redemption Code you have entered is for %s."
+msgstr "The Discount Coupon Redemption Code you have entered is for %s."
+
+#: default\content\views\discount_coupon_info.php:27
+msgid "Discount Offer:"
+msgstr "Discount Offer:"
+
+#: default\content\views\discount_coupon_info.php:29
+msgid "Promotional Period"
+msgstr "Promotional Period"
+
+#: default\content\views\discount_coupon_info.php:30
+msgid "The coupon is valid between %s and %s."
+msgstr "The coupon is valid between %s and %s."
+
+#: default\content\views\discount_coupon_info.php:33
+#: default\content\views\popup\coupon_help.php:48
+msgid "Category Restrictions"
+msgstr "Category Restrictions"
+
+#: default\content\views\discount_coupon_info.php:45
+#: default\content\views\popup\coupon_help.php:60
+msgid "included"
+msgstr " included"
+
+#: default\content\views\discount_coupon_info.php:45
+#: default\content\views\popup\coupon_help.php:60
+msgid "excluded"
+msgstr " excluded"
+
+#: default\content\views\discount_coupon_info.php:42
+#: default\content\views\popup\coupon_help.php:57
+msgid "Product Restrictions"
+msgstr "Product Restrictions"
+
+#: default\content\views\discount_coupon_info.php:51
+#: default\content\views\popup\coupon_help.php:66
+msgid "The coupon is valid for all categories and products."
+msgstr "The coupon is valid for all categories and products."
+
+#: default\content\views\discount_coupon_info.php:56
+msgid "Look-up another discount coupon ..."
+msgstr "Look-up another discount coupon ..."
+
+#: default\content\views\down_for_maintenance.php:25
+msgid "Down for Maintenance ..."
+msgstr "Down for Maintenance ..."
+
+#: default\content\views\down_for_maintenance.php:27
+msgid "The site is currently down for maintenance. Please try back later."
+msgstr "The site is currently down for maintenance. Please try back later."
+
+#: default\content\views\down_for_maintenance.php:29
+msgid "Check status"
+msgstr "Check status"
+
+#: default\content\views\emails\checkout.html.php:26
+#: default\content\views\emails\checkout.text.php:23
+msgid "%s Order Confirmation"
+msgstr "%s Order Confirmation"
+
+#: default\content\views\emails\checkout.html.php:30
+#: default\content\views\emails\checkout.text.php:26
+msgid "Thanks for shopping at %s,"
+msgstr "Thanks for shopping at %s,"
+
+#: default\content\views\emails\checkout.html.php:31
+#: default\content\views\emails\checkout.text.php:28
+msgid "The following is a summary of your order."
+msgstr "The following is a summary of your order."
+
+#: default\content\views\emails\checkout.html.php:33
+#: default\content\views\emails\checkout.text.php:31
+msgid "Order Details"
+msgstr "Order Details"
+
+#: default\content\views\emails\checkout.html.php:35
+#: default\content\views\emails\checkout.text.php:34
+msgid "Order Number: #%s"
+msgstr "Order Number: #%s"
+
+#: default\content\views\emails\checkout.html.php:36
+#: default\content\views\emails\checkout.text.php:36
+msgid "Order Date: %s"
+msgstr "Order Date: %s"
+
+#: default\content\views\emails\checkout.html.php:39
+#: default\content\views\emails\checkout.text.php:39
+msgid "Ordered Items"
+msgstr "Ordered Items"
+
+#: default\content\views\emails\contact_us.html.php:31
+#: default\content\views\emails\contact_us.text.php:24
+msgid "Store Enquiry %s,"
+msgstr "Store Enquiry %s,"
+
+#: default\content\views\emails\contact_us.html.php:34
+#: default\content\views\emails\contact_us.text.php:27
+msgid "From: %s"
+msgstr "From: %s"
+
+#: default\content\views\emails\contact_us.html.php:35
+#: default\content\views\emails\contact_us.text.php:29
+msgid "Email: %s"
+msgstr "Email: %s"
+
+#: default\content\views\emails\coupon.html.php:26
+msgid "A coupon from %s"
+msgstr "A coupon from %s"
+
+#: default\content\views\emails\coupon.html.php:31
+#: default\content\views\emails\coupon.text.php:23
+#: default\content\views\emails\gv_queue.html.php:31
+#: default\content\views\emails\gv_queue.text.php:24
+#: default\content\views\emails\order_status.html.php:31
+#: default\content\views\emails\order_status.text.php:23
+#: default\content\views\emails\product_notification.html.php:31
+#: default\content\views\emails\product_notification.text.php:24
+#: default\content\views\emails\welcome.html.php:31
+#: default\content\views\emails\welcome.text.php:24
+msgid "Dear %s %s,"
+msgstr "Dear %s %s,"
+
+#: default\content\views\emails\coupon.html.php:33
+#: default\content\views\emails\coupon.text.php:26
+msgid "We're pleased to offer you a Store Coupon for our online store at %s"
+msgstr "We're pleased to offer you a Store Coupon for our online store at %s"
+
+#: default\content\views\emails\coupon.html.php:34
+#: default\content\views\emails\coupon.text.php:29
+msgid "You can redeem this coupon during checkout. Just enter the code provided, and click on the redeem button."
+msgstr "You can redeem this coupon during checkout. Just enter the code provided, and click on the redeem button."
+
+#: default\content\views\emails\coupon.html.php:36
+msgid "The coupon code is <strong>%s</strong>."
+msgstr "The coupon code is <strong>%s</strong>."
+
+#: default\content\views\emails\coupon.html.php:38
+#: default\content\views\emails\coupon.text.php:35
+#: default\content\views\emails\welcome.html.php:39
+#: default\content\views\emails\welcome.text.php:35
+msgid "The coupon is valid between %s and %s"
+msgstr "The coupon is valid between %s and %s"
+
+#: default\content\views\emails\coupon.html.php:40
+#: default\content\views\emails\coupon.text.php:38
+msgid "Don't lose the coupon code, make sure to keep the code safe so you can benefit from this special offer."
+msgstr "Don't lose the coupon code, make sure to keep the code safe so you can benefit from this special offer."
+
+#: default\content\views\emails\coupon.html.php:42
+#: default\content\views\emails\coupon.text.php:41
+#: default\content\views\emails\gv_queue.html.php:39
+#: default\content\views\emails\gv_queue.text.php:36
+msgid "Thank you for shopping with us!"
+msgstr "Thank you for shopping with us!"
+
+#: default\content\views\emails\coupon.html.php:43
+#: default\content\views\emails\coupon.text.php:43
+#: default\content\views\emails\gv_queue.html.php:40
+#: default\content\views\emails\gv_queue.text.php:38
+#: default\content\views\emails\welcome.html.php:50
+#: default\content\views\emails\welcome.text.php:54
+msgid "Sincerely, %s"
+msgstr "Sincerely, %s"
+
+#: default\content\views\emails\coupon.text.php:32
+msgid "The coupon code is %s"
+msgstr "The coupon code is %s"
+
+#: default\content\views\emails\gv_mail.html.php:26
+msgid "A Gift Certificate from %s"
+msgstr "A Gift Certificate from %s"
+
+#: default\content\views\emails\gv_mail.html.php:32
+#: default\content\views\emails\gv_mail.text.php:25
+msgid "We're pleased to offer you a Gift Certificate"
+msgstr "We're pleased to offer you a Gift Certificate"
+
+#: default\content\views\emails\gv_mail.html.php:37
+msgid "You have been sent a Gift Certificate worth %s."
+msgstr "You have been sent a Gift Certificate worth %s."
+
+#: default\content\views\emails\gv_mail.html.php:38
+#: default\content\views\emails\gv_send.html.php:34
+msgid "The code to redeem your Gift Certificate is: %s."
+msgstr "The code to redeem your Gift Certificate is: %s."
+
+#: default\content\views\emails\gv_mail.html.php:40
+#: default\content\views\emails\gv_send.html.php:42
+msgid "To redeem your gift, visit %s."
+msgstr "To redeem your gift, visit %s."
+
+#: default\content\views\emails\gv_mail.text.php:31
+msgid "The Gift Certificate is worth %s"
+msgstr "The Gift Certificate is worth %s"
+
+#: default\content\views\emails\gv_mail.text.php:34
+#: default\content\views\emails\gv_send.text.php:29
+msgid "The code to redeem your Gift Certificate is: %s"
+msgstr "The code to redeem your Gift Certificate is: %s"
+
+#: default\content\views\emails\gv_mail.text.php:37
+#: default\content\views\emails\gv_send.text.php:38
+msgid "To redeem your gift, visit %s"
+msgstr "To redeem your gift, visit %s"
+
+#: default\content\views\emails\gv_queue.html.php:26
+msgid "Gift Certificate Order #%s"
+msgstr "Gift Certificate Order #%s"
+
+#: default\content\views\emails\gv_queue.html.php:33
+#: default\content\views\emails\gv_queue.text.php:27
+msgid "You recently purchased a Gift Certificate from our online store at %s"
+msgstr "You recently purchased a Gift Certificate from our online store at %s"
+
+#: default\content\views\emails\gv_queue.html.php:35
+#: default\content\views\emails\gv_queue.text.php:30
+msgid "For security reasons this was not made immediately available to you. However, this amount has now been released. You may now visit our store and send the value of the Gift Certificate via email to someone else, or use it yourself."
+msgstr "For security reasons this was not made immediately available to you. However, this amount has now been released. You may now visit our store and send the value of the Gift Certificate via email to someone else, or use it yourself."
+
+#: default\content\views\emails\gv_queue.html.php:37
+#: default\content\views\emails\gv_queue.text.php:33
+msgid "The Gift Certificate(s) you purchased are worth %s"
+msgstr "The Gift Certificate(s) you purchased are worth %s"
+
+#: default\content\views\emails\gv_send.html.php:26
+msgid "A gift from %s"
+msgstr "A gift from %s"
+
+#: default\content\views\emails\gv_send.html.php:31
+#: default\content\views\emails\gv_send.text.php:24
+msgid "Dear %s,"
+msgstr "Dear %s,"
+
+#: default\content\views\emails\gv_send.html.php:33
+#: default\content\views\emails\gv_send.text.php:27
+msgid "You have been sent a Gift Certificate worth %s by %s."
+msgstr "You have been sent a Gift Certificate worth %s by %s."
+
+#: default\content\views\emails\gv_send.html.php:37
+#: default\content\views\emails\gv_send.text.php:32
+msgid "%s says:"
+msgstr "%s says:"
+
+#: default\content\views\emails\order_status.html.php:26
+msgid "Order update #%s"
+msgstr "Order update #%s"
+
+#: default\content\views\emails\order_status.html.php:33
+#: default\content\views\emails\order_status.text.php:26
+msgid "This is to inform you that your order #%s has been updated."
+msgstr "This is to inform you that your order #%s has been updated."
+
+#: default\content\views\emails\order_status.html.php:37
+msgid "order #%s"
+msgstr "order #%s"
+
+#: default\content\views\emails\order_status.html.php:39
+#: default\content\views\emails\order_status.text.php:29
+msgid "More details can be found at the following URL: %s"
+msgstr "More details can be found at the following URL: %s"
+
+#: default\content\views\emails\order_status.html.php:42
+#: default\content\views\emails\order_status.text.php:35
+msgid "The new order status is: %s."
+msgstr "The new order status is: %s."
+
+#: default\content\views\emails\order_status.html.php:46
+#: default\content\views\emails\order_status.text.php:39
+msgid "The following comment has been added to your order:"
+msgstr "The following comment has been added to your order:"
+
+#: default\content\views\emails\order_status.html.php:50
+#: default\content\views\emails\order_status.text.php:45
+#: default\content\views\emails\password_forgotten.html.php:35
+#: default\content\views\emails\password_forgotten.text.php:35
+#: default\content\views\emails\tell_a_friend.html.php:45
+#: default\content\views\emails\tell_a_friend.text.php:40
+msgid "Regards, %s"
+msgstr "Regards, %s"
+
+#: default\content\views\emails\order_status.text.php:31
+msgid "You can check the status of your order at: %s."
+msgstr "You can check the status of your order at: %s."
+
+#: default\content\views\emails\password_forgotten.html.php:26
+msgid "New Password Request - %s"
+msgstr "New Password Request - %s"
+
+#: default\content\views\emails\password_forgotten.html.php:31
+#: default\content\views\emails\password_forgotten.text.php:23
+msgid "New Password Request"
+msgstr "New Password Request"
+
+#: default\content\views\emails\password_forgotten.html.php:32
+#: default\content\views\emails\password_forgotten.text.php:26
+msgid "This is in response to a request for a new password for your account at %s."
+msgstr "This is in response to a request for a new password for your account at %s."
+
+#: default\content\views\emails\password_forgotten.html.php:33
+#: default\content\views\emails\password_forgotten.text.php:29
+msgid "Your new password is: %s"
+msgstr "Your new password is: %s"
+
+#: default\content\views\emails\password_forgotten.html.php:34
+#: default\content\views\emails\password_forgotten.text.php:32
+msgid "For security reasons please remember to change your password next time you logon."
+msgstr "For security reasons please remember to change your password next time you logon."
+
+#: default\content\views\emails\password_forgotten_admin.html.php:23
+#: default\content\views\emails\password_forgotten_admin.text.php:23
+msgid "New Password Request for %s"
+msgstr "New Password Request for %s"
+
+#: default\content\views\emails\product_notification.html.php:26
+msgid "Product Update Notification"
+msgstr "Product Update Notification"
+
+#: default\content\views\emails\review.text.php:24
+msgid "A Product Review for %s has been submitted and requires your approval."
+msgstr "A Product Review for %s has been submitted and requires your approval."
+
+#: default\content\views\emails\review.text.php:27
+msgid "Review Details: %s"
+msgstr "Review Details: %s"
+
+#: default\content\views\emails\tell_a_friend.html.php:26
+msgid "Product recommendation from %s at %s"
+msgstr "Product recommendation from %s at %s"
+
+#: default\content\views\emails\tell_a_friend.html.php:31
+#: default\content\views\emails\tell_a_friend.text.php:24
+msgid "Hi %s,"
+msgstr "Hi %s,"
+
+#: default\content\views\emails\tell_a_friend.html.php:33
+#: default\content\views\emails\tell_a_friend.text.php:27
+msgid "Your friend, %s, thought that you would be interested in %s from %s."
+msgstr "Your friend, %s, thought that you would be interested in %s from %s."
+
+#: default\content\views\emails\tell_a_friend.html.php:37
+#: default\content\views\emails\tell_a_friend.text.php:31
+msgid "%s also sent a note saying:"
+msgstr "%s also sent a note saying:"
+
+#: default\content\views\emails\tell_a_friend.html.php:43
+#: default\content\views\emails\tell_a_friend.text.php:37
+msgid "To view the product, click on the following link or copy and paste the link into your web browser: %s"
+msgstr "To view the product, click on the following link or copy and paste the link into your web browser: %s"
+
+#: default\content\views\emails\welcome.html.php:26
+msgid "Welcome to %s"
+msgstr "Welcome to %s"
+
+#: default\content\views\emails\welcome.html.php:33
+#: default\content\views\emails\welcome.text.php:27
+msgid "We wish to welcome you to %s."
+msgstr "We wish to welcome you to %s."
+
+#: default\content\views\emails\welcome.html.php:38
+#: default\content\views\emails\welcome.text.php:33
+msgid "Congratulations! To make your next visit to our online shop a more rewarding experience, listed below are details for a Discount Coupon created just for you!"
+msgstr "Congratulations! To make your next visit to our online shop a more rewarding experience, listed below are details for a Discount Coupon created just for you!"
+
+#: default\content\views\emails\welcome.html.php:40
+#: default\content\views\emails\welcome.text.php:38
+msgid "To use the Discount Coupon, enter the Redemption Code code during checkout: %s"
+msgstr "To use the Discount Coupon, enter the Redemption Code code during checkout: %s"
+
+#: default\content\views\emails\welcome.html.php:45
+#: default\content\views\emails\welcome.text.php:44
+msgid "Just for stopping by today, we have sent you a Gift Certificate for %s!nThe Gift Certificate Redemption Code is: %s"
+msgstr ""
+"Just for stopping by today, we have sent you a Gift Certificate for %s!\n"
+"The Gift Certificate Redemption Code is: %s"
+
+#: default\content\views\emails\welcome.html.php:46
+msgid "You can enter the Redemption Code during Checkout, after making your selections in the store. Or, you may redeem it now by following this link: <a href=\"%s\">Redeem</a>"
+msgstr "You can enter the Redemption Code during Checkout, after making your selections in the store. Or, you may redeem it now by following this link: <a href=\"%s\">Redeem</a>"
+
+#: default\content\views\emails\welcome.html.php:47
+#: default\content\views\emails\welcome.text.php:50
+msgid "Once you have added the Gift Certificate to your account, you may use the Gift Certificate for yourself, or send it to a friend!"
+msgstr "Once you have added the Gift Certificate to your account, you may use the Gift Certificate for yourself, or send it to a friend!"
+
+#: default\content\views\emails\welcome.text.php:47
+msgid "You can enter the Redemption Code during Checkout, after making your selections in the store. Or, you may redeem it now by following this link: %s"
+msgstr "You can enter the Redemption Code during Checkout, after making your selections in the store. Or, you may redeem it now by following this link: %s"
+
+#: default\content\views\error.php:24
+msgid "Oops - something went wrong!"
+msgstr "Oops - something went wrong!"
+
+#: default\content\views\featured_products.php:42
+#: default\content\views\products_new.php:42
+msgid "There are no new products in this category"
+msgstr "There are no new products in this category"
+
+#: default\content\views\guest_history.php:27
+msgid "Find Guest Order"
+msgstr "Find Guest Order"
+
+#: default\content\views\guest_history.php:33
+msgid "Order Number"
+msgstr "Order Number"
+
+#: default\content\views\gv_faq.php:25
+#: default\content\views\gv_redeem.php:40
+msgid "Gift Certificate FAQ"
+msgstr "Gift Certificate FAQ"
+
+#: default\content\views\gv_faq.php:29
+msgid "Purchasing Gift Certificates"
+msgstr "Purchasing Gift Certificates"
+
+#: default\content\views\gv_faq.php:30
+msgid "How to send Gift Certificates"
+msgstr "How to send Gift Certificates"
+
+#: default\content\views\gv_faq.php:31
+msgid "Buying with Gift Certificates"
+msgstr "Buying with Gift Certificates"
+
+#: default\content\views\gv_faq.php:32
+msgid "Redeeming Gift Certificates"
+msgstr "Redeeming Gift Certificates"
+
+#: default\content\views\gv_faq.php:33
+msgid "When problems occur..."
+msgstr "When problems occur..."
+
+#: default\content\views\gv_faq.php:49
+#: default\content\views\gv_redeem.php:31
+msgid "Redemption code details"
+msgstr "Redemption code details"
+
+#: default\content\views\gv_faq.php:51
+#: default\content\views\gv_redeem.php:33
+msgid "Redemption Code"
+msgstr "Redemption Code"
+
+#: default\content\views\gv_faq.php:55
+#: default\content\views\gv_redeem.php:37
+msgid "Redeem"
+msgstr "Redeem"
+
+#: default\content\views\gv_redeem.php:25
+msgid "Redeem A Gift Certificate"
+msgstr "Redeem A Gift Certificate"
+
+#: default\content\views\gv_redeem.php:27
+msgid "Congratulations, you have redeemed a Gift Certificate worth %s."
+msgstr "Congratulations, you have redeemed a Gift Certificate worth %s."
+
+#: default\content\views\gv_redeem.php:41
+msgid "For more information regarding Gift Certificates, please see the %s."
+msgstr "For more information regarding Gift Certificates, please see the %s."
+
+#: default\content\views\gv_send.php:25
+msgid "Current available balance: <strong>%s</strong>"
+msgstr "Current available balance: <strong>%s</strong>"
+
+#: default\content\views\gv_send.php:28
+msgid "EMail Gift Certificate"
+msgstr "EMail Gift Certificate"
+
+#: default\content\views\gv_send.php:29
+msgid "Receiver Name"
+msgstr "Receiver Name"
+
+#: default\content\views\gv_send.php:31
+msgid "Receiver EMail Address"
+msgstr "Receiver EMail Address"
+
+#: default\content\views\gv_send.php:33
+msgid "Gift Certificate Amount"
+msgstr "Gift Certificate Amount"
+
+#: default\content\views\gv_send.php:36
+msgid "Message Text"
+msgstr "Message Text"
+
+#: default\content\views\gv_send.php:44
+#: default\content\views\gv_send_confirm.php:52
+#: default\content\views\tell_a_friend.php:48
+msgid "The following message is included with all emails sent from this site:"
+msgstr "The following message is included with all emails sent from this site:"
+
+#: default\content\views\gv_send_confirm.php:33
+msgid "Confirm Send Gift Certificate"
+msgstr "Confirm Send Gift Certificate"
+
+#: default\content\views\gv_send_confirm.php:35
+msgid "You are about to post a Gift Certificate worth %s to %s whose email address is %s."
+msgstr "You are about to post a Gift Certificate worth %s to %s whose email address is %s."
+
+#: default\content\views\gv_send_confirm.php:40
+msgid "Your message"
+msgstr "Your message"
+
+#: default\content\views\gv_send_confirm.php:44
+msgid "If these details are not correct, you may edit your message by clicking the edit button."
+msgstr "If these details are not correct, you may edit your message by clicking the edit button."
+
+#: default\content\views\login.php:46
+msgid "Don't need an account?"
+msgstr "Don't need an account?"
+
+#: default\content\views\login.php:48
+msgid "Checkout without registering"
+msgstr "Checkout without registering"
+
+#: default\content\views\login.php:64
+#: default\content\views\shopping_cart.php:73
+#: default\content\views\site_map.php:41
+msgid "Checkout"
+msgstr "Checkout"
+
+#: default\content\views\logoff.php:25
+msgid "You have been logged off your account. It is now safe to leave the computer."
+msgstr "You have been logged off your account. It is now safe to leave the computer."
+
+#: default\content\views\logoff.php:26
+msgid "Your shopping cart has been saved, the items inside it will be restored whenever you log back into your account."
+msgstr "Your shopping cart has been saved, the items inside it will be restored whenever you log back into your account."
+
+#: default\content\views\logoff.php:27
+msgid "continue"
+msgstr "continue"
+
+#: default\content\views\manufacturer.php:42
+msgid "There are no products for this manufacturer"
+msgstr "There are no products for this manufacturer"
+
+#: default\content\views\page.php:28
+msgid "Table of Contents"
+msgstr "Table of Contents"
+
+#: default\content\views\page.php:60
+msgid "&lt; Prev"
+msgstr "&lt; Prev"
+
+#: default\content\views\page.php:61
+msgid "Next &gt;"
+msgstr "Next &gt;"
+
+#: default\content\views\page_not_found.php:25
+msgid "Page Not Found"
+msgstr "Page Not Found"
+
+#: default\content\views\password_forgotten.php:25
+msgid "Enter your E-Mail address below and we'll send you an e-mail message containing your new password."
+msgstr "Enter your E-Mail address below and we'll send you an e-mail message containing your new password."
+
+#: default\content\views\password_forgotten.php:28
+msgid "Request new password"
+msgstr "Request new password"
+
+#: default\content\views\popup\coupon_help.php:28
+msgid "This coupon entitles you to a %s discount against your order"
+msgstr "This coupon entitles you to a %s discount against your order"
+
+#: default\content\views\popup\coupon_help.php:34
+msgid "This coupon gives you free shipping on your order"
+msgstr "This coupon gives you free shipping on your order"
+
+#: default\content\views\popup\coupon_help.php:38
+msgid "Congratulations, you have redeemed a Discount Coupon."
+msgstr "Congratulations, you have redeemed a Discount Coupon."
+
+#: default\content\views\popup\coupon_help.php:40
+msgid "Coupon Name: %s"
+msgstr "Coupon Name: %s"
+
+#: default\content\views\popup\coupon_help.php:41
+msgid "Coupon Description: %s"
+msgstr "Coupon Description: %s"
+
+#: default\content\views\popup\coupon_help.php:45
+msgid "The discount is valid between %s and %s."
+msgstr "The discount is valid between %s and %s."
+
+#: default\content\views\popup\coupon_help.php:71
+#: default\content\views\popup\cvv_help.php:37
+#: default\content\views\popup\search_help.php:29
+msgid "Close Window [x]"
+msgstr "Close Window [x]"
+
+#: default\content\views\popup\cvv_help.php:25
+msgid "What is CVV?"
+msgstr "What is CVV?"
+
+#: default\content\views\popup\cvv_help.php:29
+msgid "cvv sample 1"
+msgstr "cvv sample 1"
+
+#: default\content\views\popup\cvv_help.php:34
+msgid "cvv sample 2"
+msgstr "cvv sample 2"
+
+#: default\content\views\popup\search_help.php:25
+msgid "Search Help"
+msgstr "Search Help"
+
+#: default\content\views\popup\shipping_estimator.php:33
+msgid "Shipping Calculator"
+msgstr "Shipping Calculator"
+
+#: default\content\views\popup\shipping_estimator.php:36
+msgid "Shipping not available"
+msgstr "Shipping not available"
+
+#: default\content\views\popup\shipping_estimator.php:37
+msgid "Whoops! Either your shopping cart is empty or your session has expired."
+msgstr "Whoops! Either your shopping cart is empty or your session has expired."
+
+#: default\content\views\popup\shipping_estimator.php:41
+msgid "Ship To"
+msgstr "Ship To"
+
+#: default\content\views\popup\shipping_estimator.php:57
+msgid "Select State"
+msgstr "Select State"
+
+#: default\content\views\popup\shipping_estimator.php:68
+msgid "Calculate"
+msgstr "Calculate"
+
+#: default\content\views\popup\shipping_estimator.php:72
+msgid "Shipping is free!"
+msgstr "Shipping is free!"
+
+#: default\content\views\popup\shipping_estimator.php:76
+msgid "Shipping Method"
+msgstr "Shipping Method"
+
+#: default\content\views\popup\shipping_estimator.php:77
+msgid "Charge"
+msgstr "Charge"
+
+#: default\content\views\product_info.php:38
+msgid "Producer"
+msgstr "Producer"
+
+#: default\content\views\product_info.php:54
+msgid "Shopping Options"
+msgstr "Shopping Options"
+
+#: default\content\views\product_info.php:55
+msgid "(Order minimum: %s)"
+msgstr " (Order minimum: %s)"
+
+#: default\content\views\product_info.php:56
+msgid "Quantity"
+msgstr "Quantity"
+
+#: default\content\views\product_info.php:58
+#: default\content\views\product_reviews.php:32
+#: default\content\views\product_reviews_info.php:33
+#: default\content\views\product_reviews_write.php:32
+msgid "Add to cart"
+msgstr "Add to cart"
+
+#: default\content\views\product_info.php:64
+msgid "Additional Images"
+msgstr "Additional Images"
+
+#: default\content\views\product_info.php:76
+msgid "Other Options"
+msgstr "Other Options"
+
+#: default\content\views\product_info.php:78
+msgid "Read Reviews"
+msgstr "Read Reviews"
+
+#: default\content\views\product_info.php:81
+msgid "Write a Review"
+msgstr "Write a Review"
+
+#: default\content\views\product_info.php:84
+msgid "Tell a friend about this product"
+msgstr "Tell a friend about this product"
+
+#: default\content\views\product_not_found.php:26
+msgid "Product not found"
+msgstr "Product not found"
+
+#: default\content\views\product_not_found.php:28
+msgid "'%s' is currently not on stock."
+msgstr "'%s' is currently not on stock."
+
+#: default\content\views\product_reviews_info.php:36
+#: default\content\views\product_reviews_write.php:33
+msgid "Review by: %s"
+msgstr "Review by: %s"
+
+#: default\content\views\product_reviews_write.php:39
+msgid "New Review"
+msgstr "New Review"
+
+#: default\content\views\product_reviews_write.php:40
+msgid "Choose a ranking for this item. 1 star is the worst and 5 stars is the best."
+msgstr "Choose a ranking for this item. 1 star is the worst and 5 stars is the best."
+
+#: default\content\views\product_reviews_write.php:45
+msgid "%s Star"
+msgstr "%s Star"
+
+#: default\content\views\product_reviews_write.php:53
+msgid "Please tell us what you think and share your opinions with others. Be sure to focus your comments on the product."
+msgstr "Please tell us what you think and share your opinions with others. Be sure to focus your comments on the product."
+
+#: default\content\views\product_reviews_write.php:59
+msgid "NOTE:"
+msgstr "NOTE:"
+
+#: default\content\views\product_reviews_write.php:57
+msgid "HTML tags are not allowed."
+msgstr "HTML tags are not allowed."
+
+#: default\content\views\product_reviews_write.php:59
+msgid "Reviews require prior approval before they will be displayed."
+msgstr "Reviews require prior approval before they will be displayed."
+
+#: default\content\views\resultlist\nav.php:27
+msgid "Page %s/%s"
+msgstr "Page %s/%s"
+
+#: default\content\views\resultlist\nav.php:31
+msgid "Previous"
+msgstr "Previous"
+
+#: default\content\views\resultlist\nav.php:36
+msgid "Next"
+msgstr "Next"
+
+#: default\content\views\resultlist\options.php:33
+msgid "Filter by '%s' ..."
+msgstr "Filter by '%s' ..."
+
+#: default\content\views\resultlist\options.php:55
+msgid "Sort by ..."
+msgstr "Sort by ..."
+
+#: default\content\views\resultlist\options.php:68
+msgid "Sort / Reverse / Filter"
+msgstr "Sort / Reverse / Filter"
+
+#: default\content\views\resultlist\order.php:27
+msgid "Order #%s"
+msgstr "Order #%s"
+
+#: default\content\views\resultlist\review.php:34
+msgid "Date added: %s by %s"
+msgstr "Date added: %s by %s"
+
+#: default\content\views\resultlist\review.php:37
+msgid "Product Information"
+msgstr "Product Information"
+
+#: default\content\views\resultlist\review.php:39
+msgid "Read full review"
+msgstr "Read full review"
+
+#: default\content\views\reviews.php:41
+msgid "There are no reviews available at this time"
+msgstr "There are no reviews available at this time"
+
+#: default\content\views\reviews.php:42
+msgid "New reviews might need approval before they are listed."
+msgstr "New reviews might need approval before they are listed."
+
+#: default\content\views\search.php:28
+msgid "Search again"
+msgstr "Search again"
+
+#: default\content\views\search.php:57
+msgid "No products found"
+msgstr "No products found"
+
+#: default\content\views\shopping_cart.php:25
+msgid "Your Shopping Cart is empty"
+msgstr "Your Shopping Cart is empty"
+
+#: default\content\views\shopping_cart.php:39
+msgid "* Out of Stock"
+msgstr "* Out of Stock"
+
+#: default\content\views\shopping_cart.php:66
+msgid "Subtotal"
+msgstr "Subtotal"
+
+#: default\content\views\shopping_cart.php:72
+msgid "Update Cart"
+msgstr "Update Cart"
+
+#: default\content\views\shopping_cart.php:76
+msgid "Shipping Estimator"
+msgstr "Shipping Estimator"
+
+#: default\content\views\site_map.php:25
+msgid "let us know"
+msgstr "let us know"
+
+#: default\content\views\site_map.php:26
+msgid "If you are having difficulty in locating something on our site, please %s!"
+msgstr "If you are having difficulty in locating something on our site, please %s!"
+
+#: default\content\views\site_map.php:40
+msgid "Shopping cart"
+msgstr "Shopping cart"
+
+#: default\content\views\site_map.php:48
+msgid "Information"
+msgstr "Information"
+
+#: default\content\views\site_map.php:50
+msgid "Shipping Information"
+msgstr "Shipping Information"
+
+#: default\content\views\site_map.php:51
+msgid "Privacy Policy"
+msgstr "Privacy Policy"
+
+#: default\content\views\site_map.php:52
+msgid "Terms &amp; Conditions"
+msgstr "Terms &amp; Conditions"
+
+#: default\content\views\site_map.php:56
+msgid "Giftvoucher FAQ"
+msgstr "Giftvoucher FAQ"
+
+#: default\content\views\site_map.php:59
+msgid "Coupon Lookup"
+msgstr "Coupon Lookup"
+
+#: default\content\views\site_map.php:61
+#: default\content\views\unsubscribe.php:36
+msgid "Newsletter Unsubscribe"
+msgstr "Newsletter Unsubscribe"
+
+#: default\content\views\specials.php:42
+msgid "There are currently no specials in this category"
+msgstr "There are currently no specials in this category"
+
+#: default\content\views\tell_a_friend.php:27
+msgid "Tell a friend about '%s'"
+msgstr "Tell a friend about '%s'"
+
+#: default\content\views\tell_a_friend.php:29
+msgid "Your Name"
+msgstr "Your Name"
+
+#: default\content\views\tell_a_friend.php:32
+msgid "Your Email"
+msgstr "Your Email"
+
+#: default\content\views\tell_a_friend.php:35
+msgid "Friend's Name"
+msgstr "Friend's Name"
+
+#: default\content\views\tell_a_friend.php:38
+msgid "Friend's Email"
+msgstr "Friend's Email"
+
+#: default\content\views\time_out.php:26
+msgid "Whoops! Your session has expired."
+msgstr "Whoops! Your session has expired."
+
+#: default\content\views\time_out.php:28
+msgid "Whoops! Sorry, but you are not allowed to perform the action requested."
+msgstr "Whoops! Sorry, but you are not allowed to perform the action requested."
+
+#: default\content\views\time_out.php:31
+msgid "If you were placing an order, please login and your shopping cart will be restored. You may then go back to the checkout and complete your final purchases."
+msgstr "If you were placing an order, please login and your shopping cart will be restored. You may then go back to the checkout and complete your final purchases."
+
+#: default\content\views\time_out.php:33
+msgid "If you had completed an order and wish to review it, or had a download and wish to retrieve it, please go to your <a href=\"%s\">My Account</a> page to view your order."
+msgstr "If you had completed an order and wish to review it, or had a download and wish to retrieve it, please go to your <a href=\"%s\">My Account</a> page to view your order."
+
+#: default\content\views\unsubscribe.php:25
+msgid "We are sorry to hear that you wish to unsubscribe from our newsletter. If you have concerns about your privacy,please see our <a href=\"%s\">privacy policy</a>."
+msgstr "We are sorry to hear that you wish to unsubscribe from our newsletter. If you have concerns about your privacy"
+
+#: default\content\views\unsubscribe.php:28
+msgid "Subscribers to our newsletter are kept notified of new products, price reductions, and site news."
+msgstr "Subscribers to our newsletter are kept notified of new products, price reductions, and site news."
+
+#: default\content\views\unsubscribe.php:31
+msgid "If you still do not wish to receive your newsletter, please click the button below.You will be taken to your account-preferences page, where you may edit your subscriptions. You may be prompted to log in first."
+msgstr "If you still do not wish to receive your newsletter, please click the button below"
+
+#: default\content\views\unsubscribe.php:45
+msgid "Unsubscribe"
+msgstr "Unsubscribe"
+

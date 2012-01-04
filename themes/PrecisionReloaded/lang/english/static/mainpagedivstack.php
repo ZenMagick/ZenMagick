@@ -1,2 +1,0 @@
-<div id="mainpagestack">
-This will be the &quot;sale&quot; page generated in the ZM Static Editor.  The trick will be to &quot;stack&quot; this as a block div on top of the begining of the main page, yet not have it repeat in the web  store anywhere else except the main page - home. </div>

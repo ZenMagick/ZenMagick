@@ -25,24 +25,3 @@ formats:
     'short-ui-format': 'dd/mm/yyyy'
     'short-ui-example': '16/11/1967'
   dir: ltr
-
-# translations
-messages:
-  # sort options
-  'PRODUCT_LIST_NAME': 'Name'
-  'PRODUCT_LIST_PRICE': 'Price'
-  'PRODUCT_LIST_MANUFACTURER': 'Manufacturer'
-
-  # static names / crumbtrails
-  'Shippinginfo': 'Shipping & Returns'
-  'Privacy': 'Our Privacy Policy'
-  'Account': 'My Account'
-  'Account Edit': 'Edit Account'
-  'Account Password': 'My Password'
-  'Checkout Shipping': 'Shipping Method'
-  'Checkout Shipping Address': 'Change Shipping Address'
-  'Checkout Payment Address': 'Change Billing Address'
-  'Change Payment Address': 'Change Billing Address'
-  'Checkout Confirmation': 'Confirmation'
-  'Gv Send': 'Send Gift Certificate'
-  'Gv Redeem': 'Redeem Gift Certificate'
