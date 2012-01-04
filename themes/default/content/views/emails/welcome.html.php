@@ -43,7 +43,7 @@
 <?php if ($newAccountDiscountCoupon) { ?>
 <div>
   <p><?php _vzm("Just for stopping by today, we have sent you a Gift Certificate for %s!\nThe Gift Certificate Redemption Code is: %s", $utils->formatMoney($newAccountGVAmountCoupon->getAmount()), $newAccountGVAmountCoupon->getCode()) ?></p>
-  <p><?php _vzm('You can enter the Redemption Code during Checkout, after making your selections in the store. Or, you may redeem it now by following this link: <a href="%s">Redeem</a>', $request->absoluteUrl($net->url('gv_redeem', 'gv_no='.$newAccountGVAmountCoupon->getCode(), true), true, true)) ?></p>
+  <p><?php _vzm("You can enter the Redemption Code during Checkout, after making your selections in the store. Or, you may redeem it now by following this link: <a href=\"%s\">Redeem</a>", $request->absoluteUrl($net->url('gv_redeem', 'gv_no='.$newAccountGVAmountCoupon->getCode(), true), true, true)) ?></p>
   <p><?php echo _zm('Once you have added the Gift Certificate to your account, you may use the Gift Certificate for yourself, or send it to a friend!') ?></p>
 </div>
 <?php } ?>

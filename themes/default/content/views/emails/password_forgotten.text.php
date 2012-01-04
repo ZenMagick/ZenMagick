@@ -20,12 +20,19 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street - Fifth Floor, Boston, MA  02110-1301, USA.
  */
-?><?php _vzm("New Password Request\n") ?>
+?><?php _vzm("New Password Request") ?>
 
-<?php _vzm("This is in response to a request for a new password for your account at %s.\n", $settingsService->get('storeName')) ?>
-<?php _vzm("Your new password is: %s\n\n", $password) ?>
-<?php _vzm("For security reasons please remember to change your password next time you logon.\n") ?>
 
-<?php _vzm("Regards, %s\n", $settingsService->get('storeName')) ?>
+<?php _vzm("This is in response to a request for a new password for your account at %s.", $settingsService->get('storeName')) ?>
+
+
+<?php _vzm("Your new password is: %s", $password) ?>
+
+
+<?php _vzm("For security reasons please remember to change your password next time you logon.") ?>
+
+
+<?php _vzm("Regards, %s", $settingsService->get('storeName')) ?>
+
 
 <?php echo strip_tags($utils->staticPageContent('email_advisory')) ?>

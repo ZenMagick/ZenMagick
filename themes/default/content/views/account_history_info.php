@@ -83,7 +83,7 @@
 
 <?php if (null != ($downloads = $currentOrder->getDownloads()) && 0 < count($downloads)) { ?>
     <h3><?php _vzm('Downloads') ?></h3>
-    <p><?php _vzm('To download your files click the download button and choose "Save to Disk" from the popup menu.') ?></p>
+    <p><?php _vzm("To download your files click the download button and choose \"Save to Disk\" from the popup menu.") ?></p>
     <table class="grid">
       <tr>
           <th><?php _vzm('Item') ?></th>

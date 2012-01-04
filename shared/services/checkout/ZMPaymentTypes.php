@@ -126,10 +126,11 @@ class ZMPaymentTypes extends ZMObject {
         $paymentTypes = $shoppingCart->getPaymentTypes();
         $js = '';
         if (0 < count($paymentTypes)) {
+            // translatable text accepts a lf/cr as first parameter
             $js = '<script type="text/javascript">' . "\n" .
             'function check_form() {' . "\n" .
             '  var error = 0;' . "\n" .
-            '  var error_message = "' . _zm('Errors have occurred during the processing of your form.\n\nPlease make the following corrections:\n\n') . '";' . "\n" .
+            '  var error_message = "' . sprintf(_zm('Errors have occurred during the processing of your form.%1$s%1$sPlease make the following corrections:%1$s%1$s'), '\n') . '";' . "\n" .
             '  var payment_value = null;' . "\n" .
             '  if (document.checkout_payment.payment) {' . "\n" .
             '    if (document.checkout_payment.payment.length) {' . "\n" .
