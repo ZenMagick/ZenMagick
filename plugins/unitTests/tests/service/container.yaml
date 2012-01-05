@@ -1,4 +1,4 @@
-admin,storefront:
+storefront:
   container:
     services:
       simpleProductAssociationHandler:
@@ -16,5 +16,5 @@ admin,storefront:
         scope: container
 
       adminUserService:
-        class: ZMAdminUsers
+        class: zenmagick\apps\admin\services\AdminUserService
         scope: container

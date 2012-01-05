@@ -19,30 +19,24 @@
  */
 ?>
 <?php
-namespace zenmagick\apps\admin\controller;
+namespace zenmagick\apps\admin\services;
 
-use zenmagick\base\Runtime;
+use zenmagick\base\ZMObject;
+use zenmagick\http\sacs\SacsPermissionProvider;
 
 /**
- * Admin controller for admin user management.
+ * Database based permission provider.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.apps.admin.controller
+ * @package zenmagick.apps.admin.services
  */
-class AdminUsersController extends \ZMController {
+class DBSacsPermissionProvider extends ZMObject implements SacsPermissionProvider {
 
     /**
      * {@inheritDoc}
      */
-    public function processGet($request) {
-        $user = $request->getUser();
-        $resultSource = new \ZMObjectResultSource('zenmagick\\apps\\admin\\entities\\AdminUser', 'adminUserService', "getAllUsers", !$user->isLive());
-        $resultList = Runtime::getContainer()->get('ZMResultList');
-        $resultList->setResultSource($resultSource);
-        $resultList->setPageNumber($request->getParameter('page', 1));
-
-        $data = array('resultList' => $resultList);
-        return $this->findView(null, $data);
+    public function getMappings() {
+        return $this->container->get('sacsPermissionService')->getAll();
     }
 
 }

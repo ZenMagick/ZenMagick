@@ -19,30 +19,25 @@
  */
 ?>
 <?php
-namespace zenmagick\apps\admin\controller;
+namespace zenmagick\apps\admin\forms;
 
-use zenmagick\base\Runtime;
+use zenmagick\base\ZMObject;
 
 /**
- * Admin controller for admin user management.
+ * Admin user form data.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.apps.admin.controller
+ * @package zenmagick.apps.admin.forms
  */
-class AdminUsersController extends \ZMController {
+class AdminUserForm extends ZMObject {
 
     /**
-     * {@inheritDoc}
+     * Create new instance.
      */
-    public function processGet($request) {
-        $user = $request->getUser();
-        $resultSource = new \ZMObjectResultSource('zenmagick\\apps\\admin\\entities\\AdminUser', 'adminUserService', "getAllUsers", !$user->isLive());
-        $resultList = Runtime::getContainer()->get('ZMResultList');
-        $resultList->setResultSource($resultSource);
-        $resultList->setPageNumber($request->getParameter('page', 1));
-
-        $data = array('resultList' => $resultList);
-        return $this->findView(null, $data);
+    public function __construct() {
+        parent::__construct();
+        $this->set('adminUserId', 0);
+        $this->set('roles', array());
     }
 
 }

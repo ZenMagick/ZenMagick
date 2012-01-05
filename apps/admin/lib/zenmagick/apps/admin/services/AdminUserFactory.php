@@ -1,6 +1,6 @@
 <?php
 /*
- * ZenMagick - Smart e-commerce
+ * ZenMagick - Another PHP framework.
  * Copyright (C) 2006-2011 zenmagick.org
  *
  * This program is free software; you can redistribute it and/or modify
@@ -19,30 +19,29 @@
  */
 ?>
 <?php
-namespace zenmagick\apps\admin\controller;
+namespace zenmagick\apps\admin\services;
 
-use zenmagick\base\Runtime;
+use zenmagick\base\ZMObject;
+use zenmagick\http\session\UserFactory;
 
 /**
- * Admin controller for admin user management.
+ * User factory for admin users.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.apps.admin.controller
+ * @package zenmagick.apps.admin.services
  */
-class AdminUsersController extends \ZMController {
+class AdminUserFactory extends ZMObject implements UserFactory {
 
     /**
      * {@inheritDoc}
      */
-    public function processGet($request) {
-        $user = $request->getUser();
-        $resultSource = new \ZMObjectResultSource('zenmagick\\apps\\admin\\entities\\AdminUser', 'adminUserService', "getAllUsers", !$user->isLive());
-        $resultList = Runtime::getContainer()->get('ZMResultList');
-        $resultList->setResultSource($resultSource);
-        $resultList->setPageNumber($request->getParameter('page', 1));
+    public function getUser($request) {
+        $session = $request->getSession();
+        if (null != ($adminId = $session->getValue('admin_id'))) {
+            return $this->container->get('adminUserService')->getUserForId($adminId);
+        }
 
-        $data = array('resultList' => $resultList);
-        return $this->findView(null, $data);
+        return null;
     }
 
 }

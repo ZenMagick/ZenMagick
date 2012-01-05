@@ -43,7 +43,7 @@ zenmagick:
         ## TODO: these should be swapped
         - apps\store\StoreEventListener
         - zenmagick\http\EventListener
-        - ZMAdminEventHandler
+        - zenmagick\apps\admin\AdminEventHandler
     ## logging
     logging:
       level: ALL
@@ -107,7 +107,7 @@ zenmagick:
       handler:
         - zenmagick\http\sacs\handler\UserRoleSacsHandler
       mappingProviders:
-        - ZMDBSacsPermissionProvider
+        - zenmagick\apps\admin\services\DBSacsPermissionProvider
   ## bundles
   bundles:
     ZenCartBundle: apps\store\bundles\ZenCartBundle\ZenCartBundle

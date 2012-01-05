@@ -21,28 +21,46 @@
 <?php
 namespace zenmagick\apps\admin\controller;
 
-use zenmagick\base\Runtime;
 
 /**
- * Admin controller for admin user management.
+ * Ajax user prefs controller.
  *
  * @author DerManoMann <mano@zenmagick.org>
  * @package zenmagick.apps.admin.controller
  */
-class AdminUsersController extends \ZMController {
+class AjaxUserPrefsController extends \ZMRpcController {
 
     /**
-     * {@inheritDoc}
+     * Set pref.
      */
-    public function processGet($request) {
-        $user = $request->getUser();
-        $resultSource = new \ZMObjectResultSource('zenmagick\\apps\\admin\\entities\\AdminUser', 'adminUserService', "getAllUsers", !$user->isLive());
-        $resultList = Runtime::getContainer()->get('ZMResultList');
-        $resultList->setResultSource($resultSource);
-        $resultList->setPageNumber($request->getParameter('page', 1));
+    public function setPref($rpcRequest) {
+        $data = $rpcRequest->getData();
+        $adminId = $data->adminId;
+        $name = $data->name;
+        $value = $data->value;
 
-        $data = array('resultList' => $resultList);
-        return $this->findView(null, $data);
+        $this->container->get('adminUserPrefService')->setPrefForName($adminId, $name, $value);
+        $rpcResponse = $rpcRequest->createResponse();
+        $rpcResponse->setStatus(true);
+
+        return $rpcResponse;
+    }
+
+    /**
+     * Get pref.
+     */
+    public function getPref($rpcRequest) {
+        $data = $rpcRequest->getData();
+        $adminId = $data->adminId;
+        $name = $data->name;
+
+        $value = $this->container->get('adminUserPrefService')->getPrefForName($adminId, $name);
+
+        $rpcResponse = $rpcRequest->createResponse();
+        $rpcResponse->setData(array('value' => $value));
+        $rpcResponse->setStatus(true);
+
+        return $rpcResponse;
     }
 
 }

@@ -22,7 +22,7 @@
 
     if ('POST' == $request->getMethod()) {
         $name = $request->getParameter('name');
-        $themeBuilder = new ZMThemeBuilder();
+        $themeBuilder = new zenmagick\apps\admin\utils\ThemeBuilder();
         $themeBuilder->setName($request->getParameter('name'));
         $buildOK = $themeBuilder->build();
         foreach ($themeBuilder->getMessages() as $msgInfo) {

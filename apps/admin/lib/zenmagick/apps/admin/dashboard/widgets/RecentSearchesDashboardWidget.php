@@ -19,30 +19,32 @@
  */
 ?>
 <?php
-namespace zenmagick\apps\admin\controller;
+namespace zenmagick\apps\admin\dashboard\widgets;
 
-use zenmagick\base\Runtime;
+use zenmagick\apps\admin\dashboard\DashboardWidget;
 
 /**
- * Admin controller for admin user management.
+ * Recent searches dashboard widget.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.apps.admin.controller
+ * @package zenmagick.apps.admin.dashbord.widgets
  */
-class AdminUsersController extends \ZMController {
+class RecentSearchesDashboardWidget extends DashboardWidget {
+
+    /**
+     * Create new user.
+     */
+    public function __construct() {
+        parent::__construct(_zm('Recent Searches'));
+    }
+
 
     /**
      * {@inheritDoc}
      */
-    public function processGet($request) {
-        $user = $request->getUser();
-        $resultSource = new \ZMObjectResultSource('zenmagick\\apps\\admin\\entities\\AdminUser', 'adminUserService', "getAllUsers", !$user->isLive());
-        $resultList = Runtime::getContainer()->get('ZMResultList');
-        $resultList->setResultSource($resultSource);
-        $resultList->setPageNumber($request->getParameter('page', 1));
-
-        $data = array('resultList' => $resultList);
-        return $this->findView(null, $data);
+    public function getContents($request) {
+        $contents = '<p>'._zm('No Data').'</p>';
+        return $contents;
     }
 
 }

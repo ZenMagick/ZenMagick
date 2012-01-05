@@ -24,6 +24,7 @@
 <?php
 
 use zenmagick\base\Runtime;
+use zenmagick\apps\admin\utils\SQLRunner;
 
 /**
  * Generic SQL patch.
@@ -71,7 +72,7 @@ class ZMSQLPatch extends ZMInstallationPatch {
     function _runSQL($sql) {
         $sql = ZMSecurityUtils::sanitize($sql);
         if (!empty($sql)) {
-            $results = ZMSQLRunner::execute_sql($sql, DB_DATABASE, DB_PREFIX);
+            $results = SQLRunner::execute_sql($sql, DB_DATABASE, DB_PREFIX);
             $this->_processSQLMessages($results);
             return empty($results['error']);
         }

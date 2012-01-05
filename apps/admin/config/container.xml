@@ -25,13 +25,13 @@
         <!-- TODO: drop when moving to using view instead of defaultView -->
         <service id="defaultView" alias="view" />
 
-        <service id="adminUserPrefService" class="ZMAdminUserPrefs" scope="container" />
+        <service id="adminUserPrefService" class="zenmagick\apps\admin\services\AdminUserPrefService" scope="container" />
 
-        <service id="adminUserRoleService" class="ZMAdminUserRoles" scope="container" />
+        <service id="adminUserRoleService" class="zenmagick\apps\admin\services\AdminUserRoleService" scope="container" />
 
-        <service id="adminUserService" class="ZMAdminUsers" scope="container" />
+        <service id="adminUserService" class="zenmagick\apps\admin\services\AdminUserService" scope="container" />
 
-        <service id="sacsPermissionService" class="ZMSacsPermissions" scope="container" />
+        <service id="sacsPermissionService" class="zenmagick\apps\admin\services\SacsPermissionService" scope="container" />
 
         <service id="ZMInstallationPatcher" class="ZMInstallationPatcher" scope="container" />
 
@@ -58,43 +58,43 @@
             <tag name="apps.store.admin.tabcontroller" />
         </service>
 
-        <service id="userFactory" class="ZMAdminUserFactory" scope="container" />
+        <service id="userFactory" class="zenmagick\apps\admin\services\AdminUserFactory" scope="container" />
 
-        <service id="dashboard" class="ZMDashboard" scope="container" />
+        <service id="dashboard" class="zenmagick\apps\admin\dashboard\Dashboard" scope="container" />
 
-        <service id="orderStatsDashboardWidget" class="ZMOrderStatsDashboardWidget" scope="prototype">
+        <service id="orderStatsDashboardWidget" class="zenmagick\apps\admin\dashboard\widgets\OrderStatsDashboardWidget" scope="prototype">
             <tag name="apps.store.admin.dashboard.widget" />
         </service>
 
-        <service id="latestOrdersDashboardWidget" class="ZMLatestOrdersDashboardWidget" scope="prototype">
+        <service id="latestOrdersDashboardWidget" class="zenmagick\apps\admin\dashboard\widgets\LatestOrdersDashboardWidget" scope="prototype">
             <tag name="apps.store.admin.dashboard.widget" />
         </service>
 
-        <service id="latestAccountsDashboardWidget" class="ZMLatestAccountsDashboardWidget" scope="prototype">
+        <service id="latestAccountsDashboardWidget" class="zenmagick\apps\admin\dashboard\widgets\LatestAccountsDashboardWidget" scope="prototype">
             <tag name="apps.store.admin.dashboard.widget" />
         </service>
 
-        <service id="recentSearchesDashboardWidget" class="ZMRecentSearchesDashboardWidget" scope="prototype">
+        <service id="recentSearchesDashboardWidget" class="zenmagick\apps\admin\dashboard\widgets\RecentSearchesDashboardWidget" scope="prototype">
             <tag name="apps.store.admin.dashboard.widget" />
         </service>
 
-        <service id="updateCheckerDashboardWidget" class="ZMUpdateCheckerDashboardWidget" scope="prototype">
+        <service id="updateCheckerDashboardWidget" class="zenmagick\apps\admin\dashboard\widgets\UpdateCheckerDashboardWidget" scope="prototype">
             <tag name="apps.store.admin.dashboard.widget" />
         </service>
 
-        <service id="pendingDashboardWidget" class="ZMPendingDashboardWidget" scope="prototype">
+        <service id="pendingDashboardWidget" class="zenmagick\apps\admin\dashboard\widgets\PendingDashboardWidget" scope="prototype">
             <tag name="apps.store.admin.dashboard.widget" />
         </service>
 
-        <service id="counterHistoryDashboardWidget" class="ZMCounterHistoryDashboardWidget" scope="prototype">
+        <service id="counterHistoryDashboardWidget" class="zenmagick\apps\admin\dashboard\widgets\CounterHistoryDashboardWidget" scope="prototype">
             <tag name="apps.store.admin.dashboard.widget" />
         </service>
 
-        <service id="basicStatsDashboardWidget" class="ZMBasicStatsDashboardWidget" scope="prototype">
+        <service id="basicStatsDashboardWidget" class="zenmagick\apps\admin\dashboard\widgets\BasicStatsDashboardWidget" scope="prototype">
             <tag name="apps.store.admin.dashboard.widget" />
         </service>
 
-        <service id="storeStatusDashboardWidget" class="ZMStoreStatusDashboardWidget" scope="prototype">
+        <service id="storeStatusDashboardWidget" class="zenmagick\apps\admin\dashboard\widgets\StoreStatusDashboardWidget" scope="prototype">
             <tag name="apps.store.admin.dashboard.widget" />
         </service>
 

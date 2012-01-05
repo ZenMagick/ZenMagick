@@ -24,6 +24,7 @@
 <?php
 
 use zenmagick\base\Runtime;
+use zenmagick\apps\admin\utils\SQLRunner;
 
 /**
  * SQL/database utils.
@@ -48,7 +49,7 @@ class ZMDbUtils {
         // disable to allow plugins to insert HTML into the database...
         //$sql = ZMSecurityTools::sanitize($sql);
         if (!empty($sql)) {
-            $results = ZMSQLRunner::execute_sql($sql, DB_DATABASE, DB_PREFIX);
+            $results = SQLRunner::execute_sql($sql, DB_DATABASE, DB_PREFIX);
             foreach (ZMDbUtils::processPatchResults($results) as $msg) {
                 $messages[] = $msg;
             }
