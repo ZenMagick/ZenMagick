@@ -19,15 +19,16 @@
  */
 ?>
 <?php
+namespace zenmagick\apps\admin\controller;
 
 
 /**
  * Admin controller for block groups.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.store.admin.mvc.controller
+ * @package zenmagick.apps.admin.controller
  */
-class ZMBlockGroupsController extends ZMController {
+class BlockGroupsController extends \ZMController {
 
     /**
      * {@inheritDoc}
@@ -55,7 +56,7 @@ class ZMBlockGroupsController extends ZMController {
         case 'addGroup':
             $groupName = $request->getParameter('groupName');
             if (!empty($groupName)) {
-                $blockGroup = new ZMBlockGroup();
+                $blockGroup = new \ZMBlockGroup();
                 $blockGroup->setName($groupName);
                 $blockService->createBlockGroup($blockGroup);
                 $this->messageService->success(sprintf(_zm('Block group %s added.'), $groupName));

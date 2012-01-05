@@ -60,7 +60,7 @@ zenmagick:
     view:
       defaultLayout: default_layout
     controller:
-      default: ZMDefaultController
+      default: zenmagick\apps\admin\controller\DefaultController
 
     ## request
     request:

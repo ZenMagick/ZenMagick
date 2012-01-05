@@ -19,6 +19,7 @@
  */
 ?>
 <?php
+namespace zenmagick\apps\admin\controller;
 
 use zenmagick\http\sacs\SacsManager;
 
@@ -26,9 +27,9 @@ use zenmagick\http\sacs\SacsManager;
  * Admin controller to manage roles.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.store.admin.mvc.controller
+ * @package zenmagick.apps.admin.controller
  */
-class ZMManageRolesController extends ZMController {
+class ManageRolesController extends \ZMController {
 
     /**
      * {@inheritDoc}

@@ -19,6 +19,7 @@
  */
 ?>
 <?php
+namespace zenmagick\apps\admin\controller;
 
 use zenmagick\base\Runtime;
 use zenmagick\base\events\Event;
@@ -28,9 +29,9 @@ use zenmagick\http\view\View;
  * Admin controller for email previews.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.store.admin.mvc.controller
+ * @package zenmagick.apps.admin.controller
  */
-class ZMEmailPreviewController extends ZMController {
+class EmailPreviewController extends \ZMController {
 
     /**
      * {@inheritDoc}
@@ -85,16 +86,16 @@ class ZMEmailPreviewController extends ZMController {
      * @return array The context map.
      */
     protected function getInitialContext($request) {
-        $order = new ZMDemoOrder();
+        $order = new \ZMDemoOrder();
         return array(
             'office_only_html' => true,
             'office_only_text' => true,
             'newOrderStatus' => 'processing',
             'language' => $request->getSelectedLanguage(),
             'password' => 'THE_NEW_PASSWORD',
-            'currentAccount' => new ZMDemoAccount(),
+            'currentAccount' => new \ZMDemoAccount(),
             'order' => $order,
-            'currentProduct' => new ZMDemoProduct(),
+            'currentProduct' => new \ZMDemoProduct(),
             'currentOrder' => $order,
             'comment' => 'Some comment',
             'adminName' => 'SOME_ADMIN_NAME',
@@ -104,12 +105,12 @@ class ZMEmailPreviewController extends ZMController {
             'shippingAddress' => $order->getShippingAddress(),
             'billingAddress' => $order->getBillingAddress(),
             'paymentType' => $order->getPaymentType(),
-            'couponQueue' => new ZMDemoCouponQueue(),
-            'gvReceiver' => new ZMDemoGVReceiver(),
-            'emailMessage' => new ZMDemoEmailMessage(),
-            'currentReview' => new ZMDemoReview(),
-            'contactInfo' => new ZMContactInfo('foo bar', 'foo@bar.com', 'Congrats on your new store!'),
-            'currentCoupon' => new ZMDemoCoupon()
+            'couponQueue' => new \ZMDemoCouponQueue(),
+            'gvReceiver' => new \ZMDemoGVReceiver(),
+            'emailMessage' => new \ZMDemoEmailMessage(),
+            'currentReview' => new \ZMDemoReview(),
+            'contactInfo' => new \ZMContactInfo('foo bar', 'foo@bar.com', 'Congrats on your new store!'),
+            'currentCoupon' => new \ZMDemoCoupon()
         );
     }
 

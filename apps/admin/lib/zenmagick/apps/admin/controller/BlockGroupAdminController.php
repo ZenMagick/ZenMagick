@@ -3,9 +3,6 @@
  * ZenMagick - Smart e-commerce
  * Copyright (C) 2006-2011 zenmagick.org
  *
- * Portions Copyright (c) 2003 The zen-cart developers
- * Portions Copyright (c) 2003 osCommerce
- *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or (at
@@ -22,29 +19,43 @@
  */
 ?>
 <?php
+namespace zenmagick\apps\admin\controller;
 
+use zenmagick\base\Beans;
 
 /**
- * Admin controller.
+ * Admin controller for a single block group.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.store.admin.mvc.controller
+ * @package zenmagick.apps.admin.controller
  */
-class ZMCatalogDefaultTabController extends ZMCatalogContentController {
-
-    /**
-     * Create new instance.
-     */
-    public function __construct() {
-        parent::__construct('catalog_default_tab', _zm('Catalog Manager'));
-    }
-
+class BlockGroupAdminController extends \ZMController {
 
     /**
      * {@inheritDoc}
      */
-    public function isActive($request) {
-        return true;
+    public function getViewData($request) {
+        $blocks = array();
+        $blockManager = $this->container->get('blockManager');
+        foreach ($blockManager->getProviders() as $provider) {
+            foreach ($provider->getBlockList() as $def) {
+                $widget = Beans::getBean($def);
+                $blocks[$def] = $widget->getTitle();
+            }
+        }
+        $groupName = $request->getParameter('groupName');
+        return array(
+            'allBlocks' => $blocks,
+            'blocks' => $blockManager->getBlocksForId($request, $groupName),
+            'groupName' => $groupName
+        );
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function processGet($request) {
+        return $this->findView();
     }
 
 }

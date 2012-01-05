@@ -19,6 +19,7 @@
  */
 ?>
 <?php
+namespace zenmagick\apps\admin\controller;
 
 use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
@@ -32,9 +33,9 @@ use zenmagick\http\sacs\SacsManager;
  * <p>This controller acts as proxy for the actual controller. The actual controller is defined by the <em>catalogRequestId</em> parameter.</p>
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.store.admin.mvc.controller
+ * @package zenmagick.apps.admin.controller
  */
-class ZMCatalogController extends ZMController {
+class CatalogController extends \ZMController {
 
     /**
      * Create list of all active catalog content controllers.
@@ -57,7 +58,7 @@ class ZMCatalogController extends ZMController {
     /**
      * {@inheritDoc}
      */
-    public function process(ZMRequest $request) {
+    public function process(\ZMRequest $request) {
         // disable POST in demo
         if ('POST' == $request->getMethod() && $request->handleDemo()) {
             return $this->findView('success-demo');

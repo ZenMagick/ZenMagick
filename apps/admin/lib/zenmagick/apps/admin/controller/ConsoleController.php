@@ -19,42 +19,35 @@
  */
 ?>
 <?php
+namespace zenmagick\apps\admin\controller;
 
-use zenmagick\base\Beans;
 
 /**
- * Admin controller for a single block group.
+ * Admin controller for the PHP console.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.store.admin.mvc.controller
+ * @package zenmagick.apps.admin.controller
  */
-class ZMBlockGroupAdminController extends ZMController {
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getViewData($request) {
-        $blocks = array();
-        $blockManager = $this->container->get('blockManager');
-        foreach ($blockManager->getProviders() as $provider) {
-            foreach ($provider->getBlockList() as $def) {
-                $widget = Beans::getBean($def);
-                $blocks[$def] = $widget->getTitle();
-            }
-        }
-        $groupName = $request->getParameter('groupName');
-        return array(
-            'allBlocks' => $blocks,
-            'blocks' => $blockManager->getBlocksForId($request, $groupName),
-            'groupName' => $groupName
-        );
-    }
+class ConsoleController extends \ZMController {
 
     /**
      * {@inheritDoc}
      */
     public function processGet($request) {
-        return $this->findView();
+        if ($request->handleDemo()) {
+            return $this->findView('success-demo');
+        }
+        return parent::processGet($request);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function processPost($request) {
+        if ($request->handleDemo()) {
+            return $this->findView('success-demo');
+        }
+        return parent::processPost($request);
     }
 
 }

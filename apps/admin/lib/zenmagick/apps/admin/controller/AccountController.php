@@ -19,34 +19,36 @@
  */
 ?>
 <?php
+namespace zenmagick\apps\admin\controller;
 
 
 /**
- * Admin controller for the PHP console.
+ * Admin controller for account page.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.store.admin.mvc.controller
+ * @package zenmagick.apps.admin.controller
  */
-class ZMConsoleController extends ZMController {
+class AccountController extends \ZMController {
 
     /**
      * {@inheritDoc}
      */
-    public function processGet($request) {
-        if ($request->handleDemo()) {
-            return $this->findView('success-demo');
-        }
-        return parent::processGet($request);
+    public function getViewData($request) {
+        $priceGroups = $this->container->get('groupPricingService')->getPriceGroups();
+        return array('priceGroups' => array_merge(array(new \ZMIdNamePair(0, _zm('-- none --'))), $priceGroups));
     }
 
     /**
      * {@inheritDoc}
      */
-    public function processPost($request) {
-        if ($request->handleDemo()) {
-            return $this->findView('success-demo');
+    public function processGet($request) {
+        $accountId = $request->getParameter('accountId');
+        if (null == ($account = $this->container->get('accountService')->getAccountForId($accountId))) {
+            $this->messageService->error(sprintf(_zm('Account for account id %s not found'), $accountId));
+            return $this->findView(null, array('accountId' => $accountId));
         }
-        return parent::processPost($request);
+
+        return $this->findView(null, array('account' => $account));
     }
 
 }

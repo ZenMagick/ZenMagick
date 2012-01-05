@@ -19,27 +19,46 @@
  */
 ?>
 <?php
+namespace zenmagick\apps\admin\controller;
 
 use zenmagick\base\Runtime;
 
 /**
- * Admin controller for accounts page.
+ * Admin controller for orders page.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.store.admin.mvc.controller
+ * @package zenmagick.apps.admin.controller
  */
-class ZMAccountsController extends ZMController {
+class OrdersController extends \ZMController {
 
     /**
      * {@inheritDoc}
      */
     public function processGet($request) {
-        $resultSource = new ZMObjectResultSource('ZMAccount', 'accountService', "getAllAccounts");
+        $orderStatusId = $request->getParameter('orderStatusId');
+        //TODO: languageId
+        $languageId = 1;
+
+        // get the corresponding orderStatus
+        $orderStatusList = $this->container->get('orderService')->getOrderStatusList($languageId);
+        $orderStatus = null;
+        foreach ($orderStatusList as $tmp) {
+            if ($tmp->getOrderStatusId() == $orderStatusId) {
+                $orderStatus = $tmp;
+                break;
+            }
+        }
+
+        if (null != $orderStatus) {
+            $resultSource = new \ZMObjectResultSource('ZMOrder', 'orderService', "getOrdersForStatusId", array($orderStatusId, $languageId));
+        } else {
+            $resultSource = new \ZMObjectResultSource('ZMOrder', 'orderService', "getAllOrders", array($languageId));
+        }
         $resultList = Runtime::getContainer()->get('ZMResultList');
         $resultList->setResultSource($resultSource);
         $resultList->setPageNumber($request->getParameter('page', 1));
 
-        $data = array('resultList' => $resultList);
+        $data = array('resultList' => $resultList, 'orderStatus' => $orderStatus);
         return $this->findView(null, $data);
     }
 

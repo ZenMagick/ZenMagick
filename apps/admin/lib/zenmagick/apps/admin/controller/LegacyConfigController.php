@@ -19,15 +19,16 @@
  */
 ?>
 <?php
+namespace zenmagick\apps\admin\controller;
 
 
 /**
  * Admin controller for legacy config.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.store.admin.mvc.controller
+ * @package zenmagick.apps.admin.controller
  */
-class ZMLegacyConfigController extends ZMController {
+class LegacyConfigController extends \ZMController {
 
     /**
      * {@inheritDoc}

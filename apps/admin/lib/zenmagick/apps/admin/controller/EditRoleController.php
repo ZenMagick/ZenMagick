@@ -19,16 +19,18 @@
  */
 ?>
 <?php
+namespace zenmagick\apps\admin\controller;
 
+use zenmagick\base\Toolbox;
 use zenmagick\http\sacs\SacsManager;
 
 /**
  * Admin controller to edit role permissions.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.store.admin.mvc.controller
+ * @package zenmagick.apps.admin.controller
  */
-class ZMEditRoleController extends ZMController {
+class EditRoleController extends \ZMController {
 
     /**
      * Get sacs permission infos.
@@ -89,7 +91,7 @@ class ZMEditRoleController extends ZMController {
         $requestIds = $request->getParameter('requestId', array());
         $nperms = $request->getParameter('nperm', array());
         for ($ii=0; $ii<count($requestIds); ++$ii) {
-            if (!empty($requestIds[$ii]) && ZMLangUtils::asBoolean($nperms[$ii])) {
+            if (!empty($requestIds[$ii]) && Toolbox::asBoolean($nperms[$ii])) {
                 $permissons[] = $requestIds[$ii];
             }
         }

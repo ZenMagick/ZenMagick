@@ -3,6 +3,9 @@
  * ZenMagick - Smart e-commerce
  * Copyright (C) 2006-2011 zenmagick.org
  *
+ * Portions Copyright (c) 2003 The zen-cart developers
+ * Portions Copyright (c) 2003 osCommerce
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or (at
@@ -19,35 +22,30 @@
  */
 ?>
 <?php
+namespace zenmagick\apps\admin\controller;
 
 
 /**
- * Admin controller for account page.
+ * Admin controller.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.store.admin.mvc.controller
+ * @package zenmagick.apps.admin.controller
  */
-class ZMAccountController extends ZMController {
+class CatalogDefaultTabController extends \ZMCatalogContentController {
 
     /**
-     * {@inheritDoc}
+     * Create new instance.
      */
-    public function getViewData($request) {
-        $priceGroups = $this->container->get('groupPricingService')->getPriceGroups();
-        return array('priceGroups' => array_merge(array(new ZMIdNamePair(0, _zm('-- none --'))), $priceGroups));
+    public function __construct() {
+        parent::__construct('catalog_default_tab', _zm('Catalog Manager'));
     }
 
+
     /**
      * {@inheritDoc}
      */
-    public function processGet($request) {
-        $accountId = $request->getParameter('accountId');
-        if (null == ($account = $this->container->get('accountService')->getAccountForId($accountId))) {
-            $this->messageService->error(sprintf(_zm('Account for account id %s not found'), $accountId));
-            return $this->findView(null, array('accountId' => $accountId));
-        }
-
-        return $this->findView(null, array('account' => $account));
+    public function isActive($request) {
+        return true;
     }
 
 }

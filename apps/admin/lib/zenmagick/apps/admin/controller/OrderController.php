@@ -19,34 +19,29 @@
  */
 ?>
 <?php
+namespace zenmagick\apps\admin\controller;
 
 
 /**
- * Admin controller for static page editor.
+ * Admin controller for order page.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.store.admin.mvc.controller
+ * @package zenmagick.apps.admin.controller
  */
-class ZMStaticPageEditorController extends ZMController {
+class OrderController extends \ZMController {
 
     /**
      * {@inheritDoc}
      */
     public function processGet($request) {
-        return $this->findView();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function processPost($request) {
-        if ($request->handleDemo()) {
-            return $this->findView('success-demo');
+        $orderId = $request->getParameter('orderId');
+        // TODO: language
+        if (null == ($order = $this->container->get('orderService')->getOrderForId($orderId, 1))) {
+            $this->messageService->error(sprintf(_zm('Order for orderId id %s not found'), $orderId));
+            return $this->findView(null, array('orderId' => $orderId));
         }
 
-        //TODO:
-
-        return $this->findView();
+        return $this->findView(null, array('order' => $order));
     }
 
 }

@@ -19,6 +19,7 @@
  */
 ?>
 <?php
+namespace zenmagick\apps\admin\controller;
 
 use zenmagick\base\Beans;
 
@@ -26,15 +27,15 @@ use zenmagick\base\Beans;
  * EZPages admin controller.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.store.admin.mvc.controller
+ * @package zenmagick.apps.admin.controller
  */
-class ZMEzpagesController extends ZMController {
+class EzpagesController extends \ZMController {
 
     /**
      * {@inheritDoc}
      */
     public function preProcess($request) {
-        ZMUrlManager::instance()->setMapping('ezpages', array(
+        \ZMUrlManager::instance()->setMapping('ezpages', array(
             'ezpages-overview' => array('template' => 'ezpages-overview'),
             'ezpages-details' => array('template' => 'ezpages-details'),
         ));
@@ -46,7 +47,7 @@ class ZMEzpagesController extends ZMController {
     public function getViewData($request) {
         $language = $request->getSelectedLanguage();
         $languageId = $request->getParameter('languageId', $language->getId());
-        $resultSource = new ZMObjectResultSource('ZMEZPage', 'ezPageService', "getAllPages", array($languageId));
+        $resultSource = new \ZMObjectResultSource('ZMEZPage', 'ezPageService', "getAllPages", array($languageId));
         $resultList = $this->container->get("ZMResultList");
         $resultList->setResultSource($resultSource);
         $resultList->setPageNumber($request->getParameter('page', 1));

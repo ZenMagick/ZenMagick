@@ -19,29 +19,23 @@
  */
 ?>
 <?php
+namespace zenmagick\apps\admin\controller;
 
-use zenmagick\base\Runtime;
 
 /**
- * Admin controller for admin user management.
+ * Admin controller for logoff page.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.store.admin.mvc.controller
+ * @package zenmagick.apps.admin.controller
  */
-class ZMAdminUsersController extends ZMController {
+class LogoffController extends \ZMController {
 
     /**
      * {@inheritDoc}
      */
     public function processGet($request) {
-        $user = $request->getUser();
-        $resultSource = new ZMObjectResultSource('ZMAdminUser', 'adminUserService', "getAllUsers", !$user->isLive());
-        $resultList = Runtime::getContainer()->get('ZMResultList');
-        $resultList->setResultSource($resultSource);
-        $resultList->setPageNumber($request->getParameter('page', 1));
-
-        $data = array('resultList' => $resultList);
-        return $this->findView(null, $data);
+        $request->getSession()->destroy();
+        return $this->findView('success');
     }
 
 }

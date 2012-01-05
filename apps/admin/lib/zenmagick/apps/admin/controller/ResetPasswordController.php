@@ -19,6 +19,7 @@
  */
 ?>
 <?php
+namespace zenmagick\apps\admin\controller;
 
 use zenmagick\base\Runtime;
 
@@ -26,9 +27,9 @@ use zenmagick\base\Runtime;
  * Request controller for forgotten passwords.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.store.admin.mvc.controller
+ * @package zenmagick.apps.admin.controller
  */
-class ZMResetPasswordController extends ZMController {
+class ResetPasswordController extends \ZMController {
 
     /**
      * {@inheritDoc}

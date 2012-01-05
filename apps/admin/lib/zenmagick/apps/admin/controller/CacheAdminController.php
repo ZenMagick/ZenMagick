@@ -19,6 +19,7 @@
  */
 ?>
 <?php
+namespace zenmagick\apps\admin\controller;
 
 use zenmagick\base\Runtime;
 
@@ -26,10 +27,10 @@ use zenmagick\base\Runtime;
  * Admin controller for cache admin.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.store.admin.mvc.controller
+ * @package zenmagick.apps.admin.controller
  * @todo move hash calculation into controller
  */
-class ZMCacheAdminController extends ZMController {
+class CacheAdminController extends \ZMController {
 
     /**
      * Get all configured caches.
@@ -72,7 +73,7 @@ class ZMCacheAdminController extends ZMController {
             foreach ($stats['system']['groups'] as $group => $config) {
                 $hash = md5($type.$group.implode($config));
                 if ('x' == $request->getParameter('cache_'.$hash)) {
-                    $cache = ZMCaches::instance()->getCache($group, $config, $type);
+                    $cache = \ZMCaches::instance()->getCache($group, $config, $type);
                     $result = $cache->clear();
                     $msg = 'Clear cache \'%s\' ' . ($result ? 'successful' : 'failed');
                     $this->messageService->add(sprintf(_zm($msg), $type.'/'.$group), ($result ? 'success' : 'error'));

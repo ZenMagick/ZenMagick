@@ -19,22 +19,29 @@
  */
 ?>
 <?php
+namespace zenmagick\apps\admin\controller;
 
+use zenmagick\base\Runtime;
 
 /**
- * Admin controller for logoff page.
+ * Admin controller for accounts page.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.store.admin.mvc.controller
+ * @package zenmagick.apps.admin.controller
  */
-class ZMLogoffController extends ZMController {
+class AccountsController extends \ZMController {
 
     /**
      * {@inheritDoc}
      */
     public function processGet($request) {
-        $request->getSession()->destroy();
-        return $this->findView('success');
+        $resultSource = new \ZMObjectResultSource('ZMAccount', 'accountService', "getAllAccounts");
+        $resultList = Runtime::getContainer()->get('ZMResultList');
+        $resultList->setResultSource($resultSource);
+        $resultList->setPageNumber($request->getParameter('page', 1));
+
+        $data = array('resultList' => $resultList);
+        return $this->findView(null, $data);
     }
 
 }

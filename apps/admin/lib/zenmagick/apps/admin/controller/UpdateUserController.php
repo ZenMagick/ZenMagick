@@ -19,6 +19,7 @@
  */
 ?>
 <?php
+namespace zenmagick\apps\admin\controller;
 
 use zenmagick\base\Beans;
 
@@ -26,9 +27,9 @@ use zenmagick\base\Beans;
  * Request controller for updating own admin user details.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.store.admin.mvc.controller
+ * @package zenmagick.apps.admin.controller
  */
-class ZMUpdateUserController extends ZMController {
+class UpdateUserController extends \ZMController {
 
     /**
      * {@inheritDoc}

@@ -19,8 +19,10 @@
  */
 ?>
 <?php
+namespace zenmagick\apps\admin\controller;
 
 use zenmagick\base\Runtime;
+use zenmagick\base\Toolbox;
 use zenmagick\base\logging\Logging;
 use zenmagick\http\widgets\form\FormWidget;
 
@@ -28,9 +30,9 @@ use zenmagick\http\widgets\form\FormWidget;
  * Admin controller for plugins.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.store.admin.mvc.controller
+ * @package zenmagick.apps.admin.controller
  */
-class ZMPluginsController extends ZMController {
+class PluginsController extends \ZMController {
     private static $TYPE_MAP = array(
         'order_total' => 'ZMOrderTotal',
         'payment' => 'ZMPaymentType'
@@ -148,7 +150,7 @@ class ZMPluginsController extends ZMController {
                 } else {
                 }
             } else if ('uninstall' == $action) {
-                $keepSettings = ZMLangUtils::asBoolean($request->getParameter('keepSettings', false));
+                $keepSettings = Toolbox::asBoolean($request->getParameter('keepSettings', false));
                 if (null != ($plugin = $this->container->get('pluginService')->initPluginForId($pluginId, true)) && $plugin->isInstalled()) {
                     Runtime::getLogging()->log('un-install plugin: '.$plugin->getId() . '; keepSettings: '.($keepSettings?'true':'false'), Logging::TRACE);
                     $plugin->remove($keepSettings);

@@ -19,21 +19,35 @@
  */
 ?>
 <?php
+namespace zenmagick\apps\admin\controller;
 
 
 /**
- * Empty default controller.
+ * Admin controller for static page editor.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.store.admin.mvc.controller
+ * @package zenmagick.apps.admin.controller
  */
-class ZMDefaultController extends ZMController {
+class StaticPageEditorController extends \ZMController {
 
     /**
      * {@inheritDoc}
      */
     public function processGet($request) {
-        return parent::processGet($request);
+        return $this->findView();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function processPost($request) {
+        if ($request->handleDemo()) {
+            return $this->findView('success-demo');
+        }
+
+        //TODO:
+
+        return $this->findView();
     }
 
 }

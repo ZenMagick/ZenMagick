@@ -19,6 +19,7 @@
  */
 ?>
 <?php
+namespace zenmagick\apps\admin\controller;
 
 use zenmagick\base\Runtime;
 
@@ -30,9 +31,9 @@ use zenmagick\base\locales\LocaleScanner;
  * Admin controller for l10n page.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.store.admin.mvc.controller
+ * @package zenmagick.apps.admin.controller
  */
-class ZML10nController extends \ZMController {
+class L10nController extends \ZMController {
 
     /**
      * {@inheritDoc}

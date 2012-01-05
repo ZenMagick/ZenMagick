@@ -19,34 +19,30 @@
  */
 ?>
 <?php
+namespace zenmagick\apps\admin\controller;
 
+use zenmagick\base\Runtime;
 
 /**
- * Admin controller for theme builder.
+ * Admin controller for admin user management.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.store.admin.mvc.controller
+ * @package zenmagick.apps.admin.controller
  */
-class ZMThemeBuilderController extends ZMController {
+class AdminUsersController extends \ZMController {
 
     /**
      * {@inheritDoc}
      */
     public function processGet($request) {
-        return $this->findView();
-    }
+        $user = $request->getUser();
+        $resultSource = new \ZMObjectResultSource('ZMAdminUser', 'adminUserService', "getAllUsers", !$user->isLive());
+        $resultList = Runtime::getContainer()->get('ZMResultList');
+        $resultList->setResultSource($resultSource);
+        $resultList->setPageNumber($request->getParameter('page', 1));
 
-    /**
-     * {@inheritDoc}
-     */
-    public function processPost($request) {
-        if ($request->handleDemo()) {
-            return $this->findView('success-demo');
-        }
-
-        //TODO:
-
-        return $this->findView();
+        $data = array('resultList' => $resultList);
+        return $this->findView(null, $data);
     }
 
 }

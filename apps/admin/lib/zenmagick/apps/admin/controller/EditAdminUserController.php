@@ -19,16 +19,18 @@
  */
 ?>
 <?php
+namespace zenmagick\apps\admin\controller;
 
 use zenmagick\base\Beans;
+use zenmagick\base\Toolbox;
 
 /**
  * Request controller for editing (other) admin user details.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.store.admin.mvc.controller
+ * @package zenmagick.apps.admin.controller
  */
-class ZMEditAdminUserController extends ZMController {
+class EditAdminUserController extends \ZMController {
 
     /**
      * {@inheritDoc}
@@ -76,7 +78,7 @@ class ZMEditAdminUserController extends ZMController {
             $user->setName($adminUserForm->getName());
             $user->setEmail($adminUserForm->getEmail());
             $user->setRoles($adminUserForm->getRoles());
-            $user->setLive(ZMLangUtils::asBoolean($adminUserForm->getLive()));
+            $user->setLive(Toolbox::asBoolean($adminUserForm->getLive()));
             $clearPassword = $adminUserForm->getPassword();
             $current = $adminUserService->getUserForId($user->getId());
             if (empty($clearPassword) && null != $current) {

@@ -19,6 +19,7 @@
  */
 ?>
 <?php
+namespace zenmagick\apps\admin\controller;
 
 use zenmagick\base\Runtime;
 use zenmagick\base\ZMObject;
@@ -27,9 +28,9 @@ use zenmagick\base\ZMObject;
  * Admin controller for themes page.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.store.admin.mvc.controller
+ * @package zenmagick.apps.admin.controller
  */
-class ZMThemesController extends ZMController {
+class ThemesController extends \ZMController {
 
     /**
      * {@inheritDoc}

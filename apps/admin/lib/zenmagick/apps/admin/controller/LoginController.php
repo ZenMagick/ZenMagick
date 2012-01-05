@@ -19,15 +19,16 @@
  */
 ?>
 <?php
+namespace zenmagick\apps\admin\controller;
 
 
 /**
  * Admin controller for login.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.store.admin.mvc.controller
+ * @package zenmagick.apps.admin.controller
  */
-class ZMLoginController extends ZMController {
+class LoginController extends \ZMController {
 
     /**
      * {@inheritDoc}
