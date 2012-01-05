@@ -243,16 +243,22 @@ class ZMUrlManager extends ZMObject {
     public function findController($requestId) {
         Runtime::getLogging()->log('find controller: requestId='.$requestId, Logging::TRACE);
         $mapping = $this->findMapping($requestId);
+        $definitions = array();
         if (null != $mapping['controller']) {
             // configured
-            $definition = $mapping['controller'];
+            $definitions[] = $mapping['controller'];
         } else {
-            $definition = 'ZM'.ClassLoader::className($requestId.'Controller');
+            $definitions[] = 'ZM'.ClassLoader::className($requestId.'Controller');
+            $definitions[] = 'zenmagick\\apps\\'.Runtime::getContext().'\\controller\\'.ClassLoader::className($requestId.'Controller');
         }
+        $definitions[] = ZMSettings::get('zenmagick.mvc.controller.default', 'ZMController');
 
-        Runtime::getLogging()->log('controller definition: '.$definition, Logging::TRACE);
-        if (null == ($controller = Beans::getBean($definition))) {
-            $controller = Beans::getBean(ZMSettings::get('zenmagick.mvc.controller.default', 'ZMController'));
+        Runtime::getLogging()->log('controller definition: '.implode(',', $definitions), Logging::TRACE);
+        $controller = null;
+        foreach ($definitions as $definition) {
+            if (null != ($controller = Beans::getBean($definition))) {
+                break;
+            }
         }
 
         return $controller;
