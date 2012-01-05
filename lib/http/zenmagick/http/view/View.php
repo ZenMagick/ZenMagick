@@ -359,6 +359,8 @@ class View extends ZMObject {
             $template = $args[0];
             if (1 < count($args)) {
                 $variables = $args[1];
+            } else {
+                $variables = array();
             }
         }
 
