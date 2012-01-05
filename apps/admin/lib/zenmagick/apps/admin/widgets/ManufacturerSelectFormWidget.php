@@ -19,6 +19,7 @@
  */
 ?>
 <?php
+namespace zenmagick\apps\admin\widgets;
 
 use zenmagick\http\widgets\form\SelectFormWidget;
 
@@ -36,9 +37,9 @@ use zenmagick\http\widgets\form\SelectFormWidget;
  * <p><code>'ManufacturerSelectFormWidget#title=Manufacturer&options=0= --- '</code></p>
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.store.admin.mvc.widgets
+ * @package zenmagick.apps.admin.widgets
  */
-class ZMManufacturerSelectFormWidget extends SelectFormWidget {
+class ManufacturerSelectFormWidget extends SelectFormWidget {
 
     /**
      * {@inheritDoc}

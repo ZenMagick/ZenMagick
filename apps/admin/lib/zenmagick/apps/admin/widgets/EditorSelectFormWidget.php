@@ -19,6 +19,7 @@
  */
 ?>
 <?php
+namespace zenmagick\apps\admin\widgets;
 
 use zenmagick\base\Runtime;
 use zenmagick\http\widgets\form\SelectFormWidget;
@@ -31,9 +32,9 @@ use zenmagick\http\widgets\form\SelectFormWidget;
  * up at the top of the list.</p>
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.store.admin.mvc.widgets
+ * @package zenmagick.apps.admin.widgets
  */
-class ZMEditorSelectFormWidget extends SelectFormWidget {
+class EditorSelectFormWidget extends SelectFormWidget {
 
     /**
      * Get a list of all available editors.

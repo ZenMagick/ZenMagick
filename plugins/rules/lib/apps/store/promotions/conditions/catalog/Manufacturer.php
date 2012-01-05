@@ -40,7 +40,7 @@ class Manufacturer extends CatalogPromotionElement {
     public function getParameterConfig() {
         return array(
             _zm('Manufacturer is [manufacturer]') => array(
-                'ZMManufacturerSelectFormWidget#name=manufacturer'
+                'manufacturerSelectFormWidget#name=manufacturer'
             )
         );
     }

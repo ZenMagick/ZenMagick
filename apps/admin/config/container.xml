@@ -98,5 +98,32 @@
             <tag name="apps.store.admin.dashboard.widget" />
         </service>
 
+        <service id="countrySelectFormWidget" class="zenmagick\apps\admin\widgets\CountrySelectFormWidget" scope="prototype">
+            <tag name="zenmagick.http.widgets.widget" />
+        </service>
+
+        <service id="manufacturerSelectFormWidget" class="zenmagick\apps\admin\widgets\ManufacturerSelectFormWidget" scope="prototype">
+            <tag name="zenmagick.http.widgets.widget" />
+        </service>
+
+        <service id="editorSelectFormWidget" class="zenmagick\apps\admin\widgets\EditorSelectFormWidget" scope="prototype">
+            <tag name="zenmagick.http.widgets.widget" />
+        </service>
+
+        <service id="couponSelectFormWidget" class="zenmagick\apps\admin\widgets\CouponSelectFormWidget" scope="prototype">
+            <tag name="zenmagick.http.widgets.widget" />
+        </service>
+
+        <service id="orderStatusSelectFormWidget" class="zenmagick\apps\admin\widgets\OrderStatusSelectFormWidget" scope="prototype">
+            <tag name="zenmagick.http.widgets.widget" />
+        </service>
+
+        <service id="reservedQtyWidget" class="zenmagick\apps\admin\widgets\ReservedQtyWidget" scope="prototype">
+            <tag name="zenmagick.http.widgets.widget" />
+        </service>
+
+        <service id="ZoneSelectFormWidget" class="zenmagick\apps\admin\widgets\ZoneSelectFormWidget" scope="prototype">
+            <tag name="zenmagick.http.widgets.widget" />
+        </service>
     </services>
 </container>

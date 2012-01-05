@@ -19,32 +19,26 @@
  */
 ?>
 <?php
+namespace zenmagick\apps\admin\widgets;
 
 use zenmagick\http\widgets\form\SelectFormWidget;
 
 /**
- * <p>A country select form widget.</p>
+ * <p>A coupon select form widget.</p>
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.store.admin.mvc.widgets
+ * @package zenmagick.apps.admin.widgets
  */
-class ZMCountrySelectFormWidget extends SelectFormWidget {
-
-    /**
-     * Create new instance.
-     */
-    public function __construct() {
-        parent::__construct();
-    }
-
+class CouponSelectFormWidget extends SelectFormWidget {
 
     /**
      * {@inheritDoc}
      */
     public function getOptions($request) {
         $options = parent::getOptions($request);
-        foreach ($this->container->get('countryService')->getCountries() as $country) {
-            $options[$country->getId()] = $country->getName();
+
+        foreach ($this->container->get('couponService')->getCoupons($request->getSelectedLanguage()->getId()) as $coupon) {
+            $options[$coupon->getId()] = $coupon->getName();
         }
         return $options;
     }

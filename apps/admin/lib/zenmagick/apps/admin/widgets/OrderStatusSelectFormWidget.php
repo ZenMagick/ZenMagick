@@ -19,6 +19,7 @@
  */
 ?>
 <?php
+namespace zenmagick\apps\admin\widgets;
 
 use zenmagick\http\widgets\form\SelectFormWidget;
 
@@ -32,9 +33,9 @@ use zenmagick\http\widgets\form\SelectFormWidget;
  * <p>One typical use is to prepend an empty option if required.</p>
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.store.admin.mvc.widgets
+ * @package zenmagick.apps.admin.widgets
  */
-class ZMorderStatusSelectFormWidget extends SelectFormWidget {
+class orderStatusSelectFormWidget extends SelectFormWidget {
     private $showKey_;
 
 

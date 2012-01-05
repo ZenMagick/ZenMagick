@@ -19,6 +19,7 @@
  */
 ?>
 <?php
+namespace zenmagick\apps\admin\widgets;
 
 use zenmagick\http\widgets\Widget;
 
@@ -31,9 +32,9 @@ use zenmagick\http\widgets\Widget;
  * calculate the reserved quantity for the given product.</p>
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.store.admin.mvc.widgets
+ * @package zenmagick.apps.admin.widgets
  */
-class ZMReservedQtyWidget extends Widget {
+class ReservedQtyWidget extends Widget {
     private static $qtyMap_ = null;
 
 
@@ -52,7 +53,7 @@ class ZMReservedQtyWidget extends Widget {
           $args = array('orderStatusId' => array(3, 4, 5, 6, 8, 9, 13, 17));
 
           self::$qtyMap_ = array();
-          foreach (ZMRuntime::getDatabase()->query($sql, $args, array(TABLE_ORDERS, TABLE_ORDERS_PRODUCTS)) as $result) {
+          foreach (\ZMRuntime::getDatabase()->query($sql, $args, array(TABLE_ORDERS, TABLE_ORDERS_PRODUCTS)) as $result) {
               self::$qtyMap_[$result['productId']] = $result['qty'];
           }
         }

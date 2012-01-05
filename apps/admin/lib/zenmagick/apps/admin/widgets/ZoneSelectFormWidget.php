@@ -19,25 +19,29 @@
  */
 ?>
 <?php
+namespace zenmagick\apps\admin\widgets;
 
+use zenmagick\base\Runtime;
 use zenmagick\http\widgets\form\SelectFormWidget;
 
 /**
- * <p>A coupon select form widget.</p>
+ * <p>A zone select form widget.</p>
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.store.admin.mvc.widgets
+ * @package zenmagick.apps.admin.widgets
  */
-class ZMCouponSelectFormWidget extends SelectFormWidget {
+class ZoneSelectFormWidget extends SelectFormWidget {
 
     /**
      * {@inheritDoc}
      */
     public function getOptions($request) {
         $options = parent::getOptions($request);
-
-        foreach ($this->container->get('couponService')->getCoupons($request->getSelectedLanguage()->getId()) as $coupon) {
-            $options[$coupon->getId()] = $coupon->getName();
+        // try to find a useful countryId, defaulting to store country Id
+        $countryId = Runtime::getSettings()->get('storeCountry');
+        //XXX: where else to look ??
+        foreach ($this->container->get('countryService')->getZonesForCountryId($countryId) as $zone) {
+            $options[$zone->getId()] = $zone->getName();
         }
         return $options;
     }

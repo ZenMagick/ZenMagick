@@ -40,7 +40,7 @@ class ManufacturerInCart extends CartPromotionElement {
     public function getParameterConfig() {
         return array(
             _zm('Produt of [manufacturer] in cart') => array(
-                'ZMManufacturerSelectFormWidget#name=manufacturer'
+                'manufacturerSelectFormWidget#name=manufacturer'
             )
         );
     }

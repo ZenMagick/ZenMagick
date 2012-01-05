@@ -45,13 +45,13 @@
                 <option value="booleanFormWidget#style=checkbox">Boolean (checkbox)</option>
                 <option value="selectFormWidget#">Generic Select (dropdown)</option>
                 <option value="selectFormWidget#multiple=true&size=3">Generic Select (dropdown, multiple)</option>
-                <option value="ZMManufacturerSelectFormWidget#">Manufacturer (dropdown)</option>
-                <option value="ZMManufacturerSelectFormWidget#title=None&options=0= --- ">Manufacturer (dropdown, incl. empty default)</option>
-                <option value="ZMOrderStatusSelectFormWidget#">Order Status (dropdown)</option>
-                <option value="ZMOrderStatusSelectFormWidget#title=None&options=0= --- ">Order Status (dropdown, incl. empty default)</option>
-                <option value="ZMCountrySelectFormWidget#">Country (dropdown)</option>
-                <option value="ZMCountrySelectFormWidget#title=None&options=0= --- ">Country (dropdown, incl. empty default)</option>
-                <option value="ZMEditorSelectFormWidget#">WYSIWYG Editor (dropdown)</option>
+                <option value="manufacturerSelectFormWidget#">Manufacturer (dropdown)</option>
+                <option value="manufacturerSelectFormWidget#title=None&options=0= --- ">Manufacturer (dropdown, incl. empty default)</option>
+                <option value="orderStatusSelectFormWidget#">Order Status (dropdown)</option>
+                <option value="orderStatusSelectFormWidget#title=None&options=0= --- ">Order Status (dropdown, incl. empty default)</option>
+                <option value="countrySelectFormWidget#">Country (dropdown)</option>
+                <option value="countrySelectFormWidget#title=None&options=0= --- ">Country (dropdown, incl. empty default)</option>
+                <option value="editorSelectFormWidget#">WYSIWYG Editor (dropdown)</option>
             </select>
         </p>
         <p>
