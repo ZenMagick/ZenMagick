@@ -32,7 +32,7 @@ use zenmagick\http\sacs\SacsManager;
   $container = Runtime::getContainer();
 
   $classLoader = new ClassLoader();
-  $classLoader->addPath(Runtime::getInstallationPath().'/apps/admin/lib');
+  $classLoader->addConfig(Runtime::getInstallationPath().'/apps/admin/lib');
   $classLoader->register();
 
   // set some admin specific things...

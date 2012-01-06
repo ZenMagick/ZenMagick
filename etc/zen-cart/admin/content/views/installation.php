@@ -52,7 +52,7 @@
         "blockAdmin" => "Create new tables for block admin",
     );
 
-    $installer = new ZMInstallationPatcher();
+    $installer = new zenmagick\apps\admin\installation\InstallationPatcher();
     $needRefresh = false;
 
     // install
@@ -90,7 +90,7 @@
      * Show patch group.
      */
     function _zm_patch_group($groupId, $patchLabel, $checkall=true) {
-        $installer = new ZMInstallationPatcher();
+        $installer = new zenmagick\apps\admin\installation\InstallationPatcher();
         foreach ($installer->getPatches($groupId) as $id => $patch) {
             if ('sqlFulltext' == $patch->getId()) {
                 continue;

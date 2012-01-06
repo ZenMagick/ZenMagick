@@ -10,7 +10,7 @@
     </parameters>
 
     <services>
-        <service id="request" class="Request" scope="container" />
+        <service id="request" class="zenmagick\apps\admin\http\Request" scope="container" />
 
         <service id="pluginService" class="Plugins" scope="container" />
 
@@ -32,8 +32,6 @@
         <service id="adminUserService" class="zenmagick\apps\admin\services\AdminUserService" scope="container" />
 
         <service id="sacsPermissionService" class="zenmagick\apps\admin\services\SacsPermissionService" scope="container" />
-
-        <service id="ZMInstallationPatcher" class="ZMInstallationPatcher" scope="container" />
 
         <service id="session" class="zenmagick\http\session\Session" scope="container">
             <argument>%apps.store.admin.domain%</argument>

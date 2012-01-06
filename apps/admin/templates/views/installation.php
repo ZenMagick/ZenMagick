@@ -52,7 +52,7 @@ use zenmagick\base\Runtime;
         "blockAdmin" => "Create new tables for block admin",
     );
 
-    $installer = $container->get('ZMInstallationPatcher');
+    $installer = new zenmagick\apps\admin\installation\InstallationPatcher();
     $needRefresh = false;
 
     // install
@@ -146,7 +146,7 @@ use zenmagick\base\Runtime;
      * Show patch group.
      */
     function _zm_patch_group($groupId, $patchLabel, $buttonClasses, $checkall=true) {
-        $installer = Runtime::getContainer()->get('ZMInstallationPatcher');
+        $installer = new zenmagick\apps\admin\installation\InstallationPatcher();
         foreach ($installer->getPatches($groupId) as $id => $patch) {
             if ('sqlFulltext' == $patch->getId()) {
                 continue;

@@ -86,7 +86,7 @@ zenmagick:
         - locale:ZMToolboxLocale
         - utils:ZMToolboxUtils
         - admin:ZMToolboxAdmin
-        - admin2:ZMToolboxAdmin2
+        - admin2:zenmagick\apps\admin\http\tools\ToolboxAdmin2
 
   http:
     ## html
