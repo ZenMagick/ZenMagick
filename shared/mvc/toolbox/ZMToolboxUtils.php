@@ -89,7 +89,7 @@ class ZMToolboxUtils extends ZMToolboxTool {
      * @return boolean <code>true</code> if this cart qualifies for free shipping.
      */
     public function isFreeShipping($shoppingCart) {
-        $checkoutHelper = Runtime::getContainer()->get('ZMCheckoutHelper');
+        $checkoutHelper = Runtime::getContainer()->get('checkoutHelper');
         $checkoutHelper->setShoppingCart($shoppingCart);
         return $checkoutHelper->isFreeShipping();
     }

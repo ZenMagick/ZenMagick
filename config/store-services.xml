@@ -189,6 +189,8 @@
             <tag name="zenmagick.base.security.authentication.provider" default="true" />
         </service>
 
+        <service id="checkoutHelper" class="apps\store\utils\CheckoutHelper" scope="prototype" />
+
         <service id="annotation_reader" class="Doctrine\Common\Annotations\AnnotationReader" scope="container" />
 
         <!--

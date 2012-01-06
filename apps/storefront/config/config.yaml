@@ -43,7 +43,7 @@ zenmagick:
         ## TODO: these should be swapped
         - apps\store\StoreEventListener
         - zenmagick\http\EventListener
-        - ZMEventFixes
+        - zenmagick\apps\storefront\utils\EventFixes
     ## logging
     logging:
       level: INFO
@@ -70,7 +70,7 @@ zenmagick:
     view:
       defaultLayout: default_layout
     controller:
-      default: ZMDefaultController
+      default: zenmagick\apps\storefront\controller\zenmagick\apps\storefront\http\DefaultController
 
     ## toolbox tools
     toolbox:
@@ -81,8 +81,8 @@ zenmagick:
         - macro:ZMToolboxMacro
         - locale:ZMToolboxLocale
         - utils:ZMToolboxUtils
-        - crumbtrail:ZMToolboxCrumbtrail
-        - metaTags:ZMToolboxMetaTags
+        - crumbtrail:zenmagick\apps\storefront\http\tools\ToolboxCrumbtrail
+        - metaTags:zenmagick\apps\storefront\http\tools\ToolboxMetaTags
 
     ## resultlist
     resultlist:

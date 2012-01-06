@@ -61,8 +61,8 @@ class ZMShoppingCart extends ZMObject {
         $this->setAccountId(null !== $accountId ? $accountId : 0);
         $this->zenTotals_ = null;
         $this->items_ = null;
-        $this->helper_ = new ZMCheckoutHelper($this);
-        $this->helper_->setContainer(Runtime::getContainer());
+        $this->helper_ = Runtime::getContainer()->get('checkoutHelper');
+        $this->helper_->setShoppingCart($this);
         $this->selectedPaymentType_ = null;
     }
 

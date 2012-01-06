@@ -10,11 +10,11 @@
     </parameters>
 
     <services>
-        <service id="request" class="Request" scope="container" />
+        <service id="request" class="zenmagick\apps\storefront\http\Request" scope="container" />
 
         <service id="pluginService" class="Plugins" scope="container" />
 
-        <service id="session" class="Session" scope="container">
+        <service id="session" class="zenmagick\apps\storefront\http\Session" scope="container">
             <argument>%apps.store.storefront.domain%</argument>
             <call method="setName">
                 <argument>zmsid</argument>
@@ -30,7 +30,7 @@
         <!-- TODO: drop when moving to using view instead of defaultView -->
         <service id="defaultView" alias="storeView" />
 
-        <service id="storeMessageService" class="Messages" parent="merge:messageService" />
+        <service id="storeMessageService" class="zenmagick\apps\storefront\services\MessageService" parent="merge:messageService" />
 
         <service id="ZMForwardView" class="ForwardView" scope="prototype" />
         <service id="forwardView" alias="ZMForwardView" />

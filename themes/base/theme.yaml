@@ -1,5 +1,5 @@
 meta:
-  name: 'ZenMagick Base'
+  name: 'ZenMagick Base Theme'
   version: '${zenmagick.version}'
   author: 'zenmagick.org'
   description: 'ZenMagick base/default theme; based on andreas08 from http://andreasviklund.com/templates/'
