@@ -70,7 +70,7 @@ zenmagick:
     view:
       defaultLayout: default_layout
     controller:
-      default: zenmagick\apps\storefront\controller\zenmagick\apps\storefront\http\DefaultController
+      default: zenmagick\apps\storefront\controller\DefaultController
 
     ## toolbox tools
     toolbox:
