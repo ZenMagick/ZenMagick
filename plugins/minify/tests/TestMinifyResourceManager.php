@@ -22,7 +22,7 @@
 
 use zenmagick\base\Runtime;
 use apps\store\view\ThemeResourceResolver;
-use plugins\minify\view\MinifyResourceManager;
+use zenmagick\plugins\minify\view\MinifyResourceManager;
 
 /**
  * Test MinifyResourceManager implementation.

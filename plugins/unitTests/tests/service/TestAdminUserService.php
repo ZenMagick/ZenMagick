@@ -33,7 +33,8 @@ class TestAdminUserService extends ZMTestCase {
      */
     public function testChangeRoles() {
         $adminUserService = $this->container->get('adminUserService');
-        ZMAdminUserRoles::instance()->addRole('helpdesk');
+        $adminUserRoleService = $this->container->get('adminUserRoleService');
+        $adminUserRoleService->addRole('helpdesk');
         $user = $adminUserService->getUserForId(1);
         if ($this->assertNotNull($user)) {
             $user->addRole('helpdesk');
@@ -45,7 +46,7 @@ class TestAdminUserService extends ZMTestCase {
             $user = $adminUserService->getUserForId(1);
             $this->assertEqual(array('admin'), $user->getRoles());
         }
-        ZMAdminUserRoles::instance()->deleteRole('helpdesk');
+        $adminUserRoleService->deleteRole('helpdesk');
     }
 
 }

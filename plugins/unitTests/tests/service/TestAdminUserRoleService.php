@@ -21,22 +21,23 @@
 <?php
 
 /**
- * Test <code>ZMAdminUserRoles</code>.
+ * Test <code>AdminUserRoleService</code>.
  *
  * @package org.zenmagick.plugins.unitTests.tests
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TestZMAdminUserRoles extends ZMTestCase {
+class TestAdminUserRoleService extends ZMTestCase {
 
     /**
      * Set up.
      */
     public function setUp() {
         parent::setUp();
+        $adminUserRoleService = $this->container->get('adminUserRoleService');
         ZMRuntime::getDatabase()->update('TRUNCATE TABLE ' . DB_PREFIX.'admin_roles');
         ZMRuntime::getDatabase()->update('TRUNCATE TABLE ' . DB_PREFIX.'admins_to_roles');
-        ZMAdminUserRoles::instance()->addRole('admin');
-        ZMAdminUserRoles::instance()->addRole('helpdesk');
+        $adminUserRoleService->addRole('admin');
+        $adminUserRoleService->addRole('helpdesk');
         ZMRuntime::getDatabase()->update('INSERT INTO ' . DB_PREFIX.'admins_to_roles' . ' VALUES(1, 1)');
         ZMRuntime::getDatabase()->update('INSERT INTO ' . DB_PREFIX.'admins_to_roles' . ' VALUES(1, 2)');
     }
@@ -46,10 +47,11 @@ class TestZMAdminUserRoles extends ZMTestCase {
      */
     public function tearDown() {
         parent::tearDown();
+        $adminUserRoleService = $this->container->get('adminUserRoleService');
         ZMRuntime::getDatabase()->update('TRUNCATE TABLE ' . DB_PREFIX.'admin_roles');
         ZMRuntime::getDatabase()->update('TRUNCATE TABLE ' . DB_PREFIX.'admins_to_roles');
-        ZMAdminUserRoles::instance()->addRole('admin');
-        ZMAdminUserRoles::instance()->addRole('demo');
+        $adminUserRoleService->addRole('admin');
+        $adminUserRoleService->addRole('demo');
         ZMRuntime::getDatabase()->update('INSERT INTO ' . DB_PREFIX.'admins_to_roles' . ' VALUES(1, 1)');
     }
 
@@ -58,7 +60,7 @@ class TestZMAdminUserRoles extends ZMTestCase {
      */
     public function testGetAllRoles() {
         $expected = array(1 => 'admin', 2 => 'helpdesk');
-        $roles = ZMAdminUserRoles::instance()->getAllRoles();
+        $roles = $this->container->get('adminUserRoleService')->getAllRoles();
         $this->assertEqual($expected, $roles);
     }
 
@@ -67,7 +69,7 @@ class TestZMAdminUserRoles extends ZMTestCase {
      */
     public function testGetRolesForId() {
         $expected = array(1 => 'admin', 2 => 'helpdesk');
-        $roles = ZMAdminUserRoles::instance()->getRolesForId(1);
+        $roles = $this->container->get('adminUserRoleService')->getRolesForId(1);
         $this->assertEqual($expected, $roles);
     }
 
@@ -75,7 +77,7 @@ class TestZMAdminUserRoles extends ZMTestCase {
      * Test add role.
      */
     public function testAddRole() {
-        $id = ZMAdminUserRoles::instance()->addRole('customerservice');
+        $id = $this->container->get('adminUserRoleService')->addRole('customerservice');
         $this->assertTrue(0 < $id);
     }
 
@@ -83,13 +85,14 @@ class TestZMAdminUserRoles extends ZMTestCase {
      * Test delete role.
      */
     public function testDeleteRole() {
-        ZMAdminUserRoles::instance()->addRole('customerservice');
+        $adminUserRoleService = $this->container->get('adminUserRoleService');
+        $adminUserRoleService->addRole('customerservice');
         $expected = array(1 => 'admin', 2 => 'helpdesk', 3 => 'customerservice');
-        $roles = ZMAdminUserRoles::instance()->getAllRoles();
+        $roles = $adminUserRoleService->getAllRoles();
         $this->assertEqual($expected, $roles);
-        ZMAdminUserRoles::instance()->deleteRole('customerservice');
+        $adminUserRoleService->deleteRole('customerservice');
         $expected = array(1 => 'admin', 2 => 'helpdesk');
-        $roles = ZMAdminUserRoles::instance()->getAllRoles();
+        $roles = $adminUserRoleService->getAllRoles();
         $this->assertEqual($expected, $roles);
     }
 
@@ -97,24 +100,25 @@ class TestZMAdminUserRoles extends ZMTestCase {
      * Test set roles for id.
      */
     public function testSetRolesForId() {
-        ZMAdminUserRoles::instance()->setRolesForId(1, array('admin'));
+        $adminUserRoleService = $this->container->get('adminUserRoleService');
+        $adminUserRoleService->setRolesForId(1, array('admin'));
         $expected = array(1 => 'admin');
-        $roles = ZMAdminUserRoles::instance()->getRolesForId(1);
+        $roles = $adminUserRoleService->getRolesForId(1);
         $this->assertEqual($expected, $roles);
 
-        ZMAdminUserRoles::instance()->setRolesForId(1, array('helpdesk'));
+        $adminUserRoleService->setRolesForId(1, array('helpdesk'));
         $expected = array(2 => 'helpdesk');
-        $roles = ZMAdminUserRoles::instance()->getRolesForId(1);
+        $roles = $adminUserRoleService->getRolesForId(1);
         $this->assertEqual($expected, $roles);
 
-        ZMAdminUserRoles::instance()->setRolesForId(1, array('admin', 'helpdesk'));
+        $adminUserRoleService->setRolesForId(1, array('admin', 'helpdesk'));
         $expected = array(1 => 'admin', 2 => 'helpdesk');
-        $roles = ZMAdminUserRoles::instance()->getRolesForId(1);
+        $roles = $adminUserRoleService->getRolesForId(1);
         $this->assertEqual($expected, $roles);
 
-        ZMAdminUserRoles::instance()->setRolesForId(1, array('admin'));
+        $adminUserRoleService->setRolesForId(1, array('admin'));
         $expected = array(1 => 'admin');
-        $roles = ZMAdminUserRoles::instance()->getRolesForId(1);
+        $roles = $adminUserRoleService->getRolesForId(1);
         $this->assertEqual($expected, $roles);
     }
 

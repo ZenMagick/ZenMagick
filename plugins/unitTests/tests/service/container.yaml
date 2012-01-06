@@ -8,11 +8,11 @@ storefront:
           - { name: apps.store.associations.handler }
 
       adminUserPrefService:
-        class: ZMAdminUserPrefs
+        class: zenmagick\apps\admin\services\AdminUserPrefService
         scope: container
 
       adminUserRoleService:
-        class: ZMAdminUserRoles
+        class: zenmagick\apps\admin\services\AdminUserRoleService
         scope: container
 
       adminUserService:
