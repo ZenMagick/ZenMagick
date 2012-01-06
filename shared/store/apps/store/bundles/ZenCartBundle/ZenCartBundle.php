@@ -143,10 +143,6 @@ class ZenCartBundle extends Bundle {
      * @return The dir name.
      */
     protected function guessAdminFolder() {
-        if (!defined('DB_PREFIX')) {
-            // avoid trying this before the db config is ready
-            return null;
-        }
         try {
             $configService = $this->container->get('configService');
             if (null != ($value = $configService->getConfigValue(self::ZENCART_ADMIN_FOLDER)) && file_exists(realpath(Runtime::getInstallationPath().'/'.$value->getValue()))) {
@@ -179,6 +175,7 @@ class ZenCartBundle extends Bundle {
                 $configService->createConfigValue('zencart admin folder', self::ZENCART_ADMIN_FOLDER, $folder, ZENMAGICK_CONFIG_GROUP_ID);
             }
         }
+
         return $folder;
     }
 
