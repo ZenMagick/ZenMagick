@@ -32,7 +32,6 @@ use apps\store\bundles\ZenCartBundle\Mock\ZenCartMock;
  * Checkout helper.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.store.sf.utils
  */
 class CheckoutHelper extends ZMObject {
     const CART_PRODUCT_STATUS = 'status';
