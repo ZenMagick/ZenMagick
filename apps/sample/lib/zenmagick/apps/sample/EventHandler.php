@@ -19,17 +19,18 @@
  */
 ?>
 <?php
+namespace zenmagick\apps\sample;
 
 
 /**
  * Handle a few events.
  *
- * <p>Hooked up automatically via configs.yaml.</p>
+ * <p>Hooked up automatically via config.yaml.</p>
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package org.zenmagick.mvc.sample
+ * @package zenmagick.apps.sample
  */
-class ZMSampleEventHandler {
+class EventHandler {
 
     /**
      * Init done callback.

@@ -9,15 +9,11 @@ zenmagick:
     templates:
       ext: .tpl
 
-  core:
-    locales:
-      provider: ZMYamlLocale
-
   base:
     events:
       listeners:
         - zenmagick\http\BootstrapListener
-        - ZMSampleEventHandler
+        - zenmagick\apps\sample\EventHandler
 
   http:
     templates:

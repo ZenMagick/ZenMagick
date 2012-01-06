@@ -19,15 +19,17 @@
  */
 ?>
 <?php
+namespace zenmagick\apps\sample\controller;
 
+use zenmagick\base\Toolbox;
 
 /**
  * Empty default controller.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package org.zenmagick.mvc.sample
+ * @package zenmagick.apps.sample.controller
  */
-class ZMIndexController extends ZMController {
+class IndexController extends \ZMController {
 
     /**
      * {@inheritDoc}
@@ -46,7 +48,7 @@ class ZMIndexController extends ZMController {
             $data['name'] = $name;
         }
 
-        if (ZMLangUtils::asBoolean($request->getParameter('clear'))) {
+        if (Toolbox::asBoolean($request->getParameter('clear'))) {
             $data = array();
             $request->getSession()->destroy();
         }
