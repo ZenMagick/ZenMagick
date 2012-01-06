@@ -27,7 +27,6 @@ use zenmagick\base\ZMObject;
  * Base theme event listener.
  *
  * @author DerManoMann
- * @package zenmagick.themes
  */
 class ThemeEventListener extends ZMObject {
 

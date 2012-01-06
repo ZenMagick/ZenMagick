@@ -27,7 +27,6 @@ use zenmagick\base\Runtime;
  * A single line text input form widget.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.http.widgets.form
  */
 class TextFormWidget extends FormWidget {
 

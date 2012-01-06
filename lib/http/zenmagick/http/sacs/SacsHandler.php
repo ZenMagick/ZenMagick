@@ -32,7 +32,6 @@ namespace zenmagick\http\sacs;
  * the final result by the <code>SacsManager</code>.</p>
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.http.sacs
  */
 interface SacsHandler {
 

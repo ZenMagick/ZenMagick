@@ -29,7 +29,6 @@ use pear\cache\CacheLite;
  * <p>File caching using <code>PEAR:Cache_Lite</code>.</p>
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.base.cache
  */
 class FileCache implements Cache {
     const SYSTEM_KEY = "zenmagick.base.cache.file";

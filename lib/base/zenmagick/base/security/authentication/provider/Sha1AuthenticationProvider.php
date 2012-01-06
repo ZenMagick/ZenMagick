@@ -27,7 +27,6 @@ use zenmagick\base\security\authentication\AuthenticationProvider;
  * Sha1 authentication provider.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.base.security.authentication.provider
  */
 class Sha1AuthenticationProvider implements AuthenticationProvider {
     /** Number of characters taken from the given salt to encrypt the password. */

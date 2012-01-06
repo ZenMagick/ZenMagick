@@ -32,7 +32,6 @@ use zenmagick\apps\admin\utils\SQLRunner;
  * Generic SQL patch.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.apps.admin.installation.patches
  */
 class SQLPatch extends InstallationPatch {
 

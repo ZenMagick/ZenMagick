@@ -33,7 +33,6 @@ use zenmagick\http\sacs\SacsManager;
  * <p>This controller acts as proxy for the actual controller. The actual controller is defined by the <em>catalogRequestId</em> parameter.</p>
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.apps.admin.controller
  */
 class CatalogController extends \ZMController {
 

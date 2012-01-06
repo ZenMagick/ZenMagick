@@ -27,7 +27,6 @@ use zenmagick\base\Runtime;
  * Admin request wrapper.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.apps.admin.http
  */
 class Request extends \ZMRequest {
 

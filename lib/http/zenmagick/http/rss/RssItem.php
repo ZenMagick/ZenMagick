@@ -28,7 +28,6 @@ use zenmagick\base\ZMObject;
  * A RSS feed item.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.http.rss
  */
 class RssItem extends ZMObject {
 

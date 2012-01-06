@@ -27,7 +27,6 @@ use zenmagick\base\ZMObject;
  * Admin user form data.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.apps.admin.forms
  */
 class AdminUserForm extends ZMObject {
 

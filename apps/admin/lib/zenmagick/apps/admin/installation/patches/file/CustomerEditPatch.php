@@ -31,7 +31,6 @@ define('_ZM_ZEN_CUSTOMERS_PHP', ZC_INSTALL_PATH.ZENCART_ADMIN_FOLDER.'/customers
  * Patch to enable editing customers if the same email exists as guest checkout.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.apps.admin.installation.patches.file
  */
 class CustomerEditPatch extends FilePatch {
 

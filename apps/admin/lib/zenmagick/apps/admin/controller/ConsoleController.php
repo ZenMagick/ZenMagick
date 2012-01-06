@@ -26,7 +26,6 @@ namespace zenmagick\apps\admin\controller;
  * Admin controller for the PHP console.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.apps.admin.controller
  */
 class ConsoleController extends \ZMController {
 

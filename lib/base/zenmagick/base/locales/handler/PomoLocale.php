@@ -34,7 +34,6 @@ use pomo\MO;
  * load (and merge) multiple files for a single domain and locale.</p>
  *
  * @author DerManoMann <mano@zenmagick.org> <mano@zenmagick.org>
- * @package zenmagick.base.locales.handler
  */
 class PomoLocale extends Locale {
     const DEFAULT_MO_NAME = 'messages';

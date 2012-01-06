@@ -48,7 +48,6 @@ use zenmagick\base\logging\Logging;
  * a secure access method (ie. SSL/HTTPS) or not.</p>
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.http.sacs
  */
 class SacsManager {
     private $mappings_;

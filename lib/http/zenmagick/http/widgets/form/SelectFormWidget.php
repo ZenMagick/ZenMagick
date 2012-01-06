@@ -31,7 +31,6 @@ use zenmagick\base\logging\Logging;
  * <p>Style can be: <em>select</em> (default) or <em>radio</em>.</p>
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.http.widgets.form
  */
 class SelectFormWidget extends FormWidget {
     private $options_;

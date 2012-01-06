@@ -29,7 +29,6 @@ use Memcache;
  * <p>Persistent caching using <code>memcache</code>.</p>
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.base.cache
  */
 class MemcacheCache implements Cache {
     const SYSTEM_KEY = "zenmagick.base.cache.memcache";

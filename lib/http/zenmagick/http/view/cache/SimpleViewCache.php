@@ -31,7 +31,6 @@ use zenmagick\http\view\ViewCache;
  * <p>Template names to be cached are configured as list using the setting: <em>'zenmagick.http.view.cache.simple'</em>.</p>
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.http.view.cache
  */
 class SimpleViewCache implements ViewCache {
     private $cache_;

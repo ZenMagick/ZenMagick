@@ -32,7 +32,6 @@ use apps\store\bundles\ZenCartBundle\mock\ZenCartMock;
  * A payment type wrapper for Zen Cart payment modules.
  *
  * @author DerManoMann
- * @package apps.store.bundles.ZenCartBundle.wrapper
  */
 class PaymentTypeWrapper extends ZMObject implements \ZMPaymentType {
     private $module_;

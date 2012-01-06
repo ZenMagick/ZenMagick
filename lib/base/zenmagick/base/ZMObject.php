@@ -34,7 +34,6 @@ use Symfony\Component\DependencyInjection\ContainerAware;
  * and, via the corresponding methods <code>__get($name)</code> and <code>__set($name,$value)</code>.</p>
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package org.zenmagick.core
  */
 class ZMObject extends ContainerAware implements Serializable {
     private static $methods_ = array();

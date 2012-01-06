@@ -37,7 +37,6 @@ use zenmagick\base\ZMObject;
  * <p>This is the ZenMagick store bootstrapper.</p>
  *
  * @author DerManoMann
- * @package apps.store
  */
 class StoreEventListener extends ZMObject {
 

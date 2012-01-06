@@ -27,7 +27,6 @@ use Symfony\Component\Yaml\Yaml;
  * Shared tools.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.base
  */
 class Toolbox {
     /** Random type digits only. */

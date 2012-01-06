@@ -32,7 +32,6 @@ use zenmagick\base\ZMObject;
  * <p><strong>Note:</strong> The message text is expected to be already localised.</p>
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.http.messages
  */
 class Message extends ZMObject {
     private $text_;

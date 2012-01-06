@@ -29,7 +29,6 @@ use zenmagick\apps\admin\dashboard\DashboardWidget;
  * Store status widget.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.apps.admin.dashbord.widgets
  */
 class StoreStatusDashboardWidget extends DashboardWidget {
     const ACTIVITY_LOG_RECORD_THRESHOLD = 50000;

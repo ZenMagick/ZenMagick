@@ -42,7 +42,6 @@ use zenmagick\base\dependencyInjection\Container;
  * </dl>
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.base
  */
 class Beans {
     public static $GETTER_PREFIX_LIST = array('get', 'is', 'has');

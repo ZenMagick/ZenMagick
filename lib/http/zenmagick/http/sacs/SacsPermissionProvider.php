@@ -28,7 +28,6 @@ namespace zenmagick\http\sacs;
  * <p>Implementing this interface allows to feed permissions from custom storage into the scas manager.</p>
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.http.sacs
  */
 interface SacsPermissionProvider {
 

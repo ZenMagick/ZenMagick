@@ -26,7 +26,6 @@ namespace zenmagick\apps\admin\controller;
  * Admin controller for order page.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.apps.admin.controller
  */
 class OrderController extends \ZMController {
 

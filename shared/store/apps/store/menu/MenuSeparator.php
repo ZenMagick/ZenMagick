@@ -28,7 +28,6 @@ use zenmagick\base\utils\Node;
  * Menu separator element.
  *
  * @param author DerManoMann
- * @package apps.store.menu
  */
 class MenuSeparator extends Node {
 

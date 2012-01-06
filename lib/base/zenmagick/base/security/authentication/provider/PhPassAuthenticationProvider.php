@@ -31,7 +31,6 @@ use zenmagick\base\security\authentication\AuthenticationProvider;
  * <p>Uses <a href="http://www.openwall.com/phpass/">PHPass</a>.</p>
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.base.security.authentication.provider
  */
 class PhPassAuthenticationProvider implements AuthenticationProvider {
     private $passwordHash_;

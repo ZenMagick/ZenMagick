@@ -29,7 +29,6 @@ use zenmagick\apps\admin\installation\patches\SQLPatch;
  * Patch to create the admin group tables.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.apps.admin.installation.patches.sql
  */
 class AdminRolesPatch extends SQLPatch {
     var $sqlFiles_ = array(

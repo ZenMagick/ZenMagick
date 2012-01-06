@@ -27,7 +27,6 @@ use zenmagick\base\Toolbox;
  * Ajax plugin admin controller.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.apps.admin.controller
  */
 class AjaxPluginAdminController extends \ZMRpcController {
 

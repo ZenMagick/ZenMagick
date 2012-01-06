@@ -29,7 +29,6 @@ use zenmagick\apps\admin\installation\patches\SQLPatch;
  * Patch to create the theme variation column.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.apps.admin.installation.patches.sql
  */
 class ThemeVariationPatch extends SQLPatch {
     var $sqlFiles_ = array(

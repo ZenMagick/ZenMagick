@@ -27,7 +27,6 @@ use zenmagick\apps\admin\dashboard\DashboardWidget;
  * Latest accounts dashboard widget.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.apps.admin.dashbord.widgets
  */
 class LatestAccountsDashboardWidget extends DashboardWidget {
 

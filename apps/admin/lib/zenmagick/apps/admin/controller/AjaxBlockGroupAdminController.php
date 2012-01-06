@@ -27,7 +27,6 @@ use zenmagick\base\Beans;
  * Ajax block group admin controller.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.apps.admin.controller
  */
 class AjaxBlockGroupAdminController extends \ZMRpcController {
 

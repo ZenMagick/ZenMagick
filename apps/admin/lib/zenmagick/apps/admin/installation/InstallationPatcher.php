@@ -29,7 +29,6 @@ use zenmagick\base\ZMObject;
  * Provides support for all file patching of zen-cart files ZenMagick might need.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.apps.admin.installation
  */
 class InstallationPatcher extends ZMObject {
     private $patches_;

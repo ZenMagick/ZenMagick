@@ -28,7 +28,6 @@ use zenmagick\base\ZMObject;
  * Default URL rewriter.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.http.request.rewriter
  */
 class DefaultUrlRewriter extends ZMObject implements UrlRewriter {
     private $requestIdKey_;

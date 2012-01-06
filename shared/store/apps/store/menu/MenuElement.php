@@ -28,7 +28,6 @@ use zenmagick\base\utils\Node;
  * Basic menu element.
  *
  * @param author DerManoMann
- * @package apps.store.menu
  */
 class MenuElement extends Node {
     private $requestId;

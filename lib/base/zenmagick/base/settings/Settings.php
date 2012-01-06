@@ -28,7 +28,6 @@ use zenmagick\base\Toolbox;
  * A hierarchical settings repository.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package org.zenmagick.base
  */
 class Settings {
     protected $settings_ = array();

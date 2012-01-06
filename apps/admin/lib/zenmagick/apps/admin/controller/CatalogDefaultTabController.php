@@ -29,7 +29,6 @@ namespace zenmagick\apps\admin\controller;
  * Admin controller.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.apps.admin.controller
  */
 class CatalogDefaultTabController extends \ZMCatalogContentController {
 

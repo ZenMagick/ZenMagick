@@ -31,7 +31,6 @@ use zenmagick\base\utils\FolderWhitelistFilterIterator;
  * <code>Phar</code> builder for directories controlled by a <em>classloader.ini</em> file.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.base.classloader
  */
 class PharBuilder {
     private $path;

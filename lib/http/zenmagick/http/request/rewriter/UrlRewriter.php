@@ -26,7 +26,6 @@ namespace zenmagick\http\request\rewriter;
  * Interface for classes that want to rewrite urls.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.http.request.rewriter
  */
 interface UrlRewriter {
 

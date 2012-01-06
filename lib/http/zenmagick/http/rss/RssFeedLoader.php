@@ -32,7 +32,6 @@ use zenmagick\base\ZMObject;
  * <p>ZenMagick wrapper around <code>lastRSS</code>.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.http.rss
  */
 class RssFeedLoader extends ZMObject {
     private $rss_;

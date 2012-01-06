@@ -27,7 +27,6 @@ use zenmagick\base\Toolbox;
  * Empty default controller.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.apps.sample.controller
  */
 class IndexController extends \ZMController {
 

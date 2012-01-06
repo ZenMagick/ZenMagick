@@ -26,7 +26,6 @@ namespace zenmagick\apps\admin\controller;
  * Admin controller for static page editor.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.apps.admin.controller
  */
 class StaticPageEditorController extends \ZMController {
 

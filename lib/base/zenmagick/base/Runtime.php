@@ -28,7 +28,6 @@ use zenmagick\base\dependencyInjection\Container;
  * Central place for runtime stuff.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.base
  */
 class Runtime {
     private static $container = null;

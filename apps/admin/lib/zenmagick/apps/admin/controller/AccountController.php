@@ -26,7 +26,6 @@ namespace zenmagick\apps\admin\controller;
  * Admin controller for account page.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.apps.admin.controller
  */
 class AccountController extends \ZMController {
 

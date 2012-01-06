@@ -27,7 +27,6 @@ use zenmagick\base\Runtime;
  * Routing URL rewriter.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.http.request.rewriter
  */
 class RoutingUrlRewriter implements UrlRewriter {
 

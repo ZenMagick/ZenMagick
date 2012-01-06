@@ -27,7 +27,6 @@ use zenmagick\base\Runtime;
  * Scan source files for translatable strings.
  *
  * @author DerManoMann <mano@zenmagick.org> <mano@zenmagick.org>
- * @package zenmagick.base.locales
  */
 class LocaleScanner {
     /** Locale patterns. */

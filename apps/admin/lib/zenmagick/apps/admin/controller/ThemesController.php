@@ -28,7 +28,6 @@ use zenmagick\base\ZMObject;
  * Admin controller for themes page.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.apps.admin.controller
  */
 class ThemesController extends \ZMController {
 

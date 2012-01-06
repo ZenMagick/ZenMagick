@@ -26,7 +26,6 @@ namespace zenmagick\apps\admin\controller;
  * Empty default controller.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.apps.admin.controller
  */
 class DefaultController extends \ZMController {
 

@@ -28,7 +28,6 @@ use zenmagick\base\ZMObject;
  * User session.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.http.session
  */
 class UserSession extends ZMObject {
     protected $session;

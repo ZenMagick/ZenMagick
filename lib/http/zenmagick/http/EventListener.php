@@ -32,7 +32,6 @@ use zenmagick\http\utils\ContextConfigLoader as HttpContextConfigLoader;
  * HTTP event listener.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.http
  */
 class EventListener extends ZMObject {
 

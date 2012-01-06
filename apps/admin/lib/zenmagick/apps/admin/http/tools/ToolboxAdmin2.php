@@ -28,7 +28,6 @@ use zenmagick\apps\admin\controller\CatalogContentController;
  * Admin related functions.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.apps.admin.http.tools
  */
 class ToolboxAdmin2 extends \ZMToolboxTool {
     private $tags_;

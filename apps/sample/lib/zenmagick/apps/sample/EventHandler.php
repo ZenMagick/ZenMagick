@@ -28,7 +28,6 @@ namespace zenmagick\apps\sample;
  * <p>Hooked up automatically via config.yaml.</p>
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.apps.sample
  */
 class EventHandler {
 

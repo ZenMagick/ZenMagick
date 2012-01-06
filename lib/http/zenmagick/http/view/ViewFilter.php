@@ -26,7 +26,6 @@ namespace zenmagick\http\view;
  * View filter interface.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.http.view
  */
 interface ViewFilter {
 

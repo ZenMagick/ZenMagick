@@ -26,7 +26,6 @@ namespace zenmagick\base\security\authentication;
  * Provider of authentication service.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.base.security.authentication
  */
 interface AuthenticationProvider {
 

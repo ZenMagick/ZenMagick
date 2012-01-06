@@ -29,7 +29,6 @@ define('_ZM_ZEN_EMAIL_FILE', ZC_INSTALL_PATH . 'includes/functions/functions_ema
  * Patch to replace zen_mail for supported email types.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.apps.admin.installation.patches.file
  */
 class EmailPatch extends FilePatch {
     var $fktFilesCfg_ = array(

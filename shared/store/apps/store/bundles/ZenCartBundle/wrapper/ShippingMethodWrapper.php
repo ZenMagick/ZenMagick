@@ -31,7 +31,6 @@ use zenmagick\base\Beans;
  * Shipping method wrapper for zencart shipping.
  *
  * @author DerManoMann
- * @package apps.store.bundles.ZenCartBundle.wrapper
  */
 class ShippingMethodWrapper extends ZMObject implements \ZMShippingMethod {
     private $provider_;

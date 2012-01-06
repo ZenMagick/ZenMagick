@@ -28,7 +28,6 @@ use zenmagick\http\sacs\handler\UserRoleCredentials;
  * Default SACS handler providing unrestricted access.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.http.sacs.handler
  */
 class DefaultSacsHandler implements SacsHandler {
 

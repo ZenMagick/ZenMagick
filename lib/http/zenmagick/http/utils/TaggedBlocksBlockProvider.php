@@ -29,7 +29,6 @@ use zenmagick\base\ZMObject;
  * <p>Blocks tagged with <em>zenmagick.http.blocks.block</em> will be picked up by this provider.</p>
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.http.utils
  */
 class TaggedBlocksBlockProvider extends ZMObject implements \ZMBlockProvider {
 

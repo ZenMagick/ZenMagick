@@ -33,7 +33,6 @@ use zenmagick\apps\admin\installation\patches\FilePatch;
  * Patch to create zen-cart theme dummy files for all ZenMagick themes.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.apps.admin.installation.patches.file
  */
 class ThemeDummyPatch extends FilePatch {
     private $includeDefault_;

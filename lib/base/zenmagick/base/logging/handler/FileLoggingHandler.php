@@ -27,7 +27,6 @@ use zenmagick\base\logging\Logging;
  * File logging handler.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.base.logging.handler
  */
 class FileLoggingHandler extends DefaultLoggingHandler {
     private $filename;

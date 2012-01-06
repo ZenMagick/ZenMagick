@@ -28,7 +28,6 @@ use zenmagick\base\ZMObject;
  * Sacs permissions service.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.apps.admin.services
  */
 class SacsPermissionService extends ZMObject {
 

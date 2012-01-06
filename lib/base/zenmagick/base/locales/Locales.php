@@ -33,7 +33,6 @@ use Symfony\Component\Yaml\Yaml;
  * <p>Delegates translations to an instance of <code>Locale</code>.</p>
  *
  * @author DerManoMann <mano@zenmagick.org> <mano@zenmagick.org>
- * @package zenmagick.base.locales
  */
 class Locales extends ZMObject {
     private $locale_;

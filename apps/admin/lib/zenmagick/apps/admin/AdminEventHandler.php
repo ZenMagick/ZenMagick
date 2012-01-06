@@ -34,7 +34,6 @@ use apps\store\menu\MenuLoader;
  * Custom admin event handler for various things.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.apps.admin
  */
 class AdminEventHandler extends ZMObject {
     const DEFAULT_EDITOR_SERVICE_ID = 'plainEditorWidget';

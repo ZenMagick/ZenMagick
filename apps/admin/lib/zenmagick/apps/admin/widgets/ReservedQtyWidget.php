@@ -32,7 +32,6 @@ use zenmagick\http\widgets\Widget;
  * calculate the reserved quantity for the given product.</p>
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.apps.admin.widgets
  */
 class ReservedQtyWidget extends Widget {
     private static $qtyMap_ = null;

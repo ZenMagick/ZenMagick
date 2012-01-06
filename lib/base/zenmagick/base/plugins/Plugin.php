@@ -49,7 +49,6 @@ use zenmagick\base\ZMObject;
  * </dl>
  *
  * @author DerManoMann <mano@zenmagick.org> <mano@zenmagick.org>
- * @package zenmagick.base.plugins
  */
 class Plugin extends ZMObject {
     private $id_;

@@ -26,7 +26,6 @@ namespace zenmagick\http\rss;
  * Source of RSS feed(s).
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.http.rss
  */
 interface RssSource {
 

@@ -26,7 +26,6 @@ namespace zenmagick\base\utils;
  * Filter iterator to filter based on a whitelist.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.base.utils
  */
 class FolderWhitelistFilterIterator extends \FilterIterator {
     private $includes;

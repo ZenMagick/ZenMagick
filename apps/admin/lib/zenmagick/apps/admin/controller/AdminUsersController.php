@@ -27,7 +27,6 @@ use zenmagick\base\Runtime;
  * Admin controller for admin user management.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.apps.admin.controller
  */
 class AdminUsersController extends \ZMController {
 

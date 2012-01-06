@@ -28,7 +28,6 @@ use zenmagick\base\ZMObject;
  * Basic node.
  *
  * @param author DerManoMann
- * @package zenmagick.base.utils
  */
 class Node extends ZMObject {
     const INSERT_BEFORE = "before";

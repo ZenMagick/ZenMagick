@@ -27,7 +27,6 @@ use zenmagick\base\Beans;
  * Content editor controller.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.apps.admin.controller
  */
 class ContentEditorController extends \ZMController {
 

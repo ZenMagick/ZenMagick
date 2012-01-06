@@ -34,7 +34,6 @@ use Swift_Events_SendEvent;
  * Swift mailer transport using the legacy zencart code.
  *
  * @author DerManoMann
- * @package apps.store.bundles.ZenCartBundle.utils
  */
 class ZenCartTransport extends Swift_Transport_NullTransport {
     private $_eventDispatcher;

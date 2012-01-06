@@ -33,7 +33,6 @@ use zenmagick\http\widgets\form\SelectFormWidget;
  * <p>One typical use is to prepend an empty option if required.</p>
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.apps.admin.widgets
  */
 class orderStatusSelectFormWidget extends SelectFormWidget {
     private $showKey_;

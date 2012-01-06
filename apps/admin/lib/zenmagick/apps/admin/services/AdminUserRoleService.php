@@ -28,7 +28,6 @@ use zenmagick\base\ZMObject;
  * Admin user roles service.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.apps.admin.services
  */
 class AdminUserRoleService extends ZMObject {
 

@@ -32,7 +32,6 @@ use Doctrine\ORM\Mapping AS ORM;
  * A single language.
  *
  * @author DerManoMann
- * @package apps.store.entities.locale
  * @ORM\Table(name="languages")
  * @ORM\Entity
  */

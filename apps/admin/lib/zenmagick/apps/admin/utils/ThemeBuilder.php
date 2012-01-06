@@ -29,7 +29,6 @@ use zenmagick\http\messages\Messages;
  * Build the skelton of a new theme.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.apps.admin.utils
  */
 class ThemeBuilder extends ZMObject {
     private $name_;

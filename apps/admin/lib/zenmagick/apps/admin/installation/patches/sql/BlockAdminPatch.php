@@ -29,7 +29,6 @@ use zenmagick\apps\admin\installation\patches\SQLPatch;
  * Patch to create ZenMagick block admin tables.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.apps.admin.installation.patches.sql
  */
 class BlockAdminPatch extends SQLPatch {
     var $sqlFiles_ = array(

@@ -26,7 +26,6 @@ namespace zenmagick\apps\admin\controller;
  * Admin controller for block groups.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.apps.admin.controller
  */
 class BlockGroupsController extends \ZMController {
 

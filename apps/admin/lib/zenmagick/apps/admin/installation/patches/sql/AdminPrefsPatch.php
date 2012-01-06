@@ -29,7 +29,6 @@ use zenmagick\apps\admin\installation\patches\SQLPatch;
  * Patch to create the admin prefs tables.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.apps.admin.installation.patches.sql
  */
 class AdminPrefsPatch extends SQLPatch {
     var $sqlFiles_ = array(

@@ -31,7 +31,6 @@ use zenmagick\http\widgets\Widget;
  * <p>Form widgets are widgets that represent various HTML form input elements.</p>
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.http.widgets.form
  */
 abstract class FormWidget extends Widget {
     private static $NO_VAL_ATTR = array('multiple', 'readonly', 'disabled');

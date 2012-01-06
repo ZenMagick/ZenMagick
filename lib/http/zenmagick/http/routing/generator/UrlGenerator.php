@@ -25,7 +25,6 @@ namespace zenmagick\http\routing\generator;
  * Url generator that allows to override requirements.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.http.routing.loader
  */
 class UrlGenerator extends \Symfony\Component\Routing\Generator\UrlGenerator {
 

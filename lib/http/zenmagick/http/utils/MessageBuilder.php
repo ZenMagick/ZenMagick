@@ -37,7 +37,6 @@ use zenmagick\base\events\Event;
  * <p>The default view view id is <em>emails</em>.</p>
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.http.utils
  */
 class MessageBuilder extends ZMObject {
     private $viewViewId_;

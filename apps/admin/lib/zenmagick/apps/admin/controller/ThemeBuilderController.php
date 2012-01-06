@@ -26,7 +26,6 @@ namespace zenmagick\apps\admin\controller;
  * Admin controller for theme builder.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.apps.admin.controller
  */
 class ThemeBuilderController extends \ZMController {
 

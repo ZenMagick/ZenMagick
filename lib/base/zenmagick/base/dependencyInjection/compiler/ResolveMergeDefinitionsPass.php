@@ -12,7 +12,6 @@ use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
  *
  * @author Johannes M. Schmitt <schmittjoh@gmail.com>
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.base.dependencyInjection.compiler
  */
 class ResolveMergeDefinitionsPass implements CompilerPassInterface {
     private $container;

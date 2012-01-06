@@ -30,7 +30,6 @@ define('_ZM_ZEN_COUPON_ADMIN_PHP', ZC_INSTALL_PATH.ZENCART_ADMIN_FOLDER.'/coupon
  * Patch to enable ZenMagick templates for coupon admin emails.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.apps.admin.installation.patches.file
  */
 class CouponAdminMailPatch extends FilePatch {
 

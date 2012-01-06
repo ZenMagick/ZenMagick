@@ -33,7 +33,6 @@ use Symfony\Component\Config\FileLocator;
  * bits of the symfony DI loader system.</p>
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.base.dependencyInjection.loader
  */
 class YamlLoader extends \Symfony\Component\DependencyInjection\Loader\YamlFileLoader {
 

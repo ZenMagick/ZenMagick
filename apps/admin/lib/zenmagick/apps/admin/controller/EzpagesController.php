@@ -27,7 +27,6 @@ use zenmagick\base\Beans;
  * EZPages admin controller.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.apps.admin.controller
  */
 class EzpagesController extends \ZMController {
 

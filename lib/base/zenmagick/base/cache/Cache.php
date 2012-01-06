@@ -26,7 +26,6 @@ namespace zenmagick\base\cache;
  * Generic cache interface.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.base.cache
  */
 interface Cache {
     /** Cache type <em>persistent</em>. */

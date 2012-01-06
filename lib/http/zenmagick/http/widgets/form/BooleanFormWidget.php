@@ -36,7 +36,6 @@ use zenmagick\base\Toolbox;
  * <em>label_false</em>, respectively.</p>
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.http.widgets.form
  */
 class BooleanFormWidget extends FormWidget {
 

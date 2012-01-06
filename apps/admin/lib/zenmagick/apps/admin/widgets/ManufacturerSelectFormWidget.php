@@ -37,7 +37,6 @@ use zenmagick\http\widgets\form\SelectFormWidget;
  * <p><code>'ManufacturerSelectFormWidget#title=Manufacturer&options=0= --- '</code></p>
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.apps.admin.widgets
  */
 class ManufacturerSelectFormWidget extends SelectFormWidget {
 

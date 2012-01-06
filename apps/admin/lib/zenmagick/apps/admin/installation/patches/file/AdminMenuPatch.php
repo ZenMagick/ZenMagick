@@ -31,7 +31,6 @@ define('_ZM_ZEN_ADMIN_FILE', ZC_INSTALL_PATH.ZENCART_ADMIN_FOLDER.'/includes/box
  * Admin menu patch.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.apps.admin.installation.patches.file
  */
 class AdminMenuPatch extends FilePatch {
 

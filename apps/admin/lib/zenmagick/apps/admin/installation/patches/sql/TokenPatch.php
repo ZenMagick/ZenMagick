@@ -29,7 +29,6 @@ use zenmagick\apps\admin\installation\patches\SQLPatch;
  * Patch to create the token service database table.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.apps.admin.installation.patches.sql
  */
 class TokenPatch extends SQLPatch {
     var $sqlFiles_ = array(

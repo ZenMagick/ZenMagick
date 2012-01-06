@@ -31,7 +31,6 @@ use zenmagick\base\Runtime;
  * <em>include</em> and <em>require</em> directives. It also takes care of missing PHP close tags <em>?&gt;</em>.</p>
  *
  * @author DerManoMann <mano@zenmagick.org> <mano@zenmagick.org>
- * @package zenmagick.base.utils.packer
  */
 class PhpPackagePacker {
     protected $rootFolder_;

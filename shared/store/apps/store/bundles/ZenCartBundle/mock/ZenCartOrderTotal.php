@@ -31,7 +31,6 @@ use zenmagick\base\ZMObject;
  * zencart order totals.
  *
  * @author DerManoMann
- * @package apps.store.bundles.ZenCartBundle.Mock
  */
 class ZenCartOrderTotal extends ZMObject {
 

@@ -27,7 +27,6 @@ use zenmagick\base\Runtime;
  * Admin controller for cache admin.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.apps.admin.controller
  * @todo move hash calculation into controller
  */
 class CacheAdminController extends \ZMController {

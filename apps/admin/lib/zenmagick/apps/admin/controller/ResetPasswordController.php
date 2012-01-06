@@ -27,7 +27,6 @@ use zenmagick\base\Runtime;
  * Request controller for forgotten passwords.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.apps.admin.controller
  */
 class ResetPasswordController extends \ZMController {
 

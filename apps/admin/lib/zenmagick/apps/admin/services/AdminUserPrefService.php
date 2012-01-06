@@ -28,7 +28,6 @@ use zenmagick\base\ZMObject;
  * Admin user prefs service.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.apps.admin.services
  */
 class AdminUserPrefService extends ZMObject {
 

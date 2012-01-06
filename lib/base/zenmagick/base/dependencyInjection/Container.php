@@ -35,7 +35,6 @@ use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
  * <p>Based on the <em>symfony2</em> dependency injection component.</p>
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.base.dependencyInjection
  */
 class Container extends ContainerBuilder {
 

@@ -31,7 +31,6 @@ use zenmagick\base\ZMException;
  * If a request Id is set, a full URL will be created.</p>
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.http.view
  */
 class RedirectView extends View {
     protected $secure_;

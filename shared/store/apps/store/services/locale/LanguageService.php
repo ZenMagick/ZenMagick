@@ -32,7 +32,6 @@ use zenmagick\base\ZMObject;
  * Languages service.
  *
  * @author DerManoMann
- * @package apps.store.services.locale
  */
 class LanguageService extends ZMObject {
     private $languages;

@@ -31,7 +31,6 @@ use Symfony\Component\Yaml\Yaml;
  * Abstract <code>Locale</code>.
  *
  * @author DerManoMann <mano@zenmagick.org> <mano@zenmagick.org>
- * @package zenmagick.base.locales
  */
 abstract class Locale extends ZMObject {
     private $locale_;

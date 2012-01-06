@@ -31,7 +31,6 @@ define('_ZM_ZEN_INDEX_PHP', ZC_INSTALL_PATH."index.php");
  * Patch to enable ZenMagick themes.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.apps.admin.installation.patches.file
  */
 class ThemeSupportPatch extends FilePatch {
 

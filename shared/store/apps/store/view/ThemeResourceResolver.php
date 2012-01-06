@@ -28,7 +28,6 @@ use zenmagick\http\view\ResourceResolver;
  * Theme resource resolver.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package apps.store.view
  */
 class ThemeResourceResolver extends ResourceResolver {
     private $request;

@@ -34,7 +34,6 @@ use Symfony\Component\Yaml\Yaml;
  * Store loader for multi-content config files.
  *
  * @author DerManoMann
- * @package apps.store.utils
  */
 class ContextConfigLoader extends HttpContextConfigLoader {
 

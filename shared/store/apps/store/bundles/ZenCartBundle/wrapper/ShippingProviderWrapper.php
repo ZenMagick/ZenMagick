@@ -34,7 +34,6 @@ use apps\store\bundles\ZenCartBundle\wrapper\ShippingMethodWrapper;
  * Shipping provider wrapper for zen cart shipping modules.
  *
  * @author DerManoMann
- * @package apps.store.bundles.ZenCartBundle.wrapper
  */
 class ShippingProviderWrapper extends ZMObject implements \ZMShippingProvider {
     private $zenModule_;

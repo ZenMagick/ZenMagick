@@ -27,7 +27,6 @@ use zenmagick\base\Runtime;
  * Analyze dependencies of a given (PHP) source.
  *
  * @author DerManoMann <mano@zenmagick.org> <mano@zenmagick.org>
- * @package zenmagick.base.utils.packer
  */
 class PhpSourceAnalyzer {
 

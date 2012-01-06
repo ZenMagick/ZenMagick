@@ -28,7 +28,6 @@ use zenmagick\base\ZMObject;
  * A menu.
  *
  * @param author DerManoMann
- * @package apps.store.menu
  */
 class Menu extends ZMObject {
     private $root;

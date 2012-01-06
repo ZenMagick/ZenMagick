@@ -29,7 +29,6 @@ use pear\cache\CacheLite;
  * <p>Memory caching using <code>PEAR:Cache_Lite</code>.</p>
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.base.cache
  */
 class MemoryCache implements Cache {
     private $groups_;

@@ -27,7 +27,6 @@ use zenmagick\http\view\View;
  * A text area form widget.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.http.widgets.form
  */
 class TextAreaFormWidget extends FormWidget implements WysiwygEditor {
 

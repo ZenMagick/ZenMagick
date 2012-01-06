@@ -32,7 +32,6 @@ use apps\store\bundles\ZenCartBundle\mock\ZenCartOrderTotal;
  * ZenCart mock tools.
  *
  * @author DerManoMann
- * @package apps.store.bundles.ZenCartBundle.Mock
  */
 class ZenCartMock {
     // keep track of mock

@@ -35,7 +35,6 @@ use zenmagick\base\ZMObject;
  * <p>Will resolve the given template or resource with respect for <em>bundles</em>, <em>plugins</em>, <em>context</em> and <em>locale</em>.</p>
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.http.view
  */
 class ResourceResolver extends ZMObject {
     protected $locations;

@@ -27,7 +27,6 @@ use zenmagick\base\Runtime;
  * A password input form widget.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.http.widgets.form
  */
 class PasswordFormWidget extends TextFormWidget {
 

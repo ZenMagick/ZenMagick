@@ -27,7 +27,6 @@ namespace zenmagick\base\utils;
  *
  * @author dickmunroe
  * @author DerManoMann <mano@zenmagick.org> <mano@zenmagick.org>
- * @package zenmagick.base.utils
  * @see http://www.phpclasses.org/browse/file/12724.html
  */
 class BigDecimal {

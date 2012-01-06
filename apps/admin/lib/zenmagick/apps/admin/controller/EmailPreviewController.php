@@ -29,7 +29,6 @@ use zenmagick\http\view\View;
  * Admin controller for email previews.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.apps.admin.controller
  */
 class EmailPreviewController extends \ZMController {
 

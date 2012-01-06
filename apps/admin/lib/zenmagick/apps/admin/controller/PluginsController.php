@@ -30,7 +30,6 @@ use zenmagick\http\widgets\form\FormWidget;
  * Admin controller for plugins.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.apps.admin.controller
  */
 class PluginsController extends \ZMController {
     private static $TYPE_MAP = array(

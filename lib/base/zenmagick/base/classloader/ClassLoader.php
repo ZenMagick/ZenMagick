@@ -80,7 +80,6 @@ namespace zenmagick\base\classloader;
  *
  * @author Fabien Potencier <fabien.potencier@symfony-project.org>
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.base.classloader
  */
 class ClassLoader {
     private $namespaces;

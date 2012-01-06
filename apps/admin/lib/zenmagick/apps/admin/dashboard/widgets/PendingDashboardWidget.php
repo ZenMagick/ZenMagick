@@ -27,7 +27,6 @@ use zenmagick\apps\admin\dashboard\DashboardWidget;
  * Pending things widget.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.apps.admin.dashbord.widgets
  */
 class PendingDashboardWidget extends DashboardWidget {
 

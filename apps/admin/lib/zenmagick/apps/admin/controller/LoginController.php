@@ -26,7 +26,6 @@ namespace zenmagick\apps\admin\controller;
  * Admin controller for login.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.apps.admin.controller
  */
 class LoginController extends \ZMController {
 

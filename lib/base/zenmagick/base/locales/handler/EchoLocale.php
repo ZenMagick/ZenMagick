@@ -27,7 +27,6 @@ use zenmagick\base\locales\Locale;
  * Echo locale.
  *
  * @author DerManoMann <mano@zenmagick.org> <mano@zenmagick.org>
- * @package zenmagick.base.locales.handler
  */
 class EchoLocale extends Locale {
 

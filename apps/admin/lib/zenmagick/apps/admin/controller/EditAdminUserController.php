@@ -28,7 +28,6 @@ use zenmagick\base\Toolbox;
  * Request controller for editing (other) admin user details.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.apps.admin.controller
  */
 class EditAdminUserController extends \ZMController {
 

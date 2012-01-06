@@ -28,7 +28,6 @@ namespace zenmagick\http\view;
  * <p>Implementations are free to cache individual templates (fetch calls) and their output.</p>
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.http.view
  */
 interface ViewCache {
 

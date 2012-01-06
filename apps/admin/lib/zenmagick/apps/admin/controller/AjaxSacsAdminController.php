@@ -26,7 +26,6 @@ namespace zenmagick\apps\admin\controller;
  * Ajax SACS admin controller.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.apps.admin.controller
  */
 class AjaxSacsAdminController extends \ZMRpcController {
 

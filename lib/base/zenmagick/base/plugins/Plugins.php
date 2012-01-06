@@ -45,7 +45,6 @@ use zenmagick\apps\store\utils\ContextConfigLoader;
  * <dl>
  *
  * @author DerManoMann <mano@zenmagick.org> <mano@zenmagick.org>
- * @package zenmagick.base.plugins
  */
 class Plugins extends ZMObject {
     // internal plugin cache with some details

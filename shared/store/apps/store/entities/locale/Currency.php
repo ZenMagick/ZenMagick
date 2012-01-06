@@ -32,7 +32,6 @@ use Doctrine\ORM\Mapping AS ORM;
  * A single currency.
  *
  * @author DerManoMann
- * @package apps.store.entities.locale
  * @ORM\Table(name="currencies")
  * @ORM\Entity
  */

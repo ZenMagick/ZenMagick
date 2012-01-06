@@ -32,7 +32,6 @@ use zenmagick\base\ZMObject;
  * Currency service.
  *
  * @author DerManoMann
- * @package apps.store.services.locale
  */
 class CurrencyService extends ZMObject {
     private $currencies;

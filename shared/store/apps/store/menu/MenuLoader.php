@@ -27,7 +27,6 @@ use Symfony\Component\Yaml\Yaml;
  * Menu loader.
  *
  * @param author DerManoMann
- * @package apps.store.menu
  */
 class MenuLoader {
 

@@ -34,7 +34,6 @@ use \Symfony\Component\EventDispatcher\EventDispatcher as SymfonyEventDispatcher
  * </ul>
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.base.events
  */
 class EventDispatcher extends SymfonyEventDispatcher {
     const LISTEN_ALL = '*';

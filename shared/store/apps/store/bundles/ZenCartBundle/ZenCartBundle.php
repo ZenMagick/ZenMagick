@@ -32,7 +32,6 @@ use zenmagick\base\Toolbox;
  * Zencart support bundle.
  *
  * @author DerManoMann
- * @package apps.store.bundles.ZenCartBundle
  */
 class ZenCartBundle extends Bundle {
     const ZENCART_ADMIN_FOLDER = 'ZENCART_ADMIN_FOLDER';

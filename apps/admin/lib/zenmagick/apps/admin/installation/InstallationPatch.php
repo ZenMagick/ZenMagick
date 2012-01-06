@@ -27,7 +27,6 @@ use zenmagick\base\ZMObject;
  * Single installation patch.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.apps.admin.installation
  */
 class InstallationPatch extends ZMObject {
     var $id_ = null;

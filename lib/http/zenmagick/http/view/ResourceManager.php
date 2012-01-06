@@ -32,7 +32,6 @@ use zenmagick\base\logging\Logging;
  * <p>Handles resolving and injecting resources into the final output.</p>
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.http.view
  */
 class ResourceManager extends ZMObject {
     const HEADER = 'header';

@@ -31,7 +31,6 @@ use Doctrine\Common\Annotations\AnnotationRegistry;
  * Static init code.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.base.utils
  */
 class StaticInit {
 

@@ -28,7 +28,6 @@ use zenmagick\http\sacs\SacsManager;
  * Admin controller to edit role permissions.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.apps.admin.controller
  */
 class EditRoleController extends \ZMController {
 

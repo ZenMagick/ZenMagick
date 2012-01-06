@@ -32,7 +32,6 @@ use zenmagick\http\widgets\form\SelectFormWidget;
  * up at the top of the list.</p>
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.apps.admin.widgets
  */
 class EditorSelectFormWidget extends SelectFormWidget {
 

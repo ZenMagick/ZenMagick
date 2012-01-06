@@ -27,7 +27,6 @@ use zenmagick\http\view\View;
  * A wysiwyg editor.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.http.widgets.form
  */
 interface WysiwygEditor {
 

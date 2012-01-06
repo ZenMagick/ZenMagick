@@ -31,7 +31,6 @@ define('_ZM_ZEN_ADMIN_FUNCTIONS_FILE', ZC_INSTALL_PATH . ZENCART_ADMIN_FOLDER . 
  * Patch to enable replace zen_href_link to allow full pretty link support.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.apps.admin.installation.patches.file
  */
 class LinkGenerationPatch extends FilePatch {
     var $fktFilesCfg_ = array(

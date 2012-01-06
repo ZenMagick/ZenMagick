@@ -32,7 +32,6 @@ use zenmagick\http\widgets\Widget;
  * A view.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.http.view
  */
 class View extends ZMObject {
     const TEMPLATE = 'template';

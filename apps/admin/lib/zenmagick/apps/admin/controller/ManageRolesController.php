@@ -27,7 +27,6 @@ use zenmagick\http\sacs\SacsManager;
  * Admin controller to manage roles.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.apps.admin.controller
  */
 class ManageRolesController extends \ZMController {
 

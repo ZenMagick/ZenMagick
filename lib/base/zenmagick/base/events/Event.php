@@ -27,7 +27,6 @@ use Symfony\Component\EventDispatcher\Event as SymfonyEvent;
  * A ZenMagick event service event.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.base.events
  */
 class Event extends SymfonyEvent {
     protected $name;

@@ -28,7 +28,6 @@ namespace zenmagick\http\sacs\handler;
  * <p>Interface to be implemented by user classes when using the <code>zenmagick\http\sacs\handler\UserRoleSacsHandler</code> for authorization.</p>
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.http.sacs.handler
  */
 interface UserRoleCredentials {
 

@@ -28,7 +28,6 @@ use zenmagick\apps\admin\installation\InstallationPatch;
  * Generic file patch.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.apps.admin.installation.patches
  */
 class FilePatch extends InstallationPatch {
 

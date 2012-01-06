@@ -28,7 +28,6 @@ namespace zenmagick\base\cache;
  * <p>Persistent caching using <code>APC</code>.</p>
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.base.cache
  */
 class ApcCache implements Cache {
     const SYSTEM_KEY = "zenmagick.base.cache.apc";

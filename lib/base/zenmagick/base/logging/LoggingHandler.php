@@ -25,7 +25,6 @@ namespace zenmagick\base\logging;
  * Logging handler.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.base.logging
  */
 interface LoggingHandler {
 

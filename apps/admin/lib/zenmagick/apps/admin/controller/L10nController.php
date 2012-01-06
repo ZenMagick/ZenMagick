@@ -31,7 +31,6 @@ use zenmagick\base\locales\LocaleScanner;
  * Admin controller for l10n page.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.apps.admin.controller
  */
 class L10nController extends \ZMController {
 

@@ -27,7 +27,6 @@ use zenmagick\apps\admin\dashboard\DashboardWidget;
  * Order stats dashboard widget.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.apps.admin.dashbord.widgets
  */
 class OrderStatsDashboardWidget extends DashboardWidget {
 

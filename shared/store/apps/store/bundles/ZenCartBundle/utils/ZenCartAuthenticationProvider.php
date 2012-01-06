@@ -28,7 +28,6 @@ use zenmagick\base\security\authentication\AuthenticationProvider;
  * Authentication provider compatible with zencart generated passwords.
  *
  * @author DerManoMann
- * @package apps.store.bundles.ZenCartBundle.utils
  */
 class ZenCartAuthenticationProvider implements AuthenticationProvider {
 

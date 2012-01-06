@@ -28,7 +28,6 @@ namespace zenmagick\base\cache;
  * <p>Persistent caching using <code>xcache</code>.</p>
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.base.cache
  */
 class XCache implements Cache {
     const SYSTEM_KEY = "org.zenmagick.core.services.cache.provider.xcache";

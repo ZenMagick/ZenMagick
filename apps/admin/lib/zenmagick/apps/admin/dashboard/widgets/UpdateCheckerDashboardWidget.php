@@ -28,7 +28,6 @@ use zenmagick\apps\admin\dashboard\DashboardWidget;
  * Update checker widget.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.apps.admin.dashbord.widgets
  */
 class UpdateCheckerDashboardWidget extends DashboardWidget {
 

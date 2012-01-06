@@ -27,7 +27,6 @@ use zenmagick\http\widgets\form\SelectFormWidget;
  * <p>A coupon select form widget.</p>
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.apps.admin.widgets
  */
 class CouponSelectFormWidget extends SelectFormWidget {
 

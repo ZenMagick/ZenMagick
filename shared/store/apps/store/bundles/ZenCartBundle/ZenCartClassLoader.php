@@ -28,7 +28,6 @@ use zenmagick\base\Runtime;
  * Zencart class loader.
  *
  * @author DerManoMann
- * @package apps.store.bundles.ZenCartBundle
  */
 class ZenCartClassLoader extends ClassLoader {
     private $baseDirectories;

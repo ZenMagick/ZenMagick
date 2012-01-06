@@ -27,7 +27,6 @@ use zenmagick\base\Beans;
  * Admin controller for a single block group.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.apps.admin.controller
  */
 class BlockGroupAdminController extends \ZMController {
 

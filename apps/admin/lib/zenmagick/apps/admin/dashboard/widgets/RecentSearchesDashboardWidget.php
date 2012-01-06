@@ -27,7 +27,6 @@ use zenmagick\apps\admin\dashboard\DashboardWidget;
  * Recent searches dashboard widget.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.apps.admin.dashbord.widgets
  */
 class RecentSearchesDashboardWidget extends DashboardWidget {
 

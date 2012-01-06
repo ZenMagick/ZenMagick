@@ -26,7 +26,6 @@ namespace zenmagick\apps\admin\controller;
  * Ajax user prefs controller.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.apps.admin.controller
  */
 class AjaxUserPrefsController extends \ZMRpcController {
 

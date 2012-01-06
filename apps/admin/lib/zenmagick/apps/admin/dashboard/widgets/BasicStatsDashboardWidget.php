@@ -30,7 +30,6 @@ use zenmagick\apps\admin\dashboard\DashboardWidget;
  * Basic stats dashboard widget.
  *
  * @author Johnny Robeson
- * @package zenmagick.apps.admin.dashbord.widgets
  */
 class BasicStatsDashboardWidget extends DashboardWidget {
 

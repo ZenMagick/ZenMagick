@@ -32,7 +32,6 @@ use zenmagick\base\Toolbox;
  * <p>Adds environment and ZenMagick specific <code>import</code> support to loading yaml files.</p>
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.http.routing.loader
  */
 class YamlFileLoader extends \Symfony\Component\Routing\Loader\YamlFileLoader {
 

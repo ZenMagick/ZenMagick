@@ -31,7 +31,6 @@ use zenmagick\base\ZMObject;
  * Fix email context.
  *
  * @author DerManoMann
- * @package apps.store.bundles.ZenCartBundle.utils
  */
 class EmailEventHandler extends ZMObject {
 

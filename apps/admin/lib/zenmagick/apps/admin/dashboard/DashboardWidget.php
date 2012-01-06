@@ -28,7 +28,6 @@ use zenmagick\http\widgets\Widget;
  * A dashboard widget.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.apps.admin.dashbord
  */
 abstract class DashboardWidget extends Widget {
     const STATUS_DEFAULT = '';

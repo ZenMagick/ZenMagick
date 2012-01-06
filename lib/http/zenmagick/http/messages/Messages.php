@@ -38,7 +38,6 @@ use zenmagick\base\ZMObject;
  * </ul>
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.http.messages
  */
 class Messages extends ZMObject {
     /** Catch all (global) message reference type. */

@@ -27,7 +27,6 @@ use zenmagick\base\Runtime;
  * Admin controller for accounts page.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.apps.admin.controller
  */
 class AccountsController extends \ZMController {
 

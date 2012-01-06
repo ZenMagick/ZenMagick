@@ -30,7 +30,6 @@ use Doctrine\ORM\Mapping AS ORM;
  * A admin user.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.apps.admin.entities
  * @ORM\Table(name="admin")
  * @ORM\Entity
  */

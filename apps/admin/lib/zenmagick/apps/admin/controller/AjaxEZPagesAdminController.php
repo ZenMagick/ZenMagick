@@ -28,7 +28,6 @@ use zenmagick\base\Toolbox;
  * Ajax EZPages admin controller.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.apps.admin.controller
  */
 class AjaxEZPagesAdminController extends \ZMRpcController {
 

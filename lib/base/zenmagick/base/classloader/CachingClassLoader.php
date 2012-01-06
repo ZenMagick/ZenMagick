@@ -27,7 +27,6 @@ namespace zenmagick\base\classloader;
  * <p>Allows to cache configuration for a given path.</p>
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.base.classloader
  */
 class CachingClassLoader extends ClassLoader {
 

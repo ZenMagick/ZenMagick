@@ -30,7 +30,6 @@ if (!defined('DIR_WS_CATALOG')) define('DIR_WS_CATALOG', '/');
  * Patch to update the <code>.htaccess</code> <code>RewriteBase</code>.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.apps.admin.installation.patches.file
  */
 class RewriteBasePatch extends FilePatch {
 

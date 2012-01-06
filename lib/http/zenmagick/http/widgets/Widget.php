@@ -36,7 +36,6 @@ use zenmagick\base\ZMObject;
  * to return valid HTML that will display the widget.</p>
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.http.widgets
  */
 abstract class Widget extends ZMObject {
     private $title_;
