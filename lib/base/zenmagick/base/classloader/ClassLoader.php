@@ -137,7 +137,12 @@ class ClassLoader {
             $mappings = parse_ini_file($path, true);
             if (array_key_exists('namespaces', $mappings)) {
                 foreach ($mappings['namespaces'] as $namespace => $folder) {
-                    $nspath = $usePhar ? 'phar://'.$phar.'/'.str_replace('\\', '/', $folder) : realpath($baseDir.$folder);
+                    $nsoff = null;
+                    if (false !== ($at = strpos($folder, '@'))) {
+                        $nsoff = substr($folder, $at+1);
+                        $folder = substr($folder, 0, $at);
+                    }
+                    $nspath = $usePhar ? 'phar://'.$phar.'/'.str_replace('\\', '/', $folder) : (realpath($baseDir.$folder).((!empty($nsoff) && false !== $at) ? '@'.$nsoff: ''));
                     $this->addNamespace($namespace, $nspath);
                 }
             }
@@ -205,7 +210,7 @@ class ClassLoader {
      * Add a single namespace.
      *
      * @param string namespace The namespace.
-     * @param string path The path.
+     * @param mixed path The path.
      */
     public function addNamespace($namespace, $path) {
         if (!is_array($path)) {
@@ -213,6 +218,15 @@ class ClassLoader {
         }
         if (!array_key_exists($namespace, $this->namespaces)) {
             $this->namespaces[$namespace] = array();
+        }
+        // handle @
+        foreach ($path as $ii => $p) {
+            $nsoff = null;
+            if (false !== ($at = strpos($p, '@'))) {
+                $nsoff = substr($p, $at+1);
+                $p = substr($p, 0, $at);
+            }
+            $path[$ii] = array($p, $nsoff);
         }
         $this->namespaces[$namespace] = array_merge($this->namespaces[$namespace], $path);
     }
@@ -448,9 +462,17 @@ class ClassLoader {
             foreach ($this->namespaces as $ns => $arr) {
                 foreach ($arr as $path) {
                     if (0 === strpos($namespace, $ns)) {
+                        $finalns = $namespace;
+                        if ($path[1]) {
+                            // adjust
+                            $finalns = substr($finalns, strlen($path[1]), strlen($finalns));
+                        }
                         $name = substr($name, $pos + 1);
-                        $sep = 0 === strpos($path, 'phar://') ? '/' : DIRECTORY_SEPARATOR;
-                        $file = $path.$sep.str_replace($this->namespaceSeparator, $sep, $namespace).$sep.str_replace('_', $sep, $name).'.php';
+                        $sep = 0 === strpos($path[0], 'phar://') ? '/' : DIRECTORY_SEPARATOR;
+                        $file = $path[0].$sep.str_replace($this->namespaceSeparator, $sep, $finalns).$sep.str_replace('_', $sep, $name).'.php';
+                        if ($path[1]) {
+                        echo $file."<BR>";
+                        }
                         if (file_exists($file)) {
                             return $file;
                         }
