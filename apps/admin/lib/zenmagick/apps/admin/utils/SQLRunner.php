@@ -10,6 +10,7 @@ namespace zenmagick\apps\admin\utils;
 
 use zenmagick\base\Runtime;
 
+if (!defined('ZC_UPG_DEBUG3')) define('ZC_UPG_DEBUG3', false);
 class SQLRunner {
  static function get_db() {
  global $db;
@@ -35,10 +36,10 @@ class SQLRunner {
    $ignored_count=0;
    $return_output=array();
    $errors = array();
-
+   $results = 0;
+   $debug = Runtime::getContainer()->get('request')->getParameter('debug', 'OFF');
    foreach ($lines as $line) {
-if ($_GET['debug']=='ON') echo $line . '<br />';
-
+     if ('ON' == $debug) echo $line . '<br />';
 
      $line = trim($line);
      $line = str_replace('`','',$line); //remove backquotes
@@ -230,12 +231,12 @@ if ($_GET['debug']=='ON') echo $line . '<br />';
         if ( substr($line,-1) ==  ';') {
           //found a semicolon, so treat it as a full command, incrementing counter of rows to process at once
           if (substr($newline,-1)==' ') $newline = substr($newline,0,(strlen($newline)-1));
+
+          $complete_line = false;
           $lines_to_keep_together_counter++;
           if ($lines_to_keep_together_counter == $keep_together) { // if all grouped rows have been loaded, go to execute.
             $complete_line = true;
             $lines_to_keep_together_counter=0;
-          } else {
-            $complete_line = false;
           }
         } //endif found ';'
 

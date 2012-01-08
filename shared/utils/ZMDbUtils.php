@@ -44,12 +44,13 @@ class ZMDbUtils {
      */
     public static function executePatch($sql, $messages, $debug=false) {
         if ($debug) {
-            $_GET['debug'] = 'ON';
+            Runtime::getContainer()->get('request')->setParameter('debug', 'ON');
         }
         // disable to allow plugins to insert HTML into the database...
         //$sql = ZMSecurityTools::sanitize($sql);
         if (!empty($sql)) {
-            $results = SQLRunner::execute_sql($sql, DB_DATABASE, DB_PREFIX);
+            $conf = Runtime::getSettings()->get('apps.store.database.default');
+            $results = SQLRunner::execute_sql($sql, $conf['dbname'], $conf['prefix']);
             foreach (ZMDbUtils::processPatchResults($results) as $msg) {
                 $messages[] = $msg;
             }
