@@ -54,8 +54,7 @@ class PhPassAuthenticationProvider implements AuthenticationProvider {
      * {@inheritDoc}
      */
     public function validatePassword($plaintext, $encrypted) {
-        return $this->passwordHash_->HashPassword($plaintext);
-        return phpbb_check_hash($plaintext, $encrypted);
+        return $this->passwordHash_->CheckPassword($plaintext, $encrypted);
     }
 
 }
