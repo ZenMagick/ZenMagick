@@ -21,12 +21,11 @@
 <?php
 namespace zenmagick\base\logging\handler;
 
+use zenmagick\base\Runtime;
 use zenmagick\base\logging\Logging;
 
 /**
  * Echo logging handler.
- *
- * <p>If <code>display_errors</code> is enabled, all logging will be <em>echo'ed</em>.</p>
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
@@ -36,9 +35,7 @@ class EchoLoggingHandler extends DefaultLoggingHandler {
      * {@inheritDoc}
      */
     protected function doLog($msg) {
-        if (@ini_get('display_errors')) {
-            echo $msg;
-        }
+        echo '['.Runtime::getExecutionTime($eventInfo['timestamp']).'] '.$msg;
     }
 
 }

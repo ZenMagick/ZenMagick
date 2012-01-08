@@ -21,6 +21,7 @@
 <?php
 namespace zenmagick\base\logging\handler;
 
+use DateTime;
 use zenmagick\base\logging\Logging;
 
 /**
@@ -46,6 +47,7 @@ class FileLoggingHandler extends DefaultLoggingHandler {
     protected function doLog($msg) {
         $handle = fopen($this->filename, 'ab');
         if ($handle) {
+            $msg = '['.date(DateTime::RFC822).'] '.$msg;
             $msg = strip_tags(str_replace('<br>', "\n", $msg));
             fwrite($handle, $msg);
             fclose($handle);
