@@ -129,12 +129,20 @@ class ClassLoader {
         $phar = realpath($path . DIRECTORY_SEPARATOR . basename($path) . '.phar');
         $usePhar = file_exists($phar);
         if (is_dir($path)) {
-            $path .= DIRECTORY_SEPARATOR . 'classloader.ini';
+            $ini = null;
+            if ($usePhar) {
+                $ini = 'phar://'.$phar.'/classloader.ini';
+            }
+            if (!file_exists($ini)) {
+                // fallback
+                $ini = realpath($path . DIRECTORY_SEPARATOR . 'classloader.ini');
+            }
+        } else {
+            $ini = realpath($path);
         }
-        $path = realpath($path);
-        if (!empty($path) && file_exists($path) && is_file($path)) {
-            $baseDir = dirname($path) . DIRECTORY_SEPARATOR;
-            $mappings = parse_ini_file($path, true);
+        if (!empty($ini) && file_exists($ini) && is_file($ini)) {
+            $baseDir = dirname($ini) . DIRECTORY_SEPARATOR;
+            $mappings = parse_ini_file($ini, true);
             if (array_key_exists('namespaces', $mappings)) {
                 foreach ($mappings['namespaces'] as $namespace => $folder) {
                     $nsoff = null;

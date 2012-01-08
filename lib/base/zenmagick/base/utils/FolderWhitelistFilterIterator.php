@@ -21,13 +21,14 @@
 <?php
 namespace zenmagick\base\utils;
 
+use FilterIterator;
 
 /**
  * Filter iterator to filter based on a whitelist.
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class FolderWhitelistFilterIterator extends \FilterIterator {
+class FolderWhitelistFilterIterator extends FilterIterator {
     private $includes;
 
     /**

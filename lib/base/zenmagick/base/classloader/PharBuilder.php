@@ -58,12 +58,20 @@ class PharBuilder {
             foreach ($mappings as $key => $dir) {
                 $path = realpath($this->path.DIRECTORY_SEPARATOR.$dir);
                 if ('namespaces' == $type) {
-                    $path = realpath($path . DIRECTORY_SEPARATOR . str_replace('\\', DIRECTORY_SEPARATOR, $key));
+                    // check for '@'
+                    $token = explode('@', $dir);
+                    $path = realpath($this->path.DIRECTORY_SEPARATOR.$token[0]);
+                    $path = $path.DIRECTORY_SEPARATOR.str_replace('\\', DIRECTORY_SEPARATOR, $key);
                 }
-                $includes[$path] = $path;
+                $path = realpath($path);
+                if (!empty($path)) {
+                    $includes[$path] = $path;
+                }
             }
         }
         $includes = array_keys($includes);
+        // add classloader.ini
+        $includes[] = realpath($this->path.'/classloader.ini');
         return $includes;
     }
 
