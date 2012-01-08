@@ -20,12 +20,13 @@
 ?>
 <?php
 
-use zenmagick\base\ZMException;
 use zenmagick\base\ZMObject;
 use zenmagick\base\security\authentication\AuthenticationProvider;
 
 /**
  * Master password authentication provider.
+ *
+ * <p>This provider is intended only for validating passwords. Encrypting will be delegated to the configured default provider.</p>
  *
  * @author DerManoMann <mano@zenmagick.org>
  * @package org.zenmagick.plugins.masterPassword
@@ -36,7 +37,7 @@ class ZMMasterPasswordAuthenticationProvider extends ZMObject implements Authent
      * {@inheritDoc}
      */
     public function encryptPassword($plaintext, $salt=null) {
-        throw new ZMException('not supported');
+        return $this->container->get('authenticationManager')->getDefaultProvider()->encryptPassword($plaintext, $salt);
     }
 
     /**
