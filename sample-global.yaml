@@ -29,7 +29,7 @@ admin,storefront:
         scope: container
         calls:
           - [setLogLevel, ['ALL']]
-          - [setFilename, ['%zenmagick.installationPath%/zenmagick/zenmagick.log']]
+          - [setFilename, ['%zenmagick.installationPath%/zenmagick.log']]
         tags:
           - { name: zenmagick.base.logging.handler }
 
