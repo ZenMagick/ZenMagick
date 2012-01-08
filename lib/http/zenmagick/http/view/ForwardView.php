@@ -94,7 +94,7 @@ class ForwardView extends View {
     /**
      * {@inheritDoc}
      */
-    public function isValid($request) {
+    public function isValid() {
         $requestId = $this->getRequestId();
         return !empty($requestId);
     }

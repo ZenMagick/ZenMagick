@@ -91,7 +91,7 @@ class MessageBuilder extends ZMObject {
         $formats = array();
         foreach (array('html', 'text') as $format) {
             $view->setTemplate($templateBase.'.'.$format);
-            if ($view->isValid($request)) {
+            if ($view->isValid()) {
                 $formats[] = $format;
             }
         }

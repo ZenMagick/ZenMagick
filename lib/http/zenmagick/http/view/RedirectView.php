@@ -86,7 +86,7 @@ class RedirectView extends View {
     /**
      * {@inheritDoc}
      */
-    public function isValid($request) {
+    public function isValid() {
         return true;
     }
 

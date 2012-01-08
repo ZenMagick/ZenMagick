@@ -171,7 +171,7 @@ class ZMController extends ZMObject {
 
         if (null != $view) {
             $this->initViewVars($view, $request, $formData);
-            if (!$view->isValid($request)) {
+            if (!$view->isValid()) {
                 Runtime::getLogging()->warn('invalid view: '.$view->getTemplate().', expected: '.$view->getViewFilename());
                 $view = $this->findView(ZMSettings::get('zenmagick.mvc.request.missingPage'));
                 $this->initViewVars($view, $request, $formData);
