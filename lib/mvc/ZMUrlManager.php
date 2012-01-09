@@ -248,8 +248,8 @@ class ZMUrlManager extends ZMObject {
             // configured
             $definitions[] = $mapping['controller'];
         } else {
-            $definitions[] = 'ZM'.ClassLoader::className($requestId.'Controller');
             $definitions[] = 'zenmagick\\apps\\'.Runtime::getContext().'\\controller\\'.ClassLoader::className($requestId.'Controller');
+            $definitions[] = 'ZM'.ClassLoader::className($requestId.'Controller');
         }
         $definitions[] = ZMSettings::get('zenmagick.mvc.controller.default', 'ZMController');
 
