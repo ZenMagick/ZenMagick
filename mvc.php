@@ -32,7 +32,7 @@ use zenmagick\base\events\Event;
         $request = $_zm_request = Runtime::getContainer()->get('request');
 
         // load application routing
-        $appRoutingFile = Runtime::getApplicationPath().DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.'routing.yaml';
+        $appRoutingFile = Runtime::getApplicationPath().'/config/routing.yaml';
         if (file_exists($appRoutingFile)) {
             $appRoutingLoader = new SymfonyYamlFileLoader(new FileLocator());
             $appRouterCollection = $appRoutingLoader->load($appRoutingFile);

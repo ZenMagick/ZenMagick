@@ -30,7 +30,7 @@ use zenmagick\base\events\Event;
     try {
         if (!defined('ZM_APP_PATH')) {
             // app location relative to zenmagick installation (ZM_BASE_PATH)
-            define('ZM_APP_PATH', 'apps'.DIRECTORY_SEPARATOR.'storefront'.DIRECTORY_SEPARATOR);
+            define('ZM_APP_PATH', 'apps/storefront/');
         }
 
         include_once 'bootstrap.php';
@@ -39,7 +39,7 @@ use zenmagick\base\events\Event;
         $request = $_zm_request = Runtime::getContainer()->get('request');
 
         // load application routing
-        $appRoutingFile = Runtime::getApplicationPath().DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.'routing.yaml';
+        $appRoutingFile = Runtime::getApplicationPath().'/config/routing.yaml';
         if (file_exists($appRoutingFile)) {
             $appRoutingLoader = new SymfonyYamlFileLoader(new FileLocator());
             $appRouterCollection = $appRoutingLoader->load($appRoutingFile);
