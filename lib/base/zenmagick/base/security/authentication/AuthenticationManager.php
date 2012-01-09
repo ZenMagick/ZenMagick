@@ -21,7 +21,6 @@
 <?php
 namespace zenmagick\base\security\authentication;
 
-use zenmagick\base\Runtime;
 use zenmagick\base\Toolbox;
 use zenmagick\base\ZMObject;
 
@@ -113,7 +112,8 @@ class AuthenticationManager extends ZMObject {
      * @return string The new password.
      */
     public function mkPassword() {
-        return Toolbox::random(Runtime::getSettings()->get('zenmagick.base.security.authentication.minPasswordLength', self::DEFAULT_MIN_PASSWORD_LENGTH), Toolbox::RANDOM_MIXED);
+        $settingsService = $this->container->get('settingsService');
+        return Toolbox::random($settingsService->get('zenmagick.base.security.authentication.minPasswordLength', self::DEFAULT_MIN_PASSWORD_LENGTH), Toolbox::RANDOM_MIXED);
     }
 
 }
