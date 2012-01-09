@@ -38,6 +38,7 @@ class CheckoutHelper extends ZMObject {
     const CART_PRODUCT_QUANTITY = 'quantity';
     const CART_PRODUCT_UNITS = 'units';
     private $shoppingCart_;
+    private $cartType_;
 
 
     /**
@@ -48,6 +49,7 @@ class CheckoutHelper extends ZMObject {
     public function __construct($shoppingCart=null) {
         parent::__construct();
         $this->shoppingCart_ = $shoppingCart;
+        $this->cartType_ = null;
     }
 
 
@@ -179,7 +181,10 @@ class CheckoutHelper extends ZMObject {
      * @return string The cart type; one of <em>physical</em>, <em>mixed</em>, <em>virtual</em>.
      */
     public function getType() {
-        return $this->shoppingCart_->cart_->get_content_type();
+        if (null === $this->cartType_) {
+            $this->cartType_ = $this->shoppingCart_->cart_->get_content_type();
+        }
+        return $this->cartType_;
     }
 
     /**

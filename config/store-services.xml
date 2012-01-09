@@ -125,7 +125,18 @@
 
         <service id="productAssociations" class="ZMProductAssociations" scope="container" />
 
-        <service id="shoppingCart" class="ZMShoppingCart" scope="container" />
+        <service id="checkoutHelper" class="apps\store\utils\CheckoutHelper" scope="container" />
+
+        <service id="shoppingCart" class="ZMShoppingCart" scope="container">
+            <call method="setCheckoutHelper">
+                <argument type="service" id="checkoutHelper" />
+            </call>
+            <!--
+            <call method="setSession">
+                <argument type="service" id="Session" />
+            </call>
+            -->
+        </service>
 
         <service id="shoppingCartService" class="ZMShoppingCarts" scope="container" />
 
@@ -188,8 +199,6 @@
         <service id="zenCartAuthenticationProvider" class="apps\store\bundles\ZenCartBundle\utils\ZenCartAuthenticationProvider" scope="container">
             <tag name="zenmagick.base.security.authentication.provider" default="true" />
         </service>
-
-        <service id="checkoutHelper" class="apps\store\utils\CheckoutHelper" scope="prototype" />
 
         <service id="annotation_reader" class="Doctrine\Common\Annotations\AnnotationReader" scope="container" />
 

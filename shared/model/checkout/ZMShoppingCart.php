@@ -25,6 +25,7 @@
 
 use zenmagick\base\Runtime;
 use zenmagick\base\ZMObject;
+use apps\store\utils\CheckoutHelper;
 
 /**
  * Shopping cart.
@@ -39,7 +40,7 @@ class ZMShoppingCart extends ZMObject {
     private $session;
     private $zenTotals_;
     private $items_;
-    private $helper_;
+    private $checkoutHelper;
     private $comments_;
     private $accountId_;
     private $selectedPaymentType_;
@@ -61,11 +62,46 @@ class ZMShoppingCart extends ZMObject {
         $this->setAccountId(null !== $accountId ? $accountId : 0);
         $this->zenTotals_ = null;
         $this->items_ = null;
-        $this->helper_ = Runtime::getContainer()->get('checkoutHelper');
-        $this->helper_->setShoppingCart($this);
         $this->selectedPaymentType_ = null;
     }
 
+
+    /**
+     * Set the checkout helper for this cart.
+     *
+     * @param CheckoutHelper checkoutHelper The checkout helper.
+     */
+    public function setCheckoutHelper(CheckoutHelper $checkoutHelper) {
+        $checkoutHelper->setShoppingCart($this);
+        $this->checkoutHelper = $checkoutHelper;
+    }
+
+    /**
+     * Get the checkout helper for this cart.
+     *
+     * @return CheckoutHelper The checkout helper.
+     */
+    public function getCheckoutHelper() {
+        return $this->checkoutHelper;
+    }
+
+    /**
+     * Set the session for this cart.
+     *
+     * @param Session session The session.
+     */
+    public function setSession($session) {
+        $this->session = $session;
+    }
+
+    /**
+     * Get the session for this cart.
+     *
+     * @return Session The session.
+     */
+    public function getSession() {
+        return $this->session;
+    }
 
     /**
      * Check if the cart is empty.
@@ -128,7 +164,7 @@ class ZMShoppingCart extends ZMObject {
      * @return string The cart type; one of <em>physical</em>, <em>mixed</em>, <em>virtual</em>.
      */
     public function getType() {
-        return $this->helper_->getType();
+        return $this->checkoutHelper->getType();
     }
 
     /**
@@ -137,7 +173,7 @@ class ZMShoppingCart extends ZMObject {
      * @return boolean <code>true</code> if the cart is purely virtual.
      */
     public function isVirtual() {
-        return $this->helper_->isVirtual();
+        return $this->checkoutHelper->isVirtual();
     }
 
     /**
@@ -339,7 +375,7 @@ class ZMShoppingCart extends ZMObject {
      * @return array List of <code>ZMPaymentType</code> instances.
      */
     public function getPaymentTypes() {
-        return $this->helper_->getPaymentTypes();
+        return $this->checkoutHelper->getPaymentTypes();
     }
 
     /**
@@ -574,7 +610,7 @@ class ZMShoppingCart extends ZMObject {
      * @return boolean <code>true</code> if the cart is ready or checkout, <code>false</code> if not.
      */
     public function readyForCheckout() {
-        return $this->helper_->readyForCheckout();
+        return $this->checkoutHelper->readyForCheckout();
     }
 
     /**

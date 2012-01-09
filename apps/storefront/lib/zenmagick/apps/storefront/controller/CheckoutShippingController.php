@@ -53,8 +53,7 @@ class CheckoutShippingController extends \ZMController {
      */
     public function processGet($request) {
         $shoppingCart = $request->getShoppingCart();
-        $checkoutHelper = Runtime::getContainer()->get('checkoutHelper');
-        $checkoutHelper->setShoppingCart($shoppingCart);
+        $checkoutHelper = $shoppingCart->getCheckoutHelper();
 
         // set cart hash
         if (!$checkoutHelper->saveHash($request)) {
