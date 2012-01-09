@@ -22,7 +22,7 @@
 namespace zenmagick\apps\admin\installation\patches\file;
 
 if (!defined('DIR_FS_CATALOG_TEMPLATES')) {
-    define('DIR_FS_CATALOG_TEMPLATES', ZC_INSTALL_PATH . 'includes/templates');
+    define('DIR_FS_CATALOG_TEMPLATES', ZC_INSTALL_PATH . 'includes/templates/');
 }
 
 use zenmagick\base\Runtime;
@@ -109,7 +109,7 @@ class ThemeDummyPatch extends FilePatch {
             $themeId = $theme->getThemeId();
             if (!file_exists(DIR_FS_CATALOG_TEMPLATES.$themeId)) {
                 if (is_writeable(DIR_FS_CATALOG_TEMPLATES)) {
-                    $templateDir = DIR_FS_CATALOG_TEMPLATES.$themeId.DIRECTORY_SEPARATOR;
+                    $templateDir = DIR_FS_CATALOG_TEMPLATES.$themeId.'/';
                     $themeConfig = $theme->getConfig();
                     \ZMFileUtils::mkdir($templateDir);
                     \ZMFileUtils::mkdir($templateDir.'images');
@@ -118,9 +118,9 @@ class ThemeDummyPatch extends FilePatch {
                     }
                     $theme = $this->container->get('themeService')->getThemeForId($themeId);
                     if (file_exists($theme->getBaseDir().'preview.jpg')) {
-                        copy($theme->getBaseDir().'preview.jpg', $templateDir.'images'.DIRECTORY_SEPARATOR.$imageName);
+                        copy($theme->getBaseDir().'preview.jpg', $templateDir.'images/'.$imageName);
                     } else {
-                        copy(Runtime::getInstallationPath().'lib/store/etc/images/preview_not_found.jpg', $templateDir.'images'.DIRECTORY_SEPARATOR.$imageName);
+                        copy(Runtime::getInstallationPath().'lib/store/etc/images/preview_not_found.jpg', $templateDir.'images/'.$imageName);
                     }
                     $handle = fopen(DIR_FS_CATALOG_TEMPLATES.$themeId."/template_info.php", 'ab');
                     fwrite($handle, '<?php /** dummy file created by ZenMagick installation patcher **/'."\n");
@@ -133,7 +133,7 @@ class ThemeDummyPatch extends FilePatch {
                     fclose($handle);
                     \ZMFileUtils::setFilePerms($templateDir."template_info.php");
                     \ZMFileUtils::setFilePerms($templateDir."images");
-                    \ZMFileUtils::setFilePerms($templateDir."images".DIRECTORY_SEPARATOR.$imageName);
+                    \ZMFileUtils::setFilePerms($templateDir."images/".$imageName);
                 } else {
                     Runtime::getLogging()->error("** ZenMagick: no permission to create theme dummy ".$themeId);
                     return false;
