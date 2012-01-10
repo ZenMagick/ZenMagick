@@ -200,6 +200,30 @@
             <tag name="zenmagick.base.security.authentication.provider" default="true" />
         </service>
 
+        <service id="formTool" class="apps\store\toolbox\ToolboxForm" scope="prototype">
+            <tag name="zenmagick.http.toolbox.tool" key="form" />
+        </service>
+
+        <service id="htmlTool" class="apps\store\toolbox\ToolboxHtml" scope="prototype">
+            <tag name="zenmagick.http.toolbox.tool" key="Html" />
+        </service>
+
+        <service id="localeTool" class="apps\store\toolbox\ToolboxLocale" scope="prototype">
+            <tag name="zenmagick.http.toolbox.tool" key="locale" />
+        </service>
+
+        <service id="macroTool" class="apps\store\toolbox\ToolboxMacro" scope="prototype">
+            <tag name="zenmagick.http.toolbox.tool" key="macro" />
+        </service>
+
+        <service id="netTool" class="apps\store\toolbox\ToolboxNet" scope="prototype">
+            <tag name="zenmagick.http.toolbox.tool" key="net" />
+        </service>
+
+        <service id="utilsTool" class="apps\store\toolbox\ToolboxUtils" scope="prototype">
+            <tag name="zenmagick.http.toolbox.tool" key="utils" />
+        </service>
+
         <service id="annotation_reader" class="Doctrine\Common\Annotations\AnnotationReader" scope="container" />
 
         <!--

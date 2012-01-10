@@ -53,5 +53,13 @@
             <tag name="zenmagick.http.rss.source" />
         </service>
 
+        <service id="crumbtrailTool" class="zenmagick\apps\storefront\http\tools\ToolboxCrumbtrail" scope="prototype">
+            <tag name="zenmagick.http.toolbox.tool" key="crumbtrail" />
+        </service>
+
+        <service id="metaTagsTool" class="apps\store\toolbox\ToolboxMetaTags" scope="prototype">
+            <tag name="zenmagick.http.toolbox.tool" key="metaTags" />
+        </service>
+
     </services>
 </container>

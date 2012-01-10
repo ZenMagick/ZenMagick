@@ -123,5 +123,10 @@
         <service id="ZoneSelectFormWidget" class="zenmagick\apps\admin\widgets\ZoneSelectFormWidget" scope="prototype">
             <tag name="zenmagick.http.widgets.widget" />
         </service>
+
+        <service id="admin2Tool" class="zenmagick\apps\admin\http\tools\ToolboxAdmin2" scope="prototype">
+            <tag name="zenmagick.http.toolbox.tool" key="admin2" />
+        </service>
+
     </services>
 </container>
