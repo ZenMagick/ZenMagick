@@ -47,6 +47,8 @@ class MenuLoader {
             } else {
                 $element = new MenuElement($id);
             }
+            // always initialize alias
+            $element->setAlias(array());
             $parent = null;
             $before = null;
             $after = null;
