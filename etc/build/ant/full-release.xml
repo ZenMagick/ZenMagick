@@ -114,11 +114,11 @@
     <!-- patch full release -->
     <target name="apply-full-release-patches" depends="init-full-release" description="Patch full release including zen cart.">
         <!-- create theme dummy files -->
-        <antcall target="create-theme-dummy"><param name="theme.id" value='default' /></antcall>
+        <antcall target="create-theme-dummy"><param name="theme.id" value='base' /></antcall>
         <antcall target="create-theme-dummy"><param name="theme.id" value='demo' /></antcall>
 
         <!-- create sidebox dummy files -->
-        <antcallback target="create-sidebox-dummies" return="datetime.sidebox.dummies.cutoff"><param name="theme.id" value='default' /></antcallback>
+        <antcallback target="create-sidebox-dummies" return="datetime.sidebox.dummies.cutoff"><param name="theme.id" value='base' /></antcallback>
 
         <!-- add zenmagick admin -->
         <antcall target="insert-after">
@@ -234,7 +234,7 @@
                 <include name="admin/coupon_admin.php" />
                 <include name="includes/functions/functions_general.php" />
                 <include name="admin/includes/functions/general.php" />
-                <include name="includes/templates/default/**" />
+                <include name="includes/templates/base/**" />
                 <include name="includes/templates/demo/**" />
             </fileset>
 
@@ -320,7 +320,7 @@
         <mkdir dir="${build.dir}/dummies"/>
         <foreach target="create-sidebox-dummy" param="filename">
             <path>
-              <fileset dir="${zenmagick.src.dir}/themes/default/content/boxes" includes="*.php" />
+              <fileset dir="${zenmagick.src.dir}/themes/base/content/boxes" includes="*.php" />
               <fileset dir="${zenmagick.src.dir}/themes/demo/content/boxes" includes="*.php" />
             </path>
         </foreach>
