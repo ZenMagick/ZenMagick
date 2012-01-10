@@ -110,6 +110,7 @@ zenmagick:
 
 apps:
   store:
+    staticContent: true
     storefront:
       domain: null
     themes:
