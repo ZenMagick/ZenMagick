@@ -45,6 +45,9 @@ class ZMZone extends ZMObject {
      * @todo rename to private $id;
      */
     private $zoneId;
+    // needed as orm mappings are done via get/set, so zoneId will never be set by the db API
+    public function setZoneId($zoneId) { $this->setId($zoneId); }
+    public function getZoneId() { return $this->getId(); }
     /**
      * @var integer $countryId
      *
