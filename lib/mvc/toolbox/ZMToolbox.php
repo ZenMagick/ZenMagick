@@ -81,7 +81,7 @@ class ZMToolbox {
         $tools = array();
 
         // custom tools: name:class,name:class
-        foreach (ZMSettings::get('zenmagick.mvc.toolbox.tools', array()) as $toolInfo) {
+        foreach (Runtime::getSettings()->get('zenmagick.mvc.toolbox.tools', array()) as $toolInfo) {
             $token = explode(':', $toolInfo);
             if (2 == count($token)) {
                 $tools[$token[0]] = Beans::getBean($token[1]);

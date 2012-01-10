@@ -33,6 +33,7 @@ class TestValidationRules extends ZMTestCase {
      */
     public function testRegExp() {
         $request = new ZMRequest();
+        $request->setContainer($this->container);
         $rule = new ZMRegexpRule('host', '/yahoo.com|localhost/i', 'no match');
         $this->assertNotNull($rule);
         $this->assertTrue($rule->validate($request, array('host' => 'localhost')));
@@ -49,6 +50,7 @@ class TestValidationRules extends ZMTestCase {
      */
     public function testEmail() {
         $request = new ZMRequest();
+        $request->setContainer($this->container);
         $rule = new ZMEmailRule('email', 'not valid');
         $this->assertNotNull($rule);
         $this->assertTrue($rule->validate($request, array('email' => 'mano@zenmagick.org')));

@@ -58,8 +58,8 @@ class ZMRuntime {
      *  <dt>dbname</dt>
      *  <dd>The database name; default is <code>DB_DATABASE</code>.</dd>
      *  <dt>provider</dt>
-     *  <dd>The requested implementation class; if omitted, this defaults to
-     *   <code>ZMSettings::get('zenmagick.core.database.provider')</code>.</dd>
+     *  <dd>The requested implementation class; if omitted, this defaults to the setting
+     *   <code>'zenmagick.core.database.provider'</code>.</dd>
      *  <dt>initQuery</dt>
      *  <dd>An optional init query to execute; useful to set the character encoding, etc.; default is <code>null</code>.</dd>
      * </dl>
@@ -71,17 +71,18 @@ class ZMRuntime {
      * @return ZMDatabase A <code>ZMDatabase</code> implementation.
      */
     public static function getDatabase($conf='default') {
+        $settingsService = Runtime::getSettings();
         if (is_string($conf)) {
-            $dbconf = ZMLangUtils::toArray(ZMSettings::get('apps.store.database.'.$conf));
+            $dbconf = ZMLangUtils::toArray($settingsService->get('apps.store.database.'.$conf));
         } else {
-            $default = ZMLangUtils::toArray(ZMSettings::get('apps.store.database.default'));
+            $default = ZMLangUtils::toArray($settingsService->get('apps.store.database.default'));
             $dbconf = array_merge($default, $conf);
         }
 
         ksort($dbconf);
         $key = serialize($dbconf);
         if (!array_key_exists($key, self::$databaseMap_)) {
-            $provider = array_key_exists('provider', $dbconf) ? $dbconf['provider'] : ZMSettings::get('zenmagick.core.database.provider', 'ZMPdoDatabase');
+            $provider = array_key_exists('provider', $dbconf) ? $dbconf['provider'] : $settingsService->get('zenmagick.core.database.provider', 'ZMPdoDatabase');
             self::$databaseMap_[$key] = new $provider($dbconf);
         }
 
@@ -104,7 +105,7 @@ class ZMRuntime {
      * @return array List of <code>Doctrine\ORM\EntityManager</code> instances.
      */
     public static function getEntityManager($conf='default') {
-        self::$entityManagerMap_[$conf] = self::getDatabase($conf)->getEntityManager(ZMLangUtils::toArray(ZMSettings::get('doctrine.orm')));
+        self::$entityManagerMap_[$conf] = self::getDatabase($conf)->getEntityManager(ZMLangUtils::toArray(Runtime::getSettings()->get('doctrine.orm')));
         return self::$entityManagerMap_[$conf];
     }
 

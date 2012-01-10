@@ -20,6 +20,8 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
+
 /**
  * Networking utils.
  *
@@ -74,7 +76,7 @@ class ZMNetUtils {
      * @return string The URL encoded in valid HTM.
      */
     public static function encode($url) {
-        $url = htmlentities($url, ENT_QUOTES,ZMSettings::get('zenmagick.mvc.html.charset'));
+        $url = htmlentities($url, ENT_QUOTES, Runtime::getSettings()->get('zenmagick.mvc.html.charset'));
         $url = str_replace(' ', '%20', $url);
         return $url;
     }
@@ -86,7 +88,7 @@ class ZMNetUtils {
      * @return string The decoded URL.
      */
     public static function decode($url) {
-        $s = html_entity_decode($url, ENT_QUOTES,ZMSettings::get('zenmagick.mvc.html.charset'));
+        $s = html_entity_decode($url, ENT_QUOTES, Runtime::getSettings()->get('zenmagick.mvc.html.charset'));
         $s = str_replace('%20', ' ', $s);
         return $s;
     }

@@ -80,7 +80,7 @@ class ZMDispatcher {
             $view = $controller->process($request);
         } catch (Exception $e) {
             Runtime::getLogging()->dump($e, sprintf('controller::process failed: %s', $e->getMessage()), Logging::ERROR);
-            $controller = Beans::getBean(\ZMSettings::get('zenmagick.mvc.controller.default', 'ZMController'));
+            $controller = Beans::getBean(Runtime::getSettings()->get('zenmagick.mvc.controller.default', 'ZMController'));
             $view = $controller->findView('error', array('exception' => $e));
             $request->setController($controller);
             $controller->initViewVars($view, $request);

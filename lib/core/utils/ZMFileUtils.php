@@ -88,7 +88,7 @@ class ZMFileUtils {
         }
 
         if (null === $perms) {
-            $perms = \ZMSettings::get('zenmagick.core.fs.permissions.defaults.folder', '0755');
+            $perms = Runtime::getSettings()->get('zenmagick.core.fs.permissions.defaults.folder', '0755');
         }
 
         if (is_string($perms)) {
@@ -215,7 +215,8 @@ class ZMFileUtils {
      *  <em>fs.permissions.defaults.file</em> for files.
      */
     public static function setFilePerms($files, $recursive=false, $perms=array()) {
-        if (!\ZMSettings::get('zenmagick.core.fs.permissions.fix')) {
+        $settingsService = Runtime::getSettings();
+        if (!$settingsService->get('zenmagick.core.fs.permissions.fix')) {
             return;
         }
         if (null == self::$fileOwner_ || null == self::$fileGroup_) {
@@ -231,8 +232,8 @@ class ZMFileUtils {
             $files = array($files);
         }
 
-        $filePerms = array_merge(array('file' => \ZMSettings::get('zenmagick.core.fs.permissions.defaults.file', '0644'),
-                                    'folder' => \ZMSettings::get('zenmagick.core.fs.permissions.defaults.folder', '0755')), $perms);
+        $filePerms = array_merge(array('file' => $settingsService->get('zenmagick.core.fs.permissions.defaults.file', '0644'),
+                                    'folder' => $settingsService->get('zenmagick.core.fs.permissions.defaults.folder', '0755')), $perms);
         foreach ($filePerms as $type => $perms) {
             if (is_string($perms)) {
                 $filePerms[$type] = intval($perms, 8);

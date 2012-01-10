@@ -378,7 +378,8 @@ class ZMRequest extends ZMObject {
      * @return string The request id key.
      */
     public function getRequestIdKey() {
-        return \ZMSettings::get('zenmagick.http.request.idName', self::DEFAULT_REQUEST_ID);
+        // called inside c'tor, so no container yet
+        return Runtime::getSettings()->get('zenmagick.http.request.idName', self::DEFAULT_REQUEST_ID);
     }
 
     /**
@@ -640,7 +641,7 @@ class ZMRequest extends ZMObject {
      */
     public function validateSessionToken() {
         $valid = true;
-        if (\ZMLangUtils::inArray($this->getRequestId(), \ZMSettings::get('zenmagick.mvc.html.tokenSecuredForms'))) {
+        if (\ZMLangUtils::inArray($this->getRequestId(), $this->container->get('settingsService')->get('zenmagick.mvc.html.tokenSecuredForms'))) {
             $valid = false;
             if (null != ($token = $this->getParameter(self::SESSION_TOKEN_NAME))) {
                 $valid = $this->getSession()->getToken() == $token;

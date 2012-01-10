@@ -251,7 +251,7 @@ class ZMUrlManager extends ZMObject {
             $definitions[] = 'ZM'.ClassLoader::className($requestId.'Controller');
             $definitions[] = 'zenmagick\\apps\\'.Runtime::getContext().'\\controller\\'.ClassLoader::className($requestId.'Controller');
         }
-        $definitions[] = ZMSettings::get('zenmagick.mvc.controller.default', 'ZMController');
+        $definitions[] = Runtime::getSettings()->get('zenmagick.mvc.controller.default', 'ZMController');
 
         Runtime::getLogging()->log('controller definition: '.implode(',', $definitions), Logging::TRACE);
         $controller = null;
@@ -300,7 +300,7 @@ class ZMUrlManager extends ZMObject {
             $parameter = http_build_query($parameter);
         }
         $layout = ((array_key_exists('layout', $mapping) && null !== $mapping['layout'])
-              ? $mapping['layout'] : ZMSettings::get('zenmagick.mvc.view.defaultLayout', null));
+              ? $mapping['layout'] : Runtime::getSettings()->get('zenmagick.mvc.view.defaultLayout', null));
         $definition = $parameter.'&template='.$mapping['template'].'&layout='.$layout.'&viewId='.$viewId;
         Runtime::getLogging()->debug('view: '.$definition);
 

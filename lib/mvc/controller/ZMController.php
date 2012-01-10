@@ -106,7 +106,9 @@ class ZMController extends ZMObject {
         // check authorization
         $sacsManager->authorize($request, $request->getRequestId(), $request->getUser());
 
-        $enableTransactions = ZMSettings::get('zenmagick.mvc.transactions.enabled', false);
+        $settingsService = Runtime::getSettings();
+
+        $enableTransactions = $settingsService->get('zenmagick.mvc.transactions.enabled', false);
 
         if ($enableTransactions) {
             ZMRuntime::getDatabase()->beginTransaction();
@@ -173,7 +175,7 @@ class ZMController extends ZMObject {
             $this->initViewVars($view, $request, $formData);
             if (!$view->isValid()) {
                 Runtime::getLogging()->warn('invalid view: '.$view->getTemplate().', expected: '.$view->getViewFilename());
-                $view = $this->findView(ZMSettings::get('zenmagick.mvc.request.missingPage'));
+                $view = $this->findView($settingsService->get('zenmagick.mvc.request.missingPage'));
                 $this->initViewVars($view, $request, $formData);
             }
             $this->view_ = $view;

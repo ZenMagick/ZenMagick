@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 use zenmagick\base\ZMObject;
 
 /**
@@ -54,7 +55,7 @@ class ZMResultList extends ZMObject {
         $this->filters_ = array();
         $this->sorters_ = array();
         $this->page_ = 1;
-        $this->pagination_ = ZMSettings::get('zenmagick.mvc.resultlist.defaultPagination');
+        $this->pagination_ = Runtime::getSettings()->get('zenmagick.mvc.resultlist.defaultPagination');
         $this->allResults_ = null;
         $this->results_ = null;
     }

@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 
 /**
  * HTML utilities.
@@ -36,8 +37,9 @@ class ZMHtmlUtils {
      * @return string The encoded HTML.
      */
     public static function encode($s) {
-        $s = html_entity_decode($s, ENT_QUOTES, ZMSettings::get('zenmagick.mvc.html.charset'));
-        $s = htmlentities($s, ENT_QUOTES, ZMSettings::get('zenmagick.mvc.html.charset'));
+        $charset = Runtime::getSettings()->get('zenmagick.mvc.html.charset');
+        $s = html_entity_decode($s, ENT_QUOTES, $charset);
+        $s = htmlentities($s, ENT_QUOTES, $charset);
         return $s;
     }
 
