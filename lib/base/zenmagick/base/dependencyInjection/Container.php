@@ -21,6 +21,7 @@
 <?php
 namespace zenmagick\base\dependencyInjection;
 
+use zenmagick\base\ZMException;
 use zenmagick\base\classloader\ClassLoader;
 use zenmagick\base\dependencyInjection\parameterBag\SettingsParameterBag;
 use zenmagick\base\dependencyInjection\compiler\ResolveMergeDefinitionsPass;
@@ -88,7 +89,7 @@ class Container extends ContainerBuilder {
      * @deprecated
      */
     public function getService($id, $invalidBehavior=self::EXCEPTION_ON_INVALID_REFERENCE) {
-        throw new ZMException('method not supported any more');
+        throw new ZMException('method not supported any more; id = '.$id);
     }
 
 }
