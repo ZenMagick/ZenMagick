@@ -194,7 +194,7 @@ class ZMThemes extends ZMObject {
 
             $libPath = $theme->getBaseDir().'/lib';
             $classLoader = $this->container->get('classLoader');
-            $classLoader->addNamespace('zenmagick\\themes\\'.$id, $libPath);
+            $classLoader->addNamespace('zenmagick\\themes\\'.$themeId, $libPath);
             // allow custom class loading config
             $classLoader->addConfig($libPath);
             $classLoader->register();

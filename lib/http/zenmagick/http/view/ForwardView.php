@@ -102,7 +102,7 @@ class ForwardView extends View {
     /**
      * {@inheritDoc}
      */
-    public function generate($request) {
+    public function generate($request, $template=null, $variables=array()) {
         // keep reference to original request
         $request->setParameter('rootRequestId', $request->getRequestId());
         // set forward id

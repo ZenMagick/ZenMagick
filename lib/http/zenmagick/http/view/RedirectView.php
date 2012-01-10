@@ -93,7 +93,7 @@ class RedirectView extends View {
     /**
      * {@inheritDoc}
      */
-    public function generate($request) {
+    public function generate($request, $template=null, $variables=array()) {
         $request->redirect($this->getRedirectUrl($request), $this->status_);
         return null;
     }
