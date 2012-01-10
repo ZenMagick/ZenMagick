@@ -24,6 +24,8 @@
 */
 namespace pear\cache;
 
+use zenmagick\base\ZMException;
+
 define('CACHE_LITE_ERROR_RETURN', 1);
 define('CACHE_LITE_ERROR_DIE', 8);
 
@@ -546,8 +548,7 @@ class CacheLite
     */
     function raiseError($msg, $code)
     {
-        include_once('PEAR.php');
-        return PEAR::raiseError($msg, $code, $this->_pearErrorMode);
+        throw new ZMException($msg, $code);
     }
 
     /**
