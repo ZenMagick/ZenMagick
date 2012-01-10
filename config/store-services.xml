@@ -205,7 +205,7 @@
         </service>
 
         <service id="htmlTool" class="apps\store\toolbox\ToolboxHtml" scope="prototype">
-            <tag name="zenmagick.http.toolbox.tool" key="Html" />
+            <tag name="zenmagick.http.toolbox.tool" key="html" />
         </service>
 
         <service id="localeTool" class="apps\store\toolbox\ToolboxLocale" scope="prototype">

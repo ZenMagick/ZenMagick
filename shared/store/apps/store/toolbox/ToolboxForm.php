@@ -22,13 +22,14 @@
 namespace apps\store\toolbox;
 
 use zenmagick\base\Runtime;
+use zenmagick\http\toolbox\ToolboxTool;
 
 /**
  * Form related functions.
  *
  * @author DerManoMann
  */
-class ToolboxForm extends \ZMToolboxTool {
+class ToolboxForm extends ToolboxTool {
 
     /**
      * Create a HTML <code>form</code> tag.

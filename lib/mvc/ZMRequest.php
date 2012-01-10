@@ -537,15 +537,11 @@ class ZMRequest extends ZMObject {
     /**
      * Get the toolbox for this request.
      *
-     * @return ZMToolbox A toolbox instance.
+     * @return Toolbox A toolbox instance.
+     * @deprecated use container directly
      */
     public function getToolbox() {
-        if (null == $this->toolbox_) {
-            $this->toolbox_ = $this->container->get('ZMToolbox');
-            $this->toolbox_->setRequest($this);
-        }
-
-        return $this->toolbox_;
+        return $this->container->get('toolbox');
     }
 
     /**

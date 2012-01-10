@@ -21,12 +21,14 @@
 <?php
 namespace apps\store\toolbox;
 
+use zenmagick\http\toolbox\ToolboxTool;
+
 /**
  * Locale methods.
  *
  * @author DerManoMann
  */
-class ToolboxLocale extends \ZMToolboxTool {
+class ToolboxLocale extends ToolboxTool {
 
     /**
      * Format and display a date using the locales date/short.

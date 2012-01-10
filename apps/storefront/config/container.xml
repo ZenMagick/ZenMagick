@@ -57,7 +57,7 @@
             <tag name="zenmagick.http.toolbox.tool" key="crumbtrail" />
         </service>
 
-        <service id="metaTagsTool" class="apps\store\toolbox\ToolboxMetaTags" scope="prototype">
+        <service id="metaTagsTool" class="zenmagick\apps\storefront\http\tools\ToolboxMetaTags" scope="prototype">
             <tag name="zenmagick.http.toolbox.tool" key="metaTags" />
         </service>
 

@@ -19,6 +19,7 @@
  */
 ?>
 <?php
+namespace zenmagick\http\toolbox;
 
 use zenmagick\base\ZMObject;
 
@@ -26,14 +27,12 @@ use zenmagick\base\ZMObject;
  * Toolbx tool base class.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package org.zenmagick.mvc.toolbox
  */
-class ZMToolboxTool extends ZMObject {
+class ToolboxTool extends ZMObject {
     protected $request_;
     protected $toolbox_;
     protected $view_;
 
-function getContainer(){ return $this->container;}
     /**
      * Set the request.
      *
@@ -55,7 +54,7 @@ function getContainer(){ return $this->container;}
     /**
      * Set the toolbox itself.
      *
-     * @param ZMToolbox toolbox The toolbox.
+     * @param Toolbox toolbox The toolbox.
      */
     public function setToolbox($toolbox) {
         $this->toolbox_ = $toolbox;
@@ -64,7 +63,7 @@ function getContainer(){ return $this->container;}
     /**
      * Get the toolbox.
      *
-     * @return ZMToolbox The toolbox.
+     * @return Toolbox The toolbox.
      */
     public function getToolbox() {
         return $this->toolbox_;

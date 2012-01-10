@@ -19,32 +19,31 @@
  */
 ?>
 <?php
+namespace zenmagick\http\toolbox;
 
 use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
+use zenmagick\base\ZMObject;
 
 use Symfony\Component\DependencyInjection\ContainerAware;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Container for template related utilities.
  *
- * <p>Note that this class doesn't extend from ZMObject as it depends on dynamically created class properties.</p>
- *
  * @author DerManoMann <mano@zenmagick.org>
- * @package org.zenmagick.mvc.utils
  */
-class ZMToolbox {
-    /** The tools. */
-    private $tools_;
+class Toolbox extends ContainerAware {
+    private $request;
+    private $tools;
 
 
     /**
      * Create new instance.
-     *
-     * @param ZMRequest request The current request; default is <code>null</code>.
      */
-    public function __construct($request=null) {
-        $this->tools_ = $this->initTools($request);
+    public function __construct() {
+        $this->request = null;
+        $this->tools = null;
     }
 
 
@@ -54,7 +53,7 @@ class ZMToolbox {
      * @param ZMRequest request The current request.
      */
     public function setRequest($request) {
-        $this->tools_ = $this->initTools($request);
+        $this->request = $request;
     }
 
     /**
@@ -63,43 +62,50 @@ class ZMToolbox {
      * @return array A map of all available tools.
      */
     public function getTools() {
-        return $this->tools_;
+        return $this->tools;
     }
 
     /**
      * Init all tools.
      *
-     * @param ZMRequest request The current request.
      * @return array Map of all tools.
      */
-    protected function initTools($request) {
-        if (null == $request) {
-            return;
-        }
-
-        // default tools
+    protected function initTools() {
         $tools = array();
-
-        // custom tools: name:class,name:class
-        foreach (Runtime::getSettings()->get('zenmagick.mvc.toolbox.tools', array()) as $toolInfo) {
-            $token = explode(':', $toolInfo);
-            if (2 == count($token)) {
-                $tools[$token[0]] = Beans::getBean($token[1]);
+        foreach ($this->container->findTaggedServiceIds('zenmagick.http.toolbox.tool') as $id => $args) {
+            $key = null;
+            foreach ($args as $elem) {
+                foreach ($elem as $key => $value) {
+                    if ('key' == $key && $value) {
+                        $key = $value;
+                        break;
+                    }
+                }
             }
-        }
 
-        foreach ($tools as $name => $tool) {
-            // set request where required
-            if ($tool instanceof ZMToolboxTool) {
+            $tool = $this->container->get($id);
+            if ($tool instanceof ToolboxTool) {
                 $tool->setToolbox($this);
-                $tool->setRequest($request);
+                $tool->setRequest($this->request);
             }
 
-            // set member
-            $this->$name = $tool;
+            // set as member
+            $this->$key = $tool;
+            // and keep in list
+            $tools[$key] = $tool;
         }
 
         return $tools;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setContainer(ContainerInterface $container=null) {
+        parent::setContainer($container);
+        if (null === $this->tools) {
+            $this->tools = $this->initTools();
+        }
     }
 
 }

@@ -22,13 +22,14 @@
 namespace apps\store\toolbox;
 
 use zenmagick\base\Runtime;
+use zenmagick\http\toolbox\ToolboxTool;
 
 /**
  * Networking/URL related functions.
  *
  * @author DerManoMann
  */
-class ToolboxNet extends \ZMToolboxTool {
+class ToolboxNet extends ToolboxTool {
 
     /**
      * Create a URL.

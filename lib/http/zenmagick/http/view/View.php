@@ -27,6 +27,8 @@ use zenmagick\base\ZMException;
 use zenmagick\base\ZMObject;
 use zenmagick\base\logging\Logging;
 use zenmagick\http\widgets\Widget;
+use zenmagick\http\toolbox\Toolbox;
+use zenmagick\http\toolbox\ToolboxTool;
 
 /**
  * A view.
@@ -269,20 +271,17 @@ class View extends ZMObject {
                     }
                 }
             }
-            $this->setVariable($key, $this->container->get($id));
-        }
-
-        // todo: drop somehow
-        $toolbox = $request->getToolbox();
-        $this->setVariable('toolbox', $toolbox);
-        // also set individual tools
-        foreach ($toolbox->getTools() as $name => $tool) {
-            if ($tool instanceof \ZMToolboxTool) {
-                $tool->setView($this);
+            $obj = $this->container->get($id);
+            if ($obj instanceof Toolbox) {
+                foreach ($obj->getTools() as $name => $tool) {
+                    if ($tool instanceof ToolboxTool) {
+                        $tool->setView($this);
+                    }
+                    $this->setVariable($name, $tool);
+                }
             }
-            $this->setVar($name, $tool);
+            $this->setVariable($key, $obj);
         }
-
 
         // set all plugins
         foreach ($this->container->get('pluginService')->getAllPlugins($settingsService->get('zenmagick.base.context')) as $plugin) {

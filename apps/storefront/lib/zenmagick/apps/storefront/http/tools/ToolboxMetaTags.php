@@ -25,6 +25,7 @@
 namespace zenmagick\apps\storefront\http\tools;
 
 use zenmagick\base\Runtime;
+use zenmagick\http\toolbox\ToolboxTool;
 
 /**
  * Page meta tag data generator.
@@ -39,7 +40,7 @@ use zenmagick\base\Runtime;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class ToolboxMetaTags extends \ZMToolboxTool {
+class ToolboxMetaTags extends ToolboxTool {
     private $topCategories_ = null;
     private $crumbtrail_ = null;
     private $product_ = null;

@@ -90,5 +90,12 @@
             <tag name="zenmagick.http.widgets.widget" />
         </service>
 
+        <service id="toolbox" class="zenmagick\http\toolbox\Toolbox" scope="container">
+            <call method="setRequest">
+                <argument type="service" id="request" />
+            </call>
+            <tag name="zenmagick.http.view.variable" key="toolbox" />
+        </service>
+
     </services>
 </container>

@@ -23,13 +23,14 @@ namespace zenmagick\apps\admin\http\tools;
 
 use zenmagick\base\Runtime;
 use zenmagick\apps\admin\controller\CatalogContentController;
+use zenmagick\http\toolbox\ToolboxTool;
 
 /**
  * Admin related functions.
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class ToolboxAdmin2 extends \ZMToolboxTool {
+class ToolboxAdmin2 extends ToolboxTool {
     private $tags_;
 
 

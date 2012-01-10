@@ -25,13 +25,14 @@
 namespace apps\store\toolbox;
 
 use zenmagick\base\Runtime;
+use zenmagick\http\toolbox\ToolboxTool;
 
 /**
  * Generic utilities.
  *
  * @author DerManoMann
  */
-class ToolboxUtils extends \ZMToolboxTool {
+class ToolboxUtils extends ToolboxTool {
 
     /**
      * Simple title generator based on the page name.

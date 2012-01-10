@@ -25,14 +25,14 @@
 namespace zenmagick\apps\storefront\http\tools;
 
 use zenmagick\base\Runtime;
+use zenmagick\http\toolbox\ToolboxTool;
 
 /**
  * Crumbtrail.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.store.sf.mvc.tools
  */
-class ToolboxCrumbtrail extends \ZMToolboxTool {
+class ToolboxCrumbtrail extends ToolboxTool {
     private $crumbs_;
 
 

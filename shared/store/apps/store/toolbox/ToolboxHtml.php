@@ -26,13 +26,14 @@ namespace apps\store\toolbox;
 
 use zenmagick\base\Runtime;
 use zenmagick\base\ZMException;
+use zenmagick\http\toolbox\ToolboxTool;
 
 /**
  * HTML utilities.
  *
  * @author DerManoMann
  */
-class ToolboxHtml extends \ZMToolboxTool {
+class ToolboxHtml extends ToolboxTool {
 
     /**
      * Encode a given string to valid HTML.
