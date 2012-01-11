@@ -76,18 +76,6 @@ zenmagick:
     rpc:
       format: JSON
 
-    ## toolbox tools
-    toolbox:
-      tools:
-        - net:ZMToolboxNet
-        - html:ZMToolboxHtml
-        - form:ZMToolboxForm
-        - macro:ZMToolboxMacro
-        - locale:ZMToolboxLocale
-        - utils:ZMToolboxUtils
-        - admin:ZMToolboxAdmin
-        - admin2:zenmagick\apps\admin\http\tools\ToolboxAdmin2
-
   http:
     ## html
     html:

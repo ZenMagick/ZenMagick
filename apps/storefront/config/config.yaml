@@ -72,18 +72,6 @@ zenmagick:
     controller:
       default: zenmagick\apps\storefront\controller\DefaultController
 
-    ## toolbox tools
-    toolbox:
-      tools:
-        - net:ZMToolboxNet
-        - html:ZMToolboxHtml
-        - form:ZMToolboxForm
-        - macro:ZMToolboxMacro
-        - locale:ZMToolboxLocale
-        - utils:ZMToolboxUtils
-        - crumbtrail:zenmagick\apps\storefront\http\tools\ToolboxCrumbtrail
-        - metaTags:zenmagick\apps\storefront\http\tools\ToolboxMetaTags
-
     ## resultlist
     resultlist:
       defaultPagination: 10

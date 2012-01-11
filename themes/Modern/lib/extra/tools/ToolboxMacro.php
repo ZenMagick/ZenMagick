@@ -30,7 +30,7 @@
  * @author DerManoMann
  * @package org.zenmagick.store.mvc.tools
  */
-class ToolboxMacro extends ZMToolboxMacro {
+class ToolboxMacro extends apps\store\toolbox\ToolboxMacro {
 
     /**
      * Build a nested unordered list from the given categories.

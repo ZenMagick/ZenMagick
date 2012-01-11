@@ -30,7 +30,7 @@
  * @author DerManoMann
  * @package org.zenmagick.store.mvc.toolbox.defaults
  */
-class ToolboxHtml extends ZMToolboxHtml {
+class ToolboxHtml extends apps\store\toolbox\ToolboxHtml {
 
 	/**
      * Create a full HTML &lt;a&gt; tag pointig to an ezpage.
