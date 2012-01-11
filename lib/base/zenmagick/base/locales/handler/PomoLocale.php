@@ -111,7 +111,7 @@ class PomoLocale extends Locale {
      */
     public function registerMO($filename, $domain=null) {
         $domain = null != $domain ? $domain : Runtime::getContext();
-        Runtime::getLogging()->debug(sprintf('registering MO: %s', $filename));
+        Runtime::getLogging()->debug(sprintf('registering MO: %s for domain: %s', $filename, $domain));
         $mo = new MO();
         if (!$mo->import_from_file($filename)) {
             Runtime::getLogging()->warn(sprintf('import from MO: %s failed!', $filename));
