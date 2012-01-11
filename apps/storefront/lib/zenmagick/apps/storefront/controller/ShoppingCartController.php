@@ -25,7 +25,7 @@
 namespace zenmagick\apps\storefront\controller;
 
 use zenmagick\base\Runtime;
-use zenmagick\apps\storefront\utils\CheckoutHelper;
+use apps\store\utils\CheckoutHelper;
 
 /**
  * Request controller for shopping cart.
