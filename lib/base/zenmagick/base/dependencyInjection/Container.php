@@ -28,6 +28,7 @@ use zenmagick\base\dependencyInjection\compiler\ResolveMergeDefinitionsPass;
 
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 /**
@@ -51,30 +52,40 @@ class Container extends ContainerBuilder {
      * {@inheritDoc}
      */
     public function get($id, $invalidBehavior=self::EXCEPTION_ON_INVALID_REFERENCE) {
-        $obj = null;
+        $service = null;
         if ($this->has($id)) {
-            $obj = parent::get($id, $invalidBehavior);
+            $service = parent::get($id, $invalidBehavior);
         } else if (ClassLoader::classExists($id) && class_exists($id)) {
             // try to default to the id as class name (with scope prototype)
-//echo sprintf('defaulting to id = classname: %s', $id)."<BR>";
-            $obj = new $id();
+            $service = new $id();
         } else if ('Z' == $id[0] && 'M' == $id[1]) {
             // possibly old class name that now exists as serivce id without the prefix
             $npid = substr($id, 2);
             if ($this->has($npid)) {
-                $obj = parent::get($npid, $invalidBehavior);
+                $service = parent::get($npid, $invalidBehavior);
             }
         }
 
-        if (null != $obj && $obj instanceof ContainerAwareInterface) {
-            $obj->setContainer($this);
+        if (null != $service && $service instanceof ContainerAwareInterface) {
+            $service->setContainer($this);
         }
 
-        if (null == $obj && self::EXCEPTION_ON_INVALID_REFERENCE === $invalidBehavior) {
+        if (null == $service && self::EXCEPTION_ON_INVALID_REFERENCE === $invalidBehavior) {
             throw new \InvalidArgumentException(sprintf('The service "%s" does not exist.', $id));
         }
 
-        return $obj;
+        return $service;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    protected function createService(Definition $definition, $id){
+        $service = parent::createService($definition, $id);
+        if (null != $service && $service instanceof ContainerAwareInterface) {
+            $service->setContainer($this);
+        }
+        return $service;
     }
 
     /**

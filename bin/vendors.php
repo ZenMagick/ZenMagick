@@ -27,6 +27,9 @@ $vendorDeps = array(
     $baseDir .'/bundles/Symfony/Bundle' => array(
             array('DoctrineMigrationsBundle', 'git://github.com/symfony/DoctrineMigrationsBundle.git', 'origin/HEAD', false),
     ),
+    $baseDir .'/bundles/Doctrine/Bundle' => array(
+            array('DoctrineBundle', 'git://github.com/doctrine/DoctrineBundle.git', 'origin/HEAD', false),
+    ),
 );
 
 foreach ($vendorDeps as $vendorDir => $deps) {

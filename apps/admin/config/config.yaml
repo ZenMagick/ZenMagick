@@ -99,7 +99,7 @@ zenmagick:
   ## bundles
   bundles:
     ZenCartBundle: apps\store\bundles\ZenCartBundle\ZenCartBundle
-    DoctrineBundle: Symfony\Bundle\DoctrineBundle\DoctrineBundle 
+    DoctrineBundle: Doctrine\Bundle\DoctrineBundle\DoctrineBundle 
     SwiftmailerBundle: Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle 
     DoctrineMigrationsBundle: Symfony\Bundle\DoctrineMigrationsBundle\DoctrineMigrationsBundle
 
