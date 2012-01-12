@@ -4,6 +4,18 @@ meta:
   author: 'RubikIntegration'
   description: 'Modern / RI0007'
 
+storefront:
+  container:
+    services:
+      modernHtmlTool:
+        parent: merge:htmlTool
+        class: zenmagick\apps\store\themes\modern\ToolboxHtml
+      modernMacroTool:
+        parent: merge:macroTool
+        class: zenmagick\apps\store\themes\modern\ToolboxMacro
+
+
+
 # Notes:
 # - I think with all those classes and ids, there is almost no justification for inline styles as used in a few places
 # - style: element names in CSS rules should be lower case
