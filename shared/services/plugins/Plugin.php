@@ -146,7 +146,9 @@ class Plugin extends zenmagick\base\plugins\Plugin {
     function __set($name, $value) {
         $dname = strtoupper($this->configPrefix_ . $name);
         if (defined($dname)) {
-            $this->container->get('configService')->updateConfigValue($dname, $value);
+            if (constant($dname) != $value) {
+                $this->container->get('configService')->updateConfigValue($dname, $value);
+            }
         } else {
             // regular dynamic property
             parent::__set($name, $value);
