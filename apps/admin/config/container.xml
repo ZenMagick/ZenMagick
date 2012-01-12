@@ -10,7 +10,7 @@
     </parameters>
 
     <services>
-        <service id="request" class="zenmagick\apps\admin\http\Request" scope="container" />
+        <service id="request" class="zenmagick\apps\store\admin\http\Request" scope="container" />
 
         <service id="pluginService" class="Plugins" scope="container" />
 
@@ -25,13 +25,13 @@
         <!-- TODO: drop when moving to using view instead of defaultView -->
         <service id="defaultView" alias="view" />
 
-        <service id="adminUserPrefService" class="zenmagick\apps\admin\services\AdminUserPrefService" scope="container" />
+        <service id="adminUserPrefService" class="zenmagick\apps\store\admin\services\AdminUserPrefService" scope="container" />
 
-        <service id="adminUserRoleService" class="zenmagick\apps\admin\services\AdminUserRoleService" scope="container" />
+        <service id="adminUserRoleService" class="zenmagick\apps\store\admin\services\AdminUserRoleService" scope="container" />
 
-        <service id="adminUserService" class="zenmagick\apps\admin\services\AdminUserService" scope="container" />
+        <service id="adminUserService" class="zenmagick\apps\store\admin\services\AdminUserService" scope="container" />
 
-        <service id="sacsPermissionService" class="zenmagick\apps\admin\services\SacsPermissionService" scope="container" />
+        <service id="sacsPermissionService" class="zenmagick\apps\store\admin\services\SacsPermissionService" scope="container" />
 
         <service id="session" class="zenmagick\http\session\Session" scope="container">
             <argument>%apps.store.admin.domain%</argument>
@@ -52,79 +52,79 @@
 
         <service id="adminMenu" class="apps\store\menu\Menu" scope="container" />
 
-        <service id="catalogDefaultTabController" class="zenmagick\apps\admin\controller\CatalogDefaultTabController" scope="container">
+        <service id="catalogDefaultTabController" class="zenmagick\apps\store\admin\controller\CatalogDefaultTabController" scope="container">
             <tag name="apps.store.admin.tabcontroller" />
         </service>
 
-        <service id="userFactory" class="zenmagick\apps\admin\services\AdminUserFactory" scope="container" />
+        <service id="userFactory" class="zenmagick\apps\store\admin\services\AdminUserFactory" scope="container" />
 
-        <service id="dashboard" class="zenmagick\apps\admin\dashboard\Dashboard" scope="container" />
+        <service id="dashboard" class="zenmagick\apps\store\admin\dashboard\Dashboard" scope="container" />
 
-        <service id="orderStatsDashboardWidget" class="zenmagick\apps\admin\dashboard\widgets\OrderStatsDashboardWidget" scope="prototype">
+        <service id="orderStatsDashboardWidget" class="zenmagick\apps\store\admin\dashboard\widgets\OrderStatsDashboardWidget" scope="prototype">
             <tag name="apps.store.admin.dashboard.widget" />
         </service>
 
-        <service id="latestOrdersDashboardWidget" class="zenmagick\apps\admin\dashboard\widgets\LatestOrdersDashboardWidget" scope="prototype">
+        <service id="latestOrdersDashboardWidget" class="zenmagick\apps\store\admin\dashboard\widgets\LatestOrdersDashboardWidget" scope="prototype">
             <tag name="apps.store.admin.dashboard.widget" />
         </service>
 
-        <service id="latestAccountsDashboardWidget" class="zenmagick\apps\admin\dashboard\widgets\LatestAccountsDashboardWidget" scope="prototype">
+        <service id="latestAccountsDashboardWidget" class="zenmagick\apps\store\admin\dashboard\widgets\LatestAccountsDashboardWidget" scope="prototype">
             <tag name="apps.store.admin.dashboard.widget" />
         </service>
 
-        <service id="recentSearchesDashboardWidget" class="zenmagick\apps\admin\dashboard\widgets\RecentSearchesDashboardWidget" scope="prototype">
+        <service id="recentSearchesDashboardWidget" class="zenmagick\apps\store\admin\dashboard\widgets\RecentSearchesDashboardWidget" scope="prototype">
             <tag name="apps.store.admin.dashboard.widget" />
         </service>
 
-        <service id="updateCheckerDashboardWidget" class="zenmagick\apps\admin\dashboard\widgets\UpdateCheckerDashboardWidget" scope="prototype">
+        <service id="updateCheckerDashboardWidget" class="zenmagick\apps\store\admin\dashboard\widgets\UpdateCheckerDashboardWidget" scope="prototype">
             <tag name="apps.store.admin.dashboard.widget" />
         </service>
 
-        <service id="pendingDashboardWidget" class="zenmagick\apps\admin\dashboard\widgets\PendingDashboardWidget" scope="prototype">
+        <service id="pendingDashboardWidget" class="zenmagick\apps\store\admin\dashboard\widgets\PendingDashboardWidget" scope="prototype">
             <tag name="apps.store.admin.dashboard.widget" />
         </service>
 
-        <service id="counterHistoryDashboardWidget" class="zenmagick\apps\admin\dashboard\widgets\CounterHistoryDashboardWidget" scope="prototype">
+        <service id="counterHistoryDashboardWidget" class="zenmagick\apps\store\admin\dashboard\widgets\CounterHistoryDashboardWidget" scope="prototype">
             <tag name="apps.store.admin.dashboard.widget" />
         </service>
 
-        <service id="basicStatsDashboardWidget" class="zenmagick\apps\admin\dashboard\widgets\BasicStatsDashboardWidget" scope="prototype">
+        <service id="basicStatsDashboardWidget" class="zenmagick\apps\store\admin\dashboard\widgets\BasicStatsDashboardWidget" scope="prototype">
             <tag name="apps.store.admin.dashboard.widget" />
         </service>
 
-        <service id="storeStatusDashboardWidget" class="zenmagick\apps\admin\dashboard\widgets\StoreStatusDashboardWidget" scope="prototype">
+        <service id="storeStatusDashboardWidget" class="zenmagick\apps\store\admin\dashboard\widgets\StoreStatusDashboardWidget" scope="prototype">
             <tag name="apps.store.admin.dashboard.widget" />
         </service>
 
-        <service id="countrySelectFormWidget" class="zenmagick\apps\admin\widgets\CountrySelectFormWidget" scope="prototype">
+        <service id="countrySelectFormWidget" class="zenmagick\apps\store\admin\widgets\CountrySelectFormWidget" scope="prototype">
             <tag name="zenmagick.http.widgets.widget" />
         </service>
 
-        <service id="manufacturerSelectFormWidget" class="zenmagick\apps\admin\widgets\ManufacturerSelectFormWidget" scope="prototype">
+        <service id="manufacturerSelectFormWidget" class="zenmagick\apps\store\admin\widgets\ManufacturerSelectFormWidget" scope="prototype">
             <tag name="zenmagick.http.widgets.widget" />
         </service>
 
-        <service id="editorSelectFormWidget" class="zenmagick\apps\admin\widgets\EditorSelectFormWidget" scope="prototype">
+        <service id="editorSelectFormWidget" class="zenmagick\apps\store\admin\widgets\EditorSelectFormWidget" scope="prototype">
             <tag name="zenmagick.http.widgets.widget" />
         </service>
 
-        <service id="couponSelectFormWidget" class="zenmagick\apps\admin\widgets\CouponSelectFormWidget" scope="prototype">
+        <service id="couponSelectFormWidget" class="zenmagick\apps\store\admin\widgets\CouponSelectFormWidget" scope="prototype">
             <tag name="zenmagick.http.widgets.widget" />
         </service>
 
-        <service id="orderStatusSelectFormWidget" class="zenmagick\apps\admin\widgets\OrderStatusSelectFormWidget" scope="prototype">
+        <service id="orderStatusSelectFormWidget" class="zenmagick\apps\store\admin\widgets\OrderStatusSelectFormWidget" scope="prototype">
             <tag name="zenmagick.http.widgets.widget" />
         </service>
 
-        <service id="reservedQtyWidget" class="zenmagick\apps\admin\widgets\ReservedQtyWidget" scope="prototype">
+        <service id="reservedQtyWidget" class="zenmagick\apps\store\admin\widgets\ReservedQtyWidget" scope="prototype">
             <tag name="zenmagick.http.widgets.widget" />
         </service>
 
-        <service id="ZoneSelectFormWidget" class="zenmagick\apps\admin\widgets\ZoneSelectFormWidget" scope="prototype">
+        <service id="ZoneSelectFormWidget" class="zenmagick\apps\store\admin\widgets\ZoneSelectFormWidget" scope="prototype">
             <tag name="zenmagick.http.widgets.widget" />
         </service>
 
-        <service id="admin2Tool" class="zenmagick\apps\admin\http\tools\ToolboxAdmin2" scope="prototype">
+        <service id="admin2Tool" class="zenmagick\apps\store\admin\http\tools\ToolboxAdmin2" scope="prototype">
             <tag name="zenmagick.http.toolbox.tool" key="admin2" />
         </service>
 

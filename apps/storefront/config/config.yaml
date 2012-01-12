@@ -86,6 +86,9 @@ zenmagick:
       invalidSession: cookie_usage
       login: login
       enforceSecure: true
+    controller:
+      namespaces:
+      - zenmagick\apps\store\storefront\controller
     ## sacs
     sacs:
       handler:

@@ -43,7 +43,7 @@ zenmagick:
         ## TODO: these should be swapped
         - apps\store\StoreEventListener
         - zenmagick\http\EventListener
-        - zenmagick\apps\admin\AdminEventHandler
+        - zenmagick\apps\store\admin\AdminEventHandler
     ## logging
     logging:
       level: ALL
@@ -60,7 +60,7 @@ zenmagick:
     view:
       defaultLayout: default_layout
     controller:
-      default: zenmagick\apps\admin\controller\DefaultController
+      default: zenmagick\apps\store\admin\controller\DefaultController
 
     ## request
     request:
@@ -89,13 +89,16 @@ zenmagick:
       login: login
       urlType: default
       enforceSecure: true
+    controller:
+      namespaces:
+      - zenmagick\apps\store\admin\controller
 
     ## sacs
     sacs:
       handler:
         - zenmagick\http\sacs\handler\UserRoleSacsHandler
       mappingProviders:
-        - zenmagick\apps\admin\services\DBSacsPermissionProvider
+        - zenmagick\apps\store\admin\services\DBSacsPermissionProvider
   ## bundles
   bundles:
     ZenCartBundle: apps\store\bundles\ZenCartBundle\ZenCartBundle
