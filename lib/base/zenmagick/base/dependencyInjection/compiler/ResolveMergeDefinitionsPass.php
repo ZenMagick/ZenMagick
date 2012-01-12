@@ -70,7 +70,7 @@ class ResolveMergeDefinitionsPass implements CompilerPassInterface {
         $def = new Definition();
 
         // merge in parent definition
-        // purposely ignored attributes: scope, abstract, tags
+        // purposely ignored attributes: scope, abstract
         $def->setClass($parentDef->getClass());
         $def->setArguments($parentDef->getArguments());
         $def->setMethodCalls($parentDef->getMethodCalls());
@@ -81,6 +81,7 @@ class ResolveMergeDefinitionsPass implements CompilerPassInterface {
         $def->setConfigurator($parentDef->getConfigurator());
         $def->setFile($parentDef->getFile());
         $def->setPublic($parentDef->isPublic());
+        $def->setTags($parentDef->getTags());
 
         // overwrite with values specified in the decorator
         $changes = $definition->getChanges();
@@ -131,10 +132,12 @@ class ResolveMergeDefinitionsPass implements CompilerPassInterface {
             $def->setMethodCalls(array_merge($def->getMethodCalls(), $calls));
         }
 
+        // merge tags
+        $def->setTags(array_merge($def->getTags(), $definition->getTags()));
+
         // these attributes are always taken from the child
         $def->setAbstract($definition->isAbstract());
         $def->setScope($definition->getScope());
-        $def->setTags($definition->getTags());
 
         // set new definition on container
         $this->container->setDefinition($id, $def);
