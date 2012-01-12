@@ -47,7 +47,7 @@ class InstallationPatcher extends ZMObject {
      * Load all patches.
      */
     public function _loadPatches() {
-        $path = Runtime::getInstallationPath().'apps/admin/lib/zenmagick/apps/admin/installation/patches';
+        $path = Runtime::getInstallationPath().'apps/admin/lib/installation/patches';
         $ext = '.php';
         $this->patches_ = array();
         foreach (new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($path)) as $filename => $fileInfo) {
@@ -55,7 +55,7 @@ class InstallationPatcher extends ZMObject {
                 $filename = $fileInfo->getPathname();
                 $parent = basename(dirname($filename));
                 if (in_array($parent, array('file', 'sql'))) {
-                    $class = 'zenmagick\apps\store\admin\installation\patches\'.$parent.'\\'.substr($fileInfo->getFilename(), 0, strlen($fileInfo->getFilename())-strlen($ext));
+                    $class = sprintf('zenmagick\apps\store\admin\installation\patches\%s\%s', $parent, substr($fileInfo->getFilename(), 0, strlen($fileInfo->getFilename())-strlen($ext)));
                     $patch = Beans::getBean($class);
                     $this->patches_[$patch->getId()] = $patch;
                 }
