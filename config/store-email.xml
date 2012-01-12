@@ -8,7 +8,7 @@
                         http://symfony.com/schema/dic/swiftmailer http://symfony.com/schema/dic/swiftmailer/swiftmailer-1.0.xsd">
 
     <services>
-        <service id="zencartTransport" class="apps\store\bundles\ZenCartBundle\utils\ZenCartTransport" scope="container" />
+        <service id="zencartTransport" class="zenmagick\apps\store\bundles\ZenCartBundle\utils\ZenCartTransport" scope="container" />
     </services>
 
     <!-- set transport to @zencartTransport to use the zencart legacy email system -->

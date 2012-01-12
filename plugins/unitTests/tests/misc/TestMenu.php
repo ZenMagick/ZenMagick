@@ -21,10 +21,10 @@
 <?php
 
 use zenmagick\base\Runtime;
-use apps\store\menu\Menu;
-use apps\store\menu\MenuLoader;
-use apps\store\menu\MenuElement;
-use apps\store\menu\MenuSeparator;
+use zenmagick\apps\store\menu\Menu;
+use zenmagick\apps\store\menu\MenuLoader;
+use zenmagick\apps\store\menu\MenuElement;
+use zenmagick\apps\store\menu\MenuSeparator;
 
 use Symfony\Component\Yaml\Yaml;
 

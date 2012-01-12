@@ -23,7 +23,7 @@
 use zenmagick\base\Runtime;
 use zenmagick\base\ZMException;
 
-use apps\store\menu\MenuElement;
+use zenmagick\apps\store\menu\MenuElement;
 
 /**
  * Store plugin base class.

@@ -94,7 +94,7 @@
             </call>
         </service>
 
-        <service id="themeResourceResolver" class="apps\store\view\ThemeResourceResolver" scope="container" />
+        <service id="themeResourceResolver" class="zenmagick\apps\store\view\ThemeResourceResolver" scope="container" />
 
         <service id="storeView" class="zenmagick\http\view\View" scope="prototype">
             <call method="setResourceManager">
@@ -125,7 +125,7 @@
 
         <service id="productAssociations" class="ZMProductAssociations" scope="container" />
 
-        <service id="checkoutHelper" class="apps\store\utils\CheckoutHelper" scope="container" />
+        <service id="checkoutHelper" class="zenmagick\apps\store\utils\CheckoutHelper" scope="container" />
 
         <service id="shoppingCart" class="ZMShoppingCart" scope="container">
             <call method="setCheckoutHelper">
@@ -158,9 +158,9 @@
             <tag name="zenmagick.http.view.variable" key="templateManager" />
         </service>
 
-        <service id="currencyService" class="apps\store\services\locale\CurrencyService" scope="container" />
+        <service id="currencyService" class="zenmagick\apps\store\services\locale\CurrencyService" scope="container" />
 
-        <service id="languageService" class="apps\store\services\locale\LanguageService" scope="container" />
+        <service id="languageService" class="zenmagick\apps\store\services\locale\LanguageService" scope="container" />
 
         <service id="paymentTypeService" class="ZMPaymentTypes" scope="container" />
 
@@ -178,7 +178,7 @@
 
         <service id="messageBuilder" class="zenmagick\http\utils\MessageBuilder" scope="prototype" />
 
-        <service id="contextConfigLoader" class="apps\store\utils\ContextConfigLoader" scope="prototype" />
+        <service id="contextConfigLoader" class="zenmagick\apps\store\utils\ContextConfigLoader" scope="prototype" />
 
         <service id="dbTableMapper" class="ZMDbTableMapper" scope="container" />
 
@@ -196,31 +196,31 @@
 
         <service id="urlManager" class="ZMUrlManager" scope="container" />
 
-        <service id="zenCartAuthenticationProvider" class="apps\store\bundles\ZenCartBundle\utils\ZenCartAuthenticationProvider" scope="container">
+        <service id="zenCartAuthenticationProvider" class="zenmagick\apps\store\bundles\ZenCartBundle\utils\ZenCartAuthenticationProvider" scope="container">
             <tag name="zenmagick.base.security.authentication.provider" default="true" />
         </service>
 
-        <service id="formTool" class="apps\store\toolbox\ToolboxForm" scope="prototype">
+        <service id="formTool" class="zenmagick\apps\store\toolbox\ToolboxForm" scope="prototype">
             <tag name="zenmagick.http.toolbox.tool" key="form" />
         </service>
 
-        <service id="htmlTool" class="apps\store\toolbox\ToolboxHtml" scope="prototype">
+        <service id="htmlTool" class="zenmagick\apps\store\toolbox\ToolboxHtml" scope="prototype">
             <tag name="zenmagick.http.toolbox.tool" key="html" />
         </service>
 
-        <service id="localeTool" class="apps\store\toolbox\ToolboxLocale" scope="prototype">
+        <service id="localeTool" class="zenmagick\apps\store\toolbox\ToolboxLocale" scope="prototype">
             <tag name="zenmagick.http.toolbox.tool" key="locale" />
         </service>
 
-        <service id="macroTool" class="apps\store\toolbox\ToolboxMacro" scope="prototype">
+        <service id="macroTool" class="zenmagick\apps\store\toolbox\ToolboxMacro" scope="prototype">
             <tag name="zenmagick.http.toolbox.tool" key="macro" />
         </service>
 
-        <service id="netTool" class="apps\store\toolbox\ToolboxNet" scope="prototype">
+        <service id="netTool" class="zenmagick\apps\store\toolbox\ToolboxNet" scope="prototype">
             <tag name="zenmagick.http.toolbox.tool" key="net" />
         </service>
 
-        <service id="utilsTool" class="apps\store\toolbox\ToolboxUtils" scope="prototype">
+        <service id="utilsTool" class="zenmagick\apps\store\toolbox\ToolboxUtils" scope="prototype">
             <tag name="zenmagick.http.toolbox.tool" key="utils" />
         </service>
 
@@ -266,7 +266,7 @@
 
         <doctrine:orm
             auto-generate-proxy-classes="true"
-            proxy-namespace="apps\store\proxies"
+            proxy-namespace="zenmagick\apps\store\proxies"
             default-entity-manager="default"
             proxy-dir="%zenmagick.cacheBasePath%/doctrine/orm/proxies"
         >

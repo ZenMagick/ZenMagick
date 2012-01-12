@@ -22,7 +22,7 @@
 namespace zenmagick\themes\PrecisionReloaded;
 
 use zenmagick\base\Runtime;
-use apps\store\themes\ThemeEventListener;
+use zenmagick\apps\store\themes\ThemeEventListener;
 
 /**
  * Theme event listener.

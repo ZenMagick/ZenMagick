@@ -25,7 +25,7 @@
 
 use zenmagick\base\Runtime;
 use zenmagick\base\ZMObject;
-use apps\store\utils\CheckoutHelper;
+use zenmagick\apps\store\utils\CheckoutHelper;
 
 /**
  * Shopping cart.

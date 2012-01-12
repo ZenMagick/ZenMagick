@@ -26,8 +26,8 @@ use zenmagick\base\Runtime;
 use zenmagick\base\Toolbox;
 use zenmagick\base\ZMObject;
 
-use apps\store\menu\MenuElement;
-use apps\store\menu\MenuLoader;
+use zenmagick\apps\store\menu\MenuElement;
+use zenmagick\apps\store\menu\MenuLoader;
 
 
 /**

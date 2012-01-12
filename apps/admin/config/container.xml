@@ -50,7 +50,7 @@
             <tag name="zenmagick.apps.store.editor" label="Plain" />
         </service>
 
-        <service id="adminMenu" class="apps\store\menu\Menu" scope="container" />
+        <service id="adminMenu" class="zenmagick\apps\store\menu\Menu" scope="container" />
 
         <service id="catalogDefaultTabController" class="zenmagick\apps\store\admin\controller\CatalogDefaultTabController" scope="container">
             <tag name="apps.store.admin.tabcontroller" />

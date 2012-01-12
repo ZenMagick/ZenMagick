@@ -23,7 +23,7 @@
 use zenmagick\base\Runtime;
 use zenmagick\base\ZMObject;
 use zenmagick\base\dependencyInjection\loader\YamlLoader;
-use apps\store\utils\ContextConfigLoader;
+use zenmagick\apps\store\utils\ContextConfigLoader;
 
 use Symfony\Component\Config\FileLocator;
 
