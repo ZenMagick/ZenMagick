@@ -250,15 +250,15 @@ class ZMUrlManager extends ZMObject {
         } else {
             $class = ClassLoader::className($requestId.'Controller');
             // allow custom namespaces
-            foreach (Runtime::getSettings()->get('zenmagick.http.controller.namespace', array()) as $namespace) {
+            foreach (Runtime::getSettings()->get('zenmagick.http.controller.namespaces', array()) as $namespace) {
                 $definitions[] = sprintf('%s\%s', $namespace, $class);
             }
-            $definitions[] = sprintf('zenmagick\apps\%$1s\controller\%$2s', Runtime::getContext(), $class);
+            $definitions[] = sprintf('zenmagick\apps\%s\controller\%s', Runtime::getContext(), $class);
             $definitions[] = 'ZM'.$class;
         }
         $definitions[] = Runtime::getSettings()->get('zenmagick.mvc.controller.default', 'ZMController');
 
-        Runtime::getLogging()->log('controller definition: '.implode(',', $definitions), Logging::TRACE);
+        Runtime::getLogging()->log('controller definition: '.implode(', ', $definitions), Logging::TRACE);
         $controller = null;
         foreach ($definitions as $definition) {
             if (null != ($controller = Beans::getBean($definition))) {

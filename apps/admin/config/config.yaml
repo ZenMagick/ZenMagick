@@ -91,7 +91,7 @@ zenmagick:
       enforceSecure: true
     controller:
       namespaces:
-      - zenmagick\apps\store\admin\controller
+        - zenmagick\apps\store\admin\controller
 
     ## sacs
     sacs:
