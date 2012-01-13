@@ -26,6 +26,7 @@ use zenmagick\base\Runtime;
 use zenmagick\base\ZMException;
 use zenmagick\base\ZMObject;
 use zenmagick\base\logging\Logging;
+use zenmagick\base\events\Event;
 use zenmagick\http\widgets\Widget;
 use zenmagick\http\toolbox\Toolbox;
 use zenmagick\http\toolbox\ToolboxTool;
@@ -381,6 +382,11 @@ class View extends ZMObject {
 				extract($this->getVariables(), EXTR_REFS);
         // these are transient
 				extract($variables, EXTR_REFS);
+
+        if (ZM_ENVIRONMENT == 'dev') {
+            $event = new Event($this, array('file' => $file));
+            Runtime::getEventDispatcher()->dispatch('fetch_template', new Event($this, array('request' => $this->request, 'view' => $this, 'file' => $file)));
+        }
 
         ob_start();
         require $file;
