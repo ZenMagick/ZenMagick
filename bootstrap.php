@@ -60,12 +60,13 @@ use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 
         // set up base class loader
         $basephar = 'phar://'.ZM_BASE_PATH.'/lib/base/base.phar';
+        // NOTE: the base package has a flattened folder structure, so the path doesn't reflect the namespace
         if (file_exists($basephar)) {
-            require_once $basephar.'/zenmagick/base/classloader/ClassLoader.php';
-            require_once $basephar.'/zenmagick/base/classloader/CachingClassLoader.php';
+            require_once $basephar.'/classloader/ClassLoader.php';
+            require_once $basephar.'/classloader/CachingClassLoader.php';
         } else {
-            require_once ZM_BASE_PATH.'/lib/base/zenmagick/base/classloader/ClassLoader.php';
-            require_once ZM_BASE_PATH.'/lib/base/zenmagick/base/classloader/CachingClassLoader.php';
+            require_once ZM_BASE_PATH.'/lib/base/classloader/ClassLoader.php';
+            require_once ZM_BASE_PATH.'/lib/base/classloader/CachingClassLoader.php';
         }
 
         // load main packages
