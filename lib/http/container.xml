@@ -97,5 +97,9 @@
             <tag name="zenmagick.http.view.variable" key="toolbox" />
         </service>
 
+        <service id="dispatcher" class="zenmagick\http\Dispatcher" scope="prototype" />
+
+        <service id="blockWidget" class="zenmagick\http\blocks\widgets\BlockWidget" scope="prototype" />
+
     </services>
 </container>

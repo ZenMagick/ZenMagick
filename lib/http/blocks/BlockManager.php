@@ -19,18 +19,19 @@
  */
 ?>
 <?php
+namespace zenmagick\http\blocks;
 
 use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
 use zenmagick\base\ZMObject;
+use zenmagick\http\blocks\widgets\BlockWidget;
 
 /**
  * Manage template blocks.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package org.zenmagick.mvc.services.blocks
  */
-class ZMBlockManager extends ZMObject {
+class BlockManager extends ZMObject {
     private $mappings_;
 
 
@@ -46,7 +47,7 @@ class ZMBlockManager extends ZMObject {
     /**
      * Get a list of all registered providers.
      *
-     * @return array A list of <code>ZMBlockContentsProvider</code> instances.
+     * @return array A list of <code>BlockProvider</code> instances.
      */
     public function getProviders() {
         $providers = array();
@@ -62,7 +63,7 @@ class ZMBlockManager extends ZMObject {
      * @param ZMRequest request The current request.
      * @param string groupId The block group id.
      * @param array args Optional parameter; default is an empty array.
-     * @return array List of <code>ZMBlockWidget</code> instances.
+     * @return array List of <code>BlockWidget</code> instances.
      */
     public function getBlocksForId($request, $groupId, $args) {
         if (array_key_exists($groupId, $this->mappings_)) {
@@ -72,7 +73,7 @@ class ZMBlockManager extends ZMObject {
                 $widget = null;
                 if (is_string($block)) {
                     $widget = Beans::getBean($block);
-                } else if (is_object($block) && $block instanceof ZMBlockWidget) {
+                } else if (is_object($block) && $block instanceof BlockWidget) {
                     $widget = $block;
                 }
                 if (null != $widget) {

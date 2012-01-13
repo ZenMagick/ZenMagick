@@ -22,6 +22,7 @@
 
 use zenmagick\base\ZMObject;
 
+use zenmagick\http\blocks\BlockProvider;
 
 /**
  * Store block provider.
@@ -29,7 +30,7 @@ use zenmagick\base\ZMObject;
  * @author DerManoMann
  * @package zenmagick.store.shared.provider
  */
-class ZMStoreBlockProvider extends ZMObject implements ZMBlockProvider {
+class ZMStoreBlockProvider extends ZMObject implements BlockProvider {
 
     /**
      * {@inheritDoc}
@@ -42,13 +43,13 @@ class ZMStoreBlockProvider extends ZMObject implements ZMBlockProvider {
         if ($templateManager->isLeftColEnabled()) {
             foreach ($templateManager->getLeftColBoxNames() as $boxName) {
                 // avoid duplicates by using $box as key
-                $blocks[$boxName] = 'ZMBlockWidget#template=boxes/'.$boxName.'&title='.ucwords(str_replace(array('.php', '_'), array('', ' '), $boxName));
+                $blocks[$boxName] = 'blockWidget#template=boxes/'.$boxName.'&title='.ucwords(str_replace(array('.php', '_'), array('', ' '), $boxName));
             }
         }
         if ($templateManager->isRightColEnabled()) {
             foreach ($templateManager->getRightColBoxNames() as $boxName) {
                 // avoid duplicates by using $box as key
-                $blocks[$boxName] = 'ZMBlockWidget#template=boxes/'.$boxName.'&title='.ucwords(str_replace(array('.php', '_'), array('', ' '), $boxName));
+                $blocks[$boxName] = 'blockWidget#template=boxes/'.$boxName.'&title='.ucwords(str_replace(array('.php', '_'), array('', ' '), $boxName));
             }
         }
 

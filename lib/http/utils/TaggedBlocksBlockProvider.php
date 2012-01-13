@@ -22,6 +22,7 @@
 namespace zenmagick\http\utils;
 
 use zenmagick\base\ZMObject;
+use zenmagick\http\blocks\BlockProvider;
 
 /**
  * Block provider for tagged blocks.
@@ -30,7 +31,7 @@ use zenmagick\base\ZMObject;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class TaggedBlocksBlockProvider extends ZMObject implements \ZMBlockProvider {
+class TaggedBlocksBlockProvider extends ZMObject implements BlockProvider {
 
     /**
      * {@inheritDoc}

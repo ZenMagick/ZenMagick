@@ -110,8 +110,7 @@ class ForwardView extends View {
         // reset
         $request->setController(null);
 
-        \ZMDispatcher::dispatch($request);
-        // can exit here to avoid doing everything from view_start on twice
+        $this->container->get('dispatcher')->dispatch($request);
         exit;
     }
 

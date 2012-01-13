@@ -19,6 +19,7 @@
  */
 ?>
 <?php
+namespace zenmagick\http\blocks;
 
 
 /**
@@ -28,9 +29,8 @@
  * themselfs in the container as 'zenmagick.http.blocks.provider'.</p>
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package org.zenmagick.mvc.services.blocks
  */
-interface ZMBlockProvider {
+interface BlockProvider {
 
     /**
      * Return list of blocks availabe from this provider.

@@ -19,6 +19,7 @@
  */
 ?>
 <?php
+namespace zenmagick\http\blocks\widgets;
 
 use zenmagick\http\widgets\Widget;
 
@@ -34,9 +35,8 @@ use zenmagick\http\widgets\Widget;
  * complex formatting nested blocks should be considered.</p>
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package org.zenmagick.mvc.services.blocks.widgets
  */
-class ZMBlockWidget extends Widget {
+class BlockWidget extends Widget {
     private $sortOrder_;
     private $template_;
     private $format_;
@@ -45,18 +45,11 @@ class ZMBlockWidget extends Widget {
     /**
      * Create new instance.
      */
-    function __construct() {
+    public function __construct() {
         parent::__construct();
         $this->sortOrder_ = 0;
         $this->template_ = null;
         $this->format_ = null;
-    }
-
-    /**
-     * Destruct instance.
-     */
-    function __destruct() {
-        parent::__destruct();
     }
 
 

@@ -121,7 +121,7 @@
 
         <service id="blockService" class="ZMBlocks" scope="container" />
 
-        <service id="blockManager" class="ZMBlockManager" scope="container" />
+        <service id="blockManager" class="zenmagick\http\blocks\BlockManager" scope="container" />
 
         <service id="productAssociations" class="ZMProductAssociations" scope="container" />
 

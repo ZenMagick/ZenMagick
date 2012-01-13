@@ -19,6 +19,7 @@
  */
 ?>
 <?php
+namespace zenmagick\http;
 
 use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
@@ -30,16 +31,15 @@ use zenmagick\base\logging\Logging;
  * ZenMagick MVC request dispatcher.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package org.zenmagick.mvc
  */
-class ZMDispatcher {
+class Dispatcher {
 
     /**
      * Dispatch a request.
      *
      * @param ZMRequest request The request to dispatch.
      */
-    public static function dispatch($request) {
+    public function dispatch($request) {
         ob_start();
 
         // load saved messages
@@ -71,7 +71,7 @@ class ZMDispatcher {
      * @param ZMRequest request The request to dispatch.
      * @return View The view or <code>null</code>.
      */
-    public static function handleRequest($request) {
+    public function handleRequest($request) {
         $controller = $request->getController();
         $view = null;
 

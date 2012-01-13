@@ -19,6 +19,7 @@
  */
 ?>
 <?php
+use zenmagick\base\Runtime;
 
     // main request processor
     if (ZMSettings::get('isEnableZMThemes', true)) {
@@ -27,7 +28,7 @@
         foreach ($_SESSION as $key => $value) {
             $_zm_session->setValue($key, $value);
         }
-        ZMDispatcher::dispatch($_zm_request);
+        Runtime::getContainer()->get('dispatcher')->dispatch($_zm_request);
         exit;
     } else {
         // do ob_start() to allow plugins to do their magic with zen cart templates too
