@@ -34,7 +34,6 @@ RewriteRule index_(.*)\.php index_xxx.php?ZM_ENVIRONMENT=$1 [QSA,L]
 
 #catch all for non existing files
 RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule . index.php [L]
+RewriteRule . index.php [QSA,L]
 </IfModule>
 # END real-path seo rewrite
