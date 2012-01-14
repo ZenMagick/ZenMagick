@@ -60,7 +60,7 @@ class SimpleViewCache implements ViewCache {
     /**
      * Set the cache.
      *
-     * @param ZMCache cache The cache.
+     * @param zenmagick\base\cache\Cache cache The cache.
      */
     public function setCache($cache) {
         $this->cache_ = $cache;
@@ -69,7 +69,7 @@ class SimpleViewCache implements ViewCache {
     /**
      * Get the cache.
      *
-     * @return ZMCache The cache.
+     * @return zenmagick\base\cache\Cache The cache.
      */
     public function getCache() {
         return $this->cache_;

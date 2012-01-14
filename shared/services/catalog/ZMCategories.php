@@ -30,7 +30,7 @@ use zenmagick\base\ZMObject;
  * Category DAO.
  *
  * <p>The cache implementation used can be configured via the setting '<em>apps.store.categories.cache</em>'.
- * Default is <code>ZMCache::TRANSIENT</code>.</p>
+ * Default is <code>zenmagick\base\cache\Cache::TRANSIENT</code>.</p>
  *
  * @author DerManoMann
  * @package zenmagick.store.shared.services.catalog
@@ -70,7 +70,7 @@ class ZMCategories extends ZMObject {
     /**
      * Set the cache.
      *
-     * @param ZMCache cache The cache.
+     * @param zenmagick\base\cache\Cache cache The cache.
      */
     public function setCache($cache) {
         $this->cache_ = $cache;
@@ -79,7 +79,7 @@ class ZMCategories extends ZMObject {
     /**
      * Get the cache.
      *
-     * @return ZMCache The cache.
+     * @return zenmagick\base\cache\Cache The cache.
      */
     public function getCache() {
         return $this->cache_;
