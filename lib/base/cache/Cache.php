@@ -29,9 +29,9 @@ namespace zenmagick\base\cache;
  */
 interface Cache {
     /** Cache type <em>persistent</em>. */
-    const PERSISTENT = 'org.zenmagick.core.services.cache.type.persistent';
+    const PERSISTENT = 'zenmagick.base.cache.type.persistent';
     /** Cache type <em>transient</em>. */
-    const TRANSIENT = 'org.zenmagick.core.services.cache.type.transient';
+    const TRANSIENT = 'zenmagick.base.cache.type.transient';
 
 
     /**
