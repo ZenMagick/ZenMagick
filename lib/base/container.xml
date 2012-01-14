@@ -10,6 +10,23 @@
     </parameters>
 
     <services>
+        <service id="transientCache" class="zenmagick\base\cache\MemoryCache" scope="container">
+            <call method="init">
+                <argument>global</argument>
+                <argument type="collection" />
+            </call>
+        </service>
+
+        <service id="persistentCache" class="zenmagick\base\cache\FileCache" scope="container">
+            <call method="init">
+                <argument>global</argument>
+                <argument type="collection">
+                    <argument key="cacheTTL">300</argument>
+                    <argument key="cacheDir">%zenmagick.cacheBasePath%/files/</argument>
+                </argument>
+            </call>
+        </service>
+
         <service id="classLoader" class="zenmagick\base\classloader\ClassLoader" scope="prototype" />
 
         <service id="loggingService" class="zenmagick\base\logging\Logging" scope="container" />

@@ -32,7 +32,7 @@ use zenmagick\http\view\ViewCache;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class SimpleViewCache implements ViewCache {
+class SimpleViewCache extends ZMObject implements ViewCache {
     private $cache_;
 
 
@@ -40,7 +40,7 @@ class SimpleViewCache implements ViewCache {
      * {@inheritDoc}
      */
     public function eligible($template) {
-        return in_array($template, $this->container->get('settingsService')->get('zenmagick.http.view.cache.simple'));
+        return in_array($template, (array)$this->container->get('settingsService')->get('zenmagick.http.view.cache.simple', array()));
     }
 
     /**
@@ -53,7 +53,7 @@ class SimpleViewCache implements ViewCache {
     /**
      * {@inheritDoc}
      */
-    public function store($template, $content) {
+    public function save($template, $content) {
         $this->cache_->save($content, $template);
     }
 

@@ -369,7 +369,7 @@ class View extends ZMObject {
         }
 
         // check if caching enabled
-        if (null != $this->cache) {
+        if (null != $this->cache && $this->cache->eligible($template)) {
             // check for cache hit
             if (null != ($result = $this->cache->lookup($template))) {
                 return $result;

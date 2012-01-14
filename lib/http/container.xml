@@ -42,6 +42,12 @@
             </call>
         </service>
 
+        <service id="simpleViewCache" class="zenmagick\http\view\cache\SimpleViewCache" scope="container">
+            <call method="setCache">
+                <argument type="service" id="persistentCache" />
+            </call>
+        </service>
+
         <service id="view" class="zenmagick\http\view\View" scope="prototype">
             <call method="setResourceManager">
                 <argument type="service" id="resourceManager" />
@@ -51,6 +57,9 @@
             </call>
             <call method="setRequest">
                 <argument type="service" id="request" />
+            </call>
+            <call method="setCache">
+                <argument type="service" id="simpleViewCache" />
             </call>
         </service>
 

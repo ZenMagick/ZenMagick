@@ -13,7 +13,7 @@
         <parameter key="kernel.root_dir">%zenmagick.cacheBasePath%/kernel</parameter>
         <parameter key="kernel.cache_dir">%zenmagick.cacheBasePath%</parameter>
         <parameter key="zenmagick.cacheBasePath">%zenmagick.installationPath%/../cache/zenmagick</parameter>
-        <parameter key="zenmagick.cacheIds" type="collection">%zenmagick.installationPath%/../cache/zenmagick
+        <parameter key="zenmagick.cacheIds" type="collection">
             <parameter>transientCache</parameter>
             <parameter>persistentCache</parameter>
             <parameter>servicesCache</parameter>
@@ -22,23 +22,6 @@
     </parameters>
 
     <services>
-        <service id="transientCache" class="zenmagick\base\cache\MemoryCache" scope="container">
-            <call method="init">
-                <argument>global</argument>
-                <argument type="collection" />
-            </call>
-        </service>
-
-        <service id="persistentCache" class="zenmagick\base\cache\FileCache" scope="container">
-            <call method="init">
-                <argument>global</argument>
-                <argument type="collection">
-                    <argument key="cacheTTL">300</argument>
-                    <argument key="cacheDir">%zenmagick.cacheBasePath%/files/</argument>
-                </argument>
-            </call>
-        </service>
-
         <service id="servicesCache" class="zenmagick\base\cache\MemoryCache" scope="container">
             <call method="init">
                 <argument>services</argument>
