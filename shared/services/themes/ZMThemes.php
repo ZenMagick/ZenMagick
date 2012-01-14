@@ -81,7 +81,7 @@ class ZMThemes extends ZMObject {
      *
      * @return string The base directory for themes.
      */
-    public static function getThemesDir() { return ZM_BASE_PATH.'themes/'; }
+    public function getThemesDir() { return ZM_BASE_PATH.'themes/'; }
 
     /**
      * Get a list of all available themes.

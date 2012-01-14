@@ -97,16 +97,17 @@ class L10nController extends \ZMController {
         $vd = $this->getViewData($request);
 
         $scanner = new LocaleScanner();
+        $themeService = $this->container->get('themeService');
 
         $defaultMap = array();
         if ($vd['includeDefaults']) {
-            $themesDir = \ZMThemes::getThemesDir();
+            $themesDir = $themeService->getThemesDir();
             $defaultMap = $scanner->buildL10nMap($themesDir.Runtime::getSettings()->get('apps.store.themes.default'));
         }
 
         $existingMap = array();
         if ($vd['mergeExisting']) {
-            $theme = $this->container->get('themeService')->getThemeForId($vd['themeId']);
+            $theme = $themeService->getThemeForId($vd['themeId']);
             $language = $this->container->get('languageService')->getLanguageForId($vd['languageId']);
             $l10nPath = \ZMFileUtils::mkPath(array($theme->getBaseDir(), 'lang', $language->getDirectory(), 'locale.yaml'));
             if (file_exists($l10nPath)) {
@@ -140,7 +141,7 @@ class L10nController extends \ZMController {
 
         $fileMap = array();
         if (null != $vd['themeId']) {
-            $theme = $this->container->get('themeService')->getThemeForId($vd['themeId']);
+            $theme = $themeService->getThemeForId($vd['themeId']);
             $themeMap = $scanner->buildL10nMap($theme->getBaseDir());
             $storeMap = $scanner->buildL10nMap(Runtime::getInstallationPath().'apps/store');
             $fileMap = array_merge($themeMap, $storeMap);

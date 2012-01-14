@@ -96,7 +96,7 @@ class ZMTheme extends ZMObject {
      * @return string The theme base directory.
      */
     public function getBaseDir() {
-        return ZMThemes::getThemesDir() . $this->themeId_ . '/';
+        return $this->container->get('themeService')->getThemesDir() . $this->themeId_ . '/';
     }
 
     /**
@@ -223,7 +223,7 @@ class ZMTheme extends ZMObject {
 
         if ($includeDefaults) {
             // TODO: deprecated
-            $path = ZMThemes::getThemesDir().Runtime::getSettings()->get('apps.store.themes.default').'/lang/'.$languageDir.'/static/';
+            $path = $this->container->get('themeService')->getThemesDir().Runtime::getSettings()->get('apps.store.themes.default').'/lang/'.$languageDir.'/static/';
             if (is_dir($path)) {
                 $handle = @opendir($path);
                 while (false !== ($file = readdir($handle))) {
