@@ -129,9 +129,9 @@ class AdminEventHandler extends ZMObject {
      */
     public function onInitRequest($event) {
         $request = $event->get('request');
-        $language = $request->getSession()->getLanguage();
         $themes = $request->getParameter('themes');
         if (Toolbox::asBoolean($themes)) {
+            $language = $this->container->get('languageService')->getLanguageForCode(Runtime::getSettings()->get('defaultLanguageCode'));
             $theme = $this->container->get('themeService')->initThemes($language);
             $args = array_merge($event->all(), array('theme' => $theme, 'themeId' => $theme->getId()));
             //Runtime::getEventDispatcher()->dispatch('theme_resolved', new Event($this, $args));

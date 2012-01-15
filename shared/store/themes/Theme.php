@@ -312,11 +312,12 @@ class Theme extends ZMObject {
             // this may happen if the i18n patch hasn't been updated
             $language = $this->container->get('languageService')->getDefaultLanguage();
         }
-        $path = $this->getLangDir().$language->getDirectory().'/';
-        $path = $this->getBaseDir().'locale/'.Runtime::getSettings()->get('zenmagick.base.locales.locale');
+
+        $code = $language->getCode();
+        $path = $this->getBaseDir().'locale/'.$code;
 
         // re-init with next file
-        $this->container->get('localeService')->getLocale()->init(Runtime::getSettings()->get('zenmagick.base.locales.locale'), $path, 'storefront');
+        $this->container->get('localeService')->getLocale()->init($code, $path);
     }
 
     /**

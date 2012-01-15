@@ -115,7 +115,7 @@ apps:
     dashboad:
       default: '{"layout":"col2r","widgets":[["ref::storeStatusDashboardWidget", "ref::latestOrdersDashboardWidget"], ["ref::orderStatsDashboardWidget","ref::latestAccountsDashboardWidget"]]}'
     themes:
-      default: default
+      default: base
     zencart:
       skipLayout:
         - packingslip
