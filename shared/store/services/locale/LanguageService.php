@@ -102,7 +102,7 @@ class LanguageService extends ZMObject {
      *
      * @return ZMLanguage The default language for this store.
      */
-    public static function getDefaultLanguage() {
+    public function getDefaultLanguage() {
         return Runtime::getContainer()->get('languageService')->getLanguageForId(Runtime::getSettings()->get('storeDefaultLanguageId'));
     }
 

@@ -47,7 +47,9 @@
 
         <service id="orderService" class="ZMOrders" scope="container" />
 
-        <service id="themeService" class="ZMThemes" scope="container">
+        <service id="theme" class="zenmagick\apps\store\themes\Theme" scope="prototype" />
+
+        <service id="themeService" class="zenmagick\apps\store\themes\Themes" scope="container">
             <call method="setBasePath">
               <argument>/themes</argument>
             </call>

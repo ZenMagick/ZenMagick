@@ -328,20 +328,21 @@ class EventFixes extends ZMObject {
         }
 
         // ** lanugage **
+        $languageService = $this->container->get('languageService');
         $languageCode = 0;
         if (null == ($language = $session->getLanguage()) || 0 != ($languageCode = $request->getLanguageCode())) {
             if (0 != $languageCode) {
                 // URL parameter takes precedence
-                $language = $this->container->get('languageService')->getLanguageForCode($languageCode);
+                $language = $languageService->getLanguageForCode($languageCode);
             } else {
                 if (Runtime::getSettings()->get('isUseBrowserLanguage')) {
                     $language = $this->getClientLanguage();
                 } else {
-                    $language = $this->container->get('languageService')->getLanguageForCode(Runtime::getSettings()->get('defaultLanguageCode'));
+                    $language = $languageService->getLanguageForCode(Runtime::getSettings()->get('defaultLanguageCode'));
                 }
             }
             if (null == $language) {
-                $language = \ZMLanguages::getDefaultLanguage();
+                $language = $languageService->getDefaultLanguage();
                 Runtime::getLogging()->warn('invalid or missing language - using default language');
             }
 
