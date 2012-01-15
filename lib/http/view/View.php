@@ -394,7 +394,7 @@ class View extends ZMObject {
 
         // if we have a cache, keep it
         if (null != $this->cache && $this->cache->eligible($template)) {
-            $this->cache->store($template, $result);
+            $this->cache->save($template, $result);
         }
 
         return $result;
