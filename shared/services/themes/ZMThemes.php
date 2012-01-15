@@ -38,6 +38,7 @@ class ZMThemes extends ZMObject {
     private $themeChain_;
     private $initLanguage_;
     private $cache_;
+    private $basePath;
 
 
     /**
@@ -47,6 +48,7 @@ class ZMThemes extends ZMObject {
         parent::__construct();
         $this->themeChain_ = null;
         $this->initLanguage_ = null;
+        $this->basePath = '/themes';
     }
 
 
@@ -57,6 +59,28 @@ class ZMThemes extends ZMObject {
         return Runtime::getContainer()->get('themeService');
     }
 
+
+    /**
+     * Set the themes base path.
+     *
+     * <p>This is taken as relative to the ZenMagick installation path.</p>
+     *
+     * @param string path The base path.
+     */
+    public function setBasePath($path) {
+        $this->basePath = $path;
+    }
+
+    /**
+     * Get the base path.
+     *
+     * <p>The themes base path, relative to the ZenMagick installation directory.</p>
+     *
+     * @return string The path.
+     */
+    public function getBasePath() {
+        return $this->basePath;
+    }
 
     /**
      * Set the cache.
@@ -81,7 +105,7 @@ class ZMThemes extends ZMObject {
      *
      * @return string The base directory for themes.
      */
-    public function getThemesDir() { return ZM_BASE_PATH.'themes/'; }
+    public function getThemesDir() { return ZM_BASE_PATH.$this->basePath.'/'; }
 
     /**
      * Get a list of all available themes.

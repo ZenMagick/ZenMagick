@@ -48,6 +48,9 @@
         <service id="orderService" class="ZMOrders" scope="container" />
 
         <service id="themeService" class="ZMThemes" scope="container">
+            <call method="setBasePath">
+              <argument>/themes</argument>
+            </call>
             <call method="setCache">
                 <argument type="service" id="servicesCache" />
             </call>
