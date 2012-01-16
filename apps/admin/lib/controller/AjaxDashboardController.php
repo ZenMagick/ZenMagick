@@ -27,7 +27,6 @@ use zenmagick\base\Runtime;
  * Ajax dashboard controller.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.apps.admin.controller
  */
 class AjaxDashboardController extends \ZMRpcController {
 

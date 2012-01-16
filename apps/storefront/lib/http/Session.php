@@ -31,7 +31,6 @@ use zenmagick\base\events\Event;
  * Custom session class that adds a number of convenience methods.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.store.sf.mvc
  */
 class Session extends \zenmagick\http\session\Session {
 

@@ -137,7 +137,6 @@ use zenmagick\base\Runtime;
  * @param mixed context Optional translation context; default is <code>null</code>.
  * @param string domain The translation domain; default is <code>null</code>.
  * @return string The translated text or, if no translation found, the original text.
- * @package org.zenmagick.core.services.locale
  */
 function _zm($text, $context=null, $domain=null) {
     return Runtime::getContainer()->get('localeService')->getLocale()->translate($text, $context, $domain);

@@ -35,7 +35,6 @@ use zenmagick\http\messages\Messages as HttpMessageService;
  * <p>All known zen cart query message types stored are supported.</p>
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.store.sf.services
  */
 class MessageService extends HttpMessageService {
 

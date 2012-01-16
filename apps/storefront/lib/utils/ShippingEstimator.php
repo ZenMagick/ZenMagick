@@ -31,7 +31,6 @@ use zenmagick\base\ZMObject;
  * Shipping estimator.
  *
  * @author DerManoMann <mano@zenmagick.org>
- * @package zenmagick.store.sf.utils
  * @deprecated use ZMShippingProviders::getShippingProvidersForAddress instead
  */
 class ShippingEstimator extends ZMObject {

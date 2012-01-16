@@ -334,7 +334,6 @@ class Request extends \ZMRequest {
     /**
      * Checks, if the current page is a checkout page.
      *
-     * @package org.zenmagick.misc
      * @param boolean includeCart If <code>true</code>, the shopping cart is considered a checkout page, too; (defaults to <code>true</code>)
      * @return boolean <code>true</code> if the current page is a checkout page.
      */
