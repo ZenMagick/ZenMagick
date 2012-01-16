@@ -42,7 +42,7 @@ class TestZMShippingProviders extends ZMTestCase {
             echo "provider id: ".$provider->getId().", name: ".$provider->getName()."<BR>";
             echo "methods:<br>";
             //TODO: set cart
-            foreach ($provider->getShippingMethods(Beans::getBean('ZMShoppingCart'), $address) as $shippingMethod) {
+            foreach ($provider->getShippingMethods(Beans::getBean('shoppingCart'), $address) as $shippingMethod) {
                 echo $shippingMethod->getId(). ", name: ".$shippingMethod->getName()."<BR>";
                 //print_r($shippingMethod->zenMethod_);
                 echo "&nbsp; taxRate: ".$shippingMethod->getTaxRate(). ", cost: ".$shippingMethod->getCost()."<BR>";
