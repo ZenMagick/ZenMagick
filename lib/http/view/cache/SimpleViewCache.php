@@ -22,6 +22,7 @@
 namespace zenmagick\http\view\cache;
 
 use zenmagick\base\Runtime;
+use zenmagick\base\logging\Logging;
 use zenmagick\base\ZMObject;
 use zenmagick\http\view\ViewCache;
 
@@ -40,6 +41,7 @@ class SimpleViewCache extends ZMObject implements ViewCache {
      * {@inheritDoc}
      */
     public function eligible($template) {
+        Runtime::getLogging()->log('check if eligible: '.$template, LOGGING::TRACE);
         return in_array($template, (array)$this->container->get('settingsService')->get('zenmagick.http.view.cache.simple', array()));
     }
 
