@@ -70,7 +70,7 @@ use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
         }
 
         // load main packages
-        $packages = array('vendor', 'lib/base', 'lib/core', 'lib/http', 'lib/mvc', 'shared');
+        $packages = array('vendor', 'vendor/local', 'lib/base', 'lib/core', 'lib/http', 'lib/mvc', 'shared');
         $zmLoader = new $CLASSLOADER();
         $zmLoader->register();
         foreach ($packages as $path) {
