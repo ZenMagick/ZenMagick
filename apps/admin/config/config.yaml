@@ -12,7 +12,6 @@ zenmagick:
     database:
       provider: ZMPdoDatabase
       mappings:
-        file: config/db_mappings.txt
         cache:
           enabled: false
         autoMap:
