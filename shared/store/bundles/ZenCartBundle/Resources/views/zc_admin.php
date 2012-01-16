@@ -22,6 +22,7 @@
 
 <?php
 
+$resourceManager->cssFile('zc_admin.css');
 use zenmagick\base\Runtime;
 
 if (!function_exists('zen_href_link')) {
