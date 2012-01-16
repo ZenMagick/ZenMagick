@@ -69,8 +69,10 @@ use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
             require_once ZM_BASE_PATH.'/lib/base/classloader/CachingClassLoader.php';
         }
 
+        $vendor = defined('VENDOR_LIB') ? VENDOR_LIB : 'vendor';
+
         // load main packages
-        $packages = array('vendor', 'vendor/local', 'lib/base', 'lib/core', 'lib/http', 'lib/mvc', 'shared');
+        $packages = array($vendor, $vendor.'/local', 'lib/base', 'lib/core', 'lib/http', 'lib/mvc', 'shared');
         $zmLoader = new $CLASSLOADER();
         $zmLoader->register();
         foreach ($packages as $path) {
