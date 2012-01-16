@@ -102,7 +102,7 @@ class ZMShippingProviders extends ZMObject {
                 }
             }
         } else {
-            $module_directory = ZC_INSTALL_PATH . 'includes/modules/shipping/';
+            $module_directory = ZC_INSTALL_PATH . '/includes/modules/shipping/';
             if ($dir = @dir($module_directory)) {
                 while ($file = $dir->read()) {
                     if (!is_dir($module_directory . $file) && substr($file, strrpos($file, '.')) == '.php') {

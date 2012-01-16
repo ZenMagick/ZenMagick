@@ -45,7 +45,7 @@ class ZMFualSlimboxPlugin extends Plugin {
      */
     public function install() {
         parent::install();
-        ZMDbUtils::executePatch(file(ZMDbUtils::resolveSQLFilename($this->getPluginDirectory()."sql/slimbox_install.sql")), $this->messages_);
+        ZMDbUtils::executePatch(file(ZMDbUtils::resolveSQLFilename($this->getPluginDirectory()."/sql/slimbox_install.sql")), $this->messages_);
     }
 
     /**
@@ -53,7 +53,7 @@ class ZMFualSlimboxPlugin extends Plugin {
      */
     public function remove($keepSettings=false) {
         parent::remove($keepSettings);
-        ZMDbUtils::executePatch(file(ZMDbUtils::resolveSQLFilename($this->getPluginDirectory()."sql/slimbox_uninstall.sql")), $this->messages_);
+        ZMDbUtils::executePatch(file(ZMDbUtils::resolveSQLFilename($this->getPluginDirectory()."/sql/slimbox_uninstall.sql")), $this->messages_);
     }
 
     /**

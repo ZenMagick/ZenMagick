@@ -57,7 +57,7 @@ class Theme extends ZMObject {
     public function setThemeId($themeId) {
         if (null != $themeId) {
             $this->themeId_ = $themeId;
-            $configFile = $this->getBaseDir().'theme.yaml';
+            $configFile = $this->getBaseDir().'/theme.yaml';
             if (file_exists($configFile)) {
                 $configLoader = new ContextConfigLoader($configFile);
                 // load config for the current context
@@ -96,7 +96,7 @@ class Theme extends ZMObject {
      * @return string The theme base directory.
      */
     public function getBaseDir() {
-        return $this->container->get('themeService')->getThemesDir() . $this->themeId_ . '/';
+        return $this->container->get('themeService')->getThemesDir() . '/' . $this->themeId_;
     }
 
     /**
@@ -314,7 +314,7 @@ class Theme extends ZMObject {
         }
 
         $code = $language->getCode();
-        $path = $this->getBaseDir().'locale/'.$code;
+        $path = $this->getBaseDir().'/locale/'.$code;
 
         // re-init with next file
         $this->container->get('localeService')->getLocale()->init($code, $path);

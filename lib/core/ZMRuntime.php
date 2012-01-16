@@ -127,7 +127,7 @@ class ZMRuntime {
      *  default is <code>true</code> to override.
      */
     public static function yamlParse($yaml, $defaults=array(), $override=true) {
-        require_once Runtime::getInstallationPath().'lib/core/spyc.php';
+        require_once Runtime::getInstallationPath().'/lib/core/spyc.php';
 
         if ($override) {
             return Spyc::YAMLLoadString($yaml);

@@ -60,13 +60,13 @@ class ZMUnitTestsController extends \ZMController {
         // XXX: for adminusers testcase...
         $classLoader = new ClassLoader();
         $classLoader->register();
-        $classLoader->addPath(Runtime::getInstallationPath().'apps/admin/lib/services');
-        $classLoader->addPath(Runtime::getInstallationPath().'apps/admin/lib/model');
-        $classLoader->addPath($this->getTestPlugin()->getPluginDirectory().'tests');
-        $classLoader->addNamespace('zenmagick\\apps\\admin', Runtime::getInstallationPath().'apps/admin/lib');
+        $classLoader->addPath(Runtime::getInstallationPath().'/apps/admin/lib/services');
+        $classLoader->addPath(Runtime::getInstallationPath().'/apps/admin/lib/model');
+        $classLoader->addPath($this->getTestPlugin()->getPluginDirectory().'/tests');
+        $classLoader->addNamespace('zenmagick\\apps\\admin', Runtime::getInstallationPath().'/apps/admin/lib');
 
         // add tests folder to class path
-        $testBaseDir = $this->getTestPlugin()->getPluginDirectory().'tests';
+        $testBaseDir = $this->getTestPlugin()->getPluginDirectory().'/tests';
         $tests = $this->findTests($testBaseDir);
 
         // group tests
@@ -91,7 +91,7 @@ class ZMUnitTestsController extends \ZMController {
             if ($plugin instanceof \ZMUnitTestsPlugin) {
                 continue;
             }
-            $ptests = $plugin->getPluginDirectory().'tests' . DIRECTORY_SEPARATOR;
+            $ptests = $plugin->getPluginDirectory().'/tests';
             $classLoader->addPath($ptests);
             if (is_dir($ptests)) {
                 foreach ($this->findTests($ptests) as $className => $file) {

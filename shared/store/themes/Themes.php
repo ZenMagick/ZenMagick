@@ -97,7 +97,9 @@ class Themes extends ZMObject {
      *
      * @return string The base directory for themes.
      */
-    public function getThemesDir() { return Runtime::getInstallationPath().$this->basePath.'/'; }
+    public function getThemesDir() {
+        return Runtime::getInstallationPath().$this->basePath;
+    }
 
     /**
      * Get a list of all available themes.
@@ -110,7 +112,7 @@ class Themes extends ZMObject {
         $themeDirs = $this->getThemeDirList();
         // load info classes and get instance
         foreach ($themeDirs as $dir) {
-            if (file_exists($basePath.$dir.'/theme.yaml')) {
+            if (file_exists($basePath.'/'.$dir.'/theme.yaml')) {
                 $theme = $this->container->get('theme');
                 $theme->setThemeId($dir);
                 $themes[] = $theme;

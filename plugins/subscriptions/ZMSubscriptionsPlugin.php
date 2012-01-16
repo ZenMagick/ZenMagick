@@ -60,7 +60,7 @@ class ZMSubscriptionsPlugin extends Plugin {
      */
     public function install() {
         parent::install();
-        ZMDbUtils::executePatch(file(ZMDbUtils::resolveSQLFilename($this->getPluginDirectory()."sql/install.sql")), $this->messages_);
+        ZMDbUtils::executePatch(file(ZMDbUtils::resolveSQLFilename($this->getPluginDirectory()."/sql/install.sql")), $this->messages_);
 
         $this->addConfigValue('Qualifying amount', 'minAmount', '0', 'The minimum amount to qualify for a subscription');
         $this->addConfigValue('Minimum orders', 'minOrders', '0', 'The minimum number of orders before the subscription can be canceled');
@@ -86,7 +86,7 @@ class ZMSubscriptionsPlugin extends Plugin {
      */
     public function remove($keepSettings=false) {
         parent::remove($keepSettings);
-        ZMDbUtils::executePatch(file(ZMDbUtils::resolveSQLFilename($this->getPluginDirectory()."sql/uninstall.sql")), $this->messages_);
+        ZMDbUtils::executePatch(file(ZMDbUtils::resolveSQLFilename($this->getPluginDirectory()."/sql/uninstall.sql")), $this->messages_);
     }
 
     /**

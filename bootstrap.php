@@ -45,7 +45,7 @@ use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
         // detect CLI calls
         define('ZM_CLI_CALL', defined('STDIN'));
         // base installation directory
-        define('ZM_BASE_PATH', dirname(__FILE__).'/');
+        define('ZM_BASE_PATH', dirname(__FILE__)) .'/';
         // app name
         define('ZM_APP_NAME', defined('ZM_APP_PATH') ? basename(ZM_APP_PATH) : null);
         // set up the environment to run in
@@ -74,7 +74,7 @@ use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
         $zmLoader = new $CLASSLOADER();
         $zmLoader->register();
         foreach ($packages as $path) {
-            $path = ZM_BASE_PATH.$path;
+            $path = ZM_BASE_PATH.'/'.$path;
             $zmLoader->addConfig($path);
             // packages may have their own *system* services
             $packageConfig = $path.'/container.xml';
@@ -128,10 +128,8 @@ use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 
         // load application container config
         $containerConfig = Toolbox::resolveWithEnv(Runtime::getApplicationPath().'/config/container.xml');
-        //$containerConfig = Toolbox::resolveWithEnv(Runtime::getApplicationPath().'/config/container.yaml');
         if (file_exists($containerConfig)) {
             $containerLoader = new XmlFileLoader(Runtime::getContainer(), new FileLocator(dirname($containerConfig)));
-            //$containerLoader = new YamlFileLoader(Runtime::getContainer(), new FileLocator(dirname($containerConfig)));
             $containerLoader->load(basename($containerConfig));
         }
 

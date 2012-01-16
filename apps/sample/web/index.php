@@ -20,7 +20,7 @@
 ?>
 <?php
 
-  // app location relative to zenmagick installation (ZM_BASE_PATH)
+  // app location relative to zenmagick installation
   define('ZM_APP_PATH', 'apps'.DIRECTORY_SEPARATOR.basename(dirname(dirname(__FILE__))).DIRECTORY_SEPARATOR);
 
   require realpath(dirname(__FILE__).'/../../../bootstrap.php');

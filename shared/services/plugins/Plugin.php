@@ -282,11 +282,11 @@ class Plugin extends zenmagick\base\plugins\Plugin {
         $configPath = Runtime::getInstallationPath().'config'.DIRECTORY_SEPARATOR;
         $configFile = $configPath.$this->getId().DIRECTORY_SEPARATOR.$file;
 
-        if (file_exists($configFile) || !file_exists($this->getPluginDirectory().$file)) {
+        if (file_exists($configFile) || !file_exists($this->getPluginDirectory().'/'.$file)) {
             return $configFile;
         }
 
-        return $this->getPluginDirectory().$file;
+        return $this->getPluginDirectory().'/'.$file;
     }
 
     /**
@@ -397,7 +397,7 @@ class Plugin extends zenmagick\base\plugins\Plugin {
         // always want the 'storefront' context
         $context = str_replace('/zenmagick/apps/storefront/web', '', $context);
         $context = str_replace('/zenmagick/apps/admin/web', '', $context);
-        return \ZMHtmlUtils::encode($context.'/'.basename(ZM_BASE_PATH).'/plugins/' . $this->getId() . '/' . $uri);
+        return \ZMHtmlUtils::encode($context.'/'.basename(Runtime::getInstallationPath()).'/plugins/' . $this->getId() . '/' . $uri);
     }
 
     /**

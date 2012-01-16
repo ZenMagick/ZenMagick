@@ -29,8 +29,8 @@ use zenmagick\base\events\Event;
 
     try {
         if (!defined('ZM_APP_PATH')) {
-            // app location relative to zenmagick installation (ZM_BASE_PATH)
-            define('ZM_APP_PATH', 'apps/storefront/');
+            // app location relative to zenmagick installation
+            define('ZM_APP_PATH', '/apps/storefront');
         }
 
         include_once 'bootstrap.php';

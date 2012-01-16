@@ -92,7 +92,7 @@ class AdminEventHandler extends ZMObject {
         $adminMenu = $this->container->get('adminMenu');
 
         $menuLoader = new MenuLoader();
-        $menuLoader->load(Runtime::getApplicationPath().'config/menu.yaml', $adminMenu);
+        $menuLoader->load(Runtime::getApplicationPath().'/config/menu.yaml', $adminMenu);
 
         $legacyConfig = $adminMenu->getElement('configuration-legacy');
         $configGroups = $this->container->get('configService')->getConfigGroups();

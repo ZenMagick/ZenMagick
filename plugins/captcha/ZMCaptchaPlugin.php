@@ -51,7 +51,7 @@ class ZMCaptchaPlugin extends Plugin {
      */
     public function install() {
         parent::install();
-        ZMDbUtils::executePatch(file(ZMDbUtils::resolveSQLFilename($this->getPluginDirectory()."sql/install.sql")), $this->messages_);
+        ZMDbUtils::executePatch(file(ZMDbUtils::resolveSQLFilename($this->getPluginDirectory()."/sql/install.sql")), $this->messages_);
 
         $this->addConfigValue('Disable for registered users', 'disableRegistered', false, 'Disable the captcha for registered (logged in) users',
             'widget@ZMBooleanFormWidget#name=disableRegistered&default=false&label=Disable&style=checkbox');
@@ -77,7 +77,7 @@ class ZMCaptchaPlugin extends Plugin {
      */
     public function remove($keepSettings=false) {
         parent::remove($keepSettings);
-        ZMDbUtils::executePatch(file(ZMDbUtils::resolveSQLFilename($this->getPluginDirectory()."sql/uninstall.sql")), $this->messages_);
+        ZMDbUtils::executePatch(file(ZMDbUtils::resolveSQLFilename($this->getPluginDirectory()."/sql/uninstall.sql")), $this->messages_);
     }
 
 

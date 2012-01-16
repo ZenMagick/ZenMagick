@@ -58,7 +58,7 @@ class PCaptcha {
     if(defined('CAPTCHA_CHARS_MAX_SIZE')) $this->chars_max_size = CAPTCHA_CHARS_MAX_SIZE;
     if(defined('CAPTCHA_CHARS_ROTATION')) $this->chars_rotation = CAPTCHA_CHARS_ROTATION;
     if(defined('CAPCHA_NOISE')) $this->noise = (int)CAPCHA_NOISE;
-		$this->dir_fs_fonts = $plugin->getPluginDirectory().'fonts/';
+		$this->dir_fs_fonts = $plugin->getPluginDirectory().'/fonts/';
     if(defined('CAPTCHA_MAX_TRY')) $this->max_try = CAPTCHA_MAX_TRY;
     if(defined('CAPTCHA_FAILURE_PROC')) $this->failure_proc = CAPTCHA_FAILURE_PROC;
 

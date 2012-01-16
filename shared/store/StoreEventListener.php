@@ -50,13 +50,13 @@ class StoreEventListener extends ZMObject {
             }
         }
 
-        $defaults = Runtime::getInstallationPath().'shared/defaults.php';
+        $defaults = Runtime::getInstallationPath().'/shared/defaults.php';
         if (file_exists($defaults)) {
             include $defaults;
         }
 
         // load email container config once all settings/config is loaded
-        $emailConfig = Runtime::getInstallationPath().DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.'store-email.xml';
+        $emailConfig = Runtime::getInstallationPath().'/config/store-email.xml';
         if (file_exists($emailConfig)) {
             $containerlLoader = new XmlFileLoader(Runtime::getContainer(), new FileLocator(dirname($emailConfig)));
             $containerlLoader->load($emailConfig);
@@ -64,7 +64,7 @@ class StoreEventListener extends ZMObject {
 
         // load some static files that we still need
         $statics = array(
-            'storefront' => array('shared/store/bundles/ZenCartBundle/utils/zencart_overrides.php')
+            'storefront' => array('/shared/store/bundles/ZenCartBundle/utils/zencart_overrides.php')
         );
         foreach ($statics as $context => $files) {
             if (Toolbox::isContextMatch($context)) {
@@ -82,7 +82,7 @@ class StoreEventListener extends ZMObject {
      * Keep up support for local.php.
      */
     public function onBootstrapDone($event) {
-        $local = Runtime::getInstallationPath().DIRECTORY_SEPARATOR.'local.php';
+        $local = Runtime::getInstallationPath().'/local.php';
         if (file_exists($local)) {
             include $local;
         }

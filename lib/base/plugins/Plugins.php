@@ -199,7 +199,7 @@ class Plugins extends ZMObject {
 
         $pluginClassSuffix = ClassLoader::className($id);
         $basePath = $this->getBasePathForId($id);
-        $pluginDir = $basePath.$id;
+        $pluginDir = $basePath.'/'.$id;
         if (is_dir($pluginDir)) {
             // todo: drop ZM stuff
             // expect plugin file in the directory as 'ZM[CamelCaseId]Plugin.php.php' extension
@@ -216,7 +216,7 @@ class Plugins extends ZMObject {
             if (!is_file($file)) {
                 // todo: drop ZM stuff
                 $pluginClass = 'ZM' . $pluginClassSuffix . 'Plugin';
-                $file = $basePath . $pluginClass . '.php';
+                $file = $basePath . '/' . $pluginClass . '.php';
                 if (!is_file($file)) {
                     Runtime::getLogging()->warn("can't find plugin file for id = '".$id."'; dir = '".$pluginDir."'");
                     return null;
@@ -235,8 +235,8 @@ class Plugins extends ZMObject {
         $id[0] = strtolower($id[0]);
         $plugin->setId($id);
         //PHP5.3 only: $plugin->setId(lcfirst(substr(preg_replace('/Plugin$/', '', $pluginClass), 2)));
-        $pluginDir = dirname($file) . '/';
-        $plugin->setPluginDirectory($pluginDir == $basePath ? $basePath : $pluginDir);
+        $pluginDir = dirname($file);
+        $plugin->setPluginDirectory($pluginDir);
 
         $this->plugins_[$id] = array('plugin' => $plugin, 'init' => false);
         return $plugin;
@@ -337,7 +337,7 @@ class Plugins extends ZMObject {
             }
 
             // plugins can only contribute translations
-            $path = $plugin->getPluginDirectory().'locale/'.Runtime::getSettings()->get('zenmagick.base.locales.locale');
+            $path = $plugin->getPluginDirectory().'/locale/'.Runtime::getSettings()->get('zenmagick.base.locales.locale');
             $localeService->getLocale()->addResource($path);
         }
 

@@ -66,7 +66,7 @@ class StaticInit {
         //   if we need to foce loading the DoctrineAnnotaions class we could instead do this:
         //class_exists('Doctrine\ORM\Mapping\DoctrineAnnotations');
 
-        //AnnotationRegistry::registerFile(ZM_BASE_PATH . '/vendor/doctrine/lib/Doctrine/ORM/Mapping/Driver/DoctrineAnnotations.php');
+        //AnnotationRegistry::registerFile(Runtime::getInstallationPath() . '/vendor/doctrine/lib/Doctrine/ORM/Mapping/Driver/DoctrineAnnotations.php');
     }
 
     /**

@@ -234,7 +234,7 @@ class ZMWordpressPlugin extends Plugin {
                 $_SERVER['REQUEST_URI'] = str_replace($path, '', $_SERVER['REQUEST_URI']);
             }
             // load as proper global to make WP work - @#!!$&^ globals
-            return array($this->getPluginDirectory().'wp-include.php');
+            return array($this->getPluginDirectory().'/wp-include.php');
         }
 
         return parent::getGlobal($request);

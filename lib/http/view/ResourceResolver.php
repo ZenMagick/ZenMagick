@@ -92,7 +92,7 @@ class ResourceResolver extends ZMObject {
 
             // add plugins as fallback fallback
             foreach ($this->container->get('pluginService')->getAllPlugins(Runtime::getSettings()->get('zenmagick.base.context')) as $plugin) {
-                $ppath = $plugin->getPluginDirectory().'content/';
+                $ppath = $plugin->getPluginDirectory().'/content';
                 $path[] = $ppath;
                 foreach ($localeCodes as $code) {
                     $path[] = $ppath.'/locale/'.$code;
@@ -131,7 +131,7 @@ class ResourceResolver extends ZMObject {
 
             // add plugins as well
             foreach ($this->container->get('pluginService')->getAllPlugins(Runtime::getSettings()->get('zenmagick.base.context')) as $plugin) {
-                $ppath = $plugin->getPluginDirectory().'/content/';
+                $ppath = $plugin->getPluginDirectory().'/content';
                 $path[] = $ppath;
                 foreach ($localeCodes as $code) {
                     $path[] = $ppath.'/locale/'.$code;
@@ -171,7 +171,7 @@ class ResourceResolver extends ZMObject {
      * @return string The path to the application templates.
      */
     public function getApplicationTemplatePath() {
-        return Runtime::getApplicationPath().'templates/';
+        return Runtime::getApplicationPath().'/templates/';
     }
 
     /**
