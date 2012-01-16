@@ -129,7 +129,14 @@ class ResourceResolver extends ZMObject {
             // available locale
             $localeCodes = array_reverse($this->container->get('localeService')->getValidLocaleCodes());
 
-            // add plugins as well
+            // add bundles as fallback fallback fallback
+            foreach ($this->container->getParameterBag()->get('kernel.bundles') as $bundleName => $bundleClass) {
+                $rclass = new ReflectionClass($bundleClass);
+                $bundlePath = dirname($rclass->getFilename());
+                $path[] = $bundlePath.'/Resources';
+            }
+
+            // add plugins as fallback fallback
             foreach ($this->container->get('pluginService')->getAllPlugins(Runtime::getSettings()->get('zenmagick.base.context')) as $plugin) {
                 $ppath = $plugin->getPluginDirectory().'/content';
                 $path[] = $ppath;
