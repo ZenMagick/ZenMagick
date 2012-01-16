@@ -43,7 +43,7 @@
 
         <service id="defaultLoggingHandler" class="zenmagick\base\logging\handler\DefaultLoggingHandler" scope="container">
             <call method="setLogLevel">
-                <argument>INFO</argument>
+                <argument>%zenmagick.base.logging.level%</argument>
             </call>
             <tag name="zenmagick.base.logging.handler" />
         </service>
