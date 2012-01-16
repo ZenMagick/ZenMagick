@@ -96,7 +96,7 @@ class PomoLocale extends Locale {
         $filename = (null == $filename ? $domain : $filename).'.mo';
         $path = realpath($basedir).'/'.$filename;
         if (!file_exists($basedir) || null == ($path = Locale::resolvePath($path, $locale))) {
-            Runtime::getLogging()->debug('unable to resolve locale path for locale="'.$locale.'"; basedir='.$basedir);
+            Runtime::getLogging()->log('unable to resolve locale path for locale="'.$locale.'"; basedir='.$basedir, Logging::TRACE);
             return;
         }
         $this->registerMO($path, $domain);
