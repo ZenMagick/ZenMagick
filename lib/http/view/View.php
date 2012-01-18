@@ -379,9 +379,9 @@ class View extends ZMObject {
         $file = $this->compile($file);
 
         // prepare env
-				extract($this->getVariables(), EXTR_REFS);
+				extract($this->getVariables(), EXTR_REFS | EXTR_SKIP);
         // these are transient
-				extract($variables, EXTR_REFS);
+				extract($variables, EXTR_REFS | EXTR_SKIP);
 
         if (ZM_ENVIRONMENT == 'dev') {
             $event = new Event($this, array('file' => $file));
