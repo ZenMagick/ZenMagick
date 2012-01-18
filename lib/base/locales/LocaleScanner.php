@@ -276,7 +276,7 @@ class LocaleScanner {
                     $lines[] = 'msgstr[1] ""';
                 }
             } else {
-                $lines[] = $pot ? 'msgstr ""' : 'msgstr "'.$info['msg'].'"';
+                $lines[] = $pot ? 'msgstr ""' : 'msgstr '.$string;
             }
 
             $lines[] = '';
