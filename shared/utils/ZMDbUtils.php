@@ -24,7 +24,7 @@
 <?php
 
 use zenmagick\base\Runtime;
-use zenmagick\apps\admin\utils\SQLRunner;
+use zenmagick\apps\store\admin\utils\SQLRunner;
 
 /**
  * SQL/database utils.

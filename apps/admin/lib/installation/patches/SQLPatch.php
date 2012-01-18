@@ -71,7 +71,7 @@ class SQLPatch extends InstallationPatch {
      * @param string sql Some sql.
      */
     function _runSQL($sql) {
-        $sql = \ZMSecurityUtils::sanitize($sql);
+        $sql = \ZMRequest::sanitize($sql);
         if (!empty($sql)) {
             $results = SQLRunner::execute_sql($sql, DB_DATABASE, DB_PREFIX);
             $this->_processSQLMessages($results);
