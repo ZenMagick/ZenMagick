@@ -348,7 +348,7 @@ class Plugin extends zenmagick\base\plugins\Plugin {
      * @todo: fix and allow optional other parameter, etc...
      */
     public function addMenuGroup($title, $parentId='configuration') {
-        if (Runtime::getSettings()->get('isAdmin')) {
+        if ($this->container->has('adminMenu')) {
             $adminMenu = $this->container->get('adminMenu');
             if (null != ($parent = $adminMenu->getElement($parentId))) {
                 $id = $parentId.'-'.$this->getId().microtime();
@@ -370,7 +370,7 @@ class Plugin extends zenmagick\base\plugins\Plugin {
      * @param string menuKey Optional key determining where the menu item should appear; default is <em>'configuration-plugins'</em>.
      */
     public function addMenuItem2($title, $requestId, $menuKey='configuration-plugins') {
-        if (Runtime::getSettings()->get('isAdmin') && $this->container->has('adminMenu')) {
+        if ($this->container->has('adminMenu')) {
             $adminMenu = $this->container->get('adminMenu');
             if (null != ($parent = $adminMenu->getElement($menuKey))) {
                 $item = new MenuElement($menuKey.'-'.$requestId, $title);

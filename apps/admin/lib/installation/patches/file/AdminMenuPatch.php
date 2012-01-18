@@ -83,7 +83,7 @@ class AdminMenuPatch extends FilePatch {
         if ($this->isOpen() && $this->isReady()) {
             Runtime::getLogging()->error("** ZenMagick: patching zen-cart admin to auto-enable ZenMagick admin menu");
             $handle = fopen(_ZM_ZEN_ADMIN_FILE, "ab");
-            fwrite($handle, "\n<?php require('includes/boxes/zenmagick_dhtml.php'); /* added by ZenMagick installation patcher */ ?>\n");
+            fwrite($handle, "<?php require('includes/boxes/zenmagick_dhtml.php'); /* added by ZenMagick installation patcher */ ?>\n");
             fclose($handle);
             \ZMFileUtils::setFilePerms(_ZM_ZEN_ADMIN_FILE);
             return true;
@@ -105,11 +105,21 @@ class AdminMenuPatch extends FilePatch {
             return true;
         }
 
-        $contents = $this->readFile(_ZM_ZEN_ADMIN_FILE);
-        $contents = str_replace("\n<?php require('includes/boxes/zenmagick_dhtml.php'); /* added by ZenMagick installation patcher */ ?>", "", $contents);
-        $contents = str_replace("\n<?php require('includes/boxes/zenmagick_dhtml.php'); /* added by ZenMagick installation patcher */ ?>", "", $contents);
+        if (is_writeable(_ZM_ZEN_ADMIN_FILE)) {
+            $lines = $this->getFileLines(_ZM_ZEN_ADMIN_FILE);
+            $unpatchedLines = array();
+            foreach ($lines as $line) {
+                if (false !== strpos($line, "zenmagick_dhtml")) {
+                    continue;
+                }
+                array_push($unpatchedLines, $line);
+            }
 
-        return $this->writeFile(_ZM_ZEN_ADMIN_FILE, $contents);
+            return $this->putFileLines(_ZM_ZEN_ADMIN_FILE, $unpatchedLines);
+        } else {
+            Runtime::getLogging()->error("** ZenMagick: no permission to patch index.php for uninstall");
+            return false;
+        }
     }
 
 }
