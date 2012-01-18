@@ -8,13 +8,13 @@ storefront:
           - { name: apps.store.associations.handler }
 
       adminUserPrefService:
-        class: zenmagick\apps\admin\services\AdminUserPrefService
+        class: zenmagick\apps\store\admin\services\AdminUserPrefService
         scope: container
 
       adminUserRoleService:
-        class: zenmagick\apps\admin\services\AdminUserRoleService
+        class: zenmagick\apps\store\admin\services\AdminUserRoleService
         scope: container
 
       adminUserService:
-        class: zenmagick\apps\admin\services\AdminUserService
+        class: zenmagick\apps\store\admin\services\AdminUserService
         scope: container
