@@ -28,6 +28,7 @@ use zenmagick\base\events\Event;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 
+    define('TRACEBS', false);
 
     // XXX: remove once caching is not needed any more
     $CLASSLOADER = 'zenmagick\base\classloader\CachingClassLoader';
@@ -71,6 +72,7 @@ use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 
         $vendor = defined('VENDOR_LIB') ? VENDOR_LIB : 'vendor';
 
+if (TRACEBS) {$precl = microtime();}
         // load main packages
         $packages = array($vendor, $vendor.'/local', 'lib/base', 'lib/core', 'lib/http', 'lib/mvc', 'shared');
         $zmLoader = new $CLASSLOADER();
@@ -85,6 +87,8 @@ use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
                 $packageLoader->load($packageConfig);
             }
         }
+if (TRACEBS) {echo 'pre CL: '.Runtime::getExecutionTime($precl)."<BR>";}
+if (TRACEBS) {echo 'post CL: '.Runtime::getExecutionTime()."<BR>";}
 
         // some base settings
         Runtime::getSettings()->set('zenmagick.environment', ZM_ENVIRONMENT);
@@ -103,6 +107,7 @@ use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 
         // load application config
         Runtime::getSettings()->setAll(Toolbox::loadWithEnv(Runtime::getApplicationPath().'/config/config.yaml'));
+if (TRACEBS) {echo 'post config.yaml: '.Runtime::getExecutionTime()."<BR>";}
 
         // load global config
         $globalFilename = realpath(Runtime::getInstallationPath().'/global.yaml');
@@ -111,6 +116,7 @@ use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
             $contextConfigLoader->setConfig(Toolbox::loadWithEnv($globalFilename));
             $contextConfigLoader->process();
         }
+if (TRACEBS) {echo 'post global.yaml: '.Runtime::getExecutionTime()."<BR>";}
 
         // bundles; DI only for now - might want to use HttpKernel for loading stuff?
         $bundles = array();
@@ -127,6 +133,7 @@ use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
             $bundle->boot();
             $bundles[] = $bundle;
         }
+if (TRACEBS) {echo 'post bundles: '.Runtime::getExecutionTime()."<BR>";}
 
         // load application container config
         $containerConfig = Toolbox::resolveWithEnv(Runtime::getApplicationPath().'/config/container.xml');
@@ -134,6 +141,7 @@ use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
             $containerLoader = new XmlFileLoader(Runtime::getContainer(), new FileLocator(dirname($containerConfig)));
             $containerLoader->load(basename($containerConfig));
         }
+if (TRACEBS) {echo 'post container.xml: '.Runtime::getExecutionTime()."<BR>";}
 
         if (null != Runtime::getApplicationPath()) {
             // always add an application event listener - if available
@@ -142,6 +150,7 @@ use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
                 Runtime::getEventDispatcher()->listen(new $eventListener());
             }
         }
+if (TRACEBS) {echo 'post app event listner: '.Runtime::getExecutionTime()."<BR>";}
 
         // hook up default event listeners
         foreach (Runtime::getSettings()->get('zenmagick.base.events.listeners', array()) as $_zm_elc) {
@@ -151,9 +160,11 @@ use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
         }
 
         Runtime::getEventDispatcher()->dispatch('init_config_done', new Event());
+if (TRACEBS) {echo 'post init_config_done: '.Runtime::getExecutionTime()."<BR>";}
 
         // set up locale
         Runtime::getContainer()->get('localeService')->init(Runtime::getSettings()->get('zenmagick.base.locales.locale', 'en'));
+if (TRACEBS) {echo 'post init locale: '.Runtime::getExecutionTime()."<BR>";}
 
         // set a default timezone; NOTE: warnings are suppressed for date_default_timezone_get() in case there isn't a default at all
         date_default_timezone_set(Runtime::getSettings()->get('zenmagick.core.date.timezone', @date_default_timezone_get()));
@@ -161,6 +172,7 @@ use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
             // set back with the actually used value
             Runtime::getSettings()->set('zenmagick.core.date.timezone', $_dt->getName());
         }
+if (TRACEBS) {echo 'post timezone: '.Runtime::getExecutionTime()."<BR>";}
 
         // register custom error handler
         if (Runtime::getSettings()->get('zenmagick.base.logging.handleErrors')) {
@@ -169,9 +181,11 @@ use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
             set_exception_handler(array($logging, 'exceptionHandler'));
             register_shutdown_function(array($logging, 'shutdownHandler'));
         }
+if (TRACEBS) {echo 'post error handlers: '.Runtime::getExecutionTime()."<BR>";}
 
         Runtime::getLogging()->info('environment is: '.ZM_ENVIRONMENT);
         Runtime::getEventDispatcher()->dispatch('bootstrap_done', new Event());
+if (TRACEBS) {echo 'post bootstrap_done: '.Runtime::getExecutionTime()."<BR>";}
     } catch (Exception $e) {
         echo '<pre>';
         echo $e->getTraceAsString();
@@ -185,6 +199,7 @@ use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
             Runtime::getContainer()->get('pluginService')->initAllPlugins(Runtime::getSettings()->get('zenmagick.base.context'));
             Runtime::getEventDispatcher()->dispatch('init_plugins_done', new Event());
         }
+if (TRACEBS) {echo 'post plugins: '.Runtime::getExecutionTime()."<BR>";}
     } catch (Exception $e) {
         echo '<pre>';
         echo $e->getTraceAsString();

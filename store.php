@@ -29,6 +29,7 @@ use zenmagick\base\Runtime;
             $_zm_session->setValue($key, $value);
         }
         Runtime::getContainer()->get('dispatcher')->dispatch($_zm_request);
+if (TRACEBS) {echo 'post dispatcher: '.Runtime::getExecutionTime()."<BR>";}
         exit;
     } else {
         // do ob_start() to allow plugins to do their magic with zen cart templates too

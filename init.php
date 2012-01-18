@@ -45,18 +45,22 @@ use zenmagick\base\events\Event;
             $appRouterCollection = $appRoutingLoader->load($appRoutingFile);
             $request->getRouter()->getRouteCollection()->addCollection($appRouterCollection);
         }
+if (TRACEBS) {echo 'post routing.yaml: '.Runtime::getExecutionTime()."<BR>";}
 
         // tell everyone interested that we have a request
         Runtime::getEventDispatcher()->dispatch('init_request', new Event(null, array('request' => $_zm_request)));
+if (TRACEBS) {echo 'post init_request: '.Runtime::getExecutionTime()."<BR>";}
 
         // freeze container
         Runtime::getContainer()->compile();
 
         // tell everyone interested that we have a container
         Runtime::getEventDispatcher()->dispatch('container_ready', new Event(null, array('request' => $_zm_request)));
+if (TRACEBS) {echo 'post container_ready: '.Runtime::getExecutionTime()."<BR>";}
 
         // allow url rewriters to fiddle with the request
         $_zm_request->urlDecode();
+if (TRACEBS) {echo 'post url decode: '.Runtime::getExecutionTime()."<BR>";}
 
         // make sure we use the appropriate protocol (HTTPS, for example) if required
         Runtime::getContainer()->get('sacsManager')->ensureAccessMethod($_zm_request);
@@ -73,6 +77,7 @@ use zenmagick\base\events\Event;
         // restore
         $request = $_zm_request;
         Runtime::getEventDispatcher()->dispatch('init_done', new Event(null, array('request' => $_zm_request)));
+if (TRACEBS) {echo 'post init_done: '.Runtime::getExecutionTime()."<BR>";}
     } catch (Exception $e) {
         echo '<pre>';
         echo $e->getTraceAsString();
