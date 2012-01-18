@@ -23,6 +23,7 @@
 ?>
 <?php
 
+use zenmagick\base\Toolbox;
 use zenmagick\base\ZMObject;
 
 /**
@@ -72,7 +73,7 @@ class ZMProductGroupPricing extends ZMObject {
         $this->groupId_ = $request->getParameter('groupId', '0');
         $this->discount_ = $request->getParameter('discount', '0');
         $this->type_ = $request->getParameter('type', '%');
-        $this->allowSaleSpecial_ = ZMLangUtils::asBoolean($request->getParameter('allowSaleSpecial', false));
+        $this->allowSaleSpecial_ = Toolbox::asBoolean($request->getParameter('allowSaleSpecial', false));
         $startDate = $request->getParameter('startDate');
         if (empty($startDate)) {
             // default to current date

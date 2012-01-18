@@ -21,6 +21,7 @@
 <?php
 
 use zenmagick\base\Runtime;
+use zenmagick\base\Toolbox;
 
 /**
  * Show settings controlller.
@@ -81,7 +82,7 @@ class ZMSettingsShowController extends ZMPluginAdmin2Controller {
             $value = '0'.decoct($value);
             break;
         case 'boolean':
-            $value = ZMLangUtils::asBoolean($value) ? 'true' : 'false';
+            $value = Toolbox::asBoolean($value) ? 'true' : 'false';
             break;
         default:
             echo $details['type']."<BR>";

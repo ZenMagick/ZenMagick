@@ -21,6 +21,7 @@
 <?php
 
 use zenmagick\base\Runtime;
+use zenmagick\base\Toolbox;
 
 /**
  * Request controller to cancel a subscription.
@@ -36,7 +37,7 @@ class ZMCancelSubscriptionController extends ZMController {
      * @todo allow cancel at any time
      */
     public function processGet($request) {
-        if (!ZMLangUtils::asBoolean($this->getPlugin()->get('customerCancel'))) {
+        if (!Toolbox::asBoolean($this->getPlugin()->get('customerCancel'))) {
             $this->messageService->error(_zm("Insufficient permission"));
             return $this->findView();
         }

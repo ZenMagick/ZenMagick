@@ -171,7 +171,7 @@ EOT;
             $code1 = sprintf('<script type="text/javascript" src="%swww.liftsuggest.com/js/%s?cache=%s"></script>', $protocol, $scriptFile, Toolbox::random(10, Toolbox::RANDOM_DIGITS));
 
             $code2 = $this->getTrackerCode($request);
-            if (ZMLangUtils::asBoolean($this->get('debug'))) {
+            if (Toolbox::asBoolean($this->get('debug'))) {
                 $code1 = str_replace('<script', '<!--script', $code1);
                 $code1 = str_replace('</script>', '/script-->', $code1);
                 $code2 = str_replace('<script', '<!--script', $code2);

@@ -23,6 +23,7 @@
 define('CAPTCHA_FIELD', 'captcha');
 
 use zenmagick\base\Runtime;
+use zenmagick\base\Toolbox;
 
 /**
  * Plugin to enable support for CAPTCHA in ZenMagick.
@@ -91,7 +92,7 @@ class ZMCaptchaPlugin extends Plugin {
         $request = $event->get('request');
 
         // check if we need to do anything for this request...
-        $disableRegistered = ZMLangUtils::asBoolean($this->get('disableRegistered'));
+        $disableRegistered = Toolbox::asBoolean($this->get('disableRegistered'));
         if ($disableRegistered && $request->isRegistered()) {
             return;
         }

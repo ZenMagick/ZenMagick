@@ -21,6 +21,7 @@
 <?php
 
 use zenmagick\base\Runtime;
+use zenmagick\base\Toolbox;
 
 /**
  * TinyMCE plugin.
@@ -43,7 +44,7 @@ class ZMTinyMCEPlugin extends Plugin {
      */
     public function init() {
         parent::init();
-        if (ZMLangUtils::asBoolean($this->get('defaultEditor'))) {
+        if (Toolbox::asBoolean($this->get('defaultEditor'))) {
             ZMSettings::set('apps.store.admin.defaultEditor', 'tinyMCEEditorWidget');
         }
     }

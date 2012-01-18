@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\Toolbox;
 use zenmagick\base\ZMObject;
 
 /**
@@ -58,7 +59,7 @@ class ZMSearchCriteria extends ZMObject {
      * @param string default A default value.
      * @return boolean <code>true</code> if descriptions should be searched too.
      */
-    public function isIncludeDescription($default=true) { return ZMLangUtils::asBoolean($this->get('includeDescription', $default)); }
+    public function isIncludeDescription($default=true) { return Toolbox::asBoolean($this->get('includeDescription', $default)); }
 
     /**
      * Get the category.
@@ -74,7 +75,7 @@ class ZMSearchCriteria extends ZMObject {
      * @param string default A default value.
      * @return boolean <code>true</code> if subcategories should be searched too.
      */
-    public function isIncludeSubcategories($default=true) { return ZMLangUtils::asBoolean($this->get('includeSubcategories', $default)); }
+    public function isIncludeSubcategories($default=true) { return Toolbox::asBoolean($this->get('includeSubcategories', $default)); }
 
     /**
      * Get the manufacturer.
@@ -145,7 +146,7 @@ class ZMSearchCriteria extends ZMObject {
      *
      * @return boolean <code>true</code> if included, <code>false</code> if not.
      */
-    public function isIncludeTax() { return ZMLangUtils::asBoolean($this->get('includeTax')); }
+    public function isIncludeTax() { return Toolbox::asBoolean($this->get('includeTax')); }
 
     /**
      * Get the country for tax calculations (if required).

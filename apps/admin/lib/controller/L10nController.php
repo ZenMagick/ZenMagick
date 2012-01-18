@@ -22,6 +22,7 @@
 namespace zenmagick\apps\store\admin\controller;
 
 use zenmagick\base\Runtime;
+use zenmagick\base\Toolbox;
 
 use Symfony\Component\Yaml\Yaml;
 use zenmagick\base\locales\LocaleScanner;
@@ -53,7 +54,7 @@ class L10nController extends \ZMController {
             }
             $value = $request->getParameter($name, $def);
             if ('b' == $token[0]) {
-                $value = \ZMLangUtils::asBoolean($value);
+                $value = Toolbox::asBoolean($value);
             }
             $options[$name] = $value;
         }

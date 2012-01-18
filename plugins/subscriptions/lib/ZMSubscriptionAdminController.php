@@ -21,6 +21,7 @@
 <?php
 
 use zenmagick\base\Runtime;
+use zenmagick\base\Toolbox;
 
 /**
  * Admin controller.
@@ -69,7 +70,7 @@ class ZMSubscriptionAdminController extends ZMPluginAdmin2Controller {
     public function processPost($request) {
         $orderId = $request->getOrderId();
         $cancel = $request->getParameter('cancel');
-        $hard = ZMLangUtils::asBoolean($request->getParameter('hard'), false);
+        $hard = Toolbox::asBoolean($request->getParameter('hard'), false);
         if (0 != $orderId && 'cancel' == $cancel) {
             $sql = "UPDATE " . TABLE_ORDERS . "
                     SET is_subscription_canceled = :subscriptionCanceled, is_subscription = :subscription

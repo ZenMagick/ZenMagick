@@ -24,6 +24,7 @@
 <?php
 
 use zenmagick\base\Runtime;
+use zenmagick\base\Toolbox;
 
 /**
  * Allow users to toggle ZenMagick themes support.
@@ -64,7 +65,7 @@ class ZMToggleThemesPlugin extends Plugin {
         }
 
         if (null !== ($themeToggle = $session->getValue(self::SESS_THEME_TOGGLE_KEY))) {
-            Runtime::getSettings()->set('isEnableZMThemes', \ZMLangUtils::asBoolean($themeToggle));
+            Runtime::getSettings()->set('isEnableZMThemes', Toolbox::asBoolean($themeToggle));
         }
     }
 

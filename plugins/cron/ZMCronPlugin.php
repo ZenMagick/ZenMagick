@@ -21,6 +21,7 @@
 <?php
 
 use zenmagick\base\Runtime;
+use zenmagick\base\Toolbox;
 
 /**
  * Plugin to allow cron like execution of <code>ZMCronJob</code> classes.
@@ -65,7 +66,7 @@ class ZMCronPlugin extends Plugin {
     public function onFinaliseContent($event) {
         $request = $event->get('request');
 
-        if ($this->isEnabled() && ZMLangUtils::asBoolean($this->get('image'))) {
+        if ($this->isEnabled() && Toolbox::asBoolean($this->get('image'))) {
             $pages = $this->get('triggerPages');
             if (empty($pages) || ZMLangUtils::inArray($request->getRequestId(), $pages)) {
                 $slash = ZMSettings::get('zenmagick.mvc.html.xhtml') ? '/' : '';
@@ -90,7 +91,7 @@ class ZMCronPlugin extends Plugin {
         if ($cron->isTimeToRun()) {
             // update timestamp to stop other instances from running
             $cron->updateTimestamp();
-            foreach ($cron->getJobs(false, ZMLangUtils::asBoolean($this->get('missedRuns'))) as $job) {
+            foreach ($cron->getJobs(false, Toolbox::asBoolean($this->get('missedRuns'))) as $job) {
                 $cron->runJob($job);
             }
         }

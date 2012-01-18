@@ -22,6 +22,7 @@
 
 use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
+use zenmagick\base\Toolbox;
 use zenmagick\base\events\Event;
 
 /**
@@ -73,7 +74,7 @@ class ZMUpdateSubscriptionsCronJob implements ZMCronJob {
             $orderService->updateOrder($order);
 
             // 4) Create history entry if enabled
-            if (ZMLangUtils::asBoolean($plugin->get('orderHistory'))) {
+            if (Toolbox::asBoolean($plugin->get('orderHistory'))) {
                 $status = Beans::getBean('ZMOrderStatus');
                 $status->setId($plugin->get('orderStatus'));
                 $status->setOrderId($order->getId());

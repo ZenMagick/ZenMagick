@@ -24,6 +24,7 @@
 <?php
 
 use zenmagick\base\Beans;
+use zenmagick\base\Toolbox;
 
 /**
  * Admin controller.
@@ -66,7 +67,7 @@ class ZMProductGroupPricingTabController extends ZMCatalogContentController {
      */
     public function processGet($request) {
         //TODO: this should be POST!!
-        if (ZMLangUtils::asBoolean($request->getParameter('delete'))) {
+        if (Toolbox::asBoolean($request->getParameter('delete'))) {
             $productGroupPricing = Beans::getBean("ZMProductGroupPricing");
             $productGroupPricing->populate($request);
             // delete

@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\Toolbox;
 
 /**
  * Plugin adding a Google Maps based store locator.
@@ -76,7 +77,7 @@ class ZMGoogleStoreLocatorPlugin extends Plugin {
             $location = $this->get('location');
             $zoom = $this->get('zoom');
             $markerText = $this->get('marker_text');
-            $controls = ZMLangUtils::asBoolean($this->get('controls'));
+            $controls = Toolbox::asBoolean($this->get('controls'));
 
             $script = '
 <script type="text/javascript" src="http://www.google.com/jsapi?key='.$storeKey.'"></script>

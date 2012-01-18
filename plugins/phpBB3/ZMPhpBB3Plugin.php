@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\Toolbox;
 
 /**
  * Plugin to enable phpBB3 support in ZenMagick.
@@ -111,7 +112,7 @@ class ZMPhpBB3Plugin extends Plugin {
                 array("ZMWrapperRule", 'email', 'The entered email address is already taken (phpBB3).', array($phpBB, 'vDuplicateEmail'))
             );
             // optionally, make nick name required
-            if (ZMLangUtils::asBoolean($this->get('requireNickname'))) {
+            if (Toolbox::asBoolean($this->get('requireNickname'))) {
                 $rules[] = array('ZMRequiredRule', 'nickName', 'Please enter a nick name.');
             }
             ZMValidator::instance()->addRules('registration', $rules);
@@ -124,7 +125,7 @@ class ZMPhpBB3Plugin extends Plugin {
                 array("ZMWrapperRule", 'email', 'The entered email address is already taken (phpBB3).', array($phpBB, 'vDuplicateChangedEmail'))
             );
             // optionally, make nick name required
-            if (ZMLangUtils::asBoolean($this->get('requireNickname'))) {
+            if (Toolbox::asBoolean($this->get('requireNickname'))) {
                 $rules[] = array('ZMRequiredRule', 'nickName', 'Please enter a nick name.');
             }
             ZMValidator::instance()->addRules('account', $rules);

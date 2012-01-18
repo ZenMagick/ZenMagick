@@ -23,6 +23,7 @@
 ?>
 <?php
 
+use zenmagick\base\Toolbox;
 use zenmagick\http\view\ResourceManager;
 
 /**
@@ -63,7 +64,7 @@ class ZMImageHandler2Plugin extends Plugin {
      * Add resources.
      */
     public function onViewStart($event) {
-        if (!ZMLangUtils::asBoolean($this->get('disableIH2Attributes'))) {
+        if (!Toolbox::asBoolean($this->get('disableIH2Attributes'))) {
             if (null != ($resources = $event->get('view')->getResourceManager())) {
                 $resources->cssFile('ih2/style_imagehover.css');
                 $resources->jsFile('ih2/jscript_imagehover.js', ResourceManager::HEADER);

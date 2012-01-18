@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\Toolbox;
 
 define('AUTO_LOGIN_COOKIE', 'auto_login');
 define('AUTO_LOGIN_OPT_IN', 'autoLogin');
@@ -148,7 +149,7 @@ class ZMAutoLoginPlugin extends Plugin {
     protected function onOptIn($account, $optIn) {
         $tokenService = $this->container->get('tokenService');
 
-        if (!ZMLangUtils::asBoolean($this->get('optIn')) || ZMLangUtils::asBoolean($optIn)) {
+        if (!Toolbox::asBoolean($this->get('optIn')) || Toolbox::asBoolean($optIn)) {
             // cookie contains token hash only
             $resource = $this->getResource($account);
             $tokens = $tokenService->getTokenForResource($resource);

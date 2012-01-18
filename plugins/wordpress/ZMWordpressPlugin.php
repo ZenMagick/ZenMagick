@@ -21,6 +21,7 @@
 <?php
 
 use zenmagick\base\Beans;
+use zenmagick\base\Toolbox;
 
 
 /**
@@ -134,7 +135,7 @@ class ZMWordpressPlugin extends Plugin {
         if ($this->initWP() && (empty($wordpressEnabledPages) || ZMLangUtils::inArray($request->getRequestId(), $wordpressEnabledPages))) {
             // need to do this on all enabled pages, not just wp
             $requestHandler = $this->getRequestHandler($request);
-            if (ZMLangUtils::asBoolean($this->get('urlRewrite'))) {
+            if (Toolbox::asBoolean($this->get('urlRewrite'))) {
                 $requestHandler->registerFilter($event->get('view'));
             }
         }
@@ -162,7 +163,7 @@ class ZMWordpressPlugin extends Plugin {
             }
         }
 
-        if (ZMLangUtils::asBoolean($this->get('syncUser'))) {
+        if (Toolbox::asBoolean($this->get('syncUser'))) {
             // setup WP bridge hooks and additional validation rules
             if ('create_account' == $this->requestId_) {
                 $bridge = $this->getAdapter();
@@ -286,7 +287,7 @@ class ZMWordpressPlugin extends Plugin {
      * ZenMagick controller will use the viewId 'success' if POST processing was successful.</p>
      */
     public function onCreateAccount($event) {
-        if (ZMLangUtils::asBoolean($this->get('syncUser'))) {
+        if (Toolbox::asBoolean($this->get('syncUser'))) {
             $account = $event->get('account');
             if (!ZMLangUtils::isEmpty($account->getNickName())) {
                 $password = $event->get('clearPassword');
@@ -304,7 +305,7 @@ class ZMWordpressPlugin extends Plugin {
      * ZenMagick controller will use the viewId 'success' if POST processing was successful.</p>
      */
     public function onPasswordChanged($event) {
-        if (ZMLangUtils::asBoolean($this->get('syncUser'))) {
+        if (Toolbox::asBoolean($this->get('syncUser'))) {
             $account = $event->get('account');
             if (!ZMLangUtils::isEmpty($account->getNickName())) {
                 $password = $event->get('clearPassword');
@@ -322,7 +323,7 @@ class ZMWordpressPlugin extends Plugin {
     public function onControllerProcessEnd($event) {
         $request = $event->get('request');
 
-        if (ZMLangUtils::asBoolean($this->get('syncUser'))) {
+        if (Toolbox::asBoolean($this->get('syncUser'))) {
             if ('POST' == $request->getMethod()) {
                 $view = $event->get('view');
                 if ('account_edit' == $this->requestId_ && 'success' == $view->getMappingId()) {

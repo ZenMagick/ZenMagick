@@ -21,6 +21,7 @@
 <?php
 
 use zenmagick\base\Runtime;
+use zenmagick\base\Toolbox;
 use zenmagick\base\ZMException;
 
 use zenmagick\apps\store\menu\MenuElement;
@@ -243,7 +244,7 @@ class Plugin extends zenmagick\base\plugins\Plugin {
      */
     public function isEnabled() {
         $enabled = $this->get(self::KEY_ENABLED);
-        return null !== $enabled && \ZMLangUtils::asBoolean($enabled);
+        return null !== $enabled && Toolbox::asBoolean($enabled);
     }
 
     /**

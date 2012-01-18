@@ -23,6 +23,7 @@
 ?>
 <?php
 
+use zenmagick\base\Toolbox;
 use zenmagick\base\ZMObject;
 
 use Doctrine\ORM\Mapping AS ORM;
@@ -222,16 +223,16 @@ class ZMEZPage extends ZMObject {
     public function setAltUrl($url) { $this->altUrl = $url; }
     public function setAltUrlExternal($url) { $this->altUrlExternal = $url; }
     public function setHtmlText($text) { $this->htmlText = $text; }
-    public function setHeader($value) { $this->header = ZMLangUtils::asBoolean($value); }
-    public function setSidebox($value) { $this->sidebox = ZMLangUtils::asBoolean($value); }
-    public function setFooter($value) { $this->footer = ZMLangUtils::asBoolean($value); }
+    public function setHeader($value) { $this->header = Toolbox::asBoolean($value); }
+    public function setSidebox($value) { $this->sidebox = Toolbox::asBoolean($value); }
+    public function setFooter($value) { $this->footer = Toolbox::asBoolean($value); }
     public function setToc($value) { $this->toc = (int)$value; }
     public function setStatic($value) { $this->toc = $value ? 2: 0; }
     public function setHeaderSort($sortOrder) { $this->headerSort = $sortOrder; }
     public function setSideboxSort($sortOrder) { $this->sideboxSort = $sortOrder; }
     public function setFooterSort($sortOrder) { $this->footerSort = $sortOrder; }
     public function setTocSort($value) { $this->tocSort = $value; }
-    public function setNewWin($value) { $this->newWin = ZMLangUtils::asBoolean($value); }
-    public function setSSL($value) { $this->ssl = ZMLangUtils::asBoolean($value); }
+    public function setNewWin($value) { $this->newWin = Toolbox::asBoolean($value); }
+    public function setSSL($value) { $this->ssl = Toolbox::asBoolean($value); }
     public function setTocChapter($chapter) { $this->tocChapter = $chapter; }
 }

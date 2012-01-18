@@ -21,6 +21,7 @@
 <?php
 
 use zenmagick\base\Runtime;
+use zenmagick\base\Toolbox;
 
 /**
  * Plugin providing functionallity to add Goggle Analytics code to the store.
@@ -107,7 +108,7 @@ class ZMGoogleAnalyticsPlugin extends Plugin {
         $code = !empty($checkoutCode) ? $checkoutCode : $trackerCode;
         $code .= $this->getConversionCode($request);
 
-        if (ZMLangUtils::asBoolean($this->get('debug'))) {
+        if (Toolbox::asBoolean($this->get('debug'))) {
             $code = str_replace('<script', '<!--script', $code);
             $code = str_replace('</script>', '/script-->', $code);
         }

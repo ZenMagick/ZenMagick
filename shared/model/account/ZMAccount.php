@@ -24,6 +24,7 @@
 <?php
 
 use zenmagick\base\Runtime;
+use zenmagick\base\Toolbox;
 use zenmagick\base\ZMObject;
 
 /**
@@ -304,7 +305,7 @@ class ZMAccount extends ZMObject {
      *
      * @return boolean <code>true</code> if newsletter subsricption ias active, <code>false</code> if not.
      */
-    public function isNewsletterSubscriber() { return ZMLangUtils::asBoolean($this->newsletter_); }
+    public function isNewsletterSubscriber() { return Toolbox::asBoolean($this->newsletter_); }
 
     /**
      * Set the newsletter subscription status.

@@ -21,6 +21,7 @@
 <?php
 
 use zenmagick\base\Beans;
+use zenmagick\base\Toolbox;
 use zenmagick\http\sacs\SacsManager;
 
 /**
@@ -122,7 +123,7 @@ class ZMSubscriptionsPlugin extends Plugin {
     public function onInitDone($event) {
         $request = $event->get('request');
         if ('checkout_shipping' == $request->getRequestId() && 'POST' == $request->getMethod()) {
-            if (ZMLangUtils::asBoolean($request->getParameter('subscription'))) {
+            if (Toolbox::asBoolean($request->getParameter('subscription'))) {
                 $request->getSession()->setValue('subscription_schedule', $request->getParameter('schedule'));
             } else {
                 $request->getSession()->setValue('subscription_schedule');
@@ -214,7 +215,7 @@ class ZMSubscriptionsPlugin extends Plugin {
             $args = array('orderId' => $orderId, 'subscription' => true, 'subscriptionCanceled' => false, 'schedule' => $schedule);
             ZMRuntime::getDatabase()->update($sql, $args, TABLE_ORDERS);
 
-            if (ZMLangUtils::asBoolean($this->get('subscriptionComment'))) {
+            if (Toolbox::asBoolean($this->get('subscriptionComment'))) {
                 if (null != ($order = $this->container->get('orderService')->getOrderForId($orderId, $request->getSession()->getLanguageId()))) {
                     $status = Beans::getBean('ZMOrderStatus');
                     $status->setOrderStatusId($order->getOrderStatusId());

@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\Toolbox;
 use zenmagick\base\ZMObject;
 
 define('ID_SOURCE_OTHER', 9999);
@@ -172,7 +173,7 @@ class ZMHowDidYouHearPlugin extends Plugin {
      * @return boolean <code>true</code> if displayOther is set.
      */
     public function isDisplayOther() {
-        return ZMLangUtils::asBoolean($this->get('displayOther'));
+        return Toolbox::asBoolean($this->get('displayOther'));
     }
 
     /**
@@ -181,7 +182,7 @@ class ZMHowDidYouHearPlugin extends Plugin {
      * @return boolean <code>true</code> if an answer is required.
      */
     public function isRequired() {
-        return ZMLangUtils::asBoolean($this->get('requireSource'));
+        return Toolbox::asBoolean($this->get('requireSource'));
     }
 
     /**
@@ -190,7 +191,7 @@ class ZMHowDidYouHearPlugin extends Plugin {
      * @return boolean <code>true</code> if enabled.
      */
     public function isEnableOnGuestCheckout() {
-        return ZMLangUtils::asBoolean($this->get('enableOnGuestCheckout'));
+        return Toolbox::asBoolean($this->get('enableOnGuestCheckout'));
     }
 
 }

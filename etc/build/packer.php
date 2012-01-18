@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\Toolbox;
 use zenmagick\base\classloader\ClassLoader;
 
 
@@ -45,7 +46,7 @@ use zenmagick\base\classloader\ClassLoader;
     $targetBaseDir = $argv[3];
     $target = $argv[4];
     $version = $argv[5];
-    $strip = ZMLangUtils::asBoolean($argv[6]);
+    $strip = Toolbox::asBoolean($argv[6]);
     if (7 < $argc) {
         foreach (explode(';', $argv[7]) as $path) {
             $classLoader->addPath($path);

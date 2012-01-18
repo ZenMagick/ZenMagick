@@ -22,6 +22,7 @@
 
 define('RECAPTCHA_FIELD', 'recaptcha_response_field');
 
+use zenmagick\base\Toolbox;
 
 /**
  * Plugin to enable support for ReCAPTCHA in ZenMagick.
@@ -84,7 +85,7 @@ class ZMRecaptchaPlugin extends Plugin {
      */
     public function onInitDone($event) {
         $request = $event->get('request');
-        $disableRegistered = ZMLangUtils::asBoolean($this->get('disableRegistered'));
+        $disableRegistered = Toolbox::asBoolean($this->get('disableRegistered'));
         if ($disableRegistered && $request->isRegistered()) {
             // skip
             return;

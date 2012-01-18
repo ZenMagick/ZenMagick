@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\Toolbox;
 use zenmagick\http\sacs\SacsManager;
 
 /**
@@ -63,7 +64,7 @@ class ZMFormHandlerPlugin extends Plugin {
         $pages = $this->get('pages');
         if (0 < strlen($pages)) {
             $pages = explode(',', $pages);
-            $secure = ZMLangUtils::asBoolean($this->get('secure'));
+            $secure = Toolbox::asBoolean($this->get('secure'));
             foreach ($pages as $page) {
                 ZMUrlManager::instance()->setMapping($page, array(
                   'template' => $page,

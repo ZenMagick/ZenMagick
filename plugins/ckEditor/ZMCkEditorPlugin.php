@@ -21,6 +21,7 @@
 <?php
 
 use zenmagick\base\Runtime;
+use zenmagick\base\Toolbox;
 
 /**
  * CKEditor plugin.
@@ -43,7 +44,7 @@ class ZMCkEditorPlugin extends Plugin {
      */
     public function init() {
         parent::init();
-        if (ZMLangUtils::asBoolean($this->get('defaultEditor'))) {
+        if (Toolbox::asBoolean($this->get('defaultEditor'))) {
             ZMSettings::set('apps.store.admin.defaultEditor', 'ckEditorEditorWidget');
         }
     }

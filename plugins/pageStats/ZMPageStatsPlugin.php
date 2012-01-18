@@ -21,6 +21,7 @@
 <?php
 
 use zenmagick\base\Runtime;
+use zenmagick\base\Toolbox;
 use zenmagick\base\ZMObject;
 use zenmagick\base\events\EventDispatcher;
 use zenmagick\base\logging\Logging;
@@ -150,7 +151,7 @@ class ZMPageStatsPlugin extends Plugin {
         }
 
         echo '-->'."\n";
-        if (ZMLangUtils::asBoolean($this->get('showEvents'))) {
+        if (Toolbox::asBoolean($this->get('showEvents'))) {
             echo '<!--'."\n";
             echo '  '.Runtime::getExecutionTime(ZM_START_TIME).' ZM_START_TIME '."\n";
             foreach ($this->eventStats_ as $eventInfo) {
@@ -159,7 +160,7 @@ class ZMPageStatsPlugin extends Plugin {
             echo '-->'."\n";
         }
 
-        if (ZMLangUtils::asBoolean($this->get('showSQLtiming'))) {
+        if (Toolbox::asBoolean($this->get('showSQLtiming'))) {
             $limit = $this->get('sqlTimingLimit');
             echo '<!--'."\n";
             echo '  SQL timings: ';
@@ -179,7 +180,7 @@ class ZMPageStatsPlugin extends Plugin {
             echo '-->'."\n";
         }
 
-        if (ZMLangUtils::asBoolean($this->get('dumpQueries'))) {
+        if (Toolbox::asBoolean($this->get('dumpQueries'))) {
             foreach (ZMRuntime::getDatabases() as $database) {
                 $stats = $database->getStats();
                 $details = $stats['details'];
@@ -207,7 +208,7 @@ class ZMPageStatsPlugin extends Plugin {
         $request = $event->get('request');
         $view = $event->has('view') ? $event->get('view') : null;
 
-        if (ZMLangUtils::asBoolean($this->get('hideStats'))) {
+        if (Toolbox::asBoolean($this->get('hideStats'))) {
             $event->set('content', $content.$this->hiddenStats($request, $view));
             return;
         }
@@ -232,7 +233,7 @@ class ZMPageStatsPlugin extends Plugin {
         echo '<br'.$slash.'>';
         echo '[includes: '.count(get_included_files()).']<br'.$slash.'>';
         echo '</div>';
-        if (ZMLangUtils::asBoolean($this->get('showEvents'))) {
+        if (Toolbox::asBoolean($this->get('showEvents'))) {
             echo '<div id="event-log">';
             echo '<table border="1">';
             echo '<tr>';
@@ -253,7 +254,7 @@ class ZMPageStatsPlugin extends Plugin {
             echo '</div>';
         }
 
-        if (ZMLangUtils::asBoolean($this->get('showSQLtiming'))) {
+        if (Toolbox::asBoolean($this->get('showSQLtiming'))) {
             $limit = $this->get('sqlTimingLimit');
             echo '<div id="sql-timings">';
             echo '<table border="1">';

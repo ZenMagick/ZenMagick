@@ -21,6 +21,7 @@
 <?php
 
 use zenmagick\base\Runtime;
+use zenmagick\base\Toolbox;
 use zenmagick\http\widgets\Widget;
 
 /**
@@ -89,7 +90,7 @@ class ZMBannerBlockWidget extends Widget {
      * @param boolean value The new value.
      */
     public function setShowAll($value) {
-        $this->showAll_ = ZMLangUtils::asBoolean($value);
+        $this->showAll_ = Toolbox::asBoolean($value);
     }
 
     /**

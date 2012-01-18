@@ -25,6 +25,7 @@ use Symfony\Component\Routing\RequestContext;
 
 use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
+use zenmagick\base\Toolbox;
 use zenmagick\base\ZMObject;
 use zenmagick\base\logging\Logging;
 use zenmagick\base\events\VetoableEvent;
@@ -142,7 +143,7 @@ class ZMRequest extends ZMObject {
     public function isAjax() {
         $headers = ZMNetUtils::getAllHeaders();
         $ajax = $this->getParameter('ajax', null);
-        return $ajax != null ? ZMLangUtils::asBoolean($ajax) : (array_key_exists('X-Requested-With', $headers) && 'XMLHttpRequest' == $headers['X-Requested-With']);
+        return $ajax != null ? Toolbox::asBoolean($ajax) : (array_key_exists('X-Requested-With', $headers) && 'XMLHttpRequest' == $headers['X-Requested-With']);
     }
 
     /**
@@ -500,11 +501,11 @@ class ZMRequest extends ZMObject {
      */
     public function isSecure() {
         return (isset($_SERVER['SERVER_PORT']) && 443 == $_SERVER['SERVER_PORT']) ||
-               (isset($_SERVER['HTTPS']) && \ZMLangUtils::asBoolean($_SERVER['HTTPS'])) ||
+               (isset($_SERVER['HTTPS']) && Toolbox::asBoolean($_SERVER['HTTPS'])) ||
                (isset($_SERVER['HTTP_X_FORWARDED_BY']) && strpos(strtoupper($_SERVER['HTTP_X_FORWARDED_BY']), 'SSL') !== false) ||
                (isset($_SERVER['HTTP_X_FORWARDED_HOST']) && (strpos(strtoupper($_SERVER['HTTP_X_FORWARDED_HOST']), 'SSL') !== false || strpos(strtolower($_SERVER['HTTP_X_FORWARDED_HOST']), $this->getHostname()) !== false)) ||
                (isset($_SERVER['SCRIPT_URI']) && strtolower(substr($_SERVER['SCRIPT_URI'], 0, 6)) == 'https:') ||
-               (isset($_SERVER['HTTP_X_FORWARDED_SSL']) && (\ZMLangUtils::asBoolean($_SERVER['HTTP_X_FORWARDED_SSL']))) ||
+               (isset($_SERVER['HTTP_X_FORWARDED_SSL']) && (Toolbox::asBoolean($_SERVER['HTTP_X_FORWARDED_SSL']))) ||
                (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && (strtolower($_SERVER['HTTP_X_FORWARDED_PROTO']) == 'ssl' || strtolower($_SERVER['HTTP_X_FORWARDED_PROTO']) == 'https')) ||
                (isset($_SERVER['HTTP_SSLSESSIONID']) && $_SERVER['HTTP_SSLSESSIONID'] != '') ||
                (isset($_SERVER['SERVER_PORT']) && $_SERVER['SERVER_PORT'] == '443');

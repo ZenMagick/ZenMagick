@@ -23,6 +23,7 @@
 use zenmagick\base\Beans;
 use zenmagick\base\classloader\ClassLoader;
 use zenmagick\base\Runtime;
+use zenmagick\base\Toolbox;
 
 /**
  * Unit testing controller.
@@ -142,7 +143,7 @@ class ZMUnitTestsController extends \ZMController {
             $testCases[] = $testCase;
         }
 
-        $hideErrors = \ZMLangUtils::asBoolean($request->getParameter('hideErrors', false));
+        $hideErrors = Toolbox::asBoolean($request->getParameter('hideErrors', false));
         $context['hideErrors'] = $hideErrors;
 
         $context['all_selected_testCases'] = array_flip($testCases);

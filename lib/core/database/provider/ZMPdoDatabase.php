@@ -22,6 +22,7 @@
 
 use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
+use zenmagick\base\Toolbox;
 use zenmagick\base\ZMObject;
 
 /**
@@ -635,7 +636,7 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
                         $mappedRow[$field['property']] = new DateTime($mappedRow[$field['property']]);
                     }
                 } else if ('boolean' == $field['type']) {
-                    $mappedRow[$field['property']] = ZMLangUtils::asBoolean($row[$field['column']]);
+                    $mappedRow[$field['property']] = Toolbox::asBoolean($row[$field['column']]);
                 }
             }
         }

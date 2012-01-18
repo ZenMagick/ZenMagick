@@ -21,6 +21,7 @@
 <?php
 
 use zenmagick\base\Runtime;
+use zenmagick\base\Toolbox;
 use zenmagick\base\logging\Logging;
 
 /**
@@ -72,7 +73,7 @@ class ZMFirePHPPlugin extends Plugin {
      */
     public function onContainerReady($event) {
         $request = $event->get('request');
-        if (ZMLangUtils::asBoolean($this->get('isOnDemand'))) {
+        if (Toolbox::asBoolean($this->get('isOnDemand'))) {
             if (null != $request->getParameter($this->get('onDemandName'))) {
                 // make sure logging is enabled
                 Runtime::getSettings()->set('zenmagick.base.logging.enabled', true);

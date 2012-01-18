@@ -21,6 +21,7 @@
 <?php
 
 use zenmagick\base\Beans;
+use zenmagick\base\Toolbox;
 
 /**
  * Plugin to enable vBulletin support in ZenMagick.
@@ -111,7 +112,7 @@ class ZMVBulletinPlugin extends Plugin {
                 array("ZMWrapperRule", 'email', 'The entered email address is already taken (vBulletin).', array($vBulletin, 'vDuplicateEmail'))
             );
             // optionally, make nick name required
-            if (ZMLangUtils::asBoolean($this->get('requireNickname'))) {
+            if (Toolbox::asBoolean($this->get('requireNickname'))) {
                 $rules[] = array('ZMRequiredRule', 'nickName', 'Please enter a nick name.');
             }
             $this->container->get('validator')->addRules('registration', $rules);
@@ -124,7 +125,7 @@ class ZMVBulletinPlugin extends Plugin {
                 array("ZMWrapperRule", 'email', 'The entered email address is already taken (vBulletin).', array($vBulletin, 'vDuplicateChangedEmail'))
             );
             // optionally, make nick name required
-            if (ZMLangUtils::asBoolean($this->get('requireNickname'))) {
+            if (Toolbox::asBoolean($this->get('requireNickname'))) {
                 $rules[] = array('ZMRequiredRule', 'nickName', 'Please enter a nick name.');
             }
             $this->container->get('validator')->addRules('account', $rules);

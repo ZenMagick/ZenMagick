@@ -21,6 +21,7 @@
 <?php
 
 use zenmagick\base\Runtime;
+use zenmagick\base\Toolbox;
 
 /**
  * Display sources stats.
@@ -34,7 +35,7 @@ class ZMHowDidYouHearSourcesStatsController extends ZMController {
      * {@inheritDoc}
      */
     public function getViewData($request) {
-        if (!ZMLangUtils::asBoolean($request->getParameter('other', false))) {
+        if (!Toolbox::asBoolean($request->getParameter('other', false))) {
             $sql = "SELECT count(ci.customers_info_source_id) AS count, s.sources_name AS name, s.sources_id as sourceId
                     FROM " . TABLE_CUSTOMERS_INFO . " ci LEFT JOIN " . TABLE_SOURCES . " s ON s.sources_id = ci.customers_info_source_id
                     GROUP BY s.sources_id
