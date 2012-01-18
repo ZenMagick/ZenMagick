@@ -56,5 +56,7 @@
         <service id="phPassAuthenticationProvider" class="zenmagick\base\security\authentication\provider\PhPassAuthenticationProvider" scope="container">
             <tag name="zenmagick.base.security.authentication.provider" />
         </service>
+
+        <service id="filesystem" class="Symfony\Component\Filesystem\Filesystem" scope="container" />
     </services>
 </container>
