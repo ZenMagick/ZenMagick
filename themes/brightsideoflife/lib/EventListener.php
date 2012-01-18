@@ -19,7 +19,7 @@
  */
 ?>
 <?php
-namespace zenmagick\themes\precision;
+namespace zenmagick\apps\store\themes\brightsideoflife;
 
 use zenmagick\base\Runtime;
 use zenmagick\apps\store\themes\ThemeEventListener;
@@ -28,7 +28,7 @@ use zenmagick\apps\store\themes\ThemeEventListener;
  * Theme event listener.
  *
  * @author DerManoMann
- * @package zenmagick.themes.precision
+ * @package zenmagick.themes.brightsideoflife
  */
 class EventListener extends ThemeEventListener {
 
@@ -37,8 +37,8 @@ class EventListener extends ThemeEventListener {
      */
     public function themeLoaded($event) {
         $templateManager = $this->container->get('templateManager');
-        $templateManager->setLeftColBoxes(array('categories.php', 'featured.php', 'information.php'));
-        $templateManager->setRightColBoxes(array('search.php', 'manufacturers.php', 'ezpages.php'));
+        $templateManager->setLeftColBoxes(array('categories.php', 'information.php'));
+        $templateManager->setRightColBoxes(array('search.php', 'manufacturers.php', 'banner_box.php'));
 
         Runtime::getSettings()->set('isUseCategoryPage', false);
         Runtime::getSettings()->set('resultListProductFilter', '');

@@ -19,7 +19,7 @@
  */
 ?>
 <?php
-namespace zenmagick\themes\PrecisionReloaded;
+namespace zenmagick\apps\store\themes\PixelGreen;
 
 use zenmagick\base\Runtime;
 use zenmagick\apps\store\themes\ThemeEventListener;
@@ -28,7 +28,7 @@ use zenmagick\apps\store\themes\ThemeEventListener;
  * Theme event listener.
  *
  * @author DerManoMann
- * @package zenmagick.themes.PrecisionReloaded
+ * @package zenmagick.themes.PixelGreen
  */
 class EventListener extends ThemeEventListener {
 
@@ -36,6 +36,7 @@ class EventListener extends ThemeEventListener {
      * {@inheritDoc}
      */
     public function themeLoaded($event) {
+        $this->container->get('templateManager')->setRightColBoxes(array('search.php', 'categories.php', 'information.php'));
         Runtime::getSettings()->set('isUseCategoryPage', false);
         Runtime::getSettings()->set('resultListProductFilter', '');
     }

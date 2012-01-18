@@ -19,15 +19,16 @@
  */
 ?>
 <?php
-namespace zenmagick\themes\base;
+namespace zenmagick\apps\store\themes\KeepItSimple;
 
+use zenmagick\base\Runtime;
 use zenmagick\apps\store\themes\ThemeEventListener;
 
 /**
- * Default theme event listener.
+ * Theme event listener.
  *
  * @author DerManoMann
- * @package zenmagick.themes.base
+ * @package zenmagick.themes.KeepItSimple
  */
 class EventListener extends ThemeEventListener {
 
@@ -35,11 +36,19 @@ class EventListener extends ThemeEventListener {
      * {@inheritDoc}
      */
     public function themeLoaded($event) {
-        //TODO: change validation
-        $theme = $event->get('theme');
-        $validation = $theme->getBaseDir().'/lib/extra/validation.php';
-        if (file_exists($validation)) {
-            require $validation;
+        $templateManager = $this->container->get('templateManager');
+        $templateManager->setRightColBoxes(array('categories.php', 'manufacturers.php', 'information.php', 'banner_box.php'));
+        if ('index' == $this->container->get('request')->getRequestId()) {
+            $templateManager->setLeftColBoxes(array('featured.php', 'reviews.php'));
+        } else {
+            $templateManager->setLeftColEnabled(false);
+            if ($this->container->get('request')->isCheckout(false)) {
+                $templateManager->setRightColBoxes(array('information.php'));
+            }
         }
+
+        Runtime::getSettings()->set('isUseCategoryPage', false);
+        Runtime::getSettings()->set('resultListProductFilter', '');
+        Runtime::getSettings()->set('zenmagick.mvc.resultlist.defaultPagination', 6);
     }
 }

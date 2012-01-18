@@ -230,7 +230,7 @@ class Themes extends ZMObject {
             }
 
             // always add an event listener in the theme's base namespace
-            $eventListener = 'zenmagick\\themes\\'.$themeId.'\\EventListener';
+            $eventListener = sprintf('zenmagick\apps\store\themes\%s\EventListener', $themeId);
             if (ClassLoader::classExists($eventListener)) {
                 $listener = new $eventListener();
                 $listener->setContainer($this->container);

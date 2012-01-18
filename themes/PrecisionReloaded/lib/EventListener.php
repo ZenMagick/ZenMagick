@@ -19,7 +19,7 @@
  */
 ?>
 <?php
-namespace zenmagick\themes\KeepItSimple;
+namespace zenmagick\apps\store\themes\PrecisionReloaded;
 
 use zenmagick\base\Runtime;
 use zenmagick\apps\store\themes\ThemeEventListener;
@@ -28,7 +28,7 @@ use zenmagick\apps\store\themes\ThemeEventListener;
  * Theme event listener.
  *
  * @author DerManoMann
- * @package zenmagick.themes.KeepItSimple
+ * @package zenmagick.themes.PrecisionReloaded
  */
 class EventListener extends ThemeEventListener {
 
@@ -36,19 +36,7 @@ class EventListener extends ThemeEventListener {
      * {@inheritDoc}
      */
     public function themeLoaded($event) {
-        $templateManager = $this->container->get('templateManager');
-        $templateManager->setRightColBoxes(array('categories.php', 'manufacturers.php', 'information.php', 'banner_box.php'));
-        if ('index' == $this->container->get('request')->getRequestId()) {
-            $templateManager->setLeftColBoxes(array('featured.php', 'reviews.php'));
-        } else {
-            $templateManager->setLeftColEnabled(false);
-            if ($this->container->get('request')->isCheckout(false)) {
-                $templateManager->setRightColBoxes(array('information.php'));
-            }
-        }
-
         Runtime::getSettings()->set('isUseCategoryPage', false);
         Runtime::getSettings()->set('resultListProductFilter', '');
-        Runtime::getSettings()->set('zenmagick.mvc.resultlist.defaultPagination', 6);
     }
 }

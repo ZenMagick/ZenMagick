@@ -19,7 +19,7 @@
  */
 ?>
 <?php
-namespace zenmagick\themes\demo;
+namespace zenmagick\apps\store\themes\demo;
 
 use zenmagick\base\Runtime;
 use zenmagick\apps\store\themes\ThemeEventListener;
