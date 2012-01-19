@@ -215,7 +215,7 @@ class ZenCartBundle extends Bundle {
             $settingsService->set('apps.store.oldAdminUrl', $settingsService->get('apps.store.baseUrl').$folder.'/index.php');
         }
 
-        if (Runtime::getSettings()->get('isAdmin') && defined('EMAIL_ENCODING_METHOD') && null == $request->getRequestId()) {
+        if (Runtime::isContextMatch('admin') && defined('EMAIL_ENCODING_METHOD') && null == $request->getRequestId()) {
             // old zc admin?
             $request->setRequestId(str_replace('.php', '', $request->getFrontController()));
         }
