@@ -32,10 +32,10 @@ use zenmagick\apps\store\admin\installation\patches\SQLPatch;
  */
 class AdminRolesPatch extends SQLPatch {
     var $sqlFiles_ = array(
-        "shared/etc/sql/mysql/admin_roles_install.sql"
+        "/shared/etc/sql/mysql/admin_roles_install.sql"
     );
     var $sqlUndoFiles_ = array(
-        "shared/etc/sql/mysql/admin_roles_uninstall.sql"
+        "/shared/etc/sql/mysql/admin_roles_uninstall.sql"
     );
 
 

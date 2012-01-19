@@ -32,10 +32,10 @@ use zenmagick\apps\store\admin\installation\patches\SQLPatch;
  */
 class TokenPatch extends SQLPatch {
     var $sqlFiles_ = array(
-        "shared/etc/sql/mysql/token_install.sql"
+        "/shared/etc/sql/mysql/token_install.sql"
     );
     var $sqlUndoFiles_ = array(
-        "shared/etc/sql/mysql/token_uninstall.sql"
+        "/shared/etc/sql/mysql/token_uninstall.sql"
     );
 
 

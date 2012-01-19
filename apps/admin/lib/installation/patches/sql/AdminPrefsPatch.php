@@ -32,10 +32,10 @@ use zenmagick\apps\store\admin\installation\patches\SQLPatch;
  */
 class AdminPrefsPatch extends SQLPatch {
     var $sqlFiles_ = array(
-        "shared/etc/sql/mysql/admin_prefs_install.sql"
+        "/shared/etc/sql/mysql/admin_prefs_install.sql"
     );
     var $sqlUndoFiles_ = array(
-        "shared/etc/sql/mysql/admin_prefs_uninstall.sql"
+        "/shared/etc/sql/mysql/admin_prefs_uninstall.sql"
     );
 
 

@@ -32,10 +32,10 @@ use zenmagick\apps\store\admin\installation\patches\SQLPatch;
  */
 class ConfigPatch extends SQLPatch {
     var $sqlFiles_ = array(
-        "shared/etc/sql/mysql/config.sql"
+        "/shared/etc/sql/mysql/config.sql"
     );
     var $sqlUndoFiles_ = array(
-        "shared/etc/sql/mysql/config_undo.sql"
+        "/shared/etc/sql/mysql/config_undo.sql"
     );
 
 

@@ -32,10 +32,10 @@ use zenmagick\apps\store\admin\installation\patches\SQLPatch;
  */
 class BlockAdminPatch extends SQLPatch {
     var $sqlFiles_ = array(
-        "shared/etc/sql/mysql/block_admin_install.sql"
+        "/shared/etc/sql/mysql/block_admin_install.sql"
     );
     var $sqlUndoFiles_ = array(
-        "shared/etc/sql/mysql/block_admin_uninstall.sql"
+        "/shared/etc/sql/mysql/block_admin_uninstall.sql"
     );
 
 
