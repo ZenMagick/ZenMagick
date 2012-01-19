@@ -37,8 +37,10 @@ class CheckoutHelper extends ZMObject {
     const CART_PRODUCT_STATUS = 'status';
     const CART_PRODUCT_QUANTITY = 'quantity';
     const CART_PRODUCT_UNITS = 'units';
+    const CART_TYPE_PHYSICAL = 'physical';
+    const CART_TYPE_VIRTUAL = 'virtual';
+    const CART_TYPE_MIXED = 'mixed';
     private $shoppingCart_;
-    private $cartType_;
 
 
     /**
@@ -49,7 +51,6 @@ class CheckoutHelper extends ZMObject {
     public function __construct($shoppingCart=null) {
         parent::__construct();
         $this->shoppingCart_ = $shoppingCart;
-        $this->cartType_ = null;
     }
 
 
@@ -165,26 +166,55 @@ class CheckoutHelper extends ZMObject {
     /**
      * Check for virtual cart.
      *
-     * <p><strong>NOTE:</strong> In contrast to Zen Cart, we treat the <em>always free shipping</em>
-     * product attribute as <code>boolean</code>. That means currently there is no support for
-     * the special case where virtual products <strong>do</strong> require a shipping address.</p>
-     *
      * @return boolean <code>true</code> if the cart is purely virtual.
      */
     public function isVirtual() {
-        return 'virtual' == $this->getType();
+        return self::CART_TYPE_VIRTUAL == $this->getType();
     }
 
     /**
      * Get the cart type.
      *
-     * @return string The cart type; one of <em>physical</em>, <em>mixed</em>, <em>virtual</em>.
+     * @return string The cart type; one of <em>CART_TYPE_PHYSICAL</em>, <em>CART_TYPE_VIRTUAL</em>, <em>CART_TYPE_MIXED</em>.
      */
     public function getType() {
-        if (null === $this->cartType_) {
-            $this->cartType_ = $this->shoppingCart_->cart_->get_content_type();
+        if ($this->shoppingCart_->isEmpty()) {
+            return self::CART_TYPE_PHYSICAL;
         }
-        return $this->cartType_;
+
+        $virtual = 0;
+        $physical = 0;
+        foreach ($this->shoppingCart_->getItems() as $item) {
+            $attributeCheckd = false;
+
+            $product = $item->getProduct();
+            // do only check if not special shipping
+            if ($item->hasAttributes() && \ZMProduct::SHIPPING_SPECIAL != $product->getAlwaysFreeShipping()) {
+                // check attributes too
+                foreach ($item->getAttributes() as $attribute) {
+                    if ($attribute->isVirtual()) {
+                        // count and break
+                        ++$virtual;
+                        $attributeCheckd = true;
+                    }
+                }
+            }
+
+            if (!$attributeCheckd) {
+                if ($product->isVirtual()) {
+                    ++$virtual;
+                } else {
+                    ++$physical;
+                }
+            }
+        }
+
+        if (!$virtual) {
+            return self::CART_TYPE_PHYSICAL;
+        } else if (!$physical) {
+            return self::CART_TYPE_VIRTUAL;
+        }
+        return self::CART_TYPE_MIXED;
     }
 
     /**

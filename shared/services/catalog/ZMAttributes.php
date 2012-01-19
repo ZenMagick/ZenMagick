@@ -103,4 +103,27 @@ class ZMAttributes extends ZMObject {
         return $attributes;
     }
 
+    /**
+     * Check if there are downloadable files for the given attribute.
+     *
+     * @param ZMAttribute attribute The attribute.
+     * @return boolean <code>true</code> if, and only if, the attribute represents a downloadable file.
+     */
+    public function hasDownloads(ZMAttribute $attribute) {
+        // collect all selected values
+        $attributeValueIds = array();
+        foreach ($attribute->getValues() as $value) {
+            $attributeValueIds[] = $value->getId();
+        }
+
+        $args = array('productId' => $attribute->getProductId(), 'attributeValueId' => $attributeValueIds);
+        $sql = "SELECT count(*) as total
+                  FROM " . TABLE_PRODUCTS_ATTRIBUTES . " pa, " . TABLE_PRODUCTS_ATTRIBUTES_DOWNLOAD . " pad
+                  WHERE pa.products_id = :productId
+                    AND pa.options_values_id in (:attributeValueId)
+                    AND pa.products_attributes_id = pad.products_attributes_id";
+        $result = ZMRuntime::getDatabase()->querySingle($sql, $args, array(TABLE_PRODUCTS_ATTRIBUTES, TABLE_PRODUCTS_ATTRIBUTES_DOWNLOAD), ZMDatabase::MODEL_RAW);
+        return 0 != $result['total'];
+    }
+
 }

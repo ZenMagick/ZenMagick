@@ -185,7 +185,7 @@ array(
         'free' => 'column=product_is_free;type=boolean',
         'call' => 'column=product_is_call;type=boolean',
         'qtyMixed' => 'column=products_quantity_mixed;type=boolean',
-        'alwaysFreeShipping' => 'column=product_is_always_free_shipping;type=boolean',
+        'alwaysFreeShipping' => 'column=product_is_always_free_shipping;type=integer',
         'qtyBoxStatus' => 'column=products_qty_box_status;type=boolean',
         'qtyOrderMax' => 'column=products_quantity_order_max;type=float',
         'sortOrder' => 'column=products_sort_order;type=integer',

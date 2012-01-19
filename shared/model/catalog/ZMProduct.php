@@ -37,6 +37,10 @@ use Doctrine\ORM\Mapping AS ORM;
  * @ORM\Entity
  */
 class ZMProduct extends ZMObject {
+    const SHIPPING_NORMAL = 0;
+    const SHIPPING_ALWAYS_FREE = 1;
+    const SHIPPING_SPECIAL = 2;
+
     /**
      * @var integer $productId
      * @ORM\Column(name="products_id", type="integer", nullable=false)
@@ -157,7 +161,7 @@ class ZMProduct extends ZMObject {
     /**
      * @var boolean $alwaysFreeShipping
      *
-     * @ORM\Column(name="product_is_always_free_shipping", type="boolean", nullable=false)
+     * @ORM\Column(name="product_is_always_free_shipping", type="integer", nullable=false)
      */
     private $alwaysFreeShipping;
     /**
@@ -622,18 +626,25 @@ class ZMProduct extends ZMObject {
     public function setVirtual($value) { $this->virtual = $value; }
 
     /**
+     * Get the always free shipping setting.
+     *
+     * @return int The value.
+     */
+    public function getAlwaysFreeShipping() { return $this->alwaysFreeShipping; }
+
+    /**
      * Checks if the product is always free shipping
      *
      * @return boolean <code>true</code> if the product is free shipping, <code>false</code> if not.
      */
-    public function isAlwaysFreeShipping() { return $this->alwaysFreeShipping; }
+    public function isAlwaysFreeShipping() { return self::SHIPPING_ALWAYS_FREE == $this->alwaysFreeShipping; }
 
     /**
      * Configure if the product is always free shipping
      *
-     * @param boolean b <code>true</code> if the product is free shipping, <code>false</code> if not.
+     * @param int value The new value.
      */
-    public function setAlwaysFreeShipping($b) { $this->alwaysFreeShipping = $b; }
+    public function setAlwaysFreeShipping($value) { $this->alwaysFreeShipping = $value; }
 
     /**
      * Checks if the user needs to call for this product.

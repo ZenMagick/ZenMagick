@@ -175,4 +175,16 @@ class ZMAttribute extends ZMObject {
         }
     }
 
+    /**
+     * Check if this attribute is virtual.
+     *
+     * <p>An attribute can be virtual if, for example, the value is a downloadable file.</p>
+     *
+     * @return boolean <code>true</code> if, and only if, the attribute is virtual.
+     */
+    public function isVirtual() {
+        $attributeService = $this->container->get('attributeService');
+        return $attributeService->hasDownloads($this);
+    }
+
 }
