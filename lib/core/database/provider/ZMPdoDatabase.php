@@ -177,8 +177,9 @@ class ZMPdoDatabase extends ZMObject implements ZMDatabase {
         // @todo it doesn't work on the DBAL, so while developing plugins it is recommended not to use a table prefix
         $this->evm_->addEventListener(Doctrine\ORM\Events::loadClassMetadata, $tablePrefix);
 
-        $timestampableListener = new Gedmo\Timestampable\TimestampableListener();
-        $this->evm_->addEventSubscriber($timestampableListener);
+        // @todo bring this back later
+        //$timestampableListener = new Gedmo\Timestampable\TimestampableListener();
+        //$this->evm_->addEventSubscriber($timestampableListener);
     }
 
     /**
