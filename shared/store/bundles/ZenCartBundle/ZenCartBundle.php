@@ -166,13 +166,17 @@ class ZenCartBundle extends Bundle {
         }
 
         // save
-        if (null != $folder && defined('ZENMAGICK_CONFIG_GROUP_ID')) {
-            if ($value) {
-                // config option exists
-                $configService->updateConfigValue(self::ZENCART_ADMIN_FOLDER, $folder);
-            } else {
-                $configService->createConfigValue('zencart admin folder', self::ZENCART_ADMIN_FOLDER, $folder, ZENMAGICK_CONFIG_GROUP_ID);
+        try {
+            if (null != $folder && defined('ZENMAGICK_CONFIG_GROUP_ID')) {
+                if ($value) {
+                    // config option exists
+                    $configService->updateConfigValue(self::ZENCART_ADMIN_FOLDER, $folder);
+                } else {
+                    $configService->createConfigValue('zencart admin folder', self::ZENCART_ADMIN_FOLDER, $folder, ZENMAGICK_CONFIG_GROUP_ID);
+                }
             }
+        } catch (\ZMDatabaseException $e) {
+            // might get that if no db access because no configure.php loaded yet...
         }
 
         return $folder;
@@ -182,7 +186,7 @@ class ZenCartBundle extends Bundle {
      * Prepare db config
      */
     public function onInitConfigDone($event) {
-        if (Toolbox::isContextMatch('admin')) {
+        if (Toolbox::isContextMatch('admin') || (defined('IS_ADMIN_FLAG') && IS_ADMIN_FLAG)) {
             if (null != ($folder = $this->guessAdminFolder())) {
                 $this->container->get('settingsService')->set('apps.store.zencart.admindir', $folder);
             }
@@ -199,7 +203,7 @@ class ZenCartBundle extends Bundle {
      */
     public function onInitRequest($event) {
         $request = $event->get('request');
-        if (Toolbox::isContextMatch('admin')) {
+        if (Toolbox::isContextMatch('admin') || (defined('IS_ADMIN_FLAG') && IS_ADMIN_FLAG)) {
             $settingsService = $this->container->get('settingsService');
             $settingsService->set('apps.store.baseUrl', 'http://'.$request->getHostname().str_replace('zenmagick/apps/admin/web', '', $request->getContext()));
 

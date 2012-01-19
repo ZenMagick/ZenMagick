@@ -122,7 +122,7 @@
         <input type="checkbox" class="all" id="<?php echo $groupId ?>_all" name="<?php echo $groupId ?>_all" value="" onclick="sync_all(this, 'patch_<?php echo $groupId ?>_')">
         <label for="<?php echo $groupId ?>_all"><?php _vzm("Select/Unselect All") ?></label><br>
         <div class="submit">
-            <input type="submit" value="<?php _vzm("Update") ?>">
+            <input type="submit" value="Update">
         </div>
     <?php }
 
