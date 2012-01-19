@@ -122,7 +122,7 @@ if (TRACEBS) {echo 'post global.yaml: '.Runtime::getExecutionTime()."<BR>";}
         $bundles = array();
         $extensions = array();
         $container = Runtime::getContainer();
-        foreach (Runtime::getSettings()->get('zenmagick/bundles', array()) as $key => $class) {
+        foreach (Runtime::getSettings()->get('zenmagick.bundles', array()) as $key => $class) {
             $bundle = new $class();
             $bundle->build($container);
             if ($extension = $bundle->getContainerExtension()) {
