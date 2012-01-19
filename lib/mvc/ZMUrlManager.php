@@ -290,7 +290,7 @@ class ZMUrlManager extends ZMObject {
         }
         if (!array_key_exists('template', $mapping) || null == $mapping['template']) {
             // default template name to requestId
-            $mapping['template'] = $requestId;
+            $mapping['template'] = $requestId.Runtime::getSettings()->get('zenmagick.http.templates.ext', '.php');
         }
         $view = null;
         if (array_key_exists('view', $mapping) && null != $mapping['view']) {

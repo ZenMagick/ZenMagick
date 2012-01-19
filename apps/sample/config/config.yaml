@@ -5,15 +5,15 @@
 zenmagick:
   bundles: {}
 
-  mvc:
-    templates:
-      ext: .tpl
-
   base:
     events:
       listeners:
         - zenmagick\http\BootstrapListener
         - zenmagick\apps\sample\EventHandler
+
+  mvc:
+    view:
+      defaultLayout: default_layout.tpl
 
   http:
     templates:

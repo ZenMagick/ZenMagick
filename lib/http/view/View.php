@@ -236,7 +236,7 @@ class View extends ZMObject {
      * @return boolean <code>true</code> if the view is valid.
      */
     public function isValid() {
-        $filename = $this->getTemplate().Runtime::getSettings()->get('zenmagick.http.templates.ext', '.php');
+        $filename = $this->getTemplate();//.Runtime::getSettings()->get('zenmagick.http.templates.ext', '.php');
         return $this->resourceResolver->exists($filename);
     }
 
@@ -295,13 +295,13 @@ class View extends ZMObject {
         try {
             if (!empty($layout)) {
                 $template = $layout;
-                $viewTemplate = $this->getTemplate().$settingsService->get('zenmagick.http.templates.ext', '.php');
+                $viewTemplate = $this->getTemplate();//.$settingsService->get('zenmagick.http.templates.ext', '.php');
                 $this->setVariable('viewTemplate', $viewTemplate);
             } else {
                 $template = $this->getTemplate();
             }
 
-            $template .= $settingsService->get('zenmagick.http.templates.ext', '.php');
+            //$template .= $settingsService->get('zenmagick.http.templates.ext', '.php');
             $output = $this->fetch($template, $variables);
             if (null !== ($resources = $this->resourceManager->getResourceContents())) {
                 // apply resources...

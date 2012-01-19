@@ -57,7 +57,7 @@ zenmagick:
 
     ## request
     request:
-      missingPage: page_not_found
+      missingPage: page_not_found.php
 
     ## html
     html:
@@ -67,7 +67,7 @@ zenmagick:
  
     ## view
     view:
-      defaultLayout: default_layout
+      defaultLayout: default_layout.php
     controller:
       default: zenmagick\apps\store\storefront\controller\DefaultController
 
