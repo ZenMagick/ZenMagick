@@ -40,6 +40,9 @@ class InstallationPatcher extends ZMObject {
     public function __construct() {
         parent::__construct();
         $this->_loadPatches();
+        if (!defined('ZENCART_ADMIN_FOLDER') && Runtime::getSettings()->get('apps.store.zencart.admindir')) {
+            define('ZENCART_ADMIN_FOLDER', Runtime::getSettings()->get('apps.store.zencart.admindir'));
+        }
     }
 
 
