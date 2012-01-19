@@ -49,7 +49,7 @@ class EmailEventHandler extends ZMObject {
 
         $orderService = $this->container->get('orderService');
 
-        if ($settingsService->get('isAdmin') && 'send_email_to_user' == $request->getParameter('action')) {
+        if (Runtime::isContextMatch('admin') && 'send_email_to_user' == $request->getParameter('action')) {
             // gv mail
             if ($context['GV_REDEEM']) {
                 if (1 == preg_match('/.*strong>(.*)<\/strong.*/', $context['GV_REDEEM'], $matches)) {

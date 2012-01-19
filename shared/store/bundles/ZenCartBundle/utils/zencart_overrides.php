@@ -33,7 +33,7 @@ if (!function_exists('zen_href_link')) {
      * zen_href_link wrapper that delegates to the Zenmagick implementation.
      */
     function zen_href_link($page='', $params='', $transport='NONSSL', $addSessionId=true, $seo=true, $isStatic=false, $useContext=true) {
-        if (class_exists('ZMStoreDefaultUrlRewriter') && !Runtime::getSettings()->get('isAdmin')) {
+        if (class_exists('ZMStoreDefaultUrlRewriter') && !Runtime::isContextMatch('admin')) {
             return ZMStoreDefaultUrlRewriter::furl($page, $params, $transport, $addSessionId, $seo, $isStatic, $useContext);
         } else if (function_exists('zen_href_link_DISABLED')) {
             // just in case...

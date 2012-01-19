@@ -165,7 +165,7 @@ class EventFixes extends ZMObject {
         }
 
         // TODO: remove once new admin is go
-        if (!Runtime::getSettings()->get('isAdmin')) {
+        if (!Runtime::isContextMatch('admin')) {
             $this->sanitizeRequest($request);
         }
 

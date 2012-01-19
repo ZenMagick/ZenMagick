@@ -28,7 +28,6 @@ use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 
 use zenmagick\base\Runtime;
-use zenmagick\base\Toolbox;
 use zenmagick\base\ZMObject;
 
 /**
@@ -67,7 +66,7 @@ class StoreEventListener extends ZMObject {
             'storefront' => array('/shared/store/bundles/ZenCartBundle/utils/zencart_overrides.php')
         );
         foreach ($statics as $context => $files) {
-            if (Toolbox::isContextMatch($context)) {
+            if (Runtime::isContextMatch($context)) {
                 foreach ($files as $static) {
                     $file = Runtime::getInstallationPath().$static;
                     if (file_exists($file)) {
@@ -94,7 +93,7 @@ class StoreEventListener extends ZMObject {
     public function onInitDone($event) {
         $request = $event->get('request');
 
-        if (Toolbox::isContextMatch('storefront')) {
+        if (Runtime::isContextMatch('storefront')) {
             $templateManager = $this->container->get('templateManager');
             // TODO: do via admin and just load mapping from somewhere
             // sidebox blocks

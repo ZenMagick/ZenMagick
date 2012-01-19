@@ -128,7 +128,7 @@ class Plugins extends ZMObject {
         if ($enabled) {
             // use plugin status to select plugins
             foreach ($this->pluginStatus_ as $id => $status) {
-                if ($status['enabled'] && (null === $context || Toolbox::isContextMatch($status['context'], $context))) {
+                if ($status['enabled'] && (null === $context || Runtime::isContextMatch($status['context'], $context))) {
                     $basePath = array_key_exists('basePath', $status) ? $status['basePath'] : $this->getBasePathForId($id);
                     if (!array_key_exists($basePath, $pathIdMap)) {
                         $pathIdMap[$basePath] = array();

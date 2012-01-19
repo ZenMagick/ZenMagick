@@ -85,7 +85,7 @@ class ContextConfigLoader extends ZMObject {
                 // meta is special and is context independent
             } else {
                 // context key
-                if (Toolbox::isContextMatch($key, $context)) {
+                if (Runtime::isContextMatch($key, $context)) {
                     $cconfig = Toolbox::arrayMergeRecursive($cconfig, $data);
                 }
             }

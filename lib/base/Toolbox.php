@@ -201,27 +201,5 @@ class Toolbox {
         return $filename;
     }
 
-    /**
-     * Test if the given context string matches.
-     *
-     * <p>The context string may be a single context name or a comma separated list of context strings.</p>
-     * <p>If the context is found in the given context string it is considered as matched.</p>
-     *
-     * @param string s The context string to test for a match.
-     * @param string context Optional context; default is <code>null</code> to use the current context.
-     * @return boolean <code>true</code> if the current context is either <code>null</code> or matched inside the given string.
-     */
-    public static function isContextMatch($s, $context=null) {
-        if (null === $context) {
-            $context = Runtime::getContext();
-        }
-        if (null === $context) {
-            return true;
-        }
-
-        // string match, avoid whitespace before/after comma
-        $cs = ','.str_replace(' ', '', $s).',';
-        return false !== strpos($cs, ','.$context.',');
-    }
 
 }

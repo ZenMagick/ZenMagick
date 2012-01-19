@@ -26,7 +26,6 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
-use zenmagick\base\Toolbox;
 
 /**
  * Zencart support bundle.
@@ -186,7 +185,7 @@ class ZenCartBundle extends Bundle {
      * Prepare db config
      */
     public function onInitConfigDone($event) {
-        if (Toolbox::isContextMatch('admin') || (defined('IS_ADMIN_FLAG') && IS_ADMIN_FLAG)) {
+        if (Runtime::isContextMatch('admin') || (defined('IS_ADMIN_FLAG') && IS_ADMIN_FLAG)) {
             if (null != ($folder = $this->guessAdminFolder())) {
                 $this->container->get('settingsService')->set('apps.store.zencart.admindir', $folder);
             }
@@ -203,7 +202,7 @@ class ZenCartBundle extends Bundle {
      */
     public function onInitRequest($event) {
         $request = $event->get('request');
-        if (Toolbox::isContextMatch('admin') || (defined('IS_ADMIN_FLAG') && IS_ADMIN_FLAG)) {
+        if (Runtime::isContextMatch('admin') || (defined('IS_ADMIN_FLAG') && IS_ADMIN_FLAG)) {
             $settingsService = $this->container->get('settingsService');
             $settingsService->set('apps.store.baseUrl', 'http://'.$request->getHostname().str_replace('zenmagick/apps/admin/web', '', $request->getContext()));
 

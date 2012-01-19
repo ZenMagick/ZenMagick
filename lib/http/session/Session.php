@@ -292,7 +292,7 @@ class Session extends ZMObject {
      */
     public function close() {
         //XXX:TODO: bad hack to avoid zc admin breakage
-        $isZCAdmin = Runtime::getSettings()->get('isAdmin') && defined('EMAIL_ENCODING_METHOD');
+        $isZCAdmin = Runtime::isContextMatch('admin') && defined('EMAIL_ENCODING_METHOD');
         if (!$isZCAdmin && $this->isStarted() && !$this->closed_) {
             foreach ($this->data_ as $name => $value) {
                 $_SESSION[$name] = $value;

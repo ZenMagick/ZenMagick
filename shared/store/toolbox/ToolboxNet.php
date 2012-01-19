@@ -169,7 +169,7 @@ class ToolboxNet extends ToolboxTool {
      * @return string A complete Ajax URL.
      */
     public function ajax($controller, $method, $params='') {
-        if (Runtime::getSettings()->get('isAdmin')) {
+        if (Runtime::isContextMatch('admin')) {
             $params .= '&controller=ajax_'.$controller;
             $controller = 'zmAjaxHandler.php';
         } else {
