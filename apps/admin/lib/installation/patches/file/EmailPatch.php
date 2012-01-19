@@ -23,7 +23,7 @@ namespace zenmagick\apps\store\admin\installation\patches\file;
 
 use zenmagick\apps\store\admin\installation\patches\FilePatch;
 
-define('_ZM_ZEN_EMAIL_FILE', ZC_INSTALL_PATH . 'includes/functions/functions_email.php');
+define('_ZM_ZEN_EMAIL_FILE', ZC_INSTALL_PATH . '/includes/functions/functions_email.php');
 
 /**
  * Patch to replace zen_mail for supported email types.

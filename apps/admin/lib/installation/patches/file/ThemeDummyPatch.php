@@ -22,7 +22,7 @@
 namespace zenmagick\apps\store\admin\installation\patches\file;
 
 if (!defined('DIR_FS_CATALOG_TEMPLATES')) {
-    define('DIR_FS_CATALOG_TEMPLATES', ZC_INSTALL_PATH . 'includes/templates/');
+    define('DIR_FS_CATALOG_TEMPLATES', ZC_INSTALL_PATH . '/includes/templates/');
 }
 
 use zenmagick\base\Runtime;
@@ -118,9 +118,9 @@ class ThemeDummyPatch extends FilePatch {
                     }
                     $theme = $this->container->get('themeService')->getThemeForId($themeId);
                     if (file_exists($theme->getBaseDir().'preview.jpg')) {
-                        copy($theme->getBaseDir().'preview.jpg', $templateDir.'images/'.$imageName);
+                        copy($theme->getBaseDir().'/preview.jpg', $templateDir.'/images/'.$imageName);
                     } else {
-                        copy(Runtime::getInstallationPath().'lib/store/etc/images/preview_not_found.jpg', $templateDir.'images/'.$imageName);
+                        copy(Runtime::getInstallationPath().'/lib/store/etc/images/preview_not_found.jpg', $templateDir.'/images/'.$imageName);
                     }
                     $handle = fopen(DIR_FS_CATALOG_TEMPLATES.$themeId."/template_info.php", 'ab');
                     fwrite($handle, '<?php /** dummy file created by ZenMagick installation patcher **/'."\n");
