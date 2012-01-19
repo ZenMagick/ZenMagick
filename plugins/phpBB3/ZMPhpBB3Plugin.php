@@ -172,6 +172,7 @@ class ZMPhpBB3Plugin extends Plugin {
         if ('POST' == $request->getMethod()) {
             $view = $event->get('view');
             if ('account_edit' == $this->page_ && 'success' == $view->getMappingId()) {
+                // TODO: convert to listening to account_updated event
                 $account = $this->container->get('accountService')->getAccountForId($request->getAccountId());
                 if (null != $account && !ZMLangUtils::isEmpty($account->getNickName())) {
                     $this->getAdapter()->updateAccount($account->getNickName(), null, $account->getEmail());

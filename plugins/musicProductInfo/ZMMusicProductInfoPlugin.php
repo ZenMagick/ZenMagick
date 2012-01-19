@@ -88,8 +88,8 @@ class ZMMusicProductInfoPlugin extends Plugin {
      */
     public function onViewStart($event) {
         $view = $event->get('view');
-        if ('product_music_info' == $view->getViewId()) {
-            $request = $event->get('request');
+        $request = $event->get('request');
+        if ('product_music_info' == $request->getRequestId()) {
             $musicManager = ZMMusicManager::instance();
             // artist information
             $artist = $musicManager->getArtistForProductId($request->getProductId(), $request->getSession()->getLanguageId());

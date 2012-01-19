@@ -33,7 +33,7 @@ use zenmagick\base\ZMException;
  * @author DerManoMann <mano@zenmagick.org>
  */
 class RedirectView extends View {
-    protected $secure_;
+    protected $secure;
     protected $url_;
     protected $parameter_;
     protected $status_;
@@ -46,7 +46,7 @@ class RedirectView extends View {
      */
     public function __construct() {
         parent::__construct();
-        $this->secure_ = false;
+        $this->secure = false;
         $this->url_ = null;
         $this->parameter_ = '';
         $this->status_ = 302;
@@ -113,7 +113,7 @@ class RedirectView extends View {
      * @param boolean secure <code>true</code> to create a secure redirect.
      */
     public function setSecure($secure) {
-        $this->secure_ = Toolbox::asBoolean($secure);
+        $this->secure = Toolbox::asBoolean($secure);
     }
 
     /**
@@ -174,7 +174,8 @@ class RedirectView extends View {
      * @return string The redirect url.
      */
     public function getRedirectUrl($request) {
-        return ((null != $this->url_ && !$this->forceRequestId_) ? $this->url_ : $request->url($this->getRequestId(), $this->parameter_, $this->secure_));
+        $secure = $this->secure || $this->container->get('sacsManager')->requiresSecurity($this->getRequestId());
+        return ((null != $this->url_ && !$this->forceRequestId_) ? $this->url_ : $request->url($this->getRequestId(), $this->parameter_, $secure));
     }
 
 }

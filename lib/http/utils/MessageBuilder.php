@@ -127,7 +127,7 @@ class MessageBuilder extends ZMObject {
 
         // set up view
         $view = \ZMUrlManager::instance()->findView(null, $this->viewViewId_);
-        $view->setTemplate('emails'.DIRECTORY_SEPARATOR.$template.'.'.$format);
+        $view->setTemplate('emails/'.$template.'.'.$format);
         // disable layout for now
         $view->setLayout(null);
 

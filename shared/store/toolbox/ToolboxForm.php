@@ -114,7 +114,7 @@ class ToolboxForm extends ToolboxTool {
             // inline JS to allow PHP
             if (null != ($view = $this->getView())) {
                 echo "<script>\n";
-                echo $view->fetch($this->getRequest(), "validation.js");
+                echo $view->fetch('validation.js');
                 echo "</script>\n";
             }
         }

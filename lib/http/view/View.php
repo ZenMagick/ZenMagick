@@ -156,10 +156,10 @@ class View extends ZMObject {
         $this->variables[$name] = $value;
     }
     // TODO: backw comp: remove
-    public function getVar($name) { if ('resources' == $name) { return $this->getResourceManager(); } $this->getVariable($name); }
-    public function setVar($name, $value) { $this->setVariable($name, $value); }
-    public function setVars($values) { $this->setVariables($values); }
-    public function assign($values) { $this->setVariables($values); }
+    public function getVar($name) { \ZMLangUtils::dumpStack(); die('old style use of view');if ('resources' == $name) { return $this->getResourceManager(); } $this->getVariable($name); }
+    public function setVar($name, $value) { \ZMLangUtils::dumpStack(); die('old style use of view');$this->setVariable($name, $value); }
+    public function setVars($values) { \ZMLangUtils::dumpStack(); die('old style use of view');$this->setVariables($values); }
+    public function assign($values) { \ZMLangUtils::dumpStack(); die('old style use of view');$this->setVariables($values); }
 
     /**
      * Get a variable.
@@ -361,6 +361,7 @@ class View extends ZMObject {
             } else {
                 $variables = array();
             }
+            \ZMLangUtils::dumpStack(); die('old style use of fetch');
         }
 
         // resolve template

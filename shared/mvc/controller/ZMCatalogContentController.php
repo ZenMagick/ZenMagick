@@ -100,7 +100,7 @@ abstract class ZMCatalogContentController extends ZMController {
      */
     public function process(ZMRequest $request) {
         $view = parent::process($request);
-        if ($view->get('catalogRedirect')) {
+        if ($view->getVariable('catalogRedirect')) {
             // some hacky reuse...
             // set url
             $admin2 = $request->getToolbox()->admin2;

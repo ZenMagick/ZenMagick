@@ -326,6 +326,7 @@ class ZMWordpressPlugin extends Plugin {
         if (Toolbox::asBoolean($this->get('syncUser'))) {
             if ('POST' == $request->getMethod()) {
                 $view = $event->get('view');
+                // TODO: convert to listening to account_updated event
                 if ('account_edit' == $this->requestId_ && 'success' == $view->getMappingId()) {
                     $account = $this->container->get('accountService')->getAccountForId($request->getAccountId());
                     if (null != $account && !ZMLangUtils::isEmpty($account->getNickName())) {

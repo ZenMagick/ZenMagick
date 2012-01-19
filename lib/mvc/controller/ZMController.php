@@ -304,13 +304,7 @@ class ZMController extends ZMObject {
         }
         $view = ZMUrlManager::instance()->findView($this->requestId_, $id, $parameter);
 
-        // ensure secure option is set if required
-        if ($this->container->get('sacsManager')->requiresSecurity($this->requestId_)) {
-            $view->setSecure(true);
-        }
-
         $view->setVariables($data);
-        $view->setController($this);
         $this->view_ = $view;
         return $view;
     }
