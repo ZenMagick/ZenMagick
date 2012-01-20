@@ -22,6 +22,7 @@
 
 use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
+use zenmagick\base\Toolbox;
 use zenmagick\base\ZMObject;
 use zenmagick\base\classloader\ClassLoader;
 use zenmagick\base\logging\Logging;
@@ -106,7 +107,7 @@ class ZMUrlManager extends ZMObject {
 
         if (null == $requestId) {
             // global
-            $this->mappings_[$type] = ZMLangUtils::arrayMergeRecursive($this->mappings_[$type], $mapping);
+            $this->mappings_[$type] = Toolbox::arrayMergeRecursive($this->mappings_[$type], $mapping);
         } else {
             if ($replace) {
                 $this->mappings_[$type][$requestId] = $mapping;
@@ -114,7 +115,7 @@ class ZMUrlManager extends ZMObject {
                 if (!array_key_exists($requestId, $this->mappings_[$type])) {
                     $this->mappings_[$type][$requestId] = array();
                 }
-                $this->mappings_[$type][$requestId] = ZMLangUtils::arrayMergeRecursive($this->mappings_[$type][$requestId], $mapping);
+                $this->mappings_[$type][$requestId] = Toolbox::arrayMergeRecursive($this->mappings_[$type][$requestId], $mapping);
             }
         }
 
@@ -138,7 +139,7 @@ class ZMUrlManager extends ZMObject {
             if ($replace) {
                 $this->mappings_ = $mappings;
             } else {
-                $this->mappings_ = ZMLangUtils::arrayMergeRecursive($this->mappings_, $mappings);
+                $this->mappings_ = Toolbox::arrayMergeRecursive($this->mappings_, $mappings);
             }
         } else {
             $this->mappings_ = ZMRuntime::yamlParse($mappings, $this->mappings_, $replace);

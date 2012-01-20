@@ -201,5 +201,28 @@ class Toolbox {
         return $filename;
     }
 
+    /**
+     * Convert values to array where reasonable.
+     *
+     * @param mixed value The value to convert; either already an array or a URL query form string.
+     * @return array The value as array.
+     */
+    public static function toArray($value) {
+        if (null === $value) {
+            return array();
+        }
+        if (is_array($value)) {
+            return $value;
+        }
+        parse_str(urldecode($value), $map);
+        // handle booleans
+        foreach ($map as $key => $value) {
+            if ('false' == $value || 'true' == $value) {
+                $map[$key] = self::asBoolean($value);
+            }
+        }
+        return $map;
+    }
+
 
 }

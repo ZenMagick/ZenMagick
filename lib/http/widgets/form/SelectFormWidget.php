@@ -104,7 +104,7 @@ class SelectFormWidget extends FormWidget {
      * @param mixed options Map of value/name pairs.
      */
     public function setOptions($options) {
-        $this->options_ = \ZMLangUtils::toArray($options);
+        $this->options_ = Toolbox::toArray($options);
     }
 
     /**

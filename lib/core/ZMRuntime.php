@@ -21,6 +21,7 @@
 <?php
 
 use zenmagick\base\Runtime;
+use zenmagick\base\Toolbox;
 
 
 /**
@@ -73,9 +74,9 @@ class ZMRuntime {
     public static function getDatabase($conf='default') {
         $settingsService = Runtime::getSettings();
         if (is_string($conf)) {
-            $dbconf = ZMLangUtils::toArray($settingsService->get('apps.store.database.'.$conf));
+            $dbconf = Toolbox::toArray($settingsService->get('apps.store.database.'.$conf));
         } else {
-            $default = ZMLangUtils::toArray($settingsService->get('apps.store.database.default'));
+            $default = Toolbox::toArray($settingsService->get('apps.store.database.default'));
             $dbconf = array_merge($default, $conf);
         }
 
@@ -105,7 +106,7 @@ class ZMRuntime {
      * @return array List of <code>Doctrine\ORM\EntityManager</code> instances.
      */
     public static function getEntityManager($conf='default') {
-        self::$entityManagerMap_[$conf] = self::getDatabase($conf)->getEntityManager(ZMLangUtils::toArray(Runtime::getSettings()->get('doctrine.orm')));
+        self::$entityManagerMap_[$conf] = self::getDatabase($conf)->getEntityManager(Toolbox::toArray(Runtime::getSettings()->get('doctrine.orm')));
         return self::$entityManagerMap_[$conf];
     }
 
@@ -132,7 +133,7 @@ class ZMRuntime {
         if ($override) {
             return Spyc::YAMLLoadString($yaml);
         } else {
-            return ZMLangUtils::arrayMergeRecursive($defaults, Spyc::YAMLLoadString($yaml));
+            return Toolbox::arrayMergeRecursive($defaults, Spyc::YAMLLoadString($yaml));
         }
     }
 

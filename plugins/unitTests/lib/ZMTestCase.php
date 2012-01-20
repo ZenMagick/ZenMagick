@@ -21,6 +21,7 @@
 <?php
 
 use zenmagick\base\Runtime;
+use zenmagick\base\Toolbox;
 
 /**
  * TestCase base class.
@@ -57,8 +58,8 @@ class ZMTestCase extends UnitTestCase {
         // use test connection by temp. re-configuring the default connection
         $this->defaultDb_ = Runtime::getSettings()->get('doctrine.dbal.connections.default');
         if (Runtime::getSettings()->exists('plugins.unitTests.database.test')) {
-            $testConnection = ZMLangUtils::toArray(Runtime::getSettings()->get('plugins.unitTests.database.test'));
-            $merged = array_merge(ZMLangUtils::toArray($this->defaultDb_), $testConnection);
+            $testConnection = Toolbox::toArray(Runtime::getSettings()->get('plugins.unitTests.database.test'));
+            $merged = array_merge(Toolbox::toArray($this->defaultDb_), $testConnection);
             Runtime::getSettings()->set('doctrine.dbal.connections.default', $merged);
         }
 
