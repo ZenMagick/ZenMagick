@@ -48,7 +48,9 @@ class TestLocaleScanner extends ZMTestCase {
      * Get scanner.
      */
     protected function getScanner() {
-        return new LocaleScanner();
+        $scanner = new LocaleScanner();
+        $scanner->setContainer($this->container);
+        return $scanner;
     }
 
     /**

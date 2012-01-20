@@ -22,13 +22,14 @@
 namespace zenmagick\base\locales;
 
 use zenmagick\base\Runtime;
+use zenmagick\base\ZMObject;
 
 /**
  * Scan source files for translatable strings.
  *
  * @author DerManoMann <mano@zenmagick.org> <mano@zenmagick.org>
  */
-class LocaleScanner {
+class LocaleScanner extends ZMObject {
     /** Locale patterns. */
     const LOCALE_PATTERNS = '_zmn,_zm,_vzm';
 
@@ -70,8 +71,7 @@ class LocaleScanner {
             $strings = array();
             $contents = file_get_contents($filename);
             // try to convert into relative path
-            $filename = $filesystem->makePathRelative($filename, Runtime::getInstallationPath());
-            $filename = str_replace($relBase, '', $filename);
+            $filename = $filesystem->makePathRelative($filename, dirname($baseDir));
 
             // use PHP tokenizer to analyze...
             $tokens = token_get_all($contents);
