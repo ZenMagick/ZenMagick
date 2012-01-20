@@ -2,7 +2,7 @@
 <?php
 chdir(dirname(dirname(__FILE__)));
 
-define('ZM_APP_PATH', 'apps/admin/');
+define('ZM_APP_PATH', '/apps/admin/');
 
 include 'bootstrap.php';
 
