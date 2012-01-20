@@ -22,6 +22,7 @@
 
 use zenmagick\base\Beans;
 use zenmagick\base\Toolbox;
+use zenmagick\base\Runtime;
 
 
 /**
@@ -78,7 +79,7 @@ class ZMWordpressPlugin extends Plugin {
      */
     public function init() {
         parent::init();
-        zenmagick\base\Runtime::getEventDispatcher()->listen($this);
+        Runtime::getEventDispatcher()->listen($this);
     }
 
     /**
@@ -95,7 +96,7 @@ class ZMWordpressPlugin extends Plugin {
         }
         define('ZM_WORDPRESS_ROOT', $wordpressDir);
 
-        zenmagick\base\Runtime::getEventDispatcher()->listen($this);
+        Runtime::getEventDispatcher()->listen($this);
 
         if ($this->get('requireNickname')) {
             // enable nick name field
@@ -315,24 +316,14 @@ class ZMWordpressPlugin extends Plugin {
     }
 
     /**
-     * Event callback for controller processing.
-     *
-     * <p>Here the additional processing is done by checking the result view id. As per convention,
-     * ZenMagick controller will use the viewId 'success' if POST processing was successful.</p>
+     * Event callback for syncing users.
      */
-    public function onControllerProcessEnd($event) {
-        $request = $event->get('request');
-
+    public function onAccountUpdated($event) {
         if (Toolbox::asBoolean($this->get('syncUser'))) {
-            if ('POST' == $request->getMethod()) {
-                $view = $event->get('view');
-                // TODO: convert to listening to account_updated event
-                if ('account_edit' == $this->requestId_ && 'success' == $view->getMappingId()) {
-                    $account = $this->container->get('accountService')->getAccountForId($request->getAccountId());
-                    if (null != $account && !ZMLangUtils::isEmpty($account->getNickName())) {
-                        $this->getAdapter()->updateAccount($account->getNickName(), null, $account->getEmail());
-                    }
-                }
+            $request = $event->get('request');
+            $account = $event->get('account');
+            if (null != $account && !ZMLangUtils::isEmpty($account->getNickName())) {
+                $this->getAdapter()->updateAccount($account->getNickName(), null, $account->getEmail());
             }
         }
     }

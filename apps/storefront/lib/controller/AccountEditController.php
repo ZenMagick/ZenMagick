@@ -24,6 +24,8 @@
 <?php
 namespace zenmagick\apps\store\storefront\controller;
 
+use zenmagick\base\Runtime;
+use zenmagick\base\events\Event;
 
 /**
  * Request controller for account edit page.
@@ -64,6 +66,9 @@ class AccountEditController extends \ZMController {
 
         $this->container->get('accountService')->updateAccount($account);
         $this->messageService->success(_zm('Your account has been updated.'));
+
+        $args = array('request' => $request, 'controller' => $this, 'account' => $account);
+        Runtime::getEventDispatcher()->dispatch('account_updated', new Event($this, $args));
 
         return $this->findView('success');
     }

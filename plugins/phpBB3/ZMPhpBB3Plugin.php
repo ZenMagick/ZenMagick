@@ -21,6 +21,7 @@
 <?php
 
 use zenmagick\base\Toolbox;
+use zenmagick\base\Runtime;
 
 /**
  * Plugin to enable phpBB3 support in ZenMagick.
@@ -74,7 +75,7 @@ class ZMPhpBB3Plugin extends Plugin {
      */
     public function init() {
         parent::init();
-        zenmagick\base\Runtime::getEventDispatcher()->listen($this);
+        Runtime::getEventDispatcher()->listen($this);
     }
 
     /**
@@ -161,23 +162,12 @@ class ZMPhpBB3Plugin extends Plugin {
     }
 
     /**
-     * Event callback for controller processing.
-     *
-     * <p>Here the additional processing is done by checking the result view id. As per convention,
-     * ZenMagick controller will use the viewId 'success' if POST processing was successful.</p>
+     * Event callback for syncing users.
      */
-    public function onControllerProcessEnd($event) {
-        $request = $event->get('request');
-
-        if ('POST' == $request->getMethod()) {
-            $view = $event->get('view');
-            if ('account_edit' == $this->page_ && 'success' == $view->getMappingId()) {
-                // TODO: convert to listening to account_updated event
-                $account = $this->container->get('accountService')->getAccountForId($request->getAccountId());
-                if (null != $account && !ZMLangUtils::isEmpty($account->getNickName())) {
-                    $this->getAdapter()->updateAccount($account->getNickName(), null, $account->getEmail());
-                }
-            }
+    public function onAccountUpdated($event) {
+        $account = $event->get('account');
+        if (null != $account && !ZMLangUtils::isEmpty($account->getNickName())) {
+            $this->getAdapter()->updateAccount($account->getNickName(), null, $account->getEmail());
         }
     }
 
