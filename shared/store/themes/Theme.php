@@ -252,7 +252,7 @@ class Theme extends ZMObject {
         $languageDir = $language->getDirectory();
         $path = $this->getLangDir().$languageDir.'/static/';
         if (!file_exists($path)) {
-            \ZMFileUtils::mkdir($path);
+            $this->container->get('filesystem')->mkdir($path, 0755);
         }
         $filename = $path.$page.'.php';
 

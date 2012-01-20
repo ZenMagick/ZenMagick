@@ -126,8 +126,10 @@ class ThemeBuilder extends ZMObject {
             return false;
         }
 
+        $filesystem = $this->container->get('filesystem');
+
         // try base dir
-        \ZMFileUtils::mkdir($themeDir);
+        $filesystem->mkdir($themeDir, 0755);
         $this->fsLog_[] = $themeDir;
         if (!file_exists($themeDir)) {
             $this->messages_[] = array(Messages::T_WARN, 'Could not create theme dir "' . $themeDir . '".');
@@ -135,16 +137,9 @@ class ThemeBuilder extends ZMObject {
         }
 
         // do the common ones
-        \ZMFileUtils::mkdir($themeDir.'content/');
-        $this->fsLog_[] = $themeDir.'content/';
-        \ZMFileUtils::mkdir($themeDir.'lib/');
-        $this->fsLog_[] = $themeDir.'lib/';
-        \ZMFileUtils::mkdir($themeDir.'content/'.'views/');
-        $this->fsLog_[] = $themeDir.'content/'.'views/';
-        \ZMFileUtils::mkdir($themeDir.'content/boxes/');
-        $this->fsLog_[] = $themeDir.'content/boxes/';
-        \ZMFileUtils::mkdir($themeDir.'locale/');
-        $this->fsLog_[] = $themeDir.'locale/';
+        $dirs = array($themeDir.'/content/boxes', $themeDir.'/lib', $themeDir.'/content/views', $themeDir.'/locale');
+        $filesystem->mkdir($dirs, 0755);
+        $this->fsLog_[] = array_merge($this->fsLog_, $dirs);
 
         return true;
     }

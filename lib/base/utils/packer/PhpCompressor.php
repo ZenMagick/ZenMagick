@@ -21,6 +21,8 @@
 <?php
 namespace zenmagick\base\utils\packer;
 
+use zenmagick\base\ZMObject;
+
 /*
  * T_ML_COMMENT does not exist in PHP 5.
  * The following three lines define it in order to
@@ -51,7 +53,7 @@ if (!defined('T_ML_COMMENT')) {
  *
  * @author DerManoMann <mano@zenmagick.org> <mano@zenmagick.org>
  */
-class PhpCompressor {
+class PhpCompressor extends ZMObject {
     protected $rootFolders_;
     protected $outputFilename_;
     protected $tempFolder_;
@@ -74,6 +76,7 @@ class PhpCompressor {
      * @param string temp A temp folder for transient files and folders; default is <code>null</code>.
      */
     public function __construct($root=null, $out=null, $temp=null) {
+        parent::__construct();
         $this->setRoot($root);
         $this->setOut($out);
         $this->setTemp($temp);
@@ -168,8 +171,10 @@ class PhpCompressor {
      * Clean up all temp. files.
      */
     public function clean() {
-        \ZMFileUtils::rmdir($this->strippedFolder_);
-        \ZMFileUtils::rmdir($this->flatFolder_);
+        $this->container->get('filesystem')->remove(array(
+            $this->strippedFolder_,
+            $this->flatFolder_
+        ));
     }
 
     /**
@@ -356,6 +361,8 @@ class PhpCompressor {
 
         $files = $this->findIncludes($in, '.php', $recursive);
 
+        $filesystem = $this->container->get('filesystem');
+
         foreach ($files as $name => $infile) {
             $name = basename($infile);
             $dirbase = substr(dirname($infile), strlen($in));
@@ -365,13 +372,13 @@ class PhpCompressor {
             //echo $outfile."<BR>";
             if (!file_exists($outdir)) {
                 if (!file_exists(dirname($outdir))) {
-                    \ZMFileUtils::mkdir(dirname($outdir));
+                    $filesystem->mkdir(dirname($outdir), 0755);
                     if (!file_exists(dirname($outdir))) {
                         array_push($this->errors_, 'could not create directory ' . dirname($outdir));
                         return;
                     }
                 }
-                \ZMFileUtils::mkdir($outdir);
+                $filesystem->mkdir($outdir, 0755);
                 if (!file_exists($outdir)) {
                     array_push($this->errors_, 'could not create directory ' . $outdir);
                     return;
@@ -393,8 +400,10 @@ class PhpCompressor {
         $files = $this->findIncludes($in.DIRECTORY_SEPARATOR, '.php', true);
 
         if (!file_exists($out)) {
-            \ZMFileUtils::mkdir($out);
+            $this->container->get('filesystem')->mkdir($out, 0755);
         }
+
+        $filesystem = $this->container->get('filesystem');
 
         $inpath = explode(DIRECTORY_SEPARATOR, $in);
         foreach ($files as $name => $infile) {
@@ -406,13 +415,13 @@ class PhpCompressor {
             }
             if (!file_exists($outdir)) {
                 if (!file_exists(dirname($outdir))) {
-                    \ZMFileUtils::mkdir(dirname($outdir));
+                    $filesystem->mkdir(dirname($outdir), 0755);
                     if (!file_exists(dirname($outdir))) {
                         array_push($this->errors_, 'could not create directory ' . dirname($outdir));
                         return;
                     }
                 }
-                \ZMFileUtils::mkdir($outdir);
+                $filesystem->mkdir($outdir, 0755);
                 if (!file_exists($outdir)) {
                     array_push($this->errors_, 'could not create directory ' . $outdir);
                     return;

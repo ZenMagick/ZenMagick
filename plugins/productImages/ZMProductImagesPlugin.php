@@ -115,8 +115,8 @@ class ZMProductImagesPlugin extends Plugin {
      */
     public static function getCacheName($data, $ext='') {
         $md5  = md5($data);
-        $dir = ZMSettings::get('plugins.imageHandler2.cachedir') . DIRECTORY_SEPARATOR . $md5{0} . DIRECTORY_SEPARATOR . $md5.$ext;
-        ZMFileUtils::mkdir($dir);
+        $dir = ZMSettings::get('plugins.imageHandler2.cachedir') . '/' . $md5{0} . '/' . $md5.$ext;
+        $this->container->get('filesystem')->mkdir($dir, 0755);
         return $file;
     }
 

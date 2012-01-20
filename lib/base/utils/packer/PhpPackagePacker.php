@@ -23,6 +23,7 @@ namespace zenmagick\base\utils\packer;
 
 use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
+use zenmagick\base\ZMObject;
 
 /**
  * Analyze dependencies of a given PHP package (folder tree), resolve and compress.
@@ -32,7 +33,7 @@ use zenmagick\base\Runtime;
  *
  * @author DerManoMann <mano@zenmagick.org> <mano@zenmagick.org>
  */
-class PhpPackagePacker {
+class PhpPackagePacker extends ZMObject {
     protected $rootFolder_;
     protected $outputFilename_;
     protected $tempFolder_;
@@ -49,6 +50,7 @@ class PhpPackagePacker {
      * @param string temp A temp folder for transient files and folders; default is <code>null</code>.
      */
     public function __construct($root=null, $out=null, $temp=null) {
+        parent::__construct();
         $this->rootFolder_ = $root;
         $this->outputFilename_ = $out;
         $this->setTemp($temp);
@@ -140,8 +142,10 @@ class PhpPackagePacker {
      * Clean up temp stuff.
      */
     public function clean() {
-        \ZMFileUtils::rmdir($this->tempFolder_);
-        \ZMFileUtils::rmdir($this->outputFilename_.'.prep'.DIRECTORY_SEPARATOR);
+        $this->container->get('filesystem')->remove(array(
+            $this->tempFolder_,
+            $this->outputFilename_.'.prep'
+        ));
     }
 
     /**
@@ -187,7 +191,7 @@ class PhpPackagePacker {
                 $currentDir .= $level.DIRECTORY_SEPARATOR;
             }
 
-            \ZMFileUtils::mkdir($currentDir);
+            $this->container->get('filesystem')->mkdir($currentDir, 0755);
 
             foreach ($files as $filename => $details) {
                 if ($this->ignoreFile($filename)) {
@@ -228,7 +232,7 @@ class PhpPackagePacker {
      * @param boolean stripRef If <code>true</code>, strip code that uses references.
      */
     protected function compressFiles($stripCode, $stripRef) {
-        $compressor = new PhpCompressor();
+        $compressor = $this->container->get('phpCompressor');
         $compressor->setRoot($this->outputFilename_.'.prep'.DIRECTORY_SEPARATOR);
         $compressor->setOut($this->outputFilename_);
         $compressor->setTemp($this->tempFolder_);

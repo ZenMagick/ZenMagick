@@ -51,7 +51,7 @@ class ZMMinifyPlugin extends Plugin {
             'widget@ZMBooleanFormWidget#name=shortUrls&default=true&label=Use short URLs&style=checkbox');
 
         // create minify cache dir
-        \ZMFileUtils::mkdir(dirname(Runtime::getInstallationPath()).DIRECTORY_SEPARATOR.'cache'.DIRECTORY_SEPARATOR.'zenmagick'.DIRECTORY_SEPARATOR.'minify');
+        $this->container->get('filesystem')->mkdir(dirname(Runtime::getInstallationPath()).'/cache/zenmagick/minify', 0755);
     }
 
     //TODO: install options: =f only, create dynamica groups, enable js, enable/disable css, PHP support: off, simple, ZenMagick Context (controller)

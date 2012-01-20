@@ -20,6 +20,7 @@
 ?>
 <?php
 
+use zenmagick\base\Runtime;
 use zenmagick\base\Toolbox;
 use zenmagick\base\classloader\ClassLoader;
 
@@ -53,7 +54,7 @@ use zenmagick\base\classloader\ClassLoader;
         }
     }
 
-    $packer = new $class();
+    $packer = Runtime::getContainer()->get($class);
     $packer->process($source, $targetBaseDir.$target, $version, $strip);
 
     exit;

@@ -106,13 +106,14 @@ class ThemeDummyPatch extends FilePatch {
             if (Runtime::getSettings()->get('apps.store.themes.default') == $theme->getThemeId() && !$this->includeDefault_) {
                 continue;
             }
+
+            $filesystem = $this->container->get('filesystem');
             $themeId = $theme->getThemeId();
             if (!file_exists(DIR_FS_CATALOG_TEMPLATES.$themeId)) {
                 if (is_writeable(DIR_FS_CATALOG_TEMPLATES)) {
                     $templateDir = DIR_FS_CATALOG_TEMPLATES.$themeId.'/';
                     $themeConfig = $theme->getConfig();
-                    \ZMFileUtils::mkdir($templateDir);
-                    \ZMFileUtils::mkdir($templateDir.'images');
+                    $filesystem->mkdir(array($templateDir, $templateDir.'images'), 0755);
                     if (!array_key_exists('preview', $themeConfig)) {
                         $imageName = 'preview.jpg';
                     }
@@ -152,10 +153,7 @@ class ThemeDummyPatch extends FilePatch {
     function undo() {
         $dummies = $this->_getDummies();
         foreach ($dummies as $file) {
-            // avoid recursive delete, just in case
-            @unlink($file."/template_info.php");
-            \ZMFileUtils::rmdir($file.'/images', true);
-            \ZMFileUtils::rmdir($file, false);
+            $this->container->get('filesystem')->remove($file);
         }
 
         return true;

@@ -128,5 +128,7 @@
             <tag name="zenmagick.http.toolbox.tool" key="admin2" />
         </service>
 
+        <service id="themeBuilder" class="zenmagick\apps\store\admin\utils\ThemeBuilder" scope="prototype" />
+
     </services>
 </container>

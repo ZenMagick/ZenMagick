@@ -22,6 +22,8 @@
 namespace zenmagick\base\cache;
 
 use pear\cache\CacheLite;
+use zenmagick\base\Runtime;
+use zenmagick\base\ZMObject;
 
 /**
  * File caching.
@@ -30,7 +32,7 @@ use pear\cache\CacheLite;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class FileCache implements Cache {
+class FileCache extends ZMObject implements Cache {
     const SYSTEM_KEY = "zenmagick.base.cache.file";
     private $group_;
     private $available_;
@@ -42,6 +44,7 @@ class FileCache implements Cache {
      * Create new instance.
      */
     public function __construct() {
+        parent::__construct();
         $this->available_ = true;
     }
 
@@ -127,7 +130,8 @@ class FileCache implements Cache {
      * @return boolean <code>true</code> if the cache dir is usable, <code>false</code> if not.
      */
     private function ensureCacheDir($dir) {
-        \ZMFileUtils::mkdir($dir);
+      Runtime::getContainer()->get('filesystem')->mkdir($dir, 0755);
+        //$this->container->get('filesystem')->mkdir($dir, 0755);
         return file_exists($dir) && is_writeable($dir);
     }
 
