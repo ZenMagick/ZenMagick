@@ -143,6 +143,5 @@ doctrine:
           - shared/model/checkout
           - shared/model/forms
           - shared/model/layout
-          - shared/model/locale
           - shared/model/order
           - shared/model
