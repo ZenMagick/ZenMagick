@@ -5,9 +5,9 @@
 ## global mappings
 global:
   error:
-    template: error.tpl
+    template: views/error.tpl
   index:
-    template: index.tpl
+    template: views/index.tpl
 
 ## page mappings    
 page:
@@ -18,9 +18,8 @@ page:
     ## form data container
     form: zenmagick\base\ZMObject
     success:
-      view: ZMRedirectView
-      template: index.tpl
+      view: redirect#requestId=index
   ## explicit mapping - not required as all defaults
   ## NOTE: there is no default layout configured, so about is a full page, not just a view
   #about:
-  #  template: about
+  #  template: views/about.tpl

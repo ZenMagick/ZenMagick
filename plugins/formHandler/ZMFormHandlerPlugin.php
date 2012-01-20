@@ -69,7 +69,7 @@ class ZMFormHandlerPlugin extends Plugin {
                 ZMUrlManager::instance()->setMapping($page, array(
                   'template' => $page,
                   'controller' => 'ZMFormHandlerController',
-                  'success' => array('view' => 'RedirectView')
+                  'success' => array('view' => 'redirect')
                 ));
             }
 

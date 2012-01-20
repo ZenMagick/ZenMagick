@@ -217,8 +217,7 @@ class View extends ZMObject {
      * @return string The template name.
      */
     public function getTemplate() {
-        // todo: backwards comp. remove
-        return 'views/'.$this->template;
+        return $this->template;
     }
 
     /**

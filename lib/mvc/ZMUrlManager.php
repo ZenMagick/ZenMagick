@@ -258,13 +258,13 @@ class ZMUrlManager extends ZMObject {
         }
         $definitions[] = Runtime::getSettings()->get('zenmagick.mvc.controller.default', 'ZMController');
 
-        Runtime::getLogging()->log('controller definition: '.implode(', ', $definitions), Logging::TRACE);
         $controller = null;
         foreach ($definitions as $definition) {
             if (null != ($controller = Beans::getBean($definition))) {
                 break;
             }
         }
+        Runtime::getLogging()->log(sprintf('controller definition: %s; controller: %s', implode(', ', $definitions), get_class($controller)), Logging::TRACE);
 
         return $controller;
     }
@@ -290,7 +290,7 @@ class ZMUrlManager extends ZMObject {
         }
         if (!array_key_exists('template', $mapping) || null == $mapping['template']) {
             // default template name to requestId
-            $mapping['template'] = $requestId.Runtime::getSettings()->get('zenmagick.http.templates.ext', '.php');
+            $mapping['template'] = 'views/'.$requestId.Runtime::getSettings()->get('zenmagick.http.templates.ext', '.php');
         }
         $view = null;
         if (array_key_exists('view', $mapping) && null != $mapping['view']) {

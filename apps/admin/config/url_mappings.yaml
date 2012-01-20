@@ -8,7 +8,7 @@ global:
   success:
     view: redirect
   error:
-    template: error.php
+    template: views/error.php
     layout: 
   success-demo:
     view: redirect#requestId=index
@@ -54,7 +54,7 @@ page:
       view: redirect#requestId=plugins
     plugin-conf:
       layout: 
-      template: plugin_conf.php
+      template: views/plugin_conf.php
   legacy-config:
     success:
       view: redirect#requestId=legacy-config

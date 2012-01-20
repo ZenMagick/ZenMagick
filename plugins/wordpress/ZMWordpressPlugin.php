@@ -104,12 +104,12 @@ class ZMWordpressPlugin extends Plugin {
 
         ZMUrlManager::instance()->setMapping('wp', array(
             'controller' => 'ZMWordpressController',
-            'wp_index' => array('template' => 'wp/index'),
-            'wp_single' => array('template' => 'wp/single'),
-            'wp_page' => array('template' => 'wp/page'),
-            'wp_archive' => array('template' => 'wp/archive'),
-            'wp_archives' => array('template' => 'wp/archives'),
-            'wp_search' => array('template' => 'wp/search')
+            'wp_index' => array('template' => 'views/wp/index.php'),
+            'wp_single' => array('template' => 'views/wp/single.php'),
+            'wp_page' => array('template' => 'views/wp/page.php'),
+            'wp_archive' => array('template' => 'views/wp/archive.php'),
+            'wp_archives' => array('template' => 'views/wp/archives.php'),
+            'wp_search' => array('template' => 'views/wp/search.php')
         ));
     }
 

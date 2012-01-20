@@ -35,8 +35,8 @@ class ContentEditorController extends \ZMController {
      */
     public function preProcess($request) {
         \ZMUrlManager::instance()->setMapping('content_editor', array(
-            'overview' => array('template' => 'content_overview'),
-            'details' => array('template' => 'ezpages-details'),
+            'overview' => array('template' => 'views/content_overview.php'),
+            'details' => array('template' => 'views/ezpages-details.php'),
         ));
     }
 

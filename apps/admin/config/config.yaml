@@ -63,8 +63,8 @@ zenmagick:
 
     ## request
     request:
-      index: index.php
-      missingPage: error.php
+      index: views/index.php
+      missingPage: views/error.php
 
     ## html
     html:

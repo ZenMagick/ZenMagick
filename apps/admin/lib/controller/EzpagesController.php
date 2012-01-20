@@ -35,8 +35,8 @@ class EzpagesController extends \ZMController {
      */
     public function preProcess($request) {
         \ZMUrlManager::instance()->setMapping('ezpages', array(
-            'ezpages-overview' => array('template' => 'ezpages-overview'),
-            'ezpages-details' => array('template' => 'ezpages-details'),
+            'ezpages-overview' => array('template' => 'views/ezpages-overview.php'),
+            'ezpages-details' => array('template' => 'views/ezpages-details.php'),
         ));
     }
 

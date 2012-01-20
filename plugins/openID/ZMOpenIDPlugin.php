@@ -72,7 +72,7 @@ class ZMOpenIDPlugin extends Plugin {
 
         // add success URL mapping if none exists
         ZMUrlManager::instance()->setMapping('openID', array(
-            'success' => array('template' => 'account', 'view' => 'RedirectView')
+            'success' => array('view' => 'redirect#requestId=account')
         ));
 
         // TODO: manually load lib for now

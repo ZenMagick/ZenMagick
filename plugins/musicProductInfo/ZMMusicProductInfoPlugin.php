@@ -79,7 +79,7 @@ class ZMMusicProductInfoPlugin extends Plugin {
 
         // add mapping for this product type
         ZMUrlManager::instance()->setMapping('product_info', array(
-            'product_music_info' => array('template' => 'product_music_info')
+            'product_music_info' => array('template' => 'views/product_music_info.php')
           ), false);
     }
 

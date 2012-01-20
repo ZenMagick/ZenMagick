@@ -100,10 +100,10 @@ class ZMSubscriptionsPlugin extends Plugin {
 
         // set mappings and permissions of custom pages
         SacsManager::instance()->setMapping('cancel_subscription', ZMAccount::REGISTERED);
-        ZMUrlManager::instance()->setMapping('cancel_subscription', array('template' => 'account', 'view' => 'RedirectView'));
+        ZMUrlManager::instance()->setMapping('cancel_subscription', array('view' => 'redirect#requestId=account'));
 
         SacsManager::instance()->setMapping('subscription_request', ZMAccount::REGISTERED);
-        ZMUrlManager::instance()->setMapping('subscription_request', array('success' => array('template' => 'subscription_request', 'view' => 'RedirectView')));
+        ZMUrlManager::instance()->setMapping('subscription_request', array('success' => array('view' => 'redirect#requestId=subscription_request')));
 
         // set up request form validation
         ZMValidator::instance()->addRules('subscription_request', array(
@@ -114,7 +114,7 @@ class ZMSubscriptionsPlugin extends Plugin {
         // add admin page
         $this->addMenuItem2(_zm('Subscriptions'), 'subscriptionAdmin');
         // set up view mapping
-        ZMUrlManager::instance()->setMapping('subscriptionAdmin', array('success' => array('view' => 'RedirectView')));
+        ZMUrlManager::instance()->setMapping('subscriptionAdmin', array('success' => array('view' => 'redirect')));
     }
 
     /**

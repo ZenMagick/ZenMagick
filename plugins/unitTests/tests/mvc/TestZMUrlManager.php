@@ -33,9 +33,9 @@ class TestZMUrlManager extends ZMTestCase {
      */
     public function testGlobal() {
         $manager = new ZMUrlManager();
-        $manager->setMapping(null, array('error' => array('template' => 'error', 'layout' => 'foo')));
+        $manager->setMapping(null, array('error' => array('template' => 'views/error.php', 'layout' => 'foo.php')));
         $mapping = $manager->findMapping('foo', 'error');
-        $this->assertEqual(array('controller'=>null,'formId'=>null,'form'=>null,'view'=>null,'template'=>'error', 'layout' => 'foo'), $mapping);
+        $this->assertEqual(array('controller'=>null,'formId'=>null,'form'=>null,'view'=>null,'template'=>'views/error.php', 'layout' => 'foo.php'), $mapping);
 
         // test store mapping
         $mapping = ZMUrlManager::instance()->findMapping('foo', 'cart_not_ready');
@@ -60,7 +60,7 @@ class TestZMUrlManager extends ZMTestCase {
     public function testCheckoutGuestSuccess() {
         $manager = ZMUrlManager::instance();
         $mapping = $manager->findMapping('checkout_guest', 'success');
-        $this->assertEqual(array('controller'=>null,'formId'=>null,'form'=>null,'view'=>'redirect#requestId=checkout_shipping','template'=>'login', 'layout' => null), $mapping);
+        $this->assertEqual(array('controller'=>null,'formId'=>null,'form'=>null,'view'=>'redirect#requestId=checkout_shipping','template'=>'views/login.php', 'layout' => null), $mapping);
     }
 
     /**

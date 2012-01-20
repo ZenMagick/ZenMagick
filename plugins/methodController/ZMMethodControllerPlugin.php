@@ -55,7 +55,7 @@ class ZMMethodControllerPlugin extends Plugin {
                 'xform' => array(
                     'controller' => 'ZMMethodController#method=xform',
                     'success' => array(
-                        //'view' => 'RedirectView',
+                        //'view' => 'redirect#requestId=account',
                         'template' => 'xform_success'
                     )
                 )
