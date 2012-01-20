@@ -102,8 +102,8 @@ zenmagick:
   bundles:
     ZenCartBundle: zenmagick\apps\store\bundles\ZenCartBundle\ZenCartBundle
     DoctrineBundle: Doctrine\Bundle\DoctrineBundle\DoctrineBundle 
+    DoctrineMigrationsBundle: Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle
     SwiftmailerBundle: Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle 
-    DoctrineMigrationsBundle: Symfony\Bundle\DoctrineMigrationsBundle\DoctrineMigrationsBundle
 
 
 ## app settings

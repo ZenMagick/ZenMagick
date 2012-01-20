@@ -24,10 +24,8 @@ $vendorDeps = array(
         array('symfony', 'git://github.com/ZenMagick/symfony.git', 'origin/HEAD', false),
         array('twig', 'git://github.com/fabpot/Twig.git', 'origin/master', false)
     ),
-    $baseDir .'/bundles/Symfony/Bundle' => array(
-            array('DoctrineMigrationsBundle', 'git://github.com/symfony/DoctrineMigrationsBundle.git', 'origin/HEAD', false),
-    ),
     $baseDir .'/bundles/Doctrine/Bundle' => array(
+            array('MigrationsBundle', 'git://github.com/doctrine/DoctrineMigrationsBundle.git', 'origin/HEAD', false),
             array('DoctrineBundle', 'git://github.com/doctrine/DoctrineBundle.git', 'origin/HEAD', false),
     ),
 );
