@@ -272,7 +272,7 @@ class Themes extends ZMObject {
      */
     private function getZCThemeDirList() {
         $themes = array();
-        if (false !== ($handle = @opendir(\ZMFileUtils::mkPath(ZC_INSTALL_PATH, 'includes', 'templates')))) {
+        if (false !== ($handle = @opendir(ZC_INSTALL_PATH.'includes/templates'))) {
             while (false !== ($file = readdir($handle))) {
                 if (\ZMLangUtils::startsWith($file, '.')) {
                     continue;

@@ -55,7 +55,7 @@ class TestPhpSourceAnalyzer extends ZMTestCase {
      * @param string filename The file name.
      */
     protected function getSourceFor($filename) {
-        $path = ZMFileUtils::mkPath(array($this->getTestPlugin()->getPluginDirectory(), 'tests', 'base', 'testclasses'));
+        $path = $this->getTestPlugin()->getPluginDirectory().'/tests/base/testclasses';
         $lines = ZMFileUtils::getFileLines($path.$filename);
         return implode("\n", $lines);
     }
@@ -160,7 +160,7 @@ class TestPhpSourceAnalyzer extends ZMTestCase {
             array('ClassG.phpx')
         );
 
-        $path = ZMFileUtils::mkPath(array($this->getTestPlugin()->getPluginDirectory(), 'tests', 'base', 'testclasses', 'deps'));
+        $path = $this->getTestPlugin()->getPluginDirectory().'/tests/base/testclasses/deps';
         $tree = PhpSourceAnalyzer::buildDepdencyTree(ZMFileUtils::findIncludes($path, '.phpx', true), array('SystemClass'));
         // strip path to make comparable and also just look at keys here
         foreach ($tree as $level => $files) {

@@ -40,9 +40,9 @@ class EventListener extends ZMObject {
      */
     public function onBootstrapDone($event) {
         // mvc mappings
-        \ZMUrlManager::instance()->load(file_get_contents(\ZMFileUtils::mkPath(Runtime::getApplicationPath(), 'config', 'url_mappings.yaml')), false);
+        \ZMUrlManager::instance()->load(file_get_contents(Runtime::getApplicationPath().'/config/url_mappings.yaml'), false);
         // sacs mappings
-        $this->container->get('sacsManager')->load(\ZMFileUtils::mkPath(Runtime::getApplicationPath(), 'config', 'sacs_mappings.yaml'), false);
+        $this->container->get('sacsManager')->load(Runtime::getApplicationPath().'/config/sacs_mappings.yaml', false);
         $this->container->get('sacsManager')->loadProviderMappings(Runtime::getSettings()->get('zenmagick.http.sacs.mappingProviders', array()));
     }
 

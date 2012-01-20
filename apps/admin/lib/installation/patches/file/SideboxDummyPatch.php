@@ -162,7 +162,7 @@ class SideboxDummyPatch extends FilePatch {
 
         // 2) plugins
         foreach ($this->container->get('pluginService')->getAllPlugins() as $plugin) {
-            $dir = \ZMFileUtils::mkPath(array($plugin->getPluginDirectory(), 'content', 'boxes'));
+            $dir = $plugin->getPluginDirectory().'/content/boxes';
             $boxPathList[] = $dir;
         }
 

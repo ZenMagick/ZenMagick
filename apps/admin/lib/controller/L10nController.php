@@ -109,11 +109,8 @@ class L10nController extends \ZMController {
         $existingMap = array();
         if ($vd['mergeExisting']) {
             $theme = $themeService->getThemeForId($vd['themeId']);
-            $language = $this->container->get('languageService')->getLanguageForId($vd['languageId']);
-            $l10nPath = \ZMFileUtils::mkPath(array($theme->getBaseDir(), '/lang', $language->getDirectory(), 'locale.yaml'));
-            if (file_exists($l10nPath)) {
-                $existingMap = array('locale.yaml' => Yaml::parse($l10nPath));
-            }
+            $themeMap = $scanner->buildL10nMap($theme->getBaseDir());
+            $existingMap = $themeMap;
         }
 
         $sharedMap = array();

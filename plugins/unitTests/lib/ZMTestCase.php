@@ -121,7 +121,7 @@ class ZMTestCase extends UnitTestCase {
      * @return string The full directory name of the tests folder.
      */
     public function getTestsBaseDirectory() {
-        return ZMFileUtils::mkPath($this->getTestPlugin()->getPluginDirectory(), 'tests');
+        return $this->getTestPlugin()->getPluginDirectory().'/tests';
     }
 
 }

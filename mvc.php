@@ -59,7 +59,7 @@ if (TRACEBS) {echo 'post url decode: '.Runtime::getExecutionTime()."<BR>";}
         Runtime::getContainer()->get('sacsManager')->ensureAccessMethod($_zm_request);
 
         // form validation
-        ZMValidator::instance()->load(file_get_contents(\ZMFileUtils::mkPath(array(Runtime::getApplicationPath(), 'config', 'validation.yaml'))));
+        ZMValidator::instance()->load(file_get_contents(Runtime::getApplicationPath().'/config/validation.yaml'));
 
         // load stuff that really needs to be global!
         if (Runtime::getSettings()->get('zenmagick.base.plugins.enabled', true)) {

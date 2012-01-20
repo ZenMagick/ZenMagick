@@ -38,7 +38,7 @@ use zenmagick\http\sacs\SacsManager;
   // set some admin specific things...
   ZMUrlManager::instance()->clear();
   SacsManager::instance()->reset();
-  SacsManager::instance()->load(file_get_contents(ZMFileUtils::mkPath(array(Runtime::getInstallationPath(), 'apps/admin/config', 'sacs_mappings.yaml'))), false);
+  SacsManager::instance()->load(file_get_contents(Runtime::getInstallationPath().'/apps/admin/config/sacs_mappings.yaml'), false);
 
   if (ZMLangUtils::isEmpty($request->getRequestId())) {
       $request->setParameter('main_page', 'index');
