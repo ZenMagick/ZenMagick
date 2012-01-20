@@ -62,7 +62,7 @@ class LocaleScanner {
      * @return array A map of l10n strings for each file.
      */
     public function buildL10nMap($baseDir, $ext='.php') {
-        $relBase = \ZMFileUtils::normalizeFilename(dirname($baseDir));
+        $filesystem = $this->container->get('filesystem');
 
         $lnPatterns = explode(',', self::LOCALE_PATTERNS);
         $map = array();
@@ -70,7 +70,7 @@ class LocaleScanner {
             $strings = array();
             $contents = file_get_contents($filename);
             // try to convert into relative path
-            $filename = \ZMFileUtils::normalizeFilename($filename);
+            $filename = $filesystem->makePathRelative($filename, Runtime::getInstallationPath());
             $filename = str_replace($relBase, '', $filename);
 
             // use PHP tokenizer to analyze...

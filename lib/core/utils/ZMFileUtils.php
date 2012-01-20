@@ -135,32 +135,6 @@ class ZMFileUtils {
     }
 
     /**
-     * Normalize filename.
-     *
-     * <p>Fix OS specific directory separator characters.</p>
-     *
-     * <p>Filenames denoting a directory will always be returned with a trailing <code>DIRECTORY_SEPARATOR</code>.</p>
-     *
-     * @param string filename The filename.
-     * @return string The normalized filename.
-     */
-    public static function normalizeFilename($filename) {
-        if (strpos($filename, '\\')) {
-            $filename = preg_replace('/\\\\+/', '\\', $filename);
-            $filename = str_replace('\\', DIRECTORY_SEPARATOR, $filename);
-        }
-
-        if (file_exists($filename)) {
-            $filename = realpath($filename);
-        }
-        if (is_dir($filename)) {
-            $filename .= DIRECTORY_SEPARATOR;
-        }
-
-        return $filename;
-    }
-
-    /**
      * Load the given file line by line.
      *
      * @param string file The filename.

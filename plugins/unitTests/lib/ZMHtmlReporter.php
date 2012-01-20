@@ -186,9 +186,9 @@ class ZMHtmlReporter extends \HtmlReporter {
 
         echo '<div class="exception"><div class="msg"><strong>'.$exception.'</strong></div>';
         echo "<pre>";
-        $root = \ZMFileUtils::normalizeFilename(Runtime::getInstallationPath());
+        $filesystem = $this->container->get('filesystem');
         foreach ($exception->getTrace() as  $level) {
-            $file = \ZMFileUtils::normalizeFilename($level['file']);
+            $file = $filesystem->makePathRelative($level['file'], Runtime::getInstallationPath());
             $file = str_replace($root, '', $file);
             $class = array_key_exists('class', $level) ? $level['class'].'::' : '';
             echo $class.$level['function'].' (#'.$level['line'].':'.$file.")\n";

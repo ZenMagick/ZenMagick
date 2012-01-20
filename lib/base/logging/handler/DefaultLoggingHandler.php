@@ -124,7 +124,7 @@ class DefaultLoggingHandler extends ZMObject implements LoggingHandler {
                 echo '<h3>'.$msg.":</h3>\n";
             }
         }
-        $root = \ZMFileUtils::normalizeFilename(Runtime::getInstallationPath());
+        $filesystem = $this->container->get('filesystem');
         echo "<pre>";
         foreach (debug_backtrace() as $line) {
             echo ' ';
@@ -132,14 +132,12 @@ class DefaultLoggingHandler extends ZMObject implements LoggingHandler {
                 echo $line['class'].'::';
             }
             if (isset($line['file'])) {
-                $file = \ZMFileUtils::normalizeFilename($line['file']);
+                $file = $filesystem->makePathRelative($line['file'], Runtime::getInstallationPath());
                 $lineNumber = $line['line'];
                 $location = '#'.$line['line'].':'.$file;
             } else {
                 $location = 'no source';
             }
-            // make filename relative
-            $file = str_replace($root, '', $file);
             $class = array_key_exists('class', $line) ? $line['class'].'::' : '';
             echo $class.$line['function'].' ('.$location.")\n";
         }

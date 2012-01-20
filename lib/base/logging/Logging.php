@@ -21,8 +21,9 @@
 <?php
 namespace zenmagick\base\logging;
 
-use zenmagick\base\Runtime;
 use zenmagick\base\Beans;
+use zenmagick\base\Runtime;
+use zenmagick\base\ZMObject;
 
 
 /**
@@ -34,7 +35,7 @@ use zenmagick\base\Beans;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class Logging {
+class Logging extends ZMObject {
     /** Log level: Disabled. */
     const NONE = 0;
     /** Log level: Error. */
@@ -64,7 +65,6 @@ class Logging {
     /** Readable list of log level. */
     public static $LOG_LEVEL = array('NONE', 'ERROR', 'WARN', 'INFO', 'DEBUG', 'TRACE');
 
-    private $handlerList_;
     private $ERR_MAP = array(
         1 => "Error",
         2 => "Warning",
@@ -82,14 +82,6 @@ class Logging {
         8192 => "Deprecated",
         16384 => "User Deprecated"
     );
-
-
-    /**
-     * Create new instance.
-     */
-    public function __construct() {
-        $this->handlerList_ = array();
-    }
 
 
     /**
@@ -121,10 +113,9 @@ class Logging {
      * @return array A list of handlers.
      */
     protected function getHandlers() {
-        $container = Runtime::getContainer();
         $handlers = array();
-        foreach ($container->findTaggedServiceIds('zenmagick.base.logging.handler') as $id => $args) {
-            $handlers[] = $container->get($id);
+        foreach ($this->container->findTaggedServiceIds('zenmagick.base.logging.handler') as $id => $args) {
+            $handlers[] = $this->container->get($id);
         }
         return $handlers;
     }
@@ -267,8 +258,8 @@ class Logging {
             $errlevel = "Unknown";
         }
 
-        $root = \ZMFileUtils::normalizeFilename(dirname(Runtime::getInstallationPath()));
-        $errfile = str_replace($root, '', \ZMFileUtils::normalizeFilename($errfile));
+        // TODO: files may be outside ZM installation path
+        $errfile = $this->container->get('filesystem')->makePathRelative($errfile, dirname(Runtime::getInstallationPath()));
 
         return "\"$time\",\"$errfile: $errline\",\"($errlevel) $errstr\"\r\n";
     }

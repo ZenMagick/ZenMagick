@@ -57,7 +57,7 @@
             <tag name="zenmagick.base.security.authentication.provider" />
         </service>
 
-        <service id="filesystem" class="Symfony\Component\Filesystem\Filesystem" scope="container" />
+        <service id="filesystem" class="zenmagick\base\filesystem\Filesystem" scope="container" />
 
         <service id="phpCompressor" class="zenmagick\base\utils\packer\PhpCompressor" scope="prototype" />
         <service id="phpPackagePacker" class="zenmagick\base\utils\packer\PhpPackagePacker" scope="prototype" />
