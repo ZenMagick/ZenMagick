@@ -33,7 +33,7 @@ class ZMWordpressController extends ZMController {
      * {@inheritDoc}
      */
     public function processGet($request) {
-        $plugin = $this->container->get('pluginService')->get('wordpress');
+        $plugin = $this->container->get('pluginService')->getPluginForId('wordpress');
         $viewName = $plugin->getRequestHandler($request)->preProcess($request);
         return $this->findView($viewName);
     }

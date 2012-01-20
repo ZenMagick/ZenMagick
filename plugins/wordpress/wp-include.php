@@ -32,11 +32,13 @@ use zenmagick\base\Runtime;
   define('WP_USE_THEMES', false);
 
   if (null != ($plugin = Runtime::getContainer()->get('pluginService')->getPluginForId('wordpress'))) {
-      if (file_exists($plugin->get('wordpressDir').'wp-config.php')) { // @todo error message
-          require_once $plugin->get('wordpressDir').'wp-config.php';
+      if (null != ($wpConfig = $plugin->get('wordpressDir').'/wp-config.php') && file_exists($wpConfig)) {
+          require_once $wpConfig;
           $wp->init();
           $wp->parse_request();
           $wp->query_posts();
           $wp->register_globals();
+      } else {
+          Runtime::getLogging()->error('cannot find WP config');
       }
   }
