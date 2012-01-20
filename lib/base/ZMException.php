@@ -53,7 +53,7 @@ class ZMException extends Exception {
     public function __toString() {
         $s =  '['.get_class($this);
         $s .= ' message='.$this->getMessage();
-        $s .= ', file='.\ZMFileUtils::mkRelativePath($this->getFile());
+        $s .= ', file='.Runtime::getContainer()->get('filesystem')->makePathRelative($this->getFile(), Runtime::getInstallationPath());
         $s .= ', line='.$this->getLine();
         $s .= ', previous='.$this->previous_;
         $s .= ']';

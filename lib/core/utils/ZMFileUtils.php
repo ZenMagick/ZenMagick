@@ -161,19 +161,6 @@ class ZMFileUtils {
     }
 
     /**
-     * Make the given absolute filename relative to the installation path.
-     *
-     * @param string filename The filename.
-     * @return string A relative filename (if within the installation folder).
-     */
-    public static function mkRelativePath($filename) {
-        $root = self::normalizeFilename(Runtime::getInstallationPath());
-        $filename = self::normalizeFilename($filename);
-        // make filename relative
-        return str_replace($root, '', $filename);
-    }
-
-    /**
      * Load the given file line by line.
      *
      * @param string file The filename.
