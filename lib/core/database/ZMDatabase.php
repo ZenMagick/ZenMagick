@@ -59,7 +59,7 @@ use zenmagick\base\ZMObject;
  * @author DerManoMann <mano@zenmagick.org> <mano@zenmagick.org>
  * @package org.zenmagick.core.database
  */
-class ZMPdoDatabase extends ZMObject {
+class ZMDatabase extends ZMObject {
     /** If used as modelClass parameter, the raw SQL data will be returned (no mapping, etc). */
     const MODEL_RAW = '@raw';
 
@@ -561,13 +561,12 @@ class ZMPdoDatabase extends ZMObject {
             $stmt = $this->prepareStatement($sql, $data, $mapping);
             $stmt->execute();
             $rows = $stmt->rowCount();
-            $newId = $this->pdo_->lastInsertId();
             $stmt->closeCursor();
         } catch (PDOException $pdoe) {
             throw new ZMDatabaseException($pdoe->getMessage(), $pdoe->getCode(), $pdoe);
         }
 
-        return array('rows' => $rows, 'lastInsertId' => $newId);
+        return $rows;
     }
 
     /**

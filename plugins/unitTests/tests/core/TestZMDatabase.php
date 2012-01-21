@@ -34,7 +34,7 @@ class TestZMDatabase extends ZMTestCase {
      * Get all provider to test.
      */
     public static function getProviders() {
-        return array('ZMPdoDatabase' => ZMRuntime::getDatabase());
+        return array('ZMDatabase' => ZMRuntime::getDatabase());
     }
 
     /**
