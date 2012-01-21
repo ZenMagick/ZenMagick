@@ -65,8 +65,9 @@ class ZMBlocks extends ZMObject {
     public function createBlockGroup(ZMBlockGroup $blockGroup) {
         $sql = 'INSERT INTO '.DB_PREFIX.'block_groups' . '(group_name, description) VALUES (:group_name, :description)';
         $args = array('group_name' => $blockGroup->getName(), 'description' => $blockGroup->getDescription());
-        $group = ZMRuntime::getDatabase()->update($sql, $args, DB_PREFIX.'block_groups');
-        $blockGroup->setId($group['lastInsertId']);
+        $conn = ZMRuntime::getDatabase();
+        $conn->update($sql, $args, DB_PREFIX.'block_groups');
+        $blockGroup->setId($conn->getResource()->lastInsertId());
         return $blockGroup;
         //return ZMRuntime::getDatabase()->createModel(DB_PREFIX.'block_groups', $blockGroup);
     }
