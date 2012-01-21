@@ -83,7 +83,7 @@ class ZMRuntime {
         ksort($dbconf);
         $key = serialize($dbconf);
         if (!array_key_exists($key, self::$databaseMap_)) {
-            self::$databaseMap_[$key] = new ZMPdoDatabase($dbconf);
+            self::$databaseMap_[$key] = new ZMDatabase($dbconf);
         }
 
         return self::$databaseMap_[$key];
