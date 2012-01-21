@@ -256,11 +256,13 @@ class View extends ZMObject {
         $this->setVariable('container', $this->container);
         $this->setVariable('resources', $this->getResourceManager());
         $this->setVariable('resourceManager', $this->getResourceManager());
+        $this->setVariable('resourceResolver', $this->getResourceResolver());
         $this->setVariable('view', $this);
         $this->setVariable('request', $request);
         $this->setVariable('session', $request->getSession());
         $this->setVariable('settingsService', $settingsService);
 
+        // find services tagged as view variables
         foreach ($this->container->findTaggedServiceIds('zenmagick.http.view.variable') as $id => $args) {
             $key = null;
             foreach ($args as $elem) {
@@ -300,8 +302,13 @@ class View extends ZMObject {
                 $template = $this->getTemplate();
             }
 
-            $output = $this->fetch($template, $variables);
-
+            if (true) {
+                $output = $this->fetch($template, $variables);
+            } else {
+                $engine = new \zenmagick\http\templating\ZMPhpEngine($this->resourceResolver, $this->request);
+                $engine->setContainer($this->container);
+                $output = $engine->render($template, array_merge($variables, $this->getVariables()));
+            }
             if (null !== ($resources = $this->resourceManager->getResourceContents())) {
                 // apply resources...
                 $output = preg_replace('/<\/head>/', $resources['header'] . '</head>', $output, 1);
