@@ -10,7 +10,6 @@ zenmagick:
   core:
     ## db
     database:
-      provider: ZMPdoDatabase
       mappings:
         cache:
           enabled: false
