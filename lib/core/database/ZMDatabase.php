@@ -78,7 +78,6 @@ class ZMDatabase extends ZMObject {
     protected $pdo_;
     protected $config_;
     protected $mapper_;
-    protected static $SAVEPOINT_DRIVER = array('pdo_pgsql', 'pdo_mysql');
     protected $evm_;
     protected $dbalConfig_;
 
@@ -165,7 +164,7 @@ class ZMDatabase extends ZMObject {
             $this->evm_->addEventSubscriber(new Doctrine\DBAL\Event\Listeners\MysqlSessionInit($conf['charset'], $conf['collation']));
 
             // @todo ask DBAL if the driver/db type supports nested transactions
-            $pdo->setNestTransactionsWithSavepoints($this->isNestedTransactions());
+            $pdo->setNestTransactionsWithSavepoints(true);
 
             // @todo can we set these up earlier?
             $pdo->getDatabasePlatform()->registerDoctrineTypeMapping('blob', 'blob');
@@ -178,15 +177,6 @@ class ZMDatabase extends ZMObject {
             $this->pdo_ = $pdo;
             $this->config_ = $conf;
         }
-    }
-
-    /**
-     * Does this instance allow nested transactions?
-     *
-     * @return boolean <code>true</code> if nested transactions are supported.
-     */
-    protected function isNestedTransactions() {
-        return in_array($this->config_['driver'], self::$SAVEPOINT_DRIVER);
     }
 
     /**
