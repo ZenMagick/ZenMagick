@@ -81,7 +81,7 @@ class ZMPhpEngine extends ZMObject implements EngineInterface {
      * {@inheritDoc}
      */
     public function supports($template) {
-        $ext = pathinfo($filename, PATHINFO_EXTENSION);
+        $ext = pathinfo($template, PATHINFO_EXTENSION);
         return 'php' === $ext;
     }
 
