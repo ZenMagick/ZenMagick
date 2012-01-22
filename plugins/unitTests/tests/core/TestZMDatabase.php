@@ -29,19 +29,12 @@ use zenmagick\base\Beans;
  * @author DerManoMann <mano@zenmagick.org>
  */
 class TestZMDatabase extends ZMTestCase {
-    static $PROVIDERS = array('ZMPdoDatabase');
-
 
     /**
      * Get all provider to test.
      */
     public static function getProviders() {
-        //XXX: add variations with different drivers
-        $providers = array();
-        foreach (self::$PROVIDERS as $provider) {
-            $providers[$provider] = ZMRuntime::getDatabase(array('provider' => $provider));
-        }
-        return $providers;
+        return array('ZMDatabase' => ZMRuntime::getDatabase());
     }
 
     /**

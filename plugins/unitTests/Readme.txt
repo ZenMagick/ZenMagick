@@ -35,7 +35,7 @@ something like the following should be sufficient:
 
 However, it is possible to configure all aspects in this setting:
 
-    ZMSettings::set('plugins.unitTests.database.test', 'dbname=test&provider=ZMPdoDatabase&user=dbuser&password=dbpwd');
+    ZMSettings::set('plugins.unitTests.database.test', 'dbname=test&user=dbuser&password=dbpwd');
 
 
 Custom tests

@@ -49,7 +49,7 @@ class ZMHowDidYouHearPlugin extends Plugin {
      */
     public function install() {
         parent::install();
-        ZMDbUtils::executePatch(file(ZMDbUtils::resolveSQLFilename($this->getPluginDirectory()."/sql/install_referrals.sql")), $this->messages_);
+        ZMDbUtils::executePatch(file(ZMDbUtils::resolveSQLFilename($this->getPluginDirectory()."/sql/install.sql")), $this->messages_);
         $this->addConfigValue('Display "Other', 'displayOther', 'true',
             'Display "Other - please specify" with text box in referral source in account creation',
             'widget@ZMBooleanFormWidget#name=displayOther&default=true&label=Allow other&style=checkbox');
