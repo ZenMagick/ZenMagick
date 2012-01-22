@@ -23,7 +23,12 @@ storefront:
           template: conditions
       ## redirect externally
       privacy:
-        view: RedirectView#url=http://www.dilbert.com/
+        view: redirect#url=http://www.dilbert.com/
+      ## product_info
+      product_info:
+        layout: ""
+        template: views/twig_product.twig
+        
     global:
       page_not_found:
         template: index

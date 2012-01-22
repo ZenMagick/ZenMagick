@@ -303,16 +303,15 @@ class View extends ZMObject {
                 $template = $this->getTemplate();
             }
 
-            if (true) {
-                $output = $this->fetch($template, $variables);
-            } else {
-                // get engines
-                $engine = new DelegatingEngine();
-                foreach ($this->container->findTaggedServiceIds('zenmagick.http.templates.engine') as $id => $args) {
-                    $engine->addEngine($this->container->get($id));
-                }
-                $output = $engine->render($template, array_merge($variables, $this->getVariables()));
+            // get engines
+            $engine = new DelegatingEngine();
+            foreach ($this->container->findTaggedServiceIds('zenmagick.http.templates.engine') as $id => $args) {
+                $engine->addEngine($this->container->get($id));
             }
+
+            // render
+            $output = $engine->render($template, array_merge($variables, $this->getVariables()));
+
             if (null !== ($resources = $this->resourceManager->getResourceContents())) {
                 // apply resources...
                 $output = preg_replace('/<\/head>/', $resources['header'] . '</head>', $output, 1);

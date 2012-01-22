@@ -30,6 +30,17 @@
         <!-- TODO: drop when moving to using view instead of defaultView -->
         <service id="defaultView" alias="storeView" />
 
+        <service id="storePhpEngine" class="zenmagick\http\templating\ZMPhpEngine" scope="prototype">
+            <argument type="service" id="themeResourceResolver" />
+            <argument type="service" id="request" />
+            <tag name="zenmagick.http.templates.engine" />
+        </service>
+
+        <!-- redefine for storefront -->
+        <service id="resourceResolverTwigLoader" class="zenmagick\http\templating\ResourceResolverTwigLoader" scope="prototype">
+            <argument type="service" id="themeResourceResolver" />
+        </service>
+
         <service id="storeMessageService" class="zenmagick\apps\store\storefront\services\MessageService" parent="merge:messageService" />
 
         <service id="ZMForwardView" class="ForwardView" scope="prototype" />
