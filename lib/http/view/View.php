@@ -21,6 +21,7 @@
 <?php
 namespace zenmagick\http\view;
 
+use Symfony\Component\Templating\DelegatingEngine;
 use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
 use zenmagick\base\ZMException;
@@ -305,8 +306,11 @@ class View extends ZMObject {
             if (true) {
                 $output = $this->fetch($template, $variables);
             } else {
-                $engine = new \zenmagick\http\templating\ZMPhpEngine($this->resourceResolver, $this->request);
-                $engine->setContainer($this->container);
+                // get engines
+                $engine = new DelegatingEngine();
+                foreach ($this->container->findTaggedServiceIds('zenmagick.http.templates.engine') as $id => $args) {
+                    $engine->addEngine($this->container->get($id));
+                }
                 $output = $engine->render($template, array_merge($variables, $this->getVariables()));
             }
             if (null !== ($resources = $this->resourceManager->getResourceContents())) {
