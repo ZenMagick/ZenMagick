@@ -65,9 +65,9 @@ class Theme extends ZMObject {
             } else {
                 $this->config_ = array();
                 //XXX: try for zc theme
-                $templatePath = ZC_INSTALL_PATH.'includes/templates/'.$themeId;
-                if (is_dir($templatePath) && file_exists($templatePath.'template_info.php')) {
-                    include $templatePath.'template_info.php';
+                $templatePath = ZC_INSTALL_PATH.'/includes/templates/'.$themeId;
+                if (is_dir($templatePath) && file_exists($templatePath.'/template_info.php')) {
+                    include $templatePath.'/template_info.php';
                     if (isset($template_name)) {
                         $this->config_['meta'] = array();
                         $this->config_['meta']['name'] = $template_name.' (Zen Cart)';
