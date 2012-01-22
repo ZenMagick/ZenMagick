@@ -16,11 +16,11 @@ storefront:
     page:
       ## show conditions as homepage!
       index:
-        template: conditions
+        template: views/conditions.php
       ## change redirect view after sucessful login
       login:
         success:
-          template: conditions
+          template: views/conditions.php
       ## redirect externally
       privacy:
         view: redirect#url=http://www.dilbert.com/
