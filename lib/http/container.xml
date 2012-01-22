@@ -110,5 +110,26 @@
 
         <service id="blockWidget" class="zenmagick\http\blocks\widgets\BlockWidget" scope="prototype" />
 
+        <service id="fileExtensionTemplateNameParser" class="Symfony\Component\Templating\TemplateNameParser" scope="prototype" />
+
+        <service id="resourceResolverTwigLoader" class="zenmagick\http\templating\ResourceResolverTwigLoader" scope="prototype">
+            <argument type="service" id="resourceResolver" />
+        </service>
+
+        <service id="resourceResolverFileLocator" class="zenmagick\http\templating\ResourceResolverFileLocator" scope="prototype">
+            <argument type="service" id="resourceResolver" />
+        </service>
+
+        <service id="twigEnvironment" class="Twig_Environment" scope="prototype">
+            <argument type="service" id="resourceResolverTwigLoader" />
+        </service>
+
+        <service id="twigEngine" class="Symfony\Bundle\TwigBundle\TwigEngine" scope="prototype">
+            <argument type="service" id="twigEnvironment" />
+            <argument type="service" id="fileExtensionTemplateNameParser" />
+            <argument type="service" id="resourceResolverFileLocator" />
+            <tag name="zenmagick.http.templates.engine" />
+        </service>
+
     </services>
 </container>
