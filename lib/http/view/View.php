@@ -21,6 +21,7 @@
 <?php
 namespace zenmagick\http\view;
 
+use Exception;
 use Symfony\Component\Templating\DelegatingEngine;
 use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
