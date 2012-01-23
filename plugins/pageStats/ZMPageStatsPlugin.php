@@ -137,7 +137,7 @@ class ZMPageStatsPlugin extends Plugin {
         }
         echo '  databases: ';
         foreach (ZMRuntime::getDatabases() as $database) {
-            $config = $database->getConfig();
+            $config = $database->getParams();
             $stats = $database->getStats();
             echo $config['dbname'].'('.get_class($database).'): SQL queries: '.$stats['queries'].', duration: '.round($stats['time'], 4).' seconds; ';
         }
@@ -165,7 +165,7 @@ class ZMPageStatsPlugin extends Plugin {
             echo '<!--'."\n";
             echo '  SQL timings: ';
             foreach (ZMRuntime::getDatabases() as $database) {
-                $config = $database->getConfig();
+                $config = $database->getParams();
                 $stats = $database->getStats();
                 $details = $stats['details'];
                 usort($details, array($this, "compareStats"));
@@ -226,7 +226,7 @@ class ZMPageStatsPlugin extends Plugin {
         }
         echo '&nbsp;&nbsp;<strong>databases:</strong> ';
         foreach (ZMRuntime::getDatabases() as $database) {
-            $config = $database->getConfig();
+            $config = $database->getParams();
             $stats = $database->getStats();
             echo $config['dbname'].'('.get_class($database).'): SQL queries: <strong>'.$stats['queries'].'</strong>, duration: <strong>'.round($stats['time'], 4).'</strong> seconds; ';
         }

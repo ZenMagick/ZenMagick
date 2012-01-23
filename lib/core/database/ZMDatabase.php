@@ -150,7 +150,7 @@ class ZMDatabase extends ZMObject {
      *
      * @return array Configuration settings as set via the constructor.
      */
-    public function getConfig() {
+    public function getParams() {
         return $this->config_;
     }
 

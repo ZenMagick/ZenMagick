@@ -143,7 +143,7 @@ class ZMDbTableMapper extends ZMObject {
         if (!is_array($tables)) {
             $tables = array($tables);
         }
-        $config = $database->getConfig();
+        $config = $database->getParams();
         foreach ($tables as $ii => $table) {
             $tables[$ii] = str_replace($config['prefix'], '', $table);
         }
@@ -184,7 +184,7 @@ class ZMDbTableMapper extends ZMObject {
             Runtime::getLogging()->dump($dbe, 'missing table (non prefixed)', Logging::TRACE);
         }
 
-        $config = $database->getConfig();
+        $config = $database->getParams();
 
         if (null === $tableMetaData) {
             // try adding the prefix
@@ -227,7 +227,7 @@ class ZMDbTableMapper extends ZMObject {
      */
     public function ensureMapping($mapping, $database) {
         if (!is_array($mapping)) {
-            $config = $database->getConfig();
+            $config = $database->getParams();
             // table name
             $table = $mapping;
             $mapping = $this->getMapping($table, $database);
@@ -265,7 +265,7 @@ class ZMDbTableMapper extends ZMObject {
      * @return array A map of custom field details (if any)
      */
     public function getCustomFieldInfo($table, $database) {
-        $config = $database->getConfig();
+        $config = $database->getParams();
         $customFieldKey = 'zenmagick.core.database.sql.'.str_replace($config['prefix'], '', $table).'.customFields';
         $setting = Runtime::getSettings()->get($customFieldKey);
         if (empty($setting)) {
