@@ -87,7 +87,11 @@ class ZMRequest extends ZMObject {
         $scheme = $this->isSecure() ? 'https' : 'http';
         // empty router
         $requestContext = new RequestContext($this->getContext(), $this->getMethod(), $this->getHostname(), $scheme);
-        $options = array('generator_class' => 'zenmagick\\http\\routing\\generator\\UrlGenerator');
+        $options = array(
+            'generator_class' => 'zenmagick\http\routing\generator\UrlGenerator',
+            //'matcher_class' => 'Symfony\\Component\\Routing\\Matcher\\RedirectableUrlMatcher'
+        );
+
         $this->router_ = new Router(new YamlLoader(), '', $options, $requestContext);
     }
 

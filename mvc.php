@@ -22,8 +22,7 @@
 
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Routing\Route;
-use Symfony\Component\Routing\loader\YamlFileLoader as SymfonyYamlFileLoader;
-
+use Symfony\Component\Routing\loader\XmlFileLoader;
 use zenmagick\base\Runtime;
 use zenmagick\base\events\Event;
 
@@ -32,13 +31,13 @@ use zenmagick\base\events\Event;
         $request = $_zm_request = Runtime::getContainer()->get('request');
 
         // load application routing
-        $appRoutingFile = Runtime::getApplicationPath().'/config/routing.yaml';
+        $appRoutingFile = Runtime::getApplicationPath().'/config/routing.xml';
         if (file_exists($appRoutingFile)) {
-            $appRoutingLoader = new SymfonyYamlFileLoader(new FileLocator());
+            $appRoutingLoader = new XmlFileLoader(new FileLocator());
             $appRouterCollection = $appRoutingLoader->load($appRoutingFile);
             $request->getRouter()->getRouteCollection()->addCollection($appRouterCollection);
         }
-if (TRACEBS) {echo 'post routing.yaml: '.Runtime::getExecutionTime()."<BR>";}
+if (TRACEBS) {echo 'post routing.xml: '.Runtime::getExecutionTime()."<BR>";}
 
         // tell everyone interested that we have a request
         Runtime::getEventDispatcher()->dispatch('init_request', new Event(null, array('request' => $_zm_request)));
