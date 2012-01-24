@@ -25,7 +25,7 @@
 
 use zenmagick\base\Runtime;
 use zenmagick\base\ZMException;
-use zenmagick\http\request\rewriter\UrlRewriter;
+use zenmagick\http\request\UrlRewriter;
 
 /**
  * Default rewriter implementing the original zencart URL scheme.

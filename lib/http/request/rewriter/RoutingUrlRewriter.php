@@ -22,6 +22,7 @@
 namespace zenmagick\http\request\rewriter;
 
 use zenmagick\base\Runtime;
+use zenmagick\http\request\UrlRewriter;
 
 /**
  * Routing URL rewriter.

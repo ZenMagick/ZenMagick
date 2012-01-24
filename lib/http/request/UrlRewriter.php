@@ -19,7 +19,7 @@
  */
 ?>
 <?php
-namespace zenmagick\http\request\rewriter;
+namespace zenmagick\http\request;
 
 
 /**

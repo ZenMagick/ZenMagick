@@ -23,6 +23,7 @@ namespace zenmagick\http\request\rewriter;
 
 use zenmagick\base\Runtime;
 use zenmagick\base\ZMObject;
+use zenmagick\http\request\UrlRewriter;
 
 /**
  * Default URL rewriter.
