@@ -274,7 +274,7 @@ class Logging extends ZMObject {
         if (Runtime::getSettings()->get('zenmagick.base.logging.enabled', true)) {
             $logLevel = $this->getLogLevel();
             foreach ($this->getHandlers() as $handler) {
-                if ((null === ($customLevel = $handler->getLogLevel()) && self::ERROR <= $logLevel) || self::ERROR <= $customLevel) {
+                if ((null === ($customLevel = $handler->getLogLevel()) && self::ERROR <= $logLevel) || self::ERROR <= $this->translateLogLevel($customLevel)) {
                     $handler->logError($line, $info);
                 }
             }
