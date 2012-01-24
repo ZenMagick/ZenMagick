@@ -36,6 +36,13 @@ interface LoggingHandler {
     public function getLogLevel();
 
     /**
+     * Set the custom log level for this handler.
+     *
+     * @param int logLevel The new custom log level.
+     */
+    public function setLogLevel($logLevel);
+
+    /**
      * Log message.
      *
      * @param string msg The message to log.

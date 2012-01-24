@@ -36,7 +36,7 @@ use zenmagick\base\logging\LoggingHandler;
  * @author DerManoMann <mano@zenmagick.org>
  */
 class DefaultLoggingHandler extends ZMObject implements LoggingHandler {
-    private $logLevel;
+    protected $logLevel;
 
 
     /**
@@ -60,9 +60,7 @@ class DefaultLoggingHandler extends ZMObject implements LoggingHandler {
     }
 
     /**
-     * Set the custom log level for this handler.
-     *
-     * @param int logLevel The new custom log level.
+     * {@inheritDoc}
      */
     public function setLogLevel($logLevel) {
         $this->logLevel = $logLevel;
