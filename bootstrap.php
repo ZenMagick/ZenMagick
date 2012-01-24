@@ -46,7 +46,7 @@ use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
         // detect CLI calls
         define('ZM_CLI_CALL', defined('STDIN'));
         // base installation directory
-        define('ZM_BASE_PATH', dirname(__FILE__)) .'/';
+        define('ZM_BASE_PATH', dirname(__FILE__));
         // app name
         define('ZM_APP_NAME', defined('ZM_APP_PATH') ? basename(ZM_APP_PATH) : null);
         // set up the environment to run in
@@ -70,21 +70,28 @@ use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
             require_once ZM_BASE_PATH.'/lib/base/classloader/CachingClassLoader.php';
         }
 
-        $vendor = defined('VENDOR_LIB') ? VENDOR_LIB : 'vendor';
-
 if (TRACEBS) {$precl = microtime();}
         // load main packages
-        $packages = array($vendor, $vendor.'/local', 'lib/base', 'lib/core', 'lib/http', 'lib/mvc', 'shared');
+        $packageBase = 'zenmagick/';
+        $packages = array('vendor', 'vendor/local', 'lib/base', 'lib/core', 'lib/http', 'lib/mvc', 'shared');
         $zmLoader = new $CLASSLOADER();
         $zmLoader->register();
+        // all folders to check
+        $includePath = array_merge(array(dirname(ZM_BASE_PATH)), explode(PATH_SEPARATOR, get_include_path()));
         foreach ($packages as $path) {
-            $path = ZM_BASE_PATH.'/'.$path;
-            $zmLoader->addConfig($path);
-            // packages may have their own *system* services
-            $packageConfig = $path.'/container.xml';
-            if (file_exists($packageConfig)) {
-                $packageLoader = new XmlFileLoader(Runtime::getContainer(), new FileLocator(dirname($packageConfig)));
-                $packageLoader->load($packageConfig);
+            // pick first existing folder
+            foreach ($includePath as $dir) {
+                $ppath = $dir.'/'.$packageBase.$path;
+                if (file_exists($ppath) && is_dir($ppath)) {
+                    $zmLoader->addConfig($ppath);
+                    // packages may have their own *system* services
+                    $packageConfig = $ppath.'/container.xml';
+                    if (file_exists($packageConfig)) {
+                        $packageLoader = new XmlFileLoader(Runtime::getContainer(), new FileLocator(dirname($packageConfig)));
+                        $packageLoader->load($packageConfig);
+                    }
+                    break;
+                }
             }
         }
 if (TRACEBS) {echo 'pre CL: '.Runtime::getExecutionTime($precl)."<BR>";}
