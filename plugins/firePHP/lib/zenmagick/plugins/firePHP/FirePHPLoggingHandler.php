@@ -21,6 +21,7 @@
 <?php
 namespace zenmagick\plugins\firePHP;
 
+use zenmagick\base\Runtime;
 use zenmagick\base\logging\Logging;
 use zenmagick\base\logging\handler\DefaultLoggingHandler;
 
@@ -48,6 +49,7 @@ class FirePHPLoggingHandler extends DefaultLoggingHandler {
      */
     public function log($msg, $level) {
         if (!headers_sent()) {
+            $msg = '['.Runtime::getExecutionTime().'] '.$msg;
             FirePHP::getInstance(true)->fb($msg, self::$LEVEL_MAP[$level]);
         }
     }
@@ -60,6 +62,7 @@ class FirePHPLoggingHandler extends DefaultLoggingHandler {
             if ($obj instanceof Exception) {
                 FirePHP::getInstance(true)->fb($obj);
             } else {
+                $msg = '['.Runtime::getExecutionTime().'] '.$msg;
                 FirePHP::getInstance(true)->fb($obj, $msg, FirePHP::DUMP);
             }
         }
@@ -70,6 +73,7 @@ class FirePHPLoggingHandler extends DefaultLoggingHandler {
      */
     public function trace($msg=null, $level=Logging::DEBUG) {
         if (!headers_sent()) {
+            $msg = '['.Runtime::getExecutionTime().'] '.$msg;
             FirePHP::getInstance(true)->fb($msg, FirePHP::TRACE);
         }
     }
@@ -101,6 +105,7 @@ class FirePHPLoggingHandler extends DefaultLoggingHandler {
             if (array_key_exists('exception', $info)) {
                 FirePHP::getInstance(true)->fb($info['exception']);
             } else {
+                $line = '['.Runtime::getExecutionTime().'] '.$line;
                 FirePHP::getInstance(true)->fb($line, $errTypes[$info['errno']]);
             }
         }
