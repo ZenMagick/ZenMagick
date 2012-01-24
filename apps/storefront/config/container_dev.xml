@@ -10,4 +10,17 @@
         <import resource="../../../config/store-services.xml" />
         <import resource="../../../config/store-container.xml" ignore-errors="true" />
     </imports>
+
+    <services>
+        <service id="fileLoggingHandler" class="zenmagick\base\logging\handler\FileLoggingHandler" scope="container">
+            <call method="setLogLevel">
+                <argument>ALL</argument>
+            </call>
+            <call method="setFilename">
+                <argument>%zenmagick.installationPath%/zenmagick-storefront.log</argument>
+            </call>
+            <tag name="zenmagick.base.logging.handler" />
+        </service>
+    </services>
+
 </container>
