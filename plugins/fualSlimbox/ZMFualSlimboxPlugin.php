@@ -80,8 +80,8 @@ class ZMFualSlimboxPlugin extends Plugin {
             $fualSO = new FualSlimboxOptions();
             ob_start();
             // create manually as different folder structure
-            echo '<link rel="stylesheet" type="text/css" media="screen,projection" href="'.$view->asUrl($request, 'slimbox/stylesheet_slimbox_ex.css').'" />' . "\n";
-            echo '<script type="text/javascript" src="'.$view->asUrl($request, 'slimbox/js/mootools-release-1.11.slim.js').'"></script>' . "\n";
+            echo '<link rel="stylesheet" type="text/css" media="screen,projection" href="'.$view->asUrl('slimbox/stylesheet_slimbox_ex.css').'" />' . "\n";
+            echo '<script type="text/javascript" src="'.$view->asUrl('slimbox/js/mootools-release-1.11.slim.js').'"></script>' . "\n";
 ?>
             <script type="text/javascript">
               var FualSlimboxOptions = new Class({
@@ -104,10 +104,10 @@ class ZMFualSlimboxPlugin extends Plugin {
 <?php
             //todo: make a config option
             $min = '.min';
-            echo '<script type="text/javascript" src="'.$view->asUrl($request, 'slimbox/js/slimbox_ex'.$min.'.js').'"></script>' . "\n";
+            echo '<script type="text/javascript" src="'.$view->asUrl('slimbox/js/slimbox_ex'.$min.'.js').'"></script>' . "\n";
             if (FUAL_SLIMBOX_NERVOUS != 0) {
                 echo '<script type="text/javascript">var fualNervous = '.FUAL_SLIMBOX_NERVOUS.';</script>';
-                echo '<script type="text/javascript" src="'.$view->asUrl($request, 'slimbox/js/fual_slimbox'.$min.'.js').'"></script>' . "\n";
+                echo '<script type="text/javascript" src="'.$view->asUrl('slimbox/js/fual_slimbox'.$min.'.js').'"></script>' . "\n";
             }
 
             $content = preg_replace('/<\/head>/', ob_get_clean().'</head>', $content, 1);

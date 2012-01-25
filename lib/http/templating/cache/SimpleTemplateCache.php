@@ -19,21 +19,21 @@
  */
 ?>
 <?php
-namespace zenmagick\http\view\cache;
+namespace zenmagick\http\templating\cache;
 
 use zenmagick\base\Runtime;
 use zenmagick\base\logging\Logging;
 use zenmagick\base\ZMObject;
-use zenmagick\http\view\ViewCache;
+use zenmagick\http\templating\TemplateCache;
 
 /**
- * Simple caching.
+ * Simple cache.
  *
- * <p>Template names to be cached are configured as list using the setting: <em>'zenmagick.http.view.cache.simple'</em>.</p>
+ * <p>Template names to be cached are configured as list using the setting: <em>'zenmagick.http.template.cache.simple'</em>.</p>
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class SimpleViewCache extends ZMObject implements ViewCache {
+class SimpleTemplateCache extends ZMObject implements TemplateCache {
     private $cache_;
 
 
@@ -42,7 +42,7 @@ class SimpleViewCache extends ZMObject implements ViewCache {
      */
     public function eligible($template) {
         Runtime::getLogging()->log('check if eligible: '.$template, LOGGING::TRACE);
-        return in_array($template, (array)$this->container->get('settingsService')->get('zenmagick.http.view.cache.simple', array()));
+        return in_array($template, (array)$this->container->get('settingsService')->get('zenmagick.http.template.cache.simple', array()));
     }
 
     /**

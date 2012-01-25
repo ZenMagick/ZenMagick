@@ -25,12 +25,6 @@
         <!-- TODO: drop when moving to using view instead of defaultView -->
         <service id="defaultView" alias="view" />
 
-        <service id="storePhpEngine" class="zenmagick\http\templating\ZMPhpEngine" scope="prototype">
-            <argument type="service" id="resourceResolver" />
-            <argument type="service" id="request" />
-            <tag name="zenmagick.http.templates.engine" />
-        </service>
-
         <service id="adminUserPrefService" class="zenmagick\apps\store\admin\services\AdminUserPrefService" scope="container" />
 
         <service id="adminUserRoleService" class="zenmagick\apps\store\admin\services\AdminUserRoleService" scope="container" />

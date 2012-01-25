@@ -39,16 +39,14 @@ use zenmagick\http\toolbox\ToolboxTool;
  * @author DerManoMann <mano@zenmagick.org>
  */
 class View extends ZMObject {
-    const TEMPLATE = 'template';
-    const RESOURCE = 'resource';
+    const TEMPLATE = 'template:';
+    const RESOURCE = 'resource:';
     private $resourceResolver;
     private $resourceManager;
     private $variables;
     private $layout;
     private $template;
     private $request;
-    private $filters;
-    private $cache;
 
 
     /**
@@ -60,8 +58,6 @@ class View extends ZMObject {
         $this->layout = null;
         $this->template = null;
         $this->request = null;
-        $this->filters = array();
-        $this->cache = null;
     }
 
 
@@ -81,33 +77,6 @@ class View extends ZMObject {
      */
     public function getResourceResolver() {
         return $this->resourceResolver;
-    }
-
-    /**
-     * Add a filter.
-     *
-     * @param ViewFilter filter The filter.
-     */
-    public function addFilter(ViewFilter $filter) {
-        $this->filters[] = $filter;
-    }
-
-    /**
-     * Set the cache.
-     *
-     * @param ViewCache cache The cache.
-     */
-    public function setCache(ViewCache $cache) {
-        $this->cache = $cache;
-    }
-
-    /**
-     * Get the cache.
-     *
-     * @return ViewCache The cache.
-     */
-    public function getCache() {
-        return $this->cache;
     }
 
     /**
@@ -242,6 +211,19 @@ class View extends ZMObject {
     }
 
     /**
+     * Get the template engine.
+     *
+     * @return EngineInterface The engine.
+     */
+    protected function getEngine() {
+        $engine = new DelegatingEngine();
+        foreach ($this->container->findTaggedServiceIds('zenmagick.http.templates.engine') as $id => $args) {
+            $engine->addEngine($this->container->get($id));
+        }
+        return $engine;
+    }
+
+    /**
      * Shortcut to generate the contents for the currenty set template.
      *
      * <p>The template extension is taken from the <em>'zenmagick.mvc.templates.ext'</em setting.</p>
@@ -304,14 +286,8 @@ class View extends ZMObject {
                 $template = $this->getTemplate();
             }
 
-            // get engines
-            $engine = new DelegatingEngine();
-            foreach ($this->container->findTaggedServiceIds('zenmagick.http.templates.engine') as $id => $args) {
-                $engine->addEngine($this->container->get($id));
-            }
-
             // render
-            $output = $engine->render($template, array_merge($variables, $this->getVariables()));
+            $output = $this->fetch($template, $variables);
 
             if (null !== ($resources = $this->resourceManager->getResourceContents())) {
                 // apply resources...
@@ -327,32 +303,6 @@ class View extends ZMObject {
     }
 
     /**
-     * Compile the given file.
-     *
-     * <p>Default implementation that just returns the given file name.</p>
-     *
-     * @param string file The file to compile.
-     * @return string Path to the compiled file.
-     */
-    public function compile($file) {
-        return $file;
-    }
-
-    /**
-     * Apply configured filters to the given string.
-     *
-     * @param string s The string.
-     * @return string The filtered result.
-     * @todo: implement
-     */
-    public function applyFilters($s) {
-        foreach ($this->filters as $filter) {
-            $s = $filter->apply($s);
-        }
-        return $s;
-    }
-
-    /**
      * Fetch/evaluate the given template.
      *
      * @param string template The template.
@@ -360,55 +310,9 @@ class View extends ZMObject {
      * @return string The template output.
      */
     public function fetch($template, $variables=array()) {
-        // todo: backwards comp. remove
-        if ($template instanceof \ZMRequest) {
-            // old style
-            $args = func_get_args();
-            array_shift($args);
-            $template = $args[0];
-            if (1 < count($args)) {
-                $variables = $args[1];
-            } else {
-                $variables = array();
-            }
-            \ZMLangUtils::dumpStack(); die('old style use of fetch');
-        }
-
-        // resolve template
-        if (null == ($file = $this->resourceResolver->findResource($template, View::TEMPLATE))) {
-            throw new ZMException(sprintf('template not found: %s', $template));
-        }
-
-        // check if caching enabled
-        if (null != $this->cache && $this->cache->eligible($template)) {
-            // check for cache hit
-            if (null != ($result = $this->cache->lookup($template))) {
-                return $result;
-            }
-        }
-
-        $file = $this->compile($file);
-
-        // prepare env
-				extract($this->getVariables(), EXTR_REFS | EXTR_SKIP);
-        // these are transient
-				extract($variables, EXTR_REFS | EXTR_SKIP);
-
-        if (ZM_ENVIRONMENT == 'dev') {
-            $event = new Event($this, array('file' => $file));
-            Runtime::getEventDispatcher()->dispatch('fetch_template', new Event($this, array('request' => $this->request, 'view' => $this, 'file' => $file)));
-        }
-
-        ob_start();
-        require $file;
-        $result = $this->applyFilters(ob_get_clean());
-
-        // if we have a cache, keep it
-        if (null != $this->cache && $this->cache->eligible($template)) {
-            $this->cache->save($template, $result);
-        }
-
-        return $result;
+        // render
+        $engine = $this->getEngine();
+        return $engine->render($template, array_merge($variables, $this->getVariables()));
     }
 
     /**
@@ -465,19 +369,18 @@ class View extends ZMObject {
      * Resolve the given (relative) templates filename into a url.
      *
      * @param string file The file, relative to the template path.
-     * @param string type The resource type; default is <code>View::TEMPLATE</code>.
      * @return string A url or empty string.
      */
-    public function asUrl($file, $type=View::TEMPLATE) {
-        if (null != ($path = $this->resourceResolver->findResource($file, $type))) {
+    public function asUrl($file) {
+        if (null != ($path = $this->resourceResolver->findResource($file, View::TEMPLATE))) {
             if (null != ($uri= $this->file2uri($path))) {
                 $url = $this->request->absoluteURL($uri);
-                Runtime::getLogging()->log(sprintf('resolved file "%s" (type=%s) as url: %s; path=%s', $file, $type, $url, $path), Logging::TRACE);
+                Runtime::getLogging()->log(sprintf('resolved file "%s" as url: %s; path=%s', $file, $url, $path), Logging::TRACE);
                 return $url;
             }
         }
 
-        Runtime::getLogging()->warn(sprintf('cannot resolve file "%s" (type=%s) to url', $file, $type));
+        Runtime::getLogging()->warn(sprintf('cannot resolve file "%s" to url', $file));
         return '';
     }
 
@@ -487,7 +390,7 @@ class View extends ZMObject {
      * @param string filename The full filename.
      * @return string The uri or <code>null</code> if the filename is invalid.
      */
-    public function file2uri($filename) {
+    protected function file2uri($filename) {
         $filename = realpath($filename);
         $docRoot = realpath($this->request->getDocRoot());
         if (empty($filename) || empty($docRoot)) {
@@ -505,24 +408,18 @@ class View extends ZMObject {
      * Check if the given template/resource file exists.
      *
      * @param string file The file, relative to the template path.
-     * @param string type The resource type; default is <code>View::TEMPLATE</code>.
      * @return boolean <code>true</code> if the file exists, <code>false</code> if not.
      */
-    public function exists($file, $type=View::TEMPLATE) {
+    public function exists($file) {
         // todo: backwards comp. remove
         if ($file instanceof \ZMRequest) {
             // old style
             $args = func_get_args();
             array_shift($args);
             $file = $args[0];
-            if (1 < count($args)) {
-                $type = $args[1];
-            } else {
-                $type = View::TEMPLATE;
-            }
             \ZMLangUtils::dumpStack(); die('old style use of exists');
         }
-        $path = $this->resourceResolver->findResource($file, $type);
+        $path = $this->resourceResolver->findResource($file, View::TEMPLATE);
         return !empty($path);
     }
 

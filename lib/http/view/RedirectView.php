@@ -58,34 +58,6 @@ class RedirectView extends View {
     /**
      * {@inheritDoc}
      */
-    public function fetch($file, $variables=array()) {
-        throw new ZMException('not supported');
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function exists($file, $type=View::TEMPLATE) {
-        throw new ZMException('not supported');
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function asUrl($file, $type=View::TEMPLATE) {
-        throw new ZMException('not supported');
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function file2uri($filename) {
-        throw new ZMException('not supported');
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public function isValid() {
         return true;
     }

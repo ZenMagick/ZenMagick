@@ -215,9 +215,9 @@ class ResourceResolver extends ZMObject {
      * @return array ($resource, $type) The final resource name and type.
      */
     public function resolveType($resource, $type) {
-        if (0 === strpos($resource, VIEW::TEMPLATE.':')) {
+        if (0 === strpos($resource, VIEW::TEMPLATE)) {
             return array(substr($resource, 9), VIEW::TEMPLATE);
-        } else if (0 === strpos($resource, VIEW::RESOURCE.':')) {
+        } else if (0 === strpos($resource, VIEW::RESOURCE)) {
             return array(substr($resource, 9), VIEW::RESOURCE);
         }
         return array($resource, $type);

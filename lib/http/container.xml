@@ -42,7 +42,7 @@
             </call>
         </service>
 
-        <service id="simpleViewCache" class="zenmagick\http\view\cache\SimpleViewCache" scope="container">
+        <service id="simpleTemplateCache" class="zenmagick\http\templating\cache\SimpleTemplateCache" scope="container">
             <call method="setCache">
                 <argument type="service" id="persistentCache" />
             </call>
@@ -57,9 +57,6 @@
             </call>
             <call method="setRequest">
                 <argument type="service" id="request" />
-            </call>
-            <call method="setCache">
-                <argument type="service" id="simpleViewCache" />
             </call>
         </service>
 
@@ -109,6 +106,13 @@
         <service id="dispatcher" class="zenmagick\http\Dispatcher" scope="prototype" />
 
         <service id="blockWidget" class="zenmagick\http\blocks\widgets\BlockWidget" scope="prototype" />
+
+        <service id="zmPhpEngine" class="zenmagick\http\templating\ZMPhpEngine" scope="prototype">
+            <call method="setTemplateCache">
+                <argument type="service" id="simpleTemplateCache" />
+            </call>
+            <tag name="zenmagick.http.templates.engine" />
+        </service>
 
         <service id="fileExtensionTemplateNameParser" class="Symfony\Component\Templating\TemplateNameParser" scope="prototype" />
 

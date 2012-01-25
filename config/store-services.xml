@@ -94,9 +94,6 @@
             <call method="setRequest">
                 <argument type="service" id="request" />
             </call>
-            <call method="setCache">
-                <argument type="service" id="simpleViewCache" />
-            </call>
         </service>
 
         <service id="rssLoader" class="zenmagick\http\rss\RssFeedLoader" scope="container">
