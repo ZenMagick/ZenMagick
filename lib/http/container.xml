@@ -48,7 +48,7 @@
             </call>
         </service>
 
-        <service id="view" class="zenmagick\http\view\View" scope="prototype">
+        <service id="view" class="zenmagick\http\view\TemplateView" scope="prototype">
             <call method="setResourceManager">
                 <argument type="service" id="resourceManager" />
             </call>

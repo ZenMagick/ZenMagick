@@ -21,10 +21,11 @@
 <?php
 namespace zenmagick\plugins\ckEditor;
 
+use CKEditor;
 use zenmagick\base\Runtime;
 use zenmagick\http\widgets\form\TextAreaFormWidget;
 use zenmagick\http\widgets\form\WysiwygEditor;
-use zenmagick\http\view\View;
+use zenmagick\http\view\TemplateView;
 
 /**
  * CKEditor textarea form widget.
@@ -65,7 +66,7 @@ class CkEditorFormWidget extends TextAreaFormWidget implements WysiwygEditor {
             return null;
         }
 
-        $ckEditor = new \CKEditor();
+        $ckEditor = new CKEditor();
         $ckEditor->returnOutput = true;
         return $ckEditor;
     }
@@ -73,7 +74,7 @@ class CkEditorFormWidget extends TextAreaFormWidget implements WysiwygEditor {
     /**
      * {@inheritDoc}
      */
-    public function apply($request, View $view, $idList=null) {
+    public function apply($request, TemplateView $templateView, $idList=null) {
         if (!$this->plugin_ || null == ($ckEditor = $this->getCKEditor())) {
             return null;
         }
@@ -94,10 +95,10 @@ class CkEditorFormWidget extends TextAreaFormWidget implements WysiwygEditor {
     /**
      * {@inheritDoc}
      */
-    public function render($request, $view) {
+    public function render($request, TemplateView $templateView) {
         if (!$this->plugin_ || null == ($ckEditor = $this->getCKEditor())) {
             // fallback
-            return parent::render($request, $view);
+            return parent::render($request, $templateView);
         }
 
         $ckEditor->textareaAttributes = array(

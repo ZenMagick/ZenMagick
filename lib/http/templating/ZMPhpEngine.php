@@ -151,7 +151,12 @@ class ZMPhpEngine extends ZMObject implements EngineInterface {
      * @return string The contents.
      */
     public function fetchBlockGroup($groupId, $args=array()) {
-        return $this->view->fetchBlockGroup($groupId, $args);
+        $contents = '';
+        foreach ($this->container->get('blockManager')->getBlocksForId($this->request, $groupId, $args) as $block) {
+            Runtime::getLogging()->debug(sprintf('render block, template: %s', $block->getTemplate()));
+            $contents .= $block->render($this->request, $this->view);
+        }
+        return $contents;
     }
 
     /**
@@ -164,7 +169,28 @@ class ZMPhpEngine extends ZMObject implements EngineInterface {
      * @return string The widget contents.
      */
     public function widget($widget, $name=null, $value=null, $args=null) {
-        return $this->view->widget($widget, $name, $value, $args);
+        $wObj = $widget;
+        if (is_string($widget)) {
+            $wObj = Beans::getBean($widget);
+        }
+        if (!($wObj instanceof Widget)) {
+            Runtime::getLogging()->debug('invalid widget: '.$widget);
+            return '';
+        }
+        if (null !== $name) {
+            $wObj->setName($name);
+            if (null === $args || !array_key_exists('id', $args)) {
+                // no id set, so default to name
+                $wObj->setId($name);
+            }
+        }
+        if (null !== $value) {
+            $wObj->setValue($value);
+        }
+        if (null !== $args) {
+            Beans::setAll($wObj, $args);
+        }
+        return $wObj->render($this->request, $this->view);
     }
 
 }

@@ -23,6 +23,7 @@ namespace zenmagick\http\widgets\form;
 
 use zenmagick\base\Runtime;
 use zenmagick\base\Toolbox;
+use zenmagick\http\view\TemplateView;
 
 /**
  * A widget to make a boolean selection (true/false).
@@ -154,7 +155,7 @@ class BooleanFormWidget extends FormWidget {
     /**
      * {@inheritDoc}
      */
-    public function render($request, $view) {
+    public function render($request, TemplateView $templateView) {
         switch ($this->get('style')) {
             default:
                 Runtime::getLogging()->debug('invalid style "'.$this->get('style').'" - using default');

@@ -22,6 +22,7 @@
 
 use zenmagick\base\Runtime;
 use zenmagick\http\widgets\Widget;
+use zenmagick\http\view\TemplateView;
 
 /**
  * PayPal express checkout block widget.
@@ -42,7 +43,7 @@ class ZMPayPalECButtonBlockWidget extends Widget {
     /**
      * {@inheritDoc}
      */
-    public function render($request, $view) {
+    public function render($request, TemplateView $templateView) {
         ob_start();
 
         if (defined('MODULE_PAYMENT_PAYPALWPP_STATUS') && MODULE_PAYMENT_PAYPALWPP_STATUS == 'True') {

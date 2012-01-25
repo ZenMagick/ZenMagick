@@ -21,7 +21,7 @@
 <?php
 namespace zenmagick\http\widgets\form;
 
-use zenmagick\http\view\View;
+use zenmagick\http\view\TemplateView;
 
 /**
  * A text area form widget.
@@ -45,7 +45,7 @@ class TextAreaFormWidget extends FormWidget implements WysiwygEditor {
     /**
      * {@inheritDoc}
      */
-    public function apply($request, View $view, $idList=null) {
+    public function apply($request, TemplateView $templateView, $idList=null) {
         // nothing
         return '';
     }
@@ -53,7 +53,7 @@ class TextAreaFormWidget extends FormWidget implements WysiwygEditor {
     /**
      * {@inheritDoc}
      */
-    public function render($request, $view) {
+    public function render($request, TemplateView $templateView) {
         $value = $this->isEncode() ? \ZMHtmlUtils::encode($this->getValue()) : $this->getValue();
         return '<textarea'.$this->getAttributeString($request, false).'>'.$value.'</textarea>';
     }

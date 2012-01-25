@@ -21,7 +21,7 @@
 <?php
 namespace zenmagick\http\widgets\form;
 
-use zenmagick\http\view\View;
+use zenmagick\http\view\TemplateView;
 
 /**
  * A wysiwyg editor.
@@ -34,10 +34,10 @@ interface WysiwygEditor {
      * Apply editor to the given element ids.
      *
      * @param ZMRequest request The current request.
-     * @param View view The current view.
+     * @param TemplateView templateView The current view.
      * @param array idList List of element ids to convert as Wysiwyg editor; default is <code>null</code> for all on the page.
      * @return string Generated code or <code>null</code>.
      */
-    public function apply($request, View $view, $idList=null);
+    public function apply($request, TemplateView $templateView, $idList=null);
 
 }

@@ -22,6 +22,7 @@
 namespace zenmagick\http\widgets;
 
 use zenmagick\base\ZMObject;
+use zenmagick\http\view\TemplateView;
 
 /**
  * Widget base class.
@@ -111,9 +112,9 @@ abstract class Widget extends ZMObject {
      * Get the HTML to render this widget.
      *
      * @param ZMRequest request The current request.
-     * @param View view The current view.
+     * @param TemplateView templateView The current view.
      * @return string The HTML.
      */
-    public abstract function render($request, $view);
+    public abstract function render($request, TemplateView $templateView);
 
 }

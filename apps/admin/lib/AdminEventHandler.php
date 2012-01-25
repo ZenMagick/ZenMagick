@@ -25,6 +25,7 @@ use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
 use zenmagick\base\Toolbox;
 use zenmagick\base\ZMObject;
+use zenmagick\http\view\TemplateView;
 
 use zenmagick\apps\store\menu\MenuElement;
 use zenmagick\apps\store\menu\MenuLoader;
@@ -55,14 +56,16 @@ class AdminEventHandler extends ZMObject {
     public function onViewStart($event) {
         $request = $event->get('request');
         $view = $event->get('view');
-        $view->setVariable('currentLanguage', $request->getSelectedLanguage());
-        $view->setVariable('currentEditor', $this->getCurrentEditor($request));
-        $view->setVariable('buttonClasses', 'ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only');
-        $view->setVariable('adminMenu', $this->container->get('adminMenu'));
+        if ($view instanceof TemplateView) {
+            $view->setVariable('currentLanguage', $request->getSelectedLanguage());
+            $view->setVariable('currentEditor', $this->getCurrentEditor($request));
+            $view->setVariable('buttonClasses', 'ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only');
+            $view->setVariable('adminMenu', $this->container->get('adminMenu'));
 
-        // no layout for invoice/packaging slip
-        if ('zc_admin' == $request->getRequestId() && in_array($request->getParameter('zpid'), Runtime::getSettings()->get('apps.store.zencart.skipLayout', array()))) {
-            $view->setLayout(null);
+            // no layout for invoice/packaging slip
+            if ('zc_admin' == $request->getRequestId() && in_array($request->getParameter('zpid'), Runtime::getSettings()->get('apps.store.zencart.skipLayout', array()))) {
+                $view->setLayout(null);
+            }
         }
     }
 

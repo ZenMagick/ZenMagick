@@ -22,6 +22,7 @@
 namespace zenmagick\http\widgets\form;
 
 use zenmagick\base\Runtime;
+use zenmagick\http\view\TemplateView;
 
 /**
  * A password input form widget.
@@ -42,7 +43,7 @@ class PasswordFormWidget extends TextFormWidget {
     /**
      * {@inheritDoc}
      */
-    public function render($request, $view) {
+    public function render($request, TemplateView $templateView) {
         $slash = Runtime::getSettings()->get('zenmagick.http.html.xhtml') ? '/' : '';
         return '<input type="password"'.$this->getAttributeString($request, false).$slash.'>';
     }

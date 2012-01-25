@@ -23,6 +23,7 @@ namespace zenmagick\http\view;
 
 use zenmagick\base\Toolbox;
 use zenmagick\base\ZMException;
+use zenmagick\base\ZMObject;
 
 /**
  * Redirect view.
@@ -32,7 +33,7 @@ use zenmagick\base\ZMException;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class RedirectView extends View {
+class RedirectView extends ZMObject implements View {
     protected $secure;
     protected $url_;
     protected $parameter_;

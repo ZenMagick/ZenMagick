@@ -24,6 +24,7 @@ namespace zenmagick\http\widgets\form;
 use zenmagick\base\Runtime;
 use zenmagick\base\Toolbox;
 use zenmagick\base\logging\Logging;
+use zenmagick\http\view\TemplateView;
 
 /**
  * A select form widget.
@@ -122,7 +123,7 @@ class SelectFormWidget extends FormWidget {
     /**
      * {@inheritDoc}
      */
-    public function render($request, $view = null) {
+    public function render($request, TemplateView $templateView) {
         if ($this->isMultiValue()) {
             Runtime::getLogging()->log('multi-value: defaulting style to select', Logging::TRACE);
             $this->set('style', 'select');

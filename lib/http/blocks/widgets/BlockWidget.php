@@ -22,6 +22,7 @@
 namespace zenmagick\http\blocks\widgets;
 
 use zenmagick\http\widgets\Widget;
+use zenmagick\http\view\TemplateView;
 
 /**
  * A block widget.
@@ -112,11 +113,12 @@ class BlockWidget extends Widget {
     /**
      * {@inheritDoc}
      */
-    public function render($request, $view) {
+    public function render($request, TemplateView $templateView) {
         $content = '';
-        if (!empty($this->template_) && $view->exists($this->template_)) {
+
+        if (!empty($this->template_) && $templateView->getResourceResolver()->exists($this->template_)) {
             // hand on all custom properties
-            $content = $view->fetch($this->template_, $this->getProperties());
+            $content = $templateView->fetch($this->template_, $this->getProperties());
         }
 
         if (!empty($this->format_) && !empty($content)) {

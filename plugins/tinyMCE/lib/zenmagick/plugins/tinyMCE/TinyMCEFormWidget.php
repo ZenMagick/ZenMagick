@@ -27,7 +27,8 @@ namespace zenmagick\plugins\tinyMCE;
 use zenmagick\base\Runtime;
 use zenmagick\http\widgets\form\TextAreaFormWidget;
 use zenmagick\http\widgets\form\WysiwygEditor;
-use zenmagick\http\view\View;
+use zenmagick\http\view\ResourceManager;
+use zenmagick\http\view\TemplateView;
 
 /**
  * TinyMCE textarea form widget.
@@ -51,12 +52,11 @@ class TinyMCEFormWidget extends TextAreaFormWidget implements WysiwygEditor {
     /**
      * Init editor.
      *
-     * @param View view The view.
+     * @param ResourceManager resourceManager The resourceManager.
      */
-    private function initEditor($view) {
+    private function initEditor(ResourceManager $resourceManager) {
         // add required js
-        $resourceManager = $view->getVariable('resourceManager');
-        $resourceManager->jsFile('tinymce-3.3.8/jscripts/tiny_mce/tiny_mce.js', $resourceManager::HEADER);
+        $resourceManager->jsFile('tinymce-3.3.8/jscripts/tiny_mce/tiny_mce.js', ResourceManager::HEADER);
         // create init script code at the end once we know all the ids
         Runtime::getEventDispatcher()->listen($this);
     }
@@ -64,8 +64,8 @@ class TinyMCEFormWidget extends TextAreaFormWidget implements WysiwygEditor {
     /**
      * {@inheritDoc}
      */
-    public function apply($request, View $view, $idList=null) {
-        $this->initEditor($view);
+    public function apply($request, TemplateView $templateView, $idList=null) {
+        $this->initEditor($templateView->getResourceManager());
         if (null === $idList) {
             $this->idList = null;
         } else {
@@ -77,17 +77,17 @@ class TinyMCEFormWidget extends TextAreaFormWidget implements WysiwygEditor {
     /**
      * {@inheritDoc}
      */
-    public function render($request, $view) {
+    public function render($request, TemplateView $templateView) {
         if (null == $this->container->get('pluginService')->getPluginForId('tinyMCE')) {
             // fallback
-            return parent::render($request, $view);
+            return parent::render($request, $templateView);
         }
 
-        $this->initEditor($view);
+        $this->initEditor($templateView->getResourceManager());
 
         $this->idList[] = $this->getId();
 
-        return parent::render($request, $view);
+        return parent::render($request, $templateView);
     }
 
     /**

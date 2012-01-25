@@ -27,7 +27,7 @@ namespace zenmagick\plugins\xinha;
 use zenmagick\base\Runtime;
 use zenmagick\http\widgets\form\TextAreaFormWidget;
 use zenmagick\http\widgets\form\WysiwygEditor;
-use zenmagick\http\view\View;
+use zenmagick\http\view\TemplateView;
 
 /**
  * Xinha textarea form widget.
@@ -58,7 +58,7 @@ class XinhaFormWidget extends TextAreaFormWidget implements WysiwygEditor {
     /**
      * {@inheritDoc}
      */
-    public function apply($request, View $view, $idList=null) {
+    public function apply($request, TemplateView $templateView, $idList=null) {
         $this->initEditor();
         if (null === $idList) {
             $this->idList = null;
@@ -71,17 +71,17 @@ class XinhaFormWidget extends TextAreaFormWidget implements WysiwygEditor {
     /**
      * {@inheritDoc}
      */
-    public function render($request, $view) {
+    public function render($request, TemplateView $templateView) {
         if (null == $this->container->get('pluginService')->getPluginForId('xinha')) {
             // fallback
-            return parent::render($request, $view);
+            return parent::render($request, $templateView);
         }
 
         $this->idList[] = $this->getId();
 
         // create init script code at the end once we know all the ids
         Runtime::getEventDispatcher()->listen($this);
-        return parent::render($request, $view);
+        return parent::render($request, $templateView);
     }
 
     /**

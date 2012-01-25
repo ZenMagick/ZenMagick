@@ -23,6 +23,7 @@ namespace zenmagick\http\view;
 
 use zenmagick\base\Beans;
 use zenmagick\base\ZMException;
+use zenmagick\base\ZMObject;
 
 /**
  * Forward view.
@@ -31,7 +32,7 @@ use zenmagick\base\ZMException;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class ForwardView extends View {
+class RedirectView extends ZMObject implements View {
     private $requestId_;
 
 

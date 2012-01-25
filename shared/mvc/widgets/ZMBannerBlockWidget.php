@@ -23,6 +23,7 @@
 use zenmagick\base\Runtime;
 use zenmagick\base\Toolbox;
 use zenmagick\http\widgets\Widget;
+use zenmagick\http\view\TemplateView;
 
 /**
  * A banner block widget.
@@ -105,7 +106,7 @@ class ZMBannerBlockWidget extends Widget {
     /**
      * {@inheritDoc}
      */
-    public function render($request, $view) {
+    public function render($request, TemplateView $templateView) {
         if (!Runtime::getSettings()->get('apps.store.banners.enabled', true)) {
             return '';
         }
@@ -132,14 +133,14 @@ class ZMBannerBlockWidget extends Widget {
                 // use text if not empty
                 $html = $banner->getText();
             } else {
-                $net = $view->getVariable('net');
+                $net = $request->getToolbox()->net;
                 $slash = Runtime::getSettings()->get('zenmagick.mvc.html.xhtml') ? '/' : '';
                 $img = '<img src="'.$net->image($banner->getImage()).'" alt="'.ZMHtmlUtils::encode($banner->getTitle()).'"'.$slash.'>';
                 if (ZMLangUtils::isEmpty($banner->getUrl())) {
                     // if we do not have a url try our luck with the image...
                     $content .= $img;
                 } else {
-                    $html = $view->getVariable('html');
+                    $html = $request->getToolbox()->html;
                     $content .= '<a href="'.$net->trackLink('banner', $banner->getId()).'"'.$html->hrefTarget($banner->isNewWin()).'>'.$img.'</a>';
                 }
             }
@@ -158,7 +159,7 @@ class ZMBannerBlockWidget extends Widget {
 
         if (!ZMLangUtils::isEmpty($this->getTemplate())) {
             // leave formatting to template rather than just concatenating
-            return parent::render($request, $view);
+            return parent::render($request, $engine);
         }
 
         return implode('', $bannerContentList);
