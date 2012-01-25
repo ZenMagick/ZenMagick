@@ -208,6 +208,22 @@ class ResourceResolver extends ZMObject {
     }
 
     /**
+     * Determine the type by either picking a prefixed resource type or the given default.
+     *
+     * @param string resource The resource.
+     * @param string type The default.
+     * @return array ($resource, $type) The final resource name and type.
+     */
+    public function resolveType($resource, $type) {
+        if (0 === strpos($resource, VIEW::TEMPLATE.':')) {
+            return array(substr($resource, 9), VIEW::TEMPLATE);
+        } else if (0 === strpos($resource, VIEW::RESOURCE.':')) {
+            return array(substr($resource, 9), VIEW::RESOURCE);
+        }
+        return array($resource, $type);
+    }
+
+    /**
      * Find templates/resources for the given path.
      *
      * <p><strong>Example:</strong></p>
@@ -234,6 +250,7 @@ class ResourceResolver extends ZMObject {
      * @return array A map of matching filenames.
      */
     public function find($path, $regexp=null, $type=View::RESOURCE) {
+        list($path, $type) = $this->resolveType($path, $type);
         $locations = $this->getLocationsFor($type);
 
         // iterate in ascending priority, so the more important come first
@@ -263,6 +280,7 @@ class ResourceResolver extends ZMObject {
      * @return boolean <code>true</code> if the file exists, <code>false</code> if not.
      */
     public function exists($resource, $type=View::TEMPLATE) {
+        list($resource, $type) = $this->resolveType($resource, $type);
         $file = $this->findResource($resource, $type);
         return !empty($file);
     }
@@ -275,6 +293,7 @@ class ResourceResolver extends ZMObject {
      * @return string The path to the resource or <code>null</code>.
      */
     public function findResource($resource, $type) {
+        list($resource, $type) = $this->resolveType($resource, $type);
         $locations = $this->getLocationsFor($type);
         foreach ($locations as $location) {
             $path = $location.'/'.$resource;
