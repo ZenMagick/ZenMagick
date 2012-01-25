@@ -4,9 +4,12 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
 
+    <route id="index" pattern="/index">
+        <default key="_controller">defaultController</default>
+    </route>
+
     <route id="login" pattern="/login">
         <default key="_controller">zenmagick\apps\store\admin\controller\LoginController</default>
-        <requirement key="_scheme">https</requirement>
     </route>
 
 </routes>

@@ -72,5 +72,7 @@
             <tag name="zenmagick.http.toolbox.tool" key="metaTags" />
         </service>
 
+        <service id="defaultController" class="zenmagick\apps\store\storefront\controller\DefaultController" scope="prototype" />
+
     </services>
 </container>

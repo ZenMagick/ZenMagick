@@ -235,7 +235,7 @@ class ZMUrlManager extends ZMObject {
      * <ol>
      *  <li>Check if a controller definition is mapped to the given request id</li>
      *  <li>Derive a controller class name from the request id and check if the resulting class exists</li>
-     *  <li>Use the configured default controller definition, as set via <em>'zenmagick.mvc.controller.default'</em></li>
+     *  <li>Use the configured default controller</li>
      * </ol>
      *
      * @param string requestId The request id.
@@ -257,7 +257,8 @@ class ZMUrlManager extends ZMObject {
             $definitions[] = sprintf('zenmagick\apps\%s\controller\%s', Runtime::getContext(), $class);
             $definitions[] = 'ZM'.$class;
         }
-        $definitions[] = Runtime::getSettings()->get('zenmagick.mvc.controller.default', 'ZMController');
+        // as defined in the container
+        $definitions[] = 'defaultController';
 
         $controller = null;
         foreach ($definitions as $definition) {

@@ -57,8 +57,6 @@ zenmagick:
     ## view
     view:
       defaultLayout: default_layout.php
-    controller:
-      default: zenmagick\apps\store\admin\controller\DefaultController
 
     ## request
     request:

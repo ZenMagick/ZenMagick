@@ -24,6 +24,7 @@ namespace zenmagick\http;
 use zenmagick\base\Beans;
 use zenmagick\base\Runtime;
 use zenmagick\base\ZMException;
+use zenmagick\base\ZMObject;
 use zenmagick\base\events\Event;
 use zenmagick\base\logging\Logging;
 
@@ -32,7 +33,7 @@ use zenmagick\base\logging\Logging;
  *
  * @author DerManoMann <mano@zenmagick.org>
  */
-class Dispatcher {
+class Dispatcher extends ZMObject {
 
     /**
      * Dispatch a request.
@@ -80,7 +81,7 @@ class Dispatcher {
             $view = $controller->process($request);
         } catch (Exception $e) {
             Runtime::getLogging()->dump($e, sprintf('controller::process failed: %s', $e->getMessage()), Logging::ERROR);
-            $controller = Beans::getBean(Runtime::getSettings()->get('zenmagick.mvc.controller.default', 'ZMController'));
+            $controller = $this->container->get('defaultController');
             $view = $controller->findView('error', array('exception' => $e));
             $request->setController($controller);
             $controller->initViewVars($view, $request);

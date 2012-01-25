@@ -136,5 +136,7 @@
 
         <service id="themeBuilder" class="zenmagick\apps\store\admin\utils\ThemeBuilder" scope="prototype" />
 
+        <service id="defaultController" class="zenmagick\apps\store\admin\controller\DefaultController" scope="prototype" />
+
     </services>
 </container>
