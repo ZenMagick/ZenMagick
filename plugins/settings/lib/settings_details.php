@@ -93,21 +93,6 @@
                 ),
                 'database' => array(
                     array(
-                        'key' => 'mappings.cache.enabled',
-                        'type' => 'boolean',
-                        'desc' => 'Enable/disable caching of database table mappings.'
-                    ),
-                    array(
-                        'key' => 'mappings.file',
-                        'type' => 'string',
-                        'desc' => 'File containing initial table mappings.'
-                    ),
-                    array(
-                        'key' => 'mappings.autoMap.enabled',
-                        'type' => 'boolean',
-                        'desc' => 'Enable/disable automatic generation of table mappings for unknown tables.'
-                    ),
-                    array(
                         'key' => 'sql.@table@.customFields',
                         'type' => 'dynamic:table:string',
                         'desc' => 'List of custom field mappings for table "@table@".'
@@ -117,21 +102,6 @@
                         'type' => 'string',
                         'desc' => 'Name of primary key column for model handling.'
                     ),
-                    array(
-                        'key' => 'connections.default',
-                        'type' => 'array',
-                        'desc' => 'Default connection settings.'
-                    ),
-                    array(
-                        'key' => 'connections.@name@',
-                        'type' => 'dynamic:name:string',
-                        'desc' => 'Connection settings for symbolic name "@name@".'
-                    ),
-                    array(
-                        'key' => 'provider',
-                        'type' => 'string',
-                        'desc' => 'Default database provider to be used if none specified in the connection settings.'
-                    )
                 ),
                 'fs' => array(
                     array(
@@ -415,6 +385,17 @@
                         'desc' => 'Name of the default text editor widget.'
                     )
                 )
+                array(
+                    'key' => 'database.default',
+                    'type' => 'array',
+                    'desc' => 'Default connection settings.'
+                ),
+                array(
+                    'key' => 'database.@name@',
+                    'type' => 'dynamic:name:string',
+                    'desc' => 'Connection settings for symbolic name "@name@".'
+                ),
+
             ),
             'doctrine' => array(
                 'dbal' => array(

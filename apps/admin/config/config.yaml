@@ -8,14 +8,6 @@ zenmagick:
 
   ## core
   core:
-    ## db
-    database:
-      mappings:
-        cache:
-          enabled: false
-        autoMap:
-          enabled: true
-
     ## fs
     fs:
       permissions:
