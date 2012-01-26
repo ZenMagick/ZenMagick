@@ -93,7 +93,7 @@ class ZMDatabase extends ZMObject {
         }
 
         $pdo = Doctrine\DBAL\DriverManager::getConnection($params);
- 
+
         // @todo don't tie logging to the pageStats plugin
         // @todo look at doctrine.dbal.logging (boolean) and doctrine.dbal.logger_class
         $pdo->getConfiguration()->setSQLLogger(new Doctrine\DBAL\Logging\DebugStack);
@@ -114,7 +114,7 @@ class ZMDatabase extends ZMObject {
 
    /**
      * Gets the prefix used by this connection.
-     * 
+     *
      * @return string
      */
     public function getPrefix() {
@@ -454,7 +454,7 @@ class ZMDatabase extends ZMObject {
      * @throws ZMDatabaseException
      */
     public function querySingle($sql, array $params = array(), $mapping = null, $modelClass = null) {
-        $results = $this->fetchAll($sql, $params, $mapping, $modelClass);
+        $results = $this->query($sql, $params, $mapping, $modelClass);
         return 0 < count($results) ? $results[0] : null;
     }
 
