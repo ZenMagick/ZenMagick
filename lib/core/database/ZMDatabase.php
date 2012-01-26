@@ -679,7 +679,7 @@ class ZMDatabase extends ZMObject {
      */
     public function getMetaData($table=null) {
         $this->ensureResource();
-        $sm = $this->pdo_->getSchemaManager();
+        $sm = $this->getSchemaManager();
         if (null !== $table) {
             if (!empty($this->config_['prefix']) && 0 !== strpos($table, $this->config_['prefix'])) {
                 $table = $this->config_['prefix'].$table;
@@ -731,4 +731,6 @@ class ZMDatabase extends ZMObject {
         return $this->pdo_;
     }
 
+    // just like Doctrine\DBAL\Connection
+    public function getSchemaManager() { return $this->pdo_->getSchemaManager(); }
 }
