@@ -384,7 +384,7 @@
                         'type' => 'string',
                         'desc' => 'Name of the default text editor widget.'
                     )
-                )
+                ),
                 array(
                     'key' => 'database.default',
                     'type' => 'array',
@@ -394,8 +394,7 @@
                     'key' => 'database.@name@',
                     'type' => 'dynamic:name:string',
                     'desc' => 'Connection settings for symbolic name "@name@".'
-                ),
-
+                )
             ),
             'doctrine' => array(
                 'dbal' => array(
