@@ -76,10 +76,7 @@ class ZMDatabase extends ZMObject {
     const NULL_DATETIME = '0001-01-01 00:00:00';
 
     protected $pdo_;
-    protected $config_;
     protected $mapper_;
-    protected $evm_;
-    protected $dbalConfig_;
 
     /**
      * Create a new instance.
@@ -90,22 +87,31 @@ class ZMDatabase extends ZMObject {
      */
     function __construct($conf) {
         parent::__construct();
-        $this->config_ = $conf;
         $this->mapper_ = ZMDbTableMapper::instance();
-        $this->evm_ = new Doctrine\Common\EventManager();
-
-        // @todo don't tie logging to the pageStats plugin
-        // @todo look at doctrine.dbal.logging (boolean) and doctrine.dbal.logger_class
-        $dbalConfig = new Doctrine\DBAL\Configuration;
-        $dbalConfig->setSQLLogger(new Doctrine\DBAL\Logging\DebugStack);
-        $this->dbalConfig_ = $dbalConfig;
 
         if (!Doctrine\DBAL\Types\Type::hasType('blob')) {
             Doctrine\DBAL\Types\Type::addType('blob', '\zenmagick\base\database\doctrine\types\Blob');
             Doctrine\DBAL\Types\Type::addType('mediumblob', '\zenmagick\base\database\doctrine\types\MediumBlob');
         }
 
-        $this->ensureResource($conf);
+        $pdo = Doctrine\DBAL\DriverManager::getConnection($conf);
+ 
+        // @todo don't tie logging to the pageStats plugin
+        // @todo look at doctrine.dbal.logging (boolean) and doctrine.dbal.logger_class
+        $pdo->getConfiguration()->setSQLLogger(new Doctrine\DBAL\Logging\DebugStack);
+
+        $pdo->getEventManager()->addEventSubscriber(new Doctrine\DBAL\Event\Listeners\MysqlSessionInit($conf['charset'], $conf['collation']));
+
+        $pdo->getDatabasePlatform()->registerDoctrineTypeMapping('blob', 'blob');
+        $pdo->getDatabasePlatform()->registerDoctrineTypeMapping('mediumblob', 'mediumblob');
+        // @todo enum: remove or add doctrine mapping type
+        $pdo->getDatabasePlatform()->registerDoctrineTypeMapping('enum', 'string');
+        // alias boolean to boolean so ZMDbTableMapper maps continue to work
+        $pdo->getDatabasePlatform()->registerDoctrineTypeMapping('boolean', 'boolean');
+
+        // @todo ask DBAL if the driver/db type supports nested transactions
+        $pdo->setNestTransactionsWithSavepoints(true);
+        $this->pdo_ = $pdo;
     }
 
     /**
@@ -117,41 +123,12 @@ class ZMDatabase extends ZMObject {
     }
 
     /**
-     * Create native resource.
-     *
-     * @param array conf Optional config; if <code>null</code> the global config will be used; default is <code>null</code>.
-     */
-    protected function ensureResource($conf=null) {
-        if (null == $this->pdo_){
-            if (null == $conf) $conf = $this->config_;
-
-            // this is driver specific, but we'll sure move to the doctrine bundle before being able to switch drivers....
-            $pdo = Doctrine\DBAL\DriverManager::getConnection($conf, $this->dbalConfig_, $this->evm_);
-            $this->evm_->addEventSubscriber(new Doctrine\DBAL\Event\Listeners\MysqlSessionInit($conf['charset'], $conf['collation']));
-
-            // @todo ask DBAL if the driver/db type supports nested transactions
-            $pdo->setNestTransactionsWithSavepoints(true);
-
-            // @todo can we set these up earlier?
-            $pdo->getDatabasePlatform()->registerDoctrineTypeMapping('blob', 'blob');
-            $pdo->getDatabasePlatform()->registerDoctrineTypeMapping('mediumblob', 'mediumblob');
-            // @todo enum: remove or add doctrine mapping type
-            $pdo->getDatabasePlatform()->registerDoctrineTypeMapping('enum', 'string');
-            // alias boolean to boolean so ZMDbTableMapper maps continue to work
-            $pdo->getDatabasePlatform()->registerDoctrineTypeMapping('boolean', 'boolean');
-
-            $this->pdo_ = $pdo;
-            $this->config_ = $conf;
-        }
-    }
-
-    /**
      * Get the configuration settings for this instance.
      *
-     * @return array Configuration settings as set via the constructor.
+     * @return array Configuration settings as known by dbal.
      */
     public function getParams() {
-        return $this->config_;
+        return $this->pdo_->getParams();
     }
 
     /**
@@ -163,7 +140,6 @@ class ZMDatabase extends ZMObject {
      */
     public function beginTransaction() {
         try {
-            $this->ensureResource();
             $this->pdo_->beginTransaction();
         } catch (PDOException $pdoe) {
             throw new ZMDatabaseException($pdoe->getMessage(), $pdoe->getCode(), $pdoe);
@@ -177,7 +153,6 @@ class ZMDatabase extends ZMObject {
      */
     public function commit() {
         try {
-            $this->ensureResource();
             $this->pdo_->commit();
         } catch (PDOException $pdoe) {
             throw new ZMDatabaseException($pdoe->getMessage(), $pdoe->getCode(), $pdoe);
@@ -191,8 +166,7 @@ class ZMDatabase extends ZMObject {
      */
     public function rollback() {
         try {
-            $this->ensureResource();
-            $this->pdo_->rollBack();
+            $this->pdo_->rollback();
         } catch (PDOException $pdoe) {
             throw new ZMDatabaseException($pdoe->getMessage(), $pdoe->getCode(), $pdoe);
         }
@@ -577,7 +551,6 @@ class ZMDatabase extends ZMObject {
         }*/
 
         // create statement
-        $this->ensureResource();
         $stmt = $this->pdo_->prepare($sql);
         foreach ($args as $name => $value) {
             $typeName = preg_replace('/[0-9]+'.$PDO_INDEX_SEP.'/', '', $name);
@@ -677,10 +650,10 @@ class ZMDatabase extends ZMObject {
      * @throws ZMDatabaseException
      */
     public function getMetaData($table) {
-        $this->ensureResource();
+        $config = $this->getParams();
         $sm = $this->getSchemaManager();
-        if (!empty($this->config_['prefix']) && 0 !== strpos($table, $this->config_['prefix'])) {
-            $table = $this->config_['prefix'].$table;
+        if (!empty($config['prefix']) && 0 !== strpos($table, $config['prefix'])) {
+            $table = $config['prefix'].$table;
         }
 
         $meta = array();
@@ -714,7 +687,6 @@ class ZMDatabase extends ZMObject {
      * @return object
      */
     public function getResource() {
-        $this->ensureResource();
         return $this->pdo_;
     }
 
