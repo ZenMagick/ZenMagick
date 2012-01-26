@@ -22,6 +22,7 @@
 namespace zenmagick\apps\store\admin\dashboard;
 
 use zenmagick\base\Toolbox;
+use zenmagick\http\view\TemplateView;
 use zenmagick\http\widgets\Widget;
 
 /**
@@ -168,7 +169,7 @@ abstract class DashboardWidget extends Widget {
     /**
      * {@inheritDoc}
      */
-    public function render($request, $view) {
+    public function render($request, TemplateView $templateView) {
         // request first, as this might trigger a status change
         $contents = $this->getContents($request);
         $lines = array(
