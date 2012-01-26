@@ -21,6 +21,7 @@
 <?php
 namespace zenmagick\plugins\firePHP;
 
+use FirePHPCore\FirePHP;
 use zenmagick\base\Runtime;
 use zenmagick\base\logging\Logging;
 use zenmagick\base\logging\handler\DefaultLoggingHandler;
