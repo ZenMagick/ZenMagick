@@ -87,7 +87,7 @@ array(
         'phone' => 'column=customers_telephone;type=string',
         'fax' => 'column=customers_fax;type=string',
         'password' => 'column=customers_password;type=string',
-        'newsletterSubscriber' => 'column=customers_newsletter;type=boolean',
+        'newsletterSubscriber' => 'column=customers_newsletter;type=string', // @todo should be boolean
         'priceGroupId' => 'column=customers_group_pricing;type=integer',
         'authorization' => 'column=customers_authorization;type=integer',
         'referral' => 'column=customers_referral;type=string',
