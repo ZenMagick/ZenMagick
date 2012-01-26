@@ -128,7 +128,7 @@ class TestMenu extends ZMTestCase {
         echo $indent.' * '.$elem->getName();
         if (!($elem instanceof MenuSeparator)) {
             echo '/'.$elem->getRequestId();
-            if (null !== ($alias = $elem->getAlias())) {
+            if (false && null !== ($alias = $elem->getAlias())) {
                 echo '/alias=';var_dump($alias);
             }
         }
