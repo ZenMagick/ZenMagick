@@ -53,8 +53,8 @@ class SacsPermissionsPatch extends SQLPatch {
      * @return boolean <code>true</code> if this patch can still be applied.
      */
     function isOpen() {
-	      $meta = \ZMRuntime::getDatabase()->getMetaData();
-        return !in_array(DB_PREFIX.'sacs_permissions', $meta['tables']);
+        $sm = \ZMRuntime::getDatabase()->getSchemaManager();
+        return !$sm->tablesExist(array(DB_PREFIX.'sacs_permissions'));
     }
 
     /**

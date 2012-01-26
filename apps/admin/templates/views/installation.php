@@ -133,10 +133,10 @@ use zenmagick\base\Runtime;
     // optimize database tables
     if (null != $request->getParameter('optimizeDb')) {
         $database = ZMRuntime::getDatabase();
-        $tableMeta = $database->getMetaData();
-        foreach ($tableMeta['tables'] as $table) {
-            $sql = str_replace('[table]', $table, "LOCK TABLES [table] READ; CHECK TABLE [table]; UNLOCK TABLES; OPTIMIZE TABLE [table];");
-            $database->update($sql);
+        $sm = $database->getSchemaManager();
+        foreach ($sm->listTables() as $table) {
+            $sql = str_replace('[table]', $table->getName(), "LOCK TABLES [table] READ; CHECK TABLE [table]; UNLOCK TABLES; OPTIMIZE TABLE [table];");
+            $database->updateQuery($sql);
         }
         $container->get('messageService')->success("All tables optimized");
         $needRefresh = true;

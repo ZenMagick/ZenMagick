@@ -656,7 +656,7 @@ class ZMDatabase extends ZMObject {
     /**
      * Get meta data.
      *
-     * <p>Meta data is available for either the current database or, if specified, an individual table.</p>
+     * <p>Meta data is available for an individual table.</p>
      *
      * <p>The following table information will be returned:</p>
      * <dl>
@@ -672,53 +672,40 @@ class ZMDatabase extends ZMObject {
      *  <dd>The max. field length; this value is context specific.</dd>
      * </dl>
      *
-     * @param string table Optional table; if no table is provided, database meta data will be returned;
-     *  default is <code>null</code>.
+     * @param string table table to get metadata from
      * @return array Context dependent meta data.
      * @throws ZMDatabaseException
      */
-    public function getMetaData($table=null) {
+    public function getMetaData($table) {
         $this->ensureResource();
         $sm = $this->getSchemaManager();
-        if (null !== $table) {
-            if (!empty($this->config_['prefix']) && 0 !== strpos($table, $this->config_['prefix'])) {
-                $table = $this->config_['prefix'].$table;
-            }
-
-			$meta = array();
-
-            try {
-                $tableDetails = $sm->listTableDetails($table);
-            } catch(Doctrine\DBAL\Schema\SchemaException $pdoe) {
-                throw new ZMDatabaseException($pdoe->getMessage(), $pdoe->getCode(), $pdoe);
-            }
-
-            // TODO: yes we have a table without a primary key :(
-            $primaryKey = $tableDetails->getPrimaryKey();
-            $keys = is_object($primaryKey) ? $primaryKey->getColumns() : array();
-
-			foreach($tableDetails->getColumns() as $column) {
-                $meta[$column->getName()] = array(
-                    'type' => $column->getType()->getName(),
-                    'name' => $column->getName(),
-                    'key' => in_array($column->getName(), $keys),
-                    'autoIncrement' => $column->getAutoincrement(),
-					'maxLen' => $column->getLength(),/* TODO doesn't work for integers*/
-		            'default' => $column->getDefault()
-                 );
-			}
-			return $meta;
-        } else {
-            $tables = array();
-            try {
-                foreach ($sm->listTables() as $table) {
-                    $tables[] = $table->getName();
-                }
-            } catch (Doctrine\DBAL\Schema\SchemaException $pdoe) {
-                throw new ZMDatabaseException($pdoe->getMessage(), $pdoe->getCode(), $pdoe);
-            }
-            return array('tables' => $tables);
+        if (!empty($this->config_['prefix']) && 0 !== strpos($table, $this->config_['prefix'])) {
+            $table = $this->config_['prefix'].$table;
         }
+
+        $meta = array();
+
+        try {
+            $tableDetails = $sm->listTableDetails($table);
+        } catch(Doctrine\DBAL\Schema\SchemaException $pdoe) {
+            throw new ZMDatabaseException($pdoe->getMessage(), $pdoe->getCode(), $pdoe);
+        }
+
+        // TODO: yes we have a table without a primary key :(
+        $primaryKey = $tableDetails->getPrimaryKey();
+        $keys = is_object($primaryKey) ? $primaryKey->getColumns() : array();
+
+        foreach($tableDetails->getColumns() as $column) {
+            $meta[$column->getName()] = array(
+                'type' => $column->getType()->getName(),
+                'name' => $column->getName(),
+                'key' => in_array($column->getName(), $keys),
+                'autoIncrement' => $column->getAutoincrement(),
+                'maxLen' => $column->getLength(),/* TODO doesn't work for integers*/
+                'default' => $column->getDefault()
+             );
+        }
+        return $meta;
     }
 
     /**
