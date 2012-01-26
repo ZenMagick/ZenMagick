@@ -81,11 +81,9 @@ class ZMDatabase extends ZMObject {
     /**
      * Create a new instance.
      *
-     * <p>Supports the custom configuration setting <em>persistent</em> (<code>true</code> | <code>false</code>)</p>.
-     *
-     * @param array conf Configuration properties.
+     * @param array params Configuration properties.
      */
-    function __construct($conf) {
+    public function __construct(array $params) {
         parent::__construct();
         $this->mapper_ = ZMDbTableMapper::instance();
 
@@ -94,13 +92,13 @@ class ZMDatabase extends ZMObject {
             Doctrine\DBAL\Types\Type::addType('mediumblob', '\zenmagick\base\database\doctrine\types\MediumBlob');
         }
 
-        $pdo = Doctrine\DBAL\DriverManager::getConnection($conf);
+        $pdo = Doctrine\DBAL\DriverManager::getConnection($params);
  
         // @todo don't tie logging to the pageStats plugin
         // @todo look at doctrine.dbal.logging (boolean) and doctrine.dbal.logger_class
         $pdo->getConfiguration()->setSQLLogger(new Doctrine\DBAL\Logging\DebugStack);
 
-        $pdo->getEventManager()->addEventSubscriber(new Doctrine\DBAL\Event\Listeners\MysqlSessionInit($conf['charset'], $conf['collation']));
+        $pdo->getEventManager()->addEventSubscriber(new Doctrine\DBAL\Event\Listeners\MysqlSessionInit($params['charset'], $params['collation']));
 
         $pdo->getDatabasePlatform()->registerDoctrineTypeMapping('blob', 'blob');
         $pdo->getDatabasePlatform()->registerDoctrineTypeMapping('mediumblob', 'mediumblob');
@@ -114,16 +112,19 @@ class ZMDatabase extends ZMObject {
         $this->pdo_ = $pdo;
     }
 
-    /**
-     * Destruct instance.
+   /**
+     * Gets the prefix used by this connection.
+     * 
+     * @return string
      */
-    function __destruct() {
-        parent::__destruct();
-        $this->pdo_ = null;
+    public function getPrefix() {
+		$params = $this->getParams();
+		return isset($params['prefix']) ? $params['prefix'] : null;
+        //return isset($this->_params['prefix']) ? $this->_params['prefix'] : null;
     }
 
     /**
-     * Get the configuration settings for this instance.
+     * Get the configuration parameters for this instance.
      *
      * @return array Configuration settings as known by dbal.
      */
@@ -201,7 +202,7 @@ class ZMDatabase extends ZMObject {
      * @return mixed The model with the updated primary key.
      * @throws ZMDatabaseException
      */
-    public function loadModel($table, $key, $modelClass, $mapping=null) {
+    public function loadModel($table, $key, $modelClass, $mapping = null) {
         $mapping = $this->mapper_->ensureMapping(null !== $mapping ? $mapping : $table, $this);
 
         $keyName = Runtime::getSettings()->get('zenmagick.core.database.model.keyName');
@@ -250,7 +251,7 @@ class ZMDatabase extends ZMObject {
      * @return mixed The model with the updated primary key.
      * @throws ZMDatabaseException
      */
-    public function createModel($table, $model, $mapping=null) {
+    public function createModel($table, $model, $mapping = null) {
         if (null === $model) {
             return null;
         }
@@ -310,7 +311,7 @@ class ZMDatabase extends ZMObject {
      * @param mixed mapping The field mappings; default is <code>null</code>.
      * @throws ZMDatabaseException
      */
-    public function removeModel($table, $model, $mapping=null) {
+    public function removeModel($table, $model, $mapping = null) {
         if (null === $model) {
             return null;
         }
@@ -361,7 +362,7 @@ class ZMDatabase extends ZMObject {
      * @param mixed mapping The field mappings; default is <code>null</code>.
      * @throws ZMDatabaseException
      */
-    public function updateModel($table, $model, $mapping=null) {
+    public function updateModel($table, $model, $mapping = null) {
         if (null === $model) {
             return;
         }
@@ -414,21 +415,21 @@ class ZMDatabase extends ZMObject {
     /**
      * Update using the provided SQL and data and model.
      *
-     * @param string sql The update sql.
+     * @param string query The update sql query.
      * @param mixed data A model instance or array; default is an empty array.
      * @param mixed mapping The field mappings or table name (list); default is <code>null</code>.
-     * @return array Details about the number of affected rows and last inserted id; example: array('rows' => 3, 'lastInsertId' => 3)
+     * @return int affected rows
      * @throws ZMDatabaseException
      */
-    public function update($sql, $data=array(), $mapping=null) {
+    public function update($query, $params = array(), $mapping = null) {
         $mapping = $this->mapper_->ensureMapping($mapping, $this);
 
         // convert to array
-        if (is_object($data)) {
-            $data = Beans::obj2map($data, array_keys($mapping));
+        if (is_object($params)) {
+            $params = Beans::obj2map($params, array_keys($mapping));
         }
         try {
-            $stmt = $this->prepareStatement($sql, $data, $mapping);
+            $stmt = $this->prepareStatement($query, $params, $mapping);
             $stmt->execute();
             $rows = $stmt->rowCount();
             $stmt->closeCursor();
@@ -446,14 +447,14 @@ class ZMDatabase extends ZMObject {
      * returning the raw data without applying any mappings or conversions.</p>
      *
      * @param string sql The query.
-     * @param array args Optional query args; default is an empty array.
+     * @param array params Optional query parameters; default is an empty array.
      * @param mixed mapping The field mappings or table name (list); default is <code>null</code>.
      * @param string modelClass The class name to be used to build result obects; default is <code>null</code>.
      * @return mixed The (expected) single result or <code>null</code>
      * @throws ZMDatabaseException
      */
-    public function querySingle($sql, $args=array(), $mapping=null, $modelClass=null) {
-        $results = $this->query($sql, $args, $mapping, $modelClass);
+    public function querySingle($sql, array $params = array(), $mapping = null, $modelClass = null) {
+        $results = $this->fetchAll($sql, $params, $mapping, $modelClass);
         return 0 < count($results) ? $results[0] : null;
     }
 
@@ -467,17 +468,17 @@ class ZMDatabase extends ZMObject {
      * returning the raw data without applying any mappings or conversions.</p>
      *
      * @param string sql The query.
-     * @param array args Optional query args; default is an empty array.
+     * @param array params Optional query parameters; default is an empty array.
      * @param mixed mapping The field mappings or table name (list); default is <code>null</code>.
      * @param string modelClass The class name to be used to build result obects; default is <code>null</code>.
      * @return array List of populated objects of class <code>$resultClass</code> or map if <em>modelClass</em> is <code>null</code>.
      * @throws ZMDatabaseException
      */
-    public function query($sql, $args=array(), $mapping=null, $modelClass=null) {
+    public function query($sql, array $params = array(), $mapping = null, $modelClass = null) {
         $mapping = $this->mapper_->ensureMapping($mapping, $this);
 
         try {
-            $stmt = $this->prepareStatement($sql, $args, $mapping);
+            $stmt = $this->prepareStatement($sql, $params, $mapping);
             $stmt->execute();
             $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
             $stmt->closeCursor();
@@ -507,27 +508,27 @@ class ZMDatabase extends ZMObject {
      * @param array mapping The field mapping.
      * @return A <code>PreparedStatement</code> or null;
      */
-    protected function prepareStatement($sql, $args, $mapping=null) {
+    protected function prepareStatement($sql, $params, $mapping = null) {
         $PDO_INDEX_SEP = '__';
 
         // make sure we are working on a map
-        if (is_object($args)) {
-            $args = Beans::obj2map($args, array_keys($mapping));
+        if (is_object($params)) {
+            $params = Beans::obj2map($params, array_keys($mapping));
         }
 
         // PDO doesn't allow '#' in param names, so use something else
         $nargs = array();
-        foreach (array_keys($args) as $name) {
+        foreach (array_keys($params) as $name) {
             $nname = str_replace('#', $PDO_INDEX_SEP, $name);
             if ($name != $nname) {
                 $sql = str_replace(':'.$name, ':'.$nname, $sql);
             }
-            $nargs[$nname] = $args[$name];
+            $nargs[$nname] = $params[$name];
         }
-        $args = $nargs;
+        $params = $nargs;
 
         // handle array args
-        foreach ($args as $name => $value) {
+        foreach ($params as $name => $value) {
             if (is_array($value)) {
                 $aargs = array();
                 $index = 1;
@@ -535,9 +536,9 @@ class ZMDatabase extends ZMObject {
                     $aargs[$index++.$PDO_INDEX_SEP.$name] = $vv;
                 }
                 // remove original
-                unset($args[$name]);
+                unset($params[$name]);
                 // add new split up values
-                $args = array_merge($args, $aargs);
+                $params = array_merge($params, $aargs);
                 // update SQL
                 $sql = str_replace(':'.$name, ':'.implode(', :', array_keys($aargs)), $sql);
             }
@@ -552,7 +553,7 @@ class ZMDatabase extends ZMObject {
 
         // create statement
         $stmt = $this->pdo_->prepare($sql);
-        foreach ($args as $name => $value) {
+        foreach ($params as $name => $value) {
             $typeName = preg_replace('/[0-9]+'.$PDO_INDEX_SEP.'/', '', $name);
             if (false !== strpos($sql, ':'.$name) && array_key_exists($typeName, $mapping)) {
                 // only bind if actually used
@@ -650,10 +651,10 @@ class ZMDatabase extends ZMObject {
      * @throws ZMDatabaseException
      */
     public function getMetaData($table) {
-        $config = $this->getParams();
+        $params = $this->getParams();
         $sm = $this->getSchemaManager();
-        if (!empty($config['prefix']) && 0 !== strpos($table, $config['prefix'])) {
-            $table = $config['prefix'].$table;
+        if (!empty($params['prefix']) && 0 !== strpos($table, $params['prefix'])) {
+            $table = $params['prefix'].$table;
         }
 
         $meta = array();
