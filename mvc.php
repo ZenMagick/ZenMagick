@@ -22,7 +22,7 @@
 
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Routing\Route;
-use Symfony\Component\Routing\loader\XmlFileLoader;
+use Symfony\Component\Routing\Loader\XmlFileLoader;
 use zenmagick\base\Runtime;
 use zenmagick\base\events\Event;
 
