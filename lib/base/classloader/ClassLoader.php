@@ -465,8 +465,10 @@ class ClassLoader {
         }
 
         if (false !== ($pos = strripos($name, $this->namespaceSeparator))) {
-            // namespaced class name
+            // get namespace
             $namespace = substr($name, 0, $pos);
+            // strip namespace from name
+            $class = substr($name, $pos + 1);
             foreach ($this->namespaces as $ns => $arr) {
                 foreach ($arr as $path) {
                     if (0 === strpos($namespace, $ns)) {
@@ -475,9 +477,8 @@ class ClassLoader {
                             // adjust
                             $finalns = substr($finalns, strlen($path[1]), strlen($finalns));
                         }
-                        $name = substr($name, $pos + 1);
                         $sep = 0 === strpos($path[0], 'phar://') ? '/' : DIRECTORY_SEPARATOR;
-                        $file = $path[0].$sep.str_replace($this->namespaceSeparator, $sep, $finalns).$sep.str_replace('_', $sep, $name).'.php';
+                        $file = $path[0].$sep.str_replace($this->namespaceSeparator, $sep, $finalns).$sep.str_replace('_', $sep, $class).'.php';
                         if (file_exists($file)) {
                             return $file;
                         }
