@@ -22,6 +22,7 @@
 namespace zenmagick\apps\store\admin\widgets;
 
 use zenmagick\http\widgets\Widget;
+use zenmagick\http\view\TemplateView;
 
 /**
  * <p>Display reserved qty.</p>
@@ -62,7 +63,7 @@ class ReservedQtyWidget extends Widget {
     /**
      * {@inheritDoc}
      */
-    public function render($request, $view) {
+    public function render($request, TemplateView $templateView) {
         $stats = $this->getStats();
         $product = $this->getProduct();
         if (array_key_exists($product->getId(), $stats)) {
