@@ -36,20 +36,20 @@
     <th><?php _vzm('Text') ?></th>
     <th><?php _vzm('HTML') ?></th>
   </tr>
-  <?php foreach ($templateInfo as $name => $formats) { ?>
+  <?php foreach ($templateInfo as $template => $formats) { ?>
     <tr>
-      <td><?php echo $name ?></td>
+      <td><?php echo $template ?></td>
       <?php
         $textLink = null;
-        if (in_array('text', $formats)) {
-            $textLink = '<a class="plink" target="_blank" href="'.$admin2->url(null, 'template='.$name.'&format=text').'">'._zm('Text').'</a>';
+        if (array_key_exists('text', $formats)) {
+            $textLink = '<a class="plink" target="_blank" href="'.$admin2->url(null, 'template='.$template.'&format=text&type='.$formats['text']).'">'._zm('Text').'</a>';
         }
       ?>
       <td><?php echo (null != $textLink ? $textLink : '') ?></td>
       <?php
         $htmlLink = null;
-        if (in_array('html', $formats)) {
-            $htmlLink = '<a class="plink" target="_blank" href="'.$admin2->url(null, 'template='.$name.'&format=html').'">'._zm('HTML').'</a>';
+        if (array_key_exists('html', $formats)) {
+            $htmlLink = '<a class="plink" target="_blank" href="'.$admin2->url(null, 'template='.$template.'&format=html&type='.$formats['html']).'">'._zm('HTML').'</a>';
         }
       ?>
       <td><?php echo (null != $htmlLink ? $htmlLink : '') ?></td>

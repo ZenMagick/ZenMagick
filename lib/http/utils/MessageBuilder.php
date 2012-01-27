@@ -24,6 +24,7 @@ namespace zenmagick\http\utils;
 use zenmagick\base\Runtime;
 use zenmagick\base\ZMObject;
 use zenmagick\base\events\Event;
+use zenmagick\http\view\View;
 
 /**
  * Message builder for emails.
@@ -50,13 +51,6 @@ class MessageBuilder extends ZMObject {
         $this->viewViewId_ = 'emails';
     }
 
-    /**
-     * Destruct instance.
-     */
-    public function __destruct() {
-        parent::__destruct();
-    }
-
 
     /**
      * Set the view id to be used to lookup the view to format email content.
@@ -79,20 +73,19 @@ class MessageBuilder extends ZMObject {
     /**
      * Get available formats.
      *
-     * @param string template The template name.
-     * @request ZMRequest request The current request.
-     * @return array List of available formats.
+     * @param string template The full template name.
+     * @return array Map of available formats with the template type (file extension) as value.
      */
-    public function getFormatsForTemplate($template, $request) {
-        // use configured/default view for viewId 'emails'
+    public function getFormatsForTemplate($template) {
         $view = \ZMUrlManager::instance()->findView(null, $this->viewViewId_);
-        // check for html/text versions
-        $templateBase = 'emails'.DIRECTORY_SEPARATOR.$template;
+        $resourceResolver = $view->getResourceResolver();
         $formats = array();
-        foreach (array('html', 'text') as $format) {
-            $view->setTemplate($templateBase.'.'.$format);
-            if ($view->isValid()) {
-                $formats[] = $format;
+
+        foreach ($resourceResolver->find('views/emails', '/'.$template.'/', View::TEMPLATE) as $template) {
+            $tokens = explode('.', $template);
+            if (3 == count($tokens)) {
+                list($template, $format, $type) = $tokens;
+                $formats[$format] = $type;
             }
         }
 
@@ -112,7 +105,7 @@ class MessageBuilder extends ZMObject {
      * @deprecated use createMessage(...) instead
      */
     public function createContents($template, $html=false, $request, $context=array()) {
-        $formats = $this->getFormatsForTemplate($template, $request);
+        $formats = $this->getFormatsForTemplate($template);
         if (0 == count($formats)) {
             // no template found
             Runtime::getLogging()->error('no template found for email: '.$template);
@@ -121,13 +114,13 @@ class MessageBuilder extends ZMObject {
 
         // pick format, fallback to text
         $format = 'text';
-        if ($html && in_array('html', $formats)) {
+        if ($html && array_key_exists('html', $formats)) {
             $format = 'html';
         }
 
         // set up view
         $view = \ZMUrlManager::instance()->findView(null, $this->viewViewId_);
-        $view->setTemplate('emails/'.$template.'.'.$format);
+        $view->setTemplate('views/emails/'.$template.'.'.$format.'.'.$formats[$format]);
         // disable layout for now
         $view->setLayout(null);
 
@@ -158,10 +151,11 @@ class MessageBuilder extends ZMObject {
         // save context for legacy HTML generation...
         $request->set('ZM_EMAIL_CONTEXT', $context);
 
+        // always have text body
         $textBody = $this->createContents($template, false, $request, $context);
         $message = $this->getMessage('', $textBody);
         if ($html) {
-            $formats = $this->getFormatsForTemplate($template, $request);
+            $formats = $this->getFormatsForTemplate($template);
             if (in_array('html', $formats)) {
                 $message->addPart($this->createContents($template, true, $request, $context), 'text/html');
             }

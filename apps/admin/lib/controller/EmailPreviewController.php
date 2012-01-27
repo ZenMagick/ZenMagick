@@ -43,10 +43,11 @@ class EmailPreviewController extends \ZMController {
             $file = basename($template);
             $tokens = explode('.', $file);
             if (3 == count($tokens)) {
-                if (!array_key_exists($tokens[0], $templateInfo)) {
-                    $templateInfo[$tokens[0]] = array();
+                list($template, $format, $type) = $tokens;
+                if (!array_key_exists($template, $templateInfo)) {
+                    $templateInfo[$template] = array();
                 }
-                $templateInfo[$tokens[0]][] = $tokens[1];
+                $templateInfo[$template][$format] = $type;
             }
         }
 
@@ -58,12 +59,13 @@ class EmailPreviewController extends \ZMController {
      */
     public function processGet($request) {
         if (null != ($template = $request->getParameter('template'))) {
-            $format = $request->getParameter('format', 'text');
+            $format = $request->getParameter('format');
+            $type = $request->getParameter('type');
             $messageBuilder = $this->container->get('messageBuilder');
             $messageBuilder->setViewViewId('store-view');
 
             $context = $this->getInitialContext($request);
-            $event = new Event($this, array('template' => $template, 'format' => $format, 'request' => $request, 'context' => $context));
+            $event = new Event($this, array('template' => $template, 'format' => $format, 'type' => $type, 'request' => $request, 'context' => $context));
             Runtime::getEventDispatcher()->dispatch('email_preview', $event);
             $context = $event->get('context');
 

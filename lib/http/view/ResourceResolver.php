@@ -236,11 +236,11 @@ class ResourceResolver extends ZMObject {
      *   }
      * </pre></code>
      *
-     * <p>Alternatively, using the build in $resource helper, it would look like this:</p>
+     * <p>Alternatively, using the build in $resource manager, it would look like this:</p>
      * <code><pre>
      *   $styles = $this->find('style', '/css/');
      *   foreach ($styles as $name => $url) {
-     *    $resource->cssFile($name);
+     *    $resourceManager->cssFile($name);
      *   }
      * </pre></code>
      *

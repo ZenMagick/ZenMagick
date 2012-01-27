@@ -60,7 +60,7 @@ if (!function_exists('zen_mail')) {
         $messageBuilder = $container->get('messageBuilder');
 
         // use zen_mail_org as fallback for emails without ZenMagick template
-        $formats = $messageBuilder->getFormatsForTemplate($module, $request);
+        $formats = $messageBuilder->getFormatsForTemplate($module);
         if (0 < count($formats) && Runtime::getSettings()->get('isEnableZMThemes', true)) {
             $block['text_msg'] = $text;
             $container = Runtime::getContainer();
