@@ -205,14 +205,11 @@ class ZMDatabase extends ZMObject {
     public function loadModel($table, $key, $modelClass, $mapping = null) {
         $mapping = $this->mapper_->ensureMapping(null !== $mapping ? $mapping : $table, $this);
 
-        $keyName = Runtime::getSettings()->get('zenmagick.core.database.model.keyName');
-        if (null == $keyName) {
-            // determine by looking at key and auto settings
-            foreach ($mapping as $property => $field) {
-                if ($field['auto'] && $field['key']) {
-                    $keyName = $property;
-                    break;
-                }
+        // determine by looking at key and auto settings
+        foreach ($mapping as $property => $field) {
+            if ($field['auto'] && $field['key']) {
+                $keyName = $property;
+                break;
             }
         }
 

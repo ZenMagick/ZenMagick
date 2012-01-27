@@ -96,12 +96,7 @@
                         'key' => 'sql.@table@.customFields',
                         'type' => 'dynamic:table:string',
                         'desc' => 'List of custom field mappings for table "@table@".'
-                    ),
-                    array(
-                        'key' => 'model.keyName',
-                        'type' => 'string',
-                        'desc' => 'Name of primary key column for model handling.'
-                    ),
+                    )
                 ),
                 'fs' => array(
                     array(
