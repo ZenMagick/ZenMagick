@@ -95,8 +95,6 @@ class ZMDatabase extends ZMObject {
 
         $pdo->getEventManager()->addEventSubscriber(new Doctrine\DBAL\Event\Listeners\MysqlSessionInit($params['charset'], $params['collation']));
 
-        $pdo->getDatabasePlatform()->registerDoctrineTypeMapping('blob', 'blob');
-        $pdo->getDatabasePlatform()->registerDoctrineTypeMapping('mediumblob', 'mediumblob');
         // @todo enum: remove or add doctrine mapping type
         $pdo->getDatabasePlatform()->registerDoctrineTypeMapping('enum', 'string');
         // alias boolean to boolean so ZMDbTableMapper maps continue to work
