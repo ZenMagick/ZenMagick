@@ -69,7 +69,7 @@ class ThemeResourceResolver extends ResourceResolver {
      * @return array List of template locations.
      */
     protected function getApplicationTemplateLocations() {
-        $locations = array();
+        $locations = parent::getApplicationTemplateLocations();
 
         // available locale
         $localeCodes = array_reverse($this->container->get('localeService')->getValidLocaleCodes());
