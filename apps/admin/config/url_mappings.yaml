@@ -13,7 +13,7 @@ global:
   success-demo:
     view: redirect#requestId=index
   store-view:
-    view: storeView
+    view: storeTemplateView
 
 ## page mappings    
 page:

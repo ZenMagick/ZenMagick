@@ -84,7 +84,7 @@
 
         <service id="themeResourceResolver" class="zenmagick\apps\store\view\ThemeResourceResolver" scope="container" />
 
-        <service id="storeView" class="zenmagick\http\view\TemplateView" scope="prototype">
+        <service id="storeTemplateView" class="zenmagick\http\view\TemplateView" scope="prototype">
             <call method="setResourceManager">
                 <argument type="service" id="storeResourceManager" />
             </call>
