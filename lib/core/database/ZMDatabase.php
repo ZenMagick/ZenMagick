@@ -87,11 +87,6 @@ class ZMDatabase extends ZMObject {
         parent::__construct();
         $this->mapper_ = ZMDbTableMapper::instance();
 
-        if (!Doctrine\DBAL\Types\Type::hasType('blob')) {
-            Doctrine\DBAL\Types\Type::addType('blob', '\zenmagick\base\database\doctrine\types\Blob');
-            Doctrine\DBAL\Types\Type::addType('mediumblob', '\zenmagick\base\database\doctrine\types\MediumBlob');
-        }
-
         $pdo = Doctrine\DBAL\DriverManager::getConnection($params);
 
         // @todo don't tie logging to the pageStats plugin
