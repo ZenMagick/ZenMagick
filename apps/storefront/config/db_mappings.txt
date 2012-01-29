@@ -428,7 +428,7 @@ array(
         'cc_owner' => 'column=cc_owner;type=string',
         'cc_number' => 'column=cc_number;type=string',
         'cc_expires' => 'column=cc_expires;type=string',
-        'cc_cvv' => 'column=cc_cvv;type=blob',
+        'cc_cvv' => 'column=cc_cvv;type=text',
         'last_modified' => 'column=last_modified;type=datetime',
         'orderDate' => 'column=date_purchased;type=datetime',
         'orderStatusId' => 'column=orders_status;type=integer',
@@ -663,7 +663,7 @@ array(
         'skuId' => 'column=products_id;type=string',
         'attributeId' => 'column=products_options_id;type=string',
         'attributeValueId' => 'column=products_options_value_id;type=integer',
-        'attributeValueText' => 'column=products_options_value_text;type=blob',
+        'attributeValueText' => 'column=products_options_value_text;type=text',
         'sortOrder' => 'column=products_options_sort_order;type=string'
     ),
     'admin' => array(
@@ -689,7 +689,7 @@ array(
     ),
     'token' => array(
         'hashId' => 'column=hash_id;type=integer;key=true;auto=true',
-        'hash' => 'column=hash;type=blob',
+        'hash' => 'column=hash;type=text',
         'resource' => 'column=resource;type=string',
         'issued' => 'column=issued;type=datetime',
         'expires' => 'column=expires;type=datetime'
