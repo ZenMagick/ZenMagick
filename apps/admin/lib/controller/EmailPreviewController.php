@@ -94,6 +94,7 @@ class EmailPreviewController extends \ZMController {
             'newOrderStatus' => 'processing',
             'language' => $request->getSelectedLanguage(),
             'password' => 'THE_NEW_PASSWORD',
+            'newPassword' => 'THE_NEW_PASSWORD',
             'currentAccount' => new \ZMDemoAccount(),
             'order' => $order,
             'currentProduct' => new \ZMDemoProduct(),
