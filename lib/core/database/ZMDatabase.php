@@ -218,28 +218,9 @@ class ZMDatabase extends ZMObject {
 
         $field = $mapping[$keyName];
         $sql = 'SELECT * from '.$table.' WHERE '.$field['column'].' = :'.$keyName;
-        $stmt = $this->prepareStatement($sql, array($keyName => $key), $mapping);
 
-
-        try {
-            $stmt->execute();
-            $rows = $stmt->fetchAll();
-            $stmt->closeCursor();
-        } catch (PDOException $pdoe) {
-            throw new ZMDatabaseException($pdoe->getMessage(), $pdoe->getCode(), $pdoe);
-        }
-        $results = array();
-        foreach ($rows as $result) {
-            if (null !== $mapping && ZMDatabase::MODEL_RAW != $modelClass) {
-                $result = $this->translateRow($result, $mapping);
-            }
-            if (null != $modelClass && ZMDatabase::MODEL_RAW != $modelClass) {
-                $result = Beans::map2obj($modelClass, $result);
-            }
-            $results[] = $result;
-        }
-
-        return 1 == count($results) ? $results[0] : null;
+        // @todo ensureMapping doesn't like being passed a completed mapping instance. so pass $table as $mapping
+        return $this->querySingle($sql, array($keyName => $key), $table, $modelClass);
     }
 
     /**
